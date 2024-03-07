@@ -38,7 +38,6 @@ export const useFieldTypes = (fields: FieldOption[]) => (field: any) => {
     return;
   }
   field.setState({
-    value: null,
     disabled: false,
   });
 };
@@ -56,11 +55,39 @@ export const useTransformers = (field: any) => {
   field.dataSource = options;
 };
 
+//添加小数判断方法
+export const useTransformersDecimal = (field: any) => {
+  const selectedType = field.query('.type').get('value');
+  const selectedFormat = field.query('.format').get('value');
+  if (!selectedFormat || !selectedType || selectedFormat != 'Decimal') {
+    field.dataSource = [];
+  } else {
+    const options = Object.keys(transformers[selectedType][selectedFormat] || {}).map((key) => ({
+      label: lang(key),
+      value: key,
+    }));
+    field.dataSource = options;
+  }
+};
+
 export const useFieldTransformer = (transform: ChartRendererProps['transform'], locale = 'en-US') => {
   return (transform || [])
-    .filter((item) => item.field && item.type && item.format)
+    .filter((item) => {
+      if (item.format) {
+        //对小数做了判断
+        if (item.format == 'Decimal') {
+          if (item.specific) {
+            return item.field && item.type && item.format && item.specific;
+          }
+        } else {
+          return item.field && item.type && item.format;
+        }
+      }
+    })
     .reduce((mp, item) => {
-      const transformer = transformers[item.type][item.format];
+      const transformer = item.specific
+        ? transformers[item.type][item.format][item.specific]
+        : transformers[item.type][item.format];
       if (!transformer) {
         return mp;
       }

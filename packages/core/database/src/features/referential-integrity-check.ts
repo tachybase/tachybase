@@ -42,7 +42,12 @@ export async function referentialIntegrityCheck(options: ReferentialIntegrityChe
     }
 
     if (onDelete === 'RESTRICT') {
-      throw new Error('RESTRICT');
+      const error = new Error(
+        `此数据被 ${
+          sourceCollection.options.title || sourceCollectionName
+        } 表关联，关联字段(as)：${sourceField}，不能删除！`,
+      );
+      throw error;
     }
 
     if (onDelete === 'CASCADE') {

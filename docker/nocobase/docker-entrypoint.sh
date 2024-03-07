@@ -14,7 +14,11 @@ if [ ! -f "/app/nocobase/package.json" ]; then
   touch /app/nocobase/node_modules/@nocobase/app/dist/client/index.html
 fi
 
-cd /app/nocobase && yarn start --quickstart
+if [ -z "$PM2_INSTANCE_NUM" ]; then
+    PM2_INSTANCE_NUM=1
+fi
+
+cd /app/nocobase && yarn start --quickstart -i $PM2_INSTANCE_NUM
 
 # Run command with node if the first argument contains a "-" or is not a system command. The last
 # part inside the "{}" is a workaround for the following bug in ash/dash:

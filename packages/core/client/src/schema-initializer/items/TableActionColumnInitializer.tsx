@@ -9,6 +9,10 @@ export const TableActionColumnInitializer = () => {
     title: '{{ t("Actions") }}',
     'x-decorator': 'TableV2.Column.ActionBar',
     'x-component': 'TableV2.Column',
+    'x-component-props': {
+      width: 150,
+      fixed: 'right',
+    },
     'x-designer': 'TableV2.ActionColumnDesigner',
     'x-initializer': 'TableActionColumnInitializers',
     'x-action-column': 'actions',

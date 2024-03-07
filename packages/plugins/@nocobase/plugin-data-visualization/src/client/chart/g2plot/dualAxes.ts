@@ -1,7 +1,8 @@
 import { G2PlotChart } from './g2plot';
 import { ChartType, RenderProps } from '../chart';
-import React from 'react';
+import React, { useContext } from 'react';
 import { DualAxes as G2DualAxes } from '@ant-design/plots';
+import { ChartRendererContext } from '../../renderer';
 
 export class DualAxes extends G2PlotChart {
   constructor() {
@@ -64,8 +65,8 @@ export class DualAxes extends G2PlotChart {
     };
   };
 
-  render({ data, general, advanced, fieldProps }: RenderProps) {
-    const props = this.getProps({ data, general, advanced, fieldProps });
+  render({ data, general, advanced, fieldProps, ctx }: RenderProps) {
+    const props = this.getProps({ data, general, advanced, fieldProps, ctx });
     const { data: _data } = props;
     return () =>
       React.createElement(this.component, {

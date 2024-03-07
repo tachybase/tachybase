@@ -19,6 +19,13 @@ export class CheckboxFieldInterface extends CollectionFieldInterface {
   hasDefaultValue = true;
   properties = {
     ...defaultProps,
+    'uiSchema.x-component-props.showUnchecked': {
+      type: 'boolean',
+      title: '{{t("Display X when unchecked")}}',
+      default: false,
+      'x-decorator': 'FormItem',
+      'x-component': 'Checkbox',
+    },
   };
   filterable = {
     operators: operators.boolean,

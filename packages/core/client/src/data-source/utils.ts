@@ -11,7 +11,7 @@ export const isTitleField = (dm: DataSourceManager, field: CollectionFieldOption
   return !field.isForeignKey && dm.collectionFieldInterfaceManager.getFieldInterface(field.interface)?.titleUsable;
 };
 
-export const useDataSourceHeaders = (dataSource?: string) => {
+export const useDataSourceHeaders = (dataSource?: string): any => {
   const headers = useMemo(() => {
     if (dataSource && dataSource !== DEFAULT_DATA_SOURCE_KEY) {
       return { 'x-data-source': dataSource };

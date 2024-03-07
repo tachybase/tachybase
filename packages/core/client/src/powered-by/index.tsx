@@ -10,6 +10,8 @@ export const PoweredBy = () => {
     'en-US': 'https://www.nocobase.com',
     'zh-CN': 'https://cn.nocobase.com',
   };
+  const date = new Date();
+  const year = date.getFullYear();
   return (
     <div
       className={css`
@@ -23,7 +25,7 @@ export const PoweredBy = () => {
         }
       `}
     >
-      Powered by <a href={urls[i18n.language] || urls['en-US']}>NocoBase</a>
+      ©2023-{year} 上海道有云网络科技有限公司 版权所有 沪ICP备2023024678号
     </div>
   );
 };

@@ -34,5 +34,6 @@ export default DataVisualizationPlugin;
 export { Chart } from './chart/chart';
 export type { ChartProps, ChartType, RenderProps } from './chart/chart';
 export type { FieldOption } from './hooks';
+export { useChartFilter } from './hooks';
 export type { QueryProps } from './renderer';
 export { ChartConfigContext } from './configure';

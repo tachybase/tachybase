@@ -1273,6 +1273,13 @@ export const useAssociationNames = (dataSource?: string) => {
           collectAppends(condition);
         });
       }
+      // 处理多对一标题字段
+      if (s['x-component-props']?.['x-next-title']) {
+        const pre = prefix && prefix !== '' ? prefix + '.' + s.name : s.name;
+        const title = s['x-component-props']['x-next-title'];
+        const path = pre + '.' + title.label;
+        appends.add(path);
+      }
 
       const isTreeCollection = isAssociationField && getCollection(collectionField.target)?.template === 'tree';
       if (collectionField && (isAssociationField || isAssociationSubfield) && s['x-component'] !== 'TableField') {

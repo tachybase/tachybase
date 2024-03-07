@@ -29,6 +29,7 @@ export type TransformProps = {
   field: string;
   type: string;
   format: string;
+  specific?: string;
 };
 
 export type QueryProps = Partial<{

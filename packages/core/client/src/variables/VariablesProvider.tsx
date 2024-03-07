@@ -77,7 +77,11 @@ const VariablesProvider = ({ children }) => {
         if (current == null) {
           return current;
         }
-
+        if (list[index] === '$nParentRecord') {
+          if (!(list[index + 1] in current[list[index]]) && '__parent' in current[list[index]]) {
+            list.splice(1, 0, '__parent');
+          }
+        }
         const key = list[index];
         const associationField: CollectionFieldOptions_deprecated = getCollectionJoinField(
           getFieldPath(list.slice(0, index + 1).join('.'), _variableToCollectionName),
@@ -109,7 +113,12 @@ const VariablesProvider = ({ children }) => {
             return item?.[key];
           });
           current = _.flatten(await Promise.all(result));
-        } else if (shouldToRequest(current[key]) && current.id != null && associationField?.target) {
+        } else if (
+          shouldToRequest(current[key]) &&
+          current.id != null &&
+          associationField?.target &&
+          associationField?.type != 'virtual'
+        ) {
           const url = `/${collectionName}/${current.id}/${key}:${getAction(associationField.type)}`;
           let data = null;
           if (hasRequested(url)) {

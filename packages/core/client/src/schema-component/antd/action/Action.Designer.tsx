@@ -757,7 +757,7 @@ export const ActionDesigner = (props) => {
     removeButtonProps,
     buttonEditorProps,
     linkageRulesProps,
-    schemaSettings = 'ActionSettings',
+    schemaSettings,
     ...restProps
   } = props;
   const app = useApp();

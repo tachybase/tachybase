@@ -12,6 +12,7 @@ import utc from 'dayjs/plugin/utc';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import weekYear from 'dayjs/plugin/weekYear';
 import weekday from 'dayjs/plugin/weekday';
+import calendar from 'dayjs/plugin/calendar';
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
@@ -26,5 +27,6 @@ dayjs.extend(weekOfYear);
 dayjs.extend(weekYear);
 dayjs.extend(customParseFormat);
 dayjs.extend(advancedFormat);
+dayjs.extend(calendar);
 
 export { dayjs };

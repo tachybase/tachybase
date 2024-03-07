@@ -301,6 +301,10 @@ export const cacheMiddleware = async (ctx: Context, next: Next) => {
 };
 
 const checkPermission = (ctx: Context, next: Next) => {
+  // fix params not in the body
+  if (ctx.action.params.values === undefined) {
+    ctx.action.params.values = ctx.action.params;
+  }
   const { collection } = ctx.action.params.values as QueryParams;
   const roleName = ctx.state.currentRole || 'anonymous';
   const can = ctx.app.acl.can({ role: roleName, resource: collection, action: 'list' });

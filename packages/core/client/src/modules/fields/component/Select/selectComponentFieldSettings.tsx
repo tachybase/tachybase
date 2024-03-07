@@ -75,6 +75,8 @@ const titleField: any = {
     const fieldSchema = tableColumnSchema || schema;
     const targetCollectionField = useCollectionField();
     const collectionField = tableColumnField || targetCollectionField;
+    // 处理多对一关系标题显示
+    const { getCollectionFields } = useCollectionManager_deprecated();
     const fieldNames = {
       ...collectionField?.uiSchema?.['x-component-props']?.['fieldNames'],
       ...field?.componentProps?.fieldNames,
@@ -95,6 +97,16 @@ const titleField: any = {
         };
         fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
         fieldSchema['x-component-props']['fieldNames'] = newFieldNames;
+        // 处理多对一关系标题显示
+        const target = getCollectionFields(collectionField.target).find((field) => field.name === label);
+        if (target.interface === 'm2o') {
+          fieldSchema['x-component-props']['x-next-title'] = {
+            label,
+            collection: target.collectionName,
+          };
+        } else {
+          fieldSchema['x-component-props']['x-next-title'] = null;
+        }
         schema['x-component-props'] = fieldSchema['x-component-props'];
         field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
         const path = field.path?.splice(field.path?.length - 1, 1);

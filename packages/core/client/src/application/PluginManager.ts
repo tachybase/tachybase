@@ -89,5 +89,9 @@ export class PluginManager {
     for (const plugin of this.pluginInstances.values()) {
       await plugin.load();
     }
+
+    for (const plugin of this.pluginInstances.values()) {
+      await plugin.afterLoad();
+    }
   }
 }

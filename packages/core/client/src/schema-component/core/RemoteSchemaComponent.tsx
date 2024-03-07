@@ -46,11 +46,8 @@ const RequestSchemaComponent: React.FC<RemoteSchemaComponentProps> = (props) => 
       reset && reset();
     },
   });
-  if (loading) {
-    return <Spin />;
-  }
-  if (hidden) {
-    return <Spin />;
+  if (loading || hidden) {
+    return;
   }
   return noForm ? (
     <SchemaComponent memoized components={components} scope={scope} schema={schemaTransform(data?.data || {})} />

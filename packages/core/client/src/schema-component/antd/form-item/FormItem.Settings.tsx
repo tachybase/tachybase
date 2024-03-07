@@ -1012,13 +1012,9 @@ export function useTitleFieldOptions() {
   const targetFields = collectionField?.target
     ? getCollectionFields(collectionField?.target)
     : getCollectionFields(collectionField?.targetCollection) ?? [];
-  const options = targetFields
-    .filter((field) => {
-      return isTitleField(field);
-    })
-    .map((field) => ({
-      value: field?.name,
-      label: compile(field?.uiSchema?.title) || field?.name,
-    }));
+  const options = targetFields.map((field) => ({
+    value: field?.name,
+    label: compile(field?.uiSchema?.title) || field?.name,
+  }));
   return options;
 }

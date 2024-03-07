@@ -158,7 +158,7 @@ export const SubTable: any = observer(
                 showIndex
                 dragSort={field.editable}
                 showDel={field.editable}
-                pagination={false}
+                pagination={!!field.componentProps.pagination}
                 rowSelection={{ type: 'none', hideSelectAll: true }}
                 footer={() =>
                   field.editable && (

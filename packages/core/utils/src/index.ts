@@ -23,5 +23,7 @@ export * from './requireModule';
 export * from './toposort';
 export * from './uid';
 export * from './url';
+export * from './typedi';
+export * from './decorators';
 
 export { dayjs, lodash };

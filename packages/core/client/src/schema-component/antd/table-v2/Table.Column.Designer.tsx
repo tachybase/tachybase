@@ -30,14 +30,12 @@ export const useLabelFields = (collectionName?: any) => {
     return [];
   }
   const targetFields = getCollectionFields(collectionName);
-  return targetFields
-    ?.filter?.((field) => field?.interface && !field?.target && field.type !== 'boolean' && !field.isForeignKey)
-    ?.map?.((field) => {
-      return {
-        value: field.name,
-        label: compile(field?.uiSchema?.title || field.name),
-      };
-    });
+  return targetFields?.map?.((field) => {
+    return {
+      value: field.name,
+      label: compile(field?.uiSchema?.title || field.name),
+    };
+  });
 };
 
 export const useColorFields = (collectionName?: any) => {
@@ -407,6 +405,7 @@ export const TableColumnDesigner = (props) => {
           />
         )}
       {isAllowToSetDefaultValue(isSubTableColumn) && <SchemaSettingsDefaultValue fieldSchema={fieldSchema} />}
+      {props.children}
       <SchemaSettingsDivider />
       <SchemaSettingsRemove
         removeParentsIfNoChildren={!isSubTableColumn}
