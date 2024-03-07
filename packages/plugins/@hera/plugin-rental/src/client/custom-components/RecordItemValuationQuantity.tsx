@@ -9,7 +9,6 @@ import { onFieldInit, onFieldValueChange } from '@formily/core';
 import _ from 'lodash';
 import { useRequest } from '@nocobase/client';
 import { ConversionLogics, RecordCategory } from '../../utils/constants';
-import { Descriptions } from 'antd';
 import { formatQuantity } from '../../utils/currencyUtils';
 
 // 按合同计算换算
@@ -270,14 +269,15 @@ export const RecordItemValuationQuantity = (props) => {
     reqProduct.loading,
     reqWeightRules.loading,
   ]);
-  return result.map((item, index) => (
-    <div key={index}>
-      <span>
-        {item.label}：{item.value}
-      </span>
-      <span> </span>
-    </div>
-  ));
+  return (
+    <>
+      {result.map((item, index) => (
+        <span key={index} style={{ marginRight: '1rem' }}>
+          {item.label}：{item.value}
+        </span>
+      ))}
+    </>
+  );
 };
 
 RecordItemValuationQuantity.displayName = 'RecordItemValuationQuantity';
