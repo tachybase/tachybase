@@ -13,7 +13,6 @@ import {
 import React, { createContext, useContext, useState } from 'react';
 
 const DataSourceContext = createContext(null);
-DataSourceContext.displayName = 'DataSourceContext';
 
 const useSelectedRowKeys = () => {
   const ctx = useContext(DataSourceContext);

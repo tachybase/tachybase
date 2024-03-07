@@ -77,4 +77,3 @@ export const EllipsisWithTooltip = forwardRef((props: Partial<IEllipsisWithToolt
     </Popover>
   );
 });
-EllipsisWithTooltip.displayName = 'EllipsisWithTooltip';

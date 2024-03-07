@@ -13,7 +13,6 @@ export const SettingCenterPermissionProvider = (props) => {
 };
 
 export const PermissionContext = createContext<any>(null);
-PermissionContext.displayName = 'PermissionContext';
 
 export const PermissionProvider = (props) => {
   const api = useAPIClient();

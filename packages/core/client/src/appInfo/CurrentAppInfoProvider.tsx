@@ -3,7 +3,6 @@ import { useRequest } from '../api-client';
 import { useAppSpin } from '../application/hooks/useAppSpin';
 
 export const CurrentAppInfoContext = createContext(null);
-CurrentAppInfoContext.displayName = 'CurrentAppInfoContext';
 
 export const useCurrentAppInfo = () => {
   return useContext<{

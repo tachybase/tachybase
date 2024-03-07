@@ -25,7 +25,6 @@ const schema2: ISchema = {
 };
 
 export const CurrentRolesContext = createContext<any>({} as any);
-CurrentRolesContext.displayName = 'CurrentRolesContext';
 
 export const DataSourcePermissionManager = ({ role }: any) => {
   return (

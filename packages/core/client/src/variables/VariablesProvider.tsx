@@ -16,7 +16,6 @@ import { isVariable } from './utils/isVariable';
 import { uniq } from './utils/uniq';
 
 export const VariablesContext = createContext<VariablesContextType>(null);
-VariablesContext.displayName = 'VariablesContext';
 
 const variableToCollectionName = {};
 

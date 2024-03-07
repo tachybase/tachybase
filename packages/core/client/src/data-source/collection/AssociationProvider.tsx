@@ -12,7 +12,6 @@ export interface AssociationProviderProps {
 }
 
 const ParentCollectionContext = createContext<Collection>(null);
-ParentCollectionContext.displayName = 'ParentCollectionContext';
 
 const ParentCollectionProvider = (props) => {
   const collection = useCollection();

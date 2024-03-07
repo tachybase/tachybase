@@ -12,7 +12,6 @@ const CollectionHistoryContext = createContext<CollectionHistoryContextValue>({
   historyCollections: [],
   refreshCH: () => undefined,
 });
-CollectionHistoryContext.displayName = 'CollectionHistoryContext';
 
 export const CollectionHistoryProvider: React.FC = (props) => {
   const api = useAPIClient();

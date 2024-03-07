@@ -478,4 +478,3 @@ export const GoogleMapsComponent = React.forwardRef<GoogleMapForwardedRefProps, 
     );
   },
 );
-GoogleMapsComponent.displayName = 'GoogleMapsComponent';

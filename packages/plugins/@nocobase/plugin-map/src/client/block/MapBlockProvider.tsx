@@ -3,7 +3,6 @@ import { BlockProvider, FixedBlockWrapper, SchemaComponentOptions, useBlockReque
 import React, { createContext, useContext, useState } from 'react';
 
 export const MapBlockContext = createContext<any>({});
-MapBlockContext.displayName = 'MapBlockContext';
 
 const InternalMapBlockProvider = (props) => {
   const { fieldNames } = props;

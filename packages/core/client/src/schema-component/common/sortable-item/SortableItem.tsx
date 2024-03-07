@@ -2,13 +2,11 @@ import { TinyColor } from '@ctrl/tinycolor';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { cx } from '@emotion/css';
 import { Schema, observer, useField, useFieldSchema } from '@formily/react';
-import React, { HTMLAttributes, createContext, useContext, useMemo } from 'react';
+import React, { HTMLAttributes, createContext, useContext } from 'react';
 import { useToken } from '../../antd/__builtins__';
 
 export const DraggableContext = createContext(null);
-DraggableContext.displayName = 'DraggableContext';
 export const SortableContext = createContext(null);
-SortableContext.displayName = 'SortableContext';
 
 export const SortableProvider = (props) => {
   const { id, data, children } = props;
@@ -76,17 +74,15 @@ interface SortableItemProps extends HTMLAttributes<HTMLDivElement> {
 export const SortableItem: React.FC<SortableItemProps> = observer(
   (props) => {
     const { schema, id, eid, removeParentsIfNoChildren, ...others } = useSortableItemProps(props);
-
-    const data = useMemo(() => {
-      return {
-        insertAdjacent: 'afterEnd',
-        schema: schema,
-        removeParentsIfNoChildren: removeParentsIfNoChildren ?? true,
-      };
-    }, [schema, removeParentsIfNoChildren]);
-
     return (
-      <SortableProvider id={id} data={data}>
+      <SortableProvider
+        id={id}
+        data={{
+          insertAdjacent: 'afterEnd',
+          schema: schema,
+          removeParentsIfNoChildren: removeParentsIfNoChildren ?? true,
+        }}
+      >
         <Sortable id={eid} {...others}>
           {props.children}
         </Sortable>

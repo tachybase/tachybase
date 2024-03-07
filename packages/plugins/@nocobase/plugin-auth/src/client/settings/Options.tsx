@@ -34,12 +34,9 @@ export const useAdminSettingsForm = (authType: string) => {
   return auth?.components?.AdminSettingsForm;
 };
 
-export const Options = observer(
-  () => {
-    const form = useForm();
-    const record = useRecord();
-    const Component = useAdminSettingsForm(form.values.authType || record.authType);
-    return Component ? <Component /> : null;
-  },
-  { displayName: 'Options' },
-);
+export const Options = observer(() => {
+  const form = useForm();
+  const record = useRecord();
+  const Component = useAdminSettingsForm(form.values.authType || record.authType);
+  return Component ? <Component /> : null;
+});

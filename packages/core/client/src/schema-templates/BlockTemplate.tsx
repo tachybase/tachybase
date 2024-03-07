@@ -5,7 +5,6 @@ import { useSchemaTemplateManager } from './SchemaTemplateManagerProvider';
 import { useTemplateBlockContext } from '../block-provider/TemplateBlockProvider';
 
 const BlockTemplateContext = createContext<any>({});
-BlockTemplateContext.displayName = 'BlockTemplateContext';
 
 export const useBlockTemplateContext = () => {
   return useContext(BlockTemplateContext);

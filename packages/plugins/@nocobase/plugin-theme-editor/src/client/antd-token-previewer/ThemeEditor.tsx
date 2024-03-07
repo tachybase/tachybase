@@ -151,6 +151,5 @@ const ThemeEditor = forwardRef<ThemeEditorRef, ThemeEditorProps>(
     );
   },
 );
-ThemeEditor.displayName = 'ThemeEditor';
 
 export default ThemeEditor;

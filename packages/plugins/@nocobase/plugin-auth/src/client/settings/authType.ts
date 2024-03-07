@@ -3,7 +3,6 @@ import { createContext, useContext } from 'react';
 export const AuthTypeContext = createContext<{
   type: string;
 }>({ type: '' });
-AuthTypeContext.displayName = 'AuthTypeContext';
 
 export const AuthTypesContext = createContext<{
   types: {
@@ -12,7 +11,6 @@ export const AuthTypesContext = createContext<{
     value: string;
   }[];
 }>({ types: [] });
-AuthTypesContext.displayName = 'AuthTypesContext';
 
 export const useAuthTypes = () => {
   const { types } = useContext(AuthTypesContext);

@@ -15,7 +15,6 @@ const AppInner = memo(({ children }: { children: React.ReactNode }) => {
 
   return <>{children}</>;
 });
-AppInner.displayName = 'AppInner';
 
 const AntdAppProvider = ({ children }: { children: React.ReactNode }) => {
   return (

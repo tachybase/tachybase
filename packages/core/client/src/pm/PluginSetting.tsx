@@ -9,7 +9,6 @@ import { ADMIN_SETTINGS_PATH, PluginSettingsPageType, useApp } from '../applicat
 import { useCompile } from '../schema-component';
 
 export const SettingsCenterContext = createContext<any>({});
-SettingsCenterContext.displayName = 'SettingsCenterContext';
 
 function getMenuItems(list: PluginSettingsPageType[]) {
   return list.map((item) => {

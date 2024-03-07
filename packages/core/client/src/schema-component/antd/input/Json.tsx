@@ -67,4 +67,3 @@ export const Json = React.forwardRef<typeof Input.TextArea, JSONTextAreaProps>(
     );
   },
 );
-Json.displayName = 'Json';

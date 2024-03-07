@@ -14,7 +14,6 @@ import {
 import { toColumns } from './Kanban';
 
 export const KanbanBlockContext = createContext<any>({});
-KanbanBlockContext.displayName = 'KanbanBlockContext';
 
 const useGroupField = (props) => {
   const { getField } = useCollection_deprecated();

@@ -410,7 +410,6 @@ function ActionBarProvider(props) {
 }
 
 const ManualActionStatusContext = createContext<number | null>(null);
-ManualActionStatusContext.displayName = 'ManualActionStatusContext';
 
 function ManualActionStatusProvider({ value, children }) {
   const { userJob, execution } = useFlowContext();

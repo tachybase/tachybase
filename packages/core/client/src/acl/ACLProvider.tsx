@@ -14,7 +14,6 @@ import { useApp } from '../application';
 import { useDataSourceKey } from '../data-source/data-source/DataSourceProvider';
 
 export const ACLContext = createContext<any>({});
-ACLContext.displayName = 'ACLContext';
 
 // TODO: delete this，replace by `ACLPlugin`
 export const ACLProvider = (props) => {
@@ -91,7 +90,6 @@ export const useACLContext = () => {
 };
 
 export const ACLActionParamsContext = createContext<any>({});
-ACLActionParamsContext.displayName = 'ACLActionParamsContext';
 
 export const useACLRolesCheck = () => {
   const ctx = useContext(ACLContext);

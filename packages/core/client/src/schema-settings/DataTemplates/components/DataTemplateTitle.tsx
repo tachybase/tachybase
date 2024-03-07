@@ -276,4 +276,3 @@ ArrayCollapse.Copy = React.forwardRef((props: any, ref) => {
     />
   );
 });
-(ArrayCollapse as any).Copy.displayName = 'ArrayCollapse.Copy';

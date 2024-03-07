@@ -126,7 +126,6 @@ export const G2PlotRenderer = forwardRef(function <O = any>(props: ReactG2PlotPr
 
   return <div className={cls(['g2plot', className])} ref={containerRef} />;
 });
-G2PlotRenderer.displayName = 'G2PlotRenderer';
 
 export const G2Plot: any = observer(
   (props: any) => {
@@ -141,14 +140,12 @@ export const G2Plot: any = observer(
       if (typeof fn === 'function') {
         const result = fn.bind({ api })();
         if (result?.then) {
-          result
-            .then((data) => {
-              if (Array.isArray(data)) {
-                field.componentProps.config.data = data;
-              }
-              field.data.loading = false;
-            })
-            .catch(console.error);
+          result.then((data) => {
+            if (Array.isArray(data)) {
+              field.componentProps.config.data = data;
+            }
+            field.data.loading = false;
+          });
         } else {
           field.data.loading = false;
         }

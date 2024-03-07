@@ -10,9 +10,7 @@ type Item = MenuProps['items'][0] & {
 };
 
 export const GetMenuItemContext = createContext<{ collectMenuItem?(item: Item): void; onChange?: () => void }>(null);
-GetMenuItemContext.displayName = 'GetMenuItemContext';
 export const GetMenuItemsContext = createContext<{ pushMenuItem?(item: Item): void }>(null);
-GetMenuItemsContext.displayName = 'GetMenuItemsContext';
 
 /**
  * 用于为 SchemaInitializer.Item 组件提供一些方法，比如收集菜单项数据

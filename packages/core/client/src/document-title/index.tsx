@@ -13,7 +13,6 @@ export const DocumentTitleContext = createContext<DocumentTitleContextProps>({
   title: null,
   setTitle() {},
 });
-DocumentTitleContext.displayName = 'DocumentTitleContext';
 
 export const DocumentTitleProvider: React.FC<{ addonBefore?: string; addonAfter?: string }> = (props) => {
   const { addonBefore, addonAfter } = props;

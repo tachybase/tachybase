@@ -12,7 +12,6 @@ import { Action } from '../action';
 import { StablePopover } from '../popover';
 
 export const FilterActionContext = createContext<any>(null);
-FilterActionContext.displayName = 'FilterActionContext';
 
 export const FilterAction = observer(
   (props: any) => {

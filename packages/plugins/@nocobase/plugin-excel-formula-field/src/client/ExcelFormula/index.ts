@@ -20,5 +20,3 @@ ExcelFormula.Expression = connect((props) => {
     evaluate,
   });
 });
-
-ExcelFormula.Expression.displayName = 'ExcelFormula.Expression';

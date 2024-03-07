@@ -11,7 +11,7 @@ export * from './useAriaAttributeOfMenuItem';
 
 export function useSchemaInitializerMenuItems(items: any[], name?: string, onClick?: (args: any) => void) {
   const getMenuItems = useGetSchemaInitializerMenuItems(onClick);
-  return useMemo(() => getMenuItems(items, name), [getMenuItems, items, name]);
+  return getMenuItems(items, name);
 }
 
 export function useGetSchemaInitializerMenuItems(onClick?: (args: any) => void) {

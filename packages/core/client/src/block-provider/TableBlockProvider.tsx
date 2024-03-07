@@ -9,8 +9,6 @@ import { BlockProvider, RenderChildrenWithAssociationFilter, useBlockRequestCont
 import { findFilterTargets, useParsedFilter } from './hooks';
 
 export const TableBlockContext = createContext<any>({});
-TableBlockContext.displayName = 'TableBlockContext';
-
 export function getIdsWithChildren(nodes) {
   const ids = [];
   if (nodes) {

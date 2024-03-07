@@ -9,7 +9,6 @@ import {
 } from '@nocobase/client';
 
 export const GanttBlockContext = createContext<any>({});
-GanttBlockContext.displayName = 'GanttBlockContext';
 
 const formatData = (
   data = [],

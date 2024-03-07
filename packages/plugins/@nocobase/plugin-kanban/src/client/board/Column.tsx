@@ -19,7 +19,6 @@ const ColumnEmptyPlaceholder = forwardRef(
     );
   },
 );
-ColumnEmptyPlaceholder.displayName = 'ColumnEmptyPlaceholder';
 
 const DroppableColumn = withDroppable(ColumnEmptyPlaceholder);
 

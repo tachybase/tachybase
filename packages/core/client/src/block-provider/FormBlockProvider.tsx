@@ -12,7 +12,6 @@ import { TemplateBlockProvider } from './TemplateBlockProvider';
 import { FormActiveFieldsProvider } from './hooks/useFormActiveFields';
 
 export const FormBlockContext = createContext<any>({});
-FormBlockContext.displayName = 'FormBlockContext';
 
 const InternalFormBlockProvider = (props) => {
   const ctx = useFormBlockContext();

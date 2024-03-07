@@ -24,7 +24,6 @@ interface OptionsOfAddMenuItem {
 type Item = ItemType & { _options?: OptionsOfAddMenuItem };
 
 const CurrentUserSettingsMenuContext = createContext<{ menuItems: React.MutableRefObject<Item[]> }>(null);
-CurrentUserSettingsMenuContext.displayName = 'CurrentUserSettingsMenuContext';
 
 export const useCurrentUserSettingsMenu = () => {
   const { menuItems } = useContext(CurrentUserSettingsMenuContext) || {};

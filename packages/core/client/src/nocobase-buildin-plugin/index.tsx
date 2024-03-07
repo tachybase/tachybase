@@ -65,33 +65,30 @@ const useErrorProps = (app: Application, error: any) => {
   }
 };
 
-const AppError: FC<{ error: Error; app: Application }> = observer(
-  ({ app, error }) => {
-    const props = useErrorProps(app, error);
-    return (
-      <div>
-        <Result
-          className={css`
-            top: 50%;
-            position: absolute;
-            width: 100%;
-            transform: translate(0, -50%);
-          `}
-          status="error"
-          title={app.i18n.t('App error')}
-          subTitle={app.i18n.t(error?.message)}
-          extra={[
-            <Button type="primary" key="try" onClick={() => window.location.reload()}>
-              {app.i18n.t('Try again')}
-            </Button>,
-          ]}
-          {...props}
-        />
-      </div>
-    );
-  },
-  { displayName: 'AppError' },
-);
+const AppError: FC<{ error: Error; app: Application }> = observer(({ app, error }) => {
+  const props = useErrorProps(app, error);
+  return (
+    <div>
+      <Result
+        className={css`
+          top: 50%;
+          position: absolute;
+          width: 100%;
+          transform: translate(0, -50%);
+        `}
+        status="error"
+        title={app.i18n.t('App error')}
+        subTitle={app.i18n.t(error?.message)}
+        extra={[
+          <Button type="primary" key="try" onClick={() => window.location.reload()}>
+            {app.i18n.t('Try again')}
+          </Button>,
+        ]}
+        {...props}
+      />
+    </div>
+  );
+});
 
 const getProps = (app: Application) => {
   if (app.ws.serverDown) {
@@ -198,45 +195,39 @@ const getProps = (app: Application) => {
   return {};
 };
 
-const AppMaintaining: FC<{ app: Application; error: Error }> = observer(
-  ({ app }) => {
-    const { icon, status, title, subTitle } = getProps(app);
-    return (
-      <div>
-        <Result
-          className={css`
-            top: 50%;
-            position: absolute;
-            width: 100%;
-            transform: translate(0, -50%);
-          `}
-          icon={icon}
-          status={status}
-          title={app.i18n.t(title)}
-          subTitle={app.i18n.t(subTitle)}
-          // extra={[
-          //   <Button type="primary" key="try" onClick={() => window.location.reload()}>
-          //     {app.i18n.t('Try again')}
-          //   </Button>,
-          // ]}
-        />
-      </div>
-    );
-  },
-  { displayName: 'AppMaintaining' },
-);
+const AppMaintaining: FC<{ app: Application; error: Error }> = observer(({ app }) => {
+  const { icon, status, title, subTitle } = getProps(app);
+  return (
+    <div>
+      <Result
+        className={css`
+          top: 50%;
+          position: absolute;
+          width: 100%;
+          transform: translate(0, -50%);
+        `}
+        icon={icon}
+        status={status}
+        title={app.i18n.t(title)}
+        subTitle={app.i18n.t(subTitle)}
+        // extra={[
+        //   <Button type="primary" key="try" onClick={() => window.location.reload()}>
+        //     {app.i18n.t('Try again')}
+        //   </Button>,
+        // ]}
+      />
+    </div>
+  );
+});
 
-const AppMaintainingDialog: FC<{ app: Application; error: Error }> = observer(
-  ({ app }) => {
-    const { icon, status, title, subTitle } = getProps(app);
-    return (
-      <Modal open={true} footer={null} closable={false}>
-        <Result icon={icon} status={status} title={app.i18n.t(title)} subTitle={app.i18n.t(subTitle)} />
-      </Modal>
-    );
-  },
-  { displayName: 'AppMaintainingDialog' },
-);
+const AppMaintainingDialog: FC<{ app: Application; error: Error }> = observer(({ app }) => {
+  const { icon, status, title, subTitle } = getProps(app);
+  return (
+    <Modal open={true} footer={null} closable={false}>
+      <Result icon={icon} status={status} title={app.i18n.t(title)} subTitle={app.i18n.t(subTitle)} />
+    </Modal>
+  );
+});
 
 const AppNotFound = () => {
   const navigate = useNavigate();

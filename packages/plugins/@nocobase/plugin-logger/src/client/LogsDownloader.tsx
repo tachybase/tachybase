@@ -32,7 +32,6 @@ const Tips = React.memo(() => {
     </Typography>
   );
 });
-Tips.displayName = 'Tips';
 
 export const LogsDownloader = React.memo((props) => {
   const { token } = theme.useToken();
@@ -215,4 +214,3 @@ export const LogsDownloader = React.memo((props) => {
     </Card>
   );
 });
-LogsDownloader.displayName = 'LogsDownloader';

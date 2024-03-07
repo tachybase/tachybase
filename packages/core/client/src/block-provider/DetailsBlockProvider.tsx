@@ -9,7 +9,6 @@ import { BlockProvider, useBlockRequestContext } from './BlockProvider';
 import { useParsedFilter } from './hooks';
 
 export const DetailsBlockContext = createContext<any>({});
-DetailsBlockContext.displayName = 'DetailsBlockContext';
 
 const InternalDetailsBlockProvider = (props) => {
   const { action, readPretty } = props;

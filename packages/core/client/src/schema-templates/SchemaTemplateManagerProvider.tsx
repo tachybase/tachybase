@@ -11,7 +11,6 @@ import { BlockTemplate } from './BlockTemplate';
 import { DEFAULT_DATA_SOURCE_KEY } from '../data-source';
 
 export const SchemaTemplateManagerContext = createContext<any>({});
-SchemaTemplateManagerContext.displayName = 'SchemaTemplateManagerContext';
 
 export const SchemaTemplateManagerProvider: React.FC<any> = (props) => {
   const { templates, refresh } = props;

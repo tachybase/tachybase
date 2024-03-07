@@ -31,7 +31,6 @@ const getChildrenKeys = (data = [], arr = []) => {
 };
 
 const SettingMenuContext = createContext(null);
-SettingMenuContext.displayName = 'SettingMenuContext';
 
 export const SettingCenterProvider = (props) => {
   const configureItems = useContext(SettingsCenterContext);

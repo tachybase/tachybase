@@ -4,7 +4,6 @@ import { useRequest } from '../api-client';
 import { useAppSpin } from '../application/hooks/useAppSpin';
 
 export const SystemSettingsContext = createContext<Result<any, any>>(null);
-SystemSettingsContext.displayName = 'SystemSettingsContext';
 
 export const useSystemSettings = () => {
   return useContext(SystemSettingsContext);

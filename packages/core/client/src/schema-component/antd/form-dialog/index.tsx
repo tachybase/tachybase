@@ -78,12 +78,9 @@ export function FormDialog(title: any, id: any, renderer?: any, theme?: any): IF
       root.unmount();
     },
   };
-  const DialogContent = observer(
-    () => {
-      return <Fragment>{isFn(renderer) ? renderer(env.form) : renderer}</Fragment>;
-    },
-    { displayName: 'DialogContent' },
-  );
+  const DialogContent = observer(() => {
+    return <Fragment>{isFn(renderer) ? renderer(env.form) : renderer}</Fragment>;
+  });
   const renderDialog = (open = true, resolve?: () => any, reject?: () => any) => {
     const { form } = env;
     if (!form) return null;

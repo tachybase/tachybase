@@ -12,8 +12,5 @@ export interface FilterContextProps {
 }
 
 export const RemoveConditionContext = createContext(null);
-RemoveConditionContext.displayName = 'RemoveConditionContext';
 export const FilterContext = createContext<FilterContextProps>(null);
-FilterContext.displayName = 'FilterContext';
 export const FilterLogicContext = createContext(null);
-FilterLogicContext.displayName = 'FilterLogicContext';

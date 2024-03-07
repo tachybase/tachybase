@@ -7,7 +7,6 @@ import { PermissionProvider, SettingCenterPermissionProvider } from '../Configur
 import { roleSchema } from './schemas/roles';
 
 const AvailableActionsContext = createContext([]);
-AvailableActionsContext.displayName = 'AvailableActionsContext';
 
 const AvailableActionsProver: React.FC = (props) => {
   const { data, loading } = useRequest<{

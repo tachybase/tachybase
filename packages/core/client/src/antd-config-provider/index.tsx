@@ -7,7 +7,6 @@ import { Plugin } from '../application/Plugin';
 import { loadConstrueLocale } from './loadConstrueLocale';
 
 export const AppLangContext = createContext<any>({});
-AppLangContext.displayName = 'AppLangContext';
 
 export const useAppLangContext = () => {
   return useContext(AppLangContext);

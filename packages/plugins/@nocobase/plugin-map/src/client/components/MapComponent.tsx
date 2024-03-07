@@ -21,4 +21,3 @@ export const MapComponent = React.forwardRef<any, any>((props, ref) => {
 
   return <Component ref={ref} {...props} />;
 });
-MapComponent.displayName = 'MapComponent';
