@@ -1,0 +1,28 @@
+{
+  "name": "@hera/plugin-rental",
+  "version": "1.3.0-alpha.9",
+  "main": "dist/server/index.js",
+  "displayName": "professional construction materials rental system - customized based on hera",
+  "displayName.zh-CN": "专业建材租赁系统 - 基于赫拉定制",
+  "description": "Offering a standardized leasing management system, encompassing comprehensive administration from materials to contracts to labor personnel, while providing a robust financial management mechanism, and real-time monitoring of the operational capacity of the leasing system.",
+  "description.zh-CN": "提供标准化的租赁管理系统，包括从物料到合同再到劳务人员的全面管理，同时提供健全的财务管理机制，以及实时监控租赁体系的运作能力。",
+  "devDependencies": {
+    "@formily/core": "^2.2.27",
+    "@formily/react": "^2.2.27",
+    "react": "18.*",
+    "antd": "5.*",
+    "qrcode": "^1.5.1",
+    "dayjs": "^1.11.8",
+    "react-router-dom": "^6.11.2",
+    "qrcode.react": "^3.1.0"
+  },
+  "peerDependencies": {
+    "@hera/plugin-core": "1.x",
+    "@nocobase/client": "0.x",
+    "@nocobase/server": "0.x",
+    "@nocobase/test": "0.x"
+  },
+  "keywords": [
+    "System management"
+  ]
+}
