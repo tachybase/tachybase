@@ -129,7 +129,9 @@ class Importer {
           });
           result[0].push(instance);
         } catch (error) {
-          this.context.log.error(error, row);
+          if (error.message !== 'current transaction is aborted, commands ignored until end of transaction block') {
+            this.context.log.error(error, row);
+          }
           row.push(error.message);
           result[1].push(row);
         }

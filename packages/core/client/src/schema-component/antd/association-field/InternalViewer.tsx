@@ -55,7 +55,12 @@ export const ReadPrettyInternalViewer: React.FC = observer(
               .map((o) => o?.[fieldNames?.label || 'label'])
               .join(' / ')
           : isObject(value)
-            ? JSON.stringify(value)
+            ? getCollection(targetCollection?.fieldsMap?.[fieldNames?.label || 'label']?.target)?.options?.titleField
+              ? value[
+                  getCollection(targetCollection?.fieldsMap?.[fieldNames?.label || 'label']?.target)?.options
+                    ?.titleField
+                ]
+              : JSON.stringify(value)
             : value;
         const val = toValue(compile(label), 'N/A');
         const labelUiSchema = getLabelUiSchema(

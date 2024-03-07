@@ -81,5 +81,9 @@
   "Time range": "时间范围",
   "Edit field properties": "编辑字段属性",
   "Select a source field to use metadata of the field": "选择来源字段可以复用字段的元数据配置",
-  "Original field": "原始字段"
+  "Original field": "原始字段",
+  "Decimal":"小数",
+  "TwoDigits":"保留两位",
+  "ThreeDigits":"保留三位",
+  "FourDigits":"保留四位"
 }

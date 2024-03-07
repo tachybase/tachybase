@@ -96,6 +96,12 @@ export class FormulaFieldInterface extends CollectionFieldInterface {
       required: true,
       default: 'double',
     },
+    'uiSchema.x-component-props.addonAfter': {
+      type: 'string',
+      title: '后缀',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+    },
     // 'uiSchema.x-component-props.showUnchecked': {
     //   type: 'boolean',
     //   title: '{{t("Display X when unchecked")}}',
@@ -195,7 +201,7 @@ export class FormulaFieldInterface extends CollectionFieldInterface {
     },
   };
   filterable = {
-    operators: operators.number,
+    operators: operators.string,
   };
   titleUsable = true;
 }

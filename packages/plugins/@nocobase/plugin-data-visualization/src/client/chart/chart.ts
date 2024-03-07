@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FieldOption } from '../hooks';
-import { QueryProps } from '../renderer';
+import { ChartRendererContext, QueryProps } from '../renderer';
 import { parseField } from '../utils';
 import { ISchema } from '@formily/react';
 import configs, { AnySchemaProperties, Config } from './configs';
 import { Transformer } from '../block/transformers';
 
 export type RenderProps = {
-  data: Record<string, any>[];
+  data: any;
   general: any;
   advanced: any;
   fieldProps: {
     [field: string]: {
       label: string;
       transformer: Transformer;
-      interface: string;
+      interface: any;
     };
   };
+  ctx: any;
 };
 
 export interface ChartType {
@@ -168,10 +169,10 @@ export class Chart implements ChartType {
     return props;
   }
 
-  render({ data, general, advanced, fieldProps }: RenderProps) {
+  render({ data, general, advanced, fieldProps, ctx }: RenderProps) {
     return () =>
       React.createElement(this.component, {
-        ...this.getProps({ data, general, advanced, fieldProps }),
+        ...this.getProps({ data, general, advanced, fieldProps, ctx }),
       });
   }
 }

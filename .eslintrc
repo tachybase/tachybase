@@ -66,6 +66,15 @@
       "rules": {
         "@typescript-eslint/no-floating-promises": "error"
       }
+    },
+    {
+      "files": [
+        "packages/plugins/@hera/**/*.{ts,js,tsx,jsx}",
+        "packages/plugins/@hera/**/*.{ts,js,tsx,jsx}"
+      ],
+      "rules": {
+        "eqeqeq": ["error", "smart"]
+      }
     }
   ]
 }

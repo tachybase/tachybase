@@ -1,10 +1,16 @@
+import React from 'react';
+import { Popover, Space, Tag } from 'antd';
 import dayjs from 'dayjs';
 
-export type Transformer = (val: any, locale?: string) => string | number;
+export type Transformer = (val: any, locale?: string) => string | number | React.JSX.Element;
 
 const transformers: {
   [key: string]: {
-    [key: string]: Transformer;
+    [key: string]:
+      | Transformer
+      | {
+          [key: string]: Transformer;
+        };
   };
 } = {
   datetime: {
@@ -48,6 +54,42 @@ const transformers: {
     },
     Exponential: (val: number | string) => (+val)?.toExponential(),
     Abbreviation: (val: number, locale = 'en-US') => new Intl.NumberFormat(locale, { notation: 'compact' }).format(val),
+    Decimal: {
+      TwoDigits: (val: number) =>
+        new Intl.NumberFormat('en-US', { style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
+          val,
+        ),
+      ThreeDigits: (val: number) =>
+        new Intl.NumberFormat('en-US', { style: 'decimal', minimumFractionDigits: 3, maximumFractionDigits: 3 }).format(
+          val,
+        ),
+      FourDigits: (val: number) =>
+        new Intl.NumberFormat('en-US', { style: 'decimal', minimumFractionDigits: 4, maximumFractionDigits: 4 }).format(
+          val,
+        ),
+    },
+  },
+  array: {
+    title: (items: string[]) => {
+      return (
+        <Popover
+          content={
+            <Space>
+              {items.map((item) => (
+                <Tag key={item}>{item}</Tag>
+              ))}
+            </Space>
+          }
+        >
+          <Space>
+            {items.slice(0, 2).map((item) => (
+              <Tag key={item}>{item}</Tag>
+            ))}
+          </Space>
+          {items.length > 2 ? '...' : ''}
+        </Popover>
+      );
+    },
   },
 };
 

@@ -4,6 +4,9 @@ export const createFormActionInitializers = new SchemaInitializer({
   name: 'CreateFormActionInitializers',
   title: '{{t("Configure actions")}}',
   icon: 'SettingOutlined',
+  style: {
+    marginLeft: '8px',
+  },
   items: [
     {
       type: 'itemGroup',

@@ -3,6 +3,7 @@ const { isDev, run, postCheck, runInstall, promptForTs } = require('../util');
 const { existsSync, unlink } = require('fs');
 const { resolve } = require('path');
 const chalk = require('chalk');
+const _ = require('lodash');
 
 /**
  *
@@ -14,6 +15,7 @@ module.exports = (cli) => {
     .command('start')
     .option('-p, --port [port]')
     .option('-d, --daemon')
+    .option('-i, --instances [number]')
     .option('--db-sync')
     .option('--quickstart')
     .allowUnknownOption()
@@ -48,6 +50,8 @@ module.exports = (cli) => {
           'pm2-runtime',
           [
             'start',
+            '-i',
+            _.toNumber(opts.instances || 1),
             `${APP_PACKAGE_ROOT}/lib/index.js`,
             NODE_ARGS ? `--node-args="${NODE_ARGS}"` : undefined,
             '--',

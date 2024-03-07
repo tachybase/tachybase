@@ -44,6 +44,7 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
   const { designable } = useDesignable();
   const { exists, render } = useSchemaInitializerRender(schema['x-initializer'], schema['x-initializer-props']);
   const parentRecordData = useCollectionParentRecordData();
+  const dataSource = field?.value?.slice?.()?.filter?.(Boolean) || [];
   const columns = schema
     .reduceProperties((buf, s) => {
       if (isColumnComponent(s) && schemaInWhitelist(Object.values(s.properties || {}).pop())) {
@@ -102,9 +103,10 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
 
   const tableColumns = columns.concat({
     title: render(),
+    fixed: 'right',
     dataIndex: 'TABLE_COLUMN_INITIALIZER',
     key: 'TABLE_COLUMN_INITIALIZER',
-    render: designable ? () => <div style={{ minWidth: 300 }} /> : null,
+    render: designable ? () => <span /> : null,
   });
 
   if (props.showDel) {
@@ -120,6 +122,7 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
             style={{ cursor: 'pointer' }}
             onClick={() => {
               action(() => {
+                const index = dataSource.indexOf(record);
                 spliceArrayState(field as any, {
                   startIndex: index,
                   deleteCount: 1,
@@ -134,7 +137,12 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
       },
     });
   }
-  return tableColumns;
+
+  return [
+    ...tableColumns.filter((column) => column.fixed === 'left'),
+    ...tableColumns.filter((column) => !column.fixed || (column.fixed !== 'left' && column.fixed !== 'right')),
+    ...tableColumns.filter((column) => column.fixed === 'right'),
+  ];
 };
 
 const SortableRow = (props) => {

@@ -1159,23 +1159,22 @@ export const createFormBlockSchema = (options) => {
           useProps: '{{ useFormBlockProps }}',
         },
         properties: {
-          grid: template || {
-            type: 'void',
-            'x-component': 'Grid',
-            'x-initializer': formItemInitializers,
-            properties: {},
-          },
           [uid()]: {
             type: 'void',
             'x-initializer': actionInitializers,
             'x-component': 'ActionBar',
             'x-component-props': {
-              layout: 'one-column',
               style: {
-                marginTop: 24,
+                marginBottom: 'var(--nb-spacing)',
               },
             },
             properties: actions,
+          },
+          grid: template || {
+            type: 'void',
+            'x-component': 'Grid',
+            'x-initializer': formItemInitializers,
+            properties: {},
           },
         },
       },
@@ -1381,6 +1380,10 @@ export const createTableBlockSchema = (options) => {
             'x-action-column': 'actions',
             'x-decorator': 'TableV2.Column.ActionBar',
             'x-component': 'TableV2.Column',
+            'x-component-props': {
+              width: 150,
+              fixed: 'right',
+            },
             'x-designer': 'TableV2.ActionColumnDesigner',
             'x-initializer': tableActionColumnInitializers ?? 'TableActionColumnInitializers',
             properties: {

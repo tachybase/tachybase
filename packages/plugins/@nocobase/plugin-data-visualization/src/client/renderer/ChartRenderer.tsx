@@ -49,6 +49,7 @@ export const ChartRenderer: React.FC & {
       }
       return props;
     }, {}),
+    ctx,
   });
 
   const C = () =>

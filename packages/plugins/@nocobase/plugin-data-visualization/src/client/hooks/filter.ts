@@ -309,9 +309,9 @@ export const useChartFilter = () => {
       .filter((chart) => hasFilter(chart, filterValues))
       .map((chart) => async () => {
         const { service, collection } = chart;
-        await service.runAsync(collection, appendFilter(chart, filterValues), true);
+        return await service.runAsync(collection, appendFilter(chart, filterValues), true);
       });
-    await Promise.all(requests.map((request) => request()));
+    return await Promise.all(requests.map((request) => request()));
   };
 
   const refresh = async () => {

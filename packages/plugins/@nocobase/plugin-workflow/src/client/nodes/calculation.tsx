@@ -56,6 +56,23 @@ export default class extends Instruction {
       ],
       required: true,
     },
+    // 加一个单选框，根据选择的引擎，显示这个单选框
+    transString: {
+      type: 'boolean',
+      'x-decorator': 'FormItem',
+      'x-component': 'Checkbox',
+      'x-content': `解析字符串公式`,
+      'x-reactions': [
+        {
+          dependencies: ['engine'],
+          fulfill: {
+            state: {
+              visible: '{{$deps[0] == `formula.js`}}',
+            },
+          },
+        },
+      ],
+    },
   };
   scope = {
     renderEngineReference,

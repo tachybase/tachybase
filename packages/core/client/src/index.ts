@@ -58,3 +58,10 @@ export * from './modules/blocks/BlockSchemaToolbar';
 export * from './modules/blocks/data-blocks/table';
 export * from './modules/blocks/data-blocks/form';
 export * from './modules/blocks/data-blocks/table-selector';
+export * as __UNSAFE__ from './unsafe';
+export type {
+  DynamicComponentProps as __UNSAFE__DynamicComponentProps,
+  VariablesContextType as __UNSAFE__VariablesContextType,
+  VariableOption as __UNSAFE__VariableOption,
+  Option as __UNSAFE__VariableInputOption,
+} from './unsafe';

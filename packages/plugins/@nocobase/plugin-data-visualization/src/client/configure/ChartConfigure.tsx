@@ -24,6 +24,7 @@ import {
   useOrderFieldsOptions,
   useOrderReaction,
   useTransformers,
+  useTransformersDecimal,
 } from '../hooks';
 import { useChartsTranslation } from '../locale';
 import { ChartRenderer, ChartRendererContext } from '../renderer';
@@ -401,7 +402,7 @@ ChartConfigure.Transform = function Transform() {
     <SchemaComponent
       schema={transformSchema}
       components={{ FormItem, ArrayItems, Space }}
-      scope={{ useChartFields: getChartFields, useFieldTypeOptions, useTransformers, t }}
+      scope={{ useChartFields: getChartFields, useFieldTypeOptions, useTransformers, useTransformersDecimal, t }}
     />
   );
 };

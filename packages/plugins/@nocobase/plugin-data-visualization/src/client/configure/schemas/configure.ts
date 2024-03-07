@@ -211,6 +211,7 @@ export const querySchema: ISchema = {
                             { label: '{{t("Avg")}}', value: 'avg' },
                             { label: '{{t("Max")}}', value: 'max' },
                             { label: '{{t("Min")}}', value: 'min' },
+                            { label: 'array_agg', value: 'array_agg' },
                           ],
                         },
                         alias: {
@@ -488,6 +489,16 @@ export const transformSchema: ISchema = {
             placeholder: '{{t("Format")}}',
           },
           'x-reactions': '{{ useTransformers }}',
+          'x-visible': '{{ $self.dataSource && $self.dataSource.length }}',
+        },
+        specific: {
+          type: 'string',
+          'x-decorator': 'FormItem',
+          'x-component': 'Select',
+          'x-component-props': {
+            placeholder: '{{t("Format")}}',
+          },
+          'x-reactions': '{{ useTransformersDecimal }}',
           'x-visible': '{{ $self.dataSource && $self.dataSource.length }}',
         },
       },

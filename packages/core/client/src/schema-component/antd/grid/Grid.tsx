@@ -160,6 +160,7 @@ const ColDivider = (props) => {
         ref={setDraggableNodeRef}
         {...listeners}
         {...attributes}
+        tabIndex={-1}
         className={props.first || props.last || !designable ? null : 'DraggableNode'}
       ></div>
     </div>
