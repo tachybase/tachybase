@@ -144,91 +144,8 @@ export const RecordSummary = (props) => {
       const productCategory = reqProduct.data.data?.find(
         (product) => product.category_id === element.product?.category_id,
       )?.category;
-      let plain = null;
-      // 2.去定方案数据，合同方案，报价方案
-      if (form.values.contract_plan || form.values.category === RecordCategory.lease) {
-        // 3.确定租赁单的合同方案
-        const recordPlaid = contractPlans.data.data.find(
-          (item) =>
-            item.id === form.values.contract_plan?.id ||
-            (item.contract_id === form.values.contract_id &&
-              item.start_date <= form.values.date &&
-              item.end_date >= form.values.date),
-        )?.lease_items;
-        if (!recordPlaid) return;
-        plain = recordPlaid.find(
-          (rule) =>
-            rule.products?.find(
-              (product) =>
-                product.id === element.product?.id ||
-                (product.id > 99999 && product.id - 99999 === element.product?.category_id),
-            ),
-        );
-      } else {
-        // 4. 去定报价的方案
-        const rule = leaseData?.find(
-          (rule) =>
-            rule.product?.category_id === element.product?.category_id || rule.product?.id === element.product?.id,
-        );
-        if (rule) {
-          plain = rule;
-          plain.conversion_logic_id = rule.conversion_logic.id;
-        }
-      }
-      let summary, summaryUnit;
-      // 存在方案，以及产品分类执行总总量计算，否则为暂存/盘点单
-      if (plain && productCategory) {
-        if (plain.conversion_logic_id === ConversionLogics.Keep) {
-          summary = element.count || 0;
-          summaryUnit = productCategory.unit;
-        } else if (plain.conversion_logic_id === ConversionLogics.Product) {
-          if (productCategory.convertible) {
-            summary = (element.count || 0) * element.product?.ratio;
-            summaryUnit = productCategory.conversion_unit;
-          } else {
-            summary = element.count || 0;
-            summaryUnit = productCategory.unit;
-          }
-        } else if (plain.conversion_logic_id === ConversionLogics.ProductWeight) {
-          summary = ((element.count || 0) * element.product?.weight) / 1000;
-          summaryUnit = '吨';
-        } else if (plain.conversion_logic_id === ConversionLogics.ActualWeight) {
-          let actualWeight = 0;
-          let actualPrice = 0;
-          const weightItem = groupWeight.find(
-            (item) => item.product_categories?.find((product) => product?.id === element.product?.category_id),
-          ) || { weight: form.values.weight };
-          if (!weightItem) return;
-          const gorupWeight = weightItem?.weight ?? (recordWeight || 0);
-          summaryProduct[element.product?.category_id + 99999] = {
-            name: productCategory?.name,
-            total: gorupWeight,
-            unit: '吨',
-          };
-          actualWeight = gorupWeight;
-          actualPrice = gorupWeight * plain.unit_price;
-          weight.total += ((element.count || 0) * element.product?.weight) / 1000;
-          allPrice.total += actualPrice;
-        } else {
-          const weightRule = reqWeightRules.data.data.find(
-            (weight_item) =>
-              weight_item.logic_id === plain.conversion_logic_id &&
-              (weight_item.product_id === element.product?.id ||
-                weight_item.product_id === element.product?.category_id + 99999),
-          );
-          if (!weightRule) return;
-          if (weightRule.conversion_logic_id === ConversionLogics.Keep) {
-            summary = ((element.count || 0) * weightRule.weight) / 1000;
-            summaryUnit = '吨';
-          } else if (weightRule.conversion_logic_id === ConversionLogics.Product) {
-            const sacl = productCategory.convertible ? element.product.ratio : 1;
-            summary = ((element.count || 0) * sacl * weightRule.weight) / 1000;
-            summaryUnit = '吨';
-          }
-        }
-      } else {
-        // 暂存/盘点单
-        if (!element.product) return;
+      if (productCategory) {
+        let summary, summaryUnit;
         if (productCategory && productCategory.convertible) {
           summary = (element.count || 0) * element.product?.ratio;
           summaryUnit = productCategory.conversion_unit;
@@ -236,20 +153,17 @@ export const RecordSummary = (props) => {
           summary = element.count || 0;
           summaryUnit = productCategory.unit;
         }
-      }
-      if (plain?.unit_price) {
-        allPrice.total += summary * plain.unit_price;
-      }
-      weight.total += ((element.count || 0) * element.product?.weight) / 1000;
-      if (!element.product) return;
-      if (summaryProduct[element.product.category_id]) {
-        summaryProduct[element.product.category_id].total += summary;
-      } else {
-        summaryProduct[element.product.category_id] = {
-          name: productCategory.name,
-          total: summary,
-          unit: summaryUnit,
-        };
+        weight.total += ((element.count || 0) * element.product?.weight) / 1000;
+        if (!element.product) return;
+        if (summaryProduct[element.product.category_id]) {
+          summaryProduct[element.product.category_id].total += summary;
+        } else {
+          summaryProduct[element.product.category_id] = {
+            name: productCategory.name,
+            total: summary,
+            unit: summaryUnit,
+          };
+        }
       }
     });
     // 入库合同方案小结
@@ -278,7 +192,7 @@ export const RecordSummary = (props) => {
           ),
         );
         // 计算合同方案的理论重量
-        const weightItem = calcTheoreticalWeight(element, reqWeightRules);
+        const weightItem = calcTheoreticalWeight(element, reqWeightRules, contractPlain);
         contractSummaryWeight.total += weightItem;
         const res = subtotal(contractPlain, element, productCategory, reqWeightRules);
         if (res) {
@@ -325,7 +239,7 @@ export const RecordSummary = (props) => {
           const price = calcLeasePriceSum(element, rule, productCategory, recordWeight);
           leaseSummaryPrice.total += price;
           // 计算合同方案的理论重量
-          const weightItem = calcTheoreticalWeight(element, reqWeightRules);
+          const weightItem = calcTheoreticalWeight(element, reqWeightRules, rule);
           leaseSummaryWeight.total += weightItem;
           if (res) {
             if (!leaseSummary[element.product?.category_id]) {
@@ -355,7 +269,7 @@ export const RecordSummary = (props) => {
             (product) => product.id - 99999 === element.product?.category_id || product.id === element.product?.id,
           ),
         );
-        const weightItem = calcTheoreticalWeight(element, reqWeightRules);
+        const weightItem = calcTheoreticalWeight(element, reqWeightRules, contractPlain);
         contractSummaryWeight.total += weightItem;
         const res = subtotal(contractPlain, element, productCategory, reqWeightRules);
         if (res) {
@@ -391,7 +305,7 @@ export const RecordSummary = (props) => {
             (product) => product.id - 99999 === element.product?.category_id || product.id === element.product?.id,
           ),
         );
-        const weightItem = calcTheoreticalWeight(element, reqWeightRules);
+        const weightItem = calcTheoreticalWeight(element, reqWeightRules, contractPlain);
         outContractSummaryWeight.total += weightItem;
         const res = subtotal(contractPlain, element, productCategory, reqWeightRules);
         if (res) {
@@ -665,7 +579,8 @@ const subtotal = (rule: any, itemData: any, productCategory: any, reqWeightRules
 /**
  * 理论重量计算（普通情况除外）
  */
-const calcTheoreticalWeight = (itemData: any, rule: any) => {
+const calcTheoreticalWeight = (itemData: any, rule: any, contractPlain: any) => {
+  if (!contractPlain) return 0;
   const weightRule = rule.data.data.find(
     (weightRule) =>
       weightRule.product_id === itemData.product?.id || weightRule.product_id - 99999 === itemData.product?.category_id,
