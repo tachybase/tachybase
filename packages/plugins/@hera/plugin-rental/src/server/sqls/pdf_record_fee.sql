@@ -17,7 +17,6 @@ SELECT
   cpfi.unit,
   cpfi.count_source,
   cpfi."comment",
-  cpfi.alias,
   cpfi.id,
   STRING_TO_ARRAY(JSONB_AGG(wr)::TEXT, ',') AS weight_rules
 FROM
@@ -59,7 +58,6 @@ SELECT
   cpfi2.unit,
   cpfi2.count_source,
   cpfi2."comment",
-  cpfi2.alias,
   cpfi2.id,
   STRING_TO_ARRAY(wr2::TEXT, ',') AS weight_rules
 FROM
