@@ -21,7 +21,7 @@ export const DetailChecks = () => {
     resource: 'detail_check_items',
     action: 'list',
     params: {
-      appends: ['record.items.product'],
+      appends: ['record.items', 'record.items.product', 'record.items.product.category', 'check'],
       filter: {
         id: form.getValuesIn(itemPath).id,
       },
@@ -30,9 +30,23 @@ export const DetailChecks = () => {
   });
   const items = [];
   if (reqRecordItems.data?.data) {
-    reqRecordItems.data.data[0].record.items.forEach((item, index) => {
-      items.push({ key: index, label: item.custom_name || item.product.label });
-    });
+    const category_id = reqRecordItems.data.data[0].check.product_category_id;
+    const product_id = reqRecordItems.data.data[0].check.product_id;
+    reqRecordItems.data.data[0].record?.items
+      // 过滤产品
+      ?.filter((item) => category_id == null || item.product.category_id === category_id)
+      // 过滤分类
+      ?.filter((item) => product_id == null || item.product_id === product_id)
+      .forEach((item, index) => {
+        items.push({
+          key: index,
+          label: item.custom_name || item.product.label,
+          count: item.count + item.product.category.unit,
+          conversion_count: item.product.category.convertible
+            ? item.count * item.product.ratio + item.product.category.conversion_unit
+            : item.count + item.product.category.unit,
+        });
+      });
   }
   if (reqRecordItems.loading) {
     return <Spin />;
@@ -41,7 +55,9 @@ export const DetailChecks = () => {
     items && (
       <Space size={[0, 8]} wrap>
         {items.map((item) => (
-          <Tag key={item.key}>{item.label}</Tag>
+          <Tag key={item.key}>
+            {item.label}/{item.count}/{item.conversion_count}
+          </Tag>
         ))}
       </Space>
     )
