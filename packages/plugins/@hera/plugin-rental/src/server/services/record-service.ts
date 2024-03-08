@@ -156,7 +156,7 @@ export class RecordService {
           { key: '2.007', value: '立杆盘' },
           { key: '2.008', value: '横杆头' },
           { key: '2.009', value: '57头' },
-          { key: '2.01', value: '插销' },
+          { key: '2.010', value: '插销' },
           { key: '2.011', value: '底板' },
         ],
       },
