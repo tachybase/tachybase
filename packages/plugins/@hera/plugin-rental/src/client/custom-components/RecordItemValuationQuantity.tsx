@@ -1,31 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   CUSTOM_COMPONENT_TYPE_FIELD,
   KEY_CUSTOM_COMPONENT_LABEL,
   KEY_CUSTOM_COMPONENT_TYPE,
 } from '@hera/plugin-core/client';
-import { useField, useForm, useFormEffects } from '@formily/react';
-import { onFieldInit, onFieldValueChange } from '@formily/core';
+import { observer, useField, useForm } from '@formily/react';
 import _ from 'lodash';
 import { useRequest } from '@nocobase/client';
 import { ConversionLogics, RecordCategory } from '../../utils/constants';
 import { formatQuantity } from '../../utils/currencyUtils';
+import { stringify } from 'flatted';
 
-// 按合同计算换算
-export const RecordItemValuationQuantity = (props) => {
+function useCachedRequest<P>(params: {}, options = {}) {
+  const cacheKey = stringify(params);
+  return useRequest<P>(params, { cacheKey, ...options });
+}
+
+const useLeaseItems = (planId) => {
+  const params = {
+    resource: 'contract_plan_lease_items',
+    action: 'list',
+    params: {
+      appends: ['products'],
+      filter: {
+        contract_plan_id: planId,
+      },
+      pageSize: 99999,
+    },
+  };
+  const { data, loading, run } = useCachedRequest<any>(params, {
+    manual: true,
+  });
+  useEffect(() => {
+    if (planId) {
+      run();
+    }
+  }, [planId]);
+  return { data, loading };
+};
+
+// 计价数量
+export const RecordItemValuationQuantity = observer((props) => {
+  console.count('计价数量');
   const form = useForm();
   const field = useField();
-  const currentItemsPath = field.path.parent().parent().entire + '.*';
-  const [items, setItems] = useState([]);
-  const [contractPlanId, setContractPlanId] = useState(-1);
-  const [inContractPlanId, setInContractPlanId] = useState(-1);
-  const [outContractPlanId, setOutContractPlanId] = useState(-1);
-  const [contractProducts, setContractProducts] = useState([]);
-  const [inContractProducts, setInContractProducts] = useState([]);
-  const [outContractProducts, setOutContractProducts] = useState([]);
-  const [leaseData, setLeaseData] = useState(null);
-  const [result, setResult] = useState([]);
-  const reqProduct = useRequest<any>({
+  const contractPlanId = form.getValuesIn('contract_plan')?.id;
+  const inContractPlanId = form.getValuesIn('in_contract_plan')?.id;
+  const outContractPlanId = form.getValuesIn('out_contract_plan')?.id;
+  const priceItems = form.getValuesIn('price_items');
+  const result = [];
+  const reqProduct = useCachedRequest<any>({
     resource: 'product',
     action: 'list',
     params: {
@@ -33,252 +57,96 @@ export const RecordItemValuationQuantity = (props) => {
       pageSize: 99999,
     },
   });
-  const reqWeightRules = useRequest<any>({
+  const reqWeightRules = useCachedRequest<any>({
     resource: 'weight_rules',
     action: 'list',
     params: {
       pageSize: 99999,
     },
   });
-  const { loading: loadingLeaseItems } = useRequest<any>(
-    {
-      resource: 'contract_plan_lease_items',
-      action: 'list',
-      params: {
-        appends: ['products'],
-        filter: {
-          contract_plan_id: contractPlanId,
-        },
-        pageSize: 9999,
-      },
-    },
-    {
-      refreshDeps: [contractPlanId],
-      onSuccess(data) {
-        if (data?.data?.length > 0) {
-          const result = data.data;
-          setContractProducts(result);
-        } else {
-          setContractProducts([]);
-        }
-      },
-    },
-  );
-  const { loading: loadingInLeaseItems } = useRequest<any>(
-    {
-      resource: 'contract_plan_lease_items',
-      action: 'list',
-      params: {
-        appends: ['products'],
-        filter: {
-          contract_plan_id: inContractPlanId,
-        },
-        pageSize: 9999,
-      },
-    },
-    {
-      refreshDeps: [inContractPlanId],
-      onSuccess(data) {
-        if (data?.data?.length > 0) {
-          const result = data.data;
-          setInContractProducts(result);
-        } else {
-          setInContractProducts([]);
-        }
-      },
-    },
-  );
-  const { loading: loadingOutLeaseItems } = useRequest<any>(
-    {
-      resource: 'contract_plan_lease_items',
-      action: 'list',
-      params: {
-        appends: ['products'],
-        filter: {
-          contract_plan_id: outContractPlanId,
-        },
-        pageSize: 9999,
-      },
-    },
-    {
-      refreshDeps: [outContractPlanId],
-      onSuccess(data) {
-        if (data?.data?.length > 0) {
-          const result = data.data;
-          setOutContractProducts(result);
-        } else {
-          setOutContractProducts([]);
-        }
-      },
-    },
-  );
-  const calc = () => {
-    const path = field.path.entire as string;
-    const regx = path.match(/\d+/g);
-    if (regx) {
-      const itemiIndex = regx[0];
-      const itemData = items[itemiIndex];
-      const productCategory = reqProduct.data.data?.find(
-        (product) => product.category_id === itemData.product?.category_id,
-      )?.category;
+  const { data: leaseItems } = useLeaseItems(contractPlanId);
+  const { data: inLeaseItems } = useLeaseItems(inContractPlanId);
+  const { data: outLeaseItems } = useLeaseItems(outContractPlanId);
 
-      if (form.values.category === RecordCategory.lease) {
-        const contractPlain = contractProducts.find((item) =>
-          item.products.find(
-            (product) => product.id - 99999 === itemData.product?.category_id || product.id === itemData.product?.id,
-          ),
-        );
-        const count = subtotal(contractPlain, itemData, productCategory, reqWeightRules);
-        const items = [];
-        count && items.push({ label: '合同', value: count });
-        setResult(items);
-      }
-      if (form.values.category === RecordCategory.purchase) {
-        const rule = leaseData?.find(
-          (rule) =>
-            rule.product?.category_id === itemData.product?.category_id || rule.product?.id === itemData.product?.id,
-        );
-        if (rule) {
-          rule.conversion_logic_id = rule.conversion_logic.id;
-          const count = subtotal(rule, itemData, productCategory, reqWeightRules);
-          const items = [];
-          count && items.push({ label: '报价', value: count });
-          setResult(items);
-        }
-      }
-      if (form.values.category === RecordCategory.inventory || form.values.category === RecordCategory.staging) {
-        setResult([{ label: '', value: '-' }]);
-      }
+  const item = form.getValuesIn(field.path.slice(0, -2).entire);
+  if (item?.product && item?.count) {
+    // 关联产品
+    if (!reqProduct.data) {
+      return;
+    }
+    const productCategory = reqProduct.data.data?.find(
+      (product) => product.category_id === item.product?.category_id,
+    )?.category;
+    // 合同
+    if (form.values.category === RecordCategory.lease && leaseItems) {
+      const rule = leaseItems.data.find((leaseItem) =>
+        leaseItem.products.find(
+          (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
+        ),
+      );
+      const count = subtotal(rule, item, productCategory, reqWeightRules);
+      count && result.push({ label: '合同', value: count });
+    }
 
-      if (form.values.category === RecordCategory.purchase2lease) {
-        const rule = leaseData?.find(
-          (rule) =>
-            rule.product?.category_id === itemData.product?.category_id || rule.product?.id === itemData.product?.id,
-        );
-        const items = [];
-        if (rule) {
-          rule.conversion_logic_id = rule.conversion_logic.id;
-          const count = subtotal(rule, itemData, productCategory, reqWeightRules);
-          count && items.push({ label: '报价', value: count });
-        }
-        const contractPlain = inContractProducts.find((item) =>
-          item.products.find(
-            (product) => product.id - 99999 === itemData.product?.category_id || product.id === itemData.product?.id,
-          ),
-        );
-        const count = subtotal(contractPlain, itemData, productCategory, reqWeightRules);
-        count && items.push({ label: '入库合同', value: count });
-        setResult(items);
-      }
-
-      if (form.values.category === RecordCategory.lease2lease) {
-        const items = [];
-        const contractPlain_out = outContractProducts.find((item) =>
-          item.products.find(
-            (product) => product.id - 99999 === itemData.product?.category_id || product.id === itemData.product?.id,
-          ),
-        );
-        const count_out = subtotal(contractPlain_out, itemData, productCategory, reqWeightRules);
-        count_out && items.push({ label: '出库合同', value: count_out });
-        const contractPlain_in = inContractProducts.find((item) =>
-          item.products.find(
-            (product) => product.id - 99999 === itemData.product?.category_id || product.id === itemData.product?.id,
-          ),
-        );
-        const count_in = subtotal(contractPlain_in, itemData, productCategory, reqWeightRules);
-        count_in && items.push({ label: '入库合同', value: count_in });
-        setResult(items);
+    if (form.values.category === RecordCategory.purchase && priceItems) {
+      const rule = priceItems?.find(
+        (rule) => rule.product?.category_id === item.product?.category_id || rule.product?.id === item.product?.id,
+      );
+      if (rule) {
+        rule.conversion_logic_id = rule.conversion_logic.id;
+        const count = subtotal(rule, item, productCategory, reqWeightRules);
+        count && result.push({ label: '报价', value: count });
       }
     }
-  };
-
-  useFormEffects(() => {
-    onFieldInit(currentItemsPath, () => {
-      setItems(_.cloneDeep(form.values.items));
-    });
-    onFieldValueChange(currentItemsPath, () => {
-      setItems(_.cloneDeep(form.values.items));
-    });
-    onFieldInit('contract_plan', () => {
-      if (form.values.contract_plan) {
-        setContractPlanId(form.values.contract_plan.id);
-      } else {
-        setContractPlanId(-1);
-      }
-    });
-    onFieldValueChange('contract_plan', () => {
-      if (form.values.contract_plan) {
-        setContractPlanId(form.values.contract_plan.id);
-      } else {
-        setContractPlanId(-1);
-      }
-    });
-    onFieldInit('price_items.*', () => {
-      setLeaseData(_.cloneDeep(form.values.price_items));
-    });
-    onFieldValueChange('price_items.*', () => {
-      setLeaseData(_.cloneDeep(form.values.price_items));
-    });
-
-    onFieldInit('in_contract_plan', () => {
-      if (form.values.in_contract_plan) {
-        setInContractPlanId(form.values.in_contract_plan.id);
-      } else {
-        setInContractPlanId(-1);
-      }
-    });
-    onFieldValueChange('in_contract_plan', () => {
-      if (form.values.in_contract_plan) {
-        setInContractPlanId(form.values.in_contract_plan.id);
-      } else {
-        setInContractPlanId(-1);
-      }
-    });
-    onFieldInit('out_contract_plan', () => {
-      if (form.values.out_contract_plan) {
-        setOutContractPlanId(form.values.out_contract_plan.id);
-      } else {
-        setOutContractPlanId(-1);
-      }
-    });
-    onFieldValueChange('out_contract_plan', () => {
-      if (form.values.out_contract_plan) {
-        setOutContractPlanId(form.values.out_contract_plan.id);
-      } else {
-        setOutContractPlanId(-1);
-      }
-    });
-  });
-
-  useEffect(() => {
-    if (
-      !reqProduct.loading &&
-      !loadingLeaseItems &&
-      !reqWeightRules.loading &&
-      !loadingInLeaseItems &&
-      !loadingOutLeaseItems
-    ) {
-      calc();
+    if (form.values.category === RecordCategory.inventory || form.values.category === RecordCategory.staging) {
+      result.push([{ label: '', value: '-' }]);
     }
-  }, [
-    items,
-    leaseData,
-    loadingLeaseItems,
-    loadingInLeaseItems,
-    loadingOutLeaseItems,
-    reqProduct.loading,
-    reqWeightRules.loading,
-  ]);
+
+    if (form.values.category === RecordCategory.purchase2lease && priceItems && inLeaseItems) {
+      const rule = priceItems?.find(
+        (rule) => rule.product?.category_id === item.product?.category_id || rule.product?.id === item.product?.id,
+      );
+      if (rule) {
+        rule.conversion_logic_id = rule.conversion_logic.id;
+        const count = subtotal(rule, item, productCategory, reqWeightRules);
+        count && result.push({ label: '报价', value: count });
+      }
+      const leaseRule = inLeaseItems.data.find((leaseItem) =>
+        leaseItem.products.find(
+          (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
+        ),
+      );
+      const count = subtotal(leaseRule, item, productCategory, reqWeightRules);
+      count && result.push({ label: '入库合同', value: count });
+    }
+
+    if (form.values.category === RecordCategory.lease2lease && inLeaseItems && outLeaseItems) {
+      const contractPlain_out = outLeaseItems.data.find((leaseItem) =>
+        leaseItem.products.find(
+          (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
+        ),
+      );
+      const count_out = subtotal(contractPlain_out, item, productCategory, reqWeightRules);
+      count_out && result.push({ label: '出库合同', value: count_out });
+      const contractPlain_in = inLeaseItems.data.find((leaseItem) =>
+        leaseItem.products.find(
+          (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
+        ),
+      );
+      const count_in = subtotal(contractPlain_in, item, productCategory, reqWeightRules);
+      count_in && result.push({ label: '入库合同', value: count_in });
+    }
+  }
   return (
     <>
-      {result.map((item, index) => (
-        <span key={index} style={{ marginRight: '1rem' }}>
+      {result.map((item) => (
+        <span key={item.label} style={{ marginRight: '1rem' }}>
           {item.label}：{item.value}
         </span>
       ))}
     </>
   );
-};
+});
 
 RecordItemValuationQuantity.displayName = 'RecordItemValuationQuantity';
 RecordItemValuationQuantity[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_FIELD;

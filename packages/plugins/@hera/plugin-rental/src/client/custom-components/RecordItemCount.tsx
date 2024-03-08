@@ -20,7 +20,6 @@ export const RecordItemCount = observer((props) => {
     },
   };
   const cacheKey = stringify(param);
-  console.log(cacheKey);
   const { loading, data } = useRequest<any>(param, { cacheKey });
   const form = useForm();
   const field = useField();
