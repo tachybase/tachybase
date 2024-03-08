@@ -161,11 +161,11 @@ export class RecordPdfService {
       }
       return data;
     });
-    // 无关联产品赔偿 (打印设置为正常显示时显示物料+赔偿维修，无关联赔偿不显示)
+    // 无关联产品赔偿, 人工录取的情况直接为空，因为excludedFee已经处理，正常情况取非手动录入情况数据，excludedFee已经处理
     const fee =
       printSetup === PrintSetup.Manual
-        ? fee_data.filter((item) => !item.product_id && item.count_source === SourcesType.staff)
-        : fee_data.filter((item) => !item.product_id);
+        ? []
+        : fee_data.filter((item) => !item.product_id && item.count_source !== SourcesType.staff);
     const no_product_fee = fee
       .map((item) => {
         // 购销/暂存/盘点无费用信息
@@ -220,7 +220,7 @@ export class RecordPdfService {
       })
       .filter((item) => item && item.count);
     // 注意把手动录入的加入
-    const manualData = printSetup === PrintSetup.Manual ? [] : recordData.record_fee_items;
+    const manualData = recordData.record_fee_items;
     // 因为以往逻辑是根据规则查询，这个订单中数据智能单独查询
     const excludedFee =
       manualData
@@ -235,9 +235,8 @@ export class RecordPdfService {
           const feeRule = fee_data.find((fee) => fee.fee_product_id === item.product_id);
           if (feeRule) {
             data['total'] = feeRule.unit_price * item.count;
+            data['unit'] = feeRule.unit || '';
           }
-          const findUnit = no_product_fee.find((fee) => fee.name === data.name);
-          data['unit'] = findUnit ? findUnit.unit : '';
           return data;
         })
         .filter(Boolean) || [];

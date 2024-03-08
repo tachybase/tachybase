@@ -459,7 +459,8 @@ const PreviewDocument = ({
                   <Text style={styles.tableCell2}>{item.name}</Text>
                   <Text style={styles.tableCell}>{!item.count ? '' : formatQuantity(item.count, 2) + item.unit}</Text>
                   <Text style={styles.tableCell}>
-                    {printSetup === PrintSetup.Display && !item.product_id && !item.isTotal
+                    {(printSetup === PrintSetup.Display && !item.product_id && !item.isTotal) ||
+                    (printSetup === PrintSetup.Manual && !item.product_id && !item.isTotal)
                       ? ''
                       : item.total
                         ? formatQuantity(item.total, 2)
@@ -520,7 +521,8 @@ const PreviewDocument = ({
                     {!item.left_count ? '' : formatQuantity(item.left_count, 2) + item.left_unit}
                   </Text>
                   <Text style={styles.tableCell}>
-                    {printSetup === PrintSetup.Display && !item.left_product_id && !item.left_isTotal
+                    {(printSetup === PrintSetup.Display && !item.left_product_id && !item.left_isTotal) ||
+                    (printSetup === PrintSetup.Manual && !item.left_product_id && !item.left_isTotal)
                       ? ''
                       : item.left_total
                         ? formatQuantity(item.left_total, 2)
@@ -541,7 +543,8 @@ const PreviewDocument = ({
                     {!item.right_count ? '' : formatQuantity(item.right_count, 2) + item.right_unit}
                   </Text>
                   <Text style={styles.tableCell}>
-                    {printSetup === PrintSetup.Display && !item.right_product_id && !item.right_isTotal
+                    {(printSetup === PrintSetup.Display && !item.right_product_id && !item.right_isTotal) ||
+                    (printSetup === PrintSetup.Manual && !item.right_product_id && !item.right_isTotal)
                       ? ''
                       : item.right_total
                         ? formatQuantity(item.right_total, 2)
