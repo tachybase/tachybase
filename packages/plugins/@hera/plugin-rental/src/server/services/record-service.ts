@@ -269,8 +269,9 @@ export class RecordService {
               spec: size,
             },
           });
-          const product_category = product.category_id + 99999;
-          priceRuleArr.push({ id: product_category, unit_price: porduct_item.price });
+          const product_id = product.id;
+          const exist = priceRuleArr.findIndex((rule) => rule.id === product_id) > -1;
+          !exist && priceRuleArr.push({ id: product_id, unit_price: porduct_item.price });
           const fee = values.data.complements.filter(
             (item) => item.associate.name === porduct_item.name && item.associate.size === porduct_item.size,
           );
