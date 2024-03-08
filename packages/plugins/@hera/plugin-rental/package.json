@@ -1,6 +1,6 @@
 {
   "name": "@hera/plugin-rental",
-  "version": "1.4.0-alpha.5",
+  "version": "1.4.0-alpha.6",
   "main": "dist/server/index.js",
   "displayName": "professional construction materials rental system - customized based on hera",
   "displayName.zh-CN": "专业建材租赁系统 - 基于赫拉定制",
