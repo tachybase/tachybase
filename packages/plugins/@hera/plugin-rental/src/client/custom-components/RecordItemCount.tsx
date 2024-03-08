@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
   CUSTOM_COMPONENT_TYPE_FIELD,
   KEY_CUSTOM_COMPONENT_LABEL,
@@ -6,10 +6,9 @@ import {
 } from '@hera/plugin-core/client';
 import { observer, useField, useForm } from '@formily/react';
 import _ from 'lodash';
-import { useRequest } from '@nocobase/client';
 import { formatQuantity } from '../../utils/currencyUtils';
 import { Spin } from 'antd';
-import { stringify } from 'flatted';
+import { useCachedRequest } from '../hooks';
 
 export const RecordItemCount = observer((props) => {
   const param = {
@@ -19,8 +18,7 @@ export const RecordItemCount = observer((props) => {
       pageSize: 99999,
     },
   };
-  const cacheKey = stringify(param);
-  const { loading, data } = useRequest<any>(param, { cacheKey });
+  const { loading, data } = useCachedRequest<any>(param);
   const form = useForm();
   const field = useField();
 

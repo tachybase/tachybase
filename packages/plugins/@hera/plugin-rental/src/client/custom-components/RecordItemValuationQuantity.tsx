@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   CUSTOM_COMPONENT_TYPE_FIELD,
   KEY_CUSTOM_COMPONENT_LABEL,
@@ -6,42 +6,12 @@ import {
 } from '@hera/plugin-core/client';
 import { observer, useField, useForm } from '@formily/react';
 import _ from 'lodash';
-import { useRequest } from '@nocobase/client';
 import { ConversionLogics, RecordCategory } from '../../utils/constants';
 import { formatQuantity } from '../../utils/currencyUtils';
-import { stringify } from 'flatted';
-
-function useCachedRequest<P>(params: {}, options = {}) {
-  const cacheKey = stringify(params);
-  return useRequest<P>(params, { cacheKey, ...options });
-}
-
-const useLeaseItems = (planId) => {
-  const params = {
-    resource: 'contract_plan_lease_items',
-    action: 'list',
-    params: {
-      appends: ['products'],
-      filter: {
-        contract_plan_id: planId,
-      },
-      pageSize: 99999,
-    },
-  };
-  const { data, loading, run } = useCachedRequest<any>(params, {
-    manual: true,
-  });
-  useEffect(() => {
-    if (planId) {
-      run();
-    }
-  }, [planId]);
-  return { data, loading };
-};
+import { useCachedRequest, useLeaseItems } from '../hooks';
 
 // 计价数量
 export const RecordItemValuationQuantity = observer((props) => {
-  console.count('计价数量');
   const form = useForm();
   const field = useField();
   const contractPlanId = form.getValuesIn('contract_plan')?.id;
@@ -87,7 +57,7 @@ export const RecordItemValuationQuantity = observer((props) => {
       const count = subtotal(rule, item, productCategory, reqWeightRules);
       count && result.push({ label: '合同', value: count });
     }
-
+    // 采购
     if (form.values.category === RecordCategory.purchase && priceItems) {
       const rule = priceItems?.find(
         (rule) => rule.product?.category_id === item.product?.category_id || rule.product?.id === item.product?.id,
@@ -98,10 +68,11 @@ export const RecordItemValuationQuantity = observer((props) => {
         count && result.push({ label: '报价', value: count });
       }
     }
+    // 暂存或结存
     if (form.values.category === RecordCategory.inventory || form.values.category === RecordCategory.staging) {
       result.push([{ label: '', value: '-' }]);
     }
-
+    // 采购直发
     if (form.values.category === RecordCategory.purchase2lease && priceItems && inLeaseItems) {
       const rule = priceItems?.find(
         (rule) => rule.product?.category_id === item.product?.category_id || rule.product?.id === item.product?.id,
@@ -119,7 +90,7 @@ export const RecordItemValuationQuantity = observer((props) => {
       const count = subtotal(leaseRule, item, productCategory, reqWeightRules);
       count && result.push({ label: '入库合同', value: count });
     }
-
+    // 租赁直发
     if (form.values.category === RecordCategory.lease2lease && inLeaseItems && outLeaseItems) {
       const contractPlain_out = outLeaseItems.data.find((leaseItem) =>
         leaseItem.products.find(
