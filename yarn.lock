@@ -19166,7 +19166,7 @@ node-releases@^2.0.14:
 
 node-sql-parser@^4.11.0:
   version "4.18.0"
-  resolved "https://registry.npmjs.org/node-sql-parser/-/node-sql-parser-4.18.0.tgz#516b6e633c55c5abbba1ca588ab372db81ae9318"
+  resolved "https://registry.npmmirror.com/node-sql-parser/-/node-sql-parser-4.18.0.tgz#516b6e633c55c5abbba1ca588ab372db81ae9318"
   integrity sha512-2YEOR5qlI1zUFbGMLKNfsrR5JUvFg9LxIRVE+xJe962pfVLH0rnItqLzv96XVs1Y1UIR8FxsXAuvX/lYAWZ2BQ==
   dependencies:
     big-integer "^1.6.48"
