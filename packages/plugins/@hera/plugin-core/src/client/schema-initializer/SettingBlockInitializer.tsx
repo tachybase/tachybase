@@ -1,7 +1,7 @@
 import { FormOutlined } from '@ant-design/icons';
 import { FormLayout } from '@formily/antd-v5';
 import { SchemaOptionsContext } from '@formily/react';
-import { createFormBlockSchema, useAPIClient, useCollectionManager_deprecated } from '@nocobase/client';
+import { createFormBlockSchema, useAPIClient, useCollectionManager } from '@nocobase/client';
 import {
   DataBlockInitializer,
   FormDialog,
@@ -12,7 +12,7 @@ import {
   useSchemaInitializerItem,
 } from '@nocobase/client';
 import React, { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../locale';
 
 export const SettingBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
@@ -20,7 +20,7 @@ export const SettingBlockInitializer = () => {
   const options = useContext(SchemaOptionsContext);
   const { theme } = useGlobalTheme();
   const itemConfig = useSchemaInitializerItem();
-  const { getCollection } = useCollectionManager_deprecated();
+  const cm = useCollectionManager();
   const api = useAPIClient();
   return (
     <DataBlockInitializer
@@ -28,8 +28,8 @@ export const SettingBlockInitializer = () => {
       componentType={'FormItem'}
       icon={<FormOutlined />}
       onCreateBlockSchema={async ({ item }) => {
-        const collection = getCollection(item.name);
-        const titleField = collection.options.titleField;
+        const collection = cm.getCollection(item.name);
+        const titleField = collection.titleField;
         const result = await api.resource(collection.name).list();
         const values = await FormDialog(
           t('添加单条数据展示区块'),
