@@ -14,7 +14,7 @@ export class Locale {
   }
 }
 
-export const useTranslation = () => {
+export const useTranslation = (): any => {
   const { i18n } = useApp();
   const t = (key: string, props = {}) => i18n.t(key, { ns: NAMESPACE, ...props });
   return { t };

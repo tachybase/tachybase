@@ -25,33 +25,22 @@ import {
   removeNullCondition,
   useAPIClient,
 } from '@nocobase/client';
-import { Alert, ConfigProvider, Typography } from 'antd';
+import { ConfigProvider } from 'antd';
 import React, { memo, useCallback, useContext, useMemo } from 'react';
-import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@formily/react';
+import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema } from '@formily/react';
 import { FormLayout } from '@formily/antd-v5';
 import { uid } from '@formily/shared';
-import { useTranslation } from 'react-i18next';
-import { useMemoizedFn } from 'ahooks';
-import { Field, onFieldValueChange } from '@formily/core';
+import { Field } from '@formily/core';
 import { EditFormulaTitleField, EditTitle, EditTitleField } from '../../components/SchemaSettingOptions';
 import _ from 'lodash';
 import { SchemaSettingsRemove } from '../../components/FormFilter/SchemaSettingsRemove';
-export const NAMESPACE = 'data-visualization';
-
-export function lang(key: string) {
-  return i18n.t(key, { ns: [NAMESPACE, 'client'] });
-}
-
-export function useChartsTranslation() {
-  return useTranslation([NAMESPACE, 'client'], { nsMode: 'fallback' });
-}
+import { useTranslation } from '../../locale';
 
 export const useFieldComponents = () => {
-  const { t } = useChartsTranslation();
+  const { t } = useTranslation();
   const options = [
+    { label: t('Input'), value: 'Input' },
     { label: t('Select'), value: 'Select' },
-    // { label: t('Radio group'), value: 'Radio.Group' },
-    // { label: t('Checkbox group'), value: 'Checkbox.Group' },
   ];
   return {
     options,
@@ -63,8 +52,7 @@ export const FilterCustomItemInitializer: React.FC<{
   insert?: any;
 }> = memo((props) => {
   const { locale } = useContext(ConfigProvider.ConfigContext);
-  const { t: lang } = useChartsTranslation();
-  const t = useMemoizedFn(lang);
+  const { t } = useTranslation();
   const { scope, components } = useContext(SchemaOptionsContext);
   const { theme } = useGlobalTheme();
   const { insert } = props;
@@ -83,11 +71,6 @@ export const FilterCustomItemInitializer: React.FC<{
       () => (
         <SchemaComponentOptions scope={{ ...scope, useCollectionManager_deprecated }} components={{ ...components }}>
           <FormLayout layout={'vertical'}>
-            <Alert
-              type="info"
-              message={t('To filter with custom fields, use "Current filter" variables in the chart configuration.')}
-              style={{ marginBottom: 16 }}
-            />
             <ConfigProvider locale={locale}>
               <SchemaComponent
                 schema={{
@@ -178,7 +161,7 @@ export const FilterFormItemCustom = () => {
 };
 
 export const FilterItemCustomDesigner: React.FC = () => {
-  const { t } = useChartsTranslation();
+  const { t } = useTranslation();
   const fieldSchema = useFieldSchema();
   const fieldName = fieldSchema['name'] as string;
   const name = fieldName.includes('custom') ? fieldSchema['x-decorator-props'] : fieldName;
