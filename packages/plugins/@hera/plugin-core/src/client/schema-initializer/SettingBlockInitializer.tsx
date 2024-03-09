@@ -32,7 +32,7 @@ export const SettingBlockInitializer = () => {
         const titleField = collection.titleField;
         const result = await api.resource(collection.name).list();
         const values = await FormDialog(
-          t('添加单条数据展示区块'),
+          t('Pick a data entry for viewing and editing'),
           () => {
             return (
               <SchemaComponentOptions scope={options.scope} components={{ ...options.components }}>
@@ -41,7 +41,7 @@ export const SettingBlockInitializer = () => {
                     schema={{
                       properties: {
                         id: {
-                          title: t('选择数据'),
+                          title: t('Please select'),
                           enum: result.data.data.map((item) => {
                             return {
                               label: item[titleField],
