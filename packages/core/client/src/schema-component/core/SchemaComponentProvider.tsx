@@ -73,7 +73,7 @@ export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (prop
   );
 
   return (
-    <SchemaComponentContext.Provider value={schemaComponentContextValue}>
+    <SchemaComponentContext.Provider value={{ ...schemaComponentContextValue }}>
       <FormProvider form={form}>
         <SchemaComponentOptions inherit scope={scope} components={components}>
           {children}
