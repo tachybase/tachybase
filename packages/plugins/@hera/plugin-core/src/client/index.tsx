@@ -88,6 +88,8 @@ import Expression from './components/Expression';
 import { CustomField } from './components/CustomField';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
+import { SwiperBlock, SwiperBlockInitializer } from './schema-initializer/SwiperBlockInitializer';
+import { NoticeBlock, NoticeBlockInitializer } from './schema-initializer/NoticeBlockInitializer';
 
 export enum CustomComponentType {
   CUSTOM_FORM_ITEM,
@@ -174,6 +176,8 @@ export class PluginCoreClient extends Plugin {
       DatePicker,
       RemoteSelect,
       SignatureInput,
+      SwiperBlockInitializer,
+      SwiperBlock,
       AssociationField: ExtendedAssociationField,
       OutboundButton,
       OutboundLinkActionInitializer,
@@ -198,6 +202,8 @@ export class PluginCoreClient extends Plugin {
         // @ts-ignore
         Designer: MenuDesigner,
       },
+      NoticeBlock,
+      NoticeBlockInitializer,
     });
   }
 
@@ -279,6 +285,19 @@ export class PluginCoreClient extends Plugin {
       type: 'divider',
     });
     this.app.schemaInitializerManager.addItem('FilterFormItemInitializers', customItem.name, customItem);
+    // mobile
+    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'dataBlocks.swiper', {
+      title: 'swiper',
+      name: 'swiper',
+      type: 'item',
+      Component: 'SwiperBlockInitializer',
+    });
+    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'dataBlocks.notice', {
+      title: 'notice',
+      name: 'notice',
+      type: 'item',
+      Component: 'NoticeBlockInitializer',
+    });
 
     const addCustomComponent = {
       name: 'addCustomComponent',
