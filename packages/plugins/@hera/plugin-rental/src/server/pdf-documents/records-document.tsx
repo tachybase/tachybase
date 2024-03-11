@@ -1,6 +1,6 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image, renderToStream, Font } from '@hera/plugin-core';
-import { Record } from '../interfaces/record';
+import { Record } from '../../interfaces/record';
 import * as QRCode from 'qrcode';
 import { ConversionLogics, RecordCategory } from '../../utils/constants';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Document, Page, Text, View, StyleSheet, renderToStream } from '@hera/plugin-core';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 import { converDate } from '../../utils/daysUtils';
-import { Waybill } from '../interfaces/waybill';
+import { Waybill } from '../../interfaces/waybill';
 
 const boldFont = {
   fontFamily: 'source-han-sans',
@@ -291,7 +291,7 @@ const PreviewDocument = ({ waybill }: { waybill: Waybill }) => {
                 <Text>
                   附加价格
                   <Text style={styles.mainSize}>
-                    {formatQuantity(waybill.additional_cost, 2) == '0.00'
+                    {formatQuantity(waybill.additional_cost, 2) === '0.00'
                       ? '0'
                       : formatQuantity(waybill.additional_cost, 2)}
                     元

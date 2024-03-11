@@ -1,12 +1,12 @@
 import { ConversionLogics, RecordCategory, RulesNumber, SourcesType, countCource } from '../../utils/constants';
 import { renderItV2 } from '../pdf-documents/records-documentV2';
 import { Service } from '@nocobase/utils';
-import { recordPdfOptions } from '../interfaces/options';
+import { RecordPdfOptions } from '../../interfaces/options';
 import { PrintSetup } from '../../utils/system';
 
 @Service()
 export class RecordPdfService {
-  async transformPdfV2(recordData: any, lease_data: any, fee_data: any, options: recordPdfOptions) {
+  async transformPdfV2(recordData: any, lease_data: any, fee_data: any, options: RecordPdfOptions) {
     const { isDouble, printSetup } = options;
 
     // 直发单不需要打印预览
