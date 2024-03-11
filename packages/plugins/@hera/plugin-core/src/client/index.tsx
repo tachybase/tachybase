@@ -4,7 +4,6 @@ import {
   Menu,
   Plugin,
   RemoteSchemaTemplateManagerProvider,
-  TableV2,
   EditTitleField,
   useCollection_deprecated,
   SchemaSettingOptions,
@@ -90,6 +89,7 @@ import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociated
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
 import { SwiperBlock, SwiperBlockInitializer } from './schema-initializer/SwiperBlockInitializer';
 import { NoticeBlock, NoticeBlockInitializer } from './schema-initializer/NoticeBlockInitializer';
+import { TabSearchBlock, TabSearchBlockInitializer } from './schema-initializer/TabSearchBlockInitializer';
 
 export enum CustomComponentType {
   CUSTOM_FORM_ITEM,
@@ -202,6 +202,8 @@ export class PluginCoreClient extends Plugin {
         // @ts-ignore
         Designer: MenuDesigner,
       },
+      TabSearchBlockInitializer,
+      TabSearchBlock,
       NoticeBlock,
       NoticeBlockInitializer,
     });
@@ -298,6 +300,20 @@ export class PluginCoreClient extends Plugin {
       type: 'item',
       Component: 'NoticeBlockInitializer',
     });
+
+    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'filterBlocks', {
+      title: '{{t("Filter blocks")}}',
+      type: 'itemGroup',
+      children: [
+        {
+          name: 'tabSearch',
+          title: 'tabSearch',
+          Component: 'TabSearchBlockInitializer',
+        },
+      ],
+    });
+
+    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'filterBlocks.filterForm', {});
 
     const addCustomComponent = {
       name: 'addCustomComponent',
