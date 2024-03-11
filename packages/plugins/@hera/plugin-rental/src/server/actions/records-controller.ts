@@ -3,6 +3,9 @@ import { QueryTypes } from 'sequelize';
 import { RecordPdfService } from '../services/record-pdf-service';
 import { SystemSettingService, SqlLoader } from '@hera/plugin-core';
 import { Action, Controller, Inject } from '@nocobase/utils';
+import { Record } from '../interfaces/record';
+import { Movement } from '../../utils/constants';
+import _ from 'lodash';
 
 @Controller('records')
 export class RecordPreviewController {
@@ -14,6 +17,46 @@ export class RecordPreviewController {
 
   @Inject(() => RecordPdfService)
   private recordPdfService: RecordPdfService;
+
+  @Action('group')
+  async group(ctx: Context) {
+    const filter = ctx.action.params.filter;
+    const records = (await ctx.db
+      .getRepository('records')
+      .find({ filter, appends: ['items', 'items.product', 'items.product.category'], limit: 10 })) as Record[];
+    // 模拟计算
+    const items = {};
+    records.forEach((record) => {
+      record.items.forEach((item) => {
+        if (!items[item.product.name]) {
+          items[item.product.name] = {
+            name: item.product.name,
+            sort: item.product.category.sort,
+            出库数量: 0,
+            入库数量: 0,
+            小计: 0,
+          };
+        }
+        const count = item.product.category.convertible ? item.count * item.product.ratio : item.count;
+        if (record.movement === Movement.in) {
+          items[item.product.name]['入库数量'] += count;
+          items[item.product.name]['小计'] += count;
+        } else {
+          items[item.product.name]['出库数量'] += count;
+          items[item.product.name]['小计'] -= count;
+        }
+      });
+    });
+    ctx.body = _.toArray(items)
+      .sort((a: any, b: any) => a.sort - b.sort)
+      .map((item: any) => ({
+        label: item.name,
+        value: {
+          labels: ['出库数量', '入库数量', '小计'],
+          values: [item['出库数量'], item['入库数量'], item['小计']],
+        },
+      }));
+  }
 
   @Action('pdf')
   async printPreview(ctx: Context) {
