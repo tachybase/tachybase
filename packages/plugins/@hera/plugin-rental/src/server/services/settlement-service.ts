@@ -11,10 +11,10 @@ import {
 } from '../../utils/constants';
 import { converDate } from '../../utils/daysUtils';
 import { converUnitCount } from '../../utils/unitUtils';
-import { Settlement } from '../interfaces/settlement';
-import { FeeRule, LeaseRule } from '../interfaces/rule';
-import { Record } from '../interfaces/record';
-import { recordItems } from '../interfaces/records';
+import { Settlement } from '../../interfaces/settlement';
+import { FeeRule, LeaseRule } from '../../interfaces/rule';
+import { Record } from '../../interfaces/record';
+import { RecordItems } from '../../interfaces/records';
 import { formatQuantity } from '../../utils/currencyUtils';
 
 @Service()
@@ -852,7 +852,7 @@ const recordWeight = (rule, item, settlementsId, productRule, rulefee?) => {
  * @param itemCount  需要计算的订单数量
  * @returns count,unit  返回了最后的计算数量和单位
  */
-const ruleCount = (rules: FeeRule | LeaseRule, item: Record, recordItem: recordItems, valueCount?, rulefee?) => {
+const ruleCount = (rules: FeeRule | LeaseRule, item: Record, recordItem: RecordItems, valueCount?, rulefee?) => {
   let count, unit;
   const itemCount = valueCount ? valueCount : recordItem.count;
   const conversion_logic_id = rulefee ? rulefee.conversion_logic_id : rules.conversion_logic_id;

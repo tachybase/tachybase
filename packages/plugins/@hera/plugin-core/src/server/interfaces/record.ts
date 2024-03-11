@@ -1,9 +1,9 @@
 import { RecordCategory } from '../../utils/constants';
-import { recordItems, record_fee_item } from './records';
+import { RecordItems, Record_fee_item } from './records';
 
 export interface Record {
   weight_items: any;
-  record_items: recordItems[];
+  record_items: RecordItems[];
   systemTitle: any;
   record_lease_rules: any;
   weight: number;
@@ -20,6 +20,6 @@ export interface Record {
   original_number: any;
   movement: number;
   category: RecordCategory;
-  record_fee_items: record_fee_item[];
+  record_fee_items: Record_fee_item[];
   pdfExplain: string;
 }

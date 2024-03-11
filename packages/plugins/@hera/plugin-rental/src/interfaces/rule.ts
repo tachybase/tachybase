@@ -1,9 +1,9 @@
-import { product } from './records';
-import { ConversionLogics, countCource } from '../../utils/constants';
+import { Product } from './records';
+import { ConversionLogics, countCource } from '../utils/constants';
 
 export interface FeeRule extends LeaseRule {
   id: number;
-  product: product;
+  product: Product;
   fee_product_id: number;
   count_source: countCource;
   unit: string;
@@ -19,7 +19,7 @@ export interface LeaseRule {
   unit_price: number;
   product_id?: number;
   conversion_logic_id: ConversionLogics;
-  ucl: weightRule;
+  ucl: WeightRule;
   product_fee: any;
   products: any;
 }
@@ -36,6 +36,6 @@ export interface RuleItem {
   rule: Rule;
 }
 
-export interface weightRule {
+export interface WeightRule {
   weight_items: any[];
 }

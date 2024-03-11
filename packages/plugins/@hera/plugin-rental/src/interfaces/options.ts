@@ -1,4 +1,4 @@
-export interface recordPdfOptions {
+export interface RecordPdfOptions {
   isDouble: number;
   printSetup: String;
 }

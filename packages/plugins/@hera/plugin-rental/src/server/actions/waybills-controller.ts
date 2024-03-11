@@ -3,7 +3,7 @@ import { renderWaybill } from '../pdf-documents/waybills-document';
 import { SqlLoader } from '@hera/plugin-core';
 import { Action, Controller, Inject } from '@nocobase/utils';
 import { QueryTypes } from 'sequelize';
-import { Waybill } from '../interfaces/waybill';
+import { Waybill } from '../../interfaces/waybill';
 
 @Controller('waybills')
 export class WaybillsController {
