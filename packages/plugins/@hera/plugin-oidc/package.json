@@ -2,10 +2,7 @@
   "name": "@hera/plugin-oidc",
   "version": "0.20.0-alpha.7",
   "main": "dist/server/index.js",
-  "devDependencies": {
-    "@koa/router": "^12.0.1",
-    "@types/koa__router": "^12.0.4"
-  },
+  "devDependencies": {},
   "peerDependencies": {
     "@nocobase/client": "0.x",
     "@nocobase/server": "0.x",
