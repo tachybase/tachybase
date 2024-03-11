@@ -77,7 +77,7 @@ const createGroupBlockSchema = (options) => {
     'x-decorator': 'GroupBlockProvider',
     'x-decorator-props': {
       collection: collection.name,
-      resource: 'charts',
+      resource_deprecated: 'charts',
       action: 'query',
       groupField,
       params: {

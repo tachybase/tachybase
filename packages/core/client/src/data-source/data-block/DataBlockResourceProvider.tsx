@@ -35,8 +35,8 @@ export const DataBlockResourceProvider: FC<{ children?: ReactNode }> = ({ childr
     if (association) {
       return api.resource(association, sourceIdValue, headers);
     }
-    return api.resource(dataBlockProps.resource ?? collectionName, undefined, headers);
-  }, [api, association, collection, sourceIdValue, headers, dataBlockProps.resource]);
+    return api.resource(dataBlockProps.resource_deprecated ?? collectionName, undefined, headers);
+  }, [api, association, collection, sourceIdValue, headers, dataBlockProps.resource_deprecated]);
   return <DataBlockResourceContext.Provider value={resource}>{children}</DataBlockResourceContext.Provider>;
 };
 
