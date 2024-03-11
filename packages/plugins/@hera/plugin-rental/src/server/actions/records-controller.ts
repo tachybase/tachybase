@@ -25,35 +25,35 @@ export class RecordPreviewController {
       .getRepository('records')
       .find({ filter, appends: ['items', 'items.product', 'items.product.category'], limit: 10 })) as Record[];
     // 模拟计算
-    const items = {};
+    const items = {} as { [key: string]: { name: string; sort: number; out: number; in: number; total: number } };
     records.forEach((record) => {
       record.items.forEach((item) => {
         if (!items[item.product.name]) {
           items[item.product.name] = {
             name: item.product.name,
             sort: item.product.category.sort,
-            出库数量: 0,
-            入库数量: 0,
-            小计: 0,
+            out: 0,
+            in: 0,
+            total: 0,
           };
         }
         const count = item.product.category.convertible ? item.count * item.product.ratio : item.count;
         if (record.movement === Movement.in) {
-          items[item.product.name]['入库数量'] += count;
-          items[item.product.name]['小计'] += count;
+          items[item.product.name].in += count;
+          items[item.product.name].total += count;
         } else {
-          items[item.product.name]['出库数量'] += count;
-          items[item.product.name]['小计'] -= count;
+          items[item.product.name].out += count;
+          items[item.product.name].total -= count;
         }
       });
     });
     ctx.body = _.toArray(items)
-      .sort((a: any, b: any) => a.sort - b.sort)
-      .map((item: any) => ({
+      .sort((a, b) => a.sort - b.sort)
+      .map((item) => ({
         label: item.name,
         value: {
           labels: ['出库数量', '入库数量', '小计'],
-          values: [item['出库数量'], item['入库数量'], item['小计']],
+          values: [item.out, item.in, item.total],
         },
       }));
   }
