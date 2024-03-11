@@ -3,7 +3,7 @@ import { QueryTypes } from 'sequelize';
 import { RecordPdfService } from '../services/record-pdf-service';
 import { SystemSettingService, SqlLoader } from '@hera/plugin-core';
 import { Action, Controller, Inject } from '@nocobase/utils';
-import { Record } from '../interfaces/record';
+import { Record } from '../../interfaces/record';
 import { Movement } from '../../utils/constants';
 import _ from 'lodash';
 
