@@ -1,5 +1,11 @@
 import React from 'react';
-import { CollectionRecordProvider, DataBlockProvider, RemoteSchemaComponent, css } from '@nocobase/client';
+import {
+  CollectionRecordProvider,
+  DataBlockProvider,
+  RecordProvider,
+  RemoteSchemaComponent,
+  css,
+} from '@nocobase/client';
 import { useNavigate, useParams } from 'react-router-dom';
 import pathToRegexp from 'path-to-regexp';
 import { useHeadStyles } from '../pages/style';
@@ -34,10 +40,10 @@ export const DetailsPage: React.FC = () => {
           }}
         />
       </div>
-      <DataBlockProvider collection={collection}>
-        <CollectionRecordProvider record={{ id: cid }} parentRecord={null}>
+      <DataBlockProvider filterByTk={cid} collection={collection}>
+        <RecordProvider record={{ id: cid }}>
           <RemoteSchemaComponent uid={params.pageId} onlyRenderProperties />
-        </CollectionRecordProvider>
+        </RecordProvider>
       </DataBlockProvider>
     </div>
   );
