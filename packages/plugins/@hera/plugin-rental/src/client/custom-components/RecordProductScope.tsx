@@ -17,7 +17,6 @@ export const RecordProductScope = observer(() => {
   const inContractPlanId = form.getValuesIn('in_contract_plan')?.id;
   const outContractPlanId = form.getValuesIn('out_contract_plan')?.id;
 
-  console.log('产品范围');
   let required = { price: false, contract: false, inContract: false, outContract: false };
   const { data, loading } = useCachedRequest<any>({
     resource: 'product_category',
@@ -71,24 +70,24 @@ export const RecordProductScope = observer(() => {
     default:
       break;
   }
+  let result = data?.data ?? [];
+  if (required.inContract && required.outContract) {
+    // 租赁直发单
+    const intersection = _.intersectionBy(inContractProducts, outContractProducts, 'id');
+    result = _.intersectionBy(result, intersection, 'id');
+  } else if (required.price && required.inContract) {
+    const intersection = _.intersectionBy(inContractProducts, priceProducts, 'id');
+    result = _.intersectionBy(result, intersection, 'id');
+  } else if (required.price) {
+    result = _.intersectionBy(result, priceProducts, 'id');
+  } else if (required.contract) {
+    result = _.intersectionBy(result, contractProducts, 'id');
+  }
   useDeepCompareEffect(() => {
-    let result = data?.data ?? [];
-    if (required.inContract && required.outContract) {
-      // 租赁直发单
-      const intersection = _.intersectionBy(inContractProducts, outContractProducts, 'id');
-      result = _.intersectionBy(result, intersection, 'id');
-    } else if (required.price && required.inContract) {
-      const intersection = _.intersectionBy(inContractProducts, priceProducts, 'id');
-      result = _.intersectionBy(result, intersection, 'id');
-    } else if (required.price) {
-      result = _.intersectionBy(result, priceProducts, 'id');
-    } else if (required.contract) {
-      result = _.intersectionBy(result, contractProducts, 'id');
-    }
     form.setValues({
       product_scope: result,
     });
-  }, [required, data, priceProducts, contractProducts, inContractProducts, outContractProducts, form]);
+  }, [result, form]);
   return loading || leaseItemsLoading || inLeaseItemsLoading || outLeaseItemsLoading ? <Spin /> : <></>;
 });
 

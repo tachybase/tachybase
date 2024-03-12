@@ -29,3 +29,38 @@ export const useLeaseItems = (planId) => {
   }, [planId]);
   return { data, loading };
 };
+
+export const useFeeItems = (categoryId, planId) => {
+  const { data, loading, run } = useCachedRequest<any>(
+    {
+      resource: 'contract_plan_lease_items',
+      action: 'list',
+      params: {
+        appends: ['fee_items', 'products'],
+        filter: {
+          $and: [
+            {
+              contract_plan_id: planId,
+            },
+            {
+              products: {
+                category_id: categoryId ?? -1,
+              },
+            },
+          ],
+        },
+        pageSize: 99999,
+      },
+    },
+    {
+      manual: true,
+    },
+  );
+
+  useEffect(() => {
+    if (planId && categoryId) {
+      run();
+    }
+  }, [planId, categoryId]);
+  return { data, loading };
+};

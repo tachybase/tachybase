@@ -75,8 +75,9 @@ export const RecordSummary = observer((props): any => {
   const outContractSummary = {};
   // 报价小结
   const quoteSummary = {};
-  form.values.items?.forEach((element) => {
-    if (!element.product || !element.count) return;
+  form.values.items?.forEach((item) => {
+    if (!item.product || !item.count) return;
+    const element = _.cloneDeep(item);
     // 获取产品的分类数据信息
     const productCategory = reqProduct.data.data?.find(
       (product) => product.category_id === element.product?.category_id,
@@ -142,11 +143,11 @@ export const RecordSummary = observer((props): any => {
   ];
 
   const trans: any[] = resultItems
-    .map((item, index) => {
+    .map((item) => {
       if (item.value.length) {
         const data = {
           label: item.label,
-          key: index,
+          key: item.label,
           children: <Descriptions items={item.value} />,
         };
         return data;
@@ -272,7 +273,7 @@ const transDescriptions = (data) => {
   const values = data.map((item: any, index) => {
     if (item.total) {
       return {
-        key: index,
+        key: item.name,
         label: item.name,
         children: item.name === '总金额' ? formatCurrency(item.total, 2) : formatQuantity(item.total, 3) + item.unit,
       };
