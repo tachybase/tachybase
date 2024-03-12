@@ -51,7 +51,7 @@ export const GroupBlock = (props) => {
             }),
             requeatItem,
           ];
-        }),
+        }) ?? [],
       ),
     );
   }, [Blocks, service.params, service.params[0]]);
