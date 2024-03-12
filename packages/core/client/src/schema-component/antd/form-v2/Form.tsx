@@ -270,7 +270,7 @@ function getSubscriber(
         field[fieldName] = lastState?.value;
         //字段隐藏时清空数据
         if (fieldName === 'display' && lastState?.value === 'none') {
-          field.value = null;
+          field.value = undefined;
         }
       }
 
