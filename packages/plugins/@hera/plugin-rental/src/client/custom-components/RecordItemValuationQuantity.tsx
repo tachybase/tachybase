@@ -140,7 +140,7 @@ const subtotal = (rule: any, itemData: any, productCategory: any, reqWeightRules
     unit = '吨';
   } else {
     // 查询重量规则
-    const weightRule = reqWeightRules.data.data.find(
+    const weightRule = reqWeightRules?.data?.data?.find(
       (weight_item) =>
         weight_item.logic_id === rule?.conversion_logic_id &&
         (weight_item.product_id === itemData.product?.id ||
