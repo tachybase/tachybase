@@ -66,7 +66,7 @@ export class RecordService {
     if (!values) return;
     // 触发打印更新次数跳过
     if (values?.print_count) return;
-    if (values?.category === RecordCategory.lease && values.contrac) {
+    if (values?.category === RecordCategory.lease && values.contract) {
       const dateObject = values.date;
       // 结束时间添加一天，新系统选择时间都是以当天0点开始，但是导入的数据存在不是以0点开始比如2023-12-21:03.000……，提醒结算单的时间可能为2023-12-21:00.000……
       const settlement = await this.db.sequelize.query(
@@ -288,7 +288,12 @@ export class RecordService {
               feeItems.push({ product: product.dataValues, count: element.count });
             }
           }
-          productArr.push({ product: product.dataValues, count: porduct_item.count, fee_items: feeItems });
+          productArr.push({
+            product: product.dataValues,
+            count: porduct_item.count,
+            fee_items: feeItems,
+            comment: porduct_item.comments,
+          });
         }
         recordData['items'] = productArr;
         // 处理购销单定价
@@ -581,8 +586,8 @@ export class RecordService {
       return allPrice / 1000;
     } else if (rule.conversion_logic.id === ConversionLogics.ActualWeight) {
       // 根据产品找分组实际重量
-      const weightDate = weight_items.find(
-        (item) => item.products?.find((product) => product?.id === rule.product.id - 99999),
+      const weightDate = weight_items.find((item) =>
+        item.products?.find((product) => product?.id === rule.product.id - 99999),
       );
       if (weightDate) {
         const allPrice = weightDate.weight * rule.unit_price;
