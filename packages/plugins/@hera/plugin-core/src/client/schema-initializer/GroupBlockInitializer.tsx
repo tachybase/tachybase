@@ -122,38 +122,6 @@ export const groupBlockSettings = new SchemaSettings({
   name: 'groupBlockSettings',
   items: [
     {
-      type: 'itemGroup',
-      name: 'displayFields',
-      componentProps: { title: 'display Fields' },
-      useChildren() {
-        const item = [];
-        const { dn } = useDesignable();
-        const fieldSchema = useFieldSchema();
-        const measures = fieldSchema['x-decorator-props'].params?.measures;
-        if (measures && measures.length) {
-          measures.forEach((value) => {
-            item.push({
-              type: 'item',
-              Component: () => (
-                <SchemaSettingsSwitchItem
-                  title={value.label}
-                  checked={value.display}
-                  onChange={(chang) => {
-                    value.display = chang;
-                    dn.emit('patch', {
-                      schema: fieldSchema,
-                    });
-                    dn.refresh();
-                  }}
-                />
-              ),
-            });
-          });
-        }
-        return item;
-      },
-    },
-    {
       name: 'Configure',
       Component: GroupBlockConfigure,
     },
