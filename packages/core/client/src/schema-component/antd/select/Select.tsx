@@ -40,7 +40,6 @@ const ObjectSelect = (props: Props) => {
     }
     return currentOptions.shift();
   };
-
   return (
     <AntdSelect
       // @ts-ignore

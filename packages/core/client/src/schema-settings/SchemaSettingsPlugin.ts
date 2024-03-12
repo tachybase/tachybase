@@ -33,6 +33,7 @@ import { filterFormBlockSettings } from '../modules/blocks/filter-blocks/form/fi
 import { filterFormItemFieldSettings } from '../modules/blocks/filter-blocks/form/filterFormItemFieldSettings';
 import { markdownBlockSettings } from '../modules/blocks/other-blocks/markdown/markdownBlockSettings';
 import { cascadeSelectComponentFieldSettings } from '../modules/fields/component/CascadeSelect/cascadeSelectComponentFieldSettings';
+import { cascaderComponentFieldSettings } from '../modules/fields/component/Cascader/cascaderComponentFieldSettings';
 import { datePickerComponentFieldSettings } from '../modules/fields/component/DatePicker/datePickerComponentFieldSettings';
 import { fileManagerComponentFieldSettings } from '../modules/fields/component/FileManager/fileManagerComponentFieldSettings';
 import { uploadAttachmentComponentFieldSettings } from '../modules/fields/component/FileManager/uploadAttachmentComponentFieldSettings';
@@ -94,5 +95,6 @@ export class SchemaSettingsPlugin extends Plugin {
     this.schemaSettingsManager.add(tagComponentFieldSettings);
     this.schemaSettingsManager.add(cascadeSelectComponentFieldSettings);
     this.schemaSettingsManager.add(uploadAttachmentComponentFieldSettings);
+    this.schemaSettingsManager.add(cascaderComponentFieldSettings);
   }
 }

@@ -1,11 +1,15 @@
 import { Field } from '@formily/core';
-import { useField, useFieldSchema } from '@formily/react';
+import { ISchema, useField, useFieldSchema } from '@formily/react';
 import _ from 'lodash';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
-import { useCollectionManager_deprecated, useCollection_deprecated } from '../../../../collection-manager';
+import {
+  useCollectionManager_deprecated,
+  useCollection_deprecated,
+  useSortFields,
+} from '../../../../collection-manager';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
 import { useRecord } from '../../../../record-provider';
 import { removeNullCondition, useDesignable, useFieldModeOptions, useIsAddNewForm } from '../../../../schema-component';
@@ -18,48 +22,127 @@ import {
   useTitleFieldOptions,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import { VariableInput, getShouldChange } from '../../../../schema-settings';
+import { SchemaSettingsModalItem, VariableInput, getShouldChange } from '../../../../schema-settings';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
-import { SchemaSettingsSortingRule } from '../../../../schema-settings/SchemaSettingsSortingRule';
-import { useIsShowMultipleSwitch } from '../../../../schema-settings/hooks/useIsShowMultipleSwitch';
 import { useLocalVariables, useVariables } from '../../../../variables';
 import { useCollectionField } from '../utils';
+import { ArrayItems } from '@formily/antd-v5';
 
-const enableLink = {
-  name: 'enableLink',
-  type: 'switch',
-  useVisible() {
-    const field = useField();
-    return field.readPretty;
-  },
-  useComponentProps() {
-    const { t } = useTranslation();
-    const field = useField<Field>();
-    const { fieldSchema: tableColumnSchema } = useColumnSchema();
-    const schema = useFieldSchema();
-    const fieldSchema = tableColumnSchema || schema;
-    const { dn } = useDesignable();
-    return {
-      title: t('Enable link'),
-      checked: fieldSchema['x-component-props']?.enableLink !== false,
-      onChange(flag) {
-        fieldSchema['x-component-props'] = {
-          ...fieldSchema?.['x-component-props'],
-          enableLink: flag,
+export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {
+  const field = useField();
+  const { dn } = useDesignable();
+  const { t } = useTranslation();
+  const currentSchema = useFieldSchema();
+  const { getField } = useCollection_deprecated();
+  const { getCollectionJoinField } = useCollectionManager_deprecated();
+  const fieldSchema = props?.fieldSchema ?? currentSchema;
+  const collectionField = getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field']);
+  const sortFields = useSortFields(collectionField?.target);
+  const defaultSort = fieldSchema['x-component-props']?.service?.params?.sort || [];
+  const sort = defaultSort?.map((item: string) => {
+    return item?.startsWith('-')
+      ? {
+          field: item.substring(1),
+          direction: 'desc',
+        }
+      : {
+          field: item,
+          direction: 'asc',
         };
-        field.componentProps['enableLink'] = flag;
-        dn.emit('patch', {
-          schema: {
-            'x-uid': fieldSchema['x-uid'],
-            'x-component-props': {
-              ...fieldSchema?.['x-component-props'],
+  });
+  return (
+    <SchemaSettingsModalItem
+      title={t('Set default sorting rules')}
+      components={{ ArrayItems }}
+      schema={
+        {
+          type: 'object',
+          title: t('Set default sorting rules'),
+          properties: {
+            sort: {
+              type: 'array',
+              default: sort,
+              'x-component': 'ArrayItems',
+              'x-decorator': 'FormItem',
+              items: {
+                type: 'object',
+                properties: {
+                  space: {
+                    type: 'void',
+                    'x-component': 'Space',
+                    properties: {
+                      sort: {
+                        type: 'void',
+                        'x-decorator': 'FormItem',
+                        'x-component': 'ArrayItems.SortHandle',
+                      },
+                      field: {
+                        type: 'string',
+                        enum: sortFields,
+                        required: true,
+                        'x-decorator': 'FormItem',
+                        'x-component': 'Select',
+                        'x-component-props': {
+                          style: {
+                            width: 260,
+                          },
+                        },
+                      },
+                      direction: {
+                        type: 'string',
+                        'x-decorator': 'FormItem',
+                        'x-component': 'Radio.Group',
+                        'x-component-props': {
+                          optionType: 'button',
+                        },
+                        enum: [
+                          {
+                            label: t('ASC'),
+                            value: 'asc',
+                          },
+                          {
+                            label: t('DESC'),
+                            value: 'desc',
+                          },
+                        ],
+                      },
+                      remove: {
+                        type: 'void',
+                        'x-decorator': 'FormItem',
+                        'x-component': 'ArrayItems.Remove',
+                      },
+                    },
+                  },
+                },
+              },
+              properties: {
+                add: {
+                  type: 'void',
+                  title: t('Add sort field'),
+                  'x-component': 'ArrayItems.Addition',
+                },
+              },
             },
           },
+        } as ISchema
+      }
+      onSubmit={({ sort }) => {
+        const sortArr = sort.map((item) => {
+          return item.direction === 'desc' ? `-${item.field}` : item.field;
         });
-        dn.refresh();
-      },
-    };
-  },
+        _.set(field.componentProps, 'service.params.sort', sortArr);
+        props?.onSubmitCallBack?.(sortArr);
+        fieldSchema['x-component-props']['service']['params']['sort'] = field.componentProps?.service.params?.sort;
+        const componentProps = fieldSchema['x-component-props'];
+        dn.emit('patch', {
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            'x-component-props': componentProps,
+          },
+        });
+      }}
+    />
+  );
 };
 
 const titleField: any = {
@@ -111,7 +194,7 @@ const titleField: any = {
         field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
         const path = field.path?.splice(field.path?.length - 1, 1);
         field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
-          f.componentProps.fieldNames = fieldNames;
+          f.componentProps.fieldNames = newFieldNames;
         });
         dn.emit('patch', {
           schema,
@@ -162,67 +245,6 @@ export const allowMultiple: any = {
   },
 };
 
-const quickCreate: any = {
-  name: 'quickCreate',
-  type: 'select',
-  useComponentProps() {
-    const { t } = useTranslation();
-    const field = useField<Field>();
-    const fieldSchema = useFieldSchema();
-    const { dn, insertAdjacent } = useDesignable();
-    return {
-      title: t('Quick create'),
-      options: [
-        { label: t('None'), value: 'none' },
-        { label: t('Dropdown'), value: 'quickAdd' },
-        { label: t('Pop-up'), value: 'modalAdd' },
-      ],
-      value: field.componentProps?.addMode || 'none',
-      onChange(mode) {
-        if (mode === 'modalAdd') {
-          const hasAddNew = fieldSchema.reduceProperties((buf, schema) => {
-            if (schema['x-component'] === 'Action') {
-              return schema;
-            }
-            return buf;
-          }, null);
-
-          if (!hasAddNew) {
-            const addNewActionschema = {
-              'x-action': 'create',
-              'x-acl-action': 'create',
-              title: "{{t('Add new')}}",
-              // 'x-designer': 'Action.Designer',
-              'x-toolbar': 'ActionSchemaToolbar',
-              'x-settings': 'actionSettings:addNew',
-              'x-component': 'Action',
-              'x-decorator': 'ACLActionProvider',
-              'x-component-props': {
-                openMode: 'drawer',
-                type: 'default',
-                component: 'CreateRecordAction',
-              },
-            };
-            insertAdjacent('afterBegin', addNewActionschema);
-          }
-        }
-        const schema = {
-          ['x-uid']: fieldSchema['x-uid'],
-        };
-        fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-        fieldSchema['x-component-props']['addMode'] = mode;
-        schema['x-component-props'] = fieldSchema['x-component-props'];
-        field.componentProps = field.componentProps || {};
-        field.componentProps.addMode = mode;
-        dn.emit('patch', {
-          schema,
-        });
-        dn.refresh();
-      },
-    };
-  },
-};
-
 const setDefaultSortingRules = {
   name: 'setDefaultSortingRules',
   Component: SchemaSettingsSortingRule,
@@ -268,13 +290,19 @@ const setTheDataScope: any = {
       onSubmit: ({ filter }) => {
         filter = removeNullCondition(filter);
         _.set(field.componentProps, 'service.params.filter', filter);
-        fieldSchema['x-component-props'] = field.componentProps;
+        fieldSchema['x-component-props']['service']['params']['filter'] = filter;
+        const componentProps = fieldSchema['x-component-props'];
+        const path = field.path?.splice(field.path?.length - 1, 1);
+        field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
+          f.componentProps = componentProps;
+        });
         dn.emit('patch', {
           schema: {
             ['x-uid']: fieldSchema['x-uid'],
-            'x-component-props': field.componentProps,
+            'x-component-props': componentProps,
           },
         });
+        dn.refresh();
       },
     };
   },
@@ -325,8 +353,8 @@ const fieldComponent: any = {
   },
 };
 
-export const selectComponentFieldSettings = new SchemaSettings({
-  name: 'fieldSettings:component:Select',
+export const cascaderComponentFieldSettings = new SchemaSettings({
+  name: 'fieldSettings:component:Cascader',
   items: [
     {
       ...fieldComponent,
@@ -355,32 +383,8 @@ export const selectComponentFieldSettings = new SchemaSettings({
       },
     },
     {
-      ...quickCreate,
-      useVisible() {
-        const isAssociationField = useIsAssociationField();
-        const readPretty = useIsFieldReadPretty();
-        const { fieldSchema } = useColumnSchema();
-        return isAssociationField && !fieldSchema && !readPretty;
-      },
-    },
-    {
-      ...allowMultiple,
-      useVisible() {
-        const isAssociationField = useIsAssociationField();
-        const IsShowMultipleSwitch = useIsShowMultipleSwitch();
-        return isAssociationField && IsShowMultipleSwitch();
-      },
-    },
-    {
       ...titleField,
       useVisible: useIsAssociationField,
-    },
-    {
-      ...enableLink,
-      useVisible() {
-        const readPretty = useIsFieldReadPretty();
-        return useIsAssociationField() && readPretty;
-      },
     },
   ],
 });
