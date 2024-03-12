@@ -17,7 +17,7 @@ export class RecordService {
     // 订单发生变化时更新对应结算单的状态（需要重新计算）
     this.db.on('records.afterSave', this.updateSettlementStatus.bind(this));
     // 老系统导入信息系统数据，record_import存储数据，并根据record_import数据创建对应的单子
-    this.db.on('record_import.afterCreate', this.importRecord.bind(this));
+    // this.db.on('record_import.afterCreate', this.importRecord.bind(this));
   }
   /**
    * 处理直发单生成单
@@ -510,7 +510,7 @@ export class RecordService {
         // 租赁入库, out_stock = 合同中project_id, in_stock = 合同中项目的associated_company_id => 项目表id
         const associatedCompanyProject = await this.db
           .getRepository('project')
-          .findOne({ where: { company_id: contractProject.associated_company_id } });
+          .findOne({ where: { company_id: contractProject.associated_company_id, category: '1' } });
 
         if (values.record_category === RecordTypes.rentInStock) {
           out_stock = contractProject.dataValues;

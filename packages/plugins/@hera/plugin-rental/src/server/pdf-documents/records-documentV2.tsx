@@ -384,9 +384,11 @@ const PreviewDocument = ({
               priceRule.map((item) => (
                 <View key={'key'} style={styles.tableContent}>
                   <Text style={styles.tableCell2}>{item.name}</Text>
-                  <Text style={styles.tableCell}>{item?.unit_price && item.unit_price + '元/' + item.unit}</Text>
                   <Text style={styles.tableCell}>
-                    {item.count}
+                    {item?.unit_price && formatQuantity(item.unit_price, 2) + '元/' + item.unit}
+                  </Text>
+                  <Text style={styles.tableCell}>
+                    {formatQuantity(item.count, 2)}
                     {item.unit}
                   </Text>
                   <Text style={styles.tableCell}>{formatCurrency(item.all_price, 2)}</Text>
@@ -415,20 +417,20 @@ const PreviewDocument = ({
                 <View key={'key'} style={styles.tableContent}>
                   <Text style={styles.tableCell2}>{item.left_name}</Text>
                   <Text style={styles.tableCell}>
-                    {item?.left_unit_price && item.left_unit_price + '元/' + item.left_unit}
+                    {item?.left_unit_price && formatQuantity(item.left_unit_price, 2) + '元/' + item.left_unit}
                   </Text>
                   <Text style={styles.tableCell}>
-                    {item.left_count}
+                    {formatQuantity(item.left_count, 2)}
                     {item.left_unit}
                   </Text>
                   <Text style={styles.tableCell}>{formatCurrency(item.left_all_price, 2)}</Text>
                   <Text style={styles.tableCell}>{item.left_comment || ''}</Text>
                   <Text style={styles.tableCell2}>{item.right_name}</Text>
                   <Text style={styles.tableCell}>
-                    {item?.right_unit_price && item.unit_price + '元/' + item.right_unit}
+                    {item?.right_unit_price && formatQuantity(item.right_unit_price, 2) + '元/' + item.right_unit}
                   </Text>
                   <Text style={styles.tableCell}>
-                    {item.right_count}
+                    {formatQuantity(item.right_count)}
                     {item.right_unit}
                   </Text>
                   <Text style={styles.tableCell}>

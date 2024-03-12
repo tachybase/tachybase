@@ -199,7 +199,7 @@ const summary = (event: RecordItems, rules: any[], ruleWeight: any) => {
     calc.name = category.name;
     calc.count = count;
     calc.unit = unit;
-    calc.weight = event.product.weight;
+    calc.weight = event.product.weight * event.count;
   } else {
     // 2. 存在规则（实际重量情况不计算）
     const plain = rules.find((item) =>
