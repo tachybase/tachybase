@@ -40,8 +40,7 @@ export const RecordTotalPrice = (props) => {
   const computeTotalPrice = () => {
     const about_product = form.values.items.filter(
       (item) =>
-        (item?.product && item?.product?.category_id == leaseData?.product?.category_id) ||
-        (leaseData?.product?.id > 99999 && item?.product?.id == leaseData?.product?.id - 99999),
+        item.product?.id === leaseData.product?.id || item.product?.category_id === leaseData.product?.id - 99999,
     );
     if (!leaseData || !about_product) {
       return;
@@ -49,13 +48,13 @@ export const RecordTotalPrice = (props) => {
     let allPrice = 0;
     const rule = leaseData.conversion_logic;
     if (!rule) return;
-    if (rule.id == ConversionLogics.ActualWeight) {
+    if (rule.id === ConversionLogics.ActualWeight) {
       // 分组总量项
-      const weightItem = groupWeight.find(
-        (item) => item.products?.find((product) => product?.id == leaseData.product?.category_id),
+      const weightItem = groupWeight.find((item) =>
+        item.products?.find((product) => product?.id === leaseData.product?.category_id),
       );
       // 存在该分组相关产品items
-      const effectiveData = about_product.find((item) => item.product?.category_id == leaseData.product?.category_id);
+      const effectiveData = about_product.find((item) => item.product?.category_id === leaseData.product?.category_id);
       if (!effectiveData) return;
       if (weightItem && weightItem.weight) {
         allPrice = weightItem.weight * (leaseData.unit_price || 0);
@@ -66,26 +65,26 @@ export const RecordTotalPrice = (props) => {
       for (const item of about_product) {
         const foundProduct = reqProduct.data.data.find((product) => product.id === item.product.id).category;
         const price = leaseData.unit_price || 0;
-        if (rule.id == ConversionLogics.Keep) {
+        if (rule.id === ConversionLogics.Keep) {
           allPrice += price * (item.count || 0);
-        } else if (rule.id == ConversionLogics.Product) {
+        } else if (rule.id === ConversionLogics.Product) {
           if (foundProduct.convertible && !item.product?.ratio) {
             console.error('产品缺少换算比例', item.product?.label);
           }
           const total = foundProduct.convertible ? item?.count * item.product?.ratio : item?.count;
           allPrice += price * (total || 0);
-        } else if (rule.id == ConversionLogics.ProductWeight) {
+        } else if (rule.id === ConversionLogics.ProductWeight) {
           allPrice += (price * (item.product?.weight || 0) * (item.count || 0)) / 1000;
         } else {
           const weightRule = reqWeightRules.data.data.find(
             (weight_item) =>
-              weight_item.logic_id == rule.id &&
-              (weight_item.product_id == item.product?.id ||
-                weight_item.product_id == item.product?.category_id + 99999),
+              weight_item.logic_id === rule.id &&
+              (weight_item.product_id === item.product?.id ||
+                weight_item.product_id === item.product?.category_id + 99999),
           );
-          if (weightRule && weightRule.conversion_logic_id == ConversionLogics.Keep) {
+          if (weightRule && weightRule.conversion_logic_id === ConversionLogics.Keep) {
             allPrice += price * (item.count || 0) * (weightRule.weight || 0);
-          } else if (weightRule && weightRule.conversion_logic_id == ConversionLogics.Product) {
+          } else if (weightRule && weightRule.conversion_logic_id === ConversionLogics.Product) {
             if (foundProduct.convertible && !item.product?.ratio) {
               console.error('产品缺少换算比例', item.product?.label);
             }
@@ -132,7 +131,7 @@ export const RecordTotalPrice = (props) => {
       computeTotalPrice();
     }
   }, [leaseData, products, groupWeight, recordWeight, reqProduct.loading, reqWeightRules.loading]);
-  return <span>{all_price == 0 ? '-' : formatCurrency(all_price, 2)}</span>;
+  return <span>{all_price === 0 ? '-' : formatCurrency(all_price, 2)}</span>;
 };
 
 RecordTotalPrice.displayName = 'RecordTotalPrice';
