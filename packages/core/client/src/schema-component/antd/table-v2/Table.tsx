@@ -1,4 +1,4 @@
-import { DeleteOutlined, MenuOutlined } from '@ant-design/icons';
+import { DeleteOutlined, MenuOutlined, CopyOutlined } from '@ant-design/icons';
 import { TinyColor } from '@ctrl/tinycolor';
 import { SortableContext, SortableContextProps, useSortable } from '@dnd-kit/sortable';
 import { css } from '@emotion/css';
@@ -29,7 +29,7 @@ import { useToken } from '../__builtins__';
 import { SubFormProvider } from '../association-field/hooks';
 import { ColumnFieldProvider } from './components/ColumnFieldProvider';
 import { extractIndex, isCollectionFieldComponent, isColumnComponent } from './utils';
-import { isNewRecord } from '../../../data-source/collection-record/isNewRecord';
+import { isNewRecord, markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
 
 const useArrayField = (props) => {
   const field = useField<ArrayField>();
@@ -118,21 +118,39 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
       fixed: 'right',
       render: (v, record, index) => {
         return (
-          <DeleteOutlined
-            style={{ cursor: 'pointer' }}
-            onClick={() => {
-              action(() => {
-                const index = dataSource.indexOf(record);
-                spliceArrayState(field as any, {
-                  startIndex: index,
-                  deleteCount: 1,
+          <>
+            <CopyOutlined
+              style={{ cursor: 'pointer', marginRight: '10px' }}
+              onClick={() => {
+                action(() => {
+                  if (!Array.isArray(field.value)) {
+                    field.value = [];
+                  }
+                  spliceArrayState(field as any, {
+                    startIndex: index + 1,
+                    insertCount: 1,
+                  });
+                  field.value.splice(index + 1, 0, markRecordAsNew(_.cloneDeep(record)));
+                  return field.onInput(field.value);
                 });
-                field.value.splice(index, 1);
-                field.initialValue?.splice(index, 1);
-                return field.onInput(field.value);
-              });
-            }}
-          />
+              }}
+            />
+            <DeleteOutlined
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                action(() => {
+                  const index = dataSource.indexOf(record);
+                  spliceArrayState(field as any, {
+                    startIndex: index,
+                    deleteCount: 1,
+                  });
+                  field.value.splice(index, 1);
+                  field.initialValue?.splice(index, 1);
+                  return field.onInput(field.value);
+                });
+              }}
+            />
+          </>
         );
       },
     });
