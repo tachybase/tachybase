@@ -271,9 +271,16 @@ export class RecordPdfService {
         product_correlation.push(itemB);
       }
     });
+    const recordPdfData = [...product_correlation, ...no_product_fee, ...excludedFee].map((item) => {
+      return {
+        ...item,
+        total: item.conversion_unit === 'KG' ? item.total / 1000 : item.total,
+        conversion_unit: item.conversion_unit === 'KG' ? '吨' : item.conversion_unit,
+      };
+    });
     return await renderItV2({
       detail: recordData,
-      record: [...product_correlation, ...no_product_fee, ...excludedFee], // 租金+费用，无关联费用
+      record: recordPdfData, // 租金+费用，无关联费用
       priceRule: make_price,
       isDouble,
       printSetup,
