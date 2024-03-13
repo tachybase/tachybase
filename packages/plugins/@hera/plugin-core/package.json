@@ -1,6 +1,6 @@
 {
   "name": "@hera/plugin-core",
-  "version": "1.4.0-alpha.3",
+  "version": "1.4.0-alpha.4",
   "displayName": "Hera platform",
   "displayName.zh-CN": "赫拉平台",
   "description": "Hera platform as nocobase plugin.",
