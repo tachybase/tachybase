@@ -271,13 +271,7 @@ export class RecordPdfService {
         product_correlation.push(itemB);
       }
     });
-    const recordPdfData = [...product_correlation, ...no_product_fee, ...excludedFee].map((item) => {
-      return {
-        ...item,
-        total: item.conversion_unit === 'KG' ? item.total / 1000 : item.total,
-        conversion_unit: item.conversion_unit === 'KG' ? '吨' : item.conversion_unit,
-      };
-    });
+    const recordPdfData = [...product_correlation, ...no_product_fee, ...excludedFee];
     return await renderItV2({
       detail: recordData,
       record: recordPdfData, // 租金+费用，无关联费用
