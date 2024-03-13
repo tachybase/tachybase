@@ -75,7 +75,7 @@ export const RecordDetails = () => {
       const unit = item.product.category.convertible
         ? item.product.category.conversion_unit
         : item.product.category.unit;
-
+      const weight = count * item.product.weight;
       if (productItem[key]) {
         productItem[key].count += count;
       } else {
@@ -85,13 +85,19 @@ export const RecordDetails = () => {
           sort: item.product.category.sort,
           unit,
           count,
+          weight: formatQuantity(weight, 2) + 'KG',
         };
       }
     });
     for (const key in productItem) {
       items.push(productItem[key]);
       productItem[key].children = formatQuantity(productItem[key].count, 2) + productItem[key].unit;
-      productItem[key].span = 2;
+      productItem[key].span = 1;
+      items.push({
+        label: '理论重量',
+        children: [productItem[key].weight],
+      });
+
       if (key in feeItems) {
         productItem[key].span = 1;
         const children = [];
@@ -101,10 +107,14 @@ export const RecordDetails = () => {
           }
           children.push(feeItems[key][feeKey].label + ' ' + formatQuantity(feeItems[key][feeKey].count, 2));
         }
-
         items.push({
           label: '维修赔偿',
           children,
+        });
+      } else {
+        items.push({
+          label: '维修赔偿',
+          children: [''],
         });
       }
     }
@@ -113,7 +123,7 @@ export const RecordDetails = () => {
   if (reqRecordItems.loading || reqRecordItemFeeItems.loading) {
     return <Spin />;
   }
-  return <Descriptions items={items} column={2} />;
+  return <Descriptions items={items} column={3} />;
 };
 
 RecordDetails.displayName = 'RecordDetails';
