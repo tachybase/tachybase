@@ -349,10 +349,7 @@ const PreviewDocument = ({
             )}
             {detail.category === RecordCategory.lease && (
               <View style={styles.tableHeader}>
-                <Text style={styles.headerLeftLeft}>
-                  项目名称：{detail.contract?.project?.id + ' ' || ''}
-                  {detail.contract?.project?.name || ''}
-                </Text>
+                <Text style={styles.headerLeftLeft}>项目名称：{detail.contract?.project?.name || ''}</Text>
                 <Text style={styles.headerLeftRight}>流水号：{number}</Text>
               </View>
             )}
@@ -471,9 +468,7 @@ const PreviewDocument = ({
                       ? printSetup === PrintSetup.DisplayAndPrice && item.total
                         ? '元'
                         : ''
-                      : item.conversion_unit === 'KG'
-                        ? '吨'
-                        : item.conversion_unit}
+                      : item.conversion_unit}
                   </Text>
                   <Text
                     style={detail.category === RecordCategory.purchase ? styles.tableCell2Last : styles.tableCellLast}
@@ -533,9 +528,7 @@ const PreviewDocument = ({
                       ? printSetup === PrintSetup.DisplayAndPrice && item.left_total
                         ? '元'
                         : '' // 不记录合同不需要单位
-                      : item.left_conversion_unit === 'KG'
-                        ? '吨'
-                        : item.left_conversion_unit}
+                      : item.left_conversion_unit}
                   </Text>
                   <Text style={detail.category === RecordCategory.purchase ? styles.tableCell2 : styles.tableCell}>
                     {item.left_isExcluded ? '不计入合同' : item.left_comment || ''}
@@ -555,9 +548,7 @@ const PreviewDocument = ({
                       ? printSetup === PrintSetup.DisplayAndPrice && item.right_total
                         ? '元'
                         : '' // 不记录合同不需要单位
-                      : item.right_conversion_unit === 'KG'
-                        ? '吨'
-                        : item.right_conversion_unit}
+                      : item.right_conversion_unit}
                   </Text>
                   <Text
                     style={detail.category === RecordCategory.purchase ? styles.tableCell2Last : styles.tableCellLast}
