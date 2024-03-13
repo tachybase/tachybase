@@ -304,7 +304,7 @@ const PreviewDocument = ({
   }
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={{ ...styles.page, marginTop: detail.margingTop }}>
         <Text style={styles.title}>{recordsName}</Text>
         <Text style={styles.subTitle}>{detail.category === RecordCategory.inventory ? '盘点' : outOfStorage}单</Text>
         <View style={styles.content}>

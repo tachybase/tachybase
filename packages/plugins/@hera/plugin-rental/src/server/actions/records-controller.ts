@@ -61,7 +61,7 @@ export class RecordPreviewController {
   @Action('pdf')
   async printPreview(ctx: Context) {
     const {
-      params: { recordId, isDouble, settingType },
+      params: { recordId, isDouble, settingType, margingTop },
     } = ctx.action;
     // 拉侧面文字说明
     const pdfExplain = await ctx.db.getRepository('basic_configuration').find();
@@ -87,6 +87,14 @@ export class RecordPreviewController {
     record.nickname = user?.nickname || '';
     record.userPhone = user?.phone || '';
     record.pdfExplain = pdfExplain[0]?.out_of_storage_explain;
+    if (Number(margingTop)) {
+      record.margingTop = Number(margingTop);
+    } else {
+      // 查询当前用户信息
+      const currentUser = await ctx.db.getRepository('users').findOne({ filter: { id: ctx.state.currentUser.id } });
+      record.margingTop = Number(currentUser?.pdf_top_margin) || 0;
+    }
+
     // 费用数据
     const feeData = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record_fee'], {
       replacements: {
