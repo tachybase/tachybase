@@ -259,7 +259,6 @@ export const Table: any = observer(
     } = { ...others1, ...others2 } as any;
     const field = useArrayField(others);
     const columns = useTableColumns(others);
-
     const schema = useFieldSchema();
     const collection = useCollection_deprecated();
     const isTableSelector = schema?.parent?.['x-decorator'] === 'TableSelectorProvider';
