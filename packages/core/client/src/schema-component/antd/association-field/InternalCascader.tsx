@@ -4,11 +4,11 @@ import { FormProvider, connect, createSchemaField, observer, useField, useFieldS
 import { uid } from '@formily/shared';
 import { Input, Space, Spin, Tag } from 'antd';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { css, useAPIClient, useCollectionManager_deprecated } from '../../..';
 import { mergeFilter } from '../../../filter-provider/utils';
-import { CustomCascader, SchemaComponent, useCompile } from '../..';
+import { CustomCascader, SchemaComponent, useCompile, useDesignable } from '../..';
 import useServiceOptions, { useAssociationFieldContext } from './hooks';
 
 const EMPTY = 'N/A';
@@ -25,30 +25,22 @@ const Cascade = connect((props) => {
   const { data, mapOptions, onChange } = props;
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [options, setOptions] = useState(data);
+  const fieldSchema = useFieldSchema();
   const [loading, setLoading] = useState(false);
-  const compile = useCompile();
   const api = useAPIClient();
-  const service = useServiceOptions(props);
   const { options: collectionField, field: associationField } = useAssociationFieldContext<any>();
   const resource = api.resource(collectionField.target);
-  const { getCollectionJoinField, getInterface } = useCollectionManager_deprecated();
   const fieldNames = associationField?.componentProps?.fieldNames;
-  const FieldSchema = useFieldSchema();
-  const targetField =
-    collectionField?.target &&
-    fieldNames?.label &&
-    getCollectionJoinField(`${collectionField.target}.${fieldNames.label}`);
-  const operator = useMemo(() => {
-    if (targetField?.interface) {
-      return getInterface(targetField.interface)?.filterable?.operators[0].value || '$includes';
-    }
-    return '$includes';
-  }, [targetField]);
+  const fieldFilter = fieldSchema['x-component-props']?.service?.params?.filter;
+  const sort = fieldSchema['x-component-props']?.service?.params?.sort;
   const field: any = useField();
   useEffect(() => {
     if (props.value) {
       const values = Array.isArray(props.value)
-        ? extractLastNonNullValueObjects(props.value?.filter((v) => v.value), true)
+        ? extractLastNonNullValueObjects(
+            props.value?.filter((v) => v.value),
+            true,
+          )
         : transformNestedData(props.value);
       const defaultData = values?.map?.((v) => {
         return v.id;
@@ -60,11 +52,10 @@ const Cascade = connect((props) => {
   const handleGetOptions = async () => {
     const response = await resource.list({
       pageSize: 9999,
-      params: service?.params,
-      filter: mergeFilter([service?.params?.filter, filter]),
+      filter: mergeFilter([fieldFilter, filter]),
+      sort,
       tree: true,
     });
-
     return response?.data?.data;
   };
 
@@ -139,6 +130,9 @@ const Cascade = connect((props) => {
         defaultValue={selectedOptions}
         options={options}
         onChange={(value, option) => handleSelect(option)}
+        onDropdownVisibleChange={(visible) => {
+          onDropdownVisibleChange(visible);
+        }}
         changeOnSelect
         placeholder="Please select"
       />
@@ -218,6 +212,7 @@ export const InternalCascader = observer(
                   ...props,
                   style: { width: '100%' },
                 },
+                'x-read-pretty': false,
               },
               remove: {
                 type: 'void',
@@ -250,6 +245,7 @@ export const InternalCascader = observer(
                 ...props,
                 style: { width: '100%' },
               },
+              'x-read-pretty': false,
             }}
           />
         ) : (
