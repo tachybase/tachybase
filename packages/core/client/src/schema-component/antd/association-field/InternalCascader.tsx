@@ -31,7 +31,8 @@ const Cascade = connect((props) => {
   const { options: collectionField, field: associationField } = useAssociationFieldContext<any>();
   const resource = api.resource(collectionField.target);
   const fieldNames = associationField?.componentProps?.fieldNames;
-  const fieldFilter = fieldSchema['x-component-props']['service']['params']['filter'];
+  const fieldFilter = fieldSchema['x-component-props']?.service?.params?.filter;
+  const sort = fieldSchema['x-component-props']?.service?.params?.sort;
   const field: any = useField();
   useEffect(() => {
     if (props.value) {
@@ -52,6 +53,7 @@ const Cascade = connect((props) => {
     const response = await resource.list({
       pageSize: 9999,
       filter: mergeFilter([fieldFilter, filter]),
+      sort,
       tree: true,
     });
     return response?.data?.data;
@@ -210,7 +212,7 @@ export const InternalCascader = observer(
                   ...props,
                   style: { width: '100%' },
                 },
-                'x-read-pretty': 'false',
+                'x-read-pretty': false,
               },
               remove: {
                 type: 'void',
@@ -243,6 +245,7 @@ export const InternalCascader = observer(
                 ...props,
                 style: { width: '100%' },
               },
+              'x-read-pretty': false,
             }}
           />
         ) : (

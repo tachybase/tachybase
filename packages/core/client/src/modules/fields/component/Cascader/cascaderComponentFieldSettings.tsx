@@ -132,8 +132,21 @@ export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {
         });
         _.set(field.componentProps, 'service.params.sort', sortArr);
         props?.onSubmitCallBack?.(sortArr);
-        fieldSchema['x-component-props']['service']['params']['sort'] = field.componentProps?.service.params?.sort;
+        const service = fieldSchema['x-component-props']?.service;
+        if (service) {
+          service.params['sort'] = field.componentProps?.service.params?.sort;
+        } else {
+          fieldSchema['x-component-props']['service'] = {
+            params: {
+              sort: field.componentProps?.service.params?.sort,
+            },
+          };
+        }
         const componentProps = fieldSchema['x-component-props'];
+        const path = field.path?.splice(field.path?.length - 1, 1);
+        field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
+          f.componentProps = componentProps;
+        });
         dn.emit('patch', {
           schema: {
             ['x-uid']: fieldSchema['x-uid'],
@@ -206,45 +219,6 @@ const titleField: any = {
   },
 };
 
-export const allowMultiple: any = {
-  name: 'allowMultiple',
-  type: 'switch',
-  useVisible() {
-    const isFieldReadPretty = useIsFieldReadPretty();
-    const collectionField = useCollectionField();
-    return !isFieldReadPretty && ['hasMany', 'belongsToMany'].includes(collectionField?.type);
-  },
-  useComponentProps() {
-    const { t } = useTranslation();
-    const field = useField<Field>();
-    const { fieldSchema: tableColumnSchema } = useColumnSchema();
-    const schema = useFieldSchema();
-    const fieldSchema = tableColumnSchema || schema;
-    const { dn, refresh } = useDesignable();
-    return {
-      title: t('Allow multiple'),
-      checked:
-        fieldSchema['x-component-props']?.multiple === undefined ? true : fieldSchema['x-component-props'].multiple,
-      onChange(value) {
-        const schema = {
-          ['x-uid']: fieldSchema['x-uid'],
-        };
-        fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-        field.componentProps = field.componentProps || {};
-
-        fieldSchema['x-component-props'].multiple = value;
-        field.componentProps.multiple = value;
-
-        schema['x-component-props'] = fieldSchema['x-component-props'];
-        dn.emit('patch', {
-          schema,
-        });
-        refresh();
-      },
-    };
-  },
-};
-
 const setDefaultSortingRules = {
   name: 'setDefaultSortingRules',
   Component: SchemaSettingsSortingRule,
@@ -290,7 +264,16 @@ const setTheDataScope: any = {
       onSubmit: ({ filter }) => {
         filter = removeNullCondition(filter);
         _.set(field.componentProps, 'service.params.filter', filter);
-        fieldSchema['x-component-props']['service']['params']['filter'] = filter;
+        const service = fieldSchema['x-component-props']?.service;
+        if (service) {
+          service.params['filter'] = filter;
+        } else {
+          fieldSchema['x-component-props']['service'] = {
+            params: {
+              filter: { ...filter },
+            },
+          };
+        }
         const componentProps = fieldSchema['x-component-props'];
         const path = field.path?.splice(field.path?.length - 1, 1);
         field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
@@ -363,9 +346,8 @@ export const cascaderComponentFieldSettings = new SchemaSettings({
     {
       ...setTheDataScope,
       useVisible() {
-        const isSelectFieldMode = useIsSelectFieldMode();
         const isFieldReadPretty = useIsFieldReadPretty();
-        return isSelectFieldMode && !isFieldReadPretty;
+        return !isFieldReadPretty;
       },
     },
     {
@@ -377,9 +359,8 @@ export const cascaderComponentFieldSettings = new SchemaSettings({
         };
       },
       useVisible() {
-        const isSelectFieldMode = useIsSelectFieldMode();
         const isFieldReadPretty = useIsFieldReadPretty();
-        return isSelectFieldMode && !isFieldReadPretty;
+        return !isFieldReadPretty;
       },
     },
     {
