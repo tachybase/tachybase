@@ -1,5 +1,5 @@
 import { Field } from '@formily/core';
-import { connect, mapReadPretty, observer, useField, useFieldSchema, useForm } from '@formily/react';
+import { connect, mapReadPretty, observer, useField, useForm } from '@formily/react';
 import React from 'react';
 import {
   SchemaComponentOptions,

@@ -116,7 +116,6 @@ const titleField: any = {
         dn.emit('patch', {
           schema,
         });
-
         dn.refresh();
       },
     };
