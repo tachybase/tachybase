@@ -63,6 +63,7 @@ export const GroupBlock = (props) => {
 
   params?.config?.measures?.forEach((measuresItem) => {
     const value = measuresItem.fieldFormat.fieldValue;
+    if (!data[value]) data[value] = 0;
     data[value] = fieldTransformers(measuresItem, data[value]);
   });
 
