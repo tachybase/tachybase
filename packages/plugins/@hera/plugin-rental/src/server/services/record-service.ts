@@ -27,7 +27,7 @@ export class RecordService {
     if (!values) {
       return;
     }
-    await this.createRecord(model, values, transaction, context);
+    await this.createRecord(model, values, transaction, context, null);
   }
   /**
    * 处理直发单生成单
@@ -45,8 +45,9 @@ export class RecordService {
         transaction,
         true,
       );
+      const deleteDatas = await this.db.getRepository('records').find({ where: { direct_record_id: model.id } });
       // 删除新建时创建的订单
-      const data = await this.db.sequelize.query(
+      await this.db.sequelize.query(
         `
           delete from records
           where records.direct_record_id = ${model.id}
@@ -55,7 +56,17 @@ export class RecordService {
           transaction,
         },
       );
-      await this.createRecord(model, values, transaction, context);
+      const updateData = deleteDatas.map((item) => {
+        if (item) {
+          return {
+            number: item.number,
+            record_category: item.record_category,
+            category: item.category,
+            movement: item.movement,
+          };
+        }
+      });
+      await this.createRecord(model, values, transaction, context, updateData);
     }
   }
   /**
@@ -634,7 +645,9 @@ export class RecordService {
   /**
    * 根据直发单创建对应出库订单
    */
-  async createRecord(model, values, transaction, context) {
+  async createRecord(model, values, transaction, context, updateData) {
+    delete values.number;
+    delete values.id;
     //采购直发单
     if (values.record_category === RecordTypes.purchaseDirect && values.category === RecordCategory.purchase2lease) {
       const inProject = await this.db.getModel('project').findOne({
@@ -657,9 +670,14 @@ export class RecordService {
       purchaseData['movement'] = Movement.in;
       purchaseData['category'] = RecordCategory.purchase;
       purchaseData['in_stock'] = base_project.dataValues;
-      // 编辑时需要删除携带的这写参数
-      delete purchaseData.id;
-      delete purchaseData.number;
+      if (updateData) {
+        purchaseData['number'] = updateData.find(
+          (item) =>
+            item.category === RecordCategory.purchase &&
+            item.record_category === RecordTypes.purchaseInStock &&
+            item.movement === Movement.in,
+        ).number;
+      }
       purchaseData.items.forEach((element) => {
         delete element.record_id;
         delete element.id;
@@ -676,9 +694,14 @@ export class RecordService {
       leaseData['contract'] = values.in_contract;
       leaseData['out_stock'] = base_project.dataValues;
       leaseData['in_stock'] = inProject.dataValues;
-      // 编辑时需要删除携带的这写参数
-      delete leaseData.id;
-      delete leaseData.number;
+      if (updateData) {
+        leaseData['number'] = updateData.find(
+          (item) =>
+            item.category === RecordCategory.lease &&
+            item.record_category === RecordTypes.rentOutStock &&
+            item.movement === Movement.out,
+        ).number;
+      }
       leaseData.items.forEach((element) => {
         delete element.record_id;
         delete element.id;
@@ -713,9 +736,14 @@ export class RecordService {
       leaseInData['contract'] = values.in_contract;
       leaseInData['out_stock'] = outProject.dataValues;
       leaseInData['in_stock'] = baseProject.dataValues;
-      // 编辑时需要删除携带的这写参数
-      delete leaseInData.id;
-      delete leaseInData.number;
+      if (updateData) {
+        leaseInData['number'] = updateData.find(
+          (item) =>
+            item.category === RecordCategory.lease &&
+            item.record_category === RecordTypes.rentInStock &&
+            item.movement === Movement.in,
+        ).number;
+      }
       leaseInData.items.forEach((element) => {
         delete element.record_id;
         delete element.id;
@@ -732,9 +760,14 @@ export class RecordService {
       leaseOutData['contract'] = values.in_contract;
       leaseOutData['out_stock'] = baseProject.dataValues;
       leaseOutData['in_stock'] = inProject.dataValues;
-      // 编辑时需要删除携带的这写参数
-      delete leaseOutData.id;
-      delete leaseOutData.number;
+      if (updateData) {
+        leaseOutData['number'] = updateData.find(
+          (item) =>
+            item.category === RecordCategory.lease &&
+            item.record_category === RecordTypes.rentOutStock &&
+            item.movement === Movement.out,
+        ).number;
+      }
       leaseOutData.items.forEach((element) => {
         delete element.record_id;
         delete element.id;
