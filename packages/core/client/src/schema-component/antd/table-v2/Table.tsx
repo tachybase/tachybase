@@ -123,8 +123,15 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
               style={{ cursor: 'pointer', marginRight: '10px' }}
               onClick={() => {
                 action(() => {
-                  field.value = field.value || [];
-                  field.value.push(markRecordAsNew({ ...JSON.parse(JSON.stringify(record)) }));
+                  if (!Array.isArray(field.value)) {
+                    field.value = [];
+                  }
+                  spliceArrayState(field as any, {
+                    startIndex: index + 1,
+                    insertCount: 1,
+                  });
+                  field.value.splice(index + 1, 0, markRecordAsNew(_.cloneDeep(record)));
+                  return field.onInput(field.value);
                 });
               }}
             />
