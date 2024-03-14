@@ -14,7 +14,7 @@ export const TableActionColumnInitializer = () => {
       fixed: 'right',
     },
     'x-designer': 'TableV2.ActionColumnDesigner',
-    'x-initializer': 'TableActionColumnInitializers',
+    'x-initializer': 'table:configureItemActions',
     'x-action-column': 'actions',
     properties: {
       [uid()]: {
