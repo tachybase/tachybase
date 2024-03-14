@@ -98,7 +98,7 @@ export class PluginRentalClient extends Plugin {
       type: 'item',
       title: tval('record'),
       component: 'PDFViewerBlockInitializer',
-      'x-settings': 'PdfIsDoubleProvider',
+      decorator: 'PdfIsDoubleProvider',
       usePdfPath: '{{ useRecordPdfPath }}',
       target: 'record',
     });
@@ -107,7 +107,7 @@ export class PluginRentalClient extends Plugin {
       type: 'item',
       title: tval('waybill'),
       component: 'PDFViewerBlockInitializer',
-      'x-settings': 'WaybillsProvider',
+      decorator: 'WaybillsProvider',
       usePdfPath: '{{ useWaybillPdfPath }}',
       target: 'waybill',
     });
@@ -117,7 +117,7 @@ export class PluginRentalClient extends Plugin {
       title: tval('settlement'),
       component: 'PDFViewerBlockInitializer',
       usePdfPath: '{{ useSettlementPdfPath }}',
-      'x-settings': 'SettlementStyleProvider',
+      decorator: 'SettlementStyleProvider',
       target: 'settlement',
     });
   }
