@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
  * @param
  * @returns
  */
-const PreviewDocument = ({ waybill }: { waybill: Waybill }) => {
+const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: any }) => {
   // 运输单信息
   if (!waybill) {
     return (
@@ -222,7 +222,7 @@ const PreviewDocument = ({ waybill }: { waybill: Waybill }) => {
   });
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={{ ...styles.page, marginTop: settings.margingTop }}>
         <Text style={styles.title}>货运运输协议</Text>
         <Text style={styles.titleBtm}></Text>
         <View style={styles.content}>
@@ -452,6 +452,6 @@ const PreviewDocument = ({ waybill }: { waybill: Waybill }) => {
     </Document>
   );
 };
-export const renderWaybill = async (waybill: Waybill) => {
-  return await renderToStream(<PreviewDocument waybill={waybill} />);
+export const renderWaybill = async (waybill: Waybill, settings = null) => {
+  return await renderToStream(<PreviewDocument waybill={waybill} settings={settings} />);
 };

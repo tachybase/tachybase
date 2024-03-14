@@ -45,8 +45,14 @@ export class RecordPdfService {
           data['count'] = item.count * item.weight;
           data['unit'] = 'KG';
         } else if (item.conversion_logic_id === ConversionLogics.ActualWeight) {
-          if (item.convertible) (data['count'] = item.count * item.ratio), (data['unit'] = item.conversion_unit);
-          else (data['count'] = item.count), (data['unit'] = item.unit);
+          const weight = recordData.record_group_weight_items?.find((w) => w.category.id === item.product_category_id);
+          if (weight) {
+            data['count'] = weight.weight;
+            data['unit'] = '吨';
+          } else {
+            data['count'] = recordData.weight;
+            data['unit'] = '吨';
+          }
         } else {
           data['unit'] = 'KG';
           if (item.wr.conversion_logic_id === ConversionLogics.Keep) {
@@ -58,7 +64,10 @@ export class RecordPdfService {
         data['all_price'] = data['count'] * data['unit_price'];
         return data;
       });
-      make_price = price_rule;
+      const setData = Array.from(new Set(price_rule.map((item) => item.name))).map((name) =>
+        price_rule.find((item) => item.name === name),
+      );
+      make_price = setData;
     }
 
     // 计算租金数据

@@ -19,7 +19,13 @@ import {
   PrintCounterProvider,
   usePDFViewerCountablePrintActionProps,
 } from './schema-initializer/PDFViewerPrintActionInitializer';
-import { PdfIsDoubleProvider, useRecordPdfPath, useSettlementPdfPath, useWaybillPdfPath } from './hooks/usePdfPath';
+import {
+  PdfIsDoubleProvider,
+  useRecordPdfPath,
+  useSettlementPdfPath,
+  useWaybillPdfPath,
+  WaybillsProvider,
+} from './hooks/usePdfPath';
 import { ColumnSwitchAction, ColumnSwitchActionInitializer } from './schema-initializer/ColumnSwitchActionInitializer';
 import {
   SettlementExcelExportActionInitializer,
@@ -101,6 +107,7 @@ export class PluginRentalClient extends Plugin {
       type: 'item',
       title: tval('waybill'),
       component: 'PDFViewerBlockInitializer',
+      decorator: 'WaybillsProvider',
       usePdfPath: '{{ useWaybillPdfPath }}',
       target: 'waybill',
     });
@@ -131,6 +138,7 @@ export class PluginRentalClient extends Plugin {
       RecordDetails,
       DetailChecks,
       PdfIsDoubleProvider,
+      WaybillsProvider,
       AddToChecklistActionInitializer,
       PrintCounterProvider,
       PrintCounterAction,
