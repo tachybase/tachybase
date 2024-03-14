@@ -8,6 +8,8 @@ import { Container } from '@nocobase/utils';
 import './actions';
 import { SqlLoader } from '@hera/plugin-core';
 import { DetailCheckService } from './services/detail-check-service';
+import { CollectionRepository } from '@nocobase/plugin-collection-manager';
+import { Repository } from '@nocobase/database';
 export class PluginRentalServer extends Plugin {
   async afterAdd() {}
 
@@ -21,6 +23,39 @@ export class PluginRentalServer extends Plugin {
     Container.get(ProjectService).load();
     Container.get(DetailCheckService).load();
     Container.get(ContractService).load();
+  }
+
+  async syncCollections(collectionName: string, categoryNames: string[]) {
+    const repo = this.db.getRepository<CollectionRepository>('collections');
+    await repo.db2cm(collectionName);
+    const categoriesRepo = this.db.getRepository<Repository>('collectionCategories');
+    const categories = await Promise.all(
+      categoryNames.map(async (name) => {
+        return await categoriesRepo.findOne({
+          filter: {
+            name,
+          },
+        });
+      }),
+    );
+    const collectionRepo = this.db.getRepository<Repository>('collectionCategory');
+    // 删除之前建立的所有分类
+    await collectionRepo.destroy({
+      filter: {
+        collectionName,
+      },
+    });
+
+    await collectionRepo.createMany({
+      records: categories
+        .filter((item) => typeof item.id !== 'undefined')
+        .map((item) => ({ collectionName, categoryId: item.id })),
+    });
+  }
+
+  async upgrade() {
+    await this.syncCollections('transfer_orders', ['测算相关']);
+    await this.syncCollections('undetermined_projects', ['测算相关']);
   }
 
   async install() {}
