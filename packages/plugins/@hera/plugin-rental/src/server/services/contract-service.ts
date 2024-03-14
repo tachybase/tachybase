@@ -35,7 +35,7 @@ export class ContractService {
         } else return temp[item];
       });
       const templateFormula = `CONCATENATE(${trans.join(',')})`;
-      model.update({ settlementName: templateFormula });
+      model.settlementName = templateFormula;
     }
   }
 }
