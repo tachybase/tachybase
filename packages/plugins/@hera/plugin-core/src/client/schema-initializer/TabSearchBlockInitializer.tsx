@@ -1,7 +1,7 @@
-import Icon from '@ant-design/icons';
 import { ISchema } from '@formily/react';
 import {
   DataBlockInitializer,
+  Icon,
   css,
   useCollectionManager,
   useSchemaInitializer,
@@ -19,7 +19,7 @@ const TabSearchSvg = () => (
   </svg>
 );
 
-const TabSearchIcon = (props: Partial<any>) => <Icon component={TabSearchSvg} {...props} />;
+const TabSearchIcon = (props: any) => <Icon type="" component={TabSearchSvg} {...props} />;
 
 export const TabSearchBlock = () => {
   const [visible, setVisible] = useState(false);

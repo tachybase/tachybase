@@ -1,6 +1,6 @@
-import Icon from '@ant-design/icons';
 import { ISchema } from '@formily/react';
 import {
+  Icon,
   DataBlockInitializer,
   useCollectionManager,
   useSchemaInitializer,
@@ -19,7 +19,7 @@ const NoticeSvg = () => (
   </svg>
 );
 
-const NoticeIcon = (props: Partial<any>) => <Icon component={NoticeSvg} {...props} />;
+const NoticeIcon = (props: any) => <Icon type="" component={NoticeSvg} {...props} />;
 
 export const NoticeBlock = () => {
   return <NoticeBar content="月底冲量佣金上调" color="alert" />;

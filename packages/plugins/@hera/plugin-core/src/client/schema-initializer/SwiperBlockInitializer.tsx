@@ -1,8 +1,8 @@
-import Icon from '@ant-design/icons';
 import { ISchema } from '@formily/react';
 import {
   DataBlockInitializer,
   css,
+  Icon,
   useCollectionManager,
   useSchemaInitializer,
   useSchemaInitializerItem,
@@ -17,7 +17,7 @@ const SwiperSvg = () => (
   </svg>
 );
 
-const SwiperIcon = (props: Partial<any>) => <Icon component={SwiperSvg} {...props} />;
+const SwiperIcon = (props: any) => <Icon type="" component={SwiperSvg} {...props} />;
 
 export const SwiperBlock = () => {
   const colors = ['#ace0ff', '#bcffbd', '#e4fabd', '#ffcfac'];
@@ -72,7 +72,7 @@ export const SwiperBlockInitializer = () => {
   );
 };
 
-export const createGridCardBlockSchema = (options) => {
+const createGridCardBlockSchema = (options) => {
   const {
     formItemInitializers = 'ReadPrettyFormItemInitializers',
     actionInitializers = 'GridCardActionInitializers',
