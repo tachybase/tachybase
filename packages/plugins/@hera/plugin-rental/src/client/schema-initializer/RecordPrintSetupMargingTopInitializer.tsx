@@ -28,7 +28,6 @@ export const PrintSetupMargingTop = (props) => {
 
   const change = debounce(async (v) => {
     await api.resource('users').update({
-      filterByTk: userId,
       filter: {
         id: userId,
       },
