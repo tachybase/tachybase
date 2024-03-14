@@ -32,7 +32,10 @@ import {
   useSettlementStyleSwitchActionProps,
 } from './schema-initializer/SettlementStyleSwitchActionInitializer';
 import { RecordPrintSetupActionInitializer, PrintSetup } from './schema-initializer/RecordPrintSetupActionInitializer';
-
+import {
+  RecordPrintSetupMargingTopInitializer,
+  PrintSetupMargingTop,
+} from './schema-initializer/RecordPrintSetupMargingTopInitializer';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -68,6 +71,11 @@ export class PluginRentalClient extends Plugin {
       type: 'item',
       title: '{{t("Record print setup")}}',
       component: 'RecordPrintSetupActionInitializer',
+    });
+    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintMargingTop', {
+      type: 'item',
+      title: '{{t("Record print margingtop")}}',
+      component: 'RecordPrintSetupMargingTopInitializer',
     });
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.settlementExcelExport', {
       type: 'item',
@@ -134,7 +142,9 @@ export class PluginRentalClient extends Plugin {
       SettlementStyleSwitchActionInitializer,
       SettlementStyleSwitchAction,
       RecordPrintSetupActionInitializer,
+      RecordPrintSetupMargingTopInitializer,
       PrintSetup,
+      PrintSetupMargingTop,
     });
     this.app.addScopes({
       useAddToChecklistActionProps,

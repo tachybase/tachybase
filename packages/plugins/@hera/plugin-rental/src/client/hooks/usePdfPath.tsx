@@ -12,13 +12,21 @@ export const PdfIsLoadContext = createContext({
   setSettingLoad: null,
 });
 
+export const PdfMargingTopContext = createContext({
+  margingTop: 0,
+  setMargingTop: null,
+});
+
 export const PdfIsDoubleProvider = (props) => {
   const [isDouble, setIsDouble] = useState(false);
   const [settingType, setSettingLoad] = useState(false);
+  const [margingTop, setMargingTop] = useState(0);
   return (
-    <PdfIsDoubleContext.Provider value={{ isDouble, setIsDouble }}>
-      <PdfIsLoadContext.Provider value={{ settingType, setSettingLoad }}>{props.children}</PdfIsLoadContext.Provider>
-    </PdfIsDoubleContext.Provider>
+    <PdfMargingTopContext.Provider value={{ margingTop, setMargingTop }}>
+      <PdfIsDoubleContext.Provider value={{ isDouble, setIsDouble }}>
+        <PdfIsLoadContext.Provider value={{ settingType, setSettingLoad }}>{props.children}</PdfIsLoadContext.Provider>
+      </PdfIsDoubleContext.Provider>
+    </PdfMargingTopContext.Provider>
   );
 };
 
@@ -26,7 +34,8 @@ export const useRecordPdfPath = () => {
   const record = useRecord();
   const { isDouble } = useContext(PdfIsDoubleContext);
   const { settingType } = useContext(PdfIsLoadContext);
-  return `/records:pdf?recordId=${record.id}&isDouble=${isDouble}&settingType=${settingType}`;
+  const { margingTop } = useContext(PdfMargingTopContext);
+  return `/records:pdf?recordId=${record.id}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}`;
 };
 
 export const useWaybillPdfPath = () => {
