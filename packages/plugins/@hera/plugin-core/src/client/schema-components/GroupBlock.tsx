@@ -59,7 +59,7 @@ export const GroupBlock = (props) => {
   if (service.loading && !field.loaded) {
     return <Spin />;
   }
-  const data = service.data?.data[0] ?? {};
+  const data = service.data?.data[0] ? { ...service.data?.data[0] } : {};
 
   params?.config?.measures?.forEach((measuresItem) => {
     const value = measuresItem.fieldFormat.fieldValue;
