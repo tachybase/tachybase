@@ -58,6 +58,8 @@ export * from './modules/blocks/BlockSchemaToolbar';
 export * from './modules/blocks/data-blocks/table';
 export * from './modules/blocks/data-blocks/form';
 export * from './modules/blocks/data-blocks/table-selector';
+export * from './modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
+
 export * as __UNSAFE__ from './unsafe';
 export type {
   DynamicComponentProps as __UNSAFE__DynamicComponentProps,
