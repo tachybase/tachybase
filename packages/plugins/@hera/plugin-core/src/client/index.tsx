@@ -90,6 +90,7 @@ import { useGetCustomComponents } from './hooks/useGetCustomComponents';
 import { SwiperBlock, SwiperBlockInitializer } from './schema-initializer/SwiperBlockInitializer';
 import { NoticeBlock, NoticeBlockInitializer } from './schema-initializer/NoticeBlockInitializer';
 import { TabSearchBlock, TabSearchBlockInitializer } from './schema-initializer/TabSearchBlockInitializer';
+import { AutoComplete } from './schema-components/AutoComplete/AutoComplete';
 
 export enum CustomComponentType {
   CUSTOM_FORM_ITEM,
@@ -197,6 +198,7 @@ export class PluginCoreClient extends Plugin {
       EditTitleField,
       AfterSuccess,
       GroupBlockConfigure,
+      AutoComplete,
       Menu: {
         ...Menu,
         // @ts-ignore

@@ -40,6 +40,7 @@ export const useFieldComponents = () => {
   const { t } = useTranslation();
   const options = [
     { label: t('Input'), value: 'Input' },
+    { label: t('AutoComplete'), value: 'AutoComplete' },
     { label: t('Select'), value: 'Select' },
   ];
   return {
@@ -147,6 +148,7 @@ export const FilterCustomItemInitializer: React.FC<{
           },
         },
         'x-compoent-custom': true,
+        collectionName: collection,
       }),
     );
 

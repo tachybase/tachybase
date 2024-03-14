@@ -122,7 +122,6 @@ export const useFilterBlockActionProps = () => {
             const param = block.service.params?.[0] || {};
             // 保留原有的 filter
             const storedFilter = block.service.params?.[1]?.filters || {};
-
             storedFilter[uid] = removeNullCondition(
               transformToFilter(form.values, fieldSchema, getCollectionJoinField, name),
               fieldSchema,
