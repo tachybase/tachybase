@@ -29,7 +29,6 @@ export class WaybillsController {
     if (Number(margingTop)) {
       settings['margingTop'] = Number(margingTop);
     } else {
-      // 查询当前用户信息
       const currentUser = await ctx.db.getRepository('users').findOne({ filter: { id: ctx.state.currentUser.id } });
       settings['margingTop'] = Number(currentUser?.pdf_top_margin) || 0;
     }
