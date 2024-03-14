@@ -11,7 +11,9 @@ import _ from 'lodash';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 import { useCachedRequest, useLeaseItems } from '../hooks';
 import { RecordItems } from '../../interfaces/records';
+const cache = [];
 export const RecordSummary = observer((props): any => {
+  cache.length = 0;
   const form = useForm();
   const contractPlanId = form.values.contract_plan?.id;
   const inContractPlanId = form.values.in_contract_plan?.id;
@@ -66,7 +68,8 @@ export const RecordSummary = observer((props): any => {
     total: 0,
     unit: '吨',
   };
-
+  // 订单分组实际重量
+  const recordData = form.values;
   // 基础小结
   const summaryProduct = {};
   // 合同小结/入库合同小结
@@ -114,13 +117,13 @@ export const RecordSummary = observer((props): any => {
           unit_price: rule.unit_price,
         };
       });
-      const { ruleCalc } = summary(element, priceRules, reqWeightRules);
+      const { ruleCalc } = summary(element, priceRules, reqWeightRules, recordData);
       priceWeight.total += ruleCalc.weight / 1000;
       allPrice.total += ruleCalc.price;
       calcProductCount(quoteSummary, ruleCalc, productCategory);
       if (form.values.category === RecordCategory.purchase2lease && inLeaseItems) {
         const in_contract = inLeaseItems.data;
-        const { ruleCalc } = summary(element, in_contract, null);
+        const { ruleCalc } = summary(element, in_contract, null, recordData);
         contractWeight.total += ruleCalc.weight / 1000;
         calcProductCount(contractSummary, ruleCalc, productCategory);
       }
@@ -177,7 +180,7 @@ RecordSummary[KEY_CUSTOM_COMPONENT_LABEL] = '记录单 - 小结';
 /** 计算小结
  * @param event RecordItem 订单项，record_item
  */
-const summary = (event: RecordItems, rules: any[], ruleWeight: any) => {
+const summary = (event: RecordItems, rules: any[], ruleWeight: any, recordData = null) => {
   // 1. 没有规则直接默认产品表换算逻辑
   const calc = {
     name: '',
@@ -223,8 +226,22 @@ const summary = (event: RecordItems, rules: any[], ruleWeight: any) => {
       ruleCalc.count = (event.count * event.product.weight) / 1000;
       ruleCalc.unit = '吨';
     } else if (plain.conversion_logic_id === ConversionLogics.ActualWeight) {
-      ruleCalc.count = 0;
-      ruleCalc.unit = '吨';
+      const cacheData = cache.find(
+        (c) => c.id === plain.conversion_logic_id && c.category_id === event.product.category_id,
+      );
+      if (!cacheData) {
+        const weight =
+          recordData.group_weight_items?.find((g) =>
+            g.product_categories?.find((pc) => pc.id === event.product?.category_id),
+          )?.weight || recordData.weight;
+        cache.push({
+          id: plain.conversion_logic_id,
+          category_id: event.product?.category_id,
+          weight: weight,
+        });
+        ruleCalc.count = weight;
+        ruleCalc.unit = '吨';
+      }
     } else {
       const weightRule = ruleWeight.data?.data?.find(
         (item) =>

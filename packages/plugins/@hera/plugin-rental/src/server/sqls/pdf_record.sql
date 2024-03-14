@@ -89,52 +89,6 @@ SELECT
       )
     )
   ) AS contract,
-  (
-    -- 订单自己的租金规则
-    SELECT
-      JSONB_AGG(
-        JSONB_SET(
-          TO_JSONB(lr2),
-          '{ucl}',
-          (
-            SELECT
-              TO_JSONB(
-                JSONB_SET(
-                  TO_JSONB(ucl),
-                  '{other_rules}',
-                  (
-                    SELECT
-                      COALESCE(JSONB_AGG(wr), '[]'::jsonb)
-                    FROM
-                      weight_rules wr
-                    WHERE
-                      ucl.id = wr.logic_id
-                  )
-                )
-              )
-            FROM
-              unit_conversion_logics ucl
-            WHERE
-              lr2.conversion_logic_id = ucl.id
-          )
-        ) || JSONB_SET(
-          TO_JSONB(lr2),
-          '{product}',
-          (
-            SELECT
-              TO_JSONB(vp)
-            FROM
-              view_products vp
-            WHERE
-              lr2.product_id = vp.id
-          )
-        )
-      )
-    FROM
-      lease_rules lr2
-    WHERE
-      r.id = lr2.record_id
-  ) AS record_lease_rules,
   -- ==========================================车号==========================================
   (
     SELECT
@@ -157,7 +111,20 @@ SELECT
       JOIN product p ON p.id = rfi.product_id
     WHERE
       rfi.record_id = r.id
-  ) AS record_fee_items
+  ) AS record_fee_items,
+  -- 查询分组实际重量
+  (
+    SELECT
+      JSONB_AGG(
+        JSONB_SET(TO_JSONB(rgwi), '{category}', TO_JSONB(pc))
+      )
+    FROM
+      record_group_weight_items rgwi
+      JOIN record_group_weight_items_products rgwip ON rgwip.item_id = rgwi.id
+      JOIN product_category pc ON rgwip.product_category_id = pc.id
+    WHERE
+      rgwi.record_id = r.id
+  ) AS record_group_weight_items
 FROM
   records r
   -- 合同数据（租赁有合同）

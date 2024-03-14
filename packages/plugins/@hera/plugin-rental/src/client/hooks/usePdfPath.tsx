@@ -38,10 +38,20 @@ export const useRecordPdfPath = () => {
   return `/records:pdf?recordId=${record.id}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}`;
 };
 
+export const WaybillsProvider = (props) => {
+  const [margingTop, setMargingTop] = useState(0);
+  return (
+    <PdfMargingTopContext.Provider value={{ margingTop, setMargingTop }}>
+      {props.children}
+    </PdfMargingTopContext.Provider>
+  );
+};
+
 export const useWaybillPdfPath = () => {
   const record = useRecord();
   const recordId = record.__collectionName === 'records' ? record.waybill?.id : record.id;
-  return `/waybills:pdf?recordId=${recordId}`;
+  const { margingTop } = useContext(PdfMargingTopContext);
+  return `/waybills:pdf?recordId=${recordId}&margingTop=${margingTop}`;
 };
 
 export const useSettlementPdfPath = () => {
