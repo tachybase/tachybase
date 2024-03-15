@@ -1,4 +1,4 @@
-import { useAuditLogsTranslation } from './locale';
+import { tval } from './locale';
 
 export const useAuditLogsCollection = () => {
   return {
@@ -91,7 +91,7 @@ export const useAuditLogsCollection = () => {
         targetKey: 'id',
         uiSchema: {
           type: 'object',
-          title: '{{t("Details of changes", { ns: "audit-logs" })}}',
+          title: tval('Details of changes'),
         },
       },
     ],
