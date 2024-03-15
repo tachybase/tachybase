@@ -1,8 +1,77 @@
 import { ActionInitializer } from '@nocobase/client';
 import React from 'react';
 import { tval } from '../locale';
+import { uid } from '@nocobase/utils/client';
 
 export const AuditLogsViewActionInitializer = () => {
+  const changes = {
+    type: 'string',
+    'x-component': 'AssociationField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'auditLogs.changes',
+    'x-read-pretty': true,
+    'x-component-props': {
+      multiple: true,
+      fieldNames: {
+        value: 'id',
+        label: 'id',
+      },
+      mode: 'SubTable',
+    },
+    properties: {
+      block: {
+        type: 'void',
+        'x-component': 'AssociationField.SubTable',
+        properties: {
+          [uid()]: {
+            type: 'void',
+            'x-decorator': 'TableV2.Column.Decorator',
+            'x-component': 'TableV2.Column',
+            properties: {
+              field: {
+                'x-collection-field': 'auditChanges.field',
+                'x-component': 'CollectionField',
+                'x-read-pretty': true,
+                'x-component-props': {
+                  ellipsis: true,
+                },
+              },
+            },
+          },
+          [uid()]: {
+            type: 'void',
+            'x-decorator': 'TableV2.Column.Decorator',
+            'x-component': 'TableV2.Column',
+            properties: {
+              before: {
+                'x-collection-field': 'auditChanges.before',
+                'x-component': 'CollectionField',
+                'x-read-pretty': true,
+                'x-component-props': {
+                  ellipsis: true,
+                },
+              },
+            },
+          },
+          [uid()]: {
+            type: 'void',
+            'x-decorator': 'TableV2.Column.Decorator',
+            'x-component': 'TableV2.Column',
+            properties: {
+              after: {
+                'x-collection-field': 'auditChanges.after',
+                'x-component': 'CollectionField',
+                'x-read-pretty': true,
+                'x-component-props': {
+                  ellipsis: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
   const schema = {
     type: 'void',
     title: tval('View'),
@@ -228,93 +297,7 @@ export const AuditLogsViewActionInitializer = () => {
                                                 type: 'void',
                                                 'x-component': 'Grid.Col',
                                                 properties: {
-                                                  changes: {
-                                                    type: 'void',
-                                                    'x-component': 'TableField',
-                                                    'x-decorator': 'FormItem',
-                                                    'x-collection-field': 'auditLogs.changes',
-                                                    'x-component-props': {},
-                                                    properties: {
-                                                      block: {
-                                                        type: 'void',
-                                                        'x-decorator': 'TableFieldProvider',
-                                                        'x-acl-action': 'auditChanges:list',
-                                                        'x-decorator-props': {
-                                                          collection: 'auditChanges',
-                                                          association: 'auditLogs.changes',
-                                                          resource: 'auditLogs.changes',
-                                                          action: 'list',
-                                                          params: {
-                                                            paginate: false,
-                                                          },
-                                                          showIndex: true,
-                                                          dragSort: false,
-                                                        },
-                                                        properties: {
-                                                          actions: {
-                                                            type: 'void',
-                                                            'x-component': 'TableField.ActionBar',
-                                                            'x-component-props': {},
-                                                          },
-                                                          changes: {
-                                                            type: 'array',
-                                                            'x-component': 'TableV2',
-                                                            'x-component-props': {
-                                                              rowSelection: false,
-                                                              useProps: '{{ useTableFieldProps }}',
-                                                            },
-                                                            properties: {
-                                                              '5uvv96u9ict': {
-                                                                type: 'void',
-                                                                'x-decorator': 'TableV2.Column.Decorator',
-                                                                'x-component': 'TableV2.Column',
-                                                                properties: {
-                                                                  field: {
-                                                                    'x-collection-field': 'auditChanges.field',
-                                                                    'x-component': 'CollectionField',
-                                                                    'x-read-pretty': true,
-                                                                    'x-component-props': {
-                                                                      ellipsis: true,
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                              h7a4tgt11gd: {
-                                                                type: 'void',
-                                                                'x-decorator': 'TableV2.Column.Decorator',
-                                                                'x-component': 'TableV2.Column',
-                                                                properties: {
-                                                                  before: {
-                                                                    'x-collection-field': 'auditChanges.before',
-                                                                    'x-component': 'CollectionField',
-                                                                    'x-read-pretty': true,
-                                                                    'x-component-props': {
-                                                                      ellipsis: true,
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                              m275z8rglzx: {
-                                                                type: 'void',
-                                                                'x-decorator': 'TableV2.Column.Decorator',
-                                                                'x-component': 'TableV2.Column',
-                                                                properties: {
-                                                                  after: {
-                                                                    'x-collection-field': 'auditChanges.after',
-                                                                    'x-component': 'CollectionField',
-                                                                    'x-read-pretty': true,
-                                                                    'x-component-props': {
-                                                                      ellipsis: true,
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                  },
+                                                  changes,
                                                 },
                                               },
                                             },
