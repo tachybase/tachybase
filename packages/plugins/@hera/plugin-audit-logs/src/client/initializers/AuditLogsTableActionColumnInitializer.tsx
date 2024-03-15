@@ -1,10 +1,11 @@
 import { InitializerWithSwitch, useSchemaInitializerItem } from '@nocobase/client';
 import React from 'react';
+import { tval } from '../locale';
 
 export const AuditLogsTableActionColumnInitializer = () => {
   const schema = {
     type: 'void',
-    title: '{{ t("Actions") }}',
+    title: tval('Actions'),
     'x-decorator': 'TableV2.Column.ActionBar',
     'x-component': 'TableV2.Column',
     'x-designer': 'TableV2.ActionColumnDesigner',

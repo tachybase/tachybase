@@ -11,10 +11,11 @@ import {
 } from '@nocobase/client';
 import React, { createContext, useContext } from 'react';
 import { AuditLogsDesigner } from './AuditLogsDesigner';
+import { tval } from '../locale';
 
 const collection = {
   name: 'auditLogs',
-  title: '{{t("Audit logs")}}',
+  title: tval('Audit logs'),
   fields: [
     {
       name: 'createdAt',
@@ -22,7 +23,7 @@ const collection = {
       interface: 'createdAt',
       uiSchema: {
         type: 'datetime',
-        title: '{{t("Created at")}}',
+        title: tval('Created at'),
         'x-component': 'DatePicker',
         'x-component-props': {
           showTime: true,
@@ -36,13 +37,13 @@ const collection = {
       interface: 'select',
       uiSchema: {
         type: 'string',
-        title: '{{t("Action type")}}',
+        title: tval('Action type'),
         'x-component': 'Select',
         'x-read-pretty': true,
         enum: [
-          { label: '{{t("Create record")}}', value: 'create', color: 'lime' },
-          { label: '{{t("Update record")}}', value: 'update', color: 'gold' },
-          { label: '{{t("Delete record")}}', value: 'destroy', color: 'magenta' },
+          { label: tval('Create record'), value: 'create', color: 'lime' },
+          { label: tval('Update record'), value: 'update', color: 'gold' },
+          { label: tval('Delete record'), value: 'destroy', color: 'magenta' },
         ],
       },
     },
@@ -112,7 +113,7 @@ export const AuditLogs: any = () => {
     ext['column31'] = {
       type: 'void',
       'x-component': 'TableV2.Column',
-      title: '{{t("Record ID")}}',
+      title: tval('Record ID'),
       properties: {
         recordId: {
           'x-component': 'Input',
@@ -141,7 +142,7 @@ export const AuditLogs: any = () => {
             properties: {
               filter: {
                 type: 'void',
-                title: '{{ t("Filter") }}',
+                title: tval('Filter'),
                 'x-action': 'filter',
                 // 'x-designer': 'Filter.Action.Designer',
                 'x-component': 'Filter.Action',
@@ -166,7 +167,7 @@ export const AuditLogs: any = () => {
             properties: {
               actions: {
                 type: 'void',
-                title: '{{ t("Actions") }}',
+                title: tval('Actions'),
                 'x-action-column': 'actions',
                 'x-decorator': 'TableV2.Column.ActionBar',
                 'x-component': 'TableV2.Column',
@@ -251,7 +252,7 @@ export const AuditLogs: any = () => {
                                                             properties: {
                                                               collection: {
                                                                 type: 'string',
-                                                                title: '{{t("Collection display name")}}',
+                                                                title: tval('Collection display name'),
                                                                 'x-component': 'Collection',
                                                                 'x-decorator': 'FormItem',
                                                                 'x-read-pretty': true,
@@ -306,7 +307,7 @@ export const AuditLogs: any = () => {
                                                             properties: {
                                                               user: {
                                                                 type: 'string',
-                                                                title: '{{t("User")}}',
+                                                                title: tval('User'),
                                                                 'x-component': 'Username',
                                                                 'x-decorator': 'FormItem',
                                                                 'x-read-pretty': true,
@@ -325,7 +326,7 @@ export const AuditLogs: any = () => {
                                                             properties: {
                                                               changes: {
                                                                 type: 'array',
-                                                                title: '{{t("Field value changes")}}',
+                                                                title: tval('Field value changes'),
                                                                 'x-decorator': 'FormItem',
                                                                 'x-component': 'ArrayTable',
                                                                 'x-component-props': {
@@ -340,7 +341,7 @@ export const AuditLogs: any = () => {
                                                                       'x-component': 'ArrayTable.Column',
                                                                       'x-component-props': {
                                                                         width: 200,
-                                                                        title: '{{t("Field")}}',
+                                                                        title: tval('Field'),
                                                                       },
                                                                       properties: {
                                                                         field: {
@@ -355,7 +356,7 @@ export const AuditLogs: any = () => {
                                                                       'x-component': 'ArrayTable.Column',
                                                                       'x-component-props': {
                                                                         width: 200,
-                                                                        title: '{{t("Before change")}}',
+                                                                        title: tval('Before change'),
                                                                       },
                                                                       properties: {
                                                                         before: {
@@ -370,7 +371,7 @@ export const AuditLogs: any = () => {
                                                                       'x-component': 'ArrayTable.Column',
                                                                       'x-component-props': {
                                                                         width: 200,
-                                                                        title: '{{t("After change")}}',
+                                                                        title: tval('After change'),
                                                                       },
                                                                       properties: {
                                                                         after: {
@@ -432,7 +433,7 @@ export const AuditLogs: any = () => {
               column3: {
                 type: 'void',
                 'x-component': 'TableV2.Column',
-                title: '{{t("Collection display name")}}',
+                title: tval('Collection display name'),
                 properties: {
                   collection: {
                     'x-component': 'Collection',
@@ -444,7 +445,7 @@ export const AuditLogs: any = () => {
               column4: {
                 type: 'void',
                 'x-component': 'TableV2.Column',
-                title: '{{t("User")}}',
+                title: tval('User'),
                 properties: {
                   user: {
                     'x-component': 'Username',

@@ -7,11 +7,11 @@ import {
   useSchemaInitializerItem,
 } from '@nocobase/client';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useAuditLogsTranslation } from './locale';
 
 export const AuditLogsBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
-  const { t } = useTranslation();
+  const { t } = useAuditLogsTranslation();
   const itemConfig = useSchemaInitializerItem();
 
   const schema = createTableBlockSchema({

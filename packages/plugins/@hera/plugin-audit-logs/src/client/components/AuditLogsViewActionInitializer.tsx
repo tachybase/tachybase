@@ -1,12 +1,12 @@
 import { ActionInitializer } from '@nocobase/client';
 import React from 'react';
+import { tval } from '../locale';
 
 export const AuditLogsViewActionInitializer = () => {
   const schema = {
     type: 'void',
-    title: '{{ t("View") }}',
+    title: tval('View'),
     'x-action': 'view',
-    // 'x-designer': 'Action.Designer',
     'x-toolbar': 'ActionSchemaToolbar',
     'x-settings': 'actionSettings:view',
     'x-component': 'Action',
@@ -16,7 +16,7 @@ export const AuditLogsViewActionInitializer = () => {
     properties: {
       drawer: {
         type: 'void',
-        title: '{{ t("View record") }}',
+        title: tval('View record'),
         'x-component': 'Action.Container',
         'x-component-props': {
           className: 'nb-action-popup',
@@ -29,7 +29,7 @@ export const AuditLogsViewActionInitializer = () => {
             properties: {
               tab1: {
                 type: 'void',
-                title: '{{t("Details")}}',
+                title: tval('Details'),
                 'x-component': 'Tabs.TabPane',
                 'x-designer': 'Tabs.Designer',
                 'x-component-props': {},
@@ -184,7 +184,7 @@ export const AuditLogsViewActionInitializer = () => {
                                                     properties: {
                                                       viewer: {
                                                         type: 'void',
-                                                        title: '{{ t("View record") }}',
+                                                        title: tval('View record'),
                                                         'x-component': 'RecordPicker.Viewer',
                                                         'x-component-props': {
                                                           className: 'nb-action-popup',
@@ -198,7 +198,7 @@ export const AuditLogsViewActionInitializer = () => {
                                                             properties: {
                                                               tab1: {
                                                                 type: 'void',
-                                                                title: '{{t("Details")}}',
+                                                                title: tval('Details'),
                                                                 'x-component': 'Tabs.TabPane',
                                                                 'x-designer': 'Tabs.Designer',
                                                                 'x-component-props': {},
