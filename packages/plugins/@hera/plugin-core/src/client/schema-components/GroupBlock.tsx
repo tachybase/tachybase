@@ -47,6 +47,7 @@ export const GroupBlock = (props) => {
               url: requeatItem.fieldFormat.requestUrl,
               params: {
                 filter: { ...filter },
+                collection: params.collection,
               },
             }),
             requeatItem,
