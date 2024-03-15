@@ -70,6 +70,7 @@ export const FormFilterScope = observer(
                     {...props}
                     form={form}
                     record={record}
+                    collectionField={props.collectionField}
                     shouldChange={getShouldChange({
                       collectionField,
                       variables,
