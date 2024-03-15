@@ -1,4 +1,4 @@
-import Database, { CreateOptions, MagicAttributeModel } from '@nocobase/database';
+import Database, { CreateOptions, MagicAttributeModel, Transaction } from '@nocobase/database';
 import { ConversionLogics, RecordCategory, settlementStatus } from '@hera/plugin-core';
 import { Db, Service } from '@nocobase/utils';
 import { Movement, RecordTypes } from '../../utils/constants';
@@ -16,8 +16,6 @@ export class RecordService {
     this.db.on('records.afterSave', this.setProject.bind(this));
     // 订单发生变化时更新对应结算单的状态（需要重新计算）
     this.db.on('records.afterSave', this.updateSettlementStatus.bind(this));
-    // 老系统导入信息系统数据，record_import存储数据，并根据record_import数据创建对应的单子
-    // this.db.on('record_import.afterCreate', this.importRecord.bind(this));
   }
   /**
    * 处理直发单生成单
@@ -46,7 +44,6 @@ export class RecordService {
       await this.deleteReocrdProject(
         records.map((item) => item.id),
         transaction,
-        true,
       );
       // 删除新建时创建的订单
       await this.db.sequelize.query(
@@ -58,17 +55,8 @@ export class RecordService {
           transaction,
         },
       );
-      const updateData = deleteDatas.map((item) => {
-        if (item) {
-          return {
-            number: item.number,
-            record_category: item.record_category,
-            category: item.category,
-            movement: item.movement,
-          };
-        }
-      });
-      await this.createRecord(model, values, transaction, context, updateData);
+      const numbers = deleteDatas.map((item) => item.number);
+      await this.createRecord(model, values, transaction, context, numbers);
     }
   }
   /**
@@ -129,313 +117,20 @@ export class RecordService {
     }
   }
 
-  async importRecord(model: MagicAttributeModel, options: CreateOptions): Promise<void> {
-    console.log('Start importing record');
-    const { values, transaction } = options;
-    const record_category = {
-      // 采购直发: '0',
-      // 租赁直发: '1',
-      '1.1': '2', // 采购入库
-      '1.-1': '3', // 销售出库
-      '0.1': '4', // 租赁入库
-      '0.-1': '5', // 租赁出库
-      '2.1': '6', // 暂存入库
-      '2.-1': '7', // 暂存出库
-      '3.1': '8', // 盘点
-      '3.-1': '8', // 盘点
-    };
-    const feeItem = [
-      {
-        key: '1',
-        value: '维修人工',
-        children: [
-          { key: '1.1', value: '清理费' },
-          { key: '1.2', value: '调直费' },
-          { key: '1.3', value: '改制费' },
-          { key: '1.4', value: '上油费' },
-          { key: '1.5', value: '打包费' },
-        ],
-      },
-      {
-        key: '2',
-        value: '无物赔偿',
-        children: [
-          { key: '2.001', value: '无物赔偿' },
-          { key: '2.002', value: '螺丝' },
-          { key: '2.003', value: '螺帽' },
-          { key: '2.004', value: '螺杆' },
-          { key: '2.005', value: '螺帽' },
-          { key: '2.006', value: '接头芯' },
-          { key: '2.007', value: '立杆盘' },
-          { key: '2.008', value: '横杆头' },
-          { key: '2.009', value: '57头' },
-          { key: '2.010', value: '插销' },
-          { key: '2.011', value: '底板' },
-        ],
-      },
-      {
-        key: '3',
-        value: '有物赔偿',
-        children: [{ key: '3001', value: '有物赔偿' }],
-      },
-      {
-        key: '4',
-        value: '装卸运费',
-        children: [
-          { key: '4.1', value: '运费' },
-          { key: '4.2', value: '上车费' },
-          { key: '4.3', value: '下车费' },
-          { key: '4.4', value: '整理费' },
-        ],
-      },
-    ];
-    const categoryObj = {
-      调拨: '0',
-      购销: '1',
-      暂存: '2',
-      盘点: '3',
-    };
-    const arrtObj = {
-      自提: '0',
-      直送: '1',
-      转单: '2',
-      叉车: '3',
-      // 老系统存在一下三种，新系统不存在
-      转车: null,
-      合车: null,
-      自备车: null,
-    };
-    const getProject = async (oid: string) => {
-      return await this.db.getModel('project').findOne({
-        where: {
-          oid: oid,
-        },
-        transaction: transaction,
-      });
-    };
-    const getUser = async (name: string) => {
-      return await this.db.getModel('users').findOne({
-        where: {
-          username: name,
-        },
-        transaction: transaction,
-      });
-    };
-    try {
-      // 处理出库入库，基本订单信息
-      const recordData = {
-        date: values.data.outDate,
-        attrs: arrtObj[values.data?.carNumber] ? [arrtObj[values.data?.carNumber]] : null,
-        weight: values.data.weight,
-        original_number: values.data?.originalOrder || null,
-        comment: values.data?.comments || '',
-        category: categoryObj[values.data.type],
-        has_receipt: values.data.receipt,
-        has_stub: values.data.counterfoil,
-        number: String(values.data.number),
-        import: values.data,
-      };
-      if (values.data.outStock) {
-        const outStock = await getProject(values.data.outStock);
-        recordData['out_stock'] = outStock.dataValues;
-      }
-      if (values.data.inStock) {
-        const inStock = await getProject(values.data.inStock);
-        recordData['in_stock'] = inStock.dataValues;
-      }
-      if (recordData['in_stock'].category === '1' && recordData['out_stock'].category === '1') {
-        if (recordData['in_stock'].name === '松江基地仓库') recordData['movement'] = '1';
-        else recordData['movement'] = '-1';
-      } else if (recordData['in_stock'].category === '1') {
-        recordData['movement'] = '1';
-      } else if (recordData['out_stock'].category === '1') {
-        recordData['movement'] = '-1';
-      }
-
-      recordData['record_category'] = record_category[`${recordData.category}.${recordData['movement']}`];
-
-      // 处理产品信息，以及产品费用
-      if (values.data.entries?.length) {
-        const productArr = [];
-        // 采购入库
-        const priceRuleArr = [];
-        for (const porduct_item of values.data.entries) {
-          let productName: string;
-          let size: string = porduct_item.size;
-          if (porduct_item.name === '钢管') {
-            productName = 'Φ48钢管';
-          } else if (porduct_item.name === '挑网') {
-            productName = '白挑网';
-          } else if (porduct_item.name.startsWith('方圆扣')) {
-            productName = '方圆扣';
-            size = porduct_item.name.slice(3);
-          } else {
-            productName = porduct_item.name;
-          }
-          // 老系统size存在空格，新系统不存在空格
-          if (size === 'B ') {
-            size = 'B';
-          }
-          const product = await this.db.getModel('product').findOne({
-            where: {
-              name: productName,
-              spec: size,
-            },
-          });
-          const product_id = product.id;
-          const exist = priceRuleArr.findIndex((rule) => rule.id === product_id) > -1;
-          // 规则去重
-          !exist && priceRuleArr.push({ id: product_id, unit_price: porduct_item.price });
-          const fee = values.data.complements.filter(
-            (item) => item.associate.name === porduct_item.name && item.associate.size === porduct_item.size,
-          );
-
-          const feeItems = [];
-          if (fee.length) {
-            for (const element of fee) {
-              const feeArr = feeItem.find((fe) => fe.key === element.product[0]);
-              const feeName = feeArr.children.find((item) => item.key === element.product[1]);
-              const product = await this.db
-                .getModel('product')
-                .findOne({ where: { spec: feeName.value, name: feeArr.value } });
-              feeItems.push({ product: product.dataValues, count: element.count });
-            }
-          }
-          productArr.push({
-            product: product.dataValues,
-            count: porduct_item.count,
-            fee_items: feeItems,
-            comment: porduct_item.comments,
-          });
-        }
-        recordData['items'] = productArr;
-        // 处理购销单定价
-        if (values.data.type === '购销') {
-          // 采购
-          const ucl = await this.db.getRepository('unit_conversion_logics').findOne({ where: { id: 2 } });
-          const transForm = [];
-          for (const iterator of priceRuleArr) {
-            const productView = await this.db.getRepository('view_products').findOne({ where: { id: iterator.id } });
-            transForm.push({
-              conversion_logic: ucl.dataValues,
-              product: productView.dataValues,
-              unit_price: iterator.unit_price,
-            });
-          }
-          recordData['price_items'] = transForm;
-        }
-        // 处理租赁单合同信息
-        if (values.data.type === '调拨') {
-          const project = recordData['movement'] === '1' ? recordData['out_stock'] : recordData['in_stock'];
-          const contract = await this.db.getRepository('contracts').findOne({ where: { project_id: project.id } });
-          contract['project'] = project;
-          recordData['contract'] = contract;
-        }
-      }
-      // 处理车辆信息
-      if (!arrtObj[values.data?.carNumber] && values.data?.carNumber) {
-        const car = await this.db.getRepository('vehicles').findOne({
-          where: {
-            number: values.data.carNumber,
-          },
-          transaction: transaction,
-        });
-        if (car?.dataValues) {
-          recordData['vehicles'] = [car.dataValues];
-        } else {
-          const user = getUser(values.data.username);
-          let userId: number;
-          if (user[0]) {
-            userId = user[0].id;
-          } else {
-            userId = null;
-          }
-          const car = await this.db.getModel('vehicles').create({
-            createdAt: values.data.createdAt,
-            updatedAt: values.data.updatedAt,
-            createdById: userId,
-            updatedById: userId,
-            number: values.data.carNumber,
-          });
-          recordData['vehicles'] = [car.dataValues];
-        }
-      }
-      // 处理订单费用，无产品
-      if (values.data.additionals?.length) {
-        const additionals = [];
-        for (const iterator of values.data.additionals) {
-          const feeArr = feeItem.find((fe) => fe.key === iterator.product[0]);
-          const feeName = feeArr.children.find((item) => item.key === iterator.product[1]);
-          const product = await this.db
-            .getRepository('product')
-            .findOne({ where: { spec: feeName.value, name: feeArr.value }, transaction: transaction });
-          additionals.push({ product: product.dataValues, count: iterator.count });
-        }
-        recordData['record_fee_items'] = additionals;
-      }
-
-      const recordNumber = String(values.data.number);
-      const record = await this.db.getRepository('records').findOne({
-        where: { number: recordNumber },
-        appends: ['items', 'items.fee_items', 'price_items', 'record_fee_items', 'waybill'],
-        transaction: transaction,
-      });
-
-      let origingData: any;
-      // 同步订单，存在则删除
-      if (record?.dataValues) {
-        origingData = record;
-        await this.db.getRepository('records').destroy({ filter: { number: recordNumber }, transaction: transaction });
-      }
-      const createNewRecord = await this.db
-        .getRepository('records')
-        .create({ values: recordData, transaction: transaction });
-      // 运输单处理
-      if (values.data?.transport) {
-        const waybillData = values.data.transport;
-        const data = {
-          record_id: createNewRecord.id,
-          off_date: waybillData['off-date'],
-          arrival_date: waybillData['arrival-date'],
-          weight_or_amount: waybillData.weight || 0,
-          unit_price: waybillData.price || 0,
-          additional_cost: waybillData.extraPice || 0,
-          // payer_id: waybillData.payer, // 老系统信息是字符串，名称
-          pay_date: waybillData.payDate,
-          comment: waybillData['pay-info'],
-          paid: values.data.transportPaid,
-          checked: values.data.transportChecked,
-        };
-        await this.db.getRepository('waybills').create({ values: data, transaction: transaction });
-      }
-      await model.update(
-        { is_success: true, origing_data: origingData, recordId: recordData.number },
-        { transaction: transaction },
-      );
-    } catch (error) {
-      console.error('订单导入失败:' + error);
-      await model.update(
-        {
-          is_success: false,
-          reason:
-            'Error name：' + error.name + '，Error message：' + error.message + '，Error stack trace：' + error.stack,
-        },
-        { transaction: transaction },
-      );
-    }
-  }
-
   /**
    * 订单发生变化时删除已经存在的多对多关系的表数据
    * @param id
    * @param transaction
    */
-  async deleteReocrdProject(id, transaction, isBatch = false) {
-    let sql = `DELETE FROM record_projects WHERE record_id = ${id};`;
-    if (isBatch) {
-      sql = `DELETE FROM record_projects WHERE record_id IN (${id.join(',')});`;
-    }
-    await this.db.sequelize.query(sql, { transaction });
+  async deleteReocrdProject(id: number[], transaction: Transaction) {
+    await this.db.getRepository('record_projects').destroy({
+      transaction,
+      filter: {
+        record_id: {
+          $eq: id,
+        },
+      },
+    });
   }
 
   /**
@@ -451,7 +146,7 @@ export class RecordService {
       values.category === RecordCategory.lease2lease ||
       values.category === RecordCategory.staging
     ) {
-      await this.deleteReocrdProject(model.id, transaction);
+      await this.deleteReocrdProject([model.id], transaction);
       await this.db.sequelize.query(
         `
       INSERT INTO record_projects (project_id, record_id)
@@ -462,7 +157,7 @@ export class RecordService {
         { transaction },
       );
     } else {
-      await this.deleteReocrdProject(model.id, transaction);
+      await this.deleteReocrdProject([model.id], transaction);
       await this.db.sequelize.query(
         `
       INSERT INTO record_projects (project_id, record_id)
@@ -653,7 +348,7 @@ export class RecordService {
   /**
    * 根据直发单创建对应出库订单
    */
-  async createRecord(model, values, transaction, context, updateData) {
+  async createRecord(model, values, transaction, context, numbers) {
     delete values.number;
     delete values.id;
     values.vehicles?.forEach((item) => delete item.record_vehicles);
@@ -679,13 +374,8 @@ export class RecordService {
       purchaseData['movement'] = Movement.in;
       purchaseData['category'] = RecordCategory.purchase;
       purchaseData['in_stock'] = base_project.dataValues;
-      if (updateData) {
-        purchaseData['number'] = updateData.find(
-          (item) =>
-            item.category === RecordCategory.purchase &&
-            item.record_category === RecordTypes.purchaseInStock &&
-            item.movement === Movement.in,
-        ).number;
+      if (numbers?.[0]) {
+        purchaseData['number'] = numbers[0];
       }
       purchaseData.items.forEach((element) => {
         delete element.record_id;
@@ -703,13 +393,8 @@ export class RecordService {
       leaseData['contract'] = values.in_contract;
       leaseData['out_stock'] = base_project.dataValues;
       leaseData['in_stock'] = inProject.dataValues;
-      if (updateData) {
-        leaseData['number'] = updateData.find(
-          (item) =>
-            item.category === RecordCategory.lease &&
-            item.record_category === RecordTypes.rentOutStock &&
-            item.movement === Movement.out,
-        ).number;
+      if (numbers?.[1]) {
+        leaseData['number'] = numbers[1];
       }
       leaseData.items.forEach((element) => {
         delete element.record_id;
@@ -745,13 +430,8 @@ export class RecordService {
       leaseInData['contract'] = values.out_contract;
       leaseInData['out_stock'] = outProject.dataValues;
       leaseInData['in_stock'] = baseProject.dataValues;
-      if (updateData) {
-        leaseInData['number'] = updateData.find(
-          (item) =>
-            item.category === RecordCategory.lease &&
-            item.record_category === RecordTypes.rentInStock &&
-            item.movement === Movement.in,
-        ).number;
+      if (numbers?.[0]) {
+        leaseInData['number'] = numbers[0];
       }
       leaseInData.items.forEach((element) => {
         delete element.record_id;
@@ -769,13 +449,8 @@ export class RecordService {
       leaseOutData['contract'] = values.in_contract;
       leaseOutData['out_stock'] = baseProject.dataValues;
       leaseOutData['in_stock'] = inProject.dataValues;
-      if (updateData) {
-        leaseOutData['number'] = updateData.find(
-          (item) =>
-            item.category === RecordCategory.lease &&
-            item.record_category === RecordTypes.rentOutStock &&
-            item.movement === Movement.out,
-        ).number;
+      if (numbers?.[1]) {
+        leaseOutData['number'] = numbers[1];
       }
       leaseOutData.items.forEach((element) => {
         delete element.record_id;
