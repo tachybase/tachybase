@@ -527,9 +527,9 @@ export class RecordService {
 
         if (values.record_category === RecordTypes.rentInStock) {
           out_stock = contractProject.dataValues;
-          in_stock = associatedCompanyProject.dataValues;
+          in_stock = associatedCompanyProject?.dataValues;
         } else {
-          out_stock = associatedCompanyProject.dataValues;
+          out_stock = associatedCompanyProject?.dataValues;
           in_stock = contractProject.dataValues;
         }
       } else if (
@@ -545,12 +545,18 @@ export class RecordService {
         in_stock = values.in_stock;
         out_stock = values.out_stock;
       }
-      where['in_stock_id'] = in_stock.id;
-      where['out_stock_id'] = out_stock.id;
+      if (in_stock) {
+        where['in_stock_id'] = in_stock.id;
+      }
+      if (out_stock) {
+        where['out_stock_id'] = out_stock.id;
+      }
     }
     await record.update(where, { transaction });
-    // 设置完出库入，设置项目
-    await this.updateRecordProjects(record, values, transaction, where);
+    if (where['in_stock_id'] && where['out_stock_id']) {
+      // 设置完出库入，设置项目
+      await this.updateRecordProjects(record, values, transaction, where);
+    }
   }
 
   /**
