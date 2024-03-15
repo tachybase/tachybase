@@ -144,7 +144,6 @@ export const AuditLogs: any = () => {
                 type: 'void',
                 title: tval('Filter'),
                 'x-action': 'filter',
-                // 'x-designer': 'Filter.Action.Designer',
                 'x-component': 'Filter.Action',
                 'x-component-props': {
                   icon: 'FilterOutlined',
@@ -184,8 +183,7 @@ export const AuditLogs: any = () => {
                     properties: {
                       o80rypwmeeg: {
                         type: 'void',
-                        title: '{{ t("View") }}',
-                        // 'x-designer': 'Action.Designer',
+                        title: tval('View'),
                         'x-toolbar': 'ActionSchemaToolbar',
                         'x-settings': 'actionSettings:view',
                         'x-component': 'Action.Link',
@@ -195,7 +193,7 @@ export const AuditLogs: any = () => {
                         properties: {
                           drawer: {
                             type: 'void',
-                            title: '{{ t("View record") }}',
+                            title: tval('View record'),
                             'x-component': 'Action.Container',
                             'x-component-props': {
                               className: 'nb-action-popup',
