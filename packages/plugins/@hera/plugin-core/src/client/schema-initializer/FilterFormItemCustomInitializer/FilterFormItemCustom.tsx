@@ -119,15 +119,6 @@ export const FilterCustomItemInitializer: React.FC<{
     });
     const { name, title, component, collection } = values;
     const defaultSchema = getInterface(component)?.default?.uiSchema || {};
-    const res = await api.request({
-      url: collection + ':list',
-      params: {
-        pageSize: 99999,
-      },
-    });
-    const option = res.data.data.map((value) => {
-      return value;
-    });
     insert(
       gridRowColWrap({
         'x-component': component,
@@ -141,7 +132,6 @@ export const FilterCustomItemInitializer: React.FC<{
         'x-decorator-props': collection,
         'x-component-props': {
           ...(defaultSchema['x-component-props'] || {}),
-          options: option,
           fieldNames: {
             label: 'name',
             value: 'id',
@@ -166,7 +156,7 @@ export const FilterItemCustomDesigner: React.FC = () => {
   const { t } = useTranslation();
   const fieldSchema = useFieldSchema();
   const fieldName = fieldSchema['name'] as string;
-  const name = fieldName.includes('custom') ? fieldSchema['x-decorator-props'] : fieldName;
+  const name = fieldName.includes('custom') ? fieldSchema['collectionName'] : fieldName;
   const { form } = useFormBlockContext();
   const field = useField();
   const { dn } = useDesignable();
@@ -177,16 +167,18 @@ export const FilterItemCustomDesigner: React.FC = () => {
       <EditDefaultValue />
       <SchemaSettingsDataScope
         collectionName={name}
-        defaultFilter={fieldSchema?.['x-decorator-props']?.params?.filter || {}}
+        defaultFilter={fieldSchema?.['x-component-props']?.params?.filter || {}}
         form={form}
         onSubmit={({ filter }) => {
-          filter = removeNullCondition(filter);
-          _.set(fieldSchema, 'x-decorator-props.params.filter', filter);
-          field.decoratorProps.params = { ...fieldSchema['x-decorator-props'].params };
+          _.set(field.componentProps, 'params', {
+            ...field.componentProps?.params,
+            filter,
+          });
+          fieldSchema['x-component-props']['params'] = field.componentProps.params;
           dn.emit('patch', {
             schema: {
               ['x-uid']: fieldSchema['x-uid'],
-              'x-decorator-props': fieldSchema['x-decorator-props'],
+              'x-component-props': fieldSchema['x-component-props'],
             },
           });
         }}

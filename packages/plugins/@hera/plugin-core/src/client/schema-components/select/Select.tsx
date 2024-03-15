@@ -7,7 +7,8 @@ import { Select as AntdSelect, Empty, Spin, Tag } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import { ReadPretty } from './ReadPretty';
 import { FieldNames, defaultFieldNames, getCurrentOptions } from './utils';
-import { useCollection_deprecated, useRequest } from '@nocobase/client';
+import { useAPIClient, useCollection_deprecated, useRequest } from '@nocobase/client';
+import { useAsyncEffect } from 'ahooks';
 
 type Props = SelectProps<any, any> & {
   objectValue?: boolean;
@@ -20,7 +21,38 @@ type Props = SelectProps<any, any> & {
 const isEmptyObject = (val: any) => !isValid(val) || (typeof val === 'object' && Object.keys(val).length === 0);
 
 const ObjectSelect = (props: Props) => {
-  const { value, options, onChange, fieldNames, mode, loading, rawOptions, defaultValue, ...others } = props;
+  const {
+    value,
+    options: defultValue,
+    onChange,
+    fieldNames,
+    mode,
+    loading,
+    rawOptions,
+    defaultValue,
+    ...others
+  } = props;
+  const [options, setOptions] = useState([]);
+  const [defult, setDefult] = useState(false);
+  const fieldSchema = useFieldSchema();
+  const collectionName = fieldSchema['collectionName'];
+  const filterField = fieldSchema['x-component-props']['params'];
+  const filter = filterField ? JSON.stringify(filterField.filter) : {};
+  const api = useAPIClient();
+
+  useAsyncEffect(async () => {
+    if (collectionName) {
+      const defValue = await api.request({
+        url: collectionName + ':list',
+        params: {
+          pageSize: 99999,
+          filter: filterField ? { ...filterField.filter } : {},
+        },
+      });
+      setOptions(defValue?.data?.data);
+    }
+  }, [filter]);
+
   const toValue = (v: any) => {
     if (isEmptyObject(v)) {
       return;
