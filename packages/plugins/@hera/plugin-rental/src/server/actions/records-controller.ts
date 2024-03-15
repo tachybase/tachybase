@@ -19,7 +19,7 @@ export class RecordPreviewController {
 
   @Action('group')
   async group(ctx: Context) {
-    const { collection: collectionName, filter } = ctx.action.params;
+    const { collection: collectionName, filter } = ctx.action.params.values;
     const collection = ctx.db.getCollection(collectionName);
     const fields = collection.fields;
     const filterParser = new FilterParser(filter, {

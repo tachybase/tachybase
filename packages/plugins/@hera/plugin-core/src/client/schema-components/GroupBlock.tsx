@@ -45,7 +45,8 @@ export const GroupBlock = (props) => {
           return [
             await api.request({
               url: requeatItem.fieldFormat.requestUrl,
-              params: {
+              method: 'POST',
+              data: {
                 filter: { ...filter },
                 collection: params.collection,
               },
