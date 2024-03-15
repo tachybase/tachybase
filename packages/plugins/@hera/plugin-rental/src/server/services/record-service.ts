@@ -27,7 +27,9 @@ export class RecordService {
     if (!values) {
       return;
     }
-    await this.createRecord(model, values, transaction, context, null);
+    if (values.record_category === RecordTypes.purchaseDirect || values.record_category === RecordTypes.rentDirect) {
+      await this.createRecord(model, values, transaction, context, null);
+    }
   }
   /**
    * 处理直发单生成单
@@ -648,13 +650,7 @@ export class RecordService {
   async createRecord(model, values, transaction, context, updateData) {
     delete values.number;
     delete values.id;
-    if (
-      values.vehicles &&
-      ((values.record_category === RecordTypes.purchaseDirect && values.category === RecordCategory.purchase2lease) ||
-        (values.record_category === RecordTypes.rentDirect && values.category === RecordCategory.lease2lease))
-    ) {
-      values.vehicles.forEach((item) => delete item.record_vehicles);
-    }
+    values.vehicles?.forEach((item) => delete item.record_vehicles);
     //采购直发单
     if (values.record_category === RecordTypes.purchaseDirect && values.category === RecordCategory.purchase2lease) {
       const inProject = await this.db.getModel('project').findOne({
