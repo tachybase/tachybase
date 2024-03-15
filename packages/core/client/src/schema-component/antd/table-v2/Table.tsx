@@ -11,7 +11,7 @@ import { isPortalInBody } from '@nocobase/utils/client';
 import { useMemoizedFn } from 'ahooks';
 import { Table as AntdTable, TableColumnProps } from 'antd';
 import { default as classNames, default as cls } from 'classnames';
-import _ from 'lodash';
+import _, { each } from 'lodash';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DndContext, useDesignable, useTableSize } from '../..';
@@ -131,6 +131,11 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
                     insertCount: 1,
                   });
                   field.value.splice(index + 1, 0, markRecordAsNew(_.cloneDeep(record)));
+                  each(field.form.fields, (targetField, key) => {
+                    if (!targetField) {
+                      delete field.form.fields[key];
+                    }
+                  });
                   return field.onInput(field.value);
                 });
               }}
