@@ -8,7 +8,6 @@ export const AutoComplete = (props) => {
   const fieldSchema = useFieldSchema();
   const { fieldNames } = fieldSchema['x-component-props'];
   const fieldFilter = fieldSchema['x-component-props']['params'];
-  const filter = fieldFilter ? JSON.stringify(fieldFilter.filter) : {};
   const [defultValue, setDefultValue] = useState([]);
   const api = useAPIClient();
   const [options, setOptions] = useState([]);
@@ -24,7 +23,7 @@ export const AutoComplete = (props) => {
       },
     });
     changLable(defultOptions?.data?.data);
-  }, [filter]);
+  }, [fieldFilter?.filter]);
 
   useEffect(() => {
     changLable(defultValue);
@@ -45,7 +44,7 @@ export const AutoComplete = (props) => {
   }
   const onSearch = (data) => {
     if (data) {
-      const searchValue = defultValue.filter((item) => item[fieldNames.label].includes(data));
+      const searchValue = defultValue.filter((item) => item.label.includes(data));
       if (searchValue.length) {
         setOptions(searchValue);
       } else {

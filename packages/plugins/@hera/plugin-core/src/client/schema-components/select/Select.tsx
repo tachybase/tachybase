@@ -26,7 +26,6 @@ const ObjectSelect = (props: Props) => {
   const fieldSchema = useFieldSchema();
   const collectionName = fieldSchema['collectionName'];
   const filterField = fieldSchema['x-component-props']['params'];
-  const filter = filterField ? JSON.stringify(filterField.filter) : {};
   const api = useAPIClient();
   useAsyncEffect(async () => {
     if (collectionName) {
@@ -39,7 +38,7 @@ const ObjectSelect = (props: Props) => {
       });
       setDefOptions(defValue?.data?.data);
     }
-  }, [filter]);
+  }, [filterField?.filter]);
   const toValue = (v: any) => {
     if (isEmptyObject(v)) {
       return;
