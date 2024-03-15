@@ -1,4 +1,5 @@
 import { uid } from '@formily/shared';
+import { tval } from './locale';
 
 export const createSchema = () => {
   const filterSchema = {
@@ -7,7 +8,7 @@ export const createSchema = () => {
       popover: true,
     },
     type: 'void',
-    title: '{{t("Filter")}}',
+    title: tval('Filter'),
     properties: {
       popover: {
         type: 'void',
@@ -44,7 +45,7 @@ export const createSchema = () => {
                   },
                   cancel: {
                     type: 'void',
-                    title: '{{t("Cancel")}}',
+                    title: tval('Cancel'),
                     'x-component': 'Action',
                     'x-component-props': {
                       useAction: '{{cm.useCancelFilterAction}}',
@@ -52,7 +53,7 @@ export const createSchema = () => {
                   },
                   submit: {
                     type: 'void',
-                    title: '{{t("Submit")}}',
+                    title: tval('Submit'),
                     'x-component': 'Action',
                     'x-component-props': {
                       type: 'primary',
@@ -110,7 +111,7 @@ export const createSchema = () => {
         properties: {
           column1: {
             type: 'void',
-            title: "{{t('Created at')}}",
+            title: tval('Created at'),
             'x-component': 'Table.Column',
             properties: {
               created_at: {
@@ -125,7 +126,7 @@ export const createSchema = () => {
           },
           column2: {
             type: 'void',
-            title: "{{t('Created by')}}",
+            title: tval('Created by'),
             'x-component': 'Table.Column',
             properties: {
               'user.nickname': {
@@ -137,7 +138,7 @@ export const createSchema = () => {
           },
           column3: {
             type: 'void',
-            title: "{{t('Collection display name')}}",
+            title: tval('Collection display name'),
             'x-component': 'Table.Column',
             properties: {
               'collection.title': {
@@ -149,7 +150,7 @@ export const createSchema = () => {
           },
           column4: {
             type: 'void',
-            title: "{{t('Action type')}}",
+            title: tval('Action type'),
             'x-component': 'Table.Column',
             properties: {
               type: {
@@ -166,7 +167,7 @@ export const createSchema = () => {
           },
           [uid()]: {
             type: 'void',
-            title: "{{t('Actions')}}",
+            title: tval('Actions'),
             'x-component': 'Table.Column',
             'x-component-props': {
               width: 60,
@@ -192,7 +193,7 @@ export const createSchema = () => {
                     properties: {
                       created_at: {
                         type: 'string',
-                        title: "{{t('Created at')}}",
+                        title: tval('Created at'),
                         'x-decorator': 'FormItem',
                         'x-component': 'DatePicker',
                         'x-read-pretty': true,
@@ -202,37 +203,37 @@ export const createSchema = () => {
                       },
                       'user.nickname': {
                         type: 'string',
-                        title: "{{t('Created by')}}",
+                        title: tval('Created by'),
                         'x-decorator': 'FormItem',
                         'x-component': 'Input',
                         'x-read-pretty': true,
                       },
                       'collection.title': {
                         type: 'string',
-                        title: "{{t('Collection display name')}}",
+                        title: tval('Collection display name'),
                         'x-decorator': 'FormItem',
                         'x-component': 'Input',
                         'x-read-pretty': true,
                       },
                       type: {
                         type: 'string',
-                        title: "{{t('Action type')}}",
+                        title: tval('Action type'),
                         'x-decorator': 'FormItem',
                         'x-component': 'Select',
                         'x-read-pretty': true,
                         enum: [
                           {
-                            label: "{{t('Insert')}}",
+                            label: tval('Insert'),
                             value: 'create',
                             color: 'green',
                           },
                           {
-                            label: "{{t('Update')}}",
+                            label: tval('Update'),
                             value: 'update',
                             color: 'blue',
                           },
                           {
-                            label: "{{t('Delete')}}",
+                            label: tval('Delete'),
                             value: 'destroy',
                             color: 'red',
                           },
@@ -240,7 +241,7 @@ export const createSchema = () => {
                       },
                       changes: {
                         type: 'array',
-                        title: "{{t('Data changes')}}",
+                        title: tval('Data changes'),
                         'x-decorator': 'FormItem',
                         'x-component': 'Table.Array',
                         'x-component-props': {
@@ -253,7 +254,7 @@ export const createSchema = () => {
                             column1: {
                               type: 'void',
                               'x-component': 'Table.Column',
-                              'x-component-props': { title: "{{t('Field display name')}}" },
+                              'x-component-props': { title: tval('Field display name') },
                               properties: {
                                 field: {
                                   type: 'string',

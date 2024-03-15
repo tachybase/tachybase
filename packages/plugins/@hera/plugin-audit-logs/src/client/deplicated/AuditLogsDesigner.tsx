@@ -11,7 +11,7 @@ import {
   useTableBlockContext,
 } from '@nocobase/client';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useAuditLogsTranslation } from '../locale';
 
 export const AuditLogsDesigner = () => {
   const { name, title } = useCollection_deprecated();
@@ -19,7 +19,7 @@ export const AuditLogsDesigner = () => {
   const fieldSchema = useFieldSchema();
   const { form } = useFormBlockContext();
   const { service } = useTableBlockContext();
-  const { t } = useTranslation();
+  const { t } = useAuditLogsTranslation();
   const { dn } = useDesignable();
   return (
     <GeneralSchemaDesigner title={title || name}>

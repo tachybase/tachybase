@@ -3,7 +3,7 @@ import { useAuditLogsTranslation } from './locale';
 export const useAuditLogsCollection = () => {
   return {
     name: 'auditLogs',
-    title: '{{t("Audit logs")}}',
+    title: tval('Audit logs'),
     fields: [
       {
         name: 'createdAt',
@@ -11,7 +11,7 @@ export const useAuditLogsCollection = () => {
         interface: 'createdAt',
         uiSchema: {
           type: 'datetime',
-          title: '{{t("Created at")}}',
+          title: tval('Created at'),
           'x-component': 'DatePicker',
           'x-component-props': {
             showTime: true,
@@ -26,14 +26,14 @@ export const useAuditLogsCollection = () => {
         interface: 'select',
         uiSchema: {
           type: 'string',
-          title: '{{t("Action type")}}',
+          title: tval('Action type'),
           'x-component': 'Select',
           'x-component-props': { ellipsis: true },
           'x-read-pretty': true,
           enum: [
-            { label: '{{t("Create record")}}', value: 'create', color: 'lime' },
-            { label: '{{t("Update record")}}', value: 'update', color: 'gold' },
-            { label: '{{t("Delete record")}}', value: 'destroy', color: 'magenta' },
+            { label: tval('Create record'), value: 'create', color: 'lime' },
+            { label: tval('Update record'), value: 'update', color: 'gold' },
+            { label: tval('Delete record'), value: 'destroy', color: 'magenta' },
           ],
         },
       },
@@ -42,7 +42,7 @@ export const useAuditLogsCollection = () => {
         type: 'string',
         interface: 'input',
         uiSchema: {
-          title: '{{t("Record ID")}}',
+          title: tval('Record ID'),
           type: 'string',
           'x-component': 'Input',
           'x-component-props': { ellipsis: true },
@@ -59,7 +59,7 @@ export const useAuditLogsCollection = () => {
         foreignKey: 'collectionName',
         uiSchema: {
           type: 'object',
-          title: '{{t("Collection")}}',
+          title: tval('Collection'),
           'x-component': 'AssociationField',
           'x-component-props': { fieldNames: { value: 'name', label: 'title' }, ellipsis: true },
           'x-read-pretty': true,
@@ -75,7 +75,7 @@ export const useAuditLogsCollection = () => {
         target: 'users',
         uiSchema: {
           type: 'object',
-          title: '{{t("User")}}',
+          title: tval('User'),
           'x-component': 'AssociationField',
           'x-component-props': { fieldNames: { value: 'id', label: 'nickname' }, ellipsis: true },
           'x-read-pretty': true,
@@ -101,14 +101,14 @@ export const useAuditLogsCollection = () => {
 export const useAuditChangesCollection = () => {
   return {
     name: 'auditChanges',
-    title: '{{t("Audit Changes")}}',
+    title: tval('Audit Changes'),
     fields: [
       {
         name: 'field',
         type: 'json',
         interface: 'input',
         uiSchema: {
-          title: '{{t("Field")}}',
+          title: tval('Field'),
           'x-component': 'AuditLogsField',
         },
       },
@@ -117,7 +117,7 @@ export const useAuditChangesCollection = () => {
         name: 'before',
         interface: 'input',
         uiSchema: {
-          title: '{{t("Before change")}}',
+          title: tval('Before change'),
           'x-component': 'AuditLogsValue',
         },
       },
@@ -126,7 +126,7 @@ export const useAuditChangesCollection = () => {
         name: 'after',
         interface: 'input',
         uiSchema: {
-          title: '{{t("After change")}}',
+          title: tval('After change'),
           'x-component': 'AuditLogsValue',
         },
       },
@@ -137,14 +137,14 @@ export const useAuditChangesCollection = () => {
 export const useCollectionsCollection = () => {
   return {
     name: 'collections',
-    title: '{{t("Collections")}}',
+    title: tval('Collections'),
     fields: [
       {
         name: 'name',
         type: 'string',
         interface: 'input',
         uiSchema: {
-          title: '{{t("Collection name")}}',
+          title: tval('Collection name'),
           type: 'string',
           'x-component': 'Input',
           'x-component-props': { ellipsis: true },
@@ -155,7 +155,7 @@ export const useCollectionsCollection = () => {
         type: 'string',
         interface: 'input',
         uiSchema: {
-          title: '{{t("Collection display name")}}',
+          title: tval('Collection display name'),
           type: 'string',
           'x-component': 'Input',
           'x-component-props': { ellipsis: true },

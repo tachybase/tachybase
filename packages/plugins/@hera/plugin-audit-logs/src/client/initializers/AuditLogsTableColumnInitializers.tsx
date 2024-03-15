@@ -1,5 +1,5 @@
 import {
-  CompatibleSchemaInitializer,
+  SchemaInitializer,
   SchemaInitializerChildren,
   useAssociatedTableColumnInitializerFields,
   useCompile,
@@ -7,12 +7,12 @@ import {
   useTableColumnInitializerFields,
 } from '@nocobase/client';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { tval, useAuditLogsTranslation } from '../locale';
 
 // 表格列配置
 const ParentCollectionFields = () => {
   const inheritFields = useInheritsTableColumnInitializerFields();
-  const { t } = useTranslation();
+  const { t } = useAuditLogsTranslation();
   const compile = useCompile();
   if (!inheritFields?.length) return null;
   const res = [];
@@ -30,7 +30,7 @@ const ParentCollectionFields = () => {
 
 const AssociatedFields = () => {
   const associatedFields = useAssociatedTableColumnInitializerFields();
-  const { t } = useTranslation();
+  const { t } = useAuditLogsTranslation();
 
   if (!associatedFields?.length) return null;
   const schema: any = [
@@ -44,14 +44,11 @@ const AssociatedFields = () => {
   return <SchemaInitializerChildren>{schema}</SchemaInitializerChildren>;
 };
 
-/**
- * @deprecated
- */
-export const auditLogsTableColumnInitializers_deprecated = new CompatibleSchemaInitializer({
-  name: 'AuditLogsTableColumnInitializers',
+export const auditLogsTableColumnInitializers = new SchemaInitializer({
+  name: 'auditLogsTable:configureColumns',
   insertPosition: 'beforeEnd',
   icon: 'SettingOutlined',
-  title: '{{t("Configure columns")}}',
+  title: tval('Configure columns'),
   wrap(s) {
     if (s['x-action-column']) {
       return s;
@@ -72,7 +69,7 @@ export const auditLogsTableColumnInitializers_deprecated = new CompatibleSchemaI
     {
       name: 'displayFields',
       type: 'itemGroup',
-      title: '{{t("Display fields")}}',
+      title: tval('Display fields'),
       useChildren: useTableColumnInitializerFields,
     },
     {
@@ -85,55 +82,8 @@ export const auditLogsTableColumnInitializers_deprecated = new CompatibleSchemaI
     },
     {
       name: 'actionColumn',
-      title: '{{t("Action column")}}',
+      title: tval('Action column'),
       Component: 'AuditLogsTableActionColumnInitializer',
     },
   ],
 });
-
-export const auditLogsTableColumnInitializers = new CompatibleSchemaInitializer(
-  {
-    name: 'auditLogsTable:configureColumns',
-    insertPosition: 'beforeEnd',
-    icon: 'SettingOutlined',
-    title: '{{t("Configure columns")}}',
-    wrap(s) {
-      if (s['x-action-column']) {
-        return s;
-      }
-      return {
-        type: 'void',
-        'x-decorator': 'TableV2.Column.Decorator',
-        'x-designer': 'TableV2.Column.Designer',
-        'x-component': 'TableV2.Column',
-        properties: {
-          [s.name]: {
-            ...s,
-          },
-        },
-      };
-    },
-    items: [
-      {
-        name: 'displayFields',
-        type: 'itemGroup',
-        title: '{{t("Display fields")}}',
-        useChildren: useTableColumnInitializerFields,
-      },
-      {
-        name: 'parentCollectionFields',
-        Component: ParentCollectionFields,
-      },
-      {
-        name: 'associationFields',
-        Component: AssociatedFields,
-      },
-      {
-        name: 'actionColumn',
-        title: '{{t("Action column")}}',
-        Component: 'AuditLogsTableActionColumnInitializer',
-      },
-    ],
-  },
-  auditLogsTableColumnInitializers_deprecated,
-);
