@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin, useCollection } from '@nocobase/client';
 import { RecordSummary } from './custom-components/RecordSummary';
 import { RecordTotalPrice } from './custom-components/RecordTotalPrice';
 import { RecordItemWeight } from './custom-components/RecordItemWeight';
@@ -67,11 +67,21 @@ export class PluginRentalClient extends Plugin {
       type: 'item',
       title: '{{t("Print(countable)")}}',
       component: 'PDFViewerCountablePrintActionInitializer',
+      useVisible() {
+        const collection = useCollection();
+        const name = collection['options']['name'];
+        return name === 'records';
+      },
     });
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.columnSwitch', {
       type: 'item',
       title: '{{t("Column switch")}}',
       component: 'ColumnSwitchActionInitializer',
+      useVisible() {
+        const collection = useCollection();
+        const name = collection['options']['name'];
+        return name === 'records';
+      },
     });
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintSetup', {
       type: 'item',
@@ -82,16 +92,31 @@ export class PluginRentalClient extends Plugin {
       type: 'item',
       title: '{{t("Record print margingtop")}}',
       component: 'RecordPrintSetupMargingTopInitializer',
+      useVisible() {
+        const collection = useCollection();
+        const name = collection['options']['name'];
+        return name === 'records' || name === 'waybills';
+      },
     });
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.settlementExcelExport', {
       type: 'item',
       title: '{{t("Settlement excel export")}}',
       component: 'SettlementExcelExportActionInitializer',
+      useVisible() {
+        const collection = useCollection();
+        const name = collection['options']['name'];
+        return name === 'settlements';
+      },
     });
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.settlementStyleSwitch', {
       type: 'item',
       title: '{{t("Settlement style switch")}}',
       component: 'SettlementStyleSwitchActionInitializer',
+      useVisible() {
+        const collection = useCollection();
+        const name = collection['options']['name'];
+        return name === 'settlements';
+      },
     });
     this.app.schemaInitializerManager.addItem('RecordBlockInitializers', 'previewBlock.record', {
       key: 'record',
