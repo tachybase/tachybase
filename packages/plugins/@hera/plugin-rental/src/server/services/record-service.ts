@@ -9,15 +9,15 @@ export class RecordService {
   private db: Database;
 
   async load() {
-    // 新版订单页面需要完善订单中项目数据
-    this.db.on('records.afterSave', this.setProject.bind(this));
-    // 处理直发单，生成对应租赁/购销，出入库单 || 订单创建绑定project字段关系
+    // 1. 创建项目/更新项目（ 直发单，生成对应租赁/购销，出入库单数据， 并且设置订单多对多project字段关系）
     this.db.on('records.afterCreate', this.afterCreateDirectRecord.bind(this));
     this.db.on('records.afterUpdate', this.afterUpdateDirectRecord.bind(this));
+    // 2. 订单新建更新后（根据合同确定出入库字段）
+    this.db.on('records.afterSave', this.setProject.bind(this));
     // 订单发生变化时更新对应结算单的状态（需要重新计算）
     this.db.on('records.afterSave', this.updateSettlementStatus.bind(this));
     // 老系统导入信息系统数据，record_import存储数据，并根据record_import数据创建对应的单子
-    // this.db.on('record_import.afterCreate', this.importRecord.bind(this));
+    this.db.on('record_import.afterCreate', this.importRecord.bind(this));
   }
   /**
    * 处理直发单生成单
@@ -38,6 +38,7 @@ export class RecordService {
       return;
     }
     if (values.record_category === RecordTypes.purchaseDirect || values.record_category === RecordTypes.rentDirect) {
+      const deleteDatas = await this.db.getRepository('records').find({ where: { direct_record_id: model.id } });
       // 删除订单多对多项目表数据
       const records = await this.db.getRepository('records').find({ where: { direct_record_id: model.id } });
       await this.deleteReocrdProject(
@@ -45,7 +46,6 @@ export class RecordService {
         transaction,
         true,
       );
-      const deleteDatas = await this.db.getRepository('records').find({ where: { direct_record_id: model.id } });
       // 删除新建时创建的订单
       await this.db.sequelize.query(
         `
@@ -648,6 +648,7 @@ export class RecordService {
   async createRecord(model, values, transaction, context, updateData) {
     delete values.number;
     delete values.id;
+    values.vehicles.forEach((item) => delete item.record_vehicles);
     //采购直发单
     if (values.record_category === RecordTypes.purchaseDirect && values.category === RecordCategory.purchase2lease) {
       const inProject = await this.db.getModel('project').findOne({
@@ -733,7 +734,7 @@ export class RecordService {
       leaseInData['record_category'] = RecordTypes.rentInStock;
       leaseInData['movement'] = Movement.in;
       leaseInData['category'] = RecordCategory.lease;
-      leaseInData['contract'] = values.in_contract;
+      leaseInData['contract'] = values.out_contract;
       leaseInData['out_stock'] = outProject.dataValues;
       leaseInData['in_stock'] = baseProject.dataValues;
       if (updateData) {
