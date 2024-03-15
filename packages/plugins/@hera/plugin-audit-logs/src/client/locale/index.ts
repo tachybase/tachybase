@@ -1,7 +1,7 @@
 import { i18n, tval as nTval } from '@nocobase/client';
 import { useTranslation } from 'react-i18next';
 
-export const NAMESPACE = 'audit-logs';
+export const NAMESPACE = '@hera/plugin-audit-logs';
 
 export function lang(key: string) {
   return i18n.t(key, { ns: NAMESPACE });
