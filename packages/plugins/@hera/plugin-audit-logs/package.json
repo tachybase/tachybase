@@ -20,5 +20,8 @@
     "@nocobase/server": "0.x",
     "@nocobase/test": "0.x"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "keywords": [
+    "System management"
+  ]
 }
