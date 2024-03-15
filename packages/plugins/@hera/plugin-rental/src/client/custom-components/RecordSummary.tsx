@@ -97,13 +97,13 @@ export const RecordSummary = observer((props): any => {
       if (form.values.category === RecordCategory.lease && !leaseItems) return;
       if (form.values.category === RecordCategory.lease2lease && !inLeaseItems) return;
       const in_contract = form.values.category === RecordCategory.lease ? leaseItems.data : inLeaseItems.data;
-      const { ruleCalc } = summary(element, in_contract, reqWeightRules);
+      const { ruleCalc } = summary(element, in_contract, reqWeightRules, recordData);
       contractWeight.total += ruleCalc.weight / 1000;
       calcProductCount(contractSummary, ruleCalc, productCategory);
       if (form.values.category === RecordCategory.lease2lease && outLeaseItems) {
         // 还需要生成出库合同小结
         const out_contract = outLeaseItems.data;
-        const { ruleCalc } = summary(element, out_contract, reqWeightRules);
+        const { ruleCalc } = summary(element, out_contract, reqWeightRules, recordData);
         outContractWeight.total += ruleCalc.weight / 1000;
         calcProductCount(outContractSummary, ruleCalc, productCategory);
       }
@@ -231,9 +231,9 @@ const summary = (event: RecordItems, rules: any[], ruleWeight: any, recordData =
       );
       if (!cacheData) {
         const weight =
-          recordData.group_weight_items?.find((g) =>
+          recordData?.group_weight_items?.find((g) =>
             g.product_categories?.find((pc) => pc.id === event.product?.category_id),
-          )?.weight || recordData.weight;
+          )?.weight || recordData?.weight;
         cache.push({
           id: plain.conversion_logic_id,
           category_id: event.product?.category_id,
@@ -258,10 +258,12 @@ const summary = (event: RecordItems, rules: any[], ruleWeight: any, recordData =
             : (event.count * weightRule.weight) / 1000;
           ruleCalc.unit = '吨';
         }
+        // 合同理论重量，换算逻辑是重量表取重量表换算后的值（重量）
         ruleCalc.weight = ruleCalc.count * 1000;
         ruleCalc.price = ruleCalc.count * plain.unit_price;
       }
     }
+    // 合同理论重量，非重量表规则都是取产品重量
     if (plain.conversion_logic_id <= 4) {
       ruleCalc.price = ruleCalc.count * plain.unit_price;
       ruleCalc.weight = event.product.weight * event.count;
