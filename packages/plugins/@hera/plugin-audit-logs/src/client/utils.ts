@@ -158,9 +158,9 @@ export const createSchema = () => {
                 'x-component': 'Select',
                 'x-read-pretty': true,
                 enum: [
-                  { label: "{{ t('Add new') }}", value: 'create', color: 'green' },
-                  { label: "{{ t('Update') }}", value: 'update', color: 'blue' },
-                  { label: "{{ t('Delete') }}", value: 'destroy', color: 'red' },
+                  { label: tval('Add new'), value: 'create', color: 'green' },
+                  { label: tval('Update'), value: 'update', color: 'blue' },
+                  { label: tval('Delete'), value: 'destroy', color: 'red' },
                 ],
               },
             },
@@ -175,7 +175,7 @@ export const createSchema = () => {
             },
             properties: {
               [uid()]: {
-                title: '{{ t("View") }}',
+                title: tval('View'),
                 type: 'void',
                 'x-action': 'view',
                 'x-component': 'Action.Link',
@@ -189,7 +189,7 @@ export const createSchema = () => {
                     'x-component-props': {
                       className: 'nb-action-popup',
                     },
-                    title: '{{ t("View record") }}',
+                    title: tval('View record'),
                     properties: {
                       created_at: {
                         type: 'string',
@@ -266,7 +266,7 @@ export const createSchema = () => {
                             column2: {
                               type: 'void',
                               'x-component': 'Table.Column',
-                              'x-component-props': { title: "{{ t('Before change') }}" },
+                              'x-component-props': { title: tval('Before change') },
                               properties: {
                                 before: {
                                   type: 'string',
@@ -278,7 +278,7 @@ export const createSchema = () => {
                             column3: {
                               type: 'void',
                               'x-component': 'Table.Column',
-                              'x-component-props': { title: "{{ t('After change') }}" },
+                              'x-component-props': { title: tval('After change') },
                               properties: {
                                 after: {
                                   type: 'string',

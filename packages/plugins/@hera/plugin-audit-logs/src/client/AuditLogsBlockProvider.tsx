@@ -6,7 +6,6 @@ export const AuditLogsBlockProvider: React.FC = ({ children, ...restProps }) => 
   const auditChangesCollection = useAuditChangesCollection();
   const auditLogsCollection = useAuditLogsCollection();
   const collectionsCollection = useCollectionsCollection();
-  console.log('audit logs blocks');
 
   return (
     <ExtendCollectionsProvider collections={[auditLogsCollection, auditChangesCollection, collectionsCollection]}>

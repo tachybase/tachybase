@@ -55,8 +55,9 @@ export const auditLogsTableColumnInitializers = new SchemaInitializer({
     }
     return {
       type: 'void',
+      'x-toolbar': 'TableColumnSchemaToolbar',
+      'x-settings': 'fieldSettings:TableColumn',
       'x-decorator': 'TableV2.Column.Decorator',
-      'x-designer': 'TableV2.Column.Designer',
       'x-component': 'TableV2.Column',
       properties: {
         [s.name]: {
