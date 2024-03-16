@@ -3,8 +3,8 @@ import React from 'react';
 import { useTranslation } from '../locale';
 import { useField, useFieldSchema } from '@formily/react';
 import { Field } from '@nocobase/database';
-import { CUSTOM_COMPONENT_TYPE_FORM_ITEM } from '..';
 import { useCustomComponent } from '../hooks/useCustomComponent';
+import { CustomComponentType } from '../custom-components';
 
 export const CustomComponentStub = (props) => {
   return <div>请选择组件</div>;
@@ -31,7 +31,7 @@ export const customComponentDispatcherSettings = new SchemaSettings({
       name: 'component',
       type: 'select',
       useComponentProps() {
-        const formItemComponents = useCustomComponent(CUSTOM_COMPONENT_TYPE_FORM_ITEM);
+        const formItemComponents = useCustomComponent(CustomComponentType.CUSTOM_FORM_ITEM);
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();

@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  CUSTOM_COMPONENT_TYPE_FIELD,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { observer, useField, useForm } from '@formily/react';
 import _ from 'lodash';
 import { ConversionLogics, RecordCategory } from '../../utils/constants';
@@ -117,11 +113,11 @@ export const RecordItemValuationQuantity = observer((props) => {
       ))}
     </>
   );
-});
+}) as CustomFC;
 
 RecordItemValuationQuantity.displayName = 'RecordItemValuationQuantity';
-RecordItemValuationQuantity[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_FIELD;
-RecordItemValuationQuantity[KEY_CUSTOM_COMPONENT_LABEL] = '记录单 - 明细 - 计价数量';
+RecordItemValuationQuantity.__componentType = CustomComponentType.CUSTOM_FIELD;
+RecordItemValuationQuantity.__componentLabel = '记录单 - 明细 - 计价数量';
 
 const subtotal = (rule: any, itemData: any, productCategory: any, reqWeightRules: any) => {
   let count: number;

@@ -8,8 +8,11 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import { uid } from '@formily/shared';
 import { useRequest } from '@nocobase/client';
 import { useTranslation } from '../locale';
-// TODO CMap settings.
 
+const options = {
+  cMapUrl: '/cmaps/',
+  standardFontDataUrl: '/standard_fonts/',
+};
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cat.net/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface PDFViewerProps {
@@ -71,10 +74,12 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
       document.body.removeChild(iframe);
     };
   }, [data, loading]);
+  console.log('width', width);
 
   return (
     <LoadingSpin spinning={loading}>
       <Document
+        options={options}
         file={data as ArrayBuffer}
         loading={(props) => (
           <LoadingSpin {...props} spinning={true}>
@@ -88,7 +93,7 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
         error={<div>{t('error')}</div>}
       >
         {Array.from(new Array(numPages), (el, index) => (
-          <Page width={width} key={`page_${index + 1}`} pageNumber={index + 1}>
+          <Page key={`page_${index + 1}`} pageNumber={index + 1} width={width}>
             <p style={{ marginLeft: '92%', marginBottom: '30pt', fontSize: '14px', fontFamily: 'source-han-sans' }}>
               {index + 1}/{numPages}页
             </p>

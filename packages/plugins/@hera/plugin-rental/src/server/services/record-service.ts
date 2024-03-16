@@ -1,7 +1,6 @@
 import Database, { CreateOptions, MagicAttributeModel, Transaction } from '@nocobase/database';
-import { ConversionLogics, RecordCategory, settlementStatus } from '@hera/plugin-core';
 import { Db, Service } from '@nocobase/utils';
-import { Movement, RecordTypes } from '../../utils/constants';
+import { ConversionLogics, Movement, RecordCategory, RecordTypes, settlementStatus } from '../../utils/constants';
 
 @Service()
 export class RecordService {

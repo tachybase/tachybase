@@ -3,11 +3,7 @@ import { Spin } from 'antd';
 import React from 'react';
 import { observer, useForm } from '@formily/react';
 import { RecordCategory } from '../../utils/constants';
-import {
-  CUSTOM_COMPONENT_TYPE_ASSOCIATED_FIELD,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { useCachedRequest, useLeaseItems } from '../hooks';
 import { useDeepCompareEffect } from 'ahooks';
 
@@ -89,8 +85,8 @@ export const RecordProductScope = observer(() => {
     });
   }, [result, form]);
   return loading || leaseItemsLoading || inLeaseItemsLoading || outLeaseItemsLoading ? <Spin /> : <></>;
-});
+}) as CustomFC;
 
 RecordProductScope.displayName = 'RecordProductScope';
-RecordProductScope[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_ASSOCIATED_FIELD;
-RecordProductScope[KEY_CUSTOM_COMPONENT_LABEL] = '记录单 - 产品范围';
+RecordProductScope.__componentType = CustomComponentType.CUSTOM_ASSOCIATED_FIELD;
+RecordProductScope.__componentLabel = '记录单 - 产品范围';

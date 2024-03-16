@@ -1,18 +1,14 @@
 import { observer, useForm } from '@formily/react';
 import { ConversionLogics, RecordCategory } from '../../utils/constants';
 import { Descriptions, Tabs } from 'antd';
-import {
-  CUSTOM_COMPONENT_TYPE_FORM_ITEM,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFC, CustomFunctionComponent } from '@hera/plugin-core/client';
 import React from 'react';
 import _ from 'lodash';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 import { useCachedRequest, useLeaseItems } from '../hooks';
 import { RecordItems } from '../../interfaces/records';
 const cache = [];
-export const RecordSummary = observer((props): any => {
+export const RecordSummary = observer((): any => {
   cache.length = 0;
   const form = useForm();
   const contractPlanId = form.values.contract_plan?.id;
@@ -171,11 +167,11 @@ export const RecordSummary = observer((props): any => {
       </div>
     )
   );
-});
+}) as CustomFC;
 
 RecordSummary.displayName = 'RecordSummary';
-RecordSummary[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_FORM_ITEM;
-RecordSummary[KEY_CUSTOM_COMPONENT_LABEL] = '记录单 - 小结';
+RecordSummary.__componentType = CustomComponentType.CUSTOM_FORM_ITEM;
+RecordSummary.__componentLabel = '记录单 - 小结';
 
 /** 计算小结
  * @param event RecordItem 订单项，record_item

@@ -1,17 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
-import {
-  CUSTOM_COMPONENT_TYPE_FIELD,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
 import { useField, useFieldSchema, useForm } from '@formily/react';
 import { FormPath } from '@formily/core';
 import { useRequest } from '@nocobase/client';
 import { Descriptions, Spin } from 'antd';
 import { formatQuantity } from '../../utils/currencyUtils';
 
-export const RecordDetails = () => {
+export const RecordDetails: CustomFunctionComponent = () => {
   const form = useForm();
   const fieldSchema = useFieldSchema();
   const field = useField();
@@ -127,5 +123,5 @@ export const RecordDetails = () => {
 };
 
 RecordDetails.displayName = 'RecordDetails';
-RecordDetails[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_FIELD;
-RecordDetails[KEY_CUSTOM_COMPONENT_LABEL] = '记录单 - 详情';
+RecordDetails.__componentType = CustomComponentType.CUSTOM_FIELD;
+RecordDetails.__componentLabel = '记录单 - 详情';

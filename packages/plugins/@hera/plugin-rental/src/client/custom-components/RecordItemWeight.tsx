@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  CUSTOM_COMPONENT_TYPE_FIELD,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { observer, useField, useForm } from '@formily/react';
 import _ from 'lodash';
 import { formatQuantity } from '../../utils/currencyUtils';
@@ -19,8 +15,8 @@ export const RecordItemWeight = observer((props) => {
     }
   }
   return <span> - </span>;
-});
+}) as CustomFC;
 
 RecordItemWeight.displayName = 'RecordItemWeight';
-RecordItemWeight[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_FIELD;
-RecordItemWeight[KEY_CUSTOM_COMPONENT_LABEL] = '记录单 - 明细 - 重量';
+RecordItemWeight.__componentType = CustomComponentType.CUSTOM_FIELD;
+RecordItemWeight.__componentLabel = '记录单 - 明细 - 重量';

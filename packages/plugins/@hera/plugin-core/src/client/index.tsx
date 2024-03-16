@@ -1,12 +1,12 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import { autorun } from '@formily/reactive';
 import {
   Menu,
   Plugin,
   RemoteSchemaTemplateManagerProvider,
   EditTitleField,
-  useCollection_deprecated,
   SchemaSettingOptions,
+  useCollection,
 } from '@nocobase/client';
 import { HeraAdminLayout } from './layouts';
 import { remove } from 'lodash';
@@ -87,24 +87,9 @@ import Expression from './components/Expression';
 import { CustomField } from './components/CustomField';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
-import { SwiperBlock, SwiperBlockInitializer } from './schema-initializer/SwiperBlockInitializer';
-import { NoticeBlock, NoticeBlockInitializer } from './schema-initializer/NoticeBlockInitializer';
-import { TabSearchBlock, TabSearchBlockInitializer } from './schema-initializer/TabSearchBlockInitializer';
 import { AutoComplete } from './schema-components/AutoComplete/AutoComplete';
-
-export enum CustomComponentType {
-  CUSTOM_FORM_ITEM,
-  CUSTOM_FIELD,
-  CUSTOM_ASSOCIATED_FIELD,
-}
-
-export interface CustomComponentOption {
-  label: string;
-  name: string;
-  type?: CustomComponentType;
-  component: ComponentType;
-}
 export { usePDFViewerRef } from './schema-initializer/PDFVIewerBlockInitializer';
+export * from './custom-components';
 
 export class PluginCoreClient extends Plugin {
   locale: Locale;
@@ -177,8 +162,6 @@ export class PluginCoreClient extends Plugin {
       DatePicker,
       RemoteSelect,
       SignatureInput,
-      SwiperBlockInitializer,
-      SwiperBlock,
       AssociationField: ExtendedAssociationField,
       OutboundButton,
       OutboundLinkActionInitializer,
@@ -204,10 +187,6 @@ export class PluginCoreClient extends Plugin {
         // @ts-ignore
         Designer: MenuDesigner,
       },
-      TabSearchBlockInitializer,
-      TabSearchBlock,
-      NoticeBlock,
-      NoticeBlockInitializer,
     });
   }
 
@@ -289,33 +268,6 @@ export class PluginCoreClient extends Plugin {
       type: 'divider',
     });
     this.app.schemaInitializerManager.addItem('FilterFormItemInitializers', customItem.name, customItem);
-    // mobile
-    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'dataBlocks.swiper', {
-      title: 'swiper',
-      name: 'swiper',
-      type: 'item',
-      Component: 'SwiperBlockInitializer',
-    });
-    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'dataBlocks.notice', {
-      title: 'notice',
-      name: 'notice',
-      type: 'item',
-      Component: 'NoticeBlockInitializer',
-    });
-
-    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'filterBlocks', {
-      title: '{{t("Filter blocks")}}',
-      type: 'itemGroup',
-      children: [
-        {
-          name: 'tabSearch',
-          title: 'tabSearch',
-          Component: 'TabSearchBlockInitializer',
-        },
-      ],
-    });
-
-    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'filterBlocks.filterForm', {});
 
     const addCustomComponent = {
       name: 'addCustomComponent',
@@ -395,9 +347,9 @@ export class PluginCoreClient extends Plugin {
       Component: SetFilterScope,
       useVisible: useSetFilterScopeVisible,
       useComponentProps() {
-        const { name } = useCollection_deprecated();
+        const collection = useCollection();
         return {
-          collectionName: name,
+          collectionName: collection.name,
         };
       },
     });
@@ -433,9 +385,3 @@ export class PluginCoreClient extends Plugin {
 }
 
 export default PluginCoreClient;
-
-export const KEY_CUSTOM_COMPONENT_TYPE = '__componentType';
-export const KEY_CUSTOM_COMPONENT_LABEL = '__componentLabel';
-export const CUSTOM_COMPONENT_TYPE_FIELD = 'FIELD';
-export const CUSTOM_COMPONENT_TYPE_FORM_ITEM = 'FORM_ITEM';
-export const CUSTOM_COMPONENT_TYPE_ASSOCIATED_FIELD = 'ASSOCIATED_FIELD';

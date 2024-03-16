@@ -2,11 +2,7 @@ import _ from 'lodash';
 import { Spin } from 'antd';
 import React from 'react';
 import { observer, useField, useFieldSchema, useForm } from '@formily/react';
-import {
-  CUSTOM_COMPONENT_TYPE_ASSOCIATED_FIELD,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { useFeeItems } from '../hooks';
 import { useDeepCompareEffect } from 'ahooks';
 
@@ -34,8 +30,8 @@ export const RecordFeeScope = observer(() => {
   }, [result, form, fieldPath]);
 
   return loading ? <Spin /> : <></>;
-});
+}) as CustomFC;
 
 RecordFeeScope.displayName = 'RecordFeeScope';
-RecordFeeScope[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_ASSOCIATED_FIELD;
-RecordFeeScope[KEY_CUSTOM_COMPONENT_LABEL] = '记录单 - 费用范围';
+RecordFeeScope.__componentType = CustomComponentType.CUSTOM_ASSOCIATED_FIELD;
+RecordFeeScope.__componentLabel = '记录单 - 费用范围';

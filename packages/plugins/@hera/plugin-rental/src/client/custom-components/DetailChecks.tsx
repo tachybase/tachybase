@@ -1,16 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
-import {
-  CUSTOM_COMPONENT_TYPE_FIELD,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
 import { useField, useFieldSchema, useForm } from '@formily/react';
 import { FormPath } from '@formily/core';
 import { useRequest } from '@nocobase/client';
 import { Space, Spin, Tag } from 'antd';
 
-export const DetailChecks = () => {
+export const DetailChecks: CustomFunctionComponent = () => {
   const form = useForm();
   const fieldSchema = useFieldSchema();
   const field = useField();
@@ -65,5 +61,5 @@ export const DetailChecks = () => {
 };
 
 DetailChecks.displayName = 'DetailChecks';
-DetailChecks[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_FIELD;
-DetailChecks[KEY_CUSTOM_COMPONENT_LABEL] = '明细检查 - 详情';
+DetailChecks.__componentType = CustomComponentType.CUSTOM_FIELD;
+DetailChecks.__componentLabel = '明细检查 - 详情';

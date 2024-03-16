@@ -1,17 +1,13 @@
 import { onFieldInit, onFieldValueChange } from '@formily/core';
 import { useField, useForm, useFormEffects } from '@formily/react';
-import {
-  CUSTOM_COMPONENT_TYPE_FIELD,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
 import { useRequest } from '@nocobase/client';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { ConversionLogics, Movement, countCource } from '../../utils/constants';
 import { formatQuantity } from '../../utils/currencyUtils';
 
-export const RecordFeeConvertedAmount = (props) => {
+export const RecordFeeConvertedAmount: CustomFunctionComponent = () => {
   // 查数据，查里面的费用关联的数据
   const contractPlans = useRequest<any>({
     resource: 'contract_plans',
@@ -213,5 +209,5 @@ export const RecordFeeConvertedAmount = (props) => {
 };
 
 RecordFeeConvertedAmount.displayName = 'RecordFeeConvertedAmount';
-RecordFeeConvertedAmount[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_FIELD;
-RecordFeeConvertedAmount[KEY_CUSTOM_COMPONENT_LABEL] = '费用 - 换算数量';
+RecordFeeConvertedAmount.__componentType = CustomComponentType.CUSTOM_FIELD;
+RecordFeeConvertedAmount.__componentLabel = '费用 - 换算数量';

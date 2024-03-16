@@ -5,13 +5,9 @@ import { ConversionLogics } from '../../utils/constants';
 import { useRequest } from '@nocobase/client';
 import _ from 'lodash';
 import { formatCurrency } from '../../utils/currencyUtils';
-import {
-  CUSTOM_COMPONENT_TYPE_FIELD,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
 
-export const RecordTotalPrice = (props) => {
+export const RecordTotalPrice: CustomFunctionComponent = () => {
   const form = useForm();
   const field = useField();
   const [all_price, setAllPrice] = useState(0);
@@ -135,5 +131,5 @@ export const RecordTotalPrice = (props) => {
 };
 
 RecordTotalPrice.displayName = 'RecordTotalPrice';
-RecordTotalPrice[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_FIELD;
-RecordTotalPrice[KEY_CUSTOM_COMPONENT_LABEL] = '记录单 - 报价 - 总价';
+RecordTotalPrice.__componentLabel = '记录单 - 报价 - 总价';
+RecordTotalPrice.__componentType = CustomComponentType.CUSTOM_FIELD;

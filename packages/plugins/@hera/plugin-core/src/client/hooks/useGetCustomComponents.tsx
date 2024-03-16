@@ -1,6 +1,6 @@
-import { CUSTOM_COMPONENT_TYPE_FIELD } from '..';
+import { CustomComponentType } from '..';
 import { useCustomComponent } from './useCustomComponent';
 
 export const useGetCustomComponents = () => {
-  return useCustomComponent(CUSTOM_COMPONENT_TYPE_FIELD);
+  return useCustomComponent(CustomComponentType.CUSTOM_FIELD);
 };

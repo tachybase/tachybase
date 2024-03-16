@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  CUSTOM_COMPONENT_TYPE_FIELD,
-  KEY_CUSTOM_COMPONENT_LABEL,
-  KEY_CUSTOM_COMPONENT_TYPE,
-} from '@hera/plugin-core/client';
+import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { observer, useField, useForm } from '@formily/react';
 import _ from 'lodash';
 import { formatQuantity } from '../../utils/currencyUtils';
@@ -35,8 +31,8 @@ export const RecordItemCount = observer((props) => {
     return <span>{formatQuantity(value, 2) + unit}</span>;
   }
   return <span> - </span>;
-});
+}) as CustomFC;
 
 RecordItemCount.displayName = 'RecordItemCount';
-RecordItemCount[KEY_CUSTOM_COMPONENT_TYPE] = CUSTOM_COMPONENT_TYPE_FIELD;
-RecordItemCount[KEY_CUSTOM_COMPONENT_LABEL] = '记录单 - 明细 - 换算数量';
+RecordItemCount.__componentType = CustomComponentType.CUSTOM_FIELD;
+RecordItemCount.__componentLabel = '记录单 - 明细 - 换算数量';
