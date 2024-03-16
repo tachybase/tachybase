@@ -2,6 +2,7 @@ import { G2PlotChart } from './g2plot';
 import { ChartType, RenderProps } from '../chart';
 import React, { useContext } from 'react';
 import { DualAxes as G2DualAxes } from '@ant-design/plots';
+import lodash from 'lodash';
 import { ChartRendererContext } from '../../renderer';
 
 export class DualAxes extends G2PlotChart {
@@ -60,18 +61,38 @@ export class DualAxes extends G2PlotChart {
     return {
       general: {
         xField: xField?.value,
-        yField: yFields?.map((f) => f.value).slice(0, 2) || [],
+        yField: yFields?.map((f) => f.value) || [],
       },
     };
   };
 
-  render({ data, general, advanced, fieldProps, ctx }: RenderProps) {
-    const props = this.getProps({ data, general, advanced, fieldProps, ctx });
-    const { data: _data } = props;
-    return () =>
-      React.createElement(this.component, {
-        ...props,
-        data: [_data, _data],
-      });
+  getProps({ data, general, advanced, fieldProps, ctx }: RenderProps) {
+    const props = super.getProps({ data, general, advanced, fieldProps, ctx });
+    return {
+      ...lodash.omit(props, ['legend', 'tooltip']),
+      children:
+        props.yField?.map((yField: string, index: number) => {
+          return {
+            type: 'line',
+            yField,
+            colorField: () => {
+              const props = fieldProps[yField];
+              const transformer = props?.transformer;
+              return props?.label || (transformer ? transformer(yField) : yField);
+            },
+            axis: {
+              y: {
+                title: fieldProps[yField]?.label || yField,
+                position: index === 0 ? 'left' : 'right',
+                labelFormatter: (datnum) => {
+                  const props = fieldProps[yField];
+                  const transformer = props?.transformer;
+                  return transformer ? transformer(datnum) : datnum;
+                },
+              },
+            },
+          };
+        }) || [],
+    };
   }
 }
