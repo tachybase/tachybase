@@ -39,7 +39,6 @@ import { useOutboundActionProps } from './hooks/useOutboundActionProps';
 import { ExtendedAssociationField } from './schema-components/association-field/Editable';
 import { AssociatedField } from './components/AssociatedField';
 import { DatePicker } from './schema-components/date-picker';
-import { Page } from './schema-components/page';
 import { SettingBlockInitializer } from './schema-initializer/SettingBlockInitializer';
 import {
   EditFormulaTitleField,
@@ -158,7 +157,6 @@ export class PluginCoreClient extends Plugin {
       GroupBlockInitializer,
       GroupBlockToolbar,
       GroupBlockProvider,
-      Page,
       DatePicker,
       RemoteSelect,
       SignatureInput,
