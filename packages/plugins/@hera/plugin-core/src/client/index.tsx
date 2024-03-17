@@ -8,16 +8,12 @@ import {
   SchemaSettingOptions,
   useCollection,
 } from '@nocobase/client';
-import { HeraAdminLayout } from './layouts';
 import { remove } from 'lodash';
 import { CalendarBlockInitializer } from './schema-initializer/CalendarBlockInitializer';
 import { MenuDesigner } from './components/ExtendedMenuDesigner';
 import { SessionSubmit, SessionUpdate } from './components/ExtendedActionDesigner';
-import { DetailsPage } from './pages/DetailsPage';
-import { OutboundPage } from './pages/OutboundPage';
 import { HomePageConfiguration } from './pages/HomePageConfiguration';
 import { Configuration } from './components/TokenConfiguration';
-import { HomePage } from './pages/Home';
 import { InternalPDFViewer } from './schema-components/PDFViewer';
 import {
   PDFViewerBlockInitializer,
@@ -34,7 +30,6 @@ import { FilterAssociatedFields } from './schema-initializer/FilterAssociatedFie
 import { useFieldSchema } from '@formily/react';
 import { isValid } from '@formily/shared';
 import { useCreateActionProps } from './hooks/useCreateActionProps';
-import { PageLayout } from './pages/PageLayout';
 import { useOutboundActionProps } from './hooks/useOutboundActionProps';
 import { ExtendedAssociationField } from './schema-components/association-field/Editable';
 import { AssociatedField } from './components/AssociatedField';
@@ -87,6 +82,7 @@ import { CustomField } from './components/CustomField';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
 import { AutoComplete } from './schema-components/AutoComplete/AutoComplete';
+import { AdminLayout, DetailsPage, HomePage, OutboundPage, PageLayout } from './pages';
 export { usePDFViewerRef } from './schema-initializer/PDFVIewerBlockInitializer';
 export * from './custom-components';
 
@@ -165,7 +161,7 @@ export class PluginCoreClient extends Plugin {
       OutboundLinkActionInitializer,
       PDFViewerBlockInitializer,
       PDFViwer: InternalPDFViewer,
-      AdminLayout: HeraAdminLayout,
+      AdminLayout,
       ExtendedCalendarBlockInitializer: CalendarBlockInitializer,
       SettingBlock: SettingBlockInitializer,
       CreateSubmitActionInitializer,

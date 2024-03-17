@@ -451,7 +451,7 @@ const usePageStyle = () => {
   return useContext(PageStyleContext).style;
 };
 
-export const HeraAdminLayout = (props) => {
+export const AdminLayout = (props) => {
   const { addMenuItem } = useCurrentUserSettingsMenu();
   const [style, setStyle] = useState('classical');
   const tabItem = useTabSettings({ style, setStyle });
