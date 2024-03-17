@@ -36,7 +36,6 @@ import { isValid } from '@formily/shared';
 import { useCreateActionProps } from './hooks/useCreateActionProps';
 import { PageLayout } from './pages/PageLayout';
 import { useOutboundActionProps } from './hooks/useOutboundActionProps';
-import { ExtendedAssociationField } from './schema-components/association-field/Editable';
 import { AssociatedField } from './components/AssociatedField';
 import { DatePicker } from './schema-components/date-picker';
 import { Page } from './schema-components/page';
@@ -162,7 +161,6 @@ export class PluginCoreClient extends Plugin {
       DatePicker,
       RemoteSelect,
       SignatureInput,
-      AssociationField: ExtendedAssociationField,
       OutboundButton,
       OutboundLinkActionInitializer,
       PDFViewerBlockInitializer,

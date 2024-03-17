@@ -4,12 +4,12 @@ import { RecursionField, connect, mapProps, observer, useField, useFieldSchema, 
 import { uid } from '@formily/shared';
 import { Space, message } from 'antd';
 import { isFunction } from 'mathjs';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RecordProvider, useAPIClient, useCollectionRecordData } from '../../../';
+import { RecordProvider, useAPIClient, useApp, useCollectionRecordData } from '../../../';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { getInnermostKeyAndValue } from '../../common/utils/uitls';
-import { RemoteSelect, RemoteSelectProps } from '../remote-select';
+import { RemoteSelectProps } from '../remote-select';
 import useServiceOptions, { useAssociationFieldContext } from './hooks';
 
 export type AssociationSelectProps<P = any> = RemoteSelectProps<P> & {
@@ -60,6 +60,9 @@ const InternalAssociationSelect = observer(
     const resource = api.resource(collectionField.target);
     const linkageFields = filterAnalyses(field.componentProps?.service?.params?.filter);
     const recordData = useCollectionRecordData();
+    const app = useApp();
+    const RemoteSelect = useMemo(() => app.getComponent('RemoteSelect'), [app]);
+
     useEffect(() => {
       const initValue = isVariable(field.value) ? undefined : field.value;
       const value = Array.isArray(initValue) ? initValue.filter(Boolean) : initValue;
@@ -165,6 +168,8 @@ export const AssociationSelect = InternalAssociationSelect as unknown as Associa
 export const AssociationSelectReadPretty = connect(
   (props: any) => {
     const service = useServiceOptions(props);
+    const app = useApp();
+    const RemoteSelect = useMemo(() => app.getComponent('RemoteSelect'), [app]) as any;
     if (props.fieldNames) {
       return <RemoteSelect.ReadPretty {...props} service={service}></RemoteSelect.ReadPretty>;
     }
