@@ -27,7 +27,7 @@ import { useFieldSchema } from '@formily/react';
 import { isValid } from '@formily/shared';
 import { useCreateActionProps } from './hooks/useCreateActionProps';
 import { useOutboundActionProps } from './hooks/useOutboundActionProps';
-import { AssociatedField } from './components/AssociatedField';
+import { AssociatedField } from './components/fields/AssociatedField';
 import { DatePicker } from './schema-components/date-picker';
 import { SettingBlockInitializer } from './schema-initializer/SettingBlockInitializer';
 import {
@@ -73,7 +73,7 @@ import { CustomAssociatedFieldInterface } from './interfaces/customAssociated';
 import { SignaturePadFieldInterface } from './interfaces/signatureSchema';
 import { CalcResult } from './components/fields/CalcResult';
 import { CustomAssociatedField } from './components/custom-components/CustomAssociatedField';
-import Expression from './components/Expression';
+import Expression from './components/fields/Expression';
 import { CustomField } from './components/custom-components/CustomField';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
