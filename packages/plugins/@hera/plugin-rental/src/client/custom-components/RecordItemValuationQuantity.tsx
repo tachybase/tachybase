@@ -59,7 +59,7 @@ export const RecordItemValuationQuantity = observer((props) => {
         (rule) => rule.product?.category_id === item.product?.category_id || rule.product?.id === item.product?.id,
       );
       if (rule) {
-        rule.conversion_logic_id = rule.conversion_logic.id;
+        rule.conversion_logic_id = rule.conversion_logic?.id;
         const count = subtotal(rule, item, productCategory, reqWeightRules);
         count && result.push({ label: '报价', value: count });
       }

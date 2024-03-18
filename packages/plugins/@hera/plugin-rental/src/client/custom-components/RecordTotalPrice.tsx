@@ -34,6 +34,7 @@ export const RecordTotalPrice: CustomFunctionComponent = () => {
   const [recordWeight, setRecordWeight] = useState(0);
   // 总金额计算方法
   const computeTotalPrice = () => {
+    if (!leaseData) return;
     const about_product = form.values.items.filter(
       (item) =>
         item.product?.id === leaseData.product?.id || item.product?.category_id === leaseData.product?.id - 99999,
@@ -93,34 +94,32 @@ export const RecordTotalPrice: CustomFunctionComponent = () => {
     setAllPrice(allPrice);
   };
   useFormEffects(() => {
-    onFieldInit('items.*', () => {
+    const updateProducts = () => {
       setProducts(_.cloneDeep(form.values.items));
-    });
-    onFieldValueChange('items.*', () => {
-      setProducts(_.cloneDeep(form.values.items));
-    });
-    onFieldInit('price_items.*', () => {
+    };
+    const updateLeaseData = () => {
       if (form.values.price_items) {
         setLeaseData(_.cloneDeep(form.values.price_items[lease_index]));
       }
-    });
-    onFieldValueChange('price_items.*', () => {
-      if (form.values.price_items) {
-        setLeaseData(_.cloneDeep(form.values.price_items[lease_index]));
-      }
-    });
-    onFieldInit('group_weight_items.*', () => {
+    };
+    const updateGroupWeight = () => {
       setGroupWeight(_.cloneDeep(form.values.group_weight_items));
-    });
-    onFieldValueChange('group_weight_items.*', () => {
-      setGroupWeight(_.cloneDeep(form.values.group_weight_items));
-    });
-    onFieldInit('weight', () => {
+    };
+    const updateRecordWeight = () => {
       setRecordWeight(_.cloneDeep(form.values.weight));
-    });
-    onFieldValueChange('weight', () => {
-      setRecordWeight(_.cloneDeep(form.values.weight));
-    });
+    };
+
+    onFieldInit('items.*', updateProducts);
+    onFieldValueChange('items.*', updateProducts);
+
+    onFieldInit('price_items.*', updateLeaseData);
+    onFieldValueChange('price_items.*', updateLeaseData);
+
+    onFieldInit('group_weight_items.*', updateGroupWeight);
+    onFieldValueChange('group_weight_items.*', updateGroupWeight);
+
+    onFieldInit('weight', updateRecordWeight);
+    onFieldValueChange('weight', updateRecordWeight);
   });
   useEffect(() => {
     if (!reqProduct.loading && !reqWeightRules.loading) {

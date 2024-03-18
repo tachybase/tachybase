@@ -64,8 +64,17 @@ export class RecordPdfService {
         data['all_price'] = data['count'] * data['unit_price'];
         return data;
       });
-      const setData = Array.from(new Set(price_rule.map((item) => item.name))).map((name) =>
-        price_rule.find((item) => item.name === name),
+
+      const setData = Object.values(
+        price_rule.reduce((acc, item) => {
+          if (!acc[item.name]) {
+            acc[item.name] = { ...item };
+          } else {
+            acc[item.name].count += item.count;
+            acc[item.name].all_price += item.all_price;
+          }
+          return acc;
+        }, {}),
       );
       make_price = setData;
     }
