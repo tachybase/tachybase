@@ -11,8 +11,8 @@ export const ErrorFallback: FC<FallbackProps> = ({ error }) => {
 
   const subTitle = (
     <Trans>
-      {'This is likely a NocoBase internals bug. Please open an issue at '}
-      <Link href="https://github.com/nocobase/nocobase/issues" target="_blank">
+      {'This is likely a TachyCode internals bug. Please open an issue at '}
+      <Link href="https://git.daoyoucloud.com/daoyoucloud/tachycode/issues" target="_blank">
         here
       </Link>
     </Trans>
@@ -26,7 +26,12 @@ export const ErrorFallback: FC<FallbackProps> = ({ error }) => {
         title={t('Render Failed')}
         subTitle={subTitle}
         extra={[
-          <Button type="primary" key="feedback" href="https://github.com/nocobase/nocobase/issues" target="_blank">
+          <Button
+            type="primary"
+            key="feedback"
+            href="https://git.daoyoucloud.com/daoyoucloud/tachycode/issues"
+            target="_blank"
+          >
             {t('Feedback')}
           </Button>,
           <Button key="try" onClick={resetBoundary}>

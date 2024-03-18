@@ -1,35 +1,25 @@
 import { Field } from '@formily/core';
-import { ISchema, useField, useFieldSchema, useForm } from '@formily/react';
+import { ISchema, useField, useFieldSchema } from '@formily/react';
 import {
-  SchemaSettingsLinkageRules,
   SchemaSettingsModalItem,
   SchemaSettingsSelectItem,
   SchemaSettingsSwitchItem,
-  css,
-  mergeFilter,
-  removeNullCondition,
-  useBlockRequestContext,
   useCollection_deprecated,
   useCollectionManager_deprecated,
   useCompile,
   useDesignable,
-  useFieldModeOptions,
-  useFilterFieldProps,
-  useFilterOptions,
   useFormBlockContext,
   useFormBlockType,
   useLinkageCollectionFilterOptions,
   useLocalVariables,
-  useProps,
   useRecord,
   useSchemaTemplateManager,
-  useSortFields,
   useVariables,
 } from '@nocobase/client';
-import _, { get } from 'lodash';
-import React, { useCallback, useContext, useMemo } from 'react';
+import _ from 'lodash';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from '../locale';
-import { FormFilterScope } from './FormFilter/FormFilterScope';
+import { FormFilterScope } from '../components/FormFilter/FormFilterScope';
 
 export const useFormulaTitleOptions = () => {
   const compile = useCompile();
@@ -376,3 +366,132 @@ export const SetFilterScope = (props) => {
   );
   return <SchemaSettingsModalItem title={t('Custom filter')} width={770} schema={schema} onSubmit={onSubmit} />;
 };
+
+export function AfterSuccess() {
+  const { dn } = useDesignable();
+  const { t } = useTranslation();
+  const fieldSchema = useFieldSchema();
+  const component = fieldSchema.parent.parent['x-component'];
+  const schema = {
+    type: 'object',
+    title: t('After successful submission'),
+    properties: {
+      successMessage: {
+        title: t('Popup message'),
+        'x-decorator': 'FormItem',
+        'x-component': 'Input.TextArea',
+        'x-component-props': {},
+      },
+      dataClear: {
+        title: t('Clear data method'),
+        enum: [
+          { label: t('Automatic clear'), value: false },
+          { label: t('Manually clear'), value: true },
+        ],
+        'x-decorator': 'FormItem',
+        'x-component': 'Radio.Group',
+        'x-component-props': {},
+      },
+      manualClose: {
+        title: t('Popup close method'),
+        enum: [
+          { label: t('Automatic close'), value: false },
+          { label: t('Manually close'), value: true },
+        ],
+        'x-decorator': 'FormItem',
+        'x-component': 'Radio.Group',
+        'x-component-props': {},
+      },
+      redirecting: {
+        title: t('Then'),
+        enum: [
+          { label: t('Stay on current page'), value: false },
+          { label: t('Redirect to'), value: true },
+        ],
+        'x-decorator': 'FormItem',
+        'x-component': 'Radio.Group',
+        'x-component-props': {},
+        'x-reactions': {
+          target: 'redirectTo',
+          fulfill: {
+            state: {
+              visible: '{{!!$self.value}}',
+            },
+          },
+        },
+      },
+      redirectTo: {
+        title: t('Link'),
+        'x-decorator': 'FormItem',
+        'x-component': 'Input',
+        'x-component-props': {},
+      },
+    },
+  };
+  if (!(component as string).includes('Form')) {
+    delete schema.properties.dataClear;
+  }
+  return (
+    <SchemaSettingsModalItem
+      title={t('After successful submission')}
+      initialValues={fieldSchema?.['x-action-settings']?.['onSuccess']}
+      schema={{ ...schema } as ISchema}
+      onSubmit={(onSuccess) => {
+        fieldSchema['x-action-settings']['onSuccess'] = onSuccess;
+        dn.emit('patch', {
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            'x-action-settings': fieldSchema['x-action-settings'],
+          },
+        });
+      }}
+    />
+  );
+}
+
+// 添加跳转页面选项
+export const SessionSubmit = () => {
+  const { dn } = useDesignable();
+  const { t } = useTranslation();
+  const fieldSchema = useFieldSchema();
+  return (
+    <SchemaSettingsSwitchItem
+      title={t('Navigate to new page')}
+      checked={!!fieldSchema?.['x-action-settings']?.sessionSubmit}
+      onChange={(value) => {
+        fieldSchema['x-action-settings'].sessionSubmit = value;
+        dn.emit('patch', {
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            'x-action-settings': {
+              ...fieldSchema['x-action-settings'],
+            },
+          },
+        });
+      }}
+    />
+  );
+};
+
+export function SessionUpdate() {
+  const { dn } = useDesignable();
+  const { t } = useTranslation();
+  const fieldSchema = useFieldSchema();
+  return (
+    <SchemaSettingsSwitchItem
+      title={t('更新询问')}
+      checked={!!fieldSchema?.['x-action-settings']?.sessionUpdate}
+      onChange={(value) => {
+        fieldSchema['x-action-settings'].sessionUpdate = value;
+        dn.emit('patch', {
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            'x-action-settings': {
+              ...fieldSchema['x-action-settings'],
+            },
+          },
+        });
+      }}
+    />
+  );
+}

@@ -22,7 +22,6 @@ import {
   SchemaSettingsDataScope,
   EditComponent,
   useFormBlockContext,
-  removeNullCondition,
   useAPIClient,
 } from '@nocobase/client';
 import { ConfigProvider } from 'antd';
@@ -31,7 +30,7 @@ import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema } from
 import { FormLayout } from '@formily/antd-v5';
 import { uid } from '@formily/shared';
 import { Field } from '@formily/core';
-import { EditFormulaTitleField, EditTitle, EditTitleField } from '../../components/SchemaSettingOptions';
+import { EditFormulaTitleField, EditTitle, EditTitleField } from '../../schema-settings';
 import _ from 'lodash';
 import { SchemaSettingsRemove } from '../../components/FormFilter/SchemaSettingsRemove';
 import { useTranslation } from '../../locale';

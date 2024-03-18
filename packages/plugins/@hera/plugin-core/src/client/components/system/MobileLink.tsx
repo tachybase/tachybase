@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@nocobase/client';
 import { Button, Tooltip } from 'antd';
 import { MobileOutlined } from '@ant-design/icons';
-import { useTranslation } from '../locale';
+import { useTranslation } from '../../locale';
 
 export const MobileLink = () => {
   const { t } = useTranslation();

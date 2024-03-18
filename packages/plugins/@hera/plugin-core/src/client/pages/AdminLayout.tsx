@@ -26,9 +26,9 @@ import {
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import { usePluginVersion } from '../hooks/usePluginVersion';
-import { OnlineUserDropdown } from '../components/OnlineUserProvider';
-import { MobileLink } from '../components/MobileLink';
-import { Notifications } from '../components/Notifications';
+import { OnlineUserDropdown } from '../components/system/OnlineUserProvider';
+import { MobileLink } from '../components/system/MobileLink';
+import { Notifications } from '../components/system/Notifications';
 import { useTranslation } from '../locale';
 
 export const useAppSpin = () => {
@@ -451,7 +451,7 @@ const usePageStyle = () => {
   return useContext(PageStyleContext).style;
 };
 
-export const HeraAdminLayout = (props) => {
+export const AdminLayout = (props) => {
   const { addMenuItem } = useCurrentUserSettingsMenu();
   const [style, setStyle] = useState('classical');
   const tabItem = useTabSettings({ style, setStyle });

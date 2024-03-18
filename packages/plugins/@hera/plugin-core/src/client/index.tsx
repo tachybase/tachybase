@@ -8,16 +8,9 @@ import {
   SchemaSettingOptions,
   useCollection,
 } from '@nocobase/client';
-import { HeraAdminLayout } from './layouts';
 import { remove } from 'lodash';
 import { CalendarBlockInitializer } from './schema-initializer/CalendarBlockInitializer';
-import { MenuDesigner } from './components/ExtendedMenuDesigner';
-import { SessionSubmit, SessionUpdate } from './components/ExtendedActionDesigner';
-import { DetailsPage } from './pages/DetailsPage';
-import { OutboundPage } from './pages/OutboundPage';
-import { HomePageConfiguration } from './pages/HomePageConfiguration';
-import { Configuration } from './components/TokenConfiguration';
-import { HomePage } from './pages/Home';
+import { MenuDesigner } from './schema-components/deprecated/ExtendedMenuDesigner';
 import { InternalPDFViewer } from './schema-components/PDFViewer';
 import {
   PDFViewerBlockInitializer,
@@ -26,21 +19,20 @@ import {
   pdfViewActionInitializer,
   usePDFViewerPrintActionProps,
 } from './schema-initializer/PDFVIewerBlockInitializer';
-import { OutboundButton } from './components/OutboundButton';
 import { useCustomizeUpdateActionProps } from './hooks/useCustomizeUpdateActionProps';
-import { OutboundLinkActionInitializer } from './schema-initializer/OutboundLinkActionInitializer';
+import { OutboundButton, OutboundLinkActionInitializer } from './schema-initializer/OutboundLinkActionInitializer';
 import { CreateSubmitActionInitializer } from './schema-initializer/CreateSubmitActionInitializer';
 import { FilterAssociatedFields } from './schema-initializer/FilterAssociatedFields';
 import { useFieldSchema } from '@formily/react';
 import { isValid } from '@formily/shared';
 import { useCreateActionProps } from './hooks/useCreateActionProps';
-import { PageLayout } from './pages/PageLayout';
 import { useOutboundActionProps } from './hooks/useOutboundActionProps';
 import { AssociatedField } from './components/AssociatedField';
 import { DatePicker } from './schema-components/date-picker';
-import { Page } from './schema-components/page';
 import { SettingBlockInitializer } from './schema-initializer/SettingBlockInitializer';
 import {
+  SessionSubmit,
+  SessionUpdate,
   EditFormulaTitleField,
   IsTablePageSize,
   useFormulaTitleVisible,
@@ -48,12 +40,12 @@ import {
   EditTitle,
   SetFilterScope,
   useSetFilterScopeVisible,
-} from './components/SchemaSettingOptions';
+  AfterSuccess,
+} from './schema-settings';
 import { SignatureInput } from './components/SignatureInput';
 import { RemoteSelect } from './schema-components/remote-select';
 import { Select } from './schema-components/select/Select';
 import { Locale, tval } from './locale';
-import { LinkManager } from './components/LinkManager';
 import {
   GroupBlockInitializer,
   GroupBlockProvider,
@@ -71,24 +63,25 @@ import {
   CustomComponentDispatcher,
   CustomComponentStub,
   customComponentDispatcherSettings,
-} from './components/CustomComponentDispatcher';
+} from './components/custom-components/CustomComponentDispatcher';
 import { useFilterBlockActionProps } from './hooks/useFilterBlockActionProps';
-import { AfterSuccess } from './components/Action.Designer';
 import { GroupBlockConfigure } from './components/GroupBlockConfigure/GroupBlockConfigure';
 import { AssociatedFieldInterface } from './interfaces/associated';
 import { CalcFieldInterface } from './interfaces/calc';
 import { CustomFieldInterface } from './interfaces/custom';
 import { CustomAssociatedFieldInterface } from './interfaces/customAssociated';
 import { SignaturePadFieldInterface } from './interfaces/signatureSchema';
-import { CalcResult } from './components/CalcResult';
-import { CustomAssociatedField } from './components/CustomAssociatedField';
+import { CalcResult } from './components/fields/CalcResult';
+import { CustomAssociatedField } from './components/custom-components/CustomAssociatedField';
 import Expression from './components/Expression';
-import { CustomField } from './components/CustomField';
+import { CustomField } from './components/custom-components/CustomField';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
 import { AutoComplete } from './schema-components/AutoComplete/AutoComplete';
+import { AdminLayout, DetailsPage, HomePage, OutboundPage, PageLayout } from './pages';
+import { Configuration, HomePageConfiguration, LinkManager } from './settings-manager-components';
 export { usePDFViewerRef } from './schema-initializer/PDFVIewerBlockInitializer';
-export * from './custom-components';
+export * from './components/custom-components/custom-components';
 
 export class PluginCoreClient extends Plugin {
   locale: Locale;
@@ -157,7 +150,6 @@ export class PluginCoreClient extends Plugin {
       GroupBlockInitializer,
       GroupBlockToolbar,
       GroupBlockProvider,
-      Page,
       DatePicker,
       RemoteSelect,
       SignatureInput,
@@ -165,7 +157,7 @@ export class PluginCoreClient extends Plugin {
       OutboundLinkActionInitializer,
       PDFViewerBlockInitializer,
       PDFViwer: InternalPDFViewer,
-      AdminLayout: HeraAdminLayout,
+      AdminLayout,
       ExtendedCalendarBlockInitializer: CalendarBlockInitializer,
       SettingBlock: SettingBlockInitializer,
       CreateSubmitActionInitializer,

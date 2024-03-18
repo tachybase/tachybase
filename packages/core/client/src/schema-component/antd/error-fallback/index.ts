@@ -1,1 +1,1 @@
-export * from './ErrorFallback';
+export * from './ErrorFallback2';
