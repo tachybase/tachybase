@@ -11,8 +11,13 @@ export const AutoComplete = (props) => {
   const [defultValue, setDefultValue] = useState([]);
   const api = useAPIClient();
   const [options, setOptions] = useState([]);
-  const [value, setValue] = useState('');
   const form = useForm();
+  const autoValue = form.values['custom'] ? form.values['custom'][fieldSchema['collectionName']] : '';
+  const [value, setValue] = useState(autoValue);
+  if (!autoValue && value) {
+    setValue('');
+    setOptions(defultValue);
+  }
 
   useAsyncEffect(async () => {
     const defultOptions = await api.request({
