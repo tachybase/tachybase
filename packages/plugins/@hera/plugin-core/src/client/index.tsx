@@ -11,7 +11,6 @@ import {
 import { remove } from 'lodash';
 import { CalendarBlockInitializer } from './schema-initializer/CalendarBlockInitializer';
 import { MenuDesigner } from './components/ExtendedMenuDesigner';
-import { SessionSubmit, SessionUpdate } from './components/ExtendedActionDesigner';
 import { HomePageConfiguration } from './pages/HomePageConfiguration';
 import { Configuration } from './components/TokenConfiguration';
 import { InternalPDFViewer } from './schema-components/PDFViewer';
@@ -35,6 +34,8 @@ import { AssociatedField } from './components/AssociatedField';
 import { DatePicker } from './schema-components/date-picker';
 import { SettingBlockInitializer } from './schema-initializer/SettingBlockInitializer';
 import {
+  SessionSubmit,
+  SessionUpdate,
   EditFormulaTitleField,
   IsTablePageSize,
   useFormulaTitleVisible,
@@ -42,7 +43,8 @@ import {
   EditTitle,
   SetFilterScope,
   useSetFilterScopeVisible,
-} from './components/SchemaSettingOptions';
+  AfterSuccess,
+} from './schema-settings';
 import { SignatureInput } from './components/SignatureInput';
 import { RemoteSelect } from './schema-components/remote-select';
 import { Select } from './schema-components/select/Select';
@@ -67,7 +69,6 @@ import {
   customComponentDispatcherSettings,
 } from './components/CustomComponentDispatcher';
 import { useFilterBlockActionProps } from './hooks/useFilterBlockActionProps';
-import { AfterSuccess } from './components/Action.Designer';
 import { GroupBlockConfigure } from './components/GroupBlockConfigure/GroupBlockConfigure';
 import { AssociatedFieldInterface } from './interfaces/associated';
 import { CalcFieldInterface } from './interfaces/calc';
