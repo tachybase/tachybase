@@ -224,9 +224,9 @@ const PreviewDocument = ({
       name = detail.contract?.project?.associated_company?.name ?? detail.systemTitle;
     } else {
       if (outOfStorage === '入库') {
-        name = detail.out_stock?.associated_company?.name ?? detail.systemTitle;
+        name = detail.in_stock?.name ?? detail.systemTitle;
       } else {
-        name = detail.in_stock?.associated_company?.name ?? detail.systemTitle;
+        name = detail.out_stock?.name ?? detail.systemTitle;
       }
     }
     return name;
@@ -427,7 +427,7 @@ const PreviewDocument = ({
                     {item?.right_unit_price && formatQuantity(item.right_unit_price, 2) + '元/' + item.right_unit}
                   </Text>
                   <Text style={styles.tableCell}>
-                    {formatQuantity(item.right_count)}
+                    {item.right_count && formatQuantity(item.right_count)}
                     {item.right_unit}
                   </Text>
                   <Text style={styles.tableCell}>

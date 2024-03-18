@@ -99,7 +99,7 @@ export class RecordService {
       const weight_items = values.group_weight_items;
       let allPrice = 0;
       for (const item of rule) {
-        const data = await this.amountCalculation(item, products, weight_items);
+        const data = await this.amountCalculation(item, products, weight_items, values.weight);
         allPrice += data;
       }
       const recordId = record.id;
@@ -260,7 +260,7 @@ export class RecordService {
    * @param weight_items 全部分组实际重量
    * @returns 单个规则产生的总金额
    */
-  private async amountCalculation(rule, products, weight_items) {
+  private async amountCalculation(rule, products, weight_items, recprdWeight) {
     const calc_products = products.filter(
       (product) => product.product.category_id === rule.product.id - 99999 || product.product.id === rule.product.id,
     );
@@ -299,11 +299,11 @@ export class RecordService {
       return allPrice / 1000;
     } else if (rule.conversion_logic.id === ConversionLogics.ActualWeight) {
       // 根据产品找分组实际重量
-      const weightDate = weight_items.find((item) =>
-        item.products?.find((product) => product?.id === rule.product.id - 99999),
-      );
+      const weightDate =
+        weight_items.find((item) => item.products?.find((product) => product?.id === rule.product.id - 99999))
+          ?.weight || recprdWeight;
       if (weightDate) {
-        const allPrice = weightDate.weight * rule.unit_price;
+        const allPrice = weightDate * rule.unit_price;
         return allPrice;
       } else {
         const allPrice = calc_products.reduce((accumulator, currentValue) => {

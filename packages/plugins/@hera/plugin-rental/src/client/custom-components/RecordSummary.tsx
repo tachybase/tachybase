@@ -206,7 +206,7 @@ const summary = (event: RecordItems, rules: any[], ruleWeight: any, recordData =
       // 处理报价跟合同不同数据结构问题 [].flat()
       [item.products]
         .flat()
-        .find((product) => product?.id - 99999 === event.product.category_id || product.id === event.product.id),
+        .find((product) => product?.id - 99999 === event.product.category_id || product?.id === event.product.id),
     );
     if (!plain) return { ruleCalc };
     ruleCalc.name = category.name;
