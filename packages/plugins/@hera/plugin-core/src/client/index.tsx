@@ -31,7 +31,6 @@ import { useFieldSchema } from '@formily/react';
 import { isValid } from '@formily/shared';
 import { useCreateActionProps } from './hooks/useCreateActionProps';
 import { useOutboundActionProps } from './hooks/useOutboundActionProps';
-import { ExtendedAssociationField } from './schema-components/association-field/Editable';
 import { AssociatedField } from './components/AssociatedField';
 import { DatePicker } from './schema-components/date-picker';
 import { SettingBlockInitializer } from './schema-initializer/SettingBlockInitializer';
@@ -156,7 +155,6 @@ export class PluginCoreClient extends Plugin {
       DatePicker,
       RemoteSelect,
       SignatureInput,
-      AssociationField: ExtendedAssociationField,
       OutboundButton,
       OutboundLinkActionInitializer,
       PDFViewerBlockInitializer,
