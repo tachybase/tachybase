@@ -4,7 +4,7 @@ import { useTranslation } from '../../locale';
 import { useField, useFieldSchema } from '@formily/react';
 import { Field } from '@nocobase/database';
 import { useCustomComponent } from '../../hooks/useCustomComponent';
-import { CustomComponentType } from '../../custom-components';
+import { CustomComponentType } from './custom-components';
 
 export const CustomComponentStub = (props) => {
   return <div>请选择组件</div>;

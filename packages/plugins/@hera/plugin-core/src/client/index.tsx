@@ -71,7 +71,7 @@ import { CalcFieldInterface } from './interfaces/calc';
 import { CustomFieldInterface } from './interfaces/custom';
 import { CustomAssociatedFieldInterface } from './interfaces/customAssociated';
 import { SignaturePadFieldInterface } from './interfaces/signatureSchema';
-import { CalcResult } from './components/calc/CalcResult';
+import { CalcResult } from './components/fields/CalcResult';
 import { CustomAssociatedField } from './components/custom-components/CustomAssociatedField';
 import Expression from './components/Expression';
 import { CustomField } from './components/custom-components/CustomField';
@@ -81,7 +81,7 @@ import { AutoComplete } from './schema-components/AutoComplete/AutoComplete';
 import { AdminLayout, DetailsPage, HomePage, OutboundPage, PageLayout } from './pages';
 import { Configuration, HomePageConfiguration, LinkManager } from './settings-manager-components';
 export { usePDFViewerRef } from './schema-initializer/PDFVIewerBlockInitializer';
-export * from './custom-components';
+export * from './components/custom-components/custom-components';
 
 export class PluginCoreClient extends Plugin {
   locale: Locale;
