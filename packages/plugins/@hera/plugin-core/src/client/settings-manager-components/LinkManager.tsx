@@ -29,7 +29,7 @@ export const LinkManager = () => {
     updateLink();
     // 更新表格数据
     const mergedArray = tableData.map((item) => {
-      const matchingItem = item.id == formData.id;
+      const matchingItem = item.id === formData.id;
       if (matchingItem) {
         return formData;
       }

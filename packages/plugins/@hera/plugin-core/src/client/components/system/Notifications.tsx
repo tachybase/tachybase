@@ -2,7 +2,7 @@ import React from 'react';
 import { css, useRequest } from '@nocobase/client';
 import { Badge, Button, Popover, List, message } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
-import { useLinkKey, useInitializationLinkKey } from '../hooks/useNotifications';
+import { useLinkKey, useInitializationLinkKey } from '../../hooks/useNotifications';
 import { useNavigate } from 'react-router-dom';
 import { dayjs } from '@nocobase/utils/client';
 
