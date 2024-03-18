@@ -4,9 +4,12 @@ import { observer } from '@formily/react';
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InternalSubTable } from './InternalSubTable';
-import { ActionContext, ActionContextProvider, __UNSAFE__, useGetAriaLabelOfPopover } from '@nocobase/client';
 import { Button, Drawer } from 'antd';
-const { useAssociationFieldContext, useSetAriaLabelForPopover, ReadPrettyInternalViewer } = __UNSAFE__;
+import { useAssociationFieldContext } from './hooks';
+import { ActionContext, ActionContextProvider } from '../action/context';
+import { useGetAriaLabelOfPopover } from '../action';
+import { ReadPrettyInternalViewer } from './InternalViewer';
+import { useSetAriaLabelForPopover } from '../action/hooks/useSetAriaLabelForPopover';
 
 export const InternaDrawerSubTable = observer(
   (props) => {
