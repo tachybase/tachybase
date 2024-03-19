@@ -118,7 +118,7 @@ export class PluginRentalClient extends Plugin {
         return name === 'settlements';
       },
     });
-    this.app.schemaInitializerManager.addItem('RecordBlockInitializers', 'previewBlock.record', {
+    this.app.schemaInitializerManager.addItem('popup:common:addBlock', 'previewBlock.record', {
       key: 'record',
       type: 'item',
       title: tval('record'),
@@ -127,7 +127,7 @@ export class PluginRentalClient extends Plugin {
       usePdfPath: '{{ useRecordPdfPath }}',
       target: 'record',
     });
-    this.app.schemaInitializerManager.addItem('RecordBlockInitializers', 'previewBlock.waybill', {
+    this.app.schemaInitializerManager.addItem('popup:common:addBlock', 'previewBlock.waybill', {
       key: 'waybill',
       type: 'item',
       title: tval('waybill'),
@@ -136,7 +136,7 @@ export class PluginRentalClient extends Plugin {
       usePdfPath: '{{ useWaybillPdfPath }}',
       target: 'waybill',
     });
-    this.app.schemaInitializerManager.addItem('RecordBlockInitializers', 'previewBlock.settlement', {
+    this.app.schemaInitializerManager.addItem('popup:common:addBlock', 'previewBlock.settlement', {
       key: 'settlement',
       type: 'item',
       title: tval('settlement'),

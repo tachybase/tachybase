@@ -34,8 +34,7 @@ import { EditFormulaTitleField, EditTitle, EditTitleField } from '../../schema-s
 import _ from 'lodash';
 import { SchemaSettingsRemove } from '../../components/FormFilter/SchemaSettingsRemove';
 import { useTranslation } from '../../locale';
-import { SchemaSettingComponent } from '../../schema-components/SchemaSettingsFieldComponent';
-import { SchemaSettingCollection } from '../../schema-components/SchemaSettingsFieldComponent copy';
+import { SchemaSettingComponent, SchemaSettingCollection } from '../../schema-components/SchemaSettingsFieldComponent';
 
 export const useFieldComponents = () => {
   const { t } = useTranslation();
