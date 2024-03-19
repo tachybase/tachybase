@@ -57,11 +57,10 @@ export const AutoComplete = (props) => {
       }
       const valueLabel = options.filter((item) => item.value === data)[0];
       if (valueLabel) {
-        form.values.custom[fieldSchema['collectionName']] = valueLabel;
+        form.values.custom[fieldSchema['collectionName']] = valueLabel.label;
         setValue(valueLabel.label);
       } else {
-        form.values.custom[fieldSchema['collectionName']] = {};
-        form.values.custom[fieldSchema['collectionName']][fieldNames.label] = data;
+        form.values.custom[fieldSchema['collectionName']] = data;
         setValue(data);
       }
     } else {

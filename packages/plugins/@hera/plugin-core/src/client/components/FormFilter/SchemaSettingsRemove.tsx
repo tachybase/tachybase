@@ -40,11 +40,11 @@ export const SchemaSettingsRemove: FC<SchemaSettingsRemoveProps> = (props) => {
             }
             await dn.remove(null, options);
             await confirm?.onOk?.();
-            delete form.values[fieldSchema.name];
+            delete form.values['custom'][fieldSchema['collectionName']];
             const name = fieldSchema.name as string;
             const title = fieldSchema.title;
             for (const key in form.fields) {
-              if (key.includes(name) && form.fields[key].title == title) {
+              if (key.includes(name) && form.fields[key].title === title) {
                 delete form.fields[key];
               }
             }
