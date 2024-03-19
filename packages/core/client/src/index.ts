@@ -38,6 +38,7 @@ export * from './nocobase-buildin-plugin';
 export * from './plugin-manager';
 export * from './pm';
 export * from './powered-by';
+export * from './powered-by-v2';
 export * from './record-provider';
 export * from './route-switch';
 export * from './schema-component';
