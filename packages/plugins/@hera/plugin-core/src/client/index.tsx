@@ -105,6 +105,44 @@ export class PluginCoreClient extends Plugin {
     });
     this.schemaSettingsManager.add(groupBlockSettings);
     this.schemaSettingsManager.add(customComponentDispatcherSettings);
+    this.schemaSettingsManager.addItem('FilterFormItemSettings', 'formulatitleField', {
+      Component: EditFormulaTitleField,
+      useVisible: useFormulaTitleVisible,
+    });
+    this.schemaSettingsManager.addItem('FormItemSettings', 'hera-divider', {
+      type: 'divider',
+      useVisible() {
+        const v1 = useFormulaTitleVisible();
+        const v2 = usePaginationVisible();
+        return v1 || v2;
+      },
+    });
+    this.schemaSettingsManager.addItem('FormItemSettings', 'formulatitleField', {
+      Component: EditFormulaTitleField,
+      useVisible: useFormulaTitleVisible,
+    });
+    this.schemaSettingsManager.addItem('FormItemSettings', 'isTablePageSize', {
+      Component: IsTablePageSize,
+      useVisible: usePaginationVisible,
+    });
+    this.schemaSettingsManager.addItem('ActionSettings', 'Customize.setFilterScope', {
+      Component: SetFilterScope,
+      useVisible: useSetFilterScopeVisible,
+      useComponentProps() {
+        const collection = useCollection();
+        return {
+          collectionName: collection.name,
+        };
+      },
+    });
+    const SchemaSettingOptionItems = this.schemaSettingsManager
+      .get('ActionSettings')
+      .items.filter((item) => item.name === 'Customize')[0].children;
+    SchemaSettingOptionItems.forEach((item) => {
+      if (item.name === 'afterSuccess') {
+        (item as SchemaSettingOptions).Component = AfterSuccess;
+      }
+    });
   }
 
   async registerActions() {
@@ -127,57 +165,57 @@ export class PluginCoreClient extends Plugin {
 
   async registerScopesAndComponents() {
     this.app.addScopes({
-      useOutboundActionProps,
-      useCustomizeUpdateActionProps,
       useCreateActionProps,
-      useFilterFormCustomProps,
+      useCustomizeUpdateActionProps,
       useFilterBlockActionProps,
-      usePDFViewerPrintActionProps,
+      useFilterFormCustomProps,
       useGetCustomAssociatedComponents,
       useGetCustomComponents,
+      useOutboundActionProps,
+      usePDFViewerPrintActionProps,
     });
 
     this.app.addComponents({
-      AssociatedField,
-      Expression,
-      CustomField,
-      CustomAssociatedField,
-      CalcResult,
-      PDFViewerPrintActionInitializer,
-      PDFViewerProvider,
-      GroupBlock,
-      CustomComponentStub,
-      CustomComponentDispatcher,
-      GroupBlockInitializer,
-      GroupBlockToolbar,
-      GroupBlockProvider,
-      DatePicker,
-      RemoteSelect,
-      SignatureInput,
-      OutboundButton,
-      OutboundLinkActionInitializer,
-      PDFViewerBlockInitializer,
-      PDFViwer: InternalPDFViewer,
       AdminLayout,
-      ExtendedCalendarBlockInitializer: CalendarBlockInitializer,
-      SettingBlock: SettingBlockInitializer,
+      AfterSuccess,
+      AssociatedField,
+      AutoComplete,
+      CalcResult,
       CreateSubmitActionInitializer,
-      PageLayout,
-      FilterAssociatedFields,
-      FilterFormItemCustom,
-      FilterFormItem,
-      FilterItemCustomDesigner,
-      Select,
+      CustomAssociatedField,
+      CustomComponentDispatcher,
+      CustomComponentStub,
+      CustomField,
+      DatePicker,
       EditTitle,
       EditTitleField,
-      AfterSuccess,
+      Expression,
+      ExtendedCalendarBlockInitializer: CalendarBlockInitializer,
+      FilterAssociatedFields,
+      FilterFormItem,
+      FilterFormItemCustom,
+      FilterItemCustomDesigner,
+      GroupBlock,
       GroupBlockConfigure,
-      AutoComplete,
+      GroupBlockInitializer,
+      GroupBlockProvider,
+      GroupBlockToolbar,
       Menu: {
         ...Menu,
         // @ts-ignore
         Designer: MenuDesigner,
       },
+      OutboundButton,
+      OutboundLinkActionInitializer,
+      PDFViewerBlockInitializer,
+      PDFViewerPrintActionInitializer,
+      PDFViewerProvider,
+      PDFViwer: InternalPDFViewer,
+      PageLayout,
+      RemoteSelect,
+      Select,
+      SettingBlock: SettingBlockInitializer,
+      SignatureInput,
     });
   }
 
@@ -281,19 +319,13 @@ export class PluginCoreClient extends Plugin {
       addCustomComponent.name,
       addCustomComponent,
     );
-  }
-
-  async afterAdd() {}
-  async beforeLoad() {}
-  async afterLoad() {
-    // log for debug
-    if (process.env.NODE_ENV !== 'production') {
-      console.info('current components', this.app.components);
-      console.info('current schemaSettings', this.app.schemaSettingsManager.getAll());
-      console.info('current schemaInitializer', this.app.schemaInitializerManager.getAll());
-      console.info('current providers', this.app.providers);
-    }
-    await this.registerSchemaInitializer();
+    const previewBlockItem = {
+      title: tval('preview block'),
+      name: 'previewBlock',
+      type: 'itemGroup',
+      children: [],
+    };
+    this.app.schemaInitializerManager.get('RecordBlockInitializers').add(previewBlockItem.name, previewBlockItem);
   }
 
   async registerInterfaces() {
@@ -306,6 +338,17 @@ export class PluginCoreClient extends Plugin {
     ]);
   }
 
+  async afterLoad() {
+    // log for debug
+    if (process.env.NODE_ENV !== 'production') {
+      console.info('current components', this.app.components);
+      console.info('current schemaSettings', this.app.schemaSettingsManager.getAll());
+      console.info('current schemaInitializer', this.app.schemaInitializerManager.getAll());
+      console.info('current providers', this.app.providers);
+    }
+    await this.registerSchemaInitializer();
+  }
+
   async load() {
     this.locale = new Locale(this.app);
     await this.registerTricks();
@@ -314,51 +357,6 @@ export class PluginCoreClient extends Plugin {
     await this.registerActions();
     await this.registerRouters();
     await this.registerInterfaces();
-    this.schemaSettingsManager.addItem('FilterFormItemSettings', 'formulatitleField', {
-      Component: EditFormulaTitleField,
-      useVisible: useFormulaTitleVisible,
-    });
-    this.schemaSettingsManager.addItem('FormItemSettings', 'hera-divider', {
-      type: 'divider',
-      useVisible() {
-        const v1 = useFormulaTitleVisible();
-        const v2 = usePaginationVisible();
-        return v1 || v2;
-      },
-    });
-    this.schemaSettingsManager.addItem('FormItemSettings', 'formulatitleField', {
-      Component: EditFormulaTitleField,
-      useVisible: useFormulaTitleVisible,
-    });
-    this.schemaSettingsManager.addItem('FormItemSettings', 'isTablePageSize', {
-      Component: IsTablePageSize,
-      useVisible: usePaginationVisible,
-    });
-    this.schemaSettingsManager.addItem('ActionSettings', 'Customize.setFilterScope', {
-      Component: SetFilterScope,
-      useVisible: useSetFilterScopeVisible,
-      useComponentProps() {
-        const collection = useCollection();
-        return {
-          collectionName: collection.name,
-        };
-      },
-    });
-    const SchemaSettingOptionItems = this.schemaSettingsManager
-      .get('ActionSettings')
-      .items.filter((item) => item.name === 'Customize')[0].children;
-    SchemaSettingOptionItems.forEach((item) => {
-      if (item.name === 'afterSuccess') {
-        (item as SchemaSettingOptions).Component = AfterSuccess;
-      }
-    });
-    const previewBlockItem = {
-      title: tval('preview block'),
-      name: 'previewBlock',
-      type: 'itemGroup',
-      children: [],
-    };
-    this.app.schemaInitializerManager.get('RecordBlockInitializers').add(previewBlockItem.name, previewBlockItem);
 
     // listen to connected events.
     autorun(() => {
