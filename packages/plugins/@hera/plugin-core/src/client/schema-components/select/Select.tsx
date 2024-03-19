@@ -86,21 +86,29 @@ const ObjectSelect = (props: Props) => {
       showSearch
       popupMatchSelectWidth={false}
       filterOption={(input, option) => (option?.[fieldNames.label || 'label'] ?? '').includes(input)}
-      filterSort={(optionA, optionB) =>
-        (optionA?.[fieldNames.label || 'label'] ?? '')
-          .toLowerCase()
-          .localeCompare((optionB?.[fieldNames.label || 'label'] ?? '').toLowerCase())
-      }
+      filterSort={(optionA, optionB) => {
+        if (typeof optionA[fieldNames.label] === 'number') {
+          return optionA[fieldNames.label] - optionB[fieldNames.label];
+        } else if (typeof optionA[fieldNames.label] === 'string') {
+          return (optionA?.[fieldNames.label || 'label'] ?? '')
+            .toLowerCase()
+            .localeCompare((optionB?.[fieldNames.label || 'label'] ?? '').toLowerCase());
+        }
+      }}
       onChange={(changed) => {
         const current = getCurrentOptions(
           toArr(changed).map((v) => v.value),
           rawOptions || options,
           fieldNames,
         );
-        if (['tags', 'multiple'].includes(mode as string) || props.multiple) {
-          onChange?.(current);
+        if (fieldSchema.name.toString().includes('custom')) {
+          onChange?.(changed ? changed['label'] : changed);
         } else {
-          onChange?.(current.shift() || null);
+          if (['tags', 'multiple'].includes(mode as string) || props.multiple) {
+            onChange?.(current);
+          } else {
+            onChange?.(current.shift() || null);
+          }
         }
       }}
       mode={mode}

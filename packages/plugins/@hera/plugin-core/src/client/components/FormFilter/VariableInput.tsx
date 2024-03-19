@@ -377,42 +377,11 @@ export const useFilterVariable = (fields) => {
     .filter((value) => value?.props?.name.includes('custom.'))
     .map((custom) => {
       const value = custom?.props?.name.replace(/^custom\./, '');
-      const collection = collections.filter((collection) => collection.name === value)[0];
-      let children = collection.fields.map((collectionField) => {
-        if (
-          collectionField.interface !== 'o2o' &&
-          collectionField.interface !== 'oho' &&
-          collectionField.interface !== 'm2o' &&
-          collectionField.interface !== 'createdBy' &&
-          collectionField.interface !== 'updatedBy' &&
-          collectionField.interface !== 'o2m' &&
-          collectionField.interface !== 'm2m' &&
-          collectionField.interface !== 'linkTo' &&
-          collectionField.interface !== 'chinaRegion' &&
-          collectionField.interface !== 'obo' &&
-          collectionField.interface !== 'createdAt' &&
-          collectionField.interface !== 'updatedAt'
-        ) {
-          return {
-            key: collectionField.key,
-            value: collectionField.name,
-            label: compile(collectionField.uiSchema.title),
-          };
-        }
-      });
-      children = children.filter(Boolean);
-      return children.length
-        ? {
-            key: custom?.props?.name,
-            value,
-            label: custom.title,
-            children,
-          }
-        : {
-            key: custom?.props?.name,
-            value,
-            label: custom.title,
-          };
+      return {
+        key: custom?.props?.name,
+        value,
+        label: custom.title,
+      };
     });
   const result = useMemo(
     () => ({

@@ -20,7 +20,6 @@ export const removeNullCondition = (filter, fieldSchema?) => {
   if (filterSchema && (filterSchema.$and?.length || filterSchema.$or?.length)) {
     for (const key in items) {
       for (const filterItems in filterSchemaItem) {
-        const match = filterSchemaItem[filterItems].slice(11, -2);
         if (key.includes(filterItems)) {
           isFilterCustom = true;
           break;
@@ -38,8 +37,10 @@ export const removeNullCondition = (filter, fieldSchema?) => {
             for (const key in items) {
               if (key.includes(collection)) {
                 if (key.includes(match)) {
-                  filterSchemaItem[filterKey] = items[key];
-                  filterItem[match] = items[key];
+                  if (Object.keys(items[key]).length) {
+                    filterSchemaItem[filterKey] = items[key];
+                    filterItem[match] = items[key];
+                  }
                 }
                 if (key.includes(collection)) delete items[key];
                 else {

@@ -5,6 +5,7 @@ import {
   SchemaSettingsSelectItem,
   SchemaSettingsSwitchItem,
   useCollection_deprecated,
+  useCollectionManager,
   useCollectionManager_deprecated,
   useCompile,
   useDesignable,
@@ -20,6 +21,7 @@ import _ from 'lodash';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from '../locale';
 import { FormFilterScope } from '../components/FormFilter/FormFilterScope';
+import { useFieldComponents } from '../schema-initializer';
 
 export const useFormulaTitleOptions = () => {
   const compile = useCompile();
@@ -495,3 +497,61 @@ export function SessionUpdate() {
     />
   );
 }
+
+export const SchemaSettingComponent = () => {
+  const fieldSchema = useFieldSchema();
+  const field = useField();
+  const { options } = useFieldComponents();
+  const { dn } = useDesignable();
+  return (
+    <SchemaSettingsSelectItem
+      key="component-field"
+      title="Field Component"
+      options={options}
+      value={fieldSchema['x-component']}
+      onChange={(mode) => {
+        const schema = {
+          ['x-uid']: fieldSchema['x-uid'],
+          ['x-component']: mode,
+        };
+        field.component = mode;
+        void dn.emit('patch', {
+          schema,
+        });
+        dn.refresh();
+      }}
+    />
+  );
+};
+
+export const SchemaSettingCollection = () => {
+  const fieldSchema = useFieldSchema();
+  const field = useField();
+  const collections = useCollectionManager();
+  const options = collections?.dataSource['options']?.collections.map((value) => {
+    return {
+      label: value.name,
+      value: value.name,
+    };
+  });
+  const { dn } = useDesignable();
+  return (
+    <SchemaSettingsSelectItem
+      key="component-field"
+      title="Edit Collection"
+      options={options}
+      value={fieldSchema['collectionName']}
+      onChange={(name) => {
+        fieldSchema['collectionName'] = name;
+        fieldSchema['name'] = 'custom.' + name;
+        const schema = {
+          ['x-uid']: fieldSchema['x-uid'],
+          collectionName: name,
+          name: 'custom.' + name,
+        };
+        void dn.emit('patch', { schema });
+        dn.refresh();
+      }}
+    />
+  );
+};

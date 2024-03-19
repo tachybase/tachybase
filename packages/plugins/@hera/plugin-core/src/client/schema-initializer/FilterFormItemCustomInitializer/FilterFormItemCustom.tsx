@@ -30,11 +30,16 @@ import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema } from
 import { FormLayout } from '@formily/antd-v5';
 import { uid } from '@formily/shared';
 import { Field } from '@formily/core';
-import { EditFormulaTitleField, EditTitle, EditTitleField } from '../../schema-settings';
+import {
+  EditFormulaTitleField,
+  EditTitle,
+  EditTitleField,
+  SchemaSettingCollection,
+  SchemaSettingComponent,
+} from '../../schema-settings';
 import _ from 'lodash';
 import { SchemaSettingsRemove } from '../../components/FormFilter/SchemaSettingsRemove';
 import { useTranslation } from '../../locale';
-import { SchemaSettingComponent, SchemaSettingCollection } from '../../schema-components/SchemaSettingsFieldComponent';
 
 export const useFieldComponents = () => {
   const { t } = useTranslation();
