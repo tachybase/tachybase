@@ -28,7 +28,7 @@ export const AutoComplete = (props) => {
       },
     });
     changLable(defultOptions?.data?.data);
-  }, [fieldFilter?.filter]);
+  }, [fieldFilter?.filter, fieldSchema['collectionName']]);
 
   useEffect(() => {
     changLable(defultValue);
@@ -57,14 +57,15 @@ export const AutoComplete = (props) => {
       }
       const valueLabel = options.filter((item) => item.value === data)[0];
       if (valueLabel) {
-        setValue(valueLabel.label);
         form.values.custom[fieldSchema['collectionName']] = valueLabel;
+        setValue(valueLabel.label);
       } else {
-        setValue(data);
         form.values.custom[fieldSchema['collectionName']] = {};
         form.values.custom[fieldSchema['collectionName']][fieldNames.label] = data;
+        setValue(data);
       }
     } else {
+      form.values.custom[fieldSchema['collectionName']] = {};
       setValue(data);
       setOptions(defultValue);
     }

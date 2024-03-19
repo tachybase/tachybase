@@ -110,8 +110,6 @@ export const VariableInput = (props: Props) => {
     operator,
     uiSchema,
     targetFieldSchema,
-    currentFormCollectionName,
-    currentIterationCollectionName,
   });
   const contextVariable = useContextAssociationFields({ schema, maxDepth: 2, contextCollectionName, collectionField });
   const { compatOldVariables } = useCompatOldVariables({

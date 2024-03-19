@@ -1,5 +1,4 @@
 import React from 'react';
-import { autorun } from '@formily/reactive';
 import {
   Menu,
   Plugin,
@@ -9,27 +8,10 @@ import {
   useCollection,
 } from '@nocobase/client';
 import { remove } from 'lodash';
-import { CalendarBlockInitializer } from './schema-initializer/CalendarBlockInitializer';
-import { MenuDesigner } from './schema-components/deprecated/ExtendedMenuDesigner';
-import { InternalPDFViewer } from './schema-components/PDFViewer';
-import {
-  PDFViewerBlockInitializer,
-  PDFViewerPrintActionInitializer,
-  PDFViewerProvider,
-  pdfViewActionInitializer,
-  usePDFViewerPrintActionProps,
-} from './schema-initializer/PDFVIewerBlockInitializer';
-import { useCustomizeUpdateActionProps } from './hooks/useCustomizeUpdateActionProps';
-import { OutboundButton, OutboundLinkActionInitializer } from './schema-initializer/OutboundLinkActionInitializer';
-import { CreateSubmitActionInitializer } from './schema-initializer/CreateSubmitActionInitializer';
-import { FilterAssociatedFields } from './schema-initializer/FilterAssociatedFields';
 import { useFieldSchema } from '@formily/react';
 import { isValid } from '@formily/shared';
-import { useCreateActionProps } from './hooks/useCreateActionProps';
-import { useOutboundActionProps } from './hooks/useOutboundActionProps';
-import { AssociatedField } from './components/fields/AssociatedField';
-import { DatePicker } from './schema-components/date-picker';
-import { SettingBlockInitializer } from './schema-initializer/SettingBlockInitializer';
+import { autorun } from '@formily/reactive';
+import { Locale, tval } from './locale';
 import {
   SessionSubmit,
   SessionUpdate,
@@ -42,45 +24,64 @@ import {
   useSetFilterScopeVisible,
   AfterSuccess,
 } from './schema-settings';
-import { SignatureInput } from './components/SignatureInput';
-import { RemoteSelect } from './schema-components/remote-select';
-import { Select } from './schema-components/select/Select';
-import { Locale, tval } from './locale';
-import {
-  GroupBlockInitializer,
-  GroupBlockProvider,
-  GroupBlockToolbar,
-  groupBlockSettings,
-} from './schema-initializer/GroupBlockInitializer';
+import { useCreateActionProps } from './hooks/useCreateActionProps';
+import { useCustomizeUpdateActionProps } from './hooks/useCustomizeUpdateActionProps';
+import { useFilterBlockActionProps } from './hooks/useFilterBlockActionProps';
 import { useFilterFormCustomProps } from './hooks/useFilterFormCustomProps';
+import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
+import { useGetCustomComponents } from './hooks/useGetCustomComponents';
+import { useOutboundActionProps } from './hooks/useOutboundActionProps';
+import { AdminLayout, DetailsPage, HomePage, OutboundPage, PageLayout } from './pages';
+import { Configuration, HomePageConfiguration, LinkManager } from './settings-manager-components';
 import {
-  FilterFormItem,
-  FilterItemCustomDesigner,
-  FilterFormItemCustom,
-} from './schema-initializer/FilterFormItemCustomInitializer/FilterFormItemCustom';
-import { GroupBlock } from './schema-components/GroupBlock';
+  AssociatedFieldInterface,
+  CalcFieldInterface,
+  CustomFieldInterface,
+  CustomAssociatedFieldInterface,
+  SignaturePadFieldInterface,
+} from './interfaces';
 import {
+  AssociatedField,
+  CalcResult,
+  CustomAssociatedField,
+  CustomField,
   CustomComponentDispatcher,
   CustomComponentStub,
   customComponentDispatcherSettings,
-} from './components/custom-components/CustomComponentDispatcher';
-import { useFilterBlockActionProps } from './hooks/useFilterBlockActionProps';
-import { GroupBlockConfigure } from './components/GroupBlockConfigure/GroupBlockConfigure';
-import { AssociatedFieldInterface } from './interfaces/associated';
-import { CalcFieldInterface } from './interfaces/calc';
-import { CustomFieldInterface } from './interfaces/custom';
-import { CustomAssociatedFieldInterface } from './interfaces/customAssociated';
-import { SignaturePadFieldInterface } from './interfaces/signatureSchema';
-import { CalcResult } from './components/fields/CalcResult';
-import { CustomAssociatedField } from './components/custom-components/CustomAssociatedField';
-import Expression from './components/fields/Expression';
-import { CustomField } from './components/custom-components/CustomField';
-import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
-import { useGetCustomComponents } from './hooks/useGetCustomComponents';
-import { AutoComplete } from './schema-components/AutoComplete/AutoComplete';
-import { AdminLayout, DetailsPage, HomePage, OutboundPage, PageLayout } from './pages';
-import { Configuration, HomePageConfiguration, LinkManager } from './settings-manager-components';
-export { usePDFViewerRef } from './schema-initializer/PDFVIewerBlockInitializer';
+  Expression,
+  GroupBlockConfigure,
+  SignatureInput,
+} from './components';
+import {
+  AutoComplete,
+  DatePicker,
+  GroupBlock,
+  InternalPDFViewer,
+  MenuDesigner,
+  RemoteSelect,
+  Select,
+} from './schema-components';
+import {
+  CalendarBlockInitializer,
+  CreateSubmitActionInitializer,
+  FilterAssociatedFields,
+  FilterFormItem,
+  FilterFormItemCustom,
+  FilterItemCustomDesigner,
+  GroupBlockInitializer,
+  GroupBlockProvider,
+  GroupBlockToolbar,
+  OutboundButton,
+  OutboundLinkActionInitializer,
+  PDFViewerBlockInitializer,
+  PDFViewerPrintActionInitializer,
+  PDFViewerProvider,
+  SettingBlockInitializer,
+  groupBlockSettings,
+  pdfViewActionInitializer,
+  usePDFViewerPrintActionProps,
+} from './schema-initializer';
+export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
 export class PluginCoreClient extends Plugin {
@@ -104,6 +105,53 @@ export class PluginCoreClient extends Plugin {
     });
     this.schemaSettingsManager.add(groupBlockSettings);
     this.schemaSettingsManager.add(customComponentDispatcherSettings);
+    this.schemaSettingsManager.addItem('FilterFormItemSettings', 'formulatitleField', {
+      Component: EditFormulaTitleField,
+      useVisible: useFormulaTitleVisible,
+    });
+    this.schemaSettingsManager.addItem('FormItemSettings', 'hera-divider', {
+      type: 'divider',
+      useVisible() {
+        const v1 = useFormulaTitleVisible();
+        const v2 = usePaginationVisible();
+        return v1 || v2;
+      },
+    });
+    this.schemaSettingsManager.addItem('FormItemSettings', 'formulatitleField', {
+      Component: EditFormulaTitleField,
+      useVisible: useFormulaTitleVisible,
+    });
+    this.schemaSettingsManager.addItem('FormItemSettings', 'isTablePageSize', {
+      Component: IsTablePageSize,
+      useVisible: usePaginationVisible,
+    });
+    this.schemaSettingsManager.addItem('ActionSettings', 'Customize.setFilterScope', {
+      Component: SetFilterScope,
+      useVisible: useSetFilterScopeVisible,
+      useComponentProps() {
+        const collection = useCollection();
+        return {
+          collectionName: collection.name,
+        };
+      },
+    });
+    const SchemaSettingOptionItems = this.schemaSettingsManager
+      .get('ActionSettings')
+      .items.filter((item) => item.name === 'Customize')[0].children;
+    SchemaSettingOptionItems.forEach((item) => {
+      if (item.name === 'afterSuccess') {
+        (item as SchemaSettingOptions).Component = AfterSuccess;
+      }
+    });
+
+    // 预览区块需要提前加进来，没法放在 afterload 中，这块后面需要重构
+    const previewBlockItem = {
+      title: tval('preview block'),
+      name: 'previewBlock',
+      type: 'itemGroup',
+      children: [],
+    };
+    this.app.schemaInitializerManager.get('popup:common:addBlock').add(previewBlockItem.name, previewBlockItem);
   }
 
   async registerActions() {
@@ -126,57 +174,57 @@ export class PluginCoreClient extends Plugin {
 
   async registerScopesAndComponents() {
     this.app.addScopes({
-      useOutboundActionProps,
-      useCustomizeUpdateActionProps,
       useCreateActionProps,
-      useFilterFormCustomProps,
+      useCustomizeUpdateActionProps,
       useFilterBlockActionProps,
-      usePDFViewerPrintActionProps,
+      useFilterFormCustomProps,
       useGetCustomAssociatedComponents,
       useGetCustomComponents,
+      useOutboundActionProps,
+      usePDFViewerPrintActionProps,
     });
 
     this.app.addComponents({
-      AssociatedField,
-      Expression,
-      CustomField,
-      CustomAssociatedField,
-      CalcResult,
-      PDFViewerPrintActionInitializer,
-      PDFViewerProvider,
-      GroupBlock,
-      CustomComponentStub,
-      CustomComponentDispatcher,
-      GroupBlockInitializer,
-      GroupBlockToolbar,
-      GroupBlockProvider,
-      DatePicker,
-      RemoteSelect,
-      SignatureInput,
-      OutboundButton,
-      OutboundLinkActionInitializer,
-      PDFViewerBlockInitializer,
-      PDFViwer: InternalPDFViewer,
       AdminLayout,
-      ExtendedCalendarBlockInitializer: CalendarBlockInitializer,
-      SettingBlock: SettingBlockInitializer,
+      AfterSuccess,
+      AssociatedField,
+      AutoComplete,
+      CalcResult,
       CreateSubmitActionInitializer,
-      PageLayout,
-      FilterAssociatedFields,
-      FilterFormItemCustom,
-      FilterFormItem,
-      FilterItemCustomDesigner,
-      Select,
+      CustomAssociatedField,
+      CustomComponentDispatcher,
+      CustomComponentStub,
+      CustomField,
+      DatePicker,
       EditTitle,
       EditTitleField,
-      AfterSuccess,
+      Expression,
+      ExtendedCalendarBlockInitializer: CalendarBlockInitializer,
+      FilterAssociatedFields,
+      FilterFormItem,
+      FilterFormItemCustom,
+      FilterItemCustomDesigner,
+      GroupBlock,
       GroupBlockConfigure,
-      AutoComplete,
+      GroupBlockInitializer,
+      GroupBlockProvider,
+      GroupBlockToolbar,
       Menu: {
         ...Menu,
         // @ts-ignore
         Designer: MenuDesigner,
       },
+      OutboundButton,
+      OutboundLinkActionInitializer,
+      PDFViewerBlockInitializer,
+      PDFViewerPrintActionInitializer,
+      PDFViewerProvider,
+      PDFViwer: InternalPDFViewer,
+      PageLayout,
+      RemoteSelect,
+      Select,
+      SettingBlock: SettingBlockInitializer,
+      SignatureInput,
     });
   }
 
@@ -282,8 +330,16 @@ export class PluginCoreClient extends Plugin {
     );
   }
 
-  async afterAdd() {}
-  async beforeLoad() {}
+  async registerInterfaces() {
+    this.app.dataSourceManager.addFieldInterfaces([
+      AssociatedFieldInterface,
+      CalcFieldInterface,
+      CustomFieldInterface,
+      CustomAssociatedFieldInterface,
+      SignaturePadFieldInterface,
+    ]);
+  }
+
   async afterLoad() {
     // log for debug
     if (process.env.NODE_ENV !== 'production') {
@@ -295,16 +351,6 @@ export class PluginCoreClient extends Plugin {
     await this.registerSchemaInitializer();
   }
 
-  async registerInterfaces() {
-    this.app.dataSourceManager.addFieldInterfaces([
-      AssociatedFieldInterface,
-      CalcFieldInterface,
-      CustomFieldInterface,
-      CustomAssociatedFieldInterface,
-      SignaturePadFieldInterface,
-    ]);
-  }
-
   async load() {
     this.locale = new Locale(this.app);
     await this.registerTricks();
@@ -313,51 +359,6 @@ export class PluginCoreClient extends Plugin {
     await this.registerActions();
     await this.registerRouters();
     await this.registerInterfaces();
-    this.schemaSettingsManager.addItem('FilterFormItemSettings', 'formulatitleField', {
-      Component: EditFormulaTitleField,
-      useVisible: useFormulaTitleVisible,
-    });
-    this.schemaSettingsManager.addItem('FormItemSettings', 'hera-divider', {
-      type: 'divider',
-      useVisible() {
-        const v1 = useFormulaTitleVisible();
-        const v2 = usePaginationVisible();
-        return v1 || v2;
-      },
-    });
-    this.schemaSettingsManager.addItem('FormItemSettings', 'formulatitleField', {
-      Component: EditFormulaTitleField,
-      useVisible: useFormulaTitleVisible,
-    });
-    this.schemaSettingsManager.addItem('FormItemSettings', 'isTablePageSize', {
-      Component: IsTablePageSize,
-      useVisible: usePaginationVisible,
-    });
-    this.schemaSettingsManager.addItem('ActionSettings', 'Customize.setFilterScope', {
-      Component: SetFilterScope,
-      useVisible: useSetFilterScopeVisible,
-      useComponentProps() {
-        const collection = useCollection();
-        return {
-          collectionName: collection.name,
-        };
-      },
-    });
-    const SchemaSettingOptionItems = this.schemaSettingsManager
-      .get('ActionSettings')
-      .items.filter((item) => item.name === 'Customize')[0].children;
-    SchemaSettingOptionItems.forEach((item) => {
-      if (item.name === 'afterSuccess') {
-        (item as SchemaSettingOptions).Component = AfterSuccess;
-      }
-    });
-    const previewBlockItem = {
-      title: tval('preview block'),
-      name: 'previewBlock',
-      type: 'itemGroup',
-      children: [],
-    };
-    this.app.schemaInitializerManager.get('RecordBlockInitializers').add(previewBlockItem.name, previewBlockItem);
 
     // listen to connected events.
     autorun(() => {
