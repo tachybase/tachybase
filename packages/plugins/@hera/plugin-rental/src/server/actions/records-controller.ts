@@ -90,6 +90,58 @@ export class RecordPreviewController {
         }));
     }
   }
+  @Action('allweight')
+  async groupWeight(ctx: Context) {
+    const { filter } = ctx.action.params.values;
+    const { sequelize } = ctx.db;
+    const records = await ctx.db.getRepository('records').find({
+      filter,
+      attributes: [
+        [sequelize.fn('sum', sequelize.col('records.weight')), 'weight'],
+        [sequelize.col('records.movement'), 'movement'],
+      ],
+      group: [sequelize.col('records.movement')],
+    });
+
+    const inNum = records.find((item) => item.movement === Movement.in)?.weight ?? 0;
+    const outNum = records.find((item) => item.movement === Movement.out)?.weight ?? 0;
+    const data = [
+      {
+        label: '实际重量（吨）',
+        value: {
+          labels: ['出库数量（吨）', '入库数量（吨）', '小计（吨）'],
+          values: [outNum, inNum, inNum - outNum],
+        },
+      },
+    ];
+    ctx.body = data;
+  }
+  @Action('allprice')
+  async groupPrice(ctx: Context) {
+    const { filter } = ctx.action.params.values;
+    const { sequelize } = ctx.db;
+    const records = await ctx.db.getRepository('records').find({
+      filter,
+      attributes: [
+        [sequelize.fn('sum', sequelize.col('records.all_price')), 'all_price'],
+        [sequelize.col('records.movement'), 'movement'],
+      ],
+      group: [sequelize.col('records.movement')],
+    });
+
+    const inNum = records.find((item) => item.movement === Movement.in)?.all_price ?? 0;
+    const outNum = records.find((item) => item.movement === Movement.out)?.all_price ?? 0;
+    const data = [
+      {
+        label: '总金额',
+        value: {
+          labels: ['收入', '支出', '小计'],
+          values: [outNum, inNum, outNum - inNum],
+        },
+      },
+    ];
+    ctx.body = data;
+  }
 
   @Action('pdf')
   async printPreview(ctx: Context) {
