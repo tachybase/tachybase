@@ -71,7 +71,8 @@ export const RecordDetails: CustomFunctionComponent = () => {
       const unit = item.product.category.convertible
         ? item.product.category.conversion_unit
         : item.product.category.unit;
-      const weight = count * item.product.weight;
+
+      const weight = item.count * item.product.weight;
       if (productItem[key]) {
         productItem[key].count += count;
       } else {
