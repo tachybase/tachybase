@@ -1,6 +1,7 @@
 import Database, { CreateOptions, MagicAttributeModel, Transaction } from '@nocobase/database';
 import { Db, Service } from '@nocobase/utils';
 import { ConversionLogics, Movement, RecordCategory, RecordTypes, settlementStatus } from '../../utils/constants';
+import validateLicensePlate from '../../utils/validateLIcensePlate';
 
 @Service()
 export class RecordService {
@@ -11,10 +12,7 @@ export class RecordService {
     // 1. 创建项目/更新项目（ 直发单，生成对应租赁/购销，出入库单数据， 并且设置订单多对多project字段关系）
     this.db.on('records.afterCreate', this.afterCreateDirectRecord.bind(this));
     this.db.on('records.afterUpdate', this.afterUpdateDirectRecord.bind(this));
-    // 2. 订单新建更新后（根据合同确定出入库字段）
-    this.db.on('records.afterSave', this.setProject.bind(this));
-    // 订单发生变化时更新对应结算单的状态（需要重新计算）
-    this.db.on('records.afterSave', this.updateSettlementStatus.bind(this));
+    this.db.on('records.afterSave', this.recordsAfterSave.bind(this));
   }
   /**
    * 处理直发单生成单
@@ -25,7 +23,7 @@ export class RecordService {
       return;
     }
     if (values.record_category === RecordTypes.purchaseDirect || values.record_category === RecordTypes.rentDirect) {
-      await this.createRecord(model, values, transaction, context, null);
+      await this._createRecord(model, values, transaction, context, null);
     }
   }
   /**
@@ -40,7 +38,7 @@ export class RecordService {
       const deleteDatas = await this.db.getRepository('records').find({ where: { direct_record_id: model.id } });
       // 删除订单多对多项目表数据
       const records = await this.db.getRepository('records').find({ where: { direct_record_id: model.id } });
-      await this.deleteReocrdProject(
+      await this._deleteReocrdProject(
         records.map((item) => item.id),
         transaction,
       );
@@ -55,123 +53,48 @@ export class RecordService {
         },
       );
       const numbers = deleteDatas.map((item) => item.number);
-      await this.createRecord(model, values, transaction, context, numbers);
+      await this._createRecord(model, values, transaction, context, numbers);
     }
   }
   /**
-   * 更新订单对应的结算表状态
-   */
-  async updateSettlementStatus(record: MagicAttributeModel, options: CreateOptions) {
-    const { values, transaction, context } = options;
-    if (!values) return;
-    // 触发打印更新次数跳过
-    if (values?.print_count) return;
-    if (values?.category === RecordCategory.lease && values.contract) {
-      const dateObject = values.date;
-      // 结束时间添加一天，新系统选择时间都是以当天0点开始，但是导入的数据存在不是以0点开始比如2023-12-21:03.000……，提醒结算单的时间可能为2023-12-21:00.000……
-      const settlement = await this.db.sequelize.query(
-        `SELECT * FROM settlements WHERE contract_id = ${values.contract.id} AND start_date <= '${dateObject}' AND end_date >= (TIMESTAMP '${dateObject}' - INTERVAL '1 day')`,
-      );
-      const settlementData: any = settlement[0];
-      if (settlementData.length) {
-        for (const item of settlementData) {
-          const settlement_id = item.id;
-          await this.db.getModel('settlements').update(
-            {
-              status: settlementStatus.needReCompute,
-            },
-            {
-              where: {
-                id: settlement_id,
-              },
-              transaction,
-            },
-          );
-        }
-      }
-    }
-    if (values?.category === RecordCategory.purchase) {
-      // 定价
-      const rule = values.price_items;
-      // 产品
-      const products = values.items;
-      // 分组实际总量
-      const weight_items = values.group_weight_items;
-      let allPrice = 0;
-      for (const item of rule) {
-        const data = await this.amountCalculation(item, products, weight_items, values.weight);
-        allPrice += data;
-      }
-      const recordId = record.id;
-      // 更新订单总金额字段
-      await this.db.getModel('records').update(
-        { all_price: allPrice },
-        {
-          where: {
-            id: recordId,
-          },
-          transaction,
-        },
-      );
-    }
-  }
-
-  /**
-   * 订单发生变化时删除已经存在的多对多关系的表数据
-   * @param id
-   * @param transaction
-   */
-  async deleteReocrdProject(id: number[], transaction: Transaction) {
-    await this.db.getRepository('record_projects').destroy({
-      transaction,
-      filter: {
-        record_id: {
-          $eq: id,
-        },
-      },
-    });
-  }
-
-  /**
-   * 订单多对多项目hook赋值方法
+   * 订单afterSave hooks
    * @param model
-   * @param values
-   * @param transaction
-   * @param where
+   * @param options
    */
-  async updateRecordProjects(model, values, transaction, where) {
-    if (
-      values.category === RecordCategory.purchase2lease ||
-      values.category === RecordCategory.lease2lease ||
-      values.category === RecordCategory.staging
-    ) {
-      await this.deleteReocrdProject([model.id], transaction);
-      await this.db.sequelize.query(
-        `
-      INSERT INTO record_projects (project_id, record_id)
-      SELECT ${where.in_stock_id} AS project_id, ${model.id} AS record_id
-      UNION ALL
-      SELECT ${where.out_stock_id} AS project_id, ${model.id} AS project_id;
-      `,
-        { transaction },
-      );
-    } else {
-      await this.deleteReocrdProject([model.id], transaction);
-      await this.db.sequelize.query(
-        `
-      INSERT INTO record_projects (project_id, record_id)
-      SELECT
-        CASE WHEN movement = '1' THEN ${where.out_stock_id} ELSE ${where.in_stock_id} END AS project_id,
-        id AS record_id
-      FROM records
-      WHERE records.id = ${model.id}
-      `,
-        { transaction },
-      );
+  async recordsAfterSave(model: MagicAttributeModel, options: CreateOptions): Promise<void> {
+    // 订单新建更新后（根据合同确定出入库字段）
+    await this._setProject(model, options);
+    // 订单发生变化时更新对应结算单的状态（需要重新计算）
+    await this._updateSettlementStatus(model, options);
+    // 车牌号校验
+    await this._checkPlateNumber(model, options);
+  }
+
+  /**
+   * 校验车牌号
+   */
+  async _checkPlateNumber(record: MagicAttributeModel, options: CreateOptions) {
+    const { transaction, context } = options;
+    if (record.dataValues?.vehicles) {
+      const ids = record.dataValues.vehicles.join(',');
+      const vehicles = await this.db.sequelize.query(`select * from vehicles where id in (${ids})`, {
+        transaction,
+      });
+      if (vehicles[0].length) {
+        vehicles[0].forEach((item: any) => {
+          if (item.number) {
+            const validate = validateLicensePlate(item.number);
+            if (!validate) {
+              throw new Error('车牌号格式错误');
+            }
+          }
+        });
+      }
     }
   }
+
   // 新版订单录入界面，手动赋值对应的出入库信息
-  async setProject(record: MagicAttributeModel, options: CreateOptions) {
+  async _setProject(record: MagicAttributeModel, options: CreateOptions) {
     const { values, transaction, context } = options;
 
     // 非新增和修改订单信息的
@@ -249,7 +172,118 @@ export class RecordService {
     await record.update(where, { transaction });
     if (where['in_stock_id'] && where['out_stock_id']) {
       // 设置完出库入，设置项目
-      await this.updateRecordProjects(record, values, transaction, where);
+      await this._updateRecordProjects(record, values, transaction, where);
+    }
+  }
+  /**
+   * 订单多对多项目hook赋值方法
+   * @param model
+   * @param values
+   * @param transaction
+   * @param where
+   */
+  async _updateRecordProjects(model, values, transaction, where) {
+    if (
+      values.category === RecordCategory.purchase2lease ||
+      values.category === RecordCategory.lease2lease ||
+      values.category === RecordCategory.staging
+    ) {
+      await this._deleteReocrdProject([model.id], transaction);
+      await this.db.sequelize.query(
+        `
+      INSERT INTO record_projects (project_id, record_id)
+      SELECT ${where.in_stock_id} AS project_id, ${model.id} AS record_id
+      UNION ALL
+      SELECT ${where.out_stock_id} AS project_id, ${model.id} AS project_id;
+      `,
+        { transaction },
+      );
+    } else {
+      await this._deleteReocrdProject([model.id], transaction);
+      await this.db.sequelize.query(
+        `
+      INSERT INTO record_projects (project_id, record_id)
+      SELECT
+        CASE WHEN movement = '1' THEN ${where.out_stock_id} ELSE ${where.in_stock_id} END AS project_id,
+        id AS record_id
+      FROM records
+      WHERE records.id = ${model.id}
+      `,
+        { transaction },
+      );
+    }
+  }
+  /**
+   * 订单发生变化时删除已经存在的多对多关系的表数据
+   * @param id
+   * @param transaction
+   */
+  async _deleteReocrdProject(id: number[], transaction: Transaction) {
+    await this.db.getRepository('record_projects').destroy({
+      transaction,
+      filter: {
+        record_id: {
+          $eq: id,
+        },
+      },
+    });
+  }
+
+  /**
+   * 更新订单对应的结算表状态
+   */
+  async _updateSettlementStatus(record: MagicAttributeModel, options: CreateOptions) {
+    const { values, transaction, context } = options;
+    if (!values) return;
+    // 触发打印更新次数跳过
+    if (values?.print_count) return;
+    if (values?.category === RecordCategory.lease && values.contract) {
+      const dateObject = values.date;
+      // 结束时间添加一天，新系统选择时间都是以当天0点开始，但是导入的数据存在不是以0点开始比如2023-12-21:03.000……，提醒结算单的时间可能为2023-12-21:00.000……
+      const settlement = await this.db.sequelize.query(
+        `SELECT * FROM settlements WHERE contract_id = ${values.contract.id} AND start_date <= '${dateObject}' AND end_date >= (TIMESTAMP '${dateObject}' - INTERVAL '1 day')`,
+      );
+      const settlementData: any = settlement[0];
+      if (settlementData.length) {
+        for (const item of settlementData) {
+          const settlement_id = item.id;
+          await this.db.getModel('settlements').update(
+            {
+              status: settlementStatus.needReCompute,
+            },
+            {
+              where: {
+                id: settlement_id,
+              },
+              transaction,
+            },
+          );
+        }
+      }
+    }
+    if (values?.category === RecordCategory.purchase) {
+      // 定价
+      const rule = values.price_items;
+      // 产品
+      const products = values.items;
+      // 分组实际总量
+      const weight_items = values.group_weight_items;
+      let allPrice = 0;
+      for (const item of rule) {
+        const data = await this._amountCalculation(item, products, weight_items, values.weight);
+        allPrice += data;
+      }
+      const recordId = record.id;
+      // 更新订单总金额字段
+      await this.db.getModel('records').update(
+        { all_price: allPrice },
+        {
+          where: {
+            id: recordId,
+          },
+          transaction,
+        },
+      );
     }
   }
 
@@ -260,7 +294,7 @@ export class RecordService {
    * @param weight_items 全部分组实际重量
    * @returns 单个规则产生的总金额
    */
-  private async amountCalculation(rule, products, weight_items, recprdWeight) {
+  private async _amountCalculation(rule, products, weight_items, recprdWeight) {
     const calc_products = products.filter(
       (product) => product.product.category_id === rule.product.id - 99999 || product.product.id === rule.product.id,
     );
@@ -347,7 +381,7 @@ export class RecordService {
   /**
    * 根据直发单创建对应出库订单
    */
-  async createRecord(model, values, transaction, context, numbers) {
+  async _createRecord(model, values, transaction, context, numbers) {
     delete values.number;
     delete values.id;
     values.vehicles?.forEach((item) => delete item.record_vehicles);

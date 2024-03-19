@@ -10,6 +10,7 @@ import { SqlLoader } from '@hera/plugin-core';
 import { DetailCheckService } from './services/detail-check-service';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
 import { Repository } from '@nocobase/database';
+import { VehiclesService } from './services/vehicles-service';
 export class PluginRentalServer extends Plugin {
   async afterAdd() {}
 
@@ -20,6 +21,7 @@ export class PluginRentalServer extends Plugin {
     await sqlLoader.loadSqlFiles(path.join(__dirname, './sqls'));
     Container.get(RecordService).load();
     Container.get(ContractRuleService).load();
+    Container.get(VehiclesService).load();
     Container.get(ProjectService).load();
     Container.get(DetailCheckService).load();
     Container.get(ContractService).load();
