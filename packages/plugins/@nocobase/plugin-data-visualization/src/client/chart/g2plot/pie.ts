@@ -31,8 +31,8 @@ export class Pie extends G2PlotChart {
     };
   };
 
-  getProps({ data, general, advanced, fieldProps }: RenderProps) {
-    const props = super.getProps({ data, general, advanced, fieldProps });
+  getProps({ data, general, advanced, fieldProps, ctx }: RenderProps) {
+    const props = super.getProps({ data, general, advanced, fieldProps, ctx });
     return {
       ...props,
       tooltip: (d, index: number, data, column: any) => {
