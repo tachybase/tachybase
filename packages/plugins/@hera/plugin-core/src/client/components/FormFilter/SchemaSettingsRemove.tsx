@@ -34,15 +34,22 @@ export const SchemaSettingsRemove: FC<SchemaSettingsRemoveProps> = (props) => {
               removeParentsIfNoChildren,
               breakRemoveOn,
             };
+            const name = fieldSchema.name as string;
+            const fieldName = name.split('.')[1];
+            const title = fieldSchema.title;
             if (field?.required) {
               field.required = false;
               fieldSchema['required'] = false;
             }
             await dn.remove(null, options);
             await confirm?.onOk?.();
-            delete form.values['custom'][fieldSchema['collectionName']];
-            const name = fieldSchema.name as string;
-            const title = fieldSchema.title;
+            if (fieldSchema['x-component'] === 'Select' || fieldSchema['x-component'] === 'AutoComplete') {
+              delete form.values['custom'][fieldSchema['collectionName']];
+            } else {
+              if (form.values['custom']?.[fieldName]) {
+                delete form.values['custom'][fieldName];
+              }
+            }
             for (const key in form.fields) {
               if (key.includes(name) && form.fields[key].title === title) {
                 delete form.fields[key];

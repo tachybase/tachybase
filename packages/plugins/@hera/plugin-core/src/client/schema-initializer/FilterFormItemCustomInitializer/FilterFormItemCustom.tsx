@@ -29,7 +29,7 @@ import React, { memo, useCallback, useContext, useMemo } from 'react';
 import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema } from '@formily/react';
 import { FormLayout } from '@formily/antd-v5';
 import { uid } from '@formily/shared';
-import { Field } from '@formily/core';
+import { Field, onFieldValueChange } from '@formily/core';
 import {
   EditFormulaTitleField,
   EditTitle,
@@ -65,9 +65,11 @@ export const FilterCustomItemInitializer: React.FC<{
   const itemConfig = useSchemaInitializerItem();
   const { getInterface } = useCollectionManager_deprecated();
   const { collections } = useCollectionManager_deprecated();
-  collections.forEach((value) => {
-    value['label'] = value.name;
-    value['value'] = value.name;
+  const allCollection = collections.map((value) => {
+    return {
+      label: value.title,
+      value: value.name,
+    };
   });
   const { options: fieldComponents, values: fieldComponentValues } = useFieldComponents();
   const api = useAPIClient();
@@ -105,9 +107,9 @@ export const FilterCustomItemInitializer: React.FC<{
                       title: t('Field collection'),
                       'x-decorator': 'FormItem',
                       'x-component': 'Select',
-                      enum: collections,
+                      enum: allCollection,
                       description: t('Select a collection field to use metadata of the field'),
-                      required: true,
+                      'x-visible': false,
                     },
                   },
                 }}
@@ -121,16 +123,35 @@ export const FilterCustomItemInitializer: React.FC<{
       values: {
         name: `f_${uid()}`,
       },
+      effects() {
+        onFieldValueChange('component', (field) => {
+          const name = field.value;
+          const component = field.query('.collection').take() as Field;
+          if (name === 'Select' || name === 'AutoComplete') {
+            component.setDisplay('visible');
+            component.setRequired(true);
+          } else {
+            component.setDisplay('none');
+            component.setRequired(false);
+          }
+        });
+      },
     });
-    const { name, title, component, collection } = values;
+    const { title, component, collection } = values;
     const defaultSchema = getInterface(component)?.default?.uiSchema || {};
+    let name;
+    if (component === 'Select' || component === 'AutoComplete') {
+      name = collection;
+    } else {
+      name = component + uid();
+    }
     insert(
       gridRowColWrap({
         'x-component': component,
         ...defaultSchema,
         type: 'string',
         title: title,
-        name: 'custom.' + collection,
+        name: 'custom.' + name,
         required: false,
         'x-designer': 'FilterItemCustomDesigner',
         'x-decorator': 'FilterFormItem',
@@ -165,33 +186,36 @@ export const FilterItemCustomDesigner: React.FC = () => {
   const { form } = useFormBlockContext();
   const field = useField();
   const { dn } = useDesignable();
+  const component = fieldSchema['x-component'];
   return (
     <GeneralSchemaDesigner>
       <EditTitle />
       <EditDescription />
       <EditDefaultValue />
-      <SchemaSettingsDataScope
-        collectionName={name}
-        defaultFilter={fieldSchema?.['x-component-props']?.params?.filter || {}}
-        form={form}
-        onSubmit={({ filter }) => {
-          _.set(field.componentProps, 'params', {
-            ...field.componentProps?.params,
-            filter,
-          });
-          fieldSchema['x-component-props']['params'] = field.componentProps.params;
-          dn.emit('patch', {
-            schema: {
-              ['x-uid']: fieldSchema['x-uid'],
-              'x-component-props': fieldSchema['x-component-props'],
-            },
-          });
-        }}
-      />
-      <SchemaSettingCollection />
-      <SchemaSettingComponent />
-      <EditTitleField />
-      <EditFormulaTitleField />
+      {component !== 'Input' ? (
+        <SchemaSettingsDataScope
+          collectionName={name}
+          defaultFilter={fieldSchema?.['x-component-props']?.params?.filter || {}}
+          form={form}
+          onSubmit={({ filter }) => {
+            _.set(field.componentProps, 'params', {
+              ...field.componentProps?.params,
+              filter,
+            });
+            fieldSchema['x-component-props']['params'] = field.componentProps.params;
+            dn.emit('patch', {
+              schema: {
+                ['x-uid']: fieldSchema['x-uid'],
+                'x-component-props': fieldSchema['x-component-props'],
+              },
+            });
+          }}
+        />
+      ) : null}
+      {component !== 'Input' ? <SchemaSettingCollection /> : null}
+      {component !== 'Input' ? <SchemaSettingComponent /> : null}
+      {component !== 'Input' ? <EditTitleField /> : null}
+      {component !== 'Input' ? <EditFormulaTitleField /> : null}
       <SchemaSettingsDivider />
       <SchemaSettingsRemove
         key="remove"

@@ -530,7 +530,7 @@ export const SchemaSettingCollection = () => {
   const collections = useCollectionManager();
   const options = collections?.dataSource['options']?.collections.map((value) => {
     return {
-      label: value.name,
+      label: value.title,
       value: value.name,
     };
   });
