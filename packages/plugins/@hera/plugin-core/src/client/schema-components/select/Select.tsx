@@ -26,6 +26,7 @@ const ObjectSelect = (props: Props) => {
   const fieldSchema = useFieldSchema();
   const collectionName = fieldSchema['collectionName'];
   const filterField = fieldSchema['x-component-props']['params'];
+  const fieldName = fieldSchema['x-component-props'].fieldNames;
   const api = useAPIClient();
   useAsyncEffect(async () => {
     if (collectionName) {
@@ -36,9 +37,14 @@ const ObjectSelect = (props: Props) => {
           filter: filterField ? { ...filterField.filter } : {},
         },
       });
-      setDefOptions(defValue?.data?.data);
+      const changOptions = defValue?.data?.data.map((value) => {
+        value['label'] = value[fieldName.label];
+        value['value'] = value[fieldNames.label];
+        return value;
+      });
+      setDefOptions(changOptions);
     }
-  }, [filterField?.filter]);
+  }, [filterField?.filter, collectionName]);
   const toValue = (v: any) => {
     if (isEmptyObject(v)) {
       return;

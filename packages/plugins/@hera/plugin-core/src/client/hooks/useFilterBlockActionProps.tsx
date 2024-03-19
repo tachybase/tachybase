@@ -137,7 +137,6 @@ export const useFilterBlockActionProps = () => {
               ...Object.values(storedFilter).map((filter) => removeNullCondition(filter, fieldSchema)),
               block.defaultFilter,
             ]);
-
             return block.doFilter(
               {
                 ...param,
