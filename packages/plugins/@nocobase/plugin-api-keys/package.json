@@ -1,0 +1,36 @@
+{
+  "name": "@nocobase/plugin-api-keys",
+  "displayName": "Auth: API keys",
+  "version": "0.21.2-alpha.3",
+  "description": "Allows users to use API key to access application's HTTP API",
+  "keywords": [
+    "Authentication"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/api-keys",
+  "license": "AGPL-3.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@formily/react": "2.x",
+    "@formily/shared": "2.x",
+    "ahooks": "^3.7.2",
+    "antd": "5.x",
+    "dayjs": "^1.11.8",
+    "i18next": "^22.4.9",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/resourcer": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "允许用户使用 API 密钥访问应用的 HTTP API",
+  "displayName.zh-CN": "认证：API 密钥",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/api-keys"
+}

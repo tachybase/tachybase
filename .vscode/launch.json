@@ -1,0 +1,61 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Server",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["dev", "--server"],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}",
+      "name": "Attach to debug server (remote)",
+      "port": 9229,
+      "remoteRoot": "${workspaceFolder}",
+      "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Tests",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["run", "test", "${file}"],
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**", "**/dist/**", "**/lib/**", "**/es/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "windows": {
+        "runtimeArgs": ["run", "test", "${relativeFile}"]
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug E2E Tests",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["e2e", "test", "${file}"],
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**", "**/dist/**", "**/lib/**", "**/es/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "windows": {
+        "runtimeArgs": ["e2e", "test", "${fileBasename}"]
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Migration",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["run", "--inspect-brk", "nocobase", "migrator", "up"],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

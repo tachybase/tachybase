@@ -1,0 +1,24 @@
+{
+  "name": "@nocobase/app",
+  "version": "0.21.2-alpha.3",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nocobase/nocobase.git",
+    "directory": "packages/core/app"
+  },
+  "license": "AGPL-3.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "@nocobase/database": "workspace:*",
+    "@nocobase/preset-nocobase": "workspace:*",
+    "@nocobase/server": "workspace:*"
+  },
+  "devDependencies": {
+    "@nocobase/cache": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/logger": "workspace:*"
+  },
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}

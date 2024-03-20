@@ -1,0 +1,35 @@
+{
+  "name": "@nocobase/plugin-localization-management",
+  "displayName": "Localization",
+  "version": "0.21.2-alpha.3",
+  "description": "Allows to manage localization resources of the application.",
+  "keywords": [
+    "System management"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/localization-management",
+  "license": "AGPL-3.0",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "^5.1.4",
+    "@formily/core": "^2.2.27",
+    "@formily/react": "^2.2.27",
+    "ahooks": "^3.7.2",
+    "antd": "^5.12.8",
+    "deepmerge": "^4.3.1",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/cache": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/plugin-client": "workspace:*",
+    "@nocobase/plugin-ui-schema-storage": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
+  },
+  "description.zh-CN": "支持管理应用程序的本地化资源。",
+  "displayName.zh-CN": "本地化",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/localization-management"
+}

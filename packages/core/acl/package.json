@@ -1,0 +1,21 @@
+{
+  "name": "@nocobase/acl",
+  "version": "0.21.2-alpha.3",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nocobase/nocobase.git",
+    "directory": "packages/acl"
+  },
+  "license": "Apache-2.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "@nocobase/resourcer": "workspace:*",
+    "@nocobase/utils": "workspace:*",
+    "koa-compose": "^4.1.0",
+    "lodash": "4.17.21",
+    "minimatch": "^5.1.1"
+  },
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}

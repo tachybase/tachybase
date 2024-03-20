@@ -1,0 +1,31 @@
+{
+  "name": "@nocobase/plugin-multi-app-share-collection",
+  "displayName": "Multi-app share collection",
+  "version": "0.21.2-alpha.3",
+  "description": "",
+  "keywords": [
+    "System management"
+  ],
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@formily/react": "2.x",
+    "antd": "5.x",
+    "lodash": "4.17.21",
+    "react": "18.x",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/plugin-collection-manager": "workspace:*",
+    "@nocobase/plugin-error-handler": "workspace:*",
+    "@nocobase/plugin-multi-app-manager": "workspace:*",
+    "@nocobase/plugin-users": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "",
+  "displayName.zh-CN": "多应用数据表共享",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}

@@ -1,0 +1,38 @@
+{
+  "name": "@nocobase/plugin-mobile-client",
+  "displayName": "Mobile client",
+  "version": "0.21.2-alpha.3",
+  "description": "Provides the ability to configure mobile pages.",
+  "homepage": "https://docs.nocobase.com/handbook/mobile-client",
+  "license": "AGPL-3.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "5.x",
+    "@formily/antd-v5": "1.x",
+    "@formily/react": "2.x",
+    "@formily/shared": "2.x",
+    "@types/react": "17.x",
+    "@types/react-dom": "17.x",
+    "ahooks": "3.x",
+    "antd": "5.x",
+    "antd-mobile": "^5.29.1",
+    "antd-style": "3.x",
+    "classnames": "2.x",
+    "lodash": "4.17.21",
+    "react": "18.x",
+    "react-dom": "18.x",
+    "react-i18next": "11.x",
+    "react-router-dom": "6.x"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "提供移动端页面配置的能力。",
+  "displayName.zh-CN": "移动端",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/mobile-client"
+}

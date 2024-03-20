@@ -1,0 +1,35 @@
+version: "3"
+networks:
+  nocobase:
+    driver: bridge
+services:
+  app:
+    image: nocobase/nocobase:latest
+    networks:
+      - nocobase
+    depends_on:
+      - mysql
+    environment:
+      - APP_KEY=your-secret-key # Replace it with your own app key
+      - DB_DIALECT=mysql
+      - DB_HOST=mysql
+      - DB_DATABASE=nocobase
+      - DB_USER=root
+      - DB_PASSWORD=nocobase
+      - DB_TIMEZONE=+08:00
+    volumes:
+      - ./storage:/app/nocobase/storage
+    ports:
+      - "13000:80"
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: nocobase
+      MYSQL_USER: nocobase
+      MYSQL_PASSWORD: nocobase
+      MYSQL_ROOT_PASSWORD: nocobase
+    restart: always
+    volumes:
+      - ./storage/db/mysql:/var/lib/mysql
+    networks:
+      - nocobase

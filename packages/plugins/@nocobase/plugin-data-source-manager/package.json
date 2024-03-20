@@ -1,0 +1,41 @@
+{
+  "name": "@nocobase/plugin-data-source-manager",
+  "displayName": "Data source manager",
+  "version": "0.21.2-alpha.3",
+  "description": "Manage data sources, including the built-in Master database, external databases, APIs, etc.",
+  "keywords": [
+    "Data model tools"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/data-source-manager",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "^5.1.4",
+    "@dnd-kit/core": "^5.0.1",
+    "@emotion/css": "^11.7.1",
+    "@formily/antd-v5": "^1.1.9",
+    "@formily/core": "^2.2.27",
+    "@formily/react": "^2.2.27",
+    "@formily/reactive": "^2.2.27",
+    "@formily/shared": "^2.2.27",
+    "ahooks": "^3.7.2",
+    "antd": "^5.12.8",
+    "antd-style": "3.4.5",
+    "classnames": "^2.3.1",
+    "lodash": "4.17.21",
+    "react-i18next": "^11.15.1",
+    "react-router-dom": "^6.11.2",
+    "sequelize": "^6.26.0"
+  },
+  "peerDependencies": {
+    "@nocobase/acl": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "管理数据源，包括内置的 Master 数据库，外部的数据库、API。",
+  "displayName.zh-CN": "数据源管理",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/data-source-manager"
+}

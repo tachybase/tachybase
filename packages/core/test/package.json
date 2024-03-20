@@ -1,0 +1,72 @@
+{
+  "name": "@nocobase/test",
+  "version": "0.21.2-alpha.3",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "import": {
+        "types": "./es/index.d.ts",
+        "default": "./es/index.mjs"
+      }
+    },
+    "./client": {
+      "require": {
+        "types": "./lib/client/index.d.ts",
+        "default": "./lib/client/index.js"
+      },
+      "import": {
+        "types": "./es/client/index.d.ts",
+        "default": "./es/client/index.mjs"
+      }
+    },
+    "./e2e": {
+      "require": {
+        "types": "./lib/e2e/index.d.ts",
+        "default": "./lib/e2e/index.js"
+      },
+      "import": {
+        "types": "./es/e2e/index.d.ts",
+        "default": "./es/e2e/index.mjs"
+      }
+    },
+    "./package.json": "./package.json",
+    "./vitest.mjs": "./vitest.mjs"
+  },
+  "main": "lib/index.js",
+  "module": "./src/index.ts",
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "@faker-js/faker": "8.1.0",
+    "@formily/shared": "^2.2.27",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@playwright/test": "^1.42.1",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/supertest": "^2.0.11",
+    "@vitejs/plugin-react": "^4.0.0",
+    "dotenv": "^16.0.0",
+    "jsdom": "^16.0.0",
+    "jsdom-worker": "^0.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "4.17.21",
+    "mariadb": "^2.5.6",
+    "mockjs": "^1.1.0",
+    "mysql2": "^2.3.3",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "qs": "^6.11.2",
+    "sqlite3": "^5.0.8",
+    "supertest": "^6.1.6",
+    "vite": "^5.0.0",
+    "vitest": "^1.4.0",
+    "ws": "^8.13.0"
+  },
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}

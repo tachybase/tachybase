@@ -1,0 +1,15 @@
+version: "3"
+networks:
+  nocobase:
+    driver: bridge
+services:
+  app:
+    image: nocobase/nocobase:latest
+    networks:
+      - nocobase
+    environment:
+      - APP_KEY=your-secret-key # Replace it with your own app key
+    volumes:
+      - ./storage:/app/nocobase/storage
+    ports:
+      - "13000:80"

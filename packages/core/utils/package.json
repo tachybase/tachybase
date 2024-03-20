@@ -1,0 +1,24 @@
+{
+  "name": "@nocobase/utils",
+  "version": "0.21.2-alpha.3",
+  "license": "Apache-2.0",
+  "main": "lib/index.js",
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "@hapi/topo": "^6.0.0",
+    "@rc-component/mini-decimal": "^1.1.0",
+    "antd": "^5.12.8",
+    "dayjs": "^1.11.9",
+    "dedupe": "^3.0.2",
+    "deepmerge": "^4.2.2",
+    "flat-to-nested": "^1.1.1",
+    "graphlib": "^2.1.8",
+    "lodash": "4.17.21",
+    "multer": "^1.4.5-lts.1",
+    "object-path": "^0.11.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.2"
+  },
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}

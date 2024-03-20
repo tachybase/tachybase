@@ -1,0 +1,39 @@
+{
+  "name": "@nocobase/plugin-verification",
+  "displayName": "Verification",
+  "version": "0.21.2-alpha.3",
+  "description": "verification setting.",
+  "keywords": [
+    "Authentication"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/verification",
+  "license": "AGPL-3.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@alicloud/dysmsapi20170525": "2.0.17",
+    "@alicloud/openapi-client": "0.4.1",
+    "@alicloud/tea-util": "1.4.4",
+    "@formily/antd-v5": "1.x",
+    "@formily/core": "2.x",
+    "@formily/react": "2.x",
+    "@formily/shared": "2.x",
+    "antd": "5.x",
+    "dayjs": "^1.11.8",
+    "react": "18.x",
+    "react-i18next": "^11.15.1",
+    "tencentcloud-sdk-nodejs": "^4.0.525"
+  },
+  "peerDependencies": {
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/resourcer": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "验证码配置。",
+  "displayName.zh-CN": "验证码",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/verification"
+}

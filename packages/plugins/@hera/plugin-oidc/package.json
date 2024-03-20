@@ -1,0 +1,13 @@
+{
+  "name": "@hera/plugin-oidc",
+  "version": "0.20.2-alpha.3",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@koa/router": "^9.4.0"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
+  }
+}

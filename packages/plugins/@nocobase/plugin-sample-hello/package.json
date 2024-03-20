@@ -1,0 +1,22 @@
+{
+  "name": "@nocobase/plugin-sample-hello",
+  "displayName": "Hello",
+  "version": "0.21.2-alpha.3",
+  "description": "A simple NocoBase plugin example",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "5.x",
+    "@formily/react": "2.x",
+    "antd": "5.x",
+    "react": "^18.2.0",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
+  },
+  "description.zh-CN": "一个简单的 NocoBase 插件",
+  "displayName.zh-CN": "Hello",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}

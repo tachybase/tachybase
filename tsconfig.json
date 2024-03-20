@@ -1,0 +1,38 @@
+{
+  "extends": "./tsconfig.paths.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "temp",
+    "jsx": "react",
+    "target": "esnext",
+    "module": "esnext",
+    "allowJs": true,
+    "noUnusedLocals": false,
+    "preserveConstEnums": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "downlevelIteration": true,
+    "baseUrl": "."
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "include": [".dumi/**/*", ".dumirc.ts", "packages/**/*", "playwright.config.ts", "vitest.config.mts"],
+  "exclude": [
+    "packages/**/node_modules",
+    "packages/**/dist",
+    "packages/**/public",
+    "packages/core/build/bin",
+    "packages/core/cli/**/*",
+    "packages/**/lib",
+    "packages/**/es"
+  ]
+}

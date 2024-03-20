@@ -1,0 +1,29 @@
+{
+  "name": "@nocobase/plugin-action-bulk-update",
+  "displayName": "Action: Batch update",
+  "version": "0.21.2-alpha.3",
+  "description": "Batch update all records or selected records.",
+  "keywords": [
+    "Actions"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/action-bulk-update",
+  "license": "AGPL-3.0",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@formily/react": "^2.2.27",
+    "@formily/shared": "^2.2.27",
+    "antd": "^5.12.8",
+    "react-i18next": "^11.15.1",
+    "react-router-dom": "^6.11.2"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "对全部数据或选中的数据进行批量更新。",
+  "displayName.zh-CN": "操作：批量更新",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-bulk-update"
+}

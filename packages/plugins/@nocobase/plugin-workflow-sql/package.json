@@ -1,0 +1,28 @@
+{
+  "name": "@nocobase/plugin-workflow-sql",
+  "displayName": "Workflow: SQL node",
+  "version": "0.21.2-alpha.3",
+  "description": "Execute SQL statements in workflow.",
+  "keywords": [
+    "Workflow"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/workflow-sql",
+  "license": "AGPL-3.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "antd": "5.x",
+    "react": "18.x",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/plugin-workflow": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
+  },
+  "description.zh-CN": "可用于在工作流中对数据库执行任意 SQL 语句。",
+  "displayName.zh-CN": "工作流：SQL 节点",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/workflow-sql"
+}

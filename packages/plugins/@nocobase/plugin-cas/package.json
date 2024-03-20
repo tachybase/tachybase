@@ -1,0 +1,32 @@
+{
+  "name": "@nocobase/plugin-cas",
+  "displayName": "Auth: CAS",
+  "version": "0.21.2-alpha.3",
+  "description": "CAS authentication.",
+  "keywords": [
+    "Authentication"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/auth-cas",
+  "license": "AGPL-3.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "5.x",
+    "antd": "5.x",
+    "react-i18next": "^11.15.1",
+    "react-router-dom": "6.x"
+  },
+  "peerDependencies": {
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/auth": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/plugin-auth": "workspace:*",
+    "@nocobase/sdk": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
+  },
+  "description.zh-CN": "通过 CAS 协议认证身份。",
+  "displayName.zh-CN": "认证：CAS",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/auth-cas"
+}

@@ -1,0 +1,48 @@
+{
+  "name": "@nocobase/plugin-acl",
+  "displayName": "Access control",
+  "version": "0.21.2-alpha.3",
+  "description": "Based on roles, resources, and actions, access control can precisely manage interface configuration permissions, data operation permissions, menu access permissions, and plugin permissions.",
+  "keywords": [
+    "Users & permissions"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/acl",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nocobase/nocobase.git",
+    "directory": "packages/plugins/acl"
+  },
+  "license": "AGPL-3.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "^5.1.4",
+    "@formily/antd-v5": "^1.1.9",
+    "@formily/core": "^2.2.27",
+    "@formily/react": "^2.2.27",
+    "@formily/shared": "^2.2.27",
+    "@types/jsonwebtoken": "^8.5.8",
+    "ahooks": "^3.7.2",
+    "antd": "^5.12.8",
+    "antd-style": "3.4.5",
+    "async-mutex": "^0.3.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@nocobase/acl": "workspace:*",
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/cache": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "基于角色、资源和操作的权限控制，可以精确控制界面配置权限、数据操作权限、菜单访问权限、插件权限。",
+  "displayName.zh-CN": "权限控制",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/acl"
+}

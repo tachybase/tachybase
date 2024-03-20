@@ -1,0 +1,106 @@
+{
+  "name": "nocobase",
+  "version": "0.21.0-alpha.1",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "nocobase build",
+    "changelog": "auto-changelog -p -t keepachangelog",
+    "clean": "nocobase clean",
+    "dev": "nocobase dev",
+    "dev-server": "nocobase dev --server",
+    "doc": "nocobase doc",
+    "doc:cn": "nocobase doc --lang=zh-CN",
+    "e2e": "nocobase e2e",
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "nocobase postinstall",
+    "lint": "eslint .",
+    "nocobase": "nocobase",
+    "pm": "nocobase pm",
+    "pm2": "nocobase pm2",
+    "release": "lerna publish",
+    "release:force": "lerna publish from-package --yes",
+    "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
+    "start": "nocobase start",
+    "tar": "nocobase tar",
+    "tc": "nocobase test:client",
+    "test": "nocobase test",
+    "test:client": "nocobase test:client",
+    "test:server": "nocobase test:server",
+    "ts": "nocobase test:server",
+    "version:alpha": "lerna version prerelease --preid alpha --force-publish=* --no-git-tag-version -m \"chore(versions): publish packages %s\""
+  },
+  "lint-staged": {
+    "*.{js,json,sql}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "eslint --fix"
+    ]
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "pnpm lint-staged",
+      "commit-msg": "commitlint --edit"
+    }
+  },
+  "resolutions": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "antd": "5.12.8",
+    "nwsapi": "2.2.7",
+    "prettier": "^3.1.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router": "^6.11.2",
+    "react-router-dom": "^6.11.2",
+    "tsx": "^4.6.2"
+  },
+  "dependencies": {
+    "pm2": "^5.2.0"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@commitlint/prompt-cli": "^16.1.0",
+    "@nocobase/build": "workspace:*",
+    "@nocobase/cli": "workspace:*",
+    "@nocobase/preset-nocobase": "workspace:*",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "auto-changelog": "^2.4.0",
+    "axios": "^1.6.2",
+    "commander": "^9.2.0",
+    "eslint-plugin-jest-dom": "^5.0.1",
+    "eslint-plugin-testing-library": "^5.11.0",
+    "ghooks": "^2.0.4",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.1.1",
+    "prettier-plugin-packagejson": "^2.4.14",
+    "prettier-plugin-sql": "^0.17.0",
+    "pretty-format": "^24.0.0",
+    "pretty-quick": "^3.1.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "tsx": "^4.6.2",
+    "typescript": "5.1.3",
+    "umi": "^4.0.69"
+  },
+  "packageManager": "pnpm@8.15.5",
+  "engines": {
+    "node": ">=20",
+    "pnpm": "8.15.5"
+  },
+  "volta": {
+    "node": "20.12.0",
+    "pnpm": "8.15.5"
+  },
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ]
+}

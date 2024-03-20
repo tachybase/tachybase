@@ -1,0 +1,28 @@
+{
+  "name": "@nocobase/plugin-workflow-delay",
+  "displayName": "Workflow: Delay node",
+  "version": "0.21.2-alpha.3",
+  "description": "Could be used in workflow parallel branch for waiting other branches.",
+  "keywords": [
+    "Workflow"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/workflow-delay",
+  "license": "AGPL-3.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "antd": "5.x",
+    "react": "18.x",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/plugin-workflow": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
+  },
+  "description.zh-CN": "可用于工作流并行分支中等待其他分支执行完成。",
+  "displayName.zh-CN": "工作流：延时节点",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/workflow-delay"
+}

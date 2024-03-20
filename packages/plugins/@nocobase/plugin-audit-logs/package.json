@@ -1,0 +1,31 @@
+{
+  "name": "@nocobase/plugin-audit-logs",
+  "displayName": "Audit logs (deprecated)",
+  "version": "0.21.2-alpha.3",
+  "description": "This plugin is deprecated. There will be a new audit log plugin in the future.",
+  "keywords": [
+    "System & security"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/audit-logs",
+  "license": "AGPL-3.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "5.x",
+    "@formily/antd-v5": "1.x",
+    "@formily/react": "2.x",
+    "@formily/shared": "2.x",
+    "react": "^18.2.0",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "该插件已废弃，请勿使用，未来将有新的审计日志插件。",
+  "displayName.zh-CN": "审计日志（废弃）",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/audit-logs"
+}

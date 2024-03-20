@@ -1,0 +1,22 @@
+{
+  "name": "@nocobase/plugin-mock-collections",
+  "displayName": "mock-collections",
+  "version": "0.21.2-alpha.3",
+  "description": "mock-collections",
+  "license": "AGPL-3.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@faker-js/faker": "8.1.0",
+    "lodash": "4.17.21",
+    "pg": "^8.11.3"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/plugin-error-handler": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}

@@ -1,0 +1,3 @@
+interface SystemSetting {
+  title: string;
+}
