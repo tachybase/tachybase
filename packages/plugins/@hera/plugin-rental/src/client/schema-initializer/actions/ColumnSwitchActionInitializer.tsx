@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ActionInitializer, useRequest } from '@nocobase/client';
 import { Radio } from 'antd';
-import { PdfIsDoubleContext } from '../hooks/usePdfPath';
+import { PdfIsDoubleContext } from '../../hooks/usePdfPath';
 
 export const ColumnSwitchAction = (props) => {
   const [value, setValue] = useState('0');

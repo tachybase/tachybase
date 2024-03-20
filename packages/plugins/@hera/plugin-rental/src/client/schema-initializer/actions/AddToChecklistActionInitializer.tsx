@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActionInitializer } from '@nocobase/client';
-import { tval } from '../locale';
+import { tval } from '../../locale';
 
 export const AddToChecklistActionInitializer = (props) => {
   const schema = {
