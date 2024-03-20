@@ -118,15 +118,6 @@ export class RecordPdfService {
       .sort((a, b) => a.category_id - b.category_id);
 
     // 计算费用数据，包括有产品关联跟无产品关联
-    fee_data = fee_data.map((item) => {
-      const data = {
-        ...item,
-      };
-      if (item.weight_rules) {
-        data['weight_rules'] = JSON.parse(item.weight_rules.join(','));
-      }
-      return data;
-    });
     // 关联产品的赔偿(人工录入/全部)
     const product_fee =
       printSetup === PrintSetup.Manual
@@ -167,10 +158,10 @@ export class RecordPdfService {
       } else if (item.conversion_logic_id === ConversionLogics.ActualWeight) {
         data['total'] = item.actual_weight || item.record_weight;
       } else {
-        if (item.wr.conversion_logic_id === ConversionLogics.Keep) {
-          data['total'] = data.count * item.wr.weight;
-        } else if (item.wr.conversion_logic_id === ConversionLogics.Product) {
-          data['total'] = data.count * item.wr.weight * item.product_ratio;
+        if (item.weight_rules?.conversion_logic_id === ConversionLogics.Keep) {
+          data['total'] = data.count * item.weight_rules.weight;
+        } else if (item.weight_rules?.conversion_logic_id === ConversionLogics.Product) {
+          data['total'] = data.count * item.weight_rules.weight * item.product_ratio;
         }
       }
       // 如果 printSetup === PrintSetup.DisplayAndPrice 要计算费用产生的价格
@@ -220,7 +211,7 @@ export class RecordPdfService {
             // 计算有误，需要检查
             data['count'] = lease_data.reduce((a, b) => {
               const weight_rule = item.weight_rules.find(
-                (l) => l.product_id === b.product_id || l.product === b.category_id + RulesNumber,
+                (l) => l.product_id === b.product_id || l.product - RulesNumber === b.category_id,
               );
               if (weight_rule && weight_rule.conversion_logic_id === ConversionLogics.Keep) {
                 return a + b.count * weight_rule.weight;

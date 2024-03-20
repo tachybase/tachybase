@@ -18,7 +18,14 @@ SELECT
   cpfi.count_source,
   cpfi."comment",
   cpfi.id,
-  STRING_TO_ARRAY(JSONB_AGG(wr)::TEXT, ',') AS weight_rules
+  (
+    SELECT
+      JSONB_AGG(wr)
+    FROM
+      weight_rules wr
+    WHERE
+      wr.logic_id = cpfi.conversion_logic_id
+  ) AS weight_rules
 FROM
   records r
   LEFT JOIN contracts c ON r.contract_id = c.id
@@ -31,7 +38,6 @@ FROM
   LEFT JOIN product_category pc3 ON p.category_id = pc3.id
   JOIN product_category pc ON pc.id = p.category_id
   JOIN unit_conversion_logics ucl ON ucl.id = cpfi.conversion_logic_id
-  LEFT JOIN weight_rules wr ON ucl.id = wr.logic_id
 WHERE
   r.id = :recordId
 GROUP BY
@@ -59,7 +65,18 @@ SELECT
   cpfi2.count_source,
   cpfi2."comment",
   cpfi2.id,
-  STRING_TO_ARRAY(wr2::TEXT, ',') AS weight_rules
+  (
+    SELECT
+      TO_JSONB(wr)
+    FROM
+      weight_rules wr
+    WHERE
+      ucl2.id > 4
+      AND wr.logic_id = ucl2.id
+      AND wr.product_id = ri.product_id
+    LIMIT
+      1
+  ) AS weight_rules
 FROM
   records r2
   LEFT JOIN contracts c2 ON r2.contract_id = c2.id
@@ -72,9 +89,6 @@ FROM
   JOIN contract_plan_fee_items cpfi2 ON cpfi2.lease_item_id = cpli.id
   AND cpfi2.count_source = '0' -- 查费用
   JOIN unit_conversion_logics ucl2 ON ucl2.id = cpfi2.conversion_logic_id -- 查计算规则
-  LEFT JOIN weight_rules wr2 ON ucl2.id = wr2.logic_id -- 查重量规则
-  AND ucl2.id > 4
-  AND wr2.product_id = cplip.product_id
   JOIN record_items ri ON ri.record_id = r2.id
   AND (
     ri.product_id = cplip.product_id
