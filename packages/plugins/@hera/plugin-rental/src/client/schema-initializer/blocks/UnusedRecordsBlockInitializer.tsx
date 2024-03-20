@@ -4,11 +4,13 @@ import {
   SchemaInitializerItem,
   SchemaSettings,
   SchemaToolbar,
+  useRequest,
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@nocobase/client';
 import { useFieldSchema } from '@formily/react';
 import { ToolOutlined } from '@ant-design/icons';
+import { Tag } from 'antd';
 
 export class UnusedRecordsBlockHelper {
   constructor(private app: Application) {}
@@ -28,7 +30,8 @@ export class UnusedRecordsBlockHelper {
 }
 
 export const UnusedRecordsBlock: React.FC = () => {
-  return <div>没使用的单号</div>;
+  const { data } = useRequest<any>({ resource: 'records', action: 'unused' });
+  return <div>{data?.data?.map((number) => <Tag key={number}>{number}</Tag>)}</div>;
 };
 
 UnusedRecordsBlock.displayName = 'UnusedRecordsBlock';

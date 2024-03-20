@@ -197,7 +197,7 @@ export class RecordPreviewController {
     ctx.body = await this.recordPdfService.transformPdfV2(record, leaseData, feeData, { isDouble: double, printSetup });
   }
 
-  @Action('unused_records')
+  @Action('unused')
   async unusedRecords(ctx: Context) {
     const repo = ctx.db.getRepository<CollectionRepository>('collections');
     const record = await repo.findOne({ filter: { name: 'records' }, appends: ['fields'] });
