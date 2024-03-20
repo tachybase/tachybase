@@ -76,7 +76,7 @@ export class RecordService {
   async _checkPlateNumber(record: MagicAttributeModel, options: CreateOptions) {
     const { transaction, context } = options;
     if (record.dataValues?.vehicles) {
-      const ids = record.dataValues.vehicles.join(',');
+      const ids = record.dataValues.vehicles.filter((item) => typeof item === 'number').join(',');
       const vehicles = await this.db.sequelize.query(`select * from vehicles where id in (${ids})`, {
         transaction,
       });

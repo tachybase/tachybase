@@ -456,7 +456,9 @@ const PreviewDocument = ({
               record.map((item) => (
                 <View key={'key'} style={styles.tableContent}>
                   <Text style={styles.tableCell2}>{item.name}</Text>
-                  <Text style={styles.tableCell}>{!item.count ? '' : formatQuantity(item.count, 2) + item.unit}</Text>
+                  <Text style={styles.tableCell}>
+                    {!item.count || item.isFee ? '' : formatQuantity(item.count, 2) + item.unit}
+                  </Text>
                   <Text style={styles.tableCell}>
                     {(printSetup === PrintSetup.Display && !item.product_id && !item.isTotal) ||
                     (printSetup === PrintSetup.Manual && !item.product_id && !item.isTotal)
@@ -515,7 +517,7 @@ const PreviewDocument = ({
                 <View key={'key'} style={styles.tableContent}>
                   <Text style={styles.tableCell2}>{item.left_name}</Text>
                   <Text style={styles.tableCell}>
-                    {!item.left_count ? '' : formatQuantity(item.left_count, 2) + item.left_unit}
+                    {!item.left_count || item.left_isFee ? '' : formatQuantity(item.left_count, 2) + item.left_unit}
                   </Text>
                   <Text style={styles.tableCell}>
                     {(printSetup === PrintSetup.Display && !item.left_product_id && !item.left_isTotal) ||
@@ -535,7 +537,7 @@ const PreviewDocument = ({
                   </Text>
                   <Text style={styles.tableCell2}>{item.right_name}</Text>
                   <Text style={styles.tableCell}>
-                    {!item.right_count ? '' : formatQuantity(item.right_count, 2) + item.right_unit}
+                    {!item.right_count || item.right_isFee ? '' : formatQuantity(item.right_count, 2) + item.right_unit}
                   </Text>
                   <Text style={styles.tableCell}>
                     {(printSetup === PrintSetup.Display && !item.right_product_id && !item.right_isTotal) ||
