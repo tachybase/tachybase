@@ -81,6 +81,7 @@ import {
   pdfViewActionInitializer,
   usePDFViewerPrintActionProps,
 } from './schema-initializer';
+import { SheetBlock, SheetBlockInitializer, SheetBlockProvider, SheetBlockToolbar, sheetBlockSettings } from './schema-initializer/SheetBlockInitializer';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -104,6 +105,7 @@ export class PluginCoreClient extends Plugin {
       Component: LinkManager,
     });
     this.schemaSettingsManager.add(groupBlockSettings);
+    this.schemaSettingsManager.add(sheetBlockSettings);
     this.schemaSettingsManager.add(customComponentDispatcherSettings);
     this.schemaSettingsManager.addItem('FilterFormItemSettings', 'formulatitleField', {
       Component: EditFormulaTitleField,
@@ -225,7 +227,12 @@ export class PluginCoreClient extends Plugin {
       Select,
       SettingBlock: SettingBlockInitializer,
       SignatureInput,
+      SheetBlock,
+      SheetBlockInitializer,
+      SheetBlockProvider,
+      SheetBlockToolbar,
     });
+
   }
 
   async registerRouters() {
@@ -298,6 +305,10 @@ export class PluginCoreClient extends Plugin {
     this.app.schemaInitializerManager.get('BlockInitializers').add('dataBlocks.groupBlock', {
       title: tval('Group block'),
       Component: 'GroupBlockInitializer',
+    });
+    this.app.schemaInitializerManager.get('BlockInitializers').add('dataBlocks.sheetBlock', {
+      title: tval('Sheet'),
+      Component: 'SheetBlockInitializer',
     });
     this.app.schemaInitializerManager.get('KanbanActionInitializers').add(refreshActionItem.name, refreshActionItem);
     this.app.schemaInitializerManager.get('KanbanActionInitializers').add(outboundItem.name, outboundItem);
