@@ -43,7 +43,7 @@ export const SchemaSettingsRemove: FC<SchemaSettingsRemoveProps> = (props) => {
             }
             await dn.remove(null, options);
             await confirm?.onOk?.();
-            if (fieldSchema['x-component'] === 'Select' || fieldSchema['x-component'] === 'AutoComplete') {
+            if (fieldSchema['collectionName']) {
               delete form.values['custom'][fieldSchema['collectionName']];
             } else {
               if (form.values['custom']?.[fieldName]) {

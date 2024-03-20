@@ -24,10 +24,10 @@ import {
   useFormBlockContext,
   useAPIClient,
 } from '@nocobase/client';
-import { ConfigProvider } from 'antd';
-import React, { memo, useCallback, useContext, useMemo } from 'react';
-import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema } from '@formily/react';
-import { FormLayout } from '@formily/antd-v5';
+import { ConfigProvider, Radio, Space } from 'antd';
+import React, { memo, useCallback, useContext, useMemo, Profiler } from 'react';
+import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@formily/react';
+import { ArrayItems, FormLayout } from '@formily/antd-v5';
 import { uid } from '@formily/shared';
 import { Field, onFieldValueChange } from '@formily/core';
 import {
@@ -41,12 +41,99 @@ import _ from 'lodash';
 import { SchemaSettingsRemove } from '../../components/FormFilter/SchemaSettingsRemove';
 import { useTranslation } from '../../locale';
 
+const FieldComponentProps: React.FC = observer(
+  (props) => {
+    const { scope, components } = useContext(SchemaOptionsContext);
+    const schema = {
+      type: 'object',
+      properties: {
+        mode: {
+          type: 'string',
+          enum: [
+            {
+              label: '{{ t("Single select") }}',
+              value: '',
+            },
+          ],
+          'x-decorator': 'FormItem',
+          'x-component': 'Radio.Group',
+          'x-component-props': {
+            defaultValue: '',
+          },
+        },
+        options: {
+          title: '{{t("Options")}}',
+          type: 'array',
+          'x-decorator': 'FormItem',
+          'x-component': 'ArrayItems',
+          items: {
+            type: 'object',
+            properties: {
+              space: {
+                type: 'void',
+                'x-component': 'Space',
+                properties: {
+                  sort: {
+                    type: 'void',
+                    'x-decorator': 'FormItem',
+                    'x-component': 'ArrayItems.SortHandle',
+                  },
+                  label: {
+                    type: 'string',
+                    'x-decorator': 'FormItem',
+                    'x-component': 'Input',
+                    'x-component-props': {
+                      placeholder: '{{t("Option label")}}',
+                    },
+                    required: true,
+                  },
+                  value: {
+                    type: 'string',
+                    'x-decorator': 'FormItem',
+                    'x-component': 'Input',
+                    'x-component-props': {
+                      placeholder: '{{t("Option value")}}',
+                    },
+                    required: true,
+                  },
+                  remove: {
+                    type: 'void',
+                    'x-decorator': 'FormItem',
+                    'x-component': 'ArrayItems.Remove',
+                  },
+                },
+              },
+            },
+          },
+          properties: {
+            add: {
+              type: 'void',
+              title: '{{t("add")}}',
+              'x-component': 'ArrayItems.Addition',
+            },
+          },
+        },
+      },
+    };
+    console.log(scope, 'scope');
+    console.log(components, 'components');
+
+    return (
+      <SchemaComponentOptions scope={{ ...scope }} components={{ ArrayItems, FormItem, Space }}>
+        <SchemaComponent schema={schema} {...props} />
+      </SchemaComponentOptions>
+    );
+  },
+  { displayName: 'FieldComponentProps' },
+);
+
 export const useFieldComponents = () => {
   const { t } = useTranslation();
   const options = [
     { label: t('Input'), value: 'Input' },
     { label: t('AutoComplete'), value: 'AutoComplete' },
     { label: t('Select'), value: 'Select' },
+    // { label: t('CustomSelect***'), value: 'CustomSelect' },
   ];
   return {
     options,
@@ -77,7 +164,10 @@ export const FilterCustomItemInitializer: React.FC<{
     const values = await FormDialog(
       t('Add custom field'),
       () => (
-        <SchemaComponentOptions scope={{ ...scope, useCollectionManager_deprecated }} components={{ ...components }}>
+        <SchemaComponentOptions
+          scope={{ ...scope, useCollectionManager_deprecated }}
+          components={{ ...components, FieldComponentProps }}
+        >
           <FormLayout layout={'vertical'}>
             <ConfigProvider locale={locale}>
               <SchemaComponent
@@ -111,6 +201,13 @@ export const FilterCustomItemInitializer: React.FC<{
                       description: t('Select a collection field to use metadata of the field'),
                       'x-visible': false,
                     },
+                    props: {
+                      type: 'object',
+                      title: t('Component properties'),
+                      'x-decorator': 'FormItem',
+                      'x-component': 'FieldComponentProps',
+                      'x-visible': false,
+                    },
                   },
                 }}
               />
@@ -126,13 +223,23 @@ export const FilterCustomItemInitializer: React.FC<{
       effects() {
         onFieldValueChange('component', (field) => {
           const name = field.value;
-          const component = field.query('.collection').take() as Field;
+          const collectionComponent = field.query('.collection').take() as Field;
+          const propsComponent = field.query('.props').take() as Field;
           if (name === 'Select' || name === 'AutoComplete') {
-            component.setDisplay('visible');
-            component.setRequired(true);
+            collectionComponent.setDisplay('visible');
+            collectionComponent.setRequired(true);
+            propsComponent.setDisplay('none');
+            propsComponent.setRequired(false);
+          } else if (name === 'CustomSelect') {
+            collectionComponent.setDisplay('none');
+            collectionComponent.setRequired(false);
+            propsComponent.setDisplay('visible');
+            propsComponent.setRequired(true);
           } else {
-            component.setDisplay('none');
-            component.setRequired(false);
+            collectionComponent.setDisplay('none');
+            collectionComponent.setRequired(false);
+            propsComponent.setDisplay('none');
+            propsComponent.setRequired(false);
           }
         });
       },
@@ -212,10 +319,10 @@ export const FilterItemCustomDesigner: React.FC = () => {
           }}
         />
       ) : null}
-      {component !== 'Input' ? <SchemaSettingCollection /> : null}
-      {component !== 'Input' ? <SchemaSettingComponent /> : null}
-      {component !== 'Input' ? <EditTitleField /> : null}
-      {component !== 'Input' ? <EditFormulaTitleField /> : null}
+      {component === 'Select' || component === 'AutoComplete' ? <SchemaSettingCollection /> : null}
+      {component === 'Select' || component === 'AutoComplete' ? <SchemaSettingComponent /> : null}
+      {component === 'Select' || component === 'AutoComplete' ? <EditTitleField /> : null}
+      {component === 'Select' || component === 'AutoComplete' ? <EditFormulaTitleField /> : null}
       <SchemaSettingsDivider />
       <SchemaSettingsRemove
         key="remove"
