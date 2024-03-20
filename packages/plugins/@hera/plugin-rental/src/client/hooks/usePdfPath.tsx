@@ -1,6 +1,6 @@
 import { useRecord } from '@nocobase/client';
 import React, { createContext, useContext, useState } from 'react';
-import { SettlementStyleContext } from '../schema-initializer/SettlementStyleSwitchActionInitializer';
+import { SettlementStyleContext } from '../schema-initializer/actions/SettlementStyleSwitchActionInitializer';
 
 export const PdfIsDoubleContext = createContext({
   isDouble: null,

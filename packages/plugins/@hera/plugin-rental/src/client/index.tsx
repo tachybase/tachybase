@@ -10,7 +10,7 @@ import { RecordFeeConvertedAmount } from './custom-components/RecordFeeConverted
 import { ReadFeeConvertedAmount } from './custom-components/RecordFeeConvertedRead';
 import { RecordDetails } from './custom-components/RecordDetails';
 import { Locale, tval } from './locale';
-import { AddToChecklistActionInitializer } from './schema-initializer/AddToChecklistActionInitializer';
+import { AddToChecklistActionInitializer } from './schema-initializer/actions/AddToChecklistActionInitializer';
 import { useAddToChecklistActionProps } from './hooks/useAddToChecklistActionProps';
 import { DetailChecks } from './custom-components/DetailChecks';
 import {
@@ -18,7 +18,7 @@ import {
   PrintCounterAction,
   PrintCounterProvider,
   usePDFViewerCountablePrintActionProps,
-} from './schema-initializer/PDFViewerPrintActionInitializer';
+} from './schema-initializer/actions/PDFViewerPrintActionInitializer';
 import {
   PdfIsDoubleProvider,
   useRecordPdfPath,
@@ -26,22 +26,23 @@ import {
   useWaybillPdfPath,
   WaybillsProvider,
 } from './hooks/usePdfPath';
-import { ColumnSwitchAction, ColumnSwitchActionInitializer } from './schema-initializer/ColumnSwitchActionInitializer';
+import { ColumnSwitchAction, ColumnSwitchActionInitializer } from './schema-initializer/actions/ColumnSwitchActionInitializer';
 import {
   SettlementExcelExportActionInitializer,
   useSettlementExcelExportActionProps,
-} from './schema-initializer/SettlementExcelExportActionInitializer';
+} from './schema-initializer/actions/SettlementExcelExportActionInitializer';
 import {
   SettlementStyleProvider,
   SettlementStyleSwitchAction,
   SettlementStyleSwitchActionInitializer,
   useSettlementStyleSwitchActionProps,
-} from './schema-initializer/SettlementStyleSwitchActionInitializer';
-import { RecordPrintSetupActionInitializer, PrintSetup } from './schema-initializer/RecordPrintSetupActionInitializer';
+} from './schema-initializer/actions/SettlementStyleSwitchActionInitializer';
+import { RecordPrintSetupActionInitializer, PrintSetup } from './schema-initializer/actions/RecordPrintSetupActionInitializer';
 import {
   RecordPrintSetupMargingTopInitializer,
   PrintSetupMargingTop,
-} from './schema-initializer/RecordPrintSetupMargingTopInitializer';
+} from './schema-initializer/actions/RecordPrintSetupMargingTopInitializer';
+import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedRecordsBlockInitializer';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -188,6 +189,9 @@ export class PluginRentalClient extends Plugin {
       useSettlementExcelExportActionProps,
       useSettlementStyleSwitchActionProps,
     });
+
+    await new UnusedRecordsBlockHelper(this.app).load();
+
     // FIXME
     await this.app.apiClient.resource('link-manage').init({ name: 'DetailCheckPage' });
   }
