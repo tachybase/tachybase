@@ -5,7 +5,8 @@ import { SystemSettingService, SqlLoader } from '@hera/plugin-core';
 import { Action, Controller, Inject } from '@nocobase/utils';
 import { Movement } from '../../utils/constants';
 import _ from 'lodash';
-import { FilterParser } from '@nocobase/database';
+import { FilterParser, Repository } from '@nocobase/database';
+import { CollectionRepository } from '@nocobase/plugin-collection-manager';
 @Controller('records')
 export class RecordPreviewController {
   @Inject(() => SqlLoader)
@@ -194,5 +195,31 @@ export class RecordPreviewController {
         : pdfExplain[0]?.record_print_setup;
     const double = isDouble === '0' || isDouble === '1' ? isDouble : pdfExplain[0].record_columns;
     ctx.body = await this.recordPdfService.transformPdfV2(record, leaseData, feeData, { isDouble: double, printSetup });
+  }
+
+  @Action('unused_records')
+  async unusedRecords(ctx: Context) {
+    const repo = ctx.db.getRepository<CollectionRepository>('collections');
+    const record = await repo.findOne({ filter: { name: 'records' }, appends: ['fields'] });
+    const numberField = record.fields.find((field) => field.name === 'number');
+    const seqRepo = ctx.db.getRepository<Repository>('sequences');
+    const sequence = await seqRepo.findOne({
+      filter: {
+        collection: 'records',
+        field: 'number',
+        key: numberField.options.patterns[0].options.key,
+      },
+    });
+    const current = sequence.current;
+    // 找从 200000 到 current 中有哪个没有的
+    const recordsRepo = ctx.db.getRepository<Repository>('records');
+    const records = await recordsRepo.find({
+      fields: ['number'],
+    });
+    const shouldBe = Array(current - 200001)
+      .fill(0)
+      .map((_, i) => 200001 + i);
+    const numbers = records.map((record) => Number(record.number));
+    ctx.body = _.difference(shouldBe, numbers);
   }
 }
