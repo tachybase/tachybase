@@ -556,7 +556,7 @@ const PreviewDocument = ({
                     style={detail.category === RecordCategory.purchase ? styles.tableCell2Last : styles.tableCellLast}
                   >
                     {item.right_comment || ''}
-                    {item.right_name && item.right_isExcluded ? '不计入合同' : item.left_comment || ''}
+                    {item.right_name && item.right_isExcluded ? '不计入合同' : item.right_comment || ''}
                   </Text>
                 </View>
               ))}

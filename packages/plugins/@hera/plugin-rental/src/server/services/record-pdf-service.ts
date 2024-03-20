@@ -141,32 +141,32 @@ export class RecordPdfService {
         isFee: true,
         isExcluded: item.is_excluded,
         name: item.custom_name || item.label,
-        count: item.count_source === SourcesType.staff ? item.fee_count : item.product_count,
+        count1: item.count_source === SourcesType.staff ? item.fee_count : item.product_count,
         unit: item.unit,
-        conversion_unit: item.unit,
         comment: '',
         product_id: item.product_id + '.' + (index + 1),
         category_id: item.product_category_id,
       };
       if (item.conversion_logic_id === ConversionLogics.Keep) {
-        data['total'] = data.count;
+        data['count'] = data.count1;
       } else if (item.conversion_logic_id === ConversionLogics.Product) {
-        if (item.convertible) data['total'] = data.count * item.product_ratio;
-        else data['total'] = data.count;
+        if (item.convertible) data['count'] = data.count1 * item.product_ratio;
+        else data['count'] = data.count1;
       } else if (item.conversion_logic_id === ConversionLogics.ProductWeight) {
-        data['total'] = data.count * item.product_weight;
+        data['count'] = data.count1 * item.product_weight;
       } else if (item.conversion_logic_id === ConversionLogics.ActualWeight) {
-        data['total'] = item.actual_weight || item.record_weight;
+        data['count'] = item.actual_weight || item.record_weight;
       } else {
         if (item.weight_rules?.conversion_logic_id === ConversionLogics.Keep) {
-          data['total'] = data.count * item.weight_rules.weight;
+          data['count'] = data.count1 * item.weight_rules.weight;
         } else if (item.weight_rules?.conversion_logic_id === ConversionLogics.Product) {
-          data['total'] = data.count * item.weight_rules.weight * item.product_ratio;
+          data['count'] = data.count1 * item.weight_rules.weight * item.product_ratio;
         }
       }
       // 如果 printSetup === PrintSetup.DisplayAndPrice 要计算费用产生的价格
       if (printSetup === PrintSetup.DisplayAndPrice) {
-        data['fee_price'] = data['total'] * item.unit_price;
+        data['total'] = data['count'] * item.unit_price;
+        data['conversion_unit'] = '元';
       }
       return data;
     });
@@ -193,7 +193,7 @@ export class RecordPdfService {
         const data = {
           isFee: true,
           name: item.custom_name || item.label,
-          unit: item.unit,
+          unit: '',
           conversion_unit: item.unit,
           comment: '',
         };
@@ -244,7 +244,7 @@ export class RecordPdfService {
           const feeRule = fee_data.find((fee) => fee.fee_product_id === item.product_id);
           if (feeRule) {
             data['total'] = feeRule.unit_price * item.count;
-            data['unit'] = feeRule.unit || '';
+            data['unit'] = '';
           }
           return data;
         })
