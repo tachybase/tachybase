@@ -1,7 +1,9 @@
 import { defineCollection } from '@nocobase/database';
 
 export default defineCollection({
-  duplicator: 'optional',
+  dumpRules: {
+    group: 'required',
+  },
   name: 'home_page_presentations_attachments',
   title: '首页展示图关联',
   fields: [

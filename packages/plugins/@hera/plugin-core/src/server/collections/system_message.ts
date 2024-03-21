@@ -1,7 +1,9 @@
 import { defineCollection } from '@nocobase/database';
 // 跟随core插件，消息通知表
 export default defineCollection({
-  duplicator: 'optional',
+  dumpRules: {
+    group: 'required',
+  },
   name: 'system_message',
   title: '消息通知',
   createdBy: true,

@@ -1,7 +1,9 @@
 import { defineCollection } from '@nocobase/database';
 
 export default defineCollection({
-  duplicator: 'optional',
+  dumpRules: {
+    group: 'required',
+  },
   name: 'tokenConfiguration',
   title: '开放平台 Token 管理',
   fields: [

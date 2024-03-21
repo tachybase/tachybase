@@ -1,7 +1,9 @@
 import { defineCollection } from '@nocobase/database';
 
 export default defineCollection({
-  duplicator: 'optional',
+  dumpRules: {
+    group: 'required',
+  },
   name: 'linkManage',
   title: '链接管理',
   fields: [
