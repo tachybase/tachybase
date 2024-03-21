@@ -574,6 +574,11 @@ export const Table: any = observer(
                 height: 100%;
                 display: flex;
                 flex-direction: column;
+                .ant-table-thead {
+                  .ant-table-cell {
+                    text-align: center;
+                  }
+                }
               }
             }
           }
