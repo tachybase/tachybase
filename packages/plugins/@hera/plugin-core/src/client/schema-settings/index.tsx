@@ -552,7 +552,7 @@ export function AfterSuccess() {
 }
 
 // 添加跳转页面选项
-export const SessionSubmit = () => {
+export const PageModeSetting = () => {
   const { dn } = useDesignable();
   const { t } = useTranslation();
   const fieldSchema = useFieldSchema();
@@ -574,29 +574,6 @@ export const SessionSubmit = () => {
     />
   );
 };
-
-export function SessionUpdate() {
-  const { dn } = useDesignable();
-  const { t } = useTranslation();
-  const fieldSchema = useFieldSchema();
-  return (
-    <SchemaSettingsSwitchItem
-      title={t('更新询问')}
-      checked={!!fieldSchema?.['x-action-settings']?.sessionUpdate}
-      onChange={(value) => {
-        fieldSchema['x-action-settings'].sessionUpdate = value;
-        dn.emit('patch', {
-          schema: {
-            ['x-uid']: fieldSchema['x-uid'],
-            'x-action-settings': {
-              ...fieldSchema['x-action-settings'],
-            },
-          },
-        });
-      }}
-    />
-  );
-}
 
 export const SchemaSettingComponent = () => {
   const fieldSchema = useFieldSchema();

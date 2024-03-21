@@ -11,10 +11,9 @@ import { remove } from 'lodash';
 import { useFieldSchema } from '@formily/react';
 import { isValid } from '@formily/shared';
 import { autorun } from '@formily/reactive';
-import { Locale, tval } from './locale';
+import { Locale, lang, tval } from './locale';
 import {
-  SessionSubmit,
-  SessionUpdate,
+  PageModeSetting,
   EditFormulaTitleField,
   IsTablePageSize,
   useFormulaTitleVisible,
@@ -27,13 +26,12 @@ import {
   EditDefaultValue,
 } from './schema-settings';
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
-import { useCustomizeUpdateActionProps } from './hooks/useCustomizeUpdateActionProps';
 import { useFilterBlockActionProps } from './hooks/useFilterBlockActionProps';
 import { useFilterFormCustomProps } from './hooks/useFilterFormCustomProps';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
 import { AdminLayout, DetailsPage, HomePage, OutboundPage, PageLayout } from './pages';
-import { Configuration, HomePageConfiguration, LinkManager } from './settings-manager-components';
+import { PluginSettingsHelper } from './settings-manager-components';
 import {
   AssociatedFieldInterface,
   CalcFieldInterface,
@@ -63,9 +61,7 @@ import {
   Select,
 } from './schema-components';
 import {
-  CalendarBlockInitializer,
   CreateSubmitActionInitializer,
-  FilterAssociatedFields,
   FilterFormItem,
   FilterFormItemCustom,
   FilterItemCustomDesigner,
@@ -73,8 +69,6 @@ import {
   GroupBlockProvider,
   GroupBlockToolbar,
   OutboundActionHelper,
-  OutboundButton,
-  OutboundLinkActionInitializer,
   PDFViewerBlockInitializer,
   PDFViewerPrintActionInitializer,
   PDFViewerProvider,
@@ -97,21 +91,6 @@ export class PluginCoreClient extends Plugin {
   locale: Locale;
 
   async registerSettings() {
-    this.app.pluginSettingsManager.add('home_page', {
-      title: this.locale.lang('HomePage Config'),
-      icon: 'HomeOutlined',
-      Component: HomePageConfiguration,
-    });
-    this.app.pluginSettingsManager.add('token', {
-      title: '第三方接入配置',
-      icon: 'ShareAltOutlined',
-      Component: Configuration,
-    });
-    this.app.pluginSettingsManager.add('linkmanage', {
-      title: '配置链接',
-      icon: 'ShareAltOutlined',
-      Component: LinkManager,
-    });
     this.schemaSettingsManager.add(groupBlockSettings);
     this.schemaSettingsManager.add(sheetBlockSettings);
     this.schemaSettingsManager.add(customComponentDispatcherSettings);
@@ -152,6 +131,13 @@ export class PluginCoreClient extends Plugin {
         };
       },
     });
+    this.app.schemaSettingsManager.addItem('actionSettings:submit', '', {
+      Component: PageModeSetting,
+      useVisible() {
+        const fieldSchema = useFieldSchema();
+        return isValid(fieldSchema?.['x-action-settings']?.sessionSubmit);
+      },
+    });
     const SchemaSettingOptionItems = this.schemaSettingsManager
       .get('ActionSettings')
       .items.filter((item) => item.name === 'Customize')[0].children;
@@ -171,28 +157,9 @@ export class PluginCoreClient extends Plugin {
     this.app.schemaInitializerManager.get('popup:common:addBlock').add(previewBlockItem.name, previewBlockItem);
   }
 
-  async registerActions() {
-    const actionSettings = this.app.schemaSettingsManager.get('ActionSettings');
-    actionSettings.add('sessionSubmit', {
-      Component: SessionSubmit,
-      useVisible() {
-        const fieldSchema = useFieldSchema();
-        return isValid(fieldSchema?.['x-action-settings']?.sessionSubmit);
-      },
-    });
-    actionSettings.add('sessionUpdate', {
-      Component: SessionUpdate,
-      useVisible() {
-        const fieldSchema = useFieldSchema();
-        return isValid(fieldSchema?.['x-action-settings']?.sessionUpdate);
-      },
-    });
-  }
-
   async registerScopesAndComponents() {
     this.app.addScopes({
       useCreateActionProps,
-      useCustomizeUpdateActionProps,
       useFilterBlockActionProps,
       useFilterFormCustomProps,
       useGetCustomAssociatedComponents,
@@ -216,8 +183,6 @@ export class PluginCoreClient extends Plugin {
       EditTitle,
       EditTitleField,
       Expression,
-      ExtendedCalendarBlockInitializer: CalendarBlockInitializer,
-      FilterAssociatedFields,
       FilterFormItem,
       FilterFormItemCustom,
       FilterItemCustomDesigner,
@@ -269,17 +234,6 @@ export class PluginCoreClient extends Plugin {
   }
 
   async registerSchemaInitializer() {
-    const associationFields = {
-      type: 'item',
-      name: 'associationFields',
-      title: '筛选区块添加一对一的引用',
-      Component: 'FilterAssociatedFields',
-    };
-    const calendarBlockItem = {
-      name: 'calendarV2',
-      title: '{{t("Calendar")}}',
-      Component: 'ExtendedCalendarBlockInitializer',
-    };
     const settingBlockItem = {
       name: 'setting',
       title: tval('System setting'),
@@ -288,39 +242,36 @@ export class PluginCoreClient extends Plugin {
     const refreshActionItem = {
       type: 'item',
       name: 'refreshAction',
-      title: "{{t('Refresh')}}",
+      title: tval('Refresh'),
       Component: 'RefreshActionInitializer',
       schema: {
         'x-align': 'right',
       },
     };
     const customItem = {
-      title: '自定义',
+      title: tval('Custom filter field'),
       name: 'custom',
       type: 'item',
       Component: 'FilterFormItemCustom',
     };
     this.schemaInitializerManager.add(pdfViewActionInitializer);
-    this.app.schemaInitializerManager.get('BlockInitializers').add(calendarBlockItem.name, calendarBlockItem);
-    this.app.schemaInitializerManager.get('BlockInitializers').add(settingBlockItem.name, settingBlockItem);
-    this.app.schemaInitializerManager.get('BlockInitializers').add('dataBlocks.groupBlock', {
-      title: tval('Group block'),
+    this.app.schemaInitializerManager.addItem('page:addBlock', settingBlockItem.name, settingBlockItem);
+    this.app.schemaInitializerManager.addItem('page:addBlock', 'dataBlocks.groupBlock', {
+      title: tval('Group'),
       Component: 'GroupBlockInitializer',
     });
-    this.app.schemaInitializerManager.get('BlockInitializers').add('dataBlocks.sheetBlock', {
+    this.app.schemaInitializerManager.addItem('page:addBlock', 'dataBlocks.sheetBlock', {
       title: tval('Sheet'),
       Component: 'SheetBlockInitializer',
     });
-    this.app.schemaInitializerManager.get('KanbanActionInitializers').add(refreshActionItem.name, refreshActionItem);
-    this.app.schemaInitializerManager.get('FilterFormItemInitializers').add(associationFields.name, associationFields);
-    this.app.schemaInitializerManager.addItem('FilterFormItemInitializers', 'custom-item-divider', {
+    this.app.schemaInitializerManager.addItem('kanban:configureActions', refreshActionItem.name, refreshActionItem);
+    this.app.schemaInitializerManager.addItem('filterForm:configureFields', 'custom-item-divider', {
       type: 'divider',
     });
-    this.app.schemaInitializerManager.addItem('FilterFormItemInitializers', customItem.name, customItem);
-
+    this.app.schemaInitializerManager.addItem('filterForm:configureFields', customItem.name, customItem);
     const addCustomComponent = {
       name: 'addCustomComponent',
-      title: this.locale.lang('Add custom component'),
+      title: tval('Add custom component'),
       Component: 'BlockItemInitializer',
       schema: {
         type: 'void',
@@ -333,12 +284,8 @@ export class PluginCoreClient extends Plugin {
         },
       },
     };
-    this.app.schemaInitializerManager.addItem('FormItemInitializers', addCustomComponent.name, addCustomComponent);
-    this.app.schemaInitializerManager.addItem(
-      'ReadPrettyFormItemInitializers',
-      addCustomComponent.name,
-      addCustomComponent,
-    );
+    this.app.schemaInitializerManager.addItem('form:configureFields', addCustomComponent.name, addCustomComponent);
+    this.app.schemaInitializerManager.addItem('details:configureFields', addCustomComponent.name, addCustomComponent);
   }
 
   async registerInterfaces() {
@@ -365,10 +312,10 @@ export class PluginCoreClient extends Plugin {
   async load() {
     this.locale = new Locale(this.app);
     await new OutboundActionHelper(this.app).load();
+    await new PluginSettingsHelper(this.app).load();
     await this.registerTricks();
     await this.registerScopesAndComponents();
     await this.registerSettings();
-    await this.registerActions();
     await this.registerRouters();
     await this.registerInterfaces();
 
