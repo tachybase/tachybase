@@ -1,8 +1,8 @@
 import { useField, useFieldSchema } from '@formily/react';
 import { findFilterTargets, useAPIClient, useBlockRequestContext, useFilterBlock } from '@nocobase/client';
 import { Descriptions, DescriptionsProps, Spin } from 'antd';
-import { transformers } from '../components/GroupBlockConfigure/transformers';
-import React, { useEffect, useState } from 'react';
+import { transformers } from './GroupBlockConfigure/transformers';
+import React, { useState } from 'react';
 import { useAsyncEffect } from 'ahooks';
 
 type DataItem = {

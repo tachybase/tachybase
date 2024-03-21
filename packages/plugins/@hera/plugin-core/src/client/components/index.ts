@@ -1,4 +1,4 @@
-export * from './GroupBlockConfigure/GroupBlockConfigure';
+export * from '../schema-components/blocks/GroupBlockConfigure/GroupBlockConfigure';
 export * from './PDFViewer';
 export * from './Sheet';
 export * from './SignatureInput';

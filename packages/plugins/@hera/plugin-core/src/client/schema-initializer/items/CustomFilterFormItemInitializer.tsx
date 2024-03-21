@@ -37,10 +37,10 @@ import {
   EditTitleField,
   SchemaSettingCollection,
   SchemaSettingComponent,
-} from '../schema-settings';
+} from '../../schema-settings';
 import _ from 'lodash';
-import { SchemaSettingsRemove } from '../components/FormFilter/SchemaSettingsRemove';
-import { tval, useTranslation } from '../locale';
+import { SchemaSettingsRemove } from '../../components/FormFilter/SchemaSettingsRemove';
+import { tval, useTranslation } from '../../locale';
 import { ContractsController } from 'packages/plugins/@hera/plugin-rental/dist/server/actions';
 
 const FieldComponentProps: React.FC = observer(
@@ -221,13 +221,14 @@ export const FilterCustomItemInitializer: React.FC<{
                       title: tval('Association field'),
                       'x-decorator': 'FormItem',
                       'x-component': 'Select',
+                      'x-visible': false,
+                      required: true,
                       'x-reactions': [
                         {
                           dependencies: ['collection', 'component'],
-                          when: "{{$deps[1] === 'AssociationCascader'}}",
                           fulfill: {
                             schema: {
-                              'x-visible': '{{$deps[0] ? true : false}}',
+                              'x-visible': "{{$deps[0] && $deps[1] === 'AssociationCascader'}}",
                               enum: '{{ useAssociationFields($deps[0]) }}',
                             },
                           },
@@ -278,14 +279,8 @@ export const FilterCustomItemInitializer: React.FC<{
       },
     });
     const { title, component, collection, associationField } = values;
-    console.log('=-=======', associationField);
     const defaultSchema = getInterface(component)?.default?.uiSchema || {};
-    let name;
-    if (component === 'Select' || component === 'AutoComplete') {
-      name = collection;
-    } else {
-      name = component + uid();
-    }
+    const name = uid();
     insert(
       gridRowColWrap({
         'x-component': component,

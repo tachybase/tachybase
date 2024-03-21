@@ -16,8 +16,8 @@ import {
 import React, { createContext, useState } from 'react';
 import { uid } from '@nocobase/utils/client';
 import { Checkbox, Spin } from 'antd';
-import { GroupBlockConfigure } from '../../components/GroupBlockConfigure/GroupBlockConfigure';
-import { GroupConfigure } from '../../components/GroupBlockConfigure/GroupConfigure';
+import { GroupBlockConfigure } from '../../schema-components/blocks/GroupBlockConfigure/GroupBlockConfigure';
+import { GroupConfigure } from '../../schema-components/blocks/GroupBlockConfigure/GroupConfigure';
 
 export const GroupBlockContext = createContext<any>({});
 
