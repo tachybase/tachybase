@@ -6,6 +6,7 @@ import { useAsyncEffect } from 'ahooks';
 
 export const AutoComplete = (props) => {
   const fieldSchema = useFieldSchema();
+  const comdef = fieldSchema['default'];
   const { fieldNames } = fieldSchema['x-component-props'];
   const fieldFilter = fieldSchema['x-component-props']['params'];
   const [defultValue, setDefultValue] = useState([]);
@@ -33,6 +34,10 @@ export const AutoComplete = (props) => {
   useEffect(() => {
     changLable(defultValue);
   }, [fieldNames.label]);
+
+  useEffect(() => {
+    setValue(comdef);
+  }, [comdef]);
   const changLable = (defultOptions) => {
     if (defultOptions) {
       const item = defultOptions.map((item) => {
@@ -69,5 +74,14 @@ export const AutoComplete = (props) => {
       setOptions(defultValue);
     }
   };
-  return <AntdAutoComplete value={value} options={options} onSearch={onSearch} onChange={onSearch} allowClear />;
+  return (
+    <AntdAutoComplete
+      value={value}
+      defaultValue={comdef}
+      options={options}
+      onSearch={onSearch}
+      onChange={onSearch}
+      allowClear
+    />
+  );
 };

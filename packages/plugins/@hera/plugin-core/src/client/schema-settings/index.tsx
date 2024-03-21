@@ -1,6 +1,8 @@
 import { Field } from '@formily/core';
-import { ISchema, useField, useFieldSchema } from '@formily/react';
+import { ISchema, useField, useFieldSchema, useForm } from '@formily/react';
 import {
+  getShouldChange,
+  SchemaComponent,
   SchemaSettingsModalItem,
   SchemaSettingsSelectItem,
   SchemaSettingsSwitchItem,
@@ -8,6 +10,8 @@ import {
   useCollectionManager,
   useCollectionManager_deprecated,
   useCompile,
+  useCurrentUserVariable,
+  useDatetimeVariable,
   useDesignable,
   useFormBlockContext,
   useFormBlockType,
@@ -16,12 +20,16 @@ import {
   useRecord,
   useSchemaTemplateManager,
   useVariables,
+  VariableInput,
+  VariableScopeProvider,
 } from '@nocobase/client';
 import _ from 'lodash';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from '../locale';
 import { FormFilterScope } from '../components/FormFilter/FormFilterScope';
 import { useFieldComponents } from '../schema-initializer';
+import { useMemoizedFn } from 'ahooks';
+import { fieldsCollection } from '@nocobase/plugin-collection-manager';
 
 export const useFormulaTitleOptions = () => {
   const compile = useCompile();
@@ -140,6 +148,98 @@ export const EditFormulaTitleField = () => {
         }
       }}
     />
+  );
+};
+
+export const EditDefaultValue = () => {
+  const { t } = useTranslation();
+  const { dn } = useDesignable();
+  const field = useField<Field>();
+  const fieldSchema = useFieldSchema();
+  const collectionName = fieldSchema['collectionName'];
+  const title = fieldSchema.title;
+  return (
+    <SchemaSettingsModalItem
+      key="set field default value"
+      title={t('Set default value')}
+      schema={{
+        type: 'void',
+        title: t('Set default value'),
+        properties: {
+          default: {
+            title,
+            'x-decorator': 'FormItem',
+            'x-component': 'FilterVariableInput',
+            'x-component-props': {
+              fieldSchema,
+            },
+          },
+        },
+      }}
+      onSubmit={(defaultValue) => {
+        let value;
+        if (defaultValue.default && !defaultValue.custom) {
+          value = defaultValue.default.value?.value ? defaultValue.default.value.value : defaultValue.default.value;
+        } else if (defaultValue.custom) {
+          value = defaultValue.custom[collectionName];
+        }
+        field.setInitialValue(value);
+        fieldSchema['default'] = value;
+        dn.emit('patch', {
+          schema: {
+            'x-uid': fieldSchema['x-uid'],
+            default: value,
+          },
+        });
+        dn.refresh();
+      }}
+    />
+  );
+};
+
+export const FilterVariableInput: React.FC<any> = (props) => {
+  const { value, onChange, fieldSchema } = props;
+  const { currentUserSettings } = useCurrentUserVariable({
+    collectionField: { uiSchema: fieldSchema },
+    uiSchema: fieldSchema,
+  });
+  const { datetimeSettings } = useDatetimeVariable({
+    operator: fieldSchema['x-component-props']?.['filter-operator'],
+    schema: fieldSchema,
+    noDisabled: true,
+  });
+  const options = useMemo(
+    () => [currentUserSettings, datetimeSettings].filter(Boolean),
+    [datetimeSettings, currentUserSettings],
+  );
+  const schema = {
+    ...fieldSchema,
+    'x-component': fieldSchema['x-component'] || 'Input',
+    'x-decorator': '',
+    title: '',
+    name: 'value',
+  };
+  const componentProps = fieldSchema['x-component-props'] || {};
+  const handleChange = useMemoizedFn(onChange);
+  useEffect(() => {
+    if (fieldSchema.default) {
+      handleChange({ value: fieldSchema.default });
+    }
+  }, [fieldSchema.default, handleChange]);
+  return (
+    <VariableScopeProvider scope={options}>
+      <VariableInput
+        {...componentProps}
+        renderSchemaComponent={() => <SchemaComponent schema={schema} />}
+        fieldNames={{}}
+        value={value?.value}
+        scope={options}
+        onChange={(v: any) => {
+          onChange({ value: v });
+        }}
+        shouldChange={getShouldChange({} as any)}
+      />
+    </VariableScopeProvider>
   );
 };
 
@@ -510,11 +610,14 @@ export const SchemaSettingComponent = () => {
       options={options}
       value={fieldSchema['x-component']}
       onChange={(mode) => {
+        field.component = mode;
+        fieldSchema['x-component'] = mode;
+        fieldSchema.default = '';
         const schema = {
           ['x-uid']: fieldSchema['x-uid'],
           ['x-component']: mode,
+          default: '',
         };
-        field.component = mode;
         void dn.emit('patch', {
           schema,
         });
@@ -544,10 +647,12 @@ export const SchemaSettingCollection = () => {
       onChange={(name) => {
         fieldSchema['collectionName'] = name;
         fieldSchema['name'] = 'custom.' + name;
+        fieldSchema.default = '';
         const schema = {
           ['x-uid']: fieldSchema['x-uid'],
           collectionName: name,
           name: 'custom.' + name,
+          default: '',
         };
         void dn.emit('patch', { schema });
         dn.refresh();

@@ -23,6 +23,8 @@ import {
   SetFilterScope,
   useSetFilterScopeVisible,
   AfterSuccess,
+  FilterVariableInput,
+  EditDefaultValue,
 } from './schema-settings';
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
 import { useCustomizeUpdateActionProps } from './hooks/useCustomizeUpdateActionProps';
@@ -117,6 +119,13 @@ export class PluginCoreClient extends Plugin {
       Component: EditFormulaTitleField,
       useVisible: useFormulaTitleVisible,
     });
+    this.schemaSettingsManager.addItem('FilterFormItemSettings', 'editDefaultValue', {
+      Component: EditDefaultValue,
+    });
+    this.schemaSettingsManager.addItem('fieldSettings:component:Select', 'editDefaultValue', {
+      Component: EditDefaultValue,
+    });
+
     this.schemaSettingsManager.addItem('FormItemSettings', 'hera-divider', {
       type: 'divider',
       useVisible() {
@@ -195,6 +204,7 @@ export class PluginCoreClient extends Plugin {
       AdminLayout,
       AfterSuccess,
       AssociatedField,
+      RemoteSelect,
       AutoComplete,
       CalcResult,
       CreateSubmitActionInitializer,
@@ -216,6 +226,7 @@ export class PluginCoreClient extends Plugin {
       GroupBlockInitializer,
       GroupBlockProvider,
       GroupBlockToolbar,
+      FilterVariableInput,
       Menu: {
         ...Menu,
         // @ts-ignore
@@ -226,7 +237,6 @@ export class PluginCoreClient extends Plugin {
       PDFViewerProvider,
       PDFViwer: InternalPDFViewer,
       PageLayout,
-      RemoteSelect,
       Select,
       SettingBlock: SettingBlockInitializer,
       SignatureInput,

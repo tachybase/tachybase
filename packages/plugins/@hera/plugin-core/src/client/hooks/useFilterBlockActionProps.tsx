@@ -35,20 +35,24 @@ export const removeNullCondition = (filter, fieldSchema?) => {
           const collection = match?.split('.')[0];
           if (Object.keys(items).filter((item) => item.includes(collection)).length) {
             for (const key in items) {
-              if (key.includes(collection)) {
-                if (key.includes(match)) {
-                  if (Object.keys(items[key]).length) {
-                    filterSchemaItem[filterKey] = items[key];
-                    filterItem[match] = items[key];
+              if (key.includes('custom')) {
+                if (key.includes(collection)) {
+                  if (key.includes(match)) {
+                    if (Object.keys(items[key]).length) {
+                      filterSchemaItem[filterKey] = items[key];
+                      filterItem[match] = items[key];
+                    }
+                  }
+                  if (key.includes(collection)) delete items[key];
+                  else {
+                    const value = items[key];
+                    if (value != null && !isEmpty(value)) {
+                      values[key] = value;
+                    }
                   }
                 }
-                if (key.includes(collection)) delete items[key];
-                else {
-                  const value = items[key];
-                  if (value != null && !isEmpty(value)) {
-                    values[key] = value;
-                  }
-                }
+              } else {
+                values[key] = items[key];
               }
             }
           } else if (Object.keys(items).filter((item) => !item.includes('custom')).length) {
@@ -121,6 +125,16 @@ export const useFilterBlockActionProps = () => {
             if (!target) return;
 
             const param = block.service.params?.[0] || {};
+            for (const key in form.values) {
+              if (
+                (typeof form.values[key] === 'object' &&
+                  !form.values[key]?.length &&
+                  !Object.keys(form.values[key]).length) ||
+                !form.values[key]
+              ) {
+                delete form.values[key];
+              }
+            }
             // 保留原有的 filter
             const storedFilter = block.service.params?.[1]?.filters || {};
             storedFilter[uid] = removeNullCondition(

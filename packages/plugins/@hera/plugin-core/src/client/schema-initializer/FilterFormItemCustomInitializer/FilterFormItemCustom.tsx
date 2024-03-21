@@ -13,7 +13,6 @@ import {
   GeneralSchemaDesigner,
   SchemaSettingsDivider,
   EditDescription,
-  EditDefaultValue,
   cx,
   css,
   ACLCollectionFieldProvider,
@@ -31,6 +30,7 @@ import { ArrayItems, FormLayout } from '@formily/antd-v5';
 import { uid } from '@formily/shared';
 import { Field, onFieldValueChange } from '@formily/core';
 import {
+  EditDefaultValue,
   EditFormulaTitleField,
   EditTitle,
   EditTitleField,
@@ -298,7 +298,6 @@ export const FilterItemCustomDesigner: React.FC = () => {
     <GeneralSchemaDesigner>
       <EditTitle />
       <EditDescription />
-      <EditDefaultValue />
       {component !== 'Input' ? (
         <SchemaSettingsDataScope
           collectionName={name}
@@ -323,6 +322,7 @@ export const FilterItemCustomDesigner: React.FC = () => {
       {component === 'Select' || component === 'AutoComplete' ? <SchemaSettingComponent /> : null}
       {component === 'Select' || component === 'AutoComplete' ? <EditTitleField /> : null}
       {component === 'Select' || component === 'AutoComplete' ? <EditFormulaTitleField /> : null}
+      <EditDefaultValue />
       <SchemaSettingsDivider />
       <SchemaSettingsRemove
         key="remove"

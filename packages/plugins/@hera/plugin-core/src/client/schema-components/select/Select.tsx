@@ -24,6 +24,7 @@ const ObjectSelect = (props: Props) => {
   const { value, options, onChange, fieldNames, mode, loading, rawOptions, defaultValue, ...others } = props;
   const [defoptions, setDefOptions] = useState();
   const fieldSchema = useFieldSchema();
+  const comDefult = fieldSchema.default;
   const collectionName = fieldSchema['collectionName'];
   const filterField = fieldSchema['x-component-props']['params'];
   const fieldName = fieldSchema['x-component-props'].fieldNames;
@@ -45,6 +46,9 @@ const ObjectSelect = (props: Props) => {
       setDefOptions(changOptions);
     }
   }, [filterField?.filter, collectionName]);
+  useEffect(() => {
+    onChange?.(comDefult);
+  }, [fieldSchema.default]);
   const toValue = (v: any) => {
     if (isEmptyObject(v)) {
       return;
@@ -55,10 +59,14 @@ const ObjectSelect = (props: Props) => {
         return isPlainObject(val) ? val[fieldNames.value] : val;
       });
     const currentOptions = getCurrentOptions(values, options, fieldNames)?.map((val) => {
-      return {
-        label: val[fieldNames.label],
-        value: val[fieldNames.value],
-      };
+      if (collectionName) {
+        return val[fieldName.label];
+      } else {
+        return {
+          label: val[fieldNames.label],
+          value: val[fieldNames.value],
+        };
+      }
     });
     if (['tags', 'multiple'].includes(mode) || props.multiple) {
       return currentOptions;
@@ -75,7 +83,7 @@ const ObjectSelect = (props: Props) => {
       role="button"
       data-testid={`select-object-${mode || 'single'}`}
       value={toValue(value)}
-      defaultValue={toValue(defaultValue)}
+      defaultValue={toValue(defaultValue) || comDefult}
       allowClear={{
         clearIcon: <CloseCircleFilled role="button" aria-label="icon-close-select" />,
       }}
@@ -101,8 +109,8 @@ const ObjectSelect = (props: Props) => {
           rawOptions || options,
           fieldNames,
         );
-        if (fieldSchema.name.toString().includes('custom')) {
-          onChange?.(changed ? changed['label'] : changed);
+        if (collectionName) {
+          onChange?.(changed['label']);
         } else {
           if (['tags', 'multiple'].includes(mode as string) || props.multiple) {
             onChange?.(current);
