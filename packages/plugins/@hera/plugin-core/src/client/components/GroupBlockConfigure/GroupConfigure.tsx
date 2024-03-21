@@ -3,7 +3,7 @@ import { useDesignable, useFieldNames, useFilterBlock } from '@nocobase/client';
 import { App, Button, Flex, Input, Modal, Select } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from '../../locale';
-import { GroupBlockContext } from '../../schema-initializer/GroupBlockInitializer';
+import { GroupBlockContext } from '../../schema-initializer/blocks/GroupBlockInitializer';
 import { transformers } from './transformers';
 import { DeleteOutlined, PullRequestOutlined } from '@ant-design/icons';
 import { uid } from '@formily/shared';

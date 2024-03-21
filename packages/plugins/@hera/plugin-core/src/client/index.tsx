@@ -24,13 +24,12 @@ import {
   useSetFilterScopeVisible,
   AfterSuccess,
 } from './schema-settings';
-import { useCreateActionProps } from './hooks/useCreateActionProps';
+import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
 import { useCustomizeUpdateActionProps } from './hooks/useCustomizeUpdateActionProps';
 import { useFilterBlockActionProps } from './hooks/useFilterBlockActionProps';
 import { useFilterFormCustomProps } from './hooks/useFilterFormCustomProps';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
-import { useOutboundActionProps } from './hooks/useOutboundActionProps';
 import { AdminLayout, DetailsPage, HomePage, OutboundPage, PageLayout } from './pages';
 import { Configuration, HomePageConfiguration, LinkManager } from './settings-manager-components';
 import {
@@ -71,6 +70,7 @@ import {
   GroupBlockInitializer,
   GroupBlockProvider,
   GroupBlockToolbar,
+  OutboundActionHelper,
   OutboundButton,
   OutboundLinkActionInitializer,
   PDFViewerBlockInitializer,
@@ -81,7 +81,13 @@ import {
   pdfViewActionInitializer,
   usePDFViewerPrintActionProps,
 } from './schema-initializer';
-import { SheetBlock, SheetBlockInitializer, SheetBlockProvider, SheetBlockToolbar, sheetBlockSettings } from './schema-initializer/SheetBlockInitializer';
+import {
+  SheetBlock,
+  SheetBlockInitializer,
+  SheetBlockProvider,
+  SheetBlockToolbar,
+  sheetBlockSettings,
+} from './schema-initializer/blocks/SheetBlockInitializer';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -182,7 +188,6 @@ export class PluginCoreClient extends Plugin {
       useFilterFormCustomProps,
       useGetCustomAssociatedComponents,
       useGetCustomComponents,
-      useOutboundActionProps,
       usePDFViewerPrintActionProps,
     });
 
@@ -216,8 +221,6 @@ export class PluginCoreClient extends Plugin {
         // @ts-ignore
         Designer: MenuDesigner,
       },
-      OutboundButton,
-      OutboundLinkActionInitializer,
       PDFViewerBlockInitializer,
       PDFViewerPrintActionInitializer,
       PDFViewerProvider,
@@ -232,7 +235,6 @@ export class PluginCoreClient extends Plugin {
       SheetBlockProvider,
       SheetBlockToolbar,
     });
-
   }
 
   async registerRouters() {
@@ -263,15 +265,6 @@ export class PluginCoreClient extends Plugin {
       title: '筛选区块添加一对一的引用',
       Component: 'FilterAssociatedFields',
     };
-    const outboundItem = {
-      type: 'item',
-      name: 'enableActions.outbound',
-      title: '外链',
-      Component: 'OutboundLinkActionInitializer',
-      schema: {
-        'x-align': 'right',
-      },
-    };
     const calendarBlockItem = {
       name: 'calendarV2',
       title: '{{t("Calendar")}}',
@@ -298,8 +291,6 @@ export class PluginCoreClient extends Plugin {
       Component: 'FilterFormItemCustom',
     };
     this.schemaInitializerManager.add(pdfViewActionInitializer);
-    this.app.schemaInitializerManager.addItem('TableActionInitializers', outboundItem.name, outboundItem);
-    this.app.schemaInitializerManager.get('ReadPrettyFormActionInitializers').add(outboundItem.name, outboundItem);
     this.app.schemaInitializerManager.get('BlockInitializers').add(calendarBlockItem.name, calendarBlockItem);
     this.app.schemaInitializerManager.get('BlockInitializers').add(settingBlockItem.name, settingBlockItem);
     this.app.schemaInitializerManager.get('BlockInitializers').add('dataBlocks.groupBlock', {
@@ -311,7 +302,6 @@ export class PluginCoreClient extends Plugin {
       Component: 'SheetBlockInitializer',
     });
     this.app.schemaInitializerManager.get('KanbanActionInitializers').add(refreshActionItem.name, refreshActionItem);
-    this.app.schemaInitializerManager.get('KanbanActionInitializers').add(outboundItem.name, outboundItem);
     this.app.schemaInitializerManager.get('FilterFormItemInitializers').add(associationFields.name, associationFields);
     this.app.schemaInitializerManager.addItem('FilterFormItemInitializers', 'custom-item-divider', {
       type: 'divider',
@@ -364,6 +354,7 @@ export class PluginCoreClient extends Plugin {
 
   async load() {
     this.locale = new Locale(this.app);
+    await new OutboundActionHelper(this.app).load();
     await this.registerTricks();
     await this.registerScopesAndComponents();
     await this.registerSettings();

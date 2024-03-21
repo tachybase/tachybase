@@ -12,7 +12,7 @@ import {
   useSchemaInitializerItem,
 } from '@nocobase/client';
 import React, { useContext } from 'react';
-import { useTranslation } from '../locale';
+import { tval, useTranslation } from '../../locale';
 
 export const SettingBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
@@ -41,7 +41,7 @@ export const SettingBlockInitializer = () => {
                     schema={{
                       properties: {
                         id: {
-                          title: t('Please select'),
+                          title: tval('Please select'),
                           enum: result.data.data.map((item) => {
                             return {
                               label: item[titleField],
@@ -68,7 +68,7 @@ export const SettingBlockInitializer = () => {
           collection: collection.name,
           action: 'get',
           filterByTk: values.id,
-          actionInitializers: 'UpdateFormActionInitializers',
+          actionInitializers: 'editForm:configureActions',
         });
         insert(formSchema);
       }}

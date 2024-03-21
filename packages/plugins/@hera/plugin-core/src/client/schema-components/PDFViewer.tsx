@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { PDFViewer } from '../components/PDFViewer';
 import { Space } from 'antd';
 import { css } from '@nocobase/client';
-import { usePDFViewerRef } from '../schema-initializer/PDFVIewerBlockInitializer';
+import { usePDFViewerRef } from '../schema-initializer/blocks/PDFVIewerBlockInitializer';
 
 export const InternalPDFViewer = (props) => {
   const { usePdfPath: useMaybePdfPath } = props;

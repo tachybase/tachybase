@@ -1,4 +1,4 @@
-import { Application, useApp, tval as nTval } from '@nocobase/client';
+import { Application, useApp, tval as nTval, i18n } from '@nocobase/client';
 
 const NAMESPACE = '@hera/plugin-core';
 
@@ -21,3 +21,7 @@ export const useTranslation = (): any => {
 };
 
 export const tval = (key: string) => nTval(key, { ns: NAMESPACE });
+
+export function lang(key: string) {
+  return i18n.t(key, { ns: NAMESPACE });
+}

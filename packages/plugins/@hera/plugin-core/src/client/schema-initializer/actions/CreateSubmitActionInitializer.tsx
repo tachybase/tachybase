@@ -1,9 +1,9 @@
 import React from 'react';
-import { ActionInitializer } from '@nocobase/client';
+import { ActionInitializer, tval } from '@nocobase/client';
 
-export const CreateSubmitActionInitializer = (props) => {
+export const CreateSubmitActionInitializer: React.FC = (props) => {
   const schema = {
-    title: '{{ t("Submit") }}',
+    title: tval('Submit'),
     'x-action': 'submit',
     'x-component': 'Action',
     'x-designer': 'Action.Designer',
@@ -20,3 +20,4 @@ export const CreateSubmitActionInitializer = (props) => {
   };
   return <ActionInitializer {...props} schema={schema} />;
 };
+CreateSubmitActionInitializer.displayName = 'CreateSubmitActionInitializer';

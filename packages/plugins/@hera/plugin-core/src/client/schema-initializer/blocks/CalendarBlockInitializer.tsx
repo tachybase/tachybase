@@ -13,7 +13,7 @@ import {
 } from '@nocobase/client';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { createCalendarBlockSchema } from './utils';
+import { createCalendarBlockSchema } from '../utils';
 
 export const CalendarBlockInitializer = () => {
   const { insert } = useSchemaInitializer();

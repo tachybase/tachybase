@@ -19,14 +19,15 @@ import { useTranslation } from 'react-i18next';
 import { App, message } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { isURL } from '@nocobase/utils/client';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import _ from 'lodash';
+import { tval } from '../../../locale';
 
 const pageDetailsViewer = 'PageLayout';
 
 const viewerSchema: ISchema = {
   type: 'void',
-  title: '{{ t("View record") }}',
+  title: tval('View record'),
   'x-component': pageDetailsViewer,
   'x-component-props': {
     className: 'nb-action-popup',
@@ -34,7 +35,7 @@ const viewerSchema: ISchema = {
   properties: {
     page: {
       type: 'void',
-      title: '详情页面',
+      title: tval('Detail page'),
       'x-designer': 'Page.Designer',
       'x-component': 'Page',
       'x-component-props': { disablePageHeader: true },
