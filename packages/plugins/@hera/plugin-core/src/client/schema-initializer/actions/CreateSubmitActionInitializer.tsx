@@ -15,7 +15,7 @@ export const CreateSubmitActionInitializer: React.FC = (props) => {
     'x-action-settings': {
       assignedValues: {},
       triggerWorkflows: [],
-      sessionSubmit: false,
+      pageMode: false,
     },
   };
   return <ActionInitializer {...props} schema={schema} />;

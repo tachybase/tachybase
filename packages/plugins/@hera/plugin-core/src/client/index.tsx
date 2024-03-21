@@ -1,17 +1,10 @@
 import React from 'react';
-import {
-  Menu,
-  Plugin,
-  RemoteSchemaTemplateManagerProvider,
-  EditTitleField,
-  SchemaSettingOptions,
-  useCollection,
-} from '@nocobase/client';
+import { Menu, Plugin, RemoteSchemaTemplateManagerProvider, EditTitleField, useCollection } from '@nocobase/client';
 import { remove } from 'lodash';
 import { useFieldSchema } from '@formily/react';
 import { isValid } from '@formily/shared';
 import { autorun } from '@formily/reactive';
-import { Locale, lang, tval } from './locale';
+import { Locale, tval } from './locale';
 import {
   PageModeSetting,
   EditFormulaTitleField,
@@ -21,7 +14,6 @@ import {
   EditTitle,
   SetFilterScope,
   useSetFilterScopeVisible,
-  AfterSuccess,
   FilterVariableInput,
   EditDefaultValue,
 } from './schema-settings';
@@ -131,20 +123,12 @@ export class PluginCoreClient extends Plugin {
         };
       },
     });
-    this.app.schemaSettingsManager.addItem('actionSettings:submit', '', {
+    this.app.schemaSettingsManager.addItem('actionSettings:submit', 'pageMode', {
       Component: PageModeSetting,
       useVisible() {
         const fieldSchema = useFieldSchema();
-        return isValid(fieldSchema?.['x-action-settings']?.sessionSubmit);
+        return isValid(fieldSchema?.['x-action-settings']?.pageMode);
       },
-    });
-    const SchemaSettingOptionItems = this.schemaSettingsManager
-      .get('ActionSettings')
-      .items.filter((item) => item.name === 'Customize')[0].children;
-    SchemaSettingOptionItems.forEach((item) => {
-      if (item.name === 'afterSuccess') {
-        (item as SchemaSettingOptions).Component = AfterSuccess;
-      }
     });
 
     // 预览区块需要提前加进来，没法放在 afterload 中，这块后面需要重构
@@ -169,9 +153,7 @@ export class PluginCoreClient extends Plugin {
 
     this.app.addComponents({
       AdminLayout,
-      AfterSuccess,
       AssociatedField,
-      RemoteSelect,
       AutoComplete,
       CalcResult,
       CreateSubmitActionInitializer,
@@ -202,13 +184,14 @@ export class PluginCoreClient extends Plugin {
       PDFViewerProvider,
       PDFViwer: InternalPDFViewer,
       PageLayout,
+      RemoteSelect,
       Select,
       SettingBlock: SettingBlockInitializer,
-      SignatureInput,
       SheetBlock,
       SheetBlockInitializer,
       SheetBlockProvider,
       SheetBlockToolbar,
+      SignatureInput,
     });
   }
 
@@ -300,13 +283,13 @@ export class PluginCoreClient extends Plugin {
 
   async afterLoad() {
     // log for debug
+    await this.registerSchemaInitializer();
     if (process.env.NODE_ENV !== 'production') {
       console.info('current components', this.app.components);
       console.info('current schemaSettings', this.app.schemaSettingsManager.getAll());
       console.info('current schemaInitializer', this.app.schemaInitializerManager.getAll());
       console.info('current providers', this.app.providers);
     }
-    await this.registerSchemaInitializer();
   }
 
   async load() {

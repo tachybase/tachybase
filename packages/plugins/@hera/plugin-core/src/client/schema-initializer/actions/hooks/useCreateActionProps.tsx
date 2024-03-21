@@ -102,7 +102,7 @@ export const useCreateActionProps = () => {
         overwriteValues,
         skipValidator,
         triggerWorkflows,
-        sessionSubmit,
+        pageMode,
       } = actionSchema?.['x-action-settings'] ?? {};
       const addChild = fieldSchema?.['x-component-props']?.addChild;
       const assignedValues = {};
@@ -165,7 +165,7 @@ export const useCreateActionProps = () => {
         actionField.data.data = data;
         __parent?.service?.refresh?.();
         if (!onSuccess?.successMessage) {
-          if (sessionSubmit) {
+          if (pageMode) {
             message.success(t('Saved successfully'));
             if (dn.designable) {
               insert(viewerSchema);
