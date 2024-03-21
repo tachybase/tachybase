@@ -18,14 +18,17 @@ const AssociationCascader = connect((props) => {
   const titleField = cm.getCollection(collection).titleField;
   const joinTitleField = cm.getCollection(collection + '.' + associationField).titleField;
 
+  const params = {
+    appends: [associationField],
+    fields: [titleField],
+    pageSize: 99999,
+    filter: props?.params?.filter ? { ...props?.params?.filter } : {},
+  };
+
   const { data } = useRequest<any>({
     resource: collection,
     action: 'list',
-    params: {
-      appends: [associationField],
-      fields: [titleField],
-      pageSize: 99999,
-    },
+    params,
   });
 
   const options = useMemo(() => {
