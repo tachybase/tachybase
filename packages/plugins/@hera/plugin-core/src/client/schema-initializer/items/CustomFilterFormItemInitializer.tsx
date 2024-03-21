@@ -39,7 +39,7 @@ import {
   SchemaSettingComponent,
 } from '../../schema-settings';
 import _ from 'lodash';
-import { SchemaSettingsRemove } from '../../components/FormFilter/SchemaSettingsRemove';
+import { SchemaSettingsRemove } from '../../schema-settings/SchemaSettingsRemove';
 import { tval, useTranslation } from '../../locale';
 import { ContractsController } from 'packages/plugins/@hera/plugin-rental/dist/server/actions';
 

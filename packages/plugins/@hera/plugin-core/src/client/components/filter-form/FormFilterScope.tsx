@@ -102,5 +102,5 @@ export const FormFilterScope = observer(
       </FormBlockContext.Provider>
     );
   },
-  { displayName: 'FormLinkageRules' },
+  { displayName: 'FormFilterScope' },
 );

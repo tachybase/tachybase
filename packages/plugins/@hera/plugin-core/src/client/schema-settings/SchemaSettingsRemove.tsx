@@ -2,7 +2,7 @@ import { ISchema, useField, useFieldSchema, useForm } from '@formily/react';
 import { SchemaSettingsItem, useFormActiveFields, useSchemaSettings } from '@nocobase/client';
 import { App, ModalFuncProps } from 'antd';
 import { FC } from 'react';
-import { useTranslation } from '../../locale';
+import { useTranslation } from '../locale';
 import { Field } from '@formily/core';
 import React from 'react';
 

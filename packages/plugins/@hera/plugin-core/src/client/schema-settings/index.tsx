@@ -26,7 +26,7 @@ import {
 import _ from 'lodash';
 import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from '../locale';
-import { FormFilterScope } from '../components/FormFilter/FormFilterScope';
+import { FormFilterScope } from '../components/filter-form/FormFilterScope';
 import { useFieldComponents } from '../schema-initializer';
 import { useMemoizedFn } from 'ahooks';
 import { fieldsCollection } from '@nocobase/plugin-collection-manager';
