@@ -1,31 +1,29 @@
-/* global document */
-/* global window */
 class Element {
-  constructor(tag, className = '') {
+  private el: HTMLElement;
+  private _data: Record<string, any>;
+  constructor(tag: HTMLElement | string, className = '') {
     if (typeof tag === 'string') {
       this.el = document.createElement(tag);
       this.el.className = className;
     } else {
       this.el = tag;
     }
-    this.data = {};
+    this._data = {};
   }
 
   data(key, value) {
     if (value !== undefined) {
-      this.data[key] = value;
+      this._data[key] = value;
       return this;
     }
-    return this.data[key];
+    return this._data[key];
   }
 
   on(eventNames, handler) {
     const [fen, ...oen] = eventNames.split('.');
-    let eventName = fen;
-    if (eventName === 'mousewheel' && /Firefox/i.test(window.navigator.userAgent)) {
-      eventName = 'DOMMouseScroll';
-    }
+    const eventName = fen;
     this.el.addEventListener(eventName, (evt) => {
+      console.log('excel debug', eventName, eventNames, oen, evt);
       handler(evt);
       for (let i = 0; i < oen.length; i += 1) {
         const k = oen[i];
@@ -37,6 +35,7 @@ class Element {
         }
         if (k === 'stop') {
           evt.stopPropagation();
+          evt.preventDefault();
         }
       }
     });
@@ -50,9 +49,7 @@ class Element {
       });
       return this;
     }
-    const {
-      offsetTop, offsetLeft, offsetHeight, offsetWidth,
-    } = this.el;
+    const { offsetTop, offsetLeft, offsetHeight, offsetWidth } = this.el;
     return {
       top: offsetTop,
       left: offsetLeft,
@@ -61,7 +58,7 @@ class Element {
     };
   }
 
-  scroll(v) {
+  scroll(v?) {
     const { el } = this;
     if (v !== undefined) {
       if (v.left !== undefined) {
@@ -79,52 +76,20 @@ class Element {
   }
 
   parent() {
-    return new Element(this.el.parentNode);
+    return new Element(this.el.parentElement);
   }
 
   children(...eles) {
     if (arguments.length === 0) {
       return this.el.childNodes;
     }
-    eles.forEach(ele => this.child(ele));
+    eles.forEach((ele) => this.child(ele));
     return this;
   }
 
   removeChild(el) {
     this.el.removeChild(el);
   }
-
-  /*
-  first() {
-    return this.el.firstChild;
-  }
-
-  last() {
-    return this.el.lastChild;
-  }
-
-  remove(ele) {
-    return this.el.removeChild(ele);
-  }
-
-  prepend(ele) {
-    const { el } = this;
-    if (el.children.length > 0) {
-      el.insertBefore(ele, el.firstChild);
-    } else {
-      el.appendChild(ele);
-    }
-    return this;
-  }
-
-  prev() {
-    return this.el.previousSibling;
-  }
-
-  next() {
-    return this.el.nextSibling;
-  }
-  */
 
   child(arg) {
     let ele = arg;
@@ -219,6 +184,9 @@ class Element {
   }
 
   val(v) {
+    if (!('value' in this.el)) {
+      return;
+    }
     if (v !== undefined) {
       this.el.value = v;
       return this;
@@ -231,14 +199,17 @@ class Element {
   }
 
   cssRemoveKeys(...keys) {
-    keys.forEach(k => this.el.style.removeProperty(k));
+    keys.forEach((k) => this.el.style.removeProperty(k));
     return this;
   }
 
+  css(name: string): string;
+  css(properties: any): Element;
+  css(name: string, value: any): Element;
   // css( propertyName )
   // css( propertyName, value )
   // css( properties )
-  css(name, value) {
+  css(name, value?): Element | string {
     if (value === undefined && typeof name !== 'string') {
       Object.keys(name).forEach((k) => {
         this.el.style[k] = name[k];
@@ -269,7 +240,4 @@ class Element {
 
 const h = (tag, className = '') => new Element(tag, className);
 
-export {
-  Element,
-  h,
-};
+export { Element, h };

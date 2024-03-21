@@ -589,7 +589,7 @@ export const demoData = [
       '1': {
         width: 200,
       },
-      len: 10,
+      len: 50,
     },
     validations: [],
     autofilter: {},
