@@ -34,6 +34,8 @@ export class RecordService {
     if (!values) {
       return;
     }
+    // 运输单的创建会走订单的update，如果存在waybill一定是在录运输单
+    if (values.waybill) return;
     if (values.record_category === RecordTypes.purchaseDirect || values.record_category === RecordTypes.rentDirect) {
       const deleteDatas = await this.db.getRepository('records').find({ where: { direct_record_id: model.id } });
       // 删除订单多对多项目表数据
@@ -62,6 +64,8 @@ export class RecordService {
    * @param options
    */
   async recordsAfterSave(model: MagicAttributeModel, options: CreateOptions): Promise<void> {
+    // 运输单导致的订单更新不必走以下订单逻辑，减少性能消耗，有waybill一定是运输单录入
+    if (options.values.waybill) return;
     // 订单新建更新后（根据合同确定出入库字段）
     await this._setProject(model, options);
     // 订单发生变化时更新对应结算单的状态（需要重新计算）
