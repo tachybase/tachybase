@@ -22,6 +22,7 @@ import {
   EditComponent,
   useFormBlockContext,
   useAPIClient,
+  useCompile,
 } from '@nocobase/client';
 import { ConfigProvider, Radio, Space } from 'antd';
 import React, { memo, useCallback, useContext, useMemo, Profiler } from 'react';
@@ -36,10 +37,11 @@ import {
   EditTitleField,
   SchemaSettingCollection,
   SchemaSettingComponent,
-} from '../../schema-settings';
+} from '../schema-settings';
 import _ from 'lodash';
-import { SchemaSettingsRemove } from '../../components/FormFilter/SchemaSettingsRemove';
-import { useTranslation } from '../../locale';
+import { SchemaSettingsRemove } from '../components/FormFilter/SchemaSettingsRemove';
+import { tval, useTranslation } from '../locale';
+import { ContractsController } from 'packages/plugins/@hera/plugin-rental/dist/server/actions';
 
 const FieldComponentProps: React.FC = observer(
   (props) => {
@@ -133,6 +135,7 @@ export const useFieldComponents = () => {
     { label: t('Input'), value: 'Input' },
     { label: t('AutoComplete'), value: 'AutoComplete' },
     { label: t('Select'), value: 'Select' },
+    { label: t('AssociationCascader'), value: 'AssociationCascader' },
     // { label: t('CustomSelect***'), value: 'CustomSelect' },
   ];
   return {
@@ -148,10 +151,11 @@ export const FilterCustomItemInitializer: React.FC<{
   const { t } = useTranslation();
   const { scope, components } = useContext(SchemaOptionsContext);
   const { theme } = useGlobalTheme();
+  const compile = useCompile();
   const { insert } = props;
   const itemConfig = useSchemaInitializerItem();
   const { getInterface } = useCollectionManager_deprecated();
-  const { collections } = useCollectionManager_deprecated();
+  const { collections, getCollectionFields } = useCollectionManager_deprecated();
   const allCollection = collections.map((value) => {
     return {
       label: value.title,
@@ -165,7 +169,18 @@ export const FilterCustomItemInitializer: React.FC<{
       t('Add custom field'),
       () => (
         <SchemaComponentOptions
-          scope={{ ...scope, useCollectionManager_deprecated }}
+          scope={{
+            ...scope,
+            useCollectionManager_deprecated,
+            useAssociationFields(collection?: string | undefined | null) {
+              return (
+                getCollectionFields(collection)?.map((field) => ({
+                  value: field.name,
+                  label: compile(field.uiSchema?.title),
+                })) ?? []
+              );
+            },
+          }}
           components={{ ...components, FieldComponentProps }}
         >
           <FormLayout layout={'vertical'}>
@@ -201,6 +216,24 @@ export const FilterCustomItemInitializer: React.FC<{
                       description: t('Select a collection field to use metadata of the field'),
                       'x-visible': false,
                     },
+                    associationField: {
+                      type: 'string',
+                      title: tval('Association field'),
+                      'x-decorator': 'FormItem',
+                      'x-component': 'Select',
+                      'x-reactions': [
+                        {
+                          dependencies: ['collection', 'component'],
+                          when: "{{$deps[1] === 'AssociationCascader'}}",
+                          fulfill: {
+                            schema: {
+                              'x-visible': '{{$deps[0] ? true : false}}',
+                              enum: '{{ useAssociationFields($deps[0]) }}',
+                            },
+                          },
+                        },
+                      ],
+                    },
                     props: {
                       type: 'object',
                       title: t('Component properties'),
@@ -225,7 +258,7 @@ export const FilterCustomItemInitializer: React.FC<{
           const name = field.value;
           const collectionComponent = field.query('.collection').take() as Field;
           const propsComponent = field.query('.props').take() as Field;
-          if (name === 'Select' || name === 'AutoComplete') {
+          if (name === 'Select' || name === 'AutoComplete' || name === 'AssociationCascader') {
             collectionComponent.setDisplay('visible');
             collectionComponent.setRequired(true);
             propsComponent.setDisplay('none');
@@ -244,7 +277,8 @@ export const FilterCustomItemInitializer: React.FC<{
         });
       },
     });
-    const { title, component, collection } = values;
+    const { title, component, collection, associationField } = values;
+    console.log('=-=======', associationField);
     const defaultSchema = getInterface(component)?.default?.uiSchema || {};
     let name;
     if (component === 'Select' || component === 'AutoComplete') {
@@ -269,6 +303,7 @@ export const FilterCustomItemInitializer: React.FC<{
             label: 'name',
             value: 'id',
           },
+          associationField,
         },
         'x-compoent-custom': true,
         collectionName: collection,

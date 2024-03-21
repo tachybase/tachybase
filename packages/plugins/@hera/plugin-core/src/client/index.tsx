@@ -76,6 +76,7 @@ import {
   SheetBlockToolbar,
   sheetBlockSettings,
 } from './schema-initializer/blocks/SheetBlockInitializer';
+import AssociationCascader from './schema-components/association-cascader/AssociationCascader';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -153,6 +154,7 @@ export class PluginCoreClient extends Plugin {
 
     this.app.addComponents({
       AdminLayout,
+      AssociationCascader,
       AssociatedField,
       AutoComplete,
       CalcResult,
