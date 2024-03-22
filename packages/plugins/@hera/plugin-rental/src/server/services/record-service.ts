@@ -35,7 +35,7 @@ export class RecordService {
       return;
     }
     // 运输单的创建会走订单的update，如果存在waybill一定是在录运输单
-    if (values?.waybill) return;
+    if (values.waybill) return;
     if (values.record_category === RecordTypes.purchaseDirect || values.record_category === RecordTypes.rentDirect) {
       const deleteDatas = await this.db.getRepository('records').find({ where: { direct_record_id: model.id } });
       // 删除订单多对多项目表数据
