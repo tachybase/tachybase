@@ -475,7 +475,7 @@ const PreviewDocument = ({
                   <Text
                     style={detail.category === RecordCategory.purchase ? styles.tableCell2Last : styles.tableCellLast}
                   >
-                    {item.isExcluded ? '不计入合同' : item.comment || ''}
+                    {item.isExcluded ? '不计入合同  ' + (item.comment || '') : item.comment || ''}
                   </Text>
                 </View>
               ))}
@@ -533,7 +533,7 @@ const PreviewDocument = ({
                       : item.left_conversion_unit}
                   </Text>
                   <Text style={detail.category === RecordCategory.purchase ? styles.tableCell2 : styles.tableCell}>
-                    {item.left_isExcluded ? '不计入合同' : item.left_comment || ''}
+                    {item.left_isExcluded ? '不计入合同  ' + (item.left_comment || '') : item.left_comment || ''}
                   </Text>
                   <Text style={styles.tableCell2}>{item.right_name}</Text>
                   <Text style={styles.tableCell}>
@@ -555,8 +555,9 @@ const PreviewDocument = ({
                   <Text
                     style={detail.category === RecordCategory.purchase ? styles.tableCell2Last : styles.tableCellLast}
                   >
-                    {item.right_comment || ''}
-                    {item.right_name && item.right_isExcluded ? '不计入合同' : item.right_comment || ''}
+                    {item.right_name && item.right_isExcluded
+                      ? '不计入合同  ' + (item.right_comment || '')
+                      : item.right_comment || ''}
                   </Text>
                 </View>
               ))}
