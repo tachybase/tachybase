@@ -40,8 +40,41 @@ const AssociationCascader = connect((props) => {
     }));
     return options;
   }, [associationField, joinTitleField, titleField, data?.data]);
-  return <Cascader options={options} {...props} showSearch />;
+  return <SingleValueCascader options={options} {...props} showSearch />;
 });
 
+const SingleValueCascader = (props) => {
+  const { value, options, onChange, fieldNames } = props;
+  const arrayValue = value && options ? [] : undefined;
+  if (arrayValue) {
+    for (const option of options) {
+      if (option[fieldNames.value] === value) {
+        arrayValue.push(option[fieldNames.value]);
+        break;
+      }
+      for (const subOption of option.children) {
+        if (subOption[fieldNames.value] === value) {
+          arrayValue.push(option[fieldNames.value]);
+          arrayValue.push(subOption[fieldNames.value]);
+          break;
+        }
+      }
+    }
+  }
+  const newProps = {
+    ...props,
+    value: arrayValue,
+    onChange: (v) => {
+      if (v) {
+        onChange(v[v.length - 1]);
+      } else {
+        onChange(v);
+      }
+    },
+  };
+  return <Cascader {...newProps} />;
+};
+
+SingleValueCascader.displayName = 'SingleValueCascader';
 AssociationCascader.displayName = 'AssociationCascader';
 export default AssociationCascader;
