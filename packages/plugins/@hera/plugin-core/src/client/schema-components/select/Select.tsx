@@ -143,9 +143,8 @@ const useLabelOptions = (others) => {
   const fieldSchema = useFieldSchema();
   const { getField } = useCollection_deprecated();
   const collectionField = useMemo(() => getField(fieldSchema.name), [fieldSchema.name]);
-  const collectionName = fieldSchema['x-compoent-custom'] ? fieldSchema['name'].toString().slice(7) : '';
   const request = {
-    resource: collectionField ? collectionField?.target : collectionName,
+    resource: collectionField?.target,
     action: 'list',
     params: {
       pageSize: 99999,
@@ -208,9 +207,8 @@ const InternalSelect = connect(
     if (mode && !['multiple', 'tags'].includes(mode)) {
       mode = undefined;
     }
-    const fieldSchema = useFieldSchema();
     const modifiedProps = useLabelOptions(others);
-    if (objectValue || fieldSchema['x-compoent-custom']) {
+    if (objectValue) {
       return (
         <ObjectSelect
           rawOptions={rawOptions}

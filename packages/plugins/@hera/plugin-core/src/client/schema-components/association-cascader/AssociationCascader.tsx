@@ -1,14 +1,11 @@
 import React, { useMemo } from 'react';
 import { Cascader } from 'antd';
-import { connect, useFieldSchema } from '@formily/react';
+import { connect } from '@formily/react';
 import { useCollectionManager, useRequest } from '@nocobase/client';
 import _ from 'lodash';
 
 const AssociationCascader = connect((props) => {
-  const { fieldNames } = props;
-  const fieldSchema = useFieldSchema();
-  const collection = fieldSchema['collectionName'];
-  const associationField = props.associationField;
+  const { fieldNames, collection, associationField } = props;
   const cm = useCollectionManager();
   const titleField = cm.getCollection(collection).titleField;
   const joinTitleField = cm.getCollection(collection + '.' + associationField).titleField;

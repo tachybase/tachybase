@@ -1,5 +1,5 @@
 import { Field } from '@formily/core';
-import { ISchema, useField, useFieldSchema, useForm } from '@formily/react';
+import { ISchema, useField, useFieldSchema } from '@formily/react';
 import {
   getShouldChange,
   SchemaComponent,
@@ -24,24 +24,21 @@ import {
   VariableScopeProvider,
 } from '@nocobase/client';
 import _ from 'lodash';
-import React, { useCallback, useContext, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from '../locale';
 import { FormFilterScope } from '../components/filter-form/FormFilterScope';
 import { useFieldComponents } from '../schema-initializer';
 import { useMemoizedFn } from 'ahooks';
-import { fieldsCollection } from '@nocobase/plugin-collection-manager';
 
 export const useFormulaTitleOptions = () => {
   const compile = useCompile();
   const { getCollectionJoinField, getCollectionFields } = useCollectionManager_deprecated();
   const { getField } = useCollection_deprecated();
   const fieldSchema = useFieldSchema();
-  const { t } = useTranslation();
-  const { dn } = useDesignable();
   const collectionManage = useCollectionManager_deprecated();
-  const collectionManageField = fieldSchema['x-compoent-custom']
-    ? collectionManage.collections.filter((value) => value.name === fieldSchema['x-decorator-props'])[0]
-    : {};
+  const collectionManageField = collectionManage.collections.filter(
+    (value) => value.name === fieldSchema['x-decorator-props'],
+  )[0];
   const collectionField = getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field']);
   let fields = [];
   if (collectionField) {
@@ -82,10 +79,9 @@ export const useFormulaTitleVisible = () => {
   // FIXME 这里现在只有当设置为 select，默认为 select 的时候看不到
   return (
     options.length > 0 &&
-    ((fieldSchema['x-component-props']?.mode === 'Select' &&
-      fieldSchema['x-component-props']?.fieldNames?.value !== undefined &&
-      fieldSchema['x-component'] === 'CollectionField') ||
-      fieldSchema['x-compoent-custom'])
+    fieldSchema['x-component-props']?.mode === 'Select' &&
+    fieldSchema['x-component-props']?.fieldNames?.value !== undefined &&
+    fieldSchema['x-component'] === 'CollectionField'
   );
 };
 
@@ -305,7 +301,8 @@ export const EditTitleField = () => {
   const { dn } = useDesignable();
   const compile = useCompile();
   const collectionManage = useCollectionManager_deprecated();
-  const collectionManageField = fieldSchema['x-compoent-custom']
+  const isCustomFilterItem = ((fieldSchema?.name as string) ?? '').startsWith('custom.');
+  const collectionManageField = isCustomFilterItem
     ? collectionManage.collections.filter((value) => value.name === fieldSchema['x-decorator-props'])[0]
     : {};
   const collectionField = getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field']);
@@ -324,8 +321,7 @@ export const EditTitleField = () => {
       label: compile(field?.uiSchema?.title) || field?.name,
     }));
 
-  return options.length > 0 &&
-    (fieldSchema['x-component'] === 'CollectionField' || fieldSchema['x-compoent-custom']) ? (
+  return options.length > 0 && (fieldSchema['x-component'] === 'CollectionField' || isCustomFilterItem) ? (
     <SchemaSettingsSelectItem
       key="title-field"
       title={t('Title field')}
