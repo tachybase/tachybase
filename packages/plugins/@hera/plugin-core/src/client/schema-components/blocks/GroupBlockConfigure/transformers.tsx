@@ -3,8 +3,8 @@ export const transformers = {
     {
       label: 'Percent',
       value: 'pertent',
-      component: (val: number) =>
-        new Intl.NumberFormat('en-US', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
+      component: (val: number, locale = 'en-US') =>
+        new Intl.NumberFormat(locale, { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
           val,
         ),
     },

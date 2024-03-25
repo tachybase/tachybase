@@ -66,7 +66,7 @@ export const GroupBlock = (props) => {
   params?.config?.measures?.forEach((measuresItem) => {
     const value = measuresItem.fieldFormat.fieldValue;
     if (!data[value]) data[value] = 0;
-    data[value] = fieldTransformers(measuresItem, data[value]);
+    data[value] = fieldTransformers(measuresItem, data[value], api);
   });
 
   for (const key in data) {
@@ -89,10 +89,11 @@ export const GroupBlock = (props) => {
       if (typeof requestData.value === 'object') {
         requestData.value.labels.forEach((labelItem, index) => {
           dataItem.children =
-            dataItem.children + `  ${labelItem} ${fieldTransformers(requeatItem, requestData.value['values'][index])}`;
+            dataItem.children +
+            `  ${labelItem} ${fieldTransformers(requeatItem, requestData.value['values'][index], api)}`;
         });
       } else {
-        dataItem.children = fieldTransformers(requeatItem, requestData.value.toString());
+        dataItem.children = fieldTransformers(requeatItem, requestData.value.toString(), api);
       }
       items.push(dataItem);
     });
@@ -100,15 +101,16 @@ export const GroupBlock = (props) => {
   return <Descriptions title="汇总：" items={items} />;
 };
 
-const fieldTransformers = (item, data) => {
+const fieldTransformers = (item, data, api) => {
   const { option: tOption } = transformers;
+  const locale = api.auth.getLocale();
   if (item.fieldFormat) {
     const option = item.fieldFormat.option;
     const decimal = item.fieldFormat.decimal;
     if (option && option !== 'decimal') {
       const component = tOption.filter((tValue) => tValue.value === option)[0].component;
       data = String(data).includes(',') ? String(data).replace(/,/g, '') : data;
-      return component(data);
+      return component(data, locale);
     } else if (option && option === 'decimal') {
       const component = tOption
         .filter((tValue) => tValue.value === 'decimal')[0]
