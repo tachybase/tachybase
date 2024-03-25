@@ -36,7 +36,7 @@ const AssociationCascader = connect((props) => {
     const options = Object.entries(dict).map(([key, values]) => ({
       [fieldNames.label]: key,
       [fieldNames.value]: key,
-      children: values.map((value) => ({ name: value, id: value })),
+      children: values.map((value) => ({ [fieldNames.label]: value, [fieldNames.value]: value })),
     }));
     return options;
   }, [associationField, joinTitleField, titleField, data?.data]);
