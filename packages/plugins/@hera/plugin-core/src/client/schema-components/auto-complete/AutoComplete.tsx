@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { AutoComplete as AntdAutoComplete } from 'antd';
-import { connect, useFieldSchema, useForm } from '@formily/react';
-import { useAPIClient, useDesigner, useRequest } from '@nocobase/client';
+import { connect, useFieldSchema } from '@formily/react';
+import { useAPIClient } from '@nocobase/client';
 import { useAsyncEffect } from 'ahooks';
 import { fuzzysearch } from '../../utils';
 
 export const AutoComplete = connect((props) => {
+  const { fieldNames, params: fieldFilter } = props;
   const fieldSchema = useFieldSchema();
-  const fieldNames = props.fieldNames || fieldSchema['x-component-props'].fieldNames;
-  const fieldFilter = props.params;
   const [defultValue, setDefultValue] = useState([]);
   const api = useAPIClient();
   const [options, setOptions] = useState([]);

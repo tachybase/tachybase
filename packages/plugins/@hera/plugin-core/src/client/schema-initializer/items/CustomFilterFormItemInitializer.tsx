@@ -298,8 +298,8 @@ export const FilterCustomItemInitializer: React.FC<{
             value: 'name',
           },
           associationField,
+          collection,
         },
-        'x-compoent-custom': true,
         collectionName: collection,
       }),
     );
@@ -350,7 +350,6 @@ export const FilterItemCustomDesigner: React.FC = () => {
       {component === 'Select' || component === 'AutoComplete' ? <SchemaSettingCollection /> : null}
       {component === 'Select' || component === 'AutoComplete' ? <SchemaSettingComponent /> : null}
       {component === 'Select' || component === 'AutoComplete' ? <EditTitleField /> : null}
-      {component === 'Select' || component === 'AutoComplete' ? <EditFormulaTitleField /> : null}
       <EditDefaultValue />
       <SchemaSettingsDivider />
       <SchemaSettingsRemove
