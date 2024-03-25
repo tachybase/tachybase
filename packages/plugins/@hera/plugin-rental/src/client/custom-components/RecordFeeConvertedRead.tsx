@@ -95,9 +95,9 @@ export const ReadFeeConvertedAmount: CustomFunctionComponent = () => {
     } else if (feeRule.conversion_logic_id === ConversionLogics.ProductWeight) {
       calcValue = calcValue * productData.weight;
     } else {
-      const weightItem = feeRule.conversion_logic.weight_items.find((item) => {
-        item.product_id - 99999 === category.id || item.product_id === productData.id;
-      });
+      const weightItem = feeRule.conversion_logic.weight_items.find(
+        (item) => item.product_id - 99999 === category.id || item.product_id === productData.id,
+      );
       if (!weightItem) return;
       if (weightItem.conversion_logic_id === ConversionLogics.Keep) {
         calcValue = calcValue * weightItem.weight;
