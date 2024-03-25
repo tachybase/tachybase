@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AutoComplete as AntdAutoComplete } from 'antd';
 import { connect, useFieldSchema } from '@formily/react';
 import { useAPIClient } from '@nocobase/client';
@@ -8,42 +8,54 @@ import { fuzzysearch } from '../../utils';
 export const AutoComplete = connect((props) => {
   const { fieldNames, params: fieldFilter } = props;
   const fieldSchema = useFieldSchema();
-  const [defultValue, setDefultValue] = useState([]);
+  const targetKey = fieldNames.value;
   const api = useAPIClient();
+  const [defultOptions, setDefultOptions] = useState([]);
   const [options, setOptions] = useState([]);
+
+  const getNoDuplicateTextOptions = (rawOptions) => {
+    const targetOptions = rawOptions.filter((option, index, self) => {
+      return self.findIndex((item) => item[targetKey] === option[targetKey]) === index;
+    });
+    return targetOptions;
+  };
+
   useAsyncEffect(async () => {
-    const defultOptions = await api.request({
+    const {
+      data: { data: rawOptions },
+    } = await api.request({
       url: fieldSchema['collectionName'] + ':list',
       params: {
         pageSize: 99999,
         filter: fieldFilter ? { ...fieldFilter.filter } : {},
       },
     });
-    changLable(defultOptions?.data?.data);
+    const targetOptions = getNoDuplicateTextOptions(rawOptions);
+    setDefultOptions(targetOptions);
+    setOptions(targetOptions);
   }, [fieldFilter?.filter, fieldSchema['collectionName']]);
 
-  useEffect(() => {
-    changLable(defultValue);
-  }, [fieldNames?.label]);
-
-  const changLable = (defultOptions) => {
-    if (defultOptions) {
-      const items = [];
-      defultOptions.forEach((item) => {
-        if (!items.filter((option) => option[fieldNames.value] === item[fieldNames.value]).length) {
-          items.push(item);
-        }
-      });
-      setDefultValue(items);
-      setOptions(items);
+  const onSearch = (value) => {
+    // 在筛选项开头跟踪用户的原始输入值
+    if (value) {
+      setOptions([
+        {
+          [targetKey]: value,
+        },
+        ...defultOptions,
+      ]);
+    } else {
+      setOptions(defultOptions);
     }
   };
+
   return (
     <AntdAutoComplete
       {...props}
       options={options}
-      filterOption={(inputValue, option) => fuzzysearch(inputValue, option[fieldNames.value].toString())}
+      filterOption={(inputValue, option) => fuzzysearch(inputValue, option[targetKey].toString())}
       allowClear
+      onSearch={onSearch}
     />
   );
 });
