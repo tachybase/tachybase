@@ -5,6 +5,7 @@ import { useCollectionManager, useRequest } from '@nocobase/client';
 import _ from 'lodash';
 
 const AssociationCascader = connect((props) => {
+  const { fieldNames } = props;
   const fieldSchema = useFieldSchema();
   const collection = fieldSchema['collectionName'];
   const associationField = props.associationField;
@@ -36,8 +37,8 @@ const AssociationCascader = connect((props) => {
         return acc;
       }, {}) || {};
     const options = Object.entries(dict).map(([key, values]) => ({
-      name: key,
-      id: key,
+      [fieldNames.label]: key,
+      [fieldNames.value]: key,
       children: values.map((value) => ({ name: value, id: value })),
     }));
     return options;

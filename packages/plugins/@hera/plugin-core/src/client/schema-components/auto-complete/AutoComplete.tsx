@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { AutoComplete as AntdAutoComplete } from 'antd';
-import { useFieldSchema, useForm } from '@formily/react';
+import { connect, useFieldSchema, useForm } from '@formily/react';
 import { useAPIClient, useDesigner, useRequest } from '@nocobase/client';
 import { useAsyncEffect } from 'ahooks';
+import { fuzzysearch } from '../../utils';
 
-export const AutoComplete = (props) => {
+export const AutoComplete = connect((props) => {
   const fieldSchema = useFieldSchema();
-  const comdef = fieldSchema['default'];
-  const { fieldNames } = fieldSchema['x-component-props'];
-  const fieldFilter = fieldSchema['x-component-props']['params'];
+  const fieldNames = props.fieldNames || fieldSchema['x-component-props'].fieldNames;
+  const fieldFilter = props.params;
   const [defultValue, setDefultValue] = useState([]);
   const api = useAPIClient();
   const [options, setOptions] = useState([]);
-  const form = useForm();
-  const autoValue = form.values['custom'] ? form.values['custom'][fieldSchema['collectionName']] : '';
-  const [value, setValue] = useState(autoValue);
-  if (!autoValue && value) {
-    setValue('');
-    setOptions(defultValue);
-  }
-
   useAsyncEffect(async () => {
     const defultOptions = await api.request({
       url: fieldSchema['collectionName'] + ':list',
@@ -33,55 +25,28 @@ export const AutoComplete = (props) => {
 
   useEffect(() => {
     changLable(defultValue);
-  }, [fieldNames.label]);
+  }, [fieldNames?.label]);
 
-  useEffect(() => {
-    setValue(comdef);
-  }, [comdef]);
   const changLable = (defultOptions) => {
     if (defultOptions) {
-      const item = defultOptions.map((item) => {
-        item['label'] = item[fieldNames.label];
-        item['value'] = item[fieldNames.value];
-        return item;
+      const items = [];
+      defultOptions.forEach((item) => {
+        if (!items.filter((option) => option[fieldNames.value] === item[fieldNames.value]).length) {
+          items.push(item);
+        }
       });
-      setDefultValue(item);
-      setOptions(item);
-    }
-  };
-  if (!form.values['custom']) {
-    form.values['custom'] = {};
-  }
-  const onSearch = (data) => {
-    if (data) {
-      const searchValue = defultValue.filter((item) => item.label.includes(data));
-      if (searchValue.length) {
-        setOptions(searchValue);
-      } else {
-        setOptions([]);
-      }
-      const valueLabel = options.filter((item) => item.value === data)[0];
-      if (valueLabel) {
-        form.values.custom[fieldSchema['collectionName']] = valueLabel.label;
-        setValue(valueLabel.label);
-      } else {
-        form.values.custom[fieldSchema['collectionName']] = data;
-        setValue(data);
-      }
-    } else {
-      form.values.custom[fieldSchema['collectionName']] = {};
-      setValue(data);
-      setOptions(defultValue);
+      setDefultValue(items);
+      setOptions(items);
     }
   };
   return (
     <AntdAutoComplete
-      value={value}
-      defaultValue={comdef}
+      {...props}
       options={options}
-      onSearch={onSearch}
-      onChange={onSearch}
+      filterOption={(inputValue, option) => fuzzysearch(inputValue, option[fieldNames.value].toString())}
       allowClear
     />
   );
-};
+});
+AutoComplete.displayName = 'AutoComplete';
+export default AutoComplete;

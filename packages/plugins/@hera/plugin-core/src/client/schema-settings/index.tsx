@@ -176,19 +176,15 @@ export const EditDefaultValue = () => {
           },
         },
       }}
-      onSubmit={(defaultValue) => {
-        let value;
-        if (defaultValue.default && !defaultValue.custom) {
-          value = defaultValue.default.value?.value ? defaultValue.default.value.value : defaultValue.default.value;
-        } else if (defaultValue.custom) {
-          value = defaultValue.custom[collectionName];
-        }
-        field.setInitialValue(value);
+      onSubmit={({ default: { value } }) => {
+        field.setValue(value);
         fieldSchema['default'] = value;
+        fieldSchema['x-component-props']['defaultValue'] = value;
         dn.emit('patch', {
           schema: {
             'x-uid': fieldSchema['x-uid'],
-            default: value,
+            ['x-component-props']: fieldSchema['x-component-props'],
+            default: fieldSchema.default,
           },
         });
         dn.refresh();
@@ -343,6 +339,7 @@ export const EditTitleField = () => {
           ...collectionField?.uiSchema?.['x-component-props']?.['fieldNames'],
           ...field.componentProps.fieldNames,
           label,
+          value: label,
         };
         fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
         fieldSchema['x-component-props']['fieldNames'] = fieldNames;
@@ -507,14 +504,11 @@ export const SchemaSettingComponent = () => {
       onChange={(mode) => {
         field.component = mode;
         fieldSchema['x-component'] = mode;
-        fieldSchema.default = '';
-        const schema = {
-          ['x-uid']: fieldSchema['x-uid'],
-          ['x-component']: mode,
-          default: '',
-        };
         void dn.emit('patch', {
-          schema,
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            ['x-component']: fieldSchema['x-component'],
+          },
         });
         dn.refresh();
       }}
@@ -524,8 +518,8 @@ export const SchemaSettingComponent = () => {
 
 export const SchemaSettingCollection = () => {
   const fieldSchema = useFieldSchema();
-  const field = useField();
   const collections = useCollectionManager();
+  const field = useField<Field>();
   const options = collections?.dataSource['options']?.collections.map((value) => {
     return {
       label: value.title,
@@ -540,16 +534,25 @@ export const SchemaSettingCollection = () => {
       options={options}
       value={fieldSchema['collectionName']}
       onChange={(name) => {
+        field.setValue('');
         fieldSchema['collectionName'] = name;
-        fieldSchema['name'] = 'custom.' + name;
         fieldSchema.default = '';
-        const schema = {
-          ['x-uid']: fieldSchema['x-uid'],
-          collectionName: name,
-          name: 'custom.' + name,
-          default: '',
+        fieldSchema['x-component-props'] = {
+          ...fieldSchema['x-component-props'],
+          fieldNames: {
+            label: 'name',
+            value: 'name',
+          },
+          defaultValue: '',
         };
-        void dn.emit('patch', { schema });
+        void dn.emit('patch', {
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            collectionName: fieldSchema['collectionName'],
+            ['x-component-props']: fieldSchema['x-component-props'],
+            default: '',
+          },
+        });
         dn.refresh();
       }}
     />

@@ -9,89 +9,45 @@ import {
   useFilterBlock,
 } from '@nocobase/client';
 import flat from 'flat';
+import { hasDuplicateKeys } from '../utils';
 
 export const removeNullCondition = (filter, fieldSchema?) => {
   const filterSchema = fieldSchema ? fieldSchema['x-filter-rules'] : '';
   const filterSchemaItem = flat(filterSchema || '');
-  const filterItem = {};
   const items = flat(filter || {});
   const values = {};
-  let isFilterCustom = false;
-  if (filterSchema && (filterSchema.$and?.length || filterSchema.$or?.length)) {
-    for (const key in items) {
-      for (const filterItems in filterSchemaItem) {
-        if (key.includes(filterItems)) {
-          isFilterCustom = true;
-          break;
-        }
-      }
-    }
-  }
+  const isCustomFilter = filterSchema?.$and?.length || filterSchema?.$or?.length;
+  const isFilterCustom = isCustomFilter ? hasDuplicateKeys(items, filterSchemaItem) : false;
   if (!isFilterCustom) {
-    if (Object.keys(items).filter((item) => item.includes('custom')).length) {
-      if (filterSchema && (filterSchema.$and?.length || filterSchema.$or?.length)) {
-        for (const filterKey in filterSchemaItem) {
-          const match = filterSchemaItem[filterKey]?.slice(11, -2);
-          const collection = match?.split('.')[0];
-          if (Object.keys(items).filter((item) => item.includes(collection)).length) {
-            for (const key in items) {
-              if (key.includes('custom')) {
-                if (key.includes(collection)) {
-                  if (key.includes(match)) {
-                    if (Object.keys(items[key]).length) {
-                      filterSchemaItem[filterKey] = items[key];
-                      filterItem[match] = items[key];
-                    }
-                  }
-                  if (key.includes(collection)) delete items[key];
-                  else {
-                    const value = items[key];
-                    if (value != null && !isEmpty(value)) {
-                      values[key] = value;
-                    }
-                  }
-                }
-              } else {
-                values[key] = items[key];
-              }
-            }
-          } else if (Object.keys(items).filter((item) => !item.includes('custom')).length) {
-            const filterItem = Object.keys(items).filter((item) => !item.includes('custom'));
-            filterItem.forEach((key) => {
-              values[key] = items[key];
-            });
-          }
+    if (isCustomFilter) {
+      for (const filterKey in filterSchemaItem) {
+        const match = filterSchemaItem[filterKey]?.slice(11, -2);
+        const collection = match?.split('.')[0];
+        const filterItems = Object.keys(items).filter((item) => item.includes(collection))[0];
+        if (filterItems) {
+          filterSchemaItem[filterKey] = items[filterItems];
         }
-        for (const item in filterSchemaItem) {
-          for (const key in filterItem) {
-            if (filterSchemaItem[item].includes(key)) {
-              filterSchemaItem[item] = filterItem[key];
-            }
-          }
-          if (filterSchemaItem[item].includes('$nFilter')) {
-            delete filterSchemaItem[item];
-          }
-        }
-        const flatValue = flat.unflatten(values);
-        const flatFieldSchema = flat.unflatten(filterSchemaItem);
-        return {
-          $and: [flatValue, flatFieldSchema],
-        };
-      } else {
-        for (const key in items) {
-          if (!key.includes('custom')) {
-            const value = items[key];
-            if (value != null && !isEmpty(value)) {
-              values[key] = value;
-            }
-          }
-        }
-        return flat.unflatten(values);
       }
+      for (const item in items) {
+        if (!item.includes('custom')) {
+          values[item] = items[item];
+        }
+      }
+      for (const item in filterSchemaItem) {
+        if (filterSchemaItem[item].includes('$nFilter')) {
+          delete filterSchemaItem[item];
+        }
+      }
+      const flatValue = flat.unflatten(values);
+      const flatFieldSchema = flat.unflatten(filterSchemaItem);
+      flatValue['$and'] = flatValue['$and']?.filter(Boolean);
+      return {
+        $and: [flatValue, flatFieldSchema],
+      };
     } else {
       for (const key in items) {
         const value = items[key];
-        if (value != null && !isEmpty(value)) {
+        if (!key.includes('custom') && value != null && !isEmpty(value)) {
           values[key] = value;
         }
       }
@@ -123,13 +79,11 @@ export const useFilterBlockActionProps = () => {
           getDataBlocks().map(async (block) => {
             const target = targets.find((target) => target.uid === block.uid);
             if (!target) return;
-
             const param = block.service.params?.[0] || {};
             for (const key in form.values) {
               if (
                 (typeof form.values[key] === 'object' &&
-                  !form.values[key]?.length &&
-                  !Object.keys(form.values[key]).length) ||
+                  (JSON.stringify(form.values[key]) === '{}' || JSON.stringify(form.values[key]) === '[]')) ||
                 !form.values[key]
               ) {
                 delete form.values[key];

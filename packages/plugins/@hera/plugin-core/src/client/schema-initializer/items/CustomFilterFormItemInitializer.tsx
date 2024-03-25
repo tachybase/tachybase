@@ -41,7 +41,6 @@ import {
 import _ from 'lodash';
 import { SchemaSettingsRemove } from '../../schema-settings/SchemaSettingsRemove';
 import { tval, useTranslation } from '../../locale';
-import { ContractsController } from 'packages/plugins/@hera/plugin-rental/dist/server/actions';
 
 const FieldComponentProps: React.FC = observer(
   (props) => {
@@ -296,7 +295,7 @@ export const FilterCustomItemInitializer: React.FC<{
           ...(defaultSchema['x-component-props'] || {}),
           fieldNames: {
             label: 'name',
-            value: 'id',
+            value: 'name',
           },
           associationField,
         },

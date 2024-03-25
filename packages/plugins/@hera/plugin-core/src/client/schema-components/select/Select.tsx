@@ -1,5 +1,5 @@
 import { CloseCircleFilled, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty, useFieldSchema } from '@formily/react';
+import { connect, mapProps, mapReadPretty, useFieldSchema, useForm } from '@formily/react';
 import { isValid, toArr } from '@formily/shared';
 import { isPlainObject } from '@nocobase/utils/client';
 import type { SelectProps } from 'antd';
@@ -24,11 +24,10 @@ const ObjectSelect = (props: Props) => {
   const { value, options, onChange, fieldNames, mode, loading, rawOptions, defaultValue, ...others } = props;
   const [defoptions, setDefOptions] = useState();
   const fieldSchema = useFieldSchema();
-  const comDefult = fieldSchema.default;
   const collectionName = fieldSchema['collectionName'];
-  const filterField = fieldSchema['x-component-props']['params'];
-  const fieldName = fieldSchema['x-component-props'].fieldNames;
+  const filterField = others?.['params'];
   const api = useAPIClient();
+  const form = useForm();
   useAsyncEffect(async () => {
     if (collectionName) {
       const defValue = await api.request({
@@ -39,16 +38,13 @@ const ObjectSelect = (props: Props) => {
         },
       });
       const changOptions = defValue?.data?.data.map((value) => {
-        value['label'] = value[fieldName.label];
-        value['value'] = value[fieldNames.label];
+        value['label'] = value[fieldNames.label];
+        value['value'] = value[fieldNames.value];
         return value;
       });
       setDefOptions(changOptions);
     }
   }, [filterField?.filter, collectionName]);
-  useEffect(() => {
-    onChange?.(comDefult);
-  }, [fieldSchema.default]);
   const toValue = (v: any) => {
     if (isEmptyObject(v)) {
       return;
@@ -58,15 +54,12 @@ const ObjectSelect = (props: Props) => {
       .map((val) => {
         return isPlainObject(val) ? val[fieldNames.value] : val;
       });
-    const currentOptions = getCurrentOptions(values, options, fieldNames)?.map((val) => {
-      if (collectionName) {
-        return val[fieldName.label];
-      } else {
-        return {
-          label: val[fieldNames.label],
-          value: val[fieldNames.value],
-        };
-      }
+    const filterOption = defoptions ? defoptions : options;
+    const currentOptions = getCurrentOptions(values, filterOption, fieldNames)?.map((val) => {
+      return {
+        label: val[fieldNames.label],
+        value: val[fieldNames.value],
+      };
     });
     if (['tags', 'multiple'].includes(mode) || props.multiple) {
       return currentOptions;
@@ -83,7 +76,7 @@ const ObjectSelect = (props: Props) => {
       role="button"
       data-testid={`select-object-${mode || 'single'}`}
       value={toValue(value)}
-      defaultValue={toValue(defaultValue) || comDefult}
+      defaultValue={toValue(defaultValue)}
       allowClear={{
         clearIcon: <CloseCircleFilled role="button" aria-label="icon-close-select" />,
       }}
@@ -106,17 +99,17 @@ const ObjectSelect = (props: Props) => {
       onChange={(changed) => {
         const current = getCurrentOptions(
           toArr(changed).map((v) => v.value),
-          rawOptions || options,
+          defoptions || rawOptions || options,
           fieldNames,
         );
-        if (collectionName) {
-          onChange?.(changed['label']);
+        if (['tags', 'multiple'].includes(mode as string) || props.multiple) {
+          onChange?.(current);
         } else {
-          if (['tags', 'multiple'].includes(mode as string) || props.multiple) {
-            onChange?.(current);
-          } else {
-            onChange?.(current.shift() || null);
-          }
+          onChange?.(current.shift() || null);
+        }
+        if (collectionName) {
+          const name = fieldSchema['name'].toString().split('.')[1];
+          form.values['custom'][name] = changed?.['value'];
         }
       }}
       mode={mode}

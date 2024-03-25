@@ -235,7 +235,7 @@ SELECT
       records r
     WHERE
       r.contract_id = COALESCE(main.id, c.id)
-      AND s.end_date + INTERVAL '1 day' >= r.date
+      AND s.end_date >= r.date
   ) AS records,
   (
     SELECT
