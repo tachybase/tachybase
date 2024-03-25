@@ -51,7 +51,9 @@ export const customComponentDispatcherSettings = new SchemaSettings({
               ['x-uid']: fieldSchema['x-uid'],
             };
             fieldSchema['x-component-props']['component'] = component;
+            fieldSchema['x-acl-ignore'] = true;
             schema['x-component-props'] = fieldSchema['x-component-props'];
+            schema['x-acl-ignore'] = true;
             field.componentProps.component = component;
             dn.emit('patch', {
               schema,
