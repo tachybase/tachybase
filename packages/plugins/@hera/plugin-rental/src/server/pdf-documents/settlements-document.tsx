@@ -234,7 +234,7 @@ const PreviewDocument = ({
               </Text>
               <Text style={styles.headerRight}>
                 合同编号：
-                {contracts?.project?.code}
+                {contracts.number}
               </Text>
             </View>
             <View style={styles.tableHeader}>
