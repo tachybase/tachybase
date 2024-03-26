@@ -1,11 +1,14 @@
 import { ConversionLogics, RecordCategory, RulesNumber, SourcesType, countCource } from '../../utils/constants';
 import { renderItV2 } from '../pdf-documents/records-documentV2';
-import { Service } from '@nocobase/utils';
+import { Db, Service } from '@nocobase/utils';
 import { RecordPdfOptions } from '../../interfaces/options';
 import { PrintSetup } from '../../utils/system';
+import Database from '@nocobase/database';
 
 @Service()
 export class RecordPdfService {
+  @Db()
+  private db: Database;
   async transformPdfV2(recordData: any, lease_data: any, fee_data: any, options: RecordPdfOptions) {
     const { isDouble, printSetup } = options;
 
@@ -79,7 +82,7 @@ export class RecordPdfService {
       make_price = setData;
     }
 
-    // 计算租金数据
+    // ！产品
     const leaseData = lease_data
       .map((lease) => {
         const data = {
@@ -117,8 +120,7 @@ export class RecordPdfService {
       })
       .sort((a, b) => a.category_id - b.category_id);
 
-    // 计算费用数据，包括有产品关联跟无产品关联
-    // 关联产品的赔偿(人工录入/全部)
+    // ！产品赔偿
     const product_fee =
       printSetup === PrintSetup.Manual
         ? fee_data.filter((item) => item.product_id && item.count_source === SourcesType.staff)
@@ -148,68 +150,109 @@ export class RecordPdfService {
         category_id: item.product_category_id,
       };
       if (item.conversion_logic_id === ConversionLogics.Keep) {
-        data['count'] = data.count1;
+        data['total'] = data.count1;
       } else if (item.conversion_logic_id === ConversionLogics.Product) {
-        if (item.convertible) data['count'] = data.count1 * item.product_ratio;
-        else data['count'] = data.count1;
+        if (item.convertible) data['total'] = data.count1 * item.product_ratio;
+        else data['total'] = data.count1;
       } else if (item.conversion_logic_id === ConversionLogics.ProductWeight) {
-        data['count'] = data.count1 * item.product_weight;
+        data['total'] = data.count1 * item.product_weight;
       } else if (item.conversion_logic_id === ConversionLogics.ActualWeight) {
-        data['count'] = item.actual_weight || item.record_weight;
+        data['total'] = item.actual_weight || item.record_weight;
       } else {
         if (item.weight_rules?.conversion_logic_id === ConversionLogics.Keep) {
-          data['count'] = data.count1 * item.weight_rules.weight;
+          data['total'] = data.count1 * item.weight_rules.weight;
         } else if (item.weight_rules?.conversion_logic_id === ConversionLogics.Product) {
-          data['count'] = data.count1 * item.weight_rules.weight * item.product_ratio;
+          data['total'] = data.count1 * item.weight_rules.weight * item.product_ratio;
         }
       }
-      // 如果 printSetup === PrintSetup.DisplayAndPrice 要计算费用产生的价格
+      data['conversion_unit'] = item.unit;
       if (printSetup === PrintSetup.DisplayAndPrice) {
-        data['total'] = data['count'] * item.unit_price;
+        data['count'] = data['total'];
+        data['total'] = data['total'] * item.unit_price;
         data['conversion_unit'] = '元';
       }
       return data;
     });
-    // 无关联产品赔偿, 人工录取的情况直接为空，因为excludedFee已经处理，正常情况取非手动录入情况数据，excludedFee已经处理
+    // ！无关联赔偿 item中
+    let manualData = [];
+    const noProductFee = fee_data.filter((item) => !item.product_id && item.count_source === SourcesType.staff);
+    if (noProductFee.length) {
+      const itemFee = await this.db.sequelize.query(`
+        select ri.product_id, ri.count, p.category_id, ri.comment
+        from records r
+        left join record_items ri on ri.record_id = r.id and ri.product_id in (${noProductFee.map((item) => item.fee_product_id).join(',')})
+        join product p on p.id = ri.product_id
+        where r.id = ${recordData.id}
+      `);
+      const result: any = itemFee[0];
+      manualData = result.map((item) => {
+        const feeRule = noProductFee.find((f) => f.fee_product_id === item.product_id);
+        if (!feeRule) return;
+        const data = {
+          name: feeRule.custom_name || feeRule.label,
+          unit: feeRule.unit,
+          conversion_unit: feeRule.unit,
+          comment: item.comment || '',
+        };
+        if (feeRule.conversion_logic_id === ConversionLogics.Keep) {
+          data['total'] = item.count;
+        } else if (feeRule.conversion_logic_id === ConversionLogics.Product) {
+          data['total'] = feeRule.convertible ? item.count * feeRule.product_ratio : item.count;
+        } else if (feeRule.conversion_logic_id === ConversionLogics.ProductWeight) {
+          data['total'] = item.count * feeRule.weight;
+        } else if (feeRule.conversion_logic_id === ConversionLogics.ActualWeight) {
+          data['total'] = feeRule.record_weight;
+        } else {
+          const weight_rule = item.weight_rules.find(
+            (l) => l.product_id === item.product_id || l.product - RulesNumber === item.category_id,
+          );
+          if (weight_rule && weight_rule.conversion_logic_id === ConversionLogics.Keep) {
+            return item.count * weight_rule.weight;
+          } else if (weight_rule && weight_rule.conversion_logic_id === ConversionLogics.Product) {
+            return item.count * feeRule.product_ratio * weight_rule.weight;
+          }
+        }
+        if (printSetup === PrintSetup.DisplayAndPrice) {
+          data['count'] = data['total'];
+          data['total'] = data['total'] * feeRule.unit_price;
+          data['conversion_unit'] = '元';
+        }
+        return data;
+      });
+    }
+    // ！无关联赔偿，出入库量
     const fee =
       printSetup === PrintSetup.Manual
         ? []
         : fee_data.filter((item) => !item.product_id && item.count_source !== SourcesType.staff);
     const no_product_fee = fee
       .map((item) => {
-        // 购销/暂存/盘点无费用信息
         if (
           recordData.category === RecordCategory.purchase ||
           recordData.category === RecordCategory.staging ||
           recordData.category === RecordCategory.inventory
-        )
+        ) {
           return;
-        if (item.count_source === countCource.artificial) {
-          const data = recordData.record_fee_items?.find((hava) => hava.product?.id === item.fee_product_id);
-          if (!data) return;
         }
         if (item.record_movement === '-1' && item.count_source === SourcesType.inbound) return;
         if (item.record_movement === '1' && item.count_source === SourcesType.outbound) return;
         const data = {
           isFee: true,
           name: item.custom_name || item.label,
-          unit: '',
-          conversion_unit: item.unit,
+          unit: item.unit,
           comment: '',
         };
-
         if (item.conversion_logic_id === ConversionLogics.Keep) {
-          data['count'] = lease_data.reduce((a, b) => a + b.count, 0);
+          data['total'] = lease_data.reduce((a, b) => a + b.count, 0);
         } else if (item.conversion_logic_id === ConversionLogics.Product) {
-          data['count'] = lease_data.reduce((a, b) => a + (item.convertible ? b.count * b.ratio : b.count), 0);
+          data['total'] = lease_data.reduce((a, b) => a + (item.convertible ? b.count * b.ratio : b.count), 0);
         } else if (item.conversion_logic_id === ConversionLogics.ProductWeight) {
-          data['count'] = lease_data.reduce((a, b) => a + b.count * b.weight, 0) / 1000;
+          data['total'] = lease_data.reduce((a, b) => a + b.count * b.weight, 0) / 1000;
         } else if (item.conversion_logic_id === ConversionLogics.ActualWeight) {
-          data['count'] = item.record_weight;
+          data['total'] = item.record_weight;
         } else {
           if (item.weight_rules?.length) {
-            // 计算有误，需要检查
-            data['count'] = lease_data.reduce((a, b) => {
+            data['total'] = lease_data.reduce((a, b) => {
               const weight_rule = item.weight_rules.find(
                 (l) => l.product_id === b.product_id || l.product - RulesNumber === b.category_id,
               );
@@ -221,34 +264,15 @@ export class RecordPdfService {
             }, 0);
           }
         }
-        // 如果 printSetup === PrintSetup.DisplayAndPrice 要计算费用产生的价格
+        data['conversion_unit'] = '吨';
         if (printSetup === PrintSetup.DisplayAndPrice) {
-          data['total'] = data['count'] * item.unit_price;
+          data['count'] = data['total'];
+          data['total'] = data['total'] * item.unit_price;
+          data['conversion_unit'] = '元';
         }
         return data;
       })
-      .filter((item) => item && item.count);
-    // 注意把手动录入的加入
-    const manualData = recordData.record_fee_items;
-    // 因为以往逻辑是根据规则查询，这个订单中数据智能单独查询
-    const excludedFee =
-      manualData
-        ?.map((item) => {
-          const data = {
-            isFee: true,
-            name: item.product.custom_name || item.product.label,
-            comment: '',
-            count: item.count,
-            isExcluded: item.is_excluded,
-          };
-          const feeRule = fee_data.find((fee) => fee.fee_product_id === item.product_id);
-          if (feeRule) {
-            data['total'] = feeRule.unit_price * item.count;
-            data['unit'] = '';
-          }
-          return data;
-        })
-        .filter(Boolean) || [];
+      .filter((item) => item && item.total);
 
     const product_fees = transFormProductFee.filter(Boolean);
     // 内容（租金+费用）
@@ -280,10 +304,10 @@ export class RecordPdfService {
         product_correlation.push(itemB);
       }
     });
-    const recordPdfData = [...product_correlation, ...no_product_fee, ...excludedFee];
+    const recordPdfData = [...product_correlation, ...manualData, ...no_product_fee].filter(Boolean);
     return await renderItV2({
       detail: recordData,
-      record: recordPdfData, // 租金+费用，无关联费用
+      record: recordPdfData,
       priceRule: make_price,
       isDouble,
       printSetup,

@@ -4,7 +4,7 @@ import { observer, useField, useForm } from '@formily/react';
 import _ from 'lodash';
 import { ConversionLogics, RecordCategory } from '../../utils/constants';
 import { formatQuantity } from '../../utils/currencyUtils';
-import { useCachedRequest, useLeaseItems } from '../hooks';
+import { useCachedRequest, useLeaseItems, useProductFeeItems } from '../hooks';
 
 // 计价数量
 export const RecordItemValuationQuantity = observer((props) => {
@@ -33,6 +33,9 @@ export const RecordItemValuationQuantity = observer((props) => {
   const { data: leaseItems } = useLeaseItems(contractPlanId);
   const { data: inLeaseItems } = useLeaseItems(inContractPlanId);
   const { data: outLeaseItems } = useLeaseItems(outContractPlanId);
+  const { data: ProductFeeItems } = useProductFeeItems(contractPlanId);
+  const { data: inProductFeeItems } = useProductFeeItems(inContractPlanId);
+  const { data: outProductFeeItems } = useProductFeeItems(outContractPlanId);
 
   const item = form.getValuesIn(field.path.slice(0, -2).entire);
   if (item?.product && item?.count) {
@@ -50,7 +53,13 @@ export const RecordItemValuationQuantity = observer((props) => {
           (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
         ),
       );
-      const count = subtotal(rule, item, productCategory, reqWeightRules);
+      const feeRule = ProductFeeItems.data.find((feeItem) => feeItem.fee_product_id === item.product?.id);
+      let count;
+      if (!rule && feeRule) {
+        count = subtotal(feeRule, item, productCategory, reqWeightRules, 'fee');
+      } else {
+        count = subtotal(rule, item, productCategory, reqWeightRules);
+      }
       count && result.push({ label: '合同', value: count });
     }
     // 采购
@@ -78,12 +87,22 @@ export const RecordItemValuationQuantity = observer((props) => {
         const count = subtotal(rule, item, productCategory, reqWeightRules);
         count && result.push({ label: '报价', value: count });
       }
+
       const leaseRule = inLeaseItems.data.find((leaseItem) =>
         leaseItem.products.find(
           (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
         ),
       );
-      const count = subtotal(leaseRule, item, productCategory, reqWeightRules);
+      const feeRule = inProductFeeItems.data.find(
+        (feeItem) =>
+          feeItem.fee_product_id === item.product?.id || item.product?.category_id === feeItem.fee_product.category_id,
+      );
+      let count;
+      if (!leaseRule && feeRule) {
+        count = subtotal(feeRule, item, productCategory, reqWeightRules, 'fee');
+      } else {
+        count = subtotal(leaseRule, item, productCategory, reqWeightRules);
+      }
       count && result.push({ label: '入库合同', value: count });
     }
     // 租赁直发
@@ -93,14 +112,32 @@ export const RecordItemValuationQuantity = observer((props) => {
           (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
         ),
       );
-      const count_out = subtotal(contractPlain_out, item, productCategory, reqWeightRules);
+      const contractPlain_out_fee = outProductFeeItems.data.find(
+        (feeItem) =>
+          feeItem.fee_product_id === item.product?.id || item.product?.category_id === feeItem.fee_product.category_id,
+      );
+      let count_out;
+      if (!contractPlain_out && contractPlain_out_fee) {
+        count_out = subtotal(contractPlain_out_fee, item, productCategory, reqWeightRules, 'fee');
+      } else {
+        count_out = subtotal(contractPlain_out, item, productCategory, reqWeightRules);
+      }
       count_out && result.push({ label: '出库合同', value: count_out });
       const contractPlain_in = inLeaseItems.data.find((leaseItem) =>
         leaseItem.products.find(
           (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
         ),
       );
-      const count_in = subtotal(contractPlain_in, item, productCategory, reqWeightRules);
+      const contractPlain_in_fee = outProductFeeItems.data.find(
+        (feeItem) =>
+          feeItem.fee_product_id === item.product?.id || item.product?.category_id === feeItem.fee_product.category_id,
+      );
+      let count_in;
+      if (!contractPlain_in && contractPlain_in_fee) {
+        count_in = subtotal(contractPlain_in_fee, item, productCategory, reqWeightRules, 'fee');
+      } else {
+        count_in = subtotal(contractPlain_in, item, productCategory, reqWeightRules);
+      }
       count_in && result.push({ label: '入库合同', value: count_in });
     }
   }
@@ -119,17 +156,17 @@ RecordItemValuationQuantity.displayName = 'RecordItemValuationQuantity';
 RecordItemValuationQuantity.__componentType = CustomComponentType.CUSTOM_FIELD;
 RecordItemValuationQuantity.__componentLabel = '记录单 - 明细 - 计价数量';
 
-const subtotal = (rule: any, itemData: any, productCategory: any, reqWeightRules: any) => {
+const subtotal = (rule: any, itemData: any, productCategory: any, reqWeightRules: any, item?: any) => {
   let count: number;
   let unit: string;
   if (rule?.conversion_logic_id === ConversionLogics.Keep) {
     count = itemData.count;
-    unit = productCategory.unit;
+    unit = item ? rule.unit : productCategory.unit;
   } else if (rule?.conversion_logic_id === ConversionLogics.Product) {
     count = productCategory.convertible ? itemData.count * itemData.product.ratio : itemData.count;
-    unit = productCategory.convertible ? productCategory.conversion_unit : productCategory.unit;
+    unit = item ? rule.unit : productCategory.convertible ? productCategory.conversion_unit : productCategory.unit;
   } else if (rule?.conversion_logic_id === ConversionLogics.ProductWeight) {
-    count = (itemData.count * itemData.product.weight) / 1000;
+    count = item ? itemData.count : (itemData.count * itemData.product.weight) / 1000;
     unit = '吨';
   } else if (rule?.conversion_logic_id === ConversionLogics.ActualWeight) {
     count = 0;

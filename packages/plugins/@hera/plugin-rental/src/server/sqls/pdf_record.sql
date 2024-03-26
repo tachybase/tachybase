@@ -99,19 +99,6 @@ SELECT
     WHERE
       r.id = rv.record_id
   ) AS vehicles,
-  (
-    SELECT
-      JSONB_AGG(
-        TO_JSONB(
-          JSONB_SET(TO_JSONB(rfi), '{product}', TO_JSONB(p))
-        )
-      )
-    FROM
-      record_fee_items rfi
-      JOIN product p ON p.id = rfi.product_id
-    WHERE
-      rfi.record_id = r.id
-  ) AS record_fee_items,
   -- 查询分组实际重量
   (
     SELECT

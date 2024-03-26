@@ -7,6 +7,8 @@ import { Spin } from 'antd';
 import { useCachedRequest } from '../hooks';
 
 export const RecordItemCount = observer((props) => {
+  const form = useForm();
+  const field = useField();
   const param = {
     resource: 'product_category',
     action: 'list',
@@ -15,19 +17,17 @@ export const RecordItemCount = observer((props) => {
     },
   };
   const { loading, data } = useCachedRequest<any>(param);
-  const form = useForm();
-  const field = useField();
 
   if (!data && loading) {
     return <Spin />;
   }
-
   const item = form.getValuesIn(field.path.slice(0, -2).entire);
-  if (item?.product && item?.count && data) {
-    const category = data.data.find((category) => category.id === item.product.category_id);
+  if (item?.product && item?.count) {
+    const category = data.data?.find((category) => category.id === item?.product.category_id);
     if (!category) return;
     const value = category.convertible ? (item.product.ratio || 0) * item.count : item.count;
-    const unit = category.convertible ? category.conversion_unit : category.unit;
+    const unit = category.convertible ? category.conversion_unit : category.unit || '';
+
     return <span>{formatQuantity(value, 2) + unit}</span>;
   }
   return <span> - </span>;

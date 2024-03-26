@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
     marginLeft: '-1px',
     borderTop: '1px solid black',
     marginTop: '-1px',
+    borderBottom: '1px solid black',
   },
   tableCellLast: {
     flex: 1,
@@ -302,6 +303,81 @@ const PreviewDocument = ({
       dobuleRecord.push(result);
     }
   }
+  const renderRecord = (data, isDouble) => {
+    const columns = isDouble ? ['left_', 'right_'] : [''];
+    const page = data.map((item, index) => (
+      <View key={index} style={styles.tableContent}>
+        {columns.map((column, columnIndex) => (
+          <React.Fragment key={columnIndex}>
+            <Text style={styles.tableCell2}>{item[column + 'name']}</Text>
+            <Text style={styles.tableCell}>
+              {!item[column + 'count'] ? '' : formatQuantity(item[column + 'count'], 2) + item[column + 'unit']}
+            </Text>
+            <Text style={styles.tableCell}>
+              {!item[column + 'total']
+                ? ''
+                : formatQuantity(item[column + 'total'], 2) + item[column + 'conversion_unit']}
+            </Text>
+            <Text style={!isDouble || column === 'right_' ? styles.tableCellLast : styles.tableCell}>
+              {item[column + 'isExcluded']
+                ? '不计入合同  ' + (item[column + 'comment'] || '')
+                : item[column + 'comment'] || ''}
+            </Text>
+          </React.Fragment>
+        ))}
+      </View>
+    ));
+    let addCol = <></>;
+    if (detail.category === RecordCategory.purchase) {
+      const allprice = getAllPrice();
+      addCol = (
+        <View style={styles.tableContent}>
+          {columns.map((column, columnIndex) => (
+            <React.Fragment key={columnIndex}>
+              <Text style={styles.tableCell2}></Text>
+              <Text style={styles.tableCell}>{column === 'left_' ? '' : '总金额'}</Text>
+              <Text style={styles.tableCell}>{column === 'left_' ? '' : allprice}</Text>
+              <Text style={!isDouble || column === 'right_' ? styles.tableCellLast : styles.tableCell}></Text>
+            </React.Fragment>
+          ))}
+        </View>
+      );
+    }
+
+    return detail.category === RecordCategory.purchase ? (
+      <>
+        {page}
+        {addCol}
+      </>
+    ) : (
+      page
+    );
+  };
+
+  const renderPrice = (data, isDouble) => {
+    const columns = isDouble ? ['left_', 'right_'] : [''];
+    return data.map((item, index) => (
+      <View key={index} style={styles.tableContent}>
+        {columns.map((column, columnIndex) => (
+          <React.Fragment key={columnIndex}>
+            <Text style={styles.tableCell2}>{item[column + 'name']}</Text>
+            <Text style={styles.tableCell}>
+              {formatQuantity(item[column + 'unit_price'], 2) + '元/' + item[column + 'unit']}
+            </Text>
+            <Text style={styles.tableCell}>
+              {formatQuantity(item[column + 'count'], 2)}
+              {item[column + 'unit']}
+            </Text>
+            <Text style={styles.tableCell}>{formatCurrency(item[column + 'all_price'], 2)}</Text>
+            <Text style={!isDouble || column === 'right_' ? styles.tableCellLast : styles.tableCell}>
+              {item[column + 'comment'] || ''}
+            </Text>
+          </React.Fragment>
+        ))}
+      </View>
+    ));
+  };
+
   return (
     <Document>
       <Page size="A4" style={{ ...styles.page, marginTop: detail.margingTop }}>
@@ -365,216 +441,44 @@ const PreviewDocument = ({
                 <Text style={styles.headerLeftRight}>车号：{car}</Text>
               </View>
             )}
-            {/* 单列定价 */}
-            {!isDouble && detail.category === RecordCategory.purchase && (
+            {/* 定价 */}
+            {detail.category === RecordCategory.purchase && (
               <View style={styles.tableContentTitle}>
                 <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
                 <Text style={styles.tableCellTitle}>单价</Text>
                 <Text style={styles.tableCellTitle}>数量</Text>
                 <Text style={styles.tableCellTitle}>金额</Text>
-                <Text style={styles.tableCellTitleLast}>备注</Text>
+                <Text style={!isDouble ? styles.tableCellTitleLast : styles.tableCellTitle}>备注</Text>
+                {isDouble && (
+                  <>
+                    <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
+                    <Text style={styles.tableCellTitle}>单价</Text>
+                    <Text style={styles.tableCellTitle}>数量</Text>
+                    <Text style={styles.tableCellTitle}>金额</Text>
+                    <Text style={styles.tableCellTitleLast}>备注</Text>
+                  </>
+                )}
               </View>
             )}
-            {!isDouble &&
-              detail.category === RecordCategory.purchase &&
-              priceRule.length &&
-              priceRule.map((item) => (
-                <View key={'key'} style={styles.tableContent}>
-                  <Text style={styles.tableCell2}>{item.name}</Text>
-                  <Text style={styles.tableCell}>
-                    {item?.unit_price && formatQuantity(item.unit_price, 2) + '元/' + item.unit}
-                  </Text>
-                  <Text style={styles.tableCell}>
-                    {formatQuantity(item.count, 2)}
-                    {item.unit}
-                  </Text>
-                  <Text style={styles.tableCell}>{formatCurrency(item.all_price, 2)}</Text>
-                  <Text style={styles.tableCellLast}>{item.comment || ''}</Text>
-                </View>
-              ))}
-            {/* 双列定价 */}
-            {isDouble && detail.category === RecordCategory.purchase && (
-              <View style={styles.tableContentTitle}>
-                <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
-                <Text style={styles.tableCellTitle}>单价</Text>
-                <Text style={styles.tableCellTitle}>数量</Text>
-                <Text style={styles.tableCellTitle}>金额</Text>
-                <Text style={styles.tableCellTitle}>备注</Text>
-                <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
-                <Text style={styles.tableCellTitle}>单价</Text>
-                <Text style={styles.tableCellTitle}>数量</Text>
-                <Text style={styles.tableCellTitle}>金额</Text>
-                <Text style={styles.tableCellTitleLast}>备注</Text>
-              </View>
-            )}
-            {isDouble &&
-              detail.category === RecordCategory.purchase &&
-              priceRule.length &&
-              dobulePriceRule.map((item) => (
-                <View key={'key'} style={styles.tableContent}>
-                  <Text style={styles.tableCell2}>{item.left_name}</Text>
-                  <Text style={styles.tableCell}>
-                    {item?.left_unit_price && formatQuantity(item.left_unit_price, 2) + '元/' + item.left_unit}
-                  </Text>
-                  <Text style={styles.tableCell}>
-                    {formatQuantity(item.left_count, 2)}
-                    {item.left_unit}
-                  </Text>
-                  <Text style={styles.tableCell}>{formatCurrency(item.left_all_price, 2)}</Text>
-                  <Text style={styles.tableCell}>{item.left_comment || ''}</Text>
-                  <Text style={styles.tableCell2}>{item.right_name}</Text>
-                  <Text style={styles.tableCell}>
-                    {item?.right_unit_price && formatQuantity(item.right_unit_price, 2) + '元/' + item.right_unit}
-                  </Text>
-                  <Text style={styles.tableCell}>
-                    {item.right_count && formatQuantity(item.right_count)}
-                    {item.right_unit}
-                  </Text>
-                  <Text style={styles.tableCell}>
-                    {item.right_all_price && formatCurrency(item.right_all_price, 2)}
-                  </Text>
-                  <Text style={styles.tableCellLast}>{item.right_comment || ''}</Text>
-                </View>
-              ))}
+            {detail.category === RecordCategory.purchase &&
+              renderPrice(isDouble ? dobulePriceRule : priceRule, isDouble)}
             {/* ============================================================两表分割================================================================================= */}
             {/* 单列租金及费用 */}
-            {!isDouble && (
-              <View style={styles.tableContentTitle}>
-                <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
-                <Text style={styles.tableCellTitle}>数量</Text>
-                <Text style={styles.tableCellTitle}>小计</Text>
-                <Text
-                  style={
-                    detail.category === RecordCategory.purchase ? styles.tableCell2TitleLast : styles.tableCellTitleLast
-                  }
-                >
-                  备注
-                </Text>
-              </View>
-            )}
-            {!isDouble &&
-              record.map((item) => (
-                <View key={'key'} style={styles.tableContent}>
-                  <Text style={styles.tableCell2}>{item.name}</Text>
-                  <Text style={styles.tableCell}>
-                    {!item.count || item.isFee ? '' : formatQuantity(item.count, 2) + item.unit}
-                  </Text>
-                  <Text style={styles.tableCell}>
-                    {(printSetup === PrintSetup.Display && !item.product_id && !item.isTotal) ||
-                    (printSetup === PrintSetup.Manual && !item.product_id && !item.isTotal)
-                      ? ''
-                      : item.total
-                        ? formatQuantity(item.total, 2)
-                        : ''}
-                    {item.isFee && !item.product_id // 判断未无产品关联费用
-                      ? printSetup === PrintSetup.DisplayAndPrice && item.total
-                        ? '元'
-                        : ''
-                      : item.conversion_unit}
-                  </Text>
-                  <Text
-                    style={detail.category === RecordCategory.purchase ? styles.tableCell2Last : styles.tableCellLast}
-                  >
-                    {item.isExcluded ? '不计入合同  ' + (item.comment || '') : item.comment || ''}
-                  </Text>
-                </View>
-              ))}
-            {!isDouble && detail.category === RecordCategory.purchase && (
-              <View key={'key'} style={styles.tableContent}>
-                <Text style={styles.tableCell2}></Text>
-                <Text style={styles.tableCell}>总金额</Text>
-                <Text style={styles.tableCell}>{getAllPrice()}</Text>
-                <Text
-                  style={detail.category === RecordCategory.purchase ? styles.tableCell2Last : styles.tableCellLast}
-                ></Text>
-              </View>
-            )}
-            {/* 双列租及费用 */}
-            {isDouble && (
-              <View style={styles.tableContentTitle}>
-                <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
-                <Text style={styles.tableCellTitle}>数量</Text>
-                <Text style={styles.tableCellTitle}>小计</Text>
-                <Text
-                  style={detail.category === RecordCategory.purchase ? styles.tableCell2Title : styles.tableCellTitle}
-                >
-                  备注
-                </Text>
-                <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
-                <Text style={styles.tableCellTitle}>数量</Text>
-                <Text style={styles.tableCellTitle}>小计</Text>
-                <Text
-                  style={
-                    detail.category === RecordCategory.purchase ? styles.tableCell2TitleLast : styles.tableCellTitleLast
-                  }
-                >
-                  备注
-                </Text>
-              </View>
-            )}
-            {isDouble &&
-              dobuleRecord.map((item) => (
-                <View key={'key'} style={styles.tableContent}>
-                  <Text style={styles.tableCell2}>{item.left_name}</Text>
-                  <Text style={styles.tableCell}>
-                    {!item.left_count || item.left_isFee ? '' : formatQuantity(item.left_count, 2) + item.left_unit}
-                  </Text>
-                  <Text style={styles.tableCell}>
-                    {(printSetup === PrintSetup.Display && !item.left_product_id && !item.left_isTotal) ||
-                    (printSetup === PrintSetup.Manual && !item.left_product_id && !item.left_isTotal)
-                      ? ''
-                      : item.left_total
-                        ? formatQuantity(item.left_total, 2)
-                        : ''}
-                    {item.left_isFee && !item.left_product_id // 判断未无产品关联费用
-                      ? printSetup === PrintSetup.DisplayAndPrice && item.left_total
-                        ? '元'
-                        : '' // 不记录合同不需要单位
-                      : item.left_conversion_unit}
-                  </Text>
-                  <Text style={detail.category === RecordCategory.purchase ? styles.tableCell2 : styles.tableCell}>
-                    {item.left_isExcluded ? '不计入合同  ' + (item.left_comment || '') : item.left_comment || ''}
-                  </Text>
-                  <Text style={styles.tableCell2}>{item.right_name}</Text>
-                  <Text style={styles.tableCell}>
-                    {!item.right_count || item.right_isFee ? '' : formatQuantity(item.right_count, 2) + item.right_unit}
-                  </Text>
-                  <Text style={styles.tableCell}>
-                    {(printSetup === PrintSetup.Display && !item.right_product_id && !item.right_isTotal) ||
-                    (printSetup === PrintSetup.Manual && !item.right_product_id && !item.right_isTotal)
-                      ? ''
-                      : item.right_total
-                        ? formatQuantity(item.right_total, 2)
-                        : ''}
-                    {item.right_isFee && !item.right_product_id // 判断未无产品关联费用
-                      ? printSetup === PrintSetup.DisplayAndPrice && item.right_total
-                        ? '元'
-                        : '' // 不记录合同不需要单位
-                      : item.right_conversion_unit}
-                  </Text>
-                  <Text
-                    style={detail.category === RecordCategory.purchase ? styles.tableCell2Last : styles.tableCellLast}
-                  >
-                    {item.right_name && item.right_isExcluded
-                      ? '不计入合同  ' + (item.right_comment || '')
-                      : item.right_comment || ''}
-                  </Text>
-                </View>
-              ))}
-            {isDouble && detail.category === RecordCategory.purchase && (
-              <View key={'key'} style={styles.tableContent}>
-                <Text style={styles.tableCell2}></Text>
-                <Text style={styles.tableCell}></Text>
-                <Text style={styles.tableCell}></Text>
-                <Text style={detail.category === RecordCategory.purchase ? styles.tableCell2 : styles.tableCell}></Text>
-                <Text style={styles.tableCell2}></Text>
-                <Text style={styles.tableCell}>总金额</Text>
-                <Text style={styles.tableCell}>{getAllPrice()}</Text>
-                <Text
-                  style={detail.category === RecordCategory.purchase ? styles.tableCell2Last : styles.tableCellLast}
-                ></Text>
-              </View>
-            )}
+            <View style={styles.tableContentTitle}>
+              <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
+              <Text style={styles.tableCellTitle}>数量</Text>
+              <Text style={styles.tableCellTitle}>小计</Text>
+              <Text style={!isDouble ? styles.tableCellTitleLast : styles.tableCellTitle}>备注</Text>
+              {isDouble && (
+                <>
+                  <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
+                  <Text style={styles.tableCellTitle}>数量</Text>
+                  <Text style={styles.tableCellTitle}>小计</Text>
+                  <Text style={styles.tableCellTitleLast}>备注</Text>
+                </>
+              )}
+            </View>
+            {renderRecord(isDouble ? dobuleRecord : record, isDouble)}
             <View style={styles.tableFooter}>
               <View style={styles.tableFooterQr}>
                 <Image src={imageUrl} />
