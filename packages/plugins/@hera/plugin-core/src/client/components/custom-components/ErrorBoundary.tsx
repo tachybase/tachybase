@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from '../../locale';
 
-export const ErrorBoundary = ({ children, fallback }) => {
+export const ErrorBoundary = ({ children, fallback = null }) => {
   const { t } = useTranslation();
   const [hasError, setHasError] = useState(false);
 
