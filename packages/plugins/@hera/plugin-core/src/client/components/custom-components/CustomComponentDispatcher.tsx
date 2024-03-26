@@ -5,6 +5,7 @@ import { useField, useFieldSchema } from '@formily/react';
 import { Field } from '@nocobase/database';
 import { useCustomComponent } from '../../hooks/useCustomComponent';
 import { CustomComponentType } from './custom-components';
+import { ErrorBoundary } from './ErrorBoundary';
 
 export const CustomComponentStub = (props) => {
   return <div>请选择组件</div>;
@@ -13,14 +14,16 @@ export const CustomComponentStub = (props) => {
 export const CustomComponentDispatcher = (props) => {
   if (!props.component) return;
   return (
-    <SchemaComponent
-      schema={{
-        type: 'void',
-        name: props.component,
-        'x-component': props.component,
-        'x-component-props': props,
-      }}
-    />
+    <ErrorBoundary>
+      <SchemaComponent
+        schema={{
+          type: 'void',
+          name: props.component,
+          'x-component': props.component,
+          'x-component-props': props,
+        }}
+      />
+    </ErrorBoundary>
   );
 };
 
