@@ -1,11 +1,12 @@
 import { SchemaComponent } from '@nocobase/client';
 import React from 'react';
-import { ErrorBoundary } from './ErrorBoundary';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundaryFallBack } from './ErrorBoundary';
 
 export const CustomAssociatedField = (props) => {
   if (!props.component) return;
   return (
-    <ErrorBoundary>
+    <ErrorBoundary fallback={<ErrorBoundaryFallBack />}>
       <SchemaComponent
         schema={{
           type: 'string',
