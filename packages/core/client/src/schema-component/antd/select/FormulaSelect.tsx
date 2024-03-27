@@ -145,7 +145,10 @@ const replacePlaceholders = (inputStr, values) => {
 const useLabelOptions = (others) => {
   const fieldSchema = useFieldSchema();
   const { getField } = useCollection_deprecated();
-  const collectionField = useMemo(() => getField(fieldSchema.name), [fieldSchema.name]);
+  const collectionField = useMemo(
+    () => getField(fieldSchema['x-collection-field']),
+    [fieldSchema['x-collection-field']],
+  );
   const request = {
     resource: collectionField?.target,
     action: 'list',
