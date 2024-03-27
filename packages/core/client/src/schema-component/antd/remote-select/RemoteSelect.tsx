@@ -136,7 +136,7 @@ const InternalRemoteSelect = connect(
         ...service,
         headers,
         params: {
-          pageSize: 200,
+          pageSize: fieldNames['formula'] ? 9999 : 200,
           ...service?.params,
           filter: service?.params?.filter,
         },

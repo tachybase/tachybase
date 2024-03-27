@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { RecordProvider, useAPIClient, useApp, useCollectionRecordData } from '../../../';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { getInnermostKeyAndValue } from '../../common/utils/uitls';
-import { RemoteSelectProps } from '../remote-select';
+import { RemoteSelectProps, RemoteSelect } from '../remote-select';
 import useServiceOptions, { useAssociationFieldContext } from './hooks';
 
 export type AssociationSelectProps<P = any> = RemoteSelectProps<P> & {
@@ -60,8 +60,6 @@ const InternalAssociationSelect = observer(
     const resource = api.resource(collectionField.target);
     const linkageFields = filterAnalyses(field.componentProps?.service?.params?.filter);
     const recordData = useCollectionRecordData();
-    const app = useApp();
-    const RemoteSelect = useMemo(() => app.getComponent('RemoteSelect'), [app]);
 
     useEffect(() => {
       const initValue = isVariable(field.value) ? undefined : field.value;
@@ -169,7 +167,6 @@ export const AssociationSelectReadPretty = connect(
   (props: any) => {
     const service = useServiceOptions(props);
     const app = useApp();
-    const RemoteSelect = useMemo(() => app.getComponent('RemoteSelect'), [app]) as any;
     if (props.fieldNames) {
       return <RemoteSelect.ReadPretty {...props} service={service}></RemoteSelect.ReadPretty>;
     }

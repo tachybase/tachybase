@@ -41,6 +41,7 @@ export const removeNullCondition = (filter, fieldSchema?) => {
       const flatValue = flat.unflatten(values);
       const flatFieldSchema = flat.unflatten(filterSchemaItem);
       flatValue['$and'] = flatValue['$and']?.filter(Boolean);
+      flatFieldSchema['$and'] = flatFieldSchema['$and']?.filter(Boolean);
       return {
         $and: [flatValue, flatFieldSchema],
       };

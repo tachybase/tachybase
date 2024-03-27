@@ -7,6 +7,7 @@ import { Select as AntdSelect, Empty, Spin, Tag } from 'antd';
 import React from 'react';
 import { ReadPretty } from './ReadPretty';
 import { FieldNames, defaultFieldNames, getCurrentOptions } from './utils';
+import FormulaSelect from './FormulaSelect';
 
 type Props = SelectProps<any, any> & {
   objectValue?: boolean;
@@ -102,6 +103,9 @@ const InternalSelect = connect(
     let mode: any = props.multiple ? 'multiple' : props.mode;
     if (mode && !['multiple', 'tags'].includes(mode)) {
       mode = undefined;
+    }
+    if ('formula' in others.fieldNames || 'collection' in props) {
+      return <FormulaSelect {...props} />;
     }
     if (objectValue) {
       return (

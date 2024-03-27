@@ -23,6 +23,7 @@ import {
   useFormBlockContext,
   useAPIClient,
   useCompile,
+  Select,
 } from '@nocobase/client';
 import { ConfigProvider, Radio, Space } from 'antd';
 import React, { memo, useCallback, useContext, useMemo, Profiler } from 'react';
@@ -116,8 +117,6 @@ const FieldComponentProps: React.FC = observer(
         },
       },
     };
-    console.log(scope, 'scope');
-    console.log(components, 'components');
 
     return (
       <SchemaComponentOptions scope={{ ...scope }} components={{ ArrayItems, FormItem, Space }}>
@@ -180,7 +179,7 @@ export const FilterCustomItemInitializer: React.FC<{
               );
             },
           }}
-          components={{ ...components, FieldComponentProps }}
+          components={{ ...components, FieldComponentProps, Select }}
         >
           <FormLayout layout={'vertical'}>
             <ConfigProvider locale={locale}>
@@ -282,12 +281,12 @@ export const FilterCustomItemInitializer: React.FC<{
     const name = uid();
     insert(
       gridRowColWrap({
-        'x-component': component,
         ...defaultSchema,
         type: 'string',
         title: title,
         name: 'custom.' + name,
         required: false,
+        'x-component': component,
         'x-designer': 'FilterItemCustomDesigner',
         'x-decorator': 'FilterFormItem',
         'x-decorator-props': collection,
@@ -299,6 +298,7 @@ export const FilterCustomItemInitializer: React.FC<{
           },
           associationField,
           collection,
+          objectValue: true,
         },
         collectionName: collection,
       }),

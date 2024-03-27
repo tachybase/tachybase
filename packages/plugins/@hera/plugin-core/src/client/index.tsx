@@ -43,15 +43,7 @@ import {
   GroupBlockConfigure,
   SignatureInput,
 } from './components';
-import {
-  AutoComplete,
-  DatePicker,
-  GroupBlock,
-  InternalPDFViewer,
-  MenuDesigner,
-  RemoteSelect,
-  Select,
-} from './schema-components';
+import { AutoComplete, DatePicker, GroupBlock, InternalPDFViewer, MenuDesigner } from './schema-components';
 import {
   CreateSubmitActionInitializer,
   FilterFormItem,
@@ -186,8 +178,6 @@ export class PluginCoreClient extends Plugin {
       PDFViewerProvider,
       PDFViwer: InternalPDFViewer,
       PageLayout,
-      RemoteSelect,
-      Select,
       SettingBlock: SettingBlockInitializer,
       SheetBlock,
       SheetBlockInitializer,

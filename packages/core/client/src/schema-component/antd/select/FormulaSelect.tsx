@@ -1,12 +1,11 @@
-import { CloseCircleFilled, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty, useFieldSchema, useForm } from '@formily/react';
+import { CloseCircleFilled, CloseOutlined } from '@ant-design/icons';
+import { useFieldSchema, useForm } from '@formily/react';
 import { isValid, toArr } from '@formily/shared';
 import { isPlainObject } from '@nocobase/utils/client';
 import type { SelectProps } from 'antd';
 import { Select as AntdSelect, Empty, Spin, Tag } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import { ReadPretty } from './ReadPretty';
-import { FieldNames, defaultFieldNames, getCurrentOptions } from './utils';
+import { FieldNames, getCurrentOptions } from './utils';
 import { useAPIClient, useCollection_deprecated, useRequest } from '@nocobase/client';
 import { useAsyncEffect } from 'ahooks';
 
@@ -21,7 +20,7 @@ type Props = SelectProps<any, any> & {
 const isEmptyObject = (val: any) => !isValid(val) || (typeof val === 'object' && Object.keys(val).length === 0);
 
 const ObjectSelect = (props: Props) => {
-  const { value, options, onChange, fieldNames, mode, loading, rawOptions, defaultValue, ...others } = props;
+  const { value, options, onChange, mode, fieldNames, loading, rawOptions, defaultValue, ...others } = props;
   const [defoptions, setDefOptions] = useState();
   const fieldSchema = useFieldSchema();
   const collectionName = fieldSchema['collectionName'];
@@ -45,6 +44,12 @@ const ObjectSelect = (props: Props) => {
       setDefOptions(changOptions);
     }
   }, [filterField?.filter, collectionName]);
+  useEffect(() => {
+    if (collectionName && fieldSchema['name'].toString().includes('custom') && defaultValue) {
+      const name = fieldSchema['name'].toString().split('.')[1];
+      form.values['custom'][name] = defaultValue?.[fieldNames.value];
+    }
+  }, []);
   const toValue = (v: any) => {
     if (isEmptyObject(v)) {
       return;
@@ -107,7 +112,7 @@ const ObjectSelect = (props: Props) => {
         } else {
           onChange?.(current.shift() || null);
         }
-        if (collectionName) {
+        if (collectionName && fieldSchema['name'].toString().includes('custom')) {
           const name = fieldSchema['name'].toString().split('.')[1];
           form.values['custom'][name] = changed?.['value'];
         }
@@ -130,8 +135,6 @@ const ObjectSelect = (props: Props) => {
     />
   );
 };
-
-const filterOption = (input, option) => (option?.label ?? '').toLowerCase().includes((input || '').toLowerCase());
 
 const replacePlaceholders = (inputStr, values) => {
   return inputStr.replace(/{{(.*?)}}/g, function (match, placeholder) {
@@ -200,89 +203,25 @@ const useLabelOptions = (others) => {
   }
   return others;
 };
-const InternalSelect = connect(
-  (props: Props) => {
-    const { objectValue, loading, value, rawOptions, defaultValue, ...others } = props;
-    let mode: any = props.multiple ? 'multiple' : props.mode;
-    if (mode && !['multiple', 'tags'].includes(mode)) {
-      mode = undefined;
-    }
-    const modifiedProps = useLabelOptions(others);
-    if (objectValue) {
-      return (
-        <ObjectSelect
-          rawOptions={rawOptions}
-          {...modifiedProps}
-          defaultValue={defaultValue}
-          value={value}
-          mode={mode}
-          loading={loading}
-        />
-      );
-    }
-    const toValue = (v) => {
-      if (['tags', 'multiple'].includes(props.mode) || props.multiple) {
-        if (v) {
-          return toArr(v);
-        }
-        return undefined;
-      }
-      return v;
-    };
-    return (
-      <AntdSelect
-        // @ts-ignore
-        role="button"
-        data-testid={`select-${mode || 'single'}`}
-        showSearch
-        filterOption={filterOption}
-        allowClear={{
-          clearIcon: <CloseCircleFilled role="button" aria-label="icon-close-select" />,
-        }}
-        popupMatchSelectWidth={false}
-        notFoundContent={loading ? <Spin /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
-        value={toValue(value)}
-        defaultValue={toValue(defaultValue)}
-        tagRender={(props) => {
-          return (
-            // @ts-ignore
-            <Tag
-              role="button"
-              aria-label={props.label}
-              closeIcon={<CloseOutlined role="button" aria-label="icon-close-tag" />}
-              {...props}
-            >
-              {props.label}
-            </Tag>
-          );
-        }}
-        {...others}
-        onChange={(changed) => {
-          props.onChange?.(changed === undefined ? null : changed);
-        }}
-        mode={mode}
-      />
-    );
-  },
-  mapProps(
-    {
-      dataSource: 'options',
-    },
-    (props, field) => {
-      return {
-        ...props,
-        fieldNames: { ...defaultFieldNames, ...props.fieldNames },
-        suffixIcon: field?.['loading'] || field?.['validating'] ? <LoadingOutlined /> : props.suffixIcon,
-      };
-    },
-  ),
-  mapReadPretty(ReadPretty),
-);
 
-export const Select = InternalSelect as unknown as typeof InternalSelect & {
-  ReadPretty: typeof ReadPretty;
+const FormulaSelect = (props) => {
+  const { objectValue, loading, value, rawOptions, defaultValue, ...others } = props;
+  let mode: any = props.multiple ? 'multiple' : props.mode;
+  if (mode && !['multiple', 'tags'].includes(mode)) {
+    mode = undefined;
+  }
+  const modifiedProps = useLabelOptions(others);
+
+  return (
+    <ObjectSelect
+      rawOptions={rawOptions}
+      {...modifiedProps}
+      defaultValue={defaultValue}
+      value={value}
+      mode={mode}
+      loading={loading}
+    />
+  );
 };
 
-Select.ReadPretty = ReadPretty;
-
-export default Select;
+export default FormulaSelect;
