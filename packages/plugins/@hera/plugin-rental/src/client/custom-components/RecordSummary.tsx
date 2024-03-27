@@ -5,7 +5,7 @@ import { CustomComponentType, CustomFC, CustomFunctionComponent } from '@hera/pl
 import React from 'react';
 import _ from 'lodash';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
-import { useCachedRequest, useLeaseItems } from '../hooks';
+import { useCachedRequest, useLeaseItems, useProductFeeItems } from '../hooks';
 import { RecordItems } from '../../interfaces/records';
 const cache = [];
 export const RecordSummary = observer((): any => {
@@ -75,53 +75,55 @@ export const RecordSummary = observer((): any => {
   // 报价小结
   const quoteSummary = {};
   form.values.items?.forEach((item) => {
-    if (!item.product || !item.count) return;
-    const element = _.cloneDeep(item);
-    // 获取产品的分类数据信息
     const productCategory = reqProduct.data.data?.find(
-      (product) => product.category_id === element.product?.category_id,
+      (product) => product.category_id === item.product?.category_id,
     )?.category;
-    if (!productCategory) return;
-    element.product.category = productCategory;
-    // 基础小结
-    const { calc } = summary(element, null, null);
-    weight.total += calc.weight / 1000;
-    calcProductCount(summaryProduct, calc, productCategory);
-    // 合同小结(租赁出入库单/租赁直发单)
+    if (!(JSON.stringify(productCategory?.attr) === `["6"]`)) {
+      if (!item.product || !item.count) return;
+      const element = _.cloneDeep(item);
+      // 获取产品的分类数据信息
+      if (!productCategory) return;
+      element.product.category = productCategory;
+      // 基础小结
+      const { calc } = summary(element, null, null);
+      weight.total += calc.weight / 1000;
+      calcProductCount(summaryProduct, calc, productCategory);
+      // 合同小结(租赁出入库单/租赁直发单)
 
-    if (form.values.category === RecordCategory.lease || form.values.category === RecordCategory.lease2lease) {
-      if (form.values.category === RecordCategory.lease && !leaseItems) return;
-      if (form.values.category === RecordCategory.lease2lease && !inLeaseItems) return;
-      const in_contract = form.values.category === RecordCategory.lease ? leaseItems.data : inLeaseItems.data;
-      const { ruleCalc } = summary(element, in_contract, reqWeightRules, recordData);
-      contractWeight.total += ruleCalc.weight / 1000;
-      calcProductCount(contractSummary, ruleCalc, productCategory);
-      if (form.values.category === RecordCategory.lease2lease && outLeaseItems) {
-        // 还需要生成出库合同小结
-        const out_contract = outLeaseItems.data;
-        const { ruleCalc } = summary(element, out_contract, reqWeightRules, recordData);
-        outContractWeight.total += ruleCalc.weight / 1000;
-        calcProductCount(outContractSummary, ruleCalc, productCategory);
-      }
-    }
-    // 采购出入库/采购直发小结
-    if (form.values.category === RecordCategory.purchase || form.values.category === RecordCategory.purchase2lease) {
-      const priceRules = leaseData?.map((rule) => {
-        return {
-          conversion_logic_id: rule.conversion_logic.id,
-          products: rule.product,
-          unit_price: rule.unit_price,
-        };
-      });
-      const { ruleCalc } = summary(element, priceRules, reqWeightRules, recordData);
-      priceWeight.total += ruleCalc.weight / 1000;
-      allPrice.total += ruleCalc.price;
-      calcProductCount(quoteSummary, ruleCalc, productCategory);
-      if (form.values.category === RecordCategory.purchase2lease && inLeaseItems) {
-        const in_contract = inLeaseItems.data;
-        const { ruleCalc } = summary(element, in_contract, null, recordData);
+      if (form.values.category === RecordCategory.lease || form.values.category === RecordCategory.lease2lease) {
+        if (form.values.category === RecordCategory.lease && !leaseItems) return;
+        if (form.values.category === RecordCategory.lease2lease && !inLeaseItems) return;
+        const in_contract = form.values.category === RecordCategory.lease ? leaseItems.data : inLeaseItems.data;
+        const { ruleCalc } = summary(element, in_contract, reqWeightRules, recordData);
         contractWeight.total += ruleCalc.weight / 1000;
         calcProductCount(contractSummary, ruleCalc, productCategory);
+        if (form.values.category === RecordCategory.lease2lease && outLeaseItems) {
+          // 还需要生成出库合同小结
+          const out_contract = outLeaseItems.data;
+          const { ruleCalc } = summary(element, out_contract, reqWeightRules, recordData);
+          outContractWeight.total += ruleCalc.weight / 1000;
+          calcProductCount(outContractSummary, ruleCalc, productCategory);
+        }
+      }
+      // 采购出入库/采购直发小结
+      if (form.values.category === RecordCategory.purchase || form.values.category === RecordCategory.purchase2lease) {
+        const priceRules = leaseData?.map((rule) => {
+          return {
+            conversion_logic_id: rule.conversion_logic.id,
+            products: rule.product,
+            unit_price: rule.unit_price,
+          };
+        });
+        const { ruleCalc } = summary(element, priceRules, reqWeightRules, recordData);
+        priceWeight.total += ruleCalc.weight / 1000;
+        allPrice.total += ruleCalc.price;
+        calcProductCount(quoteSummary, ruleCalc, productCategory);
+        if (form.values.category === RecordCategory.purchase2lease && inLeaseItems) {
+          const in_contract = inLeaseItems.data;
+          const { ruleCalc } = summary(element, in_contract, null, recordData);
+          contractWeight.total += ruleCalc.weight / 1000;
+          calcProductCount(contractSummary, ruleCalc, productCategory);
+        }
       }
     }
   });

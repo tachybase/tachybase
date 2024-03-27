@@ -161,10 +161,14 @@ const subtotal = (rule: any, itemData: any, productCategory: any, reqWeightRules
   let unit: string;
   if (rule?.conversion_logic_id === ConversionLogics.Keep) {
     count = itemData.count;
-    unit = item ? rule.unit : productCategory.unit;
+    unit = item ? rule.unit || '' : productCategory.unit || '';
   } else if (rule?.conversion_logic_id === ConversionLogics.Product) {
     count = productCategory.convertible ? itemData.count * itemData.product.ratio : itemData.count;
-    unit = item ? rule.unit : productCategory.convertible ? productCategory.conversion_unit : productCategory.unit;
+    unit = item
+      ? rule.unit || ''
+      : productCategory.convertible
+        ? productCategory.conversion_unit || ''
+        : productCategory.unit || '';
   } else if (rule?.conversion_logic_id === ConversionLogics.ProductWeight) {
     count = item ? itemData.count : (itemData.count * itemData.product.weight) / 1000;
     unit = '吨';
@@ -181,11 +185,13 @@ const subtotal = (rule: any, itemData: any, productCategory: any, reqWeightRules
     );
     if (!weightRule) return;
     if (weightRule.conversion_logic_id === ConversionLogics.Keep) {
-      count = ((itemData.count || 0) * weightRule.weight) / 1000;
+      count = item ? (itemData.count || 0) * weightRule.weight : ((itemData.count || 0) * weightRule.weight) / 1000;
       unit = '吨';
     } else if (weightRule.conversion_logic_id === ConversionLogics.Product) {
       const sacl = productCategory.convertible ? itemData.product.ratio : 1;
-      count = ((itemData.count || 0) * sacl * weightRule.weight) / 1000;
+      count = item
+        ? (itemData.count || 0) * sacl * weightRule.weight
+        : ((itemData.count || 0) * sacl * weightRule.weight) / 1000;
       unit = '吨';
     }
   }
