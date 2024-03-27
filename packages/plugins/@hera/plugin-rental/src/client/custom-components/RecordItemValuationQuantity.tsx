@@ -53,7 +53,7 @@ export const RecordItemValuationQuantity = observer((props) => {
           (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
         ),
       );
-      const feeRule = ProductFeeItems.data.find((feeItem) => feeItem.fee_product_id === item.product?.id);
+      const feeRule = ProductFeeItems?.data.find((feeItem) => feeItem.fee_product_id === item.product?.id);
       let count;
       if (!rule && feeRule) {
         count = subtotal(feeRule, item, productCategory, reqWeightRules, 'fee');
@@ -93,7 +93,7 @@ export const RecordItemValuationQuantity = observer((props) => {
           (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
         ),
       );
-      const feeRule = inProductFeeItems.data.find(
+      const feeRule = inProductFeeItems?.data.find(
         (feeItem) =>
           feeItem.fee_product_id === item.product?.id || item.product?.category_id === feeItem.fee_product.category_id,
       );
@@ -112,7 +112,7 @@ export const RecordItemValuationQuantity = observer((props) => {
           (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
         ),
       );
-      const contractPlain_out_fee = outProductFeeItems.data.find(
+      const contractPlain_out_fee = outProductFeeItems?.data.find(
         (feeItem) =>
           feeItem.fee_product_id === item.product?.id || item.product?.category_id === feeItem.fee_product.category_id,
       );
@@ -128,7 +128,7 @@ export const RecordItemValuationQuantity = observer((props) => {
           (product) => product.id - 99999 === item.product?.category_id || product.id === item.product?.id,
         ),
       );
-      const contractPlain_in_fee = outProductFeeItems.data.find(
+      const contractPlain_in_fee = outProductFeeItems?.data.find(
         (feeItem) =>
           feeItem.fee_product_id === item.product?.id || item.product?.category_id === feeItem.fee_product.category_id,
       );
