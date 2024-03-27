@@ -44,7 +44,7 @@ export const SettingBlockInitializer = () => {
                           title: tval('Please select'),
                           enum: result.data.data.map((item) => {
                             return {
-                              label: item[titleField],
+                              label: item[titleField].toString(),
                               value: item.id,
                             };
                           }),
