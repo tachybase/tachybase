@@ -1,6 +1,7 @@
 import { useFieldSchema } from '@formily/react';
 import {
   CollectionManagerProvider,
+  DEFAULT_DATA_SOURCE_KEY,
   MaybeCollectionProvider,
   useAPIClient,
   useDataSourceManager,
@@ -69,14 +70,14 @@ export const ChartRendererContext = createContext<
 ChartRendererContext.displayName = 'ChartRendererContext';
 
 export const ChartRendererProvider: React.FC<ChartRendererProps> = (props) => {
-  const { query, config, collection, transform, dataSource } = props;
+  const { query, config, collection, transform, dataSource = DEFAULT_DATA_SOURCE_KEY } = props;
   const { addChart } = useContext(ChartDataContext);
   const { ready, form, enabled } = useContext(ChartFilterContext);
   const { getFilter, hasFilter, appendFilter } = useChartFilter();
   const schema = useFieldSchema();
   const api = useAPIClient();
   const service = useRequest(
-    (collection, query, manual) =>
+    (dataSource, collection, query, manual) =>
       new Promise((resolve, reject) => {
         // Check if the chart is configured
         if (!(collection && query?.measures?.length)) return resolve(undefined);
@@ -84,8 +85,8 @@ export const ChartRendererProvider: React.FC<ChartRendererProps> = (props) => {
         if (enabled && !form) return resolve(undefined);
         const filterValues = getFilter();
         const queryWithFilter =
-          !manual && hasFilter({ collection, query }, filterValues)
-            ? appendFilter({ collection, query }, filterValues)
+          !manual && hasFilter({ dataSource, collection, query }, filterValues)
+            ? appendFilter({ dataSource, collection, query }, filterValues)
             : query;
         api
           .request({
@@ -93,6 +94,7 @@ export const ChartRendererProvider: React.FC<ChartRendererProps> = (props) => {
             method: 'POST',
             data: {
               uid: schema?.['x-uid'],
+              dataSource,
               collection,
               ...queryWithFilter,
               filter: removeUnparsableFilter(queryWithFilter.filter),
@@ -116,14 +118,16 @@ export const ChartRendererProvider: React.FC<ChartRendererProps> = (props) => {
           })
           .then((res) => {
             resolve(res?.data?.data);
+          })
+          .finally(() => {
             if (!manual && schema?.['x-uid']) {
-              addChart(schema?.['x-uid'], { collection, service, query });
+              addChart(schema?.['x-uid'], { dataSource, collection, service, query });
             }
           })
           .catch(reject);
       }),
     {
-      defaultParams: [collection, query],
+      defaultParams: [dataSource, collection, query],
       // Wait until ChartFilterProvider is rendered and check the status of the filter form
       // since the filter parameters should be applied if the filter block is enabled
       ready: ready && (!enabled || !!form),
@@ -132,9 +136,9 @@ export const ChartRendererProvider: React.FC<ChartRendererProps> = (props) => {
 
   return (
     <CollectionManagerProvider dataSource={dataSource}>
-      <MaybeCollectionProvider collection={collection} dataSource={dataSource}>
+      <MaybeCollectionProvider collection={collection}>
         <ConfigProvider card={{ style: { boxShadow: 'none' } }}>
-          <ChartRendererContext.Provider value={{ collection, config, transform, service, query }}>
+          <ChartRendererContext.Provider value={{ dataSource, collection, config, transform, service, query }}>
             {props.children}
           </ChartRendererContext.Provider>
         </ConfigProvider>
