@@ -5,7 +5,7 @@ import { Table as AntdTable } from 'antd';
 
 export class GroupedTable extends AntdChart {
   constructor() {
-    super({ name: 'groupedTable', title: 'GroupedTable', component: AntdTable });
+    super({ name: 'groupedTable', title: 'GroupedTable', Component: AntdTable });
   }
 
   getProps({ data, fieldProps, general, advanced, ctx }: RenderProps) {
