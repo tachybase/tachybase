@@ -758,7 +758,6 @@ export class SettlementService {
         }
       }
     });
-
     calc.list.forEach((value) => {
       const productDate = converDate(value.date, 'YYYY-MM-DD');
       if ((value.name as string).includes('-')) {
@@ -766,7 +765,9 @@ export class SettlementService {
         const valueItem = calc.list.filter(
           (item) => converDate(item.date, 'YYYY-MM-DD') === productDate && item.name === name,
         )[0];
-        value.date = dayjs(valueItem.date).add(1, 'seconds');
+        if (valueItem) {
+          value.date = dayjs(valueItem.date).add(1, 'seconds');
+        }
       }
     });
     calc.list?.sort((a, b) => {
