@@ -22,6 +22,7 @@ import {
   useDesignable,
   useGlobalTheme,
   useSchemaInitializerItem,
+  useCompile,
 } from '@nocobase/client';
 import { useMemoizedFn } from 'ahooks';
 import { Alert, ConfigProvider, Typography } from 'antd';
@@ -35,7 +36,7 @@ const { Paragraph, Text } = Typography;
 const FieldComponentProps: React.FC = observer(
   (props) => {
     const form = useForm();
-    const schema = getPropsSchemaByComponent(form.values.component);
+    const schema = getPropsSchemaByComponent(form.values.component, props['allCollection']);
     return schema ? <SchemaComponent schema={schema} {...props} /> : null;
   },
   { displayName: 'FieldComponentProps' },
@@ -127,12 +128,31 @@ export const ChartFilterCustomItemInitializer: React.FC<{
   const dm = useDataSourceManager();
   const sourceFields = useChartFilterSourceFields();
   const { options: fieldComponents, values: fieldComponentValues } = useFieldComponents();
+  const { collections, getCollectionFields } = useCollectionManager_deprecated();
+  const compile = useCompile();
+  const allCollection = collections.map((collection) => {
+    return {
+      label: collection.getOption('title'),
+      value: collection.getOption('name'),
+    };
+  });
   const handleClick = useCallback(async () => {
     const values = await FormDialog(
       t('Add custom field'),
       () => (
         <SchemaComponentOptions
-          scope={{ ...scope, useChartFilterSourceFields }}
+          scope={{
+            ...scope,
+            useChartFilterSourceFields,
+            useCollectionField(collection) {
+              return getCollectionFields(collection)?.map((field) => {
+                return {
+                  label: compile(field.uiSchema.title),
+                  value: field.name,
+                };
+              });
+            },
+          }}
           components={{ ...components, FieldComponentProps }}
         >
           <FormLayout layout={'vertical'}>
@@ -176,6 +196,9 @@ export const ChartFilterCustomItemInitializer: React.FC<{
                       type: 'object',
                       title: t('Component properties'),
                       'x-component': 'FieldComponentProps',
+                      'x-component-props': {
+                        allCollection,
+                      },
                     },
                   },
                 }}
@@ -242,6 +265,7 @@ export const ChartFilterCustomItemInitializer: React.FC<{
         'x-component-props': {
           ...(defaultSchema['x-component-props'] || {}),
           ...props,
+          chartCascader: true,
         },
       }),
     );

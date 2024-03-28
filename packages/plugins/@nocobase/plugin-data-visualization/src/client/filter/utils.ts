@@ -55,7 +55,7 @@ export const getOptionsSchema = () => {
   return options;
 };
 
-export const getPropsSchemaByComponent = (component: string) => {
+export const getPropsSchemaByComponent = (component: string, allCollection) => {
   const showTime = {
     type: 'boolean',
     'x-content': '{{ t("Show time") }}',
@@ -133,6 +133,34 @@ export const getPropsSchemaByComponent = (component: string) => {
       type: 'object',
       properties: {
         options,
+      },
+    },
+    AssociationCascader: {
+      type: 'object',
+      properties: {
+        collection: {
+          type: 'string',
+          title: '{{t("Field collection")}}',
+          'x-decorator': 'FormItem',
+          'x-component': 'Select',
+          enum: allCollection,
+        },
+        associationField: {
+          type: 'string',
+          title: '{{t("Field Association")}}',
+          'x-visible': false,
+          'x-decorator': 'FormItem',
+          'x-component': 'Select',
+          'x-reactions': {
+            dependencies: ['component', '.collection'],
+            fulfill: {
+              schema: {
+                'x-visible': "{{$deps[0]=== 'AssociationCascader' && $deps[1]}}",
+                enum: '{{useCollectionField($deps[1])}}',
+              },
+            },
+          },
+        },
       },
     },
   };
