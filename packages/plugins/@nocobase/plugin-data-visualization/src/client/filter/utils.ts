@@ -55,7 +55,7 @@ export const getOptionsSchema = () => {
   return options;
 };
 
-export const getPropsSchemaByComponent = (component: string, allCollection) => {
+export const getPropsSchemaByComponent = (component: string, allCollection?) => {
   const showTime = {
     type: 'boolean',
     'x-content': '{{ t("Show time") }}',
