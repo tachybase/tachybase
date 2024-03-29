@@ -153,7 +153,7 @@ const WithForm = (props: WithFormProps) => {
                     return result;
                   },
                   getSubscriber(action, field, rule, variables, localVariables),
-                  { fireImmediately: false },
+                  { fireImmediately: true },
                 ),
               );
             });
