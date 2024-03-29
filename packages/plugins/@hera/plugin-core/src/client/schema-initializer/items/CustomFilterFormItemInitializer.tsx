@@ -24,12 +24,12 @@ import {
   useAPIClient,
   useCompile,
   Select,
+  useCollectionManager,
 } from '@nocobase/client';
 import { ConfigProvider, Radio, Space } from 'antd';
 import React, { memo, useCallback, useContext, useMemo, Profiler } from 'react';
 import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@formily/react';
 import { ArrayItems, FormLayout } from '@formily/antd-v5';
-import { uid } from '@formily/shared';
 import { Field, onFieldValueChange } from '@formily/core';
 import {
   EditDefaultValue,
@@ -42,6 +42,7 @@ import {
 import _ from 'lodash';
 import { SchemaSettingsRemove } from '../../schema-settings/SchemaSettingsRemove';
 import { tval, useTranslation } from '../../locale';
+import { uid } from '@formily/shared';
 
 const FieldComponentProps: React.FC = observer(
   (props) => {
@@ -160,6 +161,7 @@ export const FilterCustomItemInitializer: React.FC<{
       value: value.name,
     };
   });
+  const cm = useCollectionManager();
   const { options: fieldComponents, values: fieldComponentValues } = useFieldComponents();
   const api = useAPIClient();
   const handleClick = useCallback(async () => {
@@ -278,6 +280,7 @@ export const FilterCustomItemInitializer: React.FC<{
     });
     const { title, component, collection, associationField } = values;
     const defaultSchema = getInterface(component)?.default?.uiSchema || {};
+    const titleField = cm.getCollection(collection).titleField;
     const name = uid();
     insert(
       gridRowColWrap({
@@ -293,8 +296,8 @@ export const FilterCustomItemInitializer: React.FC<{
         'x-component-props': {
           ...(defaultSchema['x-component-props'] || {}),
           fieldNames: {
-            label: 'name',
-            value: 'name',
+            label: titleField,
+            value: titleField,
           },
           associationField,
           collection,

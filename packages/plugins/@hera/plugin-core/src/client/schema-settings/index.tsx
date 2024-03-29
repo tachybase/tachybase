@@ -24,7 +24,7 @@ import {
   VariableScopeProvider,
 } from '@nocobase/client';
 import _ from 'lodash';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from '../locale';
 import { FormFilterScope } from '../components/filter-form/FormFilterScope';
 import { useFieldComponents } from '../schema-initializer';
@@ -522,6 +522,7 @@ export const SchemaSettingCollection = () => {
       value: value.name,
     };
   });
+  const cm = useCollectionManager();
   const { dn } = useDesignable();
   return (
     <SchemaSettingsSelectItem
@@ -531,13 +532,14 @@ export const SchemaSettingCollection = () => {
       value={fieldSchema['collectionName']}
       onChange={(name) => {
         field.setValue('');
+        const titleField = cm.getCollection(name).titleField;
         fieldSchema['collectionName'] = name;
         fieldSchema.default = '';
         fieldSchema['x-component-props'] = {
           ...fieldSchema['x-component-props'],
           fieldNames: {
-            label: 'name',
-            value: 'name',
+            label: titleField,
+            value: titleField,
           },
           defaultValue: '',
         };
