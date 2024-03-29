@@ -18037,7 +18037,7 @@ matchdep@^2.0.0:
     resolve "^1.4.0"
     stack-trace "0.0.10"
 
-"mathjs2@npm:mathjs@^10.6.0", mathjs@^10.6.0, mathjs@^10.6.1:
+mathjs@^10.6.0, mathjs@^10.6.1:
   version "10.6.4"
   resolved "https://registry.npmmirror.com/mathjs/-/mathjs-10.6.4.tgz#1b87a1268781d64f0c8b4e5e1b36cf7ecf58bb05"
   integrity sha512-omQyvRE1jIy+3k2qsqkWASOcd45aZguXZDckr3HtnTYyXk5+2xpVfC3kATgbO2Srjxlqww3TVdhD0oUdZ/hiFA==

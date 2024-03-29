@@ -4,7 +4,7 @@ import { Input } from '@nocobase/client';
 import { Descriptions, DescriptionsProps } from 'antd';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { evaluate } from 'mathjs2';
+import { evaluators } from '@nocobase/evaluators/client';
 
 const transformFormula = (formula: string) => {
   if (!formula) return [];
@@ -20,6 +20,8 @@ export const CalcResult = (props) => {
   const field = useField();
   const path: any = field.path.entire;
   const fieldPath = path?.replace(`.${fieldSchema.name}`, '');
+  const engine = evaluators.get('math.js');
+  const evaluate = engine.evaluate.bind(engine);
   const defaultValue = fieldSchema.name === 'subtotal' ? '￥0.00' : [];
   const [value, setValue] = useState<string | DescriptionsProps['items']>(defaultValue);
 
@@ -69,7 +71,7 @@ export const CalcResult = (props) => {
         const varName = 'var' + count;
         const varValue = value;
         scopes[varName] = varValue;
-        calculateData.push(varName);
+        calculateData.push('{{' + varName + '}}');
       } else {
         calculateData.push(item);
       }
@@ -88,7 +90,7 @@ export const CalcResult = (props) => {
         result = pre + main + suf;
       } catch (error) {
         result = `${code}`;
-        console.warn('code: ' + code + ' scopes: ' + scopes + 'error: ' + result + ' error message ' + error.message);
+        console.warn('code: ', code, ' scopes: ', scopes, 'error: ', result, ' error message ', error.message);
       }
       setValue(result.toString());
     } else if (panel) {

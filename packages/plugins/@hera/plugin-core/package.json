@@ -17,7 +17,6 @@
     "copy-to-clipboard": "^3.3.3",
     "exceljs": "^4.4.0",
     "fs-extra": "^11.1.1",
-    "mathjs2": "npm:mathjs@^10.6.0",
     "qrcode": "^1.5.1",
     "dayjs": "^1.11.8",
     "qrcode.react": "^3.1.0",
