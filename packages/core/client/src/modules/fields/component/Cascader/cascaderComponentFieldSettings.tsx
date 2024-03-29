@@ -25,8 +25,9 @@ import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Tabl
 import { SchemaSettingsModalItem, VariableInput, getShouldChange } from '../../../../schema-settings';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
 import { useLocalVariables, useVariables } from '../../../../variables';
-import { useCollectionField } from '../utils';
+// import { useCollectionField } from '../utils';
 import { ArrayItems } from '@formily/antd-v5';
+import { useCollectionField } from '../../../../data-source';
 
 export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {
   const field = useField();
