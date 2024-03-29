@@ -1,0 +1,18 @@
+{
+  "name": "@hera/plugin-websocket",
+  "version": "0.0.1",
+  "main": "dist/server/index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "react-use-websocket": "^4.8.1",
+    "@formily/antd-v5": "1.x",
+    "@formily/core": "^2.2.27",
+    "@formily/react": "^2.2.27",
+    "@formily/shared": "^2.2.27"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "0.x",
+    "@nocobase/server": "0.x",
+    "@nocobase/test": "0.x"
+  }
+}
