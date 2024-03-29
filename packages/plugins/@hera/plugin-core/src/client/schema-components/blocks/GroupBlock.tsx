@@ -38,6 +38,10 @@ export const GroupBlock = (props) => {
   if (service.loading && !field.loaded) {
     return <Spin />;
   }
+  // 兼容旧版区块防止报错导致无法配置
+  if (!params?.config || !('map' in params.config)) {
+    return;
+  }
   return (
     <>
       <p style={{ fontWeight: 600 }}>汇总：</p>
