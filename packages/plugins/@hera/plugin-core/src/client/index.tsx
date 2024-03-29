@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Menu,
-  Plugin,
-  RemoteSchemaTemplateManagerProvider,
-  EditTitleField,
-  useCollection,
-  SchemaSettingsDateFormat,
-} from '@nocobase/client';
+import { Menu, Plugin, RemoteSchemaTemplateManagerProvider, EditTitleField, useCollection } from '@nocobase/client';
 import { remove } from 'lodash';
 import { useFieldSchema } from '@formily/react';
 import { isValid } from '@formily/shared';
@@ -49,7 +42,7 @@ import {
   Expression,
   SignatureInput,
 } from './components';
-import { AutoComplete, DatePicker, InternalPDFViewer, MenuDesigner } from './schema-components';
+import { AutoComplete, InternalPDFViewer, MenuDesigner } from './schema-components';
 import {
   CreateSubmitActionInitializer,
   FilterFormItem,
@@ -73,6 +66,11 @@ import {
 } from './schema-initializer/blocks/SheetBlockInitializer';
 import AssociationCascader from './schema-components/association-cascader/AssociationCascader';
 import { SchemaSettingsDatePickerType } from './schema-settings/SchemaSettingsDatePickerType';
+import {
+  SchemaSettingsDatePresets,
+  useCustomPresets,
+  useCustomPresets1,
+} from './schema-settings/SchemaSettingsDatePresets';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -99,6 +97,9 @@ export class PluginCoreClient extends Plugin {
 
     this.schemaSettingsManager.addItem('fieldSettings:component:DatePicker', 'datePickerType', {
       Component: SchemaSettingsDatePickerType,
+    });
+    this.schemaSettingsManager.addItem('fieldSettings:component:DatePicker', 'datePresets', {
+      Component: SchemaSettingsDatePresets,
     });
 
     this.schemaSettingsManager.addItem('FormItemSettings', 'hera-divider', {
@@ -153,6 +154,8 @@ export class PluginCoreClient extends Plugin {
       useGetCustomAssociatedComponents,
       useGetCustomComponents,
       usePDFViewerPrintActionProps,
+      useCustomPresets1,
+      useCustomPresets,
     });
 
     this.app.addComponents({
@@ -166,7 +169,6 @@ export class PluginCoreClient extends Plugin {
       CustomComponentDispatcher,
       CustomComponentStub,
       CustomField,
-      DatePicker,
       EditTitle,
       EditTitleField,
       Expression,

@@ -1,12 +1,14 @@
 {
   "Add custom component": "Add custom component",
   "Association field": "Association field",
+  "Chuangxing presets": "Chuangxing presets",
   "Configure": "Configure",
   "Custom filter": "Custom filter",
   "Custom option label": "Custom option label",
-  "Group": "Group",
   "Group block": "Group block",
+  "Group": "Group",
   "HomePage Config": "HomePage Config",
+  "Last month": "Last month",
   "Mobile UI": "Mobile UI",
   "Navigate to new page": "Navigate to new page",
   "Page style": "Page Style",
@@ -16,10 +18,14 @@
   "Signature input": "Signature input",
   "Something went wrong. Please contact the developer to resolve the issue.": "Something went wrong. Please contact the developer to resolve the issue.",
   "System setting": "System setting",
+  "This month": "This month",
+  "This year": "This year",
   "classical": "classical",
   "component": "component",
+  "default": "default",
   "error": "error",
   "loading...": "loading...",
   "preview block": "preview block",
-  "tabs": "tabs"
+  "tabs": "tabs",
+  "year": "year"
 }
