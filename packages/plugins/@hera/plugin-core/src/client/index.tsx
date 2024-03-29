@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Plugin, RemoteSchemaTemplateManagerProvider, EditTitleField, useCollection } from '@nocobase/client';
+import { Plugin, RemoteSchemaTemplateManagerProvider, EditTitleField, useCollection } from '@nocobase/client';
 import { remove } from 'lodash';
 import { useFieldSchema } from '@formily/react';
 import { isValid } from '@formily/shared';
@@ -42,7 +42,7 @@ import {
   Expression,
   SignatureInput,
 } from './components';
-import { AutoComplete, InternalPDFViewer, MenuDesigner } from './schema-components';
+import { AutoComplete, InternalPDFViewer } from './schema-components';
 import {
   CreateSubmitActionInitializer,
   FilterFormItem,
@@ -176,11 +176,6 @@ export class PluginCoreClient extends Plugin {
       FilterFormItemCustom,
       FilterItemCustomDesigner,
       FilterVariableInput,
-      Menu: {
-        ...Menu,
-        // @ts-ignore
-        Designer: MenuDesigner,
-      },
       PDFViewerBlockInitializer,
       PDFViewerPrintActionInitializer,
       PDFViewerProvider,

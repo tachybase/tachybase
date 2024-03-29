@@ -8,12 +8,15 @@ import { createDesignable } from '../..';
 import {
   GeneralSchemaDesigner,
   SchemaSettingsDivider,
+  SchemaSettingsItem,
   SchemaSettingsModalItem,
   SchemaSettingsRemove,
   SchemaSettingsSubMenu,
   useAPIClient,
   useDesignable,
 } from '../../../';
+import { message } from 'antd';
+import { saveAs } from 'file-saver';
 
 const toItems = (properties = {}) => {
   const items = [];
@@ -52,6 +55,7 @@ const InsertMenuItems = (props) => {
   const { dn } = useDesignable();
   const fieldSchema = useFieldSchema();
   const isSubMenu = fieldSchema['x-component'] === 'Menu.SubMenu';
+  const api = useAPIClient();
   if (!isSubMenu && insertPosition === 'beforeEnd') {
     return null;
   }
@@ -195,6 +199,45 @@ const InsertMenuItems = (props) => {
             },
             'x-server-hooks': serverHooks,
           });
+        }}
+      />
+      <SchemaSettingsDivider />
+      <SchemaSettingsModalItem
+        eventKey={`${insertPosition}restore`}
+        title={t('Load')}
+        schema={
+          {
+            type: 'object',
+            title: t('Load'),
+            properties: {
+              title: {
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                title: t('Menu item title'),
+                required: true,
+                'x-component-props': {},
+              },
+              file: {
+                type: 'object',
+                title: '{{ t("File") }}',
+                'x-decorator': 'FormItem',
+                'x-component': 'Upload.Attachment',
+                'x-component-props': {
+                  action: 'attachments:create',
+                  multiple: false,
+                },
+              },
+            },
+          } as ISchema
+        }
+        onSubmit={async ({ title, file }) => {
+          const { data } = await api.request({
+            url: file.url,
+            baseURL: '/',
+          });
+          const s = data ?? {};
+          s.title = title;
+          dn.insertAdjacent(insertPosition, s);
         }}
       />
     </SchemaSettingsSubMenu>
@@ -344,6 +387,26 @@ export const MenuDesigner = () => {
       <InsertMenuItems eventKey={'insertafterEnd'} title={t('Insert after')} insertPosition={'afterEnd'} />
       <InsertMenuItems eventKey={'insertbeforeEnd'} title={t('Insert inner')} insertPosition={'beforeEnd'} />
       <SchemaSettingsDivider />
+      <SchemaSettingsItem
+        title={t('Dump')}
+        onClick={async () => {
+          const deleteUid = (s: ISchema) => {
+            delete s['name'];
+            delete s['x-uid'];
+            Object.keys(s.properties || {}).forEach((key) => {
+              deleteUid(s.properties[key]);
+            });
+          };
+          const { data } = await api.request({
+            url: `/uiSchemas:getJsonSchema/${fieldSchema['x-uid']}?includeAsyncNode=true`,
+          });
+          const s = data?.data || {};
+          deleteUid(s);
+          const blob = new Blob([JSON.stringify(s, null, 2)], { type: 'application/json' });
+          saveAs(blob, fieldSchema['x-uid'] + '.schema.json');
+          message.success('Save successful!');
+        }}
+      />
       <SchemaSettingsRemove
         confirm={{
           title: t('Delete menu item'),
