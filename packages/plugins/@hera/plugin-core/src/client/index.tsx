@@ -40,24 +40,20 @@ import {
   CustomComponentStub,
   customComponentDispatcherSettings,
   Expression,
-  GroupBlockConfigure,
   SignatureInput,
 } from './components';
-import { AutoComplete, DatePicker, GroupBlock, InternalPDFViewer, MenuDesigner } from './schema-components';
+import { AutoComplete, DatePicker, InternalPDFViewer, MenuDesigner } from './schema-components';
 import {
   CreateSubmitActionInitializer,
   FilterFormItem,
   FilterFormItemCustom,
   FilterItemCustomDesigner,
-  GroupBlockInitializer,
-  GroupBlockProvider,
-  GroupBlockToolbar,
+  GroupBlockPlugin,
   OutboundActionHelper,
   PDFViewerBlockInitializer,
   PDFViewerPrintActionInitializer,
   PDFViewerProvider,
   SettingBlockInitializer,
-  groupBlockSettings,
   pdfViewActionInitializer,
   usePDFViewerPrintActionProps,
 } from './schema-initializer';
@@ -75,8 +71,11 @@ export * from './components/custom-components/custom-components';
 export class PluginCoreClient extends Plugin {
   locale: Locale;
 
+  async afterAdd() {
+    await this.app.pm.add(GroupBlockPlugin);
+  }
+
   async registerSettings() {
-    this.schemaSettingsManager.add(groupBlockSettings);
     this.schemaSettingsManager.add(sheetBlockSettings);
     this.schemaSettingsManager.add(customComponentDispatcherSettings);
     this.schemaSettingsManager.addItem('FilterFormItemSettings', 'formulatitleField', {
@@ -162,11 +161,6 @@ export class PluginCoreClient extends Plugin {
       FilterFormItem,
       FilterFormItemCustom,
       FilterItemCustomDesigner,
-      GroupBlock,
-      GroupBlockConfigure,
-      GroupBlockInitializer,
-      GroupBlockProvider,
-      GroupBlockToolbar,
       FilterVariableInput,
       Menu: {
         ...Menu,
@@ -231,10 +225,6 @@ export class PluginCoreClient extends Plugin {
     };
     this.schemaInitializerManager.add(pdfViewActionInitializer);
     this.app.schemaInitializerManager.addItem('page:addBlock', settingBlockItem.name, settingBlockItem);
-    this.app.schemaInitializerManager.addItem('page:addBlock', 'dataBlocks.groupBlock', {
-      title: tval('Group'),
-      Component: 'GroupBlockInitializer',
-    });
     this.app.schemaInitializerManager.addItem('page:addBlock', 'dataBlocks.sheetBlock', {
       title: tval('Sheet'),
       Component: 'SheetBlockInitializer',

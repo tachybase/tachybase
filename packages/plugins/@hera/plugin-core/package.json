@@ -12,6 +12,7 @@
     "@formily/react": "^2.2.27",
     "@formily/shared": "^2.2.27",
     "@react-pdf/renderer": "^3.3.2",
+    "ahooks": "^3.7.2",
     "antd": "5.12.8",
     "copy-to-clipboard": "^3.3.3",
     "exceljs": "^4.4.0",
