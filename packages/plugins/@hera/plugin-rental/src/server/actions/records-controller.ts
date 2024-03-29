@@ -80,15 +80,14 @@ export class RecordPreviewController {
           items[product.name].total -= count;
         }
       });
-      ctx.body = _.toArray(items)
+      const result = {
+        labels: ['名称', '出库数量', '入库数量', '小计'],
+        values: [],
+      };
+      _.toArray(items)
         .sort((a, b) => a.sort - b.sort)
-        .map((item) => ({
-          label: item.name,
-          value: {
-            labels: ['出库数量', '入库数量', '小计'],
-            values: [item.out, item.in, item.total],
-          },
-        }));
+        .forEach((item) => result.values.push([item.name, item.out, item.in, item.total]));
+      ctx.body = { ...result };
     }
   }
   @Action('allweight')
@@ -106,15 +105,10 @@ export class RecordPreviewController {
 
     const inNum = records.find((item) => item.movement === Movement.in)?.weight ?? 0;
     const outNum = records.find((item) => item.movement === Movement.out)?.weight ?? 0;
-    const data = [
-      {
-        label: '实际重量（吨）',
-        value: {
-          labels: ['出库数量（吨）', '入库数量（吨）', '小计（吨）'],
-          values: [outNum, inNum, inNum - outNum],
-        },
-      },
-    ];
+    const data = {
+      labels: ['名称', '出库数量（吨）', '入库数量（吨）', '小计（吨）'],
+      values: [['实际重量（吨）', outNum, inNum, inNum - outNum]],
+    };
     ctx.body = data;
   }
   @Action('allprice')
@@ -132,15 +126,10 @@ export class RecordPreviewController {
 
     const inNum = records.find((item) => item.movement === Movement.in)?.all_price ?? 0;
     const outNum = records.find((item) => item.movement === Movement.out)?.all_price ?? 0;
-    const data = [
-      {
-        label: '总金额',
-        value: {
-          labels: ['收入', '支出', '小计'],
-          values: [outNum, inNum, outNum - inNum],
-        },
-      },
-    ];
+    const data = {
+      labels: ['名称', '收入', '支出', '小计'],
+      values: [['总金额', outNum, inNum, outNum - inNum]],
+    };
     ctx.body = data;
   }
 

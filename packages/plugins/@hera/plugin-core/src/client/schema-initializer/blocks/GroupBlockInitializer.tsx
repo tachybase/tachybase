@@ -17,7 +17,6 @@ import React, { createContext, useState } from 'react';
 import { uid } from '@nocobase/utils/client';
 import { Checkbox, Spin } from 'antd';
 import { GroupBlockConfigure } from '../../schema-components/blocks/GroupBlockConfigure/GroupBlockConfigure';
-import { GroupConfigure } from '../../schema-components/blocks/GroupBlockConfigure/GroupConfigure';
 
 export const GroupBlockContext = createContext<any>({});
 
@@ -43,7 +42,6 @@ const InternalGroupBlockProvider = (props) => {
       }}
     >
       {props.children}
-      <GroupConfigure />
     </GroupBlockContext.Provider>
   );
 };
