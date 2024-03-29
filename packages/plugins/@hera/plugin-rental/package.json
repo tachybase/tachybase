@@ -20,7 +20,8 @@
   },
   "peerDependencies": {
     "@hera/plugin-core": "1.x",
-    "@nocobase/plugin-data-visualizatio": "0.x",
+    "@nocobase/plugin-data-visualization": "0.x",
+    "@nocobase/plugin-collection-manager": "0.x",
     "@nocobase/client": "0.x",
     "@nocobase/server": "0.x",
     "@nocobase/test": "0.x"
