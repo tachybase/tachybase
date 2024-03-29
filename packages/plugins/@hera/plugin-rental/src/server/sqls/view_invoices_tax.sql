@@ -6,14 +6,16 @@ WITH RECURSIVE
     SELECT
       purchaser_id AS company_id, -- 发票进项取购买方公司id,作为本公司id标识
       authentication_date AS "date", -- 发票进项取认证日期,作为计算月份的来源
-      tax_amount
+      tax_amount,
+      "state"
     FROM
       invoice_input
     UNION ALL
     SELECT
       purchaser_id AS company_id, -- 完税凭证,同发票进项字段
       authentication_date AS "date", -- 完税凭证,同发票进项字段
-      tax_amount
+      tax_amount,
+      "state"
     FROM
       invoice_receipt
   ),
@@ -22,11 +24,12 @@ WITH RECURSIVE
     SELECT
       seller_id AS company_id, -- 发票销项取销售方id,作为本公司id标识
       "Invoicing_date" AS "date", -- 发票销项取开票日期,作为计算月份的来源
-      tax_amount
+      tax_amount,
+      "state"
     FROM
       invoice_output
   ),
-  -- 聚合A_INPUT: 1. 筛选出日期在'2022-01-01'之后的数据 2. 按照 company_id 和 date 聚合计算后的月份 "MONTH" 3. 获取对应月份的进项税额 input_tax_amount
+  -- 聚合A_INPUT: 1. 按照 company_id 和 date 聚合计算后的月份 "MONTH" 2. 获取对应月份的进项税额 input_tax_amount
   B_INPUT AS (
     SELECT
       company_id,
@@ -35,12 +38,13 @@ WITH RECURSIVE
     FROM
       A_INPUT
     WHERE
-      "date" >= '2022-01-01'
+      "date" >= '2022-01-01' -- 筛选出日期在'2022-01-01'之后的数据 
+      AND "state" = '1' -- 筛选出所有状态为正常的记录, 正常-1,作废-2
     GROUP BY
       company_id,
       "MONTH"
   ),
-  -- 聚合B_OUTPUT: 1.筛选出日期在'2022-01-01'之后的数据 2. 按照 company_id 和 date 聚合计算后的月份 "MONTH" 3. 获取对应月份的销项税额 output_tax_amount
+  -- 聚合B_OUTPUT: 1. 按照 company_id 和 date 聚合计算后的月份 "MONTH" 2. 获取对应月份的销项税额 output_tax_amount
   B_OUTPUT AS (
     SELECT
       company_id,
@@ -49,7 +53,8 @@ WITH RECURSIVE
     FROM
       A_OUTPUT
     WHERE
-      "date" >= '2022-01-01'
+      "date" >= '2022-01-01' -- 筛选出日期在'2022-01-01'之后的数据 
+      AND "state" = '1' -- 筛选出所有状态为正常的记录, 正常-1,作废-2
     GROUP BY
       company_id,
       "MONTH"
@@ -66,7 +71,7 @@ WITH RECURSIVE
       FULL JOIN B_OUTPUT ON B_INPUT.company_id = B_OUTPUT.company_id
       AND B_INPUT."MONTH" = B_OUTPUT."MONTH"
   ),
-  -- JOIN 两个表,B_INPUT, B_OUTPUT: 1. 聚合两个表,保留全部记录 2. 聚合后的表,如果某个表的对应取值字段为null,则置为0
+  -- 计算出中间值 excessive_tax_amount, 用于之后的计算
   D_INTIAL_TAX AS (
     SELECT
       company_id,
