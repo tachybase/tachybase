@@ -47,10 +47,11 @@ export async function referentialIntegrityCheck(options: ReferentialIntegrityChe
     }
 
     if (onDelete === 'RESTRICT') {
+      const data = await sourceRepository.find({ filter });
+      const transData = data.map((item) => `id:${item.id} 数据:${item[sourceCollection.options.titleField]}`).join(',');
       const error = new Error(
-        `此数据被 ${
-          sourceCollection.options.title || sourceCollectionName
-        } 表关联，关联字段(as)：${sourceField}，不能删除！`,
+        `这条无法删除，还有存在的使用它的数据，这条数据为 
+        ${sourceCollection.options.title || sourceCollectionName} 的：${transData}`,
       );
       throw error;
     }
