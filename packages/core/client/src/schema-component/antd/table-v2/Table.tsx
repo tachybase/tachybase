@@ -285,7 +285,7 @@ export const Table: any = withDynamicSchemaProps(
       const isTableSelector = schema?.parent?.['x-decorator'] === 'TableSelectorProvider';
       const ctx = isTableSelector ? useTableSelectorContext() : useTableBlockContext();
       const { expandFlag, allIncludesChildren } = ctx;
-      const onRowDragEnd = useMemoizedFn(others.onRowDragEnd || (() => { }));
+      const onRowDragEnd = useMemoizedFn(others.onRowDragEnd || (() => {}));
       const paginationProps = usePaginationProps(pagination1, pagination2);
       const [expandedKeys, setExpandesKeys] = useState([]);
       const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>(field?.data?.selectedRowKeys || []);
@@ -437,40 +437,40 @@ export const Table: any = withDynamicSchemaProps(
       const restProps = {
         rowSelection: rowSelection
           ? {
-            type: 'checkbox',
-            selectedRowKeys: selectedRowKeys,
-            onChange(selectedRowKeys: any[], selectedRows: any[]) {
-              field.data = field.data || {};
-              field.data.selectedRowKeys = selectedRowKeys;
-              setSelectedRowKeys(selectedRowKeys);
-              onRowSelectionChange?.(selectedRowKeys, selectedRows);
-            },
-            getCheckboxProps(record) {
-              return {
-                'aria-label': `checkbox`,
-              };
-            },
-            renderCell: (checked, record, index, originNode) => {
-              if (!dragSort && !showIndex) {
-                return originNode;
-              }
-              const current = props?.pagination?.current;
-              const pageSize = props?.pagination?.pageSize || 20;
-              if (current) {
-                index = index + (current - 1) * pageSize + 1;
-              } else {
-                index = index + 1;
-              }
-              if (record.__index) {
-                index = extractIndex(record.__index);
-              }
-              return (
-                <div
-                  role="button"
-                  aria-label={`table-index-${index}`}
-                  className={classNames(
-                    checked ? 'checked' : null,
-                    css`
+              type: 'checkbox',
+              selectedRowKeys: selectedRowKeys,
+              onChange(selectedRowKeys: any[], selectedRows: any[]) {
+                field.data = field.data || {};
+                field.data.selectedRowKeys = selectedRowKeys;
+                setSelectedRowKeys(selectedRowKeys);
+                onRowSelectionChange?.(selectedRowKeys, selectedRows);
+              },
+              getCheckboxProps(record) {
+                return {
+                  'aria-label': `checkbox`,
+                };
+              },
+              renderCell: (checked, record, index, originNode) => {
+                if (!dragSort && !showIndex) {
+                  return originNode;
+                }
+                const current = props?.pagination?.current;
+                const pageSize = props?.pagination?.pageSize || 20;
+                if (current) {
+                  index = index + (current - 1) * pageSize + 1;
+                } else {
+                  index = index + 1;
+                }
+                if (record.__index) {
+                  index = extractIndex(record.__index);
+                }
+                return (
+                  <div
+                    role="button"
+                    aria-label={`table-index-${index}`}
+                    className={classNames(
+                      checked ? 'checked' : null,
+                      css`
                         position: relative;
                         display: flex;
                         float: left;
@@ -486,8 +486,8 @@ export const Table: any = withDynamicSchemaProps(
                           }
                         }
                       `,
-                    {
-                      [css`
+                      {
+                        [css`
                           &:hover {
                             .nb-table-index {
                               opacity: 0;
@@ -497,29 +497,29 @@ export const Table: any = withDynamicSchemaProps(
                             }
                           }
                         `]: isRowSelect,
-                    },
-                  )}
-                >
-                  <div
-                    className={classNames(
-                      checked ? 'checked' : null,
-                      css`
+                      },
+                    )}
+                  >
+                    <div
+                      className={classNames(
+                        checked ? 'checked' : null,
+                        css`
                           position: relative;
                           display: flex;
                           align-items: center;
                           justify-content: space-evenly;
                         `,
-                    )}
-                  >
-                    {dragSort && <SortHandle id={getRowKey(record)} />}
-                    {showIndex && <TableIndex index={index} />}
-                  </div>
-                  {isRowSelect && (
-                    <div
-                      className={classNames(
-                        'nb-origin-node',
-                        checked ? 'checked' : null,
-                        css`
+                      )}
+                    >
+                      {dragSort && <SortHandle id={getRowKey(record)} />}
+                      {showIndex && <TableIndex index={index} />}
+                    </div>
+                    {isRowSelect && (
+                      <div
+                        className={classNames(
+                          'nb-origin-node',
+                          checked ? 'checked' : null,
+                          css`
                             position: absolute;
                             right: 50%;
                             transform: translateX(50%);
@@ -527,28 +527,28 @@ export const Table: any = withDynamicSchemaProps(
                               display: none;
                             }
                           `,
-                      )}
-                    >
-                      {originNode}
-                    </div>
-                  )}
-                </div>
-              );
-            },
-            ...rowSelection,
-          }
+                        )}
+                      >
+                        {originNode}
+                      </div>
+                    )}
+                  </div>
+                );
+              },
+              ...rowSelection,
+            }
           : undefined,
       };
       const SortableWrapper = useCallback<React.FC>(
         ({ children }) => {
           return dragSort
             ? React.createElement<Omit<SortableContextProps, 'children'>>(
-              SortableContext,
-              {
-                items: field.value?.map?.(getRowKey) || [],
-              },
-              children,
-            )
+                SortableContext,
+                {
+                  items: field.value?.map?.(getRowKey) || [],
+                },
+                children,
+              )
             : React.createElement(React.Fragment, {}, children);
         },
         [field, dragSort],
@@ -560,12 +560,12 @@ export const Table: any = withDynamicSchemaProps(
       const scroll = useMemo(() => {
         return fixedBlock
           ? {
-            x: 'max-content',
-            y: tableHeight,
-          }
+              x: 'max-content',
+              y: tableHeight,
+            }
           : {
-            x: 'max-content',
-          };
+              x: 'max-content',
+            };
       }, [fixedBlock, tableHeight]);
       return (
         <div
@@ -576,6 +576,7 @@ export const Table: any = withDynamicSchemaProps(
               .ant-table-cell {
                 text-align: center;
               }
+            }
             .ant-table-wrapper {
               height: 100%;
               .ant-spin-nested-loading {
