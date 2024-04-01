@@ -18,8 +18,6 @@
     "nocobase": "nocobase",
     "pm": "nocobase pm",
     "pm2": "nocobase pm2",
-    "release": "lerna publish",
-    "release:force": "lerna publish from-package --yes",
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "nocobase start",
     "tar": "nocobase tar",
@@ -27,8 +25,7 @@
     "test": "nocobase test",
     "test:client": "nocobase test:client",
     "test:server": "nocobase test:server",
-    "ts": "nocobase test:server",
-    "version:alpha": "lerna version prerelease --preid alpha --force-publish=* --no-git-tag-version -m \"chore(versions): publish packages %s\""
+    "ts": "nocobase test:server"
   },
   "lint-staged": {
     "*.{js,json,sql}": [
@@ -43,19 +40,6 @@
       "pre-commit": "pnpm lint-staged",
       "commit-msg": "commitlint --edit"
     }
-  },
-  "resolutions": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@typescript-eslint/parser": "^6.2.0",
-    "antd": "5.12.8",
-    "nwsapi": "2.2.7",
-    "prettier": "^3.1.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-router": "^6.11.2",
-    "react-router-dom": "^6.11.2",
-    "tsx": "^4.6.2"
   },
   "dependencies": {
     "pm2": "^5.2.0"
@@ -96,6 +80,22 @@
   "volta": {
     "node": "20.12.0",
     "pnpm": "8.15.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/node": "^20.12.2",
+      "@types/react": "^17.0.0",
+      "@types/react-dom": "^17.0.0",
+      "@typescript-eslint/parser": "^6.2.0",
+      "antd": "5.12.8",
+      "nwsapi": "2.2.7",
+      "prettier": "^3.1.1",
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0",
+      "react-router": "^6.11.2",
+      "react-router-dom": "^6.11.2",
+      "tsx": "^4.6.2"
+    }
   },
   "licenses": [
     {

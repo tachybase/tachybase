@@ -16,7 +16,7 @@
     "@types/koa": "^2.13.4",
     "@types/koa-bodyparser": "^4.3.4",
     "@types/lodash": "^4.14.177",
-    "@types/node": "*",
+    "@types/node": "^20.12.2",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
