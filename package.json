@@ -18,6 +18,8 @@
     "nocobase": "nocobase",
     "pm": "nocobase pm",
     "pm2": "nocobase pm2",
+    "release": "lerna publish",
+    "release:force": "lerna publish from-package --yes",
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "nocobase start",
     "tar": "nocobase tar",
@@ -25,7 +27,8 @@
     "test": "nocobase test",
     "test:client": "nocobase test:client",
     "test:server": "nocobase test:server",
-    "ts": "nocobase test:server"
+    "ts": "nocobase test:server",
+    "version:alpha": "lerna version prerelease --preid alpha --force-publish=* --no-git-tag-version -m \"chore(versions): publish packages %s\""
   },
   "lint-staged": {
     "*.{js,json,sql}": [
@@ -83,15 +86,6 @@
   },
   "pnpm": {
     "overrides": {
-      "@formily/core": "2.2.27",
-      "@formily/grid": "2.2.27",
-      "@formily/json-schema": "2.2.27",
-      "@formily/path": "2.2.27",
-      "@formily/react": "2.2.27",
-      "@formily/reactive": "2.2.27",
-      "@formily/reactive-react": "2.2.27",
-      "@formily/shared": "2.2.27",
-      "@formily/validator": "2.2.27",
       "@types/node": "^20.12.2",
       "@types/react": "^17.0.0",
       "@types/react-dom": "^17.0.0",
