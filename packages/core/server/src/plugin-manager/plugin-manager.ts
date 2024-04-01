@@ -135,9 +135,9 @@ export class PluginManager {
    * @internal
    */
   static getPluginPkgPrefix() {
-    return (process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@nocobase/preset-,@nocobase/plugin-pro-').split(
-      ',',
-    );
+    return (
+      process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@nocobase/preset-,@nocobase/plugin-pro-,@hera/plugin-'
+    ).split(',');
   }
 
   /**
@@ -156,7 +156,7 @@ export class PluginManager {
           console.log(`Try to find ${packageName}`);
           await execa('npm', ['v', packageName, 'versions']);
           console.log(`${packageName} downloading`);
-          await execa('yarn', ['add', packageName, '-W']);
+          await execa('pnpm', ['add', packageName, '-W']);
           console.log(`${packageName} downloaded`);
           return packageName;
         } catch (error) {
@@ -254,7 +254,7 @@ export class PluginManager {
       await this.app.db.auth({ retry: 1 });
       const installed = await this.app.isInstalled();
       if (!installed) {
-        console.log(`yarn pm add ${pluginName}`);
+        console.log(`pnpm pm add ${pluginName}`);
         return;
       }
     } catch (error) {
@@ -629,7 +629,7 @@ export class PluginManager {
           }
         }),
       );
-      await execa('yarn', ['nocobase', 'postinstall']);
+      await execa('pnpm', ['nocobase', 'postinstall']);
     };
     if (options?.force) {
       await this.repository.destroy({
@@ -671,7 +671,7 @@ export class PluginManager {
     if (options?.removeDir) {
       await removeDir();
     }
-    await execa('yarn', ['nocobase', 'refresh']);
+    await execa('pnpm', ['nocobase', 'refresh']);
   }
 
   /**
@@ -737,7 +737,7 @@ export class PluginManager {
       await this.add(opts['name'] || urlOrName, opts, true);
     }
     await this.app.emitStartedEvent();
-    await execa('yarn', ['nocobase', 'postinstall']);
+    await execa('pnpm', ['nocobase', 'postinstall']);
   }
 
   /**

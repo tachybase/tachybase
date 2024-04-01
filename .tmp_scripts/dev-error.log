@@ -1,0 +1,740 @@
+error - ./packages/core/client/src/schema-component/common/utils/logic.js:4:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/common/utils'
+error - ./packages/core/client/src/api-client/hooks/assign.ts:2:0-34
+Module not found: Error: Can't resolve 'deepmerge' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/api-client/hooks'
+error - ./packages/core/client/src/application/utils/globalDeps.ts:3:0-62
+Module not found: Error: Can't resolve '@dnd-kit/accessibility' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/application/utils'
+error - ./packages/core/client/src/application/utils/globalDeps.ts:7:0-54
+Module not found: Error: Can't resolve '@dnd-kit/utilities' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/application/utils'
+error - ./packages/core/client/src/block-provider/BlockProvider.tsx:15:0-30
+Module not found: Error: Can't resolve 'deepmerge' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/block-provider'
+error - ./packages/core/client/src/collection-manager/templates/components/sql-collection/FieldsConfigure.tsx:14:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/collection-manager/templates/components/sql-collection'
+error - ./packages/core/client/src/index.ts:2:0-32
+Module not found: Error: Can't resolve 'dayjs/plugin/isBetween' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src'
+error - ./packages/core/client/src/index.ts:3:0-36
+Module not found: Error: Can't resolve 'dayjs/plugin/isSameOrAfter' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src'
+error - ./packages/core/client/src/index.ts:4:0-37
+Module not found: Error: Can't resolve 'dayjs/plugin/isSameOrBefore' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src'
+error - ./packages/core/client/src/index.ts:5:0-30
+Module not found: Error: Can't resolve 'dayjs/plugin/isoWeek' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src'
+error - ./packages/core/client/src/index.ts:6:0-33
+Module not found: Error: Can't resolve 'dayjs/plugin/localeData' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src'
+error - ./packages/core/client/src/index.ts:7:0-36
+Module not found: Error: Can't resolve 'dayjs/plugin/quarterOfYear' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src'
+error - ./packages/core/client/src/index.ts:8:0-26
+Module not found: Error: Can't resolve 'dayjs/plugin/utc' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src'
+error - ./packages/core/client/src/index.ts:9:0-30
+Module not found: Error: Can't resolve 'dayjs/plugin/weekday' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src'
+error - ./packages/core/client/src/nocobase-buildin-plugin/plugins/LocalePlugin.ts:11:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/nocobase-buildin-plugin/plugins'
+error - ./packages/core/client/src/nocobase-buildin-plugin/plugins/LocalePlugin.ts:73:21-62
+Module not found: Error: Can't resolve 'dayjs/locale' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/nocobase-buildin-plugin/plugins'
+error - ./packages/core/client/src/pm/PluginDetail.tsx:4:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/pm'
+error - ./packages/core/client/src/pm/PluginDetail.tsx:5:0-53
+Module not found: Error: Can't resolve 'dayjs/plugin/relativeTime' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/pm'
+error - ./packages/core/client/src/schema-component/antd/association-field/InternalCascadeSelect.tsx:18:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/association-field'
+error - ./packages/core/client/src/schema-component/antd/date-picker/ReadPretty.tsx:6:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/date-picker'
+error - ./packages/core/client/src/schema-component/antd/date-picker/util.ts:3:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/date-picker'
+error - ./packages/core/client/src/schema-component/antd/expand-action/Expand.Action.tsx:9:0-45
+Module not found: Error: Can't resolve 'rc-util/lib/ref' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/expand-action'
+error - ./packages/core/client/src/schema-component/antd/input-number/ReadPretty.tsx:5:0-35
+Module not found: Error: Can't resolve 'd3-format' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/input-number'
+error - ./packages/core/client/src/schema-component/antd/nanoIDInput/NanoIDInput.tsx:4:0-52
+Module not found: Error: Can't resolve 'nanoid' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/nanoIDInput'
+error - ./packages/core/client/src/schema-component/antd/remote-select/RemoteSelect.tsx:14:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/remote-select'
+error - ./packages/core/client/src/schema-component/antd/time-picker/ReadPretty.tsx:5:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/time-picker'
+error - ./packages/core/client/src/schema-component/antd/unixTimestamp/UnixTimestamp.tsx:7:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/unixTimestamp'
+error - ./packages/core/client/src/schema-component/antd/variable/Input.tsx:24:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-component/antd/variable'
+error - ./packages/core/client/src/schema-initializer/components/CreateRecordAction.tsx:12:0-45
+Module not found: Error: Can't resolve 'rc-util/lib/ref' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-initializer/components'
+error - ./packages/core/client/src/schema-settings/DataTemplates/utils.tsx:15:0-33
+Module not found: Error: Can't resolve 'lru-cache' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-settings/DataTemplates'
+error - ./packages/core/client/src/schema-settings/DateFormat/ExpiresRadio.tsx:7:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/core/client/src/schema-settings/DateFormat'
+error - ./packages/plugins/@hera/plugin-core/src/client/components/SignaturePad.tsx:11:0-45
+Module not found: Error: Can't resolve 'throttle-debounce' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-core/src/client/components'
+error - ./packages/plugins/@hera/plugin-core/src/client/hooks/useFilterBlockActionProps.tsx:9:0-24
+Module not found: Error: Can't resolve 'flat' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-core/src/client/hooks'
+error - ./packages/plugins/@hera/plugin-mobile/src/client/schema-initializer/NoticeBlockInitializer.tsx:12:0-40
+Module not found: Error: Can't resolve 'antd-mobile' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-mobile/src/client/schema-initializer'
+error - ./packages/plugins/@hera/plugin-mobile/src/client/schema-initializer/SwiperBlockInitializer.tsx:14:0-44
+Module not found: Error: Can't resolve 'antd-mobile' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-mobile/src/client/schema-initializer'
+error - ./packages/plugins/@hera/plugin-mobile/src/client/schema-initializer/TabSearchBlockInitializer.tsx:18:0-62
+Module not found: Error: Can't resolve 'antd-mobile' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-mobile/src/client/schema-initializer'
+error - ./packages/plugins/@hera/plugin-rental/src/client/custom-components/RecordFeeConverted.tsx:8:0-23
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-rental/src/client/custom-components'
+error - ./packages/plugins/@hera/plugin-rental/src/client/custom-components/RecordFeeConvertedRead.tsx:8:0-23
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-rental/src/client/custom-components'
+error - ./packages/plugins/@hera/plugin-rental/src/client/custom-components/RecordProductScope.tsx:5:0-23
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-rental/src/client/custom-components'
+error - ./packages/plugins/@hera/plugin-rental/src/client/custom-components/RecordSummary.tsx:8:0-23
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-rental/src/client/custom-components'
+error - ./packages/plugins/@hera/plugin-rental/src/client/custom-components/RecordTotalPrice.tsx:10:0-23
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-rental/src/client/custom-components'
+error - ./packages/plugins/@hera/plugin-rental/src/client/schema-initializer/actions/RecordPrintSetupMargingTopInitializer.tsx:12:0-34
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-rental/src/client/schema-initializer/actions'
+error - ./packages/plugins/@hera/plugin-rental/src/client/schema-initializer/actions/SettlementExportExcel.tsx:3:0-30
+Module not found: Error: Can't resolve 'exceljs' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-rental/src/client/schema-initializer/actions'
+error - ./packages/plugins/@hera/plugin-rental/src/client/schema-initializer/actions/SettlementExportExcel.tsx:4:0-36
+Module not found: Error: Can't resolve 'file-saver' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-rental/src/client/schema-initializer/actions'
+error - ./packages/plugins/@hera/plugin-rental/src/client/schema-initializer/blocks/UnusedRecordsBlockInitializer.tsx:11:0-49
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-rental/src/client/schema-initializer/blocks'
+error - ./packages/plugins/@hera/plugin-websocket/src/client/schema-initializer/WebsocketBlockInitializer.tsx:11:0-52
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@hera/plugin-websocket/src/client/schema-initializer'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/NewRole.tsx:7:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/RolesManagement.tsx:7:0-53
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/RolesManagement.tsx:9:0-40
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/RolesMenu.tsx:8:0-71
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/RolesMenu.tsx:9:0-62
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/RolesMenu.tsx:12:0-40
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/locale.ts:1:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/AvailableActions.tsx:4:0-28
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/GeneralPermissions.tsx:7:0-63
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/GeneralPermissions.tsx:8:0-41
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/GeneralPermissions.tsx:10:0-41
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/GeneralPermissions.tsx:11:0-31
+Module not found: Error: Can't resolve 'lodash/uniq' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/GeneralPermissions.tsx:13:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/GeneralPermissions.tsx:14:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/GeneralPermissions.tsx:15:0-39
+Module not found: Error: Can't resolve 'ahooks' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/MenuItemsProvider.tsx:4:0-28
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/MenuPermissions.tsx:9:0-48
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/MenuPermissions.tsx:10:0-63
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/MenuPermissions.tsx:11:0-30
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/MenuPermissions.tsx:13:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/MenuPermissions.tsx:14:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/MenuPermissions.tsx:17:0-39
+Module not found: Error: Can't resolve 'ahooks' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/Permissions.tsx:6:0-28
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/PluginPermissions.tsx:9:0-48
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/PluginPermissions.tsx:11:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/PluginPermissions.tsx:12:0-33
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/StrategyActions.tsx:5:0-51
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/StrategyActions.tsx:6:0-52
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/StrategyActions.tsx:8:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/permissions/style.ts:3:0-42
+Module not found: Error: Can't resolve 'antd-style' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/permissions'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/schemas/roles.ts:3:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/schemas'
+error - ./packages/plugins/@nocobase/plugin-acl/src/client/schemas/roles.ts:6:0-31
+Module not found: Error: Can't resolve 'lodash/pick' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-acl/src/client/schemas'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/BulkEditAction.Settings.tsx:2:0-48
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/BulkEditAction.Settings.tsx:5:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/CreateFormBulkEditBlockInitializer.tsx:8:0-49
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/bulkEditFormItemSettings.ts:4:0-61
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/bulkEditFormItemSettings.ts:5:0-58
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/bulkEditFormItemSettings.ts:7:0-23
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/bulkEditFormItemSettings.ts:8:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component/BulkEditField.tsx:8:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component/BulkEditField.tsx:9:0-67
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component/BulkEditField.tsx:10:0-40
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component/BulkEditField.tsx:12:0-47
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component/BulkEditField.tsx:14:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/createBulkEditBlockUISchema.ts:2:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/utils.tsx:6:0-36
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/utils.tsx:8:0-81
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/utils.tsx:9:0-35
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-edit/src/client/utils.tsx:12:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-edit/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-update/src/client/BulkUpdateAction.Settings.tsx:3:0-48
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-update/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-update/src/client/BulkUpdateAction.Settings.tsx:4:0-42
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-update/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-update/src/client/BulkUpdateAction.Settings.tsx:6:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-update/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-update/src/client/locale/index.ts:2:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-update/src/client/locale'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-update/src/client/utils.tsx:5:0-88
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-update/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-bulk-update/src/client/utils.tsx:8:0-36
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-bulk-update/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-duplicate/src/client/DuplicateAction.Settings.tsx:9:0-56
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-duplicate/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-duplicate/src/client/DuplicateAction.Settings.tsx:10:0-86
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-duplicate/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-duplicate/src/client/DuplicateAction.Settings.tsx:12:0-40
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-duplicate/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-duplicate/src/client/DuplicateAction.Settings.tsx:13:0-35
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-duplicate/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-duplicate/src/client/DuplicateAction.Settings.tsx:15:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-duplicate/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-duplicate/src/client/DuplicateAction.tsx:11:0-39
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-duplicate/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-duplicate/src/client/DuplicateAction.tsx:12:0-84
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-duplicate/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-duplicate/src/client/DuplicateAction.tsx:14:0-35
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-duplicate/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-duplicate/src/client/DuplicateAction.tsx:16:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-duplicate/src/client'
+error - ./packages/plugins/@nocobase/plugin-action-print/src/client/utils.ts:4:0-49
+Module not found: Error: Can't resolve 'react-to-print' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-action-print/src/client'
+error - ./packages/plugins/@nocobase/plugin-auth/src/client/pages/AuthLayout.tsx:4:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-auth/src/client/pages'
+error - ./packages/plugins/@nocobase/plugin-auth/src/client/pages/SignInPage.tsx:9:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-auth/src/client/pages'
+error - ./packages/plugins/@nocobase/plugin-backup-restore/src/client/Configuration.tsx:7:0-96
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-backup-restore/src/client'
+error - ./packages/plugins/@nocobase/plugin-backup-restore/src/client/Configuration.tsx:8:0-44
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-backup-restore/src/client'
+error - ./packages/plugins/@nocobase/plugin-backup-restore/src/client/Configuration.tsx:11:0-36
+Module not found: Error: Can't resolve 'file-saver' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-backup-restore/src/client'
+error - ./packages/plugins/@nocobase/plugin-backup-restore/src/client/locale/index.ts:2:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-backup-restore/src/client/locale'
+error - ./packages/plugins/@nocobase/plugin-calendar/src/locale/index.ts:3:0-55
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-calendar/src/locale'
+error - ./packages/plugins/@nocobase/plugin-cas/src/client/locale/index.ts:1:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-cas/src/client/locale'
+error - ./packages/plugins/@nocobase/plugin-charts/src/client/select/shared.ts:5:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-charts/src/client/select'
+error - ./packages/plugins/@nocobase/plugin-charts/src/client/settings/queryTypes.ts:1:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-charts/src/client/settings'
+error - ./packages/plugins/@nocobase/plugin-custom-request/src/client/components/CustomRequestActionDesigner.tsx:8:0-46
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-custom-request/src/client/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/BreadcumbTitle.tsx:3:0-50
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/BreadcumbTitle.tsx:5:0-46
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/AddFieldAction.tsx:8:0-49
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/AddFieldAction.tsx:9:0-46
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/AddFieldAction.tsx:10:0-51
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/AddFieldAction.tsx:11:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/AddFieldAction.tsx:12:0-40
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/AddFieldAction.tsx:13:0-35
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/AddFieldAction.tsx:15:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/CollectionFields.tsx:7:0-43
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/CollectionFields.tsx:8:0-85
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/CollectionFields.tsx:9:0-31
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/CollectionFields.tsx:11:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/ConfigurationTable.tsx:7:0-51
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/ConfigurationTable.tsx:8:0-43
+Module not found: Error: Can't resolve '@formily/reactive' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/ConfigurationTable.tsx:9:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/ConfigurationTable.tsx:11:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/ConfigurationTable.tsx:14:0-31
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/ConfigurationTabs.tsx:7:0-92
+Module not found: Error: Can't resolve '@dnd-kit/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/ConfigurationTabs.tsx:8:0-58
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/ConfigurationTabs.tsx:9:0-42
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/ConfigurationTabs.tsx:11:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditCollectionAction.tsx:10:0-46
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditCollectionAction.tsx:11:0-41
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditCollectionAction.tsx:12:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditCollectionAction.tsx:14:0-41
+Module not found: Error: Can't resolve 'lodash/cloneDeep' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditCollectionAction.tsx:15:0-31
+Module not found: Error: Can't resolve 'lodash/omit' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditCollectionAction.tsx:17:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditFieldAction.tsx:10:0-46
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditFieldAction.tsx:11:0-41
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditFieldAction.tsx:12:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditFieldAction.tsx:13:0-41
+Module not found: Error: Can't resolve 'lodash/cloneDeep' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditFieldAction.tsx:14:0-31
+Module not found: Error: Can't resolve 'lodash/omit' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditFieldAction.tsx:15:0-29
+Module not found: Error: Can't resolve 'lodash/set' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/EditFieldAction.tsx:17:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/CollectionFieldInterfaceSelect.tsx:5:0-61
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/CollectionFieldInterfaceSelect.tsx:6:0-35
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/CollectionName.tsx:5:0-52
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/CollectionName.tsx:6:0-66
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/CollectionName.tsx:7:0-42
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/CollectionName.tsx:8:0-29
+Module not found: Error: Can't resolve 'classnames' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/CollectionName.tsx:10:0-65
+Module not found: Error: Can't resolve '@formily/antd-v5/esm/__builtins__' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/FieldTitleInput.tsx:5:0-42
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/FieldTitleInput.tsx:6:0-29
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/FieldTitleInput.tsx:7:0-34
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/FieldType.tsx:4:0-42
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/FieldType.tsx:6:0-35
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/TitleField.tsx:7:0-48
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/TitleField.tsx:8:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/UnSupportFields.tsx:4:0-38
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/UnSupportFields.tsx:5:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/index.tsx:7:0-30
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components/index.tsx:8:0-61
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/components'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/hooks.ts:3:0-31
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/hooks.ts:4:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/index.tsx:4:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema/collectionFields.ts:3:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema/collections.ts:5:0-40
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema/collections.ts:6:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema/collections.ts:7:0-31
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema/collections.ts:8:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CollectionsManager/schema'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CreateDatabaseConnectAction.tsx:6:0-63
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CreateDatabaseConnectAction.tsx:7:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CreateDatabaseConnectAction.tsx:9:0-47
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/CreateDatabaseConnectAction.tsx:11:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/DatabaseConnectionManager.tsx:6:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/DatabaseConnectionManager.tsx:8:0-28
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/DatabaseConnectionManager.tsx:9:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/EditDatabaseConnectionAction.tsx:7:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/EditDatabaseConnectionAction.tsx:10:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/EditDatabaseConnectionAction.tsx:11:0-51
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/AddCategoryAction.tsx:7:0-49
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/AddCategoryAction.tsx:8:0-41
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/AddCategoryAction.tsx:9:0-35
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/AddCategoryAction.tsx:11:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFields.tsx:13:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFields.tsx:14:0-43
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFields.tsx:15:0-69
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFields.tsx:16:0-58
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFields.tsx:18:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFieldsTable.tsx:5:0-43
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFieldsTable.tsx:6:0-95
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFieldsTable.tsx:7:0-63
+Module not found: Error: Can't resolve '@formily/react/esm/hooks/useAttach' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFieldsTableArray.tsx:10:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFieldsTableArray.tsx:11:0-84
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFieldsTableArray.tsx:13:0-29
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFieldsTableArray.tsx:14:0-51
+Module not found: Error: Can't resolve 'classnames' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFieldsTableArray.tsx:15:0-35
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/CollectionFieldsTableArray.tsx:17:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTable.tsx:7:0-41
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTable.tsx:8:0-43
+Module not found: Error: Can't resolve '@formily/reactive' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTable.tsx:9:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTable.tsx:11:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTabs.tsx:8:0-49
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTabs.tsx:9:0-120
+Module not found: Error: Can't resolve '@dnd-kit/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTabs.tsx:10:0-58
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTabs.tsx:11:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTabs.tsx:12:0-63
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTabs.tsx:13:0-23
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/ConfigurationTabs.tsx:15:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/EditCategoryAction.tsx:7:0-41
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/EditCategoryAction.tsx:8:0-35
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/index.tsx:1:0-56
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/schemas/collections.ts:5:0-40
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/schemas'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/schemas/collections.ts:6:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/schemas'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/schemas/collections.ts:7:0-31
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/schemas'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/schemas/collections.ts:8:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/Configuration/schemas'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager/index.tsx:4:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/MainDataSourceManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/DataSourceTable.tsx:3:0-28
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/PermisionProvider.tsx:7:0-31
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/PermisionProvider.tsx:9:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/RoleConfigure.tsx:5:0-46
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/RoleConfigure.tsx:7:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/RolesResourcesActions.tsx:6:0-56
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/RolesResourcesActions.tsx:7:0-51
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/RolesResourcesActions.tsx:8:0-44
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/RolesResourcesActions.tsx:9:0-33
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/RolesResourcesActions.tsx:11:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/ScopeSelect.tsx:4:0-43
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/StrategyActions.tsx:5:0-51
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/StrategyActions.tsx:6:0-52
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/StrategyActions.tsx:8:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/index.tsx:4:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/index.tsx:5:0-28
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/schemas/roleCollections.ts:3:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/schemas'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/schemas/useSaveRoleResourceAction.ts:4:0-41
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/schemas'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager/style.ts:3:0-42
+Module not found: Error: Can't resolve 'antd-style' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/PermissionManager'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/ViewDatabaseConnectionAction.tsx:7:0-30
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/ViewDatabaseConnectionAction.tsx:8:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/component/ViewDatabaseConnectionAction.tsx:9:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/component'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/hooks/index.ts:4:0-51
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/hooks'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/hooks/index.ts:5:0-31
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/hooks'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/hooks/index.ts:6:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/hooks'
+error - ./packages/plugins/@nocobase/plugin-data-source-manager/src/client/schema/index.ts:2:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-source-manager/src/client/schema'
+error - ./packages/plugins/@nocobase/plugin-data-visualization/src/client/block/ChartDataProvider.tsx:7:0-39
+Module not found: Error: Can't resolve 'ahooks' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-visualization/src/client/block'
+error - ./packages/plugins/@nocobase/plugin-data-visualization/src/client/block/transformers.tsx:5:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-visualization/src/client/block'
+error - ./packages/plugins/@nocobase/plugin-data-visualization/src/client/filter/FilterItemInitializers.tsx:18:0-39
+Module not found: Error: Can't resolve 'ahooks' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-visualization/src/client/filter'
+error - ./packages/plugins/@nocobase/plugin-data-visualization/src/client/filter/FilterProvider.tsx:7:0-39
+Module not found: Error: Can't resolve 'ahooks' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-visualization/src/client/filter'
+error - ./packages/plugins/@nocobase/plugin-data-visualization/src/client/filter/FilterVariableInput.tsx:6:0-39
+Module not found: Error: Can't resolve 'ahooks' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-visualization/src/client/filter'
+error - ./packages/plugins/@nocobase/plugin-data-visualization/src/client/filter/utils.ts:6:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-visualization/src/client/filter'
+error - ./packages/plugins/@nocobase/plugin-data-visualization/src/client/hooks/filter.ts:14:0-39
+Module not found: Error: Can't resolve 'ahooks' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-visualization/src/client/hooks'
+error - ./packages/plugins/@nocobase/plugin-data-visualization/src/client/hooks/filter.ts:18:0-34
+Module not found: Error: Can't resolve 'deepmerge' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-data-visualization/src/client/hooks'
+error - ./packages/plugins/@nocobase/plugin-export/src/client/useExportAction.ts:5:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-export/src/client'
+error - ./packages/plugins/@nocobase/plugin-file-manager/src/client/FileStorage.tsx:7:0-63
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-file-manager/src/client'
+error - ./packages/plugins/@nocobase/plugin-file-manager/src/client/FileStorage.tsx:11:0-23
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-file-manager/src/client'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/Gantt.Settings.tsx:3:0-58
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/GanttActionInitializers.tsx:1:0-48
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/GanttBlockInitializer.tsx:6:0-49
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/GanttBlockInitializer.tsx:7:0-46
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/GanttBlockInitializer.tsx:8:0-54
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/GanttBlockInitializer.tsx:10:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/GanttBlockProvider.tsx:5:0-42
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/calendar/calendar.tsx:4:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/calendar'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/calendar/style.tsx:3:0-44
+Module not found: Error: Can't resolve '@ctrl/tinycolor' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/calendar'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/calendar/top-part-of-calendar.tsx:3:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/calendar'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt/Event.tsx:1:0-42
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt/gantt.tsx:11:0-39
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt/gantt.tsx:12:0-64
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt/gantt.tsx:14:0-31
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt/gantt.tsx:15:0-34
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt/gantt.tsx:17:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/gantt'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/grid/grid-body.tsx:4:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/grid'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/other/horizontal-scroll.tsx:4:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/other'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/other/tooltip.tsx:4:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/other'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/other/vertical-scroll.tsx:3:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/other'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/bar/bar-display.tsx:3:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/bar'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/bar/bar-small.tsx:3:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/bar'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/bar/bar.tsx:3:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/bar'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/bar/style.tsx:3:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/bar'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/milestone/milestone.tsx:4:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/milestone'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/milestone/style.tsx:3:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/milestone'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/project/project.tsx:3:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/project'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/project/style.tsx:3:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/project'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item/task-item.tsx:5:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client/components/task-item'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/createGanttBlockUISchema.tsx:2:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client'
+error - ./packages/plugins/@nocobase/plugin-gantt/src/client/utils.tsx:2:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-gantt/src/client'
+error - ./packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/GraphDrawPage.tsx:14:0-34
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-graph-collection-manager/src/client'
+error - ./packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/GraphDrawPage.tsx:19:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-graph-collection-manager/src/client'
+error - ./packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/action-hooks.tsx:11:0-41
+Module not found: Error: Can't resolve 'lodash/cloneDeep' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-graph-collection-manager/src/client'
+error - ./packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components/ConnectorAction.tsx:10:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components'
+error - ./packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components/DirectionAction.tsx:9:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components'
+error - ./packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components/Entity.tsx:13:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components'
+error - ./packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components/Entity.tsx:18:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components'
+error - ./packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components/LocateCollectionAction.tsx:10:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/components'
+error - ./packages/plugins/@nocobase/plugin-graph-collection-manager/src/client/utils.tsx:3:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-graph-collection-manager/src/client'
+error - ./packages/plugins/@nocobase/plugin-import/src/client/useImportAction.ts:5:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-import/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort/index.tsx:8:0-46
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort/index.tsx:9:0-64
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort/index.tsx:11:0-37
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort/index.tsx:13:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort/index.tsx:14:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/CreateAndSelectSort'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.Designer.tsx:5:0-49
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.Designer.tsx:6:0-48
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.Designer.tsx:7:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.Designer.tsx:9:0-29
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.Designer.tsx:11:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.tsx:6:0-35
+Module not found: Error: Can't resolve '@emotion/css' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.tsx:7:0-46
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.tsx:8:0-74
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.tsx:10:0-28
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Card.tsx:11:0-29
+Module not found: Error: Can't resolve 'classnames' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.CardViewer.tsx:1:0-42
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.Settings.tsx:3:0-58
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.tsx:9:0-93
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/Kanban.tsx:11:0-33
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/KanbanBlockInitializer.tsx:6:0-49
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/KanbanBlockInitializer.tsx:7:0-46
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/KanbanBlockInitializer.tsx:8:0-63
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/KanbanBlockInitializer.tsx:10:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/KanbanBlockProvider.tsx:9:0-66
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/KanbanBlockProvider.tsx:10:0-28
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/KanbanBlockProvider.tsx:11:0-31
+Module not found: Error: Can't resolve 'lodash/uniq' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/board/Board.tsx:8:0-54
+Module not found: Error: Can't resolve 'react-beautiful-dnd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/board'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/board/Card.tsx:4:0-48
+Module not found: Error: Can't resolve 'react-beautiful-dnd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/board'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/board/Column.tsx:6:0-48
+Module not found: Error: Can't resolve 'react-beautiful-dnd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/board'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/board/style.ts:3:0-42
+Module not found: Error: Can't resolve 'antd-style' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/board'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/board/withDroppable.tsx:6:0-48
+Module not found: Error: Can't resolve 'react-beautiful-dnd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/board'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/createKanbanBlockUISchema.ts:3:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client'
+error - ./packages/plugins/@nocobase/plugin-kanban/src/client/locale/index.ts:2:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-kanban/src/client/locale'
+error - ./packages/plugins/@nocobase/plugin-localization-management/src/client/Localization.tsx:7:0-49
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-localization-management/src/client'
+error - ./packages/plugins/@nocobase/plugin-localization-management/src/client/Localization.tsx:8:0-43
+Module not found: Error: Can't resolve '@formily/core' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-localization-management/src/client'
+error - ./packages/plugins/@nocobase/plugin-localization-management/src/client/Localization.tsx:9:0-58
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-localization-management/src/client'
+error - ./packages/plugins/@nocobase/plugin-localization-management/src/client/Localization.tsx:11:0-39
+Module not found: Error: Can't resolve 'ahooks' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-localization-management/src/client'
+error - ./packages/plugins/@nocobase/plugin-localization-management/src/client/Localization.tsx:12:0-111
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-localization-management/src/client'
+error - ./packages/plugins/@nocobase/plugin-localization-management/src/client/locale/index.ts:1:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-localization-management/src/client/locale'
+error - ./packages/plugins/@nocobase/plugin-logger/src/client/LogsDownloader.tsx:9:0-82
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-logger/src/client'
+error - ./packages/plugins/@nocobase/plugin-logger/src/client/LogsDownloader.tsx:10:0-65
+Module not found: Error: Can't resolve '@ant-design/icons' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-logger/src/client'
+error - ./packages/plugins/@nocobase/plugin-logger/src/client/LogsDownloader.tsx:12:0-39
+Module not found: Error: Can't resolve 'ahooks' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-logger/src/client'
+error - ./packages/plugins/@nocobase/plugin-logger/src/client/locale/index.ts:2:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-logger/src/client/locale'
+error - ./packages/plugins/@nocobase/plugin-map/src/client/block/MapBlock.Settings.tsx:6:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-map/src/client/block'
+error - ./packages/plugins/@nocobase/plugin-map/src/client/components/Designer.tsx:6:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-map/src/client/components'
+error - ./packages/plugins/@nocobase/plugin-mobile-client/src/client/core/schema/hooks/useSchemaPatch.ts:7:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-mobile-client/src/client/core/schema/hooks'
+error - ./packages/plugins/@nocobase/plugin-snapshot-field/src/client/interface.ts:10:0-28
+Module not found: Error: Can't resolve 'lodash' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-snapshot-field/src/client'
+error - ./packages/plugins/@nocobase/plugin-theme-editor/src/client/locale/index.ts:1:0-55
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-theme-editor/src/client/locale'
+error - ./packages/plugins/@nocobase/plugin-users/src/client/PasswordField.tsx:5:0-40
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-users/src/client'
+error - ./packages/plugins/@nocobase/plugin-users/src/client/PasswordField.tsx:7:0-42
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-users/src/client'
+error - ./packages/plugins/@nocobase/plugin-users/src/client/RoleUsersManager.tsx:7:0-27
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-users/src/client'
+error - ./packages/plugins/@nocobase/plugin-users/src/client/UserRolesField.tsx:4:0-50
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-users/src/client'
+error - ./packages/plugins/@nocobase/plugin-users/src/client/UserRolesField.tsx:6:0-27
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-users/src/client'
+error - ./packages/plugins/@nocobase/plugin-users/src/client/UsersManagement.tsx:7:0-28
+Module not found: Error: Can't resolve 'antd' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-users/src/client'
+error - ./packages/plugins/@nocobase/plugin-users/src/client/locale.ts:1:0-47
+Module not found: Error: Can't resolve 'react-i18next' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-users/src/client'
+error - ./packages/plugins/@nocobase/plugin-users/src/client/schemas/users.ts:5:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-users/src/client/schemas'
+error - ./packages/plugins/@nocobase/plugin-workflow-action-trigger/src/client/ActionTrigger.tsx:9:0-41
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-workflow-action-trigger/src/client'
+error - ./packages/plugins/@nocobase/plugin-workflow-aggregate/src/client/AggregateInstruction.tsx:17:0-41
+Module not found: Error: Can't resolve '@formily/react' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-workflow-aggregate/src/client'
+error - ./packages/plugins/@nocobase/plugin-workflow-manual/src/client/WorkflowTodo.tsx:15:0-26
+Module not found: Error: Can't resolve 'dayjs' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-workflow-manual/src/client'
+error - ./packages/plugins/@nocobase/plugin-workflow-request/src/client/RequestInstruction.tsx:7:0-46
+Module not found: Error: Can't resolve '@formily/antd-v5' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-workflow-request/src/client'
+error - ./packages/plugins/@nocobase/plugin-workflow/src/client/components/CollectionBlockInitializer.tsx:9:0-38
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-workflow/src/client/components'
+error - ./packages/plugins/@nocobase/plugin-workflow/src/client/settings/customizeSubmitToWorkflowActionSettings.tsx:2:0-42
+Module not found: Error: Can't resolve '@formily/shared' in '/Users/seal/Documents/projects/codes/tachycode/packages/plugins/@nocobase/plugin-workflow/src/client/settings'

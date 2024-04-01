@@ -123,7 +123,7 @@ const external = [
   'china-division',
 ];
 const pluginPrefix = (
-  process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@nocobase/preset-,@nocobase/plugin-pro-'
+  process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@nocobase/preset-,@nocobase/plugin-pro-,@hera/plugin-'
 ).split(',');
 
 const target_dir = 'dist';
@@ -153,10 +153,15 @@ export function writeExternalPackageVersion(cwd: string, log: PkgLog) {
   const sourcePackages = getSourcePackages(sourceFiles);
   const excludePackages = getExcludePackages(sourcePackages, external, pluginPrefix);
   const data = excludePackages.reduce<Record<string, string>>((prev, packageName) => {
-    const depPkgPath = getDepPkgPath(packageName, cwd);
-    const depPkg = require(depPkgPath);
-    prev[packageName] = depPkg.version;
-    return prev;
+    try {
+      const depPkgPath = getDepPkgPath(packageName, cwd);
+      const depPkg = require(depPkgPath);
+      prev[packageName] = depPkg.version;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      return prev;
+    }
   }, {});
   const externalVersionPath = path.join(cwd, target_dir, 'externalVersion.js');
   fs.writeFileSync(externalVersionPath, `module.exports = ${JSON.stringify(data, null, 2)};`);

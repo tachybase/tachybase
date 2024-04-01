@@ -37,9 +37,9 @@ module.exports = (cli) => {
       }
       if (!existsSync(resolve(process.cwd(), `${APP_PACKAGE_ROOT}/lib/index.js`))) {
         console.log('The code is not compiled, please execute it first');
-        console.log(chalk.yellow('$ yarn build'));
+        console.log(chalk.yellow('$ pnpm build'));
         console.log('If you want to run in development mode, please execute');
-        console.log(chalk.yellow('$ yarn dev'));
+        console.log(chalk.yellow('$ pnpm dev'));
         return;
       }
       await postCheck(opts);

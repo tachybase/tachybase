@@ -1,15 +1,17 @@
 {
   "name": "@nocobase/plugin-file-manager",
-  "version": "0.21.0-alpha.1",
   "displayName": "File manager",
-  "displayName.zh-CN": "文件管理器",
+  "version": "0.21.2-alpha.3",
   "description": "Provides files storage services with files collection template and attachment field.",
-  "description.zh-CN": "提供文件存储服务，并提供了文件表模板和附件字段。",
+  "keywords": [
+    "Collections",
+    "Collection fields"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/file-manager",
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
-  "homepage": "https://docs.nocobase.com/handbook/file-manager",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/file-manager",
   "devDependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@aws-sdk/client-s3": "^3.245.0",
     "@formily/antd-v5": "1.x",
     "@formily/core": "2.x",
@@ -21,6 +23,7 @@
     "antd": "5.x",
     "cos-nodejs-sdk-v5": "^2.11.14",
     "koa-static": "^5.0.0",
+    "lodash": "4.17.21",
     "mime-match": "^1.0.2",
     "mkdirp": "~0.5.4",
     "multer": "^1.4.2",
@@ -32,16 +35,15 @@
     "supertest": "^6.1.6"
   },
   "peerDependencies": {
-    "@nocobase/actions": "0.x",
-    "@nocobase/client": "0.x",
-    "@nocobase/database": "0.x",
-    "@nocobase/server": "0.x",
-    "@nocobase/test": "0.x",
-    "@nocobase/utils": "0.x"
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
   },
-  "keywords": [
-    "Collections",
-    "Collection fields"
-  ],
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+  "description.zh-CN": "提供文件存储服务，并提供了文件表模板和附件字段。",
+  "displayName.zh-CN": "文件管理器",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/file-manager"
 }

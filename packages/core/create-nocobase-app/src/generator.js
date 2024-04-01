@@ -183,9 +183,9 @@ class AppGenerator extends Generator {
 
     console.log('');
     console.log(chalk.green(`$ cd ${name}`));
-    console.log(chalk.green(`$ yarn install`));
-    console.log(chalk.green(`$ yarn nocobase install`));
-    console.log(chalk.green(`$ yarn dev`));
+    console.log(chalk.green(`$ pnpm install`));
+    console.log(chalk.green(`$ pnpm nocobase install`));
+    console.log(chalk.green(`$ pnpm dev`));
     console.log('');
   }
 }

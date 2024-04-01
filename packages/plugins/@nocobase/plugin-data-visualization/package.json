@@ -1,13 +1,13 @@
 {
   "name": "@nocobase/plugin-data-visualization",
-  "version": "0.21.0-alpha.1",
   "displayName": "Data visualization",
-  "displayName.zh-CN": "数据可视化",
+  "version": "0.21.2-alpha.3",
   "description": "Provides data visualization feature, including chart block and chart filter block, support line charts, area charts, bar charts and more than a dozen kinds of charts, you can also extend more chart types.",
-  "description.zh-CN": "提供数据可视化功能，包含图表区块和图表筛选区块，支持折线图、面积图、柱状图等十几种图表，你也可以扩展更多图表类型。",
-  "main": "dist/server/index.js",
+  "keywords": [
+    "Blocks"
+  ],
   "homepage": "https://docs.nocobase.com/handbook/data-visualization",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/data-visualization",
+  "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "5.x",
     "@ant-design/plots": "^2.1.4",
@@ -16,8 +16,11 @@
     "@formily/core": "2.x",
     "@formily/react": "2.x",
     "@formily/shared": "2.x",
+    "ahooks": "^3.7.2",
     "antd": "5.x",
     "classnames": "^2.3.1",
+    "dayjs": "^1.11.8",
+    "deepmerge": "^4.2.2",
     "koa-compose": "^4.1.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
@@ -25,16 +28,16 @@
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {
-    "@nocobase/actions": "0.x",
-    "@nocobase/cache": "0.x",
-    "@nocobase/client": "0.x",
-    "@nocobase/database": "0.x",
-    "@nocobase/server": "0.x",
-    "@nocobase/test": "0.x",
-    "@nocobase/utils": "0.x"
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/cache": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
   },
+  "description.zh-CN": "提供数据可视化功能，包含图表区块和图表筛选区块，支持折线图、面积图、柱状图等十几种图表，你也可以扩展更多图表类型。",
+  "displayName.zh-CN": "数据可视化",
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "keywords": [
-    "Blocks"
-  ]
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/data-visualization"
 }

@@ -78,15 +78,15 @@ describe.skip('cli', () => {
       SOCKET_PATH: `storage/tests/gateway-e2e-${uid()}.sock`,
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
-    const subprocess1 = await execa('yarn', ['nocobase', 'install'], {
+    const subprocess1 = await execa('pnpm', ['nocobase', 'install'], {
       env,
     });
     expect(subprocess1.stdout.includes('app installed successfully')).toBeTruthy();
-    const subprocess2 = await execa('yarn', ['nocobase', 'install'], {
+    const subprocess2 = await execa('pnpm', ['nocobase', 'install'], {
       env,
     });
     expect(subprocess2.stdout.includes('app is installed')).toBeTruthy();
-    const subprocess3 = await execa('yarn', ['nocobase', 'install', '-f'], {
+    const subprocess3 = await execa('pnpm', ['nocobase', 'install', '-f'], {
       env,
     });
     expect(subprocess3.stdout.includes('app reinstalled successfully')).toBeTruthy();
@@ -107,13 +107,13 @@ describe.skip('cli', () => {
       SOCKET_PATH: `storage/tests/gateway-e2e-${uid()}.sock`,
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
-    const subprocess1 = execa('yarn', ['nocobase', 'dev', '--server'], {
+    const subprocess1 = execa('pnpm', ['nocobase', 'dev', '--server'], {
       env,
     });
     const code = await checkServer(port);
     console.log(code);
     expect(code).toBe('APP_NOT_INSTALLED_ERROR');
-    execa('yarn', ['nocobase', 'install'], {
+    execa('pnpm', ['nocobase', 'install'], {
       env,
     });
     await delay(5000);
@@ -137,10 +137,10 @@ describe.skip('cli', () => {
       SOCKET_PATH: `storage/tests/gateway-e2e-${uid()}.sock`,
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
-    await execa('yarn', ['nocobase', 'install'], {
+    await execa('pnpm', ['nocobase', 'install'], {
       env,
     });
-    const subprocess1 = execa('yarn', ['nocobase', 'dev', '--server'], {
+    const subprocess1 = execa('pnpm', ['nocobase', 'dev', '--server'], {
       env,
     });
     const code = await checkServer(port);
@@ -164,13 +164,13 @@ describe.skip('cli', () => {
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
     console.log('DB_STORAGE:', dbFile);
-    const subprocess1 = execa('yarn', ['nocobase', 'dev', '--server', '--quickstart'], {
+    const subprocess1 = execa('pnpm', ['nocobase', 'dev', '--server', '--quickstart'], {
       env,
     });
     const code = await checkServer(port);
     expect(code).toBe(true);
     subprocess1.cancel();
-    const subprocess2 = execa('yarn', ['nocobase', 'dev', '--server', '--quickstart'], {
+    const subprocess2 = execa('pnpm', ['nocobase', 'dev', '--server', '--quickstart'], {
       env,
     });
     const code2 = await checkServer(port);
@@ -194,10 +194,10 @@ describe.skip('cli', () => {
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
     console.log('DB_STORAGE:', dbFile);
-    await execa('yarn', ['nocobase', 'install'], {
+    await execa('pnpm', ['nocobase', 'install'], {
       env,
     });
-    const subprocess2 = await execa('yarn', ['nocobase', 'upgrade'], {
+    const subprocess2 = await execa('pnpm', ['nocobase', 'upgrade'], {
       env,
     });
     expect(subprocess2.stdout.includes('NocoBase has been upgraded')).toBe(true);
@@ -219,12 +219,12 @@ describe.skip('cli', () => {
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
     console.log('DB_STORAGE:', dbFile);
-    const subprocess1 = execa('yarn', ['nocobase', 'dev', '--server', '--quickstart'], {
+    const subprocess1 = execa('pnpm', ['nocobase', 'dev', '--server', '--quickstart'], {
       env,
     });
     const code = await checkServer(port);
     expect(code).toBe(true);
-    await execa('yarn', ['nocobase', 'upgrade'], {
+    await execa('pnpm', ['nocobase', 'upgrade'], {
       env,
     });
     await delay(5000);

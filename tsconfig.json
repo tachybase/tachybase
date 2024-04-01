@@ -3,6 +3,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "outDir": "temp",
     "jsx": "react",
     "target": "esnext",
     "module": "esnext",

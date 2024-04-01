@@ -3,6 +3,21 @@ import path from 'path';
 
 export const PLUGIN_STATICS_PATH = '/static/plugins/';
 
+function findPackageJson(filePath) {
+  const directory = path.dirname(filePath);
+  const packageJsonPath = path.resolve(directory, 'package.json');
+
+  if (fs.existsSync(packageJsonPath)) {
+    return directory; // 返回找到的 package.json 所在目录
+    // FIXME 这个在 windows 上应该跑不了
+  } else if (directory !== '/') {
+    // 递归寻找直到根目录
+    return findPackageJson(directory);
+  } else {
+    throw new Error('package.json not found.');
+  }
+}
+
 /**
  * get package.json path for specific NPM package
  */
@@ -12,7 +27,11 @@ export function getDepPkgPath(packageName: string, cwd?: string) {
   } catch {
     const mainFile = require.resolve(`${packageName}`, { paths: cwd ? [cwd] : undefined });
     const packageDir = mainFile.slice(0, mainFile.indexOf(packageName.replace('/', path.sep)) + packageName.length);
-    return path.join(packageDir, 'package.json');
+    const result = path.join(packageDir, 'package.json');
+    if (!fs.existsSync(result)) {
+      return path.join(findPackageJson(mainFile), 'package.json');
+    }
+    return result;
   }
 }
 

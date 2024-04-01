@@ -17,7 +17,7 @@ import { buildPlugin } from './buildPlugin';
 import { buildDeclaration } from './buildDeclaration';
 import { PkgLog, getPkgLog, toUnixPath, getPackageJson, getUserConfig, UserConfig, writeToCache, readFromCache } from './utils';
 import { getPackages } from './utils/getPackages';
-import { Package } from '@lerna/package';
+import type { Project } from '@pnpm/workspace.find-packages';
 import { tarPlugin } from './tarPlugin'
 import { buildEsm } from './buildEsm';
 
@@ -27,10 +27,10 @@ export async function build(pkgs: string[]) {
   const isDev = process.argv.includes('--development');
   process.env.NODE_ENV = isDev ? 'development' : 'production';
 
-  let packages = getPackages(pkgs);
+  let packages = await getPackages(pkgs);
   const cachePkg = readFromCache(BUILD_ERROR);
   if (process.argv.includes('--retry') && cachePkg?.pkg) {
-    packages = packages.slice(packages.findIndex((item) => item.name === cachePkg.pkg));
+    packages = packages.slice(packages.findIndex((item) => item.manifest.name === cachePkg.pkg));
   }
   if (packages.length === 0) {
     let msg = '';
@@ -49,11 +49,11 @@ export async function build(pkgs: string[]) {
 
   // core/*
   await buildPackages(cjsPackages, 'lib', buildCjs);
-  const clientCore = packages.find((item) => item.location === CORE_CLIENT);
+  const clientCore = packages.find((item) => item.dir === CORE_CLIENT);
   if (clientCore) {
     await buildPackage(clientCore, 'es', buildClient);
   }
-  const esmPackages = cjsPackages.filter(pkg => ESM_PACKAGES.includes(pkg.name));
+  const esmPackages = cjsPackages.filter(pkg => ESM_PACKAGES.includes(pkg.manifest.name));
   await buildPackages(esmPackages, 'es', buildEsm);
 
   // plugins/*、samples/*
@@ -63,7 +63,7 @@ export async function build(pkgs: string[]) {
   await buildPackages(presetsPackages, 'lib', buildCjs);
 
   // core/app
-  const appClient = packages.find((item) => item.location === CORE_APP);
+  const appClient = packages.find((item) => item.dir === CORE_APP);
   if (appClient) {
     await runScript(['umi', 'build'], ROOT_PATH, {
       APP_ROOT: path.join(CORE_APP, 'client'),
@@ -73,18 +73,18 @@ export async function build(pkgs: string[]) {
 }
 
 export async function buildPackages(
-  packages: Package[],
+  packages: Project[],
   targetDir: string,
   doBuildPackage: (cwd: string, userConfig: UserConfig, sourcemap: boolean, log?: PkgLog) => Promise<any>,
 ) {
   for await (const pkg of packages) {
-    writeToCache(BUILD_ERROR, { pkg: pkg.name })
+    writeToCache(BUILD_ERROR, { pkg: pkg.manifest.name})
     await buildPackage(pkg, targetDir, doBuildPackage);
   }
 }
 
 export async function buildPackage(
-  pkg: Package,
+  pkg: Project,
   targetDir: string,
   doBuildPackage: (cwd: string, userConfig: UserConfig, sourcemap: boolean, log?: PkgLog) => Promise<any>,
 ) {
@@ -93,22 +93,22 @@ export async function buildPackage(
   const hasTar = process.argv.includes('--tar');
   const onlyTar = process.argv.includes('--only-tar');
 
-  const log = getPkgLog(pkg.name);
-  const packageJson = getPackageJson(pkg.location);
+  const log = getPkgLog(pkg.manifest.name);
+  const packageJson = getPackageJson(pkg.dir);
 
   if (onlyTar) {
-    await tarPlugin(pkg.location, log);
+    await tarPlugin(pkg.dir, log);
     return;
   }
 
-  log(`${chalk.bold(toUnixPath(pkg.location.replace(PACKAGES_PATH, '').slice(1)))} build start`);
+  log(`${chalk.bold(toUnixPath(pkg.dir.replace(PACKAGES_PATH, '').slice(1)))} build start`);
 
-  const userConfig = getUserConfig(pkg.location);
+  const userConfig = getUserConfig(pkg.dir);
   // prebuild
   if (packageJson?.scripts?.prebuild) {
     log('prebuild');
-    await runScript(['prebuild'], pkg.location);
-    await packageJson.prebuild(pkg.location);
+    await runScript(['prebuild'], pkg.dir);
+    await packageJson.prebuild(pkg.dir);
   }
   if (userConfig.beforeBuild) {
     log('beforeBuild');
@@ -116,18 +116,18 @@ export async function buildPackage(
   }
 
   // build source
-  await doBuildPackage(pkg.location, userConfig, sourcemap, log);
+  await doBuildPackage(pkg.dir, userConfig, sourcemap, log);
 
   // build declaration
   if (!noDeclaration) {
     log('build declaration');
-    await buildDeclaration(pkg.location, targetDir);
+    await buildDeclaration(pkg.dir, targetDir);
   }
 
   // postbuild
   if (packageJson?.scripts?.postbuild) {
     log('postbuild');
-    await runScript(['postbuild'], pkg.location);
+    await runScript(['postbuild'], pkg.dir);
   }
 
   if (userConfig.afterBuild) {
@@ -137,12 +137,12 @@ export async function buildPackage(
 
   // tar
   if (hasTar) {
-    await tarPlugin(pkg.location, log);
+    await tarPlugin(pkg.dir, log);
   }
 }
 
 function runScript(args: string[], cwd: string, envs: Record<string, string> = {}) {
-  return execa('yarn', args, {
+  return execa('pnpm', args, {
     cwd,
     stdio: 'inherit',
     env: {

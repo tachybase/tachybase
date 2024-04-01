@@ -1,17 +1,17 @@
 {
   "name": "@nocobase/telemetry",
-  "version": "0.21.0-alpha.1",
+  "version": "0.21.2-alpha.3",
   "description": "nocobase telemetry library",
-  "license": "Apache-2.0",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nocobase/nocobase.git",
     "directory": "packages/telemetry"
   },
+  "license": "Apache-2.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "dependencies": {
-    "@nocobase/utils": "0.21.0-alpha.1",
+    "@nocobase/utils": "workspace:*",
     "@opentelemetry/api": "^1.7.0",
     "@opentelemetry/instrumentation": "^0.46.0",
     "@opentelemetry/resources": "^1.19.0",

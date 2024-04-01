@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: ['prettier-plugin-sql'],
+  plugins: ['prettier-plugin-sql', 'prettier-plugin-packagejson'],
   singleQuote: true,
   trailingComma: 'all',
   printWidth: 120,

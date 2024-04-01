@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs-extra';
 
 export function winPath(path: string) {
   const isExtendedLengthPath = /^\\\\\?\\/.test(path);
@@ -32,6 +33,21 @@ export function getRltExternalsFromDeps(
   );
 }
 
+function findPackageJson(filePath) {
+  const directory = path.dirname(filePath);
+  const packageJsonPath = path.resolve(directory, 'package.json');
+
+  if (fs.existsSync(packageJsonPath)) {
+    return directory; // 返回找到的 package.json 所在目录
+    // FIXME 这个在 windows 上应该跑不了
+  } else if (directory !== '/') {
+    // 递归寻找直到根目录
+    return findPackageJson(directory);
+  } else {
+    throw new Error('package.json not found.')
+  }
+}
+
 /**
  * get package.json path for specific NPM package
  */
@@ -41,7 +57,11 @@ export function getDepPkgPath(dep: string, cwd: string) {
   } catch {
     const mainFile = require.resolve(`${dep}`, { paths: cwd ? [cwd] : undefined });
     const packageDir = mainFile.slice(0, mainFile.indexOf(dep.replace('/', path.sep)) + dep.length);
-    return path.join(packageDir, 'package.json');
+    const result = path.join(packageDir, 'package.json');
+    if (!fs.existsSync(result)) {
+      return path.join(findPackageJson(mainFile), 'package.json');
+    }
+    return result;
   }
 }
 

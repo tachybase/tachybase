@@ -7,7 +7,7 @@ import {
   css,
 } from '@nocobase/client';
 import { useNavigate, useParams } from 'react-router-dom';
-import pathToRegexp from 'path-to-regexp';
+import { pathToRegexp } from 'path-to-regexp';
 import { useHeadStyles } from './style';
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 

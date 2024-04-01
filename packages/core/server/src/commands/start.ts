@@ -25,7 +25,7 @@ export default (app: Application) => {
       if (!(await app.isInstalled())) {
         app['_started'] = true;
         throw new ApplicationNotInstall(
-          `Application ${app.name} is not installed, Please run 'yarn nocobase install' command first`,
+          `Application ${app.name} is not installed, Please run 'pnpm nocobase install' command first`,
         );
       }
       await app.load();

@@ -22,7 +22,7 @@ async function getProjectName() {
 }
 
 async function getProjectVersion() {
-  const content = await readFile(resolve(process.cwd(), 'lerna.json'), 'utf-8');
+  const content = await readFile(resolve(process.cwd(), 'package.json'), 'utf-8');
   const json = JSON.parse(content);
   return json.version || '0.1.0';
 }
@@ -63,7 +63,7 @@ class PluginGenerator extends Generator {
     });
     this.log('');
     genTsConfigPaths();
-    execa.sync('yarn', ['postinstall', '--skip-umi'], { shell: true, stdio: 'inherit' });
+    execa.sync('pnpm', ['postinstall', '--skip-umi'], { shell: true, stdio: 'inherit' });
     this.log(`The plugin folder is in ${chalk.green(`packages/plugins/${name}`)}`);
   }
 }

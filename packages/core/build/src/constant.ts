@@ -1,4 +1,4 @@
-import { Package } from '@lerna/package';
+import type { Project } from '@pnpm/workspace.find-packages';
 import path from 'path';
 
 export const globExcludeFiles = [
@@ -33,10 +33,9 @@ export const PLUGINS_DIR = ['plugins', 'samples', 'pro-plugins']
   .filter(Boolean)
   .map((name) => path.join(PACKAGES_PATH, name));
 export const PRESETS_DIR = path.join(PACKAGES_PATH, 'presets');
-export const getPluginPackages = (packages: Package[]) =>
-  packages.filter((item) => PLUGINS_DIR.some((pluginDir) => item.location.startsWith(pluginDir)));
-export const getPresetsPackages = (packages: Package[]) =>
-  packages.filter((item) => item.location.startsWith(PRESETS_DIR));
+export const getPluginPackages = (packages: Project[]) =>
+  packages.filter((item) => PLUGINS_DIR.some((pluginDir) => item.dir.startsWith(pluginDir)));
+export const getPresetsPackages = (packages: Project[]) => packages.filter((item) => item.dir.startsWith(PRESETS_DIR));
 export const CORE_APP = path.join(PACKAGES_PATH, 'core/app');
 export const CORE_CLIENT = path.join(PACKAGES_PATH, 'core/client');
 export const ESM_PACKAGES = ['@nocobase/test'];
@@ -45,11 +44,11 @@ export const CJS_EXCLUDE_PACKAGES = [
   path.join(PACKAGES_PATH, 'core/cli'),
   CORE_CLIENT,
 ];
-export const getCjsPackages = (packages: Package[]) =>
+export const getCjsPackages = (packages: Project[]) =>
   packages
-    .filter((item) => !PLUGINS_DIR.some((dir) => item.location.startsWith(dir)))
-    .filter((item) => !item.location.startsWith(PRESETS_DIR))
-    .filter((item) => !CJS_EXCLUDE_PACKAGES.includes(item.location));
+    .filter((item) => !PLUGINS_DIR.some((dir) => item.dir.startsWith(dir)))
+    .filter((item) => !item.dir.startsWith(PRESETS_DIR))
+    .filter((item) => !CJS_EXCLUDE_PACKAGES.includes(item.dir));
 
 // tar
 export const tarIncludesFiles = ['package.json', 'README.md', 'LICENSE', 'dist', '!node_modules', '!src'];

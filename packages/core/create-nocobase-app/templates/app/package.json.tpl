@@ -1,10 +1,6 @@
 {
   "name": "{{{name}}}",
   "private": true,
-  "workspaces": [
-    "packages/*/*",
-    "packages/*/*/*"
-  ],
   "engines": {
     "node": ">=18"
   },
@@ -26,6 +22,9 @@
     "@types/react-dom": "^18.0.0"
   },
   "dependencies": {
+    "pm2": "^5.2.0",
+    "@nocobase/preset-nocobase": "{{{version}}}",
+    "@nocobase/build": "{{{version}}}",
     "@nocobase/cli": "{{{version}}}",
     {{{dependencies}}}
   },

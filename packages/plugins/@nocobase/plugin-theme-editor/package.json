@@ -1,13 +1,13 @@
 {
   "name": "@nocobase/plugin-theme-editor",
-  "version": "0.21.0-alpha.1",
-  "main": "dist/server/index.js",
-  "homepage": "https://docs.nocobase.com/handbook/theme-editor",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/theme-editor",
   "displayName": "Theme editor",
-  "displayName.zh-CN": "主题编辑器",
+  "version": "0.21.2-alpha.3",
   "description": "Customize UI colors, sizes, etc. and save the result as a theme to switch between multiple themes.",
-  "description.zh-CN": "自定义 UI 的颜色、尺寸等，并将结果保存为主题，可在多个主题间切换。",
+  "keywords": [
+    "System management"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/theme-editor",
+  "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/cssinjs": "^1.11.1",
     "@ant-design/icons": "5.x",
@@ -20,20 +20,21 @@
     "rc-util": "^5.32.0",
     "react": "^18.2.0",
     "react-colorful": "^5.5.1",
+    "react-i18next": "^11.15.1",
     "tinycolor2": "^1.6.0",
     "use-debouncy": "^4.3.0",
     "vanilla-jsoneditor": "^0.17.8"
   },
   "peerDependencies": {
-    "@nocobase/actions": "0.x",
-    "@nocobase/client": "0.x",
-    "@nocobase/database": "0.x",
-    "@nocobase/server": "0.x",
-    "@nocobase/test": "0.x",
-    "@nocobase/utils": "0.x"
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
   },
+  "description.zh-CN": "自定义 UI 的颜色、尺寸等，并将结果保存为主题，可在多个主题间切换。",
+  "displayName.zh-CN": "主题编辑器",
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "keywords": [
-    "System management"
-  ]
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/theme-editor"
 }

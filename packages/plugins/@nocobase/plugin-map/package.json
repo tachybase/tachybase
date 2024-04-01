@@ -1,14 +1,14 @@
 {
   "name": "@nocobase/plugin-map",
   "displayName": "Block: Map",
-  "displayName.zh-CN": "区块：地图",
-  "version": "0.21.0-alpha.1",
+  "version": "0.21.2-alpha.3",
   "description": "Map block, support Gaode map and Google map, you can also extend more map types.",
-  "description.zh-CN": "地图区块，支持高德地图和 Google 地图，你也可以扩展更多地图类型。",
+  "keywords": [
+    "Blocks"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/map",
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
-  "homepage": "https://docs.nocobase.com/handbook/map",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/map",
   "devDependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@amap/amap-jsapi-types": "^0.0.10",
@@ -23,21 +23,22 @@
     "@types/react-dom": "^17.0.0",
     "ahooks": "^3.7.2",
     "antd": "5.x",
+    "lodash": "4.17.21",
     "react": "18.x",
     "react-dom": "18.x",
     "react-i18next": "^11.15.1",
     "react-router-dom": "^6.11.2"
   },
   "peerDependencies": {
-    "@nocobase/actions": "0.x",
-    "@nocobase/client": "0.x",
-    "@nocobase/database": "0.x",
-    "@nocobase/server": "0.x",
-    "@nocobase/test": "0.x",
-    "@nocobase/utils": "0.x"
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
   },
+  "description.zh-CN": "地图区块，支持高德地图和 Google 地图，你也可以扩展更多地图类型。",
+  "displayName.zh-CN": "区块：地图",
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "keywords": [
-    "Blocks"
-  ]
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/map"
 }

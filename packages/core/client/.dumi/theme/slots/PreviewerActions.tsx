@@ -93,13 +93,13 @@ const sandboxTask = `
   "setupTasks": [
     {
       "name": "Install Dependencies",
-      "command": "yarn install"
+      "command": "pnpm install"
     }
   ],
   "tasks": {
     "dev": {
       "name": "dev",
-      "command": "yarn dev",
+      "command": "pnpm dev",
       "runAtStart": true,
       "preview": {
         "port": 5173
@@ -107,12 +107,12 @@ const sandboxTask = `
     },
     "build": {
       "name": "build",
-      "command": "yarn build",
+      "command": "pnpm build",
       "runAtStart": false
     },
     "preview": {
       "name": "preview",
-      "command": "yarn preview",
+      "command": "pnpm preview",
       "runAtStart": false
     }
   }

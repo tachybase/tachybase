@@ -1,11 +1,15 @@
 {
   "name": "@hera/plugin-mobile",
-  "version": "1.0.0",
+  "version": "1.0.3-alpha.3",
   "main": "dist/server/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "@formily/react": "^2.2.27",
+    "antd-mobile": "^5.29.1"
+  },
   "peerDependencies": {
-    "@nocobase/client": "0.x",
-    "@nocobase/server": "0.x",
-    "@nocobase/test": "0.x"
+    "@nocobase/client": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
   }
 }

@@ -1,14 +1,14 @@
 {
   "name": "@nocobase/plugin-import",
   "displayName": "Action: Import records",
-  "displayName.zh-CN": "操作：导入记录",
+  "version": "0.21.2-alpha.3",
   "description": "Import records using excel templates. You can configure which fields to import and templates will be generated automatically.",
-  "description.zh-CN": "使用 Excel 模板导入数据，可以配置导入哪些字段，自动生成模板。",
-  "version": "0.21.0-alpha.1",
+  "keywords": [
+    "Actions"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/action-import",
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
-  "homepage": "https://docs.nocobase.com/handbook/action-import",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-import",
   "devDependencies": {
     "@ant-design/icons": "5.x",
     "@formily/antd-v5": "1.x",
@@ -19,6 +19,7 @@
     "@types/node-xlsx": "^0.15.1",
     "antd": "5.x",
     "file-saver": "^2.0.5",
+    "lodash": "4.17.21",
     "mathjs": "^10.6.0",
     "node-xlsx": "^0.16.1",
     "react": "^18.2.0",
@@ -27,15 +28,15 @@
     "xlsx": "^0.17.0"
   },
   "peerDependencies": {
-    "@nocobase/actions": "0.x",
-    "@nocobase/client": "0.x",
-    "@nocobase/database": "0.x",
-    "@nocobase/server": "0.x",
-    "@nocobase/test": "0.x",
-    "@nocobase/utils": "0.x"
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
   },
+  "description.zh-CN": "使用 Excel 模板导入数据，可以配置导入哪些字段，自动生成模板。",
+  "displayName.zh-CN": "操作：导入记录",
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "keywords": [
-    "Actions"
-  ]
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-import"
 }

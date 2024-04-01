@@ -797,7 +797,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     if (options.checkInstall && !(await this.isInstalled())) {
       throw new ApplicationNotInstall(
-        `Application ${this.name} is not installed, Please run 'yarn nocobase install' command first`,
+        `Application ${this.name} is not installed, Please run 'pnpm nocobase install' command first`,
       );
     }
 
@@ -860,11 +860,11 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     const log =
       options.logging === false
         ? {
-          debug() { },
-          warn() { },
-          info() { },
-          error() { },
-        }
+            debug() {},
+            warn() {},
+            info() {},
+            error() {},
+          }
         : this.log;
     log.debug('stop app...', { method: 'stop' });
     this.setMaintainingMessage('stopping app...');

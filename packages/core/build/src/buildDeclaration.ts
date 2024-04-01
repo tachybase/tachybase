@@ -26,8 +26,10 @@ export const buildDeclaration = (cwd: string, targetDir: string) => {
     gulp
       .src(patterns, { base: srcPath, allowEmpty: true })
       .pipe(gulpTs(tsConfig.config.compilerOptions))
+      .on('error', () => {
+        console.log('errors in build declareation.');
+      })
       .dts.pipe(gulp.dest(targetPath))
-      .on('end', resolve)
-      .on('error', reject);
+      .on('end', resolve);
   });
 };

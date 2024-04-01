@@ -39,7 +39,7 @@ const isProd = () => {
   if (!existsSync(resolve(process.cwd(), file))) {
     console.log('For production environment, please build the code first.');
     console.log();
-    console.log(chalk.yellow('$ yarn build'));
+    console.log(chalk.yellow('$ pnpm build'));
     console.log();
     process.exit(1);
   }
@@ -51,7 +51,7 @@ exports.isProd = isProd;
 exports.nodeCheck = () => {
   if (!exports.hasTsNode()) {
     console.log('Please install all dependencies');
-    console.log(chalk.yellow('$ yarn install'));
+    console.log(chalk.yellow('$ pnpm install'));
     process.exit(1);
   }
 };

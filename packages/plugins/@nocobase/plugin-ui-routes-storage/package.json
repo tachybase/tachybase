@@ -1,24 +1,24 @@
 {
   "name": "@nocobase/plugin-ui-routes-storage",
   "displayName": "ui routes storage",
-  "displayName.zh-CN": "路由管理",
+  "version": "0.21.2-alpha.3",
   "description": "manage the routes of nocobase",
-  "description.zh-CN": "管理页面路由。",
-  "version": "0.21.0-alpha.1",
+  "keywords": [
+    "System & security"
+  ],
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "flat-to-nested": "^1.1.1"
   },
   "peerDependencies": {
-    "@nocobase/actions": "0.x",
-    "@nocobase/client": "0.x",
-    "@nocobase/database": "0.x",
-    "@nocobase/server": "0.x",
-    "@nocobase/test": "0.x"
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
   },
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "keywords": [
-    "System & security"
-  ]
+  "description.zh-CN": "管理页面路由。",
+  "displayName.zh-CN": "路由管理",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
 }

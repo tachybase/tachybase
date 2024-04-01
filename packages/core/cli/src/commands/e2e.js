@@ -178,7 +178,7 @@ module.exports = (cli) => {
       }
       if (options.build) {
         process.env.APP_ENV = 'production';
-        await run('yarn', ['build']);
+        await run('pnpm', ['build']);
       }
       if (options.skipReporter) {
         process.env.PLAYWRIGHT_SKIP_REPORTER = true;
@@ -219,7 +219,7 @@ module.exports = (cli) => {
     .action(async (options) => {
       process.env.__E2E__ = true;
       if (options.build) {
-        await run('yarn', ['build']);
+        await run('pnpm', ['build']);
       }
       if (options.production) {
         process.env.APP_ENV = 'production';
@@ -253,7 +253,7 @@ module.exports = (cli) => {
       process.env.__E2E__ = true;
       if (options.build) {
         process.env.APP_ENV = 'production';
-        await run('yarn', ['build']);
+        await run('pnpm', ['build']);
       }
       await pTest({ ...options, concurrency: 1 * options.concurrency });
     });

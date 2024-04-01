@@ -1,28 +1,30 @@
 {
   "name": "@nocobase/plugin-workflow-aggregate",
   "displayName": "Workflow: Aggregate node",
-  "displayName.zh-CN": "工作流：聚合查询节点",
+  "version": "0.21.2-alpha.3",
   "description": "Used to aggregate data against the database in workflow, such as: statistics, sum, average, etc.",
-  "description.zh-CN": "可用于在工作流中对数据库进行聚合查询，如：统计数量、求和、平均值等。",
-  "version": "0.21.0-alpha.1",
+  "keywords": [
+    "Workflow"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/workflow-aggregate",
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
-  "homepage": "https://docs.nocobase.com/handbook/workflow-aggregate",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/workflow-aggregate",
   "devDependencies": {
+    "@formily/react": "^2.2.27",
     "antd": "5.x",
     "react": "18.x",
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {
-    "@nocobase/client": "0.x",
-    "@nocobase/database": "0.x",
-    "@nocobase/plugin-workflow": ">=0.17.0-alpha.3",
-    "@nocobase/server": "0.x",
-    "@nocobase/test": "0.x"
+    "@nocobase/client": "workspace:*",
+    "@nocobase/data-source-manager": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/plugin-workflow": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
   },
+  "description.zh-CN": "可用于在工作流中对数据库进行聚合查询，如：统计数量、求和、平均值等。",
+  "displayName.zh-CN": "工作流：聚合查询节点",
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "keywords": [
-    "Workflow"
-  ]
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/workflow-aggregate"
 }
