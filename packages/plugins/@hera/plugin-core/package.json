@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-core",
   "displayName": "Hera platform",
-  "version": "1.7.4-alpha.3",
+  "version": "1.7.4-alpha.4",
   "description": "Hera platform as nocobase plugin.",
   "keywords": [
     "System management"

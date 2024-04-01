@@ -36,7 +36,7 @@ module.exports = (cli) => {
       if (existsSync(appDevDir)) {
         rmSync(appDevDir, { recursive: true, force: true });
       }
-      await run('pnpm', ['add', '@nocobase/cli', '@nocobase/devtools', '-W']);
+      await run('pnpm', ['add', '@nocobase/cli', '@nocobase/devtools', '-w']);
       await run('pnpm', ['install']);
       await runAppCommand('upgrade');
     });
