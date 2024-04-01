@@ -93,5 +93,11 @@
     "@nocobase/plugin-workflow-test": "0.21.1",
     "@nocobase/preset-nocobase": "0.21.1"
   },
-  "changesets": ["selfish-lies-enjoy", "six-dolphins-mix", "smart-jokes-whisper", "unlucky-dolls-hope"]
+  "changesets": [
+    "hot-mugs-double",
+    "selfish-lies-enjoy",
+    "six-dolphins-mix",
+    "smart-jokes-whisper",
+    "unlucky-dolls-hope"
+  ]
 }
