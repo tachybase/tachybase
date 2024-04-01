@@ -83,6 +83,15 @@
   },
   "pnpm": {
     "overrides": {
+      "@formily/core": "2.2.27",
+      "@formily/grid": "2.2.27",
+      "@formily/json-schema": "2.2.27",
+      "@formily/path": "2.2.27",
+      "@formily/react": "2.2.27",
+      "@formily/reactive": "2.2.27",
+      "@formily/reactive-react": "2.2.27",
+      "@formily/shared": "2.2.27",
+      "@formily/validator": "2.2.27",
       "@types/node": "^20.12.2",
       "@types/react": "^17.0.0",
       "@types/react-dom": "^17.0.0",
