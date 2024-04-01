@@ -37,6 +37,7 @@ export class FieldModel extends MagicAttributeModel {
 
     const field = await (async () => {
       await new Promise((resolve) => setTimeout(resolve, 0));
+      this.db.logger.debug('埋点debug———— collectionName：' + collectionName + 'options：' + JSON.stringify(options));
       return collection.setField(name, options);
     })();
 
