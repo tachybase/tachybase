@@ -16,12 +16,20 @@ export const Notifications = () => {
     url: `/system_notifications:get`,
   });
   const getNotificationList = data?.data || [];
-  const { run: updateRead } = useRequest<{ data: any }>({
-    url: `/system_notifications:update`,
-    params: {
-      ids: getNotificationList.map((item) => item.id),
+  const { run: updateRead } = useRequest<{ data: any }>(
+    {
+      url: `/system_notifications:update`,
+      params: {
+        ids: getNotificationList.map((item) => item.id),
+      },
     },
-  });
+    {
+      onSuccess() {
+        run();
+        message.info('成功');
+      },
+    },
+  );
   const content = (
     <List
       style={{ width: '400px' }}
@@ -33,8 +41,6 @@ export const Notifications = () => {
             block
             onClick={() => {
               updateRead();
-              run();
-              message.info('成功');
             }}
           >
             全部已读
