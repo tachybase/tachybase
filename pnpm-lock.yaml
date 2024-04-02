@@ -2455,9 +2455,9 @@ importers:
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
-      '@formily/core':
+      '@formily/json-schema':
         specifier: 2.2.27
-        version: 2.2.27
+        version: 2.2.27(typescript@5.4.3)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
