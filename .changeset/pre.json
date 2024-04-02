@@ -91,10 +91,12 @@
     "@nocobase/plugin-workflow-request": "0.21.1",
     "@nocobase/plugin-workflow-sql": "0.21.1",
     "@nocobase/plugin-workflow-test": "0.21.1",
-    "@nocobase/preset-nocobase": "0.21.1"
+    "@nocobase/preset-nocobase": "0.21.1",
+    "@nocobase/schema": "0.21.2-alpha.4"
   },
   "changesets": [
     "hot-mugs-double",
+    "pretty-wolves-allow",
     "selfish-lies-enjoy",
     "six-dolphins-mix",
     "smart-jokes-whisper",
