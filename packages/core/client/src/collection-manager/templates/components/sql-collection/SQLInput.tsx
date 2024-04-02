@@ -1,4 +1,4 @@
-import { useField, useForm } from '@formily/react';
+import { useField, useForm } from '@nocobase/schema';
 import { useAsyncData } from '../../../../async-data-provider';
 import React, { useEffect } from 'react';
 import { Input, SchemaComponent } from '../../../../schema-component';
@@ -6,7 +6,7 @@ import { css } from '@emotion/css';
 import { Button } from 'antd';
 import { EditOutlined, RightSquareOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { Field } from '@formily/core';
+import { Field } from '@nocobase/schema';
 
 export const SQLInput = ({ disabled }) => {
   const { t } = useTranslation();

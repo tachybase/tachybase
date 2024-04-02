@@ -2,6 +2,7 @@ import { AuthConfig, BaseAuth } from '@nocobase/auth';
 import { AuthModel } from '@nocobase/plugin-auth';
 import { Issuer } from 'openid-client';
 import { cookieName } from '../constants';
+export { Model } from '@nocobase/database';
 
 export class OIDCAuth extends BaseAuth {
   constructor(config: AuthConfig) {

@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { useField } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
 import { error } from '@nocobase/utils/client';
 import React from 'react';
 import { SchemaComponentOptions } from '..';

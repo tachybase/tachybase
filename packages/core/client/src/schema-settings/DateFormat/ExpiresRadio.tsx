@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import dayjs from 'dayjs';
 
-import { connect, mapProps } from '@formily/react';
+import { connect, mapProps } from '@nocobase/schema';
 import { useBoolean } from 'ahooks';
 import { Input, Radio, Space } from 'antd';
 import React, { useState } from 'react';

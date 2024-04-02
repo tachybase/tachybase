@@ -1,7 +1,7 @@
-import { createForm, Form, IFormProps } from '@formily/core';
-import { FormProvider, Observer, observer, ReactFC } from '@formily/react';
-import { toJS } from '@formily/reactive';
-import { applyMiddleware, IMiddleware, isBool, isFn, isNum, isStr } from '@formily/shared';
+import { createForm, Form, IFormProps } from '@nocobase/schema';
+import { FormProvider, Observer, observer, ReactFC } from '@nocobase/schema';
+import { toJS } from '@nocobase/schema';
+import { applyMiddleware, IMiddleware, isBool, isFn, isNum, isStr } from '@nocobase/schema';
 import { Modal, ModalProps, ThemeConfig } from 'antd';
 import React, { Fragment, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';

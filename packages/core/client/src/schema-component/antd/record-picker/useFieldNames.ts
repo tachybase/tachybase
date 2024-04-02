@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 
 export const useFieldNames = (props) => {
   const fieldSchema = useFieldSchema();

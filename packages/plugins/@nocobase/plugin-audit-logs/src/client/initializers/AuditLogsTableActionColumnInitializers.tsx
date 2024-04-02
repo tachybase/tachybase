@@ -1,5 +1,5 @@
 import { MenuOutlined } from '@ant-design/icons';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import {
   CompatibleSchemaInitializer,
   createDesignable,

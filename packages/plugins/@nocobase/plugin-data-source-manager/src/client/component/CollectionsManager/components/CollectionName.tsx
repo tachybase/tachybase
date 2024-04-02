@@ -1,6 +1,6 @@
 import React from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
 import { Input as AntdInput } from 'antd';
 import cls from 'classnames';
 import { useCollectionRecord } from '@nocobase/client';

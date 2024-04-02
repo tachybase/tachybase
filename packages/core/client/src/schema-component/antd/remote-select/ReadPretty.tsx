@@ -1,4 +1,4 @@
-import { observer, useField, useFieldSchema } from '@formily/react';
+import { observer, useField, useFieldSchema } from '@nocobase/schema';
 import React from 'react';
 import { useRequest } from '../../../api-client';
 import { useRecord } from '../../../record-provider';

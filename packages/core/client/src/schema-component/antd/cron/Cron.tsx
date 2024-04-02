@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { connect, mapReadPretty } from '@formily/react';
+import { connect, mapReadPretty } from '@nocobase/schema';
 import { error } from '@nocobase/utils/client';
 import cronstrue from 'cronstrue';
 import React, { useMemo } from 'react';

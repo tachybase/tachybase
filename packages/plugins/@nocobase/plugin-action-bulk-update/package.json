@@ -10,9 +10,8 @@
   "license": "AGPL-3.0",
   "main": "dist/server/index.js",
   "devDependencies": {
-    "@formily/react": "^2.2.27",
-    "@formily/shared": "^2.2.27",
-    "antd": "^5.12.8",
+    "@nocobase/schema": "workspace:*",
+    "antd": "5.16.0",
     "react-i18next": "^11.15.1",
     "react-router-dom": "^6.11.2"
   },

@@ -1,7 +1,7 @@
-import { Form } from '@formily/core';
+import { Form } from '@nocobase/schema';
 // @ts-ignore
-import { Schema } from '@formily/json-schema';
-import { SchemaOptionsContext, useField, useFieldSchema } from '@formily/react';
+import { Schema } from '@nocobase/schema';
+import { SchemaOptionsContext, useField, useFieldSchema } from '@nocobase/schema';
 import {
   CollectionFieldOptions,
   useVariableScope,

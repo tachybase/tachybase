@@ -1,6 +1,6 @@
-import { useForm, useField } from '@formily/react';
-import { action } from '@formily/reactive';
-import { uid } from '@formily/shared';
+import { useForm, useField } from '@nocobase/schema';
+import { action } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import type { ISchema } from '@formily/react';
+import type { ISchema } from '@nocobase/schema';
 import type { FieldOptions } from '../types';
 import type { Application } from '../../application';
 import type { CollectionOptions, Collection } from '../../data-source/collection/Collection';

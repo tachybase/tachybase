@@ -1,6 +1,6 @@
 import { createBlockInPage, expect, oneEmptyForm, test } from '@nocobase/test/e2e';
 import { T3106, T3469 } from './templatesOfBug';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 
 test.describe('where creation form block can be added', () => {
   test('page', async ({ page, mockPage }) => {

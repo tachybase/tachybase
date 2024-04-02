@@ -1,4 +1,4 @@
-import { connect, mapProps } from '@formily/react';
+import { connect, mapProps } from '@nocobase/schema';
 import { Button } from 'antd';
 import React, { useRef, useEffect } from 'react';
 import SignaturePad from './SignaturePad';

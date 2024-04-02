@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Cascader } from 'antd';
-import { connect } from '@formily/react';
+import { connect } from '@nocobase/schema';
 import { useCollectionManager, useRequest } from '@nocobase/client';
 import _ from 'lodash';
 

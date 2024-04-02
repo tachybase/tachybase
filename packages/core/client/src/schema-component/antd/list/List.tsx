@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css';
-import { ArrayField } from '@formily/core';
-import { RecursionField, Schema, useField, useFieldSchema } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { RecursionField, Schema, useField, useFieldSchema } from '@nocobase/schema';
 import { List as AntdList, PaginationProps } from 'antd';
 import React, { useCallback, useState } from 'react';
 import { SortableItem } from '../../common';

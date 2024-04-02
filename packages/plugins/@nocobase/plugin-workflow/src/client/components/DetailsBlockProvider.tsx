@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react';
-import { createForm } from '@formily/core';
-import { useField } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
 import { get } from 'lodash';
 import {
   BlockRequestContext_deprecated,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select, Table, TableProps } from 'antd';
 import { SchemaComponent, UseDataBlockProps, useDataBlockRequest, withDynamicSchemaProps } from '@nocobase/client';
-import { ISchema } from '@formily/json-schema';
+import { ISchema } from '@nocobase/schema';
 
 import useUrlState from '@ahooksjs/use-url-state';
 import { createApp } from './createApp';

@@ -1,5 +1,5 @@
-import { Field } from '@formily/core';
-import { observer, useField, useForm } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { observer, useField, useForm } from '@nocobase/schema';
 import React from 'react';
 import { SchemaComponentOptions } from '../../';
 import { useAssociationCreateActionProps as useCAP } from '../../../block-provider/hooks';

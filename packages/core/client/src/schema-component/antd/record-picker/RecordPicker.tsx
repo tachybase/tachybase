@@ -1,4 +1,4 @@
-import { connect, mapReadPretty } from '@formily/react';
+import { connect, mapReadPretty } from '@nocobase/schema';
 import { InputRecordPicker } from './InputRecordPicker';
 import { ReadPrettyRecordPicker } from './ReadPrettyRecordPicker';
 

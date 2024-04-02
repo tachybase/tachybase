@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { connect, ISchema, observer, RecursionField, useField, useFieldSchema } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { connect, ISchema, observer, RecursionField, useField, useFieldSchema } from '@nocobase/schema';
 import { SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
 import { Table, TableColumnType } from 'antd';
 import React from 'react';

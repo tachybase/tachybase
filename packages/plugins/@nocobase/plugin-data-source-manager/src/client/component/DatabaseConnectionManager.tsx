@@ -1,4 +1,4 @@
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import {
   SchemaComponent,
   usePlugin,

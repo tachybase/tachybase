@@ -1,5 +1,5 @@
 import React from 'react';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 
 import {
   CollectionProvider_deprecated,

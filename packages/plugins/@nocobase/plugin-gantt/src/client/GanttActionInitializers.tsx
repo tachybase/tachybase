@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { CompatibleSchemaInitializer, useCollection_deprecated } from '@nocobase/client';
 
 /**

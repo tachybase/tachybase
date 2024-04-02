@@ -1,5 +1,5 @@
-import { useField } from '@formily/react';
-import { merge } from '@formily/shared';
+import { useField } from '@nocobase/schema';
+import { merge } from '@nocobase/schema';
 import flat, { unflatten } from 'flat';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';

@@ -1,5 +1,5 @@
-import type { Field } from '@formily/core';
-import { ISchema, useForm } from '@formily/react';
+import type { Field } from '@nocobase/schema';
+import { ISchema, useForm } from '@nocobase/schema';
 import {
   CollectionFieldInterface,
   interfacesProperties,

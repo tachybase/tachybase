@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { useField, useFieldSchema } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import { useEffect } from 'react';
 import { useFilterBlock } from '../../../../../filter-provider/FilterProvider';
 import { mergeFilter } from '../../../../../filter-provider/utils';

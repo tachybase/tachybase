@@ -1,5 +1,5 @@
-import { onFieldInputValueChange, onFormInitialValuesChange } from '@formily/core';
-import { connect, mapReadPretty, observer, useField, useForm, useFormEffects } from '@formily/react';
+import { onFieldInputValueChange, onFormInitialValuesChange } from '@nocobase/schema';
+import { connect, mapReadPretty, observer, useField, useForm, useFormEffects } from '@nocobase/schema';
 import { Tag } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

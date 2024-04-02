@@ -1,7 +1,7 @@
 import { ArrayItems, FormItem } from '@formily/antd-v5';
-import { createForm, onFormValuesChange } from '@formily/core';
-import { FormProvider, connect, createSchemaField, observer, useField, useFieldSchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { createForm, onFormValuesChange } from '@nocobase/schema';
+import { FormProvider, connect, createSchemaField, observer, useField, useFieldSchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { Select as AntdSelect, Input, Space, Spin, Tag } from 'antd';
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';

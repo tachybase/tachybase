@@ -1,6 +1,6 @@
 import { TreeSelect } from '@formily/antd-v5';
-import { Field, onFieldChange } from '@formily/core';
-import { ISchema, Schema, useField, useFieldSchema } from '@formily/react';
+import { Field, onFieldChange } from '@nocobase/schema';
+import { ISchema, Schema, useField, useFieldSchema } from '@nocobase/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { findByUid } from '.';

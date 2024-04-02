@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { message } from 'antd';

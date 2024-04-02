@@ -1,13 +1,14 @@
 import { CloseCircleFilled, CloseOutlined } from '@ant-design/icons';
-import { useFieldSchema, useForm } from '@formily/react';
-import { isValid, toArr } from '@formily/shared';
+import { useFieldSchema, useForm } from '@nocobase/schema';
+import { isValid, toArr } from '@nocobase/schema';
 import { isPlainObject } from '@nocobase/utils/client';
 import type { SelectProps } from 'antd';
 import { Select as AntdSelect, Empty, Spin, Tag } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import { FieldNames, getCurrentOptions } from './utils';
-import { useAPIClient, useCollection_deprecated, useRequest } from '@nocobase/client';
 import { useAsyncEffect } from 'ahooks';
+import { useCollection_deprecated } from '../../../collection-manager';
+import { useAPIClient, useRequest } from '../../../api-client';
 
 type Props = SelectProps<any, any> & {
   objectValue?: boolean;

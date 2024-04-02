@@ -1,4 +1,4 @@
-import { ISchema, useField, useFieldSchema, useForm } from '@formily/react';
+import { ISchema, useField, useFieldSchema, useForm } from '@nocobase/schema';
 import {
   __UNSAFE__,
   getFormValues,

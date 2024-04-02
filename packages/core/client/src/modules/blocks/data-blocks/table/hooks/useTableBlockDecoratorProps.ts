@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { useParsedFilter } from '../../../../../block-provider/hooks/useParsedFilter';
 import { useMemo } from 'react';
 import { useDataBlockSourceId } from '../../../../../block-provider/hooks/useDataBlockSourceId';

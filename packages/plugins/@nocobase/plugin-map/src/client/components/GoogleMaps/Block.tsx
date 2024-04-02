@@ -1,5 +1,5 @@
 import { CheckOutlined, EnvironmentOutlined, ExpandOutlined } from '@ant-design/icons';
-import { RecursionField, Schema, useFieldSchema } from '@formily/react';
+import { RecursionField, Schema, useFieldSchema } from '@nocobase/schema';
 import {
   ActionContextProvider,
   RecordProvider,

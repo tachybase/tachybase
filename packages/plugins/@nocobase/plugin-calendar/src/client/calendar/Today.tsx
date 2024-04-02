@@ -1,4 +1,4 @@
-import { observer } from '@formily/react';
+import { observer } from '@nocobase/schema';
 import { Button } from 'antd';
 import React, { useContext } from 'react';
 import { Navigate } from 'react-big-calendar/dist/react-big-calendar.esm';

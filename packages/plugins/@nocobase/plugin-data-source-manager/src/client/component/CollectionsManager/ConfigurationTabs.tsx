@@ -1,5 +1,5 @@
 import { DndContext, DragEndEvent, DragOverlay, MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { RecursionField, observer } from '@formily/react';
+import { RecursionField, observer } from '@nocobase/schema';
 import { Badge, Card, Space } from 'antd';
 import _ from 'lodash';
 import React, { useContext, useState } from 'react';

@@ -1,5 +1,5 @@
-import { useFieldSchema } from '@formily/react';
-import { isValid } from '@formily/shared';
+import { useFieldSchema } from '@nocobase/schema';
+import { isValid } from '@nocobase/schema';
 import { isInitializersSame, useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import {

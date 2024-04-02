@@ -1,4 +1,4 @@
-import { ISchema, Schema } from '@formily/react';
+import { ISchema, Schema } from '@nocobase/schema';
 
 export const isCollectionFieldComponent = (schema: ISchema) => {
   return schema['x-component'] === 'CollectionField';

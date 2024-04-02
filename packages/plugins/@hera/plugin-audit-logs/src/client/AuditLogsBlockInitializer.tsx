@@ -1,5 +1,5 @@
 import { TableOutlined } from '@ant-design/icons';
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import {
   createTableBlockSchema,
   SchemaInitializerItem,

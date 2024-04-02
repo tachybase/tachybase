@@ -1,4 +1,4 @@
-import { connect } from '@formily/react';
+import { connect } from '@nocobase/schema';
 
 import Expression from './Expression';
 import Result from './Result';

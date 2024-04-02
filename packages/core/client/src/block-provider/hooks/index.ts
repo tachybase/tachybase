@@ -1,6 +1,6 @@
-import { Field, Form } from '@formily/core';
-import { SchemaExpressionScopeContext, useField, useFieldSchema, useForm } from '@formily/react';
-import { untracked } from '@formily/reactive';
+import { Field, Form } from '@nocobase/schema';
+import { SchemaExpressionScopeContext, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { untracked } from '@nocobase/schema';
 import { isURL, parse } from '@nocobase/utils/client';
 import { App, message } from 'antd';
 import _ from 'lodash';

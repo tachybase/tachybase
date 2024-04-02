@@ -1,4 +1,4 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@formily/react';
+import { observer, RecursionField, useField, useFieldSchema } from '@nocobase/schema';
 import { Drawer } from 'antd';
 import classNames from 'classnames';
 import React from 'react';

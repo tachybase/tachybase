@@ -1,5 +1,5 @@
-import { createForm, Field } from '@formily/core';
-import { FieldContext, FormContext, useField, RecursionField } from '@formily/react';
+import { createForm, Field } from '@nocobase/schema';
+import { FieldContext, FormContext, useField, RecursionField } from '@nocobase/schema';
 import { message } from 'antd';
 import React, { useContext, useMemo, useEffect, createContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';

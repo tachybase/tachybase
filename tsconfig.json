@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
+    "lib": ["esnext", "DOM.Iterable", "DOM"],
     "esModuleInterop": true,
     "moduleResolution": "node",
     "outDir": "temp",

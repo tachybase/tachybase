@@ -1,4 +1,4 @@
-import { useField, useFieldSchema } from '@formily/react';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import React, { useLayoutEffect } from 'react';
 import { SortableItem, useCollection_deprecated, useCompile, useDesignable, useDesigner } from '../../../';
 import { designerCss } from './Table.Column.ActionBar';

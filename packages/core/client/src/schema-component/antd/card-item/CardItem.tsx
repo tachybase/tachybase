@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { Card } from 'antd';
 import React from 'react';
 import { useSchemaTemplate } from '../../../schema-templates';

@@ -9,7 +9,6 @@
   "license": "AGPL-3.0",
   "main": "./lib/server/index.js",
   "dependencies": {
-    "@formily/json-schema": "2.x",
     "@nocobase/client": "workspace:*",
     "@nocobase/plugin-acl": "workspace:*",
     "@nocobase/plugin-action-bulk-edit": "workspace:*",
@@ -66,6 +65,7 @@
     "@nocobase/plugin-workflow-parallel": "workspace:*",
     "@nocobase/plugin-workflow-request": "workspace:*",
     "@nocobase/plugin-workflow-sql": "workspace:*",
+    "@nocobase/schema": "workspace:*",
     "@nocobase/server": "workspace:*",
     "cronstrue": "^2.11.0",
     "lodash": "4.17.21"

@@ -9,8 +9,8 @@ import {
   useSchemaInitializerItem,
   useSchemaInitializerRender,
 } from '@nocobase/client';
-import { observer, useField } from '@formily/react';
-import { Field } from '@formily/core';
+import { observer, useField } from '@nocobase/schema';
+import { Field } from '@nocobase/schema';
 
 const Hello = observer(() => {
   const field = useField<Field>();

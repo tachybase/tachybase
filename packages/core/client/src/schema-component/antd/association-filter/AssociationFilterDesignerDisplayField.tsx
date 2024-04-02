@@ -1,4 +1,4 @@
-import { merge } from '@formily/shared';
+import { merge } from '@nocobase/schema';
 import React from 'react';
 
 import { useCurrentSchema } from '../../../schema-initializer/utils';

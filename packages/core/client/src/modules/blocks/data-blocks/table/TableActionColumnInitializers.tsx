@@ -1,5 +1,5 @@
 import { MenuOutlined } from '@ant-design/icons';
-import { ISchema, useFieldSchema } from '@formily/react';
+import { ISchema, useFieldSchema } from '@nocobase/schema';
 import _ from 'lodash';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

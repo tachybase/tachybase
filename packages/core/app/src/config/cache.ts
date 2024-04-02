@@ -15,4 +15,4 @@ export const cacheManager = {
         }
       : {}),
   },
-} as CacheManagerOptions;
+};

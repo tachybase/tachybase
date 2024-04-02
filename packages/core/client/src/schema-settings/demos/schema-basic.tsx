@@ -7,7 +7,7 @@ import {
   SchemaSettings,
   useSchemaSettingsRender,
 } from '@nocobase/client';
-import { observer, useFieldSchema } from '@formily/react';
+import { observer, useFieldSchema } from '@nocobase/schema';
 
 const mySchemaSetting = new SchemaSettings({
   name: 'MySchemaSetting',

@@ -1,5 +1,5 @@
-import { ISchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { defaultProps } from './properties';
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
 

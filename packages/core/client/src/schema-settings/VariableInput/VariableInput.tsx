@@ -1,6 +1,6 @@
-import { Form } from '@formily/core';
+import { Form } from '@nocobase/schema';
 // @ts-ignore
-import { Schema } from '@formily/json-schema';
+import { Schema } from '@nocobase/schema';
 import _ from 'lodash';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';

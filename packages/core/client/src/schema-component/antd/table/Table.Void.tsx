@@ -1,5 +1,5 @@
-import { createForm, Field } from '@formily/core';
-import { FieldContext, FormContext, observer, useField, useFieldSchema } from '@formily/react';
+import { createForm, Field } from '@nocobase/schema';
+import { FieldContext, FormContext, observer, useField, useFieldSchema } from '@nocobase/schema';
 import { Options, Result } from 'ahooks/es/useRequest/src/types';
 import { TablePaginationConfig, TableProps } from 'antd';
 import { cloneDeep } from 'lodash';

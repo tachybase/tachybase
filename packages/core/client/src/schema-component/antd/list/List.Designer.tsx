@@ -1,5 +1,5 @@
 import { ArrayItems } from '@formily/antd-v5';
-import { ISchema, useField, useFieldSchema } from '@formily/react';
+import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
 import _ from 'lodash';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,4 +1,4 @@
-import { useField, useFieldSchema } from '@formily/react';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import { cx, SchemaComponent, SortableItem, useDesigner, useToken } from '@nocobase/client';
 import React, { useEffect } from 'react';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';

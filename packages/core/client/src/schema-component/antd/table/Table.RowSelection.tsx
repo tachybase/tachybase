@@ -1,6 +1,6 @@
-import { Field } from '@formily/core';
-import { observer, useField } from '@formily/react';
-import { isArr, isValid } from '@formily/shared';
+import { Field } from '@nocobase/schema';
+import { observer, useField } from '@nocobase/schema';
+import { isArr, isValid } from '@nocobase/schema';
 import { TableProps } from 'antd';
 import React from 'react';
 import { TableVoid } from './Table.Void';

@@ -1,6 +1,6 @@
-import { createForm, Field } from '@formily/core';
-import { FieldContext, FormContext, observer, useField, useFieldSchema } from '@formily/react';
-import { useAttach } from '@formily/react/esm/hooks/useAttach';
+import { createForm, Field } from '@nocobase/schema';
+import { FieldContext, FormContext, observer, useField, useFieldSchema } from '@nocobase/schema';
+import { useAttach } from '@nocobase/schema';
 import { Options, Result } from 'ahooks/es/useRequest/src/types';
 import { TableProps } from 'antd';
 import React, { useMemo } from 'react';

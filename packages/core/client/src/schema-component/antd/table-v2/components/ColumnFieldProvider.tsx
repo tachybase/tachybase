@@ -1,4 +1,4 @@
-import { observer, RecursionField } from '@formily/react';
+import { observer, RecursionField } from '@nocobase/schema';
 import React from 'react';
 import { useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useRecord } from '../../../../record-provider';

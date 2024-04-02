@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import { uid } from '@nocobase/utils/client';
 
 export function createAuditLogsBlockSchema(): ISchema {

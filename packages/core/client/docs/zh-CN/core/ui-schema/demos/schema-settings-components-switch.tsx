@@ -4,7 +4,7 @@
 import React, { FC } from 'react';
 import { Application, SchemaSettings, SchemaSettingsSwitchItem, useDesignable } from '@nocobase/client';
 import { appOptions } from './schema-settings-common';
-import { observer, useField } from '@formily/react';
+import { observer, useField } from '@nocobase/schema';
 import { Form, Input } from 'antd';
 
 const FormItemRequired = () => {

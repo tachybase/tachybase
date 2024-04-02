@@ -1,4 +1,4 @@
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import React, { FC, useCallback, useMemo } from 'react';
 import { useActionContext, SchemaComponent } from '../../../schema-component';
 import { useSchemaInitializerItem } from '../context';

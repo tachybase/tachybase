@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { ObjectField } from '@formily/core';
-import { useField } from '@formily/react';
+import { ObjectField } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
 import { Card } from 'antd';
 import React from 'react';
 import { useCollectionParentRecordData } from '../../../data-source/collection-record/CollectionRecordProvider';

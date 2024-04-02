@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { Field, GeneralField } from '@formily/core';
-import { RecursionField, useField, useFieldSchema } from '@formily/react';
+import { Field, GeneralField } from '@nocobase/schema';
+import { RecursionField, useField, useFieldSchema } from '@nocobase/schema';
 import { Col, Row } from 'antd';
 import merge from 'deepmerge';
 import template from 'lodash/template';

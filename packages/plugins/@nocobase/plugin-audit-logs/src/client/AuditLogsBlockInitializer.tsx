@@ -1,5 +1,5 @@
 import { TableOutlined } from '@ant-design/icons';
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@nocobase/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

@@ -8,7 +8,7 @@ import {
   useCompile,
 } from '@nocobase/client';
 
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { CollectionBlockInitializer } from '../components/CollectionBlockInitializer';
 import { FilterDynamicComponent } from '../components/FilterDynamicComponent';
 import { NAMESPACE } from '../locale';

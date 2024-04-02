@@ -1,7 +1,7 @@
 /**
  * title: 勾选
  */
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import {
   APIClientProvider,
   Action,

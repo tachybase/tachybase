@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { useField, useFieldSchema } from '@formily/react';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useRecord } from '../../../record-provider';
 

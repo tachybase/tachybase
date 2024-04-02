@@ -1,4 +1,4 @@
-import { connect, mapReadPretty } from '@formily/react';
+import { connect, mapReadPretty } from '@nocobase/schema';
 import { Input } from 'antd';
 import { PasswordProps } from 'antd/es/input';
 import React from 'react';

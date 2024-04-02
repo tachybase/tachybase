@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { Schema, useField, useFieldSchema } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { Schema, useField, useFieldSchema } from '@nocobase/schema';
 import { Spin } from 'antd';
 import uniq from 'lodash/uniq';
 import React, { createContext, useContext, useEffect, useState } from 'react';

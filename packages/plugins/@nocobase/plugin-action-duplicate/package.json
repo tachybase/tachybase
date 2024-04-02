@@ -11,9 +11,8 @@
   "main": "dist/server/index.js",
   "devDependencies": {
     "@emotion/css": "^11.7.1",
-    "@formily/core": "^2.2.27",
-    "@formily/react": "^2.2.27",
-    "antd": "^5.12.8",
+    "@nocobase/schema": "workspace:*",
+    "antd": "5.16.0",
     "lodash": "4.17.21",
     "react-i18next": "^11.15.1"
   },

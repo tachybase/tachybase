@@ -10,10 +10,10 @@
   "license": "AGPL-3.0",
   "main": "dist/server/index.js",
   "devDependencies": {
-    "@ant-design/icons": "^5.1.4",
+    "@ant-design/icons": "^5.3.6",
     "@types/tar-fs": "^2.0.2",
     "ahooks": "^3.7.2",
-    "antd": "^5.12.8",
+    "antd": "5.16.0",
     "react-i18next": "^11.15.1",
     "tar-fs": "^3.0.4"
   },

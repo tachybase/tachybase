@@ -1,4 +1,4 @@
-import { createForm } from '@formily/core';
+import { createForm } from '@nocobase/schema';
 import React, { createContext, useContext, useMemo, useState } from 'react';
 import { FormProvider, SchemaComponent, useRecord } from '@nocobase/client';
 import { getScopesSchema } from './schemas/scopes';

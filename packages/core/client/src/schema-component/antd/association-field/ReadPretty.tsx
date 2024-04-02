@@ -1,4 +1,4 @@
-import { observer } from '@formily/react';
+import { observer } from '@nocobase/schema';
 import React from 'react';
 import { AssociationFieldProvider } from './AssociationFieldProvider';
 import { FileManageReadPretty } from './FileManager';

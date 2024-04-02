@@ -1,5 +1,5 @@
-import { createForm } from '@formily/core';
-import { RecursionField, Schema, useField, useFieldSchema } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { RecursionField, Schema, useField, useFieldSchema } from '@nocobase/schema';
 import { Spin } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
 import { useCollection_deprecated } from '../collection-manager';

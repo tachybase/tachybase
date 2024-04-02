@@ -1,5 +1,5 @@
 import React from 'react';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { useSchemaInitializerItem } from '../../application';
 import { InitializerWithSwitch } from './InitializerWithSwitch';
 

@@ -1,5 +1,5 @@
 import { ArrayItems } from '@formily/antd-v5';
-import { ISchema, useField, useFieldSchema } from '@formily/react';
+import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
 import { Slider } from 'antd';
 import _ from 'lodash';
 import React, { useMemo } from 'react';

@@ -8,8 +8,8 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@formily/react": "2.x",
     "@formulajs/formulajs": "^4.2.0",
+    "@nocobase/schema": "workspace:*",
     "react": "^18.2.0",
     "react-i18next": "^11.15.1"
   },

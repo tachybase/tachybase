@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Spin } from 'antd';
 import React from 'react';
-import { observer, useField, useFieldSchema, useForm } from '@formily/react';
+import { observer, useField, useFieldSchema, useForm } from '@nocobase/schema';
 import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { useFeeItems } from '../hooks';
 import { useDeepCompareEffect } from 'ahooks';

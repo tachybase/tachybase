@@ -1,5 +1,5 @@
-import { Field } from '@formily/core';
-import { ISchema, observer, useField, useFieldSchema } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { ISchema, observer, useField, useFieldSchema } from '@nocobase/schema';
 import { Action, SchemaComponent, SchemaComponentProvider, useActionContext } from '@nocobase/client';
 import { Radio } from 'antd';
 import React, { useRef } from 'react';

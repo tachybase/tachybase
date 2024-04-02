@@ -1,4 +1,4 @@
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { useAPIClient, useBlockRequestContext, useRequest } from '@nocobase/client';
 import { useChartFilter } from '@nocobase/plugin-data-visualization/client';
 import { message } from 'antd';

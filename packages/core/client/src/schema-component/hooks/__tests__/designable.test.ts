@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import { Schema } from '@formily/react';
+import { Schema } from '@nocobase/schema';
 import { createDesignable, Designable } from '../useDesignable';
 
 describe('createDesignable', () => {

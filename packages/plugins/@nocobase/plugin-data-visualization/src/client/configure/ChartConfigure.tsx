@@ -1,7 +1,7 @@
 import { RightSquareOutlined } from '@ant-design/icons';
 import { ArrayItems, Editable, FormCollapse, FormItem, FormLayout, Switch } from '@formily/antd-v5';
-import { Form as FormType, ObjectField, createForm, onFieldChange, onFormInit } from '@formily/core';
-import { FormConsumer, ISchema, Schema } from '@formily/react';
+import { Form as FormType, ObjectField, createForm, onFieldChange, onFormInit } from '@nocobase/schema';
+import { FormConsumer, ISchema, Schema } from '@nocobase/schema';
 import { AutoComplete, FormProvider, SchemaComponent, gridRowColWrap, useDesignable } from '@nocobase/client';
 import { Alert, App, Button, Card, Col, Modal, Row, Space, Table, Tabs, Typography } from 'antd';
 import { cloneDeep, isEqual } from 'lodash';

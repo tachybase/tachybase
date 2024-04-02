@@ -1,5 +1,5 @@
-import { onFieldInputValueChange } from '@formily/core';
-import { ISchema, connect, mapProps, useField, useFieldSchema, useForm } from '@formily/react';
+import { onFieldInputValueChange } from '@nocobase/schema';
+import { ISchema, connect, mapProps, useField, useFieldSchema, useForm } from '@nocobase/schema';
 import {
   ActionDesigner,
   SchemaSettingOpenModeSchemaItems,

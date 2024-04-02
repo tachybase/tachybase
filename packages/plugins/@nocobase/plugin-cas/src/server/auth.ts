@@ -1,5 +1,6 @@
 import { AuthConfig, BaseAuth } from '@nocobase/auth';
 import { AuthModel } from '@nocobase/plugin-auth';
+import { Model } from '@nocobase/database';
 import axios from 'axios';
 
 export class CASAuth extends BaseAuth {
@@ -46,7 +47,7 @@ export class CASAuth extends BaseAuth {
     }
   }
 
-  async validate() {
+  async validate(): Promise<Model> {
     const ctx = this.ctx;
     const { autoSignup } = this.getOptions();
     const { ticket } = ctx.action.params;

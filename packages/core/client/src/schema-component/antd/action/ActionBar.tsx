@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css';
-import { RecursionField, observer, useFieldSchema } from '@formily/react';
+import { RecursionField, observer, useFieldSchema } from '@nocobase/schema';
 import { Space } from 'antd';
 import React, { CSSProperties, useContext } from 'react';
 import { createPortal } from 'react-dom';

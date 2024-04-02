@@ -1,7 +1,7 @@
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
-import { createForm } from '@formily/core';
-import { ISchema, useForm } from '@formily/react';
-import { uid } from '@formily/shared';
+import { createForm } from '@nocobase/schema';
+import { ISchema, useForm } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import {
   ActionContextProvider,
   SchemaComponent,

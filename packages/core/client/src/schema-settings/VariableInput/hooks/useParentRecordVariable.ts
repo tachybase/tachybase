@@ -1,4 +1,4 @@
-import { Schema } from '@formily/json-schema';
+import { Schema } from '@nocobase/schema';
 import { useTranslation } from 'react-i18next';
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';
 import { useParentCollection } from '../../../data-source/collection/AssociationProvider';

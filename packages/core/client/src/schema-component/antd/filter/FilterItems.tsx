@@ -1,5 +1,5 @@
-import { ArrayField as ArrayFieldModel } from '@formily/core';
-import { ObjectField, observer, useField } from '@formily/react';
+import { ArrayField as ArrayFieldModel } from '@nocobase/schema';
+import { ObjectFieldComponent as ObjectField, observer, useField } from '@nocobase/schema';
 import React from 'react';
 import { FilterGroup } from './FilterGroup';
 import { FilterItem } from './FilterItem';

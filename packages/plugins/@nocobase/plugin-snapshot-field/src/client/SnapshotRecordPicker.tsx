@@ -1,4 +1,4 @@
-import { connect, mapReadPretty, useFieldSchema } from '@formily/react';
+import { connect, mapReadPretty, useFieldSchema } from '@nocobase/schema';
 import { ReadPrettyRecordPicker, useCollection_deprecated } from '@nocobase/client';
 import React from 'react';
 import { SnapshotHistoryCollectionProvider } from './SnapshotHistoryCollectionProvider';

@@ -1,4 +1,4 @@
-import type { VoidField } from '@formily/core';
+import type { VoidField } from '@nocobase/schema';
 import { Cascader, css, useCollection_deprecated } from '@nocobase/client';
 import { useTranslation } from 'react-i18next';
 import { NAMESPACE } from './constants';

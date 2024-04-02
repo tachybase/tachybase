@@ -1,4 +1,4 @@
-import { define, observable } from '@formily/reactive';
+import { define, observable } from '@nocobase/schema';
 import { getSubAppName } from '@nocobase/sdk';
 import { Application } from './Application';
 

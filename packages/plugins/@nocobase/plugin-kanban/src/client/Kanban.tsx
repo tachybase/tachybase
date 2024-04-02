@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { observer, RecursionField, useField, useFieldSchema, useForm } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { observer, RecursionField, useField, useFieldSchema, useForm } from '@nocobase/schema';
 import {
   RecordProvider,
   SchemaComponentOptions,

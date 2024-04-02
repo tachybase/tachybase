@@ -1,9 +1,9 @@
-import { createForm } from '@formily/core';
+import { createForm } from '@nocobase/schema';
 import {
   FormProvider as FormilyFormProvider,
   SchemaExpressionScopeContext,
   SchemaOptionsContext,
-} from '@formily/react';
+} from '@nocobase/schema';
 import React, { useContext, useMemo } from 'react';
 import { SchemaComponentOptions } from './SchemaComponentOptions';
 

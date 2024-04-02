@@ -1,5 +1,5 @@
-import { onFieldChange } from '@formily/core';
-import { connect } from '@formily/react';
+import { onFieldChange } from '@nocobase/schema';
+import { connect } from '@nocobase/schema';
 import { Checkbox } from 'antd';
 import uniq from 'lodash/uniq';
 import React, { useContext } from 'react';

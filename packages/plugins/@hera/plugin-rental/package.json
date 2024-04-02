@@ -8,11 +8,10 @@
   ],
   "main": "dist/server/index.js",
   "devDependencies": {
-    "@ant-design/icons": "^5.1.4",
-    "@formily/core": "^2.2.27",
-    "@formily/react": "^2.2.27",
+    "@ant-design/icons": "^5.3.6",
+    "@nocobase/schema": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.*",
+    "antd": "5.16.0",
     "dayjs": "^1.11.8",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
@@ -20,7 +19,7 @@
     "lodash": "4.17.21",
     "qrcode": "^1.5.1",
     "qrcode.react": "^3.1.0",
-    "react": "18.*",
+    "react": "~18.2.0",
     "react-router-dom": "^6.11.2",
     "sequelize": "^6.26.0"
   },

@@ -1,5 +1,5 @@
-import { ISchema, useField, useFieldSchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import {
   GeneralSchemaDesigner,
   SchemaSettingsDivider,

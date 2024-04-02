@@ -1,5 +1,5 @@
 import JSON5 from 'json5';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 
 const validateArray = (value) => {
   try {

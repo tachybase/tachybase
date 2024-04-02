@@ -4,7 +4,7 @@
 import React, { FC } from 'react';
 import { Application, SchemaSettings, SchemaSettingsSelectItem, useDesignable } from '@nocobase/client';
 import { appOptions } from './schema-settings-common';
-import { observer, useField } from '@formily/react';
+import { observer, useField } from '@nocobase/schema';
 import { Table } from 'antd';
 
 const PageSize = () => {

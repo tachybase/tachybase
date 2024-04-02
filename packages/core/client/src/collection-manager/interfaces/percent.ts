@@ -1,5 +1,5 @@
-import { registerValidateRules } from '@formily/core';
-import { ISchema } from '@formily/react';
+import { registerValidateRules } from '@nocobase/schema';
+import { ISchema } from '@nocobase/schema';
 import { i18n } from '../../i18n';
 import { defaultProps, operators, unique } from './properties';
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';

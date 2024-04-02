@@ -1,4 +1,4 @@
-import type { ISchema } from '@formily/react';
+import type { ISchema } from '@nocobase/schema';
 import { last } from 'lodash';
 import { ActionType } from '../../../schema-settings/LinkageRules/type';
 import { VariableOption, VariablesContextType } from '../../../variables/types';

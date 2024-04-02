@@ -11,10 +11,9 @@
   "main": "dist/server/index.js",
   "devDependencies": {
     "@formily/antd-v5": "^1.1.9",
-    "@formily/react": "2.x",
-    "@formily/shared": "2.x",
-    "antd": "5.x",
-    "lodash": "4.x",
+    "@nocobase/schema": "workspace:*",
+    "antd": "5.16.0",
+    "lodash": "~4.17.21",
     "react-i18next": "^11.15.1",
     "react-router-dom": "6.x"
   },
@@ -24,6 +23,7 @@
     "@nocobase/database": "workspace:*",
     "@nocobase/evaluators": "workspace:*",
     "@nocobase/logger": "workspace:*",
+    "@nocobase/sdk": "workspace:*",
     "@nocobase/server": "workspace:*",
     "@nocobase/test": "workspace:*",
     "@nocobase/utils": "workspace:*"

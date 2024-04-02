@@ -1,5 +1,5 @@
 import { CopyOutlined } from '@ant-design/icons';
-import { observer, useForm } from '@formily/react';
+import { observer, useForm } from '@nocobase/schema';
 import { FormItem, Input, SchemaComponent, useApp, useRecord } from '@nocobase/client';
 import { getSubAppName } from '@nocobase/sdk';
 import { Card, message } from 'antd';

@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { observer, RecursionField, SchemaExpressionScopeContext, useField, useFieldSchema } from '@formily/react';
+import { observer, RecursionField, SchemaExpressionScopeContext, useField, useFieldSchema } from '@nocobase/schema';
 import React, { useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { useActionContext } from '.';

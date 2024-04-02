@@ -10,10 +10,9 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@formily/react": "2.x",
-    "@formily/shared": "2.x",
+    "@nocobase/schema": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.x",
+    "antd": "5.16.0",
     "dayjs": "^1.11.8",
     "i18next": "^22.4.9",
     "react": "^18.2.0",

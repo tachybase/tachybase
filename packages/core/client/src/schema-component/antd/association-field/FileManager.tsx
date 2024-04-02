@@ -1,4 +1,4 @@
-import { RecursionField, connect, useField, useFieldSchema } from '@formily/react';
+import { RecursionField, connect, useField, useFieldSchema } from '@nocobase/schema';
 import { differenceBy, unionBy } from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
 import {

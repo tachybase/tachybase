@@ -1,4 +1,4 @@
-import { observer } from '@formily/react';
+import { observer } from '@nocobase/schema';
 import { Pagination as AntdPagination } from 'antd';
 import React, { KeyboardEventHandler } from 'react';
 import { useProps } from '../../hooks/useProps';

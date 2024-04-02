@@ -1,6 +1,6 @@
 import { SyncOutlined } from '@ant-design/icons';
-import { Form, createForm } from '@formily/core';
-import { Field, useField, useForm } from '@formily/react';
+import { Form, createForm } from '@nocobase/schema';
+import { FieldComponent as Field, useField, useForm } from '@nocobase/schema';
 import {
   FormProvider,
   Input,

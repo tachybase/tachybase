@@ -1,4 +1,4 @@
-import { registerValidateRules } from '@formily/core';
+import { registerValidateRules } from '@nocobase/schema';
 import { BlockSchemaComponentPlugin, Plugin, SchemaComponentOptions, useAPIClient } from '@nocobase/client';
 import JSON5 from 'json5';
 import React from 'react';

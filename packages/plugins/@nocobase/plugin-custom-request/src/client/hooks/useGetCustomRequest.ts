@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { useRequest } from '@nocobase/client';
 
 export const useGetCustomRequest = () => {

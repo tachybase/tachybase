@@ -1,4 +1,5 @@
-import { RedisStore } from 'cache-manager-redis-yet';
+import type { RedisStore } from 'cache-manager-redis-yet';
+import type { RedisClientType } from 'redis';
 import { BloomFilter } from '.';
 import { Cache } from '../cache';
 

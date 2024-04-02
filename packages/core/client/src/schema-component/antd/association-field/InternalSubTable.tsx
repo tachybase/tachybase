@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 import { FormLayout } from '@formily/antd-v5';
-import { RecursionField, SchemaOptionsContext, observer, useField, useFieldSchema } from '@formily/react';
+import { RecursionField, SchemaOptionsContext, observer, useField, useFieldSchema } from '@nocobase/schema';
 import React, { useEffect } from 'react';
 import { ACLCollectionProvider, useACLActionParamsContext } from '../../../acl';
 import { CollectionProvider_deprecated } from '../../../collection-manager';

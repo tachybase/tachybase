@@ -1,4 +1,4 @@
-import { Field } from '@formily/core';
+import { Field } from '@nocobase/schema';
 import { evaluators } from '@nocobase/evaluators/client';
 import { uid } from '@nocobase/utils/client';
 import _ from 'lodash';

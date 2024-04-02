@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { FormLayout } from '@formily/antd-v5';
-import { Schema, SchemaOptionsContext, useFieldSchema } from '@formily/react';
+import { Schema, SchemaOptionsContext, useFieldSchema } from '@nocobase/schema';
 import { Button, Tabs } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useState } from 'react';

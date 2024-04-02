@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AutoComplete as AntdAutoComplete } from 'antd';
-import { connect, useFieldSchema } from '@formily/react';
+import { connect, useFieldSchema } from '@nocobase/schema';
 import { useAPIClient } from '@nocobase/client';
 import { useAsyncEffect } from 'ahooks';
 import { fuzzysearch } from '../../utils';

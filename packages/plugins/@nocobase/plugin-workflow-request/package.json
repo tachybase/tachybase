@@ -11,8 +11,8 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@formily/antd-v5": "^1.1.9",
-    "antd": "5.x",
-    "react": "18.x",
+    "antd": "5.16.0",
+    "react": "~18.2.0",
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {

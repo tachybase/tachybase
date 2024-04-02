@@ -1,5 +1,5 @@
-import { Form } from '@formily/core';
-import { Schema, useFieldSchema } from '@formily/react';
+import { Form } from '@nocobase/schema';
+import { Schema, useFieldSchema } from '@nocobase/schema';
 import React, { useContext, useMemo } from 'react';
 import { CollectionFieldOptions_deprecated } from '../..';
 import { isSystemField } from '../SchemaSettings';

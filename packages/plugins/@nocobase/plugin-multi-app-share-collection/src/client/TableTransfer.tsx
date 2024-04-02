@@ -1,4 +1,4 @@
-import { connect } from '@formily/react';
+import { connect } from '@nocobase/schema';
 import { css, useCollectionManager_deprecated, useRecord, useRequest, useToken } from '@nocobase/client';
 import { CollectionsGraph, lodash } from '@nocobase/utils/client';
 import { App, Col, Input, Row, Select, Spin, Table, Tag } from 'antd';

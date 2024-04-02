@@ -1,4 +1,4 @@
-import { SchemaExpressionScopeContext, useField, useFieldSchema } from '@formily/react';
+import { SchemaExpressionScopeContext, useField, useFieldSchema } from '@nocobase/schema';
 import {
   TableFieldResource,
   isVariable,

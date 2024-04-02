@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { useComponent, useDesignable } from '.';
 import { useMemo } from 'react';
 import { SchemaToolbar } from '../../schema-settings';

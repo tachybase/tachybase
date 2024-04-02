@@ -1,5 +1,5 @@
 import { ArrayBase } from '@formily/antd-v5';
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { message } from 'antd';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';

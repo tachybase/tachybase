@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
 import { Input as AntdInput, Spin } from 'antd';
 import React from 'react';
 import { useGlobalTheme } from '../../../global-theme';

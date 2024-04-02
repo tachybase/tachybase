@@ -1,10 +1,10 @@
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { ArrayField } from '@formily/core';
-import { spliceArrayState } from '@formily/core/esm/shared/internals';
-import { RecursionField, observer, useFieldSchema } from '@formily/react';
-import { action } from '@formily/reactive';
-import { each } from '@formily/shared';
+import { ArrayField } from '@nocobase/schema';
+import { spliceArrayState } from '@nocobase/schema';
+import { RecursionField, observer, useFieldSchema } from '@nocobase/schema';
+import { action } from '@nocobase/schema';
+import { each } from '@nocobase/schema';
 import { Button, Card, Divider, Tooltip } from 'antd';
 import _ from 'lodash';
 import React, { useCallback, useContext } from 'react';

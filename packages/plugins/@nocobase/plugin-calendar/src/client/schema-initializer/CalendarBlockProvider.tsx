@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { useField, useFieldSchema } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import {
   BlockProvider,
   FixedBlockWrapper,

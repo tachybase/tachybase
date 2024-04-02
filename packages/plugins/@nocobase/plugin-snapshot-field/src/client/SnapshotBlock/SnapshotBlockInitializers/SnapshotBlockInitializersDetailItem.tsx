@@ -10,8 +10,8 @@ import {
   SchemaInitializerItem,
   useSchemaInitializerItem,
 } from '@nocobase/client';
-import { ISchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 
 export const createSnapshotBlockSchema = (options) => {
   const {

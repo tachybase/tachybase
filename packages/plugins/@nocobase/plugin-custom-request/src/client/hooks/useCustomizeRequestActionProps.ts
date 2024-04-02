@@ -1,4 +1,4 @@
-import { useField, useFieldSchema, useForm } from '@formily/react';
+import { useField, useFieldSchema, useForm } from '@nocobase/schema';
 import {
   TableFieldResource,
   useAPIClient,

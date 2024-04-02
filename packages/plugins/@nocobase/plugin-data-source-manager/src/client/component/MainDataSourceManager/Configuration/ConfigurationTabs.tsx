@@ -9,8 +9,8 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { RecursionField, observer } from '@formily/react';
-import { uid } from '@formily/shared';
+import { RecursionField, observer } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { App, Badge, Card, Dropdown, Space, Tabs } from 'antd';
 import _ from 'lodash';
 import React, { useContext, useEffect, useMemo, useState } from 'react';

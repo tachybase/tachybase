@@ -11,7 +11,7 @@ import {
   useDesignable,
 } from '@nocobase/client';
 import { appOptions } from './schema-settings-common';
-import { ISchema, useField } from '@formily/react';
+import { ISchema, useField } from '@nocobase/schema';
 
 export const SchemaSettingsBlockTitleItem = function BlockTitleItem() {
   const filed = useField();

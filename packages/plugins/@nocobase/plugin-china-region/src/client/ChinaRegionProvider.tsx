@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { useField } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
 import { useAPIClient, useRequest } from '@nocobase/client';
 
 export const useChinaRegionDataSource = (options) => {

@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { error, forEach } from '@nocobase/utils/client';
 import { Select, Space } from 'antd';
 import _ from 'lodash';

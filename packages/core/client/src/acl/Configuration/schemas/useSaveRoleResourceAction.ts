@@ -1,4 +1,4 @@
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { useActionContext, useAPIClient, useRecord, useResourceActionContext } from '../../../';
 
 export const useSaveRoleResourceAction = () => {

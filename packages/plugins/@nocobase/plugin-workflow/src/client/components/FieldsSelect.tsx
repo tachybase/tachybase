@@ -1,4 +1,4 @@
-import { observer, useForm } from '@formily/react';
+import { observer, useForm } from '@nocobase/schema';
 import { Select } from 'antd';
 import React from 'react';
 

@@ -1,4 +1,4 @@
-import { RecursionField, useField, useFieldSchema } from '@formily/react';
+import { RecursionField, useField, useFieldSchema } from '@nocobase/schema';
 import { ActionBarProvider, SortableItem, TabsContextProvider, css, cx, useDesigner } from '@nocobase/client';
 import { TabsProps } from 'antd';
 import React, { useCallback } from 'react';

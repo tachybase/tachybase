@@ -1,4 +1,4 @@
-import { Schema } from '@formily/json-schema';
+import { Schema } from '@nocobase/schema';
 import { Migration } from '@nocobase/server';
 import { uid } from '@nocobase/utils';
 import UiSchemaRepository from '../repository';

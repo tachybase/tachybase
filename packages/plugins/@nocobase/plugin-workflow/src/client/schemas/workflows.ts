@@ -1,4 +1,4 @@
-import { ISchema, useForm } from '@formily/react';
+import { ISchema, useForm } from '@nocobase/schema';
 import { useActionContext, useRecord, useResourceActionContext, useResourceContext } from '@nocobase/client';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';

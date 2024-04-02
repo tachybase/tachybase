@@ -1,4 +1,4 @@
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import classNames from 'classnames';
 import React, { ReactNode, memo, useMemo } from 'react';
 import { Icon } from '../../../icon';

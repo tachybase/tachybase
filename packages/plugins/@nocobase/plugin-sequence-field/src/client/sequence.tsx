@@ -1,6 +1,6 @@
 import { ArrayTable, FormButtonGroup, FormDrawer, FormLayout, Submit } from '@formily/antd-v5';
-import { onFieldValueChange } from '@formily/core';
-import { ISchema, SchemaOptionsContext, useForm, useFormEffects } from '@formily/react';
+import { onFieldValueChange } from '@nocobase/schema';
+import { ISchema, SchemaOptionsContext, useForm, useFormEffects } from '@nocobase/schema';
 import {
   CollectionFieldInterface,
   Cron,

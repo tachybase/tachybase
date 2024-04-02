@@ -28,9 +28,9 @@ import {
 } from '@nocobase/client';
 import { ConfigProvider, Radio, Space } from 'antd';
 import React, { memo, useCallback, useContext, useMemo, Profiler } from 'react';
-import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@formily/react';
+import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@nocobase/schema';
 import { ArrayItems, FormLayout } from '@formily/antd-v5';
-import { Field, onFieldValueChange } from '@formily/core';
+import { Field, onFieldValueChange } from '@nocobase/schema';
 import {
   EditDefaultValue,
   EditFormulaTitleField,
@@ -42,7 +42,7 @@ import {
 import _ from 'lodash';
 import { SchemaSettingsRemove } from '../../schema-settings/SchemaSettingsRemove';
 import { tval, useTranslation } from '../../locale';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 
 const FieldComponentProps: React.FC = observer(
   (props) => {

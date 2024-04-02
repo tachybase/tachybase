@@ -1,4 +1,4 @@
-import { Form } from '@formily/core';
+import { Form } from '@nocobase/schema';
 
 export interface DataScopeProps {
   /**

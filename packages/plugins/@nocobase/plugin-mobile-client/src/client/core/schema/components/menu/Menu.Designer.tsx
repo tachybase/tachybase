@@ -1,5 +1,5 @@
 import { MenuOutlined } from '@ant-design/icons';
-import { useField, useFieldSchema } from '@formily/react';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import { SchemaSettingsDropdown, SchemaSettingsRemove, useDesignable } from '@nocobase/client';
 import { Button } from 'antd';
 import React from 'react';

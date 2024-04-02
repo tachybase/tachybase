@@ -1,6 +1,6 @@
-import { onFormValuesChange } from '@formily/core';
-import { useField, useFieldSchema, useFormEffects } from '@formily/react';
-import { toJS } from '@formily/reactive';
+import { onFormValuesChange } from '@nocobase/schema';
+import { useField, useFieldSchema, useFormEffects } from '@nocobase/schema';
+import { toJS } from '@nocobase/schema';
 import type { CollectionOptions } from '@nocobase/client';
 import {
   Checkbox,

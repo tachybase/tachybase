@@ -1,4 +1,4 @@
-import { observer } from '@formily/react';
+import { observer } from '@nocobase/schema';
 import { css, useCollectionManager_deprecated, useCompile } from '@nocobase/client';
 import { Tag } from 'antd';
 import React from 'react';

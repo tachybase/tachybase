@@ -1,8 +1,8 @@
 import { css, cx } from '@emotion/css';
 import { FormItem, FormLayout } from '@formily/antd-v5';
-import { Field, onFieldValueChange } from '@formily/core';
-import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@formily/react';
-import { uid } from '@formily/shared';
+import { Field, onFieldValueChange } from '@nocobase/schema';
+import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import {
   ACLCollectionFieldProvider,
   BlockItem,

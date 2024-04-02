@@ -1,4 +1,4 @@
-import { connect, mapReadPretty, useFieldSchema } from '@formily/react';
+import { connect, mapReadPretty, useFieldSchema } from '@nocobase/schema';
 import { Select, SelectProps } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useCollection_deprecated } from '../../../collection-manager';

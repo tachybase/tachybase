@@ -1,7 +1,7 @@
 import { TinyColor } from '@ctrl/tinycolor';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { cx } from '@emotion/css';
-import { Schema, observer, useField, useFieldSchema } from '@formily/react';
+import { Schema, observer, useField, useFieldSchema } from '@nocobase/schema';
 import React, { HTMLAttributes, createContext, useContext, useMemo } from 'react';
 import { useToken } from '../../antd/__builtins__';
 

@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { ISchema, Schema, useField } from '@formily/react';
+import { ISchema, Schema, useField } from '@nocobase/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCollectionManager_deprecated, useDesignable } from '..';

@@ -6,7 +6,7 @@ import { Selection } from '@antv/x6-plugin-selection';
 import { Snapline } from '@antv/x6-plugin-snapline';
 import { register } from '@antv/x6-react-shape';
 import { cx } from '@emotion/css';
-import { SchemaOptionsContext } from '@formily/react';
+import { SchemaOptionsContext } from '@nocobase/schema';
 import {
   APIClientProvider,
   ApplicationContext,

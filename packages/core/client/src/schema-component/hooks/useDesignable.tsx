@@ -1,6 +1,6 @@
-import { GeneralField, Query } from '@formily/core';
-import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { GeneralField, Query } from '@nocobase/schema';
+import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { message } from 'antd';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';

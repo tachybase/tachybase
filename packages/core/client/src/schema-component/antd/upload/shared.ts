@@ -1,7 +1,7 @@
-import { Field } from '@formily/core';
-import { useField } from '@formily/react';
-import { reaction } from '@formily/reactive';
-import { isArr, isValid, toArr as toArray } from '@formily/shared';
+import { Field } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
+import { reaction } from '@nocobase/schema';
+import { isArr, isValid, toArr as toArray } from '@nocobase/schema';
 import { UploadFile } from 'antd/es/upload/interface';
 import { useEffect } from 'react';
 import { useAPIClient } from '../../../api-client';

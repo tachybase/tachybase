@@ -10,13 +10,12 @@
   "license": "AGPL-3.0",
   "main": "dist/server/index.js",
   "dependencies": {
-    "@ant-design/icons": "^5.1.4",
+    "@ant-design/icons": "^5.3.6",
     "@ctrl/tinycolor": "^3.6.0",
     "@emotion/css": "^11.7.1",
     "@formily/antd-v5": "^1.1.9",
-    "@formily/react": "^2.2.27",
-    "@formily/shared": "^2.2.27",
-    "antd": "^5.12.8",
+    "@nocobase/schema": "workspace:*",
+    "antd": "5.16.0",
     "antd-style": "3.4.5",
     "lodash": "4.17.21",
     "react-i18next": "^11.15.1"

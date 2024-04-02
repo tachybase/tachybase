@@ -1,5 +1,5 @@
-import { ISchema } from '@formily/json-schema';
-import { useField, useFieldSchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import { useAPIClient } from '../../../../api-client';
 import { useTableBlockContext, useFormBlockContext } from '../../../../block-provider';
 import {

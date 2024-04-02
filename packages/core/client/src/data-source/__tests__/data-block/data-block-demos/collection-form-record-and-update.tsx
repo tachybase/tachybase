@@ -8,7 +8,7 @@ import {
   useCollectionRecordData,
   withDynamicSchemaProps,
 } from '@nocobase/client';
-import { ISchema } from '@formily/json-schema';
+import { ISchema } from '@nocobase/schema';
 import { createApp } from './createApp';
 
 interface DemoFormFieldType {

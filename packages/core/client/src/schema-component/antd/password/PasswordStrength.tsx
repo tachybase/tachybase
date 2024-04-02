@@ -1,4 +1,4 @@
-import { isFn } from '@formily/shared';
+import { isFn } from '@nocobase/schema';
 import React, { Fragment } from 'react';
 import { getStrength } from './utils';
 

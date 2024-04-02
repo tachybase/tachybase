@@ -1,6 +1,6 @@
-import { useForm } from '@formily/react';
-import { action } from '@formily/reactive';
-import { uid } from '@formily/shared';
+import { useForm } from '@nocobase/schema';
+import { action } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CollectionFieldsTable } from '.';

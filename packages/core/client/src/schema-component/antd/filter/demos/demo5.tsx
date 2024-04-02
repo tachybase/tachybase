@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/json-schema';
+import { ISchema } from '@nocobase/schema';
 import { Filter, FilterAction, Input, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
 import React from 'react';
 

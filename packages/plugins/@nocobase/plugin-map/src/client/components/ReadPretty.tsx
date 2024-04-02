@@ -1,4 +1,4 @@
-import { useFieldSchema, useForm } from '@formily/react';
+import { useFieldSchema, useForm } from '@nocobase/schema';
 import { EllipsisWithTooltip, useCollection_deprecated, useFieldTitle } from '@nocobase/client';
 import React from 'react';
 import { MapComponent } from './MapComponent';

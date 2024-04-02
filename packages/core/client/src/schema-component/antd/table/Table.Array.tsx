@@ -1,7 +1,7 @@
 import { MenuOutlined } from '@ant-design/icons';
 import { TinyColor } from '@ctrl/tinycolor';
 import { css } from '@emotion/css';
-import { ArrayField, Field } from '@formily/core';
+import { ArrayField, Field } from '@nocobase/schema';
 import {
   RecursionField,
   Schema,
@@ -9,7 +9,7 @@ import {
   observer,
   useField,
   useFieldSchema,
-} from '@formily/react';
+} from '@nocobase/schema';
 import { Table, TableColumnProps } from 'antd';
 import { default as classNames, default as cls } from 'classnames';
 import React, { useContext, useState } from 'react';

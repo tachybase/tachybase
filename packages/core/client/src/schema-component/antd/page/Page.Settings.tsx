@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { ISchema, useField, useFieldSchema } from '@formily/react';
+import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
 import { useDesignable } from '../..';
 import { SchemaSettings } from '../../../application/schema-settings';
 import { useSchemaToolbar } from '../../../application/schema-toolbar';

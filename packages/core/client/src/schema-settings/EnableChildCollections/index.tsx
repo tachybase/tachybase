@@ -1,5 +1,5 @@
-import { observer, useForm } from '@formily/react';
-import { action } from '@formily/reactive';
+import { observer, useForm } from '@nocobase/schema';
+import { action } from '@nocobase/schema';
 import React from 'react';
 import { useCollectionManager_deprecated } from '../../collection-manager';
 import { SchemaComponent, useCompile } from '../../schema-component';

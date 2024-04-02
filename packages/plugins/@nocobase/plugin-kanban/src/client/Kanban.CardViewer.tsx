@@ -1,4 +1,4 @@
-import { observer } from '@formily/react';
+import { observer } from '@nocobase/schema';
 
 export const KanbanCardViewer: any = observer(
   (props: any) => {

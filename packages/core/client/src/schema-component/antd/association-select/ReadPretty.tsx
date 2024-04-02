@@ -1,4 +1,4 @@
-import { observer } from '@formily/react';
+import { observer } from '@nocobase/schema';
 import React from 'react';
 import { useFieldTitle } from '../../hooks';
 import { RemoteSelect } from '../remote-select';

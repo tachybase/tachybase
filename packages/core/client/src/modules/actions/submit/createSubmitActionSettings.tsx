@@ -1,5 +1,5 @@
-import { useFieldSchema, useField, connect, mapProps, ISchema } from '@formily/react';
-import { isValid } from '@formily/shared';
+import { useFieldSchema, useField, connect, mapProps, ISchema } from '@nocobase/schema';
+import { isValid } from '@nocobase/schema';
 import React, { useEffect, useState } from 'react';
 import { Tree as AntdTree } from 'antd';
 import { useSchemaToolbar } from '../../../application';

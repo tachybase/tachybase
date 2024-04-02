@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { useFieldSchema, useForm } from '@formily/react';
+import { useFieldSchema, useForm } from '@nocobase/schema';
 import { Button } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

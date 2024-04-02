@@ -1,4 +1,4 @@
-import type { ISchema } from '@formily/react';
+import type { ISchema } from '@nocobase/schema';
 import type { ReactNode } from 'react';
 import type { CollectionManager, CollectionOptions } from '../data-source';
 

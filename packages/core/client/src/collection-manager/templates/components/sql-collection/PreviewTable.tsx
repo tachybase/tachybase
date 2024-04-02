@@ -1,7 +1,7 @@
 import { useAsyncData } from '../../../../async-data-provider';
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
-import { Schema, observer, useForm } from '@formily/react';
+import { Schema, observer, useForm } from '@nocobase/schema';
 import { useTranslation } from 'react-i18next';
 
 export const PreviewTable = observer(

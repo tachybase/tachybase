@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect, useField } from '@formily/react';
+import { connect, useField } from '@nocobase/schema';
 import { Checkbox } from 'antd';
-import { Field } from '@formily/core';
+import { Field } from '@nocobase/schema';
 
 export const ChartFilterCheckbox = connect((props) => {
   const { content } = props;

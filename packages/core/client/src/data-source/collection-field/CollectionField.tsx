@@ -1,6 +1,6 @@
-import { Field } from '@formily/core';
-import { connect, useField, useFieldSchema } from '@formily/react';
-import { merge } from '@formily/shared';
+import { Field } from '@nocobase/schema';
+import { connect, useField, useFieldSchema } from '@nocobase/schema';
+import { merge } from '@nocobase/schema';
 import { concat } from 'lodash';
 import React, { useEffect, useMemo } from 'react';
 import { useFormBlockContext } from '../../block-provider/FormBlockProvider';

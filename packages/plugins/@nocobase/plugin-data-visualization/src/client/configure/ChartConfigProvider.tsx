@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import React, { createContext, useState } from 'react';
 import { ChartRendererProvider } from '../renderer';
 import { ChartConfigure } from './ChartConfigure';

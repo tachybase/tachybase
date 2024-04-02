@@ -1,5 +1,5 @@
-import { ObjectField } from '@formily/core';
-import { useField } from '@formily/react';
+import { ObjectField } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
 import classnames from 'classnames';
 import React from 'react';
 import { css, cx } from '@emotion/css';

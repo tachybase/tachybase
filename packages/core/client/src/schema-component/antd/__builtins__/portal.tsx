@@ -1,5 +1,5 @@
-import { Observer, ReactFC } from '@formily/react';
-import { observable } from '@formily/reactive';
+import { Observer, ReactFC } from '@nocobase/schema';
+import { observable } from '@nocobase/schema';
 import React, { Fragment } from 'react';
 import { createPortal } from 'react-dom';
 import { render as reactRender, unmount as reactUnmount } from './render';

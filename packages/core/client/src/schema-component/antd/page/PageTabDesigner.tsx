@@ -1,5 +1,5 @@
 import { DragOutlined } from '@ant-design/icons';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { Space } from 'antd';
 import React from 'react';
 import { DragHandler, useDesignable } from '../..';

@@ -1,8 +1,8 @@
 import { FormDrawer, FormLayout } from '@formily/antd-v5';
-import { createForm } from '@formily/core';
-import { ISchema } from '@formily/json-schema';
-import { FormContext, SchemaOptionsContext } from '@formily/react';
-import { uid } from '@formily/shared';
+import { createForm } from '@nocobase/schema';
+import { ISchema } from '@nocobase/schema';
+import { FormContext, SchemaOptionsContext } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import {
   AntdSchemaComponentProvider,
   Application,

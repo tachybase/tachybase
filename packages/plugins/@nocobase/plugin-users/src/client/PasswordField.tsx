@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Input, Row, Col, Button } from 'antd';
 import { Password, useActionContext } from '@nocobase/client';
-import { useField } from '@formily/react';
-import { Field } from '@formily/core';
+import { useField } from '@nocobase/schema';
+import { Field } from '@nocobase/schema';
 import { useUsersTranslation } from './locale';
 import { generatePassword } from './utils';
 

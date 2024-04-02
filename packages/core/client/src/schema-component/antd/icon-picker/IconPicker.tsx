@@ -1,7 +1,7 @@
 import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useFormLayout } from '@formily/antd-v5';
-import { connect, mapProps, mapReadPretty } from '@formily/react';
-import { isValid } from '@formily/shared';
+import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
+import { isValid } from '@nocobase/schema';
 import { Button, Space } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';

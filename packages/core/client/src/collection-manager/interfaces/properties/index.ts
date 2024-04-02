@@ -1,6 +1,6 @@
-import { Field } from '@formily/core';
-import { ISchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { Field } from '@nocobase/schema';
+import { ISchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 export * as operators from './operators';
 
 export const type: ISchema = {

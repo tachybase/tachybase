@@ -1,4 +1,4 @@
-import { observer } from '@formily/reactive-react';
+import { observer } from '@nocobase/schema';
 import React, { FC, useCallback, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import type { Application } from '../Application';

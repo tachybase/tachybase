@@ -1,4 +1,4 @@
-import { connect, mapProps, mapReadPretty } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
 import { AutoComplete as AntdAutoComplete } from 'antd';
 import { ReadPretty } from '../input';
 

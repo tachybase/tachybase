@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Input, Tag, message } from 'antd';
 import { cloneDeep } from 'lodash';
 import { InfoOutlined } from '@ant-design/icons';
-import { createForm } from '@formily/core';
-import { ISchema, useForm } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { ISchema, useForm } from '@nocobase/schema';
 
 import {
   ActionContextProvider,

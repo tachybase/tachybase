@@ -1,4 +1,4 @@
-import { useField } from '@formily/react';
+import { useField } from '@nocobase/schema';
 import { cx, SortableItem, useCompile, useDesigner, useDocumentTitle, useToken } from '@nocobase/client';
 import { NavBar, NavBarProps } from 'antd-mobile';
 import React, { useEffect, useMemo } from 'react';

@@ -1,7 +1,7 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import { useActionContext, useCollectionRecord, useRecord, useRequest } from '@nocobase/client';
 import { useEffect } from 'react';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 
 export const userCollection = {
   name: 'users',

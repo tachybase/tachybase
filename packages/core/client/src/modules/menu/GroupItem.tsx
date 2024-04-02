@@ -1,5 +1,5 @@
 import { FormLayout } from '@formily/antd-v5';
-import { SchemaOptionsContext } from '@formily/react';
+import { SchemaOptionsContext } from '@nocobase/schema';
 import React, { useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormDialog, SchemaComponent, SchemaComponentOptions } from '../../schema-component';

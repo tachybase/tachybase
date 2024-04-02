@@ -86,11 +86,12 @@ export class CollectionRepository extends Repository {
         lazyCollectionFields.set(instanceName, skipField);
       }
 
-      this.database.logger.debug(`load collection`, {
-        instanceName,
-        submodule: 'CollectionRepository',
-        method: 'load',
-      });
+      process.env.DEBUG_LOAD_COLLECTION &&
+        this.database.logger.debug(`load collection`, {
+          instanceName,
+          submodule: 'CollectionRepository',
+          method: 'load',
+        });
       this.app.setMaintainingMessage(`load ${instanceName} collection`);
 
       await nameMap[instanceName].load({ skipField });
@@ -98,22 +99,24 @@ export class CollectionRepository extends Repository {
 
     // load view fields
     for (const viewCollectionName of viewCollections) {
-      this.database.logger.debug(`load collection fields`, {
-        submodule: 'CollectionRepository',
-        method: 'load',
-        viewCollectionName,
-      });
+      process.env.DEBUG_LOAD_COLLECTION_FIELDS &&
+        this.database.logger.debug(`load collection fields`, {
+          submodule: 'CollectionRepository',
+          method: 'load',
+          viewCollectionName,
+        });
       this.app.setMaintainingMessage(`load ${viewCollectionName} collection fields`);
       await nameMap[viewCollectionName].loadFields({});
     }
 
     // load lazy collection field
     for (const [collectionName, skipField] of lazyCollectionFields) {
-      this.database.logger.debug(`load collection fields`, {
-        submodule: 'CollectionRepository',
-        method: 'load',
-        collectionName,
-      });
+      process.env.DEBUG_LOAD_COLLECTION_FIELDS &&
+        this.database.logger.debug(`load collection fields`, {
+          submodule: 'CollectionRepository',
+          method: 'load',
+          collectionName,
+        });
       this.app.setMaintainingMessage(`load ${collectionName} collection fields`);
       await nameMap[collectionName].loadFields({ includeFields: skipField });
     }

@@ -1,5 +1,5 @@
 import { BarChartOutlined, LineChartOutlined } from '@ant-design/icons';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import {
   CompatibleSchemaInitializer,
   DEFAULT_DATA_SOURCE_KEY,

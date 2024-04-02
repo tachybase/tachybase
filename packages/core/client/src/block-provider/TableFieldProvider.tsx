@@ -1,5 +1,5 @@
-import { ArrayField, Field } from '@formily/core';
-import { useField, useFieldSchema } from '@formily/react';
+import { ArrayField, Field } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import React, { createContext, useContext, useEffect } from 'react';
 import { APIClient } from '../api-client';
 import { BlockProvider, useBlockRequestContext } from './BlockProvider';

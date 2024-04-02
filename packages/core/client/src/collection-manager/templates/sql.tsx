@@ -1,4 +1,4 @@
-import { Field } from '@formily/core';
+import { Field } from '@nocobase/schema';
 import { SQLInput, PreviewTable, FieldsConfigure, SQLRequestProvider } from './components/sql-collection';
 import { getConfigurableProperties } from './properties';
 import { i18n } from '../../i18n';

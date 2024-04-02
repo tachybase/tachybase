@@ -1,4 +1,4 @@
-import { isValid } from '@formily/shared';
+import { isValid } from '@nocobase/schema';
 import { toFixedByStep } from '@nocobase/utils/client';
 import type { InputProps } from 'antd/es/input';
 import type { InputNumberProps } from 'antd/es/input-number';

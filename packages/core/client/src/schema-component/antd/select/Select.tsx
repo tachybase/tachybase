@@ -1,6 +1,6 @@
 import { CloseCircleFilled, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@formily/react';
-import { isValid, toArr } from '@formily/shared';
+import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
+import { isValid, toArr } from '@nocobase/schema';
 import { isPlainObject } from '@nocobase/utils/client';
 import type { SelectProps } from 'antd';
 import { Select as AntdSelect, Empty, Spin, Tag } from 'antd';

@@ -1,5 +1,5 @@
-import { ISchema, useForm } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema, useForm } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { Card, message } from 'antd';
 import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';

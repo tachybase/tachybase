@@ -1,6 +1,6 @@
 import { FormLayout } from '@formily/antd-v5';
-import { SchemaOptionsContext } from '@formily/react';
-import { uid } from '@formily/shared';
+import { SchemaOptionsContext } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import React, { useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SchemaInitializerItem, useSchemaInitializer } from '../../application';

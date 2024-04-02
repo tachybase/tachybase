@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
 import { Select, Tag } from 'antd';
 import React from 'react';
 import { useCompile } from '../../hooks/useCompile';

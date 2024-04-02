@@ -1,5 +1,5 @@
-import { onFieldValueChange } from '@formily/core';
-import { useForm, useFormEffects, ISchema } from '@formily/react';
+import { onFieldValueChange } from '@nocobase/schema';
+import { useForm, useFormEffects, ISchema } from '@nocobase/schema';
 import { css, SchemaComponent } from '@nocobase/client';
 import React, { useState } from 'react';
 import { NAMESPACE } from '../../locale';

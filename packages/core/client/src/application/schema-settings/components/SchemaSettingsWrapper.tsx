@@ -5,7 +5,7 @@ import { SchemaSettingsChildren } from './SchemaSettingsChildren';
 import { SchemaSettingsIcon } from './SchemaSettingsIcon';
 import React from 'react';
 import { useDesignable } from '../../../schema-component';
-import { useField, useFieldSchema } from '@formily/react';
+import { useField, useFieldSchema } from '@nocobase/schema';
 
 /**
  * @internal
