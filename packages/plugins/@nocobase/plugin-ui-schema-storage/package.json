@@ -10,7 +10,7 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@nocobase/schema": "workspace:*",
+    "@formily/json-schema": "2.2.27",
     "lodash": "4.17.21"
   },
   "peerDependencies": {

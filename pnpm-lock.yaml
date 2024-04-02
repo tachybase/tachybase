@@ -1130,12 +1130,12 @@ importers:
       '@faker-js/faker':
         specifier: 8.1.0
         version: 8.1.0
+      '@formily/shared':
+        specifier: 2.2.27
+        version: 2.2.27
       '@nocobase/database':
         specifier: workspace:*
         version: link:../database
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../schema
       '@nocobase/server':
         specifier: workspace:*
         version: link:../server
@@ -3723,9 +3723,9 @@ importers:
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
+      '@formily/json-schema':
+        specifier: 2.2.27
+        version: 2.2.27(typescript@5.4.3)
       lodash:
         specifier: 4.17.21
         version: 4.17.21

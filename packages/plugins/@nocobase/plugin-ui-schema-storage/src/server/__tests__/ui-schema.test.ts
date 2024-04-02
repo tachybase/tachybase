@@ -1,4 +1,4 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@formily/json-schema';
 import { Database } from '@nocobase/database';
 import { createMockServer, MockServer } from '@nocobase/test';
 import { UiSchemaRepository } from '..';
