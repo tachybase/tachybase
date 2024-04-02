@@ -1,3 +1,4 @@
+-- 增值税计算
 CREATE OR REPLACE VIEW
   public.view_invoice_tax AS
   --  发票进项表和完税凭证表: 1. 筛选所需字段并统一命名,2. 将发票进项表和完税凭证表, 两个表的数据合并
