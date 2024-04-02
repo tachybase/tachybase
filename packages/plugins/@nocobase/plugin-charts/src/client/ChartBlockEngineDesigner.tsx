@@ -1,5 +1,5 @@
 import { FormLayout } from '@formily/antd-v5';
-import { SchemaOptionsContext, useField, useFieldSchema } from '@formily/react';
+import { SchemaOptionsContext, useField, useFieldSchema } from '@nocobase/schema';
 import {
   APIClientProvider,
   FormDialog,

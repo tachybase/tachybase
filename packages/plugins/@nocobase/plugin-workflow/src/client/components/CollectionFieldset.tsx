@@ -1,5 +1,5 @@
 import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { observer, useField, useForm } from '@formily/react';
+import { observer, useField, useForm } from '@nocobase/schema';
 import {
   CollectionField,
   CollectionProvider_deprecated,

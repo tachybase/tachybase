@@ -1,5 +1,5 @@
-import { ISchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 
 /**
  * 创建批量编辑表单的 UI Schema

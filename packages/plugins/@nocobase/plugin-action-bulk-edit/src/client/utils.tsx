@@ -12,7 +12,7 @@ import {
 import React, { useContext } from 'react';
 import { App, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { SchemaExpressionScopeContext, useField, useForm } from '@formily/react';
+import { SchemaExpressionScopeContext, useField, useForm } from '@nocobase/schema';
 import { cloneDeep } from 'lodash';
 import { isURL } from '@nocobase/utils/client';
 import { useMemo } from 'react';

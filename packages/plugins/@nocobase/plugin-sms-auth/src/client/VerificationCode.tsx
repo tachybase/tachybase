@@ -1,4 +1,4 @@
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { css, useAPIClient } from '@nocobase/client';
 import { Button, Input, message } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';

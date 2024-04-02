@@ -1,4 +1,4 @@
-import { observer } from '@formily/react';
+import { observer } from '@nocobase/schema';
 import { Button } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { CalendarToolbarContext } from './context';

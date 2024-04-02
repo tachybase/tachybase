@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Select } from 'antd';
-import { observer, useForm, useField } from '@formily/react';
+import { observer, useForm, useField } from '@nocobase/schema';
 import { useParams } from 'react-router-dom';
 import { useRecord, useCompile, useAPIClient, useCollectionManager_deprecated } from '@nocobase/client';
 import { useRemoteCollectionContext } from '../CollectionFields';

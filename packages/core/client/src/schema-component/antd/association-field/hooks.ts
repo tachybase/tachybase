@@ -1,6 +1,6 @@
-import { GeneralField } from '@formily/core';
-import { useField, useFieldSchema } from '@formily/react';
-import { reaction } from '@formily/reactive';
+import { GeneralField } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@nocobase/schema';
+import { reaction } from '@nocobase/schema';
 import { flatten, getValuesByPath } from '@nocobase/utils/client';
 import _, { isString } from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';

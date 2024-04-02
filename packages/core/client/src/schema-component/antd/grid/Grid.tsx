@@ -1,7 +1,7 @@
 import { TinyColor } from '@ctrl/tinycolor';
 import { useDndContext, useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core';
-import { ISchema, RecursionField, Schema, observer, useField, useFieldSchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema, RecursionField, Schema, observer, useField, useFieldSchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import cls from 'classnames';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useDesignable, useFormBlockContext, useSchemaInitializerRender } from '../../../';

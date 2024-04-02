@@ -1,4 +1,4 @@
-import { SchemaKey } from '@formily/react';
+import { SchemaKey } from '@nocobase/schema';
 import { useAPIClient } from '../../api-client';
 import { InheritanceCollectionMixin } from '../mixins/InheritanceCollectionMixin';
 import { useCallback, useMemo } from 'react';

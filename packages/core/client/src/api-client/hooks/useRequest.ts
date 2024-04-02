@@ -1,4 +1,4 @@
-import { merge } from '@formily/shared';
+import { merge } from '@nocobase/schema';
 import { useRequest as useReq, useSetState } from 'ahooks';
 import { Options, Result } from 'ahooks/es/useRequest/src/types';
 import { AxiosRequestConfig } from 'axios';

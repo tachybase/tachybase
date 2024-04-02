@@ -1,8 +1,8 @@
 import { CopyOutlined } from '@ant-design/icons';
 import { ArrayBase } from '@formily/antd-v5';
-import { ArrayField } from '@formily/core';
-import { ISchema, RecursionField, observer, useField, useFieldSchema } from '@formily/react';
-import { toArr, uid } from '@formily/shared';
+import { ArrayField } from '@nocobase/schema';
+import { ISchema, RecursionField, observer, useField, useFieldSchema } from '@nocobase/schema';
+import { toArr, uid } from '@nocobase/schema';
 import { Badge, Card, Collapse, CollapsePanelProps, CollapseProps, Empty, Input } from 'antd';
 import cls from 'classnames';
 import { clone } from 'lodash';

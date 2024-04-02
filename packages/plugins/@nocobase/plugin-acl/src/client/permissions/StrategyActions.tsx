@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { connect, useField } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { connect, useField } from '@nocobase/schema';
 import { Checkbox, Select, Table, Tag } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

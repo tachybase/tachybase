@@ -1,9 +1,9 @@
 import React from 'react';
 import { Plugin, RemoteSchemaTemplateManagerProvider, EditTitleField, useCollection } from '@nocobase/client';
 import { remove } from 'lodash';
-import { useFieldSchema } from '@formily/react';
-import { isValid } from '@formily/shared';
-import { autorun } from '@formily/reactive';
+import { useFieldSchema } from '@nocobase/schema';
+import { isValid } from '@nocobase/schema';
+import { autorun } from '@nocobase/schema';
 import { Locale, tval } from './locale';
 import {
   PageModeSetting,

@@ -1,4 +1,4 @@
-import { setValidateLanguage } from '@formily/validator';
+import { setValidateLanguage } from '@nocobase/schema';
 import { App, ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
 import { loadConstrueLocale } from '../../antd-config-provider/loadConstrueLocale';

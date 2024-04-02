@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { useCallback, useMemo } from 'react';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { isInFilterFormBlock } from '../../../filter-provider';

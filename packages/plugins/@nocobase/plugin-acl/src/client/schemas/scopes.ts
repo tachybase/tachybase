@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import { VariableInput, useFilterOptions, useFormBlockContext } from '@nocobase/client';
 import { useContext, useEffect } from 'react';
 import { RoleResourceCollectionContext } from '../permissions/RolesResourcesActions';

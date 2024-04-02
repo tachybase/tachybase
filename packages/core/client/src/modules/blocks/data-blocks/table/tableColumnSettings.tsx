@@ -1,5 +1,5 @@
-import { ISchema } from '@formily/json-schema';
-import { useField, useFieldSchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '../../../../application';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';

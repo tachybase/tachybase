@@ -1,6 +1,6 @@
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { ObjectField as ObjectFieldModel } from '@formily/core';
-import { ArrayField, connect, useField } from '@formily/react';
+import { ObjectField as ObjectFieldModel } from '@nocobase/schema';
+import { ArrayFieldComponent as ArrayField, connect, useField } from '@nocobase/schema';
 import { Select, Space } from 'antd';
 import React, { useContext } from 'react';
 import { Trans, useTranslation } from 'react-i18next';

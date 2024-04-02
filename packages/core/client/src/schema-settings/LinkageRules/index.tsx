@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { Form } from '@formily/core';
-import { observer, useFieldSchema } from '@formily/react';
+import { Form } from '@nocobase/schema';
+import { observer, useFieldSchema } from '@nocobase/schema';
 import React, { useMemo } from 'react';
 import { FormBlockContext } from '../../block-provider';
 import { useCollectionManager_deprecated } from '../../collection-manager';

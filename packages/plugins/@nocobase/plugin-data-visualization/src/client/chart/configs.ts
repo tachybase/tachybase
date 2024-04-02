@@ -1,4 +1,4 @@
-import { SchemaProperties } from '@formily/react';
+import { SchemaProperties } from '@nocobase/schema';
 import { lang } from '../locale';
 
 export type FieldConfigProps = Partial<{

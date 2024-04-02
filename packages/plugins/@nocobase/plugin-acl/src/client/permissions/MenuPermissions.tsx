@@ -1,9 +1,9 @@
 import { Checkbox, message, Table } from 'antd';
-import { onFormValuesChange, createForm, Form } from '@formily/core';
+import { onFormValuesChange, createForm, Form } from '@nocobase/schema';
 import { uniq } from 'lodash';
 import React, { useContext, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { useAPIClient, SchemaComponent, useRequest } from '@nocobase/client';
 import { useStyles } from './style';
 import { useMemoizedFn } from 'ahooks';

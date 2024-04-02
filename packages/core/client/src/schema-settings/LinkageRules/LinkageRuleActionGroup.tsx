@@ -1,5 +1,10 @@
-import { ArrayField as ArrayFieldModel, VoidField } from '@formily/core';
-import { ArrayField, ObjectField, observer, useField } from '@formily/react';
+import { ArrayField as ArrayFieldModel, VoidField } from '@nocobase/schema';
+import {
+  ArrayFieldComponent as ArrayField,
+  ObjectFieldComponent as ObjectField,
+  observer,
+  useField,
+} from '@nocobase/schema';
 import { Space } from 'antd';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

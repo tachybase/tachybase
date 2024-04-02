@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { useField } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
 import React, { useCallback, useState } from 'react';
 import { useCollectionManager_deprecated } from '../../../collection-manager';
 import { useCompile } from '../../../schema-component';

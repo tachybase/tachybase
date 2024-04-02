@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISchema, useFieldSchema } from '@formily/react';
+import { ISchema, useFieldSchema } from '@nocobase/schema';
 import { SchemaSettingsModalItem, useCollectionManager, useDesignable } from '@nocobase/client';
 import { tval, useTranslation } from '../locale';
 import { dayjs } from '@nocobase/utils/client';

@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { RecursionField, useField, useFieldSchema } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { RecursionField, useField, useFieldSchema } from '@nocobase/schema';
 import { Select } from 'antd';
 import { differenceBy, unionBy } from 'lodash';
 import React, { createContext, useContext, useEffect, useState } from 'react';

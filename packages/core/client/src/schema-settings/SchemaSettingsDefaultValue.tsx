@@ -1,5 +1,5 @@
-import { Field } from '@formily/core';
-import { ISchema, Schema, useField, useFieldSchema } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { ISchema, Schema, useField, useFieldSchema } from '@nocobase/schema';
 import _ from 'lodash';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

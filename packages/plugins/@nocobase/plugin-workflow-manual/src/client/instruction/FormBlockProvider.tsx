@@ -1,5 +1,5 @@
-import { createForm } from '@formily/core';
-import { RecursionField, useField, useFieldSchema } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { RecursionField, useField, useFieldSchema } from '@nocobase/schema';
 import {
   BlockRequestContext_deprecated,
   CollectionManagerProvider,

@@ -1,9 +1,9 @@
 import { css } from '@emotion/css';
 import { FormLayout } from '@formily/antd-v5';
-import { createForm, Field, Form as FormilyForm, onFieldInit, onFormInputChange } from '@formily/core';
-import { FieldContext, FormContext, observer, RecursionField, useField, useFieldSchema } from '@formily/react';
-import { reaction } from '@formily/reactive';
-import { uid } from '@formily/shared';
+import { createForm, Field, Form as FormilyForm, onFieldInit, onFormInputChange } from '@nocobase/schema';
+import { FieldContext, FormContext, observer, RecursionField, useField, useFieldSchema } from '@nocobase/schema';
+import { reaction } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { getValuesByPath } from '@nocobase/utils/client';
 import { ConfigProvider, Spin } from 'antd';
 import React, { useEffect, useMemo } from 'react';

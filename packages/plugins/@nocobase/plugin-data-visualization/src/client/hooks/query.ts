@@ -1,5 +1,5 @@
-import { ArrayField } from '@formily/core';
-import { ISchema, Schema, useForm } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { ISchema, Schema, useForm } from '@nocobase/schema';
 import {
   CollectionFieldOptions,
   CollectionFieldOptions_deprecated,

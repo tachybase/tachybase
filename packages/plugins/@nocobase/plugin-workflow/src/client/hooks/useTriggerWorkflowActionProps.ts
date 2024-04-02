@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { App, message } from 'antd';
-import { useField, useFieldSchema, useForm } from '@formily/react';
+import { useField, useFieldSchema, useForm } from '@nocobase/schema';
 
 import {
   useAPIClient,

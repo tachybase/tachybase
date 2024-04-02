@@ -1,5 +1,5 @@
-import { Form } from '@formily/core';
-import { ISchema, Schema } from '@formily/react';
+import { Form } from '@nocobase/schema';
+import { ISchema, Schema } from '@nocobase/schema';
 import { useMemo } from 'react';
 import { CollectionFieldOptions_deprecated, useCollection_deprecated } from '../../../collection-manager';
 import { useBlockCollection } from './useBlockCollection';

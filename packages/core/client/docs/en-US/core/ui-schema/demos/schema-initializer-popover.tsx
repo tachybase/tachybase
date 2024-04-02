@@ -7,8 +7,8 @@ import {
   useDesignable,
   useSchemaInitializerRender,
 } from '@nocobase/client';
-import { observer, useField, useFieldSchema } from '@formily/react';
-import { Field } from '@formily/core';
+import { observer, useField, useFieldSchema } from '@nocobase/schema';
+import { Field } from '@nocobase/schema';
 import { Button } from 'antd';
 
 const Hello = observer(() => {

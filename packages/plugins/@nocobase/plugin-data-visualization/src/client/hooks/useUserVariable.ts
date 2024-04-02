@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Schema } from '@formily/react';
+import { Schema } from '@nocobase/schema';
 import { useCollectionFieldsOptions } from '@nocobase/client';
 import { useMemoizedFn } from 'ahooks';
 

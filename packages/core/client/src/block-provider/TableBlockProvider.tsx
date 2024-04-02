@@ -1,5 +1,5 @@
-import { createForm } from '@formily/core';
-import { FormContext, useField, useFieldSchema } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { FormContext, useField, useFieldSchema } from '@nocobase/schema';
 import React, { createContext, useContext, useMemo, useState } from 'react';
 import { useCollectionManager_deprecated } from '../collection-manager';
 import { FixedBlockWrapper, SchemaComponentOptions } from '../schema-component';

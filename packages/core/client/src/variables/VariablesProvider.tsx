@@ -1,4 +1,4 @@
-import { raw, untracked } from '@formily/reactive';
+import { raw, untracked } from '@nocobase/schema';
 import { getValuesByPath } from '@nocobase/utils/client';
 import _ from 'lodash';
 import React, { createContext, useCallback, useEffect, useMemo, useRef } from 'react';

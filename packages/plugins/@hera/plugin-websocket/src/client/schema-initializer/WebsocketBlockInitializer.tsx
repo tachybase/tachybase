@@ -10,7 +10,7 @@ import {
   useSchemaInitializerItem,
 } from '@nocobase/client';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 
 export class WebsocketBlockHelper {
   constructor(private app: Application) {}

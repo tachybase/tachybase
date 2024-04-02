@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import React from 'react';
 
 import { InitializerWithSwitch } from '../../../schema-initializer/items/InitializerWithSwitch';

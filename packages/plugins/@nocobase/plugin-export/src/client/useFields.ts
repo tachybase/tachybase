@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { useCollectionManager_deprecated } from '@nocobase/client';
 
 export const useFields = (collectionName: string) => {

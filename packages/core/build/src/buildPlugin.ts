@@ -39,6 +39,7 @@ const external = [
   '@nocobase/logger',
   '@nocobase/resourcer',
   '@nocobase/sdk',
+  '@nocobase/schema',
   '@nocobase/server',
   '@nocobase/test',
   '@nocobase/utils',

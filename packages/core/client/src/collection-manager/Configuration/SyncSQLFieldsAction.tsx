@@ -1,8 +1,8 @@
 import { SyncOutlined } from '@ant-design/icons';
 import { FormLayout } from '@formily/antd-v5';
-import { createForm } from '@formily/core';
-import { useField, useForm } from '@formily/react';
-import { uid } from '@formily/shared';
+import { createForm } from '@nocobase/schema';
+import { useField, useForm } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { Button } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

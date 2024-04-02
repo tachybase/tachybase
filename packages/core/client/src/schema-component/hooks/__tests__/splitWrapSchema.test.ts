@@ -1,4 +1,4 @@
-import { Schema } from '@formily/react';
+import { Schema } from '@nocobase/schema';
 import { splitWrapSchema } from '../useDesignable';
 
 describe('splitWrapSchema', () => {

@@ -1,6 +1,6 @@
 import { FormItem, FormLayout } from '@formily/antd-v5';
-import { ArrayField } from '@formily/core';
-import { connect, useField, useForm } from '@formily/react';
+import { ArrayField } from '@nocobase/schema';
+import { connect, useField, useForm } from '@nocobase/schema';
 import {
   useCollectionManager,
   useCollectionManager_deprecated,

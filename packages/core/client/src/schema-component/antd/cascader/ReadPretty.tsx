@@ -1,6 +1,6 @@
-import { ArrayField } from '@formily/core';
-import { useField } from '@formily/react';
-import { toArr } from '@formily/shared';
+import { ArrayField } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
+import { toArr } from '@nocobase/schema';
 import React from 'react';
 import { defaultFieldNames } from './defaultFieldNames';
 

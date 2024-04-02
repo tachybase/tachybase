@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ActionInitializer, useAPIClient, useRecord } from '@nocobase/client';
-import { useField } from '@formily/react';
+import { useField } from '@nocobase/schema';
 import { SettlementStyleContext } from './SettlementStyleSwitchActionInitializer';
 import { ExportToExcel } from './SettlementExportExcel';
 

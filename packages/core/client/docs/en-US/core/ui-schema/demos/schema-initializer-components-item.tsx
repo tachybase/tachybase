@@ -11,7 +11,7 @@ import {
 } from '@nocobase/client';
 import React from 'react';
 import { appOptions } from './schema-initializer-common';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 
 const Demo = () => {
   const { insert } = useSchemaInitializer();

@@ -1,4 +1,4 @@
-import { Schema } from '@formily/react';
+import { Schema } from '@nocobase/schema';
 
 export function findByUid(schema: Schema, uid: string) {
   if (!Schema.isSchemaInstance(schema)) {

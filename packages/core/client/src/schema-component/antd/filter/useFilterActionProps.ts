@@ -1,5 +1,5 @@
-import { Field } from '@formily/core';
-import { useField, useFieldSchema } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import flat from 'flat';
 import { useTranslation } from 'react-i18next';
 import { useBlockRequestContext } from '../../../block-provider';

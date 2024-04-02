@@ -1,5 +1,5 @@
 import { DownOutlined } from '@ant-design/icons';
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import {
   Action,
   ActionInitializer,

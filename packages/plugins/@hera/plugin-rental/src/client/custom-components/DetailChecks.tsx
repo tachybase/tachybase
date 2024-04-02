@@ -1,8 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
-import { useField, useFieldSchema, useForm } from '@formily/react';
-import { FormPath } from '@formily/core';
+import { useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { FormPath } from '@nocobase/schema';
 import { useRequest } from '@nocobase/client';
 import { Space, Spin, Tag } from 'antd';
 

@@ -1,5 +1,5 @@
-import { useFieldSchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { useFieldSchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import {
   css,
   cx,

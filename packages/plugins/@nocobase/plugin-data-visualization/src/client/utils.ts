@@ -1,5 +1,5 @@
-import { Schema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { Schema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import lodash from 'lodash';
 import { SelectedField } from './configure';
 import { FieldOption } from './hooks';

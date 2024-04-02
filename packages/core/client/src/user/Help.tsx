@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DropdownVisibleContext, usePlugin, useToken } from '..';
 import { useCurrentAppInfo } from '../appInfo/CurrentAppInfoProvider';
-import { observer } from '@formily/reactive-react';
+import { observer } from '@nocobase/schema';
 import { parseHTML } from '@nocobase/utils/client';
 
 /**

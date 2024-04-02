@@ -1,5 +1,5 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@formily/react';
-import { toArr } from '@formily/shared';
+import { observer, RecursionField, useField, useFieldSchema } from '@nocobase/schema';
+import { toArr } from '@nocobase/schema';
 import React, { Fragment, useRef, useState } from 'react';
 import { useDesignable } from '../../';
 import { BlockAssociationContext, WithoutTableFieldResource } from '../../../block-provider';

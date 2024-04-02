@@ -1,6 +1,6 @@
 import { FormLayout } from '@formily/antd-v5';
-import { Field } from '@formily/core';
-import { RecursionField, Schema, SchemaOptionsContext, observer, useField, useForm } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { RecursionField, Schema, SchemaOptionsContext, observer, useField, useForm } from '@nocobase/schema';
 import {
   APIClientProvider,
   FormDialog,

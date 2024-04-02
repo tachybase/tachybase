@@ -1,4 +1,4 @@
-import { ISchema, observer, useForm } from '@formily/react';
+import { ISchema, observer, useForm } from '@nocobase/schema';
 import {
   Action,
   ActionContextProvider,

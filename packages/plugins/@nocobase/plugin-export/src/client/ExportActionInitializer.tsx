@@ -1,5 +1,5 @@
-import { Schema, useFieldSchema } from '@formily/react';
-import { merge } from '@formily/shared';
+import { Schema, useFieldSchema } from '@nocobase/schema';
+import { merge } from '@nocobase/schema';
 import {
   SchemaInitializerSwitch,
   useCollection_deprecated,

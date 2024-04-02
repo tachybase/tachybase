@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { Button } from 'antd';
 import React, { forwardRef, createRef } from 'react';
 import { composeRef } from 'rc-util/lib/ref';

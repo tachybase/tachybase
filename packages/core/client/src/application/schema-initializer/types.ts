@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/json-schema';
+import { ISchema } from '@nocobase/schema';
 import { ButtonProps, PopoverProps } from 'antd';
 import { ComponentType, ReactNode } from 'react';
 import type {

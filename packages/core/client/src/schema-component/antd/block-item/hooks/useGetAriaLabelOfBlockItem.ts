@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import _ from 'lodash';
 import { useCallback } from 'react';
 import { useBlockContext } from '../../../../block-provider/BlockProvider';

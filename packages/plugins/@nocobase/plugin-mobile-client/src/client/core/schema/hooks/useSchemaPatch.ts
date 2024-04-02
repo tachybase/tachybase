@@ -1,4 +1,4 @@
-import { useField, useFieldSchema } from '@formily/react';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import { useDesignable } from '@nocobase/client';
 import lodash from 'lodash';
 import { useMemoizedFn } from 'ahooks';

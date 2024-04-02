@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import { CollectionFieldInterfaceTag, CollectionOptions } from '@nocobase/client';
 
 export const collection: CollectionOptions = {

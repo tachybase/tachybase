@@ -1,7 +1,7 @@
 import { FormItem } from '@formily/antd-v5';
-import { ArrayField } from '@formily/core';
-import { useField } from '@formily/react';
-import { action } from '@formily/reactive';
+import { ArrayField } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
+import { action } from '@nocobase/schema';
 import {
   APIClient,
   APIClientProvider,

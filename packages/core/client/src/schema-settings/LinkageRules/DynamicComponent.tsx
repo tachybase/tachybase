@@ -1,6 +1,6 @@
-import { createForm, onFieldValueChange } from '@formily/core';
-import { FieldContext, FormContext } from '@formily/react';
-import { merge } from '@formily/shared';
+import { createForm, onFieldValueChange } from '@nocobase/schema';
+import { FieldContext, FormContext } from '@nocobase/schema';
+import { merge } from '@nocobase/schema';
 import React, { useContext, useMemo } from 'react';
 import { SchemaComponent } from '../../schema-component/core';
 import { useComponent } from '../../schema-component/hooks';

@@ -1,5 +1,5 @@
 import { FormLayout } from '@formily/antd-v5';
-import { SchemaOptionsContext, useField } from '@formily/react';
+import { SchemaOptionsContext, useField } from '@nocobase/schema';
 import {
   FormDialog,
   SchemaComponent,
@@ -13,7 +13,7 @@ import { Button, Space } from 'antd';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { NAMESPACE } from '../locale';
 
 export const CreateAndSelectSort = (props) => {

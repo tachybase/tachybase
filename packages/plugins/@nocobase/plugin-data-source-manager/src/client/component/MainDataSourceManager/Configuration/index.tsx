@@ -1,4 +1,4 @@
-import { registerValidateFormats } from '@formily/core';
+import { registerValidateFormats } from '@nocobase/schema';
 export * from './ConfigurationTable';
 export * from './CollectionFieldsTable';
 export * from './schemas/collections';

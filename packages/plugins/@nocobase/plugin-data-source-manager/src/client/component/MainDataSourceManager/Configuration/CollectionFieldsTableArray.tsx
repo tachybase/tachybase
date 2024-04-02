@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { ArrayField, Field } from '@formily/core';
-import { RecursionField, Schema, observer, useField, useFieldSchema } from '@formily/react';
+import { ArrayField, Field } from '@nocobase/schema';
+import { RecursionField, Schema, observer, useField, useFieldSchema } from '@nocobase/schema';
 import {
   RecordIndexProvider,
   RecordProvider,

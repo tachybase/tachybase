@@ -1,10 +1,10 @@
 import { SchemaComponent } from '@nocobase/client';
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import React from 'react';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { useAuthTranslation } from '../locale';
 import { useAPIClient } from '@nocobase/client';
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';

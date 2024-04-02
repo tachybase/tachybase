@@ -4,8 +4,8 @@ import { SchemaSettingOptions } from '../types';
 import React from 'react';
 import { SchemaSettingsWrapper } from '../components';
 import { SchemaSettingsProps } from '../../../schema-settings';
-import { Schema } from '@formily/json-schema';
-import { GeneralField } from '@formily/core';
+import { Schema } from '@nocobase/schema';
+import { GeneralField } from '@nocobase/schema';
 import { Designable } from '../../../schema-component';
 
 type UseSchemaSettingsRenderOptions<T = {}> = Omit<SchemaSettingOptions<T>, 'name' | 'items'> &

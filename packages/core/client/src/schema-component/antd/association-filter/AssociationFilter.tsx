@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import cls from 'classnames';
 import React from 'react';
 import { useCollection_deprecated } from '../../../collection-manager';

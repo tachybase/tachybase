@@ -1,4 +1,4 @@
-import { observer, useFieldSchema } from '@formily/react';
+import { observer, useFieldSchema } from '@nocobase/schema';
 import {
   Application,
   BlockItem,

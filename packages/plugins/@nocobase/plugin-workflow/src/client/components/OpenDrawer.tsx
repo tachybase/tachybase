@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 
 import { ActionContextProvider, SchemaComponent } from '@nocobase/client';
 

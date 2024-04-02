@@ -1,4 +1,4 @@
-import { connect, observer } from '@formily/react';
+import { connect, observer } from '@nocobase/schema';
 import { Formula } from '@nocobase/client';
 import React from 'react';
 import { evaluate } from '../../utils/evaluate';

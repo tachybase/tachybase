@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCompile } from '../../../../schema-component';

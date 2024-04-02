@@ -47,6 +47,7 @@ export * from './schema-items';
 export * from './schema-settings';
 export * from './schema-templates';
 export * from './style';
+export type { CustomToken } from './global-theme';
 export * from './system-settings';
 export * from './testUtils';
 export * from './user';

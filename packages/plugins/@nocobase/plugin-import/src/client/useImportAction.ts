@@ -1,4 +1,4 @@
-import { Schema, useFieldSchema, useForm } from '@formily/react';
+import { Schema, useFieldSchema, useForm } from '@nocobase/schema';
 import {
   useActionContext,
   useAPIClient,

@@ -1,6 +1,6 @@
 import { FormLayout } from '@formily/antd-v5';
-import { createForm } from '@formily/core';
-import { FormProvider, ISchema, Schema, useFieldSchema, useForm } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { FormProvider, ISchema, Schema, useFieldSchema, useForm } from '@nocobase/schema';
 import { Alert, Button, Modal, Space } from 'antd';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

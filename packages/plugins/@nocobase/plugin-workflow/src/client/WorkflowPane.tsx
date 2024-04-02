@@ -8,8 +8,8 @@ import OpenDrawer from './components/OpenDrawer';
 import { workflowSchema } from './schemas/workflows';
 import { ExecutionStatusSelect, ExecutionStatusColumn } from './components/ExecutionStatus';
 import WorkflowPlugin, { RadioWithTooltip } from '.';
-import { onFieldChange } from '@formily/core';
-import { useField, useFormEffects } from '@formily/react';
+import { onFieldChange } from '@nocobase/schema';
+import { useField, useFormEffects } from '@nocobase/schema';
 
 function SyncOptionSelect(props) {
   const field = useField<any>();

@@ -1,4 +1,4 @@
-import { ISchema, useField, useFieldSchema, useForm } from '@formily/react';
+import { ISchema, useField, useFieldSchema, useForm } from '@nocobase/schema';
 import React from 'react';
 import { useCollectionManager_deprecated } from '../../../collection-manager';
 import {

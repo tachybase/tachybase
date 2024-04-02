@@ -1,4 +1,4 @@
-import { ISchema, observer } from '@formily/react';
+import { ISchema, observer } from '@nocobase/schema';
 import {
   Application,
   CollectionProvider,

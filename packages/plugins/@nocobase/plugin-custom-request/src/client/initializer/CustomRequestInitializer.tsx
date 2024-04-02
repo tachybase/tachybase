@@ -1,4 +1,4 @@
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { BlockInitializer, useSchemaInitializerItem } from '@nocobase/client';
 import React from 'react';
 import { useCustomRequestsResource } from '../hooks/useCustomRequestsResource';

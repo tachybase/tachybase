@@ -1,4 +1,4 @@
-import { ISchema, useForm } from '@formily/react';
+import { ISchema, useForm } from '@nocobase/schema';
 import {
   Action,
   Application,

@@ -1,5 +1,5 @@
-import { Form } from '@formily/core';
-import { Schema } from '@formily/json-schema';
+import { Form } from '@nocobase/schema';
+import { Schema } from '@nocobase/schema';
 import { useTranslation } from 'react-i18next';
 import { useFormBlockContext } from '../../../block-provider';
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';

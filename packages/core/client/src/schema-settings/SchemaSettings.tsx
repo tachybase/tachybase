@@ -1,8 +1,8 @@
 import { css } from '@emotion/css';
 import { ArrayCollapse, ArrayItems, FormItem, FormLayout, Input } from '@formily/antd-v5';
-import { Field, GeneralField, createForm } from '@formily/core';
-import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema, useForm } from '@formily/react';
-import { uid } from '@formily/shared';
+import { Field, GeneralField, createForm } from '@nocobase/schema';
+import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { error } from '@nocobase/utils/client';
 import type { DropdownProps } from 'antd';
 import {

@@ -1,4 +1,4 @@
-import { Schema } from '@formily/react';
+import { Schema } from '@nocobase/schema';
 import { useCallback, useMemo } from 'react';
 import {
   useCollection,

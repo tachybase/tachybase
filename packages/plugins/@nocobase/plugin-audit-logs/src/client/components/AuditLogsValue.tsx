@@ -1,6 +1,6 @@
 import { EllipsisWithTooltip, FormProvider, SchemaComponent, useRecord } from '@nocobase/client';
 import React from 'react';
-import { observer, useField } from '@formily/react';
+import { observer, useField } from '@nocobase/schema';
 
 export const AuditLogsValue = observer(
   () => {

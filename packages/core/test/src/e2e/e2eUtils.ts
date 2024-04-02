@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { Page, test as base, expect, request } from '@playwright/test';
 import _ from 'lodash';
 import { defineConfig } from './defineConfig';

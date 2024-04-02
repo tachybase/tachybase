@@ -11,6 +11,7 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@hapi/topo": "^6.0.0",
+    "@types/lodash": "4.17.0",
     "async-mutex": "^0.3.2",
     "lodash": "4.17.21",
     "sequelize": "^6.26.0",

@@ -1,8 +1,8 @@
 import React, { useContext, useMemo, useState } from 'react';
 
 import { ArrayTable } from '@formily/antd-v5';
-import { Field, createForm } from '@formily/core';
-import { useField, useFieldSchema, useForm } from '@formily/react';
+import { Field, createForm } from '@nocobase/schema';
+import { useField, useFieldSchema, useForm } from '@nocobase/schema';
 import { cloneDeep, pick, set } from 'lodash';
 
 import {

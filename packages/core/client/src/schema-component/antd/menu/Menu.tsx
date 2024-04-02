@@ -7,8 +7,8 @@ import {
   SchemaExpressionScopeContext,
   useField,
   useFieldSchema,
-} from '@formily/react';
-import { uid } from '@formily/shared';
+} from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { error } from '@nocobase/utils/client';
 import { Menu as AntdMenu, MenuProps } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';

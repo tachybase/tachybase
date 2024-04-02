@@ -1,5 +1,5 @@
 import { css, cx } from '@emotion/css';
-import { RecursionField, Schema, useFieldSchema } from '@formily/react';
+import { RecursionField, Schema, useFieldSchema } from '@nocobase/schema';
 import {
   ActionContextProvider,
   RecordProvider,

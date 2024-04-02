@@ -1,4 +1,4 @@
-import { connect, mapReadPretty } from '@formily/react';
+import { connect, mapReadPretty } from '@nocobase/schema';
 import { Action } from '../action';
 import { Editable } from './Editable';
 import { InternalPicker } from './InternalPicker';

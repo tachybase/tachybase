@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 import { FormLayout } from '@formily/antd-v5';
-import { observer, RecursionField, useFieldSchema } from '@formily/react';
+import { observer, RecursionField, useFieldSchema } from '@nocobase/schema';
 import {
   ActionContextProvider,
   DndContext,

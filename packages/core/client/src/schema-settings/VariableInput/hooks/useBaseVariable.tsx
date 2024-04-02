@@ -1,4 +1,4 @@
-import { ISchema, Schema } from '@formily/json-schema';
+import { ISchema, Schema } from '@nocobase/schema';
 import React, { useContext, useMemo } from 'react';
 import { CollectionFieldOptions_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { useCompile, useGetFilterOptions } from '../../../schema-component';

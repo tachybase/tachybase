@@ -1,6 +1,6 @@
 import type { CSSInterpolation, CSSObject } from '@ant-design/cssinjs';
 import { useStyleRegister } from '@ant-design/cssinjs';
-import { merge } from '@formily/shared';
+import { merge } from '@nocobase/schema';
 import type { ComponentTokenMap, GlobalToken } from 'antd/es/theme/interface';
 import { CustomToken } from '../../../global-theme';
 import { useConfig, usePrefixCls, useToken } from './hooks';

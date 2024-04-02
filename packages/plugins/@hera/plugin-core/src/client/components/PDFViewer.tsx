@@ -5,7 +5,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { saveAs } from 'file-saver';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { useRequest } from '@nocobase/client';
 import { useTranslation } from '../locale';
 

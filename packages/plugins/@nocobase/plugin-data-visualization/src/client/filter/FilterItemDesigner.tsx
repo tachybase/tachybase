@@ -20,8 +20,8 @@ import {
   useIsAssociationField,
 } from '@nocobase/client';
 import { useChartsTranslation } from '../locale';
-import { Schema, useField, useFieldSchema } from '@formily/react';
-import { Field } from '@formily/core';
+import { Schema, useField, useFieldSchema } from '@nocobase/schema';
+import { Field } from '@nocobase/schema';
 import _ from 'lodash';
 import { ChartFilterContext } from './FilterProvider';
 import { getPropsSchemaByComponent, setDefaultValue } from './utils';

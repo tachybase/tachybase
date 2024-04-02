@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { Field, onFormSubmitValidateStart } from '@formily/core';
-import { useField, useFormEffects } from '@formily/react';
+import { Field, onFormSubmitValidateStart } from '@nocobase/schema';
+import { useField, useFormEffects } from '@nocobase/schema';
 import { Dropdown, MenuProps } from 'antd';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';

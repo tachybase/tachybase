@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import { CollectionFieldInterface, interfacesProperties } from '@nocobase/client';
 import { MapTypes } from '../constants';
 import { generateNTemplate } from '../locale';

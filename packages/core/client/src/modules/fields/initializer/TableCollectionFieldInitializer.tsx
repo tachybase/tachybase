@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 
 import { InitializerWithSwitch } from '../../../schema-initializer/items/InitializerWithSwitch';
 import { useSchemaInitializerItem } from '../../../application';

@@ -4,7 +4,7 @@
 import { Grid, SchemaInitializer, Application, SchemaInitializerSelect, useDesignable } from '@nocobase/client';
 import React from 'react';
 import { appOptions } from './schema-initializer-common';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 
 const OpenModeSelect = () => {
   const fieldSchema = useFieldSchema();

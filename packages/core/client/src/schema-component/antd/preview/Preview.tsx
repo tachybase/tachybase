@@ -1,5 +1,5 @@
 import { DeleteOutlined, DownloadOutlined, PlusOutlined } from '@ant-design/icons';
-import { connect, mapReadPretty } from '@formily/react';
+import { connect, mapReadPretty } from '@nocobase/schema';
 import { Upload as AntdUpload, Button, Progress, Space, UploadFile } from 'antd';
 import cls from 'classnames';
 import { saveAs } from 'file-saver';

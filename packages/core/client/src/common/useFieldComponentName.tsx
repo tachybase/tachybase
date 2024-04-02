@@ -1,5 +1,5 @@
-import { Field } from '@formily/core';
-import { useField, useFieldSchema } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import { useIsFileField } from '../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../schema-component/antd/table-v2/Table.Column.Decorator';
 import { useCollectionField } from '../data-source';

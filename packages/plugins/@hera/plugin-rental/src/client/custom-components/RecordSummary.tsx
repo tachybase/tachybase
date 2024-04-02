@@ -1,4 +1,4 @@
-import { observer, useForm } from '@formily/react';
+import { observer, useForm } from '@nocobase/schema';
 import { ConversionLogics, RecordCategory } from '../../utils/constants';
 import { Descriptions, Tabs } from 'antd';
 import { CustomComponentType, CustomFC, CustomFunctionComponent } from '@hera/plugin-core/client';

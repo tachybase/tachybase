@@ -1,4 +1,4 @@
-import { onFieldChange } from '@formily/core';
+import { onFieldChange } from '@nocobase/schema';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAPIClient, useRequest, SchemaComponent, useRecord } from '@nocobase/client';

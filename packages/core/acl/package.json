@@ -17,5 +17,8 @@
     "lodash": "4.17.21",
     "minimatch": "^5.1.1"
   },
+  "devDependencies": {
+    "@types/lodash": "4.17.0"
+  },
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
 }

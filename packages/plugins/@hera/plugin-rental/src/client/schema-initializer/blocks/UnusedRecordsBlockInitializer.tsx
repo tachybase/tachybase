@@ -8,7 +8,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@nocobase/client';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { ToolOutlined } from '@ant-design/icons';
 import { Tag } from 'antd';
 

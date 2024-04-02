@@ -1,5 +1,5 @@
 import { css, cx } from '@emotion/css';
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { Input, Space } from 'antd';
 import { cloneDeep } from 'lodash';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';

@@ -1,8 +1,8 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { ArrayCollapse, ArrayItems, FormLayout } from '@formily/antd-v5';
-import { Field } from '@formily/core';
-import { ISchema, connect, mapProps, mapReadPretty, useField, useFieldSchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { Field } from '@nocobase/schema';
+import { ISchema, connect, mapProps, mapReadPretty, useField, useFieldSchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

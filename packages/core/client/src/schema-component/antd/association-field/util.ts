@@ -1,11 +1,11 @@
-import { ISchema, Schema } from '@formily/react';
-import { isArr } from '@formily/shared';
+import { ISchema, Schema } from '@nocobase/schema';
+import { isArr } from '@nocobase/schema';
 import { getDefaultFormat, str2moment } from '@nocobase/utils/client';
 import { Tag } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { CollectionFieldOptions_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
-import { Field } from '@formily/core';
+import { Field } from '@nocobase/schema';
 
 export const useLabelUiSchemaV2 = () => {
   const { getCollectionJoinField } = useCollectionManager_deprecated();

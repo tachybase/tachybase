@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 
 export const createGridCardBlockSchema = (options: {
   dataSource: string;

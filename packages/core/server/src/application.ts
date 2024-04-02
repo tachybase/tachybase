@@ -2,6 +2,7 @@ import { registerActions } from '@nocobase/actions';
 import { actions as authActions, AuthManager, AuthManagerOptions } from '@nocobase/auth';
 import { Cache, CacheManager, CacheManagerOptions } from '@nocobase/cache';
 import Database, { CollectionOptions, IDatabaseOptions } from '@nocobase/database';
+import winston from 'winston';
 import {
   createLogger,
   createSystemLogger,

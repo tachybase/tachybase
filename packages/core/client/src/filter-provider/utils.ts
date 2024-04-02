@@ -1,4 +1,4 @@
-import { Schema, useFieldSchema } from '@formily/react';
+import { Schema, useFieldSchema } from '@nocobase/schema';
 import { flatten, getValuesByPath } from '@nocobase/utils/client';
 import _ from 'lodash';
 import { useCallback, useEffect, useState } from 'react';

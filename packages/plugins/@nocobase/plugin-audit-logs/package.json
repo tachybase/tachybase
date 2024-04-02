@@ -10,10 +10,9 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@ant-design/icons": "5.x",
+    "@ant-design/icons": "~5.3.6",
     "@formily/antd-v5": "1.x",
-    "@formily/react": "2.x",
-    "@formily/shared": "2.x",
+    "@nocobase/schema": "workspace:*",
     "react": "^18.2.0",
     "react-i18next": "^11.15.1"
   },

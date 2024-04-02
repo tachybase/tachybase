@@ -1,4 +1,4 @@
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { useContext } from 'react';
 import { useActionContext, useAPIClient, useRecord, useResourceActionContext } from '@nocobase/client';
 import { PermissionContext } from '../PermisionProvider';

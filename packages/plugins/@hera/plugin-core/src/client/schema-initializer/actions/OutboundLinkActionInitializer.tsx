@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActionInitializer, Application } from '@nocobase/client';
 import { Popover, Space, Button, Input } from 'antd';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { useProps } from '@nocobase/client';
 import { ShareAltOutlined } from '@ant-design/icons';
 import { lang, tval, useTranslation } from '../../locale';

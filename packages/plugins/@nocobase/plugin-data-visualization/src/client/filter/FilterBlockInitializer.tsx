@@ -8,7 +8,7 @@ import {
   SchemaInitializerSwitch,
   useSchemaInitializerItem,
 } from '@nocobase/client';
-import { uid, merge } from '@formily/shared';
+import { uid, merge } from '@nocobase/schema';
 import { ChartFilterContext } from './FilterProvider';
 import { css } from '@emotion/css';
 import { theme } from 'antd';

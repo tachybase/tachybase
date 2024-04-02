@@ -1,6 +1,6 @@
 import { CloseOutlined, DeleteOutlined } from '@ant-design/icons';
-import { createForm } from '@formily/core';
-import { ISchema, useForm } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { ISchema, useForm } from '@nocobase/schema';
 import { App, Button, Dropdown, Input, Tag, Tooltip, message } from 'antd';
 import { cloneDeep } from 'lodash';
 import React, { useCallback, useContext, useMemo, useState } from 'react';

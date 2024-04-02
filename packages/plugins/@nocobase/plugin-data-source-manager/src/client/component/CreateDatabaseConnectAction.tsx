@@ -1,5 +1,5 @@
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { ActionContext, SchemaComponent, useAPIClient, useCompile, usePlugin } from '@nocobase/client';
 import { Button, Dropdown, Empty } from 'antd';
 import React, { useState } from 'react';

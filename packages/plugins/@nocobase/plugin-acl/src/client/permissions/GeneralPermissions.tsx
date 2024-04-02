@@ -1,11 +1,11 @@
-import { onFormValuesChange, createForm, Form } from '@formily/core';
-import { connect } from '@formily/react';
+import { onFormValuesChange, createForm, Form } from '@nocobase/schema';
+import { connect } from '@nocobase/schema';
 import { SchemaComponent, useAPIClient, useRequest } from '@nocobase/client';
 import { Checkbox, message } from 'antd';
 import uniq from 'lodash/uniq';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { useMemoizedFn } from 'ahooks';
 import { RolesManagerContext } from '../RolesManagerProvider';
 import { StrategyActions } from './StrategyActions';

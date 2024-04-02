@@ -1,6 +1,6 @@
-import type { ISchema } from '@formily/react';
-import { Schema, useFieldSchema } from '@formily/react';
-import { merge } from '@formily/shared';
+import type { ISchema } from '@nocobase/schema';
+import { Schema, useFieldSchema } from '@nocobase/schema';
+import { merge } from '@nocobase/schema';
 import {
   SchemaInitializerSwitch,
   css,

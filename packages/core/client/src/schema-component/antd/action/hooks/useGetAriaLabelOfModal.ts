@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { useCallback } from 'react';
 import { useCollection_deprecated } from '../../../../collection-manager';
 import { useCompile } from '../../../hooks';

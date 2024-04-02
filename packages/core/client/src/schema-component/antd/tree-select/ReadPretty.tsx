@@ -1,7 +1,7 @@
 import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
-import { Field } from '@formily/core';
-import { observer, useField } from '@formily/react';
-import { isArr } from '@formily/shared';
+import { Field } from '@nocobase/schema';
+import { observer, useField } from '@nocobase/schema';
+import { isArr } from '@nocobase/schema';
 import { Tag } from 'antd';
 import { TreeSelectProps } from 'antd/es/tree-select';
 import cls from 'classnames';

@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
 import { Icon, StablePopover, css } from '@nocobase/client';
 import type { SelectProps } from 'antd';
 import { Select as AntdSelect } from 'antd';

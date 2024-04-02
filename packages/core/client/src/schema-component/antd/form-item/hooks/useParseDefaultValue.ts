@@ -1,6 +1,6 @@
-import { Field } from '@formily/core';
-import { useField, useFieldSchema } from '@formily/react';
-import { reaction } from '@formily/reactive';
+import { Field } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@nocobase/schema';
+import { reaction } from '@nocobase/schema';
 import { getValuesByPath } from '@nocobase/utils/client';
 import _ from 'lodash';
 import { useCallback, useEffect } from 'react';

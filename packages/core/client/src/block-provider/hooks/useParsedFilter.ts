@@ -1,4 +1,4 @@
-import { reaction } from '@formily/reactive';
+import { reaction } from '@nocobase/schema';
 import { flatten, getValuesByPath } from '@nocobase/utils/client';
 import _ from 'lodash';
 import { useEffect, useState } from 'react';

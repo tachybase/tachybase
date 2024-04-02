@@ -9,7 +9,8 @@
     "qs": "^6.10.1"
   },
   "devDependencies": {
-    "axios-mock-adapter": "^1.20.0"
+    "axios-mock-adapter": "^1.20.0",
+    "vitest": "^1.4.0"
   },
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
 }

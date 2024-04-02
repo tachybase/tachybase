@@ -1,4 +1,4 @@
-import { connect, mapReadPretty } from '@formily/react';
+import { connect, mapReadPretty } from '@nocobase/schema';
 import { css } from '@nocobase/client';
 import React from 'react';
 import { AMapComponentProps } from './AMap';

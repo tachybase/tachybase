@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { css, SchemaComponent, useActionContext, useRequest } from '@nocobase/client';
 import React, { useEffect } from 'react';
 import { useCreateActionAndRefreshCM } from './action-hooks';

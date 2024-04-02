@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
-import { connect, mapProps, mapReadPretty } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
 import { ColorPicker as AntdColorPicker } from 'antd';
 import cls from 'classnames';
 import React from 'react';

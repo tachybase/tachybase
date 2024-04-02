@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import {
   CollectionManagerProvider,
   DEFAULT_DATA_SOURCE_KEY,

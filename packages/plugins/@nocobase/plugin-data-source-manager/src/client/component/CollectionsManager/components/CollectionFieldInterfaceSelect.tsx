@@ -1,4 +1,4 @@
-import { observer, useForm, useField } from '@formily/react';
+import { observer, useForm, useField } from '@nocobase/schema';
 import { Select, Tag } from 'antd';
 import React, { useState } from 'react';
 import { useCompile, useCollectionManager_deprecated, useRecord, useFieldInterfaceOptions } from '@nocobase/client';

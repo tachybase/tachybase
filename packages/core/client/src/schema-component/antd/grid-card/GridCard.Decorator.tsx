@@ -1,6 +1,6 @@
 import { FormLayout } from '@formily/antd-v5';
-import { createForm } from '@formily/core';
-import { FormContext, useField, useFieldSchema } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { FormContext, useField, useFieldSchema } from '@nocobase/schema';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { BlockProvider, useBlockRequestContext, useParsedFilter } from '../../../block-provider';
 import useStyles from './GridCard.Decorator.style';

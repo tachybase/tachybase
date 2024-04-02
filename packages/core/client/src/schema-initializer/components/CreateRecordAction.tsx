@@ -1,6 +1,6 @@
 import { DownOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { observer, RecursionField, useField, useFieldSchema, useForm } from '@formily/react';
+import { observer, RecursionField, useField, useFieldSchema, useForm } from '@nocobase/schema';
 import { Button, Dropdown, MenuProps } from 'antd';
 import React, { useEffect, useMemo, useState, forwardRef, createRef } from 'react';
 import { composeRef } from 'rc-util/lib/ref';

@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useCompile, useSchemaComponentContext } from '../../schema-component';
 import { CollectionFieldOptions_deprecated, CollectionOptions } from '../types';
 import { InheritanceCollectionMixin } from '../mixins/InheritanceCollectionMixin';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 import { useDataSourceManager } from '../../data-source/data-source/DataSourceManagerProvider';
 import { useDataSource } from '../../data-source/data-source/DataSourceProvider';
 import { DEFAULT_DATA_SOURCE_KEY } from '../../data-source/data-source/DataSourceManager';

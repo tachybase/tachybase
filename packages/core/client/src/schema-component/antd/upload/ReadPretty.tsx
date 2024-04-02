@@ -1,6 +1,6 @@
 import { DownloadOutlined } from '@ant-design/icons';
-import { Field } from '@formily/core';
-import { useField } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
 import { isString } from '@nocobase/utils/client';
 import { Button, Modal, Space } from 'antd';
 import useUploadStyle from 'antd/es/upload/style';

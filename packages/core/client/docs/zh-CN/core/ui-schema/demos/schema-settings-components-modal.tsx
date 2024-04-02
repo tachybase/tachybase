@@ -1,7 +1,7 @@
 /**
  * defaultShowCode: true
  */
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import {
   Application,
   FormItem,

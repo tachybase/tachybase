@@ -1,5 +1,5 @@
 import { Switch } from '@formily/antd-v5';
-import { useField } from '@formily/react';
+import { useField } from '@nocobase/schema';
 import { GeneralSchemaDesigner, SchemaSettingsModalItem } from '@nocobase/client';
 import React from 'react';
 import { useTranslation } from '../../../../locale';

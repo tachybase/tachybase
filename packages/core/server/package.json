@@ -5,7 +5,6 @@
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
-    "@formily/json-schema": "2.2.27",
     "@hapi/topo": "^6.0.0",
     "@koa/cors": "^3.1.0",
     "@koa/multer": "^3.0.2",
@@ -19,6 +18,7 @@
     "@nocobase/evaluators": "workspace:*",
     "@nocobase/logger": "workspace:*",
     "@nocobase/resourcer": "workspace:*",
+    "@nocobase/schema": "workspace:*",
     "@nocobase/sdk": "workspace:*",
     "@nocobase/telemetry": "workspace:*",
     "@nocobase/utils": "workspace:*",
@@ -48,10 +48,13 @@
     "react": "^18.2.0",
     "semver": "^7.3.7",
     "serve-handler": "^6.1.5",
+    "winston": "^3.8.2",
     "ws": "^8.13.0",
     "xpipe": "^1.0.5"
   },
   "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/lodash": "4.17.0",
     "@types/semver": "^7.3.9",
     "@types/serve-handler": "^6.1.1",
     "@types/ws": "^8.5.5",

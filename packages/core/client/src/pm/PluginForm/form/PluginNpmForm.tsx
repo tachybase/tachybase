@@ -1,6 +1,6 @@
-import { ISchema } from '@formily/json-schema';
-import { useForm } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema } from '@nocobase/schema';
+import { useForm } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { App } from 'antd';
 import React, { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/css';
 import { useAPIClient } from '../api-client';
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { useEffect, useRef, useState } from 'react';
 import { Button, Input, message } from 'antd';
 import React from 'react';

@@ -1,4 +1,4 @@
-import { GeneralField } from '@formily/core';
+import { GeneralField } from '@nocobase/schema';
 import { createContext } from 'react';
 
 export interface AssociationFieldContextProps {

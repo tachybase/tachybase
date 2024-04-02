@@ -1,4 +1,4 @@
-import { connect, mapReadPretty } from '@formily/react';
+import { connect, mapReadPretty } from '@nocobase/schema';
 import React, { useMemo } from 'react';
 import { DatePicker } from '../date-picker';
 import dayjs from 'dayjs';

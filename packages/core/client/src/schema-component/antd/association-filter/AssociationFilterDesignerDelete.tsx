@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import { createDesignable, SchemaComponentContext } from '../..';
 import { useAPIClient } from '../../../api-client';
 import { useTranslation } from 'react-i18next';

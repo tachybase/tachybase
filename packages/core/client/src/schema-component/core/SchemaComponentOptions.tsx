@@ -1,4 +1,4 @@
-import { ExpressionScope, SchemaComponentsContext, SchemaOptionsContext } from '@formily/react';
+import { ExpressionScope, SchemaComponentsContext, SchemaOptionsContext } from '@nocobase/schema';
 import React, { memo, useContext, useMemo } from 'react';
 import { ISchemaComponentOptionsProps } from '../types';
 

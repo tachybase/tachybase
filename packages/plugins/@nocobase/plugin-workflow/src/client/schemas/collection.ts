@@ -1,4 +1,4 @@
-import { useForm } from '@formily/react';
+import { useForm } from '@nocobase/schema';
 import { css, parseCollectionName, useCollectionFilterOptions } from '@nocobase/client';
 import { NAMESPACE } from '../locale';
 

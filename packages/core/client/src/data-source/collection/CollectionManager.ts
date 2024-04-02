@@ -1,4 +1,4 @@
-import type { SchemaKey } from '@formily/json-schema';
+import type { SchemaKey } from '@nocobase/schema';
 import type { DataSource } from '../data-source';
 import type { CollectionFieldOptions, CollectionOptions, GetCollectionFieldPredicate } from './Collection';
 

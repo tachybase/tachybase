@@ -10,14 +10,12 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@ant-design/icons": "5.x",
-    "@formily/core": "2.x",
-    "@formily/react": "2.x",
-    "@formily/shared": "2.x",
-    "antd": "5.x",
+    "@ant-design/icons": "~5.3.6",
+    "@nocobase/schema": "workspace:*",
+    "antd": "5.16.0",
     "lodash": "4.17.21",
     "rc-tree-select": "5.5.5",
-    "react": "18.x",
+    "react": "~18.2.0",
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {

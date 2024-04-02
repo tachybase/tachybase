@@ -3,9 +3,9 @@
  */
 import React from 'react';
 import { SchemaComponentProvider, SchemaComponent, useDesignable } from '@nocobase/client';
-import { observer, Schema, useFieldSchema } from '@formily/react';
+import { observer, Schema, useFieldSchema } from '@nocobase/schema';
 import { Button, Space } from 'antd';
-import { uid } from '@formily/shared';
+import { uid } from '@nocobase/schema';
 
 const Hello = observer(
   (props) => {

@@ -1,4 +1,4 @@
-import { SchemaKey } from '@formily/react';
+import { SchemaKey } from '@nocobase/schema';
 import { filter } from 'lodash';
 
 import type { CollectionManager } from './CollectionManager';

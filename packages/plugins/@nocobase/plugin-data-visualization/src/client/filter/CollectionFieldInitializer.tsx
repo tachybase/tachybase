@@ -1,6 +1,6 @@
 import React from 'react';
 import { InitializerWithSwitch, useSchemaInitializerItem } from '@nocobase/client';
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 
 export const CollectionFieldInitializer = () => {
   const schema: ISchema = {};

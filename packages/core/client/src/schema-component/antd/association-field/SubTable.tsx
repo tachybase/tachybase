@@ -1,9 +1,9 @@
 import { css } from '@emotion/css';
-import { ArrayField } from '@formily/core';
-import { exchangeArrayState } from '@formily/core/esm/shared/internals';
-import { observer, RecursionField, useFieldSchema } from '@formily/react';
-import { action } from '@formily/reactive';
-import { isArr } from '@formily/shared';
+import { ArrayField } from '@nocobase/schema';
+import { exchangeArrayState } from '@nocobase/schema';
+import { observer, RecursionField, useFieldSchema } from '@nocobase/schema';
+import { action } from '@nocobase/schema';
+import { isArr } from '@nocobase/schema';
 import { Button } from 'antd';
 import { unionBy, uniqBy } from 'lodash';
 import React, { useContext, useMemo, useState } from 'react';

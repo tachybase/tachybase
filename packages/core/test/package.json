@@ -41,10 +41,11 @@
   "types": "./lib/index.d.ts",
   "dependencies": {
     "@faker-js/faker": "8.1.0",
-    "@formily/shared": "^2.2.27",
     "@nocobase/database": "workspace:*",
+    "@nocobase/schema": "workspace:*",
     "@nocobase/server": "workspace:*",
     "@playwright/test": "^1.42.1",
+    "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",

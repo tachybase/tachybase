@@ -8,7 +8,7 @@ import {
   usePlugin,
   useSchemaComponentContext,
 } from '@nocobase/client';
-import { ISchema, Schema } from '@formily/react';
+import { ISchema, Schema } from '@nocobase/schema';
 import { RolesMenu } from './RolesMenu';
 import { useACLTranslation } from './locale';
 import ACLPlugin from '.';

@@ -1,6 +1,6 @@
 import { EditOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { observer, useFieldSchema } from '@formily/react';
+import { observer, useFieldSchema } from '@nocobase/schema';
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActionContext, ActionContextProvider } from '../action/context';

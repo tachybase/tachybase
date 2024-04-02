@@ -1,4 +1,4 @@
-import { action } from '@formily/reactive';
+import { action } from '@nocobase/schema';
 
 import { useCollectionManager_deprecated } from '.';
 import { useCompile } from '../../schema-component';

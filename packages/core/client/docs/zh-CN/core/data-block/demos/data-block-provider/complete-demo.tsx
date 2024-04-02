@@ -17,8 +17,8 @@ import {
 
 import { createApp } from '../../../data-source/demos/createApp';
 import { Table, TableProps } from 'antd';
-import { ISchema } from '@formily/json-schema';
-import { observer, useFieldSchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
+import { observer, useFieldSchema } from '@nocobase/schema';
 
 const schema: ISchema = {
   type: 'void',

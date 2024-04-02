@@ -1,4 +1,4 @@
-import { ISchema, useField, useFieldSchema } from '@formily/react';
+import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
 import { useTranslation } from 'react-i18next';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import { FilterableFieldsSchemaSettingsItem } from '../../../schema-component/antd/filter/Filter.Action.Designer';

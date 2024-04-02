@@ -1,4 +1,4 @@
-import { SchemaOptionsContext } from '@formily/react';
+import { SchemaOptionsContext } from '@nocobase/schema';
 import { get } from 'lodash';
 import { useContext } from 'react';
 

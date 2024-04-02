@@ -1,5 +1,5 @@
-import { ObjectField as ObjectFieldModel } from '@formily/core';
-import { observer, useField, useFieldSchema } from '@formily/react';
+import { ObjectField as ObjectFieldModel } from '@nocobase/schema';
+import { observer, useField, useFieldSchema } from '@nocobase/schema';
 import React, { useEffect } from 'react';
 import { useRequest } from '../../../api-client';
 import { useProps } from '../../hooks/useProps';

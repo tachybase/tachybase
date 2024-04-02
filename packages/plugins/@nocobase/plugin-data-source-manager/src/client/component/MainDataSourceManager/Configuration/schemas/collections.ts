@@ -1,5 +1,5 @@
-import { ISchema, Schema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema, Schema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useAPIClient, i18n } from '@nocobase/client';

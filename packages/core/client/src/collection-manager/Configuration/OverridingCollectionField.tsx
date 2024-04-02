@@ -1,6 +1,6 @@
 import { ArrayTable } from '@formily/antd-v5';
-import { ISchema, useForm } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema, useForm } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { omit, set } from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { useMemo, useState } from 'react';

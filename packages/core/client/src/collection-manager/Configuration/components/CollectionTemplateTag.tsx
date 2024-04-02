@@ -1,4 +1,4 @@
-import { observer } from '@formily/react';
+import { observer } from '@nocobase/schema';
 import { Tag } from 'antd';
 import React from 'react';
 import { useCompile } from '../../../schema-component';

@@ -1,5 +1,5 @@
 import type { CollectionOptions, Collection } from '../collection';
-import type { ISchema } from '@formily/react';
+import type { ISchema } from '@nocobase/schema';
 import type { CollectionTemplateManager } from './CollectionTemplateManager';
 import type { Application } from '../../application/Application';
 

@@ -1,5 +1,5 @@
-import { Field } from '@formily/core';
-import { Schema, useField, useFieldSchema } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { Schema, useField, useFieldSchema } from '@nocobase/schema';
 import React, { createContext, useContext, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { omit } from 'lodash';

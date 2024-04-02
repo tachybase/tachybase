@@ -1,4 +1,4 @@
-import { useField } from '@formily/react';
+import { useField } from '@nocobase/schema';
 import React from 'react';
 
 export const TableColumn = (props) => {

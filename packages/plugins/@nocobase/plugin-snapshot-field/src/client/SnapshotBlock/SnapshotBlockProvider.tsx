@@ -1,5 +1,5 @@
-import { createForm } from '@formily/core';
-import { useField } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
 import {
   BlockAssociationContext,
   BlockRequestContext_deprecated,

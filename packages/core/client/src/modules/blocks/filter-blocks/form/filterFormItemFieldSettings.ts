@@ -1,6 +1,6 @@
 import { ArrayCollapse, FormLayout } from '@formily/antd-v5';
-import { Field } from '@formily/core';
-import { ISchema, useField, useFieldSchema } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '../../../../application';

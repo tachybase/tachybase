@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { cloneDeep } from 'lodash';
-import { createForm } from '@formily/core';
-import { useForm } from '@formily/react';
+import { createForm } from '@nocobase/schema';
+import { useForm } from '@nocobase/schema';
 
 import { ActionContextProvider, FormProvider } from '@nocobase/client';
 

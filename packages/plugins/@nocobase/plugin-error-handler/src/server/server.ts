@@ -1,4 +1,4 @@
-import { Schema } from '@formily/json-schema';
+import { Schema } from '@formily/core';
 import { BaseError } from '@nocobase/database';
 import { Plugin } from '@nocobase/server';
 import lodash from 'lodash';

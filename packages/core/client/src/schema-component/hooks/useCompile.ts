@@ -1,4 +1,4 @@
-import { Schema, SchemaExpressionScopeContext, SchemaOptionsContext } from '@formily/react';
+import { Schema, SchemaExpressionScopeContext, SchemaOptionsContext } from '@nocobase/schema';
 import { isValidElement, useContext } from 'react';
 
 interface Props {

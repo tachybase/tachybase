@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { observer, RecursionField, useField, useFieldSchema } from '@formily/react';
+import { observer, RecursionField, useField, useFieldSchema } from '@nocobase/schema';
 import { Tabs as AntdTabs, TabPaneProps, TabsProps } from 'antd';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';

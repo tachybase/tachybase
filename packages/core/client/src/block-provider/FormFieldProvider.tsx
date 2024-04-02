@@ -1,6 +1,6 @@
-import { createForm, onFormValuesChange } from '@formily/core';
-import { useField } from '@formily/react';
-import { autorun } from '@formily/reactive';
+import { createForm, onFormValuesChange } from '@nocobase/schema';
+import { useField } from '@nocobase/schema';
+import { autorun } from '@nocobase/schema';
 import { forEach } from '@nocobase/utils/client';
 import { Spin } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';

@@ -1,5 +1,5 @@
-import { ISchema, Schema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema, Schema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 export const gridItemWrap = (schema: ISchema) => {
   return {
     type: 'void',

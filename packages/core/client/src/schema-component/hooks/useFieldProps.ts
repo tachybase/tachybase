@@ -1,5 +1,5 @@
 import { useContext, useRef } from 'react';
-import { Schema, SchemaExpressionScopeContext, SchemaOptionsContext } from '@formily/react';
+import { Schema, SchemaExpressionScopeContext, SchemaOptionsContext } from '@nocobase/schema';
 
 export const useFieldProps = (schema: Schema) => {
   const options = useContext(SchemaOptionsContext);

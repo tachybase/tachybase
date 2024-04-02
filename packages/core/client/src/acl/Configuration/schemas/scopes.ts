@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import { useContext, useEffect } from 'react';
 import { useFormBlockContext } from '../../../block-provider';
 import { useFilterOptions } from '../../../schema-component';

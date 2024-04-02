@@ -1,5 +1,5 @@
-import { connect, mapProps, mapReadPretty, useField } from '@formily/react';
-import { isValid } from '@formily/shared';
+import { connect, mapProps, mapReadPretty, useField } from '@nocobase/schema';
+import { isValid } from '@nocobase/schema';
 import { Radio as AntdRadio, Tag } from 'antd';
 import type { RadioGroupProps, RadioProps } from 'antd/es/radio';
 import React, { useState, useEffect } from 'react';

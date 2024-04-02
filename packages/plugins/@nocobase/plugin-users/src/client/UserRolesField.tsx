@@ -1,6 +1,6 @@
 import React from 'react';
-import { useField, Schema } from '@formily/react';
-import { Field } from '@formily/core';
+import { useField, Schema } from '@nocobase/schema';
+import { Field } from '@nocobase/schema';
 import { useUsersTranslation } from './locale';
 import { Tag } from 'antd';
 

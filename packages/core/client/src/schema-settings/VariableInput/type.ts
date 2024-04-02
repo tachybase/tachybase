@@ -1,4 +1,4 @@
-import { Schema } from '@formily/react';
+import { Schema } from '@nocobase/schema';
 import type { DefaultOptionType } from 'antd/lib/cascader';
 
 export interface Option extends DefaultOptionType {

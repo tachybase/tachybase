@@ -1,5 +1,5 @@
-import { ISchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { useBulkDestroyActionProps, useDestroyActionProps, useUpdateActionProps } from '../../block-provider/hooks';
 import { useSchemaTemplateManager } from '../SchemaTemplateManagerProvider';
 import { uiSchemaTemplatesCollection } from '../collections/uiSchemaTemplates';

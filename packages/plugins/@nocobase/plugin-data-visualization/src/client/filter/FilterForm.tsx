@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useMemo, useRef } from 'react';
-import { createForm, onFieldInit, onFieldMount, onFieldUnmount } from '@formily/core';
+import { createForm, onFieldInit, onFieldMount, onFieldUnmount } from '@nocobase/schema';
 import { ChartFilterContext } from './FilterProvider';
 import { DEFAULT_DATA_SOURCE_KEY, FormV2, VariablesContext } from '@nocobase/client';
 import { setDefaultValue } from './utils';

@@ -1,5 +1,5 @@
-import { Field } from '@formily/core';
-import { ISchema, useField, useFieldSchema } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
 import {
   GeneralSchemaDesigner,
   GeneralSchemaItems,

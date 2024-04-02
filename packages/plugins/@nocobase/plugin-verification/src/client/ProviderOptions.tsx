@@ -1,6 +1,6 @@
 import { FormLayout } from '@formily/antd-v5';
-import { Field } from '@formily/core';
-import { RecursionField, Schema, observer, useField, useForm } from '@formily/react';
+import { Field } from '@nocobase/schema';
+import { RecursionField, Schema, observer, useField, useForm } from '@nocobase/schema';
 import React, { useEffect, useState } from 'react';
 
 import providerTypes from './providerTypes';

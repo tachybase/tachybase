@@ -993,7 +993,14 @@ export class Database extends EventEmitter implements AsyncEmitter {
   }
 }
 
-export function extendCollection(collectionOptions: CollectionOptions, mergeOptions?: MergeOptions) {
+// FIXME 为什么需要这个？
+export declare type CollectionDef = {
+  collectionOptions: CollectionOptions;
+  mergeOptions: MergeOptions;
+  extend: boolean;
+};
+
+export function extendCollection(collectionOptions: CollectionOptions, mergeOptions?: MergeOptions): CollectionDef {
   return {
     collectionOptions,
     mergeOptions,

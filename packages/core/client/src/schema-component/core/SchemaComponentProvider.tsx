@@ -1,6 +1,6 @@
-import { createForm } from '@formily/core';
-import { FormProvider, Schema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { createForm } from '@nocobase/schema';
+import { FormProvider, Schema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SchemaComponentContext } from '../context';

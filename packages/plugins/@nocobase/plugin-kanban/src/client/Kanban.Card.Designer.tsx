@@ -1,6 +1,6 @@
 import { MenuOutlined } from '@ant-design/icons';
-import { ISchema, useFieldSchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema, useFieldSchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import {
   CompatibleSchemaInitializer,
   SchemaInitializerOpenModeSchemaItems,

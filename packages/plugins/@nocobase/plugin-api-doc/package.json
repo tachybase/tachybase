@@ -13,8 +13,8 @@
   "main": "./dist/server/index.js",
   "types": "./dist/server/index.d.ts",
   "devDependencies": {
-    "@ant-design/icons": "5.x",
-    "antd": "^5.12.8",
+    "@ant-design/icons": "~5.3.6",
+    "antd": "5.16.0",
     "antd-style": "3.4.5",
     "react-i18next": "^11.15.1",
     "swagger-ui-dist": "^5.3.1"

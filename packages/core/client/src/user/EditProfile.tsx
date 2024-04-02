@@ -1,5 +1,5 @@
-import { ISchema, useForm } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema, useForm } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import { MenuProps } from 'antd';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,5 +1,5 @@
 import { ArrayItems } from '@formily/antd-v5';
-import { useFieldSchema } from '@formily/react';
+import { useFieldSchema } from '@nocobase/schema';
 import {
   Action,
   SchemaSettings,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer, useForm } from '@formily/react';
+import { observer, useForm } from '@nocobase/schema';
 import { useActionContext, usePlugin, useRecord, useRequest } from '@nocobase/client';
 import { useEffect } from 'react';
 import AuthPlugin from '..';

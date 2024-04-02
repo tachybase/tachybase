@@ -9,9 +9,9 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@formily/react": "2.x",
+    "@nocobase/schema": "workspace:*",
     "mathjs": "^10.6.0",
-    "react": "18.x",
+    "react": "~18.2.0",
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {

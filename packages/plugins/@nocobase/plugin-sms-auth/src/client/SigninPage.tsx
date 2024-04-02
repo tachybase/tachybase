@@ -1,5 +1,5 @@
 import { SchemaComponent } from '@nocobase/client';
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import React from 'react';
 import VerificationCode from './VerificationCode';
 import { Authenticator, useSignIn } from '@nocobase/plugin-auth/client';

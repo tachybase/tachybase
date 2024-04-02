@@ -1,4 +1,4 @@
-import { Schema, useFieldSchema } from '@formily/react';
+import { Schema, useFieldSchema } from '@nocobase/schema';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SchemaComponentContext, createDesignable } from '../..';

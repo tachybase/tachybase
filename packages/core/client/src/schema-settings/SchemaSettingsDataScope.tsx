@@ -1,4 +1,4 @@
-import { ISchema } from '@formily/react';
+import { ISchema } from '@nocobase/schema';
 import React, { FC, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DatePickerProvider, useCollectionManager_deprecated, useRecord } from '..';

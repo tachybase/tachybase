@@ -1,5 +1,5 @@
-import { ISchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { ISchema } from '@nocobase/schema';
+import { uid } from '@nocobase/schema';
 import pick from 'lodash/pick';
 import { useEffect } from 'react';
 import { useRequest } from '../../../api-client';

@@ -1,4 +1,4 @@
-import { useField, useFieldSchema } from '@formily/react';
+import { useField, useFieldSchema } from '@nocobase/schema';
 import { uniqBy } from 'lodash';
 import React, { createContext, useCallback, useEffect, useRef } from 'react';
 import { useBlockRequestContext } from '../block-provider/BlockProvider';
@@ -6,7 +6,7 @@ import { CollectionFieldOptions_deprecated, useCollection_deprecated } from '../
 import { removeNullCondition } from '../schema-component';
 import { mergeFilter, useAssociatedFields } from './utils';
 import { useDataLoadingMode } from '../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
-import { GeneralField } from '@formily/core';
+import { GeneralField } from '@nocobase/schema';
 
 enum FILTER_OPERATOR {
   AND = '$and',
