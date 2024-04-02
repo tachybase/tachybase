@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow-parallel",
   "displayName": "Workflow: Parallel node",
-  "version": "0.21.2-alpha.5",
+  "version": "0.21.2-alpha.6",
   "description": "Could be used for parallel execution of branch processes in the workflow.",
   "keywords": [
     "Workflow"

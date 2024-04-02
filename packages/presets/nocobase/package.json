@@ -1,6 +1,6 @@
 {
   "name": "@nocobase/preset-nocobase",
-  "version": "0.21.2-alpha.5",
+  "version": "0.21.2-alpha.6",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nocobase/nocobase.git",

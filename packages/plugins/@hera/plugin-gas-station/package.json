@@ -1,6 +1,6 @@
 {
   "name": "@hera/plugin-gas-station",
-  "version": "0.14.2-alpha.5",
+  "version": "0.14.2-alpha.6",
   "main": "dist/server/index.js",
   "dependencies": {},
   "peerDependencies": {
