@@ -11,7 +11,7 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@formily/core": "2.2.27",
+    "@formily/json-schema": "2.2.27",
     "lodash": "4.17.21",
     "supertest": "^6.1.6"
   },
