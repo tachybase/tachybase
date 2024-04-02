@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-cas",
   "displayName": "Auth: CAS",
-  "version": "0.21.2-alpha.6",
+  "version": "0.21.2-alpha.7",
   "description": "CAS authentication.",
   "keywords": [
     "Authentication"
