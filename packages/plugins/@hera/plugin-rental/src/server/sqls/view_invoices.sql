@@ -1,3 +1,4 @@
+-- 财务-发票管理-明细查询
 CREATE OR REPLACE VIEW
   public.view_invoice_all AS
 SELECT
