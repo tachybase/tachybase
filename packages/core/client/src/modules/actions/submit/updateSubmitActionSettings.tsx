@@ -3,6 +3,7 @@ import { isValid } from '@nocobase/schema';
 import { isInitializersSame, useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import {
+  AfterSuccess,
   ButtonEditor,
   RemoveButton,
   SecondConFirm,
@@ -24,6 +25,10 @@ export const updateSubmitActionSettings = new SchemaSettings({
     {
       name: 'secondConfirmation',
       Component: SecondConFirm,
+    },
+    {
+      name: 'afterSuccessfulSubmission',
+      Component: AfterSuccess,
     },
     {
       name: 'workflowConfig',

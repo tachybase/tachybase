@@ -17,6 +17,11 @@ export const UpdateSubmitActionInitializer = (props) => {
     },
     'x-action-settings': {
       triggerWorkflows: [],
+      onSuccess: {
+        manualClose: false,
+        redirecting: false,
+        successMessage: '{{t("Updated successfully")}}',
+      },
     },
   };
   return <ActionInitializer {...props} schema={schema} />;
