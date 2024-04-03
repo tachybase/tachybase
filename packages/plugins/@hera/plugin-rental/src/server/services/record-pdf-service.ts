@@ -42,8 +42,13 @@ export class RecordPdfService {
           data['count'] = item.count;
           data['unit'] = item.unit;
         } else if (item.conversion_logic_id === ConversionLogics.Product) {
-          if (item.convertible) (data['count'] = item.count * item.ratio), (data['unit'] = item.conversion_unit);
-          else (data['count'] = item.count), (data['unit'] = item.unit);
+          if (item.convertible) {
+            data['count'] = item.count * item.ratio;
+            data['unit'] = item.conversion_unit;
+          } else {
+            data['count'] = item.count;
+            data['unit'] = item.unit;
+          }
         } else if (item.conversion_logic_id === ConversionLogics.ProductWeight) {
           data['count'] = item.count * item.weight;
           data['unit'] = 'KG';
@@ -102,16 +107,24 @@ export class RecordPdfService {
           data['total'] = lease.count;
           data['conversion_unit'] = lease.unit;
         } else if (lease.conversion_logic_id === ConversionLogics.Product) {
-          if (lease.convertible)
-            (data['total'] = lease.count * lease.ratio), (data['conversion_unit'] = lease.conversion_unit);
-          else (data['total'] = lease.count), (data['conversion_unit'] = lease.unit);
+          if (lease.convertible) {
+            data['total'] = lease.count * lease.ratio;
+            data['conversion_unit'] = lease.conversion_unit;
+          } else {
+            data['total'] = lease.count;
+            data['conversion_unit'] = lease.unit;
+          }
         } else if (lease.conversion_logic_id === ConversionLogics.ProductWeight) {
           data['total'] = lease.count * lease.weight;
           data['conversion_unit'] = 'KG';
         } else if (lease.conversion_logic_id === ConversionLogics.ActualWeight) {
-          if (lease.convertible)
-            (data['total'] = lease.count * lease.ratio), (data['conversion_unit'] = lease.conversion_unit);
-          else (data['total'] = lease.count), (data['conversion_unit'] = lease.unit);
+          if (lease.convertible) {
+            data['total'] = lease.count * lease.ratio;
+            data['conversion_unit'] = lease.conversion_unit;
+          } else {
+            data['total'] = lease.count;
+            data['conversion_unit'] = lease.unit;
+          }
         } else {
           data['conversion_unit'] = 'KG';
           if (lease.wr?.conversion_logic_id === ConversionLogics.Keep) {
@@ -135,8 +148,9 @@ export class RecordPdfService {
         recordData.category === RecordCategory.purchase ||
         recordData.category === RecordCategory.staging ||
         recordData.category === RecordCategory.inventory
-      )
+      ) {
         return;
+      }
       // 人工录入没有数量
       if (item.count_source === SourcesType.staff && !item.fee_count) return;
       // 出库单，计数为入库量
@@ -156,8 +170,11 @@ export class RecordPdfService {
       if (item.conversion_logic_id === ConversionLogics.Keep) {
         data['total'] = data.count1;
       } else if (item.conversion_logic_id === ConversionLogics.Product) {
-        if (item.convertible) data['total'] = data.count1 * item.product_ratio;
-        else data['total'] = data.count1;
+        if (item.convertible) {
+          data['total'] = data.count1 * item.product_ratio;
+        } else {
+          data['total'] = data.count1;
+        }
       } else if (item.conversion_logic_id === ConversionLogics.ProductWeight) {
         data['total'] = data.count1 * item.product_weight;
       } else if (item.conversion_logic_id === ConversionLogics.ActualWeight) {
