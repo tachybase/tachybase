@@ -362,13 +362,16 @@ const PreviewDocument = ({
           <React.Fragment key={columnIndex}>
             <Text style={styles.tableCell2}>{item[column + 'name']}</Text>
             <Text style={styles.tableCell}>
-              {formatQuantity(item[column + 'unit_price'], 2) + '元/' + item[column + 'unit']}
+              {item[column + 'unit_price'] &&
+                formatQuantity(item[column + 'unit_price'], 2) + '元/' + item[column + 'unit']}
             </Text>
             <Text style={styles.tableCell}>
-              {formatQuantity(item[column + 'count'], 2)}
+              {item[column + 'count'] && formatQuantity(item[column + 'count'], 2)}
               {item[column + 'unit']}
             </Text>
-            <Text style={styles.tableCell}>{formatCurrency(item[column + 'all_price'], 2)}</Text>
+            <Text style={styles.tableCell}>
+              {item[column + 'all_price'] && formatCurrency(item[column + 'all_price'], 2)}
+            </Text>
             <Text style={!isDouble || column === 'right_' ? styles.tableCellLast : styles.tableCell}>
               {item[column + 'comment'] || ''}
             </Text>

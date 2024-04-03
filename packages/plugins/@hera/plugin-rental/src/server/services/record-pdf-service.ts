@@ -70,6 +70,10 @@ export class RecordPdfService {
 
       const setData = Object.values(
         price_rule.reduce((acc, item) => {
+          if (!item) {
+            console.error('报价计算出错', price_rule);
+            return acc;
+          }
           if (!acc[item.name]) {
             acc[item.name] = { ...item };
           } else {

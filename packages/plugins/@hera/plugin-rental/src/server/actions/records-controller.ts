@@ -158,7 +158,8 @@ export class RecordPreviewController {
     // 拉标题
     const systemSetting = await this.systemSetting.get();
     record.systemTitle = systemSetting?.title || '异常数据，请联系相关负责人！';
-    const user = await ctx.db.getRepository('users').findOne({ filter: { id: record.createdById } });
+    const userID = record.createdById || record.updatedById;
+    const user = await ctx.db.getRepository('users').findOne({ filter: { id: userID } });
     record.nickname = user?.nickname || '';
     record.userPhone = user?.phone || '';
     record.pdfExplain = pdfExplain[0]?.out_of_storage_explain;
