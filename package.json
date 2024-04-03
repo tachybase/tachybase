@@ -22,6 +22,8 @@
     "release:force": "lerna publish from-package --yes",
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "nocobase start",
+    "tag:p": "changeset",
+    "tag:v": "changeset version",
     "tar": "nocobase tar",
     "tc": "nocobase test:client",
     "test": "nocobase test",
