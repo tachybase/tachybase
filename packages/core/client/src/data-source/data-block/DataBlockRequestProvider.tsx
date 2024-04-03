@@ -7,6 +7,7 @@ import { AllDataBlockProps, useDataBlockProps } from './DataBlockProvider';
 import { useDataBlockResource } from './DataBlockResourceProvider';
 import { useDataSourceHeaders } from '../utils';
 import { useDataLoadingMode } from '../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
+import { useSourceKey } from '../../modules/blocks/useSourceKey';
 
 export const BlockRequestContext = createContext<UseRequestResult<any>>(null);
 BlockRequestContext.displayName = 'BlockRequestContext';
@@ -57,14 +58,15 @@ function useParentRequest<T>(options: Omit<AllDataBlockProps, 'type'>) {
   const api = useAPIClient();
   const dataBlockProps = useDataBlockProps();
   const headers = useDataSourceHeaders(dataBlockProps.dataSource);
+  const sourceKey = useSourceKey(association);
   return useRequest<T>(
     async () => {
       if (parentRecord) return Promise.resolve({ data: parentRecord });
-      if (!association) return Promise.resolve({ data: undefined });
+      if (!association || !sourceKey) return Promise.resolve({ data: undefined });
       // "association": "Collection.Field"
       const arr = association.split('.');
       // <collection>:get/<filterByTk>
-      const url = `${arr[0]}:get/${sourceId}`;
+      const url = `${arr[0]}:get?filter[${sourceKey}]=${sourceId}`;
       const res = await api.request({ url, headers });
       return res.data;
     },

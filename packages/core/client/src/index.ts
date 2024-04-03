@@ -61,6 +61,7 @@ export * from './modules/blocks/data-blocks/table';
 export * from './modules/blocks/data-blocks/form';
 export * from './modules/blocks/data-blocks/table-selector';
 export * from './modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
+export * from './modules/blocks/useSourceIdCommon';
 
 export * as __UNSAFE__ from './unsafe';
 export type {
