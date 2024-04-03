@@ -5,6 +5,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "nocobase build",
+    "build:p": "nocobase build --no-dts",
     "changelog": "auto-changelog -p -t keepachangelog",
     "clean": "nocobase clean",
     "dev": "nocobase dev",
