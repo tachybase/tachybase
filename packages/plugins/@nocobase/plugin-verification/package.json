@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-verification",
   "displayName": "Verification",
-  "version": "0.21.2-alpha.7",
+  "version": "0.21.2-alpha.8",
   "description": "verification setting.",
   "keywords": [
     "Authentication"
