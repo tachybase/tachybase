@@ -2,16 +2,24 @@
 SELECT
   r.category,
   ri.comment AS item_comment,
-  ri.*,
-  p.*,
-  pc.*,
+  ri.count,
+  ri.product_id,
+  p.label,
+  p.ratio,
+  p.weight,
+  p.category_id,
   pc.name AS product_category_name,
-  lr.*,
+  pc.unit,
+  pc.convertible,
+  pc.conversion_unit,
   lr.unit_price AS price_price,
   vp."label" AS price_label,
   lr."comment" AS price_comment,
-  cpli.*,
-  rwi.*,
+  rwi.product_category_id,
+  CASE
+    WHEN r.category = '0' THEN cpli.conversion_logic_id
+    ELSE lr.conversion_logic_id
+  END AS conversion_logic_id,
   CASE
     WHEN ucl.id > 4
     AND c.id IS NOT NULL THEN (
