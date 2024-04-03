@@ -6,7 +6,7 @@ import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProp
 
 export const FilterFormBlockProvider = withDynamicSchemaProps((props) => {
   return (
-    <DatePickerProvider value={{ utc: false }}>
+    <DatePickerProvider value={{ utc: true }}>
       <DefaultValueProvider isAllowToSetDefaultValue={() => false}>
         <FormBlockProvider name="filter-form" {...props}></FormBlockProvider>
       </DefaultValueProvider>
