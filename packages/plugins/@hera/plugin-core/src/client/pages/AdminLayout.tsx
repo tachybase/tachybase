@@ -215,27 +215,28 @@ export const InternalAdminLayout = (props: any) => {
   const params = useParams<{ name?: string }>();
   const { token } = useToken();
   const { render } = useAppSpin();
-  const { title } = useDocumentTitle();
+  const { title, setTitle } = useDocumentTitle();
   const navigate = useNavigate();
   const [items, setItems] = useState<TabsProps['items']>([]);
   const pageStyle = usePageStyle();
 
   useEffect(() => {
     if (params.name && title && pageStyle === 'tab') {
-      setItems((items) => {
-        if (!items.find((value) => value.key === params.name)) {
-          return [
-            ...items,
-            {
-              key: params.name,
-              label: title,
-              children: <MyRouteSchemaComponent name={params.name} />,
-            },
-          ];
-        } else {
-          return items;
-        }
-      });
+      const targetItem = items.find((value) => value.key === params.name);
+      if (!targetItem) {
+        // 现有tab页数组里,不存在之前浏览的tab页面,添加新的tab页进数组
+        setItems([
+          ...items,
+          {
+            key: params.name,
+            label: title,
+            children: <MyRouteSchemaComponent name={params.name} />,
+          },
+        ]);
+      } else {
+        // 如果存在之前浏览的tab页面,只用更新页面标题
+        setTitle(targetItem.label);
+      }
     }
   }, [params.name, title]);
 

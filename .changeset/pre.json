@@ -95,6 +95,7 @@
     "@nocobase/schema": "0.21.2-alpha.4"
   },
   "changesets": [
+    "five-walls-enjoy",
     "hot-mugs-double",
     "long-dolphins-sit",
     "pretty-wolves-allow",
