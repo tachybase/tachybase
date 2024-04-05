@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-multi-app-manager",
   "displayName": "Multi-app manager",
-  "version": "0.21.2-alpha.8",
+  "version": "0.21.2-alpha.9",
   "description": "Dynamically create multiple apps without separate deployments.",
   "keywords": [
     "system"

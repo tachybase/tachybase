@@ -1,6 +1,6 @@
 {
   "name": "@hera/plugin-mobile",
-  "version": "1.0.3-alpha.8",
+  "version": "1.0.3-alpha.9",
   "main": "dist/server/index.js",
   "dependencies": {
     "@nocobase/schema": "workspace:*",
