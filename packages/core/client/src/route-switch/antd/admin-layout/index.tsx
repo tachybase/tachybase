@@ -385,7 +385,6 @@ export const InternalAdminLayout = (props: any) => {
             >
               <Divider type="vertical" />
             </ConfigProvider>
-            <Help />
             <CurrentUser />
           </div>
         </div>
