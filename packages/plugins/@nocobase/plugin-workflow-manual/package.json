@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow-manual",
   "displayName": "Workflow: Manual node",
-  "version": "0.21.2-alpha.8",
+  "version": "0.21.2-alpha.9",
   "description": "Could be used for workflows which some of decisions are made by users.",
   "keywords": [
     "Workflow"
