@@ -6,7 +6,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 WORKDIR /app
-RUN cd /app && npx --registry $VERDACCIO_URL create-nocobase-app my-nocobase-app -a -e APP_ENV=production
+RUN cd /app && npx --registry $VERDACCIO_URL create-nocobase-app@0.21.2-alpha.9 my-nocobase-app -a -e APP_ENV=production
 RUN pnpm config set registry $VERDACCIO_URL
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store cd /app/my-nocobase-app && pnpm install --production
 
