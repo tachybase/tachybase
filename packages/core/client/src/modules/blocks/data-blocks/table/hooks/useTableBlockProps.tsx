@@ -1,6 +1,6 @@
 import { ArrayField } from '@nocobase/schema';
 import { useField, useFieldSchema } from '@nocobase/schema';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useFilterBlock } from '../../../../../filter-provider/FilterProvider';
 import { mergeFilter } from '../../../../../filter-provider/utils';
 import { removeNullCondition } from '../../../../../schema-component';
@@ -13,6 +13,7 @@ export const useTableBlockProps = () => {
   const ctx = useTableBlockContext();
   const globalSort = fieldSchema.parent?.['x-decorator-props']?.['params']?.['sort'];
   const { getDataBlocks } = useFilterBlock();
+  const params = ctx?.service?.params;
 
   useEffect(() => {
     if (!ctx?.service?.loading) {
@@ -53,10 +54,20 @@ export const useTableBlockProps = () => {
       });
       ctx.service.refresh();
     },
-    onChange({ current, pageSize }, filters, sorter) {
-      const sort = sorter.order ? (sorter.order === `ascend` ? [sorter.field] : [`-${sorter.field}`]) : globalSort;
-      ctx.service.run({ ...ctx.service.params?.[0], page: current, pageSize, sort });
-    },
+    onChange: useCallback(
+      ({ current, pageSize }, filters, sorter) => {
+        const sort = !ctx.dragSort
+          ? sorter.order
+            ? sorter.order === `ascend`
+              ? [sorter.field]
+              : [`-${sorter.field}`]
+            : globalSort || ctx.dragSortBy
+          : ctx.dragSortBy;
+
+        ctx.service.run({ ...params?.[0], page: current, pageSize, sort });
+      },
+      [globalSort, params],
+    ),
     onClickRow(record, setSelectedRow, selectedRow) {
       const { targets, uid } = findFilterTargets(fieldSchema);
       const dataBlocks = getDataBlocks();
