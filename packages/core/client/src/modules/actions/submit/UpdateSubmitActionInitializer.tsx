@@ -22,6 +22,7 @@ export const UpdateSubmitActionInitializer = (props) => {
         redirecting: false,
         successMessage: '{{t("Updated successfully")}}',
       },
+      isDeltaChanged: false,
     },
   };
   return <ActionInitializer {...props} schema={schema} />;
