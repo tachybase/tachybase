@@ -22,6 +22,7 @@ export interface LeaseRule {
   ucl: WeightRule;
   product_fee: any;
   products: any;
+  comment: string;
 }
 
 export interface Rule {
