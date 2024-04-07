@@ -23,13 +23,11 @@ export const DataBlockResourceProvider: FC<{ children?: ReactNode }> = ({ childr
       return sourceId;
     }
     if (association && parentRecord) {
-      const associationCollection = cm.getCollection(association);
-      if (associationCollection) {
-        const parentRecordData = parentRecord instanceof CollectionRecord ? parentRecord.data : parentRecord;
-        return parentRecordData[associationCollection.sourceKey || 'id'];
-      }
+      const sourceKey = cm.getSourceKeyByAssocation(association);
+      const parentRecordData = parentRecord instanceof CollectionRecord ? parentRecord.data : parentRecord;
+      return parentRecordData[sourceKey];
     }
-  }, [sourceId, parentRecord]);
+  }, [association, sourceId, parentRecord]);
 
   const resource = useMemo(() => {
     if (association) {
