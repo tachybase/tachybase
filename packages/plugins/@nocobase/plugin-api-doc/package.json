@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-api-doc",
   "displayName": "API documentation",
-  "version": "0.21.2-alpha.9",
+  "version": "0.21.2-alpha.10",
   "description": "An OpenAPI documentation generator for NocoBase HTTP API.",
   "homepage": "https://docs.nocobase.com/handbook/api-doc",
   "repository": {
