@@ -150,7 +150,8 @@ const tableItem = (configItem, result, service, params, api) => {
           key: index,
         };
         columns.forEach((colItem, index) => {
-          const data = isNaN(value[index]) ? value[index] : fieldTransformers(configItem, value[index], api);
+          const data =
+            typeof value[index] === 'string' ? value[index] : fieldTransformers(configItem, value[index], api);
           item[colItem.dataIndex] = data;
         });
         options.push(item);
