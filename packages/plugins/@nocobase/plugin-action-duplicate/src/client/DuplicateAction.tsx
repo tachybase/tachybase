@@ -4,9 +4,7 @@ import {
   ActionContextProvider,
   CollectionProvider_deprecated,
   RecordProvider,
-  CollectionProvider,
   FormBlockContext,
-  CollectionRecordProvider,
   fetchTemplateData,
   useAPIClient,
   useActionContext,
@@ -17,7 +15,7 @@ import {
   useFormBlockContext,
   useCollectionParentRecordData,
   useRecord,
-  useCollectionRecord,
+  useCollection,
 } from '@nocobase/client';
 import { App, Button } from 'antd';
 import React, { useState } from 'react';
@@ -78,16 +76,21 @@ export const DuplicateAction = observer(
     const { duplicateFields, duplicateMode = 'quickDulicate', duplicateCollection } = fieldSchema['x-component-props'];
     const record = useRecord();
     const parentRecordData = useCollectionParentRecordData();
-    const { id, __collection } = record;
+    const { __collection } = record;
     const ctx = useActionContext();
     const { name } = useCollection_deprecated();
     const { getCollectionFields } = useCollectionManager_deprecated();
     const { t } = useTranslation();
     const collectionFields = getCollectionFields(__collection || name);
     const formctx = useFormBlockContext();
+
+    // 获取当前数据表的主键
+    const collection = useCollection();
+    const primaryKey = collection?.getPrimaryKey();
+
     const template = {
       key: 'duplicate',
-      dataId: id,
+      dataId: record[primaryKey],
       default: true,
       fields:
         duplicateFields?.filter((v) => {
