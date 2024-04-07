@@ -93,16 +93,34 @@ export class RecordPreviewController {
   @Action('allweight')
   async groupWeight(ctx: Context) {
     const { filter } = ctx.action.params.values;
+    const collectionName = 'records';
+    const collection = ctx.db.getCollection(collectionName);
+    const fields = collection.fields;
+    const filterParser = new FilterParser(filter, {
+      collection,
+    });
     const { sequelize } = ctx.db;
-    const records = await ctx.db.getRepository('records').find({
-      filter,
+    const { where, include } = filterParser.toSequelizeParams();
+    const parsedFilterInclude =
+      include?.map((item) => {
+        if (fields.get(item.association)?.type === 'belongsToMany') {
+          item.through = { attributes: [] };
+        }
+        return item;
+      }) || [];
+    const query = {
+      where: where || {},
       attributes: [
         [sequelize.fn('sum', sequelize.col('records.weight')), 'weight'],
         [sequelize.col('records.movement'), 'movement'],
       ],
       group: [sequelize.col('records.movement')],
-    });
-
+      include: [...parsedFilterInclude],
+      order: [],
+      subQuery: false,
+      raw: true,
+    } as any;
+    const records = await ctx.db.getModel('records').findAll(query);
     const inNum = records.find((item) => item.movement === Movement.in)?.weight ?? 0;
     const outNum = records.find((item) => item.movement === Movement.out)?.weight ?? 0;
     const data = {
@@ -114,15 +132,34 @@ export class RecordPreviewController {
   @Action('allprice')
   async groupPrice(ctx: Context) {
     const { filter } = ctx.action.params.values;
+    const collectionName = 'records';
+    const collection = ctx.db.getCollection(collectionName);
+    const fields = collection.fields;
+    const filterParser = new FilterParser(filter, {
+      collection,
+    });
     const { sequelize } = ctx.db;
-    const records = await ctx.db.getRepository('records').find({
-      filter,
+    const { where, include } = filterParser.toSequelizeParams();
+    const parsedFilterInclude =
+      include?.map((item) => {
+        if (fields.get(item.association)?.type === 'belongsToMany') {
+          item.through = { attributes: [] };
+        }
+        return item;
+      }) || [];
+    const query = {
+      where: where || {},
       attributes: [
         [sequelize.fn('sum', sequelize.col('records.all_price')), 'all_price'],
         [sequelize.col('records.movement'), 'movement'],
       ],
       group: [sequelize.col('records.movement')],
-    });
+      include: [...parsedFilterInclude],
+      order: [],
+      subQuery: false,
+      raw: true,
+    } as any;
+    const records = await ctx.db.getModel('records').findAll(query);
 
     const inNum = records.find((item) => item.movement === Movement.in)?.all_price ?? 0;
     const outNum = records.find((item) => item.movement === Movement.out)?.all_price ?? 0;
