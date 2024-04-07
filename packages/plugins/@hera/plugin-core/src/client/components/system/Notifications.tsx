@@ -74,7 +74,7 @@ export const Notifications = () => {
           background: none;
           color: rgba(255, 255, 255, 0.65) !important;
           &:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1) !important;
           }
         }
         a {
