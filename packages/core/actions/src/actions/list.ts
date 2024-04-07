@@ -2,7 +2,7 @@ import { assign } from '@nocobase/utils';
 import { Context } from '..';
 import { getRepositoryFromParams, pageArgsToLimitArgs } from '../utils';
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from '../constants';
-import { QueryTypes } from 'sequelize';
+import { Op, QueryTypes } from 'sequelize';
 
 function totalPage(total, pageSize): number {
   return Math.ceil(total / pageSize);
@@ -43,6 +43,7 @@ async function listWithPagination(ctx: Context) {
     }
   });
   let filterTreeData = [];
+  let filterTreeCount = 0;
   if (ctx.action.params.tree) {
     const foreignKey = collection.treeParentField?.foreignKey || 'parentId';
     const params = Object.values(options.filter).flat()[0] || {};
@@ -55,48 +56,57 @@ async function listWithPagination(ctx: Context) {
         dataId = data.id;
       };
       await getParent(params);
-      const filterTreeDatas = await ctx.db.sequelize.query(
-        `
-      WITH RECURSIVE tree1 AS (
-        SELECT *
-        FROM ${collection.name}
-        WHERE id = :dataId
+      const query = `
+        WITH RECURSIVE tree1 AS (
+            SELECT id, "${foreignKey}"
+            FROM ${collection.name}
+            WHERE id = :dataId
 
-        UNION ALL
-
-        SELECT p.*
-        FROM tree1 up
-        JOIN ${collection.name} p ON up."${foreignKey}" = p.id
-      ),
-      tree2 AS (
-          SELECT *
-          FROM ${collection.name}
-          WHERE id = :dataId
-
-          UNION ALL
-
-          SELECT p.*
-          FROM tree2 down
-          JOIN ${collection.name} p ON down.id = p."${foreignKey}"
-      )
-      SELECT DISTINCT *
-        FROM (
-            SELECT * 
-            FROM tree1
             UNION ALL
-            SELECT * 
-            FROM tree2
-      )
-      `,
-        {
-          replacements: {
-            dataId,
-          },
-          type: QueryTypes.SELECT,
+
+            SELECT p.id, p."${foreignKey}"
+            FROM tree1 up
+            JOIN ${collection.name} p ON up."${foreignKey}" = p.id
+        ),
+        tree2 AS (
+            SELECT id, "${foreignKey}"
+            FROM ${collection.name}
+            WHERE id = :dataId
+
+            UNION ALL
+
+            SELECT p.id, p."${foreignKey}"
+            FROM tree2 down
+            JOIN ${collection.name} p ON down.id = p."${foreignKey}"
+        )
+        SELECT DISTINCT *
+        FROM (
+          SELECT * 
+          FROM tree1
+          UNION ALL
+          SELECT * 
+          FROM tree2
+      );`;
+      const filterTreeDatas = await ctx.db.sequelize.query(query, {
+        replacements: {
+          dataId,
         },
-      );
+        type: QueryTypes.SELECT,
+        // logging: console.log
+      });
       const newRows: any[] = filterTreeDatas;
-      const father = newRows.filter((parent) => parent.parentId === null);
+      const filterIds = newRows.map((item) => item.id);
+      const where = {
+        id: {
+          [Op.in]: filterIds,
+        },
+      };
+      const [rows, count] = await repository.findAndCount({
+        filter: where,
+        appends: options.appends || [],
+      });
+      const _data = rows.map((item) => item.dataValues);
+      const father = _data.filter((parent) => parent.parentId === null);
 
       const transTreeData = (father, allRows) => {
         father.forEach((parent, index) => {
@@ -117,13 +127,14 @@ async function listWithPagination(ctx: Context) {
           }
         });
       };
-      transTreeData(father, newRows);
+      transTreeData(father, _data);
       filterTreeData = father;
+      filterTreeCount = count;
     }
   }
   const [rows, count] = await repository.findAndCount(options);
   ctx.body = {
-    count,
+    count: filterTreeData.length ? filterTreeCount : count,
     rows: filterTreeData.length ? filterTreeData : rows,
     page: Number(page),
     pageSize: Number(pageSize),
