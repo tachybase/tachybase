@@ -6,7 +6,7 @@ import { App, message } from 'antd';
 import _ from 'lodash';
 import get from 'lodash/get';
 import omit from 'lodash/omit';
-import { ChangeEvent, useCallback, useContext, useEffect } from 'react';
+import { ChangeEvent, useCallback, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
@@ -826,6 +826,7 @@ export const useUpdateActionProps = () => {
         overwriteValues,
         skipValidator,
         triggerWorkflows,
+        isDeltaChanged,
       } = actionSchema?.['x-action-settings'] ?? {};
 
       const assignedValues = {};
@@ -854,6 +855,7 @@ export const useUpdateActionProps = () => {
         await form.submit();
       }
       const fieldNames = fields.map((field) => field.name);
+      const actionFields = getActiveFieldsName?.('form') || [];
       const values = getFormValues({
         filterByTk,
         field,
@@ -861,18 +863,33 @@ export const useUpdateActionProps = () => {
         fieldNames,
         getField,
         resource,
-        actionFields: getActiveFieldsName?.('form') || [],
+        actionFields,
       });
       actionField.data = field.data || {};
       actionField.data.loading = true;
+
+      const rawValues = {
+        ...values,
+        ...overwriteValues,
+        ...assignedValues,
+      };
+
+      const filterValues = (srcValues) =>
+        Object.entries(srcValues).reduce((obj, keyValuePair) => {
+          const [key, value] = keyValuePair;
+          if (actionFields.includes(key)) {
+            obj = {
+              ...obj,
+              [key]: value,
+            };
+          }
+          return obj;
+        }, {});
+
       try {
         await resource.update({
           filterByTk,
-          values: {
-            ...values,
-            ...overwriteValues,
-            ...assignedValues,
-          },
+          values: isDeltaChanged ? filterValues(rawValues) : rawValues,
           ...data,
           updateAssociationValues,
           // TODO(refactor): should change to inject by plugin
