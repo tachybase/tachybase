@@ -483,7 +483,7 @@ const getItem = (
   getCollectionFields,
   processedCollections: string[],
 ) => {
-  if (field.interface === 'm2o') {
+  if (['m2o', 'obo'].includes(field.interface)) {
     if (processedCollections.includes(field.target)) return null;
 
     const subFields = getCollectionFields(field.target);
@@ -535,7 +535,7 @@ const getItem = (
 export const useFilterAssociatedFormItemInitializerFields = () => {
   const { name, fields } = useCollection_deprecated();
   const { getCollectionFields } = useCollectionManager_deprecated();
-  const interfaces = ['m2o'];
+  const interfaces = ['m2o', 'obo'];
   const groups = fields
     ?.filter((field) => {
       return interfaces.includes(field.interface);
