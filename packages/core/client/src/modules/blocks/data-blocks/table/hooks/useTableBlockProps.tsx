@@ -6,6 +6,7 @@ import { mergeFilter } from '../../../../../filter-provider/utils';
 import { removeNullCondition } from '../../../../../schema-component';
 import { findFilterTargets } from '../../../../../block-provider/hooks';
 import { useTableBlockContext } from '../../../../../block-provider/TableBlockProvider';
+import _ from 'lodash';
 
 export const useTableBlockProps = () => {
   const field = useField<ArrayField>();
@@ -13,33 +14,38 @@ export const useTableBlockProps = () => {
   const ctx = useTableBlockContext();
   const globalSort = fieldSchema.parent?.['x-decorator-props']?.['params']?.['sort'];
   const { getDataBlocks } = useFilterBlock();
-
+  const isLoading = ctx?.service?.loading;
+  const params = ctx?.service?.params;
   useEffect(() => {
-    if (!ctx?.service?.loading) {
-      field.value = [];
-      field.value = ctx?.service?.data?.data;
-      field?.setInitialValue(ctx?.service?.data?.data);
+    if (!isLoading) {
+      const serviceResponse = ctx?.service?.data;
+      const data = serviceResponse?.data || [];
+      const meta = serviceResponse?.meta || {};
+      const selectedRowKeys = ctx?.field?.data?.selectedRowKeys;
+
+      if (!_.isEqual(field.value, data)) {
+        field.value = data;
+        field?.setInitialValue(data);
+      }
       field.data = field.data || {};
-      field.data.selectedRowKeys = ctx?.field?.data?.selectedRowKeys;
+
+      if (!_.isEqual(field.data.selectedRowKeys, selectedRowKeys)) {
+        field.data.selectedRowKeys = selectedRowKeys;
+      }
+
       field.componentProps.pagination = field.componentProps.pagination || {};
-      field.componentProps.pagination.pageSize = ctx?.service?.data?.meta?.pageSize;
-      field.componentProps.pagination.total = ctx?.service?.data?.meta?.count;
-      field.componentProps.pagination.current = ctx?.service?.data?.meta?.page;
+      field.componentProps.pagination.pageSize = meta?.pageSize;
+      field.componentProps.pagination.total = meta?.count;
+      field.componentProps.pagination.current = meta?.page;
     }
-  }, [ctx?.service?.data, ctx?.service?.loading]); // 这里如果依赖了 ctx?.field?.data?.selectedRowKeys 的话，会导致这个问题：
+  }, [ctx?.field?.data?.selectedRowKeys, ctx?.service?.data, field, isLoading]);
   return {
     childrenColumnName: ctx.childrenColumnName,
     loading: ctx?.service?.loading,
     showIndex: ctx.showIndex,
     dragSort: ctx.dragSort && ctx.dragSortBy,
     rowKey: ctx.rowKey || 'id',
-    pagination:
-      ctx?.params?.paginate !== false
-        ? {
-            defaultCurrent: ctx?.params?.page || 1,
-            defaultPageSize: ctx?.params?.pageSize,
-          }
-        : false,
+    pagination: fieldSchema?.['x-component-props']?.pagination === false ? false : field.componentProps.pagination,
     onRowSelectionChange(selectedRowKeys) {
       ctx.field.data = ctx?.field?.data || {};
       ctx.field.data.selectedRowKeys = selectedRowKeys;
