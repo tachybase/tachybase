@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-export",
   "displayName": "Action: Export records",
-  "version": "0.21.2-alpha.10",
+  "version": "0.21.2-alpha.11",
   "description": "Export filtered records to excel, you can configure which fields to export.",
   "keywords": [
     "Actions"

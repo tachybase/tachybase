@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-action-bulk-update",
   "displayName": "Action: Batch update",
-  "version": "0.21.2-alpha.10",
+  "version": "0.21.2-alpha.11",
   "description": "Batch update all records or selected records.",
   "keywords": [
     "Actions"
