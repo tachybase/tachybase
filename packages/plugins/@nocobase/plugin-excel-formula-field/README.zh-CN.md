@@ -1,6 +1,6 @@
-# math-formula-field
+# excel-formula-field
 
-English | [中文](./README.zh-CN.md)
+[English](./README.md) | 中文
 
 ## 安装激活
 
