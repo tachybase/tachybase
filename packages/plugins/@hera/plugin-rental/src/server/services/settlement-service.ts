@@ -91,8 +91,8 @@ export class SettlementService {
                             settlement_id: settlementsId, //合同ID
                             movement: item.movement, //出入库状态
                             date: item.date, //时间
-                            name: productLength > 1 ? rule.comment : productName.name, //名称
-                            label: productLength > 1 ? rule.comment : productName.label, //规格
+                            name: productLength > 1 ? rule.comment ?? '' : productName.name, //名称
+                            label: productLength > 1 ? rule.comment ?? '' : productName.label, //规格
                             category: item.category, //费用类别
                             //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                             days: day,
@@ -139,8 +139,8 @@ export class SettlementService {
                         settlement_id: settlementsId, //合同ID
                         movement: item.movement, //出入库状态
                         date: item.date, //时间
-                        name: productLength > 1 ? rule.comment : recordItem?.product.name, //名称
-                        label: productLength > 1 ? rule.comment : recordItem?.product.name, //规格
+                        name: productLength > 1 ? rule.comment ?? '' : recordItem?.product.name, //名称
+                        label: productLength > 1 ? rule.comment ?? '' : recordItem?.product.name, //规格
                         category: item.category, //费用类别
                         //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                         days: day,
@@ -266,9 +266,11 @@ export class SettlementService {
                                     break;
                                 }
                                 const ruleName =
-                                  productLength > 1 ? rule.comment + '-' + spec : productname + '-' + spec;
+                                  productLength > 1 ? rule.comment ?? '' + '-' + spec : productname + '-' + spec;
                                 const ruleLabel =
-                                  productLength > 1 ? rule.comment + '-' + spec : recordItem.product.label + '-' + spec;
+                                  productLength > 1
+                                    ? rule.comment ?? '' + '-' + spec
+                                    : recordItem.product.label + '-' + spec;
                                 //人工录入
                                 if (rulefee.count_source === countCource.artificial) {
                                   if (rulefee.conversion_logic_id !== ConversionLogics.ActualWeight) {
@@ -858,8 +860,8 @@ const recordWeight = (rule, item, settlementsId, products, rulefee?) => {
     return {
       settlement_id: settlementsId,
       date: item.date,
-      name: productLength > 1 ? rule.comment + '-' + spec : productName + '-' + spec,
-      label: productLength > 1 ? rule.comment + '-' + spec : productsName.label + '-' + spec,
+      name: productLength > 1 ? rule.comment ?? '' + '-' + spec : productName + '-' + spec,
+      label: productLength > 1 ? rule.comment ?? '' + '-' + spec : productsName.label + '-' + spec,
       category: rulefee ? name : rule.product.name,
       movement: item.movement,
       count: itemWeight.weight,
@@ -890,18 +892,18 @@ const recordWeight = (rule, item, settlementsId, products, rulefee?) => {
       let count = item.weight;
       item.record_items.forEach((recordItem) => {
         if (recordItem.record_item_fee_items.length) {
-          const recordItemFee = recordItem.record_item_fee_items.filter(
+          const recordItemFee = recordItem.record_item_fee_items.find(
             (value) => value.product_id === rulefee.fee_product_id,
-          )[0];
-          count = recordItemFee.is_excluded ? count - recordItemFee.count : count;
+          );
+          count = recordItemFee?.is_excluded ? count - recordItemFee?.count : count;
         }
       });
       const productName = isRecordItem.product.name;
       return {
         settlement_id: settlementsId,
         date: item.date,
-        name: productLength > 1 ? rule.comment + '-' + spec : productName + '-' + spec,
-        label: productLength > 1 ? rule.comment + '-' + spec : productName + '-' + spec,
+        name: productLength > 1 ? rule.comment ?? '' + '-' + spec : productName + '-' + spec,
+        label: productLength > 1 ? rule.comment ?? '' + '-' + spec : productName + '-' + spec,
         category: name,
         movement: item.movement,
         count: count,
