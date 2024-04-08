@@ -15,13 +15,13 @@ export const BulkDestroyActionInitializer = (props) => {
     'x-acl-action-props': {
       skipScopeCheck: true,
     },
+    'x-use-component-props': 'useBulkDestroyActionProps',
     'x-component-props': {
       icon: 'DeleteOutlined',
       confirm: {
         title: "{{t('Delete record')}}",
         content: "{{t('Are you sure you want to delete it?')}}",
       },
-      useProps: '{{ useBulkDestroyActionProps }}',
     },
     'x-action-settings': {
       triggerWorkflows: [],

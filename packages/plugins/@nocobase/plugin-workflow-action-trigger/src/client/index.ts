@@ -13,9 +13,7 @@ const submitToWorkflowActionInitializer: SchemaInitializerItemType = {
   schema: {
     title: '{{t("Submit to workflow", { ns: "workflow" })}}',
     'x-component': 'Action',
-    'x-component-props': {
-      useProps: '{{ useTriggerWorkflowsActionProps }}',
-    },
+    'x-use-component-props': 'useTriggerWorkflowsActionProps',
     'x-designer': 'Action.Designer',
     'x-action-settings': {
       // assignedValues: {},

@@ -51,9 +51,7 @@ const schema: ISchema = {
           type: 'void',
           'x-component': 'FormV2',
           'x-read-pretty': true,
-          'x-component-props': {
-            useProps: '{{ useFormBlockProps }}',
-          },
+          'x-use-component-props': 'useFormBlockProps',
           properties: {
             grid: {
               type: 'void',

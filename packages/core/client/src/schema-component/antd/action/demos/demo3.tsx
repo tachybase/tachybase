@@ -3,6 +3,7 @@ import { ISchema, observer, useField, useFieldSchema } from '@nocobase/schema';
 import { Action, SchemaComponent, SchemaComponentProvider, useActionContext } from '@nocobase/client';
 import { Radio } from 'antd';
 import React, { useRef } from 'react';
+import _ from 'lodash';
 
 const useCloseAction = () => {
   const { setVisible } = useActionContext();
@@ -25,7 +26,7 @@ const Editable = observer(
             value={field.componentProps.openMode}
             onChange={(e) => {
               field.componentProps.openMode = e.target.value;
-              schema['x-component-props']['openMode'] = e.target.value;
+              _.set(schema, 'x-component-props.openMode', e.target.value);
             }}
           >
             <Radio.Button value="drawer">Drawer</Radio.Button>
