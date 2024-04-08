@@ -228,6 +228,8 @@ const TableIndex = (props) => {
 
 const usePaginationProps = (pagination1, pagination2) => {
   const { t } = useTranslation();
+  const showTotal = useCallback((total) => t('Total {{count}} items', { count: total }), [t]);
+
   if (pagination2 === false) {
     return false;
   }
@@ -235,7 +237,7 @@ const usePaginationProps = (pagination1, pagination2) => {
     return false;
   }
   const result = {
-    showTotal: (total) => t('Total {{count}} items', { count: total }),
+    showTotal,
     showSizeChanger: true,
     ...pagination1,
     ...pagination2,
