@@ -245,9 +245,9 @@ export const WorkflowTodo: React.FC & { Drawer: React.FC; Decorator: React.FC } 
                 'x-action': 'filter',
                 'x-designer': 'Filter.Action.Designer',
                 'x-component': 'Filter.Action',
+                'x-use-component-props': 'useFilterActionProps',
                 'x-component-props': {
                   icon: 'FilterOutlined',
-                  useProps: '{{ useFilterActionProps }}',
                 },
                 'x-align': 'left',
               },
@@ -259,9 +259,9 @@ export const WorkflowTodo: React.FC & { Drawer: React.FC; Decorator: React.FC } 
                 // 'x-designer': 'Action.Designer',
                 'x-toolbar': 'ActionSchemaToolbar',
                 'x-settings': 'actionSettings:refresh',
+                'x-use-component-props': 'useRefreshActionProps',
                 'x-component-props': {
                   icon: 'ReloadOutlined',
-                  useProps: '{{ useRefreshActionProps }}',
                 },
                 'x-align': 'right',
               },
@@ -270,9 +270,9 @@ export const WorkflowTodo: React.FC & { Drawer: React.FC; Decorator: React.FC } 
           table: {
             type: 'array',
             'x-component': 'TableV2',
+            'x-use-component-props': 'useTableBlockProps',
             'x-component-props': {
               rowKey: 'id',
-              useProps: '{{ useTableBlockProps }}',
             },
             properties: {
               actions: {

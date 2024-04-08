@@ -2,12 +2,12 @@ import { observer, useForm } from '@nocobase/schema';
 import { action } from '@nocobase/schema';
 import React from 'react';
 import { useCollectionManager_deprecated } from '../../collection-manager';
-import { SchemaComponent, useCompile } from '../../schema-component';
+import { SchemaComponent, useCompile, useProps } from '../../schema-component';
+import { withDynamicSchemaProps } from '../../application/hoc/withDynamicSchemaProps';
 
-export const EnableChildCollections = observer(
-  (props: any) => {
-    const { useProps } = props;
-    const { defaultValues, collectionName } = useProps();
+export const EnableChildCollections = withDynamicSchemaProps(
+  observer((props: any) => {
+    const { defaultValues, collectionName } = useProps(props);
     const form = useForm();
     const compile = useCompile();
     const { getChildrenCollections } = useCollectionManager_deprecated();
@@ -105,6 +105,6 @@ export const EnableChildCollections = observer(
         scope={{ useAsyncDataSource, loadData }}
       />
     );
-  },
+  }),
   { displayName: 'EnableChildCollections' },
 );

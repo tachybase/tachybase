@@ -1245,22 +1245,22 @@ export const SchemaSettingsLinkageRules = function LinkageRules(props) {
       properties: {
         fieldReaction: {
           'x-component': FormLinkageRules,
-          'x-component-props': {
-            useProps: () => {
-              const options = useLinkageCollectionFilterOptions(collectionName);
-              return {
-                options,
-                defaultValues: gridSchema?.['x-linkage-rules'] || fieldSchema?.['x-linkage-rules'],
-                type,
-                linkageOptions: useLinkageCollectionFieldOptions(collectionName),
-                collectionName,
-                form,
-                variables,
-                localVariables,
-                record,
-                formBlockType,
-              };
-            },
+          'x-use-component-props': () => {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const options = useLinkageCollectionFilterOptions(collectionName);
+            return {
+              options,
+              defaultValues: gridSchema?.['x-linkage-rules'] || fieldSchema?.['x-linkage-rules'],
+              type,
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              linkageOptions: useLinkageCollectionFieldOptions(collectionName),
+              collectionName,
+              form,
+              variables,
+              localVariables,
+              record,
+              formBlockType,
+            };
           },
         },
       },
@@ -1274,7 +1274,7 @@ export const SchemaSettingsLinkageRules = function LinkageRules(props) {
       for (const rule of v.fieldReaction.rules) {
         rules.push(_.pickBy(rule, _.identity));
       }
-      const templateId = gridSchema['x-component'] === 'BlockTemplate' && gridSchema['x-component-props'].templateId;
+      const templateId = gridSchema['x-component'] === 'BlockTemplate' && gridSchema['x-component-props']?.templateId;
       const uid = (templateId && getTemplateById(templateId).uid) || gridSchema['x-uid'];
       const schema = {
         ['x-uid']: uid,
@@ -1332,15 +1332,15 @@ export const SchemaSettingsDataTemplates = function DataTemplates(props) {
         fieldReaction: {
           'x-decorator': (props) => <FlagProvider {...props} isInFormDataTemplate />,
           'x-component': FormDataTemplates,
+          'x-use-component-props': () => {
+            return {
+              defaultValues: templateData,
+              collectionName,
+            };
+          },
           'x-component-props': {
             designerCtx,
             formSchema,
-            useProps: () => {
-              return {
-                defaultValues: templateData,
-                collectionName,
-              };
-            },
           },
         },
       },
@@ -1395,13 +1395,11 @@ export function SchemaSettingsEnableChildCollections(props) {
           properties: {
             enableChildren: {
               'x-component': EnableChildCollections,
-              'x-component-props': {
-                useProps: () => {
-                  return {
-                    defaultValues: fieldSchema?.['x-enable-children'],
-                    collectionName,
-                  };
-                },
+              'x-use-component-props': () => {
+                return {
+                  defaultValues: fieldSchema?.['x-enable-children'],
+                  collectionName,
+                };
               },
             },
             allowAddToCurrent: {

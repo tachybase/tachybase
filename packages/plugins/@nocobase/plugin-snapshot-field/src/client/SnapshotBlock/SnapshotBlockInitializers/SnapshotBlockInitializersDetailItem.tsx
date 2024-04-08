@@ -44,9 +44,7 @@ export const createSnapshotBlockSchema = (options) => {
         type: 'void',
         'x-component': 'FormV2',
         'x-read-pretty': true,
-        'x-component-props': {
-          useProps: '{{ useFormBlockProps }}',
-        },
+        'x-use-component-props': 'useFormBlockProps',
         properties: {
           grid: template || {
             type: 'void',
