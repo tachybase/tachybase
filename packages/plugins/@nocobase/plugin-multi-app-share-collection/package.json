@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-multi-app-share-collection",
   "displayName": "Multi-app share collection",
-  "version": "0.21.2-alpha.10",
+  "version": "0.21.2-alpha.11",
   "description": "",
   "keywords": [
     "System management"

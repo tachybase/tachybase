@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow-delay",
   "displayName": "Workflow: Delay node",
-  "version": "0.21.2-alpha.10",
+  "version": "0.21.2-alpha.11",
   "description": "Could be used in workflow parallel branch for waiting other branches.",
   "keywords": [
     "Workflow"
