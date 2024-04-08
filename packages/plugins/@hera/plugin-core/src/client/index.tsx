@@ -71,6 +71,7 @@ import {
   useCustomPresets,
   useCustomPresets1,
 } from './schema-settings/SchemaSettingsDatePresets';
+import { SchemaSettingsSubmitDataType } from './schema-settings/SchemaSettingsSubmitDataType';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -100,6 +101,10 @@ export class PluginCoreClient extends Plugin {
     });
     this.schemaSettingsManager.addItem('fieldSettings:component:DatePicker', 'datePresets', {
       Component: SchemaSettingsDatePresets,
+    });
+
+    this.schemaSettingsManager.addItem('actionSettings:updateSubmit', 'submitDataType', {
+      Component: SchemaSettingsSubmitDataType,
     });
 
     this.schemaSettingsManager.addItem('FormItemSettings', 'hera-divider', {
