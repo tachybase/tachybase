@@ -19,6 +19,7 @@
     "nocobase": "nocobase",
     "pm": "nocobase pm",
     "pm2": "nocobase pm2",
+    "prepare": "husky",
     "release": "lerna publish",
     "release:force": "lerna publish from-package --yes",
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
@@ -41,12 +42,6 @@
       "eslint --fix"
     ]
   },
-  "config": {
-    "ghooks": {
-      "pre-commit": "pnpm lint-staged",
-      "commit-msg": "commitlint --edit"
-    }
-  },
   "dependencies": {
     "pm2": "^5.2.0",
     "rimraf": "^3.0.0"
@@ -67,7 +62,7 @@
     "commander": "^9.2.0",
     "eslint-plugin-jest-dom": "^5.0.1",
     "eslint-plugin-testing-library": "^5.11.0",
-    "ghooks": "^2.0.4",
+    "husky": "^9.0.11",
     "lint-staged": "^13.2.3",
     "prettier": "^3.1.1",
     "prettier-plugin-packagejson": "^2.4.14",
