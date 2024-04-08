@@ -24,8 +24,8 @@ export class ContractRuleService {
    */
   async contractPlansBeforeSave(model: MagicAttributeModel, options: CreateOptions): Promise<void> {
     if (!options.values) return;
-    const leaseData = options.values.lease_items.map((item) => item.products).flat();
-    const repeatData = this.repeatQuery(leaseData);
+    const leaseData2 = options.values.lease_items.map((item) => item.products);
+    const repeatData = this.repeatQuery2(leaseData2);
     if (repeatData.length > 0) {
       const products = repeatData.map((item) => item.label).join(',');
       throw new Error('租金规则中的产品重复！重复产品：' + products);
@@ -143,5 +143,31 @@ export class ContractRuleService {
     } else {
       return [];
     }
+  }
+
+  /**
+   * 与原实现相差较多，新写一实现方法
+   * 租金产品多选重复查询，一个组合算是一个整体进行比较
+   * @param data
+   * @returns
+   */
+  repeatQuery2(data: any[]): any[] {
+    const result = data.reduce((acc, curr) => {
+      const found = acc.find((subArr) => subArr.length === curr.length);
+      if (found) {
+        found.push(...curr);
+      } else {
+        acc.push(curr);
+      }
+      return acc;
+    }, []);
+    const rep = [];
+    result.forEach((item) => {
+      const repeatData = this.repeatQuery(item);
+      if (repeatData.length > 0) {
+        rep.push(...item);
+      }
+    });
+    return rep;
   }
 }
