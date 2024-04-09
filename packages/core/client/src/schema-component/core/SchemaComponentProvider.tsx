@@ -73,7 +73,8 @@ export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (prop
   );
 
   return (
-    <SchemaComponentContext.Provider value={schemaComponentContextValue}>
+    // TODO: 临时修复,处理模板类型的关联数据第一次进入无法加载
+    <SchemaComponentContext.Provider value={{ ...schemaComponentContextValue }}>
       <FormProvider form={form}>
         <SchemaComponentOptions inherit scope={scope} components={components}>
           {children}
