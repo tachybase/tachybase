@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-kanban",
   "displayName": "Block: Kanban",
-  "version": "0.21.2-alpha.12",
+  "version": "0.21.2-alpha.13",
   "description": "Provides kanban block.",
   "keywords": [
     "Blocks"
