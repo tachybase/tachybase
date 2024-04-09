@@ -41,11 +41,17 @@ export class SettlementService {
         const lease_rules = ruleItem?.rule.lease_items;
         // fee_rules 费用明细
         const fee_rules = ruleItem?.rule.fee_item;
+        //合并产品
+        const countRule = [];
         // 处理原始数据，适合后续租金数据成
         if (settlementAbout.records === null) {
           settlementAbout.records = [];
         }
-
+        lease_rules.forEach((rule) => {
+          if (rule?.products.length > 1) {
+            countRule.push(...rule.products.map((value) => value));
+          }
+        });
         // 正常租赁数据
         lease_rules?.forEach((rule) => {
           if (rule) {
@@ -63,15 +69,17 @@ export class SettlementService {
                       if (recordItem) {
                         let isCount;
                         if (productLength > 1) {
-                          isCount = rule.products.find(
-                            (productRule) =>
+                          isCount = rule.products.find((productRule) => {
+                            return (
                               productRule.product_id > RulesNumber &&
-                              productRule.product_id - RulesNumber === recordItem.product_category_id,
-                          );
+                              productRule.product_id - RulesNumber === recordItem.product_category_id
+                            );
+                          });
                         } else {
                           isCount =
                             rule.products[0].product_id > RulesNumber &&
-                            rule.products[0].product_id - RulesNumber === recordItem.product_category_id;
+                            rule.products[0].product_id - RulesNumber === recordItem.product_category_id &&
+                            !countRule.find((productRule) => productRule.product_id === rule.products[0].product_id);
                         }
                         if (isCount) {
                           const productName = item.record_items.filter(
@@ -99,7 +107,7 @@ export class SettlementService {
                             is_excluded: false,
                             count: recordItem.weight * Number(movement),
                             unit_price: rule.unit_price * 1000,
-                            amount: recordItem.weight * (rule.unit_price * 1000) * day,
+                            amount: recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
                             unit_name: '吨',
                             productCategory,
                           });
@@ -118,9 +126,10 @@ export class SettlementService {
                         );
                       } else {
                         isCount =
-                          (rule.products[0].product_id > RulesNumber &&
+                          ((rule.products[0].product_id > RulesNumber &&
                             rule.products[0].product_id - RulesNumber === itemValue?.product.category_id) ||
-                          rule.products[0].product_id === itemValue?.product.id;
+                            rule.products[0].product_id === itemValue?.product.id) &&
+                          !countRule.find((productRule) => productRule.product_id === rule.products[0].product_id);
                       }
                       return isCount;
                     });
@@ -147,7 +156,7 @@ export class SettlementService {
                         is_excluded: false,
                         count: item.weight * Number(movement),
                         unit_price: rule.unit_price * 1000,
-                        amount: item.weight * (rule.unit_price * 1000) * day,
+                        amount: item.weight * (rule.unit_price * 1000) * day * Number(movement),
                         unit_name: '吨',
                         productCategory,
                       });
@@ -207,173 +216,158 @@ export class SettlementService {
                       if (rulefee.fee_product_id) {
                         const spec = rulefee.product.spec;
                         const name = rulefee.product.name;
-                        if (rulefee.conversion_logic_id === ConversionLogics.ActualWeight) {
-                          let data;
-                          if (
-                            rulefee.count_source === countCource.outProduct ||
-                            rulefee.count_source === countCource.outItem
-                          ) {
-                            if (item.movement === '-1') {
-                              data = recordWeight(rule, item, settlementsId, rule.products, rulefee);
+                        rule.products.forEach((productRule) => {
+                          if (rulefee.conversion_logic_id === ConversionLogics.ActualWeight) {
+                            let data;
+                            if (
+                              rulefee.count_source === countCource.outProduct ||
+                              rulefee.count_source === countCource.outItem
+                            ) {
+                              if (item.movement === '-1') {
+                                data = recordWeight(rule, item, settlementsId, productRule, rulefee);
+                                if (data) {
+                                  data.movement = '-1';
+                                }
+                              }
+                            } else if (
+                              rulefee.count_source === countCource.enterProduct ||
+                              rulefee.count_source === countCource.enterItem
+                            ) {
+                              if (item.movement === '1') {
+                                data = recordWeight(rule, item, settlementsId, productRule, rulefee);
+                                if (data) {
+                                  data.movement = '1';
+                                }
+                              }
+                            } else {
+                              data = recordWeight(rule, item, settlementsId, productRule, rulefee);
                               if (data) {
-                                data.movement = '-1';
+                                data.movement = '0';
                               }
                             }
-                          } else if (
-                            rulefee.count_source === countCource.enterProduct ||
-                            rulefee.count_source === countCource.enterItem
-                          ) {
-                            if (item.movement === '1') {
-                              data = recordWeight(rule, item, settlementsId, rule.products, rulefee);
-                              if (data) {
-                                data.movement = '1';
-                              }
+                            if (data) {
+                              createFeesDatas.push({ ...data, productCategory });
                             }
                           } else {
-                            data = recordWeight(rule, item, settlementsId, rule.products, rulefee);
-                            if (data) {
-                              data.movement = '0';
-                            }
-                          }
-                          if (data) {
-                            createFeesDatas.push({ ...data, productCategory });
-                          }
-                        } else {
-                          item.record_items?.forEach((recordItem) => {
-                            if (recordItem) {
-                              let productRule;
-                              if (productLength > 1) {
-                                productRule = rule.products.find(
-                                  (item) =>
-                                    item.product_id - RulesNumber === recordItem.product.category_id ||
-                                    recordItem.product_id === item.product_id,
-                                );
-                              } else {
-                                productRule =
-                                  rule.products[0].product_id - RulesNumber === recordItem.product.category_id ||
-                                  recordItem.product_id === rule.products[0].product_id
-                                    ? rule.products[0]
-                                    : null;
-                              }
-                              if (productRule) {
-                                let productname;
-                                switch (productCategory) {
-                                  case 'category':
-                                    productname = recordItem.product.name;
-                                    break;
-                                  case 'product':
-                                    productname = recordItem.product.label;
-                                    break;
-                                }
-                                const ruleName =
-                                  productLength > 1 ? rule.comment ?? '' + '-' + spec : productname + '-' + spec;
-                                const ruleLabel =
-                                  productLength > 1
-                                    ? rule.comment ?? '' + '-' + spec
-                                    : recordItem.product.label + '-' + spec;
-                                //人工录入
-                                if (rulefee.count_source === countCource.artificial) {
-                                  if (rulefee.conversion_logic_id !== ConversionLogics.ActualWeight) {
-                                    if (recordItem.record_item_fee_items.length) {
-                                      recordItem.record_item_fee_items.forEach((value) => {
-                                        if (value.product_id === rulefee.fee_product_id) {
-                                          const { count, unit } = ruleCount(
-                                            rule,
-                                            item,
-                                            recordItem,
-                                            value.count,
-                                            rulefee,
-                                          );
-                                          createFeesDatas.push({
-                                            settlement_id: settlementsId,
-                                            date: item.date,
-                                            name: ruleName,
-                                            label: ruleLabel,
-                                            category: name,
-                                            movement: item.movement,
-                                            count: count,
-                                            unit_price: rulefee.unit_price,
-                                            amount: rulefee.unit_price * count,
-                                            unit_name: unit,
-                                            is_excluded: value.is_excluded,
-                                            productCategory,
-                                          });
-                                        }
+                            item.record_items?.forEach((recordItem) => {
+                              if (recordItem) {
+                                if (
+                                  productRule.product_id - RulesNumber === recordItem.product.category_id ||
+                                  recordItem.product_id === productRule.product_id
+                                ) {
+                                  let productname;
+                                  switch (productCategory) {
+                                    case 'category':
+                                      productname = recordItem.product.name;
+                                      break;
+                                    case 'product':
+                                      productname = recordItem.product.label;
+                                      break;
+                                  }
+                                  //人工录入
+                                  if (rulefee.count_source === countCource.artificial) {
+                                    if (rulefee.conversion_logic_id !== ConversionLogics.ActualWeight) {
+                                      if (recordItem.record_item_fee_items.length) {
+                                        recordItem.record_item_fee_items.forEach((value) => {
+                                          if (value.product_id === rulefee.fee_product_id) {
+                                            const { count, unit } = ruleCount(
+                                              rule,
+                                              item,
+                                              recordItem,
+                                              value.count,
+                                              rulefee,
+                                            );
+                                            createFeesDatas.push({
+                                              settlement_id: settlementsId,
+                                              date: item.date,
+                                              name: productname + '-' + spec,
+                                              label: recordItem.product.label + '-' + spec,
+                                              category: name,
+                                              movement: item.movement,
+                                              count: count,
+                                              unit_price: rulefee.unit_price,
+                                              amount: rulefee.unit_price * count,
+                                              unit_name: unit,
+                                              is_excluded: value.is_excluded,
+                                              productCategory,
+                                            });
+                                          }
+                                        });
+                                      }
+                                    }
+                                  } //出库
+                                  else if (
+                                    rulefee.count_source === countCource.outProduct ||
+                                    rulefee.count_source === countCource.outItem
+                                  ) {
+                                    if (item.movement === '-1') {
+                                      const { count, unit } = ruleCount(rule, item, recordItem, '', rulefee);
+                                      const recordCount = recordItemsFee(rule, item, recordItem, count, rulefee);
+                                      createFeesDatas.push({
+                                        settlement_id: settlementsId,
+                                        date: item.date,
+                                        name: productname + '-' + spec,
+                                        label: recordItem.product.label + '-' + spec,
+                                        category: name,
+                                        movement: '-1',
+                                        count: recordCount,
+                                        unit_price: rulefee.unit_price,
+                                        amount: count * rulefee.unit_price,
+                                        unit_name: unit,
+                                        is_excluded: false,
+                                        productCategory,
                                       });
                                     }
-                                  }
-                                } //出库
-                                else if (
-                                  rulefee.count_source === countCource.outProduct ||
-                                  rulefee.count_source === countCource.outItem
-                                ) {
-                                  if (item.movement === '-1') {
+                                  } //入库
+                                  else if (
+                                    rulefee.count_source === countCource.enterProduct ||
+                                    rulefee.count_source === countCource.enterItem
+                                  ) {
+                                    if (item.movement === '1') {
+                                      const { count, unit } = ruleCount(rule, item, recordItem, '', rulefee);
+                                      const recordCount = recordItemsFee(rule, item, recordItem, count, rulefee);
+                                      createFeesDatas.push({
+                                        settlement_id: settlementsId,
+                                        date: item.date,
+                                        name: productname + '-' + spec,
+                                        label: recordItem.product.label + '-' + spec,
+                                        category: name,
+                                        movement: '1',
+                                        count: recordCount,
+                                        unit_price: rulefee.unit_price,
+                                        amount: count * rulefee.unit_price,
+                                        unit_name: unit,
+                                        is_excluded: false,
+                                        productCategory,
+                                      });
+                                    }
+                                  } //出入库
+                                  else if (
+                                    rulefee.count_source === countCource.product ||
+                                    rulefee.count_source === countCource.item
+                                  ) {
                                     const { count, unit } = ruleCount(rule, item, recordItem, '', rulefee);
                                     const recordCount = recordItemsFee(rule, item, recordItem, count, rulefee);
                                     createFeesDatas.push({
                                       settlement_id: settlementsId,
                                       date: item.date,
-                                      name: ruleName,
-                                      label: ruleLabel,
+                                      name: productname + '-' + spec,
+                                      label: recordItem.product.label + '-' + spec,
                                       category: name,
-                                      movement: '-1',
+                                      movement: '0',
                                       count: recordCount,
-                                      unit_price: rulefee.unit_price,
-                                      amount: count * rulefee.unit_price,
+                                      unit_price: rule.unit_price,
+                                      amount: count * rule.unit_price,
                                       unit_name: unit,
                                       is_excluded: false,
                                       productCategory,
                                     });
                                   }
-                                } //入库
-                                else if (
-                                  rulefee.count_source === countCource.enterProduct ||
-                                  rulefee.count_source === countCource.enterItem
-                                ) {
-                                  if (item.movement === '1') {
-                                    const { count, unit } = ruleCount(rule, item, recordItem, '', rulefee);
-                                    const recordCount = recordItemsFee(rule, item, recordItem, count, rulefee);
-                                    createFeesDatas.push({
-                                      settlement_id: settlementsId,
-                                      date: item.date,
-                                      name: ruleName,
-                                      label: ruleLabel,
-                                      category: name,
-                                      movement: '1',
-                                      count: recordCount,
-                                      unit_price: rulefee.unit_price,
-                                      amount: count * rulefee.unit_price,
-                                      unit_name: unit,
-                                      is_excluded: false,
-                                      productCategory,
-                                    });
-                                  }
-                                } //出入库
-                                else if (
-                                  rulefee.count_source === countCource.product ||
-                                  rulefee.count_source === countCource.item
-                                ) {
-                                  const { count, unit } = ruleCount(rule, item, recordItem, '', rulefee);
-                                  const recordCount = recordItemsFee(rule, item, recordItem, count, rulefee);
-                                  createFeesDatas.push({
-                                    settlement_id: settlementsId,
-                                    date: item.date,
-                                    name: ruleName,
-                                    label: ruleLabel,
-                                    category: name,
-                                    movement: '0',
-                                    count: recordCount,
-                                    unit_price: rule.unit_price,
-                                    amount: count * rule.unit_price,
-                                    unit_name: unit,
-                                    is_excluded: false,
-                                    productCategory,
-                                  });
                                 }
                               }
-                            }
-                          });
-                        }
+                            });
+                          }
+                        });
                       }
                     });
                   }
@@ -827,32 +821,17 @@ export class SettlementService {
  * @param item
  * @param settlementsId
  */
-const recordWeight = (rule, item, settlementsId, products, rulefee?) => {
-  let productCategory = 'category';
-  const productLength = products.length;
-  if (productLength === 1) {
-    productCategory = products[0].product_id > RulesNumber ? 'category' : 'product';
-  }
+const recordWeight = (rule, item, settlementsId, productRule, rulefee?) => {
+  const productCategory = productRule.product_id > RulesNumber ? 'category' : 'product';
   const spec = rulefee.product.spec;
   const name = rulefee.product.name;
   if (item.weight_items.length) {
-    const itemWeight = item.weight_items.find((weightItem) => {
-      let isCount;
-      if (productLength > 1) {
-        isCount = products.find(
-          (productRule) =>
-            (productRule.product_id > RulesNumber &&
-              productRule.product_id - RulesNumber === weightItem.product_category_id) ||
-            productRule.product_id === weightItem.product_category_id,
-        );
-      } else {
-        isCount =
-          (products[0].product_id > RulesNumber &&
-            products[0].product_id - RulesNumber === weightItem.product_category_id) ||
-          products[0].product_id === weightItem.product_category_id;
-      }
-      return isCount;
-    });
+    const itemWeight = item.weight_items.filter(
+      (weightItem) =>
+        (productRule.product_id > RulesNumber &&
+          productRule.product_id - RulesNumber === weightItem.product_category_id) ||
+        productRule.product_id === weightItem.product_category_id,
+    )[0];
     const productsName = item.record_items?.filter(
       (value) => value.product.category_id === itemWeight.product_category_id,
     )[0].product;
@@ -860,8 +839,8 @@ const recordWeight = (rule, item, settlementsId, products, rulefee?) => {
     return {
       settlement_id: settlementsId,
       date: item.date,
-      name: productLength > 1 ? rule.comment ?? '' + '-' + spec : productName + '-' + spec,
-      label: productLength > 1 ? rule.comment ?? '' + '-' + spec : productsName.label + '-' + spec,
+      name: productName + '-' + spec,
+      label: productsName.label + '-' + spec,
       category: rulefee ? name : rule.product.name,
       movement: item.movement,
       count: itemWeight.weight,
@@ -871,39 +850,28 @@ const recordWeight = (rule, item, settlementsId, products, rulefee?) => {
       is_excluded: false,
     };
   } else {
-    const isRecordItem = item.record_items.find((itemValue) => {
-      let isCount;
-      if (productLength > 1) {
-        isCount = products.find(
-          (productRule) =>
-            (productRule.product_id > RulesNumber &&
-              productRule.product_id - RulesNumber === itemValue?.product.category_id) ||
-            productRule.product_id === itemValue?.product.category_id,
-        );
-      } else {
-        isCount =
-          (products[0].product_id > RulesNumber &&
-            products[0].product_id - RulesNumber === itemValue?.product.category_id) ||
-          products[0].product_id === itemValue?.product.category_id;
-      }
-      return isCount;
-    });
+    const isRecordItem = item.record_items.find(
+      (itemValue) =>
+        (productRule.product_id > RulesNumber &&
+          productRule.product_id - RulesNumber === itemValue?.product.category_id) ||
+        productRule.product_id === itemValue?.product.category_id,
+    );
     if (isRecordItem) {
       let count = item.weight;
       item.record_items.forEach((recordItem) => {
         if (recordItem.record_item_fee_items.length) {
-          const recordItemFee = recordItem.record_item_fee_items.find(
+          const recordItemFee = recordItem.record_item_fee_items.filter(
             (value) => value.product_id === rulefee.fee_product_id,
-          );
-          count = recordItemFee?.is_excluded ? count - recordItemFee?.count : count;
+          )[0];
+          count = recordItemFee?.is_excluded ? count - recordItemFee.count : count;
         }
       });
       const productName = isRecordItem.product.name;
       return {
         settlement_id: settlementsId,
         date: item.date,
-        name: productLength > 1 ? rule.comment ?? '' + '-' + spec : productName + '-' + spec,
-        label: productLength > 1 ? rule.comment ?? '' + '-' + spec : productName + '-' + spec,
+        name: productName + '-' + spec,
+        label: productName + '-' + spec,
         category: name,
         movement: item.movement,
         count: count,
@@ -923,10 +891,10 @@ const recordWeight = (rule, item, settlementsId, products, rulefee?) => {
  * @param itemCount  需要计算的订单数量
  * @returns count,unit  返回了最后的计算数量和单位
  */
-const ruleCount = (rules: FeeRule | LeaseRule, item: Record, recordItem: RecordItems, valueCount?, rulefee?) => {
+const ruleCount = (lease_rules: FeeRule | LeaseRule, item: Record, recordItem: RecordItems, valueCount?, rulefee?) => {
   let count, unit;
   const itemCount = valueCount ? valueCount : recordItem.count;
-  const conversion_logic_id = rulefee ? rulefee.conversion_logic_id : rules.conversion_logic_id;
+  const conversion_logic_id = rulefee ? rulefee.conversion_logic_id : lease_rules.conversion_logic_id;
   if (conversion_logic_id === ConversionLogics.Product) {
     // 换算:2
     // 查产品分类，看产品分类是否需要换算
@@ -943,7 +911,8 @@ const ruleCount = (rules: FeeRule | LeaseRule, item: Record, recordItem: RecordI
     count = itemCount * recordItem.product.weight;
     unit = recordItem.product.product_category.unit;
   } else {
-    const rule = rules?.ucl?.weight_items.filter(
+    const rules = rulefee ? rulefee?.weight_items : lease_rules?.ucl?.weight_items;
+    const rule = rules.filter(
       (value) =>
         value.product_id === recordItem.product_id || value.product_id - RulesNumber === recordItem.product.category_id,
     )[0];

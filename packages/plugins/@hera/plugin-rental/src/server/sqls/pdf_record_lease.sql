@@ -1,5 +1,7 @@
 -- 租金
-SELECT
+-- distinct说明：sql根据订单中产品去合同规则中找规则，如果合同存在单个产品多条规则，会连接查询出多条规则，所以需要distinct
+-- 直接disinct掉，不会有任何影响，因为查询数据只关注点单产品数量，根换算逻辑，正好多条规则换算逻辑是一样的
+SELECT DISTINCT
   r.category,
   ri.comment AS item_comment,
   ri.count,
