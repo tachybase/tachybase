@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-mobile-client",
   "displayName": "Mobile client",
-  "version": "0.21.2-alpha.12",
+  "version": "0.21.2-alpha.13",
   "description": "Provides the ability to configure mobile pages.",
   "homepage": "https://docs.nocobase.com/handbook/mobile-client",
   "license": "AGPL-3.0",
