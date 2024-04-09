@@ -43,7 +43,19 @@ SELECT
                             SELECT
                               COALESCE(
                                 JSONB_AGG(
-                                  JSONB_SET(TO_JSONB(cpfi), '{product}', TO_JSONB(product))
+                                  JSONB_SET(TO_JSONB(cpfi), '{product}', TO_JSONB(product)) || JSONB_SET(
+                                    TO_JSONB(cpfi),
+                                    '{weight_items}',
+                                    (
+                                      SELECT
+                                        COALESCE(JSONB_AGG(wrs), '[]'::jsonb)
+                                      FROM
+                                        weight_rules wrs
+                                      WHERE
+                                        wrs.logic_id = cpfi.conversion_logic_id
+                                        AND cpfi.conversion_logic_id > 4
+                                    )
+                                  )
                                 ),
                                 '[]'::jsonb
                               )

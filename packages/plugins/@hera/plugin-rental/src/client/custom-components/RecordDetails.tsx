@@ -44,21 +44,23 @@ export const RecordDetails: CustomFunctionComponent = () => {
   // 根据关联产品名称来合并赔偿
   if (reqRecordItemFeeItems.data) {
     feeItems = reqRecordItemFeeItems.data.data?.reduce((prev, current) => {
-      const key = current.record_item.product.name;
-      if (!(key in prev)) {
-        prev[key] = {};
+      if (current.record_item.product) {
+        const key = current.record_item.product.name;
+        if (!(key in prev)) {
+          prev[key] = {};
+        }
+        if (!current.product) {
+          return prev;
+        }
+        if (!(current.product.label in prev[key])) {
+          prev[key][current.product.label] = {
+            id: current.product.id,
+            label: current.product.label,
+            count: 0,
+          };
+        }
+        prev[key][current.product.label].count += current.count;
       }
-      if (!current.product) {
-        return prev;
-      }
-      if (!(current.product.label in prev[key])) {
-        prev[key][current.product.label] = {
-          id: current.product.id,
-          label: current.product.label,
-          count: 0,
-        };
-      }
-      prev[key][current.product.label].count += current.count;
       return prev;
     }, {});
   }
@@ -66,6 +68,7 @@ export const RecordDetails: CustomFunctionComponent = () => {
 
   if (reqRecordItems.data && feeItems) {
     reqRecordItems.data.data?.forEach((item) => {
+      if (!item.product) return;
       const key = item.product.name;
       const count = item.product.category.convertible ? item.count * item.product.ratio : item.count;
       const unit = item.product.category.convertible
