@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-sequence-field",
   "displayName": "Collection field: Sequence",
-  "version": "0.21.2-alpha.11",
+  "version": "0.21.2-alpha.12",
   "description": "Automatically generate codes based on configured rules, supporting combinations of dates, numbers, and text.",
   "keywords": [
     "Collection fields"
