@@ -1,6 +1,6 @@
 {
   "name": "nocobase",
-  "version": "0.21.2-alpha.12",
+  "version": "0.21.3",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
