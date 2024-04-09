@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-charts",
   "displayName": "Charts (deprecated)",
-  "version": "0.21.2-alpha.13",
+  "version": "0.21.2",
   "description": "The plugin has been deprecated, please use the data visualization plugin instead.",
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
