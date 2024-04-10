@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-audit-logs",
   "displayName": "Audit logs (deprecated)",
-  "version": "0.21.4",
+  "version": "0.21.5",
   "description": "This plugin is deprecated. There will be a new audit log plugin in the future.",
   "keywords": [
     "System & security"
