@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-verification",
   "displayName": "Verification",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "verification setting.",
   "keywords": [
     "Authentication"
@@ -15,7 +15,7 @@
     "@alicloud/tea-util": "1.4.4",
     "@formily/antd-v5": "1.x",
     "@nocobase/schema": "workspace:*",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "dayjs": "^1.11.8",
     "react": "~18.2.0",
     "react-i18next": "^11.15.1",

@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-audit-logs",
   "displayName": "Audit logs",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Audit logs.",
   "keywords": [
     "System management"
@@ -10,7 +10,7 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
     "@formily/antd-v5": "1.x",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "react": "^18.2.0",
     "react-i18next": "^11.15.1"
   },

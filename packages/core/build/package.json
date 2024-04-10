@@ -1,6 +1,6 @@
 {
   "name": "@nocobase/build",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Library build tool based on rollup.",
   "license": "Apache-2.0",
   "main": "lib/index.js",
@@ -32,7 +32,7 @@
     "gulp-typescript": "6.0.0-alpha.1",
     "tar": "^6.2.0",
     "tsup": "7.2.0",
-    "typescript": "5.4.3",
+    "typescript": "5.4.4",
     "update-notifier": "3.0.0",
     "vite": "^5.0.0",
     "vite-plugin-css-injected-by-js": "^3.2.1",

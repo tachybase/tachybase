@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-snapshot-field",
   "displayName": "Collection field: Snapshot",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "When adding a new record, create a snapshot for its relational record and save in the new record. The snapshot will not be updated when the relational record is updated.",
   "keywords": [
     "Collection fields"
@@ -12,7 +12,7 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
     "@nocobase/schema": "workspace:*",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "lodash": "4.17.21",
     "rc-tree-select": "5.5.5",
     "react": "~18.2.0",

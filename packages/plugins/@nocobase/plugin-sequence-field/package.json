@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-sequence-field",
   "displayName": "Collection field: Sequence",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Automatically generate codes based on configured rules, supporting combinations of dates, numbers, and text.",
   "keywords": [
     "Collection fields"
@@ -12,7 +12,7 @@
   "devDependencies": {
     "@formily/antd-v5": "1.x",
     "@nocobase/schema": "workspace:*",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "classnames": "^2.3.1",
     "cron-parser": "4.4.0",
     "dayjs": "^1.11.8",

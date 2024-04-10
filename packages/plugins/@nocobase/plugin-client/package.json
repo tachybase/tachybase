@@ -1,12 +1,12 @@
 {
   "name": "@nocobase/plugin-client",
   "displayName": "WEB client",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Provides a client interface for the NocoBase server",
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "cronstrue": "^2.11.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0"

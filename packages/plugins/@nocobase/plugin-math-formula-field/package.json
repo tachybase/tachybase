@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-math-formula-field",
   "displayName": "math formula field",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "A powerful mathematical formula field plugin designed to provide flexible mathematical and formula calculation capabilities for databases or data management systems. It seamlessly integrates with various database systems such as MySQL, PostgreSQL, and offers an intuitive user interface for defining and executing mathematical formula fields.",
   "keywords": [
     "Fields"

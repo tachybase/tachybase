@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow-request",
   "displayName": "Workflow: HTTP request node",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Send HTTP requests to any HTTP service for data interaction in workflow.",
   "keywords": [
     "Workflow"
@@ -11,7 +11,7 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@formily/antd-v5": "^1.1.9",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "react": "~18.2.0",
     "react-i18next": "^11.15.1"
   },

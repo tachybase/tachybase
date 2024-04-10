@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-action-duplicate",
   "displayName": "Action: Duplicate record",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Duplicate a record, you can either duplicate it into a form and edit it before saving it, or you can duplicate it directly to generate a new record.",
   "keywords": [
     "Actions"
@@ -12,7 +12,7 @@
   "devDependencies": {
     "@emotion/css": "^11.7.1",
     "@nocobase/schema": "workspace:*",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "lodash": "4.17.21",
     "react-i18next": "^11.15.1"
   },

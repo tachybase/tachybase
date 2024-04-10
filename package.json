@@ -1,6 +1,6 @@
 {
   "name": "nocobase",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
@@ -24,6 +24,7 @@
     "release:force": "lerna publish from-package --yes",
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "nocobase start",
+    "tag:c": "changeset",
     "tag:p": "changeset",
     "tag:v": "changeset version",
     "tar": "nocobase tar",
@@ -31,8 +32,7 @@
     "test": "nocobase test",
     "test:client": "nocobase test:client",
     "test:server": "nocobase test:server",
-    "ts": "nocobase test:server",
-    "version:alpha": "lerna version prerelease --preid alpha --force-publish=* --no-git-tag-version -m \"chore(versions): publish packages %s\""
+    "ts": "nocobase test:server"
   },
   "lint-staged": {
     "*.{js,json,sql}": [
@@ -71,8 +71,8 @@
     "pretty-quick": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tsx": "^4.6.2",
-    "typescript": "5.4.3",
+    "tsx": "^4.7.2",
+    "typescript": "5.4.4",
     "umi": "^4.0.69"
   },
   "packageManager": "pnpm@8.15.5",
@@ -99,15 +99,15 @@
       "@types/react": "18.2.73",
       "@types/react-dom": "18.2.23",
       "@typescript-eslint/parser": "^6.2.0",
-      "antd": "5.16.0",
+      "antd": "5.16.1",
       "nwsapi": "2.2.7",
       "prettier": "^3.1.1",
       "react": "18.2.0",
       "react-dom": "18.2.0",
       "react-router": "^6.11.2",
       "react-router-dom": "^6.11.2",
-      "tsx": "^4.6.2",
-      "typescript": "5.4.3"
+      "tsx": "^4.7.2",
+      "typescript": "5.4.4"
     }
   },
   "licenses": [
