@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-core",
   "displayName": "Hera platform",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "Hera platform as nocobase plugin.",
   "keywords": [
     "System management"
@@ -16,7 +16,7 @@
     "@nocobase/schema": "workspace:*",
     "@react-pdf/renderer": "^3.3.2",
     "ahooks": "^3.7.2",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "antd-style": "3.4.5",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.3",

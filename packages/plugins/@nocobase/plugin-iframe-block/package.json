@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-iframe-block",
   "displayName": "Block: iframe",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Create an iframe block on the page to embed and display external web pages or content.",
   "keywords": [
     "Blocks"
@@ -12,7 +12,7 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
     "@nocobase/schema": "workspace:*",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "react": "^18.2.0",
     "react-i18next": "^11.15.1",
     "react-iframe": "~1.8.5"

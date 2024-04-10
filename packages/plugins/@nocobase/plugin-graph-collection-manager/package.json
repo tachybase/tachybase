@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-graph-collection-manager",
   "displayName": "Graph collection manager",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "An ER diagram-like tool. Currently only the Master database is supported.",
   "keywords": [
     "Data model tools"
@@ -22,7 +22,7 @@
     "@emotion/css": "^11.7.1",
     "@nocobase/schema": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "dagre": "^0.8.5",
     "lodash": "4.17.21",
     "react": "^18.2.0",

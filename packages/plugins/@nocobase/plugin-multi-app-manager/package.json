@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-multi-app-manager",
   "displayName": "Multi-app manager",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Dynamically create multiple apps without separate deployments.",
   "keywords": [
     "system"
@@ -11,7 +11,7 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@nocobase/schema": "workspace:*",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "antd-style": "3.x",
     "async-mutex": "^0.3.2",
     "lodash": "4.17.21",

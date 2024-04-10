@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow-sql",
   "displayName": "Workflow: SQL node",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Execute SQL statements in workflow.",
   "keywords": [
     "Workflow"
@@ -10,7 +10,7 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "react": "~18.2.0",
     "react-i18next": "^11.15.1"
   },

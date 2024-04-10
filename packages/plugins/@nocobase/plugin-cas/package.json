@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-cas",
   "displayName": "Auth: CAS",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "CAS authentication.",
   "keywords": [
     "Authentication"
@@ -11,7 +11,7 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "react-i18next": "^11.15.1",
     "react-router-dom": "6.x"
   },

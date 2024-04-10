@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-saml",
   "displayName": "Auth: SAML 2.0",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "SAML 2.0 authentication.",
   "keywords": [
     "Authentication"
@@ -13,7 +13,7 @@
     "@ant-design/icons": "~5.3.6",
     "@nocobase/schema": "workspace:*",
     "@node-saml/node-saml": "^4.0.2",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "react": "~18.2.0",
     "react-i18next": "^11.15.1",
     "react-router-dom": "^6.11.2"

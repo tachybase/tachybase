@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-users",
   "displayName": "Users",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Provides basic user model, as well as created by and updated by fields.",
   "keywords": [
     "Users & permissions"
@@ -12,7 +12,7 @@
   "devDependencies": {
     "@nocobase/schema": "workspace:*",
     "@types/jsonwebtoken": "^8.5.8",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "jsonwebtoken": "^8.5.1",
     "react-i18next": "^11.15.1"
   },

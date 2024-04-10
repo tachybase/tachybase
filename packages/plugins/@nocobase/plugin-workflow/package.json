@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow",
   "displayName": "Workflow",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "A powerful BPM tool that provides foundational support for business automation, with the capability to extend unlimited triggers and nodes.",
   "keywords": [
     "Workflow"
@@ -17,7 +17,7 @@
     "@formily/antd-v5": "1.x",
     "@nocobase/schema": "workspace:*",
     "@types/ejs": "^3.1.1",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "axios": "^1.6.2",
     "classnames": "^2.3.1",
     "cron-parser": "4.4.0",

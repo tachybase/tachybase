@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-acl",
   "displayName": "Access control",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Based on roles, resources, and actions, access control can precisely manage interface configuration permissions, data operation permissions, menu access permissions, and plugin permissions.",
   "keywords": [
     "Users & permissions"
@@ -20,7 +20,7 @@
     "@nocobase/schema": "workspace:*",
     "@types/jsonwebtoken": "^8.5.8",
     "ahooks": "^3.7.2",
-    "antd": "5.16.0",
+    "antd": "5.16.1",
     "antd-style": "3.4.5",
     "async-mutex": "^0.3.2",
     "jsonwebtoken": "^8.5.1",
