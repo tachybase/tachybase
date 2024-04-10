@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-localization-management",
   "displayName": "Localization",
-  "version": "0.21.5",
+  "version": "0.21.6",
   "description": "Allows to manage localization resources of the application.",
   "keywords": [
     "System management"

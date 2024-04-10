@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-oidc",
   "displayName": "Auth: OIDC",
-  "version": "0.21.5",
+  "version": "0.21.6",
   "description": "OIDC (OpenID Connect) authentication.",
   "keywords": [
     "Authentication"

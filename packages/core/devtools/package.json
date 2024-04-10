@@ -1,6 +1,6 @@
 {
   "name": "@nocobase/devtools",
-  "version": "0.21.5",
+  "version": "0.21.6",
   "description": "",
   "repository": {
     "type": "git",
@@ -47,7 +47,7 @@
     "tsconfig-paths": "^3.12.0",
     "tsx": "^4.7.2",
     "typescript": "5.4.4",
-    "umi": "^4.0.69"
+    "umi": "^4.1.8"
   },
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
 }

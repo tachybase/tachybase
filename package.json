@@ -1,6 +1,6 @@
 {
   "name": "nocobase",
-  "version": "0.21.5",
+  "version": "0.21.6",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
@@ -20,8 +20,6 @@
     "pm": "nocobase pm",
     "pm2": "nocobase pm2",
     "prepare": "husky",
-    "release": "lerna publish",
-    "release:force": "lerna publish from-package --yes",
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "nocobase start",
     "tag:c": "changeset",
@@ -72,8 +70,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsx": "^4.7.2",
-    "typescript": "5.4.4",
-    "umi": "^4.0.69"
+    "typescript": "5.4.5",
+    "umi": "^4.1.8"
   },
   "packageManager": "pnpm@8.15.5",
   "engines": {
@@ -95,19 +93,7 @@
       "@formily/reactive-react": "2.2.27",
       "@formily/shared": "2.2.27",
       "@formily/validator": "2.2.27",
-      "@types/node": "^20.12.2",
-      "@types/react": "18.2.73",
-      "@types/react-dom": "18.2.23",
-      "@typescript-eslint/parser": "^6.2.0",
-      "antd": "5.16.1",
-      "nwsapi": "2.2.7",
-      "prettier": "^3.1.1",
-      "react": "18.2.0",
-      "react-dom": "18.2.0",
-      "react-router": "^6.11.2",
-      "react-router-dom": "^6.11.2",
-      "tsx": "^4.7.2",
-      "typescript": "5.4.4"
+      "@types/node": "^20.12.2"
     }
   },
   "licenses": [
