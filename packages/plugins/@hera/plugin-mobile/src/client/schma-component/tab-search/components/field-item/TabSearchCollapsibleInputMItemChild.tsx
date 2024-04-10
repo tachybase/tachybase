@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { useTranslation } from '../../../../locale';
-import { Grid, Divider, Picker, Input, Space } from 'antd-mobile';
+import { Grid, Divider, Picker, Input, Space, ActionSheet } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
+import type { Action } from 'antd-mobile/es/components/action-sheet';
 
 export const ISelect = (props) => {
   const { options, onChange, customLabelKey } = props;
+  const actions: Action[] = options.map((item) => {
+    return {
+      text: item.label,
+      key: item.value,
+    };
+  });
   const [visible, setVisible] = useState(false);
   return options.length > 1 ? (
     <Grid.Item
@@ -17,17 +24,30 @@ export const ISelect = (props) => {
         {options.find((option) => option.value === customLabelKey).label}
       </span>
       <DownOutline />
-      <Picker
-        columns={[options]}
-        visible={visible}
-        onClose={() => {
-          setVisible(false);
-        }}
-        defaultValue={customLabelKey}
-        onConfirm={(v) => {
-          onChange(v[0]);
-        }}
-      />
+      {options.length <= 3 ? (
+        <ActionSheet
+          visible={visible}
+          actions={actions}
+          closeOnAction
+          onClose={() => setVisible(false)}
+          onAction={(v) => {
+            onChange(v.key);
+          }}
+        />
+      ) : (
+        <Picker
+          columns={[options]}
+          visible={visible}
+          onClose={() => {
+            setVisible(false);
+          }}
+          defaultValue={customLabelKey}
+          onConfirm={(v) => {
+            onChange(v[0]);
+          }}
+        />
+      )}
+
       <Divider direction="vertical" style={{ height: '70%', margin: '0 0 0 5px' }} />
     </Grid.Item>
   ) : null;
