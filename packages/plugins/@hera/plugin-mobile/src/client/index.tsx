@@ -1,46 +1,16 @@
 import { Plugin } from '@nocobase/client';
-import { SwiperBlock, SwiperBlockInitializer } from './schema-initializer/SwiperBlockInitializer';
-import { TabSearchBlock, TabSearchBlockInitializer } from './schema-initializer/TabSearchBlockInitializer';
-import { NoticeBlock, NoticeBlockInitializer } from './schema-initializer/NoticeBlockInitializer';
+import PluginBlock from './schma-block';
+import PluginTabSearch from './schma-component/tab-search';
+import './assets/svg/index';
 
-export class PluginMobileClient extends Plugin {
-  async afterAdd() {}
-
+class PluginMobileClient extends Plugin {
   async beforeLoad() {}
 
-  async load() {
-    this.app.addComponents({
-      NoticeBlock,
-      NoticeBlockInitializer,
-      SwiperBlock,
-      SwiperBlockInitializer,
-      TabSearchBlock,
-      TabSearchBlockInitializer,
-    });
-    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'dataBlocks.swiper', {
-      title: 'swiper',
-      name: 'swiper',
-      type: 'item',
-      Component: 'SwiperBlockInitializer',
-    });
-    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'dataBlocks.notice', {
-      title: 'notice',
-      name: 'notice',
-      type: 'item',
-      Component: 'NoticeBlockInitializer',
-    });
+  async load() {}
 
-    this.app.schemaInitializerManager.addItem('MBlockInitializers', 'filterBlocks', {
-      title: '{{t("Filter blocks")}}',
-      type: 'itemGroup',
-      children: [
-        {
-          name: 'tabSearch',
-          title: 'tabSearch',
-          Component: 'TabSearchBlockInitializer',
-        },
-      ],
-    });
+  async afterAdd() {
+    this.pm.add(PluginBlock);
+    this.pm.add(PluginTabSearch);
   }
 }
 
