@@ -1,6 +1,6 @@
 {
   "name": "@nocobase/schema",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
