@@ -1,6 +1,6 @@
 {
   "name": "@hera/plugin-approval",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "5.x",
