@@ -1,5 +1,13 @@
 import { RecursionField, useField, useFieldSchema } from '@nocobase/schema';
-import { ActionBarProvider, SortableItem, TabsContextProvider, css, cx, useDesigner } from '@nocobase/client';
+import {
+  ActionBarProvider,
+  FilterBlockProvider,
+  SortableItem,
+  TabsContextProvider,
+  css,
+  cx,
+  useDesigner,
+} from '@nocobase/client';
 import { TabsProps } from 'antd';
 import React, { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -131,7 +139,13 @@ const InternalPage: React.FC = (props) => {
   );
 };
 
-export const MPage = InternalPage as unknown as typeof InternalPage & {
+const InternalFilterablePage = (props) => (
+  <FilterBlockProvider>
+    <InternalPage {...props} />
+  </FilterBlockProvider>
+);
+
+export const MPage = InternalFilterablePage as unknown as typeof InternalPage & {
   Designer: typeof PageDesigner;
 };
 MPage.Designer = PageDesigner;
