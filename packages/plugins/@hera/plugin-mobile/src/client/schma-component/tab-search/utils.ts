@@ -1,4 +1,4 @@
-const canBeOptionalFields = ['select', 'multipleSelect', 'radioGroup', 'checkbox', 'checkboxGroup'];
+const canBeOptionalFields = ['select', 'multipleSelect', 'radioGroup', 'checkboxGroup'];
 const canBeRelatedFields = ['oho', 'obo', 'o2m', 'm2o', 'm2m'];
 
 const canBeSearchFields = [
