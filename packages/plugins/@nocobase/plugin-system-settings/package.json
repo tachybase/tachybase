@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-system-settings",
   "displayName": "System settings",
-  "version": "0.21.4",
+  "version": "0.21.5",
   "description": "Used to adjust the system title, logo, language, etc.",
   "keywords": [
     "System management"

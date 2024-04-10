@@ -1,6 +1,6 @@
 {
   "name": "@nocobase/telemetry",
-  "version": "0.21.4",
+  "version": "0.21.5",
   "description": "nocobase telemetry library",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "@nocobase/build",
-  "version": "0.21.4",
+  "version": "0.21.5",
   "description": "Library build tool based on rollup.",
   "license": "Apache-2.0",
   "main": "lib/index.js",
