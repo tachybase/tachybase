@@ -1,0 +1,27 @@
+{
+  "name": "@hera/plugin-approval",
+  "version": "0.0.1",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "5.x",
+    "@formily/antd-v5": "1.1.9",
+    "@nocobase/actions": "workspace:*",
+    "@nocobase/data-source-manager": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/plugin-ui-schema-storage": "workspace:*",
+    "@nocobase/schema": "workspace:*",
+    "@nocobase/utils": "workspace:*",
+    "@types/lodash": "4.17.0",
+    "antd": "5.x",
+    "lodash": "^4.17.21",
+    "react": "18.x",
+    "react-i18next": "^11.15.1",
+    "sequelize": "^6.26.0"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/plugin-workflow": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
+  }
+}
