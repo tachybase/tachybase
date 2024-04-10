@@ -49,6 +49,7 @@
   "Gauge Chart": "仪表盘",
   "Statistic": "统计",
   "Currency": "货币",
+  "CurrencyNegative": "货币取反",
   "Percent": "百分比",
   "Exponential": "科学记数法",
   "Abbreviation": "缩写",

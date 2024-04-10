@@ -202,6 +202,23 @@ const modalSchema = (t, params, valueOption, decimal) => {
   return schema;
 };
 
+const CurrencyFormat = (val: number, locale = 'en-US', isNeedNegative = false) => {
+  const currency = {
+    'zh-CN': 'CNY',
+    'en-US': 'USD',
+    'ja-JP': 'JPY',
+    'ko-KR': 'KRW',
+    'pt-BR': 'BRL',
+    'ru-RU': 'RUB',
+    'tr-TR': 'TRY',
+    'es-ES': 'EUR',
+  }[locale];
+  if (isNeedNegative && !!val) {
+    val = -val;
+  }
+  return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(val);
+};
+
 export const transformers = {
   option: [
     {
@@ -215,19 +232,12 @@ export const transformers = {
     {
       label: 'Currency',
       value: 'currency',
-      component: (val: number, locale = 'en-US') => {
-        const currency = {
-          'zh-CN': 'CNY',
-          'en-US': 'USD',
-          'ja-JP': 'JPY',
-          'ko-KR': 'KRW',
-          'pt-BR': 'BRL',
-          'ru-RU': 'RUB',
-          'tr-TR': 'TRY',
-          'es-ES': 'EUR',
-        }[locale];
-        return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(val);
-      },
+      component: CurrencyFormat,
+    },
+    {
+      label: 'CurrencyNegative',
+      value: 'currencyNegative',
+      component: (val: number, locale = 'en-US') => CurrencyFormat(val, locale, true),
     },
     { label: 'Exponential', value: 'exponential', component: (val: number | string) => (+val)?.toExponential() },
     {

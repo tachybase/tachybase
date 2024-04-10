@@ -49,6 +49,7 @@
   "Gauge Chart": "Gauge Chart",
   "Statistic": "Statistic",
   "Currency": "Currency",
+  "CurrencyNegative": "CurrencyNegative",
   "Percent": "Percent",
   "Exponential": "Exponential",
   "Abbreviation": "Abbreviation",
