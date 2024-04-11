@@ -1,6 +1,8 @@
 {
   "name": "@hera/plugin-approval",
+  "displayName": "Workflow: Approval Center",
   "version": "0.0.4",
+  "description": "Can configure a universal approval process to complete the complete approval process in the approval center.",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "5.x",
@@ -23,5 +25,7 @@
     "@nocobase/plugin-workflow": "workspace:*",
     "@nocobase/server": "workspace:*",
     "@nocobase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "可配置通用的审批流程,在审批中心完成审批的完整操作。",
+  "displayName.zh-CN": "工作流：审批中心"
 }
