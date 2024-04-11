@@ -213,56 +213,56 @@ const PreviewDocument = ({
   printSetup: String;
 }) => {
   isDouble = Number(isDouble);
-  const date = detail.date;
-  const number = detail.number;
-  const origin = detail.original_number;
-  const singlePlayer = detail.nickname + ' ' + detail?.userPhone;
-  const car = detail.vehicles ? detail.vehicles.map((item) => item?.number).join(' ') : '';
-  const outOfStorage = detail.movement > 0 ? '入库' : '出库';
-  const getTitle = () => {
-    let name;
-    if (detail.category === RecordCategory.lease) {
-      name = detail.contract?.project?.associated_company?.name ?? detail.systemTitle;
-    } else {
-      if (outOfStorage === '入库') {
-        name = detail.in_stock?.name ?? detail.systemTitle;
-      } else {
-        name = detail.out_stock?.name ?? detail.systemTitle;
-      }
-    }
-    return name;
-  };
-  const recordsName = getTitle();
-  const outOfStorageAddress = (type) => {
-    // 此type用于展示出入类型
-    if (type === 1) {
-      // 返回出库
-      return detail.out_stock.name;
-    } else {
-      // 确定入库
-      return detail.in_stock.name;
-    }
-  };
-  const projectPhone = detail.contract?.project?.contacts
-    ?.map((item) => (item.name || '') + (item.phone || ''))
-    .join(' ');
-  const recordType = {
-    '0': '租赁',
-    '1': '购销',
-    '2': '暂存',
-    '3': '盘点',
-  };
-  const explain =
-    detail.category === RecordCategory.inventory
-      ? `盘点单用于清算仓库盈亏盈余。`
-      : `如供需双方未签正式合同，本${
-          recordType[detail.category]
-        }${outOfStorage}单经供需双方代表签字确认后， 将作为合同及发生业务往来的有效凭证，如已签合同，则成为该合同的组成部分。${
-          outOfStorage === '入库' ? '出库方' : '采购方'
-        }须核对 以上产品规格、数量确认后可签字认可。`;
+  // const date = detail.date;
+  // const number = detail.number;
+  // const origin = detail.original_number;
+  // const singlePlayer = detail.nickname + ' ' + detail?.userPhone;
+  // const car = detail.vehicles ? detail.vehicles.map((item) => item?.number).join(' ') : '';
+  // const outOfStorage = detail.movement > 0 ? '入库' : '出库';
+  // const getTitle = () => {
+  //   let name;
+  //   if (detail.category === RecordCategory.lease) {
+  //     name = detail.contract?.project?.associated_company?.name ?? detail.systemTitle;
+  //   } else {
+  //     if (outOfStorage === '入库') {
+  //       name = detail.in_stock?.name ?? detail.systemTitle;
+  //     } else {
+  //       name = detail.out_stock?.name ?? detail.systemTitle;
+  //     }
+  //   }
+  //   return name;
+  // };
+  // const recordsName = getTitle();
+  // const outOfStorageAddress = (type) => {
+  //   // 此type用于展示出入类型
+  //   if (type === 1) {
+  //     // 返回出库
+  //     return detail.out_stock.name;
+  //   } else {
+  //     // 确定入库
+  //     return detail.in_stock.name;
+  //   }
+  // };
+  // const projectPhone = detail.contract?.project?.contacts
+  //   ?.map((item) => (item.name || '') + (item.phone || ''))
+  //   .join(' ');
+  // const recordType = {
+  //   '0': '租赁',
+  //   '1': '购销',
+  //   '2': '暂存',
+  //   '3': '盘点',
+  // };
+  // const explain =
+  //   detail.category === RecordCategory.inventory
+  //     ? `盘点单用于清算仓库盈亏盈余。`
+  //     : `如供需双方未签正式合同，本${
+  //         recordType[detail.category]
+  //       }${outOfStorage}单经供需双方代表签字确认后， 将作为合同及发生业务往来的有效凭证，如已签合同，则成为该合同的组成部分。${
+  //         outOfStorage === '入库' ? '出库方' : '采购方'
+  //       }须核对 以上产品规格、数量确认后可签字认可。`;
   const getAllPrice = () => {
     let price = 0;
-    if (detail.category === RecordCategory.purchase && priceRule.filter(Boolean).length) {
+    if (detail.contract_type === '1' && priceRule.filter(Boolean).length) {
       priceRule.forEach((element) => {
         price += element.all_price;
       });
@@ -270,7 +270,7 @@ const PreviewDocument = ({
     return formatCurrency(price, 2);
   };
   const dobulePriceRule = [];
-  if (isDouble && detail.category === RecordCategory.purchase && priceRule.filter(Boolean).length) {
+  if (isDouble && detail.contract_type === '1' && priceRule.filter(Boolean).length) {
     // 双列展示
     const leftData = priceRule.slice(0, Math.ceil(priceRule.length / 2));
     const rightData = priceRule.slice(Math.ceil(priceRule.length / 2));
@@ -328,7 +328,7 @@ const PreviewDocument = ({
       </View>
     ));
     let addCol = <></>;
-    if (detail.category === RecordCategory.purchase) {
+    if (detail.contract_type === '1') {
       const allprice = getAllPrice();
       addCol = (
         <View style={styles.tableContent}>
@@ -344,7 +344,7 @@ const PreviewDocument = ({
       );
     }
 
-    return detail.category === RecordCategory.purchase ? (
+    return detail.contract_type === '1' ? (
       <>
         {page}
         {addCol}
@@ -381,71 +381,39 @@ const PreviewDocument = ({
     ));
   };
 
+  const projectPhone = detail.record_party_b.contacts?.map((item) => (item.name || '') + (item.phone || '')).join(' ');
+
+  const car = detail.vehicles ? detail.vehicles.map((item) => item?.number).join(' ') : '';
   return (
     <Document>
       <Page size="A4" style={{ ...styles.page, marginTop: detail.margingTop }}>
-        <Text style={styles.title}>{recordsName}</Text>
-        <Text style={styles.subTitle}>{detail.category === RecordCategory.inventory ? '盘点' : outOfStorage}单</Text>
+        <Text style={styles.title}>{detail.contract_first_party.name || '异常数据，请联系相关负责人！'}</Text>
+        <Text style={styles.subTitle}>{detail.contract_first_party ? detail.movement : '盘点'}单</Text>
         <View style={styles.content}>
           <View style={styles.main}>
-            {/* 第一行 */}
             <View style={styles.tableHeader}>
-              {detail.category === RecordCategory.purchase && (
-                <Text style={styles.headerLeft}>销售单位：{outOfStorageAddress(1)}</Text>
-              )}
-              {detail.category === RecordCategory.staging && (
-                <Text style={styles.headerLeft}>出库方：{outOfStorageAddress(1)}</Text>
-              )}
-              {detail.category === RecordCategory.inventory && (
-                <Text style={styles.headerLeft}>盘点单位：{detail.in_stock?.name}</Text>
-              )}
-              {detail.category !== RecordCategory.lease && (
-                <Text style={styles.headerMiddle}>日期：{date && dayjs(date).format('YYYY-MM-DD')}</Text>
-              )}
-              {detail.category !== RecordCategory.lease && <Text style={styles.headerRight}>流水号：{number}</Text>}
+              <Text style={styles.headerLeftLeft}>承租单位：{detail.record_party_b.company.name || ''}</Text>
+              <Text style={styles.headerLeftRight}>
+                日期：{detail.record_date && dayjs(detail.record_date).format('YYYY-MM-DD')}
+              </Text>
             </View>
-            {/* 第二行 */}
+
             <View style={styles.tableHeader}>
-              {detail.category === RecordCategory.purchase && (
-                <Text style={styles.headerLeft}>采购单位：{outOfStorageAddress(0)}</Text>
-              )}
-              {detail.category === RecordCategory.staging && (
-                <Text style={styles.headerLeft}>入库方：{outOfStorageAddress(0)}</Text>
-              )}
-              {detail.category !== RecordCategory.inventory && detail.category !== RecordCategory.lease && (
-                <Text style={styles.headerMiddle}>车号：{car}</Text>
-              )}
-              {detail.category !== RecordCategory.inventory && detail.category !== RecordCategory.lease && (
-                <Text style={styles.headerRight}>原始单号：{origin}</Text>
-              )}
+              <Text style={styles.headerLeftLeft}>项目名称：{detail.record_party_b.name || ''}</Text>
+              <Text style={styles.headerLeftRight}>流水号：{detail.record_number}</Text>
             </View>
-            {/* 租赁 */}
-            {detail.category === RecordCategory.lease && (
-              <View style={styles.tableHeader}>
-                <Text style={styles.headerLeftLeft}>承租单位：{detail.contract?.project?.company?.name || ''}</Text>
-                <Text style={styles.headerLeftRight}>日期：{date && dayjs(date).format('YYYY-MM-DD')}</Text>
-              </View>
-            )}
-            {detail.category === RecordCategory.lease && (
-              <View style={styles.tableHeader}>
-                <Text style={styles.headerLeftLeft}>项目名称：{detail.contract?.project?.name || ''}</Text>
-                <Text style={styles.headerLeftRight}>流水号：{number}</Text>
-              </View>
-            )}
-            {detail.category === RecordCategory.lease && (
-              <View style={styles.tableHeader}>
-                <Text style={styles.headerLeftLeft}>项目地址：{detail.contract?.project?.address}</Text>
-                <Text style={styles.headerLeftRight}>原始单号：{origin}</Text>
-              </View>
-            )}
-            {detail.category === RecordCategory.lease && (
-              <View style={styles.tableHeader}>
-                <Text style={styles.headerLeftLeft}>项目联系人：{projectPhone}</Text>
-                <Text style={styles.headerLeftRight}>车号：{car}</Text>
-              </View>
-            )}
+
+            <View style={styles.tableHeader}>
+              <Text style={styles.headerLeftLeft}>项目地址：{detail.record_party_b.address}</Text>
+              <Text style={styles.headerLeftRight}>原始单号：{detail.record_origin}</Text>
+            </View>
+
+            <View style={styles.tableHeader}>
+              <Text style={styles.headerLeftLeft}>项目联系人：{projectPhone}</Text>
+              <Text style={styles.headerLeftRight}>车号：{car}</Text>
+            </View>
             {/* 定价 */}
-            {detail.category === RecordCategory.purchase && (
+            {detail.contract_type === '1' && (
               <View style={styles.tableContentTitle}>
                 <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
                 <Text style={styles.tableCellTitle}>单价</Text>
@@ -463,8 +431,7 @@ const PreviewDocument = ({
                 )}
               </View>
             )}
-            {detail.category === RecordCategory.purchase &&
-              renderPrice(isDouble ? dobulePriceRule : priceRule, isDouble)}
+            {detail.contract_type === '1' && renderPrice(isDouble ? dobulePriceRule : priceRule, isDouble)}
             {/* ============================================================两表分割================================================================================= */}
             {/* 单列租金及费用 */}
             <View style={styles.tableContentTitle}>
@@ -487,7 +454,7 @@ const PreviewDocument = ({
                 <Image src={imageUrl} />
               </View>
               <View style={styles.tableFooterLeft}>
-                <Text>说明：{explain}</Text>
+                <Text>说明：{''}</Text>
               </View>
               <Text style={styles.tableFooterRight}>
                 {' '}
@@ -495,13 +462,12 @@ const PreviewDocument = ({
               </Text>
             </View>
             <View style={styles.sign}>
-              <Text style={styles.signPart}>制表人：{singlePlayer}</Text>
-              {detail.category === RecordCategory.lease && <Text style={styles.signPart}>出租单位（签名）：</Text>}
-              {detail.category === RecordCategory.lease && <Text style={styles.signPart}>租借单位（签名）：</Text>}
-              {detail.category === RecordCategory.purchase && <Text style={styles.signPart}>采购单位（签名）：</Text>}
-              {detail.category === RecordCategory.purchase && <Text style={styles.signPart}>购入单位（签名）：</Text>}
-              {detail.category === RecordCategory.staging && <Text style={styles.signPart}>暂存仓库（签名）：</Text>}
-              {detail.category === RecordCategory.inventory && <Text style={styles.signPart}>盘点仓库（签名）：</Text>}
+              <Text style={styles.signPart}>制表人：{detail.nickname + ' ' + detail?.userPhone}</Text>
+              {detail.contract_type === '0' && <Text style={styles.signPart}>出租单位（签名）：</Text>}
+              {detail.contract_type === '0' && <Text style={styles.signPart}>租借单位（签名）：</Text>}
+              {detail.contract_type === '1' && <Text style={styles.signPart}>采购单位（签名）：</Text>}
+              {detail.contract_type === '1' && <Text style={styles.signPart}>购入单位（签名）：</Text>}
+              {!detail.contract_type && <Text style={styles.signPart}>盘点仓库（签名）：</Text>}
             </View>
           </View>
           <View style={styles.side}>

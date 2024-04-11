@@ -7,12 +7,12 @@ import validateLicensePlate from '../../utils/validateLIcensePlate';
 export class RecordService {
   @Db()
   private db: Database;
-
+  // 订单hooks调整
   async load() {
     // 1. 创建项目/更新项目（ 直发单，生成对应租赁/购销，出入库单数据， 并且设置订单多对多project字段关系）
-    this.db.on('records.afterCreate', this.afterCreateDirectRecord.bind(this));
-    this.db.on('records.afterUpdate', this.afterUpdateDirectRecord.bind(this));
-    this.db.on('records.afterSave', this.recordsAfterSave.bind(this));
+    // this.db.on('records.afterCreate', this.afterCreateDirectRecord.bind(this));
+    // this.db.on('records.afterUpdate', this.afterUpdateDirectRecord.bind(this));
+    // this.db.on('records.afterSave', this.recordsAfterSave.bind(this));
   }
   /**
    * 处理直发单生成单

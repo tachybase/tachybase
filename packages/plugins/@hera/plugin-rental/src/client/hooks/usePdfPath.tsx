@@ -32,10 +32,14 @@ export const PdfIsDoubleProvider = (props) => {
 
 export const useRecordPdfPath = () => {
   const record = useRecord();
+  let recordId = record.id;
+  if (record.__collectionName === 'contracts' && record.__parent) {
+    recordId = record.__parent.id;
+  }
   const { isDouble } = useContext(PdfIsDoubleContext);
   const { settingType } = useContext(PdfIsLoadContext);
   const { margingTop } = useContext(PdfMargingTopContext);
-  return `/records:pdf?recordId=${record.id}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}`;
+  return `/records:pdf?recordId=${recordId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}`;
 };
 
 export const WaybillsProvider = (props) => {

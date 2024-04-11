@@ -5,15 +5,15 @@ import { Db, Service } from '@nocobase/utils';
 export class ContractRuleService {
   @Db()
   private db: Database;
-
+  // 合同重复项需要重新是实现
   async load() {
     // 合同方案规则重复校验
-    this.db.on('contract_plans.beforeSave', this.contractPlansBeforeSave.bind(this));
-    // beforeSave无法获取多对多关联关系的数据
-    this.db.on('contract_plan_lease_items.beforeCreate', this.contractPlanLeaseItemsBeforeSave.bind(this));
-    this.db.on('contract_plan_lease_items.beforeUpdate', this.contractPlanLeaseItemsBeforeSave.bind(this));
-    this.db.on('contract_plan_fee_items.beforeCreate', this.contractPlanFeeItemsBeforeSave.bind(this));
-    this.db.on('contract_plan_fee_items.beforeUpdate', this.contractPlanFeeItemsBeforeSave.bind(this));
+    // this.db.on('contract_plans.beforeSave', this.contractPlansBeforeSave.bind(this));
+    // // beforeSave无法获取多对多关联关系的数据
+    // this.db.on('contract_plan_lease_items.beforeCreate', this.contractPlanLeaseItemsBeforeSave.bind(this));
+    // this.db.on('contract_plan_lease_items.beforeUpdate', this.contractPlanLeaseItemsBeforeSave.bind(this));
+    // this.db.on('contract_plan_fee_items.beforeCreate', this.contractPlanFeeItemsBeforeSave.bind(this));
+    // this.db.on('contract_plan_fee_items.beforeUpdate', this.contractPlanFeeItemsBeforeSave.bind(this));
   }
 
   /**
@@ -76,9 +76,16 @@ export class ContractRuleService {
       appends: ['lease_items', 'lease_items.products'],
     });
     const add = options.values.products;
-    const productData = plan.lease_items.filter(item => item.id !== options.values.id && item.products.length === add.length).map((item) => item.products).flat()
+    const productData = plan.lease_items
+      .filter((item) => item.id !== options.values.id && item.products.length === add.length)
+      .map((item) => item.products)
+      .flat();
     productData.forEach((item) => {
-      const isHas = add.find((p) => (p.id < 99999 && (p.id === item.id || (item.id > 99999 && p.raw_category_id === item.raw_category_id))) || (p.id > 99999 && p.raw_category_id === item.raw_category_id));
+      const isHas = add.find(
+        (p) =>
+          (p.id < 99999 && (p.id === item.id || (item.id > 99999 && p.raw_category_id === item.raw_category_id))) ||
+          (p.id > 99999 && p.raw_category_id === item.raw_category_id),
+      );
       if (isHas) {
         throw new Error('方案中存在此产品');
       }
