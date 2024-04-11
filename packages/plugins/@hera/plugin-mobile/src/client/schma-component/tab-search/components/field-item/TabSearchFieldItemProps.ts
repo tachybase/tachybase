@@ -8,11 +8,13 @@ import { canBeOptionalField } from '../../utils';
 export const useTabSearchFieldItemProps = () => {
   const fieldSchema = useFieldSchema();
   const collection = useCollection();
+
   const optionalFieldList = useOptionalFieldList();
   const cm = useCollectionManager();
   const collectionField = useMemo(() => collection?.getField(fieldSchema.name as any), [collection, fieldSchema.name]);
   const { onSelected } = useTabSearchCollapsibleInputItem();
   const result = { list: null, valueKey: '', labelKey: '', filterKey: '' };
+  if (!collection) return;
   result.valueKey = collectionField?.target ? cm.getCollection(collectionField.target)?.getPrimaryKey() : 'id';
   result.labelKey = fieldSchema['x-component-props']?.fieldNames?.label || result.valueKey;
   const fieldInterface = fieldSchema['x-component-props'].interface;
@@ -21,9 +23,10 @@ export const useTabSearchFieldItemProps = () => {
     const operatorMap = {
       select: '$in',
       multipleSelect: '$anyOf',
-      checkbox: '$in',
       checkboxGroup: '$anyOf',
+      radioGroup: '$in',
     };
+
     const _list = field?.uiSchema?.enum || [];
     result.valueKey = 'value';
     result.labelKey = 'label';
