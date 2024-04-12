@@ -29,4 +29,5 @@ docker
 storage
 benchmark
 packages/core/cli/src
+packages/core/cli/bin
 t.js
