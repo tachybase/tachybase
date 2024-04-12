@@ -230,7 +230,7 @@ export async function genTsConfigPaths() {
 
   await Promise.all(
     packages.map(async (packageFile) => {
-      const packageJsonName = (await import(packageFile, { assert: { type: 'json' } })).name;
+      const packageJsonName = JSON.parse(await readFile(packageFile, 'utf-8')).name;
       const packageDir = dirname(packageFile);
       const relativePath = packageDir
         .slice(cwdLength + 1)
