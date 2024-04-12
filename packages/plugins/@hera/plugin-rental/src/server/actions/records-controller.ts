@@ -250,54 +250,21 @@ export class RecordPreviewController {
         'contract_plan.fee_items.conversion_logic.weight_items',
       ],
     });
+    const double = isDouble === '0' || isDouble === '1' ? isDouble : pdfExplain[0].record_columns;
+    const printSetup =
+      settingType === '0' || settingType === '1' || settingType === '2'
+        ? settingType
+        : pdfExplain[0]?.record_print_setup;
 
-    // ctx.body = await this.recordPdfService.transformPdfV2(
-    //   baseRecord,
-    //   contracts,
-    //   leaseData.filter(item => !item.isFee),
-    //   leaseFees,
-    //   [...feeProducts, ...no_product_fee_arr],
-    //   { isDouble: double, printSetup },
-    // );
-    return '一下要根据订单的产品去查合同相关的数据';
-    // 记录单数据
-    // const records = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record'], {
-    //   replacements: {
-    //     recordId,
-    //   },
-    //   type: QueryTypes.SELECT,
-    // });
-    // const record = records[0] as any;
-    // // 拉标题
-    // const systemSetting = await this.systemSetting.get();
-    // record.systemTitle = systemSetting?.title || '异常数据，请联系相关负责人！';
-    // const userID = record.createdById || record.updatedById;
-    // const user = await ctx.db.getRepository('users').findOne({ filter: { id: userID } });
-    // record.nickname = user?.nickname || '';
-    // record.userPhone = user?.phone || '';
-    // record.pdfExplain = pdfExplain[0]?.out_of_storage_explain;
-    // if (Number(margingTop)) {
-    //   record.margingTop = Number(margingTop);
-    // } else {
-    //   // 查询当前用户信息
-    //   const currentUser = await ctx.db.getRepository('users').findOne({ filter: { id: ctx.state.currentUser.id } });
-    //   record.margingTop = Number(currentUser?.pdf_top_margin) || 0;
-    // }
-
-    // // 费用数据
-    // const feeData = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record_fee'], {
-    //   replacements: {
-    //     recordId,
-    //   },
-    //   type: QueryTypes.SELECT,
-    // });
-    // // 订单打印选项
-    // const printSetup =
-    //   settingType === '0' || settingType === '1' || settingType === '2'
-    //     ? settingType
-    //     : pdfExplain[0]?.record_print_setup;
-    // const double = isDouble === '0' || isDouble === '1' ? isDouble : pdfExplain[0].record_columns;
-    // ctx.body = await this.recordPdfService.transformPdfV2(record, leaseData, feeData, { isDouble: double, printSetup });
+    ctx.body = await this.recordPdfService.transformPdfV2(
+      intermediate,
+      contractPLan,
+      baseRecord,
+      leaseData,
+      leaseFeeData,
+      contracts,
+      { isDouble: double, printSetup },
+    );
   }
 
   @Action('unused')
