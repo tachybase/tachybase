@@ -759,6 +759,7 @@ export class SettlementService {
       addItems: settlementAbout.settlement_add_items, //人工增补项
       summary: settlementAbout.settlement_summary_items, //汇总项
       utcOffset: utcOffset,
+      name: settlementAbout.name,
     };
     calc.list = calc.list?.filter(Boolean);
     const product = await this.db.getRepository('product').find();
