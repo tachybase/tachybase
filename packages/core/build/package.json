@@ -10,7 +10,8 @@
     "nocobase-build": "./bin/nocobase-build.js"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepare": "tsup"
   },
   "dependencies": {
     "@babel/core": "7.22.10",
