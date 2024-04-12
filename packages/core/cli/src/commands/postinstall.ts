@@ -1,14 +1,11 @@
-const { Command } = require('commander');
-const { run, isDev, isPackageValid, generatePlaywrightPath } = require('../util');
-const { resolve } = require('path');
-const { existsSync } = require('fs');
-const { readFile, writeFile } = require('fs').promises;
-const { createStoragePluginsSymlink, createDevPluginsSymlink } = require('@nocobase/utils/plugin-symlink');
+import { Command } from 'commander';
+import { run, isDev, isPackageValid, generatePlaywrightPath } from '../util';
+import { resolve } from 'path';
+import { existsSync } from 'fs';
+import { readFile, writeFile } from 'fs/promises';
+import { createStoragePluginsSymlink, createDevPluginsSymlink } from '@nocobase/utils/plugin-symlink';
 
-/**
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   const { APP_PACKAGE_ROOT } = process.env;
   cli
     .command('postinstall')

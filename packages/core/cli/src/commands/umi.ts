@@ -1,12 +1,7 @@
-const chalk = require('chalk');
-const { Command } = require('commander');
-const { run, isDev } = require('../util');
+import { Command } from 'commander';
+import { run, isDev } from '../util';
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   const { APP_PACKAGE_ROOT } = process.env;
   cli
     .command('umi')

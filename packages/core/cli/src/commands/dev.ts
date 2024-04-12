@@ -1,13 +1,8 @@
-const chalk = require('chalk');
-const { Command } = require('commander');
-const { runAppCommand, runInstall, run, postCheck, nodeCheck, promptForTs } = require('../util');
-const { getPortPromise } = require('portfinder');
+import { Command } from 'commander';
+import { run, postCheck, nodeCheck, promptForTs } from '../util';
+import { getPortPromise } from 'portfinder';
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   const { APP_PACKAGE_ROOT } = process.env;
   cli
     .command('dev')
@@ -20,7 +15,12 @@ module.exports = (cli) => {
     .action(async (opts) => {
       promptForTs();
       const { SERVER_TSCONFIG_PATH } = process.env;
+      // @ts-ignore
       process.env.IS_DEV_CMD = true;
+
+      if (!SERVER_TSCONFIG_PATH) {
+        throw new Error('SERVER_TSCONFIG_PATH is not set.');
+      }
 
       if (process.argv.includes('-h') || process.argv.includes('--help')) {
         run('ts-node', [
@@ -42,15 +42,19 @@ module.exports = (cli) => {
 
       const { APP_PORT } = process.env;
 
-      let clientPort = APP_PORT;
-      let serverPort;
+      let clientPort = 0;
+      let serverPort = 0;
+
+      if (APP_PORT) {
+        clientPort = Number(APP_PORT);
+      }
 
       nodeCheck();
 
       await postCheck(opts);
 
       if (server) {
-        serverPort = APP_PORT;
+        serverPort = Number(APP_PORT!);
       } else if (!server && !client) {
         serverPort = await getPortPromise({
           port: 1 * clientPort + 1,
@@ -85,7 +89,7 @@ module.exports = (cli) => {
         const runDevServer = () => {
           run('tsx', argv, {
             env: {
-              APP_PORT: serverPort,
+              APP_PORT: serverPort + '',
             },
           }).catch((err) => {
             if (err.exitCode == 100) {
@@ -104,7 +108,7 @@ module.exports = (cli) => {
         console.log('starting client', 1 * clientPort);
         run('umi', ['dev'], {
           env: {
-            PORT: clientPort,
+            PORT: clientPort + '',
             APP_ROOT: `${APP_PACKAGE_ROOT}/client`,
             WEBSOCKET_URL:
               process.env.WEBSOCKET_URL ||

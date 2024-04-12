@@ -1,13 +1,8 @@
-const { Command } = require('commander');
-const { run } = require('../util');
-const path = require('path');
+import { Command } from 'commander';
+import { run } from '../util';
+import { sep } from 'path';
 
-/**
- *
- * @param {String} name
- * @param {Command} cli
- */
-function addTestCommand(name, cli) {
+function addTestCommand(name: string, cli: Command) {
   return cli
     .command(name)
     .option('-w, --watch')
@@ -39,7 +34,7 @@ function addTestCommand(name, cli) {
       }
       const first = paths?.[0];
       if (!process.env.TEST_ENV && first) {
-        const key = first.split(path.sep).join('/');
+        const key = first.split(sep).join('/');
         if (key.includes('/client/')) {
           process.env.TEST_ENV = 'client-side';
         } else {
@@ -77,11 +72,7 @@ function addTestCommand(name, cli) {
     });
 }
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   addTestCommand('test:server', cli);
   addTestCommand('test:client', cli);
   addTestCommand('test', cli).option('--client').option('--server');

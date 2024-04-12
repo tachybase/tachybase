@@ -1,15 +1,11 @@
-const { Command } = require('commander');
-const { isDev, run, postCheck, runInstall, promptForTs } = require('../util');
-const { existsSync, unlink } = require('fs');
-const { resolve } = require('path');
-const chalk = require('chalk');
-const _ = require('lodash');
+import { Command } from 'commander';
+import { run, postCheck, promptForTs } from '../util';
+import { existsSync } from 'fs';
+import { resolve } from 'path';
+import chalk from 'chalk';
+import _ from 'lodash';
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   const { APP_PACKAGE_ROOT, NODE_ARGS } = process.env;
   cli
     .command('start')
@@ -27,7 +23,7 @@ module.exports = (cli) => {
         promptForTs();
         run('ts-node', [
           '-P',
-          process.env.SERVER_TSCONFIG_PATH,
+          process.env.SERVER_TSCONFIG_PATH ?? '',
           '-r',
           'tsconfig-paths/register',
           `${APP_PACKAGE_ROOT}/src/index.ts`,
@@ -48,6 +44,7 @@ module.exports = (cli) => {
       } else {
         run(
           'pm2-runtime',
+          // @ts-ignore
           [
             'start',
             '-i',

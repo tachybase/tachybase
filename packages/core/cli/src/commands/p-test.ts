@@ -1,28 +1,28 @@
-const execa = require('execa');
-const { resolve } = require('path');
-const pAll = require('p-all');
-const dotenv = require('dotenv');
-const fs = require('fs');
-const glob = require('glob');
-const _ = require('lodash');
+import { execa } from 'execa';
+import { resolve } from 'path';
+import pAll from 'p-all';
+import { parse } from 'dotenv';
+import { existsSync, readFileSync, mkdirSync } from 'fs';
+import fastGlob from 'fast-glob';
+import lodash from 'lodash';
 
 let ENV_FILE = resolve(process.cwd(), '.env.e2e');
 
-if (!fs.existsSync(ENV_FILE)) {
+if (!existsSync(ENV_FILE)) {
   ENV_FILE = resolve(process.cwd(), '.env.e2e.example');
 }
 
-const data = fs.readFileSync(ENV_FILE, 'utf-8');
+const data = readFileSync(ENV_FILE, 'utf-8');
 const config = {
-  ...dotenv.parse(data),
+  ...parse(data),
   ...process.env,
 };
 
-async function runApp(dir, index = 0) {
+async function runApp(dir: string, index = 0) {
   // 一个进程需要占用两个端口? (一个是应用端口，一个是 socket 端口)
   index = index * 2;
   const { Client } = require('pg');
-  const database = `nocobase${index}`;
+  const database = `tachybase${index}`;
   const client = new Client({
     host: config['DB_HOST'],
     port: Number(config['DB_PORT']),
@@ -34,18 +34,18 @@ async function runApp(dir, index = 0) {
   await client.query(`DROP DATABASE IF EXISTS "${database}"`);
   await client.query(`CREATE DATABASE "${database}";`);
   await client.end();
-  return execa('pnpm', ['nocobase', 'e2e', 'test', dir, '--skip-reporter'], {
+  return execa('pnpm', ['tachybase', 'e2e', 'test', dir, '--skip-reporter'], {
     shell: true,
     stdio: 'inherit',
     env: {
       ...config,
       CI: process.env.CI,
-      __E2E__: true,
+      __E2E__: true + '',
       APP_BASE_URL: undefined,
       LOGGER_LEVEL: 'error',
       APP_ENV: 'production',
-      APP_PORT: 20000 + index,
-      DB_DATABASE: `nocobase${index}`,
+      APP_PORT: 20000 + index + '',
+      DB_DATABASE: `tachybase${index}`,
       SOCKET_PATH: `storage/e2e/gateway-e2e-${index}.sock`,
       PM2_HOME: resolve(process.cwd(), `storage/e2e/.pm2-${index}`),
       PLAYWRIGHT_AUTH_FILE: resolve(process.cwd(), `storage/playwright/.auth/admin-${index}.json`),
@@ -53,26 +53,27 @@ async function runApp(dir, index = 0) {
   });
 }
 
-exports.pTest = async (options) => {
+export async function pTest(options: any) {
   const dir = resolve(process.cwd(), 'storage/e2e');
 
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  if (!existsSync(dir)) {
+    mkdirSync(dir, { recursive: true });
   }
 
-  const files = glob.sync(options.match, {
+  const files = fastGlob.sync(options.match, {
     ignore: options.ignore,
+    // @ts-ignore
     root: process.cwd(),
   });
 
-  const commands = splitArrayIntoParts(_.shuffle(files), options.concurrency || 4).map((v, i) => {
+  const commands = splitArrayIntoParts(lodash.shuffle(files), options.concurrency || 4).map((v, i) => {
     return () => runApp(v.join(' '), i);
   });
 
   await pAll(commands, { concurrency: 4, stopOnError: false, ...options });
-};
+}
 
-function splitArrayIntoParts(array, parts) {
-  let chunkSize = Math.ceil(array.length / parts);
-  return _.chunk(array, chunkSize);
+function splitArrayIntoParts(array: any[], parts: number) {
+  const chunkSize = Math.ceil(array.length / parts);
+  return lodash.chunk(array, chunkSize);
 }

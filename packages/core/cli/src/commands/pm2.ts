@@ -1,12 +1,7 @@
-const chalk = require('chalk');
-const { Command } = require('commander');
-const { run, isDev } = require('../util');
+import { Command } from 'commander';
+import { run } from '../util';
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   cli
     .command('pm2')
     .allowUnknownOption()

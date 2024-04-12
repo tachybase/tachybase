@@ -1,12 +1,8 @@
-const { resolve } = require('path');
-const { Command } = require('commander');
-const { PluginGenerator } = require('../plugin-generator');
+import { resolve } from 'path';
+import { Command } from 'commander';
+import { PluginGenerator } from '../plugin-generator';
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   cli
     .command('create-plugin')
     .argument('<name>')

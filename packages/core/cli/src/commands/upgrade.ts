@@ -1,15 +1,9 @@
-const chalk = require('chalk');
-const { Command } = require('commander');
-const { resolve } = require('path');
-const { run, promptForTs, runAppCommand, hasCorePackages, updateJsonFile, hasTsNode } = require('../util');
-const { existsSync, rmSync } = require('fs');
+import { Command } from 'commander';
+import { resolve } from 'path';
+import { run, promptForTs, runAppCommand, hasCorePackages, hasTsNode } from '../util';
+import { existsSync, rmSync } from 'fs';
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
-  const { APP_PACKAGE_ROOT } = process.env;
+export default (cli: Command) => {
   cli
     .command('upgrade')
     .allowUnknownOption()
@@ -36,7 +30,7 @@ module.exports = (cli) => {
       if (existsSync(appDevDir)) {
         rmSync(appDevDir, { recursive: true, force: true });
       }
-      await run('pnpm', ['add', '@nocobase/cli', '@nocobase/devtools', '-w']);
+      await run('pnpm', ['add', '@tachybase/cli', '@nocobase/devtools', '-w']);
       await run('pnpm', ['install']);
       await runAppCommand('upgrade');
     });

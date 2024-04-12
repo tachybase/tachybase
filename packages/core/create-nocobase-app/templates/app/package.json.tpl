@@ -25,7 +25,7 @@
     "pm2": "^5.2.0",
     "@nocobase/preset-nocobase": "{{{version}}}",
     "@nocobase/build": "{{{version}}}",
-    "@nocobase/cli": "{{{version}}}",
+    "@tachycode/cli": "{{{version}}}",
     {{{dependencies}}}
   },
   "devDependencies": {
