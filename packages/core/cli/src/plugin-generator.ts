@@ -1,24 +1,17 @@
-const chalk = require('chalk');
-const { existsSync } = require('fs');
-const { join, resolve } = require('path');
-const { Generator } = require('@umijs/utils');
-const { readFile, writeFile } = require('fs').promises;
-const { genTsConfigPaths } = require('./util');
+import chalk from 'chalk';
+import { existsSync } from 'fs';
+import { join, resolve } from 'path';
+import { Generator } from '@umijs/utils';
+import { readFile } from 'fs/promises';
+import { genTsConfigPaths } from './util';
+import { execa } from 'execa';
 
-const execa = require('execa');
-
-function camelize(str) {
+function camelize(str: string) {
   return str.trim().replace(/[-_\s]+(.)?/g, (match, c) => c.toUpperCase());
 }
 
-function capitalize(string) {
+function capitalize(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-async function getProjectName() {
-  const content = await readFile(resolve(process.cwd(), 'package.json'), 'utf-8');
-  const json = JSON.parse(content);
-  return json.name;
 }
 
 async function getProjectVersion() {
@@ -27,8 +20,10 @@ async function getProjectVersion() {
   return json.version || '0.1.0';
 }
 
-class PluginGenerator extends Generator {
-  constructor(options) {
+export class PluginGenerator extends Generator {
+  context: any;
+  log: any;
+  constructor(options: any) {
     const { log, context = {}, ...opts } = options;
     super(opts);
     this.context = context;
@@ -63,9 +58,7 @@ class PluginGenerator extends Generator {
     });
     this.log('');
     genTsConfigPaths();
-    execa.sync('pnpm', ['postinstall', '--skip-umi'], { shell: true, stdio: 'inherit' });
+    execa('pnpm', ['postinstall', '--skip-umi'], { shell: true, stdio: 'inherit' });
     this.log(`The plugin folder is in ${chalk.green(`packages/plugins/${name}`)}`);
   }
 }
-
-exports.PluginGenerator = PluginGenerator;

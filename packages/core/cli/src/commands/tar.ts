@@ -1,12 +1,8 @@
-const { resolve } = require('path');
-const { Command } = require('commander');
-const { run, nodeCheck, isPackageValid } = require('../util');
+import { resolve } from 'path';
+import { Command } from 'commander';
+import { run, nodeCheck, isPackageValid } from '../util';
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   cli
     .command('tar')
     .allowUnknownOption()

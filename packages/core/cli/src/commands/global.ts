@@ -1,11 +1,7 @@
-const { Command } = require('commander');
-const { run, isDev, isProd, promptForTs } = require('../util');
+import { Command } from 'commander';
+import { run, isDev, isProd, promptForTs } from '../util';
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   const { APP_PACKAGE_ROOT, SERVER_TSCONFIG_PATH } = process.env;
   cli
     .allowUnknownOption()
@@ -16,7 +12,7 @@ module.exports = (cli) => {
         promptForTs();
         run('tsx', [
           '--tsconfig',
-          SERVER_TSCONFIG_PATH,
+          SERVER_TSCONFIG_PATH ?? '',
           '-r',
           'tsconfig-paths/register',
           `${APP_PACKAGE_ROOT}/src/index.ts`,

@@ -1,12 +1,12 @@
-const { resolve } = require('path');
-const { Command } = require('commander');
-const { run, nodeCheck, isPackageValid, buildIndexHtml } = require('../util');
+import { resolve } from 'path';
+import { type Command } from 'commander';
+import { run, nodeCheck, isPackageValid, buildIndexHtml } from '../util';
 
 /**
  *
  * @param {Command} cli
  */
-module.exports = (cli) => {
+export default (cli: Command) => {
   cli
     .command('build')
     .allowUnknownOption()

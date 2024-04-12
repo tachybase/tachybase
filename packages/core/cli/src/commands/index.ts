@@ -1,0 +1,34 @@
+import { Command } from 'commander';
+import { generateAppDir } from '../util';
+import global from './global';
+import createNginxConf from './create-nginx-conf';
+import build from './build';
+import tar from './tar';
+import dev from './dev';
+import start from './start';
+import e2e from './e2e';
+import clean from './clean';
+import pm2 from './pm2';
+import test from './test';
+import umi from './umi';
+import upgrade from './upgrade';
+import postinstall from './postinstall';
+import createPlugin from './create-plugin';
+
+export default async (cli: Command) => {
+  generateAppDir();
+  global(cli);
+  createNginxConf(cli);
+  build(cli);
+  tar(cli);
+  dev(cli);
+  start(cli);
+  e2e(cli);
+  clean(cli);
+  pm2(cli);
+  test(cli);
+  umi(cli);
+  upgrade(cli);
+  postinstall(cli);
+  createPlugin(cli);
+};

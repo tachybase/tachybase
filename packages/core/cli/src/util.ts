@@ -1,39 +1,48 @@
-const net = require('net');
-const chalk = require('chalk');
-const execa = require('execa');
-const fg = require('fast-glob');
-const { dirname, join, resolve, sep } = require('path');
-const { readFile, writeFile } = require('fs').promises;
-const { existsSync, mkdirSync, cpSync, writeFileSync } = require('fs');
-const dotenv = require('dotenv');
-const fs = require('fs');
+import { Socket } from 'net';
+import chalk from 'chalk';
+import { execa, Options } from 'execa';
+import fastGlob from 'fast-glob';
+import { dirname, join, resolve, sep } from 'path';
+import { readFile, writeFile } from 'fs/promises';
+import { existsSync, mkdirSync, cpSync, writeFileSync } from 'fs';
+import { config } from 'dotenv';
+import {
+  unlinkSync,
+  symlinkSync,
+  existsSync as _existsSync,
+  rmSync,
+  cpSync as _cpSync,
+  copyFileSync,
+  readFileSync,
+  writeFileSync as _writeFileSync,
+} from 'fs';
 
-exports.isPackageValid = (pkg) => {
+export function isPackageValid(pkg: string) {
   try {
-    require.resolve(pkg);
+    import.meta.resolve(join(process.cwd(), pkg));
     return true;
   } catch (error) {
     return false;
   }
-};
+}
 
-exports.hasCorePackages = () => {
+export function hasCorePackages() {
   const coreDir = resolve(process.cwd(), 'packages/core/build');
   return existsSync(coreDir);
-};
+}
 
-exports.hasTsNode = () => {
-  return exports.isPackageValid('ts-node/dist/bin');
-};
+export function hasTsNode() {
+  return isPackageValid('ts-node/dist/bin');
+}
 
-exports.isDev = function isDev() {
+export function isDev() {
   if (process.env.APP_ENV === 'production') {
     return false;
   }
-  return exports.hasTsNode();
-};
+  return hasTsNode();
+}
 
-const isProd = () => {
+export const isProd = () => {
   const { APP_PACKAGE_ROOT } = process.env;
   const file = `${APP_PACKAGE_ROOT}/lib/index.js`;
   if (!existsSync(resolve(process.cwd(), file))) {
@@ -46,17 +55,15 @@ const isProd = () => {
   return true;
 };
 
-exports.isProd = isProd;
-
-exports.nodeCheck = () => {
-  if (!exports.hasTsNode()) {
+export function nodeCheck() {
+  if (!hasTsNode()) {
     console.log('Please install all dependencies');
     console.log(chalk.yellow('$ pnpm install'));
     process.exit(1);
   }
-};
+}
 
-exports.run = (command, args, options = {}) => {
+export function run(command: string, args?: string[], options?: Options<any>) {
   if (command === 'tsx') {
     command = 'node';
     args = ['./node_modules/tsx/dist/cli.mjs'].concat(args || []);
@@ -67,14 +74,21 @@ exports.run = (command, args, options = {}) => {
     ...options,
     env: {
       ...process.env,
-      ...options.env,
+      ...(options?.env ?? {}),
     },
   });
-};
+}
 
-exports.isPortReachable = async (port, { timeout = 1000, host } = {}) => {
-  const promise = new Promise((resolve, reject) => {
-    const socket = new net.Socket();
+interface IPortReachableOptions {
+  timeout: number;
+  host: string;
+}
+
+export async function isPortReachable(port: string, options: Partial<IPortReachableOptions> = {}) {
+  const timeout = options.timeout ?? 1000;
+  const host = options.host ?? '';
+  const promise = new Promise<void>((resolve, reject) => {
+    const socket = new Socket();
 
     const onError = () => {
       socket.destroy();
@@ -85,7 +99,7 @@ exports.isPortReachable = async (port, { timeout = 1000, host } = {}) => {
     socket.once('error', onError);
     socket.once('timeout', onError);
 
-    socket.connect(port, host, () => {
+    socket.connect(Number(port), host, () => {
       socket.end();
       resolve();
     });
@@ -97,21 +111,25 @@ exports.isPortReachable = async (port, { timeout = 1000, host } = {}) => {
   } catch (_) {
     return false;
   }
-};
+}
 
-exports.postCheck = async (opts) => {
-  const port = opts.port || process.env.APP_PORT;
-  const result = await exports.isPortReachable(port);
+export async function postCheck(opts: { port?: string }) {
+  const port = opts.port || process.env.APP_PORT || '';
+  const result = await isPortReachable(port);
   if (result) {
     console.error(chalk.red(`post already in use ${port}`));
     process.exit(1);
   }
-};
+}
 
-exports.runInstall = async () => {
+export async function runInstall() {
   const { APP_PACKAGE_ROOT, SERVER_TSCONFIG_PATH } = process.env;
 
-  if (exports.isDev()) {
+  if (!SERVER_TSCONFIG_PATH) {
+    throw new Error('SERVER_TSCONFIG_PATH is empty.');
+  }
+
+  if (isDev()) {
     const argv = [
       '--tsconfig',
       SERVER_TSCONFIG_PATH,
@@ -121,18 +139,22 @@ exports.runInstall = async () => {
       'install',
       '-s',
     ];
-    await exports.run('tsx', argv);
+    await run('tsx', argv);
   } else if (isProd()) {
     const file = `${APP_PACKAGE_ROOT}/lib/index.js`;
     const argv = [file, 'install', '-s'];
-    await exports.run('node', argv);
+    await run('node', argv);
   }
-};
+}
 
-exports.runAppCommand = async (command, args = []) => {
+export async function runAppCommand(command: string, args = []) {
   const { APP_PACKAGE_ROOT, SERVER_TSCONFIG_PATH } = process.env;
 
-  if (exports.isDev()) {
+  if (!SERVER_TSCONFIG_PATH) {
+    throw new Error('SERVER_TSCONFIG_PATH is not set');
+  }
+
+  if (isDev()) {
     const argv = [
       '--tsconfig',
       SERVER_TSCONFIG_PATH,
@@ -142,34 +164,35 @@ exports.runAppCommand = async (command, args = []) => {
       command,
       ...args,
     ];
-    await exports.run('tsx', argv);
+    await run('tsx', argv);
   } else if (isProd()) {
     const argv = [`${APP_PACKAGE_ROOT}/lib/index.js`, command, ...args];
-    await exports.run('node', argv);
+    await run('node', argv);
   }
-};
+}
 
-exports.promptForTs = () => {
+export function promptForTs() {
   console.log(chalk.green('WAIT: ') + 'TypeScript compiling...');
-};
+}
 
-exports.updateJsonFile = async (target, fn) => {
+export async function updateJsonFile(target: string, fn: any) {
   const content = await readFile(target, 'utf-8');
   const json = JSON.parse(content);
   await writeFile(target, JSON.stringify(fn(json), null, 2), 'utf-8');
-};
+}
 
-exports.getVersion = async () => {
+export async function getVersion() {
   const { stdout } = await execa('npm', ['v', '@nocobase/app-server', 'versions']);
   const versions = new Function(`return (${stdout})`)();
   return versions[versions.length - 1];
-};
+}
 
-exports.generateAppDir = function generateAppDir() {
-  const appPkgPath = dirname(dirname(require.resolve('@nocobase/app/src/index.ts')));
+export function generateAppDir() {
+  const appPkgPath = dirname(dirname(new URL(import.meta.resolve('@nocobase/app/src/index.ts')).pathname));
   const appDevDir = resolve(process.cwd(), './storage/.app-dev');
-  if (exports.isDev() && !exports.hasCorePackages() && appPkgPath.includes('node_modules')) {
+  if (isDev() && !hasCorePackages() && appPkgPath.includes('node_modules')) {
     if (!existsSync(appDevDir)) {
+      // @ts-ignore
       mkdirSync(appDevDir, { force: true, recursive: true });
       cpSync(appPkgPath, appDevDir, {
         recursive: true,
@@ -181,12 +204,12 @@ exports.generateAppDir = function generateAppDir() {
     process.env.APP_PACKAGE_ROOT = appPkgPath;
   }
   buildIndexHtml();
-};
+}
 
-exports.genTsConfigPaths = function genTsConfigPaths() {
+export async function genTsConfigPaths() {
   try {
-    fs.unlinkSync(resolve(process.cwd(), 'node_modules/.bin/tsx'));
-    fs.symlinkSync(
+    unlinkSync(resolve(process.cwd(), 'node_modules/.bin/tsx'));
+    symlinkSync(
       resolve(process.cwd(), 'node_modules/tsx/dist/cli.mjs'),
       resolve(process.cwd(), 'node_modules/.bin/tsx'),
       'file',
@@ -197,56 +220,57 @@ exports.genTsConfigPaths = function genTsConfigPaths() {
 
   const cwd = process.cwd();
   const cwdLength = cwd.length;
-  const paths = {
+  const paths: Record<string, string[]> = {
     '@@/*': ['.dumi/tmp/*'],
   };
-  const packages = fg.sync(['packages/*/*/package.json', 'packages/*/*/*/package.json'], {
+  const packages = fastGlob.sync(['packages/*/*/package.json', 'packages/*/*/*/package.json'], {
     absolute: true,
     onlyFiles: true,
   });
-  packages.forEach((packageFile) => {
-    const packageJsonName = require(packageFile).name;
-    const packageDir = dirname(packageFile);
-    const relativePath = packageDir
-      .slice(cwdLength + 1)
-      .split(sep)
-      .join('/');
-    paths[`${packageJsonName}/client`] = [`${relativePath}/src/client`];
-    paths[`${packageJsonName}/package.json`] = [`${relativePath}/package.json`];
-    paths[packageJsonName] = [`${relativePath}/src`];
-    if (packageJsonName === '@nocobase/test') {
-      paths[`${packageJsonName}/server`] = [`${relativePath}/src/server`];
-      paths[`${packageJsonName}/e2e`] = [`${relativePath}/src/e2e`];
-    }
-    if (packageJsonName === '@nocobase/plugin-workflow-test') {
-      paths[`${packageJsonName}/e2e`] = [`${relativePath}/src/e2e`];
-    }
-  });
 
+  await Promise.all(
+    packages.map(async (packageFile) => {
+      const packageJsonName = (await import(packageFile, { assert: { type: 'json' } })).name;
+      const packageDir = dirname(packageFile);
+      const relativePath = packageDir
+        .slice(cwdLength + 1)
+        .split(sep)
+        .join('/');
+      paths[`${packageJsonName}/client`] = [`${relativePath}/src/client`];
+      paths[`${packageJsonName}/package.json`] = [`${relativePath}/package.json`];
+      paths[packageJsonName] = [`${relativePath}/src`];
+      if (packageJsonName === '@nocobase/test') {
+        paths[`${packageJsonName}/server`] = [`${relativePath}/src/server`];
+        paths[`${packageJsonName}/e2e`] = [`${relativePath}/src/e2e`];
+      }
+      if (packageJsonName === '@nocobase/plugin-workflow-test') {
+        paths[`${packageJsonName}/e2e`] = [`${relativePath}/src/e2e`];
+      }
+    }),
+  );
   const tsConfigJsonPath = join(cwd, './tsconfig.paths.json');
   const content = { compilerOptions: { paths } };
   writeFileSync(tsConfigJsonPath, JSON.stringify(content, null, 2), 'utf-8');
-  return content;
-};
 
-function generatePlaywrightPath(clean = false) {
+  return content;
+}
+
+export function generatePlaywrightPath(clean = false) {
   try {
     const playwright = resolve(process.cwd(), 'storage/playwright/tests');
-    if (clean && fs.existsSync(playwright)) {
-      fs.rmSync(dirname(playwright), { force: true, recursive: true });
+    if (clean && _existsSync(playwright)) {
+      rmSync(dirname(playwright), { force: true, recursive: true });
     }
-    if (!fs.existsSync(playwright)) {
+    if (!_existsSync(playwright)) {
       const testPkg = require.resolve('@nocobase/test/package.json');
-      fs.cpSync(resolve(dirname(testPkg), 'playwright/tests'), playwright, { recursive: true });
+      _cpSync(resolve(dirname(testPkg), 'playwright/tests'), playwright, { recursive: true });
     }
   } catch (error) {
     // empty
   }
 }
 
-exports.generatePlaywrightPath = generatePlaywrightPath;
-
-function parseEnv(name) {
+function parseEnv(name: string) {
   if (name === 'DB_UNDERSCORED') {
     if (process.env.DB_UNDERSCORED === 'true') {
       return 'true';
@@ -258,31 +282,29 @@ function parseEnv(name) {
   }
 }
 
-function buildIndexHtml(force = false) {
+export function buildIndexHtml(force = false) {
   const file = `${process.env.APP_PACKAGE_ROOT}/dist/client/index.html`;
-  if (!fs.existsSync(file)) {
+  if (!_existsSync(file)) {
     return;
   }
   const tpl = `${process.env.APP_PACKAGE_ROOT}/dist/client/index.html.tpl`;
-  if (force && fs.existsSync(tpl)) {
-    fs.rmSync(tpl);
+  if (force && _existsSync(tpl)) {
+    rmSync(tpl);
   }
-  if (!fs.existsSync(tpl)) {
-    fs.copyFileSync(file, tpl);
+  if (!_existsSync(tpl)) {
+    copyFileSync(file, tpl);
   }
-  const data = fs.readFileSync(tpl, 'utf-8');
+  const data = readFileSync(tpl, 'utf-8');
   const replacedData = data
-    .replace(/\{\{env.APP_PUBLIC_PATH\}\}/g, process.env.APP_PUBLIC_PATH)
-    .replace(/\{\{env.API_BASE_URL\}\}/g, process.env.API_BASE_URL || process.env.API_BASE_PATH)
-    .replace(/\{\{env.WS_URL\}\}/g, process.env.WEBSOCKET_URL || '')
-    .replace(/\{\{env.WS_PATH\}\}/g, process.env.WS_PATH)
+    .replace(/\{\{env.APP_PUBLIC_PATH\}\}/g, process.env.APP_PUBLIC_PATH ?? '')
+    .replace(/\{\{env.API_BASE_URL\}\}/g, process.env.API_BASE_URL ?? process.env.API_BASE_PATH ?? '')
+    .replace(/\{\{env.WS_URL\}\}/g, process.env.WEBSOCKET_URL ?? '')
+    .replace(/\{\{env.WS_PATH\}\}/g, process.env.WS_PATH ?? '')
     .replace('src="/umi.', `src="${process.env.APP_PUBLIC_PATH}umi.`);
-  fs.writeFileSync(file, replacedData, 'utf-8');
+  _writeFileSync(file, replacedData, 'utf-8');
 }
 
-exports.buildIndexHtml = buildIndexHtml;
-
-exports.initEnv = function initEnv() {
+export function initEnv() {
   const env = {
     APP_ENV: 'development',
     APP_KEY: 'test-jwt-secret',
@@ -316,7 +338,7 @@ exports.initEnv = function initEnv() {
     process.argv[2] &&
     ['test', 'test:client', 'test:server'].includes(process.argv[2])
   ) {
-    if (fs.existsSync(resolve(process.cwd(), '.env.test'))) {
+    if (_existsSync(resolve(process.cwd(), '.env.test'))) {
       process.env.APP_ENV_PATH = '.env.test';
     }
   }
@@ -324,17 +346,17 @@ exports.initEnv = function initEnv() {
   if (!process.env.APP_ENV_PATH && process.argv[2] === 'e2e') {
     // 用于存放 playwright 自动生成的相关的文件
     generatePlaywrightPath();
-    if (!fs.existsSync('.env.e2e') && fs.existsSync('.env.e2e.example')) {
-      const env = fs.readFileSync('.env.e2e.example');
-      fs.writeFileSync('.env.e2e', env);
+    if (!_existsSync('.env.e2e') && _existsSync('.env.e2e.example')) {
+      const env = readFileSync('.env.e2e.example');
+      _writeFileSync('.env.e2e', env);
     }
-    if (!fs.existsSync('.env.e2e')) {
+    if (!_existsSync('.env.e2e')) {
       throw new Error('Please create .env.e2e file first!');
     }
     process.env.APP_ENV_PATH = '.env.e2e';
   }
 
-  dotenv.config({
+  config({
     path: resolve(process.cwd(), process.env.APP_ENV_PATH || '.env'),
   });
 
@@ -344,6 +366,7 @@ exports.initEnv = function initEnv() {
 
   for (const key in env) {
     if (!process.env[key]) {
+      // @ts-ignore
       process.env[key] = env[key];
     }
   }
@@ -354,11 +377,13 @@ exports.initEnv = function initEnv() {
     for (const key of keys) {
       process.env[key] = publicPath + process.env[key];
     }
+    // @ts-ignore
     process.env.__env_modified__ = true;
   }
 
   if (!process.env.__env_modified__ && process.env.APP_SERVER_BASE_URL && !process.env.API_BASE_URL) {
     process.env.API_BASE_URL = process.env.APP_SERVER_BASE_URL + process.env.API_BASE_PATH;
+    // @ts-ignore
     process.env.__env_modified__ = true;
   }
-};
+}

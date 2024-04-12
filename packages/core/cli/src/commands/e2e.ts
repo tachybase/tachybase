@@ -1,11 +1,11 @@
-const { Command } = require('commander');
-const { run, isPortReachable } = require('../util');
-const { execSync } = require('node:child_process');
-const axios = require('axios');
-const { pTest } = require('./p-test');
-const os = require('os');
-const treeKill = require('tree-kill');
-const chalk = require('chalk');
+import { Command } from 'commander';
+import { run, isPortReachable } from '../util';
+import { execSync } from 'node:child_process';
+import axios from 'axios';
+import { pTest } from './p-test';
+import { cpus } from 'os';
+import treeKill from 'tree-kill';
+import chalk from 'chalk';
 
 /**
  * 检查服务是否启动成功
@@ -19,12 +19,7 @@ const checkServer = async (duration = 1000, max = 60 * 10) => {
         return reject(new Error('Server start timeout.'));
       }
 
-      // if (!(await checkPort(PORT))) {
-      //   return;
-      // }
-
       const url = `${process.env.APP_BASE_URL}/api/__health_check`;
-      // console.log('url', url);
 
       axios
         .get(url)
@@ -84,13 +79,13 @@ async function appReady() {
 
 async function runApp(options = {}) {
   console.log('installing...');
-  await run('nocobase', ['install', '-f']);
-  if (await isPortReachable(process.env.APP_PORT)) {
+  await run('tachybase', ['install', '-f']);
+  if (await isPortReachable(process.env.APP_PORT!)) {
     console.log('app started');
     return;
   }
   console.log('starting...');
-  run('nocobase', [process.env.APP_ENV === 'production' ? 'start' : 'dev'], options);
+  run('tachybase', [process.env.APP_ENV === 'production' ? 'start' : 'dev'], options);
 }
 
 process.on('SIGINT', async () => {
@@ -112,12 +107,14 @@ const runCodegenSync = () => {
   try {
     execSync(
       `npx playwright codegen --load-storage=storage/playwright/.auth/codegen.auth.json ${process.env.APP_BASE_URL} --save-storage=storage/playwright/.auth/codegen.auth.json`,
+      // @ts-ignore
       commonConfig,
     );
-  } catch (err) {
+  } catch (err: any) {
     if (err.message.includes('auth.json')) {
       execSync(
         `npx playwright codegen ${process.env.APP_BASE_URL} --save-storage=storage/playwright/.auth/codegen.auth.json`,
+        // @ts-ignore
         commonConfig,
       );
     } else {
@@ -152,11 +149,7 @@ const filterArgv = () => {
   return argv;
 };
 
-/**
- *
- * @param {Command} cli
- */
-module.exports = (cli) => {
+export default (cli: Command) => {
   const e2e = cli.command('e2e').hook('preAction', () => {
     if (process.env.APP_BASE_URL) {
       process.env.APP_BASE_URL = process.env.APP_BASE_URL.replace('localhost', '127.0.0.1');
@@ -172,6 +165,7 @@ module.exports = (cli) => {
     .option('--build')
     .option('--production')
     .action(async (options) => {
+      // @ts-ignore
       process.env.__E2E__ = true;
       if (options.production) {
         process.env.APP_ENV = 'production';
@@ -181,6 +175,7 @@ module.exports = (cli) => {
         await run('pnpm', ['build']);
       }
       if (options.skipReporter) {
+        // @ts-ignore
         process.env.PLAYWRIGHT_SKIP_REPORTER = true;
       }
       if (options.url) {
@@ -217,6 +212,7 @@ module.exports = (cli) => {
     .option('--build')
     .option('--port [port]')
     .action(async (options) => {
+      // @ts-ignore
       process.env.__E2E__ = true;
       if (options.build) {
         await run('pnpm', ['build']);
@@ -231,7 +227,7 @@ module.exports = (cli) => {
     });
 
   e2e.command('reinstall-app').action(async (options) => {
-    await run('nocobase', ['install', '-f'], options);
+    await run('tachybase', ['install', '-f'], options);
   });
 
   e2e.command('install-deps').action(async () => {
@@ -242,7 +238,7 @@ module.exports = (cli) => {
     .command('p-test')
     .option('--stop-on-error')
     .option('--build')
-    .option('--concurrency [concurrency]', '', os.cpus().length)
+    .option('--concurrency [concurrency]', '', cpus().length + '')
     .option(
       '--match [match]',
       'Only the files matching one of these patterns are executed as test files. Matching is performed against the absolute file path. Strings are treated as glob patterns.',
@@ -250,6 +246,7 @@ module.exports = (cli) => {
     )
     .option('--ignore [ignore]', 'Skip tests that match the pattern. Strings are treated as glob patterns.', undefined)
     .action(async (options) => {
+      // @ts-ignore
       process.env.__E2E__ = true;
       if (options.build) {
         process.env.APP_ENV = 'production';
