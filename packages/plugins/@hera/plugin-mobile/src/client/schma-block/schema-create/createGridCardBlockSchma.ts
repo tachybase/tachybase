@@ -12,6 +12,8 @@ export const createGridCardBlockSchema = (options, componentName) => {
     template,
     dataSource,
     settings,
+    value,
+    childrenSettings,
     ...others
   } = options;
   const resourceName = resource || association || collection;
@@ -42,6 +44,13 @@ export const createGridCardBlockSchema = (options, componentName) => {
       [uid()]: {
         type: 'void',
         'x-component': componentName,
+        'x-settings': childrenSettings,
+        'x-component-props': {
+          resourceName,
+          fieldName: {
+            value,
+          },
+        },
       },
     },
   };
