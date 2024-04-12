@@ -80,7 +80,7 @@ export class RecordPdfService {
         type: QueryTypes.SELECT,
       });
       const contract_Plans = contractPLan.contract_plan.lease_items.filter((plan) =>
-        itemTreeIds.some((item) => item.id === plan.new_porducts_id),
+        itemTreeIds.some((item) => item.id === plan.new_porducts.id),
       );
       const contract_Plan = _someProductRule(itemTreeIds, contract_Plans, 'new_products_id');
       // itemTreeIds.some((item) => {
@@ -94,6 +94,8 @@ export class RecordPdfService {
       // });
 
       if (contract_Plan) {
+        leaseItem.conversion_logic_id = contract_Plan.conversion_logic_id;
+        leaseItem.unit_price = contract_Plan.unit_price || 0;
         if (contract_Plan.conversion_logic_id > 4 && contract_Plan.conversion_logic.weight_items.length) {
           const weights = contract_Plan.conversion_logic.weight_items.filter((weight) =>
             itemTreeIds.some((item) => item.id === weight.new_product_id),
@@ -108,8 +110,6 @@ export class RecordPdfService {
           //   }
           // });
           leaseItem.weight_item = _someProductRule(itemTreeIds, weights, 'new_product_id');
-          leaseItem.unit_price = contract_Plan.unit_price || 0;
-          leaseItem.conversion_logic_id = contract_Plan.conversion_logic_id;
         }
         // 对应产品维修赔偿项目
         const leaseFee = leaseFeeData.filter((fee) => fee.product_id === leaseItem.product_id);
@@ -148,12 +148,11 @@ export class RecordPdfService {
           leaseFees.push(...leaseFee);
         }
       } else {
-        // 产品没有找到方案，那就去费用查找，若果费用找到，并且还是手工录入，则计算这个数据，产品item排除，放到手工录入的最后展示
+        // 人工录入无关联产品的费用
         const contract_fee_plans = contractPLan.contract_plan.fee_items.filter((plan) =>
           itemTreeIds.some((item) => item.id === plan.new_fee_products_id),
         );
         const fee_no_product_rule = _someProductRule(itemTreeIds, contract_fee_plans, 'new_fee_products_id');
-
         // itemTreeIds.some((item) => {
         //   const find = contract_fee_plans.find((plan) => plan.new_fee_products.id === item.id);
         //   if (find) {
@@ -170,14 +169,16 @@ export class RecordPdfService {
           const count = leaseItem.count;
           if (fee_no_product_rule.conversion_logic_id === ConversionLogics.Keep) {
             noProductFeeData['total'] = count;
-            noProductFeeData['conversion_unit'] = leaseItem.conversion_unit;
+            noProductFeeData['conversion_unit'] = leaseItem.unit || '';
           } else if (
             fee_no_product_rule.conversion_logic_id === ConversionLogics.Product ||
             fee_no_product_rule.conversion_logic_id === ConversionLogics.ActualWeight
           ) {
             const ratio = leaseItem.convertible ? leaseItem.ratio : 1;
             noProductFeeData['total'] = count * ratio;
-            noProductFeeData['conversion_unit'] = leaseItem.convertible ? leaseItem.conversion_unit : leaseItem.unit;
+            noProductFeeData['conversion_unit'] = leaseItem.convertible
+              ? leaseItem.conversion_unit || ''
+              : leaseItem.unit || '';
           } else if (fee_no_product_rule.conversion_logic_id === ConversionLogics.ProductWeight) {
             noProductFeeData['total'] = count * leaseItem.weight;
             noProductFeeData['conversion_unit'] = 'KG';
@@ -186,7 +187,6 @@ export class RecordPdfService {
               itemTreeIds.some((item) => item.id === plan.new_fee_products_id),
             );
             const weightRule = _someProductRule(itemTreeIds, weightItems, 'new_fee_products_id');
-
             // itemTreeIds.some((item) => {
             //   const find = weightItems.find((plan) => plan.new_fee_products.id === item.id);
             //   if (find) {
@@ -207,43 +207,42 @@ export class RecordPdfService {
       }
       // 出入库量无关联产品费用计算
       allProductsFeeRules.forEach((fee) => {
-        if (no_product_fee[fee.new_fee_products_id]) {
-          // 出入库量的单位确定
-          if (fee.conversion_logic_id === ConversionLogics.Keep) {
-            no_product_fee[fee.new_fee_products_id].total += leaseItem.count;
-          } else if (fee.conversion_logic_id === ConversionLogics.Product) {
-            const ratio = leaseItem.convertible ? leaseItem.ratio : 1;
-            no_product_fee[fee.new_fee_products_id].total += leaseItem.count * ratio;
-          } else if (fee.conversion_logic_id === ConversionLogics.ProductWeight) {
-            no_product_fee[fee.new_fee_products_id].total += leaseItem.count * leaseItem.weight;
-          } else if (fee.conversion_logic_id > 4) {
-            const weights = fee.conversion_logic.weight_items.filter((weight) =>
-              itemTreeIds.some((item) => item.id === weight.new_product_id),
-            );
-            const weightRule = _someProductRule(itemTreeIds, weights, 'new_product_id');
-            // itemTreeIds.some((item) => {
-            //   const find = weights.find((weight) => weight.new_product_id === item.id);
-            //   if (find) {
-            //     weightRule = find;
-            //     return true;
-            //   }
-            // });
-            if (!weightRule) return;
-            if (weightRule.conversion_logic_id === ConversionLogics.Keep) {
-              no_product_fee[fee.new_fee_products_id].total += leaseItem.count * weightRule.weight;
-            } else if (weightRule.conversion_logic_id === ConversionLogics.Product) {
-              const ratio = leaseItem.convertible ? leaseItem.ratio : 1;
-              no_product_fee[fee.new_fee_products_id].total += leaseItem.count * weightRule.weight * ratio;
-            }
-          }
-        } else {
+        if (!no_product_fee[fee.new_fee_products_id]) {
           no_product_fee[fee.new_fee_products_id] = {
             name: fee.new_fee_products.name,
             total: 0,
-            conversion_unit: '',
+            conversion_unit: fee.unit,
             unit_price: fee.unit_price,
             isFee: true,
           };
+        }
+        // 出入库量的单位确定
+        if (fee.conversion_logic_id === ConversionLogics.Keep) {
+          no_product_fee[fee.new_fee_products_id].total += leaseItem.count;
+        } else if (fee.conversion_logic_id === ConversionLogics.Product) {
+          const ratio = leaseItem.convertible ? leaseItem.ratio : 1;
+          no_product_fee[fee.new_fee_products_id].total += leaseItem.count * ratio;
+        } else if (fee.conversion_logic_id === ConversionLogics.ProductWeight) {
+          no_product_fee[fee.new_fee_products_id].total += leaseItem.count * leaseItem.weight;
+        } else if (fee.conversion_logic_id > 4) {
+          const weights = fee.conversion_logic.weight_items.filter((weight) =>
+            itemTreeIds.some((item) => item.id === weight.new_product_id),
+          );
+          const weightRule = _someProductRule(itemTreeIds, weights, 'new_product_id');
+          // itemTreeIds.some((item) => {
+          //   const find = weights.find((weight) => weight.new_product_id === item.id);
+          //   if (find) {
+          //     weightRule = find;
+          //     return true;
+          //   }
+          // });
+          if (!weightRule) return;
+          if (weightRule.conversion_logic_id === ConversionLogics.Keep) {
+            no_product_fee[fee.new_fee_products_id].total += leaseItem.count * weightRule.weight;
+          } else if (weightRule.conversion_logic_id === ConversionLogics.Product) {
+            const ratio = leaseItem.convertible ? leaseItem.ratio : 1;
+            no_product_fee[fee.new_fee_products_id].total += leaseItem.count * weightRule.weight * ratio;
+          }
         }
       });
     }
@@ -431,8 +430,8 @@ export class RecordPdfService {
         allData.push(itemB);
       }
     });
-
-    const data = [...allData, ...no_product_fee_arr];
+    // 1. allData 处理了租赁产品以及对应的费用
+    const data = [...allData, ...feeProducts, ...no_product_fee_arr];
     return await renderItV2({
       detail: needRecord,
       record: data,

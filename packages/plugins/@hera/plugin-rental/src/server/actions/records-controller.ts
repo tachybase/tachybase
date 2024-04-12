@@ -3,7 +3,7 @@ import { QueryTypes, Op } from 'sequelize';
 import { RecordPdfService } from '../services/record-pdf-service';
 import { SystemSettingService, SqlLoader } from '@hera/plugin-core';
 import { Action, Controller, Inject } from '@nocobase/utils';
-import { ConversionLogics, Movement, SourcesType } from '../../utils/constants';
+import { Movement } from '../../utils/constants';
 import _ from 'lodash';
 import { FilterParser, Repository } from '@nocobase/database';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
