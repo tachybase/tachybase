@@ -175,7 +175,7 @@ export class RecordPreviewController {
    * 1. 正常租赁产品
    * 2. 租赁产品的维修赔偿
    * 3. 无关联产品的维修赔偿（实际总重量，出入库量）
-   * 4. 无关联产品的维修赔偿（人工录入） ！！！还未做
+   * 4. 无关联产品的维修赔偿（人工录入
    * 5. 报价
    */
   @Action('pdf')
@@ -183,9 +183,9 @@ export class RecordPreviewController {
     const {
       params: { recordId: id, isDouble, settingType, margingTop },
     } = ctx.action;
+    // 查询合同订单中间表，获得订单id，合同id，出入库信息
     const intermediate = await ctx.db.getRepository('new_contract').findOne({ filter: { id } });
     const recordId = intermediate.record_id;
-
     // 订单基本数据
     const baseRecord = await ctx.db.getRepository('records').findOne({
       filter: { id: recordId },
@@ -220,7 +220,7 @@ export class RecordPreviewController {
       },
       type: QueryTypes.SELECT,
     });
-
+    // 合同基本数据
     const contracts = await ctx.db.getRepository('contracts').findOne({
       filter: {
         id: intermediate.contract_id,
@@ -228,6 +228,7 @@ export class RecordPreviewController {
       appends: ['first_party', 'first_party.projects', 'party_b', 'party_b.projects'],
     });
     contracts.movement = intermediate.movement;
+    // 合同方案数据
     const contractPLan = await ctx.db.getRepository('contract_items').findOne({
       filter: {
         contract_id: intermediate.contract_id,
@@ -250,204 +251,14 @@ export class RecordPreviewController {
       ],
     });
 
-    // 手工录入的费用规则还未取!!!!!!!!!!!!!!
-    const allProductsFeeRules = contractPLan.contract_plan.fee_items.filter(
-      (item) =>
-        item.count_source === SourcesType.inAndOut ||
-        (item.count_source === SourcesType.outbound && intermediate.movement === '0') ||
-        (item.count_source === SourcesType.inbound && intermediate.movement === '1'),
-    );
-    const actual_weight = allProductsFeeRules.filter(
-      (item) => item.conversion_logic_id === ConversionLogics.ActualWeight,
-    );
-    const no_product_fee_arr = [];
-    actual_weight.forEach((item) => {
-      const data = {
-        name: item.new_fee_products.name,
-        total: baseRecord.weight * 1000,
-        conversion_unit: 'KG',
-        unit_price: item.unit_price,
-        isFee: true,
-      };
-      no_product_fee_arr.push(data);
-    });
-    const leaseFees = [];
-    const no_product_fee = {};
-    for (const leaseItem of leaseData) {
-      console.log(leaseItem, '产品数据');
-
-      const itemTreeIds: any = await ctx.db.sequelize.query(
-        `
-        WITH RECURSIVE tree AS ( SELECT id, "parentId"
-          FROM products
-          WHERE id = :dataId
-          UNION ALL
-          SELECT p.id, p."parentId"
-          FROM tree up
-          JOIN products p ON up."parentId" = p.id
-        ) select id from tree
-      `,
-        {
-          replacements: {
-            dataId: leaseItem.product_id,
-          },
-          type: QueryTypes.SELECT,
-        },
-      );
-      const contract_Plans = contractPLan.contract_plan.lease_items.filter((plan) =>
-        itemTreeIds.some((item) => item.id === plan.new_porducts.id),
-      );
-      let contract_Plan;
-      itemTreeIds.some((item) => {
-        // 方案可能出现：祖/父/子，祖/夫
-        // 1. 如果产品是子，那一定是要使用【祖/父/子】这个方案
-        const find = contract_Plans.find((plan) => plan.new_products_id === item.id);
-        if (find) {
-          contract_Plan = find;
-          return true; // 返回 true 停止循环
-        }
-      });
-
-      if (contract_Plan) {
-        if (contract_Plan.conversion_logic_id > 4 && contract_Plan.conversion_logic.weight_items.length) {
-          const weights = contract_Plan.conversion_logic.weight_items.filter((weight) =>
-            itemTreeIds.some((item) => item.id === weight.new_product_id),
-          );
-          itemTreeIds.some((item) => {
-            // 方案可能出现：祖/父/子，祖/夫
-            // 1. 如果产品是子，那一定是要使用【祖/父/子】这个方案
-            const find = weights.find((weight) => weight.new_product_id === item.id);
-            if (find) {
-              leaseItem.weight_item = find;
-              return true;
-            }
-          });
-          leaseItem.unit_price = contract_Plan.unit_price || 0;
-          leaseItem.conversion_logic_id = contract_Plan.conversion_logic_id;
-        }
-        // 对应产品维修赔偿项目
-        const leaseFee = leaseFeeData.filter((fee) => fee.product_id === leaseItem.product_id);
-        if (leaseFee.length) {
-          for (const fee of leaseFee) {
-            const feeTreeIds: any = await ctx.db.sequelize.query(
-              `
-      WITH RECURSIVE tree AS ( SELECT id, "parentId"
-        FROM products
-        WHERE id = :dataId
-        UNION ALL
-        SELECT p.id, p."parentId"
-        FROM tree up
-        JOIN products p ON up."parentId" = p.id
-      ) select id from tree
-    `,
-              {
-                replacements: {
-                  dataId: fee.fee_products_id,
-                },
-                type: QueryTypes.SELECT,
-              },
-            );
-            let productFeeRule;
-            feeTreeIds.some((item) => {
-              const find = contract_Plan.fee_items.find((plan) => plan.new_fee_products_id === item.id);
-              if (find) {
-                productFeeRule = find;
-                return true;
-              }
-            });
-            fee.conversion_logic_id = productFeeRule.conversion_logic_id;
-            fee.count_source = productFeeRule.count_source;
-            fee.unit_price = productFeeRule.unit_price;
-            if (productFeeRule.conversion_logic_id > 4) {
-              const weights = productFeeRule.conversion_logic.weight_items.filter((weight) =>
-                itemTreeIds.some((item) => item.id === weight.new_product_id),
-              );
-              itemTreeIds.some((item) => {
-                const find = weights.find((weight) => weight.new_product_id === item.id);
-                if (find) {
-                  fee.weight_item = find;
-                  return true;
-                }
-              });
-            }
-          }
-          leaseFees.push(...leaseFee);
-        }
-      } else {
-        // 产品没有找到方案，那就去费用查找，若果费用找到，并且还是手工录入，则计算这个数据，产品item排除，放到手工录入的最后展示
-        let fee_no_product_rule;
-        const contract_fee_plans = contractPLan.contract_plan.fee_items.filter((plan) =>
-          itemTreeIds.some((item) => item.id === plan.new_fee_products.id),
-        );
-        itemTreeIds.some((item) => {
-          const find = contract_fee_plans.find((plan) => plan.new_fee_products.id === item.id);
-          if (find) {
-            fee_no_product_rule = find;
-            return true; // 返回 true 停止循环
-          }
-        });
-        if (fee_no_product_rule) {
-          console.log(fee_no_product_rule, '=======找到了吗======');
-        }
-      }
-
-      allProductsFeeRules.forEach((fee) => {
-        if (no_product_fee[fee.new_fee_products_id]) {
-          // 出入库量的单位确定
-          if (fee.conversion_logic_id === ConversionLogics.Keep) {
-            no_product_fee[fee.new_fee_products_id].total += leaseItem.count;
-          } else if (fee.conversion_logic_id === ConversionLogics.Product) {
-            const ratio = leaseItem.convertible ? leaseItem.ratio : 1;
-            no_product_fee[fee.new_fee_products_id].total += leaseItem.count * ratio;
-          } else if (fee.conversion_logic_id === ConversionLogics.ProductWeight) {
-            no_product_fee[fee.new_fee_products_id].total += leaseItem.count * leaseItem.weight;
-          } else if (fee.conversion_logic_id > 4) {
-            const weights = fee.conversion_logic.weight_items.filter((weight) =>
-              itemTreeIds.some((item) => item.id === weight.new_product_id),
-            );
-            let weightRule;
-            itemTreeIds.some((item) => {
-              const find = weights.find((weight) => weight.new_product_id === item.id);
-              if (find) {
-                weightRule = find;
-                return true;
-              }
-            });
-            if (!weightRule) return;
-            if (weightRule.conversion_logic_id === ConversionLogics.Keep) {
-              no_product_fee[fee.new_fee_products_id].total += leaseItem.count * weightRule.weight;
-            } else if (weightRule.conversion_logic_id === ConversionLogics.Product) {
-              const ratio = leaseItem.convertible ? leaseItem.ratio : 1;
-              no_product_fee[fee.new_fee_products_id].total += leaseItem.count * weightRule.weight * ratio;
-            }
-          }
-        } else {
-          no_product_fee[fee.new_fee_products_id] = {
-            name: fee.new_fee_products.name,
-            total: 0,
-            conversion_unit: '',
-            unit_price: fee.unit_price,
-            isFee: true,
-          };
-        }
-      });
-    }
-    const noProductFeeArr = Object.values(no_product_fee);
-    no_product_fee_arr.push(...noProductFeeArr);
-
-    const printSetup =
-      settingType === '0' || settingType === '1' || settingType === '2'
-        ? settingType
-        : pdfExplain[0]?.record_print_setup;
-    const double = isDouble === '0' || isDouble === '1' ? isDouble : pdfExplain[0].record_columns;
-    ctx.body = await this.recordPdfService.transformPdfV2(
-      baseRecord,
-      contracts,
-      leaseData,
-      leaseFees,
-      no_product_fee_arr,
-      { isDouble: double, printSetup },
-    );
+    // ctx.body = await this.recordPdfService.transformPdfV2(
+    //   baseRecord,
+    //   contracts,
+    //   leaseData.filter(item => !item.isFee),
+    //   leaseFees,
+    //   [...feeProducts, ...no_product_fee_arr],
+    //   { isDouble: double, printSetup },
+    // );
     return '一下要根据订单的产品去查合同相关的数据';
     // 记录单数据
     // const records = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record'], {
