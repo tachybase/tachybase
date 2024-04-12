@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-approval",
   "displayName": "Workflow: Approval Center",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Can configure a universal approval process to complete the complete approval process in the approval center.",
   "main": "dist/server/index.js",
   "devDependencies": {
