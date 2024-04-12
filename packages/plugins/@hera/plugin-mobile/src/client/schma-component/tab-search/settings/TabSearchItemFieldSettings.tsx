@@ -72,8 +72,12 @@ export const TabSearchItemFieldSettings = new SchemaSettings({
               const { t } = useTranslation();
               const cm = useCollectionManager();
               const c = useCollection();
+              const fieldCollection = fieldSchema['x-component-props']?.['collectionName'];
+              const correlation = fieldSchema['x-component-props']?.['correlation'];
               const collectionField =
-                c.getField(fieldSchema['name']) || cm.getCollectionField(fieldSchema['x-collection-field']);
+                c.getField(fieldSchema['name']) ||
+                cm.getCollectionField(fieldSchema['x-collection-field']) ||
+                cm.getCollection(fieldCollection + '.' + correlation);
               const compile = useCompile();
               const { dn } = useDesignable();
               const targetFields = collectionField?.target ? cm.getCollectionFields(collectionField?.target) : [];
@@ -87,6 +91,7 @@ export const TabSearchItemFieldSettings = new SchemaSettings({
                 const schema = {
                   ['x-uid']: fieldSchema['x-uid'],
                 };
+
                 const fieldNames = {
                   ...collectionField?.uiSchema?.['x-component-props']?.['fieldNames'],
                   ...fieldSchema['x-component-props']?.['fieldNames'],
@@ -94,6 +99,7 @@ export const TabSearchItemFieldSettings = new SchemaSettings({
                 };
                 fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
                 fieldSchema['x-component-props']['fieldNames'] = fieldNames;
+
                 schema['x-component-props'] = fieldSchema['x-component-props'];
                 dn.emit('patch', {
                   schema,
@@ -111,7 +117,10 @@ export const TabSearchItemFieldSettings = new SchemaSettings({
             },
             useVisible() {
               const fieldSchema = useFieldSchema();
-              return !isTabSearchCollapsibleInputItem(fieldSchema['x-component']);
+              return (
+                isTabSearchCollapsibleInputItem(fieldSchema['x-component']) ||
+                fieldSchema['x-component-props']?.['correlation']
+              );
             },
           },
         ];

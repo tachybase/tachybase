@@ -73,7 +73,7 @@ export const SwiperFieldSettings = new SchemaSettings({
           dn.refresh();
         };
         return {
-          title: t('SetShowfield'),
+          title: t('Set show field'),
           options,
           value: fieldSchema['x-component-props'].fieldValue,
           onChange,
@@ -86,6 +86,7 @@ export const SwiperFieldSettings = new SchemaSettings({
       useComponentProps() {
         const fieldSchema = useFieldSchema();
         const { dn } = useDesignable();
+        const { t } = useTranslation();
         const options = [];
         for (let i = 1; i <= 20; i++) {
           options.push({
@@ -104,7 +105,7 @@ export const SwiperFieldSettings = new SchemaSettings({
           dn.refresh();
         };
         return {
-          title: 'setFieldCount',
+          title: t('Set field count'),
           options,
           value: fieldSchema['x-component-props'].pageSize || 5,
           onChange,
