@@ -16,7 +16,7 @@ const textFieldsItem: SchemaInitializerItemType<any> = {
     const itemComponent = isMobield ? 'TabSearchCollapsibleInputMItem' : 'TabSearchCollapsibleInputItem';
     const children = associatedFields
       .map((field) => {
-        if (canBeSearchField(field.interface) && !field['isForeignKey']) {
+        if (canBeSearchField(field.interface) || (canBeOptionalField(field.interface) && !field['isForeignKey'])) {
           const label = field.name;
           return createTabSearchItemSchema({ field, itemComponent, label });
         }

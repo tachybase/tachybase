@@ -14,6 +14,7 @@ const canBeSearchFields = [
   'color',
   'icon',
   'formula',
+  'sequence',
 ];
 
 export const isTabSearchCollapsibleInputItem = (component: string) =>
