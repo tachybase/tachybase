@@ -1,7 +1,17 @@
+-- 目前换算，单位只查询目标根夫级，如果子有已子为主
 SELECT
-  p4.convertible,
-  p4.unit,
-  p4.conversion_unit,
+  CASE
+    WHEN p.unit IS NOT NULL THEN p.unit
+    ELSE p4.unit
+  END AS unit,
+  CASE
+    WHEN p.convertible IS NOT NULL THEN p.convertible
+    ELSE p4.convertible
+  END AS convertible,
+  CASE
+    WHEN p.conversion_unit IS NOT NULL THEN p.conversion_unit
+    ELSE p4.conversion_unit
+  END AS conversion_unit,
   p4.id AS parent_id,
   p.ratio,
   p.weight,

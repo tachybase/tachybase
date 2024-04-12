@@ -26,7 +26,10 @@ import {
   useWaybillPdfPath,
   WaybillsProvider,
 } from './hooks/usePdfPath';
-import { ColumnSwitchAction, ColumnSwitchActionInitializer } from './schema-initializer/actions/ColumnSwitchActionInitializer';
+import {
+  ColumnSwitchAction,
+  ColumnSwitchActionInitializer,
+} from './schema-initializer/actions/ColumnSwitchActionInitializer';
 import {
   SettlementExcelExportActionInitializer,
   useSettlementExcelExportActionProps,
@@ -37,7 +40,10 @@ import {
   SettlementStyleSwitchActionInitializer,
   useSettlementStyleSwitchActionProps,
 } from './schema-initializer/actions/SettlementStyleSwitchActionInitializer';
-import { RecordPrintSetupActionInitializer, PrintSetup } from './schema-initializer/actions/RecordPrintSetupActionInitializer';
+import {
+  RecordPrintSetupActionInitializer,
+  PrintSetup,
+} from './schema-initializer/actions/RecordPrintSetupActionInitializer';
 import {
   RecordPrintSetupMargingTopInitializer,
   PrintSetupMargingTop,
@@ -78,11 +84,11 @@ export class PluginRentalClient extends Plugin {
       type: 'item',
       title: '{{t("Column switch")}}',
       component: 'ColumnSwitchActionInitializer',
-      useVisible() {
-        const collection = useCollection();
-        const name = collection['options']['name'];
-        return name === 'records';
-      },
+      // useVisible() {
+      //   const collection = useCollection();
+      //   const name = collection['options']['name'];
+      //   return name === 'records';
+      // },
     });
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintSetup', {
       type: 'item',
@@ -93,11 +99,11 @@ export class PluginRentalClient extends Plugin {
       type: 'item',
       title: '{{t("Record print margingtop")}}',
       component: 'RecordPrintSetupMargingTopInitializer',
-      useVisible() {
-        const collection = useCollection();
-        const name = collection['options']['name'];
-        return name === 'records' || name === 'waybills';
-      },
+      // useVisible() {
+      //   const collection = useCollection();
+      //   const name = collection['options']['name'];
+      //   return name === 'records' || name === 'waybills';
+      // },
     });
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.settlementExcelExport', {
       type: 'item',

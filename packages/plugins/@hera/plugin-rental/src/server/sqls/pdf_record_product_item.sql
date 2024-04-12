@@ -1,17 +1,27 @@
+-- 目前换算，单位只查询目标根夫级，如果子有已子为主
 SELECT
   p2.id AS parent_id,
   p2.name AS parent_name,
   p.id AS product_id,
   p.name AS product_name,
   p2."name" || '[' || p."name" || ']' AS "name",
-  p2.convertible, -- 换算
-  p2.unit, -- 单位
-  p2.conversion_unit, -- 换算单位
   p.ratio, -- 换算比例在单个产品身上
   p.custom_name,
   p.weight,
   ri.count,
-  ri."comment" AS record_items_comment
+  ri."comment" AS record_items_comment,
+  CASE
+    WHEN p.unit IS NOT NULL THEN p.unit
+    ELSE p2.unit
+  END AS unit, -- 单位
+  CASE
+    WHEN p.convertible IS NOT NULL THEN p.convertible
+    ELSE p2.convertible
+  END AS convertible, -- 换算
+  CASE
+    WHEN p.conversion_unit IS NOT NULL THEN p.conversion_unit
+    ELSE p2.conversion_unit
+  END AS conversion_unit -- 换算单位
 FROM
   records r
   JOIN record_items ri ON ri.record_id = r.id

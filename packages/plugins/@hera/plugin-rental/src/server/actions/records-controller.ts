@@ -170,19 +170,12 @@ export class RecordPreviewController {
     ctx.body = data;
   }
 
-  /**
-   * 注意点
-   * 1. 正常租赁产品
-   * 2. 租赁产品的维修赔偿
-   * 3. 无关联产品的维修赔偿（实际总重量，出入库量）
-   * 4. 无关联产品的维修赔偿（人工录入
-   * 5. 报价
-   */
   @Action('pdf')
   async printPreview(ctx: Context) {
     const {
       params: { recordId: id, isDouble, settingType, margingTop },
     } = ctx.action;
+    let pdfTop: number;
     // 查询合同订单中间表，获得订单id，合同id，出入库信息
     const intermediate = await ctx.db.getRepository('new_contract').findOne({ filter: { id } });
     const recordId = intermediate.record_id;
@@ -255,7 +248,12 @@ export class RecordPreviewController {
       settingType === '0' || settingType === '1' || settingType === '2'
         ? settingType
         : pdfExplain[0]?.record_print_setup;
-
+    if (Number(margingTop)) {
+      pdfTop = Number(margingTop);
+    } else {
+      const currentUser = await ctx.db.getRepository('users').findOne({ filter: { id: ctx.state.currentUser.id } });
+      pdfTop = Number(currentUser?.pdf_top_margin);
+    }
     ctx.body = await this.recordPdfService.transformPdfV2(
       intermediate,
       contractPLan,
@@ -263,7 +261,7 @@ export class RecordPreviewController {
       leaseData,
       leaseFeeData,
       contracts,
-      { isDouble: double, printSetup },
+      { isDouble: double, printSetup, margingTop: pdfTop },
     );
   }
 

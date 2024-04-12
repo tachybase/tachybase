@@ -1,10 +1,9 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image, renderToStream } from '@hera/plugin-core';
 import * as QRCode from 'qrcode';
-import { RecordCategory } from '../../utils/constants';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 import { dayjs } from '@nocobase/utils';
-import { PrintSetup } from '../../utils/system';
+import { RecordPdfOptions } from '../../interfaces/options';
 const fontSizes = {
   title: '13px',
   subTitle: '11px',
@@ -202,67 +201,26 @@ const PreviewDocument = ({
   detail,
   record,
   priceRule,
-  isDouble,
-  printSetup,
+  options,
 }: {
   imageUrl: string;
   detail: any;
   record: any[];
   priceRule: any[];
-  isDouble: Number;
-  printSetup: String;
+  options: RecordPdfOptions;
 }) => {
-  isDouble = Number(isDouble);
-  // const date = detail.date;
-  // const number = detail.number;
-  // const origin = detail.original_number;
-  // const singlePlayer = detail.nickname + ' ' + detail?.userPhone;
-  // const car = detail.vehicles ? detail.vehicles.map((item) => item?.number).join(' ') : '';
-  // const outOfStorage = detail.movement > 0 ? '入库' : '出库';
-  // const getTitle = () => {
-  //   let name;
-  //   if (detail.category === RecordCategory.lease) {
-  //     name = detail.contract?.project?.associated_company?.name ?? detail.systemTitle;
-  //   } else {
-  //     if (outOfStorage === '入库') {
-  //       name = detail.in_stock?.name ?? detail.systemTitle;
-  //     } else {
-  //       name = detail.out_stock?.name ?? detail.systemTitle;
-  //     }
-  //   }
-  //   return name;
-  // };
-  // const recordsName = getTitle();
-  // const outOfStorageAddress = (type) => {
-  //   // 此type用于展示出入类型
-  //   if (type === 1) {
-  //     // 返回出库
-  //     return detail.out_stock.name;
-  //   } else {
-  //     // 确定入库
-  //     return detail.in_stock.name;
-  //   }
-  // };
-  // const projectPhone = detail.contract?.project?.contacts
-  //   ?.map((item) => (item.name || '') + (item.phone || ''))
-  //   .join(' ');
-  // const recordType = {
-  //   '0': '租赁',
-  //   '1': '购销',
-  //   '2': '暂存',
-  //   '3': '盘点',
-  // };
-  // const explain =
-  //   detail.category === RecordCategory.inventory
-  //     ? `盘点单用于清算仓库盈亏盈余。`
-  //     : `如供需双方未签正式合同，本${
-  //         recordType[detail.category]
-  //       }${outOfStorage}单经供需双方代表签字确认后， 将作为合同及发生业务往来的有效凭证，如已签合同，则成为该合同的组成部分。${
-  //         outOfStorage === '入库' ? '出库方' : '采购方'
-  //       }须核对 以上产品规格、数量确认后可签字认可。`;
+  const isDouble = Number(options.isDouble);
+  const explain =
+    detail.type_new === '1'
+      ? `盘点单用于清算仓库盈亏盈余。`
+      : `如供需双方未签正式合同，本${
+          detail.contract_type
+        }${detail.movement}单经供需双方代表签字确认后， 将作为合同及发生业务往来的有效凭证，如已签合同，则成为该合同的组成部分。${
+          detail.movement === '入库' ? '出库方' : '采购方'
+        }须核对 以上产品规格、数量确认后可签字认可。`;
   const getAllPrice = () => {
     let price = 0;
-    if (detail.contract_type === '1' && priceRule.filter(Boolean).length) {
+    if (detail.contract_type === '购销' && priceRule.filter(Boolean).length) {
       priceRule.forEach((element) => {
         price += element.all_price;
       });
@@ -270,7 +228,7 @@ const PreviewDocument = ({
     return formatCurrency(price, 2);
   };
   const dobulePriceRule = [];
-  if (isDouble && detail.contract_type === '1' && priceRule.filter(Boolean).length) {
+  if (isDouble && detail.contract_type === '购销' && priceRule.filter(Boolean).length) {
     // 双列展示
     const leftData = priceRule.slice(0, Math.ceil(priceRule.length / 2));
     const rightData = priceRule.slice(Math.ceil(priceRule.length / 2));
@@ -328,7 +286,7 @@ const PreviewDocument = ({
       </View>
     ));
     let addCol = <></>;
-    if (detail.contract_type === '1') {
+    if (detail.contract_type === '购销') {
       const allprice = getAllPrice();
       addCol = (
         <View style={styles.tableContent}>
@@ -344,7 +302,7 @@ const PreviewDocument = ({
       );
     }
 
-    return detail.contract_type === '1' ? (
+    return detail.contract_type === '购销' ? (
       <>
         {page}
         {addCol}
@@ -386,34 +344,69 @@ const PreviewDocument = ({
   const car = detail.vehicles ? detail.vehicles.map((item) => item?.number).join(' ') : '';
   return (
     <Document>
-      <Page size="A4" style={{ ...styles.page, marginTop: detail.margingTop }}>
+      <Page size="A4" style={{ ...styles.page, marginTop: options.margingTop }}>
         <Text style={styles.title}>{detail.contract_first_party.name || '异常数据，请联系相关负责人！'}</Text>
         <Text style={styles.subTitle}>{detail.contract_first_party ? detail.movement : '盘点'}单</Text>
         <View style={styles.content}>
           <View style={styles.main}>
-            <View style={styles.tableHeader}>
-              <Text style={styles.headerLeftLeft}>承租单位：{detail.record_party_b.company.name || ''}</Text>
-              <Text style={styles.headerLeftRight}>
-                日期：{detail.record_date && dayjs(detail.record_date).format('YYYY-MM-DD')}
-              </Text>
-            </View>
+            {detail.contract_type === '租赁' && (
+              <View>
+                <View style={styles.tableHeader}>
+                  <Text style={styles.headerLeftLeft}>承租单位：{detail.record_party_b.company.name || ''}</Text>
+                  <Text style={styles.headerLeftRight}>
+                    日期：{detail.record_date && dayjs(detail.record_date).format('YYYY-MM-DD')}
+                  </Text>
+                </View>
 
-            <View style={styles.tableHeader}>
-              <Text style={styles.headerLeftLeft}>项目名称：{detail.record_party_b.name || ''}</Text>
-              <Text style={styles.headerLeftRight}>流水号：{detail.record_number}</Text>
-            </View>
+                <View style={styles.tableHeader}>
+                  <Text style={styles.headerLeftLeft}>项目名称：{detail.record_party_b.name || ''}</Text>
+                  <Text style={styles.headerLeftRight}>流水号：{detail.record_number}</Text>
+                </View>
 
-            <View style={styles.tableHeader}>
-              <Text style={styles.headerLeftLeft}>项目地址：{detail.record_party_b.address}</Text>
-              <Text style={styles.headerLeftRight}>原始单号：{detail.record_origin}</Text>
-            </View>
+                <View style={styles.tableHeader}>
+                  <Text style={styles.headerLeftLeft}>项目地址：{detail.record_party_b.address}</Text>
+                  <Text style={styles.headerLeftRight}>原始单号：{detail.record_origin}</Text>
+                </View>
 
-            <View style={styles.tableHeader}>
-              <Text style={styles.headerLeftLeft}>项目联系人：{projectPhone}</Text>
-              <Text style={styles.headerLeftRight}>车号：{car}</Text>
-            </View>
+                <View style={styles.tableHeader}>
+                  <Text style={styles.headerLeftLeft}>项目联系人：{projectPhone}</Text>
+                  <Text style={styles.headerLeftRight}>车号：{car}</Text>
+                </View>
+              </View>
+            )}
+
+            {detail.contract_type === '购销' && (
+              <View>
+                <View style={styles.tableHeader}>
+                  <Text style={styles.headerLeftLeft}>
+                    销售单位：{detail.record_party_b.company.name || ''} {detail.record_party_b.name || ''}
+                  </Text>
+                  <Text style={styles.headerMiddle}>
+                    日期：{detail.record_date && dayjs(detail.record_date).format('YYYY-MM-DD')}
+                  </Text>
+                  <Text style={styles.headerLeftRight}>流水号：{detail.record_number}</Text>
+                </View>
+                <View style={styles.tableHeader}>
+                  <Text style={styles.headerLeftLeft}>采购单位：{detail.record_party_a.name || ''}</Text>
+                  <Text style={styles.headerMiddle}>车号：{car}</Text>
+                  <Text style={styles.headerLeftRight}>原始单号：{detail.record_origin}</Text>
+                </View>
+              </View>
+            )}
+            {!detail.contract_type && (
+              <View>
+                <View style={styles.tableHeader}>
+                  <Text style={styles.headerLeftLeft}>盘点单位：{detail.record_party_a.name || ''}</Text>
+                  <Text style={styles.headerMiddle}>
+                    日期：{detail.record_date && dayjs(detail.record_date).format('YYYY-MM-DD')}
+                  </Text>
+                  <Text style={styles.headerLeftRight}>流水号：{detail.record_number}</Text>
+                </View>
+              </View>
+            )}
+
             {/* 定价 */}
-            {detail.contract_type === '1' && (
+            {detail.contract_type === '购销' && (
               <View style={styles.tableContentTitle}>
                 <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
                 <Text style={styles.tableCellTitle}>单价</Text>
@@ -431,7 +424,7 @@ const PreviewDocument = ({
                 )}
               </View>
             )}
-            {detail.contract_type === '1' && renderPrice(isDouble ? dobulePriceRule : priceRule, isDouble)}
+            {detail.contract_type === '购销' && renderPrice(isDouble ? dobulePriceRule : priceRule, isDouble)}
             {/* ============================================================两表分割================================================================================= */}
             {/* 单列租金及费用 */}
             <View style={styles.tableContentTitle}>
@@ -454,7 +447,7 @@ const PreviewDocument = ({
                 <Image src={imageUrl} />
               </View>
               <View style={styles.tableFooterLeft}>
-                <Text>说明：{''}</Text>
+                <Text>说明：{explain}</Text>
               </View>
               <Text style={styles.tableFooterRight}>
                 {' '}
@@ -463,10 +456,10 @@ const PreviewDocument = ({
             </View>
             <View style={styles.sign}>
               <Text style={styles.signPart}>制表人：{detail.nickname + ' ' + detail?.userPhone}</Text>
-              {detail.contract_type === '0' && <Text style={styles.signPart}>出租单位（签名）：</Text>}
-              {detail.contract_type === '0' && <Text style={styles.signPart}>租借单位（签名）：</Text>}
-              {detail.contract_type === '1' && <Text style={styles.signPart}>采购单位（签名）：</Text>}
-              {detail.contract_type === '1' && <Text style={styles.signPart}>购入单位（签名）：</Text>}
+              {detail.contract_type === '租赁' && <Text style={styles.signPart}>出租单位（签名）：</Text>}
+              {detail.contract_type === '租赁' && <Text style={styles.signPart}>租借单位（签名）：</Text>}
+              {detail.contract_type === '购销' && <Text style={styles.signPart}>采购单位（签名）：</Text>}
+              {detail.contract_type === '购销' && <Text style={styles.signPart}>购入单位（签名）：</Text>}
               {!detail.contract_type && <Text style={styles.signPart}>盘点仓库（签名）：</Text>}
             </View>
           </View>
@@ -478,13 +471,7 @@ const PreviewDocument = ({
     </Document>
   );
 };
-export const renderItV2 = async (rent: {
-  detail: any;
-  record: any[];
-  priceRule: any[];
-  isDouble: Number;
-  printSetup: String;
-}) => {
+export const renderItV2 = async (rent: { detail: any; record: any[]; priceRule: any[]; options: any }) => {
   const url = 'https://shcx.daoyoucloud.com/admin';
   const imageUrl = await QRCode.toDataURL(url);
   return await renderToStream(<PreviewDocument imageUrl={imageUrl} {...rent} />);
