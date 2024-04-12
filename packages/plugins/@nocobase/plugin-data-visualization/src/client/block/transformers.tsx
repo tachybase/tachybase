@@ -52,6 +52,22 @@ const transformers: {
       }[locale];
       return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(val);
     },
+    CurrencyNegative: (val: number, locale = 'en-US') => {
+      const currency = {
+        'zh-CN': 'CNY',
+        'en-US': 'USD',
+        'ja-JP': 'JPY',
+        'ko-KR': 'KRW',
+        'pt-BR': 'BRL',
+        'ru-RU': 'RUB',
+        'tr-TR': 'TRY',
+        'es-ES': 'EUR',
+      }[locale];
+      if (val) {
+        val = -val;
+      }
+      return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(val);
+    },
     Exponential: (val: number | string) => (+val)?.toExponential(),
     Abbreviation: (val: number, locale = 'en-US') => new Intl.NumberFormat(locale, { notation: 'compact' }).format(val),
     Decimal: {
