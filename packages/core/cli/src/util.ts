@@ -16,10 +16,12 @@ import {
   readFileSync,
   writeFileSync as _writeFileSync,
 } from 'fs';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 export function isPackageValid(pkg: string) {
   try {
-    import.meta.resolve(join(process.cwd(), pkg));
+    require(pkg)
     return true;
   } catch (error) {
     return false;
