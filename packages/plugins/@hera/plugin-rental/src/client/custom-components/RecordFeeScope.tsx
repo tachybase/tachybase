@@ -13,9 +13,36 @@ export const RecordFeeScope = observer(() => {
   const path: any = field.path.entire;
   const fieldPath = path?.replace(`.${fieldSchema.name}`, '');
   const item = form.getValuesIn(field.path.slice(0, -2).entire);
-  const { data, loading } = useFeeItems(item.product?.category_id, form.values.contract_plan?.id);
+  let _loading = false;
+  let contractLoading = false;
+  const data = {
+    data: [],
+  };
+  if (form.values.record_category === '1' || form.values.record_category === '0') {
+    let _in = [],
+      _out = [];
+    const { data: inData, loading: inLoading } = useFeeItems(
+      item.product?.category_id,
+      form.values.in_contract_plan?.id,
+    );
+    _in = inData?.data || [];
+    contractLoading = contractLoading || inLoading;
+    if (form.values.record_category === '1') {
+      const { data: outData, loading: outLoading } = useFeeItems(
+        item.product?.category_id,
+        form.values.out_contract_plan?.id,
+      );
+      _out = outData?.data || [];
+      contractLoading = contractLoading || outLoading;
+    }
+    data.data = [..._in, ..._out];
+  } else {
+    const { data: origin, loading } = useFeeItems(item.product?.category_id, form.values.contract_plan?.id);
+    data.data = origin?.data;
+    _loading = _loading || loading;
+  }
   let result = [];
-  if (data?.data?.length > 0) {
+  if (data.data?.length > 0) {
     const items = data.data as {
       products: { category_id: Number }[];
       fee_items: { fee_product_id: Number }[];
@@ -29,7 +56,12 @@ export const RecordFeeScope = observer(() => {
     form.setValuesIn(fieldPath, result);
   }, [result, form, fieldPath]);
 
-  return loading ? <Spin /> : <></>;
+  return ((form.values.record_category === '1' || form.values.record_category === '0') && contractLoading) ||
+    _loading ? (
+    <Spin />
+  ) : (
+    <></>
+  );
 }) as CustomFC;
 
 RecordFeeScope.displayName = 'RecordFeeScope';
