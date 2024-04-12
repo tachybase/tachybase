@@ -1,5 +1,5 @@
 export const createTabSearchItemSchema = (options) => {
-  const { field, itemComponent, label, itemUseProps } = options;
+  const { field, itemComponent, label, itemUseProps, collection } = options;
   return {
     name: field.key,
     title: field.uiSchema?.title,
@@ -17,6 +17,8 @@ export const createTabSearchItemSchema = (options) => {
           label,
         },
         interface: field.interface,
+        collectionName: collection?.name,
+        correlation: field.name,
       },
       properties: {},
     },

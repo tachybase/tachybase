@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from '../../../../locale';
-import { Grid, Divider, Picker, Input, Space, ActionSheet } from 'antd-mobile';
+import { Grid, Divider, Picker, Input, Space, ActionSheet, DatePicker, CalendarPicker } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
 import type { Action } from 'antd-mobile/es/components/action-sheet';
+import { convertFormat } from '../../utils';
 
 export const ISelect = (props) => {
   const { options, onChange, customLabelKey } = props;
@@ -53,6 +54,43 @@ export const ISelect = (props) => {
   ) : null;
 };
 
+export const IDatePicker = (props) => {
+  const { options, value, onChange, onInputChange } = props;
+  const time = value.split('&');
+  const [visible, setVisible] = useState(false);
+  return (
+    <Grid.Item span={options.length > 1 ? 3 : 4}>
+      <div
+        onClick={() => {
+          setVisible(true);
+        }}
+      >
+        <Grid columns={5}>
+          <Grid.Item span={2} style={{ textAlign: 'end' }}>
+            {time[0]}
+          </Grid.Item>
+          <Grid.Item span={1} style={{ textAlign: 'center' }}>
+            -
+          </Grid.Item>
+          <Grid.Item span={2} style={{ textAlign: 'start' }}>
+            {time[1]}
+          </Grid.Item>
+        </Grid>
+      </div>
+      <CalendarPicker
+        visible={visible}
+        selectionMode="range"
+        onMaskClick={() => setVisible(false)}
+        onClose={() => setVisible(false)}
+        onConfirm={(v) => {
+          onInputChange(convertFormat(v[0]) + '&' + convertFormat(v[1]));
+          onChange(convertFormat(v[0]) + '&' + convertFormat(v[1]));
+        }}
+      />
+    </Grid.Item>
+  );
+};
+
 export const IInput = (props) => {
   const { options, value, onChange } = props;
   const { t } = useTranslation();
@@ -71,7 +109,6 @@ export const IInput = (props) => {
 export const IButton = (props) => {
   const { onClick } = props;
   const { t } = useTranslation();
-
   return (
     <Grid.Item onClick={onClick} style={{ color: '#2c6eff', textAlign: 'center', cursor: 'pointer' }}>
       {t('Search')}

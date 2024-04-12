@@ -1,7 +1,7 @@
 import { SchemaInitializer, SchemaInitializerItemType, useCollection, useCollectionManager } from '@nocobase/client';
 import _ from 'lodash';
 import { tval } from '../../../locale';
-import { canBeOptionalField, canBeRelatedField, canBeSearchField } from '../utils';
+import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../utils';
 import { createTabSearchItemSchema } from '../create/createTabSearchItemSchema';
 import { useIsMobile } from '../components/field-item/hooks';
 
@@ -12,13 +12,19 @@ const textFieldsItem: SchemaInitializerItemType<any> = {
   useChildren() {
     const collection = useCollection();
     const associatedFields = collection.fields;
+    const cm = useCollectionManager();
     const isMobield = useIsMobile();
     const itemComponent = isMobield ? 'TabSearchCollapsibleInputMItem' : 'TabSearchCollapsibleInputItem';
     const children = associatedFields
       .map((field) => {
-        if (canBeSearchField(field.interface) || (canBeOptionalField(field.interface) && !field['isForeignKey'])) {
-          const label = field.name;
-          return createTabSearchItemSchema({ field, itemComponent, label });
+        if (
+          !field['isForeignKey'] &&
+          (canBeSearchField(field.interface) || canBeRelatedField(field.interface) || canBeDataField(field.interface))
+        ) {
+          const label = canBeRelatedField(field.interface)
+            ? cm.getCollection(`${collection.name}.${field.name}`).titleField
+            : field.name;
+          return createTabSearchItemSchema({ field, itemComponent, label, collection });
         }
       })
       .filter(Boolean);

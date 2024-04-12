@@ -9,16 +9,13 @@ export const useTabSearchCollapsibleInputItem = () => {
   const { getDataBlocks } = useFilterBlock();
   const collectionField = useMemo(() => collection?.getField(fieldSchema.name as any), [collection, fieldSchema.name]);
 
-  const onSelected = (value, customLabelKey?, filterKey?) => {
+  const onSelected = (value, filterKey) => {
     const { targets, uid } = findFilterTargets(fieldSchema);
     getDataBlocks().forEach((block) => {
       const target = targets.find((target) => target.uid === block.uid);
       if (!target) return;
       const key = `${uid}${fieldSchema.name}`;
       const param = block.service.params?.[0] || {};
-      if (!collectionField?.target && customLabelKey) {
-        filterKey = `${customLabelKey}.$includes`;
-      }
       // 保留原有的 filter
       let storedFilter = block.service.params?.[1]?.filters || {};
       if (value.length) {

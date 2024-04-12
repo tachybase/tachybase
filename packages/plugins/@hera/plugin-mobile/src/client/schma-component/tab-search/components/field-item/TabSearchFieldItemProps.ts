@@ -8,7 +8,6 @@ import { canBeOptionalField } from '../../utils';
 export const useTabSearchFieldItemProps = () => {
   const fieldSchema = useFieldSchema();
   const collection = useCollection();
-
   const optionalFieldList = useOptionalFieldList();
   const cm = useCollectionManager();
   const collectionField = useMemo(() => collection?.getField(fieldSchema.name as any), [collection, fieldSchema.name]);

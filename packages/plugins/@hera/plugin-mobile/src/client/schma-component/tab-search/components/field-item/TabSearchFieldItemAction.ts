@@ -15,7 +15,7 @@ export const useTabSearchFieldItemAction = (props) => {
   const labelKey = _labelKey || fieldSchema['x-component-props']?.fieldNames?.label || valueKey;
   const onSelect = (itemKey) => {
     const key = itemKey.keyPath?.[0] || itemKey;
-    onSelected([key], null, filterKey);
+    onSelected([key], filterKey);
   };
   const fieldNames = {
     title: labelKey || valueKey,
