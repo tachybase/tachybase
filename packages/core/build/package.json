@@ -1,6 +1,6 @@
 {
   "name": "@nocobase/build",
-  "version": "0.21.6",
+  "version": "0.21.7",
   "description": "Library build tool based on rollup.",
   "license": "Apache-2.0",
   "main": "lib/index.js",
@@ -10,7 +10,8 @@
     "nocobase-build": "./bin/nocobase-build.js"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepare": "tsup"
   },
   "dependencies": {
     "@babel/core": "7.22.10",

@@ -284,7 +284,7 @@ export const excelDataHandle = (excelData) => {
     if (!value.is_excluded) {
       table3.rows.push([
         converDate(value.date, 'YYYY-MM-DD'),
-        value.movement == -1 ? '出库' : value.movement == 1 ? '入库' : '出入库',
+        value.movement === -1 ? '出库' : value.movement === 1 ? '入库' : '出入库',
         value.name,
         '',
         category,
@@ -544,13 +544,13 @@ export const ExportToExcel = async (data) => {
   const cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
   const CellBorder = (row) => {
     cols.forEach((value) => {
-      if (value == 'A' && row == `${notesRow}`) {
+      if (value === 'A' && row === `${notesRow}`) {
         ws.getCell(`${value}${row}`).border = {
           top: { style: 'thin' },
           left: { style: 'thin' },
           bottom: { style: 'thin' },
         };
-      } else if ((value == 'B' || value == 'C' || value == 'D' || value == 'E') && row == `${notesRow}`) {
+      } else if ((value === 'B' || value === 'C' || value === 'D' || value === 'E') && row === `${notesRow}`) {
         ws.getCell(`${value}${row}`).border = {
           top: { style: 'thin' },
           bottom: { style: 'thin' },
@@ -613,7 +613,7 @@ export const ExportToExcel = async (data) => {
     ws.mergeCells(`A${value['_number']}:B${value['_number']}`);
     ws.mergeCells(`F${value['_number']}:G${value['_number']}`);
     ws.mergeCells(`I${value['_number']}:J${value['_number']}`);
-    if (value['_number'] != table2Row) {
+    if (value['_number'] !== table2Row) {
       const row25 = ws.getRow(value['_number']);
       row25.alignment = { horizontal: 'right' };
     }
@@ -628,7 +628,7 @@ export const ExportToExcel = async (data) => {
   const rows37 = ws.getRows(table3Row, calc.list ? calc.list?.length + 1 : 1);
   rows37.forEach((value) => {
     ws.mergeCells(`C${value['_number']}:D${value['_number']}`);
-    if (value['_number'] != table3Row) {
+    if (value['_number'] !== table3Row) {
       const row38 = ws.getRow(value['_number']);
       row38.alignment = { horizontal: 'right' };
     }
@@ -643,7 +643,7 @@ export const ExportToExcel = async (data) => {
       ws.mergeCells(`C${value['_number']}:D${value['_number']}`);
       ws.mergeCells(`F${value['_number']}:G${value['_number']}`);
       ws.mergeCells(`H${value['_number']}:J${value['_number']}`);
-      if (value['_number'] != table4row) {
+      if (value['_number'] !== table4row) {
         const row38 = ws.getRow(value['_number']);
         row38.alignment = { horizontal: 'right' };
       }
@@ -666,7 +666,7 @@ export const ExportToExcel = async (data) => {
     ws.mergeCells(`D${value['_number']}:E${value['_number']}`);
     ws.mergeCells(`F${value['_number']}:G${value['_number']}`);
     ws.mergeCells(`I${value['_number']}:J${value['_number']}`);
-    if (value['_number'] != table5Row) {
+    if (value['_number'] !== table5Row) {
       const row38 = ws.getRow(value['_number']);
       row38.alignment = { horizontal: 'right' };
     }
@@ -715,6 +715,6 @@ export const ExportToExcel = async (data) => {
   const blob = new Blob([buffer], {
     type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   });
-  await saveAs(blob, '对账单.xlsx');
+  await saveAs(blob, `${contracts.project?.name}-${calc.name}.xlsx`);
   await message.success('导出成功');
 };

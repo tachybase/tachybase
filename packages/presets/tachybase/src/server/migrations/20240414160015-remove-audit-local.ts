@@ -1,0 +1,13 @@
+import { Migration } from '@nocobase/server';
+
+export default class RemoveBuitInAuditLogsMigration extends Migration {
+  on = 'beforeLoad';
+  appVersion = '<0.21.7';
+  async up() {
+    await this.pm.repository.destroy({
+      filter: {
+        packageName: '@nocobase/plugin-audit-logs',
+      },
+    });
+  }
+}

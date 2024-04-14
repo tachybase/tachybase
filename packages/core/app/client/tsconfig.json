@@ -12,7 +12,8 @@
     "strict": true,
     "paths": {
       "@/*": ["src/*"],
-      "@@/*": ["src/.umi/*"]
+      "@@/*": ["src/.umi/*"],
+      "@nocobase/client": ["../../client/src"],
     },
     "allowSyntheticDefaultImports": true
   },

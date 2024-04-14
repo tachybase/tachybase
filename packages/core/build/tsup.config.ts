@@ -7,6 +7,7 @@ const entry = fg.globSync(['src/**', ...globExcludeFiles], { cwd: __dirname, abs
 
 export default defineConfig({
   entry,
+  tsconfig: path.join(__dirname, 'tsconfig.json'),
   outDir: path.join(__dirname, 'lib'),
   splitting: false,
   silent: true,
@@ -14,7 +15,7 @@ export default defineConfig({
   clean: true,
   bundle: false,
   loader: {
-    '.d.ts': 'copy'
+    '.d.ts': 'copy',
   },
   skipNodeModulesBundle: true,
 });

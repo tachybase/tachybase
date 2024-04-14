@@ -242,7 +242,10 @@ export const usePaginationVisible = () => {
 
 export const useSetFilterScopeVisible = () => {
   const fieldSchema = useFieldSchema();
-  return fieldSchema['x-component-props']?.useProps === '{{ useFilterBlockActionProps }}';
+  return (
+    fieldSchema['x-component-props']?.useProps === '{{ useFilterBlockActionProps }}' ||
+    fieldSchema['x-use-component-props'] === 'useFilterBlockActionProps'
+  );
 };
 
 export const EditTitle = () => {

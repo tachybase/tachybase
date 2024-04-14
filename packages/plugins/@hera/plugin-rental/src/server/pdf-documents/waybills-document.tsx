@@ -344,7 +344,7 @@ const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: an
               </View>
               <View style={{ ...styles.tableCell, flex: '2', paddingRight: '1px' }}>
                 <Text style={styles.textPadding}>
-                  {waybill.payer?.name} {waybill.payer?.company?.name}
+                  {waybill.payer?.company?.name} {waybill.payer?.name}
                 </Text>
               </View>
               <View style={styles.tableCell}>
