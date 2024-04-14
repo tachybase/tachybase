@@ -1,12 +1,7 @@
 {
-  "name": "@nocobase/preset-nocobase",
+  "name": "@tachybase/preset-tachybase",
   "version": "0.21.6",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nocobase/nocobase.git",
-    "directory": "packages/presets/nocobase"
-  },
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {
     "@nocobase/client": "workspace:*",
@@ -17,7 +12,6 @@
     "@nocobase/plugin-action-print": "workspace:*",
     "@nocobase/plugin-api-doc": "workspace:*",
     "@nocobase/plugin-api-keys": "workspace:*",
-    "@nocobase/plugin-audit-logs": "workspace:*",
     "@nocobase/plugin-auth": "workspace:*",
     "@nocobase/plugin-backup-restore": "workspace:*",
     "@nocobase/plugin-calendar": "workspace:*",
@@ -70,5 +64,7 @@
     "cronstrue": "^2.11.0",
     "lodash": "4.17.21"
   },
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+  "devDependencies": {
+    "@types/lodash": "^4.17.0"
+  }
 }

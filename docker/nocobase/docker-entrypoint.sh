@@ -11,7 +11,7 @@ if [ ! -f "/app/nocobase/package.json" ]; then
   touch /app/nocobase/node_modules/@nocobase/app/dist/client/index.html
 fi
 
-cd /app/nocobase && pnpm nocobase create-nginx-conf
+cd /app/nocobase && pnpm tachybase create-nginx-conf
 rm -rf /etc/nginx/sites-enabled/nocobase.conf
 ln -s /app/nocobase/storage/nocobase.conf /etc/nginx/sites-enabled/nocobase.conf
 

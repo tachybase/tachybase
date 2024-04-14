@@ -45,7 +45,6 @@ import { ApplicationVersion } from './helpers/application-version';
 import { Locale } from './locale';
 import { Plugin } from './plugin';
 import { InstallOptions, PluginManager } from './plugin-manager';
-import { createClient } from 'redis';
 import { nanoid } from 'nanoid';
 import _ from 'lodash';
 
@@ -183,11 +182,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   private _maintainingCommandStatus: MaintainingCommandStatus;
   private _maintainingStatusBeforeCommand: MaintainingCommandStatus | null;
   private _actionCommand: Command;
-  private redisClient = createClient({
-    url: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
-  });
-  private redisPubClient = this.redisClient.duplicate();
-  private redisSubClient = this.redisClient.duplicate();
   static KEY_CORE_APP_PREFIX = 'KEY_CORE_APP_';
   private currentId = nanoid();
 
@@ -196,20 +190,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this.context.reqId = randomUUID();
     this.rawOptions = this.name == 'main' ? lodash.cloneDeep(options) : {};
     this.init();
-
-    Promise.all([this.redisClient.connect(), this.redisPubClient.connect(), this.redisSubClient.connect()])
-      .then(() => {
-        console.log(`[APPLICATION] ${this.name} redis connected.`);
-        this.redisSubClient.SUBSCRIBE(Application.KEY_CORE_APP_PREFIX + this.name, async (data) => {
-          const payload = JSON.parse(data);
-          if (payload.id !== this.currentId) {
-            this.runAsCLI(payload.argv, payload.options, false);
-          }
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
 
     this._appSupervisor.addApp(this);
   }
@@ -603,7 +583,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   }
 
   protected createCLI() {
-    const command = new AppCommand('nocobase')
+    const command = new AppCommand('tachybase')
       .usage('[command] [options]')
       .hook('preAction', async (_, actionCommand) => {
         this._actionCommand = actionCommand;
@@ -715,26 +695,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   /**
    * @internal
    */
-  async runAsCLI(
-    argv = process.argv,
-    options?: ParseOptions & { throwError?: boolean; reqId?: string },
-    broadcast = true,
-  ) {
-    if (broadcast) {
-      if (_.first(argv) === 'pm' || _.first(argv) === 'restart') {
-        console.log('[broadcast]:', argv);
-        setTimeout(() => {
-          this.redisPubClient.PUBLISH(
-            Application.KEY_CORE_APP_PREFIX + this.name,
-            JSON.stringify({
-              id: this.currentId,
-              argv: ['restart'],
-              options: { from: 'user' },
-            }),
-          );
-        }, 2000);
-      }
-    }
+  async runAsCLI(argv = process.argv, options?: ParseOptions & { throwError?: boolean; reqId?: string }) {
     if (this.activatedCommand) {
       return;
     }
@@ -798,7 +759,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     if (options.checkInstall && !(await this.isInstalled())) {
       throw new ApplicationNotInstall(
-        `Application ${this.name} is not installed, Please run 'pnpm nocobase install' command first`,
+        `Application ${this.name} is not installed, Please run 'pnpm tachybase install' command first`,
       );
     }
 

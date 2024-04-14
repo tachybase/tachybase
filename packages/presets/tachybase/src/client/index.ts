@@ -13,7 +13,7 @@ function getBasename(app: Application) {
   return match ? match[0] : publicPath;
 }
 
-export class NocoBaseClientPresetPlugin extends Plugin {
+export class TachyBaseClientPresetPlugin extends Plugin {
   async afterAdd() {
     this.router.setType('browser');
     this.router.setBasename(getBasename(this.app));

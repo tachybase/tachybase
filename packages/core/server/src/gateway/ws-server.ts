@@ -5,7 +5,6 @@ import { IncomingMessage } from 'http';
 import { AppSupervisor } from '../app-supervisor';
 import { applyErrorWithArgs, getErrorWithCode } from './errors';
 import lodash from 'lodash';
-import { createClient } from 'redis';
 import { Logger } from '@nocobase/logger';
 
 declare class WebSocketWithId extends WebSocket {
@@ -28,31 +27,12 @@ function getPayloadByErrorCode(code, options) {
 export class WSServer {
   wss: WebSocket.Server;
   webSocketClients = new Map<string, WebSocketClient>();
-  private redisClient = createClient({
-    url: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
-  });
-  private redisPubClient = this.redisClient.duplicate();
-  private redisSubClient = this.redisClient.duplicate();
   static KEY_CORE_MESSAGE = 'KEY_CORE_MESSAGE';
   private currentId = nanoid();
   logger: Logger;
 
   constructor() {
     this.wss = new WebSocketServer({ noServer: true });
-
-    Promise.all([this.redisClient.connect(), this.redisPubClient.connect(), this.redisSubClient.connect()])
-      .then(() => {
-        console.log('[WSServer]: redis connected.');
-        this.redisSubClient.SUBSCRIBE(WSServer.KEY_CORE_MESSAGE, async (data) => {
-          const payload = JSON.parse(data);
-          if (payload.id !== this.currentId) {
-            this.sendToConnectionsByTag(payload.tagName, payload.tagValue, payload.sendMessage, false);
-          }
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
 
     this.wss.on('connection', (ws: WebSocketWithId, request: IncomingMessage) => {
       const client = this.addNewConnection(ws, request);
@@ -197,18 +177,7 @@ export class WSServer {
     client.ws.send(JSON.stringify(sendMessage));
   }
 
-  sendToConnectionsByTag(tagName: string, tagValue: string, sendMessage: object, broadcast = true) {
-    if (broadcast) {
-      this.redisPubClient.PUBLISH(
-        WSServer.KEY_CORE_MESSAGE,
-        JSON.stringify({
-          id: this.currentId,
-          tagName,
-          tagValue,
-          sendMessage,
-        }),
-      );
-    }
+  sendToConnectionsByTag(tagName: string, tagValue: string, sendMessage: object) {
     this.loopThroughConnections((client: WebSocketClient) => {
       if (client.tags.includes(`${tagName}#${tagValue}`)) {
         this.sendMessageToConnection(client, sendMessage);

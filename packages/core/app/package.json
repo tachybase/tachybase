@@ -12,8 +12,8 @@
   "types": "./lib/index.d.ts",
   "dependencies": {
     "@nocobase/database": "workspace:*",
-    "@nocobase/preset-nocobase": "workspace:*",
-    "@nocobase/server": "workspace:*"
+    "@nocobase/server": "workspace:*",
+    "@tachybase/preset-tachybase": "workspace:*"
   },
   "devDependencies": {
     "@nocobase/cache": "workspace:*",
