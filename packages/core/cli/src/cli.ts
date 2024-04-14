@@ -9,10 +9,11 @@ import semver from 'semver';
 const cli = new Command();
 
 cli.version((await import('../package.json')).version);
-await commands(cli);
 
 initEnv();
 genTsConfigPaths();
+
+await commands(cli);
 
 if (semver.satisfies(process.version, '<20')) {
   console.error(chalk.red('[tachybase cli]: Node.js version must be >= 20'));
