@@ -136,7 +136,7 @@ export class PluginManager {
    */
   static getPluginPkgPrefix() {
     return (
-      process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@nocobase/preset-,@nocobase/plugin-pro-,@hera/plugin-'
+      process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@tachybase/preset-,@nocobase/plugin-pro-,@hera/plugin-'
     ).split(',');
   }
 
@@ -629,7 +629,7 @@ export class PluginManager {
           }
         }),
       );
-      await execa('pnpm', ['nocobase', 'postinstall']);
+      await execa('pnpm', ['tachybase', 'postinstall']);
     };
     if (options?.force) {
       await this.repository.destroy({
@@ -671,7 +671,7 @@ export class PluginManager {
     if (options?.removeDir) {
       await removeDir();
     }
-    await execa('pnpm', ['nocobase', 'refresh']);
+    await execa('pnpm', ['tachybase', 'refresh']);
   }
 
   /**
@@ -737,7 +737,7 @@ export class PluginManager {
       await this.add(opts['name'] || urlOrName, opts, true);
     }
     await this.app.emitStartedEvent();
-    await execa('pnpm', ['nocobase', 'postinstall']);
+    await execa('pnpm', ['tachybase', 'postinstall']);
   }
 
   /**
@@ -821,7 +821,7 @@ export class PluginManager {
     if (process.env.IS_DEV_CMD) {
       await tsxRerunning();
     } else {
-      await execa('pnpm', ['nocobase', 'pm2-restart'], {
+      await execa('pnpm', ['tachybase', 'pm2-restart'], {
         env: process.env,
       });
     }

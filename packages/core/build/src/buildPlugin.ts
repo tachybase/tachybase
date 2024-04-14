@@ -124,7 +124,7 @@ const external = [
   'china-division',
 ];
 const pluginPrefix = (
-  process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@nocobase/preset-,@nocobase/plugin-pro-,@hera/plugin-'
+  process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@tachybase/preset-,@nocobase/plugin-pro-,@hera/plugin-'
 ).split(',');
 
 const target_dir = 'dist';

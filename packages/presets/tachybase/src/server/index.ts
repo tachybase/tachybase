@@ -1,20 +1,38 @@
 import { Plugin, PluginManager } from '@nocobase/server';
 import _ from 'lodash';
 
-export class PresetNocoBase extends Plugin {
+export class PresetTachyBase extends Plugin {
   builtInPlugins = [
+    // required plugins
     'data-source-manager',
     'error-handler',
     'collection-manager',
     'ui-schema-storage',
-    // 'ui-routes-storage',
     'file-manager',
     'system-settings',
-    'sequence-field',
+    'client',
+    'auth',
     'verification',
     'users',
     'acl',
+    // optional plugins, default enabled
+    'action-bulk-edit',
+    'action-bulk-update',
+    'action-duplicate',
+    'action-print',
+    'backup-restore',
+    'calendar',
     'china-region',
+    'custom-request',
+    'data-visualization',
+    'export',
+    'formula-field',
+    'gantt',
+    'iframe-block',
+    'import',
+    'kanban',
+    'logger',
+    'sequence-field',
     'workflow',
     'workflow-action-trigger',
     'workflow-aggregate',
@@ -25,41 +43,24 @@ export class PresetNocoBase extends Plugin {
     'workflow-parallel',
     'workflow-request',
     'workflow-sql',
-    'client',
-    'export',
-    'import',
-    'backup-restore',
-    'iframe-block',
-    'formula-field',
-    'data-visualization',
-    'auth',
-    'logger',
-    'custom-request',
-    'calendar',
-    'action-bulk-update',
-    'action-bulk-edit',
-    'gantt',
-    'kanban',
-    'action-duplicate',
-    'action-print',
   ];
 
   localPlugins = [
-    'multi-app-manager>=0.7.0-alpha.1',
-    'audit-logs>=0.7.1-alpha.4',
-    'map>=0.8.1-alpha.3',
-    'saml>=0.8.1-alpha.3',
-    'snapshot-field>=0.8.1-alpha.3',
+    // optional plugins, default disabled
+    'api-doc>=0.13.0-alpha.1',
+    'api-keys>=0.10.1-alpha.1',
+    'cas>=0.13.0-alpha.5',
     'graph-collection-manager>=0.9.0-alpha.1',
+    'localization-management>=0.11.1-alpha.1',
+    'map>=0.8.1-alpha.3',
+    'mobile-client>=0.10.0-alpha.2',
+    'multi-app-manager>=0.7.0-alpha.1',
     'multi-app-share-collection>=0.9.2-alpha.1',
     'oidc>=0.9.2-alpha.1',
-    'mobile-client>=0.10.0-alpha.2',
-    'api-keys>=0.10.1-alpha.1',
-    'localization-management>=0.11.1-alpha.1',
-    'theme-editor>=0.11.1-alpha.1',
-    'api-doc>=0.13.0-alpha.1',
-    'cas>=0.13.0-alpha.5',
+    'saml>=0.8.1-alpha.3',
     'sms-auth>=0.10.0-alpha.2',
+    'snapshot-field>=0.8.1-alpha.3',
+    'theme-editor>=0.11.1-alpha.1',
   ];
 
   splitNames(name: string) {
@@ -183,4 +184,4 @@ export class PresetNocoBase extends Plugin {
   }
 }
 
-export default PresetNocoBase;
+export default PresetTachyBase;

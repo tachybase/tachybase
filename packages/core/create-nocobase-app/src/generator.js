@@ -134,7 +134,6 @@ class AppGenerator extends Generator {
         APP_ENV: 'development',
         DB_DIALECT: dbDialect,
         APP_KEY: crypto.randomBytes(256).toString('base64'),
-        // PLUGIN_PACKAGE_PREFIX: `@nocobase/plugin-,@nocobase/preset-,@${this.context.name}/plugin-`,
         ...env,
       },
     };
@@ -184,7 +183,7 @@ class AppGenerator extends Generator {
     console.log('');
     console.log(chalk.green(`$ cd ${name}`));
     console.log(chalk.green(`$ pnpm install`));
-    console.log(chalk.green(`$ pnpm nocobase install`));
+    console.log(chalk.green(`$ pnpm tachybase install`));
     console.log(chalk.green(`$ pnpm dev`));
     console.log('');
   }

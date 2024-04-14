@@ -37,7 +37,7 @@ export class AppCommand extends Command {
     //@ts-ignore
     const userArgs = this._prepareUserArgs(argv, parseOptions);
 
-    if (userArgs[0] === 'nocobase') {
+    if (userArgs[0] === 'tachybase') {
       userArgs.shift();
     }
 

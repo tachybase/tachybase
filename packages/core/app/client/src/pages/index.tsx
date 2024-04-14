@@ -1,5 +1,5 @@
 import { Application } from '@nocobase/client';
-import { NocoBaseClientPresetPlugin } from '@nocobase/preset-nocobase/client';
+import { TachyBaseClientPresetPlugin } from '@tachybase/preset-tachybase/client';
 import devDynamicImport from '../.plugins/index';
 
 export const app = new Application({
@@ -9,7 +9,7 @@ export const app = new Application({
   },
   // @ts-ignore
   publicPath: window['__nocobase_public_path__'] || process.env.APP_PUBLIC_PATH || '/',
-  plugins: [NocoBaseClientPresetPlugin],
+  plugins: [TachyBaseClientPresetPlugin],
   ws: {
     // @ts-ignore
     url: window['__nocobase_ws_url__'] || process.env.WEBSOCKET_URL || '',
