@@ -30,6 +30,7 @@ import {
   CustomFieldInterface,
   CustomAssociatedFieldInterface,
   SignaturePadFieldInterface,
+  ExcelFieldInterface,
 } from './interfaces';
 import {
   AssociatedField,
@@ -41,6 +42,7 @@ import {
   customComponentDispatcherSettings,
   Expression,
   SignatureInput,
+  ExcelFile,
 } from './components';
 import { AutoComplete, InternalPDFViewer } from './schema-components';
 import {
@@ -192,6 +194,7 @@ export class PluginCoreClient extends Plugin {
       SheetBlockProvider,
       SheetBlockToolbar,
       SignatureInput,
+      ExcelFile,
     });
   }
 
@@ -274,6 +277,7 @@ export class PluginCoreClient extends Plugin {
       CustomFieldInterface,
       CustomAssociatedFieldInterface,
       SignaturePadFieldInterface,
+      ExcelFieldInterface,
     ]);
   }
 

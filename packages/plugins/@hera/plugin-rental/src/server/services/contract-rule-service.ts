@@ -76,9 +76,16 @@ export class ContractRuleService {
       appends: ['lease_items', 'lease_items.products'],
     });
     const add = options.values.products;
-    const productData = plan.lease_items.filter(item => item.id !== options.values.id && item.products.length === add.length).map((item) => item.products).flat()
+    const productData = plan.lease_items
+      .filter((item) => item.id !== options.values.id && item.products.length === add.length)
+      .map((item) => item.products)
+      .flat();
     productData.forEach((item) => {
-      const isHas = add.find((p) => (p.id < 99999 && (p.id === item.id || (item.id > 99999 && p.raw_category_id === item.raw_category_id))) || (p.id > 99999 && p.raw_category_id === item.raw_category_id));
+      const isHas = add.find(
+        (p) =>
+          (p.id < 99999 && (p.id === item.id || (item.id > 99999 && p.raw_category_id === item.raw_category_id))) ||
+          (p.id > 99999 && p.raw_category_id === item.raw_category_id),
+      );
       if (isHas) {
         throw new Error('方案中存在此产品');
       }

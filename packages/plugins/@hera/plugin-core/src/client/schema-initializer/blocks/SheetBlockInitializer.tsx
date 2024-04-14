@@ -13,7 +13,7 @@ import {
 import React, { createContext, useRef } from 'react';
 import { uid } from '@nocobase/utils/client';
 import { Button, Spin } from 'antd';
-import Sheet, { SheetRef } from '../../components/Sheet';
+import Sheet, { SheetRef } from '../../components/excel-table/Sheet';
 
 export const SheetBlockContext = createContext<any>({});
 
