@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-ui-schema-storage",
   "displayName": "UI schema storage",
-  "version": "0.21.6",
+  "version": "0.21.7",
   "description": "Provides centralized UI schema storage service.",
   "keywords": [
     "System & security"
