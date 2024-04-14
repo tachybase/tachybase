@@ -43,6 +43,9 @@ export class PresetTachyBase extends Plugin {
     'workflow-parallel',
     'workflow-request',
     'workflow-sql',
+    // hera
+    'audit-logs',
+    'approval',
   ];
 
   localPlugins = [
