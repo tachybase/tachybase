@@ -1,9 +1,9 @@
-import { h, Element } from './element';
+import { h, HComponent } from './element';
 import { cssPrefix } from '../config';
 
 export default class Scrollbar {
-  private el: Element;
-  private contentEl: Element;
+  private el: HComponent;
+  private contentEl: HComponent;
   private _moveFn: (type: string, handler: (e: Event) => void) => void;
   constructor(private vertical: 'vertical' | 'horizontal') {
     this._moveFn = null;

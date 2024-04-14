@@ -2,7 +2,7 @@
 import { h } from './element';
 import { cssPrefix } from '../config';
 import Button from './button';
-import { Draw } from '../canvas/draw';
+import { Draw } from '../canvas';
 import { renderCell } from './table';
 import { t } from '../locale/locale';
 
@@ -16,7 +16,7 @@ const PAGER_SIZES = [
   ['A3', 11.69, 16.54],
   ['A4', 8.27, 11.69],
   ['A5', 5.83, 8.27],
-  ['B4', 9.84, 13.90],
+  ['B4', 9.84, 13.9],
   ['B5', 6.93, 9.84],
 ];
 
@@ -68,37 +68,46 @@ export default class Print {
     this.data = data;
     this.el = h('div', `${cssPrefix}-print`)
       .children(
-        h('div', `${cssPrefix}-print-bar`)
-          .children(
-            h('div', '-title').child('Print settings'),
-            h('div', '-right').children(
-              h('div', `${cssPrefix}-buttons`).children(
-                new Button('cancel').on('click', btnClick.bind(this, 'cancel')),
-                new Button('next', 'primary').on('click', btnClick.bind(this, 'next')),
+        h('div', `${cssPrefix}-print-bar`).children(
+          h('div', '-title').child('Print settings'),
+          h('div', '-right').children(
+            h('div', `${cssPrefix}-buttons`).children(
+              new Button('cancel').on('click', btnClick.bind(this, 'cancel')),
+              new Button('next', 'primary').on('click', btnClick.bind(this, 'next')),
+            ),
+          ),
+        ),
+        h('div', `${cssPrefix}-print-content`).children(
+          (this.contentEl = h('div', '-content')),
+          h('div', '-sider').child(
+            h('form', '').children(
+              h('fieldset', '').children(
+                h('label', '').child(`${t('print.size')}`),
+                h('select', '')
+                  .children(
+                    ...PAGER_SIZES.map((it, index) =>
+                      h('option', '').attr('value', index).child(`${it[0]} ( ${it[1]}''x${it[2]}'' )`),
+                    ),
+                  )
+                  .on('change', pagerSizeChange.bind(this)),
+              ),
+              h('fieldset', '').children(
+                h('label', '').child(`${t('print.orientation')}`),
+                h('select', '')
+                  .children(
+                    ...PAGER_ORIENTATIONS.map((it, index) =>
+                      h('option', '')
+                        .attr('value', index)
+                        .child(`${t('print.orientations')[index]}`),
+                    ),
+                  )
+                  .on('change', pagerOrientationChange.bind(this)),
               ),
             ),
           ),
-        h('div', `${cssPrefix}-print-content`)
-          .children(
-            this.contentEl = h('div', '-content'),
-            h('div', '-sider').child(
-              h('form', '').children(
-                h('fieldset', '').children(
-                  h('label', '').child(`${t('print.size')}`),
-                  h('select', '').children(
-                    ...PAGER_SIZES.map((it, index) => h('option', '').attr('value', index).child(`${it[0]} ( ${it[1]}''x${it[2]}'' )`)),
-                  ).on('change', pagerSizeChange.bind(this)),
-                ),
-                h('fieldset', '').children(
-                  h('label', '').child(`${t('print.orientation')}`),
-                  h('select', '').children(
-                    ...PAGER_ORIENTATIONS.map((it, index) => h('option', '').attr('value', index).child(`${t('print.orientations')[index]}`)),
-                  ).on('change', pagerOrientationChange.bind(this)),
-                ),
-              ),
-            ),
-          ),
-      ).hide();
+        ),
+      )
+      .hide();
   }
 
   resetData(data) {

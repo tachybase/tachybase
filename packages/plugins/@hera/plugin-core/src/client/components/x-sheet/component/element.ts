@@ -1,5 +1,6 @@
+import _ from 'lodash';
 class Element {
-  private el: HTMLElement;
+  el: HTMLElement;
   private _data: Record<string, any>;
   constructor(tag: HTMLElement | string, className = '') {
     if (typeof tag === 'string') {
@@ -23,7 +24,7 @@ class Element {
     const [fen, ...oen] = eventNames.split('.');
     const eventName = fen;
     this.el.addEventListener(eventName, (evt) => {
-      console.log('excel debug', eventName, eventNames, oen, evt);
+      // console.log('excel debug', eventName, eventNames, oen, evt);
       handler(evt);
       for (let i = 0; i < oen.length; i += 1) {
         const k = oen[i];
@@ -58,7 +59,7 @@ class Element {
     };
   }
 
-  scroll(v?) {
+  scroll = _.throttle((v?) => {
     const { el } = this;
     if (v !== undefined) {
       if (v.left !== undefined) {
@@ -69,7 +70,7 @@ class Element {
       }
     }
     return { left: el.scrollLeft, top: el.scrollTop };
-  }
+  }, 10);
 
   box() {
     return this.el.getBoundingClientRect();
@@ -240,4 +241,4 @@ class Element {
 
 const h = (tag, className = '') => new Element(tag, className);
 
-export { Element, h };
+export { Element as HComponent, h };
