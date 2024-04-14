@@ -1495,21 +1495,6 @@ importers:
         specifier: ^8.13.0
         version: 8.15.1
 
-  packages/plugins/@hera/plugin-gas-station:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-
   packages/plugins/@hera/plugin-mobile:
     dependencies:
       '@nocobase/client':
@@ -1552,22 +1537,6 @@ importers:
       react-i18next:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@hera/plugin-oidc:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@koa/router':
-        specifier: ^9.4.0
-        version: 9.4.0
 
   packages/plugins/@hera/plugin-rental:
     dependencies:
@@ -1641,31 +1610,6 @@ importers:
       sequelize:
         specifier: ^6.26.0
         version: 6.35.2
-
-  packages/plugins/@hera/plugin-websocket:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ^5.3.6
-        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@formily/antd-v5':
-        specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.24)(@types/react@18.2.75)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      react-use-websocket:
-        specifier: ^4.8.1
-        version: 4.8.1(react-dom@18.2.0)(react@18.2.0)
 
   packages/plugins/@nocobase/plugin-acl:
     dependencies:
@@ -9401,6 +9345,7 @@ packages:
       path-to-regexp: 6.2.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@ljharb/resumer@0.0.1:
     resolution: {integrity: sha512-skQiAOrCfO7vRTq53cxznMpks7wS1va95UCidALlOVWqvBAzwPVErwizDwoMqNVMEn1mDq0utxZd02eIrvF1lw==}
@@ -25988,16 +25933,6 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-
-  /react-use-websocket@4.8.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-FTXuG5O+LFozmu1BRfrzl7UIQngECvGJmL7BHsK4TYXuVt+mCizVA8lT0hGSIF0Z0TedF7bOo1nRzOUdginhDw==}
-    peerDependencies:
-      react: '>= 18.0.0'
-      react-dom: '>= 18.0.0'
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: true
 
   /react@18.1.0:
     resolution: {integrity: sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ==}
