@@ -1,10 +1,8 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "lib": ["esnext", "DOM.Iterable", "DOM"],
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "outDir": "temp",
     "jsx": "react",
     "target": "esnext",
     "module": "esnext",
@@ -18,22 +16,7 @@
     "resolveJsonModule": true,
     "declaration": true,
     "experimentalDecorators": true,
-    "downlevelIteration": true,
-    "baseUrl": "."
+    "downlevelIteration": true
   },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  },
-  "include": ["packages/**/*", "playwright.config.ts", "vitest.config.mts"],
-  "exclude": [
-    "packages/**/node_modules",
-    "packages/**/dist",
-    "packages/**/public",
-    "packages/core/build/bin",
-    "packages/core/cli/**/*",
-    "packages/**/lib",
-    "packages/**/es"
-  ]
+  "exclude": ["bin", "node_modules", "lib"]
 }
