@@ -1,9 +1,11 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "0.21.7",
+  "version": "0.21.11",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {
+    "@hera/plugin-approval": "workspace:*",
+    "@hera/plugin-audit-logs": "workspace:*",
     "@nocobase/client": "workspace:*",
     "@nocobase/plugin-acl": "workspace:*",
     "@nocobase/plugin-action-bulk-edit": "workspace:*",

@@ -5,16 +5,17 @@
     "node": ">=18"
   },
   "scripts": {
-    "nocobase": "nocobase",
-    "pm": "nocobase pm",
-    "dev": "nocobase dev",
-    "start": "nocobase start",
-    "clean": "nocobase clean",
-    "build": "nocobase build",
-    "test": "nocobase test",
-    "e2e": "nocobase e2e",
-    "tar": "nocobase tar",
-    "postinstall": "nocobase postinstall",
+    "tachybase": "tachybase",
+    "tb": "tachybase",
+    "pm": "tachybase pm",
+    "dev": "tachybase dev",
+    "start": "tachybase start",
+    "clean": "tachybase clean",
+    "build": "tachybase build",
+    "test": "tachybase test",
+    "e2e": "tachybase e2e",
+    "tar": "tachybase tar",
+    "postinstall": "tachybase postinstall",
     "lint": "eslint ."
   },
   "resolutions": {
@@ -25,7 +26,7 @@
     "pm2": "^5.2.0",
     "@tachybase/preset-tachybase": "{{{version}}}",
     "@nocobase/build": "{{{version}}}",
-    "@tachycode/cli": "{{{version}}}",
+    "@tachybase/cli": "{{{version}}}",
     {{{dependencies}}}
   },
   "devDependencies": {

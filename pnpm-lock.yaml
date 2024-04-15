@@ -315,6 +315,9 @@ importers:
       '@umijs/utils':
         specifier: 3.5.20
         version: 3.5.20
+      axios:
+        specifier: ^1.6.8
+        version: 1.6.8
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -591,7 +594,7 @@ importers:
         specifier: ^1.20.0
         version: 1.22.0(axios@1.6.7)
 
-  packages/core/create-nocobase-app:
+  packages/core/create-tachybase-app:
     dependencies:
       '@umijs/utils':
         specifier: 3.5.20
@@ -4230,6 +4233,12 @@ importers:
 
   packages/presets/tachybase:
     dependencies:
+      '@hera/plugin-approval':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-approval
+      '@hera/plugin-audit-logs':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-audit-logs
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../core/client
@@ -14304,6 +14313,16 @@ packages:
     transitivePeerDependencies:
       - debug
 
+  /axios@1.6.8:
+    resolution: {integrity: sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==}
+    dependencies:
+      follow-redirects: 1.15.6
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /b4a@1.6.4:
     resolution: {integrity: sha512-fpWrvyVHEKyeEvbKZTVOeZF3VSKKWtJxFIxX/jaVPf+cLbGUSitjb49pHLqPV2BUNNZ0LcoeEGfE/YCpyDYHIw==}
     dev: true
@@ -18698,6 +18717,16 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4(supports-color@5.5.0)
+
+  /follow-redirects@1.15.6:
+    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
 
   /fontkit@2.0.2:
     resolution: {integrity: sha512-jc4k5Yr8iov8QfS6u8w2CnHWVmbOGtdBtOXMze5Y+QD966Rx6PEVWXSEGwXlsDlKtu1G12cJjcsybnqhSk/+LA==}

@@ -1,6 +1,9 @@
 import { resolve } from 'path';
 import { Command } from 'commander';
 import { readFileSync, writeFileSync } from 'fs';
+import { URL } from 'url';
+
+const __dirname = new URL('.', import.meta.url).pathname;
 
 export default (cli: Command) => {
   cli.command('create-nginx-conf').action(async (name, options) => {
