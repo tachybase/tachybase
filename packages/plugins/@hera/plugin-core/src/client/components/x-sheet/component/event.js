@@ -91,16 +91,12 @@ export function createEventEmitter() {
   function on(eventName, callback) {
     const push = () => {
       const currentListener = listeners.get(eventName);
-      return (Array.isArray(currentListener)
-          && currentListener.push(callback))
-          || false;
+      return (Array.isArray(currentListener) && currentListener.push(callback)) || false;
     };
 
     const create = () => listeners.set(eventName, [].concat(callback));
 
-    return (listeners.has(eventName)
-        && push())
-        || create();
+    return (listeners.has(eventName) && push()) || create();
   }
 
   function fire(eventName, args) {
@@ -109,22 +105,22 @@ export function createEventEmitter() {
       for (const callback of currentListener) callback.call(null, ...args);
     };
 
-    return listeners.has(eventName)
-        && exec();
+    return listeners.has(eventName) && exec();
   }
 
   function removeListener(eventName, callback) {
     const remove = () => {
       const currentListener = listeners.get(eventName);
       const idx = currentListener.indexOf(callback);
-      return (idx >= 0)
-          && currentListener.splice(idx, 1)
-          && listeners.get(eventName).length === 0
-          && listeners.delete(eventName);
+      return (
+        idx >= 0 &&
+        currentListener.splice(idx, 1) &&
+        listeners.get(eventName).length === 0 &&
+        listeners.delete(eventName)
+      );
     };
 
-    return listeners.has(eventName)
-        && remove();
+    return listeners.has(eventName) && remove();
   }
 
   function once(eventName, callback) {

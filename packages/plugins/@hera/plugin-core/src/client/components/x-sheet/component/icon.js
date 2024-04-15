@@ -1,7 +1,7 @@
-import { Element, h } from './element';
+import { HComponent, h } from './element';
 import { cssPrefix } from '../config';
 
-export default class Icon extends Element {
+export default class Icon extends HComponent {
   constructor(name) {
     super('div', `${cssPrefix}-icon`);
     this.iconNameEl = h('div', `${cssPrefix}-icon-img ${name}`);
