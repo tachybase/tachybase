@@ -4230,6 +4230,12 @@ importers:
 
   packages/presets/tachybase:
     dependencies:
+      '@hera/plugin-approval':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-approval
+      '@hera/plugin-audit-logs':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-audit-logs
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../core/client
