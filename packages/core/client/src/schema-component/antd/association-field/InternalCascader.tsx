@@ -1,17 +1,24 @@
 import { ArrayItems, FormItem } from '@formily/antd-v5';
-import { createForm, onFormValuesChange } from '@nocobase/schema';
-import { FormProvider, connect, createSchemaField, observer, useField, useFieldSchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
-import { Input, Space, Spin, Tag } from 'antd';
-import dayjs from 'dayjs';
+import {
+  FormProvider,
+  connect,
+  createForm,
+  createSchemaField,
+  observer,
+  onFormValuesChange,
+  uid,
+  useField,
+  useFieldSchema,
+} from '@nocobase/schema';
+import { fuzzysearch } from '@nocobase/utils/client';
+import { Input, Space } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { css, useAPIClient, useCollectionManager_deprecated } from '../../..';
+import { CustomCascader, SchemaComponent } from '../..';
+import { css, useAPIClient } from '../../..';
 import { mergeFilter } from '../../../filter-provider/utils';
-import { CustomCascader, SchemaComponent, useCompile, useDesignable } from '../..';
-import useServiceOptions, { useAssociationFieldContext } from './hooks';
+import { useAssociationFieldContext } from './hooks';
 
-const EMPTY = 'N/A';
 const SchemaField = createSchemaField({
   components: {
     Space,
@@ -111,7 +118,9 @@ const Cascade = connect((props) => {
       setOptions(result);
     }
   };
-  const filter = (inputValue: string, path) => path.some((option) => (option.label as string).includes(inputValue));
+
+  const filter = (inputValue: string, path) =>
+    path.some((option) => fuzzysearch(inputValue, (option.label as string) ?? ''));
   return (
     <Space
       wrap
