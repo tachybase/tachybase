@@ -210,19 +210,23 @@ export function RuleConfigForm() {
       type="link"
       onClick={() => {
         // fix https://nocobase.height.app/T-2868
-        FormDrawer({ title: compile(ruleType.title), zIndex: token.zIndexPopupBase + 1000 }, () => {
-          return (
-            <FormLayout layout="vertical">
-              <SchemaComponentOptions scope={schemaOptions.scope} components={schemaOptions.components}>
-                <SchemaComponent
-                  schema={{
-                    type: 'object',
-                    'x-component': 'fieldset',
-                    properties: ruleType.fieldset,
-                  }}
-                />
-              </SchemaComponentOptions>
-              <FormDrawer.Footer>
+        FormDrawer(
+          {
+            title: compile(ruleType.title),
+            zIndex: token.zIndexPopupBase + 1000,
+          },
+          () => {
+            return (
+              <FormLayout layout="vertical">
+                <SchemaComponentOptions scope={schemaOptions.scope} components={schemaOptions.components}>
+                  <SchemaComponent
+                    schema={{
+                      type: 'object',
+                      'x-component': 'fieldset',
+                      properties: ruleType.fieldset,
+                    }}
+                  />
+                </SchemaComponentOptions>
                 <FormButtonGroup
                   className={css`
                     justify-content: flex-end;
@@ -236,10 +240,10 @@ export function RuleConfigForm() {
                     {t('Submit')}
                   </Submit>
                 </FormButtonGroup>
-              </FormDrawer.Footer>
-            </FormLayout>
-          );
-        })
+              </FormLayout>
+            );
+          },
+        )
           .open({
             initialValues: options,
           })
