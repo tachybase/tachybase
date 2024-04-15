@@ -82,9 +82,10 @@ export class SettlementService {
                             !countRule.find((productRule) => productRule.product_id === rule.products[0].product_id);
                         }
                         if (isCount) {
-                          const productName = item.record_items.filter(
+                          const product = item.record_items.filter(
                             (value) => value.product.product_category.id === recordItem.product_category_id,
-                          )[0].product;
+                          )[0];
+                          const productName = product.product;
                           const day =
                             dayjsDays(item.date) < dayjsDays(settlementAbout.start_date)
                               ? getCalcDays(settlementAbout.start_date, settlementAbout.end_date)
@@ -105,6 +106,7 @@ export class SettlementService {
                             //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                             days: day,
                             is_excluded: false,
+                            item_count: product.count,
                             count: recordItem.weight * Number(movement),
                             unit_price: rule.unit_price * 1000,
                             amount: recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
@@ -148,12 +150,13 @@ export class SettlementService {
                         settlement_id: settlementsId, //合同ID
                         movement: item.movement, //出入库状态
                         date: item.date, //时间
-                        name: productLength > 1 ? rule.comment ?? '' : recordItem?.product.name, //名称
-                        label: productLength > 1 ? rule.comment ?? '' : recordItem?.product.name, //规格
+                        name: productLength > 1 ? rule.comment ?? '' : recordItem.product.name, //名称
+                        label: productLength > 1 ? rule.comment ?? '' : recordItem.product.name, //规格
                         category: item.category, //费用类别
                         //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                         days: day,
                         is_excluded: false,
+                        item_count: recordItem.count * Number(movement),
                         count: item.weight * Number(movement),
                         unit_price: rule.unit_price * 1000,
                         amount: item.weight * (rule.unit_price * 1000) * day * Number(movement),
@@ -198,6 +201,7 @@ export class SettlementService {
                         const { count, unit } = ruleCount(rule, item, recordItem);
                         data['unit_name'] = unit;
                         data['count'] = count * Number(movement);
+                        data['item_count'] = recordItem.count * Number(movement);
                         data['unit_price'] = price;
                         data['amount'] = data['count'] * price * (data.days || 0);
                         createLeasDatas.push(data);
@@ -284,6 +288,7 @@ export class SettlementService {
                                               label: recordItem.product.label + '-' + spec,
                                               category: name,
                                               movement: item.movement,
+                                              item_count: value.count,
                                               count: count,
                                               unit_price: rulefee.unit_price,
                                               amount: rulefee.unit_price * count,
@@ -310,6 +315,7 @@ export class SettlementService {
                                         label: recordItem.product.label + '-' + spec,
                                         category: name,
                                         movement: '-1',
+                                        item_count: recordItem.count,
                                         count: recordCount,
                                         unit_price: rulefee.unit_price,
                                         amount: count * rulefee.unit_price,
@@ -334,6 +340,7 @@ export class SettlementService {
                                         category: name,
                                         movement: '1',
                                         count: recordCount,
+                                        item_count: recordItem.count,
                                         unit_price: rulefee.unit_price,
                                         amount: count * rulefee.unit_price,
                                         unit_name: unit,
@@ -356,6 +363,7 @@ export class SettlementService {
                                       category: name,
                                       movement: '0',
                                       count: recordCount,
+                                      item_count: recordItem.count,
                                       unit_price: rule.unit_price,
                                       amount: count * rule.unit_price,
                                       unit_name: unit,
@@ -390,6 +398,7 @@ export class SettlementService {
             category: name,
             movement: '0',
             count: 0,
+            item_count: 0,
             unit_price: rule.unit_price,
             amount: 0,
             unit_name: rule.unit,
@@ -411,6 +420,7 @@ export class SettlementService {
                           }, 0)
                         : 0
                       : item.weight;
+
                     if (item.fee_item.length) {
                       item.fee_item.forEach((value) => {
                         if (value.product_id === rule.fee_product_id) {
@@ -586,6 +596,7 @@ export class SettlementService {
             ) {
               data.count = data.count / 1000;
             }
+            data.item_count = data.count;
             data.amount = data.count * data.unit_price;
             createFeesDatas.push(data);
           }
@@ -622,6 +633,7 @@ export class SettlementService {
           summaryCategoryItems.push({
             settlement_id: settlementsId,
             name: item.name,
+            item_count: item.item_count,
             count: item.count,
             unit_name: item.unit_name,
             type: 'category',
@@ -630,6 +642,7 @@ export class SettlementService {
           summaryCategoryItems.forEach((value) => {
             if (value.name === item.name) {
               value.count += item.count;
+              value.item_count += item.item_count;
             }
           });
         }
@@ -644,12 +657,14 @@ export class SettlementService {
             name: item.name,
             count: item.count,
             unit_name: item.unit_name,
+            item_count: item.item_count,
             type: 'product',
           });
         } else {
           summaryProductItems.forEach((value) => {
             if (value.name === item.name) {
               value.count += item.count;
+              value.item_count += item.item_count;
             }
           });
         }
@@ -833,9 +848,10 @@ const recordWeight = (rule, item, settlementsId, productRule, rulefee?) => {
           productRule.product_id - RulesNumber === weightItem.product_category_id) ||
         productRule.product_id === weightItem.product_category_id,
     )[0];
-    const productsName = item.record_items?.filter(
+    const product = item.record_items?.filter(
       (value) => value.product.category_id === itemWeight.product_category_id,
-    )[0].product;
+    )[0];
+    const productsName = product.product;
     const productName = productCategory === 'category' ? productsName.name : productsName.label;
     return {
       settlement_id: settlementsId,
@@ -846,6 +862,7 @@ const recordWeight = (rule, item, settlementsId, productRule, rulefee?) => {
       movement: item.movement,
       count: itemWeight.weight,
       unit_price: rulefee.unit_price,
+      item_count: product.count,
       amount: itemWeight.weight * rulefee.unit_price,
       unit_name: '吨',
       is_excluded: false,
@@ -875,6 +892,7 @@ const recordWeight = (rule, item, settlementsId, productRule, rulefee?) => {
         label: productName + '-' + spec,
         category: name,
         movement: item.movement,
+        item_count: isRecordItem.count,
         count: count,
         unit_price: rulefee.unit_price,
         amount: item.weight * rulefee.unit_price,
@@ -1028,6 +1046,7 @@ const feeData = (data, settlementAbout: Settlement, type) => {
           count: value.count,
           days: 0,
           name: name,
+          item_count: value.item_count,
           unit_name: value.unit_name,
           unit_price: value.unit_price,
           is_excluded: value.is_excluded,
@@ -1036,6 +1055,7 @@ const feeData = (data, settlementAbout: Settlement, type) => {
       } else {
         feeItem[listKey].count = feeItem[listKey].count + value.count;
         feeItem[listKey].amount = feeItem[listKey].amount + value.amount;
+        feeItem[listKey].item_count = feeItem[listKey].item_count + value.item_count;
         feeItem[listKey].unit_price = isNaN(feeItem[listKey].amount / feeItem[listKey].count)
           ? 0
           : feeItem[listKey].amount / feeItem[listKey].count;
@@ -1109,6 +1129,7 @@ const screenData = (data, settlementAbout, type) => {
           name: name,
           unit_name: value.unit_name,
           unit_price: value.unit_price,
+          item_count: value.item_count,
           is_excluded: value.is_excluded,
           type: type,
         };
@@ -1117,6 +1138,7 @@ const screenData = (data, settlementAbout, type) => {
         history[historyKey].amount = formatNumber(history[historyKey].amount) + formatNumber(value.amount);
         history[historyKey].unit_price =
           history[historyKey].amount / history[historyKey].count / history[historyKey].days;
+        history[historyKey].item_count = formatNumber(history[historyKey].item_count) + formatNumber(value.item_count);
       }
     } else {
       if (!list[listKey]) {
@@ -1130,6 +1152,7 @@ const screenData = (data, settlementAbout, type) => {
           days: value.days,
           name: name,
           unit_name: value.unit_name,
+          item_count: value.item_count,
           unit_price: value.unit_price,
           is_excluded: value.is_excluded,
           type: type,
@@ -1140,6 +1163,7 @@ const screenData = (data, settlementAbout, type) => {
         list[listKey].unit_price = isNaN(list[listKey].amount / list[listKey].count / list[listKey].days)
           ? 0
           : list[listKey].amount / list[listKey].count / list[listKey].days;
+        list[listKey].item_count = formatNumber(list[listKey].item_count) + formatNumber(value.item_count);
       }
     }
   });

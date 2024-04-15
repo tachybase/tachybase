@@ -180,16 +180,16 @@ export const excelDataHandle = (excelData) => {
         key: 'name',
       },
       {
+        name: '订单数量',
+        key: 'name',
+      },
+      {
         name: '出入库数量',
         key: 'name',
       },
       {
         name: '租赁单价',
         key: 'name',
-      },
-      {
-        name: ' ',
-        key: ' ',
       },
       {
         name: '天日',
@@ -213,9 +213,9 @@ export const excelDataHandle = (excelData) => {
       '',
       category,
       value.unit_name,
+      parseFloat(value.item_count?.toFixed(2) || 0),
       parseFloat(value.count.toFixed(2)),
       parseFloat(value.unit_price.toFixed(5)),
-      '',
       value.days,
       parseFloat(value.amount.toFixed(2)),
       '',
@@ -249,15 +249,15 @@ export const excelDataHandle = (excelData) => {
         key: 'name',
       },
       {
-        name: ' ',
-        key: ' ',
-      },
-      {
         name: '费用类别',
         key: 'name',
       },
       {
         name: '单位',
+        key: 'name',
+      },
+      {
+        name: '订单数量',
         key: 'name',
       },
       {
@@ -284,11 +284,11 @@ export const excelDataHandle = (excelData) => {
     if (!value.is_excluded) {
       table3.rows.push([
         converDate(value.date, 'YYYY-MM-DD'),
-        value.movement === -1 ? '出库' : value.movement === 1 ? '入库' : '出入库',
+        value.movement === '-1' ? '出库' : value.movement === '1' ? '入库' : '出入库',
         value.name,
-        '',
         category,
         value.unit_name,
+        parseFloat(value.item_count?.toFixed(2) || 0),
         parseFloat(value.count.toFixed(2)),
         parseFloat(value.unit_price.toFixed(5)),
         value.days !== 0 ? value.days : '',
@@ -395,12 +395,12 @@ export const excelDataHandle = (excelData) => {
         key: ' ',
       },
       {
-        name: '结存数量 ',
+        name: '订单数量 ',
         key: 'name2',
       },
       {
-        name: ' ',
-        key: ' ',
+        name: '结存数量 ',
+        key: 'name2',
       },
       {
         name: '物料名称 ',
@@ -415,12 +415,12 @@ export const excelDataHandle = (excelData) => {
         key: 'name4',
       },
       {
-        name: '结存数量',
+        name: '订单数量',
         key: 'name5',
       },
       {
-        name: ' ',
-        key: ' ',
+        name: '结存数量',
+        key: 'name5',
       },
     ],
     rows: [],
@@ -433,13 +433,13 @@ export const excelDataHandle = (excelData) => {
         calc.summary[countNum - 1]?.name,
         '',
         calc.summary[countNum - 1]?.unit_name,
+        calc.summary[countNum - 1] ? parseFloat(calc.summary[countNum - 1].item_count?.toFixed(2) || 0) : ' ',
         calc.summary[countNum - 1] ? parseFloat(calc.summary[countNum - 1].count.toFixed(2)) : ' ',
-        '',
         calc.summary[countNum]?.name ?? '',
         '',
         calc.summary[countNum]?.unit_name ?? '',
+        calc.summary[countNum] ? parseFloat(calc.summary[countNum]?.item_count?.toFixed(2) || 0) : '',
         calc.summary[countNum] ? parseFloat(calc.summary[countNum]?.count.toFixed(2)) : '',
-        '',
       ]);
     }
   });
@@ -611,7 +611,6 @@ export const ExportToExcel = async (data) => {
   const rows24 = ws.getRows(table2Row, calc.history ? calc.history?.length + 1 : 1);
   rows24.forEach((value) => {
     ws.mergeCells(`A${value['_number']}:B${value['_number']}`);
-    ws.mergeCells(`F${value['_number']}:G${value['_number']}`);
     ws.mergeCells(`I${value['_number']}:J${value['_number']}`);
     if (value['_number'] !== table2Row) {
       const row25 = ws.getRow(value['_number']);
@@ -627,7 +626,6 @@ export const ExportToExcel = async (data) => {
   excelAddTable(table3Row, '本期明细', ws, table3);
   const rows37 = ws.getRows(table3Row, calc.list ? calc.list?.length + 1 : 1);
   rows37.forEach((value) => {
-    ws.mergeCells(`C${value['_number']}:D${value['_number']}`);
     if (value['_number'] !== table3Row) {
       const row38 = ws.getRow(value['_number']);
       row38.alignment = { horizontal: 'right' };
@@ -663,9 +661,7 @@ export const ExportToExcel = async (data) => {
   CellBorder(table5Row);
   rows1?.forEach((value) => {
     ws.mergeCells(`A${value['_number']}:B${value['_number']}`);
-    ws.mergeCells(`D${value['_number']}:E${value['_number']}`);
     ws.mergeCells(`F${value['_number']}:G${value['_number']}`);
-    ws.mergeCells(`I${value['_number']}:J${value['_number']}`);
     if (value['_number'] !== table5Row) {
       const row38 = ws.getRow(value['_number']);
       row38.alignment = { horizontal: 'right' };
@@ -715,6 +711,6 @@ export const ExportToExcel = async (data) => {
   const blob = new Blob([buffer], {
     type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   });
-  await saveAs(blob, `${contracts.project?.name}-${calc.name}.xlsx`);
+  await saveAs(blob, `${contracts.name}-${calc.name}.xlsx`);
   await message.success('导出成功');
 };

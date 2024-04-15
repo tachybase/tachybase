@@ -296,6 +296,7 @@ const PreviewDocument = ({
               <Text style={[styles.tableCellTitle, styles.cellName]}>物料名称</Text>
               <Text style={[styles.tableCellTitle, styles.cellCategory]}>费用类别</Text>
               <Text style={[styles.tableCellTitle, styles.cellUnit]}>单位</Text>
+              <Text style={styles.tableCellTitle}>订单数量</Text>
               <Text style={styles.tableCellTitle}>出入库数量</Text>
               <Text style={styles.tableCellTitle}>租赁单价</Text>
               <Text style={[styles.tableCellTitle, styles.cellDays]}>天日</Text>
@@ -307,6 +308,7 @@ const PreviewDocument = ({
                   <Text style={[styles.tableCell, styles.cellName]}>{item.name}</Text>
                   <Text style={[styles.tableCell, styles.cellCategory]}>{mapIfHas(getCategory, item.category)}</Text>
                   <Text style={[styles.tableCell, styles.cellUnit]}>{item.unit_name}</Text>
+                  <Text style={styles.tableCell}>{formatQuantity(item.item_count, 2)}</Text>
                   <Text style={styles.tableCell}>{formatQuantity(item.count, 2)}</Text>
                   <Text style={styles.tableCell}>{formatCurrency(item.unit_price, 5)}</Text>
                   <Text style={[styles.tableCell, styles.cellDays]}>{item.days}</Text>
@@ -324,6 +326,7 @@ const PreviewDocument = ({
               <Text style={[styles.tableCellTitle, styles.cellName]}>物料名称</Text>
               <Text style={[styles.tableCellTitle, styles.cellCategory]}>费用类别</Text>
               <Text style={[styles.tableCellTitle, styles.cellUnit]}>单位</Text>
+              <Text style={styles.tableCellTitle}>订单数量</Text>
               <Text style={styles.tableCellTitle}>出入库数量</Text>
               <Text style={styles.tableCellTitle}>租赁单价</Text>
               <Text style={[styles.tableCellTitle, styles.cellDays]}>天日</Text>
@@ -343,6 +346,7 @@ const PreviewDocument = ({
                         {mapIfHas(getCategory, item.category)}
                       </Text>
                       <Text style={[styles.tableCell, styles.cellUnit]}>{item.unit_name}</Text>
+                      <Text style={styles.tableCell}>{formatQuantity(item.item_count, 2)}</Text>
                       <Text style={styles.tableCell}>{formatQuantity(item.count, 2)}</Text>
                       <Text style={styles.tableCell}>{formatCurrency(item.unit_price, 5)}</Text>
                       <Text style={[styles.tableCell, styles.cellDays]}>{item.days !== 0 ? item.days : ''}</Text>
@@ -360,9 +364,11 @@ const PreviewDocument = ({
             <View style={styles.tableContentTitle}>
               <Text style={styles.tableCellTitle}>物料名称</Text>
               <Text style={styles.tableCellTitle}>单位</Text>
+              <Text style={styles.tableCellTitle}>订单数量</Text>
               <Text style={styles.tableCellTitle}>结存数量</Text>
               <Text style={styles.tableCellTitle}>物料名称</Text>
               <Text style={styles.tableCellTitle}>单位</Text>
+              <Text style={styles.tableCellTitle}>订单数量</Text>
               <Text style={styles.tableCellTitleLast}>结存数量</Text>
             </View>
             {calc.summary?.map((item, index) => {
@@ -373,10 +379,16 @@ const PreviewDocument = ({
                     <Text style={styles.tableCell}>{calc.summary[countNum - 1]?.name}</Text>
                     <Text style={styles.tableCell}>{calc.summary[countNum - 1]?.unit_name}</Text>
                     <Text style={styles.tableCell}>
+                      {calc.summary[countNum - 1] ? formatQuantity(calc.summary[countNum - 1]?.item_count, 2) : ''}
+                    </Text>
+                    <Text style={styles.tableCell}>
                       {calc.summary[countNum - 1] ? formatQuantity(calc.summary[countNum - 1]?.count, 2) : ''}
                     </Text>
                     <Text style={styles.tableCell}>{calc.summary[countNum]?.name}</Text>
                     <Text style={styles.tableCell}>{calc.summary[countNum]?.unit_name}</Text>
+                    <Text style={styles.tableCell}>
+                      {calc.summary[countNum]?.item_count ? formatQuantity(calc.summary[countNum]?.item_count, 2) : ''}
+                    </Text>
                     <Text style={styles.tableCellLast}>
                       {calc.summary[countNum]?.count ? formatQuantity(calc.summary[countNum]?.count, 2) : ''}
                     </Text>
