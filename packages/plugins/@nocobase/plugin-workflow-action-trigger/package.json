@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow-action-trigger",
   "displayName": "Workflow: Action trigger",
-  "version": "1.0.0",
+  "version": "0.21.8",
   "description": "Bind action buttons to trigger workflow events when clicked.",
   "keywords": [
     "Workflow"

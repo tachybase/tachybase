@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-sms-auth",
   "displayName": "Auth: SMS",
-  "version": "1.0.0",
+  "version": "0.21.8",
   "description": "SMS authentication.",
   "keywords": [
     "Authentication"
