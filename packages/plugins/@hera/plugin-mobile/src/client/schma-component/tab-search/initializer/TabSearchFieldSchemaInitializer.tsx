@@ -24,7 +24,7 @@ const textFieldsItem: SchemaInitializerItemType<any> = {
           const label = canBeRelatedField(field.interface)
             ? cm.getCollection(`${collection.name}.${field.name}`).titleField
             : field.name;
-          return createTabSearchItemSchema({ field, itemComponent, label, collection });
+          return createTabSearchItemSchema({ field, itemComponent, label, collection, type: 'text' });
         }
       })
       .filter(Boolean);
@@ -51,6 +51,7 @@ const choicesFieldsItem: SchemaInitializerItemType<any> = {
             itemComponent,
             label,
             itemUseProps: 'useTabSearchFieldItemProps',
+            type: 'choices',
           });
         } else if (canBeRelatedField(field.interface)) {
           return createTabSearchItemSchema({
@@ -58,6 +59,7 @@ const choicesFieldsItem: SchemaInitializerItemType<any> = {
             itemComponent,
             label,
             itemUseProps: 'useTabSearchFieldItemRelatedProps',
+            type: 'choices',
           });
         }
       })

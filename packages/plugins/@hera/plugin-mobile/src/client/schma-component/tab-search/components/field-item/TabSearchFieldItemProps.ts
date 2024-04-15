@@ -10,7 +10,10 @@ export const useTabSearchFieldItemProps = () => {
   const collection = useCollection();
   const optionalFieldList = useOptionalFieldList();
   const cm = useCollectionManager();
-  const collectionField = useMemo(() => collection?.getField(fieldSchema.name as any), [collection, fieldSchema.name]);
+  const collectionField = useMemo(
+    () => collection?.getField(fieldSchema['fieldName'] as any),
+    [collection, fieldSchema['fieldName']],
+  );
   const { onSelected } = useTabSearchCollapsibleInputItem();
   const result = { list: null, valueKey: '', labelKey: '', filterKey: '' };
   if (!collection) return;
@@ -18,7 +21,7 @@ export const useTabSearchFieldItemProps = () => {
   result.labelKey = fieldSchema['x-component-props']?.fieldNames?.label || result.valueKey;
   const fieldInterface = fieldSchema['x-component-props'].interface;
   if (canBeOptionalField(fieldInterface)) {
-    const field = optionalFieldList.find((field) => field.name === fieldSchema.name);
+    const field = optionalFieldList.find((field) => field.fieldName === fieldSchema['fieldName']);
     const operatorMap = {
       select: '$in',
       multipleSelect: '$anyOf',
@@ -30,7 +33,7 @@ export const useTabSearchFieldItemProps = () => {
     result.valueKey = 'value';
     result.labelKey = 'label';
     result.list = _list;
-    result.filterKey = `${field.name}.${operatorMap[field.interface]}`;
+    result.filterKey = `${field.fieldName}.${operatorMap[field.interface]}`;
   }
 
   return {

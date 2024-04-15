@@ -9,7 +9,10 @@ export const useTabSearchFieldItemAction = (props) => {
   const { t } = useTranslation();
   const fieldSchema = useFieldSchema();
   const c = useCollection();
-  const collectionField = React.useMemo(() => c?.getField(fieldSchema.name as any), [c, fieldSchema.name]);
+  const collectionField = React.useMemo(
+    () => c?.getField(fieldSchema['fieldName'] as any),
+    [c, fieldSchema['fieldName']],
+  );
   const Designer = useDesigner();
   const valueKey = _valueKey || collectionField?.targetKey || 'id';
   const labelKey = _labelKey || fieldSchema['x-component-props']?.fieldNames?.label || valueKey;

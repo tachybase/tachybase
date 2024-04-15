@@ -31,3 +31,7 @@ export const canBeSearchField = (_interface: string) => canBeSearchFields.includ
 export const convertFormat = (currentDate) => {
   return dayjs(currentDate).format('YYYY-MM-DD');
 };
+
+export const changFormat = (currentDate) => {
+  return JSON.stringify(dayjs(currentDate));
+};

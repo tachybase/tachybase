@@ -1,11 +1,12 @@
 export const createTabSearchItemSchema = (options) => {
-  const { field, itemComponent, label, itemUseProps, collection } = options;
+  const { field, itemComponent, label, itemUseProps, collection, type } = options;
   return {
     name: field.key,
     title: field.uiSchema?.title,
     Component: 'TabSearchFieldSchemaInitializerGadget',
     schema: {
-      name: field.name,
+      name: field.name + type,
+      fieldName: field.name,
       title: field.uiSchema?.title,
       type: 'void',
       'x-toolbar': 'CollapseItemSchemaToolbar',

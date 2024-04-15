@@ -1,7 +1,13 @@
 import { useMemo, useState } from 'react';
 import { useFieldSchema } from '@nocobase/schema';
 import { useCollection, useCollectionManager, useDesignable, useDesigner } from '@nocobase/client';
-import { canBeDataField, canBeRelatedField, convertFormat, isTabSearchCollapsibleInputItem } from '../../utils';
+import {
+  canBeDataField,
+  canBeRelatedField,
+  changFormat,
+  convertFormat,
+  isTabSearchCollapsibleInputItem,
+} from '../../utils';
 import { useTabSearchCollapsibleInputItem } from './hooks';
 import { dayjs } from '@nocobase/utils/client';
 
@@ -11,13 +17,16 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
   const collection = useCollection();
   const cm = useCollectionManager();
   const { dn } = useDesignable();
-  const collectionField = useMemo(() => collection?.getField(fieldSchema.name as any), [collection, fieldSchema.name]);
+  const collectionField = useMemo(
+    () => collection?.getField(fieldSchema['fieldName'] as any),
+    [collection, fieldSchema['fieldName']],
+  );
   const properties = fieldSchema.parent.properties;
   const Designer = useDesigner();
-  const [customLabelKey, setCustomLabelKey] = useState(fieldSchema['name'] as string);
+  const [customLabelKey, setCustomLabelKey] = useState(fieldSchema['fieldName'] as string);
   const [fieldInterface, setFieldInterface] = useState(fieldSchema['x-component-props'].interface);
   const defaultValue = canBeDataField(fieldInterface)
-    ? convertFormat(new Date()) + '&' + convertFormat(new Date())
+    ? changFormat(dayjs(new Date()).startOf('date')) + '&' + changFormat(dayjs(new Date()).endOf('date'))
     : '';
   const [value, setValue] = useState(defaultValue);
   const options = Object.values(properties)
@@ -25,7 +34,7 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
       if (isTabSearchCollapsibleInputItem(option['x-component'])) {
         return {
           label: option['title'],
-          value: option['name'],
+          value: option['fieldName'],
           interface: option['x-component-props'].interface,
         };
       }
@@ -36,7 +45,7 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
     let time;
     let filterKey = `${customLabelKey}.$includes`;
     if (canBeDataField(fieldInterface)) {
-      time = value.split('&');
+      time = value.split('&').map((value) => JSON.parse(value));
       filterKey = `${customLabelKey}.$dateBetween`;
     }
     if (canBeRelatedField(fieldInterface)) {
@@ -48,7 +57,7 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
   };
 
   const onSelectChange = (label) => {
-    const type = Object.values(properties).find((value) => value.name === label)['x-component-props'].interface;
+    const type = Object.values(properties).find((value) => value['fieldName'] === label)['x-component-props'].interface;
     if (canBeRelatedField(type)) {
       const titleField = cm.getCollection(collection.name + '.' + label).titleField;
       fieldSchema['x-component-props']['correlation'] = label;
@@ -63,7 +72,7 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
     }
     setFieldInterface(type);
     if (canBeDataField(type)) {
-      setValue(convertFormat(new Date()) + '&' + convertFormat(new Date()));
+      setValue(changFormat(new Date()) + '&' + changFormat(new Date()));
     } else {
       setValue('');
     }

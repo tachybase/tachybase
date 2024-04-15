@@ -3,7 +3,8 @@ import { useTranslation } from '../../../../locale';
 import { Grid, Divider, Picker, Input, Space, ActionSheet, DatePicker, CalendarPicker } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
 import type { Action } from 'antd-mobile/es/components/action-sheet';
-import { convertFormat } from '../../utils';
+import { changFormat, convertFormat } from '../../utils';
+import { dayjs } from '@nocobase/utils/client';
 
 export const ISelect = (props) => {
   const { options, onChange, customLabelKey } = props;
@@ -25,7 +26,7 @@ export const ISelect = (props) => {
         {options.find((option) => option.value === customLabelKey).label}
       </span>
       <DownOutline />
-      {options.length <= 3 ? (
+      {options.length <= 5 ? (
         <ActionSheet
           visible={visible}
           actions={actions}
@@ -67,13 +68,13 @@ export const IDatePicker = (props) => {
       >
         <Grid columns={5}>
           <Grid.Item span={2} style={{ textAlign: 'end' }}>
-            {time[0]}
+            {convertFormat(JSON.parse(time[0]))}
           </Grid.Item>
           <Grid.Item span={1} style={{ textAlign: 'center' }}>
             -
           </Grid.Item>
           <Grid.Item span={2} style={{ textAlign: 'start' }}>
-            {time[1]}
+            {convertFormat(JSON.parse(time[1]))}
           </Grid.Item>
         </Grid>
       </div>
@@ -82,9 +83,15 @@ export const IDatePicker = (props) => {
         selectionMode="range"
         onMaskClick={() => setVisible(false)}
         onClose={() => setVisible(false)}
-        onConfirm={(v) => {
-          onInputChange(convertFormat(v[0]) + '&' + convertFormat(v[1]));
-          onChange(convertFormat(v[0]) + '&' + convertFormat(v[1]));
+        onConfirm={([start, end]) => {
+          const startTime = dayjs(start).startOf('date').toISOString();
+          const endTime = dayjs(end).endOf('date').toISOString();
+
+          // TODO: 此处受上游影响,格式必须确定为这样, 时间有限,不再往上追查
+          const timeString = `"${startTime}"&"${endTime}"`;
+
+          onInputChange(timeString);
+          onChange(timeString);
         }}
       />
     </Grid.Item>
