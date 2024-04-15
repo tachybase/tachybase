@@ -5,6 +5,9 @@ import { Generator } from '@umijs/utils';
 import { readFile } from 'fs/promises';
 import { genTsConfigPaths } from './util';
 import { execa } from 'execa';
+import { URL } from 'url';
+
+const __dirname = new URL('.', import.meta.url).pathname;
 
 function camelize(str: string) {
   return str.trim().replace(/[-_\s]+(.)?/g, (match, c) => c.toUpperCase());
