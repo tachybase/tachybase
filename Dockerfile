@@ -11,7 +11,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 WORKDIR /app
-RUN cd /app && npx --registry $NPM_REGISTRY create-tachybase-app@0.21.11  my-nocobase-app -a -e APP_ENV=production
+RUN cd /app && npx --registry $NPM_REGISTRY create-tachybase-app@0.21.12  my-nocobase-app -a -e APP_ENV=production
 RUN pnpm config set registry $NPM_REGISTRY
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store cd /app/my-nocobase-app && pnpm install --production
 
