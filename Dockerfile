@@ -1,4 +1,9 @@
-FROM node:20-bullseye as builder
+FROM node:20-bullseye-slim as base
+RUN apt-get update && apt-get install -y nginx
+RUN rm -rf /etc/nginx/sites-enabled/default
+COPY ./docker/nocobase/nocobase.conf /etc/nginx/sites-enabled/nocobase.conf
+
+FROM node:20-bullseye as build-template-app
 ARG VERDACCIO_URL=https://npm.daoyoucloud.com/
 
 ENV PNPM_HOME="/pnpm"
@@ -17,12 +22,8 @@ RUN cd /app \
   && rm -rf nocobase.tar.gz \
   && tar -zcf ./nocobase.tar.gz -C /app/my-nocobase-app .
 
-
-FROM node:20-bullseye-slim
-RUN apt-get update && apt-get install -y nginx
-RUN rm -rf /etc/nginx/sites-enabled/default
-COPY ./docker/nocobase/nocobase.conf /etc/nginx/sites-enabled/nocobase.conf
-COPY --from=builder /app/nocobase.tar.gz /app/nocobase.tar.gz
+FROM base AS build-app
+COPY --from=build-template-app /app/nocobase.tar.gz /app/nocobase.tar.gz
 
 WORKDIR /app/nocobase
 
