@@ -44,7 +44,8 @@ const configs = defineConfig([
       dir: 'dist',
       format: 'esm',
       entryFileNames: '[name].mjs',
-      chunkFileNames: 'chunk-[name].mjs',
+      preserveModules: true,
+      preserveModulesRoot: './src',
     },
     external,
     plugins,
@@ -58,6 +59,8 @@ if (!process.env.BUILD_NO_DTS) {
     output: {
       dir: 'dist',
       entryFileNames: '[name].d.ts',
+      preserveModules: true,
+      preserveModulesRoot: './src',
       format: 'esm',
     },
     external,
