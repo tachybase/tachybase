@@ -8,6 +8,7 @@ import {
 import React from 'react';
 import { createGridCardBlockSchema } from '../../schma-block/schema-create/createGridCardBlockSchma';
 import { ISchema } from '@nocobase/schema';
+import { Toast } from 'antd-mobile';
 
 export const SwiperBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
@@ -17,7 +18,10 @@ export const SwiperBlockInitializer = () => {
   const onCreateBlockSchema = async ({ item }) => {
     const collection = cm.getCollection(item.name);
     const value = collection.fields.find((field) => field.interface === 'attachment');
-    if (!value) return;
+    if (!value) {
+      Toast.show({ content: '当前数据源暂无可加载数据' });
+      return;
+    }
     const schema: ISchema = {
       type: 'void',
       name: item.name,
