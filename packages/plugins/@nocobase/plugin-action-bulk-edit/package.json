@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-action-bulk-edit",
   "displayName": "Action: Batch edit",
-  "version": "0.21.12",
+  "version": "0.21.13",
   "description": "Batch edit all records or selected records.",
   "keywords": [
     "Actions"
