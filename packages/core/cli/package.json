@@ -4,10 +4,15 @@
   "description": "",
   "license": "Apache-2.0",
   "type": "module",
-  "main": "./src/index.js",
   "bin": {
     "tachybase": "./bin/cli.js"
   },
+  "files": [
+    "bin",
+    "dist",
+    "templates",
+    "nocobase.conf.tpl"
+  ],
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "dev": "rollup -c --watch --watch.include 'src/**' -m inline",
@@ -49,6 +54,5 @@
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.1.1",
     "vite": "^5.2.8"
-  },
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+  }
 }
