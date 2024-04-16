@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-users",
   "displayName": "Users",
-  "version": "0.21.12",
+  "version": "0.21.13",
   "description": "Provides basic user model, as well as created by and updated by fields.",
   "keywords": [
     "Users & permissions"
