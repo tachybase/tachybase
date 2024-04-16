@@ -75,7 +75,7 @@ export const TabSearchItemFieldSettings = new SchemaSettings({
               const fieldCollection = fieldSchema['x-component-props']?.['collectionName'];
               const correlation = fieldSchema['x-component-props']?.['correlation'];
               const collectionField =
-                c.getField(fieldSchema['name']) ||
+                c.getField(fieldSchema['fieldName']) ||
                 cm.getCollectionField(fieldSchema['x-collection-field']) ||
                 cm.getCollection(fieldCollection + '.' + correlation);
               const compile = useCompile();
