@@ -21,7 +21,7 @@ export const useTabSearchFieldItemProps = () => {
   result.labelKey = fieldSchema['x-component-props']?.fieldNames?.label || result.valueKey;
   const fieldInterface = fieldSchema['x-component-props'].interface;
   if (canBeOptionalField(fieldInterface)) {
-    const field = optionalFieldList.find((field) => field.fieldName === fieldSchema['fieldName']);
+    const field = optionalFieldList.find((field) => field.name === fieldSchema['fieldName']);
     const operatorMap = {
       select: '$in',
       multipleSelect: '$anyOf',
@@ -33,9 +33,8 @@ export const useTabSearchFieldItemProps = () => {
     result.valueKey = 'value';
     result.labelKey = 'label';
     result.list = _list;
-    result.filterKey = `${field.fieldName}.${operatorMap[field.interface]}`;
+    result.filterKey = `${field.name}.${operatorMap[field.interface]}`;
   }
-
   return {
     list: result.list,
     valueKey: result.valueKey,

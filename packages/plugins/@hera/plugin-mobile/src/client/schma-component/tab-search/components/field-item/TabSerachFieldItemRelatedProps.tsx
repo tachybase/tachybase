@@ -20,7 +20,10 @@ export const useTabSearchFieldItemRelatedProps = () => {
   const blockProps = { dataSource: 'main' };
   const headers = useDataSourceHeaders(blockProps?.dataSource);
   const cm = useCollectionManager();
-  const collectionField = useMemo(() => collection?.getField(fieldSchema.name as any), [collection, fieldSchema.name]);
+  const collectionField = useMemo(
+    () => collection?.getField(fieldSchema['fieldName'] as any),
+    [collection, fieldSchema['fieldName']],
+  );
   const collectionFieldName = collectionField?.name;
   const fieldInterface = fieldSchema['x-component-props'].interface;
   const result = { list: null, valueKey: '', labelKey: '', filterKey: '' };
