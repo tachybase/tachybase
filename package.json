@@ -10,8 +10,6 @@
     "clean": "tachybase clean",
     "dev": "tachybase dev",
     "dev-server": "tachybase dev --server",
-    "doc": "tachybase doc",
-    "doc:cn": "tachybase doc --lang=zh-CN",
     "e2e": "tachybase e2e",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "tachybase postinstall",
