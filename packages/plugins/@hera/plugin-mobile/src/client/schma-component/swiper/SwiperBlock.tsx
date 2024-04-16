@@ -2,38 +2,54 @@ import { BlockItem, css, useDesignable, useRequest, withDynamicSchemaProps } fro
 import { useFieldSchema } from '@nocobase/schema';
 import { Swiper } from 'antd-mobile';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export const SwiperBlock = withDynamicSchemaProps((props) => {
   const { fieldValue, data, changeNav } = props;
   if (!data) return;
-  const items = data['data']
-    ?.map((imgItem, index) => {
-      return imgItem[fieldValue] ? (
-        <Swiper.Item key={index}>
+  const items = data['data'].length
+    ? data['data']
+        .map((imgItem, index) => {
+          return imgItem[fieldValue][0]?.url ? (
+            <Swiper.Item key={index}>
+              <div
+                className={swiperStyle}
+                style={{
+                  backgroundImage: `url(${imgItem[fieldValue][0]?.url})`,
+                  backgroundSize: '100% 100%',
+                  backgroundAttachment: 'fixed',
+                }}
+                onClick={() => {
+                  changeNav(imgItem);
+                }}
+              ></div>
+            </Swiper.Item>
+          ) : (
+            <Swiper.Item key={index}>
+              <div
+                className={swiperStyle}
+                style={{
+                  backgroundColor: '#e0e0e0',
+                }}
+              >
+                无法加载此内容
+              </div>
+            </Swiper.Item>
+          );
+        })
+        .filter(Boolean)
+    : [
+        <Swiper.Item key={0}>
           <div
-            className={css`
-              height: 20vh;
-              color: #ffffff;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              font-size: 48px;
-              user-select: none;
-            `}
+            className={swiperStyle}
             style={{
-              backgroundImage: `url(${imgItem[fieldValue][0].url})`,
-              backgroundSize: '100% 100%',
-              backgroundAttachment: 'fixed',
+              backgroundColor: '#e0e0e0',
             }}
-            onClick={() => {
-              changeNav(imgItem);
-            }}
-          ></div>
-        </Swiper.Item>
-      ) : null;
-    })
-    .filter(Boolean);
+          >
+            当前区块没有可加载数据
+          </div>
+        </Swiper.Item>,
+      ];
+
   return (
     <BlockItem>
       <Swiper loop autoplay>
@@ -42,3 +58,13 @@ export const SwiperBlock = withDynamicSchemaProps((props) => {
     </BlockItem>
   );
 });
+
+const swiperStyle = css`
+  height: 20vh;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  user-select: none;
+`;
