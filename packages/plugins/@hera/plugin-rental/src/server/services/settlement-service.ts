@@ -146,6 +146,20 @@ export class SettlementService {
                               settlementAbout.end_date,
                             );
                       const movement = item.movement === '-1' ? '1' : '-1';
+                      const item_count = item.record_items.reduce((prev, curr) => {
+                        if (
+                          countRule.find(
+                            (productRule) =>
+                              (productRule.product_id > RulesNumber &&
+                                productRule.product_id - RulesNumber === curr.product.category_id) ||
+                              productRule.product_id === curr?.product_id,
+                          )
+                        ) {
+                          return prev + curr.count;
+                        } else {
+                          return prev + 0;
+                        }
+                      }, 0);
                       createLeasDatas.push({
                         settlement_id: settlementsId, //合同ID
                         movement: item.movement, //出入库状态
@@ -156,7 +170,7 @@ export class SettlementService {
                         //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                         days: day,
                         is_excluded: false,
-                        item_count: recordItem.count * Number(movement),
+                        item_count: productLength > 1 ? item_count : recordItem.count * Number(movement),
                         count: item.weight * Number(movement),
                         unit_price: rule.unit_price * 1000,
                         amount: item.weight * (rule.unit_price * 1000) * day * Number(movement),
