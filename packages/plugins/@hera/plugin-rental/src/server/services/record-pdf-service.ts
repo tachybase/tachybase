@@ -88,7 +88,7 @@ export class RecordPdfService {
         type: QueryTypes.SELECT,
       });
       const contract_Plans = contractPLan.contract_plan.lease_items.filter((plan) =>
-        itemTreeIds.some((item) => item.id === plan.new_porducts.id),
+        itemTreeIds.some((item) => item.id === plan.new_products.id),
       );
       const contract_Plan = _someProductRule(itemTreeIds, contract_Plans, 'new_products_id');
 
@@ -102,7 +102,7 @@ export class RecordPdfService {
           leaseItem.weight_item = _someProductRule(itemTreeIds, weights, 'new_product_id');
         }
         // 对应产品维修赔偿项目
-        const leaseFee = leaseFeeData.filter((fee) => fee.product_id === leaseItem.product_id);
+        const leaseFee = leaseFeeData.filter((fee) => fee.product_id === leaseItem.product_id); // 这个ID？？？？？？？？！！！！整体测试记得这里
         if (leaseFee.length) {
           for (const fee of leaseFee) {
             const feeTreeIds: any = await this.db.sequelize.query(treeIdsQuery, {
@@ -244,13 +244,13 @@ export class RecordPdfService {
 
     const movement = (movement: string) => {
       const data = {
-        '0': '出库',
+        '-1': '出库',
         '1': '入库',
       };
       return data[movement];
     };
 
-    const contract_type = (category) => {
+    const record_category = (category) => {
       const data = {
         '0': '租赁',
         '1': '购销',
@@ -266,7 +266,7 @@ export class RecordPdfService {
       record_party_b: movement(contracts.movement) === '出库' ? baseRecord.in_stock : baseRecord.out_stock, // 还需要判断第三个合同的情况，确定一下出库入是否合同公司有关
       record_party_a: movement(contracts.movement) === '入库' ? baseRecord.in_stock : baseRecord.out_stock,
       vehicles: baseRecord.vehicles,
-      contract_type: contract_type(contracts.new_category),
+      record_category: record_category(contracts.record_category),
       contract_first_party: contracts.first_party, //公司信息，甲方，我们
       movement: movement(contracts.movement),
       pdfExplain: baseRecord.pdfExplain,
@@ -293,7 +293,7 @@ export class RecordPdfService {
         } else if (
           item.conversion_logic_id === ConversionLogics.Product ||
           item.conversion_logic_id === ConversionLogics.ActualWeight ||
-          (!item.conversion_logic_id && !needRecord.contract_type)
+          (!item.conversion_logic_id && !needRecord.record_category)
         ) {
           if (item.convertible) {
             total = item.count * item.ratio;
@@ -411,7 +411,7 @@ export class RecordPdfService {
     // 插入小计
     const productTotalItems = Object.entries(productTotal).map(([_, value]) => value);
     let priceRule = [];
-    if (needRecord.contract_type === '购销') {
+    if (needRecord.record_category === '购销') {
       priceRule = productTotalItems.map((item: any) => {
         return {
           name: item.priceName,

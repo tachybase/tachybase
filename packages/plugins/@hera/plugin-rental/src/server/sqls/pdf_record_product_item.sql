@@ -25,7 +25,7 @@ SELECT
 FROM
   records r
   JOIN record_items ri ON ri.record_id = r.id
-  JOIN products p ON p.id = ri.product_id -- 录单中产品只允许选择到最后一个层级
+  JOIN products p ON p.id = ri.new_product_id -- 录单中产品只允许选择到最后一个层级
   LEFT JOIN products p2 ON p."parentId" = p2.id -- 上一个层级应为分类，携带是否换算，单位信息（目前先考虑基本情况）
 WHERE
   r.id = :recordId

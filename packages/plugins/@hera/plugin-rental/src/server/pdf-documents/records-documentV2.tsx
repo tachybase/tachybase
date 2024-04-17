@@ -214,13 +214,13 @@ const PreviewDocument = ({
     detail.type_new === '1'
       ? `盘点单用于清算仓库盈亏盈余。`
       : `如供需双方未签正式合同，本${
-          detail.contract_type
+          detail.record_category
         }${detail.movement}单经供需双方代表签字确认后， 将作为合同及发生业务往来的有效凭证，如已签合同，则成为该合同的组成部分。${
           detail.movement === '入库' ? '出库方' : '采购方'
         }须核对 以上产品规格、数量确认后可签字认可。`;
   const getAllPrice = () => {
     let price = 0;
-    if (detail.contract_type === '购销' && priceRule.filter(Boolean).length) {
+    if (detail.record_category === '购销' && priceRule.filter(Boolean).length) {
       priceRule.forEach((element) => {
         price += element.all_price;
       });
@@ -228,7 +228,7 @@ const PreviewDocument = ({
     return formatCurrency(price, 2);
   };
   const dobulePriceRule = [];
-  if (isDouble && detail.contract_type === '购销' && priceRule.filter(Boolean).length) {
+  if (isDouble && detail.record_category === '购销' && priceRule.filter(Boolean).length) {
     // 双列展示
     const leftData = priceRule.slice(0, Math.ceil(priceRule.length / 2));
     const rightData = priceRule.slice(Math.ceil(priceRule.length / 2));
@@ -286,7 +286,7 @@ const PreviewDocument = ({
       </View>
     ));
     let addCol = <></>;
-    if (detail.contract_type === '购销') {
+    if (detail.record_category === '购销') {
       const allprice = getAllPrice();
       addCol = (
         <View style={styles.tableContent}>
@@ -302,7 +302,7 @@ const PreviewDocument = ({
       );
     }
 
-    return detail.contract_type === '购销' ? (
+    return detail.record_category === '购销' ? (
       <>
         {page}
         {addCol}
@@ -349,7 +349,7 @@ const PreviewDocument = ({
         <Text style={styles.subTitle}>{detail.contract_first_party ? detail.movement : '盘点'}单</Text>
         <View style={styles.content}>
           <View style={styles.main}>
-            {detail.contract_type === '租赁' && (
+            {detail.record_category === '租赁' && (
               <View>
                 <View style={styles.tableHeader}>
                   <Text style={styles.headerLeftLeft}>承租单位：{detail.record_party_b.company.name || ''}</Text>
@@ -375,7 +375,7 @@ const PreviewDocument = ({
               </View>
             )}
 
-            {detail.contract_type === '购销' && (
+            {detail.record_category === '购销' && (
               <View>
                 <View style={styles.tableHeader}>
                   <Text style={styles.headerLeftLeft}>
@@ -393,7 +393,7 @@ const PreviewDocument = ({
                 </View>
               </View>
             )}
-            {!detail.contract_type && (
+            {!detail.record_category && (
               <View>
                 <View style={styles.tableHeader}>
                   <Text style={styles.headerLeftLeft}>盘点单位：{detail.record_party_a.name || ''}</Text>
@@ -406,7 +406,7 @@ const PreviewDocument = ({
             )}
 
             {/* 定价 */}
-            {detail.contract_type === '购销' && (
+            {detail.record_category === '购销' && (
               <View style={styles.tableContentTitle}>
                 <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
                 <Text style={styles.tableCellTitle}>单价</Text>
@@ -424,7 +424,7 @@ const PreviewDocument = ({
                 )}
               </View>
             )}
-            {detail.contract_type === '购销' && renderPrice(isDouble ? dobulePriceRule : priceRule, isDouble)}
+            {detail.record_category === '购销' && renderPrice(isDouble ? dobulePriceRule : priceRule, isDouble)}
             {/* ============================================================两表分割================================================================================= */}
             {/* 单列租金及费用 */}
             <View style={styles.tableContentTitle}>
@@ -456,11 +456,11 @@ const PreviewDocument = ({
             </View>
             <View style={styles.sign}>
               <Text style={styles.signPart}>制表人：{detail.nickname + ' ' + detail?.userPhone}</Text>
-              {detail.contract_type === '租赁' && <Text style={styles.signPart}>出租单位（签名）：</Text>}
-              {detail.contract_type === '租赁' && <Text style={styles.signPart}>租借单位（签名）：</Text>}
-              {detail.contract_type === '购销' && <Text style={styles.signPart}>采购单位（签名）：</Text>}
-              {detail.contract_type === '购销' && <Text style={styles.signPart}>购入单位（签名）：</Text>}
-              {!detail.contract_type && <Text style={styles.signPart}>盘点仓库（签名）：</Text>}
+              {detail.record_category === '租赁' && <Text style={styles.signPart}>出租单位（签名）：</Text>}
+              {detail.record_category === '租赁' && <Text style={styles.signPart}>租借单位（签名）：</Text>}
+              {detail.record_category === '购销' && <Text style={styles.signPart}>采购单位（签名）：</Text>}
+              {detail.record_category === '购销' && <Text style={styles.signPart}>购入单位（签名）：</Text>}
+              {!detail.record_category && <Text style={styles.signPart}>盘点仓库（签名）：</Text>}
             </View>
           </View>
           <View style={styles.side}>

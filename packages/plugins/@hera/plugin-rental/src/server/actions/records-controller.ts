@@ -177,7 +177,7 @@ export class RecordPreviewController {
     } = ctx.action;
     let pdfTop: number;
     // 查询合同订单中间表，获得订单id，合同id，出入库信息
-    const intermediate = await ctx.db.getRepository('new_contract').findOne({ filter: { id } });
+    const intermediate = await ctx.db.getRepository('record_contract').findOne({ filter: { id } });
     const recordId = intermediate.record_id;
     // 订单基本数据
     const baseRecord = await ctx.db.getRepository('records').findOne({
@@ -231,7 +231,7 @@ export class RecordPreviewController {
       appends: [
         'contract_plan',
         'contract_plan.lease_items',
-        'contract_plan.lease_items.new_porducts',
+        'contract_plan.lease_items.new_products',
         'contract_plan.lease_items.conversion_logic',
         'contract_plan.lease_items.conversion_logic.weight_items',
         'contract_plan.lease_items.fee_items',
