@@ -1,4 +1,13 @@
-export const dateFormatFn = (sequelize: any, dialect: string, field: string, format: string, timezone: string) => {
+import { Sequelize } from 'sequelize';
+
+export const dateFormatFn = (
+  sequelize: Sequelize,
+  dialect: string,
+  field: string,
+  format: string,
+  timezone: string,
+) => {
+  const reversedTimezone = timezone[0] === '+' ? '-' + timezone.slice(1) : '+' + timezone.slice(1);
   switch (dialect) {
     case 'sqlite':
       format = format
@@ -21,18 +30,13 @@ export const dateFormatFn = (sequelize: any, dialect: string, field: string, for
       return sequelize.fn('date_format', sequelize.col(field), format);
     case 'postgres':
       format = format.replace(/hh/g, 'HH24').replace(/mm/g, 'MI').replace(/ss/g, 'SS');
-      // return sequelize.fn('to_char', sequelize.col(field), format);
-      return sequelize.fn(
-        'to_char',
-        sequelize.literal(`(${field} AT TIME ZONE 'UTC') AT TIME ZONE '${timezone}'`),
-        format,
-      );
+      return sequelize.fn('format_timestamp_with_timezone', sequelize.col(field), reversedTimezone, format);
     default:
       return sequelize.col(field);
   }
 };
 
-export const formatFn = (sequelize: any, dialect: string, field: string, format: string) => {
+export const formatFn = (sequelize: Sequelize, dialect: string, field: string, format: string) => {
   switch (dialect) {
     case 'sqlite':
     case 'postgres':
@@ -42,7 +46,7 @@ export const formatFn = (sequelize: any, dialect: string, field: string, format:
   }
 };
 
-export const formatter = (sequelize: any, type: string, field: string, format: string, timezone: string) => {
+export const formatter = (sequelize: Sequelize, type: string, field: string, format: string, timezone: string) => {
   const dialect = sequelize.getDialect();
   switch (type) {
     case 'date':
