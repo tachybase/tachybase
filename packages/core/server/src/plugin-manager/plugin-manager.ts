@@ -1,5 +1,6 @@
 import { CleanOptions, Collection, SyncOptions } from '@nocobase/database';
 import { importModule, isURL } from '@nocobase/utils';
+import { PluginGenerator } from '@tachybase/cli';
 import { fsExists } from '@nocobase/utils/plugin-symlink';
 import execa from 'execa';
 import fg from 'fast-glob';
@@ -239,7 +240,6 @@ export class PluginManager {
       if (options?.forceRecreate) {
         await fs.promises.rm(pluginDir, { recursive: true, force: true });
       }
-      const { PluginGenerator } = require('@nocobase/cli/src/plugin-generator');
       const generator = new PluginGenerator({
         cwd: process.cwd(),
         args: {},
