@@ -96,13 +96,16 @@ export const PluginNpmForm: FC<IPluginNpmFormProps> = ({ onClose, isUpgrade, plu
             registry: {
               type: 'string',
               title: "{{t('Registry url')}}",
-              default: 'https://registry.npmjs.org/',
+              default: 'https://npm.daoyoucloud.com/',
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               // required: true,
-              'x-decorator-props': {
-                tooltip: 'Example: https://registry.npmjs.org/',
+              'x-component-props': {
+                placeholder: 'https://registry.npmjs.org/',
               },
+              // 'x-decorator-props': {
+              //   tooltip: 'Example: https://registry.npmjs.org/',
+              // },
             },
             authToken: {
               type: 'string',
