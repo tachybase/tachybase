@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-backup-restore",
   "displayName": "App backup & restore",
-  "version": "0.21.14",
+  "version": "0.21.15",
   "description": "Backup and restore applications for scenarios such as application replication, migration, and upgrades.",
   "keywords": [
     "System management"
