@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useFieldSchema } from '@nocobase/schema';
 import { useCollection, useCollectionManager, useDesignable, useDesigner } from '@nocobase/client';
 import {
@@ -79,10 +79,14 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
     setCustomLabelKey(label as string);
   };
   const onInputChange = (v) => {
+    const timeout = { current: null };
+    clearTimeout(timeout.current);
     const inputValue = v.target?.value || v;
     setValue(inputValue);
     if (inputValue === '') {
-      onSelect(inputValue);
+      timeout.current = setTimeout(() => {
+        onSelect(inputValue);
+      }, 2000);
     }
   };
   const onButtonClick = () => {
