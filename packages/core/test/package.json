@@ -1,6 +1,6 @@
 {
   "name": "@nocobase/test",
-  "version": "0.21.15",
+  "version": "0.21.16",
   "license": "Apache-2.0",
   "exports": {
     ".": {
