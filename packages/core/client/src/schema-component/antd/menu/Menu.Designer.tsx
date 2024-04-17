@@ -220,6 +220,7 @@ const InsertMenuItems = (props) => {
               file: {
                 type: 'object',
                 title: '{{ t("File") }}',
+                required: true,
                 'x-decorator': 'FormItem',
                 'x-component': 'Upload.Attachment',
                 'x-component-props': {
