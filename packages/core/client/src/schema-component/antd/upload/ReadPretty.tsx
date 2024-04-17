@@ -22,15 +22,16 @@ type Composed = React.FC<UploadProps> & {
 export const ReadPretty: Composed = () => null;
 
 ReadPretty.File = function File(props: UploadProps) {
+  const { size, showCount = 0 } = props;
   const { t } = useTranslation();
   const record = useRecord();
   const field = useField<Field>();
   const value = isString(field.value) ? record : field.value;
-  const images = toImages(toArr(value));
+
+  const images = toImages(showCount === 0 ? toArr(value) : toArr(value).slice(0, showCount));
   const [fileIndex, setFileIndex] = useState(0);
   const [visible, setVisible] = useState(false);
   const [fileType, setFileType] = useState<'image' | 'pdf'>();
-  const { size } = props;
   const { wrapSSR, hashId, componentCls: prefixCls } = useStyles();
   const useUploadStyleVal = (useUploadStyle as any).default ? (useUploadStyle as any).default : useUploadStyle;
   // 加载 antd 的样式
