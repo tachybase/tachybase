@@ -35,13 +35,12 @@ export class PluginGenerator extends Generator {
 
   async getContext() {
     const { name } = this.context;
-    const nocobaseVersion = require('@nocobase/server/package.json').version;
     const packageVersion = await getProjectVersion();
     return {
       ...this.context,
       packageName: name,
       packageVersion,
-      nocobaseVersion,
+      nocobaseVersion: "0.0.1",
       pascalCaseName: capitalize(camelize(name.split('/').pop())),
     };
   }
