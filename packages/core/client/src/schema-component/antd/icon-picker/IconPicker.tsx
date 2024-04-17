@@ -3,16 +3,20 @@ import { useFormLayout } from '@formily/antd-v5';
 import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
 import { isValid } from '@nocobase/schema';
 import { Button, Space } from 'antd';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon, hasIcon, icons } from '../../../icon';
 import { StablePopover } from '../popover';
+import { IconFilter } from './IconFilter';
+import { IconList } from './IconList';
 
 function IconField(props: any) {
-  const layout = useFormLayout();
   const { value, onChange, disabled } = props;
-  const [visible, setVisible] = useState(false);
   const { t } = useTranslation();
+  const layout = useFormLayout();
+  const [visible, setVisible] = useState(false);
+  const [filterKey, setFilterKey] = useState('');
+
   return (
     <div>
       <Space.Compact>
@@ -26,20 +30,10 @@ function IconField(props: any) {
             setVisible(val);
           }}
           content={
-            <div style={{ width: '26em', maxHeight: '20em', overflowY: 'auto' }}>
-              {[...icons.keys()].map((key) => (
-                <span
-                  key={key}
-                  style={{ fontSize: 18, marginRight: 10, cursor: 'pointer' }}
-                  onClick={() => {
-                    onChange(key);
-                    setVisible(false);
-                  }}
-                >
-                  <Icon type={key} />
-                </span>
-              ))}
-            </div>
+            <>
+              <IconFilter changeFilterKey={setFilterKey} />
+              <IconList filterKey={filterKey} onChange={onChange} changePop={setVisible} />
+            </>
           }
           title={t('Icon')}
           trigger="click"
