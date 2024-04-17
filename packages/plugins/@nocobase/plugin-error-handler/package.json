@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-error-handler",
   "displayName": "Error handler",
-  "version": "0.21.13",
+  "version": "0.21.14",
   "description": "Handling application errors and exceptions.",
   "repository": {
     "type": "git",
