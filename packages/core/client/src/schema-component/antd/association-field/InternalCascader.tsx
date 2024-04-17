@@ -30,7 +30,6 @@ const SchemaField = createSchemaField({
 
 const Cascade = connect((props) => {
   const { data, mapOptions, onChange } = props;
-  const [selectedOptions, setSelectedOptions] = useState([]);
   const [options, setOptions] = useState(data);
   const fieldSchema = useFieldSchema();
   const [loading, setLoading] = useState(false);
@@ -41,21 +40,23 @@ const Cascade = connect((props) => {
   const fieldFilter = fieldSchema['x-component-props']?.service?.params?.filter;
   const sort = fieldSchema['x-component-props']?.service?.params?.sort;
   const field: any = useField();
+  const [selectedOptions, setSelectedOptions] = useState([]);
   useEffect(() => {
-    if (props.value) {
-      const values = Array.isArray(props.value)
+    const propsValue = props.value || fieldSchema['x-component-props'].value;
+    if (propsValue && !selectedOptions.length) {
+      const values = Array.isArray(propsValue)
         ? extractLastNonNullValueObjects(
-            props.value?.filter((v) => v.value),
+            propsValue?.filter((v) => v.value),
             true,
           )
-        : transformNestedData(props.value);
+        : transformNestedData(propsValue);
       const defaultData = values?.map?.((v) => {
         return v.id;
       });
       setSelectedOptions(defaultData);
     }
     onDropdownVisibleChange('true');
-  }, []);
+  }, [fieldSchema['x-component-props'].value]);
   const handleGetOptions = async () => {
     const response = await resource.list({
       pageSize: 9999,
@@ -85,7 +86,7 @@ const Cascade = connect((props) => {
         if (index === option.length - 1) {
           options.push({
             key: item.id,
-            children: null,
+            children: item.children || null,
           });
         } else {
           options.push({
