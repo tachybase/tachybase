@@ -112,7 +112,7 @@ const defaultAppOptionsFactory = (appName: string, mainApp: Application) => {
       ...rawDatabaseOptions,
       tablePrefix: '',
     },
-    plugins: ['nocobase'],
+    plugins: ['tachybase'],
     resourcer: {
       prefix: process.env.API_BASE_PATH,
     },

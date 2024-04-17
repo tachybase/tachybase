@@ -22,29 +22,10 @@ const isEmptyObject = (val: any) => !isValid(val) || (typeof val === 'object' &&
 
 const ObjectSelect = (props: Props) => {
   const { value, options, onChange, mode, fieldNames, loading, rawOptions, defaultValue, ...others } = props;
-  const [defoptions, setDefOptions] = useState();
   const fieldSchema = useFieldSchema();
   const collectionName = fieldSchema['collectionName'];
-  const filterField = others?.['params'];
-  const api = useAPIClient();
   const form = useForm();
-  useAsyncEffect(async () => {
-    if (collectionName) {
-      const defValue = await api.request({
-        url: collectionName + ':list',
-        params: {
-          pageSize: 99999,
-          filter: filterField ? { ...filterField.filter } : {},
-        },
-      });
-      const changOptions = defValue?.data?.data.map((value) => {
-        value['label'] = value[fieldNames.label];
-        value['value'] = value[fieldNames.value];
-        return value;
-      });
-      setDefOptions(changOptions);
-    }
-  }, [filterField?.filter, collectionName]);
+
   useEffect(() => {
     if (collectionName && fieldSchema['name'].toString().includes('custom') && defaultValue) {
       const name = fieldSchema['name'].toString().split('.')[1];
@@ -60,7 +41,7 @@ const ObjectSelect = (props: Props) => {
       .map((val) => {
         return isPlainObject(val) ? val[fieldNames.value] : val;
       });
-    const filterOption = defoptions ? defoptions : options;
+    const filterOption = options;
     const currentOptions = getCurrentOptions(values, filterOption, fieldNames)?.map((val) => {
       return {
         label: val[fieldNames.label],
@@ -88,7 +69,7 @@ const ObjectSelect = (props: Props) => {
       }}
       labelInValue
       notFoundContent={loading ? <Spin /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
-      options={defoptions || options}
+      options={options}
       fieldNames={fieldNames}
       showSearch
       popupMatchSelectWidth={false}
@@ -105,7 +86,7 @@ const ObjectSelect = (props: Props) => {
       onChange={(changed) => {
         const current = getCurrentOptions(
           toArr(changed).map((v) => v.value),
-          defoptions || rawOptions || options,
+          rawOptions || options,
           fieldNames,
         );
         if (['tags', 'multiple'].includes(mode as string) || props.multiple) {
@@ -151,7 +132,7 @@ const useLabelOptions = (others) => {
     [fieldSchema['x-collection-field']],
   );
   const request = {
-    resource: collectionField?.target,
+    resource: collectionField?.target || fieldSchema['collectionName'],
     action: 'list',
     params: {
       pageSize: 99999,
@@ -211,11 +192,37 @@ const useLabelOptions = (others) => {
 const FormulaSelect = (props) => {
   const { objectValue, loading, value, rawOptions, defaultValue, ...others } = props;
   let mode: any = props.multiple ? 'multiple' : props.mode;
+  const filterField = others?.['params'];
+  const [options, setOptions] = useState([]);
+  const [collectionName, setCollectionName] = useState('');
+  const api = useAPIClient();
   if (mode && !['multiple', 'tags'].includes(mode)) {
     mode = undefined;
   }
-  const modifiedProps = useLabelOptions(others);
-
+  const fieldProps = { ...others };
+  if (others?.collection && others.collection !== collectionName) {
+    api
+      .request({
+        url: others.collection + ':list',
+        params: {
+          pageSize: 99999,
+          filter: filterField ? { ...filterField.filter } : {},
+        },
+      })
+      .then((res) => {
+        setOptions(res?.data.data);
+        fieldProps['options'] = res?.data.data;
+      })
+      .catch(() => {
+        return;
+      });
+    setCollectionName(others.collection);
+  } else if (others?.collection === collectionName) {
+    fieldProps['options'] = options.map((option) => {
+      return { ...option };
+    });
+  }
+  const modifiedProps = useLabelOptions(fieldProps);
   return (
     <ObjectSelect
       rawOptions={rawOptions}
