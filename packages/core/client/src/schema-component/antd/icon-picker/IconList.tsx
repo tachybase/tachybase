@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Icon, icons } from '../../../icon';
 import { Tooltip } from 'antd';
 
-export const IconList = (props) => {
+export const IconFilterList = (props) => {
   const { filterKey, onChange, changePop } = props;
 
   const iconKeysByFilter = useMemo(() => {

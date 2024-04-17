@@ -7,8 +7,8 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon, hasIcon, icons } from '../../../icon';
 import { StablePopover } from '../popover';
-import { IconFilter } from './IconFilter';
-import { IconList } from './IconList';
+import { IconFilterInput } from './IconFilterInput';
+import { IconFilterList } from './IconList';
 
 function IconField(props: any) {
   const { value, onChange, disabled } = props;
@@ -31,8 +31,8 @@ function IconField(props: any) {
           }}
           content={
             <>
-              <IconFilter changeFilterKey={setFilterKey} />
-              <IconList filterKey={filterKey} onChange={onChange} changePop={setVisible} />
+              <IconFilterInput changeFilterKey={setFilterKey} />
+              <IconFilterList filterKey={filterKey} onChange={onChange} changePop={setVisible} />
             </>
           }
           title={t('Icon')}
