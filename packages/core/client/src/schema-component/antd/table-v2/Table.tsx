@@ -68,7 +68,7 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
         dataIndex,
         key: s.name,
         sorter: s['x-component-props']?.['sorter'],
-        width: 200,
+        width: 20,
         ...s['x-component-props'],
         render: (v, record) => {
           const index = field.value?.indexOf(record);
