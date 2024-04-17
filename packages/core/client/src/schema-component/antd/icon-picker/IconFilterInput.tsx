@@ -2,7 +2,7 @@ import { Input } from 'antd';
 import _ from 'lodash';
 import React from 'react';
 
-export const IconFilter = (props) => {
+export const IconFilterInput = (props) => {
   const { changeFilterKey } = props;
   const onChange = _.debounce((e) => {
     const inputValue = e.target.value;
