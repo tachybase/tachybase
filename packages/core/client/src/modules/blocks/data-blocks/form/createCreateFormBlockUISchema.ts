@@ -45,22 +45,22 @@ export function createCreateFormBlockUISchema(options: CreateFormBlockUISchemaOp
         'x-component': 'FormV2',
         'x-use-component-props': 'useCreateFormBlockProps',
         properties: {
-          grid: templateSchema || {
-            type: 'void',
-            'x-component': 'Grid',
-            'x-initializer': 'form:configureFields',
-            properties: {},
-          },
           [uid()]: {
             type: 'void',
             'x-initializer': 'createForm:configureActions',
             'x-component': 'ActionBar',
             'x-component-props': {
-              layout: 'one-column',
+              // layout: 'one-column',
               style: {
-                marginTop: 24,
+                marginBottom: 24,
               },
             },
+          },
+          grid: templateSchema || {
+            type: 'void',
+            'x-component': 'Grid',
+            'x-initializer': 'form:configureFields',
+            properties: {},
           },
         },
       },

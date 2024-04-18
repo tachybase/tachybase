@@ -239,15 +239,7 @@ export class PluginManager {
       if (options?.forceRecreate) {
         await fs.promises.rm(pluginDir, { recursive: true, force: true });
       }
-      const { PluginGenerator } = require('@nocobase/cli/src/plugin-generator');
-      const generator = new PluginGenerator({
-        cwd: process.cwd(),
-        args: {},
-        context: {
-          name,
-        },
-      });
-      await generator.run();
+      await execa('pnpm', ['run', 'tb', 'create-plugin', name]);
     };
     await createPlugin(pluginName);
     try {

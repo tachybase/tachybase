@@ -12,6 +12,7 @@ const pkg = require('./package.json');
 
 const entries = {
   cli: 'src/cli.ts',
+  index: 'src/index.ts',
 };
 
 const external = [

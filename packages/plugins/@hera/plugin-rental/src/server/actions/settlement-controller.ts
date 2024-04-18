@@ -21,7 +21,19 @@ export class SettlementController {
     const {
       params: { settlementsId },
     } = ctx.action;
+    const products_view = this.sqlLoader.sqlFiles['products_search_rule_special'];
+    await ctx.db.sequelize.query(products_view);
+    const leaseSql = this.sqlLoader.sqlFiles['settlement_calc_products'];
+    const settlementLeaseData = await ctx.db.sequelize.query(leaseSql, {
+      logging: console.log,
+      replacements: {
+        settlementsId,
+      },
+      type: QueryTypes.SELECT,
+    });
+    console.log(settlementLeaseData, '目前仅租金数据', settlementsId);
 
+    return;
     const SQL = this.sqlLoader.sqlFiles['settlement_calc'];
     const settlement = await ctx.db.sequelize.query(SQL, {
       logging: console.log,

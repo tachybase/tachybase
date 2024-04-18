@@ -7,6 +7,7 @@ export type UploadProps = Omit<AntdUploadProps, 'onChange'> & {
   serviceErrorMessage?: string;
   value?: any;
   size?: string;
+  showCount?: number;
 };
 
 export type DraggerProps = Omit<AntdDraggerProps, 'onChange'> & {

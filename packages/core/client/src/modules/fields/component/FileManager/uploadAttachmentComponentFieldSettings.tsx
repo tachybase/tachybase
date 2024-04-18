@@ -45,5 +45,47 @@ export const uploadAttachmentComponentFieldSettings = new SchemaSettings({
         };
       },
     },
+    {
+      name: 'showCount',
+      type: 'modal',
+      useComponentProps() {
+        const field: any = useField();
+        const { t } = useTranslation();
+        const showCountSchema = useFieldSchema();
+        const { dn } = useDesignable();
+
+        return {
+          title: t('Show Count'),
+          schema: {
+            type: 'object',
+            title: t('Show Count'),
+            properties: {
+              showCount: {
+                default: showCountSchema?.['x-component-props']?.['showCount'] || 1,
+                'x-decorator': 'FormItem',
+                'x-component': 'InputNumber',
+                'x-component-props': {
+                  min: 0,
+                  max: 5,
+                },
+              },
+            },
+          },
+          onSubmit: ({ showCount }) => {
+            const props = showCountSchema['x-component-props'] || {};
+            props.showCount = showCount;
+            field.componentProps.showCount = showCount;
+            const schema = {
+              ['x-uid']: showCountSchema['x-uid'],
+              ['x-component-props']: props,
+            };
+            dn.emit('patch', {
+              schema,
+            });
+            dn.refresh();
+          },
+        };
+      },
+    },
   ],
 });
