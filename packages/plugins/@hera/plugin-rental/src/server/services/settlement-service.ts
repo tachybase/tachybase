@@ -96,20 +96,45 @@ export class SettlementService {
                                   settlementAbout.end_date,
                                 );
                           const movement = item.movement === '-1' ? '1' : '-1';
+                          if (productLength > 1) {
+                            createLeasDatas.push({
+                              settlement_id: settlementsId, //合同ID
+                              movement: item.movement, //出入库状态
+                              date: item.date, //时间
+                              name: rule.comment ?? '', //名称
+                              label: rule.comment ?? '',
+                              category: item.category, //费用类别
+                              //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
+                              days: day,
+                              is_excluded: false,
+                              item_count: product.count,
+                              count: recordItem.weight * Number(movement),
+                              unit_price: rule.unit_price * 1000,
+                              amount: recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
+                              unit_name: '吨',
+                              productCategory,
+                            });
+                          }
                           createLeasDatas.push({
                             settlement_id: settlementsId, //合同ID
                             movement: item.movement, //出入库状态
                             date: item.date, //时间
                             name: productLength > 1 ? rule.comment ?? '' : productName.name, //名称
-                            label: productLength > 1 ? rule.comment ?? '' : productName.label, //规格
+                            label:
+                              productLength > 1
+                                ? `${rule.comment}-${productName.label}$$ ` ?? '' + `-${productName.label}$$ `
+                                : productName.label, //规格
                             category: item.category, //费用类别
                             //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                             days: day,
                             is_excluded: false,
                             item_count: product.count,
-                            count: recordItem.weight * Number(movement),
+                            count: productLength > 1 ? 0 : recordItem.weight * Number(movement),
                             unit_price: rule.unit_price * 1000,
-                            amount: recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
+                            amount:
+                              productLength > 1
+                                ? 0
+                                : recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
                             unit_name: '吨',
                             productCategory,
                           });
@@ -160,20 +185,42 @@ export class SettlementService {
                           return prev + 0;
                         }
                       }, 0);
+                      if (productLength > 1) {
+                        createLeasDatas.push({
+                          settlement_id: settlementsId, //合同ID
+                          movement: item.movement, //出入库状态
+                          date: item.date, //时间
+                          name: rule.comment ?? '', //名称
+                          label: rule.comment ?? '', //规格
+                          category: item.category, //费用类别
+                          //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
+                          days: day,
+                          is_excluded: false,
+                          item_count: productLength > 1 ? item_count : recordItem.count * Number(movement),
+                          count: item.weight * Number(movement),
+                          unit_price: rule.unit_price * 1000,
+                          amount: item.weight * (rule.unit_price * 1000) * day * Number(movement),
+                          unit_name: '吨',
+                          productCategory,
+                        });
+                      }
                       createLeasDatas.push({
                         settlement_id: settlementsId, //合同ID
                         movement: item.movement, //出入库状态
                         date: item.date, //时间
                         name: productLength > 1 ? rule.comment ?? '' : recordItem.product.name, //名称
-                        label: productLength > 1 ? rule.comment ?? '' : recordItem.product.name, //规格
+                        label:
+                          productLength > 1
+                            ? `${rule.comment}-${recordItem.product.name}$$` ?? '' + `-${recordItem.product.name}$$`
+                            : recordItem.product.name, //规格
                         category: item.category, //费用类别
                         //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                         days: day,
                         is_excluded: false,
                         item_count: productLength > 1 ? item_count : recordItem.count * Number(movement),
-                        count: item.weight * Number(movement),
+                        count: productLength > 1 ? 0 : item.weight * Number(movement),
                         unit_price: rule.unit_price * 1000,
-                        amount: item.weight * (rule.unit_price * 1000) * day * Number(movement),
+                        amount: productLength > 1 ? 0 : item.weight * (rule.unit_price * 1000) * day * Number(movement),
                         unit_name: '吨',
                         productCategory,
                       });
@@ -498,6 +545,13 @@ export class SettlementService {
                     dayjs(item.date).isBetween(ruleItem.start_date, ruleItem.end_date, 'day', '[]') &&
                     dayjs(item.date).isSameOrAfter(settlementAbout.start_date)
                   ) {
+                    const feeItem = item?.record_items.filter((value) => value.product_id === rule.fee_product_id);
+                    if (feeItem.length) {
+                      feeItem.forEach((value) => {
+                        data.count = data.count + value.count;
+                        conversion = true;
+                      });
+                    }
                     if (item.fee_item.length) {
                       item.fee_item.forEach((value) => {
                         if (value.product_id === rule.fee_product_id) {
@@ -635,10 +689,12 @@ export class SettlementService {
     createDatas.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
-    createDatas = createDatas.filter((value) => value.count);
+    createDatas = createDatas.filter((value) => value.name.includes('$$') || value.count);
     //筛选历史结存
     createCategoryDatasItem.history = createCategoryDatasItem.history?.filter((value) => value.count);
-    createProductDatasItem.history = createProductDatasItem.history?.filter((value) => value.count);
+    createProductDatasItem.history = createProductDatasItem.history?.filter(
+      (value) => value.name.includes('$$') || value.count,
+    );
     //汇总项信息
     const summaryCategoryItems = [];
     for (const value in createCategoryDatasItem) {
@@ -835,6 +891,9 @@ export class SettlementService {
         if (valueItem) {
           value.date = dayjs(valueItem.date).add(1, 'seconds');
         }
+      }
+      if (value.name.includes('$$')) {
+        value.name = value.name.replace('$$', '');
       }
     });
     calc.list?.sort((a, b) => {
