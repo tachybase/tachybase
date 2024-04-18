@@ -9,5 +9,5 @@ export const IconFilterInput = (props) => {
     changeFilterKey(inputValue);
   }, 100);
 
-  return <Input allowClear placeholder={`antd的key,例如"ApiOutlined",忽略大小写`} onChange={onChange} />;
+  return <Input allowClear placeholder={`Antd的key,例如"ApiOutlined",忽略大小写`} onChange={onChange} />;
 };
