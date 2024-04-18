@@ -1,0 +1,24 @@
+{
+  "name": "@hera/plugin-approval-mobile",
+  "version": "0.21.12",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "5.x",
+    "@nocobase/schema": "workspace:*",
+    "@types/lodash": "^4.17.0",
+    "antd": "5.16.1",
+    "antd-mobile": "^5.35.0",
+    "antd-mobile-icons": "^0.3.0",
+    "classnames": "^2.3.1",
+    "lodash": "4.17.21",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "提供定制化的移动端页面审批的功能。",
+  "displayName.zh-CN": "移动端:审批"
+}
