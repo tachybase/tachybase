@@ -111,6 +111,7 @@ export class ContractRuleService {
       // const feeProduct = plan.fee_items.filter((item) => item.lease_item_id === options.values.lease_product.id // 确定options.values.lease_product是否为数组格式)
     } else {
       const add = options.values.fee_product;
+      if (!add) return;
       const feeData = plan.fee_items.filter((item) => !item.lease_item_id).map((item) => item.fee_product);
       feeData.forEach((item) => {
         const isHas = add.find((p) => p.id === item.id);
