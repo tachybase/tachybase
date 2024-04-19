@@ -33,9 +33,9 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build:p
-      - name: show status
-        run: git status
+      - name: Show token
+        run: echo ${{ secrets.NPMTOKEN }}
       - name: publish
         run: pnpm publish -r --registry=https://npm.daoyoucloud.com --publish-branch ${{ gitea.ref }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPMTOKEN }}
