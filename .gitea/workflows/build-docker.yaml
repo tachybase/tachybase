@@ -54,5 +54,5 @@ jobs:
             TACHYBASE_VERSION=${{ steps.extract_tag.outputs.version }}
             NPM_REGISTRY=${{ vars.REGISTRY_URL }}
           tags: |
-            tachybase/tachybase:${{ steps.extract_tag.outputs.version }}
-            tachybase/tachybase:latest
+            ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase:${{ steps.extract_tag.outputs.version }}
+            ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase:latest
