@@ -107,7 +107,7 @@ export class SettlementService {
                               //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                               days: day,
                               is_excluded: false,
-                              item_count: product.count,
+                              item_count: 0,
                               count: recordItem.weight * Number(movement),
                               unit_price: rule.unit_price * 1000,
                               amount: recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
@@ -171,59 +171,47 @@ export class SettlementService {
                               settlementAbout.end_date,
                             );
                       const movement = item.movement === '-1' ? '1' : '-1';
+
+                      const data = {
+                        settlement_id: settlementsId, //合同ID
+                        movement: item.movement, //出入库状态
+                        date: item.date, //时间
+                        name: productLength > 1 ? rule.comment ?? '' : recordItem.product.name, //名称
+                        label: productLength > 1 ? rule.comment ?? '' : recordItem.product.name, //规格
+                        category: item.category, //费用类别
+                        //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
+                        days: day,
+                        is_excluded: false,
+                        count: item.weight * Number(movement),
+                        unit_price: rule.unit_price * 1000,
+                        amount: item.weight * (rule.unit_price * 1000) * day * Number(movement),
+                        unit_name: '吨',
+                        productCategory,
+                      };
                       const item_count = item.record_items.reduce((prev, curr) => {
-                        if (
-                          countRule.find(
-                            (productRule) =>
-                              (productRule.product_id > RulesNumber &&
-                                productRule.product_id - RulesNumber === curr.product.category_id) ||
-                              productRule.product_id === curr?.product_id,
-                          )
-                        ) {
+                        const item = countRule.find(
+                          (productRule) =>
+                            (productRule.product_id > RulesNumber &&
+                              productRule.product_id - RulesNumber === curr.product.category_id) ||
+                            productRule.product_id === curr?.product_id,
+                        );
+                        if (productLength > 1 && item) {
+                          const itemData = { ...data };
+                          itemData['item_count'] = curr.count * Number(movement);
+                          itemData['label'] =
+                            `${rule.comment}-${curr.product.label}$$` ?? '' + `-${curr.product.label}$$`;
+                          itemData['count'] = 0;
+                          itemData['amount'] = 0;
+                          createLeasDatas.push(itemData);
+                          return prev + curr.count;
+                        } else if (productLength <= 1 && !item) {
                           return prev + curr.count;
                         } else {
                           return prev + 0;
                         }
                       }, 0);
-                      if (productLength > 1) {
-                        createLeasDatas.push({
-                          settlement_id: settlementsId, //合同ID
-                          movement: item.movement, //出入库状态
-                          date: item.date, //时间
-                          name: rule.comment ?? '', //名称
-                          label: rule.comment ?? '', //规格
-                          category: item.category, //费用类别
-                          //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
-                          days: day,
-                          is_excluded: false,
-                          item_count: productLength > 1 ? item_count : recordItem.count * Number(movement),
-                          count: item.weight * Number(movement),
-                          unit_price: rule.unit_price * 1000,
-                          amount: item.weight * (rule.unit_price * 1000) * day * Number(movement),
-                          unit_name: '吨',
-                          productCategory,
-                        });
-                      }
-                      createLeasDatas.push({
-                        settlement_id: settlementsId, //合同ID
-                        movement: item.movement, //出入库状态
-                        date: item.date, //时间
-                        name: productLength > 1 ? rule.comment ?? '' : recordItem.product.name, //名称
-                        label:
-                          productLength > 1
-                            ? `${rule.comment}-${recordItem.product.name}$$` ?? '' + `-${recordItem.product.name}$$`
-                            : recordItem.product.name, //规格
-                        category: item.category, //费用类别
-                        //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
-                        days: day,
-                        is_excluded: false,
-                        item_count: productLength > 1 ? item_count : recordItem.count * Number(movement),
-                        count: productLength > 1 ? 0 : item.weight * Number(movement),
-                        unit_price: rule.unit_price * 1000,
-                        amount: productLength > 1 ? 0 : item.weight * (rule.unit_price * 1000) * day * Number(movement),
-                        unit_name: '吨',
-                        productCategory,
-                      });
+                      data['item_count'] = productLength > 1 ? 0 : item_count * Number(movement);
+                      createLeasDatas.push(data);
                     }
                   }
                 } else {
