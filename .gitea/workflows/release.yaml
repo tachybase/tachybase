@@ -1,0 +1,30 @@
+name: Release Workflow
+on:
+  push:
+    branches:
+      - 'release-*'
+
+permissions:
+  contents: write
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    container: node:20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: config registry
+        run: npm config set registry https://npm.daoyoucloud.com/
+      - name: install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          standalone: true
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm build:p
+      - name: publish
+        run: pnpm publish -r --registry=https://npm.daoyoucloud.com --publish-branch ${{ gitea.ref }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
