@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: config registry
-        run: npm config set registry https://npm.daoyoucloud.com/
+        run: npm config set registry ${{ vars.REGISTRY_URL }}
       - name: install pnpm
         uses: pnpm/action-setup@v3
         with:
