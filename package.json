@@ -17,6 +17,7 @@
     "pm": "tachybase pm",
     "pm2": "tachybase pm2",
     "prepare": "husky",
+    "release": "pnpm -r exec -- npm version patch",
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "tachybase start",
     "tachybase": "tachybase",
