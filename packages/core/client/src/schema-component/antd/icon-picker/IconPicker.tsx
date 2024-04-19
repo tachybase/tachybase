@@ -5,7 +5,7 @@ import { isValid } from '@nocobase/schema';
 import { Button, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon, hasIcon, icons } from '../../../icon';
+import { Icon, hasIcon } from '../../../icon';
 import { StablePopover } from '../popover';
 import { IconFilterInput } from './IconFilterInput';
 import { IconFilterList } from './IconList';
@@ -32,7 +32,7 @@ function IconField(props: any) {
           content={
             <>
               <IconFilterInput changeFilterKey={setFilterKey} />
-              <IconFilterList filterKey={filterKey} onChange={onChange} changePop={setVisible} />
+              <IconFilterList currentKey={value} filterKey={filterKey} onChange={onChange} changePop={setVisible} />
             </>
           }
           title={t('Icon')}

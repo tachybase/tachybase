@@ -96,20 +96,45 @@ export class SettlementService {
                                   settlementAbout.end_date,
                                 );
                           const movement = item.movement === '-1' ? '1' : '-1';
+                          if (productLength > 1) {
+                            createLeasDatas.push({
+                              settlement_id: settlementsId, //合同ID
+                              movement: item.movement, //出入库状态
+                              date: item.date, //时间
+                              name: rule.comment ?? '', //名称
+                              label: rule.comment ?? '',
+                              category: item.category, //费用类别
+                              //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
+                              days: day,
+                              is_excluded: false,
+                              item_count: 0,
+                              count: recordItem.weight * Number(movement),
+                              unit_price: rule.unit_price * 1000,
+                              amount: recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
+                              unit_name: '吨',
+                              productCategory,
+                            });
+                          }
                           createLeasDatas.push({
                             settlement_id: settlementsId, //合同ID
                             movement: item.movement, //出入库状态
                             date: item.date, //时间
                             name: productLength > 1 ? rule.comment ?? '' : productName.name, //名称
-                            label: productLength > 1 ? rule.comment ?? '' : productName.label, //规格
+                            label:
+                              productLength > 1
+                                ? `${rule.comment}-${productName.label}$$ ` ?? '' + `-${productName.label}$$ `
+                                : productName.label, //规格
                             category: item.category, //费用类别
                             //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                             days: day,
                             is_excluded: false,
                             item_count: product.count,
-                            count: recordItem.weight * Number(movement),
+                            count: productLength > 1 ? 0 : recordItem.weight * Number(movement),
                             unit_price: rule.unit_price * 1000,
-                            amount: recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
+                            amount:
+                              productLength > 1
+                                ? 0
+                                : recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
                             unit_name: '吨',
                             productCategory,
                           });
@@ -146,21 +171,8 @@ export class SettlementService {
                               settlementAbout.end_date,
                             );
                       const movement = item.movement === '-1' ? '1' : '-1';
-                      const item_count = item.record_items.reduce((prev, curr) => {
-                        if (
-                          countRule.find(
-                            (productRule) =>
-                              (productRule.product_id > RulesNumber &&
-                                productRule.product_id - RulesNumber === curr.product.category_id) ||
-                              productRule.product_id === curr?.product_id,
-                          )
-                        ) {
-                          return prev + curr.count;
-                        } else {
-                          return prev + 0;
-                        }
-                      }, 0);
-                      createLeasDatas.push({
+
+                      const data = {
                         settlement_id: settlementsId, //合同ID
                         movement: item.movement, //出入库状态
                         date: item.date, //时间
@@ -170,13 +182,36 @@ export class SettlementService {
                         //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                         days: day,
                         is_excluded: false,
-                        item_count: productLength > 1 ? item_count : recordItem.count * Number(movement),
                         count: item.weight * Number(movement),
                         unit_price: rule.unit_price * 1000,
                         amount: item.weight * (rule.unit_price * 1000) * day * Number(movement),
                         unit_name: '吨',
                         productCategory,
-                      });
+                      };
+                      const item_count = item.record_items.reduce((prev, curr) => {
+                        const item = countRule.find(
+                          (productRule) =>
+                            (productRule.product_id > RulesNumber &&
+                              productRule.product_id - RulesNumber === curr.product.category_id) ||
+                            productRule.product_id === curr?.product_id,
+                        );
+                        if (productLength > 1 && item) {
+                          const itemData = { ...data };
+                          itemData['item_count'] = curr.count * Number(movement);
+                          itemData['label'] =
+                            `${rule.comment}-${curr.product.label}$$` ?? '' + `-${curr.product.label}$$`;
+                          itemData['count'] = 0;
+                          itemData['amount'] = 0;
+                          createLeasDatas.push(itemData);
+                          return prev + curr.count;
+                        } else if (productLength <= 1 && !item) {
+                          return prev + curr.count;
+                        } else {
+                          return prev + 0;
+                        }
+                      }, 0);
+                      data['item_count'] = productLength > 1 ? 0 : item_count * Number(movement);
+                      createLeasDatas.push(data);
                     }
                   }
                 } else {
@@ -498,6 +533,13 @@ export class SettlementService {
                     dayjs(item.date).isBetween(ruleItem.start_date, ruleItem.end_date, 'day', '[]') &&
                     dayjs(item.date).isSameOrAfter(settlementAbout.start_date)
                   ) {
+                    const feeItem = item?.record_items.filter((value) => value.product_id === rule.fee_product_id);
+                    if (feeItem.length) {
+                      feeItem.forEach((value) => {
+                        data.count = data.count + value.count;
+                        conversion = true;
+                      });
+                    }
                     if (item.fee_item.length) {
                       item.fee_item.forEach((value) => {
                         if (value.product_id === rule.fee_product_id) {
@@ -635,10 +677,12 @@ export class SettlementService {
     createDatas.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
-    createDatas = createDatas.filter((value) => value.count);
+    createDatas = createDatas.filter((value) => value.name.includes('$$') || value.count);
     //筛选历史结存
     createCategoryDatasItem.history = createCategoryDatasItem.history?.filter((value) => value.count);
-    createProductDatasItem.history = createProductDatasItem.history?.filter((value) => value.count);
+    createProductDatasItem.history = createProductDatasItem.history?.filter(
+      (value) => value.name.includes('$$') || value.count,
+    );
     //汇总项信息
     const summaryCategoryItems = [];
     for (const value in createCategoryDatasItem) {
@@ -835,6 +879,9 @@ export class SettlementService {
         if (valueItem) {
           value.date = dayjs(valueItem.date).add(1, 'seconds');
         }
+      }
+      if (value.name.includes('$$')) {
+        value.name = value.name.replace('$$', '');
       }
     });
     calc.list?.sort((a, b) => {
