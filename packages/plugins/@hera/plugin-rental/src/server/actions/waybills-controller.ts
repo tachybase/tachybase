@@ -20,12 +20,20 @@ export class WaybillsController {
       ctx.body = await renderWaybill(null);
       return;
     }
+    const products = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['waybills_products'], {
+      replacements: {
+        recordId: recordId,
+      },
+      type: QueryTypes.SELECT,
+    });
     const waybills = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_waybills'], {
       replacements: {
         recordId: recordId,
       },
       type: QueryTypes.SELECT,
     });
+    const data = waybills[0];
+    data['products'] = products;
     const settings = {};
     if (Number(margingTop)) {
       settings['margingTop'] = Number(margingTop);
@@ -33,7 +41,7 @@ export class WaybillsController {
       const currentUser = await ctx.db.getRepository('users').findOne({ filter: { id: ctx.state.currentUser.id } });
       settings['margingTop'] = Number(currentUser?.pdf_top_margin) || 0;
     }
-    ctx.body = await renderWaybill(waybills[0] as Waybill, settings);
+    ctx.body = await renderWaybill(data as Waybill, settings);
   }
 
   @Action('group')
