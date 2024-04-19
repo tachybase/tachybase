@@ -44,3 +44,4 @@ ncc-cache/
 yarn--**
 v8-compile-cache-**
 .env.local.*
+.pnpm-store
