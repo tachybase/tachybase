@@ -10,17 +10,16 @@ permissions:
 jobs:
   CI:
     runs-on: ubuntu-latest
-    container: node:20
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: config registry
-        run: npm config set registry https://npm.daoyoucloud.com/
-      - name: install pnpm
-        uses: pnpm/action-setup@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          standalone: true
-      - name: Install dependencies
+          node-version: 20
+          registry-url: ${{ vars.REGISTRY_URL }}
+          cache: 'pnpm'
+      - name: Install deps
         run: pnpm install
       - name: Build
         run: pnpm build:p
