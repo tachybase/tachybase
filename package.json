@@ -17,7 +17,7 @@
     "pm": "tachybase pm",
     "pm2": "tachybase pm2",
     "prepare": "husky",
-    "release": "pnpm -r exec -- npm version patch",
+    "release": "pnpm -r exec -- npm version patch && npm version patch --no-git-tag-version && git commit -a -m 'chore(version): release '$(jq -r '.version | \"v\\(.)\"' package.json | tr -d '\"') && git tag $(jq -r '.version | \"v\\(.)\"' package.json | tr -d '\"')",
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "tachybase start",
     "tachybase": "tachybase",
@@ -30,7 +30,7 @@
     "test:client": "tachybase test:client",
     "test:server": "tachybase test:server",
     "ts": "tachybase test:server",
-    "version": "changeset version"
+    "ver": "changeset version"
   },
   "lint-staged": {
     "*.{js,json,sql}": [
