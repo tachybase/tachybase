@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-gantt",
   "displayName": "Block: Gantt",
-  "version": "0.21.16",
+  "version": "0.21.17",
   "description": "Provides Gantt block.",
   "keywords": [
     "Blocks"
