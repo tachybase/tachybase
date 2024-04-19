@@ -20,9 +20,7 @@
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "tachybase start",
     "tachybase": "tachybase",
-    "tag:c": "changeset",
-    "tag:p": "changeset",
-    "tag:v": "changeset version",
+    "tag": "changeset",
     "tar": "tachybase tar",
     "tb": "tachybase",
     "tbi": "tachybase install",
@@ -30,7 +28,8 @@
     "test": "tachybase test",
     "test:client": "tachybase test:client",
     "test:server": "tachybase test:server",
-    "ts": "tachybase test:server"
+    "ts": "tachybase test:server",
+    "version": "changeset version"
   },
   "lint-staged": {
     "*.{js,json,sql}": [
