@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-formula-field",
   "displayName": "Collection field: Formula",
-  "version": "0.21.17",
+  "version": "0.21.18",
   "description": "Configure and store the results of calculations between multiple field values in the same record, supporting both Math.js and Excel formula functions.",
   "keywords": [
     "Collection fields"
