@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "0.21.16",
+  "version": "0.21.17",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {

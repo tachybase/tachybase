@@ -5,13 +5,14 @@ COPY ./docker/nocobase/nocobase.conf /etc/nginx/sites-enabled/nocobase.conf
 
 FROM node:20-bullseye as build-template-app
 ARG NPM_REGISTRY=https://registry.npmjs.org/
+ARG TACHYBASE_VERSION=0.21.16
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 WORKDIR /app
-RUN cd /app && npx --registry $NPM_REGISTRY create-tachybase-app@0.21.16  my-nocobase-app -a -e APP_ENV=production
+RUN cd /app && npx --registry $NPM_REGISTRY create-tachybase-app@$TACHYBASE_VERSION my-nocobase-app -a -e APP_ENV=production
 RUN pnpm config set registry $NPM_REGISTRY
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store cd /app/my-nocobase-app && pnpm install --production
 
