@@ -1,7 +1,7 @@
 import { useFieldSchema } from '@nocobase/schema';
 import { App } from 'antd';
 import { useMatch } from 'react-router-dom';
-import { useTranslation } from '../locale';
+import { useTranslation } from '../../locale';
 
 export function usePageSettingsProps() {
   const isAdmin = useMatch('/admin/:name');
