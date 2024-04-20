@@ -1,23 +1,31 @@
-import { InstallOptions, Plugin } from '@nocobase/server';
+import Application, { InstallOptions, Plugin, type PluginOptions } from '@nocobase/server';
 import path from 'path';
 import CalcField from './fields/calc';
 import { SqlLoader } from './services/sql-loader';
 import { ConnectionManager } from './services/connection-manager';
-import { isMain } from './utils/multiprocess';
 import { FontManager } from './services/font-manager';
 import { HomePageService } from './services/home-page-service';
 import { WebControllerService as WebService } from './services/web-service';
 import './actions';
 import { Container } from '@nocobase/utils';
+import { DepartmentsPlugin } from './features/departments';
 
 export class PluginCoreServer extends Plugin {
-  afterAdd() {
+  pluginDepartments: DepartmentsPlugin;
+  constructor(app: Application, options?: PluginOptions) {
+    super(app, options);
+    this.pluginDepartments = new DepartmentsPlugin(app, options);
+  }
+  async afterAdd() {
     this.db.registerFieldTypes({
       calc: CalcField,
     });
   }
-  beforeLoad() {}
+  beforeLoad() {
+    this.pluginDepartments.beforeLoad();
+  }
   async load() {
+    await this.pluginDepartments.load();
     Container.reset();
     try {
       Container.set({ id: 'db', value: this.db });
@@ -35,7 +43,9 @@ export class PluginCoreServer extends Plugin {
       console.warn(err);
     }
   }
-  async install(options?: InstallOptions) {}
+  async install(options?: InstallOptions) {
+    this.pluginDepartments.install(options);
+  }
   async afterEnable() {}
   async afterDisable() {}
   async remove() {}
