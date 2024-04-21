@@ -83,6 +83,9 @@
     "pnpm": "8.15.5"
   },
   "pnpm": {
+    "neverBuiltDependencies": [
+      "canvas"
+    ],
     "overrides": {
       "@formily/core": "2.2.27",
       "@formily/grid": "2.2.27",
