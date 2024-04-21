@@ -1,0 +1,20 @@
+{
+  "name": "@hera/plugin-external-data-source",
+  "version": "0.0.1",
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "antd": "5.16.1",
+    "lodash": "^4.17.21",
+    "pg": "^8.11.3",
+    "react-i18next": "^11.15.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.0"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/plugin-data-source-manager": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-core",
   "displayName": "Hera platform",
-  "version": "1.7.19",
+  "version": "1.7.21",
   "description": "Hera platform as nocobase plugin.",
   "keywords": [
     "System management"
@@ -42,6 +42,7 @@
     "ws": "^8.13.0"
   },
   "peerDependencies": {
+    "@nocobase/plugin-acl": "workspace:*",
     "@nocobase/actions": "workspace:*",
     "@nocobase/client": "workspace:*",
     "@nocobase/database": "workspace:*",

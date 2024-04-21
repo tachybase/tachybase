@@ -74,6 +74,8 @@ import {
   useCustomPresets1,
 } from './schema-settings/SchemaSettingsDatePresets';
 import { SchemaSettingsSubmitDataType } from './schema-settings/SchemaSettingsSubmitDataType';
+import { EmbedPlugin } from './features/embed';
+import { DepartmentsPlugin } from './features/departments';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -82,6 +84,8 @@ export class PluginCoreClient extends Plugin {
 
   async afterAdd() {
     await this.app.pm.add(GroupBlockPlugin);
+    await this.app.pm.add(EmbedPlugin);
+    await this.app.pm.add(DepartmentsPlugin);
   }
 
   async registerSettings() {

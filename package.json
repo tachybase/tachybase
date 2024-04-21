@@ -1,6 +1,6 @@
 {
   "name": "tachybase",
-  "version": "0.21.16",
+  "version": "0.21.18",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
@@ -17,12 +17,11 @@
     "pm": "tachybase pm",
     "pm2": "tachybase pm2",
     "prepare": "husky",
+    "release": "pnpm -r exec -- npm version patch && npm version patch --no-git-tag-version && git commit -a -m 'chore(version): release '$(jq -r '.version | \"v\\(.)\"' package.json | tr -d '\"') && git tag $(jq -r '.version | \"v\\(.)\"' package.json | tr -d '\"')",
     "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "tachybase start",
     "tachybase": "tachybase",
-    "tag:c": "changeset",
-    "tag:p": "changeset",
-    "tag:v": "changeset version",
+    "tag": "changeset",
     "tar": "tachybase tar",
     "tb": "tachybase",
     "tbi": "tachybase install",
@@ -30,7 +29,8 @@
     "test": "tachybase test",
     "test:client": "tachybase test:client",
     "test:server": "tachybase test:server",
-    "ts": "tachybase test:server"
+    "ts": "tachybase test:server",
+    "ver": "changeset version"
   },
   "lint-staged": {
     "*.{js,json,sql}": [
@@ -41,37 +41,37 @@
     ]
   },
   "dependencies": {
-    "pm2": "^5.2.0",
-    "rimraf": "^3.0.0"
+    "pm2": "^5.3.1",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
-    "@commitlint/cli": "^16.1.0",
-    "@commitlint/config-conventional": "^16.0.0",
-    "@commitlint/prompt-cli": "^16.1.0",
+    "@commitlint/cli": "^16.3.0",
+    "@commitlint/config-conventional": "^16.2.4",
+    "@commitlint/prompt-cli": "^16.3.0",
     "@nocobase/build": "workspace:*",
     "@nocobase/test": "workspace:*",
     "@tachybase/cli": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
-    "@types/react": "^18.2.73",
-    "@types/react-dom": "^18.2.23",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
     "auto-changelog": "^2.4.0",
-    "axios": "^1.6.2",
-    "commander": "^9.2.0",
-    "eslint-plugin-jest-dom": "^5.0.1",
-    "eslint-plugin-testing-library": "^5.11.0",
+    "axios": "^1.6.8",
+    "commander": "^9.5.0",
+    "eslint-plugin-jest-dom": "^5.4.0",
+    "eslint-plugin-testing-library": "^5.11.1",
     "husky": "^9.0.11",
-    "lint-staged": "^13.2.3",
-    "prettier": "^3.1.1",
-    "prettier-plugin-packagejson": "^2.4.14",
-    "prettier-plugin-sql": "^0.17.0",
-    "pretty-format": "^24.0.0",
-    "pretty-quick": "^3.1.0",
+    "lint-staged": "^13.3.0",
+    "prettier": "^3.2.5",
+    "prettier-plugin-packagejson": "^2.5.0",
+    "prettier-plugin-sql": "^0.17.1",
+    "pretty-format": "^24.9.0",
+    "pretty-quick": "^3.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsx": "^4.7.2",
     "typescript": "5.4.5",
-    "umi": "^4.1.8"
+    "umi": "^4.1.10"
   },
   "packageManager": "pnpm@8.15.5",
   "engines": {

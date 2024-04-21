@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow-sql",
   "displayName": "Workflow: SQL node",
-  "version": "0.21.16",
+  "version": "0.21.18",
   "description": "Execute SQL statements in workflow.",
   "keywords": [
     "Workflow"

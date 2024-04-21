@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow-request",
   "displayName": "Workflow: HTTP request node",
-  "version": "0.21.16",
+  "version": "0.21.18",
   "description": "Send HTTP requests to any HTTP service for data interaction in workflow.",
   "keywords": [
     "Workflow"

@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-file-manager",
   "displayName": "File manager",
-  "version": "0.21.16",
+  "version": "0.21.18",
   "description": "Provides files storage services with files collection template and attachment field.",
   "keywords": [
     "Collections",
