@@ -28,6 +28,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: docker/tachybase/Dockerfile
           push: true
           build-args: |
             TACHYBASE_VERSION=${{ steps.extract_tag.outputs.version }}
