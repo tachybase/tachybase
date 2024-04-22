@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 import { useSessionStorageState } from 'ahooks';
-import { App, Layout, Spin, FloatButton } from 'antd';
+import { App, Layout, Spin, FloatButton, Alert } from 'antd';
 import { ToolOutlined, CommentOutlined, CalculatorOutlined, HighlightOutlined } from '@ant-design/icons';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, Outlet, useMatch, useNavigate, useParams } from 'react-router-dom';
@@ -364,10 +364,10 @@ export const InternalAdminLayout = (props: any) => {
             background: rgba(0, 0, 0, 0);
             z-index: 100;
             .ant-layout-sider-children {
-              top: var(--nb-header-height);
+              top: calc(var(--nb-header-height) + 18px);
               position: fixed;
               width: 200px;
-              height: calc(100vh - var(--nb-header-height));
+              height: calc(100vh - var(--nb-header-height) - 18px);
             }
           `}
           theme={'light'}
@@ -468,6 +468,7 @@ export const AdminLayout = (props) => {
 
   const AdminComponent = (
     <AdminProvider>
+      <Alert message="开发版本" type="warning" style={{ textAlign: 'center', height: '14px' }} />
       <PageStyleContext.Provider value={{ style }}>
         <InternalAdminLayout {...props} />
       </PageStyleContext.Provider>
