@@ -51,6 +51,9 @@ importers:
       '@tachybase/cli':
         specifier: workspace:*
         version: link:packages/core/cli
+      '@tachybase/preset-hera-rental':
+        specifier: workspace:*
+        version: link:packages/presets/hera-rental
       '@tachybase/preset-tachybase':
         specifier: workspace:*
         version: link:packages/presets/tachybase
@@ -166,9 +169,9 @@ importers:
       '@nocobase/server':
         specifier: workspace:*
         version: link:../server
-      '@tachybase/preset-rental':
+      '@tachybase/preset-hera-rental':
         specifier: workspace:*
-        version: link:../../presets/rental
+        version: link:../../presets/hera-rental
     devDependencies:
       '@nocobase/cache':
         specifier: workspace:*
@@ -1552,9 +1555,12 @@ importers:
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/plugin-data-source-manager':
+      '@nocobase/data-source-manager':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-data-source-manager
+        version: link:../../../core/data-source-manager
+      '@nocobase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
       '@nocobase/server':
         specifier: workspace:*
         version: link:../../../core/server
@@ -4314,7 +4320,7 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
 
-  packages/presets/rental:
+  packages/presets/hera-rental:
     dependencies:
       '@hera/plugin-approval':
         specifier: workspace:*

@@ -1,3 +1,3 @@
 import { PluginConfiguration } from '@nocobase/server';
 
-export default ['rental'] as PluginConfiguration[];
+export default ['hera-rental'] as PluginConfiguration[];

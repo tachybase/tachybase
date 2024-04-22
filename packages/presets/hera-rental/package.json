@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/preset-rental",
+  "name": "@tachybase/preset-hera-rental",
   "version": "0.21.18",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",

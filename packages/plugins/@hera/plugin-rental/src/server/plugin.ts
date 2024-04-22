@@ -50,6 +50,7 @@ export class PluginRentalServer extends Plugin {
 
     await collectionRepo.createMany({
       records: categories
+        .filter(Boolean)
         .filter((item) => typeof item.id !== 'undefined')
         .map((item) => ({ collectionName, categoryId: item.id })),
     });
