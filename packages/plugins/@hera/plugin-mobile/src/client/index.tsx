@@ -5,15 +5,15 @@ import './assets/svg/index';
 import PluginSwiper from './schma-component/swiper';
 
 class PluginMobileClient extends Plugin {
-  async beforeLoad() {}
-
-  async load() {}
-
   async afterAdd() {
     this.pm.add(PluginBlock);
     this.pm.add(PluginTabSearch);
     this.pm.add(PluginSwiper);
   }
+
+  async beforeLoad() {}
+
+  async load() {}
 }
 
 export default PluginMobileClient;
