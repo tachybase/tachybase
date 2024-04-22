@@ -172,6 +172,9 @@ importers:
       '@tachybase/preset-hera-rental':
         specifier: workspace:*
         version: link:../../presets/hera-rental
+      '@tachybase/preset-tachybase':
+        specifier: workspace:*
+        version: link:../../presets/tachybase
     devDependencies:
       '@nocobase/cache':
         specifier: workspace:*

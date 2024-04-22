@@ -1,3 +1,4 @@
 import { PluginConfiguration } from '@nocobase/server';
+import process from 'process';
 
-export default ['hera-rental'] as PluginConfiguration[];
+export default [process.env.PRESET_NAME ?? 'tachybase'] as PluginConfiguration[];
