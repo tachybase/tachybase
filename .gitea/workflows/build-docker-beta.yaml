@@ -38,3 +38,4 @@ jobs:
             NPM_REGISTRY=${{ vars.REGISTRY_URL }}
           tags: |
             ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase:${{ steps.extract_tag.outputs.version }}
+            ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase:beta-latest
