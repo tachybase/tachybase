@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useDesignable } from '../../../../schema-component';
 import { useIsFieldReadPretty } from '../../../../schema-component/antd/form-item/FormItem.Settings';
+import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
 
 export const uploadAttachmentComponentFieldSettings = new SchemaSettings({
   name: 'fieldSettings:component:Upload.Attachment',
@@ -49,9 +50,10 @@ export const uploadAttachmentComponentFieldSettings = new SchemaSettings({
       name: 'showCount',
       type: 'modal',
       useComponentProps() {
-        const field: any = useField();
         const { t } = useTranslation();
-        const showCountSchema = useFieldSchema();
+        const { fieldSchema: tableColumnSchema } = useColumnSchema();
+        const schema = useFieldSchema();
+        const showCountSchema = tableColumnSchema || schema;
         const { dn } = useDesignable();
 
         return {
@@ -74,7 +76,6 @@ export const uploadAttachmentComponentFieldSettings = new SchemaSettings({
           onSubmit: ({ showCount }) => {
             const props = showCountSchema['x-component-props'] || {};
             props.showCount = showCount;
-            field.componentProps.showCount = showCount;
             const schema = {
               ['x-uid']: showCountSchema['x-uid'],
               ['x-component-props']: props,
