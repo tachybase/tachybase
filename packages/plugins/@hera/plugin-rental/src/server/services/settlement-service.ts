@@ -668,7 +668,7 @@ export class SettlementService {
     const recordsCategoryFeeItem = feeData(createFeesDatas, settlementAbout, 'category');
     const recordsProductFeeItem = feeData(createFeesDatas, settlementAbout, 'product');
     //本期信息
-    let createDatas = [
+    const createDatas = [
       ...createCategoryDatasItem.list,
       ...createProductDatasItem.list,
       ...recordsCategoryFeeItem,
@@ -677,7 +677,6 @@ export class SettlementService {
     createDatas.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
-    createDatas = createDatas.filter((value) => value.name.includes('$$') || value.count);
     //筛选历史结存
     createCategoryDatasItem.history = createCategoryDatasItem.history?.filter((value) => value.count);
     createProductDatasItem.history = createProductDatasItem.history?.filter(
