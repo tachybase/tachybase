@@ -9,5 +9,6 @@ WORKDIR /app
 RUN corepack enable
 RUN pnpm config set registry $NPM_REGISTRY
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
+RUN pnpm build:p
 
 CMD ["pnpm", "start", "--quickstart"]
