@@ -117,6 +117,10 @@ export const excelDataHandle = (excelData) => {
         key: 'name',
       },
       {
+        name: '其他',
+        key: 'name',
+      },
+      {
         name: '税率',
         key: 'name',
       },
@@ -144,6 +148,7 @@ export const excelDataHandle = (excelData) => {
         parseFloat(calc.n_compensate.toFixed(2)),
         parseFloat(calc.h_compensate.toFixed(2)),
         parseFloat(calc.loadfreight.toFixed(2)),
+        parseFloat(calc.other.toFixed(2)),
         formatPercent(calc.tax, 2),
         parseFloat(calc.current_expenses.toFixed(2)),
         parseFloat(calc.accumulate.toFixed(2)),

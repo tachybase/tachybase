@@ -13,6 +13,7 @@ export interface Settlement {
   loadfreight: number;
   h_compensate: number;
   n_compensate: number;
+  other: number;
   maintenance: number;
   rent: number;
   current_expenses: number;

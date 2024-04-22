@@ -111,6 +111,10 @@ export enum Itemcategory {
    * 租金
    */
   rent = '租金',
+  /**
+   * 其他
+   */
+  other = '其他',
 }
 
 export enum countCource {

@@ -179,6 +179,7 @@ const PreviewDocument = ({
     无物赔偿: calc.n_compensate ?? 0.0,
     有物赔偿: calc.h_compensate ?? 0.0,
     装卸运费: calc.loadfreight ?? 0.0,
+    其他: calc.other ?? 0.0,
     税率: calc.tax ?? 0.0,
     本期费用: calc.current_expenses ?? 0.0,
     累计费用: calc.accumulate ?? 0.0,
@@ -270,6 +271,7 @@ const PreviewDocument = ({
               <Text style={styles.tableCellTitle}>无物赔偿</Text>
               <Text style={styles.tableCellTitle}>有物赔偿</Text>
               <Text style={styles.tableCellTitle}>装卸运费</Text>
+              <Text style={styles.tableCellTitle}>其他</Text>
               <Text style={styles.tableCellTitle}>税率</Text>
               <Text style={styles.tableCellTitle}>本期费用</Text>
               <Text style={styles.tableCellTitle}>累计费用</Text>
@@ -282,6 +284,7 @@ const PreviewDocument = ({
               <Text style={styles.tableCell}>{formatCurrency(group['无物赔偿'], 2)}</Text>
               <Text style={styles.tableCell}>{formatCurrency(group['有物赔偿'], 2)}</Text>
               <Text style={styles.tableCell}>{formatCurrency(group['装卸运费'], 2)}</Text>
+              <Text style={styles.tableCell}>{formatCurrency(group['其他'], 2)}</Text>
               <Text style={styles.tableCell}>{formatPercent(group['税率'], 2)}</Text>
               <Text style={styles.tableCell}>{formatCurrency(group['本期费用'], 2)}</Text>
               <Text style={styles.tableCell}>{formatCurrency(group['累计费用'], 2)} </Text>

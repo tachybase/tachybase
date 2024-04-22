@@ -439,12 +439,15 @@ export class SettlementService {
           let conversion = false;
           const spec = rule.product.spec;
           const name = rule.product.name;
+          const category = ['装卸运费', '维修人工', '无物赔偿', '有物赔偿'].includes(rule.product.name)
+            ? rule.product.name
+            : '其他';
           const data = {
             settlement_id: settlementsId,
             date: dayjs(settlementAbout.end_date).add(1, 'day').add(-1, 'minute'),
-            name: spec,
-            label: spec,
-            category: name,
+            name: `${name}[${spec}]`,
+            label: `${name}[${spec}]`,
+            category: category,
             movement: '0',
             count: 0,
             item_count: 0,
@@ -536,8 +539,16 @@ export class SettlementService {
                     const feeItem = item?.record_items.filter((value) => value.product_id === rule.fee_product_id);
                     if (feeItem.length) {
                       feeItem.forEach((value) => {
-                        data.count = data.count + value.count;
-                        conversion = true;
+                        if (category === '其他') {
+                          data.movement = item.movement;
+                          data.count = value.count * Number(item.movement === '-1' ? '1' : '-1');
+                          data.date = item.date;
+                          data.amount = data.count * data.unit_price;
+                          createFeesDatas.push(data);
+                        } else {
+                          data.count = data.count + value.count;
+                          conversion = true;
+                        }
                       });
                     }
                     if (item.fee_item.length) {
@@ -668,7 +679,7 @@ export class SettlementService {
     const recordsCategoryFeeItem = feeData(createFeesDatas, settlementAbout, 'category');
     const recordsProductFeeItem = feeData(createFeesDatas, settlementAbout, 'product');
     //本期信息
-    let createDatas = [
+    const createDatas = [
       ...createCategoryDatasItem.list,
       ...createProductDatasItem.list,
       ...recordsCategoryFeeItem,
@@ -677,7 +688,6 @@ export class SettlementService {
     createDatas.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
-    createDatas = createDatas.filter((value) => value.name.includes('$$') || value.count);
     //筛选历史结存
     createCategoryDatasItem.history = createCategoryDatasItem.history?.filter((value) => value.count);
     createProductDatasItem.history = createProductDatasItem.history?.filter(
@@ -737,6 +747,7 @@ export class SettlementService {
       n_compensate: 0.0, //无物赔偿
       h_compensate: 0.0, //有物赔偿
       loadfreight: 0.0, //装卸运费
+      other: 0.0,
       current_expenses: 0.0, //本期费用
       tax: 0.0, //税率
       accumulate: 0.0, //累计费用
@@ -758,6 +769,9 @@ export class SettlementService {
           break;
         case Itemcategory.loadFreight:
           summaryPeriod.loadfreight += value.amount;
+          break;
+        case Itemcategory.other:
+          summaryPeriod.other += value.amount;
           break;
       }
     });
@@ -788,6 +802,7 @@ export class SettlementService {
         summaryPeriod.maintenance +
         summaryPeriod.n_compensate +
         summaryPeriod.h_compensate +
+        summaryPeriod.other +
         summaryPeriod.loadfreight) *
       (summaryPeriod.tax + 1);
     const settlement = settlementAbout.settlements?.filter((value) =>
@@ -822,6 +837,7 @@ export class SettlementService {
       n_compensate: settlementAbout.n_compensate, //无物赔偿
       h_compensate: settlementAbout.h_compensate, //有物赔偿
       loadfreight: settlementAbout.loadfreight, //装卸运费
+      other: settlementAbout.other, //其他
       current_expenses: settlementAbout.current_expenses, //本期费用
       tax: settlementAbout.tax, //税率
       accumulate: settlementAbout.accumulate, //累计费用
