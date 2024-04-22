@@ -16,6 +16,8 @@ interface IPluginNpmFormProps {
   pluginData?: IPluginData;
 }
 
+export const NPM_REGISTRY_ADDRESS = 'https://npm.daoyoucloud.com/';
+
 export const PluginNpmForm: FC<IPluginNpmFormProps> = ({ onClose, isUpgrade, pluginData }) => {
   const { message } = App.useApp();
   // const { data, loading } = useRequest<{ data: string[] }>(
@@ -57,7 +59,7 @@ export const PluginNpmForm: FC<IPluginNpmFormProps> = ({ onClose, isUpgrade, plu
     return useRequest(
       () =>
         Promise.resolve({
-          data: isUpgrade ? pick(pluginData, ['name', 'packageName', 'version']) : {},
+          data: isUpgrade ? pick(pluginData, ['name', 'packageName']) : {},
         }),
       options,
     );
@@ -96,7 +98,7 @@ export const PluginNpmForm: FC<IPluginNpmFormProps> = ({ onClose, isUpgrade, plu
             registry: {
               type: 'string',
               title: "{{t('Registry url')}}",
-              default: 'https://npm.daoyoucloud.com/',
+              default: NPM_REGISTRY_ADDRESS,
               'x-decorator': 'FormItem',
               'x-component': 'Input',
               // required: true,
@@ -118,6 +120,9 @@ export const PluginNpmForm: FC<IPluginNpmFormProps> = ({ onClose, isUpgrade, plu
               title: "{{t('Version')}}",
               'x-decorator': 'FormItem',
               'x-component': 'Input',
+              'x-component-props': {
+                placeholder: pluginData?.version || '',
+              },
               // enum: '{{versionList}}',
             },
             footer: {
