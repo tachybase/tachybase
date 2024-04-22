@@ -32,16 +32,10 @@ class PluginTabSearch extends Plugin {
     });
     this.app.schemaInitializerManager.add(TabSearchFieldSchemaInitializer);
     this.schemaSettingsManager.add(TabSearchItemFieldSettings);
-    this.app.schemaInitializerManager.addItem('mobilePage:addBlock', 'filterBlocks', {
-      title: tval('Filter blocks'),
-      type: 'itemGroup',
-      children: [
-        {
-          name: 'tabSearch',
-          title: 'tabSearch',
-          Component: 'TabSearchBlockInitializer',
-        },
-      ],
+    this.app.schemaInitializerManager.addItem('mobilePage:addBlock', 'filterBlocks.tabSearch', {
+      name: 'tabSearch',
+      title: 'tabSearch',
+      Component: 'TabSearchBlockInitializer',
     });
     this.app.schemaInitializerManager.addItem('page:addBlock', 'filterBlocks.tabSearch', {
       name: 'tabSearch',
