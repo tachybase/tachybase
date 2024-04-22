@@ -4,7 +4,7 @@ import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { DeleteOutlined, ReadOutlined, ReloadOutlined, SettingOutlined } from '@ant-design/icons';
+import { DeleteOutlined, ReadOutlined, ReloadOutlined, SettingOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
 import { useAPIClient } from '../api-client';
 import { useApp } from '../application';
@@ -12,6 +12,7 @@ import { PluginDetail } from './PluginDetail';
 import { PluginUpgradeModal } from './PluginForm/modal/PluginUpgradeModal';
 import { useStyles } from './style';
 import type { IPluginData } from './types';
+import { NPM_REGISTRY_ADDRESS } from './PluginForm/form/PluginNpmForm';
 
 interface IPluginInfo extends IPluginCard {
   onClick: () => void;
@@ -30,6 +31,19 @@ function PluginInfo(props: IPluginInfo) {
   const [showUploadForm, setShowUploadForm] = useState(false);
   const reload = () => window.location.reload();
   const title = displayName || name || packageName;
+
+  const quickUpdate = () => {
+    api.request({
+      url: 'pm:update',
+      method: 'post',
+      data: {
+        name,
+        packageName,
+        registry: NPM_REGISTRY_ADDRESS,
+      },
+    });
+  };
+
   return (
     <>
       {showUploadForm && (
@@ -90,15 +104,25 @@ function PluginInfo(props: IPluginInfo) {
               <ReadOutlined /> {t('Docs')}
             </a>
             {updatable && (
-              <a
-                key={'3'}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowUploadForm(true);
-                }}
-              >
-                <ReloadOutlined /> {t('Update')}
-              </a>
+              <>
+                <a
+                  key={'3'}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowUploadForm(true);
+                  }}
+                >
+                  <ReloadOutlined /> {t('Update')}
+                </a>
+                <a
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    quickUpdate();
+                  }}
+                >
+                  <ClockCircleOutlined /> {t('Quick Update')}
+                </a>
+              </>
             )}
             {enabled ? (
               app.pluginSettingsManager.has(name) && (
