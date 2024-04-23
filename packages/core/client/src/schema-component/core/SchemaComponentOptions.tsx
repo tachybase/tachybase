@@ -1,5 +1,5 @@
 import { ExpressionScope, SchemaComponentsContext, SchemaOptionsContext } from '@nocobase/schema';
-import React, { memo, useContext, useMemo } from 'react';
+import React, { PropsWithChildren, memo, useContext, useMemo } from 'react';
 import { ISchemaComponentOptionsProps } from '../types';
 
 export const useSchemaOptionsContext = () => {
@@ -7,7 +7,7 @@ export const useSchemaOptionsContext = () => {
   return options || {};
 };
 
-export const SchemaComponentOptions: React.FC<ISchemaComponentOptionsProps> = memo((props) => {
+export const SchemaComponentOptions: React.FC<PropsWithChildren<ISchemaComponentOptionsProps>> = memo((props) => {
   const { children } = props;
   const options = useSchemaOptionsContext();
   const components = useMemo(() => {
