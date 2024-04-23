@@ -1,7 +1,7 @@
 import { createForm } from '@nocobase/schema';
 import { FormProvider, Schema } from '@nocobase/schema';
 import { uid } from '@nocobase/schema';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SchemaComponentContext } from '../context';
 import { ISchemaComponentProvider } from '../types';
@@ -42,7 +42,7 @@ const Registry = {
 
 Schema.registerCompiler(Registry.compile);
 
-export const SchemaComponentProvider: React.FC<ISchemaComponentProvider> = (props) => {
+export const SchemaComponentProvider: React.FC<PropsWithChildren<ISchemaComponentProvider>> = (props) => {
   const { designable, onDesignableChange, components, children } = props;
   const [uidValue, setUid] = useState(uid());
   const [formId, setFormId] = useState(uid());
