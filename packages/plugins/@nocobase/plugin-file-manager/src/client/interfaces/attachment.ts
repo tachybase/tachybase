@@ -25,9 +25,6 @@ export class AttachmentFieldInterface extends CollectionFieldInterface {
     if (['Table', 'Kanban'].includes(block)) {
       schema['x-component-props'] = schema['x-component-props'] || {};
       schema['x-component-props']['size'] = 'small';
-      // TODO: 此处修改是个临时方案, 找不到具体上下文丢失的原因. 仿照之前size的处理办法.
-      // 影响: table的附件设置,在根源schema处的设置值无法传递下去. 只能在这里手动赋值.
-      schema['x-component-props']['showCount'] = 1;
     }
 
     if (!schema['x-component-props']) {
