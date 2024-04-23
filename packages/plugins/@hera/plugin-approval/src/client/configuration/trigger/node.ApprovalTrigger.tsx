@@ -6,20 +6,22 @@ import {
   useWorkflowAnyExecuted,
 } from '@nocobase/plugin-workflow/client';
 import { useForm } from '@nocobase/schema';
-import { NAMESPACE } from '../locale';
-import { T, Vo, zo, useTranslation, w, x } from './refined';
-import { usePluginTranslation } from '../locale';
+import { SchemaConfigButton } from './VC.ConfigButton';
+import { NAMESPACE, usePluginTranslation } from '../../locale';
+import { LauncherInterface } from './launcher-interface/VC.LauncherInterface';
 
+// 工作流节点-审批触发器节点
 export class ApprovalTrigger extends Trigger {
   sync = false;
   title = `{{t('Approval event', { ns: "${NAMESPACE}" })}}`;
   description = `{{t("Triggered when an approval request is initiated through an action button or API. Dedicated to the approval process, with exclusive approval node and block for managing documents and tracking processing processes.", { ns: "${NAMESPACE}" })}}`;
 
+  // 触发器配置表
   fieldset = {
     collection: {
       type: 'string',
       title: '{{t("Collection")}}',
-      required: !0,
+      required: true,
       'x-decorator': 'FormItem',
       'x-component': 'DataSourceCollectionCascader',
       'x-disabled': '{{ useWorkflowAnyExecuted() }}',
@@ -34,17 +36,17 @@ export class ApprovalTrigger extends Trigger {
         options: [
           {
             label: `{{t("Initiate and approve in data blocks only", { ns: "${NAMESPACE}" })}}`,
-            value: !1,
+            value: false,
             tooltip: `{{t("Actions from any form block can be bound to this workflow for initiating approvals, and the approval process can be handled and tracked in the approval block of a single record which is typically applicable to business data.", { ns: "${NAMESPACE}" })}}`,
           },
           {
             label: `{{t("Initiate and approve in both data blocks and global approval blocks", { ns: "${NAMESPACE}" })}}`,
-            value: !0,
+            value: true,
             tooltip: `{{t("In addition to data blocks, a global approval block can also be used to initiates and processes approvals, which typically applies to administrative data.", { ns: "${NAMESPACE}" })}}`,
           },
         ],
       },
-      default: !1,
+      default: false,
     },
     withdrawable: {
       type: 'boolean',
@@ -59,8 +61,23 @@ export class ApprovalTrigger extends Trigger {
       description: `{{t("For initiating approvals, or viewing and manipulating initiated approvals.", { ns: "${NAMESPACE}" })}}`,
       'x-decorator': 'FormItem',
       'x-component': 'SchemaConfigButton',
-      'x-reactions': [{ dependencies: ['collection'], fulfill: { state: { visible: '{{!!$deps[0]}}' } } }],
-      properties: { applyForm: { type: 'void', 'x-component': 'SchemaConfig', default: null } },
+      'x-reactions': [
+        {
+          dependencies: ['collection'],
+          fulfill: {
+            state: {
+              visible: '{{!!$deps[0]}}',
+            },
+          },
+        },
+      ],
+      properties: {
+        applyForm: {
+          type: 'void',
+          'x-component': 'SchemaInitiatorForm',
+          default: null,
+        },
+      },
     },
     appends: {
       type: 'array',
@@ -71,40 +88,59 @@ export class ApprovalTrigger extends Trigger {
       'x-component': 'AppendsTreeSelect',
       'x-component-props': {
         title: 'Preload associations',
-        multiple: !0,
+        multiple: true,
         useCollection() {
-          const { values: n } = useForm();
-          return n == null ? void 0 : n.collection;
+          const { values } = useForm();
+          return values?.collection;
         },
       },
-      'x-reactions': [{ dependencies: ['collection'], fulfill: { state: { visible: '{{!!$deps[0]}}' } } }],
+      'x-reactions': [
+        {
+          dependencies: ['collection'],
+          fulfill: {
+            state: {
+              visible: '{{!!$deps[0]}}',
+            },
+          },
+        },
+      ],
     },
   };
 
-  scope = { useWorkflowAnyExecuted: useWorkflowAnyExecuted };
-  components = { SchemaConfigButton: Vo, SchemaConfig: zo, RadioWithTooltip: RadioWithTooltip };
-  isActionTriggerable = (n, a) => ['create', 'update'].includes(a.action) && !a.direct;
+  scope = { useWorkflowAnyExecuted };
+  components = {
+    SchemaConfigButton,
+    SchemaInitiatorForm: LauncherInterface,
+    RadioWithTooltip,
+  };
 
-  useVariables(n, a) {
-    var m;
-    const s = useCompile(),
-      { getCollectionFields: i } = useCollectionManager_deprecated(),
-      { t: v } = usePluginTranslation(),
-      l = [
-        {
-          collectionName: n.collection,
-          name: 'data',
-          type: 'hasOne',
-          target: n.collection,
-          uiSchema: { title: v('Trigger data', { ns: 'workflow' }) },
-        },
-      ];
-    return getCollectionFieldOptions(
-      w(x({ appends: ['data', ...(((m = n.appends) == null ? void 0 : m.map((h) => `data.${h}`)) || [])] }, a), {
-        fields: l,
-        compile: s,
-        getCollectionFields: i,
-      }),
-    );
+  isActionTriggerable = (config, context) => {
+    return ['create', 'update'].includes(context.action) && !context.direct;
+  };
+
+  useVariables(config, options) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const compile = useCompile();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { getCollectionFields } = useCollectionManager_deprecated();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { t } = usePluginTranslation();
+    const rootFields = [
+      {
+        collectionName: config.collection,
+        name: 'data',
+        type: 'hasOne',
+        target: config.collection,
+        uiSchema: { title: t('Trigger data', { ns: 'workflow' }) },
+      },
+    ];
+    return getCollectionFieldOptions({
+      // depth,
+      appends: ['data', ...(config.appends?.map((item) => `data.${item}`) || [])],
+      ...options,
+      fields: rootFields,
+      compile,
+      getCollectionFields,
+    });
   }
 }

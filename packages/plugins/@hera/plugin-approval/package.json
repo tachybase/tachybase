@@ -3,6 +3,9 @@
   "displayName": "Workflow: Approval Center",
   "version": "0.1.13",
   "description": "Can configure a universal approval process to complete the complete approval process in the approval center.",
+  "keywords": [
+    "Workflow"
+  ],
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "5.x",
