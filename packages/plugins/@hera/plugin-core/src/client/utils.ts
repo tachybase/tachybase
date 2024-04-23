@@ -1,4 +1,8 @@
 export function fuzzysearch(needle: string, haystack: string): boolean {
+  if (!needle || !haystack) {
+    return false;
+  }
+
   const hlen = haystack.length;
   const nlen = needle.length;
   if (nlen > hlen) {
