@@ -4,6 +4,9 @@ import { Inject, Action, Controller, Db } from '@nocobase/utils';
 import { renderIt } from '../pdf-documents/settlements-document';
 import { SettlementService } from '../services/settlement-service';
 import { QueryTypes } from 'sequelize';
+import { Cache } from '@nocobase/cache';
+import getStream from 'get-stream';
+import { stringify } from 'flatted';
 
 @Controller('settlements')
 export class SettlementController {
@@ -54,8 +57,25 @@ export class SettlementController {
     });
     const utcOffset = ctx.get('X-Timezone');
     const { calc, contracts } = await this.settlmentService.settlement(settlement as any, utcOffset);
-    const pdf = await renderIt({ calc, contracts, result: systemSetting });
-    ctx.body = pdf;
+
+    const cache = ctx.app.cacheManager.getCache('@hera/plugin-rental') as Cache;
+    const key = stringify({ calc, contracts, result: systemSetting });
+
+    const result = await cache.get(key);
+    if (result) {
+      if (Buffer.isBuffer(result)) {
+        ctx.body = result;
+      } else {
+        ctx.body = Buffer.from(result.data);
+      }
+    } else {
+      const buf = await getStream.buffer(
+        // @ts-ignore
+        await renderIt({ calc, contracts, result: systemSetting }),
+      );
+      ctx.body = buf;
+      await cache.set(key, buf);
+    }
   }
 
   @Action('excel')

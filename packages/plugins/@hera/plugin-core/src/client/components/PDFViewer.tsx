@@ -39,10 +39,15 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
   const [numPages, setNumPages] = useState<number>(0);
   const [contentWindow, setContentWindow] = useState<Window>(null);
   const { file, width = 960 } = props;
-  const { loading, data, run } = useRequest({
-    url: file,
-    responseType: 'arraybuffer',
-  });
+  const { loading, data } = useRequest(
+    {
+      url: file,
+      responseType: 'arraybuffer',
+    },
+    {
+      refreshDeps: [file],
+    },
+  );
   useImperativeHandle(ref, () => ({
     download() {
       const blob = new Blob([data as ArrayBuffer], { type: 'application/pdf' });
@@ -52,9 +57,6 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
       contentWindow.print();
     },
   }));
-  useEffect(() => {
-    run();
-  }, [file]);
   useEffect(() => {
     if (loading || !data) {
       return;
@@ -74,15 +76,14 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
       document.body.removeChild(iframe);
     };
   }, [data, loading]);
-  console.log('width', width);
 
   return (
     <LoadingSpin spinning={loading}>
       <Document
         options={options}
         file={data as ArrayBuffer}
-        loading={(props) => (
-          <LoadingSpin {...props} spinning={true}>
+        loading={() => (
+          <LoadingSpin spinning={true}>
             <div style={{ height: '100vh' }}></div>
           </LoadingSpin>
         )}
