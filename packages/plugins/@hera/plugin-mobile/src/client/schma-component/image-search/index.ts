@@ -1,5 +1,5 @@
 import { Plugin } from '@nocobase/client';
-import { ImageSearch } from './ImageSearch.View';
+import { ImageSearch } from './ImageSearch.view';
 import { ImageSearchInitializer } from './ImageSearch.initializer';
 
 class PluginImageSearch extends Plugin {
