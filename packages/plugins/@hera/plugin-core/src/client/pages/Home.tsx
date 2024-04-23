@@ -1,8 +1,7 @@
 import React from 'react';
 import { useStyles } from './style';
 import { Carousel, Image } from 'antd';
-import { useRequest } from '@nocobase/client';
-import { useAppSpin } from './AdminLayout';
+import { useAppSpin, useRequest } from '@nocobase/client';
 
 export const HomePage: React.FC<{}> = () => {
   const { styles } = useStyles();

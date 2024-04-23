@@ -1,7 +1,6 @@
 import { css } from '@emotion/css';
 import { useSessionStorageState } from 'ahooks';
-import { App, Layout, Spin, FloatButton, Alert } from 'antd';
-import { ToolOutlined, CommentOutlined, CalculatorOutlined, HighlightOutlined } from '@ant-design/icons';
+import { App, Layout, Alert } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, Outlet, useMatch, useNavigate, useParams } from 'react-router-dom';
 import {
@@ -16,27 +15,13 @@ import {
   useRequest,
   useSystemSettings,
   useToken,
-  useApp,
   AdminProvider,
-  RemoteSchemaComponent,
-  useCurrentUserSettingsMenu,
-  SelectWithTitle,
-  useDesignable,
 } from '@nocobase/client';
-import { Tabs } from 'antd';
-import type { TabsProps } from 'antd';
-import { usePluginVersion } from '../hooks/usePluginVersion';
 import { OnlineUserDropdown } from '../components/system/OnlineUserProvider';
 import { MobileLink } from '../components/system/MobileLink';
 import { Notifications } from '../components/system/Notifications';
-import { useTranslation } from '../locale';
-
-export const useAppSpin = () => {
-  const app = useApp();
-  return {
-    render: () => (app ? app?.renderComponent?.('AppSpin') : React.createElement(Spin)),
-  };
-};
+import { usePageStyle } from '../features/page-style/usePageStyle';
+import { PageTab } from '../features/page-style/PageTab';
 
 const filterByACL = (schema, options) => {
   const { allowAll, allowMenuItemIds = [] } = options;
@@ -90,7 +75,6 @@ const MenuEditor = (props) => {
     setCurrent(schema);
     navigate(`/admin/${schema['x-uid']}`);
   };
-  const { render } = useAppSpin();
   const adminSchemaUid = useAdminSchemaUid();
   const { data, loading } = useRequest<{
     data: any;
@@ -204,49 +188,12 @@ const MenuEditor = (props) => {
   );
 };
 
-export function MyRouteSchemaComponent({ name }: { name: string }) {
-  return <RemoteSchemaComponent onlyRenderProperties uid={name} />;
-}
-
-export const InternalAdminLayout = (props: any) => {
-  const app = useApp();
+export const InternalAdminLayout = () => {
   const sideMenuRef = useRef<HTMLDivElement>();
   const result = useSystemSettings();
   const params = useParams<{ name?: string }>();
   const { token } = useToken();
-  const { render } = useAppSpin();
-  const { title, setTitle } = useDocumentTitle();
-  const navigate = useNavigate();
-  const [items, setItems] = useState<TabsProps['items']>([]);
   const pageStyle = usePageStyle();
-
-  useEffect(() => {
-    if (params.name && title && pageStyle === 'tab') {
-      const targetItem = items.find((value) => value.key === params.name);
-      if (!targetItem) {
-        // 现有tab页数组里,不存在之前浏览的tab页面,添加新的tab页进数组
-        setItems([
-          ...items,
-          {
-            key: params.name,
-            label: title,
-            children: <MyRouteSchemaComponent name={params.name} />,
-          },
-        ]);
-      } else {
-        // 如果存在之前浏览的tab页面,只用更新页面标题
-        setTitle(targetItem.label);
-      }
-    }
-  }, [params.name, title]);
-
-  const onEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string, action: 'add' | 'remove') => {
-    if (action === 'remove') {
-      setItems((items) => {
-        return items.filter((item) => item.key !== targetKey);
-      });
-    }
-  };
 
   return (
     <Layout>
@@ -404,109 +351,18 @@ export const InternalAdminLayout = (props: any) => {
             pointer-events: none;
           `}
         ></header>
-        <>
-          {params.name && pageStyle === 'tab' ? (
-            <Tabs
-              className={css`
-                margin: 0;
-                .ant-tabs-nav {
-                  margin: 0;
-                }
-              `}
-              type="editable-card"
-              items={items}
-              onEdit={onEdit}
-              hideAdd
-              onChange={(key) => {
-                navigate(`/admin/${key}`);
-              }}
-              activeKey={params.name}
-            />
-          ) : (
-            <Outlet />
-          )}
-        </>
+        <>{params.name && pageStyle === 'tab' ? <PageTab /> : <Outlet />}</>
       </Layout.Content>
     </Layout>
   );
 };
 
-export const useTabSettings = (props) => {
-  return {
-    key: 'tab',
-    eventKey: 'tab',
-    label: <Label {...props} />,
-  };
-};
-
-const useHeraVersion = () => {
-  const version = usePluginVersion();
-  return {
-    key: 'hera-version',
-    eventKey: 'hera-version',
-    label: <span>赫拉系统 - {version}</span>,
-  };
-};
-
-const usePageStyle = () => {
-  return useContext(PageStyleContext).style;
-};
-
 export const AdminLayout = (props) => {
-  const { addMenuItem } = useCurrentUserSettingsMenu();
-  const [style, setStyle] = useState('classical');
-  const tabItem = useTabSettings({ style, setStyle });
-  const heraVersion = useHeraVersion();
-  const { designable, setDesignable } = useDesignable();
-
-  useEffect(() => {
-    addMenuItem(tabItem, { before: 'divider_3' });
-  }, [addMenuItem, tabItem]);
-  useEffect(() => {
-    addMenuItem(heraVersion, { before: 'divider_1' });
-  }, [addMenuItem, tabItem]);
-
   const AdminComponent = (
     <AdminProvider>
       <Alert message="开发版本" type="warning" style={{ textAlign: 'center', height: '14px' }} />
-      <PageStyleContext.Provider value={{ style }}>
-        <InternalAdminLayout {...props} />
-      </PageStyleContext.Provider>
-      <FloatButton.Group trigger="hover" type="primary" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
-        <FloatButton icon={<HighlightOutlined />} onClick={() => setDesignable(!designable)} />
-        <FloatButton icon={<CalculatorOutlined />} />
-        <FloatButton icon={<CommentOutlined />} />
-      </FloatButton.Group>
+      <InternalAdminLayout {...props} />
     </AdminProvider>
   );
   return AdminComponent;
 };
-
-export interface PageStyleContextValue {
-  style: string;
-}
-
-const PageStyleContext = createContext<PageStyleContextValue>({
-  style: 'classical',
-});
-
-function Label({ style, setStyle }) {
-  const { t } = useTranslation();
-  return (
-    <SelectWithTitle
-      title={t('Page style')}
-      defaultValue={style}
-      options={[
-        {
-          label: t('classical'),
-          value: 'classical',
-        },
-        {
-          label: t('tabs'),
-          value: 'tab',
-        },
-      ]}
-      onChange={setStyle}
-    />
-  );
-}
