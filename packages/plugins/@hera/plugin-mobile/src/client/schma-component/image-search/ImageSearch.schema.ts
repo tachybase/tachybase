@@ -19,16 +19,15 @@ export function createSchemaImageSearchBlock(options: OptionsType): ISchema {
       blockType,
     },
     'x-toolbar': 'BlockSchemaToolbar',
-    // FIXME: 模板在当前这个 provider 下是不支持的，要么添加相关的代码，要么这个 settings 用自己的
     'x-settings': 'blockSettings:filterCollapse',
     'x-component': 'CardItem',
     'x-filter-targets': [],
     properties: {
       [uid()]: {
         type: 'void',
-        'x-action': 'tabSearch',
-        'x-initializer': 'tabSearch:configureFields',
-        'x-component': 'TabSearch',
+        // 'x-action': 'tabSearch',
+        // 'x-initializer': 'tabSearch:configureFields',
+        'x-component': 'ImageSearch',
       },
     },
   };

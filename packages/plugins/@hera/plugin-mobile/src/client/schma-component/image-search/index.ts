@@ -1,6 +1,6 @@
-import { Plugin, tval } from '@nocobase/client';
-import { ImageSearch } from './VC.ImageSearch';
-import { ImageSearchInitializer } from './Iz.ImageSearch';
+import { Plugin } from '@nocobase/client';
+import { ImageSearch } from './ImageSearch.View';
+import { ImageSearchInitializer } from './ImageSearch.initializer';
 
 class PluginImageSearch extends Plugin {
   async load() {
@@ -10,6 +10,7 @@ class PluginImageSearch extends Plugin {
       ImageSearch,
       ImageSearchInitializer,
     });
+
     this.app.schemaInitializerManager.add();
     this.schemaSettingsManager.add();
 

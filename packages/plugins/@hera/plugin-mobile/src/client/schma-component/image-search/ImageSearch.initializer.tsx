@@ -1,6 +1,6 @@
 import { DataBlockInitializer, useSchemaInitializer, useSchemaInitializerItem } from '@nocobase/client';
 import React from 'react';
-import { createSchemaImageSearchBlock } from './Sm.ImageSearch';
+import { createSchemaImageSearchBlock } from './ImageSearch.schema';
 
 interface ItemConfig {
   name: string;
