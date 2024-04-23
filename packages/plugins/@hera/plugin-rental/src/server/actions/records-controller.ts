@@ -7,6 +7,10 @@ import { Movement } from '../../utils/constants';
 import _ from 'lodash';
 import { FilterParser, Repository } from '@nocobase/database';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
+import { Cache } from '@nocobase/cache';
+import { getStreamAsBuffer } from 'get-stream';
+import { stringify } from 'flatted';
+
 @Controller('records')
 export class RecordPreviewController {
   @Inject(() => SqlLoader)
@@ -221,7 +225,24 @@ export class RecordPreviewController {
         ? settingType
         : pdfExplain[0]?.record_print_setup;
     const double = isDouble === '0' || isDouble === '1' ? isDouble : pdfExplain[0].record_columns;
-    ctx.body = await this.recordPdfService.transformPdfV2(record, leaseData, feeData, { isDouble: double, printSetup });
+
+    const cache = ctx.app.cacheManager.getCache('@hera/plugin-rental') as Cache;
+    const key = stringify({ record, leaseData, feeData, settings: { isDouble: double, printSetup } });
+
+    const result = await cache.get(key);
+    if (result) {
+      if (Buffer.isBuffer(result)) {
+        ctx.body = result;
+      } else {
+        ctx.body = Buffer.from(result.data);
+      }
+    } else {
+      const buf = await getStreamAsBuffer(
+        await this.recordPdfService.transformPdfV2(record, leaseData, feeData, { isDouble: double, printSetup }),
+      );
+      ctx.body = buf;
+      await cache.set(key, buf);
+    }
   }
 
   @Action('unused')
