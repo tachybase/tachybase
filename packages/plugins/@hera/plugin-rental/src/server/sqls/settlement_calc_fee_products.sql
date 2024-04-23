@@ -2,22 +2,29 @@ SELECT
   rc.movement,
   r.number,
   ri.new_product_id AS product_id,
-  p2."name" || '[' || p."name" || ']' AS fee_product_name,
+  p2."name" AS fee_product_name,
+  p."name" AS fee_product_label,
   cpfi.unit_price AS fee_price,
   cpfi.conversion_logic_id,
   cpfi.unit,
   cpfi.count_source,
+  rifi.count,
   wr.conversion_logic_id AS weight_rule_conversion_logic_id,
   wr.weight AS weight_rules_weight,
   rgwi.weight AS group_weight,
-  r.weight AS records_weight
+  rgwi.new_product_id AS belong_to_group_weight_id,
+  p3.name AS belong_to_group_weight_name,
+  r.weight AS records_weight,
+  c.calc_type,
+  r.date,
+  rifi.is_excluded
 FROM
   settlements s
   -- 开始查产品费用规则
   JOIN contracts c ON c.id = s.contract_id
   JOIN contract_items ci ON c.id = ci.contract_id
   AND ci.start_date <= s.start_date
-  AND ci.end_date >= ci.start_date
+  AND ci.end_date >= s.start_date
   JOIN contract_plans cp ON cp.id = ci.contract_plan_id
   JOIN contract_plan_lease_items cpli ON cpli.contract_plan_id = cp.id
   JOIN contract_plan_fee_items cpfi ON cpfi.lease_item_id = cpli.id
@@ -41,6 +48,7 @@ FROM
   LEFT JOIN record_group_weight_items rgwi ON rgwi.record_id = r.id
   AND cpfi.conversion_logic_id = 3
   AND rgwi.new_product_id = ANY (vpsrs.parents)
+  JOIN products p3 ON p3.id = rgwi.new_product_id
   -- 实际重量查询结束
   -- 重量表情况
   LEFT JOIN weight_rules wr ON cpfi.conversion_logic_id = wr.logic_id
