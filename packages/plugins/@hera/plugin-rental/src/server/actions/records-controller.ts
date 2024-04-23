@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { FilterParser, Repository } from '@nocobase/database';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
 import { Cache } from '@nocobase/cache';
-import { getStreamAsBuffer } from 'get-stream';
+import getStream from 'get-stream';
 import { stringify } from 'flatted';
 
 @Controller('records')
@@ -237,7 +237,8 @@ export class RecordPreviewController {
         ctx.body = Buffer.from(result.data);
       }
     } else {
-      const buf = await getStreamAsBuffer(
+      const buf = await getStream.buffer(
+        // @ts-ignore
         await this.recordPdfService.transformPdfV2(record, leaseData, feeData, { isDouble: double, printSetup }),
       );
       ctx.body = buf;
