@@ -173,7 +173,7 @@ export class RecordPreviewController {
   @Action('pdf')
   async printPreview(ctx: Context) {
     const {
-      params: { recordId: id, isDouble, settingType, margingTop },
+      params: { recordId: id, isDouble, settingType, margingTop, paper },
     } = ctx.action;
     let pdfTop: number;
     // 查询合同订单中间表，获得订单id，合同id，出入库信息
@@ -281,7 +281,7 @@ export class RecordPreviewController {
       noLeaseProductFeeData,
       noRuleexcluded,
       contracts,
-      { isDouble: double, printSetup, margingTop: pdfTop },
+      { isDouble: double, printSetup, margingTop: pdfTop, paper },
     );
   }
 

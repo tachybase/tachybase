@@ -209,6 +209,7 @@ const PreviewDocument = ({
   priceRule: any[];
   options: RecordPdfOptions;
 }) => {
+  const paper = options.paper;
   const isDouble = Number(options.isDouble);
   const explain =
     detail.type_new === '1'
@@ -344,7 +345,9 @@ const PreviewDocument = ({
   const car = detail.vehicles ? detail.vehicles.map((item) => item?.number).join(' ') : '';
   return (
     <Document>
-      <Page size="A4" style={{ ...styles.page, marginTop: options.margingTop }}>
+      <Page size={paper || 'A4'} style={{ ...styles.page, marginTop: options.margingTop }}>
+        {' '}
+        {/**transform: 'scale(1)' */}
         <Text style={styles.title}>{detail.contract_first_party.name || '异常数据，请联系相关负责人！'}</Text>
         <Text style={styles.subTitle}>{detail.contract_first_party ? detail.movement : '盘点'}单</Text>
         <View style={styles.content}>

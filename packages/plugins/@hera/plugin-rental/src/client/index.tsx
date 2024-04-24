@@ -49,6 +49,9 @@ import {
   PrintSetupMargingTop,
 } from './schema-initializer/actions/RecordPrintSetupMargingTopInitializer';
 import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedRecordsBlockInitializer';
+
+import { PaperSwitching, PaperSwitchingInitializer } from './schema-initializer/actions/paperSwitching';
+
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -89,6 +92,11 @@ export class PluginRentalClient extends Plugin {
       //   const name = collection['options']['name'];
       //   return name === 'records';
       // },
+    });
+    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.paperSwitching', {
+      type: 'item',
+      title: '{{t("paper switching")}}',
+      component: 'PaperSwitchingInitializer',
     });
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintSetup', {
       type: 'item',
@@ -177,6 +185,8 @@ export class PluginRentalClient extends Plugin {
       PDFViewerCountablePrintActionInitializer,
       ColumnSwitchActionInitializer,
       ColumnSwitchAction,
+      PaperSwitching,
+      PaperSwitchingInitializer,
       SettlementExcelExportActionInitializer,
       SettlementStyleProvider,
       SettlementStyleSwitchActionInitializer,
