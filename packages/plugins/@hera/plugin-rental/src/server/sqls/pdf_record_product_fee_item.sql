@@ -1,37 +1,40 @@
--- 目前换算，单位只查询目标根夫级，如果子有已子为主
 SELECT
-  CASE
-    WHEN p.unit IS NOT NULL THEN p.unit
-    ELSE p4.unit
-  END AS unit,
-  CASE
-    WHEN p.convertible IS NOT NULL THEN p.convertible
-    ELSE p4.convertible
-  END AS convertible,
-  CASE
-    WHEN p.conversion_unit IS NOT NULL THEN p.conversion_unit
-    ELSE p4.conversion_unit
-  END AS conversion_unit,
-  p4.id AS parent_id,
-  p.ratio,
-  p.weight,
-  p.id AS product_id,
-  rifi.count,
-  rifi.is_excluded,
-  rifi."comment",
-  ri.count AS product_count,
-  rifi.count AS fee_count,
-  p2.id AS fee_products_id,
-  p3.id AS fee_parent_id,
-  p3."name" || '[' || p2."name" || ']' AS "fee_name",
-  p2.custom_name
+  ri.count,
+  rfin.count AS fee_count,
+  rfin.new_product_id AS products_id,
+  rfin.new_fee_product_id AS fee_product_id,
+  p2."name" || '[' || p."name" || ']' AS fee_product,
+  p.custom_name AS fee_custom_name,
+  p4.convertible AS fee_convertible,
+  p4.unit AS fee_unit,
+  p4.conversion_unit AS fee_conversion_unit,
+  p3.weight AS fee_weight,
+  p3.ratio AS fee_ratio,
+  rfin.is_excluded,
+  rfin."comment",
+  cpfi.count_source,
+  cpfi.conversion_logic_id,
+  cpfi.unit AS fee_rule_unit,
+  cpfi.unit_price
 FROM
-  records r
+  record_contract rc
+  JOIN records r ON r.id = rc.record_id
+  JOIN contract_items ci ON ci.contract_id = rc.contract_id
+  AND ci.start_date <= r."date"
+  AND ci.end_date >= r."date"
+  JOIN contract_plans cp ON cp.id = ci.contract_plan_id
+  JOIN contract_plan_lease_items cpli ON cpli.contract_plan_id = cp.id
+  JOIN view_products_search_rule_special vpsrs ON cpli.new_products_id = ANY (vpsrs.parents)
+  JOIN record_fee_items_new rfin ON rfin.record_contract_id = rc.id
+  AND rfin.new_product_id = vpsrs.id
+  JOIN products p ON p.id = rfin.new_fee_product_id
+  LEFT JOIN products p2 ON p."parentId" = p2.id
+  JOIN contract_plan_fee_items cpfi ON cpfi.lease_item_id = cpli.id
+  AND cpfi.new_fee_products_id = rfin.new_fee_product_id
   JOIN record_items ri ON ri.record_id = r.id
-  JOIN products p ON p.id = ri.new_product_id
-  LEFT JOIN products p4 ON p."parentId" = p4.id
-  LEFT JOIN record_item_fee_items rifi ON rifi.record_item_id = ri.id
-  JOIN products p2 ON p2.id = rifi.new_product_id
-  LEFT JOIN products p3 ON p2."parentId" = p3.id
+  AND ri.new_product_id = vpsrs.id
+  JOIN products p3 ON p3.id = ri.new_product_id
+  LEFT JOIN products p4 ON p3."parentId" = p4.id
 WHERE
-  r.id = :recordId
+  rc.record_id = :recordId
+  AND rc.contract_id = :contractId

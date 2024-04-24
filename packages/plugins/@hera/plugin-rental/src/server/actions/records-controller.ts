@@ -179,6 +179,7 @@ export class RecordPreviewController {
     // 查询合同订单中间表，获得订单id，合同id，出入库信息
     const intermediate = await ctx.db.getRepository('record_contract').findOne({ filter: { id } });
     const recordId = intermediate.record_id;
+    const contractId = intermediate.contract_id;
     // 订单基本数据
     const baseRecord = await ctx.db.getRepository('records').findOne({
       filter: { id: recordId },
@@ -199,10 +200,13 @@ export class RecordPreviewController {
     // 拉侧面文字说明
     const pdfExplain = await ctx.db.getRepository('basic_configuration').find();
     baseRecord.pdfExplain = pdfExplain[0]?.out_of_storage_explain;
+    const products_view = this.sqlLoader.sqlFiles['products_search_rule_special'];
+    await ctx.db.sequelize.query(products_view);
     // 租金数据
     const leaseData: any = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record_product_item'], {
       replacements: {
         recordId,
+        contractId,
       },
       type: QueryTypes.SELECT,
     });
@@ -210,9 +214,45 @@ export class RecordPreviewController {
     const leaseFeeData: any = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record_product_fee_item'], {
       replacements: {
         recordId,
+        contractId,
       },
       type: QueryTypes.SELECT,
     });
+    // 无关联数据
+    const noLeaseProductFeeData: any = await ctx.db.sequelize.query(
+      this.sqlLoader.sqlFiles['pdf_record_no_porduct_fees'],
+      {
+        replacements: {
+          recordId,
+          contractId,
+        },
+        type: QueryTypes.SELECT,
+      },
+    );
+
+    // 比如运费按照出入库量，但是录单存在排除的情况，特殊处理
+    const noRuleexcluded: any = await ctx.db.sequelize.query(
+      `
+    select 
+    rfin.count ,
+    rfin."comment" ,
+    rfin.new_fee_product_id,
+    p2.name || '[' || p.name || ']' as fee_name,
+    p.custom_name,
+    rfin.is_excluded 
+  from record_contract rc 
+  join record_fee_items_new rfin on rfin.record_contract_id = rc.id and rfin.is_excluded is true and rfin.new_product_id is null
+  join products p on p.id = rfin.new_fee_product_id
+  left join products p2 on p."parentId" = p2.id
+  where rc.id = :intermediateId
+    `,
+      {
+        replacements: {
+          intermediateId: intermediate.id,
+        },
+        type: QueryTypes.SELECT,
+      },
+    );
     // 合同基本数据
     const contracts = await ctx.db.getRepository('contracts').findOne({
       filter: {
@@ -221,28 +261,7 @@ export class RecordPreviewController {
       appends: ['first_party', 'first_party.projects', 'party_b', 'party_b.projects'],
     });
     contracts.movement = intermediate.movement;
-    // 合同方案数据
-    const contractPLan = await ctx.db.getRepository('contract_items').findOne({
-      filter: {
-        contract_id: intermediate.contract_id,
-        start_date: { [Op.lte]: baseRecord.date },
-        end_date: { [Op.gte]: baseRecord.date },
-      },
-      appends: [
-        'contract_plan',
-        'contract_plan.lease_items',
-        'contract_plan.lease_items.new_products',
-        'contract_plan.lease_items.conversion_logic',
-        'contract_plan.lease_items.conversion_logic.weight_items',
-        'contract_plan.lease_items.fee_items',
-        'contract_plan.lease_items.fee_items.conversion_logic',
-        'contract_plan.lease_items.fee_items.conversion_logic.weight_items',
-        'contract_plan.fee_items',
-        'contract_plan.fee_items.new_fee_products',
-        'contract_plan.fee_items.conversion_logic',
-        'contract_plan.fee_items.conversion_logic.weight_items',
-      ],
-    });
+
     const double = isDouble === '0' || isDouble === '1' ? isDouble : pdfExplain[0].record_columns;
     const printSetup =
       settingType === '0' || settingType === '1' || settingType === '2'
@@ -256,10 +275,11 @@ export class RecordPreviewController {
     }
     ctx.body = await this.recordPdfService.transformPdfV2(
       intermediate,
-      contractPLan,
       baseRecord,
       leaseData,
       leaseFeeData,
+      noLeaseProductFeeData,
+      noRuleexcluded,
       contracts,
       { isDouble: double, printSetup, margingTop: pdfTop },
     );
