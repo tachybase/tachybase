@@ -8,6 +8,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReadPretty } from './ReadPretty';
 import { getDateRanges, mapDatePicker, mapRangePicker } from './util';
+import dayjs from 'dayjs';
 
 interface IDatePickerProps {
   utc?: boolean;
@@ -47,6 +48,22 @@ DatePicker.ReadPretty = ReadPretty.DatePicker;
 DatePicker.RangePicker = function RangePicker(props) {
   const { t } = useTranslation();
   const { utc = true } = useDatePickerContext();
+  // value type: range [{value: "2024-04-01T16:00:00.000Z", inclusive: true},{value: "2024-05-01T16:00:00.000Z", inclusive: false}];
+  if (props.valueType === 'range') {
+    const originOnChange = props.onChange;
+    const originValue = props.value;
+    // make it writable
+    props = { ...props };
+    if (originValue) {
+      props.value = [originValue[0].value, dayjs(originValue[1].value).add(-1, 'd').toISOString()];
+    }
+    props.onChange = (value: string[2]) => {
+      originOnChange([
+        { value: dayjs(value[0]).toISOString(), inclusive: true },
+        { value: dayjs(value[1]).add(1, 'd').toISOString(), inclusive: false },
+      ]);
+    };
+  }
   const rangesValue = getDateRanges();
   const presets = [
     { label: t('Today'), value: rangesValue.today },

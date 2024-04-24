@@ -34,6 +34,7 @@ ReadPretty.DatePicker = function DatePicker(props: any) {
 
 ReadPretty.DateRangePicker = function DateRangePicker(props: any) {
   const prefixCls = usePrefixCls('description-text', props);
+
   const format = getDefaultFormat(props);
   const getLabels = () => {
     const m = str2moment(props.value, props);
