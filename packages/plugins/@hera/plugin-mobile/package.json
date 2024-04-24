@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-mobile",
   "displayName": "Mobile client: Customization",
-  "version": "1.1.17",
+  "version": "1.1.18",
   "description": "Provides the ability to configure mobile pages,more professional.",
   "main": "dist/server/index.js",
   "devDependencies": {
