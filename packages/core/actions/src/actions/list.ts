@@ -3,6 +3,7 @@ import { Context } from '..';
 import { getRepositoryFromParams, pageArgsToLimitArgs } from '../utils';
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from '../constants';
 import { Op, QueryTypes } from 'sequelize';
+import qs from 'querystring';
 
 function totalPage(total, pageSize): number {
   return Math.ceil(total / pageSize);
@@ -11,6 +12,32 @@ function totalPage(total, pageSize): number {
 function findArgs(ctx: Context) {
   const resourceName = ctx.action.resourceName;
   const params = ctx.action.params;
+  // 处理 sort 字段
+  const includeSort = params.sort?.filter((item) => item.split('.').length > 1) ?? [];
+  const sortItems = [];
+  includeSort.forEach((sort) => {
+    const parts = sort[0] === '-' ? sort.slice(1, sort.length).split('.') : sort.split('.');
+    const prefix = parts.slice(0, -1).join('.');
+    const sign = sort[0] === '-' ? '-' : '';
+    const sortItem = sign + parts.slice(-1).join('.');
+    const findIndex = sortItems.findIndex((item) => item.prefix === prefix);
+    if (findIndex !== -1) {
+      sortItems[findIndex].items.push(sortItem);
+    } else {
+      sortItems.push({
+        prefix,
+        sortItems: [sortItem],
+      });
+    }
+  });
+  sortItems.forEach((item) => {
+    const i = params.appends?.findIndex((append) => append === item.prefix) ?? -1;
+    if (i !== -1) {
+      params.appends[i] = `${item.prefix}(${qs.stringify({ sort: item.sortItems })})`;
+    }
+  });
+  params.sort = params.sort?.filter((item) => item.split('.').length == 1) ?? [];
+
   if (params.tree) {
     const [collectionName, associationName] = resourceName.split('.');
     const collection = ctx.db.getCollection(resourceName);
@@ -81,10 +108,10 @@ async function listWithPagination(ctx: Context) {
         )
         SELECT DISTINCT *
         FROM (
-          SELECT * 
+          SELECT *
           FROM tree1
           UNION ALL
-          SELECT * 
+          SELECT *
           FROM tree2
       );`;
       const filterTreeDatas = await ctx.db.sequelize.query(query, {
