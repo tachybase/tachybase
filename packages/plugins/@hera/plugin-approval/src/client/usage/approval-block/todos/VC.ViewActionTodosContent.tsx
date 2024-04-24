@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   RemoteSchemaComponent,
   SchemaComponent,
@@ -11,26 +10,26 @@ import { DetailsBlockProvider, ExecutionContextProvider } from '@nocobase/plugin
 import { Result, Spin } from 'antd';
 import _ from 'lodash';
 import React, { useContext } from 'react';
+import { FormBlockProvider } from '../../../common/Pd.FormBlock';
+import { NAMESPACE, useTranslation } from '../../../locale';
+import { ApprovalContext } from '../../approval-common/Pd.ApprovalData';
 import { ContextWithActionEnabled } from '../../approval-common/Pd.WithActionEnabled';
 import { ContextApprovalExecution } from '../common/Pd.ApprovalExecution';
-import { ContextApprovalExecutions } from './Pd.ApprovalExecutions';
-import { NAMESPACE, useTranslation } from '../../../locale';
-import { FormBlockProvider } from '../../../common/Pd.FormBlock';
-import { ApprovalContext } from '../../approval-common/Pd.ApprovalData';
-import { ApprovalCommon } from '../../approval-common/map';
 import { SchemaComponentContextProvider } from '../common/Pd.SchemaComponent';
-import { useApprovalDetailBlockProps } from './hooks/useApprovalDetailBlockProps';
-import { useApprovalFormBlockProps } from './hooks/useApprovalFormBlockProps';
-import { useSubmit } from './hooks/useSubmit';
 import { ApprovalFormBlockDecorator } from './Dt.ApprovalFormBlock';
 import { ActionBarProvider } from './Pd.ActionBarProvider';
 import { ApprovalActionProvider } from './Pd.ApprovalAction';
+import { ContextApprovalExecutions } from './Pd.ApprovalExecutions';
+import { useApprovalDetailBlockProps } from './hooks/useApprovalDetailBlockProps';
+import { useApprovalFormBlockProps } from './hooks/useApprovalFormBlockProps';
+import { useSubmit } from './hooks/useSubmit';
+
 // 审批-待办-查看: 内容
 export const ViewActionTodosContent = () => {
   const { id } = useRecord();
   const { t } = useTranslation();
   const { actionEnabled } = useContext(ContextWithActionEnabled);
-  const { loading, data } = useRequest(
+  const { loading, data: data }: any = useRequest(
     {
       resource: 'approvalRecords',
       action: 'get',
@@ -68,15 +67,19 @@ export const ViewActionTodosContent = () => {
     },
     { refreshDeps: [id] },
   );
+
   if (loading) return <Spin />;
-  if (!(data != null && data.data))
+
+  if (data == null || !data.data) {
     return <Result status="error" title={t('Submission may be withdrawn, please try refresh the list.')} />;
+  }
+
   const items = data.data;
-  const { approvalExecution, node, approval, workflow } = items;
+  const { approvalExecution, node, approval, workflow, execution } = items;
   const { nodes } = workflow;
   const omitWorkflow = _.omit(workflow, ['nodes']);
-  const { execution } = items;
-  // return null;
+  node?.config.applyDetail;
+
   return (
     <ExecutionContextProvider workflow={omitWorkflow} nodes={nodes} execution={execution}>
       <ApprovalContext.Provider value={approval}>
@@ -84,9 +87,9 @@ export const ViewActionTodosContent = () => {
           <ContextApprovalExecutions.Provider value={data.data}>
             <SchemaComponent
               components={{
-                SchemaComponentProvider: SchemaComponentProvider,
-                RemoteSchemaComponent: RemoteSchemaComponent,
-                SchemaComponentContextProvider: SchemaComponentContextProvider,
+                SchemaComponentProvider,
+                RemoteSchemaComponent,
+                SchemaComponentContextProvider,
                 FormBlockProvider,
                 ActionBarProvider,
                 ApprovalActionProvider,
@@ -113,7 +116,9 @@ export const ViewActionTodosContent = () => {
                         detail: {
                           type: 'void',
                           'x-decorator': 'SchemaComponentContextProvider',
-                          'x-decorator-props': { designable: false },
+                          'x-decorator-props': {
+                            designable: false,
+                          },
                           'x-component': 'RemoteSchemaComponent',
                           'x-component-props': {
                             uid: node?.config.applyDetail,
@@ -134,7 +139,7 @@ export const ViewActionTodosContent = () => {
                             history: {
                               type: 'void',
                               'x-decorator': 'CardItem',
-                              'x-component': ApprovalCommon.ViewComponent.ApprovalProcess,
+                              'x-component': 'ApprovalCommon.ViewComponent.ApprovalProcess',
                             },
                           },
                         },

@@ -4,7 +4,7 @@ import { APPROVAL_ACTION_STATUS } from '../../../constants';
 import { ApprovalActionConfigComponent } from './VC.ApprovalActionConfig';
 
 export const ApproverActionConfigInitializer = new SchemaInitializer({
-  name: 'ApprovalProcessAddActionButton',
+  name: 'ApproverActionConfigInitializer',
   title: '{{t("Configure actions")}}',
   items: [
     {

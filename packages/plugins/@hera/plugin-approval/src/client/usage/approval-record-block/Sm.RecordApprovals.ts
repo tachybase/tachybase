@@ -1,5 +1,4 @@
 import { NAMESPACE } from '../../locale';
-import { ApprovalCommon } from '../approval-common/map';
 
 export const SchemaRecordApprovals = {
   type: 'void',
@@ -86,9 +85,8 @@ export const SchemaRecordApprovals = {
                 },
                 processRow: {
                   type: 'void',
-                  // 'x-decorator': 'ApprovalBlock.ApprovalDataProvider',
-                  'x-decorator': ApprovalCommon.PathNameMap.Provider.ApprovalDataProvider,
-                  'x-component': ApprovalCommon.PathNameMap.ViewComponent.ApprovalProcess,
+                  'x-decorator': 'ApprovalCommon.Provider.ApprovalDataProvider',
+                  'x-component': 'ApprovalCommon.ViewComponent.ApprovalProcess',
                   'x-component-props': {
                     actionEnabled: true,
                   },
