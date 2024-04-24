@@ -9,6 +9,7 @@ import { WebControllerService as WebService } from './services/web-service';
 import './actions';
 import { Container } from '@nocobase/utils';
 import { DepartmentsPlugin } from './features/departments';
+import TstzrangeField from './fields/tstzrange';
 
 export class PluginCoreServer extends Plugin {
   pluginDepartments: DepartmentsPlugin;
@@ -19,6 +20,7 @@ export class PluginCoreServer extends Plugin {
   async afterAdd() {
     this.db.registerFieldTypes({
       calc: CalcField,
+      tstzrange: TstzrangeField,
     });
   }
   beforeLoad() {

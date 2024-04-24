@@ -79,6 +79,7 @@ import { DepartmentsPlugin } from './features/departments';
 import { PluginPageStyle } from './features/page-style';
 import { PluginHeraVersion } from './features/hera-version';
 import { PluginAssistant } from './features/assistant';
+import { TstzrangeFieldInterface } from './interfaces/TstzrangeFieldInterface';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -288,6 +289,7 @@ export class PluginCoreClient extends Plugin {
       CustomAssociatedFieldInterface,
       SignaturePadFieldInterface,
       ExcelFieldInterface,
+      TstzrangeFieldInterface,
     ]);
   }
 

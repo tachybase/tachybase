@@ -75,8 +75,8 @@ export const str2moment = (value?: string | string[], options: Str2momentOptions
         return toMoment(val, options);
       })
     : value
-    ? toMoment(value, options)
-    : value;
+      ? toMoment(value, options)
+      : value;
 };
 
 const toStringByPicker = (value, picker) => {
