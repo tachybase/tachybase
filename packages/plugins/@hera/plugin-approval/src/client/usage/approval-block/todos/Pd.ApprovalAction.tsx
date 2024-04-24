@@ -13,11 +13,11 @@ export function useContextApprovalAction() {
 }
 
 export function ApprovalActionProvider({ children, ...props }) {
-  const context = useContextApprovalExecutions();
+  const { status } = useContextApprovalExecutions();
 
-  if (context && context.status !== props.status) {
-    return null;
+  if (!status || status === props.status) {
+    return <ContextApprovalAction.Provider value={props}>{children}</ContextApprovalAction.Provider>;
   }
 
-  return <ContextApprovalAction.Provider value={props}>{children}</ContextApprovalAction.Provider>;
+  return null;
 }

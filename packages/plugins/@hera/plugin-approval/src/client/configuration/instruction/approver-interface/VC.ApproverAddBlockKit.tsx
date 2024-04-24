@@ -9,7 +9,7 @@ import { flatSchemaArray } from '../../../constants';
 export const ApproverAddBlockKit = () => {
   const itemConfig = useSchemaInitializerItem();
   const formSchema = createFormBlockSchema({
-    actionInitializers: 'ApprovalProcessAddActionButton',
+    actionInitializers: 'ApproverActionConfigInitializer',
     actions: {
       approve: {
         type: 'void',

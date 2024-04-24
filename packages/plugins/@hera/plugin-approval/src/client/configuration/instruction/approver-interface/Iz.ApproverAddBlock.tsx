@@ -10,7 +10,7 @@ import { ApproverAddBlockComponent } from './VC.ApproverAddBlock';
 import { ApproverAddBlockKit } from './VC.ApproverAddBlockKit';
 
 export const ApproverAddBlockInitializer = new SchemaInitializer({
-  name: 'ApprovalProcessAddBlockButton',
+  name: 'ApproverAddBlockInitializer',
   wrap: gridRowColWrap,
   title: "{{t('Add block')}}",
   items: [

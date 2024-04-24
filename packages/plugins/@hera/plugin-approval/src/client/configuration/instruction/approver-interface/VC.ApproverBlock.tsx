@@ -54,7 +54,7 @@ export const ApproverBlock = ({ value: srcID, onChange }) => {
       name: id,
       'x-uid': id,
       'x-component': 'Grid',
-      'x-initializer': 'ApprovalProcessAddBlockButton',
+      'x-initializer': 'ApproverAddBlockInitializer',
       properties: {},
     };
 
