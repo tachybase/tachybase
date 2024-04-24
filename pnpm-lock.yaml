@@ -1638,6 +1638,9 @@ importers:
       '@nocobase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
+      '@nocobase/cache':
+        specifier: workspace:*
+        version: link:../../../core/cache
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../../core/client
@@ -1684,6 +1687,9 @@ importers:
       flatted:
         specifier: ^3.2.9
         version: 3.2.9
+      get-stream:
+        specifier: ^6.0.1
+        version: 6.0.1
       lodash:
         specifier: 4.17.21
         version: 4.17.21

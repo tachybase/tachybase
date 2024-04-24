@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-sample-hello",
   "displayName": "Hello",
-  "version": "0.21.19",
+  "version": "0.21.22",
   "description": "A simple NocoBase plugin example",
   "main": "./dist/server/index.js",
   "devDependencies": {

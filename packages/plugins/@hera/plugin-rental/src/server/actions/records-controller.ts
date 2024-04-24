@@ -7,6 +7,10 @@ import { Movement } from '../../utils/constants';
 import _ from 'lodash';
 import { FilterParser, Repository } from '@nocobase/database';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
+import { Cache } from '@nocobase/cache';
+import getStream from 'get-stream';
+import { stringify } from 'flatted';
+
 @Controller('records')
 export class RecordPreviewController {
   @Inject(() => SqlLoader)
@@ -233,14 +237,14 @@ export class RecordPreviewController {
     // 比如运费按照出入库量，但是录单存在排除的情况，特殊处理
     const noRuleexcluded: any = await ctx.db.sequelize.query(
       `
-    select 
+    select
     rfin.count ,
     rfin."comment" ,
     rfin.new_fee_product_id,
     p2.name || '[' || p.name || ']' as fee_name,
     p.custom_name,
-    rfin.is_excluded 
-  from record_contract rc 
+    rfin.is_excluded
+  from record_contract rc
   join record_fee_items_new rfin on rfin.record_contract_id = rc.id and rfin.is_excluded is true and rfin.new_product_id is null
   join products p on p.id = rfin.new_fee_product_id
   left join products p2 on p."parentId" = p2.id
@@ -273,7 +277,9 @@ export class RecordPreviewController {
       const currentUser = await ctx.db.getRepository('users').findOne({ filter: { id: ctx.state.currentUser.id } });
       pdfTop = Number(currentUser?.pdf_top_margin);
     }
-    ctx.body = await this.recordPdfService.transformPdfV2(
+
+    const cache = ctx.app.cacheManager.getCache('@hera/plugin-rental') as Cache;
+    const key = stringify({
       intermediate,
       baseRecord,
       leaseData,
@@ -281,8 +287,32 @@ export class RecordPreviewController {
       noLeaseProductFeeData,
       noRuleexcluded,
       contracts,
-      { isDouble: double, printSetup, margingTop: pdfTop, paper },
-    );
+      settings: { isDouble: double, printSetup, margingTop: pdfTop, paper },
+    });
+
+    const result = await cache.get(key);
+    if (result) {
+      if (Buffer.isBuffer(result)) {
+        ctx.body = result;
+      } else {
+        ctx.body = Buffer.from(result.data);
+      }
+    } else {
+      const buf = await getStream.buffer(
+        await this.recordPdfService.transformPdfV2(
+          intermediate,
+          baseRecord,
+          leaseData,
+          leaseFeeData,
+          noLeaseProductFeeData,
+          noRuleexcluded,
+          contracts,
+          { isDouble: double, printSetup, margingTop: pdfTop, paper },
+        ),
+      );
+      ctx.body = buf;
+      await cache.set(key, buf);
+    }
   }
 
   @Action('unused')

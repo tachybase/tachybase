@@ -1,5 +1,5 @@
 import { useRecord } from '@nocobase/client';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 import { SettlementStyleContext } from '../schema-initializer/actions/SettlementStyleSwitchActionInitializer';
 
 export const PdfPaperSwitchingContext = createContext({
@@ -50,7 +50,12 @@ export const useRecordPdfPath = () => {
   const { settingType } = useContext(PdfIsLoadContext);
   const { margingTop } = useContext(PdfMargingTopContext);
   const { paper } = useContext(PdfPaperSwitchingContext);
-  return `/records:pdf?recordId=${recordId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}&paper=${paper}`;
+  const path = useMemo(
+    () =>
+      `/records:pdf?recordId=${recordId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}&paper=${paper}`,
+    [recordId, isDouble, settingType, margingTop, paper],
+  );
+  return path;
 };
 
 export const WaybillsProvider = (props) => {

@@ -24,7 +24,6 @@ import { ActionBarProvider } from './Pd.ActionBar';
 import { WithdrawActionProvider } from './Pd.WithdrawAction';
 import { SchemaComponentContextProvider } from '../common/Pd.SchemaComponent';
 import { ApplyActionStatusProvider } from './Pd.ApplyActionStatus';
-import { ApprovalCommon } from '../../approval-common/map';
 import { FlowContextProvider } from '../common/Pd.FlowContext';
 
 export const ViewActionLaunchContent = () => {
@@ -136,7 +135,7 @@ export const ViewActionLaunchContent = () => {
                               process: {
                                 type: 'void',
                                 'x-decorator': 'CardItem',
-                                'x-component': ApprovalCommon.PathNameMap.ViewComponent.ApprovalProcess,
+                                'x-component': 'ApprovalCommon.ViewComponent.ApprovalProcess',
                               },
                             },
                           },

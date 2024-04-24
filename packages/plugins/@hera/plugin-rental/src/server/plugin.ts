@@ -11,7 +11,10 @@ import { DetailCheckService } from './services/detail-check-service';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
 import { Repository } from '@nocobase/database';
 import { VehiclesService } from './services/vehicles-service';
+import { Cache } from '@nocobase/cache';
+
 export class PluginRentalServer extends Plugin {
+  cache: Cache;
   async afterAdd() {}
 
   beforeLoad() {}
@@ -25,6 +28,12 @@ export class PluginRentalServer extends Plugin {
     Container.get(ProjectService).load();
     Container.get(DetailCheckService).load();
     Container.get(ContractService).load();
+
+    this.cache = await this.app.cacheManager.createCache({
+      name: '@hera/plugin-rental',
+      prefix: '@hera/plugin-rental',
+      store: process.env.CACHE_DEFAULT_STORE || 'memory',
+    });
   }
 
   async syncCollections(collectionName: string, categoryNames: string[]) {

@@ -254,7 +254,7 @@ export const BlockProvider = (props: {
 };
 
 export const useBlockAssociationContext = () => {
-  const { association } = useDataBlockProps();
+  const { association } = useDataBlockProps() || {};
   return useContext(BlockAssociationContext) || association;
 };
 

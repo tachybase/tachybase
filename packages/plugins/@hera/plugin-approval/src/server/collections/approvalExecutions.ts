@@ -2,7 +2,7 @@ import { defineCollection } from '@nocobase/database';
 
 export default defineCollection({
   namespace: 'workflow.approvalExecutions',
-  duplicator: 'required',
+  dumpRules: 'required',
   name: 'approvalExecutions',
   fields: [
     {

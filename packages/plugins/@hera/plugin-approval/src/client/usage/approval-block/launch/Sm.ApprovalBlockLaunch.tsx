@@ -1,5 +1,3 @@
-// import { PathNameMap_ApprovalBlock } from '../map';
-import { ApprovalBlock } from '../map';
 import { NAMESPACE } from '../../../locale';
 import { css } from '@nocobase/client';
 
@@ -66,7 +64,6 @@ export const SchemaApprovalBlockLaunch = {
           title: '{{t("Actions")}}',
           properties: {
             action: {
-              // 'x-component': PathNameMap_ApprovalBlock.ViewActionLaunch,
               'x-component': 'ApprovalBlock.ViewActionLaunch',
             },
           },

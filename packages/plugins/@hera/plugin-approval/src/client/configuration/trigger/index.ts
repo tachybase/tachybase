@@ -10,11 +10,8 @@ export default class PluginKitApprovalTrigger extends Plugin {
   async load() {
     const workflowPlugin = this.app.pm.get(PluginWorkflow);
     workflowPlugin.registerTrigger('approval', ApprovalTrigger);
-    // workflowPlugin.registerInstruction('approval', ApprovalInstruction);
 
     this.app.schemaInitializerManager.add(LauncherActionConfigInitializer);
     this.app.schemaInitializerManager.add(LauncherAddBlockButtonIntializer);
-    // this.app.schemaInitializerManager.add(ApproverActionConfigInitializer);
-    // this.app.schemaInitializerManager.add(ApproverAddBlockInitializer);
   }
 }
