@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-theme-editor",
   "displayName": "Theme editor",
-  "version": "0.21.21",
+  "version": "0.21.22",
   "description": "Customize UI colors, sizes, etc. and save the result as a theme to switch between multiple themes.",
   "keywords": [
     "System management"
