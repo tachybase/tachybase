@@ -1,5 +1,5 @@
 import { Plugin } from '@nocobase/client';
-import { ImageSearch } from './ImageSearch.view';
+import { ImageSearchView } from './ImageSearch.view';
 import { ImageSearchInitializer } from './ImageSearch.initializer';
 
 class PluginImageSearch extends Plugin {
@@ -7,7 +7,7 @@ class PluginImageSearch extends Plugin {
     this.app.addScopes({});
 
     this.app.addComponents({
-      ImageSearch,
+      ImageSearch: ImageSearchView,
       ImageSearchInitializer,
     });
 

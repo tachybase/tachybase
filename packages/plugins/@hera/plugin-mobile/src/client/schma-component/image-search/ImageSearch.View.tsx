@@ -24,7 +24,7 @@ const images = [
   },
 ];
 
-export const ImageSearch = () => {
+export const ImageSearchView = () => {
   return (
     <JumboTabs>
       {images.map(({ label, imageUrl }) => (
