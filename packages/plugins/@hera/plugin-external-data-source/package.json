@@ -1,6 +1,6 @@
 {
   "name": "@hera/plugin-external-data-source",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/server/index.js",
   "dependencies": {
     "antd": "5.16.1",

@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-workflow-aggregate",
   "displayName": "Workflow: Aggregate node",
-  "version": "0.21.20",
+  "version": "0.21.21",
   "description": "Used to aggregate data against the database in workflow, such as: statistics, sum, average, etc.",
   "keywords": [
     "Workflow"
