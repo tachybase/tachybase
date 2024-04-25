@@ -47,58 +47,62 @@ async function listWithPagination(ctx: Context) {
   if (ctx.action.params.tree) {
     const foreignKey = collection.treeParentField?.foreignKey || 'parentId';
     const params = Object.values(options.filter).flat()[0] || {};
-    let dataId: any;
+    let dataIds = [];
     if (Object.entries(params).length) {
       const getParent = async (filter = {}) => {
-        const data = await repository.findOne({
+        const data = await repository.find({
           filter: filter,
         });
-        dataId = data.id;
+        dataIds = data.map((item) => item.id);
       };
       await getParent(params);
-      const query = `
-        WITH RECURSIVE tree1 AS (
-            SELECT id, "${foreignKey}"
-            FROM ${collection.name}
-            WHERE id = :dataId
+      const allDataIds = [];
+      for (const dataId of dataIds) {
+        const query = `
+          WITH RECURSIVE tree1 AS (
+              SELECT id, "${foreignKey}"
+              FROM ${collection.name}
+              WHERE id = :dataId
 
+              UNION ALL
+
+              SELECT p.id, p."${foreignKey}"
+              FROM tree1 up
+              JOIN ${collection.name} p ON up."${foreignKey}" = p.id
+          ),
+          tree2 AS (
+              SELECT id, "${foreignKey}"
+              FROM ${collection.name}
+              WHERE id = :dataId
+
+              UNION ALL
+
+              SELECT p.id, p."${foreignKey}"
+              FROM tree2 down
+              JOIN ${collection.name} p ON down.id = p."${foreignKey}"
+          )
+          SELECT DISTINCT *
+          FROM (
+            SELECT * 
+            FROM tree1
             UNION ALL
-
-            SELECT p.id, p."${foreignKey}"
-            FROM tree1 up
-            JOIN ${collection.name} p ON up."${foreignKey}" = p.id
-        ),
-        tree2 AS (
-            SELECT id, "${foreignKey}"
-            FROM ${collection.name}
-            WHERE id = :dataId
-
-            UNION ALL
-
-            SELECT p.id, p."${foreignKey}"
-            FROM tree2 down
-            JOIN ${collection.name} p ON down.id = p."${foreignKey}"
-        )
-        SELECT DISTINCT *
-        FROM (
-          SELECT * 
-          FROM tree1
-          UNION ALL
-          SELECT * 
-          FROM tree2
-      );`;
-      const filterTreeDatas = await ctx.db.sequelize.query(query, {
-        replacements: {
-          dataId,
-        },
-        type: QueryTypes.SELECT,
-        // logging: console.log
-      });
-      const newRows: any[] = filterTreeDatas;
-      const filterIds = newRows.map((item) => item.id);
+            SELECT * 
+            FROM tree2
+        ) as subQuery;`;
+        const filterTreeDatas = await ctx.db.sequelize.query(query, {
+          replacements: {
+            dataId,
+          },
+          type: QueryTypes.SELECT,
+        });
+        const newRows: any[] = filterTreeDatas;
+        const filterIds = newRows.map((item) => item.id);
+        allDataIds.push(...filterIds);
+      }
+      const ids = [...new Set(allDataIds)];
       const where = {
         id: {
-          [Op.in]: filterIds,
+          [Op.in]: ids,
         },
       };
       const [rows, count] = await repository.findAndCount({
@@ -129,7 +133,7 @@ async function listWithPagination(ctx: Context) {
       };
       transTreeData(father, _data);
       filterTreeData = father;
-      filterTreeCount = count;
+      filterTreeCount = father.length;
     }
   }
   const [rows, count] = await repository.findAndCount(options);
