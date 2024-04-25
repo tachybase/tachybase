@@ -6,7 +6,7 @@ import { ImageSearchProvider } from './ImageSearch.prodiver';
 
 class PluginImageSearch extends Plugin {
   async load() {
-    this.app.addScopes({});
+    // this.app.addScopes({});
 
     this.app.addComponents({
       ImageSearchView: ImageSearchView,
@@ -15,8 +15,8 @@ class PluginImageSearch extends Plugin {
     });
 
     this.app.schemaInitializerManager.add(ImageSearchConfigureFields);
-    this.app.schemaInitializerManager.add();
-    this.schemaSettingsManager.add();
+    // this.app.schemaInitializerManager.add();
+    // this.schemaSettingsManager.add();
 
     this.app.schemaInitializerManager.addItem('mobilePage:addBlock', 'filterBlocks.imageSearch', {
       name: 'imageSearch',

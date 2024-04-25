@@ -1,10 +1,10 @@
-import { Plugin, tval } from '@nocobase/client';
+import { Plugin } from '@nocobase/client';
+import PluginCommon from './common/plugin';
 import PluginBlock from './schma-block';
-import PluginTabSearch from './schma-component/tab-search';
-import PluginSwiper from './schma-component/swiper';
 import PluginImageSearch from './schma-component/image-search/plugin';
+import PluginSwiper from './schma-component/swiper';
+import PluginTabSearch from './schma-component/tab-search';
 import './assets/svg/index';
-import PluginCommon from './common';
 
 class PluginMobileClient extends Plugin {
   async afterAdd() {

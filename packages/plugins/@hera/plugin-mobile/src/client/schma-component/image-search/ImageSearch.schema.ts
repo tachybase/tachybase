@@ -25,8 +25,7 @@ export function createSchemaImageSearchBlock(options: OptionsType): ISchema {
       [uid()]: {
         type: 'void',
         'x-action': 'imageSearch',
-        // 'x-initializer': 'imageSearch:configureFields',
-        'x-initializer': 'ImageSearchConfigureFields',
+        'x-initializer': 'ImageSearchView:configureFields',
         'x-component': 'ImageSearchView',
       },
     },

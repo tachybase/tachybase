@@ -4,9 +4,8 @@ import { useIsMobile } from '../tab-search/components/field-item/hooks';
 import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../tab-search/utils';
 import { createTabSearchItemSchema } from '../tab-search/create/createTabSearchItemSchema';
 
-export const ImageSearchConfigureFields: SchemaInitializer = new SchemaInitializer({
-  // name: 'imageSearch:configureFields',
-  name: 'ImageSearchConfigureFields',
+export const ImageSearchConfigureFields = new SchemaInitializer({
+  name: 'ImageSearchView:configureFields',
   style: { marginTop: 16 },
   icon: 'SettingOutlined',
   title: tval('Configure fields'),

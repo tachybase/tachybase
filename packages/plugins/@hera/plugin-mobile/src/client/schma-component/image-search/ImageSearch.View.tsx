@@ -22,11 +22,15 @@ export const ImageSearchView = () => {
   };
 
   return (
-    <JumboTabs>
-      {images.map(({ label, imageUrl }) => (
-        <JumboTabs.Tab key={label} title={label} description={<ImageDescription srcUrl={imageUrl} />} />
-      ))}
-    </JumboTabs>
+    <>
+      <Designer />
+      <JumboTabs>
+        {images.map(({ label, imageUrl }) => (
+          <JumboTabs.Tab key={label} title={label} description={<ImageDescription srcUrl={imageUrl} />} />
+        ))}
+      </JumboTabs>
+      <React.Fragment>{render()}</React.Fragment>
+    </>
   );
 };
 
@@ -34,3 +38,5 @@ const ImageDescription = (props) => {
   const { srcUrl } = props;
   return <Image src={srcUrl} width={100} height={100} fit="fill" />;
 };
+
+export default ImageSearchView;
