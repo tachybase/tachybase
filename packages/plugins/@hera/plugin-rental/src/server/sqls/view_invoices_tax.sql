@@ -195,9 +195,16 @@ WITH RECURSIVE
   -- 主查询
   -- 根据计算后的表,获取最终的视图
 SELECT
-  *
+  row_num,
+  company_id,
+  "MONTH" AT TIME ZONE 'UTC' AS "MONTH",
+  input_tax_amount,
+  out_tax_amount,
+  monthly_tax_amount,
+  super_tax_amount,
+  monthly_total_tax_amount
 FROM
   G_INTIAL_TAX
 ORDER BY
-  company_id,
-  "MONTH"
+  "MONTH" DESC,
+  company_id
