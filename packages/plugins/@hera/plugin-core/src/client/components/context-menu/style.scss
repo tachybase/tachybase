@@ -1,0 +1,175 @@
+.contextmenu {
+  $contextmenu: '.contextmenu';
+
+  position: fixed;
+  width: 200px;
+  left: 0;
+  top: calc(100% + 10px);
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 10px 0;
+  z-index: 1001;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  &__item {
+    $item: &;
+
+    font-size: 14px;
+    display: block;
+    text-decoration: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+    position: relative;
+    margin-bottom: 2px;
+    &:hover:not(#{$item}--disabled) {
+      background-color: #f1f1f1;
+    }
+    &--disabled {
+      opacity: 0.5;
+      cursor: no-drop;
+    }
+  }
+  .submenu {
+    $submenu: '.submenu';
+
+    position: relative;
+    &:hover {
+      & > #{$contextmenu}__item {
+        background-color: #f1f1f1;
+      }
+    }
+    &__item {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: 100%;
+      border: solid 1px #ccc;
+      background-color: #fff;
+      border-radius: 4px;
+      padding: 5px 0;
+      opacity: 0;
+      visibility: hidden;
+    }
+    & > #{$contextmenu}__item {
+      &:after {
+        content: '';
+        border-style: solid;
+        border-width: 5px 8px;
+        border-color: transparent transparent transparent #000;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0px;
+        transition: 0.2s;
+      }
+    }
+  }
+}
+
+// fade in animation start
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+// fade in animation start
+
+// zoom in animation start
+.zoom-enter {
+  opacity: 0;
+  transform: scale(0.8);
+  transform-origin: top left;
+}
+.zoom-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 200ms, transform 200ms;
+  transform-origin: top left;
+}
+.zoom-exit {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: top left;
+}
+.zoom-exit-active {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 200ms, transform 200ms;
+  transform-origin: top left;
+}
+// zoom in animation start
+
+// to top left animation start
+.toTopLeft-enter {
+  opacity: 0;
+  transform: translate(10px, 10px);
+}
+.toTopLeft-enter-active {
+  opacity: 1;
+  transform: translate(0px, 0px);
+  transition: opacity 200ms, transform 200ms;
+}
+.toTopLeft-exit {
+  opacity: 1;
+  transform: translate(0px, 0px);
+}
+.toTopLeft-exit-active {
+  opacity: 0;
+  transform: translate(10px, 10px);
+  transition: opacity 200ms, transform 200ms;
+}
+// to top left animation start
+
+// right to left animation start
+.rightToLeft-enter {
+  opacity: 0;
+  transform: translateX(10px);
+}
+.rightToLeft-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+  transition: opacity 200ms, transform 200ms;
+}
+.rightToLeft-exit {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.rightToLeft-exit-active {
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 200ms, transform 200ms;
+}
+// right to left animation start
+
+// right to left animation start
+.pop-enter {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.pop-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 200ms, transform 200ms;
+}
+.pop-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.pop-exit-active {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 200ms, transform 200ms;
+}
+// right to left animation start
