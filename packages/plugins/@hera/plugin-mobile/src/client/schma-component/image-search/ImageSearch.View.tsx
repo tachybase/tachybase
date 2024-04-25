@@ -1,39 +1,30 @@
 import { JumboTabs, Image } from 'antd-mobile';
 import React from 'react';
-
-const images = [
-  {
-    label: '全部商品',
-    imageUrl: 'https://courier.dzkbdd.cn/static/jx-h5/assets/operator_all_select-884b60ce.png',
-  },
-  {
-    label: '中国电信',
-    imageUrl: 'https://courier.dzkbdd.cn/static/jx-h5/assets/operator_dx-7df8411f.png',
-  },
-  {
-    label: '中国移动',
-    imageUrl: 'https://courier.dzkbdd.cn/static/jx-h5/assets/operator_yd-7b994595.png',
-  },
-  {
-    label: '中国联通',
-    imageUrl: 'https://courier.dzkbdd.cn/static/jx-h5/assets/operator_lt-d9888233.png',
-  },
-  {
-    label: '中国广电',
-    imageUrl: 'https://courier.dzkbdd.cn/static/jx-h5/assets/operator_gd-cc48f3e6.png',
-  },
-];
+import { images } from './data';
+import { useDesigner, useSchemaInitializerRender } from '@nocobase/client';
+import { useFieldSchema } from '@nocobase/schema';
+import { isTabSearchCollapsibleInputItem } from '../tab-search/utils';
 
 export const ImageSearchView = () => {
+  const Designer = useDesigner();
+  const fieldSchema = useFieldSchema();
+  const { render } = useSchemaInitializerRender(fieldSchema['x-initializer'], fieldSchema['x-initializer-props']);
+
+  const filterProperties = (s) => {
+    if (!isTabSearchCollapsibleInputItem(s['x-component'])) {
+      return true;
+    } else {
+      // 保留第一个，如果进入这个判断一定有值，所以取0不会出错
+      return (
+        s === Object.values(s.parent.properties).filter((s) => isTabSearchCollapsibleInputItem(s['x-component']))[0]
+      );
+    }
+  };
+
   return (
     <JumboTabs>
       {images.map(({ label, imageUrl }) => (
-        <JumboTabs.Tab key={label} title={label} description={<ImageDescription srcUrl={imageUrl} />}>
-          {label}
-          {
-            // TODO: 填充数据的区域
-          }
-        </JumboTabs.Tab>
+        <JumboTabs.Tab key={label} title={label} description={<ImageDescription srcUrl={imageUrl} />} />
       ))}
     </JumboTabs>
   );

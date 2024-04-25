@@ -8,13 +8,12 @@ interface OptionsType {
 }
 
 export function createSchemaImageSearchBlock(options: OptionsType): ISchema {
-  const { collectionName, dataSource, blockType } = options;
-
+  const { collectionName: collection, dataSource, blockType } = options;
   return {
     type: 'void',
-    //   'x-decorator': 'ImageSearchProvider',
+    'x-decorator': 'ImageSearchProvider',
     'x-decorator-props': {
-      collection: collectionName,
+      collection,
       dataSource,
       blockType,
     },
@@ -25,9 +24,10 @@ export function createSchemaImageSearchBlock(options: OptionsType): ISchema {
     properties: {
       [uid()]: {
         type: 'void',
-        // 'x-action': 'tabSearch',
-        // 'x-initializer': 'tabSearch:configureFields',
-        'x-component': 'ImageSearch',
+        'x-action': 'imageSearch',
+        // 'x-initializer': 'imageSearch:configureFields',
+        'x-initializer': 'ImageSearchConfigureFields',
+        'x-component': 'ImageSearchView',
       },
     },
   };

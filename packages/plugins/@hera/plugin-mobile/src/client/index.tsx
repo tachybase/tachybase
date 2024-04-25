@@ -2,7 +2,7 @@ import { Plugin, tval } from '@nocobase/client';
 import PluginBlock from './schma-block';
 import PluginTabSearch from './schma-component/tab-search';
 import PluginSwiper from './schma-component/swiper';
-import PluginImageSearch from './schma-component/image-search';
+import PluginImageSearch from './schma-component/image-search/plugin';
 import './assets/svg/index';
 import PluginCommon from './common';
 
