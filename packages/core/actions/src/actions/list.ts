@@ -86,10 +86,10 @@ async function listWithPagination(ctx: Context) {
       const allDataIds = [];
       for (const dataId of dataIds) {
         const query = `
-          WITH RECURSIVE tree1 AS (
-              SELECT id, "${foreignKey}"
-              FROM ${collection.name}
-              WHERE id = :dataId
+        WITH RECURSIVE tree1 AS (
+            SELECT id, "${foreignKey}"
+            FROM ${collection.name}
+            WHERE id = :dataId
 
               UNION ALL
 
@@ -104,18 +104,18 @@ async function listWithPagination(ctx: Context) {
 
               UNION ALL
 
-              SELECT p.id, p."${foreignKey}"
-              FROM tree2 down
-              JOIN ${collection.name} p ON down.id = p."${foreignKey}"
-          )
-          SELECT DISTINCT *
-          FROM (
-            SELECT *
-            FROM tree1
-            UNION ALL
-            SELECT *
-            FROM tree2
-        ) as subQuery;`;
+            SELECT p.id, p."${foreignKey}"
+            FROM tree2 down
+            JOIN ${collection.name} p ON down.id = p."${foreignKey}"
+        )
+        SELECT DISTINCT *
+        FROM (
+          SELECT *
+          FROM tree1
+          UNION ALL
+          SELECT *
+          FROM tree2
+      ) AS formData;`;
         const filterTreeDatas = await ctx.db.sequelize.query(query, {
           replacements: {
             dataId,
@@ -138,7 +138,6 @@ async function listWithPagination(ctx: Context) {
       });
       const _data = rows.map((item) => item.dataValues);
       const father = _data.filter((parent) => parent.parentId === null);
-
       const transTreeData = (father, allRows) => {
         father.forEach((parent, index) => {
           const children = allRows.filter((child) => child.parentId === parent.id);

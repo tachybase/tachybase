@@ -24,7 +24,7 @@ export const RecordSummary = observer((): any => {
     },
   });
   const reqProduct = useCachedRequest<any>({
-    resource: 'product',
+    resource: 'products',
     action: 'list',
     params: {
       appends: ['category'],
@@ -33,8 +33,6 @@ export const RecordSummary = observer((): any => {
   });
   //合同方案
   const { data: leaseItems } = useLeaseItems(contractPlanId);
-  const { data: inLeaseItems } = useLeaseItems(inContractPlanId);
-  const { data: outLeaseItems } = useLeaseItems(outContractPlanId);
 
   if (!reqProduct.data) {
     return '';

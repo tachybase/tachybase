@@ -17,8 +17,7 @@ export const RecordItemCount = observer((props) => {
     },
   };
   const { loading, data } = useCachedRequest<any>(newProductParam);
-
-  if (!loading && data) {
+  if (!loading && !data) {
     return <Spin />;
   }
   const item = form.getValuesIn(field.path.slice(0, -2).entire);

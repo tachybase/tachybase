@@ -1,6 +1,7 @@
-import { useRequest } from '@nocobase/client';
+import { useAPIClient, useRequest } from '@nocobase/client';
+import dayjs from 'dayjs';
 import { stringify } from 'flatted';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useCachedRequest<P>(params: {}, options = {}) {
   const cacheKey = stringify(params);
@@ -8,83 +9,121 @@ export function useCachedRequest<P>(params: {}, options = {}) {
 }
 
 export const useLeaseItems = (planId) => {
-  const params = {
-    resource: 'contract_plan_lease_items',
-    action: 'list',
-    params: {
-      appends: ['products'],
-      filter: {
-        contract_plan_id: planId,
-      },
-      pageSize: 99999,
-    },
-  };
-  const { data, loading, run } = useCachedRequest<any>(params, {
-    manual: true,
-  });
-  useEffect(() => {
-    if (planId) {
-      run();
+  const [data, setData] = useState({});
+  const api = useAPIClient();
+  const nowDay = dayjs().startOf('day').add(-1, 'minute');
+  planId?.forEach((value) => {
+    if (!value) return;
+    if (!data[value]) {
+      api
+        .request({
+          resource: 'contract_plan_lease_items',
+          action: 'list',
+          params: {
+            appends: ['new_products'],
+            filter: {
+              contract_plan: {
+                contract_items: {
+                  start_date: { $dateBefore: nowDay },
+                  end_date: { $dateAfter: nowDay },
+                  contract_id: {
+                    $eq: value,
+                  },
+                },
+              },
+            },
+            pageSize: 99999,
+          },
+        })
+        .then((res) => {
+          const result = { ...data };
+          result[value] = res.data?.data;
+          setData(result);
+        })
+        .catch(() => {
+          return;
+        });
     }
-  }, [planId]);
-  return { data, loading };
+  });
+  return { data };
 };
 
 export const useProductFeeItems = (planId) => {
-  const feeParams = {
-    resource: 'contract_plan_fee_items',
-    action: 'list',
-    params: {
-      appends: ['fee_product'],
-      filter: {
-        contract_plan_id: planId,
-      },
-      pageSize: 99999,
-    },
-  };
-
-  const { data, loading, run } = useCachedRequest<any>(feeParams, {
-    manual: true,
-  });
-  useEffect(() => {
-    if (planId) {
-      run();
-    }
-  }, [planId]);
-  return { data, loading };
-};
-
-export const useFeeItems = (categoryId, planId) => {
-  const { data, loading, run } = useCachedRequest<any>(
-    {
-      resource: 'contract_plan_lease_items',
-      action: 'list',
-      params: {
-        appends: ['fee_items', 'products'],
-        filter: {
-          $and: [
-            {
-              contract_plan_id: planId,
-            },
-            {
-              products: {
-                category_id: categoryId ?? -1,
+  const [data, setData] = useState({});
+  const api = useAPIClient();
+  const nowDay = dayjs().startOf('day').add(-1, 'minute');
+  planId?.forEach((value) => {
+    if (!value) return;
+    if (!data[value]) {
+      api
+        .request({
+          resource: 'contract_plan_fee_items',
+          action: 'list',
+          params: {
+            appends: ['new_products'],
+            filter: {
+              contract_plan: {
+                contract_items: {
+                  start_date: { $dateBefore: nowDay },
+                  end_date: { $dateAfter: nowDay },
+                  contract_id: {
+                    $eq: value,
+                  },
+                },
               },
             },
-          ],
-        },
-        pageSize: 99999,
-      },
-    },
-    {
-      manual: true,
-    },
-  );
-
-  useEffect(() => {
-    if (planId && categoryId) {
-      run();
+            pageSize: 99999,
+          },
+        })
+        .then((res) => {
+          const result = { ...data };
+          result[value] = res.data?.data;
+          setData(result);
+        })
+        .catch(() => {
+          return;
+        });
     }
-  }, [planId, categoryId]);
-  return { data, loading };
+  });
+  return { data };
+};
+
+export const useFeeItems = (planId) => {
+  const [data, setData] = useState({});
+  const api = useAPIClient();
+  const nowDay = dayjs().startOf('day').add(-1, 'minute');
+  planId?.forEach((value) => {
+    if (!value) return;
+    if (!data[value]) {
+      api
+        .request({
+          resource: 'contract_plan_lease_items',
+          action: 'list',
+          params: {
+            appends: ['fee_items', 'new_products'],
+            filter: {
+              contract_plan: {
+                contract_items: {
+                  start_date: { $dateBefore: nowDay },
+                  end_date: { $dateAfter: nowDay },
+                  contract_id: {
+                    $eq: value,
+                  },
+                },
+              },
+            },
+            pageSize: 99999,
+          },
+        })
+        .then((res) => {
+          const result = { ...data };
+          result[value] = res.data?.data;
+          setData(result);
+        })
+        .catch(() => {
+          return;
+        });
+    }
+  });
+  return { data };
 };

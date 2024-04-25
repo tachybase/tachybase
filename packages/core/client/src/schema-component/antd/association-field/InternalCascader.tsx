@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { CustomCascader, SchemaComponent } from '../..';
 import { css, useAPIClient } from '../../..';
 import { mergeFilter } from '../../../filter-provider/utils';
-import { useAssociationFieldContext } from './hooks';
+import useServiceOptions, { useAssociationFieldContext } from './hooks';
 
 const SchemaField = createSchemaField({
   components: {
@@ -55,7 +55,6 @@ const Cascade = connect((props) => {
       });
       setSelectedOptions(defaultData);
     }
-    onDropdownVisibleChange('true');
   }, [fieldSchema['x-component-props'].value]);
   const handleGetOptions = async () => {
     const response = await resource.list({
@@ -164,6 +163,7 @@ export const InternalCascader = observer(
     const { t } = useTranslation();
     const field: any = useField();
     const fieldSchema = useFieldSchema();
+    const service = useServiceOptions(props);
     useEffect(() => {
       const id = uid();
       selectForm.addEffects(id, () => {
@@ -253,6 +253,7 @@ export const InternalCascader = observer(
               'x-component': AssociationCascadeSelect,
               'x-component-props': {
                 ...props,
+                service,
                 style: { width: '100%' },
               },
               'x-read-pretty': false,
@@ -264,7 +265,7 @@ export const InternalCascader = observer(
       </FormProvider>
     );
   },
-  { displayName: 'InternalCascade' },
+  { displayName: 'InternalCascader' },
 );
 
 function extractLastNonNullValueObjects(data, flag?) {
