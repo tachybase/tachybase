@@ -6,7 +6,7 @@ WITH RECURSIVE
   A_INPUT AS (
     SELECT
       purchaser_id AS company_id, -- 发票进项取购买方公司id,作为本公司id标识
-      authentication_date AS "date", -- 发票进项取认证日期,作为计算月份的来源
+      authentication_date AT TIME ZONE 'Asia/Shanghai' AS "date", -- 发票进项取认证日期,作为计算月份的来源
       tax_amount,
       "state"
     FROM
@@ -14,7 +14,7 @@ WITH RECURSIVE
     UNION ALL
     SELECT
       purchaser_id AS company_id, -- 完税凭证,同发票进项字段
-      authentication_date AS "date", -- 完税凭证,同发票进项字段
+      authentication_date AT TIME ZONE 'Asia/Shanghai' AS "date", -- 完税凭证,同发票进项字段
       tax_amount,
       "state"
     FROM
@@ -24,7 +24,7 @@ WITH RECURSIVE
   A_OUTPUT AS (
     SELECT
       seller_id AS company_id, -- 发票销项取销售方id,作为本公司id标识
-      "Invoicing_date" AS "date", -- 发票销项取开票日期,作为计算月份的来源
+      "Invoicing_date" AT TIME ZONE 'Asia/Shanghai' AS "date", -- 发票销项取开票日期,作为计算月份的来源
       tax_amount,
       "state"
     FROM
