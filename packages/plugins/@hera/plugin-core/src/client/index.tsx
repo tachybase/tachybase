@@ -80,6 +80,7 @@ import { PluginPageStyle } from './features/page-style';
 import { PluginHeraVersion } from './features/hera-version';
 import { PluginAssistant } from './features/assistant';
 import { TstzrangeFieldInterface } from './interfaces/TstzrangeFieldInterface';
+import { PluginContextMenu } from './features/context-menu';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -92,6 +93,7 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(DepartmentsPlugin);
     await this.app.pm.add(PluginPageStyle);
     await this.app.pm.add(PluginHeraVersion);
+    await this.app.pm.add(PluginContextMenu);
     await this.app.pm.add(PluginAssistant);
   }
 

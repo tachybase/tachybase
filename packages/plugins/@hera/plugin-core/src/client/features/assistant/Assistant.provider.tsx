@@ -1,9 +1,12 @@
-import { CalculatorOutlined, CommentOutlined, HighlightOutlined, ToolOutlined } from '@ant-design/icons';
+import { CalculatorOutlined, CommentOutlined, HighlightOutlined, ToolOutlined, ToolFilled } from '@ant-design/icons';
 import { useDesignable } from '@nocobase/client';
 import { FloatButton } from 'antd';
 import React from 'react';
+import { useContextMenu } from '../context-menu/useContextMenu';
 export const AssistantProvider = ({ children }) => {
   const { designable, setDesignable } = useDesignable();
+  const { contextMenuEnabled, setContextMenuEnable } = useContextMenu();
+  const ContextMenuIcon = contextMenuEnabled ? ToolFilled : ToolOutlined;
   return (
     <>
       {children}
@@ -11,6 +14,7 @@ export const AssistantProvider = ({ children }) => {
         <FloatButton icon={<HighlightOutlined />} onClick={() => setDesignable(!designable)} />
         <FloatButton icon={<CalculatorOutlined />} />
         <FloatButton icon={<CommentOutlined />} />
+        <FloatButton icon={<ContextMenuIcon onClick={() => setContextMenuEnable(!contextMenuEnabled)} />} />
       </FloatButton.Group>
     </>
   );
