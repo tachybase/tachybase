@@ -96,6 +96,8 @@ const Cascade = connect((props) => {
         }
       });
       onChange?.(options);
+    } else {
+      onChange?.([]);
     }
   };
   const cascadeOption = (option) => {
