@@ -13,7 +13,7 @@ export const RecordItemValuationQuantity = observer((props) => {
   const contractPlanId = form
     .getValuesIn('record_contract')
     ?.map((value) => {
-      return value.contract.id;
+      return value.contract?.id;
     })
     .filter(Boolean);
   const contractPlan = form.getValuesIn('record_contract');
@@ -43,7 +43,8 @@ export const RecordItemValuationQuantity = observer((props) => {
     }
     const productCategory = reqProduct.data?.data.find((value) => value.id === item.new_product.parentId);
     contractPlan.forEach((contractPlanItem, index) => {
-      const rule = leaseItems[contractPlanItem.contract?.id].find((product) => {
+      if (!contractPlanItem.contract) return;
+      const rule = leaseItems[contractPlanItem.contract.id]?.find((product) => {
         return selParentId(reqProduct.data?.data, item.new_product, product.new_products_id);
       });
       const count = subtotal(rule, item, productCategory, reqWeightRules);

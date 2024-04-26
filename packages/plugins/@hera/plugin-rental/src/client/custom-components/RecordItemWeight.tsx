@@ -11,7 +11,7 @@ export const RecordItemWeight = observer((props) => {
   if (item?.new_product && item?.count) {
     const value = ((item.new_product.weight || 0) * item.count) / 1000;
     if (value) {
-      return <span>{formatQuantity(value, 2) + '吨'}</span>;
+      return <span>{formatQuantity(value, 3) + '吨'}</span>;
     }
   }
   return <span> - </span>;

@@ -12,6 +12,7 @@ export const useLeaseItems = (planId) => {
   const [data, setData] = useState({});
   const api = useAPIClient();
   const nowDay = dayjs().startOf('day').add(-1, 'minute');
+  if (typeof planId !== 'object') return { data };
   planId?.forEach((value) => {
     if (!value) return;
     if (!data[value]) {
@@ -52,6 +53,7 @@ export const useProductFeeItems = (planId) => {
   const [data, setData] = useState({});
   const api = useAPIClient();
   const nowDay = dayjs().startOf('day').add(-1, 'minute');
+  if (typeof planId !== 'object') return { data };
   planId?.forEach((value) => {
     if (!value) return;
     if (!data[value]) {
@@ -92,6 +94,7 @@ export const useFeeItems = (planId) => {
   const [data, setData] = useState({});
   const api = useAPIClient();
   const nowDay = dayjs().startOf('day').add(-1, 'minute');
+  if (typeof planId !== 'object') return { data };
   planId?.forEach((value) => {
     if (!value) return;
     if (!data[value]) {
