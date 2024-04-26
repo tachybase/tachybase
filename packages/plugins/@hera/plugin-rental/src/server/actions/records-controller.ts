@@ -177,7 +177,7 @@ export class RecordPreviewController {
   @Action('pdf')
   async printPreview(ctx: Context) {
     const {
-      params: { recordId: id, isDouble, settingType, margingTop, paper },
+      params: { recordId: id, isDouble, settingType, margingTop, paper, font },
     } = ctx.action;
     let pdfTop: number;
     // 查询合同订单中间表，获得订单id，合同id，出入库信息
@@ -287,7 +287,7 @@ export class RecordPreviewController {
       noLeaseProductFeeData,
       noRuleexcluded,
       contracts,
-      settings: { isDouble: double, printSetup, margingTop: pdfTop, paper },
+      settings: { isDouble: double, printSetup, margingTop: pdfTop, paper, font },
     });
 
     const result = await cache.get(key);
@@ -295,10 +295,12 @@ export class RecordPreviewController {
       if (Buffer.isBuffer(result)) {
         ctx.body = result;
       } else {
+        //@ts-ignore
         ctx.body = Buffer.from(result.data);
       }
     } else {
       const buf = await getStream.buffer(
+        //@ts-ignore
         await this.recordPdfService.transformPdfV2(
           intermediate,
           baseRecord,
@@ -307,7 +309,7 @@ export class RecordPreviewController {
           noLeaseProductFeeData,
           noRuleexcluded,
           contracts,
-          { isDouble: double, printSetup, margingTop: pdfTop, paper },
+          { isDouble: double, printSetup, margingTop: pdfTop, paper, font },
         ),
       );
       ctx.body = buf;

@@ -4,193 +4,7 @@ import * as QRCode from 'qrcode';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 import { dayjs } from '@nocobase/utils';
 import { RecordPdfOptions } from '../../interfaces/options';
-const fontSizes = {
-  title: '13px',
-  subTitle: '11px',
-  main: '9px',
-  side: '8px',
-};
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'column',
-    backgroundColor: '#FFF',
-    fontFamily: 'source-han-sans',
-    padding: '12px',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: fontSizes.title,
-  },
-  subTitle: {
-    textAlign: 'center',
-    fontSize: fontSizes.subTitle,
-  },
-  content: {
-    flexDirection: 'row',
-    marginLeft: '10pt',
-    marginRight: '10pt',
-  },
-  main: {
-    flex: 1,
-  },
-  side: {
-    width: '11px',
-    fontSize: fontSizes.side,
-    paddingLeft: '2px',
-  },
-  tableHeader: {
-    fontSize: fontSizes.main,
-    flexDirection: 'row',
-  },
-  headerLeft: {
-    width: '205px',
-  },
-  headerMiddle: {
-    flex: 1,
-  },
-  headerLeftLeft: {
-    flex: 2,
-  },
-  headerLeftRight: {
-    flex: 1,
-  },
-  headerRight: {
-    width: '205px',
-  },
-  tableContentTitle: {
-    fontSize: fontSizes.main,
-    flexDirection: 'row',
-  },
-  tableCellLargeTitle: {
-    flex: 2,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-  },
-  tableCellTitle: {
-    flex: 1,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-  },
-  tableCell2Title: {
-    flex: 2,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-  },
-  tableCellTitleLast: {
-    flex: 1,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderRight: '1px solid black',
-    marginRight: '-1px',
-  },
-  tableCell2TitleLast: {
-    flex: 2,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderRight: '1px solid black',
-    marginRight: '-1px',
-  },
-  tableContent: {
-    fontSize: fontSizes.main,
-    flexDirection: 'row',
-  },
-  tableCell: {
-    flex: 1,
-    textAlign: 'right',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableCellNoLeft: {
-    flex: 1,
-    textAlign: 'right',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableCell2: {
-    flex: 2,
-    textAlign: 'right',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableCellLast: {
-    flex: 1,
-    textAlign: 'right',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderRight: '1px solid black',
-    marginRight: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableCell2Last: {
-    flex: 2,
-    textAlign: 'right',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderRight: '1px solid black',
-    marginRight: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableFooter: {
-    flexDirection: 'row',
-  },
-  tableFooterQr: {
-    width: '50px',
-    marginLeft: '-50px',
-    transform: 'translate(50px, 0)',
-  },
-  tableFooterLeft: {
-    flex: 1,
-    fontSize: fontSizes.main,
-    borderLeft: '1px solid black',
-    paddingLeft: '50px',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderBottom: '1px solid black',
-    marginBottom: '-1px',
-  },
-  tableFooterRight: {
-    flex: 1,
-    fontSize: fontSizes.main,
-    border: '1px solid black',
-    paddingRight: '50px',
-    margin: '-1px',
-  },
-  sign: {
-    marginTop: '0px',
-    flexDirection: 'row',
-  },
-  signPart: {
-    flex: 1,
-    fontSize: fontSizes.main,
-  },
-});
+
 /**
  *
  * @param isDouble 0为单列，1为双列
@@ -207,8 +21,196 @@ const PreviewDocument = ({
   detail: any;
   record: any[];
   priceRule: any[];
-  options: RecordPdfOptions;
+  options: any; // RecordPdfOptions;
 }) => {
+  const fontSizes = {
+    title: '13px',
+    subTitle: '11px',
+    main: `${options.font || 9}px`,
+    side: '8px',
+  };
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'column',
+      backgroundColor: '#FFF',
+      fontFamily: 'source-han-sans',
+      padding: '12px',
+    },
+    title: {
+      textAlign: 'center',
+      fontSize: fontSizes.title,
+    },
+    subTitle: {
+      textAlign: 'center',
+      fontSize: fontSizes.subTitle,
+    },
+    content: {
+      flexDirection: 'row',
+      marginLeft: '10pt',
+      marginRight: '10pt',
+    },
+    main: {
+      flex: 1,
+    },
+    side: {
+      width: '11px',
+      fontSize: fontSizes.side,
+      paddingLeft: '2px',
+    },
+    tableHeader: {
+      fontSize: fontSizes.main,
+      flexDirection: 'row',
+    },
+    headerLeft: {
+      width: '205px',
+    },
+    headerMiddle: {
+      flex: 1,
+    },
+    headerLeftLeft: {
+      flex: 2,
+    },
+    headerLeftRight: {
+      flex: 1,
+    },
+    headerRight: {
+      width: '205px',
+    },
+    tableContentTitle: {
+      fontSize: fontSizes.main,
+      flexDirection: 'row',
+    },
+    tableCellLargeTitle: {
+      flex: 2,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+    },
+    tableCellTitle: {
+      flex: 1,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+    },
+    tableCell2Title: {
+      flex: 2,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+    },
+    tableCellTitleLast: {
+      flex: 1,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderRight: '1px solid black',
+      marginRight: '-1px',
+    },
+    tableCell2TitleLast: {
+      flex: 2,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderRight: '1px solid black',
+      marginRight: '-1px',
+    },
+    tableContent: {
+      fontSize: fontSizes.main,
+      flexDirection: 'row',
+    },
+    tableCell: {
+      flex: 1,
+      textAlign: 'right',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableCellNoLeft: {
+      flex: 1,
+      textAlign: 'right',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableCell2: {
+      flex: 2,
+      textAlign: 'right',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableCellLast: {
+      flex: 1,
+      textAlign: 'right',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderRight: '1px solid black',
+      marginRight: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableCell2Last: {
+      flex: 2,
+      textAlign: 'right',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderRight: '1px solid black',
+      marginRight: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableFooter: {
+      flexDirection: 'row',
+    },
+    tableFooterQr: {
+      width: '50px',
+      marginLeft: '-50px',
+      transform: 'translate(50px, 0)',
+    },
+    tableFooterLeft: {
+      flex: 1,
+      fontSize: fontSizes.main,
+      borderLeft: '1px solid black',
+      paddingLeft: '50px',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderBottom: '1px solid black',
+      marginBottom: '-1px',
+    },
+    tableFooterRight: {
+      flex: 1,
+      fontSize: fontSizes.main,
+      border: '1px solid black',
+      paddingRight: '50px',
+      margin: '-1px',
+    },
+    sign: {
+      marginTop: '0px',
+      flexDirection: 'row',
+    },
+    signPart: {
+      flex: 1,
+      fontSize: fontSizes.main,
+    },
+  });
+
   const paper = options.paper;
   const isDouble = Number(options.isDouble);
   const explain =
@@ -347,8 +349,8 @@ const PreviewDocument = ({
     <Document>
       <Page size={paper || 'A4'} style={{ ...styles.page, marginTop: options.margingTop }}>
         {' '}
-        {/**transform: 'scale(1)' */}
-        <Text style={styles.title}>{detail.contract_first_party.name || '异常数据，请联系相关负责人！'}</Text>
+        {/**transform: `scale(${trans})` */}
+        <Text style={styles.title}>{detail.contract_first_party?.name || '异常数据，请联系相关负责人！'}</Text>
         <Text style={styles.subTitle}>{detail.contract_first_party ? detail.movement : '盘点'}单</Text>
         <View style={styles.content}>
           <View style={styles.main}>

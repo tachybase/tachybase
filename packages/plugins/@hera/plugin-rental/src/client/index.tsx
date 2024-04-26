@@ -52,6 +52,7 @@ import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedReco
 
 import { PaperSwitching, PaperSwitchingInitializer } from './schema-initializer/actions/paperSwitching';
 
+import { PrintFontSize, PrintFontSizeInitializer } from './schema-initializer/actions/RecordPrintFontSizeInitializer';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -98,6 +99,12 @@ export class PluginRentalClient extends Plugin {
       title: '{{t("paper switching")}}',
       component: 'PaperSwitchingInitializer',
     });
+    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.paperSwitching', {
+      type: 'item',
+      title: '{{t("font size")}}',
+      component: 'PrintFontSizeInitializer',
+    });
+
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintSetup', {
       type: 'item',
       title: '{{t("Record print setup")}}',
@@ -186,7 +193,9 @@ export class PluginRentalClient extends Plugin {
       ColumnSwitchActionInitializer,
       ColumnSwitchAction,
       PaperSwitching,
+      PrintFontSize,
       PaperSwitchingInitializer,
+      PrintFontSizeInitializer,
       SettlementExcelExportActionInitializer,
       SettlementStyleProvider,
       SettlementStyleSwitchActionInitializer,

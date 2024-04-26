@@ -22,17 +22,24 @@ export const PdfMargingTopContext = createContext({
   setMargingTop: null,
 });
 
+// 页面缩放
+export const FontSizeContext = createContext({
+  size: null,
+  setSize: null,
+});
+
 export const PdfIsDoubleProvider = (props) => {
   const [isDouble, setIsDouble] = useState(false);
   const [settingType, setSettingLoad] = useState(false);
   const [margingTop, setMargingTop] = useState(0);
   const [paper, setPaper] = useState('A4');
+  const [size, setSize] = useState('9');
   return (
     <PdfPaperSwitchingContext.Provider value={{ paper, setPaper }}>
       <PdfMargingTopContext.Provider value={{ margingTop, setMargingTop }}>
         <PdfIsDoubleContext.Provider value={{ isDouble, setIsDouble }}>
           <PdfIsLoadContext.Provider value={{ settingType, setSettingLoad }}>
-            {props.children}
+            <FontSizeContext.Provider value={{ size, setSize }}>{props.children}</FontSizeContext.Provider>
           </PdfIsLoadContext.Provider>
         </PdfIsDoubleContext.Provider>
       </PdfMargingTopContext.Provider>
@@ -50,10 +57,11 @@ export const useRecordPdfPath = () => {
   const { settingType } = useContext(PdfIsLoadContext);
   const { margingTop } = useContext(PdfMargingTopContext);
   const { paper } = useContext(PdfPaperSwitchingContext);
+  const { size } = useContext(FontSizeContext);
   const path = useMemo(
     () =>
-      `/records:pdf?recordId=${recordId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}&paper=${paper}`,
-    [recordId, isDouble, settingType, margingTop, paper],
+      `/records:pdf?recordId=${recordId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}&paper=${paper}&font=${size}`,
+    [recordId, isDouble, settingType, margingTop, paper, size],
   );
   return path;
 };
