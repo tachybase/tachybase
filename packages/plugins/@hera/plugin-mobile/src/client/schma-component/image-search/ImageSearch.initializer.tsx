@@ -16,11 +16,13 @@ export function ImageSearchInitializer(props) {
 
   const onCreateBlockSchema = async ({ item }) => {
     const { dataSource, collectionName, name } = item;
+
     const schema = createSchemaImageSearchBlock({
       dataSource,
-      collectionName: collectionName || name,
+      collection: collectionName || name,
       blockType: 'filter',
     });
+
     insert(schema);
   };
 

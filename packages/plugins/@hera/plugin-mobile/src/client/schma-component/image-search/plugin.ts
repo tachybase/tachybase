@@ -11,7 +11,8 @@ class PluginImageSearch extends Plugin {
     this.app.addComponents({
       ImageSearchView: ImageSearchView,
       'ImageSearch:initializer': ImageSearchInitializer,
-      ImageSearchProvider: ImageSearchProvider,
+      ImageSearchProvider,
+      // DataBlockProvider
     });
 
     this.app.schemaInitializerManager.add(ImageSearchConfigureFields);

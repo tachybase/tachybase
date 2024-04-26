@@ -1,21 +1,15 @@
 import { SchemaInitializer, useCollection, useCollectionManager } from '@nocobase/client';
 import { tval } from '../../locale';
 import { useIsMobile } from '../tab-search/components/field-item/hooks';
-import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../tab-search/utils';
+import { canBeOptionalField, canBeRelatedField } from '../tab-search/utils';
 import { createTabSearchItemSchema } from '../tab-search/create/createTabSearchItemSchema';
 
 export const ImageSearchConfigureFields = new SchemaInitializer({
   name: 'ImageSearchView:configureFields',
+  title: tval('Configure fields'),
   style: { marginTop: 16 },
   icon: 'SettingOutlined',
-  title: tval('Configure fields'),
   items: [
-    {
-      name: 'textFields',
-      type: 'itemGroup',
-      title: tval('Text fields'),
-      useChildren: useChildrenTextFields,
-    },
     {
       name: 'choicesFields',
       type: 'itemGroup',
@@ -25,35 +19,13 @@ export const ImageSearchConfigureFields = new SchemaInitializer({
   ],
 });
 
-function useChildrenTextFields() {
-  const collection = useCollection();
-  const associatedFields = collection.fields;
-  const cm = useCollectionManager();
-  const isMobield = useIsMobile();
-  const itemComponent = isMobield ? 'TabSearchCollapsibleInputMItem' : 'TabSearchCollapsibleInputItem';
-  const children = associatedFields
-    .map((field) => {
-      if (
-        !field['isForeignKey'] &&
-        (canBeSearchField(field.interface) || canBeRelatedField(field.interface) || canBeDataField(field.interface))
-      ) {
-        const label = canBeRelatedField(field.interface)
-          ? cm.getCollection(`${collection.name}.${field.name}`).titleField
-          : field.name;
-        return createTabSearchItemSchema({ field, itemComponent, label, collection, type: 'text' });
-      }
-    })
-    .filter(Boolean);
-  return children;
-}
-
 function useChildrenChoicesFields() {
-  const collection = useCollection();
-  const optionalList = collection.fields;
+  const { fields } = useCollection();
+
   const cm = useCollectionManager();
-  const isMobield = useIsMobile();
-  const itemComponent = isMobield ? 'TabSearchFieldMItem' : 'TabSearchFieldItem';
-  const optionalChildren = optionalList
+  const isMobile = useIsMobile();
+  const itemComponent = isMobile ? 'TabSearchFieldMItem' : 'TabSearchFieldItem';
+  const choicesFields = fields
     .map((field) => {
       const label = cm.getCollection(field.target)?.getPrimaryKey() || 'id';
       if (canBeOptionalField(field.interface)) {
@@ -76,5 +48,7 @@ function useChildrenChoicesFields() {
     })
     .filter(Boolean);
 
-  return optionalChildren;
+  const optionalFields = fields.filter(Boolean);
+
+  return choicesFields;
 }

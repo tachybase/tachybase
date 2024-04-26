@@ -2,15 +2,16 @@ import { ISchema } from '@nocobase/schema';
 import { uid } from '@nocobase/utils/client';
 
 interface OptionsType {
-  collectionName: string;
+  collection: string;
   dataSource: string;
   blockType: string;
 }
 
 export function createSchemaImageSearchBlock(options: OptionsType): ISchema {
-  const { collectionName: collection, dataSource, blockType } = options;
+  const { collection, dataSource, blockType } = options;
   return {
     type: 'void',
+    // TODO: 困惑, 这里不能直接用 DataBlockProvider, 因为它没有collection和dataSource属性
     'x-decorator': 'ImageSearchProvider',
     'x-decorator-props': {
       collection,

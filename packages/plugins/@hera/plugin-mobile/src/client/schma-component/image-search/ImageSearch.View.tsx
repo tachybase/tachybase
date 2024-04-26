@@ -1,12 +1,11 @@
-import { JumboTabs, Image } from 'antd-mobile';
-import React from 'react';
-import { images } from './data';
-import { useDesigner, useSchemaInitializerRender } from '@nocobase/client';
+import { useSchemaInitializerRender } from '@nocobase/client';
 import { useFieldSchema } from '@nocobase/schema';
+import { Image, JumboTabs } from 'antd-mobile';
+import React from 'react';
 import { isTabSearchCollapsibleInputItem } from '../tab-search/utils';
+import { images } from './data';
 
 export const ImageSearchView = () => {
-  const Designer = useDesigner();
   const fieldSchema = useFieldSchema();
   const { render } = useSchemaInitializerRender(fieldSchema['x-initializer'], fieldSchema['x-initializer-props']);
 
@@ -23,7 +22,6 @@ export const ImageSearchView = () => {
 
   return (
     <>
-      <Designer />
       <JumboTabs>
         {images.map(({ label, imageUrl }) => (
           <JumboTabs.Tab key={label} title={label} description={<ImageDescription srcUrl={imageUrl} />} />

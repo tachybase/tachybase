@@ -5,7 +5,6 @@ import { TabSearchBlockInitializer } from './initializer/TabSearchBlockInitializ
 import { TabSearchFieldItem } from './components/field-item/TabSearchFieldItem';
 import { TabSearchCollapsibleInputItem } from './components/field-item/TabSearchCollapsibleInputItem';
 import { TabSearchFieldSchemaInitializerGadget } from './initializer/TabSearchFieldSchemaInitializerGadget';
-import { tval } from '../../locale';
 import { useTabSearchFieldItemRelatedProps } from './components/field-item/TabSerachFieldItemRelatedProps';
 import { useTabSearchFieldItemProps } from './components/field-item/TabSearchFieldItemProps';
 import { TabSearchFieldSchemaInitializer } from './initializer/TabSearchFieldSchemaInitializer';
