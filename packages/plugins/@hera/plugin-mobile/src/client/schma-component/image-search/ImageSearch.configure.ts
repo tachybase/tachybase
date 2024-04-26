@@ -2,7 +2,7 @@ import { SchemaInitializer, useCollection, useCollectionManager } from '@nocobas
 import { tval } from '../../locale';
 import { useIsMobile } from '../tab-search/components/field-item/hooks';
 import { canBeOptionalField, canBeRelatedField } from '../tab-search/utils';
-import { createTabSearchItemSchema } from '../tab-search/create/createTabSearchItemSchema';
+import { createSchemaImageSearchItem } from './ImageSearchItem.schema';
 
 export const ImageSearchConfigureFields = new SchemaInitializer({
   name: 'ImageSearchView:configureFields',
@@ -20,35 +20,31 @@ export const ImageSearchConfigureFields = new SchemaInitializer({
 });
 
 function useChildrenChoicesFields() {
-  const { fields } = useCollection();
-
+  const collection = useCollection();
+  const fields = collection?.fields;
   const cm = useCollectionManager();
-  const isMobile = useIsMobile();
-  const itemComponent = isMobile ? 'TabSearchFieldMItem' : 'TabSearchFieldItem';
+  const isMobile = !!useIsMobile();
+
   const choicesFields = fields
     .map((field) => {
-      const label = cm.getCollection(field.target)?.getPrimaryKey() || 'id';
-      if (canBeOptionalField(field.interface)) {
-        return createTabSearchItemSchema({
+      const { interface: _interface, target: collectionName } = field;
+      const label = cm.getCollection(collectionName)?.getPrimaryKey() ?? 'id';
+      const isCanBeOptional = canBeOptionalField(_interface);
+      const isCanBeRelated = canBeRelatedField(_interface);
+
+      if (isCanBeOptional || isCanBeRelated) {
+        return createSchemaImageSearchItem({
+          collection,
           field,
-          itemComponent,
+          isMobile,
           label,
-          itemUseProps: 'useTabSearchFieldItemProps',
-          type: 'choices',
-        });
-      } else if (canBeRelatedField(field.interface)) {
-        return createTabSearchItemSchema({
-          field,
-          itemComponent,
-          label,
-          itemUseProps: 'useTabSearchFieldItemRelatedProps',
-          type: 'choices',
+          isCanBeOptional,
         });
       }
+
+      return null;
     })
     .filter(Boolean);
-
-  const optionalFields = fields.filter(Boolean);
 
   return choicesFields;
 }
