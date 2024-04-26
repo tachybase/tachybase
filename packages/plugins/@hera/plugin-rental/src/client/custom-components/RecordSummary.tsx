@@ -5,7 +5,7 @@ import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import React from 'react';
 import _ from 'lodash';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
-import { useCachedRequest, useLeaseItems } from '../hooks';
+import { useCachedRequest, useLeaseItems, useProducts } from '../hooks';
 export const RecordSummary = observer((): any => {
   const form = useForm();
   const contractPlanId = form
@@ -23,30 +23,20 @@ export const RecordSummary = observer((): any => {
       pageSize: 99999,
     },
   });
-  const { data } = useCachedRequest<any>({
-    resource: 'products',
-    action: 'list',
-    params: {
-      pageSize: 99999,
-    },
-  });
+  const { data: products } = useProducts();
   //合同方案
   const { data: leaseItems } = useLeaseItems(contractPlanId);
 
-  if (!data?.data) {
+  if (!products) {
     return '';
   }
 
   const resultItems = {};
   if (form.values.items?.length && contractPlan?.length) {
-    const products = data.data.map((value) => {
-      value['parentScopeId'] = selParentId(data.data, value, []);
-      return value;
-    });
     form.values.items.forEach((item) => {
       if (!item.new_product?.id || !item.count) return;
       const productItem = products.find((value) => value.id === item.new_product.id);
-      const productCategory = data.data?.find((value) => value.id === item.new_product.parentId);
+      const productCategory = products?.find((value) => value.id === item.new_product.parentId);
       resultItems['basis'] = basisItem(productCategory, item, productItem, resultItems['basis']);
       contractPlan.forEach((contractPlanItem, index) => {
         if (!contractPlanItem.contract) return;
@@ -89,14 +79,13 @@ export const RecordSummary = observer((): any => {
         label: '理论重量',
         children: formatQuantity(weight, 3) + '吨',
       });
-      if (item['record_category'] === 1) {
+      if (item['record_category'] === '1') {
         valueItem.push({
           key: '总金额',
           label: '总金额',
           children: formatCurrency(price, 3),
         });
       }
-
       const data = {
         label: item['label'],
         key: item['label'],
@@ -173,18 +162,6 @@ const summary = (rule, itemCount, category, item, ruleWeight) => {
   return calc;
 };
 
-const selParentId = (products, item, scopeId) => {
-  scopeId.push(item.id);
-  if (!item.parentId) {
-    return scopeId;
-  }
-  const items = products.find((value) => value.id === item.parentId);
-  if (!items) {
-    return scopeId;
-  }
-  return selParentId(products, items, scopeId);
-};
-
 const basisItem = (productCategory, item, productItem, basis) => {
   const calc = {
     count: 0,
@@ -248,6 +225,7 @@ const ruleItem = (
     calc.count = groupWeight ?? 0;
     calc.unit = '吨';
     calc.price = calc.count * rule.unit_price;
+    calc.weight = (item.count * productItem.weight) / 1000;
   } else {
     const {
       name: ruleName,

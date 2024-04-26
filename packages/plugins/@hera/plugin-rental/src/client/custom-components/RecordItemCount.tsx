@@ -4,7 +4,7 @@ import { observer, useField, useForm } from '@nocobase/schema';
 import _ from 'lodash';
 import { formatQuantity } from '../../utils/currencyUtils';
 import { Spin } from 'antd';
-import { useCachedRequest } from '../hooks';
+import { useCachedRequest, useProducts } from '../hooks';
 
 export const RecordItemCount = observer((props) => {
   const form = useForm();
@@ -16,8 +16,8 @@ export const RecordItemCount = observer((props) => {
       pageSize: 99999,
     },
   };
-  const { loading, data } = useCachedRequest<any>(newProductParam);
-  if (!loading && !data) {
+  const { data } = useProducts();
+  if (!data) {
     return <Spin />;
   }
   const item = form.getValuesIn(field.path.slice(0, -2).entire);

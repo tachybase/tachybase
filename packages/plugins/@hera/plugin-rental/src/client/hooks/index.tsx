@@ -49,7 +49,7 @@ export const useLeaseItems = (planId) => {
   return { data };
 };
 
-export const useProductFeeItems = (planId) => {
+export const useFeeItems = (planId) => {
   const [data, setData] = useState({});
   const api = useAPIClient();
   const nowDay = dayjs().startOf('day').add(-1, 'minute');
@@ -62,7 +62,7 @@ export const useProductFeeItems = (planId) => {
           resource: 'contract_plan_fee_items',
           action: 'list',
           params: {
-            appends: ['new_products'],
+            appends: ['new_fee_products'],
             filter: {
               contract_plan: {
                 contract_items: {
@@ -90,7 +90,7 @@ export const useProductFeeItems = (planId) => {
   return { data };
 };
 
-export const useFeeItems = (planId) => {
+export const useProductFeeItems = (planId) => {
   const [data, setData] = useState({});
   const api = useAPIClient();
   const nowDay = dayjs().startOf('day').add(-1, 'minute');
@@ -129,4 +129,32 @@ export const useFeeItems = (planId) => {
     }
   });
   return { data };
+};
+
+export const useProducts = () => {
+  const { data } = useCachedRequest<any>({
+    resource: 'products',
+    action: 'list',
+    params: {
+      pageSize: 99999,
+    },
+  });
+  if (data?.data) {
+    data.data.forEach((value) => {
+      value['parentScopeId'] = selParentId(data.data, value, []);
+    });
+  }
+  return { data: data?.data };
+};
+
+const selParentId = (products, item, scopeId) => {
+  scopeId.push(item.id);
+  if (!item.parentId) {
+    return scopeId;
+  }
+  const items = products.find((value) => value.id === item.parentId);
+  if (!items) {
+    return scopeId;
+  }
+  return selParentId(products, items, scopeId);
 };

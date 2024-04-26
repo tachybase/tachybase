@@ -4,7 +4,7 @@ import React from 'react';
 import { observer, useForm } from '@nocobase/schema';
 import { RecordCategory } from '../../utils/constants';
 import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
-import { useCachedRequest, useFeeItems, useLeaseItems, useProductFeeItems } from '../hooks';
+import { useCachedRequest, useLeaseItems, useProducts } from '../hooks';
 import { useDeepCompareEffect } from 'ahooks';
 
 export const RecordProductScope = observer(() => {
@@ -16,20 +16,10 @@ export const RecordProductScope = observer(() => {
     })
     .filter(Boolean);
   const contractPlan = form.getValuesIn('record_contract');
-  const { data } = useCachedRequest<any>({
-    resource: 'products',
-    action: 'list',
-    params: {
-      pageSize: 99999,
-    },
-  });
+  const { data: products } = useProducts();
   const { data: leaseItems } = useLeaseItems(contractPlanId);
   const result = [];
-  if (contractPlanId?.length && data?.data && Object.keys(leaseItems).length) {
-    const products = data.data.map((value) => {
-      value['parentScopeId'] = selParentId(data.data, value, []);
-      return value;
-    });
+  if (contractPlanId?.length && products && Object.keys(leaseItems).length) {
     const leaseItem = {};
     contractPlan.forEach((contractPlanItem) => {
       leaseItems[contractPlanItem.contract?.id]?.forEach((contractItem) => {
@@ -57,7 +47,7 @@ export const RecordProductScope = observer(() => {
       product_scope: result,
     });
   }, [result, form]);
-  return !Object.keys(leaseItems).length && !data?.data ? <Spin /> : <></>;
+  return !Object.keys(leaseItems).length && !products ? <Spin /> : <></>;
 }) as CustomFC;
 
 RecordProductScope.displayName = 'RecordProductScope';
@@ -73,16 +63,4 @@ const intersectionByMultiple = (arr1, arr2, propName) => {
     }
   });
   return result;
-};
-
-const selParentId = (products, item, scopeId) => {
-  scopeId.push(item.id);
-  if (!item.parentId) {
-    return scopeId;
-  }
-  const items = products.find((value) => value.id === item.parentId);
-  if (!items) {
-    return scopeId;
-  }
-  return selParentId(products, items, scopeId);
 };

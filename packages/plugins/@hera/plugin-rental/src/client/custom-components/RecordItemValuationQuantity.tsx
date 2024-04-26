@@ -4,7 +4,7 @@ import { observer, useField, useForm } from '@nocobase/schema';
 import _ from 'lodash';
 import { ConversionLogics } from '../../utils/constants';
 import { formatQuantity } from '../../utils/currencyUtils';
-import { useCachedRequest, useLeaseItems } from '../hooks';
+import { useCachedRequest, useLeaseItems, useProducts } from '../hooks';
 
 // 计价数量
 export const RecordItemValuationQuantity = observer((props) => {
@@ -18,13 +18,7 @@ export const RecordItemValuationQuantity = observer((props) => {
     .filter(Boolean);
   const contractPlan = form.getValuesIn('record_contract');
   const result = [];
-  const reqProduct = useCachedRequest<any>({
-    resource: 'products',
-    action: 'list',
-    params: {
-      pageSize: 99999,
-    },
-  });
+  const { data: reqProduct } = useProducts();
   const reqWeightRules = useCachedRequest<any>({
     resource: 'weight_rules',
     action: 'list',
@@ -38,14 +32,14 @@ export const RecordItemValuationQuantity = observer((props) => {
 
   if (item?.new_product && item?.count && Object.keys(leaseItems).length) {
     // 关联产品
-    if (!reqProduct.data) {
+    if (!reqProduct) {
       return;
     }
-    const productCategory = reqProduct.data?.data.find((value) => value.id === item.new_product.parentId);
+    const productCategory = reqProduct.find((value) => value.id === item.new_product.parentId);
     contractPlan.forEach((contractPlanItem, index) => {
       if (!contractPlanItem.contract) return;
       const rule = leaseItems[contractPlanItem.contract.id]?.find((product) => {
-        return selParentId(reqProduct.data?.data, item.new_product, product.new_products_id);
+        return selParentId(reqProduct, item.new_product, product.new_products_id);
       });
       const count = subtotal(rule, item, productCategory, reqWeightRules);
       const movement = contractPlanItem.movement === '-1' ? '出库' : '入库';
