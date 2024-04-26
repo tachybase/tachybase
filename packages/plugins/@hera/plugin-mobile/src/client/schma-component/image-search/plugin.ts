@@ -3,6 +3,7 @@ import { ImageSearchView } from './ImageSearch.view';
 import { ImageSearchInitializer } from './ImageSearch.initializer';
 import { ImageSearchConfigureFields } from './ImageSearch.configure';
 import { ImageSearchProvider } from './ImageSearch.prodiver';
+import { ImageSearchItemIntializer } from './ImageSearchItem.intializer';
 
 class PluginImageSearch extends Plugin {
   async load() {
@@ -12,6 +13,7 @@ class PluginImageSearch extends Plugin {
       ImageSearchView: ImageSearchView,
       'ImageSearch:initializer': ImageSearchInitializer,
       ImageSearchProvider,
+      ImageSearchItemIntializer,
       // DataBlockProvider
     });
 

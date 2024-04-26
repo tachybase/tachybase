@@ -15,25 +15,25 @@ export const createSchemaImageSearchItem = (options: OptionsType): SchemaInitial
   return {
     name: key,
     title,
-    Component: 'TabSearchFieldSchemaInitializerGadget',
+    Component: 'ImageSearchItemIntializer',
     schema: {
       name: 'choices',
       fieldName: name,
       title,
       type: 'void',
-      'x-toolbar': 'CollapseItemSchemaToolbar',
-      'x-settings': 'fieldSettings:TabSearchItem',
-      'x-component': isMobile ? 'TabSearchFieldMItem' : 'TabSearchFieldItem',
-      'x-use-component-props': isCanBeOptional ? 'useTabSearchFieldItemProps' : 'useTabSearchFieldItemRelatedProps',
-      'x-component-props': {
-        fieldNames: {
-          label,
-        },
-        interface: _interface,
-        collectionName: collection?.name,
-        correlation: name,
-      },
-      properties: {},
+      //   'x-toolbar': 'CollapseItemSchemaToolbar',
+      //   'x-settings': 'fieldSettings:TabSearchItem',
+      //   'x-component': isMobile ? 'TabSearchFieldMItem' : 'TabSearchFieldItem',
+      //   'x-use-component-props': isCanBeOptional ? 'useTabSearchFieldItemProps' : 'useTabSearchFieldItemRelatedProps',
+      //   'x-component-props': {
+      //     fieldNames: {
+      //       label,
+      //     },
+      //     interface: _interface,
+      //     collectionName: collection?.name,
+      //     correlation: name,
+      //   },
+      //   properties: {},
     },
   };
 };
