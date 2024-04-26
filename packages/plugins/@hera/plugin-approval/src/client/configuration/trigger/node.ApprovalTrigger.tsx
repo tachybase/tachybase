@@ -1,5 +1,6 @@
-import { useCollectionManager_deprecated, useCompile } from '@nocobase/client';
+import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile } from '@nocobase/client';
 import {
+  CollectionBlockInitializer,
   RadioWithTooltip,
   Trigger,
   getCollectionFieldOptions,
@@ -7,7 +8,7 @@ import {
 } from '@nocobase/plugin-workflow/client';
 import { useForm } from '@nocobase/schema';
 import { SchemaConfigButton } from './VC.ConfigButton';
-import { NAMESPACE, usePluginTranslation } from '../../locale';
+import { NAMESPACE, tval, usePluginTranslation } from '../../locale';
 import { LauncherInterface } from './launcher-interface/VC.LauncherInterface';
 
 // 工作流节点-审批触发器节点
@@ -142,5 +143,21 @@ export class ApprovalTrigger extends Trigger {
       compile,
       getCollectionFields,
     });
+  }
+
+  useInitializers(config): SchemaInitializerItemType | null {
+    if (!config.collection) {
+      return null;
+    }
+
+    return {
+      name: 'triggerData',
+      type: 'item',
+      key: 'triggerData',
+      title: tval('Trigger data'),
+      Component: CollectionBlockInitializer,
+      collection: config.collection,
+      dataPath: '$context.data',
+    };
   }
 }

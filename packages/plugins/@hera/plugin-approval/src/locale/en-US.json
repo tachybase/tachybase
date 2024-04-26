@@ -60,5 +60,6 @@
   "Could run different branch based on result.": "Could run different branch based on result.",
   "End on reject": "End on reject",
   "If checked, the workflow will be terminated after rejection branch processed.": "If checked, the workflow will be terminated after rejection branch processed.",
-  "Disabled": "Disabled"
+  "Disabled": "Disabled",
+  "Trigger data": "Trigger data"
 }
