@@ -9,12 +9,12 @@ export function useDestroyAction() {
   const approval = useApproval();
   const apiClient = useAPIClient();
 
-  const run = () => {
-    return () => {
+  return {
+    async run() {
       try {
         _.set(field, ['data', 'loading'], true);
 
-        apiClient.resource('approvals').destroy({
+        await apiClient.resource('approvals').destroy({
           filterByTk: approval.id,
         });
 
@@ -23,9 +23,6 @@ export function useDestroyAction() {
       } catch (err) {
         _.set(field, ['data', 'loading'], false);
       }
-    };
-  };
-  return {
-    run,
+    },
   };
 }

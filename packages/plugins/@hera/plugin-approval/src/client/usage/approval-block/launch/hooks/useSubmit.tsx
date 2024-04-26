@@ -14,8 +14,8 @@ export function useSubmit() {
   const contextApprovalStatus = useContextApprovalStatus();
   const apiClient = useAPIClient();
 
-  const run = () => {
-    return () => {
+  return {
+    async run() {
       try {
         from.submit();
 
@@ -36,10 +36,6 @@ export function useSubmit() {
       } catch (m) {
         _.set(field, ['data', 'loading'], false);
       }
-    };
-  };
-
-  return {
-    run,
+    },
   };
 }
