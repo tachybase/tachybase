@@ -17,7 +17,7 @@ export const createSchemaImageSearchItem = (options: OptionsType): SchemaInitial
     title,
     Component: 'ImageSearchItemIntializer',
     schema: {
-      name: 'choices',
+      name: `${name}-choice`,
       fieldName: name,
       title,
       type: 'void',

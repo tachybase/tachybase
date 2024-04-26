@@ -8,10 +8,8 @@ import { merge } from '@nocobase/schema';
 import React from 'react';
 
 export const ImageSearchItemIntializer = () => {
-  const { insert } = useSchemaInitializer();
-
   const itemConfig = useSchemaInitializerItem();
-
+  const { insert } = useSchemaInitializer();
   const { schema: oldSchema, title } = itemConfig;
   const { exists, remove } = useCurrentSchema(oldSchema.name, 'name', itemConfig.find, itemConfig.remove);
 

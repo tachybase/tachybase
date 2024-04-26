@@ -23,7 +23,7 @@ function useChildrenChoicesFields() {
   const collection = useCollection();
   const fields = collection?.fields;
   const cm = useCollectionManager();
-  const isMobile = !!useIsMobile();
+  const isMobile = useIsMobile();
 
   const choicesFields = fields
     .map((field) => {
