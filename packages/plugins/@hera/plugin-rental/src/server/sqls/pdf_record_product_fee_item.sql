@@ -36,5 +36,4 @@ FROM
   JOIN products p3 ON p3.id = ri.new_product_id
   LEFT JOIN products p4 ON p3."parentId" = p4.id
 WHERE
-  rc.record_id = :recordId
-  AND rc.contract_id = :contractId
+  rc.id = :intermediateId

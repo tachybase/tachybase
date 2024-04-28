@@ -217,8 +217,7 @@ export class RecordPreviewController {
     // 租金赔偿数据
     const leaseFeeData: any = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record_product_fee_item'], {
       replacements: {
-        recordId,
-        contractId,
+        intermediateId: intermediate.id,
       },
       type: QueryTypes.SELECT,
     });
