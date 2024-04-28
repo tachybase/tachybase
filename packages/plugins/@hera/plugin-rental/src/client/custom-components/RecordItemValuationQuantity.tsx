@@ -11,12 +11,12 @@ export const RecordItemValuationQuantity = observer((props) => {
   const form = useForm();
   const field = useField();
   const contractPlanId = form
-    .getValuesIn('record_contract')
+    .getValuesIn('new_contracts')
     ?.map((value) => {
       return value.contract?.id;
     })
     .filter(Boolean);
-  const contractPlan = form.getValuesIn('record_contract');
+  const contractPlan = form.getValuesIn('new_contracts');
   const result = [];
   const { data: reqProduct } = useProducts();
   const reqWeightRules = useCachedRequest<any>({

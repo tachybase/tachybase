@@ -9,13 +9,6 @@ import { useCachedRequest, useProducts } from '../hooks';
 export const RecordItemCount = observer((props) => {
   const form = useForm();
   const field = useField();
-  const newProductParam = {
-    resource: 'products',
-    action: 'list',
-    params: {
-      pageSize: 99999,
-    },
-  };
   const { data } = useProducts();
   if (!data) {
     return <Spin />;

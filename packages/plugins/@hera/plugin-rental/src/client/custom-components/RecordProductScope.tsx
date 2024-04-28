@@ -10,12 +10,12 @@ import { useDeepCompareEffect } from 'ahooks';
 export const RecordProductScope = observer(() => {
   const form = useForm();
   const contractPlanId = form
-    .getValuesIn('record_contract')
+    .getValuesIn('new_contracts')
     ?.map((value) => {
       return value.contract?.id;
     })
     .filter(Boolean);
-  const contractPlan = form.getValuesIn('record_contract');
+  const contractPlan = form.getValuesIn('new_contracts');
   const { data: products } = useProducts();
   const { data: leaseItems } = useLeaseItems(contractPlanId);
   const result = [];

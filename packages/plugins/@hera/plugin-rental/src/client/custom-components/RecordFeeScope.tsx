@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { Spin } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { observer, useField, useFieldSchema, useForm } from '@nocobase/schema';
 import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { useCachedRequest, useFeeItems, useProductFeeItems, useProducts } from '../hooks';
@@ -8,43 +8,43 @@ import { useDeepCompareEffect } from 'ahooks';
 
 export const RecordFeeScope = observer(() => {
   const form = useForm();
-  const contractPlanId = form
-    .getValuesIn('record_contract')
-    ?.map((value) => {
-      return value.contract?.id;
-    })
-    .filter(Boolean);
-  const contractPlan = form.getValuesIn('record_contract');
+  const field = useField();
+  const contractsItem = form.getValuesIn(field.path.slice(0, 2).entire);
+  const productsItem = form.getValuesIn(field.path.slice(0, -2).entire);
+  const contractPlanId = [contractsItem.contract?.id].filter(Boolean);
   const { data: products } = useProducts();
   const { data: feeItems } = useFeeItems(contractPlanId);
   const { data: productFeeItems } = useProductFeeItems(contractPlanId);
   const result = [];
   const feeScope = { scopeItem: {} };
-  if (contractPlanId?.length && products && Object.values(productFeeItems).length) {
-    contractPlan.forEach((contractPlanItem) => {
-      productFeeItems[contractPlanItem.contract?.id]?.forEach((contractItem) => {
-        if (!contractItem.fee_items) return;
-        contractItem.fee_items.forEach((feeItem) => {
-          const item = products.find((value) => value.id === feeItem.new_fee_products_id);
-          if (!item) return;
-          feeScope.scopeItem = isExist(feeScope.scopeItem, item);
-        });
-      });
-      if (!Object.values(feeItems).length) return;
-      feeItems[contractPlanItem.contract?.id]?.forEach((feeItem) => {
-        const item = products.find((value) => value.id === feeItem.new_fee_products_id);
-        if (!item) return;
-        feeScope.scopeItem = isExist(feeScope.scopeItem, item);
-      });
+  if (
+    contractsItem.contract?.id &&
+    products &&
+    productsItem.f_69w9k352kd5?.id &&
+    Object.values(productFeeItems).length
+  ) {
+    const productItem = products.find((value) => value.id === productsItem.f_69w9k352kd5.id);
+    const productFeeItem = productFeeItems[contractsItem.contract?.id]?.find((contractItem) =>
+      productItem?.['parentScopeId'].includes(contractItem.new_products_id),
+    );
+    productFeeItem?.fee_items.forEach((feeItem) => {
+      const item = products.find((value) => value.id === feeItem.new_fee_products_id);
+      if (!item) return;
+      feeScope.scopeItem = isExist(feeScope.scopeItem, item);
+    });
+    result.push(...Object.values(feeScope.scopeItem));
+  } else if (contractsItem.contract?.id && products && Object.values(feeItems).length) {
+    feeItems[contractsItem.contract.id]?.forEach((feeItem) => {
+      const item = products.find((value) => value.id === feeItem.new_fee_products_id);
+      if (!item) return;
+      feeScope.scopeItem = isExist(feeScope.scopeItem, item);
     });
     result.push(...Object.values(feeScope.scopeItem));
   }
   useDeepCompareEffect(() => {
-    form.setValues({
-      fee_scope: result,
-    });
+    form.setValuesIn(field.path.slice(0, -1).entire, result);
   }, [result, form]);
-  return !contractPlan ? <Spin /> : <></>;
+  return !contractsItem ? <Spin /> : <></>;
 }) as CustomFC;
 
 RecordFeeScope.displayName = 'RecordFeeScope';

@@ -41,9 +41,10 @@ const Cascade = connect((props) => {
   const sort = fieldSchema['x-component-props']?.service?.params?.sort;
   const field: any = useField();
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [chang, setChang] = useState(false);
   useEffect(() => {
     const propsValue = props.value || fieldSchema['x-component-props'].value;
-    if (propsValue && !selectedOptions.length) {
+    if (!chang && !selectedOptions.length) {
       const values = Array.isArray(propsValue)
         ? extractLastNonNullValueObjects(
             propsValue?.filter((v) => v.value),
@@ -67,6 +68,7 @@ const Cascade = connect((props) => {
   };
 
   const handleSelect = async (option) => {
+    setChang(true);
     if (option) {
       if (['o2m', 'm2m'].includes(collectionField.interface)) {
         const fieldValue = Array.isArray(associationField.fieldValue) ? associationField.fieldValue : [];
@@ -97,7 +99,7 @@ const Cascade = connect((props) => {
       });
       onChange?.(options);
     } else {
-      onChange?.([]);
+      onChange?.({});
     }
   };
   const cascadeOption = (option) => {
