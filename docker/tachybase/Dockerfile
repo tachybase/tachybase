@@ -1,4 +1,4 @@
-FROM node:20 as base
+FROM tachybase/base:latest as base
 
 ARG NPM_REGISTRY=https://registry.npmjs.org/
 ENV PNPM_HOME="/pnpm"
