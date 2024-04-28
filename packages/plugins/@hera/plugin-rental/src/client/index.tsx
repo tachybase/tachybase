@@ -54,6 +54,7 @@ import { PaperSwitching, PaperSwitchingInitializer } from './schema-initializer/
 
 import { PrintFontSize, PrintFontSizeInitializer } from './schema-initializer/actions/RecordPrintFontSizeInitializer';
 import { MovementFieldInterface } from './interfaces/movement';
+import { Movement } from './schema-components/Movement';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -182,6 +183,7 @@ export class PluginRentalClient extends Plugin {
     this.app.addComponents({
       RecordFeeConvertedAmount,
       ReadFeeConvertedAmount,
+      Movement,
       RecordFeeScope,
       RecordItemValuationQuantity,
       RecordItemWeight,
