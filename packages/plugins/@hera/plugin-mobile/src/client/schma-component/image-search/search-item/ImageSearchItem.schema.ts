@@ -1,12 +1,12 @@
 import { SchemaInitializerItemType } from '@nocobase/client';
 
 interface OptionsType {
-  label: string;
-  field: any;
-  collection: any;
-  isMobile: boolean;
-  isCanBeOptional: boolean;
-  isCanBeRelated: boolean;
+  label?: string;
+  field?: any;
+  collection?: any;
+  isMobile?: boolean;
+  isCanBeOptional?: boolean;
+  isCanBeRelated?: boolean;
 }
 
 export function createSchemaImageSearchItem(options: OptionsType): SchemaInitializerItemType {
@@ -16,14 +16,14 @@ export function createSchemaImageSearchItem(options: OptionsType): SchemaInitial
   const indexOfUseProps = [isCanBeOptional, isCanBeRelated].indexOf(true);
   return {
     name: key,
-    title,
+    title: title,
     Component: 'ImageSearchItemIntializer',
     schema: {
-      name: `${name}-choice`,
+      name: `${name}choice`,
       fieldName: name,
-      title,
+      title: title,
       type: 'void',
-      'x-toolbar': 'ImageSearchItemToolbar',
+      'x-toolbar': 'CollapseItemSchemaToolbar',
       'x-settings': 'fieldSettings:component:ImageSearchItem',
       'x-component': 'ImageSearchItemView',
       'x-component-props': {
@@ -34,7 +34,7 @@ export function createSchemaImageSearchItem(options: OptionsType): SchemaInitial
         collectionName: collection?.name,
         correlation: name,
       },
-      'x-use-component-props': ['useTabSearchFieldItemProps', 'useTabSearchFieldItemRelatedProps'][indexOfUseProps],
+      'x-use-component-props': ['useImageSearchFieldItemProps', 'useImageSearchFieldItemProps'][indexOfUseProps],
       properties: {},
     },
   };

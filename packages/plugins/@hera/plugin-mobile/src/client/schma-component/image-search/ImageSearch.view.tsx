@@ -1,5 +1,5 @@
 import { useDesigner, useSchemaInitializerRender } from '@nocobase/client';
-import { useFieldSchema } from '@nocobase/schema';
+import { RecursionField, useFieldSchema } from '@nocobase/schema';
 import { Image, JumboTabs } from 'antd-mobile';
 import React from 'react';
 import { isTabSearchCollapsibleInputItem } from '../tab-search/utils';
@@ -24,6 +24,7 @@ export const ImageSearchView = () => {
   return (
     <>
       <Designer />
+      <RecursionField schema={fieldSchema} onlyRenderProperties filterProperties={filterProperties} />
       {/* <JumboTabs>
         {images.map(({ label, imageUrl }) => (
           <JumboTabs.Tab key={label} title={label} description={<ImageDescription srcUrl={imageUrl} />} />

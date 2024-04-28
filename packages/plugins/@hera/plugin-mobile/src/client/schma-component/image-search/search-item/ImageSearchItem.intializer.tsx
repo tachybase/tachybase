@@ -20,8 +20,7 @@ export const ImageSearchItemIntializer = () => {
     const { schema: latestSchema } = itemConfig;
 
     const newSchema = merge(oldSchema || {}, latestSchema || {});
-    console.log('%c Line:23 🍺 newSchema', 'font-size:18px;color:#7f2b82;background:#f5ce50', newSchema);
-
+    // itemConfig?.schemaInitialize?.(newSchema);
     insert(newSchema);
   };
 

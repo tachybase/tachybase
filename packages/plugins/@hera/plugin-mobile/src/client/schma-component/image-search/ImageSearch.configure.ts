@@ -2,7 +2,7 @@ import { SchemaInitializer, useCollection, useCollectionManager } from '@nocobas
 import { tval } from '../../locale';
 import { useIsMobile } from '../tab-search/components/field-item/hooks';
 import { canBeOptionalField, canBeRelatedField } from '../tab-search/utils';
-import { createSchemaImageSearchItem } from './ImageSearchItem.schema';
+import { createSchemaImageSearchItem } from './search-item/ImageSearchItem.schema';
 
 export const ImageSearchConfigureFields = new SchemaInitializer({
   name: 'ImageSearchView:configureFields',

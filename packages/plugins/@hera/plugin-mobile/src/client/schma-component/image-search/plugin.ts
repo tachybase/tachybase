@@ -3,16 +3,20 @@ import { ImageSearchView } from './ImageSearch.view';
 import { ImageSearchInitializer } from './ImageSearch.initializer';
 import { ImageSearchConfigureFields } from './ImageSearch.configure';
 import { ImageSearchProvider } from './ImageSearch.prodiver';
-import { ImageSearchItemIntializer } from './ImageSearchItem.intializer';
-import { ImageSearchItemToolbar } from './ImageSearchItem.toolbar';
-import { ImageSearchItemView } from './ImageSearchItem.view';
-import { ImageSearchItemFieldSettings } from './ImageSearchItem.setting';
+import { ImageSearchItemIntializer } from './search-item/ImageSearchItem.intializer';
+import { ImageSearchItemToolbar } from './search-item/ImageSearchItem.toolbar';
+import { ImageSearchItemView } from './search-item/ImageSearchItem.view';
+import { ImageSearchItemFieldSettings } from './search-item/ImageSearchItem.setting';
+import { usePropsImageSearchItemField } from './hooks/useProps.ImageSerchItemField';
 
 class PluginImageSearch extends Plugin {
   async load() {
+    this.app.addScopes({
+      useImageSearchFieldItemProps: usePropsImageSearchItemField,
+    });
     this.app.addComponents({
       ImageSearchView: ImageSearchView,
-      'ImageSearch:initializer': ImageSearchInitializer,
+      ImageSearchInitializer: ImageSearchInitializer,
       ImageSearchProvider: ImageSearchProvider,
       ImageSearchItemIntializer: ImageSearchItemIntializer,
       ImageSearchItemToolbar: ImageSearchItemToolbar,
@@ -26,7 +30,7 @@ class PluginImageSearch extends Plugin {
       name: 'imageSearch',
       title: 'imageSearch',
       icon: 'tab-search',
-      Component: 'ImageSearch:initializer',
+      Component: 'ImageSearchInitializer',
     });
   }
 }

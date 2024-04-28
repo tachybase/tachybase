@@ -1,10 +1,9 @@
 import { useCollection, useDesigner } from '@nocobase/client';
 import { useFieldSchema } from '@nocobase/schema';
 import React from 'react';
-import { useTranslation } from '../../locale';
+import { useTranslation } from '../../../locale';
 
-export function useAction_ImageSearchItemView(props) {
-  console.log('%c Line:7 🥃 props', 'font-size:18px;color:#b03734;background:#e41a6a', props);
+export function useActionImageSearchItemView(props) {
   const { list, onSelected, valueKey: _valueKey, labelKey: _labelKey, filterKey } = props;
   const { t } = useTranslation();
   const fieldSchema = useFieldSchema();

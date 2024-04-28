@@ -9,8 +9,8 @@ import {
 } from '@nocobase/client';
 import { useField, useFieldSchema } from '@nocobase/schema';
 import _ from 'lodash';
-import { useTranslation } from '../../locale';
-import { isTabSearchCollapsibleInputItem } from '../tab-search/utils';
+import { useTranslation } from '../../../locale';
+import { isTabSearchCollapsibleInputItem } from '../../tab-search/utils';
 
 export const ImageSearchItemFieldSettings = new SchemaSettings({
   name: 'fieldSettings:component:ImageSearchItem',
