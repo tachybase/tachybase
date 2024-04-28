@@ -50,6 +50,7 @@ import {
 } from './schema-initializer/actions/RecordPrintSetupMargingTopInitializer';
 import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedRecordsBlockInitializer';
 import { MovementFieldInterface } from './interfaces/movement';
+import { Movement } from './schema-components/Movement';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -167,6 +168,7 @@ export class PluginRentalClient extends Plugin {
     this.app.addComponents({
       RecordFeeConvertedAmount,
       ReadFeeConvertedAmount,
+      Movement,
       RecordFeeScope,
       RecordItemValuationQuantity,
       RecordItemWeight,
