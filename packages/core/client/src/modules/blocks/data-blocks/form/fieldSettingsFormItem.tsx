@@ -229,37 +229,32 @@ export const fieldSettingsFormItem = new SchemaSettings({
             type: 'select',
             useComponentProps() {
               const { t } = useTranslation();
-              const field = useField<Field>();
               const fieldSchema = useFieldSchema();
               const { dn } = useDesignable();
+              const initialValue = fieldSchema['x-decorator-props']?.layoutDirection ?? 'column';
               return {
                 title: t('Layout Direction'),
                 options: [
                   { label: t('Row'), value: 'row' },
                   { label: t('Column'), value: 'column' },
                 ],
-                value: 'column',
-
+                value: initialValue,
                 onChange(v) {
                   const schema: ISchema = {
                     ['x-uid']: fieldSchema['x-uid'],
                   };
 
-                  _.set(fieldSchema, 'x-decorator-props', {
-                    className: css`
-                      background-color: red;
-                      display: flex;
-                      flex-direction: ${v === 'row' ? 'row' : 'column'};
-                      align-items: baseline;
-                    `,
-
+                  const styleValue = {
+                    layoutDirection: v ?? 'column',
                     style: {
-                      backgroundColor: 'red',
                       display: 'flex',
                       flexDirection: `${v === 'row' ? 'row' : 'column'}`,
                       alignItems: 'baseline',
                     },
-                  });
+                  };
+
+                  _.set(fieldSchema, 'x-decorator-props', styleValue);
+                  _.set(schema, 'x-decorator-props', styleValue);
 
                   dn.emit('patch', {
                     schema,
