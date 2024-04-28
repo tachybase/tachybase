@@ -14,18 +14,18 @@ export const ImageSearchConfigureFields = new SchemaInitializer({
       name: 'choicesFields',
       type: 'itemGroup',
       title: tval('Choices fields'),
-      useChildren: useChildrenChoicesFields,
+      useChildren: useChildrenChoicesFieldSchemas,
     },
   ],
 });
 
-function useChildrenChoicesFields() {
+function useChildrenChoicesFieldSchemas() {
   const collection = useCollection();
   const fields = collection?.fields;
   const cm = useCollectionManager();
   const isMobile = useIsMobile();
 
-  const choicesFields = fields
+  const choicesFieldsSchemas = fields
     .map((field) => {
       const { interface: _interface, target: collectionName } = field;
       const label = cm.getCollection(collectionName)?.getPrimaryKey() ?? 'id';
@@ -33,18 +33,21 @@ function useChildrenChoicesFields() {
       const isCanBeRelated = canBeRelatedField(_interface);
 
       if (isCanBeOptional || isCanBeRelated) {
-        return createSchemaImageSearchItem({
+        const schema = createSchemaImageSearchItem({
           collection,
           field,
           isMobile,
           label,
           isCanBeOptional,
+          isCanBeRelated,
         });
+
+        return schema;
       }
 
       return null;
     })
     .filter(Boolean);
 
-  return choicesFields;
+  return choicesFieldsSchemas;
 }

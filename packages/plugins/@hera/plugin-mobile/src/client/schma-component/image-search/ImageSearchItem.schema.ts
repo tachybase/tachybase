@@ -6,12 +6,14 @@ interface OptionsType {
   collection: any;
   isMobile: boolean;
   isCanBeOptional: boolean;
+  isCanBeRelated: boolean;
 }
 
-export const createSchemaImageSearchItem = (options: OptionsType): SchemaInitializerItemType => {
-  const { field, isMobile, label, isCanBeOptional, collection } = options;
+export function createSchemaImageSearchItem(options: OptionsType): SchemaInitializerItemType {
+  const { field, isMobile, label, isCanBeOptional, isCanBeRelated, collection } = options;
   const { key, name, uiSchema, interface: _interface } = field;
   const title = uiSchema?.title;
+  const indexOfUseProps = [isCanBeOptional, isCanBeRelated].indexOf(true);
   return {
     name: key,
     title,
@@ -21,19 +23,19 @@ export const createSchemaImageSearchItem = (options: OptionsType): SchemaInitial
       fieldName: name,
       title,
       type: 'void',
-      //   'x-toolbar': 'CollapseItemSchemaToolbar',
-      //   'x-settings': 'fieldSettings:TabSearchItem',
-      //   'x-component': isMobile ? 'TabSearchFieldMItem' : 'TabSearchFieldItem',
-      //   'x-use-component-props': isCanBeOptional ? 'useTabSearchFieldItemProps' : 'useTabSearchFieldItemRelatedProps',
-      //   'x-component-props': {
-      //     fieldNames: {
-      //       label,
-      //     },
-      //     interface: _interface,
-      //     collectionName: collection?.name,
-      //     correlation: name,
-      //   },
-      //   properties: {},
+      'x-toolbar': 'ImageSearchItemToolbar',
+      'x-settings': 'fieldSettings:component:ImageSearchItem',
+      'x-component': 'ImageSearchItemView',
+      'x-component-props': {
+        fieldNames: {
+          label,
+        },
+        interface: _interface,
+        collectionName: collection?.name,
+        correlation: name,
+      },
+      'x-use-component-props': ['useTabSearchFieldItemProps', 'useTabSearchFieldItemRelatedProps'][indexOfUseProps],
+      properties: {},
     },
   };
-};
+}
