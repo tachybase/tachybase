@@ -177,9 +177,10 @@ export class RecordPreviewController {
   @Action('pdf')
   async printPreview(ctx: Context) {
     const {
-      params: { recordId: id, isDouble, settingType, margingTop, paper, font },
+      params: { recordId: id, isDouble, settingType, margingTop, paper, font, annotate },
     } = ctx.action;
     let pdfTop: number;
+    const isAnnotate = annotate === 'true' ? true : false;
     // 查询合同订单中间表，获得订单id，合同id，出入库信息
     const intermediate = await ctx.db.getRepository('record_contract').findOne({ filter: { id } });
     const recordId = intermediate.record_id;
@@ -286,7 +287,7 @@ export class RecordPreviewController {
       noLeaseProductFeeData,
       noRuleexcluded,
       contracts,
-      settings: { isDouble: double, printSetup, margingTop: pdfTop, paper, font },
+      settings: { isDouble: double, printSetup, margingTop: pdfTop, paper, font, isAnnotate },
     });
 
     const result = await cache.get(key);
@@ -308,7 +309,7 @@ export class RecordPreviewController {
           noLeaseProductFeeData,
           noRuleexcluded,
           contracts,
-          { isDouble: double, printSetup, margingTop: pdfTop, paper, font },
+          { isDouble: double, printSetup, margingTop: pdfTop, paper, font, isAnnotate },
         ),
       );
       ctx.body = buf;

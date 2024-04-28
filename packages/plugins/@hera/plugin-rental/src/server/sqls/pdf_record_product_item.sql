@@ -11,6 +11,7 @@ SELECT
   p.ratio AS products_ratio,
   cpli.conversion_logic_id,
   ri.count,
+  ri.comment,
   wr.conversion_logic_id AS wr_logic_id,
   wr.weight AS wr_weight,
   cpli.unit_price

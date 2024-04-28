@@ -28,22 +28,31 @@ export const FontSizeContext = createContext({
   setSize: null,
 });
 
+// 注释
+export const AnnotateContext = createContext({
+  annotate: null,
+  setAnnotate: null,
+});
+
 export const PdfIsDoubleProvider = (props) => {
   const [isDouble, setIsDouble] = useState(false);
   const [settingType, setSettingLoad] = useState(false);
   const [margingTop, setMargingTop] = useState(0);
   const [paper, setPaper] = useState('A4');
   const [size, setSize] = useState('9');
+  const [annotate, setAnnotate] = useState(false);
   return (
-    <PdfPaperSwitchingContext.Provider value={{ paper, setPaper }}>
-      <PdfMargingTopContext.Provider value={{ margingTop, setMargingTop }}>
-        <PdfIsDoubleContext.Provider value={{ isDouble, setIsDouble }}>
-          <PdfIsLoadContext.Provider value={{ settingType, setSettingLoad }}>
-            <FontSizeContext.Provider value={{ size, setSize }}>{props.children}</FontSizeContext.Provider>
-          </PdfIsLoadContext.Provider>
-        </PdfIsDoubleContext.Provider>
-      </PdfMargingTopContext.Provider>
-    </PdfPaperSwitchingContext.Provider>
+    <AnnotateContext.Provider value={{ annotate, setAnnotate }}>
+      <PdfPaperSwitchingContext.Provider value={{ paper, setPaper }}>
+        <PdfMargingTopContext.Provider value={{ margingTop, setMargingTop }}>
+          <PdfIsDoubleContext.Provider value={{ isDouble, setIsDouble }}>
+            <PdfIsLoadContext.Provider value={{ settingType, setSettingLoad }}>
+              <FontSizeContext.Provider value={{ size, setSize }}>{props.children}</FontSizeContext.Provider>
+            </PdfIsLoadContext.Provider>
+          </PdfIsDoubleContext.Provider>
+        </PdfMargingTopContext.Provider>
+      </PdfPaperSwitchingContext.Provider>
+    </AnnotateContext.Provider>
   );
 };
 
@@ -58,10 +67,11 @@ export const useRecordPdfPath = () => {
   const { margingTop } = useContext(PdfMargingTopContext);
   const { paper } = useContext(PdfPaperSwitchingContext);
   const { size } = useContext(FontSizeContext);
+  const { annotate } = useContext(AnnotateContext);
   const path = useMemo(
     () =>
-      `/records:pdf?recordId=${recordId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}&paper=${paper}&font=${size}`,
-    [recordId, isDouble, settingType, margingTop, paper, size],
+      `/records:pdf?recordId=${recordId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}&paper=${paper}&font=${size}&annotate=${annotate}`,
+    [recordId, isDouble, settingType, margingTop, paper, size, annotate],
   );
   return path;
 };

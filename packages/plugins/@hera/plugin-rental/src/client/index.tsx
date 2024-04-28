@@ -51,7 +51,10 @@ import {
 import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedRecordsBlockInitializer';
 
 import { PaperSwitching, PaperSwitchingInitializer } from './schema-initializer/actions/paperSwitching';
-
+import {
+  RecordPrintAnnotateActionInitializer,
+  Annotate,
+} from './schema-initializer/actions/RecordPrintAnnotateActionInitializer';
 import { PrintFontSize, PrintFontSizeInitializer } from './schema-initializer/actions/RecordPrintFontSizeInitializer';
 import { MovementFieldInterface } from './interfaces/movement';
 import { Movement } from './schema-components/Movement';
@@ -112,6 +115,13 @@ export class PluginRentalClient extends Plugin {
       title: '{{t("Record print setup")}}',
       component: 'RecordPrintSetupActionInitializer',
     });
+
+    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintAnnotate', {
+      type: 'item',
+      title: '{{t("Record print annotate")}}',
+      component: 'RecordPrintAnnotateActionInitializer',
+    });
+
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintMargingTop', {
       type: 'item',
       title: '{{t("Record print margingtop")}}',
@@ -203,6 +213,8 @@ export class PluginRentalClient extends Plugin {
       ColumnSwitchAction,
       PaperSwitching,
       PrintFontSize,
+      Annotate,
+      RecordPrintAnnotateActionInitializer,
       PaperSwitchingInitializer,
       PrintFontSizeInitializer,
       SettlementExcelExportActionInitializer,

@@ -210,7 +210,16 @@ const PreviewDocument = ({
       fontSize: fontSizes.main,
     },
   });
-
+  const annotate = options.isAnnotate;
+  if (annotate) {
+    let commentIndex = 1;
+    record.forEach((item) => {
+      if (item.comment) {
+        item.commentIndex = commentIndex;
+        commentIndex++;
+      }
+    });
+  }
   const paper = options.paper;
   const isDouble = Number(options.isDouble);
   const explain =
@@ -270,20 +279,34 @@ const PreviewDocument = ({
       <View key={index} style={styles.tableContent}>
         {columns.map((column, columnIndex) => (
           <React.Fragment key={columnIndex}>
-            <Text style={styles.tableCell2}>{item[column + 'name']}</Text>
+            <Text style={styles.tableCell2}>
+              {annotate && item[column + 'commentIndex']
+                ? item[column + 'commentIndex'] + '……' + item[column + 'name']
+                : item[column + 'name']}
+            </Text>
             <Text style={styles.tableCell}>
               {!item[column + 'count'] ? '' : formatQuantity(item[column + 'count'], 2) + item[column + 'unit']}
             </Text>
-            <Text style={styles.tableCell}>
+            <Text
+              style={
+                annotate
+                  ? !isDouble || column === 'right_'
+                    ? styles.tableCellLast
+                    : styles.tableCell
+                  : styles.tableCell
+              }
+            >
               {!item[column + 'total']
                 ? ''
                 : formatQuantity(item[column + 'total'], 2) + item[column + 'conversion_unit']}
             </Text>
-            <Text style={!isDouble || column === 'right_' ? styles.tableCellLast : styles.tableCell}>
-              {item[column + 'isExcluded']
-                ? '不计入合同  ' + (item[column + 'comment'] || '')
-                : item[column + 'comment'] || ''}
-            </Text>
+            {!annotate && (
+              <Text style={!isDouble || column === 'right_' ? styles.tableCellLast : styles.tableCell}>
+                {item[column + 'isExcluded']
+                  ? '不计入合同  ' + (item[column + 'comment'] || '')
+                  : item[column + 'comment'] || ''}
+              </Text>
+            )}
           </React.Fragment>
         ))}
       </View>
@@ -297,8 +320,20 @@ const PreviewDocument = ({
             <React.Fragment key={columnIndex}>
               <Text style={styles.tableCell2}></Text>
               <Text style={styles.tableCell}>{column === 'left_' ? '' : '总金额'}</Text>
-              <Text style={styles.tableCell}>{column === 'left_' ? '' : allprice}</Text>
-              <Text style={!isDouble || column === 'right_' ? styles.tableCellLast : styles.tableCell}></Text>
+              <Text
+                style={
+                  annotate
+                    ? !isDouble || column === 'right_'
+                      ? styles.tableCellLast
+                      : styles.tableCell
+                    : styles.tableCell
+                }
+              >
+                {column === 'left_' ? '' : allprice}
+              </Text>
+              {!annotate && (
+                <Text style={!isDouble || column === 'right_' ? styles.tableCellLast : styles.tableCell}></Text>
+              )}
             </React.Fragment>
           ))}
         </View>
@@ -436,13 +471,13 @@ const PreviewDocument = ({
               <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
               <Text style={styles.tableCellTitle}>数量</Text>
               <Text style={styles.tableCellTitle}>小计</Text>
-              <Text style={!isDouble ? styles.tableCellTitleLast : styles.tableCellTitle}>备注</Text>
+              {!annotate && <Text style={!isDouble ? styles.tableCellTitleLast : styles.tableCellTitle}>备注</Text>}
               {isDouble && (
                 <>
                   <Text style={styles.tableCellLargeTitle}>物料名称及规格</Text>
                   <Text style={styles.tableCellTitle}>数量</Text>
-                  <Text style={styles.tableCellTitle}>小计</Text>
-                  <Text style={styles.tableCellTitleLast}>备注</Text>
+                  <Text style={annotate ? styles.tableCellTitleLast : styles.tableCellTitle}>小计</Text>
+                  {!annotate && <Text style={styles.tableCellTitleLast}>备注</Text>}
                 </>
               )}
             </View>
@@ -467,6 +502,14 @@ const PreviewDocument = ({
               {detail.record_category === '购销' && <Text style={styles.signPart}>购入单位（签名）：</Text>}
               {!detail.record_category && <Text style={styles.signPart}>盘点仓库（签名）：</Text>}
             </View>
+            {record.map((item) => (
+              <>
+                <View style={{ marginTop: '10px' }}></View>
+                <View style={styles.tableContent}>
+                  {annotate && item.commentIndex && <Text style={{}}>{item.commentIndex + ':' + item.comment}</Text>}
+                </View>
+              </>
+            ))}
           </View>
           <View style={styles.side}>
             <Text>{detail.pdfExplain}</Text>
