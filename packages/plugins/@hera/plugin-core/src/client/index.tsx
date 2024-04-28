@@ -12,14 +12,8 @@ import {
   useFormulaTitleVisible,
   usePaginationVisible,
   EditTitle,
-  SetFilterScope,
-  useSetFilterScopeVisible,
-  FilterVariableInput,
-  EditDefaultValue,
 } from './schema-settings';
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
-import { useFilterBlockActionProps } from './hooks/useFilterBlockActionProps';
-import { useFilterFormCustomProps } from './hooks/useFilterFormCustomProps';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
 import { AdminLayout, DetailsPage, HomePage, OutboundPage, PageLayout } from './pages';
@@ -44,20 +38,12 @@ import {
   SignatureInput,
   ExcelFile,
 } from './components';
-import { AutoComplete, InternalPDFViewer } from './schema-components';
+import { AutoComplete } from './schema-components';
 import {
   CreateSubmitActionInitializer,
-  FilterFormItem,
-  FilterFormItemCustom,
-  FilterItemCustomDesigner,
   GroupBlockPlugin,
   OutboundActionHelper,
-  PDFViewerBlockInitializer,
-  PDFViewerPrintActionInitializer,
-  PDFViewerProvider,
   SettingBlockInitializer,
-  pdfViewActionInitializer,
-  usePDFViewerPrintActionProps,
 } from './schema-initializer';
 import {
   SheetBlock,
@@ -81,6 +67,8 @@ import { PluginHeraVersion } from './features/hera-version';
 import { PluginAssistant } from './features/assistant';
 import { TstzrangeFieldInterface } from './interfaces/TstzrangeFieldInterface';
 import { PluginContextMenu } from './features/context-menu';
+import { PluginPDF } from './features/pdf';
+import { PluginExtendedFilterForm } from './features/extended-filter-form';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -95,21 +83,13 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginHeraVersion);
     await this.app.pm.add(PluginContextMenu);
     await this.app.pm.add(PluginAssistant);
+    await this.app.pm.add(PluginPDF);
+    await this.app.pm.add(PluginExtendedFilterForm);
   }
 
   async registerSettings() {
     this.schemaSettingsManager.add(sheetBlockSettings);
     this.schemaSettingsManager.add(customComponentDispatcherSettings);
-    this.schemaSettingsManager.addItem('FilterFormItemSettings', 'formulatitleField', {
-      Component: EditFormulaTitleField,
-      useVisible: useFormulaTitleVisible,
-    });
-    this.schemaSettingsManager.addItem('FilterFormItemSettings', 'editDefaultValue', {
-      Component: EditDefaultValue,
-    });
-    this.schemaSettingsManager.addItem('fieldSettings:component:Select', 'editDefaultValue', {
-      Component: EditDefaultValue,
-    });
 
     this.schemaSettingsManager.addItem('fieldSettings:component:DatePicker', 'datePickerType', {
       Component: SchemaSettingsDatePickerType,
@@ -138,16 +118,6 @@ export class PluginCoreClient extends Plugin {
       Component: IsTablePageSize,
       useVisible: usePaginationVisible,
     });
-    this.schemaSettingsManager.addItem('ActionSettings', 'Customize.setFilterScope', {
-      Component: SetFilterScope,
-      useVisible: useSetFilterScopeVisible,
-      useComponentProps() {
-        const collection = useCollection();
-        return {
-          collectionName: collection.name,
-        };
-      },
-    });
     this.app.schemaSettingsManager.addItem('actionSettings:submit', 'pageMode', {
       Component: PageModeSetting,
       useVisible() {
@@ -155,25 +125,13 @@ export class PluginCoreClient extends Plugin {
         return isValid(fieldSchema?.['x-action-settings']?.pageMode);
       },
     });
-
-    // 预览区块需要提前加进来，没法放在 afterload 中，这块后面需要重构
-    const previewBlockItem = {
-      title: tval('preview block'),
-      name: 'previewBlock',
-      type: 'itemGroup',
-      children: [],
-    };
-    this.app.schemaInitializerManager.get('popup:common:addBlock').add(previewBlockItem.name, previewBlockItem);
   }
 
   async registerScopesAndComponents() {
     this.app.addScopes({
       useCreateActionProps,
-      useFilterBlockActionProps,
-      useFilterFormCustomProps,
       useGetCustomAssociatedComponents,
       useGetCustomComponents,
-      usePDFViewerPrintActionProps,
       useCustomPresets1,
       useCustomPresets,
     });
@@ -192,14 +150,6 @@ export class PluginCoreClient extends Plugin {
       EditTitle,
       EditTitleField,
       Expression,
-      FilterFormItem,
-      FilterFormItemCustom,
-      FilterItemCustomDesigner,
-      FilterVariableInput,
-      PDFViewerBlockInitializer,
-      PDFViewerPrintActionInitializer,
-      PDFViewerProvider,
-      PDFViwer: InternalPDFViewer,
       PageLayout,
       SettingBlock: SettingBlockInitializer,
       SheetBlock,
@@ -227,11 +177,6 @@ export class PluginCoreClient extends Plugin {
     });
   }
 
-  async registerTricks() {
-    // Loading this provider in an unauthenticated state will result in an error; remove it here.
-    remove(this.app.providers, ([provider]) => provider === RemoteSchemaTemplateManagerProvider);
-  }
-
   async registerSchemaInitializer() {
     const settingBlockItem = {
       name: 'setting',
@@ -247,23 +192,12 @@ export class PluginCoreClient extends Plugin {
         'x-align': 'right',
       },
     };
-    const customItem = {
-      title: tval('Custom filter field'),
-      name: 'custom',
-      type: 'item',
-      Component: 'FilterFormItemCustom',
-    };
-    this.schemaInitializerManager.add(pdfViewActionInitializer);
     this.app.schemaInitializerManager.addItem('page:addBlock', settingBlockItem.name, settingBlockItem);
     this.app.schemaInitializerManager.addItem('page:addBlock', 'dataBlocks.sheetBlock', {
       title: tval('Sheet'),
       Component: 'SheetBlockInitializer',
     });
     this.app.schemaInitializerManager.addItem('kanban:configureActions', refreshActionItem.name, refreshActionItem);
-    this.app.schemaInitializerManager.addItem('filterForm:configureFields', 'custom-item-divider', {
-      type: 'divider',
-    });
-    this.app.schemaInitializerManager.addItem('filterForm:configureFields', customItem.name, customItem);
     const addCustomComponent = {
       name: 'addCustomComponent',
       title: tval('Add custom component'),
@@ -310,7 +244,6 @@ export class PluginCoreClient extends Plugin {
     this.locale = new Locale(this.app);
     await new OutboundActionHelper(this.app).load();
     await new PluginSettingsHelper(this.app).load();
-    await this.registerTricks();
     await this.registerScopesAndComponents();
     await this.registerSettings();
     await this.registerRouters();
