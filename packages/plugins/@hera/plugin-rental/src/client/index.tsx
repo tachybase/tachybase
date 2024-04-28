@@ -58,6 +58,7 @@ import {
 import { PrintFontSize, PrintFontSizeInitializer } from './schema-initializer/actions/RecordPrintFontSizeInitializer';
 import { MovementFieldInterface } from './interfaces/movement';
 import { Movement } from './schema-components/Movement';
+import { MovementStatus } from './custom-components/MovementStatus';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -225,6 +226,7 @@ export class PluginRentalClient extends Plugin {
       RecordPrintSetupMargingTopInitializer,
       PrintSetup,
       PrintSetupMargingTop,
+      MovementStatus,
     });
     this.app.addScopes({
       useAddToChecklistActionProps,

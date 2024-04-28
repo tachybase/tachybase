@@ -147,6 +147,25 @@ export const useProducts = () => {
   return { data: data?.data };
 };
 
+export const useCompany = (leftId, rightId) => {
+  const { data, loading, run } = useCachedRequest<any>(
+    {
+      resource: 'company',
+      action: 'list',
+      params: {
+        filter: { id: { $eq: [leftId, rightId] } },
+      },
+    },
+    { manual: true },
+  );
+  useEffect(() => {
+    if (leftId && rightId) {
+      run();
+    }
+  }, [leftId, rightId]);
+  return { data, loading };
+};
+
 const selParentId = (products, item, scopeId) => {
   scopeId.push(item.id);
   if (!item.parentId) {
