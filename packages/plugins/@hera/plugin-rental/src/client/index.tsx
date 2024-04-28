@@ -53,6 +53,7 @@ import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedReco
 import { PaperSwitching, PaperSwitchingInitializer } from './schema-initializer/actions/paperSwitching';
 
 import { PrintFontSize, PrintFontSizeInitializer } from './schema-initializer/actions/RecordPrintFontSizeInitializer';
+import { MovementFieldInterface } from './interfaces/movement';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -172,6 +173,12 @@ export class PluginRentalClient extends Plugin {
   // You can get and modify the app instance here
   async load() {
     this.locale = new Locale(this.app);
+    this.app.dataSourceManager.addFieldInterfaceGroups({
+      bussiness: {
+        label: 'Bussiness',
+      },
+    });
+    this.app.dataSourceManager.addFieldInterfaces([MovementFieldInterface]);
     this.app.addComponents({
       RecordFeeConvertedAmount,
       ReadFeeConvertedAmount,
