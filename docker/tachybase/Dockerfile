@@ -8,7 +8,7 @@ COPY . /app
 WORKDIR /app
 RUN corepack enable
 RUN pnpm config set registry $NPM_REGISTRY
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --shamefully-hoist
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --shamefully-hoist
 RUN pnpm build:p
 
 COPY ./docker/tachybase/docker-entrypoint.sh /app/
