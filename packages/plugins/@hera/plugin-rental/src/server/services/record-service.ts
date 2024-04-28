@@ -2,6 +2,7 @@ import Database, { CreateOptions, MagicAttributeModel, Transaction } from '@noco
 import { Db, Service } from '@nocobase/utils';
 import { ConversionLogics, Movement, RecordCategory, RecordTypes, settlementStatus } from '../../utils/constants';
 import validateLicensePlate from '../../utils/validateLIcensePlate';
+import { QueryTypes } from 'sequelize';
 
 @Service()
 export class RecordService {
@@ -10,10 +11,11 @@ export class RecordService {
   // 订单hooks调整
   // 1.盘点单在hook中生成
   // 2.合同结算单的状态       √
-  // 3.购销合同订单的金额
+  // 3.购销合同订单的金额     √
   // 4.车牌号校验            √
   async load() {
     this.db.on('records.afterSave', this.recordsAfterSave.bind(this));
+    this.db.on('records.beforeSave', this._calcAllPrice.bind(this));
   }
 
   /**
@@ -81,6 +83,76 @@ export class RecordService {
             }
           }
         });
+      }
+    }
+  }
+
+  /**
+   * 报价合同计算总金额
+   */
+  async _calcAllPrice(record: MagicAttributeModel, options: CreateOptions) {
+    const { values } = options;
+    if (!values) return;
+    if (values.new_contracts.length) {
+      const contracts = values.new_contracts.map((item) => item.contract).find((i) => i.record_category === '1');
+      if (contracts && values.items.length) {
+        const leaseRule = await this.db.getRepository('contract_plan_lease_items').find({
+          where: {
+            contract_id: contracts.id,
+          },
+          appends: ['conversion_logic', 'conversion_logic.weight_items'],
+        });
+        const sql = `
+        WITH RECURSIVE tree1 AS (
+          SELECT id, "parentId"
+          FROM products
+          WHERE id = :dataId
+          UNION ALL
+          SELECT p.id, p."parentId"
+          FROM tree1 up
+          JOIN products p ON up."parentId" = p.id
+        )
+        select id
+        from tree1
+      `;
+        let allPrice = 0;
+        for (const item of values.items) {
+          const treeIds = await this.db.sequelize.query(sql, {
+            replacements: {
+              dataId: item.new_product.id,
+            },
+            type: QueryTypes.SELECT,
+          });
+          const rule = leaseRule.find((rule) => treeIds.find((i: any) => i.id === rule.new_products_id));
+          if (rule) {
+            const price = rule.unit_price || 0;
+            const count = item.count || 0;
+            if (rule.conversion_logic_id === ConversionLogics.Keep) {
+              allPrice += price * count;
+            } else if (
+              rule.conversion_logic_id === ConversionLogics.Product ||
+              rule.conversion_logic_id === ConversionLogics.ActualWeight
+            ) {
+              const ratio = item.new_product.parent?.convertible ? item.new_product.ratio : 1;
+              allPrice += price * count * ratio;
+            } else if (rule.conversion_logic_id === ConversionLogics.ProductWeight) {
+              allPrice += price * count * (item.new_product.weight || 0);
+            } else {
+              const weightRule = rule.conversion_logic.weight_items.find((weight) =>
+                treeIds.find((i: any) => i.id === weight.new_product_id),
+              );
+              if (weightRule.conversion_logic_id === ConversionLogics.Keep) {
+                allPrice += price * count * weightRule.weight;
+              } else if (weightRule.conversion_logic_id === ConversionLogics.Product) {
+                const ratio = item.new_product.parent?.convertible ? item.new_product.ratio : 1;
+                allPrice += price * count * ratio * weightRule.weight;
+              }
+            }
+          }
+        }
+        if (values.all_price !== allPrice) {
+          record.all_price = allPrice;
+        }
       }
     }
   }

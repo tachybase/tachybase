@@ -236,18 +236,18 @@ export class RecordPreviewController {
     // 比如运费按照出入库量，但是录单存在排除的情况，特殊处理
     const noRuleexcluded: any = await ctx.db.sequelize.query(
       `
-    select
-    rfin.count ,
-    rfin."comment" ,
-    rfin.new_fee_product_id,
-    p2.name || '[' || p.name || ']' as fee_name,
-    p.custom_name,
-    rfin.is_excluded
-  from record_contract rc
-  join record_fee_items_new rfin on rfin.record_contract_id = rc.id and rfin.is_excluded is true and rfin.new_product_id is null
-  join products p on p.id = rfin.new_fee_product_id
-  left join products p2 on p."parentId" = p2.id
-  where rc.id = :intermediateId
+      select
+        rfin.count ,
+        rfin."comment" ,
+        rfin.new_fee_product_id,
+        p2.name || '[' || p.name || ']' as fee_name,
+        p.custom_name,
+        rfin.is_excluded
+      from record_contract rc
+      join record_fee_items_new rfin on rfin.record_contract_id = rc.id and rfin.is_excluded is true and rfin.new_product_id is null
+      join products p on p.id = rfin.new_fee_product_id
+      left join products p2 on p."parentId" = p2.id
+      where rc.id = :intermediateId
     `,
       {
         replacements: {

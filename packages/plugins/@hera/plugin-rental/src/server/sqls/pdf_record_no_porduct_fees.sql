@@ -28,7 +28,7 @@ FROM
   LEFT JOIN products p2 ON p."parentId" = p2.id
   JOIN record_contract rc ON rc.record_id = r.id
   AND rc.contract_id = c.id
-  LEFT JOIN record_fee_items_new rfin ON rfin.record_contract_id = rc.id
+  JOIN record_fee_items_new rfin ON rfin.record_contract_id = rc.id
   AND rfin.new_fee_product_id = cpfi.new_fee_products_id
   AND cpfi.count_source = '0'
   LEFT JOIN weight_rules wr ON cpfi.conversion_logic_id = wr.logic_id
