@@ -17,11 +17,18 @@ SELECT
 FROM
   records r
   JOIN contracts c ON c.id = :contractId
-  JOIN contract_items ci ON c.id = ci.contract_id
+  LEFT JOIN contract_items ci ON c.id = ci.contract_id
   AND ci.start_date <= r."date"
   AND ci.end_date >= r."date"
-  JOIN contract_plans cp ON cp.id = ci.contract_plan_id
-  JOIN contract_plan_lease_items cpli ON cpli.contract_plan_id = cp.id
+  LEFT JOIN contract_plans cp ON cp.id = ci.contract_plan_id
+  JOIN contract_plan_lease_items cpli ON (
+    cpli.contract_plan_id = cp.id
+    AND c.effectiveness = '0'
+  )
+  OR (
+    cpli.contract_id = c.id
+    AND c.effectiveness = '1'
+  )
   JOIN view_products_search_rule_special vpsrs ON cpli.new_products_id = ANY (vpsrs.parents)
   JOIN record_items ri ON ri.record_id = r.id
   AND ri.new_product_id = vpsrs.id
