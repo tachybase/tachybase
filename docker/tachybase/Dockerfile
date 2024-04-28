@@ -1,4 +1,4 @@
-FROM tachybase/base:latest as base
+FROM git.daoyoucloud.com/tachybase/base:latest as base
 
 ARG NPM_REGISTRY=https://registry.npmjs.org/
 ENV PNPM_HOME="/pnpm"
