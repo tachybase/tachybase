@@ -41,6 +41,7 @@ export class PluginCoreServer extends Plugin {
       // init web controllers
       await Container.get(WebService).load();
       this.app.acl.allow('link-manage', 'init', 'public');
+      this.app.acl.allow('hera', 'version', 'public');
     } catch (err) {
       console.warn(err);
     }
