@@ -34,6 +34,9 @@ const ImageDescription = (props) => {
         flex-direction: 'column';
         width: '100%';
         height: '100%';
+        :active {
+          background-color: transparent;
+        }
       `}
     >
       <Image src={srcUrl} width={100} height={100} fit="fill" />

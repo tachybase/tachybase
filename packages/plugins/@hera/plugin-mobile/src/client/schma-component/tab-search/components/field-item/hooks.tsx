@@ -1,4 +1,4 @@
-import { findFilterTargets, mergeFilter, useApp, useCollection, useFilterBlock } from '@nocobase/client';
+import { findFilterTargets, mergeFilter, useCollection, useFilterBlock } from '@nocobase/client';
 import { useFieldSchema } from '@nocobase/schema';
 import { useMemo } from 'react';
 import _ from 'lodash';
@@ -7,9 +7,12 @@ export const useTabSearchCollapsibleInputItem = () => {
   const fieldSchema = useFieldSchema();
   const collection = useCollection();
   const { getDataBlocks } = useFilterBlock();
-  const collectionField = useMemo(() => collection?.getField(fieldSchema.name as any), [collection, fieldSchema.name]);
+  // @ts-ignore
+  const fieldName = fieldSchema?.fieldName;
+  const collectionField = useMemo(() => collection?.getField(fieldName as any), [collection, fieldSchema.name]);
 
-  const onSelected = (value, filterKey) => {
+  const onSelected = (value, filterKey, options = { needSort: false }) => {
+    const { needSort = true } = options;
     const { targets, uid } = findFilterTargets(fieldSchema);
     getDataBlocks().forEach((block) => {
       const target = targets.find((target) => target.uid === block.uid);
@@ -50,14 +53,21 @@ export const useTabSearchCollapsibleInputItem = () => {
         (value) => value === null || value === undefined || (_.isObject(value) && _.isEmpty(value)),
       );
 
-      return block.doFilter(
-        {
-          ...param,
-          page: 1,
-          filter: mergedFilter,
-        },
-        { filters: storedFilter },
-      );
+      let params1 = {
+        ...param,
+        page: 1,
+        filter: mergedFilter,
+      };
+      if (needSort) {
+        params1 = {
+          ...params1,
+          ['sort[]']: fieldName,
+        };
+      } else {
+        params1 = _.omit(params1, ['sort[]']);
+      }
+
+      return block.doFilter(params1, { filters: storedFilter });
     });
   };
 
