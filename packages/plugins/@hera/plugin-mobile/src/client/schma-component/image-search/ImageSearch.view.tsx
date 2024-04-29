@@ -1,5 +1,5 @@
 import { useDesigner, useSchemaInitializerRender } from '@nocobase/client';
-import { RecursionField, useFieldSchema } from '@nocobase/schema';
+import { RecursionField, useFieldSchema } from '@tachybase/schema';
 import { Image, JumboTabs } from 'antd-mobile';
 import React from 'react';
 import { isTabSearchCollapsibleInputItem } from '../tab-search/utils';
