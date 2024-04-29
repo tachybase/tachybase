@@ -1,4 +1,4 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { DocumentTitleProvider, Page, SchemaComponent, SchemaComponentProvider, Application } from '@nocobase/client';
 import React from 'react';
 

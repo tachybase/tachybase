@@ -1,6 +1,6 @@
-import { Field, Form } from '@nocobase/schema';
-import { SchemaExpressionScopeContext, useField, useFieldSchema, useForm } from '@nocobase/schema';
-import { untracked } from '@nocobase/schema';
+import { Field, Form } from '@tachybase/schema';
+import { SchemaExpressionScopeContext, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { untracked } from '@tachybase/schema';
 import { isURL, parse } from '@nocobase/utils/client';
 import { App, message } from 'antd';
 import _ from 'lodash';

@@ -1,5 +1,5 @@
-import { ArrayField } from '@nocobase/schema';
-import { observer, RecursionField, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { observer, RecursionField, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import {
   RecordProvider,
   SchemaComponentOptions,

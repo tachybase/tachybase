@@ -1,7 +1,7 @@
 import { css, cx } from '@emotion/css';
 import { FormLayout } from '@formily/antd-v5';
-import { createForm } from '@nocobase/schema';
-import { FormContext, useField } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
+import { FormContext, useField } from '@tachybase/schema';
 import _ from 'lodash';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { BlockProvider, useBlockRequestContext, useParsedFilter } from '../../../block-provider';

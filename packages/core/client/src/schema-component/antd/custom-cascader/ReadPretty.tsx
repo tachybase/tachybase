@@ -1,6 +1,6 @@
-import { ArrayField } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
-import { toArr } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
+import { toArr } from '@tachybase/schema';
 import React from 'react';
 import { defaultFieldNames } from './defaultFieldNames';
 

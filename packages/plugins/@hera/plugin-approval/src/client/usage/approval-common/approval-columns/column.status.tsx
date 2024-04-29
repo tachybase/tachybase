@@ -1,5 +1,5 @@
 import { useCompile, useRecord } from '@nocobase/client';
-import { Field, observer, useField } from '@nocobase/schema';
+import { Field, observer, useField } from '@tachybase/schema';
 import { Tag } from 'antd';
 import _ from 'lodash';
 import React from 'react';

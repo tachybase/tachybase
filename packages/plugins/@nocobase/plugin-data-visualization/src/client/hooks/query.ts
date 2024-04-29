@@ -1,5 +1,5 @@
-import { ArrayField } from '@nocobase/schema';
-import { ISchema, Schema, useForm } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { ISchema, Schema, useForm } from '@tachybase/schema';
 import {
   CollectionFieldOptions,
   CollectionFieldOptions_deprecated,

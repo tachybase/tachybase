@@ -1,8 +1,8 @@
 import { SyncOutlined } from '@ant-design/icons';
 import { FormLayout } from '@formily/antd-v5';
-import { createForm } from '@nocobase/schema';
-import { useField, useForm } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
+import { useField, useForm } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { Button } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

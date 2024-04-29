@@ -1,5 +1,5 @@
-import { useField } from '@nocobase/schema';
-import { merge } from '@nocobase/schema';
+import { useField } from '@tachybase/schema';
+import { merge } from '@tachybase/schema';
 import flat, { unflatten } from 'flat';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';

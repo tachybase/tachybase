@@ -1,4 +1,4 @@
-import { ExpressionScope, SchemaComponentsContext, SchemaOptionsContext } from '@nocobase/schema';
+import { ExpressionScope, SchemaComponentsContext, SchemaOptionsContext } from '@tachybase/schema';
 import React, { PropsWithChildren, memo, useContext, useMemo } from 'react';
 import { ISchemaComponentOptionsProps } from '../types';
 

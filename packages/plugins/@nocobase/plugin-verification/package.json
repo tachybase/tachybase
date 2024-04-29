@@ -14,7 +14,7 @@
     "@alicloud/openapi-client": "0.4.1",
     "@alicloud/tea-util": "1.4.4",
     "@formily/antd-v5": "1.x",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
     "dayjs": "^1.11.8",
     "react": "~18.2.0",

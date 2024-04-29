@@ -8,7 +8,7 @@ import {
   SchemaInitializerSwitch,
   useSchemaInitializerItem,
 } from '@nocobase/client';
-import { uid, merge } from '@nocobase/schema';
+import { uid, merge } from '@tachybase/schema';
 import { ChartFilterContext } from './FilterProvider';
 import { css } from '@emotion/css';
 import { theme } from 'antd';

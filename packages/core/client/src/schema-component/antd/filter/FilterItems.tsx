@@ -1,5 +1,5 @@
-import { ArrayField as ArrayFieldModel } from '@nocobase/schema';
-import { ObjectFieldComponent as ObjectField, observer, useField } from '@nocobase/schema';
+import { ArrayField as ArrayFieldModel } from '@tachybase/schema';
+import { ObjectFieldComponent as ObjectField, observer, useField } from '@tachybase/schema';
 import React from 'react';
 import { FilterGroup } from './FilterGroup';
 import { FilterItem } from './FilterItem';

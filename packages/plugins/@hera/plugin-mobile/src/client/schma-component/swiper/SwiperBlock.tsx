@@ -1,5 +1,5 @@
 import { BlockItem, css, useDesignable, useRequest, withDynamicSchemaProps } from '@nocobase/client';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { Swiper } from 'antd-mobile';
 import React, { useEffect, useState } from 'react';
 

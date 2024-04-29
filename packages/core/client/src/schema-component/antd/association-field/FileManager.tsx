@@ -1,4 +1,4 @@
-import { RecursionField, connect, useField, useFieldSchema } from '@nocobase/schema';
+import { RecursionField, connect, useField, useFieldSchema } from '@tachybase/schema';
 import { differenceBy, unionBy } from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
 import {

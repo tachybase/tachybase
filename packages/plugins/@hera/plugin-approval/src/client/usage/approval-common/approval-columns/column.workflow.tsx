@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@nocobase/client';
-import { observer, useField, Field } from '@nocobase/schema';
+import { observer, useField, Field } from '@tachybase/schema';
 import { useTranslation } from '../../../locale';
 
 export const WorkflowColumn = observer(

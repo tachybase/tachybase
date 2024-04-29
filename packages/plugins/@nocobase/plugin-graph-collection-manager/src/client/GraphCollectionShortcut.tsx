@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { css, SchemaComponent, useActionContext, useRequest } from '@nocobase/client';
 import React, { useEffect } from 'react';
 import { useCreateActionAndRefreshCM } from './action-hooks';

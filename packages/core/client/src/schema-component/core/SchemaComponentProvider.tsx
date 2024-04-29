@@ -1,6 +1,6 @@
-import { createForm } from '@nocobase/schema';
-import { FormProvider, Schema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
+import { FormProvider, Schema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import React, { useMemo, useState, PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SchemaComponentContext } from '../context';

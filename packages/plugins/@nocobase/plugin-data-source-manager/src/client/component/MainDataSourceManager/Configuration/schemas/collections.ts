@@ -1,5 +1,5 @@
-import { ISchema, Schema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema, Schema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useAPIClient, i18n } from '@nocobase/client';

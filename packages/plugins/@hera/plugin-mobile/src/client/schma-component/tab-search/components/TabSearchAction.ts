@@ -1,5 +1,5 @@
 import { useDesigner, useSchemaInitializerRender } from '@nocobase/client';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { isTabSearchCollapsibleInputItem } from '../utils';
 
 export const useTabSearchAction = () => {

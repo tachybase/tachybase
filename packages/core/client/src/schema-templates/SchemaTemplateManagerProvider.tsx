@@ -1,5 +1,5 @@
-import { ISchema, useFieldSchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema, useFieldSchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { cloneDeep } from 'lodash';
 import React, { ReactNode, createContext, useContext, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';

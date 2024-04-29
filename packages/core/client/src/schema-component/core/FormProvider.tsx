@@ -1,9 +1,9 @@
-import { createForm } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
 import {
   FormProvider as FormilyFormProvider,
   SchemaExpressionScopeContext,
   SchemaOptionsContext,
-} from '@nocobase/schema';
+} from '@tachybase/schema';
 import React, { useContext, useMemo } from 'react';
 import { SchemaComponentOptions } from './SchemaComponentOptions';
 

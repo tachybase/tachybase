@@ -7,7 +7,7 @@ import {
   useFilterBlock,
   useRequest,
 } from '@nocobase/client';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 import { useTabSearchCollapsibleInputItem } from './hooks';
 import { canBeRelatedField } from '../../utils';

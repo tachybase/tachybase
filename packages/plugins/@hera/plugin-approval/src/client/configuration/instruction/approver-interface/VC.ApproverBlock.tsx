@@ -1,7 +1,7 @@
 import { SchemaComponent, useAPIClient, useFormBlockContext, useRequest } from '@nocobase/client';
 import { uid } from '@nocobase/utils/client';
 import { default as React, useCallback, useContext } from 'react';
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { Spin } from 'antd';
 import { flatSchemaArray } from '../../../constants';
 
@@ -9,7 +9,7 @@ import { ApprovalFormBlockProvider } from './VC.ApprovalFormBlockProvider';
 import { FormBlockProvider } from '../../../common/Pd.FormBlock';
 import { ActionBarProvider } from './Pd.ActionBarProvider';
 import { ApprovalActionProvider } from './Pd.ApprovalActionProvider';
-import { DetailsBlockProvider, SimpleDesigner } from '@nocobase/plugin-workflow/client';
+import { DetailsBlockProvider, SimpleDesigner } from '@tachybase/plugin-workflow/client';
 import { ContextApproverBlock } from './Pd.SchemaConfigButtonContext';
 import { useApprovalFormBlockProps } from './useApprovalFormBlockProps';
 import { ContextApproverConfig } from '../Pd.ContextApproverConfig';

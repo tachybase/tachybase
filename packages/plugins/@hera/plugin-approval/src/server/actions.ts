@@ -1,5 +1,5 @@
 import actions, { utils } from '@nocobase/actions';
-import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS } from '@nocobase/plugin-workflow';
+import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { APPROVAL_STATUS, APPROVAL_ACTION_STATUS } from './constants';
 import { parseCollectionName } from '@nocobase/data-source-manager';
 

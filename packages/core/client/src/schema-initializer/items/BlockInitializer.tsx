@@ -1,4 +1,4 @@
-import { merge } from '@nocobase/schema';
+import { merge } from '@tachybase/schema';
 import React from 'react';
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
 

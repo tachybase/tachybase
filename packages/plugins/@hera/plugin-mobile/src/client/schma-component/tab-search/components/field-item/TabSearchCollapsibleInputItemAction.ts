@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { useCollection, useCollectionManager, useDesignable, useDesigner } from '@nocobase/client';
 import {
   canBeCalculatedField,

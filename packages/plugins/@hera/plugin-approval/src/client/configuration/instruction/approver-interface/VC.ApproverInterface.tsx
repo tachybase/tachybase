@@ -5,7 +5,7 @@ import {
   SchemaComponentContext,
   css,
 } from '@nocobase/client';
-import { useFlowContext } from '@nocobase/plugin-workflow/client';
+import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import { uid } from '@nocobase/utils/client';
 import React, { useContext, useState } from 'react';
 import { CollectionApprovalTodos } from '../../../common/Cn.ApprovalTodos';

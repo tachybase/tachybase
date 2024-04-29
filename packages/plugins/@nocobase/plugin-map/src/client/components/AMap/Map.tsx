@@ -1,7 +1,7 @@
 import AMapLoader from '@amap/amap-jsapi-loader';
 import '@amap/amap-jsapi-types';
 import { SyncOutlined } from '@ant-design/icons';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { css, useApp, useCollection_deprecated } from '@nocobase/client';
 import { useMemoizedFn } from 'ahooks';
 import { Alert, App, Button, Spin } from 'antd';

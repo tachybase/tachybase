@@ -4,7 +4,7 @@
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "5.x",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@types/lodash": "^4.17.0",
     "antd": "5.16.1",
     "antd-mobile": "^5.35.0",

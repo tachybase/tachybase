@@ -1,4 +1,4 @@
-import { action } from '@nocobase/schema';
+import { action } from '@tachybase/schema';
 
 import { useCollectionManager_deprecated } from '.';
 import { useCompile } from '../../schema-component';

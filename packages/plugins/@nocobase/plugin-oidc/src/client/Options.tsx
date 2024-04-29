@@ -1,6 +1,6 @@
 import { CopyOutlined } from '@ant-design/icons';
 import { ArrayItems, FormTab } from '@formily/antd-v5';
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import { FormItem, Input, SchemaComponent, useApp } from '@nocobase/client';
 import { Card, Space, message } from 'antd';
 import React, { useMemo } from 'react';

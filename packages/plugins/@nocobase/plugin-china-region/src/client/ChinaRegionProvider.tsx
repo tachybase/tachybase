@@ -1,5 +1,5 @@
-import { ArrayField } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
 import { useAPIClient, useRequest } from '@nocobase/client';
 
 export const useChinaRegionDataSource = (options) => {
@@ -64,6 +64,9 @@ export const useChinaRegionLoadData = () => {
             return item;
           }) || [];
         field.dataSource = [...field.dataSource];
+      })
+      .catch((err) => {
+        console.error(err);
       });
   };
 };

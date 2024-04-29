@@ -1,4 +1,4 @@
-import { Schema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';

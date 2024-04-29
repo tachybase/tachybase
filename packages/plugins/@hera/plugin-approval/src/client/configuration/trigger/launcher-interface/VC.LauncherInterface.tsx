@@ -1,5 +1,5 @@
 import { SchemaComponent, parseCollectionName } from '@nocobase/client';
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import React from 'react';
 import { SchemaAddBlock } from './VC.SchemaAddBlock';
 import { getSchemaLauncherInterface } from './Sm.LauncherInterface';

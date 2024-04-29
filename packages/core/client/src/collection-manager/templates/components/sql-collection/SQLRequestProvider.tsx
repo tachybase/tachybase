@@ -1,7 +1,7 @@
 import { useAPIClient, useRequest } from '../../../../api-client';
 import { AsyncDataProvider } from '../../../../async-data-provider';
 import React, { useEffect, useRef } from 'react';
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { useRecord } from '../../../../record-provider';
 
 export const SQLRequestProvider: React.FC<{

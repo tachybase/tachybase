@@ -1,5 +1,5 @@
 import { useCollectionField } from '@nocobase/client';
-import { connect, isValid, mapProps, mapReadPretty, useField } from '@nocobase/schema';
+import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/schema';
 import { Radio, Tag } from 'antd';
 import React from 'react';
 import { useEffect } from 'react';

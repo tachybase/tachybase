@@ -1,5 +1,5 @@
-import { createForm } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
 import { Spin } from 'antd';
 import _ from 'lodash';
 import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';

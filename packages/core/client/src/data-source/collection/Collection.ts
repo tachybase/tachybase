@@ -1,4 +1,4 @@
-import { SchemaKey } from '@nocobase/schema';
+import { SchemaKey } from '@tachybase/schema';
 import { filter } from 'lodash';
 
 import type { CollectionManager } from './CollectionManager';

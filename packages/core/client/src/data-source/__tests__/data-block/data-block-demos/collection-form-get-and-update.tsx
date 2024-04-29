@@ -7,7 +7,7 @@ import {
   useCollectionRecordData,
   withDynamicSchemaProps,
 } from '@nocobase/client';
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import useUrlState from '@ahooksjs/use-url-state';
 
 import { createApp } from './createApp';

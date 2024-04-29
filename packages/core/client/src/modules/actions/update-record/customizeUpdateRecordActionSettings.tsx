@@ -1,5 +1,5 @@
-import { isValid } from '@nocobase/schema';
-import { useFieldSchema } from '@nocobase/schema';
+import { isValid } from '@tachybase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import { useCollection_deprecated } from '../../../collection-manager';

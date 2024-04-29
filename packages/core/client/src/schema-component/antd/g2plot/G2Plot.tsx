@@ -35,8 +35,8 @@ import {
   Waterfall,
   WordCloud,
 } from '@antv/g2plot';
-import { Field } from '@nocobase/schema';
-import { observer, useField } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { observer, useField } from '@tachybase/schema';
 import { Spin } from 'antd';
 import cls from 'classnames';
 import React, { forwardRef, useEffect, useRef } from 'react';

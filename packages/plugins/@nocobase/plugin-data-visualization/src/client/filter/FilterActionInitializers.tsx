@@ -1,5 +1,5 @@
 import { DownOutlined } from '@ant-design/icons';
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import {
   Action,
   ActionInitializer,

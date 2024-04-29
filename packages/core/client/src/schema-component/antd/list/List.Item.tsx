@@ -1,5 +1,5 @@
-import { ObjectField } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
+import { ObjectField } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
 import classnames from 'classnames';
 import React from 'react';
 import { css, cx } from '@emotion/css';

@@ -1,6 +1,6 @@
-import { GeneralField, Query } from '@nocobase/schema';
-import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { GeneralField, Query } from '@tachybase/schema';
+import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { message } from 'antd';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';

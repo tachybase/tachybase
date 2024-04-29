@@ -1,5 +1,5 @@
-import { onFormValuesChange } from '@nocobase/schema';
-import { useField, useFieldSchema, useForm, useFormEffects } from '@nocobase/schema';
+import { onFormValuesChange } from '@tachybase/schema';
+import { useField, useFieldSchema, useForm, useFormEffects } from '@tachybase/schema';
 import { Input } from '@nocobase/client';
 import { Descriptions, DescriptionsProps } from 'antd';
 import _ from 'lodash';

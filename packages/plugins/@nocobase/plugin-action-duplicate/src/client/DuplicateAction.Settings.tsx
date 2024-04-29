@@ -1,5 +1,5 @@
-import { onFieldInputValueChange } from '@nocobase/schema';
-import { ISchema, connect, mapProps, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { onFieldInputValueChange } from '@tachybase/schema';
+import { ISchema, connect, mapProps, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import {
   ActionDesigner,
   SchemaSettingOpenModeSchemaItems,

@@ -1,10 +1,10 @@
-import { ArrayField as ArrayFieldModel, VoidField } from '@nocobase/schema';
+import { ArrayField as ArrayFieldModel, VoidField } from '@tachybase/schema';
 import {
   ArrayFieldComponent as ArrayField,
   ObjectFieldComponent as ObjectField,
   observer,
   useField,
-} from '@nocobase/schema';
+} from '@tachybase/schema';
 import { Space } from 'antd';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,7 +1,7 @@
-import { createForm, Form, IFormProps } from '@nocobase/schema';
-import { FormProvider, Observer, observer, ReactFC } from '@nocobase/schema';
-import { toJS } from '@nocobase/schema';
-import { applyMiddleware, IMiddleware, isBool, isFn, isNum, isStr } from '@nocobase/schema';
+import { createForm, Form, IFormProps } from '@tachybase/schema';
+import { FormProvider, Observer, observer, ReactFC } from '@tachybase/schema';
+import { toJS } from '@tachybase/schema';
+import { applyMiddleware, IMiddleware, isBool, isFn, isNum, isStr } from '@tachybase/schema';
 import { Modal, ModalProps, ThemeConfig } from 'antd';
 import React, { Fragment, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';

@@ -1,9 +1,9 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { SchemaComponent, useAPIClient, useCurrentUserContext } from '@nocobase/client';
 import React, { useCallback } from 'react';
 import { useAuthTranslation } from '../locale';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { useSignUpForms } from '../pages';
 import { Authenticator } from '../authenticator';
 

@@ -1,4 +1,4 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@nocobase/schema';
+import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 import React from 'react';
 import { useActionContext } from '.';
 import { ActionDrawer } from './Action.Drawer';

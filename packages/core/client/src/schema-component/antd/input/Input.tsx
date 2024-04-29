@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { Input as AntdInput } from 'antd';
 import { InputProps, TextAreaProps } from 'antd/es/input';
 import React from 'react';

@@ -8,7 +8,7 @@
   ],
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
     "lodash": "4.17.21",
     "react": "~18.2.0",

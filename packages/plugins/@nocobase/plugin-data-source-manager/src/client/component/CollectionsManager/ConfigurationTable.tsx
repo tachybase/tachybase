@@ -1,6 +1,6 @@
-import { useForm, useField } from '@nocobase/schema';
-import { action } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { useForm, useField } from '@tachybase/schema';
+import { action } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';

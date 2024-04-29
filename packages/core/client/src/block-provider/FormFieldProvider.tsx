@@ -1,6 +1,6 @@
-import { createForm, onFormValuesChange } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
-import { autorun } from '@nocobase/schema';
+import { createForm, onFormValuesChange } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
+import { autorun } from '@tachybase/schema';
 import { forEach } from '@nocobase/utils/client';
 import { Spin } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';

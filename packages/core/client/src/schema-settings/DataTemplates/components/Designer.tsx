@@ -1,5 +1,5 @@
-import { Field } from '@nocobase/schema';
-import { ISchema, observer, useField, useFieldSchema } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { ISchema, observer, useField, useFieldSchema } from '@tachybase/schema';
 import { error } from '@nocobase/utils/client';
 import { Select } from 'antd';
 import _ from 'lodash';

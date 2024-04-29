@@ -1,6 +1,6 @@
-import { Form } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
 // @ts-ignore
-import { Schema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
 import _ from 'lodash';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';

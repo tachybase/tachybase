@@ -7,8 +7,8 @@ import {
   useRecord,
   useRequest,
 } from '@nocobase/client';
-import { DetailsBlockProvider, FlowContext } from '@nocobase/plugin-workflow/client';
-import { useForm } from '@nocobase/schema';
+import { DetailsBlockProvider, FlowContext } from '@tachybase/plugin-workflow/client';
+import { useForm } from '@tachybase/schema';
 import { Result, Spin } from 'antd';
 import { useContext } from 'react';
 import { NAMESPACE } from '../../../locale';

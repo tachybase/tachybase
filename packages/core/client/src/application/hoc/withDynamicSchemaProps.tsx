@@ -1,4 +1,4 @@
-import { useExpressionScope } from '@nocobase/schema';
+import { useExpressionScope } from '@tachybase/schema';
 import React, { ComponentType, useMemo } from 'react';
 import { useDesignable } from '../../schema-component';
 import _ from 'lodash';

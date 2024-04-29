@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { ISchema, RecursionField, connect, observer, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { ISchema, RecursionField, connect, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import {
   ActionContextProvider,
   CollectionProvider_deprecated,

@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { useParsedFilter } from '../../../../../block-provider/hooks/useParsedFilter';
 import { useMemo } from 'react';
 import { useParentRecordCommon } from '../../../useParentRecordCommon';

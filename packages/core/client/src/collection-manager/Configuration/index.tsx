@@ -1,4 +1,4 @@
-import { registerValidateFormats } from '@nocobase/schema';
+import { registerValidateFormats } from '@tachybase/schema';
 
 export * from './AddFieldAction';
 export * from './EditFieldAction';

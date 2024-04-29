@@ -1,5 +1,5 @@
-import { ISchema, observer } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema, observer } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import {
   Action,
   Application,

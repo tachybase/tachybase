@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { useComponent, useDesignable } from '.';
 import { useMemo } from 'react';
 import { SchemaToolbar } from '../../schema-settings';

@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { useParamsFromRecord } from '../../../../../block-provider/BlockProvider';
 import {
   useCollectionParentRecordData,

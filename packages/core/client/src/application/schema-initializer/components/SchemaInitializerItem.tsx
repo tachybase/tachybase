@@ -1,4 +1,4 @@
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import classNames from 'classnames';
 import React, { ReactNode, memo, useMemo } from 'react';
 import { Icon } from '../../../icon';

@@ -1,8 +1,8 @@
 import { FormDrawer, FormLayout } from '@formily/antd-v5';
-import { createForm } from '@nocobase/schema';
-import { ISchema } from '@nocobase/schema';
-import { FormContext, SchemaOptionsContext } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
+import { ISchema } from '@tachybase/schema';
+import { FormContext, SchemaOptionsContext } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import {
   AntdSchemaComponentProvider,
   Application,

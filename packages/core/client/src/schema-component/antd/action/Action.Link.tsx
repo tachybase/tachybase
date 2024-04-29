@@ -1,4 +1,4 @@
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import React from 'react';
 import classnames from 'classnames';
 import Action from './Action';

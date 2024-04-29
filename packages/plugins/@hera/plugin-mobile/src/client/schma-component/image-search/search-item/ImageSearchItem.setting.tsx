@@ -7,7 +7,7 @@ import {
   useDesignable,
   useFormBlockContext,
 } from '@nocobase/client';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 import { useTranslation } from '../../../locale';
 import { isTabSearchCollapsibleInputItem } from '../../tab-search/utils';

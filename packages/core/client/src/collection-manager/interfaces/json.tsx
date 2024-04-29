@@ -1,5 +1,5 @@
 import { FormItem, FormLayout } from '@formily/antd-v5';
-import { registerValidateRules } from '@nocobase/schema';
+import { registerValidateRules } from '@tachybase/schema';
 import React from 'react';
 import { defaultProps, operators } from './properties';
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';

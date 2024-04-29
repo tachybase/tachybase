@@ -1,4 +1,4 @@
-import { connect, mapReadPretty } from '@nocobase/schema';
+import { connect, mapReadPretty } from '@tachybase/schema';
 import { useApp } from '@nocobase/client';
 import { Input as AntdInput } from 'antd';
 import React from 'react';

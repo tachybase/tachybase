@@ -1,6 +1,6 @@
 import { css, cx } from '@emotion/css';
-import { ArrayField } from '@nocobase/schema';
-import { RecursionField, Schema, useField, useFieldSchema } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { RecursionField, Schema, useField, useFieldSchema } from '@tachybase/schema';
 import { List as AntdList, Col, PaginationProps } from 'antd';
 import React, { useCallback, useState } from 'react';
 import { SortableItem } from '../../common';

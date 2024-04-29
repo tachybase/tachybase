@@ -1,4 +1,4 @@
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import { useRecord } from '@nocobase/client';
 import { Select, Tag } from 'antd';
 import React from 'react';

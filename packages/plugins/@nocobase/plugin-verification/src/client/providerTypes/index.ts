@@ -1,4 +1,4 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { Registry } from '@nocobase/utils/client';
 import SMSAliyun from './sms-aliyun';
 import SMSTencent from './sms-tencent';

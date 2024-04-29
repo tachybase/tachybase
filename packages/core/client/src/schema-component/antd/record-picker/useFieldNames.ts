@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 
 export const useFieldNames = (props) => {
   const fieldSchema = useFieldSchema();

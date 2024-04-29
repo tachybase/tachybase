@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Select } from 'antd';
-import { observer, useForm, useField } from '@nocobase/schema';
+import { observer, useForm, useField } from '@tachybase/schema';
 import { useParams } from 'react-router-dom';
 import { useRecord, useCompile, useAPIClient, useCollectionManager_deprecated } from '@nocobase/client';
 import { useRemoteCollectionContext } from '../CollectionFields';

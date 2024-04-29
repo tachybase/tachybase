@@ -1,5 +1,5 @@
-import { Form } from '@nocobase/schema';
-import { IRecursionFieldProps, ISchemaFieldProps, SchemaReactComponents } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
+import { IRecursionFieldProps, ISchemaFieldProps, SchemaReactComponents } from '@tachybase/schema';
 import React from 'react';
 
 export interface ISchemaComponentContext {

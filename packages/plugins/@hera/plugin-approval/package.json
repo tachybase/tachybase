@@ -14,8 +14,8 @@
     "@nocobase/data-source-manager": "workspace:*",
     "@nocobase/database": "workspace:*",
     "@nocobase/plugin-ui-schema-storage": "workspace:*",
-    "@nocobase/schema": "workspace:*",
     "@nocobase/utils": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@types/lodash": "4.17.0",
     "antd": "5.16.1",
     "lodash": "^4.17.21",
@@ -25,9 +25,9 @@
   },
   "peerDependencies": {
     "@nocobase/client": "workspace:*",
-    "@nocobase/plugin-workflow": "workspace:*",
     "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*"
+    "@nocobase/test": "workspace:*",
+    "@tachybase/plugin-workflow": "workspace:*"
   },
   "description.zh-CN": "可配置通用的审批流程,在审批中心完成审批的完整操作。",
   "displayName.zh-CN": "工作流：审批中心"

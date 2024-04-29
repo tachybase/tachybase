@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { ArrayField, Field } from '@nocobase/schema';
-import { RecursionField, Schema, observer, useField, useFieldSchema } from '@nocobase/schema';
+import { ArrayField, Field } from '@tachybase/schema';
+import { RecursionField, Schema, observer, useField, useFieldSchema } from '@tachybase/schema';
 import {
   RecordIndexProvider,
   RecordProvider,

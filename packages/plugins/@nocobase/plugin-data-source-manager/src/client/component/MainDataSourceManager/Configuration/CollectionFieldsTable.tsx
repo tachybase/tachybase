@@ -1,6 +1,6 @@
-import { createForm, Field } from '@nocobase/schema';
-import { FieldContext, FormContext, observer, useField, useFieldSchema } from '@nocobase/schema';
-import { useAttach } from '@nocobase/schema';
+import { createForm, Field } from '@tachybase/schema';
+import { FieldContext, FormContext, observer, useField, useFieldSchema } from '@tachybase/schema';
+import { useAttach } from '@tachybase/schema';
 import { Options, Result } from 'ahooks/es/useRequest/src/types';
 import { TableProps } from 'antd';
 import React, { useMemo } from 'react';

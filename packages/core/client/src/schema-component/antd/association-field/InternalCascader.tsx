@@ -9,7 +9,7 @@ import {
   uid,
   useField,
   useFieldSchema,
-} from '@nocobase/schema';
+} from '@tachybase/schema';
 import { fuzzysearch } from '@nocobase/utils/client';
 import { Input, Space } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';

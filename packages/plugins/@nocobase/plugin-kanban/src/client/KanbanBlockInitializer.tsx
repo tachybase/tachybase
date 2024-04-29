@@ -1,6 +1,6 @@
 import { FormOutlined } from '@ant-design/icons';
 import { FormLayout } from '@formily/antd-v5';
-import { SchemaOptionsContext, useForm } from '@nocobase/schema';
+import { SchemaOptionsContext, useForm } from '@tachybase/schema';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 

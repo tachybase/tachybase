@@ -1,5 +1,5 @@
 import { SyncOutlined } from '@ant-design/icons';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { Loader } from '@googlemaps/js-api-loader';
 import { css, useAPIClient, useApp, useCollection_deprecated } from '@nocobase/client';
 import { useMemoizedFn } from 'ahooks';

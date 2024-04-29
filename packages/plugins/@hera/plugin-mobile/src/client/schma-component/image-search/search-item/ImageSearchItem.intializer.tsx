@@ -4,7 +4,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@nocobase/client';
-import { merge } from '@nocobase/schema';
+import { merge } from '@tachybase/schema';
 import React from 'react';
 
 export const ImageSearchItemIntializer = () => {

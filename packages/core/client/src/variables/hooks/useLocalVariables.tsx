@@ -1,4 +1,4 @@
-import { Form } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
 import { useMemo } from 'react';
 import { useCollection_deprecated } from '../../collection-manager';
 import { useBlockCollection } from '../../schema-settings/VariableInput/hooks/useBlockCollection';

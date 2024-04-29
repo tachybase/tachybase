@@ -1,4 +1,4 @@
-import { connect, mapReadPretty } from '@nocobase/schema';
+import { connect, mapReadPretty } from '@tachybase/schema';
 import React, { createContext, useContext } from 'react';
 
 import { Input } from './Input';

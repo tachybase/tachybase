@@ -1,4 +1,4 @@
-import { merge } from '@nocobase/schema';
+import { merge } from '@tachybase/schema';
 import { useRequest as useReq, useSetState } from 'ahooks';
 import { Options, Result } from 'ahooks/es/useRequest/src/types';
 import { AxiosRequestConfig } from 'axios';

@@ -1,5 +1,5 @@
 import { MenuOutlined } from '@ant-design/icons';
-import { ISchema, useFieldSchema } from '@nocobase/schema';
+import { ISchema, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

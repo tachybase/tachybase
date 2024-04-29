@@ -4,7 +4,7 @@ import PluginWorkflow, {
   useFlowContext,
   useNodeContext,
   useTrigger,
-} from '@nocobase/plugin-workflow/client';
+} from '@tachybase/plugin-workflow/client';
 import { NAMESPACE } from '../../../locale';
 import { ApproverAddBlockComponent } from './VC.ApproverAddBlock';
 import { ApproverAddBlockKit } from './VC.ApproverAddBlockKit';
