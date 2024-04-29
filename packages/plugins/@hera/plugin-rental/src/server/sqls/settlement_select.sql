@@ -57,7 +57,7 @@ SELECT
         FROM
           company c
         WHERE
-          c.id = c.first_party_id
+          c.id = contracts.first_party_id
       )
     ) || JSONB_SET(
       TO_JSONB(contracts),
@@ -68,7 +68,7 @@ SELECT
         FROM
           company c
         WHERE
-          c.id = c.party_b_id
+          c.id = contracts.party_b_id
       )
     )
   ) AS contracts,

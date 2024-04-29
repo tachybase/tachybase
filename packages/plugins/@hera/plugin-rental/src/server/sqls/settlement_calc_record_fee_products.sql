@@ -6,7 +6,8 @@ SELECT
   rc.movement,
   rfi.is_excluded,
   rfi.count,
-  p.name
+  p.name,
+  p.id AS fee_product_id
 FROM
   settlements s
   JOIN record_contract rc ON rc.contract_id = s.contract_id

@@ -3,6 +3,7 @@ SELECT
   cpfi.count_source,
   cpfi.unit_price,
   cpfi.unit,
+  p.id AS fee_product_id,
   p2.name AS fee_name,
   p2.name || '[' || p.name || ']' AS fee_label
 FROM

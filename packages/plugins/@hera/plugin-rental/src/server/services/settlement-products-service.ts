@@ -53,33 +53,42 @@ export class SettlementProductsService {
       };
       //3实际重量
       if (recordItem.conversion_logic_id === ConversionLogics.ActualWeight) {
-        if (
-          !record.find(
+        const productData = { ...data };
+        let weightName;
+        if (recordItem.belong_to_group_weight_name) {
+          weightName =
+            recordItem.belong_to_group_weight_name === recordItem.product_name
+              ? recordItem.product_label + '&&'
+              : `${recordItem.belong_to_group_weight_name}-` + `${recordItem.product_label}&&`;
+        } else {
+          weightName = recordItem.product_label + '&&';
+        }
+        productData['name'] = recordItem.belong_to_group_weight_name ?? recordItem.product_name;
+        productData['label'] = weightName;
+        productData['count'] = 0;
+        productData['amount'] = 0;
+        productData['unit_name'] = '吨';
+        createLeasDatas.push(productData);
+        if (recordItem.group_weight) {
+          const isRecord = record.find(
             (item) =>
               item.record_id === recordItem.record_id &&
               item.belong_to_group_weight_id === recordItem.belong_to_group_weight_id,
-          )
-        ) {
+          );
+          if (isRecord) return;
           record.push(recordItem);
-          data['count'] = (recordItem.group_weight || recordItem.record_weight) ?? 0;
-          data['name'] = recordItem.belong_to_group_weight_name;
-          data['label'] = recordItem.belong_to_group_weight_name;
-          data['unit_price'] = data['unit_price'] * 1000;
-          data['item_count'] = 0;
-          data['unit_name'] = '吨';
-        } else {
-          const productData = { ...data };
-          const weightName =
-            recordItem.belong_to_group_weight_name === recordItem.product_name
-              ? recordItem.product_label + '&&'
-              : recordItem.belong_to_group_weight_name + `-${recordItem.product_label}&&`;
-          productData['name'] = recordItem.belong_to_group_weight_name;
-          productData['label'] = weightName;
-          productData['count'] = 0;
-          productData['amount'] = 0;
-          productData['unit_name'] = '吨';
-          createLeasDatas.push(productData);
+          data['count'] = recordItem.group_weight;
+        } else if (recordItem.record_weight) {
+          const isRecord = record.find((item) => item.record_id === recordItem.record_id);
+          if (isRecord) return;
+          record.push(recordItem);
+          data['count'] = recordItem.record_weight;
         }
+        data['name'] = recordItem.belong_to_group_weight_name ?? recordItem.product_name;
+        data['label'] = recordItem.belong_to_group_weight_name ?? recordItem.product_name;
+        data['unit_price'] = data['unit_price'] * 1000;
+        data['item_count'] = 0;
+        data['unit_name'] = '吨';
       } else {
         const { count, unit } = calcItemCount(recordItem, recordItem.product_count);
         data['count'] = count;
@@ -162,24 +171,46 @@ export class SettlementProductsService {
     });
 
     //计算无关联费用
-    const feeItem = [];
     settlementAbout.settlementFeeNoProductData?.forEach((nFeeItem) => {
-      const data = {
-        settlement_id: settlementsId, //合同ID
-        movement: nFeeItem.movement, //出入库状态
-        date: dayjs(settlementAbout.end_date).add(1, 'day').add(-1, 'minute'),
-        name: nFeeItem.fee_label,
-        label: nFeeItem.fee_label,
-        category: nFeeItem.fee_name, //费用类别
-        unit_price: nFeeItem.unit_price,
-        unit_name: nFeeItem.unit,
-        count: 0,
-      };
-      if (nFeeItem.conversion_logic_id === ConversionLogics.ActualWeight) {
-        settlementAbout.settlementLeaseData.forEach((recordItem) => {
-          if (!dayjs(recordItem.date).isBetween(settlementAbout.start_date, settlementAbout.end_date, 'day', '[]'))
+      const feeItem = [];
+      const is_excludedItems = [];
+      settlementAbout.settlementLeaseData.forEach((recordItem) => {
+        if (!dayjs(recordItem.date).isBetween(settlementAbout.start_date, settlementAbout.end_date, 'day', '[]'))
+          return;
+        const data = {
+          settlement_id: settlementsId, //合同ID
+          movement: nFeeItem.movement, //出入库状态
+          date: dayjs(recordItem.date).endOf('day'),
+          name: nFeeItem.fee_label,
+          label: nFeeItem.fee_label,
+          category: nFeeItem.fee_name, //费用类别
+          unit_price: nFeeItem.unit_price,
+          unit_name: nFeeItem.unit,
+          days: 0,
+          count: 0,
+          exist: false,
+        };
+        if (nFeeItem.conversion_logic_id > 4 && nFeeItem.weightRules) {
+          const weight_rules = nFeeItem.weightRules.find((value) => value.new_product_id === recordItem.product_id);
+          nFeeItem['weight_rules_weight'] = weight_rules?.weight;
+          nFeeItem['weight_rule_conversion_logic_id'] = weight_rules?.conversion_logic_id;
+        }
+        if (nFeeItem.conversion_logic_id === ConversionLogics.ActualWeight) {
+          if (
+            (!recordItem.record_weight && !recordItem.group_weight) ||
+            nFeeItem.count_source === countCource.artificial
+          )
             return;
-          if (!recordItem.record_weight && !recordItem.group_weight) return;
+          if (nFeeItem.count_source === countCource.outProduct || nFeeItem.count_source === countCource.outItem) {
+            if (recordItem.movement === '1') return;
+            data.movement = '-1';
+          } else if (
+            nFeeItem.count_source === countCource.enterProduct ||
+            nFeeItem.count_source === countCource.enterItem
+          ) {
+            if (recordItem.movement === '-1') return;
+            data.movement = '1';
+          }
           if (recordItem.group_weight) {
             const isRecord = feeItem.find(
               (value) =>
@@ -187,47 +218,73 @@ export class SettlementProductsService {
                 value.belong_to_group_weight_id === recordItem.belong_to_group_weight_id,
             );
             if (isRecord) return;
-            data.count += recordItem.group_weight;
-          } else if (recordItem.records_weight) {
+            feeItem.push(recordItem);
+            data.count = recordItem.group_weight;
+            data.exist = true;
+          } else if (recordItem.record_weight) {
             const isRecord = feeItem.find((value) => value.record_number === recordItem.record_number);
             if (isRecord) return;
-            data.count += recordItem.records_weight;
+            feeItem.push(recordItem);
+            data.count = recordItem.record_weight;
+            data.exist = true;
           }
-        });
-      } else {
-        if (nFeeItem.count_source === countCource.artificial) {
-          settlementAbout.settlementRecordFee.forEach((value) => {
-            data.count += value.is_excluded ? 0 : value.count;
-          });
-        } else if (nFeeItem.count_source === countCource.outProduct || nFeeItem.count_source === countCource.outItem) {
-          const itemCount = calcFeeItemCount(settlementAbout, nFeeItem, data.count, '1');
-          data.count += itemCount;
-        } else if (
-          nFeeItem.count_source === countCource.enterProduct ||
-          nFeeItem.count_source === countCource.enterItem
-        ) {
-          const itemCount = calcFeeItemCount(settlementAbout, nFeeItem, data.count, '-1');
-          data.count += itemCount;
-        } else if (nFeeItem.count_source === countCource.product || nFeeItem.count_source === countCource.item) {
-          const itemCount = calcFeeItemCount(settlementAbout, nFeeItem, data.count, '0');
-          data.count += itemCount;
+        } else {
+          if (nFeeItem.count_source === countCource.artificial) {
+            const record = settlementAbout.settlementRecordFee.find(
+              (value) => value.number === recordItem.record_number && value.fee_product_id === nFeeItem.fee_product_id,
+            );
+            const isRecord = feeItem.find((value) => value.fee_product_id === record?.fee_product_id);
+            if (!record || isRecord) return;
+            feeItem.push(record);
+            data.count = record.count;
+            data.exist = true;
+          } else if (
+            nFeeItem.count_source === countCource.outProduct ||
+            nFeeItem.count_source === countCource.outItem
+          ) {
+            if (recordItem.movement === '1') return;
+            data.movement = '-1';
+            const { count } = calcItemCount(recordItem, recordItem.product_count, nFeeItem);
+            data.count = count;
+            data.exist = true;
+          } else if (
+            nFeeItem.count_source === countCource.enterProduct ||
+            nFeeItem.count_source === countCource.enterItem
+          ) {
+            if (recordItem.movement === '-1') return;
+            data.movement = '1';
+            const { count } = calcItemCount(recordItem, recordItem.product_count, nFeeItem);
+            data.count = count;
+            data.exist = true;
+          } else if (nFeeItem.count_source === countCource.product || nFeeItem.count_source === countCource.item) {
+            const { count } = calcItemCount(recordItem, recordItem.product_count, nFeeItem);
+            data.count = count;
+            data.exist = true;
+          }
         }
-      }
-      if (nFeeItem.count_source !== countCource.artificial) {
-        settlementAbout.settlementRecordFee.forEach((value) => {
-          if (!dayjs(value.date).isBetween(settlementAbout.start_date, settlementAbout.end_date, 'day', '[]')) return;
-          data.count += value.is_excluded ? data.count - value.count : data.count;
-        });
-      }
-      if (
-        nFeeItem.count_source !== countCource.artificial &&
-        nFeeItem.conversion_logic_id !== ConversionLogics.ActualWeight
-      ) {
-        data.count = data.count / 1000;
-      }
-      data['item_count'] = data.count;
-      data['amount'] = data.count * data.unit_price;
-      createFeesDatas.push(data);
+        if (nFeeItem.count_source !== countCource.artificial) {
+          const record = settlementAbout.settlementRecordFee?.find(
+            (value) => value.number === recordItem.record_number && value.fee_product_id === nFeeItem.fee_product_id,
+          );
+
+          const isRecord = is_excludedItems.find((value) => value.fee_product_id === record?.fee_product_id);
+          if (record && !isRecord) {
+            is_excludedItems.push(record);
+            data.count += record.is_excluded ? data.count - record.count : data.count;
+          }
+        }
+        if (
+          nFeeItem.count_source !== countCource.artificial &&
+          nFeeItem.conversion_logic_id !== ConversionLogics.ActualWeight
+        ) {
+          data.count = data.count / 1000;
+        }
+        if (data.exist) {
+          data['item_count'] = data.count;
+          data['amount'] = data.count * data.unit_price;
+          createFeesDatas.push(data);
+        }
+      });
     });
 
     createFeesDatas = createFeesDatas?.filter(Boolean);
@@ -235,8 +292,16 @@ export class SettlementProductsService {
 
     const createCategoryDatasItem = screenData(createLeasDatas, settlementAbout, 'category');
     const createProductDatasItem = screenData(createLeasDatas, settlementAbout, 'product');
+    const createCategoryFeeItem = screenData(createFeesDatas, settlementAbout, 'category');
+    const createProductFeeItem = screenData(createFeesDatas, settlementAbout, 'product');
+
     //本期信息
-    const createDatas = [...createCategoryDatasItem.list, ...createProductDatasItem.list, ...createFeesDatas];
+    const createDatas = [
+      ...createCategoryDatasItem.list,
+      ...createProductDatasItem.list,
+      ...createCategoryFeeItem.list,
+      ...createProductFeeItem.list,
+    ];
     createDatas.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
@@ -376,22 +441,6 @@ export class SettlementProductsService {
   }
 }
 
-const calcFeeItemCount = (settlementAbout, nFeeItem, itemCount, movement) => {
-  settlementAbout.settlementLeaseData.forEach((recordItem) => {
-    if (!dayjs(recordItem.date).isBetween(settlementAbout.start_date, settlementAbout.end_date, 'day', '[]')) return;
-    if (recordItem.movement === movement) return;
-    const item = { ...nFeeItem };
-    if (nFeeItem.conversion_logic_id > 4 && nFeeItem.weightRules) {
-      const weight_rules = nFeeItem.weightRules.find((value) => value.new_product_id === recordItem.product_id);
-      item['weight_rules_weight'] = weight_rules?.weight;
-      item['weight_rule_conversion_logic_id'] = weight_rules?.conversion_logic_id;
-    }
-    const { count } = calcItemCount(recordItem, recordItem.product_count, item);
-    itemCount += count;
-  });
-  return itemCount;
-};
-
 const calcItemCount = (recordItem, itemCount, feeItem?) => {
   let count;
   let unit;
@@ -403,7 +452,7 @@ const calcItemCount = (recordItem, itemCount, feeItem?) => {
   //1不换算
   if (conversion_logic_id === ConversionLogics.Keep) {
     count = itemCount;
-    unit = recordItem.unit;
+    unit = recordItem.product_unit;
   } //2产品表换算
   else if (conversion_logic_id === ConversionLogics.Product) {
     count = recordItem.product_conbertible ? itemCount * recordItem.porduct_ratio : itemCount;
@@ -486,6 +535,7 @@ const screenData = (data, settlementAbout, type) => {
       case 'category':
         listKey = `${name}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}`;
         historyKey = `${name}`;
+        value.item_count = 0;
         break;
       case 'product':
         listKey = `${value.label}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}`;
@@ -524,7 +574,7 @@ const screenData = (data, settlementAbout, type) => {
           amount: value.amount,
           category: value.category,
           count: value.count,
-          days: value.days || '',
+          days: value.days || 0,
           name: name,
           unit_name: value.unit_name,
           item_count: value.item_count,
