@@ -4,7 +4,7 @@ import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { Input as AntdInput } from 'antd';
 import cls from 'classnames';
 import { useCollectionRecord } from '@nocobase/client';
-import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
+import { usePrefixCls } from '@tachybase/components';
 
 const ReadPretty = (props) => {
   const prefixCls = usePrefixCls('description-input', props);

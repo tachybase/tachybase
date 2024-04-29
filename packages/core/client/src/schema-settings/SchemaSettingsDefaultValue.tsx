@@ -26,7 +26,7 @@ import {
   getFieldDefaultValue,
   SchemaSettingsModalItem,
 } from './SchemaSettings';
-import { ArrayCollapse, FormLayout } from '@formily/antd-v5';
+import { ArrayCollapse, FormLayout } from '@tachybase/components';
 
 export const SchemaSettingsDefaultValue = function DefaultValueConfigure(props: { fieldSchema?: Schema }) {
   const currentSchema = useFieldSchema();

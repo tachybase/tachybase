@@ -1,4 +1,4 @@
-import { FormLayout } from '@formily/antd-v5';
+import { FormLayout } from '@tachybase/components';
 import { createForm } from '@tachybase/schema';
 import { FormContext, useField, useFieldSchema } from '@tachybase/schema';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';

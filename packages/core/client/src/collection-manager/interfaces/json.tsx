@@ -1,4 +1,4 @@
-import { FormItem, FormLayout } from '@formily/antd-v5';
+import { FormItem, FormLayout } from '@tachybase/components';
 import { registerValidateRules } from '@tachybase/schema';
 import React from 'react';
 import { defaultProps, operators } from './properties';

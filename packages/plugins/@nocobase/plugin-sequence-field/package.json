@@ -10,7 +10,7 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@formily/antd-v5": "1.x",
+    "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
     "classnames": "^2.3.1",

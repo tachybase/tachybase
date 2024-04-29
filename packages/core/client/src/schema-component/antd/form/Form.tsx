@@ -1,4 +1,4 @@
-import { FormLayout } from '@formily/antd-v5';
+import { FormLayout } from '@tachybase/components';
 import { createForm } from '@tachybase/schema';
 import { FieldContext, FormContext, observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 import { Options, Result } from 'ahooks/es/useRequest/src/types';

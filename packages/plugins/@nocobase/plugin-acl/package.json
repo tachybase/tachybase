@@ -16,7 +16,7 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.3.6",
-    "@formily/antd-v5": "^1.1.9",
+    "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@types/jsonwebtoken": "^8.5.8",
     "ahooks": "^3.7.2",

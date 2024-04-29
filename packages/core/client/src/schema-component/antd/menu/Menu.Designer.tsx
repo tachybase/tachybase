@@ -1,4 +1,4 @@
-import { TreeSelect } from '@formily/antd-v5';
+import { TreeSelect } from '@tachybase/components';
 import { Field, onFieldChange } from '@tachybase/schema';
 import { ISchema, Schema, useField, useFieldSchema } from '@tachybase/schema';
 import React from 'react';

@@ -1,4 +1,4 @@
-import { ArrayItems } from '@formily/antd-v5';
+import { ArrayItems } from '@tachybase/components';
 import { css } from '@nocobase/client';
 import { Instruction, RadioWithTooltip } from '@tachybase/plugin-workflow/client';
 import { uid } from '@nocobase/utils/client';

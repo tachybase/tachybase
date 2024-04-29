@@ -1,7 +1,7 @@
 /**
  * title: DatePicker.RangePicker
  */
-import { FormItem } from '@formily/antd-v5';
+import { FormItem } from '@tachybase/components';
 import { DatePicker, Input, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
 import dayjs from 'dayjs';
 import React from 'react';

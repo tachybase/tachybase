@@ -6,7 +6,6 @@ import * as dndKitModifiers from '@dnd-kit/modifiers';
 import * as dndKitSortable from '@dnd-kit/sortable';
 import * as dndKitUtilities from '@dnd-kit/utilities';
 import * as emotionCss from '@emotion/css';
-import * as formilyAntdV5 from '@formily/antd-v5';
 import * as formilyCore from '@tachybase/schema';
 import * as formilyJsonSchema from '@tachybase/schema';
 import * as formilyPath from '@tachybase/schema';
@@ -19,6 +18,7 @@ import * as nocobaseEvaluators from '@nocobase/evaluators/client';
 import * as nocobaseClientUtils from '@nocobase/utils/client';
 import * as nocobaseSDK from '@nocobase/sdk';
 import * as nocobaseSchema from '@tachybase/schema';
+import * as nocobaseComponents from '@tachybase/components';
 import { dayjs } from '@nocobase/utils/client';
 import * as ahooks from 'ahooks';
 import * as antd from 'antd';
@@ -60,7 +60,6 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('react-i18next', () => reactI18next);
 
   // formily
-  requirejs.define('@formily/antd-v5', () => formilyAntdV5);
   requirejs.define('@formily/core', () => formilyCore);
   requirejs.define('@formily/react', () => formilyReact);
   requirejs.define('@formily/shared', () => formilyShared);
@@ -79,6 +78,7 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('@nocobase/evaluators/client', () => nocobaseEvaluators);
   requirejs.define('@nocobase/sdk', () => nocobaseSDK);
   requirejs.define('@tachybase/schema', () => nocobaseSchema);
+  requirejs.define('@tachybase/components', () => nocobaseComponents);
 
   // dnd-kit 相关
   requirejs.define('@dnd-kit/accessibility', () => dndKitAccessibility);

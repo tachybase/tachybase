@@ -1,4 +1,4 @@
-import { FormItem } from '@formily/antd-v5';
+import { FormItem } from '@tachybase/components';
 import { ISchema, observer } from '@tachybase/schema';
 import {
   Action,

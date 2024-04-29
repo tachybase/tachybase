@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { FormLayout } from '@formily/antd-v5';
+import { FormLayout } from '@tachybase/components';
 import { RecursionField, SchemaOptionsContext, observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useEffect } from 'react';
 import { ACLCollectionProvider, useACLActionParamsContext } from '../../../acl';

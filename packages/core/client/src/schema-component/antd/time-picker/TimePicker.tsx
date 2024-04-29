@@ -1,4 +1,4 @@
-import { dayjsable, formatDayjsValue } from '@formily/antd-v5/esm/__builtins__';
+import { dayjsable, formatDayjsValue } from '@tachybase/components';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import dayjs from 'dayjs';
 import { TimePicker as AntdTimePicker } from 'antd';

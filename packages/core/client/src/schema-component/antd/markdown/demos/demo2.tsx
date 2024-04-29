@@ -1,7 +1,7 @@
 /**
  * title: Markdown.Void
  */
-import { FormItem } from '@formily/antd-v5';
+import { FormItem } from '@tachybase/components';
 import { observer, useField } from '@tachybase/schema';
 import { Markdown, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
 import { Button } from 'antd';

@@ -1,4 +1,4 @@
-import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
+import { usePrefixCls } from '@tachybase/components/esm/__builtins__';
 import type { ColorPickerProps as AntdColorPickerProps } from 'antd/es/color-picker';
 import cls from 'classnames';
 import React from 'react';

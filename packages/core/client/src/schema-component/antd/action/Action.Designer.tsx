@@ -1,4 +1,4 @@
-import { ArrayTable } from '@formily/antd-v5';
+import { ArrayTable } from '@tachybase/components';
 import { Field, onFieldValueChange } from '@tachybase/schema';
 import { ISchema, useField, useFieldSchema, useForm, useFormEffects } from '@tachybase/schema';
 import { isValid, uid } from '@tachybase/schema';

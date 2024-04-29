@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { ArrayCollapse, ArrayItems, FormItem, FormLayout, Input } from '@formily/antd-v5';
+import { ArrayCollapse, ArrayItems, FormItem, FormLayout, Input } from '@tachybase/components';
 import { Field, GeneralField, createForm } from '@tachybase/schema';
 import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';

@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { ArrayCollapse, ArrayItems, FormLayout } from '@formily/antd-v5';
+import { ArrayCollapse, ArrayItems, FormLayout } from '@tachybase/components';
 import { Field } from '@tachybase/schema';
 import { ISchema, connect, mapProps, mapReadPretty, useField, useFieldSchema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';

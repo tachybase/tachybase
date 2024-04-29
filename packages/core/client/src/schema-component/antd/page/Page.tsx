@@ -1,6 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
-import { FormLayout } from '@formily/antd-v5';
+import { FormLayout } from '@tachybase/components';
 import { Schema, SchemaOptionsContext, useFieldSchema } from '@tachybase/schema';
 import { Button, Tabs } from 'antd';
 import classNames from 'classnames';

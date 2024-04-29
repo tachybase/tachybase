@@ -26,7 +26,7 @@ import { SchemaSettingsModalItem, VariableInput, getShouldChange } from '../../.
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
 import { useLocalVariables, useVariables } from '../../../../variables';
 // import { useCollectionField } from '../utils';
-import { ArrayItems } from '@formily/antd-v5';
+import { ArrayItems } from '@tachybase/components';
 import { useCollectionField } from '../../../../data-source';
 
 export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {

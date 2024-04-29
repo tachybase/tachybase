@@ -1,5 +1,5 @@
 import { InboxOutlined, PlusOutlined, ReloadOutlined, UploadOutlined } from '@ant-design/icons';
-import { FormItem } from '@formily/antd-v5';
+import { FormItem } from '@tachybase/components';
 import { Checkbox, DatePicker, useAPIClient, useCompile } from '@nocobase/client';
 import { Alert, App, Button, Card, Divider, Modal, Space, Spin, Table, Tabs, Upload, UploadProps, message } from 'antd';
 import { saveAs } from 'file-saver';
@@ -86,12 +86,12 @@ const LearnMore: any = (props: { collectionsData?: any; isBackup?: boolean }) =>
       key: 'collection',
       render: (_, data) => {
         const title = compile(data.title);
-        const name = data.name
-        return name === title ? title : (
+        const name = data.name;
+        return name === title ? (
+          title
+        ) : (
           <div>
-            {data.name}
-            {' '}
-            <span style={{ color: 'rgba(0, 0, 0, 0.3)', fontSize: '0.9em' }}>({compile(data.title)})</span>
+            {data.name} <span style={{ color: 'rgba(0, 0, 0, 0.3)', fontSize: '0.9em' }}>({compile(data.title)})</span>
           </div>
         );
       },
