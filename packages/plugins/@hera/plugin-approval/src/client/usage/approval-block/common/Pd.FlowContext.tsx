@@ -1,4 +1,4 @@
-import { FlowContext } from '@nocobase/plugin-workflow/client';
+import { FlowContext } from '@tachybase/plugin-workflow/client';
 import React, { useContext } from 'react';
 
 export function useFlowContext() {

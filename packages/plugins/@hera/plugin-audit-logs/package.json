@@ -17,10 +17,10 @@
   "peerDependencies": {
     "@nocobase/client": "workspace:*",
     "@nocobase/database": "workspace:*",
-    "@nocobase/schema": "workspace:*",
     "@nocobase/server": "workspace:*",
     "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@nocobase/utils": "workspace:*",
+    "@tachybase/schema": "workspace:*"
   },
   "description.zh-CN": "审计日志。",
   "displayName.zh-CN": "审计日志"

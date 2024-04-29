@@ -11,7 +11,7 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@formily/antd-v5": "1.x",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@types/node-xlsx": "^0.15.1",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",

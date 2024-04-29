@@ -1,4 +1,4 @@
-import { connect } from '@nocobase/schema';
+import { connect } from '@tachybase/schema';
 
 import Expression from './Expression';
 import Result from './Result';

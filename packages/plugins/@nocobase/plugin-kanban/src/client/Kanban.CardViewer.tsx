@@ -1,4 +1,4 @@
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 
 export const KanbanCardViewer: any = observer(
   (props: any) => {

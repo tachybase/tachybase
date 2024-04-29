@@ -1,4 +1,4 @@
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { useContext } from 'react';
 import { useActionContext, useAPIClient, useRecord, useResourceActionContext } from '@nocobase/client';
 import { PermissionContext } from '../PermisionProvider';

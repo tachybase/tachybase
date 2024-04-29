@@ -1,4 +1,4 @@
-import { Schema, useFieldSchema, useForm } from '@nocobase/schema';
+import { Schema, useFieldSchema, useForm } from '@tachybase/schema';
 import {
   useActionContext,
   useAPIClient,

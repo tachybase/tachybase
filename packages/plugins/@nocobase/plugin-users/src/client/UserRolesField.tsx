@@ -1,6 +1,6 @@
 import React from 'react';
-import { useField, Schema } from '@nocobase/schema';
-import { Field } from '@nocobase/schema';
+import { useField, Schema } from '@tachybase/schema';
+import { Field } from '@tachybase/schema';
 import { useUsersTranslation } from './locale';
 import { Tag } from 'antd';
 

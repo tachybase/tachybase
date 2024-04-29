@@ -1,5 +1,5 @@
-import { ObjectField } from '@nocobase/schema';
-import { Schema } from '@nocobase/schema';
+import { ObjectField } from '@tachybase/schema';
+import { Schema } from '@tachybase/schema';
 import { createContext } from 'react';
 
 export interface FilterContextProps {

@@ -1,5 +1,5 @@
-import { Field } from '@nocobase/schema';
-import { observer, useField, useFieldSchema } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useCollectionManager_deprecated } from '../../../collection-manager';
 import { AssociationFieldContext } from './context';

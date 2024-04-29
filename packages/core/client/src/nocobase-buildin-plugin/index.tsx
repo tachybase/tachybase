@@ -1,6 +1,6 @@
 import { DisconnectOutlined, LoadingOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import { getSubAppName } from '@nocobase/sdk';
 import { Button, Modal, Result, Spin } from 'antd';
 import React, { FC } from 'react';

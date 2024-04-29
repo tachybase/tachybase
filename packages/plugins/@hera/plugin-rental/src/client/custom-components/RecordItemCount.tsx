@@ -1,6 +1,6 @@
 import React from 'react';
 import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
-import { observer, useField, useForm } from '@nocobase/schema';
+import { observer, useField, useForm } from '@tachybase/schema';
 import _ from 'lodash';
 import { formatQuantity } from '../../utils/currencyUtils';
 import { Spin } from 'antd';

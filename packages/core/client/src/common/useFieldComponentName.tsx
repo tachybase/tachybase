@@ -1,5 +1,5 @@
-import { Field } from '@nocobase/schema';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import { useIsFileField } from '../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../schema-component/antd/table-v2/Table.Column.Decorator';
 import { useCollectionField } from '../data-source';

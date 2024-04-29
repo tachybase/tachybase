@@ -1,4 +1,4 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@nocobase/schema';
+import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 import { Drawer } from 'antd';
 import classNames from 'classnames';
 import React from 'react';

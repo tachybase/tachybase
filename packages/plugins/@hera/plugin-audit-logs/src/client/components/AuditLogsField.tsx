@@ -1,6 +1,6 @@
 import { EllipsisWithTooltip, useCompile } from '@nocobase/client';
 import React from 'react';
-import { observer, useField } from '@nocobase/schema';
+import { observer, useField } from '@tachybase/schema';
 
 export const AuditLogsField = observer(
   () => {

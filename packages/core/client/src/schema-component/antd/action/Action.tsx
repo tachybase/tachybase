@@ -1,4 +1,4 @@
-import { observer, RecursionField, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { observer, RecursionField, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { isPortalInBody } from '@nocobase/utils/client';
 import { App, Button } from 'antd';
 import classnames from 'classnames';

@@ -1,4 +1,4 @@
-import { RecursionField, observer, useField, useFieldSchema } from '@nocobase/schema';
+import { RecursionField, observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useState } from 'react';
 import { CollectionProvider_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { CreateAction } from '../../../../schema-initializer/components';

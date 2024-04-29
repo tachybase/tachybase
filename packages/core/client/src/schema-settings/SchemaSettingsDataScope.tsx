@@ -1,4 +1,4 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import React, { FC, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DatePickerProvider, useCollectionManager_deprecated, useRecord } from '..';

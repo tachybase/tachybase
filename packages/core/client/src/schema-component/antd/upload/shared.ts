@@ -1,7 +1,7 @@
-import { Field } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
-import { reaction } from '@nocobase/schema';
-import { isArr, isValid, toArr as toArray } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
+import { reaction } from '@tachybase/schema';
+import { isArr, isValid, toArr as toArray } from '@tachybase/schema';
 import { UploadFile } from 'antd/es/upload/interface';
 import { useEffect } from 'react';
 import { useAPIClient } from '../../../api-client';

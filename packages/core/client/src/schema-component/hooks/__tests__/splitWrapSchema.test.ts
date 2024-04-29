@@ -1,4 +1,4 @@
-import { Schema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
 import { splitWrapSchema } from '../useDesignable';
 
 describe('splitWrapSchema', () => {

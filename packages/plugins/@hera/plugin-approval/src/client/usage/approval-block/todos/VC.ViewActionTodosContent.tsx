@@ -6,7 +6,7 @@ import {
   useRecord,
   useRequest,
 } from '@nocobase/client';
-import { DetailsBlockProvider, ExecutionContextProvider } from '@nocobase/plugin-workflow/client';
+import { DetailsBlockProvider, ExecutionContextProvider } from '@tachybase/plugin-workflow/client';
 import { Result, Spin } from 'antd';
 import _ from 'lodash';
 import React, { useContext } from 'react';

@@ -39,7 +39,7 @@ const external = [
   '@nocobase/logger',
   '@nocobase/resourcer',
   '@nocobase/sdk',
-  '@nocobase/schema',
+  '@tachybase/schema',
   '@nocobase/server',
   '@nocobase/test',
   '@nocobase/utils',
@@ -124,7 +124,7 @@ const external = [
   'china-division',
 ];
 const pluginPrefix = (
-  process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@tachybase/preset-,@nocobase/plugin-pro-,@hera/plugin-'
+  process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@tachybase/preset-,@tachybase/plugin-,@hera/plugin-'
 ).split(',');
 
 const target_dir = 'dist';
@@ -306,7 +306,7 @@ export async function buildPluginClient(cwd: string, userConfig: UserConfig, sou
   const outDir = path.join(cwd, target_dir, 'client');
 
   const globals = excludePackages.reduce<Record<string, string>>((prev, curr) => {
-    if (curr.startsWith('@nocobase') || curr.startsWith('@hera')) {
+    if (curr.startsWith('@nocobase') || curr.startsWith('@hera') || curr.startsWith('@tachybase')) {
       prev[`${curr}/client`] = curr;
     }
     prev[curr] = curr;

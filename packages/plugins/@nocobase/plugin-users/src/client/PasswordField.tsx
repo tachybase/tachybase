@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Input, Row, Col, Button } from 'antd';
 import { Password, useActionContext } from '@nocobase/client';
-import { useField } from '@nocobase/schema';
-import { Field } from '@nocobase/schema';
+import { useField } from '@tachybase/schema';
+import { Field } from '@tachybase/schema';
 import { useUsersTranslation } from './locale';
 import { generatePassword } from './utils';
 

@@ -1,4 +1,4 @@
-import { useField } from '@nocobase/schema';
+import { useField } from '@tachybase/schema';
 import { useEffect, useContext } from 'react';
 import { LinkageLogicContext } from './context';
 

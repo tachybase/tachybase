@@ -1,4 +1,4 @@
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import {
   ActionContext,
   SchemaComponent,
@@ -13,7 +13,7 @@ import {
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useForm, useField } from '@nocobase/schema';
+import { useForm, useField } from '@tachybase/schema';
 import PluginDatabaseConnectionsClient from '../';
 import { NAMESPACE } from '../locale';
 

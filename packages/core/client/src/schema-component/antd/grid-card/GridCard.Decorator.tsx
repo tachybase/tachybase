@@ -1,6 +1,6 @@
 import { FormLayout } from '@formily/antd-v5';
-import { createForm } from '@nocobase/schema';
-import { FormContext, useField, useFieldSchema } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
+import { FormContext, useField, useFieldSchema } from '@tachybase/schema';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { BlockProvider, useBlockRequestContext, useParsedFilter } from '../../../block-provider';
 import useStyles from './GridCard.Decorator.style';

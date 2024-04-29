@@ -1,4 +1,4 @@
-import { useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 import {
   TableFieldResource,
   useAPIClient,

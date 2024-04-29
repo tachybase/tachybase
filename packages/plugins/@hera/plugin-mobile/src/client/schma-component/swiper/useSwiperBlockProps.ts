@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useCollection, useDesignable, useRequest } from '@nocobase/client';

@@ -1,4 +1,4 @@
-import { ISchema, Schema } from '@nocobase/schema';
+import { ISchema, Schema } from '@tachybase/schema';
 
 export const isCollectionFieldComponent = (schema: ISchema) => {
   return schema['x-component'] === 'CollectionField';

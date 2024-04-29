@@ -11,7 +11,7 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@formily/antd-v5": "1.x",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
     "classnames": "^2.3.1",
     "cron-parser": "4.4.0",

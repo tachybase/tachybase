@@ -1,4 +1,4 @@
-import { Schema, useFieldSchema } from '@nocobase/schema';
+import { Schema, useFieldSchema } from '@tachybase/schema';
 import { flatten, getValuesByPath } from '@nocobase/utils/client';
 import _ from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
@@ -37,8 +37,8 @@ export const mergeFilter = (filters: any[], op = '$and') => {
 };
 
 export const getSupportFieldsByAssociation = (inheritCollectionsChain: string[], block: DataBlock) => {
-  return block.associatedFields?.filter(
-    (field) => inheritCollectionsChain?.some((collectionName) => collectionName === field.target),
+  return block.associatedFields?.filter((field) =>
+    inheritCollectionsChain?.some((collectionName) => collectionName === field.target),
   );
 };
 

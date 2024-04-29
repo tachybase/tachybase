@@ -1,4 +1,4 @@
-import { connect, mapReadPretty } from '@nocobase/schema';
+import { connect, mapReadPretty } from '@tachybase/schema';
 import React, { useMemo } from 'react';
 import { DatePicker } from '../date-picker';
 import dayjs from 'dayjs';

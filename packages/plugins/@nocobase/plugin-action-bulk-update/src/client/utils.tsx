@@ -1,4 +1,4 @@
-import { SchemaExpressionScopeContext, useField, useFieldSchema } from '@nocobase/schema';
+import { SchemaExpressionScopeContext, useField, useFieldSchema } from '@tachybase/schema';
 import {
   TableFieldResource,
   isVariable,

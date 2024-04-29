@@ -11,7 +11,7 @@
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.3.6",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
     "antd": "5.16.1",
     "deepmerge": "^4.3.1",

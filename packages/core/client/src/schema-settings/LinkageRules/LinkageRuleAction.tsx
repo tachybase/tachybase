@@ -1,8 +1,8 @@
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
 import { TreeSelect } from '@formily/antd-v5';
-import { observer } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { Select, Space } from 'antd';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,11 +1,11 @@
-import { onFormValuesChange, createForm, Form } from '@nocobase/schema';
-import { connect } from '@nocobase/schema';
+import { onFormValuesChange, createForm, Form } from '@tachybase/schema';
+import { connect } from '@tachybase/schema';
 import { SchemaComponent, useAPIClient, useRequest } from '@nocobase/client';
 import { Checkbox, message } from 'antd';
 import uniq from 'lodash/uniq';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { useMemoizedFn } from 'ahooks';
 import { RolesManagerContext } from '../RolesManagerProvider';
 import { StrategyActions } from './StrategyActions';

@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import React from 'react';
 import { SortableItem, useDesigner } from '../..';
 

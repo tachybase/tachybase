@@ -1,4 +1,4 @@
-import { connect, mapReadPretty, observer, useField } from '@nocobase/schema';
+import { connect, mapReadPretty, observer, useField } from '@tachybase/schema';
 import { Cascader, Select, SelectProps, Tag } from 'antd';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

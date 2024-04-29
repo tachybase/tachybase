@@ -1,7 +1,7 @@
 import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
-import { Field } from '@nocobase/schema';
-import { observer, useField } from '@nocobase/schema';
-import { isArr } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { observer, useField } from '@tachybase/schema';
+import { isArr } from '@tachybase/schema';
 import { Tag } from 'antd';
 import { TreeSelectProps } from 'antd/es/tree-select';
 import cls from 'classnames';

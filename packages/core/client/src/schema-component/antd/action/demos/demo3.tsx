@@ -1,5 +1,5 @@
-import { Field } from '@nocobase/schema';
-import { ISchema, observer, useField, useFieldSchema } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { ISchema, observer, useField, useFieldSchema } from '@tachybase/schema';
 import { Action, SchemaComponent, SchemaComponentProvider, useActionContext } from '@nocobase/client';
 import { Radio } from 'antd';
 import React, { useRef } from 'react';

@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { Field, GeneralField } from '@nocobase/schema';
-import { RecursionField, useField, useFieldSchema } from '@nocobase/schema';
+import { Field, GeneralField } from '@tachybase/schema';
+import { RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 import { Col, Row } from 'antd';
 import merge from 'deepmerge';
 import template from 'lodash/template';

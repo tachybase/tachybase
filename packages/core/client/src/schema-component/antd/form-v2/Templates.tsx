@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { error, forEach } from '@nocobase/utils/client';
 import { Select, Space } from 'antd';
 import _ from 'lodash';

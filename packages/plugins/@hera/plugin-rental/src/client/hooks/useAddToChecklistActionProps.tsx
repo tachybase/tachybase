@@ -1,4 +1,4 @@
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { useAPIClient, useBlockRequestContext, useRequest } from '@nocobase/client';
 import { useChartFilter } from '@nocobase/plugin-data-visualization/client';
 import { message } from 'antd';

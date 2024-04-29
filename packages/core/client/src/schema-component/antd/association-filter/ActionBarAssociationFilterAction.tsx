@@ -1,4 +1,4 @@
-import { Schema, useFieldSchema } from '@nocobase/schema';
+import { Schema, useFieldSchema } from '@tachybase/schema';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SchemaComponentContext, createDesignable } from '../..';

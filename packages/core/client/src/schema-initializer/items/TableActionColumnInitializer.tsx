@@ -1,5 +1,5 @@
 import React from 'react';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { useSchemaInitializerItem } from '../../application';
 import { InitializerWithSwitch } from './InitializerWithSwitch';
 

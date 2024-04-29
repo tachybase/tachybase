@@ -1,5 +1,5 @@
-import { createForm } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
 import {
   BlockAssociationContext,
   BlockRequestContext_deprecated,

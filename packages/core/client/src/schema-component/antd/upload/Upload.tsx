@@ -1,5 +1,5 @@
 import { DeleteOutlined, DownloadOutlined, InboxOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { Upload as AntdUpload, Button, Modal, Progress, Space, UploadFile } from 'antd';
 import cls from 'classnames';
 import { saveAs } from 'file-saver';

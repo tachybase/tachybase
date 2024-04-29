@@ -1,5 +1,5 @@
-import { Field } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
 import { Input } from 'antd';
 import { TextAreaProps } from 'antd/es/input';
 import React, { useState, useEffect, Ref } from 'react';

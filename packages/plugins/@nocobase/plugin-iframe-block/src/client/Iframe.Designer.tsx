@@ -1,5 +1,5 @@
-import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import {
   GeneralSchemaDesigner,
   SchemaSettingsDivider,

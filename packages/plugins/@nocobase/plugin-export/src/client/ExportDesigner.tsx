@@ -1,6 +1,6 @@
 import { ArrayItems } from '@formily/antd-v5';
-import type { ISchema } from '@nocobase/schema';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import type { ISchema } from '@tachybase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import {
   GeneralSchemaDesigner,
   SchemaSettingsActionModalItem,

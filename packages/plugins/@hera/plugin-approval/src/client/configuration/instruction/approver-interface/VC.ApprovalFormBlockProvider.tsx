@@ -9,7 +9,7 @@ import {
   useAssociationNames,
   useDesignable,
 } from '@nocobase/client';
-import { RecursionField, createForm, useField, useFieldSchema } from '@nocobase/schema';
+import { RecursionField, createForm, useField, useFieldSchema } from '@tachybase/schema';
 import React, { Fragment, useContext, useMemo, useRef } from 'react';
 
 export const ApprovalFormBlockProvider = (props) => {

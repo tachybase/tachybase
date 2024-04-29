@@ -1,5 +1,5 @@
 import { findFilterTargets, mergeFilter, useApp, useCollection, useFilterBlock } from '@nocobase/client';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { useMemo } from 'react';
 import _ from 'lodash';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Plugin, RemoteSchemaTemplateManagerProvider, EditTitleField, useCollection } from '@nocobase/client';
 import { remove } from 'lodash';
-import { useFieldSchema } from '@nocobase/schema';
-import { isValid } from '@nocobase/schema';
-import { autorun } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
+import { isValid } from '@tachybase/schema';
+import { autorun } from '@tachybase/schema';
 import { Locale, tval } from './locale';
 import {
   PageModeSetting,

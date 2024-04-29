@@ -1,7 +1,7 @@
 import { ArrayCollapse, FormLayout } from '@formily/antd-v5';
-import { Field } from '@nocobase/schema';
-import { ISchema, Schema, useField, useFieldSchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { ISchema, Schema, useField, useFieldSchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import _ from 'lodash';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

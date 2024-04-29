@@ -11,7 +11,7 @@
   "main": "dist/server/index.js",
   "devDependencies": {
     "@emotion/css": "^11.7.1",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
     "lodash": "4.17.21",
     "react-i18next": "^11.15.1"

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { FieldOption } from '../hooks';
 import { ChartRendererContext, QueryProps } from '../renderer';
 import { parseField } from '../utils';
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import configs, { AnySchemaProperties, Config } from './configs';
 import { Transformer } from '../block/transformers';
 

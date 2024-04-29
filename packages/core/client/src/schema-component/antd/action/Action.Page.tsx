@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { observer, RecursionField, SchemaExpressionScopeContext, useField, useFieldSchema } from '@nocobase/schema';
+import { observer, RecursionField, SchemaExpressionScopeContext, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { useActionContext } from '.';

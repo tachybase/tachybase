@@ -96,8 +96,8 @@
       "@formily/reactive-react": "2.2.27",
       "@formily/shared": "2.2.27",
       "@formily/validator": "2.2.27",
-      "@types/node": "^20.12.2"
+      "@types/node": "^20.12.2",
+      "dayjs": "1.11.10"
     }
-  },
-  "licenses": "Apache-2.0"
+  }
 }

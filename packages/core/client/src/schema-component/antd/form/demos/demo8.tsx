@@ -1,5 +1,5 @@
 import { FormItem } from '@formily/antd-v5';
-import { ISchema, observer } from '@nocobase/schema';
+import { ISchema, observer } from '@tachybase/schema';
 import {
   Action,
   ActionContextProvider,

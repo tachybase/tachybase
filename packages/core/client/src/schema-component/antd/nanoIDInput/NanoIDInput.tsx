@@ -1,7 +1,7 @@
 import { customAlphabet as Alphabet } from 'nanoid';
 import React, { useEffect } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty, useForm } from '@nocobase/schema';
+import { connect, mapProps, mapReadPretty, useForm } from '@tachybase/schema';
 import { Input as AntdInput } from 'antd';
 import { ReadPretty } from '../input';
 import { useCollectionField } from '../../../data-source/collection-field/CollectionFieldProvider';

@@ -5,7 +5,7 @@ import {
   useSchemaInitializerItem,
 } from '@nocobase/client';
 import React from 'react';
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { Toast } from 'antd-mobile';
 import { CalendarOutline } from 'antd-mobile-icons';
 

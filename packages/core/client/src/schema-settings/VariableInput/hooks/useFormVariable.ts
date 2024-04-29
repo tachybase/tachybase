@@ -1,5 +1,5 @@
-import { Form } from '@nocobase/schema';
-import { Schema } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
+import { Schema } from '@tachybase/schema';
 import { useTranslation } from 'react-i18next';
 import { useFormBlockContext } from '../../../block-provider';
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';

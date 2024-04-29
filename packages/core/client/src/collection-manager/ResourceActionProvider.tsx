@@ -1,4 +1,4 @@
-import { useField } from '@nocobase/schema';
+import { useField } from '@tachybase/schema';
 import { Result } from 'ahooks/es/useRequest/src/types';
 import React, { createContext, useContext, useEffect } from 'react';
 import { useCollectionManager_deprecated } from '.';

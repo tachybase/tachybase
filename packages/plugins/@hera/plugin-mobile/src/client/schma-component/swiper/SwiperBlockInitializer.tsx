@@ -7,7 +7,7 @@ import {
 } from '@nocobase/client';
 import React from 'react';
 import { createGridCardBlockSchema } from '../../schma-block/schema-create/createGridCardBlockSchma';
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { Toast } from 'antd-mobile';
 
 export const SwiperBlockInitializer = () => {

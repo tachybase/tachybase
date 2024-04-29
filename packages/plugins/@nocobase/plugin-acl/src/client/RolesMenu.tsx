@@ -9,7 +9,7 @@ import { Menu, Empty, Dropdown, App, Tag, Row, Col, Spin } from 'antd';
 import { TagOutlined, MoreOutlined } from '@ant-design/icons';
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useACLTranslation } from './locale';
-import { Schema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
 import { RolesManagerContext } from './RolesManagerProvider';
 import { roleEditSchema } from './schemas/roles';
 import { useLoadMoreObserver } from './hooks/load-more-observer';
