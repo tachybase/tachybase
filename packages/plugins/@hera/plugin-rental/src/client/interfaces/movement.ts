@@ -1,6 +1,6 @@
 import { CollectionFieldInterface, dataSource, defaultProps, operators } from '@nocobase/client';
 import { tval } from '../locale';
-import { Field, uid } from '@nocobase/schema';
+import { Field, uid } from '@tachybase/schema';
 
 export class MovementFieldInterface extends CollectionFieldInterface {
   name = 'movement';

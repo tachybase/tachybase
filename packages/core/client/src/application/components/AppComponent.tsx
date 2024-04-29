@@ -1,4 +1,4 @@
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import React, { FC, useCallback, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import type { Application } from '../Application';

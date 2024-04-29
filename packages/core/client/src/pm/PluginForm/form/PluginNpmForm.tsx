@@ -1,6 +1,6 @@
-import { ISchema } from '@nocobase/schema';
-import { useForm } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
+import { useForm } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { App } from 'antd';
 import React, { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

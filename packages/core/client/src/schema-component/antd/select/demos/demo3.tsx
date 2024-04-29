@@ -2,7 +2,7 @@
  * title: Select
  */
 import { FormItem } from '@formily/antd-v5';
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { SchemaComponent, SchemaComponentProvider, Select } from '@nocobase/client';
 import React from 'react';
 

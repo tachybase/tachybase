@@ -1,6 +1,6 @@
-import { GeneralField } from '@nocobase/schema';
-import { useField, useFieldSchema } from '@nocobase/schema';
-import { reaction } from '@nocobase/schema';
+import { GeneralField } from '@tachybase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
+import { reaction } from '@tachybase/schema';
 import { flatten, getValuesByPath } from '@nocobase/utils/client';
 import _, { isString } from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';

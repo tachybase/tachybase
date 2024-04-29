@@ -1,4 +1,4 @@
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import { Input } from 'antd';
 import { debounce } from 'lodash';
 import React, { useState, useMemo, useEffect } from 'react';

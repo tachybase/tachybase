@@ -1,4 +1,4 @@
-import { ISchema, observer, useForm } from '@nocobase/schema';
+import { ISchema, observer, useForm } from '@tachybase/schema';
 import {
   Action,
   Form,

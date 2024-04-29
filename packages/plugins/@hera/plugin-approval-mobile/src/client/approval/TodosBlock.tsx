@@ -8,7 +8,7 @@ import { TabBatchProcessingType } from './component/TabBatchProcessingType';
 import { TabApprovalType } from './component/TabApprovalType';
 import { TabReadingType } from './component/TabReadingType';
 import { TabApprovalItem } from './component/TabApprovalItem';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 
 export const TodosBlock = () => {
   const fieldSchema = useFieldSchema();

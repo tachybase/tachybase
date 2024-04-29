@@ -1,4 +1,4 @@
-import { useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { SchemaSettingsNumberFormat } from '../../../../schema-settings/SchemaSettingsNumberFormat';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';

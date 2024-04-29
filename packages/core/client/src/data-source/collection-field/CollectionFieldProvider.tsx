@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, createContext, useContext, useMemo } from 'react';
 
-import { useFieldSchema, type SchemaKey } from '@nocobase/schema';
+import { useFieldSchema, type SchemaKey } from '@tachybase/schema';
 import type { CollectionFieldOptions } from '../collection';
 
 import { useCollection, useCollectionManager } from '../collection';

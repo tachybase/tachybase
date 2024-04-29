@@ -1,7 +1,7 @@
 /**
  * title: 勾选
  */
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import {
   APIClientProvider,
   Action,

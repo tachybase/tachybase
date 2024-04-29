@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { SchemaSettingsSwitchItem, useDesignable } from '@nocobase/client';
 import { useTranslation } from '../locale';
 

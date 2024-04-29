@@ -1,4 +1,4 @@
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import { Button } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { CalendarToolbarContext } from './context';

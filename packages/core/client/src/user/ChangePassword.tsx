@@ -1,5 +1,5 @@
-import { ISchema, useForm } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema, useForm } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { MenuProps } from 'antd';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

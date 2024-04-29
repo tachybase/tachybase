@@ -8,7 +8,7 @@ import {
   useFormBlockContext,
 } from '@nocobase/client';
 import { useTranslation } from '../../../locale';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 import { isTabSearchCollapsibleInputItem } from '../utils';
 

@@ -1,5 +1,5 @@
-import { observer, useForm } from '@nocobase/schema';
-import { action } from '@nocobase/schema';
+import { observer, useForm } from '@tachybase/schema';
+import { action } from '@tachybase/schema';
 import React from 'react';
 import { useCollectionManager_deprecated } from '../../collection-manager';
 import { SchemaComponent, useCompile, useProps } from '../../schema-component';

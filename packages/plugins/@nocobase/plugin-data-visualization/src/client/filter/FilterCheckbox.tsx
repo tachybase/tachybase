@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect, useField } from '@nocobase/schema';
+import { connect, useField } from '@tachybase/schema';
 import { Checkbox } from 'antd';
-import { Field } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
 
 export const ChartFilterCheckbox = connect((props) => {
   const { content } = props;

@@ -243,7 +243,7 @@ export async function genTsConfigPaths() {
         paths[`${packageJsonName}/server`] = [`${relativePath}/src/server`];
         paths[`${packageJsonName}/e2e`] = [`${relativePath}/src/e2e`];
       }
-      if (packageJsonName === '@nocobase/plugin-workflow-test') {
+      if (packageJsonName === '@tachybase/plugin-workflow-test') {
         paths[`${packageJsonName}/e2e`] = [`${relativePath}/src/e2e`];
       }
     }),
@@ -322,7 +322,7 @@ export function initEnv() {
     SOCKET_PATH: 'storage/gateway.sock',
     NODE_MODULES_PATH: resolve(process.cwd(), 'node_modules'),
     PM2_HOME: resolve(process.cwd(), './storage/.pm2'),
-    PLUGIN_PACKAGE_PREFIX: '@nocobase/plugin-,@nocobase/plugin-sample-,@tachybase/preset-,@hera/plugin-',
+    PLUGIN_PACKAGE_PREFIX: '@nocobase/plugin-,@tachybase/plugin-,@tachybase/preset-,@hera/plugin-',
     SERVER_TSCONFIG_PATH: './tsconfig.server.json',
     PLAYWRIGHT_AUTH_FILE: resolve(process.cwd(), 'storage/playwright/.auth/admin.json'),
     CACHE_DEFAULT_STORE: 'memory',

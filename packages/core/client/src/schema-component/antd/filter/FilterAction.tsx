@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { createForm, Field, Form } from '@nocobase/schema';
-import { observer, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { createForm, Field, Form } from '@tachybase/schema';
+import { observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { flatten, unflatten } from '@nocobase/utils/client';
 import { Button, Space } from 'antd';
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';

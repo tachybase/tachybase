@@ -1,6 +1,6 @@
 import { TableOutlined } from '@ant-design/icons';
 import { FormLayout } from '@formily/antd-v5';
-import { SchemaOptionsContext } from '@nocobase/schema';
+import { SchemaOptionsContext } from '@tachybase/schema';
 import React, { useContext } from 'react';
 import {
   useSchemaTemplateManager,

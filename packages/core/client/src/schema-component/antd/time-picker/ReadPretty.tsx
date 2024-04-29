@@ -1,5 +1,5 @@
 import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
-import { toArr } from '@nocobase/schema';
+import { toArr } from '@tachybase/schema';
 import dayjs from 'dayjs';
 import { TimeRangePickerProps } from 'antd/es/time-picker';
 import cls from 'classnames';

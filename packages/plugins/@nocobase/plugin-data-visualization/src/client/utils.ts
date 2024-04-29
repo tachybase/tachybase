@@ -1,5 +1,5 @@
-import { Schema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import lodash from 'lodash';
 import { SelectedField } from './configure';
 import { FieldOption } from './hooks';

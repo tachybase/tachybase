@@ -1,6 +1,6 @@
 import { DragOutlined, MenuOutlined, PlusOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import { Space } from 'antd';
 import classNames from 'classnames';
 import React, { FC, useEffect, useMemo, useRef } from 'react';

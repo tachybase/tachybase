@@ -1,4 +1,4 @@
-import { reaction } from '@nocobase/schema';
+import { reaction } from '@tachybase/schema';
 import { flatten, getValuesByPath } from '@nocobase/utils/client';
 import _ from 'lodash';
 import { useEffect, useState } from 'react';

@@ -1,7 +1,7 @@
 import { FormItem } from '@formily/antd-v5';
-import { ArrayField } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
-import { action } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
+import { action } from '@tachybase/schema';
 import {
   APIClient,
   APIClientProvider,
@@ -35,12 +35,15 @@ mock.onGet('/china_regions').reply(200, {
 const useAsyncDataSource = (api: APIClient) => (field) => {
   field.loading = true;
   console.log('useAsyncDataSource');
-  api.request({ url: 'china_regions' }).then(
-    action.bound((res) => {
-      field.dataSource = res?.data?.data || [];
-      field.loading = false;
-    }),
-  );
+  api
+    .request({ url: 'china_regions' })
+    .then(
+      action.bound((res) => {
+        field.dataSource = res?.data?.data || [];
+        field.loading = false;
+      }),
+    )
+    .catch(console.error);
 };
 
 const useLoadData = () => {

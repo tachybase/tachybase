@@ -1,6 +1,6 @@
-import { isArrayField } from '@nocobase/schema';
-import { observer, useField } from '@nocobase/schema';
-import { isValid } from '@nocobase/schema';
+import { isArrayField } from '@tachybase/schema';
+import { observer, useField } from '@tachybase/schema';
+import { isValid } from '@tachybase/schema';
 import { Tag } from 'antd';
 import React from 'react';
 import { EllipsisWithTooltip } from '../input/EllipsisWithTooltip';

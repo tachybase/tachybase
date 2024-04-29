@@ -1,4 +1,4 @@
-import { ISchema, observer } from '@nocobase/schema';
+import { ISchema, observer } from '@tachybase/schema';
 import { ConfigProvider, Popover, theme } from 'antd';
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
 

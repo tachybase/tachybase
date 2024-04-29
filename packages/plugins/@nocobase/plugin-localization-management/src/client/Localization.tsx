@@ -1,6 +1,6 @@
 import { SyncOutlined } from '@ant-design/icons';
-import { Form, createForm } from '@nocobase/schema';
-import { FieldComponent as Field, useField, useForm } from '@nocobase/schema';
+import { Form, createForm } from '@tachybase/schema';
+import { FieldComponent as Field, useField, useForm } from '@tachybase/schema';
 import {
   FormProvider,
   Input,

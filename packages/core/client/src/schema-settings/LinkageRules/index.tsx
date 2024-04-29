@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { Form } from '@nocobase/schema';
-import { observer, useFieldSchema } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
+import { observer, useFieldSchema } from '@tachybase/schema';
 import React, { useMemo } from 'react';
 import { FormBlockContext } from '../../block-provider';
 import { useCollectionManager_deprecated } from '../../collection-manager';

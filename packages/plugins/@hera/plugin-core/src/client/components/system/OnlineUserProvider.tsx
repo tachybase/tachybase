@@ -1,4 +1,4 @@
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { css, useAPIClient, useApp } from '@nocobase/client';
 import { Button, Dropdown } from 'antd';
 import React, { useEffect, useState } from 'react';

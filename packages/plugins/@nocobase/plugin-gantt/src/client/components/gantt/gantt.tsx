@@ -1,5 +1,5 @@
 import { css, cx } from '@emotion/css';
-import { RecursionField, Schema, useFieldSchema } from '@nocobase/schema';
+import { RecursionField, Schema, useFieldSchema } from '@tachybase/schema';
 import {
   ActionContextProvider,
   RecordProvider,

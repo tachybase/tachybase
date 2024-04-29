@@ -1,4 +1,4 @@
-import type { ISchema } from '@nocobase/schema';
+import type { ISchema } from '@tachybase/schema';
 import { i18n } from '../../i18n';
 import { defaultProps, operators } from './properties';
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';

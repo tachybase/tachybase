@@ -1,4 +1,4 @@
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import { Tag } from 'antd';
 import { useAntdToken } from 'antd-style';
 import React, { useMemo } from 'react';

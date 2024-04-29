@@ -15,7 +15,7 @@
     "@ant-design/icons": "~5.3.6",
     "@formily/antd-v5": "1.x",
     "@googlemaps/js-api-loader": "^1.16.1",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@types/google.maps": "^3.53.4",
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.23",

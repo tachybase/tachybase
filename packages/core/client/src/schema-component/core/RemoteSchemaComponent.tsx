@@ -1,5 +1,5 @@
-import { createForm } from '@nocobase/schema';
-import { Schema } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
+import { Schema } from '@tachybase/schema';
 import { Spin } from 'antd';
 import React, { useMemo } from 'react';
 import { useRequest } from '../../api-client';

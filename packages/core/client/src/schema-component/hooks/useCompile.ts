@@ -1,4 +1,4 @@
-import { Schema, SchemaExpressionScopeContext, SchemaOptionsContext } from '@nocobase/schema';
+import { Schema, SchemaExpressionScopeContext, SchemaOptionsContext } from '@tachybase/schema';
 import { isValidElement, useContext } from 'react';
 
 interface Props {

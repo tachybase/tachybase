@@ -1,4 +1,4 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { useContext, useEffect } from 'react';
 import { useFormBlockContext, VariableInput, useFilterFieldOptions } from '@nocobase/client';
 import { RoleResourceCollectionContext } from '../RolesResourcesActions';

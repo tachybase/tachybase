@@ -1,4 +1,4 @@
-import type { ISchema } from '@nocobase/schema';
+import type { ISchema } from '@tachybase/schema';
 import type { CollectionFieldOptions } from '../collection';
 import { CollectionFieldInterfaceManager } from './CollectionFieldInterfaceManager';
 

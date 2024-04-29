@@ -1,12 +1,12 @@
 import { createStyles, useCurrentUserContext } from '@nocobase/client';
-import { EXECUTION_STATUS } from '@nocobase/plugin-workflow/client';
+import { EXECUTION_STATUS } from '@tachybase/plugin-workflow/client';
 import { Space, Table } from 'antd';
 import _ from 'lodash';
 import React, { useMemo } from 'react';
 import { useApproval } from './Pd.ApprovalData';
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from '../../constants';
 import { ContextWithActionEnabled } from './Pd.WithActionEnabled';
-import { usePluginTranslation, useTranslation } from '../../locale';
+import { tval, usePluginTranslation, useTranslation } from '../../locale';
 import { getAntdTableColumns } from './process-columns/columns';
 
 // 审批(发起/待办)区块-查看-审批处理
@@ -47,7 +47,6 @@ const getStyles = createStyles(({ css, token }) => ({
 }));
 
 function getResults({ approval, currentUser }) {
-  const { t } = useTranslation();
   const { workflow, approvalExecutions, records } = approval;
 
   approvalExecutions.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
@@ -59,7 +58,7 @@ function getResults({ approval, currentUser }) {
           records: [
             {
               groupCount: 1,
-              node: { title: t('Apply') },
+              node: { title: tval('Apply') },
               user: {
                 ...approval.createdBy,
                 id: approval.createdById,

@@ -1,4 +1,4 @@
-import { observer, useField } from '@nocobase/schema';
+import { observer, useField } from '@tachybase/schema';
 import { useAPIClient, useApp } from '@nocobase/client';
 import { Card } from 'antd';
 import React from 'react';

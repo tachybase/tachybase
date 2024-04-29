@@ -1,5 +1,5 @@
-import { Field } from '@nocobase/schema';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import { useTranslation } from 'react-i18next';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';

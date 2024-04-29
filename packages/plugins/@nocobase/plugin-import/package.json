@@ -13,7 +13,7 @@
     "@ant-design/icons": "~5.3.6",
     "@formily/antd-v5": "1.x",
     "@koa/multer": "^3.0.2",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@types/node-xlsx": "^0.15.1",
     "antd": "5.16.1",
     "file-saver": "^2.0.5",

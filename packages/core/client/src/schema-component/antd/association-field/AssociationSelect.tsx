@@ -1,7 +1,7 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { onFieldChange } from '@nocobase/schema';
-import { RecursionField, connect, mapProps, observer, useField, useFieldSchema, useForm } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { onFieldChange } from '@tachybase/schema';
+import { RecursionField, connect, mapProps, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { Space, message } from 'antd';
 import { isFunction } from 'mathjs';
 import React, { useEffect, useMemo, useState } from 'react';

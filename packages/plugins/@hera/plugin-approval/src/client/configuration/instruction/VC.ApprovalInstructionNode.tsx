@@ -1,5 +1,5 @@
 import { css, useCompile } from '@nocobase/client';
-import { Branch, NodeDefaultView, useFlowContext, useStyles } from '@nocobase/plugin-workflow/client';
+import { Branch, NodeDefaultView, useFlowContext, useStyles } from '@tachybase/plugin-workflow/client';
 import { Tag } from 'antd';
 import React from 'react';
 import { APPROVAL_ACTION_STATUS, approvalStatusConfigObj } from '../../constants';

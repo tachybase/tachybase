@@ -1,6 +1,6 @@
-import { useForm } from '@nocobase/schema';
-import { action } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
+import { action } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CollectionFieldsTable } from '.';

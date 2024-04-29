@@ -1,7 +1,7 @@
 import { DEFAULT_DATA_SOURCE_KEY } from '@nocobase/client';
 import { moment2str } from '@nocobase/utils/client';
 import dayjs from 'dayjs';
-import { Schema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
 
 export const getOptionsSchema = () => {
   const options = {

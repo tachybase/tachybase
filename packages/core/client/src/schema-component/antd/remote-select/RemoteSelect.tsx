@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty, useFieldSchema } from '@nocobase/schema';
+import { connect, mapProps, mapReadPretty, useFieldSchema } from '@tachybase/schema';
 import { Divider, SelectProps, Tag } from 'antd';
 import dayjs from 'dayjs';
 import { uniqBy } from 'lodash';

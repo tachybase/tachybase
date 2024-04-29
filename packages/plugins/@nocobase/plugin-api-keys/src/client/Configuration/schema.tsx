@@ -1,5 +1,5 @@
-import { ISchema, useForm } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema, useForm } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { useActionContext, useBlockRequestContext, useRecord } from '@nocobase/client';
 import { Alert, Modal, Space, Typography } from 'antd';
 import React from 'react';

@@ -1,7 +1,7 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { ArrayField } from '@nocobase/schema';
-import { connect, mapProps, mapReadPretty, useField } from '@nocobase/schema';
-import { toArr } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { connect, mapProps, mapReadPretty, useField } from '@tachybase/schema';
+import { toArr } from '@tachybase/schema';
 import { Cascader as AntdCascader, Space } from 'antd';
 import { isBoolean, omit } from 'lodash';
 import React from 'react';

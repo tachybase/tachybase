@@ -10,8 +10,8 @@ import {
   SchemaInitializerItem,
   useSchemaInitializerItem,
 } from '@nocobase/client';
-import { ISchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 
 export const createSnapshotBlockSchema = (options) => {
   const {

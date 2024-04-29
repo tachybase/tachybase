@@ -1,5 +1,5 @@
 import { PlusOutlined, DownOutlined } from '@ant-design/icons';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { ActionContext, SchemaComponent, useCompile, usePlugin, useRecord } from '@nocobase/client';
 import { Button, Card, Dropdown } from 'antd';
 import _ from 'lodash';

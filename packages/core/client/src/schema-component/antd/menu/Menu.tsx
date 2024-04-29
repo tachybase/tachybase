@@ -7,8 +7,8 @@ import {
   SchemaExpressionScopeContext,
   useField,
   useFieldSchema,
-} from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+} from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { error } from '@nocobase/utils/client';
 import { Menu as AntdMenu, MenuProps } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';

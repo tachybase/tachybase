@@ -1,5 +1,5 @@
-import { connect, mapReadPretty } from '@nocobase/schema';
-import { isNum } from '@nocobase/schema';
+import { connect, mapReadPretty } from '@tachybase/schema';
+import { isNum } from '@tachybase/schema';
 import { InputNumber } from 'antd';
 import * as math from 'mathjs';
 import React, { useMemo } from 'react';

@@ -1,7 +1,7 @@
 import { ArrayTable } from '@formily/antd-v5';
-import { Field, onFieldValueChange } from '@nocobase/schema';
-import { ISchema, useField, useFieldSchema, useForm, useFormEffects } from '@nocobase/schema';
-import { isValid, uid } from '@nocobase/schema';
+import { Field, onFieldValueChange } from '@tachybase/schema';
+import { ISchema, useField, useFieldSchema, useForm, useFormEffects } from '@tachybase/schema';
+import { isValid, uid } from '@tachybase/schema';
 import { Alert, Flex, ModalProps, Tag } from 'antd';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

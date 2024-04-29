@@ -1,4 +1,4 @@
-import { observer, RecursionField } from '@nocobase/schema';
+import { observer, RecursionField } from '@tachybase/schema';
 import React from 'react';
 import { useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useRecord } from '../../../../record-provider';

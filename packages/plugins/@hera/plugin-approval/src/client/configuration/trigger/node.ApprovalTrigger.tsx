@@ -5,8 +5,8 @@ import {
   Trigger,
   getCollectionFieldOptions,
   useWorkflowAnyExecuted,
-} from '@nocobase/plugin-workflow/client';
-import { useForm } from '@nocobase/schema';
+} from '@tachybase/plugin-workflow/client';
+import { useForm } from '@tachybase/schema';
 import { SchemaConfigButton } from './VC.ConfigButton';
 import { NAMESPACE, tval, usePluginTranslation } from '../../locale';
 import { LauncherInterface } from './launcher-interface/VC.LauncherInterface';

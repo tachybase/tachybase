@@ -1,4 +1,4 @@
-import { IRecursionFieldProps, ISchemaFieldProps, RecursionField, Schema } from '@nocobase/schema';
+import { IRecursionFieldProps, ISchemaFieldProps, RecursionField, Schema } from '@tachybase/schema';
 import React, { useContext, useMemo } from 'react';
 import { SchemaComponentContext } from '../context';
 import { SchemaComponentOptions } from './SchemaComponentOptions';

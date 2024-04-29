@@ -10,7 +10,7 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@types/jsonwebtoken": "^8.5.8",
     "antd": "5.16.1",
     "jsonwebtoken": "^8.5.1",

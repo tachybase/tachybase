@@ -17,7 +17,7 @@
   "devDependencies": {
     "@ant-design/icons": "^5.3.6",
     "@formily/antd-v5": "^1.1.9",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@types/jsonwebtoken": "^8.5.8",
     "ahooks": "^3.7.2",
     "antd": "5.16.1",

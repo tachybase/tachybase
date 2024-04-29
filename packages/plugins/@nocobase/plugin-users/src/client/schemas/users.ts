@@ -1,7 +1,7 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { useActionContext, useCollectionRecord, useRecord, useRequest } from '@nocobase/client';
 import { useEffect } from 'react';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 
 export const userCollection = {
   name: 'users',

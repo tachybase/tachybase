@@ -11,7 +11,7 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
     "@emotion/css": "^11.7.1",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@types/cron": "^2.0.1",
     "antd": "5.16.1",
     "cron": "^2.3.1",

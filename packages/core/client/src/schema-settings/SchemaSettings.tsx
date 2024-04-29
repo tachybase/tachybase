@@ -1,8 +1,8 @@
 import { css } from '@emotion/css';
 import { ArrayCollapse, ArrayItems, FormItem, FormLayout, Input } from '@formily/antd-v5';
-import { Field, GeneralField, createForm } from '@nocobase/schema';
-import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema, useForm } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { Field, GeneralField, createForm } from '@tachybase/schema';
+import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { error } from '@nocobase/utils/client';
 import type { DropdownProps } from 'antd';
 import {
