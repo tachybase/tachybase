@@ -2,8 +2,8 @@
 import { useCollection, useCollectionManager, useDataSourceHeaders, useRequest } from '@nocobase/client';
 import { useField, useFieldSchema } from '@nocobase/schema';
 import { useEffect, useMemo } from 'react';
-import { useTabSearchCollapsibleInputItem } from '../../tab-search/components/field-item/hooks';
 import { canBeRelatedField } from '../../tab-search/utils';
+import { useGetSelected } from '../hooks/useSelect';
 
 interface requestResultType {
   data: { [key: string]: any }[];
@@ -12,9 +12,7 @@ interface requestResultType {
 export const usePropsRelatedImageSearchItemField = () => {
   const fieldSchema = useFieldSchema();
   const collection = useCollection();
-  console.log('%c Line:15 🥛 collection', 'font-size:18px;color:#ffdd4d;background:#6ec1c2', collection);
   const field = useField();
-  console.log('%c Line:17 🍇 field', 'font-size:18px;color:#3f7cff;background:#6ec1c2', field);
   // TODO: 这里需要替换成获取 source id 的方式，不过我们暂时没有用多数据源，就不着急
   const blockProps = { dataSource: 'main' };
   const headers = useDataSourceHeaders(blockProps?.dataSource);
@@ -25,10 +23,9 @@ export const usePropsRelatedImageSearchItemField = () => {
     [collection, fieldSchema['fieldName']],
   );
 
-  console.log('%c Line:24 🍉 collectionField', 'font-size:18px;color:#b03734;background:#93c0a4', collectionField);
   const collectionFieldName = collectionField?.name;
   const fieldInterface = fieldSchema['x-component-props'].interface;
-  const { onSelected } = useTabSearchCollapsibleInputItem();
+  const { onSelected } = useGetSelected();
 
   const result = { list: null, valueKey: '', labelKey: '', filterKey: '' };
 
@@ -63,7 +60,7 @@ const useRequestRelatedField = ({ headers, collectionField, result, imageShow, f
       resource: collectionField?.target,
       action: 'list',
       params: {
-        fields: [result.labelKey, result.valueKey, imageShow],
+        fields: [result.labelKey, result.valueKey, imageShow, 'type'],
         pageSize: 200,
         page: 1,
         ...field.componentProps?.params,

@@ -13,23 +13,11 @@ export const ImageSearchItemView = withDynamicSchemaProps(
 
     return (
       <SortableItem>
-        {/* <Designer /> */}
-        <Tabs
-          style={{
-            '--title-font-size': '12px',
-            color: '#a5a5a5',
-          }}
-          onChange={onSelect}
-        >
-          {items.map(({ label, key }) => (
-            <Tabs.Tab key={key} title={label} />
-          ))}
-        </Tabs>
-
-        <JumboTabs>
-          {items.map(({ label, imageUrl }) => (
+        <Designer />
+        <JumboTabs onChange={onSelect}>
+          {items.map(({ key, label, imageUrl }) => (
             <>
-              <JumboTabs.Tab key={label} title={label} description={<ImageDescription srcUrl={imageUrl} />} />
+              <JumboTabs.Tab key={key} title={label} description={<ImageDescription srcUrl={imageUrl} />} />
               <p>{label}</p>
             </>
           ))}
