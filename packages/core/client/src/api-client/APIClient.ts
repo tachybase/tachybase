@@ -25,6 +25,22 @@ const handleErrorMessage = (error, notification) => {
 };
 
 const errorCache = new Map();
+
+function offsetToTimeZone(offset) {
+  const hours = Math.floor(Math.abs(offset));
+  const minutes = Math.abs((offset % 1) * 60);
+
+  const formattedHours = (hours < 10 ? '0' : '') + hours;
+  const formattedMinutes = (minutes < 10 ? '0' : '') + minutes;
+
+  const sign = offset >= 0 ? '+' : '-';
+  return sign + formattedHours + ':' + formattedMinutes;
+}
+
+const getCurrentTimezone = () => {
+  const timezoneOffset = new Date().getTimezoneOffset() / -60;
+  return offsetToTimeZone(timezoneOffset);
+};
 export class APIClient extends APIClientSDK {
   services: Record<string, Result<any, any>> = {};
   silence = false;
@@ -34,6 +50,17 @@ export class APIClient extends APIClientSDK {
 
   service(uid: string) {
     return this.services[uid];
+  }
+
+  getHeaders() {
+    const headers = super.getHeaders();
+    const appName = this.app.getName();
+    if (appName) {
+      headers['X-App'] = appName;
+    }
+    headers['X-Timezone'] = getCurrentTimezone();
+    headers['X-Hostname'] = window?.location?.hostname;
+    return headers;
   }
 
   interceptors() {

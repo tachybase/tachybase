@@ -3810,6 +3810,34 @@ importers:
         specifier: ^4.0.525
         version: 4.0.759
 
+  packages/plugins/@tachybase/plugin-field-markdown-vditor:
+    dependencies:
+      '@nocobase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@nocobase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@nocobase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.6
+        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: ^5.16.1
+        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
+      koa-send:
+        specifier: ^5.0.1
+        version: 5.0.1
+      vditor:
+        specifier: ^3.10.3
+        version: 3.10.4
+
   packages/plugins/@tachybase/plugin-mobile-client:
     dependencies:
       '@nocobase/client':
@@ -17122,6 +17150,10 @@ packages:
       readable-stream: 1.1.14
       streamsearch: 0.1.2
 
+  /diff-match-patch@1.0.5:
+    resolution: {integrity: sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==}
+    dev: true
+
   /diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -29961,6 +29993,12 @@ packages:
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+
+  /vditor@3.10.4:
+    resolution: {integrity: sha512-NWaMom0buUvRjOCaK/jKeJEVfZNmfTgblK4+pxBoeTdiCYn5yWokcGYMh9GzHIvt5gy6FiQFc1VQvytIwyeIwA==}
+    dependencies:
+      diff-match-patch: 1.0.5
+    dev: true
 
   /verror@1.10.0:
     resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
