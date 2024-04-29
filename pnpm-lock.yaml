@@ -3995,9 +3995,6 @@ importers:
       '@nocobase/plugin-cas':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-cas
-      '@nocobase/plugin-charts':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-charts
       '@nocobase/plugin-china-region':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-china-region
@@ -4052,9 +4049,6 @@ importers:
       '@nocobase/plugin-map':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-map
-      '@nocobase/plugin-mobile-client':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-mobile-client
       '@nocobase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-mock-collections
@@ -4094,42 +4088,18 @@ importers:
       '@nocobase/plugin-verification':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-verification
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow
-      '@nocobase/plugin-workflow-action-trigger':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-action-trigger
-      '@nocobase/plugin-workflow-aggregate':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-aggregate
-      '@nocobase/plugin-workflow-delay':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-delay
-      '@nocobase/plugin-workflow-dynamic-calculation':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-dynamic-calculation
-      '@nocobase/plugin-workflow-loop':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-loop
-      '@nocobase/plugin-workflow-manual':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-manual
-      '@nocobase/plugin-workflow-parallel':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-parallel
-      '@nocobase/plugin-workflow-request':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-request
-      '@nocobase/plugin-workflow-sql':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-sql
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../core/schema
       '@nocobase/server':
         specifier: workspace:*
         version: link:../../core/server
+      '@tachybase/plugin-mobile-client':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-workflow
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../core/schema
       cronstrue:
         specifier: ^2.11.0
         version: 2.47.0
