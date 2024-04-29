@@ -1,18 +1,18 @@
 import { findFilterTargets, mergeFilter, useCollection, useFilterBlock } from '@nocobase/client';
 import { useFieldSchema } from '@nocobase/schema';
-import { useMemo } from 'react';
 import _ from 'lodash';
 
 export const useTabSearchCollapsibleInputItem = () => {
   const fieldSchema = useFieldSchema();
   const collection = useCollection();
   const { getDataBlocks } = useFilterBlock();
-  // @ts-ignore
-  const fieldName = fieldSchema?.fieldName;
-  const collectionField = useMemo(() => collection?.getField(fieldName as any), [collection, fieldSchema.name]);
 
-  const onSelected = (value, filterKey, options = { needSort: false }) => {
-    const { needSort = true } = options;
+  const onSelected = (
+    value,
+    filterKey,
+    options = { canBeCalculatedField: false, customLabelKey: '', needSort: false },
+  ) => {
+    const { canBeCalculatedField, customLabelKey, needSort = true } = options;
     const { targets, uid } = findFilterTargets(fieldSchema);
     getDataBlocks().forEach((block) => {
       const target = targets.find((target) => target.uid === block.uid);
@@ -25,6 +25,12 @@ export const useTabSearchCollapsibleInputItem = () => {
         storedFilter[key] = {
           [filterKey]: value,
         };
+
+        if (canBeCalculatedField) {
+          storedFilter[key] = {
+            [filterKey]: Number(value?.[0] ?? 0),
+          };
+        }
       } else {
         if (block.dataLoadingMode === 'manual') {
           return block.clearData();
@@ -61,7 +67,7 @@ export const useTabSearchCollapsibleInputItem = () => {
       if (needSort) {
         params1 = {
           ...params1,
-          ['sort[]']: fieldName,
+          ['sort[]']: `-${customLabelKey}`,
         };
       } else {
         params1 = _.omit(params1, ['sort[]']);

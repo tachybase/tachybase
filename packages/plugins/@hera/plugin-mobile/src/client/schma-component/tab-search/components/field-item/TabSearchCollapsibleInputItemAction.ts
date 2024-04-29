@@ -1,7 +1,13 @@
 import { useMemo, useRef, useState } from 'react';
 import { useFieldSchema } from '@nocobase/schema';
 import { useCollection, useCollectionManager, useDesignable, useDesigner } from '@nocobase/client';
-import { canBeDataField, canBeRelatedField, changFormat, isTabSearchCollapsibleInputItem } from '../../utils';
+import {
+  canBeCalculatedField,
+  canBeDataField,
+  canBeRelatedField,
+  changFormat,
+  isTabSearchCollapsibleInputItem,
+} from '../../utils';
 import { useTabSearchCollapsibleInputItem } from './hooks';
 import { dayjs } from '@nocobase/utils/client';
 
@@ -39,6 +45,11 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
   const onSelect = (value) => {
     let time;
     let filterKey = `${customLabelKey}.$includes`;
+
+    const canBeCal = canBeCalculatedField(fieldInterface);
+    if (canBeCalculatedField) {
+      filterKey = `${customLabelKey}.$notEmpty`;
+    }
     if (canBeDataField(fieldInterface)) {
       time = value.split('&').map((value) => JSON.parse(value));
       filterKey = `${customLabelKey}.$dateBetween`;
@@ -49,7 +60,11 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
       filterKey = `${correlation}.${label}.$includes`;
     }
 
-    onSelected(time || [value], filterKey, { needSort });
+    onSelected(time || [value], filterKey, {
+      canBeCalculatedField: canBeCal,
+      customLabelKey,
+      needSort,
+    });
   };
 
   const onSelectChange = (label) => {
