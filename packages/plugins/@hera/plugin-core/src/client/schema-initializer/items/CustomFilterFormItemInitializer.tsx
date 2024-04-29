@@ -29,7 +29,7 @@ import {
 import { ConfigProvider, Radio, Space } from 'antd';
 import React, { memo, useCallback, useContext, useMemo, Profiler } from 'react';
 import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { ArrayItems, FormLayout } from '@formily/antd-v5';
+import { ArrayItems, FormLayout } from '@tachybase/components';
 import { Field, onFieldValueChange } from '@tachybase/schema';
 import {
   EditDefaultValue,

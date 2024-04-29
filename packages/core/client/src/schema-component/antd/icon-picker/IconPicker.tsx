@@ -1,5 +1,5 @@
 import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
-import { useFormLayout } from '@formily/antd-v5';
+import { useFormLayout } from '@tachybase/components';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { isValid } from '@tachybase/schema';
 import { Button, Space } from 'antd';

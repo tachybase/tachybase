@@ -78,7 +78,7 @@ export const EXTERNAL = [
   '@dnd-kit/utilities',
 
   // formily 相关
-  '@formily/antd-v5',
+  '@tachybase/components',
   '@formily/core',
   '@formily/react',
   '@formily/json-schema',

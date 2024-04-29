@@ -1,4 +1,4 @@
-import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
+import { usePrefixCls } from '@tachybase/components';
 import { Field } from '@tachybase/schema';
 import { observer, useField } from '@tachybase/schema';
 import { isArr } from '@tachybase/schema';

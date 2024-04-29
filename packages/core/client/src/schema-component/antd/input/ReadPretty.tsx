@@ -1,5 +1,4 @@
 import { css, cx } from '@emotion/css';
-import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
 import { Typography } from 'antd';
 import { InputProps, TextAreaProps } from 'antd/es/input';
 import cls from 'classnames';
@@ -7,20 +6,11 @@ import React from 'react';
 import { useCompile } from '../..';
 import { EllipsisWithTooltip } from './EllipsisWithTooltip';
 import { HTMLEncode } from './shared';
+import { usePrefixCls } from '@tachybase/components';
 
-type Composed = {
-  Input: React.FC<InputProps & { ellipsis?: any }>;
-  URL: React.FC<InputProps>;
-  TextArea: React.FC<
-    TextAreaProps & { ellipsis?: any; text?: any; addonBefore?: any; suffix?: any; addonAfter?: any; autop?: boolean }
-  >;
-  Html: any;
-  JSON: React.FC<TextAreaProps & { space: number }>;
-};
+export const ReadPretty = () => null;
 
-export const ReadPretty: Composed = () => null;
-
-ReadPretty.Input = (props) => {
+const _Input = (props: InputProps & { ellipsis?: any }) => {
   const prefixCls = usePrefixCls('description-input', props);
   const compile = useCompile();
   return (
@@ -34,7 +24,16 @@ ReadPretty.Input = (props) => {
   );
 };
 
-ReadPretty.TextArea = (props) => {
+const _TextArea = (
+  props: TextAreaProps & {
+    ellipsis?: any;
+    text?: any;
+    addonBefore?: any;
+    suffix?: any;
+    addonAfter?: any;
+    autop?: boolean;
+  },
+) => {
   const prefixCls = usePrefixCls('description-textarea', props);
   const compile = useCompile();
   const value = compile(props.value ?? '');
@@ -75,7 +74,7 @@ function convertToText(html: string) {
   return text?.replace(/[\n\r]/g, '') || '';
 }
 
-ReadPretty.Html = (props) => {
+const _Html = (props: InputProps & { autop: boolean; ellipsis: boolean }) => {
   const prefixCls = usePrefixCls('description-textarea', props);
   const compile = useCompile();
   const value = compile(props.value ?? '');
@@ -104,11 +103,11 @@ ReadPretty.Html = (props) => {
   );
 };
 
-ReadPretty.URL = (props) => {
+const _URL = (props: InputProps) => {
   const prefixCls = usePrefixCls('description-url', props);
   const content = props.value && (
     <Typography.Link ellipsis target={'_blank'} href={props.value as any}>
-      {props.value}
+      {props.value?.toString()}
     </Typography.Link>
   );
   return (
@@ -122,7 +121,7 @@ ReadPretty.URL = (props) => {
   );
 };
 
-ReadPretty.JSON = (props) => {
+const _JSON = (props: TextAreaProps & { space: number }) => {
   const prefixCls = usePrefixCls('json', props);
   return (
     <pre
@@ -141,3 +140,9 @@ ReadPretty.JSON = (props) => {
     </pre>
   );
 };
+
+ReadPretty.Input = _Input;
+ReadPretty.TextArea = _TextArea;
+ReadPretty.URL = _URL;
+ReadPretty.Html = _Html;
+ReadPretty.TextArea = _TextArea;

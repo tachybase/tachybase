@@ -12,7 +12,7 @@
     "@ant-design/icons": "~5.3.6",
     "@ant-design/plots": "^2.1.4",
     "@emotion/css": "^11.7.1",
-    "@formily/antd-v5": "1.x",
+    "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
     "antd": "5.16.1",

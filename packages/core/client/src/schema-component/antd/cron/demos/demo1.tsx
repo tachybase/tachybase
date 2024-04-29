@@ -1,4 +1,4 @@
-import { FormItem } from '@formily/antd-v5';
+import { FormItem } from '@tachybase/components';
 import { Cron, FormProvider, SchemaComponent } from '@nocobase/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

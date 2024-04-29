@@ -1,4 +1,4 @@
-import { ArrayTable } from '@formily/antd-v5';
+import { ArrayTable } from '@tachybase/components';
 import { observer, useField } from '@tachybase/schema';
 import {
   ExtendCollectionsProvider,

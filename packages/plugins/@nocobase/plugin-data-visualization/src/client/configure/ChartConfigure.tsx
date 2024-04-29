@@ -1,5 +1,5 @@
 import { RightSquareOutlined } from '@ant-design/icons';
-import { ArrayItems, Editable, FormCollapse, FormItem, FormLayout, Switch } from '@formily/antd-v5';
+import { ArrayItems, Editable, FormCollapse, FormItem, FormLayout, Switch } from '@tachybase/components';
 import { Form as FormType, ObjectField, createForm, onFieldChange, onFormInit } from '@tachybase/schema';
 import { FormConsumer, ISchema, Schema } from '@tachybase/schema';
 import { AutoComplete, FormProvider, SchemaComponent, gridRowColWrap, useDesignable } from '@nocobase/client';

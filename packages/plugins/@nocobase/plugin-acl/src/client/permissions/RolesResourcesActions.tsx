@@ -1,4 +1,4 @@
-import { FormItem, FormLayout } from '@formily/antd-v5';
+import { FormItem, FormLayout } from '@tachybase/components';
 import { ArrayField } from '@tachybase/schema';
 import { connect, useField, useForm } from '@tachybase/schema';
 import {

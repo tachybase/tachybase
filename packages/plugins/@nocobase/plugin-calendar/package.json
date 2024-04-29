@@ -18,7 +18,7 @@
   "types": "./dist/server/index.d.ts",
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
-    "@formily/antd-v5": "1.x",
+    "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
     "antd-style": "3.4.5",

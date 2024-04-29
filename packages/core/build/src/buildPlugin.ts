@@ -40,6 +40,7 @@ const external = [
   '@nocobase/resourcer',
   '@nocobase/sdk',
   '@tachybase/schema',
+  '@tachybase/components',
   '@nocobase/server',
   '@nocobase/test',
   '@nocobase/utils',
@@ -100,7 +101,6 @@ const external = [
   '@dnd-kit/utilities',
 
   // formily 相关
-  '@formily/antd-v5',
   '@formily/core',
   '@formily/react',
   '@formily/json-schema',

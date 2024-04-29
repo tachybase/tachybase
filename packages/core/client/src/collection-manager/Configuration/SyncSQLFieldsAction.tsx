@@ -1,5 +1,5 @@
 import { SyncOutlined } from '@ant-design/icons';
-import { FormLayout } from '@formily/antd-v5';
+import { FormLayout } from '@tachybase/components';
 import { createForm } from '@tachybase/schema';
 import { useField, useForm } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';

@@ -1,4 +1,3 @@
-import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
 import { isArr } from '@tachybase/schema';
 import { getDefaultFormat, str2moment } from '@nocobase/utils/client';
 import type {
@@ -8,6 +7,7 @@ import type {
 import cls from 'classnames';
 import dayjs from 'dayjs';
 import React from 'react';
+import { usePrefixCls } from '../__builtins__';
 
 type Composed = {
   DatePicker: React.FC<AntdDatePickerProps>;

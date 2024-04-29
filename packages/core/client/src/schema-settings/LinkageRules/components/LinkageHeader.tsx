@@ -1,5 +1,5 @@
 import { CopyOutlined } from '@ant-design/icons';
-import { ArrayBase } from '@formily/antd-v5';
+import { ArrayBase } from '@tachybase/components';
 import { ArrayField } from '@tachybase/schema';
 import { ISchema, RecursionField, observer, useField, useFieldSchema } from '@tachybase/schema';
 import { toArr } from '@tachybase/schema';

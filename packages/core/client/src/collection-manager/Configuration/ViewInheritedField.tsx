@@ -1,4 +1,4 @@
-import { ArrayTable } from '@formily/antd-v5';
+import { ArrayTable } from '@tachybase/components';
 import { ISchema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
 import cloneDeep from 'lodash/cloneDeep';

@@ -1,4 +1,4 @@
-import { FormDrawer, FormLayout } from '@formily/antd-v5';
+import { FormDrawer, FormLayout } from '@tachybase/components';
 import { createForm } from '@tachybase/schema';
 import { ISchema } from '@tachybase/schema';
 import { FormContext, SchemaOptionsContext } from '@tachybase/schema';

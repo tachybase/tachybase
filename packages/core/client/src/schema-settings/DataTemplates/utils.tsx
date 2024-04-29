@@ -1,4 +1,4 @@
-import { ArrayBase } from '@formily/antd-v5';
+import { ArrayBase } from '@tachybase/components';
 import { useForm } from '@tachybase/schema';
 import { message } from 'antd';
 import React, { useCallback } from 'react';

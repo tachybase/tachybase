@@ -1,5 +1,5 @@
 import { CopyOutlined } from '@ant-design/icons';
-import { ArrayItems, FormTab } from '@formily/antd-v5';
+import { ArrayItems, FormTab } from '@tachybase/components';
 import { observer } from '@tachybase/schema';
 import { FormItem, Input, SchemaComponent, useApp } from '@nocobase/client';
 import { Card, Space, message } from 'antd';
