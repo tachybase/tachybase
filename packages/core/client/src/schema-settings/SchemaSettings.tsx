@@ -620,17 +620,33 @@ export const SchemaSettingsConnectDataBlocks: FC<SchemaSettingsConnectDataBlocks
   const Content = dataBlocks.map((block) => {
     const title = `${compile(block.collection.title)} #${block.uid.slice(0, 4)}`;
     const onHover = () => {
+      // 保存当前的滚动位置
+      const originalScrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+
       const dom = block.dom;
       const designer = dom.querySelector('.general-schema-designer') as HTMLElement;
       if (designer) {
         designer.style.display = 'block';
       }
       dom.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
-      dom.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
+
+      setTimeout(() => {
+        // 使用平滑滚动滚回到原始位置
+        dom.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }, 1000);
+
+      setTimeout(() => {
+        // 使用平滑滚动滚回到原始位置
+        window.scrollTo({
+          top: originalScrollPosition,
+          behavior: 'smooth',
+        });
+      }, 2000);
     };
+
     const onLeave = () => {
       const dom = block.dom;
       const designer = dom.querySelector('.general-schema-designer') as HTMLElement;
@@ -662,8 +678,9 @@ export const SchemaSettingsConnectDataBlocks: FC<SchemaSettingsConnectDataBlocks
             }).catch(error);
             dn.refresh();
           }}
-          onMouseEnter={onHover}
+          // onMouseEnter={onHover}
           onMouseLeave={onLeave}
+          onMouseUp={onHover}
         />
       );
     }

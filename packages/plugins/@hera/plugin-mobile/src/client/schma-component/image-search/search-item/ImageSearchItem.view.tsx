@@ -1,5 +1,5 @@
 import { SortableItem, withDynamicSchemaProps } from '@nocobase/client';
-import { Tabs } from 'antd-mobile';
+import { Image, JumboTabs, Tabs } from 'antd-mobile';
 import React from 'react';
 import { useActionImageSearchItemView } from '../hooks/useAction.ImageSearchItemView';
 
@@ -13,7 +13,7 @@ export const ImageSearchItemView = withDynamicSchemaProps(
 
     return (
       <SortableItem>
-        <Designer />
+        {/* <Designer /> */}
         <Tabs
           style={{
             '--title-font-size': '12px',
@@ -25,8 +25,22 @@ export const ImageSearchItemView = withDynamicSchemaProps(
             <Tabs.Tab key={key} title={label} />
           ))}
         </Tabs>
+
+        <JumboTabs>
+          {items.map(({ label, imageUrl }) => (
+            <>
+              <JumboTabs.Tab key={label} title={label} description={<ImageDescription srcUrl={imageUrl} />} />
+              <p>{label}</p>
+            </>
+          ))}
+        </JumboTabs>
       </SortableItem>
     );
   },
   { displayName: 'ImageSearchItemView' },
 );
+
+const ImageDescription = (props) => {
+  const { srcUrl } = props;
+  return <Image src={srcUrl} width={100} height={100} fit="fill" />;
+};

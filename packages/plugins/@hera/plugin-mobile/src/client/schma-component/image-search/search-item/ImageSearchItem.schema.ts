@@ -19,22 +19,26 @@ export function createSchemaImageSearchItem(options: OptionsType): SchemaInitial
     title: title,
     Component: 'ImageSearchItemIntializer',
     schema: {
-      name: `${name}choice`,
+      name: `${name}-choice`,
       fieldName: name,
       title: title,
       type: 'void',
-      'x-toolbar': 'CollapseItemSchemaToolbar',
+      'x-toolbar': 'ImageSearchItemToolbar',
       'x-settings': 'fieldSettings:component:ImageSearchItem',
       'x-component': 'ImageSearchItemView',
       'x-component-props': {
         fieldNames: {
           label,
+          // 固定字段, 用于取数据表对外展示的图片字段
+          imageShow: 'image_show',
         },
         interface: _interface,
         collectionName: collection?.name,
         correlation: name,
       },
-      'x-use-component-props': ['useImageSearchFieldItemProps', 'useImageSearchFieldItemProps'][indexOfUseProps],
+      'x-use-component-props': ['usePropsOptionalImageSearchItemField', 'usePropsRelatedImageSearchItemField'][
+        indexOfUseProps
+      ],
       properties: {},
     },
   };

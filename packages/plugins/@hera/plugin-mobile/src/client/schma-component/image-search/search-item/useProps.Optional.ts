@@ -5,19 +5,21 @@ import _ from 'lodash';
 import { useTabSearchCollapsibleInputItem } from '../../tab-search/components/field-item/hooks';
 import { canBeOptionalField } from '../../tab-search/utils';
 
-export const usePropsImageSearchItemField = () => {
+export const usePropsOptionalImageSearchItemField = () => {
   const fieldSchema = useFieldSchema();
-  console.log('%c Line:10 🍢 fieldSchema', 'font-size:18px;color:#e41a6a;background:#ea7e5c', fieldSchema);
   const collection = useCollection();
-  const optionalFieldList = useOptionalFieldList();
   const cm = useCollectionManager();
-  const collectionField = useMemo(
-    () => collection?.getField(fieldSchema['fieldName'] as any),
-    [collection, fieldSchema['fieldName']],
-  );
+  const optionalFieldList = getOptionalFieldList({ collection });
+  const fieldName = fieldSchema['fieldName'];
+  const collectionField = useMemo(() => collection?.getField(fieldName), [collection, fieldName]);
+
   const { onSelected } = useTabSearchCollapsibleInputItem();
+
+  if (!collection) {
+    return {};
+  }
+
   const result = { list: null, valueKey: '', labelKey: '', filterKey: '' };
-  if (!collection) return;
   result.valueKey = collectionField?.target ? cm.getCollection(collectionField.target)?.getPrimaryKey() : 'id';
   result.labelKey = fieldSchema['x-component-props']?.fieldNames?.label || result.valueKey;
   const fieldInterface = fieldSchema['x-component-props'].interface;
@@ -45,8 +47,7 @@ export const usePropsImageSearchItemField = () => {
   };
 };
 
-const useOptionalFieldList = () => {
-  const collection = useCollection();
+const getOptionalFieldList = ({ collection }) => {
   const currentFields = collection?.fields ?? [];
   return currentFields.filter((field) => canBeOptionalField(field.interface) && field.uiSchema.enum);
 };
