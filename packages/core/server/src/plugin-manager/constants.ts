@@ -2,7 +2,7 @@ export const APP_NAME = 'tachybase';
 export const DEFAULT_PLUGIN_STORAGE_PATH = 'storage/plugins';
 export const DEFAULT_PLUGIN_PATH = 'packages/plugins/';
 export const pluginPrefix = (
-  process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@tachybase/preset-,@nocobase/plugin-pro-,@hera/plugin-'
+  process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@tachybase/preset-,@tachybase/plugin-,@hera/plugin-'
 ).split(',');
 export const requireRegex = /require\s*\(['"`](.*?)['"`]\)/g;
 export const importRegex = /^import(?:['"\s]*([\w*${}\s,]+)from\s*)?['"\s]['"\s](.*[@\w_-]+)['"\s].*/gm;

@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { createForm, Field } from '@nocobase/schema';
-import { FieldContext, FormContext, useField } from '@nocobase/schema';
+import { createForm, Field } from '@tachybase/schema';
+import { FieldContext, FormContext, useField } from '@tachybase/schema';
 import { Space, Switch, Table, TableColumnProps, Tag, Tooltip } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

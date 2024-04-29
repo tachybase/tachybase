@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import {
   CollectionManagerProvider,
   DEFAULT_DATA_SOURCE_KEY,

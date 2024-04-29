@@ -1,6 +1,6 @@
-import type { ISchema } from '@nocobase/schema';
-import { Schema, useFieldSchema } from '@nocobase/schema';
-import { merge } from '@nocobase/schema';
+import type { ISchema } from '@tachybase/schema';
+import { Schema, useFieldSchema } from '@tachybase/schema';
+import { merge } from '@tachybase/schema';
 import {
   SchemaInitializerSwitch,
   css,

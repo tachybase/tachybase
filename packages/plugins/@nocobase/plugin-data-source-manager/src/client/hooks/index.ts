@@ -1,4 +1,4 @@
-import { useForm, useField } from '@nocobase/schema';
+import { useForm, useField } from '@tachybase/schema';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useActionContext, useAPIClient } from '@nocobase/client';

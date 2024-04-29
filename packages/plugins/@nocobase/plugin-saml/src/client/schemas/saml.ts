@@ -1,4 +1,4 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { useActionContext, useRequest } from '@nocobase/client';
 
 const collection = {

@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { ObjectField } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
+import { ObjectField } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
 import { Card } from 'antd';
 import React from 'react';
 import { useCollectionParentRecordData } from '../../../data-source/collection-record/CollectionRecordProvider';

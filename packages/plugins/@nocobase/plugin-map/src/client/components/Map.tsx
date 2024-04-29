@@ -1,4 +1,4 @@
-import { connect, mapReadPretty } from '@nocobase/schema';
+import { connect, mapReadPretty } from '@tachybase/schema';
 import { css } from '@nocobase/client';
 import React from 'react';
 import { AMapComponentProps } from './AMap';

@@ -1,5 +1,5 @@
-import { observer, useFieldSchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { observer, useFieldSchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { BlockItem, DndContext, DragHandler, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
 import React from 'react';
 

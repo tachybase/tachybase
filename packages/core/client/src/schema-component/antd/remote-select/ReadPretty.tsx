@@ -1,4 +1,4 @@
-import { observer, useField, useFieldSchema } from '@nocobase/schema';
+import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import React from 'react';
 import { useRequest } from '../../../api-client';
 import { useRecord } from '../../../record-provider';

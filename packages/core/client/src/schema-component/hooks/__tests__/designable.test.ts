@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import { Schema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
 import { createDesignable, Designable } from '../useDesignable';
 
 describe('createDesignable', () => {

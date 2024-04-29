@@ -1,5 +1,5 @@
-import { Form } from '@nocobase/schema';
-import { ISchema, Schema } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
+import { ISchema, Schema } from '@tachybase/schema';
 import { useMemo } from 'react';
 import { CollectionFieldOptions_deprecated, useCollection_deprecated } from '../../../collection-manager';
 import { useBlockCollection } from './useBlockCollection';

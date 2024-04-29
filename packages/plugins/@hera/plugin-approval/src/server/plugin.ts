@@ -1,6 +1,6 @@
 import path from 'path';
 import { Plugin } from '@nocobase/server';
-import WorkflowPlugin from '@nocobase/plugin-workflow';
+import WorkflowPlugin from '@tachybase/plugin-workflow';
 import ApprovalTrigger from './ApprovalTrigger';
 import ApprovalInstruction from './ApprovalInstruction';
 import { init } from './actions';

@@ -1,4 +1,4 @@
-import { ReactFC } from '@nocobase/schema';
+import { ReactFC } from '@tachybase/schema';
 import { ComponentType, MemoExoticComponent } from 'react';
 
 export interface CustomFunctionComponent<P = {}> extends React.FunctionComponent<P> {

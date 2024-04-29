@@ -1,5 +1,5 @@
-import { onFieldInit, onFieldValueChange } from '@nocobase/schema';
-import { useField, useForm, useFormEffects } from '@nocobase/schema';
+import { onFieldInit, onFieldValueChange } from '@tachybase/schema';
+import { useField, useForm, useFormEffects } from '@tachybase/schema';
 import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
 import { useRequest } from '@nocobase/client';
 import _ from 'lodash';

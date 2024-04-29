@@ -1,6 +1,6 @@
 import { ArrayItems } from '@formily/antd-v5';
-import { ISchema } from '@nocobase/schema';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

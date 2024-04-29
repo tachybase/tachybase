@@ -1,5 +1,5 @@
-import { ISchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
 import { defaultProps } from './properties';
 

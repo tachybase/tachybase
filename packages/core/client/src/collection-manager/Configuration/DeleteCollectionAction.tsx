@@ -1,6 +1,6 @@
 import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { Button, message } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';

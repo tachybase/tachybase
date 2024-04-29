@@ -1,5 +1,5 @@
-import { ISchema } from '@nocobase/schema';
-import { isArr } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
+import { isArr } from '@tachybase/schema';
 import { dayjs, getDefaultFormat, str2moment } from '@nocobase/utils/client';
 import { Tag } from 'antd';
 import React from 'react';

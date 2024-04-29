@@ -1,5 +1,5 @@
 import { ArrayTable } from '@formily/antd-v5';
-import { observer, useField } from '@nocobase/schema';
+import { observer, useField } from '@tachybase/schema';
 import {
   ExtendCollectionsProvider,
   FormProvider,

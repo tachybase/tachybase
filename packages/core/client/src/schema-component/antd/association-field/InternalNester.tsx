@@ -1,6 +1,6 @@
 import { css, cx } from '@emotion/css';
 import { FormLayout } from '@formily/antd-v5';
-import { RecursionField, useField, useFieldSchema, observer } from '@nocobase/schema';
+import { RecursionField, useField, useFieldSchema, observer } from '@tachybase/schema';
 import React, { useEffect } from 'react';
 import { CollectionProvider_deprecated } from '../../../collection-manager';
 import { useAssociationFieldContext, useInsertSchema } from './hooks';

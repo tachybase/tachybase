@@ -1,6 +1,6 @@
 import { ArrayItems } from '@formily/antd-v5';
 import { css } from '@nocobase/client';
-import { Instruction, RadioWithTooltip } from '@nocobase/plugin-workflow/client';
+import { Instruction, RadioWithTooltip } from '@tachybase/plugin-workflow/client';
 import { uid } from '@nocobase/utils/client';
 import React from 'react';
 import { APPROVAL_ACTION_STATUS } from '../../constants';

@@ -1,4 +1,4 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@nocobase/schema';
+import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 import { Input, Select } from 'antd';
 import { differenceBy, unionBy } from 'lodash';
 import React, { useContext, useMemo, useState } from 'react';

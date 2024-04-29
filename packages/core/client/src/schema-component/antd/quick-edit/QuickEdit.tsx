@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import { FormItem } from '@formily/antd-v5';
-import { Field, createForm } from '@nocobase/schema';
-import { FormContext, RecursionField, observer, useField, useFieldSchema } from '@nocobase/schema';
+import { Field, createForm } from '@tachybase/schema';
+import { FormContext, RecursionField, observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useMemo, useRef } from 'react';
 import { useCollectionManager_deprecated } from '../../../collection-manager';
 import { StablePopover } from '../popover';

@@ -1,4 +1,4 @@
-import { SchemaProperties } from '@nocobase/schema';
+import { SchemaProperties } from '@tachybase/schema';
 import { lang } from '../locale';
 
 export type FieldConfigProps = Partial<{

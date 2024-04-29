@@ -1,5 +1,5 @@
-import { ArrayField } from '@nocobase/schema';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import {
   BlockProvider,
   FixedBlockWrapper,

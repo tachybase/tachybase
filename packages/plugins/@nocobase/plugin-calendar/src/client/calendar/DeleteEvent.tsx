@@ -1,4 +1,4 @@
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import { Modal, Radio, Space, Typography } from 'antd';
 import dayjs from 'dayjs';
 import React, { useContext, useState } from 'react';

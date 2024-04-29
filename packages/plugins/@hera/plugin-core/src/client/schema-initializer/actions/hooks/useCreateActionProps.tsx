@@ -1,4 +1,4 @@
-import { ISchema, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import {
   __UNSAFE__,
   getFormValues,

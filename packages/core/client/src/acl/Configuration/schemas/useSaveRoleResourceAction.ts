@@ -1,4 +1,4 @@
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { useActionContext, useAPIClient, useRecord, useResourceActionContext } from '../../../';
 
 export const useSaveRoleResourceAction = () => {

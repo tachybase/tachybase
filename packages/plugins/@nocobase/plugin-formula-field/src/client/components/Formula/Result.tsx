@@ -1,6 +1,6 @@
-import { onFormValuesChange } from '@nocobase/schema';
-import { useField, useFieldSchema, useFormEffects } from '@nocobase/schema';
-import { toJS } from '@nocobase/schema';
+import { onFormValuesChange } from '@tachybase/schema';
+import { useField, useFieldSchema, useFormEffects } from '@tachybase/schema';
+import { toJS } from '@tachybase/schema';
 import type { CollectionOptions } from '@nocobase/client';
 import {
   Checkbox,

@@ -1,5 +1,5 @@
-import { ISchema, useFieldSchema } from '@nocobase/schema';
-import { isValid } from '@nocobase/schema';
+import { ISchema, useFieldSchema } from '@tachybase/schema';
+import { isValid } from '@tachybase/schema';
 import {
   ActionDesigner,
   SchemaSettings,

@@ -1,6 +1,6 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty, useField } from '@nocobase/schema';
-import { isValid } from '@nocobase/schema';
+import { connect, mapProps, mapReadPretty, useField } from '@tachybase/schema';
+import { isValid } from '@tachybase/schema';
 import { Checkbox as AntdCheckbox, Tag } from 'antd';
 import type { CheckboxGroupProps, CheckboxProps } from 'antd/es/checkbox';
 import uniq from 'lodash/uniq';

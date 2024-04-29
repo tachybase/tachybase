@@ -1,6 +1,6 @@
 import { FormItem, FormLayout } from '@formily/antd-v5';
-import { ArrayField } from '@nocobase/schema';
-import { connect, useField } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { connect, useField } from '@tachybase/schema';
 import { Checkbox, Table, Tag } from 'antd';
 import { isEmpty } from 'lodash';
 import React, { createContext, useContext } from 'react';

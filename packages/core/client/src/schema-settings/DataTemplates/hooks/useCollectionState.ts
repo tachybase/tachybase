@@ -1,5 +1,5 @@
-import { ArrayField } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
 import React, { useCallback, useState } from 'react';
 import { useCollectionManager_deprecated } from '../../../collection-manager';
 import { useCompile } from '../../../schema-component';

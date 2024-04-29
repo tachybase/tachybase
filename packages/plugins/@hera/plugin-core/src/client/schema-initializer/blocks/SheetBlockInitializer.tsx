@@ -1,5 +1,5 @@
 import { TableOutlined } from '@ant-design/icons';
-import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
 import {
   useSchemaInitializer,
   useSchemaInitializerItem,

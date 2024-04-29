@@ -1,5 +1,5 @@
 import { ArrayItems } from '@formily/antd-v5';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import {
   Action,
   SchemaSettings,

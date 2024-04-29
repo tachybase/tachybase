@@ -1,5 +1,5 @@
-import { ISchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import pick from 'lodash/pick';
 import { useEffect } from 'react';
 import { useRequest } from '../../../api-client';

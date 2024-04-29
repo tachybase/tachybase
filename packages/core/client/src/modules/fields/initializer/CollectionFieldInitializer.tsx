@@ -1,4 +1,4 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import React from 'react';
 
 import { InitializerWithSwitch } from '../../../schema-initializer/items/InitializerWithSwitch';

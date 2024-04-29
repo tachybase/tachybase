@@ -1,7 +1,7 @@
-import { Form } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
 // @ts-ignore
-import { Schema } from '@nocobase/schema';
-import { SchemaOptionsContext, useField, useFieldSchema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
+import { SchemaOptionsContext, useField, useFieldSchema } from '@tachybase/schema';
 import {
   CollectionFieldOptions,
   useVariableScope,

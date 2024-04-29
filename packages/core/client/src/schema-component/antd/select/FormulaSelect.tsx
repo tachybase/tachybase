@@ -1,6 +1,6 @@
 import { CloseCircleFilled, CloseOutlined } from '@ant-design/icons';
-import { useFieldSchema, useForm } from '@nocobase/schema';
-import { isValid, toArr } from '@nocobase/schema';
+import { useFieldSchema, useForm } from '@tachybase/schema';
+import { isValid, toArr } from '@tachybase/schema';
 import { isPlainObject } from '@nocobase/utils/client';
 import type { SelectProps } from 'antd';
 import { Select as AntdSelect, Empty, Spin, Tag } from 'antd';

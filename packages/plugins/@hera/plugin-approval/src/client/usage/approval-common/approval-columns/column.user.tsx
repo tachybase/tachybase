@@ -1,4 +1,4 @@
-import { observer, useField, Field } from '@nocobase/schema';
+import { observer, useField, Field } from '@tachybase/schema';
 
 export const UserColumn = observer(
   () => {

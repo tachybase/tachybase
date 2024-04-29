@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import { ArrayCollapse } from '@formily/antd-v5';
-import { Form } from '@nocobase/schema';
-import { observer, useField, useFieldSchema } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
+import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import {
   FormBlockContext,
   RecordProvider,

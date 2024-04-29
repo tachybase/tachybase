@@ -1,4 +1,4 @@
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { useActionContext, useAPIClient, useRecord } from '@nocobase/client';
 import { tableActionColumnSchema } from '@nocobase/plugin-multi-app-manager/client';
 import { message } from 'antd';

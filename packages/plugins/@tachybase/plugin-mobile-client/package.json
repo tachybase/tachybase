@@ -1,0 +1,34 @@
+{
+  "name": "@tachybase/plugin-mobile-client",
+  "displayName": "Mobile client",
+  "version": "0.21.24",
+  "description": "Provides the ability to configure mobile pages.",
+  "license": "Apache-2.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "~5.3.6",
+    "@formily/antd-v5": "1.x",
+    "@tachybase/schema": "workspace:*",
+    "@types/react": "~18.2.73",
+    "@types/react-dom": "~18.2.23",
+    "ahooks": "3.x",
+    "antd": "5.16.1",
+    "antd-mobile": "^5.35.0",
+    "antd-style": "3.x",
+    "classnames": "2.x",
+    "lodash": "4.17.21",
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0",
+    "react-i18next": "11.x",
+    "react-router-dom": "6.x"
+  },
+  "peerDependencies": {
+    "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
+    "@nocobase/server": "workspace:*",
+    "@nocobase/test": "workspace:*",
+    "@nocobase/utils": "workspace:*"
+  },
+  "description.zh-CN": "提供移动端页面配置的能力。",
+  "displayName.zh-CN": "移动端"
+}

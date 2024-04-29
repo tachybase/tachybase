@@ -1,5 +1,5 @@
-import { ISchema } from '@nocobase/schema';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import { useAPIClient } from '../../../../api-client';
 import { useTableBlockContext, useFormBlockContext } from '../../../../block-provider';
 import {

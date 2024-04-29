@@ -1,4 +1,4 @@
-import { observer, useField, useFieldSchema } from '@nocobase/schema';
+import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import { Input as AntdInput, Button, Space, Spin } from 'antd';
 import cls from 'classnames';
 import React, { useState } from 'react';

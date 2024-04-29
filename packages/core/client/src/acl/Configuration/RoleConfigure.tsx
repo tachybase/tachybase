@@ -1,5 +1,5 @@
-import { onFieldChange } from '@nocobase/schema';
-import { connect } from '@nocobase/schema';
+import { onFieldChange } from '@tachybase/schema';
+import { connect } from '@tachybase/schema';
 import { Checkbox } from 'antd';
 import uniq from 'lodash/uniq';
 import React, { useContext } from 'react';

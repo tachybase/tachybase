@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import copy from 'copy-to-clipboard';
 import { useTranslation } from '../../../locale';
 

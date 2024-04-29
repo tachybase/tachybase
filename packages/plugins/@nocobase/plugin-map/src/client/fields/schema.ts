@@ -1,4 +1,4 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { CollectionFieldInterface, interfacesProperties } from '@nocobase/client';
 import { MapTypes } from '../constants';
 import { generateNTemplate } from '../locale';

@@ -30,4 +30,5 @@ storage
 benchmark
 packages/core/cli/src
 packages/core/cli/bin
-t.js
+# temp
+packages/plugins/@hera/plugin-core/src/client/features/departments/index.tsx

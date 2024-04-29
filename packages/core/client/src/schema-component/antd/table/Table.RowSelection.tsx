@@ -1,6 +1,6 @@
-import { Field } from '@nocobase/schema';
-import { observer, useField } from '@nocobase/schema';
-import { isArr, isValid } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { observer, useField } from '@tachybase/schema';
+import { isArr, isValid } from '@tachybase/schema';
 import { TableProps } from 'antd';
 import React from 'react';
 import { TableVoid } from './Table.Void';

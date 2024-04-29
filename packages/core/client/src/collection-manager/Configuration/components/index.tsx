@@ -1,5 +1,5 @@
-import { Field } from '@nocobase/schema';
-import { observer, useField, useForm } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { observer, useField, useForm } from '@tachybase/schema';
 import { Select, AutoComplete } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { useRecord } from '../../../record-provider';

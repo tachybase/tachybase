@@ -1,5 +1,5 @@
-import type { Field } from '@nocobase/schema';
-import { ISchema, useForm } from '@nocobase/schema';
+import type { Field } from '@tachybase/schema';
+import { ISchema, useForm } from '@tachybase/schema';
 import {
   CollectionFieldInterface,
   interfacesProperties,

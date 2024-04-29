@@ -1,4 +1,4 @@
-import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { DatePicker as AntdDatePicker } from 'antd';
 import type {
   DatePickerProps as AntdDatePickerProps,

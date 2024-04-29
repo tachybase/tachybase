@@ -1,4 +1,4 @@
-import { useField } from '@nocobase/schema';
+import { useField } from '@tachybase/schema';
 import React from 'react';
 
 export const TableColumn = (props) => {

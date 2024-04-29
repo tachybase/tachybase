@@ -1,7 +1,7 @@
 import { SchemaComponent, useActionContext, useRequest } from '@nocobase/client';
 import React from 'react';
 import { useACLTranslation } from './locale';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 
 export const NewRole: React.FC = () => {
   const { t } = useACLTranslation();

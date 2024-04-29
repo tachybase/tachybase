@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useCollection, useCollectionManager } from '@nocobase/client';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 import { useTabSearchCollapsibleInputItem } from './hooks';
 import { canBeOptionalField } from '../../utils';

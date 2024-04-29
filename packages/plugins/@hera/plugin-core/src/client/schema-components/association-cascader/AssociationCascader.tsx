@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Cascader } from 'antd';
-import { connect } from '@nocobase/schema';
+import { connect } from '@tachybase/schema';
 import { useCollectionManager, useRequest } from '@nocobase/client';
 import _ from 'lodash';
 

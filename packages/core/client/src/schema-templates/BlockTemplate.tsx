@@ -1,4 +1,4 @@
-import { observer, useField, useFieldSchema } from '@nocobase/schema';
+import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { createContext, useContext, useMemo } from 'react';
 import { RemoteSchemaComponent, useDesignable } from '..';
 import { useSchemaTemplateManager } from './SchemaTemplateManagerProvider';

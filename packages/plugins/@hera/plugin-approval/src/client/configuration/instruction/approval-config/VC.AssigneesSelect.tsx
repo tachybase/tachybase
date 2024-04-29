@@ -1,6 +1,6 @@
 import { RemoteSelect, SchemaComponent, Variable, useCollectionFilterOptions, useToken } from '@nocobase/client';
-import { FilterDynamicComponent, useWorkflowVariableOptions } from '@nocobase/plugin-workflow/client';
-import { useField } from '@nocobase/schema';
+import { FilterDynamicComponent, useWorkflowVariableOptions } from '@tachybase/plugin-workflow/client';
+import { useField } from '@tachybase/schema';
 import { default as React } from 'react';
 
 // 添加审批人-选择器

@@ -1,6 +1,6 @@
-import { createForm, onFieldValueChange } from '@nocobase/schema';
-import { FieldContext, FormContext } from '@nocobase/schema';
-import { merge } from '@nocobase/schema';
+import { createForm, onFieldValueChange } from '@tachybase/schema';
+import { FieldContext, FormContext } from '@tachybase/schema';
+import { merge } from '@tachybase/schema';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';
 import { SchemaComponent } from '../../core';

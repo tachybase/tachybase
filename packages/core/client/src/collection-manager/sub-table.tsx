@@ -1,4 +1,4 @@
-import { observer, useForm } from '@nocobase/schema';
+import { observer, useForm } from '@tachybase/schema';
 import { cloneDeep } from 'lodash';
 import React, { createContext, useContext, useState } from 'react';
 import {

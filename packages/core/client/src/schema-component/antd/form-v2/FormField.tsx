@@ -1,4 +1,4 @@
-import { observer, useField, useFieldSchema } from '@nocobase/schema';
+import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useEffect } from 'react';
 import { useFormBlockContext } from '../../../block-provider';
 import { useCollection_deprecated } from '../../../collection-manager';

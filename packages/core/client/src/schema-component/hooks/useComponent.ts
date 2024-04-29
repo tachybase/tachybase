@@ -1,4 +1,4 @@
-import { SchemaOptionsContext } from '@nocobase/schema';
+import { SchemaOptionsContext } from '@tachybase/schema';
 import { get } from 'lodash';
 import { useContext } from 'react';
 

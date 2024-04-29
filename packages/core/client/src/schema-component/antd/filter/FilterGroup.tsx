@@ -1,6 +1,6 @@
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { ObjectField as ObjectFieldModel } from '@nocobase/schema';
-import { ArrayFieldComponent as ArrayField, connect, useField } from '@nocobase/schema';
+import { ObjectField as ObjectFieldModel } from '@tachybase/schema';
+import { ArrayFieldComponent as ArrayField, connect, useField } from '@tachybase/schema';
 import { Select, Space } from 'antd';
 import React, { useContext } from 'react';
 import { Trans, useTranslation } from 'react-i18next';

@@ -1,4 +1,4 @@
-import { RecursionField, useForm } from '@nocobase/schema';
+import { RecursionField, useForm } from '@tachybase/schema';
 import { Spin, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
