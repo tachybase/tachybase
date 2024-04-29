@@ -258,6 +258,23 @@ export class APIClient {
     }
   }
 
+  getHeaders() {
+    const headers = {};
+    if (this.auth.locale) {
+      headers['X-Locale'] = this.auth.locale;
+    }
+    if (this.auth.role) {
+      headers['X-Role'] = this.auth.role;
+    }
+    if (this.auth.authenticator) {
+      headers['X-Authenticator'] = this.auth.authenticator;
+    }
+    if (this.auth.token) {
+      headers['Authorization'] = `Bearer ${this.auth.token}`;
+    }
+    return headers;
+  }
+
   interceptors() {
     this.axios.interceptors.request.use((config) => {
       config.paramsSerializer = (params) => {
