@@ -15,7 +15,7 @@ export const RecordItemCount = observer((props) => {
   }
   const item = form.getValuesIn(field.path.slice(0, -2).entire);
   if (item?.new_product && item?.count) {
-    const category = data?.data?.find((category) => category.id === item?.new_product.parentId);
+    const category = data.find((category) => category.id === item?.new_product.parentId);
     if (!category) return;
     const value = category.convertible ? (item.new_product.ratio || 0) * item.count : item.count;
     const unit = category.convertible ? category.conversion_unit : category.unit || '';

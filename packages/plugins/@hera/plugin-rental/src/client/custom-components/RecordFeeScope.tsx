@@ -17,13 +17,8 @@ export const RecordFeeScope = observer(() => {
   const { data: productFeeItems } = useProductFeeItems(contractPlanId);
   const result = [];
   const feeScope = { scopeItem: {} };
-  if (
-    contractsItem.contract?.id &&
-    products &&
-    productsItem.f_69w9k352kd5?.id &&
-    Object.values(productFeeItems).length
-  ) {
-    const productItem = products.find((value) => value.id === productsItem.f_69w9k352kd5.id);
+  if (contractsItem.contract?.id && products && productsItem.new_product?.id && Object.values(productFeeItems).length) {
+    const productItem = products.find((value) => value.id === productsItem.new_product.id);
     const productFeeItem = productFeeItems[contractsItem.contract?.id]?.find((contractItem) =>
       productItem?.['parentScopeId'].includes(contractItem.new_products_id),
     );
