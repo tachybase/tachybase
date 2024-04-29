@@ -21,7 +21,6 @@
     "@nocobase/plugin-backup-restore": "workspace:*",
     "@nocobase/plugin-calendar": "workspace:*",
     "@nocobase/plugin-cas": "workspace:*",
-    "@nocobase/plugin-charts": "workspace:*",
     "@nocobase/plugin-china-region": "workspace:*",
     "@nocobase/plugin-client": "workspace:*",
     "@nocobase/plugin-collection-manager": "workspace:*",
@@ -64,7 +63,7 @@
     "@nocobase/plugin-workflow-parallel": "workspace:*",
     "@nocobase/plugin-workflow-request": "workspace:*",
     "@nocobase/plugin-workflow-sql": "workspace:*",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@nocobase/server": "workspace:*",
     "cronstrue": "^2.11.0",
     "lodash": "4.17.21"
