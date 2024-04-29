@@ -1,4 +1,4 @@
-import { ArrayCollapse, FormLayout } from '@formily/antd-v5';
+import { ArrayCollapse, FormLayout } from '@tachybase/components';
 import { Field } from '@tachybase/schema';
 import { ISchema, Schema, useField, useFieldSchema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';

@@ -4,7 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCollectionManager_deprecated, useCollection_deprecated, useDesignable, useSortFields } from '..';
 import { SchemaSettingsModalItem } from './SchemaSettings';
-import { ArrayItems } from '@formily/antd-v5';
+import { ArrayItems } from '@tachybase/components';
 
 export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {
   const field = useField();

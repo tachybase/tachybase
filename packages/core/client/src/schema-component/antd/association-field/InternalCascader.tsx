@@ -1,4 +1,4 @@
-import { ArrayItems, FormItem } from '@formily/antd-v5';
+import { ArrayItems, FormItem } from '@tachybase/components';
 import {
   FormProvider,
   connect,

@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useState } from 'react';
 
-import { ArrayTable } from '@formily/antd-v5';
+import { ArrayTable } from '@tachybase/components';
 import { Field, createForm } from '@tachybase/schema';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { cloneDeep, pick, set } from 'lodash';

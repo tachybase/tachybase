@@ -1,4 +1,4 @@
-import { FormLayout } from '@formily/antd-v5';
+import { FormLayout } from '@tachybase/components';
 import { createForm } from '@tachybase/schema';
 import { FormProvider, ISchema, Schema, useFieldSchema, useForm } from '@tachybase/schema';
 import { Alert, Button, Modal, Space } from 'antd';

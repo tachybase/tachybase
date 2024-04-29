@@ -1,4 +1,4 @@
-import { FormItem, Input } from '@formily/antd-v5';
+import { FormItem, Input } from '@tachybase/components';
 import { ISchema, observer, useForm } from '@tachybase/schema';
 import { Action, Form, SchemaComponent, SchemaComponentProvider, useCloseAction } from '@nocobase/client';
 import React from 'react';

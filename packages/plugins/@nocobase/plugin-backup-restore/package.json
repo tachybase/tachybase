@@ -16,9 +16,9 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.3.6",
-    "@formily/antd-v5": "^1.1.9",
     "@hapi/topo": "^6.0.0",
     "@koa/multer": "^3.0.2",
+    "@tachybase/components": "workspace:*",
     "@types/archiver": "^5.3.1",
     "@types/lodash": "4.17.0",
     "antd": "5.16.1",

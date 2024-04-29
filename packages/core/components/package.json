@@ -1,0 +1,26 @@
+{
+  "name": "@tachybase/components",
+  "version": "0.21.24",
+  "license": "Apache-2.0",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "dependencies": {
+    "@ant-design/cssinjs": "^1.20.0",
+    "@ant-design/icons": "^5.3.6",
+    "@dnd-kit/core": "^5.0.1",
+    "@dnd-kit/sortable": "^6.0.0",
+    "@formily/core": "2.2.27",
+    "@formily/grid": "2.2.27",
+    "@formily/json-schema": "2.2.27",
+    "@formily/path": "2.2.27",
+    "@formily/react": "2.2.27",
+    "@formily/reactive": "2.2.27",
+    "@formily/reactive-react": "2.2.27",
+    "@formily/shared": "2.2.27",
+    "@formily/validator": "2.2.27",
+    "antd": "^5.16.1",
+    "classnames": "^2.5.1",
+    "dayjs": "^1.11.11",
+    "react-sticky-box": "^1.0.2"
+  }
+}

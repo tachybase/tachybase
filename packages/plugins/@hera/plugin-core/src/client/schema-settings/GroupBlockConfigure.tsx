@@ -8,7 +8,7 @@ import React, { useContext } from 'react';
 import { useTranslation } from '../locale';
 import { GroupBlockContext } from '../schema-initializer/blocks/GroupBlockInitializer';
 import { ISchema, connect, useFieldSchema } from '@tachybase/schema';
-import { ArrayItems, FormItem, Space } from '@formily/antd-v5';
+import { ArrayItems, FormItem, Space } from '@tachybase/components';
 import { PullRequestOutlined } from '@ant-design/icons';
 
 export const GroupBlockConfigure = connect((props) => {

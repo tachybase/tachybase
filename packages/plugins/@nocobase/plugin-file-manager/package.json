@@ -13,8 +13,8 @@
   "devDependencies": {
     "@ant-design/icons": "^5.3.6",
     "@aws-sdk/client-s3": "^3.245.0",
-    "@formily/antd-v5": "1.x",
     "@koa/multer": "^3.0.0",
+    "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@types/koa-multer": "^1.0.1",
     "@types/multer": "^1.4.5",

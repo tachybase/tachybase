@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { ArrayItems } from '@formily/antd-v5';
+import { ArrayItems } from '@tachybase/components';
 import { useWorkflowExecuted } from '@tachybase/plugin-workflow/client';
 import { Button, Popover, Space } from 'antd';
 import { useCallback, useState } from 'react';

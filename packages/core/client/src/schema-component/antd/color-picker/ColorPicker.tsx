@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
+import { usePrefixCls } from '@tachybase/components';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { ColorPicker as AntdColorPicker } from 'antd';
 import cls from 'classnames';

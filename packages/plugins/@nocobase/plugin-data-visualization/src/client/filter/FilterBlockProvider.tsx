@@ -13,7 +13,7 @@ import { useChartsTranslation } from '../locale';
 import { css } from '@emotion/css';
 import { ChartFilterContext } from './FilterProvider';
 import { ChartFilterCheckbox } from './FilterCheckbox';
-import { ArrayItems } from '@formily/antd-v5';
+import { ArrayItems } from '@tachybase/components';
 import { ChartFilterFormItem } from './FilterItemInitializers';
 import { ChartFilterForm } from './FilterForm';
 import { CollectionFieldInitializer } from './CollectionFieldInitializer';

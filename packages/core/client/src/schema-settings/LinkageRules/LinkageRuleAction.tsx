@@ -1,6 +1,6 @@
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { TreeSelect } from '@formily/antd-v5';
+import { TreeSelect } from '@tachybase/components';
 import { observer } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
 import { Select, Space } from 'antd';

@@ -1,7 +1,7 @@
 /**
  * title: Markdown
  */
-import { FormItem } from '@formily/antd-v5';
+import { FormItem } from '@tachybase/components';
 import { Markdown, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
 import React from 'react';
 

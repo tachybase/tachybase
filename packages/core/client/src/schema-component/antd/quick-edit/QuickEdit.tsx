@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { FormItem } from '@formily/antd-v5';
+import { FormItem } from '@tachybase/components';
 import { Field, createForm } from '@tachybase/schema';
 import { FormContext, RecursionField, observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useMemo, useRef } from 'react';

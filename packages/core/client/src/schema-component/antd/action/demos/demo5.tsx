@@ -9,7 +9,7 @@ import {
   Input,
   NumberPicker,
   Submit,
-} from '@formily/antd-v5';
+} from '@tachybase/components';
 import { Field, createForm, onFieldValueChange } from '@tachybase/schema';
 import { connect, createSchemaField, observer, useField, useForm, useFormEffects } from '@tachybase/schema';
 import { Select } from 'antd';

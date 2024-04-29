@@ -1,4 +1,4 @@
-import { ArrayTable, FormButtonGroup, FormDrawer, FormLayout, Submit } from '@formily/antd-v5';
+import { ArrayTable, FormButtonGroup, FormDrawer, FormLayout, Submit } from '@tachybase/components';
 import { onFieldValueChange } from '@tachybase/schema';
 import { ISchema, SchemaOptionsContext, useForm, useFormEffects } from '@tachybase/schema';
 import {
