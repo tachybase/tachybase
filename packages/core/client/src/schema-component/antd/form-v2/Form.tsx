@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { FormLayout } from '@formily/antd-v5';
+import { FormLayout } from '@tachybase/components';
 import { createForm, Field, Form as FormilyForm, onFieldInit, onFormInputChange } from '@tachybase/schema';
 import { FieldContext, FormContext, observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 import { reaction } from '@tachybase/schema';

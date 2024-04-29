@@ -18,7 +18,7 @@ import {
 } from '../../../../schema-settings';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrayItems } from '@formily/antd-v5';
+import { ArrayItems } from '@tachybase/components';
 import { FixedBlockDesignerItem } from '../../../../schema-component/antd/page/FixedBlockDesignerItem';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { setDataLoadingModeSettingsItem, useDataLoadingMode } from '../details-multi/setDataLoadingModeSettingsItem';

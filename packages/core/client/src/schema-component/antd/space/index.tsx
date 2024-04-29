@@ -1,4 +1,4 @@
-import { useFormLayout } from '@formily/antd-v5';
+import { useFormLayout } from '@tachybase/components';
 import { Space as AntdSpace, Divider, SpaceProps } from 'antd';
 import React from 'react';
 

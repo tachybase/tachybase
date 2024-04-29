@@ -1,4 +1,4 @@
-import { ArrayBase } from '@formily/antd-v5';
+import { ArrayBase } from '@tachybase/components';
 import { Switch } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

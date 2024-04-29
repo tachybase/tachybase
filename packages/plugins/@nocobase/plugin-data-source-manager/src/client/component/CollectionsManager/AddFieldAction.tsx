@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { ArrayTable } from '@formily/antd-v5';
+import { ArrayTable } from '@tachybase/components';
 import { useField, useForm } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
 import { Button, Dropdown, MenuProps } from 'antd';

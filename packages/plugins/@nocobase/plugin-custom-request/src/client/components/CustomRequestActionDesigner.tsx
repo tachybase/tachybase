@@ -1,4 +1,4 @@
-import { ArrayItems } from '@formily/antd-v5';
+import { ArrayItems } from '@tachybase/components';
 import { useFieldSchema } from '@tachybase/schema';
 import {
   Action,

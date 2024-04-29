@@ -1,4 +1,4 @@
-import { FormLayout } from '@formily/antd-v5';
+import { FormLayout } from '@tachybase/components';
 import { SchemaOptionsContext, useField } from '@tachybase/schema';
 import {
   FormDialog,

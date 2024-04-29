@@ -5,7 +5,6 @@ const deps: Record<string, string> = {
   '@nocobase': `${version.split('.').slice(0, 2).join('.')}.x`, // 0.12.x
   '@formily': '2.x',
 
-  '@formily/antd-v5': '1.x',
   jsonwebtoken: '8.x',
   'cache-manager': '5.x',
   sequelize: '6.x',

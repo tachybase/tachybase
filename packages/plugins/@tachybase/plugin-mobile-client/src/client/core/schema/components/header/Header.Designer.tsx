@@ -1,4 +1,4 @@
-import { Switch } from '@formily/antd-v5';
+import { Switch } from '@tachybase/components';
 import { useField } from '@tachybase/schema';
 import { GeneralSchemaDesigner, SchemaSettingsModalItem } from '@nocobase/client';
 import React from 'react';

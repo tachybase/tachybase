@@ -1,4 +1,4 @@
-import { ArrayItems } from '@formily/antd-v5';
+import { ArrayItems } from '@tachybase/components';
 import type { ISchema } from '@tachybase/schema';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import {

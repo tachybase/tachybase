@@ -1,5 +1,5 @@
 import { TableOutlined } from '@ant-design/icons';
-import { FormLayout } from '@formily/antd-v5';
+import { FormLayout } from '@tachybase/components';
 import { SchemaOptionsContext } from '@tachybase/schema';
 import React, { useContext } from 'react';
 import {

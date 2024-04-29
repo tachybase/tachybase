@@ -1,7 +1,7 @@
 /**
  * title: TimePicker.RangePicker
  */
-import { FormItem } from '@formily/antd-v5';
+import { FormItem } from '@tachybase/components';
 import { SchemaComponent, SchemaComponentProvider, TimePicker } from '@nocobase/client';
 import React from 'react';
 

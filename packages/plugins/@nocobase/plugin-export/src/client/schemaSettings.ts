@@ -1,4 +1,4 @@
-import { ArrayItems } from '@formily/antd-v5';
+import { ArrayItems } from '@tachybase/components';
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
 import { ButtonEditor, SchemaSettings, useDesignable, useSchemaToolbar } from '@nocobase/client';
 import { useEffect, useState } from 'react';
