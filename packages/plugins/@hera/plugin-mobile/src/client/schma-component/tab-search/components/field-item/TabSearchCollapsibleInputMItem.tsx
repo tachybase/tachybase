@@ -43,7 +43,7 @@ export const TabSearchCollapsibleInputMItem = withDynamicSchemaProps(
               flex: 1,
               display: 'flex',
               flexDirection: 'row',
-              justifyContent: 'space-between',
+              justifyContent: 'flex-start',
               padding: '10px',
               backgroundColor: '#f9f9f9',
               borderRadius: '5px',

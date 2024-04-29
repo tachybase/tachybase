@@ -47,7 +47,7 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
     let filterKey = `${customLabelKey}.$includes`;
 
     const canBeCal = canBeCalculatedField(fieldInterface);
-    if (canBeCalculatedField) {
+    if (canBeCal) {
       filterKey = `${customLabelKey}.$notEmpty`;
     }
     if (canBeDataField(fieldInterface)) {

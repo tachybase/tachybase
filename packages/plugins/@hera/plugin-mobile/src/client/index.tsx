@@ -13,6 +13,7 @@ class PluginMobileClient extends Plugin {
     this.pm.add(PluginTabSearch);
     this.pm.add(PluginSwiper);
     this.pm.add(PluginImageSearch);
+    // this.app.router.add()
   }
 
   async beforeLoad() {}
