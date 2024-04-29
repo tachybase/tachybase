@@ -48,6 +48,28 @@ SELECT
         WHERE
           contracts."updatedById" = u.id
       )
+    ) || JSONB_SET(
+      TO_JSONB(contracts),
+      '{first_party}',
+      (
+        SELECT
+          TO_JSONB(c)
+        FROM
+          company c
+        WHERE
+          c.id = c.first_party_id
+      )
+    ) || JSONB_SET(
+      TO_JSONB(contracts),
+      '{party_b}',
+      (
+        SELECT
+          TO_JSONB(c)
+        FROM
+          company c
+        WHERE
+          c.id = c.party_b_id
+      )
     )
   ) AS contracts,
   (
