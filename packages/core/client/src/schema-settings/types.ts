@@ -1,4 +1,4 @@
-import { Form } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
 
 export interface DataScopeProps {
   /**

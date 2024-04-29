@@ -1,5 +1,5 @@
 import React from 'react';
-import { RecursionField } from '@nocobase/schema';
+import { RecursionField } from '@tachybase/schema';
 import { useTabSearchAction } from './TabSearchAction';
 
 export const TabSearch = () => {

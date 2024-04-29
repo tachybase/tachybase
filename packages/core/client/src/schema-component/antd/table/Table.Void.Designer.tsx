@@ -1,5 +1,5 @@
 import { ArrayItems } from '@formily/antd-v5';
-import { ISchema, useField, useFieldSchema } from '@nocobase/schema';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCollection_deprecated, useResourceActionContext } from '../../../collection-manager';

@@ -3,9 +3,9 @@
  */
 import React from 'react';
 import { SchemaComponentProvider, SchemaComponent, useDesignable } from '@nocobase/client';
-import { observer, Schema, useFieldSchema } from '@nocobase/schema';
+import { observer, Schema, useFieldSchema } from '@tachybase/schema';
 import { Button, Space } from 'antd';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 
 const Hello = observer(
   (props) => {

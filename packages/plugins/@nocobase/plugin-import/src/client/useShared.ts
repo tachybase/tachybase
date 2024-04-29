@@ -1,4 +1,4 @@
-import type { VoidField } from '@nocobase/schema';
+import type { VoidField } from '@tachybase/schema';
 import { Cascader, css, useCollection_deprecated } from '@nocobase/client';
 import { useTranslation } from 'react-i18next';
 import { NAMESPACE } from './constants';

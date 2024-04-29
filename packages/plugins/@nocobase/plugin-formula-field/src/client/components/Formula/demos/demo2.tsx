@@ -1,7 +1,7 @@
 /**
  * title: Formula
  */
-import { connect } from '@nocobase/schema';
+import { connect } from '@tachybase/schema';
 import { Formula, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
 import React from 'react';
 

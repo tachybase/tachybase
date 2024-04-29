@@ -1,7 +1,7 @@
 import React from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { ArrayItems } from '@formily/antd-v5';
-import { useWorkflowExecuted } from '@nocobase/plugin-workflow/client';
+import { useWorkflowExecuted } from '@tachybase/plugin-workflow/client';
 import { Button, Popover, Space } from 'antd';
 import { useCallback, useState } from 'react';
 import { useTranslation } from '../../../locale';

@@ -1,4 +1,4 @@
-import { useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../collection-manager';

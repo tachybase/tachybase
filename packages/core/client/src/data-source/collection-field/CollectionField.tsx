@@ -1,6 +1,6 @@
-import { Field } from '@nocobase/schema';
-import { connect, useField, useFieldSchema } from '@nocobase/schema';
-import { merge } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { connect, useField, useFieldSchema } from '@tachybase/schema';
+import { merge } from '@tachybase/schema';
 import { concat } from 'lodash';
 import React, { useEffect, useMemo } from 'react';
 import { useFormBlockContext } from '../../block-provider/FormBlockProvider';

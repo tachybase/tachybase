@@ -1,4 +1,4 @@
-import { connect, useFieldSchema } from '@nocobase/schema';
+import { connect, useFieldSchema } from '@tachybase/schema';
 import { Badge, Empty, List, Space, Tag } from 'antd-mobile';
 import React from 'react';
 

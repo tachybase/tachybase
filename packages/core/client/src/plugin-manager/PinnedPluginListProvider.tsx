@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { SchemaOptionsContext } from '@nocobase/schema';
+import { SchemaOptionsContext } from '@tachybase/schema';
 import { get } from 'lodash';
 import React, { useContext } from 'react';
 import { useACLRoleContext } from '../acl/ACLProvider';

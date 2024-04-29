@@ -11,7 +11,7 @@ import {
 } from '@nocobase/client';
 import { useCallback, useContext, useMemo } from 'react';
 import { ChartDataContext } from '../block/ChartDataProvider';
-import { Schema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
 import { useChartsTranslation } from '../locale';
 import { ChartFilterContext } from '../filter/FilterProvider';
 import { useMemoizedFn } from 'ahooks';

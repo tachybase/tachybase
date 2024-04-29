@@ -4,7 +4,7 @@ import React from 'react';
 import { SortableItem } from '../../common';
 import { useDesigner, useProps } from '../../hooks';
 import { useGetAriaLabelOfBlockItem } from './hooks/useGetAriaLabelOfBlockItem';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 
 export const BlockItem: React.FC<any> = withDynamicSchemaProps((props) => {

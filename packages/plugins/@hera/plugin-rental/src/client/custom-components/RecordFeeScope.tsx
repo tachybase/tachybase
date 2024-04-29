@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Spin } from 'antd';
 import React, { useEffect } from 'react';
-import { observer, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { useCachedRequest, useFeeItems, useProductFeeItems, useProducts } from '../hooks';
 import { useDeepCompareEffect } from 'ahooks';

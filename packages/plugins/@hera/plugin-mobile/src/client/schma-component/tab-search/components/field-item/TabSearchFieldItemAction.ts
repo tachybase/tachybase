@@ -1,7 +1,7 @@
 import React from 'react';
 import { MenuProps } from 'antd';
 import { useCollection, useDesigner } from '@nocobase/client';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { useTranslation } from '../../../../locale';
 
 export const useTabSearchFieldItemAction = (props) => {

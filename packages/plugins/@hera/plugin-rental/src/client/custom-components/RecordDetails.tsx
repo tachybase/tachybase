@@ -1,8 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
-import { useField, useFieldSchema, useForm } from '@nocobase/schema';
-import { FormPath } from '@nocobase/schema';
+import { useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { FormPath } from '@tachybase/schema';
 import { useRequest } from '@nocobase/client';
 import { Descriptions, Spin } from 'antd';
 import { formatQuantity } from '../../utils/currencyUtils';

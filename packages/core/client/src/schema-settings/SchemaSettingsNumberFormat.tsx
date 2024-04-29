@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { ISchema, Schema, useField, useForm } from '@nocobase/schema';
+import { ISchema, Schema, useField, useForm } from '@tachybase/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Select } from 'antd';

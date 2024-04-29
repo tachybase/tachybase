@@ -136,7 +136,7 @@ export class PluginManager {
    */
   static getPluginPkgPrefix() {
     return (
-      process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@tachybase/preset-,@nocobase/plugin-pro-,@hera/plugin-'
+      process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@tachybase/preset-,@tachybase/plugin-,@hera/plugin-'
     ).split(',');
   }
 

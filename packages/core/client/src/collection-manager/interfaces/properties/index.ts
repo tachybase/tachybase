@@ -1,6 +1,6 @@
-import { Field } from '@nocobase/schema';
-import { ISchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { ISchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 export * as operators from './operators';
 
 export const type: ISchema = {

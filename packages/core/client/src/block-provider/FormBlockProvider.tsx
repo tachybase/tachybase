@@ -1,5 +1,5 @@
-import { createForm } from '@nocobase/schema';
-import { RecursionField, Schema, useField, useFieldSchema } from '@nocobase/schema';
+import { createForm } from '@tachybase/schema';
+import { RecursionField, Schema, useField, useFieldSchema } from '@tachybase/schema';
 import { Spin } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
 import { useCollection_deprecated } from '../collection-manager';

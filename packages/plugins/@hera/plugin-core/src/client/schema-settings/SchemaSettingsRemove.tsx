@@ -1,9 +1,9 @@
-import { ISchema, useField, useFieldSchema, useForm } from '@nocobase/schema';
+import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { SchemaSettingsItem, useFormActiveFields, useSchemaSettings } from '@nocobase/client';
 import { App, ModalFuncProps } from 'antd';
 import { FC } from 'react';
 import { useTranslation } from '../locale';
-import { Field } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
 import React from 'react';
 
 export interface SchemaSettingsRemoveProps {

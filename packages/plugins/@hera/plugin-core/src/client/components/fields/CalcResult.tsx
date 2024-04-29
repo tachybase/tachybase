@@ -1,5 +1,5 @@
-import { onFormValuesChange } from '@nocobase/schema';
-import { useField, useFieldSchema, useForm, useFormEffects } from '@nocobase/schema';
+import { onFormValuesChange } from '@tachybase/schema';
+import { useField, useFieldSchema, useForm, useFormEffects } from '@tachybase/schema';
 import { Input } from '@nocobase/client';
 import { Descriptions, DescriptionsProps } from 'antd';
 import _ from 'lodash';
@@ -93,10 +93,9 @@ export const CalcResult = (props) => {
       setValue(result.toString());
     } else if (panel) {
       let items = [];
-      const childrenType = 'normal';
+      let childrenType = '';
       // ==========动态导入可能需要的包============
       // jsx
-
       const { jsx } = (await import('react/jsx-runtime')).default;
       const keepJSX = () => jsx;
       keepJSX();
@@ -104,6 +103,8 @@ export const CalcResult = (props) => {
       const dayjs = (await import('dayjs')).default;
       const keepDayjs = () => dayjs;
       keepDayjs();
+      // keep childrenType
+      childrenType = 'normal';
       // ==========动态导入结束=====================
 
       // ====================字段配置举例==================

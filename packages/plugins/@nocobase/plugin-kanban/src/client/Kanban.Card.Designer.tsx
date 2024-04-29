@@ -1,6 +1,6 @@
 import { MenuOutlined } from '@ant-design/icons';
-import { ISchema, useFieldSchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema, useFieldSchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import {
   CompatibleSchemaInitializer,
   SchemaInitializerOpenModeSchemaItems,

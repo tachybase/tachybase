@@ -7,7 +7,7 @@ import {
 import React, { useContext } from 'react';
 import { useTranslation } from '../locale';
 import { GroupBlockContext } from '../schema-initializer/blocks/GroupBlockInitializer';
-import { ISchema, connect, useFieldSchema } from '@nocobase/schema';
+import { ISchema, connect, useFieldSchema } from '@tachybase/schema';
 import { ArrayItems, FormItem, Space } from '@formily/antd-v5';
 import { PullRequestOutlined } from '@ant-design/icons';
 

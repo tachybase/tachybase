@@ -1,4 +1,4 @@
-import { Schema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
 import { DrawerProps, ModalProps } from 'antd';
 import React, { createContext } from 'react';
 import { useActionContext } from './hooks';

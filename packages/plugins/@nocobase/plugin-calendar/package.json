@@ -19,7 +19,7 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
     "@formily/antd-v5": "1.x",
-    "@nocobase/schema": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
     "antd-style": "3.4.5",
     "cron-parser": "4.4.0",

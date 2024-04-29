@@ -7,18 +7,18 @@ import * as dndKitSortable from '@dnd-kit/sortable';
 import * as dndKitUtilities from '@dnd-kit/utilities';
 import * as emotionCss from '@emotion/css';
 import * as formilyAntdV5 from '@formily/antd-v5';
-import * as formilyCore from '@nocobase/schema';
-import * as formilyJsonSchema from '@nocobase/schema';
-import * as formilyPath from '@nocobase/schema';
-import * as formilyReact from '@nocobase/schema';
-import * as formilyJsonReactive from '@nocobase/schema';
-import * as formilyReactiveReact from '@nocobase/schema';
-import * as formilyShared from '@nocobase/schema';
-import * as formilyValidator from '@nocobase/schema';
+import * as formilyCore from '@tachybase/schema';
+import * as formilyJsonSchema from '@tachybase/schema';
+import * as formilyPath from '@tachybase/schema';
+import * as formilyReact from '@tachybase/schema';
+import * as formilyJsonReactive from '@tachybase/schema';
+import * as formilyReactiveReact from '@tachybase/schema';
+import * as formilyShared from '@tachybase/schema';
+import * as formilyValidator from '@tachybase/schema';
 import * as nocobaseEvaluators from '@nocobase/evaluators/client';
 import * as nocobaseClientUtils from '@nocobase/utils/client';
 import * as nocobaseSDK from '@nocobase/sdk';
-import * as nocobaseSchema from '@nocobase/schema';
+import * as nocobaseSchema from '@tachybase/schema';
 import { dayjs } from '@nocobase/utils/client';
 import * as ahooks from 'ahooks';
 import * as antd from 'antd';
@@ -78,7 +78,7 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('@nocobase/evaluators', () => nocobaseEvaluators);
   requirejs.define('@nocobase/evaluators/client', () => nocobaseEvaluators);
   requirejs.define('@nocobase/sdk', () => nocobaseSDK);
-  requirejs.define('@nocobase/schema', () => nocobaseSchema);
+  requirejs.define('@tachybase/schema', () => nocobaseSchema);
 
   // dnd-kit 相关
   requirejs.define('@dnd-kit/accessibility', () => dndKitAccessibility);

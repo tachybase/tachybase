@@ -7,7 +7,7 @@ import {
   SchemaSettings,
   useSchemaSettingsRender,
 } from '@nocobase/client';
-import { observer, useFieldSchema } from '@nocobase/schema';
+import { observer, useFieldSchema } from '@tachybase/schema';
 
 const mySchemaSetting = new SchemaSettings({
   name: 'MySchemaSetting',

@@ -1,4 +1,4 @@
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { defaultProps, operators } from './properties';
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
 

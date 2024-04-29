@@ -1,6 +1,6 @@
 import { ArrayTable } from '@formily/antd-v5';
-import { ISchema, useForm } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema, useForm } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import {
   ActionContextProvider,
   IField,

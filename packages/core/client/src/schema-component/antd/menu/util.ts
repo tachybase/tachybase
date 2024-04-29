@@ -1,4 +1,4 @@
-import { Schema } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
 
 export function findByUid(schema: Schema, uid: string) {
   if (!Schema.isSchemaInstance(schema)) {

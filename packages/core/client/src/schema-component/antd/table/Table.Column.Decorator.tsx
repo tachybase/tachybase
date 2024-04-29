@@ -1,4 +1,4 @@
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import React, { useLayoutEffect } from 'react';
 import { SortableItem, useCollection_deprecated, useCompile, useDesignable, useDesigner } from '../../../';
 import { designerCss } from './Table.Column.ActionBar';

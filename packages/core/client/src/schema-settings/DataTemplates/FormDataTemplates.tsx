@@ -1,6 +1,6 @@
-import { Field } from '@nocobase/schema';
-import { connect, mapProps, observer } from '@nocobase/schema';
-import { observable } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { connect, mapProps, observer } from '@tachybase/schema';
+import { observable } from '@tachybase/schema';
 import { Tree as AntdTree } from 'antd';
 import _ from 'lodash';
 import React, { useMemo } from 'react';

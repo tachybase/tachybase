@@ -1,5 +1,5 @@
-import { ArrayField } from '@nocobase/schema';
-import { useField } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { useField } from '@tachybase/schema';
 import { error } from '@nocobase/utils/client';
 import React from 'react';
 import { SchemaComponentOptions } from '..';

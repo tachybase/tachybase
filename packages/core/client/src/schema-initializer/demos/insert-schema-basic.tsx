@@ -9,8 +9,8 @@ import {
   useSchemaInitializerItem,
   useSchemaInitializerRender,
 } from '@nocobase/client';
-import { observer, useField } from '@nocobase/schema';
-import { Field } from '@nocobase/schema';
+import { observer, useField } from '@tachybase/schema';
+import { Field } from '@tachybase/schema';
 
 const Hello = observer(() => {
   const field = useField<Field>();

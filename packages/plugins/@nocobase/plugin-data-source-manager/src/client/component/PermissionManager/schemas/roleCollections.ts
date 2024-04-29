@@ -1,5 +1,5 @@
-import { ISchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { useRoleResourceValues } from './useRoleResourceValues';
 import { useSaveRoleResourceAction } from './useSaveRoleResourceAction';
 

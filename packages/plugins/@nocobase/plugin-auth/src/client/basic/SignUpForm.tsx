@@ -1,10 +1,10 @@
 import { SchemaComponent } from '@nocobase/client';
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import React from 'react';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { useAuthTranslation } from '../locale';
 import { useAPIClient } from '@nocobase/client';
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';

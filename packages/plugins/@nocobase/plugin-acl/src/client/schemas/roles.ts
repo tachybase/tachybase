@@ -1,8 +1,8 @@
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { useActionContext, useCollectionRecord, useRecord, useRequest } from '@nocobase/client';
 import { useEffect } from 'react';
 import pick from 'lodash/pick';
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 
 export const roleEditSchema = {
   type: 'object',

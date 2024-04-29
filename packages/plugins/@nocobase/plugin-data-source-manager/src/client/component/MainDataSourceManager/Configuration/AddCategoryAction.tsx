@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { useForm } from '@nocobase/schema';
+import { useForm } from '@tachybase/schema';
 import { cloneDeep } from 'lodash';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,10 +1,10 @@
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { ArrayField } from '@nocobase/schema';
-import { spliceArrayState } from '@nocobase/schema';
-import { RecursionField, observer, useFieldSchema } from '@nocobase/schema';
-import { action } from '@nocobase/schema';
-import { each } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { spliceArrayState } from '@tachybase/schema';
+import { RecursionField, observer, useFieldSchema } from '@tachybase/schema';
+import { action } from '@tachybase/schema';
+import { each } from '@tachybase/schema';
 import { Button, Card, Divider, Tooltip } from 'antd';
 import _ from 'lodash';
 import React, { useCallback, useContext } from 'react';

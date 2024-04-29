@@ -1,4 +1,4 @@
-import { RecursionField } from '@nocobase/schema';
+import { RecursionField } from '@tachybase/schema';
 import { SchemaComponentOptions, useCurrentRoles } from '@nocobase/client';
 import React from 'react';
 import { ExpiresSelect } from './ExpiresSelect';

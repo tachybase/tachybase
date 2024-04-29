@@ -1,7 +1,7 @@
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { defaultProps, operators, unique, primaryKey } from './properties';
 import { i18n } from '../../i18n';
-import { registerValidateRules } from '@nocobase/schema';
+import { registerValidateRules } from '@tachybase/schema';
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
 
 registerValidateRules({

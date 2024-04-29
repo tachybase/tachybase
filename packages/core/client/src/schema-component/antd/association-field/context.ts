@@ -1,4 +1,4 @@
-import { GeneralField } from '@nocobase/schema';
+import { GeneralField } from '@tachybase/schema';
 import { createContext } from 'react';
 
 export interface AssociationFieldContextProps {

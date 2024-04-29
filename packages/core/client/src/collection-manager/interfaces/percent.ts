@@ -1,5 +1,5 @@
-import { registerValidateRules } from '@nocobase/schema';
-import { ISchema } from '@nocobase/schema';
+import { registerValidateRules } from '@tachybase/schema';
+import { ISchema } from '@tachybase/schema';
 import { i18n } from '../../i18n';
 import { defaultProps, operators, unique } from './properties';
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';

@@ -1,5 +1,5 @@
-import { Form } from '@nocobase/schema';
-import { Schema, useFieldSchema } from '@nocobase/schema';
+import { Form } from '@tachybase/schema';
+import { Schema, useFieldSchema } from '@tachybase/schema';
 import React, { useContext, useMemo } from 'react';
 import { CollectionFieldOptions_deprecated } from '../..';
 import { isSystemField } from '../SchemaSettings';

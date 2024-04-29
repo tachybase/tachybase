@@ -1,5 +1,5 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@nocobase/schema';
-import { toArr } from '@nocobase/schema';
+import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+import { toArr } from '@tachybase/schema';
 import React, { Fragment, useRef, useState } from 'react';
 import { useDesignable } from '../../';
 import { BlockAssociationContext, WithoutTableFieldResource } from '../../../block-provider';

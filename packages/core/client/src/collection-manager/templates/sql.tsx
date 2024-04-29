@@ -1,4 +1,4 @@
-import { Field } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
 import { SQLInput, PreviewTable, FieldsConfigure, SQLRequestProvider } from './components/sql-collection';
 import { getConfigurableProperties } from './properties';
 import { i18n } from '../../i18n';

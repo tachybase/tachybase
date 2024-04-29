@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { observer, useFieldSchema } from '@nocobase/schema';
+import { observer, useFieldSchema } from '@tachybase/schema';
 import React, { useEffect, useMemo } from 'react';
 import { useCompile } from '../../schema-component';
 import { Variable } from '.././../schema-component';

@@ -1,7 +1,7 @@
 import { DeleteOutlined, DownOutlined, EditOutlined, UpOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { SchemaOptionsContext } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { SchemaOptionsContext } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import {
   CollectionCategroriesContext,
   CollectionProvider_deprecated,

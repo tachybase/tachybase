@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import { Op, BelongsTo, HasOne } from 'sequelize';
 import { modelAssociationByKey } from '@nocobase/database';
 import { parseCollectionName } from '@nocobase/data-source-manager';
-import { EXECUTION_STATUS, Trigger, toJSON, JOB_STATUS } from '@nocobase/plugin-workflow';
+import { EXECUTION_STATUS, Trigger, toJSON, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 import { UiSchemaRepository } from '@nocobase/plugin-ui-schema-storage';
 

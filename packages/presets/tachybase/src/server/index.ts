@@ -33,16 +33,8 @@ export class PresetTachyBase extends Plugin {
     'kanban',
     'logger',
     'sequence-field',
+    // @tachybase
     'workflow',
-    'workflow-action-trigger',
-    'workflow-aggregate',
-    'workflow-delay',
-    'workflow-dynamic-calculation',
-    'workflow-loop',
-    'workflow-manual',
-    'workflow-parallel',
-    'workflow-request',
-    'workflow-sql',
     // hera
     'audit-logs',
     'approval',

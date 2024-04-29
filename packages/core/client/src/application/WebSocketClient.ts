@@ -1,4 +1,4 @@
-import { define, observable } from '@nocobase/schema';
+import { define, observable } from '@tachybase/schema';
 import { getSubAppName } from '@nocobase/sdk';
 import { Application } from './Application';
 

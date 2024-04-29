@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { Card } from 'antd';
 import React from 'react';
 import { useSchemaTemplate } from '../../../schema-templates';

@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { ISchema, Schema, useField } from '@nocobase/schema';
+import { ISchema, Schema, useField } from '@tachybase/schema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCollectionManager_deprecated, useDesignable } from '..';

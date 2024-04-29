@@ -1,6 +1,6 @@
 import { ArrayCollapse, FormLayout } from '@formily/antd-v5';
-import { Field } from '@nocobase/schema';
-import { useField, useFieldSchema } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 import {
   SchemaSettings,
   useApp,

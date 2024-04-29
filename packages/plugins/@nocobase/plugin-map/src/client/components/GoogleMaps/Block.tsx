@@ -1,5 +1,5 @@
 import { CheckOutlined, EnvironmentOutlined, ExpandOutlined } from '@ant-design/icons';
-import { RecursionField, Schema, useFieldSchema } from '@nocobase/schema';
+import { RecursionField, Schema, useFieldSchema } from '@tachybase/schema';
 import {
   ActionContextProvider,
   RecordProvider,

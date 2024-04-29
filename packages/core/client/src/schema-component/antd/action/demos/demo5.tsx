@@ -10,8 +10,8 @@ import {
   NumberPicker,
   Submit,
 } from '@formily/antd-v5';
-import { Field, createForm, onFieldValueChange } from '@nocobase/schema';
-import { connect, createSchemaField, observer, useField, useForm, useFormEffects } from '@nocobase/schema';
+import { Field, createForm, onFieldValueChange } from '@tachybase/schema';
+import { connect, createSchemaField, observer, useField, useForm, useFormEffects } from '@tachybase/schema';
 import { Select } from 'antd';
 import React from 'react';
 

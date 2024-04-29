@@ -1,4 +1,4 @@
-import { isFn } from '@nocobase/schema';
+import { isFn } from '@tachybase/schema';
 import React, { Fragment } from 'react';
 import { getStrength } from './utils';
 

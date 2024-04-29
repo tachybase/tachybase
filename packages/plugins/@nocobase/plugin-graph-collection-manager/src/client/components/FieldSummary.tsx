@@ -1,4 +1,4 @@
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import { css, useCollectionManager_deprecated, useCompile } from '@nocobase/client';
 import { Tag } from 'antd';
 import React from 'react';

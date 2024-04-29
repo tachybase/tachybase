@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { ArrayTable } from '@formily/antd-v5';
-import { useField, useForm } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { useField, useForm } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { Button, Dropdown, MenuProps } from 'antd';
 import { cloneDeep } from 'lodash';
 import React, { useCallback, useMemo, useState } from 'react';

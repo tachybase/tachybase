@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, TableProps } from 'antd';
 import { SchemaComponent, UseDataBlockProps, useDataBlockRequest, withDynamicSchemaProps } from '@nocobase/client';
-import { ISchema } from '@nocobase/schema';
+import { ISchema } from '@tachybase/schema';
 import { createApp } from './createApp';
 
 const collection = 'users';

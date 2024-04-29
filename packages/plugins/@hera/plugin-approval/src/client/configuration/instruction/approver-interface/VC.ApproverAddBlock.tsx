@@ -8,7 +8,7 @@ import {
   useSchemaInitializerItem,
   useSchemaTemplateManager,
 } from '@nocobase/client';
-import { useFlowContext } from '@nocobase/plugin-workflow/client';
+import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import _ from 'lodash';
 
 export const ApproverAddBlockComponent = () => {

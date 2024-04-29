@@ -1,6 +1,6 @@
 import { EditOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { observer } from '@nocobase/schema';
+import { observer } from '@tachybase/schema';
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InternalSubTable } from './InternalSubTable';

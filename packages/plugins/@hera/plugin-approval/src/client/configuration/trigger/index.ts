@@ -1,5 +1,5 @@
 import { Plugin } from '@nocobase/client';
-import PluginWorkflow from '@nocobase/plugin-workflow/client';
+import PluginWorkflow from '@tachybase/plugin-workflow/client';
 import { ApprovalTrigger } from './node.ApprovalTrigger';
 import { LauncherActionConfigInitializer } from './launcher-interface/Iz.LauncherActionConfig';
 import { LauncherAddBlockButtonIntializer } from './launcher-interface/Iz.LauncherAddBlockButton';

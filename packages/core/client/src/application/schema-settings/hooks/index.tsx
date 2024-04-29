@@ -4,8 +4,8 @@ import { SchemaSettingOptions } from '../types';
 import React from 'react';
 import { SchemaSettingsWrapper } from '../components';
 import { SchemaSettingsProps } from '../../../schema-settings';
-import { Schema } from '@nocobase/schema';
-import { GeneralField } from '@nocobase/schema';
+import { Schema } from '@tachybase/schema';
+import { GeneralField } from '@tachybase/schema';
 import { Designable } from '../../../schema-component';
 
 type UseSchemaSettingsRenderOptions<T = {}> = Omit<SchemaSettingOptions<T>, 'name' | 'items'> &

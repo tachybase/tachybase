@@ -1,4 +1,4 @@
-import { observer, useForm } from '@nocobase/schema';
+import { observer, useForm } from '@tachybase/schema';
 import { Table, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';

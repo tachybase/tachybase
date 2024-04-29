@@ -1,4 +1,4 @@
-import { observer, useForm } from '@nocobase/schema';
+import { observer, useForm } from '@tachybase/schema';
 import { ConversionLogics } from '../../utils/constants';
 import { Descriptions, Tabs } from 'antd';
 import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';

@@ -1,5 +1,5 @@
 import { BarChartOutlined, LineChartOutlined } from '@ant-design/icons';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import {
   CompatibleSchemaInitializer,
   DEFAULT_DATA_SOURCE_KEY,

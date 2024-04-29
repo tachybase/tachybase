@@ -1,4 +1,4 @@
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { APIClient, APIClientProvider, useAPIClient, useRequest } from '@nocobase/client';
 import { Button, Input, Space, Table } from 'antd';
 import MockAdapter from 'axios-mock-adapter';

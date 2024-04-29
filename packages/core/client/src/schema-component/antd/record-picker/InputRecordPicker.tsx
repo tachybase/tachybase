@@ -1,5 +1,5 @@
-import { ArrayField } from '@nocobase/schema';
-import { RecursionField, useField, useFieldSchema } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 import { Select } from 'antd';
 import { differenceBy, unionBy } from 'lodash';
 import React, { createContext, useContext, useEffect, useState } from 'react';

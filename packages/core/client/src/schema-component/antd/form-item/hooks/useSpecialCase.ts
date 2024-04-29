@@ -1,5 +1,5 @@
-import { Field } from '@nocobase/schema';
-import { Schema, useFieldSchema, useForm } from '@nocobase/schema';
+import { Field } from '@tachybase/schema';
+import { Schema, useFieldSchema, useForm } from '@tachybase/schema';
 import _ from 'lodash';
 import { useCallback, useEffect, useMemo } from 'react';
 import {

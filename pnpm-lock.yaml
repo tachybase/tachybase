@@ -18,6 +18,7 @@ overrides:
   '@formily/shared': 2.2.27
   '@formily/validator': 2.2.27
   '@types/node': ^20.12.2
+  dayjs: 1.11.10
 
 importers:
 
@@ -457,15 +458,15 @@ importers:
       '@nocobase/evaluators':
         specifier: workspace:*
         version: link:../evaluators
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../schema
       '@nocobase/sdk':
         specifier: workspace:*
         version: link:../sdk
       '@nocobase/utils':
         specifier: workspace:*
         version: link:../utils
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       ahooks:
         specifier: ^3.7.2
         version: 3.7.8(react@18.2.0)
@@ -488,7 +489,7 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       deepmerge:
         specifier: ^4.2.2
@@ -678,7 +679,7 @@ importers:
         specifier: 4.4.0
         version: 4.4.0
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       deepmerge:
         specifier: ^4.2.2
@@ -926,13 +927,13 @@ importers:
         version: 2.2.27
       '@formily/react':
         specifier: 2.2.27
-        version: 2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+        version: 2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@formily/reactive':
         specifier: 2.2.27
         version: 2.2.27
       '@formily/reactive-react':
         specifier: 2.2.27
-        version: 2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+        version: 2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)
       '@formily/shared':
         specifier: 2.2.27
         version: 2.2.27
@@ -997,9 +998,6 @@ importers:
       '@nocobase/resourcer':
         specifier: workspace:*
         version: link:../resourcer
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../schema
       '@nocobase/sdk':
         specifier: workspace:*
         version: link:../sdk
@@ -1009,6 +1007,9 @@ importers:
       '@nocobase/utils':
         specifier: workspace:*
         version: link:../utils
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@types/decompress':
         specifier: 4.2.4
         version: 4.2.4
@@ -1040,7 +1041,7 @@ importers:
         specifier: ^2.11.0
         version: 2.47.0
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       decompress:
         specifier: 4.2.1
@@ -1263,7 +1264,7 @@ importers:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
       dayjs:
-        specifier: ^1.11.9
+        specifier: 1.11.10
         version: 1.11.10
       dedupe:
         specifier: ^3.0.2
@@ -1299,22 +1300,22 @@ importers:
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../../@nocobase/plugin-workflow
       '@nocobase/server':
         specifier: workspace:*
         version: link:../../../core/server
       '@nocobase/test':
         specifier: workspace:*
         version: link:../../../core/test
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../../@tachybase/plugin-workflow
     devDependencies:
       '@ant-design/icons':
         specifier: 5.x
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@formily/antd-v5':
         specifier: 1.1.9
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@nocobase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
@@ -1327,12 +1328,12 @@ importers:
       '@nocobase/plugin-ui-schema-storage':
         specifier: workspace:*
         version: link:../../@nocobase/plugin-ui-schema-storage
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
       '@nocobase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
       '@types/lodash':
         specifier: 4.17.0
         version: 4.17.0
@@ -1370,7 +1371,7 @@ importers:
       '@ant-design/icons':
         specifier: 5.x
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/lodash':
@@ -1403,9 +1404,6 @@ importers:
       '@nocobase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
       '@nocobase/server':
         specifier: workspace:*
         version: link:../../../core/server
@@ -1415,13 +1413,16 @@ importers:
       '@nocobase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
     devDependencies:
       '@ant-design/icons':
         specifier: ~5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       antd:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
@@ -1473,13 +1474,13 @@ importers:
         version: 11.11.2
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@react-pdf/renderer':
         specifier: ^3.3.2
         version: 3.3.8(react@18.2.0)
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
       ahooks:
         specifier: ^3.7.2
         version: 3.7.8(react@18.2.0)
@@ -1496,7 +1497,7 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       exceljs:
         specifier: ^4.4.0
@@ -1611,7 +1612,7 @@ importers:
       '@ant-design/icons':
         specifier: 5.x
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/lodash':
@@ -1672,7 +1673,7 @@ importers:
       '@ant-design/icons':
         specifier: ^5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       ahooks:
@@ -1682,7 +1683,7 @@ importers:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       exceljs:
         specifier: ^4.4.0
@@ -1747,8 +1748,8 @@ importers:
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@formily/antd-v5':
         specifier: ^1.1.9
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/jsonwebtoken':
@@ -1805,8 +1806,8 @@ importers:
         version: 11.11.2
       '@formily/antd-v5':
         specifier: ^1.1.9
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -1837,7 +1838,7 @@ importers:
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -1865,7 +1866,7 @@ importers:
       '@emotion/css':
         specifier: ^11.7.1
         version: 11.11.2
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -1955,7 +1956,7 @@ importers:
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       ahooks:
@@ -1965,7 +1966,7 @@ importers:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       i18next:
         specifier: ^22.4.9
@@ -2013,7 +2014,7 @@ importers:
       '@emotion/css':
         specifier: ^11.7.1
         version: 11.11.2
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/cron':
@@ -2061,7 +2062,7 @@ importers:
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@formily/antd-v5':
         specifier: ^1.1.9
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@hapi/topo':
         specifier: ^6.0.0
         version: 6.0.2
@@ -2084,7 +2085,7 @@ importers:
         specifier: ^0.5.4
         version: 0.5.4
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       decompress:
         specifier: ^4.2.1
@@ -2140,8 +2141,8 @@ importers:
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -2154,7 +2155,7 @@ importers:
         specifier: 4.4.0
         version: 4.4.0
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       lodash:
         specifier: ^4.17.21
@@ -2215,52 +2216,6 @@ importers:
         specifier: 6.x
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-charts:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.6
-        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@formily/antd-v5':
-        specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      json5:
-        specifier: ^2.2.3
-        version: 2.2.3
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-      react-router-dom:
-        specifier: ^6.11.2
-        version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
-
   packages/plugins/@nocobase/plugin-china-region:
     dependencies:
       '@nocobase/client':
@@ -2276,7 +2231,7 @@ importers:
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/cross-spawn':
@@ -2395,8 +2350,8 @@ importers:
     devDependencies:
       '@formily/antd-v5':
         specifier: ^1.1.9
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -2444,8 +2399,8 @@ importers:
         version: 11.11.2
       '@formily/antd-v5':
         specifier: ^1.1.9
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       ahooks:
@@ -2508,8 +2463,8 @@ importers:
         version: 11.11.2
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       ahooks:
@@ -2522,7 +2477,7 @@ importers:
         specifier: ^2.3.1
         version: 2.5.1
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       deepmerge:
         specifier: ^4.2.2
@@ -2545,18 +2500,6 @@ importers:
       sequelize:
         specifier: ^6.26.0
         version: 6.35.2
-
-  packages/plugins/@nocobase/plugin-disable-pm-add:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
 
   packages/plugins/@nocobase/plugin-error-handler:
     dependencies:
@@ -2609,8 +2552,8 @@ importers:
     devDependencies:
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/node-xlsx':
@@ -2661,11 +2604,11 @@ importers:
         version: 3.474.0
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@koa/multer':
         specifier: ^3.0.0
         version: 3.0.2(multer@1.4.4)
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/koa-multer':
@@ -2737,8 +2680,8 @@ importers:
     devDependencies:
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       react:
@@ -2761,13 +2704,10 @@ importers:
         version: 11.11.2
       '@formily/antd-v5':
         specifier: ^1.1.9
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
       '@nocobase/server':
         specifier: workspace:*
         version: link:../../../core/server
@@ -2777,6 +2717,9 @@ importers:
       '@nocobase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
       antd:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
@@ -2838,7 +2781,7 @@ importers:
       '@emotion/css':
         specifier: ^11.7.1
         version: 11.11.2
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       ahooks:
@@ -2884,7 +2827,7 @@ importers:
       '@ant-design/icons':
         specifier: ~5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -2926,11 +2869,11 @@ importers:
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@koa/multer':
         specifier: ^3.0.2
         version: 3.0.2(multer@1.4.4)
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/node-xlsx':
@@ -2984,8 +2927,8 @@ importers:
         version: 11.11.2
       '@formily/antd-v5':
         specifier: ^1.1.9
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -3037,7 +2980,7 @@ importers:
       '@ant-design/icons':
         specifier: ^5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       ahooks:
@@ -3122,11 +3065,11 @@ importers:
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.24)(@types/react@18.2.75)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+        version: 1.1.9(@types/react-dom@18.2.24)(@types/react@18.2.75)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@googlemaps/js-api-loader':
         specifier: ^1.16.1
         version: 1.16.2
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/google.maps':
@@ -3159,70 +3102,6 @@ importers:
       react-router-dom:
         specifier: ^6.11.2
         version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@nocobase/plugin-mobile-client:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.6
-        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@formily/antd-v5':
-        specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.24)(@types/react@18.2.75)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      '@types/react':
-        specifier: ~18.2.73
-        version: 18.2.75
-      '@types/react-dom':
-        specifier: ~18.2.23
-        version: 18.2.24
-      ahooks:
-        specifier: 3.x
-        version: 3.7.8(react@18.2.0)
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      antd-mobile:
-        specifier: ^5.35.0
-        version: 5.35.0(react-dom@18.2.0)(react@18.2.0)
-      antd-style:
-        specifier: 3.x
-        version: 3.6.1(@types/react@18.2.75)(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0)
-      classnames:
-        specifier: 2.x
-        version: 2.5.1
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ~18.2.0
-        version: 18.2.0(react@18.2.0)
-      react-i18next:
-        specifier: 11.x
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-      react-router-dom:
-        specifier: 6.x
-        version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
 
   packages/plugins/@nocobase/plugin-mock-collections:
     dependencies:
@@ -3273,7 +3152,7 @@ importers:
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -3334,7 +3213,7 @@ importers:
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -3410,8 +3289,8 @@ importers:
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       ahooks:
@@ -3466,12 +3345,12 @@ importers:
       '@ant-design/icons':
         specifier: ~5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
       '@node-saml/node-saml':
         specifier: ^4.0.2
         version: 4.0.5
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
       antd:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
@@ -3500,7 +3379,7 @@ importers:
       '@ant-design/icons':
         specifier: ~5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -3539,8 +3418,8 @@ importers:
     devDependencies:
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -3553,7 +3432,7 @@ importers:
         specifier: 4.4.0
         version: 4.4.0
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       lodash:
         specifier: 4.17.21
@@ -3595,7 +3474,7 @@ importers:
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -3629,7 +3508,7 @@ importers:
       '@ant-design/icons':
         specifier: ~5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
@@ -3692,7 +3571,7 @@ importers:
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@arvinxu/layout-kit':
         specifier: ^1
-        version: 1.4.0(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+        version: 1.4.0(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)
       '@ctrl/tinycolor':
         specifier: ^3.6.0
         version: 3.6.1
@@ -3806,7 +3685,7 @@ importers:
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
-      '@nocobase/schema':
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       '@types/jsonwebtoken':
@@ -3857,15 +3736,15 @@ importers:
         version: 1.4.4
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
       antd:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
       dayjs:
-        specifier: ^1.11.8
+        specifier: 1.11.10
         version: 1.11.10
       react:
         specifier: ~18.2.0
@@ -3877,7 +3756,71 @@ importers:
         specifier: ^4.0.525
         version: 4.0.759
 
-  packages/plugins/@nocobase/plugin-workflow:
+  packages/plugins/@tachybase/plugin-mobile-client:
+    dependencies:
+      '@nocobase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@nocobase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@nocobase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@nocobase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@nocobase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.6
+        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
+      '@formily/antd-v5':
+        specifier: 1.x
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      '@types/react':
+        specifier: ~18.2.73
+        version: 18.2.79
+      '@types/react-dom':
+        specifier: ~18.2.23
+        version: 18.2.25
+      ahooks:
+        specifier: 3.x
+        version: 3.7.11(react@18.2.0)
+      antd:
+        specifier: 5.16.1
+        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
+      antd-mobile:
+        specifier: ^5.35.0
+        version: 5.35.0(react-dom@18.2.0)(react@18.2.0)
+      antd-style:
+        specifier: 3.x
+        version: 3.4.5(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0)
+      classnames:
+        specifier: 2.x
+        version: 2.5.1
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      react:
+        specifier: ~18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ~18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-i18next:
+        specifier: 11.x
+        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
+      react-router-dom:
+        specifier: 6.x
+        version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
+
+  packages/plugins/@tachybase/plugin-workflow:
     dependencies:
       '@nocobase/actions':
         specifier: workspace:*
@@ -3899,16 +3842,13 @@ importers:
         version: link:../../../core/logger
       '@nocobase/plugin-collection-manager':
         specifier: workspace:*
-        version: link:../plugin-collection-manager
+        version: link:../../@nocobase/plugin-collection-manager
       '@nocobase/plugin-error-handler':
         specifier: workspace:*
-        version: link:../plugin-error-handler
+        version: link:../../@nocobase/plugin-error-handler
       '@nocobase/plugin-users':
         specifier: workspace:*
-        version: link:../plugin-users
-      '@nocobase/plugin-workflow-test':
-        specifier: workspace:*
-        version: link:../plugin-workflow-test
+        version: link:../../@nocobase/plugin-users
       '@nocobase/resourcer':
         specifier: workspace:*
         version: link:../../../core/resourcer
@@ -3921,34 +3861,37 @@ importers:
       '@nocobase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
     devDependencies:
       '@ant-design/icons':
         specifier: ~5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@formily/antd-v5':
         specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
+        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@tachybase/plugin-workflow-test':
         specifier: workspace:*
-        version: link:../../../core/schema
+        version: link:../plugin-workflow-test
       '@types/ejs':
         specifier: ^3.1.1
         version: 3.1.5
+      '@types/lodash':
+        specifier: ^4.17.0
+        version: 4.17.0
       antd:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
       axios:
         specifier: ^1.6.2
-        version: 1.6.7
+        version: 1.6.8
       classnames:
         specifier: ^2.3.1
         version: 2.5.1
       cron-parser:
         specifier: 4.4.0
         version: 4.4.0
-      dayjs:
-        specifier: ^1.11.8
-        version: 1.11.10
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -3966,348 +3909,12 @@ importers:
         version: 3.2.0(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0)
       react-router-dom:
         specifier: ^6.11.2
-        version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
+        version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
       sequelize:
         specifier: ^6.26.0
         version: 6.35.2
 
-  packages/plugins/@nocobase/plugin-workflow-action-trigger:
-    dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/data-source-manager':
-        specifier: workspace:*
-        version: link:../../../core/data-source-manager
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-      sequelize:
-        specifier: ^6.26.0
-        version: 6.35.2
-
-  packages/plugins/@nocobase/plugin-workflow-aggregate:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/data-source-manager':
-        specifier: workspace:*
-        version: link:../../../core/data-source-manager
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@nocobase/plugin-workflow-delay:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@nocobase/plugin-workflow-dynamic-calculation:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/evaluators':
-        specifier: workspace:*
-        version: link:../../../core/evaluators
-      '@nocobase/plugin-collection-manager':
-        specifier: workspace:*
-        version: link:../plugin-collection-manager
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.6
-        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@formily/antd-v5':
-        specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-      react-router-dom:
-        specifier: ^6.11.2
-        version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@nocobase/plugin-workflow-loop:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.6
-        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@nocobase/plugin-workflow-manual:
-    dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/plugin-collection-manager':
-        specifier: workspace:*
-        version: link:../plugin-collection-manager
-      '@nocobase/plugin-users':
-        specifier: workspace:*
-        version: link:../plugin-users
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@nocobase/resourcer':
-        specifier: workspace:*
-        version: link:../../../core/resourcer
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.6
-        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@formily/antd-v5':
-        specifier: 1.x
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      dayjs:
-        specifier: ^1.11.8
-        version: 1.11.10
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-      react-router-dom:
-        specifier: ^6.11.2
-        version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@nocobase/plugin-workflow-parallel:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.6
-        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@nocobase/plugin-workflow-request:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@formily/antd-v5':
-        specifier: ^1.1.9
-        version: 1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@nocobase/plugin-workflow-sql:
-    dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-
-  packages/plugins/@nocobase/plugin-workflow-test:
+  packages/plugins/@tachybase/plugin-workflow-test:
     dependencies:
       '@nocobase/client':
         specifier: workspace:*
@@ -4578,9 +4185,6 @@ importers:
       '@nocobase/plugin-cas':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-cas
-      '@nocobase/plugin-charts':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-charts
       '@nocobase/plugin-china-region':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-china-region
@@ -4635,9 +4239,6 @@ importers:
       '@nocobase/plugin-map':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-map
-      '@nocobase/plugin-mobile-client':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-mobile-client
       '@nocobase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-mock-collections
@@ -4677,42 +4278,18 @@ importers:
       '@nocobase/plugin-verification':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-verification
-      '@nocobase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow
-      '@nocobase/plugin-workflow-action-trigger':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-action-trigger
-      '@nocobase/plugin-workflow-aggregate':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-aggregate
-      '@nocobase/plugin-workflow-delay':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-delay
-      '@nocobase/plugin-workflow-dynamic-calculation':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-dynamic-calculation
-      '@nocobase/plugin-workflow-loop':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-loop
-      '@nocobase/plugin-workflow-manual':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-manual
-      '@nocobase/plugin-workflow-parallel':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-parallel
-      '@nocobase/plugin-workflow-request':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-request
-      '@nocobase/plugin-workflow-sql':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-workflow-sql
-      '@nocobase/schema':
-        specifier: workspace:*
-        version: link:../../core/schema
       '@nocobase/server':
         specifier: workspace:*
         version: link:../../core/server
+      '@tachybase/plugin-mobile-client':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-workflow
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../core/schema
       cronstrue:
         specifier: ^2.11.0
         version: 2.47.0
@@ -4729,6 +4306,7 @@ packages:
   /@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
+    dev: false
 
   /@adobe/css-tools@4.3.3:
     resolution: {integrity: sha512-rE0Pygv0sEZ4vBWHlAgJLGDU7Pm8xoO6p3wsEceb7GYAjScrOHpEo8KK/eVkAcnSM+slAEtXjA2JpdjLp4fJQQ==}
@@ -4925,22 +4503,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       stylis: 4.3.0
 
-  /@ant-design/cssinjs@1.19.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-AL3qPvvt8nNTGZ0fpSdVwsQ+LfaoZ795xiapByAhVRggJBhBiNTROCG82Gwv5TI0mnmGZOc358o2d44LNxergQ==}
-    peerDependencies:
-      react: '>=16.0.0'
-      react-dom: '>=16.0.0'
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@emotion/hash': 0.8.0
-      '@emotion/unitless': 0.7.5
-      classnames: 2.5.1
-      csstype: 3.1.3
-      rc-util: 5.39.1(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      stylis: 4.3.1
-
   /@ant-design/cssinjs@1.19.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-hgQ3wiys3X0sqDKWkqCJ6EYdF79i9JCvtavmIGwuuPUKmoJXV8Ff0sY+yQQSxk2dRmMyam/bYKo/Bwor45hnZw==}
     peerDependencies:
@@ -4971,7 +4533,7 @@ packages:
       '@ant-design/icons-svg': 4.4.2
       '@babel/runtime': 7.24.4
       classnames: 2.5.1
-      rc-util: 5.38.1(react-dom@18.2.0)(react@18.2.0)
+      rc-util: 5.39.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
@@ -5024,7 +4586,7 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
     dependencies:
-      '@ant-design/cssinjs': 1.19.0(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/cssinjs': 1.19.1(react-dom@18.2.0)(react@18.2.0)
       '@babel/runtime': 7.24.4
       '@ctrl/tinycolor': 3.6.1
       antd: 5.16.1(react-dom@18.2.0)(react@18.2.0)
@@ -5538,10 +5100,10 @@ packages:
       utility-types: 3.10.0
     dev: true
 
-  /@arvinxu/layout-kit@1.4.0(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0):
+  /@arvinxu/layout-kit@1.4.0(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0):
     resolution: {integrity: sha512-dEsmFwZa/NJ2XvDBL4sCPbgFPvCvpxP+G+90Ay9zqN92vc4YbgVo4NjpjsDihiNqwDQjWhasGCC3+v4w7bdYqg==}
     dependencies:
-      styled-components: 5.3.11(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+      styled-components: 5.3.11(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)
     transitivePeerDependencies:
       - '@babel/core'
       - react
@@ -7453,7 +7015,7 @@ packages:
     resolution: {integrity: sha512-Chk32uHMg6TnQdvw2e9IlqPpFX/6NLuK0Ys2PqLb7/gL5uFn9mXvK715FGLlOLQrcO4qIkNHkvPGktzzXexsFw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      regenerator-runtime: 0.14.0
+      regenerator-runtime: 0.14.1
 
   /@babel/runtime@7.24.1:
     resolution: {integrity: sha512-+BIznRzyqBf+2wCTxcKE3wDjfGeCoVE61KSHGpkzqrLi8qxqFwBeUFyId2cxkTmm55fzDGnm0+yCxaxygrLUnQ==}
@@ -8161,27 +7723,6 @@ packages:
 
   /@emotion/memoize@0.8.1:
     resolution: {integrity: sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA==}
-
-  /@emotion/react@11.11.1(@types/react@18.2.75)(react@18.2.0):
-    resolution: {integrity: sha512-5mlW1DquU5HaxjLkfkGN1GA/fvVGdyHURRiX/0FHl2cfIfRxSOfmxEH5YS43edp0OldZrZ+dkBKbngxcNCdZvA==}
-    peerDependencies:
-      '@types/react': '*'
-      react: '>=16.8.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.24.4
-      '@emotion/babel-plugin': 11.11.0
-      '@emotion/cache': 11.11.0
-      '@emotion/serialize': 1.1.2
-      '@emotion/use-insertion-effect-with-fallbacks': 1.0.1(react@18.2.0)
-      '@emotion/utils': 1.2.1
-      '@emotion/weak-memoize': 0.3.1
-      '@types/react': 18.2.75
-      hoist-non-react-statics: 3.3.2
-      react: 18.2.0
-    dev: true
 
   /@emotion/react@11.11.1(@types/react@18.2.79)(react@18.2.0):
     resolution: {integrity: sha512-5mlW1DquU5HaxjLkfkGN1GA/fvVGdyHURRiX/0FHl2cfIfRxSOfmxEH5YS43edp0OldZrZ+dkBKbngxcNCdZvA==}
@@ -9346,7 +8887,7 @@ packages:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
     dev: true
 
-  /@formily/antd-v5@1.1.9(@types/react-dom@18.2.24)(@types/react@18.2.75)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5):
+  /@formily/antd-v5@1.1.9(@types/react-dom@18.2.24)(@types/react@18.2.75)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5):
     resolution: {integrity: sha512-Gw0wx6zERLJS8GvmTizV6UPNyxNrg2svbV1Dr38jwsw+dkEef7ZANNERfEpsl2TvCEDl4W3QVFNPws5woLGl8g==}
     engines: {npm: '>=3.0.0'}
     peerDependencies:
@@ -9357,16 +8898,16 @@ packages:
       react-dom: '>=16.8.0'
       react-is: '>=16.8.0 || >=17.0.0'
     dependencies:
-      '@ant-design/cssinjs': 1.19.0(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/cssinjs': 1.19.1(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/icons': 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@dnd-kit/core': 6.1.0(react-dom@18.2.0)(react@18.2.0)
       '@dnd-kit/sortable': 7.0.2(@dnd-kit/core@6.1.0)(react@18.2.0)
       '@formily/core': 2.2.27
       '@formily/grid': 2.2.27(typescript@4.9.5)
       '@formily/json-schema': 2.2.27(typescript@4.9.5)
-      '@formily/react': 2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+      '@formily/react': 2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@formily/reactive': 2.2.27
-      '@formily/reactive-react': 2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+      '@formily/reactive-react': 2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)
       '@formily/shared': 2.2.27
       '@types/react': 18.2.75
       '@types/react-dom': 18.2.24
@@ -9374,7 +8915,7 @@ packages:
       classnames: 2.5.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-is: 18.2.0
+      react-is: 18.3.1
       react-sticky-box: 1.0.2(react@18.2.0)
     transitivePeerDependencies:
       - typescript
@@ -9391,7 +8932,7 @@ packages:
       react-dom: '>=16.8.0'
       react-is: '>=16.8.0 || >=17.0.0'
     dependencies:
-      '@ant-design/cssinjs': 1.19.0(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/cssinjs': 1.19.1(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/icons': 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@dnd-kit/core': 6.1.0(react-dom@18.2.0)(react@18.2.0)
       '@dnd-kit/sortable': 7.0.2(@dnd-kit/core@6.1.0)(react@18.2.0)
@@ -9409,6 +8950,40 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-is: 18.2.0
+      react-sticky-box: 1.0.2(react@18.2.0)
+    transitivePeerDependencies:
+      - typescript
+    dev: false
+
+  /@formily/antd-v5@1.1.9(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-Gw0wx6zERLJS8GvmTizV6UPNyxNrg2svbV1Dr38jwsw+dkEef7ZANNERfEpsl2TvCEDl4W3QVFNPws5woLGl8g==}
+    engines: {npm: '>=3.0.0'}
+    peerDependencies:
+      '@types/react': '>=16.8.0 || >=17.0.0'
+      '@types/react-dom': '>=16.8.0 || >=17.0.0'
+      antd: ^5.1.0
+      react: '>=16.8.0 || >=17.0.0'
+      react-dom: '>=16.8.0'
+      react-is: '>=16.8.0 || >=17.0.0'
+    dependencies:
+      '@ant-design/cssinjs': 1.19.1(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/icons': 5.3.6(react-dom@18.2.0)(react@18.2.0)
+      '@dnd-kit/core': 6.1.0(react-dom@18.2.0)(react@18.2.0)
+      '@dnd-kit/sortable': 7.0.2(@dnd-kit/core@6.1.0)(react@18.2.0)
+      '@formily/core': 2.2.27
+      '@formily/grid': 2.2.27(typescript@4.9.5)
+      '@formily/json-schema': 2.2.27(typescript@4.9.5)
+      '@formily/react': 2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@formily/reactive': 2.2.27
+      '@formily/reactive-react': 2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)
+      '@formily/shared': 2.2.27
+      '@types/react': 18.2.79
+      '@types/react-dom': 18.2.25
+      antd: 5.16.1(react-dom@18.2.0)(react@18.2.0)
+      classnames: 2.5.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-is: 18.3.1
       react-sticky-box: 1.0.2(react@18.2.0)
     transitivePeerDependencies:
       - typescript
@@ -9458,7 +9033,7 @@ packages:
     resolution: {integrity: sha512-svpYARx1N72Rzg4l9D10SpDljUjCqkFD3ogbnsLNUxO8Rh2oSmn0dw63VDYOw43RX61qHmD3VYAnGxdCv5HJ8w==}
     engines: {npm: '>=3.0.0'}
 
-  /@formily/react@2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5):
+  /@formily/react@2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5):
     resolution: {integrity: sha512-IVTZ0ILM4TmsydUcj8ZyXKJol1iAlqkWf1TZ+5BeZvmv1ToeluVpkv8/7RoRnr1sNi1K5THwT4AfcQCea0yV2g==}
     engines: {npm: '>=3.0.0'}
     peerDependencies:
@@ -9476,7 +9051,7 @@ packages:
       '@formily/core': 2.2.27
       '@formily/json-schema': 2.2.27(typescript@4.9.5)
       '@formily/reactive': 2.2.27
-      '@formily/reactive-react': 2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+      '@formily/reactive-react': 2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)
       '@formily/shared': 2.2.27
       '@formily/validator': 2.2.27
       '@types/react': 18.2.75
@@ -9484,7 +9059,7 @@ packages:
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-is: 18.2.0
+      react-is: 18.3.1
     transitivePeerDependencies:
       - typescript
     dev: true
@@ -9518,8 +9093,39 @@ packages:
       react-is: 18.2.0
     transitivePeerDependencies:
       - typescript
+    dev: false
 
-  /@formily/reactive-react@2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0):
+  /@formily/react@2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-IVTZ0ILM4TmsydUcj8ZyXKJol1iAlqkWf1TZ+5BeZvmv1ToeluVpkv8/7RoRnr1sNi1K5THwT4AfcQCea0yV2g==}
+    engines: {npm: '>=3.0.0'}
+    peerDependencies:
+      '@types/react': '>=16.8.0'
+      '@types/react-dom': '>=16.8.0'
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      react-is: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@formily/core': 2.2.27
+      '@formily/json-schema': 2.2.27(typescript@4.9.5)
+      '@formily/reactive': 2.2.27
+      '@formily/reactive-react': 2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)
+      '@formily/shared': 2.2.27
+      '@formily/validator': 2.2.27
+      '@types/react': 18.2.79
+      '@types/react-dom': 18.2.25
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-is: 18.3.1
+    transitivePeerDependencies:
+      - typescript
+
+  /@formily/reactive-react@2.2.27(@types/react-dom@18.2.24)(@types/react@18.2.75)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0):
     resolution: {integrity: sha512-LJefK/9g8MorhGexMiVF+FVWyMR/Vc4C63Djrj08XeXtTF0NUNUUKVBT1eZqmtdRHJSyDE7SSgUmpxcXP7QmQQ==}
     engines: {npm: '>=3.0.0'}
     peerDependencies:
@@ -9540,7 +9146,7 @@ packages:
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-is: 18.2.0
+      react-is: 18.3.1
     dev: true
 
   /@formily/reactive-react@2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0):
@@ -9565,6 +9171,30 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-is: 18.2.0
+    dev: false
+
+  /@formily/reactive-react@2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0):
+    resolution: {integrity: sha512-LJefK/9g8MorhGexMiVF+FVWyMR/Vc4C63Djrj08XeXtTF0NUNUUKVBT1eZqmtdRHJSyDE7SSgUmpxcXP7QmQQ==}
+    engines: {npm: '>=3.0.0'}
+    peerDependencies:
+      '@types/react': '>=16.8.0'
+      '@types/react-dom': '>=16.8.0'
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      react-is: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@formily/reactive': 2.2.27
+      '@types/react': 18.2.79
+      '@types/react-dom': 18.2.25
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-is: 18.3.1
 
   /@formily/reactive@2.2.27:
     resolution: {integrity: sha512-ksdA4uIw3WMo0FmHcGsyqZgPwhujVgtXqxiWPSV+Tc2eEoJrInZhr15Q0IeTQ6glMh8izNsb19YK+PphBHwXGg==}
@@ -10162,7 +9792,7 @@ packages:
     dependencies:
       async: 3.2.5
       chalk: 3.0.0
-      dayjs: 1.8.36
+      dayjs: 1.11.10
       debug: 4.3.4(supports-color@5.5.0)
       eventemitter2: 5.0.1
       fast-json-patch: 3.1.1
@@ -10423,7 +10053,7 @@ packages:
     resolution: {integrity: sha512-YfcB2QrX+Wx1o6LD1G2Y2fhDhOix/bAY/oAnMpHoNLsKkWIRbt1oKLkIFvxBMzLwAEPqnYWguJrYC+J6i4ywbw==}
     engines: {node: '>=12.17'}
     dependencies:
-      bole: 5.0.11
+      bole: 5.0.12
       ndjson: 2.0.0
     dev: false
 
@@ -14361,7 +13991,7 @@ packages:
       rc-util: 5.39.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-fast-compare: 3.2.2
-      react-is: 18.2.0
+      react-is: 18.3.1
       runes2: 1.1.4
       staged-components: 1.1.3(react@18.2.0)
       tslib: 2.6.2
@@ -14390,28 +14020,6 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react-dom
-
-  /antd-style@3.6.1(@types/react@18.2.75)(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-KpKXiAIV3CAe6TfSh/m6ET2vGuhAof7qfqeaouh5WZ0JDl5jDXXSFPeEfqvZuHAckTl+A0NzArvIHKgKt/NZ9g==}
-    peerDependencies:
-      antd: '>=5.8.1'
-      react: '>=18'
-    dependencies:
-      '@ant-design/cssinjs': 1.18.2(react-dom@18.2.0)(react@18.2.0)
-      '@babel/runtime': 7.24.0
-      '@emotion/cache': 11.11.0
-      '@emotion/css': 11.11.2
-      '@emotion/react': 11.11.1(@types/react@18.2.75)(react@18.2.0)
-      '@emotion/serialize': 1.1.2
-      '@emotion/server': 11.11.0(@emotion/css@11.11.2)
-      '@emotion/utils': 1.2.1
-      antd: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      use-merge-value: 1.2.0(react@18.2.0)
-    transitivePeerDependencies:
-      - '@types/react'
-      - react-dom
-    dev: true
 
   /antd-style@3.6.1(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-KpKXiAIV3CAe6TfSh/m6ET2vGuhAof7qfqeaouh5WZ0JDl5jDXXSFPeEfqvZuHAckTl+A0NzArvIHKgKt/NZ9g==}
@@ -15121,7 +14729,7 @@ packages:
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.22.10)
       lodash: 4.17.21
       picomatch: 2.3.1
-      styled-components: 5.3.11(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+      styled-components: 5.3.11(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)
     transitivePeerDependencies:
       - '@babel/core'
     dev: true
@@ -15316,8 +14924,8 @@ packages:
     resolution: {integrity: sha512-Ylo+MAo5BDUq1KA3f3R/MFhh+g8cnHmo8bz3YPGhI1znrMaf77ol1sfvYJzsw3nTE+Y2GryfDxBaR+AqpAkEHQ==}
     dev: false
 
-  /bole@5.0.11:
-    resolution: {integrity: sha512-KB0Ye0iMAW5BnNbnLfMSQcnI186hKUzE2fpkZWqcxsoTR7eqzlTidSOMYPHJOn/yR7VGH7uSZp37qH9q2Et0zQ==}
+  /bole@5.0.12:
+    resolution: {integrity: sha512-G5H5siOlUrcyvYr7kVlQyYMWip0dZ8qa+Uiy+d9QxOvBY2eaP/g8YsJVwvf3VIMbXmYxZIAOmmsuN3rL5r6gwQ==}
     dependencies:
       fast-safe-stringify: 2.1.1
       individual: 3.0.0
@@ -15690,7 +15298,7 @@ packages:
     resolution: {integrity: sha512-9HP6nc1ZqyZgcVEpy5XS2ns9MYE6cPEM6InA1wQhR6M7GviJzLH2NTFYnf3NEfRmLE351NCSkDo2VISX8dlG+w==}
     dependencies:
       lodash.clonedeep: 4.5.0
-      lru-cache: 10.1.0
+      lru-cache: 10.2.0
       promise-coalesce: 1.1.1
     dev: false
 
@@ -16814,8 +16422,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /css-functions-list@3.2.1:
-    resolution: {integrity: sha512-Nj5YcaGgBtuUmn1D7oHqPW0c9iui7xsTsj5lIX8ZgevdfhmjFfKB3r8moHJtNJnctnYXJyYX5I1pp90HM4TPgQ==}
+  /css-functions-list@3.2.2:
+    resolution: {integrity: sha512-c+N0v6wbKVxTu5gOBBFkr9BEdBWaqqjQeiJ8QvSRIJOf+UxlJh930m8e6/WNeODIK0mYLFkoONrnj16i2EcvfQ==}
     engines: {node: '>=12 || >=16'}
 
   /css-has-pseudo@3.0.4(postcss@8.4.38):
@@ -17326,10 +16934,6 @@ packages:
 
   /dayjs@1.11.10:
     resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
-
-  /dayjs@1.8.36:
-    resolution: {integrity: sha512-3VmRXEtw7RZKAf+4Tv1Ym9AGeo8r8+CjDi26x+7SYQil1UqtqdaokhzoEJohqlzt0m5kacJSDhJQkG/LWhpRBw==}
-    dev: false
 
   /debounce-fn@4.0.0:
     resolution: {integrity: sha512-8pYCQiL9Xdcg0UPSD3d+0KMlOjp+KGU5EPwYddgzQ7DATsg4fuUDjQtsYLmWjnk2obnNHgV3vE2Y4jejSOJVBQ==}
@@ -18233,6 +17837,10 @@ packages:
 
   /es-module-lexer@1.5.0:
     resolution: {integrity: sha512-pqrTKmwEIgafsYZAGw9kszYzmagcE/n4dbgwGWLEXg7J4QFJVQRBld8j3Q3GNez79jzxZshq0bcT962QHOghjw==}
+    dev: true
+
+  /es-module-lexer@1.5.2:
+    resolution: {integrity: sha512-l60ETUTmLqbVbVHv1J4/qj+M8nq7AwMzEcg3kmJDt9dCNrTk+yHcYFf/Kw75pMDwd9mPcIGCG5LcS20SxYRzFA==}
 
   /es-object-atoms@1.0.0:
     resolution: {integrity: sha512-MZ4iQ6JwHOBQjahnjwaC1ZtIBH+2ohjamzAO3oaHcXYup7qxjF2fixyH+Q71voWHeOkI2q/TnJao/KfXYIZWbw==}
@@ -18910,7 +18518,7 @@ packages:
       lodash.merge: 4.6.2
       minimatch: 3.1.2
       natural-compare: 1.4.0
-      optionator: 0.9.3
+      optionator: 0.9.4
       strip-ansi: 6.0.1
       text-table: 0.2.0
     transitivePeerDependencies:
@@ -22612,15 +22220,9 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /lru-cache@10.1.0:
-    resolution: {integrity: sha512-/1clY/ui8CzjKFyjdvwPWJUYKiFVXG2I2cY0ssG7h4+hwk+XOIX7ZSG9Q7TW8TW3Kp3BUSqgFWBLgL4PJ+Blag==}
-    engines: {node: 14 || >=16.14}
-    dev: false
-
   /lru-cache@10.2.0:
     resolution: {integrity: sha512-2bIM8x+VAf6JT4bKAljS1qUWgMsqZRPGJS6FSahIMPVvctcNhyVp7AJu7quxOW9jwkryBReKZY5tY5JYv2n/7Q==}
     engines: {node: 14 || >=16.14}
-    dev: true
 
   /lru-cache@4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==}
@@ -24039,6 +23641,19 @@ packages:
       levn: 0.4.1
       prelude-ls: 1.2.1
       type-check: 0.4.0
+    dev: false
+
+  /optionator@0.9.4:
+    resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      deep-is: 0.1.4
+      fast-levenshtein: 2.0.6
+      levn: 0.4.1
+      prelude-ls: 1.2.1
+      type-check: 0.4.0
+      word-wrap: 1.2.5
+    dev: true
 
   /ora@5.4.1:
     resolution: {integrity: sha512-5b6Y85tPxZZ7QytO+BQzysW31HJku27cRIlkbAXaNx+BdcVi+LlRFmVXzeF6a7JCwJpyw5c4b+YSVImQIrBpuQ==}
@@ -25927,7 +25542,7 @@ packages:
       '@rc-component/mini-decimal': 1.1.0
       classnames: 2.5.1
       rc-input: 1.4.5(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.38.1(react-dom@18.2.0)(react@18.2.0)
+      rc-util: 5.39.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
@@ -26030,7 +25645,7 @@ packages:
     engines: {node: '>=8.x'}
     peerDependencies:
       date-fns: '>= 2.x'
-      dayjs: '>= 1.x'
+      dayjs: 1.11.10
       luxon: '>= 3.x'
       moment: '>= 2.x'
       react: '>=16.9.0'
@@ -26395,7 +26010,7 @@ packages:
       '@babel/runtime': 7.24.4
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-is: 18.2.0
+      react-is: 18.3.1
 
   /rc-virtual-list@3.11.3(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-tu5UtrMk/AXonHwHxUogdXAWynaXsrx1i6dsgg+lOo/KJSF8oBAcprh1z5J3xgnPJD5hXxTL58F8s8onokdt0Q==}
@@ -26603,7 +26218,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@babel/runtime': 7.24.0
+      '@babel/runtime': 7.24.4
       html-parse-stringify: 3.0.1
       i18next: 22.5.1
       react: 18.2.0
@@ -26638,6 +26253,9 @@ packages:
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+
+  /react-is@18.3.1:
+    resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
   /react-js-cron@3.2.0(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-DAluNX6ZpfsSDAIAfJKNyWIckTWTcQ/7IK91J4jaS4o4iihRJo/8gd7kf6ACDTE2RKt0PiSpOf1MBrrSdmdyUQ==}
@@ -27098,9 +26716,6 @@ packages:
 
   /regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
-
-  /regenerator-runtime@0.14.0:
-    resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
 
   /regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
@@ -28802,7 +28417,7 @@ packages:
   /style-search@0.1.0:
     resolution: {integrity: sha512-Dj1Okke1C3uKKwQcetra4jSuk0DqbzbYtXipzFlFMZtowbF1x7BKJwB9AayVMyFARvU8EDrZdcax4At/452cAg==}
 
-  /styled-components@5.3.11(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0):
+  /styled-components@5.3.11(@babel/core@7.22.10)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0):
     resolution: {integrity: sha512-uuzIIfnVkagcVHv9nE0VPlHPSCmXIUGKfJ42LNjxCCTDTL5sgnJ8Z7GZBq0EnLYGln77tPpEpExt2+qa+cZqSw==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -28820,7 +28435,7 @@ packages:
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-is: 18.2.0
+      react-is: 18.3.1
       shallowequal: 1.1.0
       supports-color: 5.5.0
     transitivePeerDependencies:
@@ -28851,7 +28466,7 @@ packages:
       balanced-match: 2.0.0
       colord: 2.9.3
       cosmiconfig: 7.1.0
-      css-functions-list: 3.2.1
+      css-functions-list: 3.2.2
       debug: 4.3.4(supports-color@5.5.0)
       fast-glob: 3.3.2
       fastest-levenshtein: 1.0.16
@@ -29212,11 +28827,21 @@ packages:
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
-      terser: 5.30.3
+      terser: 5.30.4
       webpack: 5.91.0
 
   /terser@5.30.3:
     resolution: {integrity: sha512-STdUgOUx8rLbMGO9IOwHLpCqolkDITFFQSMYYwKE1N2lY6MVSaeoi10z/EhWxRc6ybqoVmKSkhKYH/XUpl7vSA==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      '@jridgewell/source-map': 0.3.6
+      acorn: 8.11.3
+      commander: 2.20.3
+      source-map-support: 0.5.21
+
+  /terser@5.30.4:
+    resolution: {integrity: sha512-xRdd0v64a8mFK9bnsKVdoNP9GQIKUAaJPTaqEQDL4w/J8WaW4sWXXoMZ+6SimPkfT5bElreXf8m9HnmPc3E1BQ==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -30933,7 +30558,7 @@ packages:
       browserslist: 4.23.0
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.16.0
-      es-module-lexer: 1.5.0
+      es-module-lexer: 1.5.2
       eslint-scope: 5.1.1
       events: 3.3.0
       glob-to-regexp: 0.4.1
@@ -31171,6 +30796,11 @@ packages:
   /wmf@1.0.2:
     resolution: {integrity: sha512-/p9K7bEh0Dj6WbXg4JG0xvLQmIadrner1bi45VMJTfnbVHsc7yIajZyoSoK60/dtVBs12Fm6WkUI5/3WAVsNMw==}
     engines: {node: '>=0.8'}
+    dev: true
+
+  /word-wrap@1.2.5:
+    resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
+    engines: {node: '>=0.10.0'}
     dev: true
 
   /word@0.3.0:

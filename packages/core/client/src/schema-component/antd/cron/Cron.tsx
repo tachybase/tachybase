@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { connect, mapReadPretty } from '@nocobase/schema';
+import { connect, mapReadPretty } from '@tachybase/schema';
 import { error } from '@nocobase/utils/client';
 import cronstrue from 'cronstrue';
 import React, { useMemo } from 'react';

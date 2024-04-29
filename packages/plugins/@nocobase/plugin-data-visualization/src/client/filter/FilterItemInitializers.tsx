@@ -1,8 +1,8 @@
 import { css, cx } from '@emotion/css';
 import { FormItem, FormLayout } from '@formily/antd-v5';
-import { Field, onFieldValueChange } from '@nocobase/schema';
-import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { Field, onFieldValueChange } from '@tachybase/schema';
+import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import {
   ACLCollectionFieldProvider,
   BlockItem,

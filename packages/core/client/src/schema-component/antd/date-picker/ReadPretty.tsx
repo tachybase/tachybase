@@ -1,5 +1,5 @@
 import { usePrefixCls } from '@formily/antd-v5/esm/__builtins__';
-import { isArr } from '@nocobase/schema';
+import { isArr } from '@tachybase/schema';
 import { getDefaultFormat, str2moment } from '@nocobase/utils/client';
 import type {
   DatePickerProps as AntdDatePickerProps,

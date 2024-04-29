@@ -1,6 +1,6 @@
 import Icon, { RightOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { uid } from '@nocobase/schema';
+import { uid } from '@tachybase/schema';
 import { Menu, MenuProps, theme } from 'antd';
 import React, { FC, ReactNode, useMemo } from 'react';
 import { useCompile } from '../../../schema-component';

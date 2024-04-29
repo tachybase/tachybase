@@ -1,7 +1,7 @@
 import { ArrayItems, FormItem } from '@formily/antd-v5';
-import { createForm, onFormValuesChange } from '@nocobase/schema';
-import { FormProvider, connect, createSchemaField, observer, useField, useFieldSchema } from '@nocobase/schema';
-import { uid } from '@nocobase/schema';
+import { createForm, onFormValuesChange } from '@tachybase/schema';
+import { FormProvider, connect, createSchemaField, observer, useField, useFieldSchema } from '@tachybase/schema';
+import { uid } from '@tachybase/schema';
 import { Select as AntdSelect, Input, Space, Spin, Tag } from 'antd';
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -49,7 +49,10 @@ const CascadeSelect = connect((props) => {
   useEffect(() => {
     if (value) {
       const values = Array.isArray(value)
-        ? extractLastNonNullValueObjects(value?.filter((v) => v.value), true)
+        ? extractLastNonNullValueObjects(
+            value?.filter((v) => v.value),
+            true,
+          )
         : transformNestedData(value);
       const options = values?.map?.((v) => {
         return {

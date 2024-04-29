@@ -1,9 +1,9 @@
 import { css } from '@emotion/css';
-import { ArrayField } from '@nocobase/schema';
-import { exchangeArrayState } from '@nocobase/schema';
-import { observer, RecursionField, useFieldSchema } from '@nocobase/schema';
-import { action } from '@nocobase/schema';
-import { isArr } from '@nocobase/schema';
+import { ArrayField } from '@tachybase/schema';
+import { exchangeArrayState } from '@tachybase/schema';
+import { observer, RecursionField, useFieldSchema } from '@tachybase/schema';
+import { action } from '@tachybase/schema';
+import { isArr } from '@tachybase/schema';
 import { Button } from 'antd';
 import { unionBy, uniqBy } from 'lodash';
 import React, { useContext, useMemo, useState } from 'react';

@@ -1,6 +1,6 @@
 import { Action, useAPIClient, useRequest } from '@nocobase/client';
 import React from 'react';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { listByCurrentRoleUrl } from '../constants';
 import { useCustomizeRequestActionProps } from '../hooks';
 import { CustomRequestActionDesigner } from './CustomRequestActionDesigner';

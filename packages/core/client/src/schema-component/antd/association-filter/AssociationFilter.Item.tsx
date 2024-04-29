@@ -1,5 +1,5 @@
 import { CloseOutlined, SearchOutlined } from '@ant-design/icons';
-import { useFieldSchema } from '@nocobase/schema';
+import { useFieldSchema } from '@tachybase/schema';
 import { Col, Collapse, Input, Row, Tree } from 'antd';
 import cls from 'classnames';
 import React, { ChangeEvent, MouseEvent, useMemo, useState } from 'react';

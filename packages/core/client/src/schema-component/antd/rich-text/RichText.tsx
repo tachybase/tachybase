@@ -1,4 +1,4 @@
-import { connect, mapProps, mapReadPretty } from '@nocobase/schema';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import React from 'react';
 import ReactQuill from 'react-quill';
 import { isVariable } from '../../../variables/utils/isVariable';

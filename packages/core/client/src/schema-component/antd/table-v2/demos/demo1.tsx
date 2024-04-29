@@ -1,4 +1,4 @@
-import { ISchema, useForm } from '@nocobase/schema';
+import { ISchema, useForm } from '@tachybase/schema';
 import {
   APIClientProvider,
   AntdSchemaComponentProvider,
