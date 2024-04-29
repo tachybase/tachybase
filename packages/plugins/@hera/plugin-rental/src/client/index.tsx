@@ -26,7 +26,10 @@ import {
   useWaybillPdfPath,
   WaybillsProvider,
 } from './hooks/usePdfPath';
-import { ColumnSwitchAction, ColumnSwitchActionInitializer } from './schema-initializer/actions/ColumnSwitchActionInitializer';
+import {
+  ColumnSwitchAction,
+  ColumnSwitchActionInitializer,
+} from './schema-initializer/actions/ColumnSwitchActionInitializer';
 import {
   SettlementExcelExportActionInitializer,
   useSettlementExcelExportActionProps,
@@ -37,12 +40,17 @@ import {
   SettlementStyleSwitchActionInitializer,
   useSettlementStyleSwitchActionProps,
 } from './schema-initializer/actions/SettlementStyleSwitchActionInitializer';
-import { RecordPrintSetupActionInitializer, PrintSetup } from './schema-initializer/actions/RecordPrintSetupActionInitializer';
+import {
+  RecordPrintSetupActionInitializer,
+  PrintSetup,
+} from './schema-initializer/actions/RecordPrintSetupActionInitializer';
 import {
   RecordPrintSetupMargingTopInitializer,
   PrintSetupMargingTop,
 } from './schema-initializer/actions/RecordPrintSetupMargingTopInitializer';
 import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedRecordsBlockInitializer';
+import { MovementFieldInterface } from './interfaces/movement';
+import { Movement } from './schema-components/Movement';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -151,9 +159,16 @@ export class PluginRentalClient extends Plugin {
   // You can get and modify the app instance here
   async load() {
     this.locale = new Locale(this.app);
+    this.app.dataSourceManager.addFieldInterfaceGroups({
+      bussiness: {
+        label: 'Bussiness',
+      },
+    });
+    this.app.dataSourceManager.addFieldInterfaces([MovementFieldInterface]);
     this.app.addComponents({
       RecordFeeConvertedAmount,
       ReadFeeConvertedAmount,
+      Movement,
       RecordFeeScope,
       RecordItemValuationQuantity,
       RecordItemWeight,

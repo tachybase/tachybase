@@ -5,7 +5,6 @@ import { Descriptions, DescriptionsProps } from 'antd';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { evaluators } from '@nocobase/evaluators/client';
-
 const transformFormula = (formula: string) => {
   if (!formula) return [];
   const formulaArray = formula.split(/([+\-*/?:()%])/).filter((item) => item);
@@ -23,8 +22,7 @@ export const CalcResult = (props) => {
   const engine = evaluators.get('math.js');
   const evaluate = engine.evaluate.bind(engine);
   const defaultValue = fieldSchema.name === 'subtotal' ? '￥0.00' : [];
-  const [value, setValue] = useState<string | DescriptionsProps['items']>(defaultValue);
-
+  const [value, setValue] = useState<string | DescriptionsProps['items'] | React.ReactNode>(defaultValue);
   const transformFormulaArray = transformFormula(formula);
 
   let calculateData = [];
@@ -78,7 +76,7 @@ export const CalcResult = (props) => {
     }
     return [calculateData.join(''), scopes];
   };
-  const fun = () => {
+  const fun = async () => {
     if (!panel && transformFormulaArray.length) {
       const [code, scopes] = newFormulaArray(form.values);
       let result;
@@ -95,6 +93,20 @@ export const CalcResult = (props) => {
       setValue(result.toString());
     } else if (panel) {
       let items = [];
+      let childrenType = '';
+      // ==========动态导入可能需要的包============
+      // jsx
+      const { jsx } = (await import('react/jsx-runtime')).default;
+      const keepJSX = () => jsx;
+      keepJSX();
+      // dayjs
+      const dayjs = (await import('dayjs')).default;
+      const keepDayjs = () => dayjs;
+      keepDayjs();
+      // keep childrenType
+      childrenType = 'normal';
+      // ==========动态导入结束=====================
+
       // ====================字段配置举例==================
       const exampleTemplate = `
       let total = 0;
@@ -173,9 +185,17 @@ export const CalcResult = (props) => {
           children: <p>{item.children}</p>,
         };
       });
-      setValue(showItems);
+
+      if (childrenType === 'normal') {
+        const component = <Descriptions items={showItems as DescriptionsProps['items']} />;
+        setValue(component);
+      } else if (childrenType === 'jsx' && Array.isArray(items)) {
+        const component = <>{items.map((item) => item.children)}</>;
+        setValue(component);
+      }
     }
   };
+
   useEffect(() => {
     fun();
   }, []);
@@ -188,6 +208,6 @@ export const CalcResult = (props) => {
   if (typeof value === 'string') {
     return <Input.ReadPretty value={value as string} />;
   } else {
-    return <Descriptions items={value as DescriptionsProps['items']} />;
+    return <>{value}</>;
   }
 };
