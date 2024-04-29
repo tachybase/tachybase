@@ -1,5 +1,5 @@
-import { SortableItem, withDynamicSchemaProps } from '@nocobase/client';
-import { Image, JumboTabs, Tabs } from 'antd-mobile';
+import { SortableItem, css, withDynamicSchemaProps } from '@nocobase/client';
+import { Image, JumboTabs } from 'antd-mobile';
 import React from 'react';
 import { useActionImageSearchItemView } from '../hooks/useAction.ImageSearchItemView';
 
@@ -16,10 +16,7 @@ export const ImageSearchItemView = withDynamicSchemaProps(
         <Designer />
         <JumboTabs onChange={onSelect}>
           {items.map(({ key, label, imageUrl }) => (
-            <>
-              <JumboTabs.Tab key={key} title={label} description={<ImageDescription srcUrl={imageUrl} />} />
-              <p>{label}</p>
-            </>
+            <JumboTabs.Tab key={key} title={''} description={<ImageDescription srcUrl={imageUrl} label={label} />} />
           ))}
         </JumboTabs>
       </SortableItem>
@@ -29,6 +26,26 @@ export const ImageSearchItemView = withDynamicSchemaProps(
 );
 
 const ImageDescription = (props) => {
-  const { srcUrl } = props;
-  return <Image src={srcUrl} width={100} height={100} fit="fill" />;
+  const { srcUrl, label } = props;
+  return (
+    <div
+      className={css`
+        display: 'flex';
+        flex-direction: 'column';
+        width: '100%';
+        height: '100%';
+      `}
+    >
+      <Image src={srcUrl} width={100} height={100} fit="fill" />
+      <p
+        className={css`
+          font-weight: 400;
+          font-size: 17.6px;
+          line-height: 1;
+        `}
+      >
+        {label}
+      </p>
+    </div>
+  );
 };
