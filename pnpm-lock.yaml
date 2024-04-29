@@ -1761,6 +1761,18 @@ importers:
         specifier: ^6.26.0
         version: 6.35.2
 
+  packages/plugins/@hera/plugin-sancongtou:
+    dependencies:
+      '@nocobase/client':
+        specifier: 0.x
+        version: link:../../../core/client
+      '@nocobase/server':
+        specifier: 0.x
+        version: link:../../../core/server
+      '@nocobase/test':
+        specifier: 0.x
+        version: link:../../../core/test
+
   packages/plugins/@nocobase/plugin-acl:
     dependencies:
       '@nocobase/acl':
