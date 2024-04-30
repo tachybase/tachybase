@@ -2,6 +2,7 @@ import actions, { Context, utils } from '@nocobase/actions';
 import { Op, Repository } from '@nocobase/database';
 
 import Plugin from '../Plugin';
+import { WorkflowModel } from '../types';
 
 export async function update(context: Context, next) {
   const repository = utils.getRepositoryFromParams(context) as Repository;
@@ -160,6 +161,14 @@ export async function sync(context: Context, next) {
   await next();
 }
 
-export async function trigger(context: Context, next) {
-  return next();
+export async function trigger(ctx: Context) {
+  const plugin = ctx.app.getPlugin(Plugin) as Plugin;
+  const workflow = (await ctx.db.getRepository('workflows').findById(ctx.action.params.filterByTk)) as WorkflowModel;
+  plugin.trigger(
+    workflow,
+    {
+      data: {},
+    },
+    { httpContext: ctx },
+  );
 }

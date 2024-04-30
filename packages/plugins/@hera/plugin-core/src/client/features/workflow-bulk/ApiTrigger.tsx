@@ -1,0 +1,142 @@
+import { useCompile, useCollectionManager_deprecated, useCollectionDataSource } from '@nocobase/client';
+import { lang, tval } from '../../locale';
+
+import {
+  Trigger,
+  CollectionBlockInitializer,
+  getCollectionFieldOptions,
+  FieldsSelect,
+  RadioWithTooltip,
+  CheckboxGroupWithTooltip,
+} from '@tachybase/plugin-workflow/client';
+
+const enum ACTION_TYPES {
+  CREATE = 'create',
+  UPDATE = 'update',
+  UPSERT = 'updateOrCreate',
+  DESTROY = 'destroy',
+}
+
+function useItems(item, options) {
+  const compile = useCompile();
+  const { getCollectionFields } = useCollectionManager_deprecated();
+  return [
+    { label: lang('ID'), value: 'filterByTk' },
+    ...(item.action !== ACTION_TYPES.DESTROY
+      ? [
+          {
+            label: lang('Values submitted'),
+            value: 'values',
+            children: getCollectionFieldOptions({
+              ...options,
+              appends: null,
+              depth: 3,
+              collection: item.collection,
+              compile,
+              getCollectionFields,
+            }),
+          },
+        ]
+      : []),
+  ];
+}
+export class ApiTrigger extends Trigger {
+  title = lang('API event');
+  description = lang('api trigger');
+  fieldset = {
+    collection: {
+      type: 'string',
+      title: tval('Collection'),
+      required: true,
+      'x-decorator': 'FormItem',
+      'x-component': 'DataSourceCollectionCascader',
+      'x-reactions': [{ target: 'changed', effects: ['onFieldValueChange'], fulfill: { state: { value: [] } } }],
+    },
+    global: {
+      type: 'boolean',
+      title: tval('Trigger mode'),
+      'x-decorator': 'FormItem',
+      'x-component': 'RadioWithTooltip',
+      'x-component-props': {
+        direction: 'vertical',
+        options: [
+          {
+            label: tval('Local mode, triggered before executing the actions bound to this workflow'),
+            value: false,
+          },
+          {
+            label: tval('Global mode, triggered before executing the following actions'),
+            value: true,
+          },
+        ],
+      },
+      default: false,
+    },
+    actions: {
+      type: 'number',
+      title: tval('Select actions'),
+      'x-decorator': 'FormItem',
+      'x-component': 'CheckboxGroupWithTooltip',
+      'x-component-props': {
+        direction: 'vertical',
+        options: [
+          { label: tval('Create record action'), value: ACTION_TYPES.CREATE },
+          { label: tval('Update record action'), value: ACTION_TYPES.UPDATE },
+          { label: tval('Delete record action'), value: ACTION_TYPES.DESTROY },
+        ],
+      },
+      required: true,
+      'x-reactions': [
+        { dependencies: ['collection', 'global'], fulfill: { state: { visible: '{{!!$deps[0] && !!$deps[1]}}' } } },
+      ],
+    },
+  };
+  scope = { useCollectionDataSource };
+  components = {
+    FieldsSelect: FieldsSelect,
+    RadioWithTooltip: RadioWithTooltip,
+    CheckboxGroupWithTooltip: CheckboxGroupWithTooltip,
+  };
+  isActionTriggerable = (a, u) => {
+    const { global: m } = a;
+    return !m && !u.direct;
+  };
+
+  useVariables(config, options) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const compile = useCompile();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { getCollectionFields } = useCollectionManager_deprecated();
+    const result = getCollectionFieldOptions({
+      appends: ['user'],
+      ...options,
+      fields: [
+        {
+          collectionName: 'users',
+          name: 'user',
+          type: 'hasOne',
+          target: 'users',
+          uiSchema: { title: tval('User acted') },
+        },
+      ],
+      compile,
+      getCollectionFields,
+    });
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const parametersSchema = [{ label: lang('Parameters'), value: 'params', children: useItems(config, options) }];
+    return [...result, { label: lang('Role of user acted'), value: 'roleName' }, ...parametersSchema];
+  }
+  useInitializers(item) {
+    return item.collection
+      ? {
+          name: 'triggerData',
+          type: 'item',
+          key: 'triggerData',
+          title: tval('Trigger data'),
+          Component: CollectionBlockInitializer,
+          collection: item.collection,
+          dataPath: '$context.params.values',
+        }
+      : null;
+  }
+}
