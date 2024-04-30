@@ -54,12 +54,12 @@ export const RecordDetails: CustomFunctionComponent = () => {
         const categoryItem = products.find((product) => product.id === item.parentId);
         if (!(productItem && categoryProductItem && item && categoryItem)) return;
         const key = categoryProductItem.id;
-        const label = `${categoryItem.name}[${item.name}]`;
+        const label = categoryItem?.name ? `${categoryItem?.name}[${item.name}]` : item.name;
         if (!Object.keys(contractfee).includes(key)) {
           contractfee[key] = {};
         }
-        if (!Object.keys(contractfee).includes(categoryItem.id)) {
-          contractfee[key][categoryItem.id] = {
+        if (!Object.keys(contractfee).includes(categoryItem?.id)) {
+          contractfee[key][categoryItem?.id] = {
             productId: categoryProductItem.id,
             label,
             count: 0,
@@ -76,9 +76,9 @@ export const RecordDetails: CustomFunctionComponent = () => {
     reqRecordItems.data.data?.forEach((item) => {
       if (!item.new_product_id) return;
       const categoryItem = products.find((value) => value.id === item.new_product.parentId);
-      const key = categoryItem.id;
-      const count = categoryItem.convertible ? item.count * item.new_product.ratio : item.count;
-      const unit = categoryItem.convertible ? categoryItem.conversion_unit ?? '' : categoryItem.unit ?? '';
+      const key = categoryItem?.id || item.new_product.name;
+      const count = categoryItem?.convertible ? item.count * item.new_product.ratio : item.count;
+      const unit = categoryItem?.convertible ? categoryItem?.conversion_unit ?? '' : categoryItem?.unit ?? '';
 
       const weight = item.count * item.new_product.weight;
       if (productItem[key]) {

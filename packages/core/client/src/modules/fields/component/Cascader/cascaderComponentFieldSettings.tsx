@@ -22,7 +22,12 @@ import {
   useTitleFieldOptions,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import { SchemaSettingsModalItem, VariableInput, getShouldChange } from '../../../../schema-settings';
+import {
+  SchemaSettingsModalItem,
+  SchemaSettingsSwitchItem,
+  VariableInput,
+  getShouldChange,
+} from '../../../../schema-settings';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
 import { useLocalVariables, useVariables } from '../../../../variables';
 // import { useCollectionField } from '../utils';
@@ -154,6 +159,33 @@ export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {
             'x-component-props': componentProps,
           },
         });
+      }}
+    />
+  );
+};
+
+export const setIsChangOnSelect = function ChangOnSelectConfigure(props) {
+  const { dn } = useDesignable();
+  const { t } = useTranslation();
+  const { fieldSchema: tableColumnSchema, collectionField } = useColumnSchema();
+  const field = useField<Field>();
+  const schema = useFieldSchema();
+  const fieldSchema = tableColumnSchema || schema;
+  return (
+    <SchemaSettingsSwitchItem
+      title={t('Chang on Parent')}
+      checked={!!fieldSchema?.['x-component-props']?.changOnSelect}
+      onChange={(value) => {
+        fieldSchema['x-component-props']['changOnSelect'] = value;
+        dn.emit('patch', {
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            'x-component-props': {
+              ...fieldSchema['x-component-props'],
+            },
+          },
+        });
+        dn.refresh();
       }}
     />
   );
@@ -337,6 +369,11 @@ const fieldComponent: any = {
   },
 };
 
+const ChangOnSelect = {
+  name: 'changOnSelect',
+  Component: setIsChangOnSelect,
+};
+
 export const cascaderComponentFieldSettings = new SchemaSettings({
   name: 'fieldSettings:component:Cascader',
   items: [
@@ -366,6 +403,10 @@ export const cascaderComponentFieldSettings = new SchemaSettings({
     },
     {
       ...titleField,
+      useVisible: useIsAssociationField,
+    },
+    {
+      ...ChangOnSelect,
       useVisible: useIsAssociationField,
     },
   ],
