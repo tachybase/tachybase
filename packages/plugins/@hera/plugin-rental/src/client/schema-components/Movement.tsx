@@ -1,11 +1,12 @@
 import { useCollectionField } from '@nocobase/client';
 import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/schema';
-import { Radio, Tag } from 'antd';
+import { Tag } from 'antd';
 import React from 'react';
 import { useEffect } from 'react';
+import { MovementStatus } from '../custom-components/MovementStatus';
 
 export const Movement = connect(
-  Radio.Group,
+  MovementStatus,
   mapProps(
     {
       dataSource: 'options',

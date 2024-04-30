@@ -49,8 +49,16 @@ import {
   PrintSetupMargingTop,
 } from './schema-initializer/actions/RecordPrintSetupMargingTopInitializer';
 import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedRecordsBlockInitializer';
+
+import { PaperSwitching, PaperSwitchingInitializer } from './schema-initializer/actions/paperSwitching';
+import {
+  RecordPrintAnnotateActionInitializer,
+  Annotate,
+} from './schema-initializer/actions/RecordPrintAnnotateActionInitializer';
+import { PrintFontSize, PrintFontSizeInitializer } from './schema-initializer/actions/RecordPrintFontSizeInitializer';
 import { MovementFieldInterface } from './interfaces/movement';
 import { Movement } from './schema-components/Movement';
+import { MovementStatus } from './custom-components/MovementStatus';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -86,26 +94,44 @@ export class PluginRentalClient extends Plugin {
       type: 'item',
       title: '{{t("Column switch")}}',
       component: 'ColumnSwitchActionInitializer',
-      useVisible() {
-        const collection = useCollection();
-        const name = collection['options']['name'];
-        return name === 'records';
-      },
+      // useVisible() {
+      //   const collection = useCollection();
+      //   const name = collection['options']['name'];
+      //   return name === 'records';
+      // },
     });
+    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.paperSwitching', {
+      type: 'item',
+      title: '{{t("paper switching")}}',
+      component: 'PaperSwitchingInitializer',
+    });
+    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.paperSwitching', {
+      type: 'item',
+      title: '{{t("font size")}}',
+      component: 'PrintFontSizeInitializer',
+    });
+
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintSetup', {
       type: 'item',
       title: '{{t("Record print setup")}}',
       component: 'RecordPrintSetupActionInitializer',
     });
+
+    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintAnnotate', {
+      type: 'item',
+      title: '{{t("Record print annotate")}}',
+      component: 'RecordPrintAnnotateActionInitializer',
+    });
+
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintMargingTop', {
       type: 'item',
       title: '{{t("Record print margingtop")}}',
       component: 'RecordPrintSetupMargingTopInitializer',
-      useVisible() {
-        const collection = useCollection();
-        const name = collection['options']['name'];
-        return name === 'records' || name === 'waybills';
-      },
+      // useVisible() {
+      //   const collection = useCollection();
+      //   const name = collection['options']['name'];
+      //   return name === 'records' || name === 'waybills';
+      // },
     });
     this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.settlementExcelExport', {
       type: 'item',
@@ -186,6 +212,12 @@ export class PluginRentalClient extends Plugin {
       PDFViewerCountablePrintActionInitializer,
       ColumnSwitchActionInitializer,
       ColumnSwitchAction,
+      PaperSwitching,
+      PrintFontSize,
+      Annotate,
+      RecordPrintAnnotateActionInitializer,
+      PaperSwitchingInitializer,
+      PrintFontSizeInitializer,
       SettlementExcelExportActionInitializer,
       SettlementStyleProvider,
       SettlementStyleSwitchActionInitializer,
@@ -194,6 +226,7 @@ export class PluginRentalClient extends Plugin {
       RecordPrintSetupMargingTopInitializer,
       PrintSetup,
       PrintSetupMargingTop,
+      MovementStatus,
     });
     this.app.addScopes({
       useAddToChecklistActionProps,

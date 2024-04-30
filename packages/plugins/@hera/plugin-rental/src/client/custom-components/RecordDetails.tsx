@@ -6,6 +6,7 @@ import { FormPath } from '@tachybase/schema';
 import { useRequest } from '@nocobase/client';
 import { Descriptions, Spin } from 'antd';
 import { formatQuantity } from '../../utils/currencyUtils';
+import { useProducts } from '../hooks';
 
 export const RecordDetails: CustomFunctionComponent = () => {
   const form = useForm();
@@ -18,99 +19,109 @@ export const RecordDetails: CustomFunctionComponent = () => {
     resource: 'record_items',
     action: 'list',
     params: {
-      appends: ['product', 'product.category'],
+      appends: ['new_product'],
       filter: {
         record_id: form.getValuesIn(itemPath).id,
       },
       pageSize: 999,
     },
   });
+  const { data: products } = useProducts();
   const reqRecordItemFeeItems = useRequest<any>({
-    resource: 'record_item_fee_items',
+    resource: 'record_contract',
     action: 'list',
     params: {
-      appends: ['product', 'record_item', 'record_item.product'],
+      appends: ['fees'],
       filter: {
-        record_item: {
-          record_id: form.getValuesIn(itemPath).id,
-        },
+        record_id: { $eq: form.getValuesIn(itemPath).id },
       },
       pageSize: 999,
     },
   });
 
-  const productItem = {};
-  let feeItems = null;
+  const feeItems = {};
   // 根据关联产品名称来合并赔偿
   if (reqRecordItemFeeItems.data) {
-    feeItems = reqRecordItemFeeItems.data.data?.reduce((prev, current) => {
-      if (current.record_item.product) {
-        const key = current.record_item.product.name;
-        if (!(key in prev)) {
-          prev[key] = {};
+    reqRecordItemFeeItems.data.data?.forEach((contract, index) => {
+      if (!contract.fees.length) return;
+      const movement = contract.movement === '-1' ? '出库合同' : '入库合同';
+      const contractfee = {};
+      contract.fees.forEach((value) => {
+        if (!value.new_product_id) return;
+        const productItem = products.find((product) => product.id === value.new_product_id);
+        const categoryProductItem = products.find((product) => product.id === productItem.parentId);
+        const item = products.find((product) => product.id === value.new_fee_product_id);
+        const categoryItem = products.find((product) => product.id === item.parentId);
+        if (!(productItem && categoryProductItem && item && categoryItem)) return;
+        const key = categoryProductItem.id;
+        const label = categoryItem?.name ? `${categoryItem?.name}[${item.name}]` : item.name;
+        if (!Object.keys(contractfee).includes(key)) {
+          contractfee[key] = {};
         }
-        if (!current.product) {
-          return prev;
-        }
-        if (!(current.product.label in prev[key])) {
-          prev[key][current.product.label] = {
-            id: current.product.id,
-            label: current.product.label,
+        if (!Object.keys(contractfee).includes(categoryItem?.id)) {
+          contractfee[key][categoryItem?.id] = {
+            productId: categoryProductItem.id,
+            label,
             count: 0,
           };
         }
-        prev[key][current.product.label].count += current.count;
-      }
-      return prev;
-    }, {});
+        contractfee[key][categoryItem.id].count += value.count;
+      });
+      feeItems[movement + index] = contractfee;
+    });
   }
   const items = [];
-
-  if (reqRecordItems.data && feeItems) {
+  const productItem = {};
+  if (reqRecordItems.data) {
     reqRecordItems.data.data?.forEach((item) => {
-      if (!item.product) return;
-      const key = item.product.name;
-      const count = item.product.category.convertible ? item.count * item.product.ratio : item.count;
-      const unit = item.product.category.convertible
-        ? item.product.category.conversion_unit
-        : item.product.category.unit;
+      if (!item.new_product_id) return;
+      const categoryItem = products.find((value) => value.id === item.new_product.parentId);
+      const key = categoryItem?.id || item.new_product.name;
+      const count = categoryItem?.convertible ? item.count * item.new_product.ratio : item.count;
+      const unit = categoryItem?.convertible ? categoryItem?.conversion_unit ?? '' : categoryItem?.unit ?? '';
 
-      const weight = item.count * item.product.weight;
+      const weight = item.count * item.new_product.weight;
       if (productItem[key]) {
         productItem[key].count += count;
+        productItem[key].weight += weight;
       } else {
         productItem[key] = {
-          key: item.product.category_id,
-          label: item.product.name,
-          sort: item.product.category.sort,
+          key,
+          label: categoryItem.name,
           unit,
           count,
-          weight: formatQuantity(weight, 2) + 'KG',
+          weight: weight,
         };
       }
     });
     for (const key in productItem) {
+      productItem[key]['children'] = formatQuantity(productItem[key].count, 2) + productItem[key].unit;
+      productItem[key]['span'] = 1;
       items.push(productItem[key]);
-      productItem[key].children = formatQuantity(productItem[key].count, 2) + productItem[key].unit;
-      productItem[key].span = 1;
       items.push({
         label: '理论重量',
-        children: [productItem[key].weight],
+        children: formatQuantity(productItem[key].weight, 2) + 'KG',
       });
-
-      if (key in feeItems) {
-        productItem[key].span = 1;
-        const children = [];
-        for (const feeKey in feeItems[key]) {
-          if (children.length > 0) {
-            children.push(<br />);
+      if (Object.keys(feeItems).length) {
+        for (const fee in feeItems) {
+          const children = {};
+          children['movement'] = fee;
+          const feeItem = feeItems[fee][key];
+          if (!feeItem || !Object.keys(feeItem).length) {
+            items.push({
+              label: '维修赔偿',
+              children: [''],
+            });
+          } else {
+            children['label'] = Object.values(feeItem).reduce((pev, curr) => {
+              return pev + `${curr['label']}:${curr['count']}`;
+            }, '');
+            items.push({
+              label: '维修赔偿',
+              children: `${children['movement']} : ${children['label']}`,
+            });
           }
-          children.push(feeItems[key][feeKey].label + ' ' + formatQuantity(feeItems[key][feeKey].count, 2));
         }
-        items.push({
-          label: '维修赔偿',
-          children,
-        });
       } else {
         items.push({
           label: '维修赔偿',
@@ -119,7 +130,7 @@ export const RecordDetails: CustomFunctionComponent = () => {
       }
     }
   }
-  items.sort((a, b) => a.sort - b.sort);
+  items.sort((a, b) => a.key - b.key);
   if (reqRecordItems.loading || reqRecordItemFeeItems.loading) {
     return <Spin />;
   }

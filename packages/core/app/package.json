@@ -13,6 +13,7 @@
   "dependencies": {
     "@nocobase/database": "workspace:*",
     "@nocobase/server": "workspace:*",
+    "@tachybase/preset-hera-rental": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*"
   },
   "devDependencies": {

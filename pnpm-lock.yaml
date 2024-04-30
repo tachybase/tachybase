@@ -52,6 +52,9 @@ importers:
       '@tachybase/cli':
         specifier: workspace:*
         version: link:packages/core/cli
+      '@tachybase/preset-hera-rental':
+        specifier: workspace:*
+        version: link:packages/presets/hera-rental
       '@tachybase/preset-tachybase':
         specifier: workspace:*
         version: link:packages/presets/tachybase
@@ -167,6 +170,9 @@ importers:
       '@nocobase/server':
         specifier: workspace:*
         version: link:../server
+      '@tachybase/preset-hera-rental':
+        specifier: workspace:*
+        version: link:../../presets/hera-rental
       '@tachybase/preset-tachybase':
         specifier: workspace:*
         version: link:../../presets/tachybase
@@ -1616,9 +1622,12 @@ importers:
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/plugin-data-source-manager':
+      '@nocobase/data-source-manager':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-data-source-manager
+        version: link:../../../core/data-source-manager
+      '@nocobase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
       '@nocobase/server':
         specifier: workspace:*
         version: link:../../../core/server
@@ -4036,6 +4045,175 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
+
+  packages/presets/hera-rental:
+    dependencies:
+      '@hera/plugin-approval':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-approval
+      '@hera/plugin-audit-logs':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-audit-logs
+      '@hera/plugin-core':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-core
+      '@hera/plugin-mobile':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-mobile
+      '@hera/plugin-rental':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-rental
+      '@nocobase/client':
+        specifier: workspace:*
+        version: link:../../core/client
+      '@nocobase/plugin-acl':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-acl
+      '@nocobase/plugin-action-bulk-edit':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-bulk-edit
+      '@nocobase/plugin-action-bulk-update':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-bulk-update
+      '@nocobase/plugin-action-duplicate':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-duplicate
+      '@nocobase/plugin-action-print':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-print
+      '@nocobase/plugin-api-doc':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-api-doc
+      '@nocobase/plugin-api-keys':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-api-keys
+      '@nocobase/plugin-auth':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-auth
+      '@nocobase/plugin-backup-restore':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-backup-restore
+      '@nocobase/plugin-calendar':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-calendar
+      '@nocobase/plugin-cas':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-cas
+      '@nocobase/plugin-china-region':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-china-region
+      '@nocobase/plugin-client':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-client
+      '@nocobase/plugin-collection-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-collection-manager
+      '@nocobase/plugin-custom-request':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-custom-request
+      '@nocobase/plugin-data-source-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-data-source-manager
+      '@nocobase/plugin-data-visualization':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-data-visualization
+      '@nocobase/plugin-error-handler':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-error-handler
+      '@nocobase/plugin-export':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-export
+      '@nocobase/plugin-file-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-file-manager
+      '@nocobase/plugin-formula-field':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-formula-field
+      '@nocobase/plugin-gantt':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-gantt
+      '@nocobase/plugin-graph-collection-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-graph-collection-manager
+      '@nocobase/plugin-iframe-block':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-iframe-block
+      '@nocobase/plugin-import':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-import
+      '@nocobase/plugin-kanban':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-kanban
+      '@nocobase/plugin-localization-management':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-localization-management
+      '@nocobase/plugin-logger':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-logger
+      '@nocobase/plugin-map':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-map
+      '@nocobase/plugin-mock-collections':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-mock-collections
+      '@nocobase/plugin-multi-app-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-multi-app-manager
+      '@nocobase/plugin-multi-app-share-collection':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
+      '@nocobase/plugin-oidc':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-oidc
+      '@nocobase/plugin-saml':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-saml
+      '@nocobase/plugin-sequence-field':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-sequence-field
+      '@nocobase/plugin-sms-auth':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-sms-auth
+      '@nocobase/plugin-snapshot-field':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-snapshot-field
+      '@nocobase/plugin-system-settings':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-system-settings
+      '@nocobase/plugin-theme-editor':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-theme-editor
+      '@nocobase/plugin-ui-schema-storage':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-ui-schema-storage
+      '@nocobase/plugin-users':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-users
+      '@nocobase/plugin-verification':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-verification
+      '@nocobase/server':
+        specifier: workspace:*
+        version: link:../../core/server
+      '@tachybase/plugin-mobile-client':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-workflow
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../core/schema
+      cronstrue:
+        specifier: ^2.11.0
+        version: 2.47.0
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@types/lodash':
+        specifier: ^4.17.0
+        version: 4.17.0
 
   packages/presets/tachybase:
     dependencies:

@@ -52,6 +52,7 @@
     "@nocobase/build": "workspace:*",
     "@nocobase/test": "workspace:*",
     "@tachybase/cli": "workspace:*",
+    "@tachybase/preset-hera-rental": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",

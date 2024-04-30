@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ActionInitializer } from '@nocobase/client';
 import { Radio, RadioChangeEvent } from 'antd';
 import { useRequest } from '@nocobase/client';
-import { PdfIsLoadContext } from '../../hooks/usePdfPath';
+import { PdfIsLoadContext, ScaleContext } from '../../hooks/usePdfPath';
 export const PrintSetup = (props) => {
   const [value, setValue] = useState('');
   const settingsData = useRequest<any>({

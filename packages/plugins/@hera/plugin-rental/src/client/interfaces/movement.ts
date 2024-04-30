@@ -18,7 +18,7 @@ export class MovementFieldInterface extends CollectionFieldInterface {
   availableTypes = ['string', 'integer', 'boolean', 'integer'];
   properties = {
     ...defaultProps,
-    'uiSchema.left': {
+    'uiSchema.x-component-props.left': {
       type: 'string',
       title: tval('Left part'),
       required: true,
@@ -28,7 +28,7 @@ export class MovementFieldInterface extends CollectionFieldInterface {
         useCurrentFields: '{{ useCurrentFields }}',
       },
     },
-    'uiSchema.righ': {
+    'uiSchema.x-component-props.right': {
       type: 'string',
       title: tval('Right part'),
       required: true,

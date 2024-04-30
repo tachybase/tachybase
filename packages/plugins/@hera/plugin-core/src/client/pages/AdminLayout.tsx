@@ -1,6 +1,6 @@
 import { css } from '@nocobase/client';
 import { useSessionStorageState } from 'ahooks';
-import { App, Layout } from 'antd';
+import { App, Layout, Alert } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, Outlet, useMatch, useNavigate, useParams } from 'react-router-dom';
 import {
@@ -311,10 +311,10 @@ export const InternalAdminLayout = () => {
             background: rgba(0, 0, 0, 0);
             z-index: 100;
             .ant-layout-sider-children {
-              top: var(--nb-header-height);
+              top: calc(var(--nb-header-height) + 18px);
               position: fixed;
               width: 200px;
-              height: calc(100vh - var(--nb-header-height));
+              height: calc(100vh - var(--nb-header-height) - 18px);
             }
           `}
           theme={'light'}
@@ -360,6 +360,7 @@ export const InternalAdminLayout = () => {
 export const AdminLayout = (props) => {
   const AdminComponent = (
     <AdminProvider>
+      <Alert message="开发版本" type="warning" style={{ textAlign: 'center', height: '14px' }} />
       <InternalAdminLayout {...props} />
     </AdminProvider>
   );
