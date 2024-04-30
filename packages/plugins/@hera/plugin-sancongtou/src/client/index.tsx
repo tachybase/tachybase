@@ -26,7 +26,7 @@ export class PluginSancongtouClient extends Plugin {
     });
 
     this.app.router.add('sancongtou/detail', {
-      path: '/products/detail',
+      path: '/mobile/products/detail',
       Component: ProductDetail,
     });
   }
