@@ -10,11 +10,12 @@ export const RecordFeeScope = observer(() => {
   const form = useForm();
   const field = useField();
   const contractsItem = form.getValuesIn(field.path.slice(0, 2).entire);
+  const date = form.getValuesIn('date');
   const productsItem = form.getValuesIn(field.path.slice(0, -2).entire);
   const contractPlanId = [contractsItem.contract?.id].filter(Boolean);
   const { data: products } = useProducts();
-  const { data: feeItems } = useFeeItems(contractPlanId);
-  const { data: productFeeItems } = useProductFeeItems(contractPlanId);
+  const { data: feeItems } = useFeeItems(contractPlanId, date);
+  const { data: productFeeItems } = useProductFeeItems(contractPlanId, date);
   const result = [];
   const feeScope = { scopeItem: {} };
   if (contractsItem.contract?.id && products && productsItem.new_product?.id && Object.values(productFeeItems).length) {
