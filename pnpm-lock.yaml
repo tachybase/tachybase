@@ -1495,6 +1495,9 @@ importers:
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../../core/client
+      '@nocobase/data-source-manager':
+        specifier: workspace:*
+        version: link:../../../core/data-source-manager
       '@nocobase/database':
         specifier: workspace:*
         version: link:../../../core/database
@@ -3818,6 +3821,9 @@ importers:
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../../core/client
+      '@nocobase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
       '@nocobase/server':
         specifier: workspace:*
         version: link:../../../core/server
