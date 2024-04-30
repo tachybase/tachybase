@@ -9,6 +9,7 @@
     "@hera/plugin-core": "workspace:*",
     "@hera/plugin-mobile": "workspace:*",
     "@hera/plugin-rental": "workspace:*",
+    "@hera/plugin-sancongtou": "workspace:*",
     "@nocobase/client": "workspace:*",
     "@nocobase/plugin-acl": "workspace:*",
     "@nocobase/plugin-action-bulk-edit": "workspace:*",

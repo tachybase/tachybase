@@ -40,6 +40,7 @@ export class PresetTachyBase extends Plugin {
     'core',
     'rental',
     'mobile',
+    'sancongtou',
   ];
 
   localPlugins = [
