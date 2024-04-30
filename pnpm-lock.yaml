@@ -1778,14 +1778,17 @@ importers:
       '@ant-design/icons':
         specifier: ^5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
+      '@hera/plugin-core':
+        specifier: workspace:*
+        version: link:../plugin-core
       '@nocobase/client':
-        specifier: 0.x
+        specifier: workspace:*
         version: link:../../../core/client
       '@nocobase/server':
-        specifier: 0.x
+        specifier: workspace:*
         version: link:../../../core/server
       '@nocobase/test':
-        specifier: 0.x
+        specifier: workspace:*
         version: link:../../../core/test
       antd-mobile:
         specifier: ^5.35.0
