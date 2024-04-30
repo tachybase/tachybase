@@ -10,12 +10,15 @@ import './actions';
 import { Container } from '@nocobase/utils';
 import { DepartmentsPlugin } from './features/departments';
 import TstzrangeField from './fields/tstzrange';
+import { PluginInterception } from './features/interception';
 
 export class PluginCoreServer extends Plugin {
   pluginDepartments: DepartmentsPlugin;
+  pluginInterception: PluginInterception;
   constructor(app: Application, options?: PluginOptions) {
     super(app, options);
     this.pluginDepartments = new DepartmentsPlugin(app, options);
+    this.pluginInterception = new PluginInterception(app, options);
   }
   async afterAdd() {
     this.db.registerFieldTypes({
@@ -28,6 +31,7 @@ export class PluginCoreServer extends Plugin {
   }
   async load() {
     await this.pluginDepartments.load();
+    await this.pluginInterception.load();
     Container.reset();
     try {
       Container.set({ id: 'db', value: this.db });
@@ -47,7 +51,7 @@ export class PluginCoreServer extends Plugin {
     }
   }
   async install(options?: InstallOptions) {
-    this.pluginDepartments.install(options);
+    await this.pluginDepartments.install(options);
   }
   async afterEnable() {}
   async afterDisable() {}
