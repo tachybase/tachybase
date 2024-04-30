@@ -38,6 +38,7 @@ export class PresetTachyBase extends Plugin {
     // hera
     'audit-logs',
     'approval',
+    'sancongtou',
   ];
 
   localPlugins = [

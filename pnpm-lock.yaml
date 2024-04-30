@@ -4225,6 +4225,9 @@ importers:
       '@hera/plugin-audit-logs':
         specifier: workspace:*
         version: link:../../plugins/@hera/plugin-audit-logs
+      '@hera/plugin-sancongtou':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-sancongtou
       '@nocobase/client':
         specifier: workspace:*
         version: link:../../core/client

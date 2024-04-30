@@ -6,6 +6,7 @@
   "dependencies": {
     "@hera/plugin-approval": "workspace:*",
     "@hera/plugin-audit-logs": "workspace:*",
+    "@hera/plugin-sancongtou": "workspace:*",
     "@nocobase/client": "workspace:*",
     "@nocobase/plugin-acl": "workspace:*",
     "@nocobase/plugin-action-bulk-edit": "workspace:*",
