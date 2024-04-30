@@ -16,8 +16,9 @@ export const RecordProductScope = observer(() => {
     })
     .filter(Boolean);
   const contractPlan = form.getValuesIn('new_contracts');
+  const date = form.getValuesIn('date');
   const { data: products } = useProducts();
-  const { data: leaseItems } = useLeaseItems(contractPlanId);
+  const { data: leaseItems } = useLeaseItems(contractPlanId, date);
   const result = [];
   if (contractPlanId?.length && products && Object.keys(leaseItems).length) {
     const leaseItem = {};

@@ -17,6 +17,7 @@ export const RecordItemValuationQuantity = observer((props) => {
     })
     .filter(Boolean);
   const contractPlan = form.getValuesIn('new_contracts');
+  const date = form.getValuesIn('date');
   const result = [];
   const { data: reqProduct } = useProducts();
   const reqWeightRules = useCachedRequest<any>({
@@ -26,7 +27,7 @@ export const RecordItemValuationQuantity = observer((props) => {
       pageSize: 99999,
     },
   });
-  const { data: leaseItems } = useLeaseItems(contractPlanId);
+  const { data: leaseItems } = useLeaseItems(contractPlanId, date);
 
   const item = form.getValuesIn(field.path.slice(0, -2).entire);
 
@@ -79,14 +80,14 @@ const subtotal = (rule: any, itemData: any, productCategory: any, reqWeightRules
   } else {
     // 查询重量规则
     const weightRule = reqWeightRules?.data?.data?.find(
-      (weight_item) => weight_item.logic_id === rule?.conversion_logic_id && weight_item.new_product_id === itemData.id,
+      (weightItem) =>
+        weightItem.logic_id === rule?.conversion_logic_id && weightItem.new_product_id === itemData.new_product.id,
     );
-    if (!weightRule) return;
-    if (weightRule.conversion_logic_id === ConversionLogics.Keep) {
+    if (weightRule?.conversion_logic_id === ConversionLogics.Keep) {
       count = ((itemData.count || 0) * weightRule.weight) / 1000;
       unit = '吨';
-    } else if (weightRule.conversion_logic_id === ConversionLogics.Product) {
-      const sacl = productCategory.convertible ? itemData.new_product.ratio : 1;
+    } else if (weightRule?.conversion_logic_id === ConversionLogics.Product) {
+      const sacl = productCategory.convertible ? itemData.ratio : 1;
       count = ((itemData.count || 0) * sacl * weightRule.weight) / 1000;
       unit = '吨';
     }

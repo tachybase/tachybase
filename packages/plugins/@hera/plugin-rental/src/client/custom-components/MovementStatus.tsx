@@ -18,13 +18,13 @@ export const MovementStatus = observer(
     return (
       <Row justify="space-between">
         <Col flex={2}>
-          <Tag>{company?.data?.find((value) => value.id === left['id'])?.[titleField]}</Tag>
+          <Tag>{company?.data?.find((value) => value.id === left['id'])?.[titleField] ?? '-'}</Tag>
         </Col>
         <Col flex={1}>
           <ArrowRightOutlined onClick={() => props.onChange(props.value === '-1' ? '1' : '-1')} />
         </Col>
         <Col flex={2}>
-          <Tag>{company?.data?.find((value) => value.id === right['id'])?.[titleField]}</Tag>
+          <Tag>{company?.data?.find((value) => value.id === right['id'])?.[titleField] ?? '-'}</Tag>
         </Col>
       </Row>
     );

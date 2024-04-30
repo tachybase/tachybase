@@ -52,22 +52,22 @@ export const RecordDetails: CustomFunctionComponent = () => {
         const categoryProductItem = products.find((product) => product.id === productItem.parentId);
         const item = products.find((product) => product.id === value.new_fee_product_id);
         const categoryItem = products.find((product) => product.id === item.parentId);
-        if (!(productItem && categoryProductItem && item && categoryItem)) return;
-        const key = categoryProductItem.id;
-        const label = categoryItem?.name ? `${categoryItem?.name}[${item.name}]` : item.name;
+        if (!productItem && !item && !categoryItem) return;
+        const key = categoryProductItem?.id || value.new_product_id;
+        const label = categoryItem.name ? `${categoryItem.name}[${item.name}]` : item.name;
         if (!Object.keys(contractfee).includes(key)) {
           contractfee[key] = {};
         }
-        if (!Object.keys(contractfee).includes(categoryItem?.id)) {
-          contractfee[key][categoryItem?.id] = {
-            productId: categoryProductItem.id,
+        if (!Object.keys(contractfee).includes(categoryItem.id)) {
+          contractfee[key][categoryItem.id] = {
+            productId: key,
             label,
             count: 0,
           };
         }
         contractfee[key][categoryItem.id].count += value.count;
       });
-      feeItems[movement + index] = contractfee;
+      feeItems[movement + (index + 1)] = contractfee;
     });
   }
   const items = [];
@@ -76,7 +76,7 @@ export const RecordDetails: CustomFunctionComponent = () => {
     reqRecordItems.data.data?.forEach((item) => {
       if (!item.new_product_id) return;
       const categoryItem = products.find((value) => value.id === item.new_product.parentId);
-      const key = categoryItem?.id || item.new_product.name;
+      const key = categoryItem?.id || item.new_product.id;
       const count = categoryItem?.convertible ? item.count * item.new_product.ratio : item.count;
       const unit = categoryItem?.convertible ? categoryItem?.conversion_unit ?? '' : categoryItem?.unit ?? '';
 
@@ -87,7 +87,7 @@ export const RecordDetails: CustomFunctionComponent = () => {
       } else {
         productItem[key] = {
           key,
-          label: categoryItem.name,
+          label: categoryItem?.name || item.new_product.name,
           unit,
           count,
           weight: weight,

@@ -44,6 +44,7 @@
   "peerDependencies": {
     "@nocobase/actions": "workspace:*",
     "@nocobase/client": "workspace:*",
+    "@nocobase/data-source-manager": "workspace:*",
     "@nocobase/database": "workspace:*",
     "@nocobase/evaluators": "workspace:*",
     "@nocobase/plugin-acl": "workspace:*",

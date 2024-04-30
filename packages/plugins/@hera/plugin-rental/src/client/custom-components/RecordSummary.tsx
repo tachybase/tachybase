@@ -9,12 +9,13 @@ import { useCachedRequest, useLeaseItems, useProducts } from '../hooks';
 export const RecordSummary = observer((): any => {
   const form = useForm();
   const contractPlanId = form
-    .getValuesIn('record_contract')
+    .getValuesIn('new_contracts')
     ?.map((value) => {
       return value.contract?.id;
     })
     .filter(Boolean);
-  const contractPlan = form.getValuesIn('record_contract');
+  const contractPlan = form.getValuesIn('new_contracts');
+  const date = form.getValuesIn('date');
   const resultForm = form.values;
   const reqWeightRules = useCachedRequest<any>({
     resource: 'weight_rules',
@@ -25,7 +26,7 @@ export const RecordSummary = observer((): any => {
   });
   const { data: products } = useProducts();
   //合同方案
-  const { data: leaseItems } = useLeaseItems(contractPlanId);
+  const { data: leaseItems } = useLeaseItems(contractPlanId, date);
 
   if (!products) {
     return '';
@@ -34,7 +35,7 @@ export const RecordSummary = observer((): any => {
   const resultItems = {};
   if (form.values.items?.length && contractPlan?.length) {
     form.values.items.forEach((item) => {
-      if (!item.new_product?.id || !item.count) return;
+      if (!item?.new_product_id && !item?.count) return;
       const productItem = products.find((value) => value.id === item.new_product.id);
       const productCategory = products?.find((value) => value.id === item.new_product.parentId);
       resultItems['basis'] = basisItem(productCategory, item, productItem, resultItems['basis']);

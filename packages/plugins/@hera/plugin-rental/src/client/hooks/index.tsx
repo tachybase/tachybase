@@ -8,10 +8,11 @@ export function useCachedRequest<P>(params: {}, options = {}) {
   return useRequest<P>(params, { cacheKey, ...options });
 }
 
-export const useLeaseItems = (planId) => {
+export const useLeaseItems = (planId, date) => {
   const [data, setData] = useState({});
   const api = useAPIClient();
-  const nowDay = dayjs().startOf('day').add(-1, 'minute');
+  const day = date || new Date();
+  const nowDay = dayjs(day).startOf('day').add(-1, 'minute');
   if (typeof planId !== 'object') return { data };
   planId?.forEach((value) => {
     if (!value) return;
@@ -49,10 +50,11 @@ export const useLeaseItems = (planId) => {
   return { data };
 };
 
-export const useFeeItems = (planId) => {
+export const useFeeItems = (planId, date) => {
   const [data, setData] = useState({});
   const api = useAPIClient();
-  const nowDay = dayjs().startOf('day').add(-1, 'minute');
+  const day = date || new Date();
+  const nowDay = dayjs(day).startOf('day').add(-1, 'minute');
   if (typeof planId !== 'object') return { data };
   planId?.forEach((value) => {
     if (!value) return;
@@ -90,10 +92,11 @@ export const useFeeItems = (planId) => {
   return { data };
 };
 
-export const useProductFeeItems = (planId) => {
+export const useProductFeeItems = (planId, date) => {
   const [data, setData] = useState({});
   const api = useAPIClient();
-  const nowDay = dayjs().startOf('day').add(-1, 'minute');
+  const day = date || new Date();
+  const nowDay = dayjs(day).startOf('day').add(-1, 'minute');
   if (typeof planId !== 'object') return { data };
   planId?.forEach((value) => {
     if (!value) return;

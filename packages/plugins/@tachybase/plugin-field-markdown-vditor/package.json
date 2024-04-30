@@ -17,6 +17,7 @@
   },
   "peerDependencies": {
     "@nocobase/client": "workspace:*",
+    "@nocobase/database": "workspace:*",
     "@nocobase/server": "workspace:*",
     "@nocobase/test": "workspace:*"
   },
