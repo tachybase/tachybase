@@ -5,6 +5,7 @@
   "description": "Provide mobile client customization for the sancongtou  project.",
   "main": "dist/server/index.js",
   "dependencies": {
+    "@ant-design/icons": "^5.3.6",
     "antd-mobile": "^5.35.0"
   },
   "peerDependencies": {

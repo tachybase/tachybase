@@ -1,6 +1,6 @@
 import { Plugin } from '@nocobase/client';
-import { TestComponent } from './components/Test';
 import { ProductDetail } from './pages/ProductDetail';
+import { ShareProduct } from './components/ShareProduct';
 
 export class PluginSancongtouClient extends Plugin {
   async afterAdd() {
@@ -12,6 +12,9 @@ export class PluginSancongtouClient extends Plugin {
   // You can get and modify the app instance here
   async load() {
     this.addRoutes();
+    this.app.addComponents({
+      ShareProduct,
+    });
     console.log(this.app);
     // this.app.addComponents({})
     // this.app.addScopes({})
@@ -20,11 +23,6 @@ export class PluginSancongtouClient extends Plugin {
   }
 
   addRoutes() {
-    this.app.router.add('pages/outlink', {
-      path: '/outlink',
-      Component: TestComponent,
-    });
-
     this.app.router.add('sancongtou/detail', {
       path: '/mobile/products/detail',
       Component: ProductDetail,
