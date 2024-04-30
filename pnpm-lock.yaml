@@ -1775,6 +1775,9 @@ importers:
 
   packages/plugins/@hera/plugin-sancongtou:
     dependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.6
+        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
       '@nocobase/client':
         specifier: 0.x
         version: link:../../../core/client
@@ -1787,10 +1790,6 @@ importers:
       antd-mobile:
         specifier: ^5.35.0
         version: 5.35.0(react-dom@18.2.0)(react@18.2.0)
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ^5.3.6
-        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
 
   packages/plugins/@nocobase/plugin-acl:
     dependencies:
