@@ -1,6 +1,5 @@
 import React from 'react';
-import { Plugin, RemoteSchemaTemplateManagerProvider, EditTitleField, useCollection } from '@nocobase/client';
-import { remove } from 'lodash';
+import { Plugin, EditTitleField } from '@nocobase/client';
 import { useFieldSchema } from '@tachybase/schema';
 import { isValid } from '@tachybase/schema';
 import { autorun } from '@tachybase/schema';
@@ -16,7 +15,7 @@ import {
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
-import { AdminLayout, DetailsPage, HomePage, OutboundPage, PageLayout } from './pages';
+import { AdminLayout, DetailsPage, HomePage, PageLayout } from './pages';
 import { PluginSettingsHelper } from './settings-manager-components';
 import {
   AssociatedFieldInterface,
@@ -39,12 +38,7 @@ import {
   ExcelFile,
 } from './components';
 import { AutoComplete } from './schema-components';
-import {
-  CreateSubmitActionInitializer,
-  GroupBlockPlugin,
-  OutboundActionHelper,
-  SettingBlockInitializer,
-} from './schema-initializer';
+import { CreateSubmitActionInitializer, GroupBlockPlugin, SettingBlockInitializer } from './schema-initializer';
 import {
   SheetBlock,
   SheetBlockInitializer,
@@ -67,8 +61,11 @@ import { PluginHeraVersion } from './features/hera-version';
 import { PluginAssistant } from './features/assistant';
 import { TstzrangeFieldInterface } from './interfaces/TstzrangeFieldInterface';
 import { PluginContextMenu } from './features/context-menu';
+import { PluginWorkflowBulk } from './features/workflow-bulk';
+import { PluginWorkflowInterceptor } from './features/workflow-interceptor';
 import { PluginPDF } from './features/pdf';
 import { PluginExtendedFilterForm } from './features/extended-filter-form';
+import { PluginOutbound } from './features/outbound';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -83,8 +80,11 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginHeraVersion);
     await this.app.pm.add(PluginContextMenu);
     await this.app.pm.add(PluginAssistant);
+    await this.app.pm.add(PluginWorkflowBulk);
+    await this.app.pm.add(PluginWorkflowInterceptor);
     await this.app.pm.add(PluginPDF);
     await this.app.pm.add(PluginExtendedFilterForm);
+    await this.app.pm.add(PluginOutbound);
   }
 
   async registerSettings() {
@@ -162,10 +162,6 @@ export class PluginCoreClient extends Plugin {
   }
 
   async registerRouters() {
-    this.app.router.add('outbound', {
-      path: '/r/:id',
-      element: <OutboundPage />,
-    });
     this.app.router.remove('root');
     this.app.router.add('home', {
       path: '/',
@@ -242,7 +238,6 @@ export class PluginCoreClient extends Plugin {
 
   async load() {
     this.locale = new Locale(this.app);
-    await new OutboundActionHelper(this.app).load();
     await new PluginSettingsHelper(this.app).load();
     await this.registerScopesAndComponents();
     await this.registerSettings();

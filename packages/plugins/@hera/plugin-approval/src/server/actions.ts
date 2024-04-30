@@ -30,7 +30,7 @@ const approvals = {
     const workflow = await context.db.getRepository('workflows').findOne({
       filterByTk: workflowId,
     });
-    if (!(workflow == null ? void 0 : workflow.enabled)) {
+    if (!workflow?.enabled) {
       return context.throw(400, 'Current workflow not found or disabled, please refresh and try again');
     }
     if (status !== APPROVAL_STATUS.DRAFT) {

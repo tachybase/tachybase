@@ -15,7 +15,6 @@ import {
   useDesignable,
   useFormBlockContext,
   useFormBlockType,
-  useLinkageCollectionFilterOptions,
   useLocalVariables,
   useRecord,
   useSchemaTemplateManager,
@@ -24,7 +23,7 @@ import {
   VariableScopeProvider,
 } from '@nocobase/client';
 import _ from 'lodash';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from '../locale';
 import { FormFilterScope } from '../components/filter-form/FormFilterScope';
 import { useFieldComponents } from '../schema-initializer';
