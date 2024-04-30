@@ -4,7 +4,9 @@
   "version": "0.21.24",
   "description": "Provide mobile client customization for the sancongtou  project.",
   "main": "dist/server/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "antd-mobile": "^5.35.0"
+  },
   "peerDependencies": {
     "@nocobase/client": "0.x",
     "@nocobase/server": "0.x",
