@@ -22,7 +22,7 @@ const useStyles = createStyles(({ token, css }) => {
       & > .general-schema-designer {
         --nb-designer-top: ${token.marginMD}px;
       }
-      position: absolute;
+      position: fixed;
       background: ${token.colorBgContainer};
       width: 100%;
       bottom: 0;
