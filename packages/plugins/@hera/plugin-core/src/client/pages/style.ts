@@ -1,4 +1,4 @@
-import { createStyles } from 'antd-style';
+import { createStyles } from '@nocobase/client';
 
 export const useStyles = createStyles(({ css }) => ({
   home: css`

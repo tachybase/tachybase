@@ -1507,6 +1507,9 @@ importers:
       '@nocobase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../../@tachybase/plugin-workflow
     devDependencies:
       '@ant-design/cssinjs':
         specifier: ^1.11.1
@@ -1517,9 +1520,9 @@ importers:
       '@ant-design/pro-layout':
         specifier: ^7.16.11
         version: 7.17.16(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0)
-      '@emotion/css':
-        specifier: ^11.11.2
-        version: 11.11.2
+      '@formily/antd-v5':
+        specifier: 1.x
+        version: 1.2.0(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
       '@react-pdf/renderer':
         specifier: ^3.3.2
         version: 3.3.8(react@18.2.0)
@@ -1529,15 +1532,15 @@ importers:
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
+      '@types/lodash':
+        specifier: ~4.17.0
+        version: 4.17.0
       ahooks:
         specifier: ^3.7.2
         version: 3.7.8(react@18.2.0)
       antd:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      antd-style:
-        specifier: 3.4.5
-        version: 3.4.5(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0)
       classnames:
         specifier: ^2.3.1
         version: 2.5.1
@@ -7511,6 +7514,19 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       tslib: 2.6.2
 
+  /@dnd-kit/core@6.1.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-J3cQBClB4TVxwGo3KEjssGEXNJqGVWx17aRTZ1ob0FliR5IjYgTxl5YJbKTzA6IzrtelotH19v6y7uoIRUZPSg==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@dnd-kit/accessibility': 3.1.0(react@18.2.0)
+      '@dnd-kit/utilities': 3.2.2(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tslib: 2.6.2
+    dev: true
+
   /@dnd-kit/modifiers@6.0.1(@dnd-kit/core@5.0.3)(react@18.2.0):
     resolution: {integrity: sha512-rbxcsg3HhzlcMHVHWDuh9LCjpOVAgqbV78wLGI8tziXY3+qcMQ61qVXIvNKQFuhj75dSfD+o+PYZQ/NUk2A23A==}
     peerDependencies:
@@ -7534,6 +7550,18 @@ packages:
       react: 18.2.0
       tslib: 2.6.2
     dev: false
+
+  /@dnd-kit/sortable@7.0.2(@dnd-kit/core@6.1.0)(react@18.2.0):
+    resolution: {integrity: sha512-wDkBHHf9iCi1veM834Gbk1429bd4lHX4RpAwT0y2cHLf246GAvU2sVw/oxWNpPKQNQRQaeGXhAVgrOl1IT+iyA==}
+    peerDependencies:
+      '@dnd-kit/core': ^6.0.7
+      react: '>=16.8.0'
+    dependencies:
+      '@dnd-kit/core': 6.1.0(react-dom@18.2.0)(react@18.2.0)
+      '@dnd-kit/utilities': 3.2.2(react@18.2.0)
+      react: 18.2.0
+      tslib: 2.6.2
+    dev: true
 
   /@dnd-kit/utilities@3.2.2(react@18.2.0):
     resolution: {integrity: sha512-+MKAJEOfaBe5SmV6t34p80MMKhjvUz0vRrvVJbPT0WElzaOJ/1xs+D+KDv+tD/NE5ujfrChEcshd4fLn0wpiqg==}
@@ -8754,6 +8782,40 @@ packages:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
     dev: true
 
+  /@formily/antd-v5@1.2.0(@types/react-dom@18.2.25)(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-6K1fV7pwvy7j5KoO/5dEe5llosann7211I/bH/WJkLQtDSDK+XLFUQ4/lU7CdNpwHMrspzXS3lF82EM3hGyM8w==}
+    engines: {npm: '>=3.0.0'}
+    peerDependencies:
+      '@types/react': '>=16.8.0 || >=17.0.0'
+      '@types/react-dom': '>=16.8.0 || >=17.0.0'
+      antd: ^5.13.0
+      react: '>=16.8.0 || >=17.0.0'
+      react-dom: '>=16.8.0'
+      react-is: '>=16.8.0 || >=17.0.0'
+    dependencies:
+      '@ant-design/cssinjs': 1.20.0(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/icons': 5.3.6(react-dom@18.2.0)(react@18.2.0)
+      '@dnd-kit/core': 6.1.0(react-dom@18.2.0)(react@18.2.0)
+      '@dnd-kit/sortable': 7.0.2(@dnd-kit/core@6.1.0)(react@18.2.0)
+      '@formily/core': 2.2.27
+      '@formily/grid': 2.2.27(typescript@4.9.5)
+      '@formily/json-schema': 2.2.27(typescript@4.9.5)
+      '@formily/react': 2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)(typescript@4.9.5)
+      '@formily/reactive': 2.2.27
+      '@formily/reactive-react': 2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0)
+      '@formily/shared': 2.2.27
+      '@types/react': 18.2.79
+      '@types/react-dom': 18.2.25
+      antd: 5.16.1(react-dom@18.2.0)(react@18.2.0)
+      classnames: 2.5.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-is: 18.3.1
+      react-sticky-box: 1.0.2(react@18.2.0)
+    transitivePeerDependencies:
+      - typescript
+    dev: true
+
   /@formily/core@2.2.27:
     resolution: {integrity: sha512-f8e4f/WlimOA7zN1ARmiRKMlIpsIH00XxT7NWAE7EV3DO2B6sq6gSq9GDc5JLwHqhiyJBAIPzUdfmIpRLwPxyQ==}
     engines: {npm: '>=3.0.0'}
@@ -8771,7 +8833,6 @@ packages:
       '@formily/reactive': 2.2.27
       '@juggle/resize-observer': 3.4.0
       typescript: 4.9.5
-    dev: false
 
   /@formily/json-schema@2.2.27(typescript@4.9.5):
     resolution: {integrity: sha512-YqtpPp9bmXO28iw10ZLT5KCAqipr2SwPrzfskUJ/Oa8O3xZi64+9TMVPylX73cBe49lVaOgFiQPNAljLudeveg==}
@@ -8783,7 +8844,6 @@ packages:
       '@formily/reactive': 2.2.27
       '@formily/shared': 2.2.27
       typescript: 4.9.5
-    dev: false
 
   /@formily/json-schema@2.2.27(typescript@5.4.5):
     resolution: {integrity: sha512-YqtpPp9bmXO28iw10ZLT5KCAqipr2SwPrzfskUJ/Oa8O3xZi64+9TMVPylX73cBe49lVaOgFiQPNAljLudeveg==}
@@ -8830,7 +8890,6 @@ packages:
       react-is: 18.3.1
     transitivePeerDependencies:
       - typescript
-    dev: false
 
   /@formily/reactive-react@2.2.27(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react-is@18.3.1)(react@18.2.0):
     resolution: {integrity: sha512-LJefK/9g8MorhGexMiVF+FVWyMR/Vc4C63Djrj08XeXtTF0NUNUUKVBT1eZqmtdRHJSyDE7SSgUmpxcXP7QmQQ==}
@@ -8854,7 +8913,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-is: 18.3.1
-    dev: false
 
   /@formily/reactive@2.2.27:
     resolution: {integrity: sha512-ksdA4uIw3WMo0FmHcGsyqZgPwhujVgtXqxiWPSV+Tc2eEoJrInZhr15Q0IeTQ6glMh8izNsb19YK+PphBHwXGg==}
@@ -9105,7 +9163,6 @@ packages:
 
   /@juggle/resize-observer@3.4.0:
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
-    dev: false
 
   /@koa/cors@3.4.3:
     resolution: {integrity: sha512-WPXQUaAeAMVaLTEFpoq3T2O1C+FstkjJnDQqy95Ck1UdILajsRhu6mhJ8H2f4NFPRBoCNN+qywTJfq/gGki5mw==}
@@ -13083,7 +13140,7 @@ packages:
       '@babel/plugin-transform-react-jsx-self': 7.24.1(@babel/core@7.24.4)
       '@babel/plugin-transform-react-jsx-source': 7.24.1(@babel/core@7.24.4)
       react-refresh: 0.14.0
-      vite: 4.5.2(@types/node@20.12.2)(less@4.1.3)
+      vite: 4.5.2(@types/node@20.12.7)(less@4.1.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -26145,7 +26202,6 @@ packages:
     dependencies:
       react: 18.2.0
       resize-observer-polyfill: 1.5.1
-    dev: false
 
   /react-to-print@2.14.15(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-SKnwOzU2cJ8eaAkoJO7+gNhvfEDmm+Y34IdcHsjtHioUevUPhprqbVtvNJlZ2JkGJ8ExK2QNWM9pXECTDR5D8w==}
@@ -29961,6 +30017,7 @@ packages:
       rollup: 3.29.4
     optionalDependencies:
       fsevents: 2.3.3
+    dev: false
 
   /vite@4.5.2(@types/node@20.12.7)(less@4.1.3):
     resolution: {integrity: sha512-tBCZBNSBbHQkaGyhGCDUGqeo2ph8Fstyp6FMSvTtsXeZSPpSMGlviAOav2hxVTqFcx8Hj/twtWKsMJXNY0xI8w==}
@@ -29997,7 +30054,6 @@ packages:
       rollup: 3.29.4
     optionalDependencies:
       fsevents: 2.3.3
-    dev: true
 
   /vite@5.1.5(@types/node@20.12.7)(sass@1.75.0):
     resolution: {integrity: sha512-BdN1xh0Of/oQafhU+FvopafUp6WaYenLU/NFoL5WyJL++GxkNfieKzBhM24H3HVsPQrlAqB7iJYTHabzaRed5Q==}

@@ -2,7 +2,7 @@
   "name": "@hera/plugin-core",
   "displayName": "Hera platform",
   "version": "1.7.28",
-  "description": "Hera platform as nocobase plugin.",
+  "description": "Hera platform",
   "keywords": [
     "System management"
   ],
@@ -11,13 +11,13 @@
     "@ant-design/cssinjs": "^1.11.1",
     "@ant-design/icons": "~5.3.6",
     "@ant-design/pro-layout": "^7.16.11",
-    "@emotion/css": "^11.11.2",
+    "@formily/antd-v5": "1.x",
     "@react-pdf/renderer": "^3.3.2",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
+    "@types/lodash": "~4.17.0",
     "ahooks": "^3.7.2",
     "antd": "5.16.1",
-    "antd-style": "3.4.5",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.3",
     "dayjs": "^1.11.8",
@@ -50,7 +50,9 @@
     "@nocobase/plugin-acl": "workspace:*",
     "@nocobase/server": "workspace:*",
     "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@nocobase/utils": "workspace:*",
+    "@tachybase/plugin-workflow": "workspace:*",
+    "@tachybase/schema": "workspace:*"
   },
   "description.zh-CN": "提供标准赫拉平台能力",
   "displayName.zh-CN": "赫拉平台"

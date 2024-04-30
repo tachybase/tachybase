@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-  CollectionRecordProvider,
-  DataBlockProvider,
-  RecordProvider,
-  RemoteSchemaComponent,
-  css,
-} from '@nocobase/client';
+import { DataBlockProvider, RecordProvider, RemoteSchemaComponent, css, PageHeader } from '@nocobase/client';
 import { useNavigate, useParams } from 'react-router-dom';
 import { pathToRegexp } from 'path-to-regexp';
 import { useHeadStyles } from './style';
-import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 
 export const DetailsPage: React.FC = () => {
   const params = useParams<any>();
@@ -32,7 +25,7 @@ export const DetailsPage: React.FC = () => {
       `}
     >
       <div className={`${styles['.pageHeaderCss']}`}>
-        <AntdPageHeader
+        <PageHeader
           ghost={false}
           title={'详情页面'}
           onBack={() => {
