@@ -1,39 +1,44 @@
 import { ISchema } from '@tachybase/schema';
 
-export const createListBlockSchema = (options: {
+export const createGridCardBlockUISchema = (options: {
   dataSource: string;
   collectionName?: string;
   association?: string;
   templateSchema?: ISchema;
   rowKey?: string;
 }): ISchema => {
-  const { collectionName, dataSource, association, templateSchema, rowKey } = options;
+  const { collectionName, association, templateSchema, dataSource, rowKey } = options;
   const resourceName = association || collectionName;
+
+  if (!dataSource) {
+    throw new Error('dataSource are required');
+  }
 
   return {
     type: 'void',
     'x-acl-action': `${resourceName}:view`,
-    'x-decorator': 'List.Decorator',
-    'x-use-decorator-props': 'useListBlockDecoratorProps',
+    'x-decorator': 'GridCard.Decorator',
+    'x-use-decorator-props': 'useGridCardBlockDecoratorProps',
     'x-decorator-props': {
       collection: collectionName,
-      dataSource,
       association,
+      dataSource,
       readPretty: true,
       action: 'list',
       params: {
-        pageSize: 10,
+        pageSize: 12,
       },
       runWhenParamsChanged: true,
       rowKey,
     },
-    'x-component': 'CardItem',
+    'x-component': 'BlockItem',
+    'x-use-component-props': 'useGridCardBlockItemProps',
     'x-toolbar': 'BlockSchemaToolbar',
-    'x-settings': 'blockSettings:list',
+    'x-settings': 'blockSettings:gridCard',
     properties: {
       actionBar: {
         type: 'void',
-        'x-initializer': 'list:configureActions',
+        'x-initializer': 'gridCard:configureActions',
         'x-component': 'ActionBar',
         'x-component-props': {
           style: {
@@ -43,14 +48,14 @@ export const createListBlockSchema = (options: {
       },
       list: {
         type: 'array',
-        'x-component': 'List',
-        'x-use-component-props': 'useListBlockProps',
+        'x-component': 'GridCard',
+        'x-use-component-props': 'useGridCardBlockProps',
         properties: {
           item: {
             type: 'object',
-            'x-component': 'List.Item',
+            'x-component': 'GridCard.Item',
             'x-read-pretty': true,
-            'x-use-component-props': 'useListItemProps',
+            'x-use-component-props': 'useGridCardItemProps',
             properties: {
               grid: templateSchema || {
                 type: 'void',
@@ -60,9 +65,9 @@ export const createListBlockSchema = (options: {
               actionBar: {
                 type: 'void',
                 'x-align': 'left',
-                'x-initializer': 'list:configureItemActions',
+                'x-initializer': 'gridCard:configureItemActions',
                 'x-component': 'ActionBar',
-                'x-use-component-props': 'useListActionBarProps',
+                'x-use-component-props': 'useGridCardActionBarProps',
                 'x-component-props': {
                   layout: 'one-column',
                 },

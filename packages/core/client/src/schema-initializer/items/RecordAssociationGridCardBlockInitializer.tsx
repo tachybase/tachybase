@@ -5,7 +5,7 @@ import { useCollectionManager_deprecated } from '../../collection-manager';
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
 import { useSchemaTemplateManager } from '../../schema-templates';
 import { useRecordCollectionDataSourceItems } from '../utils';
-import { createGridCardBlockSchema } from '../../modules/blocks/data-blocks/grid-card/createGridCardBlockSchema';
+import { createGridCardBlockUISchema } from '../../modules/blocks/data-blocks/grid-card/createGridCardBlockUISchema';
 
 /**
  * @deprecated
@@ -30,7 +30,7 @@ export const RecordAssociationGridCardBlockInitializer = () => {
           insert(s);
         } else {
           insert(
-            createGridCardBlockSchema({
+            createGridCardBlockUISchema({
               rowKey: collection.filterTargetKey,
               dataSource: collection.dataSource,
               association: resource,
@@ -53,7 +53,7 @@ export function useCreateAssociationGridCardBlock() {
       const collection = getCollection(field.target);
 
       insert(
-        createGridCardBlockSchema({
+        createGridCardBlockUISchema({
           rowKey: collection.filterTargetKey,
           dataSource: collection.dataSource,
           association: `${field.collectionName}.${field.name}`,

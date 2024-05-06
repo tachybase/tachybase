@@ -1,4 +1,4 @@
-import { createGridCardBlockSchema } from '../createGridCardBlockSchema';
+import { createGridCardBlockSchema } from '../createGridCardBlockUISchema';
 
 describe('createGridCardBlockSchema', () => {
   test('should return the correct schema', () => {
