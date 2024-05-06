@@ -1,7 +1,7 @@
 import { TableOutlined } from '@ant-design/icons';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
-import { useCollectionManager_deprecated } from '../../../../collection-manager';
+import { useCollectionManager } from '../../../../data-source';
 import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { Collection, CollectionFieldOptions } from '../../../../data-source/collection/Collection';
 import { createDetailsWithPaginationUISchema } from './createDetailsWithPaginationUISchema';
@@ -36,9 +36,8 @@ export const DetailsBlockInitializer = ({
   showAssociationFields?: boolean;
   hideChildrenIfSingleCollection?: boolean;
 }) => {
-  const { insert } = useSchemaInitializer();
-  const { getCollection } = useCollectionManager_deprecated();
   const itemConfig = useSchemaInitializerItem();
+  const { createDetailsBlock } = useCreateDetailsBlock();
   return (
     <DataBlockInitializer
       {...itemConfig}
@@ -49,18 +48,7 @@ export const DetailsBlockInitializer = ({
           return createBlockSchema(options);
         }
 
-        const { item } = options;
-        const collection = getCollection(item.name, item.dataSource);
-        const schema = createDetailsWithPaginationUISchema({
-          collectionName: item.name,
-          dataSource: item.dataSource,
-          rowKey: collection.filterTargetKey || 'id',
-          hideActionInitializer: !(
-            (collection.template !== 'view' || collection?.writableView) &&
-            collection.template !== 'sql'
-          ),
-        });
-        insert(schema);
+        createDetailsBlock(options);
       }}
       onlyCurrentDataSource={!!onlyCurrentDataSource}
       hideSearch={hideSearch}
@@ -70,4 +58,29 @@ export const DetailsBlockInitializer = ({
       hideChildrenIfSingleCollection={hideChildrenIfSingleCollection}
     />
   );
+};
+
+export const useCreateDetailsBlock = () => {
+  const { insert } = useSchemaInitializer();
+  // const { getCollection } = useCollectionManager_deprecated();
+  const cm = useCollectionManager();
+
+  const createDetailsBlock = useCallback(
+    ({ item }) => {
+      const collection = cm.getCollection(item.name);
+      const schema = createDetailsWithPaginationUISchema({
+        collectionName: item.name,
+        dataSource: item.dataSource,
+        rowKey: collection.filterTargetKey || 'id',
+        hideActionInitializer: !(
+          (collection.template !== 'view' || collection?.writableView) &&
+          collection.template !== 'sql'
+        ),
+      });
+      insert(schema);
+    },
+    [cm, insert],
+  );
+
+  return { createDetailsBlock };
 };

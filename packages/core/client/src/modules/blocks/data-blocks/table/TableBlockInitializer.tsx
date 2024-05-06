@@ -28,26 +28,19 @@ export const TableBlockInitializer = ({
   ) => any;
   showAssociationFields?: boolean;
 }) => {
-  const { insert } = useSchemaInitializer();
-  const { getCollection } = useCollectionManager_deprecated();
+  const { createTableBlock } = useCreateTableBlock();
   const itemConfig = useSchemaInitializerItem();
   return (
     <DataBlockInitializer
       {...itemConfig}
       icon={<TableOutlined />}
       componentType={'Table'}
-      onCreateBlockSchema={async ({ item }) => {
+      onCreateBlockSchema={async (options) => {
         if (createBlockSchema) {
-          return createBlockSchema({ item });
+          return createBlockSchema(options);
         }
 
-        const collection = getCollection(item.name, item.dataSource);
-        const schema = createTableBlockUISchema({
-          collectionName: item.name,
-          dataSource: item.dataSource,
-          rowKey: collection.filterTargetKey || 'id',
-        });
-        insert(schema);
+        createTableBlock(options);
       }}
       onlyCurrentDataSource={onlyCurrentDataSource}
       hideSearch={hideSearch}
@@ -55,4 +48,21 @@ export const TableBlockInitializer = ({
       showAssociationFields={showAssociationFields}
     />
   );
+};
+
+export const useCreateTableBlock = () => {
+  const { insert } = useSchemaInitializer();
+  const { getCollection } = useCollectionManager_deprecated();
+
+  const createTableBlock = ({ item }) => {
+    const collection = getCollection(item.name, item.dataSource);
+    const schema = createTableBlockUISchema({
+      collectionName: item.name,
+      dataSource: item.dataSource,
+      rowKey: collection.filterTargetKey || 'id',
+    });
+    insert(schema);
+  };
+
+  return { createTableBlock };
 };
