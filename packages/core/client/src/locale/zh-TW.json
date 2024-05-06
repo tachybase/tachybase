@@ -780,7 +780,7 @@
   "Theme": "主題",
   "Default theme": "預設主題",
   "Compact theme": "緊湊主題",
-  "This is likely a NocoBase internals bug. Please open an issue at <1>here</1>": "這可能是 NocoBase 內部的問題，你可以在<1>這裡</1>將該錯誤反饋給我們，我們會盡快修復",
+  "This is likely a Tachybase internals bug. Please open an issue at <1>here</1>": "這可能是 Tachybase 內部的問題，你可以在<1>這裡</1>將該錯誤反饋給我們，我們會盡快修復",
   "Render Failed": "渲染失敗",
   "Feedback": "反饋問題",
   "Try again": "重試一下",

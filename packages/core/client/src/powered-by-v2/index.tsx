@@ -19,7 +19,7 @@ export const PoweredByV2 = () => {
         }
       `}
     >
-      ©2023-{year} 上海道有云网络科技有限公司 版权所有 沪ICP备2023024678号
+      ©2023-{year} TachyBase Team
     </div>
   );
 };
