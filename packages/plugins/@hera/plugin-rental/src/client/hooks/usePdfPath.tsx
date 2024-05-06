@@ -62,6 +62,9 @@ export const useRecordPdfPath = () => {
   if (record.__collectionName === 'contracts' && record.__parent) {
     recordId = record.__parent.id;
   }
+  if (typeof record.id === 'string') {
+    recordId = record.id.split('_')[1] || record.id;
+  }
   const { isDouble } = useContext(PdfIsDoubleContext);
   const { settingType } = useContext(PdfIsLoadContext);
   const { margingTop } = useContext(PdfMargingTopContext);

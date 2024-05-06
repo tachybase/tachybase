@@ -3,11 +3,10 @@ import _ from 'lodash';
 import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { FormPath } from '@tachybase/schema';
-import { useRequest } from '@nocobase/client';
+import { useCollection, useRequest } from '@nocobase/client';
 import { Descriptions, Spin } from 'antd';
 import { formatQuantity } from '../../utils/currencyUtils';
 import { useProducts } from '../hooks';
-
 export const RecordDetails: CustomFunctionComponent = () => {
   const form = useForm();
   const fieldSchema = useFieldSchema();
@@ -15,13 +14,16 @@ export const RecordDetails: CustomFunctionComponent = () => {
   const path: any = field.path.entire;
   const fieldPath = path?.replace(`.${fieldSchema.name}`, '');
   const itemPath = FormPath.parse('.', fieldPath).toString();
+  const collection = useCollection();
+  const record_id =
+    collection.template === 'view' ? form.getValuesIn(itemPath).record_id : form.getValuesIn(itemPath).id;
   const reqRecordItems = useRequest<any>({
     resource: 'record_items',
     action: 'list',
     params: {
       appends: ['new_product'],
       filter: {
-        record_id: form.getValuesIn(itemPath).id,
+        record_id,
       },
       pageSize: 999,
     },
@@ -33,7 +35,7 @@ export const RecordDetails: CustomFunctionComponent = () => {
     params: {
       appends: ['fees'],
       filter: {
-        record_id: { $eq: form.getValuesIn(itemPath).id },
+        record_id: { $eq: record_id },
       },
       pageSize: 999,
     },

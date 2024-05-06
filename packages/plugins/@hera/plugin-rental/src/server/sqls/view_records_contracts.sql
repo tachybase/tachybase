@@ -3,18 +3,20 @@ CREATE OR REPLACE VIEW
 SELECT
   c.id AS contract_id,
   c.record_category AS contract_type,
-  r.id,
+  r.id AS record_id,
+  'c_' || rc.id AS id,
+  rc.id AS rc_id, -- 页面更新中间表存根联/回根联用
   r."number",
-  r.has_receipt,
-  r.has_stub,
+  rc.has_receipt,
+  rc.has_stub,
   r."date",
   r.original_number,
-  c1."name" AS company_name,
+  c1.id AS view_company,
   r."comment",
   r.all_price,
   r.weight,
   rc.movement,
-  p.name AS project_name,
+  p.id AS view_project,
   (
     SELECT
       COALESCE(STRING_AGG(v."number", ' '), '')
@@ -39,13 +41,15 @@ UNION ALL
 SELECT
   NULL AS contract_id,
   NULL AS contract_type,
-  r.id,
+  r.id AS record_id,
+  'r_' || r.id AS id,
+  NULL AS rc_id,
   r."number",
-  r.has_receipt,
-  r.has_stub,
+  rc.has_receipt,
+  rc.has_stub,
   r."date",
   r.original_number,
-  c.name AS company_name,
+  c.id AS view_company,
   r."comment",
   r.all_price,
   r.weight,
@@ -55,7 +59,7 @@ SELECT
       ELSE '-1'
     END
   ) AS movement,
-  p3."name" AS project_name,
+  p3.id AS view_project,
   (
     SELECT
       COALESCE(STRING_AGG(v."number", ' '), '')

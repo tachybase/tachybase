@@ -274,7 +274,7 @@ export const AddFieldAction = (props) => {
             title: compile(option.label),
             key: option.label,
             children: option.children
-              .filter((child) => ['m2o'].includes(child.name))
+              .filter((child) => ['m2o', 'custom'].includes(child.name))
               .map((child) => {
                 return {
                   label: compile(child.title),
