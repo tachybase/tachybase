@@ -1,21 +1,18 @@
-import Database, { CreateOptions, MagicAttributeModel, Transaction } from '@nocobase/database';
+import Database, { CreateOptions, MagicAttributeModel } from '@nocobase/database';
 import { Db, Service } from '@nocobase/utils';
-import { ConversionLogics, Movement, RecordCategory, RecordTypes, settlementStatus } from '../../utils/constants';
+import { ConversionLogics, RecordCategory, settlementStatus } from '../../utils/constants';
 import validateLicensePlate from '../../utils/validateLIcensePlate';
 import { QueryTypes } from 'sequelize';
-
+import _ from 'lodash';
 @Service()
 export class RecordService {
   @Db()
   private db: Database;
-  // 订单hooks调整
-  // 1.盘点单在hook中生成
-  // 2.合同结算单的状态       √
-  // 3.购销合同订单的金额     √
-  // 4.车牌号校验            √
   async load() {
     this.db.on('records.afterSave', this.recordsAfterSave.bind(this));
     this.db.on('records.beforeSave', this._calcAllPrice.bind(this));
+    // 盘点单
+    this.db.on('records.afterSaveWithAssociations', this._createStock.bind(this));
   }
 
   /**
@@ -152,6 +149,85 @@ export class RecordService {
         }
         if (values.all_price !== allPrice) {
           record.all_price = allPrice;
+        }
+      }
+    }
+  }
+
+  /**
+   * 盘点单创建
+   */
+  async _createStock(record: MagicAttributeModel, options: CreateOptions) {
+    const { values, transaction, context } = options;
+    if (!values) return;
+    const record_contract = record.get('new_contracts').filter((item) => typeof item === 'object');
+    if (record_contract.length) {
+      const stockProduct = await this.db.getRepository('products').find({
+        where: {
+          category: '1',
+        },
+      });
+      const sql = `
+      WITH RECURSIVE tree1 AS (
+        SELECT id, "parentId"
+        FROM products
+        WHERE id = :dataId
+        UNION ALL
+        SELECT p.id, p."parentId"
+        FROM tree1 up
+        JOIN products p ON up."parentId" = p.id
+      )
+      select id
+      from tree1
+    `;
+      for (const i of record_contract) {
+        const item = i.dataValues;
+        const stock = {
+          record_contract_id: item.id,
+          items: [],
+          project_id: item.contract.dataValues.project_id,
+        };
+        const stockItems = await Promise.all(
+          item.fees.map(async (fee) => {
+            if (typeof fee !== 'object') return;
+            const treeIds = await this.db.sequelize.query(sql, {
+              replacements: {
+                dataId: fee.dataValues.new_fee_product.id,
+              },
+              type: QueryTypes.SELECT,
+            });
+            // 两数组ID，取并集
+            const isStockProduct = _.intersectionBy(stockProduct, treeIds, 'id');
+            if (isStockProduct.length > 0) {
+              // 这里一般是无关联产品的费用，有赔偿标记的类别为需要找对应的产品
+              // 这里需要平替找到对应的产品，目前没有这个分类的产品
+              const parent = await this.db.getRepository('products').find({
+                where: {
+                  id: fee.dataValues.new_fee_product.parentId,
+                },
+              });
+              const fee_products = await this.db.getRepository('products').find({
+                where: {
+                  name: fee.dataValues.new_fee_product.name,
+                },
+                appends: ['parent'],
+              });
+              const pro = fee_products.find((pro) => pro.parent?.name === parent.name);
+              return { new_product: pro || fee.dataValues.new_fee_product, count: fee.count };
+            } else {
+              if (fee.dataValues.new_product) {
+                return { new_product: fee.dataValues.new_product, count: fee.count };
+              }
+            }
+          }),
+        );
+        if (stockItems.filter(Boolean).length > 0) {
+          stock.items = stockItems;
+          await this.db.getRepository('record_stock').updateOrCreate({
+            filterKeys: ['record_contract_id'],
+            values: stock,
+            transaction,
+          });
         }
       }
     }
