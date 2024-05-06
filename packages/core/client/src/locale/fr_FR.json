@@ -738,7 +738,7 @@
   "Column width": "Largeur de colonne",
   "Sortable": "Triable",
   "Enable link": "Activer le lien",
-  "This is likely a NocoBase internals bug. Please open an issue at <1>here</1>": "Ceci est probablement un bogue interne de NocoBase. Veuillez ouvrir un problème <1>ici</1>",
+  "This is likely a Tachybase internals bug. Please open an issue at <1>here</1>": "Ceci est probablement un bogue interne de Tachybase. Veuillez ouvrir un problème <1>ici</1>",
   "Render Failed": "Échec du rendu",
   "Feedback": "Commentaires",
   "Try again": "Réessayer",
