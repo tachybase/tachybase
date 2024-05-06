@@ -1,15 +1,65 @@
-import { useForm } from '@tachybase/schema';
+import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import React, { useMemo } from 'react';
-import { SchemaComponent, useActionContext, useDesignable, useRecord } from '../..';
+import { SchemaComponent, useAPIClient, useActionContext, useDesignable, useProps, useRecord } from '../..';
 import { SchemaInitializer } from '../../application/schema-initializer/SchemaInitializer';
 import { useGetAriaLabelOfSchemaInitializer } from '../hooks/useGetAriaLabelOfSchemaInitializer';
+import { message } from 'antd';
+import { saveAs } from 'file-saver';
 
 export const TabPaneInitializers = (props?: any) => {
   const { designable, insertBeforeEnd } = useDesignable();
+  const fieldSchema = useFieldSchema();
   const { isCreate, isBulkEdit, options } = props;
   const { gridInitializer } = options;
   const { getAriaLabel } = useGetAriaLabelOfSchemaInitializer();
   const record = useRecord();
+
+  const useDumpAction = () => {
+    const api = useAPIClient();
+    return {
+      async run() {
+        const deleteUid = (s: ISchema) => {
+          delete s['name'];
+          delete s['x-uid'];
+          Object.keys(s.properties || {}).forEach((key) => {
+            deleteUid(s.properties[key]);
+          });
+        };
+        const { data } = await api.request({
+          url: `/uiSchemas:getJsonSchema/${fieldSchema['x-uid']}?includeAsyncNode=true`,
+        });
+        const s = data?.data || {};
+        deleteUid(s);
+        const blob = new Blob([JSON.stringify(s, null, 2)], { type: 'application/json' });
+        saveAs(blob, fieldSchema['x-uid'] + '.schema.json');
+        message.success('Save successful!');
+      },
+    };
+  };
+
+  const useLoadAction = () => {
+    const api = useAPIClient();
+    const form = useForm();
+    const actionField = useField();
+    const ctx = useActionContext();
+    return {
+      async run() {
+        actionField.data ??= {};
+        actionField.data.loading = true;
+        const { file } = form.values;
+        const { data } = await api.request({
+          url: file.url,
+          baseURL: '/',
+        });
+        const s = data ?? {};
+        Object.values(s.properties).forEach((s) => {
+          insertBeforeEnd(s as ISchema);
+        });
+        actionField.data.loading = false;
+        ctx.setVisible(false);
+      },
+    };
+  };
 
   const useSubmitAction = () => {
     const form = useForm();
@@ -53,64 +103,158 @@ export const TabPaneInitializers = (props?: any) => {
     return {
       type: 'void',
       properties: {
-        action1: {
+        fixStyle: {
           type: 'void',
-          'x-component': 'Action',
+          'x-component': 'div',
           'x-component-props': {
-            icon: 'PlusOutlined',
             style: {
-              borderColor: 'var(--colorSettings)',
-              color: 'var(--colorSettings)',
+              display: 'flex',
             },
-            type: 'dashed',
-            'aria-label': getAriaLabel(),
           },
-          title: '{{t("Add tab")}}',
           properties: {
-            drawer1: {
-              'x-decorator': 'Form',
-              'x-component': 'Action.Modal',
-              'x-component-props': {
-                width: 520,
-              },
+            action2: {
               type: 'void',
-              title: '{{t("Add tab")}}',
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'SaveOutlined',
+                style: {
+                  borderColor: 'var(--colorSettings)',
+                  color: 'var(--colorSettings)',
+                  marginRight: 'var(--nb-spacing)',
+                },
+                type: 'dashed',
+                useAction: useDumpAction,
+                'aria-label': getAriaLabel(),
+              },
+              title: '{{t("Dump")}}',
+            },
+            action3: {
+              type: 'void',
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'UploadOutlined',
+                style: {
+                  borderColor: 'var(--colorSettings)',
+                  color: 'var(--colorSettings)',
+                  marginRight: 'var(--nb-spacing)',
+                },
+                type: 'dashed',
+                'aria-label': getAriaLabel(),
+              },
+              title: '{{t("Load")}}',
               properties: {
-                title: {
-                  title: '{{t("Tab name")}}',
-                  required: true,
-                  'x-component': 'Input',
-                  'x-decorator': 'FormItem',
-                },
-                icon: {
-                  title: '{{t("Icon")}}',
-                  'x-component': 'IconPicker',
-                  'x-decorator': 'FormItem',
-                },
-                footer: {
-                  'x-component': 'Action.Modal.Footer',
+                drawer1: {
+                  'x-decorator': 'Form',
+                  'x-component': 'Action.Modal',
+                  'x-component-props': {
+                    width: 520,
+                  },
                   type: 'void',
+                  title: '{{t("Load")}}',
                   properties: {
-                    cancel: {
-                      title: '{{t("Cancel")}}',
-                      'x-component': 'Action',
+                    file: {
+                      type: 'object',
+                      title: '{{ t("File") }}',
+                      required: true,
+                      'x-decorator': 'FormItem',
+                      'x-component': 'Upload.Attachment',
                       'x-component-props': {
-                        useAction: () => {
-                          const ctx = useActionContext();
-                          return {
-                            async run() {
-                              ctx.setVisible(false);
+                        action: 'attachments:create',
+                        multiple: false,
+                      },
+                    },
+                    footer: {
+                      'x-component': 'Action.Modal.Footer',
+                      type: 'void',
+                      properties: {
+                        cancel: {
+                          title: '{{t("Cancel")}}',
+                          'x-component': 'Action',
+                          'x-component-props': {
+                            useAction: () => {
+                              const ctx = useActionContext();
+                              return {
+                                async run() {
+                                  ctx.setVisible(false);
+                                },
+                              };
                             },
-                          };
+                          },
+                        },
+                        submit: {
+                          title: '{{t("Submit")}}',
+                          'x-component': 'Action',
+                          'x-component-props': {
+                            type: 'primary',
+                            useAction: useLoadAction,
+                          },
                         },
                       },
                     },
-                    submit: {
-                      title: '{{t("Submit")}}',
-                      'x-component': 'Action',
-                      'x-component-props': {
-                        type: 'primary',
-                        useAction: useSubmitAction,
+                  },
+                },
+              },
+            },
+            action1: {
+              type: 'void',
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'PlusOutlined',
+                style: {
+                  borderColor: 'var(--colorSettings)',
+                  color: 'var(--colorSettings)',
+                },
+                type: 'dashed',
+                'aria-label': getAriaLabel(),
+              },
+              title: '{{t("Add tab")}}',
+              properties: {
+                drawer1: {
+                  'x-decorator': 'Form',
+                  'x-component': 'Action.Modal',
+                  'x-component-props': {
+                    width: 520,
+                  },
+                  type: 'void',
+                  title: '{{t("Add tab")}}',
+                  properties: {
+                    title: {
+                      title: '{{t("Tab name")}}',
+                      required: true,
+                      'x-component': 'Input',
+                      'x-decorator': 'FormItem',
+                    },
+                    icon: {
+                      title: '{{t("Icon")}}',
+                      'x-component': 'IconPicker',
+                      'x-decorator': 'FormItem',
+                    },
+                    footer: {
+                      'x-component': 'Action.Modal.Footer',
+                      type: 'void',
+                      properties: {
+                        cancel: {
+                          title: '{{t("Cancel")}}',
+                          'x-component': 'Action',
+                          'x-component-props': {
+                            useAction: () => {
+                              const ctx = useActionContext();
+                              return {
+                                async run() {
+                                  ctx.setVisible(false);
+                                },
+                              };
+                            },
+                          },
+                        },
+                        submit: {
+                          title: '{{t("Submit")}}',
+                          'x-component': 'Action',
+                          'x-component-props': {
+                            type: 'primary',
+                            useAction: useSubmitAction,
+                          },
+                        },
                       },
                     },
                   },
