@@ -1,6 +1,6 @@
 import { useApp, tval as nTval, i18n } from '@nocobase/client';
 
-const NAMESPACE = '@hera/plugin-mobile';
+const NAMESPACE = '@hera/plugin-approval-mobile';
 
 export const useTranslation = (): any => {
   const { i18n } = useApp();
