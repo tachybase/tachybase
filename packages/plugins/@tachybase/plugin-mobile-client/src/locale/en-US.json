@@ -28,5 +28,20 @@
   "Delete menu block": "Delete menu block",
   "Mobile client access address": "Mobile client access address",
   "The full address is": "The full address is",
-  "Preview": "Preview"
+  "Preview": "Preview",
+   "Choices fields":"Choices fields",
+  "Text fields":"Text fields",
+  "Generic properties":"Generic properties",
+  "Search":"Search",
+  "Please enter search content":"Please enter search content",
+  "Title field":"Title field",
+  "Set show field":"Set show field",
+  "Set field count":"Set field count",
+  "Configure field": "Configure field",
+  "Configure fields": "Configure fields",
+  "Configure columns": "Configure columns",
+  "Add block": "Add block",
+  "all": "all",
+  "AllProducts": "AllProducts",
+  "sort":"sort"
 }

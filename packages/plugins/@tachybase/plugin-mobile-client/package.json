@@ -14,6 +14,7 @@
     "ahooks": "3.x",
     "antd": "5.16.1",
     "antd-mobile": "^5.35.0",
+    "antd-mobile-icons": "^0.3.0",
     "antd-style": "3.x",
     "classnames": "2.x",
     "lodash": "4.17.21",

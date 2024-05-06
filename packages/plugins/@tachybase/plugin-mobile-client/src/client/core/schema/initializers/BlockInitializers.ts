@@ -1,5 +1,5 @@
 import { CompatibleSchemaInitializer, gridRowColWrap } from '@nocobase/client';
-import { generateNTemplate } from '../../../locale';
+import { generateNTemplate, tval } from '../../../locale';
 
 /**
  * @deprecated
@@ -31,11 +31,11 @@ export const mBlockInitializers_deprecated = new CompatibleSchemaInitializer({
           title: '{{t("Form")}}',
           Component: 'FormBlockInitializer',
         },
-        {
-          name: 'details',
-          title: '{{t("Details")}}',
-          Component: 'DetailsBlockInitializer',
-        },
+        // {
+        //   name: 'details',
+        //   title: '{{t("Details")}}',
+        //   Component: 'DetailsBlockInitializer',
+        // },
         {
           name: 'calendar',
           title: '{{t("Calendar")}}',
@@ -96,11 +96,11 @@ export const mBlockInitializers = new CompatibleSchemaInitializer(
             title: '{{t("Table")}}',
             Component: 'TableBlockInitializer',
           },
-          {
-            name: 'form',
-            title: '{{t("Form")}}',
-            Component: 'FormBlockInitializer',
-          },
+          // {
+          //   name: 'form',
+          //   title: '{{t("Form")}}',
+          //   Component: 'FormBlockInitializer',
+          // },
           {
             name: 'details',
             title: '{{t("Details")}}',
@@ -116,6 +116,18 @@ export const mBlockInitializers = new CompatibleSchemaInitializer(
             title: generateNTemplate('Map'),
             Component: 'MapBlockInitializer',
           },
+          {
+            title: tval('Swiper'),
+            name: 'swiper',
+            type: 'item',
+            Component: 'SwiperBlockInitializer',
+          },
+          {
+            title: 'notice',
+            name: 'notice',
+            type: 'item',
+            Component: 'NoticeBlockInitializer',
+          },
         ],
       },
       {
@@ -130,13 +142,31 @@ export const mBlockInitializers = new CompatibleSchemaInitializer(
           },
           {
             name: 'markdown',
-            title: '{{t("Markdown")}}',
+            title: tval('Markdown'),
             Component: 'MarkdownBlockInitializer',
           },
           {
             name: 'settings',
             title: generateNTemplate('Settings'),
             Component: 'MSettingsBlockInitializer',
+          },
+        ],
+      },
+      {
+        name: 'filterBlocks',
+        type: 'itemGroup',
+        title: '{{t("Filter blocks")}}',
+        children: [
+          {
+            name: 'tabSearch',
+            title: tval('TabSearch'),
+            Component: 'TabSearchBlockInitializer',
+          },
+          {
+            name: 'imageSearch',
+            title: tval('ImageSearch'),
+            icon: 'tab-search',
+            Component: 'ImageSearchInitializer',
           },
         ],
       },
