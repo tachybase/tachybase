@@ -150,22 +150,23 @@ export const useProducts = () => {
   return { data: data?.data };
 };
 
-export const useCompany = (leftId, rightId) => {
+export const useCompany = (appends, id) => {
   const { data, loading, run } = useCachedRequest<any>(
     {
-      resource: 'company',
+      resource: 'contracts',
       action: 'list',
       params: {
-        filter: { id: { $eq: [leftId, rightId] } },
+        filter: { id: { $eq: id } },
+        appends,
       },
     },
     { manual: true },
   );
   useEffect(() => {
-    if (leftId && rightId) {
+    if (id) {
       run();
     }
-  }, [leftId, rightId]);
+  }, [id]);
   return { data, loading };
 };
 
