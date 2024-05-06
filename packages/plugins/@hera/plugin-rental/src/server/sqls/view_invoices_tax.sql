@@ -1,14 +1,15 @@
 -- 增值税计算
 CREATE OR REPLACE VIEW
   public.view_invoice_tax AS
-  --  发票进项表和完税凭证表: 1. 筛选所需字段并统一命名,2. 将发票进项表和完税凭证表, 两个表的数据合并
 WITH RECURSIVE
+  --  发票进项表和完税凭证表: 转化数据, 并将发票进项表和完税凭证表, 两个表的数据合并
   A_INPUT AS (
     SELECT
       purchaser_id AS company_id, -- 发票进项取购买方公司id,作为本公司id标识
       authentication_date AT TIME ZONE 'Asia/Shanghai' AS "date", -- 发票进项取认证日期,作为计算月份的来源
       tax_amount,
-      "state"
+      "state",
+      category
     FROM
       invoice_input
     UNION ALL
@@ -16,7 +17,8 @@ WITH RECURSIVE
       purchaser_id AS company_id, -- 完税凭证,同发票进项字段
       authentication_date AT TIME ZONE 'Asia/Shanghai' AS "date", -- 完税凭证,同发票进项字段
       tax_amount,
-      "state"
+      "state",
+      category
     FROM
       invoice_receipt
   ),
@@ -26,11 +28,12 @@ WITH RECURSIVE
       seller_id AS company_id, -- 发票销项取销售方id,作为本公司id标识
       "Invoicing_date" AT TIME ZONE 'Asia/Shanghai' AS "date", -- 发票销项取开票日期,作为计算月份的来源
       tax_amount,
-      "state"
+      "state",
+      category
     FROM
       invoice_output
   ),
-  -- 聚合A_INPUT: 1. 按照 company_id 和 date 聚合计算后的月份 "MONTH" 2. 获取对应月份的进项税额 input_tax_amount
+  -- 筛选和聚合A_INPUT: 1. 按照 company_id 和 date 聚合计算后的月份 "MONTH" 2. 获取对应月份的进项税额 input_tax_amount
   B_INPUT AS (
     SELECT
       company_id,
@@ -41,11 +44,12 @@ WITH RECURSIVE
     WHERE
       "date" >= '2022-01-01' -- 筛选出日期在'2022-01-01'之后的数据 
       AND "state" = '1' -- 筛选出所有状态为正常的记录, 正常-1,作废-2
+      AND "category" = '0' -- 筛选出进项发票种类为 0-专用发票; 0-专用发票,1-普通发票;只有专用发票计入增值税计算
     GROUP BY
       company_id,
       "MONTH"
   ),
-  -- 聚合B_OUTPUT: 1. 按照 company_id 和 date 聚合计算后的月份 "MONTH" 2. 获取对应月份的销项税额 output_tax_amount
+  -- 筛选和聚合B_OUTPUT: 1. 按照 company_id 和 date 聚合计算后的月份 "MONTH" 2. 获取对应月份的销项税额 output_tax_amount
   B_OUTPUT AS (
     SELECT
       company_id,
