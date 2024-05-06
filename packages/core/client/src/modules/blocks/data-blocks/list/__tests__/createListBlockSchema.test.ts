@@ -1,4 +1,4 @@
-import { createListBlockSchema } from '../createListBlockSchema';
+import { createListBlockSchema } from '../createListBlockUISchema';
 
 describe('createListBlockSchema', () => {
   test('should return the correct schema', () => {
