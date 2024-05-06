@@ -1,18 +1,15 @@
 import { findFilterTargets, mergeFilter, useCollection, useFilterBlock } from '@nocobase/client';
 import { useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
+import { useMemo } from 'react';
 
-export const useTabSearchCollapsibleInputItem = () => {
+export const useGetSelected = () => {
   const fieldSchema = useFieldSchema();
   const collection = useCollection();
   const { getDataBlocks } = useFilterBlock();
+  const collectionField = useMemo(() => collection?.getField(fieldSchema.name as any), [collection, fieldSchema.name]);
 
-  const onSelected = (
-    value,
-    filterKey,
-    options = { canBeCalculatedField: false, customLabelKey: '', needSort: false },
-  ) => {
-    const { canBeCalculatedField, customLabelKey, needSort = true } = options;
+  const onSelected = (value, filterKey) => {
     const { targets, uid } = findFilterTargets(fieldSchema);
     getDataBlocks().forEach((block) => {
       const target = targets.find((target) => target.uid === block.uid);
@@ -25,12 +22,6 @@ export const useTabSearchCollapsibleInputItem = () => {
         storedFilter[key] = {
           [filterKey]: value,
         };
-
-        if (canBeCalculatedField) {
-          storedFilter[key] = {
-            [filterKey]: Number(value?.[0] ?? 0),
-          };
-        }
       } else {
         if (block.dataLoadingMode === 'manual') {
           return block.clearData();
@@ -59,21 +50,14 @@ export const useTabSearchCollapsibleInputItem = () => {
         (value) => value === null || value === undefined || (_.isObject(value) && _.isEmpty(value)),
       );
 
-      let params1 = {
-        ...param,
-        page: 1,
-        filter: mergedFilter,
-      };
-      if (needSort) {
-        params1 = {
-          ...params1,
-          ['sort[]']: `-${customLabelKey}`,
-        };
-      } else {
-        params1 = _.omit(params1, ['sort[]']);
-      }
-
-      return block.doFilter(params1, { filters: storedFilter });
+      return block.doFilter(
+        {
+          ...param,
+          page: 1,
+          filter: mergedFilter,
+        },
+        { filters: storedFilter },
+      );
     });
   };
 

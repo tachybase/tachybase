@@ -10,8 +10,6 @@ const canBeSearchFields = [
   'phone',
   'email',
   'url',
-  'integer',
-  'number',
   'percent',
   'password',
   'color',
@@ -20,6 +18,8 @@ const canBeSearchFields = [
   'sequence',
 ];
 
+const canBeCalculatedFields = ['integer', 'number'];
+
 export const isTabSearchCollapsibleInputItem = (component: string) =>
   component === 'TabSearchCollapsibleInputItem' || component === 'TabSearchCollapsibleInputMItem';
 
@@ -27,6 +27,7 @@ export const canBeOptionalField = (_interface: string) => canBeOptionalFields.in
 export const canBeRelatedField = (_interface: string) => canBeRelatedFields.includes(_interface);
 export const canBeDataField = (_interface: string) => canBeDataFields.includes(_interface);
 export const canBeSearchField = (_interface: string) => canBeSearchFields.includes(_interface);
+export const canBeCalculatedField = (_interface: string) => canBeCalculatedFields.includes(_interface);
 
 export const convertFormat = (currentDate) => {
   return dayjs(currentDate).format('YYYY-MM-DD');

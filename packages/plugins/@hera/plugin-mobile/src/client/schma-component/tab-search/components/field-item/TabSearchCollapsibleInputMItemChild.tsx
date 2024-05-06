@@ -102,7 +102,7 @@ export const IInput = (props) => {
   const { options, value, onChange } = props;
   const { t } = useTranslation();
   return (
-    <Grid.Item span={options.length > 1 ? 2 : 3}>
+    <Grid.Item style={{ flex: 1 }} span={options.length > 1 ? 2 : 3}>
       <Input
         placeholder={t('Please enter search content')}
         value={value}

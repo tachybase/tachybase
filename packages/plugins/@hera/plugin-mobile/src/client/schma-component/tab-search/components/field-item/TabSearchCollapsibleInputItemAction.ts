@@ -2,10 +2,10 @@ import { useMemo, useRef, useState } from 'react';
 import { useFieldSchema } from '@tachybase/schema';
 import { useCollection, useCollectionManager, useDesignable, useDesigner } from '@nocobase/client';
 import {
+  canBeCalculatedField,
   canBeDataField,
   canBeRelatedField,
   changFormat,
-  convertFormat,
   isTabSearchCollapsibleInputItem,
 } from '../../utils';
 import { useTabSearchCollapsibleInputItem } from './hooks';
@@ -17,6 +17,7 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
   const collection = useCollection();
   const cm = useCollectionManager();
   const { dn } = useDesignable();
+  const [needSort, setNeedSort] = useState(false);
   const collectionField = useMemo(
     () => collection?.getField(fieldSchema['fieldName'] as any),
     [collection, fieldSchema['fieldName']],
@@ -44,6 +45,11 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
   const onSelect = (value) => {
     let time;
     let filterKey = `${customLabelKey}.$includes`;
+
+    const canBeCal = canBeCalculatedField(fieldInterface);
+    if (canBeCal) {
+      filterKey = `${customLabelKey}.$notEmpty`;
+    }
     if (canBeDataField(fieldInterface)) {
       time = value.split('&').map((value) => JSON.parse(value));
       filterKey = `${customLabelKey}.$dateBetween`;
@@ -53,7 +59,12 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
       const correlation = fieldSchema['x-component-props']['correlation'];
       filterKey = `${correlation}.${label}.$includes`;
     }
-    onSelected(time || [value], filterKey);
+
+    onSelected(time || [value], filterKey, {
+      canBeCalculatedField: canBeCal,
+      customLabelKey,
+      needSort,
+    });
   };
 
   const onSelectChange = (label) => {
@@ -107,5 +118,7 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
     customLabelKey,
     fieldInterface,
     onDateClick,
+    needSort,
+    setNeedSort,
   };
 };

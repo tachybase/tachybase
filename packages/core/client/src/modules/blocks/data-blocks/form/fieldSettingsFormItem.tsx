@@ -15,6 +15,7 @@ import { isPatternDisabled } from '../../../../schema-settings';
 import { ActionType } from '../../../../schema-settings/LinkageRules/type';
 import { SchemaSettingsDefaultValue } from '../../../../schema-settings/SchemaSettingsDefaultValue';
 import { useIsAllowToSetDefaultValue } from '../../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
+import { css } from '@nocobase/client';
 
 export const fieldSettingsFormItem = new SchemaSettings({
   name: 'fieldSettings:FormItem',
@@ -222,6 +223,47 @@ export const fieldSettingsFormItem = new SchemaSettings({
               return isAllowToSetDefaultValue();
             },
             Component: SchemaSettingsDefaultValue,
+          },
+          {
+            name: 'layoutDirection',
+            type: 'select',
+            useComponentProps() {
+              const { t } = useTranslation();
+              const fieldSchema = useFieldSchema();
+              const { dn } = useDesignable();
+              const initialValue = fieldSchema['x-decorator-props']?.layoutDirection ?? 'column';
+              return {
+                title: t('Layout Direction'),
+                options: [
+                  { label: t('Row'), value: 'row' },
+                  { label: t('Column'), value: 'column' },
+                ],
+                value: initialValue,
+                onChange(v) {
+                  const schema: ISchema = {
+                    ['x-uid']: fieldSchema['x-uid'],
+                  };
+
+                  const styleValue = {
+                    layoutDirection: v ?? 'column',
+                    style: {
+                      display: 'flex',
+                      flexDirection: `${v === 'row' ? 'row' : 'column'}`,
+                      alignItems: 'baseline',
+                    },
+                  };
+
+                  _.set(fieldSchema, 'x-decorator-props', styleValue);
+                  _.set(schema, 'x-decorator-props', styleValue);
+
+                  dn.emit('patch', {
+                    schema,
+                  });
+
+                  dn.refresh();
+                },
+              };
+            },
           },
           {
             name: 'pattern',
