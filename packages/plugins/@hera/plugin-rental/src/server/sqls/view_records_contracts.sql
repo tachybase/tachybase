@@ -2,30 +2,15 @@ CREATE OR REPLACE VIEW
   public.view_records_contracts AS
 SELECT
   c.id AS contract_id,
-  c.record_category AS contract_type,
   r.id AS record_id,
-  'c_' || rc.id AS id,
+  CAST('c_' || rc.id AS VARCHAR) AS id,
   rc.id AS rc_id, -- 页面更新中间表存根联/回根联用
-  r."number",
+  rc.movement,
+  c1.id AS company_id,
+  p.id AS project_id,
   rc.has_receipt,
   rc.has_stub,
-  r."date",
-  r.original_number,
-  c1.id AS view_company,
-  r."comment",
-  r.all_price,
-  r.weight,
-  rc.movement,
-  p.id AS view_project,
-  (
-    SELECT
-      COALESCE(STRING_AGG(v."number", ' '), '')
-    FROM
-      record_vehicles rv
-      JOIN vehicles v ON v.id = rv.vehicle_id
-    WHERE
-      rv.record_id = r.id
-  ) AS vehicle_number
+  c.record_category
 FROM
   records r
   JOIN record_contract rc ON rc.record_id = r.id
@@ -40,35 +25,20 @@ FROM
 UNION ALL
 SELECT
   NULL AS contract_id,
-  NULL AS contract_type,
   r.id AS record_id,
-  'r_' || r.id AS id,
+  CAST('r_' || r.id AS VARCHAR) AS id,
   NULL AS rc_id,
-  r."number",
-  rc.has_receipt,
-  rc.has_stub,
-  r."date",
-  r.original_number,
-  c.id AS view_company,
-  r."comment",
-  r.all_price,
-  r.weight,
   (
     CASE
       WHEN p3.id = r.in_stock_id THEN '1'
       ELSE '-1'
     END
   ) AS movement,
-  p3.id AS view_project,
-  (
-    SELECT
-      COALESCE(STRING_AGG(v."number", ' '), '')
-    FROM
-      record_vehicles rv
-      JOIN vehicles v ON v.id = rv.vehicle_id
-    WHERE
-      rv.record_id = r.id
-  ) AS vehicle_number
+  c.id AS company_id,
+  p3.id AS project_id,
+  rc.has_receipt,
+  rc.has_stub,
+  '2' AS record_category
 FROM
   records r
   LEFT JOIN record_contract rc ON rc.record_id = r.id

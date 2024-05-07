@@ -1,5 +1,5 @@
 import { Context } from '@nocobase/actions';
-import { QueryTypes, Op } from 'sequelize';
+import { QueryTypes } from 'sequelize';
 import { RecordPdfService } from '../services/record-pdf-service';
 import { SystemSettingService, SqlLoader } from '@hera/plugin-core';
 import { Action, Controller, Inject } from '@nocobase/utils';
@@ -42,46 +42,54 @@ export class RecordPreviewController {
     const query = {
       where: where || {},
       attributes: [
-        [sequelize.fn('sum', sequelize.col('items.count')), 'count'],
-        [sequelize.col('items.product_id'), 'product_id'],
-        [sequelize.col('records.movement'), 'movement'],
+        [sequelize.fn('sum', sequelize.col('record.items.count')), 'count'],
+        [sequelize.col('record.items.new_product_id'), 'new_product_id'],
+        [sequelize.col('view_records_contracts.movement'), 'movement'],
       ],
       include: [
         {
-          association: 'items',
+          association: 'record',
           attributes: [],
+          include: [
+            {
+              association: 'items',
+              attributes: [],
+            },
+          ],
         },
         ...parsedFilterInclude,
       ],
-      group: [sequelize.col('items.product_id'), sequelize.col('records.movement')],
+      group: [sequelize.col('record.items.new_product_id'), sequelize.col('view_records_contracts.movement')],
       order: [],
       subQuery: false,
       raw: true,
     } as any;
-    const records = await ctx.db.getModel('records').findAll(query);
+    const records = await ctx.db.getModel('view_records_contracts').findAll(query);
     if (records) {
-      const allProducts = await ctx.db.getRepository('product').find({ appends: ['category'] });
+      const allProducts = await ctx.db.getRepository('products').find();
       if (!allProducts) return;
-      const items = {} as { [key: string]: { name: string; sort: number; out: number; in: number; total: number } };
+      const items = {} as { [key: string]: { name: string; out: number; in: number; total: number } };
       records.forEach((item) => {
-        const product = allProducts.find((p) => p.id === item?.product_id);
+        const product = allProducts.find((p) => p.id === item?.new_product_id);
         if (!product) return;
-        if (!items[product.name]) {
-          items[product.name] = {
-            name: product.name,
-            sort: product.category.sort,
+        const parent = allProducts.find((p) => p.id === product.parentId);
+        const name = parent?.name || product.name;
+        if (!items[name]) {
+          items[name] = {
+            name: name,
             out: 0,
             in: 0,
             total: 0,
           };
         }
-        const count = product.category.convertible ? item.count * product.ratio : item.count;
+        // 根据产品找父级产品的分类
+        const count = parent?.convertible || product.convertible ? item.count * product.ratio : item.count;
         if (item.movement === Movement.in) {
-          items[product.name].in += count;
-          items[product.name].total += count;
+          items[name].in += count;
+          items[name].total += count;
         } else {
-          items[product.name].out += count;
-          items[product.name].total -= count;
+          items[name].out += count;
+          items[name].total -= count;
         }
       });
       const result = {
@@ -97,7 +105,7 @@ export class RecordPreviewController {
   @Action('allweight')
   async groupWeight(ctx: Context) {
     const { filter } = ctx.action.params.values;
-    const collectionName = 'records';
+    const collectionName = 'view_records_contracts';
     const collection = ctx.db.getCollection(collectionName);
     const fields = collection.fields;
     const filterParser = new FilterParser(filter, {
@@ -115,16 +123,22 @@ export class RecordPreviewController {
     const query = {
       where: where || {},
       attributes: [
-        [sequelize.fn('sum', sequelize.col('records.weight')), 'weight'],
-        [sequelize.col('records.movement'), 'movement'],
+        [sequelize.fn('sum', sequelize.col('record.weight')), 'weight'],
+        [sequelize.col('view_records_contracts.movement'), 'movement'],
       ],
-      group: [sequelize.col('records.movement')],
-      include: [...parsedFilterInclude],
+      group: [sequelize.col('view_records_contracts.movement')],
+      include: [
+        {
+          association: 'record',
+          attributes: [],
+        },
+        ...parsedFilterInclude,
+      ],
       order: [],
       subQuery: false,
       raw: true,
     } as any;
-    const records = await ctx.db.getModel('records').findAll(query);
+    const records = await ctx.db.getModel('view_records_contracts').findAll(query);
     const inNum = records.find((item) => item.movement === Movement.in)?.weight ?? 0;
     const outNum = records.find((item) => item.movement === Movement.out)?.weight ?? 0;
     const data = {
@@ -136,7 +150,7 @@ export class RecordPreviewController {
   @Action('allprice')
   async groupPrice(ctx: Context) {
     const { filter } = ctx.action.params.values;
-    const collectionName = 'records';
+    const collectionName = 'view_records_contracts';
     const collection = ctx.db.getCollection(collectionName);
     const fields = collection.fields;
     const filterParser = new FilterParser(filter, {
@@ -154,17 +168,22 @@ export class RecordPreviewController {
     const query = {
       where: where || {},
       attributes: [
-        [sequelize.fn('sum', sequelize.col('records.all_price')), 'all_price'],
-        [sequelize.col('records.movement'), 'movement'],
+        [sequelize.fn('sum', sequelize.col('record.all_price')), 'all_price'],
+        [sequelize.col('view_records_contracts.movement'), 'movement'],
       ],
-      group: [sequelize.col('records.movement')],
-      include: [...parsedFilterInclude],
+      group: [sequelize.col('view_records_contracts.movement')],
+      include: [
+        {
+          association: 'record',
+          attributes: [],
+        },
+        ...parsedFilterInclude,
+      ],
       order: [],
       subQuery: false,
       raw: true,
     } as any;
-    const records = await ctx.db.getModel('records').findAll(query);
-
+    const records = await ctx.db.getModel('view_records_contracts').findAll(query);
     const inNum = records.find((item) => item.movement === Movement.in)?.all_price ?? 0;
     const outNum = records.find((item) => item.movement === Movement.out)?.all_price ?? 0;
     const data = {

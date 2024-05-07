@@ -171,7 +171,7 @@ const basisItem = (productCategory, item, productItem, basis) => {
     weight: 0,
   };
 
-  calc.count = productCategory.convertible ? item.count * productItem.ratio : item.count;
+  calc.count = productCategory?.convertible ? item.count * productItem.ratio : item.count;
   calc.weight = (item.count * productItem.weight) / 1000;
   calc.unit = productCategory.convertible ? productCategory.conversion_unit : productCategory.unit;
   calc.label = productCategory.name;
