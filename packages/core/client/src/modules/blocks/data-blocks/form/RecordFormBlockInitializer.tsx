@@ -43,20 +43,30 @@ export function useCreateEditFormBlock() {
 
   const createEditFormBlock = useCallback(
     ({ item }) => {
-      insert(
-        createEditFormBlockUISchema(
-          association
-            ? {
-                association,
-                dataSource: item.dataSource,
-                isCurrent: true,
-              }
-            : {
-                collectionName: item.collectionName || item.name,
-                dataSource: item.dataSource,
-              },
-        ),
-      );
+      if (!association && item.associationField) {
+        const field = item.associationField;
+        insert(
+          createEditFormBlockUISchema({
+            dataSource: item.dataSource,
+            association: `${field.collectionName}.${field.name}`,
+          }),
+        );
+      } else {
+        insert(
+          createEditFormBlockUISchema(
+            association
+              ? {
+                  association,
+                  dataSource: item.dataSource,
+                  isCurrent: true,
+                }
+              : {
+                  collectionName: item.collectionName || item.name,
+                  dataSource: item.dataSource,
+                },
+          ),
+        );
+      }
     },
     [association, insert],
   );
