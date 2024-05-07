@@ -126,7 +126,7 @@ function useRecordBlocks() {
             if (collection) {
               return collectionsNeedToDisplay.some((c) => c.name === collection.name);
             }
-            return false;
+            return true;
           },
           onlyCurrentDataSource: true,
           hideSearch: true,
