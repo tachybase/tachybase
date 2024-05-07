@@ -1,4 +1,5 @@
 import { SchemaSettingOptions, SchemaSettingsItemType, SchemaSettingsItemTypeWithoutName } from './types';
+import { defaultSettingItems } from './SchemaSettingsDefaults';
 
 export class SchemaSettings<T = {}> {
   options: SchemaSettingOptions<T>;
@@ -10,6 +11,7 @@ export class SchemaSettings<T = {}> {
 
   constructor(options: SchemaSettingOptions<T>) {
     this.options = Object.assign({ items: [] }, options);
+    this.options.items = defaultSettingItems.concat(this.items);
     this.name = options.name;
   }
 

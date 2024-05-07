@@ -758,7 +758,7 @@
   "Column width": "Ширина стовпця",
   "Sortable": "Сортований",
   "Enable link": "Включити посилання",
-  "This is likely a NocoBase internals bug. Please open an issue at <1>here</1>": "Це, ймовірно, помилка внутрішніх компонентів NocoBase. Будь ласка, створіть проблему <1>тут</1>",
+  "This is likely a Tachybase internals bug. Please open an issue at <1>here</1>": "Це, ймовірно, помилка внутрішніх компонентів Tachybase. Будь ласка, створіть проблему <1>тут</1>",
   "Render Failed": "Помилка відображення",
   "Feedback": "Зворотній зв'язок",
   "Try again": "Спробуйте ще раз",

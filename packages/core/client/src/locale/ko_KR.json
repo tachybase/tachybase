@@ -780,7 +780,7 @@
   "Theme": "테마",
   "Default theme": "기본 테마",
   "Compact theme": "간소한 테마",
-  "This is likely a NocoBase internals bug. Please open an issue at <1>here</1>": "이것은 아마도 NocoBase 내부 버그입니다. <1>여기</1>에서 문제를 열어주시기 바랍니다.",
+  "This is likely a Tachybase internals bug. Please open an issue at <1>here</1>": "이것은 아마도 Tachybase 내부 버그입니다. <1>여기</1>에서 문제를 열어주시기 바랍니다.",
   "Render Failed": "렌더링 실패",
   "Feedback": "피드백",
   "Try again": "다시 시도",
