@@ -301,25 +301,17 @@ export const InternalAdminLayout = () => {
         </div>
       </Layout.Header>
       {params.name && (
-        <Layout.Sider
-          className={css`
-            height: 100%;
-            /* position: fixed; */
-            position: relative;
-            left: 0;
-            top: 0;
-            background: rgba(0, 0, 0, 0);
-            z-index: 100;
-            .ant-layout-sider-children {
-              top: calc(var(--nb-header-height) + 18px);
-              position: fixed;
-              width: 200px;
-              height: calc(100vh - var(--nb-header-height) - 18px);
-            }
-          `}
-          theme={'light'}
-          ref={sideMenuRef}
-        ></Layout.Sider>
+        <Layout.Sider theme={'light'} ref={sideMenuRef}>
+          <header
+            className={css`
+              flex-shrink: 0;
+              height: var(--nb-header-height);
+              line-height: var(--nb-header-height);
+              background: transparent;
+              pointer-events: none;
+            `}
+          ></header>
+        </Layout.Sider>
       )}
       <Layout.Content
         className={css`
@@ -360,7 +352,6 @@ export const InternalAdminLayout = () => {
 export const AdminLayout = (props) => {
   const AdminComponent = (
     <AdminProvider>
-      <Alert message="开发版本" type="warning" style={{ textAlign: 'center', height: '14px' }} />
       <InternalAdminLayout {...props} />
     </AdminProvider>
   );

@@ -115,22 +115,7 @@ export const AdminSettingsLayout = () => {
   return (
     <div>
       <Layout>
-        <Layout.Sider
-          className={css`
-            height: 100%;
-            left: 0;
-            top: 0;
-            background: rgba(0, 0, 0, 0);
-            z-index: 100;
-            .ant-layout-sider-children {
-              top: 46px;
-              position: fixed;
-              width: 200px;
-              height: calc(100vh - 46px);
-            }
-          `}
-          theme={'light'}
-        >
+        <Layout.Sider theme={'light'}>
           <Menu
             selectedKeys={[currentSetting?.pluginKey || currentSetting.topLevelName]}
             style={{ height: 'calc(100vh - 46px)', overflowY: 'auto', overflowX: 'hidden' }}
