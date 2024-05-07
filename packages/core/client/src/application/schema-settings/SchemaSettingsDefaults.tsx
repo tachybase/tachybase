@@ -57,7 +57,9 @@ export const defaultSettingItems = [
           const api = useAPIClient();
           const fieldSchema = useFieldSchema();
           const dn = useMemo(() => {
-            return createDesignable({ t, api, refresh, current: fieldSchema.parent });
+            const dn = createDesignable({ t, api, refresh, current: fieldSchema.parent });
+            dn.loadAPIClientEvents();
+            return dn;
           }, [t, api, refresh, fieldSchema]);
 
           return {
@@ -86,7 +88,6 @@ export const defaultSettingItems = [
               });
               const s = data ?? {};
               dn.insertBeforeEnd(s);
-              dn.refresh();
             },
           };
         },
