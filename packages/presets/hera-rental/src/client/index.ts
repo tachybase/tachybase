@@ -1,3 +1,3 @@
-import { TachyBaseClientPresetPlugin } from 'packages/presets/base/src/client';
+import { TachyBaseClientPresetPlugin } from '@tachybase/preset-tachybase/client';
 
 export class PluginRental extends TachyBaseClientPresetPlugin {}

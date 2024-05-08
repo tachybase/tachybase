@@ -1,4 +1,4 @@
-import PresetTachyBase from 'packages/presets/base/src';
+import PresetTachyBase from '@tachybase/preset-tachybase';
 import _ from 'lodash';
 
 export class PluginRental extends PresetTachyBase {

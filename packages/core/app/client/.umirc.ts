@@ -57,7 +57,6 @@ export default defineConfig({
   proxy: {
     ...umiConfig.proxy,
   },
-  publicPath: 'auto',
   fastRefresh: false, // 热更新会导致 Context 丢失，不开启
   mfsu: false,
   esbuildMinifyIIFE: true,
