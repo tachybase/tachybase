@@ -28,8 +28,7 @@ FROM
   -- 开始查租金规则
   JOIN contracts c ON c.id = s.contract_id
   JOIN contract_items ci ON c.id = ci.contract_id
-  AND ci.start_date <= s.start_date
-  AND ci.end_date >= s.start_date
+  AND ci.date_range @> s.start_date
   JOIN contract_plans cp ON cp.id = ci.contract_plan_id
   JOIN contract_plan_lease_items cpli ON cpli.contract_plan_id = cp.id
   -- 租金规则查询完毕

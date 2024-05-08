@@ -20,8 +20,7 @@ FROM
   record_contract rc
   JOIN records r ON r.id = rc.record_id
   JOIN contract_items ci ON ci.contract_id = rc.contract_id
-  AND ci.start_date <= r."date"
-  AND ci.end_date >= r."date"
+  AND ci.date_range @> r."date"
   JOIN contract_plans cp ON cp.id = ci.contract_plan_id
   JOIN contract_plan_lease_items cpli ON cpli.contract_plan_id = cp.id
   JOIN view_products_search_rule_special vpsrs ON cpli.new_products_id = ANY (vpsrs.parents)
