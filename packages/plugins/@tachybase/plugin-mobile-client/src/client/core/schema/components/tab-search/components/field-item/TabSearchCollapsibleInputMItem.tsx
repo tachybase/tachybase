@@ -60,7 +60,7 @@ export const TabSearchCollapsibleInputMItem = withDynamicSchemaProps(
               </>
             )}
           </Grid>
-          <Checkbox
+          {/* <Checkbox
             className={css`
               margin-right: 10px;
             `}
@@ -68,7 +68,7 @@ export const TabSearchCollapsibleInputMItem = withDynamicSchemaProps(
             onChange={setNeedSort}
           >
             {t('sort')}
-          </Checkbox>
+          </Checkbox> */}
         </div>
       </SortableItem>
     );

@@ -9,6 +9,7 @@ import {
   mBlockInitializers,
   mBlockInitializers_deprecated,
   TabSearchFieldSchemaInitializer,
+  TabSearchItemFieldSettings,
 } from './core/schema';
 import { AppConfiguration, InterfaceConfiguration } from './configuration';
 import { NAMESPACE } from './locale';
@@ -23,8 +24,10 @@ export class MobileClientPlugin extends Plugin {
     this.app.schemaInitializerManager.add(mBlockInitializers_deprecated);
     this.app.schemaInitializerManager.add(mBlockInitializers);
     this.app.schemaInitializerManager.add(ImageSearchConfigureFields);
-    this.app.schemaSettingsManager.add(ImageSearchItemFieldSettings);
     this.app.schemaInitializerManager.add(TabSearchFieldSchemaInitializer);
+
+    this.app.schemaSettingsManager.add(ImageSearchItemFieldSettings);
+    this.schemaSettingsManager.add(TabSearchItemFieldSettings);
   }
 
   addSettings() {
