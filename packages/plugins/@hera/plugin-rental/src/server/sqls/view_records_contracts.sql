@@ -3,6 +3,8 @@ CREATE OR REPLACE VIEW
 SELECT
   c.id AS contract_id,
   r.id AS record_id,
+  r.createdAt,
+  r.updatedAt,
   CAST('c_' || rc.id AS VARCHAR) AS id,
   rc.id AS rc_id, -- 页面更新中间表存根联/回根联用
   rc.movement,
@@ -26,6 +28,8 @@ UNION ALL
 SELECT
   NULL AS contract_id,
   r.id AS record_id,
+  r.createdAt,
+  r.updatedAt,
   CAST('r_' || r.id AS VARCHAR) AS id,
   NULL AS rc_id,
   (
@@ -38,7 +42,7 @@ SELECT
   p3.id AS project_id,
   rc.has_receipt,
   rc.has_stub,
-  '2' AS record_category
+  '3' AS record_category
 FROM
   records r
   LEFT JOIN record_contract rc ON rc.record_id = r.id
