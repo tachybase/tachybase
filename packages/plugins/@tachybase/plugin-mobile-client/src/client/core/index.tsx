@@ -33,6 +33,8 @@ import {
   useSwiperBlockProps,
   usePropsOptionalImageSearchItemField,
   usePropsRelatedImageSearchItemField,
+  useTabSearchFieldItemProps,
+  useTabSearchFieldItemRelatedProps,
 } from './schema';
 import './bridge';
 import './assets/svg';
@@ -75,6 +77,8 @@ export const MobileCore: React.FC = (props) => {
         useSwiperBlockProps,
         usePropsOptionalImageSearchItemField: usePropsOptionalImageSearchItemField,
         usePropsRelatedImageSearchItemField: usePropsRelatedImageSearchItemField,
+        useTabSearchFieldItemProps,
+        useTabSearchFieldItemRelatedProps,
       }}
     >
       {props.children}
