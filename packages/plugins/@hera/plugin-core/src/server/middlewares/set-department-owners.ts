@@ -1,4 +1,4 @@
-import type { Context, Next } from '@nocobase/actions';
+import type { Context, Next } from '@tachybase/actions';
 import _ from 'lodash';
 
 const setOwners = async (ctx: Context, filterByTk, owners) => {

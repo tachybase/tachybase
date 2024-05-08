@@ -3,7 +3,7 @@
  * desc: A group of radio components.
  */
 import { FormItem } from '@tachybase/components';
-import { Radio, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { Radio, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 
 const options = [

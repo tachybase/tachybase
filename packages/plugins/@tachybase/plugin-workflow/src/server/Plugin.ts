@@ -2,11 +2,11 @@ import path from 'path';
 
 import LRUCache from 'lru-cache';
 
-import { Op, Transactionable } from '@nocobase/database';
-import Application, { Plugin, PluginOptions } from '@nocobase/server';
-import { Registry } from '@nocobase/utils';
+import { Op, Transactionable } from '@tachybase/database';
+import Application, { Plugin, PluginOptions } from '@tachybase/server';
+import { Registry } from '@tachybase/utils';
 
-import { Logger, LoggerOptions } from '@nocobase/logger';
+import { Logger, LoggerOptions } from '@tachybase/logger';
 import Processor from './Processor';
 import initActions from './actions';
 import { EXECUTION_STATUS } from './constants';

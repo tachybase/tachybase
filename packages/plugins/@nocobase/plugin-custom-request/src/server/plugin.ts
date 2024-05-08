@@ -1,5 +1,5 @@
-import { Logger, LoggerOptions } from '@nocobase/logger';
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { Logger, LoggerOptions } from '@tachybase/logger';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { resolve } from 'path';
 import { listByCurrentRole } from './actions/listByCurrentRole';
 import { send } from './actions/send';

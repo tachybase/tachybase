@@ -7,7 +7,7 @@ import {
   SchemaComponentPlugin,
   SchemaSettings,
   useSchemaSettingsRender,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 const mySchemaSetting = new SchemaSettings({
   name: 'MySchemaSetting',

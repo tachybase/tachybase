@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExtendCollectionsProvider, TableBlockProvider, useRecord } from '@nocobase/client';
+import { ExtendCollectionsProvider, TableBlockProvider, useRecord } from '@tachybase/client';
 import { CollectionApprovalTodos } from '../../common/Cn.ApprovalTodos';
 import { CollectionApprovals } from '../approval-common/Cn.Approvals';
 import { CollectionFlowNodes } from '../approval-common/Cn.FlowNodes';

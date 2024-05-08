@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import React from 'react';
 import { DatabaseConnectionProvider } from './DatabaseConnectionProvider';
 import { ThirdDataSource } from './ThridDataSource';

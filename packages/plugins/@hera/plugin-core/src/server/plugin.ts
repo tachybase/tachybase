@@ -1,4 +1,4 @@
-import Application, { InstallOptions, Plugin, type PluginOptions } from '@nocobase/server';
+import Application, { InstallOptions, Plugin, type PluginOptions } from '@tachybase/server';
 import path from 'path';
 import CalcField from './fields/calc';
 import { SqlLoader } from './services/sql-loader';
@@ -7,7 +7,7 @@ import { FontManager } from './services/font-manager';
 import { HomePageService } from './services/home-page-service';
 import { WebControllerService as WebService } from './services/web-service';
 import './actions';
-import { Container } from '@nocobase/utils';
+import { Container } from '@tachybase/utils';
 import { DepartmentsPlugin } from './features/departments';
 import TstzrangeField from './fields/tstzrange';
 import { PluginInterception } from './features/interception';

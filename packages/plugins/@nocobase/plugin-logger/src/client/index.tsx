@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { lang } from './locale';
 import { LogsDownloader } from './LogsDownloader';
 

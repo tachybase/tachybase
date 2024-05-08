@@ -1,4 +1,4 @@
-import { useAdminSchemaUid, useRequest } from '@nocobase/client';
+import { useAdminSchemaUid, useRequest } from '@tachybase/client';
 import { Spin } from 'antd';
 import React, { createContext, useContext } from 'react';
 

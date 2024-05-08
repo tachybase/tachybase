@@ -5,7 +5,7 @@ import {
   joinCollectionName,
   useCollection_deprecated,
   useRecord,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useMemo } from 'react';
 import { CollectionApprovals } from '../approval-common/Cn.Approvals';
 import { CollectionApprovalTodos } from '../../common/Cn.ApprovalTodos';

@@ -10,7 +10,7 @@ import {
   useGlobalTheme,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useContext } from 'react';
 import { useMapTranslation } from '../locale';
 import { findNestedOption } from './utils';

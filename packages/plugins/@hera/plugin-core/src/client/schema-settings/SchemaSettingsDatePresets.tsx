@@ -1,8 +1,8 @@
 import React from 'react';
 import { ISchema, useFieldSchema } from '@tachybase/schema';
-import { SchemaSettingsModalItem, useCollectionManager, useDesignable } from '@nocobase/client';
+import { SchemaSettingsModalItem, useCollectionManager, useDesignable } from '@tachybase/client';
 import { tval, useTranslation } from '../locale';
-import { dayjs } from '@nocobase/utils/client';
+import { dayjs } from '@tachybase/utils/client';
 
 export const useCustomPresets1 = () => {
   const fieldSchema = useFieldSchema();

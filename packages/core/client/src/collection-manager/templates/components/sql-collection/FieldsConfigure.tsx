@@ -8,7 +8,7 @@ import { useFieldInterfaceOptions } from '../../../Configuration/interfaces';
 import { useCompile } from '../../../../schema-component';
 import { useCollectionManager_deprecated } from '../../../hooks';
 import dayjs from 'dayjs';
-import { FieldOptions } from '@nocobase/database';
+import { FieldOptions } from '@tachybase/database';
 import { ResourceActionContext } from '../../../ResourceActionProvider';
 
 const inferInterface = (field: string, value: any) => {

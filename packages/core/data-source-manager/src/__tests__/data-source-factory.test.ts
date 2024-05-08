@@ -1,4 +1,4 @@
-import { createMockServer } from '@nocobase/test';
+import { createMockServer } from '@tachybase/test';
 import { DataSource } from '../data-source';
 import { ICollectionManager } from '../types';
 

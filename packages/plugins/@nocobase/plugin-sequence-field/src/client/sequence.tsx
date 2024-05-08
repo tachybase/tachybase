@@ -10,8 +10,8 @@ import {
   interfacesProperties,
   useCompile,
   useToken,
-} from '@nocobase/client';
-import { error } from '@nocobase/utils/client';
+} from '@tachybase/client';
+import { error } from '@tachybase/utils/client';
 import { Button, Select } from 'antd';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';

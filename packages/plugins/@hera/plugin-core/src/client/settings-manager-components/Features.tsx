@@ -1,4 +1,4 @@
-import { useApp } from '@nocobase/client';
+import { useApp } from '@tachybase/client';
 import { Card, Divider, List, Typography } from 'antd';
 import React from 'react';
 import PluginCoreClient from '..';

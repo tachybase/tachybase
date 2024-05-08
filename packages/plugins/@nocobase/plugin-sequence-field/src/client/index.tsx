@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { SequenceFieldProvider } from './SequenceFieldProvider';
 import { SequenceFieldInterface } from './sequence';
 

@@ -1,6 +1,6 @@
 import { css, cx } from '@emotion/css';
-import { createStyles, useAPIClient, useGlobalTheme } from '@nocobase/client';
-import { error } from '@nocobase/utils/client';
+import { createStyles, useAPIClient, useGlobalTheme } from '@tachybase/client';
+import { error } from '@tachybase/utils/client';
 import { Button, ConfigProvider, Input, Space, message } from 'antd';
 import antdEnUs from 'antd/locale/en_US';
 import antdZhCN from 'antd/locale/zh_CN';

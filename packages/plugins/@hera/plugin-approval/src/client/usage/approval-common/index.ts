@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { ApprovalDataProvider } from './Pd.ApprovalData';
 import { ApprovalProcess } from './VC.ApprovalProcess';
 

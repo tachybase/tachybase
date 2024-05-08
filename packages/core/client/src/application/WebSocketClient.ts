@@ -1,5 +1,5 @@
 import { define, observable } from '@tachybase/schema';
-import { getSubAppName } from '@nocobase/sdk';
+import { getSubAppName } from '@tachybase/sdk';
 import { Application } from './Application';
 
 export type WebSocketClientOptions = {

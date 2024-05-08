@@ -1,4 +1,4 @@
-import { DataSourceOptions, DataSource } from '@nocobase/client';
+import { DataSourceOptions, DataSource } from '@tachybase/client';
 
 export class ThirdDataSource extends DataSource {
   async getDataSource() {

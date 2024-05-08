@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import PluginKitApprovalRecordBlock from './approval-record-block';
 import PluginKitApprovalBlock from './approval-block';
 

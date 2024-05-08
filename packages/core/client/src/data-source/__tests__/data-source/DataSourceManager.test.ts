@@ -1,4 +1,4 @@
-import { Application, Collection, DEFAULT_DATA_SOURCE_KEY, LocalDataSource, Plugin } from '@nocobase/client';
+import { Application, Collection, DEFAULT_DATA_SOURCE_KEY, LocalDataSource, Plugin } from '@tachybase/client';
 import collections from '../collections.json';
 
 describe('DataSourceManager', () => {

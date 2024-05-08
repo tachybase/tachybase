@@ -1,4 +1,4 @@
-import { BaseColumnFieldOptions, DataTypes, Field, FieldContext } from '@nocobase/database';
+import { BaseColumnFieldOptions, DataTypes, Field, FieldContext } from '@tachybase/database';
 import { isPg, toValue } from '../helpers';
 
 class Circle extends DataTypes.ABSTRACT {

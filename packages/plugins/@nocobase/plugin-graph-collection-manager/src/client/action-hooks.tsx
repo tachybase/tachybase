@@ -7,8 +7,8 @@ import {
   useCollectionManager_deprecated,
   useCompile,
   useRequest,
-} from '@nocobase/client';
-import { error, lodash } from '@nocobase/utils/client';
+} from '@tachybase/client';
+import { error, lodash } from '@tachybase/utils/client';
 import { Select, message } from 'antd';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { useContext, useEffect } from 'react';

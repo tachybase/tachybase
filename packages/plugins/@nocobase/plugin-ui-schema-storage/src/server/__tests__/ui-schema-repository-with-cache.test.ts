@@ -1,6 +1,6 @@
-import { Cache } from '@nocobase/cache';
-import { Database } from '@nocobase/database';
-import { createMockServer, MockServer } from '@nocobase/test';
+import { Cache } from '@tachybase/cache';
+import { Database } from '@tachybase/database';
+import { createMockServer, MockServer } from '@tachybase/test';
 import UiSchemaRepository, { GetJsonSchemaOptions, GetPropertiesOptions } from '../repository';
 
 describe('ui_schema repository with cache', () => {

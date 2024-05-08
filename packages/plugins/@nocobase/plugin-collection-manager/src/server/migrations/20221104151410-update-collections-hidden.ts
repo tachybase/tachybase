@@ -1,4 +1,4 @@
-import { Migration } from '@nocobase/server';
+import { Migration } from '@tachybase/server';
 
 export default class UpdateCollectionsHiddenMigration extends Migration {
   appVersion = '<0.8.0-alpha.11';

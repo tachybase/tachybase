@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { CalendarToolbarContext } from './context';
 import { getLunarDay } from './utils';
-import { useDesignable } from '@nocobase/client';
+import { useDesignable } from '@tachybase/client';
 
 export const Title = observer(
   () => {

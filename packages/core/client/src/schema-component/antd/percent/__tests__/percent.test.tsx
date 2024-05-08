@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@nocobase/test/client';
+import { fireEvent, render } from '@tachybase/test/client';
 import React from 'react';
 import App from '../demos/percent';
 

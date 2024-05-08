@@ -1,5 +1,5 @@
-import { Cache } from '@nocobase/cache';
-import { Database, Transaction } from '@nocobase/database';
+import { Cache } from '@tachybase/cache';
+import { Database, Transaction } from '@tachybase/database';
 
 export default class Resources {
   cache: Cache;

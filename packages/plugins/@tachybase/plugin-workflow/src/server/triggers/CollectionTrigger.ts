@@ -1,8 +1,8 @@
-import { Model, Transactionable } from '@nocobase/database';
+import { Model, Transactionable } from '@tachybase/database';
 import Trigger from '.';
 import { toJSON } from '../utils';
 import type { WorkflowModel } from '../types';
-import { parseCollectionName, ICollection } from '@nocobase/data-source-manager';
+import { parseCollectionName, ICollection } from '@tachybase/data-source-manager';
 
 export interface CollectionChangeTriggerConfig {
   collection: string;

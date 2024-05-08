@@ -1,7 +1,7 @@
-import Database from '@nocobase/database';
+import Database from '@tachybase/database';
 import fs from 'fs-extra';
 import path from 'path';
-import { Service, Db } from '@nocobase/utils';
+import { Service, Db } from '@tachybase/utils';
 import { isMain } from '../utils/multiprocess';
 
 @Service()

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plugin, EditTitleField } from '@nocobase/client';
+import { Plugin, EditTitleField } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 import { isValid } from '@tachybase/schema';
 import { autorun } from '@tachybase/schema';
@@ -66,6 +66,7 @@ import { PluginWorkflowInterceptor } from './features/workflow-interceptor';
 import { PluginPDF } from './features/pdf';
 import { PluginExtendedFilterForm } from './features/extended-filter-form';
 import { PluginOutbound } from './features/outbound';
+import { PluginModeHighlight } from './features/mode-highlight';
 export { usePDFViewerRef } from './schema-initializer';
 export * from './components/custom-components/custom-components';
 
@@ -85,6 +86,7 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginPDF);
     await this.app.pm.add(PluginExtendedFilterForm);
     await this.app.pm.add(PluginOutbound);
+    await this.app.pm.add(PluginModeHighlight);
   }
 
   async registerSettings() {

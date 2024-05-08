@@ -8,8 +8,8 @@ import {
   useDocumentTitle,
   useResourceActionContext,
   useResourceContext,
-} from '@nocobase/client';
-import { str2moment } from '@nocobase/utils/client';
+} from '@tachybase/client';
+import { str2moment } from '@tachybase/utils/client';
 import { App, Breadcrumb, Button, Dropdown, Result, Spin, Switch, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';

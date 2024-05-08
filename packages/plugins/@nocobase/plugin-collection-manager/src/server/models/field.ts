@@ -1,4 +1,4 @@
-import Database, { Collection, MagicAttributeModel, SyncOptions, Transactionable } from '@nocobase/database';
+import Database, { Collection, MagicAttributeModel, SyncOptions, Transactionable } from '@tachybase/database';
 
 interface LoadOptions extends Transactionable {
   // TODO

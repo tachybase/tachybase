@@ -3,7 +3,7 @@ import { connect, useField } from '@tachybase/schema';
 import { Checkbox, Select, Table, Tag } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useCompile } from '@nocobase/client';
+import { useCompile } from '@tachybase/client';
 import { useAvailableActions } from './DataSourceTable';
 
 const toScopes = (value) => {

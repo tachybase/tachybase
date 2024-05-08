@@ -30,14 +30,14 @@
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {
-    "@nocobase/acl": "workspace:*",
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/cache": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/acl": "workspace:*",
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "基于角色、资源和操作的权限控制，可以精确控制界面配置权限、数据操作权限、菜单访问权限、插件权限。",
   "displayName.zh-CN": "权限控制",

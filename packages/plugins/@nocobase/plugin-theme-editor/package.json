@@ -27,12 +27,12 @@
     "vanilla-jsoneditor": "^0.17.8"
   },
   "peerDependencies": {
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "自定义 UI 的颜色、尺寸等，并将结果保存为主题，可在多个主题间切换。",
   "displayName.zh-CN": "主题编辑器",

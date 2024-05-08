@@ -1,8 +1,8 @@
-import { ITokenBlacklistService } from '@nocobase/auth';
-import { Repository } from '@nocobase/database';
+import { ITokenBlacklistService } from '@tachybase/auth';
+import { Repository } from '@tachybase/database';
 import { CronJob } from 'cron';
 import AuthPlugin from './plugin';
-import { BloomFilter } from '@nocobase/cache';
+import { BloomFilter } from '@tachybase/cache';
 
 export class TokenBlacklistService implements ITokenBlacklistService {
   repo: Repository;

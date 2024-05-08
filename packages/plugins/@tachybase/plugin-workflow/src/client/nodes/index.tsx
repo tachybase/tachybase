@@ -18,8 +18,8 @@ import {
   useCompile,
   usePlugin,
   useResourceActionContext,
-} from '@nocobase/client';
-import { parse, str2moment } from '@nocobase/utils/client';
+} from '@tachybase/client';
+import { parse, str2moment } from '@tachybase/utils/client';
 
 import WorkflowPlugin from '..';
 import { AddButton } from '../AddButton';

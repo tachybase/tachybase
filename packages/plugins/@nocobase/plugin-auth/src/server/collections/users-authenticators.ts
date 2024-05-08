@@ -1,4 +1,4 @@
-import { defineCollection } from '@nocobase/database';
+import { defineCollection } from '@tachybase/database';
 
 /**
  * Collection for user information of extended authentication methods,

@@ -1,4 +1,4 @@
-import { Registry } from '@nocobase/utils';
+import { Registry } from '@tachybase/utils';
 import WorkflowPlugin, { Processor, JOB_STATUS, Instruction } from '../..';
 
 import initFormTypes, { FormHandler } from './forms';

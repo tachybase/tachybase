@@ -1,4 +1,4 @@
-import { merge } from '@nocobase/utils';
+import { merge } from '@tachybase/utils';
 import { customAlphabet } from 'nanoid';
 import fetch from 'node-fetch';
 import path from 'path';

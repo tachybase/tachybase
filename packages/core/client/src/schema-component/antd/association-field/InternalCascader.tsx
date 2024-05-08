@@ -10,7 +10,7 @@ import {
   useField,
   useFieldSchema,
 } from '@tachybase/schema';
-import { fuzzysearch } from '@nocobase/utils/client';
+import { fuzzysearch } from '@tachybase/utils/client';
 import { Input, Space } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -39,11 +39,13 @@ const Cascade = connect((props) => {
   const fieldNames = associationField?.componentProps?.fieldNames;
   const fieldFilter = fieldSchema['x-component-props']?.service?.params?.filter;
   const sort = fieldSchema['x-component-props']?.service?.params?.sort;
+  const changOnSelect = fieldSchema['x-component-props']?.changOnSelect || false;
   const field: any = useField();
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [chang, setChang] = useState(false);
   useEffect(() => {
     const propsValue = props.value || fieldSchema['x-component-props'].value;
-    if (propsValue && !selectedOptions.length) {
+    if (!chang) {
       const values = Array.isArray(propsValue)
         ? extractLastNonNullValueObjects(
             propsValue?.filter((v) => v.value),
@@ -54,8 +56,9 @@ const Cascade = connect((props) => {
         return v.id;
       });
       setSelectedOptions(defaultData);
+      onDropdownVisibleChange(true);
     }
-  }, [fieldSchema['x-component-props'].value]);
+  }, [fieldSchema['x-component-props'].value, fieldSchema['x-component-props']?.changOnSelect]);
   const handleGetOptions = async () => {
     const response = await resource.list({
       pageSize: 9999,
@@ -67,6 +70,7 @@ const Cascade = connect((props) => {
   };
 
   const handleSelect = async (option) => {
+    setChang(true);
     if (option) {
       if (['o2m', 'm2m'].includes(collectionField.interface)) {
         const fieldValue = Array.isArray(associationField.fieldValue) ? associationField.fieldValue : [];
@@ -97,7 +101,7 @@ const Cascade = connect((props) => {
       });
       onChange?.(options);
     } else {
-      onChange?.([]);
+      onChange?.({});
     }
   };
   const cascadeOption = (option) => {
@@ -144,7 +148,7 @@ const Cascade = connect((props) => {
         onDropdownVisibleChange={(visible) => {
           onDropdownVisibleChange(visible);
         }}
-        changeOnSelect
+        changeOnSelect={changOnSelect}
         placeholder="Please select"
       />
     </Space>

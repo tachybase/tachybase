@@ -1,4 +1,4 @@
-import { Application, CollectionTemplate, CollectionTemplateManager, Collection } from '@nocobase/client';
+import { Application, CollectionTemplate, CollectionTemplateManager, Collection } from '@tachybase/client';
 
 describe('CollectionTemplateManager', () => {
   let collectionTemplateManager: CollectionTemplateManager;

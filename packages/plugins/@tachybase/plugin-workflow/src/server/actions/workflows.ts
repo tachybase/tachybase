@@ -1,5 +1,5 @@
-import actions, { Context, utils } from '@nocobase/actions';
-import { Op, Repository } from '@nocobase/database';
+import actions, { Context, utils } from '@tachybase/actions';
+import { Op, Repository } from '@tachybase/database';
 
 import Plugin from '../Plugin';
 import { WorkflowModel } from '../types';

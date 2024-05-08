@@ -1,6 +1,6 @@
 import { InboxOutlined, PlusOutlined, ReloadOutlined, UploadOutlined } from '@ant-design/icons';
 import { FormItem } from '@tachybase/components';
-import { Checkbox, DatePicker, useAPIClient, useCompile } from '@nocobase/client';
+import { Checkbox, DatePicker, useAPIClient, useCompile } from '@tachybase/client';
 import { Alert, App, Button, Card, Divider, Modal, Space, Spin, Table, Tabs, Upload, UploadProps, message } from 'antd';
 import { saveAs } from 'file-saver';
 import React, { useEffect, useMemo, useState } from 'react';

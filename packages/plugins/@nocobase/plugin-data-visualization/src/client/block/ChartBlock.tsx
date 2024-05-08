@@ -1,4 +1,4 @@
-import { SchemaComponentOptions, SchemaInitializerContext, useSchemaInitializer } from '@nocobase/client';
+import { SchemaComponentOptions, SchemaInitializerContext, useSchemaInitializer } from '@tachybase/client';
 import React, { useState } from 'react';
 import { ChartConfigProvider } from '../configure';
 import { ChartDataProvider } from './ChartDataProvider';

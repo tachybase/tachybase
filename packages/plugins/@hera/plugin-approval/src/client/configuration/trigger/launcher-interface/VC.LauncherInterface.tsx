@@ -1,4 +1,4 @@
-import { SchemaComponent, parseCollectionName } from '@nocobase/client';
+import { SchemaComponent, parseCollectionName } from '@tachybase/client';
 import { useForm } from '@tachybase/schema';
 import React from 'react';
 import { SchemaAddBlock } from './VC.SchemaAddBlock';

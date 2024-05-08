@@ -1,4 +1,4 @@
-import actions from '@nocobase/actions';
+import actions from '@tachybase/actions';
 import { createMiddleware, destroyMiddleware } from './attachments';
 
 export default function ({ app }) {

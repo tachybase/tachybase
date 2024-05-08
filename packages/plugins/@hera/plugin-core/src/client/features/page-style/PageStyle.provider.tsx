@@ -1,4 +1,4 @@
-import { useCurrentUserContext, useCurrentUserSettingsMenu } from '@nocobase/client';
+import { useCurrentUserContext, useCurrentUserSettingsMenu } from '@tachybase/client';
 import React, { createContext, useEffect, useState } from 'react';
 import { useTabSettings } from './useTabSettings';
 import { TabsProps } from 'antd';

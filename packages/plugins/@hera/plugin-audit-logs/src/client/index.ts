@@ -1,4 +1,4 @@
-import { Plugin, SchemaInitializerItemType } from '@nocobase/client';
+import { Plugin, SchemaInitializerItemType } from '@tachybase/client';
 import { AuditLogsProvider } from './AuditLogsProvider';
 import { auditLogsTableActionColumnInitializers } from './initializers/AuditLogsTableActionColumnInitializers';
 import { auditLogsTableActionInitializers } from './initializers/AuditLogsTableActionInitializers';

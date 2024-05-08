@@ -8,7 +8,7 @@ import {
   oneTableBlockWithAddNewAndViewAndEditAndAssociationFields,
   oneTableBlockWithAddNewAndViewAndEditAndBasicFields,
   test,
-} from '@nocobase/test/e2e';
+} from '@tachybase/test/e2e';
 import { T2165, T2174, T3251, T3806 } from './templatesOfBug';
 
 const clickOption = async (page: Page, optionName: string) => {

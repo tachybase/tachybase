@@ -1,4 +1,4 @@
-import { useCollectionDataSource } from '@nocobase/client';
+import { useCollectionDataSource } from '@tachybase/client';
 
 import { FilterDynamicComponent } from '../components/FilterDynamicComponent';
 import { collection, filter } from '../schemas/collection';

@@ -1,5 +1,5 @@
-import { Database } from '@nocobase/database';
-import { MockServer, createMockServer } from '@nocobase/test';
+import { Database } from '@tachybase/database';
+import { MockServer, createMockServer } from '@tachybase/test';
 import { SAML } from '@node-saml/node-saml';
 import { vi } from 'vitest';
 import { authType } from '../../constants';

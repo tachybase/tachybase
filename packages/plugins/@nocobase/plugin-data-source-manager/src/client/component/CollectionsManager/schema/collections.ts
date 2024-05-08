@@ -2,7 +2,7 @@ import { ISchema, Schema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useAPIClient, i18n, CollectionOptions } from '@nocobase/client';
+import { useAPIClient, i18n, CollectionOptions } from '@tachybase/client';
 
 export const compile = (source) => {
   return Schema.compile(source, { t: i18n.t });

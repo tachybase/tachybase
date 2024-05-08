@@ -1,6 +1,6 @@
-import { CollectionFieldInterface, i18n, interfacesProperties } from '@nocobase/client';
-import { Evaluator, evaluators } from '@nocobase/evaluators/client';
-import { lodash, Registry } from '@nocobase/utils/client';
+import { CollectionFieldInterface, i18n, interfacesProperties } from '@tachybase/client';
+import { Evaluator, evaluators } from '@tachybase/evaluators/client';
+import { lodash, Registry } from '@tachybase/utils/client';
 import { NAMESPACE } from '../locale';
 
 // const booleanReactions = [

@@ -1,4 +1,4 @@
-import { extendCollection } from '@nocobase/database';
+import { extendCollection } from '@tachybase/database';
 
 export default extendCollection({
   name: 'collections',

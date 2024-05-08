@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/test",
+  "name": "@tachybase/test",
   "version": "0.21.24",
   "license": "Apache-2.0",
   "exports": {
@@ -42,9 +42,9 @@
   "dependencies": {
     "@faker-js/faker": "8.1.0",
     "@formily/shared": "2.2.27",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/server": "workspace:*",
     "@playwright/test": "^1.42.1",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
     "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.0.0",

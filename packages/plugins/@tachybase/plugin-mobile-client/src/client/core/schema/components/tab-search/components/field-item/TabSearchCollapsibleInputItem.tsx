@@ -1,4 +1,4 @@
-import { SortableItem, withDynamicSchemaProps } from '@nocobase/client';
+import { SortableItem, withDynamicSchemaProps } from '@tachybase/client';
 import { ConfigProvider, Row } from 'antd';
 import React from 'react';
 import { IButton, IInput, ISelect } from './TabSearchCollapsibleInputItemChild';

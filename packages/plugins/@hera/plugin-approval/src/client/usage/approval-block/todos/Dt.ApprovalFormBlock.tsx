@@ -9,7 +9,7 @@ import {
   useAssociationNames,
   useCurrentUserContext,
   useDesignable,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import { RecursionField, createForm, useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';

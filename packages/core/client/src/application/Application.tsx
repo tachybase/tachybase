@@ -1,5 +1,5 @@
 import { define, observable } from '@tachybase/schema';
-import { APIClientOptions, getSubAppName } from '@nocobase/sdk';
+import { APIClientOptions, getSubAppName } from '@tachybase/sdk';
 import { i18n as i18next } from 'i18next';
 import get from 'lodash/get';
 import merge from 'lodash/merge';

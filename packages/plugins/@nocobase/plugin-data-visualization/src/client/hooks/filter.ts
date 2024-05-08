@@ -8,14 +8,14 @@ import {
   useActionContext,
   useCollectionManager_deprecated,
   useDataSourceManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useCallback, useContext, useMemo } from 'react';
 import { ChartDataContext } from '../block/ChartDataProvider';
 import { Schema } from '@tachybase/schema';
 import { useChartsTranslation } from '../locale';
 import { ChartFilterContext } from '../filter/FilterProvider';
 import { useMemoizedFn } from 'ahooks';
-import { parse } from '@nocobase/utils/client';
+import { parse } from '@tachybase/utils/client';
 import lodash from 'lodash';
 import { getFormulaComponent, getValuesByPath } from '../utils';
 import deepmerge from 'deepmerge';

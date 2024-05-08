@@ -11,7 +11,7 @@ import {
   useRecord,
   useRequest,
   useResourceActionContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useContext, useEffect } from 'react';
 import { RolesManagerContext } from '../RolesManagerProvider';
 import { roleCollectionsSchema } from '../schemas/roles';

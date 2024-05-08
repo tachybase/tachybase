@@ -1,4 +1,4 @@
-import { Context, Next } from '@nocobase/actions';
+import { Context, Next } from '@tachybase/actions';
 import { SAMLAuth } from '../saml-auth';
 import { SAML } from '@node-saml/node-saml';
 

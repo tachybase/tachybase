@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AutoComplete as AntdAutoComplete } from 'antd';
 import { connect, useFieldSchema } from '@tachybase/schema';
-import { useAPIClient } from '@nocobase/client';
+import { useAPIClient } from '@tachybase/client';
 import { useAsyncEffect } from 'ahooks';
 import { fuzzysearch } from '../../utils';
 

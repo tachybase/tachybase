@@ -8,7 +8,7 @@ import {
   useAPIClient,
   useAssociationNames,
   useDesignable,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { RecursionField, createForm, useField, useFieldSchema } from '@tachybase/schema';
 import React, { Fragment, useContext, useMemo, useRef } from 'react';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Tag } from 'antd';
 import classnames from 'classnames';
 
-import { createStyles } from '@nocobase/client';
+import { createStyles } from '@tachybase/client';
 
 const useStyles = createStyles(({ css, token }) => ({
   statusButtonClass: css`

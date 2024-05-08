@@ -1,4 +1,4 @@
-import { SchemaToolbar } from '@nocobase/client';
+import { SchemaToolbar } from '@tachybase/client';
 import React from 'react';
 
 export const ImageSearchItemToolbar = (props) => {

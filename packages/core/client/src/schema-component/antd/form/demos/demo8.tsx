@@ -10,7 +10,7 @@ import {
   useActionContext,
   useCloseAction,
   useRequest,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 

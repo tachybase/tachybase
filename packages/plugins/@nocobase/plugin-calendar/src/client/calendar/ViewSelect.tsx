@@ -2,7 +2,7 @@ import { observer } from '@tachybase/schema';
 import { Select } from 'antd';
 import React, { useContext } from 'react';
 import { CalendarToolbarContext } from './context';
-import { useDesignable } from '@nocobase/client';
+import { useDesignable } from '@tachybase/client';
 
 export const ViewSelect = observer(
   (props) => {

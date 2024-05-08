@@ -1,4 +1,4 @@
-import { GeneralSchemaDesigner, SchemaSettingsRemove } from '@nocobase/client';
+import { GeneralSchemaDesigner, SchemaSettingsRemove } from '@tachybase/client';
 import React from 'react';
 import { useChartsTranslation } from '../locale';
 

@@ -13,7 +13,7 @@ import {
   useCompile,
   useCurrentAppInfo,
   useRecord,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Badge, Tag } from 'antd';
 import lodash from 'lodash';
 import React, { useContext, useRef, useState } from 'react';

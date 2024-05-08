@@ -11,7 +11,7 @@ import {
   useAPIClient,
   useAssociationNames,
   useBlockRequestContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import { useFlowContext } from '../FlowContext';
 

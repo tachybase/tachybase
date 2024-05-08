@@ -1,6 +1,6 @@
 import { ISchema, useForm } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { useActionContext, useBlockRequestContext, useRecord } from '@nocobase/client';
+import { useActionContext, useBlockRequestContext, useRecord } from '@tachybase/client';
 import { Alert, Modal, Space, Typography } from 'antd';
 import React from 'react';
 import { generateNTemplate } from '../../locale';

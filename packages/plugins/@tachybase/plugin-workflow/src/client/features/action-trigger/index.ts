@@ -1,4 +1,4 @@
-import { Plugin, SchemaInitializerItemType } from '@nocobase/client';
+import { Plugin, SchemaInitializerItemType } from '@tachybase/client';
 import WorkflowPlugin, { useRecordTriggerWorkflowsActionProps, useTriggerWorkflowsActionProps } from '../..';
 
 import { ActionTrigger } from './ActionTrigger';

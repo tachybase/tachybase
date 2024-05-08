@@ -1,5 +1,5 @@
 import { NAMESPACE } from '../../../locale';
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 
 export const SchemaApprovalBlockLaunch = {
   type: 'void',

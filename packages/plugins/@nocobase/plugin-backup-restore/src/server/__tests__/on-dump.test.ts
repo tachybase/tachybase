@@ -1,5 +1,5 @@
-import { MockServer } from '@nocobase/test';
-import { Collection, Database } from '@nocobase/database';
+import { MockServer } from '@tachybase/test';
+import { Collection, Database } from '@tachybase/database';
 import createApp from './index';
 import { Dumper } from '../dumper';
 import { Restorer } from '../restorer';

@@ -1,4 +1,4 @@
-import { error } from '@nocobase/utils/client';
+import { error } from '@tachybase/utils/client';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import React, { createContext, useCallback, useContext, useRef } from 'react';
 

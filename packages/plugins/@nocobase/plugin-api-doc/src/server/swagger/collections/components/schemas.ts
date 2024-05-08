@@ -1,4 +1,4 @@
-import { Collection, Field, RelationField } from '@nocobase/database';
+import { Collection, Field, RelationField } from '@tachybase/database';
 import { getTypeByField } from './field-type-map';
 import { associationFields } from '../paths/associations';
 

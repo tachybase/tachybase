@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import { resolve } from 'path';
 import { FileModel } from './FileModel';
 import initActions from './actions';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Variable, parseCollectionName, useCompile, usePlugin } from '@nocobase/client';
+import { Variable, parseCollectionName, useCompile, usePlugin } from '@tachybase/client';
 
 import { useFlowContext } from './FlowContext';
 import { NAMESPACE, lang } from './locale';

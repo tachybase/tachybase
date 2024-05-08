@@ -1,4 +1,4 @@
-import { Context, Next } from '@nocobase/actions';
+import { Context, Next } from '@tachybase/actions';
 import stream from 'stream';
 
 export function dataWrapping() {

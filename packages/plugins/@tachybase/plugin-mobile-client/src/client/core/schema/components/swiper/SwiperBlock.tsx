@@ -1,4 +1,4 @@
-import { BlockItem, css, useDesignable, useRequest, withDynamicSchemaProps } from '@nocobase/client';
+import { BlockItem, css, useDesignable, useRequest, withDynamicSchemaProps } from '@tachybase/client';
 import { Swiper } from 'antd-mobile';
 import React from 'react';
 

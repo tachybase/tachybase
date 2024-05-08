@@ -1,4 +1,4 @@
-import { importModule, Toposort, ToposortOptions } from '@nocobase/utils';
+import { importModule, Toposort, ToposortOptions } from '@tachybase/utils';
 import glob from 'glob';
 import compose from 'koa-compose';
 import _ from 'lodash';

@@ -1,5 +1,5 @@
 import { CopyOutlined } from '@ant-design/icons';
-import { OverridingFieldAction as OverridingCollectionFieldAction } from '@nocobase/client';
+import { OverridingFieldAction as OverridingCollectionFieldAction } from '@tachybase/client';
 import React from 'react';
 import { useCancelAction, useCreateAction } from '../action-hooks';
 import { getPopupContainer } from '../utils';

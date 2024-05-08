@@ -1,4 +1,4 @@
-import { RemoteSelect, SchemaComponent, Variable, useCollectionFilterOptions, useToken } from '@nocobase/client';
+import { RemoteSelect, SchemaComponent, Variable, useCollectionFilterOptions, useToken } from '@tachybase/client';
 import { FilterDynamicComponent, useWorkflowVariableOptions } from '@tachybase/plugin-workflow/client';
 import { useField } from '@tachybase/schema';
 import { default as React } from 'react';

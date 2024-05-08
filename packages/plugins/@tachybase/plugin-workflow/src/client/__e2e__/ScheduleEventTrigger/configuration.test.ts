@@ -9,8 +9,8 @@ import {
   appendJsonCollectionName,
   generalWithNoRelationalFields,
 } from '@tachybase/plugin-workflow-test/e2e';
-import { expect, test } from '@nocobase/test/e2e';
-import { dayjs } from '@nocobase/utils';
+import { expect, test } from '@tachybase/test/e2e';
+import { dayjs } from '@tachybase/utils';
 
 test.describe('Configuration page to configure the Trigger node', () => {
   test('Triggered one minute after the current time of the customized time', async ({

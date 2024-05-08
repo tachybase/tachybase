@@ -1,7 +1,7 @@
-import { MockServer, createMockServer } from '@nocobase/test';
+import { MockServer, createMockServer } from '@tachybase/test';
 import path from 'path';
 
-import { ApplicationOptions } from '@nocobase/server';
+import { ApplicationOptions } from '@tachybase/server';
 
 export function sleep(ms: number) {
   return new Promise((resolve) => {

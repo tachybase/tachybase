@@ -1,4 +1,4 @@
-import { usePlugin } from '@nocobase/client';
+import { usePlugin } from '@tachybase/client';
 import { PluginFieldMarkdownVditorClient } from '../';
 
 export const useCDN = () => {

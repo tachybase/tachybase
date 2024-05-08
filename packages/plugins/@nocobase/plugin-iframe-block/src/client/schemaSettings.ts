@@ -1,6 +1,6 @@
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { SchemaSettings, useAPIClient, useDesignable } from '@nocobase/client';
+import { SchemaSettings, useAPIClient, useDesignable } from '@tachybase/client';
 import { useTranslation } from 'react-i18next';
 
 /**

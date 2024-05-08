@@ -1,4 +1,4 @@
-import { useApp } from '@nocobase/client';
+import { useApp } from '@tachybase/client';
 import { Card, Form, Input } from 'antd';
 import React, { useMemo } from 'react';
 import { useTranslation } from '../locale';

@@ -1,4 +1,4 @@
-import { useDesigner, useSchemaInitializerRender } from '@nocobase/client';
+import { useDesigner, useSchemaInitializerRender } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 import { isTabSearchCollapsibleInputItem } from '../utils';
 

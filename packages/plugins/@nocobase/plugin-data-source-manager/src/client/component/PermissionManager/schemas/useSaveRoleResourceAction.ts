@@ -1,6 +1,6 @@
 import { useForm } from '@tachybase/schema';
 import { useContext } from 'react';
-import { useActionContext, useAPIClient, useRecord, useResourceActionContext } from '@nocobase/client';
+import { useActionContext, useAPIClient, useRecord, useResourceActionContext } from '@tachybase/client';
 import { PermissionContext } from '../PermisionProvider';
 
 export const useSaveRoleResourceAction = () => {

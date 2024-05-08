@@ -1,4 +1,4 @@
-import { Plugin, createStyles, defaultTheme, useCurrentUserSettingsMenu, useGlobalTheme } from '@nocobase/client';
+import { Plugin, createStyles, defaultTheme, useCurrentUserSettingsMenu, useGlobalTheme } from '@tachybase/client';
 import { ConfigProvider } from 'antd';
 import _ from 'lodash';
 import React, { useEffect, useMemo } from 'react';

@@ -1,4 +1,4 @@
-import { getDefaultFormat, str2moment, toGmt, toLocal } from '@nocobase/utils/client';
+import { getDefaultFormat, str2moment, toGmt, toLocal } from '@tachybase/utils/client';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 

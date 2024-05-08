@@ -14,16 +14,16 @@
     "lodash": "4.17.21"
   },
   "peerDependencies": {
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/cache": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
     "@nocobase/plugin-error-handler": "workspace:*",
     "@nocobase/plugin-users": "workspace:*",
-    "@nocobase/resourcer": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "提供中心化的 UI schema 存储服务。",
   "displayName.zh-CN": "UI schema 存储服务",

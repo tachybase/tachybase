@@ -7,7 +7,7 @@ import {
   SchemaComponent,
   SchemaComponentProvider,
   useAPIClient,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Card, Space } from 'antd';
 import React from 'react';
 import { apiClient } from './apiClient';

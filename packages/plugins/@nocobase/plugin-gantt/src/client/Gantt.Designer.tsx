@@ -1,4 +1,4 @@
-import { GeneralSchemaDesigner, useCollection_deprecated, useSchemaTemplate } from '@nocobase/client';
+import { GeneralSchemaDesigner, useCollection_deprecated, useSchemaTemplate } from '@tachybase/client';
 import React from 'react';
 export const GanttDesigner = () => {
   const { name, title } = useCollection_deprecated();

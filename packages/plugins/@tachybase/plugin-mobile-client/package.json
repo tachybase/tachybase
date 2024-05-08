@@ -24,11 +24,11 @@
     "react-router-dom": "6.x"
   },
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "提供移动端页面配置的能力。",
   "displayName.zh-CN": "移动端"

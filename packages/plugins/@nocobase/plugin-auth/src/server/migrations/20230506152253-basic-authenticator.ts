@@ -1,4 +1,4 @@
-import { Migration } from '@nocobase/server';
+import { Migration } from '@tachybase/server';
 import { presetAuthType, presetAuthenticator } from '../../preset';
 
 export default class AddBasicAuthMigration extends Migration {

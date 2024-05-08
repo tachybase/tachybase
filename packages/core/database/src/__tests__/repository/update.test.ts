@@ -1,4 +1,4 @@
-import { Collection, Database, mockDatabase } from '@nocobase/database';
+import { Collection, Database, mockDatabase } from '@tachybase/database';
 
 describe('update', () => {
   let db: Database;

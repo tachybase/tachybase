@@ -1,5 +1,5 @@
 import React from 'react';
-import { RemoteSelect, Variable } from '@nocobase/client';
+import { RemoteSelect, Variable } from '@tachybase/client';
 import { useWorkflowVariableOptions } from '../../..';
 
 function isUserKeyField(field) {

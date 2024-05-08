@@ -1,4 +1,4 @@
-import { GeneralSchemaDesigner, useCollection, useSchemaTemplate } from '@nocobase/client';
+import { GeneralSchemaDesigner, useCollection, useSchemaTemplate } from '@tachybase/client';
 import React from 'react';
 export const CalendarDesigner = () => {
   const { name, title } = useCollection();

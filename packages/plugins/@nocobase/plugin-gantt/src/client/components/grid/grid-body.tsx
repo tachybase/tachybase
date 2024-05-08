@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css';
-import { uid } from '@nocobase/utils/client';
+import { uid } from '@tachybase/utils/client';
 import React, { ReactChild } from 'react';
 import { addToDate } from '../../helpers/date-helper';
 import { Task } from '../../types/public-types';

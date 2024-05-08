@@ -10,7 +10,7 @@ import {
   useCompile,
   useResourceActionContext,
   CollectionCategroriesContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { CollectionFields } from './CollectionFields';
 import { CollectionName } from './components/CollectionName';
 import { collectionTableSchema } from './schema/collections';

@@ -10,7 +10,7 @@ import {
   useRecord,
   useRequest,
   useSchemaInitializerRender,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Table, TableColumnProps } from 'antd';
 import { default as classNames } from 'classnames';
 import { findIndex } from 'lodash';

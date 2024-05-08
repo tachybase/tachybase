@@ -1,4 +1,4 @@
-import { expect, expectSettingsMenu, oneEmptyMarkdown, test } from '@nocobase/test/e2e';
+import { expect, expectSettingsMenu, oneEmptyMarkdown, test } from '@tachybase/test/e2e';
 
 test.describe('markdown block schema settings', () => {
   test('supported options', async ({ page, mockPage }) => {

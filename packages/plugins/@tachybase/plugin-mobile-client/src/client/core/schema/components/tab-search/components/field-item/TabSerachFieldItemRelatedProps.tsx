@@ -6,7 +6,7 @@ import {
   useDataSourceHeaders,
   useFilterBlock,
   useRequest,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 import { useTabSearchCollapsibleInputItem } from './hooks';

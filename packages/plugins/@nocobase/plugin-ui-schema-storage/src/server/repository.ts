@@ -1,6 +1,6 @@
-import { Cache } from '@nocobase/cache';
-import { Repository, Transaction, Transactionable } from '@nocobase/database';
-import { uid } from '@nocobase/utils';
+import { Cache } from '@tachybase/cache';
+import { Repository, Transaction, Transactionable } from '@tachybase/database';
+import { uid } from '@tachybase/utils';
 import lodash from 'lodash';
 import { ChildOptions, SchemaNode, TargetPosition } from './dao/ui_schema_node_dao';
 

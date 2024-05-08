@@ -1,4 +1,4 @@
-import { useApp, useRequest, useAPIClient } from '@nocobase/client';
+import { useApp, useRequest, useAPIClient } from '@tachybase/client';
 import { Tabs } from 'antd';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { RolesManagerContext } from '../RolesManagerProvider';

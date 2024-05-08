@@ -1,5 +1,5 @@
-import { css, i18n } from '@nocobase/client';
-import { evaluators } from '@nocobase/evaluators/client';
+import { css, i18n } from '@tachybase/client';
+import { evaluators } from '@tachybase/evaluators/client';
 import React from 'react';
 
 export const renderEngineReference = (key: string) => {

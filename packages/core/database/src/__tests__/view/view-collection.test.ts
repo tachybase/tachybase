@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import { uid } from '@nocobase/utils';
+import { uid } from '@tachybase/utils';
 import { Database, mockDatabase } from '../../index';
 import { ViewCollection } from '../../view-collection';
 import pgOnly from '../inhertits/helper';

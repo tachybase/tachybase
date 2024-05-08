@@ -23,7 +23,7 @@ import {
   useCurrentAppInfo,
   useCollectionParentRecordData,
   useDataSourceManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useRemoteCollectionContext } from './CollectionFields';
 
 const getSchema = ({

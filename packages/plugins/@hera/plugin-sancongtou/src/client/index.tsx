@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { ProductDetail } from './pages/ProductDetail';
 import { ShareProduct } from './components/ShareProduct';
 

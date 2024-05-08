@@ -30,11 +30,11 @@
     "react-router-dom": "^6.11.2"
   },
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "类似 ER 图的工具，目前只支持主数据库。",
   "displayName.zh-CN": "可视化数据表管理",

@@ -1,4 +1,4 @@
-import { createStyles } from '@nocobase/client';
+import { createStyles } from '@tachybase/client';
 
 const useStyles = createStyles(({ css, token }) => {
   return {

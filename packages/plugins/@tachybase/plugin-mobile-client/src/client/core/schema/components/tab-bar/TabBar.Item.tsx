@@ -7,7 +7,7 @@ import {
   SchemaSettingsRemove,
   SortableItem,
   useDesigner,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { TabBarItemProps } from 'antd-mobile';
 import React from 'react';
 import { useTranslation } from '../../../../locale';

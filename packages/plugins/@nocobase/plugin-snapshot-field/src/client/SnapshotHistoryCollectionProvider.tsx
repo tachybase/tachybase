@@ -3,7 +3,7 @@ import {
   ExtendCollectionsProvider,
   useCollectionManager_deprecated,
   useHistoryCollectionsByNames,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 
 export const SnapshotHistoryCollectionProvider: React.FC<{ collectionName: string }> = (props) => {

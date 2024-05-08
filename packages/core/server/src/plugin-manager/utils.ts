@@ -1,5 +1,5 @@
-import { importModule, isURL } from '@nocobase/utils';
-import { createStoragePluginSymLink } from '@nocobase/utils/plugin-symlink';
+import { importModule, isURL } from '@tachybase/utils';
+import { createStoragePluginSymLink } from '@tachybase/utils/plugin-symlink';
 import axios, { AxiosRequestConfig } from 'axios';
 import decompress from 'decompress';
 import fg from 'fast-glob';
@@ -521,8 +521,8 @@ export async function getCompatible(packageName: string) {
     const globalPackageName = deps[packageName]
       ? packageName
       : deps[packageName.split('/')[0]] // @nocobase and @formily
-      ? packageName.split('/')[0]
-      : undefined;
+        ? packageName.split('/')[0]
+        : undefined;
 
     if (globalPackageName) {
       const versionRange = deps[globalPackageName];

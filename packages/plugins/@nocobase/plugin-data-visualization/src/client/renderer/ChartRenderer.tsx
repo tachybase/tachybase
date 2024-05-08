@@ -10,7 +10,7 @@ import {
   useCollection_deprecated,
   useDataSource,
   useDesignable,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Empty, Result, Spin, Typography } from 'antd';
 import React, { useContext, useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';

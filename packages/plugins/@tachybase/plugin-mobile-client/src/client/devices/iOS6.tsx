@@ -1,4 +1,4 @@
-import { css, cx } from '@nocobase/client';
+import { css, cx } from '@tachybase/client';
 import React from 'react';
 
 const iOS6: React.FC<{

@@ -1,4 +1,4 @@
-import { DataTypes, Field } from '@nocobase/database';
+import { DataTypes, Field } from '@tachybase/database';
 
 export class MarkdownVditorField extends Field {
   get dataType() {

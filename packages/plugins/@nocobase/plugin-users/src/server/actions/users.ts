@@ -1,4 +1,4 @@
-import { Context, DEFAULT_PAGE, DEFAULT_PER_PAGE, Next } from '@nocobase/actions';
+import { Context, DEFAULT_PAGE, DEFAULT_PER_PAGE, Next } from '@tachybase/actions';
 
 export async function updateProfile(ctx: Context, next: Next) {
   const { values } = ctx.action.params;

@@ -1,5 +1,5 @@
 import { useFieldSchema } from '@tachybase/schema';
-import { CompatibleSchemaInitializer, useCollection_deprecated } from '@nocobase/client';
+import { CompatibleSchemaInitializer, useCollection_deprecated } from '@tachybase/client';
 
 /**
  * @deprecated

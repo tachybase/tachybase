@@ -1,4 +1,4 @@
-import { Plugin, useCollection_deprecated } from '@nocobase/client';
+import { Plugin, useCollection_deprecated } from '@tachybase/client';
 import { FileManagerProvider } from './FileManagerProvider';
 import { FileStoragePane } from './FileStorage';
 import { NAMESPACE } from './locale';

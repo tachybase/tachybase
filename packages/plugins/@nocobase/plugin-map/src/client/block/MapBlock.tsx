@@ -3,7 +3,7 @@ import {
   useCollectionManager_deprecated,
   useProps,
   withDynamicSchemaProps,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useMemo } from 'react';
 import { MapBlockComponent } from '../components';
 

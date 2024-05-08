@@ -27,7 +27,7 @@ import {
   useResourceActionContext,
   useResourceContext,
   ViewCollectionField,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import { collection } from './schemas/collectionFields';
 

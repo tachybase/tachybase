@@ -1,4 +1,4 @@
-import { getDefaultFormat, str2moment, toFixedByStep } from '@nocobase/utils';
+import { getDefaultFormat, str2moment, toFixedByStep } from '@tachybase/utils';
 
 export async function _(field, row, ctx, column?: any) {
   if (column?.dataIndex.length > 1) {
@@ -12,7 +12,7 @@ export async function _(field, row, ctx, column?: any) {
       } else {
         if (Array.isArray(result?.[col])) {
           const subResults = [];
-          for (const r of result?.[col]) {
+          for (const r of result[col]) {
             subResults.push(r);
           }
           return subResults;

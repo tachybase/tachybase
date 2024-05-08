@@ -6,7 +6,7 @@ import {
   useCollectionParentRecordData,
   useProps,
   withDynamicSchemaProps,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { parseExpression } from 'cron-parser';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';

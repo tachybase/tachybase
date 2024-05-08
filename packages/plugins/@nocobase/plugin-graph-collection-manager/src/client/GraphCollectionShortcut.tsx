@@ -1,6 +1,6 @@
 import { DeleteOutlined } from '@ant-design/icons';
 import { uid } from '@tachybase/schema';
-import { css, SchemaComponent, useActionContext, useRequest } from '@nocobase/client';
+import { css, SchemaComponent, useActionContext, useRequest } from '@tachybase/client';
 import React, { useEffect } from 'react';
 import { useCreateActionAndRefreshCM } from './action-hooks';
 import { GraphDrawPage } from './GraphDrawPage';

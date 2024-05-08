@@ -1,5 +1,5 @@
 import React from 'react';
-import { SchemaComponent } from '@nocobase/client';
+import { SchemaComponent } from '@tachybase/client';
 
 export const HomePageConfiguration = (props) => {
   return (

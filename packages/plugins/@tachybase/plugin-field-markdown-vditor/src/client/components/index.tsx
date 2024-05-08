@@ -1,5 +1,5 @@
 import { connect, mapReadPretty } from '@tachybase/schema';
-import { withDynamicSchemaProps } from '@nocobase/client';
+import { withDynamicSchemaProps } from '@tachybase/client';
 import { Display } from './Display';
 import { Edit } from './Edit';
 

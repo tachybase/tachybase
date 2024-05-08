@@ -1,4 +1,4 @@
-import { CompatibleSchemaInitializer, SchemaInitializer } from '@nocobase/client';
+import { CompatibleSchemaInitializer, SchemaInitializer } from '@tachybase/client';
 import { BulkEditSubmitActionInitializer } from './BulkEditSubmitActionInitializer';
 
 /**

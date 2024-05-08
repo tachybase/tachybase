@@ -1,18 +1,13 @@
 {
-  "name": "@nocobase/database",
+  "name": "@tachybase/database",
   "version": "0.21.24",
   "description": "",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nocobase/nocobase.git",
-    "directory": "packages/database"
-  },
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
-    "@nocobase/logger": "workspace:*",
-    "@nocobase/utils": "workspace:*",
+    "@tachybase/logger": "workspace:*",
+    "@tachybase/utils": "workspace:*",
     "async-mutex": "^0.3.2",
     "chalk": "^4.1.1",
     "cron-parser": "4.4.0",

@@ -1,4 +1,4 @@
-import { BelongsToManyField, Collection, HasManyField } from '@nocobase/database';
+import { BelongsToManyField, Collection, HasManyField } from '@tachybase/database';
 import {
   CreateActionTemplate,
   DestroyActionTemplate,

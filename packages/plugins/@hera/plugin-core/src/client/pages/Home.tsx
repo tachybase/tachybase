@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStyles } from './style';
 import { Carousel, Image } from 'antd';
-import { useAppSpin, useRequest } from '@nocobase/client';
+import { useAppSpin, useRequest } from '@tachybase/client';
 
 export const HomePage: React.FC<{}> = () => {
   const { styles } = useStyles();

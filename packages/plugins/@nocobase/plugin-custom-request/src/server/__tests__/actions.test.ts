@@ -1,6 +1,6 @@
-import { Context } from '@nocobase/actions';
-import Database, { Repository } from '@nocobase/database';
-import { createMockServer, MockServer } from '@nocobase/test';
+import { Context } from '@tachybase/actions';
+import Database, { Repository } from '@tachybase/database';
+import { createMockServer, MockServer } from '@tachybase/test';
 
 describe('actions', () => {
   let app: MockServer;

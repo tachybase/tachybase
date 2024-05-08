@@ -1,6 +1,6 @@
-import { Model } from '@nocobase/database';
+import { Model } from '@tachybase/database';
 import { UiSchemaStoragePlugin } from '@nocobase/plugin-ui-schema-storage';
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import deepmerge from 'deepmerge';
 import { resolve } from 'path';
 import localization from './actions/localization';

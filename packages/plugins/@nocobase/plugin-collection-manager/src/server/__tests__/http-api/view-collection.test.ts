@@ -1,6 +1,6 @@
-import { Database, DataTypes, Field, Repository } from '@nocobase/database';
-import { MockServer } from '@nocobase/test';
-import { uid } from '@nocobase/utils';
+import { Database, DataTypes, Field, Repository } from '@tachybase/database';
+import { MockServer } from '@tachybase/test';
+import { uid } from '@tachybase/utils';
 import { createApp } from '../index';
 
 describe('view collection', () => {

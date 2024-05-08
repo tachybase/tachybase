@@ -1,4 +1,4 @@
-import { parseDatabaseOptionsFromEnv } from '@nocobase/database';
+import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 
 export async function parseDatabaseOptions() {
   return await parseDatabaseOptionsFromEnv();

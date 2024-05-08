@@ -6,7 +6,7 @@ import { saveAs } from 'file-saver';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import { uid } from '@tachybase/schema';
-import { useRequest } from '@nocobase/client';
+import { useRequest } from '@tachybase/client';
 import { useTranslation } from '../locale';
 
 const options = {

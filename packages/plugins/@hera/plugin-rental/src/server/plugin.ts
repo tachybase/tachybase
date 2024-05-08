@@ -1,17 +1,17 @@
 import path from 'path';
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import { RecordService } from './services/record-service';
 import { ContractRuleService } from './services/contract-rule-service';
 import { ContractService } from './services/contract-service';
 import { ProjectService } from './services/project-service';
-import { Container } from '@nocobase/utils';
+import { Container } from '@tachybase/utils';
 import './actions';
 import { SqlLoader } from '@hera/plugin-core';
 import { DetailCheckService } from './services/detail-check-service';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
-import { Repository } from '@nocobase/database';
+import { Repository } from '@tachybase/database';
 import { VehiclesService } from './services/vehicles-service';
-import { Cache } from '@nocobase/cache';
+import { Cache } from '@tachybase/cache';
 
 export class PluginRentalServer extends Plugin {
   cache: Cache;
@@ -59,6 +59,7 @@ export class PluginRentalServer extends Plugin {
 
     await collectionRepo.createMany({
       records: categories
+        .filter(Boolean)
         .filter((item) => typeof item.id !== 'undefined')
         .map((item) => ({ collectionName, categoryId: item.id })),
     });

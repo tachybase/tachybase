@@ -1,4 +1,4 @@
-import { i18n } from '@nocobase/client';
+import { i18n } from '@tachybase/client';
 
 export const NAMESPACE = 'data-source-manager';
 

@@ -5,7 +5,7 @@ import {
   useCollectionDataSource,
   useCollectionManager_deprecated,
   useCompile,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { NAMESPACE, lang } from '../../locale';
 import { Trigger } from '../../triggers';
 import { CollectionBlockInitializer } from '../../components';

@@ -1,4 +1,4 @@
-import { expect, test } from '@nocobase/test/e2e';
+import { expect, test } from '@tachybase/test/e2e';
 import { T2797, T2838 } from './templatesOfBug';
 
 test.describe('z-index of dialog', () => {

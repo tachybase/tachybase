@@ -1,4 +1,4 @@
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { namespace } from '..';
 import { downloadXlsxTemplate, importXlsx } from './actions';
 import { enUS, zhCN } from './locale';

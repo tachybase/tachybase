@@ -1,6 +1,6 @@
-import { Context, Next } from '@nocobase/actions';
-import { Container, Service, Inject, App, ActionDef } from '@nocobase/utils';
-import Application from '@nocobase/server';
+import { Context, Next } from '@tachybase/actions';
+import { Container, Service, Inject, App, ActionDef } from '@tachybase/utils';
+import Application from '@tachybase/server';
 
 @Service()
 export class WebControllerService {

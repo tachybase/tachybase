@@ -1,4 +1,4 @@
-import { Database } from '@nocobase/database';
+import { Database } from '@tachybase/database';
 
 export default {
   async ['collections:setFields'](ctx, next) {

@@ -1,4 +1,4 @@
-import { mockDatabase } from '@nocobase/test';
+import { mockDatabase } from '@tachybase/test';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import supertest from 'supertest';

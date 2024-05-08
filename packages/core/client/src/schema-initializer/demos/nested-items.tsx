@@ -8,7 +8,7 @@ import {
   useSchemaInitializerItem,
   SchemaInitializerChild,
   useSchemaInitializerRender,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Divider, Menu } from 'antd';
 
 // TODO：这里要加上 Context

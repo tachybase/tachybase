@@ -8,7 +8,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaInitializerRender,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { observer, useField } from '@tachybase/schema';
 import { Field } from '@tachybase/schema';
 

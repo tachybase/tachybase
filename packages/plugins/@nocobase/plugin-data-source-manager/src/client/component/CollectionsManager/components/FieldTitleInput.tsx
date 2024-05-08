@@ -2,7 +2,7 @@ import { observer } from '@tachybase/schema';
 import { Input } from 'antd';
 import { debounce } from 'lodash';
 import React, { useState, useMemo, useEffect } from 'react';
-import { useRecord } from '@nocobase/client';
+import { useRecord } from '@tachybase/client';
 
 export const FieldTitleInput = observer(
   (props: any) => {

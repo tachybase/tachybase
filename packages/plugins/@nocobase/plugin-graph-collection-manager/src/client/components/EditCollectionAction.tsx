@@ -1,5 +1,5 @@
 import { EditOutlined } from '@ant-design/icons';
-import { EditCollection } from '@nocobase/client';
+import { EditCollection } from '@tachybase/client';
 import React from 'react';
 import { useCancelAction, useUpdateCollectionActionAndRefreshCM } from '../action-hooks';
 import { getPopupContainer } from '../utils';

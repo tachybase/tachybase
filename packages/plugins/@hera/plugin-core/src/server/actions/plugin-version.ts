@@ -1,5 +1,5 @@
-import { Action, Controller, Inject } from '@nocobase/utils';
-import { Context, Next } from '@nocobase/actions';
+import { Action, Controller, Inject } from '@tachybase/utils';
+import { Context, Next } from '@tachybase/actions';
 import { PluginVersionService } from '../services/plugin-version';
 
 @Controller('hera')

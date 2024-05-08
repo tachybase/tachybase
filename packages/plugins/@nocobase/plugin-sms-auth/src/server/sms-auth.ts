@@ -1,5 +1,5 @@
-import { AuthConfig, BaseAuth } from '@nocobase/auth';
-import { Model } from '@nocobase/database';
+import { AuthConfig, BaseAuth } from '@tachybase/auth';
+import { Model } from '@tachybase/database';
 import { AuthModel } from '@nocobase/plugin-auth';
 import VerificationPlugin from '@nocobase/plugin-verification';
 import { namespace } from '../constants';

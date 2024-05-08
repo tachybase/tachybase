@@ -1,4 +1,4 @@
-import { uid } from '@nocobase/utils';
+import { uid } from '@tachybase/utils';
 
 export const chinaRegion = {
   options: (options) => ({

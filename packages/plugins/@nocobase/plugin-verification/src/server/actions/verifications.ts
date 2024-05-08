@@ -1,5 +1,5 @@
-import actions, { Context, Next } from '@nocobase/actions';
-import { Op } from '@nocobase/database';
+import actions, { Context, Next } from '@tachybase/actions';
+import { Op } from '@tachybase/database';
 import dayjs from 'dayjs';
 import { randomInt, randomUUID } from 'crypto';
 import { promisify } from 'util';

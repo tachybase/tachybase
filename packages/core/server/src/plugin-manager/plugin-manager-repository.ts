@@ -1,4 +1,4 @@
-import { Repository } from '@nocobase/database';
+import { Repository } from '@tachybase/database';
 import lodash from 'lodash';
 import { PluginManager } from './plugin-manager';
 

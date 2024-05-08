@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 import { connect, mapReadPretty } from '@tachybase/schema';
-import { error } from '@nocobase/utils/client';
+import { error } from '@tachybase/utils/client';
 import cronstrue from 'cronstrue';
 import React, { useMemo } from 'react';
 import { CronProps, Cron as ReactCron } from 'react-js-cron';

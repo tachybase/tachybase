@@ -1,6 +1,6 @@
-import Application from '@nocobase/server';
-import { Service, App, Db } from '@nocobase/utils';
-import Database from '@nocobase/database';
+import Application from '@tachybase/server';
+import { Service, App, Db } from '@tachybase/utils';
+import Database from '@tachybase/database';
 
 @Service()
 export class HomePageService {

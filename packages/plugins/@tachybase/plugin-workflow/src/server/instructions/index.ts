@@ -1,4 +1,4 @@
-import { Transactionable } from '@nocobase/database';
+import { Transactionable } from '@tachybase/database';
 
 import type Plugin from '../Plugin';
 import type Processor from '../Processor';

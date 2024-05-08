@@ -1,4 +1,4 @@
-import { Database, mockDatabase } from '@nocobase/database';
+import { Database, mockDatabase } from '@tachybase/database';
 
 describe('non-id primary key', () => {
   let db: Database;

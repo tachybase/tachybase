@@ -1,4 +1,4 @@
-import { CollectionOptions } from '@nocobase/database';
+import { CollectionOptions } from '@tachybase/database';
 
 export default {
   namespace: 'iframe-block.iframe-html-storage',

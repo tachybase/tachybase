@@ -1,4 +1,4 @@
-import { BlockItem, SchemaComponent, css } from '@nocobase/client';
+import { BlockItem, SchemaComponent, css } from '@tachybase/client';
 import { Divider, SearchBar, Space, Tabs } from 'antd-mobile';
 import React, { useState } from 'react';
 import { TabApplicantType } from './component/TabApplicantType';

@@ -4,7 +4,7 @@ import {
   oneEmptyTableBlockWithActions,
   oneEmptyTableBlockWithCustomizeActions,
   test,
-} from '@nocobase/test/e2e';
+} from '@tachybase/test/e2e';
 
 test.describe('TableActionColumnInitializers & DetailsActionInitializers & ReadPrettyFormActionInitializers should add duplication action', () => {
   test('duplication action in TableActionColumnInitializers', async ({ page, mockPage, mockRecords }) => {

@@ -1,5 +1,5 @@
-import { useToken } from '@nocobase/client';
-import { error } from '@nocobase/utils/client';
+import { useToken } from '@tachybase/client';
+import { error } from '@tachybase/utils/client';
 import { Space } from 'antd';
 import React, { useCallback, useEffect } from 'react';
 import ThemeCard from './ThemeCard';

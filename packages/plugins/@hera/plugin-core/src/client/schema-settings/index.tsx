@@ -21,7 +21,7 @@ import {
   useVariables,
   VariableInput,
   VariableScopeProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from '../locale';

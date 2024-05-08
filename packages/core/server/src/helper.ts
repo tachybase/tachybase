@@ -1,7 +1,7 @@
 import cors from '@koa/cors';
-import { requestLogger } from '@nocobase/logger';
-import { Resourcer } from '@nocobase/resourcer';
-import { uid } from '@nocobase/utils';
+import { requestLogger } from '@tachybase/logger';
+import { Resourcer } from '@tachybase/resourcer';
+import { uid } from '@tachybase/utils';
 import { Command } from 'commander';
 import { randomUUID } from 'crypto';
 import fs from 'fs';

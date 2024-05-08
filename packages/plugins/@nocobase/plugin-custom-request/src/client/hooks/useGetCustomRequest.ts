@@ -1,5 +1,5 @@
 import { useFieldSchema } from '@tachybase/schema';
-import { useRequest } from '@nocobase/client';
+import { useRequest } from '@tachybase/client';
 
 export const useGetCustomRequest = () => {
   const fieldSchema = useFieldSchema();

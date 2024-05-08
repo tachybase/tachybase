@@ -1,4 +1,4 @@
-import { useRequest } from '@nocobase/client';
+import { useRequest } from '@tachybase/client';
 export const useLinkKey = () => {
   const { data } = useRequest<{
     data: any;

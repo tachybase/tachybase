@@ -1,4 +1,4 @@
-import { Gateway, InstallOptions, Plugin } from '@nocobase/server';
+import { Gateway, InstallOptions, Plugin } from '@tachybase/server';
 import { getAuthUrl } from './actions/getAuthUrl';
 import { redirect } from './actions/redirect';
 import { authType } from '../constants';

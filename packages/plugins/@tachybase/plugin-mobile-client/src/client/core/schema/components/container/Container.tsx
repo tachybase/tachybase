@@ -1,5 +1,5 @@
 import { useField, useFieldSchema } from '@tachybase/schema';
-import { cx, SchemaComponent, SortableItem, useDesigner, useToken } from '@nocobase/client';
+import { cx, SchemaComponent, SortableItem, useDesigner, useToken } from '@tachybase/client';
 import React, { useEffect } from 'react';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ContainerDesigner } from './Container.Designer';

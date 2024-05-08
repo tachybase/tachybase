@@ -1,4 +1,4 @@
-import { isPlainObject } from '@nocobase/utils/client';
+import { isPlainObject } from '@tachybase/utils/client';
 import deepmerge from 'deepmerge';
 import uniq from 'lodash/uniq';
 
@@ -13,7 +13,8 @@ export interface MergeStrategies {
 
 function getEnumerableOwnPropertySymbols(target: any): any[] {
   return Object.getOwnPropertySymbols
-    ? Object.getOwnPropertySymbols(target).filter((symbol) => target.propertyIsEnumerable(symbol))
+    ? // eslint-disable-next-line no-prototype-builtins
+      Object.getOwnPropertySymbols(target).filter((symbol) => target.propertyIsEnumerable(symbol))
     : [];
 }
 

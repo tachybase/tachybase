@@ -1,7 +1,7 @@
-import { Context, Next, DEFAULT_PAGE, DEFAULT_PER_PAGE } from '@nocobase/actions';
-import { Cache } from '@nocobase/cache';
-import { Database, Model, Op } from '@nocobase/database';
-import { PluginManager } from '@nocobase/server';
+import { Context, Next, DEFAULT_PAGE, DEFAULT_PER_PAGE } from '@tachybase/actions';
+import { Cache } from '@tachybase/cache';
+import { Database, Model, Op } from '@tachybase/database';
+import { PluginManager } from '@tachybase/server';
 import { EXTEND_MODULES } from '../constans';
 
 const appendTranslations = async (db: Database, rows: Model[], locale: string): Promise<any[]> => {

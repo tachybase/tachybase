@@ -1,4 +1,4 @@
-import { interfacesProperties, CollectionFieldInterface } from '@nocobase/client';
+import { interfacesProperties, CollectionFieldInterface } from '@tachybase/client';
 const { defaultProps } = interfacesProperties;
 
 const formulaType = [

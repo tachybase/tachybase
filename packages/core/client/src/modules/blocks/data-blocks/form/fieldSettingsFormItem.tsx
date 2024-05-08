@@ -15,7 +15,7 @@ import { isPatternDisabled } from '../../../../schema-settings';
 import { ActionType } from '../../../../schema-settings/LinkageRules/type';
 import { SchemaSettingsDefaultValue } from '../../../../schema-settings/SchemaSettingsDefaultValue';
 import { useIsAllowToSetDefaultValue } from '../../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 
 export const fieldSettingsFormItem = new SchemaSettings({
   name: 'fieldSettings:FormItem',

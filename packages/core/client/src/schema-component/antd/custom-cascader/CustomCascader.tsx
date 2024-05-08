@@ -28,7 +28,6 @@ export const CustomCascader = connect(
       // fieldNames = defaultFieldNames,
       useDataSource = useDefDataSource,
       useLoadData = useDefLoadData,
-      changeOnSelectLast,
       changeOnSelect,
       maxLevel,
       defaultValue,
@@ -39,8 +38,8 @@ export const CustomCascader = connect(
         {...others}
         onChange={onChange}
         style={{ width: '100%' }}
-        changeOnSelect
         defaultValue={defaultValue}
+        changeOnSelect={changeOnSelect}
       />
     );
   },

@@ -1,10 +1,10 @@
 import React from 'react';
-import { css, useRequest } from '@nocobase/client';
+import { css, useRequest } from '@tachybase/client';
 import { Badge, Button, Popover, List, message } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import { useLinkKey, useInitializationLinkKey } from '../../hooks/useNotifications';
 import { useNavigate } from 'react-router-dom';
-import { dayjs } from '@nocobase/utils/client';
+import { dayjs } from '@tachybase/utils/client';
 
 export const Notifications = () => {
   // 注册链接关联，链接管理使用nocobase代码方式注册数据表

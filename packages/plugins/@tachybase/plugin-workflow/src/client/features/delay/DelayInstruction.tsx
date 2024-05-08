@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputNumber, Select } from 'antd';
-import { css, useCompile, usePlugin } from '@nocobase/client';
+import { css, useCompile, usePlugin } from '@tachybase/client';
 import WorkflowPlugin, { Instruction, JOB_STATUS } from '../..';
 
 import { NAMESPACE } from '../../locale';

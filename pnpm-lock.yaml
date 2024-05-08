@@ -43,18 +43,21 @@ importers:
       '@commitlint/prompt-cli':
         specifier: ^16.3.0
         version: 16.3.0
-      '@nocobase/build':
+      '@tachybase/build':
         specifier: workspace:*
         version: link:packages/core/build
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:packages/core/test
       '@tachybase/cli':
         specifier: workspace:*
         version: link:packages/core/cli
+      '@tachybase/preset-hera-rental':
+        specifier: workspace:*
+        version: link:packages/presets/hera-rental
       '@tachybase/preset-tachybase':
         specifier: workspace:*
-        version: link:packages/presets/tachybase
+        version: link:packages/presets/base
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:packages/core/test
       '@types/react':
         specifier: ^18.2.79
         version: 18.2.79
@@ -115,10 +118,10 @@ importers:
 
   packages/core/acl:
     dependencies:
-      '@nocobase/resourcer':
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../resourcer
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
       koa-compose:
@@ -137,16 +140,16 @@ importers:
 
   packages/core/actions:
     dependencies:
-      '@nocobase/cache':
+      '@tachybase/cache':
         specifier: workspace:*
         version: link:../cache
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@nocobase/resourcer':
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../resourcer
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
       koa:
@@ -161,41 +164,47 @@ importers:
 
   packages/core/app:
     dependencies:
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@nocobase/server':
+      '@tachybase/preset-hera-rental':
         specifier: workspace:*
-        version: link:../server
+        version: link:../../presets/hera-rental
+      '@tachybase/preset-sancongtou':
+        specifier: workspace:*
+        version: link:../../presets/sancongtou
       '@tachybase/preset-tachybase':
         specifier: workspace:*
-        version: link:../../presets/tachybase
+        version: link:../../presets/base
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
     devDependencies:
-      '@nocobase/cache':
+      '@tachybase/cache':
         specifier: workspace:*
         version: link:../cache
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@nocobase/logger':
+      '@tachybase/logger':
         specifier: workspace:*
         version: link:../logger
 
   packages/core/auth:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
-      '@nocobase/cache':
+      '@tachybase/cache':
         specifier: workspace:*
         version: link:../cache
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@nocobase/resourcer':
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../resourcer
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
       '@types/jsonwebtoken':
@@ -310,10 +319,10 @@ importers:
 
   packages/core/cli:
     dependencies:
-      '@nocobase/app':
+      '@tachybase/app':
         specifier: workspace:*
         version: link:../app
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
       '@types/fs-extra':
@@ -368,9 +377,6 @@ importers:
         specifier: ^4.7.2
         version: 4.7.2
     devDependencies:
-      '@nocobase/devtools':
-        specifier: workspace:*
-        version: link:../devtools
       '@rollup/plugin-commonjs':
         specifier: ^25.0.7
         version: 25.0.7(rollup@4.14.1)
@@ -380,6 +386,9 @@ importers:
       '@rollup/plugin-node-resolve':
         specifier: ^15.2.3
         version: 15.2.3(rollup@4.14.1)
+      '@tachybase/devtools':
+        specifier: workspace:*
+        version: link:../devtools
       '@types/lodash':
         specifier: ^4.17.0
         version: 4.17.0
@@ -443,24 +452,24 @@ importers:
       '@emotion/css':
         specifier: ^11.7.1
         version: 11.11.2
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@nocobase/evaluators':
-        specifier: workspace:*
-        version: link:../evaluators
-      '@nocobase/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@tachybase/components':
         specifier: workspace:*
         version: link:../components
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/evaluators':
+        specifier: workspace:*
+        version: link:../evaluators
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../schema
+      '@tachybase/sdk':
+        specifier: workspace:*
+        version: link:../sdk
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
       ahooks:
         specifier: ^3.7.2
         version: 3.7.8(react@18.2.0)
@@ -675,22 +684,22 @@ importers:
 
   packages/core/data-source-manager:
     dependencies:
-      '@nocobase/acl':
+      '@tachybase/acl':
         specifier: workspace:*
         version: link:../acl
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
-      '@nocobase/cache':
+      '@tachybase/cache':
         specifier: workspace:*
         version: link:../cache
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@nocobase/resourcer':
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../resourcer
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
       '@types/jsonwebtoken':
@@ -711,10 +720,10 @@ importers:
 
   packages/core/database:
     dependencies:
-      '@nocobase/logger':
+      '@tachybase/logger':
         specifier: workspace:*
         version: link:../logger
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
       async-mutex:
@@ -781,13 +790,13 @@ importers:
 
   packages/core/devtools:
     dependencies:
-      '@nocobase/build':
+      '@tachybase/build':
         specifier: workspace:*
         version: link:../build
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../test
       '@types/koa':
@@ -901,7 +910,7 @@ importers:
       '@formulajs/formulajs':
         specifier: 4.2.0
         version: 4.2.0
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
       lodash:
@@ -937,7 +946,7 @@ importers:
 
   packages/core/resourcer:
     dependencies:
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
       deepmerge:
@@ -1019,45 +1028,45 @@ importers:
       '@koa/router':
         specifier: ^9.4.0
         version: 9.4.0
-      '@nocobase/acl':
+      '@tachybase/acl':
         specifier: workspace:*
         version: link:../acl
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
-      '@nocobase/auth':
+      '@tachybase/auth':
         specifier: workspace:*
         version: link:../auth
-      '@nocobase/cache':
+      '@tachybase/cache':
         specifier: workspace:*
         version: link:../cache
-      '@nocobase/data-source-manager':
+      '@tachybase/data-source-manager':
         specifier: workspace:*
         version: link:../data-source-manager
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@nocobase/evaluators':
+      '@tachybase/evaluators':
         specifier: workspace:*
         version: link:../evaluators
-      '@nocobase/logger':
+      '@tachybase/logger':
         specifier: workspace:*
         version: link:../logger
-      '@nocobase/resourcer':
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../resourcer
-      '@nocobase/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-      '@nocobase/telemetry':
-        specifier: workspace:*
-        version: link:../telemetry
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../schema
+      '@tachybase/sdk':
+        specifier: workspace:*
+        version: link:../sdk
+      '@tachybase/telemetry':
+        specifier: workspace:*
+        version: link:../telemetry
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@types/decompress':
         specifier: 4.2.4
         version: 4.2.4
@@ -1188,9 +1197,6 @@ importers:
 
   packages/core/telemetry:
     dependencies:
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@opentelemetry/api':
         specifier: ^1.7.0
         version: 1.7.0
@@ -1212,6 +1218,9 @@ importers:
       '@opentelemetry/semantic-conventions':
         specifier: ^1.19.0
         version: 1.19.0
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
 
   packages/core/test:
     dependencies:
@@ -1221,15 +1230,15 @@ importers:
       '@formily/shared':
         specifier: 2.2.27
         version: 2.2.27
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../server
       '@playwright/test':
         specifier: ^1.42.1
         version: 1.42.1
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
       '@testing-library/dom':
         specifier: ^9.3.3
         version: 9.3.3
@@ -1345,43 +1354,43 @@ importers:
 
   packages/plugins/@hera/plugin-approval:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
       '@tachybase/plugin-workflow':
         specifier: workspace:*
         version: link:../../@tachybase/plugin-workflow
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
     devDependencies:
       '@ant-design/icons':
         specifier: 5.x
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/data-source-manager':
-        specifier: workspace:*
-        version: link:../../../core/data-source-manager
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-ui-schema-storage':
         specifier: workspace:*
         version: link:../../@nocobase/plugin-ui-schema-storage
-      '@nocobase/utils':
+      '@tachybase/actions':
         specifier: workspace:*
-        version: link:../../../core/utils
+        version: link:../../../core/actions
       '@tachybase/components':
         specifier: workspace:*
         version: link:../../../core/components
+      '@tachybase/data-source-manager':
+        specifier: workspace:*
+        version: link:../../../core/data-source-manager
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
       '@types/lodash':
         specifier: 4.17.0
         version: 4.17.0
@@ -1403,16 +1412,16 @@ importers:
 
   packages/plugins/@hera/plugin-approval-mobile:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -1446,24 +1455,24 @@ importers:
 
   packages/plugins/@hera/plugin-audit-logs:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
     devDependencies:
       '@ant-design/icons':
         specifier: ~5.3.6
@@ -1483,33 +1492,36 @@ importers:
 
   packages/plugins/@hera/plugin-core:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/evaluators':
-        specifier: workspace:*
-        version: link:../../../core/evaluators
       '@nocobase/plugin-acl':
         specifier: workspace:*
         version: link:../../@nocobase/plugin-acl
-      '@nocobase/server':
+      '@tachybase/actions':
         specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
+        version: link:../../../core/actions
+      '@tachybase/client':
         specifier: workspace:*
-        version: link:../../../core/test
-      '@nocobase/utils':
+        version: link:../../../core/client
+      '@tachybase/data-source-manager':
         specifier: workspace:*
-        version: link:../../../core/utils
+        version: link:../../../core/data-source-manager
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/evaluators':
+        specifier: workspace:*
+        version: link:../../../core/evaluators
       '@tachybase/plugin-workflow':
         specifier: workspace:*
         version: link:../../@tachybase/plugin-workflow
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
     devDependencies:
       '@ant-design/cssinjs':
         specifier: ^1.11.1
@@ -1613,16 +1625,19 @@ importers:
 
   packages/plugins/@hera/plugin-external-data-source:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/plugin-data-source-manager':
+      '@tachybase/data-source-manager':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-data-source-manager
-      '@nocobase/server':
+        version: link:../../../core/data-source-manager
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
       antd:
@@ -1647,31 +1662,31 @@ importers:
       '@hera/plugin-core':
         specifier: workspace:*
         version: link:../plugin-core
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/cache':
-        specifier: workspace:*
-        version: link:../../../core/cache
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../../@nocobase/plugin-collection-manager
       '@nocobase/plugin-data-visualization':
         specifier: workspace:*
         version: link:../../@nocobase/plugin-data-visualization
-      '@nocobase/server':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/cache':
+        specifier: workspace:*
+        version: link:../../../core/cache
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -1726,13 +1741,13 @@ importers:
       '@ant-design/icons':
         specifier: ^5.3.6
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: 0.x
         version: link:../../../core/client
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: 0.x
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: 0.x
         version: link:../../../core/test
       antd-mobile:
@@ -1741,28 +1756,28 @@ importers:
 
   packages/plugins/@nocobase/plugin-acl:
     dependencies:
-      '@nocobase/acl':
+      '@tachybase/acl':
         specifier: workspace:*
         version: link:../../../core/acl
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/cache':
+      '@tachybase/cache':
         specifier: workspace:*
         version: link:../../../core/cache
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -1808,16 +1823,16 @@ importers:
 
   packages/plugins/@nocobase/plugin-action-bulk-edit:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -1848,16 +1863,16 @@ importers:
 
   packages/plugins/@nocobase/plugin-action-bulk-update:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -1876,13 +1891,13 @@ importers:
 
   packages/plugins/@nocobase/plugin-action-duplicate:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -1904,13 +1919,13 @@ importers:
 
   packages/plugins/@nocobase/plugin-action-print:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -1920,22 +1935,22 @@ importers:
 
   packages/plugins/@nocobase/plugin-api-doc:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/sdk':
+      '@tachybase/sdk':
         specifier: workspace:*
         version: link:../../../core/sdk
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -1957,25 +1972,25 @@ importers:
 
   packages/plugins/@nocobase/plugin-api-keys:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/resourcer':
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../../../core/resourcer
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2006,28 +2021,28 @@ importers:
 
   packages/plugins/@nocobase/plugin-auth:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/auth':
+      '@tachybase/auth':
         specifier: workspace:*
         version: link:../../../core/auth
-      '@nocobase/cache':
+      '@tachybase/cache':
         specifier: workspace:*
         version: link:../../../core/cache
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2061,22 +2076,22 @@ importers:
 
   packages/plugins/@nocobase/plugin-backup-restore:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2146,16 +2161,16 @@ importers:
 
   packages/plugins/@nocobase/plugin-calendar:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -2201,28 +2216,28 @@ importers:
 
   packages/plugins/@nocobase/plugin-cas:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
-      '@nocobase/sdk':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/sdk':
         specifier: workspace:*
         version: link:../../../core/sdk
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -2241,16 +2256,16 @@ importers:
 
   packages/plugins/@nocobase/plugin-china-region:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -2269,19 +2284,19 @@ importers:
 
   packages/plugins/@nocobase/plugin-client:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2300,25 +2315,25 @@ importers:
 
   packages/plugins/@nocobase/plugin-collection-manager:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-error-handler':
         specifier: workspace:*
         version: link:../plugin-error-handler
-      '@nocobase/server':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2343,31 +2358,31 @@ importers:
 
   packages/plugins/@nocobase/plugin-custom-request:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/evaluators':
+      '@tachybase/evaluators':
         specifier: workspace:*
         version: link:../../../core/evaluators
-      '@nocobase/logger':
+      '@tachybase/logger':
         specifier: workspace:*
         version: link:../../../core/logger
-      '@nocobase/sdk':
+      '@tachybase/sdk':
         specifier: workspace:*
         version: link:../../../core/sdk
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2392,22 +2407,22 @@ importers:
 
   packages/plugins/@nocobase/plugin-data-source-manager:
     dependencies:
-      '@nocobase/acl':
+      '@tachybase/acl':
         specifier: workspace:*
         version: link:../../../core/acl
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2453,25 +2468,25 @@ importers:
 
   packages/plugins/@nocobase/plugin-data-visualization:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/cache':
+      '@tachybase/cache':
         specifier: workspace:*
         version: link:../../../core/cache
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2526,19 +2541,19 @@ importers:
 
   packages/plugins/@nocobase/plugin-error-handler:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2554,22 +2569,22 @@ importers:
 
   packages/plugins/@nocobase/plugin-export:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2600,22 +2615,22 @@ importers:
 
   packages/plugins/@nocobase/plugin-file-manager:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2682,22 +2697,22 @@ importers:
 
   packages/plugins/@nocobase/plugin-formula-field:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/evaluators':
+      '@tachybase/evaluators':
         specifier: workspace:*
         version: link:../../../core/evaluators
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2725,24 +2740,24 @@ importers:
       '@emotion/css':
         specifier: ^11.7.1
         version: 11.11.2
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
       '@tachybase/components':
         specifier: workspace:*
         version: link:../../../core/components
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
       antd:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
@@ -2758,19 +2773,19 @@ importers:
 
   packages/plugins/@nocobase/plugin-graph-collection-manager:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2831,19 +2846,19 @@ importers:
 
   packages/plugins/@nocobase/plugin-iframe-block:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -2868,22 +2883,22 @@ importers:
 
   packages/plugins/@nocobase/plugin-import:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -2932,13 +2947,13 @@ importers:
 
   packages/plugins/@nocobase/plugin-kanban:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -2975,28 +2990,28 @@ importers:
 
   packages/plugins/@nocobase/plugin-localization-management:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/cache':
-        specifier: workspace:*
-        version: link:../../../core/cache
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-client':
         specifier: workspace:*
         version: link:../plugin-client
       '@nocobase/plugin-ui-schema-storage':
         specifier: workspace:*
         version: link:../plugin-ui-schema-storage
-      '@nocobase/server':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/cache':
+        specifier: workspace:*
+        version: link:../../../core/cache
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -3021,19 +3036,19 @@ importers:
 
   packages/plugins/@nocobase/plugin-logger:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/logger':
+      '@tachybase/logger':
         specifier: workspace:*
         version: link:../../../core/logger
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -3058,22 +3073,22 @@ importers:
 
   packages/plugins/@nocobase/plugin-map:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3128,22 +3143,22 @@ importers:
 
   packages/plugins/@nocobase/plugin-mock-collections:
     dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-error-handler':
         specifier: workspace:*
         version: link:../plugin-error-handler
-      '@nocobase/server':
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3159,19 +3174,19 @@ importers:
 
   packages/plugins/@nocobase/plugin-multi-app-manager:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3208,12 +3223,6 @@ importers:
 
   packages/plugins/@nocobase/plugin-multi-app-share-collection:
     dependencies:
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../plugin-collection-manager
@@ -3226,13 +3235,19 @@ importers:
       '@nocobase/plugin-users':
         specifier: workspace:*
         version: link:../plugin-users
-      '@nocobase/server':
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3254,19 +3269,19 @@ importers:
 
   packages/plugins/@nocobase/plugin-notifications:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3285,25 +3300,25 @@ importers:
 
   packages/plugins/@nocobase/plugin-oidc:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
-      '@nocobase/server':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -3340,28 +3355,28 @@ importers:
 
   packages/plugins/@nocobase/plugin-saml:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
-      '@nocobase/sdk':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/sdk':
         specifier: workspace:*
         version: link:../../../core/sdk
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -3389,13 +3404,13 @@ importers:
 
   packages/plugins/@nocobase/plugin-sample-hello:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -3417,25 +3432,25 @@ importers:
 
   packages/plugins/@nocobase/plugin-sequence-field:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../plugin-collection-manager
-      '@nocobase/server':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3472,28 +3487,28 @@ importers:
 
   packages/plugins/@nocobase/plugin-sms-auth:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
       '@nocobase/plugin-verification':
         specifier: workspace:*
         version: link:../plugin-verification
-      '@nocobase/server':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -3512,19 +3527,19 @@ importers:
 
   packages/plugins/@nocobase/plugin-snapshot-field:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3552,37 +3567,37 @@ importers:
 
   packages/plugins/@nocobase/plugin-system-settings:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
 
   packages/plugins/@nocobase/plugin-theme-editor:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3637,34 +3652,34 @@ importers:
 
   packages/plugins/@nocobase/plugin-ui-schema-storage:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/cache':
-        specifier: workspace:*
-        version: link:../../../core/cache
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-error-handler':
         specifier: workspace:*
         version: link:../plugin-error-handler
       '@nocobase/plugin-users':
         specifier: workspace:*
         version: link:../plugin-users
-      '@nocobase/resourcer':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/cache':
+        specifier: workspace:*
+        version: link:../../../core/cache
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../../../core/resourcer
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3677,34 +3692,34 @@ importers:
 
   packages/plugins/@nocobase/plugin-users:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/cache':
-        specifier: workspace:*
-        version: link:../../../core/cache
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
       '@nocobase/plugin-acl':
         specifier: workspace:*
         version: link:../plugin-acl
       '@nocobase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
-      '@nocobase/resourcer':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/cache':
+        specifier: workspace:*
+        version: link:../../../core/cache
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../../../core/resourcer
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3726,25 +3741,25 @@ importers:
 
   packages/plugins/@nocobase/plugin-verification:
     dependencies:
-      '@nocobase/actions':
+      '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/resourcer':
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../../../core/resourcer
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3781,13 +3796,16 @@ importers:
 
   packages/plugins/@tachybase/plugin-field-markdown-vditor:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/server':
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
@@ -3809,19 +3827,19 @@ importers:
 
   packages/plugins/@tachybase/plugin-mobile-client:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3876,24 +3894,6 @@ importers:
 
   packages/plugins/@tachybase/plugin-workflow:
     dependencies:
-      '@nocobase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@nocobase/data-source-manager':
-        specifier: workspace:*
-        version: link:../../../core/data-source-manager
-      '@nocobase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@nocobase/evaluators':
-        specifier: workspace:*
-        version: link:../../../core/evaluators
-      '@nocobase/logger':
-        specifier: workspace:*
-        version: link:../../../core/logger
       '@nocobase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../../@nocobase/plugin-collection-manager
@@ -3903,21 +3903,39 @@ importers:
       '@nocobase/plugin-users':
         specifier: workspace:*
         version: link:../../@nocobase/plugin-users
-      '@nocobase/resourcer':
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/data-source-manager':
+        specifier: workspace:*
+        version: link:../../../core/data-source-manager
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/evaluators':
+        specifier: workspace:*
+        version: link:../../../core/evaluators
+      '@tachybase/logger':
+        specifier: workspace:*
+        version: link:../../../core/logger
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../../../core/resourcer
-      '@nocobase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@nocobase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@nocobase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../../../core/schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
     devDependencies:
       '@ant-design/icons':
         specifier: ~5.3.6
@@ -3970,25 +3988,25 @@ importers:
 
   packages/plugins/@tachybase/plugin-workflow-test:
     dependencies:
-      '@nocobase/client':
+      '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
-      '@nocobase/data-source-manager':
+      '@tachybase/data-source-manager':
         specifier: workspace:*
         version: link:../../../core/data-source-manager
-      '@nocobase/database':
+      '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
-      '@nocobase/resourcer':
+      '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../../../core/resourcer
-      '@nocobase/server':
+      '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
-      '@nocobase/test':
+      '@tachybase/test':
         specifier: workspace:*
         version: link:../../../core/test
-      '@nocobase/utils':
+      '@tachybase/utils':
         specifier: workspace:*
         version: link:../../../core/utils
     devDependencies:
@@ -3996,7 +4014,7 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
 
-  packages/presets/tachybase:
+  packages/presets/base:
     dependencies:
       '@hera/plugin-approval':
         specifier: workspace:*
@@ -4004,9 +4022,6 @@ importers:
       '@hera/plugin-audit-logs':
         specifier: workspace:*
         version: link:../../plugins/@hera/plugin-audit-logs
-      '@nocobase/client':
-        specifier: workspace:*
-        version: link:../../core/client
       '@nocobase/plugin-acl':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-acl
@@ -4133,9 +4148,9 @@ importers:
       '@nocobase/plugin-verification':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-verification
-      '@nocobase/server':
+      '@tachybase/client':
         specifier: workspace:*
-        version: link:../../core/server
+        version: link:../../core/client
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
@@ -4145,6 +4160,353 @@ importers:
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../../core/schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../core/server
+      cronstrue:
+        specifier: ^2.11.0
+        version: 2.47.0
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@types/lodash':
+        specifier: ^4.17.0
+        version: 4.17.0
+
+  packages/presets/hera-rental:
+    dependencies:
+      '@hera/plugin-approval':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-approval
+      '@hera/plugin-audit-logs':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-audit-logs
+      '@hera/plugin-core':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-core
+      '@hera/plugin-rental':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-rental
+      '@nocobase/plugin-acl':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-acl
+      '@nocobase/plugin-action-bulk-edit':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-bulk-edit
+      '@nocobase/plugin-action-bulk-update':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-bulk-update
+      '@nocobase/plugin-action-duplicate':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-duplicate
+      '@nocobase/plugin-action-print':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-print
+      '@nocobase/plugin-api-doc':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-api-doc
+      '@nocobase/plugin-api-keys':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-api-keys
+      '@nocobase/plugin-auth':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-auth
+      '@nocobase/plugin-backup-restore':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-backup-restore
+      '@nocobase/plugin-calendar':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-calendar
+      '@nocobase/plugin-cas':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-cas
+      '@nocobase/plugin-china-region':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-china-region
+      '@nocobase/plugin-client':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-client
+      '@nocobase/plugin-collection-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-collection-manager
+      '@nocobase/plugin-custom-request':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-custom-request
+      '@nocobase/plugin-data-source-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-data-source-manager
+      '@nocobase/plugin-data-visualization':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-data-visualization
+      '@nocobase/plugin-error-handler':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-error-handler
+      '@nocobase/plugin-export':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-export
+      '@nocobase/plugin-file-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-file-manager
+      '@nocobase/plugin-formula-field':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-formula-field
+      '@nocobase/plugin-gantt':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-gantt
+      '@nocobase/plugin-graph-collection-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-graph-collection-manager
+      '@nocobase/plugin-iframe-block':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-iframe-block
+      '@nocobase/plugin-import':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-import
+      '@nocobase/plugin-kanban':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-kanban
+      '@nocobase/plugin-localization-management':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-localization-management
+      '@nocobase/plugin-logger':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-logger
+      '@nocobase/plugin-map':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-map
+      '@nocobase/plugin-mock-collections':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-mock-collections
+      '@nocobase/plugin-multi-app-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-multi-app-manager
+      '@nocobase/plugin-multi-app-share-collection':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
+      '@nocobase/plugin-oidc':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-oidc
+      '@nocobase/plugin-saml':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-saml
+      '@nocobase/plugin-sequence-field':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-sequence-field
+      '@nocobase/plugin-sms-auth':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-sms-auth
+      '@nocobase/plugin-snapshot-field':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-snapshot-field
+      '@nocobase/plugin-system-settings':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-system-settings
+      '@nocobase/plugin-theme-editor':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-theme-editor
+      '@nocobase/plugin-ui-schema-storage':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-ui-schema-storage
+      '@nocobase/plugin-users':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-users
+      '@nocobase/plugin-verification':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-verification
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../core/client
+      '@tachybase/plugin-mobile-client':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-workflow
+      '@tachybase/preset-tachybase':
+        specifier: workspace:*
+        version: link:../base
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../core/schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../core/server
+      cronstrue:
+        specifier: ^2.11.0
+        version: 2.47.0
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@types/lodash':
+        specifier: ^4.17.0
+        version: 4.17.0
+
+  packages/presets/sancongtou:
+    dependencies:
+      '@hera/plugin-approval':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-approval
+      '@hera/plugin-approval-mobile':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-approval-mobile
+      '@hera/plugin-audit-logs':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-audit-logs
+      '@hera/plugin-core':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-core
+      '@hera/plugin-rental':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-rental
+      '@hera/plugin-sancongtou':
+        specifier: workspace:*
+        version: link:../../plugins/@hera/plugin-sancongtou
+      '@nocobase/plugin-acl':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-acl
+      '@nocobase/plugin-action-bulk-edit':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-bulk-edit
+      '@nocobase/plugin-action-bulk-update':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-bulk-update
+      '@nocobase/plugin-action-duplicate':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-duplicate
+      '@nocobase/plugin-action-print':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-action-print
+      '@nocobase/plugin-api-doc':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-api-doc
+      '@nocobase/plugin-api-keys':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-api-keys
+      '@nocobase/plugin-auth':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-auth
+      '@nocobase/plugin-backup-restore':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-backup-restore
+      '@nocobase/plugin-calendar':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-calendar
+      '@nocobase/plugin-cas':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-cas
+      '@nocobase/plugin-china-region':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-china-region
+      '@nocobase/plugin-client':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-client
+      '@nocobase/plugin-collection-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-collection-manager
+      '@nocobase/plugin-custom-request':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-custom-request
+      '@nocobase/plugin-data-source-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-data-source-manager
+      '@nocobase/plugin-data-visualization':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-data-visualization
+      '@nocobase/plugin-error-handler':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-error-handler
+      '@nocobase/plugin-export':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-export
+      '@nocobase/plugin-file-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-file-manager
+      '@nocobase/plugin-formula-field':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-formula-field
+      '@nocobase/plugin-gantt':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-gantt
+      '@nocobase/plugin-graph-collection-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-graph-collection-manager
+      '@nocobase/plugin-iframe-block':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-iframe-block
+      '@nocobase/plugin-import':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-import
+      '@nocobase/plugin-kanban':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-kanban
+      '@nocobase/plugin-localization-management':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-localization-management
+      '@nocobase/plugin-logger':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-logger
+      '@nocobase/plugin-map':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-map
+      '@nocobase/plugin-mock-collections':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-mock-collections
+      '@nocobase/plugin-multi-app-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-multi-app-manager
+      '@nocobase/plugin-multi-app-share-collection':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
+      '@nocobase/plugin-oidc':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-oidc
+      '@nocobase/plugin-saml':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-saml
+      '@nocobase/plugin-sequence-field':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-sequence-field
+      '@nocobase/plugin-sms-auth':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-sms-auth
+      '@nocobase/plugin-snapshot-field':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-snapshot-field
+      '@nocobase/plugin-system-settings':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-system-settings
+      '@nocobase/plugin-theme-editor':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-theme-editor
+      '@nocobase/plugin-ui-schema-storage':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-ui-schema-storage
+      '@nocobase/plugin-users':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-users
+      '@nocobase/plugin-verification':
+        specifier: workspace:*
+        version: link:../../plugins/@nocobase/plugin-verification
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../core/client
+      '@tachybase/plugin-mobile-client':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-workflow
+      '@tachybase/preset-tachybase':
+        specifier: workspace:*
+        version: link:../base
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../core/schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../core/server
       cronstrue:
         specifier: ^2.11.0
         version: 2.47.0

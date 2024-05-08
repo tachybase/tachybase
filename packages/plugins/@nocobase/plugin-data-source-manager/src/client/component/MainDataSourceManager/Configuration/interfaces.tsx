@@ -1,4 +1,4 @@
-import { CollectionFieldInterface, useDataSourceManager } from '@nocobase/client';
+import { CollectionFieldInterface, useDataSourceManager } from '@tachybase/client';
 import { useMemo } from 'react';
 
 export const getOptions = (

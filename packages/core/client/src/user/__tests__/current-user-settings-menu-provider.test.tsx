@@ -1,4 +1,4 @@
-import { render } from '@nocobase/test/client';
+import { render } from '@tachybase/test/client';
 import React from 'react';
 import { SettingsMenu } from '../CurrentUser';
 import { useCurrentUserSettingsMenu } from '../CurrentUserSettingsMenuProvider';

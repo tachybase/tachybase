@@ -1,6 +1,6 @@
 import React from 'react';
-import { Plugin, SchemaComponent } from '@nocobase/client';
-import {} from '@nocobase/client';
+import { Plugin, SchemaComponent } from '@tachybase/client';
+import {} from '@tachybase/client';
 import { PluginDataSourceManagerClient } from '@nocobase/plugin-data-source-manager/client';
 import { Space } from 'antd';
 import { generateNTemplate as tval, usePluginTranslation } from './locale';

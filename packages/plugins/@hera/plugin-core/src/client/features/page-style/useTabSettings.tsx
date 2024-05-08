@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { SelectWithTitle, useAPIClient, useCurrentUserContext } from '@nocobase/client';
-import { error } from '@nocobase/utils/client';
+import { SelectWithTitle, useAPIClient, useCurrentUserContext } from '@tachybase/client';
+import { error } from '@tachybase/utils/client';
 import { useTranslation } from '../../locale';
 
 export const useTabSettings = () => {

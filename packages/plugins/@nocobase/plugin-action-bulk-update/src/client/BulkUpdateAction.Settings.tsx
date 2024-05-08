@@ -9,7 +9,7 @@ import {
   AssignedFieldValues,
   useDesignable,
   useSchemaToolbar,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 

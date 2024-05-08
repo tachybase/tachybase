@@ -26,15 +26,15 @@
   },
   "peerDependencies": {
     "@hera/plugin-core": "workspace:*",
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/cache": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
     "@nocobase/plugin-collection-manager": "workspace:*",
     "@nocobase/plugin-data-visualization": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "提供标准化的租赁管理系统，包括从物料到合同再到劳务人员的全面管理，同时提供健全的财务管理机制，以及实时监控租赁体系的运作能力。",
   "displayName.zh-CN": "创兴管理系统"

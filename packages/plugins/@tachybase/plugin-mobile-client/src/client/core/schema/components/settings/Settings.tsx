@@ -1,4 +1,4 @@
-import { css, cx, SettingsMenu, SortableItem, useDesigner } from '@nocobase/client';
+import { css, cx, SettingsMenu, SortableItem, useDesigner } from '@tachybase/client';
 import React from 'react';
 import { SettingsDesigner } from './Settings.Designer';
 export const InternalSettings = () => {

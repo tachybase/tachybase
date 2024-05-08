@@ -1,5 +1,5 @@
 import { TableOutlined } from '@ant-design/icons';
-import { Plugin, SchemaInitializerItem, SchemaSettings, useSchemaInitializer } from '@nocobase/client';
+import { Plugin, SchemaInitializerItem, SchemaSettings, useSchemaInitializer } from '@tachybase/client';
 import { Card } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

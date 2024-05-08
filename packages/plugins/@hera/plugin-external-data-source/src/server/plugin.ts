@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import { PostgresDataSource } from './postgres-data-source';
 
 export class PluginExternalDataSourceServer extends Plugin {

@@ -1,4 +1,4 @@
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 
 export class PluginKanbanServer extends Plugin {
   afterAdd() {}

@@ -9,7 +9,7 @@ import {
   useFieldSchema,
 } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { error } from '@nocobase/utils/client';
+import { error } from '@tachybase/utils/client';
 import { Menu as AntdMenu, MenuProps } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';

@@ -1,5 +1,5 @@
-import { Application } from '@nocobase/server';
-import Database from '@nocobase/database';
+import { Application } from '@tachybase/server';
+import Database from '@tachybase/database';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
 
 describe('workflow > instructions > create', () => {

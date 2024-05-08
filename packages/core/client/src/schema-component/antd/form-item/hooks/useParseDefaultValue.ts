@@ -1,7 +1,7 @@
 import { Field } from '@tachybase/schema';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import { reaction } from '@tachybase/schema';
-import { getValuesByPath } from '@nocobase/utils/client';
+import { getValuesByPath } from '@tachybase/utils/client';
 import _ from 'lodash';
 import { useCallback, useEffect } from 'react';
 import { useRecordIndex } from '../../../../../src/record-provider';

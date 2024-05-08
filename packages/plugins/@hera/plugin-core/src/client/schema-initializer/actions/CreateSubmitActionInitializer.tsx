@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActionInitializer, tval } from '@nocobase/client';
+import { ActionInitializer, tval } from '@tachybase/client';
 
 export const CreateSubmitActionInitializer: React.FC = (props) => {
   const schema = {

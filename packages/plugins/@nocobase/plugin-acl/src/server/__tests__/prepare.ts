@@ -1,4 +1,4 @@
-import { createMockServer, MockServer } from '@nocobase/test';
+import { createMockServer, MockServer } from '@tachybase/test';
 
 export async function prepareApp(): Promise<MockServer> {
   const app = await createMockServer({

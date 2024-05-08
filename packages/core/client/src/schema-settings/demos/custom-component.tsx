@@ -1,5 +1,5 @@
 import React from 'react';
-import { Application, Plugin, SchemaSettings, useSchemaSettingsRender } from '@nocobase/client';
+import { Application, Plugin, SchemaSettings, useSchemaSettingsRender } from '@tachybase/client';
 import { Button } from 'antd';
 
 const mySchemaSetting = new SchemaSettings({

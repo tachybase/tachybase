@@ -1,5 +1,5 @@
-import { Database } from '@nocobase/database';
-import { MockServer } from '@nocobase/test';
+import { Database } from '@tachybase/database';
+import { MockServer } from '@tachybase/test';
 import { createApp } from '../index';
 
 describe('find with association', () => {

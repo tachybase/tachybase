@@ -1,5 +1,5 @@
-import { Service, Db } from '@nocobase/utils';
-import Database from '@nocobase/database';
+import { Service, Db } from '@tachybase/utils';
+import Database from '@tachybase/database';
 
 export interface SystemSetting {
   title: string;

@@ -8,7 +8,7 @@ import {
   useACLRoleContext,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useCallback, useContext } from 'react';
 import { ChartConfigContext } from '../configure';
 import { FilterBlockInitializer } from '../filter';

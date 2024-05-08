@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import Spreadsheet from '../x-sheet';
-import { ClassNamesArg, css, cx } from '@nocobase/client';
+import { ClassNamesArg, css, cx } from '@tachybase/client';
 
 export type SheetRef = {
   getData: () => any;

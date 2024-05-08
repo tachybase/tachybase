@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@nocobase/test/client';
+import { render, screen, waitFor } from '@tachybase/test/client';
 import React from 'react';
 import { CurrentAppInfoContext } from '../../../appInfo';
 import { Checkbox } from '../../../schema-component/antd/checkbox';

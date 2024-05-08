@@ -1,4 +1,4 @@
-import { useActionContext } from '@nocobase/client';
+import { useActionContext } from '@tachybase/client';
 import React from 'react';
 import { SchemaConfigButton } from '../../trigger/VC.ConfigButton';
 import { ContextApproverConfig } from '../Pd.ContextApproverConfig';

@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import WorkflowPlugin from '../..';
 
 import DelayInstruction from './DelayInstruction';

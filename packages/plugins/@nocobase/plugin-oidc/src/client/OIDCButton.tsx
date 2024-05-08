@@ -1,5 +1,5 @@
 import { LoginOutlined } from '@ant-design/icons';
-import { css, useAPIClient } from '@nocobase/client';
+import { css, useAPIClient } from '@tachybase/client';
 import { Button, Space, message } from 'antd';
 import React, { useEffect } from 'react';
 import { useOidcTranslation } from './locale';

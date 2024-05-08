@@ -1,4 +1,4 @@
-import { Plugin, useCollection_deprecated } from '@nocobase/client';
+import { Plugin, useCollection_deprecated } from '@tachybase/client';
 import { bulkUpdateActionSettings, deprecatedBulkUpdateActionSettings } from './BulkUpdateAction.Settings';
 import { BulkUpdateActionInitializer } from './BulkUpdateActionInitializer';
 import { CustomizeActionInitializer } from './CustomizeActionInitializer';

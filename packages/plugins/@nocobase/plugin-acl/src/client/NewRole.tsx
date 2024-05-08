@@ -1,4 +1,4 @@
-import { SchemaComponent, useActionContext, useRequest } from '@nocobase/client';
+import { SchemaComponent, useActionContext, useRequest } from '@tachybase/client';
 import React from 'react';
 import { useACLTranslation } from './locale';
 import { uid } from '@tachybase/schema';

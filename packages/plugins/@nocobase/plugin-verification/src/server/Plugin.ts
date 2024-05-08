@@ -1,10 +1,10 @@
 import path from 'path';
 
-import { Context } from '@nocobase/actions';
-import { Op } from '@nocobase/database';
-import { HandlerType } from '@nocobase/resourcer';
-import { Plugin } from '@nocobase/server';
-import { Registry } from '@nocobase/utils';
+import { Context } from '@tachybase/actions';
+import { Op } from '@tachybase/database';
+import { HandlerType } from '@tachybase/resourcer';
+import { Plugin } from '@tachybase/server';
+import { Registry } from '@tachybase/utils';
 
 import { Provider, namespace } from '.';
 import initActions from './actions';

@@ -9,7 +9,7 @@ import {
   useResourceActionContext,
   useResourceContext,
   useDataSourceManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';

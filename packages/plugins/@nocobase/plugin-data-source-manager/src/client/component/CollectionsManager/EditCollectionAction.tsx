@@ -17,7 +17,7 @@ import {
   useResourceContext,
   useCancelAction,
   useDataSourceManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
 import React, { useEffect, useState } from 'react';

@@ -13,7 +13,7 @@ import {
   useSchemaToolbar,
   useSyncFromForm,
   SchemaSettings,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Tree as AntdTree } from 'antd';
 import { cloneDeep } from 'lodash';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';

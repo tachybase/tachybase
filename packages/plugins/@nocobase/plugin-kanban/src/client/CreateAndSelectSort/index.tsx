@@ -8,7 +8,7 @@ import {
   useAPIClient,
   useCompile,
   useGlobalTheme,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Button, Space } from 'antd';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';

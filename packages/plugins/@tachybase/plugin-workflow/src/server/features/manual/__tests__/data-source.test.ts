@@ -1,7 +1,7 @@
-import Database from '@nocobase/database';
+import Database from '@tachybase/database';
 import { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 
 // NOTE: skipped because time is not stable on github ci, but should work in local
 describe('workflow > instructions > manual', () => {

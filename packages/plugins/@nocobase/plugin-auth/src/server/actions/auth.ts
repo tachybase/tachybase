@@ -1,4 +1,4 @@
-import { Context, Next } from '@nocobase/actions';
+import { Context, Next } from '@tachybase/actions';
 
 export default {
   lostPassword: async (ctx: Context, next: Next) => {

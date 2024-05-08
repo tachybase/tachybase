@@ -1,4 +1,4 @@
-import { Icon } from '@nocobase/client';
+import { Icon } from '@tachybase/client';
 import React from 'react';
 
 Icon.createFromIconfontCN({

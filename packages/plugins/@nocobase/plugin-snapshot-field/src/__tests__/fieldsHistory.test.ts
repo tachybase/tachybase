@@ -1,4 +1,4 @@
-import { createMockServer, MockServer } from '@nocobase/test';
+import { createMockServer, MockServer } from '@tachybase/test';
 
 describe('actions', () => {
   let app: MockServer;

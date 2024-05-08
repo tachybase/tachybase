@@ -9,8 +9,8 @@ import {
   useCollectValuesToSubmit,
   useCompile,
   useRecord,
-} from '@nocobase/client';
-import { isURL } from '@nocobase/utils/client';
+} from '@tachybase/client';
+import { isURL } from '@tachybase/utils/client';
 
 export function useTriggerWorkflowsActionProps() {
   const api = useAPIClient();

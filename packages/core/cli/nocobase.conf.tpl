@@ -15,7 +15,7 @@ log_format apm '"$time_local" client=$remote_addr '
 server {
     listen 80;
     server_name _;
-    root {{cwd}}/node_modules/@nocobase/app/dist/client;
+    root {{cwd}}/node_modules/@tachybase/app/dist/client;
     index index.html;
     client_max_body_size 1000M;
     access_log /var/log/nginx/nocobase.log apm;
@@ -44,7 +44,7 @@ server {
     }
 
     location {{publicPath}} {
-        alias {{cwd}}/node_modules/@nocobase/app/dist/client/;
+        alias {{cwd}}/node_modules/@tachybase/app/dist/client/;
         try_files $uri $uri/ /index.html;
         add_header Last-Modified $date_gmt;
         add_header Cache-Control 'no-store, no-cache';

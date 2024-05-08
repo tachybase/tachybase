@@ -9,7 +9,7 @@ import {
   useDesignable,
   useFormBlockContext,
   useTableBlockContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import { useAuditLogsTranslation } from '../locale';
 

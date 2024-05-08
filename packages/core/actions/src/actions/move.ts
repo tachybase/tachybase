@@ -8,7 +8,7 @@ import {
   Repository,
   SortField,
   TargetKey,
-} from '@nocobase/database';
+} from '@tachybase/database';
 import { getRepositoryFromParams } from '../utils';
 
 export async function move(ctx: Context, next) {

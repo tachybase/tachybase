@@ -11,7 +11,7 @@ import {
   useCollectionManager_deprecated,
   useDesignable,
   useFormBlockContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import lodash from 'lodash';
 import React from 'react';
 import { useMapTranslation } from '../locale';

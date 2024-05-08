@@ -4,7 +4,7 @@ import {
   HasManyCreateAssociationMixin,
   HasManyGetAssociationsMixin,
   Model,
-} from '@nocobase/database';
+} from '@tachybase/database';
 import ExecutionModel from './Execution';
 import FlowNodeModel from './FlowNode';
 

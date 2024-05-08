@@ -12,11 +12,11 @@
     "koa-static": "^5.0.0"
   },
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "为 NocoBase 服务端提供客户端界面",
   "displayName.zh-CN": "WEB 客户端",

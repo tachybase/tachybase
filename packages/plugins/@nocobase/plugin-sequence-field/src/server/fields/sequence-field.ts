@@ -7,8 +7,8 @@ import {
   Transactionable,
   ValidationError,
   ValidationErrorItem,
-} from '@nocobase/database';
-import { Registry } from '@nocobase/utils';
+} from '@tachybase/database';
+import { Registry } from '@tachybase/utils';
 import parser from 'cron-parser';
 import dayjs from 'dayjs';
 import lodash from 'lodash';

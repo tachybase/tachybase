@@ -1,6 +1,6 @@
 import { UserOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { error } from '@nocobase/utils/client';
+import { error } from '@tachybase/utils/client';
 import { App, Dropdown, Menu, MenuProps } from 'antd';
 import React, { createContext, useCallback, useMemo as useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';

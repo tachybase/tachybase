@@ -1,4 +1,4 @@
-import { SchemaComponent } from '@nocobase/client';
+import { SchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorBoundaryFallBack } from './ErrorBoundary';

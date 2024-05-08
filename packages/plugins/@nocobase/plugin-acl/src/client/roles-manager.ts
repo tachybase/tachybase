@@ -1,4 +1,4 @@
-import { Registry } from '@nocobase/utils/client';
+import { Registry } from '@tachybase/utils/client';
 
 export type RolesManagerOptions = {
   title: string;

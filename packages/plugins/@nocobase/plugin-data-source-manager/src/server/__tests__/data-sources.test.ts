@@ -1,5 +1,5 @@
-import { createMockServer, MockServer, waitSecond } from '@nocobase/test';
-import { CollectionManager, DataSource } from '@nocobase/data-source-manager';
+import { createMockServer, MockServer, waitSecond } from '@tachybase/test';
+import { CollectionManager, DataSource } from '@tachybase/data-source-manager';
 
 describe('data source', async () => {
   let app: MockServer;

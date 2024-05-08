@@ -1,5 +1,5 @@
-import { ReturnTypeOfUseRequest, useRequest } from '@nocobase/client';
-import { error } from '@nocobase/utils/client';
+import { ReturnTypeOfUseRequest, useRequest } from '@tachybase/client';
+import { error } from '@tachybase/utils/client';
 import React, { createContext, useMemo } from 'react';
 import { ThemeItem } from '../../types';
 import { changeAlgorithmFromStringToFunction } from '../utils/changeAlgorithmFromStringToFunction';

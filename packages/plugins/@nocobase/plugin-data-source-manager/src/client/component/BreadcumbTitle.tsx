@@ -1,5 +1,5 @@
 import { RightOutlined } from '@ant-design/icons';
-import { useApp, useCompile, useDataSourceManager } from '@nocobase/client';
+import { useApp, useCompile, useDataSourceManager } from '@tachybase/client';
 import { Breadcrumb, Space, Tag } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';

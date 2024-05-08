@@ -6,7 +6,7 @@ import {
   BlockProvider,
   useBlockRequestContext,
   TableBlockProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 export const GanttBlockContext = createContext<any>({});
 GanttBlockContext.displayName = 'GanttBlockContext';

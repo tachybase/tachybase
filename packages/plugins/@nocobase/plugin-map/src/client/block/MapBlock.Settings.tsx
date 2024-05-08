@@ -18,7 +18,7 @@ import {
   useCollectionManager_deprecated,
   setDataLoadingModeSettingsItem,
   useDataLoadingMode,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import lodash from 'lodash';
 import { useMapTranslation } from '../locale';
 import { useMapBlockContext } from './MapBlockProvider';

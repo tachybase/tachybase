@@ -5,7 +5,7 @@ import { IncomingMessage } from 'http';
 import { AppSupervisor } from '../app-supervisor';
 import { applyErrorWithArgs, getErrorWithCode } from './errors';
 import lodash from 'lodash';
-import { Logger } from '@nocobase/logger';
+import { Logger } from '@tachybase/logger';
 
 declare class WebSocketWithId extends WebSocket {
   id: string;

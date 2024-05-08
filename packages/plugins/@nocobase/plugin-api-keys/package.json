@@ -20,13 +20,13 @@
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/resourcer": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "允许用户使用 API 密钥访问应用的 HTTP API",
   "displayName.zh-CN": "认证：API 密钥",

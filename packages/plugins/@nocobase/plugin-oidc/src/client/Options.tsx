@@ -1,7 +1,7 @@
 import { CopyOutlined } from '@ant-design/icons';
 import { ArrayItems, FormTab } from '@tachybase/components';
 import { observer } from '@tachybase/schema';
-import { FormItem, Input, SchemaComponent, useApp } from '@nocobase/client';
+import { FormItem, Input, SchemaComponent, useApp } from '@tachybase/client';
 import { Card, Space, message } from 'antd';
 import React, { useMemo } from 'react';
 import { lang, useOidcTranslation } from './locale';

@@ -25,8 +25,8 @@ function tsConfigPathsToAlias() {
   }, []);
   alias.unshift(
     {
-      find: '@nocobase/utils/plugin-symlink',
-      replacement: 'node_modules/@nocobase/utils/plugin-symlink.js',
+      find: '@tachybase/utils/plugin-symlink',
+      replacement: 'node_modules/@tachybase/utils/plugin-symlink.js',
     },
     {
       find: '@opentelemetry/resources',

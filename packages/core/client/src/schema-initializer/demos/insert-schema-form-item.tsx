@@ -14,7 +14,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaInitializerRender,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { FC } from 'react';
 
 const useFormItemInitializerFields = () => {

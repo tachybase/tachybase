@@ -1,4 +1,4 @@
-import { useCollection_deprecated, useCollectionFilterOptions, useCompile } from '@nocobase/client';
+import { useCollection_deprecated, useCollectionFilterOptions, useCompile } from '@tachybase/client';
 import { useMemo } from 'react';
 import { useTranslation } from '../locale';
 

@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/data-source-manager",
+  "name": "@tachybase/data-source-manager",
   "version": "0.21.24",
   "description": "",
   "repository": {
@@ -11,12 +11,12 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
-    "@nocobase/acl": "workspace:*",
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/cache": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/resourcer": "workspace:*",
-    "@nocobase/utils": "workspace:*",
+    "@tachybase/acl": "workspace:*",
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
+    "@tachybase/utils": "workspace:*",
     "@types/jsonwebtoken": "^8.5.8",
     "deepmerge": "^4.2.2",
     "jsonwebtoken": "^8.5.1",

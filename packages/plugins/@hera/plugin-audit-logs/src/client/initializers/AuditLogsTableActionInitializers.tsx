@@ -1,4 +1,4 @@
-import { SchemaInitializer } from '@nocobase/client';
+import { SchemaInitializer } from '@tachybase/client';
 import { tval } from '../locale';
 export type { ButtonProps } from 'antd';
 

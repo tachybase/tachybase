@@ -1,4 +1,4 @@
-import { expect, test } from '@nocobase/test/e2e';
+import { expect, test } from '@tachybase/test/e2e';
 import { oneEmptyTableBlockWithCustomizeActions } from './utils';
 
 test.describe('bulk edit action setting', () => {

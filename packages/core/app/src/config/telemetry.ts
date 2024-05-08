@@ -1,4 +1,4 @@
-import { AppTelemetryOptions } from '@nocobase/server';
+import { AppTelemetryOptions } from '@tachybase/server';
 
 export const telemetry: AppTelemetryOptions = {
   enabled: process.env.TELEMETRY_ENABLED === 'on',

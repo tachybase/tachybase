@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { SchemaComponentOptions } from '@nocobase/client';
+import { SchemaComponentOptions } from '@tachybase/client';
 import { ChartFilterItemDesigner } from './FilterItemDesigner';
 import {
   useChartFilterActionProps,

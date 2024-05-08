@@ -1,4 +1,4 @@
-import { Database, ViewFieldInference } from '@nocobase/database';
+import { Database, ViewFieldInference } from '@tachybase/database';
 
 export default {
   name: 'dbViews',

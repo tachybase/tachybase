@@ -9,9 +9,9 @@
     "antd-mobile": "^5.35.0"
   },
   "peerDependencies": {
-    "@nocobase/client": "0.x",
-    "@nocobase/server": "0.x",
-    "@nocobase/test": "0.x"
+    "@tachybase/client": "0.x",
+    "@tachybase/server": "0.x",
+    "@tachybase/test": "0.x"
   },
   "description.zh-CN": "提供移动端: 定制化的三聪头项目页面,.",
   "displayName.zh-CN": "移动端: 三聪头,定制化页面配置"

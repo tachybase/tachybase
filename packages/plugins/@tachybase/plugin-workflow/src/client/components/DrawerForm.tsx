@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash';
 import { createForm } from '@tachybase/schema';
 import { useForm } from '@tachybase/schema';
 
-import { ActionContextProvider, FormProvider } from '@nocobase/client';
+import { ActionContextProvider, FormProvider } from '@tachybase/client';
 
 export function useFormProviderProps() {
   return { form: useForm() };

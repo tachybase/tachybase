@@ -6,7 +6,7 @@ export * from './ImportDesigner';
 export * from './ImportPluginProvider';
 export * from './useImportAction';
 
-import { Plugin, useCollection_deprecated } from '@nocobase/client';
+import { Plugin, useCollection_deprecated } from '@tachybase/client';
 import { ImportPluginProvider } from './ImportPluginProvider';
 import { importActionSchemaSettings } from './schemaSettings';
 

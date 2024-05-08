@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { render, screen } from '@nocobase/test/client';
+import { render, screen } from '@tachybase/test/client';
 import {
   CollectionProvider,
   useCollectionFields,
@@ -8,7 +8,7 @@ import {
   SchemaComponent,
   SchemaComponentProvider,
   DataSourceApplicationProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import collections from '../collections.json';
 
 function renderApp(Demo: ComponentType, props: any = {}) {

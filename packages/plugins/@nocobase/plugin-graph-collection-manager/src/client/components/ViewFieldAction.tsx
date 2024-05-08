@@ -1,5 +1,5 @@
 import { EyeOutlined } from '@ant-design/icons';
-import { ViewFieldAction as ViewCollectionFieldAction } from '@nocobase/client';
+import { ViewFieldAction as ViewCollectionFieldAction } from '@tachybase/client';
 import React from 'react';
 import { getPopupContainer } from '../utils';
 

@@ -1,4 +1,4 @@
-import { SchemaComponent, useApp, useRecord } from '@nocobase/client';
+import { SchemaComponent, useApp, useRecord } from '@tachybase/client';
 import { Card } from 'antd';
 import React from 'react';
 import { schema } from './settings/schemas/applications';

@@ -1,4 +1,4 @@
-import { useSchemaInitializer } from '@nocobase/client';
+import { useSchemaInitializer } from '@tachybase/client';
 
 export const useFilterFormCustomProps = () => {
   const { insert } = useSchemaInitializer();

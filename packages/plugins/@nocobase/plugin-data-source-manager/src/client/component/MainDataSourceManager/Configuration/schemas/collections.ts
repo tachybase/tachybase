@@ -2,9 +2,9 @@ import { ISchema, Schema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useAPIClient, i18n } from '@nocobase/client';
-import { CollectionCategory, CollectionTemplateTag } from '@nocobase/client';
-import type { CollectionOptions } from '@nocobase/client';
+import { useAPIClient, i18n } from '@tachybase/client';
+import { CollectionCategory, CollectionTemplateTag } from '@tachybase/client';
+import type { CollectionOptions } from '@tachybase/client';
 
 const compile = (source) => {
   return Schema.compile(source, { t: i18n.t });

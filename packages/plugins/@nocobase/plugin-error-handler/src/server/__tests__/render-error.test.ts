@@ -1,5 +1,5 @@
-import { Database } from '@nocobase/database';
-import { MockServer, createMockServer } from '@nocobase/test';
+import { Database } from '@tachybase/database';
+import { MockServer, createMockServer } from '@tachybase/test';
 describe('create with exception', () => {
   let app: MockServer;
   beforeEach(async () => {

@@ -3,7 +3,7 @@ import { run, isDev, isPackageValid, generatePlaywrightPath } from '../util';
 import { resolve } from 'path';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
-import { createStoragePluginsSymlink, createDevPluginsSymlink } from '@nocobase/utils/plugin-symlink';
+import { createStoragePluginsSymlink, createDevPluginsSymlink } from '@tachybase/utils/plugin-symlink';
 
 export default (cli: Command) => {
   const { APP_PACKAGE_ROOT } = process.env;

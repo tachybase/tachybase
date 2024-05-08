@@ -20,7 +20,7 @@ import {
   TemplateSummary,
   ResourceActionContext,
   useDataSourceManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { message } from 'antd';
 import { getCollectionSchema } from './schema/collections';
 import { CollectionFields } from './CollectionFields';

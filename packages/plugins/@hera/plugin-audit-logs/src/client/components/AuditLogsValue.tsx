@@ -1,4 +1,4 @@
-import { EllipsisWithTooltip, FormProvider, SchemaComponent, useRecord } from '@nocobase/client';
+import { EllipsisWithTooltip, FormProvider, SchemaComponent, useRecord } from '@tachybase/client';
 import React from 'react';
 import { observer, useField } from '@tachybase/schema';
 

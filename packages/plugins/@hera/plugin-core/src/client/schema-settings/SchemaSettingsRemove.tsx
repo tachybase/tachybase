@@ -1,5 +1,5 @@
 import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { SchemaSettingsItem, useFormActiveFields, useSchemaSettings } from '@nocobase/client';
+import { SchemaSettingsItem, useFormActiveFields, useSchemaSettings } from '@tachybase/client';
 import { App, ModalFuncProps } from 'antd';
 import { FC } from 'react';
 import { useTranslation } from '../locale';

@@ -2,7 +2,7 @@ import { ISchema } from '@tachybase/schema';
 import React, { createContext, useState } from 'react';
 import { ChartRendererProvider } from '../renderer';
 import { ChartConfigure } from './ChartConfigure';
-import { useDesignable } from '@nocobase/client';
+import { useDesignable } from '@tachybase/client';
 import { css } from '@emotion/css';
 import { theme } from 'antd';
 

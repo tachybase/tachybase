@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/telemetry",
+  "name": "@tachybase/telemetry",
   "version": "0.21.24",
   "description": "nocobase telemetry library",
   "repository": {
@@ -11,14 +11,14 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
-    "@nocobase/utils": "workspace:*",
     "@opentelemetry/api": "^1.7.0",
     "@opentelemetry/instrumentation": "^0.46.0",
     "@opentelemetry/resources": "^1.19.0",
     "@opentelemetry/sdk-metrics": "^1.19.0",
     "@opentelemetry/sdk-trace-base": "^1.19.0",
     "@opentelemetry/sdk-trace-node": "^1.19.0",
-    "@opentelemetry/semantic-conventions": "^1.19.0"
+    "@opentelemetry/semantic-conventions": "^1.19.0",
+    "@tachybase/utils": "workspace:*"
   },
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
 }

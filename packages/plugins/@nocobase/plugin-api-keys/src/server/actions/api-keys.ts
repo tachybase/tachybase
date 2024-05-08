@@ -1,5 +1,5 @@
-import actions, { Context, Next } from '@nocobase/actions';
-import { Repository } from '@nocobase/database';
+import actions, { Context, Next } from '@tachybase/actions';
+import { Repository } from '@tachybase/database';
 
 export async function create(ctx: Context, next: Next) {
   const { values } = ctx.action.params;

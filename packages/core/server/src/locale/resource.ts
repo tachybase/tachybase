@@ -1,4 +1,4 @@
-import { requireModule } from '@nocobase/utils';
+import { requireModule } from '@tachybase/utils';
 
 const arr2obj = (items: any[]) => {
   const obj = {};
@@ -13,9 +13,9 @@ export const getResource = (packageName: string, lang: string, isPlugin = true) 
   const prefixes = [isPlugin ? 'dist' : 'lib'];
   if (process.env.APP_ENV !== 'production') {
     try {
-      require.resolve('@nocobase/client/src');
+      require.resolve('@tachybase/client/src');
       if (packageName === '@nocobase/plugin-client') {
-        packageName = '@nocobase/client';
+        packageName = '@tachybase/client';
       }
     } catch (error) {
       // empty

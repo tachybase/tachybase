@@ -1,4 +1,4 @@
-import { fsExists } from '@nocobase/utils';
+import { fsExists } from '@tachybase/utils';
 import fs from 'fs';
 import { resolve } from 'path';
 import Application from '../application';

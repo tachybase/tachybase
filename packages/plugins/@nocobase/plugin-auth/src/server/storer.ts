@@ -1,6 +1,6 @@
-import { Storer as IStorer } from '@nocobase/auth';
-import { Cache } from '@nocobase/cache';
-import { Database, Model } from '@nocobase/database';
+import { Storer as IStorer } from '@tachybase/auth';
+import { Cache } from '@tachybase/cache';
+import { Database, Model } from '@tachybase/database';
 import { AuthModel } from './model/authenticator';
 
 export class Storer implements IStorer {

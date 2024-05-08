@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { IframeBlockProvider } from './IframeBlockProvider';
 import { iframeBlockSchemaSettings, iframeBlockSchemaSettings_deprecated } from './schemaSettings';
 

@@ -1,5 +1,5 @@
-import { SchemaComponent, useAPIClient, useFormBlockContext, useRequest } from '@nocobase/client';
-import { uid } from '@nocobase/utils/client';
+import { SchemaComponent, useAPIClient, useFormBlockContext, useRequest } from '@tachybase/client';
+import { uid } from '@tachybase/utils/client';
 import { default as React, useCallback, useContext } from 'react';
 import { useForm } from '@tachybase/schema';
 import { Spin } from 'antd';

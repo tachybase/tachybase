@@ -4,9 +4,9 @@ import {
   SchemaComponent,
   SchemaComponentContext,
   css,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useFlowContext } from '@tachybase/plugin-workflow/client';
-import { uid } from '@nocobase/utils/client';
+import { uid } from '@tachybase/utils/client';
 import React, { useContext, useState } from 'react';
 import { CollectionApprovalTodos } from '../../../common/Cn.ApprovalTodos';
 import { NAMESPACE } from '../../../locale';

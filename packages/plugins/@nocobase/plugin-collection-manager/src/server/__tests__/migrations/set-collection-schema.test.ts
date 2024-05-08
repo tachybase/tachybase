@@ -1,5 +1,5 @@
-import { Database, MigrationContext } from '@nocobase/database';
-import { MockServer, pgOnly } from '@nocobase/test';
+import { Database, MigrationContext } from '@tachybase/database';
+import { MockServer, pgOnly } from '@tachybase/test';
 import Migrator from '../../migrations/20230918024546-set-collection-schema';
 import { createApp } from '../index';
 

@@ -11,7 +11,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaTemplateManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import { traverseSchema } from '../utils';
 

@@ -1,4 +1,4 @@
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { getAuthUrl } from './actions/getAuthUrl';
 import { metadata } from './actions/metadata';
 import { redirect } from './actions/redirect';

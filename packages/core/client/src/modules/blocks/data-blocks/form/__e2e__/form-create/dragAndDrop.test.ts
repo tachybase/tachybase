@@ -1,4 +1,4 @@
-import { expect, oneFormBlockBasedOnUsers, test } from '@nocobase/test/e2e';
+import { expect, oneFormBlockBasedOnUsers, test } from '@tachybase/test/e2e';
 
 test('fields', async ({ page, mockPage }) => {
   await mockPage(oneFormBlockBasedOnUsers).goto();

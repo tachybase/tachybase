@@ -8,7 +8,7 @@ import {
   SchemaSettingsModalItem,
   SchemaSettingsRemove,
   useDesignable,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useShared } from './useShared';

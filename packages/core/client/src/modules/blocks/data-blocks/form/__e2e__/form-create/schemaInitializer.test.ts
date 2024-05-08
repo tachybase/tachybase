@@ -1,4 +1,4 @@
-import { createBlockInPage, expect, oneEmptyForm, test } from '@nocobase/test/e2e';
+import { createBlockInPage, expect, oneEmptyForm, test } from '@tachybase/test/e2e';
 import { T3106, T3469 } from './templatesOfBug';
 import { uid } from '@tachybase/schema';
 

@@ -1,4 +1,4 @@
-import { CacheManager } from '@nocobase/cache';
+import { CacheManager } from '@tachybase/cache';
 import Resources from '../resources';
 
 describe('resources', () => {

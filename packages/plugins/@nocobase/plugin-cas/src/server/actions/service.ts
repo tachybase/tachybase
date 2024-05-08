@@ -1,5 +1,5 @@
-import { Context, Next } from '@nocobase/actions';
-import { AppSupervisor } from '@nocobase/server';
+import { Context, Next } from '@tachybase/actions';
+import { AppSupervisor } from '@tachybase/server';
 import { CASAuth } from '../auth';
 
 export const service = async (ctx: Context, next: Next) => {

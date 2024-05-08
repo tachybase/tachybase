@@ -14,7 +14,7 @@ import {
   useSchemaInitializerItem,
   useSchemaInitializer,
   SchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { createCalendarBlockUISchema } from '../createCalendarBlockUISchema';
 import { useTranslation } from '../../../locale';
 

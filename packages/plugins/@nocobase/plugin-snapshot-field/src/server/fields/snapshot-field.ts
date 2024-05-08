@@ -1,4 +1,4 @@
-import { BaseColumnFieldOptions, CreateOptions, DataTypes, Field, Model } from '@nocobase/database';
+import { BaseColumnFieldOptions, CreateOptions, DataTypes, Field, Model } from '@tachybase/database';
 
 export class SnapshotField extends Field {
   get dataType() {

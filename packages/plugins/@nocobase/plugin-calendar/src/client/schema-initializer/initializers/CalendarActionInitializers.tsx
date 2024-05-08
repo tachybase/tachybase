@@ -1,4 +1,4 @@
-import { CompatibleSchemaInitializer, useCollection_deprecated } from '@nocobase/client';
+import { CompatibleSchemaInitializer, useCollection_deprecated } from '@tachybase/client';
 import { generateNTemplate } from '../../../locale';
 
 /**

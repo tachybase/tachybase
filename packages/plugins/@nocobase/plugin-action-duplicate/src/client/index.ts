@@ -1,4 +1,4 @@
-import { Plugin, useCollection_deprecated } from '@nocobase/client';
+import { Plugin, useCollection_deprecated } from '@tachybase/client';
 import { DuplicateAction } from './DuplicateAction';
 import { deprecatedDuplicateActionSettings, duplicateActionSettings } from './DuplicateAction.Settings';
 import { DuplicateActionInitializer } from './DuplicateActionInitializer';

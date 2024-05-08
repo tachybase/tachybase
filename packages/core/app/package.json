@@ -1,24 +1,21 @@
 {
-  "name": "@nocobase/app",
+  "name": "@tachybase/app",
   "version": "0.21.24",
   "description": "",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nocobase/nocobase.git",
-    "directory": "packages/core/app"
-  },
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
-    "@nocobase/database": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@tachybase/preset-tachybase": "workspace:*"
+    "@tachybase/database": "workspace:*",
+    "@tachybase/preset-hera-rental": "workspace:*",
+    "@tachybase/preset-sancongtou": "workspace:*",
+    "@tachybase/preset-tachybase": "workspace:*",
+    "@tachybase/server": "workspace:*"
   },
   "devDependencies": {
-    "@nocobase/cache": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/logger": "workspace:*"
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/logger": "workspace:*"
   },
   "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
 }

@@ -1,3 +1,3 @@
-import { Resourcer } from '@nocobase/resourcer';
+import { Resourcer } from '@tachybase/resourcer';
 
 export class ResourceManager extends Resourcer {}

@@ -2,7 +2,7 @@
  * title: Markdown
  */
 import { FormItem } from '@tachybase/components';
-import { Markdown, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { Markdown, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 
 const schema = {

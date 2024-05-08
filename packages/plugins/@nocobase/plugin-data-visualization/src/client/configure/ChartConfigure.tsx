@@ -2,7 +2,7 @@ import { RightSquareOutlined } from '@ant-design/icons';
 import { ArrayItems, Editable, FormCollapse, FormItem, FormLayout, Switch } from '@tachybase/components';
 import { Form as FormType, ObjectField, createForm, onFieldChange, onFormInit } from '@tachybase/schema';
 import { FormConsumer, ISchema, Schema } from '@tachybase/schema';
-import { AutoComplete, FormProvider, SchemaComponent, gridRowColWrap, useDesignable } from '@nocobase/client';
+import { AutoComplete, FormProvider, SchemaComponent, gridRowColWrap, useDesignable } from '@tachybase/client';
 import { Alert, App, Button, Card, Col, Modal, Row, Space, Table, Tabs, Typography } from 'antd';
 import { cloneDeep, isEqual } from 'lodash';
 import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';

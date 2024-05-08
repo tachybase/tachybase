@@ -1,4 +1,4 @@
-import { SchemaComponentOptions } from '@nocobase/client';
+import { SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
 import { ExportActionInitializer, ExportDesigner, useExportAction } from './';
 

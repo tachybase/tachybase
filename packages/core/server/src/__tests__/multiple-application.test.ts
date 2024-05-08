@@ -1,6 +1,6 @@
-import { AppSupervisor } from '@nocobase/server';
-import { mockServer, MockServer } from '@nocobase/test';
-import { uid } from '@nocobase/utils';
+import { AppSupervisor } from '@tachybase/server';
+import { mockServer, MockServer } from '@tachybase/test';
+import { uid } from '@tachybase/utils';
 import Application from '../application';
 
 describe('multiple application', () => {

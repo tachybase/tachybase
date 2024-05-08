@@ -3,7 +3,7 @@ import { useFormLayout } from '@tachybase/components';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { isValid } from '@tachybase/schema';
 import { Button, Space } from 'antd';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon, hasIcon } from '../../../icon';
 import { StablePopover } from '../popover';

@@ -4,7 +4,7 @@ import { uniq } from 'lodash';
 import React, { useContext, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { uid } from '@tachybase/schema';
-import { useAPIClient, SchemaComponent, useRequest } from '@nocobase/client';
+import { useAPIClient, SchemaComponent, useRequest } from '@tachybase/client';
 import { useStyles } from './style';
 import { useMemoizedFn } from 'ahooks';
 import { RolesManagerContext } from '../RolesManagerProvider';

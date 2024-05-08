@@ -1,5 +1,5 @@
-import { Op } from '@nocobase/database';
-import { Migration } from '@nocobase/server';
+import { Op } from '@tachybase/database';
+import { Migration } from '@tachybase/server';
 import { getTextsFromDB, getTextsFromMenu } from '../actions/localization';
 import { NAMESPACE_COLLECTIONS, NAMESPACE_MENUS } from '../constans';
 

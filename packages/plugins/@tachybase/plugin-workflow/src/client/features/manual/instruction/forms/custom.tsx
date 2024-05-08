@@ -21,9 +21,9 @@ import {
   useRecord,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { JOB_STATUS } from '../../../..';
-import { merge, uid } from '@nocobase/utils/client';
+import { merge, uid } from '@tachybase/utils/client';
 
 import { NAMESPACE, lang } from '../../../../locale';
 import { ManualFormType } from '../SchemaConfig';

@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/sdk",
+  "name": "@tachybase/sdk",
   "version": "0.21.24",
   "license": "Apache-2.0",
   "main": "lib/index.js",

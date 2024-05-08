@@ -1,4 +1,4 @@
-import { defineCollection } from '@nocobase/database';
+import { defineCollection } from '@tachybase/database';
 export const ownersField = {
   interface: 'm2m',
   type: 'belongsToMany',

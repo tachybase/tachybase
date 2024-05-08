@@ -1,4 +1,4 @@
-import { SchemaComponent } from '@nocobase/client';
+import { SchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { NodeColumn } from '../../approval-common/approval-columns/column.node';
 import { ApprovalRecordStatusColumn } from '../../approval-common/approval-columns/column.status';

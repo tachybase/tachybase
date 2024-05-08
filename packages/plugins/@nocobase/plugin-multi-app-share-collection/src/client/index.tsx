@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { MultiAppShareCollectionProvider } from './MultiAppShareCollectionProvider';
 
 export class MultiAppShareCollectionPlugin extends Plugin {

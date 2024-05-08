@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFieldSchema } from '@tachybase/schema';
 
-import { ActionContextProvider, SchemaComponent } from '@nocobase/client';
+import { ActionContextProvider, SchemaComponent } from '@tachybase/client';
 
 export default function ({ component = 'div', children, ...props }) {
   const [visible, setVisible] = useState(false);

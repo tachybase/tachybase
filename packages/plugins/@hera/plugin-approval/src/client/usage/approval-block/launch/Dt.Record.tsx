@@ -1,4 +1,4 @@
-import { RecordProvider, useRecord } from '@nocobase/client';
+import { RecordProvider, useRecord } from '@tachybase/client';
 import React from 'react';
 
 export function RecordDecorator(props) {

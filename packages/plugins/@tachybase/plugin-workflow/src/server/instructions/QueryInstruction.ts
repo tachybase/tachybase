@@ -1,5 +1,5 @@
-import { DEFAULT_PAGE, DEFAULT_PER_PAGE, utils } from '@nocobase/actions';
-import { parseCollectionName } from '@nocobase/data-source-manager';
+import { DEFAULT_PAGE, DEFAULT_PER_PAGE, utils } from '@tachybase/actions';
+import { parseCollectionName } from '@tachybase/data-source-manager';
 
 import type Processor from '../Processor';
 import { JOB_STATUS } from '../constants';

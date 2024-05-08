@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, userEvent, waitFor } from '@nocobase/test/client';
+import { fireEvent, render, screen, userEvent, waitFor } from '@tachybase/test/client';
 import React from 'react';
 import App1 from '../demos/input';
 import App4 from '../demos/json';

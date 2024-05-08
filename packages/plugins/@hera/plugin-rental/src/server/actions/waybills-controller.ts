@@ -1,10 +1,10 @@
-import { Context } from '@nocobase/actions';
+import { Context } from '@tachybase/actions';
 import { renderWaybill } from '../pdf-documents/waybills-document';
 import { SqlLoader } from '@hera/plugin-core';
-import { Action, Controller, Inject } from '@nocobase/utils';
+import { Action, Controller, Inject } from '@tachybase/utils';
 import { QueryTypes } from 'sequelize';
 import { Waybill } from '../../interfaces/waybill';
-import { FilterParser } from '@nocobase/database';
+import { FilterParser } from '@tachybase/database';
 
 @Controller('waybills')
 export class WaybillsController {
@@ -20,12 +20,20 @@ export class WaybillsController {
       ctx.body = await renderWaybill(null);
       return;
     }
+    const products = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['waybills_products'], {
+      replacements: {
+        recordId: recordId,
+      },
+      type: QueryTypes.SELECT,
+    });
     const waybills = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_waybills'], {
       replacements: {
         recordId: recordId,
       },
       type: QueryTypes.SELECT,
     });
+    const data = waybills[0];
+    data['products'] = products;
     const settings = {};
     if (Number(margingTop)) {
       settings['margingTop'] = Number(margingTop);
@@ -33,7 +41,7 @@ export class WaybillsController {
       const currentUser = await ctx.db.getRepository('users').findOne({ filter: { id: ctx.state.currentUser.id } });
       settings['margingTop'] = Number(currentUser?.pdf_top_margin) || 0;
     }
-    ctx.body = await renderWaybill(waybills[0] as Waybill, settings);
+    ctx.body = await renderWaybill(data as Waybill, settings);
   }
 
   @Action('group')

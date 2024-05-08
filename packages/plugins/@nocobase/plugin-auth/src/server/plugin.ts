@@ -1,6 +1,6 @@
-import { Cache } from '@nocobase/cache';
-import { Model } from '@nocobase/database';
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { Cache } from '@tachybase/cache';
+import { Model } from '@tachybase/database';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { resolve } from 'path';
 import { namespace, presetAuthType, presetAuthenticator } from '../preset';
 import authActions from './actions/auth';
@@ -55,8 +55,8 @@ export class PluginAuthServer extends Plugin {
       title: 'Password',
     });
     // Register actions
-    Object.entries(authActions).forEach(
-      ([action, handler]) => this.app.resourcer.getResource('auth')?.addAction(action, handler),
+    Object.entries(authActions).forEach(([action, handler]) =>
+      this.app.resourcer.getResource('auth')?.addAction(action, handler),
     );
     Object.entries(authenticatorsActions).forEach(([action, handler]) =>
       this.app.resourcer.registerAction(`authenticators:${action}`, handler),

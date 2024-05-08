@@ -15,15 +15,15 @@
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
     "@nocobase/plugin-collection-manager": "workspace:*",
     "@nocobase/plugin-error-handler": "workspace:*",
     "@nocobase/plugin-multi-app-manager": "workspace:*",
     "@nocobase/plugin-users": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "",
   "displayName.zh-CN": "多应用数据表共享",

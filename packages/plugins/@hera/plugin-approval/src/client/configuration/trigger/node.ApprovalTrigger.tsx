@@ -1,4 +1,4 @@
-import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile } from '@nocobase/client';
+import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile } from '@tachybase/client';
 import {
   CollectionBlockInitializer,
   RadioWithTooltip,

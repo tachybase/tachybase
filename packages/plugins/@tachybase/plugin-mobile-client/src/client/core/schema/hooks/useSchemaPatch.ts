@@ -1,5 +1,5 @@
 import { useField, useFieldSchema } from '@tachybase/schema';
-import { useDesignable } from '@nocobase/client';
+import { useDesignable } from '@tachybase/client';
 import lodash from 'lodash';
 import { useMemoizedFn } from 'ahooks';
 

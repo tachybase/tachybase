@@ -1,5 +1,5 @@
-import { expect, test } from '@nocobase/test/e2e';
-import { dayjs } from '@nocobase/utils';
+import { expect, test } from '@tachybase/test/e2e';
+import { dayjs } from '@tachybase/utils';
 import { CreateLocalStorage } from './pageobject/localStorage';
 
 test.describe('file manager', () => {

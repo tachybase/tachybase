@@ -1,5 +1,5 @@
-import { parseCollectionName } from '@nocobase/data-source-manager';
-import { DataTypes } from '@nocobase/database';
+import { parseCollectionName } from '@tachybase/data-source-manager';
+import { DataTypes } from '@tachybase/database';
 import { Processor, Instruction, JOB_STATUS, FlowNodeModel } from '../..';
 
 const aggregators = {

@@ -1,7 +1,7 @@
 import { GeneralField } from '@tachybase/schema';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import { reaction } from '@tachybase/schema';
-import { flatten, getValuesByPath } from '@nocobase/utils/client';
+import { flatten, getValuesByPath } from '@tachybase/utils/client';
 import _, { isString } from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';

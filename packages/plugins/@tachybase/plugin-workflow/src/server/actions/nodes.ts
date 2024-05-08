@@ -1,5 +1,5 @@
-import { Context, utils } from '@nocobase/actions';
-import { MultipleRelationRepository, Op, Repository } from '@nocobase/database';
+import { Context, utils } from '@tachybase/actions';
+import { MultipleRelationRepository, Op, Repository } from '@tachybase/database';
 import type { WorkflowModel } from '../types';
 
 export async function create(context: Context, next) {

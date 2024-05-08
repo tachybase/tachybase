@@ -1,4 +1,4 @@
-import { requireModule } from '@nocobase/utils';
+import { requireModule } from '@tachybase/utils';
 import { resolve } from 'path';
 
 export const getAntdLocale = (lang) => {

@@ -1,5 +1,5 @@
-import { evaluators } from '@nocobase/evaluators';
-import { Registry } from '@nocobase/utils';
+import { evaluators } from '@tachybase/evaluators';
+import { Registry } from '@tachybase/utils';
 import { Instruction } from '.';
 import type Processor from '../Processor';
 import { JOB_STATUS } from '../constants';

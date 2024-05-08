@@ -1,5 +1,5 @@
-import Database, { CreateOptions, MagicAttributeModel } from '@nocobase/database';
-import { Db, Service } from '@nocobase/utils';
+import Database, { CreateOptions, MagicAttributeModel } from '@tachybase/database';
+import { Db, Service } from '@tachybase/utils';
 
 @Service()
 export class DetailCheckService {

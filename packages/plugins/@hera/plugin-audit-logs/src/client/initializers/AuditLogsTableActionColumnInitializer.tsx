@@ -1,4 +1,4 @@
-import { InitializerWithSwitch, useSchemaInitializerItem } from '@nocobase/client';
+import { InitializerWithSwitch, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
 import { tval } from '../locale';
 

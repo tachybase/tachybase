@@ -1,4 +1,4 @@
-import { Model } from '@nocobase/database';
+import { Model } from '@tachybase/database';
 
 export function toJSON(data: any): any {
   if (Array.isArray(data)) {

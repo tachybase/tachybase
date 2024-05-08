@@ -3,7 +3,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { Input as AntdInput } from 'antd';
 import cls from 'classnames';
-import { useCollectionRecord } from '@nocobase/client';
+import { useCollectionRecord } from '@tachybase/client';
 import { usePrefixCls } from '@tachybase/components';
 
 const ReadPretty = (props) => {

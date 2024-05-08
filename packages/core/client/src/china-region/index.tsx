@@ -1,6 +1,6 @@
 import { ArrayField } from '@tachybase/schema';
 import { useField } from '@tachybase/schema';
-import { error } from '@nocobase/utils/client';
+import { error } from '@tachybase/utils/client';
 import React from 'react';
 import { SchemaComponentOptions } from '..';
 import { useAPIClient, useRequest } from '../api-client';

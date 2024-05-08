@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { uid } from '@nocobase/utils';
+import { uid } from '@tachybase/utils';
 import _ from 'lodash';
 
 export function mockAttachment() {

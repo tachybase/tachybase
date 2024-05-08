@@ -3,7 +3,7 @@ import {
   SchemaSettingsModalItem,
   useBlockRequestContext,
   useDesignable,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useContext } from 'react';
 import { useTranslation } from '../locale';
 import { GroupBlockContext } from '../schema-initializer/blocks/GroupBlockInitializer';

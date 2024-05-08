@@ -8,7 +8,7 @@ import {
   useRequest,
   useResourceActionContext,
   useResourceContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import { i18nText } from '../../utils';
 

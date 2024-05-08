@@ -13,7 +13,7 @@ import {
   useDataLoadingMode,
   useDesignable,
   useFormBlockContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useGanttBlockContext } from './GanttBlockProvider';
 import { useGanttTranslation, useOptions } from './utils';
 

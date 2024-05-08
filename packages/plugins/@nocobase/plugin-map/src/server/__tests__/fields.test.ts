@@ -1,5 +1,5 @@
-import Database from '@nocobase/database';
-import { mockDatabase } from '@nocobase/test';
+import Database from '@tachybase/database';
+import { mockDatabase } from '@tachybase/test';
 import { CircleField, LineStringField, PointField, PolygonField } from '../fields';
 
 const data = {

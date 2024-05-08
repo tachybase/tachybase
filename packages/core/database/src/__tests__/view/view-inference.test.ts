@@ -1,4 +1,4 @@
-import { Database, mockDatabase } from '@nocobase/database';
+import { Database, mockDatabase } from '@tachybase/database';
 import { ViewFieldInference } from '../../view/view-inference';
 
 describe('view inference', function () {

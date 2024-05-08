@@ -1,7 +1,7 @@
 import { useForm, useField } from '@tachybase/schema';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useActionContext, useAPIClient } from '@nocobase/client';
+import { useActionContext, useAPIClient } from '@tachybase/client';
 import { NAMESPACE } from '../locale';
 
 export const useCreateDatabaseServer = (handleDataServerChange) => {

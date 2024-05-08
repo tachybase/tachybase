@@ -1,4 +1,4 @@
-import {tval as nTval, i18n } from '@nocobase/client';
+import {tval as nTval, i18n } from '@tachybase/client';
 import { useTranslation as useT } from 'react-i18next';
 
 export const NAMESPACE = 'mobile-client';

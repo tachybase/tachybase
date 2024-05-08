@@ -1,4 +1,4 @@
-import { useRequest } from '@nocobase/client';
+import { useRequest } from '@tachybase/client';
 interface IPluginDetailData {
   packageJson: PackageJSON;
 }

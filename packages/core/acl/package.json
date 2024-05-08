@@ -1,18 +1,13 @@
 {
-  "name": "@nocobase/acl",
+  "name": "@tachybase/acl",
   "version": "0.21.24",
   "description": "",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nocobase/nocobase.git",
-    "directory": "packages/acl"
-  },
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
-    "@nocobase/resourcer": "workspace:*",
-    "@nocobase/utils": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
+    "@tachybase/utils": "workspace:*",
     "koa-compose": "^4.1.0",
     "lodash": "4.17.21",
     "minimatch": "^5.1.1"

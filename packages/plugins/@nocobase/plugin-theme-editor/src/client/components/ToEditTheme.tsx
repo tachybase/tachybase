@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { compatOldTheme, defaultTheme, useGlobalTheme, useToken } from '@nocobase/client';
+import { compatOldTheme, defaultTheme, useGlobalTheme, useToken } from '@tachybase/client';
 import { App, Button, Space } from 'antd';
 import React, { useCallback } from 'react';
 import { useTranslation } from '../locale';

@@ -1,4 +1,4 @@
-import { PageConfig } from '@nocobase/test/e2e';
+import { PageConfig } from '@tachybase/test/e2e';
 
 const commonCollections = [
   {

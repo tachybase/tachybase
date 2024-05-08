@@ -1,4 +1,4 @@
-import { Migration } from '@nocobase/server';
+import { Migration } from '@tachybase/server';
 
 export default class UpdateUserNameMigration extends Migration {
   appVersion = '<0.13.0-alpha.1';

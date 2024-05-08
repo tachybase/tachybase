@@ -1,4 +1,4 @@
-import { ToposortOptions } from '@nocobase/utils';
+import { ToposortOptions } from '@tachybase/utils';
 import { DataSource } from './data-source';
 import { DataSourceFactory } from './data-source-factory';
 

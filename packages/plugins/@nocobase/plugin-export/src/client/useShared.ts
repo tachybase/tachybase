@@ -1,4 +1,4 @@
-import { Cascader, css, useCollection_deprecated } from '@nocobase/client';
+import { Cascader, css, useCollection_deprecated } from '@tachybase/client';
 import { useFields } from './useFields';
 
 export const useShared = () => {

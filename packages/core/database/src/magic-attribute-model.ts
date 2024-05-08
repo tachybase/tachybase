@@ -1,4 +1,4 @@
-import { merge } from '@nocobase/utils';
+import { merge } from '@tachybase/utils';
 import _ from 'lodash';
 import { Utils } from 'sequelize';
 import Database from './database';

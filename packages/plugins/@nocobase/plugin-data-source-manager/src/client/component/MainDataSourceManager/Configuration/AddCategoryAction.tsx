@@ -12,7 +12,7 @@ import {
   CollectionCategroriesContext,
   CollectionCategory,
   CollectionTemplateTag,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { collectionCategorySchema } from './schemas/collections';
 
 const useCreateCategry = () => {

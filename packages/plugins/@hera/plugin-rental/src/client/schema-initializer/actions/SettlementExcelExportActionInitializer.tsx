@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ActionInitializer, useAPIClient, useRecord } from '@nocobase/client';
+import { ActionInitializer, useAPIClient, useRecord } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
 import { SettlementStyleContext } from './SettlementStyleSwitchActionInitializer';
 import { ExportToExcel } from './SettlementExportExcel';

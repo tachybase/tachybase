@@ -1,4 +1,4 @@
-import type { Context, Next } from '@nocobase/actions';
+import type { Context, Next } from '@tachybase/actions';
 
 export const getAppendsOwners = async (ctx: Context, next: Next) => {
   const { filterByTk, appends } = ctx.action.params;

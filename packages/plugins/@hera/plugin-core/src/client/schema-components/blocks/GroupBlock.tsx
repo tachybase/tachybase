@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useField, useFieldSchema } from '@tachybase/schema';
-import { useAPIClient, useBlockRequestContext, useFilterBlock } from '@nocobase/client';
+import { useAPIClient, useBlockRequestContext, useFilterBlock } from '@tachybase/client';
 import { Descriptions, DescriptionsProps, Spin, Table } from 'antd';
 import { transformers } from '../../schema-settings/GroupBlockConfigure';
 import { useAsyncEffect } from 'ahooks';

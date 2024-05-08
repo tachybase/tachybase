@@ -1,4 +1,4 @@
-import { SchemaComponentOptions, CurrentAppInfoProvider } from '@nocobase/client';
+import { SchemaComponentOptions, CurrentAppInfoProvider } from '@tachybase/client';
 import React, { FC } from 'react';
 
 export const DuplicatorProvider: FC = function (props) {

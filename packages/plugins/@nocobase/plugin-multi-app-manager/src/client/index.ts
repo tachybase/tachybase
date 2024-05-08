@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { MultiAppManagerProvider } from './MultiAppManagerProvider';
 import { AppManager } from './AppManager';
 import { NAMESPACE } from '../locale';

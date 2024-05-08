@@ -1,4 +1,4 @@
-import Database from '@nocobase/database';
+import Database from '@tachybase/database';
 
 export function afterCreateForForeignKeyField(db: Database) {
   function generateFkOptions(collectionName: string, foreignKey: string) {
@@ -189,6 +189,8 @@ export function afterCreateForForeignKeyField(db: Database) {
   return async (model, options) => {
     try {
       await hook(model, options);
-    } catch (error) {}
+    } catch (error) {
+      /* empty */
+    }
   };
 }

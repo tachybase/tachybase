@@ -1,4 +1,4 @@
-import { createRouterManager, Plugin, RouterManager, RouteSchemaComponent } from '@nocobase/client';
+import { createRouterManager, Plugin, RouterManager, RouteSchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { MobileClientProvider } from './MobileClientProvider';

@@ -5,7 +5,7 @@ import {
   oneEmptyTableBlockWithCustomizeActions,
   oneFormBlockWithRolesFieldBasedUsers,
   test,
-} from '@nocobase/test/e2e';
+} from '@tachybase/test/e2e';
 import { tableWithRoles, tableWithUsers, tableWithInherit, tableWithInheritWithoutAssociation } from './templatesOfBug';
 
 test.describe('where to open a popup and what can be added to it', () => {

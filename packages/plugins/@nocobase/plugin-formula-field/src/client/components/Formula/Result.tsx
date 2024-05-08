@@ -1,7 +1,7 @@
 import { onFormValuesChange } from '@tachybase/schema';
 import { useField, useFieldSchema, useFormEffects } from '@tachybase/schema';
 import { toJS } from '@tachybase/schema';
-import type { CollectionOptions } from '@nocobase/client';
+import type { CollectionOptions } from '@tachybase/client';
 import {
   Checkbox,
   DatePicker,
@@ -10,9 +10,9 @@ import {
   useCollection_deprecated,
   useCollectionManager_deprecated,
   useFormBlockContext,
-} from '@nocobase/client';
-import { Evaluator, evaluators } from '@nocobase/evaluators/client';
-import { Registry, toFixedByStep } from '@nocobase/utils/client';
+} from '@tachybase/client';
+import { Evaluator, evaluators } from '@tachybase/evaluators/client';
+import { Registry, toFixedByStep } from '@tachybase/utils/client';
 import React, { useEffect, useState } from 'react';
 
 import { toDbType } from '../../../utils';

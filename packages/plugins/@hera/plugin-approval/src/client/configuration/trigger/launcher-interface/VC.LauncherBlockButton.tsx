@@ -7,7 +7,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaTemplateManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { NAMESPACE } from '../../../locale';
 import { flatSchemaArray } from '../../../constants';
 import { APPROVAL_STATUS } from '../../../constants';

@@ -1,6 +1,6 @@
-import { BaseAuth } from '@nocobase/auth';
-import { Database, Model } from '@nocobase/database';
-import { MockServer, createMockServer } from '@nocobase/test';
+import { BaseAuth } from '@tachybase/auth';
+import { Database, Model } from '@tachybase/database';
+import { MockServer, createMockServer } from '@tachybase/test';
 
 describe('auth', () => {
   let auth: BaseAuth;

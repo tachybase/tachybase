@@ -1,4 +1,4 @@
-import { error } from '@nocobase/utils/client';
+import { error } from '@tachybase/utils/client';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CollectionFieldOptions_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';

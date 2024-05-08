@@ -1,6 +1,6 @@
 import { Schema } from '@formily/json-schema';
-import { Migration } from '@nocobase/server';
-import { uid } from '@nocobase/utils';
+import { Migration } from '@tachybase/server';
+import { uid } from '@tachybase/utils';
 import UiSchemaRepository from '../repository';
 import _ from 'lodash';
 

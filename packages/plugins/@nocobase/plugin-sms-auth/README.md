@@ -4,7 +4,7 @@
 
 ## 依赖
 
-- `@nocobase/auth` 认证插件，提供认证相关功能，表、模型、函数复用等。
+- `@tachybase/auth` 认证插件，提供认证相关功能，表、模型、函数复用等。
 - `@nocobase/plugin-verification` 验证码插件，提供短信发送功能。
 
 ## 使用方法

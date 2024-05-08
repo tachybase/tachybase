@@ -1,5 +1,5 @@
 import { observer, RecursionField, useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { isPortalInBody } from '@nocobase/utils/client';
+import { isPortalInBody } from '@tachybase/utils/client';
 import { App, Button } from 'antd';
 import classnames from 'classnames';
 import { default as lodash } from 'lodash';

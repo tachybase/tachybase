@@ -1,4 +1,4 @@
-import { generalWithDatetime, PageConfig } from '@nocobase/test/e2e';
+import { generalWithDatetime, PageConfig } from '@tachybase/test/e2e';
 /**
  * 1. 一个 Table 区块
  * 5. 所有字段都是 datetime 字段

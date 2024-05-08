@@ -1,6 +1,6 @@
 import lodash from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { CollectionOptions } from '@nocobase/client';
+import { CollectionOptions } from '@tachybase/client';
 
 const { groupBy, reduce, uniq, uniqBy } = lodash;
 

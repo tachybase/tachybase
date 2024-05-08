@@ -1,5 +1,5 @@
-import { getLoggerLevel, getLoggerTransport } from '@nocobase/logger';
-import { AppLoggerOptions } from '@nocobase/server';
+import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
+import { AppLoggerOptions } from '@tachybase/server';
 
 export default {
   request: {

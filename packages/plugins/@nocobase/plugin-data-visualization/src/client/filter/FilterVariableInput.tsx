@@ -9,7 +9,7 @@ import {
   getShouldChange,
   useCurrentUserVariable,
   useDatetimeVariable,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useMemoizedFn } from 'ahooks';
 import React, { useEffect, useMemo } from 'react';
 

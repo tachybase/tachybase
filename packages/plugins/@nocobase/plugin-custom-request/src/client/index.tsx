@@ -1,4 +1,4 @@
-import { Plugin, SchemaComponentOptions } from '@nocobase/client';
+import { Plugin, SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
 import { CustomRequestAction } from './components';
 import { customRequestActionSettings } from './components/CustomRequestActionDesigner';

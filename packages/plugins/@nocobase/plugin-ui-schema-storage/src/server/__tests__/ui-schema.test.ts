@@ -1,6 +1,6 @@
 import { ISchema } from '@formily/json-schema';
-import { Database } from '@nocobase/database';
-import { createMockServer, MockServer } from '@nocobase/test';
+import { Database } from '@tachybase/database';
+import { createMockServer, MockServer } from '@tachybase/test';
 import { UiSchemaRepository } from '..';
 
 describe('ui-schema', () => {

@@ -8,7 +8,7 @@ import {
   SettingsCenterConfigure,
   SettingCenterProvider,
   ResourceActionProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { DataSourceTable } from './DataSourceTable';
 import { RoleConfigure } from './RoleConfigure';
 import { StrategyActions } from './StrategyActions';

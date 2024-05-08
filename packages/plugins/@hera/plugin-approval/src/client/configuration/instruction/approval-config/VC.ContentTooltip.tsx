@@ -1,5 +1,5 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { css, useCompile } from '@nocobase/client';
+import { css, useCompile } from '@tachybase/client';
 import { Tooltip } from 'antd';
 import React from 'react';
 

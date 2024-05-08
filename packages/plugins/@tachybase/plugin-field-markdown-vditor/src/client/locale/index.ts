@@ -1,4 +1,4 @@
-import { tval } from '@nocobase/client';
+import { tval } from '@tachybase/client';
 
 const NAMESPACE = 'field-markdown-vditor';
 

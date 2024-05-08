@@ -1,6 +1,6 @@
-import { Application, AppSupervisor } from '@nocobase/server';
+import { Application, AppSupervisor } from '@tachybase/server';
 import { Restorer } from '../restorer';
-import { DumpRulesGroupType } from '@nocobase/database';
+import { DumpRulesGroupType } from '@tachybase/database';
 
 export default function addRestoreCommand(app: Application) {
   app

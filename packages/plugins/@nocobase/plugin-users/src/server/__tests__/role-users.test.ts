@@ -1,5 +1,5 @@
-import { Database, Repository } from '@nocobase/database';
-import { MockServer, createMockServer } from '@nocobase/test';
+import { Database, Repository } from '@tachybase/database';
+import { MockServer, createMockServer } from '@tachybase/test';
 
 describe('actions', () => {
   let app: MockServer;

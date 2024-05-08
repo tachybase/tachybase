@@ -1,5 +1,5 @@
 import { useField } from '@tachybase/schema';
-import { cx, SortableItem, useCompile, useDesigner, useDocumentTitle, useToken } from '@nocobase/client';
+import { cx, SortableItem, useCompile, useDesigner, useDocumentTitle, useToken } from '@tachybase/client';
 import { NavBar, NavBarProps } from 'antd-mobile';
 import React, { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';

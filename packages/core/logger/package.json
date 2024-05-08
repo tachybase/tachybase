@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/logger",
+  "name": "@tachybase/logger",
   "version": "0.21.24",
   "description": "nocobase logging library",
   "repository": {

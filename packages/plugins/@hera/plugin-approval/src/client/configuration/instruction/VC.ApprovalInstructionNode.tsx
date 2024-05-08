@@ -1,4 +1,4 @@
-import { css, useCompile } from '@nocobase/client';
+import { css, useCompile } from '@tachybase/client';
 import { Branch, NodeDefaultView, useFlowContext, useStyles } from '@tachybase/plugin-workflow/client';
 import { Tag } from 'antd';
 import React from 'react';

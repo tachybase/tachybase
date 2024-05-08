@@ -7,7 +7,7 @@ import {
   SecondConFirm,
   useCollection,
   useSchemaToolbar,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { CustomRequestACL, CustomRequestSettingsItem } from './components/CustomRequestActionDesigner';
 
 export const customizeCustomRequestActionSettings = new SchemaSettings({

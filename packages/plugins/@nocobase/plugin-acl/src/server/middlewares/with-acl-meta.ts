@@ -1,6 +1,6 @@
 import lodash from 'lodash';
-import { NoPermissionError } from '@nocobase/acl';
-import { snakeCase } from '@nocobase/database';
+import { NoPermissionError } from '@tachybase/acl';
+import { snakeCase } from '@tachybase/database';
 
 function createWithACLMetaMiddleware() {
   return async (ctx: any, next) => {

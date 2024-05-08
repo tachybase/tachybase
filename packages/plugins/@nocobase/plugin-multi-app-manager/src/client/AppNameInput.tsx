@@ -1,5 +1,5 @@
 import { connect, mapReadPretty } from '@tachybase/schema';
-import { useApp } from '@nocobase/client';
+import { useApp } from '@tachybase/client';
 import { Input as AntdInput } from 'antd';
 import React from 'react';
 

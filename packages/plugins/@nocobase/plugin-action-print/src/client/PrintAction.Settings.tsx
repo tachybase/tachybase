@@ -5,7 +5,7 @@ import {
   SchemaSettingsLinkageRules,
   useCollection_deprecated,
   useSchemaToolbar,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 const schemaSettingsItems: SchemaSettingsItemType[] = [
   {

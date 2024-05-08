@@ -1,4 +1,4 @@
-import type { CollectionOptions } from '@nocobase/database';
+import type { CollectionOptions } from '@tachybase/database';
 import { generateNTemplate } from '../locale';
 
 export default {

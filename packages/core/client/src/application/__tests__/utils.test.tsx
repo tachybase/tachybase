@@ -1,4 +1,4 @@
-import { render, screen } from '@nocobase/test/client';
+import { render, screen } from '@tachybase/test/client';
 import React from 'react';
 import { describe } from 'vitest';
 import { compose, normalizeContainer } from '../utils';

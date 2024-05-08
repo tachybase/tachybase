@@ -1,5 +1,5 @@
 import React from 'react';
-import { SchemaComponent } from '@nocobase/client';
+import { SchemaComponent } from '@tachybase/client';
 import { UserColumn } from '../../approval-common/approval-columns/column.user';
 import { WorkflowColumn } from '../../approval-common/approval-columns/column.workflow';
 import { NodeColumn } from '../../approval-common/approval-columns/column.node';

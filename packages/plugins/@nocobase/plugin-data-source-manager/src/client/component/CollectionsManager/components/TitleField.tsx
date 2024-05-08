@@ -7,7 +7,7 @@ import {
   useAPIClient,
   withDynamicSchemaProps,
   useProps,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useRemoteCollectionContext } from '../CollectionFields';
 
 export const TitleField = withDynamicSchemaProps(

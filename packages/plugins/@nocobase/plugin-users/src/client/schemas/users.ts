@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import { useActionContext, useCollectionRecord, useRecord, useRequest } from '@nocobase/client';
+import { useActionContext, useCollectionRecord, useRecord, useRequest } from '@tachybase/client';
 import { useEffect } from 'react';
 import { uid } from '@tachybase/schema';
 

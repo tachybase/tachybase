@@ -1,12 +1,7 @@
 {
-  "name": "@nocobase/cache",
+  "name": "@tachybase/cache",
   "version": "0.21.24",
   "description": "",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nocobase/nocobase.git",
-    "directory": "packages/cache"
-  },
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import { VariableInput, useFilterOptions, useFormBlockContext } from '@nocobase/client';
+import { VariableInput, useFilterOptions, useFormBlockContext } from '@tachybase/client';
 import { useContext, useEffect } from 'react';
 import { RoleResourceCollectionContext } from '../permissions/RolesResourcesActions';
 

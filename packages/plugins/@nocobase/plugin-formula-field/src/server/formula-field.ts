@@ -1,5 +1,5 @@
-import { BaseFieldOptions, DataTypes, Field } from '@nocobase/database';
-import { evaluators } from '@nocobase/evaluators';
+import { BaseFieldOptions, DataTypes, Field } from '@tachybase/database';
+import { evaluators } from '@tachybase/evaluators';
 import { toDbType } from '../utils';
 
 export interface FormulaFieldOptions extends BaseFieldOptions {

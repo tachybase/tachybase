@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCollection_deprecated, GeneralSchemaDesigner, useSchemaTemplate } from '@nocobase/client';
+import { useCollection_deprecated, GeneralSchemaDesigner, useSchemaTemplate } from '@tachybase/client';
 
 export const KanbanDesigner = () => {
   const { name, title } = useCollection_deprecated();

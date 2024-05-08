@@ -4,7 +4,7 @@ import { useAttach } from '@tachybase/schema';
 import { Options, Result } from 'ahooks/es/useRequest/src/types';
 import { TableProps } from 'antd';
 import React, { useMemo } from 'react';
-import { AsyncDataProvider, useAsyncData, useRequest } from '@nocobase/client';
+import { AsyncDataProvider, useAsyncData, useRequest } from '@tachybase/client';
 import { CollectionFieldsTableArray } from './CollectionFieldsTableArray';
 
 type TableVoidProps = TableProps<any> & {

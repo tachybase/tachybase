@@ -1,4 +1,4 @@
-import { SchemaComponent } from '@nocobase/client';
+import { SchemaComponent } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 import React from 'react';
 import VerificationCode from './VerificationCode';

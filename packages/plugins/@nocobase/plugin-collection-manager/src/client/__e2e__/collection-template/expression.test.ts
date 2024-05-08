@@ -1,5 +1,5 @@
-import { expect, test } from '@nocobase/test/e2e';
-import { uid } from '@nocobase/utils';
+import { expect, test } from '@tachybase/test/e2e';
+import { uid } from '@tachybase/utils';
 import { CollectionManagerPage } from '../utils';
 
 test.describe('create collection', () => {

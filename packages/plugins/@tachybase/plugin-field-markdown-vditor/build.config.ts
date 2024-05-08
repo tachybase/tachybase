@@ -1,4 +1,4 @@
-import { defineConfig } from '@nocobase/build';
+import { defineConfig } from '@tachybase/build';
 import fs from 'fs/promises';
 import path from 'path';
 

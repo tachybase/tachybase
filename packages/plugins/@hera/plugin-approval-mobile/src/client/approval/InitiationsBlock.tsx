@@ -1,4 +1,4 @@
-import { BlockItem, css } from '@nocobase/client';
+import { BlockItem, css } from '@tachybase/client';
 import React from 'react';
 import { AutoCenter, Card, SearchBar, Selector, Space } from 'antd-mobile';
 import { TeamFill } from 'antd-mobile-icons';

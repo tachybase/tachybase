@@ -7,7 +7,7 @@ import {
   SortableItem,
   useDesignable,
   useDesigner,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { List } from 'antd-mobile';
 import React from 'react';
 import { useTranslation } from '../../../../locale';

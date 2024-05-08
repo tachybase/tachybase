@@ -1,4 +1,4 @@
-import { Collection } from '@nocobase/database';
+import { Collection } from '@tachybase/database';
 import { getTypeByField } from './field-type-map';
 
 export default (collection: Collection) => {

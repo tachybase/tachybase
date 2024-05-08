@@ -8,7 +8,7 @@ import {
   useACLRoleContext,
   useCollectionManager_deprecated,
   useDataSourceManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChartConfigContext } from '../configure';

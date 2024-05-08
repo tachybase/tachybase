@@ -1,6 +1,6 @@
 import { CaretRightOutlined, ExpandOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import type { ThemeConfig } from '@nocobase/client';
-import { StablePopover } from '@nocobase/client';
+import type { ThemeConfig } from '@tachybase/client';
+import { StablePopover } from '@tachybase/client';
 import { Button, Checkbox, Collapse, ConfigProvider, Switch, Tooltip, Typography } from 'antd';
 import seed from 'antd/es/theme/themes/seed';
 import classNames from 'classnames';

@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { NAMESPACE } from '../constants';
 import { Configuration } from './Configuration';
 

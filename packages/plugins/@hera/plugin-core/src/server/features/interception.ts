@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import PluginWorkflow from '@tachybase/plugin-workflow';
 import { RequestInterceptionTrigger } from './RequestInterceptionTrigger';
 import { ApiTrigger } from './ApiTrigger';

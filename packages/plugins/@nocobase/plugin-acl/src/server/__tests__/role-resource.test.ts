@@ -1,7 +1,7 @@
-import { Database, Model } from '@nocobase/database';
+import { Database, Model } from '@tachybase/database';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
 import UsersPlugin from '@nocobase/plugin-users';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import { prepareApp } from './prepare';
 
 describe('role resource api', () => {

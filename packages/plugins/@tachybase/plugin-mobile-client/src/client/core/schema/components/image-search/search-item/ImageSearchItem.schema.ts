@@ -1,4 +1,4 @@
-import { SchemaInitializerItemType } from '@nocobase/client';
+import { SchemaInitializerItemType } from '@tachybase/client';
 
 interface OptionsType {
   label?: string;

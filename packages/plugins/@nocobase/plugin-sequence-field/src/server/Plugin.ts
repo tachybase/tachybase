@@ -2,8 +2,8 @@ import { randomInt } from 'crypto';
 import path from 'path';
 import { promisify } from 'util';
 
-import { Plugin } from '@nocobase/server';
-import { Registry } from '@nocobase/utils';
+import { Plugin } from '@tachybase/server';
+import { Registry } from '@tachybase/utils';
 import { Pattern, SequenceField } from './fields/sequence-field';
 
 const asyncRandomInt = promisify(randomInt);

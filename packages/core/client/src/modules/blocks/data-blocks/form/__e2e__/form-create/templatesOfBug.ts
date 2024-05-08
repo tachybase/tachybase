@@ -1,4 +1,4 @@
-import { PageConfig, generalWithM2oSingleSelect, generalWithMultiLevelM2mFields } from '@nocobase/test/e2e';
+import { PageConfig, generalWithM2oSingleSelect, generalWithMultiLevelM2mFields } from '@tachybase/test/e2e';
 
 export const T2165 = {
   pageSchema: {

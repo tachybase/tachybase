@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { useSystemSettings, PoweredByV2 as PoweredBy, useRequest, useAPIClient } from '@nocobase/client';
+import { useSystemSettings, PoweredByV2 as PoweredBy, useRequest, useAPIClient } from '@tachybase/client';
 import { AuthenticatorsContext } from '../authenticator';
 
 export function AuthLayout(props: any) {

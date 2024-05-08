@@ -1,8 +1,8 @@
 import path from 'path';
 
-import { MockDatabase } from '@nocobase/database';
+import { MockDatabase } from '@tachybase/database';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 
 import Plugin from '..';
 

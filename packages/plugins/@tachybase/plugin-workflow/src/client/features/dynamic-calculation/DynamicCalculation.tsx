@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SchemaInitializerItemType, Variable, useCollectionManager_deprecated } from '@nocobase/client';
+import { SchemaInitializerItemType, Variable, useCollectionManager_deprecated } from '@tachybase/client';
 import {
   BaseTypeSets,
   Instruction,

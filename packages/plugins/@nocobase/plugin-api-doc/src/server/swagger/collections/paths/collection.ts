@@ -1,4 +1,4 @@
-import { Collection, RelationField } from '@nocobase/database';
+import { Collection, RelationField } from '@tachybase/database';
 import { hasSortField, readOnlyCollection } from './index';
 
 type TemplateOptions = {

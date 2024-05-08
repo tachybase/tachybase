@@ -16,14 +16,14 @@
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/auth": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
     "@nocobase/plugin-auth": "workspace:*",
     "@nocobase/plugin-verification": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*"
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/auth": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "通过短信验证码认证身份。",
   "displayName.zh-CN": "认证：短信",

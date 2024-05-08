@@ -1,4 +1,4 @@
-import { DataSourceOptions, SequelizeDataSource } from '@nocobase/data-source-manager';
+import { DataSourceOptions, SequelizeDataSource } from '@tachybase/data-source-manager';
 
 export class MainDataSource extends SequelizeDataSource {
   init(options: DataSourceOptions = {}) {

@@ -7,7 +7,7 @@ import {
   useApp,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 const PDFViewerContext = createContext(null);
 

@@ -7,7 +7,7 @@ import {
   useCollectionParentRecordData,
   useProps,
   withDynamicSchemaProps,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Spin, Tag } from 'antd';
 import React, { useContext, useMemo, useState } from 'react';
 import { Board } from './board';

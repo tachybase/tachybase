@@ -7,7 +7,7 @@ import { spliceArrayState } from '@tachybase/schema';
 import { RecursionField, Schema, observer, useField, useFieldSchema } from '@tachybase/schema';
 import { action } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { isPortalInBody } from '@nocobase/utils/client';
+import { isPortalInBody } from '@tachybase/utils/client';
 import { useMemoizedFn } from 'ahooks';
 import { Table as AntdTable, TableColumnProps } from 'antd';
 import { default as classNames, default as cls } from 'classnames';

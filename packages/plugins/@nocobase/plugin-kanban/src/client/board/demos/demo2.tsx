@@ -1,4 +1,4 @@
-import { Board } from '@nocobase/client';
+import { Board } from '@tachybase/client';
 import { Button, Card } from 'antd';
 import React, { useState } from 'react';
 

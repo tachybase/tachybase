@@ -1,4 +1,4 @@
-import { defineCollection } from '@nocobase/database';
+import { defineCollection } from '@tachybase/database';
 
 export default defineCollection({
   name: 'dataSourcesCollections',

@@ -1,4 +1,4 @@
-import { useRequest } from '@nocobase/client';
+import { useRequest } from '@tachybase/client';
 import { useMemo } from 'react';
 
 export const MapConfigurationResourceKey = 'map-configuration';

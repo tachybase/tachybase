@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 
 export class PluginFieldMarkdownVditorServer extends Plugin {
   async afterAdd() {}

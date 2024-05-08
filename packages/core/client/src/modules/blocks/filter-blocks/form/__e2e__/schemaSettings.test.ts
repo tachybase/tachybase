@@ -4,7 +4,7 @@ import {
   oneEmptyFilterFormBlock,
   oneFormAndOneTableWithSameCollection,
   test,
-} from '@nocobase/test/e2e';
+} from '@tachybase/test/e2e';
 
 test.describe('filter block schema settings', () => {
   test('supported options', async ({ page, mockPage }) => {

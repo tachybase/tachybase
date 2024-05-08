@@ -18,15 +18,15 @@
     "react-router-dom": "6.x"
   },
   "peerDependencies": {
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/evaluators": "workspace:*",
-    "@nocobase/logger": "workspace:*",
-    "@nocobase/sdk": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/evaluators": "workspace:*",
+    "@tachybase/logger": "workspace:*",
+    "@tachybase/sdk": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "向任意 HTTP 服务发送请求，支持将上下文数据发送给目标服务。",
   "displayName.zh-CN": "操作：自定义请求",

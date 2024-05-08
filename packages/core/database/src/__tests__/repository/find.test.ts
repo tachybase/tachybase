@@ -1,5 +1,5 @@
 import { mockDatabase } from '../index';
-import Database from '@nocobase/database';
+import Database from '@tachybase/database';
 import { Collection } from '../../collection';
 import qs from 'qs';
 

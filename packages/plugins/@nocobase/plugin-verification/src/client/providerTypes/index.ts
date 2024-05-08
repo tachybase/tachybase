@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import { Registry } from '@nocobase/utils/client';
+import { Registry } from '@tachybase/utils/client';
 import SMSAliyun from './sms-aliyun';
 import SMSTencent from './sms-tencent';
 

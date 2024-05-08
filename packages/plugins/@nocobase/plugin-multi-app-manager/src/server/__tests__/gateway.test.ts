@@ -1,6 +1,6 @@
-import { AppSupervisor, Gateway } from '@nocobase/server';
-import { MockServer, createMockServer, createWsClient, startServerWithRandomPort, waitSecond } from '@nocobase/test';
-import { uid } from '@nocobase/utils';
+import { AppSupervisor, Gateway } from '@tachybase/server';
+import { MockServer, createMockServer, createWsClient, startServerWithRandomPort, waitSecond } from '@tachybase/test';
+import { uid } from '@tachybase/utils';
 
 describe('gateway with multiple apps', () => {
   let app: MockServer;

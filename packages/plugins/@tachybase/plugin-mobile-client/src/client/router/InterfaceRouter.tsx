@@ -1,4 +1,4 @@
-import { css, usePlugin } from '@nocobase/client';
+import { css, usePlugin } from '@tachybase/client';
 import React from 'react';
 import { MobileClientPlugin } from '../index';
 import { InterfaceProvider } from './InterfaceProvider';

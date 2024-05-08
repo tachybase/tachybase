@@ -1,4 +1,4 @@
-import { CountOptions, FindOptions } from '@nocobase/database';
+import { CountOptions, FindOptions } from '@tachybase/database';
 
 export class FullDataRepository<T> {
   data: Array<T> = [];

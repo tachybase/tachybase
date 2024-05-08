@@ -1,4 +1,4 @@
-import { defaultProps, CollectionFieldInterface } from '@nocobase/client';
+import { defaultProps, CollectionFieldInterface } from '@tachybase/client';
 
 export class CustomAssociatedFieldInterface extends CollectionFieldInterface {
   name = 'customAssociated';

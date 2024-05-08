@@ -1,6 +1,6 @@
-import { AuthConfig, BaseAuth } from '@nocobase/auth';
+import { AuthConfig, BaseAuth } from '@tachybase/auth';
 import { AuthModel } from '@nocobase/plugin-auth';
-import { Model } from '@nocobase/database';
+import { Model } from '@tachybase/database';
 import axios from 'axios';
 
 export class CASAuth extends BaseAuth {

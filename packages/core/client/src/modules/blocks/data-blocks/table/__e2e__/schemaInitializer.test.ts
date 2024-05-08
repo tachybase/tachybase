@@ -1,4 +1,4 @@
-import { createBlockInPage, expect, oneEmptyTable, test } from '@nocobase/test/e2e';
+import { createBlockInPage, expect, oneEmptyTable, test } from '@tachybase/test/e2e';
 import { T3686 } from './templatesOfBug';
 
 test.describe('where table block can be added', () => {

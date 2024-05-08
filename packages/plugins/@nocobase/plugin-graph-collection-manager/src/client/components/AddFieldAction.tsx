@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { AddFieldAction as AddCollectionFieldAction } from '@nocobase/client';
+import { AddFieldAction as AddCollectionFieldAction } from '@tachybase/client';
 import React from 'react';
 import { useCancelAction, useCreateAction } from '../action-hooks';
 import { getPopupContainer } from '../utils';

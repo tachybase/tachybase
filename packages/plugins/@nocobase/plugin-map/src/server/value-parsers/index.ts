@@ -1,4 +1,4 @@
-import { BaseValueParser } from '@nocobase/database';
+import { BaseValueParser } from '@tachybase/database';
 
 export class PointValueParser extends BaseValueParser {
   async setValue(value) {

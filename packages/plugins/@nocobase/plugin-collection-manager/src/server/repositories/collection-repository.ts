@@ -1,6 +1,6 @@
-import { Repository } from '@nocobase/database';
-import { Application } from '@nocobase/server';
-import { CollectionsGraph } from '@nocobase/utils';
+import { Repository } from '@tachybase/database';
+import { Application } from '@tachybase/server';
+import { CollectionsGraph } from '@tachybase/utils';
 import lodash from 'lodash';
 import { CollectionModel } from '../models/collection';
 

@@ -1,4 +1,4 @@
-import { useAPIClient, useRequest } from '@nocobase/client';
+import { useAPIClient, useRequest } from '@tachybase/client';
 import React, { useCallback, useMemo } from 'react';
 import { Tree, Card, Alert, Typography, Input, Button, theme, Empty } from 'antd';
 import type { DataNode } from 'antd/lib/tree';

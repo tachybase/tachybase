@@ -1,4 +1,4 @@
-import { flatten, unflatten } from '@nocobase/utils/client';
+import { flatten, unflatten } from '@tachybase/utils/client';
 import { useCallback } from 'react';
 import { useLocalVariables, useVariables } from '../../variables';
 import { getVariableName } from '../../variables/utils/getVariableName';

@@ -1,11 +1,11 @@
 import { get } from 'lodash';
 import { BelongsTo, HasOne } from 'sequelize';
-import { Model, modelAssociationByKey } from '@nocobase/database';
-import Application, { DefaultContext } from '@nocobase/server';
-import { Context as ActionContext, Next } from '@nocobase/actions';
+import { Model, modelAssociationByKey } from '@tachybase/database';
+import Application, { DefaultContext } from '@tachybase/server';
+import { Context as ActionContext, Next } from '@tachybase/actions';
 
 import WorkflowPlugin, { Trigger, WorkflowModel, toJSON } from '../..';
-import { parseCollectionName } from '@nocobase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source-manager';
 
 interface Context extends ActionContext, DefaultContext {}
 

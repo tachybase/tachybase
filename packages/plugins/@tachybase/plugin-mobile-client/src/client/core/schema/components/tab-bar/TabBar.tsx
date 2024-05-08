@@ -10,7 +10,7 @@ import {
   SortableItem,
   useCompile,
   useDesignable,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { TabBar } from 'antd-mobile';
 import React, { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

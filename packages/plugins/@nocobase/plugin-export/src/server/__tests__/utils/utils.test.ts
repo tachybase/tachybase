@@ -1,5 +1,5 @@
-import Database from '@nocobase/database';
-import { mockServer, MockServer } from '@nocobase/test';
+import Database from '@tachybase/database';
+import { mockServer, MockServer } from '@tachybase/test';
 
 describe('utils', () => {
   let columns = null;

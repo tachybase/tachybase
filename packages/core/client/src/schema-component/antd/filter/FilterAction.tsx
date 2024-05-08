@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import { createForm, Field, Form } from '@tachybase/schema';
 import { observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { flatten, unflatten } from '@nocobase/utils/client';
+import { flatten, unflatten } from '@tachybase/utils/client';
 import { Button, Space } from 'antd';
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

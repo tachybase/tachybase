@@ -11,7 +11,7 @@ import {
   useFormBlockContext,
   useIsFormReadPretty,
   useValidateSchema,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 

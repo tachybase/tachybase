@@ -1,4 +1,10 @@
-import { AntdSchemaComponentProvider, Filter, Input, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import {
+  AntdSchemaComponentProvider,
+  Filter,
+  Input,
+  SchemaComponent,
+  SchemaComponentProvider,
+} from '@tachybase/client';
 import React from 'react';
 
 const options = [

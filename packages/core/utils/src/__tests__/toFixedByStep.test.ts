@@ -1,4 +1,4 @@
-import { toFixedByStep } from '@nocobase/utils/client';
+import { toFixedByStep } from '@tachybase/utils/client';
 
 describe('toFixedByStep', () => {
   it('less than precision', () => {

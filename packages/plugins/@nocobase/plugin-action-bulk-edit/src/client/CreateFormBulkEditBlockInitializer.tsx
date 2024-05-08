@@ -8,7 +8,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaTemplateManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import { createBulkEditBlockUISchema } from './createBulkEditBlockUISchema';
 

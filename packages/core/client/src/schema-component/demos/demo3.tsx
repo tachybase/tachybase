@@ -1,4 +1,4 @@
-import { SchemaComponentProvider, useSchemaComponentContext } from '@nocobase/client';
+import { SchemaComponentProvider, useSchemaComponentContext } from '@tachybase/client';
 import { Button } from 'antd';
 import React from 'react';
 

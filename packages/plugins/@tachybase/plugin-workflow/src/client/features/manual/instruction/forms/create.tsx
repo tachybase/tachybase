@@ -10,7 +10,7 @@ import {
   useCollection_deprecated,
   useGetSchemaInitializerMenuItems,
   useMenuSearch,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import _ from 'lodash';
 import { NAMESPACE } from '../../../../locale';

@@ -1,7 +1,7 @@
 import Migration from '../../migrations/20230330214649-filter-form-block';
 
-import { Database } from '@nocobase/database';
-import { createMockServer, MockServer } from '@nocobase/test';
+import { Database } from '@tachybase/database';
+import { createMockServer, MockServer } from '@tachybase/test';
 import { UiSchemaRepository } from '../..';
 
 describe.skip('migration-20230330214649-filter-form-block', () => {

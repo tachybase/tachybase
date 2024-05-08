@@ -8,7 +8,7 @@ import {
   useDesignable,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import { NAMESPACE } from './constants';
 import { useFields } from './useFields';

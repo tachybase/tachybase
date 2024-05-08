@@ -1,6 +1,6 @@
-import { AppSupervisor, Plugin, PluginManager } from '@nocobase/server';
-import { createMockServer } from '@nocobase/test';
-import { uid } from '@nocobase/utils';
+import { AppSupervisor, Plugin, PluginManager } from '@tachybase/server';
+import { createMockServer } from '@tachybase/test';
+import { uid } from '@tachybase/utils';
 import { vi } from 'vitest';
 
 describe('test with start', () => {

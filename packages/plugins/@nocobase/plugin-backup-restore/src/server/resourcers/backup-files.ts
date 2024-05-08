@@ -1,12 +1,12 @@
 import { Dumper } from '../dumper';
-import { DumpRulesGroupType } from '@nocobase/database';
+import { DumpRulesGroupType } from '@tachybase/database';
 import fs from 'fs';
-import { koaMulter as multer } from '@nocobase/utils';
+import { koaMulter as multer } from '@tachybase/utils';
 import os from 'os';
 import path from 'path';
 import fsPromises from 'fs/promises';
 import { Restorer } from '../restorer';
-import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from '@nocobase/actions';
+import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from '@tachybase/actions';
 
 export default {
   name: 'backupFiles',

@@ -1,4 +1,4 @@
-import { Field } from '@nocobase/database';
+import { Field } from '@tachybase/database';
 
 const fieldTypeMap = {
   bigint: {

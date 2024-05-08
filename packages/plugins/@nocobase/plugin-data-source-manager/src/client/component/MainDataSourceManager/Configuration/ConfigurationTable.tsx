@@ -19,7 +19,7 @@ import {
   CollectionCategroriesContext,
   FieldSummary,
   TemplateSummary,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { CollectionFields } from './CollectionFields';
 import { collectionSchema } from './schemas/collections';
 

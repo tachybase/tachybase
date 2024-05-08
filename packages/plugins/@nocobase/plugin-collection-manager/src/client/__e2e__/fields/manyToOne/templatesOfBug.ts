@@ -1,4 +1,4 @@
-import { PageConfig, generalWithAssociation } from '@nocobase/test/e2e';
+import { PageConfig, generalWithAssociation } from '@tachybase/test/e2e';
 
 export const T3377: PageConfig = {
   collections: generalWithAssociation,

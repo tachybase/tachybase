@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/evaluators",
+  "name": "@tachybase/evaluators",
   "version": "0.21.24",
   "description": "",
   "repository": {
@@ -12,7 +12,7 @@
   "types": "./lib/index.d.ts",
   "dependencies": {
     "@formulajs/formulajs": "4.2.0",
-    "@nocobase/utils": "workspace:*",
+    "@tachybase/utils": "workspace:*",
     "lodash": "4.17.21",
     "mathjs": "^10.6.0"
   },

@@ -1,6 +1,6 @@
-import { CleanOptions, Collection, SyncOptions } from '@nocobase/database';
-import { importModule, isURL } from '@nocobase/utils';
-import { fsExists } from '@nocobase/utils/plugin-symlink';
+import { CleanOptions, Collection, SyncOptions } from '@tachybase/database';
+import { importModule, isURL } from '@tachybase/utils';
+import { fsExists } from '@tachybase/utils/plugin-symlink';
 import execa from 'execa';
 import fg from 'fast-glob';
 import fs from 'fs';

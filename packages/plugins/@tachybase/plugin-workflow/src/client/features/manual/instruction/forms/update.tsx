@@ -14,7 +14,7 @@ import {
   useCollectionFilterOptions,
   useDesignable,
   useMenuSearch,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import { NAMESPACE } from '../../../../locale';
 import { FormBlockInitializer } from '../FormBlockInitializer';

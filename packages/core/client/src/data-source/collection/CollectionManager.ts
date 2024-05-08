@@ -115,7 +115,7 @@ export class CollectionManager {
     }
 
     if (String(path).split('.').length < 2) {
-      console.error(`[@nocobase/client]: CollectionManager.getField() path "${path}" is invalid`);
+      console.error(`[@tachybase/client]: CollectionManager.getField() path "${path}" is invalid`);
       return;
     }
 

@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import PluginWorkflow from '@tachybase/plugin-workflow/client';
 import { WorkflowTriggerInterceptor } from './WorkflowTriggerInterceptor';
 

@@ -1,4 +1,4 @@
-import { getUmiConfig, IndexGenerator } from '@nocobase/devtools/umiConfig';
+import { getUmiConfig, IndexGenerator } from '@tachybase/devtools/umiConfig';
 import path from 'path';
 import { defineConfig } from 'umi';
 

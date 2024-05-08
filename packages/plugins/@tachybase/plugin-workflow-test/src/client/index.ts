@@ -1,3 +1,3 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 
 export default class extends Plugin {}

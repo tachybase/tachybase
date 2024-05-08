@@ -1,4 +1,4 @@
-import { SchemaComponentOptions } from '@nocobase/client';
+import { SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
 import { MapBlock } from './MapBlock';
 import { MapBlockDesigner } from './MapBlockDesigner';

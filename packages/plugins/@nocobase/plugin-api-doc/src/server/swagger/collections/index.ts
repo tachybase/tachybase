@@ -1,4 +1,4 @@
-import { Collection } from '@nocobase/database';
+import { Collection } from '@tachybase/database';
 import paths from './paths';
 import components from './components';
 import tags from './tags';

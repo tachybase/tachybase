@@ -1,4 +1,4 @@
-import { Variable } from '@nocobase/client';
+import { Variable } from '@tachybase/client';
 import React from 'react';
 import { useVariableOptions } from '../hooks';
 

@@ -1,5 +1,5 @@
-import Database, { Collection as DBCollection } from '@nocobase/database';
-import { createMockServer, MockServer } from '@nocobase/test';
+import Database, { Collection as DBCollection } from '@tachybase/database';
+import { createMockServer, MockServer } from '@tachybase/test';
 
 describe('createdBy/updatedBy', () => {
   let api: MockServer;

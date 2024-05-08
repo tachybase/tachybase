@@ -1,9 +1,9 @@
 import { observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { Space, Spin, Tag } from 'antd';
-import { dayjs } from '@nocobase/utils/client';
+import { dayjs } from '@tachybase/utils/client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-import { css, useCompile, usePlugin } from '@nocobase/client';
+import { css, useCompile, usePlugin } from '@tachybase/client';
 
 import {
   SchemaComponent,
@@ -16,7 +16,7 @@ import {
   useRecord,
   useTableBlockContext,
   ExtendCollectionsProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import WorkflowPlugin, {
   FlowContext,
   linkNodes,

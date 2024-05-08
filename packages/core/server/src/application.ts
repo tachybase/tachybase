@@ -1,7 +1,7 @@
-import { registerActions } from '@nocobase/actions';
-import { actions as authActions, AuthManager, AuthManagerOptions } from '@nocobase/auth';
-import { Cache, CacheManager, CacheManagerOptions } from '@nocobase/cache';
-import Database, { CollectionOptions, IDatabaseOptions } from '@nocobase/database';
+import { registerActions } from '@tachybase/actions';
+import { actions as authActions, AuthManager, AuthManagerOptions } from '@tachybase/auth';
+import { Cache, CacheManager, CacheManagerOptions } from '@tachybase/cache';
+import Database, { CollectionOptions, IDatabaseOptions } from '@tachybase/database';
 import winston from 'winston';
 import {
   createLogger,
@@ -11,10 +11,10 @@ import {
   RequestLoggerOptions,
   SystemLogger,
   SystemLoggerOptions,
-} from '@nocobase/logger';
-import { ResourceOptions, Resourcer } from '@nocobase/resourcer';
-import { Telemetry, TelemetryOptions } from '@nocobase/telemetry';
-import { applyMixins, AsyncEmitter, importModule, Toposort, ToposortOptions } from '@nocobase/utils';
+} from '@tachybase/logger';
+import { ResourceOptions, Resourcer } from '@tachybase/resourcer';
+import { Telemetry, TelemetryOptions } from '@tachybase/telemetry';
+import { applyMixins, AsyncEmitter, importModule, Toposort, ToposortOptions } from '@tachybase/utils';
 import { Command, CommandOptions, ParseOptions } from 'commander';
 import { randomUUID } from 'crypto';
 import glob from 'glob';
@@ -48,7 +48,7 @@ import { InstallOptions, PluginManager } from './plugin-manager';
 import { nanoid } from 'nanoid';
 import _ from 'lodash';
 
-import { DataSourceManager, SequelizeDataSource } from '@nocobase/data-source-manager';
+import { DataSourceManager, SequelizeDataSource } from '@tachybase/data-source-manager';
 import packageJson from '../package.json';
 import { MainDataSource } from './main-data-source';
 
@@ -657,7 +657,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   async loadCoreMigrations() {
     const migrations = await this.loadMigrations({
       directory: resolve(__dirname, 'migrations'),
-      namespace: '@nocobase/server',
+      namespace: '@tachybase/server',
     });
     return {
       beforeLoad: {

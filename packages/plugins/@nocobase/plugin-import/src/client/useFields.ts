@@ -1,4 +1,4 @@
-import { useCollectionManager_deprecated } from '@nocobase/client';
+import { useCollectionManager_deprecated } from '@tachybase/client';
 
 const EXCLUDE_INTERFACES = [
   // 'icon',

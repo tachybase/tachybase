@@ -2,7 +2,7 @@
  * title: TimePicker
  */
 import { FormItem } from '@tachybase/components';
-import { SchemaComponent, SchemaComponentProvider, TimePicker } from '@nocobase/client';
+import { SchemaComponent, SchemaComponentProvider, TimePicker } from '@tachybase/client';
 import React from 'react';
 
 const schema = {

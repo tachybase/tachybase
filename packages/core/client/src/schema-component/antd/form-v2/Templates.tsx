@@ -1,5 +1,5 @@
 import { useFieldSchema } from '@tachybase/schema';
-import { error, forEach } from '@nocobase/utils/client';
+import { error, forEach } from '@tachybase/utils/client';
 import { Select, Space } from 'antd';
 import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';

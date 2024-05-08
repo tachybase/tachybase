@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/devtools",
+  "name": "@tachybase/devtools",
   "version": "0.21.24",
   "description": "",
   "repository": {
@@ -10,9 +10,9 @@
   "license": "Apache-2.0",
   "main": "./src/index.js",
   "dependencies": {
-    "@nocobase/build": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/test": "workspace:*",
+    "@tachybase/build": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/test": "workspace:*",
     "@types/koa": "^2.13.4",
     "@types/koa-bodyparser": "^4.3.4",
     "@types/lodash": "^4.17.0",

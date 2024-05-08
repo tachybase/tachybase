@@ -1,4 +1,4 @@
-import { Context, Next } from '@nocobase/actions';
+import { Context, Next } from '@tachybase/actions';
 
 export async function setDefaultRole(ctx: Context, next: Next) {
   const {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Variable } from '@nocobase/client';
+import { Variable } from '@tachybase/client';
 
 import { useWorkflowVariableOptions } from '../variable';
 

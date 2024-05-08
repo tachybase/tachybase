@@ -1,4 +1,4 @@
-import { Migration } from '@nocobase/server';
+import { Migration } from '@tachybase/server';
 import { afterCreateForForeignKeyField } from '../hooks/afterCreateForForeignKeyField';
 
 export default class DropForeignKeysMigration extends Migration {

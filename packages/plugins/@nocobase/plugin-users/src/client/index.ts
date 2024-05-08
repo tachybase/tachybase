@@ -1,4 +1,4 @@
-import { Plugin, tval } from '@nocobase/client';
+import { Plugin, tval } from '@tachybase/client';
 import { UsersManagement } from './UsersManagement';
 import ACLPlugin from '@nocobase/plugin-acl/client';
 import { RoleUsersManager } from './RoleUsersManager';

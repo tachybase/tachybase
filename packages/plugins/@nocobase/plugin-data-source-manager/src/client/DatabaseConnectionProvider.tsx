@@ -1,4 +1,4 @@
-import { SchemaComponentOptions } from '@nocobase/client';
+import { SchemaComponentOptions } from '@tachybase/client';
 import React, { FC, useState, createContext } from 'react';
 import * as hooks from './hooks';
 

@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import backupFilesResourcer from './resourcers/backup-files';
 
 export default class PluginBackupRestoreServer extends Plugin {

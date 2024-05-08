@@ -1,7 +1,7 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 
 class UiSchemaStoragePlugin extends Plugin {
-  async load() { }
+  async load() {}
 }
 
 export default UiSchemaStoragePlugin;

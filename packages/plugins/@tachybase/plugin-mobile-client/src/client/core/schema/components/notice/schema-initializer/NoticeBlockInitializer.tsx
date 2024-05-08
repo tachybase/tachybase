@@ -5,7 +5,7 @@ import {
   useCollectionManager,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { NoticeBar } from 'antd-mobile';
 import { createGridCardBlockSchema } from '../schema-create/createGridCardBlockSchma';
 import { NoticeIcon } from '../../../../assets/svg';

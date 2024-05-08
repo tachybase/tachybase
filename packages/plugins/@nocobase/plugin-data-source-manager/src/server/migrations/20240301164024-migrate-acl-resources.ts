@@ -1,5 +1,5 @@
-import { Migration } from '@nocobase/server';
-import { uid } from '@nocobase/utils';
+import { Migration } from '@tachybase/server';
+import { uid } from '@tachybase/utils';
 
 export default class extends Migration {
   on = 'afterSync'; // 'beforeLoad' or 'afterLoad'

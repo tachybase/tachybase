@@ -1,4 +1,4 @@
-import { CollectionRecordProvider, DataBlockProvider, RemoteSchemaComponent } from '@nocobase/client';
+import { CollectionRecordProvider, DataBlockProvider, RemoteSchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import { createMockServer, startMockServer } from '@nocobase/test';
+import { createMockServer, startMockServer } from '@tachybase/test';
 
 describe('collections repository', () => {
   it('case 1', async () => {

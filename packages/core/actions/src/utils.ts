@@ -1,4 +1,4 @@
-import { MultipleRelationRepository, Repository } from '@nocobase/database';
+import { MultipleRelationRepository, Repository } from '@tachybase/database';
 import { Context } from '.';
 
 export function pageArgsToLimitArgs(

@@ -1,4 +1,4 @@
-import { registerActions } from '@nocobase/actions';
+import { registerActions } from '@tachybase/actions';
 import { MockServer, mockServer } from './';
 
 describe('get action', () => {

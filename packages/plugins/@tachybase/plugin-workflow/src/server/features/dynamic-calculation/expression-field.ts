@@ -1,4 +1,4 @@
-import { BaseFieldOptions, DataTypes, Field } from '@nocobase/database';
+import { BaseFieldOptions, DataTypes, Field } from '@tachybase/database';
 
 export interface ExpressionFieldOptions extends BaseFieldOptions {
   type: 'expression';

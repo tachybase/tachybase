@@ -1,4 +1,4 @@
-import { dayjs } from '@nocobase/utils/client';
+import { dayjs } from '@tachybase/utils/client';
 import { ConfigProvider, Spin } from 'antd';
 import React, { createContext, useContext } from 'react';
 import { useTranslation } from 'react-i18next';

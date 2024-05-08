@@ -2,7 +2,7 @@ import { onFieldValueChange, onFieldInit } from '@tachybase/schema';
 import { useField, useForm, useFormEffects } from '@tachybase/schema';
 import React, { useEffect, useState } from 'react';
 import { ConversionLogics } from '../../utils/constants';
-import { useRequest } from '@nocobase/client';
+import { useRequest } from '@tachybase/client';
 import _ from 'lodash';
 import { formatCurrency } from '../../utils/currencyUtils';
 import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
@@ -32,6 +32,7 @@ export const RecordTotalPrice: CustomFunctionComponent = () => {
   const [products, setProducts] = useState([]);
   const [groupWeight, setGroupWeight] = useState([]);
   const [recordWeight, setRecordWeight] = useState(0);
+  return;
   // 总金额计算方法
   const computeTotalPrice = () => {
     if (!leaseData) return;

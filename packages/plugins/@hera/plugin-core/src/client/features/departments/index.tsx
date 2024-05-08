@@ -33,7 +33,7 @@ import {
   useRecord,
   useRequest,
   useResourceActionContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import PluginACLClient, { RolesManagerContext } from '@nocobase/plugin-acl/client';
 import { connect, mapReadPretty, uid, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SchemaComponentOptions, usePlugin } from '@nocobase/client';
+import { SchemaComponentOptions, usePlugin } from '@tachybase/client';
 
 import PluginWorkflowClient, { FlowContext } from '.';
 

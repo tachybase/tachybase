@@ -1,4 +1,4 @@
-import { createStyles, cx } from '@nocobase/client';
+import { createStyles, cx } from '@tachybase/client';
 import { Tag } from 'antd';
 import React from 'react';
 

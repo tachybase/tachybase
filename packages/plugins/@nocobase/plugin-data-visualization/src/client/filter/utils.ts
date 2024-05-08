@@ -1,5 +1,5 @@
-import { DEFAULT_DATA_SOURCE_KEY } from '@nocobase/client';
-import { moment2str } from '@nocobase/utils/client';
+import { DEFAULT_DATA_SOURCE_KEY } from '@tachybase/client';
+import { moment2str } from '@tachybase/utils/client';
 import dayjs from 'dayjs';
 import { Schema } from '@tachybase/schema';
 

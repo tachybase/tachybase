@@ -1,9 +1,9 @@
-import { fn, literal, Op, Transactionable, where } from '@nocobase/database';
+import { fn, literal, Op, Transactionable, where } from '@tachybase/database';
 import parser from 'cron-parser';
 import type Plugin from '../../Plugin';
 import type { WorkflowModel } from '../../types';
 import { parseDateWithoutMs, SCHEDULE_MODE } from './utils';
-import { parseCollectionName } from '@nocobase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source-manager';
 
 export type ScheduleOnField = {
   field: string;

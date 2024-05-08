@@ -7,7 +7,7 @@ import {
   useCompile,
   useCollectionRecord,
   useRecord,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Checkbox, Table, Tag } from 'antd';
 import { isEmpty } from 'lodash';
 import React, { createContext } from 'react';

@@ -1,13 +1,13 @@
-import { Context } from '@nocobase/actions';
+import { Context } from '@tachybase/actions';
 import { QueryTypes } from 'sequelize';
 import { RecordPdfService } from '../services/record-pdf-service';
 import { SystemSettingService, SqlLoader } from '@hera/plugin-core';
-import { Action, Controller, Inject } from '@nocobase/utils';
+import { Action, Controller, Inject } from '@tachybase/utils';
 import { Movement } from '../../utils/constants';
 import _ from 'lodash';
-import { FilterParser, Repository } from '@nocobase/database';
+import { FilterParser, Repository } from '@tachybase/database';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
-import { Cache } from '@nocobase/cache';
+import { Cache } from '@tachybase/cache';
 import getStream from 'get-stream';
 import { stringify } from 'flatted';
 
@@ -42,46 +42,54 @@ export class RecordPreviewController {
     const query = {
       where: where || {},
       attributes: [
-        [sequelize.fn('sum', sequelize.col('items.count')), 'count'],
-        [sequelize.col('items.product_id'), 'product_id'],
-        [sequelize.col('records.movement'), 'movement'],
+        [sequelize.fn('sum', sequelize.col('record.items.count')), 'count'],
+        [sequelize.col('record.items.new_product_id'), 'new_product_id'],
+        [sequelize.col('view_records_contracts.movement'), 'movement'],
       ],
       include: [
         {
-          association: 'items',
+          association: 'record',
           attributes: [],
+          include: [
+            {
+              association: 'items',
+              attributes: [],
+            },
+          ],
         },
         ...parsedFilterInclude,
       ],
-      group: [sequelize.col('items.product_id'), sequelize.col('records.movement')],
+      group: [sequelize.col('record.items.new_product_id'), sequelize.col('view_records_contracts.movement')],
       order: [],
       subQuery: false,
       raw: true,
     } as any;
-    const records = await ctx.db.getModel('records').findAll(query);
+    const records = await ctx.db.getModel('view_records_contracts').findAll(query);
     if (records) {
-      const allProducts = await ctx.db.getRepository('product').find({ appends: ['category'] });
+      const allProducts = await ctx.db.getRepository('products').find();
       if (!allProducts) return;
-      const items = {} as { [key: string]: { name: string; sort: number; out: number; in: number; total: number } };
+      const items = {} as { [key: string]: { name: string; out: number; in: number; total: number } };
       records.forEach((item) => {
-        const product = allProducts.find((p) => p.id === item?.product_id);
+        const product = allProducts.find((p) => p.id === item?.new_product_id);
         if (!product) return;
-        if (!items[product.name]) {
-          items[product.name] = {
-            name: product.name,
-            sort: product.category.sort,
+        const parent = allProducts.find((p) => p.id === product.parentId);
+        const name = parent?.name || product.name;
+        if (!items[name]) {
+          items[name] = {
+            name: name,
             out: 0,
             in: 0,
             total: 0,
           };
         }
-        const count = product.category.convertible ? item.count * product.ratio : item.count;
+        // 根据产品找父级产品的分类
+        const count = parent?.convertible || product.convertible ? item.count * product.ratio : item.count;
         if (item.movement === Movement.in) {
-          items[product.name].in += count;
-          items[product.name].total += count;
+          items[name].in += count;
+          items[name].total += count;
         } else {
-          items[product.name].out += count;
-          items[product.name].total -= count;
+          items[name].out += count;
+          items[name].total -= count;
         }
       });
       const result = {
@@ -97,7 +105,7 @@ export class RecordPreviewController {
   @Action('allweight')
   async groupWeight(ctx: Context) {
     const { filter } = ctx.action.params.values;
-    const collectionName = 'records';
+    const collectionName = 'view_records_contracts';
     const collection = ctx.db.getCollection(collectionName);
     const fields = collection.fields;
     const filterParser = new FilterParser(filter, {
@@ -115,16 +123,22 @@ export class RecordPreviewController {
     const query = {
       where: where || {},
       attributes: [
-        [sequelize.fn('sum', sequelize.col('records.weight')), 'weight'],
-        [sequelize.col('records.movement'), 'movement'],
+        [sequelize.fn('sum', sequelize.col('record.weight')), 'weight'],
+        [sequelize.col('view_records_contracts.movement'), 'movement'],
       ],
-      group: [sequelize.col('records.movement')],
-      include: [...parsedFilterInclude],
+      group: [sequelize.col('view_records_contracts.movement')],
+      include: [
+        {
+          association: 'record',
+          attributes: [],
+        },
+        ...parsedFilterInclude,
+      ],
       order: [],
       subQuery: false,
       raw: true,
     } as any;
-    const records = await ctx.db.getModel('records').findAll(query);
+    const records = await ctx.db.getModel('view_records_contracts').findAll(query);
     const inNum = records.find((item) => item.movement === Movement.in)?.weight ?? 0;
     const outNum = records.find((item) => item.movement === Movement.out)?.weight ?? 0;
     const data = {
@@ -136,7 +150,7 @@ export class RecordPreviewController {
   @Action('allprice')
   async groupPrice(ctx: Context) {
     const { filter } = ctx.action.params.values;
-    const collectionName = 'records';
+    const collectionName = 'view_records_contracts';
     const collection = ctx.db.getCollection(collectionName);
     const fields = collection.fields;
     const filterParser = new FilterParser(filter, {
@@ -154,17 +168,22 @@ export class RecordPreviewController {
     const query = {
       where: where || {},
       attributes: [
-        [sequelize.fn('sum', sequelize.col('records.all_price')), 'all_price'],
-        [sequelize.col('records.movement'), 'movement'],
+        [sequelize.fn('sum', sequelize.col('record.all_price')), 'all_price'],
+        [sequelize.col('view_records_contracts.movement'), 'movement'],
       ],
-      group: [sequelize.col('records.movement')],
-      include: [...parsedFilterInclude],
+      group: [sequelize.col('view_records_contracts.movement')],
+      include: [
+        {
+          association: 'record',
+          attributes: [],
+        },
+        ...parsedFilterInclude,
+      ],
       order: [],
       subQuery: false,
       raw: true,
     } as any;
-    const records = await ctx.db.getModel('records').findAll(query);
-
+    const records = await ctx.db.getModel('view_records_contracts').findAll(query);
     const inNum = records.find((item) => item.movement === Movement.in)?.all_price ?? 0;
     const outNum = records.find((item) => item.movement === Movement.out)?.all_price ?? 0;
     const data = {
@@ -177,69 +196,140 @@ export class RecordPreviewController {
   @Action('pdf')
   async printPreview(ctx: Context) {
     const {
-      params: { recordId, isDouble, settingType, margingTop },
+      params: { recordId: id, isDouble, settingType, margingTop, paper, font, annotate },
     } = ctx.action;
+    let pdfTop: number;
+    const isAnnotate = annotate === 'true' ? true : false;
+    // 查询合同订单中间表，获得订单id，合同id，出入库信息
+    const intermediate = await ctx.db.getRepository('record_contract').findOne({ filter: { id } });
+    const recordId = intermediate.record_id;
+    const contractId = intermediate.contract_id;
+    // 订单基本数据
+    const baseRecord = await ctx.db.getRepository('records').findOne({
+      filter: { id: recordId },
+      appends: [
+        'vehicles',
+        'in_stock',
+        'in_stock.company',
+        'in_stock.contacts',
+        'out_stock',
+        'out_stock.company',
+        'out_stock.contacts',
+      ],
+    });
+    const userID = baseRecord.createdById || baseRecord.updatedById;
+    const user = await ctx.db.getRepository('users').findOne({ filter: { id: userID } });
+    baseRecord.nickname = user?.nickname || '';
+    baseRecord.userPhone = user?.phone || '';
     // 拉侧面文字说明
     const pdfExplain = await ctx.db.getRepository('basic_configuration').find();
+    baseRecord.pdfExplain = pdfExplain[0]?.out_of_storage_explain;
+    const products_view = this.sqlLoader.sqlFiles['products_search_rule_special'];
+    await ctx.db.sequelize.query(products_view);
     // 租金数据
-    const leaseData = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record_lease'], {
+    const leaseData: any = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record_product_item'], {
       replacements: {
         recordId,
+        contractId,
       },
       type: QueryTypes.SELECT,
     });
-    // 记录单数据
-    const records = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record'], {
+    // 租金赔偿数据
+    const leaseFeeData: any = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record_product_fee_item'], {
       replacements: {
-        recordId,
+        intermediateId: intermediate.id,
       },
       type: QueryTypes.SELECT,
     });
-    const record = records[0] as any;
-    // 拉标题
-    const systemSetting = await this.systemSetting.get();
-    record.systemTitle = systemSetting?.title || '异常数据，请联系相关负责人！';
-    const userID = record.createdById || record.updatedById;
-    const user = await ctx.db.getRepository('users').findOne({ filter: { id: userID } });
-    record.nickname = user?.nickname || '';
-    record.userPhone = user?.phone || '';
-    record.pdfExplain = pdfExplain[0]?.out_of_storage_explain;
-    if (Number(margingTop)) {
-      record.margingTop = Number(margingTop);
-    } else {
-      // 查询当前用户信息
-      const currentUser = await ctx.db.getRepository('users').findOne({ filter: { id: ctx.state.currentUser.id } });
-      record.margingTop = Number(currentUser?.pdf_top_margin) || 0;
-    }
+    // 无关联数据
+    const noLeaseProductFeeData: any = await ctx.db.sequelize.query(
+      this.sqlLoader.sqlFiles['pdf_record_no_porduct_fees'],
+      {
+        replacements: {
+          recordId,
+          contractId,
+        },
+        type: QueryTypes.SELECT,
+      },
+    );
 
-    // 费用数据
-    const feeData = await ctx.db.sequelize.query(this.sqlLoader.sqlFiles['pdf_record_fee'], {
-      replacements: {
-        recordId,
+    // 比如运费按照出入库量，但是录单存在排除的情况，特殊处理
+    const noRuleexcluded: any = await ctx.db.sequelize.query(
+      `
+      select
+        rfin.count ,
+        rfin."comment" ,
+        rfin.new_fee_product_id,
+        p2.name || '[' || p.name || ']' as fee_name,
+        p.custom_name,
+        rfin.is_excluded
+      from record_contract rc
+      join record_fee_items_new rfin on rfin.record_contract_id = rc.id and rfin.is_excluded is true and rfin.new_product_id is null
+      join products p on p.id = rfin.new_fee_product_id
+      left join products p2 on p."parentId" = p2.id
+      where rc.id = :intermediateId
+    `,
+      {
+        replacements: {
+          intermediateId: intermediate.id,
+        },
+        type: QueryTypes.SELECT,
       },
-      type: QueryTypes.SELECT,
+    );
+    // 合同基本数据
+    const contracts = await ctx.db.getRepository('contracts').findOne({
+      filter: {
+        id: intermediate.contract_id,
+      },
+      appends: ['first_party', 'first_party.projects', 'party_b', 'party_b.projects'],
     });
-    // 订单打印选项
+    contracts.movement = intermediate.movement;
+
+    const double = isDouble === '0' || isDouble === '1' ? isDouble : pdfExplain[0].record_columns;
     const printSetup =
       settingType === '0' || settingType === '1' || settingType === '2'
         ? settingType
         : pdfExplain[0]?.record_print_setup;
-    const double = isDouble === '0' || isDouble === '1' ? isDouble : pdfExplain[0].record_columns;
+    if (Number(margingTop)) {
+      pdfTop = Number(margingTop);
+    } else {
+      const currentUser = await ctx.db.getRepository('users').findOne({ filter: { id: ctx.state.currentUser.id } });
+      pdfTop = Number(currentUser?.pdf_top_margin);
+    }
 
     const cache = ctx.app.cacheManager.getCache('@hera/plugin-rental') as Cache;
-    const key = stringify({ record, leaseData, feeData, settings: { isDouble: double, printSetup } });
+    const key = stringify({
+      intermediate,
+      baseRecord,
+      leaseData,
+      leaseFeeData,
+      noLeaseProductFeeData,
+      noRuleexcluded,
+      contracts,
+      settings: { isDouble: double, printSetup, margingTop: pdfTop, paper, font, isAnnotate },
+    });
 
     const result = await cache.get(key);
     if (result) {
       if (Buffer.isBuffer(result)) {
         ctx.body = result;
       } else {
+        //@ts-ignore
         ctx.body = Buffer.from(result.data);
       }
     } else {
       const buf = await getStream.buffer(
-        // @ts-ignore
-        await this.recordPdfService.transformPdfV2(record, leaseData, feeData, { isDouble: double, printSetup }),
+        //@ts-ignore
+        await this.recordPdfService.transformPdfV2(
+          intermediate,
+          baseRecord,
+          leaseData,
+          leaseFeeData,
+          noLeaseProductFeeData,
+          noRuleexcluded,
+          contracts,
+          { isDouble: double, printSetup, margingTop: pdfTop, paper, font, isAnnotate },
+        ),
       );
       ctx.body = buf;
       await cache.set(key, buf);

@@ -6,7 +6,7 @@ import {
   useBlockRequestContext,
   useParsedFilter,
   withDynamicSchemaProps,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import _ from 'lodash';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { useCalendarBlockParams } from '../hooks/useCalendarBlockParams';

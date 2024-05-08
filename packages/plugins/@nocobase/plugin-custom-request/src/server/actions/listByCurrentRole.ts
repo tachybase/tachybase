@@ -1,4 +1,4 @@
-import { Context } from '@nocobase/actions';
+import { Context } from '@tachybase/actions';
 
 export async function listByCurrentRole(ctx: Context) {
   const repo = ctx.db.getRepository('customRequests');

@@ -1,5 +1,5 @@
-import { AuthConfig, BaseAuth } from '@nocobase/auth';
-import { PasswordField } from '@nocobase/database';
+import { AuthConfig, BaseAuth } from '@tachybase/auth';
+import { PasswordField } from '@tachybase/database';
 import crypto from 'crypto';
 import { namespace } from '../preset';
 

@@ -2,7 +2,7 @@
  * title: Insert Adjacent
  */
 import React from 'react';
-import { SchemaComponentProvider, SchemaComponent, useDesignable } from '@nocobase/client';
+import { SchemaComponentProvider, SchemaComponent, useDesignable } from '@tachybase/client';
 import { observer, Schema, useFieldSchema } from '@tachybase/schema';
 import { Button, Space } from 'antd';
 import { uid } from '@tachybase/schema';

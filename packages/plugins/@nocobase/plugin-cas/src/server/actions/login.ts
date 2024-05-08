@@ -1,4 +1,4 @@
-import { Context, Next } from '@nocobase/actions';
+import { Context, Next } from '@tachybase/actions';
 import { CASAuth } from '../auth';
 
 export const login = async (ctx: Context, next: Next) => {

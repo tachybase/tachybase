@@ -1,5 +1,5 @@
 import { FormItem } from '@tachybase/components';
-import { ExtendCollectionsProvider, CollectionSelect, FormProvider, SchemaComponent } from '@nocobase/client';
+import { ExtendCollectionsProvider, CollectionSelect, FormProvider, SchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

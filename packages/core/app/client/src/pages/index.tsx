@@ -1,4 +1,4 @@
-import { Application } from '@nocobase/client';
+import { Application } from '@tachybase/client';
 import { TachyBaseClientPresetPlugin } from '@tachybase/preset-tachybase/client';
 import devDynamicImport from '../.plugins/index';
 

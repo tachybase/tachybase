@@ -1,4 +1,4 @@
-import { Application, useApp, tval as nTval, i18n } from '@nocobase/client';
+import { Application, useApp, tval as nTval, i18n } from '@tachybase/client';
 
 const NAMESPACE = '@hera/plugin-core';
 

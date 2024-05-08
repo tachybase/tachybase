@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@nocobase/test/client';
+import { fireEvent, render, screen } from '@tachybase/test/client';
 import React from 'react';
 import App1 from '../demos/demo1';
 import App2 from '../demos/demo2';

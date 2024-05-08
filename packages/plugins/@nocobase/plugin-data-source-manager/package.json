@@ -24,12 +24,12 @@
     "sequelize": "^6.26.0"
   },
   "peerDependencies": {
-    "@nocobase/acl": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/acl": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "管理数据源，包括内置的 Master 数据库，外部的数据库、API。",
   "displayName.zh-CN": "数据源管理",

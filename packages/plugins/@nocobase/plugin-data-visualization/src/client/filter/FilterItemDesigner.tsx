@@ -18,7 +18,7 @@ import {
   useFormBlockContext,
   removeNullCondition,
   useIsAssociationField,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useChartsTranslation } from '../locale';
 import { Schema, useField, useFieldSchema } from '@tachybase/schema';
 import { Field } from '@tachybase/schema';

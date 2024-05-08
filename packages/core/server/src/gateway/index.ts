@@ -1,6 +1,6 @@
-import { SystemLogger, createSystemLogger, getLoggerFilePath } from '@nocobase/logger';
-import { Registry, Toposort, ToposortOptions, uid } from '@nocobase/utils';
-import { createStoragePluginsSymlink } from '@nocobase/utils/plugin-symlink';
+import { SystemLogger, createSystemLogger, getLoggerFilePath } from '@tachybase/logger';
+import { Registry, Toposort, ToposortOptions, uid } from '@tachybase/utils';
+import { createStoragePluginsSymlink } from '@tachybase/utils/plugin-symlink';
 import { Command } from 'commander';
 import compression from 'compression';
 import { randomUUID } from 'crypto';

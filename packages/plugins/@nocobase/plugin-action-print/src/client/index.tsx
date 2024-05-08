@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { deprecatedPrintActionSettings, printActionSettings } from './PrintAction.Settings';
 import { PrintActionPluginProvider } from './PrintActionPluginProvider';
 export class PluginActionPrintClient extends Plugin {

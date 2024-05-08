@@ -1,5 +1,5 @@
-import { Context, Next } from '@nocobase/actions';
-import { Registry } from '@nocobase/utils';
+import { Context, Next } from '@tachybase/actions';
+import { Registry } from '@tachybase/utils';
 import { Auth, AuthExtend } from './auth';
 import { JwtOptions, JwtService } from './base/jwt-service';
 import { ITokenBlacklistService } from './base/token-blacklist-service';

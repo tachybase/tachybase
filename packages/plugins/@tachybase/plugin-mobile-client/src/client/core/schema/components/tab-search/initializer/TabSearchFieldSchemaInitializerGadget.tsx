@@ -3,7 +3,7 @@ import {
   useCurrentSchema,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { merge } from '@tachybase/schema';
 import React from 'react';
 

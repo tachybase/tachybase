@@ -1,4 +1,4 @@
-import { CompatibleSchemaInitializer, SchemaInitializer, gridRowColWrap } from '@nocobase/client';
+import { CompatibleSchemaInitializer, SchemaInitializer, gridRowColWrap } from '@tachybase/client';
 import { CreateFormBulkEditBlockInitializer } from './CreateFormBulkEditBlockInitializer';
 
 /**

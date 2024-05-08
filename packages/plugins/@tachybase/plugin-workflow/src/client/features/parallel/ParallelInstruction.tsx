@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Tooltip } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 
 import {
   NodeDefaultView,

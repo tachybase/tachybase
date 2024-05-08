@@ -1,5 +1,5 @@
-import { DataTypes } from '@nocobase/database';
-import { Migration } from '@nocobase/server';
+import { DataTypes } from '@tachybase/database';
+import { Migration } from '@tachybase/server';
 
 export default class UpdateIdToBigIntMigrator extends Migration {
   appVersion = '<0.8.1-alpha.2';

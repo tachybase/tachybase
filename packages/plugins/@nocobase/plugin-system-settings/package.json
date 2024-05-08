@@ -10,10 +10,10 @@
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "用于调整系统的标题、LOGO、语言等。",
   "displayName.zh-CN": "系统设置",

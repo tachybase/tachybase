@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Divider } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useRecord } from '@nocobase/client';
+import { useRecord } from '@tachybase/client';
 import { NAMESPACE } from '../../../locale';
 
 export const UnSupportFields = () => {

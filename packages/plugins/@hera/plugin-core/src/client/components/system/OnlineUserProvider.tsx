@@ -1,5 +1,5 @@
 import { uid } from '@tachybase/schema';
-import { css, useAPIClient, useApp } from '@nocobase/client';
+import { css, useAPIClient, useApp } from '@tachybase/client';
 import { Button, Dropdown } from 'antd';
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';

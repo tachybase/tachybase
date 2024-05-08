@@ -1,19 +1,38 @@
-import Database, { CreateOptions, MagicAttributeModel } from '@nocobase/database';
-import { Db, Service } from '@nocobase/utils';
-
+import Database, { CreateOptions, MagicAttributeModel } from '@tachybase/database';
+import { Db, Service } from '@tachybase/utils';
+import { Op } from 'sequelize';
 @Service()
 export class ContractRuleService {
   @Db()
   private db: Database;
-
+  // 合同重复项需要重新是实现
   async load() {
     // 合同方案规则重复校验
+    this.db.on('contract_plan_lease_items.beforeSave', this.leaseItemBeforeSave.bind(this));
+    // 上表最底表的hooks不会作用到合同方案整体的重复判断，所以需要contract_plan的hooks
     this.db.on('contract_plans.beforeSave', this.contractPlansBeforeSave.bind(this));
-    // beforeSave无法获取多对多关联关系的数据
-    this.db.on('contract_plan_lease_items.beforeCreate', this.contractPlanLeaseItemsBeforeSave.bind(this));
-    this.db.on('contract_plan_lease_items.beforeUpdate', this.contractPlanLeaseItemsBeforeSave.bind(this));
-    this.db.on('contract_plan_fee_items.beforeCreate', this.contractPlanFeeItemsBeforeSave.bind(this));
-    this.db.on('contract_plan_fee_items.beforeUpdate', this.contractPlanFeeItemsBeforeSave.bind(this));
+  }
+
+  async leaseItemBeforeSave(model: MagicAttributeModel, options: CreateOptions): Promise<void> {
+    if (!options.values) return;
+    // 只适用单个表数据修改
+    if (options.values.contract_plan?.id && options.values.new_products?.id) {
+      const where = {
+        contract_plan_id: options.values.contract_plan.id,
+        new_products_id: options.values.new_products.id,
+      };
+      if (!model.isNewRecord) {
+        where['id'] = {
+          [Op.ne]: model.id,
+        };
+      }
+      const data = await this.db.getRepository('contract_plan_lease_items').findOne({
+        where,
+      });
+      if (data) {
+        throw new Error('租金存在');
+      }
+    }
   }
 
   /**
@@ -24,158 +43,28 @@ export class ContractRuleService {
    */
   async contractPlansBeforeSave(model: MagicAttributeModel, options: CreateOptions): Promise<void> {
     if (!options.values) return;
-    const leaseData2 = options.values.lease_items.map((item) => item.products);
-    const repeatData = this.repeatQuery2(leaseData2);
+    const leaseData = options.values.lease_items.map((item) => item.new_products);
+    const repeatData = this.repeatQuery(leaseData);
     if (repeatData.length > 0) {
-      const products = repeatData.map((item) => item.label).join(',');
-      throw new Error('租金规则中的产品重复！重复产品：' + products);
+      throw new Error('租金规则中的产品重复！' + repeatData.map((item) => item.name));
     }
-    const feeData = options.values.fee_items.map((fee) => fee.fee_product);
-    const feeRepeatData = this.repeatQuery(feeData);
-    if (feeRepeatData.length > 0) {
-      const products = feeRepeatData.map((item) => item.label).join(',');
-      throw new Error('费用规则中的产品重复！重复费用：' + products);
-    }
-    const productFeeRepeatData = [];
-    for (const index in options.values.lease_items) {
-      const fees = options.values.lease_items[index].fee_items?.filter(Boolean);
-      if (!fees) return;
-      // 租金，费用，租金费用使用同一判断重复方法，需要处理一下租金费用数据结构
-      const transFee = fees.map((item) => {
-        if (Object.keys(item).length > 0 && item.fee_product) {
-          return { ...item, id: item.fee_product.id, raw_category_id: item.fee_product.id };
-        }
-      });
-      const data = this.repeatQuery(transFee);
-      if (data.length > 0) {
-        productFeeRepeatData.push({ index, value: data.map((item) => item.fee_product.label).join(',') });
-      }
-    }
-    if (productFeeRepeatData.length > 0) {
-      const tips = [];
-      for (const iterator of productFeeRepeatData) {
-        const tip = `第${Number(iterator.index) + 1}条租金数据中费用重复添加`;
-        tips.push(tip);
-      }
-      throw new Error(tips.join('，'));
+
+    const feeData = options.values.fee_items.map((item) => item.new_fee_products);
+    const repeatFeeData = this.repeatQuery(feeData);
+    if (repeatFeeData.length > 0) {
+      throw new Error('费用规则中的产品重复！' + repeatFeeData.map((item) => item.name));
     }
   }
 
-  /**
-   * 租金单条规则创建before seqlizeHooks事件
-   * @param model
-   * @param options
-   * @returns
-   */
-  async contractPlanLeaseItemsBeforeSave(model: MagicAttributeModel, options: CreateOptions): Promise<void> {
-    if (!options.values?.contract_plan && !options.values?.products) return;
-    const plan = await this.db.getRepository('contract_plans').findOne({
-      where: {
-        id: options.values?.contract_plan?.id || options.values?.contract_plan_id,
-      },
-      appends: ['lease_items', 'lease_items.products'],
-    });
-    const add = options.values.products;
-    const productData = plan.lease_items
-      .filter((item) => item.id !== options.values.id && item.products.length === add.length)
-      .map((item) => item.products)
-      .flat();
-    productData.forEach((item) => {
-      const isHas = add.find(
-        (p) =>
-          (p.id < 99999 && (p.id === item.id || (item.id > 99999 && p.raw_category_id === item.raw_category_id))) ||
-          (p.id > 99999 && p.raw_category_id === item.raw_category_id),
-      );
-      if (isHas) {
-        throw new Error('方案中存在此产品');
-      }
-    });
-  }
-
-  /**
-   * 费用规则创建before seqlizeHooks事件
-   * @param model
-   * @param options
-   * @returns
-   */
-  async contractPlanFeeItemsBeforeSave(model: MagicAttributeModel, options: CreateOptions): Promise<void> {
-    if (!options.values?.contract_plan || !options.values?.fee_product) return;
-    const plan = await this.db.getRepository('contract_plans').findOne({
-      where: {
-        id: options.values.contract_plan.id,
-      },
-      appends: ['lease_items', 'lease_items.products', 'fee_items', 'fee_items.fee_product'],
-    });
-    if (options.values.lease_product) {
-      // 待页面完成确定入参数格式后
-      // const feeProduct = plan.fee_items.filter((item) => item.lease_item_id === options.values.lease_product.id // 确定options.values.lease_product是否为数组格式)
-    } else {
-      const add = options.values.fee_product;
-      if (!Array.isArray(add)) return;
-      const feeData = plan.fee_items.filter((item) => !item.lease_item_id).map((item) => item.fee_product);
-      feeData.forEach((item) => {
-        const isHas = add.find((p) => p.id === item.id);
-        if (isHas) {
-          throw new Error('方案中存在此赔偿项');
-        }
-      });
-    }
-  }
-
-  /**
-   * 租金规则重复查询
-   * @param data
-   * @returns
-   */
   repeatQuery(data: any[]): any[] {
-    if (data.filter(Boolean).length > 0) {
-      const queryData = data.filter(Boolean);
-      if (queryData.length > 0) {
-        const arr = [];
-        for (let index = 0; index < queryData.length; index++) {
-          const repea = queryData.slice(index + 1).filter((item) => {
-            if (item) {
-              return (
-                item.id === queryData[index].id ||
-                (item.raw_category_id === queryData[index].raw_category_id &&
-                  (item.id > 99999 || queryData[index].id > 99999))
-              );
-            }
-          });
-          arr.push(...repea.filter(Boolean));
+    const repea = [];
+    for (let i = 0; i < data.length; i++) {
+      for (let j = i + 1; j < data.length; j++) {
+        if (data[i].id === data[j].id) {
+          repea.push(data[i]);
         }
-        return arr;
-      } else {
-        return [];
       }
-    } else {
-      return [];
     }
-  }
-
-  /**
-   * 与原实现相差较多，新写一实现方法
-   * 租金产品多选重复查询，一个组合算是一个整体进行比较
-   * @param data
-   * @returns
-   */
-  repeatQuery2(data: any[]): any[] {
-    const result = data.reduce((acc, curr) => {
-      const found = acc.find((subArr) => subArr.length === curr.length);
-      if (found) {
-        found.push(...curr);
-      } else {
-        acc.push(curr);
-      }
-      return acc;
-    }, []);
-    const rep = [];
-    result.forEach((item) => {
-      const repeatData = this.repeatQuery(item);
-      if (repeatData.length > 0) {
-        rep.push(...item);
-      }
-    });
-    return rep;
+    return repea;
   }
 }

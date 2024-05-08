@@ -1,4 +1,4 @@
-import { css, useCompile } from '@nocobase/client';
+import { css, useCompile } from '@tachybase/client';
 import { Progress, Tag } from 'antd';
 import React from 'react';
 import {
@@ -11,6 +11,7 @@ import {
 
 // 审批处理: 任务节点值
 export function renderColumnTaskNode(text, { node, job, groupCount, statusCount }, group) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const compile = useCompile();
   const { branchMode, negotiation } = node?.config ? node : ({} as any);
   const enums = VoteCategoryEnums[voteOption(negotiation)];

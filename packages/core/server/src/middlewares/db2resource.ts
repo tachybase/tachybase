@@ -1,5 +1,5 @@
-import Database from '@nocobase/database';
-import { getNameByParams, parseRequest, ResourcerContext, ResourceType } from '@nocobase/resourcer';
+import Database from '@tachybase/database';
+import { getNameByParams, parseRequest, ResourcerContext, ResourceType } from '@tachybase/resourcer';
 
 export async function db2resource(ctx: ResourcerContext & { db: Database }, next: () => Promise<any>) {
   const dataSource = ctx.get('x-data-source');

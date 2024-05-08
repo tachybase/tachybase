@@ -1,5 +1,5 @@
-import { Context } from '@nocobase/actions';
-import { Action, Controller } from '@nocobase/utils';
+import { Context } from '@tachybase/actions';
+import { Action, Controller } from '@tachybase/utils';
 
 @Controller('link-manage')
 export class LinkManagerController {

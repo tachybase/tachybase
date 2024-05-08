@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import { default as WorkflowPlugin } from '../..';
 
 import LoopInstruction from './LoopInstruction';

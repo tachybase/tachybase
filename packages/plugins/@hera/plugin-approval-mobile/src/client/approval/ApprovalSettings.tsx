@@ -1,4 +1,4 @@
-import { SchemaSettings } from '@nocobase/client';
+import { SchemaSettings } from '@tachybase/client';
 import _ from 'lodash';
 
 export const ApprovalSettings = new SchemaSettings({

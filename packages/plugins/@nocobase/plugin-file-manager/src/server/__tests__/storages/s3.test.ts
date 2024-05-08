@@ -1,9 +1,9 @@
 import path from 'path';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import s3Storage from '../../storages/s3';
 import { FILE_FIELD_NAME } from '../../constants';
 import { getApp, requestFile } from '..';
-import Database from '@nocobase/database';
+import Database from '@tachybase/database';
 
 const itif = process.env.AWS_SECRET_ACCESS_KEY ? it : it.skip;
 

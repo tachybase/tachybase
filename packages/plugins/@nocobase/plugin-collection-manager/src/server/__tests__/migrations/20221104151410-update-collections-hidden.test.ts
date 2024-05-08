@@ -1,7 +1,7 @@
-import { Database, MigrationContext } from '@nocobase/database';
+import { Database, MigrationContext } from '@tachybase/database';
 import UpdateCollectionsHiddenMigration from '../../migrations/20221104151410-update-collections-hidden';
 
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import { createApp } from '../index';
 
 describe('migration 20221104151410-update-collections-hidden test', () => {

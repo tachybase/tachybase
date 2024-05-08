@@ -1,4 +1,4 @@
-import { CollectionOptions } from '@nocobase/database';
+import { CollectionOptions } from '@tachybase/database';
 import { NotificationLog } from '../models';
 
 export default {

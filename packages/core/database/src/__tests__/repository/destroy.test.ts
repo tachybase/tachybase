@@ -1,6 +1,6 @@
 import { mockDatabase } from '../index';
 import { Collection } from '../../collection';
-import { Database } from '@nocobase/database';
+import { Database } from '@tachybase/database';
 
 describe('destroy with targetKey', function () {
   let db: Database;

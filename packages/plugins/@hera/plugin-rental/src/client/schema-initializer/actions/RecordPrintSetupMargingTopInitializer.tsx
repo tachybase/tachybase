@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActionInitializer, useAPIClient } from '@nocobase/client';
+import { ActionInitializer, useAPIClient } from '@tachybase/client';
 import { Input } from 'antd';
-import { useRequest } from '@nocobase/client';
+import { useRequest } from '@tachybase/client';
 import { PdfMargingTopContext } from '../../hooks/usePdfPath';
 import { debounce } from 'lodash';
-import { useCurrentUserContext } from '@nocobase/client';
+import { useCurrentUserContext } from '@tachybase/client';
 export const PrintSetupMargingTop = (props) => {
   const { data } = useCurrentUserContext();
   const userId = data.data?.id;

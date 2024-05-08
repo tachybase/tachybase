@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import AuthPlugin from '@nocobase/plugin-auth/client';
 import { SigninPage } from './SigninPage';
 import { Options } from './Options';

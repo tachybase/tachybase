@@ -1,5 +1,5 @@
-import { Model } from '@nocobase/database';
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { Model } from '@tachybase/database';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { resolve } from 'path';
 import { SnapshotField } from './fields/snapshot-field';
 

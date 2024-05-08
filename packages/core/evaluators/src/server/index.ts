@@ -1,4 +1,4 @@
-import { Registry } from '@nocobase/utils';
+import { Registry } from '@tachybase/utils';
 
 import { Evaluator } from '../utils';
 import mathjs from '../utils/mathjs';

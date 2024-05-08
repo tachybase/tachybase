@@ -1,5 +1,5 @@
 import { useFieldSchema } from '@tachybase/schema';
-import { useCollectionManager_deprecated } from '@nocobase/client';
+import { useCollectionManager_deprecated } from '@tachybase/client';
 
 export const useFields = (collectionName: string) => {
   const fieldSchema = useFieldSchema();

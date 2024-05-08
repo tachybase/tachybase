@@ -1,4 +1,4 @@
-import { Cache, CacheManager } from '@nocobase/cache';
+import { Cache, CacheManager } from '@tachybase/cache';
 import { Storer } from '../storer';
 
 class MockDB {

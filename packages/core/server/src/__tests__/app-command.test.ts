@@ -1,4 +1,4 @@
-import { mockDatabase } from '@nocobase/database';
+import { mockDatabase } from '@tachybase/database';
 import { vi } from 'vitest';
 import Application, { ApplicationOptions } from '../application';
 

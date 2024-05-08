@@ -10,7 +10,7 @@ import {
   useFilterAPI,
   useCollectionParentRecordData,
   useProps,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useMemoizedFn } from 'ahooks';
 import { Button, Space } from 'antd';
 import React, { useEffect, useMemo, useRef, useState } from 'react';

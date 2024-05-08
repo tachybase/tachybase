@@ -20,12 +20,12 @@
     "swagger-ui-dist": "^5.3.1"
   },
   "peerDependencies": {
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/sdk": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/sdk": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "NocoBase HTTP API 的 OpenAPI 文档生成器。",
   "displayName.zh-CN": "API 文档",

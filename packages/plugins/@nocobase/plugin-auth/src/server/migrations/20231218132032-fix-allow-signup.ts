@@ -1,4 +1,4 @@
-import { Migration } from '@nocobase/server';
+import { Migration } from '@tachybase/server';
 import { presetAuthType } from '../../preset';
 
 export default class FixAllowSignUpMigration extends Migration {

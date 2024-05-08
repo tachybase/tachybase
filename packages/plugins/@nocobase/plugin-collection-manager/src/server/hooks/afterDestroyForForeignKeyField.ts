@@ -1,4 +1,4 @@
-import Database, { FindOneOptions, FindOptions, Model, Transaction } from '@nocobase/database';
+import Database, { FindOneOptions, FindOptions, Model, Transaction } from '@tachybase/database';
 
 async function destroyFields(db: Database, transaction: Transaction, fieldRecords: Model[]) {
   const fieldsRepo = db.getRepository('fields');

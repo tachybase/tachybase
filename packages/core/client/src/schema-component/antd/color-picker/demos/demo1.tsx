@@ -2,7 +2,7 @@
  * title: ColorPicker
  */
 import { FormItem } from '@tachybase/components';
-import { ColorPicker, Input, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { ColorPicker, Input, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 
 const schema = {

@@ -1,4 +1,4 @@
-import { requireModule } from '@nocobase/utils';
+import { requireModule } from '@tachybase/utils';
 import { merge } from './merge';
 
 export const loadSwagger = (packageName: string) => {

@@ -1,4 +1,4 @@
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { NAMESPACE } from '../../../locale';
 
 // 发起人操作界面

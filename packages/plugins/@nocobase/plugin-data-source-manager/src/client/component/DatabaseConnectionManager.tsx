@@ -6,7 +6,7 @@ import {
   useResourceContext,
   useRecord,
   useDataSourceManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Card } from 'antd';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';

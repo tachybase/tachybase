@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { CollapsedContext } from '../GraphDrawPage';
-import { Select, useCompile } from '@nocobase/client';
+import { Select, useCompile } from '@tachybase/client';
 import { useSearchParams } from 'react-router-dom';
 import { getPopupContainer } from '../utils';
 

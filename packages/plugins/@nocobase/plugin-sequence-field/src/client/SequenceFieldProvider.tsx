@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { SchemaComponentOptions } from '@nocobase/client';
+import { SchemaComponentOptions } from '@tachybase/client';
 
 import { RuleConfigForm } from './sequence';
 

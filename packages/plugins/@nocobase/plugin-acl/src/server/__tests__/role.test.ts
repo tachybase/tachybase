@@ -1,6 +1,6 @@
-import { ArrayFieldRepository, Database, Model } from '@nocobase/database';
+import { ArrayFieldRepository, Database, Model } from '@tachybase/database';
 import UsersPlugin from '@nocobase/plugin-users';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import { prepareApp } from './prepare';
 
 describe('role api', () => {

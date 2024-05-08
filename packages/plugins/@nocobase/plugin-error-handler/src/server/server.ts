@@ -1,6 +1,6 @@
 import { Schema } from '@formily/json-schema';
-import { BaseError } from '@nocobase/database';
-import { Plugin } from '@nocobase/server';
+import { BaseError } from '@tachybase/database';
+import { Plugin } from '@tachybase/server';
 import lodash from 'lodash';
 import { ErrorHandler } from './error-handler';
 import enUS from './locale/en_US';

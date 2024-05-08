@@ -15,7 +15,7 @@ import {
   LocalDataSource,
   SchemaComponent,
   useFormBlockContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { notification } from 'antd';
 import React from 'react';
 import { useFilterByTk } from '../../../../block-provider/BlockProvider';

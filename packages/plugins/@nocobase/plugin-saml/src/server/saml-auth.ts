@@ -1,7 +1,7 @@
-import { AuthConfig, BaseAuth } from '@nocobase/auth';
+import { AuthConfig, BaseAuth } from '@tachybase/auth';
 import { AuthModel } from '@nocobase/plugin-auth';
 import { SAML, SamlConfig } from '@node-saml/node-saml';
-export { Model } from '@nocobase/database';
+export { Model } from '@tachybase/database';
 
 interface SAMLOptions {
   ssoUrl?: string;

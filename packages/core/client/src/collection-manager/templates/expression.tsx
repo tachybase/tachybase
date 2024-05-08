@@ -1,4 +1,4 @@
-import { getOptions } from '@nocobase/evaluators/client';
+import { getOptions } from '@tachybase/evaluators/client';
 import { getConfigurableProperties } from './properties';
 import { CollectionTemplate } from '../../data-source/collection-template/CollectionTemplate';
 

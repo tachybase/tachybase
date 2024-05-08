@@ -1,4 +1,4 @@
-import { createBlockInPage, expect, oneEmptyListBlock, test } from '@nocobase/test/e2e';
+import { createBlockInPage, expect, oneEmptyListBlock, test } from '@tachybase/test/e2e';
 
 test.describe('where list block can be added', () => {
   test('page', async ({ page, mockPage }) => {

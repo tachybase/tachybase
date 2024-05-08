@@ -1,5 +1,5 @@
-import Database, { Collection as DBCollection, CollectionGroupManager, HasManyRepository } from '@nocobase/database';
-import Application from '@nocobase/server';
+import Database, { Collection as DBCollection, CollectionGroupManager, HasManyRepository } from '@tachybase/database';
+import Application from '@tachybase/server';
 import { createApp } from '.';
 import CollectionManagerPlugin, { CollectionRepository } from '../index';
 

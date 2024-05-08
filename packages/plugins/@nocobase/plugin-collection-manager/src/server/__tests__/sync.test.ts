@@ -1,5 +1,5 @@
-import Database from '@nocobase/database';
-import Application from '@nocobase/server';
+import Database from '@tachybase/database';
+import Application from '@tachybase/server';
 import { createApp } from '.';
 
 describe('sync collection', () => {

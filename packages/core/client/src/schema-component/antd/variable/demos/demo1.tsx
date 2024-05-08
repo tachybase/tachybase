@@ -2,7 +2,7 @@
  * title: Variable.Input
  */
 import { FormItem } from '@tachybase/components';
-import { SchemaComponent, SchemaComponentProvider, Variable } from '@nocobase/client';
+import { SchemaComponent, SchemaComponentProvider, Variable } from '@tachybase/client';
 import React from 'react';
 
 const scope = [

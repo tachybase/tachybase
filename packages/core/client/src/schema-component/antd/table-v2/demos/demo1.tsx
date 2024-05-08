@@ -9,7 +9,7 @@ import {
   SchemaComponentProvider,
   useFormBlockContext,
   useTableBlockContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { notification } from 'antd';
 import { range } from 'lodash';
 import React from 'react';

@@ -1,5 +1,5 @@
 import { useField, useFieldSchema } from '@tachybase/schema';
-import { BlockProvider, FixedBlockWrapper, SchemaComponentOptions, useBlockRequestContext } from '@nocobase/client';
+import { BlockProvider, FixedBlockWrapper, SchemaComponentOptions, useBlockRequestContext } from '@tachybase/client';
 import React, { createContext, useContext, useState } from 'react';
 
 export const MapBlockContext = createContext<any>({});

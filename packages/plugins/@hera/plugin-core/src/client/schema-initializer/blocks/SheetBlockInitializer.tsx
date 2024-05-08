@@ -9,9 +9,9 @@ import {
   useCollectionManager,
   DataBlockProvider,
   useDataBlockRequest,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { createContext, useRef } from 'react';
-import { uid } from '@nocobase/utils/client';
+import { uid } from '@tachybase/utils/client';
 import { Button, Spin } from 'antd';
 import Sheet, { SheetRef } from '../../components/excel-table/Sheet';
 

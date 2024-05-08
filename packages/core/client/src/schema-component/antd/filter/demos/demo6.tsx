@@ -11,7 +11,7 @@ import {
   Plugin,
   DEFAULT_DATA_SOURCE_KEY,
   DEFAULT_DATA_SOURCE_TITLE,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Select } from 'antd';
 import React, { useState } from 'react';
 import { useFilterOptions } from '../useFilterActionProps';

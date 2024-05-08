@@ -1,4 +1,4 @@
-import { Application } from '@nocobase/server';
+import { Application } from '@tachybase/server';
 
 describe('MainDataSource', () => {
   let app: Application;

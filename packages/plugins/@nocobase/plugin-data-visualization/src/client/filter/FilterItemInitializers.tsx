@@ -23,7 +23,7 @@ import {
   useGlobalTheme,
   useSchemaInitializerItem,
   useCompile,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useMemoizedFn } from 'ahooks';
 import { Alert, ConfigProvider, Typography } from 'antd';
 import React, { memo, useCallback, useContext, useMemo } from 'react';

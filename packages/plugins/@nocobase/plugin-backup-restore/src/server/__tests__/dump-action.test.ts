@@ -1,5 +1,5 @@
-import { Database } from '@nocobase/database';
-import { MockServer, createMockServer } from '@nocobase/test';
+import { Database } from '@tachybase/database';
+import { MockServer, createMockServer } from '@tachybase/test';
 import fsPromises from 'fs/promises';
 import * as os from 'os';
 import path from 'path';

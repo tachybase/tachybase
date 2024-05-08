@@ -9,7 +9,7 @@ import {
   useSchemaInitializer,
   SchemaInitializerItem,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
 

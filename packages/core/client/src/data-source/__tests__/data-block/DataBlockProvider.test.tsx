@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@nocobase/test/client';
+import { fireEvent, render, screen, waitFor } from '@tachybase/test/client';
 import CollectionTableListDemo from './data-block-demos/collection-table-list';
 import CollectionFormGetAndUpdateDemo from './data-block-demos/collection-form-get-and-update';
 import CollectionFormCreateDemo from './data-block-demos/collection-form-create';

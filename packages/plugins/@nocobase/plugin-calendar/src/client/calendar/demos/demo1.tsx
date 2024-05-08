@@ -7,7 +7,7 @@ import {
   AntdSchemaComponentProvider,
   SchemaComponent,
   SchemaComponentProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import defaultValues from './defaultValues';
 

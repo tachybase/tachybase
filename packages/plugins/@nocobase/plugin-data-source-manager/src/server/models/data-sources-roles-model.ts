@@ -1,5 +1,5 @@
-import { Model } from '@nocobase/database';
-import { ACL } from '@nocobase/acl';
+import { Model } from '@tachybase/database';
+import { ACL } from '@tachybase/acl';
 import { Transaction } from 'sequelize';
 import { DataSourcesRolesResourcesModel } from './connections-roles-resources';
 

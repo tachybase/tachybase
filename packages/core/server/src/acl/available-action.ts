@@ -1,4 +1,4 @@
-import { AvailableActionOptions } from '@nocobase/acl';
+import { AvailableActionOptions } from '@tachybase/acl';
 
 const availableActions: {
   [key: string]: AvailableActionOptions;

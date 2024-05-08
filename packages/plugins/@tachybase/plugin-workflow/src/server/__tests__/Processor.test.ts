@@ -1,5 +1,5 @@
-import { MockDatabase } from '@nocobase/database';
-import { MockServer } from '@nocobase/test';
+import { MockDatabase } from '@tachybase/database';
+import { MockServer } from '@tachybase/test';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
 import { EXECUTION_STATUS, JOB_STATUS } from '../constants';
 

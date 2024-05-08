@@ -1,4 +1,4 @@
-import { SchemaInitializer, SchemaInitializerItemType, useCollection_deprecated } from '@nocobase/client';
+import { SchemaInitializer, SchemaInitializerItemType, useCollection_deprecated } from '@tachybase/client';
 import { generateNTemplate } from '../../../locale';
 
 export const deleteEventActionInitializer: SchemaInitializerItemType<any> = {

@@ -1,5 +1,5 @@
-import { defaultTheme as presetTheme, useAPIClient, useCurrentUserContext, useGlobalTheme } from '@nocobase/client';
-import { error } from '@nocobase/utils/client';
+import { defaultTheme as presetTheme, useAPIClient, useCurrentUserContext, useGlobalTheme } from '@tachybase/client';
+import { error } from '@tachybase/utils/client';
 import { Spin } from 'antd';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { changeAlgorithmFromFunctionToString } from '../utils/changeAlgorithmFromFunctionToString';

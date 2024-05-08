@@ -1,6 +1,6 @@
-import { Model } from '@nocobase/database';
-import { LoggerOptions } from '@nocobase/logger';
-import { fsExists, importModule } from '@nocobase/utils';
+import { Model } from '@tachybase/database';
+import { LoggerOptions } from '@tachybase/logger';
+import { fsExists, importModule } from '@tachybase/utils';
 import fs from 'fs';
 import glob from 'glob';
 import type { TFuncKey, TOptions } from 'i18next';

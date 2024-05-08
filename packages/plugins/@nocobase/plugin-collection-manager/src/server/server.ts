@@ -1,6 +1,6 @@
-import { Filter, InheritedCollection, UniqueConstraintError } from '@nocobase/database';
+import { Filter, InheritedCollection, UniqueConstraintError } from '@tachybase/database';
 import PluginErrorHandler from '@nocobase/plugin-error-handler';
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import { Mutex } from 'async-mutex';
 import lodash from 'lodash';
 import path from 'path';

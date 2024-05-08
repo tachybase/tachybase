@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Drawer, Form, Input, Select, Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { useRequest } from '@nocobase/client';
+import { useRequest } from '@tachybase/client';
 export const LinkManager = () => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState<any>({});

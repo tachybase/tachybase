@@ -10,7 +10,7 @@ import {
   SkipValidation,
   WorkflowConfig,
   useSchemaToolbar,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 export const customizeSubmitToWorkflowActionSettings = new SchemaSettings({
   name: 'actionSettings:submitToWorkflow',

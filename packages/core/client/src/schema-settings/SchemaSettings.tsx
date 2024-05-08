@@ -3,7 +3,7 @@ import { ArrayCollapse, ArrayItems, FormItem, FormLayout, Input } from '@tachyba
 import { Field, GeneralField, createForm } from '@tachybase/schema';
 import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { error } from '@nocobase/utils/client';
+import { error } from '@tachybase/utils/client';
 import type { DropdownProps } from 'antd';
 import {
   Alert,

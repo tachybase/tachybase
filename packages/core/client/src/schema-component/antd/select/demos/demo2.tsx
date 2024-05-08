@@ -2,7 +2,7 @@
  * title: Select
  */
 import { FormItem } from '@tachybase/components';
-import { SchemaComponent, SchemaComponentProvider, Select } from '@nocobase/client';
+import { SchemaComponent, SchemaComponentProvider, Select } from '@tachybase/client';
 import React from 'react';
 
 const dataSource = [
