@@ -86,7 +86,7 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginPDF);
     await this.app.pm.add(PluginExtendedFilterForm);
     await this.app.pm.add(PluginOutbound);
-    await this.app.pm.add(PluginModeHighlight);
+    // await this.app.pm.add(PluginModeHighlight);
   }
 
   async registerSettings() {
