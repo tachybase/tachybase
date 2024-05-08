@@ -24,13 +24,15 @@ FROM
       ELSE r.in_stock_id
     END
   )
+WHERE
+  r.direct_record_id IS NULL
 UNION ALL
 SELECT
   NULL AS contract_id,
   r.id AS record_id,
   r."createdAt",
   r."updatedAt",
-  CAST('r_' || r.id AS VARCHAR) AS id,
+  CAST('r_' || r.id || '_' || c.id AS VARCHAR) AS id,
   NULL AS rc_id,
   (
     CASE
@@ -49,12 +51,17 @@ FROM
   JOIN project p ON p.id = r.in_stock_id
   JOIN project p2 ON p2.id = r.out_stock_id
   JOIN company c ON c.roles @> '["associated"]'
-  AND c.id = p.company_id
-  OR c.id = p2.company_id
+  AND (
+    c.id = p.company_id
+    OR c.id = p2.company_id
+  )
   JOIN project p3 ON p3.company_id = c.id
-  AND p3.id = p.id
-  OR p3.id = p2.id
+  AND (
+    p3.id = p.id
+    OR p3.id = p2.id
+  )
 WHERE
   rc.id IS NULL
   AND r.in_stock_id IS NOT NULL
   AND r.out_stock_id IS NOT NULL
+  AND r.direct_record_id IS NULL
