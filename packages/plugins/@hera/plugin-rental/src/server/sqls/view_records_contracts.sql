@@ -3,8 +3,8 @@ CREATE OR REPLACE VIEW
 SELECT
   c.id AS contract_id,
   r.id AS record_id,
-  r.createdAt,
-  r.updatedAt,
+  r."createdAt",
+  r."updatedAt",
   CAST('c_' || rc.id AS VARCHAR) AS id,
   rc.id AS rc_id, -- 页面更新中间表存根联/回根联用
   rc.movement,
@@ -28,8 +28,8 @@ UNION ALL
 SELECT
   NULL AS contract_id,
   r.id AS record_id,
-  r.createdAt,
-  r.updatedAt,
+  r."createdAt",
+  r."updatedAt",
   CAST('r_' || r.id AS VARCHAR) AS id,
   NULL AS rc_id,
   (
