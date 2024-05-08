@@ -1,21 +1,21 @@
 import { EditOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { observer } from '@tachybase/schema';
-import React, { useContext, useRef, useState } from 'react';
+import { observer, useField, useFieldSchema } from '@tachybase/schema';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InternalSubTable } from './InternalSubTable';
 import { Button, Drawer } from 'antd';
-import { useAssociationFieldContext } from './hooks';
+import { SubFormProvider, useAssociationFieldContext } from './hooks';
 import { ActionContext, ActionContextProvider } from '../action/context';
-import { useGetAriaLabelOfPopover } from '../action';
 import { ReadPrettyInternalViewer } from './InternalViewer';
+import { useCollectionManager } from '../../../data-source';
+import { FlagProvider } from '../../../flag-provider';
 
 export const InternaDrawerSubTable = observer(
   (props) => {
     const { options } = useAssociationFieldContext();
     const [visible, setVisible] = useState(false);
     const { t } = useTranslation();
-    const ref = useRef();
     const nesterProps = {
       ...props,
       shouldMountElement: true,
@@ -26,8 +26,11 @@ export const InternaDrawerSubTable = observer(
       enableLink: true,
     };
 
+    const field = useField();
+    const fieldSchema = useFieldSchema();
+    const cm = useCollectionManager();
+
     const ctx = useContext(ActionContext);
-    const { getAriaLabel } = useGetAriaLabelOfPopover();
     return (
       <>
         <span
@@ -61,7 +64,13 @@ export const InternaDrawerSubTable = observer(
               </Button>
             }
           >
-            <InternalSubTable {...nesterProps} />
+            <FlagProvider isInSubForm>
+              <SubFormProvider
+                value={{ value: field.value, collection: cm.getCollection(fieldSchema['x-collection-field']) }}
+              >
+                <InternalSubTable {...nesterProps} />
+              </SubFormProvider>
+            </FlagProvider>
           </Drawer>
         </ActionContextProvider>
       </>
