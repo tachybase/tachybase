@@ -104,7 +104,7 @@ const modalSchema = (t, params, valueOption, decimal) => {
                     placeholder: '{{t("type")}}',
                   },
                   enum: fieldType,
-                  require: true,
+                  required: true,
                 },
                 field: {
                   type: 'string',
@@ -114,11 +114,13 @@ const modalSchema = (t, params, valueOption, decimal) => {
                     placeholder: '{{t("field")}}',
                   },
                   'x-visbile': false,
+                  required: false,
                   enum: valueOption,
                   'x-reactions': {
                     dependencies: ['.type'],
                     fulfill: {
                       schema: {
+                        required: "{{$deps[0]==='field'}}",
                         'x-visible': "{{$deps[0]==='field'}}",
                       },
                     },
@@ -132,11 +134,13 @@ const modalSchema = (t, params, valueOption, decimal) => {
                     placeholder: '{{t("reqUrl")}}',
                     addonBefore: <PullRequestOutlined />,
                   },
+                  required: false,
                   'x-visible': false,
                   'x-reactions': {
                     dependencies: ['.type'],
                     fulfill: {
                       schema: {
+                        required: "{{$deps[0]==='custom'}}",
                         'x-visible': "{{$deps[0]==='custom'}}",
                       },
                     },
@@ -150,7 +154,7 @@ const modalSchema = (t, params, valueOption, decimal) => {
                     placeholder: '{{t("format")}}',
                   },
                   enum: transformers.option,
-                  require: true,
+                  required: true,
                 },
                 digits: {
                   type: 'string',
@@ -178,7 +182,7 @@ const modalSchema = (t, params, valueOption, decimal) => {
                     placeholder: '{{t("style")}}',
                   },
                   enum: styleOption,
-                  require: true,
+                  required: true,
                 },
                 remove: {
                   type: 'void',

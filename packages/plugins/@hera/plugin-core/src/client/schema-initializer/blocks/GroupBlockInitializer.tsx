@@ -126,6 +126,13 @@ const createGroupBlockSchema = (options) => {
       },
     },
   };
+  if (!sumItem.length) {
+    delete schema['x-decorator-props']['resource_deprecated'];
+  }
+  if (collection.template === 'view' && !sumItem.length) {
+    delete schema['x-decorator-props']['action'];
+    delete schema['x-decorator-props']['groupField'];
+  }
   return schema;
 };
 
