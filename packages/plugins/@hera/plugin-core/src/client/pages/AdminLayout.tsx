@@ -301,7 +301,7 @@ export const InternalAdminLayout = () => {
         </div>
       </Layout.Header>
       {params.name && (
-        <Layout.Sider theme={'light'} ref={sideMenuRef}>
+        <Layout.Sider theme={'light'} ref={sideMenuRef} style={{ overflow: 'auto' }}>
           <header
             className={css`
               flex-shrink: 0;
