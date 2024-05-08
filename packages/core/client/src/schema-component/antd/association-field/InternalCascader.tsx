@@ -125,8 +125,9 @@ const Cascade = connect((props) => {
     }
   };
 
-  const filter = (inputValue: string, path) =>
-    path.some((option) => fuzzysearch(inputValue, (option.label as string) ?? ''));
+  const filter = (inputValue: string, path) => {
+    return fuzzysearch(inputValue, path.map((option) => option.label || '').join(''));
+  };
   return (
     <Space
       wrap
