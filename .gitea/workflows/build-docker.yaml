@@ -1,39 +1,22 @@
-name: Build docker image
+name: build release image
 
 on:
   push:
     tags:
-      - 'v*'
+      - 'release-*'
 
 jobs:
-  publish_npm_packages:
+  docker:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: ${{ vars.REGISTRY_URL }}
           cache: 'pnpm'
-      - name: Install deps
-        run: pnpm install
-      - name: Build
-        run: pnpm build:p
-      - name: Publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPMTOKEN }}
-        run: pnpm -r publish --access=public --no-git-checks --publish-branch ${{ gitea.ref }}
-
-  docker:
-    runs-on: ubuntu-latest
-    needs: publish_npm_packages
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Login to Docker Hub
@@ -44,12 +27,16 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Extract and format tag name
         id: extract_tag
-        run: echo version=`echo "${{ gitea.ref }}" | cut -d'/' -f3 | sed 's/^v//'` >> "$GITHUB_OUTPUT"
+        run: echo version=`echo "${{ gitea.ref }}" | cut -d'/' -f3` >> "$GITHUB_OUTPUT"
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: docker/tachybase/Dockerfile
           push: true
+          # not work now https://github.com/go-gitea/gitea/pull/29584 wait for gitea 1.23.0
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
           build-args: |
             TACHYBASE_VERSION=${{ steps.extract_tag.outputs.version }}
             NPM_REGISTRY=${{ vars.REGISTRY_URL }}
