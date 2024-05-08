@@ -1,4 +1,4 @@
-import { Database, mockDatabase } from '@nocobase/database';
+import { Database, mockDatabase } from '@tachybase/database';
 
 describe('model', () => {
   let db: Database;

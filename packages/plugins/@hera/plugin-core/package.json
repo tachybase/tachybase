@@ -43,16 +43,17 @@
     "ws": "^8.13.0"
   },
   "peerDependencies": {
-    "@nocobase/actions": "workspace:*",
-    "@nocobase/client": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/evaluators": "workspace:*",
     "@nocobase/plugin-acl": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*",
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/data-source-manager": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/evaluators": "workspace:*",
     "@tachybase/plugin-workflow": "workspace:*",
-    "@tachybase/schema": "workspace:*"
+    "@tachybase/schema": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "提供标准赫拉平台能力",
   "displayName.zh-CN": "赫拉平台"

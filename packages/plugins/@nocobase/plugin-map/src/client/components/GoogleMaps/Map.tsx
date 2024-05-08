@@ -1,7 +1,7 @@
 import { SyncOutlined } from '@ant-design/icons';
 import { useFieldSchema } from '@tachybase/schema';
 import { Loader } from '@googlemaps/js-api-loader';
-import { css, useAPIClient, useApp, useCollection_deprecated } from '@nocobase/client';
+import { css, useAPIClient, useApp, useCollection_deprecated } from '@tachybase/client';
 import { useMemoizedFn } from 'ahooks';
 import { Alert, App, Button, Spin } from 'antd';
 import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';

@@ -1,6 +1,6 @@
 import { Field } from '@tachybase/schema';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { nextTick } from '@nocobase/utils/client';
+import { nextTick } from '@tachybase/utils/client';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef } from 'react';
 import { useAssociationNames } from '../../../../block-provider/hooks';

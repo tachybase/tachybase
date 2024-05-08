@@ -10,7 +10,7 @@ import {
   FixedBlockWrapper,
   BlockProvider,
   useBlockRequestContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { toColumns } from './Kanban';
 
 export const KanbanBlockContext = createContext<any>({});

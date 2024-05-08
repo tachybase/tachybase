@@ -16,8 +16,8 @@ import {
   SQLNode,
   apiGetRecord,
 } from '@tachybase/plugin-workflow-test/e2e';
-import { expect, test } from '@nocobase/test/e2e';
-import { dayjs } from '@nocobase/utils';
+import { expect, test } from '@tachybase/test/e2e';
+import { dayjs } from '@tachybase/utils';
 
 test.describe('select data', () => {
   test('No variable SQL, select 1 record', async ({ page, mockCollections, mockRecords }) => {

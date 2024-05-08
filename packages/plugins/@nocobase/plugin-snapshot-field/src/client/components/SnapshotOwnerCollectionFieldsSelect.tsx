@@ -1,4 +1,4 @@
-import { useCollectionManager_deprecated, useCompile } from '@nocobase/client';
+import { useCollectionManager_deprecated, useCompile } from '@tachybase/client';
 import { Select, SelectProps } from 'antd';
 import React from 'react';
 import { useTopRecord } from '../interface';

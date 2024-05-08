@@ -1,9 +1,9 @@
-import { SchemaComponent, SchemaSettings, useApp, useDesignable, usePlugin } from '@nocobase/client';
+import { SchemaComponent, SchemaSettings, useApp, useDesignable, usePlugin } from '@tachybase/client';
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from '../../locale';
 import { useField, useFieldSchema } from '@tachybase/schema';
-import { Field } from '@nocobase/database';
+import { Field } from '@tachybase/database';
 import { useCustomComponent } from '../../hooks/useCustomComponent';
 import { CustomComponentType } from './custom-components';
 import { ErrorBoundaryFallBack } from './ErrorBoundary';

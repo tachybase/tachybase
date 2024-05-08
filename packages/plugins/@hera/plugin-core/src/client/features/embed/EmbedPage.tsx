@@ -1,4 +1,4 @@
-import { AdminProvider } from '@nocobase/client';
+import { AdminProvider } from '@tachybase/client';
 import React, { useEffect } from 'react';
 import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 import { NotAuthorityResult } from './NotAuthorityResult';

@@ -1,5 +1,5 @@
-import { Action } from '@nocobase/resourcer';
-import { assign, parseFilter, Toposort, ToposortOptions } from '@nocobase/utils';
+import { Action } from '@tachybase/resourcer';
+import { assign, parseFilter, Toposort, ToposortOptions } from '@tachybase/utils';
 import EventEmitter from 'events';
 import compose from 'koa-compose';
 import lodash from 'lodash';

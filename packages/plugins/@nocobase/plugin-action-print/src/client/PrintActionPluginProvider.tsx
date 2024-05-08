@@ -1,4 +1,4 @@
-import { SchemaComponentOptions } from '@nocobase/client';
+import { SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
 import { PrintActionInitializer } from './PrintActionInitializer';
 import { useDetailPrintActionProps } from './utils';

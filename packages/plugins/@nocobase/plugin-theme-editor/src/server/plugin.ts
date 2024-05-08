@@ -1,4 +1,4 @@
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import path, { resolve } from 'path';
 import { compact, compactDark, dark, defaultTheme } from './builtinThemes';
 

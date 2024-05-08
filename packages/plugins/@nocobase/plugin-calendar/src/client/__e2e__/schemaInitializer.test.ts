@@ -1,4 +1,4 @@
-import { test, expect } from '@nocobase/test/e2e';
+import { test, expect } from '@tachybase/test/e2e';
 import { emptyPageWithCalendarCollection, oneTableWithCalendarCollection } from './templates';
 
 test.describe('where can be added', () => {

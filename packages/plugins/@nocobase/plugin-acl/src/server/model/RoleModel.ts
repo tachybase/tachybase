@@ -1,5 +1,5 @@
-import { Model } from '@nocobase/database';
-import { ACL } from '@nocobase/acl';
+import { Model } from '@tachybase/database';
+import { ACL } from '@tachybase/acl';
 
 export class RoleModel extends Model {
   writeToAcl(options: { acl: ACL; withOutStrategy?: boolean }) {

@@ -1,4 +1,4 @@
-import { useCurrentRoles } from '@nocobase/client';
+import { useCurrentRoles } from '@tachybase/client';
 
 export const useCurrentRolesProps = () => {
   const options = useCurrentRoles();

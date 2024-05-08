@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { useActionContext, useGetAriaLabelOfAction, useRecord } from '@nocobase/client';
+import { useActionContext, useGetAriaLabelOfAction, useRecord } from '@tachybase/client';
 
 import { getWorkflowDetailPath } from './utils';
 

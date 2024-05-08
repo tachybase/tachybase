@@ -1,4 +1,4 @@
-import { BaseColumnFieldOptions, DataTypes, Field, Model } from '@nocobase/database';
+import { BaseColumnFieldOptions, DataTypes, Field, Model } from '@tachybase/database';
 
 export interface CalcFieldOptions extends BaseColumnFieldOptions {
   type: 'calc';

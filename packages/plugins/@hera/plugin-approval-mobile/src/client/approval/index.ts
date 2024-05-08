@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { ApprovalBlockInitializer } from './ApprovalBlockInitializer';
 import { ApprovalSettings } from './ApprovalSettings';
 import { TodosBlock } from './TodosBlock';

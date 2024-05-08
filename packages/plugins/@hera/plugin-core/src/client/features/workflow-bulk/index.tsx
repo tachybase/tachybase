@@ -1,4 +1,4 @@
-import { Plugin, useCollection } from '@nocobase/client';
+import { Plugin, useCollection } from '@tachybase/client';
 import { tval } from '../../locale';
 import { BulkWorkflowActionInitializer } from './BulkUpdateActionInitializer';
 import { bulkWorkflowActionSettings } from './BulkUpdateAction.Settings';

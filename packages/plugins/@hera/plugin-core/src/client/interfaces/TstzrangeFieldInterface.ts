@@ -1,4 +1,4 @@
-import { defaultProps, CollectionFieldInterface } from '@nocobase/client';
+import { defaultProps, CollectionFieldInterface } from '@tachybase/client';
 import { tval } from '../locale';
 
 export class TstzrangeFieldInterface extends CollectionFieldInterface {

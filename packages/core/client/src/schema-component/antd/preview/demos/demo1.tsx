@@ -2,7 +2,7 @@
  * title: Preview
  */
 import { FormItem } from '@tachybase/components';
-import { SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 import Preview from '../Preview';
 

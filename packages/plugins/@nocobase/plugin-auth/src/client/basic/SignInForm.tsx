@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import { SchemaComponent, useAPIClient, useCurrentUserContext } from '@nocobase/client';
+import { SchemaComponent, useAPIClient, useCurrentUserContext } from '@tachybase/client';
 import React, { useCallback } from 'react';
 import { useAuthTranslation } from '../locale';
 import { useNavigate, useSearchParams } from 'react-router-dom';

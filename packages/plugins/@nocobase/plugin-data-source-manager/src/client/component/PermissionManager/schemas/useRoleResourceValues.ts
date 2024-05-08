@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { useActionContext, useRecord, useRequest } from '@nocobase/client';
+import { useActionContext, useRecord, useRequest } from '@tachybase/client';
 import { PermissionContext } from '../PermisionProvider';
 
 export const useRoleResourceValues = (options) => {

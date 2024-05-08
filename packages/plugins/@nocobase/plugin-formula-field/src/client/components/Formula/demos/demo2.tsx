@@ -2,7 +2,7 @@
  * title: Formula
  */
 import { connect } from '@tachybase/schema';
-import { Formula, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { Formula, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 
 const Expression = connect(Formula.Expression);

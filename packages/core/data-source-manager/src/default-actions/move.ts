@@ -1,4 +1,4 @@
-import actions, { Context } from '@nocobase/actions';
+import actions, { Context } from '@tachybase/actions';
 
 import { getRepositoryFromParams } from './utils';
 

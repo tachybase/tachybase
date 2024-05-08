@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { AddCollection } from '@nocobase/client';
+import { AddCollection } from '@tachybase/client';
 import { Button } from 'antd';
 import React from 'react';
 import { useCancelAction } from '../action-hooks';

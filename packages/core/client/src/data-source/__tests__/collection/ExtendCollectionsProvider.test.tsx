@@ -6,7 +6,7 @@ import {
   DataSourceManagerProvider,
   CollectionManagerProvider,
   useCollectionManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useDataSourceKey } from '../../data-source/DataSourceProvider';
 
 describe('ExtendCollectionsProvider', () => {

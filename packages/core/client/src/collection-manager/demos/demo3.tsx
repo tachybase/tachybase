@@ -7,7 +7,7 @@ import {
   compose,
   RecordProvider,
   useCollectionField_deprecated,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import MockAdapter from 'axios-mock-adapter';
 
 const apiClient = new APIClient();

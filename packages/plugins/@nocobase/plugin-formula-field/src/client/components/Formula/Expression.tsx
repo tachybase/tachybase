@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCollectionManager_deprecated, useCompile, Variable } from '@nocobase/client';
+import { useCollectionManager_deprecated, useCompile, Variable } from '@tachybase/client';
 
 export const Expression = (props) => {
   const { value = '', supports = [], useCurrentFields, onChange } = props;

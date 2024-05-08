@@ -1,6 +1,6 @@
-import { assign } from '@nocobase/utils';
+import { assign } from '@tachybase/utils';
 import { getRepositoryFromParams, pageArgsToLimitArgs } from './utils';
-import { Context } from '@nocobase/actions';
+import { Context } from '@tachybase/actions';
 
 function totalPage(total, pageSize): number {
   return Math.ceil(total / pageSize);

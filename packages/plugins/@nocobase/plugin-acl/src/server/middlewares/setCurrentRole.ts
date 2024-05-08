@@ -1,6 +1,6 @@
-import { Context } from '@nocobase/actions';
-import { Cache } from '@nocobase/cache';
-import { Model, Repository } from '@nocobase/database';
+import { Context } from '@tachybase/actions';
+import { Cache } from '@tachybase/cache';
+import { Model, Repository } from '@tachybase/database';
 
 export async function setCurrentRole(ctx: Context, next) {
   const currentRole = ctx.get('X-Role');

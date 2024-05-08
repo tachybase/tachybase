@@ -1,4 +1,4 @@
-import { cx, SchemaComponent } from '@nocobase/client';
+import { cx, SchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import useStyles from './style';

@@ -6,7 +6,7 @@ import {
   useDataBlockResource,
   useCollectionRecordData,
   withDynamicSchemaProps,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 import useUrlState from '@ahooksjs/use-url-state';
 

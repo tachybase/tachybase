@@ -6,7 +6,7 @@ import {
   useCompile,
   useDesignable,
   useFormBlockContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useTranslation } from '../../../../../locale';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';

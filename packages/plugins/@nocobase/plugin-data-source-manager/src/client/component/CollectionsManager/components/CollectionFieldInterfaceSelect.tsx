@@ -1,7 +1,7 @@
 import { observer, useForm, useField } from '@tachybase/schema';
 import { Select, Tag } from 'antd';
 import React, { useState } from 'react';
-import { useCompile, useCollectionManager_deprecated, useRecord, useFieldInterfaceOptions } from '@nocobase/client';
+import { useCompile, useCollectionManager_deprecated, useRecord, useFieldInterfaceOptions } from '@tachybase/client';
 
 const getInterfaceOptions = (data, type) => {
   const interfaceOptions = [];

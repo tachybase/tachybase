@@ -1,5 +1,5 @@
-import { css, useAPIClient, useApp, useRequest } from '@nocobase/client';
-import { getSubAppName } from '@nocobase/sdk';
+import { css, useAPIClient, useApp, useRequest } from '@tachybase/client';
+import { getSubAppName } from '@tachybase/sdk';
 import { Select, Space, Spin, Typography } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import SwaggerUIBundle from 'swagger-ui-dist/swagger-ui-bundle';

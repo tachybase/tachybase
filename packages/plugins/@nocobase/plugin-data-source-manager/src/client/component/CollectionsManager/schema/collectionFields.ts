@@ -1,6 +1,6 @@
 import { ISchema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { CollectionOptions } from '@nocobase/client';
+import { CollectionOptions } from '@tachybase/client';
 import { NAMESPACE } from '../../../locale';
 
 export const collection: CollectionOptions = {

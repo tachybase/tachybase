@@ -1,4 +1,4 @@
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { Layout } from 'antd';
 import React from 'react';
 import { Outlet } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import PluginWorkflow from '@tachybase/plugin-workflow/client';
 import { ApprovalTrigger } from './node.ApprovalTrigger';
 import { LauncherActionConfigInitializer } from './launcher-interface/Iz.LauncherActionConfig';

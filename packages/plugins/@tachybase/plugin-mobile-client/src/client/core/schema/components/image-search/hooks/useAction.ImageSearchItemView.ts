@@ -1,4 +1,4 @@
-import { useCollection, useDesigner } from '@nocobase/client';
+import { useCollection, useDesigner } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 import React from 'react';
 import { useTranslation } from '../../../../../locale';

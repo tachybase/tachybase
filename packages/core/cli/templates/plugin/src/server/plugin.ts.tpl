@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 
 export class {{{pascalCaseName}}}Server extends Plugin {
   async afterAdd() {}

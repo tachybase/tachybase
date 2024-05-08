@@ -1,4 +1,4 @@
-import { DataBlockInitializer, useSchemaInitializer, useSchemaInitializerItem } from '@nocobase/client';
+import { DataBlockInitializer, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
 import { createSchemaImageSearchBlock } from './ImageSearch.schema';
 

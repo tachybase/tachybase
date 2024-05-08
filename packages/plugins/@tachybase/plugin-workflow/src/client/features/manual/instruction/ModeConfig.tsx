@@ -3,7 +3,7 @@ import { FormLayout } from '@tachybase/components';
 import { Form, Radio, Tooltip } from 'antd';
 import React from 'react';
 
-import { css, FormItem } from '@nocobase/client';
+import { css, FormItem } from '@tachybase/client';
 import { lang } from '../../../locale';
 
 function parseMode(v) {

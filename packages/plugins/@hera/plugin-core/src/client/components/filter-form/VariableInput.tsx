@@ -15,7 +15,7 @@ import {
   useDateVariable,
   useCollectionManager_deprecated,
   useCompile,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import _ from 'lodash';
 import React, { useCallback, useContext, useMemo } from 'react';

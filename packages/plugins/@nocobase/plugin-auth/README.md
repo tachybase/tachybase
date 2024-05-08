@@ -37,7 +37,7 @@ Nocobase内核提供了扩展登录方式的接入和管理。扩展登录插件
 参考`core/auth/auth.ts`
 
 ```TypeScript
-import { Auth } from '@nocobase/auth';
+import { Auth } from '@tachybase/auth';
 
 class CustomAuth extends Auth {
   set user(user) {}
@@ -51,7 +51,7 @@ class CustomAuth extends Auth {
 多数情况下，扩展的用户登录方式也将沿用现有的jwt逻辑来生成用户访问API的凭证，插件也可以继承`BaseAuth`类以便复用部分逻辑代码，如`check`, `signIn`接口。
 
 ```TypeScript
-import { BaseAuth } from '@nocobase/auth';
+import { BaseAuth } from '@tachybase/auth';
 
 class CustomAuth extends BaseAuth {
   constructor(config: AuthConfig) {

@@ -1,7 +1,7 @@
-import { Collection, Model } from '@nocobase/database';
+import { Collection, Model } from '@tachybase/database';
 import { Auth, AuthConfig } from '../auth';
 import { JwtService } from './jwt-service';
-import { Cache } from '@nocobase/cache';
+import { Cache } from '@tachybase/cache';
 
 /**
  * BaseAuth

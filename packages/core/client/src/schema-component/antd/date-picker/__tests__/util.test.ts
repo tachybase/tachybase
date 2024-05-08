@@ -1,4 +1,4 @@
-import { str2moment } from '@nocobase/utils/client';
+import { str2moment } from '@tachybase/utils/client';
 import dayjs from 'dayjs';
 import { moment2str } from '../util';
 

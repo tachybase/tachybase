@@ -1,5 +1,5 @@
-import { Database, mockDatabase } from '@nocobase/database';
-import { uid } from '@nocobase/utils';
+import { Database, mockDatabase } from '@tachybase/database';
+import { uid } from '@tachybase/utils';
 
 describe('view repository', () => {
   let db: Database;

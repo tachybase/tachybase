@@ -1,6 +1,6 @@
 import { onFormValuesChange, createForm, Form } from '@tachybase/schema';
 import { connect } from '@tachybase/schema';
-import { SchemaComponent, useAPIClient, useRequest } from '@nocobase/client';
+import { SchemaComponent, useAPIClient, useRequest } from '@tachybase/client';
 import { Checkbox, message } from 'antd';
 import uniq from 'lodash/uniq';
 import React, { useContext, useMemo } from 'react';

@@ -1,4 +1,4 @@
-import { Registry } from '@nocobase/utils';
+import { Registry } from '@tachybase/utils';
 import { BatchSpanProcessor, ConsoleSpanExporter, SpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
 import { Resource } from '@opentelemetry/resources';

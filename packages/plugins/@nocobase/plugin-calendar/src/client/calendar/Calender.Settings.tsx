@@ -14,7 +14,7 @@ import {
   removeNullCondition,
   SchemaSettingsTemplate,
   useCollectionManager_deprecated,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useTranslation } from '../../locale';
 import { useCalendarBlockContext } from '../schema-initializer/CalendarBlockProvider';
 

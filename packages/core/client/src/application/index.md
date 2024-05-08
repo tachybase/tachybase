@@ -57,7 +57,7 @@ app.addComponents({
 在插件中添加组件。
 
 ```tsx | pure
-import { Application, Plugin } from '@nocobase/client';
+import { Application, Plugin } from '@tachybase/client';
 const Hello = () => <div>Hello</div>;
 
 class MyPlugin extends Plugin {
@@ -222,7 +222,7 @@ app.router.add('hello', {
 在插件中添加路由。
 
 ```tsx | pure
-import { Application, Plugin } from '@nocobase/client';
+import { Application, Plugin } from '@tachybase/client';
 const Hello = () => <div>Hello</div>;
 
 class MyPlugin extends Plugin {
@@ -299,7 +299,7 @@ app.addProvider(World, { name: 'ccc' });
 add provider in plugin.
 
 ```tsx | pure
-import { Application, Plugin } from '@nocobase/client';
+import { Application, Plugin } from '@tachybase/client';
 const Hello = (props) => <div>Hello {props.children}</div>;
 
 class MyPlugin extends Plugin {
@@ -316,7 +316,7 @@ const app = new Application({
 ### 插件管理
 
 ```tsx | pure
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 
 class MyPlugin extends Plugin {
   async afterAdd() {
@@ -373,7 +373,7 @@ class MyPlugin extends Plugin {
 #### 基础用法
 
 ```tsx | pure
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import React from 'react';
 
 const HelloSettingPage = () => <div>Hello Setting page</div>;
@@ -422,7 +422,7 @@ class HelloPlugin extends Plugin {
 如果想获取设置页面的跳转链接，可以通过 `getRoutePath` 方法获取。
 
 ```tsx | pure
-import { useApp } from '@nocobase/client'
+import { useApp } from '@tachybase/client'
 
 const app = useApp();
 app.pluginSettingsManager.getRoutePath('hello'); // /admin/settings/hello

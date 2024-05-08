@@ -1,7 +1,7 @@
-import Database from '@nocobase/database';
+import Database from '@tachybase/database';
 import { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
-import { Application } from '@nocobase/server';
+import { Application } from '@tachybase/server';
 
 describe('workflow > instructions > delay', () => {
   let app: Application;

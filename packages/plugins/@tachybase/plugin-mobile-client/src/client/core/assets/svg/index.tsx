@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '@nocobase/client';
+import { Icon } from '@tachybase/client';
 
 import NoticeSvg from './notice.svg';
 import SwiperSvg from './swiper.svg';

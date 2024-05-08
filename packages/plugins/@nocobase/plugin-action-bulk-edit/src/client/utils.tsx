@@ -8,13 +8,13 @@ import {
   useCompile,
   useTableBlockContext,
   TableFieldResource,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useContext } from 'react';
 import { App, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { SchemaExpressionScopeContext, useField, useForm } from '@tachybase/schema';
 import { cloneDeep } from 'lodash';
-import { isURL } from '@nocobase/utils/client';
+import { isURL } from '@tachybase/utils/client';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BulkEditFormItemValueType } from './component/BulkEditField';

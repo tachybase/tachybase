@@ -1,4 +1,4 @@
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { resolve } from 'path';
 
 export class SystemSettingsPlugin extends Plugin {

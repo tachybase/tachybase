@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import { Space, Tabs } from 'antd';
 import React, { createElement, useContext } from 'react';
-import { useCurrentDocumentTitle, usePlugin, useViewport } from '@nocobase/client';
+import { useCurrentDocumentTitle, usePlugin, useViewport } from '@tachybase/client';
 import AuthPlugin, { AuthOptions } from '..';
 import { Authenticator, AuthenticatorsContext } from '../authenticator';
 import { useAuthTranslation } from '../locale';

@@ -1,4 +1,4 @@
-import { CompatibleSchemaInitializer, gridRowColWrap } from '@nocobase/client';
+import { CompatibleSchemaInitializer, gridRowColWrap } from '@tachybase/client';
 import { NAMESPACE } from '../../locale';
 
 /**

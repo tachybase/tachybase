@@ -1,4 +1,4 @@
-import { ActionInitializer } from '@nocobase/client';
+import { ActionInitializer } from '@tachybase/client';
 import React from 'react';
 
 export const DuplicateActionInitializer = (props) => {

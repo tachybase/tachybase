@@ -8,7 +8,7 @@ import {
   css,
   parseCollectionName,
   useAPIClient,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Button, Dropdown } from 'antd';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from '../../../../locale';

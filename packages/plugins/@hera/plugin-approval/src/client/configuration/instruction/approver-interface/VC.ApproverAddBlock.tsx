@@ -7,7 +7,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaTemplateManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import _ from 'lodash';
 

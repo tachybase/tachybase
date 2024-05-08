@@ -1,4 +1,4 @@
-import { i18n } from '@nocobase/client';
+import { i18n } from '@tachybase/client';
 import { useTranslation } from 'react-i18next';
 
 export const NAMESPACE = 'data-visualization';

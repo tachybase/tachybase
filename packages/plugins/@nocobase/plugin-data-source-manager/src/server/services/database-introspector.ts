@@ -1,4 +1,4 @@
-import { Database, ViewFieldInference } from '@nocobase/database';
+import { Database, ViewFieldInference } from '@tachybase/database';
 import { ColumnsDescription } from 'sequelize';
 import lodash from 'lodash';
 import typeInterfaceMap from './type-interface-map';

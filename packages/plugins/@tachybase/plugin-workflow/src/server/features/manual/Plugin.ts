@@ -1,6 +1,6 @@
-import { Plugin } from '@nocobase/server';
-import actions from '@nocobase/actions';
-import { HandlerType } from '@nocobase/resourcer';
+import { Plugin } from '@tachybase/server';
+import actions from '@tachybase/actions';
+import { HandlerType } from '@tachybase/resourcer';
 import WorkflowPlugin, { JOB_STATUS } from '../..';
 
 import { submit } from './actions';

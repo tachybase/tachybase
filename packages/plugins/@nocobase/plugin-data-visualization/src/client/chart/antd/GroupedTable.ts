@@ -1,4 +1,4 @@
-import { uid } from '@nocobase/utils/client';
+import { uid } from '@tachybase/utils/client';
 import { RenderProps } from '../chart';
 import { AntdChart } from './antd';
 import { Table as AntdTable } from 'antd';

@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { BackupAndRestoreList } from './Configuration';
 import { DuplicatorProvider } from './DuplicatorProvider';
 import { NAMESPACE } from './locale';

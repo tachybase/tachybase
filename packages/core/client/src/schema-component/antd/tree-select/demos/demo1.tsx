@@ -2,7 +2,7 @@
  * title: TreeSelect
  */
 import { FormItem } from '@tachybase/components';
-import { SchemaComponent, SchemaComponentProvider, TreeSelect } from '@nocobase/client';
+import { SchemaComponent, SchemaComponentProvider, TreeSelect } from '@tachybase/client';
 import React from 'react';
 
 const dataSource = [

@@ -1,6 +1,6 @@
 import { PlusOutlined, DownOutlined } from '@ant-design/icons';
 import { uid } from '@tachybase/schema';
-import { ActionContext, SchemaComponent, useCompile, usePlugin, useRecord } from '@nocobase/client';
+import { ActionContext, SchemaComponent, useCompile, usePlugin, useRecord } from '@tachybase/client';
 import { Button, Card, Dropdown } from 'antd';
 import _ from 'lodash';
 import React, { useState } from 'react';

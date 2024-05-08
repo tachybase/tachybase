@@ -1,5 +1,5 @@
 import { connect, mapReadPretty, useFieldSchema } from '@tachybase/schema';
-import { ReadPrettyRecordPicker, useCollection_deprecated } from '@nocobase/client';
+import { ReadPrettyRecordPicker, useCollection_deprecated } from '@tachybase/client';
 import React from 'react';
 import { SnapshotHistoryCollectionProvider } from './SnapshotHistoryCollectionProvider';
 

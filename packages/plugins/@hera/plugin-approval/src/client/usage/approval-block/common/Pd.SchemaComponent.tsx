@@ -1,4 +1,4 @@
-import { SchemaComponentContext, useSchemaComponentContext } from '@nocobase/client';
+import { SchemaComponentContext, useSchemaComponentContext } from '@tachybase/client';
 import React from 'react';
 
 export function SchemaComponentContextProvider({ designable, children }) {

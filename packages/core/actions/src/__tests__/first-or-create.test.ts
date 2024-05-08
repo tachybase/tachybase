@@ -1,6 +1,6 @@
 import { mockServer } from './index';
-import { registerActions } from '@nocobase/actions';
-import { Collection } from '@nocobase/database';
+import { registerActions } from '@tachybase/actions';
+import { Collection } from '@tachybase/database';
 
 describe('first or create', () => {
   let app;

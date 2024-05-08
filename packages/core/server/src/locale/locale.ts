@@ -1,5 +1,5 @@
-import { Cache } from '@nocobase/cache';
-import { lodash } from '@nocobase/utils';
+import { Cache } from '@tachybase/cache';
+import { lodash } from '@tachybase/utils';
 import Application from '../application';
 import { getResource } from './resource';
 

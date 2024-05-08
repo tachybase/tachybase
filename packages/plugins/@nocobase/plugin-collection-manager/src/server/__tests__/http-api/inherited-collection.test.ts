@@ -1,4 +1,4 @@
-import { MockServer, pgOnly } from '@nocobase/test';
+import { MockServer, pgOnly } from '@tachybase/test';
 import { createApp } from '..';
 
 pgOnly()('Inherited Collection', () => {

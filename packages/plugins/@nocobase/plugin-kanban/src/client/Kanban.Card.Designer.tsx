@@ -11,7 +11,7 @@ import {
   useFormItemInitializerFields,
   useGetAriaLabelOfDesigner,
   useSchemaInitializerRender,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Space } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

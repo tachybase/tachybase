@@ -1,5 +1,5 @@
-import { Plugin } from '@nocobase/client';
-import { Registry } from '@nocobase/utils/client';
+import { Plugin } from '@tachybase/client';
+import { Registry } from '@tachybase/utils/client';
 import { ComponentType } from 'react';
 import { presetAuthType } from '../preset';
 import { AuthProvider } from './AuthProvider';

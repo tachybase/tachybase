@@ -1,4 +1,4 @@
-import { i18n, tval as nTval } from '@nocobase/client';
+import { i18n, tval as nTval } from '@tachybase/client';
 
 export const NAMESPACE = '@hera/plugin-approval';
 

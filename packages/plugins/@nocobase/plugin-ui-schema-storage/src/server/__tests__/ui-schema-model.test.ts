@@ -1,5 +1,5 @@
-import { Collection, Database } from '@nocobase/database';
-import { MockServer, createMockServer } from '@nocobase/test';
+import { Collection, Database } from '@tachybase/database';
+import { MockServer, createMockServer } from '@tachybase/test';
 import { UiSchemaRepository } from '..';
 
 describe('ui schema model', () => {

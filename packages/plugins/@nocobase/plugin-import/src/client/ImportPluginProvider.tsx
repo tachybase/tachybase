@@ -1,4 +1,4 @@
-import { SchemaComponentOptions } from '@nocobase/client';
+import { SchemaComponentOptions } from '@tachybase/client';
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ImportActionInitializer, ImportDesigner } from '.';

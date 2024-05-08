@@ -1,4 +1,4 @@
-import { ActionContextProvider, AdminProvider, css, cx, RemoteSchemaComponent, useViewport } from '@nocobase/client';
+import { ActionContextProvider, AdminProvider, css, cx, RemoteSchemaComponent, useViewport } from '@tachybase/client';
 import { DrawerProps, ModalProps } from 'antd';
 import React, { useMemo } from 'react';
 import { Outlet, useParams } from 'react-router-dom';

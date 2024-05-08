@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { observer, useField, Field } from '@tachybase/schema';
 import { useTranslation } from '../../../locale';
 

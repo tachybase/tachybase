@@ -1,7 +1,7 @@
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { css, cx, useCompile, Variable } from '@nocobase/client';
-import { evaluators } from '@nocobase/evaluators/client';
-import { Registry } from '@nocobase/utils/client';
+import { css, cx, useCompile, Variable } from '@tachybase/client';
+import { evaluators } from '@tachybase/evaluators/client';
+import { Registry } from '@tachybase/utils/client';
 import { Button, Select } from 'antd';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';

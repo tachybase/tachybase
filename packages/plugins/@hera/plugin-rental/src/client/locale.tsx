@@ -1,4 +1,4 @@
-import { Application, useApp, tval as nTval } from '@nocobase/client';
+import { Application, useApp, tval as nTval } from '@tachybase/client';
 
 const NAMESPACE = '@hera/plugin-rental';
 

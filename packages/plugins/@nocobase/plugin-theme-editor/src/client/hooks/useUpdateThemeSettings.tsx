@@ -1,5 +1,5 @@
-import { useAPIClient, useCurrentUserContext, useSystemSettings } from '@nocobase/client';
-import { error } from '@nocobase/utils/client';
+import { useAPIClient, useCurrentUserContext, useSystemSettings } from '@tachybase/client';
+import { error } from '@tachybase/utils/client';
 import { useCallback } from 'react';
 
 export function useUpdateThemeSettings() {

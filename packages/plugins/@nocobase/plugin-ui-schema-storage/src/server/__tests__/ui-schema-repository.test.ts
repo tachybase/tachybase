@@ -1,5 +1,5 @@
-import { Collection, Database } from '@nocobase/database';
-import { createMockServer, MockServer } from '@nocobase/test';
+import { Collection, Database } from '@tachybase/database';
+import { createMockServer, MockServer } from '@tachybase/test';
 import { SchemaNode } from '../dao/ui_schema_node_dao';
 import UiSchemaRepository from '../repository';
 

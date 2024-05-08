@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { Font } from '@react-pdf/renderer';
 import axios from 'axios';
-import { Service } from '@nocobase/utils';
+import { Service } from '@tachybase/utils';
 
 @Service()
 export class FontManager {

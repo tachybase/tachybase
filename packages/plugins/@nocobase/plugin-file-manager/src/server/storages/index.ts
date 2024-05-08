@@ -1,6 +1,6 @@
 import { StorageEngine } from 'multer';
-import Application from '@nocobase/server';
-import { Registry } from '@nocobase/utils';
+import Application from '@tachybase/server';
+import { Registry } from '@tachybase/utils';
 
 import local from './local';
 import oss from './ali-oss';

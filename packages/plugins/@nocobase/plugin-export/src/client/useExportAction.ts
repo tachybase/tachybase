@@ -5,7 +5,7 @@ import {
   useCollection_deprecated,
   useCollectionManager_deprecated,
   useCompile,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import lodash from 'lodash';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';

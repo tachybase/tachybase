@@ -1,4 +1,4 @@
-import { css, cx } from '@nocobase/client';
+import { css, cx } from '@tachybase/client';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Device from './iOS6';

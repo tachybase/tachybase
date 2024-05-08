@@ -1,4 +1,4 @@
-import { EllipsisWithTooltip, useCompile } from '@nocobase/client';
+import { EllipsisWithTooltip, useCompile } from '@tachybase/client';
 import React from 'react';
 import { observer, useField } from '@tachybase/schema';
 

@@ -9,7 +9,7 @@ import {
   useCompile,
   useComponent,
   useFormBlockContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Checkbox, Select, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';

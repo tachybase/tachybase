@@ -30,7 +30,7 @@ export default (cli: Command) => {
       if (existsSync(appDevDir)) {
         rmSync(appDevDir, { recursive: true, force: true });
       }
-      await run('pnpm', ['add', '@tachybase/cli', '@nocobase/devtools', '-w']);
+      await run('pnpm', ['add', '@tachybase/cli', '@tachybase/devtools', '-w']);
       await run('pnpm', ['install']);
       await runAppCommand('upgrade');
     });

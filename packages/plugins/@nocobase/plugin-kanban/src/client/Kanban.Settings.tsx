@@ -9,7 +9,7 @@ import {
   SchemaSettingsBlockTitleItem,
   removeNullCondition,
   SchemaSettingsTemplate,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useKanbanBlockContext } from './KanbanBlockProvider';
 export const kanbanSettings = new SchemaSettings({
   name: 'blockSettings:kanban',

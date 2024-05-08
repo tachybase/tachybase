@@ -1,7 +1,7 @@
 import PluginErrorHandler from '@nocobase/plugin-error-handler';
 import { Trigger, EXECUTION_STATUS } from '@tachybase/plugin-workflow';
-import { joinCollectionName } from '@nocobase/data-source-manager';
-import type { Context, Next } from '@nocobase/actions';
+import { joinCollectionName } from '@tachybase/data-source-manager';
+import type { Context, Next } from '@tachybase/actions';
 import PluginWorkflow from '@tachybase/plugin-workflow';
 
 class RequestInterceptionError extends Error {

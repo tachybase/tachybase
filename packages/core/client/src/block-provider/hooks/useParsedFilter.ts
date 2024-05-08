@@ -1,5 +1,5 @@
 import { reaction } from '@tachybase/schema';
-import { flatten, getValuesByPath } from '@nocobase/utils/client';
+import { flatten, getValuesByPath } from '@tachybase/utils/client';
 import _ from 'lodash';
 import { useEffect, useState } from 'react';
 import { useParseDataScopeFilter } from '../../schema-settings';

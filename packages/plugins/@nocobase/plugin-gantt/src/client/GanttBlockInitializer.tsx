@@ -13,7 +13,7 @@ import {
   SchemaComponent,
   DataBlockInitializer,
   SchemaComponentOptions,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { createGanttBlockUISchema } from './createGanttBlockUISchema';
 
 export const GanttBlockInitializer = () => {

@@ -1,4 +1,4 @@
-import { useRecord } from '@nocobase/client';
+import { useRecord } from '@tachybase/client';
 import React from 'react';
 import { Button } from 'antd';
 import { css } from '@emotion/css';

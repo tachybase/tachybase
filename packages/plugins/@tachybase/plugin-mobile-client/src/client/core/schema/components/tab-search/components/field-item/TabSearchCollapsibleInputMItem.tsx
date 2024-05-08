@@ -1,4 +1,4 @@
-import { SortableItem, css, withDynamicSchemaProps } from '@nocobase/client';
+import { SortableItem, css, withDynamicSchemaProps } from '@tachybase/client';
 import { Checkbox, Grid, Switch } from 'antd-mobile';
 import React from 'react';
 import { useTabSearchCollapsibleInputItemAction } from './TabSearchCollapsibleInputItemAction';

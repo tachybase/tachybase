@@ -4,7 +4,7 @@ import {
   useBlockRequestContext,
   useCollection,
   useSourceIdFromParentRecord,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { notification } from 'antd';
 import { useContext, useMemo } from 'react';
 import { useFmTranslation } from '../locale';

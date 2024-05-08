@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { FormPath } from '@tachybase/schema';
-import { useRequest } from '@nocobase/client';
+import { useRequest } from '@tachybase/client';
 import { Space, Spin, Tag } from 'antd';
 
 export const DetailChecks: CustomFunctionComponent = () => {

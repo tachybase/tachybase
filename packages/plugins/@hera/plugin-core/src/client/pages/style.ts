@@ -1,4 +1,4 @@
-import { createStyles } from '@nocobase/client';
+import { createStyles } from '@tachybase/client';
 
 export const useStyles = createStyles(({ css }) => ({
   home: css`

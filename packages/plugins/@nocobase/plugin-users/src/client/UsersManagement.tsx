@@ -1,4 +1,4 @@
-import { SchemaComponent, SchemaComponentContext, useSchemaComponentContext } from '@nocobase/client';
+import { SchemaComponent, SchemaComponentContext, useSchemaComponentContext } from '@tachybase/client';
 import React from 'react';
 import { usersSchema } from './schemas/users';
 import { Card } from 'antd';

@@ -1,4 +1,4 @@
-import { Handlers } from '@nocobase/resourcer';
+import { Handlers } from '@tachybase/resourcer';
 
 export const actions = {
   signIn: async (ctx, next) => {

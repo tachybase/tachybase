@@ -1,4 +1,4 @@
-import { dayjs } from '@nocobase/utils';
+import { dayjs } from '@tachybase/utils';
 import { lowerCase } from 'lodash';
 
 /**

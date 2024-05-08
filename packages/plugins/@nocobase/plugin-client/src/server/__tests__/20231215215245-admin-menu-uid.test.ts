@@ -1,4 +1,4 @@
-import { MockServer, createMockServer } from '@nocobase/test';
+import { MockServer, createMockServer } from '@tachybase/test';
 import Migration from '../migrations/20231215215247-admin-menu-uid';
 
 describe('nocobase-admin-menu', () => {

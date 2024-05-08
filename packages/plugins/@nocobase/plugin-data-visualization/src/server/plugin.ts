@@ -1,5 +1,5 @@
-import { Cache } from '@nocobase/cache';
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { Cache } from '@tachybase/cache';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { query } from './actions/query';
 import { resolve } from 'path';
 

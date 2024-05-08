@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { GraphCollectionPane } from './GraphCollectionShortcut';
 import { NAMESPACE } from './locale';
 export class GraphCollectionPlugin extends Plugin {

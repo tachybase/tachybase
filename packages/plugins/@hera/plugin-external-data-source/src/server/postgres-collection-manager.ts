@@ -1,2 +1,2 @@
-import { SequelizeCollectionManager } from '@nocobase/data-source-manager';
+import { SequelizeCollectionManager } from '@tachybase/data-source-manager';
 export class PostgresCollectionManager extends SequelizeCollectionManager {}

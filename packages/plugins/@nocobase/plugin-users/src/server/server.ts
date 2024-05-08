@@ -1,10 +1,10 @@
-import { Collection, Op } from '@nocobase/database';
-import { Plugin } from '@nocobase/server';
-import { parse } from '@nocobase/utils';
+import { Collection, Op } from '@tachybase/database';
+import { Plugin } from '@tachybase/server';
+import { parse } from '@tachybase/utils';
 import { resolve } from 'path';
 
 import * as actions from './actions/users';
-import { Cache } from '@nocobase/cache';
+import { Cache } from '@tachybase/cache';
 import { UserModel } from './models/UserModel';
 
 export default class PluginUsersServer extends Plugin {

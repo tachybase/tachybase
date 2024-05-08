@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActionInitializer } from '@nocobase/client';
+import { ActionInitializer } from '@tachybase/client';
 
 export const PrintActionInitializer = (props) => {
   const schema = {

@@ -1,4 +1,4 @@
-import { SchemaComponentOptions } from '@nocobase/client';
+import { SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
 import { AuditLogsBlockInitializer } from './AuditLogsBlockInitializer';
 import { AuditLogsBlockProvider } from './AuditLogsBlockProvider';

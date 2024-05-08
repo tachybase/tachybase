@@ -1,6 +1,6 @@
 import { mockDatabase } from '../index';
 import { Database } from '../../database';
-import { randomStr } from '@nocobase/test';
+import { randomStr } from '@tachybase/test';
 
 describe('auth', () => {
   let db: Database;

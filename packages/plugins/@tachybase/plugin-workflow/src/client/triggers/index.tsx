@@ -18,7 +18,7 @@ import {
   useCompile,
   usePlugin,
   useResourceActionContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import WorkflowPlugin from '..';
 import { useFlowContext } from '../FlowContext';

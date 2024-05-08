@@ -12,8 +12,8 @@ import {
   useDocumentTitle,
   usePlugin,
   useResourceActionContext,
-} from '@nocobase/client';
-import { str2moment } from '@nocobase/utils/client';
+} from '@tachybase/client';
+import { str2moment } from '@tachybase/utils/client';
 
 import WorkflowPlugin from '.';
 import { CanvasContent } from './CanvasContent';

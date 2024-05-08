@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/build",
+  "name": "@tachybase/build",
   "version": "0.21.24",
   "description": "Library build tool based on rollup.",
   "license": "Apache-2.0",

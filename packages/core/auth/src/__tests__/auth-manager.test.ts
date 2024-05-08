@@ -1,8 +1,8 @@
 import { vi } from 'vitest';
-import { Context } from '@nocobase/actions';
-import { Auth, AuthManager } from '@nocobase/auth';
-import Database, { Model } from '@nocobase/database';
-import { MockServer, mockServer } from '@nocobase/test';
+import { Context } from '@tachybase/actions';
+import { Auth, AuthManager } from '@tachybase/auth';
+import Database, { Model } from '@tachybase/database';
+import { MockServer, mockServer } from '@tachybase/test';
 
 class MockStorer {
   elements: Map<string, any> = new Map();

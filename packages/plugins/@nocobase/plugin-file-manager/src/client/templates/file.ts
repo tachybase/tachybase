@@ -1,4 +1,4 @@
-import { CollectionTemplate, getConfigurableProperties } from '@nocobase/client';
+import { CollectionTemplate, getConfigurableProperties } from '@tachybase/client';
 import { NAMESPACE } from '../locale';
 
 export class FileCollectionTemplate extends CollectionTemplate {

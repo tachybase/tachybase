@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from '@nocobase/test/client';
+import { render, screen, userEvent } from '@tachybase/test/client';
 import React from 'react';
 import App1 from '../demos/checkbox';
 import App2 from '../demos/checkbox.group';

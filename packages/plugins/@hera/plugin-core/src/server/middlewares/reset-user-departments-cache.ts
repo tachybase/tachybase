@@ -1,4 +1,4 @@
-import type { Context, Next } from '@nocobase/actions';
+import type { Context, Next } from '@tachybase/actions';
 
 export const resetUserDepartmentsCache = async (ctx: Context, next: Next) => {
   await next();

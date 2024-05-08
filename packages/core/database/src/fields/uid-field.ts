@@ -1,4 +1,4 @@
-import { uid } from '@nocobase/utils';
+import { uid } from '@tachybase/utils';
 import { DataTypes } from 'sequelize';
 import { BaseColumnFieldOptions, Field } from './field';
 

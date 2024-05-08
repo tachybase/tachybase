@@ -2,7 +2,7 @@
  * title: 组
  */
 import { FormItem } from '@tachybase/components';
-import { Checkbox, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { Checkbox, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 
 const options = [

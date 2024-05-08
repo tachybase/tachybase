@@ -1,4 +1,4 @@
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import { createApp } from '../index';
 
 describe('recreate field', () => {

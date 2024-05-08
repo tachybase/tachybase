@@ -1,7 +1,7 @@
 import { DownloadOutlined } from '@ant-design/icons';
 import { Field } from '@tachybase/schema';
 import { useField } from '@tachybase/schema';
-import { isString } from '@nocobase/utils/client';
+import { isString } from '@tachybase/utils/client';
 import { Button, Modal, Space } from 'antd';
 import useUploadStyle from 'antd/es/upload/style';
 import cls from 'classnames';

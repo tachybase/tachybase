@@ -1,5 +1,5 @@
-import Database, { Collection as DBCollection } from '@nocobase/database';
-import { MockServer } from '@nocobase/test';
+import Database, { Collection as DBCollection } from '@tachybase/database';
+import { MockServer } from '@tachybase/test';
 import { createApp } from '..';
 
 describe('reverseField options', () => {

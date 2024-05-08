@@ -1,4 +1,4 @@
-import { ActionInitializer, useCollection_deprecated } from '@nocobase/client';
+import { ActionInitializer, useCollection_deprecated } from '@tachybase/client';
 import React from 'react';
 
 export const UploadActionInitializer = (props) => {

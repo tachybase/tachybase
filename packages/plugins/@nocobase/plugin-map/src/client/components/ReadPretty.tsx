@@ -1,5 +1,5 @@
 import { useFieldSchema, useForm } from '@tachybase/schema';
-import { EllipsisWithTooltip, useCollection_deprecated, useFieldTitle } from '@nocobase/client';
+import { EllipsisWithTooltip, useCollection_deprecated, useFieldTitle } from '@tachybase/client';
 import React from 'react';
 import { MapComponent } from './MapComponent';
 

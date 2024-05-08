@@ -1,4 +1,4 @@
-import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile, usePlugin } from '@nocobase/client';
+import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile, usePlugin } from '@tachybase/client';
 
 import WorkflowPlugin, {
   defaultFieldNames,

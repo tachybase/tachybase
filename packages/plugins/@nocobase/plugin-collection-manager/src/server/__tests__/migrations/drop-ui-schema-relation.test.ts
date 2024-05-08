@@ -1,6 +1,6 @@
-import { Database, MigrationContext } from '@nocobase/database';
-import { Plugin } from '@nocobase/server';
-import { MockServer } from '@nocobase/test';
+import { Database, MigrationContext } from '@tachybase/database';
+import { Plugin } from '@tachybase/server';
+import { MockServer } from '@tachybase/test';
 import Migrator from '../../migrations/20230225111112-drop-ui-schema-relation';
 import { createApp } from '../index';
 

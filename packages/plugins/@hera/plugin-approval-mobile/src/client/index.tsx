@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import PluginApproval from './approval';
 
 export class PluginApprovalMobileClient extends Plugin {

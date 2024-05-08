@@ -1,5 +1,5 @@
 import { RightOutlined } from '@ant-design/icons';
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { Button, Tooltip } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { lazy } from 'react';

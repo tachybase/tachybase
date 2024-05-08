@@ -2,7 +2,7 @@ import { observer, useForm } from '@tachybase/schema';
 import { Select } from 'antd';
 import React from 'react';
 
-import { parseCollectionName, useCollectionManager_deprecated, useCompile } from '@nocobase/client';
+import { parseCollectionName, useCollectionManager_deprecated, useCompile } from '@tachybase/client';
 
 function defaultFilter() {
   return true;

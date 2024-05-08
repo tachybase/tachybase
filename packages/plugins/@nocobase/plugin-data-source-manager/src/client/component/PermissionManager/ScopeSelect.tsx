@@ -1,6 +1,6 @@
 import { createForm } from '@tachybase/schema';
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { FormProvider, SchemaComponent, useRecord } from '@nocobase/client';
+import { FormProvider, SchemaComponent, useRecord } from '@tachybase/client';
 import { getScopesSchema } from './schemas/scopes';
 
 const RolesResourcesScopesSelectedRowKeysContext = createContext(null);

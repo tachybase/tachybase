@@ -5,7 +5,7 @@ import {
   interfacesProperties,
   useCollectionManager_deprecated,
   useRecord,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import lodash from 'lodash';
 import { NAMESPACE } from './locale';
 

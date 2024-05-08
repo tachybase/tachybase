@@ -1,5 +1,5 @@
-import { Db, Service } from '@nocobase/utils';
-import Database from '@nocobase/database';
+import { Db, Service } from '@tachybase/utils';
+import Database from '@tachybase/database';
 import dayjs from 'dayjs';
 import {
   AddItemsCategory,
@@ -887,8 +887,8 @@ export class SettlementService {
     });
     calc.list.forEach((value) => {
       const productDate = converDate(value.date, 'YYYY-MM-DD');
-      if ((value.name as string).includes('-')) {
-        const name = value.name.split('-')[0];
+      if ((value.name as string)?.includes('-')) {
+        const name = value.name?.split('-')[0];
         const valueItem = calc.list.filter(
           (item) => converDate(item.date, 'YYYY-MM-DD') === productDate && item.name === name,
         )[0];
@@ -896,8 +896,8 @@ export class SettlementService {
           value.date = dayjs(valueItem.date).add(1, 'seconds');
         }
       }
-      if (value.name.includes('$$')) {
-        value.name = value.name.replace('$$', '');
+      if (value.name?.includes('&&')) {
+        value.name = value.name.replace('&&', '');
       }
     });
     calc.list?.sort((a, b) => {

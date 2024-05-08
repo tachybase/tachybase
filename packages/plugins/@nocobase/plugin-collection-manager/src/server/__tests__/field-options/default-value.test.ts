@@ -1,6 +1,6 @@
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import { createApp } from '..';
-import { Collection } from '@nocobase/database';
+import { Collection } from '@tachybase/database';
 
 describe('field defaultValue', () => {
   let app: MockServer;

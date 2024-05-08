@@ -7,7 +7,7 @@ import {
   SchemaSettingsDivider,
   SchemaSettingsRemove,
   useCompile,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 export function SimpleDesigner() {
   const schema = useFieldSchema();

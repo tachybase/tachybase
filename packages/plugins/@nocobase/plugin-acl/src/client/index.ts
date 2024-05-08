@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { RolesManagement } from './RolesManagement';
 import { RolesManager } from './roles-manager';
 

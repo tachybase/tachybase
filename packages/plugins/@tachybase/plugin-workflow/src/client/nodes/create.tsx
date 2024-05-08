@@ -3,7 +3,7 @@ import {
   useCollectionDataSource,
   useCollectionManager_deprecated,
   useCompile,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import { CollectionBlockInitializer } from '../components/CollectionBlockInitializer';
 import CollectionFieldset from '../components/CollectionFieldset';

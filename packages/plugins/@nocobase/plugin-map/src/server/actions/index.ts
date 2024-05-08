@@ -1,4 +1,4 @@
-import { Context } from '@nocobase/actions';
+import { Context } from '@tachybase/actions';
 import { MapConfigurationCollectionName } from '../constants';
 
 export const getConfiguration = async (ctx: Context, next) => {

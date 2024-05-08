@@ -4,7 +4,7 @@ import { createForm, Field, Form as FormilyForm, onFieldInit, onFormInputChange 
 import { FieldContext, FormContext, observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 import { reaction } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { getValuesByPath } from '@nocobase/utils/client';
+import { getValuesByPath } from '@tachybase/utils/client';
 import { ConfigProvider, Spin } from 'antd';
 import React, { useEffect, useMemo } from 'react';
 import { useActionContext } from '..';

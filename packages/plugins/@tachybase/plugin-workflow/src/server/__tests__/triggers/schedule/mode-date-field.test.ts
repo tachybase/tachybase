@@ -1,5 +1,5 @@
-import { MockServer } from '@nocobase/test';
-import Database from '@nocobase/database';
+import { MockServer } from '@tachybase/test';
+import Database from '@tachybase/database';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
 
 async function sleepToEvenSecond() {

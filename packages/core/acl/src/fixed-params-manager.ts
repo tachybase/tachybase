@@ -1,4 +1,4 @@
-import { assign } from '@nocobase/utils';
+import { assign } from '@tachybase/utils';
 
 type Context = any;
 export type Merger = () => object;

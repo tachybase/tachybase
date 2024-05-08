@@ -1,4 +1,4 @@
-import { Action, CurrentAppInfoProvider, Plugin, SchemaComponentOptions } from '@nocobase/client';
+import { Action, CurrentAppInfoProvider, Plugin, SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
 import { Kanban } from './Kanban';
 import { KanbanCard } from './Kanban.Card';

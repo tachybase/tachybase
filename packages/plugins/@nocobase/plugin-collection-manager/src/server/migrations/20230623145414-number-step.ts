@@ -1,5 +1,5 @@
-import { Collection } from '@nocobase/database';
-import { Migration } from '@nocobase/server';
+import { Collection } from '@tachybase/database';
+import { Migration } from '@tachybase/server';
 import { FieldModel } from '../models';
 import _ from 'lodash';
 

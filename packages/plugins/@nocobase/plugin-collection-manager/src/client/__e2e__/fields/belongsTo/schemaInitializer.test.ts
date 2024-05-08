@@ -2,7 +2,7 @@ import {
   expectInitializerMenu,
   oneTableBlockWithAddNewAndViewAndEditAndAssociationFields,
   test,
-} from '@nocobase/test/e2e';
+} from '@tachybase/test/e2e';
 
 test.describe('form item & create form', () => {
   test('configure fields', async ({ page, mockPage, mockRecords }) => {

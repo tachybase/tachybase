@@ -1,4 +1,4 @@
-import { PageConfig, generalWithMultiLevelM2oFields } from '@nocobase/test/e2e';
+import { PageConfig, generalWithMultiLevelM2oFields } from '@tachybase/test/e2e';
 
 export const T2797: PageConfig = {
   pageSchema: {

@@ -1,4 +1,4 @@
-import { Locator, Page } from '@nocobase/test/e2e';
+import { Locator, Page } from '@tachybase/test/e2e';
 export class CreateWorkFlow {
   readonly page: Page;
   name: Locator;

@@ -1,4 +1,4 @@
-import { Page, expect } from '@nocobase/test/e2e';
+import { Page, expect } from '@tachybase/test/e2e';
 
 export async function showSettingsMenu(page: Page, fieldName: string) {
   await page.getByRole('columnheader', { name: fieldName, exact: true }).hover();

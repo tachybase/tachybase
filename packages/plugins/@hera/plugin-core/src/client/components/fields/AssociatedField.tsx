@@ -7,7 +7,7 @@ import {
   RecordProvider,
   useDesignable,
   useRequest,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useCallback, useEffect, useState } from 'react';
 
 const viewerSchema: ISchema = {

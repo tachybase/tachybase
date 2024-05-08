@@ -17,9 +17,9 @@
     "react-i18next": "^11.15.1"
   },
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "复制一条记录，可以复制到表单中编辑后再提交，也可以直接复制并生成一条新记录。",
   "displayName.zh-CN": "操作：复制记录",

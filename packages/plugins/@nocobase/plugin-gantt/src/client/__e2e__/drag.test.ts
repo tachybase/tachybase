@@ -1,4 +1,4 @@
-import { expect, test } from '@nocobase/test/e2e';
+import { expect, test } from '@tachybase/test/e2e';
 import { oneEmptyGantt } from './utils';
 
 test('drag and adjust start time, end time, and progress', async ({ page, mockPage, mockRecord }) => {

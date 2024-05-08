@@ -1,5 +1,5 @@
-import Database, { CreateOptions, MagicAttributeModel } from '@nocobase/database';
-import { Db, Service } from '@nocobase/utils';
+import Database, { CreateOptions, MagicAttributeModel } from '@tachybase/database';
+import { Db, Service } from '@tachybase/utils';
 
 @Service()
 export class ContractService {
@@ -33,7 +33,7 @@ export class ContractService {
     if (!options.values) return;
     if (options.values.settlementTemplate) {
       const temp = {
-        上个月: `MONTH(EOMONTH(TODAY(), -1))`,
+        上个月: `MONTH(EOMONTH(TODAY(), -1))`, // 工作流默认
         本月: `MONTH(TODAY())`,
         当年: `YEAR(EOMONTH(TODAY(), -1))`,
       };

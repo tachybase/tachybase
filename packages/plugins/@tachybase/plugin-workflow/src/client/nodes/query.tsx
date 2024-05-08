@@ -6,7 +6,7 @@ import {
   useCollectionDataSource,
   useCollectionManager_deprecated,
   useCompile,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import { useForm } from '@tachybase/schema';
 import { CollectionBlockInitializer } from '../components/CollectionBlockInitializer';

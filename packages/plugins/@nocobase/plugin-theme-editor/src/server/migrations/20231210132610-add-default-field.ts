@@ -1,4 +1,4 @@
-import { Migration } from '@nocobase/server';
+import { Migration } from '@tachybase/server';
 
 export default class extends Migration {
   appVersion = '<0.17.0-alpha.5';

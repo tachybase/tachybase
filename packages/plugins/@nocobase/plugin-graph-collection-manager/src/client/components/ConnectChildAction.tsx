@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tooltip } from 'antd';
 import { FallOutlined } from '@ant-design/icons';
-import { useCollectionManager_deprecated } from '@nocobase/client';
+import { useCollectionManager_deprecated } from '@tachybase/client';
 import { getPopupContainer, useGCMTranslation } from '../utils';
 
 export const ConnectChildAction = (props) => {

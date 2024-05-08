@@ -25,7 +25,7 @@ import {
   useCompile,
   Select,
   useCollectionManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { ConfigProvider, Radio, Space } from 'antd';
 import React, { memo, useCallback, useContext, useMemo, Profiler } from 'react';
 import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';

@@ -1,4 +1,4 @@
-import { merge as deepmerge } from '@nocobase/utils';
+import { merge as deepmerge } from '@tachybase/utils';
 
 const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray.concat(destinationArray);
 

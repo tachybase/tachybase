@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { Button } from 'antd';
 
 export const ModalHeader = (props) => {

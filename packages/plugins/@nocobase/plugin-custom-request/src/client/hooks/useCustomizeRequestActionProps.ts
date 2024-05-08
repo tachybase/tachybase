@@ -7,9 +7,9 @@ import {
   useCollection_deprecated,
   useCompile,
   useRecord,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { App } from 'antd';
-import { isURL } from '@nocobase/utils/client';
+import { isURL } from '@tachybase/utils/client';
 import { useNavigate } from 'react-router-dom';
 
 export const useCustomizeRequestActionProps = () => {

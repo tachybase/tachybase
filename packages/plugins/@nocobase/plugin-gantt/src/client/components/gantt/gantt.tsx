@@ -11,7 +11,7 @@ import {
   useToken,
   withDynamicSchemaProps,
   useProps,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { message } from 'antd';
 import { debounce } from 'lodash';
 import React, { SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';

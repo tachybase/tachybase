@@ -7,7 +7,7 @@ import {
   css,
   cx,
   useDesigner,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { TabsProps } from 'antd';
 import React, { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';

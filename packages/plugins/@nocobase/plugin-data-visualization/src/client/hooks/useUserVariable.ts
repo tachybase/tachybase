@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Schema } from '@tachybase/schema';
-import { useCollectionFieldsOptions } from '@nocobase/client';
+import { useCollectionFieldsOptions } from '@tachybase/client';
 import { useMemoizedFn } from 'ahooks';
 
 export const useUserVariable = ({ schema }: { schema: any }) => {

@@ -1,7 +1,7 @@
 import { ArrayItems } from '@tachybase/components';
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { Instruction, RadioWithTooltip } from '@tachybase/plugin-workflow/client';
-import { uid } from '@nocobase/utils/client';
+import { uid } from '@tachybase/utils/client';
 import React from 'react';
 import { APPROVAL_ACTION_STATUS } from '../../constants';
 import { NAMESPACE } from '../../locale';

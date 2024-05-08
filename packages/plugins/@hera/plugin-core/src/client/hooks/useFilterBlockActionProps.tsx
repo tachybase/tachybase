@@ -7,7 +7,7 @@ import {
   useCollection_deprecated,
   useCollectionManager_deprecated,
   useFilterBlock,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import flat from 'flat';
 import { hasDuplicateKeys } from '../utils';
 

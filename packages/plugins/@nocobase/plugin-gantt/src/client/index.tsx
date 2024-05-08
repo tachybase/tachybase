@@ -1,4 +1,4 @@
-import { ActionBar, CurrentAppInfoProvider, Plugin, SchemaComponentOptions } from '@nocobase/client';
+import { ActionBar, CurrentAppInfoProvider, Plugin, SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
 import { GanttDesigner } from './Gantt.Designer';
 import { ganttSettings, oldGanttSettings } from './Gantt.Settings';

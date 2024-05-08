@@ -1,5 +1,5 @@
 import { observer, useField } from '@tachybase/schema';
-import { useAPIClient, useApp } from '@nocobase/client';
+import { useAPIClient, useApp } from '@tachybase/client';
 import { Card } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

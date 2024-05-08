@@ -1,4 +1,4 @@
-import { SchemaComponent, useRecord } from '@nocobase/client';
+import { SchemaComponent, useRecord } from '@tachybase/client';
 import React from 'react';
 import { RecordDecorator } from './Dt.Record';
 import { ViewActionLaunchContent } from './VC.ViewActionLaunchContent';

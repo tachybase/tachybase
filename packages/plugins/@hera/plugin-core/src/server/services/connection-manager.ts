@@ -1,9 +1,9 @@
-import Application, { Gateway } from '@nocobase/server';
+import Application, { Gateway } from '@tachybase/server';
 import WebSocket from 'ws';
 import jwt from 'jsonwebtoken';
 import { createClient } from 'redis';
 import { currentProcessNum, isMain } from '../utils/multiprocess';
-import { App, Service } from '@nocobase/utils';
+import { App, Service } from '@tachybase/utils';
 const KEY_ONLINE_USERS = 'online_users';
 
 @Service()

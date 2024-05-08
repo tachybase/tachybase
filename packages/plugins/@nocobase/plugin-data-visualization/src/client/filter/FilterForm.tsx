@@ -1,7 +1,7 @@
 import React, { memo, useContext, useEffect, useMemo, useRef } from 'react';
 import { createForm, onFieldInit, onFieldMount, onFieldUnmount } from '@tachybase/schema';
 import { ChartFilterContext } from './FilterProvider';
-import { DEFAULT_DATA_SOURCE_KEY, FormV2, VariablesContext } from '@nocobase/client';
+import { DEFAULT_DATA_SOURCE_KEY, FormV2, VariablesContext } from '@tachybase/client';
 import { setDefaultValue } from './utils';
 import { useChartFilter } from '../hooks';
 

@@ -1,5 +1,5 @@
-import type { Context, Next } from '@nocobase/actions';
-import type { ArrayFieldRepository } from '@nocobase/database';
+import type { Context, Next } from '@tachybase/actions';
+import type { ArrayFieldRepository } from '@tachybase/database';
 
 export const setDepartmentsInfo = async (ctx: Context, next: Next) => {
   const currentUser = ctx.state.currentUser;

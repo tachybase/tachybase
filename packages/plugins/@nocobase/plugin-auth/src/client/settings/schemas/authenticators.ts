@@ -1,6 +1,6 @@
 import { ISchema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { i18n, useAPIClient, useActionContext, useRequest } from '@nocobase/client';
+import { i18n, useAPIClient, useActionContext, useRequest } from '@tachybase/client';
 import { message } from 'antd';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';

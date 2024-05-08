@@ -1,4 +1,4 @@
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { useDebounceFn } from 'ahooks';
 import { message, Select } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';

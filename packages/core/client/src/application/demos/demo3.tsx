@@ -1,4 +1,4 @@
-import { Application, NocoBaseBuildInPlugin } from '@nocobase/client';
+import { Application, NocoBaseBuildInPlugin } from '@tachybase/client';
 
 export const app = new Application({
   apiClient: {

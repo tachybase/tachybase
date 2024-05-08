@@ -1,4 +1,4 @@
-import type { Context, Next } from '@nocobase/actions';
+import type { Context, Next } from '@tachybase/actions';
 
 const updateIsLeafWhenAddChild = async (repo, parent) => {
   if (parent && parent.isLeaf !== false) {

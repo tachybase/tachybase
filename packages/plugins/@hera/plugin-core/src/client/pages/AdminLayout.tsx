@@ -1,6 +1,6 @@
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { useSessionStorageState } from 'ahooks';
-import { App, Layout } from 'antd';
+import { App, Layout, Alert } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, Outlet, useMatch, useNavigate, useParams } from 'react-router-dom';
 import {
@@ -16,7 +16,7 @@ import {
   useSystemSettings,
   useToken,
   AdminProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { OnlineUserDropdown } from '../components/system/OnlineUserProvider';
 import { MobileLink } from '../components/system/MobileLink';
 import { Notifications } from '../components/system/Notifications';
@@ -301,25 +301,17 @@ export const InternalAdminLayout = () => {
         </div>
       </Layout.Header>
       {params.name && (
-        <Layout.Sider
-          className={css`
-            height: 100%;
-            /* position: fixed; */
-            position: relative;
-            left: 0;
-            top: 0;
-            background: rgba(0, 0, 0, 0);
-            z-index: 100;
-            .ant-layout-sider-children {
-              top: var(--nb-header-height);
-              position: fixed;
-              width: 200px;
-              height: calc(100vh - var(--nb-header-height));
-            }
-          `}
-          theme={'light'}
-          ref={sideMenuRef}
-        ></Layout.Sider>
+        <Layout.Sider theme={'light'} ref={sideMenuRef}>
+          <header
+            className={css`
+              flex-shrink: 0;
+              height: var(--nb-header-height);
+              line-height: var(--nb-header-height);
+              background: transparent;
+              pointer-events: none;
+            `}
+          ></header>
+        </Layout.Sider>
       )}
       <Layout.Content
         className={css`

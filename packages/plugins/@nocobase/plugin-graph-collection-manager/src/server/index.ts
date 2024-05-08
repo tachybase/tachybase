@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import path from 'path';
 
 export class GraphCollectionManagerPlugin extends Plugin {

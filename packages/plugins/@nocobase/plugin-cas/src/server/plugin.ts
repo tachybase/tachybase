@@ -1,4 +1,4 @@
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { service } from './actions/service';
 import { authType } from '../constants';
 import { CASAuth } from './auth';

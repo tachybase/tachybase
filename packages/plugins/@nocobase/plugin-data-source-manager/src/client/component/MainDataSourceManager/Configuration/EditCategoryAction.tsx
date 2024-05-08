@@ -13,7 +13,7 @@ import {
   useResourceActionContext,
   useCancelAction,
   CollectionCategroriesContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { collectionCategoryEditSchema } from './schemas/collections';
 
 const useEditCategry = () => {

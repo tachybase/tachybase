@@ -1,4 +1,4 @@
-import { useCompile, useCollectionManager_deprecated, useCollectionDataSource } from '@nocobase/client';
+import { useCompile, useCollectionManager_deprecated, useCollectionDataSource } from '@tachybase/client';
 import { lang, tval } from '../../locale';
 
 import {

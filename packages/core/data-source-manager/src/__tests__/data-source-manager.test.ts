@@ -1,4 +1,4 @@
-import { createMockServer, mockDatabase, supertest } from '@nocobase/test';
+import { createMockServer, mockDatabase, supertest } from '@tachybase/test';
 import { SequelizeDataSource } from '../sequelize-data-source';
 
 describe('example', () => {

@@ -12,9 +12,10 @@
     "@types/lodash": "^4.17.0"
   },
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/plugin-data-source-manager": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/data-source-manager": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
   }
 }

@@ -1,4 +1,4 @@
-import { Application, DataSourceOptions, DataSource } from '@nocobase/client';
+import { Application, DataSourceOptions, DataSource } from '@tachybase/client';
 
 describe('DataSource', () => {
   let dataSource: DataSource;

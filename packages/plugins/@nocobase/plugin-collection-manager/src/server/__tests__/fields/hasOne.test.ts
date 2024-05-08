@@ -1,5 +1,5 @@
-import Database, { Collection as DBCollection } from '@nocobase/database';
-import Application from '@nocobase/server';
+import Database, { Collection as DBCollection } from '@tachybase/database';
+import Application from '@tachybase/server';
 import { createApp } from '..';
 
 describe('hasOne field options', () => {

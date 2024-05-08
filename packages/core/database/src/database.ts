@@ -1,5 +1,5 @@
-import { createConsoleLogger, createLogger, Logger, LoggerOptions } from '@nocobase/logger';
-import { applyMixins, AsyncEmitter } from '@nocobase/utils';
+import { createConsoleLogger, createLogger, Logger, LoggerOptions } from '@tachybase/logger';
+import { applyMixins, AsyncEmitter } from '@tachybase/utils';
 import chalk from 'chalk';
 import merge from 'deepmerge';
 import { EventEmitter } from 'events';
@@ -311,7 +311,7 @@ export class Database extends EventEmitter implements AsyncEmitter {
       autoGenId: false,
       timestamps: false,
       dumpRules: 'required',
-      origin: '@nocobase/database',
+      origin: '@tachybase/database',
       fields: [{ type: 'string', name: 'name', primaryKey: true }],
     });
 

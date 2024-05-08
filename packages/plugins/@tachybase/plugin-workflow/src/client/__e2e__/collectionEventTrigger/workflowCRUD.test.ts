@@ -12,7 +12,7 @@ import {
   appendJsonCollectionName,
   generalWithNoRelationalFields,
 } from '@tachybase/plugin-workflow-test/e2e';
-import { expect, test } from '@nocobase/test/e2e';
+import { expect, test } from '@tachybase/test/e2e';
 
 test.describe('Filter', () => {
   test('filter workflow name', async ({ page }) => {

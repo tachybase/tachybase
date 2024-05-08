@@ -1,4 +1,4 @@
-import { render, screen, userEvent, sleep, waitFor } from '@nocobase/test/client';
+import { render, screen, userEvent, sleep, waitFor } from '@tachybase/test/client';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import React, { FC } from 'react';

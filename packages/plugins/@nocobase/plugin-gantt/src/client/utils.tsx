@@ -1,4 +1,4 @@
-import { useCollection_deprecated, useCompile } from '@nocobase/client';
+import { useCollection_deprecated, useCompile } from '@tachybase/client';
 import { useTranslation } from 'react-i18next';
 
 export const useGanttTranslation = () => {

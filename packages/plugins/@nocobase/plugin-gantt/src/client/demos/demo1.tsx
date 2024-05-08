@@ -1,4 +1,4 @@
-import { Gantt, SchemaComponent, SchemaComponentProvider, useGanttBlockProps } from '@nocobase/client';
+import { Gantt, SchemaComponent, SchemaComponentProvider, useGanttBlockProps } from '@tachybase/client';
 import React from 'react';
 
 const schema = {

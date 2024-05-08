@@ -9,7 +9,7 @@ import {
   Table,
   useRecord,
   useRequest,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { createContext, useContext, useState } from 'react';
 
 const DataSourceContext = createContext(null);

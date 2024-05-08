@@ -1,6 +1,6 @@
 import { TableOutlined } from '@ant-design/icons';
-import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@nocobase/client';
-import { uid } from '@nocobase/utils/client';
+import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
+import { uid } from '@tachybase/utils/client';
 import React from 'react';
 import { NAMESPACE } from '../../locale';
 

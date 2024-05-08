@@ -5,7 +5,7 @@ import { cloneDeep } from 'lodash';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import sanitizeHTML from 'sanitize-html';
 
-import { error } from '@nocobase/utils/client';
+import { error } from '@tachybase/utils/client';
 
 import { EllipsisWithTooltip } from '../..';
 import { VariableSelect } from './VariableSelect';

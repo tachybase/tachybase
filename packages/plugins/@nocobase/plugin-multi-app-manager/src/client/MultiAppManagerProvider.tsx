@@ -1,4 +1,4 @@
-import { Icon, PinnedPluginListProvider, SchemaComponentOptions, useApp, useRequest } from '@nocobase/client';
+import { Icon, PinnedPluginListProvider, SchemaComponentOptions, useApp, useRequest } from '@tachybase/client';
 import { Button, Dropdown } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';

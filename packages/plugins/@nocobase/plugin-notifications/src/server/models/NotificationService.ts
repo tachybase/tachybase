@@ -1,4 +1,4 @@
-import { Model } from '@nocobase/database';
+import { Model } from '@tachybase/database';
 import nodemailer from 'nodemailer';
 
 export class NotificationService extends Model {

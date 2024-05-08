@@ -23,8 +23,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@nocobase/app": "workspace:*",
-    "@nocobase/utils": "workspace:*",
+    "@tachybase/app": "workspace:*",
+    "@tachybase/utils": "workspace:*",
     "@types/fs-extra": "^11.0.1",
     "@umijs/utils": "3.5.20",
     "axios": "^1.6.8",
@@ -44,10 +44,10 @@
     "tsx": "^4.7.2"
   },
   "devDependencies": {
-    "@nocobase/devtools": "workspace:*",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@tachybase/devtools": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.0",
     "@types/node": "^20.12.7",

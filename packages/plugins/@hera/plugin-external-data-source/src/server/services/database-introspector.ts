@@ -1,4 +1,4 @@
-import { ViewFieldInference } from '@nocobase/database';
+import { ViewFieldInference } from '@tachybase/database';
 import { mergeOptions } from '@nocobase/plugin-data-source-manager';
 import { EventEmitter } from 'events';
 import _ from 'lodash';

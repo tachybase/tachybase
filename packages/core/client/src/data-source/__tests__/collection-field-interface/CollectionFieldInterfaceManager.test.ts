@@ -1,4 +1,4 @@
-import { Application, CollectionFieldInterface, CollectionFieldInterfaceManager } from '@nocobase/client';
+import { Application, CollectionFieldInterface, CollectionFieldInterfaceManager } from '@tachybase/client';
 
 describe('CollectionFieldInterfaceManager', () => {
   let collectionFieldInterfaceManager: CollectionFieldInterfaceManager;

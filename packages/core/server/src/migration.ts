@@ -1,4 +1,4 @@
-import { Migration as DbMigration } from '@nocobase/database';
+import { Migration as DbMigration } from '@tachybase/database';
 import Application from './application';
 import Plugin from './plugin';
 import { PluginManager } from './plugin-manager';

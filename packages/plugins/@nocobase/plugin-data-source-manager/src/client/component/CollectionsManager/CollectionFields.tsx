@@ -16,7 +16,7 @@ import {
   Select,
   Collection,
   useDataSourceManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { collection, fieldsTableSchema } from './schema/collectionFields';
 import { TitleField } from './components/TitleField';
 import { CollectionFieldInterfaceSelect } from './components/CollectionFieldInterfaceSelect';

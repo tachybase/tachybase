@@ -5,7 +5,7 @@ import {
   G2Plot,
   SchemaComponent,
   SchemaComponentProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import { mockAPIClient } from '../../../../testUtils';
 

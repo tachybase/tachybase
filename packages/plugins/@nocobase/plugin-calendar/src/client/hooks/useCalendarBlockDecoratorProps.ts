@@ -1,4 +1,4 @@
-import { useParentRecordCommon } from '@nocobase/client';
+import { useParentRecordCommon } from '@tachybase/client';
 import { useCalendarBlockParams } from './useCalendarBlockParams';
 
 export function useCalendarBlockDecoratorProps(props) {

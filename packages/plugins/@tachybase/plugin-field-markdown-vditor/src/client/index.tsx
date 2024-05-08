@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import 'vditor/dist/index.css';
 import { MarkdownVditor } from './components';
 import { MarkdownVditorFieldInterface } from './interfaces/markdown-vditor';

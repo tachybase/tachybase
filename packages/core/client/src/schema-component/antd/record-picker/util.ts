@@ -1,6 +1,6 @@
 import { ISchema } from '@tachybase/schema';
 import { isArr } from '@tachybase/schema';
-import { dayjs, getDefaultFormat, str2moment } from '@nocobase/utils/client';
+import { dayjs, getDefaultFormat, str2moment } from '@tachybase/utils/client';
 import { Tag } from 'antd';
 import React from 'react';
 import { CollectionFieldOptions_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';

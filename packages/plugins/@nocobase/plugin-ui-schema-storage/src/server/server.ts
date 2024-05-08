@@ -1,6 +1,6 @@
-import { MagicAttributeModel } from '@nocobase/database';
-import { Plugin } from '@nocobase/server';
-import { uid } from '@nocobase/utils';
+import { MagicAttributeModel } from '@tachybase/database';
+import { Plugin } from '@tachybase/server';
+import { uid } from '@tachybase/utils';
 import path, { resolve } from 'path';
 import { uiSchemaActions } from './actions/ui-schema-action';
 import { UiSchemaModel } from './model';

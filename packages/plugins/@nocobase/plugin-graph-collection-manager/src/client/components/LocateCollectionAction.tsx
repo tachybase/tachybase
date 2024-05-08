@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Input, Menu, Popover, Button } from 'antd';
 import { css } from '@emotion/css';
 import { MenuOutlined } from '@ant-design/icons';
-import { useCompile } from '@nocobase/client';
+import { useCompile } from '@tachybase/client';
 import { getPopupContainer, useGCMTranslation } from '../utils';
 import { CollapsedContext } from '../GraphDrawPage';
 

@@ -1,5 +1,5 @@
-import { Context } from '@nocobase/actions';
-import { Plugin } from '@nocobase/server';
+import { Context } from '@tachybase/actions';
+import { Plugin } from '@tachybase/server';
 import { SwaggerManager } from './swagger';
 
 export class PluginAPIDocServer extends Plugin {

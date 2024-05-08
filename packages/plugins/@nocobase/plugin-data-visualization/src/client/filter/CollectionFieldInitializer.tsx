@@ -1,5 +1,5 @@
 import React from 'react';
-import { InitializerWithSwitch, useSchemaInitializerItem } from '@nocobase/client';
+import { InitializerWithSwitch, useSchemaInitializerItem } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
 export const CollectionFieldInitializer = () => {

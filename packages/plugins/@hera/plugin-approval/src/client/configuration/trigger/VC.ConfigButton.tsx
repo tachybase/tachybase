@@ -1,4 +1,4 @@
-import { ActionContextProvider } from '@nocobase/client';
+import { ActionContextProvider } from '@tachybase/client';
 import { Button } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from '../../locale';

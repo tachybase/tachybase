@@ -1,4 +1,4 @@
-import { genStyleHook } from '@nocobase/client';
+import { genStyleHook } from '@tachybase/client';
 
 export default genStyleHook('nb-calendar', (token) => {
   const { componentCls } = token;

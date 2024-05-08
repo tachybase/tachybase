@@ -1,7 +1,7 @@
-import Database, { Repository } from '@nocobase/database';
-import Application from '@nocobase/server';
+import Database, { Repository } from '@tachybase/database';
+import Application from '@tachybase/server';
 import { createApp } from '..';
-import { pgOnly } from '@nocobase/test';
+import { pgOnly } from '@tachybase/test';
 
 pgOnly()('Inherited Collection with schema options', () => {
   let db: Database;

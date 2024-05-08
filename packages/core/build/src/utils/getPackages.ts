@@ -9,7 +9,7 @@ import type { Project } from '@pnpm/workspace.find-packages';
 /**
  * 获取构建包的绝对路径，支持项目路径和 npm 两种形式
  * @example
- * pnpm build packages/core/client @nocobase/acl => ['/home/xx/packages/core/client', '/home/xx/packages/core/acl']
+ * pnpm build packages/core/client @tachybase/acl => ['/home/xx/packages/core/client', '/home/xx/packages/core/acl']
  * pnpm build packages/plugins/* => ['/home/xx/packages/plugins/a', '/home/xx/packages/plugins/b']
  * pnpm build => all packages
  */

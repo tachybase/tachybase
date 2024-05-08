@@ -1,7 +1,7 @@
-import Database from '@nocobase/database';
+import Database from '@tachybase/database';
 import { EXECUTION_STATUS } from '@tachybase/plugin-workflow';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 
 import Plugin from '..';
 

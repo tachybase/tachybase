@@ -1,4 +1,4 @@
-import { Page, expect, test } from '@nocobase/test/e2e';
+import { Page, expect, test } from '@tachybase/test/e2e';
 import { createTable } from './utils';
 
 test.describe('where table data selector can be added', () => {

@@ -1,5 +1,5 @@
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
-import { css, useRecord } from '@nocobase/client';
+import { css, useRecord } from '@tachybase/client';
 import { useBoolean } from 'ahooks';
 import { DatePicker, Select, Space, Typography } from 'antd';
 import dayjs from 'dayjs';

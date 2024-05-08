@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuOutlined } from '@ant-design/icons';
-import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@nocobase/client';
+import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
 export const MMenuBlockInitializer = () => {
   const itemConfig = useSchemaInitializerItem();

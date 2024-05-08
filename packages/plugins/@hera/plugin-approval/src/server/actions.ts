@@ -1,7 +1,7 @@
-import actions, { utils } from '@nocobase/actions';
+import actions, { utils } from '@tachybase/actions';
 import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { APPROVAL_STATUS, APPROVAL_ACTION_STATUS } from './constants';
-import { parseCollectionName } from '@nocobase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source-manager';
 
 const workflows = {
   async listApprovalFlows(context, next) {

@@ -1,5 +1,5 @@
 import { FormItem } from '@tachybase/components';
-import { Details, FormProvider, Input, SchemaComponent } from '@nocobase/client';
+import { Details, FormProvider, Input, SchemaComponent } from '@tachybase/client';
 import React from 'react';
 
 const schema = {

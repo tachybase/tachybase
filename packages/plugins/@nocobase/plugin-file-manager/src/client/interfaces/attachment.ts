@@ -1,6 +1,6 @@
 import { ISchema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { CollectionFieldInterface, interfacesProperties } from '@nocobase/client';
+import { CollectionFieldInterface, interfacesProperties } from '@tachybase/client';
 import { NAMESPACE } from '../locale';
 
 export class AttachmentFieldInterface extends CollectionFieldInterface {

@@ -22,7 +22,7 @@ import {
   useCompile,
   useResourceActionContext,
   CollectionCategroriesContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { CollectionFields } from './CollectionFields';
 import { collectionTableSchema } from './schemas/collections';
 

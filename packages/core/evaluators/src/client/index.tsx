@@ -1,4 +1,4 @@
-import { Registry } from '@nocobase/utils/client';
+import { Registry } from '@tachybase/utils/client';
 
 import mathjs from './engines/mathjs';
 import formulajs from './engines/formulajs';

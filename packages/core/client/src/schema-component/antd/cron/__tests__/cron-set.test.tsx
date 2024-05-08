@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from '@nocobase/test/client';
+import { render, screen, userEvent } from '@tachybase/test/client';
 import React from 'react';
 import Cron from '../demos/demo1';
 import CronSet from '../demos/demo2';

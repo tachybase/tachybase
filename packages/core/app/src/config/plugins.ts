@@ -1,3 +1,4 @@
-import { PluginConfiguration } from '@nocobase/server';
+import { PluginConfiguration } from '@tachybase/server';
+import process from 'process';
 
-export default ['tachybase'] as PluginConfiguration[];
+export default [process.env.PRESET_NAME ?? 'tachybase'] as PluginConfiguration[];

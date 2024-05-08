@@ -7,7 +7,7 @@ import {
   RecordProvider,
   SchemaComponentOptions,
   useCollectionParentRecordData,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Card } from 'antd';
 import cls from 'classnames';
 import React, { useContext, useState } from 'react';

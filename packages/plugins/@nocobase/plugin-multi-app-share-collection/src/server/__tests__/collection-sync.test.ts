@@ -1,6 +1,6 @@
-import { BelongsToManyRepository, Database } from '@nocobase/database';
-import { AppSupervisor } from '@nocobase/server';
-import { MockServer, createMockServer, isPg } from '@nocobase/test';
+import { BelongsToManyRepository, Database } from '@tachybase/database';
+import { AppSupervisor } from '@tachybase/server';
+import { MockServer, createMockServer, isPg } from '@tachybase/test';
 import * as process from 'process';
 
 describe.runIf(isPg())('enable plugin', () => {

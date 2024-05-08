@@ -3,7 +3,7 @@
  */
 import { FormItem } from '@tachybase/components';
 import { ISchema } from '@tachybase/schema';
-import { SchemaComponent, SchemaComponentProvider, Select } from '@nocobase/client';
+import { SchemaComponent, SchemaComponentProvider, Select } from '@tachybase/client';
 import React from 'react';
 
 const options = [

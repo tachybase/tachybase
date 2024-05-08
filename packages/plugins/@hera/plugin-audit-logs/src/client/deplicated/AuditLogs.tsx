@@ -8,7 +8,7 @@ import {
   useCollection_deprecated,
   useCompile,
   useRecord,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { createContext, useContext } from 'react';
 import { AuditLogsDesigner } from './AuditLogsDesigner';
 import { tval } from '../locale';

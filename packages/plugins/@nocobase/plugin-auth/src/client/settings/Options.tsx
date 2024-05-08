@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, useForm } from '@tachybase/schema';
-import { useActionContext, usePlugin, useRecord, useRequest } from '@nocobase/client';
+import { useActionContext, usePlugin, useRecord, useRequest } from '@tachybase/client';
 import { useEffect } from 'react';
 import AuthPlugin from '..';
 

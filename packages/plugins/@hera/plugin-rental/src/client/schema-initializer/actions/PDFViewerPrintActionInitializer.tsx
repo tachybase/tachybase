@@ -1,5 +1,5 @@
 import { usePDFViewerRef } from '@hera/plugin-core/client';
-import { Action, ActionInitializer, useAPIClient, useRecord } from '@nocobase/client';
+import { Action, ActionInitializer, useAPIClient, useRecord } from '@tachybase/client';
 import React, { createContext, useContext, useState } from 'react';
 
 const PrintCounterContext = createContext(null);

@@ -1,4 +1,8 @@
-import { expectInitializerMenu, oneTableBlockWithAddNewAndViewAndEditAndChoicesFields, test } from '@nocobase/test/e2e';
+import {
+  expectInitializerMenu,
+  oneTableBlockWithAddNewAndViewAndEditAndChoicesFields,
+  test,
+} from '@tachybase/test/e2e';
 
 test.describe('form item & create form', () => {
   test('configure fields', async ({ page, mockPage }) => {

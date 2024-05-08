@@ -1,7 +1,7 @@
-import { ActionInitializer } from '@nocobase/client';
+import { ActionInitializer } from '@tachybase/client';
 import React from 'react';
 import { tval } from '../locale';
-import { uid } from '@nocobase/utils/client';
+import { uid } from '@tachybase/utils/client';
 
 export const AuditLogsViewActionInitializer = () => {
   const changes = {

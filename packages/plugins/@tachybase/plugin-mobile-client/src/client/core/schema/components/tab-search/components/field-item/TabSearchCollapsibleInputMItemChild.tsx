@@ -4,7 +4,7 @@ import { Grid, Divider, Picker, Input, Space, ActionSheet, DatePicker, CalendarP
 import { DownOutline } from 'antd-mobile-icons';
 import type { Action } from 'antd-mobile/es/components/action-sheet';
 import { changFormat, convertFormat } from '../../utils';
-import { dayjs } from '@nocobase/utils/client';
+import { dayjs } from '@tachybase/utils/client';
 
 export const ISelect = (props) => {
   const { options, onChange, customLabelKey } = props;

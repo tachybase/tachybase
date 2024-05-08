@@ -1,4 +1,4 @@
-import { Model } from '@nocobase/database';
+import { Model } from '@tachybase/database';
 
 export class FileModel extends Model {
   public toJSON() {

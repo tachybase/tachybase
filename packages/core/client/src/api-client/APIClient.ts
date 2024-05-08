@@ -1,4 +1,4 @@
-import { APIClient as APIClientSDK, getSubAppName } from '@nocobase/sdk';
+import { APIClient as APIClientSDK, getSubAppName } from '@tachybase/sdk';
 import { Result } from 'ahooks/es/useRequest/src/types';
 import { notification } from 'antd';
 import React from 'react';

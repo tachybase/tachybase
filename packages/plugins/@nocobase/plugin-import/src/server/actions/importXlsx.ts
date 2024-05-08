@@ -1,6 +1,6 @@
-import { Context, Next } from '@nocobase/actions';
-import { Collection, Repository } from '@nocobase/database';
-import { uid } from '@nocobase/utils';
+import { Context, Next } from '@tachybase/actions';
+import { Collection, Repository } from '@tachybase/database';
+import { uid } from '@tachybase/utils';
 import xlsx from 'node-xlsx';
 import XLSX from 'xlsx';
 import { namespace } from '../../';

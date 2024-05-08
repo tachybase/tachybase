@@ -1,4 +1,4 @@
-import { parseCollectionName } from '@nocobase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source-manager';
 
 import { Instruction } from '.';
 import type Processor from '../Processor';

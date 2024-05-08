@@ -1,6 +1,6 @@
-import { BelongsToManyRepository, Database } from '@nocobase/database';
+import { BelongsToManyRepository, Database } from '@tachybase/database';
 import UiSchemaStoragePlugin, { UiSchemaRepository } from '@nocobase/plugin-ui-schema-storage';
-import { createMockServer, MockServer } from '@nocobase/test';
+import { createMockServer, MockServer } from '@tachybase/test';
 
 describe('server hooks', () => {
   let app: MockServer;

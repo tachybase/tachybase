@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/actions",
+  "name": "@tachybase/actions",
   "version": "0.21.24",
   "description": "",
   "repository": {
@@ -11,10 +11,10 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
-    "@nocobase/cache": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/resourcer": "workspace:*",
-    "@nocobase/utils": "workspace:*",
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
+    "@tachybase/utils": "workspace:*",
     "koa": "^2.13.4",
     "lodash": "4.17.21",
     "sequelize": "^6.26.0"

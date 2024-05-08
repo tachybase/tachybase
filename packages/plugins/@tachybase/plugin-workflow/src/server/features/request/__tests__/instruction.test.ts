@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 
-import Database from '@nocobase/database';
-import { MockServer } from '@nocobase/test';
+import Database from '@tachybase/database';
+import { MockServer } from '@tachybase/test';
 
 import PluginWorkflow, { Processor, EXECUTION_STATUS, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';

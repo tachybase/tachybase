@@ -1,4 +1,4 @@
-import { SchemaInitializer } from '@nocobase/client';
+import { SchemaInitializer } from '@tachybase/client';
 import { NAMESPACE } from '../../../locale';
 import { APPROVAL_STATUS } from '../../../constants';
 import { LauncherActionConfigComponent } from './VC.LauncherActionConfig';

@@ -14,7 +14,7 @@ import {
   useDesignable,
   useRecord,
   useResource,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Spin } from 'antd';
 import React, { useMemo, useRef } from 'react';
 

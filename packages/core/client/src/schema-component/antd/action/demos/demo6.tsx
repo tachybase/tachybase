@@ -9,7 +9,7 @@ import {
   SchemaComponent,
   SchemaComponentProvider,
   SchemaInitializer,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 
 const addActionButton = new SchemaInitializer({

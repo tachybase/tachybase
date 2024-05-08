@@ -1,5 +1,5 @@
-import { SelectWithTitle, useAPIClient, useCurrentUserContext, useSystemSettings } from '@nocobase/client';
-import { error } from '@nocobase/utils/client';
+import { SelectWithTitle, useAPIClient, useCurrentUserContext, useSystemSettings } from '@tachybase/client';
+import { error } from '@tachybase/utils/client';
 import { MenuProps } from 'antd';
 import React, { useEffect, useMemo } from 'react';
 import { useThemeId } from '../components/InitializeTheme';

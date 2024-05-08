@@ -5,7 +5,7 @@ import { InheritedSyncRunner } from './inherited-sync-runner';
 import { InheritedCollection } from './inherited-collection';
 import { Model as SequelizeModel } from 'sequelize';
 import { ZeroColumnTableError } from './errors/zero-column-table-error';
-import { isPlainObject } from '@nocobase/utils';
+import { isPlainObject } from '@tachybase/utils';
 
 export class SyncRunner {
   private readonly collection: Collection;
@@ -43,8 +43,9 @@ export class SyncRunner {
     }
 
     // @ts-ignore
-    const collectionSyncOptions = this.database.collectionFactory.collectionTypes.get(this.collection.constructor)
-      ?.onSync;
+    const collectionSyncOptions = this.database.collectionFactory.collectionTypes.get(
+      this.collection.constructor,
+    )?.onSync;
 
     if (collectionSyncOptions) {
       await collectionSyncOptions(this.model, options);

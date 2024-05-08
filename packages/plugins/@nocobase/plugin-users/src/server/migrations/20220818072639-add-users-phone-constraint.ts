@@ -1,5 +1,5 @@
-import { DataTypes } from '@nocobase/database';
-import { Migration } from '@nocobase/server';
+import { DataTypes } from '@tachybase/database';
+import { Migration } from '@tachybase/server';
 
 export default class AddUsersPhoneMigration extends Migration {
   on = 'beforeLoad';

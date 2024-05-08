@@ -1,4 +1,4 @@
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { InputNumber, Select } from 'antd';
 import React from 'react';
 import { Cron } from 'react-js-cron';

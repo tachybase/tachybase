@@ -1,4 +1,4 @@
-import Database, { Collection, MagicAttributeModel, SyncOptions, Transactionable } from '@nocobase/database';
+import Database, { Collection, MagicAttributeModel, SyncOptions, Transactionable } from '@tachybase/database';
 import lodash from 'lodash';
 import { QueryInterfaceDropTableOptions } from 'sequelize';
 import { FieldModel } from './field';

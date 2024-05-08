@@ -6,7 +6,7 @@ import {
   SchemaComponentContext,
   SettingCenterPermissionProvider,
   useRecord,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { dataSourceSchema } from './schemas/dataSourceTable';
 import { PermissionProvider } from './PermisionProvider';
 

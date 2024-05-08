@@ -1,5 +1,5 @@
-import { Database } from '@nocobase/database';
-import { MockServer } from '@nocobase/test';
+import { Database } from '@tachybase/database';
+import { MockServer } from '@tachybase/test';
 import { prepareApp } from './prepare';
 
 describe('list action with acl', () => {

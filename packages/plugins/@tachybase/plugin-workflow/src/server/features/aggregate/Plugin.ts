@@ -1,5 +1,5 @@
 import WorkflowPlugin from '../..';
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 
 import AggregateInstruction from './AggregateInstruction';
 

@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import { Context } from '@nocobase/actions';
+import { Context } from '@tachybase/actions';
 import { ACL } from '..';
 
 describe('acl', () => {

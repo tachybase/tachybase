@@ -3,9 +3,9 @@ import Database, {
   BelongsToRepository,
   HasManyRepository,
   Repository,
-} from '@nocobase/database';
-import Application from '@nocobase/server';
-import { pgOnly } from '@nocobase/test';
+} from '@tachybase/database';
+import Application from '@tachybase/server';
+import { pgOnly } from '@tachybase/test';
 import { createApp } from '..';
 
 pgOnly()('Inherited Collection', () => {

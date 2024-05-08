@@ -5,7 +5,7 @@ import {
   useDesignable,
   useRequest,
   useSchemaToolbar,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 import { useTranslation } from 'react-i18next';
 

@@ -1,4 +1,4 @@
-import { useCurrentDocumentTitle, usePlugin, useViewport } from '@nocobase/client';
+import { useCurrentDocumentTitle, usePlugin, useViewport } from '@tachybase/client';
 import React, { useContext, createContext, FunctionComponent, createElement } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import AuthPlugin, { AuthOptions } from '..';

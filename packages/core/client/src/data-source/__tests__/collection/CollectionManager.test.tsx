@@ -1,4 +1,4 @@
-import { Application, CollectionManager, CollectionTemplate, Collection } from '@nocobase/client';
+import { Application, CollectionManager, CollectionTemplate, Collection } from '@tachybase/client';
 import collections from '../collections.json';
 import { app } from '../../../application/demos/demo3';
 

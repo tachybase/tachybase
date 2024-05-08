@@ -1,4 +1,4 @@
-import { createMockServer, MockServer } from '@nocobase/test';
+import { createMockServer, MockServer } from '@tachybase/test';
 import { field_linkto } from './data/field_linkto';
 import { field_m2m } from './data/field_m2m';
 import { field_o2m } from './data/field_o2m';

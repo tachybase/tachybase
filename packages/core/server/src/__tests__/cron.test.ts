@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import { mockServer, MockServer, waitSecond } from '@nocobase/test';
+import { mockServer, MockServer, waitSecond } from '@tachybase/test';
 import { CronJobManager } from '../cron/cron-job-manager';
 
 describe('cron service', () => {

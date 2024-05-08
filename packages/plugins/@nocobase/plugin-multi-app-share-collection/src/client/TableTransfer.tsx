@@ -1,6 +1,6 @@
 import { connect } from '@tachybase/schema';
-import { css, useCollectionManager_deprecated, useRecord, useRequest, useToken } from '@nocobase/client';
-import { CollectionsGraph, lodash } from '@nocobase/utils/client';
+import { css, useCollectionManager_deprecated, useRecord, useRequest, useToken } from '@tachybase/client';
+import { CollectionsGraph, lodash } from '@tachybase/utils/client';
 import { App, Col, Input, Row, Select, Spin, Table, Tag } from 'antd';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

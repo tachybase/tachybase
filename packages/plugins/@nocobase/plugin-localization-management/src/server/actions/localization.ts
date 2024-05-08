@@ -1,5 +1,5 @@
-import { Context, Next } from '@nocobase/actions';
-import { Database, Model, Op } from '@nocobase/database';
+import { Context, Next } from '@tachybase/actions';
+import { Database, Model, Op } from '@tachybase/database';
 import { UiSchemaRepository } from '@nocobase/plugin-ui-schema-storage';
 import { NAMESPACE_COLLECTIONS, NAMESPACE_MENUS } from '../constans';
 import LocalizationManagementPlugin from '../plugin';

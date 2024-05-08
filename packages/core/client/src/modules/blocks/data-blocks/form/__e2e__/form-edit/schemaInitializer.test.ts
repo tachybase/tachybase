@@ -1,4 +1,4 @@
-import { expect, oneEmptyTableBlockWithActions, test } from '@nocobase/test/e2e';
+import { expect, oneEmptyTableBlockWithActions, test } from '@tachybase/test/e2e';
 
 test.describe('where edit form block can be added', () => {
   test('popup', async ({ page, mockPage, mockRecord }) => {

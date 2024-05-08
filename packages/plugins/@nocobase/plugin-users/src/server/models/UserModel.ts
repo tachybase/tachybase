@@ -1,4 +1,4 @@
-import { Model } from '@nocobase/database';
+import { Model } from '@tachybase/database';
 
 export class UserModel extends Model {
   desensitize() {

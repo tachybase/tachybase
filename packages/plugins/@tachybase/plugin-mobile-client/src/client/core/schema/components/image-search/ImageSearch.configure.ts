@@ -1,4 +1,4 @@
-import { SchemaInitializer, useCollection, useCollectionManager } from '@nocobase/client';
+import { SchemaInitializer, useCollection, useCollectionManager } from '@tachybase/client';
 import { useIsMobile } from '../tab-search/components/field-item/hooks';
 import { canBeOptionalField, canBeRelatedField } from '../tab-search/utils';
 import { createSchemaImageSearchItem } from './search-item/ImageSearchItem.schema';

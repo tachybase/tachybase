@@ -1,4 +1,4 @@
-import { APIClientProvider, FormProvider, RemoteSelect, SchemaComponent } from '@nocobase/client';
+import { APIClientProvider, FormProvider, RemoteSelect, SchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { mockAPIClient } from '../../../../testUtils';
 

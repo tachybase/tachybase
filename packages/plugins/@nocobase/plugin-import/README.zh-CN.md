@@ -185,7 +185,7 @@ Excel 数据导入插件。
 通过 `db.registerFieldValueParsers()` 方法注册自定义的 `ValueParser`，如：
 
 ```ts
-import { BaseValueParser } from '@nocobase/database';
+import { BaseValueParser } from '@tachybase/database';
 
 class PointValueParser extends BaseValueParser {
   async setValue(value) {

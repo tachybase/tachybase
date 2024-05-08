@@ -1,4 +1,4 @@
-import { CollectionHistoryProvider, SchemaComponentOptions } from '@nocobase/client';
+import { CollectionHistoryProvider, SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
 import { SnapshotOwnerCollectionFieldsSelect } from './components/SnapshotOwnerCollectionFieldsSelect';
 import { SnapshotBlockInitializersDetailItem } from './SnapshotBlock/SnapshotBlockInitializers/SnapshotBlockInitializersDetailItem';

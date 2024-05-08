@@ -1,5 +1,5 @@
 import { ISchema, useForm } from '@tachybase/schema';
-import { useActionContext, useRecord, useResourceActionContext, useResourceContext } from '@nocobase/client';
+import { useActionContext, useRecord, useResourceActionContext, useResourceContext } from '@tachybase/client';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { NAMESPACE } from '../locale';

@@ -1,5 +1,5 @@
-import { Migration } from '@nocobase/server';
-import { CollectionsGraph } from '@nocobase/utils';
+import { Migration } from '@tachybase/server';
+import { CollectionsGraph } from '@tachybase/utils';
 
 export default class extends Migration {
   appVersion = '<0.9.3-alpha.1';

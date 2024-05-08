@@ -1,7 +1,7 @@
-import { createMockServer, MockServer } from '@nocobase/test';
-import { CollectionManager, DataSource, IRepository } from '@nocobase/data-source-manager';
+import { createMockServer, MockServer } from '@tachybase/test';
+import { CollectionManager, DataSource, IRepository } from '@tachybase/data-source-manager';
 import { SuperAgentTest } from 'supertest';
-import { ICollectionManager, IModel } from '@nocobase/data-source-manager/src/types';
+import { ICollectionManager, IModel } from '@tachybase/data-source-manager/src/types';
 
 describe('data source with acl', () => {
   let app: MockServer;

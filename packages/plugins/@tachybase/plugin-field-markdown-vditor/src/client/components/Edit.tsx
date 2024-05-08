@@ -1,4 +1,4 @@
-import { useAPIClient, useApp, withDynamicSchemaProps } from '@nocobase/client';
+import { useAPIClient, useApp, withDynamicSchemaProps } from '@tachybase/client';
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import Vditor from 'vditor';
 import { defaultToolbar } from '../interfaces/markdown-vditor';

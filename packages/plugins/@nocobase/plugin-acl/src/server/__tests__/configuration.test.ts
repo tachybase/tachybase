@@ -1,6 +1,6 @@
-import { Database } from '@nocobase/database';
+import { Database } from '@tachybase/database';
 import UsersPlugin from '@nocobase/plugin-users';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import { prepareApp } from './prepare';
 
 describe('configuration', () => {

@@ -1,5 +1,5 @@
-import { Context } from '@nocobase/actions';
-import { Collection } from '@nocobase/database';
+import { Context } from '@tachybase/actions';
+import { Collection } from '@tachybase/database';
 
 export const dateTemplate = async (ctx: Context, next) => {
   const { resourceName, actionName } = ctx.action;

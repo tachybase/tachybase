@@ -1,4 +1,4 @@
-import { Action, useAPIClient, useRequest } from '@nocobase/client';
+import { Action, useAPIClient, useRequest } from '@tachybase/client';
 import React from 'react';
 import { useFieldSchema } from '@tachybase/schema';
 import { listByCurrentRoleUrl } from '../constants';

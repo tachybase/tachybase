@@ -1,5 +1,5 @@
 import { useForm } from '@tachybase/schema';
-import { css, useAPIClient } from '@nocobase/client';
+import { css, useAPIClient } from '@tachybase/client';
 import { Button, Input, message } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';

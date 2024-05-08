@@ -1,6 +1,6 @@
 import { Switch } from '@tachybase/components';
 import { useField } from '@tachybase/schema';
-import { GeneralSchemaDesigner, SchemaSettingsModalItem } from '@nocobase/client';
+import { GeneralSchemaDesigner, SchemaSettingsModalItem } from '@tachybase/client';
 import React from 'react';
 import { useTranslation } from '../../../../locale';
 import { useSchemaPatch } from '../../hooks';

@@ -1,4 +1,4 @@
-import * as client from '@nocobase/client';
+import * as client from '@tachybase/client';
 import { renderHook } from '@testing-library/react';
 import { vi } from 'vitest';
 import formatters from '../block/formatters';

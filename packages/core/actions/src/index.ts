@@ -1,6 +1,6 @@
-import { Cache } from '@nocobase/cache';
-import { Database } from '@nocobase/database';
-import { Action } from '@nocobase/resourcer';
+import { Cache } from '@tachybase/cache';
+import { Database } from '@tachybase/database';
+import { Action } from '@tachybase/resourcer';
 import Koa from 'koa';
 import lodash from 'lodash';
 import * as actions from './actions';

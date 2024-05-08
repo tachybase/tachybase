@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import { useActionContext, useRequest } from '@nocobase/client';
+import { useActionContext, useRequest } from '@tachybase/client';
 
 const collection = {
   name: 'samlProviders',

@@ -1,7 +1,7 @@
 import { useField, useForm } from '@tachybase/schema';
 import React from 'react';
 
-import { useCollectionDataSource, useCollectionManager_deprecated } from '@nocobase/client';
+import { useCollectionDataSource, useCollectionManager_deprecated } from '@tachybase/client';
 
 import CollectionFieldset from '../components/CollectionFieldset';
 import { FilterDynamicComponent } from '../components/FilterDynamicComponent';

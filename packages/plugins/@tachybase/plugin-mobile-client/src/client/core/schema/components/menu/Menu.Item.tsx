@@ -9,7 +9,7 @@ import {
   cx,
   useCompile,
   useDesigner,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { List, ListItemProps } from 'antd-mobile';
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';

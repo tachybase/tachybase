@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import PluginKitApprovalCommon from '../approval-common';
 import { tval } from '../../locale';
 import { ViewActionTodos } from './todos/VC.ViewActionTodos';

@@ -2,7 +2,7 @@
  * title: Password
  */
 import { FormItem } from '@tachybase/components';
-import { Password, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { Password, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 
 const schema = {

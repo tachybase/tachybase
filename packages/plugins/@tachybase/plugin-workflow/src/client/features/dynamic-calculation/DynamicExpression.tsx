@@ -4,7 +4,7 @@ import { Tag } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useCollectionManager_deprecated, useCompile, useRecord, Variable } from '@nocobase/client';
+import { useCollectionManager_deprecated, useCompile, useRecord, Variable } from '@tachybase/client';
 import { getCollectionFieldOptions } from '../..';
 
 import { NAMESPACE } from '../../locale';

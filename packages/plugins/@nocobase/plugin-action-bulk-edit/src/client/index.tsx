@@ -1,4 +1,4 @@
-import { Plugin, useCollection_deprecated } from '@nocobase/client';
+import { Plugin, useCollection_deprecated } from '@tachybase/client';
 import { bulkEditActionSettings, deprecatedBulkEditActionSettings } from './BulkEditAction.Settings';
 import { BulkEditActionInitializer } from './BulkEditActionInitializer';
 import {

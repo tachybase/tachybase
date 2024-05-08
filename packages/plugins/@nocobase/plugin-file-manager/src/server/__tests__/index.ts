@@ -1,4 +1,4 @@
-import { MockServer, createMockServer } from '@nocobase/test';
+import { MockServer, createMockServer } from '@tachybase/test';
 import send from 'koa-send';
 import path from 'path';
 import supertest from 'supertest';

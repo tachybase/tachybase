@@ -1,5 +1,5 @@
 import { Database, mockDatabase } from '../../index';
-import { waitSecond } from '@nocobase/test';
+import { waitSecond } from '@tachybase/test';
 
 describe('unique index', () => {
   let db: Database;

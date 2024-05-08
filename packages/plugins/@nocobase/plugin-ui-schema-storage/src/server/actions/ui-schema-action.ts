@@ -1,5 +1,5 @@
-import { Context } from '@nocobase/actions';
-import { ActionParams } from '@nocobase/resourcer';
+import { Context } from '@tachybase/actions';
+import { ActionParams } from '@tachybase/resourcer';
 import lodash from 'lodash';
 import UiSchemaRepository, { GetJsonSchemaOptions, GetPropertiesOptions } from '../repository';
 

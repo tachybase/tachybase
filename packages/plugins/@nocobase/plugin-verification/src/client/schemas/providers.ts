@@ -1,5 +1,5 @@
 import { uid } from '@tachybase/schema';
-import { useActionContext, useRequest } from '@nocobase/client';
+import { useActionContext, useRequest } from '@tachybase/client';
 import { NAMESPACE } from '../locale';
 
 const collection = {

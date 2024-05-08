@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuProps } from 'antd';
-import { useCollection, useDesigner } from '@nocobase/client';
+import { useCollection, useDesigner } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 import { useTranslation } from '../../../../../../locale';
 

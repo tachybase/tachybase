@@ -1,4 +1,8 @@
-import { Collection, CollectionGroupManager as DBCollectionGroupManager, DumpRulesGroupType } from '@nocobase/database';
+import {
+  Collection,
+  CollectionGroupManager as DBCollectionGroupManager,
+  DumpRulesGroupType,
+} from '@tachybase/database';
 import archiver from 'archiver';
 import dayjs from 'dayjs';
 import fs from 'fs';

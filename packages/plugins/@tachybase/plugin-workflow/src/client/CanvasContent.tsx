@@ -1,7 +1,7 @@
 import { Alert, Slider } from 'antd';
 import React from 'react';
 
-import { cx, css } from '@nocobase/client';
+import { cx, css } from '@tachybase/client';
 
 import { Branch } from './Branch';
 import { useFlowContext } from './FlowContext';

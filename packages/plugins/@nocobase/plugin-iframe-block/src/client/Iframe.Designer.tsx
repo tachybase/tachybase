@@ -7,7 +7,7 @@ import {
   SchemaSettingsRemove,
   useAPIClient,
   useDesignable,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

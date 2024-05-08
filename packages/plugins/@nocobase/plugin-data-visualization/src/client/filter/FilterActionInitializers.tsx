@@ -7,7 +7,7 @@ import {
   GeneralSchemaDesigner,
   SchemaSettingsDivider,
   SchemaSettingsRemove,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useContext } from 'react';
 import { useChartFilter } from '../hooks/filter';
 import { useChartsTranslation } from '../locale';

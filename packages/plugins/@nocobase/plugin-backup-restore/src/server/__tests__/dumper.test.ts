@@ -1,5 +1,5 @@
-import { Database } from '@nocobase/database';
-import { MockServer } from '@nocobase/test';
+import { Database } from '@tachybase/database';
+import { MockServer } from '@tachybase/test';
 import fs from 'fs';
 import path from 'path';
 import { Dumper } from '../dumper';
@@ -806,7 +806,7 @@ describe('dumper', () => {
     const dumpableCollections = await dumper.dumpableCollections();
     const applicationPlugins = dumpableCollections.find(({ name }) => name === 'applicationPlugins');
 
-    expect(applicationPlugins.origin).toBe('@nocobase/server');
+    expect(applicationPlugins.origin).toBe('@tachybase/server');
   });
 
   it('should get custom collections group', async () => {

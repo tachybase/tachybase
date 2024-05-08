@@ -1,4 +1,4 @@
-import { importModule } from '@nocobase/utils';
+import { importModule } from '@tachybase/utils';
 import { existsSync } from 'fs';
 import { readdir } from 'fs/promises';
 import { cloneDeep, isPlainObject } from 'lodash';

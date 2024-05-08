@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResourceActionProvider, useRecord } from '@nocobase/client';
+import { ResourceActionProvider, useRecord } from '@tachybase/client';
 
 export const ExecutionResourceProvider = ({ request, filter = {}, ...others }) => {
   const workflow = useRecord();

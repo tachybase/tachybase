@@ -5,7 +5,7 @@ import {
   SchemaInitializerItem,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import { useAuditLogsTranslation } from './locale';
 

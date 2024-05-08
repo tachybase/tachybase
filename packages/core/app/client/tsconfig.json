@@ -13,7 +13,7 @@
     "paths": {
       "@/*": ["src/*"],
       "@@/*": ["src/.umi/*"],
-      "@nocobase/client": ["../../client/src"],
+      "@tachybase/client": ["../../client/src"]
     },
     "allowSyntheticDefaultImports": true
   },

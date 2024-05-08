@@ -1,4 +1,4 @@
-import { Logger, createConsoleLogger } from '@nocobase/logger';
+import { Logger, createConsoleLogger } from '@tachybase/logger';
 import * as events from 'events';
 import net from 'net';
 import xpipe from 'xpipe';

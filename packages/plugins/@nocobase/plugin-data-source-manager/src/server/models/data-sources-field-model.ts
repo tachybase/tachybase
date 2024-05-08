@@ -1,5 +1,5 @@
-import { MagicAttributeModel } from '@nocobase/database';
-import { Application } from '@nocobase/server';
+import { MagicAttributeModel } from '@tachybase/database';
+import { Application } from '@tachybase/server';
 import { mergeOptions } from '../utils';
 
 type LoadOptions = {

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { css, useDesignable } from '@nocobase/client';
+import { css, useDesignable } from '@tachybase/client';
 import { ContextMenuTrigger } from '../../components/context-menu';
 import { ContextMenu } from '../../components/context-menu';
 import { ContextMenuItem } from '../../components/context-menu';

@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import { Application, Input, SchemaComponent, SchemaComponentProvider, Table } from '@nocobase/client';
+import { Application, Input, SchemaComponent, SchemaComponentProvider, Table } from '@tachybase/client';
 import React from 'react';
 
 const schema: ISchema = {

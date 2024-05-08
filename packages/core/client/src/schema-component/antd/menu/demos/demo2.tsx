@@ -2,7 +2,7 @@
  * title: Menu
  */
 import { ISchema } from '@tachybase/schema';
-import { Application, Menu, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { Application, Menu, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 
 const schema: ISchema = {

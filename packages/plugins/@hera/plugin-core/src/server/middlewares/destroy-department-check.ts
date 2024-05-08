@@ -1,4 +1,4 @@
-import type { Context, Next } from '@nocobase/actions';
+import type { Context, Next } from '@tachybase/actions';
 
 const destroyCheck = async (ctx: Context) => {
   const { filterByTk } = ctx.action.params;

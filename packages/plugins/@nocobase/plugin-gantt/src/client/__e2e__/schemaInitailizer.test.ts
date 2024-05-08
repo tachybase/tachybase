@@ -1,4 +1,4 @@
-import { expect, test } from '@nocobase/test/e2e';
+import { expect, test } from '@tachybase/test/e2e';
 import { generalWithDatetimeFields, oneEmptyGantt } from './utils';
 
 test('BlockInitializers should add gantt block', async ({ page, mockPage, mockCollections }) => {

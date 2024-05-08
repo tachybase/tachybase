@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { render, screen } from '@nocobase/test/client';
-import { CollectionDeletedPlaceholder, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { render, screen } from '@tachybase/test/client';
+import { CollectionDeletedPlaceholder, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 
 function renderApp(name?: any, designable?: boolean) {
   const schema = {

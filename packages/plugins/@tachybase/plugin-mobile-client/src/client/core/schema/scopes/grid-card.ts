@@ -1,4 +1,4 @@
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { useInterfaceContext } from '../../../router/InterfaceProvider';
 import { PaginationProps } from 'antd';
 

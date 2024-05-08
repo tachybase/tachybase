@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataBlockProvider, RecordProvider, RemoteSchemaComponent, css, PageHeader } from '@nocobase/client';
+import { DataBlockProvider, RecordProvider, RemoteSchemaComponent, css, PageHeader } from '@tachybase/client';
 import { useNavigate, useParams } from 'react-router-dom';
 import { pathToRegexp } from 'path-to-regexp';
 import { useHeadStyles } from './style';

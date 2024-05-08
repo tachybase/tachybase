@@ -10,7 +10,7 @@ import {
   useCompile,
   useDesignable,
   useSchemaToolbar,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { ModalProps } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

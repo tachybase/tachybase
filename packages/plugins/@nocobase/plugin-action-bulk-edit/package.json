@@ -20,10 +20,10 @@
     "react-router-dom": "^6.11.2"
   },
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "对全部数据或选中的数据进行批量编辑。",
   "displayName.zh-CN": "操作：批量编辑",

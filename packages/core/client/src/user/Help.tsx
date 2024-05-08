@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { DropdownVisibleContext, usePlugin, useToken } from '..';
 import { useCurrentAppInfo } from '../appInfo/CurrentAppInfoProvider';
 import { observer } from '@tachybase/schema';
-import { parseHTML } from '@nocobase/utils/client';
+import { parseHTML } from '@tachybase/utils/client';
 
 /**
  * @note If you want to change here, Note the Setting block on the mobile side

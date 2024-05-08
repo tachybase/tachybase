@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { usePageSettingsProps } from './usePageSettingsProps';
 import { EmbedSchemaComponent } from './EmbedSchemaComponent';
 import { EmbedPage } from './EmbedPage';

@@ -1,6 +1,6 @@
-import Database, { BelongsToManyRepository } from '@nocobase/database';
+import Database, { BelongsToManyRepository } from '@tachybase/database';
 import UsersPlugin from '@nocobase/plugin-users';
-import { createMockServer, MockServer } from '@nocobase/test';
+import { createMockServer, MockServer } from '@tachybase/test';
 import jwt from 'jsonwebtoken';
 
 describe('role', () => {

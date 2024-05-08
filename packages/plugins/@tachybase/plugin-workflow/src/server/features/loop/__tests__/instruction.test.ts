@@ -1,5 +1,5 @@
-import Database from '@nocobase/database';
-import { Application } from '@nocobase/server';
+import Database from '@tachybase/database';
+import { Application } from '@tachybase/server';
 import { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
 

@@ -1,5 +1,5 @@
 import type { CollectionRepository } from '@nocobase/plugin-collection-manager';
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import { resolve } from 'path';
 import {
   aggregateSearch,

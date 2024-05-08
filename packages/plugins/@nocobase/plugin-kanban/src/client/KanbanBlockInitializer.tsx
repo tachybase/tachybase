@@ -15,7 +15,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
   useAPIClient,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { createKanbanBlockUISchema } from './createKanbanBlockUISchema';
 import { CreateAndSelectSort } from './CreateAndSelectSort';
 import { NAMESPACE } from './locale';

@@ -2,7 +2,7 @@
  * title: Upload
  */
 import { FormItem } from '@tachybase/components';
-import { APIClientProvider, SchemaComponent, SchemaComponentProvider, Upload } from '@nocobase/client';
+import { APIClientProvider, SchemaComponent, SchemaComponentProvider, Upload } from '@tachybase/client';
 import React from 'react';
 import apiClient from './apiClient';
 

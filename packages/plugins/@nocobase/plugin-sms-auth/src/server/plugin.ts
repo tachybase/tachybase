@@ -1,5 +1,5 @@
 import VerificationPlugin from '@nocobase/plugin-verification';
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { resolve } from 'path';
 import { authType } from '../constants';
 import { SMSAuth } from './sms-auth';

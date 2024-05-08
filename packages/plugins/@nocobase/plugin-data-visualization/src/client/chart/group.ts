@@ -1,4 +1,4 @@
-import { usePlugin } from '@nocobase/client';
+import { usePlugin } from '@tachybase/client';
 import { ChartType } from './chart';
 import DataVisualizationPlugin from '..';
 import { lang } from '../locale';

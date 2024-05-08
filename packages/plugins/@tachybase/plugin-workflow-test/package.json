@@ -9,13 +9,13 @@
     "lodash": "4.17.21"
   },
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/data-source-manager": "workspace:*",
-    "@nocobase/database": "workspace:*",
-    "@nocobase/resourcer": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*",
-    "@nocobase/utils": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/data-source-manager": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "displayName.zh-CN": "工作流：测试工具包"
 }

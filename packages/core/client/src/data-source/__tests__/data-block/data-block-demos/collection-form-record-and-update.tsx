@@ -7,7 +7,7 @@ import {
   useDataBlockResource,
   useCollectionRecordData,
   withDynamicSchemaProps,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 import { createApp } from './createApp';
 

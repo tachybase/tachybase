@@ -1,4 +1,4 @@
-import { SortableItem, withDynamicSchemaProps } from '@nocobase/client';
+import { SortableItem, withDynamicSchemaProps } from '@tachybase/client';
 import React from 'react';
 import { useTabSearchFieldItemAction } from './TabSearchFieldItemAction';
 import { Tabs } from 'antd-mobile';

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActionInitializer, useRequest } from '@nocobase/client';
+import { ActionInitializer, useRequest } from '@tachybase/client';
 import { Radio } from 'antd';
 import { PdfIsDoubleContext } from '../../hooks/usePdfPath';
 

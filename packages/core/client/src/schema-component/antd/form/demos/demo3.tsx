@@ -1,6 +1,6 @@
 import { FormItem, Input } from '@tachybase/components';
 import { ISchema, observer, useForm } from '@tachybase/schema';
-import { Action, Form, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { Action, Form, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import { Card } from 'antd';
 import React from 'react';
 

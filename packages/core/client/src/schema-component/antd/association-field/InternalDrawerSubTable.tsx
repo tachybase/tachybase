@@ -9,7 +9,6 @@ import { useAssociationFieldContext } from './hooks';
 import { ActionContext, ActionContextProvider } from '../action/context';
 import { useGetAriaLabelOfPopover } from '../action';
 import { ReadPrettyInternalViewer } from './InternalViewer';
-import { useSetAriaLabelForPopover } from '../action/hooks/useSetAriaLabelForPopover';
 
 export const InternaDrawerSubTable = observer(
   (props) => {
@@ -29,10 +28,6 @@ export const InternaDrawerSubTable = observer(
 
     const ctx = useContext(ActionContext);
     const { getAriaLabel } = useGetAriaLabelOfPopover();
-
-    if (process.env.__E2E__) {
-      useSetAriaLabelForPopover(visible);
-    }
     return (
       <>
         <span
@@ -50,22 +45,6 @@ export const InternaDrawerSubTable = observer(
           </div>
           <EditOutlined style={{ display: 'inline-flex', marginLeft: '5px' }} />
         </span>
-        {visible && (
-          <div
-            role="button"
-            aria-label={getAriaLabel('mask')}
-            onClick={() => setVisible(false)}
-            className={css`
-              position: fixed;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background-color: transparent;
-              z-index: 9999;
-            `}
-          />
-        )}
         <ActionContextProvider value={{ ...ctx, visible, setVisible, openMode: 'drawer' }}>
           <Drawer
             title={t(options?.uiSchema?.rawTitle)}
@@ -74,30 +53,15 @@ export const InternaDrawerSubTable = observer(
               setVisible(false);
             }}
             style={{ backgroundColor: '#f3f3f3' }}
-            width={800}
+            width={'70%'}
             destroyOnClose
-            footer={
-              <div style={{ marginLeft: '90%' }}>
-                <Button type="primary" onClick={() => setVisible(false)}>
-                  确认
-                </Button>
-              </div>
+            extra={
+              <Button type="primary" onClick={() => setVisible(false)}>
+                确认
+              </Button>
             }
           >
-            <div
-              ref={ref}
-              style={{ minWidth: '600px', maxWidth: '800px', maxHeight: '440px', overflow: 'auto' }}
-              className={css`
-                min-width: 600px;
-                max-height: 440px;
-                overflow: auto;
-                .ant-card {
-                  border: 0px;
-                }
-              `}
-            >
-              <InternalSubTable {...nesterProps} />
-            </div>
+            <InternalSubTable {...nesterProps} />
           </Drawer>
         </ActionContextProvider>
       </>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFieldSchema } from '@tachybase/schema';
-import { SchemaSettingsSwitchItem, useDesignable } from '@nocobase/client';
+import { SchemaSettingsSwitchItem, useDesignable } from '@tachybase/client';
 import { useTranslation } from '../locale';
 
 // 选择提交数据方式,是否增量提交,默认全量提交

@@ -1,6 +1,6 @@
-import { parse } from '@nocobase/utils';
+import { parse } from '@tachybase/utils';
 import { FlowNodeModel, Instruction, JOB_STATUS, Processor } from '../..';
-import evaluators, { Evaluator } from '@nocobase/evaluators';
+import evaluators, { Evaluator } from '@tachybase/evaluators';
 
 export class DynamicCalculation extends Instruction {
   async run(node: FlowNodeModel, prevJob, processor: Processor) {

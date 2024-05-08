@@ -1,5 +1,5 @@
 import { uid } from '@tachybase/schema';
-import { APIClient, APIClientProvider, useAPIClient, useRequest } from '@nocobase/client';
+import { APIClient, APIClientProvider, useAPIClient, useRequest } from '@tachybase/client';
 import { Button, Input, Space, Table } from 'antd';
 import MockAdapter from 'axios-mock-adapter';
 import React from 'react';

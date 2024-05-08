@@ -1,4 +1,4 @@
-import { CollectionGroup } from '@nocobase/database';
+import { CollectionGroup } from '@tachybase/database';
 
 export class CollectionGroupManager {
   static collectionGroups: CollectionGroup[] = [];

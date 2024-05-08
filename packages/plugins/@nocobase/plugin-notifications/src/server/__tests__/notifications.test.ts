@@ -1,5 +1,5 @@
-import Database from '@nocobase/database';
-import { createMockServer } from '@nocobase/test';
+import Database from '@tachybase/database';
+import { createMockServer } from '@tachybase/test';
 import nodemailerMock from 'nodemailer-mock';
 import { Notification, NotificationService } from '../models';
 

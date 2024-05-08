@@ -5,7 +5,7 @@ import {
   useCompile,
   useInheritsTableColumnInitializerFields,
   useTableColumnInitializerFields,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import { tval, useAuditLogsTranslation } from '../locale';
 

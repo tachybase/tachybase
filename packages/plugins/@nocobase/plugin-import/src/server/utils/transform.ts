@@ -1,4 +1,4 @@
-import { dayjs, str2moment } from '@nocobase/utils';
+import { dayjs, str2moment } from '@tachybase/utils';
 import * as math from 'mathjs';
 import { namespace } from '../../';
 

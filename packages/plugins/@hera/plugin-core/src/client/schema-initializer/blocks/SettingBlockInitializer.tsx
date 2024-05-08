@@ -1,7 +1,7 @@
 import { FormOutlined } from '@ant-design/icons';
 import { FormLayout } from '@tachybase/components';
 import { SchemaOptionsContext } from '@tachybase/schema';
-import { APIClientProvider, createFormBlockSchema, useAPIClient, useCollectionManager } from '@nocobase/client';
+import { APIClientProvider, createFormBlockSchema, useAPIClient, useCollectionManager } from '@tachybase/client';
 import {
   DataBlockInitializer,
   FormDialog,
@@ -10,7 +10,7 @@ import {
   useGlobalTheme,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useContext } from 'react';
 import { tval, useTranslation } from '../../locale';
 

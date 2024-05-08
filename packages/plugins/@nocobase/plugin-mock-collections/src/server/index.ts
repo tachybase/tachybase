@@ -1,7 +1,7 @@
-import Database, { Collection, Repository } from '@nocobase/database';
+import Database, { Collection, Repository } from '@tachybase/database';
 import { CollectionRepository } from '@nocobase/plugin-collection-manager';
-import { InstallOptions, Plugin } from '@nocobase/server';
-import { merge, uid } from '@nocobase/utils';
+import { InstallOptions, Plugin } from '@tachybase/server';
+import { merge, uid } from '@tachybase/utils';
 import _ from 'lodash';
 import collectionTemplates from './collection-templates';
 import * as fieldInterfaces from './field-interfaces';

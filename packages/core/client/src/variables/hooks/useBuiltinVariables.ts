@@ -1,4 +1,4 @@
-import { dayjs } from '@nocobase/utils/client';
+import { dayjs } from '@tachybase/utils/client';
 import { useMemo } from 'react';
 import { useCurrentUserVariable, useDatetimeVariable } from '../../schema-settings';
 import { useCurrentRoleVariable } from '../../schema-settings/VariableInput/hooks/useRoleVariable';

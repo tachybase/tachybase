@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Plugin } from '@nocobase/client';
-import { Registry } from '@nocobase/utils/client';
+import { Plugin } from '@tachybase/client';
+import { Registry } from '@tachybase/utils/client';
 
 import { ExecutionPage } from './ExecutionPage';
 import { WorkflowPage } from './WorkflowPage';

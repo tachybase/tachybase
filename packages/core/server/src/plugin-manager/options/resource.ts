@@ -1,4 +1,4 @@
-import { uid } from '@nocobase/utils';
+import { uid } from '@tachybase/utils';
 import fs from 'fs';
 import path from 'path';
 import Application from '../../application';

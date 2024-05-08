@@ -1,4 +1,4 @@
-import { test, expect, oneEmptyTable } from '@nocobase/test/e2e';
+import { test, expect, oneEmptyTable } from '@tachybase/test/e2e';
 
 test('edit button', async ({ page, mockPage, mockRecord }) => {
   await mockPage(oneEmptyTable).goto();

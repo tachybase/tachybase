@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { InputNumber, css } from '@nocobase/client';
+import { InputNumber, css } from '@tachybase/client';
 import { Radio, Tooltip } from 'antd';
 import { useCallback } from 'react';
 import { useTranslation } from '../../../locale';

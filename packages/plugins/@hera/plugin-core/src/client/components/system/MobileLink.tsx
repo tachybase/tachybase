@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { Button, Tooltip } from 'antd';
 import { MobileOutlined } from '@ant-design/icons';
 import { useTranslation } from '../../locale';

@@ -1,7 +1,7 @@
-import { Database } from '@nocobase/database';
-import { AppSupervisor, Gateway } from '@nocobase/server';
-import { createMockServer, MockServer } from '@nocobase/test';
-import { uid } from '@nocobase/utils';
+import { Database } from '@tachybase/database';
+import { AppSupervisor, Gateway } from '@tachybase/server';
+import { createMockServer, MockServer } from '@tachybase/test';
+import { uid } from '@tachybase/utils';
 import { vi } from 'vitest';
 import { PluginMultiAppManager } from '../server';
 

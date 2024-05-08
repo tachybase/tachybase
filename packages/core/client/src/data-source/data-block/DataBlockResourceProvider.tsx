@@ -1,4 +1,4 @@
-import { IResource } from '@nocobase/sdk';
+import { IResource } from '@tachybase/sdk';
 import React, { FC, ReactNode, createContext, useContext, useMemo } from 'react';
 
 import { useCollectionManager } from '../collection';

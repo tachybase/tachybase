@@ -12,7 +12,7 @@ import {
   useCollectionFilterOptions,
   useCollectionManager_deprecated,
   useCompile,
-} from '@nocobase/client';
+} from '@tachybase/client';
 
 import {
   FieldsSelect,

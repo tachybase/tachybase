@@ -3,7 +3,7 @@ import {
   SchemaInitializerMenu,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 import { ISchema } from '@tachybase/schema';
 import { Toast } from 'antd-mobile';

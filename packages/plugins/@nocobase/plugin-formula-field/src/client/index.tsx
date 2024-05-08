@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { FormulaFieldInterface } from './interfaces/formula';
 import { Formula } from './components';
 import { renderExpressionDescription } from './scopes';

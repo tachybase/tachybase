@@ -1,4 +1,4 @@
-import { SchemaInitializer, gridRowColWrap, usePlugin } from '@nocobase/client';
+import { SchemaInitializer, gridRowColWrap, usePlugin } from '@tachybase/client';
 import PluginWorkflow, {
   useAvailableUpstreams,
   useFlowContext,

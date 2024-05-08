@@ -1,4 +1,4 @@
-import { useAPIClient } from '@nocobase/client';
+import { useAPIClient } from '@tachybase/client';
 import { useBoolean } from 'ahooks';
 import { Button, Card, Form, Input, Tabs, message } from 'antd';
 import React, { useEffect, useMemo } from 'react';

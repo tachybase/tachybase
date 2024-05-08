@@ -1,7 +1,7 @@
 import { mockServer, MockServer } from './index';
-import { registerActions } from '@nocobase/actions';
-import { Collection, Database } from '@nocobase/database';
-import { waitSecond } from '@nocobase/test';
+import { registerActions } from '@tachybase/actions';
+import { Collection, Database } from '@tachybase/database';
+import { waitSecond } from '@tachybase/test';
 
 describe('sort action', () => {
   describe('associations', () => {

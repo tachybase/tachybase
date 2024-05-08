@@ -39,7 +39,7 @@ export async function build(pkgs: string[]) {
     } else {
       msg = 'No package matched'
     }
-    console.warn(chalk.yellow(`[@nocobase/build]: ${msg}`));
+    console.warn(chalk.yellow(`[@tachybase/build]: ${msg}`));
     return;
   }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PDFViewer } from '../../components/PDFViewer';
 import { Space } from 'antd';
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import { usePDFViewerRef } from '../../schema-initializer/blocks/PDFVIewerBlockInitializer';
 
 export const InternalPDFViewer = (props) => {

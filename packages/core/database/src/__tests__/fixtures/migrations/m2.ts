@@ -1,4 +1,4 @@
-import { Migration } from '@nocobase/database';
+import { Migration } from '@tachybase/database';
 
 export default class extends Migration {
   async up() {}

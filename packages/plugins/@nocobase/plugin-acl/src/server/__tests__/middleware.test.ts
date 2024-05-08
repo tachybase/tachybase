@@ -1,7 +1,7 @@
-import { ACL } from '@nocobase/acl';
-import { Database, Model } from '@nocobase/database';
+import { ACL } from '@tachybase/acl';
+import { Database, Model } from '@tachybase/database';
 import UsersPlugin from '@nocobase/plugin-users';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import { prepareApp } from './prepare';
 
 describe('middleware', () => {

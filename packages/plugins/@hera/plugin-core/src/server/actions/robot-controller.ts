@@ -1,6 +1,6 @@
-import { Context, Next } from '@nocobase/actions';
+import { Context, Next } from '@tachybase/actions';
 import axios from 'axios';
-import { Action, Controller } from '@nocobase/utils';
+import { Action, Controller } from '@tachybase/utils';
 
 @Controller('robot')
 export class RobotController {

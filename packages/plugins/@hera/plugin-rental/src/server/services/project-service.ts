@@ -1,6 +1,6 @@
-import Database, { CreateOptions, MagicAttributeModel } from '@nocobase/database';
+import Database, { CreateOptions, MagicAttributeModel } from '@tachybase/database';
 import { SqlLoader } from '@hera/plugin-core';
-import { Db, Service, Inject } from '@nocobase/utils';
+import { Db, Service, Inject } from '@tachybase/utils';
 
 @Service()
 export class ProjectService {

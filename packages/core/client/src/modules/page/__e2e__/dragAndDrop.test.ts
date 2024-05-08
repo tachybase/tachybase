@@ -1,4 +1,4 @@
-import { expect, test, twoTabsPage } from '@nocobase/test/e2e';
+import { expect, test, twoTabsPage } from '@tachybase/test/e2e';
 
 test('tabs', async ({ page, mockPage }) => {
   await mockPage(twoTabsPage).goto();

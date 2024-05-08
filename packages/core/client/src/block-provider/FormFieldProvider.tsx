@@ -1,7 +1,7 @@
 import { createForm, onFormValuesChange } from '@tachybase/schema';
 import { useField } from '@tachybase/schema';
 import { autorun } from '@tachybase/schema';
-import { forEach } from '@nocobase/utils/client';
+import { forEach } from '@tachybase/utils/client';
 import { Spin } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { useCollectionParentRecordData } from '../data-source/collection-record/CollectionRecordProvider';

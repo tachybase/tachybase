@@ -33,7 +33,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaOptionsContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import WorkflowPlugin, {
   SimpleDesigner,
   useAvailableUpstreams,
@@ -44,7 +44,7 @@ import WorkflowPlugin, {
 } from '../../..';
 
 import { JOB_STATUS } from '../../../constants';
-import { Registry, lodash } from '@nocobase/utils/client';
+import { Registry, lodash } from '@tachybase/utils/client';
 
 import { NAMESPACE, lang } from '../../../locale';
 import { FormBlockProvider } from './FormBlockProvider';

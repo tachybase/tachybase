@@ -1,4 +1,4 @@
-import { startServerWithRandomPort, supertest, waitSecond } from '@nocobase/test';
+import { startServerWithRandomPort, supertest, waitSecond } from '@tachybase/test';
 import { vi } from 'vitest';
 import ws from 'ws';
 import { AppSupervisor } from '../app-supervisor';

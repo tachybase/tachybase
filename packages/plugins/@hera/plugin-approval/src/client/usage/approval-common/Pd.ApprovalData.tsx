@@ -1,4 +1,4 @@
-import { useRecord } from '@nocobase/client';
+import { useRecord } from '@tachybase/client';
 import React, { createContext, useContext } from 'react';
 import { Approval } from '../approval-block/interface';
 

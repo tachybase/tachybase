@@ -1,4 +1,4 @@
-import { MockServer, createMockServer } from '@nocobase/test';
+import { MockServer, createMockServer } from '@tachybase/test';
 import compose from 'koa-compose';
 import { vi } from 'vitest';
 import { cacheMiddleware, parseBuilder, parseFieldAndAssociations } from '../actions/query';

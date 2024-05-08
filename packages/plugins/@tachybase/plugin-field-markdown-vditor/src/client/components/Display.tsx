@@ -1,5 +1,5 @@
 import { Field, useField } from '@tachybase/schema';
-import { withDynamicSchemaProps } from '@nocobase/client';
+import { withDynamicSchemaProps } from '@tachybase/client';
 import { Popover } from 'antd';
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import Vditor from 'vditor';

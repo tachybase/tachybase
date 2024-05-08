@@ -1,4 +1,4 @@
-import type { ThemeConfig } from '@nocobase/client';
+import type { ThemeConfig } from '@tachybase/client';
 import type { ReactElement } from 'react';
 
 export type Theme = {

@@ -6,7 +6,7 @@ import {
   useFormBlockContext,
   useRecord,
   useRequest,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { DetailsBlockProvider, FlowContext } from '@tachybase/plugin-workflow/client';
 import { useForm } from '@tachybase/schema';
 import { Result, Spin } from 'antd';

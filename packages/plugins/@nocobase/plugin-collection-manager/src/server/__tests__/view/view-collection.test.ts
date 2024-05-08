@@ -1,6 +1,6 @@
-import Database, { Repository, ViewCollection, ViewFieldInference } from '@nocobase/database';
-import Application from '@nocobase/server';
-import { uid } from '@nocobase/utils';
+import Database, { Repository, ViewCollection, ViewFieldInference } from '@tachybase/database';
+import Application from '@tachybase/server';
+import { uid } from '@tachybase/utils';
 import { createApp } from '../index';
 
 describe('view collection', function () {

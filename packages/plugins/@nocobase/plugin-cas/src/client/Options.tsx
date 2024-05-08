@@ -1,4 +1,4 @@
-import { SchemaComponent } from '@nocobase/client';
+import { SchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { Space } from 'antd';
 import { useAuthTranslation, generateNTemplate } from './locale';

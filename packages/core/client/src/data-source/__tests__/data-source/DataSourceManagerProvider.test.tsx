@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { DataSourceManagerProvider, useDataSourceManager } from '@nocobase/client';
+import { DataSourceManagerProvider, useDataSourceManager } from '@tachybase/client';
 
 describe('DataSourceManagerProvider', () => {
   test('should render children', () => {

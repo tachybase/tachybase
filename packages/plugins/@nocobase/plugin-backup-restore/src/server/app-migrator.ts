@@ -1,5 +1,5 @@
-import { Application } from '@nocobase/server';
-import { applyMixins, AsyncEmitter } from '@nocobase/utils';
+import { Application } from '@tachybase/server';
+import { applyMixins, AsyncEmitter } from '@tachybase/utils';
 import crypto from 'crypto';
 import EventEmitter from 'events';
 import fsPromises from 'fs/promises';

@@ -1,4 +1,4 @@
-import { APIClientProvider, AssociationSelect, FormProvider, SchemaComponent } from '@nocobase/client';
+import { APIClientProvider, AssociationSelect, FormProvider, SchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { mockAPIClient } from '../../../../testUtils';
 

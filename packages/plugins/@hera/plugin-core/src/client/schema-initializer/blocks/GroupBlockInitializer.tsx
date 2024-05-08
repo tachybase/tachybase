@@ -11,9 +11,9 @@ import {
   SchemaToolbarProps,
   Icon,
   Plugin,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { createContext, useState } from 'react';
-import { uid } from '@nocobase/utils/client';
+import { uid } from '@tachybase/utils/client';
 import { Spin } from 'antd';
 import { GroupBlockConfigure } from '../../schema-settings/GroupBlockConfigure';
 import { GroupBlock } from '../../schema-components';

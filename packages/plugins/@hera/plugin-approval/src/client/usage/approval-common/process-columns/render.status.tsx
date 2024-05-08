@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCompile } from '@nocobase/client';
+import { useCompile } from '@tachybase/client';
 import { Tag } from 'antd';
 import { approvalStatusConfigObj } from '../../../constants';
 import { ColumnStatusComponent } from '../approval-columns/column.status';
@@ -8,6 +8,7 @@ import { APPROVAL_STATUS } from '../../../constants';
 
 export function renderColumnStatus(value, record, exist) {
   // return null;
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const compile = useCompile();
   if (!exist) {
     const approvalStatusItem =

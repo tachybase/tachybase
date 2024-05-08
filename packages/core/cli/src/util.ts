@@ -184,13 +184,13 @@ export async function updateJsonFile(target: string, fn: any) {
 }
 
 export async function getVersion() {
-  const { stdout } = await execa('npm', ['v', '@nocobase/app-server', 'versions']);
+  const { stdout } = await execa('npm', ['v', '@tachybase/app-server', 'versions']);
   const versions = new Function(`return (${stdout})`)();
   return versions[versions.length - 1];
 }
 
 export function generateAppDir() {
-  const appPkgPath = dirname(dirname(new URL(import.meta.resolve('@nocobase/app/src/index.ts')).pathname));
+  const appPkgPath = dirname(dirname(new URL(import.meta.resolve('@tachybase/app/src/index.ts')).pathname));
   const appDevDir = resolve(process.cwd(), './storage/.app-dev');
   if (isDev() && !hasCorePackages() && appPkgPath.includes('node_modules')) {
     if (!existsSync(appDevDir)) {
@@ -239,7 +239,7 @@ export async function genTsConfigPaths() {
       paths[`${packageJsonName}/client`] = [`${relativePath}/src/client`];
       paths[`${packageJsonName}/package.json`] = [`${relativePath}/package.json`];
       paths[packageJsonName] = [`${relativePath}/src`];
-      if (packageJsonName === '@nocobase/test') {
+      if (packageJsonName === '@tachybase/test') {
         paths[`${packageJsonName}/server`] = [`${relativePath}/src/server`];
         paths[`${packageJsonName}/e2e`] = [`${relativePath}/src/e2e`];
       }
@@ -262,7 +262,7 @@ export function generatePlaywrightPath(clean = false) {
       rmSync(dirname(playwright), { force: true, recursive: true });
     }
     if (!_existsSync(playwright)) {
-      const testPkg = require.resolve('@nocobase/test/package.json');
+      const testPkg = require.resolve('@tachybase/test/package.json');
       _cpSync(resolve(dirname(testPkg), 'playwright/tests'), playwright, { recursive: true });
     }
   } catch (error) {

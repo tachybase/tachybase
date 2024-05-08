@@ -1,6 +1,6 @@
 import { FormItem, Input } from '@tachybase/components';
 import { ISchema, observer, useForm } from '@tachybase/schema';
-import { Action, Form, SchemaComponent, SchemaComponentProvider, useCloseAction } from '@nocobase/client';
+import { Action, Form, SchemaComponent, SchemaComponentProvider, useCloseAction } from '@tachybase/client';
 import React from 'react';
 
 const schema: ISchema = {

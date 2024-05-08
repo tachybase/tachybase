@@ -4,7 +4,7 @@ import {
   ExtendCollectionsProvider,
   SchemaComponent,
   SchemaComponentProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 
 const schema: ISchema = {

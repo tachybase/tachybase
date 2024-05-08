@@ -7,7 +7,7 @@ import {
   actionSettingsItems,
   useCollection_deprecated,
   useRequest,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { App } from 'antd';
 import React from 'react';
 import { listByCurrentRoleUrl } from '../constants';

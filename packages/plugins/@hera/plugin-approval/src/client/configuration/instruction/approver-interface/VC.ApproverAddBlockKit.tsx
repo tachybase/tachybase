@@ -1,5 +1,5 @@
 import React from 'react';
-import { InitializerWithSwitch, createFormBlockSchema, useSchemaInitializerItem } from '@nocobase/client';
+import { InitializerWithSwitch, createFormBlockSchema, useSchemaInitializerItem } from '@tachybase/client';
 import _ from 'lodash';
 import { NAMESPACE } from '../../../locale';
 import { APPROVAL_ACTION_STATUS } from '../../../constants';

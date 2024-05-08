@@ -5,7 +5,7 @@ import {
   HasManyField,
   HasOneField,
   RelationField,
-} from '@nocobase/database';
+} from '@tachybase/database';
 import multipleAssociation from './multiple-association';
 import singleAssociation from './single-association';
 import { isViewCollection } from '..';

@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/resourcer",
+  "name": "@tachybase/resourcer",
   "version": "0.21.24",
   "description": "",
   "repository": {
@@ -11,7 +11,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
-    "@nocobase/utils": "workspace:*",
+    "@tachybase/utils": "workspace:*",
     "deepmerge": "^4.2.2",
     "glob": "^7.1.6",
     "koa-compose": "^4.1.0",

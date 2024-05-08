@@ -1,4 +1,4 @@
-import { useAPIClient } from '@nocobase/client';
+import { useAPIClient } from '@tachybase/client';
 
 export function useEmbedToken() {
   const url = new URL(window.location.href);

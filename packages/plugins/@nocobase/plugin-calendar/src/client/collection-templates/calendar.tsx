@@ -1,4 +1,4 @@
-import { CollectionTemplate, ICollectionTemplate, getConfigurableProperties } from '@nocobase/client';
+import { CollectionTemplate, ICollectionTemplate, getConfigurableProperties } from '@tachybase/client';
 import { generateNTemplate } from '../../locale';
 
 export const calendar: ICollectionTemplate = {

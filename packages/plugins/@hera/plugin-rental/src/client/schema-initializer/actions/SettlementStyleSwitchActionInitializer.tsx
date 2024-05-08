@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Action, ActionInitializer } from '@nocobase/client';
+import { Action, ActionInitializer } from '@tachybase/client';
 
 export const SettlementStyleContext = createContext({
   style: 'category',

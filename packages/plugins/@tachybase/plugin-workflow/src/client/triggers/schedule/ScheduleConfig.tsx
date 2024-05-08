@@ -1,6 +1,6 @@
 import { onFieldValueChange } from '@tachybase/schema';
 import { useForm, useFormEffects, ISchema } from '@tachybase/schema';
-import { css, SchemaComponent } from '@nocobase/client';
+import { css, SchemaComponent } from '@tachybase/client';
 import React, { useState } from 'react';
 import { NAMESPACE } from '../../locale';
 import { appends, collection } from '../../schemas/collection';

@@ -1,5 +1,5 @@
-import { Authenticator } from '@nocobase/auth';
-import { Database, Model } from '@nocobase/database';
+import { Authenticator } from '@tachybase/auth';
+import { Database, Model } from '@tachybase/database';
 
 export class AuthModel extends Model implements Authenticator {
   declare authType: string;

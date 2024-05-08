@@ -1,5 +1,5 @@
-import Database from '@nocobase/database';
-import { MockServer, createMockServer } from '@nocobase/test';
+import Database from '@tachybase/database';
+import { MockServer, createMockServer } from '@tachybase/test';
 
 describe('reference integrity check', () => {
   let db: Database;

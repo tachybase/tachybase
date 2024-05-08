@@ -1,6 +1,6 @@
 import { Field } from '@tachybase/schema';
-import { evaluators } from '@nocobase/evaluators/client';
-import { uid } from '@nocobase/utils/client';
+import { evaluators } from '@tachybase/evaluators/client';
+import { uid } from '@tachybase/utils/client';
 import _ from 'lodash';
 import { ActionType } from '../../../schema-settings/LinkageRules/type';
 import { VariableOption, VariablesContextType } from '../../../variables/types';

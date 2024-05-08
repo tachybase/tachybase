@@ -7,7 +7,7 @@ import {
   Form,
   SchemaComponent,
   SchemaComponentProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 
 export default observer(() => {

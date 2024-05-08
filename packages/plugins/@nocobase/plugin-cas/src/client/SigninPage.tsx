@@ -1,7 +1,7 @@
 import { LoginOutlined } from '@ant-design/icons';
-import { useApp } from '@nocobase/client';
+import { useApp } from '@tachybase/client';
 import { Authenticator } from '@nocobase/plugin-auth/client';
-import { getSubAppName } from '@nocobase/sdk';
+import { getSubAppName } from '@tachybase/sdk';
 import { Button, Space, message } from 'antd';
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';

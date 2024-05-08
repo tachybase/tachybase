@@ -1,4 +1,4 @@
-import { useDetailsBlockContext } from '@nocobase/client';
+import { useDetailsBlockContext } from '@tachybase/client';
 import { useReactToPrint } from 'react-to-print';
 
 export const useDetailPrintActionProps = () => {

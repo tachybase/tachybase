@@ -23,7 +23,7 @@ import {
   useAPIClient,
   useFieldInterfaceOptions,
   useDataSourceManager,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { ForeignKey } from './components';
 
 const getSchema = (schema: IField, record: any, compile) => {

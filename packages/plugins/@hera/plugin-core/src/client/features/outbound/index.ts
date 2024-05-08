@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { OutboundPage } from './OutboundPage';
 import { OutboundButton, OutboundLinkActionInitializer } from './OutboundLinkActionInitializer';
 import { lang } from '../../locale';

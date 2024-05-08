@@ -1,6 +1,6 @@
 import { ArrayField } from '@tachybase/schema';
 import { useField } from '@tachybase/schema';
-import { useAPIClient, useRequest } from '@nocobase/client';
+import { useAPIClient, useRequest } from '@tachybase/client';
 
 export const useChinaRegionDataSource = (options) => {
   const field = useField<ArrayField>();

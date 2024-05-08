@@ -1,4 +1,4 @@
-import { expect, expectSettingsMenu, test } from '@nocobase/test/e2e';
+import { expect, expectSettingsMenu, test } from '@tachybase/test/e2e';
 import dayjs from 'dayjs';
 import { oneTableBlockWithDatetimeFields, oneFormBlockWithDatetimeFields } from './utils';
 

@@ -6,7 +6,7 @@ import {
   SchemaComponent,
   SchemaComponentProvider,
   Select,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Space } from 'antd';
 import React, { useState } from 'react';
 

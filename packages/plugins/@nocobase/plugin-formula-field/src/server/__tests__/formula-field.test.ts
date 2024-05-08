@@ -1,4 +1,4 @@
-import { Database, mockDatabase } from '@nocobase/database';
+import { Database, mockDatabase } from '@tachybase/database';
 import { FormulaField } from '../formula-field';
 
 describe('formula field', () => {

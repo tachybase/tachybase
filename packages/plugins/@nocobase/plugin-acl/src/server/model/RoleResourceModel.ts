@@ -1,5 +1,5 @@
-import { ACL, ACLResource, ACLRole } from '@nocobase/acl';
-import { Model } from '@nocobase/database';
+import { ACL, ACLResource, ACLRole } from '@tachybase/acl';
+import { Model } from '@tachybase/database';
 import { AssociationFieldsActions, GrantHelper } from '../server';
 import { RoleResourceActionModel } from './RoleResourceActionModel';
 

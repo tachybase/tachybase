@@ -1,4 +1,4 @@
-import { SchemaComponent, SchemaComponentContext, usePlugin, useRecord } from '@nocobase/client';
+import { SchemaComponent, SchemaComponentContext, usePlugin, useRecord } from '@tachybase/client';
 import { Card } from 'antd';
 import React, { useContext, useEffect } from 'react';
 import { ExecutionLink } from './ExecutionLink';

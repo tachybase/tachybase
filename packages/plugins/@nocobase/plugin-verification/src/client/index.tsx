@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { VerificationProviders } from './VerificationProviders';
 import { NAMESPACE } from './locale';
 

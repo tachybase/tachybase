@@ -1,7 +1,7 @@
-import { Context, Next } from '@nocobase/actions';
-import { Model, Repository } from '@nocobase/database';
+import { Context, Next } from '@tachybase/actions';
+import { Model, Repository } from '@tachybase/database';
 import { namespace } from '../../preset';
-import { AuthManager } from '@nocobase/auth';
+import { AuthManager } from '@tachybase/auth';
 
 async function checkCount(repository: Repository, id: number[]) {
   // TODO(yangqia): This is a temporary solution, may cause concurrency problem.

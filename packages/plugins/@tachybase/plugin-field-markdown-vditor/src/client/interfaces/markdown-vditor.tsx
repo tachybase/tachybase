@@ -1,4 +1,4 @@
-import { CollectionFieldInterface, interfacesProperties } from '@nocobase/client';
+import { CollectionFieldInterface, interfacesProperties } from '@tachybase/client';
 import { generateNTemplate } from '../locale';
 import { ISchema } from '@tachybase/schema';
 

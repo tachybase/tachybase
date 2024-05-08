@@ -1,5 +1,5 @@
-import { DataSource } from '@nocobase/data-source-manager';
-import { Database } from '@nocobase/database';
+import { DataSource } from '@tachybase/data-source-manager';
+import { Database } from '@tachybase/database';
 import { PostgresCollectionManager } from './postgres-collection-manager';
 import { DatabaseIntrospector } from './services/database-introspector';
 import typeInterfaceMap from './services/type-interface-map';

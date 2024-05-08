@@ -1,6 +1,6 @@
 import { GroupOption, Order, ProjectionAlias, WhereOptions } from 'sequelize';
 import { SQLModel } from './sql-model';
-import { lodash } from '@nocobase/utils';
+import { lodash } from '@tachybase/utils';
 import { Collection } from '../collection';
 
 export function selectQuery(

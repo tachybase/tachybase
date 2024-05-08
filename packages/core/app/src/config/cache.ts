@@ -1,4 +1,4 @@
-import { CacheManagerOptions } from '@nocobase/cache';
+import { CacheManagerOptions } from '@tachybase/cache';
 
 export const cacheManager: CacheManagerOptions = {
   defaultStore: process.env.CACHE_DEFAULT_STORE || 'memory',

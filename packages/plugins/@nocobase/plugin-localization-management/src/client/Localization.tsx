@@ -14,7 +14,7 @@ import {
   useRecord,
   useResourceActionContext,
   useResourceContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useMemoizedFn } from 'ahooks';
 import { Input as AntdInput, Button, Card, Checkbox, Col, Divider, Row, Tag, Typography, message } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';

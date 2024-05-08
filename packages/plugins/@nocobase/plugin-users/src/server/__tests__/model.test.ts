@@ -1,5 +1,5 @@
-import Database from '@nocobase/database';
-import { createMockServer, MockServer } from '@nocobase/test';
+import Database from '@tachybase/database';
+import { createMockServer, MockServer } from '@tachybase/test';
 import { UserModel } from '../models/UserModel';
 
 describe('models', () => {

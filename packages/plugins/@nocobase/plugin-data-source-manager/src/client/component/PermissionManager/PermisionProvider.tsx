@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAPIClient, useRecord, RecordContext_deprecated, SchemaComponentOptions } from '@nocobase/client';
+import { useAPIClient, useRecord, RecordContext_deprecated, SchemaComponentOptions } from '@tachybase/client';
 import { CurrentRolesContext } from './';
 
 export const SettingCenterPermissionProvider = (props) => {

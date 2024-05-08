@@ -14,8 +14,8 @@ import {
   appendJsonCollectionName,
   generalWithNoRelationalFields,
 } from '@tachybase/plugin-workflow-test/e2e';
-import { expect, test } from '@nocobase/test/e2e';
-import { dayjs } from '@nocobase/utils';
+import { expect, test } from '@tachybase/test/e2e';
+import { dayjs } from '@tachybase/utils';
 
 test('Collection event Add Data Trigger, determines that the trigger node single line text field variable is equal to an equal constant, passes.', async ({
   page,

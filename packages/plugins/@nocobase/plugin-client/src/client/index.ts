@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 
 class ClientPlugin extends Plugin {
   async load() {}

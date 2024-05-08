@@ -1,5 +1,5 @@
-import { useAPIClient } from '@nocobase/client';
-export type { IResource } from '@nocobase/sdk';
+import { useAPIClient } from '@tachybase/client';
+export type { IResource } from '@tachybase/sdk';
 
 export const useCustomRequestsResource = () => {
   const apiClient = useAPIClient();

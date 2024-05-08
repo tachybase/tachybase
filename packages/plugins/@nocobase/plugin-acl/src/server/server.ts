@@ -1,7 +1,7 @@
-import { Context, utils as actionUtils } from '@nocobase/actions';
-import { Cache } from '@nocobase/cache';
-import { Collection, RelationField } from '@nocobase/database';
-import { Plugin } from '@nocobase/server';
+import { Context, utils as actionUtils } from '@tachybase/actions';
+import { Cache } from '@tachybase/cache';
+import { Collection, RelationField } from '@tachybase/database';
+import { Plugin } from '@tachybase/server';
 import { Mutex } from 'async-mutex';
 import lodash from 'lodash';
 import { resolve } from 'path';

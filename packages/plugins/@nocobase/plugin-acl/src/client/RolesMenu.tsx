@@ -4,7 +4,7 @@ import {
   SchemaComponent,
   useAPIClient,
   useResourceActionContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Menu, Empty, Dropdown, App, Tag, Row, Col, Spin } from 'antd';
 import { TagOutlined, MoreOutlined } from '@ant-design/icons';
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';

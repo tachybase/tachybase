@@ -1,4 +1,4 @@
-import { Migration } from '@nocobase/server';
+import { Migration } from '@tachybase/server';
 import UiSchemaRepository from '../repository';
 
 export default class extends Migration {

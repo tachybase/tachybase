@@ -1,4 +1,4 @@
-import { ActionInitializer, useSchemaInitializerItem } from '@nocobase/client';
+import { ActionInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
 
 // 区块-配置操作

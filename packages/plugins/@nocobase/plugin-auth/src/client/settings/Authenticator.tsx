@@ -5,7 +5,7 @@ import {
   useActionContext,
   useAsyncData,
   useRequest,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Card } from 'antd';
 import React, { useState } from 'react';
 import { authenticatorsSchema, createFormSchema } from './schemas/authenticators';

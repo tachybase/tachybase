@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { useChinaRegionDataSource, useChinaRegionLoadData } from './ChinaRegionProvider';
 
 export class ChinaRegionPlugin extends Plugin {

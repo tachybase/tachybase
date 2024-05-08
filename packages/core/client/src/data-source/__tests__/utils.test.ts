@@ -1,4 +1,4 @@
-import { CollectionFieldInterface, isTitleField, Application } from '@nocobase/client';
+import { CollectionFieldInterface, isTitleField, Application } from '@tachybase/client';
 import collections from './collections.json';
 
 describe('utils', () => {

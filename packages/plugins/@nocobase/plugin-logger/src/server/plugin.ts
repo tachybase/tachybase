@@ -1,4 +1,4 @@
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import logger from './resourcer/logger';
 
 export class PluginLoggerServer extends Plugin {

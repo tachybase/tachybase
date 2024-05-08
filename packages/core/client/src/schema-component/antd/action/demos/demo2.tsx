@@ -8,7 +8,7 @@ import {
   SchemaComponent,
   SchemaComponentProvider,
   useActionContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useState } from 'react';
 
 const useCloseAction = () => {

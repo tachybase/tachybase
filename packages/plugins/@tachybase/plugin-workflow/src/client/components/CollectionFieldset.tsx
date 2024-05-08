@@ -10,7 +10,7 @@ import {
   useCollectionManager_deprecated,
   useCompile,
   useToken,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Button, Dropdown, Form, Input, MenuProps } from 'antd';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

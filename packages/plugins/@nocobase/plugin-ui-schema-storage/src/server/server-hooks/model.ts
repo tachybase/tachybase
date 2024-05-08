@@ -1,3 +1,3 @@
-import { Model } from '@nocobase/database';
+import { Model } from '@tachybase/database';
 
 export class ServerHookModel extends Model {}

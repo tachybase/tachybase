@@ -1,5 +1,5 @@
 import { CalculatorOutlined, CommentOutlined, HighlightOutlined, ToolOutlined, ToolFilled } from '@ant-design/icons';
-import { useDesignable } from '@nocobase/client';
+import { useDesignable } from '@tachybase/client';
 import { FloatButton } from 'antd';
 import React from 'react';
 import { useContextMenu } from '../context-menu/useContextMenu';

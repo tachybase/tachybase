@@ -1,4 +1,4 @@
-import { Application, Plugin } from '@nocobase/server';
+import { Application, Plugin } from '@tachybase/server';
 import { resolve } from 'path';
 import { DataSourcesCollectionModel } from './models/data-sources-collection-model';
 import { DataSourcesFieldModel } from './models/data-sources-field-model';

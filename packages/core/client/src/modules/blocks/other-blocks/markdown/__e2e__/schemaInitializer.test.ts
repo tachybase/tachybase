@@ -1,4 +1,4 @@
-import { createBlockInPage, expect, test } from '@nocobase/test/e2e';
+import { createBlockInPage, expect, test } from '@tachybase/test/e2e';
 
 test.describe('where markdown block can be added', () => {
   test('page', async ({ page, mockPage }) => {

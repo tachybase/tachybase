@@ -1,4 +1,4 @@
-import { Collection } from '@nocobase/database';
+import { Collection } from '@tachybase/database';
 import semver from 'semver';
 import Application from '../application';
 
@@ -9,7 +9,7 @@ export class ApplicationVersion {
   constructor(app: Application) {
     this.app = app;
     app.db.collection({
-      origin: '@nocobase/server',
+      origin: '@tachybase/server',
       name: 'applicationVersion',
       dataType: 'meta',
       timestamps: false,

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { message } from 'antd';
 
-import { useActionContext, useRecord, useResourceActionContext, useResourceContext } from '@nocobase/client';
+import { useActionContext, useRecord, useResourceActionContext, useResourceContext } from '@tachybase/client';
 
 import { ExecutionStatusOptions } from '../constants';
 import { NAMESPACE } from '../locale';

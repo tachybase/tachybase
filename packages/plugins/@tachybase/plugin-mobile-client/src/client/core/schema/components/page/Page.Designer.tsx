@@ -1,7 +1,7 @@
 import { MenuOutlined } from '@ant-design/icons';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
-import { SchemaSettingsDropdown, SchemaSettingsSwitchItem, useDesignable } from '@nocobase/client';
+import { SchemaSettingsDropdown, SchemaSettingsSwitchItem, useDesignable } from '@tachybase/client';
 import { Button } from 'antd';
 import React from 'react';
 import { generateNTemplate, useTranslation } from '../../../../locale';

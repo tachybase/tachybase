@@ -1,4 +1,4 @@
-import { Plugin, useCollection } from '@nocobase/client';
+import { Plugin, useCollection } from '@tachybase/client';
 import {
   EditDefaultValue,
   EditFormulaTitleField,

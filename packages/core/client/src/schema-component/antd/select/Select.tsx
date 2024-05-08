@@ -1,7 +1,7 @@
 import { CloseCircleFilled, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { isValid, toArr } from '@tachybase/schema';
-import { isPlainObject } from '@nocobase/utils/client';
+import { isPlainObject } from '@tachybase/utils/client';
 import type { SelectProps } from 'antd';
 import { Select as AntdSelect, Empty, Spin, Tag } from 'antd';
 import React from 'react';

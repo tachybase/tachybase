@@ -1,9 +1,9 @@
 import path from 'path';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import txStorage from '../../storages/tx-cos';
 import { FILE_FIELD_NAME } from '../../constants';
 import { getApp, requestFile } from '..';
-import { Database } from '@nocobase/database';
+import { Database } from '@tachybase/database';
 
 const itif = process.env.TX_COS_ACCESS_KEY_SECRET ? it : it.skip;
 

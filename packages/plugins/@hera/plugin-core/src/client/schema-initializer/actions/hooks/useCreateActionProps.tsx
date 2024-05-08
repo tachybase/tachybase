@@ -14,11 +14,11 @@ import {
   useLocalVariables,
   useRecord,
   useVariables,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useTranslation } from 'react-i18next';
 import { App, message } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import { isURL } from '@nocobase/utils/client';
+import { isURL } from '@tachybase/utils/client';
 import { useCallback } from 'react';
 import _ from 'lodash';
 import { tval } from '../../../locale';

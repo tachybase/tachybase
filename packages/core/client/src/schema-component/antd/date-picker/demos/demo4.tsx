@@ -2,7 +2,7 @@
  * title: DatePicker.RangePicker
  */
 import { FormItem } from '@tachybase/components';
-import { DatePicker, Input, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { DatePicker, Input, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import dayjs from 'dayjs';
 import React from 'react';
 

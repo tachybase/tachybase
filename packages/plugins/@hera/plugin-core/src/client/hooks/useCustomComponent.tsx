@@ -1,4 +1,4 @@
-import { useApp } from '@nocobase/client';
+import { useApp } from '@tachybase/client';
 import _ from 'lodash';
 import { CustomComponentType, CustomFunctionComponent } from '..';
 

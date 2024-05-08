@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
-import { compatOldTheme, useAPIClient, useCurrentUserContext, useGlobalTheme, useToken } from '@nocobase/client';
-import { error } from '@nocobase/utils/client';
+import { compatOldTheme, useAPIClient, useCurrentUserContext, useGlobalTheme, useToken } from '@tachybase/client';
+import { error } from '@tachybase/utils/client';
 import { App, Card, ConfigProvider, Dropdown, Space, Switch, Tag, message } from 'antd';
 import React, { useCallback, useMemo } from 'react';
 import { ThemeConfig, ThemeItem } from '../../types';

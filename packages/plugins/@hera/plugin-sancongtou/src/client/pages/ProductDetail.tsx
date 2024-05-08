@@ -2,7 +2,7 @@ import { NavBar, Image } from 'antd-mobile';
 import React from 'react';
 import detailHeaderImpage from '../assets/detail_lt_header.png';
 import detailContentImage from '../assets/detail_lt_content.png';
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 
 export const ProductDetail = () => {
   const onBack = () => {

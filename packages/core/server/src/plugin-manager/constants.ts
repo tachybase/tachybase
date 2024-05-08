@@ -8,36 +8,36 @@ export const requireRegex = /require\s*\(['"`](.*?)['"`]\)/g;
 export const importRegex = /^import(?:['"\s]*([\w*${}\s,]+)from\s*)?['"\s]['"\s](.*[@\w_-]+)['"\s].*/gm;
 export const EXTERNAL = [
   // nocobase
-  '@nocobase/acl',
-  '@nocobase/actions',
-  '@nocobase/auth',
-  '@nocobase/cache',
-  '@nocobase/client',
-  '@nocobase/database',
-  '@nocobase/evaluators',
-  '@nocobase/logger',
-  '@nocobase/resourcer',
-  '@nocobase/sdk',
-  '@nocobase/server',
-  '@nocobase/test',
-  '@nocobase/utils',
+  '@tachybase/acl',
+  '@tachybase/actions',
+  '@tachybase/auth',
+  '@tachybase/cache',
+  '@tachybase/client',
+  '@tachybase/database',
+  '@tachybase/evaluators',
+  '@tachybase/logger',
+  '@tachybase/resourcer',
+  '@tachybase/sdk',
+  '@tachybase/server',
+  '@tachybase/test',
+  '@tachybase/utils',
 
-  // @nocobase/auth
+  // @tachybase/auth
   'jsonwebtoken',
 
-  // @nocobase/cache
+  // @tachybase/cache
   'cache-manager',
 
-  // @nocobase/database
+  // @tachybase/database
   'sequelize',
   'umzug',
   'async-mutex',
 
-  // @nocobase/evaluators
+  // @tachybase/evaluators
   '@formulajs/formulajs',
   'mathjs',
 
-  // @nocobase/logger
+  // @tachybase/logger
   'winston',
   'winston-daily-rotate-file',
 

@@ -1,5 +1,5 @@
-import { Context, Next } from '@nocobase/actions';
-import { getLoggerFilePath } from '@nocobase/logger';
+import { Context, Next } from '@tachybase/actions';
+import { getLoggerFilePath } from '@tachybase/logger';
 import { readdir } from 'fs/promises';
 import { join } from 'path';
 import stream from 'stream';

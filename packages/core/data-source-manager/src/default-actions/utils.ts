@@ -1,4 +1,4 @@
-import { Context } from '@nocobase/actions';
+import { Context } from '@tachybase/actions';
 import { DataSource, IRepository } from '../';
 
 export function pageArgsToLimitArgs(

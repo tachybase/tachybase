@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import { CollectionFieldInterfaceTag, CollectionOptions } from '@nocobase/client';
+import { CollectionFieldInterfaceTag, CollectionOptions } from '@tachybase/client';
 
 export const collection: CollectionOptions = {
   name: 'fields',

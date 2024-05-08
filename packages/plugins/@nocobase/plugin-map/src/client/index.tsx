@@ -1,4 +1,4 @@
-import { CurrentAppInfoProvider, Plugin, SchemaComponentOptions } from '@nocobase/client';
+import { CurrentAppInfoProvider, Plugin, SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
 import { MapBlockOptions } from './block';
 import { mapActionInitializers, mapActionInitializers_deprecated } from './block/MapActionInitializers';

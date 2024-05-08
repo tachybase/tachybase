@@ -8,10 +8,10 @@ export const RecordItemWeight = observer((props) => {
   const form = useForm();
   const field = useField();
   const item = form.getValuesIn(field.path.slice(0, -2).entire);
-  if (item?.product && item?.count) {
-    const value = ((item.product.weight || 0) * item.count) / 1000;
+  if (item?.new_product && item?.count) {
+    const value = ((item.new_product.weight || 0) * item.count) / 1000;
     if (value) {
-      return <span>{formatQuantity(value, 2) + '吨'}</span>;
+      return <span>{formatQuantity(value, 3) + '吨'}</span>;
     }
   }
   return <span> - </span>;

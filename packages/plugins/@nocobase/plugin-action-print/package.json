@@ -13,9 +13,9 @@
     "react-to-print": "^2.14.7"
   },
   "peerDependencies": {
-    "@nocobase/client": "workspace:*",
-    "@nocobase/server": "workspace:*",
-    "@nocobase/test": "workspace:*"
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "调用浏览器的打印功能实现单条数据的打印。",
   "displayName.zh-CN": "操作：打印",

@@ -5,7 +5,7 @@ import {
   oneFilterFormBlockWithAllAssociationFields,
   oneTableBlockWithAddNewAndViewAndEditAndAssociationFields,
   test,
-} from '@nocobase/test/e2e';
+} from '@tachybase/test/e2e';
 import { createColumnItem, showSettingsMenu, testPattern } from '../../utils';
 
 test.describe('form item & create form', () => {

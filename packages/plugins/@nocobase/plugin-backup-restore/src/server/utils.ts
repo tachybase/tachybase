@@ -1,5 +1,5 @@
 import lodash from 'lodash';
-import { Database } from '@nocobase/database';
+import { Database } from '@tachybase/database';
 import fs from 'fs';
 import readline from 'readline';
 

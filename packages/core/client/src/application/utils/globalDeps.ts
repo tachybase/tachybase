@@ -14,12 +14,12 @@ import * as formilyJsonReactive from '@tachybase/schema';
 import * as formilyReactiveReact from '@tachybase/schema';
 import * as formilyShared from '@tachybase/schema';
 import * as formilyValidator from '@tachybase/schema';
-import * as nocobaseEvaluators from '@nocobase/evaluators/client';
-import * as nocobaseClientUtils from '@nocobase/utils/client';
-import * as nocobaseSDK from '@nocobase/sdk';
+import * as nocobaseEvaluators from '@tachybase/evaluators/client';
+import * as nocobaseClientUtils from '@tachybase/utils/client';
+import * as nocobaseSDK from '@tachybase/sdk';
 import * as nocobaseSchema from '@tachybase/schema';
 import * as nocobaseComponents from '@tachybase/components';
-import { dayjs } from '@nocobase/utils/client';
+import { dayjs } from '@tachybase/utils/client';
 import * as ahooks from 'ahooks';
 import * as antd from 'antd';
 import * as antdStyle from 'antd-style';
@@ -70,13 +70,13 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('@formily/reactive-react', () => formilyReactiveReact);
 
   // nocobase
-  requirejs.define('@nocobase/utils', () => nocobaseClientUtils);
-  requirejs.define('@nocobase/utils/client', () => nocobaseClientUtils);
-  requirejs.define('@nocobase/client', () => nocobaseClient);
-  requirejs.define('@nocobase/client/client', () => nocobaseClient);
-  requirejs.define('@nocobase/evaluators', () => nocobaseEvaluators);
-  requirejs.define('@nocobase/evaluators/client', () => nocobaseEvaluators);
-  requirejs.define('@nocobase/sdk', () => nocobaseSDK);
+  requirejs.define('@tachybase/utils', () => nocobaseClientUtils);
+  requirejs.define('@tachybase/utils/client', () => nocobaseClientUtils);
+  requirejs.define('@tachybase/client', () => nocobaseClient);
+  requirejs.define('@tachybase/client/client', () => nocobaseClient);
+  requirejs.define('@tachybase/evaluators', () => nocobaseEvaluators);
+  requirejs.define('@tachybase/evaluators/client', () => nocobaseEvaluators);
+  requirejs.define('@tachybase/sdk', () => nocobaseSDK);
   requirejs.define('@tachybase/schema', () => nocobaseSchema);
   requirejs.define('@tachybase/components', () => nocobaseComponents);
 

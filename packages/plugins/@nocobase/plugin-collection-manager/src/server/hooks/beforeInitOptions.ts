@@ -1,5 +1,5 @@
-import Database, { Model } from '@nocobase/database';
-import { uid } from '@nocobase/utils';
+import Database, { Model } from '@tachybase/database';
+import { uid } from '@tachybase/utils';
 import { Utils } from 'sequelize';
 
 const setTargetKey = (db: Database, model: Model) => {

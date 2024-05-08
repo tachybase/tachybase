@@ -1,4 +1,4 @@
-import Database, { Model } from '@nocobase/database';
+import Database, { Model } from '@tachybase/database';
 import lodash from 'lodash';
 import { NotificationService } from './NotificationService';
 

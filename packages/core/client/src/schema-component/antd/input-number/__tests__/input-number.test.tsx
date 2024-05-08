@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@nocobase/test/client';
+import { fireEvent, render, screen } from '@tachybase/test/client';
 import React from 'react';
 import { formatNumberWithSeparator, formatUnitConversion, scientificNotation } from '../ReadPretty';
 import App2 from '../demos/addonBefore&addonAfter';

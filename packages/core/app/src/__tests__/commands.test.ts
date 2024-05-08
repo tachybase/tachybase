@@ -1,5 +1,5 @@
-import { mockDatabase } from '@nocobase/database';
-import { uid } from '@nocobase/utils';
+import { mockDatabase } from '@tachybase/database';
+import { uid } from '@tachybase/utils';
 import axios from 'axios';
 import execa from 'execa';
 import { resolve } from 'path';

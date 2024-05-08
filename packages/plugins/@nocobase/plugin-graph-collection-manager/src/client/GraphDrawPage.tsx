@@ -25,7 +25,7 @@ import {
   useDataSourceManager,
   useDataSource,
   useGlobalTheme,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { App, Button, ConfigProvider, Layout, Spin, Switch, Tooltip } from 'antd';
 import dagre from 'dagre';
 import lodash from 'lodash';

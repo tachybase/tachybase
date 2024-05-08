@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import { useFieldSchema } from '@tachybase/schema';
-import { useCollection, useCollectionManager, useDesignable, useDesigner } from '@nocobase/client';
+import { useCollection, useCollectionManager, useDesignable, useDesigner } from '@tachybase/client';
 import {
   canBeCalculatedField,
   canBeDataField,
@@ -9,7 +9,7 @@ import {
   isTabSearchCollapsibleInputItem,
 } from '../../utils';
 import { useTabSearchCollapsibleInputItem } from './hooks';
-import { dayjs } from '@nocobase/utils/client';
+import { dayjs } from '@tachybase/utils/client';
 
 export const useTabSearchCollapsibleInputItemAction = (props) => {
   const { onSelected } = useTabSearchCollapsibleInputItem();

@@ -1,4 +1,4 @@
-import { expect, oneEmptyTableBlockWithCustomizeActions, test } from '@nocobase/test/e2e';
+import { expect, oneEmptyTableBlockWithCustomizeActions, test } from '@tachybase/test/e2e';
 import { oneEmptyGantt } from './utils';
 
 test.describe('TableActionInitializers & GanttActionInitializers & MapActionInitializers ', () => {

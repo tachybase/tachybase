@@ -1,10 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { defineConfig } from '@nocobase/build';
+import { defineConfig } from '@tachybase/build';
 
 const existsSync = require('fs').existsSync;
 
-const client = path.dirname(require.resolve('@nocobase/client/package.json'));
+const client = path.dirname(require.resolve('@tachybase/client/package.json'));
 const antd = require.resolve('antd');
 
 export default defineConfig({

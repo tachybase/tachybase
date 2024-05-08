@@ -1,4 +1,4 @@
-import { Context, Next } from '@nocobase/actions';
+import { Context, Next } from '@tachybase/actions';
 import { OIDCAuth } from '../oidc-auth';
 import { nanoid } from 'nanoid';
 import { cookieName } from '../../constants';

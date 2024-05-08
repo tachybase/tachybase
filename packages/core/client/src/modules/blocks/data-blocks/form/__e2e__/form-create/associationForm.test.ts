@@ -1,4 +1,4 @@
-import { test, expect } from '@nocobase/test/e2e';
+import { test, expect } from '@tachybase/test/e2e';
 import { T3529 } from './templatesOfBug';
 
 test.describe('association form block', () => {

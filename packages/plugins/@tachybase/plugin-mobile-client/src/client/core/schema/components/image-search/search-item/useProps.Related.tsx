@@ -1,5 +1,5 @@
 // 关系字段类型
-import { useCollection, useCollectionManager, useDataSourceHeaders, useRequest } from '@nocobase/client';
+import { useCollection, useCollectionManager, useDataSourceHeaders, useRequest } from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import { useEffect, useMemo } from 'react';
 import { canBeRelatedField } from '../../tab-search/utils';

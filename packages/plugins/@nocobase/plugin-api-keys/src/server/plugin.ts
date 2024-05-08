@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/server';
+import { Plugin } from '@tachybase/server';
 import { create, destroy } from './actions/api-keys';
 
 export class PluginAPIKeysServer extends Plugin {

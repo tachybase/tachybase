@@ -1,6 +1,6 @@
 import React from 'react';
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
-import { SchemaSettingsModalItem, useCollectionManager, useDesignable } from '@nocobase/client';
+import { SchemaSettingsModalItem, useCollectionManager, useDesignable } from '@tachybase/client';
 import { tval, useTranslation } from '../locale';
 
 export const SchemaSettingsDatePickerType: React.FC = () => {

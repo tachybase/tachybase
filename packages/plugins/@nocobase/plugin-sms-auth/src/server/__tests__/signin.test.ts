@@ -1,6 +1,6 @@
-import { Database, Model, ModelStatic } from '@nocobase/database';
+import { Database, Model, ModelStatic } from '@tachybase/database';
 import VerificationPlugin from '@nocobase/plugin-verification';
-import { createMockServer, MockServer } from '@nocobase/test';
+import { createMockServer, MockServer } from '@tachybase/test';
 import { authType } from '../../constants';
 
 class Provider {

@@ -1,4 +1,4 @@
-import { BaseColumnFieldOptions, DataTypes, Field, FieldContext } from '@nocobase/database';
+import { BaseColumnFieldOptions, DataTypes, Field, FieldContext } from '@tachybase/database';
 import { isMysql, isPg, joinComma, toValue } from '../helpers';
 
 class Polygon extends DataTypes.ABSTRACT {

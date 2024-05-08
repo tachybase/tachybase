@@ -1,4 +1,4 @@
-import { useCompile, useRecord } from '@nocobase/client';
+import { useCompile, useRecord } from '@tachybase/client';
 import { Field, observer, useField } from '@tachybase/schema';
 import { Tag } from 'antd';
 import _ from 'lodash';

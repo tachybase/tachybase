@@ -1,5 +1,5 @@
-import { Database, IDatabaseOptions, Transactionable } from '@nocobase/database';
-import Application, { AppSupervisor, Gateway, Plugin } from '@nocobase/server';
+import { Database, IDatabaseOptions, Transactionable } from '@tachybase/database';
+import Application, { AppSupervisor, Gateway, Plugin } from '@tachybase/server';
 import lodash from 'lodash';
 import path from 'path';
 import { ApplicationModel } from '../server';

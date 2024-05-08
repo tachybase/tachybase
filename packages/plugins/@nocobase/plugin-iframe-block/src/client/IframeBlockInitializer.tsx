@@ -1,5 +1,5 @@
 import { FormOutlined } from '@ant-design/icons';
-import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@nocobase/client';
+import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
 
 export const IframeBlockInitializer = () => {

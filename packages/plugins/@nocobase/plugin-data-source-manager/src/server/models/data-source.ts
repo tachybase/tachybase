@@ -1,8 +1,8 @@
-import { Model, Transaction } from '@nocobase/database';
-import { Application } from '@nocobase/server';
+import { Model, Transaction } from '@tachybase/database';
+import { Application } from '@tachybase/server';
 import { LocalData } from '../services/database-introspector';
 import { setCurrentRole } from '@nocobase/plugin-acl';
-import { ACL, AvailableActionOptions } from '@nocobase/acl';
+import { ACL, AvailableActionOptions } from '@tachybase/acl';
 import { DataSourcesRolesModel } from './data-sources-roles-model';
 import PluginDataSourceManagerServer from '../plugin';
 

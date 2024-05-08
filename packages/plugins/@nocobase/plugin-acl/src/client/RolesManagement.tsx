@@ -7,7 +7,7 @@ import {
   SchemaComponentContext,
   usePlugin,
   useSchemaComponentContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { ISchema, Schema } from '@tachybase/schema';
 import { RolesMenu } from './RolesMenu';
 import { useACLTranslation } from './locale';

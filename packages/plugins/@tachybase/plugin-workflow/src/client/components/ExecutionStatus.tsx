@@ -3,7 +3,7 @@ import { Button, Modal, Select, Tag, Tooltip, message } from 'antd';
 import { ExclamationCircleFilled, StopOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 
-import { Action, css, useCompile, useRecord, useResourceActionContext, useResourceContext } from '@nocobase/client';
+import { Action, css, useCompile, useRecord, useResourceActionContext, useResourceContext } from '@tachybase/client';
 
 import { EXECUTION_STATUS, ExecutionStatusOptions, ExecutionStatusOptionsMap } from '../constants';
 import { lang } from '../locale';

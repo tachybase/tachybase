@@ -1,5 +1,5 @@
-import Database, { CollectionOptions, mockDatabase } from '@nocobase/database';
-import { Handlers, ResourceOptions, Resourcer } from '@nocobase/resourcer';
+import Database, { CollectionOptions, mockDatabase } from '@tachybase/database';
+import { Handlers, ResourceOptions, Resourcer } from '@tachybase/resourcer';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import qs from 'qs';

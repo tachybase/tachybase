@@ -1,5 +1,5 @@
-import { Context } from '@nocobase/actions';
-import { Model } from '@nocobase/database';
+import { Context } from '@tachybase/actions';
+import { Model } from '@tachybase/database';
 import { Authenticator } from './auth-manager';
 
 export type AuthConfig = {

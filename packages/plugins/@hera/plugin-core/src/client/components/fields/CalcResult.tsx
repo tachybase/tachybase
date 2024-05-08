@@ -1,10 +1,10 @@
 import { onFormValuesChange } from '@tachybase/schema';
 import { useField, useFieldSchema, useForm, useFormEffects } from '@tachybase/schema';
-import { Input } from '@nocobase/client';
+import { Input } from '@tachybase/client';
 import { Descriptions, DescriptionsProps } from 'antd';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { evaluators } from '@nocobase/evaluators/client';
+import { evaluators } from '@tachybase/evaluators/client';
 const transformFormula = (formula: string) => {
   if (!formula) return [];
   const formulaArray = formula.split(/([+\-*/?:()%])/).filter((item) => item);

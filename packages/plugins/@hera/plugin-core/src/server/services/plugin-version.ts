@@ -1,5 +1,5 @@
-import Application, { PluginManager } from '@nocobase/server';
-import { Service, App } from '@nocobase/utils';
+import Application, { PluginManager } from '@tachybase/server';
+import { Service, App } from '@tachybase/utils';
 
 @Service()
 export class PluginVersionService {
@@ -8,6 +8,7 @@ export class PluginVersionService {
 
   async get() {
     const pm = this.app.pm as PluginManager;
-    return pm.get('@hera/plugin-core').toJSON();
+    const plugin = pm.get('@hera/plugin-core') ?? pm.get('core');
+    return plugin.toJSON();
   }
 }

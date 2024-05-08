@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import { uid } from '@nocobase/utils/client';
+import { uid } from '@tachybase/utils/client';
 
 export const createGridCardBlockSchema = (options, componentName) => {
   const {

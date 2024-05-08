@@ -3,7 +3,7 @@ import {
   useFilterFieldOptions,
   useFilterFieldProps,
   useResourceActionContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { useContext } from 'react';
 
 export const useFilterActionProps = () => {

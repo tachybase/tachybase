@@ -1,5 +1,5 @@
 import React from 'react';
-import { SchemaComponent, useDataBlockRequest, withDynamicSchemaProps } from '@nocobase/client';
+import { SchemaComponent, useDataBlockRequest, withDynamicSchemaProps } from '@tachybase/client';
 import { Table, TableProps } from 'antd';
 import { ISchema } from '@tachybase/schema';
 import { createApp } from './createApp';

@@ -1,4 +1,4 @@
-import { SchemaInitializer, gridRowColWrap } from '@nocobase/client';
+import { SchemaInitializer, gridRowColWrap } from '@tachybase/client';
 import { NAMESPACE } from '../../../locale';
 import { LauncherAddBlockButtonComponent } from './VC.LauncherBlockButton';
 

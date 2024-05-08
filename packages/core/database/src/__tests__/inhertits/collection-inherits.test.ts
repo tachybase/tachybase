@@ -1,8 +1,8 @@
-import { BelongsToManyRepository } from '@nocobase/database';
+import { BelongsToManyRepository } from '@tachybase/database';
 import Database from '../../database';
 import { InheritedCollection } from '../../inherited-collection';
 import { mockDatabase } from '../index';
-import { isPg } from '@nocobase/test';
+import { isPg } from '@tachybase/test';
 
 describe.runIf(isPg())('collection inherits', () => {
   let db: Database;

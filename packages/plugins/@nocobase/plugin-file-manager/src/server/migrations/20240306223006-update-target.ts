@@ -1,5 +1,5 @@
-import { Model, Repository } from '@nocobase/database';
-import { Migration } from '@nocobase/server';
+import { Model, Repository } from '@tachybase/database';
+import { Migration } from '@tachybase/server';
 
 export default class extends Migration {
   on = 'afterLoad'; // 'beforeLoad' or 'afterLoad'

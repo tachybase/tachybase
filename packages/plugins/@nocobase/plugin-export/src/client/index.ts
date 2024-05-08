@@ -2,7 +2,7 @@ export * from './ExportActionInitializer';
 export * from './ExportDesigner';
 export * from './ExportPluginProvider';
 export * from './useExportAction';
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { ExportPluginProvider } from './ExportPluginProvider';
 import { exportActionSchemaSettings } from './schemaSettings';
 

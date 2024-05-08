@@ -1,4 +1,4 @@
-import { createStyles, useCurrentUserContext } from '@nocobase/client';
+import { createStyles, useCurrentUserContext } from '@tachybase/client';
 import { EXECUTION_STATUS } from '@tachybase/plugin-workflow/client';
 import { Space, Table } from 'antd';
 import _ from 'lodash';

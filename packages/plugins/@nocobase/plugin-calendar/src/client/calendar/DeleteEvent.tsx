@@ -5,7 +5,7 @@ import React, { useContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { DeleteEventContext } from './Calendar';
 import { formatDate } from './utils';
-import { useActionContext, useRecord, useFilterByTk, useBlockRequestContext } from '@nocobase/client';
+import { useActionContext, useRecord, useFilterByTk, useBlockRequestContext } from '@tachybase/client';
 import { useTranslation } from '../../locale';
 const { Text } = Typography;
 

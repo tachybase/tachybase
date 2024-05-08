@@ -1,4 +1,4 @@
-import { SchemaInitializer, SchemaInitializerItemType, useCollection, useCollectionManager } from '@nocobase/client';
+import { SchemaInitializer, SchemaInitializerItemType, useCollection, useCollectionManager } from '@tachybase/client';
 import _ from 'lodash';
 import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../utils';
 import { createTabSearchItemSchema } from '../create/createTabSearchItemSchema';

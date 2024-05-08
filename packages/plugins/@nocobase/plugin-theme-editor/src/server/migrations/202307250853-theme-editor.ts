@@ -1,6 +1,6 @@
-import { Model } from '@nocobase/database';
-import { Migration } from '@nocobase/server';
-import { uid } from '@nocobase/utils';
+import { Model } from '@tachybase/database';
+import { Migration } from '@tachybase/server';
+import { uid } from '@tachybase/utils';
 import { compact, compactDark, dark, defaultTheme } from '../builtinThemes';
 
 export default class extends Migration {

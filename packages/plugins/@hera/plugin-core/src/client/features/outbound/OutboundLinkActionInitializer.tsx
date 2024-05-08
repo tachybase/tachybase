@@ -1,8 +1,8 @@
 import React from 'react';
-import { ActionInitializer } from '@nocobase/client';
+import { ActionInitializer } from '@tachybase/client';
 import { Popover, Space, Button, Input } from 'antd';
 import { useFieldSchema } from '@tachybase/schema';
-import { useProps } from '@nocobase/client';
+import { useProps } from '@tachybase/client';
 import { ShareAltOutlined } from '@ant-design/icons';
 import { tval, useTranslation } from '../../locale';
 

@@ -1,4 +1,4 @@
-import { expectSettingsMenu, test, expect } from '@nocobase/test/e2e';
+import { expectSettingsMenu, test, expect } from '@tachybase/test/e2e';
 import { createTable } from './utils';
 import { tableSelectorDataScopeVariable } from './templatesOfBug';
 

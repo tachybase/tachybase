@@ -21,7 +21,7 @@ import {
   DeleteCollection,
   DeleteCollectionAction,
   CollectionCategroriesProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import {
   AddCategory,
   AddCategoryAction,

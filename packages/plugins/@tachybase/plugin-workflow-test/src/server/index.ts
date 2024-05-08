@@ -1,14 +1,14 @@
 import path from 'path';
 
-import { ApplicationOptions, Plugin } from '@nocobase/server';
-import { MockServer, createMockServer, mockDatabase } from '@nocobase/test';
+import { ApplicationOptions, Plugin } from '@tachybase/server';
+import { MockServer, createMockServer, mockDatabase } from '@tachybase/test';
 
 import functions from './functions';
 import triggers from './triggers';
 import instructions from './instructions';
-import { Resourcer } from '@nocobase/resourcer';
-import { SequelizeDataSource } from '@nocobase/data-source-manager';
-import { uid } from '@nocobase/utils';
+import { Resourcer } from '@tachybase/resourcer';
+import { SequelizeDataSource } from '@tachybase/data-source-manager';
+import { uid } from '@tachybase/utils';
 
 export interface MockServerOptions extends ApplicationOptions {
   collectionsPath?: string;

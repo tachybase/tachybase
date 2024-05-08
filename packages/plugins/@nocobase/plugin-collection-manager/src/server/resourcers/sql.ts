@@ -1,5 +1,5 @@
-import { Context, Next } from '@nocobase/actions';
-import { SQLModel, SqlCollection } from '@nocobase/database';
+import { Context, Next } from '@tachybase/actions';
+import { SQLModel, SqlCollection } from '@tachybase/database';
 import { CollectionModel } from '../models';
 
 const updateCollection = async (ctx: Context, transaction: any) => {

@@ -1,4 +1,4 @@
-import { RemoteSchemaComponent } from '@nocobase/client';
+import { RemoteSchemaComponent } from '@tachybase/client';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 

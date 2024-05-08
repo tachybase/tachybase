@@ -10,8 +10,8 @@ import {
   appendJsonCollectionName,
   generalWithNoRelationalFields,
 } from '@tachybase/plugin-workflow-test/e2e';
-import { expect, test } from '@nocobase/test/e2e';
-import { dayjs } from '@nocobase/utils';
+import { expect, test } from '@tachybase/test/e2e';
+import { dayjs } from '@tachybase/utils';
 test.describe('no filter', () => {
   test('Collection event add data trigger, normal table integer fields not de-emphasised COUNT', async ({
     page,

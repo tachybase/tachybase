@@ -1,5 +1,5 @@
 import { observer } from '@tachybase/schema';
-import { css, useCollectionManager_deprecated, useCompile } from '@nocobase/client';
+import { css, useCollectionManager_deprecated, useCompile } from '@tachybase/client';
 import { Tag } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

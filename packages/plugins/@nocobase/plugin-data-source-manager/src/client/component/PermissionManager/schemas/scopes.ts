@@ -1,6 +1,6 @@
 import { ISchema } from '@tachybase/schema';
 import { useContext, useEffect } from 'react';
-import { useFormBlockContext, VariableInput, useFilterFieldOptions } from '@nocobase/client';
+import { useFormBlockContext, VariableInput, useFilterFieldOptions } from '@tachybase/client';
 import { RoleResourceCollectionContext } from '../RolesResourcesActions';
 
 export const rolesResourcesScopesCollection = (dataSourceKey = 'main') => {

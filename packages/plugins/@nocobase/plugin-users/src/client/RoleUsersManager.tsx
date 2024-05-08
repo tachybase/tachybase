@@ -10,7 +10,7 @@ import {
   useRecord,
   useRequest,
   useResourceActionContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { RolesManagerContext } from '@nocobase/plugin-acl/client';
 import { useUsersTranslation } from './locale';
 import { getRoleUsersSchema, userCollection } from './schemas/users';

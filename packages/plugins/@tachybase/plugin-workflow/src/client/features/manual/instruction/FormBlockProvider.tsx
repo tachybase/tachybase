@@ -15,7 +15,7 @@ import {
   useDataSourceHeaders,
   useDesignable,
   useRecord,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { useMemo, useRef } from 'react';
 
 export function FormBlockProvider(props) {

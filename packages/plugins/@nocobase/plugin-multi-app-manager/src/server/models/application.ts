@@ -1,7 +1,7 @@
-import { Model, Transactionable } from '@nocobase/database';
-import { Application } from '@nocobase/server';
+import { Model, Transactionable } from '@tachybase/database';
+import { Application } from '@tachybase/server';
 import { AppOptionsFactory } from '../server';
-import { merge } from '@nocobase/utils';
+import { merge } from '@tachybase/utils';
 
 export interface registerAppOptions extends Transactionable {
   skipInstall?: boolean;

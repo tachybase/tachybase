@@ -1,6 +1,6 @@
 import { ArrayField } from '@tachybase/schema';
 import { connect, ISchema, observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
-import { SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import { Table, TableColumnType } from 'antd';
 import React from 'react';
 

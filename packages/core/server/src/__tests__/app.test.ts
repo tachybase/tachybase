@@ -1,5 +1,5 @@
-import { DataTypes } from '@nocobase/database';
-import { MockServer, mockServer } from '@nocobase/test';
+import { DataTypes } from '@tachybase/database';
+import { MockServer, mockServer } from '@tachybase/test';
 import { vi } from 'vitest';
 import Plugin from '../plugin';
 describe('app destroy', () => {

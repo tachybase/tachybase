@@ -1,4 +1,4 @@
-import { InstallOptions, Plugin } from '@nocobase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 import { exportXlsx } from './actions';
 
 export class ExportPlugin extends Plugin {

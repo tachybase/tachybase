@@ -84,18 +84,6 @@ export enum SourcesType {
    * 3 出入库量
    */
   inAndOut = '3',
-  /**
-   * 4 出库单数
-   */
-  outboundNumber = '4',
-  /**
-   * 5 入库单数
-   */
-  inboundNumber = '5',
-  /**
-   * 6 出入库单数
-   */
-  inAndOutNumber = '6',
 }
 
 export enum PromptText {

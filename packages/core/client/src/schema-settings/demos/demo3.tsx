@@ -10,7 +10,7 @@ import {
   useSchemaComponentContext,
   useSchemaInitializer,
   useSchemaInitializerItem,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { Button } from 'antd';
 import React from 'react';
 

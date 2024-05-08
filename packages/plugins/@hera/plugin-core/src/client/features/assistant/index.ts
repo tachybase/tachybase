@@ -1,4 +1,4 @@
-import { Plugin } from '@nocobase/client';
+import { Plugin } from '@tachybase/client';
 import { AssistantProvider } from './Assistant.provider';
 
 export class PluginAssistant extends Plugin {

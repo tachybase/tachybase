@@ -1,4 +1,4 @@
-import { Application } from '@nocobase/client';
+import { Application } from '@tachybase/client';
 import { tval } from '../locale';
 import { Configuration } from './TokenConfiguration';
 import { HomePageConfiguration } from './HomePageConfiguration';

@@ -3,7 +3,7 @@ import {
   BelongsToManyRepository,
   HasManyRepository,
   MultipleRelationRepository,
-} from '@nocobase/database';
+} from '@tachybase/database';
 import { Context } from '..';
 import { getRepositoryFromParams } from '../utils';
 

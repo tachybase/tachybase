@@ -1,4 +1,4 @@
-import { dayjs } from '@nocobase/utils/client';
+import { dayjs } from '@tachybase/utils/client';
 
 const canBeOptionalFields = ['select', 'multipleSelect', 'radioGroup', 'checkboxGroup'];
 const canBeRelatedFields = ['oho', 'obo', 'o2m', 'm2o', 'm2m'];

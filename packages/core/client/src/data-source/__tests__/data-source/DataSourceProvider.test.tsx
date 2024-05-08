@@ -6,9 +6,9 @@ import {
   DataSource,
   SchemaComponent,
   SchemaComponentProvider,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { DataSourceProvider, useDataSourceKey } from '../../data-source/DataSourceProvider';
-import { render, screen } from '@nocobase/test/client';
+import { render, screen } from '@tachybase/test/client';
 import React from 'react';
 import { AppSchemaComponentProvider } from '../../../application/AppSchemaComponentProvider';
 

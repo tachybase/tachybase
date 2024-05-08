@@ -2,7 +2,7 @@
  * title: DatePicker (GMT)
  */
 import { FormItem } from '@tachybase/components';
-import { DatePicker, Input, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { DatePicker, Input, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 
 const schema = {

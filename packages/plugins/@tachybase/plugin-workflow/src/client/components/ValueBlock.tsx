@@ -1,6 +1,6 @@
 import { useFieldSchema } from '@tachybase/schema';
-import { css, SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@nocobase/client';
-import { parse } from '@nocobase/utils/client';
+import { css, SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
+import { parse } from '@tachybase/utils/client';
 import React from 'react';
 import { useFlowContext } from '../FlowContext';
 import { SimpleDesigner } from './SimpleDesigner';

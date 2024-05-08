@@ -23,7 +23,7 @@ export class SwaggerManager {
 
   async generateSwagger(options: { plugins?: string[] } = {}) {
     const base = await this.getBaseSwagger();
-    const core = options.plugins ? {} : await loadSwagger('@nocobase/server');
+    const core = options.plugins ? {} : await loadSwagger('@tachybase/server');
     const plugins = await this.loadSwaggers(options.plugins);
     return merge(merge(core, plugins), base);
   }
@@ -78,7 +78,7 @@ export class SwaggerManager {
   }
 
   async getCoreSwagger() {
-    return merge(await this.getBaseSwagger(), await loadSwagger('@nocobase/server'));
+    return merge(await this.getBaseSwagger(), await loadSwagger('@tachybase/server'));
   }
 
   getURL(pathname: string) {

@@ -16,7 +16,7 @@ import {
   useCollectionParentRecordData,
   useRecord,
   useCollection,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { App, Button } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';

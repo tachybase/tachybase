@@ -1,5 +1,5 @@
-import { mockDatabase } from '@nocobase/database';
-import { Application, ApplicationOptions, AppSupervisor, Gateway, PluginManager } from '@nocobase/server';
+import { mockDatabase } from '@tachybase/database';
+import { Application, ApplicationOptions, AppSupervisor, Gateway, PluginManager } from '@tachybase/server';
 import jwt from 'jsonwebtoken';
 import qs from 'qs';
 import supertest, { SuperAgentTest } from 'supertest';

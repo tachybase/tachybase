@@ -1,4 +1,4 @@
-import { BelongsToManyRepository } from '@nocobase/database';
+import { BelongsToManyRepository } from '@tachybase/database';
 import { Context } from '..';
 import { getRepositoryFromParams } from '../utils';
 

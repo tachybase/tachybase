@@ -1,4 +1,4 @@
-import { RemoteSchemaComponent, css, useDocumentTitle } from '@nocobase/client';
+import { RemoteSchemaComponent, css, useDocumentTitle } from '@tachybase/client';
 import { Tabs } from 'antd';
 import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

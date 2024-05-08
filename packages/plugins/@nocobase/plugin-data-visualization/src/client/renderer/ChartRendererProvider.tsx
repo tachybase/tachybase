@@ -6,7 +6,7 @@ import {
   useAPIClient,
   useDataSourceManager,
   useRequest,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React, { createContext, useContext } from 'react';
 import { parseField, removeUnparsableFilter } from '../utils';
 import { ChartDataContext } from '../block/ChartDataProvider';

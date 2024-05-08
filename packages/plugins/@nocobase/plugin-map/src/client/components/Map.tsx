@@ -1,5 +1,5 @@
 import { connect, mapReadPretty } from '@tachybase/schema';
-import { css } from '@nocobase/client';
+import { css } from '@tachybase/client';
 import React from 'react';
 import { AMapComponentProps } from './AMap';
 import Designer from './Designer';

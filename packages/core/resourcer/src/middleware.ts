@@ -1,5 +1,5 @@
 import compose from 'koa-compose';
-import { requireModule } from '@nocobase/utils';
+import { requireModule } from '@tachybase/utils';
 import { ActionName } from './action';
 import { HandlerType } from './resourcer';
 

@@ -1,4 +1,4 @@
-import { DataBlockProvider } from '@nocobase/client';
+import { DataBlockProvider } from '@tachybase/client';
 import React from 'react';
 
 export const TabSearchProvider = (props) => {

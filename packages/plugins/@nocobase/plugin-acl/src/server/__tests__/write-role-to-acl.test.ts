@@ -1,5 +1,5 @@
-import { MockServer } from '@nocobase/test';
-import { Database } from '@nocobase/database';
+import { MockServer } from '@tachybase/test';
+import { Database } from '@tachybase/database';
 import { prepareApp } from './prepare';
 
 describe('write role to acl', () => {

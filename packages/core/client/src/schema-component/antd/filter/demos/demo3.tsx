@@ -7,7 +7,7 @@ import {
   SchemaComponent,
   SchemaComponentProvider,
   useActionContext,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import React from 'react';
 
 const dataSource = [

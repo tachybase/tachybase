@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowUpOutlined } from '@ant-design/icons';
 
-import { css, cx, useCompile } from '@nocobase/client';
+import { css, cx, useCompile } from '@tachybase/client';
 
 import {
   NodeDefaultView,

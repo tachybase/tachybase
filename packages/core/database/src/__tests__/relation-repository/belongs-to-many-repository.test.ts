@@ -1,8 +1,8 @@
-import { Collection } from '@nocobase/database';
+import { Collection } from '@tachybase/database';
 import Database from '../../database';
 import { BelongsToManyRepository } from '../../relation-repository/belongs-to-many-repository';
 import { mockDatabase } from '../index';
-import { pgOnly } from '@nocobase/test';
+import { pgOnly } from '@tachybase/test';
 
 pgOnly()('belongs to many with targetCollection', () => {
   let db: Database;

@@ -1,7 +1,7 @@
-import { Context, Next } from '@nocobase/actions';
-import { parse } from '@nocobase/utils';
+import { Context, Next } from '@tachybase/actions';
+import { parse } from '@tachybase/utils';
 
-import { appendArrayColumn } from '@nocobase/evaluators';
+import { appendArrayColumn } from '@tachybase/evaluators';
 import axios from 'axios';
 import CustomRequestPlugin from '../plugin';
 

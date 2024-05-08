@@ -1,5 +1,5 @@
-import { SchemaInitializerItemType } from '@nocobase/client';
-import { Evaluator, evaluators, getOptions } from '@nocobase/evaluators/client';
+import { SchemaInitializerItemType } from '@tachybase/client';
+import { Evaluator, evaluators, getOptions } from '@tachybase/evaluators/client';
 
 import { RadioWithTooltip } from '../components/RadioWithTooltip';
 import { ValueBlock } from '../components/ValueBlock';

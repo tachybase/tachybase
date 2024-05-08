@@ -1,8 +1,8 @@
-import { ACL } from '@nocobase/acl';
-import { Database } from '@nocobase/database';
+import { ACL } from '@tachybase/acl';
+import { Database } from '@tachybase/database';
 import { UiSchemaRepository } from '@nocobase/plugin-ui-schema-storage';
 import UsersPlugin from '@nocobase/plugin-users';
-import { MockServer } from '@nocobase/test';
+import { MockServer } from '@tachybase/test';
 import { prepareApp } from './prepare';
 
 describe('acl', () => {

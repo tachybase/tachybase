@@ -28,39 +28,39 @@ const sourceGlobalFiles: string[] = ['src/**/*.{ts,js,tsx,jsx,mjs}', '!src/**/__
 
 const external = [
   // nocobase
-  '@nocobase/acl',
-  '@nocobase/actions',
-  '@nocobase/auth',
-  '@nocobase/cache',
-  '@nocobase/client',
-  '@nocobase/database',
-  '@nocobase/data-source-manager',
-  '@nocobase/evaluators',
-  '@nocobase/logger',
-  '@nocobase/resourcer',
-  '@nocobase/sdk',
+  '@tachybase/acl',
+  '@tachybase/actions',
+  '@tachybase/auth',
+  '@tachybase/cache',
+  '@tachybase/client',
+  '@tachybase/database',
+  '@tachybase/data-source-manager',
+  '@tachybase/evaluators',
+  '@tachybase/logger',
+  '@tachybase/resourcer',
+  '@tachybase/sdk',
   '@tachybase/schema',
   '@tachybase/components',
-  '@nocobase/server',
-  '@nocobase/test',
-  '@nocobase/utils',
+  '@tachybase/server',
+  '@tachybase/test',
+  '@tachybase/utils',
 
-  // @nocobase/auth
+  // @tachybase/auth
   'jsonwebtoken',
 
-  // @nocobase/cache
+  // @tachybase/cache
   'cache-manager',
 
-  // @nocobase/database
+  // @tachybase/database
   'sequelize',
   'umzug',
   'async-mutex',
 
-  // @nocobase/evaluators
+  // @tachybase/evaluators
   '@formulajs/formulajs',
   'mathjs',
 
-  // @nocobase/logger
+  // @tachybase/logger
   'winston',
   'winston-daily-rotate-file',
 

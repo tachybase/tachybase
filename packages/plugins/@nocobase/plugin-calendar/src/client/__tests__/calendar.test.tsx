@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@nocobase/test/client';
+import { render, screen, waitFor } from '@tachybase/test/client';
 import dayjs from 'dayjs';
 import React from 'react';
 import App1 from '../calendar/demos/demo1';

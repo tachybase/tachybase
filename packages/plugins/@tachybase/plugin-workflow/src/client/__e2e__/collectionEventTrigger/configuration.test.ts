@@ -12,7 +12,7 @@ import {
   appendJsonCollectionName,
   generalWithNoRelationalFields,
 } from '@tachybase/plugin-workflow-test/e2e';
-import { expect, test } from '@nocobase/test/e2e';
+import { expect, test } from '@tachybase/test/e2e';
 
 test.describe('Configuration page to configure the Trigger node', () => {
   test('Add Data Trigger with No Filter', async ({ page, mockCollections, mockRecords }) => {

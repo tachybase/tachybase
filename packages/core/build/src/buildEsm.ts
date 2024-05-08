@@ -19,7 +19,7 @@ export async function buildEsm(cwd: string, userConfig: UserConfig, sourcemap: b
   }
 
   const pkg = require(path.join(cwd, 'package.json'));
-  if (pkg.name === '@nocobase/test') {
+  if (pkg.name === '@tachybase/test') {
     const e2eEntry = path.join(cwd, 'src/e2e/index.ts').replaceAll(/\\/g, '/');
     const e2eOutDir = path.resolve(cwd, 'es/e2e');
     await build(cwd, e2eEntry, e2eOutDir, userConfig, sourcemap, log);

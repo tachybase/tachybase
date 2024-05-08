@@ -1,4 +1,4 @@
-import { MockServer, waitSecond } from '@nocobase/test';
+import { MockServer, waitSecond } from '@tachybase/test';
 import { Dumper } from '../dumper';
 import createApp from './index';
 
@@ -169,7 +169,7 @@ describe('backup files', () => {
       name: 'test',
       title: '测试',
       group: 'custom',
-      origin:'@nocobase/plugin-collection-manager',
+      origin: '@nocobase/plugin-collection-manager',
     });
   });
 });

@@ -1,5 +1,5 @@
 import { FormItem } from '@tachybase/components';
-import { RichText, SchemaComponent, SchemaComponentProvider } from '@nocobase/client';
+import { RichText, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
 import 'react-quill/dist/quill.snow.css'; // ES6
 

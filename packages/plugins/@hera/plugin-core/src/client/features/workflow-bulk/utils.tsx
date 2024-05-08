@@ -10,7 +10,7 @@ import {
   useRequest,
   useTableBlockContext,
   useVariables,
-} from '@nocobase/client';
+} from '@tachybase/client';
 import { App } from 'antd';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
