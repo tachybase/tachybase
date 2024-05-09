@@ -55,7 +55,7 @@ function useAssociationFields(type: 'textField' | 'choiceField') {
   const { name, allFields } = collection || {};
 
   const { getCollectionFields } = useCollectionFields_custom();
-  const isMobield = useIsMobile();
+  const isMobile = useIsMobile();
 
   const cm = useCollectionManager();
 
@@ -85,7 +85,7 @@ function useAssociationFields(type: 'textField' | 'choiceField') {
           label,
           schemaName: field.name,
         },
-        isMobield,
+        isMobile,
       );
       return result;
     });
@@ -100,7 +100,7 @@ function useAssociationFields(type: 'textField' | 'choiceField') {
           label,
           schemaName: field.name,
         },
-        isMobield,
+        isMobile,
       );
       return result;
     });
@@ -111,7 +111,7 @@ function useAssociationFields(type: 'textField' | 'choiceField') {
 }
 
 // NOTE: 递归生成 schema 树
-function getItemInput(params: ItemInterface, isMobield?: boolean) {
+function getItemInput(params: ItemInterface, isMobile?: boolean) {
   const {
     field,
     label,
@@ -140,15 +140,18 @@ function getItemInput(params: ItemInterface, isMobield?: boolean) {
           const label = canBeRelatedField(field.interface)
             ? cm.getCollection(`${name}.${field.name}`)?.titleField
             : field.name;
-          return getItemInput({
-            field: subField,
-            label,
-            schemaName: `${schemaName}.${subField.name}`,
-            collectionName: collectionName,
-            getCollectionFields: getCollectionFields,
-            processedCollections: [...processedCollections, field.target],
-            collectionManager: cm,
-          });
+          return getItemInput(
+            {
+              field: subField,
+              label,
+              schemaName: `${schemaName}.${subField.name}`,
+              collectionName: collectionName,
+              getCollectionFields: getCollectionFields,
+              processedCollections: [...processedCollections, field.target],
+              collectionManager: cm,
+            },
+            isMobile,
+          );
         })
         .filter(Boolean),
     } as SchemaInitializerItemType;
@@ -199,8 +202,8 @@ function getItemInput(params: ItemInterface, isMobield?: boolean) {
       // 'x-decorator': 'FormItem',
       // 'x-component': 'CollectionField',
       'x-component': matchTruthValue({
-        ['TabSearchCollapsibleInputMItem']: isMobield,
-        ['TabSearchCollapsibleInputItem']: !isMobield,
+        ['TabSearchCollapsibleInputMItem']: isMobile,
+        ['TabSearchCollapsibleInputItem']: !isMobile,
       }),
       'x-component-props': {
         fieldNames: {
@@ -220,7 +223,7 @@ function getItemInput(params: ItemInterface, isMobield?: boolean) {
   } as SchemaInitializerItemType;
 }
 // NOTE: 递归生成 schema 树
-function getItemChoice(params: ItemInterface, isMobield?: boolean) {
+function getItemChoice(params: ItemInterface, isMobile?: boolean) {
   const {
     field,
     label,
@@ -266,16 +269,19 @@ function getItemChoice(params: ItemInterface, isMobield?: boolean) {
         )
         .map((subField) => {
           const label = cm.getCollection(field.target)?.getPrimaryKey() || 'id';
-          return getItemChoice({
-            field: subField,
-            label,
-            schemaName: `${schemaName}.${subField.name}`,
-            collectionName: collectionName,
-            getCollectionFields: getCollectionFields,
-            processedCollections: [...processedCollections, field.target],
-            collectionManager: cm,
-            currentCollection: field.target,
-          });
+          return getItemChoice(
+            {
+              field: subField,
+              label,
+              schemaName: `${schemaName}.${subField.name}`,
+              collectionName: collectionName,
+              getCollectionFields: getCollectionFields,
+              processedCollections: [...processedCollections, field.target],
+              collectionManager: cm,
+              currentCollection: field.target,
+            },
+            isMobile,
+          );
         })
         .filter(Boolean),
     } as SchemaInitializerItemType;
@@ -312,8 +318,8 @@ function getItemChoice(params: ItemInterface, isMobield?: boolean) {
       // 'x-decorator': 'FormItem',
       // 'x-component': 'CollectionField',
       'x-component': matchTruthValue({
-        ['TabSearchFieldMItem']: isMobield,
-        ['TabSearchFieldItem']: !isMobield,
+        ['TabSearchFieldMItem']: isMobile,
+        ['TabSearchFieldItem']: !isMobile,
       }),
       'x-component-props': {
         fieldNames: {

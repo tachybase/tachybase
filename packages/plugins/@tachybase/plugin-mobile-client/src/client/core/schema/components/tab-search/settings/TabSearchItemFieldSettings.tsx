@@ -35,9 +35,10 @@ export const TabSearchItemFieldSettings = new SchemaSettings({
               const { form } = useFormBlockContext();
               const field = useField();
               const cm = useCollectionManager();
-              const c = useCollection();
+              const collection = useCollection();
               const collectionField =
-                c.getField(fieldSchema['name']) || cm.getCollectionField(fieldSchema['x-collection-field']);
+                collection.getField(fieldSchema['fieldName']) ||
+                cm.getCollectionField(fieldSchema['x-collection-field']);
               const { dn } = useDesignable();
 
               return {
