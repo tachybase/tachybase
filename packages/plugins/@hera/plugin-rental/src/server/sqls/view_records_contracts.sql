@@ -12,7 +12,16 @@ SELECT
   p.id AS project_id,
   rc.has_receipt,
   rc.has_stub,
-  c.record_category
+  c.record_category,
+  (
+    CASE
+      WHEN c1.abbreviation IS NOT NULL THEN c1.abbreviation::TEXT
+      ELSE c1.id::TEXT
+    END || '-' || CASE
+      WHEN c2.abbreviation IS NOT NULL THEN c2.abbreviation::TEXT
+      ELSE c2.id::TEXT
+    END || '-' || r.number
+  )::CHARACTER VARYING AS number
 FROM
   records r
   JOIN record_contract rc ON rc.record_id = r.id
@@ -24,6 +33,7 @@ FROM
       ELSE r.in_stock_id
     END
   )
+  JOIN company c2 ON c2.id = c.party_b_id
 WHERE
   r.direct_record_id IS NULL
 UNION ALL
@@ -44,7 +54,8 @@ SELECT
   p3.id AS project_id,
   rc.has_receipt,
   rc.has_stub,
-  '3' AS record_category
+  '3' AS record_category,
+  r.number::VARCHAR AS number
 FROM
   records r
   LEFT JOIN record_contract rc ON rc.record_id = r.id

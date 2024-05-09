@@ -58,12 +58,14 @@ export const PdfIsDoubleProvider = (props) => {
 
 export const useRecordPdfPath = () => {
   const record = useRecord();
-  let recordId = record.id;
+  let recordId = record.id || record.record_id;
+  let stockId;
   if (record.__collectionName === 'contracts' && record.__parent) {
+    // 查看页面，中间表id
     recordId = record.__parent.id;
   }
-  if (typeof record.id === 'string') {
-    recordId = record.id.split('_')[1] || record.id;
+  if (record.__collectionName === 'record_stock') {
+    stockId = record.id;
   }
   const { isDouble } = useContext(PdfIsDoubleContext);
   const { settingType } = useContext(PdfIsLoadContext);
@@ -73,8 +75,8 @@ export const useRecordPdfPath = () => {
   const { annotate } = useContext(AnnotateContext);
   const path = useMemo(
     () =>
-      `/records:pdf?recordId=${recordId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}&paper=${paper}&font=${size}&annotate=${annotate}`,
-    [recordId, isDouble, settingType, margingTop, paper, size, annotate],
+      `/records:pdf?recordId=${recordId}&stockId=${stockId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}&paper=${paper}&font=${size}&annotate=${annotate}`,
+    [recordId, isDouble, settingType, margingTop, paper, size, annotate, stockId],
   );
   return path;
 };

@@ -36,28 +36,30 @@ export class RecordPdfService {
       };
       return data[movement];
     };
-
     const record_category = (category) => {
       const data = {
         '1': '购销',
         '2': '租赁',
+        '3': '暂存',
+        // 非盘点单的情况就是暂存单
       };
       return data[category];
     };
     const needRecord = {
-      record_type: baseRecord.type_new,
       record_number: baseRecord.number,
       record_date: baseRecord.date,
-      record_origin: baseRecord.origin,
-      record_party_b: movement(contracts.movement) === '出库' ? baseRecord.in_stock : baseRecord.out_stock, // 还需要判断第三个合同的情况，确定一下出库入是否合同公司有关
-      record_party_a: movement(contracts.movement) === '入库' ? baseRecord.in_stock : baseRecord.out_stock,
-      vehicles: baseRecord.vehicles,
+      record_origin: baseRecord?.origin,
+      record_party_b: movement(contracts.movement) === '出库' ? baseRecord?.in_stock : baseRecord?.out_stock, // 还需要判断第三个合同的情况，确定一下出库入是否合同公司有关
+      record_party_a: movement(contracts.movement) === '入库' ? baseRecord?.in_stock : baseRecord?.out_stock,
+      vehicles: baseRecord?.vehicles,
       record_category: record_category(contracts.record_category),
       contract_first_party: contracts.first_party, //公司信息，甲方，我们
       movement: movement(contracts.movement),
       pdfExplain: baseRecord.pdfExplain,
       nickname: baseRecord.nickname,
       userPhone: baseRecord.userPhone,
+      systemName: baseRecord.systemName,
+      plate: baseRecord.plate,
     };
     // ！租金数据
     const leasePorducts = leaseData.map((leas) => {
@@ -126,7 +128,7 @@ export class RecordPdfService {
         total = count * fee.fee_weight;
         conversion_unit = 'KG';
       } else if (fee.conversion_logic_id > 4) {
-        const ProductWeightRule = leaseData.findOne((leas) => leas.products_id === fee.products_id);
+        const ProductWeightRule = leaseData.find((leas) => leas.products_id === fee.products_id);
         if (ProductWeightRule.wr_logic_id === ConversionLogics.Keep) {
           total = count * ProductWeightRule.wr_weight;
         } else if (ProductWeightRule.wr_logic_id === ConversionLogics.Product) {

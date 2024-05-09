@@ -222,14 +222,13 @@ const PreviewDocument = ({
   }
   const paper = options.paper;
   const isDouble = Number(options.isDouble);
-  const explain =
-    detail.type_new === '1'
-      ? `盘点单用于清算仓库盈亏盈余。`
-      : `如供需双方未签正式合同，本${
-          detail.record_category
-        }${detail.movement}单经供需双方代表签字确认后， 将作为合同及发生业务往来的有效凭证，如已签合同，则成为该合同的组成部分。${
-          detail.movement === '入库' ? '出库方' : '采购方'
-        }须核对 以上产品规格、数量确认后可签字认可。`;
+  const explain = !detail.record_category
+    ? `盘点单用于清算仓库盈亏盈余。`
+    : `如供需双方未签正式合同，本${
+        detail.record_category
+      }${detail.movement}单经供需双方代表签字确认后， 将作为合同及发生业务往来的有效凭证，如已签合同，则成为该合同的组成部分。${
+        detail.movement === '入库' ? '出库方' : '采购方'
+      }须核对 以上产品规格、数量确认后可签字认可。`;
   const getAllPrice = () => {
     let price = 0;
     if (detail.record_category === '购销' && priceRule.filter(Boolean).length) {
@@ -377,15 +376,18 @@ const PreviewDocument = ({
     ));
   };
 
-  const projectPhone = detail.record_party_b.contacts?.map((item) => (item.name || '') + (item.phone || '')).join(' ');
-
+  const projectPhone = detail.record_party_b?.contacts?.map((item) => (item.name || '') + (item.phone || '')).join(' ');
   const car = detail.vehicles ? detail.vehicles.map((item) => item?.number).join(' ') : '';
   return (
     <Document>
       <Page size={paper || 'A4'} style={{ ...styles.page, marginTop: options.margingTop }}>
         {' '}
         {/**transform: `scale(${trans})` */}
-        <Text style={styles.title}>{detail.contract_first_party?.name || '异常数据，请联系相关负责人！'}</Text>
+        <Text style={styles.title}>
+          {!detail.record_category
+            ? detail.plate
+            : detail.contract_first_party?.name || detail.systemName || '异常数据，请联系相关负责人！'}
+        </Text>
         <Text style={styles.subTitle}>{detail.contract_first_party ? detail.movement : '盘点'}单</Text>
         <View style={styles.content}>
           <View style={styles.main}>
@@ -415,11 +417,12 @@ const PreviewDocument = ({
               </View>
             )}
 
-            {detail.record_category === '购销' && (
+            {(detail.record_category === '购销' || detail.record_category === '暂存') && (
               <View>
                 <View style={styles.tableHeader}>
                   <Text style={styles.headerLeftLeft}>
-                    销售单位：{detail.record_party_b.company.name || ''} {detail.record_party_b.name || ''}
+                    {detail.record_category === '暂存' ? '出库方：' : '销售单位：'}
+                    {detail.record_party_b?.company?.name || ''} {detail.record_party_b.name || ''}
                   </Text>
                   <Text style={styles.headerMiddle}>
                     日期：{detail.record_date && dayjs(detail.record_date).format('YYYY-MM-DD')}
@@ -427,7 +430,10 @@ const PreviewDocument = ({
                   <Text style={styles.headerLeftRight}>流水号：{detail.record_number}</Text>
                 </View>
                 <View style={styles.tableHeader}>
-                  <Text style={styles.headerLeftLeft}>采购单位：{detail.record_party_a.name || ''}</Text>
+                  <Text style={styles.headerLeftLeft}>
+                    {detail.record_category === '暂存' ? '入库方：' : '采购单位：'}
+                    {detail.record_party_a.name || ''}
+                  </Text>
                   <Text style={styles.headerMiddle}>车号：{car}</Text>
                   <Text style={styles.headerLeftRight}>原始单号：{detail.record_origin}</Text>
                 </View>
@@ -436,7 +442,7 @@ const PreviewDocument = ({
             {!detail.record_category && (
               <View>
                 <View style={styles.tableHeader}>
-                  <Text style={styles.headerLeftLeft}>盘点单位：{detail.record_party_a.name || ''}</Text>
+                  <Text style={styles.headerLeftLeft}>盘点单位：{detail.plate || ''}</Text>
                   <Text style={styles.headerMiddle}>
                     日期：{detail.record_date && dayjs(detail.record_date).format('YYYY-MM-DD')}
                   </Text>

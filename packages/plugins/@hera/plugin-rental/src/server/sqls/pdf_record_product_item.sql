@@ -19,8 +19,7 @@ FROM
   records r
   JOIN contracts c ON c.id = :contractId
   LEFT JOIN contract_items ci ON c.id = ci.contract_id
-  AND ci.start_date <= r."date"
-  AND ci.end_date >= r."date"
+  AND ci.date_range @> r."date"
   LEFT JOIN contract_plans cp ON cp.id = ci.contract_plan_id
   JOIN contract_plan_lease_items cpli ON (
     cpli.contract_plan_id = cp.id
