@@ -42,6 +42,24 @@ export const RecordProductScope = observer(() => {
       });
     });
     result.push(...Object.values(leaseItem));
+  } else if (!contractPlanId?.length && products) {
+    const leaseItem = {};
+    products.forEach((item) => {
+      const isParent = Object.values(leaseItem).find(
+        (value) => value['parentScopeId'].includes(item.id) && item.id !== value['id'],
+      );
+      const isChildren = Object.values(leaseItem).find(
+        (value) => item['parentScopeId'].includes(value['id']) && item.id !== value['id'],
+      );
+      if (isParent) return;
+      if (isChildren) {
+        delete leaseItem[isChildren['id']];
+        leaseItem[item.id] = item;
+      } else {
+        leaseItem[item.id] = item;
+      }
+    });
+    result.push(...Object.values(leaseItem));
   }
   useDeepCompareEffect(() => {
     form.setValues({
@@ -54,14 +72,3 @@ export const RecordProductScope = observer(() => {
 RecordProductScope.displayName = 'RecordProductScope';
 RecordProductScope.__componentType = CustomComponentType.CUSTOM_ASSOCIATED_FIELD;
 RecordProductScope.__componentLabel = '记录单 - 产品范围';
-
-const intersectionByMultiple = (arr1, arr2, propName) => {
-  const result = [];
-  arr1.forEach((item) => {
-    const index = arr2.findIndex((i) => i[propName] === item[propName]);
-    if (index !== -1) {
-      result.push(item);
-    }
-  });
-  return result;
-};
