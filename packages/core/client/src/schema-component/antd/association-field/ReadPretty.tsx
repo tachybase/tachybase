@@ -13,7 +13,9 @@ const ReadPrettyAssociationField = observer(
     const { currentMode } = useAssociationFieldContext();
     return (
       <>
-        {['Select', 'Picker', 'CascadeSelect'].includes(currentMode) && <ReadPrettyInternalViewer {...props} />}
+        {['Select', 'Picker', 'CascadeSelect', 'Cascader'].includes(currentMode) && (
+          <ReadPrettyInternalViewer {...props} />
+        )}
         {currentMode === 'Tag' && <ReadPrettyInternalTag {...props} />}
         {currentMode === 'Nester' && <InternalNester {...props} />}
         {currentMode === 'SubTable' && <InternalSubTable {...props} />}
