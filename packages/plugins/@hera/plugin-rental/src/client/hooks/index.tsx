@@ -24,13 +24,11 @@ export const useLeaseItems = (planId, date) => {
           params: {
             appends: ['new_products'],
             filter: {
-              contract_plan: {
-                contract_items: {
-                  start_date: { $dateBefore: nowDay },
-                  end_date: { $dateAfter: nowDay },
-                  contract_id: {
-                    $eq: value,
-                  },
+              effect_contracts: {
+                start_date: { $dateBefore: nowDay },
+                end_date: { $dateAfter: nowDay },
+                contract_id: {
+                  $eq: value,
                 },
               },
             },
@@ -66,13 +64,11 @@ export const useFeeItems = (planId, date) => {
           params: {
             appends: ['new_fee_products'],
             filter: {
-              contract_plan: {
-                contract_items: {
-                  start_date: { $dateBefore: nowDay },
-                  end_date: { $dateAfter: nowDay },
-                  contract_id: {
-                    $eq: value,
-                  },
+              effect_contracts: {
+                start_date: { $dateBefore: nowDay },
+                end_date: { $dateAfter: nowDay },
+                contract_id: {
+                  $eq: value,
                 },
               },
             },
@@ -108,13 +104,11 @@ export const useProductFeeItems = (planId, date) => {
           params: {
             appends: ['fee_items', 'new_products'],
             filter: {
-              contract_plan: {
-                contract_items: {
-                  start_date: { $dateBefore: nowDay },
-                  end_date: { $dateAfter: nowDay },
-                  contract_id: {
-                    $eq: value,
-                  },
+              effect_contracts: {
+                start_date: { $dateBefore: nowDay },
+                end_date: { $dateAfter: nowDay },
+                contract_id: {
+                  $eq: value,
                 },
               },
             },
