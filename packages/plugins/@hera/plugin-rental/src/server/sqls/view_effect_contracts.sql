@@ -4,7 +4,6 @@ SELECT
   contracts.name,
   ('S-'::TEXT || contracts.id)::CHARACTER VARYING AS id,
   contracts.id AS contract_id,
-  ('C'::TEXT || contracts.id)::CHARACTER VARYING AS effect_contract_id,
   contracts.project_id,
   contracts.tax_rate,
   contracts.calc_type,
@@ -26,10 +25,9 @@ SELECT
     (contracts.name::TEXT || '-'::TEXT) || contract_plans.name::TEXT
   )::CHARACTER VARYING AS NAME,
   (
-    (('L-'::TEXT || contracts.id) || '-'::TEXT) || contract_plans.id
+    (('L-'::TEXT || contracts.id) || '-'::TEXT) || contract_items.id
   )::CHARACTER VARYING AS id,
   contracts.id AS contract_id,
-  ('P'::TEXT || contract_plans.id)::CHARACTER VARYING AS effect_contract_id,
   contracts.project_id,
   contracts.tax_rate,
   contracts.calc_type,
@@ -43,7 +41,7 @@ SELECT
   UPPER(contract_items.date_range) - '1 day'::INTERVAL AS end_date
 FROM
   contracts
-  JOIN contract_items ON contracts.id = contract_items.id
+  JOIN contract_items ON contracts.id = contract_items.contract_id
   JOIN contract_plans ON contract_plans.id = contract_items.contract_plan_id
 WHERE
   contracts.effectiveness::TEXT = '0'::TEXT;
