@@ -43,7 +43,7 @@ export const RecordDetails: CustomFunctionComponent = () => {
 
   const feeItems = {};
   // 根据关联产品名称来合并赔偿
-  if (reqRecordItemFeeItems.data) {
+  if (reqRecordItemFeeItems.data && products) {
     reqRecordItemFeeItems.data.data?.forEach((contract, index) => {
       if (!contract.fees.length) return;
       const movement = contract.movement === '-1' ? '出库合同' : '入库合同';

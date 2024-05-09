@@ -32,7 +32,7 @@ export const AssociationFieldProvider = observer(
     const currentMode = useMemo(
       () =>
         fieldSchema['x-component-props']?.mode ||
-        (isTreeCollection ? 'Cascader' : isFileCollection ? 'FileManager' : 'Select'),
+        (isFileCollection ? 'FileManager' : isTreeCollection ? 'Cascader' : 'Select'),
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [fieldSchema['x-component-props']?.mode],
     );

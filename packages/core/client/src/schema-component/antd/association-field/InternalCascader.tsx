@@ -15,7 +15,7 @@ import { Input, Space } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CustomCascader, SchemaComponent } from '../..';
-import { css, useAPIClient } from '../../..';
+import { css, useAPIClient, useCollection, useRequest } from '../../..';
 import { mergeFilter } from '../../../filter-provider/utils';
 import useServiceOptions, { useAssociationFieldContext } from './hooks';
 
@@ -43,22 +43,47 @@ const Cascade = connect((props) => {
   const field: any = useField();
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [chang, setChang] = useState(false);
+  const [dataList, setDataList] = useState({});
   useEffect(() => {
     const propsValue = props.value || fieldSchema['x-component-props'].value;
-    if (!chang) {
-      const values = Array.isArray(propsValue)
-        ? extractLastNonNullValueObjects(
-            propsValue?.filter((v) => v.value),
-            true,
-          )
-        : transformNestedData(propsValue);
-      const defaultData = values?.map?.((v) => {
-        return v.id;
-      });
-      setSelectedOptions(defaultData);
-      onDropdownVisibleChange(true);
+    if (!chang && propsValue) {
+      if (!propsValue.parent && !Object.keys(dataList).length) {
+        resource
+          .list({
+            pageSize: 9999,
+            filter: { id: { $eq: propsValue.id } },
+            sort,
+            tree: true,
+          })
+          .then((res) => {
+            setDataList(res.data?.data[0]);
+          })
+          .catch(() => {});
+      } else {
+        const values = [];
+        if (!propsValue.parent && Object.keys(dataList).length) {
+          const defValue = transformChildrenData(dataList, [], propsValue.id);
+          values.push(...defValue);
+        } else {
+          const defValue = Array.isArray(propsValue)
+            ? extractLastNonNullValueObjects(
+                propsValue?.filter((v) => v.value),
+                true,
+              )
+            : transformNestedData(propsValue);
+          values.push(...defValue);
+        }
+        const defaultData = values?.map?.((v) => {
+          return v.id;
+        });
+        onDropdownVisibleChange(true);
+        setSelectedOptions(defaultData);
+      }
     }
-  }, [fieldSchema['x-component-props'].value, fieldSchema['x-component-props']?.changOnSelect]);
+  }, [fieldSchema['x-component-props'].value, fieldSchema['x-component-props']?.changOnSelect, dataList]);
+  useEffect(() => {
+    onDropdownVisibleChange(true);
+  }, [fieldFilter]);
   const handleGetOptions = async () => {
     const response = await resource.list({
       pageSize: 9999,
@@ -328,3 +353,14 @@ export function transformNestedData(inputData) {
   }
   return resultArray;
 }
+
+export const transformChildrenData = (inputData, result, itemId) => {
+  const { children, ...other } = inputData;
+  result.push(other);
+  if (children && inputData?.id !== itemId && children.length) {
+    const { children } = inputData;
+    return transformChildrenData(children[0], result, itemId);
+  } else {
+    return result;
+  }
+};
