@@ -24,12 +24,9 @@ export class PluginExtendedFilterForm extends Plugin {
       FilterItemCustomDesigner,
       FilterVariableInput,
     });
-    this.schemaSettingsManager.addItem('FilterFormItemSettings', 'formulatitleField', {
+    this.schemaSettingsManager.addItem('fieldSettings:component:Select', 'formulatitleField', {
       Component: EditFormulaTitleField,
       useVisible: useFormulaTitleVisible,
-    });
-    this.schemaSettingsManager.addItem('FilterFormItemSettings', 'editDefaultValue', {
-      Component: EditDefaultValue,
     });
     this.schemaSettingsManager.addItem('fieldSettings:component:Select', 'editDefaultValue', {
       Component: EditDefaultValue,
