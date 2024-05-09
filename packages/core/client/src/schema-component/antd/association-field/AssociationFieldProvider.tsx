@@ -23,8 +23,16 @@ export const AssociationFieldProvider = observer(
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [fieldSchema['x-collection-field']],
     );
+    const isTreeCollection = useMemo(
+      () => getCollection(collectionField?.target)?.template === 'tree',
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [fieldSchema['x-collection-field']],
+    );
+
     const currentMode = useMemo(
-      () => fieldSchema['x-component-props']?.mode || (isFileCollection ? 'FileManager' : 'Select'),
+      () =>
+        fieldSchema['x-component-props']?.mode ||
+        (isTreeCollection ? 'Cascader' : isFileCollection ? 'FileManager' : 'Select'),
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [fieldSchema['x-component-props']?.mode],
     );
