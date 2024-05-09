@@ -1,12 +1,6 @@
 // 关系字段类型
 import { useEffect, useMemo } from 'react';
-import {
-  useCollection,
-  useCollectionManager,
-  useDataSourceHeaders,
-  useFilterBlock,
-  useRequest,
-} from '@tachybase/client';
+import { useCollection, useCollectionManager, useDataSourceHeaders, useRequest } from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 import { useTabSearchCollapsibleInputItem } from './hooks';
@@ -24,7 +18,10 @@ export const useTabSearchFieldItemRelatedProps = () => {
     () => collection?.getField(fieldSchema['fieldName'] as any),
     [collection, fieldSchema['fieldName']],
   );
-  const collectionFieldName = collectionField?.name;
+  const currentCollectionName = fieldSchema['x-component-props'].currentCollection;
+  const collectionFieldName =
+    currentCollectionName === collection?.name ? collectionField?.name : fieldSchema['fieldName'];
+
   const fieldInterface = fieldSchema['x-component-props'].interface;
   const result = { list: null, valueKey: '', labelKey: '', filterKey: '' };
   const { onSelected } = useTabSearchCollapsibleInputItem();

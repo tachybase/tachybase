@@ -11,7 +11,14 @@ export function generateNTemplate(key: string) {
   return `{{t('${key}', { ns: '${NAMESPACE}', nsMode: 'fallback' })}}`;
 }
 
-export const tval = (key: string) => nTval(key, { ns: NAMESPACE });
+export const tval = (key: string, haveNamespace: boolean = true) => {
+  if (haveNamespace) {
+    return nTval(key, { ns: NAMESPACE })
+  } else {
+    return nTval(key)
+  }
+};
+
 
 export function useTranslation() {
   return useT([NAMESPACE, '@tachybase/plugin-mobile-client', 'client'], {

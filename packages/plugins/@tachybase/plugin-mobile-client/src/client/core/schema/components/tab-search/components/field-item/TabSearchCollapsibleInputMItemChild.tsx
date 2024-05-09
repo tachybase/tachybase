@@ -23,7 +23,7 @@ export const ISelect = (props) => {
       }}
     >
       <span style={{ textAlign: 'center', width: '100%' }}>
-        {options.find((option) => option.value === customLabelKey).label}
+        {options.find((option) => option.value === customLabelKey)?.label}
       </span>
       <DownOutline />
       {options.length <= 5 ? (

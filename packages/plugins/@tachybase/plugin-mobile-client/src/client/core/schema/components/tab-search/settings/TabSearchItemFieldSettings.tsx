@@ -71,11 +71,14 @@ export const TabSearchItemFieldSettings = new SchemaSettings({
               const fieldSchema = useFieldSchema();
               const { t } = useTranslation();
               const cm = useCollectionManager();
-              const c = useCollection();
-              const fieldCollection = fieldSchema['x-component-props']?.['collectionName'];
-              const correlation = fieldSchema['x-component-props']?.['correlation'];
+              const collection = useCollection();
+
+              const propsInSchema = fieldSchema['x-component-props'] || {};
+              const { collectionName, currentCollection, correlation } = propsInSchema;
+              const fieldCollection = currentCollection || collectionName || collection.name;
+
               const collectionField =
-                c.getField(fieldSchema['fieldName']) ||
+                collection.getField(fieldSchema['fieldName']) ||
                 cm.getCollectionField(fieldSchema['x-collection-field']) ||
                 cm.getCollection(fieldCollection + '.' + correlation);
               const compile = useCompile();

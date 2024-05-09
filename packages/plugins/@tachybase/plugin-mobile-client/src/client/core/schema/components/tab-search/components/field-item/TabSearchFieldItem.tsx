@@ -1,11 +1,11 @@
 import { SortableItem, withDynamicSchemaProps } from '@tachybase/client';
 import { ConfigProvider, Menu } from 'antd';
 import React from 'react';
-import { useTabSearchFieldItemAction } from './TabSearchFieldItemAction';
+import { useAction } from './TabSearchFieldMItem';
 
 export const TabSearchFieldItem = withDynamicSchemaProps(
   (props) => {
-    const { collectionField, Designer, items, onSelect } = useTabSearchFieldItemAction(props);
+    const { collectionField, Designer, items, onSelect } = useAction(props);
 
     if (!collectionField) {
       return null;
