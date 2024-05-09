@@ -39,8 +39,8 @@ export class RecordPdfService {
 
     const record_category = (category) => {
       const data = {
-        '0': '租赁',
         '1': '购销',
+        '2': '租赁',
       };
       return data[category];
     };
