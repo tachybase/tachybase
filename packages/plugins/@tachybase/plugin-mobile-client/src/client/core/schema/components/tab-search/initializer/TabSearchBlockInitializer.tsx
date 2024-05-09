@@ -1,6 +1,5 @@
+import { DataBlockInitializer, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
-import _ from 'lodash';
-import { DataBlockInitializer, Icon, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import { createTabSearchBlockSchema } from '../create/createTabSearchBlockSchema';
 
 export const TabSearchBlockInitializer = (props) => {
