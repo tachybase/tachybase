@@ -303,6 +303,7 @@ export const ThroughCollection = observer(
     const record = useRecord();
     const value = record[field.props.name];
     const [initialValue, setInitialValue] = useState(value || field.initialValue);
+    const [defOptions, setDefOptions] = useState([]);
 
     const loadCollections = () => {
       const filteredItems = getCollections().filter((item) => {
@@ -320,6 +321,7 @@ export const ThroughCollection = observer(
     useEffect(() => {
       const data = loadCollections();
       setOptions(data);
+      setDefOptions(data);
       if (value) {
         const option = data.find((v) => v.value === value);
         setInitialValue(option?.label || value);
@@ -327,13 +329,13 @@ export const ThroughCollection = observer(
     }, []);
     const handleSearch = (value: string) => {
       if (value) {
-        const filteredOptions = options.filter((option) => {
+        const filteredOptions = defOptions.filter((option) => {
           return option.label.toLowerCase().includes(value.toLowerCase());
         });
+
         setOptions(filteredOptions);
       } else {
-        const data = loadCollections();
-        setOptions(data);
+        setOptions(defOptions);
       }
     };
     return (
