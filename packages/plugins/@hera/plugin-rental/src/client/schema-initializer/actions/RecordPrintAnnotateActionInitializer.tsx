@@ -7,7 +7,7 @@ export const Annotate = (props) => {
   const { setAnnotate } = useContext(AnnotateContext);
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div>统一注释:</div>
+      <div>备注合并:</div>
       <Switch
         checkedChildren="开启"
         unCheckedChildren="关闭"
