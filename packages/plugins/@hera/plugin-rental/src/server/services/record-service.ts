@@ -92,7 +92,7 @@ export class RecordService {
     if (!values) return;
     if (values.new_contracts.length) {
       const contracts = values.new_contracts.map((item) => item.contract).find((i) => i.record_category === '1');
-      if (contracts && values.items.length) {
+      if (contracts && values.items && values.items?.length > 0) {
         const leaseRule = await this.db.getRepository('contract_plan_lease_items').find({
           where: {
             contract_id: contracts.id,
@@ -187,6 +187,7 @@ export class RecordService {
           items: [],
           project_id: item.contract.dataValues.project_id,
         };
+        if (!item.fees) return;
         const stockItems = await Promise.all(
           item.fees.map(async (fee) => {
             if (typeof fee !== 'object') return;
