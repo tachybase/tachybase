@@ -78,9 +78,8 @@ export const useFormulaTitleVisible = () => {
   // FIXME 这里现在只有当设置为 select，默认为 select 的时候看不到
   return (
     options.length > 0 &&
-    fieldSchema['x-component-props']?.mode === 'Select' &&
-    fieldSchema['x-component-props']?.fieldNames?.value !== undefined &&
-    fieldSchema['x-component'] === 'CollectionField'
+    (fieldSchema['x-component-props']?.mode === 'Select' || fieldSchema['x-component'] === 'CollectionField') &&
+    fieldSchema['x-component-props']?.fieldNames?.value !== undefined
   );
 };
 
