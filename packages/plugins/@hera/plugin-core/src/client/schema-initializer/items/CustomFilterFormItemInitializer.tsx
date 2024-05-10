@@ -353,7 +353,7 @@ export const FilterItemCustomDesigner: React.FC = () => {
       {component === 'Select' || component === 'AutoComplete' ? <SchemaSettingCollection /> : null}
       {component === 'Select' || component === 'AutoComplete' ? <SchemaSettingComponent /> : null}
       {component === 'Select' || component === 'AutoComplete' ? <EditTitleField /> : null}
-      <EditFormulaTitleField />
+      {component === 'Select' || component === 'AutoComplete' ? <EditFormulaTitleField /> : null}
       <EditDefaultValue />
       <SchemaSettingsDivider />
       <SchemaSettingsRemove
