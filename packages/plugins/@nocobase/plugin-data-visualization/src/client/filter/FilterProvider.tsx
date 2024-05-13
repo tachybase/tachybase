@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import { useMemoizedFn } from 'ahooks';
 
 type FilterField = {
@@ -28,7 +28,7 @@ export const ChartFilterContext = createContext<{
 }>({} as any);
 ChartFilterContext.displayName = 'ChartFilterContext';
 
-export const ChartFilterProvider: React.FC = (props) => {
+export const ChartFilterProvider: React.FC<PropsWithChildren> = (props) => {
   const [ready, setReady] = useState(false);
   const [enabled, _setEnabled] = useState(false);
   const [fields, setFields] = useState({});
