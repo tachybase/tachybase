@@ -51,6 +51,11 @@ export const MobileCore: React.FC<PropsWithChildren> = (props) => {
         MPage,
         MHeader,
         MSettings,
+
+        SwiperBlockInitializer,
+        SwiperBlock,
+        SwiperPage,
+
         TabSearch,
         TabSearchProvider,
         TabSearchBlockInitializer,
@@ -59,9 +64,7 @@ export const MobileCore: React.FC<PropsWithChildren> = (props) => {
         TabSearchCollapsibleInputItem,
         TabSearchCollapsibleInputMItem,
         TabSearchFieldSchemaInitializerGadget,
-        SwiperBlockInitializer,
-        SwiperBlock,
-        SwiperPage,
+
         ImageSearchView: ImageSearchView,
         ImageSearchInitializer: ImageSearchInitializer,
         ImageSearchProvider: ImageSearchProvider,
