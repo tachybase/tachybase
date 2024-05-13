@@ -1,5 +1,5 @@
 import { SchemaComponentOptions } from '@tachybase/client';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import {
   MMenuBlockInitializer,
   MMenu,
@@ -39,7 +39,7 @@ import {
 import './bridge';
 import './assets/svg';
 
-export const MobileCore: React.FC = (props) => {
+export const MobileCore: React.FC<PropsWithChildren> = (props) => {
   return (
     <SchemaComponentOptions
       components={{

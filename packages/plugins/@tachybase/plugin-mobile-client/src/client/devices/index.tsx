@@ -1,9 +1,9 @@
 import { css, cx } from '@tachybase/client';
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { PropsWithChildren } from 'react';
+// import { useLocation } from 'react-router-dom';
 import Device from './iOS6';
 
-export const MobileDevice: React.FC = (props) => {
+export const MobileDevice: React.FC<PropsWithChildren> = (props) => {
   return (
     <div
       className={cx(
@@ -23,7 +23,7 @@ export const MobileDevice: React.FC = (props) => {
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         `}
         {...props}
-      ></Device>
+      />
     </div>
   );
 };

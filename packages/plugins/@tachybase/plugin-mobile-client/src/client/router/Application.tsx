@@ -1,6 +1,6 @@
 import { ActionContextProvider, AdminProvider, css, cx, RemoteSchemaComponent, useViewport } from '@tachybase/client';
 import { DrawerProps, ModalProps } from 'antd';
-import React, { useMemo } from 'react';
+import React, { PropsWithChildren, useMemo } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import { MobileCore } from '../core';
 import { useInterfaceContext } from './InterfaceProvider';
@@ -71,7 +71,7 @@ const useMobileSchemaUid = () => {
   return 'nocobase-mobile-container';
 };
 
-const MApplication: React.FC = (props) => {
+const MApplication: React.FC<PropsWithChildren> = (props) => {
   const mobileSchemaUid = useMobileSchemaUid();
   const params = useParams<{ name: string }>();
   const interfaceContext = useInterfaceContext();
