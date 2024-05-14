@@ -25,9 +25,9 @@ WITH
       --- 激活状态
       activation_status,
       --- 充值状态
-      status_recharge
+      status_recharge,
       --- 结算状态
-      status_settlement,
+      status_settlement
     FROM
       orders
   ),
@@ -35,7 +35,7 @@ WITH
   orders_tuiguang AS (
     SELECT
       business_id,
-      COUNT(*) AS orderTotalCount,
+      COALESCE(COUNT(*), 0) AS "orderTotalCount"
     FROM
       orders_need_fields_all
     GROUP BY
@@ -45,7 +45,7 @@ WITH
   order_youxiao AS (
     SELECT
       business_id,
-      COUNT(*) AS orderYouXiaoCount,
+      COALESCE(COUNT(*), 0) AS "orderYouXiaoCount"
     FROM
       orders_need_fields_all
     WHERE
@@ -57,7 +57,7 @@ WITH
   order_genjin AS (
     SELECT
       business_id,
-      COUNT(*) AS orderGenJinCount,
+      COALESCE(COUNT(*), 0) AS "orderGenJinCount"
     FROM
       orders_need_fields_all
     WHERE
@@ -66,10 +66,11 @@ WITH
     GROUP BY
       business_id
   ),
+  --- 异常总数
   order_yichang AS (
     SELECT
       business_id,
-      COUNT(*) AS orderGenJinCount,
+      COALESCE(COUNT(*), 0) AS "orderYiChangCount"
     FROM
       orders_need_fields_all
     WHERE
@@ -79,10 +80,10 @@ WITH
   )
 SELECT
   orders_tuiguang.business_id,
-  orders_tuiguang.orderTotalCount,
-  order_youxiao.orderYouXiaoCount,
-  order_genjin.orderGenJinCount,
-  order_yichang.orderGenJinCount
+  orders_tuiguang."orderTotalCount",
+  order_youxiao."orderYouXiaoCount",
+  order_genjin."orderGenJinCount",
+  order_yichang."orderYiChangCount"
 FROM
   orders_tuiguang
   LEFT JOIN order_youxiao ON orders_tuiguang.business_id = order_youxiao.business_id
