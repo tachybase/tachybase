@@ -1,0 +1,3 @@
+-- 三聪头
+-- CREATE OR REPLACE VIEW
+--   public.view_invoice_all AS
