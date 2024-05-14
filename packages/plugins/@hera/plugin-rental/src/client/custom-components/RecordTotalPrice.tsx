@@ -32,7 +32,6 @@ export const RecordTotalPrice: CustomFunctionComponent = () => {
   const [products, setProducts] = useState([]);
   const [groupWeight, setGroupWeight] = useState([]);
   const [recordWeight, setRecordWeight] = useState(0);
-  return;
   // 总金额计算方法
   const computeTotalPrice = () => {
     if (!leaseData) return;

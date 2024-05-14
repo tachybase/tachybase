@@ -56,8 +56,8 @@ export const excelDataHandle = (excelData) => {
    */
   const nameRows = [
     {
-      companyName: { name: '承租单位：', value: `${contracts.party_b?.name ?? ''}` },
-      companyName1: { name: '合同编号：', value: `${contracts.number ?? ''}` },
+      companyName: { name: '承租单位：', value: `${contracts.project?.company?.name ?? ''}` },
+      companyName1: { name: '合同编号：', value: `${contracts.project?.code ?? ''}` },
       rowId: '3',
     },
     {
@@ -78,7 +78,7 @@ export const excelDataHandle = (excelData) => {
         name: '项目联系人：',
         value: `${contracts?.project.contacts.map((contact) => contact.name + ' ' + contact.phone).join(' ')}`,
       },
-      endData: { name: '制表人：', value: `${contracts.operator.nickname}` },
+      endData: { name: '经办人：', value: `${contracts.operator.nickname}` },
       rowId: '6',
     },
   ];
@@ -148,7 +148,7 @@ export const excelDataHandle = (excelData) => {
         parseFloat(calc.n_compensate.toFixed(2)),
         parseFloat(calc.h_compensate.toFixed(2)),
         parseFloat(calc.loadfreight.toFixed(2)),
-        parseFloat(calc.other ? calc.other.toFixed(2) : 0),
+        parseFloat(calc.other.toFixed(2)),
         formatPercent(calc.tax, 2),
         parseFloat(calc.current_expenses.toFixed(2)),
         parseFloat(calc.accumulate.toFixed(2)),
@@ -170,34 +170,30 @@ export const excelDataHandle = (excelData) => {
     columns: [
       {
         name: '物料名称',
-        key: 'name1',
-      },
-      {
-        name: ' ',
-        key: '',
-      },
-      {
-        name: '费用类别',
-        key: 'name2',
-      },
-      {
-        name: '单位',
-        key: 'name3',
-      },
-      {
-        name: '订单数量',
-        key: 'name4',
-      },
-      {
-        name: '出入库数量',
-        key: 'name5',
-      },
-      {
-        name: '租赁单价',
         key: 'name',
       },
       {
         name: ' ',
+        key: ' ',
+      },
+      {
+        name: '费用类别',
+        key: 'name',
+      },
+      {
+        name: '单位',
+        key: 'name',
+      },
+      {
+        name: '订单数量',
+        key: 'name',
+      },
+      {
+        name: '出入库数量',
+        key: 'name',
+      },
+      {
+        name: '租赁单价',
         key: 'name',
       },
       {
@@ -210,7 +206,7 @@ export const excelDataHandle = (excelData) => {
       },
       {
         name: ' ',
-        key: '',
+        key: ' ',
       },
     ],
     rows: [],
@@ -225,7 +221,6 @@ export const excelDataHandle = (excelData) => {
       parseFloat(value.item_count?.toFixed(2) || 0),
       parseFloat(value.count.toFixed(2)),
       parseFloat(value.unit_price.toFixed(5)),
-      '',
       value.days,
       parseFloat(value.amount.toFixed(2)),
       '',
@@ -257,10 +252,6 @@ export const excelDataHandle = (excelData) => {
       {
         name: '物质名称',
         key: 'name',
-      },
-      {
-        name: ' ',
-        key: '',
       },
       {
         name: '费用类别',
@@ -300,7 +291,6 @@ export const excelDataHandle = (excelData) => {
         converDate(value.date, 'YYYY-MM-DD'),
         value.movement === '-1' ? '出库' : value.movement === '1' ? '入库' : '出入库',
         value.name,
-        '',
         category,
         value.unit_name,
         parseFloat(value.item_count?.toFixed(2) || 0),
@@ -365,10 +355,6 @@ export const excelDataHandle = (excelData) => {
         name: ' ',
         key: ' ',
       },
-      {
-        name: ' ',
-        key: ' ',
-      },
     ],
     rows: [],
   };
@@ -382,7 +368,6 @@ export const excelDataHandle = (excelData) => {
       parseFloat(item.amount.toFixed(2)),
       '',
       item.notes,
-      '',
       '',
       '',
     ]);
@@ -428,7 +413,7 @@ export const excelDataHandle = (excelData) => {
       },
       {
         name: ' ',
-        key: '',
+        key: ' ',
       },
       {
         name: '单位',
@@ -441,10 +426,6 @@ export const excelDataHandle = (excelData) => {
       {
         name: '结存数量',
         key: 'name5',
-      },
-      {
-        name: ' ',
-        key: '',
       },
     ],
     rows: [],
@@ -464,7 +445,6 @@ export const excelDataHandle = (excelData) => {
         calc.summary[countNum]?.unit_name ?? '',
         calc.summary[countNum] ? parseFloat(calc.summary[countNum]?.item_count?.toFixed(2) || 0) : '',
         calc.summary[countNum] ? parseFloat(calc.summary[countNum]?.count.toFixed(2)) : '',
-        '',
       ]);
     }
   });
@@ -478,24 +458,16 @@ export const excelDataHandle = (excelData) => {
 
   const footRows = [
     {
-      companyName: { name: `承租单位：${contracts.party_b?.name ?? ''}` },
-      companyName1: { name: `出租单位：${contracts.first_party?.name ?? PromptText.noContractedCompany}` },
+      companyName: { name: '制表人：' },
+      companyName1: { name: '审核人：' },
+      companyName2: { name: '验收人：' },
       rowId: notesRow + 2,
     },
     {
       companyName: { name: '承租单位项目经理：' },
-      companyName1: { name: '出租单位审核人：' },
+      companyName1: { name: '材料负责人：' },
+      companyName2: { name: '出租单位代表人：' },
       rowId: notesRow + 4,
-    },
-    {
-      companyName: { name: '承租单位材料负责人：' },
-      companyName1: { name: '出租单位对账人：' },
-      rowId: notesRow + 6,
-    },
-    {
-      companyName: { name: '签署日期：' },
-      companyName1: { name: '签署日期：' },
-      rowId: notesRow + 8,
     },
   ];
   return {
@@ -520,7 +492,7 @@ export const excelDataHandle = (excelData) => {
 
 const excelAddTable = (tablerow, tableHeaderText, ws, table) => {
   ws.getCell(`A${tablerow - 1}`).value = tableHeaderText;
-  ws.mergeCells(`A${tablerow - 1}:K${tablerow - 1}`);
+  ws.mergeCells(`A${tablerow - 1}:J${tablerow - 1}`);
   ws.getCell(`A${tablerow - 1}`).alignment = { horizontal: 'center' };
   ws.getCell(`A${tablerow - 1}`).border = {
     top: { style: 'thin' },
@@ -574,7 +546,7 @@ export const ExportToExcel = async (data) => {
     value.height = 20;
   });
   //设置表格边框
-  const cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+  const cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
   const CellBorder = (row) => {
     cols.forEach((value) => {
       if (value === 'A' && row === `${notesRow}`) {
@@ -600,7 +572,9 @@ export const ExportToExcel = async (data) => {
     });
   };
   //设置表格表头
-  ws.getCell('A1').value = `${contracts.first_party?.name ?? `${PromptText.noContractedCompany}`}  对账单`;
+  ws.getCell('A1').value = `${
+    contracts.project?.associated_company?.name ?? `${PromptText.noContractedCompany}`
+  }  对账单`;
   ws.mergeCells('A1:J1');
   ws.getCell('A1').alignment = { vertical: 'middle', horizontal: 'center' };
   ws.getCell('A1').font = {
@@ -610,19 +584,19 @@ export const ExportToExcel = async (data) => {
   row.height = 30;
   //设置第一行内容
   ws.getCell('A2').value = '客户各项费用明细';
-  ws.mergeCells('A2:K2');
+  ws.mergeCells('A2:J2');
   ws.getCell('A2').alignment = { horizontal: 'center' };
   //设置表格上层合同信息
   nameRows.forEach((value) => {
     ws.getCell(`A${value?.rowId}`).value = value[Object.keys(value)[0]].name + value[Object.keys(value)[0]].value;
     ws.mergeCells(`A${value?.rowId}:F${value?.rowId}`);
     ws.getCell(`G${value?.rowId}`).value = value[Object.keys(value)[1]].name + value[Object.keys(value)[1]].value;
-    ws.mergeCells(`G${value?.rowId}:K${value?.rowId}`);
+    ws.mergeCells(`G${value?.rowId}:J${value?.rowId}`);
   });
 
   //本期汇总
   ws.getCell(`A${table1Row - 1}`).value = '本期汇总';
-  ws.mergeCells(`A${table1Row - 1}:K${table1Row - 1}`);
+  ws.mergeCells(`A${table1Row - 1}:J${table1Row - 1}`);
   ws.getCell(`A${table1Row - 1}`).alignment = { horizontal: 'center' };
   ws.getCell(`A${table1Row - 1}`).border = {
     bottom: { style: 'thin' },
@@ -642,8 +616,7 @@ export const ExportToExcel = async (data) => {
   const rows24 = ws.getRows(table2Row, calc.history ? calc.history?.length + 1 : 1);
   rows24.forEach((value) => {
     ws.mergeCells(`A${value['_number']}:B${value['_number']}`);
-    ws.mergeCells(`G${value['_number']}:H${value['_number']}`);
-    ws.mergeCells(`J${value['_number']}:K${value['_number']}`);
+    ws.mergeCells(`I${value['_number']}:J${value['_number']}`);
     if (value['_number'] !== table2Row) {
       const row25 = ws.getRow(value['_number']);
       row25.alignment = { horizontal: 'right' };
@@ -658,7 +631,6 @@ export const ExportToExcel = async (data) => {
   excelAddTable(table3Row, '本期明细', ws, table3);
   const rows37 = ws.getRows(table3Row, calc.list ? calc.list?.length + 1 : 1);
   rows37.forEach((value) => {
-    ws.mergeCells(`C${value['_number']}:D${value['_number']}`);
     if (value['_number'] !== table3Row) {
       const row38 = ws.getRow(value['_number']);
       row38.alignment = { horizontal: 'right' };
@@ -673,7 +645,7 @@ export const ExportToExcel = async (data) => {
       ws.mergeCells(`A${value['_number']}:B${value['_number']}`);
       ws.mergeCells(`C${value['_number']}:D${value['_number']}`);
       ws.mergeCells(`F${value['_number']}:G${value['_number']}`);
-      ws.mergeCells(`H${value['_number']}:K${value['_number']}`);
+      ws.mergeCells(`H${value['_number']}:J${value['_number']}`);
       if (value['_number'] !== table4row) {
         const row38 = ws.getRow(value['_number']);
         row38.alignment = { horizontal: 'right' };
@@ -695,7 +667,6 @@ export const ExportToExcel = async (data) => {
   rows1?.forEach((value) => {
     ws.mergeCells(`A${value['_number']}:B${value['_number']}`);
     ws.mergeCells(`F${value['_number']}:G${value['_number']}`);
-    ws.mergeCells(`J${value['_number']}:K${value['_number']}`);
     if (value['_number'] !== table5Row) {
       const row38 = ws.getRow(value['_number']);
       row38.alignment = { horizontal: 'right' };
@@ -714,8 +685,9 @@ export const ExportToExcel = async (data) => {
     '承租单位收到租费单结算明细15日内未提异议即视为确认。请签字盖章后邮寄一份至' +
     contracts.project?.associated_company.address;
   ws.getCell(`F${notesRow}`).value = `
-  备注:${contracts.project?.comment ?? ''}`;
-  ws.mergeCells(`F${notesRow}:K${notesRow}`);
+  备注:${contracts.project?.comment ?? ''}
+  出租单位：${contracts.project?.associated_company?.name ?? PromptText.noContractedCompany}`;
+  ws.mergeCells(`F${notesRow}:J${notesRow}`);
   const url = 'http://985.so/bpw6g';
   const imageUrl = await QRCode.toDataURL(url);
   const imageId1 = workBook.addImage({
@@ -732,9 +704,11 @@ export const ExportToExcel = async (data) => {
   //设置底部签名区域
   footRows.forEach((value) => {
     ws.getCell(`A${value?.rowId}`).value = value[Object.keys(value)[0]].name;
-    ws.mergeCells(`A${value?.rowId}:E${value?.rowId}`);
-    ws.getCell(`F${value?.rowId}`).value = value[Object.keys(value)[1]].name;
-    ws.mergeCells(`F${value?.rowId}:K${value?.rowId}`);
+    ws.mergeCells(`A${value?.rowId}:C${value?.rowId}`);
+    ws.getCell(`D${value?.rowId}`).value = value[Object.keys(value)[1]].name;
+    ws.mergeCells(`D${value?.rowId}:G${value?.rowId}`);
+    ws.getCell(`H${value?.rowId}`).value = value[Object.keys(value)[2]].name;
+    ws.mergeCells(`H${value?.rowId}:J${value?.rowId}`);
   });
 
   const buffer = await workBook.xlsx.writeBuffer();

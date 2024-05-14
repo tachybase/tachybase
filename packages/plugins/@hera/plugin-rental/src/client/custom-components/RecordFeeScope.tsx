@@ -1,64 +1,69 @@
 import _ from 'lodash';
 import { Spin } from 'antd';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
-import { useCachedRequest, useFeeItems, useProductFeeItems, useProducts } from '../hooks';
+import { useFeeItems } from '../hooks';
 import { useDeepCompareEffect } from 'ahooks';
 
 export const RecordFeeScope = observer(() => {
   const form = useForm();
+  const fieldSchema = useFieldSchema();
   const field = useField();
-  const contractsItem = form.getValuesIn(field.path.slice(0, 2).entire);
-  const date = form.getValuesIn('date');
-  const productsItem = form.getValuesIn(field.path.slice(0, -2).entire);
-  const contractPlanId = [contractsItem.contract?.id].filter(Boolean);
-  const { data: products } = useProducts();
-  const { data: feeItems } = useFeeItems(contractPlanId, date);
-  const { data: productFeeItems } = useProductFeeItems(contractPlanId, date);
-  const result = [];
-  const feeScope = { scopeItem: {} };
-  if (contractsItem.contract?.id && products && productsItem.new_product?.id && Object.values(productFeeItems).length) {
-    const productItem = products.find((value) => value.id === productsItem.new_product.id);
-    const productFeeItem = productFeeItems[contractsItem.contract?.id]?.find((contractItem) =>
-      productItem?.['parentScopeId'].includes(contractItem.new_products_id),
+  const path: any = field.path.entire;
+  const fieldPath = path?.replace(`.${fieldSchema.name}`, '');
+  const item = form.getValuesIn(field.path.slice(0, -2).entire);
+  let _loading = false;
+  let contractLoading = false;
+  const data = {
+    data: [],
+  };
+  if (form.values.record_category === '1' || form.values.record_category === '0') {
+    let _in = [],
+      _out = [];
+    const { data: inData, loading: inLoading } = useFeeItems(
+      item.product?.category_id,
+      form.values.in_contract_plan?.id,
     );
-    productFeeItem?.fee_items.forEach((feeItem) => {
-      const item = products.find((value) => value.id === feeItem.new_fee_products_id);
-      if (!item) return;
-      feeScope.scopeItem = isExist(feeScope.scopeItem, item);
-    });
-    result.push(...Object.values(feeScope.scopeItem));
-  } else if (contractsItem.contract?.id && products && Object.values(feeItems).length) {
-    feeItems[contractsItem.contract.id]?.forEach((feeItem) => {
-      const item = products.find((value) => value.id === feeItem.new_fee_products_id);
-      if (!item) return;
-      feeScope.scopeItem = isExist(feeScope.scopeItem, item);
-    });
-    result.push(...Object.values(feeScope.scopeItem));
+    _in = inData?.data || [];
+    contractLoading = contractLoading || inLoading;
+    if (form.values.record_category === '1') {
+      const { data: outData, loading: outLoading } = useFeeItems(
+        item.product?.category_id,
+        form.values.out_contract_plan?.id,
+      );
+      _out = outData?.data || [];
+      contractLoading = contractLoading || outLoading;
+    }
+    data.data = [..._in, ..._out];
+  } else {
+    const { data: origin, loading } = useFeeItems(item.product?.category_id, form.values.contract_plan?.id);
+    data.data = origin?.data;
+    _loading = _loading || loading;
+  }
+  let result = [];
+  if (data.data?.length > 0) {
+    const items = data.data as {
+      products: { category_id: Number }[];
+      fee_items: { fee_product_id: Number }[];
+    }[];
+    result = items.reduce((acc, current) => {
+      acc.push(...current.fee_items.map((item) => ({ id: item.fee_product_id })));
+      return acc;
+    }, []);
   }
   useDeepCompareEffect(() => {
-    form.setValuesIn(field.path.slice(0, -1).entire, result);
-  }, [result, form]);
-  return !contractsItem ? <Spin /> : <></>;
+    form.setValuesIn(fieldPath, result);
+  }, [result, form, fieldPath]);
+
+  return ((form.values.record_category === '1' || form.values.record_category === '0') && contractLoading) ||
+    _loading ? (
+    <Spin />
+  ) : (
+    <></>
+  );
 }) as CustomFC;
 
 RecordFeeScope.displayName = 'RecordFeeScope';
 RecordFeeScope.__componentType = CustomComponentType.CUSTOM_ASSOCIATED_FIELD;
 RecordFeeScope.__componentLabel = '记录单 - 费用范围';
-
-const isExist = (feeItemScope, item) => {
-  if (!Object.keys(feeItemScope).length) feeItemScope[item.id] = item;
-  const isParent = Object.values(feeItemScope)?.find(
-    (value) => value['parentScopeId'].includes(item.id) && item.id !== value['id'],
-  );
-  const isChildren = Object.values(feeItemScope)?.find(
-    (value) => item['parentScopeId'].includes(value['id']) && item.id !== value['id'],
-  );
-  if (isParent) return feeItemScope;
-  if (isChildren) {
-    delete feeItemScope[isChildren['id']];
-  }
-  feeItemScope[item.id] = item;
-  return feeItemScope;
-};

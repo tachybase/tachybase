@@ -2,11 +2,6 @@ import { useRecord } from '@tachybase/client';
 import React, { createContext, useContext, useMemo, useState } from 'react';
 import { SettlementStyleContext } from '../schema-initializer/actions/SettlementStyleSwitchActionInitializer';
 
-export const PdfPaperSwitchingContext = createContext({
-  paper: null,
-  setPaper: null,
-});
-
 export const PdfIsDoubleContext = createContext({
   isDouble: null,
   setIsDouble: null,
@@ -22,61 +17,27 @@ export const PdfMargingTopContext = createContext({
   setMargingTop: null,
 });
 
-// 页面缩放
-export const FontSizeContext = createContext({
-  size: null,
-  setSize: null,
-});
-
-// 注释
-export const AnnotateContext = createContext({
-  annotate: null,
-  setAnnotate: null,
-});
-
 export const PdfIsDoubleProvider = (props) => {
   const [isDouble, setIsDouble] = useState(false);
   const [settingType, setSettingLoad] = useState(false);
   const [margingTop, setMargingTop] = useState(0);
-  const [paper, setPaper] = useState('A4');
-  const [size, setSize] = useState('9');
-  const [annotate, setAnnotate] = useState(false);
   return (
-    <AnnotateContext.Provider value={{ annotate, setAnnotate }}>
-      <PdfPaperSwitchingContext.Provider value={{ paper, setPaper }}>
-        <PdfMargingTopContext.Provider value={{ margingTop, setMargingTop }}>
-          <PdfIsDoubleContext.Provider value={{ isDouble, setIsDouble }}>
-            <PdfIsLoadContext.Provider value={{ settingType, setSettingLoad }}>
-              <FontSizeContext.Provider value={{ size, setSize }}>{props.children}</FontSizeContext.Provider>
-            </PdfIsLoadContext.Provider>
-          </PdfIsDoubleContext.Provider>
-        </PdfMargingTopContext.Provider>
-      </PdfPaperSwitchingContext.Provider>
-    </AnnotateContext.Provider>
+    <PdfMargingTopContext.Provider value={{ margingTop, setMargingTop }}>
+      <PdfIsDoubleContext.Provider value={{ isDouble, setIsDouble }}>
+        <PdfIsLoadContext.Provider value={{ settingType, setSettingLoad }}>{props.children}</PdfIsLoadContext.Provider>
+      </PdfIsDoubleContext.Provider>
+    </PdfMargingTopContext.Provider>
   );
 };
 
 export const useRecordPdfPath = () => {
   const record = useRecord();
-  let recordId = record.id || record.record_id;
-  let stockId;
-  if (record.__collectionName === 'contracts' && record.__parent) {
-    // 查看页面，中间表id
-    recordId = record.__parent.id;
-  }
-  if (record.__collectionName === 'record_stock') {
-    stockId = record.id;
-  }
   const { isDouble } = useContext(PdfIsDoubleContext);
   const { settingType } = useContext(PdfIsLoadContext);
   const { margingTop } = useContext(PdfMargingTopContext);
-  const { paper } = useContext(PdfPaperSwitchingContext);
-  const { size } = useContext(FontSizeContext);
-  const { annotate } = useContext(AnnotateContext);
   const path = useMemo(
-    () =>
-      `/records:pdf?recordId=${recordId}&stockId=${stockId}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}&paper=${paper}&font=${size}&annotate=${annotate}`,
-    [recordId, isDouble, settingType, margingTop, paper, size, annotate, stockId],
+    () => `/records:pdf?recordId=${record.id}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}`,
+    [record.id, isDouble, settingType, margingTop],
   );
   return path;
 };
