@@ -77,15 +77,44 @@ WITH
       status_order = '2' --- 1/审核中, 2/审核失败, 3/审核成功
     GROUP BY
       business_id
+  ),
+  order_count_result AS (
+    SELECT
+      orders_tuiguang.business_id,
+      orders_tuiguang."orderTotalCount",
+      order_youxiao."orderYouXiaoCount",
+      order_genjin."orderGenJinCount",
+      order_yichang."orderYiChangCount"
+    FROM
+      orders_tuiguang
+      LEFT JOIN order_youxiao ON orders_tuiguang.business_id = order_youxiao.business_id
+      LEFT JOIN order_genjin ON orders_tuiguang.business_id = order_genjin.business_id
+      LEFT JOIN order_yichang ON orders_tuiguang.business_id = order_yichang.business_id
   )
 SELECT
-  orders_tuiguang.business_id,
-  orders_tuiguang."orderTotalCount",
-  order_youxiao."orderYouXiaoCount",
-  order_genjin."orderGenJinCount",
-  order_yichang."orderYiChangCount"
+  business_id,
+  '推广总数' AS "label",
+  "orderTotalCount" AS "value"
 FROM
-  orders_tuiguang
-  LEFT JOIN order_youxiao ON orders_tuiguang.business_id = order_youxiao.business_id
-  LEFT JOIN order_genjin ON orders_tuiguang.business_id = order_genjin.business_id
-  LEFT JOIN order_yichang ON orders_tuiguang.business_id = order_yichang.business_id
+  order_count_result
+UNION ALL
+SELECT
+  business_id,
+  '有效总数' AS "label",
+  "orderYouXiaoCount" AS "value"
+FROM
+  order_count_result
+UNION ALL
+SELECT
+  business_id,
+  '跟进总数' AS "label",
+  "orderGenJinCount" AS "value"
+FROM
+  order_count_result
+UNION ALL
+SELECT
+  business_id,
+  '异常总数' AS "label",
+  "orderYiChangCount" AS "value"
+FROM
+  order_count_result
