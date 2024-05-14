@@ -222,7 +222,7 @@ const PreviewDocument = ({
     <Document>
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>
-          {contracts.first_party?.name ?? `${PromptText.noContractedCompany}`}
+          {contracts.project?.associated_company?.name ?? `${PromptText.noContractedCompany}`}
           对账单
         </Text>
         <Text style={styles.subTitle}>客户各项费用明细</Text>
@@ -231,7 +231,7 @@ const PreviewDocument = ({
             <View style={styles.tableHeader}>
               <Text style={styles.headerLeft}>
                 承租单位：
-                {contracts.party_b?.name}
+                {contracts?.project?.company?.name}
               </Text>
               <Text style={styles.headerRight}>
                 合同编号：
@@ -259,7 +259,7 @@ const PreviewDocument = ({
                 项目联系人：
                 {contracts.project?.contacts.map((contact) => contact.name + ' ' + contact.phone).join(' ')}
               </Text>
-              <Text style={styles.headerRight}>制表人：{contracts.operator.nickname}</Text>
+              <Text style={styles.headerRight}>经办人：{contracts.operator.nickname}</Text>
             </view>
             <View style={styles.spacing} />
             <View style={styles.tableContentTitle}>
@@ -412,23 +412,21 @@ const PreviewDocument = ({
               </View>
               <View style={styles.tableFooterRight}>
                 <Text>备注：{contracts.project?.comment}</Text>
+                <Text>
+                  出租单位：
+                  {contracts.project?.associated_company?.name ?? `${PromptText.noContractedCompany}`}
+                </Text>
               </View>
             </View>
             <View style={styles.sign}>
-              <Text style={styles.signPart}>承租单位：{contracts.party_b?.name} </Text>
-              <Text style={styles.signPart}>出租单位：{contracts.first_party?.name}</Text>
+              <Text style={styles.signPart}>制表人： </Text>
+              <Text style={styles.signPart}>审核人：</Text>
+              <Text style={styles.signPart}>验收：</Text>
             </View>
             <View style={styles.sign}>
               <Text style={styles.signPart}>承租单位项目经理：</Text>
-              <Text style={styles.signPart}>出租单位审核人： </Text>
-            </View>
-            <View style={styles.sign}>
-              <Text style={styles.signPart}>承租单位材料负责人：</Text>
-              <Text style={styles.signPart}>出租对账人： </Text>
-            </View>
-            <View style={styles.sign}>
-              <Text style={styles.signPart}>签署日期：</Text>
-              <Text style={styles.signPart}>签署日期： </Text>
+              <Text style={styles.signPart}>材料负责人： </Text>
+              <Text style={styles.signPart}>出租单位代表人：</Text>
             </View>
           </View>
         </View>

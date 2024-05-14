@@ -33,7 +33,7 @@ export class ContractService {
     if (!options.values) return;
     if (options.values.settlementTemplate) {
       const temp = {
-        上个月: `MONTH(EOMONTH(TODAY(), -1))`, // 工作流默认
+        上个月: `MONTH(EOMONTH(TODAY(), -1))`,
         本月: `MONTH(TODAY())`,
         当年: `YEAR(EOMONTH(TODAY(), -1))`,
       };

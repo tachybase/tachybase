@@ -1,6 +1,6 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, renderToStream } from '@hera/plugin-core';
-import { formatQuantity } from '../../utils/currencyUtils';
+import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 import { converDate } from '../../utils/daysUtils';
 import { Waybill } from '../../interfaces/waybill';
 
@@ -193,20 +193,23 @@ const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: an
     );
   }
   // 单号
-  const recordNumber = waybill.record_number;
-  const items = waybill.products
-    ? waybill.products.map((item) => {
-        const convertible = item.convertible;
-        const data = {
-          name: item.products_name,
-          count: item.count,
-          unit: item.unit,
-          conversion_unit: convertible ? item.conversion_unit : item.unit,
-          total: formatQuantity(item.total, 2),
-        };
-        return data;
-      })
-    : [];
+  const recordNumber = waybill.record.number;
+  const items = (
+    waybill.record.items
+      ? waybill.record.items.map((item) => {
+          const convertible = item.product.category.convertible;
+          const data = {
+            name: item.product.name + '/' + item.product.spec,
+            count: item.count,
+            unit: item.product.category.unit,
+            conversion_unit: convertible ? item.product.category.conversion_unit : item.product.category.unit,
+            sort: item.product.category.sort * 100000 + item.product.sort,
+            total: formatQuantity(convertible ? item.count * item.product.ratio : item.count, 2),
+          };
+          return data;
+        })
+      : []
+  ).sort((a, b) => a.sort - b.sort);
 
   const chunkedArray = Array.from({ length: Math.ceil(items.length / 3) }, (_, i) => {
     const chunk = items.slice(i * 3, i * 3 + 3);
@@ -341,15 +344,15 @@ const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: an
               </View>
               <View style={{ ...styles.tableCell, flex: '2', paddingRight: '1px' }}>
                 <Text style={styles.textPadding}>
-                  {waybill.payer_company} {waybill.payer_name}
+                  {waybill.payer?.company?.name} {waybill.payer?.name}
                 </Text>
               </View>
               <View style={styles.tableCell}>
-                <Text style={styles.textPadding}>{waybill.payee_account_name}</Text>
+                <Text style={styles.textPadding}>{waybill.payee_account?.name}</Text>
               </View>
               <View style={{ ...styles.tableCellLast, flex: '2', paddingRight: '1px' }}>
                 <Text style={styles.textPadding}>
-                  {waybill.payee_account_bank} {waybill.payee_account_number}
+                  {waybill.payee_account?.bank} {waybill.payee_account?.number}
                 </Text>
               </View>
             </View>
@@ -365,14 +368,14 @@ const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: an
               <Text style={styles.tableCellTitle}>发货方单位</Text>
               <View style={{ ...styles.tableCell3, borderBottom: '1px solid black' }}>
                 <Text style={styles.textPadding}>
-                  {waybill.shipper_company} {waybill.shipper_name}
+                  {waybill.out_stock?.company?.name} {waybill.out_stock?.name}
                 </Text>
               </View>
               <View style={{ ...styles.tableCell, borderBottom: '1px solid black' }}>
-                <Text style={styles.textPadding}>{waybill.shipper_contact}</Text>
+                <Text style={styles.textPadding}>{waybill.shipper_contact?.name}</Text>
               </View>
               <View style={{ ...styles.tableCell, borderBottom: '1px solid black' }}>
-                <Text style={styles.textPadding}> {waybill.shipper_contact_phone}</Text>
+                <Text style={styles.textPadding}> {waybill.shipper_contact?.phone}</Text>
               </View>
               <Text style={styles.tableCellLast}></Text>
             </View>
@@ -380,7 +383,7 @@ const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: an
             <View style={styles.tableContent}>
               <Text style={styles.tableCellTitle}>发货方地址</Text>
               <View style={styles.tableCell3}>
-                <Text style={styles.textPadding}>{waybill.shipper_address}</Text>
+                <Text style={styles.textPadding}>{waybill.out_stock?.address}</Text>
               </View>
               <Text style={styles.tableCell}></Text>
               <Text style={styles.tableCell}></Text>
@@ -393,14 +396,14 @@ const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: an
               </View>
               <View style={{ ...styles.tableCell3, borderBottom: '1px solid black' }}>
                 <Text style={styles.textPadding}>
-                  {waybill.consignee_company} {waybill.consignee_name}
+                  {waybill.in_stock?.company?.name} {waybill.in_stock?.name}
                 </Text>
               </View>
               <View style={{ ...styles.tableCell, borderBottom: '1px solid black' }}>
-                <Text style={styles.textPadding}>{waybill.consignee_contact}</Text>
+                <Text style={styles.textPadding}>{waybill.consignee_contact?.name}</Text>
               </View>
               <View style={{ ...styles.tableCell, borderBottom: '1px solid black' }}>
-                <Text style={styles.textPadding}>{waybill.consignee_contact_phone}</Text>
+                <Text style={styles.textPadding}>{waybill.consignee_contact?.phone}</Text>
               </View>
               <Text style={styles.tableCellLast}></Text>
             </View>
@@ -408,7 +411,7 @@ const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: an
             <View style={styles.tableContent}>
               <Text style={styles.tableCellTitle}>收货方地址</Text>
               <View style={styles.tableCell3}>
-                <Text style={styles.textPadding}>{waybill.consignee_address}</Text>
+                <Text style={styles.textPadding}>{waybill.in_stock?.address}</Text>
               </View>
               <Text style={styles.tableCell}></Text>
               <Text style={styles.tableCell}></Text>
@@ -418,7 +421,7 @@ const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: an
             <View style={styles.tableContentPayment}>
               <Text style={styles.tableCellTitle}>承运方单位</Text>
               <View style={{ ...styles.tableCell3, borderBottom: '1px solid black' }}>
-                <Text style={styles.textPadding}>{waybill.carrier}</Text>
+                <Text style={styles.textPadding}>{waybill.carrier?.name}</Text>
               </View>
               <Text style={{ ...styles.tableCell, borderBottom: '1px solid black' }}></Text>
               <Text style={{ ...styles.tableCell, borderBottom: '1px solid black' }}></Text>
@@ -428,15 +431,15 @@ const PreviewDocument = ({ waybill, settings }: { waybill: Waybill; settings: an
             <View style={styles.tableContentPayment}>
               <Text style={styles.tableCellTitle}>驾驶员</Text>
               <View style={styles.tableCell}>
-                <Text style={styles.textPadding}>{waybill.driver}</Text>
+                <Text style={styles.textPadding}>{waybill.driver?.name}</Text>
               </View>
               <Text style={styles.tableCellTitle}>身份证</Text>
-              <Text style={styles.tableCell}>{waybill.driver_idcard}</Text>
+              <Text style={styles.tableCell}>{waybill.driver?.id_card}</Text>
               <View style={styles.tableCell}>
-                <Text style={styles.textPadding}>{waybill.vehicles}</Text>
+                <Text style={styles.textPadding}>{waybill.record.vehicles.map((item) => item?.number).join(' ')}</Text>
               </View>
               <View style={styles.tableCell}>
-                <Text style={styles.textPadding}>{waybill.driver_phone}</Text>
+                <Text style={styles.textPadding}>{waybill.driver?.phone}</Text>
               </View>
               <Text style={styles.tableCellLast}></Text>
             </View>
