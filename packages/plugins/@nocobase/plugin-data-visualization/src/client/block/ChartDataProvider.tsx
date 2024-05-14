@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, PropsWithChildren } from 'react';
 import { useMemoizedFn } from 'ahooks';
 
 type ChartData = {
@@ -15,7 +15,7 @@ export const ChartDataContext = createContext<{
 }>({} as any);
 ChartDataContext.displayName = 'ChartDataContext';
 
-export const ChartDataProvider: React.FC = (props) => {
+export const ChartDataProvider: React.FC<PropsWithChildren> = (props) => {
   const [charts, setCharts] = useState<{
     [uid: string]: ChartData;
   }>({});

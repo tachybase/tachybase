@@ -3,7 +3,7 @@ import { css } from '@emotion/css';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import { Space } from 'antd';
 import classNames from 'classnames';
-import React, { FC, useEffect, useMemo, useRef } from 'react';
+import React, { FC, PropsWithChildren, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SchemaToolbarProvider, useSchemaInitializerRender, useSchemaSettingsRender } from '../application';
 import { useDataSourceManager } from '../data-source/data-source/DataSourceManagerProvider';
@@ -62,7 +62,7 @@ export interface GeneralSchemaDesignerProps {
 /**
  * @deprecated use `SchemaToolbar` instead
  */
-export const GeneralSchemaDesigner: FC<GeneralSchemaDesignerProps> = (props: any) => {
+export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerProps>> = (props: any) => {
   const {
     disableInitializer,
     title,

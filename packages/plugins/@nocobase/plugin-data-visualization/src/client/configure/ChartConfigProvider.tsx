@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import React, { createContext, useState } from 'react';
+import React, { PropsWithChildren, createContext, useState } from 'react';
 import { ChartRendererProvider } from '../renderer';
 import { ChartConfigure } from './ChartConfigure';
 import { useDesignable } from '@tachybase/client';
@@ -26,7 +26,7 @@ export const ChartConfigContext = createContext<{
 });
 ChartConfigContext.displayName = 'ChartConfigContext';
 
-export const ChartConfigProvider: React.FC = (props) => {
+export const ChartConfigProvider: React.FC<PropsWithChildren> = (props) => {
   const { insertAdjacent } = useDesignable();
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState<ChartConfigCurrent>({} as any);

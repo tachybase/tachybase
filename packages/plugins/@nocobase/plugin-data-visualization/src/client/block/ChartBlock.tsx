@@ -1,12 +1,12 @@
 import { SchemaComponentOptions, SchemaInitializerContext, useSchemaInitializer } from '@tachybase/client';
-import React, { useState } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 import { ChartConfigProvider } from '../configure';
 import { ChartDataProvider } from './ChartDataProvider';
 import { ChartRenderer, ChartRendererProvider } from '../renderer';
 import { ChartFilterBlockProvider, ChartFilterBlockDesigner } from '../filter';
 import { ChartFilterProvider } from '../filter/FilterProvider';
 
-export const ChartV2Block: React.FC = (props) => {
+export const ChartV2Block: React.FC<PropsWithChildren> = (props) => {
   const [initialVisible, setInitialVisible] = useState(false);
   const schemaInitializerContextData = useSchemaInitializer();
   return (
