@@ -8,8 +8,8 @@ export default class extends Migration {
     console.log('开始执行脚本：record_category_script');
     const result: any = await this.app.db.sequelize.query(`
       UPDATE records
-      SET record_category = 
-        CASE 
+      SET record_category =
+        CASE
           WHEN category = '1' AND movement = '1' THEN '2'
           WHEN category = '1' AND movement = '-1' THEN '3'
           WHEN category = '0' AND movement = '1' THEN '4'
