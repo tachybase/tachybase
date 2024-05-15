@@ -1,13 +1,14 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
-import { Spin } from 'antd';
+import { Spin, Tag } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { saveAs } from 'file-saver';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import { uid } from '@tachybase/schema';
-import { useRequest } from '@tachybase/client';
+import { css, useRequest } from '@tachybase/client';
 import { useTranslation } from '../locale';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 const options = {
   cMapUrl: '/cmaps/',
@@ -79,28 +80,48 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
 
   return (
     <LoadingSpin spinning={loading}>
-      <Document
-        options={options}
-        file={data as ArrayBuffer}
-        loading={() => (
-          <LoadingSpin spinning={true}>
-            <div style={{ height: '100vh' }}></div>
-          </LoadingSpin>
-        )}
-        onLoadSuccess={async (doc) => {
-          setNumPages(doc.numPages);
-        }}
-        noData={<div style={{ height: '100vh' }}></div>}
-        error={<div>{t('error')}</div>}
+      <TransformWrapper
+        wheel={{ disabled: true }}
+        doubleClick={{ disabled: true }}
+        panning={{ allowLeftClickPan: false }}
       >
-        {Array.from(new Array(numPages), (el, index) => (
-          <Page key={`page_${index + 1}`} pageNumber={index + 1} width={width}>
-            <p style={{ marginLeft: '92%', marginBottom: '30pt', fontSize: '14px', fontFamily: 'source-han-sans' }}>
-              {index + 1}/{numPages}页
-            </p>
-          </Page>
-        ))}
-      </Document>
+        <TransformComponent>
+          <Document
+            options={options}
+            file={data as ArrayBuffer}
+            loading={() => (
+              <LoadingSpin spinning={true}>
+                <div style={{ height: '100vh' }}></div>
+              </LoadingSpin>
+            )}
+            onLoadSuccess={async (doc) => {
+              setNumPages(doc.numPages);
+            }}
+            noData={<div style={{ height: '100vh' }}></div>}
+            error={<div>{t('error')}</div>}
+          >
+            {Array.from(new Array(numPages), (el, index) => (
+              <Page key={`page_${index + 1}`} pageNumber={index + 1} width={width}>
+                <div
+                  className={css`
+                    text-align: center;
+                    border-bottom: 1px dashed;
+                  `}
+                >
+                  <Tag
+                    className={css`
+                      margin-bottom: 2px;
+                    `}
+                    bordered={false}
+                  >
+                    第 {index + 1}/{numPages} 页
+                  </Tag>
+                </div>
+              </Page>
+            ))}
+          </Document>
+        </TransformComponent>
+      </TransformWrapper>
     </LoadingSpin>
   );
 });
