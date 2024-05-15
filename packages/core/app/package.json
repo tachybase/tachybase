@@ -8,7 +8,7 @@
   "dependencies": {
     "@tachybase/database": "workspace:*",
     "@tachybase/preset-hera-rental": "workspace:*",
-    "@tachybase/preset-sancongtou": "workspace:*",
+    "@tachybase/preset-hera-sancongtou": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
     "@tachybase/server": "workspace:*"
   },

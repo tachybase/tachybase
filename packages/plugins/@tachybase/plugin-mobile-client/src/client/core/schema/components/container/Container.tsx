@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ContainerDesigner } from './Container.Designer';
 import useStyles from './style';
+import { MobileProvider } from '../../provider/MobileProvider';
 
 const findGrid = (schema, uid) => {
   return schema.reduceProperties((final, next) => {
@@ -52,37 +53,39 @@ const InternalContainer: React.FC = (props) => {
   }, [location.pathname, navigate, params.name, redirectToUid]);
 
   return (
-    <SortableItem eid="nb-mobile-scroll-wrapper" className={cx('nb-mobile-container', styles.mobileContainer)}>
-      <Designer></Designer>
-      <div
-        style={{
-          paddingBottom: redirectToUid ? token.paddingLG * 2 : 0,
-        }}
-        className="nb-mobile-container-content"
-      >
-        {redirectToUid ? (
-          <TabContentComponent />
-        ) : (
-          <SchemaComponent
-            filterProperties={(schema) => {
-              return schema['x-component'] !== 'MTabBar';
-            }}
-            schema={fieldSchema}
-          />
-        )}
-      </div>
-      {isTabBarEnabled && (
-        <div className={cx('nb-mobile-container-tab-bar', styles.tabBar)}>
-          <SchemaComponent
-            onlyRenderProperties
-            filterProperties={(schema) => {
-              return schema['x-component'] === 'MTabBar';
-            }}
-            schema={fieldSchema}
-          ></SchemaComponent>
+    <MobileProvider>
+      <SortableItem eid="nb-mobile-scroll-wrapper" className={cx('nb-mobile-container', styles.mobileContainer)}>
+        <Designer></Designer>
+        <div
+          style={{
+            paddingBottom: redirectToUid ? token.paddingLG * 2 : 0,
+          }}
+          className="nb-mobile-container-content"
+        >
+          {redirectToUid ? (
+            <TabContentComponent />
+          ) : (
+            <SchemaComponent
+              filterProperties={(schema) => {
+                return schema['x-component'] !== 'MTabBar';
+              }}
+              schema={fieldSchema}
+            />
+          )}
         </div>
-      )}
-    </SortableItem>
+        {isTabBarEnabled && (
+          <div className={cx('nb-mobile-container-tab-bar', styles.tabBar)}>
+            <SchemaComponent
+              onlyRenderProperties
+              filterProperties={(schema) => {
+                return schema['x-component'] === 'MTabBar';
+              }}
+              schema={fieldSchema}
+            ></SchemaComponent>
+          </div>
+        )}
+      </SortableItem>
+    </MobileProvider>
   );
 };
 

@@ -51,7 +51,10 @@ importers:
         version: link:packages/core/cli
       '@tachybase/preset-hera-rental':
         specifier: workspace:*
-        version: link:packages/presets/hera-rental
+        version: link:packages/presets/rental
+      '@tachybase/preset-hera-sancongtou':
+        specifier: workspace:*
+        version: link:packages/presets/sancongtou
       '@tachybase/preset-tachybase':
         specifier: workspace:*
         version: link:packages/presets/base
@@ -169,8 +172,8 @@ importers:
         version: link:../database
       '@tachybase/preset-hera-rental':
         specifier: workspace:*
-        version: link:../../presets/hera-rental
-      '@tachybase/preset-sancongtou':
+        version: link:../../presets/rental
+      '@tachybase/preset-hera-sancongtou':
         specifier: workspace:*
         version: link:../../presets/sancongtou
       '@tachybase/preset-tachybase':
@@ -4174,7 +4177,7 @@ importers:
         specifier: ^4.17.0
         version: 4.17.0
 
-  packages/presets/hera-rental:
+  packages/presets/rental:
     dependencies:
       '@hera/plugin-approval':
         specifier: workspace:*

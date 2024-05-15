@@ -31,11 +31,11 @@ export const mBlockInitializers_deprecated = new CompatibleSchemaInitializer({
           title: '{{t("Form")}}',
           Component: 'FormBlockInitializer',
         },
-        // {
-        //   name: 'details',
-        //   title: '{{t("Details")}}',
-        //   Component: 'DetailsBlockInitializer',
-        // },
+        {
+          name: 'details',
+          title: '{{t("Details")}}',
+          Component: 'DetailsBlockInitializer',
+        },
         {
           name: 'calendar',
           title: '{{t("Calendar")}}',
@@ -96,11 +96,11 @@ export const mBlockInitializers = new CompatibleSchemaInitializer(
             title: '{{t("Table")}}',
             Component: 'TableBlockInitializer',
           },
-          // {
-          //   name: 'form',
-          //   title: '{{t("Form")}}',
-          //   Component: 'FormBlockInitializer',
-          // },
+          {
+            name: 'form',
+            title: '{{t("Form")}}',
+            Component: 'FormBlockInitializer',
+          },
           {
             name: 'details',
             title: '{{t("Details")}}',
