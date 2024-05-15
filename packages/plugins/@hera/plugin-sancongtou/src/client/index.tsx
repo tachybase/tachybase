@@ -1,5 +1,8 @@
 import { Plugin } from '@tachybase/client';
 import { ProductDetail } from './pages/ProductDetail';
+import { ShareProduct } from './custom-components/ShareProduct';
+import { ShowDetail } from './custom-components/ShowDetail';
+import { getPathProductDetail } from './utils/path';
 
 export class PluginSancongtouClient extends Plugin {
   async afterAdd() {
@@ -12,9 +15,11 @@ export class PluginSancongtouClient extends Plugin {
   async load() {
     this.addRoutes();
     this.app.addComponents({
-      // ShareProduct,
+      // 自定义字段组件
+      ShowDetail,
+      ShareProduct,
     });
-    console.log(this.app);
+    // console.log(this.app);
     // this.app.addComponents({})
     // this.app.addScopes({})
     // this.app.addProvider()
@@ -27,7 +32,12 @@ export class PluginSancongtouClient extends Plugin {
       Component: ProductDetail,
     });
     this.app.router.add('mobile.productDetail', {
-      path: '/mobile/:name',
+      path: getPathProductDetail({
+        name: ':name',
+        collection: ':collection',
+        field: ':field',
+        fieldParams: ':fieldParams',
+      }),
       Component: ProductDetail,
     });
   }

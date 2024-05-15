@@ -1,21 +1,13 @@
-import { Modal, Toast, Image, Button } from 'antd-mobile';
 import { ShareAltOutlined } from '@ant-design/icons';
+import { CustomComponentType } from '@hera/plugin-core/client';
+import { Button, Image, Modal, Toast } from 'antd-mobile';
 import React from 'react';
 import downloadImage from '../assets/download.svg';
-import { CustomComponentType } from '@hera/plugin-core/client';
+import style from './style.css';
 
 export const ShareProduct = () => {
   return (
-    <Button
-      style={{
-        alignSelf: 'center',
-        fontSize: 16,
-      }}
-      color="primary"
-      size="small"
-      block
-      onClick={showModal}
-    >
+    <Button className={style['m-share']} color="primary" size="small" block onClick={showModal}>
       分享产品
       <ShareAltOutlined />
     </Button>
