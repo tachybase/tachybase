@@ -1,5 +1,4 @@
 import { InstallOptions, Plugin } from '@tachybase/server';
-import { resolve } from 'path';
 
 export class SystemSettingsPlugin extends Plugin {
   getInitAppLang(options) {
@@ -9,15 +8,15 @@ export class SystemSettingsPlugin extends Plugin {
   async install(options?: InstallOptions) {
     await this.db.getRepository('systemSettings').create({
       values: {
-        title: 'NocoBase',
+        title: 'TachyBase',
         appLang: this.getInitAppLang(options),
         enabledLanguages: [this.getInitAppLang(options)],
         logo: {
-          title: 'nocobase-logo',
-          filename: '682e5ad037dd02a0fe4800a3e91c283b.png',
-          extname: '.png',
-          mimetype: 'image/png',
-          url: 'https://nocobase.oss-cn-beijing.aliyuncs.com/682e5ad037dd02a0fe4800a3e91c283b.png',
+          title: 'tachybase-logo',
+          filename: '78121ffd55a6d987cadc6577496e6014.svg',
+          extname: '.svg',
+          mimetype: 'image/svg+xml',
+          url: 'https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/78121ffd55a6d987cadc6577496e6014.svg',
         },
       },
     });
@@ -36,8 +35,6 @@ export class SystemSettingsPlugin extends Plugin {
   }
 
   async load() {
-    await this.importCollections(resolve(__dirname, 'collections'));
-
     this.app.acl.addFixedParams('systemSettings', 'destroy', () => {
       return {
         'id.$ne': 1,

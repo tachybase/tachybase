@@ -133,6 +133,18 @@ export const formSchema: ISchema = {
       'x-component': 'Input',
       'x-decorator': 'FormItem',
     },
+    preset: {
+      title: tval('Preset', { ns: '@nocobase/plugin-multi-app-manager' }),
+      'x-component': 'Select',
+      'x-decorator': 'FormItem',
+      default: 'tachybase',
+      required: true,
+      enum: [
+        { label: tval('tachybase', { ns: '@nocobase/plugin-multi-app-manager' }), value: 'tachybase' },
+        { label: tval('hera-rental', { ns: '@nocobase/plugin-multi-app-manager' }), value: 'hera-rental' },
+        { label: tval('hera-sancongtou', { ns: '@nocobase/plugin-multi-app-manager' }), value: 'hera-sancongtou' },
+      ],
+    },
     pinned: {
       'x-component': 'CollectionField',
       'x-decorator': 'FormItem',

@@ -25,6 +25,10 @@ export default defineCollection({
       unique: true,
     },
     {
+      type: 'string',
+      name: 'preset',
+    },
+    {
       type: 'boolean',
       name: 'pinned',
     },
