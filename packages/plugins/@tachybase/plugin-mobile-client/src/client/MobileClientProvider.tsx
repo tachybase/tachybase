@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { isJSBridge } from './core/bridge';
 
-export const MobileClientProvider = React.memo((props) => {
+export const MobileClientProvider = React.memo((props: PropsWithChildren) => {
   const location = useLocation();
   const navigation = useNavigate();
 

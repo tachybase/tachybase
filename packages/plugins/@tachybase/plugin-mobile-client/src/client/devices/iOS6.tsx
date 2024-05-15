@@ -1,9 +1,11 @@
 import { css, cx } from '@tachybase/client';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-const iOS6: React.FC<{
+type IProps = PropsWithChildren<{
   className: string;
-}> = (props) => {
+}>;
+
+const iOS6: React.FC<IProps> = (props) => {
   return (
     <div
       className={cx(
