@@ -261,7 +261,7 @@ export const gridCardBlockSettings = new SchemaSettings({
         const { dn } = useDesignable();
         return {
           title: t('Set Linkable'),
-          value: field.decoratorProps?.isLinkable || false,
+          checked: fieldSchema['x-decorator-props']?.['isLinkable'] ?? false,
           onChange: (isLinkable) => {
             _.set(fieldSchema, 'x-decorator-props.isLinkable', isLinkable);
             field.decoratorProps.isLinkable = isLinkable;
