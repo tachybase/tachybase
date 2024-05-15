@@ -1,8 +1,9 @@
-import { NavBar, Image } from 'antd-mobile';
-import React from 'react';
-import detailHeaderImpage from '../assets/detail_lt_header.png';
-import detailContentImage from '../assets/detail_lt_content.png';
 import { css } from '@tachybase/client';
+import { Image, NavBar } from 'antd-mobile';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import detailContentImage from '../assets/detail_lt_content.png';
+import detailHeaderImpage from '../assets/detail_lt_header.png';
 
 export const ProductDetail = () => {
   const onBack = () => {
