@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { useTranslation } from '../../../../../../locale';
-import { Grid, Divider, Picker, Input, Space, ActionSheet, DatePicker, CalendarPicker } from 'antd-mobile';
+import { dayjs } from '@tachybase/utils/client';
+import { ActionSheet, Button, Calendar, Divider, Grid, Input, Picker, Popup } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
 import type { Action } from 'antd-mobile/es/components/action-sheet';
-import { changFormat, convertFormat } from '../../utils';
-import { dayjs } from '@tachybase/utils/client';
+import React, { useRef, useState } from 'react';
+import { useTranslation } from '../../../../../../locale';
+import { convertFormat } from '../../utils';
+import { css } from '@tachybase/client';
 
 export const ISelect = (props) => {
   const { options, onChange, customLabelKey } = props;
@@ -59,13 +60,34 @@ export const IDatePicker = (props) => {
   const { options, value, onChange, onInputChange } = props;
   const time = value.split('&');
   const [visible, setVisible] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const minDate = dayjs().subtract(10, 'year').toDate();
+  const maxDate = dayjs().add(3, 'year').toDate();
+
+  const onClick = () => {
+    setVisible(true);
+  };
+
+  const onChangeDate = ([start, end]) => {
+    const startTime = dayjs(start).startOf('date').toISOString();
+    const endTime = dayjs(end).endOf('date').toISOString();
+    // TODO: 此处受上游影响,格式必须确定为这样, 时间有限,不再往上追查
+    const timeString = `"${startTime}"&"${endTime}"`;
+    onInputChange(timeString);
+    onChange(timeString);
+
+    // XXX: UI 组件库这个组件是实验性组件, 此处模拟实现自动关闭浮层功能
+    if (clickCount > 0 && clickCount % 2 === 1) {
+      setVisible(false);
+      setClickCount(0);
+    } else {
+      setClickCount((preClickCount) => preClickCount + 1);
+    }
+  };
+
   return (
     <Grid.Item span={options.length > 1 ? 3 : 4}>
-      <div
-        onClick={() => {
-          setVisible(true);
-        }}
-      >
+      <div onClick={onClick}>
         <Grid columns={5}>
           <Grid.Item span={2} style={{ textAlign: 'end' }}>
             {convertFormat(JSON.parse(time[0]))}
@@ -78,22 +100,24 @@ export const IDatePicker = (props) => {
           </Grid.Item>
         </Grid>
       </div>
-      <CalendarPicker
+      <Popup
         visible={visible}
-        selectionMode="range"
+        destroyOnClose
+        mask
+        closeOnMaskClick
         onMaskClick={() => setVisible(false)}
         onClose={() => setVisible(false)}
-        onConfirm={([start, end]) => {
-          const startTime = dayjs(start).startOf('date').toISOString();
-          const endTime = dayjs(end).endOf('date').toISOString();
-
-          // TODO: 此处受上游影响,格式必须确定为这样, 时间有限,不再往上追查
-          const timeString = `"${startTime}"&"${endTime}"`;
-
-          onInputChange(timeString);
-          onChange(timeString);
-        }}
-      />
+        // bodyStyle={{ height: '50vh' }}
+      >
+        <Calendar
+          selectionMode="range"
+          allowClear
+          min={minDate}
+          max={maxDate}
+          // defaultValue={defaultRange}
+          onChange={onChangeDate}
+        />
+      </Popup>
     </Grid.Item>
   );
 };

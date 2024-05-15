@@ -81,9 +81,3 @@ export const useTabSearchCollapsibleInputItem = () => {
     onSelected,
   };
 };
-
-export const useIsMobile = () => {
-  const fieldSchema = useFieldSchema();
-  const isMobile = Object.values(fieldSchema.root.properties).some((value) => value['x-component'] === 'MContainer');
-  return isMobile;
-};

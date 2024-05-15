@@ -8,3 +8,5 @@ export * from './image-search';
 export * from './swiper';
 export * from './tab-search';
 export * from './notice';
+export * from './form';
+export * from './antd-mobile';

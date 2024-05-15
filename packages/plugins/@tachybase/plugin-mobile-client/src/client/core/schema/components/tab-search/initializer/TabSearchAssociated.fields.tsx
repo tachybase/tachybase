@@ -14,7 +14,8 @@ import {
 import React, { useCallback } from 'react';
 import { tval } from '../../../../../locale';
 import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../utils';
-import { useIsMobile } from '../components/field-item/hooks';
+import { useIsMobile } from '../../../hooks';
+import { mapToMobile } from '../mapToMobile';
 
 interface ItemInterface {
   field: FieldOptions;
@@ -159,7 +160,7 @@ function getItemInput(params: ItemInterface, isMobile?: boolean) {
   // 然后排除其他类型的关联字段
   if (isAssocField(field)) return null;
 
-  if (!(canBeSearchField(_interface) && !canBeRelatedField(_interface) && !canBeDataField(_interface))) {
+  if (!canBeSearchField(_interface) && !canBeRelatedField(_interface) && !canBeDataField(_interface)) {
     return null;
   }
 
@@ -201,10 +202,7 @@ function getItemInput(params: ItemInterface, isMobile?: boolean) {
       'x-collection-field': `${collectionName}.${schemaName}`,
       // 'x-decorator': 'FormItem',
       // 'x-component': 'CollectionField',
-      'x-component': matchTruthValue({
-        ['TabSearchCollapsibleInputMItem']: isMobile,
-        ['TabSearchCollapsibleInputItem']: !isMobile,
-      }),
+      'x-component': mapToMobile('TabSearchCollapsibleInputItem'),
       'x-component-props': {
         fieldNames: {
           label,
@@ -317,10 +315,7 @@ function getItemChoice(params: ItemInterface, isMobile?: boolean) {
       'x-collection-field': `${collectionName}.${schemaName}`,
       // 'x-decorator': 'FormItem',
       // 'x-component': 'CollectionField',
-      'x-component': matchTruthValue({
-        ['TabSearchFieldMItem']: isMobile,
-        ['TabSearchFieldItem']: !isMobile,
-      }),
+      'x-component': mapToMobile('TabSearchFieldItem'),
       'x-component-props': {
         fieldNames: {
           label,
