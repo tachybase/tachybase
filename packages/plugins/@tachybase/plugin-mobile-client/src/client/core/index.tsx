@@ -1,5 +1,5 @@
 import { SchemaComponentOptions } from '@tachybase/client';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import {
   MMenuBlockInitializer,
   MMenu,
@@ -44,7 +44,7 @@ import {
 import './bridge';
 import './assets/svg';
 
-export const MobileCore: React.FC = (props) => {
+export const MobileCore: React.FC<PropsWithChildren> = (props) => {
   return (
     <SchemaComponentOptions
       components={{
@@ -56,6 +56,11 @@ export const MobileCore: React.FC = (props) => {
         MPage,
         MHeader,
         MSettings,
+
+        SwiperBlockInitializer,
+        SwiperBlock,
+        SwiperPage,
+
         TabSearch,
         TabSearchProvider,
         TabSearchBlockInitializer,
@@ -64,9 +69,7 @@ export const MobileCore: React.FC = (props) => {
         TabSearchCollapsibleInputItem,
         TabSearchCollapsibleInputMItem,
         TabSearchFieldSchemaInitializerGadget,
-        SwiperBlockInitializer,
-        SwiperBlock,
-        SwiperPage,
+
         ImageSearchView: ImageSearchView,
         ImageSearchInitializer: ImageSearchInitializer,
         ImageSearchProvider: ImageSearchProvider,

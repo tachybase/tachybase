@@ -128,6 +128,11 @@ export const mBlockInitializers = new CompatibleSchemaInitializer(
             type: 'item',
             Component: 'NoticeBlockInitializer',
           },
+          {
+            name: 'chartV2',
+            title: '{{t("Charts")}}',
+            Component: 'ChartV2BlockInitializer',
+          },
         ],
       },
       {

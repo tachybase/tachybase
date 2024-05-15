@@ -1,7 +1,7 @@
 import { createForm } from '@tachybase/schema';
 import { Schema } from '@tachybase/schema';
-import { Spin } from 'antd';
-import React, { useMemo } from 'react';
+// import { Spin } from 'antd';
+import React, { PropsWithChildren, useMemo } from 'react';
 import { useRequest } from '../../api-client';
 import { useSchemaComponentContext } from '../hooks';
 import { FormProvider } from './FormProvider';
@@ -58,6 +58,6 @@ const RequestSchemaComponent: React.FC<RemoteSchemaComponentProps> = (props) => 
   );
 };
 
-export const RemoteSchemaComponent: React.FC<RemoteSchemaComponentProps> = (props) => {
+export const RemoteSchemaComponent: React.FC<PropsWithChildren<RemoteSchemaComponentProps>> = (props) => {
   return props.uid ? <RequestSchemaComponent {...props} /> : null;
 };
