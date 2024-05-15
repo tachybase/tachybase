@@ -2,6 +2,7 @@ import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/s
 import React from 'react';
 import { useActionContext } from '.';
 import { ActionDrawer } from './Action.Drawer';
+import { ActionSheet } from './Action.Sheet';
 import { ActionModal } from './Action.Modal';
 import { ActionPage } from './Action.Page';
 import { ComposedActionDrawer } from './types';
@@ -14,6 +15,9 @@ export const ActionContainer: ComposedActionDrawer = observer(
     }
     if (openMode === 'modal') {
       return <ActionModal footerNodeName={'Action.Container.Footer'} {...props} />;
+    }
+    if (openMode === 'sheet') {
+      return <ActionSheet footerNodeName={'Action.Container.Footer'} {...props} />;
     }
     return <ActionPage footerNodeName={'Action.Container.Footer'} {...props} />;
   },
