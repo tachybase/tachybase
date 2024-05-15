@@ -1,5 +1,5 @@
 import { CleanOptions, Collection, SyncOptions } from '@tachybase/database';
-import { importModule, isURL } from '@tachybase/utils';
+import { Container, importModule, isURL } from '@tachybase/utils';
 import { fsExists } from '@tachybase/utils/plugin-symlink';
 import execa from 'execa';
 import fg from 'fast-glob';
@@ -381,6 +381,10 @@ export class PluginManager {
   }
 
   async load(options: any = {}) {
+    // FIXME
+    Container.reset();
+    Container.set({ id: 'db', value: this.app.db });
+    Container.set({ id: 'app', value: this.app });
     this.app.setMaintainingMessage('loading plugins...');
     const total = this.pluginInstances.size;
 

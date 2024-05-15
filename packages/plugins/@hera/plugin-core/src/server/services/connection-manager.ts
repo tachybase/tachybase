@@ -20,7 +20,7 @@ export class ConnectionManager {
   async unload() {
     for (const client of [this.redisClient, this.redisPubClient, this.redisSubClient]) {
       if (client.isOpen) {
-        await this.redisClient.disconnect();
+        await client.disconnect();
       }
     }
   }
@@ -32,6 +32,9 @@ export class ConnectionManager {
     await this.redisClient.connect();
     await this.redisPubClient.connect();
     await this.redisSubClient.connect();
+    this.app.on('afterStop', () => {
+      this.unload();
+    });
     if (isMain()) {
       const keysToDelete: any = await this.redisClient.KEYS(`${KEY_ONLINE_USERS}*`);
       if (keysToDelete.length > 0) {
