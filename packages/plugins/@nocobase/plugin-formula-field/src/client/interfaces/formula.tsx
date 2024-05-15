@@ -155,6 +155,7 @@ export class FormulaFieldInterface extends CollectionFieldInterface {
           'integer',
           'number',
           'percent',
+          'sequence',
 
           'input',
           'textarea',

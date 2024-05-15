@@ -11,9 +11,10 @@ export interface registerAppOptions extends Transactionable {
 export class ApplicationModel extends Model {
   registerToSupervisor(mainApp: Application, options: registerAppOptions) {
     const appName = this.get('name') as string;
+    const preset = this.get('preset') as string;
     const appModelOptions = (this.get('options') as any) || {};
 
-    const appOptions = options.appOptionsFactory(appName, mainApp);
+    const appOptions = options.appOptionsFactory(appName, mainApp, preset);
 
     const subAppOptions = {
       ...(merge(appOptions, appModelOptions) as object),

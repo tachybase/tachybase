@@ -5,7 +5,7 @@ import path from 'path';
 import { ApplicationModel } from '../server';
 
 export type AppDbCreator = (app: Application, options?: Transactionable & { context?: any }) => Promise<void>;
-export type AppOptionsFactory = (appName: string, mainApp: Application) => any;
+export type AppOptionsFactory = (appName: string, mainApp: Application, preset: string) => any;
 export type SubAppUpgradeHandler = (mainApp: Application) => Promise<void>;
 
 const defaultSubAppUpgradeHandle: SubAppUpgradeHandler = async (mainApp: Application) => {
@@ -94,7 +94,7 @@ const defaultDbCreator = async (app: Application) => {
   }
 };
 
-const defaultAppOptionsFactory = (appName: string, mainApp: Application) => {
+const defaultAppOptionsFactory = (appName: string, mainApp: Application, preset: string) => {
   const rawDatabaseOptions = PluginMultiAppManager.getDatabaseConfig(mainApp);
 
   if (rawDatabaseOptions.dialect === 'sqlite') {
@@ -112,7 +112,7 @@ const defaultAppOptionsFactory = (appName: string, mainApp: Application) => {
       ...rawDatabaseOptions,
       tablePrefix: '',
     },
-    plugins: ['tachybase'],
+    plugins: [preset],
     resourcer: {
       prefix: process.env.API_BASE_PATH,
     },
@@ -156,8 +156,6 @@ export class PluginMultiAppManager extends Plugin {
   }
 
   async load() {
-    await this.importCollections(path.resolve(__dirname, 'collections'));
-
     // after application created
     this.db.on(
       'applications.afterCreateWithAssociations',
