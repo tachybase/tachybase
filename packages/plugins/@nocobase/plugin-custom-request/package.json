@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-custom-request",
   "displayName": "Action: Custom request",
-  "version": "0.21.26",
+  "version": "0.21.27",
   "description": "Sending a request to any HTTP service supports sending context data to the target service.",
   "keywords": [
     "Actions"
