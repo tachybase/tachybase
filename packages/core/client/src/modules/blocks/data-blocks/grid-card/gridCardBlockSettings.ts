@@ -252,6 +252,30 @@ export const gridCardBlockSettings = new SchemaSettings({
       },
     },
     {
+      name: 'setLinkable',
+      type: 'switch',
+      useComponentProps() {
+        const { t } = useTranslation();
+        const fieldSchema = useFieldSchema();
+        const field = useField();
+        const { dn } = useDesignable();
+        return {
+          title: t('Set Linkable'),
+          value: field.decoratorProps?.isLinkable || false,
+          onChange: (isLinkable) => {
+            _.set(fieldSchema, 'x-decorator-props.isLinkable', isLinkable);
+            field.decoratorProps.isLinkable = isLinkable;
+            dn.emit('patch', {
+              schema: {
+                ['x-uid']: fieldSchema['x-uid'],
+                'x-decorator-props': fieldSchema['x-decorator-props'],
+              },
+            });
+          },
+        };
+      },
+    },
+    {
       name: 'ConvertReferenceToDuplicate',
       Component: SchemaSettingsTemplate,
       useComponentProps() {
