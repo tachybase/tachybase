@@ -1,9 +1,9 @@
 import { SchemaInitializer, useCollection, useCollectionManager } from '@tachybase/client';
 import { tval } from '../../../../../locale';
-import { useIsMobile } from '../components/field-item/hooks';
 import { createTabSearchItemSchema } from '../create/createTabSearchItemSchema';
 import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../utils';
 import { TabSearchAssociatedFields } from './TabSearchAssociated.fields';
+import { useIsMobile } from '../../../hooks';
 
 export const TabSearchFieldSchemaInitializer = new SchemaInitializer({
   name: 'tabSearch:configureFields',

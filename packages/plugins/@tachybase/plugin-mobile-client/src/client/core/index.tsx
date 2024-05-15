@@ -35,6 +35,11 @@ import {
   usePropsRelatedImageSearchItemField,
   useTabSearchFieldItemProps,
   useTabSearchFieldItemRelatedProps,
+  MInput,
+  MCheckbox,
+  MDatePicker,
+  MRadio,
+  MImageUploader,
 } from './schema';
 import './bridge';
 import './assets/svg';
@@ -70,6 +75,11 @@ export const MobileCore: React.FC = (props) => {
         ImageSearchItemView: ImageSearchItemView,
         // NoticeBlock,
         // NoticeBlockInitializer,
+        MInput,
+        MCheckbox,
+        MDatePicker,
+        MRadio,
+        MImageUploader,
       }}
       scope={{
         useGridCardBlockItemProps,
