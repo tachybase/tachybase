@@ -1,5 +1,5 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { onFieldChange } from '@tachybase/schema';
+import { onFieldInputValueChange } from '@tachybase/schema';
 import { RecursionField, connect, mapProps, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
 import { Space, message } from 'antd';
@@ -71,7 +71,7 @@ const InternalAssociationSelect = observer(
       form.addEffects(id, () => {
         if (linkageFields?.length > 0) {
           //支持深层次子表单
-          onFieldChange('*', (fieldPath: any) => {
+          onFieldInputValueChange('*', (fieldPath: any) => {
             if (linkageFields.includes(fieldPath.props.name) && field.value) {
               props.onChange(field.initialValue);
               setInnerValue(field.initialValue);
