@@ -32,16 +32,12 @@ export class PluginCoreServer extends Plugin {
   async load() {
     await this.pluginDepartments.load();
     await this.pluginInterception.load();
-    Container.reset();
     try {
-      Container.set({ id: 'db', value: this.db });
-      Container.set({ id: 'app', value: this.app });
       await Container.get(ConnectionManager).load();
       const fontManger = Container.get(FontManager);
       const sqlLoader = Container.get(SqlLoader);
       await sqlLoader.loadSqlFiles(path.join(__dirname, './sqls'));
       await fontManger.loadFonts();
-      await Container.get(HomePageService).load();
       // init web controllers
       await Container.get(WebService).load();
       this.app.acl.allow('link-manage', 'init', 'public');
@@ -52,6 +48,7 @@ export class PluginCoreServer extends Plugin {
   }
   async install(options?: InstallOptions) {
     await this.pluginDepartments.install(options);
+    await Container.get(HomePageService).install();
   }
   async afterEnable() {}
   async afterDisable() {}

@@ -10,7 +10,7 @@ export class HomePageService {
   @Db()
   private db: Database;
 
-  async load() {
+  async install() {
     this.app.acl.allow('home_page_presentations', 'list', 'public');
     const repo = this.db.getRepository<any>('collections');
     if (repo) {
