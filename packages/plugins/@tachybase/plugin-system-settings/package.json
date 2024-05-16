@@ -1,13 +1,12 @@
 {
-  "name": "@nocobase/plugin-system-settings",
+  "name": "@tachybase/plugin-system-settings",
   "displayName": "System settings",
-  "version": "0.21.26",
+  "version": "0.21.27",
   "description": "Used to adjust the system title, logo, language, etc.",
   "keywords": [
     "System management"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/system-settings",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
@@ -16,7 +15,5 @@
     "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "用于调整系统的标题、LOGO、语言等。",
-  "displayName.zh-CN": "系统设置",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/system-settings"
+  "displayName.zh-CN": "系统设置"
 }

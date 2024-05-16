@@ -13,18 +13,18 @@ import { Result, Spin } from 'antd';
 import { useContext } from 'react';
 import { NAMESPACE } from '../../../locale';
 import { FormBlockProvider } from '../../../common/Pd.FormBlock';
-import { ContextApprovalExecution } from '../common/Pd.ApprovalExecution';
-import { ApprovalContext } from '../../approval-common/Pd.ApprovalData';
-import { ContextWithActionEnabled } from '../../approval-common/Pd.WithActionEnabled';
+import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
+import { ApprovalContext } from '../../approval-common/ApprovalData.provider';
+import { ContextWithActionEnabled } from '../../approval-common/WithActionEnabled.provider';
 import { useFormBlockProps } from './hooks/useFormBlockProps';
 import { useSubmit } from './hooks/useSubmit';
 import { useWithdrawAction } from './hooks/useWithdrawAction';
 import { useDestroyAction } from './hooks/useDestroyAction';
 import { ActionBarProvider } from './Pd.ActionBar';
 import { WithdrawActionProvider } from './Pd.WithdrawAction';
-import { SchemaComponentContextProvider } from '../common/Pd.SchemaComponent';
+import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
 import { ApplyActionStatusProvider } from './Pd.ApplyActionStatus';
-import { FlowContextProvider } from '../common/Pd.FlowContext';
+import { FlowContextProvider } from '../common/FlowContext.provider';
 
 export const ViewActionLaunchContent = () => {
   const { id } = useRecord();

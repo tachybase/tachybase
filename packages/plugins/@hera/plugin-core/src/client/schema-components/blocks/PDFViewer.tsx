@@ -3,6 +3,7 @@ import { PDFViewer } from '../../components/PDFViewer';
 import { Space } from 'antd';
 import { css } from '@tachybase/client';
 import { usePDFViewerRef } from '../../schema-initializer/blocks/PDFVIewerBlockInitializer';
+import { debounce } from 'lodash';
 
 export const InternalPDFViewer = (props) => {
   const { usePdfPath: useMaybePdfPath } = props;
@@ -10,10 +11,19 @@ export const InternalPDFViewer = (props) => {
   const [width, setWidth] = useState(0);
   const [, setHeight] = useState(0);
   useEffect(() => {
-    if (containerRef.current) {
+    const updateUI = debounce(() => {
       setWidth(containerRef.current.offsetWidth);
       setHeight(containerRef.current.offsetHeight);
+    }, 200);
+    const observer = new ResizeObserver(() => {
+      updateUI();
+    });
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
     }
+    return () => {
+      observer.disconnect();
+    };
   }, [containerRef]);
   const ref = usePDFViewerRef();
   const usePdfPath = useMaybePdfPath ?? (() => '');

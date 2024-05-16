@@ -1,9 +1,9 @@
 import React from 'react';
 import { ExtendCollectionsProvider, TableBlockProvider, useRecord } from '@tachybase/client';
 import { CollectionApprovalTodos } from '../../common/Cn.ApprovalTodos';
-import { CollectionApprovals } from '../approval-common/Cn.Approvals';
-import { CollectionFlowNodes } from '../approval-common/Cn.FlowNodes';
-import { CollectionWorkflows } from '../approval-common/Cn.Workflows';
+import { CollectionApprovals } from '../approval-common/Approvals.collection';
+import { CollectionFlowNodes } from '../approval-common/FlowNodes.collection';
+import { CollectionWorkflows } from '../approval-common/Workflows.collection';
 
 export function ApprovalBlockDecorator({ children, ...props }) {
   const {

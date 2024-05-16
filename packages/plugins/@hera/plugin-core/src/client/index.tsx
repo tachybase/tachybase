@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plugin, EditTitleField } from '@tachybase/client';
+import { Plugin, EditTitleField, CollectionProvider, CollectionRecordProvider } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 import { isValid } from '@tachybase/schema';
 import { autorun } from '@tachybase/schema';

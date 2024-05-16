@@ -22,7 +22,7 @@ export interface ActionContextProps {
   button?: any;
   visible?: boolean;
   setVisible?: (v: boolean) => void;
-  openMode?: 'drawer' | 'modal' | 'page';
+  openMode?: 'drawer' | 'modal' | 'page' | 'sheet';
   snapshot?: boolean;
   openSize?: OpenSize;
   containerRefKey?: string;

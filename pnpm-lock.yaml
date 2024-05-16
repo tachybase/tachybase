@@ -1610,6 +1610,9 @@ importers:
       react-transition-group:
         specifier: ^4.4.5
         version: 4.4.5(react-dom@18.2.0)(react@18.2.0)
+      react-zoom-pan-pinch:
+        specifier: ^3.4.4
+        version: 3.4.4(react-dom@18.2.0)(react@18.2.0)
       redis:
         specifier: ^4.6.11
         version: 4.6.13
@@ -3571,21 +3574,6 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-system-settings:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-
   packages/plugins/@nocobase/plugin-theme-editor:
     dependencies:
       '@tachybase/actions':
@@ -3898,6 +3886,21 @@ importers:
         specifier: 6.x
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
 
+  packages/plugins/@tachybase/plugin-system-settings:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+
   packages/plugins/@tachybase/plugin-workflow:
     dependencies:
       '@nocobase/plugin-collection-manager':
@@ -4139,9 +4142,6 @@ importers:
       '@nocobase/plugin-snapshot-field':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-snapshot-field
-      '@nocobase/plugin-system-settings':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-system-settings
       '@nocobase/plugin-theme-editor':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-theme-editor
@@ -4160,6 +4160,9 @@ importers:
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-system-settings':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-system-settings
       '@tachybase/plugin-workflow':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-workflow
@@ -4305,9 +4308,6 @@ importers:
       '@nocobase/plugin-snapshot-field':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-snapshot-field
-      '@nocobase/plugin-system-settings':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-system-settings
       '@nocobase/plugin-theme-editor':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-theme-editor
@@ -4326,6 +4326,9 @@ importers:
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-system-settings':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-system-settings
       '@tachybase/plugin-workflow':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-workflow
@@ -4480,9 +4483,6 @@ importers:
       '@nocobase/plugin-snapshot-field':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-snapshot-field
-      '@nocobase/plugin-system-settings':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-system-settings
       '@nocobase/plugin-theme-editor':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-theme-editor
@@ -4501,6 +4501,9 @@ importers:
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-system-settings':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-system-settings
       '@tachybase/plugin-workflow':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-workflow
@@ -26727,6 +26730,17 @@ packages:
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: true
+
+  /react-zoom-pan-pinch@3.4.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-lGTu7D9lQpYEQ6sH+NSlLA7gicgKRW8j+D/4HO1AbSV2POvKRFzdWQ8eI0r3xmOsl4dYQcY+teV6MhULeg1xBw==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+    dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: true

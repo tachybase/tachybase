@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-core",
   "displayName": "Hera platform",
-  "version": "1.7.30",
+  "version": "1.7.31",
   "description": "Hera platform",
   "keywords": [
     "System management"
@@ -36,6 +36,7 @@
     "react-pdf": "^7.5.1",
     "react-router-dom": "^6.11.2",
     "react-transition-group": "^4.4.5",
+    "react-zoom-pan-pinch": "^3.4.4",
     "redis": "^4.6.11",
     "signature_pad": "4.1.7",
     "throttle-debounce": "^5.0.0",

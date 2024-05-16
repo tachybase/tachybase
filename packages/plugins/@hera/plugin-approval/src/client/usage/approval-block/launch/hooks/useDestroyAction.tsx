@@ -1,6 +1,6 @@
 import { useAPIClient, useActionContext } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
-import { useApproval } from '../../../approval-common/Pd.ApprovalData';
+import { useApproval } from '../../../approval-common/ApprovalData.provider';
 import _ from 'lodash';
 
 export function useDestroyAction() {

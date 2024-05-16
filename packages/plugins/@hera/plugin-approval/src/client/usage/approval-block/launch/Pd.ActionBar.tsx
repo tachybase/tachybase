@@ -1,6 +1,6 @@
 import { useCurrentUserContext } from '@tachybase/client';
-import { useContextApprovalExecution } from '../common/Pd.ApprovalExecution';
-import { useApproval } from '../../approval-common/Pd.ApprovalData';
+import { useContextApprovalExecution } from '../common/ApprovalExecution.provider';
+import { useApproval } from '../../approval-common/ApprovalData.provider';
 import { APPROVAL_STATUS } from '../../../constants';
 
 export function ActionBarProvider(props) {

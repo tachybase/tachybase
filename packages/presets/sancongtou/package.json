@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-hera-sancongtou",
-  "version": "0.21.20",
+  "version": "0.21.21",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {
@@ -47,13 +47,13 @@
     "@nocobase/plugin-sequence-field": "workspace:*",
     "@nocobase/plugin-sms-auth": "workspace:*",
     "@nocobase/plugin-snapshot-field": "workspace:*",
-    "@nocobase/plugin-system-settings": "workspace:*",
     "@nocobase/plugin-theme-editor": "workspace:*",
     "@nocobase/plugin-ui-schema-storage": "workspace:*",
     "@nocobase/plugin-users": "workspace:*",
     "@nocobase/plugin-verification": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/plugin-mobile-client": "workspace:*",
+    "@tachybase/plugin-system-settings": "workspace:*",
     "@tachybase/plugin-workflow": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
     "@tachybase/schema": "workspace:*",
