@@ -1750,6 +1750,9 @@ importers:
       '@tachybase/client':
         specifier: 0.x
         version: link:../../../core/client
+      '@tachybase/plugin-mobile-client':
+        specifier: 0.x
+        version: link:../../@tachybase/plugin-mobile-client
       '@tachybase/server':
         specifier: 0.x
         version: link:../../../core/server
