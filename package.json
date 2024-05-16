@@ -9,6 +9,7 @@
     "changelog": "auto-changelog -p -t keepachangelog",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
+    "dev-local": "APP_ENV_PATH=.env.local tachybase dev",
     "dev-server": "tachybase dev --server",
     "e2e": "tachybase e2e",
     "preinstall": "npx only-allow pnpm",
