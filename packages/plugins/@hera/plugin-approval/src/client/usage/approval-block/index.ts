@@ -1,5 +1,5 @@
 import { Plugin } from '@tachybase/client';
-import PluginKitApprovalCommon from '../approval-common';
+import PluginKitApprovalCommon from '../approval-common/plugin';
 import { tval } from '../../locale';
 import { ViewActionTodos } from './todos/VC.ViewActionTodos';
 import { ApprovalBlockComponent } from './VC.ApprovalBlock';

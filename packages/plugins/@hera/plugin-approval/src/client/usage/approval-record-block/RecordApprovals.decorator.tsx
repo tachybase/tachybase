@@ -7,10 +7,10 @@ import {
   useRecord,
 } from '@tachybase/client';
 import React, { useMemo } from 'react';
-import { CollectionApprovals } from '../approval-common/Cn.Approvals';
+import { CollectionApprovals } from '../approval-common/Approvals.collection';
 import { CollectionApprovalTodos } from '../../common/Cn.ApprovalTodos';
-import { CollectionFlowNodes } from '../approval-common/Cn.FlowNodes';
-import { CollectionWorkflows } from '../approval-common/Cn.Workflows';
+import { CollectionFlowNodes } from '../approval-common/FlowNodes.collection';
+import { CollectionWorkflows } from '../approval-common/Workflows.collection';
 
 export function RecordApprovalsDecorator({ params, children }) {
   const collection = useCollection_deprecated();

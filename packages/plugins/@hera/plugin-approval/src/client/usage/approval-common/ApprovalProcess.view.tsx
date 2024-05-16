@@ -3,10 +3,10 @@ import { EXECUTION_STATUS } from '@tachybase/plugin-workflow/client';
 import { Space, Table } from 'antd';
 import _ from 'lodash';
 import React, { useMemo } from 'react';
-import { useApproval } from './Pd.ApprovalData';
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from '../../constants';
-import { ContextWithActionEnabled } from './Pd.WithActionEnabled';
-import { tval, usePluginTranslation, useTranslation } from '../../locale';
+import { lang, usePluginTranslation } from '../../locale';
+import { useApproval } from './ApprovalData.provider';
+import { ContextWithActionEnabled } from './WithActionEnabled.provider';
 import { getAntdTableColumns } from './process-columns/columns';
 
 // 审批(发起/待办)区块-查看-审批处理
@@ -58,7 +58,9 @@ function getResults({ approval, currentUser }) {
           records: [
             {
               groupCount: 1,
-              node: { title: tval('Apply') },
+              node: {
+                title: lang('Apply'),
+              },
               user: {
                 ...approval.createdBy,
                 id: approval.createdById,
