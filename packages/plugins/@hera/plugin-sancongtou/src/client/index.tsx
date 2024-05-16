@@ -1,17 +1,13 @@
-import React from 'react';
-import { GridCard, Plugin } from '@tachybase/client';
-import { ProductDetail } from './pages/ProductDetail';
+import { Plugin } from '@tachybase/client';
+// import { ProductDetail } from './pages/ProductDetail.1';
 import { ShareProduct } from './custom-components/ShareProduct';
 import { ShowDetail } from './custom-components/ShowDetail';
+import { CardDetailSC, SCCardDetail } from './pages/CardDetail.schema';
 import { getPathProductDetail } from './utils/path';
-import { ProductDetailWrapper } from './pages/ProductDetailWrapper';
 
-const GridCardDe = (props) => {
-  <GridCard.Decorator {...props}>{props.children}</GridCard.Decorator>;
-};
 export class PluginSancongtouClient extends Plugin {
   async afterAdd() {
-    // await this.app.pm.add()
+    await this.app.pm.add(SCCardDetail);
   }
 
   async beforeLoad() {}
@@ -49,7 +45,7 @@ export class PluginSancongtouClient extends Plugin {
         collection: ':collection',
         id: ':id',
       }),
-      Component: ProductDetailWrapper,
+      Component: CardDetailSC,
     });
   }
 }

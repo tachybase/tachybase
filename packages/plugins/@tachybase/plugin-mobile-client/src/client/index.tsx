@@ -90,3 +90,5 @@ export class MobileClientPlugin extends Plugin {
 }
 
 export default MobileClientPlugin;
+
+export * from './core/schema';
