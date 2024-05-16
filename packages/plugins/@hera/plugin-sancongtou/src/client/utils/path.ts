@@ -1,10 +1,10 @@
 interface ProductDetailParams {
   name?: string;
+  dataSource?: string;
   collection: string;
-  field: string;
-  fieldParams: string;
+  id?: string;
 }
 export function getPathProductDetail(params: ProductDetailParams) {
-  const { name = 'main', collection, field, fieldParams } = params;
-  return `/mobile/${name}/${collection}/${field}`;
+  const { name = 'detail', dataSource = 'main', collection, id } = params;
+  return `/mobile/${name}/${dataSource}/${collection}/${id}`;
 }

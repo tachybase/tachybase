@@ -10,10 +10,7 @@ export const ShowDetail = () => {
   //   navigate('/mobile/');
   // };
   return (
-    <Link
-      className={'m-detail'}
-      to={getPathProductDetail({ collection: 'collection', field: 'image', fieldParams: '123' })}
-    >
+    <Link className={'m-detail'} to={getPathProductDetail({ dataSource: 'main', collection: 'cards', id: '15' })}>
       显示详情
     </Link>
   );

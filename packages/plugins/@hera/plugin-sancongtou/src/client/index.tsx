@@ -45,9 +45,9 @@ export class PluginSancongtouClient extends Plugin {
     this.app.router.add('mobile.productDetail', {
       path: getPathProductDetail({
         name: ':name',
+        dataSource: ':dataSource',
         collection: ':collection',
-        field: ':field',
-        fieldParams: ':fieldParams',
+        id: ':id',
       }),
       Component: ProductDetailWrapper,
     });
