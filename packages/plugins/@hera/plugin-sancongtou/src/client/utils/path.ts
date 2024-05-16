@@ -5,6 +5,6 @@ interface ProductDetailParams {
   fieldParams: string;
 }
 export function getPathProductDetail(params: ProductDetailParams) {
-  const { name = 'product-detail', collection, field, fieldParams } = params;
-  return `/mobile/${name}/${collection}/${field}/${fieldParams}`;
+  const { name = 'main', collection, field, fieldParams } = params;
+  return `/mobile/${name}/${collection}/${field}`;
 }

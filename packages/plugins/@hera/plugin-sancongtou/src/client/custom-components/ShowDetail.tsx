@@ -1,7 +1,7 @@
 import { CustomComponentType } from '@hera/plugin-core/client';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import style from './style.css';
+import './style.css';
 import { getPathProductDetail } from '../utils/path';
 
 export const ShowDetail = () => {
@@ -11,7 +11,7 @@ export const ShowDetail = () => {
   // };
   return (
     <Link
-      className={style['m-detail']}
+      className={'m-detail'}
       to={getPathProductDetail({ collection: 'collection', field: 'image', fieldParams: '123' })}
     >
       显示详情

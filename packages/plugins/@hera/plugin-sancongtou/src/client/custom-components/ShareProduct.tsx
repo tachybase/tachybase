@@ -3,11 +3,11 @@ import { CustomComponentType } from '@hera/plugin-core/client';
 import { Button, Image, Modal, Toast } from 'antd-mobile';
 import React from 'react';
 import downloadImage from '../assets/download.svg';
-import style from './style.css';
+import './style.css';
 
 export const ShareProduct = () => {
   return (
-    <Button className={style['m-share']} color="primary" size="small" block onClick={showModal}>
+    <Button className={'m-share'} color="primary" size="small" block onClick={showModal}>
       分享产品
       <ShareAltOutlined />
     </Button>
