@@ -1,0 +1,6 @@
+.m-share-image {
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+    clip-path: inset(0 10px);
+}

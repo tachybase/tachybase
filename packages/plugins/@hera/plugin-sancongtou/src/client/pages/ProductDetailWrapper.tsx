@@ -9,11 +9,11 @@ export const ProductDetailWrapper = () => {
   const { name, collection, field, fieldParams } = params;
   const record = {};
   record[field] = fieldParams;
-  return <ProductDetail />;
   return (
     <DataBlockProvider collection={collection} dataSource="main">
       <CollectionRecordProvider record={record} parentRecord={null}>
-        <BlockItem></BlockItem>
+        {/* <BlockItem> */}
+        <ProductDetail />
         {/* <RemoteSchemaComponent uid={name} /> */}
       </CollectionRecordProvider>
     </DataBlockProvider>
