@@ -1,5 +1,5 @@
 import { Plugin } from '@tachybase/client';
-import PluginKitApprovalRecordBlock from './approval-record-block';
+import PluginKitApprovalRecordBlock from './approval-record-block/plugin';
 import PluginKitApprovalBlock from './approval-block';
 
 export default class PluginKitApprovalUsage extends Plugin {

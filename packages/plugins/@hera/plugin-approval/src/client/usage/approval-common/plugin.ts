@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
-import { ApprovalDataProvider } from './Pd.ApprovalData';
-import { ApprovalProcess } from './VC.ApprovalProcess';
+import { ApprovalDataProvider } from './ApprovalData.provider';
+import { ApprovalProcess } from './ApprovalProcess.view';
 
 export default class PluginKitApprovalCommon extends Plugin {
   async afterAdd() {}

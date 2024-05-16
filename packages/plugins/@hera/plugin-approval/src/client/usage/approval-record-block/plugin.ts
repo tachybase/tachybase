@@ -1,9 +1,9 @@
 import { Plugin } from '@tachybase/client';
 import { tval } from '../../locale';
-import PluginKitApprovalCommon from '../approval-common';
-import { RecordApprovalsDecorator } from './Dt.RecordApprovals';
-import { RecordApprovalsInitializer } from './Iz.RecordApprovals';
-import { RecordApprovals } from './VC.RecordApprovals';
+import PluginKitApprovalCommon from '../approval-common/plugin';
+import { RecordApprovalsDecorator } from './RecordApprovals.decorator';
+import { RecordApprovalsInitializer } from './RecordApprovals.initializer';
+import { RecordApprovals } from './RecordApprovals.view';
 
 export default class PluginKitApprovalRecordBlock extends Plugin {
   async afterAdd() {

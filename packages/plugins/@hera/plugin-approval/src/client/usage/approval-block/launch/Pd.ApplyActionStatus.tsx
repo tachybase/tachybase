@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useCurrentUserContext } from '@tachybase/client';
 import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import { createContext } from 'react';
-import { useApproval } from '../../approval-common/Pd.ApprovalData';
+import { useApproval } from '../../approval-common/ApprovalData.provider';
 import { APPROVAL_STATUS } from '../../../constants';
 
 const ContextApprovalStatus = createContext(APPROVAL_STATUS.SUBMITTED);
