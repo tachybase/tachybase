@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useRef, useState } from 'react';
+import React, { createContext, useContext, useRef } from 'react';
 import { PrinterOutlined } from '@ant-design/icons';
 import {
   ActionInitializer,
@@ -8,6 +8,7 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@tachybase/client';
+import { tval } from '../../locale';
 
 const PDFViewerContext = createContext(null);
 
@@ -43,7 +44,7 @@ export const usePDFViewerPrintActionProps = () => {
 
 export const PDFViewerPrintActionInitializer = (props) => {
   const schema = {
-    title: '{{ t("Print") }}',
+    title: tval('Print'),
     'x-action': 'print',
     'x-component': 'Action',
     'x-designer': 'Action.Designer',
@@ -56,7 +57,7 @@ export const PDFViewerPrintActionInitializer = (props) => {
 };
 
 export const pdfViewActionInitializer = new SchemaInitializer({
-  name: 'PDFViewActionInitializer',
+  name: 'pdfViewer:configureActions',
   title: 'Configure actions',
   icon: 'SettingOutlined',
   style: {
@@ -64,19 +65,19 @@ export const pdfViewActionInitializer = new SchemaInitializer({
   },
   items: [
     {
-      name: 'enbaleActions',
+      name: 'enableActions',
       type: 'itemGroup',
-      title: '{{t("Enable actions")}}',
+      title: tval('Enable actions'),
       children: [
         {
           name: 'print',
           type: 'item',
-          title: '{{t("Print")}}',
+          title: tval('Print'),
           component: 'PDFViewerPrintActionInitializer',
         },
         {
           name: 'edit',
-          title: '{{t("Edit")}}',
+          title: tval('Edit'),
           Component: 'UpdateActionInitializer',
           schema: {
             'x-component': 'Action',
@@ -110,7 +111,7 @@ export const PDFViewerBlockInitializer = () => {
           properties: {
             actions: {
               type: 'void',
-              'x-initializer': 'PDFViewActionInitializer',
+              'x-initializer': 'pdfViewer:configureActions',
               'x-component': 'ActionBar',
               'x-component-props': {},
               properties: {},

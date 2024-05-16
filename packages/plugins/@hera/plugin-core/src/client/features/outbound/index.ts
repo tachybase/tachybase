@@ -29,5 +29,6 @@ export class PluginOutbound extends Plugin {
     this.app.schemaInitializerManager.addItem('table:configureActions', outboundItem.name, outboundItem);
     this.app.schemaInitializerManager.addItem('details:configureActions', outboundItem.name, outboundItem);
     this.app.schemaInitializerManager.addItem('kanban:configureActions', outboundItem.name, outboundItem);
+    this.app.schemaInitializerManager.addItem('pdfViewer:configureActions', outboundItem.name, outboundItem);
   }
 }

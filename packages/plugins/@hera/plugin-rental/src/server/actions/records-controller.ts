@@ -177,7 +177,7 @@ export class RecordPreviewController {
   @Action('pdf')
   async printPreview(ctx: Context) {
     const {
-      params: { recordId, isDouble, settingType, margingTop },
+      params: { recordId, isDouble, settingType, margingTop, styleId = -1 },
     } = ctx.action;
     // 拉侧面文字说明
     const pdfExplain = await ctx.db.getRepository('basic_configuration').find();
@@ -227,7 +227,12 @@ export class RecordPreviewController {
     const double = isDouble === '0' || isDouble === '1' ? isDouble : pdfExplain[0].record_columns;
 
     const cache = ctx.app.cacheManager.getCache('@hera/plugin-rental') as Cache;
-    const key = stringify({ record, leaseData, feeData, settings: { isDouble: double, printSetup } });
+    const key = stringify({
+      record,
+      leaseData,
+      feeData,
+      settings: { isDouble: double, printSetup, styleId: Number(styleId) },
+    });
 
     const result = await cache.get(key);
     if (result) {
@@ -239,7 +244,11 @@ export class RecordPreviewController {
     } else {
       const buf = await getStream.buffer(
         // @ts-ignore
-        await this.recordPdfService.transformPdfV2(record, leaseData, feeData, { isDouble: double, printSetup }),
+        await this.recordPdfService.transformPdfV2(record, leaseData, feeData, {
+          isDouble: double,
+          printSetup,
+          styleId: Number(styleId),
+        }),
       );
       ctx.body = buf;
       await cache.set(key, buf);

@@ -10,7 +10,12 @@ export class RecordPdfService {
   @Db()
   private db: Database;
   async transformPdfV2(recordData: any, lease_data: any, fee_data: any, options: RecordPdfOptions) {
-    const { isDouble, printSetup } = options;
+    const { isDouble, printSetup, styleId } = options;
+
+    let printStyle = await this.db.getRepository('printStyles').findById(styleId);
+    if (!printStyle) {
+      printStyle = (await this.db.getRepository('printStyles').find())[0];
+    }
 
     // 直发单不需要打印预览
     if (recordData.category === RecordCategory.purchase2lease || recordData.category === RecordCategory.lease2lease)
@@ -332,6 +337,7 @@ export class RecordPdfService {
       priceRule: make_price,
       isDouble,
       printSetup,
+      printStyle,
     });
   }
 }
