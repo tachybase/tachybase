@@ -536,7 +536,9 @@ export class SettlementService {
                     dayjs(item.date).isBetween(ruleItem.start_date, ruleItem.end_date, 'day', '[]') &&
                     dayjs(item.date).isSameOrAfter(settlementAbout.start_date)
                   ) {
-                    const feeItem = item?.record_items.filter((value) => value.product_id === rule.fee_product_id);
+                    const feeItem = item?.record_items.filter(
+                      (value) => value && value.product_id === rule.fee_product_id,
+                    );
                     if (feeItem.length) {
                       feeItem.forEach((value) => {
                         if (category === '其他') {
