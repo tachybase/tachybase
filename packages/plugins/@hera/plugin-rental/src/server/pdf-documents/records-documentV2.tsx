@@ -4,194 +4,6 @@ import * as QRCode from 'qrcode';
 import { RecordCategory } from '../../utils/constants';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 import { dayjs } from '@tachybase/utils';
-import { PrintSetup } from '../../utils/system';
-const fontSizes = {
-  title: '13px',
-  subTitle: '11px',
-  main: '9px',
-  side: '8px',
-};
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'column',
-    backgroundColor: '#FFF',
-    fontFamily: 'source-han-sans',
-    padding: '12px',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: fontSizes.title,
-  },
-  subTitle: {
-    textAlign: 'center',
-    fontSize: fontSizes.subTitle,
-  },
-  content: {
-    flexDirection: 'row',
-    marginLeft: '10pt',
-    marginRight: '10pt',
-  },
-  main: {
-    flex: 1,
-  },
-  side: {
-    width: '11px',
-    fontSize: fontSizes.side,
-    paddingLeft: '2px',
-  },
-  tableHeader: {
-    fontSize: fontSizes.main,
-    flexDirection: 'row',
-  },
-  headerLeft: {
-    width: '205px',
-  },
-  headerMiddle: {
-    flex: 1,
-  },
-  headerLeftLeft: {
-    flex: 2,
-  },
-  headerLeftRight: {
-    flex: 1,
-  },
-  headerRight: {
-    width: '205px',
-  },
-  tableContentTitle: {
-    fontSize: fontSizes.main,
-    flexDirection: 'row',
-  },
-  tableCellLargeTitle: {
-    flex: 2,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-  },
-  tableCellTitle: {
-    flex: 1,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-  },
-  tableCell2Title: {
-    flex: 2,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-  },
-  tableCellTitleLast: {
-    flex: 1,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderRight: '1px solid black',
-    marginRight: '-1px',
-  },
-  tableCell2TitleLast: {
-    flex: 2,
-    textAlign: 'center',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderRight: '1px solid black',
-    marginRight: '-1px',
-  },
-  tableContent: {
-    fontSize: fontSizes.main,
-    flexDirection: 'row',
-  },
-  tableCell: {
-    flex: 1,
-    textAlign: 'right',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableCellNoLeft: {
-    flex: 1,
-    textAlign: 'right',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableCell2: {
-    flex: 2,
-    textAlign: 'right',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableCellLast: {
-    flex: 1,
-    textAlign: 'right',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderRight: '1px solid black',
-    marginRight: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableCell2Last: {
-    flex: 2,
-    textAlign: 'right',
-    borderLeft: '1px solid black',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderRight: '1px solid black',
-    marginRight: '-1px',
-    borderBottom: '1px solid black',
-  },
-  tableFooter: {
-    flexDirection: 'row',
-  },
-  tableFooterQr: {
-    width: '50px',
-    marginLeft: '-50px',
-    transform: 'translate(50px, 0)',
-  },
-  tableFooterLeft: {
-    flex: 1,
-    fontSize: fontSizes.main,
-    borderLeft: '1px solid black',
-    paddingLeft: '50px',
-    marginLeft: '-1px',
-    borderTop: '1px solid black',
-    marginTop: '-1px',
-    borderBottom: '1px solid black',
-    marginBottom: '-1px',
-  },
-  tableFooterRight: {
-    flex: 1,
-    fontSize: fontSizes.main,
-    border: '1px solid black',
-    paddingRight: '50px',
-    margin: '-1px',
-  },
-  sign: {
-    marginTop: '0px',
-    flexDirection: 'row',
-  },
-  signPart: {
-    flex: 1,
-    fontSize: fontSizes.main,
-  },
-});
 /**
  *
  * @param isDouble 0为单列，1为双列
@@ -202,17 +14,204 @@ const PreviewDocument = ({
   detail,
   record,
   priceRule,
-  isDouble,
   printSetup,
+  printStyle,
 }: {
   imageUrl: string;
   detail: any;
   record: any[];
   priceRule: any[];
-  isDouble: Number;
   printSetup: String;
+  printStyle: any;
 }) => {
-  isDouble = Number(isDouble);
+  const fontSizes = {
+    title: '13px',
+    subTitle: '11px',
+    main: printStyle.fontSize + 'px',
+    side: '8px',
+  };
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'column',
+      backgroundColor: '#FFF',
+      fontFamily: 'source-han-sans',
+      padding: `${printStyle.margin[0]} ${printStyle.margin[3]} ${printStyle.margin[1]} ${printStyle.margin[2]}`,
+    },
+    title: {
+      textAlign: 'center',
+      fontSize: fontSizes.title,
+    },
+    subTitle: {
+      textAlign: 'center',
+      fontSize: fontSizes.subTitle,
+    },
+    content: {
+      flexDirection: 'row',
+      marginLeft: '10pt',
+      marginRight: '10pt',
+    },
+    main: {
+      flex: 1,
+    },
+    side: {
+      width: '11px',
+      fontSize: fontSizes.side,
+      paddingLeft: '2px',
+    },
+    tableHeader: {
+      fontSize: fontSizes.main,
+      flexDirection: 'row',
+    },
+    headerLeft: {
+      width: '205px',
+    },
+    headerMiddle: {
+      flex: 1,
+    },
+    headerLeftLeft: {
+      flex: 2,
+    },
+    headerLeftRight: {
+      flex: 1,
+    },
+    headerRight: {
+      width: '205px',
+    },
+    tableContentTitle: {
+      fontSize: fontSizes.main,
+      flexDirection: 'row',
+    },
+    tableCellLargeTitle: {
+      flex: 2,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+    },
+    tableCellTitle: {
+      flex: 1,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+    },
+    tableCell2Title: {
+      flex: 2,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+    },
+    tableCellTitleLast: {
+      flex: 1,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderRight: '1px solid black',
+      marginRight: '-1px',
+    },
+    tableCell2TitleLast: {
+      flex: 2,
+      textAlign: 'center',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderRight: '1px solid black',
+      marginRight: '-1px',
+    },
+    tableContent: {
+      fontSize: fontSizes.main,
+      flexDirection: 'row',
+    },
+    tableCell: {
+      flex: 1,
+      textAlign: 'right',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableCellNoLeft: {
+      flex: 1,
+      textAlign: 'right',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableCell2: {
+      flex: 2,
+      textAlign: 'right',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableCellLast: {
+      flex: 1,
+      textAlign: 'right',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderRight: '1px solid black',
+      marginRight: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableCell2Last: {
+      flex: 2,
+      textAlign: 'right',
+      borderLeft: '1px solid black',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderRight: '1px solid black',
+      marginRight: '-1px',
+      borderBottom: '1px solid black',
+    },
+    tableFooter: {
+      flexDirection: 'row',
+    },
+    tableFooterQr: {
+      width: '50px',
+      marginLeft: '-50px',
+      transform: 'translate(50px, 0)',
+    },
+    tableFooterLeft: {
+      flex: 1,
+      fontSize: fontSizes.main,
+      borderLeft: '1px solid black',
+      paddingLeft: '50px',
+      marginLeft: '-1px',
+      borderTop: '1px solid black',
+      marginTop: '-1px',
+      borderBottom: '1px solid black',
+      marginBottom: '-1px',
+    },
+    tableFooterRight: {
+      flex: 1,
+      fontSize: fontSizes.main,
+      border: '1px solid black',
+      paddingRight: '50px',
+      margin: '-1px',
+    },
+    sign: {
+      marginTop: '0px',
+      flexDirection: 'row',
+    },
+    signPart: {
+      flex: 1,
+      fontSize: fontSizes.main,
+    },
+  });
+  const isDouble = printStyle.column === 'double';
   const date = detail.date;
   const number = detail.number;
   const origin = detail.original_number;
@@ -383,7 +382,7 @@ const PreviewDocument = ({
 
   return (
     <Document>
-      <Page size="A4" style={{ ...styles.page, marginTop: detail.margingTop }}>
+      <Page orientation={printStyle.orientation} size={printStyle.size} style={{ ...styles.page }}>
         <Text style={styles.title}>{recordsName}</Text>
         <Text style={styles.subTitle}>{detail.category === RecordCategory.inventory ? '盘点' : outOfStorage}单</Text>
         <View style={styles.content}>
@@ -518,6 +517,7 @@ export const renderItV2 = async (rent: {
   priceRule: any[];
   isDouble: Number;
   printSetup: String;
+  printStyle: any;
 }) => {
   const url = 'https://shcx.daoyoucloud.com/admin';
   const imageUrl = await QRCode.toDataURL(url);

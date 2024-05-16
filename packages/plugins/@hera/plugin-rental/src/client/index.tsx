@@ -49,6 +49,7 @@ import {
   PrintSetupMargingTop,
 } from './schema-initializer/actions/RecordPrintSetupMargingTopInitializer';
 import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedRecordsBlockInitializer';
+import { PrintStyleSetupInitializer, StyleSetup } from './schema-initializer/actions/PrintStyleSetupInitializer';
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
@@ -70,7 +71,7 @@ export class PluginRentalClient extends Plugin {
       'enbaleActions.' + addToReconciliationItem.name,
       addToReconciliationItem,
     );
-    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.printCounter', {
+    this.app.schemaInitializerManager.addItem('pdfViewer:configureActions', 'enableActions.printCounter', {
       type: 'item',
       title: '{{t("Print(countable)")}}',
       component: 'PDFViewerCountablePrintActionInitializer',
@@ -80,7 +81,7 @@ export class PluginRentalClient extends Plugin {
         return name === 'records';
       },
     });
-    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.columnSwitch', {
+    this.app.schemaInitializerManager.addItem('pdfViewer:configureActions', 'enableActions.columnSwitch', {
       type: 'item',
       title: '{{t("Column switch")}}',
       component: 'ColumnSwitchActionInitializer',
@@ -90,12 +91,12 @@ export class PluginRentalClient extends Plugin {
         return name === 'records';
       },
     });
-    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintSetup', {
+    this.app.schemaInitializerManager.addItem('pdfViewer:configureActions', 'enableActions.recordPrintSetup', {
       type: 'item',
       title: '{{t("Record print setup")}}',
       component: 'RecordPrintSetupActionInitializer',
     });
-    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.recordPrintMargingTop', {
+    this.app.schemaInitializerManager.addItem('pdfViewer:configureActions', 'enableActions.recordPrintMargingTop', {
       type: 'item',
       title: '{{t("Record print margingtop")}}',
       component: 'RecordPrintSetupMargingTopInitializer',
@@ -105,7 +106,17 @@ export class PluginRentalClient extends Plugin {
         return name === 'records' || name === 'waybills';
       },
     });
-    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.settlementExcelExport', {
+    this.app.schemaInitializerManager.addItem('pdfViewer:configureActions', 'enableActions.styleSetup', {
+      type: 'item',
+      title: tval('Style setup'),
+      Component: 'PrintStyleSetupInitializer',
+      useVisible() {
+        const collection = useCollection();
+        const name = collection['options']['name'];
+        return name === 'records' || name === 'waybills';
+      },
+    });
+    this.app.schemaInitializerManager.addItem('pdfViewer:configureActions', 'enableActions.settlementExcelExport', {
       type: 'item',
       title: '{{t("Settlement excel export")}}',
       component: 'SettlementExcelExportActionInitializer',
@@ -115,7 +126,7 @@ export class PluginRentalClient extends Plugin {
         return name === 'settlements';
       },
     });
-    this.app.schemaInitializerManager.addItem('PDFViewActionInitializer', 'enbaleActions.settlementStyleSwitch', {
+    this.app.schemaInitializerManager.addItem('pdfViewer:configureActions', 'enableActions.settlementStyleSwitch', {
       type: 'item',
       title: '{{t("Settlement style switch")}}',
       component: 'SettlementStyleSwitchActionInitializer',
@@ -170,6 +181,8 @@ export class PluginRentalClient extends Plugin {
       RecordDetails,
       DetailChecks,
       PdfIsDoubleProvider,
+      PrintStyleSetupInitializer,
+      StyleSetup,
       WaybillsProvider,
       AddToChecklistActionInitializer,
       PrintCounterProvider,

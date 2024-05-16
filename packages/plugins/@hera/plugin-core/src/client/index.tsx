@@ -67,7 +67,7 @@ import { PluginPDF } from './features/pdf';
 import { PluginExtendedFilterForm } from './features/extended-filter-form';
 import { PluginOutbound } from './features/outbound';
 import { PluginModeHighlight } from './features/mode-highlight';
-export { usePDFViewerRef } from './schema-initializer';
+export { usePDFViewerRef } from './features/pdf/PDFVIewerBlockInitializer';
 export * from './components/custom-components/custom-components';
 
 export class PluginCoreClient extends Plugin {
