@@ -10,3 +10,12 @@ export const useGridCardActionBarProps = () => {
     spaceProps,
   };
 };
+
+export const useGridCardDetailUrl = ({ collection, field, fieldSchema }) => {
+  const { datasource = 'main', name: collectionName } = collection;
+  const { record } = field;
+  const primaryKey = 'id';
+  const primaryKeyValue = record[primaryKey];
+
+  return `/mobile/${datasource}/${collectionName}/${primaryKeyValue}`;
+};
