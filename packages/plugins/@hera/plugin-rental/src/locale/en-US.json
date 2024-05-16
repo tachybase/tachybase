@@ -1,6 +1,22 @@
 {
+  "Add new style": "Add new style",
+  "Name": "Name",
+  "Margin": "Margin",
+  "Paper size": "Paper size",
+  "Paper orientation": "Paper orientation",
+  "Column style": "Column style",
+  "Comment style": "Comment style",
+  "Landscape": "Landscape",
+  "Portrait": "Portrait",
+  "Single column": "Single column",
+  "Double column": "Double column",
+  "Classical": "Classical",
+  "Unified": "Unified",
+  "Save": "Save",
+  "Font size": "Font size",
   "record": "record",
   "waybill": "waybill",
   "settlement": "settlement",
+  "Style setup": "Style setup",
   "Add to checklist": "Add to checklist"
 }

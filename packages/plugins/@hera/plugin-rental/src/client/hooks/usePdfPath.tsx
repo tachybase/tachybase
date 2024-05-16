@@ -17,27 +17,36 @@ export const PdfMargingTopContext = createContext({
   setMargingTop: null,
 });
 
+export const PrintStyleContext = createContext({
+  styleId: -1,
+  setStyleId: null,
+});
+
 export const PdfIsDoubleProvider = (props) => {
   const [isDouble, setIsDouble] = useState(false);
   const [settingType, setSettingLoad] = useState(false);
   const [margingTop, setMargingTop] = useState(0);
+  const [styleId, setStyleId] = useState(-1);
   return (
-    <PdfMargingTopContext.Provider value={{ margingTop, setMargingTop }}>
-      <PdfIsDoubleContext.Provider value={{ isDouble, setIsDouble }}>
-        <PdfIsLoadContext.Provider value={{ settingType, setSettingLoad }}>{props.children}</PdfIsLoadContext.Provider>
-      </PdfIsDoubleContext.Provider>
-    </PdfMargingTopContext.Provider>
+    <PrintStyleContext.Provider value={{ styleId, setStyleId }}>
+      <PdfMargingTopContext.Provider value={{ margingTop, setMargingTop }}>
+        <PdfIsDoubleContext.Provider value={{ isDouble, setIsDouble }}>
+          <PdfIsLoadContext.Provider value={{ settingType, setSettingLoad }}>
+            {props.children}
+          </PdfIsLoadContext.Provider>
+        </PdfIsDoubleContext.Provider>
+      </PdfMargingTopContext.Provider>
+    </PrintStyleContext.Provider>
   );
 };
 
 export const useRecordPdfPath = () => {
   const record = useRecord();
-  const { isDouble } = useContext(PdfIsDoubleContext);
+  const { styleId } = useContext(PrintStyleContext);
   const { settingType } = useContext(PdfIsLoadContext);
-  const { margingTop } = useContext(PdfMargingTopContext);
   const path = useMemo(
-    () => `/records:pdf?recordId=${record.id}&isDouble=${isDouble}&settingType=${settingType}&margingTop=${margingTop}`,
-    [record.id, isDouble, settingType, margingTop],
+    () => `/records:pdf?recordId=${record.id}&settingType=${settingType}&styleId=${styleId}`,
+    [record.id, settingType, styleId],
   );
   return path;
 };

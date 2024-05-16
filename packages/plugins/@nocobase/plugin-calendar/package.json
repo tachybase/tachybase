@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-calendar",
   "displayName": "Calendar",
-  "version": "0.21.27",
+  "version": "0.21.28",
   "description": "Provides callendar collection template and block for managing date data, typically for date/time related information such as events, appointments, tasks, and so on.",
   "keywords": [
     "Collections",
