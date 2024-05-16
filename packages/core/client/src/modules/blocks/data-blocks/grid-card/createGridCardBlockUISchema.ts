@@ -31,6 +31,7 @@ export const createGridCardBlockUISchema = (options: {
       runWhenParamsChanged: true,
       rowKey,
       isLinkable: false,
+      needInfiniteScroll: false,
     },
     'x-component': 'BlockItem',
     'x-use-component-props': 'useGridCardBlockItemProps',

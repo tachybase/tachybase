@@ -25,6 +25,7 @@
     "@tachybase/utils": "workspace:*",
     "ahooks": "^3.7.2",
     "antd": "5.16.1",
+    "antd-mobile": "^5.35.0",
     "antd-style": "3.4.5",
     "axios": "^1.6.2",
     "classnames": "^2.3.1",

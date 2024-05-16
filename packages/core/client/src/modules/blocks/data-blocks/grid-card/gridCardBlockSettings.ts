@@ -276,6 +276,30 @@ export const gridCardBlockSettings = new SchemaSettings({
       },
     },
     {
+      name: 'setInfiniteScroll',
+      type: 'switch',
+      useComponentProps() {
+        const { t } = useTranslation();
+        const fieldSchema = useFieldSchema();
+        const field = useField();
+        const { dn } = useDesignable();
+        return {
+          title: t('Set InfiniteScroll'),
+          checked: fieldSchema['x-decorator-props']?.['needInfiniteScroll'],
+          onChange: (needInfiniteScroll) => {
+            _.set(fieldSchema, 'x-decorator-props.needInfiniteScroll', needInfiniteScroll);
+            field.decoratorProps.needInfiniteScroll = needInfiniteScroll;
+            dn.emit('patch', {
+              schema: {
+                ['x-uid']: fieldSchema['x-uid'],
+                'x-decorator-props': fieldSchema['x-decorator-props'],
+              },
+            });
+          },
+        };
+      },
+    },
+    {
       name: 'ConvertReferenceToDuplicate',
       Component: SchemaSettingsTemplate,
       useComponentProps() {
