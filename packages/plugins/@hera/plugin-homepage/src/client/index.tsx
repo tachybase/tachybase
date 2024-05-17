@@ -12,7 +12,7 @@ export class PluginHomePageClient extends Plugin {
       path: '/',
       Component: 'HomePage',
     });
-    this.app.pluginSettingsManager.add('hera', {
+    this.app.pluginSettingsManager.add('homepage', {
       title: tval('Homepage config'),
       icon: 'HomeOutlined',
       Component: HomePageConfiguration,
