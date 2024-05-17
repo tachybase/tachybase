@@ -15,8 +15,7 @@ import { isPatternDisabled } from '../../../../schema-settings';
 import { ActionType } from '../../../../schema-settings/LinkageRules/type';
 import { SchemaSettingsDefaultValue } from '../../../../schema-settings/SchemaSettingsDefaultValue';
 import { useIsAllowToSetDefaultValue } from '../../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
-import { useContextConfigSettingGrid } from '../grid-card/context/ConfigSettingGrid.provider';
-import { useDataBlockProps } from '@tachybase/client';
+import { useContextConfigSetting } from '@tachybase/client';
 
 export const fieldSettingsFormItem = new SchemaSettings({
   name: 'fieldSettings:FormItem',
@@ -233,7 +232,7 @@ export const fieldSettingsFormItem = new SchemaSettings({
               const { dn } = useDesignable();
               const field = useField();
               const fieldSchema = useFieldSchema();
-              const { layoutDirection = 'column' } = useDataBlockProps();
+              const { layoutDirection = 'column' } = useContextConfigSetting();
               const initialValue = fieldSchema['x-decorator-props']?.layoutDirection || layoutDirection;
 
               return {

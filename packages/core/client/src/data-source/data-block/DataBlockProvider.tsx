@@ -8,6 +8,7 @@ import { AssociationProvider, CollectionManagerProvider, CollectionOptions, Coll
 import { CollectionRecord } from '../collection-record';
 import { BlockRequestProvider } from './DataBlockRequestProvider';
 import { DataBlockResourceProvider } from './DataBlockResourceProvider';
+import { ConfigSettingProvider } from './context/ConfigSetting.provider';
 
 export interface AllDataBlockProps {
   collection: string | CollectionOptions;
@@ -135,7 +136,11 @@ export const AssociationOrCollectionProvider = (props: {
 
 export const DataBlockProvider: FC<DataBlockProviderProps & { children?: ReactNode }> = withDynamicSchemaProps(
   (props) => {
-    const { collection, association, dataSource, children, ...resets } = props as Partial<AllDataBlockProps>;
+    const { collection, association, dataSource, children, layoutDirection, ...resets } =
+      props as Partial<AllDataBlockProps>;
+    const configSetting = {
+      layoutDirection,
+    };
     const { dn } = useDesignable();
 
     return (
@@ -145,15 +150,17 @@ export const DataBlockProvider: FC<DataBlockProviderProps & { children?: ReactNo
           props: { ...resets, collection, association, dataSource } as AllDataBlockProps,
         }}
       >
-        <CollectionManagerProvider dataSource={dataSource}>
-          <AssociationOrCollectionProvider collection={collection} association={association}>
-            <ACLCollectionProvider>
-              <DataBlockResourceProvider>
-                <BlockRequestProvider>{children}</BlockRequestProvider>
-              </DataBlockResourceProvider>
-            </ACLCollectionProvider>
-          </AssociationOrCollectionProvider>
-        </CollectionManagerProvider>
+        <ConfigSettingProvider value={configSetting}>
+          <CollectionManagerProvider dataSource={dataSource}>
+            <AssociationOrCollectionProvider collection={collection} association={association}>
+              <ACLCollectionProvider>
+                <DataBlockResourceProvider>
+                  <BlockRequestProvider>{children}</BlockRequestProvider>
+                </DataBlockResourceProvider>
+              </ACLCollectionProvider>
+            </AssociationOrCollectionProvider>
+          </CollectionManagerProvider>
+        </ConfigSettingProvider>
       </DataBlockContext.Provider>
     );
   },
