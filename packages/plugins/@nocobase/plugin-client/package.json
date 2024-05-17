@@ -1,7 +1,7 @@
 {
   "name": "@nocobase/plugin-client",
   "displayName": "WEB client",
-  "version": "0.21.29",
+  "version": "0.21.30",
   "description": "Provides a client interface for the NocoBase server",
   "license": "AGPL-3.0",
   "main": "./dist/server/index.js",
