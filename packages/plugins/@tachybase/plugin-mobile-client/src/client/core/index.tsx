@@ -98,3 +98,5 @@ export const MobileCore: React.FC<PropsWithChildren> = (props) => {
     </SchemaComponentOptions>
   );
 };
+
+export * from './schema';

@@ -33,7 +33,7 @@ export const HomePage: React.FC<{}> = () => {
       </header>
       <main>
         <Carousel autoplay>
-          {data.data.map((item) => (
+          {data?.data?.map((item) => (
             <div key={item.id}>
               <Image preview={false} src={item.pictures[0].url} />
             </div>

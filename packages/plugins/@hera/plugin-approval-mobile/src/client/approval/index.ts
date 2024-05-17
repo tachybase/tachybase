@@ -1,8 +1,13 @@
 import { Plugin } from '@tachybase/client';
 import { ApprovalBlockInitializer } from './ApprovalBlockInitializer';
 import { ApprovalSettings } from './ApprovalSettings';
-import { TodosBlock } from './TodosBlock';
-import { InitiationsBlock } from './InitiationsBlock';
+import { TodosBlock } from './todos/TodosBlock';
+import { InitiationsBlock } from './initiations/InitiationsBlock';
+import { LauncherActionConfigInitializer } from './initiations/config/LauncherActionConfig';
+import { ViewActionTodosContent } from './todos/component/ViewActionTodosContent';
+import { UserInitiationsBlock } from './initiations/UserInitiationsBlock';
+import { ViewActionUserInitiationsContent } from './initiations/component/ViewActionUserInitiationsContent';
+import { ApprovalProcess } from './component/ApprovalProcess.view';
 
 class PluginApproval extends Plugin {
   async load() {
@@ -10,6 +15,10 @@ class PluginApproval extends Plugin {
       ApprovalBlockInitializer,
       InitiationsBlock,
       TodosBlock,
+      UserInitiationsBlock,
+      ViewActionTodosContent,
+      ViewActionUserInitiationsContent,
+      'ApprovalCommon.ViewComponent.MApprovalProcess': ApprovalProcess,
     });
     this.app.schemaSettingsManager.add(ApprovalSettings);
     this.app.schemaInitializerManager.addItem('mobilePage:addBlock', 'otherBlocks.approval', {
@@ -18,6 +27,7 @@ class PluginApproval extends Plugin {
       type: 'item',
       Component: 'ApprovalBlockInitializer',
     });
+    this.app.schemaInitializerManager.add(LauncherActionConfigInitializer);
   }
 }
 

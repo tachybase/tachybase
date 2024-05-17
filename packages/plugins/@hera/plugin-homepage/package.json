@@ -8,6 +8,7 @@
   },
   "peerDependencies": {
     "@tachybase/client": "0.x",
+    "@tachybase/database": "0.x",
     "@tachybase/server": "0.x",
     "@tachybase/test": "0.x"
   }
