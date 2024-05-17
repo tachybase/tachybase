@@ -16,7 +16,7 @@ import { FilterFormDesigner } from './FormItem.FilterFormDesigner';
 import { useEnsureOperatorsValid } from './SchemaSettingOptions';
 import useLazyLoadDisplayAssociationFieldsOfForm from './hooks/useLazyLoadDisplayAssociationFieldsOfForm';
 import useParseDefaultValue from './hooks/useParseDefaultValue';
-import { CollectionFieldProvider, useDataBlockProps } from '../../../data-source';
+import { CollectionFieldProvider, useContextConfigSetting } from '../../../data-source';
 
 export const FormItem: any = observer(
   (props: any) => {
@@ -26,7 +26,7 @@ export const FormItem: any = observer(
     const contextVariable = useContextVariable();
     const variables = useVariables();
     const { addActiveFieldName } = useFormActiveFields() || {};
-    const { layoutDirection } = useDataBlockProps();
+    const { layoutDirection } = useContextConfigSetting();
 
     const finishLayoutDirection = selfLayoutDirection ?? layoutDirection;
 
