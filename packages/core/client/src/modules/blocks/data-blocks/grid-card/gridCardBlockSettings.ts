@@ -252,6 +252,32 @@ export const gridCardBlockSettings = new SchemaSettings({
       },
     },
     {
+      name: 'LayoutDirection',
+      type: 'select',
+      useComponentProps() {
+        const { t } = useTranslation();
+        const fieldSchema = useFieldSchema();
+        const field = useField();
+        const { dn } = useDesignable();
+        return {
+          title: t('Layout Direction'),
+          value: field.decoratorProps?.layoutDirection || 'column',
+          options: [{ value: 'row' }, { value: 'column' }],
+          onChange: (layoutDirection) => {
+            _.set(fieldSchema, 'x-decorator-props.layoutDirection', layoutDirection);
+            _.set(field, 'decoratorProps.layoutDirection', layoutDirection);
+
+            dn.emit('patch', {
+              schema: {
+                ['x-uid']: fieldSchema['x-uid'],
+                'x-decorator-props': fieldSchema['x-decorator-props'],
+              },
+            });
+          },
+        };
+      },
+    },
+    {
       name: 'ConvertReferenceToDuplicate',
       Component: SchemaSettingsTemplate,
       useComponentProps() {

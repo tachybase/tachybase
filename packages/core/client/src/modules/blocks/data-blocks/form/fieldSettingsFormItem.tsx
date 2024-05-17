@@ -15,7 +15,8 @@ import { isPatternDisabled } from '../../../../schema-settings';
 import { ActionType } from '../../../../schema-settings/LinkageRules/type';
 import { SchemaSettingsDefaultValue } from '../../../../schema-settings/SchemaSettingsDefaultValue';
 import { useIsAllowToSetDefaultValue } from '../../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
-import { css } from '@tachybase/client';
+import { useContextConfigSettingGrid } from '../grid-card/context/ConfigSettingGrid.provider';
+import { useDataBlockProps } from '@tachybase/client';
 
 export const fieldSettingsFormItem = new SchemaSettings({
   name: 'fieldSettings:FormItem',
@@ -229,9 +230,12 @@ export const fieldSettingsFormItem = new SchemaSettings({
             type: 'select',
             useComponentProps() {
               const { t } = useTranslation();
-              const fieldSchema = useFieldSchema();
               const { dn } = useDesignable();
-              const initialValue = fieldSchema['x-decorator-props']?.layoutDirection ?? 'column';
+              const field = useField();
+              const fieldSchema = useFieldSchema();
+              const { layoutDirection = 'column' } = useDataBlockProps();
+              const initialValue = fieldSchema['x-decorator-props']?.layoutDirection || layoutDirection;
+
               return {
                 title: t('Layout Direction'),
                 options: [
@@ -239,25 +243,28 @@ export const fieldSettingsFormItem = new SchemaSettings({
                   { label: t('Column'), value: 'column' },
                 ],
                 value: initialValue,
-                onChange(v) {
-                  const schema: ISchema = {
-                    ['x-uid']: fieldSchema['x-uid'],
+                onChange(directionVal = 'column') {
+                  const oldStyle = fieldSchema['x-decorator-props']?.style;
+                  const newStyle = {
+                    ...oldStyle,
+                    display: 'flex',
+                    flexDirection: directionVal,
+                    alignItems: `${directionVal === 'row' ? 'baseline' : 'unset'}`,
                   };
 
-                  const styleValue = {
-                    layoutDirection: v ?? 'column',
-                    style: {
-                      display: 'flex',
-                      flexDirection: `${v === 'row' ? 'row' : 'column'}`,
-                      alignItems: 'baseline',
-                    },
-                  };
-
-                  _.set(fieldSchema, 'x-decorator-props', styleValue);
-                  _.set(schema, 'x-decorator-props', styleValue);
+                  _.set(field, 'decoratorProps.style', newStyle);
+                  _.set(field, 'decoratorProps.layoutDirection', directionVal);
 
                   dn.emit('patch', {
-                    schema,
+                    schema: {
+                      'x-uid': fieldSchema['x-uid'],
+
+                      'x-decorator-props': {
+                        ...fieldSchema['x-decorator-props'],
+                        layoutDirection: directionVal,
+                        style: newStyle,
+                      },
+                    },
                   });
 
                   dn.refresh();
