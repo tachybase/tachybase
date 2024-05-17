@@ -4,7 +4,6 @@ import CalcField from './fields/calc';
 import { SqlLoader } from './services/sql-loader';
 import { ConnectionManager } from './services/connection-manager';
 import { FontManager } from './services/font-manager';
-import { HomePageService } from '../../../plugin-homepage/src/server/home-page-service';
 import { WebControllerService as WebService } from './services/web-service';
 import './actions';
 import { Container } from '@tachybase/utils';
@@ -48,7 +47,6 @@ export class PluginCoreServer extends Plugin {
   }
   async install(options?: InstallOptions) {
     await this.pluginDepartments.install(options);
-    await Container.get(HomePageService).install();
   }
   async afterEnable() {}
   async afterDisable() {}
