@@ -103,7 +103,6 @@ const approvals = {
     return actions.destroy(context, next);
   },
   async withdraw(context, next) {
-    let _a;
     const { filterByTk } = context.action.params;
     const repository = utils.getRepositoryFromParams(context);
     const approval = await repository.findOne({
@@ -114,7 +113,7 @@ const approvals = {
     if (!approval) {
       return context.throw(404);
     }
-    if (approval.createdById !== ((_a = context.state.currentUser) == null ? void 0 : _a.id)) {
+    if (approval.createdById !== context.state.currentUser?.id) {
       return context.throw(403);
     }
     if (approval.status !== APPROVAL_STATUS.SUBMITTED || !approval.workflow.config.withdrawable) {
@@ -157,7 +156,7 @@ const approvals = {
           map.set(record.job.id, record.job);
         }
         return map;
-      }, /* @__PURE__ */ new Map());
+      }, new Map());
       return Array.from(jobsMap.values());
     });
     context.body = approval;

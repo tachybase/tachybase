@@ -1418,6 +1418,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../../@tachybase/plugin-workflow
       '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
@@ -1437,6 +1440,9 @@ importers:
       '@types/lodash':
         specifier: ^4.17.0
         version: 4.17.0
+      ahooks:
+        specifier: ^3.7.2
+        version: 3.7.11(react@18.2.0)
       antd:
         specifier: 5.16.1
         version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
@@ -1455,6 +1461,9 @@ importers:
       react-i18next:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
+      react-router-dom:
+        specifier: 6.x
+        version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
 
   packages/plugins/@hera/plugin-audit-logs:
     dependencies:
@@ -1668,6 +1677,9 @@ importers:
       '@tachybase/client':
         specifier: 0.x
         version: link:../../../core/client
+      '@tachybase/database':
+        specifier: 0.x
+        version: link:../../../core/database
       '@tachybase/server':
         specifier: 0.x
         version: link:../../../core/server
@@ -13923,7 +13935,7 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
       dayjs: 1.11.10
       intersection-observer: 0.12.2
       js-cookie: 2.2.1
@@ -26198,7 +26210,7 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@babel/runtime': 7.24.0
+      '@babel/runtime': 7.24.5
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-is: 18.3.1

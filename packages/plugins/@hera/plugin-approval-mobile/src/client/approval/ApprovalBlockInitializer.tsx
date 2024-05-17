@@ -37,10 +37,23 @@ export const ApprovalBlockInitializer = () => {
 
 export const ApprovalInitializerItem = [
   {
-    type: 'item',
+    type: 'itemGroup',
     name: 'initiations',
     title: '发起',
-    itemComponent: 'InitiationsBlock',
+    children: [
+      {
+        type: 'item',
+        name: 'initiationsApproval',
+        title: '发起申请',
+        itemComponent: 'InitiationsBlock',
+      },
+      {
+        type: 'item',
+        name: 'currApproval',
+        title: '我发起的',
+        itemComponent: 'UserInitiationsBlock',
+      },
+    ],
   },
   {
     type: 'item',

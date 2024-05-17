@@ -1,0 +1,21 @@
+.tabsBarStyle{
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  height: 5vh;
+  width: 100vw;
+  background-color: #ffffff;
+}
+
+.navBarStyle{
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  position: fixed;
+  z-index: 2;
+  height: 5vh;
+  width: 100vw;
+}
+
+.approvalContext{
+  margin: 6vh 0 6vh 0;
+}
