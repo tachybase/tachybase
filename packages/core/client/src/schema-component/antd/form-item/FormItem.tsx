@@ -16,16 +16,19 @@ import { FilterFormDesigner } from './FormItem.FilterFormDesigner';
 import { useEnsureOperatorsValid } from './SchemaSettingOptions';
 import useLazyLoadDisplayAssociationFieldsOfForm from './hooks/useLazyLoadDisplayAssociationFieldsOfForm';
 import useParseDefaultValue from './hooks/useParseDefaultValue';
-import { CollectionFieldProvider } from '../../../data-source';
+import { CollectionFieldProvider, useDataBlockProps } from '../../../data-source';
 
 export const FormItem: any = observer(
   (props: any) => {
-    useEnsureOperatorsValid();
+    const { layoutDirection: selfLayoutDirection } = props;
     const field = useField<Field>();
     const schema = useFieldSchema();
     const contextVariable = useContextVariable();
     const variables = useVariables();
     const { addActiveFieldName } = useFormActiveFields() || {};
+    const { layoutDirection } = useDataBlockProps();
+
+    const finishLayoutDirection = selfLayoutDirection ?? layoutDirection;
 
     useEffect(() => {
       variables?.registerVariable(contextVariable);
@@ -40,6 +43,7 @@ export const FormItem: any = observer(
     }, [addActiveFieldName, schema.name]);
 
     const showTitle = schema['x-decorator-props']?.showTitle ?? true;
+
     const extra = useMemo(() => {
       return typeof field.description === 'string' ? (
         <div
@@ -64,6 +68,13 @@ export const FormItem: any = observer(
               display: none;
             }
           `]: showTitle === false,
+        },
+        {
+          [css`
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+          `]: finishLayoutDirection === 'row',
         },
       );
     }, [showTitle]);
