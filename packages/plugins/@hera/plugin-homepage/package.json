@@ -1,0 +1,14 @@
+{
+  "name": "@hera/plugin-homepage",
+  "version": "0.0.1",
+  "main": "dist/server/index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "antd": "^5.16.1"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "0.x",
+    "@tachybase/server": "0.x",
+    "@tachybase/test": "0.x"
+  }
+}
