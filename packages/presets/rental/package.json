@@ -7,6 +7,7 @@
     "@hera/plugin-approval": "workspace:*",
     "@hera/plugin-audit-logs": "workspace:*",
     "@hera/plugin-core": "workspace:*",
+    "@hera/plugin-homepage": "workspace:*",
     "@hera/plugin-rental": "workspace:*",
     "@nocobase/plugin-acl": "workspace:*",
     "@nocobase/plugin-action-bulk-edit": "workspace:*",

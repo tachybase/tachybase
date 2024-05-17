@@ -2,7 +2,7 @@ import PresetTachyBase from '@tachybase/preset-tachybase';
 import _ from 'lodash';
 
 export class PluginRental extends PresetTachyBase {
-  #builtInPlugins = ['approval-mobile', 'core'];
+  #builtInPlugins = ['approval-mobile', 'core', 'homepage'];
 
   get builtInPlugins() {
     return super.builtInPlugins.concat(this.#builtInPlugins);

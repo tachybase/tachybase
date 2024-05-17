@@ -4,7 +4,7 @@ import CalcField from './fields/calc';
 import { SqlLoader } from './services/sql-loader';
 import { ConnectionManager } from './services/connection-manager';
 import { FontManager } from './services/font-manager';
-import { HomePageService } from './services/home-page-service';
+import { HomePageService } from '../../../plugin-homepage/src/server/home-page-service';
 import { WebControllerService as WebService } from './services/web-service';
 import './actions';
 import { Container } from '@tachybase/utils';

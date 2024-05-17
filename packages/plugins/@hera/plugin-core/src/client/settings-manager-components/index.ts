@@ -1,11 +1,9 @@
 import { Application } from '@tachybase/client';
 import { tval } from '../locale';
 import { Configuration } from './TokenConfiguration';
-import { HomePageConfiguration } from './HomePageConfiguration';
 import { LinkManager } from './LinkManager';
 import { Features } from './Features';
 
-export * from './HomePageConfiguration';
 export * from './LinkManager';
 export * from './TokenConfiguration';
 
@@ -20,11 +18,6 @@ export class PluginSettingsHelper {
       title: tval('Hera features'),
       icon: 'ApiOutlined',
       Component: Features,
-    });
-    this.app.pluginSettingsManager.add('hera.home_page', {
-      title: tval('HomePage Config'),
-      icon: 'HomeOutlined',
-      Component: HomePageConfiguration,
     });
     this.app.pluginSettingsManager.add('hera.token', {
       title: tval('Third-party integration configuration'),

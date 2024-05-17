@@ -1,5 +1,4 @@
-import React from 'react';
-import { Plugin, EditTitleField, CollectionProvider, CollectionRecordProvider } from '@tachybase/client';
+import { Plugin, EditTitleField } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 import { isValid } from '@tachybase/schema';
 import { autorun } from '@tachybase/schema';
@@ -15,7 +14,7 @@ import {
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
-import { AdminLayout, DetailsPage, HomePage, PageLayout } from './pages';
+import { AdminLayout, DetailsPage, PageLayout } from './pages';
 import { PluginSettingsHelper } from './settings-manager-components';
 import {
   AssociatedFieldInterface,
@@ -66,7 +65,6 @@ import { PluginWorkflowInterceptor } from './features/workflow-interceptor';
 import { PluginPDF } from './features/pdf';
 import { PluginExtendedFilterForm } from './features/extended-filter-form';
 import { PluginOutbound } from './features/outbound';
-import { PluginModeHighlight } from './features/mode-highlight';
 export { usePDFViewerRef } from './features/pdf/PDFVIewerBlockInitializer';
 export * from './components/custom-components/custom-components';
 
@@ -164,11 +162,6 @@ export class PluginCoreClient extends Plugin {
   }
 
   async registerRouters() {
-    this.app.router.remove('root');
-    this.app.router.add('home', {
-      path: '/',
-      element: <HomePage />,
-    });
     this.app.router.add('admin.details_page', {
       path: '/admin/:name/page/:pageId/records/*',
       Component: DetailsPage,
