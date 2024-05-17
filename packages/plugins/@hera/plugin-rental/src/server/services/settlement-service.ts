@@ -323,6 +323,7 @@ export class SettlementService {
                                       if (recordItem.record_item_fee_items.length) {
                                         recordItem.record_item_fee_items.forEach((value) => {
                                           if (value.product_id === rulefee.fee_product_id) {
+                                            if (value.is_excluded) return;
                                             const { count, unit } = ruleCount(
                                               rule,
                                               item,
