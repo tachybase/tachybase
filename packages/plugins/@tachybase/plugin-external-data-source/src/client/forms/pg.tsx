@@ -1,11 +1,9 @@
 import React from 'react';
-import { Plugin, SchemaComponent } from '@tachybase/client';
-import {} from '@tachybase/client';
-import { PluginDataSourceManagerClient } from '@nocobase/plugin-data-source-manager/client';
 import { Space } from 'antd';
-import { generateNTemplate as tval, usePluginTranslation } from './locale';
+import { SchemaComponent } from '@tachybase/client';
+import { tval, usePluginTranslation } from '../locale';
 
-const DataSourceSettingsForm = () => {
+export const PgDataSourceSettingsForm = () => {
   const { t } = usePluginTranslation();
   return (
     <SchemaComponent
@@ -29,7 +27,7 @@ const DataSourceSettingsForm = () => {
           displayName: {
             type: 'string',
             title: tval('Data source display name'),
-            required: !0,
+            required: true,
             'x-decorator': 'FormItem',
             'x-component': 'Input',
           },
@@ -39,7 +37,7 @@ const DataSourceSettingsForm = () => {
               host: {
                 type: 'string',
                 title: tval('Host'),
-                required: !0,
+                required: true,
                 'x-decorator': 'FormItem',
                 'x-component': 'Input',
                 default: 'localhost',
@@ -47,7 +45,7 @@ const DataSourceSettingsForm = () => {
               port: {
                 type: 'string',
                 title: tval('Port'),
-                required: !0,
+                required: true,
                 'x-decorator': 'FormItem',
                 'x-component': 'Input',
                 default: 5432,
@@ -55,14 +53,14 @@ const DataSourceSettingsForm = () => {
               database: {
                 type: 'string',
                 title: tval('Database'),
-                required: !0,
+                required: true,
                 'x-decorator': 'FormItem',
                 'x-component': 'Input',
               },
               username: {
                 type: 'string',
                 title: tval('Username'),
-                required: !0,
+                required: true,
                 'x-decorator': 'FormItem',
                 'x-component': 'Input',
               },
@@ -98,13 +96,3 @@ const DataSourceSettingsForm = () => {
     />
   );
 };
-
-export class PluginExternalDataSourceClient extends Plugin {
-  async load() {
-    this.app.pm
-      .get(PluginDataSourceManagerClient)
-      .registerType('postgres', { DataSourceSettingsForm, label: tval('PostgreSQL') });
-  }
-}
-
-export default PluginExternalDataSourceClient;

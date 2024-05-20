@@ -51,6 +51,7 @@
     "@nocobase/plugin-users": "workspace:*",
     "@nocobase/plugin-verification": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/plugin-external-data-source": "workspace:*",
     "@tachybase/plugin-mobile-client": "workspace:*",
     "@tachybase/plugin-system-settings": "workspace:*",
     "@tachybase/plugin-workflow": "workspace:*",
