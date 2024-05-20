@@ -9,6 +9,8 @@ import {
   mBlockInitializers,
   mBlockInitializers_deprecated,
   MobileFormItemInitializers,
+  SwiperFieldSettings,
+  SwiperPage,
   TabSearchFieldSchemaInitializer,
   TabSearchItemFieldSettings,
 } from './core/schema';
@@ -27,6 +29,7 @@ export class MobileClientPlugin extends Plugin {
     this.app.schemaInitializerManager.add(ImageSearchConfigureFields);
     this.app.schemaInitializerManager.add(TabSearchFieldSchemaInitializer);
 
+    this.app.schemaSettingsManager.add(SwiperFieldSettings);
     this.app.schemaSettingsManager.add(ImageSearchItemFieldSettings);
     this.app.schemaSettingsManager.add(TabSearchItemFieldSettings);
     this.app.schemaInitializerManager.add(MobileFormItemInitializers);
@@ -82,7 +85,7 @@ export class MobileClientPlugin extends Plugin {
     });
     this.app.router.add('mobile.swiper.page', {
       path: '/mobile/:name/image/:collection/:field/:fieldParams',
-      Component: 'SwiperPage',
+      Component: SwiperPage,
     });
   }
 }

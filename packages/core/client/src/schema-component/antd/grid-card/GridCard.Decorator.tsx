@@ -33,6 +33,7 @@ const InternalGridCardBlockProvider = (props) => {
         service,
         resource,
         columnCount: props.columnCount,
+        needInfiniteScroll: props.needInfiniteScroll,
       }}
     >
       <FormContext.Provider value={form}>

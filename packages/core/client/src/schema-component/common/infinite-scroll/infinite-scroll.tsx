@@ -1,41 +1,20 @@
+import { getScrollParent, merge } from '@tachybase/utils/client';
 import { useLockFn, useThrottleFn } from 'ahooks';
-import type { FC, ReactNode } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
-// import { useConfig } from '../config-provider';
-// import DotLoading from '../dot-loading';
-import { NativeProps, getScrollParent, mergeProps, withNativeProps } from './utils';
-
-// TODO: 待继续
-const useConfig = () => {
-  return {
-    locale: {
-      InfiniteScroll: {
-        retry: false,
-        noMore: false,
-        failedToLoad: '范德萨发',
-      },
-      common: {
-        loading: false,
-      },
-    },
-  };
-};
-
-// TODO: 待继续
-const DotLoading = () => null;
+import { Spin } from 'antd';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useStyles from './style';
 
 function isWindow(element: any | Window): element is Window {
   return element === window;
 }
-
-const classPrefix = `adm-infinite-scroll`;
 
 export type InfiniteScrollProps = {
   loadMore: (isRetry: boolean) => Promise<void>;
   hasMore: boolean;
   threshold?: number;
   children?: ReactNode | ((hasMore: boolean, failed: boolean, retry: () => void) => ReactNode);
-} & NativeProps;
+};
 
 const defaultProps: Required<Pick<InfiniteScrollProps, 'threshold' | 'children'>> = {
   threshold: 250,
@@ -44,13 +23,17 @@ const defaultProps: Required<Pick<InfiniteScrollProps, 'threshold' | 'children'>
   ),
 };
 
-export const InfiniteScroll: FC<InfiniteScrollProps> = (p) => {
-  const props = mergeProps(defaultProps, p);
-
+export const InfiniteScroll = ({
+  threshold = defaultProps.threshold,
+  loadMore,
+  children = defaultProps.children,
+  hasMore,
+}: InfiniteScrollProps) => {
+  const { styles } = useStyles();
   const [failed, setFailed] = useState(false);
   const doLoadMore = useLockFn(async (isRetry: boolean) => {
     try {
-      await props.loadMore(isRetry);
+      await loadMore(isRetry);
     } catch (e) {
       setFailed(true);
       throw e;
@@ -68,7 +51,7 @@ export const InfiniteScroll: FC<InfiniteScrollProps> = (p) => {
   const { run: check } = useThrottleFn(
     async () => {
       if (nextFlagRef.current !== flag) return;
-      if (!props.hasMore) return;
+      if (!hasMore) return;
       const element = elementRef.current;
       if (!element) return;
       if (!element.offsetParent) return;
@@ -78,14 +61,14 @@ export const InfiniteScroll: FC<InfiniteScrollProps> = (p) => {
       const rect = element.getBoundingClientRect();
       const elementTop = rect.top;
       const current = isWindow(parent) ? window.innerHeight : parent.getBoundingClientRect().bottom;
-      if (current >= elementTop - props.threshold) {
+      if (current >= elementTop - threshold) {
         const nextFlag = {};
         nextFlagRef.current = nextFlag;
         try {
           await doLoadMore(false);
           setFlag(nextFlag);
         } catch (e) {
-          console.log('%c Line:88 🍯 e', 'font-size:18px;color:#2eafb0;background:#3f7cff', e);
+          console.error(e);
         }
       }
     },
@@ -120,39 +103,35 @@ export const InfiniteScroll: FC<InfiniteScrollProps> = (p) => {
       await doLoadMore(true);
       setFlag(nextFlagRef.current);
     } catch (e) {
-      console.log('%c Line:121 🥥 e', 'font-size:18px;color:#3f7cff;background:#2eafb0', e);
+      console.error(e);
     }
   }
 
-  return withNativeProps(
-    props,
-    <div className={classPrefix} ref={elementRef}>
-      {typeof props.children === 'function' ? props.children(props.hasMore, failed, retry) : props.children}
-    </div>,
+  return (
+    <div className={styles.infiniteScroll} ref={elementRef}>
+      {typeof children === 'function' ? children(hasMore, failed, retry) : children}
+    </div>
   );
 };
 
-const InfiniteScrollContent: FC<{
-  hasMore: boolean;
-  failed: boolean;
-  retry: () => void;
-}> = (props) => {
-  const { locale } = useConfig();
+const InfiniteScrollContent = (props: { hasMore: boolean; failed: boolean; retry: () => void }) => {
+  const { t } = useTranslation();
+  const { styles } = useStyles();
 
   if (!props.hasMore) {
-    return <span>{locale.InfiniteScroll.noMore}</span>;
+    return <span>{t('no more')}</span>;
   }
 
   if (props.failed) {
     return (
       <span>
-        <span className={`${classPrefix}-failed-text`}>{locale.InfiniteScroll.failedToLoad}</span>
+        <span className={`${styles.infiniteScroll}-failed-text`}>{t('failed to load')}</span>
         <a
           onClick={() => {
             props.retry();
           }}
         >
-          {locale.InfiniteScroll.retry}
+          {t('retry')}
         </a>
       </span>
     );
@@ -160,14 +139,8 @@ const InfiniteScrollContent: FC<{
 
   return (
     <>
-      <span>{locale.common.loading}</span>
-      <DotLoading />
+      <span>{t('loading')}</span>
+      <Spin />
     </>
   );
 };
-
-const keepComp = (props) => {
-  return <InfiniteScroll {...props} />;
-};
-
-keepComp({});
