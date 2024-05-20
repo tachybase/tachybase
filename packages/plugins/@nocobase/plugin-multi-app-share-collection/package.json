@@ -17,10 +17,10 @@
   "peerDependencies": {
     "@nocobase/plugin-collection-manager": "workspace:*",
     "@nocobase/plugin-error-handler": "workspace:*",
-    "@nocobase/plugin-multi-app-manager": "workspace:*",
     "@nocobase/plugin-users": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/plugin-multi-app-manager": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

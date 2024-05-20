@@ -1,13 +1,12 @@
 {
-  "name": "@nocobase/plugin-multi-app-manager",
+  "name": "@tachybase/plugin-multi-app-manager",
   "displayName": "Multi-app manager",
   "version": "0.21.30",
   "description": "Dynamically create multiple apps without separate deployments.",
   "keywords": [
-    "system"
+    "System management"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/multi-app-manager",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
@@ -29,7 +28,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "无需单独部署即可动态创建多个应用。",
-  "displayName.zh-CN": "多应用管理器",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/multi-app-manager"
+  "displayName.zh-CN": "多应用管理器"
 }

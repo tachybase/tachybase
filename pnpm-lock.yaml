@@ -3184,55 +3184,6 @@ importers:
         specifier: ^8.11.3
         version: 8.11.3
 
-  packages/plugins/@nocobase/plugin-multi-app-manager:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      antd-style:
-        specifier: 3.x
-        version: 3.6.1(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0)
-      async-mutex:
-        specifier: ^0.3.2
-        version: 0.3.2
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      mysql2:
-        specifier: ^2.3.3
-        version: 2.3.3
-      pg:
-        specifier: ^8.7.3
-        version: 8.11.3
-      react:
-        specifier: ~18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-      react-router-dom:
-        specifier: ^6.11.2
-        version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
-
   packages/plugins/@nocobase/plugin-multi-app-share-collection:
     dependencies:
       '@nocobase/plugin-collection-manager':
@@ -3241,9 +3192,6 @@ importers:
       '@nocobase/plugin-error-handler':
         specifier: workspace:*
         version: link:../plugin-error-handler
-      '@nocobase/plugin-multi-app-manager':
-        specifier: workspace:*
-        version: link:../plugin-multi-app-manager
       '@nocobase/plugin-users':
         specifier: workspace:*
         version: link:../plugin-users
@@ -3253,6 +3201,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
+      '@tachybase/plugin-multi-app-manager':
+        specifier: workspace:*
+        version: link:../../@tachybase/plugin-multi-app-manager
       '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
@@ -3926,6 +3877,55 @@ importers:
         specifier: 6.x
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
 
+  packages/plugins/@tachybase/plugin-multi-app-manager:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.16.1
+        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
+      antd-style:
+        specifier: 3.x
+        version: 3.4.5(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0)
+      async-mutex:
+        specifier: ^0.3.2
+        version: 0.3.2
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      mysql2:
+        specifier: ^2.3.3
+        version: 2.3.3
+      pg:
+        specifier: ^8.7.3
+        version: 8.11.3
+      react:
+        specifier: ~18.2.0
+        version: 18.2.0
+      react-i18next:
+        specifier: ^11.15.1
+        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
+      react-router-dom:
+        specifier: ^6.11.2
+        version: 6.23.1(react-dom@18.2.0)(react@18.2.0)
+
   packages/plugins/@tachybase/plugin-system-settings:
     dependencies:
       '@tachybase/client':
@@ -4161,9 +4161,6 @@ importers:
       '@nocobase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-mock-collections
-      '@nocobase/plugin-multi-app-manager':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-multi-app-manager
       '@nocobase/plugin-multi-app-share-collection':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
@@ -4200,6 +4197,9 @@ importers:
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-multi-app-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-multi-app-manager
       '@tachybase/plugin-system-settings':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-system-settings
@@ -4330,9 +4330,6 @@ importers:
       '@nocobase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-mock-collections
-      '@nocobase/plugin-multi-app-manager':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-multi-app-manager
       '@nocobase/plugin-multi-app-share-collection':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
@@ -4372,6 +4369,9 @@ importers:
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-multi-app-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-multi-app-manager
       '@tachybase/plugin-system-settings':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-system-settings
@@ -4505,9 +4505,6 @@ importers:
       '@nocobase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-mock-collections
-      '@nocobase/plugin-multi-app-manager':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-multi-app-manager
       '@nocobase/plugin-multi-app-share-collection':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
@@ -4547,6 +4544,9 @@ importers:
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-multi-app-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-multi-app-manager
       '@tachybase/plugin-system-settings':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-system-settings
@@ -4683,9 +4683,6 @@ importers:
       '@nocobase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-mock-collections
-      '@nocobase/plugin-multi-app-manager':
-        specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-multi-app-manager
       '@nocobase/plugin-multi-app-share-collection':
         specifier: workspace:*
         version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
@@ -4722,6 +4719,9 @@ importers:
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
+      '@tachybase/plugin-multi-app-manager':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-multi-app-manager
       '@tachybase/plugin-system-settings':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-system-settings
@@ -10999,7 +10999,6 @@ packages:
   /@remix-run/router@1.16.1:
     resolution: {integrity: sha512-es2g3dq6Nb07iFxGk5GuHN20RwBZOsuDQN7izWIisUcv9r+d2C5jQxqmgkdebXgReWfiyUabcki6Fg77mSNrig==}
     engines: {node: '>=14.0.0'}
-    dev: false
 
   /@restart/hooks@0.4.15(react@18.2.0):
     resolution: {integrity: sha512-cZFXYTxbpzYcieq/mBwSyXgqnGMHoBVh3J7MU0CCoIB4NRZxV9/TuwTBAaLMqpNhC3zTPMCgkQ5Ey07L02Xmcw==}
@@ -14424,28 +14423,6 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react-dom
-
-  /antd-style@3.6.1(@types/react@18.2.79)(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-KpKXiAIV3CAe6TfSh/m6ET2vGuhAof7qfqeaouh5WZ0JDl5jDXXSFPeEfqvZuHAckTl+A0NzArvIHKgKt/NZ9g==}
-    peerDependencies:
-      antd: '>=5.8.1'
-      react: '>=18'
-    dependencies:
-      '@ant-design/cssinjs': 1.20.0(react-dom@18.2.0)(react@18.2.0)
-      '@babel/runtime': 7.24.0
-      '@emotion/cache': 11.11.0
-      '@emotion/css': 11.11.2
-      '@emotion/react': 11.11.1(@types/react@18.2.79)(react@18.2.0)
-      '@emotion/serialize': 1.1.2
-      '@emotion/server': 11.11.0(@emotion/css@11.11.2)
-      '@emotion/utils': 1.2.1
-      antd: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      use-merge-value: 1.2.0(react@18.2.0)
-    transitivePeerDependencies:
-      - '@types/react'
-      - react-dom
-    dev: true
 
   /antd@5.16.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-XAlLRrgYV+nj9FHnkXEPS6HNcKcluEa8v44e7Cixjlp8aOXRhUI6IfZaKpc2MPGjQ+06rp62/dsxOUNJW9kfLA==}
@@ -26644,7 +26621,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
       html-parse-stringify: 3.0.1
       i18next: 22.5.1
       react: 18.2.0
@@ -26835,7 +26812,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-router: 6.23.1(react@18.2.0)
-    dev: false
 
   /react-router-dom@6.3.0(react-dom@18.1.0)(react@18.1.0):
     resolution: {integrity: sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==}
@@ -26896,7 +26872,6 @@ packages:
     dependencies:
       '@remix-run/router': 1.16.1
       react: 18.2.0
-    dev: false
 
   /react-router@6.3.0(react@18.1.0):
     resolution: {integrity: sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ==}
