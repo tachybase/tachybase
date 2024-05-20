@@ -1,11 +1,11 @@
 import { DataSource } from '@tachybase/data-source-manager';
-import { Database } from '@tachybase/database';
+import { Database, type IDatabaseOptions } from '@tachybase/database';
 import { PostgresCollectionManager } from './postgres-collection-manager';
 import { DatabaseIntrospector } from './database-introspector';
 import typeInterfaceMap from './type-interface-map';
 
 export class PostgresDataSource extends DataSource {
-  static async testConnection(options) {
+  static async testConnection(options: IDatabaseOptions) {
     const database = new Database({
       dialect: 'postgres',
       ...options,
@@ -50,7 +50,7 @@ WHERE schema_name = $1;
     const collections = await introspector.getCollections({
       localData,
     });
-    const delayFields = /* @__PURE__ */ new Map();
+    const delayFields = new Map();
     for (const collection of collections) {
       try {
         const fields = collection.fields;

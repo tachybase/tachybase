@@ -102,7 +102,7 @@ export class DatabaseIntrospector extends EventEmitter {
       });
       const remoteCollectionInfo = {
         ...collectionOptions,
-        ...((options == null ? void 0 : options.mergedOptions) || {}),
+        ...(options?.mergedOptions || {}),
         ...this.collectionOptionsByFields(supportFields),
         fields: [...supportFields],
       };
