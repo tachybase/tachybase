@@ -1,4 +1,4 @@
-export const pageSizeOptions = [12, 24, 60, 96, 120];
+export const pageSizeOptions = [5, 6, 10, 12, 24, 60, 96, 120];
 export const gridSizes = ['xs', 'md', 'lg', 'xxl'];
 export const screenSizeTitleMaps = {
   xs: 'Phone device',

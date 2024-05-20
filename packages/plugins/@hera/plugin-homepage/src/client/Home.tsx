@@ -12,6 +12,9 @@ export const HomePage: React.FC<{}> = () => {
       'appends[]': 'pictures',
     },
   });
+
+  console.log('%c Line:10 🥐 data', 'font-size:18px;color:#4fff4B;background:#e41a6a', data);
+
   if (loading) {
     return render();
   }

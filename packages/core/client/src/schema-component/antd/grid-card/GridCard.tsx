@@ -2,7 +2,7 @@ import { css, cx } from '@emotion/css';
 import { ArrayField } from '@tachybase/schema';
 import { RecursionField, Schema, useField, useFieldSchema } from '@tachybase/schema';
 import { List as AntdList, Col, PaginationProps } from 'antd';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SortableItem } from '../../common';
 import { SchemaComponentOptions } from '../../core';
 import { useDesigner, useProps } from '../../hooks';
@@ -12,6 +12,7 @@ import { GridCardItem } from './GridCard.Item';
 import { useGridCardActionBarProps } from './hooks';
 import { defaultColumnCount, pageSizeOptions } from './options';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { InfiniteScroll } from '../../common/infinite-scroll/infinite-scroll';
 
 const rowGutter = {
   md: 12,
@@ -59,8 +60,7 @@ const designerCss = css`
 const InternalGridCard = (props) => {
   // 新版 UISchema（1.0 之后）中已经废弃了 useProps，这里之所以继续保留是为了兼容旧版的 UISchema
   const { columnCount: columnCountProp, pagination } = useProps(props);
-
-  const { service, columnCount: _columnCount = defaultColumnCount } = useGridCardBlockContext();
+  const { service, columnCount: _columnCount = defaultColumnCount, needInfiniteScroll } = useGridCardBlockContext();
   const columnCount = columnCountProp || _columnCount;
   const { run, params } = service;
   const meta = service?.data?.meta;
@@ -68,6 +68,7 @@ const InternalGridCard = (props) => {
   const field = useField<ArrayField>();
   const Designer = useDesigner();
   const [schemaMap] = useState(new Map());
+
   const getSchema = useCallback(
     (key) => {
       if (!schemaMap.has(key)) {
@@ -99,6 +100,31 @@ const InternalGridCard = (props) => {
     [run, params],
   );
 
+  /* 以下为无限滚动逻辑 */
+  // XXX: 需要仔细梳理这里的逻辑, 目前的实现有点效果问题
+  const [data, setData] = useState(field.value || []);
+  const [hasMore, setHasMore] = useState(true);
+
+  const loadMore = async () => {
+    const { count, pageSize = 10, page = 1 } = meta || {};
+    await onPaginationChange(page + 1, pageSize);
+    setHasMore(false);
+  };
+
+  useEffect(() => {
+    const { count, pageSize = 10, page = 1 } = meta || {};
+    const hasMore = count > page * pageSize;
+
+    setData((val = []) => {
+      const currentVal = field.value || [];
+      return [...val, ...currentVal];
+    });
+
+    setHasMore(hasMore);
+  }, [meta?.page]);
+
+  /* 以上为无限滚动逻辑 */
+
   return (
     <SchemaComponentOptions
       scope={{
@@ -109,7 +135,7 @@ const InternalGridCard = (props) => {
       <SortableItem className={cx('nb-card-list', designerCss)}>
         <AntdList
           pagination={
-            !meta || meta.count <= meta.pageSize
+            !meta || meta.count <= meta.pageSize || needInfiniteScroll
               ? false
               : {
                   ...pagination,
@@ -120,7 +146,7 @@ const InternalGridCard = (props) => {
                   pageSizeOptions,
                 }
           }
-          dataSource={field.value}
+          dataSource={needInfiniteScroll ? data : field.value}
           grid={{
             ...columnCount,
             sm: columnCount.xs,
@@ -142,6 +168,7 @@ const InternalGridCard = (props) => {
           }}
           loading={service?.loading}
         />
+        {needInfiniteScroll && <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />}
         <Designer />
       </SortableItem>
     </SchemaComponentOptions>

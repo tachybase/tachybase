@@ -1778,6 +1778,9 @@ importers:
       '@tachybase/client':
         specifier: 0.x
         version: link:../../../core/client
+      '@tachybase/plugin-mobile-client':
+        specifier: 0.x
+        version: link:../../@tachybase/plugin-mobile-client
       '@tachybase/server':
         specifier: 0.x
         version: link:../../../core/server
@@ -1787,6 +1790,9 @@ importers:
       antd-mobile:
         specifier: ^5.35.0
         version: 5.35.0(react-dom@18.2.0)(react@18.2.0)
+      react-router-dom:
+        specifier: ^6.23.1
+        version: 6.23.1(react-dom@18.2.0)(react@18.2.0)
 
   packages/plugins/@nocobase/plugin-acl:
     dependencies:
@@ -10802,6 +10808,11 @@ packages:
     resolution: {integrity: sha512-Oy8rmScVrVxWZVOpEF57ovlnhpZ8CCPlnIIumVcV9nFdiSIrus99+Lw78ekXyGvVDlIsFJbSfmSovJUhCWYV3w==}
     engines: {node: '>=14.0.0'}
     dev: true
+
+  /@remix-run/router@1.16.1:
+    resolution: {integrity: sha512-es2g3dq6Nb07iFxGk5GuHN20RwBZOsuDQN7izWIisUcv9r+d2C5jQxqmgkdebXgReWfiyUabcki6Fg77mSNrig==}
+    engines: {node: '>=14.0.0'}
+    dev: false
 
   /@restart/hooks@0.4.15(react@18.2.0):
     resolution: {integrity: sha512-cZFXYTxbpzYcieq/mBwSyXgqnGMHoBVh3J7MU0CCoIB4NRZxV9/TuwTBAaLMqpNhC3zTPMCgkQ5Ey07L02Xmcw==}
@@ -26612,6 +26623,19 @@ packages:
       react-router: 6.22.3(react@18.2.0)
     dev: true
 
+  /react-router-dom@6.23.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-utP+K+aSTtEdbWpC+4gxhdlPFwuEfDKq8ZrPFU65bbRJY+l706qjR7yaidBpo3MSeA/fzwbXWbKBI6ftOnP3OQ==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.16.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-router: 6.23.1(react@18.2.0)
+    dev: false
+
   /react-router-dom@6.3.0(react-dom@18.1.0)(react@18.1.0):
     resolution: {integrity: sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==}
     peerDependencies:
@@ -26662,6 +26686,16 @@ packages:
       '@remix-run/router': 1.15.3
       react: 18.2.0
     dev: true
+
+  /react-router@6.23.1(react@18.2.0):
+    resolution: {integrity: sha512-fzcOaRF69uvqbbM7OhvQyBTFDVrrGlsFdS3AL+1KfIBtGETibHzi3FkoTRyiDJnWNc2VxrfvR+657ROHjaNjqQ==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.16.1
+      react: 18.2.0
+    dev: false
 
   /react-router@6.3.0(react@18.1.0):
     resolution: {integrity: sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ==}
