@@ -822,5 +822,9 @@
   "Menu": "Menu",
   "Drag and drop sorting field": "Drag and drop sorting field",
   "Quick Update": "Quick Update",
+  "Keywords": "Keywords",
+  "all": "all",
+  "enabled": "enabled",
+  "disabled": "disabled",
   "Chang on Parent":"Chang on Parent"
 }

@@ -2,7 +2,24 @@ export * from './PluginManagerLink';
 import type { TableProps } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
 import { useDebounce } from 'ahooks';
-import { Button, Card, Col, Divider, Input, List, Result, Row, Space, Spin, Tabs, Table, Tag } from 'antd';
+import {
+  Button,
+  Card,
+  Col,
+  Divider,
+  Input,
+  List,
+  Result,
+  Row,
+  Space,
+  Spin,
+  Tabs,
+  Table,
+  Tag,
+  Radio,
+  Form,
+  Select,
+} from 'antd';
 import _ from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +33,7 @@ import { PluginCard, SwitchAction } from './PluginCard';
 import { useStyles } from './style';
 import { IPluginData } from './types';
 import { fuzzysearch } from '@tachybase/utils/client';
+import { i18n } from '../i18n';
 
 export interface TData {
   data: IPluginData[];
@@ -38,24 +56,26 @@ export interface AllowedActions {
 
 const columns: TableProps<IPluginData>['columns'] = [
   {
-    title: 'Name',
+    title: i18n.t('Name'),
     dataIndex: 'name',
     key: 'name',
-    render: (text) => <a>{text}</a>,
+    render: (_, { displayName, name, packageName }) => <span>{displayName || name || packageName}</span>,
   },
   {
-    title: 'Keywords',
+    title: i18n.t('Keywords'),
     dataIndex: 'keywords',
     key: 'keywords',
-    render: (keywords) => keywords?.map((keyword) => <Tag key={keyword}>{keyword}</Tag>),
+    render: (keywords) => {
+      return keywords?.map((keyword) => <Tag key={keyword}>{i18n.t(keyword)}</Tag>);
+    },
   },
   {
-    title: 'Description',
+    title: i18n.t('Description'),
     dataIndex: 'description',
     key: 'description',
   },
   {
-    title: 'Action',
+    title: i18n.t('Action'),
     key: 'action',
     render: (_, record) => (
       <Space size="middle">
@@ -73,9 +93,21 @@ const LocalPlugins = () => {
   });
 
   const [searchValue, setSearchValue] = useState('');
-  const filteredList = (data?.data || []).filter(
-    (data) => fuzzysearch(searchValue, data.name) || fuzzysearch(searchValue, data.description ?? ''),
-  );
+  const [enabled, setEnabled] = useState('all');
+  const [keywords, setKeywords] = useState([]);
+  const filteredList = (data?.data || [])
+    .filter(
+      (data) =>
+        fuzzysearch(searchValue, data.name) ||
+        fuzzysearch(searchValue, data.packageName) ||
+        fuzzysearch(searchValue, data.description ?? '') ||
+        fuzzysearch(searchValue, data.displayName),
+    )
+    .filter(
+      (data) =>
+        enabled === 'all' || (enabled === 'enabled' && data.enabled) || (enabled === 'disabled' && !data.enabled),
+    )
+    .filter((data) => keywords.length === 0 || keywords.some((keyword) => data.keywords?.includes(keyword)));
   const filterList = useMemo(() => {
     let list = data?.data || [];
     list = list.reverse();
@@ -241,17 +273,40 @@ const LocalPlugins = () => {
             </div>
           </Col>
         </Row> */}
-      <Card
-        style={{ marginTop: '8px' }}
-        extra={
-          <Input
-            value={searchValue}
-            placeholder="Search by name or descriptions"
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-        }
-      >
-        <Table columns={columns} dataSource={filteredList} rowKey="id" />
+      <Card style={{ marginTop: '8px' }}>
+        <Form style={{ marginBottom: '8px' }} layout="inline">
+          <Form.Item label={t('Status')}>
+            <Radio.Group
+              options={[
+                { label: t('all'), value: 'all' },
+                { label: t('enabled'), value: 'enabled' },
+                { label: t('disabled'), value: 'disabled' },
+              ]}
+              onChange={(e) => setEnabled(e.target.value)}
+              value={enabled}
+              optionType="button"
+            />
+          </Form.Item>
+          <Form.Item label={t('Keywords')}>
+            <Select
+              mode="multiple"
+              style={{ minWidth: '20em' }}
+              allowClear
+              value={keywords}
+              placeholder={t('Please select')}
+              onChange={setKeywords}
+              options={keyWordlists.map((keyword) => ({ label: t(keyword), value: keyword }))}
+            />
+          </Form.Item>
+          <Form.Item label={t('Search')}>
+            <Input
+              value={searchValue}
+              placeholder={t('Name or descriptions')}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </Form.Item>
+        </Form>
+        <Table columns={columns} dataSource={filteredList} rowKey="id" pagination={{ pageSize: 100 }} />
       </Card>
       {/* </div> */}
     </>

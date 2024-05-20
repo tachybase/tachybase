@@ -1,6 +1,6 @@
 import { useForm } from '@tachybase/schema';
 import { useActionContext, useAPIClient, useRecord } from '@tachybase/client';
-import { tableActionColumnSchema } from '@nocobase/plugin-multi-app-manager/client';
+import { tableActionColumnSchema } from '@tachybase/plugin-multi-app-manager/client';
 import { message } from 'antd';
 import React from 'react';
 import { TableTransfer } from './TableTransfer';

@@ -119,13 +119,13 @@ export const formSchema: ISchema = {
     //   'x-content': i18nText('Standalone deployment'),
     // },
     'options.autoStart': {
-      title: tval('Start mode', { ns: '@nocobase/plugin-multi-app-manager' }),
+      title: tval('Start mode', { ns: '@tachybase/plugin-multi-app-manager' }),
       'x-component': 'Radio.Group',
       'x-decorator': 'FormItem',
       default: false,
       enum: [
-        { label: tval('Start on first visit', { ns: '@nocobase/plugin-multi-app-manager' }), value: false },
-        { label: tval('Start with main application', { ns: '@nocobase/plugin-multi-app-manager' }), value: true },
+        { label: tval('Start on first visit', { ns: '@tachybase/plugin-multi-app-manager' }), value: false },
+        { label: tval('Start with main application', { ns: '@tachybase/plugin-multi-app-manager' }), value: true },
       ],
     },
     cname: {
@@ -134,15 +134,15 @@ export const formSchema: ISchema = {
       'x-decorator': 'FormItem',
     },
     preset: {
-      title: tval('Preset', { ns: '@nocobase/plugin-multi-app-manager' }),
+      title: tval('Preset', { ns: '@tachybase/plugin-multi-app-manager' }),
       'x-component': 'Select',
       'x-decorator': 'FormItem',
       default: 'tachybase',
       required: true,
       enum: [
-        { label: tval('tachybase', { ns: '@nocobase/plugin-multi-app-manager' }), value: 'tachybase' },
-        { label: tval('hera-rental', { ns: '@nocobase/plugin-multi-app-manager' }), value: 'hera-rental' },
-        { label: tval('hera-sancongtou', { ns: '@nocobase/plugin-multi-app-manager' }), value: 'hera-sancongtou' },
+        { label: tval('tachybase', { ns: '@tachybase/plugin-multi-app-manager' }), value: 'tachybase' },
+        { label: tval('hera-rental', { ns: '@tachybase/plugin-multi-app-manager' }), value: 'hera-rental' },
+        { label: tval('hera-sancongtou', { ns: '@tachybase/plugin-multi-app-manager' }), value: 'hera-sancongtou' },
       ],
     },
     pinned: {

@@ -1,5 +1,5 @@
 import Database from '@tachybase/database';
-import PluginMultiAppManager from '@nocobase/plugin-multi-app-manager';
+import PluginMultiAppManager from '@tachybase/plugin-multi-app-manager';
 import { Application, AppSupervisor, Plugin } from '@tachybase/server';
 import lodash from 'lodash';
 import { resolve } from 'path';

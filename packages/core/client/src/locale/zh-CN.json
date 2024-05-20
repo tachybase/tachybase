@@ -923,5 +923,9 @@
   "Scientifix notation":"科学计数法",
   "Normal":"常规",
   "Quick Update": "快速更新",
+  "Keywords": "关键字",
+  "all": "全部",
+  "enabled": "启用",
+  "disabled": "禁用",
   "Chang on Parent": "选择父级"
 }
