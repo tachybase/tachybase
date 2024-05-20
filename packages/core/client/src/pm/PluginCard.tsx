@@ -18,6 +18,49 @@ interface IPluginInfo extends IPluginCard {
   onClick: () => void;
 }
 
+export const SwitchAction = (props: IPluginData) => {
+  const { name, enabled, builtIn, error, isCompatible } = props;
+  const api = useAPIClient();
+  const { t } = useTranslation();
+  const { modal } = App.useApp();
+  return (
+    <Switch
+      aria-label="enable"
+      key={'enable'}
+      size={'small'}
+      disabled={builtIn || error}
+      onChange={async (checked, e) => {
+        e.stopPropagation();
+        if (!isCompatible && checked) {
+          message.error(t("Dependencies check failed, can't enable."));
+          return;
+        }
+        if (!checked) {
+          modal.confirm({
+            title: t('Are you sure to disable this plugin?'),
+            onOk: async () => {
+              await api.request({
+                url: `pm:disable`,
+                params: {
+                  filterByTk: name,
+                },
+              });
+            },
+          });
+        } else {
+          await api.request({
+            url: `pm:enable`,
+            params: {
+              filterByTk: name,
+            },
+          });
+        }
+      }}
+      checked={!!enabled}
+    ></Switch>
+  );
+};
+
 function PluginInfo(props: IPluginInfo) {
   const { data, onClick } = props;
   const app = useApp();

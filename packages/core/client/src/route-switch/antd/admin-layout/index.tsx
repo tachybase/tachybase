@@ -25,7 +25,6 @@ import {
 } from '../../../';
 import { Plugin } from '../../../application/Plugin';
 import { useAppSpin } from '../../../application/hooks/useAppSpin';
-import { Help } from '../../../user/Help';
 import { VariablesProvider } from '../../../variables';
 
 const filterByACL = (schema, options) => {
@@ -338,23 +337,33 @@ export const InternalAdminLayout = (props: any) => {
           >
             <div
               className={css`
-                width: 200px;
                 display: inline-flex;
                 flex-shrink: 0;
                 color: #fff;
                 padding: 0;
                 align-items: center;
+                padding: 0 12px 0 12px;
               `}
             >
               <img
                 className={css`
-                  padding: 0 16px;
                   object-fit: contain;
-                  width: 100%;
-                  height: 100%;
+                  height: 28px;
                 `}
                 src={result?.data?.data?.logo?.url}
               />
+              <h1
+                className={css`
+                  color: #fff;
+                  height: 32px;
+                  margin: 0 0 0 12px;
+                  font-weight: 600;
+                  font-size: 18px;
+                  line-height: 32px;
+                `}
+              >
+                {result?.data?.data?.title}
+              </h1>
             </div>
             <div
               className={css`
