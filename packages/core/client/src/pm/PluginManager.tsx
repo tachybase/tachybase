@@ -1,7 +1,8 @@
 export * from './PluginManagerLink';
+import type { TableProps } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
 import { useDebounce } from 'ahooks';
-import { Button, Col, Divider, Input, List, Result, Row, Space, Spin, Tabs } from 'antd';
+import { Button, Card, Col, Divider, Input, List, Result, Row, Space, Spin, Tabs, Table, Tag } from 'antd';
 import _ from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,10 +12,10 @@ import { css } from '@emotion/css';
 import { useACLRoleContext } from '../acl/ACLProvider';
 import { useRequest } from '../api-client';
 import { useToken } from '../style';
-import { PluginCard } from './PluginCard';
-import { PluginAddModal } from './PluginForm/modal/PluginAddModal';
+import { PluginCard, SwitchAction } from './PluginCard';
 import { useStyles } from './style';
 import { IPluginData } from './types';
+import { fuzzysearch } from '@tachybase/utils/client';
 
 export interface TData {
   data: IPluginData[];
@@ -35,12 +36,46 @@ export interface AllowedActions {
   destroy: number[];
 }
 
+const columns: TableProps<IPluginData>['columns'] = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    render: (text) => <a>{text}</a>,
+  },
+  {
+    title: 'Keywords',
+    dataIndex: 'keywords',
+    key: 'keywords',
+    render: (keywords) => keywords?.map((keyword) => <Tag key={keyword}>{keyword}</Tag>),
+  },
+  {
+    title: 'Description',
+    dataIndex: 'description',
+    key: 'description',
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (_, record) => (
+      <Space size="middle">
+        <SwitchAction {...record} />
+      </Space>
+    ),
+  },
+];
+
 const LocalPlugins = () => {
   const { t } = useTranslation();
   const { theme } = useStyles();
   const { data, loading, refresh } = useRequest<TData>({
     url: 'pm:list',
   });
+
+  const [searchValue, setSearchValue] = useState('');
+  const filteredList = (data?.data || []).filter(
+    (data) => fuzzysearch(searchValue, data.name) || fuzzysearch(searchValue, data.description ?? ''),
+  );
   const filterList = useMemo(() => {
     let list = data?.data || [];
     list = list.reverse();
@@ -69,8 +104,6 @@ const LocalPlugins = () => {
   }, [data?.data]);
 
   const [filterIndex, setFilterIndex] = useState(0);
-  const [isShowAddForm, setShowAddForm] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
   const [keyword, setKeyword] = useState(null);
   const debouncedSearchValue = useDebounce(searchValue, { wait: 100 });
 
@@ -140,15 +173,7 @@ const LocalPlugins = () => {
   }
   return (
     <>
-      <PluginAddModal
-        isShow={isShowAddForm}
-        onClose={(isRefresh) => {
-          setShowAddForm(false);
-          // if (isRefresh) refresh();
-        }}
-      />
-
-      <div style={{ width: '100%' }}>
+      {/* <div style={{ width: '100%' }}>
         <div
           style={{ marginBottom: theme.marginLG }}
           className={css`
@@ -176,13 +201,6 @@ const LocalPlugins = () => {
                 placeholder={t('Search plugin')}
                 onChange={(e) => handleSearch(e.currentTarget.value)}
               />
-            </Space>
-          </div>
-          <div>
-            <Space>
-              <Button onClick={() => setShowAddForm(true)} type="primary">
-                {t('Add new')}
-              </Button>
             </Space>
           </div>
         </div>
@@ -222,8 +240,20 @@ const LocalPlugins = () => {
               ))}
             </div>
           </Col>
-        </Row>
-      </div>
+        </Row> */}
+      <Card
+        style={{ marginTop: '8px' }}
+        extra={
+          <Input
+            value={searchValue}
+            placeholder="Search by name or descriptions"
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        }
+      >
+        <Table columns={columns} dataSource={filteredList} rowKey="id" />
+      </Card>
+      {/* </div> */}
     </>
   );
 };
@@ -251,37 +281,8 @@ export const PluginManager = () => {
 
   return snippets.includes('pm') ? (
     <div>
-      <PageHeader
-        className={styles.pageHeader}
-        ghost={false}
-        title={t('Plugin manager')}
-        footer={
-          <Tabs
-            activeKey={tabName}
-            onChange={(activeKey) => {
-              navigate(`/admin/pm/list/${activeKey}`);
-            }}
-            items={[
-              {
-                key: 'local',
-                label: t('Local'),
-              },
-              {
-                key: 'marketplace',
-                label: t('Marketplace'),
-              },
-            ]}
-          />
-        }
-      />
-      <div className={styles.pageContent} style={{ display: 'flex', flexFlow: 'row wrap' }}>
-        {React.createElement(
-          {
-            local: LocalPlugins,
-            marketplace: MarketplacePlugins,
-          }[tabName],
-        )}
-      </div>
+      <PageHeader className={styles.pageHeader} ghost={false} title={t('Plugin manager')}></PageHeader>
+      <LocalPlugins />
     </div>
   ) : (
     <Result status="404" title="404" subTitle="Sorry, the page you visited does not exist." />

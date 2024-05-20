@@ -54,6 +54,7 @@
     "@tachybase/cli": "workspace:*",
     "@tachybase/preset-hera-rental": "workspace:*",
     "@tachybase/preset-hera-sancongtou": "workspace:*",
+    "@tachybase/preset-mini": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@types/react": "^18.2.79",
