@@ -1,8 +1,8 @@
 import { DataSource } from '@tachybase/data-source-manager';
 import { Database } from '@tachybase/database';
 import { PostgresCollectionManager } from './postgres-collection-manager';
-import { DatabaseIntrospector } from './services/database-introspector';
-import typeInterfaceMap from './services/type-interface-map';
+import { DatabaseIntrospector } from './database-introspector';
+import typeInterfaceMap from './type-interface-map';
 
 export class PostgresDataSource extends DataSource {
   static async testConnection(options) {
