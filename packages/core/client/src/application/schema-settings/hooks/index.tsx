@@ -7,6 +7,7 @@ import { SchemaSettingsProps } from '../../../schema-settings';
 import { Schema } from '@tachybase/schema';
 import { GeneralField } from '@tachybase/schema';
 import { Designable } from '../../../schema-component';
+import { defaultSettingItems } from '../SchemaSettingsDefaults';
 
 type UseSchemaSettingsRenderOptions<T = {}> = Omit<SchemaSettingOptions<T>, 'name' | 'items'> &
   Omit<SchemaSettingsProps, 'title' | 'children'> & {
@@ -40,8 +41,9 @@ export function useSchemaSettingsRender<T = {}>(name: string, options?: UseSchem
       if (key && renderCache.current[key]) {
         return renderCache.current[key];
       }
+      const newItems = [...defaultSettingItems, ...schemaSetting.options.items];
       return (renderCache.current[key] = React.createElement(SchemaSettingsWrapper, {
-        ...schemaSetting.options,
+        ...{ ...schemaSetting.options, items: newItems },
         ...options,
         ...options2,
       }));
