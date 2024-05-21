@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/logger",
-  "version": "0.21.30",
+  "version": "0.21.31",
   "description": "nocobase logging library",
   "repository": {
     "type": "git",
