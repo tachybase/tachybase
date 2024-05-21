@@ -4,7 +4,7 @@ import { ApprovalTrigger } from './node.ApprovalTrigger';
 import { LauncherActionConfigInitializer } from './launcher-interface/Iz.LauncherActionConfig';
 import { LauncherAddBlockButtonIntializer } from './launcher-interface/Iz.LauncherAddBlockButton';
 
-export default class PluginKitApprovalTrigger extends Plugin {
+export class PluginKitApprovalTrigger extends Plugin {
   async afterAdd() {}
   async beforeLoad() {}
   async load() {

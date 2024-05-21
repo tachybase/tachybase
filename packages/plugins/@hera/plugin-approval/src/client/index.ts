@@ -1,7 +1,7 @@
 import { Plugin } from '@tachybase/client';
 
-import PluginKitApprovalConfiguration from './configuration';
-import PluginKitApprovalUsage from './usage';
+import { PluginKitApprovalConfiguration } from './configuration';
+import { PluginKitApprovalUsage } from './usage';
 
 export default class PluginApproval extends Plugin {
   async afterAdd() {
