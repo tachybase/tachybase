@@ -826,5 +826,8 @@
   "all": "all",
   "enabled": "enabled",
   "disabled": "disabled",
+  "Designer properties": "Designer properties",
+  "Load": "Load",
+  "Dump": "Dump",
   "Chang on Parent":"Chang on Parent"
 }

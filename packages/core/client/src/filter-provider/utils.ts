@@ -144,6 +144,23 @@ export const transformToFilter = (
           return null;
         }
 
+        // 处理布尔类型
+        if (operators[key] === '$isTruly' || operators[key] === '$isFalsy') {
+          if (value === 'true') {
+            return {
+              [key]: {
+                $isTruly: true,
+              },
+            };
+          } else if (value === 'false') {
+            return {
+              [key]: {
+                $isFalsy: true,
+              },
+            };
+          }
+        }
+
         return {
           [key]: {
             [operators[key] || '$eq']: value,

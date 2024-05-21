@@ -927,5 +927,8 @@
   "all": "全部",
   "enabled": "启用",
   "disabled": "禁用",
+  "Designer properties": "设计属性",
+  "Load": "加载",
+  "Dump": "存储",
   "Chang on Parent": "选择父级"
 }
