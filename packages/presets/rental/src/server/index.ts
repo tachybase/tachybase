@@ -8,7 +8,7 @@ export class PluginRental extends PresetTachyBase {
     return super.builtInPlugins.concat(this.#builtInPlugins);
   }
 
-  #localPlugins = ['rental>=0.21.0', 'field-markdown-vditor>=0.21.0', 'comments>=0.21.0'];
+  #localPlugins = ['rental>=0.21.0', 'field-markdown-vditor>=0.21.31', 'comments>=0.21.31'];
 
   get localPlugins() {
     return super.localPlugins.concat(this.#localPlugins);
