@@ -1,5 +1,5 @@
 import { Plugin } from '@tachybase/client';
-import PluginKitApprovalCommon from '../approval-common/plugin';
+import { PluginKitApprovalCommon } from '../approval-common/plugin';
 import { tval } from '../../locale';
 import { ViewActionTodos } from './todos/VC.ViewActionTodos';
 import { ApprovalBlockComponent } from './VC.ApprovalBlock';
@@ -8,7 +8,7 @@ import { ViewActionLaunch } from './launch/VC.ViewActionLaunch';
 import { ApprovalBlockDecorator } from './Dt.ApprovalBlock';
 import { ApprovalBlockLaunch } from './launch/VC.ApprovalBlockLaunch';
 
-export default class PluginKitApprovalBlock extends Plugin {
+export class PluginKitApprovalBlock extends Plugin {
   async afterAdd() {
     this.pm.add(PluginKitApprovalCommon);
   }

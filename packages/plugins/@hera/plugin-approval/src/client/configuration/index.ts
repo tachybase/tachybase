@@ -1,8 +1,8 @@
 import { Plugin } from '@tachybase/client';
 import PluginKitApprovalInstruction from './instruction';
-import PluginKitApprovalTrigger from './trigger';
+import { PluginKitApprovalTrigger } from './trigger';
 
-export default class PluginKitApprovalConfiguration extends Plugin {
+export class PluginKitApprovalConfiguration extends Plugin {
   async afterAdd() {
     this.pm.add(PluginKitApprovalTrigger);
     this.pm.add(PluginKitApprovalInstruction);
