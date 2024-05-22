@@ -18,6 +18,11 @@ export const APPROVAL_STATUS = {
   /**撤回 */
   WITHDRAWN: -3,
 };
+
+export const ProcessedStatus = [1, 2, -1, -3];
+
+export const PendingStatus = [0];
+
 export const approvalStatusOptions = [
   { value: APPROVAL_STATUS.ASSIGNED, label: `Assigned`, color: 'blue' },
   { value: APPROVAL_STATUS.PENDING, label: `Pending`, color: 'gold' },

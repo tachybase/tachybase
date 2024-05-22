@@ -1,9 +1,25 @@
+import { observer } from '@tachybase/schema';
 import { Picker, Space } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
 import React, { useState } from 'react';
+import { ProcessedStatus, approvalStatusOptions } from '../../constants';
+import { useTranslation } from '../../locale';
 
-export const TabApprovalType = () => {
+export const TabApprovalType = observer((props) => {
   const [visible, setVisible] = useState(false);
+  const { changeFilter, filter } = props as any;
+  const { t } = useTranslation();
+  const columns = approvalStatusOptions
+    .map((item) => {
+      if (ProcessedStatus.includes(item.value)) {
+        return {
+          label: t(item.label),
+          value: item.value,
+        };
+      }
+    })
+    .filter(Boolean);
+  columns.unshift({ label: t('All'), value: 'all' });
   return (
     <>
       <Space
@@ -11,26 +27,27 @@ export const TabApprovalType = () => {
           setVisible(true);
         }}
       >
-        审批状态
+        {columns.length && typeof filter['status'] === 'number'
+          ? columns.find((item) => item.value === filter['status']).label
+          : '审批状态'}
         <DownOutline />
       </Space>
       <Picker
-        columns={columns}
+        columns={[columns]}
         visible={visible}
         onClose={() => {
           setVisible(false);
         }}
+        onConfirm={(e) => {
+          const changeData = { ...filter };
+          if (e[0] === 'all') {
+            changeData['status'] = ProcessedStatus;
+          } else {
+            changeData['status'] = e[0];
+          }
+          changeFilter(changeData);
+        }}
       />
     </>
   );
-};
-
-const columns = [
-  [
-    { label: '全部', value: '0' },
-    { label: '审批中', value: '1' },
-    { label: '已通过', value: '2' },
-    { label: '已驳回', value: '3' },
-    { label: '已撤销', value: '4' },
-  ],
-];
+});

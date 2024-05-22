@@ -19,3 +19,17 @@
 .approvalContext{
   margin: 6vh 0 6vh 0;
 }
+
+.todosSpacStyle{
+  width:100%;
+  font-size: 10px;
+  color: #8e8e8e;
+}
+
+.userInitiationsStyle{
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 0 10px 0;
+  background-color: #ffffff;
+}
+

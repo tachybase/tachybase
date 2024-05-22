@@ -8,6 +8,7 @@ import { ViewActionTodosContent } from './todos/component/ViewActionTodosContent
 import { UserInitiationsBlock } from './initiations/UserInitiationsBlock';
 import { ViewActionUserInitiationsContent } from './initiations/component/ViewActionUserInitiationsContent';
 import { ApprovalProcess } from './component/ApprovalProcess.view';
+import { ViewActionInitiationsContent } from './initiations/component/ViewActionInitiationsContent';
 
 class PluginApproval extends Plugin {
   async load() {
@@ -18,6 +19,7 @@ class PluginApproval extends Plugin {
       UserInitiationsBlock,
       ViewActionTodosContent,
       ViewActionUserInitiationsContent,
+      ViewActionInitiationsContent,
       'ApprovalCommon.ViewComponent.MApprovalProcess': ApprovalProcess,
     });
     this.app.schemaSettingsManager.add(ApprovalSettings);

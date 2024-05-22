@@ -1,5 +1,5 @@
-import { useAPIClient, useCollectionManager, useRequest } from '@tachybase/client';
-import { connect, useFieldSchema } from '@tachybase/schema';
+import { mergeFilter, useAPIClient, useCollectionManager, useRequest } from '@tachybase/client';
+import { connect, observer, useFieldSchema } from '@tachybase/schema';
 import { Badge, Empty, List, Space, Tag } from 'antd-mobile';
 import React, { useEffect, useState } from 'react';
 import { useAsyncEffect } from 'ahooks';
@@ -7,10 +7,8 @@ import { APPROVAL_STATUS, ApprovalPriorityType, approvalStatusOptions } from '..
 import { useNavigate } from 'react-router-dom';
 import { tval, useTranslation } from '../../locale';
 
-export const TabApprovalItem = () => {
-  const fieldSchema = useFieldSchema();
-  const props = fieldSchema['x-component-props'];
-  const cm = useCollectionManager();
+export const TabApprovalItem = observer((props) => {
+  const { filter, params } = props as any;
   const api = useAPIClient();
   const [data, setData] = useState([]);
   const { t } = useTranslation();
@@ -20,7 +18,11 @@ export const TabApprovalItem = () => {
     api
       .request({
         url: 'approvalRecords:listCentralized',
-        params: { pageSize: 99999, appends: ['execution', 'job', 'node', 'workflow'] },
+        params: {
+          pageSize: 99999,
+          appends: ['execution', 'job', 'node', 'workflow'],
+          filter: { ...params?.filter, ...filter },
+        },
       })
       .then((res) => {
         const result = res.data?.data.map((item) => {
@@ -50,7 +52,7 @@ export const TabApprovalItem = () => {
       .catch(() => {
         console.error;
       });
-  }, props);
+  }, [filter, params]);
 
   return (
     <div style={{ marginTop: '10px', minHeight: '70vh' }}>
@@ -85,7 +87,7 @@ export const TabApprovalItem = () => {
       )}
     </div>
   );
-};
+});
 
 const approvalTodoListStatus = (item, t) => {
   const { workflow, execution, job, status } = item;

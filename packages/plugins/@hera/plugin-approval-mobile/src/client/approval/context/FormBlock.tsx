@@ -16,8 +16,7 @@ import { Fragment, useContext, useMemo, useRef } from 'react';
 import { useContextApprovalExecution } from './ApprovalExecution';
 
 export const FormBlockProvider = (props) => {
-  const { approvalExecution } = useContextApprovalExecution();
-  const { snapshot } = approvalExecution;
+  const { snapshot } = useContextApprovalExecution();
   const fieldSchema = useFieldSchema();
   const field = useField();
   const formBlockRef = useRef(null);

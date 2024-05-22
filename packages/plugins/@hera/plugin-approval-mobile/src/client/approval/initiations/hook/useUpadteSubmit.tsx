@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 import { useContextApprovalStatus } from '../provider/ApplyActionStatus';
 
-export function useSubmit() {
+export function useUpdateSubmit() {
   const from = useForm();
   const field = useField();
   const { approval } = useContextApprovalExecution();

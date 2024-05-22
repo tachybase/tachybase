@@ -10,6 +10,10 @@ export class PluginApprovalMobileClient extends Plugin {
 
   async load() {
     this.app.router.add('mobile.approval.page', {
+      path: '/mobile/:name/approval/:id/page',
+      Component: 'ViewActionInitiationsContent',
+    });
+    this.app.router.add('mobile.approval.userPage', {
       path: '/mobile/:name/:id/page',
       Component: 'ViewActionUserInitiationsContent',
     });
