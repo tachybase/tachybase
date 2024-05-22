@@ -8,7 +8,12 @@ export const CollectionWorkflows = {
       type: 'string',
       name: 'title',
       interface: 'input',
-      uiSchema: { title: '{{t("Name")}}', type: 'string', 'x-component': 'Input', required: true },
+      uiSchema: {
+        title: '{{t("Name")}}',
+        type: 'string',
+        'x-component': 'Input',
+        required: true,
+      },
     },
     {
       type: 'boolean',
@@ -19,8 +24,14 @@ export const CollectionWorkflows = {
         title: '{{t("Status", { ns: "workflow" })}}',
         'x-component': 'Select',
         enum: [
-          { label: '{{t("On", { ns: "workflow" })}}', value: true },
-          { label: '{{t("Off", { ns: "workflow" })}}', value: false },
+          {
+            label: '{{t("On", { ns: "workflow" })}}',
+            value: true,
+          },
+          {
+            label: '{{t("Off", { ns: "workflow" })}}',
+            value: false,
+          },
         ],
       },
     },

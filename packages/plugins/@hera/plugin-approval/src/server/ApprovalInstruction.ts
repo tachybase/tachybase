@@ -127,7 +127,7 @@ export default class ApprovalInstruction extends Instruction {
       filter: {
         'executions.id': processor.execution.id,
       },
-      fields: ['id', 'status', 'data'],
+      fields: ['id', 'status', 'data', 'summaryString'],
       appends: ['approvalExecutions'],
       except: ['data'],
     });
@@ -145,6 +145,7 @@ export default class ApprovalInstruction extends Instruction {
         index,
         status: node.config.order && index ? APPROVAL_ACTION_STATUS.ASSIGNED : APPROVAL_ACTION_STATUS.PENDING,
         snapshot: approvalExecution.snapshot,
+        summaryString: approval.summaryString,
       })),
       {
         transaction: processor.transaction,

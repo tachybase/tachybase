@@ -1,11 +1,11 @@
 import { Plugin } from '@tachybase/client';
 import { PluginKitApprovalRecordBlock } from './approval-record-block/plugin';
-import { PluginKitApprovalBlock } from './approval-block';
+import { KitApprovalBlock } from './approval-block/plugin';
 
-export class PluginKitApprovalUsage extends Plugin {
+export class KitApprovalUsage extends Plugin {
   async afterAdd() {
     this.pm.add(PluginKitApprovalRecordBlock);
-    this.pm.add(PluginKitApprovalBlock);
+    this.pm.add(KitApprovalBlock);
   }
   async beforeLoad() {}
   async load() {}

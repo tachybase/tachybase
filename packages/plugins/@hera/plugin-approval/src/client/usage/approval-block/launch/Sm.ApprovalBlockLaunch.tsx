@@ -1,4 +1,4 @@
-import { NAMESPACE } from '../../../locale';
+import { NAMESPACE, tval } from '../../../locale';
 import { css } from '@tachybase/client';
 
 export const SchemaApprovalBlockLaunch = {
@@ -136,6 +136,19 @@ export const SchemaApprovalBlockLaunch = {
           },
           properties: {
             createdAt: {
+              type: 'string',
+              'x-component': 'CollectionField',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        summaryString: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          title: tval('Approval Summary'),
+          properties: {
+            summaryString: {
               type: 'string',
               'x-component': 'CollectionField',
               'x-read-pretty': true,

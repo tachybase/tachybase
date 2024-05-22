@@ -1,5 +1,5 @@
 import actions, { utils } from '@tachybase/actions';
-import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/plugin-workflow';
+import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS, toJSON } from '@tachybase/plugin-workflow';
 import { APPROVAL_STATUS, APPROVAL_ACTION_STATUS } from './constants';
 import { parseCollectionName } from '@tachybase/data-source-manager';
 
@@ -60,6 +60,7 @@ const approvals = {
         dataKey: values[collection.filterTargetKey],
         workflowKey: workflow.key,
         applicantRoleName: context.state.currentRole,
+        summary: toJSON(workflow.config?.summary ?? []),
       },
     });
     return actions.create(context, next);
@@ -237,6 +238,7 @@ const approvalRecords = {
       status: values.status,
       comment: values.comment,
       snapshot: approvalRecord.approval.data,
+      summaryString: approvalRecord.approval.summaryString,
     });
     context.body = approvalRecord.get();
     context.status = 202;

@@ -1,6 +1,6 @@
 import { SchemaInitializer, gridRowColWrap } from '@tachybase/client';
 import { NAMESPACE } from '../../../locale';
-import { LauncherAddBlockButtonComponent } from './VC.LauncherBlockButton';
+import { LauncherAddBlockButtonComponent } from './LauncherBlockButton.component';
 
 // 创建区块
 export const LauncherAddBlockButtonIntializer = new SchemaInitializer({

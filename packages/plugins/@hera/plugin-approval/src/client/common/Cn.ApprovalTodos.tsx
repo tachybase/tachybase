@@ -1,5 +1,5 @@
 import { approvalStatusOptions } from '../constants';
-import { NAMESPACE } from '../locale';
+import { NAMESPACE, tval } from '../locale';
 
 export const CollectionApprovalTodos = {
   title: `{{t("Approval todos", { ns: "${NAMESPACE}" })}}`,
@@ -9,7 +9,11 @@ export const CollectionApprovalTodos = {
       type: 'bigInt',
       name: 'approvalId',
       interface: 'number',
-      uiSchema: { type: 'number', title: 'ID', 'x-component': 'InputNumber' },
+      uiSchema: {
+        type: 'number',
+        title: 'ID',
+        'x-component': 'InputNumber',
+      },
     },
     {
       type: 'belongsTo',
@@ -88,6 +92,23 @@ export const CollectionApprovalTodos = {
         title: '{{t("Updated at")}}',
         'x-component': 'DatePicker',
         'x-component-props': { showTime: true },
+      },
+    },
+    {
+      type: 'string',
+      name: 'summaryString',
+      interface: 'input',
+      uiSchema: {
+        type: 'string',
+        title: tval('Summary'),
+        'x-component': 'ApprovalsSummary',
+        'x-component-props': {
+          style: {
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          },
+        },
       },
     },
   ],

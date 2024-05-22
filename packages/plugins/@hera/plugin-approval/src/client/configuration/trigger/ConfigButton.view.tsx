@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from '../../locale';
 
 // 发起人操作界面->进入配置按钮
-export function SchemaConfigButton(props) {
+export const ConfigButtonView = (props) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   return (
@@ -17,4 +17,4 @@ export function SchemaConfigButton(props) {
       </ActionContextProvider>
     </>
   );
-}
+};

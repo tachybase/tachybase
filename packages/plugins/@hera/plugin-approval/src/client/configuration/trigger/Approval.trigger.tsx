@@ -3,13 +3,14 @@ import {
   CollectionBlockInitializer,
   RadioWithTooltip,
   Trigger,
+  UseVariableOptions,
   getCollectionFieldOptions,
   useWorkflowAnyExecuted,
 } from '@tachybase/plugin-workflow/client';
 import { useForm } from '@tachybase/schema';
-import { SchemaConfigButton } from './VC.ConfigButton';
+import { ConfigButtonView } from './ConfigButton.view';
 import { NAMESPACE, tval, usePluginTranslation } from '../../locale';
-import { LauncherInterface } from './launcher-interface/VC.LauncherInterface';
+import { LauncherInterface } from './launcher-interface/LauncherInterface.schema';
 
 // 工作流节点-审批触发器节点
 export class ApprovalTrigger extends Trigger {
@@ -17,6 +18,13 @@ export class ApprovalTrigger extends Trigger {
   title = `{{t('Approval event', { ns: "${NAMESPACE}" })}}`;
   description = `{{t("Triggered when an approval request is initiated through an action button or API. Dedicated to the approval process, with exclusive approval node and block for managing documents and tracking processing processes.", { ns: "${NAMESPACE}" })}}`;
 
+  scope = { useWorkflowAnyExecuted };
+
+  components = {
+    ConfigButtonView,
+    LauncherInterface,
+    RadioWithTooltip,
+  };
   // 触发器配置表
   fieldset = {
     collection: {
@@ -61,7 +69,7 @@ export class ApprovalTrigger extends Trigger {
       title: `{{t("Initiator's interface", { ns: "${NAMESPACE}" })}}`,
       description: `{{t("For initiating approvals, or viewing and manipulating initiated approvals.", { ns: "${NAMESPACE}" })}}`,
       'x-decorator': 'FormItem',
-      'x-component': 'SchemaConfigButton',
+      'x-component': 'ConfigButtonView',
       'x-reactions': [
         {
           dependencies: ['collection'],
@@ -75,7 +83,7 @@ export class ApprovalTrigger extends Trigger {
       properties: {
         applyForm: {
           type: 'void',
-          'x-component': 'SchemaInitiatorForm',
+          'x-component': 'LauncherInterface',
           default: null,
         },
       },
@@ -106,20 +114,39 @@ export class ApprovalTrigger extends Trigger {
         },
       ],
     },
+    summary: {
+      type: 'array',
+      title: '{{t("Select fields to display in the approval summary", { ns: "workflow" })}}',
+      'x-decorator': 'FormItem',
+      // TODO: 需要更换为能支持同时选择普通字段和关联字段的组件.目前只能选择关联字段.走通业务逻辑为先
+      'x-component': 'AppendsTreeSelect',
+      'x-component-props': {
+        title: 'Preload associations',
+        multiple: true,
+        needLeaf: true,
+        useCollection() {
+          const { values } = useForm();
+          return values?.collection;
+        },
+      },
+      'x-reactions': [
+        {
+          dependencies: ['collection'],
+          fulfill: {
+            state: {
+              visible: '{{!!$deps[0]}}',
+            },
+          },
+        },
+      ],
+    },
   };
 
-  scope = { useWorkflowAnyExecuted };
-  components = {
-    SchemaConfigButton,
-    SchemaInitiatorForm: LauncherInterface,
-    RadioWithTooltip,
-  };
-
-  isActionTriggerable = (config, context) => {
+  isActionTriggerable = (config: any, context: { action: string; direct: any }) => {
     return ['create', 'update'].includes(context.action) && !context.direct;
   };
 
-  useVariables(config, options) {
+  useVariables(config: { collection: any; appends: any[]; summary: any[] }, options: UseVariableOptions) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const compile = useCompile();
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -135,17 +162,25 @@ export class ApprovalTrigger extends Trigger {
         uiSchema: { title: t('Trigger data', { ns: 'workflow' }) },
       },
     ];
-    return getCollectionFieldOptions({
+
+    const configAppends = config.appends?.map((item: any) => `data.${item}`) || [];
+    const collectionFieldOptions = getCollectionFieldOptions({
       // depth,
-      appends: ['data', ...(config.appends?.map((item) => `data.${item}`) || [])],
+      appends: ['data', ...configAppends],
       ...options,
       fields: rootFields,
       compile,
       getCollectionFields,
     });
+    console.log(
+      '%c Line:176 🍷 collectionFieldOptions',
+      'font-size:18px;color:#33a5ff;background:#3f7cff',
+      collectionFieldOptions,
+    );
+    return collectionFieldOptions;
   }
 
-  useInitializers(config): SchemaInitializerItemType | null {
+  useInitializers(config: { collection: any }): SchemaInitializerItemType | null {
     if (!config.collection) {
       return null;
     }

@@ -1,17 +1,17 @@
-import React from 'react';
 import { ExtendCollectionsProvider, TableBlockProvider, useRecord } from '@tachybase/client';
+import React from 'react';
 import { CollectionApprovalTodos } from '../../common/Cn.ApprovalTodos';
 import { CollectionApprovals } from '../approval-common/Approvals.collection';
 import { CollectionFlowNodes } from '../approval-common/FlowNodes.collection';
 import { CollectionWorkflows } from '../approval-common/Workflows.collection';
 
-export function ApprovalBlockDecorator({ children, ...props }) {
+export const ApprovalBlockProvider = ({ children, ...props }) => {
   const {
     collection,
-    action = 'list',
     params = {
       filter: {},
     },
+    action = 'list',
   } = props;
 
   const record = useRecord();
@@ -23,7 +23,12 @@ export function ApprovalBlockDecorator({ children, ...props }) {
       pageSize: 20,
       sort: ['-createdAt'],
       ...params,
-      filter: record?.id ? { dataKey: `${record.id}`, ...params.filter } : { ...params.filter },
+      filter: record?.id
+        ? {
+            dataKey: `${record.id}`,
+            ...params.filter,
+          }
+        : { ...params.filter },
     },
     rowKey: 'id',
     showIndex: true,
@@ -39,4 +44,4 @@ export function ApprovalBlockDecorator({ children, ...props }) {
       </TableBlockProvider>
     </ExtendCollectionsProvider>
   );
-}
+};
