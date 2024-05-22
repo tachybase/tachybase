@@ -2,21 +2,21 @@ import { createStyles, useCurrentUserContext } from '@tachybase/client';
 import { EXECUTION_STATUS } from '@tachybase/plugin-workflow/client';
 import _ from 'lodash';
 import React, { useMemo } from 'react';
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from '../constants';
-import { lang, usePluginTranslation } from '../locale';
+import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS, ApprovalStatusEnums, approvalStatusOptions } from '../constants';
+import { lang, usePluginTranslation, useTranslation } from '../locale';
 import { useContextApprovalExecution } from '../context/ApprovalExecution';
 import { ContextWithActionEnabled } from '../context/WithActionEnabled';
+import { Space, Steps, Tag } from 'antd-mobile';
+import { dayjs } from '@tachybase/utils/client';
 
-// 审批(发起/待办)区块-查看-审批处理
 export const ApprovalProcess = (props) => {
   const { t } = usePluginTranslation();
   const { approval: approvalContext } = useContextApprovalExecution();
   const { styles } = getStyles();
   const { data } = useCurrentUserContext();
-
+  const { Step } = Steps;
   const results = useMemo(() => getResults({ approval: approvalContext, currentUser: data }), [approvalContext, data]);
-
-  // const columns = useMemo(() => getAntdTableColumns({ t, styles }), [t, styles]);
+  const stepsResult = getStepsResult(results, t);
 
   return (
     <ContextWithActionEnabled.Provider value={{ actionEnabled: props.actionEnabled }}>
@@ -25,6 +25,32 @@ export const ApprovalProcess = (props) => {
           <Table key={item.id} dataSource={item.records} rowKey={'id'} pagination={false} columns={columns} />
         ))}
       </Space> */}
+      <Steps direction="vertical">
+        {stepsResult.map((item, index) => {
+          return (
+            <Step
+              title={item.title}
+              key={index}
+              description={
+                <Space direction="vertical">
+                  {item.description.map((deItem, indexs) => {
+                    return (
+                      <Space key={indexs}>
+                        {deItem.userName}
+                        <Tag color={deItem.status.color} fill="outline">
+                          {t(deItem.status.label)}
+                        </Tag>
+                        {deItem.date}
+                      </Space>
+                    );
+                  })}
+                </Space>
+              }
+              status="finish"
+            />
+          );
+        })}
+      </Steps>
     </ContextWithActionEnabled.Provider>
   );
 };
@@ -112,6 +138,60 @@ function getResults({ approval, currentUser }) {
   );
 }
 
-const getStepsResult = (result) => {
-  const stepData = result.map((value) => {});
+const getStepsResult = (result, t) => {
+  const stepData = [];
+  result.forEach((item) => {
+    const stepItem = {};
+    item.records.forEach((value, index) => {
+      const status = {};
+      if (
+        (!(value.workflow != null && value.workflow.enabled) ||
+          (value.execution != null && value.execution.stauts) ||
+          value.job?.status) &&
+        [APPROVAL_STATUS.ASSIGNED, APPROVAL_STATUS.PENDING].includes(value.status)
+      ) {
+        status['label'] = 'Unprocessed';
+        status['color'] = 'default';
+      } else {
+        const approvalStatus = approvalStatusOptions.find((option) => option.value === value.status);
+        const approvalActionStatus = ApprovalStatusEnums.find((option) => option.value === value.status);
+        if (value.nodeId) {
+          status['label'] = approvalStatus?.label || approvalActionStatus?.label;
+          status['color'] = approvalStatus?.color || approvalActionStatus?.color || 'default';
+        } else {
+          status['label'] = approvalActionStatus?.label || approvalStatus?.label;
+          status['color'] = approvalActionStatus?.color || approvalStatus?.color || 'default';
+        }
+      }
+      if (Object.keys(stepItem).includes(value.nodeId ? value.nodeId.toString() : '')) {
+        stepItem[value.nodeId].description.push({
+          userName: value.user.nickname,
+          status,
+          date: value.status === 0 ? '' : dayjs(value.execution.updatedAt).format('YYYY-MM-DD hh:mm:ss'),
+        });
+      } else {
+        stepItem[value.nodeId || value.node?.title || t(status['label'])] = {
+          title: value.node?.title || t(status['label']),
+          index,
+          description: [
+            {
+              userName: value.user.nickname,
+              status,
+              date:
+                value.status === 0
+                  ? ''
+                  : dayjs(
+                      value.nodeId ? value.execution?.updatedAt : value.execution?.createdAt || value.updatedAt,
+                    ).format('YYYY-MM-DD hh:mm:ss'),
+            },
+          ],
+        };
+      }
+    });
+    const sort = Object.values(stepItem).sort((a, b) => {
+      return a['index'] - b['index'];
+    });
+    stepData.push(...sort);
+  });
+  return stepData.filter(Boolean);
 };

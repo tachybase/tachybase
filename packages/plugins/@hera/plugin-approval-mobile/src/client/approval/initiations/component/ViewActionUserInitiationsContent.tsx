@@ -10,7 +10,7 @@ import {
   useRequest,
 } from '@tachybase/client';
 import { DetailsBlockProvider, FlowContext } from '@tachybase/plugin-workflow/client';
-import { useForm } from '@tachybase/schema';
+import { useFieldSchema, useForm } from '@tachybase/schema';
 import { Result, Spin } from 'antd';
 import { useContext } from 'react';
 import { ContextWithActionEnabled } from '../../context/WithActionEnabled';
@@ -22,7 +22,7 @@ import { ActionBarProvider } from '../provider/ActionBar';
 import { ApplyActionStatusProvider } from '../provider/ApplyActionStatus';
 import { WithdrawActionProvider } from '../provider/WithdrawAction';
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
-import { useSubmit } from '../hook/useSubmit';
+import { useUpdateSubmit } from '../hook/useUpadteSubmit';
 import { useFormBlockProps } from '../hook/useFormBlockProps';
 import { useWithdrawAction } from '../hook/useWithdrawAction';
 import { FileOutline, UserContactOutline } from 'antd-mobile-icons';
@@ -136,17 +136,17 @@ const UserInitiationsComponent = (applyDetail, t, currContext) => {
   };
 
   const approvalSchema = {
-    // type: 'void',
-    // 'x-component': 'MPage',
-    // 'x-designer': 'MPage.Designer',
-    // 'x-component-props': {},
-    // properties: {
-    //   process: {
-    //     type: 'void',
-    //     'x-decorator': 'CardItem',
-    //     'x-component': 'ApprovalCommon.ViewComponent.ApprovalProcess',
-    //   },
-    // },
+    type: 'void',
+    'x-component': 'MPage',
+    'x-designer': 'MPage.Designer',
+    'x-component-props': {},
+    properties: {
+      process: {
+        type: 'void',
+        'x-decorator': 'CardItem',
+        'x-component': 'ApprovalCommon.ViewComponent.MApprovalProcess',
+      },
+    },
   };
 
   return (
@@ -163,7 +163,7 @@ const UserInitiationsComponent = (applyDetail, t, currContext) => {
       }}
       scope={{
         useForm,
-        useSubmit: useSubmit,
+        useSubmit: useUpdateSubmit,
         useFormBlockProps,
         useDetailsBlockProps: useFormBlockContext,
         useWithdrawAction,

@@ -76,5 +76,6 @@
   "When checked, the workflow will terminate when the rejection branch ends.": "勾选后，否决分支结束后工作流将终止。",
   "Disabled": "已失效",
   "Submission may be withdrawn, please try refresh the list.": "提交可能已被撤回，请尝试刷新列表。",
-  "Trigger data": "触发器数据"
+  "Trigger data": "触发器数据",
+  "All":"全部"
 }

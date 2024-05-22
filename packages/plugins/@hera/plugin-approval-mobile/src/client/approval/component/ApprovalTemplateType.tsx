@@ -3,44 +3,44 @@ import { observer, useFieldSchema } from '@tachybase/schema';
 import { Picker, Space } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from '../../locale';
+import { useTranslation } from '../locale';
 
-export const TabApplicantType = observer((props) => {
+export const ApprovalTemplateType = observer((props) => {
   const { changeFilter, filter } = props as any;
   const [visible, setVisible] = useState(false);
-  const api = useAPIClient();
   const [columns, setColumns] = useState([]);
+  const api = useAPIClient();
   const { t } = useTranslation();
   useEffect(() => {
     api
-      .request({ url: 'users:list', params: { pageSize: 99999 } })
+      .request({
+        url: 'workflows:list',
+        params: { pageSize: 9999, filter: { type: { $eq: 'approval' }, enabled: { $eq: true } } },
+      })
       .then((res) => {
-        const userData = res.data.data.map((item) => {
-          return {
-            label: item.nickname,
-            value: item.id,
-          };
+        const columnsData = res.data.data.map((value) => {
+          return { label: value.title?.replace('审批流:', '') || '', value: value.id };
         });
-        userData.unshift({
-          label: t('All'),
+        columnsData.unshift({
           value: 'all',
+          label: t('All'),
         });
-        setColumns(userData);
+        setColumns(columnsData);
       })
       .catch(() => {
         console.error;
       });
   }, []);
   return (
-    <Space>
+    <>
       <Space
         onClick={() => {
           setVisible(true);
         }}
       >
-        {columns.length && filter['userId'] && filter['userId'] !== 'all'
-          ? columns.find((item) => item.value === filter['userId']).label
-          : '申请人'}
+        {columns.length && filter.workflowId && filter.workflowId !== 'all'
+          ? columns.find((item) => item.value === filter.workflowId).label
+          : '模版类型'}
         <DownOutline />
       </Space>
       <Picker
@@ -52,13 +52,13 @@ export const TabApplicantType = observer((props) => {
         onConfirm={(e) => {
           const changeData = { ...filter };
           if (e[0] === 'all') {
-            delete changeData['userId'];
+            delete changeData['workflowId'];
           } else {
-            changeData['userId'] = e[0];
+            changeData['workflowId'] = e[0];
           }
           changeFilter(changeData);
         }}
       />
-    </Space>
+    </>
   );
 });

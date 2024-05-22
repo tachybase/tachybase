@@ -61,5 +61,6 @@
   "End on reject": "End on reject",
   "If checked, the workflow will be terminated after rejection branch processed.": "If checked, the workflow will be terminated after rejection branch processed.",
   "Disabled": "Disabled",
-  "Trigger data": "Trigger data"
+  "Trigger data": "Trigger data",
+  "All":"All"
 }
