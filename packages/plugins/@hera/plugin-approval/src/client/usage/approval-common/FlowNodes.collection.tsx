@@ -13,8 +13,18 @@ export const CollectionFlowNodes = {
         title: 'ID',
         'x-component': 'RemoteSelect',
         'x-component-props': {
-          fieldNames: { label: 'title', value: 'id' },
-          service: { resource: 'flow_nodes', params: { filter: { type: 'manual' } } },
+          fieldNames: {
+            label: 'title',
+            value: 'id',
+          },
+          service: {
+            resource: 'flow_nodes',
+            params: {
+              filter: {
+                type: 'manual',
+              },
+            },
+          },
         },
       },
     },
@@ -22,7 +32,11 @@ export const CollectionFlowNodes = {
       type: 'string',
       name: 'title',
       interface: 'input',
-      uiSchema: { type: 'string', title: '{{t("Title")}}', 'x-component': 'Input' },
+      uiSchema: {
+        type: 'string',
+        title: '{{t("Title")}}',
+        'x-component': 'Input',
+      },
     },
   ],
 };

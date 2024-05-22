@@ -1,4 +1,4 @@
-import { NAMESPACE } from '../../locale';
+import { NAMESPACE, tval } from '../../locale';
 import { ApprovalStatusEnums } from '../../constants';
 
 export const CollectionApprovals = {
@@ -9,7 +9,11 @@ export const CollectionApprovals = {
       type: 'bigInt',
       name: 'id',
       interface: 'number',
-      uiSchema: { type: 'number', title: 'ID', 'x-component': 'InputNumber' },
+      uiSchema: {
+        type: 'number',
+        title: 'ID',
+        'x-component': 'InputNumber',
+      },
     },
     {
       type: 'belongsTo',
@@ -34,7 +38,15 @@ export const CollectionApprovals = {
         type: 'number',
         title: `{{t("Initiator", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'RemoteSelect',
-        'x-component-props': { fieldNames: { label: 'nickname', value: 'id' }, service: { resource: 'users' } },
+        'x-component-props': {
+          fieldNames: {
+            label: 'nickname',
+            value: 'id',
+          },
+          service: {
+            resource: 'users',
+          },
+        },
       },
     },
     {
@@ -57,6 +69,23 @@ export const CollectionApprovals = {
         title: '{{t("Created at")}}',
         'x-component': 'DatePicker',
         'x-component-props': { showTime: true },
+      },
+    },
+    {
+      type: 'string',
+      name: 'summaryString',
+      interface: 'input',
+      uiSchema: {
+        type: 'string',
+        title: tval('Summary'),
+        'x-component': 'ApprovalsSummary',
+        'x-component-props': {
+          style: {
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          },
+        },
       },
     },
   ],

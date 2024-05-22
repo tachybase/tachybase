@@ -1,4 +1,6 @@
 import { defineCollection } from '@tachybase/database';
+
+// 审批待办
 export default defineCollection({
   namespace: 'workflow.approvalRecords',
   dumpRules: 'required',
@@ -47,6 +49,11 @@ export default defineCollection({
       type: 'jsonb',
       name: 'snapshot',
       defaultValue: {},
+    },
+    {
+      type: 'string',
+      name: 'summaryString',
+      defaultValue: '',
     },
     {
       type: 'text',

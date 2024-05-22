@@ -1,26 +1,21 @@
 import { Plugin } from '@tachybase/client';
-import { PluginKitApprovalCommon } from '../approval-common/plugin';
 import { tval } from '../../locale';
-import { ViewActionTodos } from './todos/VC.ViewActionTodos';
-import { ApprovalBlockComponent } from './VC.ApprovalBlock';
-import { ApprovalBlockTodos } from './todos/VC.ApprovalBlockTodos';
+import { PluginKitApprovalCommon } from '../approval-common/plugin';
+import { ApprovalBlockComponent, SCApprovalBlock } from './ApprovalBlock.schema';
 import { ViewActionLaunch } from './launch/VC.ViewActionLaunch';
-import { ApprovalBlockDecorator } from './Dt.ApprovalBlock';
-import { ApprovalBlockLaunch } from './launch/VC.ApprovalBlockLaunch';
+import { ViewActionTodos } from './todos/VC.ViewActionTodos';
 
-export class PluginKitApprovalBlock extends Plugin {
+export class KitApprovalBlock extends Plugin {
   async afterAdd() {
     this.pm.add(PluginKitApprovalCommon);
+    this.pm.add(SCApprovalBlock);
   }
 
   async beforeLoad() {}
 
   async load() {
     this.app.addComponents({
-      'ApprovalBlock.Decorator': ApprovalBlockDecorator,
       'ApprovalBlock.BlockInitializer': ApprovalBlockComponent,
-      'ApprovalBlock.Launch': ApprovalBlockLaunch,
-      'ApprovalBlock.Todos': ApprovalBlockTodos,
       'ApprovalBlock.ViewActionLaunch': ViewActionLaunch,
       'ApprovalBlock.ViewActionTodos': ViewActionTodos,
     });

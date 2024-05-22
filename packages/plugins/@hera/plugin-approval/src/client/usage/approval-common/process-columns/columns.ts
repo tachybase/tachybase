@@ -2,6 +2,7 @@ import { renderColumnDetail } from './render.detail';
 import { renderColumnStatus } from './render.status';
 import { renderColumnTaskNode } from './render.taskNode';
 
+// 审批处理-表格行配置
 export const getAntdTableColumns = ({ t, styles }) => {
   return [
     {

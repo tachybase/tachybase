@@ -5,6 +5,7 @@ import { parseCollectionName } from '@tachybase/data-source-manager';
 import { EXECUTION_STATUS, Trigger, toJSON, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 import { UiSchemaRepository } from '@nocobase/plugin-ui-schema-storage';
+import { getSummaryString } from './tools';
 
 const ExecutionStatusMap = {
   [EXECUTION_STATUS.RESOLVED]: APPROVAL_STATUS.APPROVED,
@@ -51,6 +52,10 @@ export default class ApprovalTrigger extends Trigger {
         data: toJSON(data),
         approvalId: approval.id,
         applicantRoleName: approval.applicantRoleName,
+        summaryString: getSummaryString({
+          summaryConfig: workflow.config.summary,
+          data,
+        }),
       },
       { transaction },
     );
@@ -60,13 +65,14 @@ export default class ApprovalTrigger extends Trigger {
     if (workflow.type !== ApprovalTrigger.TYPE) {
       return;
     }
-    const { approvalId, data } = execution.context;
+    const { approvalId, data, summaryString } = execution.context;
     const approvalExecution = await this.workflow.db.getRepository('approvalExecutions').create({
       values: {
         approvalId,
         executionId: execution.id,
         status: execution.status,
         snapshot: data,
+        summaryString: summaryString,
       },
       transaction,
     });
@@ -192,6 +198,7 @@ export default class ApprovalTrigger extends Trigger {
           // updatedById: currentUser.id,
           workflowId: workflow.id,
           workflowKey: workflow.key,
+          summaryString: '12,11,15',
         },
         context,
       });
@@ -216,7 +223,20 @@ export default class ApprovalTrigger extends Trigger {
       if (dataSourceName !== dataSourceHeader) {
         continue;
       }
+
       (Array.isArray(data) ? data : [data]).forEach(async (row) => {
+        let dataCurrent = {};
+        if (row.id) {
+          // XXX: 丑陋的实现, 应该从 data 直接获取的就是有值的 data, 走通优先.
+          const { repository } = this.workflow.app.dataSourceManager.dataSources
+            .get(dataSourceName)
+            .collectionManager.getCollection(collectionName);
+          const curretSummaryConfig = workflow.config?.summary || [];
+          dataCurrent = await repository.findOne({
+            filterByTk: data.id,
+            appends: [...workflow.config.appends],
+          });
+        }
         let payload = row;
         if (trigger[1]) {
           const paths = trigger[1].split('.');
@@ -235,6 +255,8 @@ export default class ApprovalTrigger extends Trigger {
         if (!collection || collection.model !== payload.constructor) {
           return;
         }
+
+        // 以上是 审批摘要取值逻辑
         await approvalRepo.create({
           values: {
             collectionName: workflow.config.collection,
@@ -246,6 +268,10 @@ export default class ApprovalTrigger extends Trigger {
             workflowId: workflow.id,
             workflowKey: workflow.key,
             applicantRoleName: context.state.currentRole,
+            summaryString: getSummaryString({
+              summaryConfig: workflow.config.summary,
+              data: dataCurrent,
+            }),
           },
           context,
         });

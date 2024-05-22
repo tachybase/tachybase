@@ -1,8 +1,11 @@
-import { css } from '@tachybase/client';
+import { SchemaComponent, css, parseCollectionName } from '@tachybase/client';
+import { useForm } from '@tachybase/schema';
+import React from 'react';
 import { NAMESPACE } from '../../../locale';
+import { SchemaAddBlock } from './SchemaAddBlock.component';
 
 // 发起人操作界面
-export const getSchemaLauncherInterface = ({ values, dataSource, name }) => ({
+const getSchemaLauncherInterface = ({ values, dataSource, name }) => ({
   name: values.collection,
   type: 'void',
   properties: {
@@ -30,4 +33,19 @@ export const getSchemaLauncherInterface = ({ values, dataSource, name }) => ({
       },
     },
   },
-});
+}); // 触发器-发起人的操作界面
+
+export const LauncherInterface = () => {
+  const { values } = useForm();
+  const [dataSource, name] = parseCollectionName(values.collection);
+  const schema = getSchemaLauncherInterface({ values, dataSource, name });
+
+  return (
+    <SchemaComponent
+      components={{
+        SchemaAddBlock,
+      }}
+      schema={schema}
+    />
+  );
+};

@@ -17,6 +17,7 @@ export type AppendsTreeSelectProps = {
   multiple?: boolean;
   filter?(field): boolean;
   collection?: string;
+  needLeaf?: boolean;
   useCollection?(props: Pick<AppendsTreeSelectProps, 'collection'>): string;
   rootOption?: {
     label: string;
@@ -56,9 +57,16 @@ function trueFilter(field) {
   return true;
 }
 
-function getCollectionFieldOptions(this: CallScope, collection, parentNode?): TreeOptionType[] {
+function getCollectionFieldOptions(
+  this: CallScope,
+  collection,
+  parentNode?,
+  options = { needLeaf: false },
+): TreeOptionType[] {
+  const { needLeaf } = options;
   const [dataSourceName, collectionName] = parseCollectionName(collection);
-  const fields = this.getCollectionFields(collectionName, dataSourceName).filter(isAssociation);
+  const rawFields = this.getCollectionFields(collectionName, dataSourceName);
+  const fields = needLeaf ? rawFields : rawFields.filter(isAssociation);
   const boundLoadChildren = loadChildren.bind(this);
   return fields.filter(this.filter).map((field) => {
     const key = parentNode ? `${parentNode.value ? `${parentNode.value}.` : ''}${field.name}` : field.name;
@@ -88,6 +96,7 @@ export const AppendsTreeSelect: React.FC<TreeSelectProps & AppendsTreeSelectProp
     filter = trueFilter,
     rootOption,
     loadData: propsLoadData,
+    needLeaf = false,
     ...restProps
   } = props;
   const compile = useCompile();
@@ -133,7 +142,9 @@ export const AppendsTreeSelect: React.FC<TreeSelectProps & AppendsTreeSelectProp
     const tData =
       propsLoadData === null
         ? []
-        : getCollectionFieldOptions.call({ compile, getCollectionFields, filter }, collectionString, parentNode);
+        : getCollectionFieldOptions.call({ compile, getCollectionFields, filter }, collectionString, parentNode, {
+            needLeaf,
+          });
 
     const map = tData.reduce((result, item) => Object.assign(result, { [item.value]: item }), {});
     if (parentNode) {

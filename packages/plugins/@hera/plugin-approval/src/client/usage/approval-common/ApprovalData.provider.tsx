@@ -1,6 +1,6 @@
 import { useRecord } from '@tachybase/client';
 import React, { createContext, useContext } from 'react';
-import { Approval } from '../approval-block/interface';
+import { Approval } from '../approval-block/todos/Pd.ApprovalExecutions';
 
 export const ApprovalContext = createContext<Partial<Approval>>({});
 
