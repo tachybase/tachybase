@@ -1,7 +1,7 @@
-import { SchemaExpressionScopeContext, useField, useFieldSchema } from '@tachybase/schema';
+import { useContext } from 'react';
 import {
-  TableFieldResource,
   isVariable,
+  TableFieldResource,
   transformVariableValue,
   useBlockRequestContext,
   useCollection_deprecated,
@@ -11,10 +11,12 @@ import {
   useTableBlockContext,
   useVariables,
 } from '@tachybase/client';
+import { SchemaExpressionScopeContext, useField, useFieldSchema } from '@tachybase/schema';
 import { isURL } from '@tachybase/utils/client';
+
 import { App, message } from 'antd';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { useBulkUpdateTranslation } from './locale';
 
 export const useCustomizeBulkUpdateActionProps = () => {
@@ -23,8 +25,6 @@ export const useCustomizeBulkUpdateActionProps = () => {
   const actionSchema = useFieldSchema();
   const tableBlockContext = useTableBlockContext();
   const { rowKey } = tableBlockContext;
-  const selectedRecordKeys =
-    tableBlockContext.field?.data?.selectedRowKeys ?? expressionScope?.selectedRecordKeys ?? {};
   const navigate = useNavigate();
   const compile = useCompile();
   const { t } = useBulkUpdateTranslation();
@@ -44,6 +44,8 @@ export const useCustomizeBulkUpdateActionProps = () => {
       } = actionSchema?.['x-action-settings'] ?? {};
       actionField.data = field.data || {};
       actionField.data.loading = true;
+      const selectedRecordKeys =
+        tableBlockContext.field?.data?.selectedRowKeys ?? expressionScope?.selectedRecordKeys ?? {};
 
       const assignedValues = {};
       const waitList = Object.keys(originalAssignedValues).map(async (key) => {

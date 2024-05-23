@@ -1,41 +1,38 @@
-import { css } from '@emotion/css';
-import { Form } from '@tachybase/schema';
-import { observer, useFieldSchema } from '@tachybase/schema';
 import React, { useMemo } from 'react';
+import { observer, useFieldSchema } from '@tachybase/schema';
+
+import { createStyles } from 'antd-style';
+
+import { withDynamicSchemaProps } from '../../application/hoc/withDynamicSchemaProps';
 import { FormBlockContext } from '../../block-provider';
 import { useCollectionManager_deprecated } from '../../collection-manager';
 import { useCollectionParentRecordData } from '../../data-source/collection-record/CollectionRecordProvider';
 import { RecordProvider } from '../../record-provider';
 import { SchemaComponent, useProps } from '../../schema-component';
-import { DynamicComponentProps } from '../../schema-component/antd/filter/DynamicComponent';
 import { FilterContext } from '../../schema-component/antd/filter/context';
-import { VariableOption, VariablesContextType } from '../../variables/types';
-import { VariableInput, getShouldChange } from '../VariableInput/VariableInput';
-import { LinkageRuleActionGroup } from './LinkageRuleActionGroup';
+import { DynamicComponentProps } from '../../schema-component/antd/filter/DynamicComponent';
+import { getShouldChange, VariableInput } from '../VariableInput/VariableInput';
 import { EnableLinkage } from './components/EnableLinkage';
 import { ArrayCollapse } from './components/LinkageHeader';
-import { withDynamicSchemaProps } from '../../application/hoc/withDynamicSchemaProps';
-
-interface usePropsReturn {
-  options: any;
-  defaultValues: any[];
-  collectionName: string;
-  form: Form;
-  variables: VariablesContextType;
-  localVariables: VariableOption | VariableOption[];
-  record: Record<string, any>;
-  /**
-   * create 表示创建表单，update 表示更新表单
-   */
-  formBlockType: 'create' | 'update';
-}
+import { LinkageRuleActionGroup } from './LinkageRuleActionGroup';
 
 interface Props {
   dynamicComponent: any;
 }
 
+const useStyles = createStyles(({ css }) => {
+  return {
+    filter: css`
+      position: relative;
+      width: 100%;
+      margin-left: 10px;
+    `,
+  };
+});
+
 export const FormLinkageRules = withDynamicSchemaProps(
   observer((props: Props) => {
+    const { styles } = useStyles();
     const fieldSchema = useFieldSchema();
     const {
       options,
@@ -91,11 +88,7 @@ export const FormLinkageRules = withDynamicSchemaProps(
                       'x-use-component-props': () => {
                         return {
                           options,
-                          className: css`
-                            position: relative;
-                            width: 100%;
-                            margin-left: 10px;
-                          `,
+                          className: styles.filter,
                         };
                       },
                       'x-component-props': {

@@ -1,20 +1,25 @@
-import { css } from '@emotion/css';
-import dayjs from 'dayjs';
-
+import React, { useState } from 'react';
 import { connect, mapProps } from '@tachybase/schema';
+
 import { useBoolean } from 'ahooks';
 import { Input, Radio, Space } from 'antd';
-import React, { useState } from 'react';
+import { createStyles } from 'antd-style';
+import dayjs from 'dayjs';
+
 import { useToken } from '../../';
 
 const date = dayjs();
 
-const spaceCSS = css`
-  width: 100%;
-  & > .ant-space-item {
-    flex: 1;
-  }
-`;
+const useStyles = createStyles(({ css }) => {
+  return {
+    space: css`
+      width: 100%;
+      & > .ant-space-item {
+        flex: 1;
+      }
+    `,
+  };
+});
 export const DateFormatCom = (props?) => {
   const date = dayjs();
   return (
@@ -44,6 +49,7 @@ const DateTimeFormatPreview = ({ content }) => {
 };
 
 const InternalExpiresRadio = (props) => {
+  const { styles } = useStyles();
   const { onChange, defaultValue, formats, timeFormat } = props;
   const [isCustom, { setFalse, setTrue }] = useBoolean(props.value && !formats.includes(props.value));
   const targetValue = props.value && !formats.includes(props.value) ? props.value : defaultValue;
@@ -58,7 +64,7 @@ const InternalExpiresRadio = (props) => {
     }
   };
   return (
-    <Space className={spaceCSS}>
+    <Space className={styles.space}>
       <Radio.Group value={isCustom ? 'custom' : props.value} onChange={onSelectChange}>
         <Space direction="vertical">
           {props.options.map((v) => {

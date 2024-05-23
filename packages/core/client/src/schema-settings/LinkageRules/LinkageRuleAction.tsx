@@ -1,21 +1,50 @@
-import { CloseCircleOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
-import { TreeSelect } from '@tachybase/components';
-import { observer } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import { Select, Space } from 'antd';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { TreeSelect } from '@tachybase/components';
+import { observer, uid } from '@tachybase/schema';
+
+import { CloseCircleOutlined } from '@ant-design/icons';
+import { Select, Space } from 'antd';
+import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
+
 import { useCompile } from '../..';
-import { DynamicComponent } from './DynamicComponent';
-import { ValueDynamicComponent } from './ValueDynamicComponent';
 import { LinkageLogicContext, RemoveActionContext } from './context';
+import { DynamicComponent } from './DynamicComponent';
 import { ActionType } from './type';
 import { useValues } from './useValues';
+import { ValueDynamicComponent } from './ValueDynamicComponent';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      .ant-space {
+        display: inline-block;
+      }
+    `,
+    item: css`
+      .ant-space {
+        display: inline-block;
+      }
+      .ant-space-item {
+        max-width: 95%;
+        display: inline-block;
+        margin: 2px;
+        vertical-align: top;
+      }
+    `,
+    select: css`
+      min-width: 120px;
+    `,
+    tree: css`
+      min-width: 160px;
+    `,
+  };
+});
 
 export const FormFieldLinkageRuleAction = observer(
   (props: any) => {
     const { value, options, collectionName } = props;
+    const { styles } = useStyles();
     const { t } = useTranslation();
     const compile = useCompile();
     const remove = useContext(RemoveActionContext);
@@ -31,34 +60,13 @@ export const FormFieldLinkageRuleAction = observer(
     } = useValues(options);
     return (
       <LinkageLogicContext.Provider value={uid()}>
-        <div
-          style={{ marginBottom: 8 }}
-          className={css`
-            .ant-space {
-              display: inline-block;
-            }
-          `}
-        >
-          <Space
-            className={css`
-              .ant-space {
-                display: inline-block;
-              }
-              .ant-space-item {
-                max-width: 95%;
-                display: inline-block;
-                margin: 2px;
-                vertical-align: top;
-              }
-            `}
-          >
+        <div style={{ marginBottom: 8 }} className={styles.container}>
+          <Space className={styles.item}>
             <TreeSelect
               // @ts-ignore
               role="button"
               data-testid="select-linkage-property-field"
-              className={css`
-                min-width: 160px;
-              `}
+              className={styles.tree}
               fieldNames={{
                 label: 'title',
                 value: 'name',
@@ -80,9 +88,7 @@ export const FormFieldLinkageRuleAction = observer(
               data-testid="select-linkage-action-field"
               popupMatchSelectWidth={false}
               value={operator}
-              className={css`
-                min-width: 120px;
-              `}
+              className={styles.select}
               options={compile(operators)}
               onChange={(value) => {
                 setOperator(value);

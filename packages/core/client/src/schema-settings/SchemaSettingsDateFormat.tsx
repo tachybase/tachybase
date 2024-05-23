@@ -1,12 +1,36 @@
-import { css } from '@emotion/css';
-import { ISchema, Schema, useField } from '@tachybase/schema';
 import React from 'react';
+import { ISchema, Schema, useField } from '@tachybase/schema';
+
+import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
+
 import { useCollectionManager_deprecated, useDesignable } from '..';
 import { DateFormatCom, ExpiresRadio } from './DateFormat/ExpiresRadio';
 import { SchemaSettingsModalItem } from './SchemaSettings';
 
+const useStyles = createStyles(({ css }) => {
+  return {
+    radio: css`
+      .ant-radio-wrapper {
+        display: flex;
+        margin: 5px 0px;
+      }
+    `,
+    margin: css`
+      margin-bottom: 0px;
+    `,
+    redRadio: css`
+      color: red;
+      .ant-radio-wrapper {
+        display: flex;
+        margin: 5px 0px;
+      }
+    `,
+  };
+});
+
 export const SchemaSettingsDateFormat = function DateFormatConfig(props: { fieldSchema: Schema }) {
+  const { styles } = useStyles();
   const { fieldSchema } = props;
   const field = useField();
   const { dn } = useDesignable();
@@ -36,12 +60,7 @@ export const SchemaSettingsDateFormat = function DateFormatConfig(props: { field
               'x-decorator': 'FormItem',
               'x-decorator-props': {},
               'x-component-props': {
-                className: css`
-                  .ant-radio-wrapper {
-                    display: flex;
-                    margin: 5px 0px;
-                  }
-                `,
+                className: styles.radio,
                 defaultValue: 'dddd',
                 formats: ['MMMM Do YYYY', 'YYYY-MM-DD', 'MM/DD/YY', 'YYYY/MM/DD', 'DD/MM/YYYY'],
               },
@@ -94,18 +113,10 @@ export const SchemaSettingsDateFormat = function DateFormatConfig(props: { field
               'x-component': ExpiresRadio,
               'x-decorator': 'FormItem',
               'x-decorator-props': {
-                className: css`
-                  margin-bottom: 0px;
-                `,
+                className: styles.margin,
               },
               'x-component-props': {
-                className: css`
-                  color: red;
-                  .ant-radio-wrapper {
-                    display: flex;
-                    margin: 5px 0px;
-                  }
-                `,
+                className: styles.redRadio,
                 defaultValue: 'h:mm a',
                 formats: ['hh:mm:ss a', 'HH:mm:ss'],
                 timeFormat: true,

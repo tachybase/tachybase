@@ -1,13 +1,24 @@
-import { useTranslation } from 'react-i18next';
-import { css } from '@emotion/css';
-import { useAPIClient } from '../api-client';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from '@tachybase/schema';
-import { useEffect, useRef, useState } from 'react';
+
 import { Button, Input, message } from 'antd';
-import React from 'react';
+import { createStyles } from 'antd-style';
+import { useTranslation } from 'react-i18next';
+
+import { useAPIClient } from '../api-client';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    field: css`
+      display: flex;
+      gap: 0.5em;
+    `,
+  };
+});
 
 export default function VerificationCode({ targetFieldName = 'phone', actionType, value, onChange }) {
   const { t } = useTranslation();
+  const { styles } = useStyles();
   const api = useAPIClient();
   const form = useForm();
 
@@ -48,12 +59,7 @@ export default function VerificationCode({ targetFieldName = 'phone', actionType
   }
 
   return (
-    <fieldset
-      className={css`
-        display: flex;
-        gap: 0.5em;
-      `}
-    >
+    <fieldset className={styles.field}>
       <Input value={value} onChange={onChange} placeholder={t('Verification code')} />
       <Button onClick={onGetCode} disabled={count > 0}>
         {count > 0 ? t('Retry after {{count}} seconds', { count }) : t('Send code')}

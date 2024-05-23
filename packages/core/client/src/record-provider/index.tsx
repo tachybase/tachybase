@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from 'react';
+
 import { useCollection_deprecated } from '../collection-manager';
 import { CollectionRecordProvider } from '../data-source';
 import { useCurrentUserContext } from '../user';
@@ -11,12 +12,13 @@ RecordIndexContext.displayName = 'RecordIndexContext';
 /**
  * @deprecated use `CollectionRecordProvider` instead
  */
-export const RecordProvider: React.FC<{
+export const RecordProvider = (props: {
   record: any;
   parent?: any;
   isNew?: boolean;
   collectionName?: string;
-}> = (props) => {
+  children: React.ReactNode;
+}) => {
   const { record, children, parent, isNew } = props;
   const { name: __collectionName } = useCollection_deprecated();
   const value = { ...record };
@@ -31,11 +33,11 @@ export const RecordProvider: React.FC<{
   );
 };
 
-export const RecordSimpleProvider: React.FC<{ value: Record<string, any>; children: React.ReactNode }> = (props) => {
+export const RecordSimpleProvider = (props: { value: Record<string, any>; children: React.ReactNode }) => {
   return <RecordContext_deprecated.Provider {...props} />;
 };
 
-export const RecordIndexProvider: React.FC<{ index: any }> = (props) => {
+export const RecordIndexProvider = (props: { index: any; children: React.ReactNode }) => {
   const { index, children } = props;
   return <RecordIndexContext.Provider value={index}>{children}</RecordIndexContext.Provider>;
 };
