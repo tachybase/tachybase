@@ -6,12 +6,11 @@
   "keywords": [
     "Blocks"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/data-visualization",
+  "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
     "@ant-design/plots": "^2.1.4",
-    "@emotion/css": "^11.7.1",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
@@ -36,7 +35,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "提供数据可视化功能，包含图表区块和图表筛选区块，支持折线图、面积图、柱状图等十几种图表，你也可以扩展更多图表类型。",
-  "displayName.zh-CN": "数据可视化",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/data-visualization"
+  "displayName.zh-CN": "数据可视化"
 }

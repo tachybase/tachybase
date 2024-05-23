@@ -1,6 +1,8 @@
-import { useApp } from '@tachybase/client';
-import { Card, Divider, List, Typography } from 'antd';
 import React from 'react';
+import { useApp } from '@tachybase/client';
+
+import { Card, List, Typography } from 'antd';
+
 import PluginCoreClient from '..';
 
 const data = [

@@ -6,11 +6,9 @@
   "keywords": [
     "Authentication"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/auth",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
-    "@emotion/css": "^11.7.1",
     "@tachybase/schema": "workspace:*",
     "@types/cron": "^2.0.1",
     "antd": "5.16.1",
@@ -30,7 +28,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "用户认证管理，包括基础的密码认证、短信认证、SSO 协议的认证等，可扩展。",
-  "displayName.zh-CN": "用户认证",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/auth"
+  "displayName.zh-CN": "用户认证"
 }

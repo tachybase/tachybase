@@ -7,7 +7,7 @@
     "Blocks"
   ],
   "homepage": "https://docs.nocobase.com/handbook/map",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",

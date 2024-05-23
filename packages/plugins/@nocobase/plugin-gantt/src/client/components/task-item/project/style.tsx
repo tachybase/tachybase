@@ -1,4 +1,4 @@
-import { css } from '@emotion/css';
+import { css } from '@tachybase/client';
 
 export const projectWrapper = css`
   cursor: pointer;

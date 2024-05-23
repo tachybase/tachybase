@@ -5,7 +5,7 @@ import { Scroller } from '@antv/x6-plugin-scroller';
 import { Selection } from '@antv/x6-plugin-selection';
 import { Snapline } from '@antv/x6-plugin-snapline';
 import { register } from '@antv/x6-react-shape';
-import { cx } from '@emotion/css';
+import { cx } from '@tachybase/client';
 import { SchemaOptionsContext } from '@tachybase/schema';
 import {
   APIClientProvider,

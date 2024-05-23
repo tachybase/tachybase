@@ -1,15 +1,17 @@
-import Application, { InstallOptions, Plugin, type PluginOptions } from '@tachybase/server';
+import './actions';
+
 import path from 'path';
+import Application, { InstallOptions, Plugin, type PluginOptions } from '@tachybase/server';
+import { Container } from '@tachybase/utils';
+
+import { DepartmentsPlugin } from './features/departments';
+import { PluginInterception } from './features/interception';
 import CalcField from './fields/calc';
-import { SqlLoader } from './services/sql-loader';
+import TstzrangeField from './fields/tstzrange';
 import { ConnectionManager } from './services/connection-manager';
 import { FontManager } from './services/font-manager';
+import { SqlLoader } from './services/sql-loader';
 import { WebControllerService as WebService } from './services/web-service';
-import './actions';
-import { Container } from '@tachybase/utils';
-import { DepartmentsPlugin } from './features/departments';
-import TstzrangeField from './fields/tstzrange';
-import { PluginInterception } from './features/interception';
 
 export class PluginCoreServer extends Plugin {
   pluginDepartments: DepartmentsPlugin;

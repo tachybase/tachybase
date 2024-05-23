@@ -8,7 +8,7 @@
     "url": "git+https://github.com/nocobase/nocobase.git",
     "directory": "packages/plugin-error-handler"
   },
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@formily/json-schema": "2.2.27",

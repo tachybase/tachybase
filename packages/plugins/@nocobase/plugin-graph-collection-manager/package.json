@@ -6,8 +6,7 @@
   "keywords": [
     "Data model tools"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/graph-collection-manager",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",
@@ -19,7 +18,6 @@
     "@antv/x6-plugin-selection": "^2.0.0",
     "@antv/x6-plugin-snapline": "^2.0.0",
     "@antv/x6-react-shape": "^2.0.0",
-    "@emotion/css": "^11.7.1",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
     "antd": "5.16.1",
@@ -37,7 +35,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "类似 ER 图的工具，目前只支持主数据库。",
-  "displayName.zh-CN": "可视化数据表管理",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/graph-collection-manager"
+  "displayName.zh-CN": "可视化数据表管理"
 }

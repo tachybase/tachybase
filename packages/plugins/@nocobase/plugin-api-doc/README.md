@@ -24,7 +24,7 @@ The file paths above can all be traversed to write documentation. Just export yo
 ```ts
 export default {
   info: {
-    title: 'NocoBase API - Api-doc plugin',
+    title: 'TachyBase API - Api-doc plugin',
   },
   tags: [],
   paths: {},
@@ -43,19 +43,15 @@ Base swagger includes the following code:
 export default {
   openapi: '3.0.3',
   info: {
-    title: 'NocoBase API documentation',
+    title: 'TachyBase API documentation',
     description: '',
     contact: {
-      url: 'https://github.com/nocobase/nocobase/issues',
+      url: 'https://github.com/tachybase/tachybase/issues',
     },
     license: {
-      name: 'Core packages are Apache 2.0 & Plugins packages are AGPL 3.0 licensed.',
-      url: 'https://github.com/nocobase/nocobase#license',
+      name: 'All packages are Apache 2.0 licensed.',
+      url: 'https://github.com/tachybase/tachybase#license',
     },
-  },
-  externalDocs: {
-    description: 'Find out more about NocoBase',
-    url: 'https://docs.nocobase.com/',
   },
   components: {
     securitySchemes: {

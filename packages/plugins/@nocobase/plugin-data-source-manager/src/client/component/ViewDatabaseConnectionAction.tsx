@@ -1,7 +1,7 @@
 import { useRecord } from '@tachybase/client';
 import React from 'react';
 import { Button } from 'antd';
-import { css } from '@emotion/css';
+import { css } from '@tachybase/client';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { getConnectionCollectionPath } from '../constant';

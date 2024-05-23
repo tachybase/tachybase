@@ -1,8 +1,9 @@
-import { RightOutlined } from '@ant-design/icons';
-import { Plugin } from '@tachybase/client';
-import { Button, Tooltip } from 'antd';
-import { createStyles } from '@tachybase/client';
 import React, { lazy } from 'react';
+import { createStyles, Plugin } from '@tachybase/client';
+
+import { RightOutlined } from '@ant-design/icons';
+import { Button, Tooltip } from 'antd';
+
 import { NAMESPACE } from '../locale';
 
 const DOCUMENTATION_PATH = '/api-documentation';

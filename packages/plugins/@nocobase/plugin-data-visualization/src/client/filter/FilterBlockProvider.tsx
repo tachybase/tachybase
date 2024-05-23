@@ -10,7 +10,7 @@ import {
 } from './FilterActionInitializers';
 import { ChartFilterGrid } from './FilterBlockInitializer';
 import { useChartsTranslation } from '../locale';
-import { css } from '@emotion/css';
+import { css } from '@tachybase/client';
 import { ChartFilterContext } from './FilterProvider';
 import { ChartFilterCheckbox } from './FilterCheckbox';
 import { ArrayItems } from '@tachybase/components';

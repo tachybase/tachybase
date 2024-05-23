@@ -6,12 +6,10 @@
   "keywords": [
     "Actions"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/action-bulk-edit",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.3.6",
-    "@emotion/css": "^11.7.1",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
@@ -26,7 +24,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "对全部数据或选中的数据进行批量编辑。",
-  "displayName.zh-CN": "操作：批量编辑",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-bulk-edit"
+  "displayName.zh-CN": "操作：批量编辑"
 }

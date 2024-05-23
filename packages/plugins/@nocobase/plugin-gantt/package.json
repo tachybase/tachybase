@@ -6,13 +6,11 @@
   "keywords": [
     "Blocks"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/block-gantt",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "dependencies": {
     "@ant-design/icons": "^5.3.6",
     "@ctrl/tinycolor": "^3.6.0",
-    "@emotion/css": "^11.7.1",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
@@ -26,7 +24,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "提供甘特图区块。",
-  "displayName.zh-CN": "区块：甘特图",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/block-gantt"
+  "displayName.zh-CN": "区块：甘特图"
 }

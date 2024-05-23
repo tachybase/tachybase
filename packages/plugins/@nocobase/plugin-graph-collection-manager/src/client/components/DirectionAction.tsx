@@ -1,6 +1,6 @@
 import React from 'react';
 import { Popover, Button, Menu } from 'antd';
-import { css } from '@emotion/css';
+import { css } from '@tachybase/client';
 import { LineHeightOutlined } from '@ant-design/icons';
 import { getPopupContainer, useGCMTranslation } from '../utils';
 import { DirectionType } from '../GraphDrawPage';

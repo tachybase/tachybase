@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShareAltOutlined } from '@ant-design/icons';
 import { Menu, Popover, Button } from 'antd';
-import { css } from '@emotion/css';
+import { css } from '@tachybase/client';
 import { getPopupContainer, useGCMTranslation } from '../utils';
 import { ConnectionType } from '../GraphDrawPage';
 

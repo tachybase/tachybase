@@ -1,4 +1,4 @@
-import { cx } from '@emotion/css';
+import { cx } from '@tachybase/client';
 import React, { ReactChild } from 'react';
 import {
   getCachedDateTimeFormat,

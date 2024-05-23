@@ -10,7 +10,7 @@ import {
 } from '@tachybase/client';
 import { uid, merge } from '@tachybase/schema';
 import { ChartFilterContext } from './FilterProvider';
-import { css } from '@emotion/css';
+import { css } from '@tachybase/client';
 import { theme } from 'antd';
 
 const createFilterSchema = () => {
