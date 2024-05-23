@@ -1,12 +1,14 @@
+import fs from 'fs';
+import net from 'net';
+import { basename, dirname, join, resolve, sep } from 'path';
 import { CleanOptions, Collection, SyncOptions } from '@tachybase/database';
 import { Container, importModule, isURL } from '@tachybase/utils';
 import { fsExists } from '@tachybase/utils/plugin-symlink';
+
 import execa from 'execa';
 import fg from 'fast-glob';
-import fs from 'fs';
 import _ from 'lodash';
-import net from 'net';
-import { basename, dirname, join, resolve, sep } from 'path';
+
 import Application from '../application';
 import { createAppProxy, tsxRerunning } from '../helper';
 import { Plugin } from '../plugin';
@@ -135,9 +137,7 @@ export class PluginManager {
    * @internal
    */
   static getPluginPkgPrefix() {
-    return (
-      process.env.PLUGIN_PACKAGE_PREFIX || '@nocobase/plugin-,@tachybase/preset-,@tachybase/plugin-,@hera/plugin-'
-    ).split(',');
+    return (process.env.PLUGIN_PACKAGE_PREFIX || '@tachybase/plugin-,@tachybase/preset-,@hera/plugin-').split(',');
   }
 
   /**
@@ -712,7 +712,7 @@ export class PluginManager {
           options['name'] = model?.name;
         }
         if (!options.name) {
-          options['name'] = urlOrName.replace('@nocobase/plugin-', '');
+          options['name'] = urlOrName.replace('@tachybase/plugin-', '');
         }
       }
       await this.addByNpm({

@@ -275,7 +275,7 @@ interface SchemaSettingsManager {
 - 示例
 
 ```ts | pure
-import { Plugin } from '@nocobase/plugin'
+import { Plugin } from '@tachybase/plugin'
 class MyPlugin extends Plugin {
   load() {
     const allSchemaSettings = this.app.schemaSettingsManager.getAll();
@@ -302,7 +302,7 @@ name 为 `new SchemaSettings(options)` 中的 name。
 - 示例
 
 ```ts | pure
-import { Plugin } from '@nocobase/plugin'
+import { Plugin } from '@tachybase/plugin'
 class MyPlugin extends Plugin {
   load() {
     const mySchemaSettings = this.app.schemaSettingsManager.get('MySchemaSettings');
@@ -329,7 +329,7 @@ name 为 `new SchemaSettings(options)` 中的 name。
 - 示例
 
 ```ts | pure
-import { Plugin } from '@nocobase/plugin'
+import { Plugin } from '@tachybase/plugin'
 class MyPlugin extends Plugin {
   load() {
     this.app.schemaSettingsManager.remove('MySchemaSettings');
@@ -352,7 +352,7 @@ interface SchemaSettingsManager {
 - 示例
 
 ```ts | pure
-import { Plugin } from '@nocobase/plugin'
+import { Plugin } from '@tachybase/plugin'
 
 const mySchemaSettings = new SchemaSettings({
   name: 'MySchemaSettings',
@@ -381,7 +381,7 @@ interface SchemaSettingsManager {
 - 示例
 
 ```ts | pure
-import { Plugin } from '@nocobase/plugin'
+import { Plugin } from '@tachybase/plugin'
 
 class MyPlugin extends Plugin {
   load() {

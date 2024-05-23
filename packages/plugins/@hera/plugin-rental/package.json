@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-rental",
   "displayName": "professional construction materials rental system - customized based on hera",
-  "version": "1.7.49",
+  "version": "1.7.50",
   "description": "Offering a standardized leasing management system, encompassing comprehensive administration from materials to contracts to labor personnel, while providing a robust financial management mechanism, and real-time monitoring of the operational capacity of the leasing system.",
   "keywords": [
     "System management"
@@ -26,12 +26,12 @@
   },
   "peerDependencies": {
     "@hera/plugin-core": "workspace:*",
-    "@nocobase/plugin-collection-manager": "workspace:*",
-    "@nocobase/plugin-data-visualization": "workspace:*",
     "@tachybase/actions": "workspace:*",
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/plugin-collection-manager": "workspace:*",
+    "@tachybase/plugin-data-visualization": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

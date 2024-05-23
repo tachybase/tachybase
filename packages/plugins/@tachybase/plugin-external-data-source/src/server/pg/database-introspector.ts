@@ -1,8 +1,11 @@
-import { ViewFieldInference } from '@tachybase/database';
-import { mergeOptions } from '@nocobase/plugin-data-source-manager';
 import { EventEmitter } from 'events';
+import { ViewFieldInference } from '@tachybase/database';
+import { mergeOptions } from '@tachybase/plugin-data-source-manager';
+
 import _ from 'lodash';
+
 import { showUniqueIndexes } from './utils';
+
 export class DatabaseIntrospector extends EventEmitter {
   db;
   typeInterfaceMap;

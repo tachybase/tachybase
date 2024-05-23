@@ -21,7 +21,7 @@ test.describe.skip('add plugin in front', () => {
     await page
       .getByLabel('block-item-Input-Npm package name')
       .getByRole('textbox')
-      .fill('@nocobase/plugin-sample-custom-collection-template');
+      .fill('@tachybase/plugin-sample-custom-collection-template');
     await page.getByLabel('Submit').click();
     // wait for the page to finish refreshing
     await page.waitForFunction(() => {
@@ -72,7 +72,7 @@ test.describe.skip('remove plugin', () => {
     await page
       .getByLabel('block-item-Input-Npm package name')
       .getByRole('textbox')
-      .fill('@nocobase/plugin-sample-hello');
+      .fill('@tachybase/plugin-sample-hello');
     await page.getByLabel('Submit').click();
     // wait for the modal to disappear and the page to finish refreshing
     await page.waitForFunction(() => {

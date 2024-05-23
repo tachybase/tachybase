@@ -1,17 +1,22 @@
 import path from 'path';
 import { Plugin } from '@tachybase/server';
-import { RecordService } from './services/record-service';
+import { Container } from '@tachybase/utils';
+
 import { ContractRuleService } from './services/contract-rule-service';
 import { ContractService } from './services/contract-service';
 import { ProjectService } from './services/project-service';
-import { Container } from '@tachybase/utils';
+import { RecordService } from './services/record-service';
+
 import './actions';
-import { SqlLoader } from '@hera/plugin-core';
-import { DetailCheckService } from './services/detail-check-service';
-import { CollectionRepository } from '@nocobase/plugin-collection-manager';
-import { Repository } from '@tachybase/database';
-import { VehiclesService } from './services/vehicles-service';
+
 import { Cache } from '@tachybase/cache';
+import { Repository } from '@tachybase/database';
+import { CollectionRepository } from '@tachybase/plugin-collection-manager';
+
+import { SqlLoader } from '@hera/plugin-core';
+
+import { DetailCheckService } from './services/detail-check-service';
+import { VehiclesService } from './services/vehicles-service';
 
 export class PluginRentalServer extends Plugin {
   cache: Cache;

@@ -114,7 +114,7 @@ function getNodeModulesPath(packageDir) {
   return path.join(node_modules_dir, packageDir);
 }
 class IndexGenerator {
-  nocobaseDir = getNodeModulesPath('@nocobase');
+  nocobaseDir = getNodeModulesPath('@tachybase');
 
   constructor(outputPath, pluginsPath) {
     this.outputPath = outputPath;

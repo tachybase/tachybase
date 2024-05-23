@@ -4,7 +4,7 @@ import { expect, test as setup } from '@playwright/test';
 setup('admin', async ({ page }) => {
   await page.goto('/');
   await page.getByPlaceholder('Username/Email').click();
-  await page.getByPlaceholder('Username/Email').fill('admin@nocobase.com');
+  await page.getByPlaceholder('Username/Email').fill('admin@tachybase.com');
   await page.getByPlaceholder('Password').click();
   await page.getByPlaceholder('Password').fill('admin123');
   await page.getByRole('button', { name: 'Sign in' }).click();

@@ -79,7 +79,7 @@ export function getExposeChangelogUrl(packageName: string) {
  *
  * @example
  * getPluginNameByClientStaticUrl('/static/plugins/dayjs/index.js') => 'dayjs'
- * getPluginNameByClientStaticUrl('/static/plugins/@nocobase/foo/README.md') => '@nocobase/foo'
+ * getPluginNameByClientStaticUrl('/static/plugins/@tachybase/foo/README.md') => '@tachybase/foo'
  */
 export function getPackageNameByExposeUrl(pathname: string) {
   pathname = pathname.replace(process.env.PLUGIN_STATICS_PATH, '');

@@ -1,8 +1,7 @@
-import PluginErrorHandler from '@nocobase/plugin-error-handler';
-import { Trigger, EXECUTION_STATUS } from '@tachybase/plugin-workflow';
-import { joinCollectionName } from '@tachybase/data-source-manager';
 import type { Context, Next } from '@tachybase/actions';
-import PluginWorkflow from '@tachybase/plugin-workflow';
+import { joinCollectionName } from '@tachybase/data-source-manager';
+import PluginErrorHandler from '@tachybase/plugin-error-handler';
+import PluginWorkflow, { EXECUTION_STATUS, Trigger } from '@tachybase/plugin-workflow';
 
 class RequestInterceptionError extends Error {
   status = 400;
