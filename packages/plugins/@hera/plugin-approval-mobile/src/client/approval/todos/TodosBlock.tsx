@@ -15,28 +15,18 @@ import { CollectionApprovals } from '../collection/Approvals.collection';
 import { CollectionApprovalTodos } from '../collection/ApprovalTodos';
 
 export const TodosBlock = observer((props) => {
-  const [tabValue, setTabValue] = useState('pending');
-  const [filter, setFilter] = useState({});
+  const [filter, setFilter] = useState({
+    status: PendingStatus,
+  });
+  const [changeInputValue, setChangeInputValue] = useState('');
+  const [input, setInput] = useState('');
   const changeFilter = (data) => {
     setFilter(data);
   };
-  useEffect(() => {
-    const changeTabs = { ...filter };
-    switch (tabValue) {
-      case 'pending':
-        changeTabs['status'] = PendingStatus;
-        break;
-      case 'processed':
-        changeTabs['status'] = ProcessedStatus;
-        break;
-      case 'duplicate':
-        break;
-    }
-    setFilter(changeTabs);
-  }, [tabValue]);
   const filterProps = {
     ...props,
     filter,
+    input,
     changeFilter,
   };
   return (
@@ -48,11 +38,34 @@ export const TodosBlock = observer((props) => {
           placeholder="搜索人名，标题、内容"
           clearable
           style={{ '--background': '#ffffff', padding: '10px' }}
+          onChange={(value) => {
+            if (!value) {
+              setInput(value);
+            }
+            setChangeInputValue(value);
+          }}
+          value={changeInputValue}
+          onSearch={(value) => {
+            setInput(value);
+          }}
         />
         <Tabs
           onChange={(key) => {
-            setFilter({});
-            setTabValue(key);
+            const tabFilter = { status: PendingStatus };
+            switch (key) {
+              case 'pending':
+                tabFilter['status'] = PendingStatus;
+                break;
+              case 'processed':
+                tabFilter['status'] = ProcessedStatus;
+                break;
+              case 'duplicate':
+                delete tabFilter['status'];
+                break;
+            }
+            setChangeInputValue('');
+            setInput('');
+            setFilter(tabFilter);
           }}
           style={{ '--title-font-size': '12px', backgroundColor: '#ffffff', marginTop: '10px' }}
         >

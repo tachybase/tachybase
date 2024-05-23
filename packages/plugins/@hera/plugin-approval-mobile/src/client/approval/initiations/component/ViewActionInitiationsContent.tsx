@@ -77,20 +77,22 @@ export const ViewActionInitiationsContent = () => {
         {name}
       </NavBar>
       <SchemaComponentContext.Provider value={{ ...context, designable: false }}>
-        <SchemaComponent
-          schema={schema}
-          components={{
-            RemoteSchemaComponent: RemoteSchemaComponent,
-            CollectionProvider_deprecated: CollectionProvider_deprecated,
-            ApplyActionStatusProvider: ContextInitiationsApprovalStatusProvider,
-            ActionBarProvider,
-            WithdrawActionProvider: WithdrawActionProvider,
-          }}
-          scope={{
-            useSubmit: useCreateSubmit,
-            useWithdrawAction,
-          }}
-        />
+        <div className="approvalContext">
+          <SchemaComponent
+            schema={schema}
+            components={{
+              RemoteSchemaComponent: RemoteSchemaComponent,
+              CollectionProvider_deprecated: CollectionProvider_deprecated,
+              ApplyActionStatusProvider: ContextInitiationsApprovalStatusProvider,
+              ActionBarProvider,
+              WithdrawActionProvider: WithdrawActionProvider,
+            }}
+            scope={{
+              useSubmit: useCreateSubmit,
+              useWithdrawAction,
+            }}
+          />
+        </div>
       </SchemaComponentContext.Provider>
     </div>
   );

@@ -1,23 +1,34 @@
 import { useAPIClient, useCurrentUserContext } from '@tachybase/client';
 import { Badge, Empty, List, Space, Tag } from 'antd-mobile';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDeepCompareEffect } from 'ahooks';
 import { ApprovalPriorityType, ApprovalStatusEnums } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../../locale';
 import { observer } from '@tachybase/schema';
+import { InitiationsBlockContext } from '../InitiationsBlock';
 
 export const ApprovalItem = observer((props) => {
-  const { filter, params } = props as any;
+  const { filter, params, tabKey } = props as any;
   const api = useAPIClient();
+  const [defaultData, setDefaultData] = useState([]);
   const [data, setData] = useState([]);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const user = useCurrentUserContext();
+  const contextFilter = useContext(InitiationsBlockContext);
+  const inputFilter = contextFilter['key'] === 'userInitiations' ? contextFilter['inputFilter'] : '';
   useDeepCompareEffect(() => {
-    changService(api, setData, user, { ...params?.filter, ...filter }, t);
+    changService(api, setData, user, { ...params?.[tabKey], ...filter }, t, setDefaultData);
   }, [filter, params]);
-
+  useEffect(() => {
+    if (inputFilter && defaultData.length) {
+      const filterData = defaultData.filter((value) => (value.title as string)?.includes(inputFilter));
+      setData(filterData);
+    } else {
+      setData(defaultData);
+    }
+  }, [contextFilter]);
   return (
     <div style={{ minHeight: '73vh' }}>
       {data.length ? (
@@ -30,17 +41,17 @@ export const ApprovalItem = observer((props) => {
                   navigate(`/mobile/approval/${item.id}/page`);
                 }}
               >
-                <Badge color="#6ac3ff" content={Badge.dot} style={{ '--right': '100%' }}>
-                  <Space block>
-                    {item.title}
-                    <Tag color={item.statusColor} fill="outline">
-                      {item.statusTitle}
-                    </Tag>
-                    <Tag color={item.priorityColor} fill="outline">
-                      {item.priorityTitle}
-                    </Tag>
-                  </Space>
-                </Badge>
+                {/* <Badge color="#6ac3ff" content={Badge.dot} style={{ '--right': '100%' }}> */}
+                <Space block>
+                  {item.title}
+                  <Tag color={item.statusColor} fill="outline">
+                    {item.statusTitle}
+                  </Tag>
+                  <Tag color={item.priorityColor} fill="outline">
+                    {item.priorityTitle}
+                  </Tag>
+                </Space>
+                {/* </Badge> */}
                 <Space block> 事由:{item.reason}</Space>
               </List.Item>
             );
@@ -58,8 +69,7 @@ const approvalTodoListStatus = (item, t) => {
   return ApprovalStatusEnums.find((value) => value.value === status);
 };
 
-const changService = (api, setData, user, filter, t) => {
-  console.log('🚀 ~ changService ~ filter:', filter);
+const changService = (api, setData, user, filter, t, setDefaultData) => {
   api
     .request({
       url: 'approvals:listCentralized',
@@ -85,7 +95,9 @@ const changService = (api, setData, user, filter, t) => {
         return Date.parse(b.createdAt) - Date.parse(a.createdAt);
       });
       setData(result);
+      setDefaultData(result);
     })
+
     .catch(() => {
       console.error;
     });

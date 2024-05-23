@@ -1,7 +1,9 @@
-import { uid } from '@tachybase/utils';
 import { Instruction, JOB_STATUS } from '@tachybase/plugin-workflow';
-import { APPROVAL_STATUS, APPROVAL_ACTION_STATUS } from './constants';
+import { uid } from '@tachybase/utils';
 import { UiSchemaRepository } from '@nocobase/plugin-ui-schema-storage';
+
+import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
+
 const NEGOTIATION_MODE = {
   SINGLE: Symbol('single'),
   ALL: Symbol('all'),

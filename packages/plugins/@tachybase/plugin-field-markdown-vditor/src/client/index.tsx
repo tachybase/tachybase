@@ -1,7 +1,10 @@
 import { Plugin } from '@tachybase/client';
+
 import 'vditor/dist/index.css';
+
 import { MarkdownVditor } from './components';
 import { MarkdownVditorFieldInterface } from './interfaces/markdown-vditor';
+
 export class PluginFieldMarkdownVditorClient extends Plugin {
   async afterAdd() {}
 

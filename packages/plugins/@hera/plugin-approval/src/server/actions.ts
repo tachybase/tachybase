@@ -1,7 +1,8 @@
 import actions, { utils } from '@tachybase/actions';
-import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS, toJSON } from '@tachybase/plugin-workflow';
-import { APPROVAL_STATUS, APPROVAL_ACTION_STATUS } from './constants';
 import { parseCollectionName } from '@tachybase/data-source-manager';
+import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS, toJSON } from '@tachybase/plugin-workflow';
+
+import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 import { getSummary } from './tools';
 
 const workflows = {

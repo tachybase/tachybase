@@ -1,8 +1,10 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { CloseCircleFilled } from '@ant-design/icons';
 import { Tag, TreeSelect } from 'antd';
 import type { DefaultOptionType, TreeSelectProps } from 'rc-tree-select/es/TreeSelect';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import {
   CollectionFieldOptions_deprecated,
   parseCollectionName,

@@ -1,5 +1,6 @@
-import { useCollectionManager, useCollectionRecordData, useCompile } from '@tachybase/client';
 import React from 'react';
+import { useCollectionManager, useCollectionRecordData, useCompile } from '@tachybase/client';
+
 import useStyles from './style';
 
 export const ApprovalsSummary = (props) => {

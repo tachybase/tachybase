@@ -1,15 +1,16 @@
+import React, { useEffect, useState } from 'react';
 import {
   CollectionFieldProvider,
   css,
-  useCollectionField_deprecated,
   useCollection_deprecated,
+  useCollectionField_deprecated,
   useCompile,
   useComponent,
   useFormBlockContext,
 } from '@tachybase/client';
-import { Field, connect, merge, useField, useFieldSchema } from '@tachybase/schema';
+import { connect, Field, merge, useField, useFieldSchema } from '@tachybase/schema';
+
 import { Checkbox, Select, Space } from 'antd';
-import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export const DeletedField = () => {

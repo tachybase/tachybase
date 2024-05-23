@@ -1,16 +1,18 @@
-import { css } from '@tachybase/client';
-import { FormLayout } from '@tachybase/components';
-import { observer, RecursionField, useFieldSchema } from '@tachybase/schema';
+import React, { useContext, useState } from 'react';
 import {
   ActionContextProvider,
+  css,
   DndContext,
   RecordProvider,
   SchemaComponentOptions,
   useCollectionParentRecordData,
 } from '@tachybase/client';
+import { FormLayout } from '@tachybase/components';
+import { observer, RecursionField, useFieldSchema } from '@tachybase/schema';
+
 import { Card } from 'antd';
 import cls from 'classnames';
-import React, { useContext, useState } from 'react';
+
 import { KanbanCardContext } from './context';
 
 export const KanbanCard: any = observer(

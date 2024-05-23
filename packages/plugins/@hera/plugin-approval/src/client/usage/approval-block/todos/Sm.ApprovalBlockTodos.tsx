@@ -1,4 +1,5 @@
 import { css } from '@tachybase/client';
+
 import { NAMESPACE, tval } from '../../../locale';
 
 export const SchemaApprovalBlockTodos = {

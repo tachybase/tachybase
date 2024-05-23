@@ -1,16 +1,7 @@
-import {
-  ExtendCollectionsProvider,
-  SchemaInitializerItem,
-  useSchemaInitializer,
-  useSchemaInitializerItem,
-} from '@tachybase/client';
+import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
 import { ISchema } from '@tachybase/schema';
 import { CalendarOutline } from 'antd-mobile-icons';
-import { CollectionWorkflows } from './collection/Workflows.collection';
-import { CollectionFlowNodes } from './collection/FlowNodes.collection';
-import { CollectionApprovals } from './collection/Approvals.collection';
-import { CollectionApprovalTodos } from './collection/ApprovalTodos';
 
 export const ApprovalBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
@@ -25,6 +16,7 @@ export const ApprovalBlockInitializer = () => {
       'x-component': item.itemComponent,
       'x-component-props': {
         collectionName: item.collectionName,
+        settingBlock: item?.settingBlock,
       },
     };
     insert(schema);
@@ -42,26 +34,10 @@ export const ApprovalBlockInitializer = () => {
 
 export const ApprovalInitializerItem = [
   {
-    type: 'itemGroup',
+    type: 'item',
     name: 'initiations',
     title: '发起',
-    children: [
-      {
-        type: 'item',
-        name: 'initiationsApproval',
-        title: '发起申请',
-        itemComponent: 'InitiationsBlock',
-        collectionName: 'workflows',
-      },
-      {
-        type: 'item',
-        name: 'currApproval',
-        title: '我发起的',
-        itemComponent: 'UserInitiationsBlock',
-        dataSource: 'main',
-        collectionName: 'approvals',
-      },
-    ],
+    itemComponent: 'InitiationsBlock',
   },
   {
     type: 'item',
@@ -69,5 +45,6 @@ export const ApprovalInitializerItem = [
     name: 'todos',
     itemComponent: 'TodosBlock',
     collectionName: 'approvalRecords',
+    settingBlock: true,
   },
 ];

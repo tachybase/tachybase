@@ -1,5 +1,6 @@
-import { cx } from '@tachybase/client';
 import React, { SyntheticEvent, useEffect, useRef } from 'react';
+import { cx } from '@tachybase/client';
+
 import useStyles from './style';
 
 export const VerticalScroll: React.FC<{

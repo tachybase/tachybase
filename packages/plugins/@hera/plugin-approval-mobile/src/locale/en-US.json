@@ -62,5 +62,7 @@
   "If checked, the workflow will be terminated after rejection branch processed.": "If checked, the workflow will be terminated after rejection branch processed.",
   "Disabled": "Disabled",
   "Trigger data": "Trigger data",
-  "All":"All"
+  "All":"All",
+  "Initiations":"Initiations",
+  "UserInitiations":"UserInitiations"
 }

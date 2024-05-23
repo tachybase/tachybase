@@ -1,7 +1,6 @@
-import { css } from '@tachybase/client';
-import { ArrayField, Field } from '@tachybase/schema';
-import { RecursionField, Schema, observer, useField, useFieldSchema } from '@tachybase/schema';
+import React, { useState } from 'react';
 import {
+  css,
   RecordIndexProvider,
   RecordProvider,
   SchemaComponent,
@@ -11,11 +10,13 @@ import {
   useRequest,
   useSchemaInitializerRender,
 } from '@tachybase/client';
+import { ArrayField, Field, observer, RecursionField, Schema, useField, useFieldSchema } from '@tachybase/schema';
+
 import { Table, TableColumnProps } from 'antd';
 import { default as classNames } from 'classnames';
 import { findIndex } from 'lodash';
-import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { overridingSchema } from '../Configuration/schemas/collectionFields';
 
 const isColumnComponent = (schema: Schema) => {

@@ -77,5 +77,7 @@
   "Disabled": "已失效",
   "Submission may be withdrawn, please try refresh the list.": "提交可能已被撤回，请尝试刷新列表。",
   "Trigger data": "触发器数据",
-  "All":"全部"
+  "All":"全部",
+  "Initiations":"发起申请",
+  "UserInitiations":"我的发起"
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { cx } from '@tachybase/client';
+
 import { TaskItemProps } from '../task-item';
-import { milestoneWrapper, milestoneBackground } from './style';
+import { milestoneBackground, milestoneWrapper } from './style';
 
 export const Milestone: React.FC<TaskItemProps> = ({ task, isDateChangeable, onEventStart, isSelected }) => {
   const transform = `rotate(45 ${task.x1 + task.height * 0.356}

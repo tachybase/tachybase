@@ -1,10 +1,8 @@
-import { DeleteOutlined, DownOutlined, EditOutlined, UpOutlined } from '@ant-design/icons';
-import { css } from '@tachybase/client';
-import { SchemaOptionsContext } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React, { useContext, useRef, useState } from 'react';
 import {
   CollectionCategroriesContext,
   CollectionProvider_deprecated,
+  css,
   SchemaComponent,
   SchemaComponentProvider,
   Select,
@@ -14,9 +12,12 @@ import {
   useCurrentAppInfo,
   useRecord,
 } from '@tachybase/client';
+import { SchemaOptionsContext, uid } from '@tachybase/schema';
+
+import { DeleteOutlined, DownOutlined, EditOutlined, UpOutlined } from '@ant-design/icons';
 import { Badge, Tag } from 'antd';
 import lodash from 'lodash';
-import React, { useContext, useRef, useState } from 'react';
+
 import {
   useAsyncDataSource,
   useCancelAction,
@@ -26,7 +27,7 @@ import {
   useValuesFromRecord,
 } from '../action-hooks';
 import useStyles from '../style';
-import { getPopupContainer, useGCMTranslation, collection } from '../utils';
+import { collection, getPopupContainer, useGCMTranslation } from '../utils';
 import { AddFieldAction } from './AddFieldAction';
 import { CollectionNodeProvder } from './CollectionNodeProvder';
 import { ConnectAssociationAction } from './ConnectAssociationAction';

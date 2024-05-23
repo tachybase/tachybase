@@ -1,9 +1,10 @@
-import { useRecord } from '@tachybase/client';
 import React from 'react';
+import { css, useRecord } from '@tachybase/client';
+
 import { Button } from 'antd';
-import { css } from '@tachybase/client';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { getConnectionCollectionPath } from '../constant';
 
 export const ViewDatabaseConnectionAction = () => {

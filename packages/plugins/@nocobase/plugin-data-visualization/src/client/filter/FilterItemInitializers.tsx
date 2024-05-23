@@ -1,36 +1,48 @@
-import { css, cx } from '@tachybase/client';
-import { FormItem, FormLayout } from '@tachybase/components';
-import { Field, onFieldValueChange } from '@tachybase/schema';
-import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React, { memo, useCallback, useContext, useMemo } from 'react';
 import {
   ACLCollectionFieldProvider,
   BlockItem,
   CollectionFieldProvider,
   CollectionManagerProvider,
   CollectionProvider,
-  DEFAULT_DATA_SOURCE_KEY,
   CompatibleSchemaInitializer,
+  css,
+  cx,
+  DEFAULT_DATA_SOURCE_KEY,
   FormDialog,
+  gridRowColWrap,
   HTMLEncode,
   SchemaComponent,
   SchemaComponentOptions,
   SchemaInitializerItem,
-  gridRowColWrap,
   useCollectionManager_deprecated,
+  useCompile,
   useDataSourceManager,
   useDesignable,
   useGlobalTheme,
   useSchemaInitializerItem,
-  useCompile,
 } from '@tachybase/client';
+import { FormItem, FormLayout } from '@tachybase/components';
+import {
+  Field,
+  observer,
+  onFieldValueChange,
+  Schema,
+  SchemaOptionsContext,
+  uid,
+  useField,
+  useFieldSchema,
+  useForm,
+} from '@tachybase/schema';
+
 import { useMemoizedFn } from 'ahooks';
 import { Alert, ConfigProvider, Typography } from 'antd';
-import React, { memo, useCallback, useContext, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+
 import { useChartData, useChartFilter, useChartFilterSourceFields, useFieldComponents } from '../hooks/filter';
 import { lang, useChartsTranslation } from '../locale';
 import { getPropsSchemaByComponent } from './utils';
+
 const { Paragraph, Text } = Typography;
 
 const FieldComponentProps: React.FC = observer(

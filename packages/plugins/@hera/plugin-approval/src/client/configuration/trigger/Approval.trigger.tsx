@@ -1,15 +1,16 @@
 import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile } from '@tachybase/client';
 import {
   CollectionBlockInitializer,
+  getCollectionFieldOptions,
   RadioWithTooltip,
   Trigger,
   UseVariableOptions,
-  getCollectionFieldOptions,
   useWorkflowAnyExecuted,
 } from '@tachybase/plugin-workflow/client';
 import { useForm } from '@tachybase/schema';
-import { ConfigButtonView } from './ConfigButton.view';
+
 import { NAMESPACE, tval, usePluginTranslation } from '../../locale';
+import { ConfigButtonView } from './ConfigButton.view';
 import { LauncherInterface } from './launcher-interface/LauncherInterface.schema';
 
 // 工作流节点-审批触发器节点

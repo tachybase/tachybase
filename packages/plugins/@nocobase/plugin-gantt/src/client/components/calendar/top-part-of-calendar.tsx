@@ -1,5 +1,5 @@
-import { cx } from '@tachybase/client';
 import React from 'react';
+import { cx } from '@tachybase/client';
 
 type TopPartOfCalendarProps = {
   value: string;

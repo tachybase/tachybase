@@ -1,9 +1,11 @@
 import React from 'react';
-import { Popover, Button, Menu } from 'antd';
 import { css } from '@tachybase/client';
+
 import { LineHeightOutlined } from '@ant-design/icons';
-import { getPopupContainer, useGCMTranslation } from '../utils';
+import { Button, Menu, Popover } from 'antd';
+
 import { DirectionType } from '../GraphDrawPage';
+import { getPopupContainer, useGCMTranslation } from '../utils';
 
 export const DirectionAction = (props) => {
   const { onClick } = props;

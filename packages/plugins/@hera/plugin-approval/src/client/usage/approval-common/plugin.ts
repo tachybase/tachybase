@@ -1,4 +1,5 @@
 import { Plugin } from '@tachybase/client';
+
 import { ApprovalDataProvider } from './ApprovalData.provider';
 import { ApprovalProcess } from './ApprovalProcess.view';
 import { ApprovalsSummary } from './ApprovalsSummary.view';

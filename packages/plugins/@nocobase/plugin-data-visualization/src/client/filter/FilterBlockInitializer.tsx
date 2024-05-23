@@ -1,17 +1,19 @@
 import React, { useContext } from 'react';
-import { FilterOutlined } from '@ant-design/icons';
 import {
+  css,
   Grid,
   gridRowColWrap,
-  useDesignable,
-  useCurrentSchema,
   SchemaInitializerSwitch,
+  useCurrentSchema,
+  useDesignable,
   useSchemaInitializerItem,
 } from '@tachybase/client';
-import { uid, merge } from '@tachybase/schema';
-import { ChartFilterContext } from './FilterProvider';
-import { css } from '@tachybase/client';
+import { merge, uid } from '@tachybase/schema';
+
+import { FilterOutlined } from '@ant-design/icons';
 import { theme } from 'antd';
+
+import { ChartFilterContext } from './FilterProvider';
 
 const createFilterSchema = () => {
   return {
