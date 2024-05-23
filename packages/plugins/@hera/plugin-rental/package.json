@@ -26,12 +26,12 @@
   },
   "peerDependencies": {
     "@hera/plugin-core": "workspace:*",
-    "@nocobase/plugin-collection-manager": "workspace:*",
-    "@nocobase/plugin-data-visualization": "workspace:*",
     "@tachybase/actions": "workspace:*",
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/plugin-collection-manager": "workspace:*",
+    "@tachybase/plugin-data-visualization": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

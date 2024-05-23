@@ -1,0 +1,24 @@
+{
+  "name": "@tachybase/plugin-client",
+  "displayName": "WEB client",
+  "version": "0.21.33",
+  "description": "Provides a client interface for the NocoBase server",
+  "license": "Apache-2.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "antd": "5.16.1",
+    "cronstrue": "^2.11.0",
+    "koa-send": "^5.0.1",
+    "koa-static": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "为 NocoBase 服务端提供客户端界面",
+  "displayName.zh-CN": "WEB 客户端",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}

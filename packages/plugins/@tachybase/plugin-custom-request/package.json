@@ -1,0 +1,35 @@
+{
+  "name": "@tachybase/plugin-custom-request",
+  "displayName": "Action: Custom request",
+  "version": "0.21.33",
+  "description": "Sending a request to any HTTP service supports sending context data to the target service.",
+  "keywords": [
+    "Actions"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/action-custom-request",
+  "license": "Apache-2.0",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@tachybase/components": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "antd": "5.16.1",
+    "lodash": "~4.17.21",
+    "react-i18next": "^11.15.1",
+    "react-router-dom": "6.x"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/evaluators": "workspace:*",
+    "@tachybase/logger": "workspace:*",
+    "@tachybase/sdk": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "向任意 HTTP 服务发送请求，支持将上下文数据发送给目标服务。",
+  "displayName.zh-CN": "操作：自定义请求",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-custom-request"
+}

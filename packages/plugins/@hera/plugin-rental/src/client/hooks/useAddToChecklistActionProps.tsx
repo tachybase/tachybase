@@ -1,6 +1,7 @@
-import { useForm } from '@tachybase/schema';
 import { useAPIClient, useBlockRequestContext, useRequest } from '@tachybase/client';
-import { useChartFilter } from '@nocobase/plugin-data-visualization/client';
+import { useChartFilter } from '@tachybase/plugin-data-visualization/client';
+import { useForm } from '@tachybase/schema';
+
 import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 

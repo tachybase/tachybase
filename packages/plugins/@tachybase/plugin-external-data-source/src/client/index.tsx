@@ -1,8 +1,9 @@
 import { Plugin } from '@tachybase/client';
-import { PluginDataSourceManagerClient } from '@nocobase/plugin-data-source-manager/client';
-import { tval } from './locale';
-import { PgDataSourceSettingsForm } from './forms/pg';
+import { PluginDataSourceManagerClient } from '@tachybase/plugin-data-source-manager/client';
+
 import { MysqlDataSourceSettingsForm } from './forms/msql';
+import { PgDataSourceSettingsForm } from './forms/pg';
+import { tval } from './locale';
 
 export class PluginExternalDataSourceClient extends Plugin {
   async load() {

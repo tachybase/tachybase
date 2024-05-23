@@ -1,0 +1,22 @@
+{
+  "name": "@tachybase/plugin-mock-collections",
+  "displayName": "mock-collections",
+  "version": "0.21.33",
+  "description": "mock-collections",
+  "license": "Apache-2.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@faker-js/faker": "8.1.0",
+    "lodash": "4.17.21",
+    "pg": "^8.11.3"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/plugin-error-handler": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}

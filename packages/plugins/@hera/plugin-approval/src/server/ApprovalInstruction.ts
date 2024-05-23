@@ -1,6 +1,6 @@
+import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 import { Instruction, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { uid } from '@tachybase/utils';
-import { UiSchemaRepository } from '@nocobase/plugin-ui-schema-storage';
 
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 

@@ -14,7 +14,7 @@ export const getResource = (packageName: string, lang: string, isPlugin = true) 
   if (process.env.APP_ENV !== 'production') {
     try {
       require.resolve('@tachybase/client/src');
-      if (packageName === '@nocobase/plugin-client') {
+      if (packageName === '@tachybase/plugin-client') {
         packageName = '@tachybase/client';
       }
     } catch (error) {

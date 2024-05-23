@@ -1,7 +1,7 @@
 ---
 "@hera/plugin-rental": patch
-"@nocobase/client": patch
-"@nocobase/utils": patch
+"@tachybase/client": patch
+"@tachybase/utils": patch
 ---
 
 support fuzzy search in cascader

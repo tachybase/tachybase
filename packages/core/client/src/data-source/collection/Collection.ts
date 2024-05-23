@@ -1,4 +1,5 @@
 import { SchemaKey } from '@tachybase/schema';
+
 import { filter } from 'lodash';
 
 import type { CollectionManager } from './CollectionManager';
@@ -21,7 +22,7 @@ export interface CollectionOptions {
   title?: string;
   dataSource?: string;
   /**
-   * Used for @nocobase/plugin-duplicator
+   * Used for @tachybase/plugin-duplicator
    * @see packages/core/database/src/collection-group-manager.tss
    *
    * @prop {'required' | 'optional' | 'skip'} dumpable - Determine whether the collection is dumped

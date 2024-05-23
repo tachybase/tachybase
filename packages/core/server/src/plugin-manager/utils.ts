@@ -1,14 +1,16 @@
+import { builtinModules } from 'module';
+import os from 'os';
+import path from 'path';
 import { importModule, isURL } from '@tachybase/utils';
 import { createStoragePluginSymLink } from '@tachybase/utils/plugin-symlink';
+
 import axios, { AxiosRequestConfig } from 'axios';
 import decompress from 'decompress';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
 import ini from 'ini';
-import { builtinModules } from 'module';
-import os from 'os';
-import path from 'path';
 import semver from 'semver';
+
 import { getDepPkgPath, getPackageDir, getPackageFilePathWithExistCheck } from './clientStaticUtils';
 import {
   APP_NAME,
@@ -265,7 +267,7 @@ export async function getPluginInfoByNpm(options: GetPluginInfoOptions) {
  * scan `src/server` directory to get server packages
  *
  * @example
- * getServerPackages('src/server') => ['dayjs', '@nocobase/plugin-bbb']
+ * getServerPackages('src/server') => ['dayjs', '@tachybase/plugin-bbb']
  */
 export function getServerPackages(packageDir: string) {
   function isBuiltinModule(packageName: string) {
@@ -520,7 +522,7 @@ export async function getCompatible(packageName: string) {
     const packageVersion = externalVersion[packageName];
     const globalPackageName = deps[packageName]
       ? packageName
-      : deps[packageName.split('/')[0]] // @nocobase and @formily
+      : deps[packageName.split('/')[0]] // @tachybase and @formily
         ? packageName.split('/')[0]
         : undefined;
 

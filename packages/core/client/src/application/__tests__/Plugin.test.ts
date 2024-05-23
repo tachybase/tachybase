@@ -1,5 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+
 import { Application } from '../Application';
 import { Plugin } from '../Plugin';
 
@@ -64,13 +65,13 @@ describe('PluginManager', () => {
     mock.onGet('pm:listEnabled').reply(200, {
       data: [
         {
-          name: '@nocobase/demo',
-          packageName: '@nocobase/demo',
+          name: '@tachybase/demo',
+          packageName: '@tachybase/demo',
           url: 'https://demo1.com',
         },
         {
-          name: '@nocobase/demo2',
-          packageName: '@nocobase/demo2',
+          name: '@tachybase/demo2',
+          packageName: '@tachybase/demo2',
           url: 'https://demo2.com',
         },
       ],

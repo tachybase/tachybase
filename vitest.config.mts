@@ -1,3 +1,3 @@
-import { defineConfig } from '@nocobase/test/vitest.mjs';
+import { defineConfig } from '@tachybase/test/vitest.mjs';
 
 export default defineConfig();

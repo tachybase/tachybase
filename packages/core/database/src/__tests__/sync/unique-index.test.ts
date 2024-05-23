@@ -1,5 +1,6 @@
-import { Database, mockDatabase } from '../../index';
 import { waitSecond } from '@tachybase/test';
+
+import { Database, mockDatabase } from '../../index';
 
 describe('unique index', () => {
   let db: Database;
@@ -35,7 +36,7 @@ describe('unique index', () => {
       await User.repository.create({
         values: {
           userName: 'test',
-          userEmail: 'test@nocobase.com',
+          userEmail: 'test@tachybase.com',
         },
       });
     }).not.toThrow();
@@ -45,7 +46,7 @@ describe('unique index', () => {
       await User.repository.create({
         values: {
           userName: 'test',
-          userEmail: 'test123@nocobase.com',
+          userEmail: 'test123@tachybase.com',
         },
       });
     }).not.toThrow();
@@ -56,7 +57,7 @@ describe('unique index', () => {
       User.repository.create({
         values: {
           userName: 'test',
-          userEmail: 'test@nocobase.com',
+          userEmail: 'test@tachybase.com',
         },
       }),
     ).rejects.toThrow();

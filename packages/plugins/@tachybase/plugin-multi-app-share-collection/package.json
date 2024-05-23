@@ -1,0 +1,31 @@
+{
+  "name": "@tachybase/plugin-multi-app-share-collection",
+  "displayName": "Multi-app share collection",
+  "version": "0.21.33",
+  "description": "",
+  "keywords": [
+    "System management"
+  ],
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@tachybase/schema": "workspace:*",
+    "antd": "5.16.1",
+    "lodash": "4.17.21",
+    "react": "~18.2.0",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/plugin-collection-manager": "workspace:*",
+    "@tachybase/plugin-error-handler": "workspace:*",
+    "@tachybase/plugin-multi-app-manager": "workspace:*",
+    "@tachybase/plugin-users": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "",
+  "displayName.zh-CN": "多应用数据表共享",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+}
