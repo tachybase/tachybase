@@ -3,9 +3,7 @@ import { ApprovalDataProvider } from './ApprovalData.provider';
 import { ApprovalProcess } from './ApprovalProcess.view';
 import { ApprovalsSummary } from './ApprovalsSummary.view';
 
-export class PluginKitApprovalCommon extends Plugin {
-  async afterAdd() {}
-  async beforeLoad() {}
+export class KitApprovalCommon extends Plugin {
   async load() {
     this.app.addComponents({
       // ApprovalCommon,
