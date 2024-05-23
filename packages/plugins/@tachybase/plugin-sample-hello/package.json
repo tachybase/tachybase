@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-sample-hello",
   "displayName": "Hello",
-  "version": "0.21.33",
+  "version": "0.21.34",
   "description": "A simple NocoBase plugin example",
   "main": "./dist/server/index.js",
   "devDependencies": {

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-logger",
   "displayName": "Logger",
-  "version": "0.21.33",
+  "version": "0.21.34",
   "description": "Server-side logs, mainly including API request logs and system runtime logs, and allows to package and download log files.",
   "keywords": [
     "Logging and monitoring"
