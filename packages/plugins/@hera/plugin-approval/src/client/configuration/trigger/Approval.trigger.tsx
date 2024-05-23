@@ -118,8 +118,7 @@ export class ApprovalTrigger extends Trigger {
       type: 'array',
       title: '{{t("Select fields to display in the approval summary", { ns: "workflow" })}}',
       'x-decorator': 'FormItem',
-      // TODO: 需要更换为能支持同时选择普通字段和关联字段的组件.目前只能选择关联字段.走通业务逻辑为先
-      'x-component': 'AppendsTreeSelect',
+      'x-component': 'AppendsTreeSelectV2',
       'x-component-props': {
         title: 'Preload associations',
         multiple: true,

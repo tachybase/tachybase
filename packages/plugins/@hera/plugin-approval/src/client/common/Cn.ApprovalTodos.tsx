@@ -96,7 +96,7 @@ export const CollectionApprovalTodos = {
     },
     {
       type: 'string',
-      name: 'summaryString',
+      name: 'summary',
       interface: 'input',
       uiSchema: {
         type: 'string',

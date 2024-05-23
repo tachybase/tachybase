@@ -7,6 +7,10 @@ export default defineCollection({
   name: 'approvalExecutions',
   fields: [
     {
+      type: 'string',
+      name: 'collectionName',
+    },
+    {
       type: 'bigInt',
       name: 'id',
       primaryKey: true,
@@ -31,6 +35,11 @@ export default defineCollection({
     {
       type: 'jsonb',
       name: 'snapshot',
+    },
+    {
+      type: 'jsonb',
+      name: 'summary',
+      defaultValue: {},
     },
     {
       type: 'hasMany',

@@ -2,6 +2,7 @@ import actions, { utils } from '@tachybase/actions';
 import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS, toJSON } from '@tachybase/plugin-workflow';
 import { APPROVAL_STATUS, APPROVAL_ACTION_STATUS } from './constants';
 import { parseCollectionName } from '@tachybase/data-source-manager';
+import { getSummary } from './tools';
 
 const workflows = {
   async listApprovalFlows(context, next) {
@@ -60,7 +61,10 @@ const approvals = {
         dataKey: values[collection.filterTargetKey],
         workflowKey: workflow.key,
         applicantRoleName: context.state.currentRole,
-        summary: toJSON(workflow.config?.summary ?? []),
+        summary: getSummary({
+          summaryConfig: workflow.config.summary,
+          data: instance,
+        }),
       },
     });
     return actions.create(context, next);
@@ -238,7 +242,8 @@ const approvalRecords = {
       status: values.status,
       comment: values.comment,
       snapshot: approvalRecord.approval.data,
-      summaryString: approvalRecord.approval.summaryString,
+      summary: approvalRecord.approval.summary,
+      collectionName: approvalRecord.approval.collectionName,
     });
     context.body = approvalRecord.get();
     context.status = 202;

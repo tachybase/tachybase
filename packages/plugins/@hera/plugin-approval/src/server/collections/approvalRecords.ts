@@ -7,6 +7,10 @@ export default defineCollection({
   name: 'approvalRecords',
   fields: [
     {
+      type: 'string',
+      name: 'collectionName',
+    },
+    {
       type: 'belongsTo',
       name: 'approval',
     },
@@ -51,9 +55,9 @@ export default defineCollection({
       defaultValue: {},
     },
     {
-      type: 'string',
-      name: 'summaryString',
-      defaultValue: '',
+      type: 'jsonb',
+      name: 'summary',
+      defaultValue: {},
     },
     {
       type: 'text',

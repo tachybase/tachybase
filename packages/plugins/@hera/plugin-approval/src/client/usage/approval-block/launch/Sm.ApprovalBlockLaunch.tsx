@@ -142,13 +142,13 @@ export const SchemaApprovalBlockLaunch = {
             },
           },
         },
-        summaryString: {
+        summary: {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
           title: tval('Approval Summary'),
           properties: {
-            summaryString: {
+            summary: {
               type: 'string',
               'x-component': 'CollectionField',
               'x-read-pretty': true,

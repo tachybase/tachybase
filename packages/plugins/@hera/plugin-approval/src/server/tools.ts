@@ -5,17 +5,16 @@ interface ParamsType {
   data: object;
 }
 
-export function getSummaryString(params: ParamsType): string {
+export function getSummary(params: ParamsType): object {
   const { summaryConfig = [], data } = params;
-  const result = summaryConfig
-    .map((key) => {
-      const value = _.get(data, key);
-      // XXX: 丑陋的实现, 不应该依赖具体字段, 应该从 summaryConfig, 拿到的就是最终的值, 走通优先
-      if (Object.prototype.toString.call(value) === '[object Object]') {
-        return _.get(value, 'name');
-      }
-      return _.get(data, key);
-    })
-    .join(',');
+
+  const result = summaryConfig.reduce((summary, key) => {
+    const value = _.get(data, key);
+    return {
+      ...summary,
+      [key]: value,
+    };
+  }, {});
+
   return result;
 }
