@@ -1,10 +1,10 @@
-import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import React, { FC } from 'react';
 import { SchemaSettingsItem, useFormActiveFields, useSchemaSettings } from '@tachybase/client';
+import { Field, ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
 import { App, ModalFuncProps } from 'antd';
-import { FC } from 'react';
+
 import { useTranslation } from '../locale';
-import { Field } from '@tachybase/schema';
-import React from 'react';
 
 export interface SchemaSettingsRemoveProps {
   confirm?: ModalFuncProps;

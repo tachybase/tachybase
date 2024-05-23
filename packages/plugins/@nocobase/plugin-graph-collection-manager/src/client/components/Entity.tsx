@@ -1,5 +1,5 @@
 import { DeleteOutlined, DownOutlined, EditOutlined, UpOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
+import { css } from '@tachybase/client';
 import { SchemaOptionsContext } from '@tachybase/schema';
 import { uid } from '@tachybase/schema';
 import {

@@ -7,7 +7,7 @@
     "System & security"
   ],
   "homepage": "https://docs.nocobase.com/handbook/ui-schema-storage",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@formily/json-schema": "2.2.27",

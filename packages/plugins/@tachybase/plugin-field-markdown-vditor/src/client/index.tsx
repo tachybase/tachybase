@@ -20,7 +20,7 @@ export class PluginFieldMarkdownVditorClient extends Plugin {
     }
     // 生产环境，使用本地链接，支持内网
     // 需要支持子目录，比如应用部署在 /xxx/ 目录下
-    return this.app.getPublicPath() + 'static/plugins/@nocobase/plugin-field-markdown-vditor/dist/client/vditor';
+    return this.app.getPublicPath() + 'static/plugins/@tachybase/plugin-field-markdown-vditor/dist/client/vditor';
   }
 
   initVditorDependency() {

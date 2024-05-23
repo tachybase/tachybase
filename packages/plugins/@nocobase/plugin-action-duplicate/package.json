@@ -6,11 +6,9 @@
   "keywords": [
     "Actions"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/action-duplicate",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "devDependencies": {
-    "@emotion/css": "^11.7.1",
     "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
     "lodash": "4.17.21",
@@ -22,7 +20,5 @@
     "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "复制一条记录，可以复制到表单中编辑后再提交，也可以直接复制并生成一条新记录。",
-  "displayName.zh-CN": "操作：复制记录",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-duplicate"
+  "displayName.zh-CN": "操作：复制记录"
 }

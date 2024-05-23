@@ -3,7 +3,7 @@
   "displayName": "mock-collections",
   "version": "0.21.32",
   "description": "mock-collections",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@faker-js/faker": "8.1.0",

@@ -3,7 +3,7 @@
   "displayName": "WEB client",
   "version": "0.21.32",
   "description": "Provides a client interface for the NocoBase server",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "antd": "5.16.1",

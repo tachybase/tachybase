@@ -6,14 +6,12 @@
   "keywords": [
     "System management"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/theme-editor",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/cssinjs": "^1.11.1",
     "@ant-design/icons": "~5.3.6",
     "@arvinxu/layout-kit": "^1",
     "@ctrl/tinycolor": "^3.6.0",
-    "@emotion/css": "^11.11.2",
     "@types/lodash": "4.17.0",
     "antd": "5.16.1",
     "classnames": "^2.3.1",
@@ -35,7 +33,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "自定义 UI 的颜色、尺寸等，并将结果保存为主题，可在多个主题间切换。",
-  "displayName.zh-CN": "主题编辑器",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/theme-editor"
+  "displayName.zh-CN": "主题编辑器"
 }

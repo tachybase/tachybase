@@ -7,7 +7,7 @@
     "Actions"
   ],
   "homepage": "https://docs.nocobase.com/handbook/action-import",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.6",

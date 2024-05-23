@@ -13,7 +13,7 @@
     "url": "git+https://github.com/nocobase/nocobase.git",
     "directory": "packages/plugins/calendar"
   },
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "types": "./dist/server/index.d.ts",
   "devDependencies": {

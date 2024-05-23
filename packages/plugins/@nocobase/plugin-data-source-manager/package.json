@@ -6,12 +6,10 @@
   "keywords": [
     "Data model tools"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/data-source-manager",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.3.6",
     "@dnd-kit/core": "^5.0.1",
-    "@emotion/css": "^11.7.1",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
@@ -31,7 +29,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "管理数据源，包括内置的 Master 数据库，外部的数据库、API。",
-  "displayName.zh-CN": "数据源管理",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/data-source-manager"
+  "displayName.zh-CN": "数据源管理"
 }

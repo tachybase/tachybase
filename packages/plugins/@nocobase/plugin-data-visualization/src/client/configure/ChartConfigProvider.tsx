@@ -3,7 +3,7 @@ import React, { PropsWithChildren, createContext, useState } from 'react';
 import { ChartRendererProvider } from '../renderer';
 import { ChartConfigure } from './ChartConfigure';
 import { useDesignable } from '@tachybase/client';
-import { css } from '@emotion/css';
+import { css } from '@tachybase/client';
 import { theme } from 'antd';
 
 export type ChartConfigCurrent = {
