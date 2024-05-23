@@ -1,18 +1,47 @@
-import { EditOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
-import { observer, useFieldSchema } from '@tachybase/schema';
 import React, { useContext, useRef, useState } from 'react';
+import { observer, useFieldSchema } from '@tachybase/schema';
+
+import { EditOutlined } from '@ant-design/icons';
+import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
+
 import { ActionContext, ActionContextProvider } from '../action/context';
 import { useGetAriaLabelOfPopover } from '../action/hooks/useGetAriaLabelOfPopover';
 import { useSetAriaLabelForPopover } from '../action/hooks/useSetAriaLabelForPopover';
 import { StablePopover } from '../popover';
+import { useAssociationFieldContext } from './hooks';
 import { InternalNester } from './InternalNester';
 import { ReadPrettyInternalViewer } from './InternalViewer';
-import { useAssociationFieldContext } from './hooks';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    pretty: css`
+      max-width: 95%;
+    `,
+    mask: css`
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      z-index: 9999;
+    `,
+    container: css`
+      min-width: 600px;
+      max-width: 800px;
+      max-height: 440px;
+      overflow: auto;
+      .ant-card {
+        border: 0px;
+      }
+    `,
+  };
+});
 
 export const InternaPopoverNester = observer(
   (props) => {
+    const { styles } = useStyles();
     const { options } = useAssociationFieldContext();
     const [visible, setVisible] = useState(false);
     const { t } = useTranslation();
@@ -24,18 +53,7 @@ export const InternaPopoverNester = observer(
       shouldMountElement: true,
     };
     const content = (
-      <div
-        ref={ref}
-        style={{ minWidth: '600px', maxWidth: '800px', maxHeight: '440px', overflow: 'auto' }}
-        className={css`
-          min-width: 600px;
-          max-height: 440px;
-          overflow: auto;
-          .ant-card {
-            border: 0px;
-          }
-        `}
-      >
+      <div ref={ref} className={styles.container}>
         <InternalNester {...nesterProps} />
       </div>
     );
@@ -62,11 +80,7 @@ export const InternaPopoverNester = observer(
           title={t(options?.uiSchema?.rawTitle)}
         >
           <span style={{ cursor: 'pointer', display: 'flex' }}>
-            <div
-              className={css`
-                max-width: 95%;
-              `}
-            >
+            <div className={styles.pretty}>
               <ReadPrettyInternalViewer {...props} />
             </div>
             <EditOutlined style={{ display: 'inline-flex', margin: '5px' }} />
@@ -77,15 +91,7 @@ export const InternaPopoverNester = observer(
             role="button"
             aria-label={getAriaLabel('mask')}
             onClick={() => setVisible(false)}
-            className={css`
-              position: fixed;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background-color: transparent;
-              z-index: 9999;
-            `}
+            className={styles.mask}
           />
         )}
       </ActionContextProvider>

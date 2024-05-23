@@ -1,16 +1,29 @@
-import { useField, useForm } from '@tachybase/schema';
-import { useAsyncData } from '../../../../async-data-provider';
 import React, { useEffect } from 'react';
-import { Input, SchemaComponent } from '../../../../schema-component';
-import { css } from '@emotion/css';
-import { Button } from 'antd';
+import { Field, useField } from '@tachybase/schema';
+
 import { EditOutlined, RightSquareOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
-import { Field } from '@tachybase/schema';
+
+import { useAsyncData } from '../../../../async-data-provider';
+import { Input } from '../../../../schema-component';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    input: css`
+      position: relative;
+      .ant-input {
+        width: 100%;
+      }
+    `,
+  };
+});
 
 export const SQLInput = ({ disabled }) => {
   const { t } = useTranslation();
   const { run, loading, error } = useAsyncData();
+  const { styles } = useStyles();
   const field = useField<Field>();
   const execute = () => {
     if (!field.value) {
@@ -39,14 +52,7 @@ export const SQLInput = ({ disabled }) => {
   }, [field, error]);
 
   return (
-    <div
-      className={css`
-        position: relative;
-        .ant-input {
-          width: 100%;
-        }
-      `}
-    >
+    <div className={styles.input}>
       <Input.TextArea value={field.value} disabled={disabled} onChange={(e) => (field.value = e.target.value)} />
       <Button.Group>
         <Button onClick={toggleEditing} ghost size="small" type="primary" icon={<EditOutlined />}>

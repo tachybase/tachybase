@@ -1,9 +1,21 @@
-import { css } from '@emotion/css';
+import React from 'react';
 import { usePrefixCls } from '@tachybase/components';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
 import { ColorPicker as AntdColorPicker } from 'antd';
+import { createStyles } from 'antd-style';
 import cls from 'classnames';
-import React from 'react';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    color: css`
+      display: inline-flex;
+      .ant-color-picker-trigger-disabled {
+        cursor: default;
+      }
+    `,
+  };
+});
 
 export const ColorPicker = connect(
   (props) => {
@@ -48,20 +60,12 @@ export const ColorPicker = connect(
   }),
   mapReadPretty((props) => {
     const prefixCls = usePrefixCls('description-color-picker', props);
+    const { styles } = useStyles();
     return (
       <div
         role="button"
         aria-label="color-picker-read-pretty"
-        className={cls(
-          prefixCls,
-          css`
-            display: inline-flex;
-            .ant-color-picker-trigger-disabled {
-              cursor: default;
-            }
-          `,
-          props.className,
-        )}
+        className={cls(prefixCls, styles.color, props.className)}
       >
         <AntdColorPicker disabled value={props.value} size="small" {...props} />
       </div>

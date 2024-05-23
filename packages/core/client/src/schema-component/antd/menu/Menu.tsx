@@ -1,181 +1,28 @@
-import { css } from '@emotion/css';
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
   FieldContext,
   observer,
   RecursionField,
   SchemaContext,
   SchemaExpressionScopeContext,
+  uid,
   useField,
   useFieldSchema,
 } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
+
 import { Menu as AntdMenu, MenuProps } from 'antd';
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
+
 import { createDesignable, DndContext, SortableItem, useDesignable, useDesigner } from '../..';
 import { Icon, useAPIClient, useSchemaInitializerRender } from '../../../';
 import { useCollectMenuItems, useMenuItem } from '../../../hooks/useMenuItem';
 import { useProps } from '../../hooks/useProps';
 import { useMenuTranslation } from './locale';
 import { MenuDesigner } from './Menu.Designer';
+import { useStyles } from './Menu.styles';
 import { findKeysByUid, findMenuItem } from './util';
-
-const subMenuDesignerCss = css`
-  position: relative;
-  display: inline-block;
-  margin-left: -24px;
-  margin-right: -34px;
-  padding: 0 34px 0 24px;
-  width: calc(100% + 58px);
-  height: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  &:hover {
-    > .general-schema-designer {
-      display: block;
-    }
-  }
-  &.nb-action-link {
-    > .general-schema-designer {
-      top: -10px;
-      bottom: -10px;
-      left: -10px;
-      right: -10px;
-    }
-  }
-  > .general-schema-designer {
-    position: absolute;
-    z-index: 999;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: none;
-    background: var(--colorBgSettingsHover);
-    border: 0;
-    pointer-events: none;
-    > .general-schema-designer-icons {
-      position: absolute;
-      right: 2px;
-      top: 2px;
-      line-height: 16px;
-      pointer-events: all;
-      .ant-space-item {
-        background-color: var(--colorSettings);
-        color: #fff;
-        line-height: 16px;
-        width: 16px;
-        padding-left: 1px;
-        align-self: stretch;
-      }
-    }
-  }
-`;
-
-const designerCss = css`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: -20px;
-  margin-right: -20px;
-  padding: 0 20px;
-  width: calc(100% + 40px);
-  height: 100%;
-  &:hover {
-    > .general-schema-designer {
-      display: block;
-    }
-  }
-  &.nb-action-link {
-    > .general-schema-designer {
-      top: -10px;
-      bottom: -10px;
-      left: -10px;
-      right: -10px;
-    }
-  }
-  > .general-schema-designer {
-    position: absolute;
-    z-index: 999;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: none;
-    background: var(--colorBgSettingsHover);
-    border: 0;
-    pointer-events: none;
-    > .general-schema-designer-icons {
-      position: absolute;
-      right: 2px;
-      top: 2px;
-      line-height: 16px;
-      pointer-events: all;
-      .ant-space-item {
-        background-color: var(--colorSettings);
-        color: #fff;
-        line-height: 16px;
-        width: 16px;
-        padding-left: 1px;
-        align-self: stretch;
-      }
-    }
-  }
-`;
-
-const headerMenuClass = css`
-  .ant-menu-item:hover {
-    > .ant-menu-title-content > div {
-      .general-schema-designer {
-        display: block;
-      }
-    }
-  }
-`;
-
-const sideMenuClass = css`
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  .ant-menu-item {
-    > .ant-menu-title-content {
-      height: 100%;
-      margin-left: -24px;
-      margin-right: -16px;
-      padding: 0 16px 0 24px;
-      > div {
-        > .general-schema-designer {
-          right: 6px !important;
-        }
-      }
-    }
-  }
-  .ant-menu-submenu-title {
-    .ant-menu-title-content {
-      height: 100%;
-      margin-left: -24px;
-      margin-right: -34px;
-      padding: 0 34px 0 24px;
-      > div {
-        > .general-schema-designer {
-          right: 6px !important;
-        }
-        > span.anticon {
-          margin-right: 10px;
-        }
-      }
-    }
-  }
-`;
-
-const menuItemClass = css`
-  :active {
-    background: inherit;
-  }
-`;
 
 type ComposedMenu = React.FC<any> & {
   Item?: React.FC<any>;
@@ -199,6 +46,7 @@ const HeaderMenu = ({
   children,
 }) => {
   const { Component, getMenuItems } = useMenuItem();
+  const { styles } = useStyles();
   const items = useMemo(() => {
     const designerBtn = {
       key: 'x-designer-button',
@@ -225,7 +73,7 @@ const HeaderMenu = ({
       <Component />
       <AntdMenu
         {...others}
-        className={headerMenuClass}
+        className={styles.headerMenuClass}
         onSelect={(info: any) => {
           const s = schema.properties?.[info.key];
 
@@ -286,6 +134,7 @@ const SideMenu = ({
   designable,
 }) => {
   const { Component, getMenuItems } = useMenuItem();
+  const { styles } = useStyles();
 
   // fix https://nocobase.height.app/T-3331/description
   // 使用 ref 用来防止闭包问题
@@ -340,7 +189,7 @@ const SideMenu = ({
           onSelect={(info) => {
             onSelect?.(info);
           }}
-          className={sideMenuClass}
+          className={styles.sideMenuClass}
           items={items as MenuProps['items']}
         />
       </MenuModeContext.Provider>,
@@ -488,12 +337,13 @@ Menu.Item = observer(
     const { pushMenuItem } = useCollectMenuItems();
     const { icon, children, ...others } = props;
     const schema = useFieldSchema();
+    const { styles } = useStyles();
     const field = useField();
     const Designer = useContext(MenuItemDesignerContext);
     const item = useMemo(() => {
       return {
         ...others,
-        className: menuItemClass,
+        className: styles.menuItemClass,
         key: schema.name,
         eventKey: schema.name,
         schema,
@@ -503,7 +353,7 @@ Menu.Item = observer(
               <SortableItem
                 role="button"
                 aria-label={t(field.title)}
-                className={designerCss}
+                className={styles.designerCss}
                 removeParentsIfNoChildren={false}
               >
                 <Icon type={icon} />
@@ -545,6 +395,7 @@ Menu.URL = observer(
     const schema = useFieldSchema();
     const field = useField();
     const Designer = useContext(MenuItemDesignerContext);
+    const { styles } = useStyles();
 
     if (!pushMenuItem) {
       error('Menu.URL must be wrapped by GetMenuItemsContext.Provider');
@@ -554,7 +405,7 @@ Menu.URL = observer(
     const item = useMemo(() => {
       return {
         ...others,
-        className: menuItemClass,
+        className: styles.menuItemClass,
         key: schema.name,
         eventKey: schema.name,
         schema,
@@ -564,7 +415,11 @@ Menu.URL = observer(
         label: (
           <SchemaContext.Provider value={schema}>
             <FieldContext.Provider value={field}>
-              <SortableItem className={designerCss} removeParentsIfNoChildren={false} aria-label={t(field.title)}>
+              <SortableItem
+                className={styles.designerCss}
+                removeParentsIfNoChildren={false}
+                aria-label={t(field.title)}
+              >
                 <Icon type={icon} />
                 <span
                   style={{
@@ -601,17 +456,18 @@ Menu.SubMenu = observer(
     const field = useField();
     const mode = useContext(MenuModeContext);
     const Designer = useContext(MenuItemDesignerContext);
+    const { styles } = useStyles();
     const submenu = useMemo(() => {
       return {
         ...others,
-        className: menuItemClass,
+        className: styles.menuItemClass,
         key: schema.name,
         eventKey: schema.name,
         label: (
           <SchemaContext.Provider value={schema}>
             <FieldContext.Provider value={field}>
               <SortableItem
-                className={subMenuDesignerCss}
+                className={styles.subMenuDesignerCss}
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
               >

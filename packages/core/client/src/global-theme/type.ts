@@ -1,7 +1,7 @@
 import type { ThemeConfig as _ThemeConfig } from 'antd';
 import { AliasToken } from 'antd/es/theme/internal';
 
-export interface CustomToken extends AliasToken {
+export interface TachybaseToken {
   /** 顶部导航栏主色 */
   colorPrimaryHeader: string;
   /** 导航栏背景色 */
@@ -25,7 +25,14 @@ export interface CustomToken extends AliasToken {
   colorBorderSettingsHover: string;
 }
 
+export interface CustomToken extends AliasToken, TachybaseToken {}
+
 export interface ThemeConfig extends _ThemeConfig {
   name?: string;
   token?: Partial<CustomToken>;
+}
+
+declare module 'antd-style' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface CustomToken extends TachybaseToken {}
 }

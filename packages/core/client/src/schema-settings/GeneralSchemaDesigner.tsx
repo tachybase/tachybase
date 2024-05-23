@@ -1,50 +1,19 @@
-import { DragOutlined, MenuOutlined, PlusOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
+import React, { FC, PropsWithChildren, useEffect, useMemo, useRef } from 'react';
 import { useField, useFieldSchema } from '@tachybase/schema';
+
+import { DragOutlined, MenuOutlined, PlusOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 import classNames from 'classnames';
-import React, { FC, PropsWithChildren, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { SchemaToolbarProvider, useSchemaInitializerRender, useSchemaSettingsRender } from '../application';
 import { useDataSourceManager } from '../data-source/data-source/DataSourceManagerProvider';
 import { useDataSource } from '../data-source/data-source/DataSourceProvider';
 import { DragHandler, useCompile, useDesignable, useGridContext, useGridRowContext } from '../schema-component';
 import { gridRowColWrap } from '../schema-initializer/utils';
-import { SchemaSettingsDropdown } from './SchemaSettings';
 import { useGetAriaLabelOfDesigner } from './hooks/useGetAriaLabelOfDesigner';
+import { SchemaSettingsDropdown } from './SchemaSettings';
 import { useStyles } from './styles';
-
-const titleCss = css`
-  pointer-events: none;
-  position: absolute;
-  font-size: 12px;
-  /* background: var(--colorSettings);
-  color: #fff; */
-  padding: 0;
-  line-height: 16px;
-  height: 16px;
-  border-bottom-right-radius: 2px;
-  border-radius: 2px;
-  top: 2px;
-  left: 2px;
-  .title-tag {
-    padding: 0 3px;
-    border-radius: 2px;
-    background: var(--colorSettings);
-    color: #fff;
-    display: block;
-  }
-`;
-
-const overrideAntdCSS = css`
-  & .ant-space-item .anticon {
-    margin: 0;
-  }
-
-  &:hover {
-    display: block !important;
-  }
-`;
 
 export interface GeneralSchemaDesignerProps {
   disableInitializer?: boolean;
@@ -89,6 +58,7 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
   );
   const rowCtx = useGridRowContext();
   const ctx = useGridContext();
+  const { styles } = useStyles();
   const dm = useDataSourceManager();
   const dataSources = dm?.getDataSources();
   const dataSourceContext = useDataSource();
@@ -116,9 +86,9 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
   }
   return (
     <SchemaToolbarProvider {...contextValue}>
-      <div className={classNames('general-schema-designer', overrideAntdCSS)}>
+      <div className={classNames('general-schema-designer', styles.overrideAntdCSS)}>
         {title && (
-          <div className={classNames('general-schema-designer-title', titleCss)}>
+          <div className={classNames('general-schema-designer-title', styles.titleCss)}>
             <Space size={2}>
               <span className={'title-tag'}>
                 {showDataSource && dataSource

@@ -1,17 +1,32 @@
-import { css, cx } from '@emotion/css';
-import { FormLayout } from '@tachybase/components';
-import { createForm } from '@tachybase/schema';
-import { FormContext, useField } from '@tachybase/schema';
-import _ from 'lodash';
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
-import { BlockProvider, useBlockRequestContext, useParsedFilter } from '../../../block-provider';
+import { FormLayout } from '@tachybase/components';
+import { createForm, FormContext, useField } from '@tachybase/schema';
+
+import { createStyles } from 'antd-style';
+import _ from 'lodash';
+
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { BlockProvider, useBlockRequestContext, useParsedFilter } from '../../../block-provider';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      .ant-description-input {
+        line-height: 34px;
+      }
+      .ant-formily-item-feedback-layout-loose {
+        margin-bottom: 12px;
+      }
+    `,
+  };
+});
 
 export const ListBlockContext = createContext<any>({});
 ListBlockContext.displayName = 'ListBlockContext';
 
 const InternalListBlockProvider = (props) => {
   const { resource, service } = useBlockRequestContext();
+  const { styles } = useStyles();
 
   const field = useField();
   const form = useMemo(() => {
@@ -35,18 +50,7 @@ const InternalListBlockProvider = (props) => {
     >
       <FormContext.Provider value={form}>
         <FormLayout layout={'vertical'}>
-          <div
-            className={cx(css`
-              .ant-description-input {
-                line-height: 34px;
-              }
-              .ant-formily-item-feedback-layout-loose {
-                margin-bottom: 12px;
-              }
-            `)}
-          >
-            {props.children}
-          </div>
+          <div className={styles.container}>{props.children}</div>
         </FormLayout>
       </FormContext.Provider>
     </ListBlockContext.Provider>

@@ -1,6 +1,6 @@
 import { createStyles } from 'antd-style';
 
-export const useStyles = createStyles(({ token }) => {
+export const useStyles = createStyles(({ token, css }) => {
   return {
     cardActionDisabled: {
       color: token.colorTextDisabled,
@@ -55,5 +55,27 @@ export const useStyles = createStyles(({ token }) => {
       fontWeight: 'normal',
       fontSize: token.fontSize,
     },
+    card: css`
+      .ant-card-actions {
+        li .ant-space {
+          gap: 2px !important;
+        }
+        li a {
+          .anticon {
+            margin-right: 3px;
+            /* display: none; */
+          }
+        }
+        li:last-child {
+          width: 20% !important;
+        }
+        li:first-child {
+          width: 80% !important;
+          border-inline-end: 0;
+          text-align: left;
+          padding-left: 16px;
+        }
+      }
+    `,
   };
 });

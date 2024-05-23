@@ -1,6 +1,6 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
-import { toArr } from '@tachybase/schema';
 import React, { Fragment, useRef, useState } from 'react';
+import { observer, RecursionField, toArr, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useDesignable } from '../../';
 import { BlockAssociationContext, WithoutTableFieldResource } from '../../../block-provider';
 import { CollectionProvider_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
@@ -27,7 +27,7 @@ const toValue = (value, placeholder) => {
 export function isObject(value) {
   return typeof value === 'object' && value !== null;
 }
-export const ReadPrettyInternalViewer: React.FC = observer(
+export const ReadPrettyInternalViewer = observer(
   (props: any) => {
     const fieldSchema = useFieldSchema();
     const recordCtx = useRecord();

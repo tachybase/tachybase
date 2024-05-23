@@ -1,31 +1,57 @@
-import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
-import { ArrayField } from '@tachybase/schema';
-import { spliceArrayState } from '@tachybase/schema';
-import { RecursionField, observer, useFieldSchema } from '@tachybase/schema';
-import { action } from '@tachybase/schema';
-import { each } from '@tachybase/schema';
-import { Button, Card, Divider, Tooltip } from 'antd';
-import _ from 'lodash';
 import React, { useCallback, useContext } from 'react';
+import {
+  action,
+  ArrayField,
+  each,
+  observer,
+  RecursionField,
+  spliceArrayState,
+  useFieldSchema,
+} from '@tachybase/schema';
+
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Card, Divider, Tooltip } from 'antd';
+import { createStyles } from 'antd-style';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { FormActiveFieldsProvider } from '../../../block-provider';
+import { useCollection } from '../../../data-source';
 import {
   useCollectionRecord,
   useCollectionRecordData,
 } from '../../../data-source/collection-record/CollectionRecordProvider';
+import { isNewRecord, markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
 import { FlagProvider } from '../../../flag-provider';
 import { RecordIndexProvider, RecordProvider } from '../../../record-provider';
 import { isPatternDisabled, isSystemField } from '../../../schema-settings';
 import {
   DefaultValueProvider,
-  IsAllowToSetDefaultValueParams,
   interfacesOfUnsupportedDefaultValue,
+  IsAllowToSetDefaultValueParams,
 } from '../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
 import { AssociationFieldContext } from './context';
 import { SubFormProvider, useAssociationFieldContext } from './hooks';
-import { isNewRecord, markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
-import { useCollection } from '../../../data-source';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    input: css`
+      position: relative;
+      .ant-input {
+        width: 100%;
+      }
+    `,
+    card: css`
+      > .ant-card-body > .ant-divider:last-child {
+        display: none;
+      }
+    `,
+    button: css`
+      border: 1px solid #f0f0f0 !important;
+      box-shadow: none;
+    `,
+  };
+});
 
 export const Nester = (props) => {
   const { options } = useContext(AssociationFieldContext);
@@ -133,17 +159,10 @@ const ToManyNester = observer(
         !isSystemField(collectionField, getInterface)
       );
     }, []);
+    const { styles } = useStyles();
 
     return field.value.length > 0 ? (
-      <Card
-        bordered={true}
-        style={{ position: 'relative' }}
-        className={css`
-          > .ant-card-body > .ant-divider:last-child {
-            display: none;
-          }
-        `}
-      >
+      <Card bordered={true} style={{ position: 'relative' }} className={styles.card}>
         {field.value.map((value, index) => {
           let allowed = allowDissociate;
           if (!allowDissociate) {
@@ -221,10 +240,7 @@ const ToManyNester = observer(
           <Tooltip key={'add'} title={t('Add new')}>
             <Button
               type={'default'}
-              className={css`
-                border: 1px solid #f0f0f0 !important;
-                box-shadow: none;
-              `}
+              className={styles.button}
               block
               icon={<PlusOutlined />}
               onClick={() => {

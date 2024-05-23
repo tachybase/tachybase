@@ -1,18 +1,18 @@
-import { App, Card, Divider, Popconfirm, Space, Switch, Typography, message } from 'antd';
-import classnames from 'classnames';
 import React, { FC, useState } from 'react';
+
+import { ClockCircleOutlined, DeleteOutlined, ReadOutlined, ReloadOutlined, SettingOutlined } from '@ant-design/icons';
+import { App, Card, Divider, message, Popconfirm, Space, Switch, Typography } from 'antd';
+import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { DeleteOutlined, ReadOutlined, ReloadOutlined, SettingOutlined, ClockCircleOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
 import { useAPIClient } from '../api-client';
 import { useApp } from '../application';
 import { PluginDetail } from './PluginDetail';
+import { NPM_REGISTRY_ADDRESS } from './PluginForm/form/PluginNpmForm';
 import { PluginUpgradeModal } from './PluginForm/modal/PluginUpgradeModal';
 import { useStyles } from './style';
 import type { IPluginData } from './types';
-import { NPM_REGISTRY_ADDRESS } from './PluginForm/form/PluginNpmForm';
 
 interface IPluginInfo extends IPluginCard {
   onClick: () => void;
@@ -111,28 +111,7 @@ function PluginInfo(props: IPluginInfo) {
         // style={{ marginBottom: theme.marginLG }}
         title={<div>{title}</div>}
         hoverable
-        className={css`
-          .ant-card-actions {
-            li .ant-space {
-              gap: 2px !important;
-            }
-            li a {
-              .anticon {
-                margin-right: 3px;
-                /* display: none; */
-              }
-            }
-            li:last-child {
-              width: 20% !important;
-            }
-            li:first-child {
-              width: 80% !important;
-              border-inline-end: 0;
-              text-align: left;
-              padding-left: 16px;
-            }
-          }
-        `}
+        className={styles.card}
         actions={[
           <Space split={<Divider type="vertical" />} key={'1'}>
             <a

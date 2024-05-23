@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import { Icon, icons } from '../../../icon';
+
 import { Tooltip } from 'antd';
-import { css } from '@emotion/css';
+
+import { Icon, icons } from '../../../icon';
 
 export const IconFilterList = (props) => {
   const { currentKey, filterKey, onChange, changePop } = props;
@@ -24,10 +25,12 @@ export const IconFilterList = (props) => {
       {[...iconKeysByFilter.keys()].map((key) => (
         <span
           key={key}
-          className={css`
-            background-color: ${currentKey == key ? '#9bb0d393' : ''};
-          `}
-          style={{ fontSize: 18, marginRight: 10, cursor: 'pointer' }}
+          style={{
+            fontSize: 18,
+            marginRight: 10,
+            cursor: 'pointer',
+            backgroundColor: currentKey == key ? '#9bb0d393' : '',
+          }}
         >
           <Tooltip
             destroyTooltipOnHide

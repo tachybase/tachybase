@@ -1,6 +1,6 @@
 import { createStyles } from 'antd-style';
 
-export const useStyles = createStyles(() => {
+export const useStyles = createStyles(({ css }) => {
   return {
     toolbar: {
       position: 'absolute',
@@ -52,5 +52,35 @@ export const useStyles = createStyles(() => {
         alignSelf: 'stretch',
       },
     },
+    titleCss: css`
+      pointer-events: none;
+      position: absolute;
+      font-size: 12px;
+      /* background: var(--colorSettings);
+  color: #fff; */
+      padding: 0;
+      line-height: 16px;
+      height: 16px;
+      border-bottom-right-radius: 2px;
+      border-radius: 2px;
+      top: 2px;
+      left: 2px;
+      .title-tag {
+        padding: 0 3px;
+        border-radius: 2px;
+        background: var(--colorSettings);
+        color: #fff;
+        display: block;
+      }
+    `,
+    overrideAntdCSS: css`
+      & .ant-space-item .anticon {
+        margin: 0;
+      }
+
+      &:hover {
+        display: block !important;
+      }
+    `,
   };
 });

@@ -1,13 +1,23 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
-import { Button, Drawer, Space } from 'antd';
-import classNames from 'classnames';
 import React from 'react';
-import { OpenSize } from '.';
+import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
+import { Button, Drawer, Space } from 'antd';
+import { createStyles } from 'antd-style';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+
 import { useStyles } from './Action.Drawer.style';
 import { useActionContext } from './hooks';
 import { ComposedActionDrawer } from './types';
-import { css } from '@emotion/css';
-import { useTranslation } from 'react-i18next';
+
+const useStyles2 = createStyles(({ css }) => {
+  return {
+    container: css`
+      width: 100%;
+      justify-content: flex-end;
+    `,
+  };
+});
 
 export const ActionSheet: ComposedActionDrawer = observer(
   (props) => {
@@ -17,6 +27,7 @@ export const ActionSheet: ComposedActionDrawer = observer(
     const schema = useFieldSchema();
     const field = useField();
     const { componentCls, hashId } = useStyles();
+    const { styles } = useStyles2();
     const footerSchema = schema.reduceProperties((buf, s) => {
       if (s['x-component'] === footerNodeName) {
         return s;
@@ -40,12 +51,7 @@ export const ActionSheet: ComposedActionDrawer = observer(
         onClose={() => setVisible(false, true)}
         rootClassName={classNames(componentCls, hashId, drawerProps?.className, others.className, 'reset')}
         footer={
-          <Space
-            className={css`
-              width: 100%;
-              justify-content: flex-end;
-            `}
-          >
+          <Space className={styles.container}>
             <Button type="primary" onClick={() => setVisible(false, true)}>
               {t('Close')}
             </Button>

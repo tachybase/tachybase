@@ -1,9 +1,8 @@
-import { Field } from '@tachybase/schema';
-import { useField } from '@tachybase/schema';
+import React, { Ref, useEffect, useState } from 'react';
+import { Field, useField } from '@tachybase/schema';
+
 import { Input } from 'antd';
 import { TextAreaProps } from 'antd/es/input';
-import React, { useState, useEffect, Ref } from 'react';
-import { cx, css } from '@emotion/css';
 
 export type JSONTextAreaProps = TextAreaProps & { value?: string; space?: number };
 
@@ -25,13 +24,11 @@ export const Json = React.forwardRef<typeof Input.TextArea, JSONTextAreaProps>(
     return (
       <Input.TextArea
         {...props}
-        className={cx(
-          css`
-            font-size: 80%;
-            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-          `,
-          props.className,
-        )}
+        style={{
+          fontSize: '80%',
+          fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
+          ...props.style,
+        }}
         ref={ref}
         value={text}
         onChange={(ev) => {

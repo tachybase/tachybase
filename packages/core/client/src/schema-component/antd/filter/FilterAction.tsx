@@ -1,22 +1,38 @@
-import { css } from '@emotion/css';
-import { createForm, Field, Form } from '@tachybase/schema';
-import { observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { flatten, unflatten } from '@tachybase/utils/client';
-import { Button, Space } from 'antd';
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createForm, Field, Form, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { flatten, unflatten } from '@tachybase/utils/client';
+
+import { Button, Space } from 'antd';
+import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
+
+import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { FormProvider, SchemaComponent } from '../../core';
 import { useDesignable } from '../../hooks';
 import { useProps } from '../../hooks/useProps';
 import { Action } from '../action';
 import { StablePopover } from '../popover';
-import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 
 export const FilterActionContext = createContext<any>(null);
 FilterActionContext.displayName = 'FilterActionContext';
 
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    `,
+    button: css`
+      border-color: var(--colorSettings);
+      color: var(--colorSettings);
+    `,
+  };
+});
+
 export const FilterAction = withDynamicSchemaProps(
   observer((props: any) => {
+    const { styles } = useStyles();
     const { t } = useTranslation();
     const field = useField<Field>();
     const [visible, setVisible] = useState(false);
@@ -55,13 +71,7 @@ export const FilterAction = withDynamicSchemaProps(
                     },
                   }}
                 />
-                <div
-                  className={css`
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                  `}
-                >
+                <div className={styles.container}>
                   <Space>
                     <SaveConditions />
                     <Button
@@ -104,16 +114,14 @@ const SaveConditions = () => {
   const { fieldSchema, field, designable, dn } = useContext(FilterActionContext);
   const form = useForm();
   const { t } = useTranslation();
+  const { styles } = useStyles();
   if (!designable) {
     return null;
   }
   return (
     <Button
       type={'dashed'}
-      className={css`
-        border-color: var(--colorSettings);
-        color: var(--colorSettings);
-      `}
+      className={styles.button}
       onClick={() => {
         const defaultValue = { ...form.values.filter };
         fieldSchema.default = defaultValue;

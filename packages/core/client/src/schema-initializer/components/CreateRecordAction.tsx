@@ -1,9 +1,11 @@
-import { DownOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
+import React, { createRef, forwardRef, useEffect, useMemo, useState } from 'react';
 import { observer, RecursionField, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
+import { DownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, MenuProps } from 'antd';
-import React, { useEffect, useMemo, useState, forwardRef, createRef } from 'react';
+import { createStyles } from 'antd-style';
 import { composeRef } from 'rc-util/lib/ref';
+
 import { useDesignable } from '../../';
 import { useACLRolesCheck, useRecordPkValue } from '../../acl/ACLProvider';
 import {
@@ -17,45 +19,45 @@ import { linkageAction } from '../../schema-component/antd/action/utils';
 import { parseVariables } from '../../schema-component/common/utils/uitls';
 import { useLocalVariables, useVariables } from '../../variables';
 
-export const actionDesignerCss = css`
-  position: relative;
-  &:hover {
-    .general-schema-designer {
-      display: block;
-    }
-  }
-  .general-schema-designer {
-    position: absolute;
-    z-index: 999;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: none;
-    background: var(--colorBgSettingsHover);
-    border: 0;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-    > .general-schema-designer-icons {
-      position: absolute;
-      right: 2px;
-      top: 2px;
-      line-height: 16px;
-      pointer-events: all;
-      .ant-space-item {
-        background-color: var(--colorSettings);
-        color: #fff;
-        line-height: 16px;
-        width: 16px;
-        padding-left: 1px;
-        align-self: stretch;
+const useStyles = createStyles(({ css }) => {
+  return {
+    designer: css`
+      position: relative;
+      &:hover {
+        .general-schema-designer {
+          display: block;
+        }
       }
-    }
-  }
-`;
+      .general-schema-designer {
+        position: absolute;
+        z-index: 999;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: none;
+        background: var(--colorBgSettingsHover);
+        border: 0;
+        pointer-events: none;
+        > .general-schema-designer-icons {
+          position: absolute;
+          right: 2px;
+          top: 2px;
+          line-height: 16px;
+          pointer-events: all;
+          .ant-space-item {
+            background-color: var(--colorSettings);
+            color: #fff;
+            line-height: 16px;
+            width: 16px;
+            padding-left: 1px;
+            align-self: stretch;
+          }
+        }
+      }
+    `,
+  };
+});
 
 export function useAclCheck(actionPath) {
   const aclCheck = useAclCheckFn();
@@ -108,6 +110,7 @@ const InternalCreateRecordAction = (props: any, ref) => {
   const values = useRecord();
   const ctx = useActionContext();
   const variables = useVariables();
+  const { styles } = useStyles();
   const localVariables = useLocalVariables({ currentForm: { values } as any });
   useEffect(() => {
     field.stateOfLinkageRules = {};
@@ -129,7 +132,7 @@ const InternalCreateRecordAction = (props: any, ref) => {
   const buttonRef = composeRef(ref, internalRef);
   return (
     //@ts-ignore
-    <div className={actionDesignerCss} ref={buttonRef as React.Ref<HTMLButtonElement>}>
+    <div className={styles.actionDesignerCss} ref={buttonRef as React.Ref<HTMLButtonElement>}>
       <ActionContextProvider value={{ ...ctx, visible, setVisible }}>
         <CreateAction
           {...props}
@@ -201,6 +204,7 @@ export const CreateAction = observer(
     const localVariables = useLocalVariables({ currentForm: { values } as any });
     const compile = useCompile();
     const { designable } = useDesignable();
+    const { styles } = useStyles();
     const icon = props.icon || null;
     const menuItems = useMemo<MenuProps['items']>(() => {
       return inheritsCollections.map((option) => ({
@@ -233,7 +237,7 @@ export const CreateAction = observer(
         });
     }, [field, linkageRules, localVariables, variables]);
     return (
-      <div className={actionDesignerCss}>
+      <div className={styles.actionDesignerCss}>
         <FinallyButton
           {...{
             inheritsCollections,

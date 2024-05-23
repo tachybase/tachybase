@@ -1,25 +1,47 @@
-import { css, cx } from '@emotion/css';
-import { FormItem as Item } from '@tachybase/components';
-import { Field } from '@tachybase/schema';
-import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useEffect, useMemo } from 'react';
+import { FormItem as Item } from '@tachybase/components';
+import { Field, observer, useField, useFieldSchema } from '@tachybase/schema';
+
+import { createStyles } from 'antd-style';
+import cx from 'classnames';
+
 import { ACLCollectionFieldProvider } from '../../../acl/ACLProvider';
 import { useApp } from '../../../application';
 import { useFormActiveFields } from '../../../block-provider/hooks/useFormActiveFields';
 import { Collection_deprecated } from '../../../collection-manager';
+import { CollectionFieldProvider, useContextConfigSetting } from '../../../data-source';
 import { GeneralSchemaDesigner } from '../../../schema-settings';
 import { useVariables } from '../../../variables';
 import useContextVariable from '../../../variables/hooks/useContextVariable';
 import { BlockItem } from '../block-item';
 import { HTMLEncode } from '../input/shared';
 import { FilterFormDesigner } from './FormItem.FilterFormDesigner';
-import { useEnsureOperatorsValid } from './SchemaSettingOptions';
 import useLazyLoadDisplayAssociationFieldsOfForm from './hooks/useLazyLoadDisplayAssociationFieldsOfForm';
 import useParseDefaultValue from './hooks/useParseDefaultValue';
-import { CollectionFieldProvider, useContextConfigSetting } from '../../../data-source';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    space: css`
+      & .ant-space {
+        flex-wrap: wrap;
+      }
+    `,
+    hide: css`
+      > .ant-formily-item-label {
+        display: none;
+      }
+    `,
+    row: css`
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+    `,
+  };
+});
 
 export const FormItem: any = observer(
   (props: any) => {
+    const { styles } = useStyles();
     const { layoutDirection: selfLayoutDirection } = props;
     const field = useField<Field>();
     const schema = useFieldSchema();
@@ -57,24 +79,12 @@ export const FormItem: any = observer(
     }, [field.description]);
     const className = useMemo(() => {
       return cx(
-        css`
-          & .ant-space {
-            flex-wrap: wrap;
-          }
-        `,
+        styles.space,
         {
-          [css`
-            > .ant-formily-item-label {
-              display: none;
-            }
-          `]: showTitle === false,
+          [styles.hide]: showTitle === false,
         },
         {
-          [css`
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-          `]: finishLayoutDirection === 'row',
+          [styles.row]: finishLayoutDirection === 'row',
         },
       );
     }, [showTitle]);

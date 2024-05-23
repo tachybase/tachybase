@@ -1,9 +1,11 @@
-import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
-import { css } from '@emotion/css';
-import { useForm } from '@tachybase/schema';
-import { Button, message } from 'antd';
 import React, { useState } from 'react';
+import { useForm } from '@tachybase/schema';
+
+import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { Button, message } from 'antd';
+import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
+
 import {
   useActionContext,
   useCollectionManager_deprecated,
@@ -54,6 +56,20 @@ export const useDestroyAction = () => {
   };
 };
 
+const useStyles = createStyles(({ css }) => {
+  return {
+    modal: css`
+      .ant-modal-body {
+        margin-left: 35px;
+        margin-bottom: 35px;
+        .ant-checkbox-wrapper {
+          height: 25px;
+        }
+      }
+    `,
+  };
+});
+
 export const useBulkDestroyAction = () => {
   const { state, setState, refresh } = useResourceActionContext();
   const { resource } = useResourceContext();
@@ -80,6 +96,7 @@ export const useBulkDestroyAction = () => {
 export const DeleteCollectionAction = (props) => {
   const { scope, getContainer, item: record, children, isBulk, useAction, ...otherProps } = props;
   const { t } = useTranslation();
+  const { styles } = useStyles();
   const [visible, setVisible] = useState(false);
   const getDestroyCollectionAction = () => {
     if (isBulk) {
@@ -124,15 +141,7 @@ export const DeleteCollectionAction = (props) => {
                 'x-component-props': {
                   width: 520,
                   getContainer: '{{ getContainer }}',
-                  className: css`
-                    .ant-modal-body {
-                      margin-left: 35px;
-                      margin-bottom: 35px;
-                      .ant-checkbox-wrapper {
-                        height: 25px;
-                      }
-                    }
-                  `,
+                  className: styles.modal,
                 },
                 properties: {
                   info: {

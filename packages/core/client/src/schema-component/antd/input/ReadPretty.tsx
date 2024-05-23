@@ -1,12 +1,13 @@
-import { css, cx } from '@emotion/css';
+import React from 'react';
+import { usePrefixCls } from '@tachybase/components';
+
 import { Typography } from 'antd';
 import { InputProps, TextAreaProps } from 'antd/es/input';
 import cls from 'classnames';
-import React from 'react';
+
 import { useCompile } from '../..';
 import { EllipsisWithTooltip } from './EllipsisWithTooltip';
 import { HTMLEncode } from './shared';
-import { usePrefixCls } from '@tachybase/components';
 
 export const ReadPretty = () => null;
 
@@ -118,26 +119,6 @@ const _URL = (props: InputProps) => {
       {props.suffix}
       {props.addonAfter}
     </div>
-  );
-};
-
-const _JSON = (props: TextAreaProps & { space: number }) => {
-  const prefixCls = usePrefixCls('json', props);
-  return (
-    <pre
-      className={cx(
-        prefixCls,
-        props.className,
-        css`
-          margin-bottom: 0;
-          line-height: 1.5;
-          font-size: 90%;
-        `,
-      )}
-      style={props.style}
-    >
-      {props.value != null ? JSON.stringify(props.value, null, props.space ?? 2) : ''}
-    </pre>
   );
 };
 

@@ -1,15 +1,16 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
 import React, { useLayoutEffect } from 'react';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
 import {
+  CollectionFieldContext,
   SortableItem,
   useCollection_deprecated,
   useCollectionManager_deprecated,
   useCompile,
   useDesigner,
-  CollectionFieldContext,
   useFlag,
 } from '../../../';
-import { designerCss } from './Table.Column.ActionBar';
+import { useStyles } from './Table.Column.ActionBar';
 import { isCollectionFieldComponent } from './utils';
 
 export const useColumnSchema = () => {
@@ -33,10 +34,14 @@ export const useColumnSchema = () => {
 
 export const TableColumnDecorator = (props) => {
   const Designer = useDesigner();
+  const { isInSubTable } = useFlag() || {};
+  const { styles } = useStyles({
+    margin: isInSubTable ? '-12px -8px' : '-18px -16px',
+    padding: isInSubTable ? '12px 8px' : '18px 16px',
+  });
   const field = useField();
   const { fieldSchema, uiSchema, collectionField } = useColumnSchema();
   const compile = useCompile();
-  const { isInSubTable } = useFlag() || {};
   useLayoutEffect(() => {
     if (field.title) {
       return;
@@ -49,12 +54,7 @@ export const TableColumnDecorator = (props) => {
     }
   }, [uiSchema?.title]);
   return (
-    <SortableItem
-      className={designerCss({
-        margin: isInSubTable ? '-12px -8px' : '-18px -16px',
-        padding: isInSubTable ? '12px 8px' : '18px 16px',
-      })}
-    >
+    <SortableItem className={styles.designer}>
       <CollectionFieldContext.Provider value={collectionField}>
         <Designer fieldSchema={fieldSchema} uiSchema={uiSchema} collectionField={collectionField} />
         {/* <RecursionField name={columnSchema.name} schema={columnSchema}/> */}

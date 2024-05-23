@@ -1,4 +1,3 @@
-import { css } from '@emotion/css';
 import { PresetFields } from '../components/PresetFields';
 
 export const defaultConfigurableProperties = {
@@ -56,13 +55,6 @@ export const defaultConfigurableProperties = {
     type: 'void',
     'x-decorator': 'FormItem',
     'x-visible': '{{ createOnly }}',
-    'x-decorator-props': {
-      className: css`
-        .ant-formily-item {
-          margin-bottom: 0;
-        }
-      `,
-    },
     'x-component': PresetFields,
   },
 };

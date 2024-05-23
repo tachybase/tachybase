@@ -1,11 +1,38 @@
-import { css, cx } from '@emotion/css';
-import { FormLayout } from '@tachybase/components';
-import { RecursionField, useField, useFieldSchema, observer } from '@tachybase/schema';
 import React, { useEffect } from 'react';
+import { FormLayout } from '@tachybase/components';
+import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
+import { createStyles } from 'antd-style';
+import cx from 'classnames';
+
+import { ACLCollectionProvider, useACLActionParamsContext } from '../../../acl';
 import { CollectionProvider_deprecated } from '../../../collection-manager';
 import { useAssociationFieldContext, useInsertSchema } from './hooks';
-import { ACLCollectionProvider, useACLActionParamsContext } from '../../../acl';
 import schema from './schema';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    body: css`
+      & .ant-formily-item-layout-vertical {
+        margin-bottom: 10px;
+      }
+      .ant-card-body {
+        padding: 15px 20px 5px;
+      }
+      .ant-divider-horizontal {
+        margin: 10px 0;
+      }
+    `,
+    showTitle: css`
+      .ant-card-body {
+        padding: 0px 20px 20px 0px;
+      }
+      > .ant-card-bordered {
+        border: none;
+      }
+    `,
+  };
+});
 
 export const InternalNester = observer(
   () => {
@@ -15,6 +42,8 @@ export const InternalNester = observer(
     const { options: collectionField } = useAssociationFieldContext();
     const showTitle = fieldSchema['x-decorator-props']?.showTitle ?? true;
     const { actionName } = useACLActionParamsContext();
+    const { styles } = useStyles();
+
     useEffect(() => {
       insertNester(schema.Nester);
     }, []);
@@ -23,29 +52,9 @@ export const InternalNester = observer(
         <ACLCollectionProvider actionPath={`${collectionField.target}:${actionName}`}>
           <FormLayout layout={'vertical'}>
             <div
-              className={cx(
-                css`
-                  & .ant-formily-item-layout-vertical {
-                    margin-bottom: 10px;
-                  }
-                  .ant-card-body {
-                    padding: 15px 20px 5px;
-                  }
-                  .ant-divider-horizontal {
-                    margin: 10px 0;
-                  }
-                `,
-                {
-                  [css`
-                    .ant-card-body {
-                      padding: 0px 20px 20px 0px;
-                    }
-                    > .ant-card-bordered {
-                      border: none;
-                    }
-                  `]: showTitle === false,
-                },
-              )}
+              className={cx(styles.body, {
+                [styles.showTitle]: showTitle === false,
+              })}
             >
               <RecursionField
                 onlyRenderProperties

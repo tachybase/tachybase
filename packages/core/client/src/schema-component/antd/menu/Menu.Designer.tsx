@@ -1,8 +1,11 @@
-import { TreeSelect } from '@tachybase/components';
-import { Field, onFieldChange } from '@tachybase/schema';
-import { ISchema, Schema, useField, useFieldSchema } from '@tachybase/schema';
 import React from 'react';
+import { TreeSelect } from '@tachybase/components';
+import { Field, ISchema, onFieldChange, Schema, useField, useFieldSchema } from '@tachybase/schema';
+
+import { message } from 'antd';
+import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
+
 import { findByUid } from '.';
 import { createDesignable } from '../..';
 import {
@@ -15,8 +18,6 @@ import {
   useAPIClient,
   useDesignable,
 } from '../../../';
-import { message } from 'antd';
-import { saveAs } from 'file-saver';
 
 const toItems = (properties = {}) => {
   const items = [];
