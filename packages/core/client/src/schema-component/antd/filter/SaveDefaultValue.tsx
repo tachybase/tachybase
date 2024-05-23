@@ -1,8 +1,9 @@
-import { css } from '@emotion/css';
-import { useFieldSchema, useForm } from '@tachybase/schema';
-import { Button } from 'antd';
 import React from 'react';
+import { useFieldSchema, useForm } from '@tachybase/schema';
+
+import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { useDesignable } from '../../hooks';
 
 export const SaveDefaultValue = (props) => {
@@ -15,10 +16,10 @@ export const SaveDefaultValue = (props) => {
   }
   return (
     <Button
-      className={css`
-        border-color: var(--colorSettings);
-        color: var(--colorSettings);
-      `}
+      style={{
+        borderColor: 'var(--colorSettings)',
+        color: 'var(--colorSettings)',
+      }}
       type={'dashed'}
       onClick={() => {
         const filterSchema = fieldSchema?.parent?.parent?.parent?.properties?.filter;
@@ -34,7 +35,6 @@ export const SaveDefaultValue = (props) => {
         });
         dn.refresh();
         filterSchema.default = defaultValue;
-        console.log('filterSchema', defaultValue);
       }}
     >
       {t('Save conditions')}

@@ -1,12 +1,14 @@
-import { cx } from '@emotion/css';
-import { RecursionField, observer, useFieldSchema } from '@tachybase/schema';
-import { Space } from 'antd';
 import React, { CSSProperties, useContext } from 'react';
+import { observer, RecursionField, useFieldSchema } from '@tachybase/schema';
+
+import { Space } from 'antd';
+import cx from 'classnames';
 import { createPortal } from 'react-dom';
-import { DndContext } from '../../common';
-import { useDesignable, useProps } from '../../hooks';
+
 import { useSchemaInitializerRender } from '../../../application';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { DndContext } from '../../common';
+import { useDesignable, useProps } from '../../hooks';
 
 interface ActionBarContextForceProps {
   layout?: 'one-column' | 'tow-columns';
@@ -35,7 +37,7 @@ export const useActionBarContext = () => {
   return useContext(ActionBarContext);
 };
 
-const Portal: React.FC = (props) => {
+const Portal = (props) => {
   const filedSchema = useFieldSchema();
   const { container, parentComponents = ['BlockItem', 'CardItem'] } = useActionBarContext();
   return (

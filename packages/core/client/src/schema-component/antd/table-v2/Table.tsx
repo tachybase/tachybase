@@ -1,19 +1,26 @@
-import { DeleteOutlined, MenuOutlined, CopyOutlined } from '@ant-design/icons';
-import { TinyColor } from '@ctrl/tinycolor';
-import { SortableContext, SortableContextProps, useSortable } from '@dnd-kit/sortable';
-import { css } from '@emotion/css';
-import { ArrayField } from '@tachybase/schema';
-import { spliceArrayState } from '@tachybase/schema';
-import { RecursionField, Schema, observer, useField, useFieldSchema } from '@tachybase/schema';
-import { action } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  action,
+  ArrayField,
+  observer,
+  RecursionField,
+  Schema,
+  spliceArrayState,
+  uid,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
 import { isPortalInBody } from '@tachybase/utils/client';
+
+import { CopyOutlined, DeleteOutlined, MenuOutlined } from '@ant-design/icons';
+import { SortableContext, SortableContextProps, useSortable } from '@dnd-kit/sortable';
 import { useMemoizedFn } from 'ahooks';
 import { Table as AntdTable, TableColumnProps } from 'antd';
 import { default as classNames, default as cls } from 'classnames';
 import _, { each } from 'lodash';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { useToken } from '../__builtins__';
 import { DndContext, useDesignable, useTableSize } from '../..';
 import {
   RecordIndexProvider,
@@ -25,13 +32,13 @@ import {
   useTableBlockContext,
   useTableSelectorContext,
 } from '../../../';
-import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { useACLFieldWhitelist } from '../../../acl/ACLProvider';
-import { useToken } from '../__builtins__';
+import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { isNewRecord, markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
 import { SubFormProvider } from '../association-field/hooks';
 import { ColumnFieldProvider } from './components/ColumnFieldProvider';
+import { useStyles } from './Table.styles';
 import { extractIndex, isCollectionFieldComponent, isColumnComponent } from './utils';
-import { isNewRecord, markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
 
 const useArrayField = (props) => {
   const field = useField<ArrayField>();
@@ -40,6 +47,7 @@ const useArrayField = (props) => {
 
 const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => {
   const { token } = useToken();
+  const { styles } = useStyles();
   const field = useArrayField(props);
   const schema = useFieldSchema();
   const { schemaInWhitelist } = useACLFieldWhitelist();
@@ -77,16 +85,7 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
               <RecordIndexProvider index={record.__index || index}>
                 <RecordProvider isNew={isNewRecord(record)} record={record} parent={parentRecordData}>
                   <ColumnFieldProvider schema={s} basePath={field.address.concat(record.__index || index)}>
-                    <span
-                      role="button"
-                      className={css`
-                        // 扩大 SchemaToolbar 的面积
-                        .nb-action-link {
-                          margin: -${token.paddingContentVerticalLG}px -${token.marginSM}px;
-                          padding: ${token.paddingContentVerticalLG}px ${token.marginSM}px;
-                        }
-                      `}
-                    >
+                    <span role="button" className={styles.toolbar}>
                       <RecursionField
                         basePath={field.address.concat(record.__index || index)}
                         schema={s}
@@ -173,32 +172,16 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
 };
 
 const SortableRow = (props) => {
-  const { token } = useToken();
+  const { styles } = useStyles();
   const id = props['data-row-key']?.toString();
   const { setNodeRef, isOver, active, over } = useSortable({
     id,
   });
 
-  const classObj = useMemo(() => {
-    const borderColor = new TinyColor(token.colorSettings).setAlpha(0.6).toHex8String();
-    return {
-      topActiveClass: css`
-        & > td {
-          border-top: 2px solid ${borderColor} !important;
-        }
-      `,
-      bottomActiveClass: css`
-        & > td {
-          border-bottom: 2px solid ${borderColor} !important;
-        }
-      `,
-    };
-  }, [token.colorSettings]);
-
   const className =
     (active?.data.current?.sortable.index ?? -1) > (over?.data.current?.sortable?.index ?? -1)
-      ? classObj.topActiveClass
-      : classObj.bottomActiveClass;
+      ? styles.topActive
+      : styles.bottomActive;
 
   return (
     <tr
@@ -263,6 +246,7 @@ export const Table: any = withDynamicSchemaProps(
       isSubTable?: boolean;
     }) => {
       const { token } = useToken();
+      const { styles } = useStyles();
       const { pagination: pagination1, useProps, ...others1 } = props;
 
       // 新版 UISchema（1.0 之后）中已经废弃了 useProps，这里之所以继续保留是为了兼容旧版的 UISchema
@@ -309,14 +293,7 @@ export const Table: any = withDynamicSchemaProps(
             },
           };
         };
-        highlightRow = css`
-          & > td {
-            background-color: ${token.controlItemBgActiveHover} !important;
-          }
-          &:hover > td {
-            background-color: ${token.controlItemBgActiveHover} !important;
-          }
-        `;
+        highlightRow = styles.highlightRow;
       }
 
       useEffect(() => {
@@ -338,21 +315,7 @@ export const Table: any = withDynamicSchemaProps(
               );
             },
             cell: (props) => {
-              return (
-                <th
-                  {...props}
-                  className={cls(
-                    props.className,
-                    css`
-                      max-width: 300px;
-                      white-space: nowrap;
-                      &:hover .general-schema-designer {
-                        display: block;
-                      }
-                    `,
-                  )}
-                />
-              );
+              return <th {...props} className={cls(props.className, styles.headerCellDesigner)} />;
             },
           },
           body: {
@@ -379,26 +342,7 @@ export const Table: any = withDynamicSchemaProps(
             row: (props) => {
               return <SortableRow {...props}></SortableRow>;
             },
-            cell: (props) => (
-              <td
-                {...props}
-                className={classNames(
-                  props.className,
-                  css`
-                    max-width: 300px;
-                    white-space: nowrap;
-                    .nb-read-pretty-input-number {
-                      text-align: right;
-                    }
-                    .ant-color-picker-trigger {
-                      position: absolute;
-                      top: 50%;
-                      transform: translateY(-50%);
-                    }
-                  `,
-                )}
-              />
-            ),
+            cell: (props) => <td {...props} className={classNames(props.className, styles.bodyCell)} />,
           },
         };
       }, [field, onRowDragEnd, dragSort]);
@@ -470,67 +414,16 @@ export const Table: any = withDynamicSchemaProps(
                   <div
                     role="button"
                     aria-label={`table-index-${index}`}
-                    className={classNames(
-                      checked ? 'checked' : null,
-                      css`
-                        position: relative;
-                        display: flex;
-                        float: left;
-                        align-items: center;
-                        justify-content: space-evenly;
-                        padding-right: 8px;
-                        .nb-table-index {
-                          opacity: 0;
-                        }
-                        &:not(.checked) {
-                          .nb-table-index {
-                            opacity: 1;
-                          }
-                        }
-                      `,
-                      {
-                        [css`
-                          &:hover {
-                            .nb-table-index {
-                              opacity: 0;
-                            }
-                            .nb-origin-node {
-                              display: block;
-                            }
-                          }
-                        `]: isRowSelect,
-                      },
-                    )}
+                    className={classNames(checked ? 'checked' : null, styles.rowSelect, {
+                      [styles.rowSelectHover]: isRowSelect,
+                    })}
                   >
-                    <div
-                      className={classNames(
-                        checked ? 'checked' : null,
-                        css`
-                          position: relative;
-                          display: flex;
-                          align-items: center;
-                          justify-content: space-evenly;
-                        `,
-                      )}
-                    >
+                    <div className={classNames(checked ? 'checked' : null, styles.cellChecked)}>
                       {dragSort && <SortHandle id={getRowKey(record)} />}
                       {showIndex && <TableIndex index={index} />}
                     </div>
                     {isRowSelect && (
-                      <div
-                        className={classNames(
-                          'nb-origin-node',
-                          checked ? 'checked' : null,
-                          css`
-                            position: absolute;
-                            right: 50%;
-                            transform: translateX(50%);
-                            &:not(.checked) {
-                              display: none;
-                            }
-                          `,
-                        )}
-                      >
+                      <div className={classNames('nb-origin-node', checked ? 'checked' : null, styles.cellCheckedNode)}>
                         {originNode}
                       </div>
                     )}
@@ -541,7 +434,7 @@ export const Table: any = withDynamicSchemaProps(
             }
           : undefined,
       };
-      const SortableWrapper = useCallback<React.FC>(
+      const SortableWrapper = useCallback(
         ({ children }) => {
           return dragSort
             ? React.createElement<Omit<SortableContextProps, 'children'>>(
@@ -570,32 +463,7 @@ export const Table: any = withDynamicSchemaProps(
             };
       }, [fixedBlock, tableHeight]);
       return (
-        <div
-          className={css`
-            height: 100%;
-            overflow: hidden;
-            .ant-table-thead {
-              .ant-table-cell {
-                text-align: center;
-              }
-            }
-            .ant-table-wrapper {
-              height: 100%;
-              .ant-spin-nested-loading {
-                height: 100%;
-                .ant-spin-container {
-                  height: 100%;
-                  display: flex;
-                  flex-direction: column;
-                }
-              }
-            }
-            .ant-table {
-              overflow-x: auto;
-              overflow-y: hidden;
-            }
-          `}
-        >
+        <div className={styles.container}>
           <SortableWrapper>
             <AntdTable
               ref={tableSizeRefCallback}

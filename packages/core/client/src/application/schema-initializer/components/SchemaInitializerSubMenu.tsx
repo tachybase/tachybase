@@ -1,8 +1,10 @@
-import Icon, { RightOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
-import { uid } from '@tachybase/schema';
-import { Menu, MenuProps, theme } from 'antd';
 import React, { FC, ReactNode, useMemo } from 'react';
+import { uid } from '@tachybase/schema';
+
+import Icon, { RightOutlined } from '@ant-design/icons';
+import { Menu, MenuProps, theme } from 'antd';
+import { createStyles } from 'antd-style';
+
 import { useCompile } from '../../../schema-component';
 import { useSchemaInitializerItem } from '../context';
 import { useSchemaInitializerMenuItems } from '../hooks';
@@ -17,6 +19,30 @@ export interface SchemaInitializerSubMenuProps {
   icon?: string | ReactNode;
   children?: SchemaInitializerOptions['items'];
 }
+
+const useStyles = createStyles(({ css, token }) => {
+  return {
+    menu: css`
+      box-shadow: none !important;
+      border-inline-end: 0 !important;
+      .ant-menu-sub {
+        max-height: 50vh !important;
+      }
+      .ant-menu-item {
+        margin-block: 0;
+      }
+      .ant-menu-root {
+        margin: 0 -${token.margin}px;
+        .ant-menu-submenu-title,
+        .ant-menu-item-only-child {
+          margin-inline: 0;
+          margin-block: 0;
+          width: 100%;
+        }
+      }
+    `,
+  };
+});
 
 const SchemaInitializerSubMenuContext = React.createContext<{ isInMenu?: true }>({});
 const SchemaInitializerMenuProvider = (props) => {
@@ -34,6 +60,7 @@ export const SchemaInitializerMenu: FC<MenuProps> = (props) => {
   const { componentCls, hashId } = useSchemaInitializerStyles();
   const { items, ...others } = props;
   const { token } = theme.useToken();
+  const { styles } = useStyles();
   const itemsWithPopupClass = useMemo(
     () => items.map((item) => ({ ...item, popupClassName: `${hashId} ${componentCls}-menu-sub` })),
     [componentCls, hashId, items],
@@ -44,25 +71,7 @@ export const SchemaInitializerMenu: FC<MenuProps> = (props) => {
       <Menu
         selectable={false}
         expandIcon={<RightOutlined style={{ fontSize: token.fontSizeSM, color: token.colorTextDescription }} />}
-        rootClassName={css`
-          box-shadow: none !important;
-          border-inline-end: 0 !important;
-          .ant-menu-sub {
-            max-height: 50vh !important;
-          }
-          .ant-menu-item {
-            margin-block: 0;
-          }
-          .ant-menu-root {
-            margin: 0 -${token.margin}px;
-            .ant-menu-submenu-title,
-            .ant-menu-item-only-child {
-              margin-inline: 0;
-              margin-block: 0;
-              width: 100%;
-            }
-          }
-        `}
+        rootClassName={styles.menu}
         items={itemsWithPopupClass}
         {...others}
       />

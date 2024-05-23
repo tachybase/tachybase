@@ -1,11 +1,29 @@
-import { css } from '@emotion/css';
-import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
-import { Modal, ModalProps } from 'antd';
-import classNames from 'classnames';
 import React from 'react';
+import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
+import { Modal, ModalProps } from 'antd';
+import { createStyles } from 'antd-style';
+import classNames from 'classnames';
+
 import { OpenSize, useActionContext } from '.';
 import { useSetAriaLabelForModal } from './hooks/useSetAriaLabelForModal';
 import { ComposedActionDrawer } from './types';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      &.nb-action-popup {
+        .ant-modal-header {
+          display: none;
+        }
+
+        .ant-modal-content {
+          background: var(--nb-box-bg);
+        }
+      }
+    `,
+  };
+});
 
 const openSizeWidthMap = new Map<OpenSize, string>([
   ['small', '40%'],
@@ -15,6 +33,7 @@ const openSizeWidthMap = new Map<OpenSize, string>([
 export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
   (props) => {
     const { footerNodeName = 'Action.Modal.Footer', width, ...others } = props;
+    const { styles } = useStyles();
     const { visible, setVisible, openSize = 'middle', modalProps } = useActionContext();
     const actualWidth = width ?? openSizeWidthMap.get(openSize);
     const schema = useFieldSchema();
@@ -43,21 +62,7 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
         destroyOnClose
         open={visible}
         onCancel={() => setVisible(false, true)}
-        className={classNames(
-          others.className,
-          modalProps?.className,
-          css`
-            &.nb-action-popup {
-              .ant-modal-header {
-                display: none;
-              }
-
-              .ant-modal-content {
-                background: var(--nb-box-bg);
-              }
-            }
-          `,
-        )}
+        className={classNames(others.className, modalProps?.className, styles.container)}
         footer={
           footerSchema ? (
             <RecursionField

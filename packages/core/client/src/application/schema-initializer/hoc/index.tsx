@@ -1,8 +1,9 @@
-import { ISchema, observer } from '@tachybase/schema';
-import { ConfigProvider, Popover, theme } from 'antd';
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
+import { ISchema, observer } from '@tachybase/schema';
 
-import { css } from '@emotion/css';
+import { ConfigProvider, Popover, theme } from 'antd';
+import { createStyles } from 'antd-style';
+
 import { useNiceDropdownMaxHeight } from '../../../common/useNiceDropdownHeight';
 import { useFlag } from '../../../flag-provider';
 import { useDesignable } from '../../../schema-component';
@@ -11,6 +12,18 @@ import { SchemaInitializerContext } from '../context';
 import { SchemaInitializerOptions } from '../types';
 
 const defaultWrap = (s: ISchema) => s;
+const useStyles = createStyles(({ css, token }) => {
+  return {
+    popover: css`
+      .ant-popover-inner {
+        padding: ${`${token.paddingXXS}px 0`};
+        .ant-menu-submenu-title {
+          margin-block: 0;
+        }
+      }
+    `,
+  };
+});
 
 export function withInitializer<T>(C: ComponentType<T>) {
   const WithInitializer = observer(
@@ -47,6 +60,7 @@ export function withInitializer<T>(C: ComponentType<T>) {
       const { wrapSSR, hashId, componentCls } = useSchemaInitializerStyles();
       const [visible, setVisible] = useState(false);
       const { token } = theme.useToken();
+      const { styles } = useStyles();
       const dropdownMaxHeight = useNiceDropdownMaxHeight([visible]);
 
       const cProps = useMemo(
@@ -79,14 +93,7 @@ export function withInitializer<T>(C: ComponentType<T>) {
               placement={'bottomLeft'}
               {...popoverProps}
               arrow={false}
-              overlayClassName={css`
-                .ant-popover-inner {
-                  padding: ${`${token.paddingXXS}px 0`};
-                  .ant-menu-submenu-title {
-                    margin-block: 0;
-                  }
-                }
-              `}
+              overlayClassName={styles.popover}
               open={visible}
               onOpenChange={setVisible}
               content={wrapSSR(

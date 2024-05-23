@@ -1,13 +1,19 @@
-import { css } from '@emotion/css';
-import { ArrayField } from '@tachybase/schema';
-import { exchangeArrayState } from '@tachybase/schema';
-import { observer, RecursionField, useFieldSchema } from '@tachybase/schema';
-import { action } from '@tachybase/schema';
-import { isArr } from '@tachybase/schema';
-import { Button } from 'antd';
-import { unionBy, uniqBy } from 'lodash';
 import React, { useContext, useMemo, useState } from 'react';
+import {
+  action,
+  ArrayField,
+  exchangeArrayState,
+  isArr,
+  observer,
+  RecursionField,
+  useFieldSchema,
+} from '@tachybase/schema';
+
+import { Button } from 'antd';
+import { createStyles } from 'antd-style';
+import { unionBy, uniqBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import {
   FormProvider,
   RecordPickerContext,
@@ -20,6 +26,7 @@ import { FormActiveFieldsProvider } from '../../../block-provider/hooks/useFormA
 import { TableSelectorParamsProvider } from '../../../block-provider/TableSelectorProvider';
 import { CollectionProvider_deprecated } from '../../../collection-manager';
 import { CollectionRecordProvider, useCollectionRecord } from '../../../data-source';
+import { markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
 import { FlagProvider } from '../../../flag-provider';
 import { useCompile } from '../../hooks';
 import { ActionContextProvider } from '../action';
@@ -27,11 +34,69 @@ import { Table } from '../table-v2/Table';
 import { useAssociationFieldContext, useFieldNames } from './hooks';
 import { useTableSelectorProps } from './InternalPicker';
 import { getLabelFormatValue, useLabelUiSchema } from './util';
-import { markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    addNew: css`
+      display: block;
+      border-radius: 0px;
+      border-right: 1px solid rgba(0, 0, 0, 0.06);
+    `,
+    select: css`
+      display: block;
+      border-radius: 0px;
+    `,
+    table: css`
+      .ant-formily-item.ant-formily-item-feedback-layout-loose {
+        margin-bottom: 0px !important;
+      }
+      .ant-formily-editable {
+        vertical-align: sub;
+      }
+      .ant-table-footer {
+        display: flex;
+      }
+    `,
+    container: css`
+      .ant-table-footer {
+        padding: 0 !important;
+      }
+      .ant-formily-item-error-help {
+        display: none;
+      }
+      .ant-description-textarea {
+        line-height: 34px;
+      }
+      .ant-table-cell .ant-formily-item-error-help {
+        display: block;
+        position: absolute;
+        font-size: 12px;
+        top: 100%;
+        background: #fff;
+        width: 100%;
+        margin-top: -15px;
+        padding: 3px;
+        z-index: 1;
+        border-radius: 3px;
+        box-shadow: 0 0 10px #eee;
+        animation: none;
+        transform: translateY(0);
+        opacity: 1;
+      }
+    `,
+    input: css`
+      position: relative;
+      .ant-input {
+        width: 100%;
+      }
+    `,
+  };
+});
 
 export const SubTable: any = observer(
   (props: any) => {
     const { openSize } = props;
+    const { styles } = useStyles();
     const { field, options: collectionField } = useAssociationFieldContext<ArrayField>();
     const { t } = useTranslation();
     const [visibleSelector, setVisibleSelector] = useState(false);
@@ -108,50 +173,12 @@ export const SubTable: any = observer(
       return filter;
     };
     return (
-      <div
-        className={css`
-          .ant-table-footer {
-            padding: 0 !important;
-          }
-          .ant-formily-item-error-help {
-            display: none;
-          }
-          .ant-description-textarea {
-            line-height: 34px;
-          }
-          .ant-table-cell .ant-formily-item-error-help {
-            display: block;
-            position: absolute;
-            font-size: 12px;
-            top: 100%;
-            background: #fff;
-            width: 100%;
-            margin-top: -15px;
-            padding: 3px;
-            z-index: 1;
-            border-radius: 3px;
-            box-shadow: 0 0 10px #eee;
-            animation: none;
-            transform: translateY(0);
-            opacity: 1;
-          }
-        `}
-      >
+      <div className={styles.container}>
         <FlagProvider isInSubTable>
           <CollectionRecordProvider record={null} parentRecord={recordV2}>
             <FormActiveFieldsProvider name="nester">
               <Table
-                className={css`
-                  .ant-formily-item.ant-formily-item-feedback-layout-loose {
-                    margin-bottom: 0px !important;
-                  }
-                  .ant-formily-editable {
-                    vertical-align: sub;
-                  }
-                  .ant-table-footer {
-                    display: flex;
-                  }
-                `}
+                className={styles.table}
                 bordered
                 size={'small'}
                 field={field}
@@ -167,11 +194,7 @@ export const SubTable: any = observer(
                         <Button
                           type={'text'}
                           block
-                          className={css`
-                            display: block;
-                            border-radius: 0px;
-                            border-right: 1px solid rgba(0, 0, 0, 0.06);
-                          `}
+                          className={styles.addNew}
                           onClick={() => {
                             field.value = field.value || [];
                             field.value.push(markRecordAsNew({}));
@@ -184,10 +207,7 @@ export const SubTable: any = observer(
                         <Button
                           type={'text'}
                           block
-                          className={css`
-                            display: block;
-                            border-radius: 0px;
-                          `}
+                          className={styles.select}
                           onClick={() => {
                             setVisibleSelector(true);
                           }}

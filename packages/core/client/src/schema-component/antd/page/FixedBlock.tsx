@@ -1,7 +1,7 @@
-import { css } from '@emotion/css';
-import { useField, useFieldSchema } from '@tachybase/schema';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useRecord } from '../../../record-provider';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
+import { createStyles } from 'antd-style';
 
 const FixedBlockContext = React.createContext<{
   setFixedBlock: (value: string | false) => void;
@@ -37,7 +37,7 @@ export const useFixedBlock = () => {
   return useContext(FixedBlockContext);
 };
 
-export const FixedBlockWrapper: React.FC = (props) => {
+export const FixedBlockWrapper = (props) => {
   const fixedBlock = useFixedSchema();
   const { height, fixedBlockUID } = useFixedBlock();
   /**
@@ -59,30 +59,36 @@ export const FixedBlockWrapper: React.FC = (props) => {
 
 interface FixedBlockProps {
   height: number | string;
+  children: React.ReactNode;
 }
 
-const fixedBlockCss = css`
-  overflow: hidden;
-  position: relative;
-  .noco-card-item {
-    height: 100%;
-    .ant-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      .ant-card-body {
-        height: 1px;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
+const useStyles = createStyles(({ css }) => {
+  return {
+    fixedBlockCss: css`
+      overflow: hidden;
+      position: relative;
+      .noco-card-item {
+        height: 100%;
+        .ant-card {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          .ant-card-body {
+            height: 1px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+          }
+        }
       }
-    }
-  }
-`;
+    `,
+  };
+});
 
-const FixedBlock: React.FC<FixedBlockProps> = (props) => {
+const FixedBlock = (props: FixedBlockProps) => {
   const { height } = props;
+  const { styles } = useStyles();
   const [fixedBlockUID, _setFixedBlock] = useState<false | string>(false);
   const fixedBlockUIDRef = useRef(fixedBlockUID);
   const setFixedBlock = (v) => {
@@ -92,7 +98,7 @@ const FixedBlock: React.FC<FixedBlockProps> = (props) => {
   return (
     <FixedBlockContext.Provider value={{ inFixedBlock: true, height, setFixedBlock, fixedBlockUID, fixedBlockUIDRef }}>
       <div
-        className={fixedBlockUID ? fixedBlockCss : ''}
+        className={fixedBlockUID ? styles.fixedBlockCss : ''}
         style={{
           height: fixedBlockUID ? `calc(100vh - ${height})` : undefined,
         }}

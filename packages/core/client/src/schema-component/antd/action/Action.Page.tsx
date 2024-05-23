@@ -1,7 +1,9 @@
-import { css } from '@emotion/css';
-import { observer, RecursionField, SchemaExpressionScopeContext, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useContext } from 'react';
+import { observer, RecursionField, SchemaExpressionScopeContext, useField, useFieldSchema } from '@tachybase/schema';
+
+import { createStyles } from 'antd-style';
 import { createPortal } from 'react-dom';
+
 import { useActionContext } from '.';
 import { ComposedActionDrawer } from './types';
 
@@ -10,11 +12,24 @@ const useScope = (key: string) => {
   return scope[key];
 };
 
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      display: flex;
+      width: 100%;
+      .ant-btn {
+        margin-right: 8px;
+      }
+    `,
+  };
+});
+
 export const ActionPage: ComposedActionDrawer = observer(
   (props: any) => {
     const { footerNodeName = 'Action.Page.Footer', ...others } = props;
     const { containerRefKey, visible, setVisible } = useActionContext();
     const containerRef = useScope(containerRefKey);
+    const { styles } = useStyles();
     const schema = useFieldSchema();
     const field = useField();
     const footerSchema = schema.reduceProperties((buf, s) => {
@@ -38,17 +53,7 @@ export const ActionPage: ComposedActionDrawer = observer(
                 }}
               />
               {footerSchema && (
-                <div
-                  className={css`
-                    display: flex;
-                    /* justify-content: flex-end; */
-                    /* flex-direction: row-reverse; */
-                    width: 100%;
-                    .ant-btn {
-                      margin-right: 8px;
-                    }
-                  `}
-                >
+                <div className={styles.container}>
                   <RecursionField
                     basePath={field.address}
                     schema={schema}

@@ -1,39 +1,22 @@
-export * from './PluginManagerLink';
-import type { TableProps } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
+import { fuzzysearch } from '@tachybase/utils/client';
+
 import { PageHeader } from '@ant-design/pro-layout';
 import { useDebounce } from 'ahooks';
-import {
-  Button,
-  Card,
-  Col,
-  Divider,
-  Input,
-  List,
-  Result,
-  Row,
-  Space,
-  Spin,
-  Tabs,
-  Table,
-  Tag,
-  Radio,
-  Form,
-  Select,
-} from 'antd';
+import { Card, Form, Input, Radio, Result, Select, Space, Spin, Table, Tag, type TableProps } from 'antd';
 import _ from 'lodash';
-import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { css } from '@emotion/css';
 import { useACLRoleContext } from '../acl/ACLProvider';
 import { useRequest } from '../api-client';
+import { i18n } from '../i18n';
 import { useToken } from '../style';
-import { PluginCard, SwitchAction } from './PluginCard';
+import { SwitchAction } from './PluginCard';
 import { useStyles } from './style';
 import { IPluginData } from './types';
-import { fuzzysearch } from '@tachybase/utils/client';
-import { i18n } from '../i18n';
+
+export * from './PluginManagerLink';
 
 export interface TData {
   data: IPluginData[];

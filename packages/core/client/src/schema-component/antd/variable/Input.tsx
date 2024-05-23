@@ -1,18 +1,21 @@
-import { CloseCircleFilled } from '@ant-design/icons';
-import { css, cx } from '@emotion/css';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
+
+import { CloseCircleFilled } from '@ant-design/icons';
 import { Input as AntInput, Cascader, DatePicker, InputNumber, Select, Space, Tag } from 'antd';
+import { createStyles } from 'antd-style';
 import useAntdInputStyle from 'antd/es/input/style';
 import type { DefaultOptionType } from 'antd/lib/cascader';
+import cx from 'classnames';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { cloneDeep } from 'lodash';
-import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useCompile } from '../../hooks';
-import { XButton } from './XButton';
 import { useStyles } from './style';
+import { XButton } from './XButton';
 
 const JT_VALUE_RE = /^\s*{{\s*([^{}]+)\s*}}\s*$/;
 
@@ -128,6 +131,39 @@ function getTypedConstantOption(type: string, types: true | string[], fieldNames
     component: ConstantTypes[type]?.component,
   };
 }
+
+const useStyles2 = createStyles(({ css }, { props: { disabled: boolean } }) => {
+  return {
+    container: css`
+      position: relative;
+      line-height: 0;
+
+      &:hover {
+        .clear-button {
+          display: inline-block;
+        }
+      }
+
+      .ant-input {
+        overflow: auto;
+        white-space: nowrap;
+        ${disabled ? '' : 'padding-right: 28px;'}
+
+        .ant-tag {
+          display: inline;
+          line-height: 19px;
+          margin: 0;
+          padding: 2px 7px;
+          border-radius: 10px;
+          white-space: nowrap;
+        }
+      }
+    `,
+    button: css`
+      margin-left: -1px;
+    `,
+  };
+});
 
 export function Input(props) {
   const {
@@ -259,40 +295,12 @@ export function Input(props) {
   }, [variable, options.length]);
 
   const disabled = props.disabled || form.disabled;
+  const { styles: styles2 } = useStyles2({ disabled });
 
   return wrapSSR(
     <Space.Compact style={style} className={classNames(componentCls, hashId, className)}>
       {variable ? (
-        <div
-          className={cx(
-            'variable',
-            css`
-              position: relative;
-              line-height: 0;
-
-              &:hover {
-                .clear-button {
-                  display: inline-block;
-                }
-              }
-
-              .ant-input {
-                overflow: auto;
-                white-space: nowrap;
-                ${disabled ? '' : 'padding-right: 28px;'}
-
-                .ant-tag {
-                  display: inline;
-                  line-height: 19px;
-                  margin: 0;
-                  padding: 2px 7px;
-                  border-radius: 10px;
-                  white-space: nowrap;
-                }
-              }
-            `,
-          )}
-        >
+        <div className={cx('variable', styles2.container)}>
           <div
             role="button"
             aria-label="variable-tag"
@@ -341,14 +349,7 @@ export function Input(props) {
         fieldNames={fieldNames}
         disabled={disabled}
       >
-        {button ?? (
-          <XButton
-            className={css(`
-              margin-left: -1px;
-            `)}
-            type={variable ? 'primary' : 'default'}
-          />
-        )}
+        {button ?? <XButton className={styles2.button} type={variable ? 'primary' : 'default'} />}
       </Cascader>
     </Space.Compact>,
   );

@@ -1,10 +1,12 @@
-import { DisconnectOutlined, LoadingOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
+import React, { FC } from 'react';
 import { observer } from '@tachybase/schema';
 import { getSubAppName } from '@tachybase/sdk';
+
+import { DisconnectOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Button, Modal, Result, Spin } from 'antd';
-import React, { FC } from 'react';
+import { createStyles } from 'antd-style';
 import { Navigate, useNavigate } from 'react-router-dom';
+
 import { ACLPlugin } from '../acl';
 import { useAPIClient } from '../api-client';
 import { Application } from '../application';
@@ -29,6 +31,17 @@ const AppSpin = () => {
     <Spin style={{ position: 'fixed', top: '50%', left: '50%', fontSize: 72, transform: 'translate(-50%, -50%)' }} />
   );
 };
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    modal: css`
+      top: 50%;
+      position: absolute;
+      width: 100%;
+      transform: translate(0, -50%);
+    `,
+  };
+});
 
 const useErrorProps = (app: Application, error: any) => {
   const api = useAPIClient();
@@ -68,15 +81,11 @@ const useErrorProps = (app: Application, error: any) => {
 const AppError: FC<{ error: Error; app: Application }> = observer(
   ({ app, error }) => {
     const props = useErrorProps(app, error);
+    const { styles } = useStyles();
     return (
       <div>
         <Result
-          className={css`
-            top: 50%;
-            position: absolute;
-            width: 100%;
-            transform: translate(0, -50%);
-          `}
+          className={styles.modal}
           status="error"
           title={app.i18n.t('App error')}
           subTitle={app.i18n.t(error?.message)}
@@ -201,15 +210,11 @@ const getProps = (app: Application) => {
 const AppMaintaining: FC<{ app: Application; error: Error }> = observer(
   ({ app }) => {
     const { icon, status, title, subTitle } = getProps(app);
+    const { styles } = useStyles();
     return (
       <div>
         <Result
-          className={css`
-            top: 50%;
-            position: absolute;
-            width: 100%;
-            transform: translate(0, -50%);
-          `}
+          className={styles.modal}
           icon={icon}
           status={status}
           title={app.i18n.t(title)}

@@ -1,36 +1,44 @@
-import { css } from '@emotion/css';
+import React, { useMemo } from 'react';
 import { connect, mapReadPretty } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
+
+import { createStyles } from 'antd-style';
 import cronstrue from 'cronstrue';
-import React, { useMemo } from 'react';
 import { CronProps, Cron as ReactCron } from 'react-js-cron';
-import 'react-js-cron/dist/styles.css';
+
 import { useAPIClient } from '../../../api-client';
+
+import 'react-js-cron/dist/styles.css';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    input: css`
+      .react-js-cron {
+        padding: 0.5em 0.5em 0 0.5em;
+        border: 1px dashed #ccc;
+        .react-js-cron-field {
+          flex-shrink: 0;
+          margin-bottom: 0.5em;
+
+          > span {
+            flex-shrink: 0;
+            margin: 0 0.5em 0 0;
+          }
+
+          > .react-js-cron-select {
+            margin: 0 0.5em 0 0;
+          }
+        }
+      }
+    `,
+  };
+});
 
 const Input = (props: Omit<CronProps, 'setValue'> & { onChange: (value: string) => void }) => {
   const { onChange, ...rest } = props;
+  const { styles } = useStyles();
   return (
-    <fieldset
-      className={css`
-        .react-js-cron {
-          padding: 0.5em 0.5em 0 0.5em;
-          border: 1px dashed #ccc;
-          .react-js-cron-field {
-            flex-shrink: 0;
-            margin-bottom: 0.5em;
-
-            > span {
-              flex-shrink: 0;
-              margin: 0 0.5em 0 0;
-            }
-
-            > .react-js-cron-select {
-              margin: 0 0.5em 0 0;
-            }
-          }
-        }
-      `}
-    >
+    <fieldset className={styles.input}>
       <ReactCron setValue={onChange} locale={window['cronLocale']} {...rest} />
     </fieldset>
   );

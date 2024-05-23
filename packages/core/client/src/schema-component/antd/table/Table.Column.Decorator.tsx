@@ -1,7 +1,8 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
 import React, { useLayoutEffect } from 'react';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
 import { SortableItem, useCollection_deprecated, useCompile, useDesignable, useDesigner } from '../../../';
-import { designerCss } from './Table.Column.ActionBar';
+import { useStyles } from './Table.Column.ActionBar';
 
 export const useColumnSchema = () => {
   const { getField } = useCollection_deprecated();
@@ -24,6 +25,7 @@ export const TableColumnDecorator = (props) => {
   const Designer = useDesigner();
   const field = useField();
   const { fieldSchema, uiSchema, collectionField } = useColumnSchema();
+  const { styles } = useStyles();
   const { refresh } = useDesignable();
   const compile = useCompile();
   useLayoutEffect(() => {
@@ -38,7 +40,7 @@ export const TableColumnDecorator = (props) => {
     }
   }, [uiSchema?.title]);
   return (
-    <SortableItem className={designerCss}>
+    <SortableItem className={styles.designer}>
       <Designer fieldSchema={fieldSchema} uiSchema={uiSchema} collectionField={collectionField} />
       {/* <RecursionField name={columnSchema.name} schema={columnSchema}/> */}
       {field.title || compile(uiSchema?.title)}

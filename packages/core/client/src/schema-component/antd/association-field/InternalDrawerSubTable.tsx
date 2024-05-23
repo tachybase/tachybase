@@ -1,15 +1,16 @@
-import { EditOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
-import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { InternalSubTable } from './InternalSubTable';
+import { Field, observer, useField, useFieldSchema } from '@tachybase/schema';
+
+import { EditOutlined } from '@ant-design/icons';
 import { Button, Drawer } from 'antd';
-import { SubFormProvider, useAssociationFieldContext } from './hooks';
-import { ActionContext, ActionContextProvider } from '../action/context';
-import { ReadPrettyInternalViewer } from './InternalViewer';
+import { useTranslation } from 'react-i18next';
+
 import { useCollectionManager } from '../../../data-source';
 import { FlagProvider } from '../../../flag-provider';
+import { ActionContext, ActionContextProvider } from '../action/context';
+import { SubFormProvider, useAssociationFieldContext } from './hooks';
+import { InternalSubTable } from './InternalSubTable';
+import { ReadPrettyInternalViewer } from './InternalViewer';
 
 export const InternaDrawerSubTable = observer(
   (props) => {
@@ -26,7 +27,7 @@ export const InternaDrawerSubTable = observer(
       enableLink: true,
     };
 
-    const field = useField();
+    const field = useField<Field>();
     const fieldSchema = useFieldSchema();
     const cm = useCollectionManager();
 
@@ -39,11 +40,7 @@ export const InternaDrawerSubTable = observer(
             setVisible(true);
           }}
         >
-          <div
-            className={css`
-              max-width: 95%;
-            `}
-          >
+          <div style={{ maxWidth: '95%' }}>
             <ReadPrettyInternalViewer {...titleProps} />
           </div>
           <EditOutlined style={{ display: 'inline-flex', marginLeft: '5px' }} />

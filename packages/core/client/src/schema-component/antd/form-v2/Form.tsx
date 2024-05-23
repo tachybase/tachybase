@@ -1,14 +1,29 @@
-import { css } from '@emotion/css';
-import { FormLayout } from '@tachybase/components';
-import { createForm, Field, Form as FormilyForm, onFieldInit, onFormInputChange } from '@tachybase/schema';
-import { FieldContext, FormContext, observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
-import { reaction } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import { getValuesByPath } from '@tachybase/utils/client';
-import { ConfigProvider, Spin } from 'antd';
 import React, { useEffect, useMemo } from 'react';
+import { FormLayout } from '@tachybase/components';
+import {
+  createForm,
+  Field,
+  FieldContext,
+  FormContext,
+  Form as FormilyForm,
+  observer,
+  onFieldInit,
+  onFormInputChange,
+  reaction,
+  RecursionField,
+  uid,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
+import { getValuesByPath } from '@tachybase/utils/client';
+
+import { ConfigProvider, Spin } from 'antd';
+import { createStyles } from 'antd-style';
+
 import { useActionContext } from '..';
 import { useAttach, useComponent } from '../..';
+import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { useTemplateBlockContext } from '../../../block-provider/TemplateBlockProvider';
 import { ActionType } from '../../../schema-settings/LinkageRules/type';
 import { useLocalVariables, useVariables } from '../../../variables';
 import { VariableOption, VariablesContextType } from '../../../variables/types';
@@ -18,12 +33,20 @@ import { isVariable, REGEX_OF_VARIABLE } from '../../../variables/utils/isVariab
 import { getInnermostKeyAndValue, getTargetField } from '../../common/utils/uitls';
 import { useProps } from '../../hooks/useProps';
 import { collectFieldStateOfLinkageRules, getTempFieldState } from './utils';
-import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
-import { useTemplateBlockContext } from '../../../block-provider/TemplateBlockProvider';
 
 export interface FormProps {
   [key: string]: any;
 }
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      .ant-formily-item-feedback-layout-loose {
+        margin-bottom: 12px;
+      }
+    `,
+  };
+});
 
 const FormComponent: React.FC<FormProps> = (props) => {
   const { form, children, ...others } = props;
@@ -203,6 +226,7 @@ export const Form: React.FC<FormProps> & {
 } = withDynamicSchemaProps(
   observer((props) => {
     const field = useField<Field>();
+    const { styles } = useStyles();
 
     // 新版 UISchema（1.0 之后）中已经废弃了 useProps，这里之所以继续保留是为了兼容旧版的 UISchema
     const { form, disabled, ...others } = useProps(props);
@@ -210,14 +234,7 @@ export const Form: React.FC<FormProps> & {
     const formDisabled = disabled || field.disabled;
     return (
       <ConfigProvider componentDisabled={formDisabled}>
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className={css`
-            .ant-formily-item-feedback-layout-loose {
-              margin-bottom: 12px;
-            }
-          `}
-        >
+        <form onSubmit={(e) => e.preventDefault()} className={styles.container}>
           <Spin spinning={field.loading || false}>
             {form ? (
               <WithForm form={form} {...others} disabled={formDisabled} />

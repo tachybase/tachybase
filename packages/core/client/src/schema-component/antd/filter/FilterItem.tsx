@@ -1,12 +1,13 @@
-import { CloseCircleOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
-import { observer } from '@tachybase/schema';
-import { Cascader, Select, Space } from 'antd';
 import React, { useCallback, useContext, useMemo } from 'react';
+import { observer } from '@tachybase/schema';
+
+import { CloseCircleOutlined } from '@ant-design/icons';
+import { Cascader, Select, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { useCompile } from '../..';
-import { DynamicComponent } from './DynamicComponent';
 import { RemoveConditionContext } from './context';
+import { DynamicComponent } from './DynamicComponent';
 import { useValues } from './useValues';
 
 export const FilterItem = observer(
@@ -55,12 +56,8 @@ export const FilterItem = observer(
       <div style={style} className="nc-filter-item">
         <Space>
           <Cascader
-            // @ts-ignore
-            role="button"
             data-testid="select-filter-field"
-            className={css`
-              width: 160px;
-            `}
+            style={{ width: '160px' }}
             fieldNames={fieldNames}
             changeOnSelect={false}
             value={dataIndex}
@@ -69,12 +66,8 @@ export const FilterItem = observer(
             placeholder={t('Select field')}
           />
           <Select
-            // @ts-ignore
-            role="button"
             data-testid="select-filter-operator"
-            className={css`
-              min-width: 110px;
-            `}
+            style={{ minWidth: '110px' }}
             popupMatchSelectWidth={false}
             value={operator?.value}
             options={compile(operators)}

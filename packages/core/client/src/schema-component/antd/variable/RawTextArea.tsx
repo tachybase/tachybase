@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { css } from '@emotion/css';
+
 import { Button, Input } from 'antd';
+import { createStyles } from 'antd-style';
 import { cloneDeep } from 'lodash';
 
 import { VariableSelect } from './VariableSelect';
@@ -16,11 +17,38 @@ function setNativeInputValue(input, value) {
   );
 }
 
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      position: relative;
+      .ant-input {
+        width: 100%;
+      }
+    `,
+    group: css`
+      position: absolute;
+      right: 0;
+      top: 0;
+      .ant-btn-sm {
+        font-size: 85%;
+      }
+    `,
+    select: css`
+      &:not(:hover) {
+        border-right-color: transparent;
+        border-top-color: transparent;
+      }
+      background-color: transparent;
+    `,
+  };
+});
+
 export function RawTextArea(props): JSX.Element {
   const inputRef = useRef<any>(null);
   const { changeOnSelect, component: Component = Input.TextArea, ...others } = props;
   const scope = typeof props.scope === 'function' ? props.scope() : props.scope;
   const [options, setOptions] = useState(scope ? cloneDeep(scope) : []);
+  const { styles } = useStyles();
 
   function onInsert(selected) {
     if (!inputRef.current) {
@@ -38,36 +66,11 @@ export function RawTextArea(props): JSX.Element {
     textArea.focus();
   }
   return (
-    <div
-      className={css`
-        position: relative;
-        .ant-input {
-          width: 100%;
-        }
-      `}
-    >
+    <div className={styles.container}>
       <Component {...others} ref={inputRef} />
-      <Button.Group
-        className={css`
-          position: absolute;
-          right: 0;
-          top: 0;
-          .ant-btn-sm {
-            font-size: 85%;
-          }
-        `}
-      >
+      <Button.Group className={styles.group}>
         <VariableSelect
-          className={
-            props.buttonClass ??
-            css`
-              &:not(:hover) {
-                border-right-color: transparent;
-                border-top-color: transparent;
-              }
-              background-color: transparent;
-            `
-          }
+          className={props.buttonClass ?? styles.select}
           fieldNames={props.fieldNames}
           options={options}
           setOptions={setOptions}

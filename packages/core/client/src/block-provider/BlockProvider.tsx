@@ -1,28 +1,31 @@
-import { css } from '@emotion/css';
-import { Field, GeneralField } from '@tachybase/schema';
-import { RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { Field, GeneralField, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
 import { Col, Row } from 'antd';
+import { createStyles } from 'antd-style';
 import merge from 'deepmerge';
 import template from 'lodash/template';
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import {
   DataBlockProvider,
   TableFieldResource,
-  WithoutTableFieldResource,
+  useCollectionManager,
   useCollectionParentRecord,
+  useCollectionParentRecordData,
   useCollectionRecord,
   useDataBlockProps,
   useDataBlockRequest,
   useDataBlockResource,
   useDesignable,
   useRecord,
+  WithoutTableFieldResource,
 } from '../';
 import { ACLCollectionProvider } from '../acl/ACLProvider';
 import {
   CollectionProvider_deprecated,
-  useCollectionManager_deprecated,
   useCollection_deprecated,
+  useCollectionManager_deprecated,
 } from '../collection-manager';
 import { DataBlockCollector } from '../filter-provider/FilterProvider';
 import { RecordProvider, useRecordIndex } from '../record-provider';
@@ -119,9 +122,31 @@ export const useBlockRequestContext = () => {
   return useContext(BlockRequestContext_deprecated);
 };
 
+const useStyles = createStyles(({ css }) => {
+  return {
+    row: css`
+      height: 100%;
+    `,
+    left: css`
+      width: 200px;
+      flex: 0 0 auto;
+    `,
+    right: css`
+      flex: 1 1 auto;
+      min-width: 0;
+    `,
+    rightContainer: css`
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    `,
+  };
+});
+
 export const RenderChildrenWithAssociationFilter: React.FC<any> = (props) => {
   const fieldSchema = useFieldSchema();
   const { findComponent } = useDesignable();
+  const { styles } = useStyles();
   const field = useField();
   const Component = findComponent(field.component?.[0]) || React.Fragment;
   const associationFilterSchema = fieldSchema.reduceProperties((buf, s) => {
@@ -134,39 +159,16 @@ export const RenderChildrenWithAssociationFilter: React.FC<any> = (props) => {
   if (associationFilterSchema) {
     return (
       <Component {...field.componentProps}>
-        <Row
-          className={css`
-            height: 100%;
-          `}
-          gutter={16}
-          wrap={false}
-        >
-          <Col
-            className={css`
-              width: 200px;
-              flex: 0 0 auto;
-            `}
-            style={props.associationFilterStyle}
-          >
+        <Row className={styles.row} gutter={16} wrap={false}>
+          <Col className={styles.left} style={props.associationFilterStyle}>
             <RecursionField
               schema={fieldSchema}
               onlyRenderProperties
               filterProperties={(s) => s['x-component'] === 'AssociationFilter'}
             />
           </Col>
-          <Col
-            className={css`
-              flex: 1 1 auto;
-              min-width: 0;
-            `}
-          >
-            <div
-              className={css`
-                display: flex;
-                flex-direction: column;
-                height: 100%;
-              `}
-            >
+          <Col className={styles.right}>
+            <div className={styles.rightContainer}>
               <RecursionField
                 schema={fieldSchema}
                 onlyRenderProperties

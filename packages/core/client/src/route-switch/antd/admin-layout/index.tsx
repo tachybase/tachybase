@@ -1,31 +1,153 @@
-import { css } from '@emotion/css';
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+
 import { useSessionStorageState } from 'ahooks';
 import { App, ConfigProvider, Divider, Layout } from 'antd';
-import { createGlobalStyle } from 'antd-style';
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { createGlobalStyle, createStyles } from 'antd-style';
 import { Link, Outlet, useLocation, useMatch, useNavigate, useParams } from 'react-router-dom';
+
 import {
   ACLRolesCheckProvider,
   CurrentAppInfoProvider,
   CurrentUser,
+  findByUid,
+  findMenuItem,
   NavigateIfNotSignIn,
   PinnedPluginList,
   RemoteCollectionManagerProvider,
   RemoteSchemaTemplateManagerPlugin,
   RemoteSchemaTemplateManagerProvider,
   SchemaComponent,
-  findByUid,
-  findMenuItem,
   useACLRoleContext,
   useAdminSchemaUid,
   useDocumentTitle,
   useRequest,
   useSystemSettings,
-  useToken,
 } from '../../../';
-import { Plugin } from '../../../application/Plugin';
 import { useAppSpin } from '../../../application/hooks/useAppSpin';
+import { Plugin } from '../../../application/Plugin';
 import { VariablesProvider } from '../../../variables';
+
+const useStyles = createStyles(({ css, token }) => {
+  return {
+    header: css`
+      .ant-menu.ant-menu-dark .ant-menu-item-selected,
+      .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected,
+      .ant-menu-submenu-horizontal.ant-menu-submenu-selected {
+        background-color: ${token.colorBgHeaderMenuActive} !important;
+        color: ${token.colorTextHeaderMenuActive} !important;
+      }
+      .ant-menu-submenu-horizontal.ant-menu-submenu-selected > .ant-menu-submenu-title {
+        color: ${token.colorTextHeaderMenuActive} !important;
+      }
+      .ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover {
+        background-color: ${token.colorBgHeaderMenuHover} !important;
+        color: ${token.colorTextHeaderMenuHover} !important;
+      }
+
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: var(--nb-header-height);
+      line-height: var(--nb-header-height);
+      padding: 0;
+      z-index: 100;
+      background-color: ${token.colorBgHeader} !important;
+
+      .ant-menu {
+        background-color: transparent;
+      }
+
+      .ant-menu-item,
+      .ant-menu-submenu-horizontal {
+        color: ${token.colorTextHeaderMenu} !important;
+      }
+    `,
+    headerA: css`
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+    `,
+    headerB: css`
+      position: relative;
+      z-index: 1;
+      flex: 1 1 auto;
+      display: flex;
+      height: 100%;
+    `,
+    titleContainer: css`
+      display: inline-flex;
+      flex-shrink: 0;
+      color: #fff;
+      padding: 0;
+      align-items: center;
+      padding: 0 12px 0 12px;
+    `,
+    logo: css`
+      object-fit: contain;
+      height: 28px;
+    `,
+    title: css`
+      color: #fff;
+      height: 32px;
+      margin: 0 0 0 12px;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 32px;
+    `,
+    right: css`
+      position: relative;
+      flex-shrink: 0;
+      height: 100%;
+      z-index: 10;
+    `,
+    editor: css`
+      flex: 1 1 auto;
+      width: 0;
+    `,
+    sider: css`
+      height: 100%;
+      /* position: fixed; */
+      position: relative;
+      left: 0;
+      top: 0;
+      background: rgba(0, 0, 0, 0);
+      z-index: 100;
+      .ant-layout-sider-children {
+        top: var(--nb-header-height);
+        position: fixed;
+        width: 200px;
+        height: calc(100vh - var(--nb-header-height));
+      }
+    `,
+    main: css`
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-y: auto;
+      height: 100vh;
+      max-height: 100vh;
+      > div {
+        position: relative;
+      }
+      .ant-layout-footer {
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        width: 100%;
+        z-index: 0;
+        padding: 0px 50px;
+      }
+    `,
+    mainHeader: css`
+      flex-shrink: 0;
+      height: var(--nb-header-height);
+      line-height: var(--nb-header-height);
+      background: transparent;
+      pointer-events: none;
+    `,
+  };
+});
 
 const filterByACL = (schema, options) => {
   const { allowAll, allowMenuItemIds = [] } = options;
@@ -279,111 +401,24 @@ export const InternalAdminLayout = (props: any) => {
   const result = useSystemSettings();
   // const { service } = useCollectionManager_deprecated();
   const params = useParams<any>();
-  const { token } = useToken();
+  const { styles } = useStyles();
   return (
     <Layout>
       <GlobalStyleForAdminLayout />
-      <Layout.Header
-        className={css`
-          .ant-menu.ant-menu-dark .ant-menu-item-selected,
-          .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected,
-          .ant-menu-submenu-horizontal.ant-menu-submenu-selected {
-            background-color: ${token.colorBgHeaderMenuActive} !important;
-            color: ${token.colorTextHeaderMenuActive} !important;
-          }
-          .ant-menu-submenu-horizontal.ant-menu-submenu-selected > .ant-menu-submenu-title {
-            color: ${token.colorTextHeaderMenuActive} !important;
-          }
-          .ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover {
-            background-color: ${token.colorBgHeaderMenuHover} !important;
-            color: ${token.colorTextHeaderMenuHover} !important;
-          }
-
-          position: fixed;
-          left: 0;
-          right: 0;
-          height: var(--nb-header-height);
-          line-height: var(--nb-header-height);
-          padding: 0;
-          z-index: 100;
-          background-color: ${token.colorBgHeader} !important;
-
-          .ant-menu {
-            background-color: transparent;
-          }
-
-          .ant-menu-item,
-          .ant-menu-submenu-horizontal {
-            color: ${token.colorTextHeaderMenu} !important;
-          }
-        `}
-      >
-        <div
-          className={css`
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-          `}
-        >
-          <div
-            className={css`
-              position: relative;
-              z-index: 1;
-              flex: 1 1 auto;
-              display: flex;
-              height: 100%;
-            `}
-          >
-            <div
-              className={css`
-                display: inline-flex;
-                flex-shrink: 0;
-                color: #fff;
-                padding: 0;
-                align-items: center;
-                padding: 0 12px 0 12px;
-              `}
-            >
-              <img
-                className={css`
-                  object-fit: contain;
-                  height: 28px;
-                `}
-                src={result?.data?.data?.logo?.url}
-              />
-              <h1
-                className={css`
-                  color: #fff;
-                  height: 32px;
-                  margin: 0 0 0 12px;
-                  font-weight: 600;
-                  font-size: 18px;
-                  line-height: 32px;
-                `}
-              >
-                {result?.data?.data?.title}
-              </h1>
+      <Layout.Header className={styles.header}>
+        <div className={styles.headerA}>
+          <div className={styles.headerB}>
+            <div className={styles.titleContainer}>
+              <img className={styles.logo} src={result?.data?.data?.logo?.url} />
+              <h1 className={styles.title}>{result?.data?.data?.title}</h1>
             </div>
-            <div
-              className={css`
-                flex: 1 1 auto;
-                width: 0;
-              `}
-            >
+            <div className={styles.editor}>
               <SetThemeOfHeaderSubmenu>
                 <MenuEditor sideMenuRef={sideMenuRef} />
               </SetThemeOfHeaderSubmenu>
             </div>
           </div>
-          <div
-            className={css`
-              position: relative;
-              flex-shrink: 0;
-              height: 100%;
-              z-index: 10;
-            `}
-          >
+          <div className={styles.right}>
             <PinnedPluginList />
             <ConfigProvider
               theme={{
@@ -398,59 +433,10 @@ export const InternalAdminLayout = (props: any) => {
           </div>
         </div>
       </Layout.Header>
-      {params.name && (
-        <Layout.Sider
-          className={css`
-            height: 100%;
-            /* position: fixed; */
-            position: relative;
-            left: 0;
-            top: 0;
-            background: rgba(0, 0, 0, 0);
-            z-index: 100;
-            .ant-layout-sider-children {
-              top: var(--nb-header-height);
-              position: fixed;
-              width: 200px;
-              height: calc(100vh - var(--nb-header-height));
-            }
-          `}
-          theme={'light'}
-          ref={sideMenuRef}
-        ></Layout.Sider>
-      )}
-      <Layout.Content
-        className={css`
-          display: flex;
-          flex-direction: column;
-          position: relative;
-          overflow-y: auto;
-          height: 100vh;
-          max-height: 100vh;
-          > div {
-            position: relative;
-          }
-          .ant-layout-footer {
-            position: absolute;
-            bottom: 0;
-            text-align: center;
-            width: 100%;
-            z-index: 0;
-            padding: 0px 50px;
-          }
-        `}
-      >
-        <header
-          className={css`
-            flex-shrink: 0;
-            height: var(--nb-header-height);
-            line-height: var(--nb-header-height);
-            background: transparent;
-            pointer-events: none;
-          `}
-        ></header>
+      {params.name && <Layout.Sider className={styles.sider} theme={'light'} ref={sideMenuRef}></Layout.Sider>}
+      <Layout.Content className={styles.main}>
+        <header className={styles.mainHeader}></header>
         <Outlet />
-        {/* {service.contentLoading ? render() : <Outlet />} */}
       </Layout.Content>
     </Layout>
   );

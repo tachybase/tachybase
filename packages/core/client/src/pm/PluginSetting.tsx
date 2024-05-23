@@ -1,12 +1,13 @@
-import { PageHeader } from '@ant-design/pro-layout';
-import { css } from '@emotion/css';
-import { Layout, Menu, Result } from 'antd';
-import _, { get } from 'lodash';
 import React, { createContext, useCallback, useMemo } from 'react';
+
+import { PageHeader } from '@ant-design/pro-layout';
+import { Layout, Menu, Result } from 'antd';
+import _ from 'lodash';
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useStyles } from './style';
+
 import { ADMIN_SETTINGS_PATH, PluginSettingsPageType, useApp } from '../application';
 import { useCompile } from '../schema-component';
+import { useStyles } from './style';
 
 export const SettingsCenterContext = createContext<any>({});
 SettingsCenterContext.displayName = 'SettingsCenterContext';

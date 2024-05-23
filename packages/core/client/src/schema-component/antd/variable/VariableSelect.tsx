@@ -1,7 +1,9 @@
-import { cx } from '@emotion/css';
-import { Cascader } from 'antd';
 import React, { useState } from 'react';
+
+import { Cascader } from 'antd';
+import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
+
 import { useToken } from '../__builtins__';
 import useStyles from './VariableSelect.style';
 import { XButton } from './XButton';

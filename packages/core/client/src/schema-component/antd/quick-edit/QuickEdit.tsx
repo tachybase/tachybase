@@ -1,16 +1,29 @@
-import { css } from '@emotion/css';
-import { FormItem } from '@tachybase/components';
-import { Field, createForm } from '@tachybase/schema';
-import { FormContext, RecursionField, observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useMemo, useRef } from 'react';
+import { FormItem } from '@tachybase/components';
+import { createForm, Field, FormContext, observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
+import { createStyles } from 'antd-style';
+
 import { useCollectionManager_deprecated } from '../../../collection-manager';
 import { StablePopover } from '../popover';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    overlay: css`
+      padding-top: 0;
+      .ant-popover-arrow {
+        display: none;
+      }
+    `,
+  };
+});
 
 export const Editable = observer(
   (props) => {
     const field: any = useField();
     const containerRef = useRef(null);
     const fieldSchema = useFieldSchema();
+    const { styles } = useStyles();
     const value = field.value;
     const schema: any = {
       name: fieldSchema.name,
@@ -51,12 +64,7 @@ export const Editable = observer(
           }
           trigger="click"
           placement={'bottomLeft'}
-          overlayClassName={css`
-            padding-top: 0;
-            .ant-popover-arrow {
-              display: none;
-            }
-          `}
+          overlayClassName={styles.overlay}
         >
           <div style={{ minHeight: 30, padding: '0 8px' }}>
             <FormContext.Provider value={form}>
