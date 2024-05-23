@@ -1,8 +1,9 @@
 import React from 'react';
-import { InputNumber, Select } from 'antd';
-import { css, useCompile, usePlugin } from '@tachybase/client';
-import WorkflowPlugin, { Instruction, JOB_STATUS } from '../..';
+import { useCompile } from '@tachybase/client';
 
+import { InputNumber, Select } from 'antd';
+
+import { Instruction, JOB_STATUS } from '../..';
 import { NAMESPACE } from '../../locale';
 
 const UnitOptions = [
@@ -26,10 +27,10 @@ function Duration({ value = 60000, onChange }) {
 
   return (
     <fieldset
-      className={css`
-        display: flex;
-        gap: 0.5em;
-      `}
+      style={{
+        display: 'flex',
+        gap: '0.5em',
+      }}
     >
       <InputNumber
         min={1}

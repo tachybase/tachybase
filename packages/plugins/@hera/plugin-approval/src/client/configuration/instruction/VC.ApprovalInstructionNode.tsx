@@ -1,7 +1,9 @@
-import { css, useCompile } from '@tachybase/client';
-import { Branch, NodeDefaultView, useFlowContext, useStyles } from '@tachybase/plugin-workflow/client';
-import { Tag } from 'antd';
 import React from 'react';
+import { useCompile } from '@tachybase/client';
+import { Branch, NodeDefaultView, useFlowContext, useStyles } from '@tachybase/plugin-workflow/client';
+
+import { Tag } from 'antd';
+
 import { APPROVAL_ACTION_STATUS, approvalStatusConfigObj } from '../../constants';
 
 // 审批节点组件
@@ -47,10 +49,10 @@ const BranchListComp = (props) => {
       controller={
         <Tag
           color={approvalStatusConfigObj[targetStatus].color}
-          className={css`
-            position: relative;
-            margin: 1rem 0 0 0;
-          `}
+          style={{
+            position: 'relative',
+            margin: '1rem 0 0 0',
+          }}
         >
           {compile(approvalStatusConfigObj[targetStatus].label)}
         </Tag>

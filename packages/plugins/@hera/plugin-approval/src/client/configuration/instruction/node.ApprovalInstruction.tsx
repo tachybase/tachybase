@@ -1,18 +1,19 @@
-import { ArrayItems } from '@tachybase/components';
+import React from 'react';
 import { css } from '@tachybase/client';
+import { ArrayItems } from '@tachybase/components';
 import { Instruction, RadioWithTooltip } from '@tachybase/plugin-workflow/client';
 import { uid } from '@tachybase/utils/client';
-import React from 'react';
+
 import { APPROVAL_ACTION_STATUS } from '../../constants';
 import { NAMESPACE } from '../../locale';
 import { AssigneesAddition } from './approval-config/VC.AssigneesAddition';
 import { AssigneesSelect } from './approval-config/VC.AssigneesSelect';
 import { ContentTooltip } from './approval-config/VC.ContentTooltip';
 import { NegotiationConfig } from './approval-config/VC.NegotiationConfig';
-import { ApproverInterfaceComponent } from './approver-interface/VC.ApproverInterface';
 import { SchemaConfigButtonApprover } from './approval-config/VC.SchemaConfigButtonApprover';
-import { ApprovalInstructionNode } from './VC.ApprovalInstructionNode';
+import { ApproverInterfaceComponent } from './approver-interface/VC.ApproverInterface';
 import { isApprovalReturnFunc } from './utils';
+import { ApprovalInstructionNode } from './VC.ApprovalInstructionNode';
 
 // 工作流节点 nodes - 人工处理->审批
 export class ApprovalInstruction extends Instruction {

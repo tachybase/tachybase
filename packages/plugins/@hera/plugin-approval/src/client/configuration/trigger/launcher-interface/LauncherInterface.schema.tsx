@@ -1,6 +1,7 @@
-import { SchemaComponent, css, parseCollectionName } from '@tachybase/client';
-import { useForm } from '@tachybase/schema';
 import React from 'react';
+import { css, parseCollectionName, SchemaComponent } from '@tachybase/client';
+import { useForm } from '@tachybase/schema';
+
 import { NAMESPACE } from '../../../locale';
 import { SchemaAddBlock } from './SchemaAddBlock.component';
 
