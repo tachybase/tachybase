@@ -11,7 +11,6 @@
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
-    "antd-style": "3.x",
     "async-mutex": "^0.3.2",
     "lodash": "4.17.21",
     "mysql2": "^2.3.3",

@@ -1,4 +1,4 @@
-import { createStyles } from 'antd-style';
+import { createStyles } from '@tachybase/client';
 
 const useStyles = createStyles(({ token, css }) => {
   return {
@@ -60,7 +60,7 @@ const useStyles = createStyles(({ token, css }) => {
        .horizontalScroll: {
         height: 1
         }
-  
+
       .verticalScroll: {
         overflow: hidden auto;
         width: 1rem;

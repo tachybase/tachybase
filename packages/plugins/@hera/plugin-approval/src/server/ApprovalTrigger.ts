@@ -5,7 +5,7 @@ import { parseCollectionName } from '@tachybase/data-source-manager';
 import { EXECUTION_STATUS, Trigger, toJSON, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 import { UiSchemaRepository } from '@nocobase/plugin-ui-schema-storage';
-import { getSummaryString } from './tools';
+import { getSummary } from './tools';
 
 const ExecutionStatusMap = {
   [EXECUTION_STATUS.RESOLVED]: APPROVAL_STATUS.APPROVED,
@@ -52,10 +52,11 @@ export default class ApprovalTrigger extends Trigger {
         data: toJSON(data),
         approvalId: approval.id,
         applicantRoleName: approval.applicantRoleName,
-        summaryString: getSummaryString({
+        summary: getSummary({
           summaryConfig: workflow.config.summary,
           data,
         }),
+        collectionName: approval.collectionName,
       },
       { transaction },
     );
@@ -65,14 +66,15 @@ export default class ApprovalTrigger extends Trigger {
     if (workflow.type !== ApprovalTrigger.TYPE) {
       return;
     }
-    const { approvalId, data, summaryString } = execution.context;
+    const { approvalId, data, summary, collectionName } = execution.context;
     const approvalExecution = await this.workflow.db.getRepository('approvalExecutions').create({
       values: {
         approvalId,
         executionId: execution.id,
         status: execution.status,
         snapshot: data,
-        summaryString: summaryString,
+        summary,
+        collectionName,
       },
       transaction,
     });
@@ -198,7 +200,10 @@ export default class ApprovalTrigger extends Trigger {
           // updatedById: currentUser.id,
           workflowId: workflow.id,
           workflowKey: workflow.key,
-          summaryString: '12,11,15',
+          summary: getSummary({
+            summaryConfig: workflow.config.summary,
+            data,
+          }),
         },
         context,
       });
@@ -231,7 +236,6 @@ export default class ApprovalTrigger extends Trigger {
           const { repository } = this.workflow.app.dataSourceManager.dataSources
             .get(dataSourceName)
             .collectionManager.getCollection(collectionName);
-          const curretSummaryConfig = workflow.config?.summary || [];
           dataCurrent = await repository.findOne({
             filterByTk: data.id,
             appends: [...workflow.config.appends],
@@ -268,7 +272,7 @@ export default class ApprovalTrigger extends Trigger {
             workflowId: workflow.id,
             workflowKey: workflow.key,
             applicantRoleName: context.state.currentRole,
-            summaryString: getSummaryString({
+            summary: getSummary({
               summaryConfig: workflow.config.summary,
               data: dataCurrent,
             }),

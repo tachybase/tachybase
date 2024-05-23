@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'antd-style';
+import { createGlobalStyle } from '@tachybase/client';
 
 const GlobalStyle = createGlobalStyle`
   .rbc-overlay {

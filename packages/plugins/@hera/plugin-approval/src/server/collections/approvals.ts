@@ -62,9 +62,9 @@ export default defineCollection({
       defaultValue: {},
     },
     {
-      type: 'string',
-      name: 'summaryString',
-      defaultValue: '',
+      type: 'jsonb',
+      name: 'summary',
+      defaultValue: {},
     },
     {
       type: 'belongsTo',

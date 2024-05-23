@@ -1,5 +1,5 @@
 import { TinyColor } from '@ctrl/tinycolor';
-import { createStyles } from 'antd-style';
+import { createStyles } from '@tachybase/client';
 
 const useStyles = createStyles(({ token, css }) => {
   const colorFillAlterSolid = new TinyColor(token.colorFillAlter)

@@ -1,7 +1,7 @@
 import { RightOutlined } from '@ant-design/icons';
 import { Plugin } from '@tachybase/client';
 import { Button, Tooltip } from 'antd';
-import { createStyles } from 'antd-style';
+import { createStyles } from '@tachybase/client';
 import React, { lazy } from 'react';
 import { NAMESPACE } from '../locale';
 

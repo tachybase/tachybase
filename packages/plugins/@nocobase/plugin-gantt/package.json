@@ -16,7 +16,6 @@
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
-    "antd-style": "3.4.5",
     "lodash": "4.17.21",
     "react-i18next": "^11.15.1"
   },
