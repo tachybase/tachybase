@@ -1,6 +1,6 @@
 {
   "name": "@nocobase/plugin-notifications",
-  "version": "0.21.32",
+  "version": "0.21.33",
   "description": "",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
