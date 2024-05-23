@@ -1,13 +1,13 @@
 import { Plugin } from '@tachybase/client';
 import { tval } from '../../locale';
-import { PluginKitApprovalCommon } from '../approval-common/plugin';
+import { KitApprovalCommon } from '../approval-common/plugin';
 import { RecordApprovalsDecorator } from './RecordApprovals.decorator';
 import { RecordApprovalsInitializer } from './RecordApprovals.initializer';
 import { RecordApprovals } from './RecordApprovals.view';
 
-export class PluginKitApprovalRecordBlock extends Plugin {
+export class KitApprovalRecordBlock extends Plugin {
   async afterAdd() {
-    this.pm.add(PluginKitApprovalCommon);
+    this.pm.add(KitApprovalCommon);
   }
   async beforeLoad() {}
   async load() {
