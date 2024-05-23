@@ -1,10 +1,30 @@
-import { css } from '@emotion/css';
+import React, {
+  createContext,
+  FC,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  // @ts-ignore
+  useTransition as useReactTransition,
+  useState,
+} from 'react';
 import { ArrayCollapse, ArrayItems, FormItem, FormLayout, Input } from '@tachybase/components';
-import { Field, GeneralField, createForm } from '@tachybase/schema';
-import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import {
+  createForm,
+  Field,
+  GeneralField,
+  ISchema,
+  Schema,
+  SchemaOptionsContext,
+  uid,
+  useField,
+  useFieldSchema,
+  useForm,
+} from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
-import type { DropdownProps } from 'antd';
+
 import {
   Alert,
   App,
@@ -20,44 +40,37 @@ import {
   ModalFuncProps,
   Space,
   Switch,
+  type DropdownProps,
 } from 'antd';
+import { createStyles } from 'antd-style';
 import _, { cloneDeep, get, set } from 'lodash';
-import React, {
-  FC,
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  // @ts-ignore
-  useTransition as useReactTransition,
-  useState,
-} from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { Router } from 'react-router-dom';
+
 import {
-  APIClientProvider,
   ActionContextProvider,
+  APIClientProvider,
+  ApplicationContext,
   AssociationOrCollectionProvider,
   CollectionFieldOptions_deprecated,
   CollectionRecordProvider,
+  createDesignable,
   DataSourceApplicationProvider,
   Designable,
+  findFormBlock,
   FormDialog,
   FormProvider,
   RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentContext,
   SchemaComponentOptions,
-  createDesignable,
-  findFormBlock,
   useAPIClient,
+  useApp,
   useBlockRequestContext,
+  useCollection_deprecated,
   useCollectionManager_deprecated,
   useCollectionRecord,
-  useCollection_deprecated,
   useCompile,
   useDataBlockProps,
   useDesignable,
@@ -67,8 +80,6 @@ import {
   useRecord,
   useSchemaSettingsItem,
   useSortFields,
-  useApp,
-  ApplicationContext,
 } from '..';
 import {
   BlockRequestContext_deprecated,
@@ -78,8 +89,8 @@ import {
   useTableBlockContext,
 } from '../block-provider';
 import {
-  FormActiveFieldsProvider,
   findFilterTargets,
+  FormActiveFieldsProvider,
   updateFilterTargets,
   useFormActiveFields,
 } from '../block-provider/hooks';
@@ -142,7 +153,30 @@ interface SchemaSettingsProviderProps {
   template?: any;
   collectionName?: any;
   designer?: any;
+  children: React.ReactNode;
 }
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    menu: css`
+      .ant-dropdown-menu-item-group-list {
+        max-height: 300px;
+        overflow-y: auto;
+      }
+    `,
+    modal: css`
+      // screen > 576px
+      @media (min-width: 576px) {
+        min-width: 520px;
+      }
+
+      // screen <= 576px
+      @media (max-width: 576px) {
+        min-width: 320px;
+      }
+    `,
+  };
+});
 
 export const SchemaSettingsProvider: React.FC<SchemaSettingsProviderProps> = (props) => {
   const { children, fieldSchema, ...others } = props;
@@ -158,6 +192,7 @@ export const SchemaSettingsProvider: React.FC<SchemaSettingsProviderProps> = (pr
 
 export const SchemaSettingsDropdown: React.FC<SchemaSettingsProps> = (props) => {
   const { title, dn, ...others } = props;
+  const { styles } = useStyles();
   const [visible, setVisible] = useState(false);
   const { Component, getMenuItems } = useMenuItem();
   const [, startTransition] = useReactTransition();
@@ -180,12 +215,7 @@ export const SchemaSettingsDropdown: React.FC<SchemaSettingsProps> = (props) => 
       <Dropdown
         open={visible}
         onOpenChange={changeMenu}
-        overlayClassName={css`
-          .ant-dropdown-menu-item-group-list {
-            max-height: 300px;
-            overflow-y: auto;
-          }
-        `}
+        overlayClassName={styles.menu}
         menu={{ items, style: { maxHeight: dropdownMaxHeight, overflowY: 'auto' } }}
       >
         <div data-testid={props['data-testid']}>{typeof title === 'string' ? <span>{title}</span> : title}</div>
@@ -978,6 +1008,7 @@ export const SchemaSettingsModalItem: FC<SchemaSettingsModalItemProps> = (props)
     ...others
   } = props;
   const options = useContext(SchemaOptionsContext);
+  const { styles } = useStyles();
   const collection = useCollection_deprecated();
   const apiClient = useAPIClient();
   const { theme } = useGlobalTheme();
@@ -1025,20 +1056,7 @@ export const SchemaSettingsModalItem: FC<SchemaSettingsModalItemProps> = (props)
                                 association={association}
                               >
                                 <SchemaComponentOptions scope={options.scope} components={options.components}>
-                                  <FormLayout
-                                    layout={'vertical'}
-                                    className={css`
-                                      // screen > 576px
-                                      @media (min-width: 576px) {
-                                        min-width: 520px;
-                                      }
-
-                                      // screen <= 576px
-                                      @media (max-width: 576px) {
-                                        min-width: 320px;
-                                      }
-                                    `}
-                                  >
+                                  <FormLayout layout={'vertical'} className={styles.modal}>
                                     <APIClientProvider apiClient={apiClient}>
                                       <ConfigProvider locale={locale}>
                                         <SchemaComponent components={components} scope={scope} schema={schema} />
@@ -1473,12 +1491,6 @@ export function SchemaSettingsEnableChildCollections(props) {
     />
   );
 }
-
-export const defaultInputStyle = css`
-  & > .nb-form-item {
-    flex: 1;
-  }
-`;
 
 export const findParentFieldSchema = (fieldSchema: Schema) => {
   let parent = fieldSchema.parent;

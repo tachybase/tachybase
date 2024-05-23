@@ -1,10 +1,12 @@
-import { UserOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
-import { error } from '@tachybase/utils/client';
-import { App, Dropdown, Menu, MenuProps } from 'antd';
 import React, { createContext, useCallback, useMemo as useEffect, useState } from 'react';
+import { error } from '@tachybase/utils/client';
+
+import { UserOutlined } from '@ant-design/icons';
+import { App, Dropdown, Menu, MenuProps } from 'antd';
+import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { useACLRoleContext, useAPIClient, useCurrentUserContext, useToken } from '..';
 import { useChangePassword } from './ChangePassword';
 import { useCurrentUserSettingsMenu } from './CurrentUserSettingsMenuProvider';
@@ -164,22 +166,37 @@ export const SettingsMenu: React.FC<{
 export const DropdownVisibleContext = createContext(null);
 DropdownVisibleContext.displayName = 'DropdownVisibleContext';
 
+const useStyles = createStyles(({ css, token }) => {
+  return {
+    dropdown: css`
+      display: inline-block;
+      vertical-align: top;
+      width: 46px;
+      height: 46px;
+      &:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+      }
+    `,
+    button: css`
+      max-width: 160px;
+      overflow: hidden;
+      display: inline-block;
+      line-height: 12px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      padding: '16px';
+      color: ${token.colorTextHeaderMenu};
+    `,
+  };
+});
+
 export const CurrentUser = () => {
   const [visible, setVisible] = useState(false);
-  const { token } = useToken();
+  const { styles } = useStyles();
 
   return (
-    <div
-      className={css`
-        display: inline-block;
-        vertical-align: top;
-        width: 46px;
-        height: 46px;
-        &:hover {
-          background: rgba(255, 255, 255, 0.1) !important;
-        }
-      `}
-    >
+    <div className={styles.dropdown}>
       <DropdownVisibleContext.Provider value={{ visible, setVisible }}>
         <Dropdown
           open={visible}
@@ -190,18 +207,7 @@ export const CurrentUser = () => {
             return <SettingsMenu />;
           }}
         >
-          <span
-            data-testid="user-center-button"
-            className={css`
-              max-width: 160px;
-              overflow: hidden;
-              display: inline-block;
-              line-height: 12px;
-              white-space: nowrap;
-              text-overflow: ellipsis;
-            `}
-            style={{ cursor: 'pointer', padding: '16px', color: token.colorTextHeaderMenu }}
-          >
+          <span data-testid="user-center-button" className={styles.button}>
             <UserOutlined />
           </span>
         </Dropdown>

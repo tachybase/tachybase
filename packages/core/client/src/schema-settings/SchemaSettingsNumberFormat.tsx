@@ -1,8 +1,9 @@
-import { css } from '@emotion/css';
-import { ISchema, Schema, useField, useForm } from '@tachybase/schema';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { ISchema, Schema, useField, useForm } from '@tachybase/schema';
+
 import { Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+
 import { useCollectionManager_deprecated, useDesignable } from '..';
 import { SchemaSettingsModalItem } from './SchemaSettings';
 

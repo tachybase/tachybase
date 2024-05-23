@@ -1,6 +1,7 @@
+import React, { createContext, ReactNode, useCallback, useContext, useRef } from 'react';
+
 import { MenuProps } from 'antd';
 import _ from 'lodash';
-import React, { createContext, ReactNode, useCallback, useContext, useRef } from 'react';
 
 type Item = MenuProps['items'][0] & {
   /** 在清空数组时，如果该字段为 true 则保留该选项 */
@@ -35,7 +36,7 @@ export const useMenuItem = () => {
   const renderItems = useRef<() => JSX.Element>(null);
   const shouldRerender = useRef(false);
 
-  const Component = useCallback(({ limitCount }) => {
+  const Component = useCallback(({ limitCount }: { limitCount?: number }) => {
     if (!shouldRerender.current) {
       return null;
     }

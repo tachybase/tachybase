@@ -1,5 +1,6 @@
-import { BlockInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
+import { BlockInitializer, useSchemaInitializerItem } from '@tachybase/client';
+
 import { tval } from '../../locale';
 
 export const BulkWorkflowActionInitializer = () => {

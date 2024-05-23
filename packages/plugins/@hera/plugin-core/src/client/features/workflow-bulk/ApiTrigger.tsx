@@ -1,14 +1,14 @@
-import { useCompile, useCollectionManager_deprecated, useCollectionDataSource } from '@tachybase/client';
-import { lang, tval } from '../../locale';
-
+import { useCollectionDataSource, useCollectionManager_deprecated, useCompile } from '@tachybase/client';
 import {
-  Trigger,
-  CollectionBlockInitializer,
-  getCollectionFieldOptions,
-  FieldsSelect,
-  RadioWithTooltip,
   CheckboxGroupWithTooltip,
+  CollectionBlockInitializer,
+  FieldsSelect,
+  getCollectionFieldOptions,
+  RadioWithTooltip,
+  Trigger,
 } from '@tachybase/plugin-workflow/client';
+
+import { lang, tval } from '../../locale';
 
 const enum ACTION_TYPES {
   CREATE = 'create',

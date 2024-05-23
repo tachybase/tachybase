@@ -7,6 +7,7 @@ import {
   useSchemaToolbar,
 } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
 
 const schemaSettingsItems: SchemaSettingsItemType[] = [

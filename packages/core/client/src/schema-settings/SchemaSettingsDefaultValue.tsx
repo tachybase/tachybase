@@ -1,14 +1,17 @@
-import { Field } from '@tachybase/schema';
-import { ISchema, Schema, useField, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
 import React, { useCallback, useMemo } from 'react';
+import { ArrayCollapse, FormLayout } from '@tachybase/components';
+import { Field, ISchema, Schema, useField, useFieldSchema } from '@tachybase/schema';
+
+import { createStyles } from 'antd-style';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import {
   FormProvider,
   SchemaComponent,
   useActionContext,
-  useCollectionManager_deprecated,
   useCollection_deprecated,
+  useCollectionManager_deprecated,
   useDesignable,
   useRecord,
 } from '..';
@@ -17,18 +20,23 @@ import { useCollectionFilterOptionsV2 } from '../collection-manager/action-hooks
 import { FlagProvider, useFlag } from '../flag-provider';
 import { useLocalVariables, useVariables } from '../variables';
 import { isVariable } from '../variables/utils/isVariable';
-import { VariableInput, getShouldChange } from './VariableInput/VariableInput';
+import { findParentFieldSchema, getFieldDefaultValue, SchemaSettingsModalItem } from './SchemaSettings';
 import { Option } from './VariableInput/type';
 import { formatVariableScop } from './VariableInput/utils/formatVariableScop';
-import {
-  findParentFieldSchema,
-  defaultInputStyle,
-  getFieldDefaultValue,
-  SchemaSettingsModalItem,
-} from './SchemaSettings';
-import { ArrayCollapse, FormLayout } from '@tachybase/components';
+import { getShouldChange, VariableInput } from './VariableInput/VariableInput';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    defaultInput: css`
+      & > .nb-form-item {
+        flex: 1;
+      }
+    `,
+  };
+});
 
 export const SchemaSettingsDefaultValue = function DefaultValueConfigure(props: { fieldSchema?: Schema }) {
+  const { styles } = useStyles();
   const currentSchema = useFieldSchema();
   const fieldSchema = props?.fieldSchema ?? currentSchema;
   const field: Field = useField();
@@ -112,7 +120,7 @@ export const SchemaSettingsDefaultValue = function DefaultValueConfigure(props: 
             contextCollectionName: isAllowContextVariable && tableCtx.collection,
             schema: collectionField?.uiSchema,
             targetFieldSchema: fieldSchema,
-            className: defaultInputStyle,
+            className: styles.defaultInput,
             form,
             record,
             returnScope,
@@ -191,6 +199,7 @@ export const SchemaSettingsDefaultValue = function DefaultValueConfigure(props: 
     tableCtx.collection,
     targetField,
     variables,
+    styles,
   ]);
 
   const handleSubmit: (values: any) => void = useCallback(
