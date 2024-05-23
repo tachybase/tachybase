@@ -1,9 +1,10 @@
+import React, { useEffect, useMemo, useState } from 'react';
 import { ArrayItems, FormItem } from '@tachybase/components';
 import {
-  FormProvider,
   connect,
   createForm,
   createSchemaField,
+  FormProvider,
   observer,
   onFormValuesChange,
   uid,
@@ -11,13 +12,26 @@ import {
   useFieldSchema,
 } from '@tachybase/schema';
 import { fuzzysearch } from '@tachybase/utils/client';
+
 import { Input, Space } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
+import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
+
 import { CustomCascader, SchemaComponent } from '../..';
-import { css, useAPIClient, useCollection, useRequest } from '../../..';
+import { useAPIClient } from '../../..';
 import { mergeFilter } from '../../../filter-provider/utils';
 import useServiceOptions, { useAssociationFieldContext } from './hooks';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    space: css`
+      display: flex;
+      > .ant-space-item {
+        width: 100%;
+      }
+    `,
+  };
+});
 
 const SchemaField = createSchemaField({
   components: {
@@ -44,6 +58,7 @@ const Cascade = connect((props) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [chang, setChang] = useState(false);
   const [dataList, setDataList] = useState({});
+  const { styles } = useStyles();
   useEffect(() => {
     const propsValue = props.value || fieldSchema['x-component-props'].value;
     if (!chang && propsValue) {
@@ -154,15 +169,7 @@ const Cascade = connect((props) => {
     return fuzzysearch(inputValue, path.map((option) => option.label || '').join(''));
   };
   return (
-    <Space
-      wrap
-      className={css`
-        display: flex;
-        > .ant-space-item {
-          width: 100%;
-        }
-      `}
-    >
+    <Space wrap className={styles.space}>
       <CustomCascader
         style={{ width: '100%' }}
         showSearch={{ filter }}

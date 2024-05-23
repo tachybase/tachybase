@@ -1,15 +1,28 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
+import { createStyles, InputNumber } from '@tachybase/client';
+
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { InputNumber, css } from '@tachybase/client';
 import { Radio, Tooltip } from 'antd';
-import { useCallback } from 'react';
+
 import { useTranslation } from '../../../locale';
+
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      .ant-radio-group {
+        .anticon {
+          margin-left: 0.5em;
+        }
+      }
+    `,
+  };
+});
 
 // 协商模式
 export const NegotiationConfig = ({ value, onChange }) => {
   const { t } = useTranslation();
   const percentSign = value > 0 && value < 1 ? '%' : value;
+  const { styles } = useStyles();
   const onChangeRadio = useCallback(
     ({ target }) => {
       if (target.value !== percentSign) {
@@ -25,15 +38,7 @@ export const NegotiationConfig = ({ value, onChange }) => {
     [onChange],
   );
   return (
-    <fieldset
-      className={css`
-        .ant-radio-group {
-          .anticon {
-            margin-left: 0.5em;
-          }
-        }
-      `}
-    >
+    <fieldset className={styles.container}>
       <Radio.Group key="radio" value={percentSign} onChange={onChangeRadio}>
         <Radio key="0" value="0">
           <Tooltip title={t('The approval or rejection by anyone of them is the result.')} placement="bottom">
