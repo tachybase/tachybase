@@ -18,7 +18,7 @@ describe('remotePlugins', () => {
       class DemoPlugin extends Plugin {}
 
       const plugins = {
-        '@nocobase/demo': DemoPlugin,
+        '@tachybase/demo': DemoPlugin,
       };
 
       const mockDefine: any = vi.fn();
@@ -27,16 +27,16 @@ describe('remotePlugins', () => {
       defineDevPlugins(plugins);
 
       expect(mockDefine).toBeCalledTimes(1);
-      expect(mockDefine).toBeCalledWith('@nocobase/demo/client', expect.any(Function));
+      expect(mockDefine).toBeCalledWith('@tachybase/demo/client', expect.any(Function));
     });
 
     it('should return Plugin', () => {
       class DemoPlugin extends Plugin {}
       const plugins = {
-        '@nocobase/demo': DemoPlugin,
+        '@tachybase/demo': DemoPlugin,
       };
       const define: any = function (packageName: string, load: any) {
-        expect(packageName).toEqual('@nocobase/demo/client');
+        expect(packageName).toEqual('@tachybase/demo/client');
         expect(load()).toEqual(DemoPlugin);
       };
       window.define = define;
@@ -50,17 +50,17 @@ describe('remotePlugins', () => {
       const mockDefine: any = vi.fn();
       window.define = mockDefine;
 
-      definePluginClient('@nocobase/demo');
+      definePluginClient('@tachybase/demo');
 
       expect(mockDefine).toBeCalledTimes(1);
-      expect(mockDefine).toBeCalledWith('@nocobase/demo/client', ['exports', '@nocobase/demo'], expect.any(Function));
+      expect(mockDefine).toBeCalledWith('@tachybase/demo/client', ['exports', '@tachybase/demo'], expect.any(Function));
     });
 
     it('should proxy', () => {
       const mockDefine: any = vi.fn();
       window.define = mockDefine;
 
-      definePluginClient('@nocobase/demo');
+      definePluginClient('@tachybase/demo');
 
       const exports: any = {
         a: 'a',
@@ -86,7 +86,7 @@ describe('remotePlugins', () => {
     };
     const pluginData: any = [
       {
-        packageName: '@nocobase/demo',
+        packageName: '@tachybase/demo',
         url: 'https://demo.com',
       },
     ];
@@ -96,7 +96,7 @@ describe('remotePlugins', () => {
     expect(requirejs.requirejs.config).toBeCalledWith({
       waitSeconds: 120,
       paths: {
-        '@nocobase/demo': 'https://demo.com',
+        '@tachybase/demo': 'https://demo.com',
       },
     });
   });
@@ -105,8 +105,8 @@ describe('remotePlugins', () => {
     it('should resolve', () => {
       const pluginData: any = [
         {
-          name: '@nocobase/demo',
-          packageName: '@nocobase/demo',
+          name: '@tachybase/demo',
+          packageName: '@tachybase/demo',
           url: 'https://demo.com',
         },
       ];
@@ -121,14 +121,14 @@ describe('remotePlugins', () => {
       process(...pluginModules);
 
       expect(resolve).toBeCalledTimes(1);
-      expect(resolve).toBeCalledWith([['@nocobase/demo', 'default']]);
+      expect(resolve).toBeCalledWith([['@tachybase/demo', 'default']]);
     });
 
     it('should filter', () => {
       const pluginData: any = [
         {
-          name: '@nocobase/demo',
-          packageName: '@nocobase/demo',
+          name: '@tachybase/demo',
+          packageName: '@tachybase/demo',
           url: 'https://demo.com',
         },
       ];
@@ -157,15 +157,15 @@ describe('remotePlugins', () => {
       requirejs.requirejs.requirejs = vi.fn();
       const pluginData: any = [
         {
-          name: '@nocobase/demo',
-          packageName: '@nocobase/demo',
+          name: '@tachybase/demo',
+          packageName: '@tachybase/demo',
           url: 'https://demo.com',
         },
       ];
       const mockDefine: any = vi.fn();
       window.define = mockDefine;
       const plugins = await getRemotePlugins(requirejs, pluginData);
-      expect(plugins).toEqual([['@nocobase/demo', 'default']]);
+      expect(plugins).toEqual([['@tachybase/demo', 'default']]);
     });
   });
 
@@ -185,13 +185,13 @@ describe('remotePlugins', () => {
       requirejs.requirejs.requirejs = vi.fn();
       const pluginData: any = [
         {
-          name: '@nocobase/demo',
-          packageName: '@nocobase/demo',
+          name: '@tachybase/demo',
+          packageName: '@tachybase/demo',
           url: 'https://demo1.com',
         },
         {
-          name: '@nocobase/demo2',
-          packageName: '@nocobase/demo2',
+          name: '@tachybase/demo2',
+          packageName: '@tachybase/demo2',
           url: 'https://demo2.com',
         },
       ];
@@ -200,16 +200,16 @@ describe('remotePlugins', () => {
 
       const plugins = await getPlugins({ requirejs, pluginData });
       expect(plugins).toEqual([
-        ['@nocobase/demo', 'default'],
-        ['@nocobase/demo2', 'default'],
+        ['@tachybase/demo', 'default'],
+        ['@tachybase/demo2', 'default'],
       ]);
       expect(remoteFn).toBeCalledTimes(1);
       expect(mockDefine).toBeCalledTimes(2);
       expect(requirejs.requirejs.config).toBeCalledWith({
         waitSeconds: 120,
         paths: {
-          '@nocobase/demo': 'https://demo1.com',
-          '@nocobase/demo2': 'https://demo2.com',
+          '@tachybase/demo': 'https://demo1.com',
+          '@tachybase/demo2': 'https://demo2.com',
         },
       });
     });
@@ -229,13 +229,13 @@ describe('remotePlugins', () => {
       requirejs.requirejs.requirejs = vi.fn();
       const pluginData: any = [
         {
-          name: '@nocobase/demo',
-          packageName: '@nocobase/demo',
+          name: '@tachybase/demo',
+          packageName: '@tachybase/demo',
           url: 'https://demo1.com',
         },
         {
-          name: '@nocobase/demo2',
-          packageName: '@nocobase/demo2',
+          name: '@tachybase/demo2',
+          packageName: '@tachybase/demo2',
           url: 'https://demo2.com',
         },
       ];
@@ -250,8 +250,8 @@ describe('remotePlugins', () => {
         }) as any,
       });
       expect(plugins).toEqual([
-        ['@nocobase/demo', 'default'],
-        ['@nocobase/demo2', 'default'],
+        ['@tachybase/demo', 'default'],
+        ['@tachybase/demo2', 'default'],
       ]);
       expect(remoteFn).toBeCalledTimes(0);
       expect(mockDefine).toBeCalledTimes(2);
@@ -273,13 +273,13 @@ describe('remotePlugins', () => {
       requirejs.requirejs.requirejs = vi.fn();
       const pluginData: any = [
         {
-          name: '@nocobase/demo',
-          packageName: '@nocobase/demo',
+          name: '@tachybase/demo',
+          packageName: '@tachybase/demo',
           url: 'https://demo1.com',
         },
         {
-          name: '@nocobase/demo2',
-          packageName: '@nocobase/demo2',
+          name: '@tachybase/demo2',
+          packageName: '@tachybase/demo2',
           url: 'https://demo2.com',
         },
       ];
@@ -290,22 +290,22 @@ describe('remotePlugins', () => {
         requirejs,
         pluginData,
         devDynamicImport: ((packageName) => {
-          if (packageName === '@nocobase/demo') {
+          if (packageName === '@tachybase/demo') {
             return Promise.resolve({ default: 'default' });
           }
           return Promise.resolve(null);
         }) as any,
       });
       expect(plugins).toEqual([
-        ['@nocobase/demo', 'default'],
-        ['@nocobase/demo2', 'default'],
+        ['@tachybase/demo', 'default'],
+        ['@tachybase/demo2', 'default'],
       ]);
       expect(remoteFn).toBeCalled();
       expect(mockDefine).toBeCalledTimes(2);
       expect(requirejs.requirejs.config).toBeCalledWith({
         waitSeconds: 120,
         paths: {
-          '@nocobase/demo2': 'https://demo2.com',
+          '@tachybase/demo2': 'https://demo2.com',
         },
       });
     });

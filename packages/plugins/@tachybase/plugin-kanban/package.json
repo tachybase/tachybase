@@ -1,0 +1,28 @@
+{
+  "name": "@tachybase/plugin-kanban",
+  "displayName": "Block: Kanban",
+  "version": "0.21.34",
+  "description": "Provides kanban block.",
+  "keywords": [
+    "Blocks"
+  ],
+  "license": "Apache-2.0",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "^5.3.6",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "antd": "5.16.1",
+    "classnames": "^2.3.1",
+    "lodash": "4.17.21",
+    "react-beautiful-dnd": "^13.1.0",
+    "react-i18next": "^11.15.1"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "提供看板区块。",
+  "displayName.zh-CN": "区块：看板"
+}

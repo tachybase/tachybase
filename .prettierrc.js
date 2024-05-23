@@ -7,13 +7,13 @@ module.exports = {
     '^react$',
     '<BUILTIN_MODULES>', // Node.js built-in modules
     '^@tachybase/(.*)$',
-    '^@nocobase/(.*)$',
     '',
     '<THIRD_PARTY_MODULES>', // Imports not matched by other special words or groups.
     '',
     '^[.]', // relative imports
   ],
   importOrderTypeScriptVersion: '5.4.5',
+  importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
   overrides: [
     {
       files: '.prettierrc',

@@ -1,15 +1,17 @@
 import { Context } from '@tachybase/actions';
-import { QueryTypes } from 'sequelize';
-import { RecordPdfService } from '../services/record-pdf-service';
-import { SystemSettingService, SqlLoader } from '@hera/plugin-core';
-import { Action, Controller, Inject } from '@tachybase/utils';
-import { Movement } from '../../utils/constants';
-import _ from 'lodash';
-import { FilterParser, Repository } from '@tachybase/database';
-import { CollectionRepository } from '@nocobase/plugin-collection-manager';
 import { Cache } from '@tachybase/cache';
-import getStream from 'get-stream';
+import { FilterParser, Repository } from '@tachybase/database';
+import { CollectionRepository } from '@tachybase/plugin-collection-manager';
+import { Action, Controller, Inject } from '@tachybase/utils';
+
+import { SqlLoader, SystemSettingService } from '@hera/plugin-core';
 import { stringify } from 'flatted';
+import getStream from 'get-stream';
+import _ from 'lodash';
+import { QueryTypes } from 'sequelize';
+
+import { Movement } from '../../utils/constants';
+import { RecordPdfService } from '../services/record-pdf-service';
 
 @Controller('records')
 export class RecordPreviewController {
@@ -239,6 +241,7 @@ export class RecordPreviewController {
       if (Buffer.isBuffer(result)) {
         ctx.body = result;
       } else {
+        // @ts-ignore
         ctx.body = Buffer.from(result.data);
       }
     } else {

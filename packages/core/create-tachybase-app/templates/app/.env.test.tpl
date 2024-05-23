@@ -16,7 +16,7 @@ DB_STORAGE=storage/db/nocobase-test.sqlite
 # DB_PASSWORD=nocobase
 # DB_LOGGING=on
 
-INIT_ROOT_EMAIL=admin@nocobase.com
+INIT_ROOT_EMAIL=admin@tachybase.com
 INIT_ROOT_PASSWORD=admin123
 INIT_ROOT_NICKNAME=Super Admin
 INIT_ROOT_USERNAME=nocobase

@@ -1,3 +1,3 @@
-import { defineConfig } from '@nocobase/test/e2e';
+import { defineConfig } from '@tachybase/test/e2e';
 
 export default defineConfig();

@@ -1,18 +1,20 @@
-import { SystemLogger, createSystemLogger, getLoggerFilePath } from '@tachybase/logger';
-import { Registry, Toposort, ToposortOptions, uid } from '@tachybase/utils';
-import { createStoragePluginsSymlink } from '@tachybase/utils/plugin-symlink';
-import { Command } from 'commander';
-import compression from 'compression';
 import { randomUUID } from 'crypto';
 import { EventEmitter } from 'events';
 import fs from 'fs';
 import http, { IncomingMessage, ServerResponse } from 'http';
-import compose from 'koa-compose';
 import { promisify } from 'node:util';
 import { resolve } from 'path';
+import { parse } from 'url';
+import { createSystemLogger, getLoggerFilePath, SystemLogger } from '@tachybase/logger';
+import { Registry, Toposort, ToposortOptions, uid } from '@tachybase/utils';
+import { createStoragePluginsSymlink } from '@tachybase/utils/plugin-symlink';
+
+import { Command } from 'commander';
+import compression from 'compression';
+import compose from 'koa-compose';
 import qs from 'qs';
 import handler from 'serve-handler';
-import { parse } from 'url';
+
 import { AppSupervisor } from '../app-supervisor';
 import { ApplicationOptions } from '../application';
 import { getPackageDirByExposeUrl, getPackageNameByExposeUrl } from '../plugin-manager';
@@ -185,14 +187,14 @@ export class Gateway extends EventEmitter {
       });
     }
 
-    // pathname example: /static/plugins/@nocobase/plugins-acl/README.md
+    // pathname example: /static/plugins/@tachybase/plugins-acl/README.md
     // protect server files
     if (pathname.startsWith(PLUGIN_STATICS_PATH) && !pathname.includes('/server/')) {
       await compress(req, res);
       const packageName = getPackageNameByExposeUrl(pathname);
-      // /static/plugins/@nocobase/plugins-acl/README.md => /User/projects/nocobase/plugins/acl
+      // /static/plugins/@tachybase/plugins-acl/README.md => /User/projects/nocobase/plugins/acl
       const publicDir = getPackageDirByExposeUrl(pathname);
-      // /static/plugins/@nocobase/plugins-acl/README.md => README.md
+      // /static/plugins/@tachybase/plugins-acl/README.md => README.md
       const destination = pathname.replace(PLUGIN_STATICS_PATH, '').replace(packageName, '');
       return handler(req, res, {
         public: publicDir,

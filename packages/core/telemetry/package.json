@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/telemetry",
-  "version": "0.21.33",
+  "version": "0.21.34",
   "description": "nocobase telemetry library",
   "repository": {
     "type": "git",

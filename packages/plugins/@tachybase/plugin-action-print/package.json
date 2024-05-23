@@ -1,0 +1,24 @@
+{
+  "name": "@tachybase/plugin-action-print",
+  "displayName": "Action: Print",
+  "version": "0.21.34",
+  "description": "Calls the browser's print function to print a record.",
+  "keywords": [
+    "Actions"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/action-print",
+  "license": "Apache-2.0",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "react-to-print": "^2.14.7"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "调用浏览器的打印功能实现单条数据的打印。",
+  "displayName.zh-CN": "操作：打印",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-print"
+}

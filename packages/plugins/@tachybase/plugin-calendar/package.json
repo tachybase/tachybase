@@ -1,0 +1,43 @@
+{
+  "name": "@tachybase/plugin-calendar",
+  "displayName": "Calendar",
+  "version": "0.21.34",
+  "description": "Provides callendar collection template and block for managing date data, typically for date/time related information such as events, appointments, tasks, and so on.",
+  "keywords": [
+    "Collections",
+    "Blocks"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/calendar",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nocobase/nocobase.git",
+    "directory": "packages/plugins/calendar"
+  },
+  "license": "Apache-2.0",
+  "main": "./dist/server/index.js",
+  "types": "./dist/server/index.d.ts",
+  "devDependencies": {
+    "@ant-design/icons": "~5.3.6",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "antd": "5.16.1",
+    "cron-parser": "4.4.0",
+    "dayjs": "^1.11.8",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-big-calendar": "^1.8.1",
+    "react-i18next": "^11.15.1",
+    "react-js-cron": "^3.1.0",
+    "solarlunar-es": "^1.0.9"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "提供日历数据表模板和区块，用于管理日期数据，通常用于事件、约会、任务等与日期/时间相关的信息。",
+  "displayName.zh-CN": "日历",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/calendar"
+}

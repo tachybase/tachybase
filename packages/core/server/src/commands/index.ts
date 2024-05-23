@@ -1,4 +1,5 @@
 import Application from '../application';
+import consoleCommand from './console';
 import createMigration from './create-migration';
 import dbAuth from './db-auth';
 import dbClean from './db-clean';
@@ -11,7 +12,7 @@ import restart from './restart';
 import start from './start';
 import stop from './stop';
 import upgrade from './upgrade';
-import consoleCommand from './console';
+
 export function registerCli(app: Application) {
   consoleCommand(app);
   dbAuth(app);
@@ -28,7 +29,7 @@ export function registerCli(app: Application) {
   start(app);
   refresh(app);
 
-  // development only with @nocobase/cli
+  // development only with @tachybase/cli
   app.command('build').argument('[packages...]');
   app.command('clean');
   app.command('dev').usage('[options]').option('-p, --port [port]').option('--client').option('--server');

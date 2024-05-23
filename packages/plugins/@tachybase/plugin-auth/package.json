@@ -1,0 +1,32 @@
+{
+  "name": "@tachybase/plugin-auth",
+  "displayName": "Authentication",
+  "version": "0.21.34",
+  "description": "User authentication management, including password, SMS, and support for Single Sign-On (SSO) protocols, with extensibility.",
+  "keywords": [
+    "Authentication"
+  ],
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "~5.3.6",
+    "@tachybase/schema": "workspace:*",
+    "@types/cron": "^2.0.1",
+    "antd": "5.16.1",
+    "cron": "^2.3.1",
+    "react": "^18.2.0",
+    "react-i18next": "^11.15.1",
+    "react-router-dom": "^6.11.2"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/auth": "workspace:*",
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "用户认证管理，包括基础的密码认证、短信认证、SSO 协议的认证等，可扩展。",
+  "displayName.zh-CN": "用户认证"
+}

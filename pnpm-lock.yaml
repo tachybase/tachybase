@@ -1382,9 +1382,9 @@ importers:
       '@ant-design/icons':
         specifier: 5.x
         version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@nocobase/plugin-ui-schema-storage':
+      '@tachybase/plugin-ui-schema-storage':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-ui-schema-storage
+        version: link:../../@tachybase/plugin-ui-schema-storage
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
@@ -1513,9 +1513,9 @@ importers:
 
   packages/plugins/@hera/plugin-core:
     dependencies:
-      '@nocobase/plugin-acl':
+      '@tachybase/plugin-acl':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-acl
+        version: link:../../@tachybase/plugin-acl
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
@@ -1671,12 +1671,12 @@ importers:
       '@hera/plugin-core':
         specifier: workspace:*
         version: link:../plugin-core
-      '@nocobase/plugin-collection-manager':
+      '@tachybase/plugin-collection-manager':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-collection-manager
-      '@nocobase/plugin-data-visualization':
+        version: link:../../@tachybase/plugin-collection-manager
+      '@tachybase/plugin-data-visualization':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-data-visualization
+        version: link:../../@tachybase/plugin-data-visualization
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
@@ -1769,7 +1769,7 @@ importers:
         specifier: ^6.23.1
         version: 6.23.1(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-acl:
+  packages/plugins/@tachybase/plugin-acl:
     dependencies:
       '@tachybase/acl':
         specifier: workspace:*
@@ -1833,7 +1833,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-action-bulk-edit:
+  packages/plugins/@tachybase/plugin-action-bulk-edit:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -1870,7 +1870,7 @@ importers:
         specifier: ^6.11.2
         version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-action-bulk-update:
+  packages/plugins/@tachybase/plugin-action-bulk-update:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -1898,7 +1898,7 @@ importers:
         specifier: ^6.11.2
         version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-action-duplicate:
+  packages/plugins/@tachybase/plugin-action-duplicate:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -1923,7 +1923,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-action-print:
+  packages/plugins/@tachybase/plugin-action-print:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -1939,7 +1939,7 @@ importers:
         specifier: ^2.14.7
         version: 2.14.15(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-api-doc:
+  packages/plugins/@tachybase/plugin-api-doc:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -1973,7 +1973,7 @@ importers:
         specifier: ^5.3.1
         version: 5.10.5
 
-  packages/plugins/@nocobase/plugin-api-keys:
+  packages/plugins/@tachybase/plugin-api-keys:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2022,7 +2022,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-auth:
+  packages/plugins/@tachybase/plugin-auth:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2074,7 +2074,7 @@ importers:
         specifier: ^6.11.2
         version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-backup-restore:
+  packages/plugins/@tachybase/plugin-backup-restore:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2159,7 +2159,7 @@ importers:
         specifier: ^6.1.13
         version: 6.2.0
 
-  packages/plugins/@nocobase/plugin-calendar:
+  packages/plugins/@tachybase/plugin-calendar:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -2211,9 +2211,9 @@ importers:
         specifier: ^1.0.9
         version: 1.0.9
 
-  packages/plugins/@nocobase/plugin-cas:
+  packages/plugins/@tachybase/plugin-cas:
     dependencies:
-      '@nocobase/plugin-auth':
+      '@tachybase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
       '@tachybase/actions':
@@ -2251,7 +2251,7 @@ importers:
         specifier: 6.x
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-china-region:
+  packages/plugins/@tachybase/plugin-china-region:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -2279,7 +2279,7 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
 
-  packages/plugins/@nocobase/plugin-client:
+  packages/plugins/@tachybase/plugin-client:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -2310,9 +2310,9 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
 
-  packages/plugins/@nocobase/plugin-collection-manager:
+  packages/plugins/@tachybase/plugin-collection-manager:
     dependencies:
-      '@nocobase/plugin-error-handler':
+      '@tachybase/plugin-error-handler':
         specifier: workspace:*
         version: link:../plugin-error-handler
       '@tachybase/actions':
@@ -2353,7 +2353,7 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2
 
-  packages/plugins/@nocobase/plugin-custom-request:
+  packages/plugins/@tachybase/plugin-custom-request:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2402,7 +2402,7 @@ importers:
         specifier: 6.x
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-data-source-manager:
+  packages/plugins/@tachybase/plugin-data-source-manager:
     dependencies:
       '@tachybase/acl':
         specifier: workspace:*
@@ -2457,7 +2457,7 @@ importers:
         specifier: ^6.26.0
         version: 6.35.2
 
-  packages/plugins/@nocobase/plugin-data-visualization:
+  packages/plugins/@tachybase/plugin-data-visualization:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2527,7 +2527,7 @@ importers:
         specifier: ^6.26.0
         version: 6.35.2
 
-  packages/plugins/@nocobase/plugin-error-handler:
+  packages/plugins/@tachybase/plugin-error-handler:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -2555,7 +2555,7 @@ importers:
         specifier: ^6.1.6
         version: 6.3.3
 
-  packages/plugins/@nocobase/plugin-export:
+  packages/plugins/@tachybase/plugin-export:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2601,7 +2601,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-file-manager:
+  packages/plugins/@tachybase/plugin-file-manager:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2683,7 +2683,7 @@ importers:
         specifier: ^6.1.6
         version: 6.3.3
 
-  packages/plugins/@nocobase/plugin-formula-field:
+  packages/plugins/@tachybase/plugin-formula-field:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -2717,7 +2717,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-gantt:
+  packages/plugins/@tachybase/plugin-gantt:
     dependencies:
       '@ant-design/icons':
         specifier: ^5.3.6
@@ -2753,7 +2753,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-graph-collection-manager:
+  packages/plugins/@tachybase/plugin-graph-collection-manager:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -2823,7 +2823,7 @@ importers:
         specifier: ^6.11.2
         version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-iframe-block:
+  packages/plugins/@tachybase/plugin-iframe-block:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2860,7 +2860,7 @@ importers:
         specifier: ~1.8.5
         version: 1.8.5(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-import:
+  packages/plugins/@tachybase/plugin-import:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2924,7 +2924,7 @@ importers:
         specifier: ^0.17.0
         version: 0.17.5
 
-  packages/plugins/@nocobase/plugin-kanban:
+  packages/plugins/@tachybase/plugin-kanban:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -2961,12 +2961,12 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-localization-management:
+  packages/plugins/@tachybase/plugin-localization-management:
     dependencies:
-      '@nocobase/plugin-client':
+      '@tachybase/plugin-client':
         specifier: workspace:*
         version: link:../plugin-client
-      '@nocobase/plugin-ui-schema-storage':
+      '@tachybase/plugin-ui-schema-storage':
         specifier: workspace:*
         version: link:../plugin-ui-schema-storage
       '@tachybase/actions':
@@ -3007,7 +3007,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-logger:
+  packages/plugins/@tachybase/plugin-logger:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -3044,7 +3044,7 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4
 
-  packages/plugins/@nocobase/plugin-map:
+  packages/plugins/@tachybase/plugin-map:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -3114,9 +3114,9 @@ importers:
         specifier: ^6.11.2
         version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-mock-collections:
+  packages/plugins/@tachybase/plugin-mock-collections:
     dependencies:
-      '@nocobase/plugin-error-handler':
+      '@tachybase/plugin-error-handler':
         specifier: workspace:*
         version: link:../plugin-error-handler
       '@tachybase/client':
@@ -3145,15 +3145,15 @@ importers:
         specifier: ^8.11.3
         version: 8.11.3
 
-  packages/plugins/@nocobase/plugin-multi-app-share-collection:
+  packages/plugins/@tachybase/plugin-multi-app-share-collection:
     dependencies:
-      '@nocobase/plugin-collection-manager':
+      '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../plugin-collection-manager
-      '@nocobase/plugin-error-handler':
+      '@tachybase/plugin-error-handler':
         specifier: workspace:*
         version: link:../plugin-error-handler
-      '@nocobase/plugin-users':
+      '@tachybase/plugin-users':
         specifier: workspace:*
         version: link:../plugin-users
       '@tachybase/client':
@@ -3191,7 +3191,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-notifications:
+  packages/plugins/@tachybase/plugin-notifications:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -3222,9 +3222,9 @@ importers:
         specifier: ^1.5.11
         version: 1.5.12
 
-  packages/plugins/@nocobase/plugin-oidc:
+  packages/plugins/@tachybase/plugin-oidc:
     dependencies:
-      '@nocobase/plugin-auth':
+      '@tachybase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
       '@tachybase/actions':
@@ -3277,9 +3277,9 @@ importers:
         specifier: ^6.11.2
         version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-saml:
+  packages/plugins/@tachybase/plugin-saml:
     dependencies:
-      '@nocobase/plugin-auth':
+      '@tachybase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
       '@tachybase/actions':
@@ -3326,7 +3326,7 @@ importers:
         specifier: ^6.11.2
         version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-sample-hello:
+  packages/plugins/@tachybase/plugin-sample-hello:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -3354,9 +3354,9 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-sequence-field:
+  packages/plugins/@tachybase/plugin-sequence-field:
     dependencies:
-      '@nocobase/plugin-collection-manager':
+      '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../plugin-collection-manager
       '@tachybase/actions':
@@ -3409,12 +3409,12 @@ importers:
         specifier: ^3.1.0
         version: 3.2.0(antd@5.16.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-sms-auth:
+  packages/plugins/@tachybase/plugin-sms-auth:
     dependencies:
-      '@nocobase/plugin-auth':
+      '@tachybase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
-      '@nocobase/plugin-verification':
+      '@tachybase/plugin-verification':
         specifier: workspace:*
         version: link:../plugin-verification
       '@tachybase/actions':
@@ -3449,7 +3449,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-snapshot-field:
+  packages/plugins/@tachybase/plugin-snapshot-field:
     dependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -3489,7 +3489,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-theme-editor:
+  packages/plugins/@tachybase/plugin-theme-editor:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -3556,12 +3556,12 @@ importers:
         specifier: ^0.17.8
         version: 0.17.10
 
-  packages/plugins/@nocobase/plugin-ui-schema-storage:
+  packages/plugins/@tachybase/plugin-ui-schema-storage:
     dependencies:
-      '@nocobase/plugin-error-handler':
+      '@tachybase/plugin-error-handler':
         specifier: workspace:*
         version: link:../plugin-error-handler
-      '@nocobase/plugin-users':
+      '@tachybase/plugin-users':
         specifier: workspace:*
         version: link:../plugin-users
       '@tachybase/actions':
@@ -3596,12 +3596,12 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
 
-  packages/plugins/@nocobase/plugin-users:
+  packages/plugins/@tachybase/plugin-users:
     dependencies:
-      '@nocobase/plugin-acl':
+      '@tachybase/plugin-acl':
         specifier: workspace:*
         version: link:../plugin-acl
-      '@nocobase/plugin-auth':
+      '@tachybase/plugin-auth':
         specifier: workspace:*
         version: link:../plugin-auth
       '@tachybase/actions':
@@ -3645,7 +3645,7 @@ importers:
         specifier: ^11.15.1
         version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@nocobase/plugin-verification:
+  packages/plugins/@tachybase/plugin-verification:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -3929,15 +3929,15 @@ importers:
 
   packages/plugins/@tachybase/plugin-workflow:
     dependencies:
-      '@nocobase/plugin-collection-manager':
+      '@tachybase/plugin-collection-manager':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-collection-manager
-      '@nocobase/plugin-error-handler':
+        version: link:../../@tachybase/plugin-collection-manager
+      '@tachybase/plugin-error-handler':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-error-handler
-      '@nocobase/plugin-users':
+        version: link:../../@tachybase/plugin-error-handler
+      '@tachybase/plugin-users':
         specifier: workspace:*
-        version: link:../../@nocobase/plugin-users
+        version: link:../../@tachybase/plugin-users
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
@@ -4057,126 +4057,126 @@ importers:
       '@hera/plugin-audit-logs':
         specifier: workspace:*
         version: link:../../plugins/@hera/plugin-audit-logs
-      '@nocobase/plugin-acl':
+      '@tachybase/plugin-acl':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-acl
-      '@nocobase/plugin-action-bulk-edit':
+        version: link:../../plugins/@tachybase/plugin-acl
+      '@tachybase/plugin-action-bulk-edit':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-bulk-edit
-      '@nocobase/plugin-action-bulk-update':
+        version: link:../../plugins/@tachybase/plugin-action-bulk-edit
+      '@tachybase/plugin-action-bulk-update':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-bulk-update
-      '@nocobase/plugin-action-duplicate':
+        version: link:../../plugins/@tachybase/plugin-action-bulk-update
+      '@tachybase/plugin-action-duplicate':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-duplicate
-      '@nocobase/plugin-action-print':
+        version: link:../../plugins/@tachybase/plugin-action-duplicate
+      '@tachybase/plugin-action-print':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-print
-      '@nocobase/plugin-api-doc':
+        version: link:../../plugins/@tachybase/plugin-action-print
+      '@tachybase/plugin-api-doc':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-api-doc
-      '@nocobase/plugin-api-keys':
+        version: link:../../plugins/@tachybase/plugin-api-doc
+      '@tachybase/plugin-api-keys':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-api-keys
-      '@nocobase/plugin-auth':
+        version: link:../../plugins/@tachybase/plugin-api-keys
+      '@tachybase/plugin-auth':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-auth
-      '@nocobase/plugin-backup-restore':
+        version: link:../../plugins/@tachybase/plugin-auth
+      '@tachybase/plugin-backup-restore':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-backup-restore
-      '@nocobase/plugin-calendar':
+        version: link:../../plugins/@tachybase/plugin-backup-restore
+      '@tachybase/plugin-calendar':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-calendar
-      '@nocobase/plugin-cas':
+        version: link:../../plugins/@tachybase/plugin-calendar
+      '@tachybase/plugin-cas':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-cas
-      '@nocobase/plugin-china-region':
+        version: link:../../plugins/@tachybase/plugin-cas
+      '@tachybase/plugin-china-region':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-china-region
-      '@nocobase/plugin-client':
+        version: link:../../plugins/@tachybase/plugin-china-region
+      '@tachybase/plugin-client':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-client
-      '@nocobase/plugin-collection-manager':
+        version: link:../../plugins/@tachybase/plugin-client
+      '@tachybase/plugin-collection-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-collection-manager
-      '@nocobase/plugin-custom-request':
+        version: link:../../plugins/@tachybase/plugin-collection-manager
+      '@tachybase/plugin-custom-request':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-custom-request
-      '@nocobase/plugin-data-source-manager':
+        version: link:../../plugins/@tachybase/plugin-custom-request
+      '@tachybase/plugin-data-source-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-data-source-manager
-      '@nocobase/plugin-data-visualization':
+        version: link:../../plugins/@tachybase/plugin-data-source-manager
+      '@tachybase/plugin-data-visualization':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-data-visualization
-      '@nocobase/plugin-error-handler':
+        version: link:../../plugins/@tachybase/plugin-data-visualization
+      '@tachybase/plugin-error-handler':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-error-handler
-      '@nocobase/plugin-export':
+        version: link:../../plugins/@tachybase/plugin-error-handler
+      '@tachybase/plugin-export':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-export
-      '@nocobase/plugin-file-manager':
+        version: link:../../plugins/@tachybase/plugin-export
+      '@tachybase/plugin-file-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-file-manager
-      '@nocobase/plugin-formula-field':
+        version: link:../../plugins/@tachybase/plugin-file-manager
+      '@tachybase/plugin-formula-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-formula-field
-      '@nocobase/plugin-gantt':
+        version: link:../../plugins/@tachybase/plugin-formula-field
+      '@tachybase/plugin-gantt':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-gantt
-      '@nocobase/plugin-graph-collection-manager':
+        version: link:../../plugins/@tachybase/plugin-gantt
+      '@tachybase/plugin-graph-collection-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-graph-collection-manager
-      '@nocobase/plugin-iframe-block':
+        version: link:../../plugins/@tachybase/plugin-graph-collection-manager
+      '@tachybase/plugin-iframe-block':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-iframe-block
-      '@nocobase/plugin-import':
+        version: link:../../plugins/@tachybase/plugin-iframe-block
+      '@tachybase/plugin-import':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-import
-      '@nocobase/plugin-kanban':
+        version: link:../../plugins/@tachybase/plugin-import
+      '@tachybase/plugin-kanban':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-kanban
-      '@nocobase/plugin-localization-management':
+        version: link:../../plugins/@tachybase/plugin-kanban
+      '@tachybase/plugin-localization-management':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-localization-management
-      '@nocobase/plugin-logger':
+        version: link:../../plugins/@tachybase/plugin-localization-management
+      '@tachybase/plugin-logger':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-logger
-      '@nocobase/plugin-map':
+        version: link:../../plugins/@tachybase/plugin-logger
+      '@tachybase/plugin-map':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-map
-      '@nocobase/plugin-mock-collections':
+        version: link:../../plugins/@tachybase/plugin-map
+      '@tachybase/plugin-mock-collections':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-mock-collections
-      '@nocobase/plugin-multi-app-share-collection':
+        version: link:../../plugins/@tachybase/plugin-mock-collections
+      '@tachybase/plugin-multi-app-share-collection':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
-      '@nocobase/plugin-oidc':
+        version: link:../../plugins/@tachybase/plugin-multi-app-share-collection
+      '@tachybase/plugin-oidc':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-oidc
-      '@nocobase/plugin-saml':
+        version: link:../../plugins/@tachybase/plugin-oidc
+      '@tachybase/plugin-saml':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-saml
-      '@nocobase/plugin-sequence-field':
+        version: link:../../plugins/@tachybase/plugin-saml
+      '@tachybase/plugin-sequence-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-sequence-field
-      '@nocobase/plugin-sms-auth':
+        version: link:../../plugins/@tachybase/plugin-sequence-field
+      '@tachybase/plugin-sms-auth':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-sms-auth
-      '@nocobase/plugin-snapshot-field':
+        version: link:../../plugins/@tachybase/plugin-sms-auth
+      '@tachybase/plugin-snapshot-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-snapshot-field
-      '@nocobase/plugin-theme-editor':
+        version: link:../../plugins/@tachybase/plugin-snapshot-field
+      '@tachybase/plugin-theme-editor':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-theme-editor
-      '@nocobase/plugin-ui-schema-storage':
+        version: link:../../plugins/@tachybase/plugin-theme-editor
+      '@tachybase/plugin-ui-schema-storage':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-ui-schema-storage
-      '@nocobase/plugin-users':
+        version: link:../../plugins/@tachybase/plugin-ui-schema-storage
+      '@tachybase/plugin-users':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-users
-      '@nocobase/plugin-verification':
+        version: link:../../plugins/@tachybase/plugin-users
+      '@tachybase/plugin-verification':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-verification
+        version: link:../../plugins/@tachybase/plugin-verification
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../core/client
@@ -4226,126 +4226,126 @@ importers:
       '@hera/plugin-rental':
         specifier: workspace:*
         version: link:../../plugins/@hera/plugin-rental
-      '@nocobase/plugin-acl':
+      '@tachybase/plugin-acl':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-acl
-      '@nocobase/plugin-action-bulk-edit':
+        version: link:../../plugins/@tachybase/plugin-acl
+      '@tachybase/plugin-action-bulk-edit':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-bulk-edit
-      '@nocobase/plugin-action-bulk-update':
+        version: link:../../plugins/@tachybase/plugin-action-bulk-edit
+      '@tachybase/plugin-action-bulk-update':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-bulk-update
-      '@nocobase/plugin-action-duplicate':
+        version: link:../../plugins/@tachybase/plugin-action-bulk-update
+      '@tachybase/plugin-action-duplicate':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-duplicate
-      '@nocobase/plugin-action-print':
+        version: link:../../plugins/@tachybase/plugin-action-duplicate
+      '@tachybase/plugin-action-print':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-print
-      '@nocobase/plugin-api-doc':
+        version: link:../../plugins/@tachybase/plugin-action-print
+      '@tachybase/plugin-api-doc':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-api-doc
-      '@nocobase/plugin-api-keys':
+        version: link:../../plugins/@tachybase/plugin-api-doc
+      '@tachybase/plugin-api-keys':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-api-keys
-      '@nocobase/plugin-auth':
+        version: link:../../plugins/@tachybase/plugin-api-keys
+      '@tachybase/plugin-auth':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-auth
-      '@nocobase/plugin-backup-restore':
+        version: link:../../plugins/@tachybase/plugin-auth
+      '@tachybase/plugin-backup-restore':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-backup-restore
-      '@nocobase/plugin-calendar':
+        version: link:../../plugins/@tachybase/plugin-backup-restore
+      '@tachybase/plugin-calendar':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-calendar
-      '@nocobase/plugin-cas':
+        version: link:../../plugins/@tachybase/plugin-calendar
+      '@tachybase/plugin-cas':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-cas
-      '@nocobase/plugin-china-region':
+        version: link:../../plugins/@tachybase/plugin-cas
+      '@tachybase/plugin-china-region':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-china-region
-      '@nocobase/plugin-client':
+        version: link:../../plugins/@tachybase/plugin-china-region
+      '@tachybase/plugin-client':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-client
-      '@nocobase/plugin-collection-manager':
+        version: link:../../plugins/@tachybase/plugin-client
+      '@tachybase/plugin-collection-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-collection-manager
-      '@nocobase/plugin-custom-request':
+        version: link:../../plugins/@tachybase/plugin-collection-manager
+      '@tachybase/plugin-custom-request':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-custom-request
-      '@nocobase/plugin-data-source-manager':
+        version: link:../../plugins/@tachybase/plugin-custom-request
+      '@tachybase/plugin-data-source-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-data-source-manager
-      '@nocobase/plugin-data-visualization':
+        version: link:../../plugins/@tachybase/plugin-data-source-manager
+      '@tachybase/plugin-data-visualization':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-data-visualization
-      '@nocobase/plugin-error-handler':
+        version: link:../../plugins/@tachybase/plugin-data-visualization
+      '@tachybase/plugin-error-handler':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-error-handler
-      '@nocobase/plugin-export':
+        version: link:../../plugins/@tachybase/plugin-error-handler
+      '@tachybase/plugin-export':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-export
-      '@nocobase/plugin-file-manager':
+        version: link:../../plugins/@tachybase/plugin-export
+      '@tachybase/plugin-file-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-file-manager
-      '@nocobase/plugin-formula-field':
+        version: link:../../plugins/@tachybase/plugin-file-manager
+      '@tachybase/plugin-formula-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-formula-field
-      '@nocobase/plugin-gantt':
+        version: link:../../plugins/@tachybase/plugin-formula-field
+      '@tachybase/plugin-gantt':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-gantt
-      '@nocobase/plugin-graph-collection-manager':
+        version: link:../../plugins/@tachybase/plugin-gantt
+      '@tachybase/plugin-graph-collection-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-graph-collection-manager
-      '@nocobase/plugin-iframe-block':
+        version: link:../../plugins/@tachybase/plugin-graph-collection-manager
+      '@tachybase/plugin-iframe-block':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-iframe-block
-      '@nocobase/plugin-import':
+        version: link:../../plugins/@tachybase/plugin-iframe-block
+      '@tachybase/plugin-import':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-import
-      '@nocobase/plugin-kanban':
+        version: link:../../plugins/@tachybase/plugin-import
+      '@tachybase/plugin-kanban':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-kanban
-      '@nocobase/plugin-localization-management':
+        version: link:../../plugins/@tachybase/plugin-kanban
+      '@tachybase/plugin-localization-management':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-localization-management
-      '@nocobase/plugin-logger':
+        version: link:../../plugins/@tachybase/plugin-localization-management
+      '@tachybase/plugin-logger':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-logger
-      '@nocobase/plugin-map':
+        version: link:../../plugins/@tachybase/plugin-logger
+      '@tachybase/plugin-map':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-map
-      '@nocobase/plugin-mock-collections':
+        version: link:../../plugins/@tachybase/plugin-map
+      '@tachybase/plugin-mock-collections':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-mock-collections
-      '@nocobase/plugin-multi-app-share-collection':
+        version: link:../../plugins/@tachybase/plugin-mock-collections
+      '@tachybase/plugin-multi-app-share-collection':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
-      '@nocobase/plugin-oidc':
+        version: link:../../plugins/@tachybase/plugin-multi-app-share-collection
+      '@tachybase/plugin-oidc':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-oidc
-      '@nocobase/plugin-saml':
+        version: link:../../plugins/@tachybase/plugin-oidc
+      '@tachybase/plugin-saml':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-saml
-      '@nocobase/plugin-sequence-field':
+        version: link:../../plugins/@tachybase/plugin-saml
+      '@tachybase/plugin-sequence-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-sequence-field
-      '@nocobase/plugin-sms-auth':
+        version: link:../../plugins/@tachybase/plugin-sequence-field
+      '@tachybase/plugin-sms-auth':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-sms-auth
-      '@nocobase/plugin-snapshot-field':
+        version: link:../../plugins/@tachybase/plugin-sms-auth
+      '@tachybase/plugin-snapshot-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-snapshot-field
-      '@nocobase/plugin-theme-editor':
+        version: link:../../plugins/@tachybase/plugin-snapshot-field
+      '@tachybase/plugin-theme-editor':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-theme-editor
-      '@nocobase/plugin-ui-schema-storage':
+        version: link:../../plugins/@tachybase/plugin-theme-editor
+      '@tachybase/plugin-ui-schema-storage':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-ui-schema-storage
-      '@nocobase/plugin-users':
+        version: link:../../plugins/@tachybase/plugin-ui-schema-storage
+      '@tachybase/plugin-users':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-users
-      '@nocobase/plugin-verification':
+        version: link:../../plugins/@tachybase/plugin-users
+      '@tachybase/plugin-verification':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-verification
+        version: link:../../plugins/@tachybase/plugin-verification
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../core/client
@@ -4401,126 +4401,126 @@ importers:
       '@hera/plugin-rental':
         specifier: workspace:*
         version: link:../../plugins/@hera/plugin-rental
-      '@nocobase/plugin-acl':
+      '@tachybase/plugin-acl':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-acl
-      '@nocobase/plugin-action-bulk-edit':
+        version: link:../../plugins/@tachybase/plugin-acl
+      '@tachybase/plugin-action-bulk-edit':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-bulk-edit
-      '@nocobase/plugin-action-bulk-update':
+        version: link:../../plugins/@tachybase/plugin-action-bulk-edit
+      '@tachybase/plugin-action-bulk-update':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-bulk-update
-      '@nocobase/plugin-action-duplicate':
+        version: link:../../plugins/@tachybase/plugin-action-bulk-update
+      '@tachybase/plugin-action-duplicate':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-duplicate
-      '@nocobase/plugin-action-print':
+        version: link:../../plugins/@tachybase/plugin-action-duplicate
+      '@tachybase/plugin-action-print':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-print
-      '@nocobase/plugin-api-doc':
+        version: link:../../plugins/@tachybase/plugin-action-print
+      '@tachybase/plugin-api-doc':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-api-doc
-      '@nocobase/plugin-api-keys':
+        version: link:../../plugins/@tachybase/plugin-api-doc
+      '@tachybase/plugin-api-keys':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-api-keys
-      '@nocobase/plugin-auth':
+        version: link:../../plugins/@tachybase/plugin-api-keys
+      '@tachybase/plugin-auth':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-auth
-      '@nocobase/plugin-backup-restore':
+        version: link:../../plugins/@tachybase/plugin-auth
+      '@tachybase/plugin-backup-restore':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-backup-restore
-      '@nocobase/plugin-calendar':
+        version: link:../../plugins/@tachybase/plugin-backup-restore
+      '@tachybase/plugin-calendar':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-calendar
-      '@nocobase/plugin-cas':
+        version: link:../../plugins/@tachybase/plugin-calendar
+      '@tachybase/plugin-cas':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-cas
-      '@nocobase/plugin-china-region':
+        version: link:../../plugins/@tachybase/plugin-cas
+      '@tachybase/plugin-china-region':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-china-region
-      '@nocobase/plugin-client':
+        version: link:../../plugins/@tachybase/plugin-china-region
+      '@tachybase/plugin-client':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-client
-      '@nocobase/plugin-collection-manager':
+        version: link:../../plugins/@tachybase/plugin-client
+      '@tachybase/plugin-collection-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-collection-manager
-      '@nocobase/plugin-custom-request':
+        version: link:../../plugins/@tachybase/plugin-collection-manager
+      '@tachybase/plugin-custom-request':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-custom-request
-      '@nocobase/plugin-data-source-manager':
+        version: link:../../plugins/@tachybase/plugin-custom-request
+      '@tachybase/plugin-data-source-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-data-source-manager
-      '@nocobase/plugin-data-visualization':
+        version: link:../../plugins/@tachybase/plugin-data-source-manager
+      '@tachybase/plugin-data-visualization':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-data-visualization
-      '@nocobase/plugin-error-handler':
+        version: link:../../plugins/@tachybase/plugin-data-visualization
+      '@tachybase/plugin-error-handler':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-error-handler
-      '@nocobase/plugin-export':
+        version: link:../../plugins/@tachybase/plugin-error-handler
+      '@tachybase/plugin-export':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-export
-      '@nocobase/plugin-file-manager':
+        version: link:../../plugins/@tachybase/plugin-export
+      '@tachybase/plugin-file-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-file-manager
-      '@nocobase/plugin-formula-field':
+        version: link:../../plugins/@tachybase/plugin-file-manager
+      '@tachybase/plugin-formula-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-formula-field
-      '@nocobase/plugin-gantt':
+        version: link:../../plugins/@tachybase/plugin-formula-field
+      '@tachybase/plugin-gantt':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-gantt
-      '@nocobase/plugin-graph-collection-manager':
+        version: link:../../plugins/@tachybase/plugin-gantt
+      '@tachybase/plugin-graph-collection-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-graph-collection-manager
-      '@nocobase/plugin-iframe-block':
+        version: link:../../plugins/@tachybase/plugin-graph-collection-manager
+      '@tachybase/plugin-iframe-block':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-iframe-block
-      '@nocobase/plugin-import':
+        version: link:../../plugins/@tachybase/plugin-iframe-block
+      '@tachybase/plugin-import':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-import
-      '@nocobase/plugin-kanban':
+        version: link:../../plugins/@tachybase/plugin-import
+      '@tachybase/plugin-kanban':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-kanban
-      '@nocobase/plugin-localization-management':
+        version: link:../../plugins/@tachybase/plugin-kanban
+      '@tachybase/plugin-localization-management':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-localization-management
-      '@nocobase/plugin-logger':
+        version: link:../../plugins/@tachybase/plugin-localization-management
+      '@tachybase/plugin-logger':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-logger
-      '@nocobase/plugin-map':
+        version: link:../../plugins/@tachybase/plugin-logger
+      '@tachybase/plugin-map':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-map
-      '@nocobase/plugin-mock-collections':
+        version: link:../../plugins/@tachybase/plugin-map
+      '@tachybase/plugin-mock-collections':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-mock-collections
-      '@nocobase/plugin-multi-app-share-collection':
+        version: link:../../plugins/@tachybase/plugin-mock-collections
+      '@tachybase/plugin-multi-app-share-collection':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
-      '@nocobase/plugin-oidc':
+        version: link:../../plugins/@tachybase/plugin-multi-app-share-collection
+      '@tachybase/plugin-oidc':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-oidc
-      '@nocobase/plugin-saml':
+        version: link:../../plugins/@tachybase/plugin-oidc
+      '@tachybase/plugin-saml':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-saml
-      '@nocobase/plugin-sequence-field':
+        version: link:../../plugins/@tachybase/plugin-saml
+      '@tachybase/plugin-sequence-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-sequence-field
-      '@nocobase/plugin-sms-auth':
+        version: link:../../plugins/@tachybase/plugin-sequence-field
+      '@tachybase/plugin-sms-auth':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-sms-auth
-      '@nocobase/plugin-snapshot-field':
+        version: link:../../plugins/@tachybase/plugin-sms-auth
+      '@tachybase/plugin-snapshot-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-snapshot-field
-      '@nocobase/plugin-theme-editor':
+        version: link:../../plugins/@tachybase/plugin-snapshot-field
+      '@tachybase/plugin-theme-editor':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-theme-editor
-      '@nocobase/plugin-ui-schema-storage':
+        version: link:../../plugins/@tachybase/plugin-theme-editor
+      '@tachybase/plugin-ui-schema-storage':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-ui-schema-storage
-      '@nocobase/plugin-users':
+        version: link:../../plugins/@tachybase/plugin-ui-schema-storage
+      '@tachybase/plugin-users':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-users
-      '@nocobase/plugin-verification':
+        version: link:../../plugins/@tachybase/plugin-users
+      '@tachybase/plugin-verification':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-verification
+        version: link:../../plugins/@tachybase/plugin-verification
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../core/client
@@ -4579,126 +4579,126 @@ importers:
       '@hera/plugin-sancongtou':
         specifier: workspace:*
         version: link:../../plugins/@hera/plugin-sancongtou
-      '@nocobase/plugin-acl':
+      '@tachybase/plugin-acl':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-acl
-      '@nocobase/plugin-action-bulk-edit':
+        version: link:../../plugins/@tachybase/plugin-acl
+      '@tachybase/plugin-action-bulk-edit':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-bulk-edit
-      '@nocobase/plugin-action-bulk-update':
+        version: link:../../plugins/@tachybase/plugin-action-bulk-edit
+      '@tachybase/plugin-action-bulk-update':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-bulk-update
-      '@nocobase/plugin-action-duplicate':
+        version: link:../../plugins/@tachybase/plugin-action-bulk-update
+      '@tachybase/plugin-action-duplicate':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-duplicate
-      '@nocobase/plugin-action-print':
+        version: link:../../plugins/@tachybase/plugin-action-duplicate
+      '@tachybase/plugin-action-print':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-action-print
-      '@nocobase/plugin-api-doc':
+        version: link:../../plugins/@tachybase/plugin-action-print
+      '@tachybase/plugin-api-doc':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-api-doc
-      '@nocobase/plugin-api-keys':
+        version: link:../../plugins/@tachybase/plugin-api-doc
+      '@tachybase/plugin-api-keys':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-api-keys
-      '@nocobase/plugin-auth':
+        version: link:../../plugins/@tachybase/plugin-api-keys
+      '@tachybase/plugin-auth':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-auth
-      '@nocobase/plugin-backup-restore':
+        version: link:../../plugins/@tachybase/plugin-auth
+      '@tachybase/plugin-backup-restore':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-backup-restore
-      '@nocobase/plugin-calendar':
+        version: link:../../plugins/@tachybase/plugin-backup-restore
+      '@tachybase/plugin-calendar':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-calendar
-      '@nocobase/plugin-cas':
+        version: link:../../plugins/@tachybase/plugin-calendar
+      '@tachybase/plugin-cas':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-cas
-      '@nocobase/plugin-china-region':
+        version: link:../../plugins/@tachybase/plugin-cas
+      '@tachybase/plugin-china-region':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-china-region
-      '@nocobase/plugin-client':
+        version: link:../../plugins/@tachybase/plugin-china-region
+      '@tachybase/plugin-client':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-client
-      '@nocobase/plugin-collection-manager':
+        version: link:../../plugins/@tachybase/plugin-client
+      '@tachybase/plugin-collection-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-collection-manager
-      '@nocobase/plugin-custom-request':
+        version: link:../../plugins/@tachybase/plugin-collection-manager
+      '@tachybase/plugin-custom-request':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-custom-request
-      '@nocobase/plugin-data-source-manager':
+        version: link:../../plugins/@tachybase/plugin-custom-request
+      '@tachybase/plugin-data-source-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-data-source-manager
-      '@nocobase/plugin-data-visualization':
+        version: link:../../plugins/@tachybase/plugin-data-source-manager
+      '@tachybase/plugin-data-visualization':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-data-visualization
-      '@nocobase/plugin-error-handler':
+        version: link:../../plugins/@tachybase/plugin-data-visualization
+      '@tachybase/plugin-error-handler':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-error-handler
-      '@nocobase/plugin-export':
+        version: link:../../plugins/@tachybase/plugin-error-handler
+      '@tachybase/plugin-export':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-export
-      '@nocobase/plugin-file-manager':
+        version: link:../../plugins/@tachybase/plugin-export
+      '@tachybase/plugin-file-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-file-manager
-      '@nocobase/plugin-formula-field':
+        version: link:../../plugins/@tachybase/plugin-file-manager
+      '@tachybase/plugin-formula-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-formula-field
-      '@nocobase/plugin-gantt':
+        version: link:../../plugins/@tachybase/plugin-formula-field
+      '@tachybase/plugin-gantt':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-gantt
-      '@nocobase/plugin-graph-collection-manager':
+        version: link:../../plugins/@tachybase/plugin-gantt
+      '@tachybase/plugin-graph-collection-manager':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-graph-collection-manager
-      '@nocobase/plugin-iframe-block':
+        version: link:../../plugins/@tachybase/plugin-graph-collection-manager
+      '@tachybase/plugin-iframe-block':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-iframe-block
-      '@nocobase/plugin-import':
+        version: link:../../plugins/@tachybase/plugin-iframe-block
+      '@tachybase/plugin-import':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-import
-      '@nocobase/plugin-kanban':
+        version: link:../../plugins/@tachybase/plugin-import
+      '@tachybase/plugin-kanban':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-kanban
-      '@nocobase/plugin-localization-management':
+        version: link:../../plugins/@tachybase/plugin-kanban
+      '@tachybase/plugin-localization-management':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-localization-management
-      '@nocobase/plugin-logger':
+        version: link:../../plugins/@tachybase/plugin-localization-management
+      '@tachybase/plugin-logger':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-logger
-      '@nocobase/plugin-map':
+        version: link:../../plugins/@tachybase/plugin-logger
+      '@tachybase/plugin-map':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-map
-      '@nocobase/plugin-mock-collections':
+        version: link:../../plugins/@tachybase/plugin-map
+      '@tachybase/plugin-mock-collections':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-mock-collections
-      '@nocobase/plugin-multi-app-share-collection':
+        version: link:../../plugins/@tachybase/plugin-mock-collections
+      '@tachybase/plugin-multi-app-share-collection':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-multi-app-share-collection
-      '@nocobase/plugin-oidc':
+        version: link:../../plugins/@tachybase/plugin-multi-app-share-collection
+      '@tachybase/plugin-oidc':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-oidc
-      '@nocobase/plugin-saml':
+        version: link:../../plugins/@tachybase/plugin-oidc
+      '@tachybase/plugin-saml':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-saml
-      '@nocobase/plugin-sequence-field':
+        version: link:../../plugins/@tachybase/plugin-saml
+      '@tachybase/plugin-sequence-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-sequence-field
-      '@nocobase/plugin-sms-auth':
+        version: link:../../plugins/@tachybase/plugin-sequence-field
+      '@tachybase/plugin-sms-auth':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-sms-auth
-      '@nocobase/plugin-snapshot-field':
+        version: link:../../plugins/@tachybase/plugin-sms-auth
+      '@tachybase/plugin-snapshot-field':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-snapshot-field
-      '@nocobase/plugin-theme-editor':
+        version: link:../../plugins/@tachybase/plugin-snapshot-field
+      '@tachybase/plugin-theme-editor':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-theme-editor
-      '@nocobase/plugin-ui-schema-storage':
+        version: link:../../plugins/@tachybase/plugin-theme-editor
+      '@tachybase/plugin-ui-schema-storage':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-ui-schema-storage
-      '@nocobase/plugin-users':
+        version: link:../../plugins/@tachybase/plugin-ui-schema-storage
+      '@tachybase/plugin-users':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-users
-      '@nocobase/plugin-verification':
+        version: link:../../plugins/@tachybase/plugin-users
+      '@tachybase/plugin-verification':
         specifier: workspace:*
-        version: link:../../plugins/@nocobase/plugin-verification
+        version: link:../../plugins/@tachybase/plugin-verification
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../core/client

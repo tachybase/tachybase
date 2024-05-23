@@ -91,8 +91,8 @@ export class Locale {
         const res = getResource(packageName, lang);
         if (res) {
           resources[packageName] = { ...res };
-          if (packageName.includes('@nocobase/plugin-')) {
-            resources[packageName.substring('@nocobase/plugin-'.length)] = { ...res };
+          if (packageName.includes('@tachybase/plugin-')) {
+            resources[packageName.substring('@tachybase/plugin-'.length)] = { ...res };
           }
         }
       } catch (err) {

@@ -1,0 +1,28 @@
+{
+  "name": "@tachybase/plugin-action-bulk-edit",
+  "displayName": "Action: Batch edit",
+  "version": "0.21.34",
+  "description": "Batch edit all records or selected records.",
+  "keywords": [
+    "Actions"
+  ],
+  "license": "Apache-2.0",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "^5.3.6",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "antd": "5.16.1",
+    "lodash": "4.17.21",
+    "react-i18next": "^11.15.1",
+    "react-router-dom": "^6.11.2"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "对全部数据或选中的数据进行批量编辑。",
+  "displayName.zh-CN": "操作：批量编辑"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "@tachybase/plugin-sequence-field",
+  "displayName": "Collection field: Sequence",
+  "version": "0.21.34",
+  "description": "Automatically generate codes based on configured rules, supporting combinations of dates, numbers, and text.",
+  "keywords": [
+    "Collection fields"
+  ],
+  "homepage": "https://docs.nocobase.com/handbook/field-sequence",
+  "license": "Apache-2.0",
+  "main": "./dist/server/index.js",
+  "devDependencies": {
+    "@tachybase/components": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "antd": "5.16.1",
+    "classnames": "^2.3.1",
+    "cron-parser": "4.4.0",
+    "dayjs": "^1.11.8",
+    "lodash": "4.17.21",
+    "react": "~18.2.0",
+    "react-i18next": "^11.15.1",
+    "react-js-cron": "^3.1.0"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/plugin-collection-manager": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "根据配置的规则自动生成编码，支持日期、数字、文本的组合。",
+  "displayName.zh-CN": "数据表字段：自动编码",
+  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
+  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/field-sequence"
+}

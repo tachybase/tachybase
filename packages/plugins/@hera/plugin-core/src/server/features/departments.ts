@@ -1,6 +1,7 @@
-import type { CollectionRepository } from '@nocobase/plugin-collection-manager';
-import { Plugin } from '@tachybase/server';
 import { resolve } from 'path';
+import type { CollectionRepository } from '@tachybase/plugin-collection-manager';
+import { Plugin } from '@tachybase/server';
+
 import {
   aggregateSearch,
   listExcludeDept,

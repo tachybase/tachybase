@@ -34,7 +34,7 @@ import {
   useRequest,
   useResourceActionContext,
 } from '@tachybase/client';
-import PluginACLClient, { RolesManagerContext } from '@nocobase/plugin-acl/client';
+import PluginACLClient, { RolesManagerContext } from '@tachybase/plugin-acl/client';
 import { connect, mapReadPretty, uid, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import {
   App,
