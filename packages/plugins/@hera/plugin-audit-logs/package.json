@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-audit-logs",
   "displayName": "Audit logs",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "Audit logs.",
   "keywords": [
     "System management"
