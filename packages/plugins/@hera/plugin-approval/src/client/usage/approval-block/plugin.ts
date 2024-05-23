@@ -1,4 +1,5 @@
 import { Plugin } from '@tachybase/client';
+
 import { tval } from '../../locale';
 import { KitApprovalCommon } from '../approval-common/plugin';
 import { ApprovalBlockComponent, SCApprovalBlock } from './ApprovalBlock.schema';

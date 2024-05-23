@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
-import { Input, Menu, Popover, Button } from 'antd';
-import { css } from '@tachybase/client';
+import React, { useContext, useState } from 'react';
+import { css, useCompile } from '@tachybase/client';
+
 import { MenuOutlined } from '@ant-design/icons';
-import { useCompile } from '@tachybase/client';
-import { getPopupContainer, useGCMTranslation } from '../utils';
+import { Button, Input, Menu, Popover } from 'antd';
+
 import { CollapsedContext } from '../GraphDrawPage';
+import { getPopupContainer, useGCMTranslation } from '../utils';
 
 export const LocateCollectionAction = (props) => {
   const { handleFiterCollections } = props;

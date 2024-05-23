@@ -1,5 +1,6 @@
-import { cx } from '@tachybase/client';
 import React from 'react';
+import { cx } from '@tachybase/client';
+
 import { getProgressPoint } from '../../../helpers/bar-helper';
 import { TaskItemProps } from '../task-item';
 import { BarDisplay } from './bar-display';

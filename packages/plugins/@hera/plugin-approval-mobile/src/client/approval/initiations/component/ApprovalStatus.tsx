@@ -15,7 +15,7 @@ export const ApprovalStatus = observer((props) => {
           setVisible(true);
         }}
       >
-        {filter['status'] && filter['status'] !== 'all'
+        {filter?.['status'] && filter?.['status'] !== 'all'
           ? t(columns.find((item) => item.value === filter['status']).label)
           : '申请状态'}
         <DownOutline />
@@ -30,7 +30,7 @@ export const ApprovalStatus = observer((props) => {
         onClose={() => {
           setVisible(false);
         }}
-        value={[filter['status'] || 'all']}
+        value={[filter?.['status'] || 'all']}
         onConfirm={(e) => {
           const changeData = { ...filter };
           if (e[0] === 'all') {

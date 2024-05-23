@@ -1,5 +1,6 @@
-import { cx } from '@tachybase/client';
 import React, { useEffect, useRef, useState } from 'react';
+import { cx } from '@tachybase/client';
+
 import { getYmd } from '../../helpers/other-helper';
 import { BarTask } from '../../types/bar-task';
 import { Task } from '../../types/public-types';

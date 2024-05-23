@@ -2,6 +2,7 @@ import { useAPIClient, useActionContext } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 import { useContextApprovalAction } from '../provider/ApprovalAction';
+import { Toast } from 'antd-mobile';
 
 export function useSubmit() {
   const field = useField();
@@ -20,14 +21,26 @@ export function useSubmit() {
         field.data = field.data ?? {};
         field.data.loading = true;
         setVisible(false);
-        await api.resource('approvalRecords').submit({
+        const res = await api.resource('approvalRecords').submit({
           filterByTk: id,
           values: { ...form.values, status },
         });
         field.data.loading = false;
-        await form.reset();
-        // refreshAction?.();
-        setSubmitted?.(true);
+        if (res.status === 202) {
+          Toast.show({
+            icon: 'success',
+            content: '处理成功',
+          });
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+          setSubmitted(true);
+        } else {
+          Toast.show({
+            icon: 'fail',
+            content: '处理失败',
+          });
+        }
       } catch (error) {
         console.error(error);
         field.data && (field.data.loading = false);

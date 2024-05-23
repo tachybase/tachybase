@@ -1,12 +1,13 @@
-import { css, cx } from '@tachybase/client';
-import { createStyles, useAPIClient, useGlobalTheme } from '@tachybase/client';
+import React, { useEffect } from 'react';
+import { createStyles, css, cx, useAPIClient, useGlobalTheme } from '@tachybase/client';
 import { error } from '@tachybase/utils/client';
-import { Button, ConfigProvider, Input, Space, message } from 'antd';
+
+import { Button, ConfigProvider, Input, message, Space } from 'antd';
 import antdEnUs from 'antd/locale/en_US';
 import antdZhCN from 'antd/locale/zh_CN';
-import React, { useEffect } from 'react';
+
 import { ThemeConfig } from '../../../types';
-import { ThemeEditor, enUS, zhCN } from '../../antd-token-previewer';
+import { enUS, ThemeEditor, zhCN } from '../../antd-token-previewer';
 import { useUpdateThemeSettings } from '../../hooks/useUpdateThemeSettings';
 import { useTranslation } from '../../locale';
 import { changeAlgorithmFromFunctionToString } from '../../utils/changeAlgorithmFromFunctionToString';

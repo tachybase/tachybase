@@ -1,6 +1,7 @@
 import { useAPIClient, useActionContext } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
+import { Toast } from 'antd-mobile';
 
 // 撤回
 export function useWithdrawAction() {
@@ -14,12 +15,25 @@ export function useWithdrawAction() {
         field.data = field.data ?? {};
         field.data.loading = true;
 
-        await api.resource('approvals').withdraw({
+        const res = await api.resource('approvals').withdraw({
           filterByTk: approval.id,
         });
 
-        setSubmitted(true);
-
+        if (res.status === 202) {
+          Toast.show({
+            icon: 'success',
+            content: '撤回成功',
+          });
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+          setSubmitted(true);
+        } else {
+          Toast.show({
+            icon: 'fail',
+            content: '撤回失败',
+          });
+        }
         field.data.loading = false;
       } catch (v) {
         if (field.data) {

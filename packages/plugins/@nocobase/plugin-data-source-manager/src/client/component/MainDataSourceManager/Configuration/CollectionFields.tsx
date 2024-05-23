@@ -1,12 +1,8 @@
-import { css } from '@tachybase/client';
-import { createForm, Field } from '@tachybase/schema';
-import { FieldContext, FormContext, useField } from '@tachybase/schema';
-import { Space, Switch, Table, TableColumnProps, Tag, Tooltip } from 'antd';
 import React, { useContext, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Action,
   AddCollectionField,
+  css,
   EditCollectionField,
   Input,
   isDeleteButtonDisabled,
@@ -28,6 +24,10 @@ import {
   useResourceContext,
   ViewCollectionField,
 } from '@tachybase/client';
+import { createForm, Field, FieldContext, FormContext, useField } from '@tachybase/schema';
+
+import { Space, Switch, Table, TableColumnProps, Tag, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import { collection } from './schemas/collectionFields';
 

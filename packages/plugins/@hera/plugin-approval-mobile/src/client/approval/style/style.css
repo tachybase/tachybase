@@ -9,7 +9,6 @@
 
 .navBarStyle{
   background-color: #ffffff;
-  margin-bottom: 10px;
   position: fixed;
   z-index: 2;
   height: 5vh;
@@ -28,8 +27,35 @@
 
 .userInitiationsStyle{
   width: 100%;
-  margin-top: 10px;
   padding: 10px 0 10px 0;
   background-color: #ffffff;
+  font-size: 10px;
+  color: #8e8e8e;
 }
+
+.adm-tabs-tab-list{
+  background-color: #ffffff;
+  font-size: 12px;
+}
+
+.blockItem{
+  background-color: #f3f3f3;
+}
+
+ .adm-card-body {
+   padding: 0;
+ }
+
+ .initiationsItemCard{
+  padding: 0px;
+  border-radius: 0px;
+  overflow: hidden;
+  background-color: #f3f3f3;
+ }
+
+ .adm-tabs-content{
+  padding: 0;
+ }
+
+
 

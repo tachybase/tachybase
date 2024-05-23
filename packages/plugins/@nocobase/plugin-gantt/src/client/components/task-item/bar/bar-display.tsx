@@ -1,5 +1,6 @@
-import { cx } from '@tachybase/client';
 import React from 'react';
+import { cx } from '@tachybase/client';
+
 import { barBackground } from './style';
 
 type BarDisplayProps = {

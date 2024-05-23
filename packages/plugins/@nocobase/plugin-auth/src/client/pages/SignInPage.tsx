@@ -1,6 +1,8 @@
-import { css, useCurrentDocumentTitle, usePlugin, useViewport } from '@tachybase/client';
-import { Space, Tabs } from 'antd';
 import React, { createElement, useContext } from 'react';
+import { css, useCurrentDocumentTitle, usePlugin, useViewport } from '@tachybase/client';
+
+import { Space, Tabs } from 'antd';
+
 import AuthPlugin, { AuthOptions } from '..';
 import { Authenticator, AuthenticatorsContext } from '../authenticator';
 import { useAuthTranslation } from '../locale';

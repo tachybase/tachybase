@@ -19,7 +19,7 @@ export const ApprovalReachDataType = observer((props) => {
           setPopupVisible(true);
         }}
       >
-        {filter['createdAt'] ? `${formatDate(startData)}-${formatDate(endData)} ` : '到达日期'}
+        {filter?.['createdAt'] ? `${formatDate(startData)}-${formatDate(endData)} ` : '到达日期'}
         <DownOutline />
       </Space>
       <Popup

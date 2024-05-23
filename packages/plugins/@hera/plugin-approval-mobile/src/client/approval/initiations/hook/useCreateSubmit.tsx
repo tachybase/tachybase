@@ -1,18 +1,18 @@
 import { joinCollectionName, useAPIClient, useBlockRequestContext, useCollection_deprecated } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 import { APPROVAL_ACTION_STATUS } from '../../constants';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Toast } from 'antd-mobile';
 
 export function useCreateSubmit() {
   const from = useForm();
   const field = useField();
-  const { __parent } = useBlockRequestContext();
   const collection = useCollection_deprecated();
   const contextWe = APPROVAL_ACTION_STATUS.SUBMITTED;
   const apiClient = useAPIClient();
   const params = useParams();
   const { id: workflowId } = params;
-
+  const navigate = useNavigate();
   return {
     async run() {
       try {
@@ -20,7 +20,7 @@ export function useCreateSubmit() {
         field.data = field.data || {};
         field.data.loading = true;
 
-        await apiClient.resource('approvals').create({
+        const res = await apiClient.resource('approvals').create({
           values: {
             collectionName: joinCollectionName(collection.dataSource, collection.name),
             data: from.values,
@@ -28,13 +28,17 @@ export function useCreateSubmit() {
             workflowId: workflowId,
           },
         });
-
-        from.reset();
-        field.data.loading = false;
-        const service = __parent.service;
-        if (service) {
-          service.refresh();
+        console.log('🚀 ~ res ~ res:', res);
+        if (res.status === 200) {
+          Toast.show({
+            icon: 'success',
+            content: '提交成功',
+          });
+          from.reset();
+          navigate(`/mobile/approval/${res.data.data.id}/page`);
         }
+
+        field.data.loading = false;
       } catch (h) {
         field.data && (field.data.loading = false);
       }

@@ -1,9 +1,11 @@
 import React from 'react';
-import { ShareAltOutlined } from '@ant-design/icons';
-import { Menu, Popover, Button } from 'antd';
 import { css } from '@tachybase/client';
-import { getPopupContainer, useGCMTranslation } from '../utils';
+
+import { ShareAltOutlined } from '@ant-design/icons';
+import { Button, Menu, Popover } from 'antd';
+
 import { ConnectionType } from '../GraphDrawPage';
+import { getPopupContainer, useGCMTranslation } from '../utils';
 
 export const ConnectorAction = (props) => {
   const { onClick } = props;

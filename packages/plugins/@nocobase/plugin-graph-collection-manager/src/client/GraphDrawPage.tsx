@@ -1,18 +1,11 @@
-import { ApartmentOutlined } from '@ant-design/icons';
-import { Graph } from '@antv/x6';
-import { MiniMap } from '@antv/x6-plugin-minimap';
-import { Scroller } from '@antv/x6-plugin-scroller';
-import { Selection } from '@antv/x6-plugin-selection';
-import { Snapline } from '@antv/x6-plugin-snapline';
-import { register } from '@antv/x6-react-shape';
-import { cx } from '@tachybase/client';
-import { SchemaOptionsContext } from '@tachybase/schema';
+import React, { createContext, forwardRef, useContext, useEffect, useLayoutEffect, useState } from 'react';
 import {
   APIClientProvider,
   ApplicationContext,
   CollectionCategroriesContext,
   CollectionCategroriesProvider,
   CurrentAppInfoContext,
+  cx,
   DataSourceApplicationProvider,
   SchemaComponent,
   SchemaComponentOptions,
@@ -22,15 +15,24 @@ import {
   useCollectionManager_deprecated,
   useCompile,
   useCurrentAppInfo,
-  useDataSourceManager,
   useDataSource,
+  useDataSourceManager,
   useGlobalTheme,
 } from '@tachybase/client';
+import { SchemaOptionsContext } from '@tachybase/schema';
+
+import { ApartmentOutlined } from '@ant-design/icons';
+import { Graph } from '@antv/x6';
+import { MiniMap } from '@antv/x6-plugin-minimap';
+import { Scroller } from '@antv/x6-plugin-scroller';
+import { Selection } from '@antv/x6-plugin-selection';
+import { Snapline } from '@antv/x6-plugin-snapline';
+import { register } from '@antv/x6-react-shape';
 import { App, Button, ConfigProvider, Layout, Spin, Switch, Tooltip } from 'antd';
 import dagre from 'dagre';
 import lodash from 'lodash';
-import React, { createContext, forwardRef, useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
 import { useAsyncDataSource, useCreateActionAndRefreshCM } from './action-hooks';
 import { AddCollectionAction } from './components/AddCollectionAction';
 import { ConnectorAction } from './components/ConnectorAction';
@@ -43,6 +45,7 @@ import { SimpleNodeView } from './components/ViewNode';
 import useStyles from './style';
 import {
   cleanGraphContainer,
+  collection,
   formatData,
   getChildrenCollections,
   getDiffEdge,
@@ -50,8 +53,8 @@ import {
   getInheritCollections,
   getPopupContainer,
   useGCMTranslation,
-  collection,
 } from './utils';
+
 const { drop, groupBy, last, maxBy, minBy, take, uniq } = lodash;
 
 const LINE_HEIGHT = 40;

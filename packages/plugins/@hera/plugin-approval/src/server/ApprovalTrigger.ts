@@ -1,10 +1,12 @@
-import { get } from 'lodash';
-import { Op, BelongsTo, HasOne } from 'sequelize';
-import { modelAssociationByKey } from '@tachybase/database';
 import { parseCollectionName } from '@tachybase/data-source-manager';
-import { EXECUTION_STATUS, Trigger, toJSON, JOB_STATUS } from '@tachybase/plugin-workflow';
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
+import { modelAssociationByKey } from '@tachybase/database';
+import { EXECUTION_STATUS, JOB_STATUS, toJSON, Trigger } from '@tachybase/plugin-workflow';
 import { UiSchemaRepository } from '@nocobase/plugin-ui-schema-storage';
+
+import { get } from 'lodash';
+import { BelongsTo, HasOne, Op } from 'sequelize';
+
+import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 import { getSummary } from './tools';
 
 const ExecutionStatusMap = {

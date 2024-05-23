@@ -1,27 +1,39 @@
-import { mergeFilter, useAPIClient, useCollectionManager, useRequest } from '@tachybase/client';
-import { connect, observer, useFieldSchema } from '@tachybase/schema';
-import { Badge, Empty, List, Space, Tag } from 'antd-mobile';
 import React, { useEffect, useState } from 'react';
+import { mergeFilter, useAPIClient, useCollectionManager, useCompile, useRequest } from '@tachybase/client';
+import { connect, observer, useFieldSchema } from '@tachybase/schema';
+
 import { useAsyncEffect } from 'ahooks';
-import { APPROVAL_STATUS, ApprovalPriorityType, approvalStatusOptions } from '../../constants';
+import { Badge, Empty, List, Space, Tag } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
+
+import { APPROVAL_STATUS, ApprovalPriorityType, approvalStatusOptions } from '../../constants';
 import { tval, useTranslation } from '../../locale';
 
 export const TabApprovalItem = observer((props) => {
-  const { filter, params } = props as any;
+  const { filter, params, input } = props as any;
   const api = useAPIClient();
   const [data, setData] = useState([]);
+  const [defData, setDefData] = useState([]);
   const { t } = useTranslation();
+  const compile = useCompile();
   const navigate = useNavigate();
+  useEffect(() => {
+    if (input && defData.length) {
+      const filterData = defData.filter((value) => value.title.includes(input));
+      setData(filterData);
+    } else {
+      setData(defData);
+    }
+  }, [input]);
   useAsyncEffect(async () => {
     const { data: user } = await api.request({ url: 'users:list', params: { pageSize: 999, appends: ['roles'] } });
     api
       .request({
         url: 'approvalRecords:listCentralized',
         params: {
-          pageSize: 99999,
+          pageSize: 9999,
           appends: ['execution', 'job', 'node', 'workflow'],
-          filter: { ...params?.filter, ...filter },
+          filter: { ...params, ...filter },
         },
       })
       .then((res) => {
@@ -32,14 +44,19 @@ export const TabApprovalItem = observer((props) => {
           );
           const statusType = approvalTodoListStatus(item, t);
           const categoryTitle = item.workflow.title.replace('审批流:', '');
-
+          const summary = Object.entries(item.summary).map(([key, value]) => {
+            return {
+              label: compile(key),
+              value: value?.['name'] || value || '',
+            };
+          });
           return {
             ...item,
             title: `${itemUser.nickname}的${categoryTitle}`,
             categoryTitle: categoryTitle,
             statusTitle: t(statusType.label),
             statusColor: statusType.color,
-            reason: item.snapshot.reason || item.snapshot.reason_pay,
+            reason: summary,
             priorityTitle: priorityType.label,
             priorityColor: priorityType.color,
           };
@@ -48,6 +65,7 @@ export const TabApprovalItem = observer((props) => {
           return Date.parse(b.createdAt) - Date.parse(a.createdAt);
         });
         setData(result);
+        setDefData(result);
       })
       .catch(() => {
         console.error;
@@ -66,18 +84,20 @@ export const TabApprovalItem = observer((props) => {
                   navigate(`/mobile/approval/${item.id}/${item.categoryTitle}/detailspage`);
                 }}
               >
-                <Badge color="#6ac3ff" content={Badge.dot} style={{ '--right': '100%' }}>
-                  <Space block>
-                    {item.title}
-                    <Tag color={item.statusColor} fill="outline">
-                      {item.statusTitle}
-                    </Tag>
-                    <Tag color={item.priorityColor} fill="outline">
-                      {item.priorityTitle}
-                    </Tag>
-                  </Space>
-                </Badge>
-                <Space block> 事由:{item.reason}</Space>
+                {/* <Badge color="#6ac3ff" content={Badge.dot} style={{ '--right': '100%' }}> */}
+                <Space block>
+                  {item.title}
+                  <Tag color={item.statusColor} fill="outline">
+                    {item.statusTitle}
+                  </Tag>
+                  <Tag color={item.priorityColor} fill="outline">
+                    {item.priorityTitle}
+                  </Tag>
+                </Space>
+                {/* </Badge> */}
+                {item.reason.map((reasonItem, index) => {
+                  return <Space block key={index}>{`${reasonItem.label}:${reasonItem.value}`}</Space>;
+                })}
               </List.Item>
             );
           })}

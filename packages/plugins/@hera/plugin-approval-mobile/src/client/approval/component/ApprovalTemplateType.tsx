@@ -38,7 +38,7 @@ export const ApprovalTemplateType = observer((props) => {
           setVisible(true);
         }}
       >
-        {columns.length && filter.workflowId && filter.workflowId !== 'all'
+        {columns.length && filter?.workflowId && filter?.workflowId !== 'all'
           ? columns.find((item) => item.value === filter.workflowId).label
           : '模版类型'}
         <DownOutline />
