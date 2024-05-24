@@ -197,7 +197,7 @@ export const oneEmptyTable: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'yua2ss66y9j',
@@ -742,7 +742,7 @@ export const oneEmptyListBlock: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'aqn0xjnaxfk',
@@ -894,7 +894,7 @@ export const oneEmptyGridCardBlock: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'anvxx86mh91',
@@ -1241,7 +1241,7 @@ export const oneEmptyTableBlockWithActions: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -1848,7 +1848,7 @@ export const oneTableBlockWithActionsAndFormBlocks: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -2705,7 +2705,7 @@ export const oneEmptyTableBlockWithCustomizeActions: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -3944,7 +3944,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndBasicFields: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -5911,7 +5911,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndBasicFieldsAndSubTable: Pag
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': '0bvmtmgkrx0',
@@ -6320,7 +6320,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndChoicesFields: PageConfig =
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -7755,7 +7755,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndMediaFields: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -8845,7 +8845,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndDatetimeFields: PageConfig 
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -9822,7 +9822,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAssociationFields: PageConf
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -11445,7 +11445,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAdvancedFields: PageConfig 
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -12657,7 +12657,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -14440,7 +14440,7 @@ export const oneEmptyTableWithTreeCollection: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': '51cyu58oper',
@@ -14723,7 +14723,7 @@ export const oneCollapseAndOneTableWithSameCollection: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'nq51lizkoo4',
@@ -15443,7 +15443,7 @@ export const oneTableSubformWithMultiLevelAssociationFields: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -17157,7 +17157,7 @@ export const oneTableSubtableWithMultiLevelAssociationFields: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -18169,7 +18169,7 @@ export const formBlockDefaultValueTemplate: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -18970,7 +18970,7 @@ export const oneFormAndOneTableWithSameCollection: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'jd5cfyt9rvc',
@@ -19161,7 +19161,7 @@ export const twoTableWithSameCollection: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'xbzkjfayl3y',
@@ -19269,7 +19269,7 @@ export const twoTableWithSameCollection: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': '5g15rd6dqli',
@@ -19426,7 +19426,7 @@ export const twoTableWithAssociationFields: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'u8xfso0a35t',
@@ -19533,7 +19533,7 @@ export const twoTableWithAssociationFields: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'oqdv3tu3laz',
@@ -19691,7 +19691,7 @@ export const oneEmptyTableBlockBasedOnUsers = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'gzu2uanef12',
@@ -19844,7 +19844,7 @@ export const checkboxForTableRow = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {

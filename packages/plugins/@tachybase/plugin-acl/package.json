@@ -6,12 +6,6 @@
   "keywords": [
     "Users & permissions"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/acl",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nocobase/nocobase.git",
-    "directory": "packages/plugins/acl"
-  },
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -39,7 +33,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "基于角色、资源和操作的权限控制，可以精确控制界面配置权限、数据操作权限、菜单访问权限、插件权限。",
-  "displayName.zh-CN": "权限控制",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/acl"
+  "displayName.zh-CN": "权限控制"
 }

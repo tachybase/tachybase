@@ -42,7 +42,7 @@ describe('notifications', () => {
               user: 'from@tachybase.com',
               pass: 'pass',
             },
-            from: 'NocoBase<from@tachybase.com>',
+            from: 'TachyBase<from@tachybase.com>',
           },
         },
       },

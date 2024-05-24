@@ -69,7 +69,9 @@ test.describe('configure fields', () => {
     await page.getByText('Title field').click();
     await page.getByRole('option', { name: 'Username' }).click();
     //显示新的标题字段符合预期
-    await expect(page.getByLabel('block-item-CollectionField-general-kanban-general.manyToOne')).toHaveText(/nocobase/);
+    await expect(page.getByLabel('block-item-CollectionField-general-kanban-general.manyToOne')).toHaveText(
+      /tachybase/,
+    );
   });
 });
 

@@ -8,7 +8,7 @@ export default (app: Application) => {
     .preload()
     .action(async () => {
       await app.start();
-      const repl = (REPL.start('nocobase > ').context.app = app);
+      const repl = (REPL.start('tachybase > ').context.app = app);
       repl.on('exit', async function (err) {
         if (err) {
           console.log(err);

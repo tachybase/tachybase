@@ -1,5 +1,6 @@
 import { define, observable } from '@tachybase/schema';
 import { getSubAppName } from '@tachybase/sdk';
+
 import { Application } from './Application';
 
 export type WebSocketClientOptions = {
@@ -89,7 +90,7 @@ export class WebSocketClient {
       return;
     }
     if (this._reconnectTimes === 0) {
-      console.log('[nocobase-ws]: connecting...');
+      console.log('[tachybase-ws]: connecting...');
     }
     if (this._reconnectTimes >= this.reconnectAttempts) {
       return;
@@ -101,7 +102,7 @@ export class WebSocketClient {
     const ws = new WebSocket(this.getURL(), this.options.protocols);
     let pingIntervalTimer: any;
     ws.onopen = () => {
-      console.log('[nocobase-ws]: connected.');
+      console.log('[tachybase-ws]: connected.');
       this.serverDown = false;
       if (this._ws) {
         this.removeAllListeners();

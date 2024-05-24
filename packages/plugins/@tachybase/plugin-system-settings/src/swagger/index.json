@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "NocoBase API - System settings plugin"
+    "title": "TachyBase API - System settings plugin"
   },
   "tags": [],
   "paths": {

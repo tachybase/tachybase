@@ -75,14 +75,14 @@ describe('number value parser', () => {
   });
 
   it('should be attachment', async () => {
-    await setAttachment('https://www.nocobase.com/images/logo.png');
+    await setAttachment('https://www.tachybase.com/images/logo.png');
     expect(parser.errors.length).toBe(0);
     expect(parser.getValue()).toMatchObject([
       {
         title: 'logo.png',
         extname: '.png',
         filename: 'logo.png',
-        url: 'https://www.nocobase.com/images/logo.png',
+        url: 'https://www.tachybase.com/images/logo.png',
       },
     ]);
   });

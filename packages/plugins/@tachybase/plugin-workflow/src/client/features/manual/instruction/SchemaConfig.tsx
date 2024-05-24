@@ -1,18 +1,14 @@
-import { FormLayout } from '@tachybase/components';
-import { createForm } from '@tachybase/schema';
-import { FormProvider, ISchema, Schema, useFieldSchema, useForm } from '@tachybase/schema';
-import { Alert, Button, Modal, Space } from 'antd';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-
 import {
   Action,
   ActionContextProvider,
   CompatibleSchemaInitializer,
+  css,
   DefaultValueProvider,
   DetailsBlockProvider,
   FormActiveFieldsProvider,
   GeneralSchemaDesigner,
+  gridRowColWrap,
   InitializerWithSwitch,
   SchemaComponent,
   SchemaComponentContext,
@@ -22,9 +18,6 @@ import {
   SchemaSettingsDivider,
   SchemaSettingsItem,
   SchemaSettingsRemove,
-  VariableScopeProvider,
-  css,
-  gridRowColWrap,
   useCompile,
   useDataSourceManager,
   useFormActiveFields,
@@ -33,7 +26,15 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaOptionsContext,
+  VariableScopeProvider,
 } from '@tachybase/client';
+import { FormLayout } from '@tachybase/components';
+import { createForm, FormProvider, ISchema, Schema, useFieldSchema, useForm } from '@tachybase/schema';
+import { lodash, Registry } from '@tachybase/utils/client';
+
+import { Alert, Button, Modal, Space } from 'antd';
+import { useTranslation } from 'react-i18next';
+
 import WorkflowPlugin, {
   SimpleDesigner,
   useAvailableUpstreams,
@@ -42,11 +43,8 @@ import WorkflowPlugin, {
   useTrigger,
   useWorkflowVariableOptions,
 } from '../../..';
-
 import { JOB_STATUS } from '../../../constants';
-import { Registry, lodash } from '@tachybase/utils/client';
-
-import { NAMESPACE, lang } from '../../../locale';
+import { lang, NAMESPACE } from '../../../locale';
 import { FormBlockProvider } from './FormBlockProvider';
 import createRecordForm from './forms/create';
 import customRecordForm from './forms/custom';
@@ -523,7 +521,7 @@ export function SchemaConfig({ value, onChange }) {
             'x-component-props': {
               className: css`
                 .ant-drawer-body {
-                  background: var(--nb-box-bg);
+                  background: var(--tb-box-bg);
                 }
               `,
             },

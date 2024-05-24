@@ -32,7 +32,7 @@ export const HomePageConfiguration = (props) => {
             'x-component': 'ActionBar',
             'x-component-props': {
               style: {
-                marginBottom: 'var(--nb-spacing)',
+                marginBottom: 'var(--tb-spacing)',
               },
             },
             properties: {

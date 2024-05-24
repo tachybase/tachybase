@@ -1,4 +1,5 @@
 import { generalWithDatetime, PageConfig } from '@tachybase/test/e2e';
+
 /**
  * 1. 一个 Table 区块
  * 5. 所有字段都是 datetime 字段
@@ -62,7 +63,7 @@ export const oneTableBlockWithDatetimeFields: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'nd5jqapjy3w',

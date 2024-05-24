@@ -55,7 +55,7 @@ const user = {
 
 export default {
   info: {
-    title: 'NocoBase API - SAML plugin',
+    title: 'TachyBase API - SAML plugin',
   },
   paths: {
     '/saml:getAuthUrl': {

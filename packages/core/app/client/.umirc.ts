@@ -38,10 +38,10 @@ export default defineConfig({
     {
       content: isDevCmd ? '' : `
         window['__webpack_public_path__'] = '{{env.APP_PUBLIC_PATH}}';
-        window['__nocobase_public_path__'] = '{{env.APP_PUBLIC_PATH}}';
-        window['__nocobase_api_base_url__'] = '{{env.API_BASE_URL}}';
-        window['__nocobase_ws_url__'] = '{{env.WS_URL}}';
-        window['__nocobase_ws_path__'] = '{{env.WS_PATH}}';
+        window['__tachybase_public_path__'] = '{{env.APP_PUBLIC_PATH}}';
+        window['__tachybase_api_base_url__'] = '{{env.API_BASE_URL}}';
+        window['__tachybase_ws_url__'] = '{{env.WS_URL}}';
+        window['__tachybase_ws_path__'] = '{{env.WS_PATH}}';
       `,
     },
   ],
@@ -75,7 +75,7 @@ export default defineConfig({
   },
   chainWebpack(config, { env }) {
     if (env === 'production') {
-      config.plugin('ignore nocobase plugins').use(require('webpack').IgnorePlugin, [
+      config.plugin('ignore tachybase plugins').use(require('webpack').IgnorePlugin, [
         {
           resourceRegExp: new RegExp(pluginPrefix.join('|')),
         },

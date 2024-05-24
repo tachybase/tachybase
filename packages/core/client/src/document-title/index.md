@@ -9,7 +9,7 @@ group:
 ## DocumentTitleProvider
 
 ```tsx | pure
-<DocumentTitleProvider addonBefore={'!!'} addonAfter={'NocoBase'}>
+<DocumentTitleProvider addonBefore={'!!'} addonAfter={'TachyBase'}>
 </DocumentTitleProvider>
 ```
 

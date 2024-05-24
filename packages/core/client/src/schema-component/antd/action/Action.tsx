@@ -1,13 +1,16 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { observer, RecursionField, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { isPortalInBody } from '@tachybase/utils/client';
+
 import { App, Button } from 'antd';
 import classnames from 'classnames';
 import { default as lodash } from 'lodash';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { StablePopover, useActionContext } from '../..';
 import { useDesignable } from '../../';
 import { useACLActionParamsContext } from '../../../acl';
+import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { Icon } from '../../../icon';
 import { RecordProvider, useRecord } from '../../../record-provider';
 import { useLocalVariables, useVariables } from '../../../variables';
@@ -26,7 +29,6 @@ import { useA } from './hooks';
 import { useGetAriaLabelOfAction } from './hooks/useGetAriaLabelOfAction';
 import { ComposedAction } from './types';
 import { linkageAction } from './utils';
-import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 
 export const Action: ComposedAction = withDynamicSchemaProps(
   observer((props: any) => {
@@ -172,7 +174,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
       </ActionContextProvider>
     );
 
-    // fix https://nocobase.height.app/T-3235/description
+    // fix https://tachybase.height.app/T-3235/description
     if (addChild) {
       return wrapSSR(
         <RecordProvider record={null} parent={record}>

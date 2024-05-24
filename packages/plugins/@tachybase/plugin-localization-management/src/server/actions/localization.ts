@@ -96,7 +96,7 @@ const getSchemaUid = async (db: Database, migrate = false) => {
     const { adminSchemaUid, mobileSchemaUid } = options;
     return { adminSchemaUid, mobileSchemaUid };
   }
-  return { adminSchemaUid: 'nocobase-admin-menu', mobileSchemaUid: 'nocobase-mobile-container' };
+  return { adminSchemaUid: 'default-admin-menu', mobileSchemaUid: 'default-admin-mobile' };
 };
 
 export const getTextsFromMenu = async (db: Database, migrate = false) => {

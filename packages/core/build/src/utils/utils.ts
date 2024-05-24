@@ -81,7 +81,7 @@ export function getUserConfig(cwd: string) {
   return config;
 }
 
-const CACHE_DIR = path.join(NODE_MODULES, '.cache', 'nocobase');
+const CACHE_DIR = path.join(NODE_MODULES, '.cache', 'tachybase');
 export function writeToCache(key: string, data: Record<string, any>) {
   const cachePath = path.join(CACHE_DIR, `${key}.json`);
   fs.ensureDirSync(path.dirname(cachePath));

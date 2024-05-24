@@ -1,5 +1,7 @@
 import path from 'path';
+
 import winston, { format, Logger } from 'winston';
+
 import 'winston-daily-rotate-file';
 
 const { combine, timestamp, colorize, simple } = format;
@@ -27,7 +29,7 @@ const Transports = {
     return new winston.transports.DailyRotateFile({
       dirname,
       level: getLoggerLevel(),
-      filename: 'nocobase-%DATE%.log',
+      filename: 'tachybase-%DATE%.log',
       datePattern: 'YYYY-MM-DD-HH',
       maxFiles: '14d',
       ...options,

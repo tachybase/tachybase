@@ -6,7 +6,6 @@
   "keywords": [
     "Actions"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/action-export",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -28,7 +27,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "导出筛选后的记录到 Excel 中，可以配置导出哪些字段。",
-  "displayName.zh-CN": "操作：导出记录",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-export"
+  "displayName.zh-CN": "操作：导出记录"
 }

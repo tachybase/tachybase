@@ -100,7 +100,7 @@ describe('storage:ali-oss', () => {
         values: {
           ...aliossStorage.defaults(),
           name: 'ali-oss-2',
-          path: 'test/nocobase',
+          path: 'test/tachybase',
           paranoid: true,
           default: true,
         },

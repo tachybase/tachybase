@@ -1,13 +1,14 @@
-import { useDeepCompareEffect, useUpdateEffect } from 'ahooks';
-import React, { FC, createContext, useContext, useMemo } from 'react';
+import React, { createContext, FC, useContext, useMemo } from 'react';
 
-import { UseRequestResult, useAPIClient, useRequest } from '../../api-client';
-import { CollectionRecordProvider, CollectionRecord } from '../collection-record';
-import { AllDataBlockProps, useDataBlockProps } from './DataBlockProvider';
-import { useDataBlockResource } from './DataBlockResourceProvider';
-import { useDataSourceHeaders } from '../utils';
+import { useDeepCompareEffect, useUpdateEffect } from 'ahooks';
+
+import { useAPIClient, useRequest, UseRequestResult } from '../../api-client';
 import { useDataLoadingMode } from '../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
 import { useSourceKey } from '../../modules/blocks/useSourceKey';
+import { CollectionRecord, CollectionRecordProvider } from '../collection-record';
+import { useDataSourceHeaders } from '../utils';
+import { AllDataBlockProps, useDataBlockProps } from './DataBlockProvider';
+import { useDataBlockResource } from './DataBlockResourceProvider';
 
 export const BlockRequestContext = createContext<UseRequestResult<any>>(null);
 BlockRequestContext.displayName = 'BlockRequestContext';
@@ -26,7 +27,7 @@ function useCurrentRequest<T>(options: Omit<AllDataBlockProps, 'type'>) {
           if (record) return Promise.resolve({ data: record });
           if (!action) {
             throw new Error(
-              `[nocobase]: The 'action' parameter is missing in the 'DataBlockRequestProvider' component`,
+              `[tachybase]: The 'action' parameter is missing in the 'DataBlockRequestProvider' component`,
             );
           }
           return resource[action]({ ...params, ...customParams }).then((res) => res.data);

@@ -37,7 +37,7 @@ export const createListBlockUISchema = (options: {
         'x-component': 'ActionBar',
         'x-component-props': {
           style: {
-            marginBottom: 'var(--nb-spacing)',
+            marginBottom: 'var(--tb-spacing)',
           },
         },
       },

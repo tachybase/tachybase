@@ -1,7 +1,7 @@
-################# NOCOBASE APPLICATION #################
+################# TACHYBASE APPLICATION #################
 
 # !!! When `APP_ENV=production`, opening http://localhost:13000/ will show "Not Found".
-# !!! It is recommended to use nginx to proxy static files. For example https://github.com/nocobase/nocobase/blob/main/docker/nocobase/nocobase.conf
+# !!! It is recommended to use nginx to proxy static files. For example https://github.com/tachybase/tachybase/blob/main/docker/tachybase/tachybase.conf
 APP_ENV=development
 APP_PORT=20000
 APP_KEY=test-key-e2e
@@ -22,13 +22,13 @@ LOGGER_BASE_PATH=storage/logs-e2e
 ################# DATABASE #################
 
 DB_DIALECT=sqlite
-DB_STORAGE=storage/db/nocobase-e2e.sqlite
+DB_STORAGE=storage/db/tachybase-e2e.sqlite
 DB_TABLE_PREFIX=
 # DB_HOST=localhost
 # DB_PORT=5432
-# DB_DATABASE=nocobase-e2e
-# DB_USER=nocobase
-# DB_PASSWORD=nocobase
+# DB_DATABASE=tachybase-e2e
+# DB_USER=tachybase
+# DB_PASSWORD=tachybase
 # DB_LOGGING=on
 # DB_UNDERSCORED=false
 
@@ -37,4 +37,4 @@ DB_TABLE_PREFIX=
 INIT_ROOT_EMAIL=admin@tachybase.com
 INIT_ROOT_PASSWORD=admin123
 INIT_ROOT_NICKNAME=Super Admin
-INIT_ROOT_USERNAME=nocobase
+INIT_ROOT_USERNAME=tachybase

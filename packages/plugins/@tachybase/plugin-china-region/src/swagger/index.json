@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "NocoBase API - China region plugin"
+    "title": "TachyBase API - China region plugin"
   },
   "paths": {
     "/chinaRegions:list": {

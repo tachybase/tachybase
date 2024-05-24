@@ -1,8 +1,9 @@
+import { resolve } from 'path';
 import { mockDatabase } from '@tachybase/database';
 import { uid } from '@tachybase/utils';
+
 import axios from 'axios';
 import execa from 'execa';
-import { resolve } from 'path';
 import { getPortPromise } from 'portfinder';
 
 const delay = (timeout) => {
@@ -53,7 +54,7 @@ const run = (command, args, options) => {
 
 const createDatabase = async () => {
   if (process.env.DB_DIALECT === 'sqlite') {
-    return 'nocobase';
+    return 'tachybase';
   }
   const db = mockDatabase();
   const name = `d_${uid()}`;
@@ -69,7 +70,7 @@ describe.skip('cli', () => {
       port: 13000,
     });
     console.log(process.env.DB_DIALECT, port);
-    const dbFile = `storage/tests/db/nocobase-${uid()}.sqlite`;
+    const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
       ...process.env,
       APP_PORT: `${port}`,
@@ -78,15 +79,15 @@ describe.skip('cli', () => {
       SOCKET_PATH: `storage/tests/gateway-e2e-${uid()}.sock`,
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
-    const subprocess1 = await execa('pnpm', ['nocobase', 'install'], {
+    const subprocess1 = await execa('pnpm', ['tachybase', 'install'], {
       env,
     });
     expect(subprocess1.stdout.includes('app installed successfully')).toBeTruthy();
-    const subprocess2 = await execa('pnpm', ['nocobase', 'install'], {
+    const subprocess2 = await execa('pnpm', ['tachybase', 'install'], {
       env,
     });
     expect(subprocess2.stdout.includes('app is installed')).toBeTruthy();
-    const subprocess3 = await execa('pnpm', ['nocobase', 'install', '-f'], {
+    const subprocess3 = await execa('pnpm', ['tachybase', 'install', '-f'], {
       env,
     });
     expect(subprocess3.stdout.includes('app reinstalled successfully')).toBeTruthy();
@@ -98,7 +99,7 @@ describe.skip('cli', () => {
     const port = await getPortPromise({
       port: 13000,
     });
-    const dbFile = `storage/tests/db/nocobase-${uid()}.sqlite`;
+    const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
       ...process.env,
       APP_PORT: `${port}`,
@@ -107,13 +108,13 @@ describe.skip('cli', () => {
       SOCKET_PATH: `storage/tests/gateway-e2e-${uid()}.sock`,
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
-    const subprocess1 = execa('pnpm', ['nocobase', 'dev', '--server'], {
+    const subprocess1 = execa('pnpm', ['tachybase', 'dev', '--server'], {
       env,
     });
     const code = await checkServer(port);
     console.log(code);
     expect(code).toBe('APP_NOT_INSTALLED_ERROR');
-    execa('pnpm', ['nocobase', 'install'], {
+    execa('pnpm', ['tachybase', 'install'], {
       env,
     });
     await delay(5000);
@@ -128,7 +129,7 @@ describe.skip('cli', () => {
     const port = await getPortPromise({
       port: 13000,
     });
-    const dbFile = `storage/tests/db/nocobase-${uid()}.sqlite`;
+    const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
       ...process.env,
       APP_PORT: `${port}`,
@@ -137,10 +138,10 @@ describe.skip('cli', () => {
       SOCKET_PATH: `storage/tests/gateway-e2e-${uid()}.sock`,
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
-    await execa('pnpm', ['nocobase', 'install'], {
+    await execa('pnpm', ['tachybase', 'install'], {
       env,
     });
-    const subprocess1 = execa('pnpm', ['nocobase', 'dev', '--server'], {
+    const subprocess1 = execa('pnpm', ['tachybase', 'dev', '--server'], {
       env,
     });
     const code = await checkServer(port);
@@ -154,7 +155,7 @@ describe.skip('cli', () => {
     const port = await getPortPromise({
       port: 13000,
     });
-    const dbFile = `storage/tests/db/nocobase-${uid()}.sqlite`;
+    const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
       ...process.env,
       APP_PORT: `${port}`,
@@ -164,13 +165,13 @@ describe.skip('cli', () => {
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
     console.log('DB_STORAGE:', dbFile);
-    const subprocess1 = execa('pnpm', ['nocobase', 'dev', '--server', '--quickstart'], {
+    const subprocess1 = execa('pnpm', ['tachybase', 'dev', '--server', '--quickstart'], {
       env,
     });
     const code = await checkServer(port);
     expect(code).toBe(true);
     subprocess1.cancel();
-    const subprocess2 = execa('pnpm', ['nocobase', 'dev', '--server', '--quickstart'], {
+    const subprocess2 = execa('pnpm', ['tachybase', 'dev', '--server', '--quickstart'], {
       env,
     });
     const code2 = await checkServer(port);
@@ -184,7 +185,7 @@ describe.skip('cli', () => {
     const port = await getPortPromise({
       port: 13000,
     });
-    const dbFile = `storage/tests/db/nocobase-${uid()}.sqlite`;
+    const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
       ...process.env,
       APP_PORT: `${port}`,
@@ -194,13 +195,13 @@ describe.skip('cli', () => {
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
     console.log('DB_STORAGE:', dbFile);
-    await execa('pnpm', ['nocobase', 'install'], {
+    await execa('pnpm', ['tachybase', 'install'], {
       env,
     });
-    const subprocess2 = await execa('pnpm', ['nocobase', 'upgrade'], {
+    const subprocess2 = await execa('pnpm', ['tachybase', 'upgrade'], {
       env,
     });
-    expect(subprocess2.stdout.includes('NocoBase has been upgraded')).toBe(true);
+    expect(subprocess2.stdout.includes('TachyBase has been upgraded')).toBe(true);
   });
 
   test('quickstart + upgrade', async () => {
@@ -209,7 +210,7 @@ describe.skip('cli', () => {
     const port = await getPortPromise({
       port: 13000,
     });
-    const dbFile = `storage/tests/db/nocobase-${uid()}.sqlite`;
+    const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
       ...process.env,
       APP_PORT: `${port}`,
@@ -219,12 +220,12 @@ describe.skip('cli', () => {
       PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
     };
     console.log('DB_STORAGE:', dbFile);
-    const subprocess1 = execa('pnpm', ['nocobase', 'dev', '--server', '--quickstart'], {
+    const subprocess1 = execa('pnpm', ['tachybase', 'dev', '--server', '--quickstart'], {
       env,
     });
     const code = await checkServer(port);
     expect(code).toBe(true);
-    await execa('pnpm', ['nocobase', 'upgrade'], {
+    await execa('pnpm', ['tachybase', 'upgrade'], {
       env,
     });
     await delay(5000);

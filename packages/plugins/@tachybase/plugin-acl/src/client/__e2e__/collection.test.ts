@@ -11,7 +11,7 @@ test.describe('view', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('block-item-CardItem-general-table')).not.toBeVisible();
@@ -42,7 +42,7 @@ test.describe('view', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('block-item-CardItem-general-table')).not.toBeVisible();
@@ -77,7 +77,7 @@ test.describe('view', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     //特定字段有权限
@@ -99,7 +99,7 @@ test.describe('create', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('block-item-CardItem-general-table')).toBeVisible();
@@ -134,7 +134,7 @@ test.describe('create', () => {
       ],
     });
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await mockPage(oneTableBlock).goto();
@@ -183,7 +183,7 @@ test.describe('create', () => {
       ],
     });
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await mockPage(oneTableBlock).goto();
@@ -206,7 +206,7 @@ test.describe('update', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('action-Action.Link-Edit')).not.toBeVisible();
@@ -237,7 +237,7 @@ test.describe('update', () => {
       ],
     });
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await mockPage(oneTableBlock).goto();
@@ -285,7 +285,7 @@ test.describe('update', () => {
       ],
     });
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await mockPage(newTableBlock).goto();
@@ -324,7 +324,7 @@ test.describe('update', () => {
       ],
     });
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await mockPage(oneTableBlock).goto();
@@ -349,7 +349,7 @@ test.describe('destroy', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('action-Action-Delete-destroy-general-table')).not.toBeVisible();
@@ -379,7 +379,7 @@ test.describe('destroy', () => {
       ],
     });
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await mockPage(oneTableBlock).goto();
@@ -430,7 +430,7 @@ test.describe('destroy', () => {
       ],
     });
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await mockPage(newTableBlock).goto();
@@ -471,7 +471,7 @@ test.describe('export', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('action-Action-Export')).not.toBeVisible();
@@ -504,7 +504,7 @@ test.describe('export', () => {
       ],
     });
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await mockPage(oneTableBlock).goto();
@@ -524,7 +524,7 @@ test.describe('import', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('action-Action-Import')).not.toBeVisible();
@@ -557,7 +557,7 @@ test.describe('import', () => {
       ],
     });
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await mockPage(oneTableBlock).goto();

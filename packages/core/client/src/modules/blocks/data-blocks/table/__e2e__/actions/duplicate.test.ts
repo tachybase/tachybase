@@ -1,7 +1,8 @@
 import { expect, test } from '@tachybase/test/e2e';
+
 import { T2187 } from '../templatesOfBug';
 
-// fix https://nocobase.height.app/T-2187
+// fix https://tachybase.height.app/T-2187
 test('in the Duplicate mode, the Roles field should not have a value after clicking it because it is not selected', async ({
   page,
   mockPage,

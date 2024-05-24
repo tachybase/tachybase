@@ -1,8 +1,8 @@
-import { Field } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
-import { merge } from '@tachybase/schema';
-import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo } from 'react';
+import { Field, merge, useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
+
 import { useFormBlockContext } from '../../../block-provider';
 import {
   useCollection_deprecated,
@@ -10,13 +10,13 @@ import {
   useCollectionFilterOptions,
   useCollectionManager_deprecated,
 } from '../../../collection-manager';
+import { CollectionFieldProvider } from '../../../data-source';
 import { useRecord } from '../../../record-provider';
 import { useCompile, useComponent } from '../../../schema-component';
-import { VariableInput, getShouldChange } from '../../../schema-settings/VariableInput/VariableInput';
 import { Option } from '../../../schema-settings/VariableInput/type';
 import { formatVariableScop } from '../../../schema-settings/VariableInput/utils/formatVariableScop';
+import { getShouldChange, VariableInput } from '../../../schema-settings/VariableInput/VariableInput';
 import { useLocalVariables, useVariables } from '../../../variables';
-import { CollectionFieldProvider } from '../../../data-source';
 
 interface AssignedFieldProps {
   value: any;
@@ -116,7 +116,7 @@ export const AssignedField = (props: AssignedFieldProps) => {
       const currentForm = scope.find((item) => item.value === '$nForm');
       const fields = getCollectionFields(name);
 
-      // fix https://nocobase.height.app/T-1355
+      // fix https://tachybase.height.app/T-1355
       // 工作流人工节点的 `自定义表单` 区块，与其它表单区块不同，根据它的数据表名称，获取到的字段列表为空，所以需要在这里特殊处理一下
       if (!fields?.length && currentForm) {
         currentForm.children = formatVariableScop(currentFormFields);

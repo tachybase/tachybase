@@ -1,7 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { uid } from '@formily/shared';
-import { Page, test as base, expect, request } from '@playwright/test';
+import { test as base, expect, Page, request } from '@playwright/test';
 import _ from 'lodash';
+
 import { defineConfig } from './defineConfig';
 
 export * from '@playwright/test';
@@ -180,7 +181,7 @@ interface CreatePageOptions {
 
 interface ExtendUtils {
   /**
-   * 根据配置，生成一个 NocoBase 的页面
+   * 根据配置，生成一个 TachyBase 的页面
    * @param pageConfig 页面配置
    * @returns
    */
@@ -543,7 +544,7 @@ const updateUidOfPageSchema = (uiSchema: any) => {
 };
 
 /**
- * 在 NocoBase 中创建一个页面
+ * 在 TachyBase 中创建一个页面
  */
 const createPage = async (options?: CreatePageOptions) => {
   const { type = 'page', url, name, pageSchema } = options || {};
@@ -571,7 +572,7 @@ const createPage = async (options?: CreatePageOptions) => {
   const pageUid = uid();
   const gridName = uid();
 
-  const result = await api.post(`/api/uiSchemas:insertAdjacent/nocobase-admin-menu?position=beforeEnd`, {
+  const result = await api.post(`/api/uiSchemas:insertAdjacent/default-admin-menu?position=beforeEnd`, {
     headers,
     data: {
       schema: {
@@ -622,7 +623,7 @@ const createPage = async (options?: CreatePageOptions) => {
 };
 
 /**
- * 根据页面 uid 删除一个 NocoBase 的页面
+ * 根据页面 uid 删除一个 TachyBase 的页面
  */
 const deletePage = async (pageUid: string) => {
   const api = await request.newContext({
@@ -901,14 +902,14 @@ const createRandomData = async (collectionName: string, count = 10, data?: any) 
 
 function getHeaders(storageState: any) {
   const headers: any = {};
-  const token = getStorageItem('NOCOBASE_TOKEN', storageState);
-  const auth = getStorageItem('NOCOBASE_AUTH', storageState);
+  const token = getStorageItem('TACHYBASE_TOKEN', storageState);
+  const auth = getStorageItem('TACHYBASE_AUTH', storageState);
   const subAppName = new URL(APP_BASE_URL).pathname.match(/^\/apps\/([^/]*)\/*/)?.[1];
   const hostName = new URL(APP_BASE_URL).host;
-  const locale = getStorageItem('NOCOBASE_LOCALE', storageState);
+  const locale = getStorageItem('TACHYBASE_LOCALE', storageState);
   const timezone = '+08:00';
   const withAclMeta = 'true';
-  const role = getStorageItem('NOCOBASE_ROLE', storageState);
+  const role = getStorageItem('TACHYBASE_ROLE', storageState);
 
   if (token) {
     headers.Authorization = `Bearer ${token}`;

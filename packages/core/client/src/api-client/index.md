@@ -45,7 +45,7 @@ const apiClient = new APIClient(instance);
 // 常规请求
 const response = await apiClient.request({ url });
 
-// NocoBase 特有的资源操作
+// TachyBase 特有的资源操作
 const response = await apiClient.resource('posts').list();
 
 // 请求共享
@@ -100,7 +100,7 @@ run({
 
 <code src="./demos/demo2.tsx"></code>
 
-或者是 NocoBase 的 resource & action 请求：
+或者是 TachyBase 的 resource & action 请求：
 
 ```ts
 const { data, run } = useRequest({
@@ -137,7 +137,7 @@ run(...params);
 function useResource(name: string, of?: string | number): IResource;
 ```
 
-资源是 NocoBase 的核心概念，包括：
+资源是 TachyBase 的核心概念，包括：
 
 - 独立资源，如 `posts`
 - 关系资源，如 `posts.tags` `posts.user` `posts.comments`

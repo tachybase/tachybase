@@ -1,7 +1,9 @@
+import path from 'path';
 import { merge } from '@tachybase/utils';
+
 import { customAlphabet } from 'nanoid';
 import fetch from 'node-fetch';
-import path from 'path';
+
 import { Database, IDatabaseOptions } from './database';
 
 export class MockDatabase extends Database {
@@ -35,7 +37,7 @@ export function getConfigByEnv() {
   };
 
   if (process.env.DB_DIALECT == 'postgres') {
-    options.dialectOptions['application_name'] = 'nocobase.main';
+    options.dialectOptions['application_name'] = 'tachybase.main';
   }
 
   return options;

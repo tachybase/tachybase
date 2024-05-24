@@ -2,5 +2,5 @@
 tmp
 app.watch.ts
 /e2e
-nocobase.conf
+tachybase.conf
 app-upgrading

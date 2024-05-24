@@ -1,6 +1,6 @@
-import { ISchema } from '@tachybase/schema';
-import { DocumentTitleProvider, Page, SchemaComponent, SchemaComponentProvider, Application } from '@tachybase/client';
 import React from 'react';
+import { Application, DocumentTitleProvider, Page, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { ISchema } from '@tachybase/schema';
 
 const schema: ISchema = {
   type: 'object',
@@ -23,7 +23,7 @@ const schema: ISchema = {
 const Root = () => {
   return (
     <SchemaComponentProvider components={{ Page }}>
-      <DocumentTitleProvider addonAfter={'NocoBase'}>
+      <DocumentTitleProvider addonAfter={'TachyBase'}>
         <SchemaComponent schema={schema} />
       </DocumentTitleProvider>
     </SchemaComponentProvider>

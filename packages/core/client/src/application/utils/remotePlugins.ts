@@ -1,7 +1,7 @@
+import type { DevDynamicImport } from '../Application';
 import type { Plugin } from '../Plugin';
 import type { PluginData } from '../PluginManager';
 import type { RequireJS } from './requirejs';
-import type { DevDynamicImport } from '../Application';
 
 /**
  * @internal
@@ -63,7 +63,7 @@ export function processRemotePlugins(pluginData: PluginData[], resolve: (plugins
 
     if (emptyPlugins.length > 0) {
       console.error(
-        '[nocobase load plugin error]: These plugins do not have an `export.default` exported content or there is an error in the plugins. error plugins: \r\n%s',
+        '[tachybase load plugin error]: These plugins do not have an `export.default` exported content or there is an error in the plugins. error plugins: \r\n%s',
         emptyPlugins.join(', \r\n'),
       );
     }

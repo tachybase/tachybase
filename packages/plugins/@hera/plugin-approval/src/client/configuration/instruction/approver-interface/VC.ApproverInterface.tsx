@@ -17,7 +17,7 @@ const useStyles = createStyles(({ css }) => {
   return {
     container: css`
       .ant-drawer-body {
-        background: var(--nb-box-bg);
+        background: var(--tb-box-bg);
       }
     `,
   };

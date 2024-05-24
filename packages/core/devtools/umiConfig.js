@@ -101,7 +101,7 @@ function getPackagePaths() {
   return pkgs;
 }
 
-function resolveNocobasePackagesAlias(config) {
+function resolveTachybasePackagesAlias(config) {
   const pkgs = getPackagePaths();
   for (const [pkg, dir] of pkgs) {
     config.module.rules.get('ts-in-node_modules').include.add(dir);
@@ -114,7 +114,7 @@ function getNodeModulesPath(packageDir) {
   return path.join(node_modules_dir, packageDir);
 }
 class IndexGenerator {
-  nocobaseDir = getNodeModulesPath('@tachybase');
+  tachybaseDir = getNodeModulesPath('@tachybase');
 
   constructor(outputPath, pluginsPath) {
     this.outputPath = outputPath;
@@ -209,10 +209,10 @@ export default function devDynamicImport(packageName: string): Promise<any> {
       absolute: true,
     });
 
-    const nocobasePluginFolders = glob
-      .sync(['plugin-*/package.json'], { cwd: this.nocobaseDir, onlyFiles: true, absolute: true })
+    const tachybasePluginFolders = glob
+      .sync(['plugin-*/package.json'], { cwd: this.tachybaseDir, onlyFiles: true, absolute: true })
       .map((item) => fs.realpathSync(item));
-    const pluginInfos = Array.from(new Set([...pluginFolders, ...storagePluginFolders, ...nocobasePluginFolders]))
+    const pluginInfos = Array.from(new Set([...pluginFolders, ...storagePluginFolders, ...tachybasePluginFolders]))
       .filter((item) => {
         const dirname = path.dirname(item);
         const clientJs = path.join(dirname, 'client.js');
@@ -245,5 +245,5 @@ export default function devDynamicImport(packageName: string): Promise<any> {
 }
 
 exports.getUmiConfig = getUmiConfig;
-exports.resolveNocobasePackagesAlias = resolveNocobasePackagesAlias;
+exports.resolveTachybasePackagesAlias = resolveTachybasePackagesAlias;
 exports.IndexGenerator = IndexGenerator;

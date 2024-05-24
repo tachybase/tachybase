@@ -18,6 +18,6 @@ export default (cli: Command) => {
         });
         if (options.watch) return;
       }
-      await run('nocobase-build', [...pkgs, '--only-tar', options.version ? '--version' : '']);
+      await run('tachybase-build', [...pkgs, '--only-tar', options.version ? '--version' : '']);
     });
 };

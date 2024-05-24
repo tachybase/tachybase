@@ -108,8 +108,8 @@ export const CreateDatabaseConnectAction = () => {
                               target="_blank"
                               href={
                                 api.auth.locale === 'zh-CN'
-                                  ? 'https://docs-cn.nocobase.com/handbook/data-source-manager'
-                                  : 'https://docs.nocobase.com/handbook/data-source-manager'
+                                  ? 'https://docs-cn.tachybase.com/handbook/data-source-manager'
+                                  : 'https://docs.tachybase.com/handbook/data-source-manager'
                               }
                               rel="noreferrer"
                             >

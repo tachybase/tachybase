@@ -1,9 +1,9 @@
-import { useRequest } from '@tachybase/client';
 import { useMemo } from 'react';
+import { useRequest } from '@tachybase/client';
 
 export const TokenConfigurationResourceKey = 'token-configuration';
 export const getSSKey = (type) => {
-  return `NOCOBASE_PLUGIN_TOKEN_CONFIGURATION_${type}`;
+  return `TACHYBASE_PLUGIN_TOKEN_CONFIGURATION_${type}`;
 };
 
 export const useMapConfiguration = (type: string) => {

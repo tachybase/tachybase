@@ -105,19 +105,19 @@ export class SwaggerManager {
     });
     return [
       {
-        name: 'NocoBase API',
+        name: 'TachyBase API',
         url: this.getURL('swagger:get'),
       },
       {
-        name: 'NocoBase API - Core',
+        name: 'TachyBase API - Core',
         url: this.getURL('swagger:get?ns=core'),
       },
       {
-        name: 'NocoBase API - All plugins',
+        name: 'TachyBase API - All plugins',
         url: this.getURL('swagger:get?ns=plugins'),
       },
       {
-        name: 'NocoBase API - Custom collections',
+        name: 'TachyBase API - Custom collections',
         url: this.getURL('swagger:get?ns=collections'),
       },
       ...plugins,

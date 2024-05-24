@@ -1,7 +1,7 @@
 export default {
   openapi: '3.0.2',
   info: {
-    title: 'NocoBase API - UI schema storage plugin',
+    title: 'TachyBase API - UI schema storage plugin',
   },
   tags: [],
   paths: {

@@ -15,7 +15,7 @@ test('menu permission ', async ({ page, mockPage, mockRole, updateRole }) => {
     menuUiSchemas: [uid1],
   });
   await page.evaluate((roleData) => {
-    window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+    window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
   }, roleData);
   await page.reload();
   await expect(page.getByLabel('page1')).toBeVisible();

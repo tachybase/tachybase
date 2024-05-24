@@ -81,7 +81,7 @@ class AppGenerator extends Generator {
         if (!allDbDialect) {
           dependencies.push(`"sqlite3": "^5.0.8"`);
         }
-        envs.push(`DB_STORAGE=${env.DB_STORAGE || 'storage/db/nocobase.sqlite'}`);
+        envs.push(`DB_STORAGE=${env.DB_STORAGE || 'storage/db/tachybase.sqlite'}`);
         break;
       case 'mysql':
         if (!allDbDialect) {
@@ -169,7 +169,7 @@ class AppGenerator extends Generator {
 
     const { name } = this.context;
 
-    console.log(`Creating a new NocoBase application at ${chalk.green(name)}`);
+    console.log(`Creating a new TachyBase application at ${chalk.green(name)}`);
     console.log('Creating files');
 
     this.copyDirectory({

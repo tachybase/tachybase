@@ -6,7 +6,6 @@
   "keywords": [
     "Actions"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/action-import",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -34,7 +33,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "使用 Excel 模板导入数据，可以配置导入哪些字段，自动生成模板。",
-  "displayName.zh-CN": "操作：导入记录",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-import"
+  "displayName.zh-CN": "操作：导入记录"
 }

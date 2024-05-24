@@ -1,4 +1,4 @@
-import { PageConfig, generalWithM2oSingleSelect, generalWithMultiLevelM2mFields } from '@tachybase/test/e2e';
+import { generalWithM2oSingleSelect, generalWithMultiLevelM2mFields, PageConfig } from '@tachybase/test/e2e';
 
 export const T2165 = {
   pageSchema: {
@@ -339,7 +339,7 @@ export const T2174 = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-index': 1,
@@ -932,7 +932,7 @@ export const T2614: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'vq4vg5mpbxz',
@@ -1770,7 +1770,7 @@ export const T2993: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-index': 1,
@@ -2353,7 +2353,7 @@ export const T2615: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -3259,7 +3259,7 @@ export const T2845: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-index': 1,
@@ -4735,7 +4735,7 @@ export const T2200 = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'farfrcvsydq',
@@ -5696,7 +5696,7 @@ export const T3469: PageConfig = {
   },
 };
 
-// https://nocobase.height.app/T-3529
+// https://tachybase.height.app/T-3529
 export const T3529: PageConfig = {
   collections: generalWithMultiLevelM2mFields,
   pageSchema: {
@@ -5756,7 +5756,7 @@ export const T3529: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'gcqzwfc98cz',

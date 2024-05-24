@@ -9,7 +9,7 @@ test('allows to configure interface', async ({ page, mockPage, mockRole, updateR
     snippets: ['ui.*'],
   });
   await page.evaluate((roleData) => {
-    window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+    window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
   }, roleData);
   await page.reload();
   await expect(page.getByTestId('ui-editor-button')).toBeVisible();
@@ -31,7 +31,7 @@ test('allows to install ,install,disabled plugins ', async ({ page, mockPage, mo
     snippets: ['pm'],
   });
   await page.evaluate((roleData) => {
-    window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+    window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
   }, roleData);
   await page.reload();
   await expect(page.getByTestId('plugin-manager-button')).toBeVisible();
@@ -60,7 +60,7 @@ test('allows to confgiure plugins ', async ({ page, mockPage, mockRole, updateRo
     },
   });
   await page.evaluate((roleData) => {
-    window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+    window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
   }, roleData);
   await page.reload();
   await page.getByTestId('plugin-settings-button').click();
@@ -87,7 +87,7 @@ test('allows to clear cache,reboot application ', async ({ page, mockPage, mockR
     snippets: ['app'],
   });
   await page.evaluate((roleData) => {
-    window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+    window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
   }, roleData);
   await page.reload();
   await page.getByTestId('user-center-button').hover();
@@ -110,7 +110,7 @@ test('new menu items allow to be asscessed by default ', async ({ page, mockPage
     snippets: ['ui.*'],
   });
   await page.evaluate((roleData) => {
-    window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+    window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
   }, roleData);
   await page.reload();
   await mockPage({ ...oneTableBlock, name: 'new page' }).goto();
@@ -130,7 +130,7 @@ test('plugin settings permissions', async ({ page, mockPage, mockRole, updateRol
     snippets: ['pm', 'pm.*', '!pm.auth.authenticators', '!pm.collection-manager', '!pm.collection-manager.collections'],
   });
   await page.evaluate((roleData) => {
-    window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+    window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
   }, roleData);
   await page.reload();
   await page.getByTestId('plugin-settings-button').hover();

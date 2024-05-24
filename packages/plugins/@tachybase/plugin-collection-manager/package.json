@@ -2,11 +2,10 @@
   "name": "@tachybase/plugin-collection-manager",
   "displayName": "Data source: Main",
   "version": "0.21.34",
-  "description": "NocoBase main database, supports relational databases such as MySQL, PostgreSQL, SQLite and so on.",
+  "description": "TachyBase main database, supports relational databases such as MySQL, PostgreSQL, SQLite and so on.",
   "keywords": [
     "Data sources"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/data-source-main",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -26,8 +25,6 @@
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
   },
-  "description.zh-CN": "NocoBase 主数据库，支持 MySQL、PostgreSQL、SQLite 等关系型数据库。",
-  "displayName.zh-CN": "数据源：主数据库",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/data-source-main"
+  "description.zh-CN": "TachyBase 主数据库，支持 MySQL、PostgreSQL、SQLite 等关系型数据库。",
+  "displayName.zh-CN": "数据源：主数据库"
 }

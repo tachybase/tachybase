@@ -1,5 +1,6 @@
-import { render, screen, userEvent, waitFor, within } from '@tachybase/test/client';
 import React from 'react';
+import { render, screen, userEvent, waitFor, within } from '@tachybase/test/client';
+
 import App2 from '../demos/demo2';
 import App3 from '../demos/demo3';
 import App4 from '../demos/demo4';
@@ -30,7 +31,7 @@ describe('Filter', () => {
     expect(inputs[0]).toHaveValue('aa');
     expect(inputs[1]).toHaveValue('aaa');
 
-    // 点击下拉框中的选项，Popover 不应该关闭。详见：https://nocobase.height.app/T-1508
+    // 点击下拉框中的选项，Popover 不应该关闭。详见：https://tachybase.height.app/T-1508
     await userEvent.click(screen.getByText(/any/i));
     await userEvent.click(screen.getByText(/all/i));
     expect(tooltip).toBeInTheDocument();
@@ -96,7 +97,7 @@ describe('Filter', () => {
     expect(inputs[0]).toHaveValue('');
     expect(inputs[1]).toHaveValue('aaa');
 
-    // 点击下拉框中的选项，Popover 不应该关闭。详见：https://nocobase.height.app/T-1508
+    // 点击下拉框中的选项，Popover 不应该关闭。详见：https://tachybase.height.app/T-1508
     await userEvent.click(screen.getByText(/any/i));
     await userEvent.click(screen.getByText(/all/i));
     expect(tooltip).toBeInTheDocument();

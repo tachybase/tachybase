@@ -1,12 +1,21 @@
-import { GeneralField, Query } from '@tachybase/schema';
-import { ISchema, Schema, SchemaOptionsContext, useField, useFieldSchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React, { ComponentType, useCallback, useContext, useEffect, useMemo } from 'react';
+import {
+  GeneralField,
+  ISchema,
+  Query,
+  Schema,
+  SchemaOptionsContext,
+  uid,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
+
 import { message } from 'antd';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import set from 'lodash/set';
-import React, { ComponentType, useCallback, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { APIClient, useAPIClient } from '../../api-client';
 import { SchemaComponentContext } from '../context';
 
@@ -691,7 +700,7 @@ export function useFindComponent() {
     }
     const res = get(components, component);
     if (!res) {
-      console.error(`[nocobase]: Component "${component}" not found`);
+      console.error(`[tachybase]: Component "${component}" not found`);
     }
     return res;
   };

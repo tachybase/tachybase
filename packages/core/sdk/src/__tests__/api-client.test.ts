@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+
 import { APIClient, Storage } from '../';
 import { Auth } from '../APIClient';
 
@@ -30,9 +31,9 @@ describe('api-client', () => {
     const response = await api.auth.signIn({}, 'basic');
     expect(response.status).toBe(200);
     expect(api.auth.getToken()).toBe('123');
-    const token = localStorage.getItem('NOCOBASE_TOKEN');
+    const token = localStorage.getItem('TACHYBASE_TOKEN');
     expect(token).toBe('123');
-    const auth = localStorage.getItem('NOCOBASE_AUTH');
+    const auth = localStorage.getItem('TACHYBASE_AUTH');
     expect(auth).toBe('basic');
   });
 
@@ -82,7 +83,7 @@ describe('api-client', () => {
     const response = await api.auth.signIn({});
     expect(response.status).toBe(200);
     expect(api.auth.getToken()).toBe('123');
-    const token = items.get('NOCOBASE_TOKEN');
+    const token = items.get('TACHYBASE_TOKEN');
     expect(token).toBe('123');
   });
 
@@ -116,9 +117,9 @@ describe('api-client', () => {
     const response = await api.auth.signIn({});
     expect(response.status).toBe(200);
     expect(api.auth.getToken()).toBe('123');
-    const token = localStorage.getItem('NOCOBASE_TOKEN');
+    const token = localStorage.getItem('TACHYBASE_TOKEN');
     expect(token).toBe('123');
-    const auth = localStorage.getItem('NOCOBASE_AUTH');
+    const auth = localStorage.getItem('TACHYBASE_AUTH');
     expect(auth).toBe('test');
   });
 });

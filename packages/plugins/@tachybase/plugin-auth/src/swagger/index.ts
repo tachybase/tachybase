@@ -1,6 +1,6 @@
 export default {
   info: {
-    title: 'NocoBase API - Auth plugin',
+    title: 'TachyBase API - Auth plugin',
   },
   paths: {
     '/auth:check': {

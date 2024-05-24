@@ -25,7 +25,5 @@
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
   },
-  "description.zh-CN": "",
-  "displayName.zh-CN": "多应用数据表共享",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+  "description.zh-CN": ""
 }

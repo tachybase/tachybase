@@ -1,13 +1,15 @@
-import { useLocalStorageState } from 'ahooks';
 import React from 'react';
+
+import { useLocalStorageState } from 'ahooks';
+
 import { SchemaComponentProvider } from '../schema-component/core';
 import { ISchemaComponentProvider } from '../schema-component/types';
 
 const getKeyByName = (name) => {
   if (!name) {
-    return 'nocobase_designable'.toUpperCase();
+    return 'tachybase_designable'.toUpperCase();
   }
-  return `nocobase_${name}_designable`.toUpperCase();
+  return `tachybase_${name}_designable`.toUpperCase();
 };
 
 const SchemaComponentProviderWithLocalStorageState: React.FC<ISchemaComponentProvider & { appName?: string }> = (

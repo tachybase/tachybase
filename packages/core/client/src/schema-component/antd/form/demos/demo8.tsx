@@ -1,5 +1,4 @@
-import { FormItem } from '@tachybase/components';
-import { ISchema, observer } from '@tachybase/schema';
+import React, { useEffect, useState } from 'react';
 import {
   Action,
   ActionContextProvider,
@@ -11,8 +10,10 @@ import {
   useCloseAction,
   useRequest,
 } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
+import { ISchema, observer } from '@tachybase/schema';
+
 import { Button } from 'antd';
-import React, { useEffect, useState } from 'react';
 
 const useValues = (options) => {
   const { visible } = useActionContext();
@@ -21,7 +22,7 @@ const useValues = (options) => {
       Promise.resolve({
         data: {
           id: 1,
-          name: 'hello nocobase',
+          name: 'hello tachybase',
         },
       }),
     { ...options, manual: true },

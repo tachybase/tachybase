@@ -55,12 +55,12 @@ test.describe('form item & create form', () => {
             .hover();
         })(page, 'url'),
       supportVariables: ['Constant', 'Current user', 'Date variables', 'Current form'],
-      constantValue: 'https://nocobase.com',
+      constantValue: 'https://tachybase.com',
       variableValue: ['Current user', 'Email'], // 值为 admin@tachybase.com
       expectConstantValue: async () => {
         await expect(
           page.getByLabel('block-item-CollectionField-general-form-general.url-url').getByRole('textbox'),
-        ).toHaveValue('https://nocobase.com');
+        ).toHaveValue('https://tachybase.com');
       },
       expectVariableValue: async () => {
         await expect(
@@ -95,7 +95,7 @@ test.describe('form item & create form', () => {
         await page
           .getByLabel('block-item-CollectionField-general-form-general.url-url')
           .getByRole('textbox')
-          .fill('https://nocobase.com');
+          .fill('https://tachybase.com');
       },
       expectReadonly: async () => {
         // 只读模式下，输入框会被禁用
@@ -109,7 +109,7 @@ test.describe('form item & create form', () => {
           page.getByLabel('block-item-CollectionField-general-form-general.url-url').getByRole('textbox'),
         ).not.toBeVisible();
         await expect(page.getByLabel('block-item-CollectionField-general-form-general.url-url')).toHaveText(
-          'url:https://nocobase.com',
+          'url:https://tachybase.com',
         );
       },
     });
@@ -155,7 +155,7 @@ test.describe('form item & edit form', () => {
         await page
           .getByLabel('block-item-CollectionField-general-form-general.url-url')
           .getByRole('textbox')
-          .fill('https://nocobase.com');
+          .fill('https://tachybase.com');
       },
       expectReadonly: async () => {
         // 只读模式下，输入框会被禁用
@@ -169,7 +169,7 @@ test.describe('form item & edit form', () => {
           page.getByLabel('block-item-CollectionField-general-form-general.url-url').getByRole('textbox'),
         ).not.toBeVisible();
         await expect(page.getByLabel('block-item-CollectionField-general-form-general.url-url')).toHaveText(
-          'url:https://nocobase.com',
+          'url:https://tachybase.com',
         );
       },
     });

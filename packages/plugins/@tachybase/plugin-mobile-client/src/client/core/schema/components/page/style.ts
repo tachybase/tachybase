@@ -5,9 +5,9 @@ const useStyles = createStyles(({ token, css }) => {
     globalActionCSS: css`
       #nb-position-container > & {
         height: ${token.sizeXXL}px;
-        border-top: 1px solid var(--nb-box-bg);
+        border-top: 1px solid var(--tb-box-bg);
         margin-bottom: 0px !important;
-        padding: 0 var(--nb-spacing);
+        padding: 0 var(--tb-spacing);
         align-items: center;
         overflow-x: auto;
         background: ${token.colorBgContainer};
@@ -16,14 +16,14 @@ const useStyles = createStyles(({ token, css }) => {
     `,
 
     mobilePage: css`
-      background: var(--nb-box-bg);
+      background: var(--tb-box-bg);
       display: flex;
       flex-direction: column;
       width: 100%;
       height: 100%;
       overflow-x: hidden;
       overflow-y: auto;
-      padding-bottom: var(--nb-spacing);
+      padding-bottom: var(--tb-spacing);
     `,
 
     mobilePageHeader: css`

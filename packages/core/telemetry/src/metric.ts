@@ -1,13 +1,14 @@
 import { Registry } from '@tachybase/utils';
+
+import opentelemetry from '@opentelemetry/api';
+import { Resource } from '@opentelemetry/resources';
 import {
-  MetricReader,
-  PeriodicExportingMetricReader,
   ConsoleMetricExporter,
   MeterProvider,
+  MetricReader,
+  PeriodicExportingMetricReader,
   View,
 } from '@opentelemetry/sdk-metrics';
-import { Resource } from '@opentelemetry/resources';
-import opentelemetry from '@opentelemetry/api';
 
 export type MetricOptions = {
   meterName?: string;
@@ -28,7 +29,7 @@ export class Metric {
   constructor(options?: MetricOptions) {
     const { meterName, readerName, version } = options || {};
     this.readerName = readerName || 'console';
-    this.meterName = meterName || 'nocobase-meter';
+    this.meterName = meterName || 'tachybase-meter';
     this.version = version || '';
     this.registerReader(
       'console',

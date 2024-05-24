@@ -1,7 +1,9 @@
+import React, { useContext, useState } from 'react';
+
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { Input, Spin } from 'antd';
-import React, { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { useAPIClient, useRequest, useSchemaTemplateManager } from '..';
 import { RemoteSchemaComponent, SchemaComponentContext } from '../schema-component';
 
@@ -85,7 +87,7 @@ export const BlockTemplateDetails = () => {
         ghost={false}
         title={<EditableTitle filterByTk={key} title={data?.data?.name} />}
       />
-      <div style={{ margin: 'var(--nb-spacing)' }}>
+      <div style={{ margin: 'var(--tb-spacing)' }}>
         <SchemaComponentContext.Provider value={{ ...value, designable: true }}>
           <RemoteSchemaComponent uid={data?.data?.uid} />
         </SchemaComponentContext.Provider>

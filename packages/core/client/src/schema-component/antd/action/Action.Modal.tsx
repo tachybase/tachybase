@@ -18,7 +18,7 @@ const useStyles = createStyles(({ css }) => {
         }
 
         .ant-modal-content {
-          background: var(--nb-box-bg);
+          background: var(--tb-box-bg);
         }
       }
     `,

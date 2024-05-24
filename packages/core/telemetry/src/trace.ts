@@ -1,7 +1,8 @@
 import { Registry } from '@tachybase/utils';
+
+import { Resource } from '@opentelemetry/resources';
 import { BatchSpanProcessor, ConsoleSpanExporter, SpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
-import { Resource } from '@opentelemetry/resources';
 
 export type TraceOptions = {
   tracerName?: string;
@@ -21,7 +22,7 @@ export class Trace {
   constructor(options?: TraceOptions) {
     const { processorName, tracerName, version } = options || {};
     this.processorName = processorName || 'console';
-    this.tracerName = tracerName || 'nocobase-trace';
+    this.tracerName = tracerName || 'tachybase-trace';
     this.version = version || '';
     this.registerProcessor('console', () => new BatchSpanProcessor(new ConsoleSpanExporter()));
   }

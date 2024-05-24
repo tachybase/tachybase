@@ -27,7 +27,7 @@ export class ClientPlugin extends Plugin {
     const uiSchemas = this.db.getRepository<any>('uiSchemas');
     await uiSchemas.insert({
       type: 'void',
-      'x-uid': 'nocobase-admin-menu',
+      'x-uid': 'default-admin-menu',
       'x-component': 'Menu',
       'x-designer': 'Menu.Designer',
       'x-initializer': 'MenuItemInitializers',

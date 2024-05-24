@@ -5,10 +5,10 @@ const { AppGenerator } = require('./generator');
 const { concat } = require('./util');
 const packageJson = require('../package.json');
 
-const cli = new Command('create-nocobase');
+const cli = new Command('create-tachybase');
 
 cli
-  .arguments('<name>', 'directory of new NocoBase app')
+  .arguments('<name>', 'directory of new TachyBase app')
   .option('--quickstart', 'quickstart app creation')
   .option('-a, --all-db-dialect', 'install all database dialect dependencies')
   .option('-d, --db-dialect <dbDialect>', 'database dialect, current support sqlite/mysql/postgres', 'sqlite')

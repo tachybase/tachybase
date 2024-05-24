@@ -3,7 +3,7 @@ import { useRequest } from '@tachybase/client';
 
 export const MapConfigurationResourceKey = 'map-configuration';
 export const getSSKey = (type) => {
-  return `NOCOBASE_PLUGIN_MAP_CONFIGURATION_${type}`;
+  return `TACHYBASE_PLUGIN_MAP_CONFIGURATION_${type}`;
 };
 
 export const useMapConfiguration = (type: string) => {

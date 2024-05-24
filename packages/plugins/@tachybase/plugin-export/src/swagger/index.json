@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "NocoBase API - Export plugin"
+    "title": "TachyBase API - Export plugin"
   },
   "tags": [],
   "paths": {

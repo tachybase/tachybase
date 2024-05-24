@@ -1,6 +1,6 @@
 export default {
   info: {
-    title: 'NocoBase API - Data visualization plugin',
+    title: 'TachyBase API - Data visualization plugin',
   },
   tags: [],
   paths: {},

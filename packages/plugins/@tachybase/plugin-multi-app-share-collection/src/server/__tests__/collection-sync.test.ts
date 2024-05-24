@@ -10,7 +10,7 @@ describe.runIf(isPg())('enable plugin', () => {
   beforeEach(async () => {
     const app = await createMockServer({
       acl: false,
-      plugins: ['nocobase'],
+      plugins: ['tachybase'],
     });
 
     mainApp = app;
@@ -41,7 +41,7 @@ describe.runIf(isPg())('collection sync after main', () => {
   beforeEach(async () => {
     const app = await createMockServer({
       acl: false,
-      plugins: ['nocobase'],
+      plugins: ['tachybase'],
       async beforeInstall(app) {
         await app.db.sequelize.query(`DROP SCHEMA IF EXISTS sub1 CASCADE`);
         await app.db.sequelize.query(`DROP SCHEMA IF EXISTS sub2 CASCADE`);
@@ -103,7 +103,7 @@ describe.runIf(isPg())('collection sync', () => {
   beforeEach(async () => {
     const app = await createMockServer({
       acl: false,
-      plugins: ['nocobase'],
+      plugins: ['tachybase'],
       async beforeInstall(app) {
         await app.db.sequelize.query(`DROP SCHEMA IF EXISTS sub1 CASCADE`);
         await app.db.sequelize.query(`DROP SCHEMA IF EXISTS sub2 CASCADE`);

@@ -1,5 +1,6 @@
 import i18next, { TFuncKey, TOptions } from 'i18next';
 import { initReactI18next } from 'react-i18next';
+
 import locale from '../locale';
 
 export function tval(text: TFuncKey | TFuncKey[], options?: TOptions) {
@@ -21,7 +22,7 @@ i18n
   // .use(Backend)
   .use(initReactI18next)
   .init({
-    lng: localStorage.getItem('NOCOBASE_LOCALE') || 'en-US',
+    lng: localStorage.getItem('TACHYBASE_LOCALE') || 'en-US',
     // debug: true,
     defaultNS: 'client',
     // fallbackNS: 'client',
@@ -40,5 +41,5 @@ i18n
   });
 
 i18n.on('languageChanged', (lng) => {
-  localStorage.setItem('NOCOBASE_LOCALE', lng);
+  localStorage.setItem('TACHYBASE_LOCALE', lng);
 });

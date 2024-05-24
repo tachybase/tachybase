@@ -1,6 +1,8 @@
-import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import React from 'react';
+
+import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { useTranslation } from 'react-i18next';
+
 import { SchemaComponent } from '../schema-component';
 import { uiSchemaTemplatesSchema } from './schemas/uiSchemaTemplates';
 
@@ -9,7 +11,7 @@ export const BlockTemplatePage = () => {
   return (
     <div>
       <AntdPageHeader style={{ backgroundColor: 'white' }} ghost={false} title={t('Block templates')} />
-      <div style={{ margin: 'var(--nb-spacing)' }}>
+      <div style={{ margin: 'var(--tb-spacing)' }}>
         <SchemaComponent schema={uiSchemaTemplatesSchema} />
       </div>
     </div>

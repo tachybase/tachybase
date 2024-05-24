@@ -1,3 +1,3 @@
 export const useAdminSchemaUid = () => {
-  return 'nocobase-admin-menu';
+  return 'default-admin-menu';
 };

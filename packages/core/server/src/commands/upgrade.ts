@@ -1,8 +1,5 @@
 import Application from '../application';
 
-/**
- * TODO
- */
 export default (app: Application) => {
   app
     .command('upgrade')
@@ -10,6 +7,6 @@ export default (app: Application) => {
     .auth()
     .action(async (options) => {
       await app.upgrade(options);
-      app.log.info(`✨  NocoBase has been upgraded to v${app.getVersion()}`);
+      app.log.info(`✨  TachyBase has been upgraded to v${app.version.get()}`);
     });
 };

@@ -41,7 +41,7 @@ export const CustomRequestConfigurationFieldsSchema = {
           value: 'name',
           label: 'title',
         },
-        placeholder: 'https://www.nocobase.com',
+        placeholder: 'https://www.tachybase.com',
       },
     },
     headers: {

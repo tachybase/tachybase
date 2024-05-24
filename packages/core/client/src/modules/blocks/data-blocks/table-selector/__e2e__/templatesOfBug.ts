@@ -76,7 +76,7 @@ export const tableSelectorDataScopeVariable: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'vdvzzbfp53e',
@@ -341,7 +341,7 @@ export const tableSelectorDataScopeVariable: PageConfig = {
                                                                                                               {
                                                                                                                 style: {
                                                                                                                   marginBottom:
-                                                                                                                    'var(--nb-spacing)',
+                                                                                                                    'var(--tb-spacing)',
                                                                                                                 },
                                                                                                               },
                                                                                                             'x-uid':

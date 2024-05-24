@@ -98,7 +98,7 @@ async function parseAssignees(node, processor) {
     .getParsedValue(node.config.assignees ?? [], node.id)
     .flat()
     .filter(Boolean);
-  const assignees = /* @__PURE__ */ new Set();
+  const assignees = new Set();
   const UserRepo = processor.options.plugin.app.db.getRepository('users');
   for (const item of configAssignees) {
     if (typeof item === 'object') {

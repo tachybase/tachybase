@@ -1,16 +1,18 @@
-import { RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+import React, { useCallback } from 'react';
 import {
   ActionBarProvider,
+  css,
+  cx,
   FilterBlockProvider,
   SortableItem,
   TabsContextProvider,
-  css,
-  cx,
   useDesigner,
 } from '@tachybase/client';
+import { RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
 import { TabsProps } from 'antd';
-import React, { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
 import { countGridCol, findSchema } from '../../helpers';
 import { PageDesigner } from './Page.Designer';
 import useStyles from './style';
@@ -94,7 +96,7 @@ const InternalPage: React.FC = (props) => {
       <Designer {...fieldSchema?.['x-designer-props']}></Designer>
       <div
         style={{
-          paddingBottom: tabsSchema ? null : 'var(--nb-spacing)',
+          paddingBottom: tabsSchema ? null : 'var(--tb-spacing)',
         }}
         className={cx('nb-mobile-page-header', styles.mobilePageHeader, {
           [css`

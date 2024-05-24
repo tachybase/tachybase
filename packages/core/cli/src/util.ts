@@ -311,7 +311,7 @@ export function initEnv() {
     APP_PORT: 13000,
     API_BASE_PATH: '/api/',
     DB_DIALECT: 'sqlite',
-    DB_STORAGE: 'storage/db/nocobase.sqlite',
+    DB_STORAGE: 'storage/db/tachybase.sqlite',
     DB_TIMEZONE: '+00:00',
     DB_UNDERSCORED: parseEnv('DB_UNDERSCORED'),
     DEFAULT_STORAGE_TYPE: 'local',

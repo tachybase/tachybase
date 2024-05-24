@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, userEvent, waitFor } from '@tachybase/test/client';
 import React from 'react';
+import { fireEvent, render, screen, userEvent, waitFor } from '@tachybase/test/client';
+
 import App1 from '../demos/input';
 import App4 from '../demos/json';
 import App2 from '../demos/textarea';
@@ -64,9 +65,9 @@ describe('Input.URL', () => {
     const { container } = render(<App3 />);
 
     const input = container.querySelector('input') as HTMLInputElement;
-    await userEvent.type(input, 'https://www.nocobase.com');
-    expect(input.value).toBe('https://www.nocobase.com');
-    expect(screen.getByText('https://www.nocobase.com')).toBeInTheDocument();
+    await userEvent.type(input, 'https://www.tachybase.com');
+    expect(input.value).toBe('https://www.tachybase.com');
+    expect(screen.getByText('https://www.tachybase.com')).toBeInTheDocument();
   });
 
   it('should display the error when the value is invalid', async () => {
@@ -98,15 +99,15 @@ describe('Input.JSON', () => {
     await waitFor(() => {
       const textarea = container.querySelector('textarea') as HTMLTextAreaElement;
       const pre = container.querySelector('pre') as HTMLPreElement;
-      fireEvent.change(textarea, { target: { value: '{"name":"nocobase"}' } });
-      fireEvent.blur(textarea, { target: { value: '{"name":"nocobase"}' } });
-      expect(JSON.parse(textarea.value)).toEqual({ name: 'nocobase' });
+      fireEvent.change(textarea, { target: { value: '{"name":"tachybase"}' } });
+      fireEvent.blur(textarea, { target: { value: '{"name":"tachybase"}' } });
+      expect(JSON.parse(textarea.value)).toEqual({ name: 'tachybase' });
       expect(pre).toMatchInlineSnapshot(`
       <pre
         class="ant-json css-4dta7v"
       >
         {
-        "name": "nocobase"
+        "name": "tachybase"
       }
       </pre>
     `);
@@ -118,8 +119,8 @@ describe('Input.JSON', () => {
 
     await waitFor(() => {
       const textarea = container.querySelector('textarea') as HTMLTextAreaElement;
-      fireEvent.change(textarea, { target: { value: '{"name":nocobase}' } });
-      fireEvent.blur(textarea, { target: { value: '{"name":nocobase}' } });
+      fireEvent.change(textarea, { target: { value: '{"name":tachybase}' } });
+      fireEvent.blur(textarea, { target: { value: '{"name":tachybase}' } });
       expect(screen.getByText(/Unexpected token/)).toBeInTheDocument();
     });
   });

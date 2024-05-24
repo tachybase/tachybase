@@ -1,26 +1,26 @@
-import { Form } from '@tachybase/schema';
-// @ts-ignore
-import { Schema } from '@tachybase/schema';
-import { SchemaOptionsContext, useField, useFieldSchema } from '@tachybase/schema';
+import React, { useCallback, useContext, useMemo } from 'react';
 import {
-  CollectionFieldOptions,
-  useVariableScope,
-  __UNSAFE__VariablesContextType,
-  __UNSAFE__VariableOption,
-  Variable,
-  isVariable,
-  useUserVariable,
-  __UNSAFE__VariableInputOption,
   __UNSAFE__,
-  useDateVariable,
+  __UNSAFE__VariableInputOption,
+  __UNSAFE__VariableOption,
+  __UNSAFE__VariablesContextType,
+  CollectionFieldOptions,
+  isVariable,
   useCollectionManager_deprecated,
   useCompile,
+  useDateVariable,
+  useUserVariable,
+  useVariableScope,
+  Variable,
 } from '@tachybase/client';
+// @ts-ignore
+import { Form, Schema, SchemaOptionsContext, useField, useFieldSchema } from '@tachybase/schema';
 
 import _ from 'lodash';
-import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { FilterContext } from './context';
+
 const { useBlockCollection, useValues, useVariableOptions, useContextAssociationFields, useRecordVariable } =
   __UNSAFE__;
 
@@ -173,7 +173,7 @@ export const getShouldChange = ({
       return true;
     }
 
-    // `json` 可以选择任意类型的变量，详见：https://nocobase.feishu.cn/docx/EmNEdEBOnoQohUx2UmBcqIQ5nyh#FPLfdSRDEoXR65xW0mBcdfL5n0c
+    // `json` 可以选择任意类型的变量，详见：https://tachybase.feishu.cn/docx/EmNEdEBOnoQohUx2UmBcqIQ5nyh#FPLfdSRDEoXR65xW0mBcdfL5n0c
     if (collectionField.interface === 'json') {
       return true;
     }

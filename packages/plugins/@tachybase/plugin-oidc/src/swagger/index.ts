@@ -55,7 +55,7 @@ const user = {
 
 export default {
   info: {
-    title: 'NocoBase API - OIDC plugin',
+    title: 'TachyBase API - OIDC plugin',
   },
   paths: {
     '/oidc:getAuthUrl': {
@@ -104,7 +104,7 @@ export default {
             required: true,
           },
           {
-            name: 'nocobase_oidc',
+            name: 'tachybase_oidc',
             description: 'state校验值',
             in: 'cookie',
             schema: {

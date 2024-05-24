@@ -1,6 +1,8 @@
-import { css, cx, SettingsMenu, SortableItem, useDesigner } from '@tachybase/client';
 import React from 'react';
+import { css, cx, SettingsMenu, SortableItem, useDesigner } from '@tachybase/client';
+
 import { SettingsDesigner } from './Settings.Designer';
+
 export const InternalSettings = () => {
   const Designer = useDesigner();
   return (
@@ -8,7 +10,7 @@ export const InternalSettings = () => {
       className={cx(
         'nb-mobile-setting',
         css`
-          margin-bottom: var(--nb-spacing);
+          margin-bottom: var(--tb-spacing);
         `,
       )}
     >

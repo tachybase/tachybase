@@ -14,13 +14,13 @@
 
 <img src="https://s2.loli.net/2023/06/19/8KPGut6noqgBlDL.png"/>  
 
-进入到配置界面，填写**授权重定向URL**. 重定向URL可以在Nocobase，新增认证器时获取，通常情况下为`http(s)://host:port/api/oidc:redirect`.
+进入到配置界面，填写**授权重定向URL**. 重定向URL可以在Tachybase，新增认证器时获取，通常情况下为`http(s)://host:port/api/oidc:redirect`.
 
 <img src="https://s2.loli.net/2023/06/19/cB1Mv3SAOa7H6Vb.png"/>
 
 完成后复制**客户端ID**和**客户端密钥**。
 
-### 在NocoBase上新增认证器
+### 在TachyBase上新增认证器
 插件设置 - 认证 - 新增 - OIDC
 
 <img src="https://s2.loli.net/2023/06/19/sBMURatC372GyEd.png"/>

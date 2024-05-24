@@ -6,7 +6,6 @@
   "keywords": [
     "Fields"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/china-region",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -22,7 +21,5 @@
     "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "提供中国行政区划数据和字段类型。",
-  "displayName.zh-CN": "中国行政区划",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/china-region"
+  "displayName.zh-CN": "中国行政区划"
 }

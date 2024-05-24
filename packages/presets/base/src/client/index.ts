@@ -1,4 +1,4 @@
-import { Application, NocoBaseBuildInPlugin, Plugin } from '@tachybase/client';
+import { Application, BuildinPlugin, Plugin } from '@tachybase/client';
 
 const getCurrentTimezone = () => {
   const timezoneOffset = new Date().getTimezoneOffset() / -60;
@@ -22,7 +22,7 @@ export class TachyBaseClientPresetPlugin extends Plugin {
       config.headers['X-Timezone'] = getCurrentTimezone();
       return config;
     });
-    await this.app.pm.add(NocoBaseBuildInPlugin);
+    await this.app.pm.add(BuildinPlugin);
   }
 }
 

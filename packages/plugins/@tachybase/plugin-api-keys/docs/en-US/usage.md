@@ -6,7 +6,7 @@ After enabling the plugin, go to the API keys plugin management page, click `Add
 
 ## Using an API key
 
-Add the `Authorization` field to the request header, with the value of `Bearer ${API_KEY}`, to access all `NocoBase` APIs using the API key.
+Add the `Authorization` field to the request header, with the value of `Bearer ${API_KEY}`, to access all `TachyBase` APIs using the API key.
 
 Here's an example using cURL:
 
@@ -14,7 +14,7 @@ Here's an example using cURL:
 curl '{domain}/api/roles:check' -H 'Authorization: Bearer {API key}'
 ```
 
-> Warning: When using the `Docker` image to use `NocoBase`, make sure you have configured the [APP_KEY](https://docs.nocobase.com/api/env#app_key) environment variable, otherwise the API key will be invalid after each restart.
+> Warning: When using the `Docker` image to use `TachyBase`, make sure you have configured the [APP_KEY](https://docs.tachybase.com/api/env#app_key) environment variable, otherwise the API key will be invalid after each restart.
 
 ## Deleting an API key
 

@@ -477,7 +477,7 @@ test.describe('configure fields', () => {
     }
   });
 
-  // https://nocobase.height.app/T-2868
+  // https://tachybase.height.app/T-2868
   test('sequence rules: z-index of configure drawer', async ({ page, mockCollections }) => {
     const collectionManagerPage = new CollectionManagerPage(page);
     await collectionManagerPage.goto();

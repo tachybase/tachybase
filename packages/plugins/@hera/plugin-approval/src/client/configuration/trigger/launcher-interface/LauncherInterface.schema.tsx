@@ -17,7 +17,7 @@ const getSchemaLauncherInterface = ({ values, dataSource, name }) => ({
       'x-component-props': {
         className: css`
           .ant-drawer-body {
-            background: const(--nb-box-bg);
+            background: const(--tb-box-bg);
           }
         `,
       },

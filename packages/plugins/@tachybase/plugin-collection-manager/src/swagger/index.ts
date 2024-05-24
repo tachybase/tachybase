@@ -1,7 +1,7 @@
 export default {
   openapi: '3.0.2',
   info: {
-    title: 'NocoBase API - Collection manager plugin',
+    title: 'TachyBase API - Collection manager plugin',
   },
   tags: [
     {

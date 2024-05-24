@@ -1,22 +1,24 @@
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   ActionContextProvider,
   CollectionProvider_deprecated,
+  css,
+  parseCollectionName,
   RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentContext,
-  css,
-  parseCollectionName,
   useAPIClient,
 } from '@tachybase/client';
+
+import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+
 import { useTranslation } from '../../../../locale';
+import { FlowContextProvider } from '../../common/FlowContext.provider';
 import { useSubmit } from './hooks/useSubmit';
 import { useWithdrawAction } from './hooks/useWithdrawAction';
 import { ActionBarProvider } from './Pd.ActionBar';
 import { ApplyActionStatusProvider } from './Pd.ActionStatus';
-import { FlowContextProvider } from '../../common/FlowContext.provider';
 import { WithdrawActionProvider } from './Pd.ActionWithdraw';
 
 // 审批-发起: 发起按钮
@@ -58,7 +60,7 @@ export const ApplyButton = () => {
             'x-component-props': {
               className: css`
                 .ant-drawer-body {
-                  background: var(--nb-box-bg);
+                  background: var(--tb-box-bg);
                 }
               `,
             },

@@ -1,5 +1,6 @@
-import { Application, Plugin, RouterManager, useApp } from '@tachybase/client';
 import React, { useMemo } from 'react';
+import { Application, Plugin, RouterManager, useApp } from '@tachybase/client';
+
 import { Link, Navigate, Outlet, useParams } from 'react-router-dom';
 
 const Root = () => {
@@ -67,7 +68,7 @@ const AdminSetting = () => {
   );
 };
 
-class NocobasePresetPlugin extends Plugin {
+class TachybasePresetPlugin extends Plugin {
   async load() {
     this.router.add('root', {
       path: '/',
@@ -90,7 +91,7 @@ class NocobasePresetPlugin extends Plugin {
 
 const app = new Application({
   router: { type: 'hash' },
-  plugins: [NocobasePresetPlugin],
+  plugins: [TachybasePresetPlugin],
 });
 
 export default app.getRootComponent();

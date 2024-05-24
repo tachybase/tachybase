@@ -175,7 +175,7 @@ const schema = {
                   'x-component': 'Checkbox',
                   'x-decorator': 'FormItem',
                   'x-decorator-props': {
-                    tooltip: '{{t("Check if NocoBase is running on HTTP protocol")}}',
+                    tooltip: '{{t("Check if TachyBase is running on HTTP protocol")}}',
                   },
                 },
                 port: {
@@ -184,7 +184,7 @@ const schema = {
                   'x-component': 'InputNumber',
                   'x-decorator': 'FormItem',
                   'x-decorator-props': {
-                    tooltip: '{{t("The port number of the NocoBase service if it is not 80 or 443")}}',
+                    tooltip: '{{t("The port number of the TachyBase service if it is not 80 or 443")}}',
                   },
                   'x-component-props': {
                     style: {

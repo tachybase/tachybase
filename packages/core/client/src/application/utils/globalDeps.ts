@@ -1,11 +1,6 @@
-import * as antdCssinjs from '@ant-design/cssinjs';
-import * as antdIcons from '@ant-design/icons';
-import * as dndKitAccessibility from '@dnd-kit/accessibility';
-import * as dndKitCore from '@dnd-kit/core';
-import * as dndKitModifiers from '@dnd-kit/modifiers';
-import * as dndKitSortable from '@dnd-kit/sortable';
-import * as dndKitUtilities from '@dnd-kit/utilities';
-import * as emotionCss from '@emotion/css';
+import React from 'react';
+import * as tachybaseComponents from '@tachybase/components';
+import * as tachybaseEvaluators from '@tachybase/evaluators/client';
 import * as formilyCore from '@tachybase/schema';
 import * as formilyJsonSchema from '@tachybase/schema';
 import * as formilyPath from '@tachybase/schema';
@@ -14,26 +9,32 @@ import * as formilyJsonReactive from '@tachybase/schema';
 import * as formilyReactiveReact from '@tachybase/schema';
 import * as formilyShared from '@tachybase/schema';
 import * as formilyValidator from '@tachybase/schema';
-import * as nocobaseEvaluators from '@tachybase/evaluators/client';
-import * as nocobaseClientUtils from '@tachybase/utils/client';
-import * as nocobaseSDK from '@tachybase/sdk';
-import * as nocobaseSchema from '@tachybase/schema';
-import * as nocobaseComponents from '@tachybase/components';
+import * as tachybaseSchema from '@tachybase/schema';
+import * as tachybaseSDK from '@tachybase/sdk';
+import * as tachybaseClientUtils from '@tachybase/utils/client';
 import { dayjs } from '@tachybase/utils/client';
+
+import * as antdCssinjs from '@ant-design/cssinjs';
+import * as antdIcons from '@ant-design/icons';
+import * as dndKitAccessibility from '@dnd-kit/accessibility';
+import * as dndKitCore from '@dnd-kit/core';
+import * as dndKitModifiers from '@dnd-kit/modifiers';
+import * as dndKitSortable from '@dnd-kit/sortable';
+import * as dndKitUtilities from '@dnd-kit/utilities';
+import * as emotionCss from '@emotion/css';
 import * as ahooks from 'ahooks';
 import * as antd from 'antd';
 import * as antdStyle from 'antd-style';
 import axios from 'axios';
 import * as i18next from 'i18next';
 import lodash from 'lodash';
-import React from 'react';
 import ReactDOM from 'react-dom';
 import * as reactI18next from 'react-i18next';
 import * as ReactRouter from 'react-router';
 import * as ReactRouterDom from 'react-router-dom';
 import jsxRuntime from 'react/jsx-runtime';
-import * as nocobaseClient from '../../index';
 
+import * as tachybaseClient from '../../index';
 import type { RequireJS } from './requirejs';
 
 /**
@@ -69,16 +70,16 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('@formily/validator', () => formilyValidator);
   requirejs.define('@formily/reactive-react', () => formilyReactiveReact);
 
-  // nocobase
-  requirejs.define('@tachybase/utils', () => nocobaseClientUtils);
-  requirejs.define('@tachybase/utils/client', () => nocobaseClientUtils);
-  requirejs.define('@tachybase/client', () => nocobaseClient);
-  requirejs.define('@tachybase/client/client', () => nocobaseClient);
-  requirejs.define('@tachybase/evaluators', () => nocobaseEvaluators);
-  requirejs.define('@tachybase/evaluators/client', () => nocobaseEvaluators);
-  requirejs.define('@tachybase/sdk', () => nocobaseSDK);
-  requirejs.define('@tachybase/schema', () => nocobaseSchema);
-  requirejs.define('@tachybase/components', () => nocobaseComponents);
+  // tachybase
+  requirejs.define('@tachybase/utils', () => tachybaseClientUtils);
+  requirejs.define('@tachybase/utils/client', () => tachybaseClientUtils);
+  requirejs.define('@tachybase/client', () => tachybaseClient);
+  requirejs.define('@tachybase/client/client', () => tachybaseClient);
+  requirejs.define('@tachybase/evaluators', () => tachybaseEvaluators);
+  requirejs.define('@tachybase/evaluators/client', () => tachybaseEvaluators);
+  requirejs.define('@tachybase/sdk', () => tachybaseSDK);
+  requirejs.define('@tachybase/schema', () => tachybaseSchema);
+  requirejs.define('@tachybase/components', () => tachybaseComponents);
 
   // dnd-kit 相关
   requirejs.define('@dnd-kit/accessibility', () => dndKitAccessibility);

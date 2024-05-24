@@ -13,7 +13,7 @@ export default class UpdateUserNameMigration extends Migration {
     if (user) {
       await repo.update({
         values: {
-          username: process.env.INIT_ROOT_USERNAME || 'nocobase',
+          username: process.env.INIT_ROOT_USERNAME || 'tachybase',
         },
         filter: {
           id: user.id,

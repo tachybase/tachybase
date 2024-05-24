@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "NocoBase API - Localization management plugin"
+    "title": "TachyBase API - Localization management plugin"
   },
   "tags": [],
   "paths": {

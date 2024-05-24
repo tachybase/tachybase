@@ -1,11 +1,12 @@
-import { Form } from '@tachybase/schema';
-// @ts-ignore
-import { Schema } from '@tachybase/schema';
-import _ from 'lodash';
 import React, { useCallback } from 'react';
+// @ts-ignore
+import { Form, Schema } from '@tachybase/schema';
+
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { CollectionFieldOptions_deprecated } from '../../collection-manager';
-import { Variable, useVariableScope } from '../../schema-component';
+import { useVariableScope, Variable } from '../../schema-component';
 import { useValues } from '../../schema-component/antd/filter/useValues';
 import { VariableOption, VariablesContextType } from '../../variables/types';
 import { isVariable } from '../../variables/utils/isVariable';
@@ -160,7 +161,7 @@ export const getShouldChange = ({
       return true;
     }
 
-    // `json` 可以选择任意类型的变量，详见：https://nocobase.feishu.cn/docx/EmNEdEBOnoQohUx2UmBcqIQ5nyh#FPLfdSRDEoXR65xW0mBcdfL5n0c
+    // `json` 可以选择任意类型的变量，详见：https://tachybase.feishu.cn/docx/EmNEdEBOnoQohUx2UmBcqIQ5nyh#FPLfdSRDEoXR65xW0mBcdfL5n0c
     if (collectionField.interface === 'json') {
       return true;
     }

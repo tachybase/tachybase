@@ -1,10 +1,12 @@
-import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import React, { useMemo } from 'react';
-import { SchemaComponent, useAPIClient, useActionContext, useDesignable, useProps, useRecord } from '../..';
-import { SchemaInitializer } from '../../application/schema-initializer/SchemaInitializer';
-import { useGetAriaLabelOfSchemaInitializer } from '../hooks/useGetAriaLabelOfSchemaInitializer';
+import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
 import { message } from 'antd';
 import { saveAs } from 'file-saver';
+
+import { SchemaComponent, useActionContext, useAPIClient, useDesignable, useProps, useRecord } from '../..';
+import { SchemaInitializer } from '../../application/schema-initializer/SchemaInitializer';
+import { useGetAriaLabelOfSchemaInitializer } from '../hooks/useGetAriaLabelOfSchemaInitializer';
 
 export const TabPaneInitializers = (props?: any) => {
   const { designable, insertBeforeEnd } = useDesignable();
@@ -120,7 +122,7 @@ export const TabPaneInitializers = (props?: any) => {
                 style: {
                   borderColor: 'var(--colorSettings)',
                   color: 'var(--colorSettings)',
-                  marginRight: 'var(--nb-spacing)',
+                  marginRight: 'var(--tb-spacing)',
                 },
                 type: 'dashed',
                 useAction: useDumpAction,
@@ -136,7 +138,7 @@ export const TabPaneInitializers = (props?: any) => {
                 style: {
                   borderColor: 'var(--colorSettings)',
                   color: 'var(--colorSettings)',
-                  marginRight: 'var(--nb-spacing)',
+                  marginRight: 'var(--tb-spacing)',
                 },
                 type: 'dashed',
                 'aria-label': getAriaLabel(),

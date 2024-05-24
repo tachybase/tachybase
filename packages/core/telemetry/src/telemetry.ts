@@ -1,6 +1,7 @@
-import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
-import { Resource } from '@opentelemetry/resources';
 import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/instrumentation';
+import { Resource } from '@opentelemetry/resources';
+import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+
 import { Metric, MetricOptions } from './metric';
 import { Trace, TraceOptions } from './trace';
 
@@ -23,7 +24,7 @@ export class Telemetry {
     const { trace, metric, serviceName, version } = options || {};
     this.trace = new Trace({ tracerName: `${serviceName}-trace`, version, ...trace });
     this.metric = new Metric({ meterName: `${serviceName}-meter`, version, ...metric });
-    this.serviceName = serviceName || 'nocobase';
+    this.serviceName = serviceName || 'tachybase';
     this.version = version || '';
   }
 

@@ -46,7 +46,7 @@ group:
 
 ### Built Type
 
-NocoBase 提供了几个内置的组件，可以直接使用。
+TachyBase 提供了几个内置的组件，可以直接使用。
 
 <code src="./demos/build-type.tsx"></code>
 

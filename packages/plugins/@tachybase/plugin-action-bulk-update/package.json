@@ -6,7 +6,6 @@
   "keywords": [
     "Actions"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/action-bulk-update",
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "devDependencies": {
@@ -22,7 +21,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "对全部数据或选中的数据进行批量更新。",
-  "displayName.zh-CN": "操作：批量更新",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/action-bulk-update"
+  "displayName.zh-CN": "操作：批量更新"
 }

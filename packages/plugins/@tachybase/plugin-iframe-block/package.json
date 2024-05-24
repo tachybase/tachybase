@@ -6,7 +6,6 @@
   "keywords": [
     "Blocks"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/block-iframe",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -25,7 +24,5 @@
     "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "在页面上创建和管理iframe，用于嵌入和展示外部网页或内容。",
-  "displayName.zh-CN": "区块：iframe",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/block-iframe"
+  "displayName.zh-CN": "区块：iframe"
 }
