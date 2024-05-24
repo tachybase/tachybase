@@ -1,7 +1,7 @@
 import React, { useState, type FC, type PropsWithChildren } from 'react';
+import { cx } from '@tachybase/client';
 
 import { Card, type CardProps } from 'antd';
-import classNames from 'classnames';
 
 import { Control } from '../icons';
 import type { MutableTheme, TokenName } from '../interface';
@@ -57,7 +57,7 @@ const ComponentCard: FC<ComponentCardProps> = ({ children, component, title, the
   return wrapSSR(
     <>
       <Card
-        className={classNames('component-card', hashId)}
+        className={cx('component-card', hashId)}
         title={title}
         extra={
           drawer && theme && <Control className="component-token-control-icon" onClick={() => setDrawerOpen(true)} />

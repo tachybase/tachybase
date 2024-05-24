@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState, type CSSProperties, type FC } from 'react';
+import { cx } from '@tachybase/client';
 
 import { ConfigProvider, Input, InputNumber, Select, theme, type InputProps } from 'antd';
-import classNames from 'classnames';
 import useMergedState from 'rc-util/es/hooks/useMergedState';
 import { HexColorPicker, RgbaColorPicker } from 'react-colorful';
 import tinycolor from 'tinycolor2';
@@ -258,7 +258,7 @@ const ColorPanel: FC<ColorPanelProps> = ({ color, onChange, alpha, style }) => {
   };
 
   return wrapSSR(
-    <div className={classNames(hashId, 'color-panel')} style={style}>
+    <div className={cx(hashId, 'color-panel')} style={style}>
       {(colorMode === 'HEX' || colorMode === 'RGB') && (
         <HexColorPicker
           style={{ height: 160 }}

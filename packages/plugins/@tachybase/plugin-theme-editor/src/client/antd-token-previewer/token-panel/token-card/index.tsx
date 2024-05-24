@@ -1,4 +1,5 @@
 import React, { type ReactNode } from 'react';
+import { cx } from '@tachybase/client';
 
 import {
   AlignLeftOutlined,
@@ -17,7 +18,6 @@ import {
 } from '@ant-design/icons';
 import { Collapse, Space } from 'antd';
 import type { ThemeConfig } from 'antd/es/config-provider/context';
-import classNames from 'classnames';
 import useMergedState from 'rc-util/es/hooks/useMergedState';
 
 import { Motion, ShapeLine } from '../../icons';
@@ -137,7 +137,7 @@ export default ({
   });
 
   return wrapSSR(
-    <div className={classNames('token-card', hashId)}>
+    <div className={cx('token-card', hashId)}>
       <Collapse
         ghost
         expandIcon={({ isActive }) => (

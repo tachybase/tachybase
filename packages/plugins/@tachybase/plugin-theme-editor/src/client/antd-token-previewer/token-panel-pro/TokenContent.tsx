@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState, type FC } from 'react';
-import { StablePopover, type ThemeConfig } from '@tachybase/client';
+import { cx, StablePopover, type ThemeConfig } from '@tachybase/client';
 
 import { CaretRightOutlined, ExpandOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Collapse, ConfigProvider, Switch, Tooltip, Typography } from 'antd';
 import seed from 'antd/es/theme/themes/seed';
-import classNames from 'classnames';
 import { useDebouncyFn } from 'use-debouncy';
 
 import { MutableTheme } from '../../../types';
@@ -397,7 +396,7 @@ const MapTokenCollapseContent: FC<MapTokenCollapseContentProps> = ({
                 }}
               >
                 <Pick
-                  className={classNames('token-panel-pro-token-pick', {
+                  className={cx('token-panel-pro-token-pick', {
                     'token-panel-pro-token-picked': selectedTokens?.map?.includes(mapToken),
                   })}
                 />
@@ -557,7 +556,7 @@ const TokenContent: FC<ColorTokenContentProps> = ({
   };
 
   return wrapSSR(
-    <div className={classNames(hashId, 'token-panel-pro-color')}>
+    <div className={cx(hashId, 'token-panel-pro-color')}>
       <div className="token-panel-pro-color-seeds">
         <div className="token-panel-pro-color-themes">
           <span style={{ marginRight: 12 }}>{locale._lang === 'zh-CN' ? category.name : category.nameEn}</span>

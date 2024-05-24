@@ -1,6 +1,5 @@
 import React from 'react';
-
-import classNames from 'classnames';
+import { cx } from '@tachybase/client';
 
 import makeStyle from './utils/makeStyle';
 
@@ -88,15 +87,15 @@ export default function IconSwitch({
   const [wrapSSR, hashId] = useStyle();
 
   return wrapSSR(
-    <div className={classNames('theme-editor-icon-switch', className, hashId)} style={style} {...props}>
+    <div className={cx('theme-editor-icon-switch', className, hashId)} style={style} {...props}>
       <div
-        className={classNames('holder', leftChecked && 'leftChecked')}
+        className={cx('holder', leftChecked && 'leftChecked')}
         onClick={() => {
           onChange?.(!leftChecked);
         }}
       >
-        <span className={classNames('icon', leftChecked && 'active')}>{leftIcon}</span>
-        <span className={classNames('icon', !leftChecked && 'active')}>{rightIcon}</span>
+        <span className={cx('icon', leftChecked && 'active')}>{leftIcon}</span>
+        <span className={cx('icon', !leftChecked && 'active')}>{rightIcon}</span>
       </div>
     </div>,
   );

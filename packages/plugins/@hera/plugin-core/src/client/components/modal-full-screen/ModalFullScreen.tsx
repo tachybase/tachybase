@@ -1,6 +1,8 @@
 import React from 'react';
+import { ClassNamesArg, css, cx } from '@tachybase/client';
+
 import ReactDOM from 'react-dom';
-import { cx, css, ClassNamesArg } from '@tachybase/client';
+
 import { ModalHeader } from './ModalFullScreenChild';
 
 interface ModalFullScreenProps {

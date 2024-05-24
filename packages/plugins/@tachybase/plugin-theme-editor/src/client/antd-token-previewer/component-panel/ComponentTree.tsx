@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState, type FC } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { cx } from '@tachybase/client';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { Badge, Input, Tree } from 'antd';
-import classNames from 'classnames';
 
 import type { FilterMode } from '../FilterPanel';
 import makeStyle from '../utils/makeStyle';
@@ -74,13 +74,13 @@ export type ComponentTreeProps = {
 
 const getTreeItemId = (component: string) => `component-tree-item-${component}`;
 
-const ComponentTree: FC<ComponentTreeProps> = ({
+const ComponentTree = ({
   onSelect,
   components,
   selectedTokens,
   filterMode = 'filter',
   activeComponent,
-}) => {
+}: ComponentTreeProps) => {
   const [wrapSSR, hashId] = useStyle();
   const treeRef = useRef<HTMLDivElement>(null);
   const [search, setSearch] = useState<string>('');
@@ -120,7 +120,7 @@ const ComponentTree: FC<ComponentTreeProps> = ({
               title: (
                 <span
                   id={getTreeItemId(item)}
-                  className={classNames('component-tree-item', {
+                  className={cx('component-tree-item', {
                     'component-tree-item-highlight': filterMode === 'highlight' && relatedComponents.includes(item),
                   })}
                 >
@@ -157,7 +157,7 @@ const ComponentTree: FC<ComponentTreeProps> = ({
   }, [selectedTokens, filterMode]);
 
   return wrapSSR(
-    <div className={classNames('component-tree-wrapper', hashId)}>
+    <div className={cx('component-tree-wrapper', hashId)}>
       <Input
         allowClear
         placeholder="Type to search"

@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
-import Spreadsheet from '../x-sheet';
 import { ClassNamesArg, css, cx } from '@tachybase/client';
+
+import Spreadsheet from '../x-sheet';
 
 export type SheetRef = {
   getData: () => any;

@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState, type CSSProperties, type FC } from 'react';
+import { cx } from '@tachybase/client';
 
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Breadcrumb, Segmented, Switch } from 'antd';
-import classNames from 'classnames';
 
 import type { FilterMode } from '../FilterPanel';
 import type { Theme, TokenName } from '../interface';
@@ -250,9 +250,9 @@ const Index: FC<ComponentPanelProps> = ({ themes, selectedTokens, filterMode, cl
   );
 
   return wrapSSR(
-    <div className={classNames('component-panel', hashId, className)} {...rest}>
+    <div className={cx('component-panel', hashId, className)} {...rest}>
       <div
-        className={classNames('component-panel-side', {
+        className={cx('component-panel-side', {
           'component-panel-side-hidden': !showSide,
         })}
       >

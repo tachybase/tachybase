@@ -1,9 +1,11 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
+import cx from 'classnames';
 import ReactDOM from 'react-dom';
-import classnames from 'classnames';
-import { registerEvent, callHideEvent } from './registerEvent';
+
 import AnimateComponent from './animateComponent';
 import { throttle } from './helper';
+import { callHideEvent, registerEvent } from './registerEvent';
 
 function ContextMenu({
   children,
@@ -120,7 +122,7 @@ function ContextMenu({
 
   const ContextComponent = () => (
     <div
-      className={classnames('contextmenu', ...className.split(' '))}
+      className={cx('contextmenu', ...className.split(' '))}
       ref={contextMenuEl}
       onMouseLeave={handleMouseLeave}
       {...attributes}

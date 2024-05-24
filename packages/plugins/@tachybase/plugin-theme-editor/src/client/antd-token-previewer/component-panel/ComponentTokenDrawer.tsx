@@ -1,8 +1,8 @@
 import React, { useMemo, type FC } from 'react';
+import { cx } from '@tachybase/client';
 
 import { BuildOutlined, CarOutlined } from '@ant-design/icons';
 import { theme as antdTheme, ConfigProvider, Drawer, Empty, Tag, Tooltip } from 'antd';
-import classNames from 'classnames';
 
 import ComponentDemos from '../component-demos';
 import type { AliasToken, ComponentDemo, MutableTheme, TokenName, TokenValue } from '../interface';
@@ -60,7 +60,7 @@ const ComponentFullDemos: FC<ComponentFullDemosProps> = ({ demos }) => {
   const locale = useLocale();
 
   return (
-    <div className={classNames('previewer-component-full-demos', hashId)} style={{}}>
+    <div className={cx('previewer-component-full-demos', hashId)} style={{}}>
       {demos?.map((demo) => (
         <ComponentCard
           key={demo.key}
@@ -126,7 +126,7 @@ const ComponentTokenDrawer: FC<ComponentTokenDrawerProps> = ({ visible, componen
       }
       onClose={onClose}
       width={1200}
-      className={classNames('previewer-component-token-drawer', hashId)}
+      className={cx('previewer-component-token-drawer', hashId)}
     >
       <div style={{ display: 'flex', height: '100%' }}>
         <ConfigProvider theme={theme.config}>

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, type FC } from 'react';
+import { cx } from '@tachybase/client';
 
 import { Tabs } from 'antd';
-import classNames from 'classnames';
 
 import { Theme } from '../../../types';
 import type { SelectedToken } from '../interface';
@@ -69,7 +69,7 @@ const TokenPanelPro: FC<TokenPanelProProps> = ({
   }, [activeCategory]);
 
   return wrapSSR(
-    <div className={classNames(hashId, className, 'token-panel-pro')} style={style}>
+    <div className={cx(hashId, className, 'token-panel-pro')} style={style}>
       <Tabs
         defaultActiveKey="color"
         tabBarGutter={32}

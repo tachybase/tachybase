@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   css,
+  cx,
   RecordIndexProvider,
   RecordProvider,
   SchemaComponent,
@@ -13,7 +14,6 @@ import {
 import { ArrayField, Field, observer, RecursionField, Schema, useField, useFieldSchema } from '@tachybase/schema';
 
 import { Table, TableColumnProps } from 'antd';
-import { default as classNames } from 'classnames';
 import { findIndex } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -31,7 +31,7 @@ export const components = {
     cell: (props) => (
       <td
         {...props}
-        className={classNames(
+        className={cx(
           props.className,
           css`
             max-width: 300px;

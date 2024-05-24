@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, type CSSProperties } from 'react';
+import { cx } from '@tachybase/client';
 
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Space } from 'antd';
 import type { ThemeConfig } from 'antd/es/config-provider/context';
-import classNames from 'classnames';
 
 import ColorPreview from '../../ColorPreview';
 import { Pick } from '../../icons';
@@ -200,7 +200,7 @@ export default ({
         collapsible="header"
         ghost
         onChange={(key) => setInfoVisible(key.length > 0)}
-        className={classNames('previewer-token-item-collapse', hashId)}
+        className={cx('previewer-token-item-collapse', hashId)}
         expandIcon={({ isActive }) => (
           <CaretRightOutlined rotate={isActive ? 90 : 0} style={{ fontSize: 12, cursor: 'pointer' }} />
         )}
@@ -229,7 +229,7 @@ export default ({
               >
                 <span
                   title={tokenName}
-                  className={classNames('previewer-token-item-name', {
+                  className={cx('previewer-token-item-name', {
                     'previewer-token-item-highlighted': active,
                   })}
                   style={{

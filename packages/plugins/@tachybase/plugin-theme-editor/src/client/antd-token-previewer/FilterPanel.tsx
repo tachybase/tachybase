@@ -1,7 +1,7 @@
 import React, { type CSSProperties, type FC } from 'react';
+import { cx } from '@tachybase/client';
 
 import { Segmented, Tag } from 'antd';
-import classNames from 'classnames';
 import useMergedState from 'rc-util/lib/hooks/useMergedState';
 
 import makeStyle from './utils/makeStyle';
@@ -82,7 +82,7 @@ const FilterPanel: FC<FilterPanelProps> = ({
   }
 
   return wrapSSR(
-    <div className={classNames('previewer-filter-panel', hashId, className)} {...rest}>
+    <div className={cx('previewer-filter-panel', hashId, className)} {...rest}>
       {selectedTokens && selectedTokens.length > 0 && (
         <>
           <div className="component-tree-head">

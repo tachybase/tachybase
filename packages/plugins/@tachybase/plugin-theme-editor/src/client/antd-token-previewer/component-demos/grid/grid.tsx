@@ -1,7 +1,7 @@
 import React from 'react';
+import { cx } from '@tachybase/client';
 
 import { Col, Row } from 'antd';
-import classNames from 'classnames';
 
 import type { ComponentDemo } from '../../interface';
 import makeStyle from '../../utils/makeStyle';
@@ -30,7 +30,7 @@ const Demo = () => {
   const [, hashId] = useStyle();
 
   return (
-    <div className={classNames('previewer-grid-demo', hashId)}>
+    <div className={cx('previewer-grid-demo', hashId)}>
       <Row>
         <Col span={24}>col</Col>
       </Row>

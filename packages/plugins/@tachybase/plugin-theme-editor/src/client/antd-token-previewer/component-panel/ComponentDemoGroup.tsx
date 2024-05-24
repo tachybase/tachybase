@@ -1,7 +1,7 @@
 import React, { type FC } from 'react';
+import { cx } from '@tachybase/client';
 
 import { ConfigProvider, Tooltip } from 'antd';
-import classNames from 'classnames';
 
 import ComponentDemos from '../component-demos';
 import type { ComponentDemo, MutableTheme, TokenName } from '../interface';
@@ -71,7 +71,7 @@ const ComponentDemoBlock: FC<ComponentDemoBlockProps> = ({
   const locale = useLocale();
 
   return (
-    <div className={classNames('previewer-component-demo-group-item', hashId)}>
+    <div className={cx('previewer-component-demo-group-item', hashId)}>
       <ComponentCard
         title={component}
         component={component}
@@ -149,7 +149,7 @@ const ComponentDemoGroup: FC<ComponentDemoGroupProps> = ({
 
           return (
             <div
-              className={classNames('previewer-component-demo-group', hashId)}
+              className={cx('previewer-component-demo-group', hashId)}
               key={item}
               id={getComponentDemoId(item)}
               style={{
