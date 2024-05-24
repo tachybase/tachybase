@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { mergeFilter, useAPIClient, useCollectionManager, useCompile, useRequest } from '@tachybase/client';
-import { connect, observer, useFieldSchema } from '@tachybase/schema';
+import { useAPIClient, useCollectionManager, useCompile } from '@tachybase/client';
+import { observer } from '@tachybase/schema';
 
 import { useAsyncEffect } from 'ahooks';
-import { Badge, Empty, List, Space, Tag } from 'antd-mobile';
+import { Empty, List, Space, Tag } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
 
 import { APPROVAL_STATUS, ApprovalPriorityType, approvalStatusOptions } from '../../constants';
-import { tval, useTranslation } from '../../locale';
+import { useTranslation } from '../../locale';
 
 export const TabApprovalItem = observer((props) => {
   const { filter, params, input } = props as any;
@@ -17,6 +17,7 @@ export const TabApprovalItem = observer((props) => {
   const { t } = useTranslation();
   const compile = useCompile();
   const navigate = useNavigate();
+  const cm = useCollectionManager();
   useEffect(() => {
     if (input && defData.length) {
       const filterData = defData.filter((value) => value.title.includes(input));
@@ -44,10 +45,12 @@ export const TabApprovalItem = observer((props) => {
           );
           const statusType = approvalTodoListStatus(item, t);
           const categoryTitle = item.workflow.title.replace('审批流:', '');
+          const collectionName = item.workflow?.config?.collection || item.execution?.context?.collectionName;
           const summary = Object.entries(item.summary).map(([key, value]) => {
+            const field = cm.getCollectionField(`${collectionName}.${key}`);
             return {
-              label: compile(key),
-              value: value?.['name'] || value || '',
+              label: compile(field?.uiSchema?.title || key),
+              value: (Object.prototype.toString.call(value) === '[object Object]' ? value?.['name'] : value) || '',
             };
           });
           return {
