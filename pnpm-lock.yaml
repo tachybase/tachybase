@@ -3523,34 +3523,6 @@ importers:
         specifier: ^6.11.2
         version: 6.21.0(react-dom@18.2.0)(react@18.2.0)
 
-  packages/plugins/@tachybase/plugin-sample-hello:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.6
-        version: 5.3.6(react-dom@18.2.0)(react@18.2.0)
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.16.1
-        version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-i18next:
-        specifier: ^11.15.1
-        version: 11.18.6(i18next@22.5.1)(react-dom@18.2.0)(react@18.2.0)
-
   packages/plugins/@tachybase/plugin-sequence-field:
     dependencies:
       '@tachybase/actions':
