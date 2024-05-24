@@ -30,7 +30,7 @@ describe('createListBlockSchema', () => {
             "x-component": "ActionBar",
             "x-component-props": {
               "style": {
-                "marginBottom": "var(--nb-spacing)",
+                "marginBottom": "var(--tb-spacing)",
               },
             },
             "x-initializer": "list:configureActions",

@@ -1,11 +1,13 @@
 import { Schema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';
+import { useCollection } from '../../../data-source';
 import { CollectionFieldOptions } from '../../../data-source/collection/Collection';
 import { useFlag } from '../../../flag-provider';
 import { useSubFormValue } from '../../../schema-component/antd/association-field/hooks';
 import { useBaseVariable } from './useBaseVariable';
-import { useCollection } from '../../../data-source';
 
 /**
  * @deprecated
@@ -41,7 +43,7 @@ export const useIterationVariable = ({
     collectionName: currentCollection,
     noDisabled,
     returnFields: (fields, option) => {
-      // fix https://nocobase.height.app/T-2277
+      // fix https://tachybase.height.app/T-2277
       return fields;
       // const activeFieldsName = getActiveFieldsName?.('nester') || [];
 
@@ -88,7 +90,7 @@ export const useCurrentObjectVariable = ({
     collectionName: collectionOfCurrentObject?.name || collection?.name,
     noDisabled,
     returnFields: (fields, option) => {
-      // fix https://nocobase.height.app/T-2277
+      // fix https://tachybase.height.app/T-2277
       return fields;
       // const activeFieldsName = getActiveFieldsName?.('nester') || [];
 

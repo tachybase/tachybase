@@ -83,7 +83,7 @@ export const configurationSchema: ISchema = {
           'x-component': 'ActionBar',
           'x-component-props': {
             style: {
-              marginBottom: 'var(--nb-spacing)',
+              marginBottom: 'var(--tb-spacing)',
             },
           },
           properties: {

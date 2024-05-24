@@ -1313,7 +1313,7 @@ function getTargetField(obj) {
 
 /**
  * 之所以不直接使用 form.reset() 是因为其无法将子表格重置为空
- * 主要用于修复这个问题：https://nocobase.height.app/T-3106
+ * 主要用于修复这个问题：https://tachybase.height.app/T-3106
  * @param form
  */
 async function resetFormCorrectly(form: Form) {

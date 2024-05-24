@@ -3,11 +3,6 @@
   "displayName": "Error handler",
   "version": "0.21.34",
   "description": "Handling application errors and exceptions.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nocobase/nocobase.git",
-    "directory": "packages/plugin-error-handler"
-  },
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -23,6 +18,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "处理应用程序中的错误和异常。",
-  "displayName.zh-CN": "错误处理器",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+  "displayName.zh-CN": "错误处理器"
 }

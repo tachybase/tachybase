@@ -17,7 +17,7 @@ export default class extends Migration {
     await this.db.sequelize.transaction(async (transaction) => {
       await UiSchemas.update(
         {
-          'x-uid': 'nocobase-admin-menu',
+          'x-uid': 'default-admin-menu',
         },
         {
           transaction,
@@ -28,7 +28,7 @@ export default class extends Migration {
       );
       await this.db.getModel('uiSchemaTreePath').update(
         {
-          descendant: 'nocobase-admin-menu',
+          descendant: 'default-admin-menu',
         },
         {
           transaction,
@@ -39,7 +39,7 @@ export default class extends Migration {
       );
       await this.db.getModel('uiSchemaTreePath').update(
         {
-          ancestor: 'nocobase-admin-menu',
+          ancestor: 'default-admin-menu',
         },
         {
           transaction,

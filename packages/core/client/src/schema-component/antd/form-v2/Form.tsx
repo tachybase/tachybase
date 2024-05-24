@@ -332,7 +332,7 @@ function getFieldValuesInCondition({ linkageRules, formValues }) {
 
       return conditions
         .map((condition) => {
-          // fix https://nocobase.height.app/T-3251
+          // fix https://tachybase.height.app/T-3251
           if ('$and' in condition || '$or' in condition) {
             return run(condition);
           }

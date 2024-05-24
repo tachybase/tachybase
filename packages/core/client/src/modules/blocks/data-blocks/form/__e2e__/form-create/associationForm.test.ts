@@ -1,8 +1,9 @@
-import { test, expect } from '@tachybase/test/e2e';
+import { expect, test } from '@tachybase/test/e2e';
+
 import { T3529 } from './templatesOfBug';
 
 test.describe('association form block', () => {
-  // https://nocobase.height.app/T-3529
+  // https://tachybase.height.app/T-3529
   test('should be created instead of updated', async ({ page, mockPage, mockRecord }) => {
     const nocoPage = await mockPage(T3529).waitForInit();
     await mockRecord('general');

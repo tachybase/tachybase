@@ -1,7 +1,9 @@
-import { css } from '@tachybase/client';
-import { InputNumber, Select } from 'antd';
 import React from 'react';
+import { css } from '@tachybase/client';
+
+import { InputNumber, Select } from 'antd';
 import { Cron } from 'react-js-cron';
+
 import { useWorkflowTranslation } from '../../locale';
 import CronZhCN from './locale/Cron.zh-CN';
 
@@ -69,7 +71,7 @@ export function RepeatField({ value = null, onChange }) {
     onChange(v);
   }
 
-  const locale = languages[localStorage.getItem('NOCOBASE_LOCALE') || 'en-US'];
+  const locale = languages[localStorage.getItem('TACHYBASE_LOCALE') || 'en-US'];
 
   return (
     <fieldset

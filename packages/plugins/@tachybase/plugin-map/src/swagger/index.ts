@@ -1,6 +1,6 @@
 export default {
   info: {
-    title: 'NocoBase API - Map plugin',
+    title: 'TachyBase API - Map plugin',
   },
   paths: {
     '/map-configuration:get': {

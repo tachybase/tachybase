@@ -1,7 +1,7 @@
 export default {
   openapi: '3.0.2',
   info: {
-    title: 'NocoBase API - Theme editor plugin',
+    title: 'TachyBase API - Theme editor plugin',
   },
   components: {
     schemas: {

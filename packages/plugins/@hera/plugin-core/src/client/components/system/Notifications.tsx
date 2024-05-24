@@ -1,13 +1,15 @@
 import React from 'react';
 import { css, useRequest } from '@tachybase/client';
-import { Badge, Button, Popover, List, message } from 'antd';
-import { BellOutlined } from '@ant-design/icons';
-import { useLinkKey, useInitializationLinkKey } from '../../hooks/useNotifications';
-import { useNavigate } from 'react-router-dom';
 import { dayjs } from '@tachybase/utils/client';
 
+import { BellOutlined } from '@ant-design/icons';
+import { Badge, Button, List, message, Popover } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
+import { useInitializationLinkKey, useLinkKey } from '../../hooks/useNotifications';
+
 export const Notifications = () => {
-  // 注册链接关联，链接管理使用nocobase代码方式注册数据表
+  // 注册链接关联，链接管理使用tachybase代码方式注册数据表
   useInitializationLinkKey();
   const linkDetail = useLinkKey();
 

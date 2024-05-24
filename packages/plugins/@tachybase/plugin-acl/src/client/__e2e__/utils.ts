@@ -60,7 +60,7 @@ export const oneTableBlock: PageConfig = {
                         'x-initializer': 'table:configureActions',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         _isJSONSchemaObject: true,
@@ -2636,7 +2636,7 @@ export const newTableBlock: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {

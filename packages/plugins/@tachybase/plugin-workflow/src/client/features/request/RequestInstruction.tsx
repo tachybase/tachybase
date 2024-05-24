@@ -1,13 +1,12 @@
 import { ArrayItems } from '@tachybase/components';
 
 import {
+  defaultFieldNames,
   Instruction,
   WorkflowVariableInput,
   WorkflowVariableJSON,
   WorkflowVariableTextArea,
-  defaultFieldNames,
 } from '../..';
-
 import { NAMESPACE } from '../../locale';
 
 export default class extends Instruction {
@@ -44,7 +43,7 @@ export default class extends Instruction {
       'x-decorator-props': {},
       'x-component': 'WorkflowVariableTextArea',
       'x-component-props': {
-        placeholder: 'https://www.nocobase.com',
+        placeholder: 'https://www.tachybase.com',
       },
     },
     headers: {

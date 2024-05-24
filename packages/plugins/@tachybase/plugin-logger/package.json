@@ -6,7 +6,6 @@
   "keywords": [
     "Logging and monitoring"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/logger",
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "devDependencies": {
@@ -25,7 +24,5 @@
     "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "服务端日志，主要包括接口请求日志和系统运行日志，并支持打包和下载日志文件。",
-  "displayName.zh-CN": "日志",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/logger"
+  "displayName.zh-CN": "日志"
 }

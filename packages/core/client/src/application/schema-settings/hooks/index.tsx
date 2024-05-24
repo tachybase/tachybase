@@ -1,13 +1,12 @@
-import { useMemo } from 'react';
-import { useApp } from '../../hooks';
-import { SchemaSettingOptions } from '../types';
-import React from 'react';
-import { SchemaSettingsWrapper } from '../components';
-import { SchemaSettingsProps } from '../../../schema-settings';
-import { Schema } from '@tachybase/schema';
-import { GeneralField } from '@tachybase/schema';
+import React, { useMemo } from 'react';
+import { GeneralField, Schema } from '@tachybase/schema';
+
 import { Designable } from '../../../schema-component';
+import { SchemaSettingsProps } from '../../../schema-settings';
+import { useApp } from '../../hooks';
+import { SchemaSettingsWrapper } from '../components';
 import { defaultSettingItems } from '../SchemaSettingsDefaults';
+import { SchemaSettingOptions } from '../types';
 
 type UseSchemaSettingsRenderOptions<T = {}> = Omit<SchemaSettingOptions<T>, 'name' | 'items'> &
   Omit<SchemaSettingsProps, 'title' | 'children'> & {
@@ -28,7 +27,7 @@ export function useSchemaSettingsRender<T = {}>(name: string, options?: UseSchem
   }
 
   if (!schemaSetting) {
-    console.error(`[nocobase]: SchemaSettings "${name}" not found`);
+    console.error(`[tachybase]: SchemaSettings "${name}" not found`);
     return {
       exists: false,
       render: () => null,

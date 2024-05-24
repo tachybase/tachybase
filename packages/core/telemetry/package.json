@@ -1,12 +1,7 @@
 {
   "name": "@tachybase/telemetry",
   "version": "0.21.34",
-  "description": "nocobase telemetry library",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nocobase/nocobase.git",
-    "directory": "packages/telemetry"
-  },
+  "description": "telemetry library",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -19,6 +14,5 @@
     "@opentelemetry/sdk-trace-node": "^1.19.0",
     "@opentelemetry/semantic-conventions": "^1.19.0",
     "@tachybase/utils": "workspace:*"
-  },
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+  }
 }

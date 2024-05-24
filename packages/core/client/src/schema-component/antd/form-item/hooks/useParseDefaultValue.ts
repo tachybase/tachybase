@@ -1,9 +1,9 @@
-import { Field } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
-import { reaction } from '@tachybase/schema';
-import { getValuesByPath } from '@tachybase/utils/client';
-import _ from 'lodash';
 import { useCallback, useEffect } from 'react';
+import { Field, reaction, useField, useFieldSchema } from '@tachybase/schema';
+import { getValuesByPath } from '@tachybase/utils/client';
+
+import _ from 'lodash';
+
 import { useRecordIndex } from '../../../../../src/record-provider';
 import { useCollection_deprecated } from '../../../../collection-manager';
 import { useCollectionRecord } from '../../../../data-source/collection-record/CollectionRecordProvider';
@@ -82,7 +82,7 @@ const useParseDefaultValue = () => {
         });
 
         if (value == null || value === '') {
-          // fix https://nocobase.height.app/T-2805
+          // fix https://tachybase.height.app/T-2805
           field.setInitialValue(null);
           await field.reset({ forceClear: true });
         } else if (isSpecialCase()) {
@@ -122,7 +122,7 @@ const useParseDefaultValue = () => {
           const obj = { [variableName]: variable?.ctx || {} };
           const path = getPath(fieldSchema.default);
           const value = getValuesByPath(obj, path);
-          // fix https://nocobase.height.app/T-2212
+          // fix https://tachybase.height.app/T-2212
           if (value === undefined) {
             // 返回一个随机值，确保能触发 run 函数
             return Math.random();

@@ -45,7 +45,7 @@ group:
 
 ## API
 
-基于 antd 的 [DatePicker](https://ant.design/components/date-picker/#API)，新增了以下扩展属性，用于支持 NocoBase 的日期字段设置。
+基于 antd 的 [DatePicker](https://ant.design/components/date-picker/#API)，新增了以下扩展属性，用于支持 TachyBase 的日期字段设置。
 
 - `dateFormat` 设置日期格式
 - `timeFormat` 设置时间格式

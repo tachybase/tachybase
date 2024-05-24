@@ -192,7 +192,7 @@ export class Gateway extends EventEmitter {
     if (pathname.startsWith(PLUGIN_STATICS_PATH) && !pathname.includes('/server/')) {
       await compress(req, res);
       const packageName = getPackageNameByExposeUrl(pathname);
-      // /static/plugins/@tachybase/plugins-acl/README.md => /User/projects/nocobase/plugins/acl
+      // /static/plugins/@tachybase/plugins-acl/README.md => /User/projects/tachybase/plugins/acl
       const publicDir = getPackageDirByExposeUrl(pathname);
       // /static/plugins/@tachybase/plugins-acl/README.md => README.md
       const destination = pathname.replace(PLUGIN_STATICS_PATH, '').replace(packageName, '');

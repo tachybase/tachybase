@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "NocoBase API - Core"
+    "title": "TachyBase API - Core"
   },
   "tags": [
     { "name": "$collection", "description": "Data table" },

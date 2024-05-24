@@ -25,7 +25,7 @@ abstract class AppMigrator extends EventEmitter {
   }
 
   tmpDir() {
-    return path.resolve(os.tmpdir(), `nocobase-${crypto.randomUUID()}`);
+    return path.resolve(os.tmpdir(), `tachybase-${crypto.randomUUID()}`);
   }
 
   async rmDir(dir: string) {

@@ -2,7 +2,7 @@ import { createMockServer, MockServer } from '@tachybase/test';
 
 import Migration from '../migrations/20231215215247-admin-menu-uid';
 
-describe('nocobase-admin-menu', () => {
+describe('default-admin-menu', () => {
   let app: MockServer;
 
   beforeEach(async () => {
@@ -37,6 +37,6 @@ describe('nocobase-admin-menu', () => {
     });
     await migration.up();
     const schema = await uiSchemas.findOne();
-    expect(schema.toJSON()).toMatchObject({ 'x-uid': 'nocobase-admin-menu', name: 'abc' });
+    expect(schema.toJSON()).toMatchObject({ 'x-uid': 'default-admin-menu', name: 'abc' });
   });
 });

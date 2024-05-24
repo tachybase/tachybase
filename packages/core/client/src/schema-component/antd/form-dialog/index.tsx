@@ -1,12 +1,26 @@
-import { createForm, Form, IFormProps } from '@tachybase/schema';
-import { FormProvider, Observer, observer, ReactFC } from '@tachybase/schema';
-import { toJS } from '@tachybase/schema';
-import { applyMiddleware, IMiddleware, isBool, isFn, isNum, isStr } from '@tachybase/schema';
-import { Modal, ModalProps, ThemeConfig } from 'antd';
 import React, { Fragment, useLayoutEffect, useRef, useState } from 'react';
+import {
+  applyMiddleware,
+  createForm,
+  Form,
+  FormProvider,
+  IFormProps,
+  IMiddleware,
+  isBool,
+  isFn,
+  isNum,
+  isStr,
+  Observer,
+  observer,
+  ReactFC,
+  toJS,
+} from '@tachybase/schema';
+
+import { Modal, ModalProps, ThemeConfig } from 'antd';
 import { createPortal } from 'react-dom';
-import { GlobalThemeProvider } from '../../../global-theme';
+
 import { createPortalProvider, createPortalRoot, loading, usePrefixCls, useToken } from '../__builtins__';
+import { GlobalThemeProvider } from '../../../global-theme';
 
 type FormDialogRenderer = React.ReactElement | ((form: Form) => React.ReactElement);
 
@@ -96,8 +110,8 @@ export function FormDialog(title: any, id: any, renderer?: any, theme?: any): IF
 
             return (
               <Modal
-                // fix https://nocobase.height.app/T-2797
-                // fix https://nocobase.height.app/T-2838
+                // fix https://tachybase.height.app/T-2797
+                // fix https://tachybase.height.app/T-2838
                 zIndex={token.zIndexPopupBase + 1000}
                 {...modal}
                 open={open}

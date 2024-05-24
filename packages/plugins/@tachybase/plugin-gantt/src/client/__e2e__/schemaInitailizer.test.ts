@@ -63,11 +63,11 @@ test.describe('configure fields', () => {
     await page.getByRole('menuitem', { name: 'Title field' }).click();
     await page.getByText('Username').click();
     await expect(
-      page.getByLabel('block-item-CardItem-general-table').getByRole('button', { name: 'nocobase' }),
+      page.getByLabel('block-item-CardItem-general-table').getByRole('button', { name: 'tachybase' }),
     ).toBeVisible();
     await page.reload();
     await expect(
-      page.getByLabel('block-item-CardItem-general-table').getByRole('button', { name: 'nocobase' }),
+      page.getByLabel('block-item-CardItem-general-table').getByRole('button', { name: 'tachybase' }),
     ).toBeVisible();
   });
 });

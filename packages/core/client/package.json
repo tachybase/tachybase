@@ -74,6 +74,5 @@
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
     "react-is": ">=18.0.0"
-  },
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+  }
 }

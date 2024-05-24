@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import qs from 'qs';
+
 import getSubAppName from './getSubAppName';
 
 export interface ActionParams {
@@ -24,11 +25,11 @@ export class Auth {
   protected api: APIClient;
 
   protected KEYS = {
-    locale: 'NOCOBASE_LOCALE',
-    role: 'NOCOBASE_ROLE',
-    token: 'NOCOBASE_TOKEN',
-    authenticator: 'NOCOBASE_AUTH',
-    theme: 'NOCOBASE_THEME',
+    locale: 'TACHYBASE_LOCALE',
+    role: 'TACHYBASE_ROLE',
+    token: 'TACHYBASE_TOKEN',
+    authenticator: 'TACHYBASE_AUTH',
+    theme: 'TACHYBASE_THEME',
   };
 
   protected options = {

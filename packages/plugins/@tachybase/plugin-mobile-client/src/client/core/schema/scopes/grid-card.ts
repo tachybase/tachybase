@@ -1,9 +1,11 @@
 import { css } from '@tachybase/client';
-import { useInterfaceContext } from '../../../router/InterfaceProvider';
+
 import { PaginationProps } from 'antd';
 
+import { useInterfaceContext } from '../../../router/InterfaceProvider';
+
 const listCss = css`
-  padding: 0 var(--nb-spacing);
+  padding: 0 var(--tb-spacing);
   & > .nb-action-bar {
     padding: unset !important;
     background: unset !important;

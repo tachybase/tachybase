@@ -6,7 +6,6 @@
   "keywords": [
     "Collection fields"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/field-sequence",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -30,7 +29,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "根据配置的规则自动生成编码，支持日期、数字、文本的组合。",
-  "displayName.zh-CN": "数据表字段：自动编码",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/field-sequence"
+  "displayName.zh-CN": "数据表字段：自动编码"
 }

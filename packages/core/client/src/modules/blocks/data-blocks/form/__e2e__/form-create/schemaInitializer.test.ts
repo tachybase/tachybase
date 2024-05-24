@@ -1,6 +1,7 @@
-import { createBlockInPage, expect, oneEmptyForm, test } from '@tachybase/test/e2e';
-import { T3106, T3469 } from './templatesOfBug';
 import { uid } from '@tachybase/schema';
+import { createBlockInPage, expect, oneEmptyForm, test } from '@tachybase/test/e2e';
+
+import { T3106, T3469 } from './templatesOfBug';
 
 test.describe('where creation form block can be added', () => {
   test('page', async ({ page, mockPage }) => {
@@ -80,7 +81,7 @@ test.describe('configure actions', () => {
     await expect(page.getByRole('button', { name: 'Submit' })).not.toBeVisible();
   });
 
-  // https://nocobase.height.app/T-3106
+  // https://tachybase.height.app/T-3106
   test('subTable: should clear form value after submit', async ({ page, mockPage }) => {
     await mockPage(T3106).goto();
 
@@ -102,7 +103,7 @@ test.describe('configure actions', () => {
     ).toHaveValue('test name');
   });
 
-  // https://nocobase.height.app/T-3469
+  // https://tachybase.height.app/T-3469
   test('default values for fields should not be cleared after submission', async ({ page, mockPage }) => {
     await mockPage(T3469).goto();
 

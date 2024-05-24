@@ -115,7 +115,7 @@ Excel 数据导入插件。
 
 | 附件 | 
 | --|
-| https://www.nocobase.com/images/logo.png |
+| https://www.tachybase.com/images/logo.png |
 
 转 JSON 之后为
 
@@ -126,7 +126,7 @@ Excel 数据导入插件。
       "filename": "logo.png",
       "title": "logo.png",
       "extname": ".png",
-      "url": "https://www.nocobase.com/images/logo.png"
+      "url": "https://www.tachybase.com/images/logo.png"
     }
   ]
 }

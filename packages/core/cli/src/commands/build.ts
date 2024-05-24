@@ -27,7 +27,7 @@ export default (cli: Command) => {
       }
       process.env['VITE_CJS_IGNORE_WARNING'] = 'true';
 
-      await run('nocobase-build', [
+      await run('tachybase-build', [
         ...pkgs,
         options.version ? '--version' : '',
         !options.dts ? '--no-dts' : '',

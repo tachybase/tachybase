@@ -47,8 +47,8 @@ const useStyles = createStyles(({ css, token }) => {
       position: fixed;
       left: 0;
       right: 0;
-      height: var(--nb-header-height);
-      line-height: var(--nb-header-height);
+      height: var(--tb-header-height);
+      line-height: var(--tb-header-height);
       padding: 0;
       z-index: 100;
       background-color: ${token.colorBgHeader} !important;
@@ -114,10 +114,10 @@ const useStyles = createStyles(({ css, token }) => {
       background: rgba(0, 0, 0, 0);
       z-index: 100;
       .ant-layout-sider-children {
-        top: var(--nb-header-height);
+        top: var(--tb-header-height);
         position: fixed;
         width: 200px;
-        height: calc(100vh - var(--nb-header-height));
+        height: calc(100vh - var(--tb-header-height));
       }
     `,
     main: css`
@@ -141,8 +141,8 @@ const useStyles = createStyles(({ css, token }) => {
     `,
     mainHeader: css`
       flex-shrink: 0;
-      height: var(--nb-header-height);
-      line-height: var(--nb-header-height);
+      height: var(--tb-header-height);
+      line-height: var(--tb-header-height);
       background: transparent;
       pointer-events: none;
     `,

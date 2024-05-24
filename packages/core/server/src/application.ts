@@ -1,8 +1,12 @@
+import { randomUUID } from 'crypto';
+import { IncomingMessage, ServerResponse } from 'http';
+import { RecordableHistogram } from 'node:perf_hooks';
+import { basename, resolve } from 'path';
 import { registerActions } from '@tachybase/actions';
 import { actions as authActions, AuthManager, AuthManagerOptions } from '@tachybase/auth';
 import { Cache, CacheManager, CacheManagerOptions } from '@tachybase/cache';
+import { DataSourceManager, SequelizeDataSource } from '@tachybase/data-source-manager';
 import Database, { CollectionOptions, IDatabaseOptions } from '@tachybase/database';
-import winston from 'winston';
 import {
   createLogger,
   createSystemLogger,
@@ -15,17 +19,19 @@ import {
 import { ResourceOptions, Resourcer } from '@tachybase/resourcer';
 import { Telemetry, TelemetryOptions } from '@tachybase/telemetry';
 import { applyMixins, AsyncEmitter, importModule, Toposort, ToposortOptions } from '@tachybase/utils';
+
 import { Command, CommandOptions, ParseOptions } from 'commander';
-import { randomUUID } from 'crypto';
 import glob from 'glob';
-import { IncomingMessage, ServerResponse } from 'http';
 import { i18n, InitOptions } from 'i18next';
 import Koa, { DefaultContext as KoaDefaultContext, DefaultState as KoaDefaultState } from 'koa';
 import compose from 'koa-compose';
 import lodash from 'lodash';
-import { RecordableHistogram } from 'node:perf_hooks';
-import { basename, resolve } from 'path';
+import _ from 'lodash';
+import { nanoid } from 'nanoid';
 import semver from 'semver';
+import winston from 'winston';
+
+import packageJson from '../package.json';
 import { createACL } from './acl';
 import { AppCommand } from './app-command';
 import { AppSupervisor } from './app-supervisor';
@@ -43,14 +49,9 @@ import {
 } from './helper';
 import { ApplicationVersion } from './helpers/application-version';
 import { Locale } from './locale';
+import { MainDataSource } from './main-data-source';
 import { Plugin } from './plugin';
 import { InstallOptions, PluginManager } from './plugin-manager';
-import { nanoid } from 'nanoid';
-import _ from 'lodash';
-
-import { DataSourceManager, SequelizeDataSource } from '@tachybase/data-source-manager';
-import packageJson from '../package.json';
-import { MainDataSource } from './main-data-source';
 
 export type PluginType = string | typeof Plugin;
 export type PluginConfiguration = PluginType | [PluginType, any];
@@ -979,7 +980,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     // }, 'Sync');
     await this.emitAsync('afterUpgrade', this, options);
     await this.restart();
-    // this.log.debug(chalk.green(`✨  NocoBase has been upgraded to v${this.getVersion()}`));
+    // this.log.debug(chalk.green(`✨  TachyBase has been upgraded to v${this.getVersion()}`));
     // if (this._started) {
     //   await measureExecutionTime(async () => {
     //     await this.restart();
@@ -1058,7 +1059,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     });
 
     this._telemetry = new Telemetry({
-      serviceName: `nocobase-${this.name}`,
+      serviceName: `tachybase-${this.name}`,
       version: this.getVersion(),
       ...options.telemetry,
     });

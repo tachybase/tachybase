@@ -1,14 +1,15 @@
-import { Field } from '@tachybase/schema';
-import { Schema, useFieldSchema, useForm } from '@tachybase/schema';
-import _ from 'lodash';
 import { useCallback, useEffect, useMemo } from 'react';
+import { Field, Schema, useFieldSchema, useForm } from '@tachybase/schema';
+
+import _ from 'lodash';
+
 import {
   CollectionFieldOptions_deprecated,
   useCollection_deprecated,
   useCollectionManager_deprecated,
 } from '../../../../collection-manager';
-import { isSubMode } from '../../association-field/util';
 import { markRecordAsNew } from '../../../../data-source/collection-record/isNewRecord';
+import { isSubMode } from '../../association-field/util';
 
 /**
  * #### 处理 `子表单` 和 `子表格` 中的特殊情况
@@ -46,7 +47,7 @@ export const useSpecialCase = () => {
   return {
     /**
      * 特殊情况指的是：当前字段是 `对一` 字段且存在于 `对多` 字段的 `子表格` 或 `子表单` 中
-     * 详细说明见：https://nocobase.feishu.cn/docx/EmNEdEBOnoQohUx2UmBcqIQ5nyh#CUdLdy6OpoPKjyx9DLPc3lqknVc
+     * 详细说明见：https://tachybase.feishu.cn/docx/EmNEdEBOnoQohUx2UmBcqIQ5nyh#CUdLdy6OpoPKjyx9DLPc3lqknVc
      */
     isSpecialCase,
     setDefaultValue,
@@ -71,7 +72,7 @@ export function getParentFieldSchema(fieldSchema: Schema) {
 
 /**
  * 特殊情况指的是：当前字段是 `对一` 字段且存在于 `对多` 字段的 `子表格` 或 `子表单` 中
- * 详细说明见：https://nocobase.feishu.cn/docx/EmNEdEBOnoQohUx2UmBcqIQ5nyh#CUdLdy6OpoPKjyx9DLPc3lqknVc
+ * 详细说明见：https://tachybase.feishu.cn/docx/EmNEdEBOnoQohUx2UmBcqIQ5nyh#CUdLdy6OpoPKjyx9DLPc3lqknVc
  * @returns
  */
 export function isSpecialCaseField({

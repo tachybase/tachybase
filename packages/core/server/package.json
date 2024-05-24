@@ -67,6 +67,5 @@
     "koa-compose": "^4.1.0",
     "qs": "^6.11.2",
     "redis": "^4.6.10"
-  },
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+  }
 }

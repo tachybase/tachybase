@@ -1,6 +1,7 @@
-import { Form } from '@tachybase/schema';
-import { Schema } from '@tachybase/schema';
+import { Form, Schema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { useFormBlockContext } from '../../../block-provider';
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';
 import { useBaseVariable } from './useBaseVariable';
@@ -36,7 +37,7 @@ export const useFormVariable = ({ collectionName, collectionField, schema, noDis
     collectionName: collectionName,
     noDisabled,
     returnFields: (fields, option) => {
-      // fix https://nocobase.height.app/T-2277
+      // fix https://tachybase.height.app/T-2277
       return fields;
       // const activeFieldsName = getActiveFieldsName?.('form') || [];
 
@@ -76,7 +77,7 @@ export const useCurrentFormVariable = ({
     collectionName: collectionName,
     noDisabled,
     returnFields: (fields, option) => {
-      // fix https://nocobase.height.app/T-2277
+      // fix https://tachybase.height.app/T-2277
       return fields;
       // const activeFieldsName = getActiveFieldsName?.('form') || [];
 

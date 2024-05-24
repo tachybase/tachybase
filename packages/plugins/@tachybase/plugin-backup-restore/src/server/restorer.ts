@@ -111,7 +111,7 @@ export class Restorer extends AppMigrator {
 
     const version = meta['version'];
     if (semver.lt(version, '0.18.0-alpha.2')) {
-      throw new RestoreCheckError(`this backup file can only be imported in nocobase ${version}`);
+      throw new RestoreCheckError(`this backup file can only be imported in tachybase ${version}`);
     }
   }
 

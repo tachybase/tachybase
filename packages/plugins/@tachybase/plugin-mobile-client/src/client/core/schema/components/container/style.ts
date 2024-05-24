@@ -9,7 +9,7 @@ const useStyles = createStyles(({ token, css }) => {
         right: unset;
         left: 2px;
       }
-      background: var(--nb-box-bg);
+      background: var(--tb-box-bg);
       display: flex;
       flex-direction: column;
       width: 100%;
@@ -20,7 +20,7 @@ const useStyles = createStyles(({ token, css }) => {
 
     tabBar: css`
       & > .general-schema-designer {
-        --nb-designer-top: ${token.marginMD}px;
+        --tb-designer-top: ${token.marginMD}px;
       }
       position: fixed;
       background: ${token.colorBgContainer};

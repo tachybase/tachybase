@@ -1,18 +1,20 @@
-import { ActionContextProvider, AdminProvider, css, cx, RemoteSchemaComponent, useViewport } from '@tachybase/client';
-import { DrawerProps, ModalProps } from 'antd';
 import React, { PropsWithChildren, useMemo } from 'react';
+import { ActionContextProvider, AdminProvider, css, cx, RemoteSchemaComponent, useViewport } from '@tachybase/client';
+
+import { DrawerProps, ModalProps } from 'antd';
 import { Outlet, useParams } from 'react-router-dom';
+
 import { MobileCore } from '../core';
 import { useInterfaceContext } from './InterfaceProvider';
 import { OpenInNewTab } from './OpenInNewTab';
 
 const commonCSSVariables = css`
-  --nb-spacing: 14px;
+  --tb-spacing: 14px;
 `;
 const commonCSSOverride = css``;
 const commonDesignerCSS = css`
-  --nb-designer-top: 2px;
-  --nb-designer-right: 2px;
+  --tb-designer-top: 2px;
+  --tb-designer-right: 2px;
   .nb-sortable-designer:hover {
     position: relative;
     > .general-schema-designer {
@@ -31,8 +33,8 @@ const commonDesignerCSS = css`
     pointer-events: none;
     > .general-schema-designer-icons {
       position: absolute;
-      top: var(--nb-designer-top);
-      right: var(--nb-designer-right);
+      top: var(--tb-designer-top);
+      right: var(--tb-designer-right);
       line-height: 16px;
       pointer-events: all;
       .ant-space-item {
@@ -68,7 +70,7 @@ const modalProps = {
 };
 
 const useMobileSchemaUid = () => {
-  return 'nocobase-mobile-container';
+  return 'default-admin-mobile';
 };
 
 const MApplication: React.FC<PropsWithChildren> = (props) => {

@@ -20,7 +20,7 @@ describe('createGridCardBlockSchema', () => {
             "x-component": "ActionBar",
             "x-component-props": {
               "style": {
-                "marginBottom": "var(--nb-spacing)",
+                "marginBottom": "var(--tb-spacing)",
               },
             },
             "x-initializer": "gridCard:configureActions",
@@ -96,7 +96,7 @@ describe('createGridCardBlockSchema', () => {
             "x-component": "ActionBar",
             "x-component-props": {
               "style": {
-                "marginBottom": "var(--nb-spacing)",
+                "marginBottom": "var(--tb-spacing)",
               },
             },
             "x-initializer": "gridCard:configureActions",

@@ -1,5 +1,4 @@
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { ISchema, uid } from '@tachybase/schema';
 
 export const createTableSelectorUISchema = (options: {
   collectionName: string;
@@ -36,7 +35,7 @@ export const createTableSelectorUISchema = (options: {
         'x-component': 'ActionBar',
         'x-component-props': {
           style: {
-            marginBottom: 'var(--nb-spacing)',
+            marginBottom: 'var(--tb-spacing)',
           },
         },
       },

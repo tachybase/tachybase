@@ -1,7 +1,7 @@
 export default {
   openapi: '3.0.2',
   info: {
-    title: 'NocoBase API - Workflow plugin',
+    title: 'TachyBase API - Workflow plugin',
   },
   tags: [],
   paths: {

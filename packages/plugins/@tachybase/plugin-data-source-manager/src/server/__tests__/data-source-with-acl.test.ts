@@ -13,7 +13,7 @@ describe('data source with acl', () => {
 
   beforeEach(async () => {
     app = await createMockServer({
-      plugins: ['nocobase'],
+      plugins: ['tachybase'],
       acl: true,
     });
 

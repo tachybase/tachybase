@@ -2,7 +2,9 @@ import { Database } from '@tachybase/database';
 import { AppSupervisor, Gateway } from '@tachybase/server';
 import { createMockServer, MockServer } from '@tachybase/test';
 import { uid } from '@tachybase/utils';
+
 import { vi } from 'vitest';
+
 import { PluginMultiAppManager } from '../server';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -295,7 +297,7 @@ describe('multiple apps', () => {
       values: {
         name: subAppName,
         options: {
-          plugins: ['nocobase'],
+          plugins: ['tachybase'],
         },
       },
       context: {

@@ -6,7 +6,6 @@
   "keywords": [
     "Authentication"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/auth-saml",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -29,7 +28,5 @@
     "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "通过 SAML 2.0 协议认证身份。",
-  "displayName.zh-CN": "认证：SAML 2.0",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/auth-saml"
+  "displayName.zh-CN": "认证：SAML 2.0"
 }

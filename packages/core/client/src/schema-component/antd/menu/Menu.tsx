@@ -136,7 +136,7 @@ const SideMenu = ({
   const { Component, getMenuItems } = useMenuItem();
   const { styles } = useStyles();
 
-  // fix https://nocobase.height.app/T-3331/description
+  // fix https://tachybase.height.app/T-3331/description
   // 使用 ref 用来防止闭包问题
   const sideMenuSchemaRef = useRef(sideMenuSchema);
   sideMenuSchemaRef.current = sideMenuSchema;

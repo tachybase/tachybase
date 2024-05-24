@@ -1,7 +1,7 @@
 export default {
   openapi: '3.0.2',
   info: {
-    title: 'NocoBase API - ACL plugin',
+    title: 'TachyBase API - ACL plugin',
   },
   paths: {
     '/roles:list': {

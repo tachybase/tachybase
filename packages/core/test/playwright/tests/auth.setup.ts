@@ -13,7 +13,7 @@ setup('admin', async ({ page }) => {
 
   // 开启配置状态
   await page.evaluate(() => {
-    localStorage.setItem('NOCOBASE_DESIGNABLE', 'true');
+    localStorage.setItem('TACHYBASE_DESIGNABLE', 'true');
   });
   await page.context().storageState({
     path: process.env.PLAYWRIGHT_AUTH_FILE,

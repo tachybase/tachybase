@@ -1,4 +1,4 @@
-import { PageConfig, generalWithMultiLevelM2oFields } from '@tachybase/test/e2e';
+import { generalWithMultiLevelM2oFields, PageConfig } from '@tachybase/test/e2e';
 
 export const T2797: PageConfig = {
   pageSchema: {
@@ -63,7 +63,7 @@ export const T2797: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-index': 1,
@@ -642,7 +642,7 @@ export const T2838: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-index': 1,
@@ -1531,7 +1531,7 @@ export const tableWithRoles: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'w07zcu825vu',
@@ -1746,7 +1746,7 @@ export const tableWithUsers = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 'e7ukdkylglc',
@@ -1992,7 +1992,7 @@ export const tableWithInherit = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': '6j0p8tmwey7',
@@ -2223,7 +2223,7 @@ export const tableWithInheritWithoutAssociation = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': '6j0p8tmwey7',

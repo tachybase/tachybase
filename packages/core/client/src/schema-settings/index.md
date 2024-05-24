@@ -500,7 +500,7 @@ const { name } = useSchemaSettingsItem();
 
 ### 内置类型
 
-NocoBase 提供了几个内置的组件，可以直接使用。
+TachyBase 提供了几个内置的组件，可以直接使用。
 
 <code src="./demos/built-type.tsx"></code>
 

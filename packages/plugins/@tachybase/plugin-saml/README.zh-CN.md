@@ -21,7 +21,7 @@
 
 <img src="https://s2.loli.net/2023/05/18/Mpwk3dAIvShmUCe.png" width="800px"/>
 
-### 在Nocobase上新增认证器
+### 在Tachybase上新增认证器
 
 插件设置 - 认证 - 新增 - SAML
 
@@ -39,7 +39,7 @@
 
 回到Google控制台，在**服务提供商详细信息**页面，输入刚才复制的ACS网址和实体ID，并勾选**已签署响应**。
 
-在**属性映射**位置，添加映射，映射对应属性，Nocobase可供映射的字段有：
+在**属性映射**位置，添加映射，映射对应属性，Tachybase可供映射的字段有：
 
 - email（必填）
 - phone (仅对scope支持phone的平台生效，如阿里云)

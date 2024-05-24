@@ -56,7 +56,7 @@ export const T2183 = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -215,7 +215,7 @@ export const T2186 = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {
@@ -374,7 +374,7 @@ export const T2187 = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': 't2drja2eg9p',
@@ -771,7 +771,7 @@ export const T3686: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         'x-uid': '42xfns3215b',

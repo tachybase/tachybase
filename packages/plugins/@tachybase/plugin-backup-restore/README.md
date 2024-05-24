@@ -2,7 +2,7 @@
 
 English | [中文](./README.zh-CN.md)
 
-NocoBase 应用的备份与还原插件，可用于应用的复制、迁移、升级等场景。
+TachyBase 应用的备份与还原插件，可用于应用的复制、迁移、升级等场景。
 
 ## 安装激活
 
@@ -10,14 +10,14 @@ NocoBase 应用的备份与还原插件，可用于应用的复制、迁移、�
 
 ## 使用方法
 
-Duplicator 插件提供了 `dump` 和 `restore` 命令，分别用于备份和还原应用数据，可用于单应用的备份和还原，也可以跨应用。如果跨应用还原数据，请保证目标应用 NocoBase 版本与源应用一致，相对应插件也已下载本地。
+Duplicator 插件提供了 `dump` 和 `restore` 命令，分别用于备份和还原应用数据，可用于单应用的备份和还原，也可以跨应用。如果跨应用还原数据，请保证目标应用 TachyBase 版本与源应用一致，相对应插件也已下载本地。
 
 **⚠️ 如果使用了继承（PostgreSQL）、视图、触发器等不兼容的特性，跨数据库还原备份数据可能失败。**
 
 ### 备份数据
 
 ```bash
-yarn nocobase dump
+yarn tachybase dump
 ```
 
 选择需要备份的插件表结构及其数据
@@ -66,7 +66,7 @@ dumped file size: 20.8 kB
 ### 还原数据
 
 ```bash
-yarn nocobase restore /your/apps/a/storage/duplicator/dump-20230210T223910.nbdump
+yarn tachybase restore /your/apps/a/storage/duplicator/dump-20230210T223910.nbdump
 ```
 
 导入前请先备份数据

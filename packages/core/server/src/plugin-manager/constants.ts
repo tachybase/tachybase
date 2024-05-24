@@ -7,7 +7,7 @@ export const pluginPrefix = (
 export const requireRegex = /require\s*\(['"`](.*?)['"`]\)/g;
 export const importRegex = /^import(?:['"\s]*([\w*${}\s,]+)from\s*)?['"\s]['"\s](.*[@\w_-]+)['"\s].*/gm;
 export const EXTERNAL = [
-  // nocobase
+  // tachybase
   '@tachybase/acl',
   '@tachybase/actions',
   '@tachybase/auth',

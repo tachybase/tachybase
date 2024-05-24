@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { observer } from '@tachybase/schema';
 import { getSubAppName } from '@tachybase/sdk';
 
@@ -25,6 +25,11 @@ import { BlockTemplateDetails, BlockTemplatePage } from '../schema-templates';
 import { SystemSettingsPlugin } from '../system-settings';
 import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
 import { LocalePlugin } from './plugins/LocalePlugin';
+
+interface AppStatusProps {
+  error: Error;
+  app: Application;
+}
 
 const AppSpin = () => {
   return (
@@ -78,8 +83,8 @@ const useErrorProps = (app: Application, error: any) => {
   }
 };
 
-const AppError: FC<{ error: Error; app: Application }> = observer(
-  ({ app, error }) => {
+const AppError = observer(
+  ({ app, error }: AppStatusProps) => {
     const props = useErrorProps(app, error);
     const { styles } = useStyles();
     return (
@@ -207,8 +212,8 @@ const getProps = (app: Application) => {
   return {};
 };
 
-const AppMaintaining: FC<{ app: Application; error: Error }> = observer(
-  ({ app }) => {
+const AppMaintaining = observer(
+  ({ app }: AppStatusProps) => {
     const { icon, status, title, subTitle } = getProps(app);
     const { styles } = useStyles();
     return (
@@ -231,8 +236,8 @@ const AppMaintaining: FC<{ app: Application; error: Error }> = observer(
   { displayName: 'AppMaintaining' },
 );
 
-const AppMaintainingDialog: FC<{ app: Application; error: Error }> = observer(
-  ({ app }) => {
+const AppMaintainingDialog = observer(
+  ({ app }: AppStatusProps) => {
     const { icon, status, title, subTitle } = getProps(app);
     return (
       <Modal open={true} footer={null} closable={false}>
@@ -259,7 +264,7 @@ const AppNotFound = () => {
   );
 };
 
-export class NocoBaseBuildInPlugin extends Plugin {
+export class BuildinPlugin extends Plugin {
   async afterAdd() {
     this.app.addComponents({
       AppSpin,

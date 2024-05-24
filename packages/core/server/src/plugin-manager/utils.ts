@@ -28,7 +28,7 @@ import { PluginData } from './types';
  * get temp dir
  *
  * @example
- * getTempDir() => '/tmp/nocobase'
+ * getTempDir() => '/tmp/tachybase'
  */
 export async function getTempDir() {
   const temporaryDirectory = await fs.realpath(os.tmpdir());

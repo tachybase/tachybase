@@ -1,5 +1,6 @@
-import { render, screen, waitFor } from '@tachybase/test/client';
 import React from 'react';
+import { render, screen, waitFor } from '@tachybase/test/client';
+
 import App1 from '../demos/demo1';
 
 describe('Page', () => {
@@ -13,7 +14,7 @@ describe('Page', () => {
       expect(screen.getByText(/page content/i)).toBeInTheDocument();
     });
     await waitFor(() => {
-      expect(document.title).toBe('Page Title - NocoBase');
+      expect(document.title).toBe('Page Title - TachyBase');
     });
   });
 });

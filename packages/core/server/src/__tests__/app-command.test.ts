@@ -1,5 +1,7 @@
 import { mockDatabase } from '@tachybase/database';
+
 import { vi } from 'vitest';
+
 import Application, { ApplicationOptions } from '../application';
 
 const mockServer = (options?: ApplicationOptions) => {
@@ -28,8 +30,8 @@ describe('app command', () => {
     app.command('testaa').ipc();
     app.command('testbb');
 
-    expect(app.cli.parseHandleByIPCServer(['node', 'cli', 'nocobase', 'testaa'])).toBeTruthy();
-    expect(app.cli.parseHandleByIPCServer(['node', 'cli', 'nocobase', 'testbb'])).toBeFalsy();
+    expect(app.cli.parseHandleByIPCServer(['node', 'cli', 'tachybase', 'testaa'])).toBeTruthy();
+    expect(app.cli.parseHandleByIPCServer(['node', 'cli', 'tachybase', 'testbb'])).toBeFalsy();
   });
 
   it('should test sub command should handle by IPC Server or not', () => {
@@ -37,8 +39,8 @@ describe('app command', () => {
     subParent.command('testaa').ipc();
     subParent.command('testbb');
 
-    expect(app.cli.parseHandleByIPCServer(['node', 'cli', 'nocobase', 'subparent', 'testaa'])).toBeTruthy();
-    expect(app.cli.parseHandleByIPCServer(['node', 'cli', 'nocobase', 'subparent', 'testbb'])).toBeFalsy();
+    expect(app.cli.parseHandleByIPCServer(['node', 'cli', 'tachybase', 'subparent', 'testaa'])).toBeTruthy();
+    expect(app.cli.parseHandleByIPCServer(['node', 'cli', 'tachybase', 'subparent', 'testbb'])).toBeFalsy();
   });
 
   it('should correctly parse the command multiple times with varying parameters', async () => {

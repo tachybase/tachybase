@@ -24,7 +24,7 @@ test.describe('view', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('block-item-CardItem-general-table')).toBeVisible();
@@ -62,7 +62,7 @@ test.describe('view', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('block-item-CardItem-general-table')).toBeVisible();
@@ -102,7 +102,7 @@ test.describe('update', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('block-item-CardItem-general-table')).toBeVisible();
@@ -141,7 +141,7 @@ test.describe('update', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('block-item-CardItem-general-table')).toBeVisible();
@@ -179,7 +179,7 @@ test.describe('create', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('block-item-CardItem-general-table')).toBeVisible();
@@ -221,7 +221,7 @@ test.describe('create', () => {
     });
     await mockPage(oneTableBlock).goto();
     await page.evaluate((roleData) => {
-      window.localStorage.setItem('NOCOBASE_ROLE', roleData.name);
+      window.localStorage.setItem('TACHYBASE_ROLE', roleData.name);
     }, roleData);
     await page.reload();
     await expect(page.getByLabel('block-item-CardItem-general-table')).toBeVisible();

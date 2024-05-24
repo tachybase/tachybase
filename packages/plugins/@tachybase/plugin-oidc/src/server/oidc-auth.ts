@@ -75,7 +75,7 @@ export class OIDCAuth extends BaseAuth {
     const token = stateToken || ctx.cookies.get(cookieName);
     const search = new URLSearchParams(decodeURIComponent(values.state));
     if (search.get('token') !== token) {
-      ctx.logger.error('nocobase_oidc state mismatch', { method: 'validate' });
+      ctx.logger.error('tachybase_oidc state mismatch', { method: 'validate' });
       return null;
     }
     const client = await this.createOIDCClient();

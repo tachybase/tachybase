@@ -1,9 +1,9 @@
+import React from 'react';
 import { css } from '@tachybase/client';
 
-import { Instruction, WorkflowVariableRawTextArea, defaultFieldNames } from '../..';
-
-import React from 'react';
 import { Trans } from 'react-i18next';
+
+import { defaultFieldNames, Instruction, WorkflowVariableRawTextArea } from '../..';
 import { NAMESPACE } from '../../locale';
 
 export default class extends Instruction {
@@ -48,7 +48,7 @@ export default class extends Instruction {
       return (
         <Trans ns={NAMESPACE}>
           {'SQL query result could be used through '}
-          <a href="https://docs-cn.nocobase.com/handbook/workflow-json-query" target="_blank" rel="noreferrer">
+          <a href="https://docs-cn.tachybase.com/handbook/workflow-json-query" target="_blank" rel="noreferrer">
             {'JSON query node'}
           </a>
           {' (Commercial plugin).'}

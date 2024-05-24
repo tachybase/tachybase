@@ -7,12 +7,6 @@
     "Collections",
     "Blocks"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/calendar",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nocobase/nocobase.git",
-    "directory": "packages/plugins/calendar"
-  },
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "types": "./dist/server/index.d.ts",
@@ -37,7 +31,5 @@
     "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "提供日历数据表模板和区块，用于管理日期数据，通常用于事件、约会、任务等与日期/时间相关的信息。",
-  "displayName.zh-CN": "日历",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/calendar"
+  "displayName.zh-CN": "日历"
 }

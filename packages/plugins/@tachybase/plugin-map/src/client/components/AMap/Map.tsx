@@ -105,7 +105,7 @@ export const AMapComponent = React.forwardRef<AMapForwardedRefProps, AMapCompone
   const overlay = useRef<AMap.Polygon>();
   const editor = useRef(null);
   const navigate = useNavigate();
-  const id = useRef(`nocobase-map-${type || ''}-${Date.now().toString(32)}`);
+  const id = useRef(`tachybase-map-${type || ''}-${Date.now().toString(32)}`);
   const { modal } = App.useApp();
 
   const [commonOptions] = useState<AMap.PolylineOptions & AMap.PolygonOptions>({

@@ -12,7 +12,7 @@ const useStyles = createStyles(({ token, css }) => {
 
       background: ${token.colorBgContainer};
       width: 100%;
-      margin-bottom: var(--nb-spacing);
+      margin-bottom: var(--tb-spacing);
     `,
   };
 });

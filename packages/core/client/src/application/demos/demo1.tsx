@@ -1,5 +1,6 @@
-import { Application, Plugin } from '@tachybase/client';
 import React, { FC } from 'react';
+import { Application, Plugin } from '@tachybase/client';
+
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const Root = () => {
@@ -52,7 +53,7 @@ class Test2Plugin extends Plugin {
   }
 }
 
-class NocobasePresetPlugin extends Plugin {
+class TachybasePresetPlugin extends Plugin {
   async afterAdd() {
     // mock load remote plugin
     await this.addRemotePlugin();
@@ -82,7 +83,7 @@ const app = new Application({
   router: {
     type: 'hash',
   },
-  plugins: [NocobasePresetPlugin],
+  plugins: [TachybasePresetPlugin],
   components: { Root, Home, Team, About },
 });
 

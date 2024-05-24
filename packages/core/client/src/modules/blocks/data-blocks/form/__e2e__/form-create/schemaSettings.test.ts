@@ -1,5 +1,4 @@
 import {
-  Page,
   expect,
   expectSettingsMenu,
   oneEmptyForm,
@@ -7,8 +6,10 @@ import {
   oneTableBlockWithActionsAndFormBlocks,
   oneTableBlockWithAddNewAndViewAndEditAndAssociationFields,
   oneTableBlockWithAddNewAndViewAndEditAndBasicFields,
+  Page,
   test,
 } from '@tachybase/test/e2e';
+
 import { T2165, T2174, T3251, T3806 } from './templatesOfBug';
 
 const clickOption = async (page: Page, optionName: string) => {
@@ -211,7 +212,7 @@ test.describe('creation form block schema settings', () => {
       ).toHaveValue('123');
     });
 
-    // https://nocobase.height.app/T-2165
+    // https://tachybase.height.app/T-2165
     test('variable labels should be displayed normally', async ({ page, mockPage }) => {
       await mockPage(T2165).goto();
 
@@ -223,7 +224,7 @@ test.describe('creation form block schema settings', () => {
       await expect(page.getByText('Current form / Phone')).toBeVisible();
     });
 
-    // https://nocobase.height.app/T-3251
+    // https://tachybase.height.app/T-3251
     test('nested conditions', async ({ page, mockPage }) => {
       await mockPage(T3251).goto();
 
@@ -255,7 +256,7 @@ test.describe('creation form block schema settings', () => {
       ).toBeEditable();
     });
 
-    // https://nocobase.height.app/T-3806
+    // https://tachybase.height.app/T-3806
     test('after save as block template', async ({ page, mockPage }) => {
       await mockPage(T3806).goto();
 
@@ -731,7 +732,7 @@ test.describe('creation form block schema settings', () => {
       ).toHaveValue('new value');
     });
 
-    // fix https://nocobase.height.app/T-2174
+    // fix https://tachybase.height.app/T-2174
     test('should show default value option', async ({ page, mockPage, mockRecord }) => {
       const nocoPage = await mockPage(T2174).waitForInit();
       await mockRecord('test2174');
@@ -964,7 +965,7 @@ test.describe('creation form block schema settings', () => {
                             'x-component': 'ActionBar',
                             'x-component-props': {
                               style: {
-                                marginBottom: 'var(--nb-spacing)',
+                                marginBottom: 'var(--tb-spacing)',
                               },
                             },
                             properties: {

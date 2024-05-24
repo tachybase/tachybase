@@ -1,4 +1,5 @@
 import { dayjs } from '@tachybase/utils';
+
 import { lowerCase } from 'lodash';
 
 /**
@@ -29,7 +30,7 @@ function appendFieldsNode(jsonObj: any, appendText: string) {
 }
 
 /**
- * builtin_ 为NocoBase内置模板，同NocoBase在页面创建效果一致主要用法3种：
+ * builtin_ 为TachyBase内置模板，同TachyBase在页面创建效果一致主要用法3种：
  *  1是测试用例仅需一个无业务字段的表即可验证，
  *  2是作为多对多的中间表，
  *  3是存在先表后关系字段的情况，使用create内置模板表再update表的方式更新数据表来添加全部字段

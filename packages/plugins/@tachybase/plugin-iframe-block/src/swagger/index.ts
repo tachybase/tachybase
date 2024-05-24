@@ -1,6 +1,6 @@
 export default {
   info: {
-    title: 'NocoBase API - Iframe block plugin',
+    title: 'TachyBase API - Iframe block plugin',
   },
   tags: [],
   paths: {},

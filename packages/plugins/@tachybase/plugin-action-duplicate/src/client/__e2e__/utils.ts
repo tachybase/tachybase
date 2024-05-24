@@ -372,7 +372,7 @@ export const oneEmptyTableBlockWithDuplicateActions: PageConfig = {
                         'x-component': 'ActionBar',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         properties: {},

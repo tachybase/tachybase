@@ -270,10 +270,10 @@ export class MultiAppShareCollectionPlugin extends Plugin {
       return {
         database: lodash.merge(databaseOptions, {
           dialectOptions: {
-            application_name: `nocobase.${appName}`,
+            application_name: `tachybase.${appName}`,
           },
         }),
-        plugins: plugins.includes('nocobase') ? ['nocobase'] : plugins,
+        plugins: plugins.includes('tachybase') ? ['tachybase'] : plugins,
         resourcer: {
           prefix: process.env.API_BASE_PATH,
         },

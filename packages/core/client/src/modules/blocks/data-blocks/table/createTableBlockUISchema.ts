@@ -1,5 +1,4 @@
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { ISchema, uid } from '@tachybase/schema';
 
 export const createTableBlockUISchema = (options: {
   dataSource: string;
@@ -41,7 +40,7 @@ export const createTableBlockUISchema = (options: {
         'x-component': 'ActionBar',
         'x-component-props': {
           style: {
-            marginBottom: 'var(--nb-spacing)',
+            marginBottom: 'var(--tb-spacing)',
           },
         },
         properties: {},

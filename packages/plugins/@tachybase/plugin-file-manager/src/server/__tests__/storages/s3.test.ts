@@ -99,7 +99,7 @@ describe('storage:s3', () => {
         values: {
           ...s3Storage.defaults(),
           name: 's3-2',
-          path: 'test/nocobase',
+          path: 'test/tachybase',
           paranoid: true,
           default: true,
         },

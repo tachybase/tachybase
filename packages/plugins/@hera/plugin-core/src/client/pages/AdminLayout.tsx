@@ -1,27 +1,29 @@
-import { css } from '@tachybase/client';
-import { useSessionStorageState } from 'ahooks';
-import { App, Layout, Alert } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, Outlet, useMatch, useNavigate, useParams } from 'react-router-dom';
 import {
+  AdminProvider,
+  css,
   CurrentUser,
-  PinnedPluginList,
-  SchemaComponent,
   findByUid,
   findMenuItem,
+  PinnedPluginList,
+  SchemaComponent,
   useACLRoleContext,
   useAdminSchemaUid,
   useDocumentTitle,
   useRequest,
   useSystemSettings,
   useToken,
-  AdminProvider,
 } from '@tachybase/client';
-import { OnlineUserDropdown } from '../components/system/OnlineUserProvider';
+
+import { useSessionStorageState } from 'ahooks';
+import { Alert, App, Layout } from 'antd';
+import { Link, Outlet, useMatch, useNavigate, useParams } from 'react-router-dom';
+
 import { MobileLink } from '../components/system/MobileLink';
 import { Notifications } from '../components/system/Notifications';
-import { usePageStyle } from '../features/page-style/usePageStyle';
+import { OnlineUserDropdown } from '../components/system/OnlineUserProvider';
 import { PageTab } from '../features/page-style/PageTab';
+import { usePageStyle } from '../features/page-style/usePageStyle';
 
 const filterByACL = (schema, options) => {
   const { allowAll, allowMenuItemIds = [] } = options;
@@ -213,8 +215,8 @@ export const InternalAdminLayout = () => {
           position: fixed;
           left: 0;
           right: 0;
-          height: var(--nb-header-height);
-          line-height: var(--nb-header-height);
+          height: var(--tb-header-height);
+          line-height: var(--tb-header-height);
           padding: 0;
           z-index: 100;
           background-color: ${token.colorBgHeader};
@@ -305,8 +307,8 @@ export const InternalAdminLayout = () => {
           <header
             className={css`
               flex-shrink: 0;
-              height: var(--nb-header-height);
-              line-height: var(--nb-header-height);
+              height: var(--tb-header-height);
+              line-height: var(--tb-header-height);
               background: transparent;
               pointer-events: none;
             `}
@@ -337,8 +339,8 @@ export const InternalAdminLayout = () => {
         <header
           className={css`
             flex-shrink: 0;
-            height: var(--nb-header-height);
-            line-height: var(--nb-header-height);
+            height: var(--tb-header-height);
+            line-height: var(--tb-header-height);
             background: transparent;
             pointer-events: none;
           `}

@@ -6,7 +6,6 @@
   "keywords": [
     "Collection fields"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/field-formula",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -24,7 +23,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "可以配置并存储同一条记录的多字段值之间的计算结果，支持 Math.js 和 Excel formula functions 两种引擎",
-  "displayName.zh-CN": "数据表字段：公式",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/field-formula"
+  "displayName.zh-CN": "数据表字段：公式"
 }

@@ -1,10 +1,11 @@
-import { Field } from '@tachybase/schema';
-import { useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { nextTick } from '@tachybase/utils/client';
-import _ from 'lodash';
 import { useEffect, useMemo, useRef } from 'react';
+import { Field, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { nextTick } from '@tachybase/utils/client';
+
+import _ from 'lodash';
+
 import { useAssociationNames } from '../../../../block-provider/hooks';
-import { useCollectionManager_deprecated, useCollection_deprecated } from '../../../../collection-manager';
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useCollectionRecordData } from '../../../../data-source/collection-record/CollectionRecordProvider';
 import { useFlag } from '../../../../flag-provider';
 import { useVariables } from '../../../../variables';
@@ -86,7 +87,7 @@ const useLazyLoadDisplayAssociationFieldsOfForm = () => {
       .then((value) => {
         nextTick(() => {
           const result = transformVariableValue(value, { targetCollectionField: collectionFieldRef.current });
-          // fix https://nocobase.height.app/T-2608
+          // fix https://tachybase.height.app/T-2608
           if (_.isEmpty(result) && !_.isNumber(result)) {
             field.value = null;
           } else {

@@ -140,7 +140,7 @@ export const oneTableWithViewAction: PageConfig = {
                         'x-initializer': 'table:configureActions',
                         'x-component-props': {
                           style: {
-                            marginBottom: 'var(--nb-spacing)',
+                            marginBottom: 'var(--tb-spacing)',
                           },
                         },
                         _isJSONSchemaObject: true,

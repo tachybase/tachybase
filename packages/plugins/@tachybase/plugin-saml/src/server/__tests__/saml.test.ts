@@ -66,7 +66,7 @@ describe('saml', () => {
         nameID: 'test@tachybase.com',
         email: 'test@tachybase.com',
         firstName: 'Test',
-        lastName: 'Nocobase',
+        lastName: 'Tachybase',
         issuer: 'issuer',
         nameIDFormat: 'Email',
       },
@@ -94,7 +94,7 @@ describe('saml', () => {
         nameID: 'test@tachybase.com',
         email: 'test@tachybase.com',
         firstName: 'Test',
-        lastName: 'Nocobase',
+        lastName: 'Tachybase',
         issuer: 'issuer',
         nameIDFormat: 'Email',
       },
@@ -107,7 +107,7 @@ describe('saml', () => {
 
     expect(res.statusCode).toBe(200);
     expect(res.body.data.user).toBeDefined();
-    expect(res.body.data.user.nickname).toBe('Test Nocobase');
+    expect(res.body.data.user.nickname).toBe('Test Tachybase');
   });
 
   it('should sign in via email', async () => {
@@ -128,7 +128,7 @@ describe('saml', () => {
         nameID: 'old@tachybase.com',
         email: 'old@tachybase.com',
         firstName: 'Old',
-        lastName: 'Nocobase',
+        lastName: 'Tachybase',
         issuer: 'issuer',
         nameIDFormat: 'Email',
       },
@@ -176,7 +176,7 @@ describe('saml', () => {
         nameID: 'username',
         email: 'old@tachybase.com',
         firstName: 'Old',
-        lastName: 'Nocobase',
+        lastName: 'Tachybase',
         issuer: 'issuer',
         nameIDFormat: '',
       },

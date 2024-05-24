@@ -14,7 +14,7 @@
     "bin",
     "dist",
     "templates",
-    "nocobase.conf.tpl"
+    "tachybase.conf.tpl"
   ],
   "scripts": {
     "build": "rimraf dist && rollup -c",

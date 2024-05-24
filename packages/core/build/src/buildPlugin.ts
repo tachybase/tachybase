@@ -27,7 +27,7 @@ const clientGlobalFiles: string[] = ['src/**', '!src/server/**', ...globExcludeF
 const sourceGlobalFiles: string[] = ['src/**/*.{ts,js,tsx,jsx,mjs}', '!src/**/__tests__'];
 
 const external = [
-  // nocobase
+  // tachybase
   '@tachybase/acl',
   '@tachybase/actions',
   '@tachybase/auth',
@@ -187,7 +187,7 @@ export async function buildServerDeps(cwd: string, serverFiles: string[], log: P
   if (excludePackages.length) {
     tips.push(`These packages ${chalk.yellow(excludePackages.join(', '))} will be ${chalk.italic('exclude')}.`);
   }
-  tips.push(`For more information, please refer to: ${chalk.blue('https://docs.nocobase.com/development/deps')}.`);
+  tips.push(`For more information, please refer to: ${chalk.blue('https://docs.tachybase.com/development/deps')}.`);
   log(tips.join(' '));
 
   if (!includePackages.length) return;

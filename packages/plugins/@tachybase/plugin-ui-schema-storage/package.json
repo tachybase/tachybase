@@ -6,7 +6,6 @@
   "keywords": [
     "System & security"
   ],
-  "homepage": "https://docs.nocobase.com/handbook/ui-schema-storage",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
@@ -26,7 +25,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "提供中心化的 UI schema 存储服务。",
-  "displayName.zh-CN": "UI schema 存储服务",
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1",
-  "homepage.zh-CN": "https://docs-cn.nocobase.com/handbook/ui-schema-storage"
+  "displayName.zh-CN": "UI schema 存储服务"
 }

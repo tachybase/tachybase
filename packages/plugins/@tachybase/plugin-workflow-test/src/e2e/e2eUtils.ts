@@ -1,4 +1,4 @@
-import { request, Page } from '@tachybase/test/e2e';
+import { Page, request } from '@tachybase/test/e2e';
 
 const PORT = process.env.APP_PORT || 20000;
 const APP_BASE_URL = process.env.APP_BASE_URL || `http://localhost:${PORT}`;
@@ -880,14 +880,14 @@ const getStorageItem = (key: string, storageState: any) => {
 
 function getHeaders(storageState: any) {
   const headers: any = {};
-  const token = getStorageItem('NOCOBASE_TOKEN', storageState);
-  const auth = getStorageItem('NOCOBASE_AUTH', storageState);
+  const token = getStorageItem('TACHYBASE_TOKEN', storageState);
+  const auth = getStorageItem('TACHYBASE_AUTH', storageState);
   const subAppName = new URL(APP_BASE_URL).pathname.match(/^\/apps\/([^/]*)\/*/)?.[1];
   const hostName = new URL(APP_BASE_URL).host;
-  const locale = getStorageItem('NOCOBASE_LOCALE', storageState);
+  const locale = getStorageItem('TACHYBASE_LOCALE', storageState);
   const timezone = '+08:00';
   const withAclMeta = 'true';
-  const role = getStorageItem('NOCOBASE_ROLE', storageState);
+  const role = getStorageItem('TACHYBASE_ROLE', storageState);
 
   if (token) {
     headers.Authorization = `Bearer ${token}`;

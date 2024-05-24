@@ -1,10 +1,13 @@
 import { startServerWithRandomPort, supertest, waitSecond } from '@tachybase/test';
+
 import { vi } from 'vitest';
 import ws from 'ws';
+
 import { AppSupervisor } from '../app-supervisor';
 import Application from '../application';
 import { Gateway } from '../gateway';
 import { errors } from '../gateway/errors';
+
 describe('gateway', () => {
   let gateway: Gateway;
   beforeEach(() => {
@@ -193,7 +196,7 @@ describe('gateway', () => {
             storage: ':memory:',
             logging: false,
           },
-          plugins: ['nocobase'],
+          plugins: ['tachybase'],
         });
         await waitSecond();
         await app.runAsCLI(['install'], {

@@ -1,6 +1,6 @@
 export default {
   info: {
-    title: 'NocoBase API - Snapshot field plugin',
+    title: 'TachyBase API - Snapshot field plugin',
   },
   tags: [],
   paths: {},

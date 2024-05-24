@@ -1,5 +1,5 @@
-import { Plugin } from '@tachybase/server';
 import { resolve } from 'path';
+import { Plugin } from '@tachybase/server';
 
 export class MobileClientPlugin extends Plugin {
   afterAdd() {}
@@ -18,7 +18,7 @@ export class MobileClientPlugin extends Plugin {
     const uiSchemas = this.db.getRepository<any>('uiSchemas');
     await uiSchemas.insert({
       type: 'void',
-      'x-uid': 'nocobase-mobile-container',
+      'x-uid': 'default-admin-mobile',
       'x-component': 'MContainer',
       'x-designer': 'MContainer.Designer',
       'x-component-props': {},

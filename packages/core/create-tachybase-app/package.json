@@ -12,6 +12,5 @@
     "chalk": "^4.1.1",
     "commander": "^9.2.0",
     "tar": "6.1.11"
-  },
-  "gitHead": "d0b4efe4be55f8c79a98a331d99d9f8cf99021a1"
+  }
 }

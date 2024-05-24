@@ -1,5 +1,7 @@
-import { ButtonProps } from 'antd';
 import React, { FC, ReactNode, useCallback, useMemo } from 'react';
+
+import { ButtonProps } from 'antd';
+
 import { useCompile } from '../../../schema-component';
 import { useApp } from '../../hooks';
 import { SchemaInitializerChild, SchemaInitializerItems } from '../components';
@@ -148,7 +150,7 @@ export function useSchemaInitializerRender<P1 = ButtonProps, P2 = {}>(
     }
 
     if (!initializer) {
-      console.error(`[nocobase]: SchemaInitializer "${name}" not found`);
+      console.error(`[tachybase]: SchemaInitializer "${name}" not found`);
       return {
         exists: false,
         render: () => null,

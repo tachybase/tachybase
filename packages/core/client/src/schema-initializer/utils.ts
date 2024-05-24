@@ -1,9 +1,9 @@
-import { Field, Form } from '@tachybase/schema';
-import { ISchema, Schema, useFieldSchema, useForm } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import _ from 'lodash';
 import { useMemo } from 'react';
+import { Field, Form, ISchema, Schema, uid, useFieldSchema, useForm } from '@tachybase/schema';
+
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import {
   DataBlockInitializer,
   DataSource,
@@ -14,7 +14,7 @@ import {
   useFormActiveFields,
   useFormBlockContext,
 } from '../';
-import { FieldOptions, useCollectionManager_deprecated, useCollection_deprecated } from '../collection-manager';
+import { FieldOptions, useCollection_deprecated, useCollectionManager_deprecated } from '../collection-manager';
 import { Collection, CollectionFieldOptions } from '../data-source/collection/Collection';
 import { useDataSourceManager } from '../data-source/data-source/DataSourceManagerProvider';
 import { isAssocField } from '../filter-provider/utils';
@@ -890,7 +890,7 @@ export const useCollectionDataSourceItems = ({
           getTemplatesByCollection,
           t,
         }).sort((item) => {
-          // fix https://nocobase.height.app/T-3551
+          // fix https://tachybase.height.app/T-3551
           const inherits = _.toArray(collection?.inherits || []);
           if (item.name === collection?.name || inherits.some((inheritName) => inheritName === item.name)) return -1;
         }),
@@ -898,7 +898,7 @@ export const useCollectionDataSourceItems = ({
     }));
   }, [allCollections, collection?.inherits, collection?.name, componentName, getTemplatesByCollection, t]);
 
-  // https://nocobase.height.app/T-3821
+  // https://tachybase.height.app/T-3821
   // showAssociationFields 的值是固定不变的，所以在 if 语句里使用 hooks 是安全的
   if (showAssociationFields) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -1178,7 +1178,7 @@ export const createFormBlockSchema = (options: {
             'x-component': 'ActionBar',
             'x-component-props': {
               style: {
-                marginBottom: 'var(--nb-spacing)',
+                marginBottom: 'var(--tb-spacing)',
               },
             },
             properties: actions,
@@ -1313,7 +1313,7 @@ export const createTableBlockSchema = (options) => {
         'x-component': 'ActionBar',
         'x-component-props': {
           style: {
-            marginBottom: 'var(--nb-spacing)',
+            marginBottom: 'var(--tb-spacing)',
           },
         },
         properties: {},

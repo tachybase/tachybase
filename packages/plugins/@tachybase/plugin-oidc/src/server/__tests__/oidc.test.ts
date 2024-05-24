@@ -82,7 +82,7 @@ describe('oidc', () => {
 
     const res = await agent
       .set('X-Authenticator', 'oidc-auth')
-      .set('Cookie', ['nocobase_oidc=token'])
+      .set('Cookie', ['tachybase_oidc=token'])
       .get('/auth:signIn?state=token%3Dtoken&name=oidc-auth');
 
     expect(res.statusCode).toBe(401);
@@ -108,7 +108,7 @@ describe('oidc', () => {
 
     const res = await agent
       .set('X-Authenticator', 'oidc-auth')
-      .set('Cookie', ['nocobase_oidc=token'])
+      .set('Cookie', ['tachybase_oidc=token'])
       .get('/auth:signIn?state=token%3Dtoken&name=oidc-auth');
     expect(res.statusCode).toBe(200);
     expect(res.body.data.user).toBeDefined();
@@ -145,7 +145,7 @@ describe('oidc', () => {
 
     const res = await agent
       .set('X-Authenticator', 'oidc-auth')
-      .set('Cookie', ['nocobase_oidc=token'])
+      .set('Cookie', ['tachybase_oidc=token'])
       .get('/auth:signIn?state=token%3Dtoken&name=oidc-auth');
 
     expect(res.body.data.user).toBeDefined();
@@ -183,7 +183,7 @@ describe('oidc', () => {
 
     const res = await agent
       .set('X-Authenticator', 'oidc-auth')
-      .set('Cookie', ['nocobase_oidc=token'])
+      .set('Cookie', ['tachybase_oidc=token'])
       .get('/auth:signIn?state=token%3Dtoken&name=oidc-auth');
 
     expect(res.body.data.user).toBeDefined();

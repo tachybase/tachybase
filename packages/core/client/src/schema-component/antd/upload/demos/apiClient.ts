@@ -21,7 +21,7 @@ mockRequest.onPost('/attachments:create').reply(async (config) => {
         extname: '.docx',
         path: '',
         size: null,
-        url: 'https://nocobase.oss-cn-beijing.aliyuncs.com/7edb55e4e3145e5ac59ea3a44ca840e9.docx',
+        url: 'https://tachybase.oss-cn-beijing.aliyuncs.com/7edb55e4e3145e5ac59ea3a44ca840e9.docx',
         mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         meta: {},
         storage_id: 2,

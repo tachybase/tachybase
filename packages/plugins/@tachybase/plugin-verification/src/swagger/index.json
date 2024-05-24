@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "NocoBase API - Verification plugin"
+    "title": "TachyBase API - Verification plugin"
   },
   "tags": [],
   "paths": {

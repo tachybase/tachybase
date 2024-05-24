@@ -152,7 +152,7 @@ export default class PluginUsersServer extends Plugin {
       rootEmail = INIT_ROOT_EMAIL || 'admin@tachybase.com',
       rootPassword = INIT_ROOT_PASSWORD || 'admin123',
       rootNickname = INIT_ROOT_NICKNAME || 'Super Admin',
-      rootUsername = INIT_ROOT_USERNAME || 'nocobase',
+      rootUsername = INIT_ROOT_USERNAME || 'tachybase',
     } = options.users || options?.cliArgs?.[0] || {};
     return {
       rootEmail,

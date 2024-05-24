@@ -1,5 +1,7 @@
-import { TinyColor } from '@ctrl/tinycolor';
 import { useEffect, useMemo } from 'react';
+
+import { TinyColor } from '@ctrl/tinycolor';
+
 import { defaultTheme } from '../global-theme';
 import { useToken } from '../style';
 
@@ -20,11 +22,11 @@ export const CSSVariableProvider = ({ children }) => {
   }, [token.colorBgElevated]);
 
   useEffect(() => {
-    document.body.style.setProperty('--nb-spacing', `${token.marginLG}px`);
-    document.body.style.setProperty('--nb-designer-offset', `${token.marginXS}px`);
-    document.body.style.setProperty('--nb-header-height', `${token.sizeXXL - 2}px`);
-    document.body.style.setProperty('--nb-box-bg', token.colorBgLayout);
-    document.body.style.setProperty('--nb-box-bg', token.colorBgLayout);
+    document.body.style.setProperty('--tb-spacing', `${token.marginLG}px`);
+    document.body.style.setProperty('--tb-designer-offset', `${token.marginXS}px`);
+    document.body.style.setProperty('--tb-header-height', `${token.sizeXXL - 2}px`);
+    document.body.style.setProperty('--tb-box-bg', token.colorBgLayout);
+    document.body.style.setProperty('--tb-box-bg', token.colorBgLayout);
     document.body.style.setProperty('--controlHeightLG', `${token.controlHeightLG}px`);
     document.body.style.setProperty('--paddingContentVerticalSM', `${token.paddingContentVerticalSM}px`);
     document.body.style.setProperty('--marginSM', `${token.marginSM}px`);

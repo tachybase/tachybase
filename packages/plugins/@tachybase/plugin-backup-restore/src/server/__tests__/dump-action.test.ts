@@ -14,7 +14,7 @@ describe('dump', () => {
 
   let testDir: string;
   beforeEach(async () => {
-    testDir = path.resolve(os.tmpdir(), `nocobase-dump-${Date.now()}`);
+    testDir = path.resolve(os.tmpdir(), `tachybase-dump-${Date.now()}`);
     await fsPromises.mkdir(testDir, { recursive: true });
     app = await createMockServer();
 

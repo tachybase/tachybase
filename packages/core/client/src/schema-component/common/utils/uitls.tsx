@@ -1,4 +1,5 @@
 import _, { every, findIndex, some } from 'lodash';
+
 import { VariableOption, VariablesContextType } from '../../../variables/types';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { transformVariableValue } from '../../../variables/utils/transformVariableValue';
@@ -78,7 +79,7 @@ export const conditionAnalyses = async ({
   const conditions = ruleGroup[type];
 
   let results = conditions.map(async (condition) => {
-    // fix https://nocobase.height.app/T-3152
+    // fix https://tachybase.height.app/T-3152
     if ('$and' in condition || '$or' in condition) {
       return await conditionAnalyses({ ruleGroup: condition, variables, localVariables });
     }

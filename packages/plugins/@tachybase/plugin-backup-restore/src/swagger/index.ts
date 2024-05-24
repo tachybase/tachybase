@@ -1,6 +1,6 @@
 export default {
   info: {
-    title: 'NocoBase API - Backup & Restore plugin',
+    title: 'TachyBase API - Backup & Restore plugin',
   },
   tags: [],
   paths: {

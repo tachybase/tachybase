@@ -40,7 +40,7 @@ export class PluginGenerator extends Generator {
       ...this.context,
       packageName: name,
       packageVersion,
-      nocobaseVersion: "0.0.1",
+      tachybaseVersion: "0.0.1",
       pascalCaseName: capitalize(camelize(name.split('/').pop())),
     };
   }
