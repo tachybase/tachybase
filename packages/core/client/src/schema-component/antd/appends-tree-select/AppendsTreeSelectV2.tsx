@@ -87,7 +87,6 @@ function getCollectionFieldOptions(
     };
   });
 }
-
 // XXX: 目前 AppendsTreeSelectV2 和 AppendsTreeSelect 都有特化逻辑, 需要整理出一个通用组件
 export const AppendsTreeSelectV2: React.FC<TreeSelectProps & AppendsTreeSelectPropsV2> = (props) => {
   const {
@@ -159,16 +158,12 @@ export const AppendsTreeSelectV2: React.FC<TreeSelectProps & AppendsTreeSelectPr
   // NOTE: preload options in value
   useEffect(() => {
     const arr = (props.multiple ? propsValue : propsValue ? [propsValue] : []) as string[];
-    console.log('%c Line:160 🍑 arr', 'font-size:18px;color:#4fff4B;background:#f5ce50', arr);
     if (!arr?.length || arr.every((v) => Boolean(optionsMap[v]))) {
       return;
     }
     const loaded = [];
 
     arr.forEach((v) => {
-      if (typeof v !== 'string') {
-        v = v.value;
-      }
       const paths = v.split('.');
       let option = optionsMap[paths[0]];
       for (let i = 1; i < paths.length; i++) {
@@ -196,9 +191,8 @@ export const AppendsTreeSelectV2: React.FC<TreeSelectProps & AppendsTreeSelectPr
 
   const handleChange = useCallback(
     (next: DefaultOptionType[] | string) => {
-      console.log('%c Line:193 🥔 next', 'font-size:18px;color:#42b983;background:#f5ce50', next);
       if (!props.multiple) {
-        onChange(next as string | Array<any>);
+        onChange(next as string);
         return;
       }
 
@@ -223,7 +217,7 @@ export const AppendsTreeSelectV2: React.FC<TreeSelectProps & AppendsTreeSelectPr
           }
         });
       }
-      onChange(next);
+      onChange(Array.from(valueSet));
     },
     [props.multiple, value, onChange, optionsMap],
   );
@@ -245,7 +239,6 @@ export const AppendsTreeSelectV2: React.FC<TreeSelectProps & AppendsTreeSelectPr
   );
 
   const filteredValue = Array.isArray(value) ? value.filter((i) => i.value in optionsMap) : value;
-  console.log('%c Line:247 🥕 filteredValue', 'font-size:18px;color:#6ec1c2;background:#ea7e5c', filteredValue);
   const valueKeys: string[] = props.multiple
     ? (propsValue as string[])
     : propsValue != null
