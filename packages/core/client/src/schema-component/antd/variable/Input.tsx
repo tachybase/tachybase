@@ -132,7 +132,7 @@ function getTypedConstantOption(type: string, types: true | string[], fieldNames
   };
 }
 
-const useStyles2 = createStyles(({ css }, { props: { disabled: boolean } }) => {
+const useStyles2 = createStyles(({ css }, { disabled }: { disabled: boolean }) => {
   return {
     container: css`
       position: relative;
