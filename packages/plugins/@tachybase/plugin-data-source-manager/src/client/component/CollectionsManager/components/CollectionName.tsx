@@ -1,11 +1,10 @@
 import React from 'react';
-import { useCollectionRecord } from '@tachybase/client';
+import { cx, useCollectionRecord } from '@tachybase/client';
 import { usePrefixCls } from '@tachybase/components';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 
 import { LoadingOutlined } from '@ant-design/icons';
 import { Input as AntdInput } from 'antd';
-import cls from 'classnames';
 
 const ReadPretty = (props) => {
   const prefixCls = usePrefixCls('description-input', props);
@@ -13,7 +12,7 @@ const ReadPretty = (props) => {
     data: { name, tableName },
   } = useCollectionRecord() as any;
   return (
-    <div className={cls(prefixCls, props.className)} style={props.style}>
+    <div className={cx(prefixCls, props.className)} style={props.style}>
       {name !== tableName ? (
         <>
           {name} <span style={{ color: 'GrayText' }}>({tableName})</span>

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState, type FC } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { cx } from '@tachybase/client';
 
 import { Button, Dropdown, Input, InputNumber } from 'antd';
-import classNames from 'classnames';
 import { useDebouncyFn } from 'use-debouncy';
 
 import ColorPanel from './ColorPanel';
@@ -81,7 +81,7 @@ type TokenInputProps = {
   hideTheme?: boolean;
 };
 
-const TokenInput: FC<TokenInputProps> = ({
+const TokenInput = ({
   value,
   theme,
   onChange,
@@ -90,7 +90,7 @@ const TokenInput: FC<TokenInputProps> = ({
   onReset,
   canReset: customCanReset,
   hideTheme,
-}) => {
+}: TokenInputProps) => {
   const valueRef = useRef<number | string>(value || '');
   const [tokenValue, setTokenValue] = useState<string | number>(value || '');
   const canReset = customCanReset ?? valueRef.current !== tokenValue;
@@ -213,7 +213,7 @@ const TokenInput: FC<TokenInputProps> = ({
   }
   return wrapSSR(
     <div
-      className={classNames('previewer-token-input', hashId, {
+      className={cx('previewer-token-input', hashId, {
         'previewer-token-input-light': light,
         'previewer-token-input-readonly': readonly,
       })}

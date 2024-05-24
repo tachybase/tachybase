@@ -1,8 +1,8 @@
-import React, { useMemo, type FC, type ReactNode } from 'react';
+import React, { useMemo, type ReactNode } from 'react';
+import { cx } from '@tachybase/client';
 
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
-import classNames from 'classnames';
 
 import type { Theme } from './interface';
 import makeStyle from './utils/makeStyle';
@@ -122,7 +122,7 @@ const useStyle = makeStyle('ThemeSelect', (token) => ({
   },
 }));
 
-const ThemeSelect: FC<ThemeSelectProps> = (props) => {
+const ThemeSelect = (props: ThemeSelectProps) => {
   const { onEnabledThemeChange, onShownThemeChange, enabledThemes, shownThemes, themes, showAddTheme } = props;
 
   const [wrapSSR, hashId] = useStyle();
@@ -159,7 +159,7 @@ const ThemeSelect: FC<ThemeSelectProps> = (props) => {
   );
 
   return wrapSSR(
-    <div className={classNames('previewer-theme-select', hashId)}>
+    <div className={cx('previewer-theme-select', hashId)}>
       {shownThemeEntities.map((theme) => (
         <span
           onClick={() => {
@@ -173,7 +173,7 @@ const ThemeSelect: FC<ThemeSelectProps> = (props) => {
             );
           }}
           key={theme.key}
-          className={classNames('previewer-theme-select-tag', {
+          className={cx('previewer-theme-select-tag', {
             'previewer-theme-select-tag-active': enabledThemes.includes(theme.key),
           })}
         >
@@ -201,7 +201,7 @@ const ThemeSelect: FC<ThemeSelectProps> = (props) => {
           placement="bottomRight"
           trigger={['click']}
           overlay={<Menu items={dropdownItems} />}
-          overlayClassName={classNames('previewer-theme-select-dropdown', hashId)}
+          overlayClassName={cx('previewer-theme-select-dropdown', hashId)}
         >
           <Button type="primary" shape="circle" className="previewer-theme-select-add-btn" icon={<PlusOutlined />} />
         </Dropdown>

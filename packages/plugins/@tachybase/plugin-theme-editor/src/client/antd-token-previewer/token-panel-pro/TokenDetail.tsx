@@ -1,7 +1,7 @@
-import React, { useMemo, type FC } from 'react';
+import React, { useMemo } from 'react';
+import { cx } from '@tachybase/client';
 
 import { Tooltip } from 'antd';
-import classNames from 'classnames';
 
 import { MutableTheme } from '../../../types';
 import type { TokenValue } from '../interface';
@@ -60,7 +60,7 @@ export type TokenDetailProps = {
   style?: React.CSSProperties;
 };
 
-const TokenDetail: FC<TokenDetailProps> = ({ themes, path, tokenName, className, style }) => {
+const TokenDetail = ({ themes, path, tokenName, className, style }: TokenDetailProps) => {
   const [wrapSSR, hashId] = useStyle();
   const tokenPath = [...path, tokenName];
   const locale = useLocale();
@@ -74,7 +74,7 @@ const TokenDetail: FC<TokenDetailProps> = ({ themes, path, tokenName, className,
   }, [tokenName]);
 
   return wrapSSR(
-    <div className={classNames(className, hashId, 'token-panel-token-detail')} style={style}>
+    <div className={cx(className, hashId, 'token-panel-token-detail')} style={style}>
       <div className="token-panel-pro-token-collapse-map-collapse-token-description">
         {(tokenMeta as any)[tokenName]?.[locale._lang === 'zh-CN' ? 'desc' : 'descEn']}
       </div>

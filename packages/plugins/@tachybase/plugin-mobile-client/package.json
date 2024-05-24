@@ -15,7 +15,6 @@
     "antd": "5.16.1",
     "antd-mobile": "^5.35.0",
     "antd-mobile-icons": "^0.3.0",
-    "classnames": "2.x",
     "lodash": "4.17.21",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",

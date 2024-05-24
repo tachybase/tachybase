@@ -1,10 +1,9 @@
 import React from 'react';
+import { createStyles, cx } from '@tachybase/client';
+
 import { Button, Tag } from 'antd';
-import classnames from 'classnames';
 
-import { createStyles } from '@tachybase/client';
-
-const useStyles = createStyles(({ css, token }) => ({
+const useStyles = createStyles(({ css }) => ({
   statusButtonClass: css`
     border: none;
     .ant-tag {
@@ -34,7 +33,7 @@ export function StatusButton(props) {
       {...props}
       shape="circle"
       size="small"
-      className={classnames(tag ? styles.statusButtonClass : styles.noStatusButtonClass, props.className)}
+      className={cx(tag ? styles.statusButtonClass : styles.noStatusButtonClass, props.className)}
     >
       {tag}
     </Button>

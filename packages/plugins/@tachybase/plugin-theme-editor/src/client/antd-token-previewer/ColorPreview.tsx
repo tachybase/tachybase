@@ -1,6 +1,5 @@
 import React, { type FC } from 'react';
-
-import classNames from 'classnames';
+import { cx } from '@tachybase/client';
 
 import getColorBgImg from './utils/getColorBgImg';
 import makeStyle from './utils/makeStyle';
@@ -42,7 +41,7 @@ const ColorPreview: FC<ColorPreviewProps> = ({ color, style, className, dark, ..
   return warpSSR(
     <div
       {...restProps}
-      className={classNames('previewer-color-preview', className, hashId)}
+      className={cx('previewer-color-preview', className, hashId)}
       style={{
         // @ts-ignore
         ['--antd-token-previewer-color-preview']: color,

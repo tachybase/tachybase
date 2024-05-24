@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import {
   ActionContextProvider,
   css,
+  cx,
   DndContext,
   RecordProvider,
   SchemaComponentOptions,
@@ -11,7 +12,6 @@ import { FormLayout } from '@tachybase/components';
 import { observer, RecursionField, useFieldSchema } from '@tachybase/schema';
 
 import { Card } from 'antd';
-import cls from 'classnames';
 
 import { KanbanCardContext } from './context';
 
@@ -39,7 +39,7 @@ export const KanbanCard: any = observer(
           hoverable
           style={{ cursor: 'pointer', overflow: 'hidden' }}
           // bodyStyle={{ paddingBottom: 0 }}
-          className={cls(css`
+          className={cx(css`
             .ant-card-body {
               padding: 16px;
             }

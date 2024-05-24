@@ -1,8 +1,8 @@
 import React, { useMemo, type FC } from 'react';
+import { cx } from '@tachybase/client';
 
 import { CaretRightOutlined, QuestionCircleOutlined, RightOutlined, ShrinkOutlined } from '@ant-design/icons';
 import { Button, Collapse, Empty, Tooltip } from 'antd';
-import classNames from 'classnames';
 import useMergedState from 'rc-util/es/hooks/useMergedState';
 
 import { MutableTheme } from '../../../types';
@@ -155,7 +155,7 @@ const AliasPanel: FC<AliasPanelProps> = ({
   );
 
   return wrapSSR(
-    <div className={classNames(className, 'token-panel-pro-color-alias', hashId)} style={style}>
+    <div className={cx(className, 'token-panel-pro-color-alias', hashId)} style={style}>
       {open ? (
         <>
           <div className="token-panel-pro-color-alias-title">
@@ -197,7 +197,7 @@ const AliasPanel: FC<AliasPanelProps> = ({
                         }}
                       >
                         <Pick
-                          className={classNames('token-panel-pro-token-pick', {
+                          className={cx('token-panel-pro-token-pick', {
                             'token-panel-pro-token-picked': selectedTokens?.alias?.includes(aliasToken),
                           })}
                         />

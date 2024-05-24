@@ -1,8 +1,8 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { cx } from '@tachybase/client';
 
 import { CheckOutlined } from '@ant-design/icons';
 import { theme as antdTheme, Dropdown, Input, Menu, Switch } from 'antd';
-import classNames from 'classnames';
 import useMergedState from 'rc-util/lib/hooks/useMergedState';
 
 import { SearchDropdown } from '../icons';
@@ -176,10 +176,10 @@ export default forwardRef<TokenPanelRef, TokenPreviewProps>((props: TokenPreview
   };
 
   return wrapSSR(
-    <div className={classNames('preview-panel-wrapper', hashId)}>
-      <div className={classNames('preview-panel')}>
+    <div className={cx('preview-panel-wrapper', hashId)}>
+      <div className={cx('preview-panel')}>
         <div style={{ padding: 16 }}>
-          <h3 className={classNames('preview-panel-space', hashId)}>
+          <h3 className={cx('preview-panel-space', hashId)}>
             <span>Alias Token 预览</span>
             <span className="preview-hide-token">
               <span>显示所有</span>
@@ -240,7 +240,7 @@ export default forwardRef<TokenPanelRef, TokenPreviewProps>((props: TokenPreview
                       paddingTop: 2,
                       transition: 'color 0.3s',
                     }}
-                    className={classNames({
+                    className={cx({
                       'previewer-token-type-dropdown-icon-active': mergedFilterTypes.length > 0,
                     })}
                   />
@@ -252,7 +252,7 @@ export default forwardRef<TokenPanelRef, TokenPreviewProps>((props: TokenPreview
           />
         </div>
         <div
-          className={classNames('preview-panel-token-wrapper', {
+          className={cx('preview-panel-token-wrapper', {
             'preview-panel-token-wrapper-ping-top': showTokenListShadowTop,
           })}
         >

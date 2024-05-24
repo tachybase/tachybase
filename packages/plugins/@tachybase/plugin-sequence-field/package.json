@@ -13,7 +13,6 @@
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "antd": "5.16.1",
-    "classnames": "^2.3.1",
     "cron-parser": "4.4.0",
     "dayjs": "^1.11.8",
     "lodash": "4.17.21",

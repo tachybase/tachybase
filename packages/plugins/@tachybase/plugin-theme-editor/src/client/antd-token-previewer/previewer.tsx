@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { cx } from '@tachybase/client';
 
 import { theme as antdTheme, Button, Layout, message } from 'antd';
-import classNames from 'classnames';
 
 import ComponentPanel from './component-panel';
 import FilterPanel, { type FilterMode } from './FilterPanel';
@@ -218,7 +218,7 @@ const Previewer: React.FC<PreviewerProps> = ({ onSave, showTheme, theme, onTheme
   );
 
   return wrapSSR(
-    <Layout className={classNames('previewer-layout', hashId)}>
+    <Layout className={cx('previewer-layout', hashId)}>
       <Header className="previewer-header">
         <span style={{ fontSize: 16, fontWeight: 'bold', marginRight: 16 }}>主题预览器</span>
         {showTheme && (
@@ -278,10 +278,7 @@ const Previewer: React.FC<PreviewerProps> = ({ onSave, showTheme, theme, onTheme
           />
           <Button
             onClick={() => setSiderVisible((prev) => !prev)}
-            className={classNames(
-              'previewer-sider-collapse-btn',
-              !siderVisible && 'previewer-sider-collapse-btn-collapsed',
-            )}
+            className={cx('previewer-sider-collapse-btn', !siderVisible && 'previewer-sider-collapse-btn-collapsed')}
             size="small"
             icon={<Arrow rotate={siderVisible ? 0 : 180} className="previewer-sider-collapse-btn-icon" />}
             shape="circle"

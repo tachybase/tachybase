@@ -1,7 +1,7 @@
 import React, { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
+import { cx } from '@tachybase/client';
 
 import type { DerivativeFunc } from '@ant-design/cssinjs';
-import classNames from 'classnames';
 
 import { antdComponents } from './component-panel';
 import useControlledTheme from './hooks/useControlledTheme';
@@ -116,7 +116,7 @@ const ThemeEditor = forwardRef<ThemeEditorRef, ThemeEditorProps>(
 
     return wrapSSR(
       <LocaleContext.Provider value={locale}>
-        <div className={classNames(hashId, 'antd-theme-editor', className)} style={style}>
+        <div className={cx(hashId, 'antd-theme-editor', className)} style={style}>
           <div
             style={{
               flex: aliasOpen ? '0 0 860px' : `0 0 ${860 - 320}px`,

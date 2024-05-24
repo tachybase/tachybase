@@ -185,7 +185,7 @@ const useStyles = createStyles(({ css, token }) => {
       white-space: nowrap;
       text-overflow: ellipsis;
       cursor: pointer;
-      padding: '16px';
+      padding: 16px;
       color: ${token.colorTextHeaderMenu};
     `,
   };
