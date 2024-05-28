@@ -1,12 +1,11 @@
-import { useAPIClient, useRequest } from '../../../../api-client';
-import { AsyncDataProvider } from '../../../../async-data-provider';
 import React, { useEffect, useRef } from 'react';
 import { useForm } from '@tachybase/schema';
+
+import { useAPIClient, useRequest } from '../../../../api-client';
+import { AsyncDataProvider } from '../../../../async-data-provider';
 import { useRecord } from '../../../../record-provider';
 
-export const SQLRequestProvider: React.FC<{
-  manual?: boolean;
-}> = (props) => {
+export const SQLRequestProvider = (props: { manual?: boolean; children: React.ReactNode }) => {
   const api = useAPIClient();
   const form = useForm();
   const record = useRecord();

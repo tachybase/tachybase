@@ -1,5 +1,7 @@
-import { Spin } from 'antd';
 import React, { createContext, useContext } from 'react';
+
+import { Spin } from 'antd';
+
 import { useRequest } from '../../api-client';
 import { SchemaComponent, SchemaComponentContext } from '../../schema-component';
 import { MenuItemsProvider } from '../Configuration/MenuItemsProvider';
@@ -9,7 +11,7 @@ import { roleSchema } from './schemas/roles';
 const AvailableActionsContext = createContext([]);
 AvailableActionsContext.displayName = 'AvailableActionsContext';
 
-const AvailableActionsProver: React.FC = (props) => {
+const AvailableActionsProver = (props) => {
   const { data, loading } = useRequest<{
     data: any[];
   }>({

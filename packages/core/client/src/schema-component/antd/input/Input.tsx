@@ -1,9 +1,11 @@
-import { LoadingOutlined } from '@ant-design/icons';
+import React from 'react';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
+import { LoadingOutlined } from '@ant-design/icons';
 import { Input as AntdInput } from 'antd';
 import { InputProps, TextAreaProps } from 'antd/es/input';
-import React from 'react';
-import { JSONTextAreaProps, Json } from './Json';
+
+import { Json, JSONTextAreaProps } from './Json';
 import { ReadPretty } from './ReadPretty';
 
 export { ReadPretty as InputReadPretty } from './ReadPretty';

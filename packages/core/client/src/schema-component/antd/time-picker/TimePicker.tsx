@@ -1,8 +1,10 @@
 import { dayjsable, formatDayjsValue } from '@tachybase/components';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
-import dayjs from 'dayjs';
+
 import { TimePicker as AntdTimePicker } from 'antd';
 import { TimePickerProps as AntdTimePickerProps, TimeRangePickerProps } from 'antd/es/time-picker';
+import dayjs from 'dayjs';
+
 import { ReadPretty } from './ReadPretty';
 
 type ComposedTimePicker = React.FC<AntdTimePickerProps> & {
@@ -26,6 +28,7 @@ const mapTimeFormat = function () {
   };
 };
 
+// @ts-ignore
 export const TimePicker: ComposedTimePicker = connect(
   AntdTimePicker,
   mapProps(mapTimeFormat()),

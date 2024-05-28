@@ -1,23 +1,29 @@
+import React, { createContext, useContext } from 'react';
+
 import { Field } from '@formily/core';
 import { observer, ReactFC, useField } from '@formily/react';
 import { isArr, isValid, toArr } from '@formily/shared';
-import type {
-  CascaderProps,
-  DatePickerProps,
-  InputNumberProps,
-  InputProps,
-  SelectProps,
-  TimePickerProps,
-  TimeRangePickerProps,
-  TreeSelectProps,
+import {
+  Space,
+  Tag,
+  type CascaderProps,
+  type DatePickerProps,
+  type InputNumberProps,
+  type InputProps,
+  type SelectProps,
+  type TimePickerProps,
+  type TimeRangePickerProps,
+  type TreeSelectProps,
 } from 'antd';
-import { Space, Tag } from 'antd';
 import type { DefaultOptionType } from 'antd/lib/cascader';
 import type { RangePickerProps as DateRangePickerProps } from 'antd/lib/date-picker';
 import cls from 'classnames';
-import React, { createContext, useContext } from 'react';
+
 import { formatDayjsValue, usePrefixCls } from '../__builtins__';
 import useStyle from './style';
+
+export type { InputNumberProps } from 'rc-input-number';
+export type { TreeSelectProps } from 'rc-tree-select';
 
 export const PlaceholderContext = createContext<React.ReactNode>('N/A');
 

@@ -56,7 +56,7 @@ export const useSchemaInitializerSubMenuContext = () => {
   return React.useContext(SchemaInitializerSubMenuContext);
 };
 
-export const SchemaInitializerMenu: FC<MenuProps> = (props) => {
+export const SchemaInitializerMenu = (props: MenuProps) => {
   const { componentCls, hashId } = useSchemaInitializerStyles();
   const { items, ...others } = props;
   const { token } = theme.useToken();

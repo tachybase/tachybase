@@ -1,7 +1,9 @@
-import { usePrefixCls } from '@tachybase/components/esm/__builtins__';
+import React from 'react';
+
 import type { ColorPickerProps as AntdColorPickerProps } from 'antd/es/color-picker';
 import cls from 'classnames';
-import React from 'react';
+
+import { usePrefixCls } from '../__builtins__';
 
 type Composed = {
   ColorPicker: React.FC<AntdColorPickerProps>;

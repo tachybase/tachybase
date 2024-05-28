@@ -1,4 +1,5 @@
 import React, { ComponentType, FC } from 'react';
+
 import { BlankComponent } from '../components';
 
 export function normalizeContainer(container: Element | ShadowRoot | string): Element | null {
@@ -21,9 +22,9 @@ export function normalizeContainer(container: Element | ShadowRoot | string): El
 }
 
 export const compose = (...components: [ComponentType, any][]) => {
-  const Component = components.reduce<ComponentType>((Parent, child) => {
+  const Component = components.reduce<ComponentType<any>>((Parent, child) => {
     const [Child, childProps] = child;
-    const ComposeComponent: FC = ({ children }) => (
+    const ComposeComponent = ({ children }) => (
       <Parent>
         <Child {...childProps}>{children}</Child>
       </Parent>

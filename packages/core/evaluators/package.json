@@ -10,5 +10,8 @@
     "@tachybase/utils": "workspace:*",
     "lodash": "4.17.21",
     "mathjs": "^10.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12"
   }
 }

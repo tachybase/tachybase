@@ -1,29 +1,46 @@
-import execa from 'execa';
-import chalk from 'chalk';
+import { EventEmitter } from 'events';
 import path from 'path';
-import {
-  PACKAGES_PATH,
-  getPluginPackages,
-  CORE_CLIENT,
-  CORE_APP,
-  getCjsPackages,
-  getPresetsPackages,
-  ROOT_PATH,
-  ESM_PACKAGES,
-} from './constant';
-import { buildClient } from './buildClient';
-import { buildCjs } from './buildCjs';
-import { buildPlugin } from './buildPlugin';
-import { buildDeclaration } from './buildDeclaration';
-import { PkgLog, getPkgLog, toUnixPath, getPackageJson, getUserConfig, UserConfig, writeToCache, readFromCache } from './utils';
-import { getPackages } from './utils/getPackages';
+
 import type { Project } from '@pnpm/workspace.find-packages';
-import { tarPlugin } from './tarPlugin'
+import chalk from 'chalk';
+import execa from 'execa';
+
+import { buildCjs } from './buildCjs';
+import { buildClient } from './buildClient';
+import { buildDeclaration } from './buildDeclaration';
 import { buildEsm } from './buildEsm';
+import { buildPlugin } from './buildPlugin';
+import {
+  CORE_APP,
+  CORE_CLIENT,
+  ESM_PACKAGES,
+  getCjsPackages,
+  getPluginPackages,
+  getPresetsPackages,
+  PACKAGES_PATH,
+  ROOT_PATH,
+} from './constant';
+import { tarPlugin } from './tarPlugin';
+import {
+  getPackageJson,
+  getPkgLog,
+  getUserConfig,
+  PkgLog,
+  readFromCache,
+  toUnixPath,
+  UserConfig,
+  writeToCache,
+} from './utils';
+import { getPackages } from './utils/getPackages';
 
 const BUILD_ERROR = 'build-error';
+global.__bus = new EventEmitter();
 
 export async function build(pkgs: string[]) {
+  const messages = [];
+  (global.__bus as EventEmitter).on('build:errors', (message) => {
+    messages.push(message);
+  });
   const isDev = process.argv.includes('--development');
   process.env.NODE_ENV = isDev ? 'development' : 'production';
 
@@ -35,9 +52,9 @@ export async function build(pkgs: string[]) {
   if (packages.length === 0) {
     let msg = '';
     if (pkgs.length) {
-      msg = `'${pkgs.join(', ')}' did not match any packages`
+      msg = `'${pkgs.join(', ')}' did not match any packages`;
     } else {
-      msg = 'No package matched'
+      msg = 'No package matched';
     }
     console.warn(chalk.yellow(`[@tachybase/build]: ${msg}`));
     return;
@@ -53,7 +70,7 @@ export async function build(pkgs: string[]) {
   if (clientCore) {
     await buildPackage(clientCore, 'es', buildClient);
   }
-  const esmPackages = cjsPackages.filter(pkg => ESM_PACKAGES.includes(pkg.manifest.name));
+  const esmPackages = cjsPackages.filter((pkg) => ESM_PACKAGES.includes(pkg.manifest.name));
   await buildPackages(esmPackages, 'es', buildEsm);
 
   // plugins/*、samples/*
@@ -70,6 +87,16 @@ export async function build(pkgs: string[]) {
     });
   }
   writeToCache(BUILD_ERROR, {});
+  if (messages.length > 0) {
+    console.log('❌ build errors:');
+    messages.forEach((message) => {
+      console.log('🐛 ', message);
+    });
+
+    setTimeout(() => {
+      throw new Error('build error.');
+    }, 0);
+  }
 }
 
 export async function buildPackages(
@@ -78,7 +105,7 @@ export async function buildPackages(
   doBuildPackage: (cwd: string, userConfig: UserConfig, sourcemap: boolean, log?: PkgLog) => Promise<any>,
 ) {
   for await (const pkg of packages) {
-    writeToCache(BUILD_ERROR, { pkg: pkg.manifest.name})
+    writeToCache(BUILD_ERROR, { pkg: pkg.manifest.name });
     await buildPackage(pkg, targetDir, doBuildPackage);
   }
 }

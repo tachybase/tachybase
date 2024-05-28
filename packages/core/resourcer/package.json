@@ -13,5 +13,8 @@
     "lodash": "^4.17.21",
     "path-to-regexp": "^6.1.0",
     "qs": "^6.9.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12"
   }
 }

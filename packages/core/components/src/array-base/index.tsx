@@ -1,10 +1,12 @@
+import React, { createContext, forwardRef, useContext } from 'react';
+
 import { CopyOutlined, DeleteOutlined, DownOutlined, MenuOutlined, PlusOutlined, UpOutlined } from '@ant-design/icons';
 import { ArrayField } from '@formily/core';
 import { ReactFC, RecordScope, RecordsScope, Schema, useField, useFieldSchema } from '@formily/react';
 import { clone, isUndef, isValid } from '@formily/shared';
 import { Button, ButtonProps } from 'antd';
 import cls from 'classnames';
-import React, { createContext, forwardRef, useContext } from 'react';
+
 import { SortableHandle, usePrefixCls } from '../__builtins__';
 import useStyle from './style';
 
@@ -182,7 +184,7 @@ const Copy = forwardRef<HTMLButtonElement, CommonProps>((props, ref) => {
   if (array.field?.pattern !== 'editable') return null;
   return wrapSSR(
     <Button
-      type="ghost"
+      ghost
       {...props}
       style={{
         padding: '0 0 0 6px',
@@ -224,7 +226,7 @@ const Remove = forwardRef<HTMLSpanElement, CommonProps>((props, ref) => {
   if (array.field?.pattern !== 'editable') return null;
   return wrapSSR(
     <Button
-      type="ghost"
+      ghost
       {...props}
       style={{
         padding: '0 0 0 6px',
@@ -266,7 +268,7 @@ const MoveDown = forwardRef<HTMLSpanElement, CommonProps>((props, ref) => {
   if (array.field?.pattern !== 'editable') return null;
   return (
     <Button
-      type="ghost"
+      ghost
       {...props}
       style={{
         padding: '0 0 0 6px',
@@ -307,7 +309,7 @@ const MoveUp = forwardRef<HTMLSpanElement, CommonProps>((props, ref) => {
   if (array.field?.pattern !== 'editable') return null;
   return (
     <Button
-      type="ghost"
+      ghost
       {...props}
       style={{
         padding: '0 0 0 6px',

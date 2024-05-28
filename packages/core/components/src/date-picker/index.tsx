@@ -2,8 +2,11 @@ import { connect, mapProps, mapReadPretty } from '@formily/react';
 import { DatePicker as AntdDatePicker } from 'antd';
 import { DatePickerProps as AntdDatePickerProps } from 'antd/es/date-picker';
 import dayjs from 'dayjs';
-import { PreviewText } from '../preview-text';
+
 import { dayjsable, formatDayjsValue } from '../__builtins__';
+import { PreviewText } from '../preview-text';
+
+export type { PickerProps } from 'rc-picker';
 
 type DatePickerProps<PickerProps> = Exclude<PickerProps, 'value' | 'onChange'> & {
   value: string;

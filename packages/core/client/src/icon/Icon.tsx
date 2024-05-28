@@ -1,6 +1,7 @@
+import React from 'react';
+
 import * as antIcons from '@ant-design/icons';
 import AntdIcon, { createFromIconfontCN } from '@ant-design/icons';
-import React from 'react';
 
 let IconFont: any;
 
@@ -35,7 +36,7 @@ interface IconProps {
   [key: string]: any;
 }
 
-export const Icon = (props: IconProps) => {
+export const Icon = (props: IconProps): React.ReactNode => {
   const { type = '', component, ...restProps } = props;
   if (component) {
     return <AntdIcon component={component} {...restProps} />;

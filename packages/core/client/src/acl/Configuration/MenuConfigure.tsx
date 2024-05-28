@@ -1,7 +1,9 @@
+import React, { useState } from 'react';
+
 import { Checkbox, message, Table } from 'antd';
 import { uniq } from 'lodash';
-import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient, useRequest } from '../../api-client';
 import { useRecord } from '../../record-provider';
 import { useStyles } from '../style';
@@ -105,7 +107,7 @@ export const MenuConfigure = () => {
   };
 
   return (
-    <Table
+    <Table<any>
       className={styles}
       loading={loading}
       rowKey={'uid'}

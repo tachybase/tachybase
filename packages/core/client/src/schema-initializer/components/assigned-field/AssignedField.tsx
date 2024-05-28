@@ -24,7 +24,7 @@ interface AssignedFieldProps {
   [key: string]: any;
 }
 
-const InternalField: React.FC = (props) => {
+const InternalField = (props) => {
   const field = useField<Field>();
   const fieldSchema = useFieldSchema();
   const { uiSchema } = useCollectionField_deprecated();

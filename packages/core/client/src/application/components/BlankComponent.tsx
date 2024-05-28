@@ -1,3 +1,3 @@
-import React, { FC, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
-export const BlankComponent: FC<{ children?: ReactNode }> = ({ children }) => <>{children}</>;
+export const BlankComponent = ({ children }: { children?: ReactNode }) => <>{children}</>;

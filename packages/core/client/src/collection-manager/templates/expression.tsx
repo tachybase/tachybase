@@ -1,6 +1,7 @@
 import { getOptions } from '@tachybase/evaluators/client';
-import { getConfigurableProperties } from './properties';
+
 import { CollectionTemplate } from '../../data-source/collection-template/CollectionTemplate';
+import { getConfigurableProperties } from './properties';
 
 export class ExpressionCollectionTemplate extends CollectionTemplate {
   name = 'expression';

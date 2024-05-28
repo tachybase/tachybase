@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect } from 'react';
+
 import { useLocation } from 'react-router-dom';
+
 import { useAPIClient, useRequest } from '../api-client';
 import { useAppSpin } from '../application/hooks/useAppSpin';
 
@@ -14,7 +16,7 @@ const CollectionHistoryContext = createContext<CollectionHistoryContextValue>({
 });
 CollectionHistoryContext.displayName = 'CollectionHistoryContext';
 
-export const CollectionHistoryProvider: React.FC = (props) => {
+export const CollectionHistoryProvider = (props) => {
   const api = useAPIClient();
 
   const options = {

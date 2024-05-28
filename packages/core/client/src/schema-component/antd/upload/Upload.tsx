@@ -1,18 +1,21 @@
-import { DeleteOutlined, DownloadOutlined, InboxOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
+import { DeleteOutlined, DownloadOutlined, InboxOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Upload as AntdUpload, Button, Modal, Progress, Space, UploadFile } from 'antd';
 import cls from 'classnames';
 import { saveAs } from 'file-saver';
-import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LightBox from 'react-image-lightbox';
+
 import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
+
+import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { useProps } from '../../hooks/useProps';
 import { ReadPretty } from './ReadPretty';
 import { isImage, isPdf, toArr, toFileList, toItem, toValue, useUploadProps } from './shared';
 import { useStyles } from './style';
 import type { ComposedUpload, DraggerProps, DraggerV2Props, UploadProps } from './type';
-import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
-import { useProps } from '../../hooks/useProps';
 
 export const Upload: ComposedUpload = connect(
   (props: UploadProps) => {
@@ -324,6 +327,7 @@ Upload.DraggerV2 = withDynamicSchemaProps(
 
       return wrapSSR(
         <div className={cls(`${prefixCls}-dragger`, hashId)}>
+          {/* @ts-ignore */}
           <AntdUpload.Dragger {...useUploadProps({ ...props, ...extraProps, onChange: handleChange })}>
             <p className={`${prefixCls}-drag-icon`}>
               {loading ? <LoadingOutlined style={{ fontSize: 36 }} spin /> : <InboxOutlined />}
