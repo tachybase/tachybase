@@ -54,9 +54,13 @@ export const MImageUploader = connect(
     return { ...props };
   }),
   mapReadPretty((props) => {
+    // 控制显示的图片数量
+    const { showCount, value = [] } = props;
+    const dataValues = value.slice(0, showCount);
     return (
       <ImageUploader
         {...props}
+        value={dataValues}
         disableUpload
         showUpload={false}
         upload={async () => {
