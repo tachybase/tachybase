@@ -172,11 +172,6 @@ export class ApprovalTrigger extends Trigger {
       compile,
       getCollectionFields,
     });
-    console.log(
-      '%c Line:176 🍷 collectionFieldOptions',
-      'font-size:18px;color:#33a5ff;background:#3f7cff',
-      collectionFieldOptions,
-    );
     return collectionFieldOptions;
   }
 
