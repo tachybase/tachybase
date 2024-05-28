@@ -1,4 +1,5 @@
 import { CompatibleSchemaInitializer, gridRowColWrap } from '@tachybase/client';
+
 import { generateNTemplate, tval } from '../../../locale';
 
 /**

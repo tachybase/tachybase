@@ -1,15 +1,17 @@
 import {
-  useDesignable,
+  removeNullCondition,
   SchemaSettings,
   SchemaSettingsBlockTitleItem,
   SchemaSettingsDataScope,
   useCollection_deprecated,
+  useDesignable,
   useFormBlockContext,
-  removeNullCondition,
 } from '@tachybase/client';
-import lodash from 'lodash';
-import { useTranslation } from './locale';
 import { useField, useFieldSchema } from '@tachybase/schema';
+
+import lodash from 'lodash';
+
+import { useTranslation } from './locale';
 import { useComment } from './useComment';
 
 export const CommentBlockSchemaSettings = new SchemaSettings({

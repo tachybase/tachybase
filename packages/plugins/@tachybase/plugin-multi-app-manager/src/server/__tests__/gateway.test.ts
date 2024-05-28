@@ -1,5 +1,5 @@
 import { AppSupervisor, Gateway } from '@tachybase/server';
-import { MockServer, createMockServer, createWsClient, startServerWithRandomPort, waitSecond } from '@tachybase/test';
+import { createMockServer, createWsClient, MockServer, startServerWithRandomPort, waitSecond } from '@tachybase/test';
 import { uid } from '@tachybase/utils';
 
 describe('gateway with multiple apps', () => {

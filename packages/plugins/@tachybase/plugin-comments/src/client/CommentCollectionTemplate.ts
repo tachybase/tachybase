@@ -1,4 +1,5 @@
 import { CollectionTemplate, getConfigurableProperties } from '@tachybase/client';
+
 import { tval } from './locale';
 
 export class CommentCollectionTemplate extends CollectionTemplate {

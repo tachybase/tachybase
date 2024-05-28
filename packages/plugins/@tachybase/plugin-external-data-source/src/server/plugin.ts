@@ -1,6 +1,7 @@
 import { Plugin } from '@tachybase/server';
-import { PostgresDataSource } from './pg/postgres-data-source';
+
 import { MySQLDataSource } from './mysql/mysql-data-source';
+import { PostgresDataSource } from './pg/postgres-data-source';
 
 export class PluginExternalDataSourceServer extends Plugin {
   async afterAdd() {}

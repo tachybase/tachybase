@@ -1,6 +1,7 @@
-import { SchemaComponent } from '@tachybase/client';
-import { Card } from 'antd';
 import React from 'react';
+import { SchemaComponent } from '@tachybase/client';
+
+import { Card } from 'antd';
 
 const schema = {
   type: 'object',

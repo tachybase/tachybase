@@ -1,18 +1,22 @@
-import { BlockItem, ExtendCollectionsProvider } from '@tachybase/client';
-import { SearchBar, Space, Tabs } from 'antd-mobile';
 import React, { useEffect, useState } from 'react';
-import { TabApplicantType } from './component/TabApplicantType';
-import { TabApprovalType } from './component/TabApprovalType';
-import { TabApprovalItem } from './component/TabApprovalItem';
+import { BlockItem, ExtendCollectionsProvider } from '@tachybase/client';
 import { observer } from '@tachybase/schema';
+
+import { SearchBar, Space, Tabs } from 'antd-mobile';
+
+import { TabApplicantType } from './component/TabApplicantType';
+import { TabApprovalItem } from './component/TabApprovalItem';
+import { TabApprovalType } from './component/TabApprovalType';
+
 import '../style/style.css';
+
+import { CollectionApprovals } from '../collection/Approvals.collection';
+import { CollectionApprovalTodos } from '../collection/ApprovalTodos';
+import { CollectionFlowNodes } from '../collection/FlowNodes.collection';
+import { CollectionWorkflows } from '../collection/Workflows.collection';
 import { ApprovalReachDataType } from '../component/ApprovalReachDataType';
 import { ApprovalTemplateType } from '../component/ApprovalTemplateType';
 import { PendingStatus, ProcessedStatus } from '../constants';
-import { CollectionWorkflows } from '../collection/Workflows.collection';
-import { CollectionFlowNodes } from '../collection/FlowNodes.collection';
-import { CollectionApprovals } from '../collection/Approvals.collection';
-import { CollectionApprovalTodos } from '../collection/ApprovalTodos';
 
 export const TodosBlock = observer((props) => {
   const [filter, setFilter] = useState({

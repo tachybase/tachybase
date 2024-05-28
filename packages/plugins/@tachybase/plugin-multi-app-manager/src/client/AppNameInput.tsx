@@ -1,7 +1,8 @@
-import { connect, mapReadPretty } from '@tachybase/schema';
-import { useApp } from '@tachybase/client';
-import { Input as AntdInput } from 'antd';
 import React from 'react';
+import { useApp } from '@tachybase/client';
+import { connect, mapReadPretty } from '@tachybase/schema';
+
+import { Input as AntdInput } from 'antd';
 
 const ReadPretty = (props) => {
   const app = useApp();

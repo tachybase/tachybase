@@ -1,4 +1,4 @@
-import { tval as nTval, i18n } from '@tachybase/client';
+import { i18n, tval as nTval } from '@tachybase/client';
 
 export const NAMESPACE = '@hera/plugin-approval-mobile';
 

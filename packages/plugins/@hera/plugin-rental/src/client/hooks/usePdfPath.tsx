@@ -1,5 +1,6 @@
-import { useRecord } from '@tachybase/client';
 import React, { createContext, useContext, useMemo, useState } from 'react';
+import { useRecord } from '@tachybase/client';
+
 import { SettlementStyleContext } from '../schema-initializer/actions/SettlementStyleSwitchActionInitializer';
 
 export const PdfIsDoubleContext = createContext({

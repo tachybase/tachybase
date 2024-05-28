@@ -1,4 +1,5 @@
 import { Plugin } from '@tachybase/client';
+
 import { KitApprovalInstruction } from './instruction/plugin';
 import { KitApprovalTrigger } from './trigger/plugin';
 

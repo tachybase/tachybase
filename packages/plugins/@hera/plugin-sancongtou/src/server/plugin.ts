@@ -1,7 +1,8 @@
-import { SqlLoader } from '@hera/plugin-core';
+import path from 'path';
 import { Plugin } from '@tachybase/server';
 import { Container } from '@tachybase/utils';
-import path from 'path';
+
+import { SqlLoader } from '@hera/plugin-core';
 
 export class PluginSancongtouServer extends Plugin {
   async afterAdd() {}

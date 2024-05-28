@@ -1,7 +1,9 @@
-import { Icon, PinnedPluginListProvider, SchemaComponentOptions, useApp, useRequest } from '@tachybase/client';
-import { Button, Dropdown } from 'antd';
 import React from 'react';
+import { Icon, PinnedPluginListProvider, SchemaComponentOptions, useApp, useRequest } from '@tachybase/client';
+
+import { Button, Dropdown } from 'antd';
 import { Link } from 'react-router-dom';
+
 import { AppNameInput } from './AppNameInput';
 import { useStyles } from './MultiAppManagerProvider.style';
 import { usePluginUtils } from './utils';

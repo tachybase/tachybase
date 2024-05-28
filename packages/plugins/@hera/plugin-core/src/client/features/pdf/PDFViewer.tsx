@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PDFViewer } from '../../components/PDFViewer';
-import { Space } from 'antd';
 import { css } from '@tachybase/client';
-import { usePDFViewerRef } from './PDFVIewerBlockInitializer';
+
+import { Space } from 'antd';
 import { debounce } from 'lodash';
+
+import { PDFViewer } from '../../components/PDFViewer';
+import { usePDFViewerRef } from './PDFVIewerBlockInitializer';
 
 export const InternalPDFViewer = (props) => {
   const { usePdfPath: useMaybePdfPath } = props;

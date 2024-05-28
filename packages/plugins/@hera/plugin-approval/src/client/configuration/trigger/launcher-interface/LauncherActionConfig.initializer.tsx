@@ -1,6 +1,7 @@
 import { SchemaInitializer } from '@tachybase/client';
-import { NAMESPACE } from '../../../locale';
+
 import { APPROVAL_STATUS } from '../../../constants';
+import { NAMESPACE } from '../../../locale';
 import { LauncherActionConfigComponent } from './LauncherActionConfig.component';
 
 // 区块-配置操作

@@ -1,8 +1,9 @@
 import { Application } from '@tachybase/client';
+
 import { tval } from '../locale';
-import { Configuration } from './TokenConfiguration';
-import { LinkManager } from './LinkManager';
 import { Features } from './Features';
+import { LinkManager } from './LinkManager';
+import { Configuration } from './TokenConfiguration';
 
 export * from './LinkManager';
 export * from './TokenConfiguration';

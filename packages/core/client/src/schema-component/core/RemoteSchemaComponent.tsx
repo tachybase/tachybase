@@ -1,7 +1,7 @@
-import { createForm } from '@tachybase/schema';
-import { Schema } from '@tachybase/schema';
 // import { Spin } from 'antd';
 import React, { PropsWithChildren, useMemo } from 'react';
+import { createForm, Schema } from '@tachybase/schema';
+
 import { useRequest } from '../../api-client';
 import { useSchemaComponentContext } from '../hooks';
 import { FormProvider } from './FormProvider';

@@ -1,21 +1,22 @@
+import React, { useCallback } from 'react';
 import {
   CollectionFieldOptions_deprecated,
   CollectionManager,
   FieldOptions,
   InheritanceCollectionMixin,
+  isAssocField,
   SchemaInitializerChildren,
   SchemaInitializerItemType,
-  isAssocField,
   useCollection,
   useCollectionManager,
   useDataSource,
   useDataSourceManager,
 } from '@tachybase/client';
-import React, { useCallback } from 'react';
+
 import { tval } from '../../../../../locale';
-import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../utils';
 import { useIsMobile } from '../../../hooks';
 import { mapToMobile } from '../mapToMobile';
+import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../utils';
 
 interface ItemInterface {
   field: FieldOptions;

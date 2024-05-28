@@ -1,8 +1,10 @@
+import React, { useEffect, useState } from 'react';
 import { useAPIClient } from '@tachybase/client';
 import { observer, useFieldSchema } from '@tachybase/schema';
+
 import { Picker, Space } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
-import React, { useEffect, useState } from 'react';
+
 import { useTranslation } from '../../locale';
 
 export const TabApplicantType = observer((props) => {

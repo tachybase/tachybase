@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   RemoteSchemaComponent,
   SchemaComponent,
@@ -9,22 +9,23 @@ import {
 } from '@tachybase/client';
 import { DetailsBlockProvider, FlowContext } from '@tachybase/plugin-workflow/client';
 import { useForm } from '@tachybase/schema';
+
 import { Result, Spin } from 'antd';
-import { useContext } from 'react';
-import { NAMESPACE } from '../../../locale';
+
 import { FormBlockProvider } from '../../../common/Pd.FormBlock';
-import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
+import { NAMESPACE } from '../../../locale';
 import { ApprovalContext } from '../../approval-common/ApprovalData.provider';
 import { ContextWithActionEnabled } from '../../approval-common/WithActionEnabled.provider';
+import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
+import { FlowContextProvider } from '../common/FlowContext.provider';
+import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
+import { useDestroyAction } from './hooks/useDestroyAction';
 import { useFormBlockProps } from './hooks/useFormBlockProps';
 import { useSubmit } from './hooks/useSubmit';
 import { useWithdrawAction } from './hooks/useWithdrawAction';
-import { useDestroyAction } from './hooks/useDestroyAction';
 import { ActionBarProvider } from './Pd.ActionBar';
-import { WithdrawActionProvider } from './Pd.WithdrawAction';
-import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
 import { ApplyActionStatusProvider } from './Pd.ApplyActionStatus';
-import { FlowContextProvider } from '../common/FlowContext.provider';
+import { WithdrawActionProvider } from './Pd.WithdrawAction';
 
 export const ViewActionLaunchContent = () => {
   const { id } = useRecord();

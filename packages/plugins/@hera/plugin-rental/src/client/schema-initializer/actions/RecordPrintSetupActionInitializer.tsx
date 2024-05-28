@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActionInitializer } from '@tachybase/client';
+import { ActionInitializer, useRequest } from '@tachybase/client';
+
 import { Radio, RadioChangeEvent } from 'antd';
-import { useRequest } from '@tachybase/client';
+
 import { PdfIsLoadContext } from '../../hooks/usePdfPath';
+
 export const PrintSetup = (props) => {
   const [value, setValue] = useState('');
   const settingsData = useRequest<any>({

@@ -1,5 +1,5 @@
-import { SchemaSettingOptions, SchemaSettingsItemType, SchemaSettingsItemTypeWithoutName } from './types';
 import { defaultSettingItems } from './SchemaSettingsDefaults';
+import { SchemaSettingOptions, SchemaSettingsItemType, SchemaSettingsItemTypeWithoutName } from './types';
 
 export class SchemaSettings<T = {}> {
   options: SchemaSettingOptions<T>;

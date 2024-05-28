@@ -1,7 +1,9 @@
 import React from 'react';
-import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { observer, useField, useForm } from '@tachybase/schema';
+
+import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import _ from 'lodash';
+
 import { ConversionLogics, RecordCategory } from '../../utils/constants';
 import { formatQuantity } from '../../utils/currencyUtils';
 import { useCachedRequest, useLeaseItems, useProductFeeItems } from '../hooks';

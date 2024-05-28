@@ -1,9 +1,10 @@
-import { ArrayItems } from '@tachybase/components';
-import { ISchema } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
 import { useMemo } from 'react';
+import { ArrayItems } from '@tachybase/components';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated, useSortFields } from '../../../../collection-manager';
@@ -16,9 +17,9 @@ import {
   screenSizeTitleMaps,
 } from '../../../../schema-component/antd/grid-card/options';
 import { SchemaSettingsTemplate } from '../../../../schema-settings';
-import { columnCountMarks } from './utils';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
 import { setDataLoadingModeSettingsItem } from '../details-multi/setDataLoadingModeSettingsItem';
+import { columnCountMarks } from './utils';
 
 export const gridCardBlockSettings = new SchemaSettings({
   name: 'blockSettings:gridCard',

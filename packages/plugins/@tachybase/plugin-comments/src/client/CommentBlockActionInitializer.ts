@@ -1,4 +1,5 @@
-import { useCollection_deprecated, SchemaInitializer } from '@tachybase/client';
+import { SchemaInitializer, useCollection_deprecated } from '@tachybase/client';
+
 import { tval } from './locale';
 
 export const CommentBlockActionInitializer = new SchemaInitializer({

@@ -1,10 +1,12 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
-import { cx, SchemaComponent, SortableItem, useDesigner, useToken } from '@tachybase/client';
 import React, { useEffect } from 'react';
+import { cx, SchemaComponent, SortableItem, useDesigner, useToken } from '@tachybase/client';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import { MobileProvider } from '../../provider/MobileProvider';
 import { ContainerDesigner } from './Container.Designer';
 import useStyles from './style';
-import { MobileProvider } from '../../provider/MobileProvider';
 
 const findGrid = (schema, uid) => {
   return schema.reduceProperties((final, next) => {

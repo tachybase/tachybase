@@ -1,10 +1,12 @@
+import React from 'react';
 import { Plugin, SchemaComponent, useCollectionManager } from '@tachybase/client';
 import { MPage } from '@tachybase/plugin-mobile-client/client';
-import React from 'react';
-import { CardDetailProvider } from './CardDetail.provider';
-import { CardDetailView } from './CardDetail.view';
-import { useScopeCardDetail } from './CardDetail.scope';
+
 import { useParams } from 'react-router-dom';
+
+import { CardDetailProvider } from './CardDetail.provider';
+import { useScopeCardDetail } from './CardDetail.scope';
+import { CardDetailView } from './CardDetail.view';
 
 // THINK: plugin的注册,应该每个组件自己管自己的, 提高内聚性, 就近原则;
 // 或者单独写一个轻量的给组件用的 plugin, 用于注册

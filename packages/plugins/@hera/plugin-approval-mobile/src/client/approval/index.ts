@@ -1,13 +1,14 @@
 import { Plugin } from '@tachybase/client';
+
 import { ApprovalBlockInitializer } from './ApprovalBlockInitializer';
 import { ApprovalSettings } from './ApprovalSettings';
-import { TodosBlock } from './todos/TodosBlock';
-import { InitiationsBlock } from './initiations/InitiationsBlock';
-import { LauncherActionConfigInitializer } from './initiations/config/LauncherActionConfig';
-import { ViewActionTodosContent } from './todos/component/ViewActionTodosContent';
-import { ViewActionUserInitiationsContent } from './initiations/component/ViewActionUserInitiationsContent';
 import { ApprovalProcess } from './component/ApprovalProcess.view';
 import { ViewActionInitiationsContent } from './initiations/component/ViewActionInitiationsContent';
+import { ViewActionUserInitiationsContent } from './initiations/component/ViewActionUserInitiationsContent';
+import { LauncherActionConfigInitializer } from './initiations/config/LauncherActionConfig';
+import { InitiationsBlock } from './initiations/InitiationsBlock';
+import { ViewActionTodosContent } from './todos/component/ViewActionTodosContent';
+import { TodosBlock } from './todos/TodosBlock';
 
 class PluginApproval extends Plugin {
   async load() {

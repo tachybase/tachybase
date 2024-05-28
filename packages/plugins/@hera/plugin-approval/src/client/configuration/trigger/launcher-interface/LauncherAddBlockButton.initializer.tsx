@@ -1,4 +1,5 @@
-import { SchemaInitializer, gridRowColWrap } from '@tachybase/client';
+import { gridRowColWrap, SchemaInitializer } from '@tachybase/client';
+
 import { NAMESPACE } from '../../../locale';
 import { LauncherAddBlockButtonComponent } from './LauncherBlockButton.component';
 

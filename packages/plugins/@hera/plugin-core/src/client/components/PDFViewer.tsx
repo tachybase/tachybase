@@ -1,14 +1,19 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
-import { Spin, Tag } from 'antd';
+
 import { LoadingOutlined } from '@ant-design/icons';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Spin, Tag } from 'antd';
 import { saveAs } from 'file-saver';
+import { Document, Page, pdfjs } from 'react-pdf';
+
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
-import { uid } from '@tachybase/schema';
+
 import { css, useRequest } from '@tachybase/client';
+import { uid } from '@tachybase/schema';
+
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+
 import { useTranslation } from '../locale';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 const options = {
   cMapUrl: '/cmaps/',

@@ -1,11 +1,12 @@
-import { Plugin } from '@tachybase/client';
-import { TableOutlined } from '@ant-design/icons';
-import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
-import { uid } from '@tachybase/utils/client';
 import React from 'react';
+import { Plugin, SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
+import { uid } from '@tachybase/utils/client';
+
+import { TableOutlined } from '@ant-design/icons';
+
 import { NAMESPACE } from '../../locale';
-import { ApprovalBlockLaunch } from './launch/VC.ApprovalBlockLaunch';
 import { ApprovalBlockProvider } from './ApprovalBlock.provider';
+import { ApprovalBlockLaunch } from './launch/VC.ApprovalBlockLaunch';
 import { ApprovalBlockTodos } from './todos/VC.ApprovalBlockTodos';
 
 export class SCApprovalBlock extends Plugin {

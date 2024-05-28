@@ -1,3 +1,4 @@
+import React, { useContext } from 'react';
 import {
   RemoteSchemaComponent,
   SchemaComponent,
@@ -7,9 +8,10 @@ import {
   useRequest,
 } from '@tachybase/client';
 import { DetailsBlockProvider, ExecutionContextProvider } from '@tachybase/plugin-workflow/client';
+
 import { Result, Spin } from 'antd';
 import _ from 'lodash';
-import React, { useContext } from 'react';
+
 import { FormBlockProvider } from '../../../common/Pd.FormBlock';
 import { NAMESPACE, useTranslation } from '../../../locale';
 import { ApprovalContext } from '../../approval-common/ApprovalData.provider';
@@ -17,12 +19,12 @@ import { ContextWithActionEnabled } from '../../approval-common/WithActionEnable
 import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
 import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
 import { ApprovalFormBlockDecorator } from './Dt.ApprovalFormBlock';
-import { ActionBarProvider } from './Pd.ActionBarProvider';
-import { ApprovalActionProvider } from './Pd.ApprovalAction';
-import { ContextApprovalExecutions } from './Pd.ApprovalExecutions';
 import { useApprovalDetailBlockProps } from './hooks/useApprovalDetailBlockProps';
 import { useApprovalFormBlockProps } from './hooks/useApprovalFormBlockProps';
 import { useSubmit } from './hooks/useSubmit';
+import { ActionBarProvider } from './Pd.ActionBarProvider';
+import { ApprovalActionProvider } from './Pd.ApprovalAction';
+import { ContextApprovalExecutions } from './Pd.ApprovalExecutions';
 
 // 审批-待办-查看: 内容
 export const ViewActionTodosContent = () => {

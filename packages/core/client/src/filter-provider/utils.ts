@@ -1,7 +1,9 @@
+import { useCallback, useEffect, useState } from 'react';
 import { Schema, useFieldSchema } from '@tachybase/schema';
 import { flatten, getValuesByPath } from '@tachybase/utils/client';
+
 import _ from 'lodash';
-import { useCallback, useEffect, useState } from 'react';
+
 import { FilterTarget, findFilterTargets } from '../block-provider/hooks';
 import {
   Collection_deprecated,

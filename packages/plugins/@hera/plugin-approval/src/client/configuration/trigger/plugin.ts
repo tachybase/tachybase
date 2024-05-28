@@ -1,5 +1,6 @@
 import { Plugin } from '@tachybase/client';
 import PluginWorkflow from '@tachybase/plugin-workflow/client';
+
 import { ApprovalTrigger } from './Approval.trigger';
 import { LauncherActionConfigInitializer } from './launcher-interface/LauncherActionConfig.initializer';
 import { LauncherAddBlockButtonIntializer } from './launcher-interface/LauncherAddBlockButton.initializer';

@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { Document, Page, Text, View, StyleSheet, Image, renderToStream } from '@hera/plugin-core';
-import * as QRCode from 'qrcode';
+
+import { Document, Image, Page, renderToStream, StyleSheet, Text, View } from '@hera/plugin-core';
 import _ from 'lodash';
+import * as QRCode from 'qrcode';
+
 import { Itemcategory, PromptText } from '../../utils/constants';
-import { formatCurrency, formatQuantity, formatPercent } from '../../utils/currencyUtils';
+import { formatCurrency, formatPercent, formatQuantity } from '../../utils/currencyUtils';
 import { converDate } from '../../utils/daysUtils';
 import { mapIfHas } from '../../utils/mapUtils';
 

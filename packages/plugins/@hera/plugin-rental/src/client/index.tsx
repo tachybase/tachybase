@@ -1,24 +1,17 @@
 import { Plugin, useCollection } from '@tachybase/client';
-import { RecordSummary } from './custom-components/RecordSummary';
-import { RecordTotalPrice } from './custom-components/RecordTotalPrice';
-import { RecordItemWeight } from './custom-components/RecordItemWeight';
-import { RecordItemCount } from './custom-components/RecordItemCount';
-import { RecordItemValuationQuantity } from './custom-components/RecordItemValuationQuantity';
-import { RecordProductScope } from './custom-components/RecordProductScope';
-import { RecordFeeScope } from './custom-components/RecordFeeScope';
+
+import { DetailChecks } from './custom-components/DetailChecks';
+import { RecordDetails } from './custom-components/RecordDetails';
 import { RecordFeeConvertedAmount } from './custom-components/RecordFeeConverted';
 import { ReadFeeConvertedAmount } from './custom-components/RecordFeeConvertedRead';
-import { RecordDetails } from './custom-components/RecordDetails';
-import { Locale, tval } from './locale';
-import { AddToChecklistActionInitializer } from './schema-initializer/actions/AddToChecklistActionInitializer';
+import { RecordFeeScope } from './custom-components/RecordFeeScope';
+import { RecordItemCount } from './custom-components/RecordItemCount';
+import { RecordItemValuationQuantity } from './custom-components/RecordItemValuationQuantity';
+import { RecordItemWeight } from './custom-components/RecordItemWeight';
+import { RecordProductScope } from './custom-components/RecordProductScope';
+import { RecordSummary } from './custom-components/RecordSummary';
+import { RecordTotalPrice } from './custom-components/RecordTotalPrice';
 import { useAddToChecklistActionProps } from './hooks/useAddToChecklistActionProps';
-import { DetailChecks } from './custom-components/DetailChecks';
-import {
-  PDFViewerCountablePrintActionInitializer,
-  PrintCounterAction,
-  PrintCounterProvider,
-  usePDFViewerCountablePrintActionProps,
-} from './schema-initializer/actions/PDFViewerPrintActionInitializer';
 import {
   PdfIsDoubleProvider,
   useRecordPdfPath,
@@ -26,10 +19,27 @@ import {
   useWaybillPdfPath,
   WaybillsProvider,
 } from './hooks/usePdfPath';
+import { Locale, tval } from './locale';
+import { AddToChecklistActionInitializer } from './schema-initializer/actions/AddToChecklistActionInitializer';
 import {
   ColumnSwitchAction,
   ColumnSwitchActionInitializer,
 } from './schema-initializer/actions/ColumnSwitchActionInitializer';
+import {
+  PDFViewerCountablePrintActionInitializer,
+  PrintCounterAction,
+  PrintCounterProvider,
+  usePDFViewerCountablePrintActionProps,
+} from './schema-initializer/actions/PDFViewerPrintActionInitializer';
+import { PrintStyleSetupInitializer, StyleSetup } from './schema-initializer/actions/PrintStyleSetupInitializer';
+import {
+  PrintSetup,
+  RecordPrintSetupActionInitializer,
+} from './schema-initializer/actions/RecordPrintSetupActionInitializer';
+import {
+  PrintSetupMargingTop,
+  RecordPrintSetupMargingTopInitializer,
+} from './schema-initializer/actions/RecordPrintSetupMargingTopInitializer';
 import {
   SettlementExcelExportActionInitializer,
   useSettlementExcelExportActionProps,
@@ -40,16 +50,8 @@ import {
   SettlementStyleSwitchActionInitializer,
   useSettlementStyleSwitchActionProps,
 } from './schema-initializer/actions/SettlementStyleSwitchActionInitializer';
-import {
-  RecordPrintSetupActionInitializer,
-  PrintSetup,
-} from './schema-initializer/actions/RecordPrintSetupActionInitializer';
-import {
-  RecordPrintSetupMargingTopInitializer,
-  PrintSetupMargingTop,
-} from './schema-initializer/actions/RecordPrintSetupMargingTopInitializer';
 import { UnusedRecordsBlockHelper } from './schema-initializer/blocks/UnusedRecordsBlockInitializer';
-import { PrintStyleSetupInitializer, StyleSetup } from './schema-initializer/actions/PrintStyleSetupInitializer';
+
 export class PluginRentalClient extends Plugin {
   locale: Locale;
   async afterAdd() {}
