@@ -1,4 +1,4 @@
-import React, { createContext, FC, useContext, useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 
 import { useDeepCompareEffect, useUpdateEffect } from 'ahooks';
 
@@ -77,7 +77,7 @@ function useParentRequest<T>(options: Omit<AllDataBlockProps, 'type'>) {
   );
 }
 
-export const BlockRequestProvider: FC = ({ children }) => {
+export const BlockRequestProvider = ({ children }: { children: React.ReactNode }) => {
   const props = useDataBlockProps();
   const {
     action,

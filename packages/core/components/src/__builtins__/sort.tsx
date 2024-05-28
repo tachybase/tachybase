@@ -1,7 +1,10 @@
+import React, { createContext, useContext, useMemo } from 'react';
+
 import { DndContext, DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { ReactFC } from '@formily/reactive-react';
-import React, { createContext, useContext, useMemo } from 'react';
+
+export type { Transform } from '@dnd-kit/utilities';
 
 export interface ISortableContainerProps {
   list: any[];

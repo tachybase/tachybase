@@ -1,12 +1,13 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
-import { uniqBy } from 'lodash';
 import React, { createContext, useCallback, useEffect, useRef } from 'react';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
+import { uniqBy } from 'lodash';
+
 import { useBlockRequestContext } from '../block-provider/BlockProvider';
 import { CollectionFieldOptions_deprecated, useCollection_deprecated } from '../collection-manager';
+import { useDataLoadingMode } from '../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
 import { removeNullCondition } from '../schema-component';
 import { mergeFilter, useAssociatedFields } from './utils';
-import { useDataLoadingMode } from '../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
-import { GeneralField } from '@tachybase/schema';
 
 enum FILTER_OPERATOR {
   AND = '$and',
@@ -74,7 +75,7 @@ FilterContext.displayName = 'FilterContext';
  * @param props
  * @returns
  */
-export const FilterBlockProvider: React.FC = ({ children }) => {
+export const FilterBlockProvider = ({ children }) => {
   const [dataBlocks, setDataBlocks] = React.useState<DataBlock[]>([]);
   return <FilterContext.Provider value={{ dataBlocks, setDataBlocks }}>{children}</FilterContext.Provider>;
 };

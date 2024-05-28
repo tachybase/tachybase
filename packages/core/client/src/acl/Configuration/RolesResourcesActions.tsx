@@ -1,10 +1,11 @@
+import React, { createContext } from 'react';
 import { FormItem, FormLayout } from '@tachybase/components';
-import { ArrayField } from '@tachybase/schema';
-import { connect, useField, useForm } from '@tachybase/schema';
+import { ArrayField, connect, useField, useForm } from '@tachybase/schema';
+
 import { Checkbox, Table, Tag } from 'antd';
 import { isEmpty } from 'lodash';
-import React, { createContext } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useCollectionManager_deprecated, useCompile, useRecord } from '../..';
 import { useStyles } from '../style';
 import { useAvailableActions } from './RoleTable';
@@ -93,7 +94,7 @@ export const RolesResourcesActions = connect((props) => {
       <RoleResourceCollectionContext.Provider value={collection}>
         <FormLayout layout={'vertical'}>
           <FormItem label={t('Action permission')}>
-            <Table
+            <Table<any>
               className={styles}
               size={'small'}
               pagination={false}
@@ -157,7 +158,7 @@ export const RolesResourcesActions = connect((props) => {
             />
           </FormItem>
           <FormItem label={t('Field permission')}>
-            <Table
+            <Table<any>
               className={styles}
               pagination={false}
               dataSource={fieldPermissions}

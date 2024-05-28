@@ -1,8 +1,9 @@
 import { connect, mapProps, mapReadPretty } from '@formily/react';
 import { TimePicker as AntdTimePicker, TimePickerProps as AntdTimePickerProps, TimeRangePickerProps } from 'antd';
 import dayjs from 'dayjs';
-import { PreviewText } from '../preview-text';
+
 import { dayjsable, formatDayjsValue } from '../__builtins__';
+import { PreviewText } from '../preview-text';
 
 type ComposedTimePicker = React.FC<React.PropsWithChildren<AntdTimePickerProps>> & {
   RangePicker?: React.FC<React.PropsWithChildren<TimeRangePickerProps>>;
@@ -25,6 +26,7 @@ const mapTimeFormat = function () {
   };
 };
 
+// @ts-ignore
 const InternalTimePicker: ComposedTimePicker = connect(
   AntdTimePicker,
   mapProps(mapTimeFormat()),

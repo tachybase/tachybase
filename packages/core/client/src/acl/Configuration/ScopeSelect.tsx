@@ -1,12 +1,13 @@
-import { createForm } from '@tachybase/schema';
 import React, { createContext, useContext, useMemo, useState } from 'react';
+import { createForm } from '@tachybase/schema';
+
 import { FormProvider, SchemaComponent } from '../../schema-component';
 import { scopesSchema } from './schemas/scopes';
 
 const RolesResourcesScopesSelectedRowKeysContext = createContext(null);
 RolesResourcesScopesSelectedRowKeysContext.displayName = 'RolesResourcesScopesSelectedRowKeysContext';
 
-const RolesResourcesScopesSelectedRowKeysProvider: React.FC = (props) => {
+const RolesResourcesScopesSelectedRowKeysProvider = (props) => {
   const [keys, setKeys] = useState([]);
   return (
     <RolesResourcesScopesSelectedRowKeysContext.Provider value={[keys, setKeys]}>

@@ -1,19 +1,21 @@
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import { TableOutlined } from '@ant-design/icons';
 import { Divider, Empty, Input, MenuProps, Spin } from 'antd';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import {
   SchemaInitializerItem,
   SchemaInitializerMenu,
   useGetSchemaInitializerMenuItems,
   useSchemaInitializer,
 } from '../../application';
+import { DataSource } from '../../data-source';
 import { Collection, CollectionFieldOptions } from '../../data-source/collection/Collection';
+import { Icon } from '../../icon';
 import { useCompile } from '../../schema-component';
 import { useSchemaTemplateManager } from '../../schema-templates';
 import { useCollectionDataSourceItems } from '../utils';
-import { DataSource } from '../../data-source';
-import { Icon } from '../../icon';
 
 const MENU_ITEM_HEIGHT = 40;
 const STEP = 15;
@@ -356,7 +358,7 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
       {
         key: name,
         label: compile(title),
-        icon: typeof icon === 'string' ? <Icon type={icon as string} /> : icon,
+        icon: typeof icon === 'string' ? <Icon type={icon as string} /> : (icon as React.ReactNode),
         onClick: (info) => {
           if (info.key !== name) return;
           onClick({ ...info, item: props });

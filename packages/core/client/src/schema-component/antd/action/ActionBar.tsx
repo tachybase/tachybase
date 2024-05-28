@@ -23,13 +23,14 @@ export interface ActionBarContextValue {
    */
   forceProps?: ActionBarContextForceProps;
   parentComponents?: string[];
+  children?: React.ReactNode;
 }
 
 const ActionBarContext = React.createContext<ActionBarContextValue>({
   container: null,
 });
 
-export const ActionBarProvider: React.FC<ActionBarContextValue> = ({ children, ...props }) => {
+export const ActionBarProvider = ({ children, ...props }: ActionBarContextValue) => {
   return <ActionBarContext.Provider value={props}>{children}</ActionBarContext.Provider>;
 };
 

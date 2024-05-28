@@ -1,15 +1,16 @@
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { ISchema, observer, RecursionField, Schema, uid, useField, useFieldSchema } from '@tachybase/schema';
+
 import { TinyColor } from '@ctrl/tinycolor';
 import { useDndContext, useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core';
-import { ISchema, RecursionField, Schema, observer, useField, useFieldSchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
 import cls from 'classnames';
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import _ from 'lodash';
+
+import { useToken } from '../__builtins__';
 import { useDesignable, useFormBlockContext, useSchemaInitializerRender } from '../../../';
 import { useFormBlockType } from '../../../block-provider';
 import { DndContext } from '../../common/dnd-context';
-import { useToken } from '../__builtins__';
 import useStyles from './Grid.style';
-import _ from 'lodash';
 
 const GridRowContext = createContext<any>({});
 GridRowContext.displayName = 'GridRowContext';
@@ -77,7 +78,7 @@ const ColDivider = (props) => {
       if (!isDragging) {
         return;
       }
-      dragIdRef.current = event.active.id;
+      dragIdRef.current = event.active.id as string;
       const el = dividerRef.current;
       const prev = el.previousElementSibling as HTMLDivElement;
       const next = el.nextElementSibling as HTMLDivElement;
@@ -98,7 +99,7 @@ const ColDivider = (props) => {
     },
     onDragEnd(event) {
       if (!dragIdRef.current) return;
-      if (dragIdRef.current?.startsWith(event.active.id)) {
+      if (dragIdRef.current?.startsWith(event.active.id as string)) {
         if (!dragIdRef.current.endsWith('_move')) {
           return;
         }

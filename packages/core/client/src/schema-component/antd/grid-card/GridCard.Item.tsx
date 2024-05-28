@@ -1,5 +1,4 @@
 import React from 'react';
-import { useCollection } from '@tachybase/client';
 import { ObjectField, useField, useFieldSchema } from '@tachybase/schema';
 
 import { Card } from 'antd';
@@ -7,6 +6,7 @@ import { createStyles } from 'antd-style';
 import { useNavigate } from 'react-router-dom';
 
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { useCollection } from '../../../data-source';
 import { useCollectionParentRecordData } from '../../../data-source/collection-record/CollectionRecordProvider';
 import { RecordProvider } from '../../../record-provider';
 import { useGridCardDetailUrl } from './hooks';

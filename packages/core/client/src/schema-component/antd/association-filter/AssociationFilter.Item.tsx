@@ -1,16 +1,18 @@
-import { CloseOutlined, SearchOutlined } from '@ant-design/icons';
+import React, { ChangeEvent, MouseEvent, useMemo, useState } from 'react';
 import { useFieldSchema } from '@tachybase/schema';
+
+import { CloseOutlined, SearchOutlined } from '@ant-design/icons';
 import { Col, Collapse, Input, Row, Tree } from 'antd';
 import cls from 'classnames';
-import React, { ChangeEvent, MouseEvent, useMemo, useState } from 'react';
+
+import { useToken } from '../__builtins__';
+import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { SortableItem } from '../../common';
 import { useCompile, useDesigner, useProps } from '../../hooks';
-import { useToken } from '../__builtins__';
 import { EllipsisWithTooltip } from '../input';
 import { getLabelFormatValue, useLabelUiSchema } from '../record-picker';
 import { AssociationFilter } from './AssociationFilter';
 import useStyles from './AssociationFilter.Item.style';
-import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 
 const { Panel } = Collapse;
 
@@ -94,6 +96,7 @@ export const AssociationFilterItem = withDynamicSchemaProps(
     return wrapSSR(
       <SortableItem className={cls(componentCls, hashId, 'nb-block-item', props.className, 'SortableItem')}>
         <Designer />
+        {/* @ts-ignore upstream type error */}
         <Collapse defaultActiveKey={defaultActiveKeyCollapse} ghost expandIcon={searchVisible ? () => null : undefined}>
           <Panel
             className="Panel"
@@ -132,6 +135,7 @@ export const AssociationFilterItem = withDynamicSchemaProps(
                 </Col>
               </Row>
             }
+            // @ts-ignore upstream type error
             key={defaultActiveKeyCollapse[0]}
           >
             <Tree

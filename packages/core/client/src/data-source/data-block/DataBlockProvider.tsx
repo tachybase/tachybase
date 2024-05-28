@@ -1,4 +1,4 @@
-import React, { createContext, FC, ReactNode, useContext, useMemo } from 'react';
+import React, { createContext, ReactNode, useContext, useMemo } from 'react';
 
 import { ACLCollectionProvider } from '../../acl/ACLProvider';
 import { UseRequestOptions, UseRequestService } from '../../api-client';
@@ -134,8 +134,8 @@ export const AssociationOrCollectionProvider = (props: {
   );
 };
 
-export const DataBlockProvider: FC<DataBlockProviderProps & { children?: ReactNode }> = withDynamicSchemaProps(
-  (props) => {
+export const DataBlockProvider = withDynamicSchemaProps(
+  (props: DataBlockProviderProps & { children?: ReactNode }) => {
     const { collection, association, dataSource, children, layoutDirection, ...resets } =
       props as Partial<AllDataBlockProps>;
     const configSetting = {

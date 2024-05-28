@@ -1,8 +1,8 @@
 import { Registry } from '@tachybase/utils';
 
 import { Evaluator } from '../utils';
-import mathjs from '../utils/mathjs';
 import formulajs from '../utils/formulajs';
+import mathjs from '../utils/mathjs';
 import string from '../utils/string';
 
 export { Evaluator, evaluate, appendArrayColumn } from '../utils';

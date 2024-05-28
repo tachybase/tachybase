@@ -1,5 +1,4 @@
-import { useDataBlockProps } from '../..';
-import { useDataBlockParentRecord } from '../../block-provider/hooks/useDataBlockParentRecord';
+import { useDataBlockParentRecord, useDataBlockProps } from '../..';
 import { useSourceKey } from './useSourceKey';
 
 export const useSourceId = () => {

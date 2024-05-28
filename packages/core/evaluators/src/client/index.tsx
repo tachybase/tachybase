@@ -1,7 +1,7 @@
 import { Registry } from '@tachybase/utils/client';
 
-import mathjs from './engines/mathjs';
 import formulajs from './engines/formulajs';
+import mathjs from './engines/mathjs';
 import string from './engines/string';
 
 export interface Evaluator {

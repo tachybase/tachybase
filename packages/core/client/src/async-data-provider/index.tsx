@@ -1,5 +1,7 @@
-import { Result } from 'ahooks/es/useRequest/src/types';
 import React, { createContext, useContext } from 'react';
+
+import { Result } from 'ahooks/es/useRequest/src/types';
+
 import { useRequest } from '../api-client';
 
 export const AsyncDataContext = createContext<Result<any, any> & { state?: any; setState?: any }>(null);
@@ -10,9 +12,10 @@ export interface AsyncDataProviderProps {
   request?: any;
   uid?: string;
   onSuccess?: (data, params) => void;
+  children: React.ReactNode;
 }
 
-export const AsyncDataProvider: React.FC<AsyncDataProviderProps> = (props) => {
+export const AsyncDataProvider = (props: AsyncDataProviderProps) => {
   const { value, request, children, ...others } = props;
   const result = useRequest(request, { ...others });
   if (value) {

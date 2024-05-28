@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+
 import { useApp } from '../hooks';
 
 export const MainComponent = React.memo(() => {

@@ -1,14 +1,16 @@
+import React from 'react';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
 import { DatePicker as AntdDatePicker } from 'antd';
 import type {
   DatePickerProps as AntdDatePickerProps,
   RangePickerProps as AntdRangePickerProps,
 } from 'antd/es/date-picker';
-import React from 'react';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+
 import { ReadPretty } from './ReadPretty';
 import { getDateRanges, mapDatePicker, mapRangePicker } from './util';
-import dayjs from 'dayjs';
 
 interface IDatePickerProps {
   utc?: boolean;
@@ -24,6 +26,7 @@ const DatePickerContext = React.createContext<IDatePickerProps>({ utc: true });
 export const useDatePickerContext = () => React.useContext(DatePickerContext);
 export const DatePickerProvider = DatePickerContext.Provider;
 
+// @ts-ignore
 const InternalDatePicker: ComposedDatePicker = connect(
   AntdDatePicker,
   mapProps(mapDatePicker()),

@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+
 import { Plugin } from '../application/Plugin';
 import { useSystemSettings } from '../system-settings';
 
@@ -15,7 +17,11 @@ export const DocumentTitleContext = createContext<DocumentTitleContextProps>({
 });
 DocumentTitleContext.displayName = 'DocumentTitleContext';
 
-export const DocumentTitleProvider: React.FC<{ addonBefore?: string; addonAfter?: string }> = (props) => {
+export const DocumentTitleProvider = (props: {
+  addonBefore?: string;
+  addonAfter?: string;
+  children: React.ReactNode;
+}) => {
   const { addonBefore, addonAfter } = props;
   const { t } = useTranslation();
   const [title, setTitle] = useState('');
@@ -37,7 +43,7 @@ export const DocumentTitleProvider: React.FC<{ addonBefore?: string; addonAfter?
   );
 };
 
-export const RemoteDocumentTitleProvider: React.FC = (props) => {
+export const RemoteDocumentTitleProvider = (props) => {
   const ctx = useSystemSettings();
   return <DocumentTitleProvider addonAfter={ctx?.data?.data?.title}>{props.children}</DocumentTitleProvider>;
 };

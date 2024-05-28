@@ -1,13 +1,16 @@
-import { FactoryStore, Store, caching, Cache as BasicCache } from 'cache-manager';
-import { Cache } from './cache';
-import lodash from 'lodash';
+import { Cache as BasicCache, caching, FactoryStore, Store } from 'cache-manager';
 import { RedisStore, redisStore } from 'cache-manager-redis-yet';
 import deepmerge from 'deepmerge';
-import { MemoryBloomFilter } from './bloom-filter/memory-bloom-filter';
-import { BloomFilter } from './bloom-filter';
-import { RedisBloomFilter } from './bloom-filter/redis-bloom-filter';
+import lodash from 'lodash';
 
-type StoreOptions = {
+import { BloomFilter } from './bloom-filter';
+import { MemoryBloomFilter } from './bloom-filter/memory-bloom-filter';
+import { RedisBloomFilter } from './bloom-filter/redis-bloom-filter';
+import { Cache } from './cache';
+
+export type { FactoryStore } from 'cache-manager';
+
+export type StoreOptions = {
   store?: 'memory' | FactoryStore<Store, any>;
   close?: (store: Store) => Promise<void>;
   // global config

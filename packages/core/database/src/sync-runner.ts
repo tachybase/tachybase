@@ -1,11 +1,13 @@
-import { Model } from './model';
+import { isPlainObject } from '@tachybase/utils';
+
+import { Model as SequelizeModel } from 'sequelize';
+
 import { Collection } from './collection';
 import Database from './database';
-import { InheritedSyncRunner } from './inherited-sync-runner';
-import { InheritedCollection } from './inherited-collection';
-import { Model as SequelizeModel } from 'sequelize';
 import { ZeroColumnTableError } from './errors/zero-column-table-error';
-import { isPlainObject } from '@tachybase/utils';
+import { InheritedCollection } from './inherited-collection';
+import { InheritedSyncRunner } from './inherited-sync-runner';
+import { Model } from './model';
 
 export class SyncRunner {
   private readonly collection: Collection;
@@ -42,8 +44,8 @@ export class SyncRunner {
       return;
     }
 
-    // @ts-ignore
     const collectionSyncOptions = this.database.collectionFactory.collectionTypes.get(
+      // @ts-ignore
       this.collection.constructor,
     )?.onSync;
 

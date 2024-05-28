@@ -188,7 +188,7 @@ function getCurrentRange(element: HTMLElement): RangeIndexes {
   return result;
 }
 
-const useStyles2 = createStyles(({ css }) => {
+const useStyles2 = createStyles(({ css }, { multiline }) => {
   return {
     container: css`
       &.ant-input-group.ant-input-group-compact {
@@ -241,7 +241,7 @@ export function TextArea(props) {
   const inputRef = useRef<HTMLDivElement>(null);
   const [options, setOptions] = useState([]);
   const form = useForm();
-  const { styles } = useStyles2();
+  const { styles } = useStyles2({ multiline });
   const keyLabelMap = useMemo(() => createOptionsValueLabelMap(options), [options]);
   const [ime, setIME] = useState<boolean>(false);
   const [changed, setChanged] = useState(false);

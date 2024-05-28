@@ -1,13 +1,15 @@
-import { Checkbox, message, Table } from 'antd';
 import React, { createContext, useContext, useMemo, useState } from 'react';
+
+import { Checkbox, message, Table } from 'antd';
+import { omit } from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient, useRequest } from '../../api-client';
+import { useApp } from '../../application';
 import { SettingsCenterContext } from '../../pm';
 import { useRecord } from '../../record-provider';
-import { useStyles } from '../style';
-import { useApp } from '../../application';
 import { useCompile } from '../../schema-component';
-import { omit } from 'lodash';
+import { useStyles } from '../style';
 
 const getParentKeys = (tree, func, path = []) => {
   if (!tree) return [];
@@ -87,7 +89,7 @@ export const SettingsCenterConfigure = () => {
     message.success(t('Saved successfully'));
   };
   return (
-    <Table
+    <Table<any>
       className={styles}
       loading={loading}
       rowKey={'key'}

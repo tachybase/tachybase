@@ -1,6 +1,7 @@
 import React from 'react';
 import { usePrefixCls } from '@tachybase/components';
 
+import { css } from '@emotion/css';
 import { Typography } from 'antd';
 import { InputProps, TextAreaProps } from 'antd/es/input';
 import cls from 'classnames';
@@ -122,8 +123,30 @@ const _URL = (props: InputProps) => {
   );
 };
 
+const _JSON = (props) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const prefixCls = usePrefixCls('json', props);
+  return (
+    <pre
+      className={cls(
+        prefixCls,
+        props.className,
+        css`
+          margin-bottom: 0;
+          line-height: 1.5;
+          font-size: 90%;
+        `,
+      )}
+      style={props.style}
+    >
+      {props.value != null ? JSON.stringify(props.value, null, props.space ?? 2) : ''}
+    </pre>
+  );
+};
+
 ReadPretty.Input = _Input;
 ReadPretty.TextArea = _TextArea;
 ReadPretty.URL = _URL;
 ReadPretty.Html = _Html;
 ReadPretty.TextArea = _TextArea;
+ReadPretty.JSON = _JSON;

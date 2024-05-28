@@ -1,8 +1,9 @@
-import { ArrayField } from '@tachybase/schema';
-import { connect, useField } from '@tachybase/schema';
-import { Checkbox, Select, Table, Tag } from 'antd';
 import React from 'react';
+import { ArrayField, connect, useField } from '@tachybase/schema';
+
+import { Checkbox, Select, Table, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { useCompile } from '../..';
 import { useAvailableActions } from './RoleTable';
 
@@ -42,7 +43,7 @@ export const StrategyActions = connect((props) => {
   const scopes = toScopes(field.value);
   return (
     <div>
-      <Table
+      <Table<any>
         size={'small'}
         pagination={false}
         columns={[

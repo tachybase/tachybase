@@ -1,5 +1,6 @@
-import { get, set } from 'lodash';
 import React, { ComponentType } from 'react';
+
+import { get, set } from 'lodash';
 import {
   BrowserRouter,
   BrowserRouterProps,
@@ -10,6 +11,7 @@ import {
   RouteObject,
   useRoutes,
 } from 'react-router-dom';
+
 import { Application } from './Application';
 import { BlankComponent, RouterContextCleaner } from './components';
 
@@ -128,7 +130,12 @@ export class RouterManager {
       return element;
     };
 
-    const RenderRouter: React.FC<{ BaseLayout?: ComponentType }> = ({ BaseLayout = BlankComponent }) => {
+    const RenderRouter = ({
+      BaseLayout = BlankComponent,
+    }: {
+      BaseLayout?: ComponentType<any>;
+      children?: React.ReactNode;
+    }) => {
       return (
         <RouterContextCleaner>
           <ReactRouter {...opts}>
