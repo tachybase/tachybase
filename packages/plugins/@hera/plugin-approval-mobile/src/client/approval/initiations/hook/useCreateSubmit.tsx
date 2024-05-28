@@ -1,8 +1,10 @@
 import { joinCollectionName, useAPIClient, useBlockRequestContext, useCollection_deprecated } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
-import { APPROVAL_ACTION_STATUS } from '../../constants';
-import { useNavigate, useParams } from 'react-router-dom';
+
 import { Toast } from 'antd-mobile';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { APPROVAL_ACTION_STATUS } from '../../constants';
 
 export function useCreateSubmit() {
   const from = useForm();
@@ -28,7 +30,6 @@ export function useCreateSubmit() {
             workflowId: workflowId,
           },
         });
-        console.log('🚀 ~ res ~ res:', res);
         if (res.status === 200) {
           Toast.show({
             icon: 'success',

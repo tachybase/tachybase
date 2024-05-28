@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   RemoteSchemaComponent,
   SchemaComponent,
@@ -11,23 +11,27 @@ import {
 } from '@tachybase/client';
 import { DetailsBlockProvider, FlowContext } from '@tachybase/plugin-workflow/client';
 import { useFieldSchema, useForm } from '@tachybase/schema';
+
 import { Result, Spin } from 'antd';
-import { useContext } from 'react';
-import { ContextWithActionEnabled } from '../../context/WithActionEnabled';
-import { SchemaComponentContextProvider } from '../../context/SchemaComponent';
 import { NavBar, Skeleton, TabBar } from 'antd-mobile';
+import { FileOutline, UserContactOutline } from 'antd-mobile-icons';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { ContextApprovalExecution } from '../../context/ApprovalExecution';
 import { FormBlockProvider } from '../../context/FormBlock';
+import { SchemaComponentContextProvider } from '../../context/SchemaComponent';
+import { ContextWithActionEnabled } from '../../context/WithActionEnabled';
+import { useTranslation } from '../../locale';
+import { useFormBlockProps } from '../hook/useFormBlockProps';
+import { useUpdateSubmit } from '../hook/useUpadteSubmit';
+import { useWithdrawAction } from '../hook/useWithdrawAction';
 import { ActionBarProvider } from '../provider/ActionBar';
 import { ApplyActionStatusProvider } from '../provider/ApplyActionStatus';
 import { WithdrawActionProvider } from '../provider/WithdrawAction';
-import { ContextApprovalExecution } from '../../context/ApprovalExecution';
-import { useUpdateSubmit } from '../hook/useUpadteSubmit';
-import { useFormBlockProps } from '../hook/useFormBlockProps';
-import { useWithdrawAction } from '../hook/useWithdrawAction';
-import { FileOutline, UserContactOutline } from 'antd-mobile-icons';
-import { useTranslation } from '../../locale';
+
 import '../../style/style.css';
+
+import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 
 export const ViewActionUserInitiationsContent = () => {
   const params = useParams();
@@ -118,18 +122,25 @@ export const ViewActionUserInitiationsContent = () => {
 const UserInitiationsComponent = (applyDetail, t, currContext) => {
   const formContextSchema = {
     type: 'void',
-    'x-component': 'MPage',
-    'x-designer': 'MPage.Designer',
-    'x-component-props': {},
+    'x-component': 'MobileProvider',
     properties: {
-      Approval: {
+      page: {
         type: 'void',
-        'x-decorator': 'SchemaComponentContextProvider',
-        'x-decorator-props': { designable: false },
-        'x-component': 'RemoteSchemaComponent',
-        'x-component-props': {
-          uid: applyDetail,
-          noForm: true,
+        'x-component': 'MPage',
+        'x-designer': 'MPage.Designer',
+        'x-decorator': 'MobileProvider',
+        'x-component-props': {},
+        properties: {
+          Approval: {
+            type: 'void',
+            'x-decorator': 'SchemaComponentContextProvider',
+            'x-decorator-props': { designable: false },
+            'x-component': 'RemoteSchemaComponent',
+            'x-component-props': {
+              uid: applyDetail,
+              noForm: true,
+            },
+          },
         },
       },
     },
@@ -137,14 +148,20 @@ const UserInitiationsComponent = (applyDetail, t, currContext) => {
 
   const approvalSchema = {
     type: 'void',
-    'x-component': 'MPage',
-    'x-designer': 'MPage.Designer',
-    'x-component-props': {},
+    'x-component': 'MobileProvider',
     properties: {
-      process: {
+      page: {
         type: 'void',
-        'x-decorator': 'CardItem',
-        'x-component': 'ApprovalCommon.ViewComponent.MApprovalProcess',
+        'x-component': 'MPage',
+        'x-designer': 'MPage.Designer',
+        'x-component-props': {},
+        properties: {
+          process: {
+            type: 'void',
+            'x-decorator': 'CardItem',
+            'x-component': 'ApprovalCommon.ViewComponent.MApprovalProcess',
+          },
+        },
       },
     },
   };
@@ -160,6 +177,7 @@ const UserInitiationsComponent = (applyDetail, t, currContext) => {
         ApplyActionStatusProvider,
         WithdrawActionProvider,
         DetailsBlockProvider,
+        MobileProvider,
       }}
       scope={{
         useForm,

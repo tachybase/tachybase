@@ -1,7 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import { useAPIClient } from '@tachybase/client';
 import { connect, mapProps, mapReadPretty, useForm } from '@tachybase/schema';
-import { ImageUploadItem, ImageUploader } from 'antd-mobile';
-import React, { useEffect, useState } from 'react';
+
+import { ImageUploader, ImageUploadItem } from 'antd-mobile';
 
 export const MImageUploader = connect(
   (props) => {
@@ -51,6 +52,18 @@ export const MImageUploader = connect(
   },
   mapProps((props) => {
     return { ...props };
+  }),
+  mapReadPretty((props) => {
+    return (
+      <ImageUploader
+        {...props}
+        disableUpload
+        showUpload={false}
+        upload={async () => {
+          return { url: '' };
+        }}
+      />
+    );
   }),
 );
 export default MImageUploader;

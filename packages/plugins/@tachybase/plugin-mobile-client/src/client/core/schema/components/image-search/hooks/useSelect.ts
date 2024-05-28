@@ -1,7 +1,8 @@
+import { useMemo } from 'react';
 import { findFilterTargets, mergeFilter, useCollection, useFilterBlock } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
+
 import _ from 'lodash';
-import { useMemo } from 'react';
 
 export const useGetSelected = () => {
   const fieldSchema = useFieldSchema();
@@ -64,10 +65,4 @@ export const useGetSelected = () => {
   return {
     onSelected,
   };
-};
-
-export const useIsMobile = () => {
-  const fieldSchema = useFieldSchema();
-  const isMobile = Object.values(fieldSchema.root.properties).some((value) => value['x-component'] === 'MContainer');
-  return isMobile;
 };
