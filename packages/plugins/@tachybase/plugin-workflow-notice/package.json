@@ -1,0 +1,34 @@
+{
+  "name": "@tachybase/plugin-workflow-notice",
+  "displayName": "Workflow: Notice",
+  "version": "0.21.32",
+  "description": "A powerful BPM tool that provides foundational support for business automation, with the capability to extend unlimited triggers and nodes.",
+  "keywords": [
+    "Workflow",
+    "Notice"
+  ],
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "5.x",
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/data-source-manager": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/plugin-ui-schema-storage": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "@tachybase/utils": "workspace:*",
+    "antd": "5.16.1",
+    "lodash": "^4.17.21",
+    "react": "18.x",
+    "react-i18next": "^11.15.1",
+    "sequelize": "^6.26.0"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/plugin-workflow": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "工作流节点, 通知。",
+  "displayName.zh-CN": "工作流: 通知"
+}

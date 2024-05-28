@@ -1,0 +1,17 @@
+{
+  "Notice": "通知",
+  "In the workflow, notification messages can be viewed by the notified person in the notification center.":"在工作流程中通知消息, 被通知人可以在通知中心查看到消息.",
+  "The Notified Person": "被通知人",
+  "Add Notified Person": "添加被通知人",
+  "Select Notified Person": "选择被通知人",
+  "Query Notified Person": "查询被通知人",
+  "Show Notice Detail":"显示通知详情",
+  "Go to configure": "进行配置",
+  "The interface of show notice detail": "显示通知详情界面",
+  "Notice blocks": "通知区块",
+  "Notice Center": "工作流:通知中心",
+  "Summary": "摘要",
+  "Task node": "任务节点",
+  "ID": "编号",
+  "Content Detail": "内容详情"
+}
