@@ -1,3 +1,4 @@
+import React, { useContext, useEffect, useState } from 'react';
 import {
   RemoteSchemaComponent,
   SchemaComponent,
@@ -7,25 +8,29 @@ import {
   useRecord,
   useRequest,
 } from '@tachybase/client';
-import { Result } from 'antd';
-import _ from 'lodash';
-import React, { useContext, useEffect, useState } from 'react';
-import { useTranslation } from '../../locale';
 import { DetailsBlockProvider } from '@tachybase/plugin-workflow/client';
-import { ContextWithActionEnabled } from '../../context/WithActionEnabled';
-import { ContextApprovalExecution } from '../../context/ApprovalExecution';
+
+import { Result } from 'antd';
 import { NavBar, Skeleton, TabBar } from 'antd-mobile';
+import { CouponOutline, FileOutline, ScanCodeOutline, UserContactOutline } from 'antd-mobile-icons';
+import _ from 'lodash';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { ContextApprovalExecution } from '../../context/ApprovalExecution';
+import { FormBlockProvider } from '../../context/FormBlock';
 import { SchemaComponentContextProvider } from '../../context/SchemaComponent';
-import { ApprovalActionProvider } from '../provider/ApprovalAction';
-import { ApprovalFormBlockDecorator } from '../provider/ApprovalFormBlock';
+import { ContextWithActionEnabled } from '../../context/WithActionEnabled';
+import { useTranslation } from '../../locale';
 import { useApprovalDetailBlockProps } from '../hook/useApprovalDetailBlockProps';
 import { useApprovalFormBlockProps } from '../hook/useApprovalFormBlockProps';
 import { useSubmit } from '../hook/useSubmit';
-import { CouponOutline, FileOutline, ScanCodeOutline, UserContactOutline } from 'antd-mobile-icons';
 import { ActionBarProvider } from '../provider/ActionBarProvider';
-import { FormBlockProvider } from '../../context/FormBlock';
+import { ApprovalActionProvider } from '../provider/ApprovalAction';
+import { ApprovalFormBlockDecorator } from '../provider/ApprovalFormBlock';
+
 import '../../style/style.css';
+
+import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 
 // 审批-待办-查看: 内容
 export const ViewActionTodosContent = () => {
@@ -130,18 +135,25 @@ export const ViewActionTodosContent = () => {
 const todosComponent = (applyDetail, t, currContext) => {
   const formContextSchema = {
     type: 'void',
-    'x-component': 'MPage',
-    'x-designer': 'MPage.Designer',
-    'x-component-props': {},
+    'x-component': 'MobileProvider',
     properties: {
-      Approval: {
+      page: {
         type: 'void',
-        'x-decorator': 'SchemaComponentContextProvider',
-        'x-decorator-props': { designable: false },
-        'x-component': 'RemoteSchemaComponent',
-        'x-component-props': {
-          uid: applyDetail,
-          noForm: true,
+        'x-component': 'MPage',
+        'x-designer': 'MPage.Designer',
+        'x-decorator': 'MobileProvider',
+        'x-component-props': {},
+        properties: {
+          Approval: {
+            type: 'void',
+            'x-decorator': 'SchemaComponentContextProvider',
+            'x-decorator-props': { designable: false },
+            'x-component': 'RemoteSchemaComponent',
+            'x-component-props': {
+              uid: applyDetail,
+              noForm: true,
+            },
+          },
         },
       },
     },
@@ -149,14 +161,20 @@ const todosComponent = (applyDetail, t, currContext) => {
 
   const approvalSchema = {
     type: 'void',
-    'x-component': 'MPage',
-    'x-designer': 'MPage.Designer',
-    'x-component-props': {},
+    'x-component': 'MobileProvider',
     properties: {
-      process: {
+      page: {
         type: 'void',
-        'x-decorator': 'CardItem',
-        'x-component': 'ApprovalCommon.ViewComponent.MApprovalProcess',
+        'x-component': 'MPage',
+        'x-designer': 'MPage.Designer',
+        'x-component-props': {},
+        properties: {
+          process: {
+            type: 'void',
+            'x-decorator': 'CardItem',
+            'x-component': 'ApprovalCommon.ViewComponent.MApprovalProcess',
+          },
+        },
       },
     },
   };
@@ -173,6 +191,7 @@ const todosComponent = (applyDetail, t, currContext) => {
         ApprovalFormBlockProvider: ApprovalFormBlockDecorator,
         DetailsBlockProvider,
         TabBar,
+        MobileProvider,
       }}
       scope={{
         useApprovalDetailBlockProps,

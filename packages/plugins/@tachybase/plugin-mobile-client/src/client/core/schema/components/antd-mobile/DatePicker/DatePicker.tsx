@@ -1,7 +1,8 @@
-import { dayjs } from '@tachybase/utils/client';
-import { connect, mapProps } from '@tachybase/schema';
-import { Button, DatePicker, Input, Space } from 'antd-mobile';
 import React, { useState } from 'react';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+import { dayjs } from '@tachybase/utils/client';
+
+import { Button, DatePicker, Input, Space } from 'antd-mobile';
 
 export const MDatePicker = connect(
   (props) => {
@@ -32,6 +33,11 @@ export const MDatePicker = connect(
   },
   mapProps((props) => {
     return { ...props };
+  }),
+  mapReadPretty((props) => {
+    const changeProps = { ...props };
+    changeProps.value = dayjs(props.value).format(props.dateFormat);
+    return <Input {...changeProps} readOnly />;
   }),
 );
 export default MDatePicker;

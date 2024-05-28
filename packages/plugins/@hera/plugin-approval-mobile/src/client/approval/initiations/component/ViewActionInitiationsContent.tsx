@@ -1,17 +1,22 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   CollectionProvider_deprecated,
+  parseCollectionName,
   RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentContext,
-  parseCollectionName,
   useAPIClient,
 } from '@tachybase/client';
-import { useContext } from 'react';
+
 import { NavBar } from 'antd-mobile';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { useTranslation } from '../../locale';
+
 import '../../style/style.css';
+
+import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
+
 import { APPROVAL_ACTION_STATUS } from '../../constants';
 import { useCreateSubmit } from '../hook/useCreateSubmit';
 
@@ -41,21 +46,28 @@ export const ViewActionInitiationsContent = () => {
         const [dataSource, name] = parseCollectionName(formConfig.config.collection);
         const resSchema = {
           type: 'void',
-          'x-component': 'MPage',
-          'x-designer': 'MPage.Designer',
-          'x-component-props': {},
+          'x-component': 'MobileProvider',
           properties: {
-            Approval: {
+            page: {
               type: 'void',
-              'x-decorator': 'CollectionProvider_deprecated',
-              'x-decorator-props': {
-                name,
-                dataSource,
-              },
-              'x-component': 'RemoteSchemaComponent',
-              'x-component-props': {
-                uid: formConfig.config.applyForm,
-                noForm: true,
+              'x-component': 'MPage',
+              'x-designer': 'MPage.Designer',
+              'x-decorator': 'MobileProvider',
+              'x-component-props': {},
+              properties: {
+                Approval: {
+                  type: 'void',
+                  'x-decorator': 'CollectionProvider_deprecated',
+                  'x-decorator-props': {
+                    name,
+                    dataSource,
+                  },
+                  'x-component': 'RemoteSchemaComponent',
+                  'x-component-props': {
+                    uid: formConfig.config.applyForm,
+                    noForm: true,
+                  },
+                },
               },
             },
           },
@@ -86,6 +98,7 @@ export const ViewActionInitiationsContent = () => {
               ApplyActionStatusProvider: ContextInitiationsApprovalStatusProvider,
               ActionBarProvider,
               WithdrawActionProvider: WithdrawActionProvider,
+              MobileProvider,
             }}
             scope={{
               useSubmit: useCreateSubmit,
