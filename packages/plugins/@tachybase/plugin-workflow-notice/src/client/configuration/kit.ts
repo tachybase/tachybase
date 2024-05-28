@@ -1,9 +1,10 @@
 import { Plugin } from '@tachybase/client';
-import PluginWorkflow from '@tachybase/plugin-workflow/client';
-import { NoticeInstruction } from './Notice.instruction';
-import { NOTICE_INSTRUCTION_NAMESPACE } from '../../common/constants';
-import { SCNoticeDetail } from './show-interface/NoticeDetail.schema';
 import { ArrayItems } from '@tachybase/components';
+import PluginWorkflow from '@tachybase/plugin-workflow/client';
+
+import { NOTICE_INSTRUCTION_NAMESPACE } from '../../common/constants';
+import { NoticeInstruction } from './Notice.instruction';
+import { SCNoticeDetail } from './show-interface/NoticeDetail.schema';
 
 // NOTE: 试着用一种新的约束规则去声明文件属于哪种功能. 比如 kit.ts 导出的是单个 Plugin 下的功能集成
 // 注册一个节点

@@ -1,4 +1,4 @@
-import { observer, useField, Field } from '@tachybase/schema';
+import { Field, observer, useField } from '@tachybase/schema';
 
 export const ColumnUser = observer(
   () => {

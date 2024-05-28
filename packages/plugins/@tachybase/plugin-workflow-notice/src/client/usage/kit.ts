@@ -1,4 +1,5 @@
 import { Plugin } from '@tachybase/client';
+
 import { tval } from '../locale';
 import { NoticeBlockInitializer, SCApprovalBlock } from './NoticeBlock.initializer';
 

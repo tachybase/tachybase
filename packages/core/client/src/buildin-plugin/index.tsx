@@ -248,7 +248,7 @@ const AppMaintainingDialog = observer(
   { displayName: 'AppMaintainingDialog' },
 );
 
-const AppNotFound = () => {
+export const AppNotFound = () => {
   const navigate = useNavigate();
   return (
     <Result

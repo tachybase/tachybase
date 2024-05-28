@@ -1,11 +1,11 @@
+import path from 'path';
 import WorkflowPlugin from '@tachybase/plugin-workflow';
 import { Plugin } from '@tachybase/server';
-import path from 'path';
-import { NOTICE_INSTRUCTION_NAMESPACE } from '../common/constants';
-import NoticeInstruction from './NoticeInstruction';
+
+import { COLLECTION_NOTICE_NAME, NOTICE_INSTRUCTION_NAMESPACE } from '../common/constants';
 import { init } from './actions';
 import { COLLECTION_WORKFLOWS_NAME } from './collections/workflowNotice';
-import { COLLECTION_NOTICE_NAME } from '../common/constants';
+import NoticeInstruction from './NoticeInstruction';
 
 export class PluginWorkflowNoticeServer extends Plugin {
   workflow;

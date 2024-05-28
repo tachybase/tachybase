@@ -1,16 +1,22 @@
-import { BlockItem, ExtendCollectionsProvider, SchemaComponent, useDesignable } from '@tachybase/client';
-import { SearchBar, Space, Tabs } from 'antd-mobile';
 import React, { createContext, useEffect, useState } from 'react';
+import { BlockItem, css, ExtendCollectionsProvider, SchemaComponent, useDesignable } from '@tachybase/client';
 import { observer, useFieldSchema } from '@tachybase/schema';
+
+import { SearchBar, Space, Tabs } from 'antd-mobile';
+
 import '../style/style.css';
-import { CollectionWorkflows } from '../collection/Workflows.collection';
-import { CollectionFlowNodes } from '../collection/FlowNodes.collection';
+
 import { CollectionApprovals } from '../collection/Approvals.collection';
 import { CollectionApprovalTodos } from '../collection/ApprovalTodos';
+import { CollectionFlowNodes } from '../collection/FlowNodes.collection';
+import { CollectionWorkflows } from '../collection/Workflows.collection';
+import { useTranslation } from '../locale';
 import { InitiationsItem } from './component/InitiationsItem';
 import { UserInitiationsItem } from './component/UserInitiationsItem';
-import { useTranslation } from '../locale';
+
 import '../style/style.css';
+
+import { createGlobalStyle } from '@tachybase/client';
 
 export const InitiationsBlockContext = createContext({});
 
@@ -45,7 +51,14 @@ export const InitiationsBlock = observer((props) => {
             }}
           />
           <Tabs
-            style={{ '--title-font-size': '12px', backgroundColor: '#f3f3f3' }}
+            className={css`
+              .adm-tabs-tab {
+                font-size: 12px;
+              }
+              .adm-tabs-content {
+                padding: 0;
+              }
+            `}
             onChange={(key) => {
               const filter = { ...contextFilter };
               filter['key'] = key;
