@@ -1,7 +1,8 @@
 import { SchemaInitializer, useCollection, useCollectionManager } from '@tachybase/client';
+
+import { useIsMobile } from '../../hooks';
 import { canBeOptionalField, canBeRelatedField } from '../tab-search/utils';
 import { createSchemaImageSearchItem } from './search-item/ImageSearchItem.schema';
-import { useIsMobile } from '../../hooks';
 
 export const ImageSearchConfigureFields = new SchemaInitializer({
   name: 'ImageSearchView:configureFields',

@@ -1,13 +1,15 @@
+import { useContext } from 'react';
 import {
+  DataBlockInitializer,
+  useCollectionManager_deprecated,
   useSchemaInitializer,
   useSchemaInitializerItem,
-  useCollectionManager_deprecated,
-  DataBlockInitializer,
 } from '@tachybase/client';
-import { useContext } from 'react';
-import jsxRuntime from 'react/jsx-runtime';
-import { CommentOutlined } from '@ant-design/icons';
 import { SchemaOptionsContext } from '@tachybase/schema';
+
+import { CommentOutlined } from '@ant-design/icons';
+import jsxRuntime from 'react/jsx-runtime';
+
 import { createCommentUISchema } from './createCommentUISchema';
 
 export const CommentBlockInitializer = ({

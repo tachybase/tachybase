@@ -1,6 +1,7 @@
 import { Plugin, tval } from '@tachybase/client';
-import { HomePageConfiguration } from './HomePageConfiguration';
+
 import { HomePage } from './Home';
+import { HomePageConfiguration } from './HomePageConfiguration';
 
 export class PluginHomePageClient extends Plugin {
   async load() {

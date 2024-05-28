@@ -1,8 +1,10 @@
-import { useBlockRequestContext, withDynamicSchemaProps } from '@tachybase/client';
 import { useCallback, useState } from 'react';
-import jsxRuntime from 'react/jsx-runtime';
+import { useBlockRequestContext, withDynamicSchemaProps } from '@tachybase/client';
 import { RecursionField, Schema, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
 import { List, Spin } from 'antd';
+import jsxRuntime from 'react/jsx-runtime';
+
 import { styles } from './styles';
 
 export const CommentList = withDynamicSchemaProps((props) => {

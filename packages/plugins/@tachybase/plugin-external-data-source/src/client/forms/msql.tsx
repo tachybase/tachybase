@@ -1,5 +1,6 @@
 import React from 'react';
 import { SchemaComponent } from '@tachybase/client';
+
 import { tval, usePluginTranslation } from '../locale';
 
 export const MysqlDataSourceSettingsForm = () => {

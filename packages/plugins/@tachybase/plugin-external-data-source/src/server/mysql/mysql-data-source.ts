@@ -1,7 +1,8 @@
 import { DataSource } from '@tachybase/data-source-manager';
 import { Database } from '@tachybase/database';
-import { MySQLCollectionManager } from './mysql-collection-manager';
+
 import { DatabaseIntrospector } from './database-introspector';
+import { MySQLCollectionManager } from './mysql-collection-manager';
 import typeInterfaceMap from './type-interface-map';
 
 export class MySQLDataSource extends DataSource {

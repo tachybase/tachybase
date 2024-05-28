@@ -1,13 +1,15 @@
+import { useCallback, useEffect, useState } from 'react';
 import {
-  withDynamicSchemaProps,
-  List,
   CollectionManagerProvider,
   CollectionProvider,
+  List,
   useDesignable,
+  withDynamicSchemaProps,
 } from '@tachybase/client';
-import jsxRuntime from 'react/jsx-runtime';
 import { useField, useFieldSchema } from '@tachybase/schema';
-import { useCallback, useEffect, useState } from 'react';
+
+import jsxRuntime from 'react/jsx-runtime';
+
 import { CommentContext } from './CommentContext';
 
 export const CommentDecorator = withDynamicSchemaProps((props) => {

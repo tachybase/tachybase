@@ -1,6 +1,8 @@
-import { DataBlockProvider, useCollectionManager } from '@tachybase/client';
 import React from 'react';
+import { DataBlockProvider, useCollectionManager } from '@tachybase/client';
+
 import { useParams } from 'react-router-dom';
+
 // import { ProductDetail } from './ProductDetail';
 
 // THINK: provider 主要作用是定位于, 连接数据库, 不做其他的逻辑

@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, createContext, useContext, useMemo } from 'react';
+import React, { createContext, FC, ReactNode, useContext, useMemo } from 'react';
 
 import { ACLCollectionProvider } from '../../acl/ACLProvider';
 import { UseRequestOptions, UseRequestService } from '../../api-client';
@@ -6,9 +6,9 @@ import { withDynamicSchemaProps } from '../../application/hoc';
 import { Designable, useDesignable } from '../../schema-component';
 import { AssociationProvider, CollectionManagerProvider, CollectionOptions, CollectionProvider } from '../collection';
 import { CollectionRecord } from '../collection-record';
+import { ConfigSettingProvider } from './context/ConfigSetting.provider';
 import { BlockRequestProvider } from './DataBlockRequestProvider';
 import { DataBlockResourceProvider } from './DataBlockResourceProvider';
-import { ConfigSettingProvider } from './context/ConfigSetting.provider';
 
 export interface AllDataBlockProps {
   collection: string | CollectionOptions;

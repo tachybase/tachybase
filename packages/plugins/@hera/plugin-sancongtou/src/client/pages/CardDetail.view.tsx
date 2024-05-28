@@ -1,7 +1,9 @@
-import { withDynamicSchemaProps } from '@tachybase/client';
-import { Image, NavBar, Skeleton } from 'antd-mobile';
 import React from 'react';
+import { withDynamicSchemaProps } from '@tachybase/client';
+
+import { Image, NavBar, Skeleton } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
+
 import './style.less';
 
 // TODO: 需要提升图片加载速度, 现在是数据库请求然后用 url 去云端拿图片，导致体验有延迟

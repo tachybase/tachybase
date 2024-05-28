@@ -1,6 +1,8 @@
 import React from 'react';
-import { Carousel, Image } from 'antd';
 import { useAppSpin, useRequest } from '@tachybase/client';
+
+import { Carousel, Image } from 'antd';
+
 import { useStyles } from './style';
 
 export const HomePage: React.FC<{}> = () => {

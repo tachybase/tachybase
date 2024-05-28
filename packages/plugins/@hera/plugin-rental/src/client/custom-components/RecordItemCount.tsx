@@ -1,9 +1,11 @@
 import React from 'react';
-import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { observer, useField, useForm } from '@tachybase/schema';
-import _ from 'lodash';
-import { formatQuantity } from '../../utils/currencyUtils';
+
+import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
 import { Spin } from 'antd';
+import _ from 'lodash';
+
+import { formatQuantity } from '../../utils/currencyUtils';
 import { useCachedRequest } from '../hooks';
 
 export const RecordItemCount = observer((props) => {

@@ -1,19 +1,20 @@
-import { ActionBar, Plugin, useCollection, canMakeAssociationBlock, useCollectionManager } from '@tachybase/client';
 import { useMemo } from 'react';
-import { tval } from './locale';
-import { CommentList } from './CommentList';
-import { CommentItem } from './CommentItem';
-import { CommentCollectionTemplate } from './CommentCollectionTemplate';
-import { CommentBlockSchemaSettings } from './CommentBlockSchemaSettings';
+import { ActionBar, canMakeAssociationBlock, Plugin, useCollection, useCollectionManager } from '@tachybase/client';
+
 import { CommentBlockActionInitializer } from './CommentBlockActionInitializer';
-import { QuoteReplyCommentActionInitializer } from './QuoteReplyCommentActionInitializer';
-import { CommentSubmit } from './CommentSubmit';
+import { CommentBlockInitializer } from './CommentBlockInitializer';
+import { CommentBlockSchemaSettings } from './CommentBlockSchemaSettings';
+import { CommentCollectionTemplate } from './CommentCollectionTemplate';
 import { CommentDecorator } from './CommentDecorator';
-import { useCommentBlockDecoratorProps } from './useCommentBlockDecoratorProps';
+import { CommentItem } from './CommentItem';
+import { CommentList } from './CommentList';
+import { CommentSubmit } from './CommentSubmit';
+import { tval } from './locale';
 import { QuoteReplyCommentActionButton } from './QuoteReplyCommentActionButton';
+import { QuoteReplyCommentActionInitializer } from './QuoteReplyCommentActionInitializer';
 import { UpdateCommentActionButton } from './UpdateCommentActionButton';
 import { UpdateCommentActionInitializer } from './UpdateCommentActionInitializer';
-import { CommentBlockInitializer } from './CommentBlockInitializer';
+import { useCommentBlockDecoratorProps } from './useCommentBlockDecoratorProps';
 
 const Comment = () => null;
 Comment.ActionBar = ActionBar;

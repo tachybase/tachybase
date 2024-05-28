@@ -1,8 +1,10 @@
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet, renderToStream } from '@hera/plugin-core';
+
+import { Document, Page, renderToStream, StyleSheet, Text, View } from '@hera/plugin-core';
+
+import { Waybill } from '../../interfaces/waybill';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 import { converDate } from '../../utils/daysUtils';
-import { Waybill } from '../../interfaces/waybill';
 
 const boldFont = {
   fontFamily: 'source-han-sans',

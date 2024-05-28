@@ -1,7 +1,9 @@
+import path from 'path';
 import { Database, IDatabaseOptions, Transactionable } from '@tachybase/database';
 import Application, { AppSupervisor, Gateway, Plugin } from '@tachybase/server';
+
 import lodash from 'lodash';
-import path from 'path';
+
 import { ApplicationModel } from '../server';
 
 export type AppDbCreator = (app: Application, options?: Transactionable & { context?: any }) => Promise<void>;

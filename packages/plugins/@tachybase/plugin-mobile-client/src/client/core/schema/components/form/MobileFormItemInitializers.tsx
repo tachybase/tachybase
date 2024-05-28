@@ -1,15 +1,16 @@
 import {
   AssociatedFields,
   CompatibleSchemaInitializer,
-  ParentCollectionFields,
-  SchemaInitializerItemType,
   formItemInitializers_deprecated,
   gridRowColWrap,
+  ParentCollectionFields,
+  SchemaInitializerItemType,
   useActionContext,
-  useCollectionManager_deprecated,
   useCollection_deprecated,
+  useCollectionManager_deprecated,
 } from '@tachybase/client';
 import { Schema, useForm } from '@tachybase/schema';
+
 import { useIsMobile } from '../../hooks';
 import { canMobileField } from './CustomComponent';
 

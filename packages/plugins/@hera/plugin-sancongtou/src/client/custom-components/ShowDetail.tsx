@@ -1,7 +1,10 @@
-import { CustomComponentType } from '@hera/plugin-core/client';
 import React from 'react';
+
+import { CustomComponentType } from '@hera/plugin-core/client';
 import { Link, useNavigate } from 'react-router-dom';
+
 import './style.less';
+
 import { getPathProductDetail } from '../utils/path';
 
 // @deprecated

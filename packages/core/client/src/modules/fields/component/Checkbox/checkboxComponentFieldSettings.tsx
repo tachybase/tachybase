@@ -1,8 +1,11 @@
 import { Field, useField, useFieldSchema } from '@tachybase/schema';
-import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
-import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import { useDesignable } from '../../../../schema-component';
+
 import { useTranslation } from 'react-i18next';
+
+import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
+import { useDesignable } from '../../../../schema-component';
+import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
+
 export const checkboxComponentFieldSettings = new SchemaSettings({
   name: 'fieldSettings:component:Checkbox',
   items: [

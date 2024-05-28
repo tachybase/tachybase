@@ -1,13 +1,14 @@
 import { Plugin } from '@tachybase/client';
+
 import { tval } from '../../locale';
+import { InternalPDFViewer } from './PDFViewer';
 import {
+  pdfViewActionInitializer,
   PDFViewerBlockInitializer,
   PDFViewerPrintActionInitializer,
   PDFViewerProvider,
-  pdfViewActionInitializer,
   usePDFViewerPrintActionProps,
 } from './PDFVIewerBlockInitializer';
-import { InternalPDFViewer } from './PDFViewer';
 
 export class PluginPDF extends Plugin {
   async load() {

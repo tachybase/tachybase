@@ -1,6 +1,8 @@
-import { SchemaComponent, useApp, useRecord } from '@tachybase/client';
-import { Card } from 'antd';
 import React from 'react';
+import { SchemaComponent, useApp, useRecord } from '@tachybase/client';
+
+import { Card } from 'antd';
+
 import { schema } from './settings/schemas/applications';
 import { usePluginUtils } from './utils';
 

@@ -1,5 +1,4 @@
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React from 'react';
 import {
   SchemaComponentOptions,
   tval,
@@ -9,7 +8,8 @@ import {
   useResourceActionContext,
   useResourceContext,
 } from '@tachybase/client';
-import React from 'react';
+import { ISchema, uid } from '@tachybase/schema';
+
 import { i18nText } from '../../utils';
 
 const collection = {

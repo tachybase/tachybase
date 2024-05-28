@@ -1,6 +1,7 @@
-import { useRequest } from '@tachybase/client';
-import { stringify } from 'flatted';
 import { useEffect } from 'react';
+import { useRequest } from '@tachybase/client';
+
+import { stringify } from 'flatted';
 
 export function useCachedRequest<P>(params: {}, options = {}) {
   const cacheKey = stringify(params);

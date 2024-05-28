@@ -1,4 +1,5 @@
 import { i18n } from '@tachybase/client';
+
 import { useTranslation } from 'react-i18next';
 
 export const NAMESPACE = '@hera/plugin-external-data-source';

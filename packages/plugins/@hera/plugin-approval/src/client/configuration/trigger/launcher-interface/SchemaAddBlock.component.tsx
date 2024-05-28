@@ -1,3 +1,4 @@
+import React, { useContext } from 'react';
 import {
   SchemaComponent,
   SchemaComponentContext,
@@ -8,8 +9,8 @@ import {
 } from '@tachybase/client';
 import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import { uid } from '@tachybase/utils/client';
+
 import { Spin } from 'antd';
-import React, { useContext } from 'react';
 
 //  发起人操作界面-创建区块
 export const SchemaAddBlock = ({ value, onChange }) => {

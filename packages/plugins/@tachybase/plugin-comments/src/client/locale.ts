@@ -1,4 +1,5 @@
 import { tval as cTval } from '@tachybase/client';
+
 import { useTranslation as useT } from 'react-i18next';
 
 export function tval(e) {

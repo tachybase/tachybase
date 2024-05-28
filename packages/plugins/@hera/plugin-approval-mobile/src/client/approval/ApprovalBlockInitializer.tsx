@@ -1,6 +1,7 @@
-import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
+import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
+
 import { CalendarOutline } from 'antd-mobile-icons';
 
 export const ApprovalBlockInitializer = () => {

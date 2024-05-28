@@ -1,9 +1,10 @@
-import { ConversionLogics, RecordCategory, RulesNumber, SourcesType, countCource } from '../../utils/constants';
-import { renderItV2 } from '../pdf-documents/records-documentV2';
-import { Db, Service } from '@tachybase/utils';
-import { RecordPdfOptions } from '../../interfaces/options';
-import { PrintSetup } from '../../utils/system';
 import Database from '@tachybase/database';
+import { Db, Service } from '@tachybase/utils';
+
+import { RecordPdfOptions } from '../../interfaces/options';
+import { ConversionLogics, countCource, RecordCategory, RulesNumber, SourcesType } from '../../utils/constants';
+import { PrintSetup } from '../../utils/system';
+import { renderItV2 } from '../pdf-documents/records-documentV2';
 
 @Service()
 export class RecordPdfService {

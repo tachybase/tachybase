@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useRef } from 'react';
-import { PrinterOutlined } from '@ant-design/icons';
 import {
   ActionInitializer,
   SchemaInitializer,
@@ -8,6 +7,9 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@tachybase/client';
+
+import { PrinterOutlined } from '@ant-design/icons';
+
 import { tval } from '../../locale';
 
 const PDFViewerContext = createContext(null);

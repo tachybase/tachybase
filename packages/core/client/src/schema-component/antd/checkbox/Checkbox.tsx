@@ -1,13 +1,14 @@
+import React from 'react';
+import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/schema';
+
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty, useField } from '@tachybase/schema';
-import { isValid } from '@tachybase/schema';
 import { Checkbox as AntdCheckbox, Radio, Tag } from 'antd';
 import type { CheckboxGroupProps, CheckboxProps } from 'antd/es/checkbox';
 import uniq from 'lodash/uniq';
-import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useCollectionField } from '../../../data-source/collection-field/CollectionFieldProvider';
 import { EllipsisWithTooltip } from '../input/EllipsisWithTooltip';
-import { useTranslation } from 'react-i18next';
 
 type ComposedCheckbox = React.ForwardRefExoticComponent<
   Pick<Partial<any>, string | number | symbol> & React.RefAttributes<unknown>

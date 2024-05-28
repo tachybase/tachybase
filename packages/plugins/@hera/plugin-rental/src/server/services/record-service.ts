@@ -1,5 +1,6 @@
 import Database, { CreateOptions, MagicAttributeModel, Transaction } from '@tachybase/database';
 import { Db, Service } from '@tachybase/utils';
+
 import { ConversionLogics, Movement, RecordCategory, RecordTypes, settlementStatus } from '../../utils/constants';
 import validateLicensePlate from '../../utils/validateLIcensePlate';
 

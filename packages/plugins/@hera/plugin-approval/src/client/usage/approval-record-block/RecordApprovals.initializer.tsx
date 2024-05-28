@@ -1,7 +1,8 @@
-import { AuditOutlined } from '@ant-design/icons';
+import React from 'react';
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import { uid } from '@tachybase/utils/client';
-import React from 'react';
+
+import { AuditOutlined } from '@ant-design/icons';
 
 // 初始化器,创建区块-相关审批
 export function RecordApprovalsInitializer() {

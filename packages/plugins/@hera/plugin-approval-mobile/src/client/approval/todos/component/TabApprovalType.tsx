@@ -1,8 +1,10 @@
+import React, { useState } from 'react';
 import { observer } from '@tachybase/schema';
+
 import { Picker, Space } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
-import React, { useState } from 'react';
-import { ProcessedStatus, approvalStatusOptions } from '../../constants';
+
+import { approvalStatusOptions, ProcessedStatus } from '../../constants';
 import { useTranslation } from '../../locale';
 
 export const TabApprovalType = observer((props) => {

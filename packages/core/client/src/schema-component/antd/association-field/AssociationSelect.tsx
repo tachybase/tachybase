@@ -1,15 +1,25 @@
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { onFieldInputValueChange } from '@tachybase/schema';
-import { RecursionField, connect, mapProps, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import { Space, message } from 'antd';
-import { isFunction } from 'mathjs';
 import React, { useEffect, useMemo, useState } from 'react';
+import {
+  connect,
+  mapProps,
+  observer,
+  onFieldInputValueChange,
+  RecursionField,
+  uid,
+  useField,
+  useFieldSchema,
+  useForm,
+} from '@tachybase/schema';
+
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { message, Space } from 'antd';
+import { isFunction } from 'mathjs';
 import { useTranslation } from 'react-i18next';
+
 import { RecordProvider, useAPIClient, useApp, useCollectionRecordData } from '../../../';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { getInnermostKeyAndValue } from '../../common/utils/uitls';
-import { RemoteSelectProps, RemoteSelect } from '../remote-select';
+import { RemoteSelect, RemoteSelectProps } from '../remote-select';
 import useServiceOptions, { useAssociationFieldContext } from './hooks';
 
 export type AssociationSelectProps<P = any> = RemoteSelectProps<P> & {

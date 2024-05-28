@@ -1,16 +1,16 @@
 import React from 'react';
 import {
-  SchemaInitializerItem,
   createFormBlockSchema,
+  SchemaInitializerItem,
   useCollection_deprecated,
   useRecordCollectionDataSourceItems,
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaTemplateManager,
 } from '@tachybase/client';
+
+import { APPROVAL_STATUS, flatSchemaArray } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
-import { flatSchemaArray } from '../../../constants';
-import { APPROVAL_STATUS } from '../../../constants';
 
 // 创建区块-Initializer的component
 export const LauncherAddBlockButtonComponent = () => {

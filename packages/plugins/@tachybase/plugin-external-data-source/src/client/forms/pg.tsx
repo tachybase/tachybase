@@ -1,6 +1,8 @@
 import React from 'react';
-import { Space } from 'antd';
 import { SchemaComponent } from '@tachybase/client';
+
+import { Space } from 'antd';
+
 import { tval, usePluginTranslation } from '../locale';
 
 export const PgDataSourceSettingsForm = () => {

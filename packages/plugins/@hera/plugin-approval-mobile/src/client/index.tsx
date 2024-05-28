@@ -1,4 +1,5 @@
 import { Plugin } from '@tachybase/client';
+
 import PluginApproval from './approval';
 
 export class PluginApprovalMobileClient extends Plugin {

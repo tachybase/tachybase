@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActionInitializer } from '@tachybase/client';
+
 import { useTranslation } from './locale';
 
 export function QuoteReplyCommentActionInitializer(props) {

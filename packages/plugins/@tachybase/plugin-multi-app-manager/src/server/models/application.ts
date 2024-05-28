@@ -1,7 +1,8 @@
 import { Model, Transactionable } from '@tachybase/database';
 import { Application } from '@tachybase/server';
-import { AppOptionsFactory } from '../server';
 import { merge } from '@tachybase/utils';
+
+import { AppOptionsFactory } from '../server';
 
 export interface registerAppOptions extends Transactionable {
   skipInstall?: boolean;

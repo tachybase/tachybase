@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActionInitializer, useAPIClient, useRequest, useCurrentUserContext } from '@tachybase/client';
-import { Button, Form, Input, Popover, Radio, Select, Space, Spin, message } from 'antd';
+import { ActionInitializer, useAPIClient, useCurrentUserContext, useRequest } from '@tachybase/client';
+
 import { DeleteOutlined, VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
-import { tval, useTranslation } from '../../locale';
+import { Button, Form, Input, message, Popover, Radio, Select, Space, Spin } from 'antd';
+
 import { PrintStyleContext } from '../../hooks/usePdfPath';
+import { tval, useTranslation } from '../../locale';
 
 type FieldType = {
   name: string;

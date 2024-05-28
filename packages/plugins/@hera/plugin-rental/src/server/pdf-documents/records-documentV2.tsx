@@ -1,9 +1,12 @@
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet, Image, renderToStream } from '@hera/plugin-core';
+import { dayjs } from '@tachybase/utils';
+
+import { Document, Image, Page, renderToStream, StyleSheet, Text, View } from '@hera/plugin-core';
 import * as QRCode from 'qrcode';
+
 import { RecordCategory } from '../../utils/constants';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
-import { dayjs } from '@tachybase/utils';
+
 /**
  *
  * @param isDouble 0为单列，1为双列

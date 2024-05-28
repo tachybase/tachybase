@@ -1,8 +1,11 @@
+import React from 'react';
+
 import { ShareAltOutlined } from '@ant-design/icons';
 import { CustomComponentType } from '@hera/plugin-core/client';
 import { Button, Image, Modal, Toast } from 'antd-mobile';
-import React from 'react';
+
 import downloadImage from '../assets/download.svg';
+
 import './style.less';
 
 export const ShareProduct = () => {

@@ -1,11 +1,12 @@
-import { onFieldValueChange, onFieldInit } from '@tachybase/schema';
-import { useField, useForm, useFormEffects } from '@tachybase/schema';
 import React, { useEffect, useState } from 'react';
-import { ConversionLogics } from '../../utils/constants';
 import { useRequest } from '@tachybase/client';
-import _ from 'lodash';
-import { formatCurrency } from '../../utils/currencyUtils';
+import { onFieldInit, onFieldValueChange, useField, useForm, useFormEffects } from '@tachybase/schema';
+
 import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
+import _ from 'lodash';
+
+import { ConversionLogics } from '../../utils/constants';
+import { formatCurrency } from '../../utils/currencyUtils';
 
 export const RecordTotalPrice: CustomFunctionComponent = () => {
   const form = useForm();

@@ -1,5 +1,6 @@
 import { Plugin } from '@tachybase/server';
 import { Container } from '@tachybase/utils';
+
 import { HomePageService } from './home-page-service';
 
 export class PluginHomePageServer extends Plugin {

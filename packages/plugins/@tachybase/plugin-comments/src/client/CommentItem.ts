@@ -1,15 +1,17 @@
-import {
-  useBlockRequestContext,
-  useCollectionParentRecordData,
-  useCollectionFields,
-  RecordProvider,
-} from '@tachybase/client';
 import react from 'react';
-import jsxRuntime from 'react/jsx-runtime';
-import dayjs from 'dayjs';
-import { useTranslation } from './locale';
-import { RecursionField, observer, useField } from '@tachybase/schema';
+import {
+  RecordProvider,
+  useBlockRequestContext,
+  useCollectionFields,
+  useCollectionParentRecordData,
+} from '@tachybase/client';
+import { observer, RecursionField, useField } from '@tachybase/schema';
+
 import { Button, Card, Tooltip } from 'antd';
+import dayjs from 'dayjs';
+import jsxRuntime from 'react/jsx-runtime';
+
+import { useTranslation } from './locale';
 import { styles } from './styles';
 
 export const CommentItem = observer((e) => {

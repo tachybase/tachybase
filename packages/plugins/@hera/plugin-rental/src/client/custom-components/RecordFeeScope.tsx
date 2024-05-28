@@ -1,10 +1,12 @@
-import _ from 'lodash';
-import { Spin } from 'antd';
 import React from 'react';
 import { observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
 import { CustomComponentType, CustomFC } from '@hera/plugin-core/client';
-import { useFeeItems } from '../hooks';
 import { useDeepCompareEffect } from 'ahooks';
+import { Spin } from 'antd';
+import _ from 'lodash';
+
+import { useFeeItems } from '../hooks';
 
 export const RecordFeeScope = observer(() => {
   const form = useForm();

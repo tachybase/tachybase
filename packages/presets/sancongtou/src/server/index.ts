@@ -1,4 +1,5 @@
 import PresetTachyBase from '@tachybase/preset-tachybase';
+
 import _ from 'lodash';
 
 export class PluginSancongtou extends PresetTachyBase {

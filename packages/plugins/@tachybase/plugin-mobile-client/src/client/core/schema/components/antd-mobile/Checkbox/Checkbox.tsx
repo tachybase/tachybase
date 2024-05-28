@@ -1,7 +1,9 @@
+import React, { useEffect } from 'react';
 import { useCollectionField } from '@tachybase/client';
 import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/schema';
+
 import { Checkbox, CheckboxGroupProps, CheckboxProps, Tag } from 'antd-mobile';
-import React, { useEffect } from 'react';
+
 type ComposedCheckBox = React.FC<CheckboxProps> & {
   Group?: any;
 };

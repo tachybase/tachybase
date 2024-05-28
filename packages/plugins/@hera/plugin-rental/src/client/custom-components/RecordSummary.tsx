@@ -1,12 +1,15 @@
-import { observer, useForm } from '@tachybase/schema';
-import { ConversionLogics, RecordCategory } from '../../utils/constants';
-import { Descriptions, Tabs } from 'antd';
-import { CustomComponentType, CustomFC, CustomFunctionComponent } from '@hera/plugin-core/client';
 import React from 'react';
+import { observer, useForm } from '@tachybase/schema';
+
+import { CustomComponentType, CustomFC, CustomFunctionComponent } from '@hera/plugin-core/client';
+import { Descriptions, Tabs } from 'antd';
 import _ from 'lodash';
+
+import { RecordItems } from '../../interfaces/records';
+import { ConversionLogics, RecordCategory } from '../../utils/constants';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 import { useCachedRequest, useLeaseItems, useProductFeeItems } from '../hooks';
-import { RecordItems } from '../../interfaces/records';
+
 const cache = [];
 export const RecordSummary = observer((): any => {
   cache.length = 0;

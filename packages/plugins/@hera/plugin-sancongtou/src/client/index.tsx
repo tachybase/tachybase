@@ -1,4 +1,5 @@
 import { Plugin } from '@tachybase/client';
+
 // import { ProductDetail } from './pages/ProductDetail.1';
 import { ShareProduct } from './custom-components/ShareProduct';
 import { ShowDetail } from './custom-components/ShowDetail';

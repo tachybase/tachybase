@@ -1,7 +1,8 @@
 import { Plugin } from '@tachybase/client';
-import { OutboundPage } from './OutboundPage';
-import { OutboundButton, OutboundLinkActionInitializer } from './OutboundLinkActionInitializer';
+
 import { lang } from '../../locale';
+import { OutboundButton, OutboundLinkActionInitializer } from './OutboundLinkActionInitializer';
+import { OutboundPage } from './OutboundPage';
 import { useOutboundActionProps } from './useOutboundActionProps';
 
 export class PluginOutbound extends Plugin {

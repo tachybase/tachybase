@@ -1,7 +1,9 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
-import { Select } from 'antd';
 import React from 'react';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
+import { Select } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { SchemaInitializerItem, SchemaInitializerSelect } from '../application';
 import { useDesignable } from '../schema-component';
 import { SchemaSettingsSelectItem } from '../schema-settings';

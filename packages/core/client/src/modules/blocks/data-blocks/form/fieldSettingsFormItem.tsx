@@ -1,21 +1,22 @@
+import { useContextConfigSetting } from '@tachybase/client';
 import { ArrayCollapse, FormLayout } from '@tachybase/components';
-import { Field } from '@tachybase/schema';
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { useApp, useSchemaToolbar } from '../../../../application';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
-import { useCollectionManager_deprecated, useCollection_deprecated } from '../../../../collection-manager';
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
 import { useDesignable, useValidateSchema } from '../../../../schema-component';
 import { useIsFormReadPretty } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { getTempFieldState } from '../../../../schema-component/antd/form-v2/utils';
 import { isPatternDisabled } from '../../../../schema-settings';
+import { useIsAllowToSetDefaultValue } from '../../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
 import { ActionType } from '../../../../schema-settings/LinkageRules/type';
 import { SchemaSettingsDefaultValue } from '../../../../schema-settings/SchemaSettingsDefaultValue';
-import { useIsAllowToSetDefaultValue } from '../../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
-import { useContextConfigSetting } from '@tachybase/client';
 
 export const fieldSettingsFormItem = new SchemaSettings({
   name: 'fieldSettings:FormItem',

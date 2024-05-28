@@ -1,5 +1,5 @@
-import { ActionInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
+import { ActionInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
 // 区块-配置操作
 export const LauncherActionConfigComponent = () => {
