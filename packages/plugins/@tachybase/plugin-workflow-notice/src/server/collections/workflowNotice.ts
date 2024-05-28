@@ -1,4 +1,5 @@
 import { defineCollection } from '@tachybase/database';
+
 import { COLLECTION_NOTICE_NAME } from '../../common/constants';
 
 export const COLLECTION_WORKFLOWS_NAME = 'workflows';

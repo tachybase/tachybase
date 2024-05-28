@@ -1,8 +1,9 @@
-import { createRouterManager, Plugin, RouterManager, RouteSchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { AppNotFound, createRouterManager, Plugin, RouterManager, RouteSchemaComponent } from '@tachybase/client';
+
 import { Navigate, Outlet } from 'react-router-dom';
-import { MobileClientProvider } from './MobileClientProvider';
-import MApplication from './router/Application';
+
+import { AppConfiguration, InterfaceConfiguration } from './configuration';
 import {
   ImageSearchConfigureFields,
   ImageSearchItemFieldSettings,
@@ -14,8 +15,10 @@ import {
   TabSearchFieldSchemaInitializer,
   TabSearchItemFieldSettings,
 } from './core/schema';
-import { AppConfiguration, InterfaceConfiguration } from './configuration';
 import { NAMESPACE } from './locale';
+import { MAppNotFound } from './MAppNotFound';
+import { MobileClientProvider } from './MobileClientProvider';
+import MApplication from './router/Application';
 
 export class MobileClientPlugin extends Plugin {
   public mobileRouter: RouterManager;
@@ -55,6 +58,10 @@ export class MobileClientPlugin extends Plugin {
 
   setMobileRouter() {
     const router = createRouterManager({ type: 'hash' }, this.app);
+    this.router.add('not-found', {
+      path: '*',
+      Component: MAppNotFound,
+    });
     router.add('root', {
       path: '/',
       element: <Navigate replace to="/mobile" />,

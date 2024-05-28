@@ -1,6 +1,7 @@
+import React from 'react';
 import { css } from '@tachybase/client';
 import { Field, observer, useField } from '@tachybase/schema';
-import React from 'react';
+
 import { useTranslation } from '../../locale';
 
 export const ColumnWorkflow = observer(

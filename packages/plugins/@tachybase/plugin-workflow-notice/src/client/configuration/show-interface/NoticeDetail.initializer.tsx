@@ -1,12 +1,14 @@
-import { SchemaInitializer, gridRowColWrap, usePlugin } from '@tachybase/client';
+import { gridRowColWrap, SchemaInitializer, usePlugin } from '@tachybase/client';
 import PluginWorkflow, {
   useAvailableUpstreams,
   useFlowContext,
   useNodeContext,
   useTrigger,
 } from '@tachybase/plugin-workflow/client';
+
 import { tval } from '../../locale';
 import { NoticeDetailAddBlock } from './NoticeDetail.block';
+
 // import { ApproverAddBlockComponent } from './VC.ApproverAddBlock';
 // import { ApproverAddBlockKit } from './VC.ApproverAddBlockKit';
 

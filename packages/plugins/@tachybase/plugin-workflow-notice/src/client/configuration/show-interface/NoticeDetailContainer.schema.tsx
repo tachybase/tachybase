@@ -1,10 +1,11 @@
+import React, { useContext, useMemo, useState } from 'react';
 import { SchemaComponent, SchemaComponentContext } from '@tachybase/client';
 import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import { uid } from '@tachybase/utils/client';
-import React, { useContext, useMemo, useState } from 'react';
+
 import { tval } from '../../locale';
-import { schemaStyle } from './style';
 import { NoticeDetail } from './NoticeDetail.schema';
+import { schemaStyle } from './style';
 
 export const NoticeDetailContainer = () => {
   const context = useContext(SchemaComponentContext);

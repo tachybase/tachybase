@@ -1,6 +1,7 @@
+import React, { useCallback } from 'react';
 import { Plugin, SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import { uid } from '@tachybase/utils/client';
-import React, { useCallback } from 'react';
+
 import { COLLECTION_NOTICE_NAME } from '../../common/constants';
 import { NoticeBlockProvider } from './NoticeBlock.provider';
 import { NoticeCenter } from './NoticeCenter.schema';

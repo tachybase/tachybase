@@ -1,7 +1,7 @@
-import { RemoteSelect, SchemaComponent, Variable, useCollectionFilterOptions, useToken } from '@tachybase/client';
+import React from 'react';
+import { RemoteSelect, SchemaComponent, useCollectionFilterOptions, useToken, Variable } from '@tachybase/client';
 import { FilterDynamicComponent, useWorkflowVariableOptions } from '@tachybase/plugin-workflow/client';
 import { useField } from '@tachybase/schema';
-import React from 'react';
 
 // TODO: 可以将这个选择组件封装为一个通用组件, 放在 workflow 下提供使用
 export const SelectNotifiedPerson = (props) => {
