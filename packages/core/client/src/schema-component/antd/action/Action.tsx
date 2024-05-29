@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next';
 
 import { StablePopover, useActionContext } from '../..';
 import { useDesignable } from '../../';
-import { useACLActionParamsContext } from '../../../acl';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { useACLActionParamsContext } from '../../../buildin-plugin/acl';
 import { Icon } from '../../../icon';
 import { RecordProvider, useRecord } from '../../../record-provider';
 import { useLocalVariables, useVariables } from '../../../variables';

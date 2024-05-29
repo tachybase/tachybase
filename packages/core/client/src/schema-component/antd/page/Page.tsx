@@ -1,17 +1,20 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { FormLayout } from '@tachybase/components';
 import { Schema, SchemaOptionsContext, useFieldSchema } from '@tachybase/schema';
+
+import { PlusOutlined } from '@ant-design/icons';
+import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { Button, Tabs } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
+
 import { FormDialog } from '..';
-import { useStyles as useAClStyles } from '../../../acl/style';
+import { useToken } from '../__builtins__';
 import { useAppSpin } from '../../../application/hooks/useAppSpin';
-import { useDocumentTitle } from '../../../document-title';
+import { useStyles as useAClStyles } from '../../../buildin-plugin/acl/style';
+import { useDocumentTitle } from '../../../buildin-plugin/document-title';
 import { FilterBlockProvider } from '../../../filter-provider/FilterProvider';
 import { useGlobalTheme } from '../../../global-theme';
 import { Icon } from '../../../icon';
@@ -20,7 +23,6 @@ import { DndContext } from '../../common';
 import { SortableItem } from '../../common/sortable-item';
 import { SchemaComponent, SchemaComponentOptions } from '../../core';
 import { useCompile, useDesignable } from '../../hooks';
-import { useToken } from '../__builtins__';
 import { ErrorFallback } from '../error-fallback';
 import FixedBlock from './FixedBlock';
 import { PageDesigner, PageTabDesigner } from './PageTabDesigner';

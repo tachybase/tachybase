@@ -1,6 +1,8 @@
+import React, { useCallback, useEffect } from 'react';
 import { observer } from '@tachybase/schema';
-import React, { FC, useCallback, useEffect } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
+
 import type { Application } from '../Application';
 import { ApplicationContext } from '../context';
 
@@ -8,8 +10,8 @@ export interface AppComponentProps {
   app: Application;
 }
 
-export const AppComponent: FC<AppComponentProps> = observer(
-  (props) => {
+export const AppComponent = observer(
+  (props: AppComponentProps) => {
     const { app } = props;
     const handleErrors = useCallback((error: Error, info: { componentStack: string }) => {
       console.error(error);

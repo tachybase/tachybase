@@ -1,8 +1,9 @@
-import { ISchema, useForm } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import { MenuProps } from 'antd';
 import React, { useContext, useMemo, useState } from 'react';
+import { ISchema, uid, useForm } from '@tachybase/schema';
+
+import { MenuProps } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { ActionContextProvider, DropdownVisibleContext, SchemaComponent, useActionContext } from '../';
 import { useAPIClient } from '../api-client';
 

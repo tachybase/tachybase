@@ -1,8 +1,10 @@
+import React from 'react';
+
 import { HighlightOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
-import React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useTranslation } from 'react-i18next';
+
 import { useDesignable } from '..';
 import { useToken } from '../../style';
 
@@ -22,10 +24,8 @@ export const DesignableSwitch = () => {
     <Tooltip title={t('UI Editor')}>
       <Button
         data-testid={'ui-editor-button'}
-        // selected={designable}
         icon={<HighlightOutlined style={{ color: token.colorTextHeaderMenu }} />}
         title={t('UI Editor')}
-        // subtitle={'Ctrl+Shift+U'}
         style={style}
         onClick={() => {
           setDesignable(!designable);

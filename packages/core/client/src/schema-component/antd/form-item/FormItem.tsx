@@ -5,9 +5,9 @@ import { Field, observer, useField, useFieldSchema } from '@tachybase/schema';
 import { createStyles } from 'antd-style';
 import cx from 'classnames';
 
-import { ACLCollectionFieldProvider } from '../../../acl/ACLProvider';
 import { useApp } from '../../../application';
 import { useFormActiveFields } from '../../../block-provider/hooks/useFormActiveFields';
+import { ACLCollectionFieldProvider } from '../../../buildin-plugin/acl';
 import { Collection_deprecated } from '../../../collection-manager';
 import { CollectionFieldProvider, useContextConfigSetting } from '../../../data-source';
 import { GeneralSchemaDesigner } from '../../../schema-settings';

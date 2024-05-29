@@ -1,8 +1,8 @@
-import { createForm } from '@tachybase/schema';
-import { FormProvider, Schema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import React, { useMemo, useState, PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useMemo, useState } from 'react';
+import { createForm, FormProvider, Schema, uid } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { SchemaComponentContext } from '../context';
 import { ISchemaComponentProvider } from '../types';
 import { SchemaComponentOptions } from './SchemaComponentOptions';

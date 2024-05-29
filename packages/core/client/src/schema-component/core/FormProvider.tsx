@@ -1,13 +1,14 @@
-import { createForm } from '@tachybase/schema';
+import React, { useContext, useMemo } from 'react';
 import {
+  createForm,
   FormProvider as FormilyFormProvider,
   SchemaExpressionScopeContext,
   SchemaOptionsContext,
 } from '@tachybase/schema';
-import React, { useContext, useMemo } from 'react';
+
 import { SchemaComponentOptions } from './SchemaComponentOptions';
 
-const WithForm = (props) => {
+const WithForm = (props: any) => {
   const { children, form, ...others } = props;
   const options = useContext(SchemaOptionsContext);
   const expressionScope = useContext(SchemaExpressionScopeContext);
@@ -22,7 +23,7 @@ const WithForm = (props) => {
   );
 };
 
-const WithoutForm = (props) => {
+const WithoutForm = (props: any) => {
   const { children, ...others } = props;
   const options = useContext(SchemaOptionsContext);
   const expressionScope = useContext(SchemaExpressionScopeContext);
@@ -38,6 +39,6 @@ const WithoutForm = (props) => {
   );
 };
 
-export const FormProvider: React.FC<any> = (props) => {
+export const FormProvider = (props: any) => {
   return props.form ? <WithForm {...props} /> : <WithoutForm {...props} />;
 };

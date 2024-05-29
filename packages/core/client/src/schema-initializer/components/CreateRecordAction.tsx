@@ -6,8 +6,7 @@ import { Button, Dropdown, MenuProps } from 'antd';
 import { createStyles } from 'antd-style';
 import { composeRef } from 'rc-util/lib/ref';
 
-import { useDesignable } from '../../';
-import { useACLRolesCheck, useRecordPkValue } from '../../acl/ACLProvider';
+import { useACLRolesCheck, useDesignable, useRecordPkValue } from '../../';
 import {
   CollectionProvider_deprecated,
   useCollection_deprecated,

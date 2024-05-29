@@ -1,6 +1,8 @@
-import { MenuProps } from 'antd';
 import React, { useMemo } from 'react';
+
+import { MenuProps } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient } from '../api-client';
 import { SelectWithTitle } from '../common';
 import { useCurrentRoles } from './CurrentUserProvider';

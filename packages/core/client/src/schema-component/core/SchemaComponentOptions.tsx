@@ -1,5 +1,6 @@
+import React, { memo, PropsWithChildren, useContext, useMemo } from 'react';
 import { ExpressionScope, SchemaComponentsContext, SchemaOptionsContext } from '@tachybase/schema';
-import React, { PropsWithChildren, memo, useContext, useMemo } from 'react';
+
 import { ISchemaComponentOptionsProps } from '../types';
 
 export const useSchemaOptionsContext = () => {

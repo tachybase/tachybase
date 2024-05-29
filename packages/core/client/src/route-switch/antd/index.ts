@@ -1,2 +1,2 @@
-export * from './admin-layout';
+export * from '../../buildin-plugin/admin-layout';
 export * from './route-schema-component';
