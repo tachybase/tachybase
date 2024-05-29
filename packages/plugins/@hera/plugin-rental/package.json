@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-rental",
   "displayName": "professional construction materials rental system - customized based on hera",
-  "version": "1.7.52",
+  "version": "1.7.53",
   "description": "Offering a standardized leasing management system, encompassing comprehensive administration from materials to contracts to labor personnel, while providing a robust financial management mechanism, and real-time monitoring of the operational capacity of the leasing system.",
   "keywords": [
     "System management"
