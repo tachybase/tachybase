@@ -4,15 +4,15 @@ import {
   GeneralField,
   IExchangeArrayStateProps,
   INodePatch,
-  ISpliceArrayStateProps,
-  LifeCycleTypes,
   isArrayField,
   isDataField,
+  ISpliceArrayStateProps,
   isVoidField,
+  LifeCycleTypes,
 } from '@formily/core';
 import { batch } from '@formily/reactive';
 import { unstable_useCompatEffect } from '@formily/reactive-react';
-import { FormPath, each, isNumberLike } from '@formily/shared';
+import { each, FormPath, isNumberLike } from '@formily/shared';
 
 export * from '@formily/core';
 export type { ArrayField, Field, FormPathPattern, GeneralField, ObjectField } from '@formily/core';
