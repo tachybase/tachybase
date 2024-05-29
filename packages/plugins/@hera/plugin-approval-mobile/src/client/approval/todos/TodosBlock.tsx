@@ -1,116 +1,106 @@
-import React, { useEffect, useState } from 'react';
-import { BlockItem, ExtendCollectionsProvider } from '@tachybase/client';
-import { observer } from '@tachybase/schema';
+import React, { useState } from 'react';
+import { BlockItem, ExtendCollectionsProvider, SchemaComponent } from '@tachybase/client';
+import { observer, useFieldSchema } from '@tachybase/schema';
 
-import { SearchBar, Space, Tabs } from 'antd-mobile';
-
-import { TabApplicantType } from './component/TabApplicantType';
-import { TabApprovalItem } from './component/TabApprovalItem';
-import { TabApprovalType } from './component/TabApprovalType';
+import { SearchBar, Tabs } from 'antd-mobile';
 
 import '../style/style.css';
 
 import { CollectionApprovals } from '../collection/Approvals.collection';
 import { CollectionApprovalTodos } from '../collection/ApprovalTodos';
 import { CollectionFlowNodes } from '../collection/FlowNodes.collection';
+import { nodeCollection, todoCollection, workflowCollection } from '../collection/UserJobs.collection';
 import { CollectionWorkflows } from '../collection/Workflows.collection';
-import { ApprovalReachDataType } from '../component/ApprovalReachDataType';
-import { ApprovalTemplateType } from '../component/ApprovalTemplateType';
-import { PendingStatus, ProcessedStatus } from '../constants';
+import { useTranslation } from '../locale';
+import { TabDuplicateItem } from './component/TabDuplicateItem';
+import { TabExecutedItem } from './component/TabExecutedItem';
+import { TabPendingItem } from './component/TabPendingItem';
+import { TabProcessedItem } from './component/TabProcessedItem';
+import { tabDuplicateSchema, tabExecutedSchema, tabPendingSchema, tabProcessedSchema } from './componentSchema';
+import { todosContext } from './provider/todosContext';
 
 export const TodosBlock = observer((props) => {
-  const [filter, setFilter] = useState({
-    status: PendingStatus,
-  });
   const [changeInputValue, setChangeInputValue] = useState('');
-  const [input, setInput] = useState('');
-  const changeFilter = (data) => {
-    setFilter(data);
-  };
-  const filterProps = {
-    ...props,
-    filter,
-    input,
-    changeFilter,
-  };
+  const fieldSchema = useFieldSchema();
+  const [contextFilter, setContextFilter] = useState({ key: 'pending', inputFilter: '' });
+  const { t } = useTranslation();
   return (
     <ExtendCollectionsProvider
-      collections={[CollectionWorkflows, CollectionFlowNodes, CollectionApprovals, CollectionApprovalTodos]}
+      collections={[
+        CollectionWorkflows,
+        CollectionFlowNodes,
+        CollectionApprovals,
+        CollectionApprovalTodos,
+        nodeCollection,
+        workflowCollection,
+        todoCollection,
+      ]}
     >
       <BlockItem>
-        <SearchBar
-          placeholder="搜索人名，标题、内容"
-          clearable
-          style={{ '--background': '#ffffff', padding: '10px' }}
-          onChange={(value) => {
-            if (!value) {
-              setInput(value);
-            }
-            setChangeInputValue(value);
-          }}
-          value={changeInputValue}
-          onSearch={(value) => {
-            setInput(value);
-          }}
-        />
-        <Tabs
-          onChange={(key) => {
-            const tabFilter = { status: PendingStatus };
-            switch (key) {
-              case 'pending':
-                tabFilter['status'] = PendingStatus;
-                break;
-              case 'processed':
-                tabFilter['status'] = ProcessedStatus;
-                break;
-              case 'duplicate':
-                delete tabFilter['status'];
-                break;
-            }
-            setChangeInputValue('');
-            setInput('');
-            setFilter(tabFilter);
-          }}
-          style={{ '--title-font-size': '12px', backgroundColor: '#ffffff', marginTop: '10px' }}
-        >
-          <Tabs.Tab title="待处理" key="pending">
-            <Space justify="evenly" className="todosSpacStyle">
-              {/* 模版类型 */}
-              <ApprovalTemplateType {...filterProps} />
-              {/* 申请人 */}
-              <TabApplicantType {...filterProps} />
-              {/* 到达日期 */}
-              <ApprovalReachDataType {...filterProps} />
-            </Space>
-            <TabApprovalItem {...filterProps} />
-          </Tabs.Tab>
-          <Tabs.Tab title="已处理" key="processed">
-            <Space justify="evenly" className="todosSpacStyle">
-              {/* 审批状态 */}
-              <TabApprovalType {...filterProps} />
-              {/* 模版类型 */}
-              <ApprovalTemplateType {...filterProps} />
-              {/* 申请人 */}
-              <TabApplicantType {...filterProps} />
-              {/* 到达日期 */}
-              <ApprovalReachDataType {...filterProps} />
-            </Space>
-            <TabApprovalItem {...filterProps} />
-          </Tabs.Tab>
-          <Tabs.Tab title="抄送我" key="duplicate">
-            <Space justify="evenly" className="todosSpacStyle">
-              {/* 审批状态 */}
-              <TabApprovalType {...filterProps} />
-              {/* 模版类型 */}
-              <ApprovalTemplateType {...filterProps} />
-              {/* 申请人 */}
-              <TabApplicantType {...filterProps} />
-              {/* 到达日期 */}
-              <ApprovalReachDataType {...filterProps} />
-            </Space>
-            <TabApprovalItem {...filterProps} />
-          </Tabs.Tab>
-        </Tabs>
+        <todosContext.Provider value={contextFilter}>
+          <SearchBar
+            placeholder="搜索人名，标题、内容"
+            clearable
+            style={{ '--background': '#ffffff', padding: '10px' }}
+            onChange={(value) => {
+              const filter = { ...contextFilter };
+              if (!value) {
+                filter.inputFilter = value;
+                setContextFilter(filter);
+              }
+              setChangeInputValue(value);
+            }}
+            value={changeInputValue}
+            onSearch={(value) => {
+              const filter = { ...contextFilter };
+              filter.inputFilter = value;
+              setContextFilter(filter);
+            }}
+          />
+          <Tabs
+            onChange={(key) => {
+              const tabFilter = { ...contextFilter };
+              tabFilter.key = key;
+              tabFilter.inputFilter = '';
+              setContextFilter(tabFilter);
+              setChangeInputValue('');
+            }}
+            style={{ '--title-font-size': '12px', backgroundColor: '#ffffff', marginTop: '10px' }}
+          >
+            <Tabs.Tab title={t('Pending')} key="pending">
+              <SchemaComponent
+                components={{
+                  TabPendingItem,
+                }}
+                schema={tabPendingSchema(t, props, fieldSchema['x-uid'])}
+              />
+            </Tabs.Tab>
+            <Tabs.Tab title={t('Processed')} key="processed">
+              <SchemaComponent
+                components={{
+                  TabProcessedItem,
+                }}
+                schema={tabProcessedSchema(t, props, fieldSchema['x-uid'])}
+              />
+            </Tabs.Tab>
+            <Tabs.Tab title={t('Duplicate')} key="duplicate">
+              <SchemaComponent
+                components={{
+                  TabDuplicateItem,
+                }}
+                schema={tabDuplicateSchema(t, props, fieldSchema['x-uid'])}
+              />
+            </Tabs.Tab>
+            <Tabs.Tab title={t('Executed')} key="executed">
+              <SchemaComponent
+                components={{
+                  TabExecutedItem,
+                }}
+                schema={tabExecutedSchema(t, props, fieldSchema['x-uid'])}
+              />
+            </Tabs.Tab>
+          </Tabs>
+        </todosContext.Provider>
       </BlockItem>
     </ExtendCollectionsProvider>
   );

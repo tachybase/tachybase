@@ -64,5 +64,8 @@
   "Trigger data": "Trigger data",
   "All":"All",
   "Initiations":"Initiations",
-  "UserInitiations":"UserInitiations"
+  "UserInitiations":"UserInitiations",
+  "Processed":"Processed",
+  "Duplicate":"Duplicate",
+  "Executed":"Executed"
 }

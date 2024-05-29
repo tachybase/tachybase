@@ -22,6 +22,10 @@ export class PluginApprovalMobileClient extends Plugin {
       path: '/mobile/:name/:id/:category/detailspage',
       Component: 'ViewActionTodosContent',
     });
+    this.app.router.add('mobile.approval.userJobspage', {
+      path: '/mobile/:name/:id/userJobspage',
+      Component: 'ViewTodosUserJobsContent',
+    });
   }
 }
 

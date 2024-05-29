@@ -1,22 +1,23 @@
 export interface ApprovalExecution {
   id: number;
-  approval: Approval;
+  approval?: Approval;
   approvalExecution?: approvalExecution;
-  approvalId: number;
+  approvalId?: number;
   comment?: any;
   execution: execution;
   executionId: number;
   index?: string;
-  job?: job;
-  jobId?: number;
-  node?: node;
-  nodeId?: number;
-  snapshot: snapshot;
+  job: job;
+  jobId: number;
+  node: node;
+  nodeId: number;
+  snapshot?: snapshot;
   status: number;
   user?: user;
   userId?: number;
-  workflow?: any;
-  workflowId?: number;
+  workflow: any;
+  workflowId: number;
+  result: any;
   updatedAt: any;
 }
 

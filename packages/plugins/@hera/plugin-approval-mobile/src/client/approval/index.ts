@@ -8,6 +8,7 @@ import { ViewActionUserInitiationsContent } from './initiations/component/ViewAc
 import { LauncherActionConfigInitializer } from './initiations/config/LauncherActionConfig';
 import { InitiationsBlock } from './initiations/InitiationsBlock';
 import { ViewActionTodosContent } from './todos/component/ViewActionTodosContent';
+import { ViewTodosUserJobsContent } from './todos/component/ViewTodosUserJobsContent';
 import { TodosBlock } from './todos/TodosBlock';
 
 class PluginApproval extends Plugin {
@@ -19,6 +20,7 @@ class PluginApproval extends Plugin {
       ViewActionTodosContent,
       ViewActionUserInitiationsContent,
       ViewActionInitiationsContent,
+      ViewTodosUserJobsContent,
       'ApprovalCommon.ViewComponent.MApprovalProcess': ApprovalProcess,
     });
     this.app.schemaSettingsManager.add(ApprovalSettings);

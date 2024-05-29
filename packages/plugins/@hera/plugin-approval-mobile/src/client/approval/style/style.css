@@ -11,12 +11,12 @@
   background-color: #ffffff;
   position: fixed;
   z-index: 2;
-  height: 5vh;
+  height: 6vh;
   width: 100vw;
 }
 
 .approvalContext{
-  margin: 6vh 0 6vh 0;
+  margin: 7vh 0 7vh 0;
 }
 
 .todosSpacStyle{

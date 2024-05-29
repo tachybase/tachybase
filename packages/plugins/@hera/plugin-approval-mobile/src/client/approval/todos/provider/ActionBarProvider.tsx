@@ -1,5 +1,7 @@
 import React from 'react';
-import { ActionBarProvider as ClientActionBarProvider, useCompile } from '@tachybase/client';
+import { ActionBarProvider as ClientActionBarProvider, useCompile, useCurrentUserContext } from '@tachybase/client';
+import { useFlowContext } from '@tachybase/plugin-workflow/client';
+import { useFieldSchema } from '@tachybase/schema';
 import { str2moment } from '@tachybase/utils/client';
 
 import { Space, Tag } from 'antd';
@@ -29,3 +31,24 @@ const ComponentUserInfo = () => {
     </Space>
   );
 };
+
+export function ActionBarUserJobsProvider(props) {
+  const { data: user } = useCurrentUserContext();
+  const { userJob } = useFlowContext();
+  const { status, result, userId } = userJob;
+  const buttonSchema = useFieldSchema();
+  const { name } = buttonSchema.parent.toJSON();
+
+  let { children: content } = props;
+  if (status) {
+    if (!result[name]) {
+      content = null;
+    }
+  } else {
+    if (user?.data?.id !== userId) {
+      content = null;
+    }
+  }
+
+  return content;
+}
