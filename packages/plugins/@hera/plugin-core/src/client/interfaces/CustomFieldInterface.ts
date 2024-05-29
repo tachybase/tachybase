@@ -1,12 +1,13 @@
-import { interfacesProperties, CollectionFieldInterface } from '@tachybase/client';
+import { CollectionFieldInterface, interfacesProperties } from '@tachybase/client';
+
 const { defaultProps } = interfacesProperties;
 
 export class CustomFieldInterface extends CollectionFieldInterface {
   name = 'custom';
   type = 'object';
   group = 'advanced';
-  title = '自定义字段';
-  description = '自定义字段';
+  title = '组件字段';
+  description = '组件字段';
   sortable = true;
   default = {
     type: 'virtual',
