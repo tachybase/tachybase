@@ -4,23 +4,33 @@ import { observer } from '@tachybase/schema';
 import { Picker, Space } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
 
-import { approvalStatusOptions, ProcessedStatus } from '../../constants';
+import { approvalStatusOptions, ExecutionStatusOptions, ProcessedStatus } from '../../constants';
 import { useTranslation } from '../../locale';
 
 export const TabApprovalType = observer((props) => {
+  const { collectionName, params } = props as any;
   const [visible, setVisible] = useState(false);
   const { changeFilter, filter } = props as any;
   const { t } = useTranslation();
-  const columns = approvalStatusOptions
-    .map((item) => {
+  const columns = [];
+  if (collectionName === 'approvalRecords') {
+    approvalStatusOptions.forEach((item) => {
       if (ProcessedStatus.includes(item.value)) {
-        return {
+        columns.push({
           label: t(item.label),
           value: item.value,
-        };
+        });
       }
-    })
-    .filter(Boolean);
+    });
+  } else if (collectionName === 'users_jobs') {
+    ExecutionStatusOptions.forEach((item) => {
+      if (!item.value && item.value !== 0) return;
+      columns.push({
+        label: t(item.label),
+        value: item.value,
+      });
+    });
+  }
   columns.unshift({ label: t('All'), value: 'all' });
   return (
     <>
@@ -43,7 +53,7 @@ export const TabApprovalType = observer((props) => {
         onConfirm={(e) => {
           const changeData = { ...filter };
           if (e[0] === 'all') {
-            changeData['status'] = ProcessedStatus;
+            delete changeData['status'];
           } else {
             changeData['status'] = e[0];
           }

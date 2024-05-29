@@ -45,7 +45,5 @@ export const ApprovalInitializerItem = [
     title: '审批',
     name: 'todos',
     itemComponent: 'TodosBlock',
-    collectionName: 'approvalRecords',
-    settingBlock: true,
   },
 ];

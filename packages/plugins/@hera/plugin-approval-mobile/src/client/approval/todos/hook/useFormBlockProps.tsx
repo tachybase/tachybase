@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
-import { useCurrentUserContext } from '@tachybase/client';
+import { useCurrentUserContext, useFormBlockContext, useRecord } from '@tachybase/client';
+import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import { useForm } from '@tachybase/schema';
 
 import { ApprovalStatusEnumDict } from '../../constants';
+
+import { ApprovalStatusEnumDict } from '../../constants';
+
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 
 export function useFormBlockProps() {
@@ -26,6 +30,28 @@ export function useFormBlockProps() {
       form.setPattern('readPretty');
     }
   }, [form, approval, needEditable]);
+
+  return { form };
+}
+
+export function useUserJobsFormBlockProps() {
+  const { userJob, execution } = useFlowContext();
+  const record = useRecord();
+  const { data: user } = useCurrentUserContext();
+  const { form } = useFormBlockContext();
+
+  const pattern =
+    execution.status || userJob.status
+      ? record
+        ? 'readPretty'
+        : 'disabled'
+      : user?.data?.id !== userJob.userId
+        ? 'disabled'
+        : 'editable';
+
+  useEffect(() => {
+    form?.setPattern(pattern);
+  }, [pattern, form]);
 
   return { form };
 }
