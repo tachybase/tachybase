@@ -1,6 +1,4 @@
-import { CollectionFieldInterface, interfacesProperties, Plugin } from '@tachybase/client';
-
-import { ViewFormula } from './Formula.view';
+import { CollectionFieldInterface, interfacesProperties } from '@tachybase/client';
 
 const { defaultProps } = interfacesProperties;
 
@@ -13,14 +11,6 @@ export interface FormulaProps {
   suffix: string;
   // 精度
   decimal: string;
-}
-
-export class SCFormula extends Plugin {
-  async load() {
-    this.app.addComponents({
-      Viewformula: ViewFormula,
-    });
-  }
 }
 
 export class ShowFieldFormulaInterface extends CollectionFieldInterface {
