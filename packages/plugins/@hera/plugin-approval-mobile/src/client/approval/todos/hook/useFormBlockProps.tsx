@@ -4,9 +4,6 @@ import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import { useForm } from '@tachybase/schema';
 
 import { ApprovalStatusEnumDict } from '../../constants';
-
-import { ApprovalStatusEnumDict } from '../../constants';
-
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 
 export function useFormBlockProps() {
