@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-sancongtou",
   "displayName": "Mobile client: Sancongtou Customization",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Provide mobile client customization for the sancongtou  project.",
   "main": "dist/server/index.js",
   "dependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-hera-sancongtou",
-  "version": "0.21.30",
+  "version": "0.21.31",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {
