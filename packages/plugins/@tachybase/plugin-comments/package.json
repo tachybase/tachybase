@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-comments",
-  "version": "0.21.34",
+  "version": "0.21.35",
   "main": "dist/server/index.js",
   "dependencies": {},
   "devDependencies": {
