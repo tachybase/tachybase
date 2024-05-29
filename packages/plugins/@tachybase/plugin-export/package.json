@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-export",
   "displayName": "Action: Export records",
-  "version": "0.21.35",
+  "version": "0.21.36",
   "description": "Export filtered records to excel, you can configure which fields to export.",
   "keywords": [
     "Actions"
