@@ -1,4 +1,5 @@
 import { defineCollection } from '@tachybase/database';
+
 export const ownersField = {
   interface: 'm2m',
   type: 'belongsToMany',
@@ -29,6 +30,7 @@ export const ownersField = {
 export default defineCollection({
   name: 'departments',
   title: '{{t("Departments")}}',
+  dumpRules: 'required',
   tree: 'adjacency-list',
   template: 'tree',
   shared: true,
