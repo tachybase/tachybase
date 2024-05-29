@@ -1,6 +1,8 @@
 import { defineCollection } from '@tachybase/database';
+
 export default defineCollection({
   name: 'departmentsUsers',
+  dumpRules: 'required',
   fields: [
     {
       type: 'boolean',
