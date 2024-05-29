@@ -3,100 +3,122 @@ import { Input } from '@tachybase/client';
 import { evaluators } from '@tachybase/evaluators/client';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 
+import _ from 'lodash';
+
 import { FormulaProps } from './Formula.interface';
 
 export const ViewFormula = (props: FormulaProps) => {
   const { resultShowValue } = useAction(props);
-  return <Input.ReadPretty value={resultShowValue} />;
+  return <ShowValue value={resultShowValue} />;
 };
+
+const ShowValue = React.memo((props: { value: string }) => {
+  const { value } = props;
+  return <Input.ReadPretty value={value} />;
+});
 
 function useAction(props: FormulaProps) {
   const form = useForm();
   const fieldSchema = useFieldSchema();
   const field = useField();
+
   const { formulaString, prefix, suffix, decimal } = props;
 
   const path: any = field.path.entire;
   const fieldPath = path?.replace(`.${fieldSchema.name}`, '');
+  const recordData = _.chain(form.values).get(fieldPath).value();
+
+  const formulaArry = transformFormula(formulaString);
+
+  const evaluateArray = getEvaluateArray(formulaArry, recordData);
+  if (!evaluateArray) {
+    return { resultShowValue: '' };
+  } else {
+    const resultShowValue = getResultShowValue(evaluateArray, { prefix, suffix, decimal });
+    return { resultShowValue };
+  }
+}
+
+function transformFormula(formula: string) {
+  if (!formula) {
+    return [];
+  }
+  const formulaArray = formula.split(/([+\-*/?:()%])/).filter((item) => item);
+  return formulaArray;
+}
+
+function getEvaluateArray(formulaArry, recordData): [string, object] {
+  if (formulaArry.length < 1) {
+    return;
+  }
+
+  let varIndex = 0;
+  const calculateData = [];
+  const scopes = {};
+
+  for (let i = 0; i < formulaArry.length; i++) {
+    const item = formulaArry[i];
+
+    if (!item) continue;
+
+    const isNumber = isNumberFunc(item);
+    const isSymbol = isSymbolFunc(item);
+
+    if (!isNumber && !isSymbol) {
+      // NOTE: item 是字段的情况
+      let value;
+      // 举例： ${fieldObj}.fieldName
+      const pattern = /\${(.*?)}/g;
+      if (item.match(pattern)?.length) {
+        // NOTE: 关系字段
+        const target = item.match(pattern)[0].replace(/\${|}/g, '');
+        // 以.分割字符串
+        const targetField = item.split('.')[1];
+        const targetObj = _.chain(recordData).get(target).value();
+        value = _.chain(targetObj).get(targetField, 0).value();
+      } else {
+        // NOTE: 普通字段
+        value = _.chain(recordData).get(item, 0).value();
+      }
+
+      const varName = `var${varIndex++}`;
+      const varValue = value ?? 0;
+
+      calculateData.push(`{{${varName}}}`);
+      scopes[varName] = varValue;
+    } else {
+      // NOTE: item 是数字或者符号的情况
+      calculateData.push(item);
+    }
+  }
+
+  return [calculateData.join(''), scopes];
+}
+
+function getResultShowValue(formulaArray, { prefix, suffix, decimal }): string {
   const engine = evaluators.get('math.js');
   const evaluate = engine.evaluate.bind(engine);
-  const transformFormulaArray = transformFormula(formulaString);
-
-  let calculateData = [];
-
-  const newFormulaArray = (data): [string, object] => {
-    calculateData = [];
-    let count = 0;
-    const scopes = {};
-    if (transformFormulaArray.length === 0) return;
-    for (let i = 0; i < transformFormulaArray.length; i++) {
-      const item = transformFormulaArray[i];
-      if (!item) continue;
-      const isNumber = !isNaN(Number(item));
-      const symbol = ['+', '-', '*', '/', '?', ':', '(', ')', '%'].includes(item);
-      if (!isNumber && !symbol) {
-        let value;
-        // 举例： ${fieldObj}.fieldName
-        const pattern = /\${(.*?)}/g;
-        if (item.match(pattern)?.length) {
-          const target = item.match(pattern)[0].replace(/\${|}/g, '');
-          // 以.分割字符串
-          const targetField = item.split('.')[1];
-
-          if (path === fieldPath) {
-            // @ts-ignore
-            value = _.chain(data).get(target).get(targetField, 0).value();
-          } else {
-            // @ts-ignore
-            value = _.chain(data).get(fieldPath).get(target).get(targetField, 0).value();
-          }
-        } else {
-          if (path === fieldPath) {
-            // @ts-ignore
-            value = _.chain(data).get(item, 0).value();
-          } else {
-            // @ts-ignore
-            value = _.chain(data).get(fieldPath).get(item, 0).value();
-          }
-        }
-        if (!value) {
-          value = 0;
-        }
-        count += 1;
-        const varName = 'var' + count;
-        const varValue = value;
-        scopes[varName] = varValue;
-        calculateData.push('{{' + varName + '}}');
-      } else {
-        calculateData.push(item);
-      }
-    }
-    return [calculateData.join(''), scopes];
-  };
-
-  const formulaArray = newFormulaArray(form.values);
-
-  if (!formulaArray) {
-    return {};
-  }
   const [code, scopes] = formulaArray;
+
   let resultShowValue;
+
   try {
-    const pre = prefix || '';
-    const suf = suffix || '';
     const res = evaluate(code, scopes);
-    const main = isNaN(res) ? res : Number(res).toFixed(+decimal || 0);
-    resultShowValue = pre + main + suf;
+    const mainRes = isNaN(res) ? res : Number(res).toFixed(+decimal || 0);
+    resultShowValue = `${prefix}${mainRes}${suffix}`;
   } catch (error) {
     resultShowValue = `${code}`;
     console.warn('code: ', code, ' scopes: ', scopes, 'error: ', resultShowValue, ' error message ', error.message);
   }
 
-  return { resultShowValue };
+  return resultShowValue;
 }
 
-function transformFormula(formula: string) {
-  if (!formula) return [];
-  const formulaArray = formula.split(/([+\-*/?:()%])/).filter((item) => item);
-  return formulaArray;
+// utils
+function isNumberFunc(value) {
+  return typeof value === 'number' && !isNaN(value);
+}
+
+function isSymbolFunc(value) {
+  return ['+', '-', '*', '/', '?', ':', '(', ')', '%'].includes(value);
 }
