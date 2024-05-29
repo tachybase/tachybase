@@ -1,44 +1,31 @@
 import { EventEmitter } from 'events';
 import path from 'path';
 
+
+
 import type { Project } from '@pnpm/workspace.find-packages';
 import chalk from 'chalk';
 import execa from 'execa';
+
+
 
 import { buildCjs } from './buildCjs';
 import { buildClient } from './buildClient';
 import { buildDeclaration } from './buildDeclaration';
 import { buildEsm } from './buildEsm';
 import { buildPlugin } from './buildPlugin';
-import {
-  CORE_APP,
-  CORE_CLIENT,
-  ESM_PACKAGES,
-  getCjsPackages,
-  getPluginPackages,
-  getPresetsPackages,
-  PACKAGES_PATH,
-  ROOT_PATH,
-} from './constant';
+import { CORE_APP, CORE_CLIENT, ESM_PACKAGES, getCjsPackages, getPluginPackages, getPresetsPackages, PACKAGES_PATH, ROOT_PATH } from './constant';
+import { signals } from './stats';
 import { tarPlugin } from './tarPlugin';
-import {
-  getPackageJson,
-  getPkgLog,
-  getUserConfig,
-  PkgLog,
-  readFromCache,
-  toUnixPath,
-  UserConfig,
-  writeToCache,
-} from './utils';
+import { getPackageJson, getPkgLog, getUserConfig, PkgLog, readFromCache, toUnixPath, UserConfig, writeToCache } from './utils';
 import { getPackages } from './utils/getPackages';
 
+
 const BUILD_ERROR = 'build-error';
-global.__bus = new EventEmitter();
 
 export async function build(pkgs: string[]) {
   const messages = [];
-  (global.__bus as EventEmitter).on('build:errors', (message) => {
+  signals.on('build:errors', (message) => {
     messages.push(message);
   });
   const isDev = process.argv.includes('--development');
@@ -86,7 +73,7 @@ export async function build(pkgs: string[]) {
       APP_ROOT: path.join(CORE_APP, 'client'),
     });
   }
-  writeToCache(BUILD_ERROR, {});
+  writeToCache(BUILD_ERROR, { messages });
   if (messages.length > 0) {
     console.log('❌ build errors:');
     messages.forEach((message) => {

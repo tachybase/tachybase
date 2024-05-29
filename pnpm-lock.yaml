@@ -1668,17 +1668,20 @@ importers:
   packages/plugins/@hera/plugin-homepage:
     dependencies:
       '@tachybase/client':
-        specifier: 0.x
+        specifier: workspace:*
         version: link:../../../core/client
       '@tachybase/database':
-        specifier: 0.x
+        specifier: workspace:*
         version: link:../../../core/database
       '@tachybase/server':
-        specifier: 0.x
+        specifier: workspace:*
         version: link:../../../core/server
       '@tachybase/test':
-        specifier: 0.x
+        specifier: workspace:*
         version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
     devDependencies:
       antd:
         specifier: ^5.16.1

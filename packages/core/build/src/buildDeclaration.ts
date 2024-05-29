@@ -1,4 +1,3 @@
-import type { EventEmitter } from 'events';
 import path from 'path';
 
 import fg from 'fast-glob';
@@ -6,6 +5,7 @@ import fs from 'fs-extra';
 import ts from 'typescript';
 
 import { globExcludeFiles, ROOT_PATH } from './constant';
+import { signals } from './stats';
 
 export const buildDeclaration = (cwd: string, targetDir: string) => {
   return new Promise<{ exitCode: 1 | 0; messages: string[] }>((resolve, reject) => {
@@ -42,21 +42,14 @@ export const buildDeclaration = (cwd: string, targetDir: string) => {
     const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
     const messages = [];
     allDiagnostics.forEach((diagnostic) => {
-      try {
-        if (diagnostic.file) {
-          const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
-          const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
-          (global.__bus as EventEmitter).emit(
-            'build:errors',
-            `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`,
-          );
-          console.error(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
-        } else {
-          (global.__bus as EventEmitter).emit('build:errors', ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
-          console.error(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
-        }
-      } catch (e) {
-        console.log(e);
+      if (diagnostic.file) {
+        const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
+        const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+        signals.emit('build:errors', `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+        console.error(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+      } else {
+        signals.emit('build:errors', ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
+        console.error(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
       }
     });
 
