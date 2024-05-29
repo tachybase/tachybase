@@ -18,6 +18,7 @@ import { PluginContextMenu } from './features/context-menu';
 import { DepartmentsPlugin } from './features/departments';
 import { EmbedPlugin } from './features/embed';
 import { PluginExtendedFilterForm } from './features/extended-filter-form';
+import { PluginFieldAppends } from './features/field-appends';
 import { PluginHeraVersion } from './features/hera-version';
 import { PluginOutbound } from './features/outbound';
 import { PluginPageStyle } from './features/page-style';
@@ -85,6 +86,7 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginExtendedFilterForm);
     await this.app.pm.add(PluginOutbound);
     // await this.app.pm.add(PluginModeHighlight);
+    await this.app.pm.add(PluginFieldAppends);
   }
 
   async registerSettings() {

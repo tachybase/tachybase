@@ -1,4 +1,5 @@
-import { interfacesProperties, CollectionFieldInterface } from '@tachybase/client';
+import { CollectionFieldInterface, interfacesProperties } from '@tachybase/client';
+
 const { defaultProps } = interfacesProperties;
 
 const formulaType = [
@@ -27,7 +28,7 @@ export class CalcFieldInterface extends CollectionFieldInterface {
   name = 'calc2';
   type = 'object';
   group = 'advanced';
-  title = '数据计算';
+  title = '数据计算(过期)';
   description = '数据字段计算';
   sortable = true;
   default = {

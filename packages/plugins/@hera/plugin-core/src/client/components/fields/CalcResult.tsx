@@ -1,10 +1,11 @@
-import { onFormValuesChange } from '@tachybase/schema';
-import { useField, useFieldSchema, useForm, useFormEffects } from '@tachybase/schema';
+import React, { useEffect, useState } from 'react';
 import { Input } from '@tachybase/client';
+import { evaluators } from '@tachybase/evaluators/client';
+import { onFormValuesChange, useField, useFieldSchema, useForm, useFormEffects } from '@tachybase/schema';
+
 import { Descriptions, DescriptionsProps } from 'antd';
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
-import { evaluators } from '@tachybase/evaluators/client';
+
 const transformFormula = (formula: string) => {
   if (!formula) return [];
   const formulaArray = formula.split(/([+\-*/?:()%])/).filter((item) => item);
@@ -12,11 +13,11 @@ const transformFormula = (formula: string) => {
 };
 
 export const CalcResult = (props) => {
-  // 公式，单位，前缀，后缀，小数点位数，面板逻辑代码
-  const { formula, prefix, suffix, decimal, panel } = props;
   const form = useForm();
   const fieldSchema = useFieldSchema();
   const field = useField();
+  // 公式，单位，前缀，后缀，小数点位数，面板逻辑代码
+  const { formula, prefix, suffix, decimal, panel } = props;
   const path: any = field.path.entire;
   const fieldPath = path?.replace(`.${fieldSchema.name}`, '');
   const engine = evaluators.get('math.js');

@@ -26,7 +26,7 @@ export const checkboxComponentFieldSettings = new SchemaSettings({
         return {
           title: t('Field component'),
           options: fieldModeOptions,
-          value: fieldSchema['x-component-props'].mode || 'Checkbox',
+          value: fieldSchema['x-component-props']?.mode || 'Checkbox',
           onChange(mode) {
             const schema = {
               ['x-uid']: fieldSchema['x-uid'],
