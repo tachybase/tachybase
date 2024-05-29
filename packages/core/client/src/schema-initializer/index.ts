@@ -38,18 +38,18 @@ import {
   readPrettyFormItemInitializers_deprecated,
 } from '../modules/blocks/data-blocks/details-single/ReadPrettyFormItemInitializers';
 import { RecordReadPrettyFormBlockInitializer } from '../modules/blocks/data-blocks/details-single/RecordReadPrettyFormBlockInitializer';
-import { CreateFormBlockInitializer } from '../modules/blocks/data-blocks/form/CreateFormBlockInitializer';
-import { FormBlockInitializer } from '../modules/blocks/data-blocks/form/FormBlockInitializer';
-import { RecordFormBlockInitializer } from '../modules/blocks/data-blocks/form/RecordFormBlockInitializer';
 import {
   createFormActionInitializers,
   createFormActionInitializers_deprecated,
 } from '../modules/blocks/data-blocks/form/createFormActionInitializers';
+import { CreateFormBlockInitializer } from '../modules/blocks/data-blocks/form/CreateFormBlockInitializer';
 import { formActionInitializers } from '../modules/blocks/data-blocks/form/formActionInitializers';
+import { FormBlockInitializer } from '../modules/blocks/data-blocks/form/FormBlockInitializer';
 import {
   formItemInitializers,
   formItemInitializers_deprecated,
 } from '../modules/blocks/data-blocks/form/formItemInitializers';
+import { RecordFormBlockInitializer } from '../modules/blocks/data-blocks/form/RecordFormBlockInitializer';
 import {
   updateFormActionInitializers,
   updateFormActionInitializers_deprecated,
@@ -113,12 +113,13 @@ import {
   recordBlockInitializers_deprecated,
   subTableActionInitializers,
   subTableActionInitializers_deprecated,
+  tabPaneInitializers_deprecated,
   tabPaneInitializersForBulkEditFormBlock,
   tabPaneInitializersForRecordBlock,
-  tabPaneInitializers_deprecated,
 } from './buttons';
 import * as initializerComponents from './components';
 import * as items from './items';
+
 export * from './buttons';
 export * from './items';
 export {

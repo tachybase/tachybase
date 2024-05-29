@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from '@tachybase/client';
-import evaluators from '@tachybase/evaluators/client';
+import { evaluators } from '@tachybase/evaluators/client';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import { FormulaProps } from './Formula.interface';

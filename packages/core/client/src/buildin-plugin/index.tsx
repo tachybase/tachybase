@@ -7,24 +7,24 @@ import { Button, Modal, Result, Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-import { ACLPlugin } from '../acl';
 import { useAPIClient } from '../api-client';
 import { Application } from '../application';
 import { Plugin } from '../application/Plugin';
 import { BlockSchemaComponentPlugin } from '../block-provider';
 import { CollectionPlugin } from '../collection-manager';
-import { RemoteDocumentTitlePlugin } from '../document-title';
-import { PinnedListPlugin } from '../plugin-manager';
-import { PMPlugin } from '../pm';
 import { AdminLayoutPlugin, RouteSchemaComponent } from '../route-switch';
 import { AntdSchemaComponentPlugin, SchemaComponentPlugin } from '../schema-component';
 import { ErrorFallback } from '../schema-component/antd/error-fallback';
 import { AssociationFilterPlugin, SchemaInitializerPlugin } from '../schema-initializer';
 import { SchemaSettingsPlugin } from '../schema-settings';
 import { BlockTemplateDetails, BlockTemplatePage } from '../schema-templates';
-import { SystemSettingsPlugin } from '../system-settings';
 import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
-import { LocalePlugin } from './plugins/LocalePlugin';
+import { ACLPlugin } from './acl';
+import { RemoteDocumentTitlePlugin } from './document-title';
+import { LocalePlugin } from './locale/LocalePlugin';
+import { PinnedListPlugin } from './pinned-list';
+import { PMPlugin } from './pm';
+import { SystemSettingsPlugin } from './system-settings';
 
 interface AppStatusProps {
   error: Error;

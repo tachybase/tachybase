@@ -25,6 +25,7 @@ import { DndContext, useDesignable, useTableSize } from '../..';
 import {
   RecordIndexProvider,
   RecordProvider,
+  useACLFieldWhitelist,
   useCollection,
   useCollection_deprecated,
   useCollectionParentRecordData,
@@ -32,7 +33,6 @@ import {
   useTableBlockContext,
   useTableSelectorContext,
 } from '../../../';
-import { useACLFieldWhitelist } from '../../../acl/ACLProvider';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { isNewRecord, markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
 import { SubFormProvider } from '../association-field/hooks';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Plugin } from '../application/Plugin';
 import { ActionSchemaToolbar } from '../modules/actions/ActionSchemaToolbar';
 import { BlockSchemaToolbar } from '../modules/blocks/BlockSchemaToolbar';
@@ -22,7 +20,6 @@ import { CollapseItemSchemaToolbar } from '../modules/blocks/filter-blocks/colla
 import { useCollapseBlockDecoratorProps } from '../modules/blocks/filter-blocks/collapse/hooks/useCollapseBlockDecoratorProps';
 import { useFilterFormBlockDecoratorProps } from '../modules/blocks/filter-blocks/form/hooks/useFilterFormBlockDecoratorProps';
 import { useFilterFormBlockProps } from '../modules/blocks/filter-blocks/form/hooks/useFilterFormBlockProps';
-import { SchemaComponentOptions } from '../schema-component';
 import { RecordLink, useParamsFromRecord, useSourceIdFromParentRecord, useSourceIdFromRecord } from './BlockProvider';
 import { DetailsBlockProvider, useDetailsBlockProps } from './DetailsBlockProvider';
 import { FilterFormBlockProvider } from './FilterFormBlockProvider';
@@ -32,53 +29,6 @@ import * as bp from './hooks';
 import { TableBlockProvider } from './TableBlockProvider';
 import { TableFieldProvider, useTableFieldProps } from './TableFieldProvider';
 import { TableSelectorProvider, useTableSelectorProps } from './TableSelectorProvider';
-
-// TODO: delete this, replaced by `BlockSchemaComponentPlugin`
-export const BlockSchemaComponentProvider = (props) => {
-  return (
-    <SchemaComponentOptions
-      components={{
-        TableFieldProvider,
-        TableBlockProvider,
-        TableSelectorProvider,
-        FormBlockProvider,
-        FilterFormBlockProvider,
-        FormFieldProvider,
-        DetailsBlockProvider,
-        RecordLink,
-      }}
-      scope={{
-        ...bp,
-        useSourceIdFromRecord,
-        useSourceIdFromParentRecord,
-        useParamsFromRecord,
-        useFormBlockProps,
-        useCreateFormBlockProps,
-        useCreateFormBlockDecoratorProps,
-        useEditFormBlockDecoratorProps,
-        useEditFormBlockProps,
-        useFormFieldProps,
-        useDetailsBlockProps,
-        useDetailsProps,
-        useDetailsWithPaginationProps,
-        useDetailsDecoratorProps,
-        useDetailsWithPaginationDecoratorProps,
-        useTableFieldProps,
-        useTableBlockProps,
-        useTableSelectorProps,
-        useTableBlockDecoratorProps,
-        useListBlockDecoratorProps,
-        useTableSelectorDecoratorProps,
-        useCollapseBlockDecoratorProps,
-        useFilterFormBlockProps,
-        useFilterFormBlockDecoratorProps,
-        useGridCardBlockDecoratorProps,
-      }}
-    >
-      {props.children}
-    </SchemaComponentOptions>
-  );
-};
 
 export class BlockSchemaComponentPlugin extends Plugin {
   async load() {

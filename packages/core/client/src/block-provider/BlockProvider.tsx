@@ -8,6 +8,7 @@ import template from 'lodash/template';
 import { Link } from 'react-router-dom';
 
 import {
+  ACLCollectionProvider,
   DataBlockProvider,
   TableFieldResource,
   useCollectionManager,
@@ -21,7 +22,6 @@ import {
   useRecord,
   WithoutTableFieldResource,
 } from '../';
-import { ACLCollectionProvider } from '../acl/ACLProvider';
 import {
   CollectionProvider_deprecated,
   useCollection_deprecated,

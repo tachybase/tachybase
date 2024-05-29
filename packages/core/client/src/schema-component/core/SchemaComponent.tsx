@@ -1,5 +1,6 @@
-import { IRecursionFieldProps, ISchemaFieldProps, RecursionField, Schema } from '@tachybase/schema';
 import React, { useContext, useMemo } from 'react';
+import { IRecursionFieldProps, ISchemaFieldProps, RecursionField, Schema } from '@tachybase/schema';
+
 import { SchemaComponentContext } from '../context';
 import { SchemaComponentOptions } from './SchemaComponentOptions';
 

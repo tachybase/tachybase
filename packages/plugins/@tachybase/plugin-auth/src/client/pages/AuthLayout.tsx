@@ -1,5 +1,5 @@
 import React from 'react';
-import { css, PoweredByV2 as PoweredBy, useAPIClient, useRequest, useSystemSettings } from '@tachybase/client';
+import { css, PoweredBy, useAPIClient, useRequest, useSystemSettings } from '@tachybase/client';
 
 import { Outlet } from 'react-router-dom';
 

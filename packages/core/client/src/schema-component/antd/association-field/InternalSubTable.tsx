@@ -4,7 +4,7 @@ import { observer, RecursionField, SchemaOptionsContext, useField, useFieldSchem
 
 import { createStyles } from 'antd-style';
 
-import { ACLCollectionProvider, useACLActionParamsContext } from '../../../acl';
+import { ACLCollectionProvider, useACLActionParamsContext } from '../../../buildin-plugin/acl';
 import { CollectionProvider_deprecated } from '../../../collection-manager';
 import { FormItem, useSchemaOptionsContext } from '../../../schema-component';
 import Select from '../select/Select';

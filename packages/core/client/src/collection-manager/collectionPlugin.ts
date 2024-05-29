@@ -1,6 +1,6 @@
 import { Plugin } from '../application/Plugin';
-
-import { InheritanceCollectionMixin } from './mixins/InheritanceCollectionMixin';
+import { DataSource } from '../data-source/data-source/DataSource';
+import { DEFAULT_DATA_SOURCE_KEY, DEFAULT_DATA_SOURCE_TITLE } from '../data-source/data-source/DataSourceManager';
 import {
   CheckboxFieldInterface,
   CheckboxGroupFieldInterface,
@@ -21,38 +21,37 @@ import {
   M2OFieldInterface,
   MarkdownFieldInterface,
   MultipleSelectFieldInterface,
+  NanoidFieldInterface,
   NumberFieldInterface,
   O2MFieldInterface,
   O2OFieldInterface,
-  OHOFieldInterface,
   OBOFieldInterface,
+  OHOFieldInterface,
   PasswordFieldInterface,
   PercentFieldInterface,
   PhoneFieldInterface,
   RadioGroupFieldInterface,
   RichTextFieldInterface,
   SelectFieldInterface,
+  SortFieldInterface,
   SubTableFieldInterface,
   TableoidFieldInterface,
   TextareaFieldInterface,
   TimeFieldInterface,
+  UnixTimestampFieldInterface,
   UpdatedAtFieldInterface,
   UpdatedByFieldInterface,
   UrlFieldInterface,
-  SortFieldInterface,
   UUIDFieldInterface,
-  NanoidFieldInterface,
-  UnixTimestampFieldInterface,
 } from './interfaces';
+import { InheritanceCollectionMixin } from './mixins/InheritanceCollectionMixin';
 import {
-  GeneralCollectionTemplate,
   ExpressionCollectionTemplate,
+  GeneralCollectionTemplate,
   SqlCollectionTemplate,
   TreeCollectionTemplate,
   ViewCollectionTemplate,
 } from './templates';
-import { DEFAULT_DATA_SOURCE_KEY, DEFAULT_DATA_SOURCE_TITLE } from '../data-source/data-source/DataSourceManager';
-import { DataSource } from '../data-source/data-source/DataSource';
 
 class MainDataSource extends DataSource {
   async getDataSource() {
