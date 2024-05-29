@@ -1,3 +1,5 @@
+import './index.less';
+
 export * from './AntdSchemaComponentProvider';
 export { genStyleHook } from './__builtins__';
 export * from './action';
@@ -54,5 +56,3 @@ export * from './custom-cascader';
 export * from './unixTimestamp';
 export * from './nanoIDInput';
 export { PageHeader } from '@ant-design/pro-layout';
-
-import './index.less';
