@@ -1,6 +1,6 @@
 import lodash from 'lodash';
 
-import { dayjs } from './dayjs';
+import { dayjs, type Dayjs } from './dayjs';
 
 export * from './collections-graph';
 export * from './common';
@@ -18,6 +18,6 @@ export * from './registry';
 export * from './isPortalInBody';
 export * from './uid';
 export * from './url';
-export { dayjs, lodash };
+export { dayjs, lodash, Dayjs };
 export * from './parseHTML';
 export * from './dom';
