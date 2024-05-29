@@ -1,7 +1,9 @@
-import { Field } from '@tachybase/schema';
 import { evaluators } from '@tachybase/evaluators/client';
+import { Field } from '@tachybase/schema';
 import { uid } from '@tachybase/utils/client';
+
 import _ from 'lodash';
+
 import { ActionType } from '../../../schema-settings/LinkageRules/type';
 import { VariableOption, VariablesContextType } from '../../../variables/types';
 import { REGEX_OF_VARIABLE } from '../../../variables/utils/isVariable';
