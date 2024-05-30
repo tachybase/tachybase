@@ -16,8 +16,8 @@ import { createForm, RecursionField, useField, useFieldSchema } from '@tachybase
 import { useContextApprovalExecution } from './ApprovalExecution';
 
 export const FormBlockProvider = (props) => {
-  const { approvalExecution } = useContextApprovalExecution();
-  const { snapshot } = approvalExecution;
+  const { approvalExecution, snapshot: contextSnapshot } = useContextApprovalExecution();
+  const snapshot = approvalExecution?.snapshot || contextSnapshot;
   const fieldSchema = useFieldSchema();
   const field = useField();
   const formBlockRef = useRef(null);
