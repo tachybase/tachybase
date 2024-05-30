@@ -57,7 +57,7 @@ export const TabApprovalItem = observer((props) => {
                   </Tag>
                 </Space>
                 {/* </Badge> */}
-                {item.reason.map((reasonItem, index) => {
+                {item.reason?.map((reasonItem, index) => {
                   return <Space block key={index}>{`${reasonItem.label}:${reasonItem.value}`}</Space>;
                 })}
               </List.Item>
@@ -146,14 +146,6 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
         );
         const statusType = ExecutionStatusOptions.find((value) => value.value === item.status);
         const categoryTitle = item.workflow.title.replace('审批流:', '');
-        const collectionName = item.workflow?.config?.collection || item.execution?.context?.collectionName;
-        const summary = Object.entries(item.execution?.context?.summary).map(([key, value]) => {
-          const field = cm.getCollectionField(`${collectionName}.${key}`);
-          return {
-            label: compile(field?.uiSchema?.title || key),
-            value: (Object.prototype.toString.call(value) === '[object Object]' ? value?.['name'] : value) || '',
-          };
-        });
         return {
           ...item,
           title: `${item.user?.nickname}的${categoryTitle}`,
@@ -161,12 +153,13 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
           statusTitle: t(statusType.label),
           statusColor: statusType.color,
           statusIcon: statusType.icon,
-          reason: summary,
+          reason: [],
           priorityTitle: priorityType.label,
           priorityColor: priorityType.color,
         };
       });
       const filterResult = result.filter((value) => value.title.includes(input));
+
       filterResult.sort((a, b) => {
         return Date.parse(b.createdAt) - Date.parse(a.createdAt);
       });
