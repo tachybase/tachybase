@@ -1,7 +1,7 @@
 import React from 'react';
 import { ISchema, uid, useForm } from '@tachybase/schema';
 
-import { Card, message } from 'antd';
+import { App, Card } from 'antd';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -38,6 +38,7 @@ const useSystemSettingsValues = (options) => {
 const useSaveSystemSettingsValues = () => {
   const { setVisible } = useActionContext();
   const form = useForm();
+  const { message } = App.useApp();
   const { mutate, data } = useSystemSettings();
   const api = useAPIClient();
   const { t } = useTranslation();

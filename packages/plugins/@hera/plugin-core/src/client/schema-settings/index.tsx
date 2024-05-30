@@ -1,5 +1,4 @@
-import { Field } from '@tachybase/schema';
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import {
   getShouldChange,
   SchemaComponent,
@@ -22,12 +21,14 @@ import {
   VariableInput,
   VariableScopeProvider,
 } from '@tachybase/client';
-import _ from 'lodash';
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { useTranslation } from '../locale';
-import { FormFilterScope } from '../components/filter-form/FormFilterScope';
-import { useFieldComponents } from '../schema-initializer';
+import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useMemoizedFn } from 'ahooks';
+import _ from 'lodash';
+
+import { FormFilterScope } from '../components/filter-form/FormFilterScope';
+import { useTranslation } from '../locale';
+import { useFieldComponents } from '../schema-initializer';
 
 export const useFormulaTitleOptions = () => {
   const compile = useCompile();

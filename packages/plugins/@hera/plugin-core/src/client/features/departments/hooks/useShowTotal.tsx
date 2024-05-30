@@ -1,4 +1,5 @@
 import { useResourceActionContext } from '@tachybase/client';
+
 import { useTranslation } from '../../../locale';
 
 export const useShowTotal = () => {

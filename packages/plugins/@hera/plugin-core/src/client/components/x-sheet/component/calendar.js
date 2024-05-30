@@ -1,6 +1,6 @@
+import { t } from '../locale/locale';
 import { h } from './element';
 import Icon from './icon';
-import { t } from '../locale/locale';
 
 function addMonth(date, step) {
   date.setMonth(date.getMonth() + step);
@@ -37,28 +37,23 @@ export default class Calendar {
     this.headerLeftEl = h('div', 'calendar-header-left');
     this.bodyEl = h('tbody', '');
     this.buildAll();
-    this.el = h('div', 'x-spreadsheet-calendar')
-      .children(
-        h('div', 'calendar-header').children(
-          this.headerLeftEl,
-          h('div', 'calendar-header-right').children(
-            h('a', 'calendar-prev')
-              .on('click.stop', () => this.prev())
-              .child(new Icon('chevron-left')),
-            h('a', 'calendar-next')
-              .on('click.stop', () => this.next())
-              .child(new Icon('chevron-right')),
-          ),
+    this.el = h('div', 'x-spreadsheet-calendar').children(
+      h('div', 'calendar-header').children(
+        this.headerLeftEl,
+        h('div', 'calendar-header-right').children(
+          h('a', 'calendar-prev')
+            .on('click.stop', () => this.prev())
+            .child(new Icon('chevron-left')),
+          h('a', 'calendar-next')
+            .on('click.stop', () => this.next())
+            .child(new Icon('chevron-right')),
         ),
-        h('table', 'calendar-body').children(
-          h('thead', '').child(
-            h('tr', '').children(
-              ...t('calendar.weeks').map(week => h('th', 'cell').child(week)),
-            ),
-          ),
-          this.bodyEl,
-        ),
-      );
+      ),
+      h('table', 'calendar-body').children(
+        h('thead', '').child(h('tr', '').children(...t('calendar.weeks').map((week) => h('th', 'cell').child(week)))),
+        this.bodyEl,
+      ),
+    );
     this.selectChange = () => {};
   }
 

@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, useEffect } from 'react';
 import { Field, Form, untracked, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { isURL, parse } from '@tachybase/utils/client';
 
-import { App, message } from 'antd';
+import { App } from 'antd';
 import _ from 'lodash';
 import get from 'lodash/get';
 import omit from 'lodash/omit';
@@ -13,7 +13,6 @@ import { useReactToPrint } from 'react-to-print';
 import {
   AssociationFilter,
   useCollectionRecord,
-  useDataLoadingMode,
   useDataSourceHeaders,
   useFormActiveFields,
   useFormBlockContext,
@@ -193,15 +192,12 @@ export const useCreateActionProps = () => {
   const actionSchema = useFieldSchema();
   const actionField = useField();
   const compile = useCompile();
-  const { modal } = App.useApp();
+  const { modal, message } = App.useApp();
   const { t } = useTranslation();
   const { updateAssociationValues } = useFormBlockContext();
   const collectValues = useCollectValuesToSubmit();
   const action = record.isNew ? actionField.componentProps.saveMode || 'create' : 'update';
   const filterKeys = actionField.componentProps.filterKeys?.checked || [];
-  const dataLoadingMode = useDataLoadingMode();
-
-  console.log('dataLoadingMode', dataLoadingMode);
 
   return {
     async onClick() {
@@ -271,6 +267,7 @@ export const useAssociationCreateActionProps = () => {
   const { setVisible, fieldSchema } = useActionContext();
   const actionSchema = useFieldSchema();
   const actionField = useField();
+  const { message } = App.useApp();
   const { fields, getField, getTreeParentField, name } = useCollection_deprecated();
   const compile = useCompile();
   const filterByTk = useFilterByTk();
@@ -510,7 +507,7 @@ export const useCustomizeUpdateActionProps = () => {
   const navigate = useNavigate();
   const compile = useCompile();
   const form = useForm();
-  const { modal } = App.useApp();
+  const { modal, message } = App.useApp();
   const variables = useVariables();
   const localVariables = useLocalVariables({ currentForm: form });
   const { name, getField } = useCollection_deprecated();
@@ -605,7 +602,7 @@ export const useCustomizeRequestActionProps = () => {
   const currentUser = currentUserContext?.data?.data;
   const actionField = useField();
   const { setVisible } = useActionContext();
-  const { modal } = App.useApp();
+  const { modal, message } = App.useApp();
   const { getActiveFieldsName } = useFormActiveFields() || {};
 
   return {
@@ -694,7 +691,7 @@ export const useUpdateActionProps = () => {
   const compile = useCompile();
   const actionField = useField();
   const { updateAssociationValues } = useFormBlockContext();
-  const { modal } = App.useApp();
+  const { modal, message } = App.useApp();
   const data = useParamsFromRecord();
   const variables = useVariables();
   const localVariables = useLocalVariables({ currentForm: form });

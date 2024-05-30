@@ -8,9 +8,7 @@ import { useActionContext } from './hooks';
 export const ActionContext = createContext<ActionContextProps>({});
 ActionContext.displayName = 'ActionContext';
 
-export const ActionContextProvider: React.FC<ActionContextProps & { value?: ActionContextProps; children: any }> = (
-  props,
-) => {
+export const ActionContextProvider = (props: ActionContextProps & { value?: ActionContextProps; children: any }) => {
   const contextProps = useActionContext();
   return (
     <ActionContext.Provider value={{ ...contextProps, ...props, ...props?.value }}>

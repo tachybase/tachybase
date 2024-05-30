@@ -1,40 +1,22 @@
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+import React, { createContext, useState } from 'react';
 import {
-  useSchemaInitializer,
-  useSchemaInitializerItem,
+  BlockProvider,
+  DataBlockInitializer,
+  Icon,
   SchemaSettings,
   SchemaToolbar,
-  DataBlockInitializer,
-  useBlockRequestContext,
-  BlockProvider,
-  useCollectionManager,
   SchemaToolbarProps,
-  Icon,
-  Plugin,
+  useBlockRequestContext,
+  useCollectionManager,
+  useSchemaInitializer,
+  useSchemaInitializerItem,
 } from '@tachybase/client';
-import React, { createContext, useState } from 'react';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
 import { uid } from '@tachybase/utils/client';
-import { Spin } from 'antd';
-import { GroupBlockConfigure } from '../../schema-settings/GroupBlockConfigure';
-import { GroupBlock } from '../../schema-components';
-import { tval } from '../../locale';
 
-export class GroupBlockPlugin extends Plugin {
-  async load() {
-    this.app.schemaInitializerManager.addItem('page:addBlock', 'dataBlocks.groupBlock', {
-      title: tval('Group'),
-      Component: 'GroupBlockInitializer',
-    });
-    this.schemaSettingsManager.add(groupBlockSettings);
-    this.app.addComponents({
-      GroupBlock,
-      GroupBlockConfigure,
-      GroupBlockInitializer,
-      GroupBlockProvider,
-      GroupBlockToolbar,
-    });
-  }
-}
+import { Spin } from 'antd';
+
+import { GroupBlockConfigure } from './GroupBlockConfigure';
 
 export const GroupBlockContext = createContext<any>({});
 

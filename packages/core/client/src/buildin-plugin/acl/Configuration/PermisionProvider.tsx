@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-import { message } from 'antd';
+import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import { useAPIClient } from '../../../api-client';
@@ -21,6 +21,7 @@ export const PermissionProvider = (props) => {
   const api = useAPIClient();
   const record = useRecord();
   const { t } = useTranslation();
+  const { message } = App.useApp();
   const { snippets } = record;
   snippets?.forEach((key) => {
     record[key] = true;

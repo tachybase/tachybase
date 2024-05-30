@@ -1,7 +1,8 @@
 import { Plugin } from '@tachybase/client';
-import { usePageSettingsProps } from './usePageSettingsProps';
-import { EmbedSchemaComponent } from './EmbedSchemaComponent';
+
 import { EmbedPage } from './EmbedPage';
+import { EmbedSchemaComponent } from './EmbedSchemaComponent';
+import { usePageSettingsProps } from './usePageSettingsProps';
 
 const keyEmbed = 'embed';
 const pathEmbed = `/${keyEmbed}`;

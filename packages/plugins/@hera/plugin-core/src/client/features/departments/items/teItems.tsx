@@ -1,9 +1,10 @@
-import { useCollectionField, useTitleFieldOptions, useDesignable } from '@tachybase/client';
+import { useCollectionField, useDesignable, useTitleFieldOptions } from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
+
 import { useTranslation } from '../../../locale';
 import { useHooksOoe } from '../hooks/useHooksOoe';
-import { y } from '../others/y';
 import { T } from '../others/T';
+import { y } from '../others/y';
 
 export const teItems = {
   name: 'titleField',

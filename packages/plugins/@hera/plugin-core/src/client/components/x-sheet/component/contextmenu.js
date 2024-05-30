@@ -1,7 +1,7 @@
-import { h } from './element';
-import { bindClickoutside, unbindClickoutside } from './event';
 import { cssPrefix } from '../config';
 import { tf } from '../locale/locale';
+import { h } from './element';
+import { bindClickoutside, unbindClickoutside } from './event';
 
 const menuItems = [
   { key: 'copy', title: tf('contextmenu.copy'), label: 'Ctrl+C' },
@@ -36,14 +36,11 @@ function buildMenuItem(item) {
       this.itemClick(item.key);
       this.hide();
     })
-    .children(
-      item.title(),
-      h('div', 'label').child(item.label || ''),
-    );
+    .children(item.title(), h('div', 'label').child(item.label || ''));
 }
 
 function buildMenu() {
-  return menuItems.map(it => buildMenuItem.call(this, it));
+  return menuItems.map((it) => buildMenuItem.call(this, it));
 }
 
 export default class ContextMenu {

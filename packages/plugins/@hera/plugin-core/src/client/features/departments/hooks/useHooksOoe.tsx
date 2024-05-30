@@ -1,4 +1,4 @@
-import { useCollectionManager_deprecated, useCompile, useCollection_deprecated } from '@tachybase/client';
+import { useCollection_deprecated, useCollectionManager_deprecated, useCompile } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 
 const bt = (e) => e['x-component'] === 'CollectionField';

@@ -1,22 +1,26 @@
+import { cssPrefix } from '../config';
 import { h } from './element';
 import Suggest from './suggest';
-import { cssPrefix } from '../config';
 
 export default class FormSelect {
-  constructor(key, items, width, getTitle = it => it, change = () => {}) {
+  constructor(key, items, width, getTitle = (it) => it, change = () => {}) {
     this.key = key;
     this.getTitle = getTitle;
     this.vchange = () => {};
     this.el = h('div', `${cssPrefix}-form-select`);
-    this.suggest = new Suggest(items.map(it => ({ key: it, title: this.getTitle(it) })), (it) => {
-      this.itemClick(it.key);
-      change(it.key);
-      this.vchange(it.key);
-    }, width, this.el);
-    this.el.children(
-      this.itemEl = h('div', 'input-text').html(this.getTitle(key)),
-      this.suggest.el,
-    ).on('click', () => this.show());
+    this.suggest = new Suggest(
+      items.map((it) => ({ key: it, title: this.getTitle(it) })),
+      (it) => {
+        this.itemClick(it.key);
+        change(it.key);
+        this.vchange(it.key);
+      },
+      width,
+      this.el,
+    );
+    this.el
+      .children((this.itemEl = h('div', 'input-text').html(this.getTitle(key))), this.suggest.el)
+      .on('click', () => this.show());
   }
 
   show() {

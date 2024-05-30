@@ -1,4 +1,5 @@
-import { defaultProps, CollectionFieldInterface } from '@tachybase/client';
+import { CollectionFieldInterface, defaultProps } from '@tachybase/client';
+
 import { tval } from '../locale';
 
 export class ExcelFieldInterface extends CollectionFieldInterface {

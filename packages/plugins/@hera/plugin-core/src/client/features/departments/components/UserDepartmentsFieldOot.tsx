@@ -1,23 +1,25 @@
-import { MoreOutlined, PlusOutlined } from '@ant-design/icons';
+import { Fragment, useState } from 'react';
 import {
-  SchemaComponent,
   ActionContextProvider,
+  SchemaComponent,
   useAPIClient,
   useRecord,
   useRequest,
   useResourceActionContext,
 } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
+
+import { MoreOutlined, PlusOutlined } from '@ant-design/icons';
 import { App, Button, Dropdown, Tag } from 'antd';
-import { useState, Fragment } from 'react';
 import { jsx, jsxs } from 'react/jsx-runtime';
+
 import { useTranslation } from '../../../locale';
+import { useDataSourceTtt } from '../hooks/useDataSourceTtt';
+import { k } from '../others/k';
 import { T } from '../others/T';
 import { y } from '../others/y';
-import { k } from '../others/k';
 import { schemaJe } from '../schema/schemaJe';
 import { getDepartmentStr } from '../utils/getDepartmentStr';
-import { useDataSourceTtt } from '../hooks/useDataSourceTtt';
 import { DepartmentTablePpe } from './DepartmentTablePpe';
 
 export const UserDepartmentsFieldOot = () => {

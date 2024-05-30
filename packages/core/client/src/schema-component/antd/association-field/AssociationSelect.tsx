@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   connect,
   mapProps,
@@ -12,7 +12,7 @@ import {
 } from '@tachybase/schema';
 
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { message, Space } from 'antd';
+import { App, Space } from 'antd';
 import { isFunction } from 'mathjs';
 import { useTranslation } from 'react-i18next';
 
@@ -53,6 +53,7 @@ export const filterAnalyses = (filters): any[] => {
 const InternalAssociationSelect = observer(
   (props: AssociationSelectProps) => {
     const { objectValue = true } = props;
+    const { message } = App.useApp();
     const field: any = useField();
     const fieldSchema = useFieldSchema();
     const service = useServiceOptions(props);

@@ -1,7 +1,9 @@
-import { RemoteSchemaComponent, css, useDocumentTitle } from '@tachybase/client';
-import { Tabs } from 'antd';
 import React, { useContext, useEffect } from 'react';
+import { css, RemoteSchemaComponent, useDocumentTitle } from '@tachybase/client';
+
+import { Tabs } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { PageStyleContext } from './PageStyle.provider';
 
 export const PageTab = () => {

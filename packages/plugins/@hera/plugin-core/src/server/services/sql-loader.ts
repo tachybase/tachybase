@@ -1,7 +1,9 @@
-import Database from '@tachybase/database';
-import fs from 'fs-extra';
 import path from 'path';
-import { Service, Db } from '@tachybase/utils';
+import Database from '@tachybase/database';
+import { Db, Service } from '@tachybase/utils';
+
+import fs from 'fs-extra';
+
 import { isMain } from '../utils/multiprocess';
 
 @Service()

@@ -1,17 +1,20 @@
+import React, { useCallback } from 'react';
 import { ArrayBase } from '@tachybase/components';
 import { useForm } from '@tachybase/schema';
-import { message } from 'antd';
-import React, { useCallback } from 'react';
+
+import { App } from 'antd';
+import LRUCache from 'lru-cache';
 import { useTranslation } from 'react-i18next';
+
 import { getAssociationPath } from '../../block-provider/hooks';
 import { useCollectionManager_deprecated } from '../../collection-manager';
 import { useCompile } from '../../schema-component';
-import { TreeNode } from './TreeLabel';
 import { systemKeys } from './hooks/useCollectionState';
-import LRUCache from 'lru-cache';
+import { TreeNode } from './TreeLabel';
 
 export const useSyncFromForm = (fieldSchema, collection?, callBack?) => {
   const { getCollectionJoinField, getCollectionFields } = useCollectionManager_deprecated();
+  const { message } = App.useApp();
   const array = ArrayBase.useArray();
   const index = ArrayBase.useIndex();
   const record = ArrayBase.useRecord();

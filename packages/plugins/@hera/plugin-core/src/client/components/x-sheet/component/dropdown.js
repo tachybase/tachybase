@@ -1,6 +1,6 @@
-import { HComponent, h } from './element';
-import { bindClickoutside, unbindClickoutside } from './event';
 import { cssPrefix } from '../config';
+import { h, HComponent } from './element';
+import { bindClickoutside, unbindClickoutside } from './event';
 
 export default class Dropdown extends HComponent {
   constructor(title, width, showArrow, placement, ...children) {

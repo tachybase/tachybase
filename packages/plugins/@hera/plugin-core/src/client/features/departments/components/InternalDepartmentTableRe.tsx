@@ -1,12 +1,14 @@
+import { useContext, useEffect } from 'react';
 import { useResourceActionContext } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
+
 import { Table } from 'antd';
-import { useContext, useEffect } from 'react';
 import { jsx } from 'react/jsx-runtime';
+
 import { useTranslation } from '../../../locale';
+import { useHooksG } from '../hooks/useHooksG';
 import { T } from '../others/T';
 import { y } from '../others/y';
-import { useHooksG } from '../hooks/useHooksG';
 import { getDepartmentStr } from '../utils/getDepartmentStr';
 import { ContextR } from './ContextR';
 

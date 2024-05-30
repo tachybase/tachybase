@@ -1,18 +1,18 @@
-import { css } from '@tachybase/client';
-import { ArrayCollapse } from '@tachybase/components';
-import { Form } from '@tachybase/schema';
-import { observer, useField, useFieldSchema } from '@tachybase/schema';
+import React, { useMemo } from 'react';
 import {
-  FormBlockContext,
-  RecordProvider,
-  SchemaComponent,
-  getShouldChange,
-  useCollectionManager_deprecated,
-  __UNSAFE__VariablesContextType,
   __UNSAFE__DynamicComponentProps,
   __UNSAFE__VariableOption,
+  __UNSAFE__VariablesContextType,
+  css,
+  FormBlockContext,
+  getShouldChange,
+  RecordProvider,
+  SchemaComponent,
+  useCollectionManager_deprecated,
 } from '@tachybase/client';
-import React, { useMemo } from 'react';
+import { ArrayCollapse } from '@tachybase/components';
+import { Form, observer, useField, useFieldSchema } from '@tachybase/schema';
+
 import { FilterContext } from './context';
 import { VariableInput } from './VariableInput';
 

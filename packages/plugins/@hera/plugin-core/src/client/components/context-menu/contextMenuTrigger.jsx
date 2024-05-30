@@ -1,6 +1,8 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
+
 import classnames from 'classnames';
-import { callShowEvent, callHideEvent } from './registerEvent';
+
+import { callHideEvent, callShowEvent } from './registerEvent';
 
 function ContextMenuTrigger({ children, id, disableWhileShiftPressed, attributes, disable, className }) {
   const menuTrigger = useRef(null);

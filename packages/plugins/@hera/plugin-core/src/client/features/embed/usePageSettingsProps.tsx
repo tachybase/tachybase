@@ -1,6 +1,8 @@
 import { useFieldSchema } from '@tachybase/schema';
+
 import { App } from 'antd';
 import { useMatch } from 'react-router-dom';
+
 import { useTranslation } from '../../locale';
 
 export function usePageSettingsProps() {

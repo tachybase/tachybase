@@ -1,4 +1,5 @@
 import { defineCollection } from '@tachybase/database';
+
 // 跟随core插件，消息通知表
 export default defineCollection({
   dumpRules: {

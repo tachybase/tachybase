@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
-import { message } from 'antd';
+import { App } from 'antd';
 import { saveAs } from 'file-saver';
 
 import { SchemaComponent, useActionContext, useAPIClient, useDesignable, useProps, useRecord } from '../..';
@@ -11,6 +11,7 @@ import { useGetAriaLabelOfSchemaInitializer } from '../hooks/useGetAriaLabelOfSc
 export const TabPaneInitializers = (props?: any) => {
   const { designable, insertBeforeEnd } = useDesignable();
   const fieldSchema = useFieldSchema();
+  const { message } = App.useApp();
   const { isCreate, isBulkEdit, options } = props;
   const { gridInitializer } = options;
   const { getAriaLabel } = useGetAriaLabelOfSchemaInitializer();

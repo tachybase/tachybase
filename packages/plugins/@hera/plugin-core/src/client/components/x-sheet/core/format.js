@@ -1,6 +1,6 @@
 import { tf } from '../locale/locale';
 
-const formatStringRender = v => v;
+const formatStringRender = (v) => v;
 
 const formatNumberRender = (v) => {
   // match "-12.1" or "12" or "12.1"
@@ -37,28 +37,28 @@ const baseFormats = [
     title: tf('format.percent'),
     type: 'number',
     label: '10.12%',
-    render: v => `${v}%`,
+    render: (v) => `${v}%`,
   },
   {
     key: 'rmb',
     title: tf('format.rmb'),
     type: 'number',
     label: '￥10.00',
-    render: v => `￥${formatNumberRender(v)}`,
+    render: (v) => `￥${formatNumberRender(v)}`,
   },
   {
     key: 'usd',
     title: tf('format.usd'),
     type: 'number',
     label: '$10.00',
-    render: v => `$${formatNumberRender(v)}`,
+    render: (v) => `$${formatNumberRender(v)}`,
   },
   {
     key: 'eur',
     title: tf('format.eur'),
     type: 'number',
     label: '€10.00',
-    render: v => `€${formatNumberRender(v)}`,
+    render: (v) => `€${formatNumberRender(v)}`,
   },
   {
     key: 'date',
@@ -102,9 +102,5 @@ baseFormats.forEach((f) => {
   formatm[f.key] = f;
 });
 
-export default {
-};
-export {
-  formatm,
-  baseFormats,
-};
+export default {};
+export { formatm, baseFormats };

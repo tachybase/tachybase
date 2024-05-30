@@ -1,5 +1,5 @@
-import helper from './helper';
 import { expr2expr } from './alphabet';
+import helper from './helper';
 
 class Rows {
   constructor({ len, height }) {
@@ -111,9 +111,7 @@ class Rows {
 
   // what: all | format | text
   copyPaste(srcCellRange, dstCellRange, what, autofill = false, cb = () => {}) {
-    const {
-      sri, sci, eri, eci,
-    } = srcCellRange;
+    const { sri, sci, eri, eci } = srcCellRange;
     const dsri = dstCellRange.sri;
     const dsci = dstCellRange.sci;
     const deri = dstCellRange.eri;
@@ -140,7 +138,7 @@ class Rows {
                 // ncell.text
                 if (autofill && ncell && ncell.text && ncell.text.length > 0) {
                   const { text } = ncell;
-                  let n = (jj - dsci) + (ii - dsri) + 2;
+                  let n = jj - dsci + (ii - dsri) + 2;
                   if (!isAdd) {
                     n -= dn + 1;
                   }
@@ -156,9 +154,11 @@ class Rows {
                       if (/^\d+$/.test(word)) return word;
                       return expr2expr(word, xn, yn);
                     });
-                  } else if ((rn <= 1 && cn > 1 && (dsri > eri || deri < sri))
-                    || (cn <= 1 && rn > 1 && (dsci > eci || deci < sci))
-                    || (rn <= 1 && cn <= 1)) {
+                  } else if (
+                    (rn <= 1 && cn > 1 && (dsri > eri || deri < sri)) ||
+                    (cn <= 1 && rn > 1 && (dsci > eci || deci < sci)) ||
+                    (rn <= 1 && cn <= 1)
+                  ) {
                     const result = /[\\.\d]+$/.exec(text);
                     // console.log('result:', result);
                     if (result !== null) {
@@ -215,7 +215,7 @@ class Rows {
         nri += n;
         this.eachCells(ri, (ci, cell) => {
           if (cell.text && cell.text[0] === '=') {
-            cell.text = cell.text.replace(/[a-zA-Z]{1,3}\d+/g, word => expr2expr(word, 0, n, (x, y) => y >= sri));
+            cell.text = cell.text.replace(/[a-zA-Z]{1,3}\d+/g, (word) => expr2expr(word, 0, n, (x, y) => y >= sri));
           }
         });
       }
@@ -236,7 +236,7 @@ class Rows {
         ndata[nri - n] = row;
         this.eachCells(ri, (ci, cell) => {
           if (cell.text && cell.text[0] === '=') {
-            cell.text = cell.text.replace(/[a-zA-Z]{1,3}\d+/g, word => expr2expr(word, 0, -n, (x, y) => y > eri));
+            cell.text = cell.text.replace(/[a-zA-Z]{1,3}\d+/g, (word) => expr2expr(word, 0, -n, (x, y) => y > eri));
           }
         });
       }
@@ -253,7 +253,7 @@ class Rows {
         if (nci >= sci) {
           nci += n;
           if (cell.text && cell.text[0] === '=') {
-            cell.text = cell.text.replace(/[a-zA-Z]{1,3}\d+/g, word => expr2expr(word, n, 0, x => x >= sci));
+            cell.text = cell.text.replace(/[a-zA-Z]{1,3}\d+/g, (word) => expr2expr(word, n, 0, (x) => x >= sci));
           }
         }
         rndata[nci] = cell;
@@ -273,7 +273,7 @@ class Rows {
         } else if (nci > eci) {
           rndata[nci - n] = cell;
           if (cell.text && cell.text[0] === '=') {
-            cell.text = cell.text.replace(/[a-zA-Z]{1,3}\d+/g, word => expr2expr(word, -n, 0, x => x > eci));
+            cell.text = cell.text.replace(/[a-zA-Z]{1,3}\d+/g, (word) => expr2expr(word, -n, 0, (x) => x > eci));
           }
         }
       });
@@ -351,6 +351,4 @@ class Rows {
 }
 
 export default {};
-export {
-  Rows,
-};
+export { Rows };

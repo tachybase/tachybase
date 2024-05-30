@@ -1,8 +1,9 @@
-import fs from 'fs-extra';
 import path from 'path';
+import { Service } from '@tachybase/utils';
+
 import { Font } from '@react-pdf/renderer';
 import axios from 'axios';
-import { Service } from '@tachybase/utils';
+import fs from 'fs-extra';
 
 @Service()
 export class FontManager {

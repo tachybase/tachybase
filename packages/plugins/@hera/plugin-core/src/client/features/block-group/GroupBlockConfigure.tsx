@@ -1,15 +1,17 @@
+import React, { useContext } from 'react';
 import {
   SchemaComponentOptions,
   SchemaSettingsModalItem,
   useBlockRequestContext,
   useDesignable,
 } from '@tachybase/client';
-import React, { useContext } from 'react';
-import { useTranslation } from '../locale';
-import { GroupBlockContext } from '../schema-initializer/blocks/GroupBlockInitializer';
-import { ISchema, connect, useFieldSchema } from '@tachybase/schema';
 import { ArrayItems, FormItem, Space } from '@tachybase/components';
+import { connect, ISchema, useFieldSchema } from '@tachybase/schema';
+
 import { PullRequestOutlined } from '@ant-design/icons';
+
+import { useTranslation } from '../../locale';
+import { GroupBlockContext } from './GroupBlockInitializer';
 
 export const GroupBlockConfigure = connect((props) => {
   const { t } = useTranslation();

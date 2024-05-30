@@ -1,9 +1,10 @@
 import React from 'react';
-import { ActionInitializer } from '@tachybase/client';
-import { Popover, Space, Button, Input } from 'antd';
+import { ActionInitializer, useProps } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
-import { useProps } from '@tachybase/client';
+
 import { ShareAltOutlined } from '@ant-design/icons';
+import { Button, Input, Popover, Space } from 'antd';
+
 import { tval, useTranslation } from '../../locale';
 
 export const OutboundLinkActionInitializer = (props) => {

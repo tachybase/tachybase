@@ -1,5 +1,6 @@
-import { CollectionProvider_deprecated, ResourceActionContext } from '@tachybase/client';
 import React from 'react';
+import { CollectionProvider_deprecated, ResourceActionContext } from '@tachybase/client';
+
 import { collectionDepartments } from '../collections/departments.collection';
 import { useContextK } from '../context/contextK';
 

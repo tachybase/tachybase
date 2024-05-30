@@ -1,7 +1,8 @@
-import { Plugin } from '@tachybase/server';
 import PluginWorkflow from '@tachybase/plugin-workflow';
-import { RequestInterceptionTrigger } from './RequestInterceptionTrigger';
+import { Plugin } from '@tachybase/server';
+
 import { ApiTrigger } from './ApiTrigger';
+import { RequestInterceptionTrigger } from './RequestInterceptionTrigger';
 
 export class PluginInterception extends Plugin {
   async load() {

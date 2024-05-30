@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Checkbox, message, Table } from 'antd';
+import { App, Checkbox, Table } from 'antd';
 import { uniq } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -45,6 +45,7 @@ export const MenuConfigure = () => {
   const { styles } = useStyles();
   const record = useRecord();
   const api = useAPIClient();
+  const { message } = App.useApp();
   const { items } = useMenuItems();
   const { t } = useTranslation();
   const allUids = findUids(items);

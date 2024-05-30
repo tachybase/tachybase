@@ -48,7 +48,7 @@ function equals(obj1, obj2) {
   objOrAry: obejct or Array
   cb: (value, index | key) => { return value }
 */
-const sum = (objOrAry, cb = value => value) => {
+const sum = (objOrAry, cb = (value) => value) => {
   let total = 0;
   let size = 0;
   Object.keys(objOrAry).forEach((key) => {

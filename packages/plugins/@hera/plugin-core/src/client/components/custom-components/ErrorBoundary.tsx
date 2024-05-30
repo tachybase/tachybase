@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useTranslation } from '../../locale';
 
 export const ErrorBoundaryFallBack = () => {

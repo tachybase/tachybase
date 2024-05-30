@@ -14,6 +14,7 @@ import {
   SignatureInput,
 } from './components';
 import { PluginAssistant } from './features/assistant';
+import { PluginGroupBlock } from './features/block-group';
 import { PluginContextMenu } from './features/context-menu';
 import { DepartmentsPlugin } from './features/departments';
 import { EmbedPlugin } from './features/embed';
@@ -40,7 +41,7 @@ import { Locale, tval } from './locale';
 import { AdminLayout, DetailsPage, PageLayout } from './pages';
 import { AutoComplete } from './schema-components';
 import AssociationCascader from './schema-components/association-cascader/AssociationCascader';
-import { CreateSubmitActionInitializer, GroupBlockPlugin, SettingBlockInitializer } from './schema-initializer';
+import { CreateSubmitActionInitializer, SettingBlockInitializer } from './schema-initializer';
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
 import {
   SheetBlock,
@@ -73,7 +74,7 @@ export class PluginCoreClient extends Plugin {
   locale: Locale;
 
   async afterAdd() {
-    await this.app.pm.add(GroupBlockPlugin);
+    await this.app.pm.add(PluginGroupBlock);
     await this.app.pm.add(EmbedPlugin);
     await this.app.pm.add(DepartmentsPlugin);
     await this.app.pm.add(PluginPageStyle);

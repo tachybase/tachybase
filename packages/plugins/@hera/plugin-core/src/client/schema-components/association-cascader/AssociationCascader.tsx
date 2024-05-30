@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import { Cascader } from 'antd';
-import { connect } from '@tachybase/schema';
 import { useCollectionManager, useRequest } from '@tachybase/client';
+import { connect } from '@tachybase/schema';
+
+import { Cascader } from 'antd';
 import _ from 'lodash';
 
 const AssociationCascader = connect((props) => {

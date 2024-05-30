@@ -1,6 +1,7 @@
-import { css } from '@tachybase/client';
-import { Layout } from 'antd';
 import React from 'react';
+import { css } from '@tachybase/client';
+
+import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 
 export const EmbedLayout = () => (

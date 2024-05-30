@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useField, useFieldSchema } from '@tachybase/schema';
 import { useAPIClient, useBlockRequestContext, useFilterBlock } from '@tachybase/client';
-import { Descriptions, DescriptionsProps, Spin, Table } from 'antd';
-import { transformers } from '../../schema-settings/GroupBlockConfigure';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
 import { useAsyncEffect } from 'ahooks';
+import { Descriptions, DescriptionsProps, Spin, Table } from 'antd';
+
+import { transformers } from './GroupBlockConfigure';
 
 type ReqData = {
   labels: any[];
@@ -72,8 +74,6 @@ export const InternalGroupBlock = (props) => {
   const fieldSchema = useFieldSchema();
   const params = fieldSchema.parent['x-decorator-props'].params;
   const [result, setResult] = useState({});
-  const { getDataBlocks } = useFilterBlock();
-  const Blocks = getDataBlocks();
   const api = useAPIClient();
   useAsyncEffect(async () => {
     const filter = service?.params[0] ? service.params[0].filter : service?.params;
@@ -89,7 +89,7 @@ export const InternalGroupBlock = (props) => {
         })) ?? {},
       );
     }
-  }, [Blocks, service.params, service.params[0]]);
+  }, [service.params, service.params[0]]);
   if (configItem.style === 'describe') {
     const item: DescriptionsProps['items'] = describeItem(configItem, result, service, params, api);
     return <Descriptions style={{ marginBottom: '10px' }} items={item} />;

@@ -1,7 +1,9 @@
+import React from 'react';
 import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
 import { Drawer } from 'antd';
 import classNames from 'classnames';
-import React from 'react';
+
 import { OpenSize } from './';
 import { useStyles } from './Action.Drawer.style';
 import { useActionContext } from './hooks';
@@ -16,7 +18,7 @@ const openSizeWidthMap = new Map<OpenSize, string>([
 export const ActionDrawer: ComposedActionDrawer = observer(
   (props) => {
     const { footerNodeName = 'Action.Drawer.Footer', ...others } = props;
-    const { visible, setVisible, openSize = 'middle', drawerProps, modalProps } = useActionContext();
+    const { visible, setVisible, openSize = 'middle', drawerProps } = useActionContext();
     const schema = useFieldSchema();
     const field = useField();
     const { componentCls, hashId } = useStyles();

@@ -1,6 +1,8 @@
-import { css } from '@tachybase/client';
 import React from 'react';
+import { css } from '@tachybase/client';
+
 import { useTranslation } from '../../locale';
+
 export const ModeHighlightProvider = ({ children }) => {
   const { t } = useTranslation();
   return (

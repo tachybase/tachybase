@@ -1,38 +1,34 @@
+import React, { ComponentType, ReactElement } from 'react';
 import { define, observable } from '@tachybase/schema';
 import { APIClientOptions, getSubAppName } from '@tachybase/sdk';
+
 import { i18n as i18next } from 'i18next';
-import get from 'lodash/get';
-import merge from 'lodash/merge';
-import set from 'lodash/set';
-import React, { ComponentType, FC, ReactElement } from 'react';
+import { get, merge, set } from 'lodash';
 import { createRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
-import { Link, NavLink, Navigate } from 'react-router-dom';
+import { Link, Navigate, NavLink } from 'react-router-dom';
 
 import { APIClient, APIClientProvider } from '../api-client';
 import { CSSVariableProvider } from '../css-variable';
+import { CollectionField } from '../data-source/collection-field/CollectionField';
+import { DataSourceApplicationProvider } from '../data-source/components/DataSourceApplicationProvider';
+import { DataBlockProvider } from '../data-source/data-block/DataBlockProvider';
+import { DataSourceManager, type DataSourceManagerOptions } from '../data-source/data-source/DataSourceManager';
 import { AntdAppProvider, GlobalThemeProvider } from '../global-theme';
 import { i18n } from '../i18n';
+import { AppSchemaComponentProvider } from './AppSchemaComponentProvider';
+import { AppComponent, BlankComponent, defaultAppComponents } from './components';
+import type { Plugin } from './Plugin';
 import { PluginManager, PluginType } from './PluginManager';
 import { PluginSettingOptions, PluginSettingsManager } from './PluginSettingsManager';
 import { ComponentTypeAndString, RouterManager, RouterOptions } from './RouterManager';
-import { WebSocketClient, WebSocketClientOptions } from './WebSocketClient';
-import { AppComponent, BlankComponent, defaultAppComponents } from './components';
 import { SchemaInitializer, SchemaInitializerManager } from './schema-initializer';
 import * as schemaInitializerComponents from './schema-initializer/components';
 import { SchemaSettings, SchemaSettingsManager } from './schema-settings';
 import { compose, normalizeContainer } from './utils';
 import { defineGlobalDeps } from './utils/globalDeps';
-import { getRequireJs } from './utils/requirejs';
-
-import { CollectionField } from '../data-source/collection-field/CollectionField';
-import { DataSourceApplicationProvider } from '../data-source/components/DataSourceApplicationProvider';
-import { DataBlockProvider } from '../data-source/data-block/DataBlockProvider';
-import { DataSourceManager, type DataSourceManagerOptions } from '../data-source/data-source/DataSourceManager';
-
-import { AppSchemaComponentProvider } from './AppSchemaComponentProvider';
-import type { Plugin } from './Plugin';
-import type { RequireJS } from './utils/requirejs';
+import { getRequireJs, type RequireJS } from './utils/requirejs';
+import { WebSocketClient, WebSocketClientOptions } from './WebSocketClient';
 
 declare global {
   interface Window {
@@ -319,7 +315,7 @@ export class Application {
   }
 
   getRootComponent() {
-    const Root: FC = () => <AppComponent app={this} />;
+    const Root = () => <AppComponent app={this} />;
     return Root;
   }
 
