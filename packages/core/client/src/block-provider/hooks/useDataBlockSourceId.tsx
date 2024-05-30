@@ -15,8 +15,6 @@ import {
  * 是需要从 recordData 还是 parentRecordData 中获取;解决方法是通过更改 schema，在不同类型的关系区块中
  * （`通过点击关系字段按钮打开的弹窗中创建的非关系字段区块`和`关系字段区块`）使用不同的 hook。
  *
- * 更新：上面所说的“需要更改 schema 才能解决的问题”已在这个任务中更改：https://tachybase.height.app/T-3848/description
- *
  * @param param0
  * @returns
  */

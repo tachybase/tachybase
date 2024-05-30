@@ -3,7 +3,7 @@ import { expect, test } from '@tachybase/test/e2e';
 import { T2797, T2838 } from './templatesOfBug';
 
 test.describe('z-index of dialog', () => {
-  // https://tachybase.height.app/T-2797
+  //
   test('edit block title', async ({ page, mockPage }) => {
     await mockPage(T2797).goto();
 
@@ -18,7 +18,7 @@ test.describe('z-index of dialog', () => {
     await expect(page.getByLabel('block-item-Input-users-Block')).not.toBeVisible();
   });
 
-  // https://tachybase.height.app/T-2838
+  //
   test('multilevel modal', async ({ page, mockPage, mockRecord }) => {
     const nocoPage = await mockPage(T2838).waitForInit();
     await mockRecord('general');

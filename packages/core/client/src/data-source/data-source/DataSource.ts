@@ -1,7 +1,5 @@
-import type { CollectionOptions } from '../collection';
+import { CollectionManager, type CollectionOptions } from '../collection';
 import type { DataSourceManager } from './DataSourceManager';
-
-import { CollectionManager } from '../collection';
 
 type LoadCallback = (collections: CollectionOptions[]) => void;
 

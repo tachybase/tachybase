@@ -1,11 +1,13 @@
 import { merge } from '@tachybase/schema';
+
 import { useRequest as useReq, useSetState } from 'ahooks';
 import { Options, Result } from 'ahooks/es/useRequest/src/types';
+import { SetState } from 'ahooks/lib/useSetState';
 import { AxiosRequestConfig } from 'axios';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash';
+
 import { assign } from './assign';
 import { useAPIClient } from './useAPIClient';
-import { SetState } from 'ahooks/lib/useSetState';
 
 type FunctionService = (...args: any[]) => Promise<any>;
 

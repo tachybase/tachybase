@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   APIClientProvider,
   CurrentUserProvider,
@@ -6,7 +7,7 @@ import {
   Input,
   SchemaComponent,
 } from '@tachybase/client';
-import React from 'react';
+
 import { mockAPIClient } from '../../../../testUtils';
 
 const { apiClient, mockRequest } = mockAPIClient();

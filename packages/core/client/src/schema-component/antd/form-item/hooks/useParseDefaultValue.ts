@@ -82,7 +82,7 @@ const useParseDefaultValue = () => {
         });
 
         if (value == null || value === '') {
-          // fix https://tachybase.height.app/T-2805
+          // fix
           field.setInitialValue(null);
           await field.reset({ forceClear: true });
         } else if (isSpecialCase()) {
@@ -122,7 +122,6 @@ const useParseDefaultValue = () => {
           const obj = { [variableName]: variable?.ctx || {} };
           const path = getPath(fieldSchema.default);
           const value = getValuesByPath(obj, path);
-          // fix https://tachybase.height.app/T-2212
           if (value === undefined) {
             // 返回一个随机值，确保能触发 run 函数
             return Math.random();

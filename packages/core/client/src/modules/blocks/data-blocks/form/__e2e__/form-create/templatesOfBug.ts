@@ -5696,7 +5696,7 @@ export const T3469: PageConfig = {
   },
 };
 
-// https://tachybase.height.app/T-3529
+//
 export const T3529: PageConfig = {
   collections: generalWithMultiLevelM2mFields,
   pageSchema: {

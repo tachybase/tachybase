@@ -43,7 +43,7 @@ export const useIterationVariable = ({
     collectionName: currentCollection,
     noDisabled,
     returnFields: (fields, option) => {
-      // fix https://tachybase.height.app/T-2277
+      // fix
       return fields;
       // const activeFieldsName = getActiveFieldsName?.('nester') || [];
 
@@ -90,7 +90,7 @@ export const useCurrentObjectVariable = ({
     collectionName: collectionOfCurrentObject?.name || collection?.name,
     noDisabled,
     returnFields: (fields, option) => {
-      // fix https://tachybase.height.app/T-2277
+      // fix
       return fields;
       // const activeFieldsName = getActiveFieldsName?.('nester') || [];
 

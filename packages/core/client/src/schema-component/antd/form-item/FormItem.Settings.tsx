@@ -1,9 +1,10 @@
-import { ArrayCollapse, FormLayout } from '@tachybase/components';
-import { Field } from '@tachybase/schema';
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
 import React from 'react';
+import { ArrayCollapse, FormLayout } from '@tachybase/components';
+import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { SchemaSettings } from '../../../application/schema-settings';
 import { useFormBlockContext } from '../../../block-provider/FormBlockProvider';
 import {
@@ -13,16 +14,17 @@ import {
   useCollectionManager_deprecated,
 } from '../../../collection-manager';
 import { useRecord } from '../../../record-provider';
+import { useColumnSchema } from '../../../schema-component/antd/table-v2/Table.Column.Decorator';
 import { generalSettingsItems } from '../../../schema-items/GeneralSettings';
-import { isPatternDisabled } from '../../../schema-settings/isPatternDisabled';
-import { SchemaSettingsSortingRule } from '../../../schema-settings/SchemaSettingsSortingRule';
-import { SchemaSettingsDateFormat } from '../../../schema-settings/SchemaSettingsDateFormat';
-import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
-import { SchemaSettingsDefaultValue } from '../../../schema-settings/SchemaSettingsDefaultValue';
-import { ActionType } from '../../../schema-settings/LinkageRules/type';
-import { VariableInput, getShouldChange } from '../../../schema-settings/VariableInput/VariableInput';
 import { useIsAllowToSetDefaultValue } from '../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
 import { useIsShowMultipleSwitch } from '../../../schema-settings/hooks/useIsShowMultipleSwitch';
+import { isPatternDisabled } from '../../../schema-settings/isPatternDisabled';
+import { ActionType } from '../../../schema-settings/LinkageRules/type';
+import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
+import { SchemaSettingsDateFormat } from '../../../schema-settings/SchemaSettingsDateFormat';
+import { SchemaSettingsDefaultValue } from '../../../schema-settings/SchemaSettingsDefaultValue';
+import { SchemaSettingsSortingRule } from '../../../schema-settings/SchemaSettingsSortingRule';
+import { getShouldChange, VariableInput } from '../../../schema-settings/VariableInput/VariableInput';
 import { useLocalVariables, useVariables } from '../../../variables';
 import { useCompile, useDesignable, useFieldModeOptions } from '../../hooks';
 import { isSubMode } from '../association-field/util';
@@ -30,7 +32,6 @@ import { removeNullCondition } from '../filter';
 import { DynamicComponentProps } from '../filter/DynamicComponent';
 import { getTempFieldState } from '../form-v2/utils';
 import { useColorFields } from '../table-v2/Table.Column.Designer';
-import { useColumnSchema } from '../../../schema-component/antd/table-v2/Table.Column.Decorator';
 
 /**
  * @deprecated
@@ -486,7 +487,6 @@ export const formItemSettings = new SchemaSettings({
                 'x-action': 'create',
                 'x-acl-action': 'create',
                 title: "{{t('Add new')}}",
-                // 'x-designer': 'Action.Designer',
                 'x-toolbar': 'ActionSchemaToolbar',
                 'x-settings': 'actonSettings:addNew',
                 'x-component': 'Action',
@@ -549,7 +549,6 @@ export const formItemSettings = new SchemaSettings({
                   'x-action': 'create',
                   'x-acl-action': 'create',
                   title: "{{t('Add new')}}",
-                  // 'x-designer': 'Action.Designer',
                   'x-toolbar': 'ActionSchemaToolbar',
                   'x-settings': 'actonSettings:addNew',
                   'x-component': 'Action',

@@ -1,11 +1,13 @@
-import React, { FC, ReactNode, createContext, useContext } from 'react';
+import React, { createContext, ReactNode, useContext } from 'react';
+
+import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Result } from 'antd';
+import { useTranslation } from 'react-i18next';
+
+import { CardItem, useSchemaComponentContext } from '../../schema-component';
+import { CollectionDeletedPlaceholder } from '../components/CollectionDeletedPlaceholder';
 import type { DataSource } from './DataSource';
 import { useDataSourceManager } from './DataSourceManagerProvider';
-import { CollectionDeletedPlaceholder } from '../components/CollectionDeletedPlaceholder';
-import { CardItem, useSchemaComponentContext } from '../../schema-component';
-import { Button, Result } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-import { useTranslation } from 'react-i18next';
 
 export const DataSourceContext = createContext<DataSource>(null);
 DataSourceContext.displayName = 'DataSourceContext';
@@ -15,7 +17,7 @@ export interface DataSourceProviderProps {
   children?: ReactNode;
 }
 
-export const DataSourceProvider: FC<DataSourceProviderProps> = ({ children, dataSource }) => {
+export const DataSourceProvider = ({ children, dataSource }: DataSourceProviderProps) => {
   const dataSourceManager = useDataSourceManager();
   const { t } = useTranslation();
   const { refresh } = useSchemaComponentContext();

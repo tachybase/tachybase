@@ -4,14 +4,13 @@ import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { Input, Spin } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useAPIClient, useRequest, useSchemaTemplateManager } from '..';
+import { useRequest, useSchemaTemplateManager } from '..';
 import { RemoteSchemaComponent, SchemaComponentContext } from '../schema-component';
 
 const EditableTitle = (props) => {
   const [title, setTitle] = useState(props.title);
   const [visible, setVisible] = useState(false);
   const { refresh } = useSchemaTemplateManager();
-  const api = useAPIClient();
   const { run } = useRequest(
     {
       resource: 'uiSchemaTemplates',

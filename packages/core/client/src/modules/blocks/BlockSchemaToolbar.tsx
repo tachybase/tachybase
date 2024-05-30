@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
+
 import { useTranslation } from 'react-i18next';
+
 import { useCollectionManager, useDataBlockProps } from '../../data-source';
 import { useCollection } from '../../data-source/collection/CollectionProvider';
 import { useCompile } from '../../schema-component';

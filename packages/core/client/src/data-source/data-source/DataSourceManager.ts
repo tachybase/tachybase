@@ -1,10 +1,10 @@
-import type { CollectionOptions, Collection } from '../collection';
-import type { Application } from '../../application/Application';
-
-import { type DataSourceOptions, DataSource, LocalDataSource, DataSourceFactory } from './DataSource';
-import { type CollectionTemplateFactory, CollectionTemplateManager } from '../collection-template';
-import { type CollectionFieldInterfaceFactory, CollectionFieldInterfaceManager } from '../collection-field-interface';
 import _ from 'lodash';
+
+import type { Application } from '../../application/Application';
+import type { Collection, CollectionOptions } from '../collection';
+import { CollectionFieldInterfaceManager, type CollectionFieldInterfaceFactory } from '../collection-field-interface';
+import { CollectionTemplateManager, type CollectionTemplateFactory } from '../collection-template';
+import { DataSource, DataSourceFactory, LocalDataSource, type DataSourceOptions } from './DataSource';
 
 export const DEFAULT_DATA_SOURCE_KEY = 'main';
 export const DEFAULT_DATA_SOURCE_TITLE = '{{t("Main")}}';

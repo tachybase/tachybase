@@ -1,16 +1,16 @@
+import React, { createContext, ReactNode, useContext, useMemo } from 'react';
 import { IResource } from '@tachybase/sdk';
-import React, { FC, ReactNode, createContext, useContext, useMemo } from 'react';
 
-import { useCollectionManager } from '../collection';
-import { useDataBlockProps } from './DataBlockProvider';
 import { useAPIClient } from '../../api-client';
+import { useCollectionManager } from '../collection';
 import { CollectionRecord } from '../collection-record';
 import { useDataSourceHeaders } from '../utils';
+import { useDataBlockProps } from './DataBlockProvider';
 
 export const DataBlockResourceContext = createContext<IResource>(null);
 DataBlockResourceContext.displayName = 'DataBlockResourceContext';
 
-export const DataBlockResourceProvider: FC<{ children?: ReactNode }> = ({ children }) => {
+export const DataBlockResourceProvider = ({ children }: { children?: ReactNode }) => {
   const dataBlockProps = useDataBlockProps();
   const cm = useCollectionManager();
   const { association, collection, dataSource, sourceId, parentRecord } = dataBlockProps;

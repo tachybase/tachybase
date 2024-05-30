@@ -1,8 +1,8 @@
-import { Field } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
+import { Field, useField, useFieldSchema } from '@tachybase/schema';
+
+import { useCollectionField, useCollectionManager } from '../data-source';
 import { useIsFileField } from '../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../schema-component/antd/table-v2/Table.Column.Decorator';
-import { useCollectionField, useCollectionManager } from '../data-source';
 
 export function useFieldComponentName(): string {
   const { fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();

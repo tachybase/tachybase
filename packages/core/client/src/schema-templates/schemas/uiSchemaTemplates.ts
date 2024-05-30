@@ -1,8 +1,8 @@
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { ISchema, uid } from '@tachybase/schema';
+
 import { useBulkDestroyActionProps, useDestroyActionProps, useUpdateActionProps } from '../../block-provider/hooks';
-import { useSchemaTemplateManager } from '../SchemaTemplateManagerProvider';
 import { uiSchemaTemplatesCollection } from '../collections/uiSchemaTemplates';
+import { useSchemaTemplateManager } from '../useSchemaTemplateManager';
 import { CollectionTitle } from './CollectionTitle';
 
 const useUpdateSchemaTemplateActionProps = () => {
@@ -50,7 +50,6 @@ export const uiSchemaTemplatesSchema: ISchema = {
         action: 'list',
         params: {
           pageSize: 20,
-          // appends: ['collection'],
           sort: ['-createdAt'],
         },
         rowKey: 'key',
@@ -106,14 +105,6 @@ export const uiSchemaTemplatesSchema: ISchema = {
                     split: '|',
                   },
                   properties: {
-                    // view: {
-                    //   title: '{{ t("View") }}',
-                    //   'x-action': 'view',
-                    //   'x-component': 'RecordLink',
-                    //   'x-component-props': {
-                    //     to: '/admin/plugins/block-templates/${record.key}',
-                    //   },
-                    // },
                     edit: {
                       type: 'void',
                       title: '{{ t("Edit") }}',

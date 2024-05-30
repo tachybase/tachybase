@@ -2,7 +2,7 @@ import { expect, test } from '@tachybase/test/e2e';
 
 import { T2183, T2186 } from '../templatesOfBug';
 
-// fix https://tachybase.height.app/T-2183
+// fix
 test('should save conditions', async ({ page, mockPage }) => {
   await mockPage(T2183).goto();
   await page.getByLabel('action-Filter.Action-Filter-filter-users-table').click();
@@ -19,7 +19,7 @@ test('should save conditions', async ({ page, mockPage }) => {
   await expect(page.getByTestId('select-filter-operator').getByText('is')).toBeVisible();
 });
 
-// fix https://tachybase.height.app/T-2186
+// fix
 test('the input box displayed should correspond to the field type', async ({ page, mockPage }) => {
   await mockPage(T2186).goto();
 

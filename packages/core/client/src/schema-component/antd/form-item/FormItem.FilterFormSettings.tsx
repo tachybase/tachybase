@@ -1,12 +1,15 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
 import React from 'react';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { SchemaSettings } from '../../../application/schema-settings';
 import { useFormBlockContext } from '../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { useRecord } from '../../../record-provider';
-import { VariableInput, getShouldChange } from '../../../schema-settings';
+import { getShouldChange, VariableInput } from '../../../schema-settings';
+import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
 import { useLocalVariables, useVariables } from '../../../variables';
 import { useDesignable } from '../../hooks';
 import { removeNullCondition } from '../filter';
@@ -21,7 +24,6 @@ import {
   EditTooltip,
   EditValidationRules,
 } from './SchemaSettingOptions';
-import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
 
 /**
  * @deprecated

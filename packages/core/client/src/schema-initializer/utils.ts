@@ -890,7 +890,7 @@ export const useCollectionDataSourceItems = ({
           getTemplatesByCollection,
           t,
         }).sort((item) => {
-          // fix https://tachybase.height.app/T-3551
+          // fix
           const inherits = _.toArray(collection?.inherits || []);
           if (item.name === collection?.name || inherits.some((inheritName) => inheritName === item.name)) return -1;
         }),
@@ -898,7 +898,7 @@ export const useCollectionDataSourceItems = ({
     }));
   }, [allCollections, collection?.inherits, collection?.name, componentName, getTemplatesByCollection, t]);
 
-  // https://tachybase.height.app/T-3821
+  //
   // showAssociationFields 的值是固定不变的，所以在 if 语句里使用 hooks 是安全的
   if (showAssociationFields) {
     // eslint-disable-next-line react-hooks/rules-of-hooks

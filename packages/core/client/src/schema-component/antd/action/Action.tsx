@@ -174,7 +174,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
       </ActionContextProvider>
     );
 
-    // fix https://tachybase.height.app/T-3235/description
+    // fix /description
     if (addChild) {
       return wrapSSR(
         <RecordProvider record={null} parent={record}>

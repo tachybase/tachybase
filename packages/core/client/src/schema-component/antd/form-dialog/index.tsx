@@ -110,8 +110,8 @@ export function FormDialog(title: any, id: any, renderer?: any, theme?: any): IF
 
             return (
               <Modal
-                // fix https://tachybase.height.app/T-2797
-                // fix https://tachybase.height.app/T-2838
+                // fix
+                // fix
                 zIndex={token.zIndexPopupBase + 1000}
                 {...modal}
                 open={open}

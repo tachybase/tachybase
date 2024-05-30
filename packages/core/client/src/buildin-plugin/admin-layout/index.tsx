@@ -15,7 +15,6 @@ import {
   PinnedPluginList,
   RemoteCollectionManagerProvider,
   RemoteSchemaTemplateManagerPlugin,
-  RemoteSchemaTemplateManagerProvider,
   SchemaComponent,
   useACLRoleContext,
   useAdminSchemaUid,
@@ -445,13 +444,11 @@ export const AdminProvider = (props) => {
   return (
     <CurrentAppInfoProvider>
       <NavigateIfNotSignIn>
-        <RemoteSchemaTemplateManagerProvider>
-          <RemoteCollectionManagerProvider>
-            <VariablesProvider>
-              <ACLRolesCheckProvider>{props.children}</ACLRolesCheckProvider>
-            </VariablesProvider>
-          </RemoteCollectionManagerProvider>
-        </RemoteSchemaTemplateManagerProvider>
+        <RemoteCollectionManagerProvider>
+          <VariablesProvider>
+            <ACLRolesCheckProvider>{props.children}</ACLRolesCheckProvider>
+          </VariablesProvider>
+        </RemoteCollectionManagerProvider>
       </NavigateIfNotSignIn>
     </CurrentAppInfoProvider>
   );
