@@ -1,9 +1,7 @@
-import React, { FC, ReactNode, createContext, useContext, useMemo } from 'react';
-
+import React, { createContext, FC, ReactNode, useContext, useMemo } from 'react';
 import { useFieldSchema, type SchemaKey } from '@tachybase/schema';
-import type { CollectionFieldOptions } from '../collection';
 
-import { useCollection, useCollectionManager } from '../collection';
+import { useCollection, useCollectionManager, type CollectionFieldOptions } from '../collection';
 import { CollectionDeletedPlaceholder } from '../components/CollectionDeletedPlaceholder';
 
 export const CollectionFieldContext = createContext<CollectionFieldOptions>(null);

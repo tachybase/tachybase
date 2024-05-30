@@ -1,16 +1,17 @@
-import { createForm } from '@tachybase/schema';
-import { RecursionField, Schema, useField, useFieldSchema } from '@tachybase/schema';
-import { Spin } from 'antd';
 import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
+import { createForm, RecursionField, Schema, useField, useFieldSchema } from '@tachybase/schema';
+
+import { Spin } from 'antd';
+
+import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
 import { useCollection_deprecated } from '../collection-manager';
 import { CollectionRecord, useCollectionParentRecordData, useCollectionRecord } from '../data-source';
 import { RecordProvider, useRecord } from '../record-provider';
 import { useActionContext, useDesignable } from '../schema-component';
 import { Templates as DataTemplateSelect } from '../schema-component/antd/form-v2/Templates';
 import { BlockProvider, useBlockRequestContext } from './BlockProvider';
-import { TemplateBlockProvider } from './TemplateBlockProvider';
 import { FormActiveFieldsProvider } from './hooks/useFormActiveFields';
-import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
+import { TemplateBlockProvider } from './TemplateBlockProvider';
 
 export const FormBlockContext = createContext<{
   form?: any;

@@ -1,12 +1,12 @@
-import { Form } from '@tachybase/schema';
-import { Schema, useFieldSchema } from '@tachybase/schema';
 import React, { useContext, useMemo } from 'react';
+import { Form, Schema, useFieldSchema } from '@tachybase/schema';
+
 import { CollectionFieldOptions_deprecated } from '../..';
-import { isSystemField } from '../SchemaSettings';
-import { isPatternDisabled } from '../isPatternDisabled';
 import { useFormBlockContext, useFormBlockType } from '../../block-provider';
-import { useCollectionManager_deprecated } from '../../collection-manager/hooks/useCollectionManager_deprecated';
 import { useCollection_deprecated } from '../../collection-manager/hooks/useCollection_deprecated';
+import { useCollectionManager_deprecated } from '../../collection-manager/hooks/useCollectionManager_deprecated';
+import { isPatternDisabled } from '../isPatternDisabled';
+import { isSystemField } from '../SchemaSettings';
 
 interface DefaultValueProviderProps {
   isAllowToSetDefaultValue: (params: IsAllowToSetDefaultValueParams) => boolean;
