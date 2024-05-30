@@ -8,6 +8,7 @@ import { Space, Tag } from 'antd';
 
 import { approvalStatusOptions } from '../../constants';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
+import { useTranslation } from '../../locale';
 
 export function ActionBarProvider(props) {
   const { status } = useContextApprovalExecution();
@@ -20,12 +21,12 @@ export function ActionBarProvider(props) {
 }
 
 const ComponentUserInfo = () => {
-  const compile = useCompile();
+  const { t } = useTranslation();
   const { status, updatedAt, user } = useContextApprovalExecution();
   const configObj = approvalStatusOptions.find((value) => value.value === status);
   return (
     <Space>
-      <Tag color={configObj.color}>{compile(configObj.label)}</Tag>
+      <Tag color={configObj.color}>{t(configObj.label)}</Tag>
       <time>{str2moment(updatedAt).format('YYYY-MM-DD HH:mm:ss')}</time>
       <Tag>{user.nickname}</Tag>
     </Space>
