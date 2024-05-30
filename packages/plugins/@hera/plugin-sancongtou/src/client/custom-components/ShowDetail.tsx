@@ -3,9 +3,8 @@ import React from 'react';
 import { CustomComponentType } from '@hera/plugin-core/client';
 import { Link, useNavigate } from 'react-router-dom';
 
-import './style.less';
-
 import { getPathProductDetail } from '../utils/path';
+import { useStyles } from './style';
 
 // @deprecated
 export const ShowDetail = () => {
@@ -13,12 +12,15 @@ export const ShowDetail = () => {
   // const handleClick = () => {
   //   navigate('/mobile/');
   // };
+  const styles = useStyles();
   return (
-    <Link className={'m-detail'} to={getPathProductDetail({ dataSource: 'main', collection: 'cards', id: '15' })}>
+    <Link
+      className={styles['m-detail']}
+      to={getPathProductDetail({ dataSource: 'main', collection: 'cards', id: '15' })}
+    >
       显示详情
     </Link>
   );
-  Ø;
 };
 
 ShowDetail.displayName = 'ShowDetail';
