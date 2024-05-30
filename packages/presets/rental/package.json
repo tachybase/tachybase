@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-hera-rental",
-  "version": "0.21.32",
+  "version": "0.21.33",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {
