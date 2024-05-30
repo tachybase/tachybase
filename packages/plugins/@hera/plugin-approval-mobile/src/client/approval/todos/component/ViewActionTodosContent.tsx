@@ -1,25 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentProvider,
   useAPIClient,
   useFormBlockContext,
-  useRecord,
-  useRequest,
 } from '@tachybase/client';
 import { DetailsBlockProvider } from '@tachybase/plugin-workflow/client';
 
 import { Result } from 'antd';
 import { NavBar, Skeleton, TabBar } from 'antd-mobile';
-import { CouponOutline, FileOutline, ScanCodeOutline, UserContactOutline } from 'antd-mobile-icons';
 import _ from 'lodash';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
 import { FormBlockProvider } from '../../context/FormBlock';
 import { SchemaComponentContextProvider } from '../../context/SchemaComponent';
-import { ContextWithActionEnabled } from '../../context/WithActionEnabled';
 import { useTranslation } from '../../locale';
 import { useApprovalDetailBlockProps } from '../hook/useApprovalDetailBlockProps';
 import { useApprovalFormBlockProps } from '../hook/useApprovalFormBlockProps';
@@ -35,14 +31,12 @@ import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 // 审批-待办-查看: 内容
 export const ViewActionTodosContent = () => {
   const { t } = useTranslation();
-  const { actionEnabled } = useContext(ContextWithActionEnabled);
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
   const api = useAPIClient();
   const [noDate, setNoDate] = useState(false);
   const [recordData, setRecordDate] = useState({});
-  const [currContext, setCurrContext] = useState('formContext');
   useEffect(() => {
     api
       .request({
@@ -110,16 +104,7 @@ export const ViewActionTodosContent = () => {
       <div className="approvalContext">
         {Object.keys(recordData).length && !noDate ? (
           <ContextApprovalExecution.Provider value={recordData}>
-            {todosComponent(node?.config.applyDetail, t, currContext)}
-            <TabBar
-              onChange={(item) => {
-                setCurrContext(item);
-              }}
-              className="tabsBarStyle"
-            >
-              <TabBar.Item key="formContext" icon={<FileOutline />} title="申请内容" />
-              {actionEnabled ? null : <TabBar.Item key="approval" icon={<UserContactOutline />} title="审批处理" />}
-            </TabBar>
+            {todosComponent(node?.config.applyDetail)}
           </ContextApprovalExecution.Provider>
         ) : (
           <div>
@@ -132,7 +117,7 @@ export const ViewActionTodosContent = () => {
   );
 };
 
-const todosComponent = (applyDetail, t, currContext) => {
+const todosComponent = (applyDetail) => {
   const formContextSchema = {
     type: 'void',
     'x-component': 'MobileProvider',
@@ -154,21 +139,6 @@ const todosComponent = (applyDetail, t, currContext) => {
               noForm: true,
             },
           },
-        },
-      },
-    },
-  };
-
-  const approvalSchema = {
-    type: 'void',
-    'x-component': 'MobileProvider',
-    properties: {
-      page: {
-        type: 'void',
-        'x-component': 'MPage',
-        'x-designer': 'MPage.Designer',
-        'x-component-props': {},
-        properties: {
           process: {
             type: 'void',
             'x-decorator': 'CardItem',
@@ -199,7 +169,7 @@ const todosComponent = (applyDetail, t, currContext) => {
         useDetailsBlockProps: useFormBlockContext,
         useSubmit,
       }}
-      schema={currContext === 'formContext' ? formContextSchema : approvalSchema}
+      schema={formContextSchema}
     />
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   RemoteSchemaComponent,
   SchemaComponent,
@@ -6,21 +6,16 @@ import {
   useAPIClient,
   useDestroyAction,
   useFormBlockContext,
-  useRecord,
-  useRequest,
 } from '@tachybase/client';
-import { DetailsBlockProvider, FlowContext } from '@tachybase/plugin-workflow/client';
-import { useFieldSchema, useForm } from '@tachybase/schema';
+import { DetailsBlockProvider } from '@tachybase/plugin-workflow/client';
+import { useForm } from '@tachybase/schema';
 
-import { Result, Spin } from 'antd';
 import { NavBar, Skeleton, TabBar } from 'antd-mobile';
-import { FileOutline, UserContactOutline } from 'antd-mobile-icons';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
 import { FormBlockProvider } from '../../context/FormBlock';
 import { SchemaComponentContextProvider } from '../../context/SchemaComponent';
-import { ContextWithActionEnabled } from '../../context/WithActionEnabled';
 import { useTranslation } from '../../locale';
 import { useFormBlockProps } from '../hook/useFormBlockProps';
 import { useUpdateSubmit } from '../hook/useUpadteSubmit';
@@ -37,10 +32,8 @@ export const ViewActionUserInitiationsContent = () => {
   const params = useParams();
   const navigate = useNavigate();
   const { id } = params;
-  const { actionEnabled } = useContext(ContextWithActionEnabled);
   const [noDate, setNoDate] = useState(false);
   const [recordData, setRecordDate] = useState({});
-  const [currContext, setCurrContext] = useState('formContext');
   const { t } = useTranslation();
   const api = useAPIClient();
   useEffect(() => {
@@ -96,16 +89,7 @@ export const ViewActionUserInitiationsContent = () => {
         <div className="approvalContext">
           {Object.keys(recordData).length && !noDate ? (
             <ContextApprovalExecution.Provider value={recordData}>
-              {UserInitiationsComponent(workflow?.config.applyForm, t, currContext)}
-              <TabBar
-                onChange={(item) => {
-                  setCurrContext(item);
-                }}
-                className="tabsBarStyle"
-              >
-                <TabBar.Item key="formContext" icon={<FileOutline />} title="申请内容" />
-                {actionEnabled ? null : <TabBar.Item key="approval" icon={<UserContactOutline />} title="审批处理" />}
-              </TabBar>
+              {UserInitiationsComponent(workflow?.config.applyForm)}
             </ContextApprovalExecution.Provider>
           ) : (
             <div>
@@ -119,7 +103,7 @@ export const ViewActionUserInitiationsContent = () => {
   );
 };
 
-const UserInitiationsComponent = (applyDetail, t, currContext) => {
+const UserInitiationsComponent = (applyDetail) => {
   const formContextSchema = {
     type: 'void',
     'x-component': 'MobileProvider',
@@ -141,21 +125,6 @@ const UserInitiationsComponent = (applyDetail, t, currContext) => {
               noForm: true,
             },
           },
-        },
-      },
-    },
-  };
-
-  const approvalSchema = {
-    type: 'void',
-    'x-component': 'MobileProvider',
-    properties: {
-      page: {
-        type: 'void',
-        'x-component': 'MPage',
-        'x-designer': 'MPage.Designer',
-        'x-component-props': {},
-        properties: {
           process: {
             type: 'void',
             'x-decorator': 'CardItem',
@@ -187,7 +156,7 @@ const UserInitiationsComponent = (applyDetail, t, currContext) => {
         useWithdrawAction,
         useDestroyAction,
       }}
-      schema={currContext === 'formContext' ? formContextSchema : approvalSchema}
+      schema={formContextSchema}
     />
   );
 };
