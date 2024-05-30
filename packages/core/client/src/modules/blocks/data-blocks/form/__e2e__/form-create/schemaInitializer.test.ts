@@ -81,7 +81,7 @@ test.describe('configure actions', () => {
     await expect(page.getByRole('button', { name: 'Submit' })).not.toBeVisible();
   });
 
-  // https://tachybase.height.app/T-3106
+  //
   test('subTable: should clear form value after submit', async ({ page, mockPage }) => {
     await mockPage(T3106).goto();
 
@@ -103,7 +103,7 @@ test.describe('configure actions', () => {
     ).toHaveValue('test name');
   });
 
-  // https://tachybase.height.app/T-3469
+  //
   test('default values for fields should not be cleared after submission', async ({ page, mockPage }) => {
     await mockPage(T3469).goto();
 

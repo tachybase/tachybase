@@ -119,7 +119,6 @@ const useTableColumns = () => {
           const index = field.value?.indexOf(record);
           return (
             <RecordIndexProvider index={index}>
-              {/* fix https://tachybase.height.app/T-3232/description */}
               {/* 如果作为关系表格区块，则 parentRecordData 应该有值；如果作为普通表格使用（如数据源管理页面的表格）则应该使用 recordData，且 parentRecordData 为空 */}
               <RecordProvider record={record} parent={parentRecordData || recordData}>
                 <RecursionField schema={s} name={record.__index || index} onlyRenderProperties />

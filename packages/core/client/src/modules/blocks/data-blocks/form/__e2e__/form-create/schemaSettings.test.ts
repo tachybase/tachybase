@@ -212,7 +212,7 @@ test.describe('creation form block schema settings', () => {
       ).toHaveValue('123');
     });
 
-    // https://tachybase.height.app/T-2165
+    //
     test('variable labels should be displayed normally', async ({ page, mockPage }) => {
       await mockPage(T2165).goto();
 
@@ -224,7 +224,7 @@ test.describe('creation form block schema settings', () => {
       await expect(page.getByText('Current form / Phone')).toBeVisible();
     });
 
-    // https://tachybase.height.app/T-3251
+    //
     test('nested conditions', async ({ page, mockPage }) => {
       await mockPage(T3251).goto();
 
@@ -256,7 +256,7 @@ test.describe('creation form block schema settings', () => {
       ).toBeEditable();
     });
 
-    // https://tachybase.height.app/T-3806
+    //
     test('after save as block template', async ({ page, mockPage }) => {
       await mockPage(T3806).goto();
 
@@ -732,7 +732,7 @@ test.describe('creation form block schema settings', () => {
       ).toHaveValue('new value');
     });
 
-    // fix https://tachybase.height.app/T-2174
+    // fix
     test('should show default value option', async ({ page, mockPage, mockRecord }) => {
       const nocoPage = await mockPage(T2174).waitForInit();
       await mockRecord('test2174');

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { createForm, FormProvider, Schema, uid } from '@tachybase/schema';
 
 import { useTranslation } from 'react-i18next';
@@ -42,10 +42,11 @@ const Registry = {
 
 Schema.registerCompiler(Registry.compile);
 
-export const SchemaComponentProvider: React.FC<PropsWithChildren<ISchemaComponentProvider>> = (props) => {
+export const SchemaComponentProvider = (props: ISchemaComponentProvider) => {
   const { designable, onDesignableChange, components, children } = props;
   const [uidValue, setUid] = useState(uid());
   const [formId, setFormId] = useState(uid());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const form = useMemo(() => props.form || createForm(), [formId]);
   const { t } = useTranslation();
   const scope = useMemo(() => {
@@ -69,12 +70,12 @@ export const SchemaComponentProvider: React.FC<PropsWithChildren<ISchemaComponen
         onDesignableChange?.(value);
       },
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [uidValue, scope, components, designable, active],
   );
 
   return (
-    // TODO: 临时修复,处理模板类型的关联数据第一次进入无法加载
-    <SchemaComponentContext.Provider value={{ ...schemaComponentContextValue }}>
+    <SchemaComponentContext.Provider value={schemaComponentContextValue}>
       <FormProvider form={form}>
         <SchemaComponentOptions inherit scope={scope} components={components}>
           {children}

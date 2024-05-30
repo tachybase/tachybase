@@ -1,4 +1,4 @@
-import React, { memo, PropsWithChildren, useContext, useMemo } from 'react';
+import React, { memo, useContext, useMemo } from 'react';
 import { ExpressionScope, SchemaComponentsContext, SchemaOptionsContext } from '@tachybase/schema';
 
 import { ISchemaComponentOptionsProps } from '../types';
@@ -8,7 +8,7 @@ export const useSchemaOptionsContext = () => {
   return options || {};
 };
 
-export const SchemaComponentOptions: React.FC<PropsWithChildren<ISchemaComponentOptionsProps>> = memo((props) => {
+export const SchemaComponentOptions = memo((props: ISchemaComponentOptionsProps) => {
   const { children } = props;
   const options = useSchemaOptionsContext();
   const components = useMemo(() => {

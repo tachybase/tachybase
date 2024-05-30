@@ -79,7 +79,7 @@ export const conditionAnalyses = async ({
   const conditions = ruleGroup[type];
 
   let results = conditions.map(async (condition) => {
-    // fix https://tachybase.height.app/T-3152
+    // fix
     if ('$and' in condition || '$or' in condition) {
       return await conditionAnalyses({ ruleGroup: condition, variables, localVariables });
     }

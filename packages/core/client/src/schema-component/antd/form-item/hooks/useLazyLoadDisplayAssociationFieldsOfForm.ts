@@ -87,7 +87,6 @@ const useLazyLoadDisplayAssociationFieldsOfForm = () => {
       .then((value) => {
         nextTick(() => {
           const result = transformVariableValue(value, { targetCollectionField: collectionFieldRef.current });
-          // fix https://tachybase.height.app/T-2608
           if (_.isEmpty(result) && !_.isNumber(result)) {
             field.value = null;
           } else {

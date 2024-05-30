@@ -1,4 +1,5 @@
-import React, { FC, ReactNode, createContext, useContext } from 'react';
+import React, { createContext, ReactNode, useContext } from 'react';
+
 import type { DataSourceManager } from './DataSourceManager';
 
 export const DataSourceManagerContext = createContext<DataSourceManager>(null);
@@ -9,7 +10,7 @@ export interface DataSourceManagerProviderProps {
   children?: ReactNode;
 }
 
-export const DataSourceManagerProvider: FC<DataSourceManagerProviderProps> = ({ children, dataSourceManager }) => {
+export const DataSourceManagerProvider = ({ children, dataSourceManager }: DataSourceManagerProviderProps) => {
   return <DataSourceManagerContext.Provider value={dataSourceManager}>{children}</DataSourceManagerContext.Provider>;
 };
 

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { createForm, Schema } from '@tachybase/schema';
 
 import { useRequest } from '../../api-client';
@@ -16,11 +16,12 @@ export interface RemoteSchemaComponentProps {
   hidden?: any;
   onlyRenderProperties?: boolean;
   noForm?: boolean;
+  children?: React.ReactNode;
 }
 
 const defaultTransform = (s: Schema) => s;
 
-const RequestSchemaComponent: React.FC<RemoteSchemaComponentProps> = (props) => {
+const RequestSchemaComponent = (props: RemoteSchemaComponentProps) => {
   const {
     noForm,
     onlyRenderProperties,
@@ -45,18 +46,18 @@ const RequestSchemaComponent: React.FC<RemoteSchemaComponentProps> = (props) => 
       reset && reset();
     },
   });
-  if (loading || hidden) {
+  if (loading || hidden || !data) {
     return;
   }
   return noForm ? (
-    <SchemaComponent memoized components={components} scope={scope} schema={schemaTransform(data?.data || {})} />
+    <SchemaComponent components={components} scope={scope} schema={schemaTransform(data?.data || {})} />
   ) : (
     <FormProvider form={form}>
-      <SchemaComponent memoized components={components} scope={scope} schema={schemaTransform(data?.data || {})} />
+      <SchemaComponent components={components} scope={scope} schema={schemaTransform(data?.data || {})} />
     </FormProvider>
   );
 };
 
-export const RemoteSchemaComponent: React.FC<PropsWithChildren<RemoteSchemaComponentProps>> = (props) => {
+export const RemoteSchemaComponent = (props: RemoteSchemaComponentProps) => {
   return props.uid ? <RequestSchemaComponent {...props} /> : null;
 };

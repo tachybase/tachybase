@@ -1,6 +1,5 @@
-import { Form } from '@tachybase/schema';
-import { IRecursionFieldProps, ISchemaFieldProps, SchemaReactComponents } from '@tachybase/schema';
 import React from 'react';
+import { Form, IRecursionFieldProps, ISchemaFieldProps, SchemaReactComponents } from '@tachybase/schema';
 
 export interface ISchemaComponentContext {
   scope?: any;
@@ -9,7 +8,7 @@ export interface ISchemaComponentContext {
   reset?: () => void;
   designable?: boolean;
   setDesignable?: (value: boolean) => void;
-  SchemaField?: React.FC<ISchemaFieldProps>;
+  SchemaField?: (props: ISchemaFieldProps) => React.ReactNode;
 }
 
 export interface ISchemaComponentProvider {
@@ -18,6 +17,7 @@ export interface ISchemaComponentProvider {
   form?: Form;
   scope?: any;
   components?: SchemaReactComponents;
+  children?: React.ReactNode;
 }
 
 export interface IRecursionComponentProps extends IRecursionFieldProps {
@@ -29,4 +29,5 @@ export interface ISchemaComponentOptionsProps {
   scope?: any;
   components?: SchemaReactComponents;
   inherit?: boolean;
+  children?: React.ReactNode;
 }

@@ -21,5 +21,6 @@ export const useNiceDropdownMaxHeight = (deps: any[] = []) => {
     };
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useMemo(() => heightRef.current - 40, deps);
 };

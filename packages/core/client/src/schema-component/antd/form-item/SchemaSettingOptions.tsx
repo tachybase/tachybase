@@ -1,10 +1,10 @@
-import { ArrayCollapse, FormLayout } from '@tachybase/components';
-import { Field } from '@tachybase/schema';
-import { ISchema, Schema, useField, useFieldSchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import _ from 'lodash';
 import React from 'react';
+import { ArrayCollapse, FormLayout } from '@tachybase/components';
+import { Field, ISchema, Schema, useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { useFormBlockContext } from '../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { SchemaSettingsModalItem, SchemaSettingsSelectItem, SchemaSettingsSwitchItem } from '../../../schema-settings';
@@ -12,6 +12,7 @@ import { isPatternDisabled } from '../../../schema-settings/isPatternDisabled';
 import { useCompile, useDesignable, useFieldModeOptions } from '../../hooks';
 import { useOperatorList } from '../filter/useOperators';
 import { isFileCollection } from './FormItem';
+
 export const findFilterOperators = (schema: Schema) => {
   while (schema) {
     if (schema['x-filter-operators']) {
@@ -23,16 +24,6 @@ export const findFilterOperators = (schema: Schema) => {
     schema = schema.parent;
   }
   return {};
-};
-
-const divWrap = (schema: ISchema) => {
-  return {
-    type: 'void',
-    'x-component': 'div',
-    properties: {
-      [schema.name || uid()]: schema,
-    },
-  };
 };
 
 export const EditTitle = () => {
@@ -297,10 +288,6 @@ export const EditValidationRules = () => {
         const schema = {
           ['x-uid']: fieldSchema['x-uid'],
         };
-        // return;
-        // if (['number'].includes(collectionField?.interface) && collectionField?.uiSchema?.['x-component-props']?.['stringMode'] === true) {
-        //   rules['numberStringMode'] = true;
-        // }
         if (['percent'].includes(collectionField?.interface)) {
           for (const rule of rules) {
             if (!!rule.maxValue || !!rule.minValue) {

@@ -1,13 +1,5 @@
-import { ChangeEvent, useCallback, useContext, useEffect, useMemo } from 'react';
-import {
-  Field,
-  Form,
-  SchemaExpressionScopeContext,
-  untracked,
-  useField,
-  useFieldSchema,
-  useForm,
-} from '@tachybase/schema';
+import { ChangeEvent, useCallback, useEffect } from 'react';
+import { Field, Form, untracked, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { isURL, parse } from '@tachybase/utils/client';
 
 import { App, message } from 'antd';
@@ -25,7 +17,6 @@ import {
   useDataSourceHeaders,
   useFormActiveFields,
   useFormBlockContext,
-  useTableBlockContext,
 } from '../..';
 import { useAPIClient, useRequest } from '../../api-client';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../collection-manager';
@@ -1313,7 +1304,7 @@ function getTargetField(obj) {
 
 /**
  * 之所以不直接使用 form.reset() 是因为其无法将子表格重置为空
- * 主要用于修复这个问题：https://tachybase.height.app/T-3106
+ * 主要用于修复这个问题：
  * @param form
  */
 async function resetFormCorrectly(form: Form) {

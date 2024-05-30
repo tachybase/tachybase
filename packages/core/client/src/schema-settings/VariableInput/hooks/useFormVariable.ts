@@ -37,7 +37,7 @@ export const useFormVariable = ({ collectionName, collectionField, schema, noDis
     collectionName: collectionName,
     noDisabled,
     returnFields: (fields, option) => {
-      // fix https://tachybase.height.app/T-2277
+      // fix
       return fields;
       // const activeFieldsName = getActiveFieldsName?.('form') || [];
 
@@ -77,7 +77,7 @@ export const useCurrentFormVariable = ({
     collectionName: collectionName,
     noDisabled,
     returnFields: (fields, option) => {
-      // fix https://tachybase.height.app/T-2277
+      // fix
       return fields;
       // const activeFieldsName = getActiveFieldsName?.('form') || [];
 

@@ -50,7 +50,7 @@ test.describe('display association fields', () => {
     );
   });
 
-  // https://tachybase.height.app/T-2615
+  //
   test('should load association data', async ({ page, mockPage, mockRecord }) => {
     const nocoPage = await mockPage(T2615).waitForInit();
     await mockRecord('T2615');
@@ -88,7 +88,7 @@ test.describe('display association fields', () => {
     );
   });
 
-  // https://tachybase.height.app/T-2845
+  //
   test('should load association data of subform', async ({ page, mockPage, mockRecord }) => {
     const nocoPage = await mockPage(T2845).waitForInit();
     // 和 T2615 使用一样的数据表结构
@@ -137,7 +137,7 @@ test.describe('display association fields', () => {
     );
   });
 
-  // https://tachybase.height.app/T-2614
+  //
   test('should load association data in subform', async ({ page, mockPage, mockRecord }) => {
     const nocoPage = await mockPage(T2614).waitForInit();
     await mockRecord('T2614');
@@ -165,7 +165,7 @@ test.describe('display association fields', () => {
     ).toHaveText(`ID:1`);
   });
 
-  // https://tachybase.height.app/T-2993
+  //
   test('should load association data of sub details', async ({ page, mockPage, mockRecord }) => {
     const nocoPage = await mockPage(T2993).waitForInit();
     const record = await mockRecord('T2993');
@@ -265,7 +265,7 @@ test.describe('association fields', () => {
     }
   });
 
-  // fix https://tachybase.height.app/T-2200
+  // fix
   test('should be possible to change the value of the association field normally', async ({ page, mockPage }) => {
     await mockPage(T2200).goto();
 

@@ -210,7 +210,7 @@ export function RuleConfigForm() {
     <Button
       type="link"
       onClick={() => {
-        // fix https://tachybase.height.app/T-2868
+        // fix
         FormDrawer(
           {
             title: compile(ruleType.title),

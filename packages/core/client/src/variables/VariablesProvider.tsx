@@ -136,7 +136,7 @@ const VariablesProvider = ({ children }) => {
             clearRequested(url);
           }
 
-          // fix https://tachybase.height.app/T-3144，使用 `raw` 方法是为了避免触发 autorun，以修复 T-3144 的错误
+          // 使用 `raw` 方法是为了避免触发 autorun
           if (!raw(current)[key]) {
             // 把接口返回的数据保存起来，避免重复请求
             raw(current)[key] = data.data.data;
@@ -296,7 +296,7 @@ function shouldToRequest(value) {
 
   // value 有可能是一个响应式对象，使用 untracked 可以避免意外触发 autorun
   untracked(() => {
-    // fix https://tachybase.height.app/T-2502
+    // fix
     // 兼容 `对多` 和 `对一` 子表单子表格字段的情况
     if (JSON.stringify(value) === '[{}]' || JSON.stringify(value) === '{}') {
       result = true;
