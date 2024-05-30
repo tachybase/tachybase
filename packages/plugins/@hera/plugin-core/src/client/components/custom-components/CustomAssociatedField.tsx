@@ -1,6 +1,8 @@
-import { SchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { SchemaComponent } from '@tachybase/client';
+
 import { ErrorBoundary } from 'react-error-boundary';
+
 import { ErrorBoundaryFallBack } from './ErrorBoundary';
 
 export const CustomAssociatedField = (props) => {

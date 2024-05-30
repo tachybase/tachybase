@@ -1,5 +1,6 @@
 import { Plugin } from '@tachybase/client';
 import PluginWorkflow from '@tachybase/plugin-workflow/client';
+
 import { WorkflowTriggerInterceptor } from './WorkflowTriggerInterceptor';
 
 export class PluginWorkflowInterceptor extends Plugin {

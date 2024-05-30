@@ -1,36 +1,49 @@
+import React, { memo, Profiler, useCallback, useContext, useMemo } from 'react';
 import {
+  ACLCollectionFieldProvider,
+  BlockItem,
+  css,
+  cx,
+  EditComponent,
+  EditDescription,
   FormDialog,
+  FormItem,
+  GeneralSchemaDesigner,
+  gridRowColWrap,
+  HTMLEncode,
+  i18n,
   SchemaComponent,
   SchemaComponentOptions,
   SchemaInitializerItem,
-  gridRowColWrap,
-  useCollectionManager_deprecated,
-  useDesignable,
-  useGlobalTheme,
-  HTMLEncode,
-  useSchemaInitializerItem,
-  i18n,
-  GeneralSchemaDesigner,
-  SchemaSettingsDivider,
-  EditDescription,
-  cx,
-  css,
-  ACLCollectionFieldProvider,
-  BlockItem,
-  FormItem,
   SchemaSettingsDataScope,
-  EditComponent,
-  useFormBlockContext,
-  useAPIClient,
-  useCompile,
+  SchemaSettingsDivider,
   Select,
+  useAPIClient,
   useCollectionManager,
+  useCollectionManager_deprecated,
+  useCompile,
+  useDesignable,
+  useFormBlockContext,
+  useGlobalTheme,
+  useSchemaInitializerItem,
 } from '@tachybase/client';
-import { ConfigProvider, Radio, Space } from 'antd';
-import React, { memo, useCallback, useContext, useMemo, Profiler } from 'react';
-import { Schema, SchemaOptionsContext, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { ArrayItems, FormLayout } from '@tachybase/components';
-import { Field, onFieldValueChange } from '@tachybase/schema';
+import {
+  Field,
+  observer,
+  onFieldValueChange,
+  Schema,
+  SchemaOptionsContext,
+  uid,
+  useField,
+  useFieldSchema,
+  useForm,
+} from '@tachybase/schema';
+
+import { ConfigProvider, Radio, Space } from 'antd';
+import _ from 'lodash';
+
+import { tval, useTranslation } from '../../locale';
 import {
   EditDefaultValue,
   EditFormulaTitleField,
@@ -39,10 +52,7 @@ import {
   SchemaSettingCollection,
   SchemaSettingComponent,
 } from '../../schema-settings';
-import _ from 'lodash';
 import { SchemaSettingsRemove } from '../../schema-settings/SchemaSettingsRemove';
-import { tval, useTranslation } from '../../locale';
-import { uid } from '@tachybase/schema';
 
 const FieldComponentProps: React.FC = observer(
   (props) => {

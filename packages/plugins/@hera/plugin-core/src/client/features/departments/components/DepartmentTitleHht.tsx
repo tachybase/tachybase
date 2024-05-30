@@ -1,5 +1,6 @@
-import { useRecord } from '@tachybase/client';
 import { Fragment } from 'react';
+import { useRecord } from '@tachybase/client';
+
 import { jsx } from 'react/jsx-runtime';
 
 export const DepartmentTitleHht = () => {

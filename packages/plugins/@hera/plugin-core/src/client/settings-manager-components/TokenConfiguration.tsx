@@ -1,9 +1,12 @@
-import { useAPIClient } from '@tachybase/client';
-import { useBoolean } from 'ahooks';
-import { Button, Card, Form, Input, Tabs, message } from 'antd';
 import React, { useEffect, useMemo } from 'react';
+import { useAPIClient } from '@tachybase/client';
+
+import { useBoolean } from 'ahooks';
+import { Button, Card, Form, Input, message, Tabs } from 'antd';
 import { useLocation } from 'react-router-dom';
-import { TokenConfigurationResourceKey, getSSKey, useMapConfiguration } from '../hooks/useTokenConfiguration';
+
+import { getSSKey, TokenConfigurationResourceKey, useMapConfiguration } from '../hooks/useTokenConfiguration';
+
 interface BaseConfigurationProps {
   type: 'feishu';
 }

@@ -1,5 +1,7 @@
 import { useApp } from '@tachybase/client';
+
 import _ from 'lodash';
+
 import { CustomComponentType, CustomFunctionComponent } from '..';
 
 export const useCustomComponent = (type: CustomComponentType) => {

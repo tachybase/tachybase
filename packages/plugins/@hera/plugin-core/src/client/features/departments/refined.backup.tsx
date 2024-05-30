@@ -6,35 +6,37 @@
 // 2. 反编译文件
 // 3. 根据功能进行归类, 根据就近原则
 /* eslint-disable */
-import { MoreOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons';
+import React, { Fragment, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  CollectionContext,
-  ResourceActionProvider,
-  useFilterFieldProps,
-  useCollectionManager_deprecated,
-  useCompile,
-  useCollection_deprecated,
-  mergeFilter,
-  removeNullCondition,
-  Checkbox,
-  EllipsisWithTooltip,
-  CollectionProvider_deprecated,
-  RecordProvider,
-  ResourceActionContext,
-  SchemaComponent,
   ActionContextProvider,
+  Checkbox,
+  CollectionContext,
+  CollectionProvider_deprecated,
   createStyles,
   css,
-  useAPIClient,
-  useActionContext,
+  EllipsisWithTooltip,
+  mergeFilter,
+  RecordProvider,
+  removeNullCondition,
+  ResourceActionContext,
+  ResourceActionProvider,
+  SchemaComponent,
   SchemaComponentOptions,
+  useActionContext,
+  useAPIClient,
+  useCollection_deprecated,
+  useCollectionManager_deprecated,
+  useCompile,
   useFilterFieldOptions,
+  useFilterFieldProps,
   useRecord,
   useRequest,
   useResourceActionContext,
 } from '@tachybase/client';
 import { RolesManagerContext } from '@tachybase/plugin-acl/client';
 import { uid, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
+import { MoreOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons';
 import {
   App,
   Button,
@@ -47,12 +49,12 @@ import {
   Select,
   Table,
   Tag,
+  theme,
   Tree,
   TreeSelect,
-  theme,
 } from 'antd';
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState, Fragment } from 'react';
 import { jsx, jsxs } from 'react/jsx-runtime';
+
 import { useTranslation } from '../../locale';
 
 var wt = Object.defineProperty,

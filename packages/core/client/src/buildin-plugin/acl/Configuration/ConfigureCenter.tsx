@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 
-import { Checkbox, message, Table } from 'antd';
+import { App, Checkbox, Table } from 'antd';
 import { omit } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -42,12 +42,12 @@ export const SettingCenterProvider = (props) => {
 
 export const SettingsCenterConfigure = () => {
   const app = useApp();
+  const { message } = App.useApp();
   const { styles } = useStyles();
   const record = useRecord();
   const api = useAPIClient();
   const compile = useCompile();
   const settings = app.pluginSettingsManager.getList(false);
-  console.log(settings);
   const allAclSnippets = app.pluginSettingsManager.getAclSnippets();
   const [snippets, setSnippets] = useState<string[]>([]);
   const allChecked = useMemo(

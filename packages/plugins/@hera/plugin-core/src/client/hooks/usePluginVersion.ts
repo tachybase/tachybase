@@ -1,4 +1,5 @@
 import { useRequest } from '@tachybase/client';
+
 interface IPluginDetailData {
   packageJson: PackageJSON;
 }

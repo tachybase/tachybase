@@ -1,4 +1,4 @@
-import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { useCallback } from 'react';
 import {
   __UNSAFE__,
   getFormValues,
@@ -15,12 +15,14 @@ import {
   useRecord,
   useVariables,
 } from '@tachybase/client';
-import { useTranslation } from 'react-i18next';
-import { App, message } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { isURL } from '@tachybase/utils/client';
-import { useCallback } from 'react';
+
+import { App, message } from 'antd';
 import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { tval } from '../../../locale';
 
 const pageDetailsViewer = 'PageLayout';

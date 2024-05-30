@@ -1,8 +1,9 @@
 import { useAPIClient } from '@tachybase/client';
-import { T } from '../others/T';
-import { useHooksDe } from './useHooksDe';
+
 import { k } from '../others/k';
+import { T } from '../others/T';
 import { B } from '../utils/B';
+import { useHooksDe } from './useHooksDe';
 
 function we(e) {
   return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, 'default') ? e.default : e;
@@ -41,7 +42,3 @@ export const useHooksG = (props) => {
       });
   return T({ ...i }, { loadData: A, getByKeyword: b });
 };
-
-
-
-

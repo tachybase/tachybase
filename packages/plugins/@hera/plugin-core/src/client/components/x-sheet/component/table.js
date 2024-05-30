@@ -1,10 +1,10 @@
+import { Draw, DrawBox, npx, thinLineWidth } from '../canvas';
 import { stringAt } from '../core/alphabet';
-import { getFontSizePxByPt } from '../core/font';
 import _cell from '../core/cell';
-import { formulam } from '../core/formula';
+import { getFontSizePxByPt } from '../core/font';
 import { formatm } from '../core/format';
+import { formulam } from '../core/formula';
 
-import { Draw, DrawBox, thinLineWidth, npx } from '../canvas';
 // gobal var
 const cellPaddingWidth = 5;
 const tableFixedHeaderCleanStyle = { fillStyle: '#f4f5f8' };

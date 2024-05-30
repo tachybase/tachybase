@@ -1,8 +1,11 @@
-import { CalculatorOutlined, CommentOutlined, HighlightOutlined, ToolOutlined, ToolFilled } from '@ant-design/icons';
-import { useDesignable } from '@tachybase/client';
-import { FloatButton } from 'antd';
 import React from 'react';
+import { useDesignable } from '@tachybase/client';
+
+import { CalculatorOutlined, CommentOutlined, HighlightOutlined, ToolFilled, ToolOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
+
 import { useContextMenu } from '../context-menu/useContextMenu';
+
 export const AssistantProvider = ({ children }) => {
   const { designable, setDesignable } = useDesignable();
   const { contextMenuEnabled, setContextMenuEnable } = useContextMenu();

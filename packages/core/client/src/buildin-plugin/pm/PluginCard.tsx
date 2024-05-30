@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 
 import { ClockCircleOutlined, DeleteOutlined, ReadOutlined, ReloadOutlined, SettingOutlined } from '@ant-design/icons';
-import { App, Card, Divider, message, Popconfirm, Space, Switch, Typography } from 'antd';
+import { App, Card, Divider, Popconfirm, Space, Switch, Typography } from 'antd';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ export const SwitchAction = (props: IPluginData) => {
   const { name, enabled, builtIn, error, isCompatible } = props;
   const api = useAPIClient();
   const { t } = useTranslation();
-  const { modal } = App.useApp();
+  const { modal, message } = App.useApp();
   return (
     <Switch
       aria-label="enable"
@@ -70,7 +70,7 @@ function PluginInfo(props: IPluginInfo) {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const api = useAPIClient();
-  const { modal } = App.useApp();
+  const { modal, message } = App.useApp();
   const [showUploadForm, setShowUploadForm] = useState(false);
   const reload = () => window.location.reload();
   const title = displayName || name || packageName;

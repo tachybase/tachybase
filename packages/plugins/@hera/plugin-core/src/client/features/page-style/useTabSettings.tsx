@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { SelectWithTitle, useAPIClient, useCurrentUserContext } from '@tachybase/client';
 import { error } from '@tachybase/utils/client';
+
 import { useTranslation } from '../../locale';
 
 export const useTabSettings = () => {

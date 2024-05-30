@@ -1,4 +1,5 @@
 import { extendCollection } from '@tachybase/database';
+
 export const departmentsField = {
   collectionName: 'users',
   interface: 'm2m',

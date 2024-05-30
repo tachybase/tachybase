@@ -1,7 +1,9 @@
-import { UserOutlined } from '@ant-design/icons';
-import { ActionContextProvider, RecordProvider, SchemaComponent, SchemaComponentOptions } from '@tachybase/client';
-import { Button, Divider, Row, theme } from 'antd';
 import React, { useContext, useState } from 'react';
+import { ActionContextProvider, RecordProvider, SchemaComponent, SchemaComponentOptions } from '@tachybase/client';
+
+import { UserOutlined } from '@ant-design/icons';
+import { Button, Divider, Row, theme } from 'antd';
+
 import { useTranslation } from '../../../locale';
 import { contextK } from '../context/contextK';
 import { ContextNProvider } from '../context/contextN';

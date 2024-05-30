@@ -1,10 +1,12 @@
-import { SchemaComponent, SchemaSettings, useApp, useDesignable, usePlugin } from '@tachybase/client';
 import React from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useTranslation } from '../../locale';
-import { useField, useFieldSchema } from '@tachybase/schema';
+import { SchemaComponent, SchemaSettings, useApp, useDesignable, usePlugin } from '@tachybase/client';
 import { Field } from '@tachybase/database';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
+import { ErrorBoundary } from 'react-error-boundary';
+
 import { useCustomComponent } from '../../hooks/useCustomComponent';
+import { useTranslation } from '../../locale';
 import { CustomComponentType } from './custom-components';
 import { ErrorBoundaryFallBack } from './ErrorBoundary';
 

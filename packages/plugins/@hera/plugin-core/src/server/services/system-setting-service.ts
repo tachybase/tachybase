@@ -1,5 +1,5 @@
-import { Service, Db } from '@tachybase/utils';
 import Database from '@tachybase/database';
+import { Db, Service } from '@tachybase/utils';
 
 export interface SystemSetting {
   title: string;

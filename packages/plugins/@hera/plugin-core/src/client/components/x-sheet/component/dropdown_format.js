@@ -1,7 +1,7 @@
+import { cssPrefix } from '../config';
+import { baseFormats } from '../core/format';
 import Dropdown from './dropdown';
 import { h } from './element';
-import { baseFormats } from '../core/format';
-import { cssPrefix } from '../config';
 
 export default class DropdownFormat extends Dropdown {
   constructor() {
@@ -13,11 +13,10 @@ export default class DropdownFormat extends Dropdown {
       if (it.key === 'divider') {
         item.addClass('divider');
       } else {
-        item.child(it.title())
-          .on('click', () => {
-            this.setTitle(it.title());
-            this.change(it);
-          });
+        item.child(it.title()).on('click', () => {
+          this.setTitle(it.title());
+          this.change(it);
+        });
         if (it.label) item.child(h('div', 'label').html(it.label));
       }
       return item;

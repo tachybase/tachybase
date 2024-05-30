@@ -1,14 +1,6 @@
 import React from 'react';
 import * as tachybaseComponents from '@tachybase/components';
 import * as tachybaseEvaluators from '@tachybase/evaluators/client';
-import * as formilyCore from '@tachybase/schema';
-import * as formilyJsonSchema from '@tachybase/schema';
-import * as formilyPath from '@tachybase/schema';
-import * as formilyReact from '@tachybase/schema';
-import * as formilyJsonReactive from '@tachybase/schema';
-import * as formilyReactiveReact from '@tachybase/schema';
-import * as formilyShared from '@tachybase/schema';
-import * as formilyValidator from '@tachybase/schema';
 import * as tachybaseSchema from '@tachybase/schema';
 import * as tachybaseSDK from '@tachybase/sdk';
 import * as tachybaseClientUtils from '@tachybase/utils/client';
@@ -60,22 +52,9 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('i18next', () => i18next);
   requirejs.define('react-i18next', () => reactI18next);
 
-  // formily
-  requirejs.define('@formily/core', () => formilyCore);
-  requirejs.define('@formily/react', () => formilyReact);
-  requirejs.define('@formily/shared', () => formilyShared);
-  requirejs.define('@formily/json-schema', () => formilyJsonSchema);
-  requirejs.define('@formily/reactive', () => formilyJsonReactive);
-  requirejs.define('@formily/path', () => formilyPath);
-  requirejs.define('@formily/validator', () => formilyValidator);
-  requirejs.define('@formily/reactive-react', () => formilyReactiveReact);
-
   // tachybase
-  requirejs.define('@tachybase/utils', () => tachybaseClientUtils);
   requirejs.define('@tachybase/utils/client', () => tachybaseClientUtils);
   requirejs.define('@tachybase/client', () => tachybaseClient);
-  requirejs.define('@tachybase/client/client', () => tachybaseClient);
-  requirejs.define('@tachybase/evaluators', () => tachybaseEvaluators);
   requirejs.define('@tachybase/evaluators/client', () => tachybaseEvaluators);
   requirejs.define('@tachybase/sdk', () => tachybaseSDK);
   requirejs.define('@tachybase/schema', () => tachybaseSchema);
@@ -94,5 +73,4 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('lodash', () => lodash);
   requirejs.define('ahooks', () => ahooks);
   requirejs.define('@emotion/css', () => emotionCss);
-  requirejs.define('dayjs', () => dayjs);
 }

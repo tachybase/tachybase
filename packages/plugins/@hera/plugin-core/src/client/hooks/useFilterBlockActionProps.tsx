@@ -1,5 +1,3 @@
-import { useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { isEmpty } from '@tachybase/schema';
 import {
   findFilterTargets,
   mergeFilter,
@@ -8,7 +6,10 @@ import {
   useCollectionManager_deprecated,
   useFilterBlock,
 } from '@tachybase/client';
+import { isEmpty, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
 import flat from 'flat';
+
 import { hasDuplicateKeys } from '../utils';
 
 export const removeNullCondition = (filter, fieldSchema?) => {

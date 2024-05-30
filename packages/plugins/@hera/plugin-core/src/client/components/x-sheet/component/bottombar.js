@@ -1,12 +1,12 @@
-import { h } from './element';
-import { bindClickoutside, unbindClickoutside } from './event';
 import { cssPrefix } from '../config';
-import Icon from './icon';
-import FormInput from './form_input';
-import Dropdown from './dropdown';
 // Record: temp not used
 // import { xtoast } from './message';
 import { tf } from '../locale/locale';
+import Dropdown from './dropdown';
+import { h } from './element';
+import { bindClickoutside, unbindClickoutside } from './event';
+import FormInput from './form_input';
+import Icon from './icon';
 
 class DropdownMore extends Dropdown {
   constructor(click) {

@@ -1,5 +1,7 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+
 import classnames from 'classnames';
+
 import ContextMenuItem from './contextMenuItem';
 
 function Submenu({ children, title, attributes, className }) {

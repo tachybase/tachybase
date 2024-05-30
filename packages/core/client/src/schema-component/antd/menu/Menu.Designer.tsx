@@ -2,7 +2,7 @@ import React from 'react';
 import { TreeSelect } from '@tachybase/components';
 import { Field, ISchema, onFieldChange, Schema, useField, useFieldSchema } from '@tachybase/schema';
 
-import { message } from 'antd';
+import { App } from 'antd';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 
@@ -250,6 +250,7 @@ export const MenuDesigner = () => {
   const field = useField();
   const fieldSchema = useFieldSchema();
   const api = useAPIClient();
+  const { message } = App.useApp();
   const { dn, refresh } = useDesignable();
   const { t } = useTranslation();
   const menuSchema = findMenuSchema(fieldSchema);

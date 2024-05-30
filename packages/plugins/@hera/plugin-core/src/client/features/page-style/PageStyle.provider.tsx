@@ -1,7 +1,9 @@
-import { useCurrentUserContext, useCurrentUserSettingsMenu } from '@tachybase/client';
 import React, { createContext, useEffect, useState } from 'react';
-import { useTabSettings } from './useTabSettings';
+import { useCurrentUserContext, useCurrentUserSettingsMenu } from '@tachybase/client';
+
 import { TabsProps } from 'antd';
+
+import { useTabSettings } from './useTabSettings';
 
 export interface PageStyleContextValue {
   style: string;

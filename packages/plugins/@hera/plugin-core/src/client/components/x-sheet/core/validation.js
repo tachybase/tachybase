@@ -1,5 +1,5 @@
-import Validator from './validator';
 import { CellRange } from './cell_range';
+import Validator from './validator';
 
 class Validation {
   constructor(mode, refs, validator) {
@@ -28,7 +28,7 @@ class Validation {
       const cr = CellRange.valueOf(it);
       if (cr.intersects(cellRange)) {
         const crs = cr.difference(cellRange);
-        crs.forEach(it1 => nrefs.push(it1.toString()));
+        crs.forEach((it1) => nrefs.push(it1.toString()));
       } else {
         nrefs.push(it);
       }
@@ -38,17 +38,18 @@ class Validation {
 
   getData() {
     const { refs, mode, validator } = this;
-    const {
-      type, required, operator, value,
-    } = validator;
+    const { type, required, operator, value } = validator;
     return {
-      refs, mode, type, required, operator, value,
+      refs,
+      mode,
+      type,
+      required,
+      operator,
+      value,
     };
   }
 
-  static valueOf({
-    refs, mode, type, required, operator, value,
-  }) {
+  static valueOf({ refs, mode, type, required, operator, value }) {
     return new Validation(mode, refs, new Validator(type, required, value, operator));
   }
 }
@@ -82,12 +83,8 @@ class Validations {
 
   // type: date|number|phone|email|list
   // validator: { required, value, operator }
-  add(mode, ref, {
-    type, required, value, operator,
-  }) {
-    const validator = new Validator(
-      type, required, value, operator,
-    );
+  add(mode, ref, { type, required, value, operator }) {
+    const validator = new Validator(type, required, value, operator);
     const v = this.getByValidator(validator);
     if (v !== null) {
       v.addRef(ref);
@@ -121,19 +118,17 @@ class Validations {
   }
 
   each(cb) {
-    this._.forEach(it => cb(it));
+    this._.forEach((it) => cb(it));
   }
 
   getData() {
-    return this._.filter(it => it.refs.length > 0).map(it => it.getData());
+    return this._.filter((it) => it.refs.length > 0).map((it) => it.getData());
   }
 
   setData(d) {
-    this._ = d.map(it => Validation.valueOf(it));
+    this._ = d.map((it) => Validation.valueOf(it));
   }
 }
 
 export default {};
-export {
-  Validations,
-};
+export { Validations };

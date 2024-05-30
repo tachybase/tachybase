@@ -1,8 +1,9 @@
+import React from 'react';
 import { AssociationField } from '@tachybase/client';
 import { connect, mapReadPretty } from '@tachybase/schema';
+
 // import { jsxs } from 'react/jsx-runtime';
 import { useTranslation } from '../../../locale';
-import React from 'react';
 
 export const UserDepartmentsField = connect(() => {
   const { t } = useTranslation();

@@ -1,5 +1,7 @@
 import { SchemaComponent } from '@tachybase/client';
+
 import { jsx } from 'react/jsx-runtime';
+
 import { useTranslation } from '../../../locale';
 
 export const ComponentXxe = () => {

@@ -68,9 +68,4 @@ function fonts(ary = []) {
 }
 
 export default {};
-export {
-  fontSizes,
-  fonts,
-  baseFonts,
-  getFontSizePxByPt,
-};
+export { fontSizes, fonts, baseFonts, getFontSizePxByPt };

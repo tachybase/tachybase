@@ -2,8 +2,9 @@ import Database from '@tachybase/database';
 import { Db, Service } from '@tachybase/utils';
 
 import { RecordPdfOptions } from '../../interfaces/options';
-import { ConversionLogics, countCource, RecordCategory, RulesNumber, SourcesType } from '../../utils/constants';
+import { ConversionLogics, RecordCategory, RulesNumber, SourcesType } from '../../utils/constants';
 import { PrintSetup } from '../../utils/system';
+import { render } from '../pdf-documents/message-document';
 import { renderItV2 } from '../pdf-documents/records-documentV2';
 
 @Service()
@@ -20,7 +21,7 @@ export class RecordPdfService {
 
     // 直发单不需要打印预览
     if (recordData.category === RecordCategory.purchase2lease || recordData.category === RecordCategory.lease2lease)
-      return;
+      return await render('直发单不支持直接预览');
 
     // 盘点/暂存单使用默认产品表的换算逻辑
     if (recordData.category === RecordCategory.staging || recordData.category === RecordCategory.inventory) {

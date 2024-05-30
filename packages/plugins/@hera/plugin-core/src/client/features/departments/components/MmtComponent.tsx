@@ -1,6 +1,7 @@
+import React from 'react';
 import { SchemaComponent } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
-import React from 'react';
+
 import { DepartmentManagement } from './DepartmentManagement';
 
 export const MmtComponent = () => {

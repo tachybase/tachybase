@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useCurrentUserSettingsMenu } from '@tachybase/client';
+
 import { usePluginVersion } from '../../hooks/usePluginVersion';
 import { useTabSettings } from '../page-style/useTabSettings';
 

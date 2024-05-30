@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from '@tachybase/schema';
 
-import { Button, Input, message } from 'antd';
+import { App, Button, Input } from 'antd';
 import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
 
@@ -17,6 +17,7 @@ const useStyles = createStyles(({ css }) => {
 });
 
 export default function VerificationCode({ targetFieldName = 'phone', actionType, value, onChange }) {
+  const { message } = App.useApp();
   const { t } = useTranslation();
   const { styles } = useStyles();
   const api = useAPIClient();

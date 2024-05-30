@@ -1,9 +1,10 @@
-import { h, HComponent } from './component/element';
-import DataProxy from './core/data_proxy';
-import Sheet from './component/sheet';
 import Bottombar from './component/bottombar';
+import { h, HComponent } from './component/element';
+import Sheet from './component/sheet';
 import { cssPrefix } from './config';
+import DataProxy from './core/data_proxy';
 import { locale } from './locale/locale';
+
 import './index.less';
 
 export type CELL_SELECTED = 'cell-selected';

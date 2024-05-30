@@ -1,6 +1,8 @@
+import React, { useEffect, useRef } from 'react';
 import { connect, mapProps } from '@tachybase/schema';
+
 import { Button } from 'antd';
-import React, { useRef, useEffect } from 'react';
+
 import SignaturePad from './SignaturePad';
 
 export const SignatureInput = connect(

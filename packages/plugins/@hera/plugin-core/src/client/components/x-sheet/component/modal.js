@@ -1,20 +1,23 @@
 /* global document */
 /* global window */
-import { h } from './element';
-import Icon from './icon';
 import { cssPrefix } from '../config';
+import { h } from './element';
 import { bind, unbind } from './event';
+import Icon from './icon';
 
 export default class Modal {
   constructor(title, content, width = '600px') {
     this.title = title;
-    this.el = h('div', `${cssPrefix}-modal`).css('width', width).children(
-      h('div', `${cssPrefix}-modal-header`).children(
-        new Icon('close').on('click.stop', () => this.hide()),
-        this.title,
-      ),
-      h('div', `${cssPrefix}-modal-content`).children(...content),
-    ).hide();
+    this.el = h('div', `${cssPrefix}-modal`)
+      .css('width', width)
+      .children(
+        h('div', `${cssPrefix}-modal-header`).children(
+          new Icon('close').on('click.stop', () => this.hide()),
+          this.title,
+        ),
+        h('div', `${cssPrefix}-modal-content`).children(...content),
+      )
+      .hide();
   }
 
   show() {

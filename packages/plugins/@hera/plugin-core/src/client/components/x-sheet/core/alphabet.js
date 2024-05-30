@@ -1,6 +1,33 @@
 import './_.prototypes';
 
-const alphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+const alphabets = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
+];
 
 /** index number 2 letters
  * @example stringAt(26) ==> 'AA'
@@ -30,10 +57,9 @@ export function stringAt(index) {
  */
 export function indexAt(str) {
   let ret = 0;
-  for(let i = 0; i !== str.length; ++i) ret = 26 * ret + str.charCodeAt(i) - 64;
+  for (let i = 0; i !== str.length; ++i) ret = 26 * ret + str.charCodeAt(i) - 64;
   return ret - 1;
 }
-
 
 // B10 => x,y
 /** translate A1-tag to XY-tag

@@ -1,4 +1,4 @@
-import { defaultProps, CollectionFieldInterface } from '@tachybase/client';
+import { CollectionFieldInterface, defaultProps } from '@tachybase/client';
 
 export class CustomAssociatedFieldInterface extends CollectionFieldInterface {
   name = 'customAssociated';

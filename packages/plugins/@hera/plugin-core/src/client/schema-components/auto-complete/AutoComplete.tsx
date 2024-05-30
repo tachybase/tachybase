@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { AutoComplete as AntdAutoComplete } from 'antd';
-import { connect, useFieldSchema } from '@tachybase/schema';
 import { useAPIClient } from '@tachybase/client';
+import { connect, useFieldSchema } from '@tachybase/schema';
+
 import { useAsyncEffect } from 'ahooks';
+import { AutoComplete as AntdAutoComplete } from 'antd';
+
 import { fuzzysearch } from '../../utils';
 
 export const AutoComplete = connect((props) => {

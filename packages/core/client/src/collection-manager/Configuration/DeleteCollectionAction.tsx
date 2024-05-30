@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from '@tachybase/schema';
 
 import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
-import { Button, message } from 'antd';
+import { App, Button } from 'antd';
 import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
 
@@ -75,6 +75,7 @@ export const useBulkDestroyAction = () => {
   const { resource } = useResourceContext();
   const ctx = useActionContext();
   const { t } = useTranslation();
+  const { message } = App.useApp();
   const form = useForm();
   const { cascade } = form?.values || {};
   return {

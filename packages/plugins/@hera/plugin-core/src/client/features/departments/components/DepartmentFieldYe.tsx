@@ -1,6 +1,7 @@
+import React, { useContext } from 'react';
 import { EllipsisWithTooltip } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
-import React, { useContext } from 'react';
+
 // import { jsx, jsxs } from 'react/jsx-runtime';
 import { contextK } from '../context/contextK';
 import { getDepartmentStr } from '../utils/getDepartmentStr';

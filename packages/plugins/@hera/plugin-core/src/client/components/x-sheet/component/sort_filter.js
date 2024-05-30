@@ -1,15 +1,16 @@
-import { h } from './element';
-import Button from './button';
-import { bindClickoutside, unbindClickoutside } from './event';
 import { cssPrefix } from '../config';
 import { t } from '../locale/locale';
+import Button from './button';
+import { h } from './element';
+import { bindClickoutside, unbindClickoutside } from './event';
 
 function buildMenu(clsName) {
   return h('div', `${cssPrefix}-item ${clsName}`);
 }
 
 function buildSortItem(it) {
-  return buildMenu('state').child(t(`sort.${it}`))
+  return buildMenu('state')
+    .child(t(`sort.${it}`))
     .on('click.stop', () => this.itemClick(it));
 }
 
@@ -20,9 +21,11 @@ function buildFilterBody(items) {
   itemKeys.forEach((it, index) => {
     const cnt = items[it];
     const active = filterValues.includes(it) ? 'checked' : '';
-    filterbEl.child(h('div', `${cssPrefix}-item state ${active}`)
-      .on('click.stop', () => this.filterClick(index, it))
-      .children(it === '' ? t('filter.empty') : it, h('div', 'label').html(`(${cnt})`)));
+    filterbEl.child(
+      h('div', `${cssPrefix}-item state ${active}`)
+        .on('click.stop', () => this.filterClick(index, it))
+        .children(it === '' ? t('filter.empty') : it, h('div', 'label').html(`(${cnt})`)),
+    );
   });
 }
 
@@ -36,19 +39,18 @@ export default class SortFilter {
   constructor() {
     this.filterbEl = h('div', `${cssPrefix}-body`);
     this.filterhEl = h('div', `${cssPrefix}-header state`).on('click.stop', () => this.filterClick(0, 'all'));
-    this.el = h('div', `${cssPrefix}-sort-filter`).children(
-      this.sortAscEl = buildSortItem.call(this, 'asc'),
-      this.sortDescEl = buildSortItem.call(this, 'desc'),
-      buildMenu('divider'),
-      h('div', `${cssPrefix}-filter`).children(
-        this.filterhEl,
-        this.filterbEl,
-      ),
-      h('div', `${cssPrefix}-buttons`).children(
-        new Button('cancel').on('click', () => this.btnClick('cancel')),
-        new Button('ok', 'primary').on('click', () => this.btnClick('ok')),
-      ),
-    ).hide();
+    this.el = h('div', `${cssPrefix}-sort-filter`)
+      .children(
+        (this.sortAscEl = buildSortItem.call(this, 'asc')),
+        (this.sortDescEl = buildSortItem.call(this, 'desc')),
+        buildMenu('divider'),
+        h('div', `${cssPrefix}-filter`).children(this.filterhEl, this.filterbEl),
+        h('div', `${cssPrefix}-buttons`).children(
+          new Button('cancel').on('click', () => this.btnClick('cancel')),
+          new Button('ok', 'primary').on('click', () => this.btnClick('ok')),
+        ),
+      )
+      .hide();
     // this.setFilters(['test1', 'test2', 'text3']);
     this.ci = null;
     this.sortDesc = null;
@@ -81,17 +83,20 @@ export default class SortFilter {
     if (it === 'all') {
       if (children.length === filterValues.length) {
         this.filterValues = [];
-        children.forEach(i => h(i).checked(false));
+        children.forEach((i) => h(i).checked(false));
       } else {
         this.filterValues = Array.from(values);
-        children.forEach(i => h(i).checked(true));
+        children.forEach((i) => h(i).checked(true));
       }
     } else {
       const checked = h(children[index]).toggle('checked');
       if (checked) {
         filterValues.push(it);
       } else {
-        filterValues.splice(filterValues.findIndex(i => i === it), 1);
+        filterValues.splice(
+          filterValues.findIndex((i) => i === it),
+          1,
+        );
       }
     }
     resetFilterHeader.call(this);

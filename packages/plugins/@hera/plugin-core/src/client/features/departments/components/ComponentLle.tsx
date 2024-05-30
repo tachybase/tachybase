@@ -1,6 +1,8 @@
-import { useField } from '@tachybase/schema';
-import { TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useField } from '@tachybase/schema';
+
+import { TreeSelect } from 'antd';
+
 // import { jsx } from 'react/jsx-runtime';
 import { k } from '../others/k';
 import { getDepartmentStr } from '../utils/getDepartmentStr';

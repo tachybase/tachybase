@@ -1,5 +1,6 @@
-import { Result } from 'ahooks/es/useRequest/src/types';
 import React, { useContext } from 'react';
+
+import { Result } from 'ahooks/es/useRequest/src/types';
 
 interface departmentType {
   id?: string | number;

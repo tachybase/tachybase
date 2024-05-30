@@ -1,8 +1,10 @@
-import { AdminProvider } from '@tachybase/client';
 import React, { useEffect } from 'react';
+import { AdminProvider } from '@tachybase/client';
+
 import { useLocation, useMatch, useNavigate } from 'react-router-dom';
-import { NotAuthorityResult } from './NotAuthorityResult';
+
 import { EmbedLayout } from './EmbedLayout';
+import { NotAuthorityResult } from './NotAuthorityResult';
 import { useEmbedToken } from './useEmbedToken';
 
 export const EmbedPage = () => {

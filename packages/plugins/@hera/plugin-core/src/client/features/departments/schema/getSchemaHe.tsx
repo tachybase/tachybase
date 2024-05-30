@@ -1,5 +1,5 @@
-import { uid } from '@tachybase/schema';
 import React from 'react';
+import { uid } from '@tachybase/schema';
 
 export const getSchemaHe = (department, user) => {
   const schemaNotUser = user

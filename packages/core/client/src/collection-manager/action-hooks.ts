@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useField, useForm } from '@tachybase/schema';
 
-import { message } from 'antd';
+import { App } from 'antd';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
@@ -431,8 +431,8 @@ export const useCreateActionWithoutRefresh = (actionCallback?: (values: any) => 
 
 export const useUpdateViewAction = (actionCallback?: (filterByTk: string, values: any) => void) => {
   const form = useForm();
-  const ctx = useActionContext();
-  // const { refresh } = useResourceActionContext();
+  const { message } = App.useApp();
+  const { t } = useTranslation();
   const { resource, targetKey } = useResourceContext();
   const { [targetKey]: filterByTk } = useRecord();
   return {
@@ -440,8 +440,7 @@ export const useUpdateViewAction = (actionCallback?: (filterByTk: string, values
       await form.submit();
       const res = await resource.update({ filterByTk, values: form.values });
       actionCallback?.(filterByTk, res?.data?.data);
-      // refresh();
-      message.success('保存成功');
+      message.success(t('Save successfully.'));
     },
   };
 };
@@ -503,6 +502,7 @@ export const useDestroyAction = (actionCallback?: (key: string) => void) => {
 export const useBulkDestroyAction = (actionCallback?: (keys: string[]) => void) => {
   const { state, setState, refresh } = useResourceActionContext();
   const { resource } = useResourceContext();
+  const { message } = App.useApp();
   const { t } = useTranslation();
   return {
     async run() {

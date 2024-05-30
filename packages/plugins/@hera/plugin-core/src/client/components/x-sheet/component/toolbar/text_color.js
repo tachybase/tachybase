@@ -1,5 +1,5 @@
-import DropdownItem from './dropdown_item';
 import DropdownColor from '../dropdown_color';
+import DropdownItem from './dropdown_item';
 
 export default class TextColor extends DropdownItem {
   constructor(color) {

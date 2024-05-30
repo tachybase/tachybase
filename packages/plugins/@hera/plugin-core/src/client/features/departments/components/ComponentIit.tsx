@@ -1,21 +1,22 @@
+import React, { Fragment, useContext, useEffect, useMemo } from 'react';
 import { SchemaComponent, useResourceActionContext } from '@tachybase/client';
-import { useContext, useEffect, useMemo, Fragment } from 'react';
+
 import { jsx, jsxs } from 'react/jsx-runtime';
+
 import { useTranslation } from '../../../locale';
 import { contextK } from '../context/contextK';
+import { useBulkRemoveMembersAction } from '../hooks/useBulkRemoveMembersAction';
+import { useMembersDataSource } from '../hooks/useMembersDataSource';
+import { useRemoveMemberAction } from '../hooks/useRemoveMemberAction';
+import { useShowTotal } from '../hooks/useShowTotal';
+import { getSchemaHe } from '../schema/getSchemaHe';
+import { schemaWe } from '../schema/schemaWe';
+import { schemaZe } from '../schema/schemaZe';
 import { useFilterActionPropsZ } from '../scopes/useFilterActionPropsZ';
+import { AddMembersNnt } from './AddMembersNnt';
 import { DepartmentFieldYe } from './DepartmentFieldYe';
 import { IsOwnerFieldQe } from './IsOwnerFieldQe';
 import { UserDepartmentsFieldOot } from './UserDepartmentsFieldOot';
-import { AddMembersNnt } from './AddMembersNnt';
-import { useShowTotal } from '../hooks/useShowTotal';
-import { useMembersDataSource } from '../hooks/useMembersDataSource';
-import { useBulkRemoveMembersAction } from '../hooks/useBulkRemoveMembersAction';
-import { useRemoveMemberAction } from '../hooks/useRemoveMemberAction';
-import { getSchemaHe } from '../schema/getSchemaHe';
-import { schemaZe } from '../schema/schemaZe';
-import { schemaWe } from '../schema/schemaWe';
-import React from 'react';
 
 export const ComponentIit = () => {
   const { t: tval } = useTranslation();

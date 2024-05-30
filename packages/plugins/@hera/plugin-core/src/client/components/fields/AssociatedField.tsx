@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import { ISchema, RecursionField, connect, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActionContextProvider,
   CollectionProvider_deprecated,
@@ -8,7 +7,9 @@ import {
   useDesignable,
   useRequest,
 } from '@tachybase/client';
-import React, { useCallback, useEffect, useState } from 'react';
+import { connect, ISchema, observer, RecursionField, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
+import _ from 'lodash';
 
 const viewerSchema: ISchema = {
   type: 'void',

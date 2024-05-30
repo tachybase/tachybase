@@ -1,5 +1,7 @@
 import React, { useCallback, useRef } from 'react';
+
 import classnames from 'classnames';
+
 import { callHideEvent } from './registerEvent';
 
 function ContextMenuItem({ children, onClick, disabled, preventClose, attributes, className }) {

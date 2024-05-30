@@ -1,14 +1,16 @@
+import { useEffect, useRef, useState } from 'react';
 import {
+  ActionContextProvider,
   ResourceActionProvider,
   SchemaComponent,
-  ActionContextProvider,
   useActionContext,
   useRecord,
 } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
+
 import { Select } from 'antd';
-import { useEffect, useRef, useState } from 'react';
 import { jsx, jsxs } from 'react/jsx-runtime';
+
 import { schemaFfe } from '../schema/schemaFfe';
 
 export const DepartmentOwnersField = () => {

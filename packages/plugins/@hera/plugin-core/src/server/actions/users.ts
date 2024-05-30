@@ -1,4 +1,5 @@
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE, type Context, type Next } from '@tachybase/actions';
+
 export const listExcludeDept = async (ctx: Context, next: Next) => {
   const { departmentId, page = DEFAULT_PAGE, pageSize = DEFAULT_PER_PAGE } = ctx.action.params;
   const repo = ctx.db.getRepository('users');

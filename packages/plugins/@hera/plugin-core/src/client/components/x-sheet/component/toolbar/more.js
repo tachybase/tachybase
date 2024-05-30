@@ -1,9 +1,8 @@
-import Dropdown from '../dropdown';
-import DropdownItem from './dropdown_item';
-
 import { cssPrefix } from '../../config';
+import Dropdown from '../dropdown';
 import { h } from '../element';
 import Icon from '../icon';
+import DropdownItem from './dropdown_item';
 
 class DropdownMore extends Dropdown {
   constructor() {

@@ -10,10 +10,7 @@ import {
   useFieldSchema,
 } from '@tachybase/schema';
 
-import { message } from 'antd';
-import cloneDeep from 'lodash/cloneDeep';
-import get from 'lodash/get';
-import set from 'lodash/set';
+import { cloneDeep, get, set } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { APIClient, useAPIClient } from '../../api-client';
@@ -185,7 +182,6 @@ export class Designable {
         });
       }
       onSuccess?.(res?.data?.data);
-      message.success(t('Saved successfully'), 0.2);
     });
     this.on('patch', async ({ schema }) => {
       this.refresh();
@@ -199,7 +195,6 @@ export class Designable {
           ...schema,
         },
       });
-      message.success(t('Saved successfully'), 0.2);
     });
     this.on('batchPatch', async ({ schemas }) => {
       this.refresh();
@@ -208,7 +203,6 @@ export class Designable {
         method: 'post',
         data: schemas,
       });
-      message.success(t('Saved successfully'), 0.2);
     });
     this.on('remove', async ({ removed }) => {
       let schemas = [];
@@ -230,7 +224,6 @@ export class Designable {
           data: schemas,
         });
       }
-      message.success(t('Saved successfully'), 0.2);
     });
   }
 

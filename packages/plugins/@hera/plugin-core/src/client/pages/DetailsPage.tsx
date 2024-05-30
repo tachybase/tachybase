@@ -1,7 +1,9 @@
 import React from 'react';
-import { DataBlockProvider, RecordProvider, RemoteSchemaComponent, css, PageHeader } from '@tachybase/client';
-import { useNavigate, useParams } from 'react-router-dom';
+import { css, DataBlockProvider, PageHeader, RecordProvider, RemoteSchemaComponent } from '@tachybase/client';
+
 import { pathToRegexp } from 'path-to-regexp';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { useHeadStyles } from './style';
 
 export const DetailsPage: React.FC = () => {

@@ -1,9 +1,5 @@
 import { DrawBox } from './DrawBox';
-import { npxLine } from './utils';
-import { drawFontLine } from './utils';
-import { npx } from './utils';
-import { thinLineWidth } from './utils';
-import { dpr } from './utils';
+import { dpr, drawFontLine, npx, npxLine, thinLineWidth } from './utils';
 
 interface Attr {
   align?: 'left' | 'center' | 'right';

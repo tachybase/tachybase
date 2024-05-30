@@ -1,5 +1,6 @@
-import { RemoteSchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { RemoteSchemaComponent } from '@tachybase/client';
+
 import { useParams } from 'react-router-dom';
 
 export function EmbedSchemaComponent() {

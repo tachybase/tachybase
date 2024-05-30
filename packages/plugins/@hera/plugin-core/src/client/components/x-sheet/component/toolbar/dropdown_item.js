@@ -10,10 +10,8 @@ export default class DropdownItem extends Item {
   element() {
     const { tag } = this;
     this.dd = this.dropdown();
-    this.dd.change = it => this.change(tag, this.getValue(it));
-    return super.element().child(
-      this.dd,
-    );
+    this.dd.change = (it) => this.change(tag, this.getValue(it));
+    return super.element().child(this.dd);
   }
 
   setState(v) {

@@ -1,9 +1,9 @@
+import React, { useContext, useRef } from 'react';
 import { SchemaComponent, useAPIClient, useResourceActionContext } from '@tachybase/client';
-import { useContext, useRef } from 'react';
+
 import { contextK } from '../context/contextK';
 import { k } from '../others/k';
 import { schemaAddMembers } from '../schema/addMembers.schema';
-import React from 'react';
 
 export const AddMembersNnt = () => {
   const { department, useAddMembersAction, handleSelect } = useAction();

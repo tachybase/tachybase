@@ -1,5 +1,5 @@
 import Application, { PluginManager } from '@tachybase/server';
-import { Service, App } from '@tachybase/utils';
+import { App, Service } from '@tachybase/utils';
 
 @Service()
 export class PluginVersionService {

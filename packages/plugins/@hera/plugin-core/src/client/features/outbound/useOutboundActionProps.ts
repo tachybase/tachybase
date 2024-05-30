@@ -1,6 +1,8 @@
-import { message } from 'antd';
 import { useFieldSchema } from '@tachybase/schema';
+
+import { message } from 'antd';
 import copy from 'copy-to-clipboard';
+
 import { useTranslation } from '../../locale';
 
 export const useOutboundActionProps = () => {
