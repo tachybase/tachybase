@@ -72,6 +72,7 @@ const InternalGridCard = (props) => {
   const { run, params } = service;
   const meta = service?.data?.meta;
   const fieldSchema = useFieldSchema();
+
   const field = useField<ArrayField>();
   const Designer = useDesigner();
   const [schemaMap] = useState(new Map());
@@ -108,28 +109,24 @@ const InternalGridCard = (props) => {
   );
 
   /* 以下为无限滚动逻辑 */
-  // XXX: 需要仔细梳理这里的逻辑, 目前的实现有点效果问题
-  const [data, setData] = useState(field.value || []);
+  // XXX: 需要仔细梳理这里的逻辑, 目前的实现有点效果问题, 刷新不顺滑;
+  // 似乎和 tachybase 本身的渲染机制有关, 渲染单个列表项的时候, 总是去取对应的 fieldSchema, 然后赋值上field.value. 这个机制导致了总是会刷新整个区块, 而不是期望的只更新增量部分.
+  // HACK: 这里其实是借用原本的翻页刷新机制, 模拟了无限滚动的机制. 没有时间成本去更改上游, 这样处理还算是个比较好的实现
   const [hasMore, setHasMore] = useState(true);
+  const [fetchCount, setFetchCount] = useState(1);
 
-  const loadMore = async () => {
-    const { count, pageSize = 10, page = 1 } = meta || {};
-    await onPaginationChange(page + 1, pageSize);
+  const loadMore = useCallback(async () => {
+    const { pageSize = 5 } = meta || {};
+    await onPaginationChange(1, fetchCount * pageSize);
+    setFetchCount((prevFetchCount) => prevFetchCount + 1);
     setHasMore(false);
-  };
+  }, [meta, onPaginationChange, setHasMore]);
 
   useEffect(() => {
     const { count, pageSize = 10, page = 1 } = meta || {};
     const hasMore = count > page * pageSize;
-
-    setData((val = []) => {
-      const currentVal = field.value || [];
-      return [...val, ...currentVal];
-    });
-
     setHasMore(hasMore);
-  }, [meta?.page]);
-
+  }, [meta?.pageSize]);
   /* 以上为无限滚动逻辑 */
 
   return (
@@ -153,7 +150,7 @@ const InternalGridCard = (props) => {
                   pageSizeOptions,
                 }
           }
-          dataSource={needInfiniteScroll ? data : field.value}
+          dataSource={field.value}
           grid={{
             ...columnCount,
             sm: columnCount.xs,
@@ -161,6 +158,7 @@ const InternalGridCard = (props) => {
             gutter: [rowGutter, rowGutter],
           }}
           renderItem={(item, index) => {
+            const schema = getSchema(index);
             return (
               <Col style={{ height: '100%' }}>
                 <RecursionField
@@ -168,8 +166,8 @@ const InternalGridCard = (props) => {
                   basePath={field.address}
                   name={index}
                   onlyRenderProperties
-                  schema={getSchema(index)}
-                ></RecursionField>
+                  schema={schema}
+                />
               </Col>
             );
           }}
