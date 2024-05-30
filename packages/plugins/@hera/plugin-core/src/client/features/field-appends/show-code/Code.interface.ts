@@ -18,7 +18,7 @@ export class ShowFieldCodeInterface extends CollectionFieldInterface {
   type = 'object';
   group = 'advanced';
   title = 'jsCode(显示)';
-  description = '通过jsCode, 用于定制化显示用户界面内容';
+  description = `通过jsCode, 用于定制化显示用户界面内容.可使用的变量:scopes:{ form, path, recordData, result, setResult, formatFunc, dayjs}; handlers: { setResult, formatFunc }; modules: { dayjs }`;
   sortable = true;
   default = {
     type: 'virtual',
