@@ -62,23 +62,18 @@ function useAction(props: CodeFieldProps): string | React.ReactNode {
     return result.items?.[0]?.children;
   }
 }
-
+// 动态执行 jsCode 代码
 async function dynamicCode({ jsCode, form, path, recordData, result }, { setResult, formatFunc }) {
   try {
-    const dayjs = (await import('dayjs')).default;
-    const localeSetting = { invalidDate: '-' };
-    dayjs.updateLocale('en', localeSetting);
-
-    eval(jsCode);
-    // NOTE: 示例代码, 仿照此例配置即可
-    // {
+    // NOTE: 示例代码, 仿照此例配置即可; 也可放开注释进行调试
+    // jsCode = `{
+    //   const { form, path } = scopes;
+    //   const { setResult } = handlers;
+    //   const { dayjs } = modules;
     //   const date_pay = form.getValuesIn(path.replace('.date_fix', '.date_pay'));
-
     //   const date_receive = form.getValuesIn(path.replace('.date_fix', '.date_receive'));
     //   const date_show = date_pay || date_receive;
-
     //   const formartedDate = dayjs(date_show ?? '-').format('YYYY-MM-DD');
-    //   console.log('%c Line:81 🌰 formartedDate', 'font-size:18px;color:#4fff4B;background:#3f7cff', formartedDate);
     //   setResult({
     //     childrenType: 'jsx',
     //     items: [
@@ -87,7 +82,21 @@ async function dynamicCode({ jsCode, form, path, recordData, result }, { setResu
     //       },
     //     ],
     //   });
-    // }
+    // }`;
+    /** 动态导入开始, 与 jsCode 配置相关的包 */
+    const dayjs = (await import('dayjs')).default;
+    const localeSetting = { invalidDate: '-' };
+    dayjs.updateLocale('en', localeSetting);
+    /** 动态导入结束 */
+
+    evalSimulate(jsCode, {
+      scopes: { form, path, recordData, result },
+      handlers: {
+        setResult,
+        formatFunc,
+      },
+      modules: { dayjs },
+    });
   } catch (error) {
     setResult({
       childrenType: '',
@@ -99,5 +108,14 @@ async function dynamicCode({ jsCode, form, path, recordData, result }, { setResu
         },
       ],
     });
+  }
+}
+
+// 模拟 eval 实现, 相对更安全的实现和更好的性能, 以及限制作用域范围,
+function evalSimulate(jsCode, { scopes, handlers, modules }) {
+  try {
+    return new Function('$root', `with($root) { ${jsCode}; }`)({ scopes, handlers, modules });
+  } catch (err) {
+    console.log('err', err);
   }
 }
