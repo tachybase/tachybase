@@ -13,7 +13,6 @@ export function useSubmit() {
   const form = useForm();
   const { id } = useContextApprovalExecution();
   const { status } = useContextApprovalAction();
-  const { setVisible, setSubmitted } = useActionContext() as any;
   return {
     run: async () => {
       try {
@@ -23,7 +22,6 @@ export function useSubmit() {
         await form.submit();
         field.data = field.data ?? {};
         field.data.loading = true;
-        setVisible(false);
         const res = await api.resource('approvalRecords').submit({
           filterByTk: id,
           values: { ...form.values, status },
@@ -37,7 +35,6 @@ export function useSubmit() {
           setTimeout(() => {
             location.reload();
           }, 1000);
-          setSubmitted(true);
         } else {
           Toast.show({
             icon: 'fail',
