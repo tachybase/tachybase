@@ -3,8 +3,9 @@ import { css } from '@tachybase/client';
 
 import { Trans } from 'react-i18next';
 
-import { defaultFieldNames, Instruction, WorkflowVariableRawTextArea } from '../..';
+import { defaultFieldNames, WorkflowVariableRawTextArea } from '../..';
 import { NAMESPACE } from '../../locale';
+import { Instruction } from '../../nodes';
 
 export default class extends Instruction {
   title = `{{t("SQL action", { ns: "${NAMESPACE}" })}}`;

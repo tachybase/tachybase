@@ -1,9 +1,10 @@
 import { css } from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
-import { Instruction, WorkflowVariableInput } from '@tachybase/plugin-workflow/client';
 
+import { WorkflowVariableInput } from '../..';
 import { NAMESPACE_INSTRUCTION_JSON_PARSE } from '../../../common/constants';
 import { tval } from '../../locale';
+import { Instruction } from '../../nodes';
 
 export class JSONParseInstruction extends Instruction {
   title = tval('JSON Parse');

@@ -1,13 +1,8 @@
 import { ArrayItems } from '@tachybase/components';
 
-import {
-  defaultFieldNames,
-  Instruction,
-  WorkflowVariableInput,
-  WorkflowVariableJSON,
-  WorkflowVariableTextArea,
-} from '../..';
+import { defaultFieldNames, WorkflowVariableInput, WorkflowVariableJSON, WorkflowVariableTextArea } from '../..';
 import { NAMESPACE } from '../../locale';
+import { Instruction } from '../../nodes';
 
 export default class extends Instruction {
   title = `{{t("HTTP request", { ns: "${NAMESPACE}" })}}`;
