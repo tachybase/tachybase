@@ -298,25 +298,7 @@ export const tableColumnSettings = new SchemaSettings({
       useChildren() {
         const app = useApp();
         const fieldComponentName = useFieldComponentName();
-        console.log('🚀 ~ file: tableColumnSettings.tsx:300 ~ useChildren ~ fieldComponentName:', fieldComponentName);
-        const map = {
-          Select: 'Select',
-          DatePicker: 'DatePicker',
-          Nester: 'Nester',
-          SubTable: 'SubTable',
-          Picker: 'Picker',
-          PopoverNester: 'PopoverNester',
-          Tag: 'Tag',
-        };
-        const componentSettings = app.schemaSettingsManager.get(
-          `fieldSettings:component:${map[fieldComponentName] || fieldComponentName}`,
-        );
-        console.log(
-          '🚀 ~ file: tableColumnSettings.tsx:313 ~ useChildren ~ componentSettings:',
-          componentSettings,
-          app.schemaSettingsManager.getAll(),
-        );
-        console.log(`fieldSettings:component:${map[fieldComponentName] || fieldComponentName}`, 'fieldComponentName');
+        const componentSettings = app.schemaSettingsManager.get(`fieldSettings:component:${fieldComponentName}`);
         return componentSettings?.items || [];
       },
     },

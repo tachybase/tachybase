@@ -57,20 +57,7 @@ export const TableColumnDecorator = (props) => {
     <SortableItem className={styles.designer}>
       <CollectionFieldContext.Provider value={collectionField}>
         <Designer fieldSchema={fieldSchema} uiSchema={uiSchema} collectionField={collectionField} />
-        {/* <RecursionField name={columnSchema.name} schema={columnSchema}/> */}
         <div role="button">{field?.title || compile(uiSchema?.title)}</div>
-        {/* <div
-        onClick={() => {
-          field.title = uid();
-          // columnSchema.title = field.title = field.title;
-          // refresh();
-          // field.query(`.*.${fieldSchema.name}`).take((f) => {
-          //   f.componentProps.dateFormat = 'YYYY-MM-DD';
-          // });
-        }}
-      >
-        Edit
-      </div> */}
       </CollectionFieldContext.Provider>
     </SortableItem>
   );

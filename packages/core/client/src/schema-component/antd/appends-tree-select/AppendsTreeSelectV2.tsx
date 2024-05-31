@@ -88,7 +88,7 @@ function getCollectionFieldOptions(
   });
 }
 // XXX: 目前 AppendsTreeSelectV2 和 AppendsTreeSelect 都有特化逻辑, 需要整理出一个通用组件
-export const AppendsTreeSelectV2: React.FC<TreeSelectProps & AppendsTreeSelectPropsV2> = (props) => {
+export const AppendsTreeSelectV2 = (props: TreeSelectProps & AppendsTreeSelectPropsV2) => {
   const {
     title,
     value: propsValue,
@@ -247,8 +247,6 @@ export const AppendsTreeSelectV2: React.FC<TreeSelectProps & AppendsTreeSelectPr
 
   return (
     <TreeSelect
-      // @ts-ignore
-      role="button"
       data-testid={`select-field${title ? `-${title}` : ''}`}
       value={filteredValue}
       placeholder={t('Select field')}
