@@ -1,6 +1,8 @@
-import { observer, useForm } from '@tachybase/schema';
-import { cloneDeep } from 'lodash';
 import React, { createContext, useContext, useState } from 'react';
+import { observer, useForm } from '@tachybase/schema';
+
+import { cloneDeep } from 'lodash';
+
 import {
   CollectionOptions,
   CollectionProvider_deprecated,
@@ -97,7 +99,6 @@ const useCreateAction = () => {
   const { setVisible } = useActionContext();
   return {
     async run() {
-      console.log('form.values', form.values);
       const dataSource = ctx.dataSource || [];
       dataSource.push(cloneDeep(form.values));
       ctx.setDataSource([...dataSource]);
@@ -199,7 +200,6 @@ export const SubFieldDataSourceProvider_deprecated = observer(
       },
       {
         onSuccess(data) {
-          console.log('dataSource1', data?.data);
           setDataSource(data?.data);
         },
       },

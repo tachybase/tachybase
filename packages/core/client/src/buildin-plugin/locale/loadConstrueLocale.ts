@@ -164,9 +164,7 @@ class CronstrueLocale {
 }
 
 export const loadConstrueLocale = (data) => {
-  // vite bug: https://github.com/vitejs/vite/issues/2139
-  const cronstrueVal = (cronstrue as any).default ? (cronstrue as any).default : cronstrue;
-  cronstrueVal.initialize({
+  cronstrue.initialize({
     load(availableLocales) {
       availableLocales[data?.lang] = new CronstrueLocale(data?.cronstrue);
     },

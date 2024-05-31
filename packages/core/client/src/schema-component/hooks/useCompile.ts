@@ -1,5 +1,5 @@
-import { Schema, SchemaExpressionScopeContext, SchemaOptionsContext } from '@tachybase/schema';
 import { isValidElement, useContext } from 'react';
+import { Schema, SchemaExpressionScopeContext, SchemaOptionsContext } from '@tachybase/schema';
 
 interface Props {
   /**
@@ -46,7 +46,6 @@ export const useCompile = ({ noCache }: Props = { noCache: false }) => {
         compileCache[cacheKey] = compileCache[cacheKey] || Schema.compile(source, mergedScope);
         return compileCache[cacheKey];
       } catch (e) {
-        console.log('useCompile error', source, e);
         return Schema.compile(source, mergedScope);
       }
     }

@@ -152,7 +152,6 @@ function getSingleEndRange(nodes: ChildNode[], index: number, offset: number): [
     let realIndex = 0;
     let textOffset = 0;
     for (let i = 0; i < index + 1; i++) {
-      // console.log(i, realIndex, textOffset);
       if (nodes[i].nodeName === '#text') {
         if (i !== index && nodes[i + 1] && nodes[i + 1].nodeName !== '#text') {
           realIndex += 1;
@@ -396,8 +395,6 @@ export function TextArea(props) {
           },
         },
       }).replace(/\n/g, ' ');
-      // ev.clipboardData.setData('text/html', sanitizedHTML);
-      // console.log(input, sanitizedHTML);
       setChanged(true);
       pasteHTML(ev.currentTarget, sanitizedHTML);
       setRange(getCurrentRange(ev.currentTarget));

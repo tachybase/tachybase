@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { CurrentAppInfoProvider, SchemaComponentOptions } from '@tachybase/client';
 
-export const DuplicatorProvider: FC = function (props) {
+export const DuplicatorProvider = function (props) {
   return (
     <CurrentAppInfoProvider>
       <SchemaComponentOptions>{props.children}</SchemaComponentOptions>

@@ -16,6 +16,7 @@ import {
 import { PluginAssistant } from './features/assistant';
 import { PluginGroupBlock } from './features/block-group';
 import { PluginContextMenu } from './features/context-menu';
+import { PluginCustomComponents } from './features/custom-components';
 import { DepartmentsPlugin } from './features/departments';
 import { EmbedPlugin } from './features/embed';
 import { PluginExtendedFilterForm } from './features/extended-filter-form';
@@ -88,6 +89,7 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginOutbound);
     // await this.app.pm.add(PluginModeHighlight);
     await this.app.pm.add(PluginFieldAppends);
+    await this.app.pm.add(PluginCustomComponents);
   }
 
   async registerSettings() {

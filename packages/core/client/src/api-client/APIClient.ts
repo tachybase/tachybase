@@ -1,7 +1,9 @@
+import React from 'react';
 import { APIClient as APIClientSDK, getSubAppName } from '@tachybase/sdk';
+
 import { Result } from 'ahooks/es/useRequest/src/types';
 import { notification } from 'antd';
-import React from 'react';
+
 import { Application } from '../application';
 
 function notify(type, messages, instance) {

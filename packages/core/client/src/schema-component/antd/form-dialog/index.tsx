@@ -20,7 +20,7 @@ import { Modal, ModalProps, ThemeConfig } from 'antd';
 import { createPortal } from 'react-dom';
 
 import { createPortalProvider, createPortalRoot, loading, usePrefixCls, useToken } from '../__builtins__';
-import { GlobalThemeProvider } from '../../../global-theme';
+import { GlobalThemeProvider } from '../../../style/theme';
 
 type FormDialogRenderer = React.ReactElement | ((form: Form) => React.ReactElement);
 

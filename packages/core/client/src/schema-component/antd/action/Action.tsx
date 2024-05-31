@@ -68,7 +68,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
     const openSize = fieldSchema?.['x-component-props']?.['openSize'];
 
     const disabled = form.disabled || field.disabled || field.data?.disabled || propsDisabled;
-    const linkageRules = fieldSchema?.['x-linkage-rules'] || [];
+    const linkageRules = useMemo(() => fieldSchema?.['x-linkage-rules'] || [], [fieldSchema]);
     const { designable } = useDesignable();
     const tarComponent = useComponent(component) || component;
     const { modal } = App.useApp();

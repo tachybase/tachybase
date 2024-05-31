@@ -36,15 +36,6 @@ export * from './useFormActiveFields';
 export * from './useParsedFilter';
 export * from './useDataBlockSourceId';
 
-export const usePickActionProps = () => {
-  const form = useForm();
-  return {
-    onClick() {
-      console.log('usePickActionProps', form.values);
-    },
-  };
-};
-
 function renderTemplate(str: string, data: any) {
   const re = /\{\{\s*((\w+\.?)+)\s*\}\}/g;
   return str.replace(re, function (_, key) {

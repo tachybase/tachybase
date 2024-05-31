@@ -40,5 +40,6 @@ export function useViewport() {
     return () => {
       restore();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

@@ -11,7 +11,6 @@ import { useActionContext, useDesignable } from '../schema-component';
 import { Templates as DataTemplateSelect } from '../schema-component/antd/form-v2/Templates';
 import { BlockProvider, useBlockRequestContext } from './BlockProvider';
 import { FormActiveFieldsProvider } from './hooks/useFormActiveFields';
-import { TemplateBlockProvider } from './TemplateBlockProvider';
 
 export const FormBlockContext = createContext<{
   form?: any;
@@ -114,18 +113,16 @@ export const FormBlockProvider = withDynamicSchemaProps((props) => {
   }
 
   return (
-    <TemplateBlockProvider>
-      <BlockProvider
-        name={props.name || 'form'}
-        {...props}
-        block={'form'}
-        parentRecord={parentRecord || parentRecordData}
-      >
-        <FormActiveFieldsProvider name="form">
-          <InternalFormBlockProvider {...props} />
-        </FormActiveFieldsProvider>
-      </BlockProvider>
-    </TemplateBlockProvider>
+    <BlockProvider
+      name={props.name || 'form'}
+      {...props}
+      block={'form'}
+      parentRecord={parentRecord || parentRecordData}
+    >
+      <FormActiveFieldsProvider name="form">
+        <InternalFormBlockProvider {...props} />
+      </FormActiveFieldsProvider>
+    </BlockProvider>
   );
 });
 

@@ -1,11 +1,13 @@
-import { customAlphabet as Alphabet } from 'nanoid';
 import React, { useEffect } from 'react';
-import { LoadingOutlined } from '@ant-design/icons';
 import { connect, mapProps, mapReadPretty, useForm } from '@tachybase/schema';
+
+import { LoadingOutlined } from '@ant-design/icons';
 import { Input as AntdInput } from 'antd';
-import { ReadPretty } from '../input';
-import { useCollectionField } from '../../../data-source/collection-field/CollectionFieldProvider';
+import { customAlphabet as Alphabet } from 'nanoid';
 import { useTranslation } from 'react-i18next';
+
+import { useCollectionField } from '../../../data-source/collection-field/CollectionFieldProvider';
+import { ReadPretty } from '../input';
 
 export const NanoIDInput = Object.assign(
   connect(

@@ -1,8 +1,9 @@
 import React from 'react';
+
+import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
 import { DatePickerProvider } from '../schema-component';
 import { DefaultValueProvider } from '../schema-settings';
 import { FormBlockProvider } from './FormBlockProvider';
-import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
 
 export const FilterFormBlockProvider = withDynamicSchemaProps((props) => {
   return (

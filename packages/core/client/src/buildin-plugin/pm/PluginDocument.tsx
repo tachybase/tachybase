@@ -3,9 +3,9 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Spin } from 'antd';
 
 import { useRequest } from '../../api-client';
-import { useGlobalTheme } from '../../global-theme';
 import { useStyles as useMarkdownStyles } from '../../schema-component/antd/markdown/style';
 import { useParseMarkdown } from '../../schema-component/antd/markdown/util';
+import { useGlobalTheme } from '../../style/theme';
 import { useStyles } from './style';
 
 const PLUGIN_STATICS_PATH = '/static/plugins/';

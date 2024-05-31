@@ -89,7 +89,6 @@ const HeaderMenu = ({
               if (!menuItemSchema) {
                 return onSelect?.(info);
               }
-              // TODO
               setLoading(true);
               const keys = findKeysByUid(schema, menuItemSchema['x-uid']);
               setDefaultSelectedKeys(keys);
@@ -262,7 +261,6 @@ export const Menu: ComposedMenu = observer(
 
       if (mode === 'mix' && key) {
         const s = schema.properties?.[key];
-        // fix T-934
         if (s?.['x-component'] === 'Menu.SubMenu') {
           return s;
         }

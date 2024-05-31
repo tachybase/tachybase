@@ -9,13 +9,13 @@ import { I18nextProvider } from 'react-i18next';
 import { Link, Navigate, NavLink } from 'react-router-dom';
 
 import { APIClient, APIClientProvider } from '../api-client';
-import { CSSVariableProvider } from '../css-variable';
 import { CollectionField } from '../data-source/collection-field/CollectionField';
 import { DataSourceApplicationProvider } from '../data-source/components/DataSourceApplicationProvider';
 import { DataBlockProvider } from '../data-source/data-block/DataBlockProvider';
 import { DataSourceManager, type DataSourceManagerOptions } from '../data-source/data-source/DataSourceManager';
-import { AntdAppProvider, GlobalThemeProvider } from '../global-theme';
 import { i18n } from '../i18n';
+import { CSSVariableProvider } from '../style/css-variable';
+import { AntdAppProvider, GlobalThemeProvider } from '../style/theme';
 import { AppSchemaComponentProvider } from './AppSchemaComponentProvider';
 import { AppComponent, BlankComponent, defaultAppComponents } from './components';
 import type { Plugin } from './Plugin';
@@ -215,7 +215,6 @@ export class Application {
     let loadFailed = false;
     this.ws.on('message', (event) => {
       const data = JSON.parse(event.data);
-      console.log(data.payload);
       if (data?.payload?.refresh) {
         window.location.reload();
         return;
@@ -229,7 +228,6 @@ export class Application {
         this.maintaining = true;
         this.error = data.payload;
       } else {
-        // console.log('loadFailed', loadFailed);
         if (loadFailed) {
           window.location.reload();
           return;

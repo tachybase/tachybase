@@ -1,10 +1,11 @@
-import { Field } from '@tachybase/schema';
-import { ISchema, observer, useField, useFieldSchema } from '@tachybase/schema';
+import React from 'react';
+import { Field, ISchema, observer, useField, useFieldSchema } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
+
 import { Select } from 'antd';
 import _ from 'lodash';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { GeneralSchemaDesigner, SchemaSettingsItem } from '../..';
 import { useFormBlockContext } from '../../../block-provider';
 import { useCollectionManager_deprecated } from '../../../collection-manager';

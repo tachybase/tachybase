@@ -34,8 +34,6 @@ export const CollectionHistoryProvider = (props) => {
 
   const location = useLocation();
 
-  // console.log('location', location);
-
   const service = useRequest<{
     data: any;
   }>(options, {

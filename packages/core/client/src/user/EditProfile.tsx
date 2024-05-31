@@ -21,7 +21,7 @@ const useCloseAction = () => {
     async run() {
       setVisible(false);
       form.submit((values) => {
-        console.log(values);
+        console.warn(values);
       });
     },
   };

@@ -1,11 +1,12 @@
+import React from 'react';
 import { SchemaExpressionScopeContext, SchemaOptionsContext } from '@tachybase/schema';
 import { act, renderHook, waitFor } from '@tachybase/test/client';
-import React from 'react';
+
 import { APIClientProvider } from '../../api-client';
 import { mockAPIClient } from '../../testUtils';
 import { CurrentUserProvider } from '../../user';
-import VariablesProvider from '../VariablesProvider';
 import useVariables from '../hooks/useVariables';
+import VariablesProvider from '../VariablesProvider';
 
 vi.mock('../../collection-manager', async () => {
   return {

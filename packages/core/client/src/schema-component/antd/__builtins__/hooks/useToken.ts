@@ -1,5 +1,6 @@
 import { theme } from 'antd';
-import { CustomToken } from '../../../../global-theme';
+
+import { CustomToken } from '../../../../style/theme';
 
 interface Result extends ReturnType<typeof theme.useToken> {
   token: CustomToken;
