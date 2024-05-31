@@ -11,8 +11,8 @@ import { connect, Field, merge, useField, useFieldSchema } from '@tachybase/sche
 
 import { concat } from 'lodash';
 
+import { canMobileField } from '../../CustomComponent';
 import { useIsMobile } from '../../hooks';
-import { canMobileField } from '../form/CustomComponent';
 
 type Props = {
   component: any;
