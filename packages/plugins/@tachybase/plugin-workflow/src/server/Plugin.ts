@@ -1,38 +1,37 @@
 import path from 'path';
-
-import LRUCache from 'lru-cache';
-
 import { Op, Transactionable } from '@tachybase/database';
+import { Logger, LoggerOptions } from '@tachybase/logger';
 import Application, { Plugin, PluginOptions } from '@tachybase/server';
 import { Registry } from '@tachybase/utils';
 
-import { Logger, LoggerOptions } from '@tachybase/logger';
-import Processor from './Processor';
+import LRUCache from 'lru-cache';
+
 import initActions from './actions';
 import { EXECUTION_STATUS } from './constants';
+import { PluginActionTrigger } from './features/action-trigger/Plugin';
+import { PluginAggregate } from './features/aggregate/Plugin';
+import { PluginDelay } from './features/delay/Plugin';
+import { PluginDynamicCalculation } from './features/dynamic-calculation/Plugin';
+import PluginWorkflowJSONParseServer from './features/json-parse/plugin';
+import { PluginLoop } from './features/loop/Plugin';
+import { PluginManual } from './features/manual/Plugin';
+import { PluginParallel } from './features/parallel/Plugin';
+import { PluginRequest } from './features/request/Plugin';
+import { PluginSql } from './features/sql/Plugin';
 import initFunctions, { CustomFunction } from './functions';
-import Trigger from './triggers';
-import CollectionTrigger from './triggers/CollectionTrigger';
-import ScheduleTrigger from './triggers/ScheduleTrigger';
 import { Instruction, InstructionInterface } from './instructions';
 import CalculationInstruction from './instructions/CalculationInstruction';
 import ConditionInstruction from './instructions/ConditionInstruction';
-import EndInstruction from './instructions/EndInstruction';
 import CreateInstruction from './instructions/CreateInstruction';
 import DestroyInstruction from './instructions/DestroyInstruction';
+import EndInstruction from './instructions/EndInstruction';
 import QueryInstruction from './instructions/QueryInstruction';
 import UpdateInstruction from './instructions/UpdateInstruction';
-
+import Processor from './Processor';
+import Trigger from './triggers';
+import CollectionTrigger from './triggers/CollectionTrigger';
+import ScheduleTrigger from './triggers/ScheduleTrigger';
 import type { ExecutionModel, JobModel, WorkflowModel } from './types';
-import { PluginSql } from './features/sql/Plugin';
-import { PluginRequest } from './features/request/Plugin';
-import { PluginParallel } from './features/parallel/Plugin';
-import { PluginManual } from './features/manual/Plugin';
-import { PluginLoop } from './features/loop/Plugin';
-import { PluginDynamicCalculation } from './features/dynamic-calculation/Plugin';
-import { PluginDelay } from './features/delay/Plugin';
-import { PluginAggregate } from './features/aggregate/Plugin';
-import { PluginActionTrigger } from './features/action-trigger/Plugin';
 
 type ID = number | string;
 
@@ -64,6 +63,7 @@ export default class PluginWorkflowServer extends Plugin {
   pluginDelay: PluginDelay;
   pluginAggregate: PluginAggregate;
   pluginActionTrigger: PluginActionTrigger;
+  pluginJSONParse: PluginWorkflowJSONParseServer;
 
   constructor(app: Application, options?: PluginOptions) {
     super(app, options);
@@ -76,6 +76,7 @@ export default class PluginWorkflowServer extends Plugin {
     this.pluginDelay = new PluginDelay(app, options);
     this.pluginAggregate = new PluginAggregate(app, options);
     this.pluginActionTrigger = new PluginActionTrigger(app, options);
+    this.pluginJSONParse = new PluginWorkflowJSONParseServer(app, options);
   }
 
   getLogger(workflowId: ID): Logger {
@@ -299,6 +300,7 @@ export default class PluginWorkflowServer extends Plugin {
     await this.pluginManual.load();
     await this.pluginParallel.load();
     await this.pluginRequest.load();
+    await this.pluginJSONParse.load();
   }
 
   toggle(workflow: WorkflowModel, enable?: boolean) {
