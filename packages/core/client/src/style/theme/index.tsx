@@ -1,7 +1,8 @@
-import { ConfigProvider, theme as antdTheme } from 'antd';
-import _ from 'lodash';
 import React, { createContext, useCallback, useMemo, useRef } from 'react';
-import compatOldTheme from './compatOldTheme';
+
+import { theme as antdTheme, ConfigProvider } from 'antd';
+import _ from 'lodash';
+
 import defaultTheme from './defaultTheme';
 import { ThemeConfig } from './type';
 
@@ -81,12 +82,11 @@ export const GlobalThemeProvider = ({ children, theme: themeFromProps }) => {
 
   return (
     <GlobalThemeContext.Provider value={value}>
-      <ConfigProvider theme={compatOldTheme(theme)}>{children}</ConfigProvider>
+      <ConfigProvider theme={theme}>{children}</ConfigProvider>
     </GlobalThemeContext.Provider>
   );
 };
 
 export { default as AntdAppProvider } from './AntdAppProvider';
-export { default as compatOldTheme } from './compatOldTheme';
 export * from './type';
 export { defaultTheme };

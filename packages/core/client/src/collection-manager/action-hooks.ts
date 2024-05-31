@@ -478,7 +478,7 @@ export const useUpdateAction = (actionCallback?: (key: string, values: any) => v
         await form.reset();
         refresh();
       } catch (e) {
-        console.log(e);
+        console.error(e);
       } finally {
         field.data.loading = false;
       }

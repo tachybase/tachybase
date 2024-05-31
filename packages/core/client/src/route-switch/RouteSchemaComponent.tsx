@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { RemoteSchemaComponent } from '../../../';
+import { RemoteSchemaComponent } from '..';
 
 export function RouteSchemaComponent(props: any) {
   const params = useParams<any>();

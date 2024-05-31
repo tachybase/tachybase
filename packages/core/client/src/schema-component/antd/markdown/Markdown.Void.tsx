@@ -1,9 +1,11 @@
+import React, { useState } from 'react';
 import { observer, useField, useFieldSchema } from '@tachybase/schema';
+
 import { Input as AntdInput, Button, Space, Spin } from 'antd';
 import cls from 'classnames';
-import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useGlobalTheme } from '../../../global-theme';
+
+import { useGlobalTheme } from '../../../style/theme';
 import { useDesignable } from '../../hooks/useDesignable';
 import { MarkdownVoidDesigner } from './Markdown.Void.Designer';
 import { useStyles } from './style';

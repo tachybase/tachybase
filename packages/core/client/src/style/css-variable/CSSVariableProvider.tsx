@@ -2,8 +2,8 @@ import { useEffect, useMemo } from 'react';
 
 import { TinyColor } from '@ctrl/tinycolor';
 
-import { defaultTheme } from '../global-theme';
-import { useToken } from '../style';
+import { useToken } from '..';
+import { defaultTheme } from '../theme';
 
 export const CSSVariableProvider = ({ children }) => {
   const { token } = useToken();

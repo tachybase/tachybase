@@ -12,7 +12,7 @@ import { Application } from '../application';
 import { Plugin } from '../application/Plugin';
 import { BlockSchemaComponentPlugin } from '../block-provider';
 import { CollectionPlugin } from '../collection-manager';
-import { AdminLayoutPlugin, RouteSchemaComponent } from '../route-switch';
+import { RouteSchemaComponent } from '../route-switch';
 import { AntdSchemaComponentPlugin, SchemaComponentPlugin } from '../schema-component';
 import { ErrorFallback } from '../schema-component/antd/error-fallback';
 import { AssociationFilterPlugin, SchemaInitializerPlugin } from '../schema-initializer';
@@ -20,11 +20,14 @@ import { SchemaSettingsPlugin } from '../schema-settings';
 import { BlockTemplateDetails, BlockTemplatePage } from '../schema-templates';
 import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
 import { ACLPlugin } from './acl';
+import { AdminLayoutPlugin } from './admin-layout';
 import { RemoteDocumentTitlePlugin } from './document-title';
 import { LocalePlugin } from './locale/LocalePlugin';
 import { PinnedListPlugin } from './pinned-list';
 import { PMPlugin } from './pm';
 import { SystemSettingsPlugin } from './system-settings';
+
+export { AdminProvider } from './admin-layout';
 
 interface AppStatusProps {
   error: Error;
@@ -224,11 +227,6 @@ const AppMaintaining = observer(
           status={status}
           title={app.i18n.t(title)}
           subTitle={app.i18n.t(subTitle)}
-          // extra={[
-          //   <Button type="primary" key="try" onClick={() => window.location.reload()}>
-          //     {app.i18n.t('Try again')}
-          //   </Button>,
-          // ]}
         />
       </div>
     );

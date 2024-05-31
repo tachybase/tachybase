@@ -1,9 +1,8 @@
-import { Field } from '@tachybase/schema';
-import { useField } from '@tachybase/schema';
-import { reaction } from '@tachybase/schema';
-import { isArr, isValid, toArr as toArray } from '@tachybase/schema';
-import { UploadFile } from 'antd/es/upload/interface';
 import { useEffect } from 'react';
+import { Field, isArr, isValid, reaction, toArr as toArray, useField } from '@tachybase/schema';
+
+import { UploadFile } from 'antd/es/upload/interface';
+
 import { useAPIClient } from '../../../api-client';
 import { UPLOAD_PLACEHOLDER } from './placeholder';
 import type { IUploadProps, UploadProps } from './type';
@@ -202,7 +201,7 @@ export function useUploadProps<T extends IUploadProps = UploadProps>({ serviceEr
 
       return {
         abort() {
-          console.log('upload progress is aborted.');
+          console.warn('upload progress is aborted.');
         },
       };
     },

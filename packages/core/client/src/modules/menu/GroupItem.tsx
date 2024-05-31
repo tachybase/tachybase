@@ -1,11 +1,13 @@
+import React, { useCallback, useContext } from 'react';
 import { FormLayout } from '@tachybase/components';
 import { SchemaOptionsContext } from '@tachybase/schema';
-import React, { useCallback, useContext } from 'react';
+
 import { useTranslation } from 'react-i18next';
-import { FormDialog, SchemaComponent, SchemaComponentOptions } from '../../schema-component';
+
 import { SchemaInitializerItem, useSchemaInitializer } from '../../application';
-import { useGlobalTheme } from '../../global-theme';
+import { FormDialog, SchemaComponent, SchemaComponentOptions } from '../../schema-component';
 import { useStyles } from '../../schema-component/antd/menu/MenuItemInitializers';
+import { useGlobalTheme } from '../../style/theme';
 
 export const GroupItem = () => {
   const { insert } = useSchemaInitializer();

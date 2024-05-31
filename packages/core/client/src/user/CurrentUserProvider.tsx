@@ -27,6 +27,7 @@ export const useCurrentRoles = () => {
       });
     }
     return roles;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allowAnonymous, data?.data?.roles]);
   return options;
 };

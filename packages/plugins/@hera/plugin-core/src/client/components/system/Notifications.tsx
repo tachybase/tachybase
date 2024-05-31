@@ -3,7 +3,7 @@ import { css, useRequest } from '@tachybase/client';
 import { dayjs } from '@tachybase/utils/client';
 
 import { BellOutlined } from '@ant-design/icons';
-import { Badge, Button, List, message, Popover } from 'antd';
+import { Badge, Button, List, Popover } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { useInitializationLinkKey, useLinkKey } from '../../hooks/useNotifications';
@@ -28,7 +28,6 @@ export const Notifications = () => {
     {
       onSuccess() {
         run();
-        message.info('成功');
       },
     },
   );

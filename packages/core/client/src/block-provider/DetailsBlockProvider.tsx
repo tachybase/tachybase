@@ -1,14 +1,14 @@
-import { createForm } from '@tachybase/schema';
-import { useField } from '@tachybase/schema';
+import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
+import { createForm, useField } from '@tachybase/schema';
+
 import { Spin } from 'antd';
 import _ from 'lodash';
-import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
+
+import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
 import { useCollectionParentRecord } from '../data-source/collection-record/CollectionRecordProvider';
 import { RecordProvider } from '../record-provider';
 import { BlockProvider, useBlockRequestContext } from './BlockProvider';
 import { useParsedFilter } from './hooks';
-import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
-import { TemplateBlockProvider } from './TemplateBlockProvider';
 
 export const DetailsBlockContext = createContext<any>({});
 DetailsBlockContext.displayName = 'DetailsBlockContext';
@@ -65,11 +65,9 @@ const InternalDetailsBlockProvider = (props) => {
 
 export const DetailsBlockProvider = withDynamicSchemaProps((props) => {
   return (
-    <TemplateBlockProvider>
-      <BlockProvider name="details" {...props}>
-        <InternalDetailsBlockProvider {...props} />
-      </BlockProvider>
-    </TemplateBlockProvider>
+    <BlockProvider name="details" {...props}>
+      <InternalDetailsBlockProvider {...props} />
+    </BlockProvider>
   );
 });
 

@@ -23,7 +23,6 @@ import { createStyles } from 'antd-style';
 import { useActionContext } from '..';
 import { useAttach, useComponent } from '../..';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
-import { useTemplateBlockContext } from '../../../block-provider/TemplateBlockProvider';
 import { ActionType } from '../../../schema-settings/LinkageRules/type';
 import { useLocalVariables, useVariables } from '../../../variables';
 import { VariableOption, VariablesContextType } from '../../../variables/types';
@@ -83,7 +82,6 @@ const FormDecorator: React.FC<FormProps> = (props) => {
               <RecursionField basePath={f.address} schema={fieldSchema} onlyRenderProperties />
             </Component>
           </FieldContext.Provider>
-          {/* <FieldContext.Provider value={f}>{children}</FieldContext.Provider> */}
         </FormLayout>
       </FormContext.Provider>
     </FieldContext.Provider>
@@ -111,7 +109,6 @@ const WithForm = (props: WithFormProps) => {
   const { setFormValueChanged } = useActionContext();
   const variables = useVariables();
   const localVariables = useLocalVariables({ currentForm: form });
-  const { templateFinshed } = useTemplateBlockContext();
   const linkageRules: any[] =
     (getLinkageRules(fieldSchema) || fieldSchema.parent?.['x-linkage-rules'])?.filter((k) => !k.disabled) || [];
 
@@ -191,7 +188,7 @@ const WithForm = (props: WithFormProps) => {
         dispose();
       });
     };
-  }, [linkageRules, templateFinshed]);
+  }, [linkageRules]);
 
   return fieldSchema['x-decorator'] === 'FormV2' ? <FormDecorator {...props} /> : <FormComponent {...props} />;
 };
@@ -332,7 +329,6 @@ function getFieldValuesInCondition({ linkageRules, formValues }) {
 
       return conditions
         .map((condition) => {
-          // fix
           if ('$and' in condition || '$or' in condition) {
             return run(condition);
           }

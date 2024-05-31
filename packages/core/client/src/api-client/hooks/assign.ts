@@ -1,6 +1,7 @@
 import { isPlainObject } from '@tachybase/utils/client';
+
 import deepmerge from 'deepmerge';
-import uniq from 'lodash/uniq';
+import { uniq } from 'lodash';
 
 type MergeStrategyType = 'merge' | 'deepMerge' | 'overwrite' | 'andMerge' | 'orMerge' | 'intersect' | 'union';
 type MergeStrategyFunc = (x: any, y: any) => any;

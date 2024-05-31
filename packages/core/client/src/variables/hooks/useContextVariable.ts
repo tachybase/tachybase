@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import { useTableBlockContext } from '../../block-provider';
 import { VariableOption } from '../types';
 

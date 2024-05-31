@@ -1,9 +1,9 @@
-import { observer, useForm } from '@tachybase/schema';
-import { action } from '@tachybase/schema';
 import React from 'react';
+import { action, observer, useForm } from '@tachybase/schema';
+
+import { withDynamicSchemaProps } from '../../application/hoc/withDynamicSchemaProps';
 import { useCollectionManager_deprecated } from '../../collection-manager';
 import { SchemaComponent, useCompile, useProps } from '../../schema-component';
-import { withDynamicSchemaProps } from '../../application/hoc/withDynamicSchemaProps';
 
 export const EnableChildCollections = withDynamicSchemaProps(
   observer((props: any) => {

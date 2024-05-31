@@ -1,10 +1,11 @@
-import type { CSSInterpolation, CSSObject } from '@ant-design/cssinjs';
-import { useStyleRegister } from '@ant-design/cssinjs';
-import { merge } from '@tachybase/schema';
-import type { ComponentTokenMap, GlobalToken } from 'antd/es/theme/interface';
-import { CustomToken } from '../../../global-theme';
-import { useConfig, usePrefixCls, useToken } from './hooks';
 import { useMemo } from 'react';
+import { merge } from '@tachybase/schema';
+
+import { useStyleRegister, type CSSInterpolation, type CSSObject } from '@ant-design/cssinjs';
+import type { ComponentTokenMap, GlobalToken } from 'antd/es/theme/interface';
+
+import { CustomToken } from '../../../style/theme';
+import { useConfig, usePrefixCls, useToken } from './hooks';
 
 export type OverrideComponent = keyof ComponentTokenMap | string;
 

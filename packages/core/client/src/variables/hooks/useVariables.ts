@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import { VariablesContext } from '../VariablesProvider';
 
 const useVariables = () => {

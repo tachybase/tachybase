@@ -1,5 +1,6 @@
-import { set } from 'lodash';
 import React, { createElement } from 'react';
+
+import { set } from 'lodash';
 import { Outlet } from 'react-router-dom';
 
 import { Icon } from '../icon';

@@ -1,13 +1,13 @@
-import { CopyOutlined } from '@ant-design/icons';
+import React, { Fragment, useEffect, useState } from 'react';
 import { ArrayBase } from '@tachybase/components';
-import { ArrayField } from '@tachybase/schema';
-import { ISchema, RecursionField, observer, useField, useFieldSchema } from '@tachybase/schema';
-import { toArr, uid } from '@tachybase/schema';
+import { ArrayField, ISchema, observer, RecursionField, toArr, uid, useField, useFieldSchema } from '@tachybase/schema';
+
+import { CopyOutlined } from '@ant-design/icons';
 import { Badge, Card, Collapse, CollapsePanelProps, CollapseProps, Empty, Input } from 'antd';
 import cls from 'classnames';
 import { clone } from 'lodash';
-import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useStyles } from './DataTemplateTitle.style';
 
 const DataTemplateTitle = observer<{ index: number; item: any }>((props) => {

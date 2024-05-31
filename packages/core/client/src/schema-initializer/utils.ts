@@ -1358,7 +1358,6 @@ export const createTableBlockSchema = (options) => {
       },
     },
   };
-  // console.log(JSON.stringify(schema, null, 2));
   return schema;
 };
 

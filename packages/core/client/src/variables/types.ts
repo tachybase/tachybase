@@ -1,4 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
+
 import { CollectionFieldOptions_deprecated } from '../collection-manager';
 
 export interface VariablesContextType {

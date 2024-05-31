@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppNotFound, createRouterManager, Plugin, RouterManager, RouteSchemaComponent } from '@tachybase/client';
+import { createRouterManager, Plugin, RouterManager } from '@tachybase/client';
 
 import { Navigate, Outlet } from 'react-router-dom';
 
@@ -72,7 +72,7 @@ export class MobileClientPlugin extends Plugin {
     });
     router.add('mobile.page', {
       path: '/mobile/:name',
-      element: <RouteSchemaComponent />,
+      Component: 'RouteSchemaComponent',
     });
     this.mobileRouter = router;
   }

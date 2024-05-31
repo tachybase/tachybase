@@ -1,4 +1,5 @@
 import { TFuncKey, TOptions } from 'i18next';
+
 import type { Application } from './Application';
 
 export class Plugin<T = any> {

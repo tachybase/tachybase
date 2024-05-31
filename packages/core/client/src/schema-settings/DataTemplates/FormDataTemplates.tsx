@@ -1,13 +1,14 @@
-import { Field } from '@tachybase/schema';
-import { connect, mapProps, observer } from '@tachybase/schema';
-import { observable } from '@tachybase/schema';
+import React, { useMemo } from 'react';
+import { connect, Field, mapProps, observable, observer } from '@tachybase/schema';
+
 import { Tree as AntdTree } from 'antd';
 import _ from 'lodash';
-import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { withDynamicSchemaProps } from '../../application/hoc/withDynamicSchemaProps';
 import { useCollectionManager_deprecated } from '../../collection-manager';
 import { mergeFilter } from '../../filter-provider/utils';
-import { SchemaComponent, SchemaComponentContext, removeNullCondition, useProps } from '../../schema-component';
+import { removeNullCondition, SchemaComponent, SchemaComponentContext, useProps } from '../../schema-component';
 import { ITemplate } from '../../schema-component/antd/form-v2/Templates';
 import { VariableInput } from '../VariableInput';
 import { AsDefaultTemplate } from './components/AsDefaultTemplate';
@@ -15,7 +16,6 @@ import { ArrayCollapse } from './components/DataTemplateTitle';
 import { getSelectedIdFilter } from './components/Designer';
 import { useCollectionState } from './hooks/useCollectionState';
 import { useSyncFromForm } from './utils';
-import { withDynamicSchemaProps } from '../../application/hoc/withDynamicSchemaProps';
 
 const Tree = connect(
   AntdTree,

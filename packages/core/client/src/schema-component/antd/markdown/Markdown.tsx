@@ -1,8 +1,10 @@
-import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
-import { Input as AntdInput, Spin } from 'antd';
 import React from 'react';
-import { useGlobalTheme } from '../../../global-theme';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
+import { LoadingOutlined } from '@ant-design/icons';
+import { Input as AntdInput, Spin } from 'antd';
+
+import { useGlobalTheme } from '../../../style/theme';
 import { ReadPretty as InputReadPretty } from '../input';
 import { MarkdownVoid } from './Markdown.Void';
 import { useStyles } from './style';

@@ -1,6 +1,6 @@
-import { ArrayField } from '@tachybase/schema';
-import { useField } from '@tachybase/schema';
 import React, { useCallback, useState } from 'react';
+import { ArrayField, useField } from '@tachybase/schema';
+
 import { useCollectionManager_deprecated } from '../../../collection-manager';
 import { useCompile } from '../../../schema-component';
 import { TreeNode } from '../TreeLabel';

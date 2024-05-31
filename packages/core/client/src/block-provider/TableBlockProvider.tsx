@@ -1,12 +1,11 @@
-import { createForm } from '@tachybase/schema';
-import { FormContext, useField, useFieldSchema } from '@tachybase/schema';
 import React, { createContext, useContext, useMemo, useState } from 'react';
+import { createForm, FormContext, useField, useFieldSchema } from '@tachybase/schema';
+
+import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
 import { useCollectionManager_deprecated } from '../collection-manager';
+import { useTableBlockParams } from '../modules/blocks/data-blocks/table/hooks/useTableBlockDecoratorProps';
 import { FixedBlockWrapper, SchemaComponentOptions } from '../schema-component';
 import { BlockProvider, RenderChildrenWithAssociationFilter, useBlockRequestContext } from './BlockProvider';
-import { useParsedFilter } from './hooks';
-import { useTableBlockParams } from '../modules/blocks/data-blocks/table/hooks/useTableBlockDecoratorProps';
-import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
 
 export const TableBlockContext = createContext<any>({});
 TableBlockContext.displayName = 'TableBlockContext';

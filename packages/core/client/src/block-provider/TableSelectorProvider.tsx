@@ -1,8 +1,9 @@
-import { ArrayField } from '@tachybase/schema';
-import { Schema, useField, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
-import uniq from 'lodash/uniq';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { ArrayField, Schema, useField, useFieldSchema } from '@tachybase/schema';
+
+import _, { uniq } from 'lodash';
+
+import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
 import { useCollectionManager_deprecated } from '../collection-manager';
 import { useCollectionParentRecordData } from '../data-source/collection-record/CollectionRecordProvider';
 import { isInFilterFormBlock } from '../filter-provider';
@@ -11,7 +12,6 @@ import { RecordProvider, useRecord } from '../record-provider';
 import { SchemaComponentOptions } from '../schema-component';
 import { BlockProvider, RenderChildrenWithAssociationFilter, useBlockRequestContext } from './BlockProvider';
 import { useParsedFilter } from './hooks';
-import { withDynamicSchemaProps } from '../application/hoc/withDynamicSchemaProps';
 
 type Params = {
   filter?: any;
@@ -54,9 +54,6 @@ const InternalTableSelectorProvider = (props) => {
   const { resource, service } = useBlockRequestContext();
   const [expandFlag, setExpandFlag] = useState(false);
   const parentRecordData = useCollectionParentRecordData();
-  // if (service.loading) {
-  //   return <Spin />;
-  // }
   return (
     <RecordProvider record={{}} parent={parentRecordData}>
       <TableSelectorContext.Provider
@@ -77,14 +74,6 @@ const InternalTableSelectorProvider = (props) => {
       </TableSelectorContext.Provider>
     </RecordProvider>
   );
-};
-
-const useAssociationNames2 = (collection) => {
-  const { getCollectionFields } = useCollectionManager_deprecated();
-  const names = getCollectionFields(collection)
-    ?.filter((field) => field.target)
-    .map((field) => field.name);
-  return names;
 };
 
 export const recursiveParent = (schema: Schema, component) => {

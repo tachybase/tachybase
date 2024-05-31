@@ -1,7 +1,9 @@
-import { useExpressionScope } from '@tachybase/schema';
 import React, { ComponentType, useMemo } from 'react';
-import { useDesignable } from '../../schema-component';
+import { useExpressionScope } from '@tachybase/schema';
+
 import _ from 'lodash';
+
+import { useDesignable } from '../../schema-component';
 
 const useDefaultSchemaProps = () => undefined;
 

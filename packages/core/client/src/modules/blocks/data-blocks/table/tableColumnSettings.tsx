@@ -1,13 +1,14 @@
-import { ISchema } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { useApp } from '../../../../application';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useDesignable } from '../../../../schema-component';
 import { useAssociationFieldContext } from '../../../../schema-component/antd/association-field/hooks';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import { SchemaSettingsDefaultValue, isPatternDisabled } from '../../../../schema-settings';
+import { isPatternDisabled, SchemaSettingsDefaultValue } from '../../../../schema-settings';
 import { useFieldComponentName } from './utils';
 
 export const tableColumnSettings = new SchemaSettings({
@@ -297,6 +298,7 @@ export const tableColumnSettings = new SchemaSettings({
       useChildren() {
         const app = useApp();
         const fieldComponentName = useFieldComponentName();
+        console.log('🚀 ~ file: tableColumnSettings.tsx:300 ~ useChildren ~ fieldComponentName:', fieldComponentName);
         const map = {
           Select: 'Select',
           DatePicker: 'DatePicker',
@@ -309,6 +311,12 @@ export const tableColumnSettings = new SchemaSettings({
         const componentSettings = app.schemaSettingsManager.get(
           `fieldSettings:component:${map[fieldComponentName] || fieldComponentName}`,
         );
+        console.log(
+          '🚀 ~ file: tableColumnSettings.tsx:313 ~ useChildren ~ componentSettings:',
+          componentSettings,
+          app.schemaSettingsManager.getAll(),
+        );
+        console.log(`fieldSettings:component:${map[fieldComponentName] || fieldComponentName}`, 'fieldComponentName');
         return componentSettings?.items || [];
       },
     },

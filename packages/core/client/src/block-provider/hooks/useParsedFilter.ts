@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { reaction } from '@tachybase/schema';
 import { flatten, getValuesByPath } from '@tachybase/utils/client';
+
+import { useDeepCompareEffect } from 'ahooks';
 import _ from 'lodash';
-import { useEffect, useState } from 'react';
+
 import { useParseDataScopeFilter } from '../../schema-settings';
 import { DEBOUNCE_WAIT } from '../../variables';
 import { getPath } from '../../variables/utils/getPath';
@@ -12,7 +15,7 @@ export function useParsedFilter({ filterOption }: { filterOption: any }) {
   const { parseFilter, findVariable } = useParseDataScopeFilter();
   const [filter, setFilter] = useState({});
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (!filterOption) return;
 
     const _run = async () => {
@@ -50,7 +53,7 @@ export function useParsedFilter({ filterOption }: { filterOption: any }) {
       });
       return flat;
     }, run);
-  }, [JSON.stringify(filterOption)]);
+  }, [filterOption]);
 
   return { filter };
 }

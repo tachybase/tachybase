@@ -81,7 +81,6 @@ export const RecordDetails: CustomFunctionComponent = () => {
         productItem[key].count += count;
       } else {
         productItem[key] = {
-          key: item.product.category_id,
           label: item.product.name,
           sort: item.product.category.sort,
           unit,

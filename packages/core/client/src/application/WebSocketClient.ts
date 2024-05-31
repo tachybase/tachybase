@@ -116,7 +116,6 @@ export class WebSocketClient {
       this.connected = true;
     };
     ws.onerror = async () => {
-      // setTimeout(() => this.connect(), this.reconnectInterval);
       console.log('onerror', this.readyState, this._reconnectTimes);
     };
     ws.onclose = async (event) => {

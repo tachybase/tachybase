@@ -154,6 +154,7 @@ const VariablesProvider = ({ children }) => {
 
       return compile(_.isFunction(current) ? current() : current);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [getCollectionJoinField],
   );
 
@@ -296,7 +297,6 @@ function shouldToRequest(value) {
 
   // value 有可能是一个响应式对象，使用 untracked 可以避免意外触发 autorun
   untracked(() => {
-    // fix
     // 兼容 `对多` 和 `对一` 子表单子表格字段的情况
     if (JSON.stringify(value) === '[{}]' || JSON.stringify(value) === '{}') {
       result = true;
