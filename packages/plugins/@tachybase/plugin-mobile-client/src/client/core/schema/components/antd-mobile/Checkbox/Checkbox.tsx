@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useCollectionField } from '@tachybase/client';
+import { css, useCollectionField } from '@tachybase/client';
 import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/schema';
 
 import { Checkbox, CheckboxGroupProps, CheckboxProps, Tag } from 'antd-mobile';
@@ -27,7 +27,7 @@ MCheckbox.Group = connect(
             <Checkbox
               value={item.value}
               key={index}
-              style={{ marginRight: '10px' }}
+              style={{ '--icon-size': '12px', '--font-size': '12px' }}
               onChange={(status) => {
                 if (status) {
                   check.push(item.value);
@@ -37,6 +37,7 @@ MCheckbox.Group = connect(
                 }
                 props.onChange(check);
               }}
+              {...props}
             >
               {item.label}
             </Checkbox>

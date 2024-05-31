@@ -19,6 +19,7 @@ import {
   MMenuBlockInitializer,
   MPage,
   MRadio,
+  MSelect,
   MSettings,
   MSettingsBlockInitializer,
   MTabBar,
@@ -87,6 +88,7 @@ export const MobileCore: React.FC<PropsWithChildren> = (props) => {
         MRadio,
         MImageUploader,
         CollectionField: CollectionField,
+        MSelect,
       }}
       scope={{
         useGridCardBlockItemProps,

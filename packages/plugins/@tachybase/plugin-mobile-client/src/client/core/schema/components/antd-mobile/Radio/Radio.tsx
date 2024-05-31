@@ -26,7 +26,11 @@ MRadio.Group = connect(
       <Radio.Group {...props}>
         {dataSource.map((item, index) => {
           return (
-            <Radio value={item.value} key={index} style={{ marginRight: '10px' }}>
+            <Radio
+              value={item.value}
+              key={index}
+              style={{ '--font-size': '12px', '--icon-size': '18px', marginLeft: '10px' }}
+            >
               {item.label}
             </Radio>
           );

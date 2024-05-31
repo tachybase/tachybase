@@ -36,8 +36,8 @@ export const MDatePicker = connect(
   }),
   mapReadPretty((props) => {
     const changeProps = { ...props };
-    changeProps.value = dayjs(props.value).format(props.dateFormat);
-    return <Input {...changeProps} readOnly />;
+    changeProps.value = props.value ? dayjs(props.value).format('YYYY-MM-DD') : '';
+    return <div>{changeProps.value}</div>;
   }),
 );
 export default MDatePicker;

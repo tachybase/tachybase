@@ -2,6 +2,8 @@ import React, { useEffect, useMemo } from 'react';
 import {
   CollectionFieldProvider,
   useCollectionField,
+  useCollectionManager,
+  useCollectionManager_deprecated,
   useCompile,
   useComponent,
   useFormBlockContext,
@@ -28,11 +30,15 @@ export const CollectionFieldInternalField: React.FC = (props: Props) => {
   const compile = useCompile();
   const field = useField<Field>();
   const fieldSchema = useFieldSchema();
+  const { getCollectionJoinField, getCollection } = useCollectionManager_deprecated();
   const { uiSchema: uiSchemaOrigin, defaultValue } = useCollectionField();
   const { isAllowToSetDefaultValue } = useIsAllowToSetDefaultValue();
   const uiSchema = useMemo(() => compile(uiSchemaOrigin), [JSON.stringify(uiSchemaOrigin)]);
+
   const isMobile = useIsMobile();
-  const Component = useComponent(component || uiComponent(isMobile, uiSchema) || 'Input');
+  const currModel = getCurrModel({ getCollectionJoinField, getCollection, fieldSchema, uiSchema });
+  const Component = useComponent(component || uiComponent(isMobile, uiSchema, currModel) || 'Input');
+
   const setFieldProps = (key, value) => {
     field[key] = typeof field[key] === 'undefined' ? value : field[key];
   };
@@ -95,13 +101,24 @@ export const CollectionField = connect((props) => {
   );
 });
 
-export const uiComponent = (isMobile, uiSchema) => {
-  const isMobileComponent = canMobileField(uiSchema['x-component']);
+export const uiComponent = (isMobile, uiSchema, currMode?) => {
+  const isMobileComponent = canMobileField(currMode || uiSchema['x-component']);
   if (isMobile && isMobileComponent) {
     return isMobileComponent;
   } else {
     return uiSchema['x-component'];
   }
+};
+
+export const getCurrModel = ({ getCollectionJoinField, getCollection, fieldSchema, uiSchema }) => {
+  const collectionField = getCollectionJoinField(fieldSchema['x-collection-field']);
+  const isFileCollection = getCollection(collectionField?.target)?.template === 'file';
+  const isTreeCollection = getCollection(collectionField?.target)?.template === 'tree';
+
+  const currentMode =
+    fieldSchema['x-component-props']?.mode ||
+    (isFileCollection ? 'FileManager' : isTreeCollection ? 'Cascader' : 'Select');
+  return currentMode && uiSchema['x-component'] === 'AssociationField' ? currentMode : undefined;
 };
 
 CollectionField.displayName = 'CollectionField';
