@@ -1,7 +1,7 @@
 import { css } from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
 
-import { WorkflowVariableInput } from '../..';
+import { VariableOption, WorkflowVariableInput } from '../..';
 import { NAMESPACE_INSTRUCTION_JSON_PARSE } from '../../../common/constants';
 import { tval } from '../../locale';
 import { Instruction } from '../../nodes';
@@ -36,6 +36,8 @@ export class JSONParseInstruction extends Instruction {
       description: tval(
         'If the type of query result is object or array of object, could map the properties which to be accessed in subsequent nodes.',
       ),
+      'x-decorator': 'FormItem',
+      'x-component': 'ArrayTable',
       items: {
         type: 'object',
         properties: {
@@ -126,4 +128,19 @@ export class JSONParseInstruction extends Instruction {
     ArrayTable,
     WorkflowVariableInput,
   };
+
+  useVariables(node, options): VariableOption {
+    const { key, title, config } = node;
+    const { types, fieldNames } = options;
+    const model = config.model || [];
+    const result = {
+      [fieldNames.label]: title,
+      [fieldNames.value]: key,
+      [fieldNames.children]: model.map((item) => ({
+        [fieldNames.label]: item.label,
+        [fieldNames.value]: item.alias || item.path,
+      })),
+    };
+    return result;
+  }
 }
