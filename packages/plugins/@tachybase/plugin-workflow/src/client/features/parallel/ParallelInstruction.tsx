@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { Button, Tooltip } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-
 import { css } from '@tachybase/client';
 
-import {
-  NodeDefaultView,
-  Branch,
-  useFlowContext,
-  useStyles,
-  useGetAriaLabelOfAddButton,
-  RadioWithTooltip,
-  Instruction,
-} from '../..';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Tooltip } from 'antd';
 
-import { NAMESPACE, lang } from '../../locale';
+import {
+  Branch,
+  NodeDefaultView,
+  RadioWithTooltip,
+  useFlowContext,
+  useGetAriaLabelOfAddButton,
+  useStyles,
+} from '../..';
+import { lang, NAMESPACE } from '../../locale';
+import { Instruction } from '../../nodes';
 
 export default class extends Instruction {
   title = `{{t("Parallel branch", { ns: "${NAMESPACE}" })}}`;

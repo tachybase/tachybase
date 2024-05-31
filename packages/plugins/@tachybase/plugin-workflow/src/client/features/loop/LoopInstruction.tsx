@@ -1,22 +1,22 @@
 import React from 'react';
-import { ArrowUpOutlined } from '@ant-design/icons';
-
 import { css, cx, useCompile } from '@tachybase/client';
 
+import { ArrowUpOutlined } from '@ant-design/icons';
+
 import {
-  NodeDefaultView,
   Branch,
+  defaultFieldNames,
+  NodeDefaultView,
+  nodesOptions,
+  scopeOptions,
+  triggerOptions,
   useFlowContext,
   useStyles,
   VariableOption,
   WorkflowVariableInput,
-  defaultFieldNames,
-  nodesOptions,
-  scopeOptions,
-  triggerOptions,
-  Instruction,
 } from '../..';
-import { NAMESPACE, lang } from '../../locale';
+import { lang, NAMESPACE } from '../../locale';
+import { Instruction } from '../../nodes';
 
 function findOption(options: VariableOption[], paths: string[]) {
   let opts = options;

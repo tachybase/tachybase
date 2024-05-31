@@ -1,16 +1,11 @@
 import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile, usePlugin } from '@tachybase/client';
 
-import WorkflowPlugin, {
-  defaultFieldNames,
-  getCollectionFieldOptions,
-  CollectionBlockInitializer,
-  Instruction,
-} from '../../..';
-
-import { SchemaConfig, SchemaConfigButton } from './SchemaConfig';
-import { ModeConfig } from './ModeConfig';
-import { AssigneesSelect } from './AssigneesSelect';
+import WorkflowPlugin, { CollectionBlockInitializer, defaultFieldNames, getCollectionFieldOptions } from '../../..';
 import { NAMESPACE } from '../../../locale';
+import { Instruction } from '../../../nodes';
+import { AssigneesSelect } from './AssigneesSelect';
+import { ModeConfig } from './ModeConfig';
+import { SchemaConfig, SchemaConfigButton } from './SchemaConfig';
 
 const MULTIPLE_ASSIGNED_MODE = {
   SINGLE: Symbol('single'),
