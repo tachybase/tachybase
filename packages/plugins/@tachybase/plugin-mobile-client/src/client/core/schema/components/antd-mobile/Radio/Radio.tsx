@@ -4,6 +4,8 @@ import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/
 
 import { Radio, RadioGroupProps, RadioProps, Tag } from 'antd-mobile';
 
+import { getMobileColor } from '../../../CustomColor';
+
 type ComposedRadio = React.FC<RadioProps> & {
   Group?: any;
 };
@@ -55,11 +57,13 @@ MRadio.Group = connect(
       <div>
         {dataSource
           .filter((option) => option.value == value)
-          .map((option, key) => (
-            <Tag key={key} color={option.color}>
-              {option.label}
-            </Tag>
-          ))}
+          .map((option, key) => {
+            return (
+              <Tag key={key} color={getMobileColor(option.color)}>
+                {option.label}
+              </Tag>
+            );
+          })}
       </div>
     );
   }),

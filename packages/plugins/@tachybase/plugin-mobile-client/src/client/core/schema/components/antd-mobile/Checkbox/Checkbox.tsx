@@ -4,6 +4,8 @@ import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/
 
 import { Checkbox, CheckboxGroupProps, CheckboxProps, Tag } from 'antd-mobile';
 
+import { getMobileColor } from '../../../CustomColor';
+
 type ComposedCheckBox = React.FC<CheckboxProps> & {
   Group?: any;
 };
@@ -59,7 +61,7 @@ MCheckbox.Group = connect(
         {dataSource
           .filter((option) => option.value == value)
           .map((option, key) => (
-            <Tag key={key} color={option.color}>
+            <Tag key={key} color={getMobileColor(option.color)}>
               {option.label}
             </Tag>
           ))}

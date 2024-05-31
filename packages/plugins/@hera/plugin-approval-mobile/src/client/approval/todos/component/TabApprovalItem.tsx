@@ -19,9 +19,8 @@ export const TabApprovalItem = observer((props) => {
   const navigate = useNavigate();
   const cm = useCollectionManager();
   useAsyncEffect(async () => {
-    const { data: user } = await api.request({ url: 'users:list', params: { pageSize: 999, appends: ['roles'] } });
     if (collectionName === 'approvalRecords') {
-      changeApprovalRecordsService(api, params?.[tabKey], filter, user, cm, compile, t, setData, input);
+      changeApprovalRecordsService(api, params?.[tabKey], filter, cm, compile, t, setData, input);
     } else if (collectionName === 'users_jobs') {
       changeUsersJobsService(api, t, cm, compile, input, setData, params?.[tabKey], filter);
     }
@@ -83,19 +82,18 @@ const approvalTodoListStatus = (item, t) => {
   }
 };
 
-const changeApprovalRecordsService = (api, params, filter, user, cm, compile, t, setData, input) => {
+const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setData, input) => {
   api
     .request({
       url: 'approvalRecords:listCentralized',
       params: {
         pageSize: 9999,
-        appends: ['execution', 'job', 'node', 'workflow'],
+        appends: ['execution', 'job', 'node', 'workflow', 'user'],
         filter: { ...params, ...filter },
       },
     })
     .then((res) => {
       const result = res.data?.data.map((item) => {
-        const itemUser = user.data.find((value) => value.id === item.userId);
         const priorityType = ApprovalPriorityType.find((priorityItem) => priorityItem.value === item.snapshot.priority);
         const statusType = approvalTodoListStatus(item, t);
         const categoryTitle = item.workflow.title.replace('审批流:', '');
@@ -109,7 +107,7 @@ const changeApprovalRecordsService = (api, params, filter, user, cm, compile, t,
         });
         return {
           ...item,
-          title: `${itemUser.nickname}的${categoryTitle}`,
+          title: `${item.snapshot.createdBy.nickname}的${categoryTitle}`,
           categoryTitle: categoryTitle,
           statusTitle: t(statusType.label),
           statusColor: statusType.color,

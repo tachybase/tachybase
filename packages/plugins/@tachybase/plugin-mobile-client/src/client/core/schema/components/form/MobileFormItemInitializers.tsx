@@ -11,8 +11,8 @@ import {
 } from '@tachybase/client';
 import { Schema, useForm } from '@tachybase/schema';
 
+import { canMobileField } from '../../CustomComponent';
 import { useIsMobile } from '../../hooks';
-import { canMobileField } from './CustomComponent';
 
 export const useFormItemInitializerFields = (options?: any) => {
   const { name, currentFields } = useCollection_deprecated();
