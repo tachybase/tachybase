@@ -143,7 +143,7 @@ export const groupBlockSettings = new SchemaSettings({
   items: [
     {
       name: 'Configure',
-      Component: GroupBlockConfigure,
+      Component: 'GroupBlockConfigure',
     },
     {
       name: 'remove',
