@@ -1187,6 +1187,13 @@ export const useAssociationNames = (dataSource?: string) => {
       const isAssociationField =
         collectionField && ['hasOne', 'hasMany', 'belongsTo', 'belongsToMany'].includes(collectionField.type);
 
+      // 从属性中取 appends
+      if (s['x-component-props']?.['appends']) {
+        _.forEach(s['x-component-props']?.['appends'], (append) => {
+          appends.add(append);
+        });
+      }
+
       // 根据联动规则中条件的字段获取一些 appends
       if (s['x-linkage-rules']) {
         const collectAppends = (obj) => {

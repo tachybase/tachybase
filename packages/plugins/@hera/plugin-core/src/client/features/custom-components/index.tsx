@@ -1,12 +1,23 @@
 import React from 'react';
-import { Plugin, SchemaSettings, SchemaSettingsModalItem, useCollection, useDesignable } from '@tachybase/client';
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+import {
+  Plugin,
+  SchemaSettings,
+  SchemaSettingsModalItem,
+  useCollection,
+  useColumnSchema,
+  useDesignable,
+} from '@tachybase/client';
+import { ISchema, useFieldSchema } from '@tachybase/schema';
 
 import { get, set } from 'lodash';
 
+import { useTranslation } from '../../locale';
+
 const SchemaSettingsAppends = () => {
-  const fieldSchema = useFieldSchema();
-  const field = useField();
+  const originFieldSchema = useFieldSchema();
+  const { fieldSchema: columnSchema } = useColumnSchema();
+  const fieldSchema = columnSchema ?? originFieldSchema;
+  const { t } = useTranslation();
   const c = useCollection();
   const { dn } = useDesignable();
 
@@ -14,35 +25,37 @@ const SchemaSettingsAppends = () => {
     <SchemaSettingsModalItem
       key="appends"
       title="设置加载关联字段"
+      scope={{
+        fieldFilter(field) {
+          return ['belongsTo', 'hasOne'].includes(field.type);
+        },
+      }}
       schema={
         {
           type: 'object',
           title: '设置加载关联字段',
           properties: {
             appends: {
-              default: get(fieldSchema, 'x-component-props.service.params.appends', []),
+              default: get(fieldSchema, 'x-component-props.appends', []),
               'x-decorator': 'FormItem',
-              'x-component': 'Select',
+              'x-component': 'AppendsTreeSelect',
               'x-component-props': {
-                mode: 'multiple',
+                placeholder: t('Select context'),
+                popupMatchSelectWidth: false,
+                collection: `${c.dataSource && c.dataSource !== 'main' ? `${c.dataSource}:` : ''}${c.name}`,
+                multiple: true,
+                allowClear: false,
               },
-              enum: c?.fields.map((item) => item.name),
             },
           },
         } as ISchema
       }
       onSubmit={({ appends }) => {
-        set(field.componentProps, 'service.params.appends', appends);
-        fieldSchema['x-component-props'] = field.componentProps;
-        const path = field.path?.splice(field.path?.length - 1, 1);
-        field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
-          f.componentProps.service = f.componentProps.service || { params: {} };
-          f.componentProps.service.params.appends = appends;
-        });
+        set(fieldSchema['x-component-props'], 'appends', appends ?? []);
         dn.emit('patch', {
           schema: {
             ['x-uid']: fieldSchema['x-uid'],
-            'x-component-props': field.componentProps,
+            'x-component-props': fieldSchema['x-component-props'],
           },
         });
 

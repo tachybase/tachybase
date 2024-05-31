@@ -1,10 +1,20 @@
-import { ArrayTable } from '@tachybase/components';
-import { Field, onFieldValueChange } from '@tachybase/schema';
-import { ISchema, useField, useFieldSchema, useForm, useFormEffects } from '@tachybase/schema';
-import { isValid, uid } from '@tachybase/schema';
-import { Alert, Flex, ModalProps, Tag } from 'antd';
 import React, { useCallback, useMemo, useState } from 'react';
+import { ArrayTable } from '@tachybase/components';
+import {
+  Field,
+  ISchema,
+  isValid,
+  onFieldValueChange,
+  uid,
+  useField,
+  useFieldSchema,
+  useForm,
+  useFormEffects,
+} from '@tachybase/schema';
+
+import { Alert, Flex, ModalProps, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { RemoteSelect, useCompile, useDesignable } from '../..';
 import { isInitializersSame, useApp } from '../../../application';
 import { usePlugin } from '../../../application/hooks';
@@ -13,13 +23,15 @@ import { useSchemaToolbar } from '../../../application/schema-toolbar';
 import { useFormBlockContext } from '../../../block-provider';
 import {
   joinCollectionName,
-  useCollectionManager_deprecated,
   useCollection_deprecated,
+  useCollectionManager_deprecated,
 } from '../../../collection-manager';
+import { DataSourceProvider, useDataSourceKey } from '../../../data-source';
 import { FlagProvider } from '../../../flag-provider';
 import { SaveMode } from '../../../modules/actions/submit/createSubmitActionSettings';
 import { SchemaSettingOpenModeSchemaItems } from '../../../schema-items';
 import { GeneralSchemaDesigner } from '../../../schema-settings/GeneralSchemaDesigner';
+import { DefaultValueProvider } from '../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
 import {
   SchemaSettingsActionModalItem,
   SchemaSettingsDivider,
@@ -29,10 +41,8 @@ import {
   SchemaSettingsRemove,
   SchemaSettingsSwitchItem,
 } from '../../../schema-settings/SchemaSettings';
-import { DefaultValueProvider } from '../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
 import { useLinkageAction } from './hooks';
 import { requestSettingsSchema } from './utils';
-import { DataSourceProvider, useDataSourceKey } from '../../../data-source';
 
 const MenuGroup = (props) => {
   return props.children;

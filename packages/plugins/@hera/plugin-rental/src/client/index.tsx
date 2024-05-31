@@ -2,6 +2,7 @@ import { Plugin, useCollection } from '@tachybase/client';
 
 import { DetailChecks } from './custom-components/DetailChecks';
 import { RecordDetails } from './custom-components/RecordDetails';
+import { RecordDetails2 } from './custom-components/RecordDetails2';
 import { RecordFeeConvertedAmount } from './custom-components/RecordFeeConverted';
 import { ReadFeeConvertedAmount } from './custom-components/RecordFeeConvertedRead';
 import { RecordFeeScope } from './custom-components/RecordFeeScope';
@@ -181,6 +182,7 @@ export class PluginRentalClient extends Plugin {
       RecordSummary,
       RecordTotalPrice,
       RecordDetails,
+      RecordDetails2,
       DetailChecks,
       PdfIsDoubleProvider,
       PrintStyleSetupInitializer,
