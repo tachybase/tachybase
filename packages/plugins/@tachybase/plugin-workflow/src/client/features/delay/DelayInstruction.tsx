@@ -3,8 +3,9 @@ import { useCompile } from '@tachybase/client';
 
 import { InputNumber, Select } from 'antd';
 
-import { Instruction, JOB_STATUS } from '../..';
+import { JOB_STATUS } from '../..';
 import { NAMESPACE } from '../../locale';
+import { Instruction } from '../../nodes';
 
 const UnitOptions = [
   { value: 1_000, label: `{{t('Seconds', { ns: "workflow" })}}` },

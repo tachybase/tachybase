@@ -1,31 +1,30 @@
-import { useForm } from '@tachybase/schema';
-import { Cascader } from 'antd';
 import React, { useCallback, useEffect, useState } from 'react';
-
 import {
-  SchemaComponentContext,
-  SchemaInitializerItemType,
   css,
   joinCollectionName,
   parseCollectionName,
+  SchemaComponentContext,
+  SchemaInitializerItemType,
   useCollectionDataSource,
   useCollectionFilterOptions,
   useCollectionManager_deprecated,
   useCompile,
 } from '@tachybase/client';
+import { useForm } from '@tachybase/schema';
+
+import { Cascader } from 'antd';
 
 import {
-  FieldsSelect,
-  FilterDynamicComponent,
-  ValueBlock,
   BaseTypeSets,
   defaultFieldNames,
+  FieldsSelect,
+  FilterDynamicComponent,
   nodesOptions,
   triggerOptions,
-  Instruction,
+  ValueBlock,
 } from '../..';
-
-import { NAMESPACE, lang } from '../../locale';
+import { lang, NAMESPACE } from '../../locale';
+import { Instruction } from '../../nodes';
 
 function matchToManyField(field): boolean {
   // const fieldPrefix = `${field.name}.`;

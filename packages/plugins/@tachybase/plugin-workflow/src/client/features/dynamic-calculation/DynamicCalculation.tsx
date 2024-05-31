@@ -1,15 +1,9 @@
 import React from 'react';
+import { SchemaInitializerItemType, useCollectionManager_deprecated, Variable } from '@tachybase/client';
 
-import { SchemaInitializerItemType, Variable, useCollectionManager_deprecated } from '@tachybase/client';
-import {
-  BaseTypeSets,
-  Instruction,
-  ValueBlock,
-  WorkflowVariableInput,
-  defaultFieldNames,
-  useWorkflowVariableOptions,
-} from '../..';
-import { NAMESPACE, lang } from '../../locale';
+import { BaseTypeSets, defaultFieldNames, useWorkflowVariableOptions, ValueBlock, WorkflowVariableInput } from '../..';
+import { lang, NAMESPACE } from '../../locale';
+import { Instruction } from '../../nodes';
 
 function useDynamicExpressionCollectionFieldMatcher(field): boolean {
   if (!['belongsTo', 'hasOne'].includes(field.type)) {
