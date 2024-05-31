@@ -7,6 +7,7 @@ import { PluginActionTrigger } from './features/action-trigger';
 import { PluginAggregate } from './features/aggregate';
 import { PluginDelay } from './features/delay';
 import { PluginDaynamicCalculation } from './features/dynamic-calculation';
+import PluginWorkflowJSParseClient from './features/js-parse';
 import PluginWorkflowJsonParseClient from './features/json-parse';
 import { PluginLoop } from './features/loop';
 import { PluginManual } from './features/manual';
@@ -77,6 +78,7 @@ export default class PluginWorkflowClient extends Plugin {
     await this.pm.add(PluginAggregate);
     await this.pm.add(PluginActionTrigger);
     await this.pm.add(PluginWorkflowJsonParseClient);
+    await this.pm.add(PluginWorkflowJSParseClient);
   }
 
   async load() {
