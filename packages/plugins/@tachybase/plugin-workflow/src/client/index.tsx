@@ -1,34 +1,34 @@
 import React from 'react';
-
 import { Plugin } from '@tachybase/client';
 import { Registry } from '@tachybase/utils/client';
 
 import { ExecutionPage } from './ExecutionPage';
-import { WorkflowPage } from './WorkflowPage';
-import { WorkflowPane } from './WorkflowPane';
-import { Trigger } from './triggers';
-import CollectionTrigger from './triggers/collection';
-import ScheduleTrigger from './triggers/schedule';
+import { PluginActionTrigger } from './features/action-trigger';
+import { PluginAggregate } from './features/aggregate';
+import { PluginDelay } from './features/delay';
+import { PluginDaynamicCalculation } from './features/dynamic-calculation';
+import PluginWorkflowJsonParseClient from './features/json-parse';
+import { PluginLoop } from './features/loop';
+import { PluginManual } from './features/manual';
+import { PluginParallel } from './features/parallel';
+import { PluginRequest } from './features/request';
+import { PluginSql } from './features/sql';
+import { NAMESPACE } from './locale';
 import { Instruction } from './nodes';
 import CalculationInstruction from './nodes/calculation';
 import ConditionInstruction from './nodes/condition';
+import CreateInstruction from './nodes/create';
+import DestroyInstruction from './nodes/destroy';
 import EndInstruction from './nodes/end';
 import QueryInstruction from './nodes/query';
-import CreateInstruction from './nodes/create';
 import UpdateInstruction from './nodes/update';
-import DestroyInstruction from './nodes/destroy';
-import { getWorkflowDetailPath, getWorkflowExecutionsPath } from './utils';
-import { NAMESPACE } from './locale';
 import { customizeSubmitToWorkflowActionSettings } from './settings/customizeSubmitToWorkflowActionSettings';
-import { PluginSql } from './features/sql';
-import { PluginRequest } from './features/request';
-import { PluginParallel } from './features/parallel';
-import { PluginLoop } from './features/loop';
-import { PluginDaynamicCalculation } from './features/dynamic-calculation';
-import { PluginDelay } from './features/delay';
-import { PluginAggregate } from './features/aggregate';
-import { PluginActionTrigger } from './features/action-trigger';
-import { PluginManual } from './features/manual';
+import { Trigger } from './triggers';
+import CollectionTrigger from './triggers/collection';
+import ScheduleTrigger from './triggers/schedule';
+import { getWorkflowDetailPath, getWorkflowExecutionsPath } from './utils';
+import { WorkflowPage } from './WorkflowPage';
+import { WorkflowPane } from './WorkflowPane';
 
 export default class PluginWorkflowClient extends Plugin {
   triggers = new Registry<Trigger>();
@@ -76,6 +76,7 @@ export default class PluginWorkflowClient extends Plugin {
     await this.pm.add(PluginDelay);
     await this.pm.add(PluginAggregate);
     await this.pm.add(PluginActionTrigger);
+    await this.pm.add(PluginWorkflowJsonParseClient);
   }
 
   async load() {
