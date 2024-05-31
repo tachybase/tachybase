@@ -1,6 +1,6 @@
 {
   "name": "create-tachybase-app",
-  "version": "0.21.41",
+  "version": "0.21.42",
   "license": "Apache-2.0",
   "main": "src/index.js",
   "bin": {

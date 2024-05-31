@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow-notice",
   "displayName": "Workflow: Notice",
-  "version": "0.21.39",
+  "version": "0.21.40",
   "description": "A powerful BPM tool that provides foundational support for business automation, with the capability to extend unlimited triggers and nodes.",
   "keywords": [
     "Workflow",
