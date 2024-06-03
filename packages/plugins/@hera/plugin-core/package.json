@@ -8,10 +8,7 @@
   ],
   "main": "dist/server/index.js",
   "devDependencies": {
-    "@ant-design/cssinjs": "^1.11.1",
     "@ant-design/icons": "~5.3.6",
-    "@ant-design/pro-layout": "^7.16.11",
-    "@formily/antd-v5": "1.x",
     "@react-pdf/renderer": "^3.3.2",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",

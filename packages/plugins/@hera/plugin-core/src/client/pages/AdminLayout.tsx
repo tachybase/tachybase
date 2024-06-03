@@ -9,6 +9,7 @@ import {
   SchemaComponent,
   useACLRoleContext,
   useAdminSchemaUid,
+  useApp,
   useDocumentTitle,
   useRequest,
   useSystemSettings,
@@ -194,6 +195,7 @@ export const InternalAdminLayout = () => {
   const sideMenuRef = useRef<HTMLDivElement>();
   const result = useSystemSettings();
   const params = useParams<{ name?: string }>();
+  const app = useApp();
   const { token } = useToken();
   const pageStyle = usePageStyle();
 
@@ -255,7 +257,11 @@ export const InternalAdminLayout = () => {
                 padding: 0;
                 align-items: center;
                 padding: 0 12px 0 12px;
+                cursor: pointer;
               `}
+              onClick={() => {
+                location.href = app.adminUrl;
+              }}
             >
               <img
                 className={css`

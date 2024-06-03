@@ -9,9 +9,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useRequest } from '../../api-client';
-import { useACLRoleContext } from '../../buildin-plugin/acl';
 import { i18n } from '../../i18n';
 import { useToken } from '../../style';
+import { useACLRoleContext } from '../acl';
 import { SwitchAction } from './PluginCard';
 import { useStyles } from './style';
 import { IPluginData } from './types';

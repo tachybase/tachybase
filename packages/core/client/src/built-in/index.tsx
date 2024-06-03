@@ -5,10 +5,11 @@ import { getSubAppName } from '@tachybase/sdk';
 import { DisconnectOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Button, Modal, Result, Spin } from 'antd';
 import { createStyles } from 'antd-style';
+import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { useAPIClient } from '../api-client';
-import { Application } from '../application';
+import { Application, useApp } from '../application';
 import { Plugin } from '../application/Plugin';
 import { BlockSchemaComponentPlugin } from '../block-provider';
 import { CollectionPlugin } from '../collection-manager';
@@ -248,21 +249,23 @@ const AppMaintainingDialog = observer(
 
 export const AppNotFound = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const app = useApp();
   return (
     <Result
       status="404"
       title="404"
-      subTitle="Sorry, the page you visited does not exist."
+      subTitle={t('Sorry, the page you visited does not exist.')}
       extra={
-        <Button onClick={() => navigate('/', { replace: true })} type="primary">
-          Back Home
+        <Button onClick={() => (location.href = app.adminUrl)} type="primary">
+          {t('Back Home')}
         </Button>
       }
     />
   );
 };
 
-export class BuildinPlugin extends Plugin {
+export class BuiltInPlugin extends Plugin {
   async afterAdd() {
     this.app.addComponents({
       AppSpin,

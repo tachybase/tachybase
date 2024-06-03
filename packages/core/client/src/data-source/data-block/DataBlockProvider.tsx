@@ -2,7 +2,7 @@ import React, { createContext, ReactNode, useContext, useMemo } from 'react';
 
 import { UseRequestOptions, UseRequestService } from '../../api-client';
 import { withDynamicSchemaProps } from '../../application/hoc';
-import { ACLCollectionProvider } from '../../buildin-plugin/acl';
+import { ACLCollectionProvider } from '../../built-in/acl';
 import { Designable, useDesignable } from '../../schema-component';
 import { AssociationProvider, CollectionManagerProvider, CollectionOptions, CollectionProvider } from '../collection';
 import { CollectionRecord } from '../collection-record';

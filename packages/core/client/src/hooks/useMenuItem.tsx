@@ -33,7 +33,7 @@ export const useCollectMenuItems = () => {
  */
 export const useMenuItem = () => {
   const list = useRef<any[]>([]);
-  const renderItems = useRef<() => JSX.Element>(null);
+  const renderItems = useRef<() => ReactNode>(null);
   const shouldRerender = useRef(false);
 
   const Component = useCallback(({ limitCount }: { limitCount?: number }) => {

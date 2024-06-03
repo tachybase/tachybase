@@ -7,7 +7,7 @@ import cx from 'classnames';
 
 import { useApp } from '../../../application';
 import { useFormActiveFields } from '../../../block-provider/hooks/useFormActiveFields';
-import { ACLCollectionFieldProvider } from '../../../buildin-plugin/acl';
+import { ACLCollectionFieldProvider } from '../../../built-in/acl';
 import { Collection_deprecated } from '../../../collection-manager';
 import { CollectionFieldProvider, useContextConfigSetting } from '../../../data-source';
 import { GeneralSchemaDesigner } from '../../../schema-settings';

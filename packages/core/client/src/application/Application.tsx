@@ -90,6 +90,14 @@ export class Application {
     return this.pluginManager;
   }
 
+  get adminUrl() {
+    if (this.name === 'main') {
+      return '/admin/';
+    } else {
+      return `/apps/${this.name}/admin/`;
+    }
+  }
+
   constructor(protected options: ApplicationOptions = {}) {
     this.initRequireJs();
     define(this, {

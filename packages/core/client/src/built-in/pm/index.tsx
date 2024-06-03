@@ -2,8 +2,8 @@ import React from 'react';
 
 import { ADMIN_SETTINGS_PATH } from '../../application';
 import { Plugin } from '../../application/Plugin';
-import { SystemSettingsPane } from '../../buildin-plugin/system-settings';
 import { BlockTemplatesPane } from '../../schema-templates';
+import { SystemSettingsPane } from '../system-settings';
 import { PluginManager } from './PluginManager';
 import { PluginManagerLink, SettingsCenterDropdown } from './PluginManagerLink';
 import { AdminSettingsLayout } from './PluginSetting';
