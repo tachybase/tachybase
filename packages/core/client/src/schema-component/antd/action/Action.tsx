@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { StablePopover, useActionContext } from '../..';
 import { useDesignable } from '../../';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
-import { useACLActionParamsContext } from '../../../buildin-plugin/acl';
+import { useACLActionParamsContext } from '../../../built-in/acl';
 import { Icon } from '../../../icon';
 import { RecordProvider, useRecord } from '../../../record-provider';
 import { useLocalVariables, useVariables } from '../../../variables';

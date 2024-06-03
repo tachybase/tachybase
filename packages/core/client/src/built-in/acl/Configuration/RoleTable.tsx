@@ -4,8 +4,8 @@ import { Spin } from 'antd';
 
 import { useRequest } from '../../../api-client';
 import { SchemaComponent, SchemaComponentContext } from '../../../schema-component';
-import { MenuItemsProvider } from '../Configuration/MenuItemsProvider';
-import { PermissionProvider, SettingCenterPermissionProvider } from '../Configuration/PermisionProvider';
+import { MenuItemsProvider } from './MenuItemsProvider';
+import { PermissionProvider, SettingCenterPermissionProvider } from './PermisionProvider';
 import { roleSchema } from './schemas/roles';
 
 const AvailableActionsContext = createContext([]);

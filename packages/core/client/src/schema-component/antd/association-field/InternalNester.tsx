@@ -5,7 +5,7 @@ import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/s
 import { createStyles } from 'antd-style';
 import cx from 'classnames';
 
-import { ACLCollectionProvider, useACLActionParamsContext } from '../../../buildin-plugin/acl';
+import { ACLCollectionProvider, useACLActionParamsContext } from '../../../built-in/acl';
 import { CollectionProvider_deprecated } from '../../../collection-manager';
 import { useAssociationFieldContext, useInsertSchema } from './hooks';
 import schema from './schema';

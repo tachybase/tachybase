@@ -11,12 +11,13 @@ import {
 } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
 
-import { Menu as AntdMenu, MenuProps } from 'antd';
+import { MoreOutlined } from '@ant-design/icons';
+import { Menu as AntdMenu, Button, Dropdown, MenuProps } from 'antd';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
 import { createDesignable, DndContext, SortableItem, useDesignable, useDesigner } from '../..';
-import { Icon, useAPIClient, useSchemaInitializerRender } from '../../../';
+import { css, Icon, useAPIClient, useSchemaInitializerRender, useToken } from '../../../';
 import { useCollectMenuItems, useMenuItem } from '../../../hooks/useMenuItem';
 import { useProps } from '../../hooks/useProps';
 import { useMenuTranslation } from './locale';
@@ -47,10 +48,11 @@ const HeaderMenu = ({
 }) => {
   const { Component, getMenuItems } = useMenuItem();
   const { styles } = useStyles();
+  const { token } = useToken();
   const items = useMemo(() => {
     const designerBtn = {
       key: 'x-designer-button',
-      style: { padding: '0 8px', order: 9999 },
+      style: { padding: '0 8px', order: -1 },
       label: render({
         'data-testid': 'schema-initializer-Menu-header',
         style: { background: 'none' },
@@ -66,55 +68,68 @@ const HeaderMenu = ({
     }
 
     return result;
-  }, [children, designable]);
+  }, [children, designable, getMenuItems, render]);
 
   return (
-    <>
-      <Component />
-      <AntdMenu
-        {...others}
-        className={styles.headerMenuClass}
-        onSelect={(info: any) => {
-          const s = schema.properties?.[info.key];
-
-          if (!s) {
-            return;
-          }
-
-          if (mode === 'mix') {
-            if (s['x-component'] !== 'Menu.SubMenu') {
-              onSelect?.(info);
-            } else {
-              const menuItemSchema = findMenuItem(s);
-              if (!menuItemSchema) {
-                return onSelect?.(info);
-              }
-              setLoading(true);
-              const keys = findKeysByUid(schema, menuItemSchema['x-uid']);
-              setDefaultSelectedKeys(keys);
-              setTimeout(() => {
-                setLoading(false);
-              }, 100);
-              onSelect?.({
-                key: menuItemSchema.name,
-                item: {
-                  props: {
-                    schema: menuItemSchema,
-                  },
-                },
-              });
+    <div style={{ display: 'flex' }}>
+      <div style={{ flex: 1 }}></div>
+      <div
+        className={css`
+          .ant-btn {
+            border: 0;
+            height: 46px;
+            width: 46px;
+            border-radius: 0;
+            background: none;
+            color: rgba(255, 255, 255, 0.65);
+            &:hover {
+              background: none !important;
             }
-          } else {
-            onSelect?.(info);
           }
-        }}
-        mode={mode === 'mix' ? 'horizontal' : mode}
-        defaultOpenKeys={defaultOpenKeys}
-        defaultSelectedKeys={defaultSelectedKeys}
-        selectedKeys={selectedKeys}
-        items={items}
-      />
-    </>
+        `}
+      >
+        <Dropdown
+          menu={{
+            items,
+            onClick(info) {
+              const s = schema.properties?.[info.key];
+              if (!s) {
+                return;
+              }
+              if (mode === 'mix') {
+                if (s['x-component'] !== 'Menu.SubMenu') {
+                  onSelect?.(info);
+                } else {
+                  const menuItemSchema = findMenuItem(s);
+                  if (!menuItemSchema) {
+                    return onSelect?.(info);
+                  }
+                  setLoading(true);
+                  const keys = findKeysByUid(schema, menuItemSchema['x-uid']);
+                  setDefaultSelectedKeys(keys);
+                  setTimeout(() => {
+                    setLoading(false);
+                  }, 100);
+                  onSelect?.({
+                    key: menuItemSchema.name,
+                    item: {
+                      props: {
+                        schema: menuItemSchema,
+                      },
+                    },
+                  });
+                }
+              } else {
+                onSelect?.(info);
+              }
+            },
+          }}
+        >
+          <Button icon={<MoreOutlined style={{ color: token.colorTextHeaderMenu }} />} />
+        </Dropdown>
+        <Component />
+      </div>
+    </div>
   );
 };
 
