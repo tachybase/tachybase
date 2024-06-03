@@ -14,17 +14,7 @@ export const MInput: ComposedInput = connect(
     return { placeholder: '请输入内容', clearable: true, ...props, style: { '--font-size': '12px' } };
   }),
   mapReadPretty((props) => {
-    return (
-      <Input
-        {...props}
-        readOnly
-        className={css`
-          .adm-text-area-element {
-            font-size: 12px;
-          }
-        `}
-      />
-    );
+    return <text style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{props.value}</text>;
   }),
 );
 
@@ -34,17 +24,7 @@ const MTextArea = connect(
     return { ...props, placeholder: '请输入内容', clearable: true, style: { '--font-size': '12px' } };
   }),
   mapReadPretty((props) => {
-    return (
-      <TextArea
-        {...props}
-        readOnly
-        className={css`
-          .adm-text-area-element {
-            font-size: 12px;
-          }
-        `}
-      />
-    );
+    return <div style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{props.value}</div>;
   }),
 );
 

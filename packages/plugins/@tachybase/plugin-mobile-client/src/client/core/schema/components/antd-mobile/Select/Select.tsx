@@ -38,15 +38,23 @@ export const MSelect = connect(
       const field = useField<any>();
       const collectionField = useCollectionField();
       const dataSource = field.dataSource || collectionField?.uiSchema.enum || [];
+      const options =
+        typeof value === 'object'
+          ? value
+              .map((item) => {
+                if (dataSource.find((dataItem) => dataItem.value === item.value)) {
+                  return item;
+                }
+              })
+              .filter(Boolean)
+          : dataSource.filter((item) => item.value.toString() === value);
       return (
         <div>
-          {dataSource
-            .filter((option) => option.value == value)
-            .map((option, key) => (
-              <Tag key={key} color={getMobileColor(option.color)}>
-                {option.label}
-              </Tag>
-            ))}
+          {options.map((option, key) => (
+            <Tag key={key} color={getMobileColor(option.color)} style={{ margin: '5px' }}>
+              {option.label}
+            </Tag>
+          ))}
         </div>
       );
     }

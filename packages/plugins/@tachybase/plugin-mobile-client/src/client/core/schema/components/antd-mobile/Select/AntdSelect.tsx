@@ -23,7 +23,7 @@ import schema from './schema';
 import { useStyles } from './style';
 
 export const AntdSelect = observer((props) => {
-  const { value, collectionName, service, fieldNames, addMode, onChange, multiple } = props as any;
+  const { value, collectionName, service, fieldNames, addMode, onChange, multiple, mode } = props as any;
   const [popupVisible, setPopupVisible] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const { styles } = useStyles();
@@ -139,7 +139,7 @@ export const AntdSelect = observer((props) => {
   };
   return (
     <BlockItem>
-      {collectionName ? (
+      {!value || typeof value === 'object' ? (
         <div
           onClick={() => {
             setPopupVisible(true);
@@ -147,7 +147,7 @@ export const AntdSelect = observer((props) => {
           }}
           style={{ color: '#c5c5c5' }}
         >
-          {isArray(value) ? (
+          {isArray(value) && value.length ? (
             value.map((item, index) => (
               <Space key={index}>{`${item.label}${value.length - 1 === index ? '' : ','}`}</Space>
             ))
@@ -176,7 +176,7 @@ export const AntdSelect = observer((props) => {
           </Space>
         ) : null}
         <Divider />
-        {multiple ? (
+        {multiple || mode === 'multiple' ? (
           <CheckList
             multiple
             className={`${styles['checkListStyle']}`}
@@ -201,7 +201,7 @@ export const AntdSelect = observer((props) => {
           <PickerView
             columns={[options]}
             onChange={(value) => {
-              const changeValue = options.find((item) => item[fieldNames.value] === value[0]);
+              const changeValue = options.find((item) => item['value'] === value[0]);
               setSelectValue(changeValue);
             }}
           />
