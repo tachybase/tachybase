@@ -36,8 +36,18 @@ interface AppStatusProps {
 }
 
 const AppSpin = () => {
+  // TODO: better loading and mobile loading fix
   return (
-    <Spin style={{ position: 'fixed', top: '50%', left: '50%', fontSize: 72, transform: 'translate(-50%, -50%)' }} />
+    <Spin
+      size="large"
+      style={{
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        fontSize: 72 * (window.devicePixelRatio || 1),
+        transform: 'translate(-50%, -50%)',
+      }}
+    />
   );
 };
 

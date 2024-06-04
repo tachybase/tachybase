@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppSpin, useRequest } from '@tachybase/client';
+import { useRequest } from '@tachybase/client';
 
 import { Carousel, Image } from 'antd';
 
@@ -7,7 +7,6 @@ import { useStyles } from './style';
 
 export const HomePage: React.FC<{}> = () => {
   const { styles } = useStyles();
-  const { render } = useAppSpin();
   const { data, loading } = useRequest<{ data: any }>({
     url: 'home_page_presentations:list',
     params: {
@@ -16,7 +15,7 @@ export const HomePage: React.FC<{}> = () => {
   });
 
   if (loading) {
-    return render();
+    return;
   }
   const date = new Date();
   const year = date.getFullYear();

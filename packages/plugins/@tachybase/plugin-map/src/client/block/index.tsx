@@ -6,7 +6,7 @@ import { MapBlockDesigner } from './MapBlockDesigner';
 import { MapBlockInitializer } from './MapBlockInitializer';
 import { MapBlockProvider, useMapBlockProps } from './MapBlockProvider';
 
-export const MapBlockOptions: React.FC = (props) => {
+export const MapBlockOptions = (props) => {
   return (
     <SchemaComponentOptions
       scope={{ useMapBlockProps }}

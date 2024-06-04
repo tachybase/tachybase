@@ -19,16 +19,14 @@ Kanban.Designer = KanbanDesigner;
 
 const KanbanV2 = Kanban;
 
-const KanbanPluginProvider = React.memo((props) => {
+const KanbanPluginProvider = React.memo((props: { children: React.ReactNode }) => {
   return (
-    <CurrentAppInfoProvider>
-      <SchemaComponentOptions
-        components={{ Kanban, KanbanBlockProvider, KanbanV2, KanbanBlockInitializer }}
-        scope={{ useKanbanBlockProps }}
-      >
-        {props.children}
-      </SchemaComponentOptions>
-    </CurrentAppInfoProvider>
+    <SchemaComponentOptions
+      components={{ Kanban, KanbanBlockProvider, KanbanV2, KanbanBlockInitializer }}
+      scope={{ useKanbanBlockProps }}
+    >
+      {props.children}
+    </SchemaComponentOptions>
   );
 });
 KanbanPluginProvider.displayName = 'KanbanPluginProvider';

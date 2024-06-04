@@ -6,7 +6,6 @@ import { Navigate } from 'react-router-dom';
 
 import { useAPIClient, useRequest } from '../../api-client';
 import { useApp } from '../../application';
-import { useAppSpin } from '../../application/hooks/useAppSpin';
 import { useBlockRequestContext } from '../../block-provider/BlockProvider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../collection-manager';
 import { useResourceActionContext } from '../../collection-manager/ResourceActionProvider';
@@ -38,7 +37,6 @@ const getRouteUrl = (props) => {
 export const ACLRolesCheckProvider = (props) => {
   const route = getRouteUrl(props.children.props);
   const { setDesignable } = useDesignable();
-  const { render } = useAppSpin();
   const api = useAPIClient();
   const app = useApp();
   const result = useRequest<{
@@ -68,7 +66,7 @@ export const ACLRolesCheckProvider = (props) => {
     },
   );
   if (result.loading) {
-    return render();
+    return;
   }
   if (result.error) {
     return <Navigate replace to={'/signin'} />;

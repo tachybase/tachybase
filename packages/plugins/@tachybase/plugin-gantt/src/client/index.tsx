@@ -16,16 +16,14 @@ Gantt.Designer = GanttDesigner;
 Gantt.Event = Event;
 export { Gantt };
 
-const GanttProvider = React.memo((props) => {
+const GanttProvider = React.memo((props: { children: React.ReactNode }) => {
   return (
-    <CurrentAppInfoProvider>
-      <SchemaComponentOptions
-        components={{ Gantt, GanttBlockInitializer, GanttBlockProvider }}
-        scope={{ useGanttBlockProps }}
-      >
-        {props.children}
-      </SchemaComponentOptions>
-    </CurrentAppInfoProvider>
+    <SchemaComponentOptions
+      components={{ Gantt, GanttBlockInitializer, GanttBlockProvider }}
+      scope={{ useGanttBlockProps }}
+    >
+      {props.children}
+    </SchemaComponentOptions>
   );
 });
 
