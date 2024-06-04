@@ -17,6 +17,7 @@ import { useLocalVariables, useVariables } from '../../../variables';
 import { SortableItem } from '../../common';
 import { useCompile, useComponent, useDesigner } from '../../hooks';
 import { useProps } from '../../hooks/useProps';
+import { ActionArea } from './Action.Area';
 import ActionContainer from './Action.Container';
 import { ActionDesigner } from './Action.Designer';
 import { ActionDrawer } from './Action.Drawer';
@@ -231,5 +232,6 @@ Action.Drawer = ActionDrawer;
 Action.Modal = ActionModal;
 Action.Container = ActionContainer;
 Action.Page = ActionPage;
+Action.Area = ActionArea;
 
 export default Action;

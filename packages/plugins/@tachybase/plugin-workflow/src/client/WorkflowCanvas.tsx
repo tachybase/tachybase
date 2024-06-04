@@ -1,28 +1,31 @@
-import { DownOutlined, EllipsisOutlined, RightOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
 import {
+  ActionAreaProvider,
+  ActionAreaStub,
   ActionContextProvider,
+  cx,
   ResourceActionProvider,
   SchemaComponent,
-  cx,
   useApp,
   useDocumentTitle,
   useResourceActionContext,
   useResourceContext,
 } from '@tachybase/client';
 import { str2moment } from '@tachybase/utils/client';
-import { App, Breadcrumb, Button, Dropdown, Result, Spin, Switch, message } from 'antd';
-import React, { useEffect, useState } from 'react';
+
+import { DownOutlined, EllipsisOutlined, RightOutlined } from '@ant-design/icons';
+import { App, Breadcrumb, Button, Dropdown, message, Result, Spin, Switch } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { CanvasContent } from './CanvasContent';
+import { ExecutionStatusColumn } from './components/ExecutionStatus';
 import { ExecutionLink } from './ExecutionLink';
 import { FlowContext, useFlowContext } from './FlowContext';
 import { lang } from './locale';
 import { executionSchema } from './schemas/executions';
 import useStyles from './style';
-import { linkNodes, getWorkflowDetailPath } from './utils';
-import { ExecutionStatusColumn } from './components/ExecutionStatus';
+import { getWorkflowDetailPath, linkNodes } from './utils';
 
 function ExecutionResourceProvider({ request, filter = {}, ...others }) {
   const { workflow } = useFlowContext();
@@ -236,7 +239,14 @@ export function WorkflowCanvas() {
           </ActionContextProvider>
         </aside>
       </div>
-      <CanvasContent entry={entry} />
+      <ActionAreaProvider>
+        <div className="workflow-content">
+          <CanvasContent entry={entry} />
+          <div className="workflow-operator-area">
+            <ActionAreaStub />
+          </div>
+        </div>
+      </ActionAreaProvider>
     </FlowContext.Provider>
   );
 }

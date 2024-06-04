@@ -1,12 +1,12 @@
 import { SchemaInitializerItemType } from '@tachybase/client';
 import { Evaluator, evaluators, getOptions } from '@tachybase/evaluators/client';
 
-import { RadioWithTooltip } from '../components/RadioWithTooltip';
-import { ValueBlock } from '../components/ValueBlock';
-import { renderEngineReference } from '../components/renderEngineReference';
-import { NAMESPACE, lang } from '../locale';
-import { BaseTypeSets, WorkflowVariableTextArea, defaultFieldNames } from '../variable';
 import { Instruction } from '.';
+import { RadioWithTooltip } from '../components/RadioWithTooltip';
+import { renderEngineReference } from '../components/renderEngineReference';
+import { ValueBlock } from '../components/ValueBlock';
+import { lang, NAMESPACE } from '../locale';
+import { BaseTypeSets, defaultFieldNames, WorkflowVariableTextArea } from '../variable';
 
 export default class extends Instruction {
   title = `{{t("Calculation", { ns: "${NAMESPACE}" })}}`;

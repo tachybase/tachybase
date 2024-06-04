@@ -1,10 +1,12 @@
-import { CloseCircleOutlined } from '@ant-design/icons';
+import React from 'react';
 import { css, cx, useCompile, Variable } from '@tachybase/client';
 import { evaluators } from '@tachybase/evaluators/client';
 import { Registry } from '@tachybase/utils/client';
+
+import { CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Select } from 'antd';
-import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+
 import { Instruction, NodeDefaultView } from '.';
 import { Branch } from '../Branch';
 import { RadioWithTooltip, RadioWithTooltipOption } from '../components/RadioWithTooltip';
