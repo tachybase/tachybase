@@ -5,6 +5,7 @@ import { Registry } from '@tachybase/utils/client';
 import { ExecutionPage } from './ExecutionPage';
 import { PluginActionTrigger } from './features/action-trigger';
 import { PluginAggregate } from './features/aggregate';
+import { PluginAPIRegularClient } from './features/api-regular';
 import { PluginDelay } from './features/delay';
 import { PluginDaynamicCalculation } from './features/dynamic-calculation';
 import PluginWorkflowJSParseClient from './features/js-parse';
@@ -79,6 +80,7 @@ export default class PluginWorkflowClient extends Plugin {
     await this.pm.add(PluginActionTrigger);
     await this.pm.add(PluginWorkflowJsonParseClient);
     await this.pm.add(PluginWorkflowJSParseClient);
+    await this.pm.add(PluginAPIRegularClient);
   }
 
   async load() {

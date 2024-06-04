@@ -10,6 +10,7 @@ import initActions from './actions';
 import { EXECUTION_STATUS } from './constants';
 import { PluginActionTrigger } from './features/action-trigger/Plugin';
 import { PluginAggregate } from './features/aggregate/Plugin';
+import PluginWorkflowAPIRegularServer from './features/api-regular/plugin';
 import { PluginDelay } from './features/delay/Plugin';
 import { PluginDynamicCalculation } from './features/dynamic-calculation/Plugin';
 import PluginWorkflowJSParseServer from './features/js-parse/plugin';
@@ -66,6 +67,7 @@ export default class PluginWorkflowServer extends Plugin {
   pluginActionTrigger: PluginActionTrigger;
   pluginJSONParse: PluginWorkflowJSONParseServer;
   pluginJSParse: PluginWorkflowJSParseServer;
+  pluginAPIRegular: PluginWorkflowAPIRegularServer;
 
   constructor(app: Application, options?: PluginOptions) {
     super(app, options);
@@ -80,6 +82,7 @@ export default class PluginWorkflowServer extends Plugin {
     this.pluginActionTrigger = new PluginActionTrigger(app, options);
     this.pluginJSONParse = new PluginWorkflowJSONParseServer(app, options);
     this.pluginJSParse = new PluginWorkflowJSParseServer(app, options);
+    this.pluginAPIRegular = new PluginWorkflowAPIRegularServer(app, options);
   }
 
   getLogger(workflowId: ID): Logger {
@@ -305,6 +308,7 @@ export default class PluginWorkflowServer extends Plugin {
     await this.pluginRequest.load();
     await this.pluginJSONParse.load();
     await this.pluginJSParse.load();
+    await this.pluginAPIRegular.load();
   }
 
   toggle(workflow: WorkflowModel, enable?: boolean) {
