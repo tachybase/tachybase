@@ -152,7 +152,7 @@ class Spreadsheet {
     this.options = { showBottomBar: true, ...options };
     this.sheetIndex = 1;
     this.datas = [];
-    // debugger;
+
     if (typeof selectors === 'string') {
       this.targetEl = document.querySelector(selectors) as HTMLElement;
     } else {

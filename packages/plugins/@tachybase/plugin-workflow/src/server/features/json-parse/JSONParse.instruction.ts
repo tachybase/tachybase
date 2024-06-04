@@ -10,7 +10,10 @@ export class JSONParseInstruction extends Instruction {
     const data = processor.getParsedValue(source, node.id);
     const query = this.engine;
     try {
-      let result = query ? await query(expression, data) : data;
+      let result = data;
+      if (expression) {
+        result = query ? await query(expression, data) : data;
+      }
 
       if (typeof result === 'object' && result && model?.length) {
         if (Array.isArray(result)) {
@@ -39,7 +42,7 @@ function mapModel(data, model) {
   }
 
   const result = model.reduce((acc, { path, alias }) => {
-    const key = alias ?? path.replace(/\./g, '_');
+    const key = alias || path.replace(/\./g, '_');
     const value = _.get(data, path);
     acc[key] = value;
 

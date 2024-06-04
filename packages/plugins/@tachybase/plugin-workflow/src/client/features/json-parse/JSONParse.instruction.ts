@@ -28,7 +28,6 @@ export class JSONParseInstruction extends Instruction {
       title: tval('Query expression'),
       'x-decorator': 'FormItem',
       'x-component': 'Input',
-      required: true,
     },
     model: {
       type: 'array',
