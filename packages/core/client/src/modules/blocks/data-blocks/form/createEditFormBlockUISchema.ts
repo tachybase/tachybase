@@ -1,5 +1,4 @@
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { ISchema, uid } from '@tachybase/schema';
 
 interface EditFormBlockOptions {
   dataSource: string;
@@ -46,22 +45,21 @@ export function createEditFormBlockUISchema(options: EditFormBlockOptions): ISch
         'x-component': 'FormV2',
         'x-use-component-props': 'useEditFormBlockProps',
         properties: {
-          grid: templateSchema || {
-            type: 'void',
-            'x-component': 'Grid',
-            'x-initializer': 'form:configureFields',
-            properties: {},
-          },
           [uid()]: {
             type: 'void',
             'x-initializer': 'editForm:configureActions',
             'x-component': 'ActionBar',
             'x-component-props': {
-              layout: 'one-column',
               style: {
-                marginTop: 24,
+                marginBottom: 'var(--tb-spacing)',
               },
             },
+          },
+          grid: templateSchema || {
+            type: 'void',
+            'x-component': 'Grid',
+            'x-initializer': 'form:configureFields',
+            properties: {},
           },
         },
       },
