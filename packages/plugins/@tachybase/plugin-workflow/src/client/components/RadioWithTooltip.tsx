@@ -1,7 +1,8 @@
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { css, useCompile } from '@tachybase/client';
-import { Radio, Space, Tooltip } from 'antd';
 import React from 'react';
+import { css, useCompile } from '@tachybase/client';
+
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Radio, Space, Tooltip } from 'antd';
 
 export interface RadioWithTooltipOption {
   value: any;

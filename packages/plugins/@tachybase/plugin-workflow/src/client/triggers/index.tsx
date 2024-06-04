@@ -1,29 +1,28 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, Input, Tag, message } from 'antd';
-import { cloneDeep } from 'lodash';
-import { InfoOutlined } from '@ant-design/icons';
-import { createForm } from '@tachybase/schema';
-import { ISchema, useForm } from '@tachybase/schema';
-
 import {
   ActionContextProvider,
+  css,
+  cx,
   FieldNames,
   FormProvider,
   SchemaComponent,
   SchemaInitializerItemType,
-  css,
-  cx,
-  useAPIClient,
   useActionContext,
+  useAPIClient,
   useCompile,
   usePlugin,
   useResourceActionContext,
 } from '@tachybase/client';
+import { createForm, ISchema, useForm } from '@tachybase/schema';
+
+import { InfoOutlined } from '@ant-design/icons';
+import { Button, Input, message, Tag } from 'antd';
+import { cloneDeep } from 'lodash';
 
 import WorkflowPlugin from '..';
-import { useFlowContext } from '../FlowContext';
 import { DrawerDescription } from '../components/DrawerDescription';
-import { NAMESPACE, lang } from '../locale';
+import { useFlowContext } from '../FlowContext';
+import { lang, NAMESPACE } from '../locale';
 import useStyles from '../style';
 import { UseVariableOptions, VariableOption } from '../variable';
 
@@ -264,7 +263,7 @@ export const TriggerConfig = () => {
                 drawer: {
                   type: 'void',
                   title: titleText,
-                  'x-component': 'Action.Drawer',
+                  'x-component': 'Action.Area',
                   'x-decorator': 'FormV2',
                   'x-use-decorator-props': 'useFormProviderProps',
                   properties: {

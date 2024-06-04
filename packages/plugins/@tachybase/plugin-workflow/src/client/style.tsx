@@ -35,6 +35,18 @@ const useStyles = createStyles(({ css, token }) => {
         }
       }
 
+      .workflow-content {
+        display: flex;
+        height: 100%;
+        padding-bottom: 40px;
+      }
+
+      .workflow-operator-area {
+        padding: 8px;
+        background-color: white;
+        width: 800px;
+      }
+
       .workflow-canvas-wrapper {
         flex-grow: 1;
         overflow: hidden;

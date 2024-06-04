@@ -1,16 +1,14 @@
-import { useField, useForm } from '@tachybase/schema';
 import React from 'react';
-
 import { useCollectionDataSource, useCollectionManager_deprecated } from '@tachybase/client';
+import { useField, useForm } from '@tachybase/schema';
 
+import { Instruction } from '.';
 import CollectionFieldset from '../components/CollectionFieldset';
 import { FilterDynamicComponent } from '../components/FilterDynamicComponent';
-
 import { RadioWithTooltip } from '../components/RadioWithTooltip';
-import { NAMESPACE, lang } from '../locale';
+import { lang, NAMESPACE } from '../locale';
 import { collection, filter, values } from '../schemas/collection';
 import { isValidFilter } from '../utils';
-import { Instruction } from '.';
 
 function IndividualHooksRadioWithTooltip({ onChange, ...props }) {
   const { getCollectionFields } = useCollectionManager_deprecated();
