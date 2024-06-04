@@ -1,12 +1,12 @@
 import React from 'react';
+
 import { useAPIClient, useRequest } from '../api-client';
-import { CollectionManagerSchemaComponentProvider } from './CollectionManagerSchemaComponentProvider';
-import { CollectionCategroriesContext } from './context';
-import { CollectionManagerOptions } from './types';
 import { CollectionManagerProvider } from '../data-source/collection/CollectionManagerProvider';
 import { useDataSourceManager } from '../data-source/data-source/DataSourceManagerProvider';
 import { useCollectionHistory } from './CollectionHistoryProvider';
-import { useAppSpin } from '../application/hooks/useAppSpin';
+import { CollectionManagerSchemaComponentProvider } from './CollectionManagerSchemaComponentProvider';
+import { CollectionCategroriesContext } from './context';
+import { CollectionManagerOptions } from './types';
 
 /**
  * @deprecated use `CollectionManagerProvider` instead
@@ -40,9 +40,8 @@ export const RemoteCollectionManagerProvider = (props: any) => {
     data: any;
   }>(coptions);
 
-  const { render } = useAppSpin();
   if (service.loading) {
-    return render();
+    return;
   }
 
   const refreshCategory = async () => {

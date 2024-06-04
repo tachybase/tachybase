@@ -9,13 +9,11 @@ import { Configuration, Map } from './components';
 import { fields } from './fields';
 import { generateNTemplate, NAMESPACE } from './locale';
 
-const MapProvider = React.memo((props) => {
+const MapProvider = React.memo((props: { children: React.ReactNode }) => {
   return (
-    <CurrentAppInfoProvider>
-      <SchemaComponentOptions components={{ Map }}>
-        <MapBlockOptions>{props.children}</MapBlockOptions>
-      </SchemaComponentOptions>
-    </CurrentAppInfoProvider>
+    <SchemaComponentOptions components={{ Map }}>
+      <MapBlockOptions>{props.children}</MapBlockOptions>
+    </SchemaComponentOptions>
   );
 });
 MapProvider.displayName = 'MapProvider';

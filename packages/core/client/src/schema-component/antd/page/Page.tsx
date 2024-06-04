@@ -12,7 +12,6 @@ import { useSearchParams } from 'react-router-dom';
 
 import { FormDialog } from '..';
 import { useToken } from '../__builtins__';
-import { useAppSpin } from '../../../application/hooks/useAppSpin';
 import { useStyles as useAClStyles } from '../../../built-in/acl/style';
 import { useDocumentTitle } from '../../../built-in/document-title';
 import { FilterBlockProvider } from '../../../filter-provider/FilterProvider';
@@ -202,10 +201,9 @@ function PageContent(
   props: any,
 ): React.ReactNode {
   const { token } = useToken();
-  const { render } = useAppSpin();
 
   if (loading) {
-    return render();
+    return;
   }
 
   return !disablePageHeader && enablePageTabs ? (

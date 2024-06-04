@@ -1,9 +1,11 @@
-import { render, sleep, screen, waitFor } from '@tachybase/test/client';
 import React from 'react';
+import { render, screen, sleep, waitFor } from '@tachybase/test/client';
+
 import { describe } from 'vitest';
+
 import { Application } from '../Application';
+import { useApp, usePlugin, useRouter } from '../hooks';
 import { Plugin } from '../Plugin';
-import { useApp, usePlugin, useRouter, useAppSpin } from '../hooks';
 
 describe('Application Hooks', () => {
   describe('useApp()', () => {
@@ -57,39 +59,6 @@ describe('Application Hooks', () => {
       render(<Root />);
 
       await sleep(10);
-    });
-  });
-
-  describe('useAppSpin()', () => {
-    test('no app, should render ant-design Spin', async () => {
-      const Demo = () => {
-        const spin = useAppSpin();
-        return spin.render();
-      };
-
-      render(<Demo />);
-
-      await waitFor(() => {
-        expect(document.querySelector('.ant-spin')).toBeTruthy();
-      });
-    });
-
-    test('has app, should render AppSpin Component', () => {
-      const Demo = () => {
-        const spin = useAppSpin();
-        return spin.render();
-      };
-
-      const app = new Application({
-        providers: [Demo],
-        components: {
-          AppSpin: () => <div data-testid="content">test</div>,
-        },
-      });
-      const Root = app.getRootComponent();
-      render(<Root></Root>);
-      expect(document.querySelector('.ant-spin')).toBeFalsy();
-      expect(screen.getByTestId('content')).toBeTruthy();
     });
   });
 });

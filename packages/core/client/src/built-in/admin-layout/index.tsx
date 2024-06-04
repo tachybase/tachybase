@@ -22,7 +22,6 @@ import {
   useRequest,
   useSystemSettings,
 } from '../..';
-import { useAppSpin } from '../../application/hooks/useAppSpin';
 import { Plugin } from '../../application/Plugin';
 import { VariablesProvider } from '../../variables';
 
@@ -202,7 +201,6 @@ const MenuEditor = (props) => {
     setCurrent(schema);
     navigate(`/admin/${schema['x-uid']}`);
   };
-  const { render } = useAppSpin();
   const adminSchemaUid = useAdminSchemaUid();
   const { data, loading } = useRequest<{
     data: any;
@@ -320,7 +318,7 @@ const MenuEditor = (props) => {
   );
 
   if (loading) {
-    return render();
+    return;
   }
   return (
     <SchemaIdContext.Provider value={defaultSelectedUid}>
