@@ -78,6 +78,12 @@ export const InternalTabs = observer((props) => {
         itemParams['childrenOptions'] = childrenItem?.data?.data;
 
         if (itemParams['parentOptions']?.length && itemParams['childrenOptions']?.length) {
+          optionsItem.unshift({
+            value: 'all',
+            label: t('All'),
+            key: 'all',
+            childrenItems: [],
+          });
           itemParams['parentOptions'].forEach((parentItem) => {
             const items = itemParams['childrenOptions']
               .map((item) => {
@@ -93,6 +99,7 @@ export const InternalTabs = observer((props) => {
               })
               .filter(Boolean);
             if (!items.length) return;
+            optionsItem[0].childrenItems.push(...items);
             optionsItem.push({
               ...parentItem,
               value: parentItem?.id,
@@ -138,7 +145,7 @@ export const InternalTabs = observer((props) => {
       setDefOptions(filterParantOptions);
       setOptions(filterOptions);
     } else {
-      const filterDefOptions = tabsFilterOptions(options, fieldTabs, quickAddField);
+      const filterDefOptions = tabsFilterOptions(defOptions, fieldTabs, quickAddField);
       setDefOptions(filterDefOptions);
       const filterOptions = tabsFilterOptions(options, fieldTabs, quickAddField);
       setOptions(filterOptions);
@@ -151,11 +158,14 @@ export const InternalTabs = observer((props) => {
     });
   });
   const onSelect = (value) => {
+    if (!value) {
+      setOptions(defOptions);
+    }
     if (quickAddParentField && quickAddParentField.value !== 'none') {
       const filterOption = defOptions
-        .map((item) => {
+        ?.map((item) => {
           const filterItem = item?.childrenItems?.filter((childrenItem) => fuzzysearch(value, childrenItem?.label));
-          if (fuzzysearch(value, item?.label) || filterItem.length) {
+          if (fuzzysearch(value, item?.label) || filterItem?.length) {
             return {
               ...item,
               childrenItems: filterItem.length ? filterItem : item.childrenItems,
@@ -184,7 +194,7 @@ export const InternalTabs = observer((props) => {
         placeholder={t('Please enter search content')}
         prefix={<SearchOutlined />}
         onChange={(e) => {
-          onSelect(e.target.value);
+          onSelect(e?.target?.value);
         }}
       />
 
@@ -196,7 +206,7 @@ export const InternalTabs = observer((props) => {
               items={options.map((item) => ({
                 ...item,
                 children: (
-                  <Space>
+                  <Space style={{ maxHeight: '30vh', overflow: 'auto', padding: '10px 0px 20px 0px' }}>
                     {item?.childrenItems?.map((childrenitem, index) => (
                       <Button
                         key={index}
@@ -211,12 +221,12 @@ export const InternalTabs = observer((props) => {
                   </Space>
                 ),
               }))}
-              style={{ height: '30vh', overflow: 'auto', padding: '10px' }}
+              style={{ maxHeight: '30vh', padding: '10px' }}
             ></Tabs>
           ) : null}
         </>
       ) : (
-        <Space style={{ height: '30vh', overflow: 'auto', padding: '10px' }}>
+        <Space style={{ maxHeight: '30vh', overflow: 'auto', padding: '10px' }}>
           {options.map((item, index) => (
             <Button
               key={index}
