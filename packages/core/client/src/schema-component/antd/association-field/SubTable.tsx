@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import {
   action,
   ArrayField,
@@ -7,13 +7,11 @@ import {
   observer,
   RecursionField,
   useFieldSchema,
-  useForm,
 } from '@tachybase/schema';
 
-import { useAsyncEffect } from 'ahooks';
-import { Button, Tabs } from 'antd';
+import { Button } from 'antd';
 import { createStyles } from 'antd-style';
-import { set, unionBy, uniqBy } from 'lodash';
+import { unionBy, uniqBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -23,12 +21,11 @@ import {
   SchemaComponentOptions,
   useActionContext,
 } from '../..';
-import { useAPIClient, useRequest } from '../../../api-client';
 import { useCreateActionProps } from '../../../block-provider/hooks';
 import { FormActiveFieldsProvider } from '../../../block-provider/hooks/useFormActiveFields';
 import { TableSelectorParamsProvider } from '../../../block-provider/TableSelectorProvider';
 import { CollectionProvider_deprecated } from '../../../collection-manager';
-import { CollectionRecordProvider, useCollectionManager, useCollectionRecord } from '../../../data-source';
+import { CollectionRecordProvider, useCollectionRecord } from '../../../data-source';
 import { markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
 import { FlagProvider } from '../../../flag-provider';
 import { useCompile } from '../../hooks';
@@ -36,7 +33,7 @@ import { ActionContextProvider } from '../action';
 import { Table } from '../table-v2/Table';
 import { useAssociationFieldContext, useFieldNames } from './hooks';
 import { useTableSelectorProps } from './InternalPicker';
-import { InternalTabs } from './SubTabs/InternamTabs';
+import { InternalTabs } from './SubTabs/InternalTabs';
 import { getLabelFormatValue, useLabelUiSchema } from './util';
 
 const useStyles = createStyles(({ css }) => {
