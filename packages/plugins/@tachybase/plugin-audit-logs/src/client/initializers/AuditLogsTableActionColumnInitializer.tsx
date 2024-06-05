@@ -1,5 +1,6 @@
-import { InitializerWithSwitch, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
+import { InitializerWithSwitch, useSchemaInitializerItem } from '@tachybase/client';
+
 import { tval } from '../locale';
 
 export const AuditLogsTableActionColumnInitializer = () => {

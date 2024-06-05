@@ -1,7 +1,8 @@
-import { ActionInitializer } from '@tachybase/client';
 import React from 'react';
-import { tval } from '../locale';
+import { ActionInitializer } from '@tachybase/client';
 import { uid } from '@tachybase/utils/client';
+
+import { tval } from '../locale';
 
 export const AuditLogsViewActionInitializer = () => {
   const changes = {

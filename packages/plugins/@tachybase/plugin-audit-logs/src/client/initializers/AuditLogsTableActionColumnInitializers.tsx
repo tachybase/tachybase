@@ -1,7 +1,9 @@
-import { MenuOutlined } from '@ant-design/icons';
-import { useFieldSchema } from '@tachybase/schema';
-import { createDesignable, Resizable, SchemaInitializer, useAPIClient, useDesignable } from '@tachybase/client';
 import React from 'react';
+import { createDesignable, Resizable, SchemaInitializer, useAPIClient, useDesignable } from '@tachybase/client';
+import { useFieldSchema } from '@tachybase/schema';
+
+import { MenuOutlined } from '@ant-design/icons';
+
 import { tval, useAuditLogsTranslation } from '../locale';
 
 export const auditLogsTableActionColumnInitializers = new SchemaInitializer({

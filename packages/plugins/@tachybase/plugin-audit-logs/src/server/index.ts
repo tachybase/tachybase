@@ -1,5 +1,6 @@
-import { Plugin } from '@tachybase/server';
 import path from 'path';
+import { Plugin } from '@tachybase/server';
+
 import { afterCreate, afterDestroy, afterUpdate } from './hooks';
 
 export default class PluginActionLogs extends Plugin {

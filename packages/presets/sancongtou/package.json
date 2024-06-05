@@ -1,12 +1,11 @@
 {
   "name": "@tachybase/preset-hera-sancongtou",
-  "version": "0.21.36",
+  "version": "0.21.43",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {
     "@hera/plugin-approval": "workspace:*",
     "@hera/plugin-approval-mobile": "workspace:*",
-    "@hera/plugin-audit-logs": "workspace:*",
     "@hera/plugin-core": "workspace:*",
     "@hera/plugin-rental": "workspace:*",
     "@hera/plugin-sancongtou": "workspace:*",
@@ -18,6 +17,7 @@
     "@tachybase/plugin-action-print": "workspace:*",
     "@tachybase/plugin-api-doc": "workspace:*",
     "@tachybase/plugin-api-keys": "workspace:*",
+    "@tachybase/plugin-audit-logs": "workspace:*",
     "@tachybase/plugin-auth": "workspace:*",
     "@tachybase/plugin-backup-restore": "workspace:*",
     "@tachybase/plugin-calendar": "workspace:*",

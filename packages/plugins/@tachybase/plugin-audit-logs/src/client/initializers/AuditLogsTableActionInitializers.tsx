@@ -1,5 +1,7 @@
 import { SchemaInitializer } from '@tachybase/client';
+
 import { tval } from '../locale';
+
 export type { ButtonProps } from 'antd';
 
 export const auditLogsTableActionInitializers = new SchemaInitializer({

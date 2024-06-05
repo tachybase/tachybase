@@ -1,12 +1,14 @@
-import { TableOutlined } from '@ant-design/icons';
-import { ISchema } from '@tachybase/schema';
+import React from 'react';
 import {
   createTableBlockSchema,
   SchemaInitializerItem,
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@tachybase/client';
-import React from 'react';
+import { ISchema } from '@tachybase/schema';
+
+import { TableOutlined } from '@ant-design/icons';
+
 import { useAuditLogsTranslation } from './locale';
 
 export const AuditLogsBlockInitializer = () => {

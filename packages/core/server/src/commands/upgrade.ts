@@ -7,6 +7,6 @@ export default (app: Application) => {
     .auth()
     .action(async (options) => {
       await app.upgrade(options);
-      app.log.info(`✨  TachyBase has been upgraded to v${app.version.get()}`);
+      app.log.info(`✨  TachyBase has been upgraded to v${await app.version.get()}`);
     });
 };

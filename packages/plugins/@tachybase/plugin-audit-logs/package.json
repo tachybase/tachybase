@@ -1,7 +1,7 @@
 {
-  "name": "@hera/plugin-audit-logs",
+  "name": "@tachybase/plugin-audit-logs",
   "displayName": "Audit logs",
-  "version": "1.0.45",
+  "version": "0.21.43",
   "description": "Audit logs.",
   "keywords": [
     "System management"
