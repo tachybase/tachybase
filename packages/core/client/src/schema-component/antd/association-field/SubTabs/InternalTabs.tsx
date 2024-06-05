@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ArrayField, observer, onFieldChange, Schema, useFieldSchema, useFormEffects } from '@tachybase/schema';
+import { fuzzysearch } from '@tachybase/utils/client';
 
-import { CheckOutlined, CheckSquareOutlined, SearchOutlined } from '@ant-design/icons';
+import { CheckOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAsyncEffect, useDeepCompareEffect } from 'ahooks';
-import { Badge, Button, Input, Space, Tabs } from 'antd';
+import { Button, Input, Space, Tabs } from 'antd';
 import flat from 'flat';
 import { useTranslation } from 'react-i18next';
 
@@ -23,27 +24,24 @@ export const InternalTabs = observer((props) => {
   const quickAddParentField = fieldSchema['parent']['x-component-props']['quickAddParentCollection'];
   const [options, setOptions] = useState([]);
   const [defOptions, setDefOptions] = useState([]);
-  const { field, options: collectionField } = useAssociationFieldContext<ArrayField>();
+  const { field } = useAssociationFieldContext<ArrayField>();
   const { t } = useTranslation();
   const [changeForm, setChangeForm] = useState<any>();
 
-  const tableSchema = fieldSchema.reduceProperties((buf, schema) => {
-    const found = schema.reduceProperties(
-      (buf, schema) => {
-        if (schema.name === quickAddField) {
-          return schema;
-        }
-        return buf;
-      },
-      new Schema({ name: 'not-found' }),
-    );
-    if (found.name === quickAddField) {
+  const quickAddSchema = fieldSchema.reduceProperties((buf, schema) => {
+    const found = schema.reduceProperties((buf, schema) => {
+      if (schema.name === quickAddField) {
+        return schema;
+      }
+      return buf;
+    });
+    if (found) {
       return found;
     }
     return buf;
   }, new Schema({}));
-  const tabparams = tableSchema['x-component-props']?.['service']?.['params'];
-  const [fieldServiceFilter, setFieldServiceFilter] = useFieldServiceFilter(tabparams?.filter);
+  const tabparams = quickAddSchema['x-component-props']?.['service']?.['params'];
+  const [fieldServiceFilter] = useFieldServiceFilter(tabparams?.filter);
   const formFilter = flat(tabparams?.filter || {});
   const formFieldFilter = Object.values(formFilter)
     ?.map((item) => {
@@ -69,9 +67,9 @@ export const InternalTabs = observer((props) => {
         itemParams['parentOptions'] = parentItem?.data?.data;
       }
 
-      if (tableSchema && fieldInterface === 'm2o') {
-        itemParams['service'] = tableSchema['x-component-props'].service;
-        itemParams['collectionName'] = cm.getCollection(tableSchema['x-collection-field']).name;
+      if (quickAddSchema && fieldInterface === 'm2o') {
+        itemParams['service'] = quickAddSchema['x-component-props'].service;
+        itemParams['collectionName'] = cm.getCollection(quickAddSchema['x-collection-field']).name;
         const childrenItem = await api.request({
           url: itemParams['collectionName'] + ':list',
           params,
@@ -119,8 +117,8 @@ export const InternalTabs = observer((props) => {
         }
         setOptions(optionsItem);
         setDefOptions(optionsItem);
-      } else if (tableSchema) {
-        const fieldItem = cm.getCollectionField(tableSchema['x-collection-field']);
+      } else if (quickAddSchema) {
+        const fieldItem = cm.getCollectionField(quickAddSchema['x-collection-field']);
         if (!fieldItem?.uiSchema || !fieldItem?.uiSchema.enum) return;
         fieldItem.uiSchema.enum.forEach((item) => {
           optionsItem.push(item);
@@ -156,8 +154,8 @@ export const InternalTabs = observer((props) => {
     if (quickAddParentField && quickAddParentField.value !== 'none') {
       const filterOption = defOptions
         .map((item) => {
-          const filterItem = item?.childrenItems?.filter((childrenItem) => childrenItem?.label?.includes(value));
-          if (item?.label?.includes(value) || filterItem.length) {
+          const filterItem = item?.childrenItems?.filter((childrenItem) => fuzzysearch(value, childrenItem?.label));
+          if (fuzzysearch(value, item?.label) || filterItem.length) {
             return {
               ...item,
               childrenItems: filterItem.length ? filterItem : item.childrenItems,
@@ -167,7 +165,7 @@ export const InternalTabs = observer((props) => {
         .filter(Boolean);
       setOptions(filterOption);
     } else {
-      const filterOption = defOptions.filter((item) => item?.label?.includes(value));
+      const filterOption = defOptions.filter((item) => fuzzysearch(value, item?.label));
       setOptions(filterOption);
     }
   };
