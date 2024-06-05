@@ -1,6 +1,8 @@
-import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { useMemo } from 'react';
+import { useField, useFieldSchema, useForm } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../collection-manager';
 
 export const useFieldModeOptions = (props?) => {
@@ -55,7 +57,7 @@ export const useFieldModeOptions = (props?) => {
             { label: t('Cascade Select'), value: 'CascadeSelect' },
             !isTableField && { label: t('Sub-form'), value: 'Nester' },
             { label: t('Sub-form(Popover)'), value: 'PopoverNester' },
-            { label: t('Sub-form(Drawer)'), value: 'DrawerSubTable' },
+            { label: t('Subtable: Drawer'), value: 'DrawerSubTable' },
             { label: t('Cascader'), value: 'Cascader' },
           ];
     }
@@ -73,7 +75,7 @@ export const useFieldModeOptions = (props?) => {
               { label: t('Record picker'), value: 'Picker' },
               !isTableField && { label: t('Sub-form'), value: 'Nester' },
               { label: t('Sub-form(Popover)'), value: 'PopoverNester' },
-              { label: t('Sub-form(Drawer)'), value: 'DrawerSubTable' },
+              { label: t('Subtable: Drawer'), value: 'DrawerSubTable' },
               !isTableField && { label: t('Sub-table'), value: 'SubTable' },
             ];
       case 'm2m':
@@ -90,7 +92,7 @@ export const useFieldModeOptions = (props?) => {
               !isTableField && { label: t('Sub-table'), value: 'SubTable' },
               !isTableField && { label: t('Sub-form'), value: 'Nester' },
               { label: t('Sub-form(Popover)'), value: 'PopoverNester' },
-              { label: t('Sub-form(Drawer)'), value: 'DrawerSubTable' },
+              { label: t('Subtable: Drawer'), value: 'DrawerSubTable' },
             ];
       case 'm2o':
       case 'linkTo':
@@ -105,7 +107,7 @@ export const useFieldModeOptions = (props?) => {
               { label: t('Record picker'), value: 'Picker' },
               !isTableField && { label: t('Sub-form'), value: 'Nester' },
               { label: t('Sub-form(Popover)'), value: 'PopoverNester' },
-              { label: t('Sub-form(Drawer)'), value: 'DrawerSubTable' },
+              { label: t('Subtable: Drawer'), value: 'DrawerSubTable' },
               { label: t('Cascader'), value: 'Cascader' },
             ];
 
@@ -121,7 +123,7 @@ export const useFieldModeOptions = (props?) => {
               { label: t('Record picker'), value: 'Picker' },
               !isTableField && { label: t('Sub-form'), value: 'Nester' },
               { label: t('Sub-form(Popover)'), value: 'PopoverNester' },
-              { label: t('Sub-form(Drawer)'), value: 'DrawerSubTable' },
+              { label: t('Subtable: Drawer'), value: 'DrawerSubTable' },
             ];
     }
   }, [t, collectionField?.interface, label]);
