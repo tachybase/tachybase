@@ -46,7 +46,7 @@ const useArrayField = (props) => {
   return (props.field || field) as ArrayField;
 };
 
-const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => {
+const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean; setFieldValue?: any }) => {
   const { t } = useTranslation();
   const { styles } = useStyles();
   const field = useArrayField(props);
@@ -162,6 +162,7 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
                   });
                   field.value.splice(index, 1);
                   field.initialValue?.splice(index, 1);
+                  props.setFieldValue([...field.value]);
                   return field.onInput(field.value);
                 });
               }}

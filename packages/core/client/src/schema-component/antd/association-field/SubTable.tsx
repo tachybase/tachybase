@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import {
   action,
   ArrayField,
@@ -7,11 +7,13 @@ import {
   observer,
   RecursionField,
   useFieldSchema,
+  useForm,
 } from '@tachybase/schema';
 
-import { Button } from 'antd';
+import { useAsyncEffect } from 'ahooks';
+import { Button, Tabs } from 'antd';
 import { createStyles } from 'antd-style';
-import { unionBy, uniqBy } from 'lodash';
+import { set, unionBy, uniqBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -21,11 +23,12 @@ import {
   SchemaComponentOptions,
   useActionContext,
 } from '../..';
+import { useAPIClient, useRequest } from '../../../api-client';
 import { useCreateActionProps } from '../../../block-provider/hooks';
 import { FormActiveFieldsProvider } from '../../../block-provider/hooks/useFormActiveFields';
 import { TableSelectorParamsProvider } from '../../../block-provider/TableSelectorProvider';
 import { CollectionProvider_deprecated } from '../../../collection-manager';
-import { CollectionRecordProvider, useCollectionRecord } from '../../../data-source';
+import { CollectionRecordProvider, useCollectionManager, useCollectionRecord } from '../../../data-source';
 import { markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
 import { FlagProvider } from '../../../flag-provider';
 import { useCompile } from '../../hooks';
@@ -33,6 +36,7 @@ import { ActionContextProvider } from '../action';
 import { Table } from '../table-v2/Table';
 import { useAssociationFieldContext, useFieldNames } from './hooks';
 import { useTableSelectorProps } from './InternalPicker';
+import { InternalTabs } from './SubTabs/InternamTabs';
 import { getLabelFormatValue, useLabelUiSchema } from './util';
 
 const useStyles = createStyles(({ css }) => {
@@ -106,7 +110,7 @@ export const SubTable: any = observer(
     const compile = useCompile();
     const labelUiSchema = useLabelUiSchema(collectionField, fieldNames?.label || 'label');
     const recordV2 = useCollectionRecord();
-
+    const [fieldValue, setFieldValue] = useState([]);
     const move = (fromIndex: number, toIndex: number) => {
       if (toIndex === undefined) return;
       if (!isArr(field.value)) return;
@@ -122,6 +126,7 @@ export const SubTable: any = observer(
         return field.onInput(field.value);
       });
     };
+
     field.move = move;
 
     const options = useMemo(() => {
@@ -172,11 +177,17 @@ export const SubTable: any = observer(
       const filter = list.length ? { $and: [{ [`${targetKey}.$ne`]: list }] } : {};
       return filter;
     };
+    const tabsProps = {
+      ...props,
+      fieldValue,
+      setFieldValue,
+    };
     return (
       <div className={styles.container}>
         <FlagProvider isInSubTable>
           <CollectionRecordProvider record={null} parentRecord={recordV2}>
             <FormActiveFieldsProvider name="nester">
+              <InternalTabs {...tabsProps} />
               <Table
                 className={styles.table}
                 bordered
@@ -185,6 +196,7 @@ export const SubTable: any = observer(
                 showIndex
                 dragSort={field.editable}
                 showDel={field.editable}
+                setFieldValue={setFieldValue}
                 pagination={!!field.componentProps.pagination}
                 rowSelection={{ type: 'none', hideSelectAll: true }}
                 footer={() =>
@@ -198,6 +210,7 @@ export const SubTable: any = observer(
                           onClick={() => {
                             field.value = field.value || [];
                             field.value.push(markRecordAsNew({}));
+                            setFieldValue([...field.value]);
                           }}
                         >
                           {t('Add new')}
