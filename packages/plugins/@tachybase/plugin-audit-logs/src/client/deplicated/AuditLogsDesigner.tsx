@@ -1,4 +1,4 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
+import React from 'react';
 import {
   GeneralSchemaDesigner,
   SchemaSettingsDataScope,
@@ -10,7 +10,8 @@ import {
   useFormBlockContext,
   useTableBlockContext,
 } from '@tachybase/client';
-import React from 'react';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
 import { useAuditLogsTranslation } from '../locale';
 
 export const AuditLogsDesigner = () => {

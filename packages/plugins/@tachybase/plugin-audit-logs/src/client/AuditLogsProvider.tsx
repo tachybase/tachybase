@@ -1,5 +1,6 @@
-import { SchemaComponentOptions } from '@tachybase/client';
 import React from 'react';
+import { SchemaComponentOptions } from '@tachybase/client';
+
 import { AuditLogsBlockInitializer } from './AuditLogsBlockInitializer';
 import { AuditLogsBlockProvider } from './AuditLogsBlockProvider';
 import { AuditLogsField } from './components/AuditLogsField';

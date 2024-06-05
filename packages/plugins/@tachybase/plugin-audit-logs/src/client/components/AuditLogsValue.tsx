@@ -1,5 +1,5 @@
-import { EllipsisWithTooltip, FormProvider, SchemaComponent, useRecord } from '@tachybase/client';
 import React from 'react';
+import { EllipsisWithTooltip, FormProvider, SchemaComponent, useRecord } from '@tachybase/client';
 import { observer, useField } from '@tachybase/schema';
 
 export const AuditLogsValue = observer(

@@ -1,5 +1,4 @@
-import { ArrayTable } from '@tachybase/components';
-import { observer, useField } from '@tachybase/schema';
+import React, { createContext, useContext } from 'react';
 import {
   ExtendCollectionsProvider,
   FormProvider,
@@ -9,9 +8,11 @@ import {
   useCompile,
   useRecord,
 } from '@tachybase/client';
-import React, { createContext, useContext } from 'react';
-import { AuditLogsDesigner } from './AuditLogsDesigner';
+import { ArrayTable } from '@tachybase/components';
+import { observer, useField } from '@tachybase/schema';
+
 import { tval } from '../locale';
+import { AuditLogsDesigner } from './AuditLogsDesigner';
 
 const collection = {
   name: 'auditLogs',

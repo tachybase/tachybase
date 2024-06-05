@@ -1,9 +1,11 @@
 import { Plugin, SchemaInitializerItemType } from '@tachybase/client';
+
 import { AuditLogsProvider } from './AuditLogsProvider';
 import { auditLogsTableActionColumnInitializers } from './initializers/AuditLogsTableActionColumnInitializers';
 import { auditLogsTableActionInitializers } from './initializers/AuditLogsTableActionInitializers';
 import { auditLogsTableColumnInitializers } from './initializers/AuditLogsTableColumnInitializers';
 import { tval } from './locale';
+
 export * from './AuditLogsBlockInitializer';
 export * from './AuditLogsProvider';
 

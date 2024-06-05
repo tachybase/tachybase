@@ -1,4 +1,5 @@
 import { uid } from '@tachybase/schema';
+
 import { tval } from './locale';
 
 export const createSchema = () => {

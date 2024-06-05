@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   SchemaInitializer,
   SchemaInitializerChildren,
@@ -6,7 +7,7 @@ import {
   useInheritsTableColumnInitializerFields,
   useTableColumnInitializerFields,
 } from '@tachybase/client';
-import React from 'react';
+
 import { tval, useAuditLogsTranslation } from '../locale';
 
 // 表格列配置
