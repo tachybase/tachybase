@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-collection-manager",
   "displayName": "Data source: Main",
-  "version": "0.21.43",
+  "version": "0.21.44",
   "description": "TachyBase main database, supports relational databases such as MySQL, PostgreSQL, SQLite and so on.",
   "keywords": [
     "Data sources"
