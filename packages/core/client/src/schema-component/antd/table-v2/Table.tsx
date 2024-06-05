@@ -35,6 +35,7 @@ import {
 } from '../../../';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { isNewRecord, markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
+import { DeclareVariable } from '../../../modules/variable/DeclareVariable';
 import { SubFormProvider } from '../association-field/hooks';
 import { ColumnFieldProvider } from './components/ColumnFieldProvider';
 import { useStyles } from './Table.styles';
@@ -46,7 +47,7 @@ const useArrayField = (props) => {
 };
 
 const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => {
-  const { token } = useToken();
+  const { t } = useTranslation();
   const { styles } = useStyles();
   const field = useArrayField(props);
   const schema = useFieldSchema();
@@ -81,21 +82,28 @@ const useTableColumns = (props: { showDel?: boolean; isSubTable?: boolean }) => 
         render: (v, record) => {
           const index = field.value?.indexOf(record);
           return (
-            <SubFormProvider value={{ value: record, collection }}>
-              <RecordIndexProvider index={record.__index || index}>
-                <RecordProvider isNew={isNewRecord(record)} record={record} parent={parentRecordData}>
-                  <ColumnFieldProvider schema={s} basePath={field.address.concat(record.__index || index)}>
-                    <span role="button" className={styles.toolbar}>
-                      <RecursionField
-                        basePath={field.address.concat(record.__index || index)}
-                        schema={s}
-                        onlyRenderProperties
-                      />
-                    </span>
-                  </ColumnFieldProvider>
-                </RecordProvider>
-              </RecordIndexProvider>
-            </SubFormProvider>
+            <DeclareVariable
+              name="$nPopupRecord"
+              title={t('Current popup record')}
+              value={record}
+              collection={collection}
+            >
+              <SubFormProvider value={{ value: record, collection }}>
+                <RecordIndexProvider index={record.__index || index}>
+                  <RecordProvider isNew={isNewRecord(record)} record={record} parent={parentRecordData}>
+                    <ColumnFieldProvider schema={s} basePath={field.address.concat(record.__index || index)}>
+                      <span role="button" className={styles.toolbar}>
+                        <RecursionField
+                          basePath={field.address.concat(record.__index || index)}
+                          schema={s}
+                          onlyRenderProperties
+                        />
+                      </span>
+                    </ColumnFieldProvider>
+                  </RecordProvider>
+                </RecordIndexProvider>
+              </SubFormProvider>
+            </DeclareVariable>
           );
         },
       } as TableColumnProps<any>;

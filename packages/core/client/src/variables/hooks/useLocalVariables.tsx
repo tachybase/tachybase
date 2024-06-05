@@ -7,6 +7,7 @@ import { useDatetimeVariable } from '../../schema-settings/VariableInput/hooks/u
 import { useCurrentFormVariable } from '../../schema-settings/VariableInput/hooks/useFormVariable';
 import { useCurrentObjectVariable } from '../../schema-settings/VariableInput/hooks/useIterationVariable';
 import { useCurrentParentRecordVariable } from '../../schema-settings/VariableInput/hooks/useParentRecordVariable';
+import { usePopupVariable } from '../../schema-settings/VariableInput/hooks/usePopupVariable';
 import { useCurrentRecordVariable } from '../../schema-settings/VariableInput/hooks/useRecordVariable';
 import { VariableOption } from '../types';
 
@@ -18,6 +19,7 @@ interface Props {
 const useLocalVariables = (props?: Props) => {
   const { currentObjectCtx, shouldDisplayCurrentObject } = useCurrentObjectVariable();
   const { currentRecordCtx, collectionName: collectionNameOfRecord } = useCurrentRecordVariable();
+  const { popupRecordCtx, collectionName: collectionNameOfPopupRecord } = usePopupVariable();
   const { currentParentRecordCtx, collectionName: collectionNameOfParentRecord } = useCurrentParentRecordVariable();
   const { datetimeCtx } = useDatetimeVariable();
   const { currentFormCtx } = useCurrentFormVariable({ form: props?.currentForm });
@@ -69,6 +71,11 @@ const useLocalVariables = (props?: Props) => {
           collectionName: collectionNameOfParentRecord,
         },
         {
+          name: '$nPopupRecord',
+          ctx: popupRecordCtx,
+          collectionName: collectionNameOfPopupRecord,
+        },
+        {
           name: '$nForm',
           ctx: currentFormCtx,
           collectionName: name,
@@ -99,6 +106,8 @@ const useLocalVariables = (props?: Props) => {
     currentFormCtx,
     currentParentRecordCtx,
     collectionNameOfParentRecord,
+    popupRecordCtx,
+    collectionNameOfPopupRecord,
     datetimeCtx,
     shouldDisplayCurrentObject,
     currentObjectCtx,

@@ -1,8 +1,10 @@
 import { Schema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';
-import { useParentCollection } from '../../../data-source/collection/AssociationProvider';
 import { useCollectionRecord } from '../../../data-source/collection-record/CollectionRecordProvider';
+import { useParentCollection } from '../../../data-source/collection/AssociationProvider';
 import { useFlag } from '../../../flag-provider/hooks/useFlag';
 import { useBaseVariable } from './useBaseVariable';
 

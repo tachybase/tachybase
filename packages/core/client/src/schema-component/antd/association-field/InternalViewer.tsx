@@ -1,9 +1,13 @@
 import React, { Fragment, useRef, useState } from 'react';
 import { observer, RecursionField, toArr, useField, useFieldSchema } from '@tachybase/schema';
 
+import { useTranslation } from 'react-i18next';
+
 import { useDesignable } from '../../';
 import { BlockAssociationContext, WithoutTableFieldResource } from '../../../block-provider';
 import { CollectionProvider_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
+import { Collection } from '../../../data-source';
+import { DeclareVariable } from '../../../modules/variable/DeclareVariable';
 import { RecordProvider, useRecord } from '../../../record-provider';
 import { FormProvider } from '../../core';
 import { useCompile } from '../../hooks';
@@ -29,6 +33,8 @@ export function isObject(value) {
 }
 export const ReadPrettyInternalViewer = observer(
   (props: any) => {
+    const { t } = useTranslation();
+
     const fieldSchema = useFieldSchema();
     const recordCtx = useRecord();
     const { getCollection } = useCollectionManager_deprecated();
@@ -97,18 +103,25 @@ export const ReadPrettyInternalViewer = observer(
         );
       });
     const renderWithoutTableFieldResourceProvider = () => (
-      <WithoutTableFieldResource.Provider value={true}>
-        <FormProvider>
-          <RecursionField
-            schema={fieldSchema}
-            onlyRenderProperties
-            basePath={field.address}
-            filterProperties={(s) => {
-              return s['x-component'] === 'AssociationField.Viewer';
-            }}
-          />
-        </FormProvider>
-      </WithoutTableFieldResource.Provider>
+      <DeclareVariable
+        name="$nPopupRecord"
+        title={t('Current popup record')}
+        value={record}
+        collection={targetCollection as Collection}
+      >
+        <WithoutTableFieldResource.Provider value={true}>
+          <FormProvider>
+            <RecursionField
+              schema={fieldSchema}
+              onlyRenderProperties
+              basePath={field.address}
+              filterProperties={(s) => {
+                return s['x-component'] === 'AssociationField.Viewer';
+              }}
+            />
+          </FormProvider>
+        </WithoutTableFieldResource.Provider>
+      </DeclareVariable>
     );
 
     const renderRecordProvider = () => {
