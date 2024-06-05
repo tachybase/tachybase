@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-snapshot-field",
   "displayName": "Collection field: Snapshot",
-  "version": "0.21.43",
+  "version": "0.21.44",
   "description": "When adding a new record, create a snapshot for its relational record and save in the new record. The snapshot will not be updated when the relational record is updated.",
   "keywords": [
     "Collection fields"

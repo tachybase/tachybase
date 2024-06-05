@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-backup-restore",
   "displayName": "App backup & restore",
-  "version": "0.21.43",
+  "version": "0.21.44",
   "description": "Backup and restore applications for scenarios such as application replication, migration, and upgrades.",
   "keywords": [
     "System management"
