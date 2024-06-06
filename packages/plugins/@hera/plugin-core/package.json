@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-core",
   "displayName": "Hera platform",
-  "version": "1.7.48",
+  "version": "1.7.49",
   "description": "Hera platform",
   "keywords": [
     "System management"
