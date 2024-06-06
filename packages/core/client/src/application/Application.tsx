@@ -18,6 +18,7 @@ import { CSSVariableProvider } from '../style/css-variable';
 import { AntdAppProvider, GlobalThemeProvider } from '../style/theme';
 import { AppSchemaComponentProvider } from './AppSchemaComponentProvider';
 import { AppComponent, BlankComponent, defaultAppComponents } from './components';
+import { NoticeManager } from './NoticesManager';
 import type { Plugin } from './Plugin';
 import { PluginManager, PluginType } from './PluginManager';
 import { PluginSettingOptions, PluginSettingsManager } from './PluginSettingsManager';
@@ -79,6 +80,7 @@ export class Application {
   public schemaInitializerManager: SchemaInitializerManager;
   public schemaSettingsManager: SchemaSettingsManager;
   public dataSourceManager: DataSourceManager;
+  public noticeManager: NoticeManager;
 
   public name: string;
 
@@ -117,11 +119,11 @@ export class Application {
     this.pluginManager = new PluginManager(options.plugins, options.loadRemotePlugins, this);
     this.schemaInitializerManager = new SchemaInitializerManager(options.schemaInitializers, this);
     this.dataSourceManager = new DataSourceManager(options.dataSourceManager, this);
+    this.noticeManager = new NoticeManager(this);
     this.addDefaultProviders();
     this.addReactRouterComponents();
     this.addProviders(options.providers || []);
-    this.ws = new WebSocketClient(options.ws);
-    this.ws.app = this;
+    this.ws = new WebSocketClient(options.ws, this);
     this.pluginSettingsManager = new PluginSettingsManager(options.pluginSettings, this);
     this.addRoutes();
     this.name = this.options.name || getSubAppName(options.publicPath) || 'main';
@@ -230,6 +232,9 @@ export class Application {
       if (data.type === 'notification') {
         this.notification[data.payload?.type || 'info']({ message: data.payload?.message });
         return;
+      }
+      if (data.type === 'notice') {
+        this.noticeManager.on(data.payload);
       }
       const maintaining = data.type === 'maintaining' && data.payload.code !== 'APP_RUNNING';
       if (maintaining) {
