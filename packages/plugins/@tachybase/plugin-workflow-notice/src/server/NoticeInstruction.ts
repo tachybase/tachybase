@@ -15,7 +15,7 @@ class NoticeInstruction extends Instruction {
       upstreamId: prevJob?.id ?? null,
     });
     const notifiedPerson = await parsePerson(node, processor);
-    if (notifiedPerson) {
+    if (notifiedPerson && notifiedPerson.length > 0) {
       const { db } = processor.options.plugin;
       // TODO-A: 改成取上一个节点的数据集, 或者当前执行流数据源的数据集, 目前是对审批事件做了特化处理; 需要理解下其他类型的触发事件, 怎么拿数据
       const ApprovalRepo = db.getRepository('approvals');
