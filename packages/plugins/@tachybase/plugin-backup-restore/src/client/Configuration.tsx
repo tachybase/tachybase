@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Checkbox, DatePicker, useAPIClient, useCompile } from '@tachybase/client';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Checkbox, DatePicker, useAPIClient, useCompile, useNoticeSub } from '@tachybase/client';
 import { FormItem } from '@tachybase/components';
 
 import { InboxOutlined, PlusOutlined, ReloadOutlined, UploadOutlined } from '@ant-design/icons';
@@ -142,7 +142,7 @@ const LearnMore: any = (props: { collectionsData?: any; isBackup?: boolean }) =>
   );
 };
 
-const Restore: React.FC<any> = ({ ButtonComponent = Button, title, upload = false, fileData }) => {
+const Restore = ({ ButtonComponent = Button, title, upload = false, fileData }: any) => {
   const { t } = useDuplicatorTranslation();
   const [dataTypes, setDataTypes] = useState<any[]>(['required']);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -232,7 +232,7 @@ const Restore: React.FC<any> = ({ ButtonComponent = Button, title, upload = fals
   );
 };
 
-const NewBackup: React.FC<any> = ({ ButtonComponent = Button, refresh }) => {
+const NewBackup = ({ ButtonComponent = Button, refresh }) => {
   const { t } = useDuplicatorTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataTypes, setBackupData] = useState<any[]>(['required']);
@@ -295,7 +295,7 @@ const NewBackup: React.FC<any> = ({ ButtonComponent = Button, refresh }) => {
   );
 };
 
-const RestoreUpload: React.FC<any> = (props: any) => {
+const RestoreUpload = (props: any) => {
   const { t } = useDuplicatorTranslation();
   const uploadProps: UploadProps = {
     multiple: false,
@@ -338,6 +338,12 @@ export const BackupAndRestoreList = () => {
     return apiClient.resource('backupFiles');
   }, [apiClient]);
 
+  const handleRefresh = useCallback(async () => {
+    await queryFieldList();
+  }, []);
+
+  useNoticeSub('backup', handleRefresh);
+
   useEffect(() => {
     queryFieldList();
   }, []);
@@ -360,9 +366,6 @@ export const BackupAndRestoreList = () => {
     setDownloadTarget(false);
     const blob = new Blob([data.data]);
     saveAs(blob, fileData.name);
-  };
-  const handleRefresh = async () => {
-    await queryFieldList();
   };
   const handleDestory = (fileData) => {
     modal.confirm({
@@ -393,7 +396,7 @@ export const BackupAndRestoreList = () => {
           />
           <NewBackup refresh={handleRefresh} />
         </Space>
-        <Table
+        <Table<any>
           dataSource={dataSource}
           loading={loading}
           columns={[

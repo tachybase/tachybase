@@ -1,12 +1,14 @@
+import fs from 'fs';
+import { basename, resolve } from 'path';
 import { Model } from '@tachybase/database';
 import { LoggerOptions } from '@tachybase/logger';
 import { fsExists, importModule } from '@tachybase/utils';
-import fs from 'fs';
+
 import glob from 'glob';
 import type { TFuncKey, TOptions } from 'i18next';
-import { basename, resolve } from 'path';
+
 import { Application } from './application';
-import { InstallOptions, getExposeChangelogUrl, getExposeReadmeUrl } from './plugin-manager';
+import { getExposeChangelogUrl, getExposeReadmeUrl, InstallOptions } from './plugin-manager';
 import { checkAndGetCompatible } from './plugin-manager/utils';
 
 export interface PluginInterface {
@@ -59,6 +61,10 @@ export abstract class Plugin<O = any> implements PluginInterface {
       reqId: this.app.context.reqId,
       module: this.name,
     });
+  }
+
+  get noticeManager() {
+    return this.app.noticeManager;
   }
 
   get name() {

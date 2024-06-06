@@ -29,7 +29,6 @@ import lodash from 'lodash';
 import _ from 'lodash';
 import { nanoid } from 'nanoid';
 import semver from 'semver';
-import winston from 'winston';
 
 import packageJson from '../package.json';
 import { createACL } from './acl';
@@ -50,8 +49,11 @@ import {
 import { ApplicationVersion } from './helpers/application-version';
 import { Locale } from './locale';
 import { MainDataSource } from './main-data-source';
+import { NoticeManager } from './notice';
 import { Plugin } from './plugin';
 import { InstallOptions, PluginManager } from './plugin-manager';
+
+export { Logger } from 'winston';
 
 export type PluginType = string | typeof Plugin;
 export type PluginConfiguration = PluginType | [PluginType, any];
@@ -183,6 +185,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   private _maintainingCommandStatus: MaintainingCommandStatus;
   private _maintainingStatusBeforeCommand: MaintainingCommandStatus | null;
   private _actionCommand: Command;
+  private _noticeManager: NoticeManager;
   static KEY_CORE_APP_PREFIX = 'KEY_CORE_APP_';
   private currentId = nanoid();
 
@@ -193,6 +196,11 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this.init();
 
     this._appSupervisor.addApp(this);
+    this._noticeManager = new NoticeManager(this);
+  }
+
+  get noticeManager() {
+    return this._noticeManager;
   }
 
   protected _loaded: boolean;
