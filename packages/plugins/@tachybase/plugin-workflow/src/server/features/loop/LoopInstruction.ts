@@ -1,4 +1,4 @@
-import { Processor, Instruction, JOB_STATUS, FlowNodeModel, JobModel } from '../..';
+import { FlowNodeModel, Instruction, JOB_STATUS, JobModel, Processor } from '../..';
 
 function getTargetLength(target) {
   let length = 0;
@@ -92,6 +92,12 @@ export default class extends Instruction {
       index,
       length,
     };
+
+    this.workflow.noticeManager.notify('workflow:regular', {
+      msg: 'progress',
+      current: index,
+      total: length,
+    });
 
     return result;
   }
