@@ -18,13 +18,15 @@ export class WebSocketClient {
   protected _reconnectTimes = 0;
   protected events = [];
   protected options: WebSocketClientOptions;
-  app: Application;
   enabled: boolean;
   connected = false;
   serverDown = false;
   lastMessage = {};
 
-  constructor(options: WebSocketClientOptions | boolean) {
+  constructor(
+    options: WebSocketClientOptions | boolean,
+    private app: Application,
+  ) {
     if (!options) {
       this.enabled = false;
       return;

@@ -1,4 +1,5 @@
 import { ToposortOptions } from '@tachybase/utils';
+
 import { DataSource } from './data-source';
 import { DataSourceFactory } from './data-source-factory';
 
@@ -35,7 +36,6 @@ export class DataSourceManager {
         }
       }
       await next();
-      console.log('next....');
     };
   }
 }
