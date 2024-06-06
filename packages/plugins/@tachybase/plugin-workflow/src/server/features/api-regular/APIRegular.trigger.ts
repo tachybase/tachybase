@@ -149,6 +149,10 @@ export class APIRegularTrigger extends Trigger {
     for (const event of asyncGroup) {
       this.workflow.trigger(event[0], event[1]);
     }
+
+    this.workflow.noticeManager.notify('workflow:regular', {
+      msg: 'start',
+    });
   }
 
   on(workflow: WorkflowModel): void {}

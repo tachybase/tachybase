@@ -15,6 +15,7 @@ import {
 import { SchemaExpressionScopeContext, useField, useFieldSchema } from '@tachybase/schema';
 
 import { App } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { lang } from '../../../locale';
@@ -25,11 +26,12 @@ export const usePropsAPIRegular = () => {
   const expressionScope = useContext(SchemaExpressionScopeContext);
   const tableBlockContext = useTableBlockContext();
   const { rowKey } = tableBlockContext;
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const compile = useCompile();
   const actionField: any = useField();
-  const { modal } = App.useApp();
+  const { modal, notification } = App.useApp();
   const variables = useVariables();
   const record = useRecord();
   const { name, getField } = useCollection_deprecated();
@@ -43,8 +45,19 @@ export const usePropsAPIRegular = () => {
       manual: true,
     },
   );
-  useNoticeSub('workflow:regular', () => {
-    service.refresh();
+  useNoticeSub('workflow:regular', (event) => {
+    if (event.msg === 'start') {
+      notification.info({ key: 'workflow:regular', message: t('working'), description: t('starting') });
+    } else if (event.msg === 'progress') {
+      notification.info({
+        key: 'workflow:regular',
+        message: t('working'),
+        description: t('process') + `${event.current} / ${event.total}`,
+      });
+    } else if (event.msg === 'done') {
+      notification.info({ key: 'workflow:regular', message: t('working'), description: t('done') });
+      service.refresh();
+    }
   });
 
   return {
