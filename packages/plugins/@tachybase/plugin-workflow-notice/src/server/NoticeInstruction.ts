@@ -15,37 +15,42 @@ class NoticeInstruction extends Instruction {
       upstreamId: prevJob?.id ?? null,
     });
     const notifiedPerson = await parsePerson(node, processor);
-    const { db } = processor.options.plugin;
-    // TODO-A: 改成取上一个节点的数据集, 或者当前执行流数据源的数据集, 目前是对审批事件做了特化处理; 需要理解下其他类型的触发事件, 怎么拿数据
-    const ApprovalRepo = db.getRepository('approvals');
-    const approval = await ApprovalRepo.findOne({
-      filter: {
-        'executions.id': processor.execution.id,
-      },
-      fields: ['id', 'status', 'data', 'summary', 'collectionName'],
-      appends: ['approvalExecutions'],
-      except: ['data'],
-    });
+    if (notifiedPerson) {
+      const { db } = processor.options.plugin;
+      // TODO-A: 改成取上一个节点的数据集, 或者当前执行流数据源的数据集, 目前是对审批事件做了特化处理; 需要理解下其他类型的触发事件, 怎么拿数据
+      const ApprovalRepo = db.getRepository('approvals');
+      const approval = await ApprovalRepo.findOne({
+        filter: {
+          'executions.id': processor.execution.id,
+        },
+        fields: ['id', 'status', 'data', 'summary', 'collectionName'],
+        appends: ['approvalExecutions'],
+        except: ['data'],
+      });
 
-    const NoticeModel = db.getModel(COLLECTION_NOTICE_NAME);
+      const NoticeModel = db.getModel(COLLECTION_NOTICE_NAME);
 
-    const notifiedPersonMapData = notifiedPerson.map((userId, index) => ({
-      userId,
-      jobId: job.id,
-      nodeId: node.id,
-      executionId: job.executionId,
-      workflowId: node.workflowId,
-      index,
-      status: node.config.order && index ? NOTICE_ACTION_STATUS.ASSIGNED : NOTICE_ACTION_STATUS.APPROVED,
-      snapshot: approval.data,
-      summary: approval.summary,
-      collectionName: approval.collectionName,
-      dataKey: approval.dataKey,
-    }));
+      const notifiedPersonMapData = notifiedPerson.map((userId, index) => ({
+        userId,
+        jobId: job.id,
+        nodeId: node.id,
+        executionId: job.executionId,
+        workflowId: node.workflowId,
+        index,
+        status: node.config.order && index ? NOTICE_ACTION_STATUS.ASSIGNED : NOTICE_ACTION_STATUS.APPROVED,
+        snapshot: approval.data,
+        summary: approval.summary,
+        collectionName: approval.collectionName,
+        dataKey: approval.dataKey,
+      }));
 
-    await NoticeModel.bulkCreate(notifiedPersonMapData, {
-      transaction: processor.transaction,
-    });
+      await NoticeModel.bulkCreate(notifiedPersonMapData, {
+        transaction: processor.transaction,
+      });
+    }
+
+    // notify
+    this.workflow.noticeManager.notify('workflow:regular', { msg: 'done' });
 
     return job;
   }

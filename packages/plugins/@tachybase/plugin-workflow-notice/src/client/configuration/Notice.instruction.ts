@@ -32,7 +32,6 @@ export class NoticeInstruction extends Instruction {
     notifiedPerson: {
       type: 'array',
       title: tval('The Notified Person'),
-      required: true,
       'x-decorator': 'FormItem',
       'x-component': 'ArrayItems',
       'x-component-props': {

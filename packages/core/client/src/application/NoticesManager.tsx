@@ -38,7 +38,7 @@ export const useNoticeManager = () => {
   return useContext(NoticeManagerContext);
 };
 
-export const useNoticeSub = (name: string, handler: () => {}) => {
+export const useNoticeSub = (name: string, handler: () => void) => {
   const { manager } = useNoticeManager();
   useEffect(() => {
     manager.emitter.on(name, handler);
