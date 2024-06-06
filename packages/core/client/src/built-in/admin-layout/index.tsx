@@ -12,6 +12,7 @@ import {
   findByUid,
   findMenuItem,
   NavigateIfNotSignIn,
+  NoticeManagerProvider,
   PinnedPluginList,
   RemoteCollectionManagerProvider,
   RemoteSchemaTemplateManagerPlugin,
@@ -440,15 +441,17 @@ export const InternalAdminLayout = (props: any) => {
 
 export const AdminProvider = (props) => {
   return (
-    <CurrentAppInfoProvider>
-      <NavigateIfNotSignIn>
-        <RemoteCollectionManagerProvider>
-          <VariablesProvider>
-            <ACLRolesCheckProvider>{props.children}</ACLRolesCheckProvider>
-          </VariablesProvider>
-        </RemoteCollectionManagerProvider>
-      </NavigateIfNotSignIn>
-    </CurrentAppInfoProvider>
+    <NoticeManagerProvider>
+      <CurrentAppInfoProvider>
+        <NavigateIfNotSignIn>
+          <RemoteCollectionManagerProvider>
+            <VariablesProvider>
+              <ACLRolesCheckProvider>{props.children}</ACLRolesCheckProvider>
+            </VariablesProvider>
+          </RemoteCollectionManagerProvider>
+        </NavigateIfNotSignIn>
+      </CurrentAppInfoProvider>
+    </NoticeManagerProvider>
   );
 };
 

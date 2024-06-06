@@ -1,7 +1,7 @@
 import './actions';
 
 import path from 'path';
-import Application, { InstallOptions, Plugin, type PluginOptions } from '@tachybase/server';
+import Application, { InstallOptions, NoticeLevel, Plugin, type PluginOptions } from '@tachybase/server';
 import { Container } from '@tachybase/utils';
 
 import { DepartmentsPlugin } from './features/departments';

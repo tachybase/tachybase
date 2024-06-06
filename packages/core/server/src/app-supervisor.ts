@@ -1,6 +1,8 @@
-import { applyMixins, AsyncEmitter } from '@tachybase/utils';
-import { Mutex } from 'async-mutex';
 import { EventEmitter } from 'events';
+import { applyMixins, AsyncEmitter } from '@tachybase/utils';
+
+import { Mutex } from 'async-mutex';
+
 import Application, { ApplicationOptions, MaintainingCommandStatus } from './application';
 import { getErrorLevel } from './errors/handler';
 

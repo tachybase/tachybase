@@ -1,6 +1,7 @@
-import React, { createContext, ReactNode, useContext } from 'react';
+import React, { createContext, ReactNode, useContext, useEffect } from 'react';
 
 import { message, notification } from 'antd';
+import mitt, { Emitter, EventType } from 'mitt';
 
 import { Application } from './Application';
 import { useApp } from './hooks';
@@ -17,6 +18,7 @@ export const enum NoticeType {
   STATUS = 'status',
   TOAST = 'toast',
   NOTIFICATION = 'notification',
+  CUSTOM = 'custom',
 }
 
 export interface NoticeManagerContextProps {
@@ -36,15 +38,29 @@ export const useNoticeManager = () => {
   return useContext(NoticeManagerContext);
 };
 
+export const useNoticeSub = (name: string, handler: () => {}) => {
+  const { manager } = useNoticeManager();
+  useEffect(() => {
+    manager.emitter.on(name, handler);
+    return () => {
+      manager.emitter.off(name, handler);
+    };
+  }, [manager.emitter, name, handler]);
+};
+
 export class NoticeManager {
   private ws: WebSocketClient;
+  public emitter: Emitter<Record<EventType, unknown>>;
   constructor(private app: Application) {
     this.ws = app.ws;
+    this.emitter = mitt();
   }
 
-  on(data: { type: NoticeType; title?: string; content: string; level: NoticeLevel }) {
+  on(data: { type: NoticeType; title?: string; content: string; level: NoticeLevel; eventType?: string; event?: any }) {
     if (data.type === NoticeType.NOTIFICATION) {
       this[data.type](data.title, data.content, data.level);
+    } else if (data.type === NoticeType.CUSTOM) {
+      this.emitter.emit(data.eventType, data.event);
     } else {
       this[data.type](data.content, data.level);
     }

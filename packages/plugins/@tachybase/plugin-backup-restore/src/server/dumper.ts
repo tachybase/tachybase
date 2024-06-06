@@ -237,6 +237,7 @@ export class Dumper extends AppMigrator {
     }).finally(() => {
       this.cleanLockFile(backupFileName);
       Dumper.dumpTasks.delete(backupFileName);
+      this.app.noticeManager.notify('backup', { msg: 'done' });
     });
 
     Dumper.dumpTasks.set(backupFileName, promise);
