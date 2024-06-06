@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Checkbox, DatePicker, useAPIClient, useCompile, useNoticeSub } from '@tachybase/client';
 import { FormItem } from '@tachybase/components';
 
-import { InboxOutlined, PlusOutlined, ReloadOutlined, UploadOutlined } from '@ant-design/icons';
+import { InboxOutlined, LoadingOutlined, PlusOutlined, ReloadOutlined, UploadOutlined } from '@ant-design/icons';
 import { Alert, App, Button, Card, Divider, message, Modal, Space, Spin, Table, Tabs, Upload, UploadProps } from 'antd';
 import { saveAs } from 'file-saver';
 
@@ -237,6 +237,7 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataTypes, setBackupData] = useState<any[]>(['required']);
   const apiClient = useAPIClient();
+  const { notification } = App.useApp();
   const [dataSource, setDataSource] = useState([]);
 
   const showModal = async () => {
@@ -258,6 +259,16 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
       data: {
         dataTypes,
       },
+    });
+    notification.info({
+      key: 'backup',
+      message: (
+        <span>
+          {t('Processing...')} &nbsp; &nbsp;
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+        </span>
+      ),
+      duration: 0,
     });
     setIsModalOpen(false);
     setBackupData(['required']);
@@ -333,7 +344,7 @@ export const BackupAndRestoreList = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
   const [downloadTarget, setDownloadTarget] = useState(false);
-  const { modal } = App.useApp();
+  const { modal, notification } = App.useApp();
   const resource = useMemo(() => {
     return apiClient.resource('backupFiles');
   }, [apiClient]);
@@ -342,7 +353,13 @@ export const BackupAndRestoreList = () => {
     await queryFieldList();
   }, []);
 
-  useNoticeSub('backup', handleRefresh);
+  useNoticeSub('backup', () => {
+    notification.info({
+      key: 'backup',
+      message: t('Done'),
+    });
+    handleRefresh();
+  });
 
   useEffect(() => {
     queryFieldList();

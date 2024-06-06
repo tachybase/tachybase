@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import {
   isVariable,
   transformVariableValue,
@@ -14,7 +14,7 @@ import {
 } from '@tachybase/client';
 import { SchemaExpressionScopeContext, useField, useFieldSchema } from '@tachybase/schema';
 
-import { App } from 'antd';
+import { App, Progress } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -47,15 +47,25 @@ export const usePropsAPIRegular = () => {
   );
   useNoticeSub('workflow:regular', (event) => {
     if (event.msg === 'start') {
-      notification.info({ key: 'workflow:regular', message: t('working'), description: t('starting') });
+      notification.info({
+        key: 'workflow:regular',
+        message: t('Start'),
+        description: <Progress percent={0} />,
+        duration: 0,
+      });
     } else if (event.msg === 'progress') {
       notification.info({
         key: 'workflow:regular',
-        message: t('working'),
-        description: t('process') + `${event.current} / ${event.total}`,
+        message: t('Processing...'),
+        description: <Progress percent={Math.floor((event.current / event.total) * 100)} />,
+        duration: 0,
       });
     } else if (event.msg === 'done') {
-      notification.info({ key: 'workflow:regular', message: t('working'), description: t('done') });
+      notification.success({
+        key: 'workflow:regular',
+        message: t('Done'),
+        description: <Progress percent={100} />,
+      });
       service.refresh();
     }
   });
