@@ -164,10 +164,17 @@ export async function sync(context: Context, next) {
 export async function trigger(ctx: Context) {
   const plugin = ctx.app.getPlugin(Plugin) as Plugin;
   const workflow = (await ctx.db.getRepository('workflows').findById(ctx.action.params.filterByTk)) as WorkflowModel;
+  // NOTE: 这里的updateData是通过前端传过来的，需要 decodeURIComponent,
+  //  updateData 的约定结构是形如: updateData: { primaryKey: "id", targetKeys: []}
+  const updateData = JSON.parse(decodeURIComponent(ctx.action.params?.updateData || ''));
   plugin.trigger(
     workflow,
     {
-      data: {},
+      data: {
+        updateData,
+        httpContext: ctx,
+        user: ctx?.auth?.user,
+      },
     },
     { httpContext: ctx },
   );

@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import _ from 'lodash';
 
 import { FlowNodeModel, Instruction, JOB_STATUS, Processor } from '../..';
 
@@ -12,10 +13,14 @@ export type RequestConfig = Pick<AxiosRequestConfig, 'url' | 'method' | 'params'
   ignoreFail: boolean;
 };
 
-async function request(config) {
+async function request(config, context) {
   // default headers
-  const { url, method = 'POST', data, timeout = 5000 } = config;
-  const headers = (config.headers ?? []).reduce((result, header) => {
+  const { token, origin } = context;
+  const { url: originUrl, method = 'POST', data, timeout = 5000 } = config;
+
+  const url = originUrl.startsWith('http') ? originUrl : `${origin}${originUrl}`;
+
+  let headers = (config.headers ?? []).reduce((result, header) => {
     if (header.name.toLowerCase() === 'content-type') {
       return result;
     }
@@ -29,6 +34,11 @@ async function request(config) {
   // TODO(feat): only support JSON type for now, should support others in future
   headers['Content-Type'] = 'application/json';
 
+  // let temp = context.get('headers');
+  headers = {
+    Authorization: 'Bearer ' + token,
+    ...headers,
+  };
   return axios.request({
     url,
     method,
@@ -41,13 +51,19 @@ async function request(config) {
 
 export default class extends Instruction {
   async run(node: FlowNodeModel, prevJob, processor: Processor) {
+    const httpContext = _.get(processor, 'execution.dataValues.context.data.httpContext', {});
+    const userId = _.get(processor, 'execution.dataValues.context.data.user.id', 1);
+    const origin = _.get(httpContext, 'request.header.origin', '');
+    const token = this.workflow.app.authManager.jwt.sign({ userId });
+    const context = { token, origin };
+
     const config = processor.getParsedValue(node.config, node.id) as RequestConfig;
     const { workflow } = processor.execution;
     const sync = this.workflow.isWorkflowSync(workflow);
 
     if (sync) {
       try {
-        const response = await request(config);
+        const response = await request(config, context);
 
         return {
           status: JOB_STATUS.RESOLVED,
@@ -69,7 +85,7 @@ export default class extends Instruction {
     });
 
     // eslint-disable-next-line promise/catch-or-return
-    request(config)
+    request(config, context)
       .then((response) => {
         job.set({
           status: JOB_STATUS.RESOLVED,

@@ -15,7 +15,7 @@ interface Context extends ActionContext, DefaultContext {}
 export class APIRegularTrigger extends Trigger {
   constructor(workflow: WorkflowPlugin) {
     super(workflow);
-    workflow.app.use(this.middleware, { after: 'dataSource' });
+    // workflow.app.use(this.middleware, { after: 'dataSource' });
   }
 
   async middleware(context: Context, next: Next) {
