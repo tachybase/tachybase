@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-multi-app-share-collection",
   "displayName": "Multi-app share collection",
-  "version": "0.21.45",
+  "version": "0.21.46",
   "description": "",
   "keywords": [
     "System management"
