@@ -1,4 +1,3 @@
-// import { PlusOutlined } from '@ant-design/icons';
 import React, { useCallback, useState } from 'react';
 import { ArrayItems } from '@tachybase/components';
 import { useWorkflowExecuted } from '@tachybase/plugin-workflow/client';
@@ -29,13 +28,7 @@ export const AdditionNotifiedPerson = () => {
       onOpenChange={setIsOpen}
       content={<PopoverContent onSlecet={onSlecet} onQuery={onQuery} />}
     >
-      <Button
-        className="ant-formily-array-base-addition"
-        // icon={<PlusOutlined />}
-        type="dashed"
-        block={true}
-        disabled={isWorkflowExecuted}
-      >
+      <Button className="ant-formily-array-base-addition" type="dashed" block={true} disabled={isWorkflowExecuted}>
         {t('Add Notified Person')}
       </Button>
     </Popover>

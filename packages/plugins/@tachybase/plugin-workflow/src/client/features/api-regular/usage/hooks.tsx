@@ -6,6 +6,7 @@ import {
   useCollection_deprecated,
   useCompile,
   useLocalVariables,
+  useNoticeSub,
   useRecord,
   useRequest,
   useTableBlockContext,
@@ -42,6 +43,9 @@ export const usePropsAPIRegular = () => {
       manual: true,
     },
   );
+  useNoticeSub('workflow:regular', () => {
+    service.refresh();
+  });
 
   return {
     async onClick() {
