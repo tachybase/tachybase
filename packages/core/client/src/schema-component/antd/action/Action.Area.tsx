@@ -32,17 +32,17 @@ export const ActionAreaStub = () => {
 
 export const ActionAreaPlayer = ({ children }) => {
   const { visible, setVisible } = useActionContext();
-  const { prevSetVisible, setPrevSetVisible, ref } = useContext(ActionAreaContext);
+  const { prevSetVisible, setPrevSetVisible, ref = { current: null } } = useContext(ActionAreaContext);
   useEffect(() => {
     if (visible) {
-      setPrevSetVisible(() => {
+      setPrevSetVisible?.(() => {
         prevSetVisible?.(false);
         return setVisible;
       });
     }
   }, [visible]);
 
-  return visible ? createPortal(children, ref.current) : null;
+  return visible && ref.current ? createPortal(children, ref.current) : null;
 };
 
 export const ActionArea: ComposedActionDrawer = observer(

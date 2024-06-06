@@ -1,11 +1,12 @@
-import { get } from 'lodash';
-import { BelongsTo, HasOne } from 'sequelize';
+import { Context as ActionContext, Next } from '@tachybase/actions';
+import { parseCollectionName } from '@tachybase/data-source-manager';
 import { Model, modelAssociationByKey } from '@tachybase/database';
 import Application, { DefaultContext } from '@tachybase/server';
-import { Context as ActionContext, Next } from '@tachybase/actions';
 
-import WorkflowPlugin, { Trigger, WorkflowModel, toJSON } from '../..';
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { get } from 'lodash';
+import { BelongsTo, HasOne } from 'sequelize';
+
+import WorkflowPlugin, { toJSON, Trigger, WorkflowModel } from '../..';
 
 interface Context extends ActionContext, DefaultContext {}
 

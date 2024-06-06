@@ -19,9 +19,9 @@ const schema = {
   'x-acl-action-props': {
     skipScopeCheck: true,
   },
-  'x-action': 'customize:APIRegular',
   'x-toolbar': 'ActionSchemaToolbar',
   'x-settings': 'actionSettings:APIRegular',
+  'x-action': 'customize:APIRegular',
   'x-action-settings': {
     bindWorkflow: false,
     updateMode: 'selected',

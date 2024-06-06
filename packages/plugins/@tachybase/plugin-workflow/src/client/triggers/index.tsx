@@ -46,7 +46,8 @@ function useUpdateConfigAction() {
         },
       });
       ctx.setFormValueChanged(false);
-      ctx.setVisible(false);
+      // ctx.setVisible(false);
+      message.success('success');
       refresh();
     },
   };
@@ -298,7 +299,7 @@ export const TriggerConfig = () => {
                         ? {}
                         : {
                             type: 'void',
-                            'x-component': 'Action.Drawer.Footer',
+                            'x-component': 'ActionArea.Footer',
                             properties: {
                               cancel: {
                                 title: '{{t("Cancel")}}',

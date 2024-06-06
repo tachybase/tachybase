@@ -54,6 +54,12 @@ export const usePropsAPIRegular = () => {
         updateMode,
       } = actionSchema?.['x-action-settings'] ?? {};
 
+      const isUpdateSelected = updateMode === 'selected';
+      const updateData = {
+        primaryKey: rowKey || 'id',
+        targetKeys: selectedRecordKeys,
+      };
+
       actionField.data = field.data || {};
       actionField.data.loading = true;
 
@@ -86,15 +92,14 @@ export const usePropsAPIRegular = () => {
       await Promise.all(waitList);
 
       modal.confirm({
-        title: lang('Bulk update', { ns: 'client' }),
-        content:
-          updateMode === 'selected'
-            ? lang('Update selected data?', { ns: 'client' })
-            : lang('Update all data?', { ns: 'client' }),
+        title: lang('Confirm', { ns: 'client' }),
+        content: lang('Trigger workflow?', { ns: 'client' }),
         async onOk() {
-          run({
+          const params = {
             filterByTk: bindWorkflow,
-          });
+            updateData: encodeURIComponent(JSON.stringify(updateData)),
+          };
+          run(params);
           actionField.data.loading = false;
         },
         async onCancel() {
@@ -104,21 +109,3 @@ export const usePropsAPIRegular = () => {
     },
   };
 };
-
-function updateData() {
-  // const updateData: { filter?: any; values: any; forceUpdate: boolean } = {
-  //   values,
-  //   filter,
-  //   forceUpdate: false,
-  // };
-  // if (updateMode === 'selected') {
-  //   if (!selectedRecordKeys?.length) {
-  //     message.error(t('Please select the records to be updated'));
-  //     return;
-  //   }
-  //   updateData.filter = { $and: [{ [rowKey || 'id']: { $in: selectedRecordKeys } }] };
-  // }
-  // if (!updateData.filter) {
-  //   updateData.forceUpdate = true;
-  // }
-}

@@ -2,8 +2,8 @@ import { Plugin, useCollection } from '@tachybase/client';
 
 import { tval } from '../../../locale';
 import { APIRegularInitializer } from './APIRegular.schema';
-import { APIRegularActionSettings } from './BulkUpdateAction.Settings';
-import { usePropsAPIRegular } from './utils';
+import { APIRegularActionSettings } from './APIRegular.setting';
+import { usePropsAPIRegular } from './hooks';
 
 export class KitAPIRegularUsage extends Plugin {
   async load() {
