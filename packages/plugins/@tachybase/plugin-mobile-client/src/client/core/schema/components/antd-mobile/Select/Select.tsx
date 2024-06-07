@@ -15,46 +15,57 @@ export const MSelect = connect(
     const fieldSchema = useFieldSchema();
     const cm = useCollectionManager();
     const collection = cm.getCollection(fieldSchema['x-collection-field']);
+    const field = useField<any>();
+    const collectionField = useCollectionField();
+    const dataSource = field.dataSource || collectionField?.uiSchema.enum || [];
+
     if (collection) {
       filterProps['collectionName'] = collection.name;
+    }
+    if (typeof filterProps['value'] !== 'object') {
+      filterProps['value'] = dataSource.filter((item) => item.value.toString() === filterProps['value']);
     }
     return { ...filterProps };
   }),
   mapReadPretty((props) => {
     const { value, fieldNames } = props;
-    const isCollectionField = typeof value === 'object' && fieldNames;
-    if (isCollectionField) {
-      const isArrayField = isArray(value);
-      return isArrayField ? (
-        <div>
-          {value.map((item, index) => (
-            <Space key={index}>{`${item?.[fieldNames.label] || ''}${value.length - 1 === index ? '' : ','}`}</Space>
-          ))}
-        </div>
-      ) : (
-        <Space>{value?.[fieldNames.label] || ''}</Space>
-      );
-    } else {
-      const field = useField<any>();
-      const collectionField = useCollectionField();
-      const dataSource = field.dataSource || collectionField?.uiSchema.enum || [];
-      const options =
-        typeof value === 'object'
-          ? value
-              .map((item) => {
-                if (dataSource.find((dataItem) => dataItem.value === item.value)) {
-                  return item;
-                }
-              })
-              .filter(Boolean)
-          : dataSource.filter((item) => item.value.toString() === value);
+    const collectionField = useCollectionField();
+    const isSlectField = ['multipleSelect', 'select'].includes(collectionField.interface);
+    const field = useField<any>();
+    const dataSource = field.dataSource || collectionField?.uiSchema.enum || [];
+    const fieldNamesLabel = fieldNames?.label || 'label';
+    if (isSlectField) {
+      const option = [];
+      if (!isArray(value)) {
+        if (typeof value === 'object') {
+          option.push(value);
+        } else {
+          option.push(dataSource.find((item) => item.value === value));
+        }
+      } else {
+        option.push(...value);
+      }
       return (
         <div>
-          {options.map((option, key) => (
-            <Tag key={key} color={getMobileColor(option.color)} style={{ margin: '5px' }}>
-              {option.label}
+          {option.map((item, index) => (
+            <Tag key={index} color={getMobileColor(item.color)}>
+              {item.label}
             </Tag>
           ))}
+        </div>
+      );
+    } else {
+      let redValue = '';
+      if (isArray(value)) {
+        redValue = value.reduce((prev, curr) => {
+          return prev + curr[fieldNamesLabel];
+        }, '');
+      } else {
+        redValue = value[fieldNamesLabel];
+      }
+      return (
+        <div>
+          <Space>{redValue}</Space>
         </div>
       );
     }
