@@ -18,6 +18,7 @@ import { useTranslation } from '../../locale';
 import '../../style/style.css';
 
 import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
+import { observer } from '@tachybase/schema';
 import { Registry } from '@tachybase/utils/client';
 
 import { ManualFormType } from '../../constants';
@@ -29,12 +30,11 @@ import { FormBlockProvider } from '../provider/FormBlockProvider';
 import { ManualActionStatusProvider } from '../provider/ManualActionStatusProvider';
 
 // 审批-执行处理-查看: 内容
-export const ViewTodosUserJobsContent = () => {
+export const ViewTodosUserJobsContent = observer((props) => {
+  const { id } = props as any;
   const { t } = useTranslation();
   const { actionEnabled } = useContext(ContextWithActionEnabled);
   const navigate = useNavigate();
-  const params = useParams();
-  const { id } = params;
   const api = useAPIClient();
   const [noDate, setNoDate] = useState(false);
   const workflowPlugin = usePlugin(PluginWorkflowClient);
@@ -138,7 +138,7 @@ export const ViewTodosUserJobsContent = () => {
       </div>
     </div>
   );
-};
+});
 
 function useDetailsBlockProps() {
   const { form } = useFormBlockContext();

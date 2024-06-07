@@ -8,6 +8,7 @@ import { ViewActionUserInitiationsContent } from './initiations/component/ViewAc
 import { LauncherActionConfigInitializer } from './initiations/config/LauncherActionConfig';
 import { InitiationsBlock } from './initiations/InitiationsBlock';
 import { ViewActionTodosContent } from './todos/component/ViewActionTodosContent';
+import { ViewTodosDetailsContent } from './todos/component/ViewTodosDetailsContent';
 import { ViewTodosUserJobsContent } from './todos/component/ViewTodosUserJobsContent';
 import { TodosBlock } from './todos/TodosBlock';
 
@@ -17,6 +18,7 @@ class PluginApproval extends Plugin {
       ApprovalBlockInitializer,
       InitiationsBlock,
       TodosBlock,
+      ViewTodosDetailsContent,
       ViewActionTodosContent,
       ViewActionUserInitiationsContent,
       ViewActionInitiationsContent,

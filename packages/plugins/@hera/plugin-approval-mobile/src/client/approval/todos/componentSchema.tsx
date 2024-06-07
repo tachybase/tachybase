@@ -43,7 +43,7 @@ export const tabDuplicateSchema = (t, props, parantUid) => {
     'x-component': 'TabDuplicateItem',
     'x-component-props': {
       ...props,
-      collectionName: 'approvalRecords',
+      collectionName: 'workflowNotice',
       settingBlock: true,
       tabKey: 'duplicate',
       parantUid,
