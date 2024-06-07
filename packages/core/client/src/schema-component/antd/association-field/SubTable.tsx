@@ -36,7 +36,7 @@ import { ActionContextProvider } from '../action';
 import { Table } from '../table-v2/Table';
 import { useAssociationFieldContext, useFieldNames } from './hooks';
 import { useTableSelectorProps } from './InternalPicker';
-import { InternalTabs } from './SubTabs/InternalTabs';
+import { InternalCollapse } from './SubTabs/InternalCollapse';
 import { getLabelFormatValue, useLabelUiSchema } from './util';
 
 const useStyles = createStyles(({ css }) => {
@@ -187,7 +187,7 @@ export const SubTable: any = observer(
         <FlagProvider isInSubTable>
           <CollectionRecordProvider record={null} parentRecord={recordV2}>
             <FormActiveFieldsProvider name="nester">
-              <InternalTabs {...tabsProps} />
+              <InternalCollapse {...tabsProps} />
               <Table
                 className={styles.table}
                 bordered
