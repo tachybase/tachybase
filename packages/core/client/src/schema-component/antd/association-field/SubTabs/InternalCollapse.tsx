@@ -4,7 +4,7 @@ import { fuzzysearch } from '@tachybase/utils/client';
 
 import { CheckOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAsyncEffect, useDeepCompareEffect } from 'ahooks';
-import { Button, Input, Space, Tabs } from 'antd';
+import { Button, Collapse, CollapseProps, Input, Space, Tabs } from 'antd';
 import flat from 'flat';
 import { useTranslation } from 'react-i18next';
 
@@ -77,7 +77,11 @@ export const InternalTabs = observer((props) => {
         itemParams['childrenTitleField'] = cm.getCollection(itemParams['collectionName']).titleField;
         itemParams['childrenOptions'] = childrenItem?.data?.data;
 
-        if (itemParams['parentOptions']?.length && itemParams['childrenOptions']?.length) {
+        if (
+          itemParams['parentOptions']?.length &&
+          itemParams['childrenOptions']?.length &&
+          quickAddParentField?.value !== 'none'
+        ) {
           optionsItem.unshift({
             value: 'all',
             label: t('All'),
@@ -134,7 +138,7 @@ export const InternalTabs = observer((props) => {
         setDefOptions(optionsItem);
       }
     }
-  }, [fieldServiceFilter, fieldSchema, changeForm]);
+  }, [fieldServiceFilter, tabparams?.filter, changeForm, isQuickAdd, quickAddField, quickAddParentField]);
 
   useDeepCompareEffect(() => {
     if (!defOptions.length) return;
@@ -188,7 +192,7 @@ export const InternalTabs = observer((props) => {
     setFieldValue([...field.value]);
   };
 
-  return isQuickAdd && quickAddField && quickAddField !== 'none' ? (
+  return (
     <div>
       <Input
         placeholder={t('Please enter search content')}
@@ -222,6 +226,7 @@ export const InternalTabs = observer((props) => {
                 ),
               }))}
               style={{ maxHeight: '30vh', padding: '10px' }}
+              defaultActiveKey="all"
             ></Tabs>
           ) : null}
         </>
@@ -241,7 +246,7 @@ export const InternalTabs = observer((props) => {
         </Space>
       )}
     </div>
-  ) : null;
+  );
 });
 
 const tabsParantFilterOptions = (options, fieldTabs, arrayField) => {
@@ -271,3 +276,20 @@ const tabsFilterOptions = (optitons, filterTabs, arrayField) => {
   });
   return filterOptions;
 };
+
+export const InternalCollapse = observer((props) => {
+  const { t } = useTranslation();
+  const fieldSchema = useFieldSchema();
+  const isQuickAdd = fieldSchema['parent']['x-component-props']['isQuickAdd'];
+  const { value: quickAddField } = fieldSchema['parent']['x-component-props']?.['quickAddField'] || {};
+  const items: CollapseProps['items'] = [
+    {
+      key: '1',
+      label: t('Quick create'),
+      children: <InternalTabs {...props} />,
+    },
+  ];
+  return isQuickAdd && quickAddField && quickAddField !== 'none' ? (
+    <Collapse items={items} defaultActiveKey={['1']} />
+  ) : null;
+});
