@@ -27,13 +27,14 @@ import { ApprovalFormBlockDecorator } from '../provider/ApprovalFormBlock';
 import '../../style/style.css';
 
 import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
+import { observer } from '@tachybase/schema';
 
 // 审批-待办-查看: 内容
-export const ViewActionTodosContent = () => {
+export const ViewActionTodosContent = observer((props) => {
+  const { id } = props as any;
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const params = useParams();
-  const { id } = params;
+
   const api = useAPIClient();
   const [noDate, setNoDate] = useState(false);
   const [recordData, setRecordDate] = useState({});
@@ -115,7 +116,7 @@ export const ViewActionTodosContent = () => {
       </div>
     </div>
   );
-};
+});
 
 const todosComponent = (applyDetail) => {
   const formContextSchema = {

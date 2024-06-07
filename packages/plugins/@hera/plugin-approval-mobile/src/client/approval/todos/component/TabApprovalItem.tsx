@@ -23,6 +23,8 @@ export const TabApprovalItem = observer((props) => {
       changeApprovalRecordsService(api, params?.[tabKey], filter, cm, compile, t, setData, input);
     } else if (collectionName === 'users_jobs') {
       changeUsersJobsService(api, t, cm, compile, input, setData, params?.[tabKey], filter);
+    } else if (collectionName === 'workflowNotice') {
+      changeWorkflowNoticeService(api, t, cm, compile, input, setData, params?.[tabKey], filter);
     }
   }, [filter, params, input]);
 
@@ -35,12 +37,7 @@ export const TabApprovalItem = observer((props) => {
               <List.Item
                 key={index}
                 onClick={() => {
-                  let url;
-                  if (collectionName === 'approvalRecords') {
-                    url = `/mobile/approval/${item.id}/${item.categoryTitle}/detailspage`;
-                  } else if (collectionName === 'users_jobs') {
-                    url = `/mobile/approval/${item.id}/userJobspage`;
-                  }
+                  const url = `/mobile/approval/${collectionName}/${item.id}/${item.categoryTitle}/detailspage`;
                   navigate(url);
                 }}
               >
@@ -98,20 +95,21 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
         const statusType = approvalTodoListStatus(item, t);
         const categoryTitle = item.workflow.title.replace('审批流:', '');
         const collectionName = item.workflow?.config?.collection || item.execution?.context?.collectionName;
-        const summary = Object.entries(item.summary).map(([key, value]) => {
+        const summary = Object.entries(item.summary)?.map(([key, value]) => {
           const field = cm.getCollectionField(`${collectionName}.${key}`);
           return {
             label: compile(field?.uiSchema?.title || key),
             value: (Object.prototype.toString.call(value) === '[object Object]' ? value?.['name'] : value) || '',
           };
         });
+        const nickName = item.snapshot.createdBy?.nickname || item.execution?.context?.data.createdBy?.nickname;
         return {
           ...item,
-          title: `${item.snapshot.createdBy.nickname}的${categoryTitle}`,
+          title: `${nickName}的${categoryTitle}`,
           categoryTitle: categoryTitle,
           statusTitle: t(statusType.label),
           statusColor: statusType.color,
-          reason: summary,
+          reason: summary || [],
           priorityTitle: priorityType.label,
           priorityColor: priorityType.color,
         };
@@ -144,9 +142,10 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
         );
         const statusType = ExecutionStatusOptions.find((value) => value.value === item.status);
         const categoryTitle = item.workflow.title.replace('审批流:', '');
+        const nickName = item.execution?.context?.data?.createdBy?.nickname;
         return {
           ...item,
-          title: `${item.user?.nickname}的${categoryTitle}`,
+          title: `${nickName}的${categoryTitle}`,
           categoryTitle: categoryTitle,
           statusTitle: t(statusType.label),
           statusColor: statusType.color,
@@ -156,6 +155,68 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
           priorityColor: priorityType.color,
         };
       });
+      const filterResult = result.filter((value) => value.title.includes(input));
+
+      filterResult.sort((a, b) => {
+        return Date.parse(b.createdAt) - Date.parse(a.createdAt);
+      });
+      setData(filterResult);
+    })
+    .catch(() => {
+      console.error;
+    });
+};
+
+export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData, params, filter) => {
+  api
+    .request({
+      url: 'workflowNotice:listCentralized',
+      params: {
+        pageSize: 9999,
+        filter: { ...params, ...filter },
+        appends: [
+          'user.id',
+          'user.nickname',
+          'node.id',
+          'node.title',
+          'job.id',
+          'job.status',
+          'job.result',
+          'workflow.id',
+          'workflow.title',
+          'workflow.enabled',
+          'execution.id',
+          'execution.status',
+        ],
+      },
+    })
+    .then((res) => {
+      const result = res.data?.data.map((item) => {
+        const priorityType = ApprovalPriorityType.find(
+          (priorityItem) => priorityItem.value === item.snapshot?.priority,
+        );
+        const statusType = approvalStatusOptions.find((value) => value.value === item.status);
+        const categoryTitle = item.workflow.title.replace('审批流:', '');
+        const collectionName = item.collectionName;
+        const summary = Object.entries(item.summary).map(([key, value]) => {
+          const field = cm.getCollectionField(`${collectionName}.${key}`);
+          return {
+            label: compile(field?.uiSchema?.title || key),
+            value: (Object.prototype.toString.call(value) === '[object Object]' ? value?.['name'] : value) || '',
+          };
+        });
+        return {
+          ...item,
+          title: `${item.user?.nickname}的${categoryTitle}`,
+          categoryTitle: categoryTitle,
+          statusTitle: t(statusType.label),
+          statusColor: statusType.color,
+          reason: summary,
+          priorityTitle: priorityType.label,
+          priorityColor: priorityType.color,
+        };
+      });
+
       const filterResult = result.filter((value) => value.title.includes(input));
 
       filterResult.sort((a, b) => {

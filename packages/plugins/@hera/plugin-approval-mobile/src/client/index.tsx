@@ -19,12 +19,8 @@ export class PluginApprovalMobileClient extends Plugin {
       Component: 'ViewActionUserInitiationsContent',
     });
     this.app.router.add('mobile.approval.detailspage', {
-      path: '/mobile/:name/:id/:category/detailspage',
-      Component: 'ViewActionTodosContent',
-    });
-    this.app.router.add('mobile.approval.userJobspage', {
-      path: '/mobile/:name/:id/userJobspage',
-      Component: 'ViewTodosUserJobsContent',
+      path: '/mobile/:name/:type/:id/:category/detailspage',
+      Component: 'ViewTodosDetailsContent',
     });
   }
 }

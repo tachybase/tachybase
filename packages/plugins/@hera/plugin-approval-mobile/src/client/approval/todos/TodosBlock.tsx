@@ -9,6 +9,7 @@ import '../style/style.css';
 import { CollectionApprovals } from '../collection/Approvals.collection';
 import { CollectionApprovalTodos } from '../collection/ApprovalTodos';
 import { CollectionFlowNodes } from '../collection/FlowNodes.collection';
+import { CollectionWorkflowNotice } from '../collection/notice.collection';
 import { nodeCollection, todoCollection, workflowCollection } from '../collection/UserJobs.collection';
 import { CollectionWorkflows } from '../collection/Workflows.collection';
 import { useTranslation } from '../locale';
@@ -34,6 +35,7 @@ export const TodosBlock = observer((props) => {
         nodeCollection,
         workflowCollection,
         todoCollection,
+        CollectionWorkflowNotice,
       ]}
     >
       <BlockItem>
