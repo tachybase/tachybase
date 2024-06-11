@@ -9,11 +9,12 @@ import { getSSKey, TokenConfigurationResourceKey, useMapConfiguration } from '..
 
 interface BaseConfigurationProps {
   type: 'feishu';
+  children: React.ReactNode;
 }
 
 export const TokenTypes = [{ label: '飞书', value: 'feishu' }];
 
-const BaseConfiguration: React.FC<BaseConfigurationProps> = ({ type, children }) => {
+const BaseConfiguration = ({ type, children }: BaseConfigurationProps) => {
   const [isDisabled, disableAction] = useBoolean(false);
   const apiClient = useAPIClient();
   const [form] = Form.useForm();

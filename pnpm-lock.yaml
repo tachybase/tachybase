@@ -173,6 +173,13 @@ importers:
       sequelize:
         specifier: ^6.26.0
         version: 6.35.2
+    devDependencies:
+      '@types/koa':
+        specifier: ^2.15.0
+        version: 2.15.0
+      '@types/lodash':
+        specifier: ^4.17.5
+        version: 4.17.5
 
   packages/core/app:
     dependencies:
@@ -12179,23 +12186,23 @@ packages:
   /@types/koa-bodyparser@4.3.12:
     resolution: {integrity: sha512-hKMmRMVP889gPIdLZmmtou/BijaU1tHPyMNmcK7FAHAdATnRcGQQy78EqTTxLH1D4FTsrxIzklAQCso9oGoebQ==}
     dependencies:
-      '@types/koa': 2.13.12
+      '@types/koa': 2.15.0
 
   /@types/koa-compose@3.2.8:
     resolution: {integrity: sha512-4Olc63RY+MKvxMwVknCUDhRQX1pFQoBZ/lXcRLP69PQkEpze/0cr8LNqJQe5NFb/b19DWi2a5bTi2VAlQzhJuA==}
     dependencies:
-      '@types/koa': 2.13.12
+      '@types/koa': 2.15.0
 
   /@types/koa-multer@1.0.4:
     resolution: {integrity: sha512-Aty7k5W/bVgvCtyc7iwzjP1QXp1CPsQE3klmIEVBphK2bthjJjUpgkvFNChckA8DPxaatzFmnotWZnXLAAnLog==}
     dependencies:
-      '@types/koa': 2.13.12
+      '@types/koa': 2.15.0
     dev: true
 
   /@types/koa-send@4.1.6:
     resolution: {integrity: sha512-vgnNGoOJkx7FrF0Jl6rbK1f8bBecqAchKpXtKuXzqIEdXTDO6dsSTjr+eZ5m7ltSjH4K/E7auNJEQCAd0McUPA==}
     dependencies:
-      '@types/koa': 2.13.12
+      '@types/koa': 2.15.0
     dev: false
 
   /@types/koa@2.13.12:
@@ -12210,10 +12217,22 @@ packages:
       '@types/koa-compose': 3.2.8
       '@types/node': 20.12.8
 
+  /@types/koa@2.15.0:
+    resolution: {integrity: sha512-7QFsywoE5URbuVnG3loe03QXuGajrnotr3gQkXcEBShORai23MePfFYdhz90FEtBBpkyIYQbVD+evKtloCgX3g==}
+    dependencies:
+      '@types/accepts': 1.3.7
+      '@types/content-disposition': 0.5.8
+      '@types/cookies': 0.7.10
+      '@types/http-assert': 1.5.5
+      '@types/http-errors': 2.0.4
+      '@types/keygrip': 1.0.6
+      '@types/koa-compose': 3.2.8
+      '@types/node': 20.12.8
+
   /@types/koa__cors@5.0.0:
     resolution: {integrity: sha512-LCk/n25Obq5qlernGOK/2LUwa/2YJb2lxHUkkvYFDOpLXlVI6tKcdfCHRBQnOY4LwH6el5WOLs6PD/a8Uzau6g==}
     dependencies:
-      '@types/koa': 2.13.12
+      '@types/koa': 2.15.0
     dev: true
 
   /@types/linkify-it@3.0.5:
@@ -12225,6 +12244,10 @@ packages:
 
   /@types/lodash@4.17.4:
     resolution: {integrity: sha512-wYCP26ZLxaT3R39kiN2+HcJ4kTd3U1waI/cY7ivWYqFP6pW3ZNpvi6Wd6PHZx7T/t8z0vlkXMg3QYLa7DZ/IJQ==}
+    dev: true
+
+  /@types/lodash@4.17.5:
+    resolution: {integrity: sha512-MBIOHVZqVqgfro1euRDWX7OO0fBVUUMrN6Pwm8LQsz8cWhEpihlvR70ENj3f40j58TNxZaWv2ndSkInykNBBJw==}
     dev: true
 
   /@types/luxon@3.3.7:

@@ -4,6 +4,7 @@ import { tval } from '../locale';
 import { Features } from './Features';
 import { LinkManager } from './LinkManager';
 import { Configuration } from './TokenConfiguration';
+import { WebhookManager } from './WebhookManager';
 
 export * from './LinkManager';
 export * from './TokenConfiguration';
@@ -29,6 +30,11 @@ export class PluginSettingsHelper {
       title: tval('Link manager'),
       icon: 'ShareAltOutlined',
       Component: LinkManager,
+    });
+    this.app.pluginSettingsManager.add('hera.webhook', {
+      title: tval('Webhook manager'),
+      icon: 'ShareAltOutlined',
+      Component: WebhookManager,
     });
   }
 }
