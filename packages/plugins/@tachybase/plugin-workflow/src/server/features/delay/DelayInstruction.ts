@@ -1,4 +1,4 @@
-import WorkflowPlugin, { Processor, Instruction, JOB_STATUS, JobModel, EXECUTION_STATUS } from '../..';
+import WorkflowPlugin, { EXECUTION_STATUS, Instruction, JOB_STATUS, JobModel, Processor } from '../..';
 
 type ValueOf<T> = T[keyof T];
 

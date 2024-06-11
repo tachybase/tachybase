@@ -1,7 +1,7 @@
-import { TableOutlined } from '@ant-design/icons';
 import React, { FC } from 'react';
-
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
+
+import { TableOutlined } from '@ant-design/icons';
 
 export const WorkflowTodoBlockInitializer: FC<any> = () => {
   const itemConfig = useSchemaInitializerItem();

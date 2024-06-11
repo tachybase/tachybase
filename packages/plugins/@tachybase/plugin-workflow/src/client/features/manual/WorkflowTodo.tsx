@@ -1,32 +1,33 @@
-import { observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { Space, Spin, Tag } from 'antd';
-import { dayjs } from '@tachybase/utils/client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-
-import { css, useCompile, usePlugin } from '@tachybase/client';
-
 import {
+  css,
+  ExtendCollectionsProvider,
   SchemaComponent,
   SchemaComponentContext,
   TableBlockProvider,
-  useAPIClient,
   useActionContext,
+  useAPIClient,
+  useCompile,
   useCurrentUserContext,
   useFormBlockContext,
+  usePlugin,
   useRecord,
   useTableBlockContext,
-  ExtendCollectionsProvider,
 } from '@tachybase/client';
+import { observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { dayjs } from '@tachybase/utils/client';
+
+import { Space, Spin, Tag } from 'antd';
+
 import WorkflowPlugin, {
+  DetailsBlockProvider,
   FlowContext,
   linkNodes,
   useAvailableUpstreams,
   useFlowContext,
-  DetailsBlockProvider,
 } from '../..';
 import { JobStatusOptions, JobStatusOptionsMap } from '../../constants';
-
-import { NAMESPACE, lang } from '../../locale';
+import { lang, NAMESPACE } from '../../locale';
 import { FormBlockProvider } from './instruction/FormBlockProvider';
 import { ManualFormType, manualFormTypes } from './instruction/SchemaConfig';
 

@@ -1,10 +1,12 @@
 import { Evaluator, evaluators } from '@tachybase/evaluators';
 import { parse } from '@tachybase/utils';
-import { Instruction } from '.';
-import type Processor from '../Processor';
-import { JOB_STATUS } from '../constants';
-import type { FlowNodeModel } from '../types';
+
 import { cloneDeep, get } from 'lodash';
+
+import { Instruction } from '.';
+import { JOB_STATUS } from '../constants';
+import type Processor from '../Processor';
+import type { FlowNodeModel } from '../types';
 
 export interface CalculationConfig {
   engine?: string;

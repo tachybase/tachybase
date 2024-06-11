@@ -1,31 +1,29 @@
 import React, { useContext, useMemo, useState } from 'react';
-
-import { ArrayTable } from '@tachybase/components';
-import { Field, createForm } from '@tachybase/schema';
-import { useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { cloneDeep, pick, set } from 'lodash';
-
 import {
   ActionContextProvider,
   CollectionProvider_deprecated,
   CompatibleSchemaInitializer,
   FormBlockContext,
+  gridRowColWrap,
   RecordProvider,
   SchemaComponent,
   SchemaInitializerItem,
-  SchemaInitializerItemType,
   SchemaInitializerItems,
-  gridRowColWrap,
-  useCollectionManager_deprecated,
+  SchemaInitializerItemType,
   useCollection_deprecated,
+  useCollectionManager_deprecated,
   useRecord,
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@tachybase/client';
-import { JOB_STATUS } from '../../../..';
+import { ArrayTable } from '@tachybase/components';
+import { createForm, Field, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { merge, uid } from '@tachybase/utils/client';
 
-import { NAMESPACE, lang } from '../../../../locale';
+import { cloneDeep, pick, set } from 'lodash';
+
+import { JOB_STATUS } from '../../../..';
+import { lang, NAMESPACE } from '../../../../locale';
 import { ManualFormType } from '../SchemaConfig';
 import { findSchema } from '../utils';
 

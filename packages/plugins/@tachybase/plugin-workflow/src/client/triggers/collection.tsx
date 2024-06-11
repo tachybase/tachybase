@@ -4,13 +4,14 @@ import {
   useCollectionManager_deprecated,
   useCompile,
 } from '@tachybase/client';
+
+import { Trigger } from '.';
 import { CollectionBlockInitializer } from '../components/CollectionBlockInitializer';
 import { FieldsSelect } from '../components/FieldsSelect';
-import { NAMESPACE, lang } from '../locale';
+import { useWorkflowAnyExecuted } from '../hooks';
+import { lang, NAMESPACE } from '../locale';
 import { appends, collection, filter } from '../schemas/collection';
 import { getCollectionFieldOptions } from '../variable';
-import { useWorkflowAnyExecuted } from '../hooks';
-import { Trigger } from '.';
 
 const COLLECTION_TRIGGER_MODE = {
   CREATED: 1,

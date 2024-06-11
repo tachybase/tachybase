@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
-import WorkflowPlugin from '../..';
 
+import WorkflowPlugin from '../..';
 import ParallelInstruction from './ParallelInstruction';
 
 export class PluginParallel extends Plugin {

@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-
 import {
   GeneralSchemaDesigner,
   SchemaSettingsBlockTitleItem,
@@ -13,6 +12,7 @@ import {
 } from '@tachybase/client';
 
 import _ from 'lodash';
+
 import { NAMESPACE } from '../../../../locale';
 import { FormBlockInitializer } from '../FormBlockInitializer';
 import { ManualFormType } from '../SchemaConfig';

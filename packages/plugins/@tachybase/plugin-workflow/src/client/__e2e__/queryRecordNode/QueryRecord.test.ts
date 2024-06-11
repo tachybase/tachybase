@@ -1,17 +1,18 @@
-import { faker } from '@faker-js/faker';
 import {
-  CollectionTriggerNode,
-  QueryRecordNode,
   apiCreateWorkflow,
   apiDeleteWorkflow,
   apiGetWorkflow,
   apiGetWorkflowNodeExecutions,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
+  CollectionTriggerNode,
   generalWithNoRelationalFields,
+  QueryRecordNode,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
 import { dayjs } from '@tachybase/utils';
+
+import { faker } from '@faker-js/faker';
 
 test('Collection event add data trigger, no filter no sort query common table 1 record', async ({
   page,

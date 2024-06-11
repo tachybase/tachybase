@@ -25,8 +25,6 @@ import { PluginHeraVersion } from './features/hera-version';
 import { PluginOutbound } from './features/outbound';
 import { PluginPageStyle } from './features/page-style';
 import { PluginPDF } from './features/pdf';
-import { PluginWorkflowBulk } from './features/workflow-bulk';
-import { PluginWorkflowInterceptor } from './features/workflow-interceptor';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
 import {
@@ -82,8 +80,6 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginHeraVersion);
     await this.app.pm.add(PluginContextMenu);
     await this.app.pm.add(PluginAssistant);
-    await this.app.pm.add(PluginWorkflowBulk);
-    await this.app.pm.add(PluginWorkflowInterceptor);
     await this.app.pm.add(PluginPDF);
     await this.app.pm.add(PluginExtendedFilterForm);
     await this.app.pm.add(PluginOutbound);

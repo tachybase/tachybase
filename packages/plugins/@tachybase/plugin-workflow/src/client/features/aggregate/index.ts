@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
-import WorkflowPlugin from '../..';
 
+import WorkflowPlugin from '../..';
 import AggregateInstruction from './AggregateInstruction';
 
 export class PluginAggregate extends Plugin {

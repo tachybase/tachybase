@@ -1,7 +1,4 @@
-import { faker } from '@faker-js/faker';
 import {
-  CollectionTriggerNode,
-  UpdateRecordNode,
   apiCreateWorkflow,
   apiDeleteWorkflow,
   apiGetList,
@@ -9,10 +6,14 @@ import {
   apiGetWorkflowNodeExecutions,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
+  CollectionTriggerNode,
   generalWithNoRelationalFields,
+  UpdateRecordNode,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
 import { dayjs } from '@tachybase/utils';
+
+import { faker } from '@faker-js/faker';
 
 test('Collection event add data trigger, filter single line text field not empty, common table single line text field data, set single line text field constant data', async ({
   page,

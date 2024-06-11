@@ -1,9 +1,9 @@
 import Database from '@tachybase/database';
-import { Application } from '@tachybase/server';
+import { EXECUTION_STATUS } from '@tachybase/plugin-workflow';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
+import { Application } from '@tachybase/server';
 
 import Plugin from '..';
-import { EXECUTION_STATUS } from '@tachybase/plugin-workflow';
 
 describe('workflow > instructions > aggregate', () => {
   let app: Application;

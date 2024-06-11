@@ -2,7 +2,6 @@ import { Transactionable } from '@tachybase/database';
 
 import type Plugin from '../Plugin';
 import type Processor from '../Processor';
-
 import type { FlowNodeModel } from '../types';
 
 export interface IJob {

@@ -1,17 +1,18 @@
-import { faker } from '@faker-js/faker';
 import {
-  CollectionTriggerNode,
-  ManualNode,
   apiCreateWorkflow,
   apiDeleteWorkflow,
+  apiGetDataSourceCount,
   apiGetWorkflow,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
+  CollectionTriggerNode,
   generalWithNoRelationalFields,
-  apiGetDataSourceCount,
+  ManualNode,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
 import { dayjs } from '@tachybase/utils';
+
+import { faker } from '@faker-js/faker';
 
 test('filter task node', async ({ page, mockPage, mockCollections, mockRecords }) => {
   //数据表后缀标识

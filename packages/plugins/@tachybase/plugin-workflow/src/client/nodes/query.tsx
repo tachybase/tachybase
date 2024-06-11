@@ -1,5 +1,3 @@
-import { ArrayItems } from '@tachybase/components';
-
 import {
   SchemaComponentContext,
   SchemaInitializerItemType,
@@ -7,14 +5,15 @@ import {
   useCollectionManager_deprecated,
   useCompile,
 } from '@tachybase/client';
-
+import { ArrayItems } from '@tachybase/components';
 import { useForm } from '@tachybase/schema';
+
+import { Instruction } from '.';
 import { CollectionBlockInitializer } from '../components/CollectionBlockInitializer';
 import { FilterDynamicComponent } from '../components/FilterDynamicComponent';
 import { NAMESPACE } from '../locale';
 import { appends, collection, filter, pagination, sort } from '../schemas/collection';
-import { WorkflowVariableInput, getCollectionFieldOptions } from '../variable';
-import { Instruction } from '.';
+import { getCollectionFieldOptions, WorkflowVariableInput } from '../variable';
 
 export default class extends Instruction {
   title = `{{t("Query record", { ns: "${NAMESPACE}" })}}`;

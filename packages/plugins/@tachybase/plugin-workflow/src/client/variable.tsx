@@ -1,11 +1,10 @@
 import React from 'react';
+import { parseCollectionName, useCompile, usePlugin, Variable } from '@tachybase/client';
 
-import { Variable, parseCollectionName, useCompile, usePlugin } from '@tachybase/client';
-
-import { useFlowContext } from './FlowContext';
-import { NAMESPACE, lang } from './locale';
-import { useAvailableUpstreams, useNodeContext, useUpstreamScopes } from './nodes';
 import WorkflowPlugin from '.';
+import { useFlowContext } from './FlowContext';
+import { lang, NAMESPACE } from './locale';
+import { useAvailableUpstreams, useNodeContext, useUpstreamScopes } from './nodes';
 
 export type VariableOption = {
   key?: string;

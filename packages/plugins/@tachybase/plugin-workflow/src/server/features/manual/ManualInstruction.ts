@@ -1,6 +1,6 @@
 import { Registry } from '@tachybase/utils';
-import WorkflowPlugin, { Processor, JOB_STATUS, Instruction } from '../..';
 
+import WorkflowPlugin, { Instruction, JOB_STATUS, Processor } from '../..';
 import initFormTypes, { FormHandler } from './forms';
 
 type FormType = {

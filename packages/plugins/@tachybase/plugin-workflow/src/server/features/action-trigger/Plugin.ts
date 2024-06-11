@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/server';
-import WorkflowPlugin from '../..';
 
+import WorkflowPlugin from '../..';
 import ActionTrigger from './ActionTrigger';
 
 export class PluginActionTrigger extends Plugin {

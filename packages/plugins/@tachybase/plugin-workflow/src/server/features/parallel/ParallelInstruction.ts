@@ -1,4 +1,4 @@
-import { Processor, Instruction, JOB_STATUS, FlowNodeModel, JobModel } from '../..';
+import { FlowNodeModel, Instruction, JOB_STATUS, JobModel, Processor } from '../..';
 
 export const PARALLEL_MODE = {
   ALL: 'all',

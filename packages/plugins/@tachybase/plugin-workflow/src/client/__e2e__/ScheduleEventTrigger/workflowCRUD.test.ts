@@ -1,11 +1,12 @@
-import { faker } from '@faker-js/faker';
 import {
-  CreateWorkFlow,
-  EditWorkFlow,
   apiCreateWorkflow,
   apiDeleteWorkflow,
+  CreateWorkFlow,
+  EditWorkFlow,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
+
+import { faker } from '@faker-js/faker';
 
 test.describe('Filter', () => {
   test('filter workflow name', async ({ page }) => {

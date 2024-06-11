@@ -1,6 +1,4 @@
 import React from 'react';
-import { useFieldSchema } from '@tachybase/schema';
-
 import {
   GeneralSchemaDesigner,
   SchemaSettingsBlockTitleItem,
@@ -8,6 +6,7 @@ import {
   SchemaSettingsRemove,
   useCompile,
 } from '@tachybase/client';
+import { useFieldSchema } from '@tachybase/schema';
 
 export function SimpleDesigner() {
   const schema = useFieldSchema();

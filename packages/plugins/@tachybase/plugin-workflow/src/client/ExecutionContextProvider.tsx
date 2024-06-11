@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { SchemaComponentOptions, usePlugin } from '@tachybase/client';
 
 import PluginWorkflowClient, { FlowContext } from '.';

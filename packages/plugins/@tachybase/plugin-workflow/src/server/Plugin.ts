@@ -13,6 +13,7 @@ import { PluginAggregate } from './features/aggregate/Plugin';
 import PluginWorkflowAPIRegularServer from './features/api-regular/plugin';
 import { PluginDelay } from './features/delay/Plugin';
 import { PluginDynamicCalculation } from './features/dynamic-calculation/Plugin';
+import { PluginInterception } from './features/interception';
 import PluginWorkflowJSParseServer from './features/js-parse/plugin';
 import PluginWorkflowJSONParseServer from './features/json-parse/plugin';
 import { PluginLoop } from './features/loop/Plugin';
@@ -20,6 +21,7 @@ import { PluginManual } from './features/manual/Plugin';
 import { PluginParallel } from './features/parallel/Plugin';
 import { PluginRequest } from './features/request/Plugin';
 import { PluginSql } from './features/sql/Plugin';
+import { PluginVariables } from './features/variables';
 import initFunctions, { CustomFunction } from './functions';
 import { Instruction, InstructionInterface } from './instructions';
 import CalculationInstruction from './instructions/CalculationInstruction';
@@ -68,6 +70,8 @@ export default class PluginWorkflowServer extends Plugin {
   pluginJSONParse: PluginWorkflowJSONParseServer;
   pluginJSParse: PluginWorkflowJSParseServer;
   pluginAPIRegular: PluginWorkflowAPIRegularServer;
+  pluginInterception: PluginInterception;
+  pluginVariables: PluginVariables;
 
   constructor(app: Application, options?: PluginOptions) {
     super(app, options);
@@ -83,6 +87,8 @@ export default class PluginWorkflowServer extends Plugin {
     this.pluginJSONParse = new PluginWorkflowJSONParseServer(app, options);
     this.pluginJSParse = new PluginWorkflowJSParseServer(app, options);
     this.pluginAPIRegular = new PluginWorkflowAPIRegularServer(app, options);
+    this.pluginInterception = new PluginInterception(app, options);
+    this.pluginVariables = new PluginVariables(app, options);
   }
 
   getLogger(workflowId: ID): Logger {
@@ -309,6 +315,8 @@ export default class PluginWorkflowServer extends Plugin {
     await this.pluginJSONParse.load();
     await this.pluginJSParse.load();
     await this.pluginAPIRegular.load();
+    await this.pluginInterception.load();
+    await this.pluginVariables.load();
   }
 
   toggle(workflow: WorkflowModel, enable?: boolean) {

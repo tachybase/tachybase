@@ -2,8 +2,8 @@ import { MockDatabase } from '@tachybase/database';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
 import { MockServer } from '@tachybase/test';
 
-import type { WorkflowModel as WorkflowModelType } from '../../types';
 import { EXECUTION_STATUS } from '../../constants';
+import type { WorkflowModel as WorkflowModelType } from '../../types';
 
 describe('workflow > instructions > update', () => {
   let app: MockServer;

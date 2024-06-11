@@ -1,6 +1,6 @@
 import { Instruction } from '.';
-import { NAMESPACE } from '../locale';
 import { JOB_STATUS } from '../constants';
+import { NAMESPACE } from '../locale';
 
 export default class extends Instruction {
   title = `{{t("End process", { ns: "${NAMESPACE}" })}}`;

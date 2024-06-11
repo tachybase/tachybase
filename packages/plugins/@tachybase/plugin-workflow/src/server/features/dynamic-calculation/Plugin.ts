@@ -1,8 +1,8 @@
 import { Plugin } from '@tachybase/server';
-import WorkflowPlugin from '../..';
 
-import { ExpressionField } from './expression-field';
+import WorkflowPlugin from '../..';
 import { DynamicCalculation } from './DynamicCalculation';
+import { ExpressionField } from './expression-field';
 
 export class PluginDynamicCalculation extends Plugin {
   async load() {

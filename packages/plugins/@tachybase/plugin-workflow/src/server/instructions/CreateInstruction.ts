@@ -1,10 +1,10 @@
 import { parseCollectionName } from '@tachybase/data-source-manager';
 
+import { Instruction } from '.';
 import { JOB_STATUS } from '../constants';
-import { toJSON } from '../utils';
 import type Processor from '../Processor';
 import type { FlowNodeModel } from '../types';
-import { Instruction } from '.';
+import { toJSON } from '../utils';
 
 export class CreateInstruction extends Instruction {
   async run(node: FlowNodeModel, input, processor: Processor) {

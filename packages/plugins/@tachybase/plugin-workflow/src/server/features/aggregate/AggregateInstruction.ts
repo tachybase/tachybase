@@ -1,6 +1,7 @@
 import { parseCollectionName } from '@tachybase/data-source-manager';
 import { DataTypes } from '@tachybase/database';
-import { Processor, Instruction, JOB_STATUS, FlowNodeModel } from '../..';
+
+import { FlowNodeModel, Instruction, JOB_STATUS, Processor } from '../..';
 
 const aggregators = {
   count: 'count',

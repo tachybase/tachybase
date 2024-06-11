@@ -1,9 +1,10 @@
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { FormLayout } from '@tachybase/components';
-import { Form, Radio, Tooltip } from 'antd';
 import React from 'react';
-
 import { css, FormItem } from '@tachybase/client';
+import { FormLayout } from '@tachybase/components';
+
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Form, Radio, Tooltip } from 'antd';
+
 import { lang } from '../../../locale';
 
 function parseMode(v) {

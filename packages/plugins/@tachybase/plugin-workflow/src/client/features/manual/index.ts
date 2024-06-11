@@ -1,18 +1,17 @@
 import { Plugin } from '@tachybase/client';
+
 import WorkflowPlugin from '../..';
-
-import Manual from './instruction';
-
 import { NAMESPACE } from '../../locale';
-import { WorkflowTodo } from './WorkflowTodo';
-import { WorkflowTodoBlockInitializer } from './WorkflowTodoBlockInitializer';
+import Manual from './instruction';
+import { addCustomFormField, addCustomFormField_deprecated } from './instruction/forms/custom';
 import {
   addActionButton,
   addActionButton_deprecated,
   addBlockButton,
   addBlockButton_deprecated,
 } from './instruction/SchemaConfig';
-import { addCustomFormField, addCustomFormField_deprecated } from './instruction/forms/custom';
+import { WorkflowTodo } from './WorkflowTodo';
+import { WorkflowTodoBlockInitializer } from './WorkflowTodoBlockInitializer';
 
 export class PluginManual extends Plugin {
   async load() {

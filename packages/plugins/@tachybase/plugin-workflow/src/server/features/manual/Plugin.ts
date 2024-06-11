@@ -1,10 +1,9 @@
-import { Plugin } from '@tachybase/server';
 import actions from '@tachybase/actions';
 import { HandlerType } from '@tachybase/resourcer';
+import { Plugin } from '@tachybase/server';
+
 import WorkflowPlugin, { JOB_STATUS } from '../..';
-
 import { submit } from './actions';
-
 import ManualInstruction from './ManualInstruction';
 
 export class PluginManual extends Plugin {

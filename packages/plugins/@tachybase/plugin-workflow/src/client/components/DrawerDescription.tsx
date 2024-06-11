@@ -1,6 +1,7 @@
-import { createStyles, cx } from '@tachybase/client';
-import { Tag } from 'antd';
 import React from 'react';
+import { createStyles, cx } from '@tachybase/client';
+
+import { Tag } from 'antd';
 
 const useStyles = createStyles(({ css, token }) => {
   return {

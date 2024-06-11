@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   CollectionProvider_deprecated,
   SchemaInitializerItem,
@@ -11,7 +10,6 @@ import {
 } from '@tachybase/client';
 
 import { JOB_STATUS, traverseSchema } from '../../..';
-
 import { NAMESPACE } from '../../../locale';
 import { createManualFormBlockUISchema } from './createManualFormBlockUISchema';
 

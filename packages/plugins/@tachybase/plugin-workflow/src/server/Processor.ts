@@ -2,9 +2,10 @@ import { Model, Transaction, Transactionable } from '@tachybase/database';
 import { appendArrayColumn } from '@tachybase/evaluators';
 import { Logger } from '@tachybase/logger';
 import { parse } from '@tachybase/utils';
-import type Plugin from './Plugin';
+
 import { EXECUTION_STATUS, JOB_STATUS } from './constants';
 import { Runner } from './instructions';
+import type Plugin from './Plugin';
 import type { ExecutionModel, FlowNodeModel, JobModel } from './types';
 
 export interface ProcessorOptions extends Transactionable {
