@@ -535,21 +535,20 @@ export class SettlementService {
                 rule.conversion_logic_id !== ConversionLogics.ProductWeight
               ) {
                 settlementAbout.records?.forEach((item) => {
-                  if (
-                    dayjs(item.date).isBetween(ruleItem.start_date, ruleItem.end_date, 'day', '[]') &&
-                    dayjs(item.date).isSameOrAfter(settlementAbout.start_date)
-                  ) {
+                  if (dayjs(item.date).isBetween(settlementAbout.start_date, settlementAbout.end_date, 'day', '[]')) {
                     const feeItem = item?.record_items.filter(
                       (value) => value && value.product_id === rule.fee_product_id,
                     );
                     if (feeItem.length) {
                       feeItem.forEach((value) => {
                         if (category === '其他') {
-                          data.movement = item.movement;
-                          data.count = value.count * Number(item.movement === '-1' ? '1' : '-1');
-                          data.date = item.date;
-                          data.amount = data.count * data.unit_price;
-                          createFeesDatas.push(data);
+                          const otherData = { ...data };
+                          otherData.movement = item.movement;
+                          otherData.count = value.count * Number(item.movement === '-1' ? '1' : '-1');
+                          otherData.date = dayjs(item.date).endOf('day');
+                          otherData.amount = otherData.count * otherData.unit_price;
+                          otherData.item_count = value.count;
+                          createFeesDatas.push(otherData);
                         } else {
                           data.count = data.count + value.count;
                           conversion = true;
