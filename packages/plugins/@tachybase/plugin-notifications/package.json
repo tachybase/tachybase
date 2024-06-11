@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-notifications",
-  "version": "0.21.47",
+  "version": "0.21.48",
   "description": "",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",

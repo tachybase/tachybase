@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-verification",
   "displayName": "Verification",
-  "version": "0.21.47",
+  "version": "0.21.48",
   "description": "verification setting.",
   "keywords": [
     "Authentication"
