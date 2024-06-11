@@ -1,4 +1,5 @@
 import { Transactionable } from 'sequelize';
+
 import Trigger from '..';
 import type Plugin from '../../Plugin';
 import { WorkflowModel } from '../../types';

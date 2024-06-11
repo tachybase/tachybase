@@ -1,16 +1,17 @@
-import { faker } from '@faker-js/faker';
 import {
-  ScheduleTriggerNode,
-  WorkflowListRecords,
   apiCreateWorkflow,
   apiDeleteWorkflow,
   apiGetWorkflow,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
   generalWithNoRelationalFields,
+  ScheduleTriggerNode,
+  WorkflowListRecords,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
 import { dayjs } from '@tachybase/utils';
+
+import { faker } from '@faker-js/faker';
 
 test.describe('Configuration page to configure the Trigger node', () => {
   test('Triggered one minute after the current time of the customized time', async ({

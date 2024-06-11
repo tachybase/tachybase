@@ -1,7 +1,7 @@
 import React from 'react';
-import { CloseOutlined } from '@ant-design/icons';
-
 import { css, cx } from '@tachybase/client';
+
+import { CloseOutlined } from '@ant-design/icons';
 
 import { AddButton } from './AddButton';
 import { useGetAriaLabelOfAddButton } from './hooks/useGetAriaLabelOfAddButton';

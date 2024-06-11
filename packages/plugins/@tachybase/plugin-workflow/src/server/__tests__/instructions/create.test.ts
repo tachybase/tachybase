@@ -1,6 +1,6 @@
-import { Application } from '@tachybase/server';
 import Database from '@tachybase/database';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
+import { Application } from '@tachybase/server';
 
 describe('workflow > instructions > create', () => {
   let app: Application;

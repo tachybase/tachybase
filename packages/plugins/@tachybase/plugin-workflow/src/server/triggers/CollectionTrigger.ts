@@ -1,8 +1,9 @@
+import { ICollection, parseCollectionName } from '@tachybase/data-source-manager';
 import { Model, Transactionable } from '@tachybase/database';
+
 import Trigger from '.';
-import { toJSON } from '../utils';
 import type { WorkflowModel } from '../types';
-import { parseCollectionName, ICollection } from '@tachybase/data-source-manager';
+import { toJSON } from '../utils';
 
 export interface CollectionChangeTriggerConfig {
   collection: string;

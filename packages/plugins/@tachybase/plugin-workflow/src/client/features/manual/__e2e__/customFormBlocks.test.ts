@@ -1,17 +1,18 @@
-import { faker } from '@faker-js/faker';
 import {
-  CollectionTriggerNode,
-  ManualNode,
   apiCreateWorkflow,
   apiDeleteWorkflow,
   apiGetWorkflow,
   apiGetWorkflowNodeExecutions,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
+  CollectionTriggerNode,
   generalWithNoRelationalFields,
+  ManualNode,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
 import { dayjs } from '@tachybase/utils';
+
+import { faker } from '@faker-js/faker';
 
 test.describe('block configuration', () => {});
 

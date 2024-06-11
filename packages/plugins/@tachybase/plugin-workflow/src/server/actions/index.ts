@@ -1,6 +1,6 @@
-import * as workflows from './workflows';
-import * as nodes from './nodes';
 import * as executions from './executions';
+import * as nodes from './nodes';
+import * as workflows from './workflows';
 
 function make(name, mod) {
   return Object.keys(mod).reduce(

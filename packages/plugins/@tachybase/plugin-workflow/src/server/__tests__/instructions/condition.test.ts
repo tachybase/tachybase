@@ -1,6 +1,7 @@
 import Database from '@tachybase/database';
-import { Application } from '@tachybase/server';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
+import { Application } from '@tachybase/server';
+
 import { EXECUTION_STATUS, JOB_STATUS } from '../../constants';
 import { BRANCH_INDEX } from '../../instructions/ConditionInstruction';
 

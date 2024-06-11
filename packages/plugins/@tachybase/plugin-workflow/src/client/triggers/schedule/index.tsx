@@ -5,12 +5,12 @@ import {
   useCompile,
 } from '@tachybase/client';
 
-import { CollectionBlockInitializer } from '../../components/CollectionBlockInitializer';
-import { NAMESPACE, lang } from '../../locale';
-import { getCollectionFieldOptions } from '../../variable';
 import { Trigger } from '..';
-import { ScheduleConfig } from './ScheduleConfig';
+import { CollectionBlockInitializer } from '../../components/CollectionBlockInitializer';
+import { lang, NAMESPACE } from '../../locale';
+import { getCollectionFieldOptions } from '../../variable';
 import { SCHEDULE_MODE } from './constants';
+import { ScheduleConfig } from './ScheduleConfig';
 
 export default class extends Trigger {
   sync = false;

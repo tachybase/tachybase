@@ -1,6 +1,6 @@
 import Instruction from '.';
-import Processor from '../Processor';
 import { JOB_STATUS } from '../constants';
+import Processor from '../Processor';
 import { FlowNodeModel } from '../types';
 
 interface Config {

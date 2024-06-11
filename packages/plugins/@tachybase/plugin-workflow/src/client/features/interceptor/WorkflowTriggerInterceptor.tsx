@@ -1,14 +1,9 @@
 import { useCollectionDataSource, useCollectionManager_deprecated, useCompile } from '@tachybase/client';
-import {
-  CheckboxGroupWithTooltip,
-  CollectionBlockInitializer,
-  FieldsSelect,
-  getCollectionFieldOptions,
-  RadioWithTooltip,
-  Trigger,
-} from '@tachybase/plugin-workflow/client';
 
+import { CheckboxGroupWithTooltip, CollectionBlockInitializer, FieldsSelect, RadioWithTooltip } from '../../components';
 import { lang, tval } from '../../locale';
+import { Trigger } from '../../triggers';
+import { getCollectionFieldOptions } from '../../variable';
 
 const enum ACTION_TYPES {
   CREATE = 'create',
@@ -96,9 +91,9 @@ export class WorkflowTriggerInterceptor extends Trigger {
   };
   scope = { useCollectionDataSource };
   components = {
-    FieldsSelect: FieldsSelect,
-    RadioWithTooltip: RadioWithTooltip,
-    CheckboxGroupWithTooltip: CheckboxGroupWithTooltip,
+    FieldsSelect,
+    RadioWithTooltip,
+    CheckboxGroupWithTooltip,
   };
   isActionTriggerable = (a, u) => {
     const { global: m } = a;

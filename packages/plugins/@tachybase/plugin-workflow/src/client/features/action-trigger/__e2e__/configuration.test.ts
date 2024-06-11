@@ -1,18 +1,19 @@
-import { faker } from '@faker-js/faker';
 import {
-  FormEventTriggerNode,
-  WorkflowListRecords,
   apiCreateRecordTriggerFormEvent,
   apiCreateWorkflow,
   apiDeleteWorkflow,
+  apiGetDataSourceCount,
   apiGetWorkflow,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
+  FormEventTriggerNode,
   generalWithNoRelationalFields,
-  apiGetDataSourceCount,
+  WorkflowListRecords,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
 import { dayjs } from '@tachybase/utils';
+
+import { faker } from '@faker-js/faker';
 
 test.describe('Configuration page to configure the Trigger node', () => {
   test('Form Submit Button Binding Workflow Add Data Trigger', async ({

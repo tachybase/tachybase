@@ -1,5 +1,3 @@
-import { useFieldSchema } from '@tachybase/schema';
-import { isValid } from '@tachybase/schema';
 import {
   AfterSuccess,
   AssignedFieldValues,
@@ -8,9 +6,10 @@ import {
   SchemaSettings,
   SecondConFirm,
   SkipValidation,
-  WorkflowConfig,
   useSchemaToolbar,
+  WorkflowConfig,
 } from '@tachybase/client';
+import { isValid, useFieldSchema } from '@tachybase/schema';
 
 export const customizeSubmitToWorkflowActionSettings = new SchemaSettings({
   name: 'actionSettings:submitToWorkflow',

@@ -1,6 +1,8 @@
-import { cx, SchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { cx, SchemaComponent } from '@tachybase/client';
+
 import { useParams } from 'react-router-dom';
+
 import useStyles from './style';
 import { WorkflowCanvas } from './WorkflowCanvas';
 

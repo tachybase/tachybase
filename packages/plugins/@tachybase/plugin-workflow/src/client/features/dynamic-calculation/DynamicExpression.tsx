@@ -1,12 +1,20 @@
-import { onFieldInputValueChange, onFormInitialValuesChange } from '@tachybase/schema';
-import { connect, mapReadPretty, observer, useField, useForm, useFormEffects } from '@tachybase/schema';
-import { Tag } from 'antd';
 import React, { useMemo, useState } from 'react';
+import { useCollectionManager_deprecated, useCompile, useRecord, Variable } from '@tachybase/client';
+import {
+  connect,
+  mapReadPretty,
+  observer,
+  onFieldInputValueChange,
+  onFormInitialValuesChange,
+  useField,
+  useForm,
+  useFormEffects,
+} from '@tachybase/schema';
+
+import { Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { useCollectionManager_deprecated, useCompile, useRecord, Variable } from '@tachybase/client';
 import { getCollectionFieldOptions } from '../..';
-
 import { NAMESPACE } from '../../locale';
 
 const InternalExpression = observer(

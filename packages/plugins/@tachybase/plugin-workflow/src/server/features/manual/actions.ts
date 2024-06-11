@@ -1,6 +1,6 @@
 import { Context, utils } from '@tachybase/actions';
-import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS } from '../..';
 
+import WorkflowPlugin, { EXECUTION_STATUS, JOB_STATUS } from '../..';
 import ManualInstruction from './ManualInstruction';
 
 export async function submit(context: Context, next) {

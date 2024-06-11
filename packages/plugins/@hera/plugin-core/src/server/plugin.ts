@@ -5,7 +5,6 @@ import Application, { InstallOptions, NoticeLevel, Plugin, type PluginOptions } 
 import { Container } from '@tachybase/utils';
 
 import { DepartmentsPlugin } from './features/departments';
-import { PluginInterception } from './features/interception';
 import CalcField from './fields/calc';
 import TstzrangeField from './fields/tstzrange';
 import { ConnectionManager } from './services/connection-manager';
@@ -15,11 +14,9 @@ import { WebControllerService as WebService } from './services/web-service';
 
 export class PluginCoreServer extends Plugin {
   pluginDepartments: DepartmentsPlugin;
-  pluginInterception: PluginInterception;
   constructor(app: Application, options?: PluginOptions) {
     super(app, options);
     this.pluginDepartments = new DepartmentsPlugin(app, options);
-    this.pluginInterception = new PluginInterception(app, options);
   }
   async afterAdd() {
     this.db.registerFieldTypes({
@@ -32,7 +29,6 @@ export class PluginCoreServer extends Plugin {
   }
   async load() {
     await this.pluginDepartments.load();
-    await this.pluginInterception.load();
     try {
       await Container.get(ConnectionManager).load();
       const fontManger = Container.get(FontManager);

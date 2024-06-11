@@ -5,6 +5,7 @@ import {
   HasManyGetAssociationsMixin,
   Model,
 } from '@tachybase/database';
+
 import ExecutionModel from './Execution';
 import FlowNodeModel from './FlowNode';
 

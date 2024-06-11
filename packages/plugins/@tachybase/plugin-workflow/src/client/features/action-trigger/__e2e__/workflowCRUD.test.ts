@@ -1,19 +1,20 @@
-import { faker } from '@faker-js/faker';
 import {
-  CreateWorkFlow,
-  EditWorkFlow,
-  FormEventTriggerNode,
-  WorkflowListRecords,
   apiCreateRecordTriggerFormEvent,
   apiCreateWorkflow,
   apiDeleteWorkflow,
   apiGetWorkflow,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
+  CreateWorkFlow,
+  EditWorkFlow,
+  FormEventTriggerNode,
   generalWithNoRelationalFields,
+  WorkflowListRecords,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
 import { dayjs } from '@tachybase/utils';
+
+import { faker } from '@faker-js/faker';
 
 test.describe('Filter', () => {
   test('filter workflow name', async ({ page }) => {

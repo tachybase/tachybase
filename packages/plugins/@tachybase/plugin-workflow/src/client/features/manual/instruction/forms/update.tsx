@@ -1,8 +1,4 @@
-import { useFieldSchema } from '@tachybase/schema';
 import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import _ from 'lodash';
-
 import {
   GeneralSchemaDesigner,
   SchemaSettingsActionModalItem,
@@ -15,12 +11,16 @@ import {
   useDesignable,
   useMenuSearch,
 } from '@tachybase/client';
+import { useFieldSchema } from '@tachybase/schema';
 
+import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
+
+import { FilterDynamicComponent } from '../../../../components';
 import { NAMESPACE } from '../../../../locale';
 import { FormBlockInitializer } from '../FormBlockInitializer';
 import { ManualFormType } from '../SchemaConfig';
 import { findSchema } from '../utils';
-import { FilterDynamicComponent } from '../../../../components';
 
 function UpdateFormDesigner() {
   const { name, title } = useCollection_deprecated();

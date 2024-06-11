@@ -1,18 +1,19 @@
-import { faker } from '@faker-js/faker';
 import {
-  CollectionTriggerNode,
-  CreateWorkFlow,
-  EditWorkFlow,
-  WorkflowListRecords,
   apiCreateWorkflow,
   apiDeleteWorkflow,
   apiGetWorkflow,
   apiUpdateRecord,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
+  CollectionTriggerNode,
+  CreateWorkFlow,
+  EditWorkFlow,
   generalWithNoRelationalFields,
+  WorkflowListRecords,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
+
+import { faker } from '@faker-js/faker';
 
 test.describe('Configuration page to configure the Trigger node', () => {
   test('Add Data Trigger with No Filter', async ({ page, mockCollections, mockRecords }) => {

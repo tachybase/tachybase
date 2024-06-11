@@ -1,7 +1,7 @@
 import Database, { fn } from '@tachybase/database';
-import { Application } from '@tachybase/server';
 import { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/plugin-workflow';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
+import { Application } from '@tachybase/server';
 
 import Plugin from '..';
 

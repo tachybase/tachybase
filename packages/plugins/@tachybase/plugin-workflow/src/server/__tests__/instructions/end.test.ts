@@ -1,6 +1,7 @@
-import { Application } from '@tachybase/server';
 import Database from '@tachybase/database';
 import { getApp, sleep } from '@tachybase/plugin-workflow-test';
+import { Application } from '@tachybase/server';
+
 import WorkflowPlugin from '../..';
 import { EXECUTION_STATUS, JOB_STATUS } from '../../constants';
 

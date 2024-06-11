@@ -1,7 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Breadcrumb, Button, Dropdown, message, Modal, Result, Space, Spin, Tag, Tooltip } from 'antd';
-
 import {
   ActionContextProvider,
   cx,
@@ -15,16 +12,19 @@ import {
 } from '@tachybase/client';
 import { str2moment } from '@tachybase/utils/client';
 
+import { DownOutlined, ExclamationCircleFilled, StopOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Dropdown, message, Modal, Result, Space, Spin, Tag, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
+
 import WorkflowPlugin from '.';
 import { CanvasContent } from './CanvasContent';
+import { StatusButton } from './components/StatusButton';
 import { ExecutionStatusOptionsMap, JobStatusOptions } from './constants';
 import { FlowContext, useFlowContext } from './FlowContext';
 import { lang, NAMESPACE } from './locale';
 import useStyles from './style';
-import { linkNodes, getWorkflowDetailPath, getWorkflowExecutionsPath } from './utils';
-import { DownOutlined, ExclamationCircleFilled, StopOutlined } from '@ant-design/icons';
-import { StatusButton } from './components/StatusButton';
-import { useTranslation } from 'react-i18next';
+import { getWorkflowDetailPath, getWorkflowExecutionsPath, linkNodes } from './utils';
 
 function attachJobs(nodes, jobs: any[] = []): void {
   const nodesMap = new Map();

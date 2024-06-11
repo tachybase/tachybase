@@ -1,4 +1,5 @@
 import { BelongsToGetAssociationMixin, Database, HasManyGetAssociationsMixin, Model } from '@tachybase/database';
+
 import JobModel from './Job';
 import WorkflowModel from './Workflow';
 

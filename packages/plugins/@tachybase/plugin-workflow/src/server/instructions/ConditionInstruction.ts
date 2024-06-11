@@ -1,8 +1,9 @@
 import { evaluators } from '@tachybase/evaluators';
 import { Registry } from '@tachybase/utils';
+
 import { Instruction } from '.';
-import type Processor from '../Processor';
 import { JOB_STATUS } from '../constants';
+import type Processor from '../Processor';
 import type { FlowNodeModel, JobModel } from '../types';
 
 type Comparer = (a: any, b: any) => boolean;

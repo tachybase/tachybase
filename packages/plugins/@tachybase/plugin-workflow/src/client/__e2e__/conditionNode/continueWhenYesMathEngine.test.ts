@@ -1,10 +1,4 @@
-import { faker } from '@faker-js/faker';
 import {
-  ClculationNode,
-  CollectionTriggerNode,
-  ConditionBranchNode,
-  ConditionYesNode,
-  QueryRecordNode,
   apiCreateWorkflow,
   apiCreateWorkflowNode,
   apiDeleteWorkflow,
@@ -13,10 +7,17 @@ import {
   apiGetWorkflowNodeExecutions,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
+  ClculationNode,
+  CollectionTriggerNode,
+  ConditionBranchNode,
+  ConditionYesNode,
   generalWithNoRelationalFields,
+  QueryRecordNode,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
 import { dayjs } from '@tachybase/utils';
+
+import { faker } from '@faker-js/faker';
 
 test('Collection event add data trigger, Math engine, determine trigger node integer field variable is equal to an equal constant, pass.', async ({
   page,

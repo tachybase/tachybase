@@ -1,16 +1,16 @@
-import { useForm } from '@tachybase/schema';
-
 import {
   SchemaInitializerItemType,
   useCollectionDataSource,
   useCollectionManager_deprecated,
   useCompile,
 } from '@tachybase/client';
-import { NAMESPACE, lang } from '../../locale';
-import { Trigger } from '../../triggers';
+import { useForm } from '@tachybase/schema';
+
 import { CollectionBlockInitializer } from '../../components';
-import { getCollectionFieldOptions } from '../../variable';
 import { useWorkflowAnyExecuted } from '../../hooks';
+import { lang, NAMESPACE } from '../../locale';
+import { Trigger } from '../../triggers';
+import { getCollectionFieldOptions } from '../../variable';
 
 export class ActionTrigger extends Trigger {
   title = `{{t("Action event", { ns: "${NAMESPACE}" })}}`;

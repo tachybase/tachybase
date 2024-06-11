@@ -1,14 +1,16 @@
 import React from 'react';
+
 import {
-  CloseOutlined,
-  ClockCircleOutlined,
   CheckOutlined,
-  MinusOutlined,
+  ClockCircleOutlined,
+  CloseOutlined,
   ExclamationOutlined,
   HourglassOutlined,
   LoadingOutlined,
+  MinusOutlined,
   RedoOutlined,
 } from '@ant-design/icons';
+
 import { NAMESPACE } from './locale';
 
 export const EXECUTION_STATUS = {

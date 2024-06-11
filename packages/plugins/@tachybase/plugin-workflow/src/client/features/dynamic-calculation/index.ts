@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
-import WorkflowPlugin from '../..';
 
+import WorkflowPlugin from '../..';
 import DynamicCalculation from './DynamicCalculation';
 import { DynamicExpression } from './DynamicExpression';
 import { ExpressionFieldInterface } from './expression';

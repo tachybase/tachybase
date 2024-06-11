@@ -1,11 +1,11 @@
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE, utils } from '@tachybase/actions';
 import { parseCollectionName } from '@tachybase/data-source-manager';
 
-import type Processor from '../Processor';
+import { Instruction } from '.';
 import { JOB_STATUS } from '../constants';
+import type Processor from '../Processor';
 import type { FlowNodeModel } from '../types';
 import { toJSON } from '../utils';
-import { Instruction } from '.';
 
 export class QueryInstruction extends Instruction {
   async run(node: FlowNodeModel, input, processor: Processor) {

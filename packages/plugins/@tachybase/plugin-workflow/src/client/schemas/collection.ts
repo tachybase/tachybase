@@ -1,5 +1,6 @@
-import { useForm } from '@tachybase/schema';
 import { css, parseCollectionName, useCollectionFilterOptions } from '@tachybase/client';
+import { useForm } from '@tachybase/schema';
+
 import { NAMESPACE } from '../locale';
 
 export const collection = {

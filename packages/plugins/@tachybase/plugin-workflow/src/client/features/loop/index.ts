@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
-import WorkflowPlugin from '../..';
 
+import WorkflowPlugin from '../..';
 import LoopInstruction from './LoopInstruction';
 
 export class PluginLoop extends Plugin {

@@ -1,6 +1,6 @@
 import { Plugin, SchemaInitializerItemType } from '@tachybase/client';
-import WorkflowPlugin, { useRecordTriggerWorkflowsActionProps, useTriggerWorkflowsActionProps } from '../..';
 
+import WorkflowPlugin, { useRecordTriggerWorkflowsActionProps, useTriggerWorkflowsActionProps } from '../..';
 import { ActionTrigger } from './ActionTrigger';
 
 const submitToWorkflowActionInitializer: SchemaInitializerItemType = {

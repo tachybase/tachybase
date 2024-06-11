@@ -1,8 +1,8 @@
 import { parseCollectionName } from '@tachybase/data-source-manager';
 
 import { Instruction } from '.';
-import type Processor from '../Processor';
 import { JOB_STATUS } from '../constants';
+import type Processor from '../Processor';
 import type { FlowNodeModel } from '../types';
 
 export class DestroyInstruction extends Instruction {

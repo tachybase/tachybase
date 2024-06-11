@@ -1,17 +1,16 @@
 import React from 'react';
-import { uid } from '@tachybase/schema';
-
 import {
   CollectionProvider_deprecated,
+  parseCollectionName,
   SchemaInitializerItem,
   SchemaInitializerItemType,
-  parseCollectionName,
   useCollectionManager_deprecated,
   useRecordCollectionDataSourceItems,
   useSchemaInitializer,
   useSchemaInitializerItem,
   useSchemaTemplateManager,
 } from '@tachybase/client';
+import { uid } from '@tachybase/schema';
 
 import { traverseSchema } from '../utils';
 

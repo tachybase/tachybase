@@ -1,7 +1,5 @@
 import { Processor } from '../../..';
-
 import ManualInstruction from '../ManualInstruction';
-
 import create from './create';
 import update from './update';
 

@@ -1,4 +1,4 @@
-import { Processor, Instruction, JOB_STATUS, FlowNodeModel } from '../..';
+import { FlowNodeModel, Instruction, JOB_STATUS, Processor } from '../..';
 
 export default class extends Instruction {
   async run(node: FlowNodeModel, input, processor: Processor) {

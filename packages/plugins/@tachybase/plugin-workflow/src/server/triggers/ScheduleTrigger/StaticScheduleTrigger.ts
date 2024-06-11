@@ -1,7 +1,7 @@
 import parser from 'cron-parser';
 
 import type Plugin from '../../Plugin';
-import { SCHEDULE_MODE, parseDateWithoutMs } from './utils';
+import { parseDateWithoutMs, SCHEDULE_MODE } from './utils';
 
 const MAX_SAFE_INTERVAL = 2147483647;
 

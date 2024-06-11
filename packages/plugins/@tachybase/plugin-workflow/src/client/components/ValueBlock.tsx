@@ -1,7 +1,8 @@
-import { useFieldSchema } from '@tachybase/schema';
-import { css, SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
-import { parse } from '@tachybase/utils/client';
 import React from 'react';
+import { css, SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
+import { useFieldSchema } from '@tachybase/schema';
+import { parse } from '@tachybase/utils/client';
+
 import { useFlowContext } from '../FlowContext';
 import { SimpleDesigner } from './SimpleDesigner';
 

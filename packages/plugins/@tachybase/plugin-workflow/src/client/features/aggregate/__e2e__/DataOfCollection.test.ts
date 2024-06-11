@@ -1,17 +1,19 @@
-import { faker } from '@faker-js/faker';
 import {
   AggregateNode,
-  CollectionTriggerNode,
   apiCreateWorkflow,
   apiDeleteWorkflow,
   apiGetWorkflow,
   apiGetWorkflowNodeExecutions,
   apiUpdateWorkflowTrigger,
   appendJsonCollectionName,
+  CollectionTriggerNode,
   generalWithNoRelationalFields,
 } from '@tachybase/plugin-workflow-test/e2e';
 import { expect, test } from '@tachybase/test/e2e';
 import { dayjs } from '@tachybase/utils';
+
+import { faker } from '@faker-js/faker';
+
 test.describe('no filter', () => {
   test('Collection event add data trigger, normal table integer fields not de-emphasised COUNT', async ({
     page,

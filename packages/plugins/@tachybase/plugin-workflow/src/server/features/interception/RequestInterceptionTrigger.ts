@@ -1,7 +1,10 @@
 import type { Context, Next } from '@tachybase/actions';
 import { joinCollectionName } from '@tachybase/data-source-manager';
 import PluginErrorHandler from '@tachybase/plugin-error-handler';
-import PluginWorkflow, { EXECUTION_STATUS, Trigger } from '@tachybase/plugin-workflow';
+
+import { EXECUTION_STATUS } from '../../constants';
+import PluginWorkflowServer from '../../Plugin';
+import Trigger from '../../triggers';
 
 class RequestInterceptionError extends Error {
   status = 400;
@@ -95,7 +98,7 @@ export class RequestInterceptionTrigger extends Trigger {
     }
     await next();
   };
-  constructor(workflow: PluginWorkflow) {
+  constructor(workflow: PluginWorkflowServer) {
     super(workflow);
     workflow.app.use(this.middleware, { after: 'dataSource' });
     workflow.app.pm.get(PluginErrorHandler).errorHandler.register(

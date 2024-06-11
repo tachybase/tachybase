@@ -1,4 +1,5 @@
 import { BelongsToGetAssociationMixin, Model } from '@tachybase/database';
+
 import FlowNodeModel from './FlowNode';
 
 export default class JobModel extends Model {
