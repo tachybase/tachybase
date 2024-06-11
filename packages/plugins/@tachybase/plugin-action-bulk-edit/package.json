@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-bulk-edit",
   "displayName": "Action: Batch edit",
-  "version": "0.21.47",
+  "version": "0.21.48",
   "description": "Batch edit all records or selected records.",
   "keywords": [
     "Actions"
