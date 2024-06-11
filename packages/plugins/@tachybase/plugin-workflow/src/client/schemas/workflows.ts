@@ -1,10 +1,11 @@
-import { ISchema, useForm } from '@tachybase/schema';
+import React from 'react';
 import { useActionContext, useRecord, useResourceActionContext, useResourceContext } from '@tachybase/client';
+import { ISchema, useForm } from '@tachybase/schema';
+
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { NAMESPACE } from '../locale';
-// import { triggers } from '../triggers';
-import React from 'react';
 import { executionSchema } from './executions';
 
 const collection = {

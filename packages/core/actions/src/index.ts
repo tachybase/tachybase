@@ -1,8 +1,10 @@
 import { Cache } from '@tachybase/cache';
 import { Database } from '@tachybase/database';
 import { Action } from '@tachybase/resourcer';
+
 import Koa from 'koa';
 import lodash from 'lodash';
+
 import * as actions from './actions';
 
 export * as utils from './utils';
@@ -17,6 +19,11 @@ export interface Context extends Koa.Context {
   action: Action;
   body: any;
   app: any;
+
+  /**
+   * 是否包裹 data 对象，比如返回的 body 为 "success"，withoutDataWrapping 为 false 的时候，返回的 body 会被包成 { "data": "success" }
+   */
+  withoutDataWrapping?: boolean;
 
   [key: string]: any;
 }

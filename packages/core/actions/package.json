@@ -13,5 +13,9 @@
     "koa": "^2.13.4",
     "lodash": "4.17.21",
     "sequelize": "^6.26.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/lodash": "^4.17.5"
   }
 }

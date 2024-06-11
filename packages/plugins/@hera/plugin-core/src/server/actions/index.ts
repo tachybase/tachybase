@@ -5,3 +5,4 @@ export * from './link-manager-controller';
 export * from './system-message-controller';
 export * from './departments';
 export * from './users';
+export * from './webhooks';

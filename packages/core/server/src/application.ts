@@ -21,7 +21,7 @@ import { Telemetry, TelemetryOptions } from '@tachybase/telemetry';
 import { applyMixins, AsyncEmitter, importModule, Toposort, ToposortOptions } from '@tachybase/utils';
 
 import { Command, CommandOptions, ParseOptions } from 'commander';
-import glob from 'glob';
+import { sync } from 'glob';
 import { i18n, InitOptions } from 'i18next';
 import Koa, { DefaultContext as KoaDefaultContext, DefaultState as KoaDefaultState } from 'koa';
 import compose from 'koa-compose';
@@ -643,7 +643,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     };
     const extensions = ['js', 'ts'];
     const patten = `${directory}/*.{${extensions.join(',')}}`;
-    const files = glob.sync(patten, {
+    const files = sync(patten, {
       ignore: ['**/*.d.ts'],
     });
     const appVersion = await this.version.get();
