@@ -14,6 +14,7 @@ import {
   useCollectionField,
   useCollectionManager,
   useDesignable,
+  useFieldServiceFilter,
   useRequest,
 } from '@tachybase/client';
 import { isArray } from '@tachybase/utils/client';
@@ -33,7 +34,8 @@ export const AntdSelect = observer((props) => {
   const fieldSchema = useFieldSchema();
   const cm = useCollectionManager();
   const collection = useCollection();
-  const [filter, setFilter] = useState(service?.params?.filter);
+  const [fieldServiceFilter] = useFieldServiceFilter(service?.params);
+  const [filter, setFilter] = useState(fieldServiceFilter);
   const api = useAPIClient();
   const [selectValue, setSelectValue] = useState(value);
   const fieldNamesLabel = fieldNames?.label || 'label';
@@ -47,7 +49,7 @@ export const AntdSelect = observer((props) => {
     inputValue = value[fieldNamesLabel];
   }
 
-  const { data, run } = useRequest(
+  const { run } = useRequest(
     {
       resource: collectionName,
       action: 'list',
@@ -57,23 +59,23 @@ export const AntdSelect = observer((props) => {
     },
     {
       manual: true,
+      onSuccess(data) {
+        if (data) {
+          const dataOption = data['data']?.map((value) => {
+            return {
+              ...value,
+              label: value[fieldNamesLabel],
+              value: value[fieldNamesValue],
+            };
+          });
+          setOptions(dataOption);
+        }
+      },
     },
   );
   useEffect(() => {
     checkedPopup();
-  }, [filter]);
-  useEffect(() => {
-    if (data) {
-      const dataOption = data['data']?.map((value) => {
-        return {
-          ...value,
-          label: value[fieldNamesLabel],
-          value: value[fieldNamesValue],
-        };
-      });
-      setOptions(dataOption);
-    }
-  }, [data]);
+  }, [filter, popupVisible]);
 
   const checkedPopup = () => {
     if (collectionName) {
@@ -136,7 +138,13 @@ export const AntdSelect = observer((props) => {
             <Space>{fieldSchema['x-disabled'] ? '' : '请选择内容'}</Space>
           )}
         </div>
-        <Popup visible={popupVisible} className={`${styles['PopupStyle']}`} closeOnMaskClick>
+        <Popup
+          visible={popupVisible}
+          className={`${styles['PopupStyle']}`}
+          onMaskClick={() => {
+            setPopupVisible(false);
+          }}
+        >
           <MobileProvider>
             <SearchBar
               placeholder="请输入内容"
@@ -201,6 +209,10 @@ export const AntdSelect = observer((props) => {
                 color="primary"
                 onClick={() => {
                   setPopupVisible(false);
+                  const paramsFilter = { ...filter };
+                  if (paramsFilter[fieldNamesLabel]) delete paramsFilter[fieldNamesLabel];
+                  setSearchValue('');
+                  setFilter(paramsFilter);
                 }}
               >
                 取消
@@ -210,6 +222,11 @@ export const AntdSelect = observer((props) => {
                 onClick={() => {
                   onChange(selectValue);
                   setPopupVisible(false);
+                  const paramsFilter = { ...filter };
+                  if (paramsFilter[fieldNamesLabel]) delete paramsFilter[fieldNamesLabel];
+                  setSearchValue('');
+                  setFilter(paramsFilter);
+                  setSearchValue('');
                 }}
               >
                 确定

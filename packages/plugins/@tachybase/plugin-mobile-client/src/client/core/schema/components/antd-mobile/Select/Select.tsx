@@ -23,7 +23,7 @@ export const MSelect = connect(
       filterProps['collectionName'] = collection.name;
     }
     if (typeof filterProps['value'] !== 'object') {
-      filterProps['value'] = dataSource.filter((item) => item.value.toString() === filterProps['value']);
+      filterProps['value'] = dataSource.filter((item) => item.value.toString() === filterProps?.['value']);
     }
     return { ...filterProps };
   }),
@@ -32,7 +32,7 @@ export const MSelect = connect(
     const collectionField = useCollectionField();
     const isSlectField = ['multipleSelect', 'select'].includes(collectionField?.interface);
     const field = useField<any>();
-    const dataSource = field.dataSource || collectionField?.uiSchema.enum || [];
+    const dataSource = field?.dataSource || collectionField?.uiSchema.enum || [];
     const fieldNamesLabel = fieldNames?.label || 'label';
     if (isSlectField) {
       const option = [];
@@ -58,10 +58,10 @@ export const MSelect = connect(
       let redValue = '';
       if (isArray(value)) {
         redValue = value.reduce((prev, curr) => {
-          return prev + curr[fieldNamesLabel];
+          return prev + curr?.[fieldNamesLabel];
         }, '');
       } else {
-        redValue = value[fieldNamesLabel];
+        redValue = value?.[fieldNamesLabel] || '';
       }
       return (
         <div>

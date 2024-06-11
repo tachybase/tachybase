@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { css, SchemaComponentOptions, useApp, useCollection } from '@tachybase/client';
+import { ActionContextProvider, css, SchemaComponentOptions, useApp, useCollection } from '@tachybase/client';
 import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
 import { Button, CenterPopup, Modal, Popup } from 'antd-mobile';
@@ -37,6 +37,10 @@ export const CreateRecordAction = observer(
           onMaskClick={() => {
             setVisible(false);
           }}
+          showCloseButton
+          onClose={() => {
+            setVisible(false);
+          }}
           className={css`
             .adm-popup-body {
               height: 80vh;
@@ -45,7 +49,9 @@ export const CreateRecordAction = observer(
           `}
         >
           <MobileProvider>
-            <RecursionField schema={addNew} onlyRenderProperties />
+            <ActionContextProvider visible={visible} setVisible={setVisible}>
+              <RecursionField schema={addNew} onlyRenderProperties />
+            </ActionContextProvider>
           </MobileProvider>
         </Popup>
       </div>
