@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { compatOldTheme, useAPIClient, useCurrentUserContext, useGlobalTheme, useToken } from '@tachybase/client';
+import { useAPIClient, useCurrentUserContext, useGlobalTheme, useToken } from '@tachybase/client';
 import { error } from '@tachybase/utils/client';
 
 import { DeleteOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
@@ -178,7 +178,7 @@ const ThemeCard = (props: Props) => {
   const handleEdit = useCallback(() => {
     setCurrentSettingTheme(currentTheme);
     setCurrentEditingTheme(item);
-    setTheme(compatOldTheme(item.config));
+    setTheme(item.config);
     setOpen(true);
   }, [item, setCurrentEditingTheme, setCurrentSettingTheme, setOpen, setTheme, currentTheme]);
 
