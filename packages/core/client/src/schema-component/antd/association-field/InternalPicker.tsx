@@ -1,7 +1,9 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
-import { Input, Select } from 'antd';
-import { differenceBy, unionBy } from 'lodash';
 import React, { useContext, useMemo, useState } from 'react';
+import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
+import { Select, Space } from 'antd';
+import { differenceBy, unionBy } from 'lodash';
+
 import {
   FormProvider,
   RecordPickerContext,
@@ -9,7 +11,7 @@ import {
   SchemaComponentOptions,
   useActionContext,
 } from '../..';
-import { CollectionProvider_deprecated, RecordProvider, useFormBlockContext, useCollectionRecordData } from '../../../';
+import { CollectionProvider_deprecated, RecordProvider, useCollectionRecordData, useFormBlockContext } from '../../../';
 import {
   TableSelectorParamsProvider,
   useTableSelectorProps as useTsp,
@@ -133,7 +135,7 @@ export const InternalPicker = observer(
     };
     return (
       <>
-        <Input.Group compact style={{ display: 'flex', lineHeight: '32px' }}>
+        <Space.Compact style={{ display: 'flex', lineHeight: '32px' }}>
           <div style={{ width: '100%' }}>
             <Select
               role="button"
@@ -181,7 +183,7 @@ export const InternalPicker = observer(
               />
             </RecordProvider>
           )}
-        </Input.Group>
+        </Space.Compact>
         <ActionContextProvider
           value={{
             openSize: fieldSchema['x-component-props']?.['openSize'] || openSize,

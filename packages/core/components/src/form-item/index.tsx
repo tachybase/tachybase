@@ -1,11 +1,13 @@
+import React, { useState } from 'react';
+
 import { CheckCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { isVoidField } from '@formily/core';
 import { connect, mapProps, ReactFC } from '@formily/react';
 import { Popover, Tooltip } from 'antd';
-import cls from 'classnames';
-import React, { useState } from 'react';
-import { FormLayoutShallowContext } from '../form-layout';
+import cx from 'classnames';
+
 import { pickDataProps, usePrefixCls } from '../__builtins__';
+import { FormLayoutShallowContext } from '../form-layout';
 import { useFormItemLayout, useOverflow } from './hooks';
 import useStyle from './style';
 import { IFormItemProps } from './types';
@@ -88,7 +90,7 @@ export const BaseItem: React.FC<React.PropsWithChildren<IFormItemProps>> = ({ ch
         placement="top"
         content={
           <div
-            className={cls({
+            className={cx({
               [`${prefixCls}-${feedbackStatus}-help`]: !!feedbackStatus,
               [`${prefixCls}-help`]: true,
             })}
@@ -155,7 +157,7 @@ export const BaseItem: React.FC<React.PropsWithChildren<IFormItemProps>> = ({ ch
     if (!label) return null;
     return (
       <div
-        className={cls({
+        className={cx({
           [`${prefixCls}-label`]: true,
           [`${prefixCls}-label-tooltip`]: (tooltip && tooltipLayout === 'text') || overflow,
           [`${prefixCls}-item-col-${labelCol}`]: enableCol && !!labelCol,
@@ -177,7 +179,7 @@ export const BaseItem: React.FC<React.PropsWithChildren<IFormItemProps>> = ({ ch
         ...gridStyles,
       }}
       data-grid-span={props.gridSpan}
-      className={cls(
+      className={cx(
         props.className,
         {
           [`${prefixCls}`]: true,
@@ -211,28 +213,28 @@ export const BaseItem: React.FC<React.PropsWithChildren<IFormItemProps>> = ({ ch
     >
       {renderLabel()}
       <div
-        className={cls({
+        className={cx({
           [`${prefixCls}-control`]: true,
           [`${prefixCls}-item-col-${wrapperCol}`]: enableCol && !!wrapperCol && label,
         })}
       >
-        <div className={cls(`${prefixCls}-control-content`)}>
-          {addonBefore && <div className={cls(`${prefixCls}-addon-before`)}>{addonBefore}</div>}
+        <div className={cx(`${prefixCls}-control-content`)}>
+          {addonBefore && <div className={cx(`${prefixCls}-addon-before`)}>{addonBefore}</div>}
           <div
             style={wrapperStyle}
-            className={cls({
+            className={cx({
               [`${prefixCls}-control-content-component`]: true,
               [`${prefixCls}-control-content-component-has-feedback-icon`]: !!feedbackIcon,
             })}
           >
             <FormLayoutShallowContext.Provider value={{}}>{formatChildren}</FormLayoutShallowContext.Provider>
-            {feedbackIcon && <div className={cls(`${prefixCls}-feedback-icon`)}>{feedbackIcon}</div>}
+            {feedbackIcon && <div className={cx(`${prefixCls}-feedback-icon`)}>{feedbackIcon}</div>}
           </div>
-          {addonAfter && <div className={cls(`${prefixCls}-addon-after`)}>{addonAfter}</div>}
+          {addonAfter && <div className={cx(`${prefixCls}-addon-after`)}>{addonAfter}</div>}
         </div>
         {!!feedbackText && feedbackLayout !== 'popover' && feedbackLayout !== 'none' && (
           <div
-            className={cls({
+            className={cx({
               [`${prefixCls}-${feedbackStatus}-help`]: !!feedbackStatus,
               [`${prefixCls}-help`]: true,
               [`${prefixCls}-help-enter`]: true,
@@ -242,7 +244,7 @@ export const BaseItem: React.FC<React.PropsWithChildren<IFormItemProps>> = ({ ch
             {feedbackText}
           </div>
         )}
-        {extra && <div className={cls(`${prefixCls}-extra`)}>{extra}</div>}
+        {extra && <div className={cx(`${prefixCls}-extra`)}>{extra}</div>}
       </div>
     </div>,
   );
