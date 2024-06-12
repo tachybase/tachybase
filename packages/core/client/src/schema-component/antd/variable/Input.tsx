@@ -5,10 +5,8 @@ import { error } from '@tachybase/utils/client';
 import { CloseCircleFilled } from '@ant-design/icons';
 import { Input as AntInput, Cascader, DatePicker, InputNumber, Select, Space, Tag } from 'antd';
 import { createStyles } from 'antd-style';
-import useAntdInputStyle from 'antd/es/input/style';
 import type { DefaultOptionType } from 'antd/lib/cascader';
 import cx from 'classnames';
-import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -133,36 +131,7 @@ function getTypedConstantOption(type: string, types: true | string[], fieldNames
 }
 
 const useStyles2 = createStyles(({ css }, { disabled }: { disabled: boolean }) => {
-  return {
-    container: css`
-      position: relative;
-      line-height: 0;
-
-      &:hover {
-        .clear-button {
-          display: inline-block;
-        }
-      }
-
-      .ant-input {
-        overflow: auto;
-        white-space: nowrap;
-        ${disabled ? '' : 'padding-right: 28px;'}
-
-        .ant-tag {
-          display: inline;
-          line-height: 19px;
-          margin: 0;
-          padding: 2px 7px;
-          border-radius: 10px;
-          white-space: nowrap;
-        }
-      }
-    `,
-    button: css`
-      margin-left: -1px;
-    `,
-  };
+  return {};
 });
 
 export function Input(props) {
@@ -178,10 +147,6 @@ export function Input(props) {
     fieldNames,
   } = props;
   const scope = typeof props.scope === 'function' ? props.scope() : props.scope;
-  const { wrapSSR, hashId, componentCls, rootPrefixCls } = useStyles();
-
-  // 添加 antd input 样式，防止样式缺失
-  useAntdInputStyle(`${rootPrefixCls}-input`);
 
   const compile = useCompile();
   const { t } = useTranslation();
@@ -295,12 +260,12 @@ export function Input(props) {
   }, [variable, options.length]);
 
   const disabled = props.disabled || form.disabled;
-  const { styles: styles2 } = useStyles2({ disabled });
+  const { styles } = useStyles({ disabled });
 
-  return wrapSSR(
-    <Space.Compact style={style} className={classNames(componentCls, hashId, className)}>
+  return (
+    <Space.Compact style={style} className={cx(styles.outerContainer, styles.fixInput, className)}>
       {variable ? (
-        <div className={cx('variable', styles2.container)}>
+        <div className={cx('variable', styles.container2)}>
           <div
             role="button"
             aria-label="variable-tag"
@@ -312,7 +277,7 @@ export function Input(props) {
               }
               onChange(null);
             }}
-            className={cx('ant-input', { 'ant-input-disabled': disabled }, hashId)}
+            className={cx('ant-input', { 'ant-input-disabled': disabled })}
             contentEditable={!disabled}
             suppressContentEditableWarning
           >
@@ -349,8 +314,8 @@ export function Input(props) {
         fieldNames={fieldNames}
         disabled={disabled}
       >
-        {button ?? <XButton className={styles2.button} type={variable ? 'primary' : 'default'} />}
+        {button ?? <XButton className={styles.button2} type={variable ? 'primary' : 'default'} />}
       </Cascader>
-    </Space.Compact>,
+    </Space.Compact>
   );
 }

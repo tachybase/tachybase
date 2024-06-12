@@ -1,15 +1,11 @@
-import { genStyleHook } from '../__builtins__';
+import { createStyles } from 'antd-style';
 
-const useStyles = genStyleHook('nb-card-item', (token) => {
-  const { componentCls } = token;
-
-  return {
-    [componentCls]: {
-      '.card': {
-        marginBottom: token.marginLG,
-      },
-    },
-  };
+const useStyles = createStyles(({ css, token }) => {
+  return css`
+    .card {
+      margin-bottom: ${token.marginLG}px;
+    }
+  `;
 });
 
 export default useStyles;

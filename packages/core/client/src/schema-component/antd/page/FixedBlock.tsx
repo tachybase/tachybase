@@ -67,7 +67,7 @@ const useStyles = createStyles(({ css }) => {
     fixedBlockCss: css`
       overflow: hidden;
       position: relative;
-      .noco-card-item {
+      .tb-card-item {
         height: 100%;
         .ant-card {
           display: flex;

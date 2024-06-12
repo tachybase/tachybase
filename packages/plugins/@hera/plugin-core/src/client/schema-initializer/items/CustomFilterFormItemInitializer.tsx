@@ -446,7 +446,7 @@ export const FilterFormItem = observer(
 
     return (
       <ACLCollectionFieldProvider>
-        <BlockItem className={'nb-form-item'}>
+        <BlockItem className={'tb-form-item'}>
           <FormItem className={className} {...props} extra={extra} />
         </BlockItem>
       </ACLCollectionFieldProvider>

@@ -1,5 +1,5 @@
-import { CardItem, FormProvider, SchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { CardItem, FormProvider, SchemaComponent } from '@tachybase/client';
 
 const schema = {
   type: 'object',

@@ -103,7 +103,7 @@ export const ChartFilterFormItem = observer(
     // const { getIsChartCollectionExists } = useChartData();
     // const exists = (schema.name as string).startsWith('custom.') || getIsChartCollectionExists(dataSource, collection);
     return (
-      <BlockItem className={'nb-form-item'}>
+      <BlockItem className={'tb-form-item'}>
         <CollectionManagerProvider dataSource={dataSource}>
           <CollectionProvider name={collection} allowNull={!collection}>
             <CollectionFieldProvider name={schema.name} allowNull={!schema['x-collection-field']}>

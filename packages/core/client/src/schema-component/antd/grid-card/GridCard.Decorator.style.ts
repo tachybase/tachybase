@@ -4,7 +4,7 @@ const useStyles = genStyleHook('nb-grid-card', (token) => {
   const { componentCls } = token;
   return {
     [componentCls]: {
-      '& > .nb-block-item': {
+      '& > .tb-block-item': {
         marginBottom: token.marginLG,
         '& > .nb-action-bar:has(:first-child:not(:empty))': {
           padding: token.marginLG,

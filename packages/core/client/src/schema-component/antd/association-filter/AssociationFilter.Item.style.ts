@@ -8,7 +8,7 @@ const useStyles = genStyleHook('nb-association-filter-item', (token) => {
       '&.SortableItem': {
         position: 'relative',
         '&:hover': { '> .general-schema-designer': { display: 'block' } },
-        '&.nb-form-item:hover': {
+        '&.tb-form-item:hover': {
           '> .general-schema-designer': {
             background: 'var(--colorBgSettingsHover) !important',
             border: '0 !important',

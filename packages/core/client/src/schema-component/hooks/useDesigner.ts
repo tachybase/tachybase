@@ -1,6 +1,7 @@
-import { useFieldSchema } from '@tachybase/schema';
-import { useComponent, useDesignable } from '.';
 import { useMemo } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
+import { useComponent, useDesignable } from '.';
 import { SchemaToolbar } from '../../schema-settings';
 
 const Def = () => null;
