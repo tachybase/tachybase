@@ -1,11 +1,13 @@
-import { Input, Select } from 'antd';
 import React, { useCallback, useMemo, useState } from 'react';
+
+import { Select, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { useFormBlockContext } from '../../block-provider';
 import { useRecord } from '../../record-provider';
 import { Variable } from '.././../schema-component';
-import { useCompatOldVariables } from '../VariableInput/VariableInput';
 import { useVariableOptions } from '../VariableInput/hooks/useVariableOptions';
+import { useCompatOldVariables } from '../VariableInput/VariableInput';
 import { DynamicComponent } from './DynamicComponent';
 
 const { Option } = Select;
@@ -104,7 +106,7 @@ export const ValueDynamicComponent = (props: ValueDynamicComponentProps) => {
   };
 
   return (
-    <Input.Group compact>
+    <Space.Compact>
       <Select
         // @ts-ignore
         role="button"
@@ -123,6 +125,6 @@ export const ValueDynamicComponent = (props: ValueDynamicComponentProps) => {
         <Option value="empty">{t('Empty')}</Option>
       </Select>
       {modeMap[mode]}
-    </Input.Group>
+    </Space.Compact>
   );
 };

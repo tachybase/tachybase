@@ -3,7 +3,7 @@ import { css, useCollectionManager_deprecated, useRecord, useRequest, useToken }
 import { connect } from '@tachybase/schema';
 import { CollectionsGraph, lodash } from '@tachybase/utils/client';
 
-import { App, Col, Input, Row, Select, Spin, Table, Tag } from 'antd';
+import { App, Col, Input, Row, Select, Space, Spin, Table, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 const excludeCollections = ['users', 'roles', 'applications'];
@@ -232,7 +232,7 @@ export const TableTransfer = connect((props) => {
             `}
           >
             <strong style={{ fontSize: token.fontSizeLG, color: token.colorText }}>{t('Unshared collections')}</strong>
-            <Input.Group compact style={{ width: 360 }}>
+            <Space.Compact style={{ width: 360 }}>
               <Select
                 popupMatchSelectWidth={false}
                 onChange={(value) => {
@@ -251,7 +251,7 @@ export const TableTransfer = connect((props) => {
                 placeholder={t('Enter name or title...')}
                 allowClear
               />
-            </Input.Group>
+            </Space.Compact>
           </div>
           <Table
             bordered
@@ -317,7 +317,7 @@ export const TableTransfer = connect((props) => {
             `}
           >
             <strong style={{ fontSize: token.fontSizeLG, color: token.colorText }}>{t('Shared collections')}</strong>
-            <Input.Group compact style={{ width: 360 }}>
+            <Space.Compact style={{ width: 360 }}>
               <Select
                 popupMatchSelectWidth={false}
                 onChange={(value) => {
@@ -336,7 +336,7 @@ export const TableTransfer = connect((props) => {
                 placeholder={t('Enter name or title...')}
                 allowClear
               />
-            </Input.Group>
+            </Space.Compact>
           </div>
           <Table
             bordered

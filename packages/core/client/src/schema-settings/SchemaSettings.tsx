@@ -1293,7 +1293,7 @@ export const SchemaSettingsLinkageRules = function LinkageRules(props) {
           'x-use-component-props': () => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const options = useLinkageCollectionFilterOptions(collectionName);
-            return {
+            const result = {
               options,
               defaultValues: gridSchema?.['x-linkage-rules'] || fieldSchema?.['x-linkage-rules'],
               type,
@@ -1306,6 +1306,7 @@ export const SchemaSettingsLinkageRules = function LinkageRules(props) {
               record,
               formBlockType,
             };
+            return result;
           },
         },
       },
