@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-theme-editor",
   "displayName": "Theme editor",
-  "version": "0.21.51",
+  "version": "0.21.52",
   "description": "Customize UI colors, sizes, etc. and save the result as a theme to switch between multiple themes.",
   "keywords": [
     "System management"
