@@ -4,8 +4,7 @@ import { fuzzysearch } from '@tachybase/utils/client';
 
 import { CheckOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAsyncEffect, useDeepCompareEffect } from 'ahooks';
-import { Button, Collapse, CollapseProps, Input, Space, Tabs } from 'antd';
-import { createStyles } from 'antd-style';
+import { Button, Collapse, CollapseProps, Input, Space } from 'antd';
 import flat from 'flat';
 import { useTranslation } from 'react-i18next';
 import { useInView } from 'react-intersection-observer';
@@ -15,36 +14,7 @@ import { useCollectionManager } from '../../../../data-source';
 import { markRecordAsNew } from '../../../../data-source/collection-record/isNewRecord';
 import { useAssociationFieldContext } from '../hooks';
 import { useFieldServiceFilter } from './hook';
-
-const useStyles = createStyles(({ css }) => {
-  return {
-    container: css`
-      display: flex;
-      flex-direction: row;
-      max-height: 30vh;
-      .left-pane {
-        display: flex;
-        flex-direction: column;
-        width: 200px;
-        background-color: red;
-        overflow-y: auto;
-        div {
-          cursor: pointer;
-        }
-      }
-      .right-pane {
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto;
-        flex: 1;
-        background-color: blue;
-        div {
-          margin-bottom: 2px;
-        }
-      }
-    `,
-  };
-});
+import { useStyles } from './styles';
 
 export const ObservableItem = ({ item, onChange, leftRef }) => {
   const { ref } = useInView({

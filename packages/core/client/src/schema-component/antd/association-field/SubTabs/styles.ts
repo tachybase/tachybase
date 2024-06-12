@@ -1,0 +1,54 @@
+import { createStyles } from 'antd-style';
+
+export const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      display: flex;
+      flex-direction: row;
+      max-height: 30vh;
+      .left-pane {
+        padding: 2px;
+        display: flex;
+        font-weight: 500;
+        flex-direction: column;
+        width: 100px;
+        overflow-y: auto;
+        /* 隐藏滚动条 微软/火狐 */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        div {
+          background-color: #ddd;
+          white-space: normal;
+          cursor: pointer;
+          margin-bottom: 2px;
+          padding-left: 2px;
+          padding-right: 2px;
+        }
+        div:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+      /* 隐藏滚动条 谷歌浏览器 */
+      .left-pane::-webkit-scrollbar {
+        display: none;
+      }
+
+      .right-pane {
+        padding: 2px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        flex: 1;
+        div {
+          margin-bottom: 1em;
+          .ant-btn {
+            margin-right: 2px;
+          }
+        }
+        div:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    `,
+  };
+});
