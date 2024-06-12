@@ -22,9 +22,6 @@ export const MobileLink = () => {
             background: rgba(255, 255, 255, 0.1) !important;
           }
         }
-        a {
-          padding-top: 12px;
-        }
       `}
       style={{ display: 'inline-block' }}
     >
