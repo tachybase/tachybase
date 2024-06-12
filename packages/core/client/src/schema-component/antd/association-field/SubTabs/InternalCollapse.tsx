@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ArrayField, observer, onFieldChange, Schema, useFieldSchema, useFormEffects } from '@tachybase/schema';
 import { fuzzysearch } from '@tachybase/utils/client';
 
 import { CheckOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAsyncEffect, useDeepCompareEffect } from 'ahooks';
 import { Button, Collapse, CollapseProps, Input, Space, Tabs } from 'antd';
+import { createStyles } from 'antd-style';
 import flat from 'flat';
 import { useTranslation } from 'react-i18next';
+import { useInView } from 'react-intersection-observer';
 
 import { useAPIClient } from '../../../../api-client';
 import { useCollectionManager } from '../../../../data-source';
@@ -14,15 +16,79 @@ import { markRecordAsNew } from '../../../../data-source/collection-record/isNew
 import { useAssociationFieldContext } from '../hooks';
 import { useFieldServiceFilter } from './hook';
 
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: css`
+      display: flex;
+      flex-direction: row;
+      max-height: 30vh;
+      .left-pane {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        background-color: red;
+        overflow-y: auto;
+        div {
+          cursor: pointer;
+        }
+      }
+      .right-pane {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        flex: 1;
+        background-color: blue;
+        div {
+          margin-bottom: 2px;
+        }
+      }
+    `,
+  };
+});
+
+export const ObservableItem = ({ item, onChange, leftRef }) => {
+  const { ref } = useInView({
+    threshold: 0.1,
+    onChange: (inView: boolean) => {
+      if (inView) {
+        leftRef.current?.querySelector('#parent-item-' + item.id).scrollIntoView({
+          behavior: 'auto',
+          block: 'nearest',
+          inline: 'start',
+        });
+      }
+    },
+  });
+  return (
+    <div key={item.id} id={'item-' + item.id} ref={ref}>
+      {item?.childrenItems
+        ?.sort((a, b) => (a.sort != null ? a.sort - b.sort : a.id - b.id))
+        .map((childrenitem, index) => (
+          <Button
+            key={index}
+            onClick={() => {
+              onChange(childrenitem);
+            }}
+            icon={childrenitem.checked ? <CheckOutlined /> : null}
+          >
+            {childrenitem.label}
+          </Button>
+        ))}
+    </div>
+  );
+};
+
 export const InternalTabs = observer((props) => {
+  const ref = useRef<HTMLDivElement>();
+  const { styles } = useStyles();
   const { fieldValue, setFieldValue } = props as any;
   const fieldSchema = useFieldSchema();
   const cm = useCollectionManager();
   const api = useAPIClient();
+  const [filter, setFilter] = useState<string>('');
   const isQuickAdd = fieldSchema['parent']['x-component-props']['isQuickAdd'];
   const { value: quickAddField, fieldInterface } = fieldSchema['parent']['x-component-props']?.['quickAddField'] || {};
   const quickAddParentField = fieldSchema['parent']['x-component-props']['quickAddParentCollection'];
-  const [options, setOptions] = useState([]);
   const [defOptions, setDefOptions] = useState([]);
   const { field } = useAssociationFieldContext<ArrayField>();
   const { t } = useTranslation();
@@ -61,7 +127,7 @@ export const InternalTabs = observer((props) => {
         const collection = cm.getCollection(quickAddParentField.collectionField);
         const parentItem = await api.request({
           url: collection.name + ':list',
-          params: { pageSize: 9999 },
+          params: { pageSize: 99999 },
         });
         itemParams['parentTitleField'] = collection.titleField;
         itemParams['parentOptions'] = parentItem?.data?.data;
@@ -82,12 +148,6 @@ export const InternalTabs = observer((props) => {
           itemParams['childrenOptions']?.length &&
           quickAddParentField?.value !== 'none'
         ) {
-          optionsItem.unshift({
-            value: 'all',
-            label: t('All'),
-            key: 'all',
-            childrenItems: [],
-          });
           itemParams['parentOptions'].forEach((parentItem) => {
             const items = itemParams['childrenOptions']
               .map((item) => {
@@ -103,7 +163,6 @@ export const InternalTabs = observer((props) => {
               })
               .filter(Boolean);
             if (!items.length) return;
-            optionsItem[0].childrenItems.push(...items);
             optionsItem.push({
               ...parentItem,
               value: parentItem?.id,
@@ -126,7 +185,6 @@ export const InternalTabs = observer((props) => {
             });
           });
         }
-        setOptions(optionsItem);
         setDefOptions(optionsItem);
       } else if (quickAddSchema) {
         const fieldItem = cm.getCollectionField(quickAddSchema['x-collection-field']);
@@ -134,7 +192,6 @@ export const InternalTabs = observer((props) => {
         fieldItem.uiSchema.enum.forEach((item) => {
           optionsItem.push(item);
         });
-        setOptions(optionsItem);
         setDefOptions(optionsItem);
       }
     }
@@ -145,14 +202,10 @@ export const InternalTabs = observer((props) => {
     const fieldTabs = field.value;
     if (quickAddParentField && quickAddParentField?.value !== 'none') {
       const filterParantOptions = tabsParantFilterOptions(defOptions, fieldTabs, quickAddField);
-      const filterOptions = tabsParantFilterOptions(options, fieldTabs, quickAddField);
       setDefOptions(filterParantOptions);
-      setOptions(filterOptions);
     } else {
       const filterDefOptions = tabsFilterOptions(defOptions, fieldTabs, quickAddField);
       setDefOptions(filterDefOptions);
-      const filterOptions = tabsFilterOptions(options, fieldTabs, quickAddField);
-      setOptions(filterOptions);
     }
   }, [quickAddField, fieldValue]);
 
@@ -161,28 +214,27 @@ export const InternalTabs = observer((props) => {
       setChangeForm(field);
     });
   });
-  const onSelect = (value) => {
-    if (!value) {
-      setOptions(defOptions);
-    }
-    if (quickAddParentField && quickAddParentField.value !== 'none') {
-      const filterOption = defOptions
-        ?.map((item) => {
-          const filterItem = item?.childrenItems?.filter((childrenItem) => fuzzysearch(value, childrenItem?.label));
-          if (fuzzysearch(value, item?.label) || filterItem?.length) {
-            return {
-              ...item,
-              childrenItems: filterItem.length ? filterItem : item.childrenItems,
-            };
-          }
-        })
-        .filter(Boolean);
-      setOptions(filterOption);
-    } else {
-      const filterOption = defOptions.filter((item) => fuzzysearch(value, item?.label));
-      setOptions(filterOption);
-    }
-  };
+
+  // 下面做过滤的逻辑
+  let options = defOptions;
+
+  if (quickAddParentField && quickAddParentField.value !== 'none') {
+    const filterOption = defOptions
+      ?.map((item) => {
+        const filterItem = item?.childrenItems?.filter((childrenItem) => fuzzysearch(filter, childrenItem?.label));
+        if (fuzzysearch(filter, item?.label) || filterItem?.length) {
+          return {
+            ...item,
+            childrenItems: filterItem.length ? filterItem : item.childrenItems,
+          };
+        }
+      })
+      .filter(Boolean);
+    options = filterOption;
+  } else {
+    const filterOption = defOptions.filter((item) => fuzzysearch(filter, item?.label));
+    options = filterOption;
+  }
 
   const onChange = (item) => {
     field.value = field.value || [];
@@ -197,43 +249,41 @@ export const InternalTabs = observer((props) => {
       <Input
         placeholder={t('Please enter search content')}
         prefix={<SearchOutlined />}
+        value={filter}
         onChange={(e) => {
-          onSelect(e?.target?.value);
+          setFilter(e.target.value);
         }}
       />
 
       {quickAddParentField && quickAddParentField?.value !== 'none' ? (
-        <>
-          {options.length ? (
-            <Tabs
-              tabPosition="left"
-              items={options
-                .sort((a, b) => (a.sort != null ? a.sort - b.sort : a.id - b.id))
-                .map((item) => ({
-                  ...item,
-                  children: (
-                    <Space style={{ maxHeight: '30vh', overflow: 'auto', padding: '10px 0px 20px 0px' }}>
-                      {item?.childrenItems
-                        ?.sort((a, b) => (a.sort != null ? a.sort - b.sort : a.id - b.id))
-                        .map((childrenitem, index) => (
-                          <Button
-                            key={index}
-                            onClick={() => {
-                              onChange(childrenitem);
-                            }}
-                            icon={childrenitem.checked ? <CheckOutlined /> : null}
-                          >
-                            {childrenitem.label}
-                          </Button>
-                        ))}
-                    </Space>
-                  ),
-                }))}
-              style={{ maxHeight: '30vh', padding: '10px' }}
-              defaultActiveKey="all"
-            ></Tabs>
-          ) : null}
-        </>
+        <div className={styles.container} ref={ref}>
+          <div className="left-pane">
+            {options
+              .sort((a, b) => (a.sort != null ? a.sort - b.sort : a.id - b.id))
+              .map((item) => (
+                <div
+                  id={'parent-item-' + item.id}
+                  key={item.id}
+                  onClick={() => {
+                    ref.current?.querySelector('#item-' + item.id).scrollIntoView({
+                      behavior: 'auto',
+                      block: 'nearest',
+                      inline: 'start',
+                    });
+                  }}
+                >
+                  {item.label}
+                </div>
+              ))}
+          </div>
+          <div className="right-pane">
+            {options
+              .sort((a, b) => (a.sort != null ? a.sort - b.sort : a.id - b.id))
+              .map((item) => (
+                <ObservableItem item={item} onChange={onChange} key={item.id} leftRef={ref} />
+              ))}
+          </div>
+        </div>
       ) : (
         <Space style={{ maxHeight: '30vh', overflow: 'auto', padding: '10px' }}>
           {options.map((item, index) => (
