@@ -1,5 +1,6 @@
-import { InheritedCollection } from './inherited-collection';
 import lodash from 'lodash';
+
+import { InheritedCollection } from './inherited-collection';
 
 export class InheritedSyncRunner {
   static async syncInheritModel(model: any, options: any) {

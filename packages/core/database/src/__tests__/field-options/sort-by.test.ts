@@ -1,4 +1,5 @@
 import { mockDatabase } from '@tachybase/test';
+
 import { BelongsToManyRepository, Database } from '../../index';
 
 describe('associated field order', () => {

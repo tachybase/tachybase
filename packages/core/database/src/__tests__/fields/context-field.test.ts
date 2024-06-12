@@ -1,4 +1,5 @@
 import { DataTypes } from 'sequelize';
+
 import { mockDatabase } from '../';
 import { Database } from '../../';
 

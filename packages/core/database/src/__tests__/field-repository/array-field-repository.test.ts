@@ -1,6 +1,6 @@
-import { mockDatabase } from '../index';
 import Database from '../../database';
 import { ArrayFieldRepository } from '../../field-repository/array-field-repository';
+import { mockDatabase } from '../index';
 
 describe('Array field repository', () => {
   let db: Database;

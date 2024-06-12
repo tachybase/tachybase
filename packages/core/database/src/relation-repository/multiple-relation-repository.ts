@@ -1,5 +1,6 @@
 import lodash from 'lodash';
 import { HasOne, MultiAssociationAccessors, Sequelize, Transaction, Transactionable } from 'sequelize';
+
 import injectTargetCollection from '../decorators/target-collection-decorator';
 import {
   CommonFindOptions,
@@ -8,8 +9,8 @@ import {
   Filter,
   FindOneOptions,
   FindOptions,
-  TK,
   TargetKey,
+  TK,
   UpdateOptions,
 } from '../repository';
 import { updateModelByValues } from '../update-associations';

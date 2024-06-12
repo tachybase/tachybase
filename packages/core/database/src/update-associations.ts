@@ -9,6 +9,7 @@ import {
   ModelStatic,
   Transactionable,
 } from 'sequelize';
+
 import Database from './database';
 import { Model } from './model';
 import { UpdateGuard } from './update-guard';

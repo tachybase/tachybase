@@ -1,4 +1,5 @@
 import Database from '@tachybase/database';
+
 import { CollectionOptions, ICollection, ICollectionManager, IRepository, MergeOptions } from './types';
 
 export class SequelizeCollectionManager implements ICollectionManager {

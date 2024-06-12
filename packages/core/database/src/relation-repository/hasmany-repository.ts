@@ -1,8 +1,10 @@
 import { omit } from 'lodash';
 import { HasMany, Op } from 'sequelize';
-import { AggregateOptions, DestroyOptions, FindOptions, TK, TargetKey } from '../repository';
+
+import { AggregateOptions, DestroyOptions, FindOptions, TargetKey, TK } from '../repository';
 import { AssociatedOptions, MultipleRelationRepository } from './multiple-relation-repository';
 import { transaction } from './relation-repository';
+
 export class HasManyRepository extends MultipleRelationRepository {
   async find(options?: FindOptions): Promise<any> {
     const targetRepository = this.targetCollection.repository;

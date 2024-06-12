@@ -1,7 +1,8 @@
 import lodash from 'lodash';
-import { FindOptions, Repository } from '../../repository';
-import Database from '../../database';
+
 import { Collection } from '../../collection';
+import Database from '../../database';
+import { FindOptions, Repository } from '../../repository';
 
 export class AdjacencyListRepository extends Repository {
   static queryParentSQL(options: {

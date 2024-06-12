@@ -1,4 +1,5 @@
 import { Transaction, Transactionable } from 'sequelize';
+
 import { Collection } from '../collection';
 import sqlParser from '../sql-parser';
 import QueryInterface, { TableInfo } from './query-interface';

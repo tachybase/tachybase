@@ -1,5 +1,5 @@
-import { mockDatabase } from './';
 import Database from '../database';
+import { mockDatabase } from './';
 
 describe('adjacency list repository', () => {
   let db: Database;

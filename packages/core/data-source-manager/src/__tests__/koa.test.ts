@@ -1,7 +1,9 @@
 import { mockDatabase } from '@tachybase/test';
+
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import supertest from 'supertest';
+
 import { DataSourceManager } from '../data-source-manager';
 import { SequelizeDataSource } from '../sequelize-data-source';
 

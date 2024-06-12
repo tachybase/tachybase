@@ -1,5 +1,6 @@
-import merge from 'deepmerge';
 import { EventEmitter } from 'events';
+
+import merge from 'deepmerge';
 import { default as _, default as lodash } from 'lodash';
 import {
   ModelOptions,
@@ -10,6 +11,7 @@ import {
   Transactionable,
   Utils,
 } from 'sequelize';
+
 import { BuiltInGroup } from './collection-group-manager';
 import { Database } from './database';
 import { BelongsToField, Field, FieldOptions, HasManyField } from './fields';

@@ -1,4 +1,5 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
+
 import { ITokenBlacklistService } from './token-blacklist-service';
 
 export interface JwtOptions {

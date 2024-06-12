@@ -1,5 +1,6 @@
-import { IModel, IRepository } from './types';
 import * as console from 'console';
+
+import { IModel, IRepository } from './types';
 
 export class Repository implements IRepository {
   async create(options) {

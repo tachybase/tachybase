@@ -1,4 +1,5 @@
 import { DataTypes } from 'sequelize';
+
 import { BaseColumnFieldOptions, Field } from './field';
 
 export interface RadioFieldOptions extends BaseColumnFieldOptions {

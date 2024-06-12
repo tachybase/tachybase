@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { DataType, ModelAttributeColumnOptions, ModelIndexesOptions, SyncOptions, Transactionable } from 'sequelize';
+
 import { Collection } from '../collection';
 import { Database } from '../database';
 import { ModelEventTypes } from '../types';

@@ -1,7 +1,8 @@
-import { CollectionOptions, ICollection, ICollectionManager, IField, IRepository } from './types';
-import { default as lodash } from 'lodash';
 import merge from 'deepmerge';
+import { default as lodash } from 'lodash';
+
 import { CollectionField } from './collection-field';
+import { CollectionOptions, ICollection, ICollectionManager, IField, IRepository } from './types';
 
 export class Collection implements ICollection {
   repository: IRepository;

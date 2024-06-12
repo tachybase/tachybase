@@ -1,6 +1,8 @@
-import { Database, IDatabaseOptions } from './database';
 import fs from 'fs';
+
 import semver from 'semver';
+
+import { Database, IDatabaseOptions } from './database';
 
 function getEnvValue(key, defaultValue?) {
   return process.env[key] || defaultValue;

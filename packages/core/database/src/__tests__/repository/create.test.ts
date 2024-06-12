@@ -1,6 +1,6 @@
-import { mockDatabase } from '../index';
-import Database from '../../database';
 import { Collection } from '../../collection';
+import Database from '../../database';
+import { mockDatabase } from '../index';
 
 describe('create with hasMany', () => {
   let db: Database;

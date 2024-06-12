@@ -1,7 +1,9 @@
-import { mockDatabase } from '../index';
 import Database from '@tachybase/database';
-import { Collection } from '../../collection';
+
 import qs from 'qs';
+
+import { Collection } from '../../collection';
+import { mockDatabase } from '../index';
 
 describe('find with associations', () => {
   let db: Database;

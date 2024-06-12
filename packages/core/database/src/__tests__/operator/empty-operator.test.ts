@@ -1,6 +1,5 @@
-import Database from '../../database';
 import { Collection } from '../../collection';
-
+import Database from '../../database';
 import { mockDatabase } from '../index';
 
 describe('empty operator', () => {

@@ -1,5 +1,6 @@
 import { Database } from '../../database';
 import { mockDatabase } from '../index';
+
 describe('association references', () => {
   let db: Database;
 

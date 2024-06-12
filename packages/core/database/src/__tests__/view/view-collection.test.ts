@@ -1,5 +1,7 @@
-import { vi } from 'vitest';
 import { uid } from '@tachybase/utils';
+
+import { vi } from 'vitest';
+
 import { Database, mockDatabase } from '../../index';
 import { ViewCollection } from '../../view-collection';
 import pgOnly from '../inhertits/helper';

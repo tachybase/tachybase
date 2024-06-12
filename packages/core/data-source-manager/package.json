@@ -17,5 +17,14 @@
     "jsonwebtoken": "^8.5.1",
     "koa-compose": "^4.1.0",
     "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/lodash": "^4.17.5",
+    "@types/supertest": "^6.0.2",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "4.4.1",
+    "supertest": "^7.0.0"
   }
 }

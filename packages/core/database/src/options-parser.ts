@@ -1,10 +1,11 @@
 import lodash from 'lodash';
+import qs from 'qs';
 import { FindAttributeOptions, ModelStatic, Op, Sequelize } from 'sequelize';
+
 import { Collection } from './collection';
 import { Database } from './database';
 import FilterParser from './filter-parser';
 import { Appends, Except, FindOptions } from './repository';
-import qs from 'qs';
 
 const debug = require('debug')('noco-database');
 

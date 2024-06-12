@@ -1,4 +1,5 @@
 import { QueryInterface as SequelizeQueryInterface, Transaction, Transactionable } from 'sequelize';
+
 import { Collection } from '../collection';
 import Database from '../database';
 

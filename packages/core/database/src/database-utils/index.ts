@@ -1,5 +1,6 @@
-import Database from '../database';
 import lodash from 'lodash';
+
+import Database from '../database';
 
 export default class DatabaseUtils {
   constructor(public db: Database) {}

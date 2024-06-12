@@ -1,7 +1,7 @@
+import { DataSource } from './data-source';
 import { list } from './default-actions/list';
 import { move } from './default-actions/move';
 import { proxyToRepository } from './default-actions/proxy-to-repository';
-import { DataSource } from './data-source';
 
 type Actions = { [key: string]: { params: Array<string> | ((ctx: any) => Array<string>); method: string } };
 

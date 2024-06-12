@@ -1,6 +1,7 @@
+import lodash from 'lodash';
+
 import { Cache } from '../cache';
 import { CacheManager } from '../cache-manager';
-import lodash from 'lodash';
 
 describe('cache', () => {
   let cache: Cache;

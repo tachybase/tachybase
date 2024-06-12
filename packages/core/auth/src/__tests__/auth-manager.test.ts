@@ -1,8 +1,9 @@
-import { vi } from 'vitest';
 import { Context } from '@tachybase/actions';
 import { Auth, AuthManager } from '@tachybase/auth';
 import Database, { Model } from '@tachybase/database';
 import { MockServer, mockServer } from '@tachybase/test';
+
+import { vi } from 'vitest';
 
 class MockStorer {
   elements: Map<string, any> = new Map();

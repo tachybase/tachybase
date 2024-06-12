@@ -1,7 +1,8 @@
-import { mockServer, MockServer } from './index';
 import { registerActions } from '@tachybase/actions';
 import { Collection, Database } from '@tachybase/database';
 import { waitSecond } from '@tachybase/test';
+
+import { mockServer, MockServer } from './index';
 
 describe('sort action', () => {
   describe('associations', () => {

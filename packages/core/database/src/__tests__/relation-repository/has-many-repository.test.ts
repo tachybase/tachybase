@@ -1,7 +1,8 @@
-import { mockDatabase } from '../index';
-import { HasManyRepository } from '../../relation-repository/hasmany-repository';
-import { BelongsToManyRepository } from '../../relation-repository/belongs-to-many-repository';
 import Database, { Collection } from '@tachybase/database';
+
+import { BelongsToManyRepository } from '../../relation-repository/belongs-to-many-repository';
+import { HasManyRepository } from '../../relation-repository/hasmany-repository';
+import { mockDatabase } from '../index';
 
 describe('has many with target key', function () {
   let db: Database;

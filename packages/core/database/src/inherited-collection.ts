@@ -1,4 +1,5 @@
 import { default as lodash } from 'lodash';
+
 import { Field } from '.';
 import { Collection, CollectionContext, CollectionOptions } from './collection';
 

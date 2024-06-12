@@ -1,8 +1,9 @@
-import { importModule } from '@tachybase/utils';
 import { existsSync } from 'fs';
 import { readdir } from 'fs/promises';
-import { cloneDeep, isPlainObject } from 'lodash';
 import path from 'path';
+import { importModule } from '@tachybase/utils';
+
+import { cloneDeep, isPlainObject } from 'lodash';
 
 export type ImportFileExtension = 'js' | 'ts' | 'json';
 

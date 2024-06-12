@@ -1,5 +1,6 @@
-import { TargetKey, Values } from '../repository';
 import { Transactionable } from 'sequelize';
+
+import { TargetKey, Values } from '../repository';
 
 export type PrimaryKeyWithThroughValues = [TargetKey, Values];
 

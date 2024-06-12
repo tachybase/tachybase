@@ -1,4 +1,5 @@
 import { vi } from 'vitest';
+
 import { Database } from '../database';
 import { mockDatabase } from './index';
 

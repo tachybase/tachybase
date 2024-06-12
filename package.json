@@ -4,7 +4,8 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tachybase build",
+    "build": "tachybase build --no-dts",
+    "build:full": "tachybase build",
     "build:p": "tachybase build --no-dts",
     "changelog": "auto-changelog -p -t keepachangelog",
     "clean": "tachybase clean",
@@ -19,19 +20,17 @@
     "pm2": "tachybase pm2",
     "prepare": "husky",
     "release": "pnpm -r exec -- npm version patch && npm version patch --no-git-tag-version && git commit -a -m 'chore(version): release '$(jq -r '.version | \"v\\(.)\"' package.json | tr -d '\"') && git tag $(jq -r '.version | \"v\\(.)\"' package.json | tr -d '\"')",
-    "run:example": "tsx -r dotenv/config -r tsconfig-paths/register ./examples/index.ts",
     "start": "tachybase start",
     "tachybase": "tachybase",
-    "tag": "changeset",
     "tar": "tachybase tar",
     "tb": "tachybase",
     "tbi": "tachybase install",
+    "tbu": "tachybase upgrade",
     "tc": "tachybase test:client",
     "test": "tachybase test",
     "test:client": "tachybase test:client",
     "test:server": "tachybase test:server",
-    "ts": "tachybase test:server",
-    "ver": "changeset version"
+    "ts": "tachybase test:server"
   },
   "lint-staged": {
     "*.{js,json,sql}": [
@@ -76,7 +75,8 @@
     "react-dom": "^18.2.0",
     "tsx": "^4.7.2",
     "typescript": "5.4.5",
-    "umi": "^4.1.10"
+    "umi": "^4.1.10",
+    "vitest": "^1.6.0"
   },
   "packageManager": "pnpm@8.15.5",
   "engines": {

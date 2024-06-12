@@ -1,4 +1,5 @@
 import { Database, mockDatabase } from '@tachybase/database';
+
 import sequelize from 'sequelize';
 
 describe('migrator', () => {

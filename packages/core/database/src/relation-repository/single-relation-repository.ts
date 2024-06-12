@@ -1,5 +1,6 @@
 import lodash from 'lodash';
 import { SingleAssociationAccessors, Transactionable } from 'sequelize';
+
 import injectTargetCollection from '../decorators/target-collection-decorator';
 import { Model } from '../model';
 import { Appends, Except, Fields, Filter, TargetKey, UpdateOptions } from '../repository';

@@ -1,8 +1,9 @@
 import lodash from 'lodash';
+import { Transaction } from 'sequelize';
+
 import { Collection } from '../collection';
 import sqlParser from '../sql-parser/postgres';
 import QueryInterface, { TableInfo } from './query-interface';
-import { Transaction } from 'sequelize';
 
 export default class PostgresQueryInterface extends QueryInterface {
   constructor(db) {

@@ -1,6 +1,7 @@
-import { vi } from 'vitest';
-import { Database, Migration, mockDatabase } from '@tachybase/database';
 import { resolve } from 'path';
+import { Database, Migration, mockDatabase } from '@tachybase/database';
+
+import { vi } from 'vitest';
 
 const names = (migrations: Array<{ name: string }>) => migrations.map((m) => m.name);
 

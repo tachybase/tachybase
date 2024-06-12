@@ -1,5 +1,6 @@
-import { ImporterReader } from '../collection-importer';
 import * as path from 'path';
+
+import { ImporterReader } from '../collection-importer';
 import { extend } from '../database';
 
 describe('collection importer', () => {
