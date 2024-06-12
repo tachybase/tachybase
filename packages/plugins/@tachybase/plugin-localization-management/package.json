@@ -9,10 +9,10 @@
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "devDependencies": {
-    "@ant-design/icons": "^5.3.6",
+    "@ant-design/icons": "^5.3.7",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "deepmerge": "^4.3.1",
     "react-i18next": "^11.15.1"
   },

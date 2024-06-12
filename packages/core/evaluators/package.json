@@ -12,6 +12,6 @@
     "mathjs": "^10.6.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.12"
+    "@types/node": "20.14.2"
   }
 }

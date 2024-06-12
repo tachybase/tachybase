@@ -9,11 +9,11 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@ant-design/icons": "~5.3.6",
+    "@ant-design/icons": "~5.3.7",
     "@node-saml/node-saml": "^4.0.2",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.16.1",
-    "react": "~18.2.0",
+    "antd": "5.18.0",
+    "react": "~18.3.1",
     "react-i18next": "^11.15.1",
     "react-router-dom": "^6.11.2"
   },

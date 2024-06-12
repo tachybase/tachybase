@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@ant-design/icons": "~5.3.6",
+    "@ant-design/icons": "~5.3.7",
     "@antv/x6": "^2.0.0",
     "@antv/x6-plugin-dnd": "^2.0.0",
     "@antv/x6-plugin-export": "^2.0.0",
@@ -20,10 +20,10 @@
     "@antv/x6-react-shape": "^2.0.0",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "dagre": "^0.8.5",
     "lodash": "4.17.21",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-i18next": "^11.15.1",
     "react-router-dom": "^6.11.2"
   },

@@ -95,6 +95,7 @@ const useStyles = createStyles(({ css, token }) => {
       line-height: 32px;
     `,
     right: css`
+      display: inline-flex;
       position: relative;
       flex-shrink: 0;
       height: 100%;

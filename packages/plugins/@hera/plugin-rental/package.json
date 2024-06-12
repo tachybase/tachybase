@@ -8,11 +8,11 @@
   ],
   "main": "dist/server/index.js",
   "devDependencies": {
-    "@ant-design/icons": "^5.3.6",
+    "@ant-design/icons": "^5.3.7",
     "@tachybase/schema": "workspace:*",
-    "@types/lodash": "4.17.4",
+    "@types/lodash": "4.17.5",
     "ahooks": "^3.7.2",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "dayjs": "^1.11.8",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
@@ -21,7 +21,7 @@
     "lodash": "4.17.21",
     "qrcode": "^1.5.1",
     "qrcode.react": "^3.1.0",
-    "react": "~18.2.0",
+    "react": "~18.3.1",
     "react-router-dom": "^6.11.2",
     "sequelize": "^6.26.0"
   },

@@ -10,12 +10,12 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "async-mutex": "^0.3.2",
     "lodash": "4.17.21",
     "mysql2": "^2.3.3",
     "pg": "^8.7.3",
-    "react": "~18.2.0",
+    "react": "~18.3.1",
     "react-i18next": "^11.15.1",
     "react-router-dom": "^6.11.2"
   },

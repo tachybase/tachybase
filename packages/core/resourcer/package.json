@@ -15,6 +15,6 @@
     "qs": "^6.9.4"
   },
   "devDependencies": {
-    "@types/node": "^20.12.12"
+    "@types/node": "20.14.2"
   }
 }

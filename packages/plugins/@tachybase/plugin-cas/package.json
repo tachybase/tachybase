@@ -9,8 +9,8 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@ant-design/icons": "~5.3.6",
-    "antd": "5.16.1",
+    "@ant-design/icons": "~5.3.7",
+    "antd": "5.18.0",
     "react-i18next": "^11.15.1",
     "react-router-dom": "6.x"
   },
