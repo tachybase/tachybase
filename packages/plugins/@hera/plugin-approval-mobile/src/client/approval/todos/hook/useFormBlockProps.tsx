@@ -52,3 +52,16 @@ export function useUserJobsFormBlockProps() {
 
   return { form };
 }
+
+export const useWorkflowNoticeFormBlockProps = () => {
+  const ctx = useFormBlockContext();
+  const { snapshot } = useContextApprovalExecution();
+  useEffect(() => {
+    if (!ctx?.service?.loading) {
+      ctx.form?.setInitialValues(snapshot);
+    }
+  }, [snapshot]);
+  return {
+    form: ctx.form,
+  };
+};

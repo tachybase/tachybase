@@ -57,8 +57,9 @@ export const MSelect = connect(
     } else {
       let redValue = '';
       if (isArray(value)) {
-        redValue = value.reduce((prev, curr) => {
-          return prev + curr?.[fieldNamesLabel];
+        redValue = value.reduce((prev, curr, index) => {
+          const currContext = value.length - 1 === index ? '' : ', ';
+          return prev + curr?.[fieldNamesLabel] + currContext;
         }, '');
       } else {
         redValue = value?.[fieldNamesLabel] || '';

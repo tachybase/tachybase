@@ -43,7 +43,7 @@ export const AntdSelect = observer((props) => {
   let inputValue = '';
   if (isArray(value)) {
     value.forEach((item, index) => {
-      inputValue += `${item.label}${value.length - 1 === index ? '' : ','}`;
+      inputValue += `${item[fieldNamesLabel]}${value.length - 1 === index ? '' : ', '}`;
     });
   } else if (value && typeof value === 'object') {
     inputValue = value[fieldNamesLabel];
@@ -133,7 +133,7 @@ export const AntdSelect = observer((props) => {
           style={{ color: '#c5c5c5' }}
         >
           {value?.length || (value && !isArray(value)) ? (
-            <MInput value={inputValue} disabled={fieldSchema['x-disabled']} />
+            <MInput style={{ '--color': '#1e8bf1' }} value={inputValue} disabled={fieldSchema['x-disabled']} />
           ) : (
             <Space>{fieldSchema['x-disabled'] ? '' : '请选择内容'}</Space>
           )}
