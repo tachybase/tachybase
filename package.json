@@ -57,8 +57,8 @@
     "@tachybase/preset-mini": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
     "@tachybase/test": "workspace:*",
-    "@types/react": "^18.2.79",
-    "@types/react-dom": "^18.2.25",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "auto-changelog": "^2.4.0",
     "axios": "^1.6.8",
     "commander": "^9.5.0",
@@ -71,11 +71,11 @@
     "prettier-plugin-sql": "^0.17.1",
     "pretty-format": "^24.9.0",
     "pretty-quick": "^3.3.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tsx": "^4.7.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsx": "^4.15.2",
     "typescript": "5.4.5",
-    "umi": "^4.1.10",
+    "umi": "^4.2.10",
     "vitest": "^1.6.0"
   },
   "packageManager": "pnpm@8.15.5",
@@ -92,16 +92,7 @@
       "canvas"
     ],
     "overrides": {
-      "@formily/core": "2.2.27",
-      "@formily/grid": "2.2.27",
-      "@formily/json-schema": "2.2.27",
-      "@formily/path": "2.2.27",
-      "@formily/react": "2.2.27",
-      "@formily/reactive": "2.2.27",
-      "@formily/reactive-react": "2.2.27",
-      "@formily/shared": "2.2.27",
-      "@formily/validator": "2.2.27",
-      "@types/node": "^20.12.2",
+      "@types/node": "20.14.2",
       "dayjs": "1.11.10"
     }
   }

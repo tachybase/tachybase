@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "cronstrue": "^2.11.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0"

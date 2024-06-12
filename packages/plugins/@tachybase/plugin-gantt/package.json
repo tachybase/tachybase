@@ -9,11 +9,11 @@
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "dependencies": {
-    "@ant-design/icons": "^5.3.6",
+    "@ant-design/icons": "^5.3.7",
     "@ctrl/tinycolor": "^3.6.0",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "lodash": "4.17.21",
     "react-i18next": "^11.15.1"
   },

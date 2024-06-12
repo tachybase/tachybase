@@ -41,7 +41,7 @@
     "semver": "^7.6.0",
     "serve": "^13.0.2",
     "tree-kill": "^1.2.2",
-    "tsx": "^4.7.2"
+    "tsx": "^4.15.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
@@ -49,13 +49,13 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@tachybase/devtools": "workspace:*",
     "@types/fs-extra": "^11.0.4",
-    "@types/lodash": "^4.17.0",
-    "@types/node": "^20.12.7",
+    "@types/lodash": "^4.17.5",
+    "@types/node": "20.14.2",
     "@types/semver": "^7.5.8",
     "rimraf": "^5.0.5",
     "rollup": "^4.14.1",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.1.1",
-    "vite": "^5.2.8"
+    "vite": "^5.2.13"
   }
 }
