@@ -5,9 +5,9 @@
   "devDependencies": {
     "@ant-design/icons": "5.x",
     "@tachybase/schema": "workspace:*",
-    "@types/lodash": "^4.17.0",
+    "@types/lodash": "^4.17.5",
     "ahooks": "^3.7.2",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "antd-mobile": "^5.35.0",
     "antd-mobile-icons": "^0.3.0",
     "lodash": "4.17.21",

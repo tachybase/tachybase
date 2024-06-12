@@ -14,7 +14,7 @@
     "@ant-design/icons": "~5.3.6",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "cron-parser": "4.4.0",
     "dayjs": "^1.11.8",
     "lodash": "^4.17.21",

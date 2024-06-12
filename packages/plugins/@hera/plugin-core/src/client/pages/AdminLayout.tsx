@@ -294,6 +294,7 @@ export const InternalAdminLayout = () => {
           </div>
           <div
             className={css`
+              display: inline-flex;
               position: relative;
               flex-shrink: 0;
               height: 100%;

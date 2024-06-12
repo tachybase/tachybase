@@ -2,9 +2,8 @@
   "name": "@hera/plugin-homepage",
   "version": "0.0.25",
   "main": "dist/server/index.js",
-  "dependencies": {},
   "devDependencies": {
-    "antd": "^5.16.1"
+    "antd": "^5.18.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

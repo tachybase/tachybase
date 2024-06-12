@@ -41,7 +41,7 @@
   "types": "./lib/index.d.ts",
   "dependencies": {
     "@faker-js/faker": "8.1.0",
-    "@formily/shared": "2.2.27",
+    "@formily/shared": "2.3.1",
     "@playwright/test": "^1.42.1",
     "@tachybase/database": "workspace:*",
     "@tachybase/server": "workspace:*",

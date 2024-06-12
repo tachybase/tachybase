@@ -10,9 +10,9 @@
   "devDependencies": {
     "@ant-design/icons": "^5.3.6",
     "@tachybase/schema": "workspace:*",
-    "@types/lodash": "4.17.4",
+    "@types/lodash": "4.17.5",
     "ahooks": "^3.7.2",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "dayjs": "^1.11.8",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",

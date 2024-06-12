@@ -57,7 +57,7 @@
     "@types/koa": "^2.13.4",
     "@types/koa-bodyparser": "^4.3.12",
     "@types/koa__cors": "^5.0.0",
-    "@types/lodash": "4.17.0",
+    "@types/lodash": "4.17.5",
     "@types/qs": "^6.9.14",
     "@types/semver": "^7.3.9",
     "@types/serve-handler": "^6.1.1",

@@ -11,7 +11,7 @@
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "dayjs": "^1.11.8",
     "i18next": "^22.4.9",
     "react": "^18.2.0",

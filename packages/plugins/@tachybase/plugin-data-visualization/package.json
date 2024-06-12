@@ -14,7 +14,7 @@
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "dayjs": "^1.11.8",
     "deepmerge": "^4.2.2",
     "koa-compose": "^4.1.0",

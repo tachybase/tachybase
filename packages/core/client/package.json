@@ -24,7 +24,7 @@
     "@tachybase/sdk": "workspace:*",
     "@tachybase/utils": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "antd-style": "3.4.5",
     "axios": "^1.6.2",
     "classnames": "^2.3.1",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
-    "@types/lodash": "^4.17.0",
+    "@types/lodash": "^4.17.5",
     "@types/markdown-it": "12.2.3",
     "@types/markdown-it-highlightjs": "3.3.1",
     "@types/react-big-calendar": "^1.6.4",

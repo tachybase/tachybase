@@ -19,7 +19,7 @@
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.23",
     "ahooks": "^3.7.2",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "lodash": "4.17.21",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",

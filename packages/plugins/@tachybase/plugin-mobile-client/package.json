@@ -12,7 +12,7 @@
     "@types/react": "~18.2.73",
     "@types/react-dom": "~18.2.23",
     "ahooks": "3.x",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "antd-mobile": "^5.35.0",
     "antd-mobile-icons": "^0.3.0",
     "lodash": "4.17.21",

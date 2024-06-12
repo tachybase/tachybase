@@ -17,7 +17,7 @@
     "@tachybase/plugin-ui-schema-storage": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/utils": "workspace:*",
-    "antd": "5.16.1",
+    "antd": "5.18.0",
     "lodash": "^4.17.21",
     "react": "18.x",
     "react-i18next": "^11.15.1",
