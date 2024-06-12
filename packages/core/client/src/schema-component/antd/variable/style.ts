@@ -1,6 +1,7 @@
+import { unit } from '@ant-design/cssinjs';
 import { createStyles } from 'antd-style';
 
-export const useStyles = createStyles(({ token, css }, { multiline, disabled }) => {
+export const useStyles = createStyles(({ token, css, prefixCls }, { multiline, disabled }) => {
   const { lineWidth, colorFillQuaternary } = token;
   const inputPaddingHorizontalBase = token.paddingSM - 1;
   const tagPaddingHorizontal = 8; // Fixed padding.
@@ -11,22 +12,20 @@ export const useStyles = createStyles(({ token, css }, { multiline, disabled }) 
 
   return {
     fixInput: css`
-      .ant-input {
-        box-sizing: border-box;
-        margin: 0;
+      .${prefixCls}-input {
         padding: 3px 7px;
-        color: rgba(0, 0, 0, 0.88);
-        font-size: 12px;
-        line-height: 1.6666666666666667;
-        list-style: none;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-          sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        min-width: 0;
-        border-radius: 0;
-        transition: all 0.1s;
+        border-width: ${unit(token.lineWidth)};
+        border-style: ${token.lineType};
+        border-color: ${token.colorBorder};
+        font-size: ${unit(token.fontSize)};
+        line-height: ${token.lineHeight};
+        &:hover {
+          border-color: ${token.colorPrimaryBorderHover};
+        }
+        &:focus {
+          border-color: ${token.colorPrimaryBorderHover};
+          outline: none;
+        }
       }
     `,
     outerContainer: {
@@ -115,17 +114,15 @@ export const useStyles = createStyles(({ token, css }, { multiline, disabled }) 
       },
     },
     container: css`
-      &.ant-input-group.ant-input-group-compact {
-        display: flex;
-        .ant-input {
-          flex-grow: 1;
-          min-width: 200px;
-        }
-        .ant-input-disabled {
-          .ant-tag {
-            color: #bfbfbf;
-            border-color: #d9d9d9;
-          }
+      display: flex;
+      .ant-input {
+        flex-grow: 1;
+        min-width: 200px;
+      }
+      .ant-input-disabled {
+        .ant-tag {
+          color: #bfbfbf;
+          border-color: #d9d9d9;
         }
       }
 

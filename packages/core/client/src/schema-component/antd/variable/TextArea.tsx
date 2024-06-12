@@ -357,7 +357,7 @@ export function TextArea(props) {
   const disabled = props.disabled || form.disabled;
 
   return (
-    <Space.Compact className={cx(styles.outerContainer, styles.container)}>
+    <Space.Compact className={cx(styles.fixInput, styles.outerContainer, styles.container)}>
       <div
         role="button"
         aria-label="textbox"
