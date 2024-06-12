@@ -54,6 +54,7 @@
     "react-i18next": "^11.15.1",
     "react-iframe": "~1.8.5",
     "react-image-lightbox": "^5.1.4",
+    "react-intersection-observer": "^9.10.3",
     "react-js-cron": "^3.1.0",
     "react-quill": "^2.0.0",
     "react-router": "^6.11.2",
@@ -64,6 +65,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
+    "@types/flat": "^5.0.5",
     "@types/lodash": "^4.17.5",
     "@types/markdown-it": "12.2.3",
     "@types/markdown-it-highlightjs": "3.3.1",
