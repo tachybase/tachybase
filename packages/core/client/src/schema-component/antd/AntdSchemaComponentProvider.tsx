@@ -6,7 +6,6 @@ import { useFilterActionProps } from './filter/useFilterActionProps';
 import { formV1Settings } from './form';
 import { filterFormItemSettings, formItemSettings } from './form-item';
 import { formDetailsSettings, formSettings, readPrettyFormSettings } from './form-v2';
-import { requestChartData } from './g2plot/requestChartData';
 import { pageSettings, pageTabSettings } from './page';
 
 export class AntdSchemaComponentPlugin extends Plugin {
@@ -25,7 +24,6 @@ export class AntdSchemaComponentPlugin extends Plugin {
 
   addScopes() {
     this.app.addScopes({
-      requestChartData,
       useFilterActionProps,
     });
   }

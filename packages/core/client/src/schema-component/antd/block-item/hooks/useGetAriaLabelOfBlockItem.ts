@@ -22,16 +22,16 @@ export const useGetAriaLabelOfBlockItem = (defaultName?: string) => {
   const collection = useCollection();
   const name = defaultName || blockName;
 
-  const title = compile(fieldSchema['title']) || compile(collection.getField(fieldSchema.name)?.uiSchema?.title);
+  const title = compile(fieldSchema['title']) || compile(collection?.getField(fieldSchema.name)?.uiSchema?.title);
 
   const getAriaLabel = useCallback(
     (postfix?: string) => {
       postfix = postfix ? `-${postfix}` : '';
-      return ['block-item', component, collection.name, name, collectionField, title, postfix]
+      return ['block-item', component, collection?.name, name, collectionField, title, postfix]
         .filter(Boolean)
         .join('-');
     },
-    [component, collection.name, name, collectionField, title],
+    [component, collection?.name, name, collectionField, title],
   );
 
   return {

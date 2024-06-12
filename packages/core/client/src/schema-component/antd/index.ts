@@ -23,7 +23,6 @@ export * from './form';
 export * from './form-dialog';
 export * from './form-item';
 export * from './form-v2';
-export * from './g2plot';
 export * from './grid';
 export * from './grid-card';
 export * from './icon-picker';
