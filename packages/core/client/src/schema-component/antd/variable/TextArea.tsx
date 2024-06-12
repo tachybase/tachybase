@@ -3,7 +3,6 @@ import { useForm } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
 
 import { Space } from 'antd';
-import { createStyles } from 'antd-style';
 import cx from 'classnames';
 import { cloneDeep } from 'lodash';
 import sanitizeHTML from 'sanitize-html';
@@ -187,60 +186,12 @@ function getCurrentRange(element: HTMLElement): RangeIndexes {
   return result;
 }
 
-const useStyles2 = createStyles(({ css }, { multiline }) => {
-  return {
-    container: css`
-      &.ant-input-group.ant-input-group-compact {
-        display: flex;
-        .ant-input {
-          flex-grow: 1;
-          min-width: 200px;
-        }
-        .ant-input-disabled {
-          .ant-tag {
-            color: #bfbfbf;
-            border-color: #d9d9d9;
-          }
-        }
-      }
-
-      > .x-button {
-        height: min-content;
-      }
-    `,
-    button: css`
-      overflow: auto;
-      white-space: ${multiline ? 'normal' : 'nowrap'};
-
-      .ant-tag {
-        display: inline;
-        line-height: 19px;
-        margin: 0 0.5em;
-        padding: 2px 7px;
-        border-radius: 10px;
-      }
-    `,
-    pretty: css`
-      overflow: auto;
-
-      .ant-tag {
-        display: inline;
-        line-height: 19px;
-        margin: 0 0.25em;
-        padding: 2px 7px;
-        border-radius: 10px;
-      }
-    `,
-  };
-});
-
 export function TextArea(props) {
-  const { wrapSSR, hashId, componentCls } = useStyles();
   const { value = '', scope, onChange, multiline = true, changeOnSelect } = props;
+  const { styles } = useStyles({ multiline });
   const inputRef = useRef<HTMLDivElement>(null);
   const [options, setOptions] = useState([]);
   const form = useForm();
-  const { styles } = useStyles2({ multiline });
   const keyLabelMap = useMemo(() => createOptionsValueLabelMap(options), [options]);
   const [ime, setIME] = useState<boolean>(false);
   const [changed, setChanged] = useState(false);
@@ -405,8 +356,8 @@ export function TextArea(props) {
 
   const disabled = props.disabled || form.disabled;
 
-  return wrapSSR(
-    <Space.Compact className={cx(componentCls, hashId, styles.container)}>
+  return (
+    <Space.Compact className={cx(styles.outerContainer, styles.container)}>
       <div
         role="button"
         aria-label="textbox"
@@ -416,7 +367,7 @@ export function TextArea(props) {
         onPaste={onPaste}
         onCompositionStart={onCompositionStart}
         onCompositionEnd={onCompositionEnd}
-        className={cx(hashId, 'ant-input', { 'ant-input-disabled': disabled }, styles.button)}
+        className={cx('ant-input', { 'ant-input-disabled': disabled }, styles.button)}
         ref={inputRef}
         contentEditable={!disabled}
         dangerouslySetInnerHTML={{ __html: html }}
@@ -430,7 +381,7 @@ export function TextArea(props) {
           changeOnSelect={changeOnSelect}
         />
       ) : null}
-    </Space.Compact>,
+    </Space.Compact>
   );
 }
 
@@ -470,7 +421,7 @@ TextArea.ReadPretty = function ReadPretty(props) {
 
   const [options, setOptions] = useState([]);
   const keyLabelMap = useMemo(() => createOptionsValueLabelMap(options), [options]);
-  const { styles } = useStyles2();
+  const { styles } = useStyles();
 
   useEffect(() => {
     preloadOptions(scope, value)

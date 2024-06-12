@@ -1,7 +1,7 @@
-import { genStyleHook } from './../__builtins__';
+import { createStyles } from 'antd-style';
 
-export const useStyles = genStyleHook('nb-variable', (token) => {
-  const { componentCls, lineWidth, colorFillQuaternary } = token;
+export const useStyles = createStyles(({ token, css }, { multiline, disabled }) => {
+  const { lineWidth, colorFillQuaternary } = token;
   const inputPaddingHorizontalBase = token.paddingSM - 1;
   const tagPaddingHorizontal = 8; // Fixed padding.
   const paddingInline = tagPaddingHorizontal - lineWidth;
@@ -10,7 +10,26 @@ export const useStyles = genStyleHook('nb-variable', (token) => {
   const defaultBg = colorFillQuaternary;
 
   return {
-    [componentCls]: {
+    fixInput: css`
+      .ant-input {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 3px 7px;
+        color: rgba(0, 0, 0, 0.88);
+        font-size: 12px;
+        line-height: 1.6666666666666667;
+        list-style: none;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+          sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        min-width: 0;
+        border-radius: 0;
+        transition: all 0.1s;
+      }
+    `,
+    outerContainer: {
       width: 'auto',
       display: 'flex',
       '&.ant-input-group-compact': { display: 'flex' },
@@ -95,5 +114,75 @@ export const useStyles = genStyleHook('nb-variable', (token) => {
         flex: 1,
       },
     },
+    container: css`
+      &.ant-input-group.ant-input-group-compact {
+        display: flex;
+        .ant-input {
+          flex-grow: 1;
+          min-width: 200px;
+        }
+        .ant-input-disabled {
+          .ant-tag {
+            color: #bfbfbf;
+            border-color: #d9d9d9;
+          }
+        }
+      }
+
+      > .x-button {
+        height: min-content;
+      }
+    `,
+    button: css`
+      overflow: auto;
+      white-space: ${multiline ? 'normal' : 'nowrap'};
+
+      .ant-tag {
+        display: inline;
+        line-height: 19px;
+        margin: 0 0.5em;
+        padding: 2px 7px;
+        border-radius: 10px;
+      }
+    `,
+    pretty: css`
+      overflow: auto;
+
+      .ant-tag {
+        display: inline;
+        line-height: 19px;
+        margin: 0 0.25em;
+        padding: 2px 7px;
+        border-radius: 10px;
+      }
+    `,
+    container2: css`
+      position: relative;
+      line-height: 0;
+
+      &:hover {
+        .clear-button {
+          display: inline-block;
+        }
+      }
+
+      .ant-input {
+        overflow: auto;
+        white-space: nowrap;
+        ${disabled ? '' : 'padding-right: 28px;'}
+
+        .ant-tag {
+          display: inline;
+          line-height: 19px;
+          margin: 0;
+          padding: 2px 7px;
+          border-radius: 10px;
+          white-space: nowrap;
+        }
+      }
+    `,
+    button2: css`
+      margin-left: -1px;
+    `,
   };
 });

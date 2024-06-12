@@ -91,7 +91,7 @@ export const FormItem: any = observer(
 
     return (
       <CollectionFieldProvider allowNull={true}>
-        <BlockItem className={'nb-form-item'}>
+        <BlockItem className={'tb-form-item'}>
           <ACLCollectionFieldProvider>
             <Item className={className} {...props} extra={extra} />
           </ACLCollectionFieldProvider>

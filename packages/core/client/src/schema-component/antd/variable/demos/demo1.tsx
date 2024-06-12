@@ -1,9 +1,9 @@
 /**
  * title: Variable.Input
  */
-import { FormItem } from '@tachybase/components';
-import { SchemaComponent, SchemaComponentProvider, Variable } from '@tachybase/client';
 import React from 'react';
+import { SchemaComponent, SchemaComponentProvider, Variable } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
 
 const scope = [
   { label: 'v1', value: 'v1' },

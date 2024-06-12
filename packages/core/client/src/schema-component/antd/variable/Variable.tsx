@@ -1,5 +1,5 @@
-import { connect, mapReadPretty } from '@tachybase/schema';
 import React, { createContext, useContext } from 'react';
+import { connect, mapReadPretty } from '@tachybase/schema';
 
 import { Input } from './Input';
 import { JSONInput } from './JSONInput';

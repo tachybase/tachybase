@@ -28,7 +28,7 @@ import { getShouldChange, VariableInput } from './VariableInput/VariableInput';
 const useStyles = createStyles(({ css }) => {
   return {
     defaultInput: css`
-      & > .nb-form-item {
+      & > .tb-form-item {
         flex: 1;
       }
     `,

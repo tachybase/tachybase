@@ -32,7 +32,7 @@ const useStyles = createStyles(({ css, token }) => {
           display: block;
         }
       }
-      &.nb-form-item:hover {
+      &.tb-form-item:hover {
         > .general-schema-designer {
           background: var(--colorBgSettingsHover) !important;
           border: 0 !important;
@@ -81,7 +81,7 @@ export const AssociationFilter = (props) => {
 
   return (
     <DndContext>
-      <SortableItem className={cls('nb-block-item', props.className, styles.container)}>
+      <SortableItem className={cls('tb-block-item', props.className, styles.container)}>
         <Designer />
         {props.children}
         {render()}

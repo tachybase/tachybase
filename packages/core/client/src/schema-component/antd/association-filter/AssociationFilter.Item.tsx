@@ -94,7 +94,7 @@ export const AssociationFilterItem = withDynamicSchemaProps(
     const title = fieldSchema.title ?? collectionField?.uiSchema?.title;
 
     return wrapSSR(
-      <SortableItem className={cls(componentCls, hashId, 'nb-block-item', props.className, 'SortableItem')}>
+      <SortableItem className={cls(componentCls, hashId, 'tb-block-item', props.className, 'SortableItem')}>
         <Designer />
         {/* @ts-ignore upstream type error */}
         <Collapse defaultActiveKey={defaultActiveKeyCollapse} ghost expandIcon={searchVisible ? () => null : undefined}>

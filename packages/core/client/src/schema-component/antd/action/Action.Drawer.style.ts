@@ -15,7 +15,7 @@ export const useStyles = genStyleHook('nb-action-drawer', (token) => {
           '.ant-drawer-wrapper-body': {
             backgroundColor: 'var(--colorBgDrawer)',
           },
-          '.nb-block-item': {
+          '.tb-block-item': {
             marginBottom: token.marginLG,
             '.general-schema-designer': {
               top: -token.sizeXS,

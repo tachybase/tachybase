@@ -65,7 +65,7 @@ export const KanbanCard: any = observer(
             }
             .nb-grid-row:last-of-type {
               .nb-grid-col {
-                .nb-form-item:last-of-type {
+                .tb-form-item:last-of-type {
                   .ant-formily-item {
                     margin-bottom: 0;
                   }
