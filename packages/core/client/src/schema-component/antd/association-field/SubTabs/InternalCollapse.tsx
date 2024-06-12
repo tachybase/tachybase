@@ -207,24 +207,28 @@ export const InternalTabs = observer((props) => {
           {options.length ? (
             <Tabs
               tabPosition="left"
-              items={options.map((item) => ({
-                ...item,
-                children: (
-                  <Space style={{ maxHeight: '30vh', overflow: 'auto', padding: '10px 0px 20px 0px' }}>
-                    {item?.childrenItems?.map((childrenitem, index) => (
-                      <Button
-                        key={index}
-                        onClick={() => {
-                          onChange(childrenitem);
-                        }}
-                        icon={childrenitem.checked ? <CheckOutlined /> : null}
-                      >
-                        {childrenitem.label}
-                      </Button>
-                    ))}
-                  </Space>
-                ),
-              }))}
+              items={options
+                .sort((a, b) => (a.sort != null ? a.sort - b.sort : a.id - b.id))
+                .map((item) => ({
+                  ...item,
+                  children: (
+                    <Space style={{ maxHeight: '30vh', overflow: 'auto', padding: '10px 0px 20px 0px' }}>
+                      {item?.childrenItems
+                        ?.sort((a, b) => (a.sort != null ? a.sort - b.sort : a.id - b.id))
+                        .map((childrenitem, index) => (
+                          <Button
+                            key={index}
+                            onClick={() => {
+                              onChange(childrenitem);
+                            }}
+                            icon={childrenitem.checked ? <CheckOutlined /> : null}
+                          >
+                            {childrenitem.label}
+                          </Button>
+                        ))}
+                    </Space>
+                  ),
+                }))}
               style={{ maxHeight: '30vh', padding: '10px' }}
               defaultActiveKey="all"
             ></Tabs>
