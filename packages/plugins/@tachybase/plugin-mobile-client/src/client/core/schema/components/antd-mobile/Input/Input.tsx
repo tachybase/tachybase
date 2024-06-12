@@ -10,7 +10,7 @@ type ComposedInput = ((props: InputProps) => React.ReactNode) & {
 export const MInput: ComposedInput = connect(
   Input,
   mapProps((props) => {
-    return { placeholder: '请输入内容', clearable: true, ...props, style: { '--font-size': '12px' } };
+    return { placeholder: '请输入内容', clearable: true, ...props, style: { '--font-size': '12px', ...props?.style } };
   }),
   mapReadPretty((props) => {
     return <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{props.value}</span>;
@@ -20,7 +20,7 @@ export const MInput: ComposedInput = connect(
 const MTextArea = connect(
   TextArea,
   mapProps((props) => {
-    return { ...props, placeholder: '请输入内容', clearable: true, style: { '--font-size': '12px' } };
+    return { ...props, placeholder: '请输入内容', clearable: true, style: { '--font-size': '12px', ...props?.style } };
   }),
   mapReadPretty((props) => {
     return <div style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{props.value}</div>;

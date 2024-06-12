@@ -24,6 +24,7 @@ import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 import { observer } from '@tachybase/schema';
 
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
+import { useWorkflowNoticeFormBlockProps } from '../hook/useFormBlockProps';
 import { usePropsNoticeDetail } from '../hook/usePropsNoticeDetail';
 
 // 审批-抄送-查看: 内容
@@ -93,7 +94,7 @@ export const ViewTodosWorkflowNoticeContent = observer((props) => {
                   }}
                   scope={{
                     usePropsNoticeDetail,
-                    useDetailsBlockProps: useFormBlockContext,
+                    useDetailsBlockProps: useWorkflowNoticeFormBlockProps,
                   }}
                   schema={{
                     type: 'void',

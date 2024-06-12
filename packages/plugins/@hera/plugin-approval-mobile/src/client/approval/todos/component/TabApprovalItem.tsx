@@ -24,7 +24,8 @@ export const TabApprovalItem = observer((props) => {
     } else if (collectionName === 'users_jobs') {
       changeUsersJobsService(api, t, cm, compile, input, setData, params?.[tabKey], filter);
     } else if (collectionName === 'workflowNotice') {
-      changeWorkflowNoticeService(api, t, cm, compile, input, setData, params?.[tabKey], filter);
+      const user = await api.request({ url: 'users:list', params: { pageSize: 99999 } });
+      changeWorkflowNoticeService(api, t, cm, compile, input, setData, params?.[tabKey], filter, user?.data?.data);
     }
   }, [filter, params, input]);
 
@@ -95,6 +96,7 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
         const statusType = approvalTodoListStatus(item, t);
         const categoryTitle = item.workflow.title.replace('审批流:', '');
         const collectionName = item.workflow?.config?.collection || item.execution?.context?.collectionName;
+
         const summary = Object.entries(item.summary)?.map(([key, value]) => {
           const field = cm.getCollectionField(`${collectionName}.${key}`);
           return {
@@ -167,7 +169,7 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
     });
 };
 
-export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData, params, filter) => {
+export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData, params, filter, user) => {
   api
     .request({
       url: 'workflowNotice:listCentralized',
@@ -205,9 +207,10 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
             value: (Object.prototype.toString.call(value) === '[object Object]' ? value?.['name'] : value) || '',
           };
         });
+        const nickName = user.find((userItem) => userItem.id === item.snapshot?.createdById)?.nickname;
         return {
           ...item,
-          title: `${item.user?.nickname}的${categoryTitle}`,
+          title: `${nickName}的${categoryTitle}`,
           categoryTitle: categoryTitle,
           statusTitle: t(statusType.label),
           statusColor: statusType.color,
