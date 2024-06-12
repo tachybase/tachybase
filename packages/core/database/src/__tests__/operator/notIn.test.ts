@@ -1,5 +1,5 @@
-import { mockDatabase } from '../index';
 import Database from '../../database';
+import { mockDatabase } from '../index';
 
 describe('ne operator', () => {
   let db: Database;

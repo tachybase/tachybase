@@ -1,5 +1,6 @@
 import lodash from 'lodash';
-import { Model as SequelizeModel, ModelStatic } from 'sequelize';
+import { ModelStatic, Model as SequelizeModel } from 'sequelize';
+
 import { Collection } from './collection';
 import { Database } from './database';
 import { Field } from './fields';

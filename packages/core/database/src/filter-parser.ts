@@ -1,6 +1,7 @@
 import { flatten, unflatten } from 'flat';
-import { default as lodash, default as _ } from 'lodash';
+import _ from 'lodash';
 import { ModelStatic } from 'sequelize';
+
 import { Collection } from './collection';
 import { Database } from './database';
 import { Model } from './model';
@@ -31,7 +32,7 @@ export default class FilterParser {
   }
 
   prepareFilter(filter: FilterType) {
-    if (lodash.isPlainObject(filter)) {
+    if (_.isPlainObject(filter)) {
       const renamedKey = {};
 
       for (const key of Object.keys(filter)) {
@@ -70,7 +71,7 @@ export default class FilterParser {
     // supported operators
     const operators = this.database.operators;
 
-    const originalFiler = lodash.cloneDeep(filter || {});
+    const originalFiler = _.cloneDeep(filter || {});
 
     const flattenedFilter = flatten(filter || {});
 
@@ -84,7 +85,8 @@ export default class FilterParser {
 
     debug('associations %O', associations);
 
-    for (let [key, value] of Object.entries(flattenedFilter)) {
+    for (const [key, _value] of Object.entries(flattenedFilter)) {
+      let value = _value;
       // 处理 filter 条件
       if (skipPrefix && key.startsWith(skipPrefix)) {
         continue;
@@ -127,7 +129,7 @@ export default class FilterParser {
             } else if (typeof opKey === 'function') {
               skipPrefix = origins.join('.');
 
-              const queryValue = lodash.get(unflatten(originalFiler), skipPrefix);
+              const queryValue = _.get(unflatten(originalFiler), skipPrefix);
               const [fieldName, fullName] = this.getFieldNameFromQueryPath(skipPrefix);
               value = opKey(queryValue, {
                 app: this.context.app,
@@ -147,7 +149,7 @@ export default class FilterParser {
         }
 
         // firstKey is number
-        if (!lodash.isNaN(parseInt(firstKey))) {
+        if (!_.isNaN(parseInt(firstKey))) {
           paths.push(firstKey);
           continue;
         }
@@ -261,7 +263,7 @@ export default class FilterParser {
     let fieldName;
     const fullPaths = [];
     for (const path of paths) {
-      if (path.startsWith('$') || !lodash.isNaN(parseInt(path))) {
+      if (path.startsWith('$') || !_.isNaN(parseInt(path))) {
         continue;
       }
       fullPaths.push(path);

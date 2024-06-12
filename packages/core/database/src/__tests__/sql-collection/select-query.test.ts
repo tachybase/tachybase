@@ -1,5 +1,6 @@
-import { SQLModel } from '../../sql-collection/sql-model';
 import { Sequelize } from 'sequelize';
+
+import { SQLModel } from '../../sql-collection/sql-model';
 
 describe('select query', () => {
   const model = class extends SQLModel {};

@@ -1,5 +1,5 @@
-import { Database } from '../../database';
 import { mockDatabase } from '../';
+import { Database } from '../../database';
 import { IdentifierError } from '../../errors/identifier-error';
 
 describe('has many field', () => {

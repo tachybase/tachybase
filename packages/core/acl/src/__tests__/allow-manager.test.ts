@@ -1,5 +1,6 @@
 import { ACL } from '..';
 import { AllowManager } from '../allow-manager';
+
 describe('allow manager', () => {
   let acl: ACL;
 

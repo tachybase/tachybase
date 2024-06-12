@@ -8,6 +8,7 @@ import { BaseFieldOptions } from './field';
 import { HasManyFieldOptions } from './has-many-field';
 import { HasOneFieldOptions } from './has-one-field';
 import { JsonbFieldOptions, JsonFieldOptions } from './json-field';
+import { NanoidFieldOptions } from './nanoid-field';
 import {
   DecimalFieldOptions,
   DoubleFieldOptions,
@@ -25,7 +26,6 @@ import { TimeFieldOptions } from './time-field';
 import { UidFieldOptions } from './uid-field';
 import { UUIDFieldOptions } from './uuid-field';
 import { VirtualFieldOptions } from './virtual-field';
-import { NanoidFieldOptions } from './nanoid-field';
 
 export * from './array-field';
 export * from './belongs-to-field';

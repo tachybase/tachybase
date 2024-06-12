@@ -1,4 +1,5 @@
 import { DataTypes } from 'sequelize';
+
 import { BaseColumnFieldOptions, Field, FieldContext } from './field';
 
 export class UuidField extends Field {

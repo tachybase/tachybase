@@ -1,5 +1,5 @@
-import { Database, mockDatabase } from '@tachybase/database';
 import * as process from 'process';
+import { Database, mockDatabase } from '@tachybase/database';
 
 describe('empty table', () => {
   let db: Database;

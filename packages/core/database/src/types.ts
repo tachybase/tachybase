@@ -1,8 +1,9 @@
-import type { Model } from './model';
 import type { CreateOptions, DestroyOptions, SaveOptions, SyncOptions, UpdateOptions } from 'sequelize/types';
-import { Collection, CollectionOptions } from './collection';
 import { HookReturn } from 'sequelize/types/hooks';
 import { ValidationOptions } from 'sequelize/types/instance-validator';
+
+import { Collection, CollectionOptions } from './collection';
+import type { Model } from './model';
 
 export type CollectionNameType = string;
 

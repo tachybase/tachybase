@@ -1,5 +1,7 @@
 import { uid } from '@tachybase/utils';
+
 import { DataTypes } from 'sequelize';
+
 import { BaseColumnFieldOptions, Field } from './field';
 
 export class UidField extends Field {

@@ -1,4 +1,5 @@
 import Database, { mockDatabase } from '@tachybase/database';
+
 import { EagerLoadingTree } from '../../eager-loading/eager-loading-tree';
 
 describe('Eager loading tree', () => {

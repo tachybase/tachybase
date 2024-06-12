@@ -1,4 +1,5 @@
 import { parseDate } from '@tachybase/utils';
+
 import { Op } from 'sequelize';
 
 function isDate(input) {

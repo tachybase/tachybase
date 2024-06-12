@@ -1,7 +1,8 @@
 import { vi } from 'vitest';
+
+import { Collection } from '../collection';
 import Database from '../database';
 import { mockDatabase } from './index';
-import { Collection } from '../collection';
 
 describe('collection factory', function () {
   let db: Database;

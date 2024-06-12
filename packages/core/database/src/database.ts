@@ -1,13 +1,14 @@
+import { EventEmitter } from 'events';
+import { basename, isAbsolute, resolve } from 'path';
 import { createConsoleLogger, createLogger, Logger, LoggerOptions } from '@tachybase/logger';
 import { applyMixins, AsyncEmitter } from '@tachybase/utils';
+
 import chalk from 'chalk';
 import merge from 'deepmerge';
-import { EventEmitter } from 'events';
 import { backOff } from 'exponential-backoff';
 import glob from 'glob';
 import lodash from 'lodash';
 import { nanoid } from 'nanoid';
-import { basename, isAbsolute, resolve } from 'path';
 import semver from 'semver';
 import {
   DataTypes,
@@ -22,6 +23,7 @@ import {
   Utils,
 } from 'sequelize';
 import { SequelizeStorage, Umzug } from 'umzug';
+
 import { Collection, CollectionOptions, RepositoryType } from './collection';
 import { CollectionFactory } from './collection-factory';
 import { CollectionGroupManager } from './collection-group-manager';

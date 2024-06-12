@@ -1,7 +1,8 @@
+import lodash, { parseInt } from 'lodash';
 import { Op } from 'sequelize';
+
 import { ArrayField, StringField } from '../fields';
 import arrayOperators from './array';
-import lodash, { parseInt } from 'lodash';
 
 const findFilterFieldType = (ctx) => {
   const db = ctx.db;

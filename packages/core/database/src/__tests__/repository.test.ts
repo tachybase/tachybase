@@ -1,5 +1,7 @@
 import { Repository } from '@tachybase/database';
+
 import { vi } from 'vitest';
+
 import { Collection } from '../collection';
 import { Database } from '../database';
 import { mockDatabase } from './';

@@ -1,8 +1,10 @@
+import EventEmitter from 'events';
 import { Action } from '@tachybase/resourcer';
 import { assign, parseFilter, Toposort, ToposortOptions } from '@tachybase/utils';
-import EventEmitter from 'events';
+
 import compose from 'koa-compose';
 import lodash from 'lodash';
+
 import { ACLAvailableAction, AvailableActionOptions } from './acl-available-action';
 import { ACLAvailableStrategy, AvailableStrategyOptions, predicate } from './acl-available-strategy';
 import { ACLRole, ResourceActionsOptions, RoleActionParams } from './acl-role';

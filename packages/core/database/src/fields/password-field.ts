@@ -1,5 +1,7 @@
 import crypto from 'crypto';
+
 import { DataTypes } from 'sequelize';
+
 import { Model } from '../model';
 import { BaseColumnFieldOptions, Field } from './field';
 

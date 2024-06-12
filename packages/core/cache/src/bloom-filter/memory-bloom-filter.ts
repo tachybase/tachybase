@@ -1,6 +1,7 @@
+import { BloomFilter } from 'bloom-filters';
+
 import { BloomFilter as IBloomFilter } from '.';
 import { Cache } from '../cache';
-import { BloomFilter } from 'bloom-filters';
 
 export class MemoryBloomFilter implements IBloomFilter {
   cache: Cache;

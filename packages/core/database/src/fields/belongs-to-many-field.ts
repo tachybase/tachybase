@@ -1,5 +1,6 @@
 import { omit } from 'lodash';
 import { AssociationScope, BelongsToManyOptions as SequelizeBelongsToManyOptions, Utils } from 'sequelize';
+
 import { Collection } from '../collection';
 import { Reference } from '../features/references-map';
 import { checkIdentifier } from '../utils';

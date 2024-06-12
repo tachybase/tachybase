@@ -1,5 +1,5 @@
-import { Database } from '..';
 import { mockDatabase } from '.';
+import { Database } from '..';
 
 describe('model hook', () => {
   let db: Database;

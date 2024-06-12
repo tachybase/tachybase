@@ -1,5 +1,6 @@
 import lodash from 'lodash';
 import { Association, BelongsTo, BelongsToMany, HasMany, HasOne, ModelStatic, Transaction } from 'sequelize';
+
 import { Collection } from '../collection';
 import Database from '../database';
 import { transactionWrapperBuilder } from '../decorators/transaction-decorator';

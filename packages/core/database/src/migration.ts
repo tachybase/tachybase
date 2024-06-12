@@ -1,6 +1,8 @@
 import { importModule } from '@tachybase/utils';
+
 import _ from 'lodash';
 import { QueryInterface, Sequelize } from 'sequelize';
+
 import Database from './database';
 
 export interface MigrationContext {

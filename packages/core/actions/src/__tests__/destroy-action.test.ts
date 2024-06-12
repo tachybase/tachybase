@@ -1,4 +1,5 @@
 import { registerActions } from '@tachybase/actions';
+
 import { mockServer } from './index';
 
 describe('destroy action', () => {

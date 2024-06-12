@@ -55,11 +55,13 @@ class ReferencesMap {
         if (existReference.onDelete === 'SET NULL' && reference.onDelete === 'CASCADE') {
           existReference.onDelete = reference.onDelete;
         } else {
-          console.error(new Error(
-            `On Delete Conflict, exist reference ${JSON.stringify(existReference)}, new reference ${JSON.stringify(
-              reference,
-            )}`,
-          ));
+          console.error(
+            new Error(
+              `On Delete Conflict, exist reference ${JSON.stringify(existReference)}, new reference ${JSON.stringify(
+                reference,
+              )}`,
+            ),
+          );
         }
       }
     }

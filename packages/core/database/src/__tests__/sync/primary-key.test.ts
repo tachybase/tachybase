@@ -1,5 +1,6 @@
-import { Database, mockDatabase } from '../../index';
 import * as process from 'process';
+
+import { Database, mockDatabase } from '../../index';
 
 describe('primary key', () => {
   let db: Database;

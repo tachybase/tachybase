@@ -1,5 +1,5 @@
-import { Database } from '../../database';
 import { mockDatabase } from '../';
+import { Database } from '../../database';
 import { SortField } from '../../fields';
 
 describe('string field', () => {

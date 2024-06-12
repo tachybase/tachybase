@@ -1,5 +1,7 @@
-import { vi } from 'vitest';
 import path from 'path';
+
+import { vi } from 'vitest';
+
 import { Database, Model } from '..';
 import { ArrayFieldRepository } from '../field-repository/array-field-repository';
 import { mockDatabase } from './index';

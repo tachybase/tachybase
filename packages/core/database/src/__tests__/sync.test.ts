@@ -1,5 +1,6 @@
-import { vi } from 'vitest';
 import { Database, mockDatabase } from '@tachybase/database';
+
+import { vi } from 'vitest';
 
 describe('sync', () => {
   let db: Database;

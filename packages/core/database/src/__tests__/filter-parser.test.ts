@@ -1,4 +1,5 @@
 import { Op } from 'sequelize';
+
 import { Database } from '../database';
 import FilterParser from '../filter-parser';
 import { mockDatabase } from './index';

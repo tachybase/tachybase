@@ -1,4 +1,5 @@
 import lodash from 'lodash';
+
 import { ACL } from './acl';
 
 type StrategyValue = false | '*' | string | string[];

@@ -1,7 +1,8 @@
+import { Transaction } from 'sequelize';
+
 import { Collection } from '../collection';
 import sqlParser from '../sql-parser';
 import QueryInterface, { TableInfo } from './query-interface';
-import { Transaction } from 'sequelize';
 
 export default class SqliteQueryInterface extends QueryInterface {
   constructor(db) {

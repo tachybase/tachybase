@@ -1,5 +1,6 @@
-import { MockServer, mockServer } from './index';
 import { registerActions } from '@tachybase/actions';
+
+import { MockServer, mockServer } from './index';
 
 describe('update action', () => {
   let app: MockServer;

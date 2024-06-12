@@ -1,6 +1,3 @@
-import { Model, Op } from 'sequelize';
-
-import { Context } from '..';
 import {
   BelongsToManyRepository,
   Collection,
@@ -9,6 +6,10 @@ import {
   SortField,
   TargetKey,
 } from '@tachybase/database';
+
+import { Model, Op } from 'sequelize';
+
+import { Context } from '..';
 import { getRepositoryFromParams } from '../utils';
 
 export async function move(ctx: Context, next) {

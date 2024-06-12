@@ -1,8 +1,11 @@
 import { merge } from '@tachybase/utils';
+
 import _ from 'lodash';
 import { Utils } from 'sequelize';
+
 import Database from './database';
 import { Model } from './model';
+
 const Dottie = require('dottie');
 
 export class MagicAttributeModel extends Model {

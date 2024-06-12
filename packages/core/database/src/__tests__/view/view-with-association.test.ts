@@ -1,6 +1,7 @@
-import { uid } from '@tachybase/utils';
-import { Database, mockDatabase, ViewFieldInference } from '../../index';
 import { pgOnly } from '@tachybase/test';
+import { uid } from '@tachybase/utils';
+
+import { Database, mockDatabase, ViewFieldInference } from '../../index';
 
 pgOnly()('view with association', () => {
   let db: Database;

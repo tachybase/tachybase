@@ -1,6 +1,6 @@
-import { BelongsToManyRepository, HasManyRepository, mockDatabase } from '../../index';
-import Database from '../../database';
 import { Collection } from '../../collection';
+import Database from '../../database';
+import { BelongsToManyRepository, HasManyRepository, mockDatabase } from '../../index';
 
 describe('association aggregation', () => {
   let db: Database;

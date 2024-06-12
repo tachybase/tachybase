@@ -1,7 +1,9 @@
+import EventEmitter from 'events';
 import { ACL } from '@tachybase/acl';
 import { getNameByParams, parseRequest } from '@tachybase/resourcer';
-import EventEmitter from 'events';
+
 import compose from 'koa-compose';
+
 import { loadDefaultActions } from './load-default-actions';
 import { ResourceManager } from './resource-manager';
 import { ICollectionManager } from './types';

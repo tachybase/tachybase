@@ -1,6 +1,7 @@
-import { mockServer } from './index';
 import { registerActions } from '@tachybase/actions';
 import { Collection } from '@tachybase/database';
+
+import { mockServer } from './index';
 
 describe('first or create', () => {
   let app;

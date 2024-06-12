@@ -1,7 +1,9 @@
 import crypto from 'crypto';
+
+import lodash from 'lodash';
+
 import Database from './database';
 import { IdentifierError } from './errors/identifier-error';
-import lodash from 'lodash';
 
 export function md5(value: string) {
   return crypto.createHash('md5').update(value).digest('hex');

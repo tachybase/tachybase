@@ -1,6 +1,7 @@
-import { mockServer } from './index';
-import { SortAbleCollection } from '../actions';
 import lodash from 'lodash';
+
+import { SortAbleCollection } from '../actions';
+import { mockServer } from './index';
 
 describe('sort collections', () => {
   let app;

@@ -7,6 +7,7 @@ import {
   HasManyOptions as SequelizeHasManyOptions,
   Utils,
 } from 'sequelize';
+
 import { Collection } from '../collection';
 import { buildReference, Reference } from '../features/references-map';
 import { checkIdentifier } from '../utils';

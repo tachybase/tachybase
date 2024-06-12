@@ -13,5 +13,8 @@ export interface AvailableActionOptions {
 }
 
 export class ACLAvailableAction {
-  constructor(public name: string, public options: AvailableActionOptions) {}
+  constructor(
+    public name: string,
+    public options: AvailableActionOptions,
+  ) {}
 }

@@ -1,4 +1,5 @@
 import { Op } from 'sequelize';
+
 import { isPg } from './utils';
 
 function escapeLike(value: string) {

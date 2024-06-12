@@ -5,12 +5,12 @@ export function transactionWrapperBuilder(transactionGenerator) {
     return (target, name, descriptor) => {
       const oldValue = descriptor.value;
 
-      descriptor.value = async function () {
+      descriptor.value = async function (...args: unknown[]) {
         let transaction;
         let newTransaction = false;
 
-        if (arguments.length > 0 && typeof arguments[0] === 'object') {
-          transaction = arguments[0]['transaction'];
+        if (args.length > 0 && typeof args[0] === 'object') {
+          transaction = args[0]['transaction'];
         }
 
         if (!transaction) {
@@ -22,14 +22,15 @@ export function transactionWrapperBuilder(transactionGenerator) {
         if (newTransaction) {
           try {
             let callArguments;
-            if (lodash.isPlainObject(arguments[0])) {
+            if (lodash.isPlainObject(args[0])) {
               callArguments = {
-                ...arguments[0],
+                // @ts-ignore lodash type error
+                ...args[0],
                 transaction,
               };
             } else if (transactionInjector) {
-              callArguments = transactionInjector(arguments, transaction);
-            } else if (lodash.isNull(arguments[0]) || lodash.isUndefined(arguments[0])) {
+              callArguments = transactionInjector(args, transaction);
+            } else if (lodash.isNull(args[0]) || lodash.isUndefined(args[0])) {
               callArguments = {
                 transaction,
               };
@@ -48,7 +49,7 @@ export function transactionWrapperBuilder(transactionGenerator) {
             throw err;
           }
         } else {
-          return oldValue.apply(this, arguments);
+          return oldValue.apply(this, args);
         }
       };
 

@@ -1,4 +1,5 @@
 import lodash from 'lodash';
+
 import Database from './database';
 
 class TableNode {

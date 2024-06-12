@@ -1,7 +1,7 @@
 import { Collection, Model } from '@tachybase/database';
+
 import { Auth, AuthConfig } from '../auth';
 import { JwtService } from './jwt-service';
-import { Cache } from '@tachybase/cache';
 
 /**
  * BaseAuth
@@ -56,7 +56,7 @@ export class BaseAuth extends Auth {
         this.ctx.headers['x-role'] = roleName;
       }
 
-      const cache = this.ctx.cache as Cache;
+      const cache = this.ctx.cache;
       return await cache.wrap(this.getCacheKey(userId), () =>
         this.userRepository.findOne({
           filter: {
