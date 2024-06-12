@@ -1,8 +1,8 @@
-import React, { FC, ReactNode, createContext, useContext, useMemo } from 'react';
+import React, { createContext, FC, ReactNode, useContext, useMemo } from 'react';
 
-import { useCollectionManager } from './CollectionManagerProvider';
 import { CollectionDeletedPlaceholder } from '../components/CollectionDeletedPlaceholder';
-import type { CollectionOptions, Collection, GetCollectionFieldPredicate } from './Collection';
+import type { Collection, CollectionOptions, GetCollectionFieldPredicate } from './Collection';
+import { useCollectionManager } from './CollectionManagerProvider';
 
 export const CollectionContext = createContext<Collection>(null);
 CollectionContext.displayName = 'CollectionContext';
