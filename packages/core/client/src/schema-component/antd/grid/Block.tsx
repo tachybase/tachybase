@@ -1,5 +1,6 @@
-import { observer, useFieldSchema } from '@tachybase/schema';
 import React from 'react';
+import { observer, useFieldSchema } from '@tachybase/schema';
+
 import { DragHandler } from '../../';
 
 export const Block = observer(

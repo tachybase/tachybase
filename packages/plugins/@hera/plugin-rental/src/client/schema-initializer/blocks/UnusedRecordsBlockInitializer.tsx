@@ -9,6 +9,7 @@ import {
   useSchemaInitializerItem,
 } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
+
 import { ToolOutlined } from '@ant-design/icons';
 import { Tag } from 'antd';
 

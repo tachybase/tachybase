@@ -1,4 +1,5 @@
 import { ACL } from '@tachybase/acl';
+
 import { availableActions } from './available-action';
 
 const configureResources = [

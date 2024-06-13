@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+
 import { useCollectionManager_deprecated } from '../../collection-manager';
 import { ActionType } from './type';
 

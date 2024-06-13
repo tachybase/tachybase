@@ -1,5 +1,4 @@
 import React from 'react';
-import { Input } from 'antd';
 import {
   Application,
   FormItem,
@@ -8,6 +7,8 @@ import {
   SchemaSettings,
   useSchemaSettingsRender,
 } from '@tachybase/client';
+
+import { Input } from 'antd';
 
 const mySchemaSetting = new SchemaSettings({
   name: 'MySchemaSetting',

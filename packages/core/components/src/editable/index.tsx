@@ -1,12 +1,14 @@
+import React, { useLayoutEffect, useRef, useState } from 'react';
+
 import { CloseOutlined, EditOutlined, MessageOutlined } from '@ant-design/icons';
 import { Field, isVoidField } from '@formily/core';
 import { observer, ReactFC, useField } from '@formily/react';
 import { Popover as AntdPopover } from 'antd';
 import { PopoverProps } from 'antd/lib/popover';
 import cls from 'classnames';
-import React, { useLayoutEffect, useRef, useState } from 'react';
-import { BaseItem, IFormItemProps } from '../form-item';
+
 import { useClickAway, usePrefixCls } from '../__builtins__';
+import { BaseItem, IFormItemProps } from '../form-item';
 import useStyle from './style';
 
 const useParentPattern = () => {

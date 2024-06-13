@@ -1,5 +1,5 @@
-import { evaluate } from '../../utils';
 import evaluators from '..';
+import { evaluate } from '../../utils';
 
 describe('evaluate', () => {
   describe('pre-process', () => {

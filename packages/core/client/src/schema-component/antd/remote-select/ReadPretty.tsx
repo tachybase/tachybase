@@ -1,9 +1,10 @@
-import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import React from 'react';
+import { observer, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useRequest } from '../../../api-client';
 import { useRecord } from '../../../record-provider';
 import { useActionContext } from '../action';
-import { Select, defaultFieldNames } from '../select';
+import { defaultFieldNames, Select } from '../select';
 import { getValues } from './shared';
 
 export const ReadPretty = observer(

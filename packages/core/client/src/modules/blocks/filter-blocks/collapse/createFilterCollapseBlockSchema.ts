@@ -1,5 +1,4 @@
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { ISchema, uid } from '@tachybase/schema';
 
 export const createCollapseBlockSchema = (options: {
   collectionName: string;

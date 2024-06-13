@@ -1,6 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { DataSourceManagerProvider, useDataSourceManager } from '@tachybase/client';
+
+import { render } from '@testing-library/react';
 
 describe('DataSourceManagerProvider', () => {
   test('should render children', () => {

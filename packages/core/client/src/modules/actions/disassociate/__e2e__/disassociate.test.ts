@@ -1,4 +1,5 @@
-import { test, expect } from '@tachybase/test/e2e';
+import { expect, test } from '@tachybase/test/e2e';
+
 import { disassociatePage } from './templatesOfPage';
 
 test('basic', async ({ page, mockPage, mockRecord }) => {

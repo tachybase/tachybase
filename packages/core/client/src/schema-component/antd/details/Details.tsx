@@ -1,9 +1,11 @@
 import React from 'react';
-import { FormV2 } from '../form-v2';
-import _ from 'lodash';
+
 import { Empty } from 'antd';
-import { useDataBlockRequest } from '../../../data-source';
+import _ from 'lodash';
+
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { useDataBlockRequest } from '../../../data-source';
+import { FormV2 } from '../form-v2';
 
 export const Details = withDynamicSchemaProps((props) => {
   const request = useDataBlockRequest();

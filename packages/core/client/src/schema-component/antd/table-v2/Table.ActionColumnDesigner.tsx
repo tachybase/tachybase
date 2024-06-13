@@ -1,7 +1,9 @@
-import { DragOutlined } from '@ant-design/icons';
-import { useFieldSchema } from '@tachybase/schema';
-import { Space } from 'antd';
 import React from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
+import { DragOutlined } from '@ant-design/icons';
+import { Space } from 'antd';
+
 import { useSchemaInitializerRender } from '../../../application';
 import { DragHandler } from '../../../schema-component';
 import { useGetAriaLabelOfDesigner } from '../../../schema-settings/hooks/useGetAriaLabelOfDesigner';

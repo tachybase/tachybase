@@ -1,5 +1,7 @@
-import { vi } from 'vitest';
 import { Schema } from '@tachybase/schema';
+
+import { vi } from 'vitest';
+
 import { createDesignable, Designable } from '../useDesignable';
 
 describe('createDesignable', () => {

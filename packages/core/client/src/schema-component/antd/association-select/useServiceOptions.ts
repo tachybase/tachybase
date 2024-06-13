@@ -1,5 +1,6 @@
-import { useFieldSchema } from '@tachybase/schema';
 import { useCallback, useMemo } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { isInFilterFormBlock } from '../../../filter-provider';
 import { mergeFilter } from '../../../filter-provider/utils';

@@ -1,11 +1,11 @@
 /**
  * title: 勾选
  */
-import { ISchema } from '@tachybase/schema';
+import React from 'react';
 import {
-  APIClientProvider,
   Action,
   ActionBar,
+  APIClientProvider,
   Application,
   BlockItem,
   CollectionField,
@@ -18,7 +18,8 @@ import {
   TableSelectorProvider,
   TableV2,
 } from '@tachybase/client';
-import React from 'react';
+import { ISchema } from '@tachybase/schema';
+
 import { mockAPIClient } from '../../../../testUtils';
 import data from './mockData';
 

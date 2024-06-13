@@ -1,4 +1,5 @@
 import supertest from 'supertest';
+
 import { Application } from '../application';
 
 describe('i18next', () => {

@@ -1,4 +1,5 @@
 import { useFieldSchema } from '@tachybase/schema';
+
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated } from '../../../../collection-manager';

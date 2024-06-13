@@ -1,6 +1,7 @@
+import React from 'react';
+
 import { Input } from 'antd';
 import _ from 'lodash';
-import React from 'react';
 
 export const IconFilterInput = (props) => {
   const { changeFilterKey } = props;

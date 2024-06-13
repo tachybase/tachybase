@@ -1,9 +1,10 @@
-import http from 'http';
-import url from 'url';
-import pg from 'pg';
-import dotenv from 'dotenv';
-import path from 'path';
 import fs from 'fs';
+import http from 'http';
+import path from 'path';
+import url from 'url';
+
+import dotenv from 'dotenv';
+import pg from 'pg';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.test') });
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

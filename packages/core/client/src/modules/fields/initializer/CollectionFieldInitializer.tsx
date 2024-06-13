@@ -1,8 +1,8 @@
-import { ISchema } from '@tachybase/schema';
 import React from 'react';
+import { ISchema } from '@tachybase/schema';
 
-import { InitializerWithSwitch } from '../../../schema-initializer/items/InitializerWithSwitch';
 import { useSchemaInitializerItem } from '../../../application';
+import { InitializerWithSwitch } from '../../../schema-initializer/items/InitializerWithSwitch';
 
 export const CollectionFieldInitializer = () => {
   const schema: ISchema = {};

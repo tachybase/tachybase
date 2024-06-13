@@ -1,7 +1,8 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
 import { useDesignable } from '@tachybase/client';
-import lodash from 'lodash';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
 import { useMemoizedFn } from 'ahooks';
+import lodash from 'lodash';
 
 export const useSchemaPatch = () => {
   const { dn } = useDesignable();

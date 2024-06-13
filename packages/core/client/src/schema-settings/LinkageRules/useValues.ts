@@ -1,5 +1,6 @@
+import { useContext, useEffect } from 'react';
 import { useField } from '@tachybase/schema';
-import { useEffect, useContext } from 'react';
+
 import { LinkageLogicContext } from './context';
 
 const findOption = (dataIndex = [], options) => {

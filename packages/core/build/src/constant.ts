@@ -1,5 +1,6 @@
-import type { Project } from '@pnpm/workspace.find-packages';
 import path from 'path';
+
+import type { Project } from '@pnpm/workspace.find-packages';
 
 export const globExcludeFiles = [
   '!src/**/__tests__',

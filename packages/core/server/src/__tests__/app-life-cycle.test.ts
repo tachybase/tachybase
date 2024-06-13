@@ -1,4 +1,5 @@
 import { vi } from 'vitest';
+
 import Application, { ApplicationOptions } from '../application';
 import { createAppProxy } from '../helper';
 import Plugin from '../plugin';

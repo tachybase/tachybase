@@ -1,8 +1,10 @@
-import { MenuOutlined } from '@ant-design/icons';
-import { ISchema, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
 import React from 'react';
+import { ISchema, useFieldSchema } from '@tachybase/schema';
+
+import { MenuOutlined } from '@ant-design/icons';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient } from '../../../../api-client';
 import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
 import { SchemaInitializerActionModal } from '../../../../application/schema-initializer/components/SchemaInitializerActionModal';

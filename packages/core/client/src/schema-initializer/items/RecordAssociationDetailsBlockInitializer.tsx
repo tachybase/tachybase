@@ -1,11 +1,12 @@
-import { FormOutlined } from '@ant-design/icons';
 import React, { useCallback } from 'react';
+
+import { FormOutlined } from '@ant-design/icons';
 
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
 import { useCollectionManager_deprecated } from '../../collection-manager';
+import { createDetailsWithPaginationUISchema } from '../../modules/blocks/data-blocks/details-multi/createDetailsWithPaginationUISchema';
 import { useSchemaTemplateManager } from '../../schema-templates';
 import { useRecordCollectionDataSourceItems } from '../utils';
-import { createDetailsWithPaginationUISchema } from '../../modules/blocks/data-blocks/details-multi/createDetailsWithPaginationUISchema';
 
 export const RecordAssociationDetailsBlockInitializer = () => {
   const itemConfig = useSchemaInitializerItem();

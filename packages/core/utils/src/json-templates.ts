@@ -3,8 +3,8 @@
 //
 // Created by Curran Kelleher and Chrostophe Serafin.
 // Contributions from Paul Brewer and Javier Blanco Martinez.
-import { get } from 'lodash';
 import dedupe from 'dedupe';
+import { get } from 'lodash';
 
 // An enhanced version of `typeof` that handles arrays and dates as well.
 function type(value) {

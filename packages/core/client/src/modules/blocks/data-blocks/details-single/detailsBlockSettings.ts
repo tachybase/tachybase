@@ -1,8 +1,9 @@
 import { useFieldSchema } from '@tachybase/schema';
+
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
+import { SchemaSettingsItemType } from '../../../../application/schema-settings/types';
 import { useCollection_deprecated } from '../../../../collection-manager';
 import { SchemaSettingsBlockTitleItem, SchemaSettingsFormItemTemplate } from '../../../../schema-settings';
-import { SchemaSettingsItemType } from '../../../../application/schema-settings/types';
 
 const commonItems: SchemaSettingsItemType[] = [
   {

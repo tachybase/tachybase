@@ -1,6 +1,7 @@
-import { SchemaComponentProvider, useSchemaComponentContext } from '@tachybase/client';
-import { Button } from 'antd';
 import React from 'react';
+import { SchemaComponentProvider, useSchemaComponentContext } from '@tachybase/client';
+
+import { Button } from 'antd';
 
 const Test = () => {
   const { designable, setDesignable } = useSchemaComponentContext();

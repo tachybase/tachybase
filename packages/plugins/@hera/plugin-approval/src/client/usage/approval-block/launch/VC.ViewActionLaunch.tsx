@@ -1,5 +1,6 @@
-import { SchemaComponent, useRecord } from '@tachybase/client';
 import React from 'react';
+import { SchemaComponent, useRecord } from '@tachybase/client';
+
 import { RecordDecorator } from './Dt.Record';
 import { ViewActionLaunchContent } from './VC.ViewActionLaunchContent';
 

@@ -1,6 +1,7 @@
-import { expectSettingsMenu, test, expect } from '@tachybase/test/e2e';
-import { createTable } from './utils';
+import { expect, expectSettingsMenu, test } from '@tachybase/test/e2e';
+
 import { tableSelectorDataScopeVariable } from './templatesOfBug';
+import { createTable } from './utils';
 
 test.describe('table data selector schema settings', () => {
   test('supported options', async ({ page, mockPage }) => {

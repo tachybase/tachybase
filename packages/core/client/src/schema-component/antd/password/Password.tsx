@@ -1,7 +1,9 @@
+import React from 'react';
 import { connect, mapReadPretty } from '@tachybase/schema';
+
 import { Input } from 'antd';
 import { PasswordProps } from 'antd/es/input';
-import React from 'react';
+
 import { PasswordStrength } from './PasswordStrength';
 
 export interface IPasswordProps extends PasswordProps {

@@ -1,6 +1,7 @@
+import _, { filter, unionBy, uniq } from 'lodash';
+
 import type { CollectionFieldOptions, GetCollectionFieldPredicate } from '../../data-source';
 import { Collection } from '../../data-source/collection/Collection';
-import _, { filter, unionBy, uniq } from 'lodash';
 
 export class InheritanceCollectionMixin extends Collection {
   protected parentCollectionsName: string[];

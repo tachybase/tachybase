@@ -1,11 +1,12 @@
-import { PlusOutlined } from '@ant-design/icons';
+import React, { useMemo, useState } from 'react';
 import { ArrayTable } from '@tachybase/components';
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { ISchema, uid } from '@tachybase/schema';
+
+import { PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown, MenuProps } from 'antd';
 import { cloneDeep } from 'lodash';
-import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useRequest } from '../../api-client';
 import { useCollectionRecordData } from '../../data-source';
 import { RecordProvider } from '../../record-provider';

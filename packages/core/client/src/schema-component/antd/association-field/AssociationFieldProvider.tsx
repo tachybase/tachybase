@@ -1,9 +1,9 @@
-import { Field } from '@tachybase/schema';
-import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useEffect, useMemo, useState } from 'react';
+import { Field, observer, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useCollectionManager_deprecated } from '../../../collection-manager';
-import { AssociationFieldContext } from './context';
 import { markRecordAsNew } from '../../../data-source/collection-record/isNewRecord';
+import { AssociationFieldContext } from './context';
 
 export const AssociationFieldProvider = observer(
   (props) => {

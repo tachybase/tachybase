@@ -1,10 +1,12 @@
-import { SortableItem, css, withDynamicSchemaProps } from '@tachybase/client';
-import { Checkbox, Grid, Switch } from 'antd-mobile';
 import React from 'react';
+import { css, SortableItem, withDynamicSchemaProps } from '@tachybase/client';
+
+import { Checkbox, Grid, Switch } from 'antd-mobile';
+
+import { useTranslation } from '../../../../../../locale';
+import { canBeDataField } from '../../utils';
 import { useTabSearchCollapsibleInputItemAction } from './TabSearchCollapsibleInputItemAction';
 import { IButton, IDatePicker, IInput, ISelect } from './TabSearchCollapsibleInputMItemChild';
-import { canBeDataField } from '../../utils';
-import { useTranslation } from '../../../../../../locale';
 
 export const TabSearchCollapsibleInputMItem = withDynamicSchemaProps(
   (props) => {

@@ -1,6 +1,7 @@
-import { APIClient, APIClientProvider, compose, useRequest } from '@tachybase/client';
-import MockAdapter from 'axios-mock-adapter';
 import React from 'react';
+import { APIClient, APIClientProvider, compose, useRequest } from '@tachybase/client';
+
+import MockAdapter from 'axios-mock-adapter';
 
 const apiClient = new APIClient();
 

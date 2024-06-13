@@ -1,6 +1,7 @@
-import { useForm } from '@tachybase/schema';
 import React, { FC, useCallback, useMemo } from 'react';
-import { useActionContext, SchemaComponent } from '../../../schema-component';
+import { useForm } from '@tachybase/schema';
+
+import { SchemaComponent, useActionContext } from '../../../schema-component';
 import { useSchemaInitializerItem } from '../context';
 
 export interface SchemaInitializerActionModalProps {

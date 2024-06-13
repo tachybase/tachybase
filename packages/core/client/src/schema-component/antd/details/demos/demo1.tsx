@@ -1,6 +1,6 @@
-import { FormItem } from '@tachybase/components';
-import { Details, FormProvider, Input, SchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { Details, FormProvider, Input, SchemaComponent } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
 
 const schema = {
   type: 'object',

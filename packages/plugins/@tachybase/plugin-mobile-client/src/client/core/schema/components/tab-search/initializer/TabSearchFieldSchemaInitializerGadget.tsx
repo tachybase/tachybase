@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   SchemaInitializerSwitch,
   useCurrentSchema,
@@ -5,7 +6,6 @@ import {
   useSchemaInitializerItem,
 } from '@tachybase/client';
 import { merge } from '@tachybase/schema';
-import React from 'react';
 
 export const TabSearchFieldSchemaInitializerGadget = () => {
   const itemConfig = useSchemaInitializerItem();

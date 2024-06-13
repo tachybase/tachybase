@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ArrayTable,
   Editable,
@@ -10,10 +11,19 @@ import {
   NumberPicker,
   Submit,
 } from '@tachybase/components';
-import { Field, createForm, onFieldValueChange } from '@tachybase/schema';
-import { connect, createSchemaField, observer, useField, useForm, useFormEffects } from '@tachybase/schema';
+import {
+  connect,
+  createForm,
+  createSchemaField,
+  Field,
+  observer,
+  onFieldValueChange,
+  useField,
+  useForm,
+  useFormEffects,
+} from '@tachybase/schema';
+
 import { Select } from 'antd';
-import React from 'react';
 
 const ViewOptions = connect((props) => {
   return <div>{JSON.stringify(props.value)}</div>;

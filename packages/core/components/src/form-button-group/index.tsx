@@ -4,14 +4,16 @@
  * 3. 行内布局
  * 4. 吸底布局
  */
+import React, { useLayoutEffect, useRef, useState } from 'react';
+
 import { ReactFC } from '@formily/react';
 import { Space } from 'antd';
 import { SpaceProps } from 'antd/lib/space';
 import cls from 'classnames';
-import React, { useLayoutEffect, useRef, useState } from 'react';
 import StickyBox from 'react-sticky-box';
-import { BaseItem, IFormItemProps } from '../form-item';
+
 import { usePrefixCls } from '../__builtins__';
+import { BaseItem, IFormItemProps } from '../form-item';
 import useStyle from './style';
 
 interface IStickyProps extends React.ComponentProps<typeof StickyBox> {

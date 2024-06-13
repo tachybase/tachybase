@@ -1,5 +1,7 @@
 import { Repository } from '@tachybase/database';
+
 import lodash from 'lodash';
+
 import { PluginManager } from './plugin-manager';
 
 export class PluginManagerRepository extends Repository {

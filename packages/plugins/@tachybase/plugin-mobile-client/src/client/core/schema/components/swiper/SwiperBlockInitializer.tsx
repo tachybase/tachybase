@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   DataBlockInitializer,
   Icon,
@@ -5,8 +6,8 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@tachybase/client';
-import React from 'react';
 import { ISchema } from '@tachybase/schema';
+
 import { Toast } from 'antd-mobile';
 
 export const SwiperBlockInitializer = () => {

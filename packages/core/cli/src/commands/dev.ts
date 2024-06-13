@@ -1,6 +1,7 @@
 import { Command } from 'commander';
-import { run, postCheck, nodeCheck, promptForTs } from '../util';
 import { getPortPromise } from 'portfinder';
+
+import { nodeCheck, postCheck, promptForTs, run } from '../util';
 
 export default (cli: Command) => {
   const { APP_PACKAGE_ROOT } = process.env;

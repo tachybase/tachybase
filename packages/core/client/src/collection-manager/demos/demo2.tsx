@@ -1,5 +1,4 @@
-import { FormItem, Input } from '@tachybase/components';
-import { ISchema, observer, useForm } from '@tachybase/schema';
+import React from 'react';
 import {
   Action,
   CollectionField,
@@ -8,7 +7,8 @@ import {
   SchemaComponent,
   SchemaComponentProvider,
 } from '@tachybase/client';
-import React from 'react';
+import { FormItem, Input } from '@tachybase/components';
+import { ISchema, observer, useForm } from '@tachybase/schema';
 
 export default observer(() => {
   const collection = {

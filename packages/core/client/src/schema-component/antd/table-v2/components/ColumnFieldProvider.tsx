@@ -1,7 +1,9 @@
-import { observer, RecursionField } from '@tachybase/schema';
 import React from 'react';
+import { observer, RecursionField } from '@tachybase/schema';
+
 import { useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useRecord } from '../../../../record-provider';
+
 export const ColumnFieldProvider = observer(
   (props: { schema: any; basePath: any; children: any }) => {
     const { schema, basePath } = props;

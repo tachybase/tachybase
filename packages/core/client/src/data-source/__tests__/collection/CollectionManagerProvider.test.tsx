@@ -1,14 +1,15 @@
 import React, { ComponentType, useEffect } from 'react';
-import { render, screen } from '@tachybase/test/client';
 import {
+  Application,
   CollectionManager,
+  CollectionManagerProvider,
+  DataSourceApplicationProvider,
+  ExtendCollectionsProvider,
   useCollectionManager,
   useCollections,
-  Application,
-  DataSourceApplicationProvider,
-  CollectionManagerProvider,
-  ExtendCollectionsProvider,
 } from '@tachybase/client';
+import { render, screen } from '@tachybase/test/client';
+
 import collections from '../collections.json';
 
 function renderApp(Demo: ComponentType, dataSource?: string) {

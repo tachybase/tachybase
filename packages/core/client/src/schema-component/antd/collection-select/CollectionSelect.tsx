@@ -1,13 +1,15 @@
-import { connect, mapReadPretty, observer, useField } from '@tachybase/schema';
-import { Cascader, Select, SelectProps, Tag } from 'antd';
 import React, { useCallback, useContext, useMemo } from 'react';
+import { connect, mapReadPretty, observer, useField } from '@tachybase/schema';
+
+import { Cascader, Select, SelectProps, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
+
+import { parseCollectionName } from '../../../collection-manager';
 import { useSelfAndChildrenCollections } from '../../../collection-manager/action-hooks';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager/hooks';
+import { useDataSourceManager } from '../../../data-source';
 import { useCompile } from '../../hooks';
 import { FilterContext } from '../filter/context';
-import { useDataSourceManager } from '../../../data-source';
-import { parseCollectionName } from '../../../collection-manager';
 
 export type CollectionSelectProps = SelectProps<any, any> & {
   filter?: (item: any, index: number, array: any[]) => boolean;

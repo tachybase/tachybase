@@ -1,4 +1,5 @@
-import React, { FC, ReactNode, createContext, useContext, useMemo } from 'react';
+import React, { createContext, FC, ReactNode, useContext, useMemo } from 'react';
+
 import { CollectionRecord } from './CollectionRecord';
 
 export const CollectionRecordContext = createContext<CollectionRecord<any, any>>(null);

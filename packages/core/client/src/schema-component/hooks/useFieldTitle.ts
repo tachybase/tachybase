@@ -1,8 +1,8 @@
-import { Field } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
 import { useEffect } from 'react';
-import { useCompile } from './useCompile';
+import { Field, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../collection-manager';
+import { useCompile } from './useCompile';
 
 export const useFieldTitle = () => {
   const field = useField<Field>();

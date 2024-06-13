@@ -1,15 +1,16 @@
 import React from 'react';
-import { render, screen } from '@tachybase/test/client';
 import {
+  Application,
   CollectionField,
   CollectionProvider,
-  Application,
+  DataSourceApplicationProvider,
   FormItem,
   Input,
   SchemaComponent,
   SchemaComponentProvider,
-  DataSourceApplicationProvider,
 } from '@tachybase/client';
+import { render, screen } from '@tachybase/test/client';
+
 import collections from '../collections.json';
 
 function renderApp(fieldName: string) {

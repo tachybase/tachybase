@@ -1,16 +1,17 @@
+import React from 'react';
 import {
   Application,
-  DEFAULT_DATA_SOURCE_KEY,
+  DataSource,
   DataSourceManagerProvider,
   DataSourceOptions,
-  DataSource,
+  DEFAULT_DATA_SOURCE_KEY,
   SchemaComponent,
   SchemaComponentProvider,
 } from '@tachybase/client';
-import { DataSourceProvider, useDataSourceKey } from '../../data-source/DataSourceProvider';
 import { render, screen } from '@tachybase/test/client';
-import React from 'react';
+
 import { AppSchemaComponentProvider } from '../../../application/AppSchemaComponentProvider';
+import { DataSourceProvider, useDataSourceKey } from '../../data-source/DataSourceProvider';
 
 describe('DataSourceProvider', () => {
   function renderComponent(dataSource?: string, status?: DataSourceOptions['status']) {

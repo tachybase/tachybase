@@ -1,5 +1,6 @@
-import { useFieldSchema } from '@tachybase/schema';
 import { useCallback } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
 import { useBlockContext } from '../../../../block-provider/BlockProvider';
 import { useCollection_deprecated } from '../../../../collection-manager';
 import { useRecord, useRecordIndex } from '../../../../record-provider';

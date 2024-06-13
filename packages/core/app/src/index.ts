@@ -1,4 +1,5 @@
 import { Gateway } from '@tachybase/server';
+
 import { getConfig } from './config';
 
 getConfig()

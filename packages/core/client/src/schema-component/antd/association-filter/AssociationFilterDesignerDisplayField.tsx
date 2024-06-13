@@ -1,8 +1,8 @@
-import { merge } from '@tachybase/schema';
 import React from 'react';
+import { merge } from '@tachybase/schema';
 
-import { useCurrentSchema } from '../../../schema-initializer/utils';
 import { SchemaInitializerSwitch, useSchemaInitializer, useSchemaInitializerItem } from '../../../application';
+import { useCurrentSchema } from '../../../schema-initializer/utils';
 
 export const AssociationFilterDesignerDisplayField = () => {
   const itemConfig = useSchemaInitializerItem();

@@ -1,4 +1,4 @@
-import { Page, PageConfig, expect, expectSettingsMenu, test } from '@tachybase/test/e2e';
+import { expect, expectSettingsMenu, Page, PageConfig, test } from '@tachybase/test/e2e';
 
 test.describe('group page menus schema settings', () => {
   test('edit', async ({ page, mockPage }) => {

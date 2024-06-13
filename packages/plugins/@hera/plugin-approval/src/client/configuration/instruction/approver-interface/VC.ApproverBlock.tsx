@@ -1,18 +1,19 @@
-import { SchemaComponent, useAPIClient, useFormBlockContext, useRequest } from '@tachybase/client';
-import { uid } from '@tachybase/utils/client';
 import { default as React, useCallback, useContext } from 'react';
+import { SchemaComponent, useAPIClient, useFormBlockContext, useRequest } from '@tachybase/client';
+import { DetailsBlockProvider, SimpleDesigner } from '@tachybase/plugin-workflow/client';
 import { useForm } from '@tachybase/schema';
-import { Spin } from 'antd';
-import { flatSchemaArray } from '../../../constants';
+import { uid } from '@tachybase/utils/client';
 
-import { ApprovalFormBlockProvider } from './VC.ApprovalFormBlockProvider';
+import { Spin } from 'antd';
+
 import { FormBlockProvider } from '../../../common/Pd.FormBlock';
+import { flatSchemaArray } from '../../../constants';
+import { ContextApproverConfig } from '../Pd.ContextApproverConfig';
 import { ActionBarProvider } from './Pd.ActionBarProvider';
 import { ApprovalActionProvider } from './Pd.ApprovalActionProvider';
-import { DetailsBlockProvider, SimpleDesigner } from '@tachybase/plugin-workflow/client';
 import { ContextApproverBlock } from './Pd.SchemaConfigButtonContext';
 import { useApprovalFormBlockProps } from './useApprovalFormBlockProps';
-import { ContextApproverConfig } from '../Pd.ContextApproverConfig';
+import { ApprovalFormBlockProvider } from './VC.ApprovalFormBlockProvider';
 
 export const ApproverBlock = ({ value: srcID, onChange }) => {
   const apiClient = useAPIClient();

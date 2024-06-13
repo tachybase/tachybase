@@ -1,7 +1,6 @@
-import { observer, useFieldSchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import { BlockItem, DndContext, DragHandler, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { BlockItem, DndContext, DragHandler, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { observer, uid, useFieldSchema } from '@tachybase/schema';
 
 const Block = observer(
   () => {

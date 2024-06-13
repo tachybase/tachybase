@@ -1,4 +1,4 @@
-import { ISchema, useForm } from '@tachybase/schema';
+import React from 'react';
 import {
   AntdSchemaComponentProvider,
   Application,
@@ -8,7 +8,7 @@ import {
   SchemaComponentProvider,
   useActionContext,
 } from '@tachybase/client';
-import React from 'react';
+import { ISchema, useForm } from '@tachybase/schema';
 
 const dataSource = [
   {

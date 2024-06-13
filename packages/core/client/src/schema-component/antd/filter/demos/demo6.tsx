@@ -1,19 +1,21 @@
+import React, { useState } from 'react';
 import {
   AntdSchemaComponentProvider,
   Application,
   CollectionPlugin,
   CollectionProvider_deprecated,
+  DEFAULT_DATA_SOURCE_KEY,
+  DEFAULT_DATA_SOURCE_TITLE,
   Filter,
   Input,
   LocalDataSource,
+  Plugin,
   SchemaComponent,
   useCollection_deprecated,
-  Plugin,
-  DEFAULT_DATA_SOURCE_KEY,
-  DEFAULT_DATA_SOURCE_TITLE,
 } from '@tachybase/client';
+
 import { Select } from 'antd';
-import React, { useState } from 'react';
+
 import { useFilterOptions } from '../useFilterActionProps';
 
 const collections = [

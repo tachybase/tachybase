@@ -1,4 +1,4 @@
-import { ISchema } from '@tachybase/schema';
+import React from 'react';
 import {
   Action,
   Application,
@@ -18,7 +18,8 @@ import {
   Plugin,
   SchemaComponent,
 } from '@tachybase/client';
-import React from 'react';
+import { ISchema } from '@tachybase/schema';
+
 import { mockAPIClient } from '../../../../testUtils';
 import collections from './collections';
 

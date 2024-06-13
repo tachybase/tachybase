@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useCollection_deprecated } from '../../../collection-manager';
 import { GeneralSchemaDesigner, SchemaSettingsRemove } from '../../../schema-settings';
 

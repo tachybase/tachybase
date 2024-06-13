@@ -1,5 +1,6 @@
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
 import { operators } from './properties';
+
 export class NanoidFieldInterface extends CollectionFieldInterface {
   name = 'nanoid';
   type = 'object';

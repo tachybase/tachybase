@@ -1,10 +1,11 @@
-import Topo from '@hapi/topo';
-import fg from 'fast-glob';
 import path from 'path';
+
+import Topo from '@hapi/topo';
+import { findWorkspacePackages, type Project } from '@pnpm/workspace.find-packages';
+import fg from 'fast-glob';
+
 import { PACKAGES_PATH, ROOT_PATH } from '../constant';
 import { toUnixPath } from './utils';
-import { findWorkspacePackages } from '@pnpm/workspace.find-packages';
-import type { Project } from '@pnpm/workspace.find-packages';
 
 /**
  * 获取构建包的绝对路径，支持项目路径和 npm 两种形式

@@ -1,12 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import {
-  ExtendCollectionsProvider,
   Application,
-  DataSourceManagerProvider,
   CollectionManagerProvider,
+  DataSourceManagerProvider,
+  ExtendCollectionsProvider,
   useCollectionManager,
 } from '@tachybase/client';
+
+import { render, screen } from '@testing-library/react';
+
 import { useDataSourceKey } from '../../data-source/DataSourceProvider';
 
 describe('ExtendCollectionsProvider', () => {

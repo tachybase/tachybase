@@ -1,15 +1,17 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useFieldSchema } from '@tachybase/schema';
 import { error, forEach } from '@tachybase/utils/client';
+
 import { Select, Space } from 'antd';
 import _ from 'lodash';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { useToken } from '../__builtins__';
 import { useAPIClient } from '../../../api-client';
 import { findFormBlock } from '../../../block-provider';
 import { useFormBlockContext } from '../../../block-provider/FormBlockProvider';
 import { useCollectionManager_deprecated } from '../../../collection-manager';
 import { compatibleDataId } from '../../../schema-settings/DataTemplates/FormDataTemplates';
-import { useToken } from '../__builtins__';
 import { RemoteSelect } from '../remote-select';
 
 export interface ITemplate {

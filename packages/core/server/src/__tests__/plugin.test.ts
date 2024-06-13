@@ -1,5 +1,7 @@
-import { vi } from 'vitest';
 import { mockServer, MockServer } from '@tachybase/test';
+
+import { vi } from 'vitest';
+
 import { Plugin } from '../plugin';
 import Plugin1 from './plugins/plugin1';
 import Plugin2 from './plugins/plugin2';

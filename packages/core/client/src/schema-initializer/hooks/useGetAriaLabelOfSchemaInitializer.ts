@@ -1,5 +1,6 @@
-import { useFieldSchema } from '@tachybase/schema';
 import { useCallback } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
 import { useCollection_deprecated } from '../../collection-manager';
 
 /**

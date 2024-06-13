@@ -1,5 +1,5 @@
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../collection-manager';
 import { useCompile } from '../../schema-component';
-import { useCollectionManager_deprecated, useCollection_deprecated } from '../../collection-manager';
 
 const supportsType = [
   'id',

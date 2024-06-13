@@ -1,14 +1,14 @@
-import { ObjectField as ObjectFieldModel } from '@tachybase/schema';
-import { observer, useField, useFieldSchema } from '@tachybase/schema';
 import React, { useEffect } from 'react';
+import { ObjectField as ObjectFieldModel, observer, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useRequest } from '../../../api-client';
+import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { useProps } from '../../hooks/useProps';
+import { FilterContext } from './context';
 import { FilterActionDesigner } from './Filter.Action.Designer';
 import { FilterAction } from './FilterAction';
 import { FilterGroup } from './FilterGroup';
 import { SaveDefaultValue } from './SaveDefaultValue';
-import { FilterContext } from './context';
-import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 
 const useDef = (options) => {
   const field = useField<ObjectFieldModel>();

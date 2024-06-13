@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { useGetAriaLabelOfPopover } from './useGetAriaLabelOfPopover';
 
 export function useSetAriaLabelForPopover(visible: boolean) {

@@ -1,8 +1,10 @@
+import { useCallback } from 'react';
 import { ArrayItems } from '@tachybase/components';
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import { cloneDeep } from 'lodash';
-import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { recursiveParent, useFormBlockContext, useTableSelectorContext } from '../../../../block-provider';
 import {

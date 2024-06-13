@@ -1,5 +1,7 @@
-import { FormOutlined } from '@ant-design/icons';
 import React, { useCallback } from 'react';
+
+import { FormOutlined } from '@ant-design/icons';
+
 import { useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 import { Collection, CollectionFieldOptions } from '../../../../data-source/collection/Collection';
 import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';

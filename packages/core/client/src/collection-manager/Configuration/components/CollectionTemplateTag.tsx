@@ -1,6 +1,8 @@
-import { observer } from '@tachybase/schema';
-import { Tag } from 'antd';
 import React from 'react';
+import { observer } from '@tachybase/schema';
+
+import { Tag } from 'antd';
+
 import { useCompile } from '../../../schema-component';
 import { useCollectionManager_deprecated } from '../../hooks';
 

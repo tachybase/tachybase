@@ -1,8 +1,10 @@
-import { useField } from '@tachybase/schema';
-import { cx, SortableItem, useCompile, useDesigner, useDocumentTitle, useToken } from '@tachybase/client';
-import { NavBar, NavBarProps } from 'antd-mobile';
 import React, { useEffect, useMemo } from 'react';
+import { cx, SortableItem, useCompile, useDesigner, useDocumentTitle, useToken } from '@tachybase/client';
+import { useField } from '@tachybase/schema';
+
+import { NavBar, NavBarProps } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
+
 import { generateNTemplate } from '../../../../locale';
 import { HeaderDesigner } from './Header.Designer';
 

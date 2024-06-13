@@ -1,7 +1,9 @@
-import { RecursionField, useForm } from '@tachybase/schema';
-import { Spin, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { RecursionField, useForm } from '@tachybase/schema';
+
+import { Spin, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { EllipsisWithTooltip, useCompile } from '../../../';
 import { useAPIClient } from '../../../api-client';
 import { useCollectionManager_deprecated } from '../../hooks/useCollectionManager_deprecated';

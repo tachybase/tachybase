@@ -1,5 +1,5 @@
-import { useFieldSchema } from '@tachybase/schema';
-import { isValid } from '@tachybase/schema';
+import { isValid, useFieldSchema } from '@tachybase/schema';
+
 import { isInitializersSame, useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import {

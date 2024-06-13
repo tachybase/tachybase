@@ -1,5 +1,6 @@
-import { render, screen, waitFor } from '@tachybase/test/client';
 import React from 'react';
+import { render, screen, waitFor } from '@tachybase/test/client';
+
 import { CurrentAppInfoContext } from '../../../appInfo';
 import { Checkbox } from '../../../schema-component/antd/checkbox';
 import { Input } from '../../../schema-component/antd/input';

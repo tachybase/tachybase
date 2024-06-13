@@ -1,6 +1,8 @@
 import { resolve } from 'path';
+
 import { type Command } from 'commander';
-import { run, nodeCheck, isPackageValid, buildIndexHtml } from '../util';
+
+import { buildIndexHtml, isPackageValid, nodeCheck, run } from '../util';
 
 /**
  *

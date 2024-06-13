@@ -1,5 +1,6 @@
-import { connect, mapReadPretty } from '@tachybase/schema';
 import { withDynamicSchemaProps } from '@tachybase/client';
+import { connect, mapReadPretty } from '@tachybase/schema';
+
 import { Display } from './Display';
 import { Edit } from './Edit';
 

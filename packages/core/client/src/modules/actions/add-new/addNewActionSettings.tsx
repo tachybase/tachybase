@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import { useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';

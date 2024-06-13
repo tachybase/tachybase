@@ -1,5 +1,6 @@
-import { FormOutlined } from '@ant-design/icons';
 import React from 'react';
+
+import { FormOutlined } from '@ant-design/icons';
 
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 import { useBlockAssociationContext } from '../../../../block-provider';

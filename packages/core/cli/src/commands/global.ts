@@ -1,5 +1,6 @@
 import { Command } from 'commander';
-import { run, isDev, isProd, promptForTs } from '../util';
+
+import { isDev, isProd, promptForTs, run } from '../util';
 
 export default (cli: Command) => {
   const { APP_PACKAGE_ROOT, SERVER_TSCONFIG_PATH } = process.env;

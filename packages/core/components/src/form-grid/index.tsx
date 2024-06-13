@@ -1,11 +1,12 @@
+import React, { useContext, useLayoutEffect, useMemo, useRef } from 'react';
+
 import { Grid, IGridOptions } from '@formily/grid';
 import { observer } from '@formily/react';
 import { markRaw } from '@formily/reactive';
 import cls from 'classnames';
-import React, { useContext, useLayoutEffect, useMemo, useRef } from 'react';
-import { useFormLayout } from '../form-layout';
-import { pickDataProps, usePrefixCls } from '../__builtins__';
 
+import { pickDataProps, usePrefixCls } from '../__builtins__';
+import { useFormLayout } from '../form-layout';
 import useStyle from './style';
 
 const FormGridContext = React.createContext<Grid<HTMLElement>>(null as any);

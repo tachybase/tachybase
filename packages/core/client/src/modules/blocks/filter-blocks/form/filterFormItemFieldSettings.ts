@@ -1,11 +1,12 @@
 import { ArrayCollapse, FormLayout } from '@tachybase/components';
-import { Field } from '@tachybase/schema';
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { useApp } from '../../../../application';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
-import { useCollectionManager_deprecated, useCollection_deprecated } from '../../../../collection-manager';
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
 import { EditOperator, useDesignable, useValidateSchema } from '../../../../schema-component';
 

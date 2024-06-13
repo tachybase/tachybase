@@ -1,6 +1,7 @@
 import { ISchema } from '@tachybase/schema';
-import { collectionDataSource, defaultProps, operators } from './properties';
+
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
+import { collectionDataSource, defaultProps, operators } from './properties';
 
 export class CollectionSelectFieldInterface extends CollectionFieldInterface {
   name = 'collection';

@@ -1,5 +1,6 @@
-import { Button, Result, Typography } from 'antd';
 import React from 'react';
+
+import { Button, Result, Typography } from 'antd';
 import { FallbackProps, useErrorBoundary } from 'react-error-boundary';
 import { Trans, useTranslation } from 'react-i18next';
 

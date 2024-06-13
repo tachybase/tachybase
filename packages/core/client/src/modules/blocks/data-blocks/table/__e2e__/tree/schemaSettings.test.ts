@@ -1,4 +1,4 @@
-import { Page, expect, expectSettingsMenu, oneEmptyTableWithTreeCollection, test } from '@tachybase/test/e2e';
+import { expect, expectSettingsMenu, oneEmptyTableWithTreeCollection, Page, test } from '@tachybase/test/e2e';
 
 test.describe('tree table block schema settings', () => {
   test('supported options', async ({ page, mockPage }) => {

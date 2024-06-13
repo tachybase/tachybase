@@ -1,8 +1,10 @@
+import React from 'react';
 import { useCompile, useRecord } from '@tachybase/client';
 import { Field, observer, useField } from '@tachybase/schema';
+
 import { Tag } from 'antd';
 import _ from 'lodash';
-import React from 'react';
+
 import { APPROVAL_ACTION_STATUS, approvalStatusConfigObj } from '../../../constants';
 import { useTranslation } from '../../../locale';
 

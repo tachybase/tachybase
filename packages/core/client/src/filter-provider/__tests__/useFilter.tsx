@@ -1,5 +1,7 @@
-import { render } from '@testing-library/react';
 import React from 'react';
+
+import { render } from '@testing-library/react';
+
 import { FilterBlockProvider, useFilterBlock } from '../FilterProvider';
 
 describe('useFilter', () => {

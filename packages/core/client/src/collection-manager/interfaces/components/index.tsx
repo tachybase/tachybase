@@ -1,5 +1,6 @@
-import { Switch } from 'antd';
 import React from 'react';
+
+import { Switch } from 'antd';
 
 export const TargetKey = () => {
   return <div>Target key</div>;

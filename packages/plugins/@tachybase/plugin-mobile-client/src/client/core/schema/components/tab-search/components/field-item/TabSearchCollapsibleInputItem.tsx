@@ -1,8 +1,10 @@
-import { SortableItem, withDynamicSchemaProps } from '@tachybase/client';
-import { ConfigProvider, Row } from 'antd';
 import React from 'react';
-import { IButton, IInput, ISelect } from './TabSearchCollapsibleInputItemChild';
+import { SortableItem, withDynamicSchemaProps } from '@tachybase/client';
+
+import { ConfigProvider, Row } from 'antd';
+
 import { useTabSearchCollapsibleInputItemAction } from './TabSearchCollapsibleInputItemAction';
+import { IButton, IInput, ISelect } from './TabSearchCollapsibleInputItemChild';
 
 export const TabSearchCollapsibleInputItem = withDynamicSchemaProps(
   (props) => {

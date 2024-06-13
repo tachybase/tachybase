@@ -1,9 +1,10 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@tachybase/test/client';
-import { SchemaToolbarProvider, useSchemaToolbar, useSchemaToolbarRender } from '../schema-toolbar';
-import { SchemaComponent, SchemaComponentProvider, SortableContext, SortableProvider } from '../../schema-component';
-import { useFieldSchema } from '@tachybase/schema';
 import { Application, ApplicationContext } from '@tachybase/client';
+import { useFieldSchema } from '@tachybase/schema';
+import { fireEvent, render, screen, waitFor } from '@tachybase/test/client';
+
+import { SchemaComponent, SchemaComponentProvider, SortableContext, SortableProvider } from '../../schema-component';
+import { SchemaToolbarProvider, useSchemaToolbar, useSchemaToolbarRender } from '../schema-toolbar';
 
 describe('SchemaToolbar', () => {
   test('SchemaToolbarProvider & useSchemaToolbar', () => {

@@ -1,5 +1,5 @@
 import { RecordCategory } from '../utils/constants';
-import { RecordItems, Record_fee_item } from './records';
+import { Record_fee_item, RecordItems } from './records';
 
 export interface Record {
   weight_items: any;

@@ -1,6 +1,5 @@
-import { Field } from '@tachybase/schema';
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { Field, ISchema, uid } from '@tachybase/schema';
+
 export * as operators from './operators';
 
 export const type: ISchema = {

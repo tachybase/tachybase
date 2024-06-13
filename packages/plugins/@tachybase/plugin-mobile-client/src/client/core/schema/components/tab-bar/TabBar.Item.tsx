@@ -1,4 +1,4 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
+import React from 'react';
 import {
   css,
   cx,
@@ -8,8 +8,10 @@ import {
   SortableItem,
   useDesigner,
 } from '@tachybase/client';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
 import { TabBarItemProps } from 'antd-mobile';
-import React from 'react';
+
 import { useTranslation } from '../../../../locale';
 import { useSchemaPatch } from '../../hooks';
 import { tabItemSchema } from './schema';

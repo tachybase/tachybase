@@ -1,5 +1,6 @@
-import { fireEvent, render } from '@tachybase/test/client';
 import React from 'react';
+import { fireEvent, render } from '@tachybase/test/client';
+
 import App from '../demos/percent';
 
 describe('Percent', () => {

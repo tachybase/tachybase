@@ -1,7 +1,6 @@
-import { ArrayField } from '@tachybase/schema';
-import { useField } from '@tachybase/schema';
-import { toArr } from '@tachybase/schema';
 import React from 'react';
+import { ArrayField, toArr, useField } from '@tachybase/schema';
+
 import { defaultFieldNames } from './defaultFieldNames';
 
 export const ReadPretty: React.FC<unknown> = (props: any) => {

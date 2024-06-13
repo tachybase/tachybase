@@ -1,7 +1,8 @@
 import React from 'react';
 import { Application, Plugin, SchemaInitializer, useSchemaInitializerRender } from '@tachybase/client';
+
 import { PlusOutlined } from '@ant-design/icons';
-import { Divider, Avatar, AvatarProps } from 'antd';
+import { Avatar, AvatarProps, Divider } from 'antd';
 
 const myInitializer = new SchemaInitializer<AvatarProps>({
   name: 'myInitializer',

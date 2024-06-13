@@ -1,4 +1,5 @@
 import { Migration } from '@tachybase/server';
+
 import { ConversionLogics } from '../../utils/constants';
 
 export default class extends Migration {

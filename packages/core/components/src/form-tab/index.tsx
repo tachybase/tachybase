@@ -1,11 +1,14 @@
+import React, { Fragment, useMemo } from 'react';
+
 import { Schema, SchemaKey } from '@formily/json-schema';
 import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
 import { markRaw, model } from '@formily/reactive';
 import { Badge, Tabs } from 'antd';
 import { TabPaneProps, TabsProps } from 'antd/lib/tabs';
 import cls from 'classnames';
-import React, { Fragment, useMemo } from 'react';
+
 import { usePrefixCls } from '../__builtins__';
+
 export interface IFormTab {
   activeKey?: string;
   setActiveKey(key: string): void;

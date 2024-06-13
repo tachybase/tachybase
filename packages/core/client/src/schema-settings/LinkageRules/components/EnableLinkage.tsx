@@ -1,6 +1,7 @@
-import { ArrayBase } from '@tachybase/components';
-import { Switch } from 'antd';
 import React from 'react';
+import { ArrayBase } from '@tachybase/components';
+
+import { Switch } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 export const EnableLinkage = React.forwardRef((props: any, ref) => {

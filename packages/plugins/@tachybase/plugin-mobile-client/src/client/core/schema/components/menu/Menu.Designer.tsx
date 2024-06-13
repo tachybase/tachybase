@@ -1,8 +1,10 @@
-import { MenuOutlined } from '@ant-design/icons';
-import { useField, useFieldSchema } from '@tachybase/schema';
-import { SchemaSettingsDropdown, SchemaSettingsRemove, useDesignable } from '@tachybase/client';
-import { Button } from 'antd';
 import React from 'react';
+import { SchemaSettingsDropdown, SchemaSettingsRemove, useDesignable } from '@tachybase/client';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
+import { MenuOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+
 import { useTranslation } from '../../../../locale';
 
 export const MenuDesigner: React.FC = (props) => {

@@ -1,14 +1,16 @@
-import { useFieldSchema } from '@tachybase/schema';
 import React, { useMemo } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
+import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
+import { SchemaInitializerChildren } from '../../../../application/schema-initializer/components/SchemaInitializerChildren';
 import { useCompile } from '../../../../schema-component';
 import {
   useAssociatedTableColumnInitializerFields,
   useInheritsTableColumnInitializerFields,
   useTableColumnInitializerFields,
 } from '../../../../schema-initializer/utils';
-import { SchemaInitializerChildren } from '../../../../application/schema-initializer/components/SchemaInitializerChildren';
-import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
 
 // 表格列配置
 const ParentCollectionFields = () => {

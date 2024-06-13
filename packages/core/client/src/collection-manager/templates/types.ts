@@ -1,7 +1,8 @@
 import type { ISchema } from '@tachybase/schema';
-import type { FieldOptions } from '../types';
+
 import type { Application } from '../../application';
-import type { CollectionOptions, Collection } from '../../data-source/collection/Collection';
+import type { Collection, CollectionOptions } from '../../data-source/collection/Collection';
+import type { FieldOptions } from '../types';
 
 export interface ICollectionTemplate {
   name: string;

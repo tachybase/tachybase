@@ -1,7 +1,7 @@
 import React from 'react';
+import { Application } from '@tachybase/client';
 import { render, screen } from '@tachybase/test/client';
 
-import { Application } from '@tachybase/client';
 import { DataSourceApplicationProvider } from '../../components/DataSourceApplicationProvider';
 import { DataSourceProvider, useDataSourceKey } from '../../data-source/DataSourceProvider';
 

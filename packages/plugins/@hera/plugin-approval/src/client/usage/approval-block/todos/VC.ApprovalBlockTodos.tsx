@@ -1,5 +1,6 @@
-import { SchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { SchemaComponent } from '@tachybase/client';
+
 import { NodeColumn } from '../../approval-common/approval-columns/column.node';
 import { ApprovalRecordStatusColumn } from '../../approval-common/approval-columns/column.status';
 import { UserColumn } from '../../approval-common/approval-columns/column.user';

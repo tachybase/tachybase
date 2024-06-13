@@ -1,8 +1,10 @@
-import { useAsyncData } from '../../../../async-data-provider';
 import React, { useEffect } from 'react';
+import { observer, Schema, useForm } from '@tachybase/schema';
+
 import { Table } from 'antd';
-import { Schema, observer, useForm } from '@tachybase/schema';
 import { useTranslation } from 'react-i18next';
+
+import { useAsyncData } from '../../../../async-data-provider';
 
 export const PreviewTable = observer(
   () => {

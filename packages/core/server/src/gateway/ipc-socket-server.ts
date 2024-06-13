@@ -2,7 +2,9 @@ import { randomUUID } from 'crypto';
 import fs from 'fs';
 import net from 'net';
 import path from 'path';
+
 import xpipe from 'xpipe';
+
 import { AppSupervisor } from '../app-supervisor';
 import { writeJSON } from './ipc-socket-client';
 

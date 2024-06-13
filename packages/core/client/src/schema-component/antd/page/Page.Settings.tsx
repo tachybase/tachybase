@@ -1,5 +1,7 @@
-import { useTranslation } from 'react-i18next';
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
+import { useTranslation } from 'react-i18next';
+
 import { useDesignable } from '../..';
 import { SchemaSettings } from '../../../application/schema-settings';
 import { useSchemaToolbar } from '../../../application/schema-toolbar';

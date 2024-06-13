@@ -1,8 +1,10 @@
-import { Switch } from 'antd';
 import React, { FC } from 'react';
-import { SchemaInitializerItemProps, SchemaInitializerItem } from './SchemaInitializerItem';
+
+import { Switch } from 'antd';
+
 import { useCompile } from '../../../schema-component';
 import { useSchemaInitializerItem } from '../context';
+import { SchemaInitializerItem, SchemaInitializerItemProps } from './SchemaInitializerItem';
 
 export interface SchemaInitializerSwitchItemProps extends SchemaInitializerItemProps {
   checked?: boolean;

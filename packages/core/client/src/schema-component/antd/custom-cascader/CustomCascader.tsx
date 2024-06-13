@@ -1,13 +1,13 @@
+import React from 'react';
+import { ArrayField, connect, mapProps, mapReadPretty, toArr, useField } from '@tachybase/schema';
+
 import { LoadingOutlined } from '@ant-design/icons';
-import { ArrayField } from '@tachybase/schema';
-import { connect, mapProps, mapReadPretty, useField } from '@tachybase/schema';
-import { toArr } from '@tachybase/schema';
 import { Cascader as AntdCascader, Space } from 'antd';
 import { isBoolean, omit } from 'lodash';
-import React from 'react';
+
 import { useRequest } from '../../../api-client';
-import { ReadPretty } from './ReadPretty';
 import { defaultFieldNames } from './defaultFieldNames';
+import { ReadPretty } from './ReadPretty';
 
 const useDefDataSource = (options) => {
   const field = useField<ArrayField>();

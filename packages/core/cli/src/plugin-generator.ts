@@ -1,11 +1,13 @@
-import chalk from 'chalk';
 import { existsSync } from 'fs';
-import { join, resolve } from 'path';
-import { Generator } from '@umijs/utils';
 import { readFile } from 'fs/promises';
-import { genTsConfigPaths } from './util';
-import { execa } from 'execa';
+import { join, resolve } from 'path';
 import { URL } from 'url';
+
+import { Generator } from '@umijs/utils';
+import chalk from 'chalk';
+import { execa } from 'execa';
+
+import { genTsConfigPaths } from './util';
 
 const __dirname = new URL('.', import.meta.url).pathname;
 
@@ -40,7 +42,7 @@ export class PluginGenerator extends Generator {
       ...this.context,
       packageName: name,
       packageVersion,
-      tachybaseVersion: "0.0.1",
+      tachybaseVersion: '0.0.1',
       pascalCaseName: capitalize(camelize(name.split('/').pop())),
     };
   }

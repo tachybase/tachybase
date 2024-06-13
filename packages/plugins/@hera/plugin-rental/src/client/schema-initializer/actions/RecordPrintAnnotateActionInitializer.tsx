@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActionInitializer } from '@tachybase/client';
+import { ActionInitializer, useRequest } from '@tachybase/client';
+
 import { Switch } from 'antd';
-import { useRequest } from '@tachybase/client';
+
 import { AnnotateContext } from '../../hooks/usePdfPath';
+
 export const Annotate = (props) => {
   const { setAnnotate } = useContext(AnnotateContext);
   return (

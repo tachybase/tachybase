@@ -1,10 +1,10 @@
 /**
  * title: Select
  */
+import React from 'react';
+import { SchemaComponent, SchemaComponentProvider, Select } from '@tachybase/client';
 import { FormItem } from '@tachybase/components';
 import { ISchema } from '@tachybase/schema';
-import { SchemaComponent, SchemaComponentProvider, Select } from '@tachybase/client';
-import React from 'react';
 
 const options = [
   {

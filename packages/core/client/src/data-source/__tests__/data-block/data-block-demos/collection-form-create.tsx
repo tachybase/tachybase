@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
-import { Button, Form, FormProps, Input, InputNumber, notification } from 'antd';
 import { SchemaComponent, useDataBlockResource, withDynamicSchemaProps } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
+
+import { Button, Form, FormProps, Input, InputNumber, notification } from 'antd';
+
 import { createApp } from './createApp';
 
 interface DemoFormFieldType {

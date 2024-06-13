@@ -1,14 +1,14 @@
-import { observer, useFieldSchema } from '@tachybase/schema';
+import React from 'react';
 import {
   Application,
   BlockItem,
-  Plugin,
   DragHandler,
   Grid,
+  Plugin,
   SchemaComponent,
   SchemaComponentProvider,
 } from '@tachybase/client';
-import React from 'react';
+import { observer, useFieldSchema } from '@tachybase/schema';
 
 const Block = observer(
   (props) => {

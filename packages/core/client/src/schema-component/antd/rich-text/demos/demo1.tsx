@@ -1,6 +1,7 @@
-import { FormItem } from '@tachybase/components';
-import { RichText, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { RichText, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
+
 import 'react-quill/dist/quill.snow.css'; // ES6
 
 const schema = {

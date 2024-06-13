@@ -1,11 +1,13 @@
-import { css, useCompile } from '@tachybase/client';
-import { Progress, Tag } from 'antd';
 import React from 'react';
+import { css, useCompile } from '@tachybase/client';
+
+import { Progress, Tag } from 'antd';
+
 import {
   APPROVAL_ACTION_STATUS,
+  approvalStatusConfigObj,
   JobStatusEnums,
   VoteCategoryEnums,
-  approvalStatusConfigObj,
   voteOption,
 } from '../../../constants';
 

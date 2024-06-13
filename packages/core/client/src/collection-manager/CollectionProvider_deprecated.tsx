@@ -1,8 +1,8 @@
-import { FC, ReactNode } from 'react';
-import { CollectionProvider } from '../data-source/collection/CollectionProvider';
-import { CollectionManagerProvider } from '../data-source/collection/CollectionManagerProvider';
+import React, { FC, ReactNode } from 'react';
+
 import { CollectionOptions } from '../data-source/collection/Collection';
-import React from 'react';
+import { CollectionManagerProvider } from '../data-source/collection/CollectionManagerProvider';
+import { CollectionProvider } from '../data-source/collection/CollectionProvider';
 
 /**
  * @deprecated use `CollectionProvider` instead

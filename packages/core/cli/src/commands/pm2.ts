@@ -1,4 +1,5 @@
 import { Command } from 'commander';
+
 import { run } from '../util';
 
 export default (cli: Command) => {

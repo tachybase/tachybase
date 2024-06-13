@@ -1,5 +1,6 @@
-import { render, screen, sleep, userEvent } from '@tachybase/test/client';
 import React from 'react';
+import { render, screen, sleep, userEvent } from '@tachybase/test/client';
+
 import App1 from '../demos/demo1';
 
 describe('AssociationSelect', () => {

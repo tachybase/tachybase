@@ -1,5 +1,6 @@
 import deepmerge from 'deepmerge';
 import lodash from 'lodash';
+
 import { isPlainObject } from './common';
 
 type MergeStrategyType = 'merge' | 'deepMerge' | 'overwrite' | 'andMerge' | 'orMerge' | 'intersect' | 'union';
@@ -13,7 +14,9 @@ export interface MergeStrategies {
 
 function getEnumerableOwnPropertySymbols(target: any): any[] {
   return Object.getOwnPropertySymbols
-    ? Object.getOwnPropertySymbols(target).filter((symbol) => target.propertyIsEnumerable(symbol))
+    ? Object.getOwnPropertySymbols(target).filter((symbol) =>
+        Object.prototype.propertyIsEnumerable.call(target, symbol),
+      )
     : [];
 }
 

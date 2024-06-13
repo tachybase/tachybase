@@ -1,4 +1,5 @@
 import { Locator, Page } from '@tachybase/test/e2e';
+
 export class CreateWorkFlow {
   readonly page: Page;
   name: Locator;

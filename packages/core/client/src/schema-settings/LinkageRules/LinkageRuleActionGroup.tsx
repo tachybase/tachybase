@@ -1,17 +1,20 @@
-import { ArrayField as ArrayFieldModel, VoidField } from '@tachybase/schema';
+import React, { useCallback, useMemo } from 'react';
 import {
   ArrayFieldComponent as ArrayField,
+  ArrayField as ArrayFieldModel,
   ObjectFieldComponent as ObjectField,
   observer,
   useField,
+  VoidField,
 } from '@tachybase/schema';
+
 import { Space } from 'antd';
-import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormButtonLinkageRuleAction, FormFieldLinkageRuleAction } from './LinkageRuleAction';
-import { RemoveActionContext } from './context';
+
 import { withDynamicSchemaProps } from '../../application/hoc/withDynamicSchemaProps';
 import { useProps } from '../../schema-component/hooks/useProps';
+import { RemoveActionContext } from './context';
+import { FormButtonLinkageRuleAction, FormFieldLinkageRuleAction } from './LinkageRuleAction';
 
 export const LinkageRuleActions = observer(
   (props: any): any => {

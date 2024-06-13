@@ -1,11 +1,12 @@
-import { TableOutlined } from '@ant-design/icons';
 import React, { useCallback } from 'react';
+
+import { TableOutlined } from '@ant-design/icons';
 
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
 import { useCollectionManager_deprecated } from '../../collection-manager';
+import { createListBlockUISchema } from '../../modules/blocks/data-blocks/list/createListBlockUISchema';
 import { useSchemaTemplateManager } from '../../schema-templates';
 import { useRecordCollectionDataSourceItems } from '../utils';
-import { createListBlockUISchema } from '../../modules/blocks/data-blocks/list/createListBlockUISchema';
 
 export const RecordAssociationListBlockInitializer = () => {
   const itemConfig = useSchemaInitializerItem();

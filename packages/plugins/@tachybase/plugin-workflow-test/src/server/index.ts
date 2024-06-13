@@ -1,14 +1,13 @@
 import path from 'path';
-
+import { SequelizeDataSource } from '@tachybase/data-source-manager';
+import { Resourcer } from '@tachybase/resourcer';
 import { ApplicationOptions, Plugin } from '@tachybase/server';
-import { MockServer, createMockServer, mockDatabase } from '@tachybase/test';
+import { createMockServer, mockDatabase, MockServer } from '@tachybase/test';
+import { uid } from '@tachybase/utils';
 
 import functions from './functions';
-import triggers from './triggers';
 import instructions from './instructions';
-import { Resourcer } from '@tachybase/resourcer';
-import { SequelizeDataSource } from '@tachybase/data-source-manager';
-import { uid } from '@tachybase/utils';
+import triggers from './triggers';
 
 export interface MockServerOptions extends ApplicationOptions {
   collectionsPath?: string;

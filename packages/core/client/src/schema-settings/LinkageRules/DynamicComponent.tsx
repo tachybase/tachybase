@@ -1,7 +1,6 @@
-import { createForm, onFieldValueChange } from '@tachybase/schema';
-import { FieldContext, FormContext } from '@tachybase/schema';
-import { merge } from '@tachybase/schema';
 import React, { useContext, useMemo } from 'react';
+import { createForm, FieldContext, FormContext, merge, onFieldValueChange } from '@tachybase/schema';
+
 import { SchemaComponent } from '../../schema-component/core';
 import { useComponent } from '../../schema-component/hooks';
 import { FilterContext } from './context';

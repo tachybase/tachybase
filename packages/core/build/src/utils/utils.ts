@@ -1,10 +1,12 @@
-import chalk from 'chalk';
 import path from 'path';
+
+import chalk from 'chalk';
+import { register } from 'esbuild-register/dist/node';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
-import { Options as TsupConfig } from 'tsup'
-import { InlineConfig as ViteConfig } from 'vite'
-import { register } from 'esbuild-register/dist/node';
+import { Options as TsupConfig } from 'tsup';
+import { InlineConfig as ViteConfig } from 'vite';
+
 import { NODE_MODULES } from '../constant';
 
 let previousColor = '';
@@ -73,9 +75,9 @@ export function getUserConfig(cwd: string) {
     throw new Error(`Multiple build configs found: ${buildConfigs.join(', ')}`);
   }
   if (buildConfigs.length === 1) {
-    const { unregister } = register({})
+    const { unregister } = register({});
     const userConfig = require(path.join(cwd, buildConfigs[0]));
-    unregister()
+    unregister();
     Object.assign(config, userConfig.default || userConfig);
   }
   return config;

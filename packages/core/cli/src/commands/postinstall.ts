@@ -1,9 +1,11 @@
-import { Command } from 'commander';
-import { run, isDev, isPackageValid, generatePlaywrightPath } from '../util';
-import { resolve } from 'path';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
-import { createStoragePluginsSymlink, createDevPluginsSymlink } from '@tachybase/utils/plugin-symlink';
+import { resolve } from 'path';
+import { createDevPluginsSymlink, createStoragePluginsSymlink } from '@tachybase/utils/plugin-symlink';
+
+import { Command } from 'commander';
+
+import { generatePlaywrightPath, isDev, isPackageValid, run } from '../util';
 
 export default (cli: Command) => {
   const { APP_PACKAGE_ROOT } = process.env;

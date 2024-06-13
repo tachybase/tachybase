@@ -1,9 +1,10 @@
 /**
  * title: Upload
  */
-import { FormItem } from '@tachybase/components';
-import { APIClientProvider, SchemaComponent, SchemaComponentProvider, Upload } from '@tachybase/client';
 import React from 'react';
+import { APIClientProvider, SchemaComponent, SchemaComponentProvider, Upload } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
+
 import apiClient from './apiClient';
 
 const schema = {

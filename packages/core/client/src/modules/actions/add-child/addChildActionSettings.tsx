@@ -1,11 +1,12 @@
-import { useFieldSchema } from '@tachybase/schema';
 import { useMemo } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
 import { useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { ButtonEditor } from '../../../schema-component/antd/action/Action.Designer';
 import { SchemaSettingOpenModeSchemaItems } from '../../../schema-items';
-import { SchemaSettingsLinkageRules, SchemaSettingsEnableChildCollections } from '../../../schema-settings';
+import { SchemaSettingsEnableChildCollections, SchemaSettingsLinkageRules } from '../../../schema-settings';
 
 export const addChildActionSettings = new SchemaSettings({
   name: 'actionSettings:addChild',

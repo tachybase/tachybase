@@ -1,6 +1,7 @@
 import Database, { CreateOptions, MagicAttributeModel } from '@tachybase/database';
+import { Db, Inject, Service } from '@tachybase/utils';
+
 import { SqlLoader } from '@hera/plugin-core';
-import { Db, Service, Inject } from '@tachybase/utils';
 
 @Service()
 export class ProjectService {

@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { useFieldSchema } from '@tachybase/schema';
+
+import { useTranslation } from 'react-i18next';
+
 import { createDesignable, SchemaComponentContext } from '../..';
 import { useAPIClient } from '../../../api-client';
-import { useTranslation } from 'react-i18next';
 import { SchemaInitializerItem, useSchemaInitializerItem } from '../../../application';
 
 export const AssociationFilterDesignerDelete = () => {

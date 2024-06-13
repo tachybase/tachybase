@@ -1,5 +1,6 @@
-import { ISchema, Schema } from '@tachybase/schema';
 import React, { useContext, useMemo } from 'react';
+import { ISchema, Schema } from '@tachybase/schema';
+
 import { CollectionFieldOptions_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { useCompile, useGetFilterOptions } from '../../../schema-component';
 import { isSpecialCaseField } from '../../../schema-component/antd/form-item/hooks/useSpecialCase';

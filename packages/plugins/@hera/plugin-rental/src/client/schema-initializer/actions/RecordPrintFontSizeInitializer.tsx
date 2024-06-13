@@ -1,8 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { ActionInitializer } from '@tachybase/client';
+
 import { Input } from 'antd';
 import { debounce } from 'lodash';
+
 import { FontSizeContext } from '../../hooks/usePdfPath';
+
 export const PrintFontSize = (props) => {
   const [value, setValue] = useState('9');
   const { setSize } = useContext(FontSizeContext);

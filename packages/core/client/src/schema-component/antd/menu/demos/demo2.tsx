@@ -1,9 +1,9 @@
 /**
  * title: Menu
  */
-import { ISchema } from '@tachybase/schema';
-import { Application, Menu, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { Application, Menu, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { ISchema } from '@tachybase/schema';
 
 const schema: ISchema = {
   type: 'object',

@@ -1,7 +1,9 @@
-import { ButtonProps } from 'antd';
 import React, { FC } from 'react';
-import { SchemaInitializerChildren } from './SchemaInitializerChildren';
+
+import { ButtonProps } from 'antd';
+
 import { SchemaInitializerOptions } from '../types';
+import { SchemaInitializerChildren } from './SchemaInitializerChildren';
 
 export type SchemaInitializerItemsProps<P1 = ButtonProps, P2 = {}> = P2 & {
   options?: SchemaInitializerOptions<P1, P2>;

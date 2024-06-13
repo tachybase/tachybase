@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Application,
   CardItem,
@@ -11,8 +12,8 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@tachybase/client';
+
 import { Button } from 'antd';
-import React from 'react';
 
 const mySettings = new SchemaSettings({
   name: 'mySettings',

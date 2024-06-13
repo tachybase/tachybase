@@ -1,10 +1,13 @@
+import React from 'react';
 import { ArrayItems } from '@tachybase/components';
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import _ from 'lodash';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useFormBlockContext } from '../../../block-provider';
 import { useCollection_deprecated, useSortFields } from '../../../collection-manager';
+import { SetDataLoadingMode } from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
 import { useRecord } from '../../../record-provider';
 import {
   GeneralSchemaDesigner,
@@ -15,11 +18,10 @@ import {
   SchemaSettingsSelectItem,
   SchemaSettingsTemplate,
 } from '../../../schema-settings';
+import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
 import { useSchemaTemplate } from '../../../schema-templates';
 import { useDesignable } from '../../hooks';
 import { removeNullCondition } from '../filter';
-import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
-import { SetDataLoadingMode } from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
 
 /**
  * @deprecated - 已使用 SchemaSettings 替代

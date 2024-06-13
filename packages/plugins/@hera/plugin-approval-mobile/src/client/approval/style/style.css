@@ -1,4 +1,4 @@
-.tabsBarStyle{
+.tabsBarStyle {
   position: fixed;
   bottom: 0;
   z-index: 2;
@@ -7,7 +7,7 @@
   background-color: #ffffff;
 }
 
-.navBarStyle{
+.navBarStyle {
   background-color: #ffffff;
   position: fixed;
   z-index: 2;
@@ -15,17 +15,17 @@
   width: 100vw;
 }
 
-.approvalContext{
+.approvalContext {
   margin: 7vh 0 7vh 0;
 }
 
-.todosSpacStyle{
-  width:100%;
+.todosSpacStyle {
+  width: 100%;
   font-size: 10px;
   color: #8e8e8e;
 }
 
-.userInitiationsStyle{
+.userInitiationsStyle {
   width: 100%;
   padding: 10px 0 10px 0;
   background-color: #ffffff;
@@ -33,26 +33,22 @@
   color: #8e8e8e;
 }
 
-.adm-tabs-tab-list{
+.adm-tabs-tab-list {
   background-color: #ffffff;
   font-size: 12px;
 }
 
-.blockItem{
+.blockItem {
   background-color: #f3f3f3;
 }
 
- .adm-card-body {
-   padding: 0;
- }
+.adm-card-body {
+  padding: 0;
+}
 
- .initiationsItemCard{
+.initiationsItemCard {
   padding: 0px;
   border-radius: 0px;
   overflow: hidden;
   background-color: #f3f3f3;
- }
-
-
-
-
+}

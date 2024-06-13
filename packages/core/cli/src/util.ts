@@ -1,27 +1,32 @@
+import {
+  cpSync as _cpSync,
+  existsSync as _existsSync,
+  writeFileSync as _writeFileSync,
+  copyFileSync,
+  cpSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  symlinkSync,
+  unlinkSync,
+  writeFileSync,
+} from 'fs';
+import { readFile, writeFile } from 'fs/promises';
+import { createRequire } from 'module';
 import { Socket } from 'net';
+import { dirname, join, resolve, sep } from 'path';
+
 import chalk from 'chalk';
+import { config } from 'dotenv';
 import { execa, Options } from 'execa';
 import fastGlob from 'fast-glob';
-import { dirname, join, resolve, sep } from 'path';
-import { readFile, writeFile } from 'fs/promises';
-import { existsSync, mkdirSync, cpSync, writeFileSync } from 'fs';
-import { config } from 'dotenv';
-import {
-  unlinkSync,
-  symlinkSync,
-  existsSync as _existsSync,
-  rmSync,
-  cpSync as _cpSync,
-  copyFileSync,
-  readFileSync,
-  writeFileSync as _writeFileSync,
-} from 'fs';
-import { createRequire } from 'module';
+
 const require = createRequire(import.meta.url);
 
 export function isPackageValid(pkg: string) {
   try {
-    require(pkg)
+    require(pkg);
     return true;
   } catch (error) {
     return false;

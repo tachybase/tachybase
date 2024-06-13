@@ -1,9 +1,11 @@
-import { TableOutlined } from '@ant-design/icons';
 import React, { useCallback } from 'react';
+
+import { TableOutlined } from '@ant-design/icons';
+
 import { useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 import { useCollectionManager } from '../../../../data-source';
-import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { Collection, CollectionFieldOptions } from '../../../../data-source/collection/Collection';
+import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { createDetailsWithPaginationUISchema } from './createDetailsWithPaginationUISchema';
 
 export const DetailsBlockInitializer = ({

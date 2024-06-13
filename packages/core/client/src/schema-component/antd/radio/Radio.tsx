@@ -1,8 +1,9 @@
-import { connect, mapProps, mapReadPretty, useField } from '@tachybase/schema';
-import { isValid } from '@tachybase/schema';
+import React, { useEffect, useState } from 'react';
+import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/schema';
+
 import { Radio as AntdRadio, Tag } from 'antd';
 import type { RadioGroupProps, RadioProps } from 'antd/es/radio';
-import React, { useState, useEffect } from 'react';
+
 import { useCollectionField } from '../../../data-source/collection-field/CollectionFieldProvider';
 
 type ComposedRadio = React.FC<RadioProps> & {

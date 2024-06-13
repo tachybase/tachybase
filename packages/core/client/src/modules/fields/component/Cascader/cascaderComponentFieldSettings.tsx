@@ -1,16 +1,20 @@
-import { Field } from '@tachybase/schema';
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
 import React from 'react';
+// import { useCollectionField } from '../utils';
+import { ArrayItems } from '@tachybase/components';
+import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
 import {
-  useCollectionManager_deprecated,
   useCollection_deprecated,
+  useCollectionManager_deprecated,
   useSortFields,
 } from '../../../../collection-manager';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
+import { useCollectionField } from '../../../../data-source';
 import { useRecord } from '../../../../record-provider';
 import { removeNullCondition, useDesignable, useFieldModeOptions, useIsAddNewForm } from '../../../../schema-component';
 import { isSubMode } from '../../../../schema-component/antd/association-field/util';
@@ -23,16 +27,13 @@ import {
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
 import {
+  getShouldChange,
   SchemaSettingsModalItem,
   SchemaSettingsSwitchItem,
   VariableInput,
-  getShouldChange,
 } from '../../../../schema-settings';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
 import { useLocalVariables, useVariables } from '../../../../variables';
-// import { useCollectionField } from '../utils';
-import { ArrayItems } from '@tachybase/components';
-import { useCollectionField } from '../../../../data-source';
 
 export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {
   const field = useField();

@@ -1,6 +1,7 @@
 import React from 'react';
-import { InterfaceRouter } from '../router';
+
 import { MobileDevice } from '../devices';
+import { InterfaceRouter } from '../router';
 
 export const InterfaceConfiguration = () => {
   return (

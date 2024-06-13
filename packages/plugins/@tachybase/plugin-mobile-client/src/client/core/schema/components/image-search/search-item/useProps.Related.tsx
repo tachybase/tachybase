@@ -1,7 +1,8 @@
 // 关系字段类型
+import { useEffect, useMemo } from 'react';
 import { useCollection, useCollectionManager, useDataSourceHeaders, useRequest } from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
-import { useEffect, useMemo } from 'react';
+
 import { canBeRelatedField } from '../../tab-search/utils';
 import { useGetSelected } from '../hooks/useSelect';
 

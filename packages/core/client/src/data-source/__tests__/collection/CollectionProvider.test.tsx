@@ -1,14 +1,15 @@
 import React, { ComponentType } from 'react';
-import { render, screen } from '@tachybase/test/client';
 import {
-  CollectionProvider,
-  useCollectionFields,
-  useCollection,
   Application,
+  CollectionProvider,
+  DataSourceApplicationProvider,
   SchemaComponent,
   SchemaComponentProvider,
-  DataSourceApplicationProvider,
+  useCollection,
+  useCollectionFields,
 } from '@tachybase/client';
+import { render, screen } from '@tachybase/test/client';
+
 import collections from '../collections.json';
 
 function renderApp(Demo: ComponentType, props: any = {}) {

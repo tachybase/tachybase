@@ -1,10 +1,11 @@
-import { TableOutlined } from '@ant-design/icons';
 import React from 'react';
 
+import { TableOutlined } from '@ant-design/icons';
+
 import { useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
-import { createCollapseBlockSchema } from './createFilterCollapseBlockSchema';
-import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { Collection, CollectionFieldOptions } from '../../../../data-source';
+import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
+import { createCollapseBlockSchema } from './createFilterCollapseBlockSchema';
 
 export const FilterCollapseBlockInitializer = ({
   filterCollections,

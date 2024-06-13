@@ -1,5 +1,6 @@
-import { getUmiConfig, IndexGenerator } from '@tachybase/devtools/umiConfig';
 import path from 'path';
+import { getUmiConfig, IndexGenerator } from '@tachybase/devtools/umiConfig';
+
 import { defineConfig } from 'umi';
 
 const umiConfig = getUmiConfig();
@@ -10,7 +11,8 @@ process.env.DID_YOU_KNOW = 'none';
 const pluginPrefix = (process.env.PLUGIN_PACKAGE_PREFIX || '').split(',').filter((item) => !item.includes('preset')); // 因为现在 preset 是直接引入的，所以不能忽略，如果以后 preset 也是动态插件的形式引入，那么这里可以去掉
 
 const pluginDirs = (process.env.PLUGIN_PATH || 'packages/plugins/,packages/samples/,packages/pro-plugins/')
-  .split(',').map(item => path.join(process.cwd(), item));
+  .split(',')
+  .map((item) => path.join(process.cwd(), item));
 
 const outputPluginPath = path.join(__dirname, 'src', '.plugins');
 const indexGenerator = new IndexGenerator(outputPluginPath, pluginDirs);
@@ -36,7 +38,9 @@ export default defineConfig({
       src: `${appPublicPath}browser-checker.js`,
     },
     {
-      content: isDevCmd ? '' : `
+      content: isDevCmd
+        ? ''
+        : `
         window['__webpack_public_path__'] = '{{env.APP_PUBLIC_PATH}}';
         window['__tachybase_public_path__'] = '{{env.APP_PUBLIC_PATH}}';
         window['__tachybase_api_base_url__'] = '{{env.API_BASE_URL}}';
@@ -71,7 +75,7 @@ export default defineConfig({
     safari: 12,
   },
   codeSplitting: {
-    jsStrategy: 'depPerChunk'
+    jsStrategy: 'depPerChunk',
   },
   chainWebpack(config, { env }) {
     if (env === 'production') {

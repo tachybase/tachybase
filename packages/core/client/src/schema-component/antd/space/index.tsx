@@ -1,6 +1,7 @@
-import { useFormLayout } from '@tachybase/components';
-import { Space as AntdSpace, Divider, SpaceProps } from 'antd';
 import React from 'react';
+import { useFormLayout } from '@tachybase/components';
+
+import { Space as AntdSpace, Divider, SpaceProps } from 'antd';
 
 export const Space: React.FC<SpaceProps> = (props) => {
   let { split } = props;

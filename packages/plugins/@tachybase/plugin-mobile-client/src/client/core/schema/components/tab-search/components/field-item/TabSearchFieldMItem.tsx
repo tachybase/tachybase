@@ -1,8 +1,10 @@
+import React from 'react';
 import { SortableItem, useCollection, useDesigner, withDynamicSchemaProps } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
+
 import { MenuProps } from 'antd';
 import { Tabs } from 'antd-mobile';
-import React from 'react';
+
 import { useTranslation } from '../../../../../../locale';
 
 export const TabSearchFieldMItem = withDynamicSchemaProps(

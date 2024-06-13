@@ -1,4 +1,5 @@
-import { Page, expect, test } from '@tachybase/test/e2e';
+import { expect, Page, test } from '@tachybase/test/e2e';
+
 import { createTable } from './utils';
 
 test.describe('where table data selector can be added', () => {

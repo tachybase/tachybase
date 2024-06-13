@@ -1,5 +1,6 @@
-import { isFn } from '@tachybase/schema';
 import React, { Fragment } from 'react';
+import { isFn } from '@tachybase/schema';
+
 import { getStrength } from './utils';
 
 type ReactRenderPropsChildren<T = any> = React.ReactNode | ((props: T) => React.ReactElement);

@@ -1,13 +1,16 @@
-import { ArrayItems } from '@tachybase/components';
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
-import { Field } from '@tachybase/schema';
 import React, { useCallback } from 'react';
+import { ArrayItems } from '@tachybase/components';
+import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
+import { useCompile } from '../../';
 import { useAPIClient } from '../../../api-client';
 import { useFormBlockContext, useTableBlockContext } from '../../../block-provider';
-import { useCollectionManager_deprecated, useCollection_deprecated } from '../../../collection-manager';
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { useSortFields } from '../../../collection-manager/action-hooks';
 import { FilterBlockType, mergeFilter } from '../../../filter-provider/utils';
+import { SetDataLoadingMode } from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
 import { useRecord } from '../../../record-provider';
 import {
   GeneralSchemaDesigner,
@@ -20,13 +23,11 @@ import {
   SchemaSettingsSwitchItem,
   SchemaSettingsTemplate,
 } from '../../../schema-settings';
+import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
 import { useSchemaTemplate } from '../../../schema-templates';
 import { useDesignable } from '../../hooks';
 import { removeNullCondition } from '../filter';
-import { useCompile } from '../../';
-import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
 import { FixedBlockDesignerItem } from '../page/FixedBlockDesignerItem';
-import { SetDataLoadingMode } from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
 
 export const EditSortField = () => {
   const { fields } = useCollection_deprecated();

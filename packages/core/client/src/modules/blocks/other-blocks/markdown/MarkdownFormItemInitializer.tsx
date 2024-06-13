@@ -1,5 +1,7 @@
-import { FormOutlined } from '@ant-design/icons';
 import React from 'react';
+
+import { FormOutlined } from '@ant-design/icons';
+
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 
 export const MarkdownFormItemInitializer = () => {

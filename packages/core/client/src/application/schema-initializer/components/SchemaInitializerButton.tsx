@@ -1,5 +1,7 @@
-import { Button, ButtonProps } from 'antd';
 import React, { FC } from 'react';
+
+import { Button, ButtonProps } from 'antd';
+
 import { Icon } from '../../../icon';
 import { useCompile } from '../../../schema-component';
 import { useGetAriaLabelOfSchemaInitializer } from '../../../schema-initializer/hooks/useGetAriaLabelOfSchemaInitializer';

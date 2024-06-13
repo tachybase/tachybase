@@ -2,9 +2,9 @@
  * title: Radio Group
  * desc: A group of radio components.
  */
-import { FormItem } from '@tachybase/components';
-import { Radio, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { Radio, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
 
 const options = [
   {

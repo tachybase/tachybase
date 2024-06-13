@@ -1,5 +1,7 @@
-import { MenuOutlined } from '@ant-design/icons';
 import React, { FC, useMemo } from 'react';
+
+import { MenuOutlined } from '@ant-design/icons';
+
 import { useGetAriaLabelOfDesigner } from '../../../schema-settings/hooks/useGetAriaLabelOfDesigner';
 import { SchemaSettingOptions } from '../types';
 

@@ -1,5 +1,5 @@
-import { ISchema, Schema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { ISchema, Schema, uid } from '@tachybase/schema';
+
 export const gridItemWrap = (schema: ISchema) => {
   return {
     type: 'void',

@@ -1,4 +1,5 @@
 import { Application, CollectionOptions, DEFAULT_DATA_SOURCE_KEY } from '@tachybase/client';
+
 import collections from '../collections.json';
 
 function getCollection(collection: CollectionOptions) {

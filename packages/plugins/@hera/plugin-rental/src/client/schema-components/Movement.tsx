@@ -1,8 +1,9 @@
+import React, { useEffect } from 'react';
 import { useCollectionField } from '@tachybase/client';
 import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/schema';
+
 import { Tag } from 'antd';
-import React from 'react';
-import { useEffect } from 'react';
+
 import { MovementStatus } from '../custom-components/MovementStatus';
 
 export const Movement = connect(

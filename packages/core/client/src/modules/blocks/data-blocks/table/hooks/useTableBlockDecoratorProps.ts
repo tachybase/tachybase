@@ -1,6 +1,7 @@
-import { useFieldSchema } from '@tachybase/schema';
-import { useParsedFilter } from '../../../../../block-provider/hooks/useParsedFilter';
 import { useMemo } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
+import { useParsedFilter } from '../../../../../block-provider/hooks/useParsedFilter';
 import { useParentRecordCommon } from '../../../useParentRecordCommon';
 
 export const useTableBlockDecoratorProps = (props) => {

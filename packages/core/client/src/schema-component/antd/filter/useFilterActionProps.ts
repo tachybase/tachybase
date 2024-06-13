@@ -1,12 +1,13 @@
-import { Field } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
+import { Field, useField, useFieldSchema } from '@tachybase/schema';
+
 import flat from 'flat';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { useBlockRequestContext } from '../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { mergeFilter } from '../../../filter-provider/utils';
 import { useDataLoadingMode } from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
-import _ from 'lodash';
 
 export const useGetFilterOptions = () => {
   const { getCollectionFields } = useCollectionManager_deprecated();

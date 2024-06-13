@@ -1,4 +1,5 @@
 import { APIClient } from '@tachybase/client';
+
 import MockAdapter from 'axios-mock-adapter';
 
 export const apiClient = new APIClient();

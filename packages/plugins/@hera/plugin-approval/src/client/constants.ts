@@ -1,5 +1,7 @@
 import { JOB_STATUS } from '@tachybase/plugin-workflow/client';
-import { NAMESPACE, lang } from './locale';
+
+import { lang, NAMESPACE } from './locale';
+
 // 审批状态
 export const APPROVAL_STATUS = {
   DRAFT: 0,

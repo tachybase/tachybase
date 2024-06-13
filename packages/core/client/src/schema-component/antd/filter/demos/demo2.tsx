@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   AntdSchemaComponentProvider,
   Filter,
@@ -5,7 +6,6 @@ import {
   SchemaComponent,
   SchemaComponentProvider,
 } from '@tachybase/client';
-import React from 'react';
 
 const options = [
   {

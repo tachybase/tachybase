@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { useGetAriaLabelOfModal } from './useGetAriaLabelOfModal';
 
 export function useSetAriaLabelForModal(visible: boolean) {

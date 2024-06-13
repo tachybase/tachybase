@@ -1,7 +1,8 @@
 import { registerValidateFormats } from '@tachybase/schema';
-import { i18n } from '../../i18n';
-import { defaultProps, operators, unique, autoIncrement, primaryKey } from './properties';
+
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
+import { i18n } from '../../i18n';
+import { autoIncrement, defaultProps, operators, primaryKey, unique } from './properties';
 
 registerValidateFormats({
   odd: /^-?\d*[13579]$/,

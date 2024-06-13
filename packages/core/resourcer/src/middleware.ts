@@ -1,5 +1,7 @@
-import compose from 'koa-compose';
 import { requireModule } from '@tachybase/utils';
+
+import compose from 'koa-compose';
+
 import { ActionName } from './action';
 import { HandlerType } from './resourcer';
 

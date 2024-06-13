@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Action,
   ActionBar,
@@ -9,7 +10,6 @@ import {
   SchemaInitializer,
   useApp,
 } from '@tachybase/client';
-import React from 'react';
 
 const addActionInitializer = new SchemaInitializer({
   name: 'addAction',

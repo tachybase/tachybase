@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import {
   Application,
   CollectionFieldInitializer,
@@ -15,7 +16,6 @@ import {
   useSchemaInitializerItem,
   useSchemaInitializerRender,
 } from '@tachybase/client';
-import React, { FC } from 'react';
 
 const useFormItemInitializerFields = () => {
   return [

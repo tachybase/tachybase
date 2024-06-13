@@ -1,3 +1,5 @@
+import React, { Fragment } from 'react';
+
 import { Form, VoidField } from '@formily/core';
 import { Schema, SchemaKey } from '@formily/json-schema';
 import { connect, observer, RecursionField, useField, useFieldSchema } from '@formily/react';
@@ -5,7 +7,7 @@ import { action, define, markRaw, model, observable } from '@formily/reactive';
 import { Steps } from 'antd';
 import { StepProps, StepsProps } from 'antd/lib/steps';
 import cls from 'classnames';
-import React, { Fragment } from 'react';
+
 import { usePrefixCls } from '../__builtins__';
 
 export interface IFormStep {

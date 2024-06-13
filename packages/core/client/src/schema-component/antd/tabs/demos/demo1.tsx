@@ -1,9 +1,10 @@
 /**
  * title: Tabs
  */
-import { ISchema } from '@tachybase/schema';
-import { Action, Application, SchemaComponent, SchemaComponentProvider, Tabs } from '@tachybase/client';
 import React from 'react';
+import { Action, Application, SchemaComponent, SchemaComponentProvider, Tabs } from '@tachybase/client';
+import { ISchema } from '@tachybase/schema';
+
 import { AntdSchemaComponentProvider } from '../../AntdSchemaComponentProvider';
 
 const schema: ISchema = {

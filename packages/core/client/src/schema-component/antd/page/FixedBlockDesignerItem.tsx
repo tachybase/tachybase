@@ -1,11 +1,13 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
 import React from 'react';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
-import { useDesignable } from '../../hooks';
-import { useIsBlockInPage } from './hooks/useIsBlockInPage';
-import { SchemaSettingsSwitchItem } from '../../../schema-settings';
+
 import { useBlockRequestContext } from '../../../block-provider/BlockProvider';
+import { SchemaSettingsSwitchItem } from '../../../schema-settings';
+import { useDesignable } from '../../hooks';
 import { useFixedBlock } from './FixedBlock';
+import { useIsBlockInPage } from './hooks/useIsBlockInPage';
 
 export const FixedBlockDesignerItem = () => {
   const field = useField();

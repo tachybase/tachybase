@@ -1,4 +1,5 @@
 import { isArr, isFn } from '@formily/shared';
+
 import { getFlatOptions } from './hooks/useFlatOptions';
 
 /**

@@ -1,5 +1,6 @@
-import { GeneralSchemaDesigner, SchemaSettingsRemove } from '@tachybase/client';
 import React from 'react';
+import { GeneralSchemaDesigner, SchemaSettingsRemove } from '@tachybase/client';
+
 import { useTranslation } from '../../../../locale';
 
 export const SettingsDesigner = () => {

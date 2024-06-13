@@ -1,4 +1,4 @@
-import { get, cloneDeep } from 'lodash';
+import { cloneDeep, get } from 'lodash';
 
 export type Scope = { [key: string]: any };
 

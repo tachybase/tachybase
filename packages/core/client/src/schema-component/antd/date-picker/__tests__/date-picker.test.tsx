@@ -1,7 +1,7 @@
-import { render, screen, sleep, userEvent, waitFor } from '@tachybase/test/client';
 import React from 'react';
+import { render, screen, sleep, userEvent, waitFor } from '@tachybase/test/client';
+
 import App1 from '../demos/demo1';
-import App11 from '../demos/demo11';
 import App2 from '../demos/demo2';
 import App3 from '../demos/demo3';
 import App4 from '../demos/demo4';
@@ -10,6 +10,7 @@ import App6 from '../demos/demo6';
 import App7 from '../demos/demo7';
 import App8 from '../demos/demo8';
 import App9 from '../demos/demo9';
+import App11 from '../demos/demo11';
 
 describe('DatePicker', () => {
   it('basic', async () => {

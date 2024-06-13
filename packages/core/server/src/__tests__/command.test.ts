@@ -1,4 +1,5 @@
 import { mockDatabase } from '@tachybase/database';
+
 import Application, { ApplicationOptions } from '../application';
 
 const mockServer = (options?: ApplicationOptions) => {

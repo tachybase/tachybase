@@ -1,7 +1,8 @@
-import { useFieldSchema } from '@tachybase/schema';
-import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useCollection, useDesignable, useRequest } from '@tachybase/client';
+import { useFieldSchema } from '@tachybase/schema';
+
+import { useNavigate } from 'react-router-dom';
 
 export const useSwiperBlockProps = () => {
   const fieldSchema = useFieldSchema();

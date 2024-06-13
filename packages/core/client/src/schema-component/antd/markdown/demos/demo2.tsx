@@ -1,11 +1,12 @@
 /**
  * title: Markdown.Void
  */
+import React from 'react';
+import { Markdown, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import { FormItem } from '@tachybase/components';
 import { observer, useField } from '@tachybase/schema';
-import { Markdown, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+
 import { Button } from 'antd';
-import React from 'react';
 
 const schema = {
   type: 'object',

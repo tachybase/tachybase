@@ -1,4 +1,5 @@
-import { CacheManagerOptions, CacheManager } from '@tachybase/cache';
+import { CacheManager, CacheManagerOptions } from '@tachybase/cache';
+
 import Application from '../application';
 
 export const createCacheManager = async (app: Application, options: CacheManagerOptions) => {

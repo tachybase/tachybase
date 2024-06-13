@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { createContext } from 'react';
+import React, { createContext, useContext } from 'react';
+
 import { APPROVAL_STATUS } from '../../../../constants';
 
 const ContextApprovalStatus = createContext(APPROVAL_STATUS.SUBMITTED);

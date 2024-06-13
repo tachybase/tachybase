@@ -1,7 +1,8 @@
-import { resolve } from 'path';
-import { Command } from 'commander';
 import { readFileSync, writeFileSync } from 'fs';
+import { resolve } from 'path';
 import { URL } from 'url';
+
+import { Command } from 'commander';
 
 const __dirname = new URL('.', import.meta.url).pathname;
 

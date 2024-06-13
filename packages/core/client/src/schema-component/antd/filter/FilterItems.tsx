@@ -1,9 +1,14 @@
-import { ArrayField as ArrayFieldModel } from '@tachybase/schema';
-import { ObjectFieldComponent as ObjectField, observer, useField } from '@tachybase/schema';
 import React from 'react';
+import {
+  ArrayField as ArrayFieldModel,
+  ObjectFieldComponent as ObjectField,
+  observer,
+  useField,
+} from '@tachybase/schema';
+
+import { RemoveConditionContext } from './context';
 import { FilterGroup } from './FilterGroup';
 import { FilterItem } from './FilterItem';
-import { RemoveConditionContext } from './context';
 
 export const FilterItems = observer(
   (props) => {

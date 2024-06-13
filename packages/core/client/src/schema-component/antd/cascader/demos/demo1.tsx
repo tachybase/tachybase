@@ -1,6 +1,6 @@
-import { FormItem } from '@tachybase/components';
-import { Cascader, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { Cascader, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
 
 const options = [
   {

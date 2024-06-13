@@ -1,6 +1,8 @@
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
 import React from 'react';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { useDesignable } from '../..';
 import {
   GeneralSchemaDesigner,

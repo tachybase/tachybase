@@ -1,6 +1,8 @@
-import { connect, mapReadPretty, useFieldSchema } from '@tachybase/schema';
-import { Select, SelectProps } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
+import { connect, mapReadPretty, useFieldSchema } from '@tachybase/schema';
+
+import { Select, SelectProps } from 'antd';
+
 import { useCollection_deprecated } from '../../../collection-manager';
 import { useCompile } from '../../hooks';
 import { EllipsisWithTooltip } from '../input';

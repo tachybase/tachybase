@@ -1,6 +1,6 @@
-import { gridRowColWrap, useFormItemInitializerFields } from '../../../../schema-initializer/utils';
-import { ParentCollectionFields, AssociatedFields } from '../../../../schema-initializer/buttons/FormItemInitializers';
 import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
+import { AssociatedFields, ParentCollectionFields } from '../../../../schema-initializer/buttons/FormItemInitializers';
+import { gridRowColWrap, useFormItemInitializerFields } from '../../../../schema-initializer/utils';
 
 /**
  * @deprecated

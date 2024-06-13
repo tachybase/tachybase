@@ -1,11 +1,13 @@
-import { render, screen, userEvent, sleep, waitFor } from '@tachybase/test/client';
+import React, { FC } from 'react';
+import { render, screen, sleep, userEvent, waitFor } from '@tachybase/test/client';
+
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import React, { FC } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { beforeAll } from 'vitest';
+
 import { Application } from '../Application';
-import { RouteType, RouterManager, createRouterManager } from '../RouterManager';
+import { createRouterManager, RouterManager, RouteType } from '../RouterManager';
 
 describe('Router', () => {
   let app: Application;

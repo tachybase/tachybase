@@ -1,6 +1,8 @@
 import { assign, MergeStrategies, requireModule } from '@tachybase/utils';
+
 import compose from 'koa-compose';
 import _ from 'lodash';
+
 import Middleware, { MiddlewareType } from './middleware';
 import Resource from './resource';
 import { HandlerType } from './resourcer';

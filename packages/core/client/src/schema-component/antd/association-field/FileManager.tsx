@@ -1,6 +1,8 @@
-import { RecursionField, connect, useField, useFieldSchema } from '@tachybase/schema';
-import { differenceBy, unionBy } from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
+import { connect, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
+import { differenceBy, unionBy } from 'lodash';
+
 import {
   FormProvider,
   RecordPickerContext,
@@ -21,8 +23,8 @@ import { useCompile } from '../../hooks';
 import { ActionContextProvider } from '../action';
 import { EllipsisWithTooltip } from '../input';
 import { FileSelector, Preview } from '../preview';
-import { ReadPrettyInternalViewer } from './InternalViewer';
 import { useFieldNames, useInsertSchema } from './hooks';
+import { ReadPrettyInternalViewer } from './InternalViewer';
 import schema from './schema';
 import { flatData, getLabelFormatValue, isShowFilePicker, useLabelUiSchema } from './util';
 

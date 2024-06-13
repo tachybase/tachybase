@@ -1,7 +1,9 @@
-import { Select, SelectProps } from 'antd';
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { SchemaInitializerItemProps, SchemaInitializerItem } from './SchemaInitializerItem';
+
+import { Select, SelectProps } from 'antd';
+
 import { useSchemaInitializerItem } from '../context';
+import { SchemaInitializerItem, SchemaInitializerItemProps } from './SchemaInitializerItem';
 
 export interface SchemaInitializerSelectItemProps extends SchemaInitializerItemProps {
   options?: SelectProps['options'];

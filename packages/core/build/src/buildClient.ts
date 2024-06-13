@@ -1,7 +1,8 @@
+import path from 'path';
+
 import react from '@vitejs/plugin-react';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
-import path from 'path';
 import { build as tsupBuild } from 'tsup';
 import { build as viteBuild } from 'vite';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';

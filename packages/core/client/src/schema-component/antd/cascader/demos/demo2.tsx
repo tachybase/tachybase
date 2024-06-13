@@ -1,7 +1,4 @@
-import { FormItem } from '@tachybase/components';
-import { ArrayField } from '@tachybase/schema';
-import { useField } from '@tachybase/schema';
-import { action } from '@tachybase/schema';
+import React from 'react';
 import {
   APIClient,
   APIClientProvider,
@@ -10,8 +7,10 @@ import {
   SchemaComponentProvider,
   useAPIClient,
 } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
+import { action, ArrayField, useField } from '@tachybase/schema';
+
 import MockAdapter from 'axios-mock-adapter';
-import React from 'react';
 
 const apiClient = new APIClient();
 

@@ -1,6 +1,6 @@
-import { observer, RecursionField, useFieldSchema } from '@tachybase/schema';
-import { toArr } from '@tachybase/schema';
 import React, { Fragment, useRef, useState } from 'react';
+import { observer, RecursionField, toArr, useFieldSchema } from '@tachybase/schema';
+
 import { WithoutTableFieldResource } from '../../../block-provider';
 // TODO: 不要使用 '../../../block-provider' 这个路径引用 BlockAssociationContext，在 Vitest 中会报错，待修复
 import { BlockAssociationContext } from '../../../block-provider/BlockProvider';

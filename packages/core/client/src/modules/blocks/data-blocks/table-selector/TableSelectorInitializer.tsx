@@ -1,9 +1,10 @@
-import { FormOutlined } from '@ant-design/icons';
 import React from 'react';
 
+import { FormOutlined } from '@ant-design/icons';
+
+import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 import { useCollection_deprecated } from '../../../../collection-manager';
 import { createTableSelectorUISchema } from './createTableSelectorUISchema';
-import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 
 export const TableSelectorInitializer = () => {
   const itemConfig = useSchemaInitializerItem();

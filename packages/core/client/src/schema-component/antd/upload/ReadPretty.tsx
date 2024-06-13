@@ -1,14 +1,15 @@
-import { DownloadOutlined } from '@ant-design/icons';
-import { Field } from '@tachybase/schema';
-import { useField } from '@tachybase/schema';
+import React, { useState } from 'react';
+import { Field, useField } from '@tachybase/schema';
 import { isString } from '@tachybase/utils/client';
+
+import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Modal, Space } from 'antd';
 import useUploadStyle from 'antd/es/upload/style';
 import cls from 'classnames';
 import { saveAs } from 'file-saver';
-import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Lightbox from 'react-image-lightbox';
+
 import { useRecord } from '../../../record-provider';
 import { isImage, isPdf, toArr, toImages } from './shared';
 import { useStyles } from './style';

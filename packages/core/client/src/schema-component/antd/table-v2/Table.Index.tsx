@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useRecordIndex } from '../../../record-provider';
 
 export const TableIndex = (props) => {

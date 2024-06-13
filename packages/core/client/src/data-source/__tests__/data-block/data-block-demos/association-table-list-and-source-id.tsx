@@ -1,9 +1,10 @@
 import React from 'react';
-import { Select, Table, TableProps } from 'antd';
 import { SchemaComponent, UseDataBlockProps, useDataBlockRequest, withDynamicSchemaProps } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
 import useUrlState from '@ahooksjs/use-url-state';
+import { Select, Table, TableProps } from 'antd';
+
 import { createApp } from './createApp';
 
 const collection = 'users';

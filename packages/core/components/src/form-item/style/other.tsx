@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react';
+
 import { GenerateStyle } from '../../__builtins__';
 
 export const genOtherStyle: GenerateStyle = (token) => {

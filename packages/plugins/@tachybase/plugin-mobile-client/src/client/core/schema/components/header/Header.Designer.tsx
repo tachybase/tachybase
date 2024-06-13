@@ -1,7 +1,8 @@
+import React from 'react';
+import { GeneralSchemaDesigner, SchemaSettingsModalItem } from '@tachybase/client';
 import { Switch } from '@tachybase/components';
 import { useField } from '@tachybase/schema';
-import { GeneralSchemaDesigner, SchemaSettingsModalItem } from '@tachybase/client';
-import React from 'react';
+
 import { useTranslation } from '../../../../locale';
 import { useSchemaPatch } from '../../hooks';
 

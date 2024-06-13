@@ -1,14 +1,16 @@
 import React, { FC, useEffect } from 'react';
-import { Button, Form, FormProps, Input, InputNumber, notification } from 'antd';
 import {
   CollectionRecordProvider,
   SchemaComponent,
+  useCollectionRecordData,
   UseDataBlockProps,
   useDataBlockResource,
-  useCollectionRecordData,
   withDynamicSchemaProps,
 } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
+
+import { Button, Form, FormProps, Input, InputNumber, notification } from 'antd';
+
 import { createApp } from './createApp';
 
 interface DemoFormFieldType {

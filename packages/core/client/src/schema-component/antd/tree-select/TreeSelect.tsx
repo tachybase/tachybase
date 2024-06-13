@@ -1,7 +1,9 @@
-import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
-import { TreeSelect as AntdTreeSelect } from 'antd';
 import React from 'react';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
+import { LoadingOutlined } from '@ant-design/icons';
+import { TreeSelect as AntdTreeSelect } from 'antd';
+
 import { ReadPretty } from './ReadPretty';
 
 export const TreeSelect: any = connect(

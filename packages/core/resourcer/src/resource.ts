@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import Action, { ActionName, ActionType } from './action';
 import Middleware, { MiddlewareType } from './middleware';
 import { HandlerType, Resourcer } from './resourcer';
