@@ -6,7 +6,7 @@
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "~5.18.0",
+    "antd": "~5.18.1",
     "dayjs": "^1.11.8",
     "lodash": "^4.17.21",
     "react-i18next": "^11.15.1"

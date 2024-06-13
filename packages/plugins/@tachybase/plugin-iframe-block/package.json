@@ -11,7 +11,7 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.18.0",
+    "antd": "5.18.1",
     "react": "^18.3.1",
     "react-i18next": "^11.15.1",
     "react-iframe": "~1.8.5"
