@@ -1,10 +1,11 @@
-import { execa } from 'execa';
+import { existsSync, mkdirSync, readFileSync } from 'fs';
 import { resolve } from 'path';
-import pAll from 'p-all';
+
 import { parse } from 'dotenv';
-import { existsSync, readFileSync, mkdirSync } from 'fs';
+import { execa } from 'execa';
 import fastGlob from 'fast-glob';
 import lodash from 'lodash';
+import pAll from 'p-all';
 
 let ENV_FILE = resolve(process.cwd(), '.env.e2e');
 

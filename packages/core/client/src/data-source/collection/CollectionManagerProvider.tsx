@@ -1,7 +1,8 @@
-import React, { FC, ReactNode, createContext, useContext, useMemo } from 'react';
-import type { CollectionManager } from './CollectionManager';
-import type { Collection } from './Collection';
+import React, { createContext, FC, ReactNode, useContext, useMemo } from 'react';
+
 import { DataSourceProvider, useDataSource } from '../data-source/DataSourceProvider';
+import type { Collection } from './Collection';
+import type { CollectionManager } from './CollectionManager';
 import { useExtendCollections } from './ExtendCollectionsProvider';
 
 export const CollectionManagerContext = createContext<CollectionManager>(null);

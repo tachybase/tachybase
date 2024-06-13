@@ -1,8 +1,10 @@
 import winston, { Logger } from 'winston';
+
 import 'winston-daily-rotate-file';
+
 import { getLoggerLevel } from './config';
-import { getTransports } from './transports';
 import { consoleFormat } from './format';
+import { getTransports } from './transports';
 
 interface LoggerOptions extends Omit<winston.LoggerOptions, 'transports' | 'format'> {
   dirname?: string;

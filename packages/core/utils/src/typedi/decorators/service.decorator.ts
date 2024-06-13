@@ -1,8 +1,8 @@
+import { ContainerInstance } from '../container-instance.class';
+import { EMPTY_VALUE } from '../empty.const';
 import { ServiceMetadata } from '../interfaces/service-metadata.interface';
 import { ServiceOptions } from '../interfaces/service-options.interface';
-import { EMPTY_VALUE } from '../empty.const';
 import { Constructable } from '../types/constructable.type';
-import { ContainerInstance } from '../container-instance.class';
 
 /**
  * Marks class as a service that can be injected using Container.

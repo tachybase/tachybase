@@ -9,8 +9,7 @@ import {
   useSchemaInitializerItem,
   useSchemaInitializerRender,
 } from '@tachybase/client';
-import { observer, useField } from '@tachybase/schema';
-import { Field } from '@tachybase/schema';
+import { Field, observer, useField } from '@tachybase/schema';
 
 const Hello = observer(() => {
   const field = useField<Field>();

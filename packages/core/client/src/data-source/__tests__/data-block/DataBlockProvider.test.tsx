@@ -1,11 +1,12 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@tachybase/test/client';
-import CollectionTableListDemo from './data-block-demos/collection-table-list';
-import CollectionFormGetAndUpdateDemo from './data-block-demos/collection-form-get-and-update';
-import CollectionFormCreateDemo from './data-block-demos/collection-form-create';
-import CollectionFormRecordAndUpdateDemo from './data-block-demos/collection-form-record-and-update';
-import AssociationTableListAndSourceIdDemo from './data-block-demos/association-table-list-and-source-id';
+
 import AssociationTableListAndParentRecordDemo from './data-block-demos/association-table-list-and-parent-record';
+import AssociationTableListAndSourceIdDemo from './data-block-demos/association-table-list-and-source-id';
+import CollectionFormCreateDemo from './data-block-demos/collection-form-create';
+import CollectionFormGetAndUpdateDemo from './data-block-demos/collection-form-get-and-update';
+import CollectionFormRecordAndUpdateDemo from './data-block-demos/collection-form-record-and-update';
+import CollectionTableListDemo from './data-block-demos/collection-table-list';
 
 describe('CollectionDataSourceProvider', () => {
   describe('collection', () => {

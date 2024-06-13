@@ -1,5 +1,6 @@
-import { css, usePlugin } from '@tachybase/client';
 import React from 'react';
+import { css, usePlugin } from '@tachybase/client';
+
 import { MobileClientPlugin } from '../index';
 import { InterfaceProvider } from './InterfaceProvider';
 

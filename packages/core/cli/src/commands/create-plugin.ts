@@ -1,5 +1,7 @@
 import { resolve } from 'path';
+
 import { Command } from 'commander';
+
 import { PluginGenerator } from '../plugin-generator';
 
 export default (cli: Command) => {

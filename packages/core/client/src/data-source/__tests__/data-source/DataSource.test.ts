@@ -1,4 +1,4 @@
-import { Application, DataSourceOptions, DataSource } from '@tachybase/client';
+import { Application, DataSource, DataSourceOptions } from '@tachybase/client';
 
 describe('DataSource', () => {
   let dataSource: DataSource;

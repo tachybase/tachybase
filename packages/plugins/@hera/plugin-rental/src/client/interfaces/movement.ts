@@ -1,6 +1,7 @@
 import { CollectionFieldInterface, dataSource, defaultProps, operators } from '@tachybase/client';
-import { tval } from '../locale';
 import { Field, uid } from '@tachybase/schema';
+
+import { tval } from '../locale';
 
 export class MovementFieldInterface extends CollectionFieldInterface {
   name = 'movement';

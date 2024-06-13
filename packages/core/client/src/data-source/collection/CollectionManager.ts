@@ -1,8 +1,12 @@
 import type { SchemaKey } from '@tachybase/schema';
-import type { DataSource } from '../data-source';
-import type { CollectionFieldOptions, CollectionOptions, GetCollectionFieldPredicate } from './Collection';
 
-import { Collection } from './Collection';
+import type { DataSource } from '../data-source';
+import {
+  Collection,
+  type CollectionFieldOptions,
+  type CollectionOptions,
+  type GetCollectionFieldPredicate,
+} from './Collection';
 import { applyMixins, collectionTransform } from './utils';
 
 export class CollectionManager {

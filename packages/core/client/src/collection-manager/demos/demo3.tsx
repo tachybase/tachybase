@@ -8,6 +8,7 @@ import {
   RecordProvider,
   useCollectionField_deprecated,
 } from '@tachybase/client';
+
 import MockAdapter from 'axios-mock-adapter';
 
 const apiClient = new APIClient();

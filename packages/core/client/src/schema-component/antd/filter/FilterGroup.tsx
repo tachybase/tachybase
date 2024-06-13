@@ -1,12 +1,18 @@
-import { CloseCircleOutlined } from '@ant-design/icons';
-import { ObjectField as ObjectFieldModel } from '@tachybase/schema';
-import { ArrayFieldComponent as ArrayField, connect, useField } from '@tachybase/schema';
-import { Select, Space } from 'antd';
 import React, { useContext } from 'react';
+import {
+  ArrayFieldComponent as ArrayField,
+  connect,
+  ObjectField as ObjectFieldModel,
+  useField,
+} from '@tachybase/schema';
+
+import { CloseCircleOutlined } from '@ant-design/icons';
+import { Select, Space } from 'antd';
 import { Trans, useTranslation } from 'react-i18next';
+
 import { useToken } from '../__builtins__';
-import { FilterItems } from './FilterItems';
 import { FilterLogicContext, RemoveConditionContext } from './context';
+import { FilterItems } from './FilterItems';
 
 export const FilterGroup = connect((props) => {
   const { bordered = true, disabled } = props;

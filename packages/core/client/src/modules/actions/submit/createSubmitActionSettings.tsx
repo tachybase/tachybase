@@ -1,19 +1,20 @@
-import { useFieldSchema, useField, connect, mapProps, ISchema } from '@tachybase/schema';
-import { isValid } from '@tachybase/schema';
 import React, { useEffect, useState } from 'react';
+import { connect, ISchema, isValid, mapProps, useField, useFieldSchema } from '@tachybase/schema';
+
 import { Tree as AntdTree } from 'antd';
+import { useTranslation } from 'react-i18next';
+
 import { useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
+import { useCollection_deprecated } from '../../../collection-manager';
+import { useDesignable } from '../../../schema-component';
 import {
   ButtonEditor,
   RemoveButton,
   SecondConFirm,
   WorkflowConfig,
 } from '../../../schema-component/antd/action/Action.Designer';
-import { useTranslation } from 'react-i18next';
-import { useDesignable } from '../../../schema-component';
 import { useCollectionState } from '../../../schema-settings/DataTemplates/hooks/useCollectionState';
-import { useCollection_deprecated } from '../../../collection-manager';
 import { SchemaSettingsModalItem } from '../../../schema-settings/SchemaSettings';
 
 const Tree = connect(

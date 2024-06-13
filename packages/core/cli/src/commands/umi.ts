@@ -1,5 +1,6 @@
 import { Command } from 'commander';
-import { run, isDev } from '../util';
+
+import { isDev, run } from '../util';
 
 export default (cli: Command) => {
   const { APP_PACKAGE_ROOT } = process.env;

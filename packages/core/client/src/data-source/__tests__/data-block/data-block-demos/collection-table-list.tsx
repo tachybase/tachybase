@@ -1,7 +1,9 @@
 import React from 'react';
 import { SchemaComponent, useDataBlockRequest, withDynamicSchemaProps } from '@tachybase/client';
-import { Table, TableProps } from 'antd';
 import { ISchema } from '@tachybase/schema';
+
+import { Table, TableProps } from 'antd';
+
 import { createApp } from './createApp';
 
 const schema: ISchema = {

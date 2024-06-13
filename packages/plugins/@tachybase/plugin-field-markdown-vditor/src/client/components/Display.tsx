@@ -1,8 +1,10 @@
-import { Field, useField } from '@tachybase/schema';
-import { withDynamicSchemaProps } from '@tachybase/client';
-import { Popover } from 'antd';
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
+import { withDynamicSchemaProps } from '@tachybase/client';
+import { Field, useField } from '@tachybase/schema';
+
+import { Popover } from 'antd';
 import Vditor from 'vditor';
+
 import { useCDN } from './const';
 import useStyle from './style';
 

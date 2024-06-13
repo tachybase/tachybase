@@ -1,11 +1,11 @@
-import { FC, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
+import { useField, useFieldSchema } from '@tachybase/schema';
+
+import { useDesignable } from '../../../schema-component';
 import { SchemaSettingsDropdown } from '../../../schema-settings';
 import { SchemaSettingOptions } from '../types';
 import { SchemaSettingsChildren } from './SchemaSettingsChildren';
 import { SchemaSettingsIcon } from './SchemaSettingsIcon';
-import React from 'react';
-import { useDesignable } from '../../../schema-component';
-import { useField, useFieldSchema } from '@tachybase/schema';
 
 /**
  * @internal

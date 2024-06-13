@@ -1,5 +1,6 @@
-import type { ISchema } from '@tachybase/schema';
 import type { ReactNode } from 'react';
+import type { ISchema } from '@tachybase/schema';
+
 import type { CollectionManager, CollectionOptions } from '../data-source';
 
 export type { CollectionOptions } from '../data-source';

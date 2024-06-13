@@ -1,5 +1,6 @@
-import { FormOutlined } from '@ant-design/icons';
 import React from 'react';
+
+import { FormOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';

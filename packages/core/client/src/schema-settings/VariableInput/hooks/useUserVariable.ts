@@ -1,5 +1,7 @@
 import { Schema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';
 import { CollectionFieldOptions } from '../../../data-source/collection/Collection';
 import { DEFAULT_DATA_SOURCE_KEY } from '../../../data-source/data-source/DataSourceManager';

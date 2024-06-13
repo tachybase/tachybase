@@ -1,14 +1,14 @@
-import { CloseCircleFilled, CloseOutlined } from '@ant-design/icons';
-import { useFieldSchema, useForm } from '@tachybase/schema';
-import { isValid, toArr } from '@tachybase/schema';
-import { isPlainObject } from '@tachybase/utils/client';
-import type { SelectProps } from 'antd';
-import { Select as AntdSelect, Empty, Spin, Tag } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import { FieldNames, getCurrentOptions } from './utils';
+import { isValid, toArr, useFieldSchema, useForm } from '@tachybase/schema';
+import { isPlainObject } from '@tachybase/utils/client';
+
+import { CloseCircleFilled, CloseOutlined } from '@ant-design/icons';
 import { useAsyncEffect } from 'ahooks';
-import { useCollection_deprecated } from '../../../collection-manager';
+import { Select as AntdSelect, Empty, Spin, Tag, type SelectProps } from 'antd';
+
 import { useAPIClient, useRequest } from '../../../api-client';
+import { useCollection_deprecated } from '../../../collection-manager';
+import { FieldNames, getCurrentOptions } from './utils';
 
 type Props = SelectProps<any, any> & {
   objectValue?: boolean;

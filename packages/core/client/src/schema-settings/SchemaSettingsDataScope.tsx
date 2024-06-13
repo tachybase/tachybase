@@ -1,16 +1,18 @@
-import { ISchema } from '@tachybase/schema';
 import React, { FC, useCallback } from 'react';
+import { ISchema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { DatePickerProvider, useCollectionManager_deprecated, useRecord } from '..';
 import { useFormBlockContext } from '../block-provider';
 import { useCollectionFilterOptionsV2 } from '../collection-manager/action-hooks';
 import { FlagProvider, useFlag } from '../flag-provider';
 import { DynamicComponentProps } from '../schema-component/antd/filter/DynamicComponent';
 import { useLocalVariables, useVariables } from '../variables';
-import { VariableInput, getShouldChange } from './VariableInput/VariableInput';
-import { BaseVariableProvider, IsDisabledParams } from './VariableInput/hooks/useBaseVariable';
-import { DataScopeProps } from './types';
 import { SchemaSettingsModalItem } from './SchemaSettings';
+import { DataScopeProps } from './types';
+import { BaseVariableProvider, IsDisabledParams } from './VariableInput/hooks/useBaseVariable';
+import { getShouldChange, VariableInput } from './VariableInput/VariableInput';
 
 export const SchemaSettingsDataScope: FC<DataScopeProps> = function DataScopeConfigure(props) {
   const { t } = useTranslation();

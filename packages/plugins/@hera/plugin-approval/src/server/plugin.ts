@@ -1,9 +1,11 @@
 import path from 'path';
-import { Plugin } from '@tachybase/server';
 import WorkflowPlugin from '@tachybase/plugin-workflow';
-import ApprovalTrigger from './ApprovalTrigger';
-import ApprovalInstruction from './ApprovalInstruction';
+import { Plugin } from '@tachybase/server';
+
 import { init } from './actions';
+import ApprovalInstruction from './ApprovalInstruction';
+import ApprovalTrigger from './ApprovalTrigger';
+
 export class PluginWorkflowApproval extends Plugin {
   workflow;
   afterAdd() {}

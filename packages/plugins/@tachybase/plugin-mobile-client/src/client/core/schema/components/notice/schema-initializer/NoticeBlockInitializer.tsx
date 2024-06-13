@@ -6,9 +6,11 @@ import {
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@tachybase/client';
+
 import { NoticeBar } from 'antd-mobile';
-import { createGridCardBlockSchema } from '../schema-create/createGridCardBlockSchma';
+
 import { NoticeIcon } from '../../../../assets/svg';
+import { createGridCardBlockSchema } from '../schema-create/createGridCardBlockSchma';
 
 export const NoticeBlock = () => {
   return <NoticeBar content="月底冲量佣金上调" color="alert" />;

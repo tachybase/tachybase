@@ -1,8 +1,9 @@
-import { uid } from '@tachybase/schema';
+import React from 'react';
 import { APIClient, APIClientProvider, useAPIClient, useRequest } from '@tachybase/client';
+import { uid } from '@tachybase/schema';
+
 import { Button, Input, Space, Table } from 'antd';
 import MockAdapter from 'axios-mock-adapter';
-import React from 'react';
 
 const apiClient = new APIClient();
 

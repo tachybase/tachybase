@@ -2,9 +2,11 @@
 import { useEffect, useMemo } from 'react';
 import { useCollection, useCollectionManager, useDataSourceHeaders, useRequest } from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
+
 import _ from 'lodash';
-import { useTabSearchCollapsibleInputItem } from './hooks';
+
 import { canBeRelatedField } from '../../utils';
+import { useTabSearchCollapsibleInputItem } from './hooks';
 
 export const useTabSearchFieldItemRelatedProps = () => {
   const fieldSchema = useFieldSchema();

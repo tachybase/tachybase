@@ -1,6 +1,8 @@
-import { render, screen } from '@tachybase/test/client';
 import React from 'react';
+import { render, screen } from '@tachybase/test/client';
+
 import { describe } from 'vitest';
+
 import { compose, normalizeContainer } from '../utils';
 
 describe('utils', () => {

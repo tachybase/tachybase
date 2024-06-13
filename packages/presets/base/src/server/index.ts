@@ -1,4 +1,5 @@
 import { Plugin, PluginManager } from '@tachybase/server';
+
 import _ from 'lodash';
 
 export class PresetTachyBase extends Plugin {

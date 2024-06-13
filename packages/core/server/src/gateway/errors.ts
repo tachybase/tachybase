@@ -1,5 +1,6 @@
-import { AppSupervisor } from '../app-supervisor';
 import lodash from 'lodash';
+
+import { AppSupervisor } from '../app-supervisor';
 
 interface AppError {
   status: number;

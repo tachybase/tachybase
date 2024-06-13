@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import supertest from 'supertest';
+
 import { Resourcer } from '../resourcer';
 
 describe('koa middleware', () => {

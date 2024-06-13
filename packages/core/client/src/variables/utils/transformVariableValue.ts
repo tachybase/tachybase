@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import { CollectionFieldOptions_deprecated } from '../../collection-manager';
 
 interface Deps {

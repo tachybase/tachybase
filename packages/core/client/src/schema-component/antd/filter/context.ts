@@ -1,6 +1,5 @@
-import { ObjectField } from '@tachybase/schema';
-import { Schema } from '@tachybase/schema';
 import { createContext } from 'react';
+import { ObjectField, Schema } from '@tachybase/schema';
 
 export interface FilterContextProps {
   field?: ObjectField & { collectionName?: string };

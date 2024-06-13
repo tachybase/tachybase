@@ -1,9 +1,9 @@
 /**
  * title: Markdown
  */
-import { FormItem } from '@tachybase/components';
-import { Markdown, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { Markdown, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
 
 const schema = {
   type: 'object',

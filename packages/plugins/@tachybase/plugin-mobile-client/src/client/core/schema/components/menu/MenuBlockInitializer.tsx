@@ -1,6 +1,7 @@
 import React from 'react';
-import { MenuOutlined } from '@ant-design/icons';
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
+
+import { MenuOutlined } from '@ant-design/icons';
 
 export const MMenuBlockInitializer = () => {
   const itemConfig = useSchemaInitializerItem();

@@ -1,13 +1,13 @@
-import { CloseCircleFilled, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
-import { isValid, toArr } from '@tachybase/schema';
-import { isPlainObject } from '@tachybase/utils/client';
-import type { SelectProps } from 'antd';
-import { Select as AntdSelect, Empty, Spin, Tag } from 'antd';
 import React from 'react';
-import { ReadPretty } from './ReadPretty';
-import { FieldNames, defaultFieldNames, getCurrentOptions } from './utils';
+import { connect, isValid, mapProps, mapReadPretty, toArr } from '@tachybase/schema';
+import { isPlainObject } from '@tachybase/utils/client';
+
+import { CloseCircleFilled, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Select as AntdSelect, Empty, Spin, Tag, type SelectProps } from 'antd';
+
 import FormulaSelect from './FormulaSelect';
+import { ReadPretty } from './ReadPretty';
+import { defaultFieldNames, FieldNames, getCurrentOptions } from './utils';
 
 type Props = SelectProps<any, any> & {
   objectValue?: boolean;

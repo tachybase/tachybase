@@ -1,4 +1,5 @@
 import { CronJob, CronJobParameters } from 'cron';
+
 import Application from '../application';
 
 export class CronJobManager {

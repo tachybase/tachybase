@@ -1,26 +1,27 @@
-import { ISchema } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
+import { useCallback } from 'react';
+import { ArrayItems } from '@tachybase/components';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
+import { useTranslation } from 'react-i18next';
+
 import { useAPIClient } from '../../../../api-client';
-import { useTableBlockContext, useFormBlockContext } from '../../../../block-provider';
+import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
+import { useFormBlockContext, useTableBlockContext } from '../../../../block-provider';
 import {
-  useCollectionManager_deprecated,
   useCollection_deprecated,
+  useCollectionManager_deprecated,
   useSortFields,
 } from '../../../../collection-manager';
-import { mergeFilter, FilterBlockType } from '../../../../filter-provider';
-import { useDesignable, removeNullCondition } from '../../../../schema-component';
+import { FilterBlockType, mergeFilter } from '../../../../filter-provider';
+import { removeNullCondition, useDesignable } from '../../../../schema-component';
+import { FixedBlockDesignerItem } from '../../../../schema-component/antd/page/FixedBlockDesignerItem';
 import {
   SchemaSettingsBlockTitleItem,
-  SchemaSettingsSortField,
-  SchemaSettingsDataScope,
   SchemaSettingsConnectDataBlocks,
+  SchemaSettingsDataScope,
+  SchemaSettingsSortField,
   SchemaSettingsTemplate,
 } from '../../../../schema-settings';
-import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ArrayItems } from '@tachybase/components';
-import { FixedBlockDesignerItem } from '../../../../schema-component/antd/page/FixedBlockDesignerItem';
-import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { setDataLoadingModeSettingsItem, useDataLoadingMode } from '../details-multi/setDataLoadingModeSettingsItem';
 
 export const tableBlockSettings = new SchemaSettings({

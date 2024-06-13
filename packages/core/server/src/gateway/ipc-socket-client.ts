@@ -1,6 +1,7 @@
-import { Logger, createConsoleLogger } from '@tachybase/logger';
 import * as events from 'events';
 import net from 'net';
+import { createConsoleLogger, Logger } from '@tachybase/logger';
+
 import xpipe from 'xpipe';
 
 export const writeJSON = (socket: net.Socket, data: object) => {

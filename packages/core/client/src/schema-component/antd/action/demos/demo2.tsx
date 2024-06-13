@@ -1,4 +1,4 @@
-import { ISchema, observer, useForm } from '@tachybase/schema';
+import React, { useState } from 'react';
 import {
   Action,
   ActionContextProvider,
@@ -9,7 +9,7 @@ import {
   SchemaComponentProvider,
   useActionContext,
 } from '@tachybase/client';
-import React, { useState } from 'react';
+import { ISchema, observer, useForm } from '@tachybase/schema';
 
 const useCloseAction = () => {
   const { setVisible } = useActionContext();

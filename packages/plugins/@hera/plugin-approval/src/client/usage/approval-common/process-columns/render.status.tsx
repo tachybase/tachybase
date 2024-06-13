@@ -1,10 +1,10 @@
 import React from 'react';
 import { useCompile } from '@tachybase/client';
+
 import { Tag } from 'antd';
-import { approvalStatusConfigObj } from '../../../constants';
+
+import { APPROVAL_STATUS, approvalStatusConfigObj, ApprovalStatusEnumDict } from '../../../constants';
 import { ColumnStatusComponent } from '../approval-columns/column.status';
-import { ApprovalStatusEnumDict } from '../../../constants';
-import { APPROVAL_STATUS } from '../../../constants';
 
 export function renderColumnStatus(value, record, exist) {
   // return null;

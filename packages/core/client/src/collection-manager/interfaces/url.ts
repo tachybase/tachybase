@@ -1,6 +1,7 @@
 import { ISchema } from '@tachybase/schema';
-import { defaultProps, operators } from './properties';
+
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
+import { defaultProps, operators } from './properties';
 
 export class UrlFieldInterface extends CollectionFieldInterface {
   name = 'url';

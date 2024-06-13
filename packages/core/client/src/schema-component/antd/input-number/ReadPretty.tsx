@@ -1,10 +1,11 @@
+import React, { useMemo } from 'react';
 import { isValid } from '@tachybase/schema';
 import { toFixedByStep } from '@tachybase/utils/client';
+
 import type { InputProps } from 'antd/es/input';
 import type { InputNumberProps } from 'antd/es/input-number';
 import { format } from 'd3-format';
 import * as math from 'mathjs';
-import React, { useMemo } from 'react';
 
 function countDecimalPlaces(value) {
   const number = Number(value);

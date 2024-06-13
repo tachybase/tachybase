@@ -1,9 +1,11 @@
-import { Command } from 'commander';
-import { run, postCheck, promptForTs } from '../util';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
+
 import chalk from 'chalk';
+import { Command } from 'commander';
 import _ from 'lodash';
+
+import { postCheck, promptForTs, run } from '../util';
 
 export default (cli: Command) => {
   const { APP_PACKAGE_ROOT, NODE_ARGS } = process.env;

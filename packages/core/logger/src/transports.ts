@@ -1,9 +1,11 @@
+import path from 'path';
+
 import winston from 'winston';
 import { DailyRotateFileTransportOptions } from 'winston-daily-rotate-file';
-import { LoggerOptions } from './logger';
+
 import { getLoggerFilePath, getLoggerFormat, getLoggerTransport } from './config';
-import path from 'path';
 import { getFormat } from './format';
+import { LoggerOptions } from './logger';
 
 export const Transports = {
   console: (options?: winston.transports.ConsoleTransportOptions) => new winston.transports.Console(options),

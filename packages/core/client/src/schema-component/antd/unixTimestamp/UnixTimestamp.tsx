@@ -1,7 +1,9 @@
-import { connect, mapReadPretty } from '@tachybase/schema';
 import React, { useMemo } from 'react';
-import { DatePicker } from '../date-picker';
+import { connect, mapReadPretty } from '@tachybase/schema';
+
 import dayjs from 'dayjs';
+
+import { DatePicker } from '../date-picker';
 
 const toValue = (value: any, accuracy) => {
   if (value) {

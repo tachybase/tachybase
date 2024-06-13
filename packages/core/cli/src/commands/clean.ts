@@ -1,5 +1,6 @@
 import { Command } from 'commander';
-import { run, isDev } from '../util';
+
+import { isDev, run } from '../util';
 
 /**
  *

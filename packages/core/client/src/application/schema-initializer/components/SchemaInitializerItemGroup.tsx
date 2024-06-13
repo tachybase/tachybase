@@ -1,5 +1,7 @@
-import { theme } from 'antd';
 import React, { FC } from 'react';
+
+import { theme } from 'antd';
+
 import { useCompile } from '../../../schema-component';
 import { useSchemaInitializerItem } from '../context';
 import { SchemaInitializerOptions } from '../types';

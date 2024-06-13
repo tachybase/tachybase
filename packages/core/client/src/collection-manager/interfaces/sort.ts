@@ -1,6 +1,7 @@
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
 import { i18n } from '../../i18n';
 import { defaultProps, operators } from './properties';
+
 export class SortFieldInterface extends CollectionFieldInterface {
   name = 'sort';
   type = 'object';

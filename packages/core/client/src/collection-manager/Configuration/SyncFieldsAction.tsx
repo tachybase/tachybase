@@ -1,18 +1,19 @@
-import { PlusOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
 import { ArrayTable } from '@tachybase/components';
-import { useField, useForm } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { uid, useField, useForm } from '@tachybase/schema';
+
+import { PlusOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { cloneDeep } from 'lodash';
-import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient, useRequest } from '../../api-client';
 import { RecordProvider, useRecord } from '../../record-provider';
 import { ActionContextProvider, SchemaComponent, useActionContext, useCompile } from '../../schema-component';
-import { useResourceActionContext, useResourceContext } from '../ResourceActionProvider';
 import { useCancelAction } from '../action-hooks';
 import { useCollectionManager_deprecated } from '../hooks';
 import { IField } from '../interfaces/types';
+import { useResourceActionContext, useResourceContext } from '../ResourceActionProvider';
 import { PreviewFields } from '../templates/components/PreviewFields';
 import { PreviewTable } from '../templates/components/PreviewTable';
 import * as components from './components';

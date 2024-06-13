@@ -1,4 +1,4 @@
-import { CreateFormBlockUISchemaOptions, createCreateFormBlockUISchema } from '../createCreateFormBlockUISchema';
+import { createCreateFormBlockUISchema, CreateFormBlockUISchemaOptions } from '../createCreateFormBlockUISchema';
 
 vi.mock('@formily/shared', () => {
   return {

@@ -1,7 +1,9 @@
-import { observer, useForm } from '@tachybase/schema';
-import { Table, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { observer, useForm } from '@tachybase/schema';
+
+import { Table, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { useCollectionManager_deprecated } from '../../';
 import { useCompile } from '../../../';
 

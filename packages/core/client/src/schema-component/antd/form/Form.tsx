@@ -1,9 +1,18 @@
+import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { FormLayout } from '@tachybase/components';
-import { createForm } from '@tachybase/schema';
-import { FieldContext, FormContext, observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+import {
+  createForm,
+  FieldContext,
+  FormContext,
+  observer,
+  RecursionField,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
+
 import { Options, Result } from 'ahooks/es/useRequest/src/types';
 import { ConfigProvider, Spin } from 'antd';
-import React, { createContext, useContext, useEffect, useMemo } from 'react';
+
 import { useAttach, useComponent } from '../..';
 import { useRequest } from '../../../api-client';
 import { useCollection_deprecated } from '../../../collection-manager';

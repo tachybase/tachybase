@@ -1,4 +1,4 @@
-import { Page, expect, test } from '@tachybase/test/e2e';
+import { expect, Page, test } from '@tachybase/test/e2e';
 
 test.describe('page schema settings', () => {
   const showMenu = async (page: Page) => {

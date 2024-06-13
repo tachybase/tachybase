@@ -1,8 +1,10 @@
-import { Observer, ReactFC } from '@tachybase/schema';
-import { observable } from '@tachybase/schema';
 import React, { Fragment } from 'react';
+import { observable, Observer, ReactFC } from '@tachybase/schema';
+
 import { createPortal } from 'react-dom';
+
 import { render as reactRender, unmount as reactUnmount } from './render';
+
 export interface IPortalProps {
   id?: string | symbol;
 }

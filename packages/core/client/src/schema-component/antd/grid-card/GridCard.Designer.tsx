@@ -1,11 +1,14 @@
+import React, { useMemo } from 'react';
 import { ArrayItems } from '@tachybase/components';
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import { Slider } from 'antd';
 import _ from 'lodash';
-import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useFormBlockContext } from '../../../block-provider';
 import { useCollection_deprecated, useSortFields } from '../../../collection-manager';
+import { SetDataLoadingMode } from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
 import { useRecord } from '../../../record-provider';
 import {
   GeneralSchemaDesigner,
@@ -15,13 +18,12 @@ import {
   SchemaSettingsSelectItem,
   SchemaSettingsTemplate,
 } from '../../../schema-settings';
+import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
 import { useSchemaTemplate } from '../../../schema-templates';
 import { SchemaComponentOptions } from '../../core';
 import { useDesignable } from '../../hooks';
 import { removeNullCondition } from '../filter';
 import { defaultColumnCount, gridSizes, pageSizeOptions, screenSizeMaps, screenSizeTitleMaps } from './options';
-import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
-import { SetDataLoadingMode } from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
 
 const columnCountMarks = [1, 2, 3, 4, 6, 8, 12, 24].reduce((obj, cur) => {
   obj[cur] = cur;

@@ -1,11 +1,13 @@
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
 import React from 'react';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useDesignable } from '../../../../schema-component';
-import { SchemaSettingsModalItem, useCollectionState } from '../../../../schema-settings';
+
 import { useCollection_deprecated } from '../../../../collection-manager/hooks/useCollection_deprecated';
 import { useDataBlockProps, useDataBlockRequest } from '../../../../data-source';
+import { useDesignable } from '../../../../schema-component';
+import { SchemaSettingsModalItem, useCollectionState } from '../../../../schema-settings';
 
 export const setDataLoadingModeSettingsItem = {
   name: 'setDataLoadingMode',

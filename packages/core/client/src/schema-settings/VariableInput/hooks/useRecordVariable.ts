@@ -1,9 +1,11 @@
 import { Schema } from '@tachybase/schema';
+
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
+import { useFormBlockContext } from '../../../block-provider/FormBlockProvider';
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';
 import { useBaseVariable } from './useBaseVariable';
-import { useFormBlockContext } from '../../../block-provider/FormBlockProvider';
 
 interface Props {
   collectionField?: CollectionFieldOptions_deprecated;

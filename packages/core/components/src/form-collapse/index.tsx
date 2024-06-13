@@ -1,10 +1,12 @@
+import React, { Fragment, useMemo } from 'react';
+
 import { Schema, SchemaKey } from '@formily/json-schema';
 import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
 import { markRaw, model } from '@formily/reactive';
 import { toArr } from '@formily/shared';
 import { Badge, Collapse, CollapsePanelProps, CollapseProps } from 'antd';
 import cls from 'classnames';
-import React, { Fragment, useMemo } from 'react';
+
 import { usePrefixCls } from '../__builtins__';
 
 type ActiveKeys = string | number | Array<string | number>;

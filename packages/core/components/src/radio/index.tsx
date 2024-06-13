@@ -1,5 +1,6 @@
 import { connect, mapProps, mapReadPretty } from '@formily/react';
 import { Radio as AntdRadio } from 'antd';
+
 import { PreviewText } from '../preview-text';
 
 export const InternalRadio = connect(

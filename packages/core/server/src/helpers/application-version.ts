@@ -1,5 +1,7 @@
 import { Collection } from '@tachybase/database';
+
 import semver from 'semver';
+
 import Application from '../application';
 
 export class ApplicationVersion {

@@ -1,18 +1,18 @@
-import { SyncOutlined } from '@ant-design/icons';
-import { FormLayout } from '@tachybase/components';
-import { createForm } from '@tachybase/schema';
-import { useField, useForm } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import { Button } from 'antd';
 import React, { useMemo, useState } from 'react';
+import { FormLayout } from '@tachybase/components';
+import { createForm, uid, useField, useForm } from '@tachybase/schema';
+
+import { SyncOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient } from '../../api-client';
 import { useCollectionParentRecordData } from '../../data-source/collection-record/CollectionRecordProvider';
 import { RecordProvider, useRecord } from '../../record-provider';
 import { ActionContextProvider, FormProvider, SchemaComponent, useActionContext } from '../../schema-component';
-import { useResourceActionContext, useResourceContext } from '../ResourceActionProvider';
 import { useCancelAction } from '../action-hooks';
 import { useCollectionManager_deprecated } from '../hooks/useCollectionManager_deprecated';
+import { useResourceActionContext, useResourceContext } from '../ResourceActionProvider';
 import { FieldsConfigure, PreviewTable, SQLRequestProvider } from '../templates/components/sql-collection';
 
 const schema = {

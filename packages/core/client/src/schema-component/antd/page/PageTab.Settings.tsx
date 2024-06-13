@@ -1,9 +1,11 @@
+import { ISchema } from '@tachybase/schema';
+
 import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { ISchema } from '@tachybase/schema';
-import { useDesignable } from '../../hooks';
-import { useSchemaToolbar } from '../../../application/schema-toolbar';
+
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
+import { useSchemaToolbar } from '../../../application/schema-toolbar';
+import { useDesignable } from '../../hooks';
 
 /**
  * @deprecated

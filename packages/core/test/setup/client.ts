@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom/vitest';
+
 import { configure } from '@testing-library/react';
 import dotenv from 'dotenv';
 import { vi } from 'vitest';
@@ -8,6 +9,7 @@ import { vi } from 'vitest';
  * 解决 ReferenceError: Worker is not defined
  */
 import 'jsdom-worker';
+
 import path from 'path';
 
 configure({ asyncUtilTimeout: 30000 });

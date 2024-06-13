@@ -1,3 +1,5 @@
+import React, { createContext, Fragment, useCallback, useContext, useEffect, useRef, useState } from 'react';
+
 import { ArrayField, FieldDisplayTypes, GeneralField } from '@formily/core';
 import { Schema } from '@formily/json-schema';
 import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
@@ -5,9 +7,9 @@ import { isArr, isBool, isFn } from '@formily/shared';
 import { Badge, Pagination, PaginationProps, Select, SelectProps, Space, Table, TableProps } from 'antd';
 import { ColumnProps, ColumnsType } from 'antd/es/table';
 import cls from 'classnames';
-import React, { createContext, Fragment, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { ArrayBase, ArrayBaseMixins } from '../array-base';
+
 import { SortableContainer, SortableElement, usePrefixCls } from '../__builtins__';
+import { ArrayBase, ArrayBaseMixins } from '../array-base';
 import useStyle from './style';
 
 interface ObservableColumnSource {

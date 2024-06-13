@@ -1,6 +1,8 @@
-import { useFieldSchema } from '@tachybase/schema';
 import React from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { useCollection_deprecated } from '../../../collection-manager';
 import { FilterBlockType } from '../../../filter-provider/utils';
 import {

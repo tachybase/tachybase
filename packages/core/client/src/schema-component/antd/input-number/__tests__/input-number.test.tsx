@@ -1,9 +1,10 @@
-import { fireEvent, render, screen } from '@tachybase/test/client';
 import React from 'react';
-import { formatNumberWithSeparator, formatUnitConversion, scientificNotation } from '../ReadPretty';
+import { fireEvent, render, screen } from '@tachybase/test/client';
+
 import App2 from '../demos/addonBefore&addonAfter';
 import App3 from '../demos/highPrecisionDecimals';
 import App1 from '../demos/inputNumber';
+import { formatNumberWithSeparator, formatUnitConversion, scientificNotation } from '../ReadPretty';
 
 describe('InputNumber', () => {
   it('should display the title', () => {

@@ -1,4 +1,5 @@
 import { ComponentType } from 'react';
+
 import {
   SchemaSettingsCascaderItemProps,
   SchemaSettingsItemProps,

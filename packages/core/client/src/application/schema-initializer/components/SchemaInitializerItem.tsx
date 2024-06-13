@@ -1,6 +1,8 @@
+import React, { memo, ReactNode, useMemo } from 'react';
 import { uid } from '@tachybase/schema';
+
 import classNames from 'classnames';
-import React, { ReactNode, memo, useMemo } from 'react';
+
 import { Icon } from '../../../icon';
 import { useCompile } from '../../../schema-component';
 import { useSchemaInitializerItem } from '../context';

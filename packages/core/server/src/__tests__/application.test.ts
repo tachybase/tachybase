@@ -1,5 +1,6 @@
-import { vi } from 'vitest';
 import supertest from 'supertest';
+import { vi } from 'vitest';
+
 import { Application } from '../application';
 import { Plugin } from '../plugin';
 import longJson from './fixtures/long-json';

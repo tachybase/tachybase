@@ -1,9 +1,9 @@
-import { Token } from '../token.class';
-import { CannotInjectValueError } from '../error/cannot-inject-value.error';
-import { ServiceIdentifier } from '../types/service-identifier.type';
-import { Constructable } from '../types/constructable.type';
-import { resolveToTypeWrapper } from '../utils/resolve-to-type-wrapper.util';
 import { ContainerInstance } from '../container-instance.class';
+import { CannotInjectValueError } from '../error/cannot-inject-value.error';
+import { Token } from '../token.class';
+import { Constructable } from '../types/constructable.type';
+import { ServiceIdentifier } from '../types/service-identifier.type';
+import { resolveToTypeWrapper } from '../utils/resolve-to-type-wrapper.util';
 
 /**
  * Injects a service into a class property or constructor parameter.

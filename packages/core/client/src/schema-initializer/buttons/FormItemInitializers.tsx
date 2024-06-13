@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { useTranslation } from 'react-i18next';
+
 import { SchemaInitializerChildren } from '../../application';
 import { useCompile } from '../../schema-component';
 import {

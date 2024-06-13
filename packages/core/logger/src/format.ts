@@ -1,8 +1,9 @@
 import chalk from 'chalk';
+import { isEmpty } from 'lodash';
 import winston from 'winston';
+
 import { getLoggerFormat } from './config';
 import { LoggerOptions } from './logger';
-import { isEmpty } from 'lodash';
 
 const DEFAULT_DELIMITER = '|';
 

@@ -1,5 +1,6 @@
-import { Divider, theme } from 'antd';
 import React from 'react';
+
+import { Divider, theme } from 'antd';
 
 export const SchemaInitializerDivider = () => {
   const { token } = theme.useToken();

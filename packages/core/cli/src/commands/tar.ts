@@ -1,6 +1,8 @@
 import { resolve } from 'path';
+
 import { Command } from 'commander';
-import { run, nodeCheck, isPackageValid } from '../util';
+
+import { isPackageValid, nodeCheck, run } from '../util';
 
 export default (cli: Command) => {
   cli

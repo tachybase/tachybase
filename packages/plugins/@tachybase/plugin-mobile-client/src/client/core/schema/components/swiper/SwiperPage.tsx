@@ -1,5 +1,6 @@
-import { CollectionRecordProvider, DataBlockProvider, RemoteSchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { CollectionRecordProvider, DataBlockProvider, RemoteSchemaComponent } from '@tachybase/client';
+
 import { useParams } from 'react-router-dom';
 
 export const SwiperPage = () => {

@@ -1,6 +1,8 @@
 import { expect, expectSettingsMenu, test } from '@tachybase/test/e2e';
+
 import dayjs from 'dayjs';
-import { oneTableBlockWithDatetimeFields, oneFormBlockWithDatetimeFields } from './utils';
+
+import { oneFormBlockWithDatetimeFields, oneTableBlockWithDatetimeFields } from './utils';
 
 test('Date display format in form', async ({ page, mockPage }) => {
   await mockPage(oneFormBlockWithDatetimeFields).goto();

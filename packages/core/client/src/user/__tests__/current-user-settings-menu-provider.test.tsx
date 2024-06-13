@@ -1,5 +1,6 @@
-import { render } from '@tachybase/test/client';
 import React from 'react';
+import { render } from '@tachybase/test/client';
+
 import { SettingsMenu } from '../CurrentUser';
 import { useCurrentUserSettingsMenu } from '../CurrentUserSettingsMenuProvider';
 

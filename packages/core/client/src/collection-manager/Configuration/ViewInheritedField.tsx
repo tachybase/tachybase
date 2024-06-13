@@ -1,10 +1,11 @@
+import React, { useMemo, useState } from 'react';
 import { ArrayTable } from '@tachybase/components';
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { ISchema, uid } from '@tachybase/schema';
+
 import cloneDeep from 'lodash/cloneDeep';
 import set from 'lodash/set';
-import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient, useRequest } from '../../api-client';
 import { useCollectionParentRecordData } from '../../data-source';
 import { RecordProvider, useRecord } from '../../record-provider';

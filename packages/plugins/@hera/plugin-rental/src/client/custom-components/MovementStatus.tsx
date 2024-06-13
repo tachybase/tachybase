@@ -1,9 +1,11 @@
-import { ArrowRightOutlined } from '@ant-design/icons';
-import { observer, useField, useForm } from '@tachybase/schema';
-import { Col, Row, Tag } from 'antd';
 import React from 'react';
-import { useCompany } from '../hooks';
 import { css, useCollectionManager } from '@tachybase/client';
+import { observer, useField, useForm } from '@tachybase/schema';
+
+import { ArrowRightOutlined } from '@ant-design/icons';
+import { Col, Row, Tag } from 'antd';
+
+import { useCompany } from '../hooks';
 
 export const MovementStatus = observer(
   (props: any) => {

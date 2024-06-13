@@ -1,6 +1,7 @@
 import React from 'react';
-import { RecursionField, useFieldSchema } from '@tachybase/schema';
 import { useDesigner, useSchemaInitializerRender } from '@tachybase/client';
+import { RecursionField, useFieldSchema } from '@tachybase/schema';
+
 import { isTabSearchCollapsibleInputItem } from '../utils';
 
 export const TabSearch = () => {

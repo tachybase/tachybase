@@ -1,5 +1,6 @@
-import { TabsProps } from 'antd';
 import React from 'react';
+
+import { TabsProps } from 'antd';
 
 interface TabsContextProps extends TabsProps {
   PaneRoot?: React.FC<any>;

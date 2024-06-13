@@ -1,13 +1,13 @@
-import { CopyOutlined } from '@ant-design/icons';
+import React, { Fragment, useEffect, useState } from 'react';
 import { ArrayBase } from '@tachybase/components';
-import { ArrayField } from '@tachybase/schema';
-import { ISchema, RecursionField, observer, useField, useFieldSchema } from '@tachybase/schema';
-import { toArr } from '@tachybase/schema';
+import { ArrayField, ISchema, observer, RecursionField, toArr, useField, useFieldSchema } from '@tachybase/schema';
+
+import { CopyOutlined } from '@ant-design/icons';
 import { Badge, Card, Collapse, CollapsePanelProps, CollapseProps, Empty, Input } from 'antd';
 import cls from 'classnames';
 import { cloneDeep } from 'lodash';
-import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useToken } from '../../../style';
 import { useStyles } from './LinkageHeader.style';
 

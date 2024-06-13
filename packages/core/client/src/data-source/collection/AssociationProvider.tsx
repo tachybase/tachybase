@@ -1,4 +1,5 @@
-import React, { FC, ReactNode, createContext, useContext } from 'react';
+import React, { createContext, FC, ReactNode, useContext } from 'react';
+
 import { CollectionFieldProvider } from '../collection-field';
 import { CollectionDeletedPlaceholder } from '../components/CollectionDeletedPlaceholder';
 import { Collection } from './Collection';

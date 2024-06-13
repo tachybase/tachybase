@@ -1,11 +1,13 @@
+import React, { Fragment, useEffect, useState } from 'react';
+
 import { ArrayField } from '@formily/core';
 import { ISchema, observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
 import { toArr } from '@formily/shared';
 import { Badge, Card, Collapse, CollapsePanelProps, CollapseProps, Empty } from 'antd';
 import cls from 'classnames';
-import React, { Fragment, useEffect, useState } from 'react';
-import ArrayBase from '../array-base';
+
 import { usePrefixCls } from '../__builtins__';
+import ArrayBase from '../array-base';
 import useStyle from './style';
 
 export interface IArrayCollapseProps extends CollapseProps {

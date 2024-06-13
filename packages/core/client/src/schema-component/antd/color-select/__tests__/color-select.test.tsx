@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from '@tachybase/test/client';
 import React from 'react';
+import { fireEvent, render, screen } from '@tachybase/test/client';
+
 import App from '../demos/demo1';
 
 describe('ColorSelect', () => {

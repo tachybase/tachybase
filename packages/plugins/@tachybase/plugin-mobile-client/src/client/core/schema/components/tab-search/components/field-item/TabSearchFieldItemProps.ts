@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
 import { useCollection, useCollectionManager } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
+
 import _ from 'lodash';
-import { useTabSearchCollapsibleInputItem } from './hooks';
+
 import { canBeOptionalField } from '../../utils';
+import { useTabSearchCollapsibleInputItem } from './hooks';
 
 export const useTabSearchFieldItemProps = () => {
   const fieldSchema = useFieldSchema();

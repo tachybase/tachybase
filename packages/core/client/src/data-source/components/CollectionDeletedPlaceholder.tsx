@@ -1,11 +1,13 @@
-import { App, Button, Result, Typography } from 'antd';
 import React, { FC, useMemo } from 'react';
+
+import { App, Button, Result, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { CardItem, EllipsisWithTooltip, useCompile, useDesignable } from '../../schema-component';
-import { useDataSource } from '../data-source/DataSourceProvider';
-import { useDataSourceManager } from '../data-source';
+
 import { DEFAULT_DATA_SOURCE_KEY } from '../../data-source/data-source/DataSourceManager';
+import { CardItem, EllipsisWithTooltip, useCompile, useDesignable } from '../../schema-component';
 import { useCollection } from '../collection';
+import { useDataSourceManager } from '../data-source';
+import { useDataSource } from '../data-source/DataSourceProvider';
 
 export interface CollectionDeletedPlaceholderProps {
   type: 'Collection' | 'Field' | 'DataSource';

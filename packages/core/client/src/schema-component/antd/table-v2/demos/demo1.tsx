@@ -1,7 +1,7 @@
-import { ISchema, useForm } from '@tachybase/schema';
+import React from 'react';
 import {
-  APIClientProvider,
   AntdSchemaComponentProvider,
+  APIClientProvider,
   Application,
   BlockSchemaComponentProvider,
   ExtendCollectionsProvider,
@@ -10,9 +10,11 @@ import {
   useFormBlockContext,
   useTableBlockContext,
 } from '@tachybase/client';
+import { ISchema, useForm } from '@tachybase/schema';
+
 import { notification } from 'antd';
 import { range } from 'lodash';
-import React from 'react';
+
 import { mockAPIClient } from '../../../../testUtils';
 import collections from './collections';
 

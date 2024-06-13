@@ -1,9 +1,10 @@
 import React from 'react';
-import { InitializerWithSwitch, createFormBlockSchema, useSchemaInitializerItem } from '@tachybase/client';
+import { createFormBlockSchema, InitializerWithSwitch, useSchemaInitializerItem } from '@tachybase/client';
+
 import _ from 'lodash';
+
+import { APPROVAL_ACTION_STATUS, flatSchemaArray } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
-import { APPROVAL_ACTION_STATUS } from '../../../constants';
-import { flatSchemaArray } from '../../../constants';
 
 // 创建区块-操作switch
 export const ApproverAddBlockKit = () => {

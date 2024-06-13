@@ -1,8 +1,9 @@
-import { connect, mapReadPretty } from '@tachybase/schema';
-import { isNum } from '@tachybase/schema';
+import React, { useMemo } from 'react';
+import { connect, isNum, mapReadPretty } from '@tachybase/schema';
+
 import { InputNumber } from 'antd';
 import * as math from 'mathjs';
-import React, { useMemo } from 'react';
+
 import { ReadPretty } from '../input-number/ReadPretty';
 
 const isNumberLike = (index: any): index is number => isNum(index) || /^-?\d+(\.\d+)?$/.test(index);

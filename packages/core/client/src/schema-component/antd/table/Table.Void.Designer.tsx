@@ -1,7 +1,9 @@
+import React from 'react';
 import { ArrayItems } from '@tachybase/components';
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
-import React from 'react';
+
 import { useTranslation } from 'react-i18next';
+
 import { useCollection_deprecated, useResourceActionContext } from '../../../collection-manager';
 import { useCollectionFilterOptions, useSortFields } from '../../../collection-manager/action-hooks';
 import {

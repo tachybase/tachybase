@@ -1,4 +1,5 @@
-import { CollectionFieldInterface, isTitleField, Application } from '@tachybase/client';
+import { Application, CollectionFieldInterface, isTitleField } from '@tachybase/client';
+
 import collections from './collections.json';
 
 describe('utils', () => {

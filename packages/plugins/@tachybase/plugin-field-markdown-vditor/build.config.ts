@@ -1,6 +1,6 @@
-import { defineConfig } from '@tachybase/build';
 import fs from 'fs/promises';
 import path from 'path';
+import { defineConfig } from '@tachybase/build';
 
 const vditor = path.dirname(require.resolve('vditor'));
 

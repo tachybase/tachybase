@@ -1,17 +1,20 @@
-import { LoadingOutlined } from '@ant-design/icons';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { connect, mapProps, mapReadPretty, useFieldSchema } from '@tachybase/schema';
+
+import { LoadingOutlined } from '@ant-design/icons';
 import { Divider, SelectProps, Tag } from 'antd';
 import dayjs from 'dayjs';
 import { uniqBy } from 'lodash';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import { ResourceActionOptions, useRequest } from '../../../api-client';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
+import { useDataSourceKey } from '../../../data-source/data-source/DataSourceProvider';
+import { useDataSourceHeaders } from '../../../data-source/utils';
 import { mergeFilter } from '../../../filter-provider/utils';
 import { useCompile } from '../../hooks';
-import { Select, defaultFieldNames } from '../select';
+import { defaultFieldNames, Select } from '../select';
 import { ReadPretty } from './ReadPretty';
-import { useDataSourceHeaders } from '../../../data-source/utils';
-import { useDataSourceKey } from '../../../data-source/data-source/DataSourceProvider';
+
 const EMPTY = 'N/A';
 
 export type RemoteSelectProps<P = any> = SelectProps<P, any> & {

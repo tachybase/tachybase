@@ -1,17 +1,16 @@
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React from 'react';
 import {
   Application,
   CardItem,
   Grid,
   Markdown,
-  Plugin,
   MarkdownBlockInitializer,
+  Plugin,
   SchemaComponent,
   SchemaComponentProvider,
   SchemaInitializer,
 } from '@tachybase/client';
-import React from 'react';
+import { ISchema, uid } from '@tachybase/schema';
 
 const gridRowColWrap = (schema) => {
   return {

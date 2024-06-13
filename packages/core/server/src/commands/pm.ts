@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import Application from '../application';
 import { PluginCommandError } from '../errors/plugin-command-error';
 

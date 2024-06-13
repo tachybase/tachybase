@@ -1,9 +1,11 @@
-import { OrderedListOutlined } from '@ant-design/icons';
 import React from 'react';
+
+import { OrderedListOutlined } from '@ant-design/icons';
+
 import { useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 import { useCollectionManager_deprecated } from '../../../../collection-manager';
-import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { Collection, CollectionFieldOptions } from '../../../../data-source/collection/Collection';
+import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { createGridCardBlockUISchema } from './createGridCardBlockUISchema';
 
 export const GridCardBlockInitializer = ({

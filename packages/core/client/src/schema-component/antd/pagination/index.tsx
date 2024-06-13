@@ -1,8 +1,10 @@
-import { observer } from '@tachybase/schema';
-import { Pagination as AntdPagination } from 'antd';
 import React, { KeyboardEventHandler } from 'react';
-import { useProps } from '../../hooks/useProps';
+import { observer } from '@tachybase/schema';
+
+import { Pagination as AntdPagination } from 'antd';
+
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { useProps } from '../../hooks/useProps';
 
 export const Pagination = withDynamicSchemaProps(
   observer(

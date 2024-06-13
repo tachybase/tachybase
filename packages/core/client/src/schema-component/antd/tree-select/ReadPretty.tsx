@@ -1,11 +1,10 @@
+import React from 'react';
 import { usePrefixCls } from '@tachybase/components';
-import { Field } from '@tachybase/schema';
-import { observer, useField } from '@tachybase/schema';
-import { isArr } from '@tachybase/schema';
+import { Field, isArr, observer, useField } from '@tachybase/schema';
+
 import { Tag } from 'antd';
 import { TreeSelectProps } from 'antd/es/tree-select';
 import cls from 'classnames';
-import React from 'react';
 
 export const ReadPretty: React.FC<TreeSelectProps<any>> = observer(
   (props) => {

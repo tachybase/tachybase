@@ -1,5 +1,6 @@
 import React from 'react';
 import { uid } from '@tachybase/schema';
+
 import { useSchemaInitializerItem } from '../../application';
 import { InitializerWithSwitch } from './InitializerWithSwitch';
 

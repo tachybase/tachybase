@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it';
 import markdownItHighlightjs from 'markdown-it-highlightjs';
+
 import mermaidPlugin from './markdown-it-plugins/mermaidPlugin';
 
 const md = new MarkdownIt({

@@ -1,10 +1,11 @@
 /**
  * title: Menu
  */
-import { ISchema } from '@tachybase/schema';
-import { Application, Menu, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
-import { Layout } from 'antd';
 import React, { useRef } from 'react';
+import { Application, Menu, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { ISchema } from '@tachybase/schema';
+
+import { Layout } from 'antd';
 
 const schema: ISchema = {
   type: 'object',

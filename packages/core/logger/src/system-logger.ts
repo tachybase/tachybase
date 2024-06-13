@@ -1,8 +1,9 @@
-import winston, { Logger, format } from 'winston';
-import { LoggerOptions, createLogger } from './logger';
-import Transport from 'winston-transport';
 import { SPLAT } from 'triple-beam';
+import winston, { format, Logger } from 'winston';
+import Transport from 'winston-transport';
+
 import { getFormat } from './format';
+import { createLogger, LoggerOptions } from './logger';
 
 export interface SystemLoggerOptions extends LoggerOptions {
   seperateError?: boolean; // print error seperately, default true

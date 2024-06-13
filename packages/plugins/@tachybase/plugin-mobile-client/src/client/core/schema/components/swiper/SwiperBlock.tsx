@@ -1,6 +1,7 @@
-import { BlockItem, css, useDesignable, useRequest, withDynamicSchemaProps } from '@tachybase/client';
-import { Swiper } from 'antd-mobile';
 import React from 'react';
+import { BlockItem, css, useDesignable, useRequest, withDynamicSchemaProps } from '@tachybase/client';
+
+import { Swiper } from 'antd-mobile';
 
 export const SwiperBlock = withDynamicSchemaProps((props) => {
   const { fieldValue, data, changeNav } = props;

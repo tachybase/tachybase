@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
+  ActionAreaProvider,
+  ActionAreaStub,
   ActionContextProvider,
   cx,
   SchemaComponent,
@@ -290,7 +292,14 @@ export function ExecutionCanvas() {
           <time>{str2moment(execution.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</time>
         </aside>
       </div>
-      <CanvasContent entry={entry} />
+      <ActionAreaProvider>
+        <div className="workflow-content">
+          <CanvasContent entry={entry} />
+          <div className="workflow-operator-area">
+            <ActionAreaStub />
+          </div>
+        </div>
+      </ActionAreaProvider>
       <JobModal />
     </FlowContext.Provider>
   );

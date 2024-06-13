@@ -1,10 +1,12 @@
-import { ISchema, useFieldSchema } from '@tachybase/schema';
-import { SchemaSettingsItemType } from './types';
-import { useTranslation } from 'react-i18next';
-import { createDesignable, useDesignable } from '../../schema-component';
-import { saveAs } from 'file-saver';
-import { useAPIClient } from '../../api-client';
 import { useMemo } from 'react';
+import { ISchema, useFieldSchema } from '@tachybase/schema';
+
+import { saveAs } from 'file-saver';
+import { useTranslation } from 'react-i18next';
+
+import { useAPIClient } from '../../api-client';
+import { createDesignable, useDesignable } from '../../schema-component';
+import { SchemaSettingsItemType } from './types';
 
 export const defaultSettingItems = [
   {

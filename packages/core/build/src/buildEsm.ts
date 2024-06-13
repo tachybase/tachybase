@@ -1,8 +1,9 @@
-
 import path from 'path';
-import { PkgLog, UserConfig } from './utils';
-import { build as viteBuild } from 'vite';
+
 import fg from 'fast-glob';
+import { build as viteBuild } from 'vite';
+
+import { PkgLog, UserConfig } from './utils';
 
 export async function buildEsm(cwd: string, userConfig: UserConfig, sourcemap: boolean = false, log: PkgLog) {
   log('build esm');
@@ -12,7 +13,9 @@ export async function buildEsm(cwd: string, userConfig: UserConfig, sourcemap: b
 
   await build(cwd, indexEntry, outDir, userConfig, sourcemap, log);
 
-  const clientEntry = fg.sync(['src/client/index.ts', 'src/client.ts'], { cwd, absolute: true, onlyFiles: true })?.[0]?.replaceAll(/\\/g, '/');
+  const clientEntry = fg
+    .sync(['src/client/index.ts', 'src/client.ts'], { cwd, absolute: true, onlyFiles: true })?.[0]
+    ?.replaceAll(/\\/g, '/');
   const clientOutDir = path.resolve(cwd, 'es/client');
   if (clientEntry) {
     await build(cwd, clientEntry, clientOutDir, userConfig, sourcemap, log);
@@ -26,7 +29,14 @@ export async function buildEsm(cwd: string, userConfig: UserConfig, sourcemap: b
   }
 }
 
-function build(cwd: string, entry: string, outDir: string, userConfig: UserConfig, sourcemap: boolean = false, log: PkgLog) {
+function build(
+  cwd: string,
+  entry: string,
+  outDir: string,
+  userConfig: UserConfig,
+  sourcemap: boolean = false,
+  log: PkgLog,
+) {
   const cwdWin = cwd.replaceAll(/\\/g, '/');
   const cwdUnix = cwd.replaceAll(/\//g, '\\');
   const external = function (id: string) {

@@ -1,14 +1,16 @@
+import { useCallback, useMemo, useState } from 'react';
+import { uid } from '@tachybase/schema';
+
 import { CascaderProps } from 'antd';
 import _ from 'lodash';
-import { useCallback, useMemo, useState } from 'react';
-import { useCompile, useSchemaComponentContext } from '../../schema-component';
-import { CollectionFieldOptions_deprecated, CollectionOptions } from '../types';
-import { InheritanceCollectionMixin } from '../mixins/InheritanceCollectionMixin';
-import { uid } from '@tachybase/schema';
+
+import { useCollectionManager } from '../../data-source/collection/CollectionManagerProvider';
+import { DEFAULT_DATA_SOURCE_KEY } from '../../data-source/data-source/DataSourceManager';
 import { useDataSourceManager } from '../../data-source/data-source/DataSourceManagerProvider';
 import { useDataSource } from '../../data-source/data-source/DataSourceProvider';
-import { DEFAULT_DATA_SOURCE_KEY } from '../../data-source/data-source/DataSourceManager';
-import { useCollectionManager } from '../../data-source/collection/CollectionManagerProvider';
+import { useCompile, useSchemaComponentContext } from '../../schema-component';
+import { InheritanceCollectionMixin } from '../mixins/InheritanceCollectionMixin';
+import { CollectionFieldOptions_deprecated, CollectionOptions } from '../types';
 
 /**
  * @deprecated use `useCollectionManager` instead

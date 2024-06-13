@@ -1,5 +1,6 @@
-import { vi } from 'vitest';
 import dayjs from 'dayjs';
+import { vi } from 'vitest';
+
 import { mapRangePicker } from '../util';
 
 describe('mapRangePicker', () => {

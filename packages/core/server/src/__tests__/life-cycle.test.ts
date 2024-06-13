@@ -1,4 +1,5 @@
 import { vi } from 'vitest';
+
 import Application from '../application';
 import { Plugin } from '../plugin';
 

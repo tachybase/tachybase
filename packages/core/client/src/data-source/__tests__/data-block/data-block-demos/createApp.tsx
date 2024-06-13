@@ -1,16 +1,18 @@
+import { ComponentType } from 'react';
 import {
-  ApplicationOptions,
   Application,
+  ApplicationOptions,
   CardItem,
-  Plugin,
   CollectionPlugin,
   DataBlockProvider,
-  LocalDataSource,
   DEFAULT_DATA_SOURCE_KEY,
   DEFAULT_DATA_SOURCE_TITLE,
+  LocalDataSource,
+  Plugin,
 } from '@tachybase/client';
+
 import MockAdapter from 'axios-mock-adapter';
-import { ComponentType } from 'react';
+
 import collections from '../../collections.json';
 
 export function createApp(Demo: ComponentType<any>, options: ApplicationOptions = {}, mocks: Record<string, any>) {

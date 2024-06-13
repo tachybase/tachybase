@@ -1,9 +1,9 @@
 /**
  * title: ColorPicker
  */
-import { FormItem } from '@tachybase/components';
-import { ColorPicker, Input, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { ColorPicker, Input, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
 
 const schema = {
   type: 'object',

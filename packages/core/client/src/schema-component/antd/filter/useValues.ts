@@ -1,9 +1,10 @@
-import { useField } from '@tachybase/schema';
-import { merge } from '@tachybase/schema';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
+import { merge, useField } from '@tachybase/schema';
+
 import flat, { unflatten } from 'flat';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
-import { useCallback, useContext, useEffect, useMemo } from 'react';
+
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { FilterContext } from './context';
 

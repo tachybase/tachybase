@@ -1,10 +1,11 @@
-import { Field } from '@tachybase/schema';
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
-import { useDesignable } from '../schema-component';
+
 import { SchemaSettingOptions } from '../application';
 import { useSchemaToolbar } from '../application/schema-toolbar';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../collection-manager';
+import { useDesignable } from '../schema-component';
 
 export const generalSettingsItems: SchemaSettingOptions['items'] = [
   {

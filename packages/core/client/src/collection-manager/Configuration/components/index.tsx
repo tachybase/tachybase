@@ -1,7 +1,8 @@
-import { Field } from '@tachybase/schema';
-import { observer, useField, useForm } from '@tachybase/schema';
-import { Select, AutoComplete } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Field, observer, useField, useForm } from '@tachybase/schema';
+
+import { AutoComplete, Select } from 'antd';
+
 import { useRecord } from '../../../record-provider';
 import { useCompile } from '../../../schema-component';
 import { useCollectionManager_deprecated } from '../../hooks';

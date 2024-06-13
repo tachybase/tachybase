@@ -1,5 +1,6 @@
 import { useParamsFromRecord } from '../../../../../block-provider/BlockProvider';
 import { useDetailsParentRecord } from '../../details-single/hooks/useDetailsDecoratorProps';
+
 export function useEditFormBlockDecoratorProps(props) {
   const params = useFormBlockParams();
   let parentRecord;

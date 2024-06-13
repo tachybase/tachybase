@@ -1,4 +1,4 @@
-import { ISchema } from '@tachybase/schema';
+import React, { useState } from 'react';
 import {
   AntdSchemaComponentProvider,
   Filter,
@@ -7,8 +7,9 @@ import {
   SchemaComponentProvider,
   Select,
 } from '@tachybase/client';
+import { ISchema } from '@tachybase/schema';
+
 import { Space } from 'antd';
-import React, { useState } from 'react';
 
 const options: any = [
   {

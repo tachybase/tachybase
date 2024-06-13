@@ -1,5 +1,7 @@
 import { str2moment } from '@tachybase/utils/client';
+
 import dayjs from 'dayjs';
+
 import { moment2str } from '../util';
 
 describe('str2moment', () => {

@@ -1,18 +1,17 @@
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React from 'react';
 import {
   APIClientProvider,
+  Application,
   CurrentUserProvider,
   Form,
   FormItem,
   Grid,
   Input,
-  Application,
   Plugin,
   SchemaComponent,
   SchemaComponentProvider,
 } from '@tachybase/client';
-import React from 'react';
+import { ISchema, uid } from '@tachybase/schema';
 
 import { mockAPIClient } from '../../../../testUtils';
 

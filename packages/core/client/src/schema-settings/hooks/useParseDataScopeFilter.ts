@@ -1,5 +1,6 @@
-import { flatten, unflatten } from '@tachybase/utils/client';
 import { useCallback } from 'react';
+import { flatten, unflatten } from '@tachybase/utils/client';
+
 import { useLocalVariables, useVariables } from '../../variables';
 import { getVariableName } from '../../variables/utils/getVariableName';
 import { isVariable } from '../../variables/utils/isVariable';

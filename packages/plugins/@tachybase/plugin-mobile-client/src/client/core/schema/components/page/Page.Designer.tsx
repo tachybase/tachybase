@@ -1,9 +1,10 @@
-import { MenuOutlined } from '@ant-design/icons';
-import { useField, useFieldSchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import { SchemaSettingsDropdown, SchemaSettingsSwitchItem, useDesignable } from '@tachybase/client';
-import { Button } from 'antd';
 import React from 'react';
+import { SchemaSettingsDropdown, SchemaSettingsSwitchItem, useDesignable } from '@tachybase/client';
+import { uid, useField, useFieldSchema } from '@tachybase/schema';
+
+import { MenuOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+
 import { generateNTemplate, useTranslation } from '../../../../locale';
 import { findGridSchema } from '../../helpers';
 import { useSchemaPatch } from '../../hooks';

@@ -1,6 +1,7 @@
 import { CollectionFieldInterface, interfacesProperties } from '@tachybase/client';
-import { generateNTemplate } from '../locale';
 import { ISchema } from '@tachybase/schema';
+
+import { generateNTemplate } from '../locale';
 
 const { defaultProps, operators } = interfacesProperties;
 

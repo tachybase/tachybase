@@ -1,9 +1,9 @@
 import {
-  Page,
   expect,
   expectSettingsMenu,
   oneEmptyFormWithActions,
   oneTableBlockWithActionsAndFormBlocks,
+  Page,
   test,
 } from '@tachybase/test/e2e';
 

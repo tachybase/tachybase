@@ -1,5 +1,6 @@
-import { render, screen, userEvent } from '@tachybase/test/client';
 import React from 'react';
+import { render, screen, userEvent } from '@tachybase/test/client';
+
 import App from '../demos/icon-picker';
 
 describe('IconPicker', () => {

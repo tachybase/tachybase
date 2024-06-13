@@ -1,5 +1,5 @@
-import { Field } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
+import { Field, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useIsFileField } from '../../../../schema-component';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
 

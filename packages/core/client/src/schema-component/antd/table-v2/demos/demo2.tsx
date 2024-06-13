@@ -1,8 +1,8 @@
-import { ArrayField } from '@tachybase/schema';
-import { connect, ISchema, observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
-import { SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
-import { Table, TableColumnType } from 'antd';
 import React from 'react';
+import { SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { ArrayField, connect, ISchema, observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
+
+import { Table, TableColumnType } from 'antd';
 
 const ArrayTable = observer((props: any) => {
   const { rowKey } = props;

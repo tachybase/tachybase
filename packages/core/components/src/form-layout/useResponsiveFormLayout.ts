@@ -1,5 +1,6 @@
-import { isArr, isValid } from '@formily/shared';
 import { useEffect, useRef, useState } from 'react';
+
+import { isArr, isValid } from '@formily/shared';
 
 interface IProps {
   breakpoints?: number[];

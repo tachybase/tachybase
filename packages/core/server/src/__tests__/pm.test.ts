@@ -1,7 +1,9 @@
+import { MockServer, mockServer } from '@tachybase/test';
+
+import { vi } from 'vitest';
+
 import Plugin from '../plugin';
 import { PluginManager } from '../plugin-manager';
-import { vi } from 'vitest';
-import { MockServer, mockServer } from '@tachybase/test';
 
 describe('pm', () => {
   let app: MockServer;

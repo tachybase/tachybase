@@ -1,6 +1,6 @@
-import { ISchema } from '@tachybase/schema';
-import { Filter, FilterAction, Input, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { Filter, FilterAction, Input, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { ISchema } from '@tachybase/schema';
 
 const options = [
   {

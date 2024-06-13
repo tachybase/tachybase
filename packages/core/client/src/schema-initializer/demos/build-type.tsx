@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Application,
   Plugin,
@@ -5,7 +6,6 @@ import {
   SchemaInitializer,
   useSchemaInitializerRender,
 } from '@tachybase/client';
-import React from 'react';
 
 const myInitializer = new SchemaInitializer({
   name: 'myInitializer',

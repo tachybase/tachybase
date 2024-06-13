@@ -1,5 +1,6 @@
-import { renderHook } from '@tachybase/test/client';
 import React from 'react';
+import { renderHook } from '@tachybase/test/client';
+
 import { FlagProvider } from '../FlagProvider';
 import { useFlag } from '../hooks/useFlag';
 

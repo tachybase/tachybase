@@ -1,4 +1,5 @@
 import { DataTypes } from '@tachybase/database';
+
 import { Migration } from '../migration';
 
 export default class extends Migration {

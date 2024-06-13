@@ -1,11 +1,21 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ArrayItems, FormItem } from '@tachybase/components';
-import { createForm, onFormValuesChange } from '@tachybase/schema';
-import { FormProvider, connect, createSchemaField, observer, useField, useFieldSchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import {
+  connect,
+  createForm,
+  createSchemaField,
+  FormProvider,
+  observer,
+  onFormValuesChange,
+  uid,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
+
 import { Select as AntdSelect, Input, Space, Spin, Tag } from 'antd';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient, useCollectionManager_deprecated } from '../../../';
 import { mergeFilter } from '../../../filter-provider/utils';
 import { SchemaComponent, useCompile } from '../../../schema-component';

@@ -1,12 +1,13 @@
 import React from 'react';
 import { render, screen } from '@tachybase/test/client';
+
 import {
-  CollectionRecordProvider,
   CollectionRecord,
-  useCollectionParentRecordData,
+  CollectionRecordProvider,
   useCollectionParentRecord,
-  useCollectionRecordData,
+  useCollectionParentRecordData,
   useCollectionRecord,
+  useCollectionRecordData,
 } from '../../collection-record';
 
 describe('CollectionRecordProvider', () => {

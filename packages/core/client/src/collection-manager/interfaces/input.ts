@@ -1,8 +1,8 @@
-import { ISchema } from '@tachybase/schema';
-import { defaultProps, operators, unique, primaryKey } from './properties';
-import { i18n } from '../../i18n';
-import { registerValidateRules } from '@tachybase/schema';
+import { ISchema, registerValidateRules } from '@tachybase/schema';
+
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
+import { i18n } from '../../i18n';
+import { defaultProps, operators, primaryKey, unique } from './properties';
 
 registerValidateRules({
   username(value) {

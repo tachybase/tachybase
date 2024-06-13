@@ -1,4 +1,5 @@
 import path from 'path';
+
 import { importModule } from '../requireModule';
 
 describe('import module', () => {

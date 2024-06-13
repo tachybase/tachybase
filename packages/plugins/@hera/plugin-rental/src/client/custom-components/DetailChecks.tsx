@@ -1,10 +1,10 @@
 import React from 'react';
-import _ from 'lodash';
-import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
-import { useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { FormPath } from '@tachybase/schema';
 import { useRequest } from '@tachybase/client';
+import { FormPath, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
+import { CustomComponentType, CustomFunctionComponent } from '@hera/plugin-core/client';
 import { Space, Spin, Tag } from 'antd';
+import _ from 'lodash';
 
 export const DetailChecks: CustomFunctionComponent = () => {
   const form = useForm();

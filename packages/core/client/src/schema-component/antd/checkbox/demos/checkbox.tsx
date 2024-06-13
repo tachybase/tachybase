@@ -1,9 +1,9 @@
 /**
  * title: 勾选
  */
-import { FormItem } from '@tachybase/components';
-import { Checkbox, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { Checkbox, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
 
 const schema = {
   type: 'object',

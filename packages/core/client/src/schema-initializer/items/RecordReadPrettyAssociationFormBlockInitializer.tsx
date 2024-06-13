@@ -1,11 +1,12 @@
-import { FormOutlined } from '@ant-design/icons';
 import React, { useCallback } from 'react';
 
+import { FormOutlined } from '@ant-design/icons';
+
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
-import { useSchemaTemplateManager } from '../../schema-templates';
-import { useRecordCollectionDataSourceItems } from '../utils';
 import { useCollectionManager_deprecated } from '../../collection-manager';
 import { createDetailsUISchema } from '../../modules/blocks/data-blocks/details-single/createDetailsUISchema';
+import { useSchemaTemplateManager } from '../../schema-templates';
+import { useRecordCollectionDataSourceItems } from '../utils';
 
 /**
  * @deprecated

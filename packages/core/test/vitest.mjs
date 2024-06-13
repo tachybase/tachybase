@@ -1,7 +1,8 @@
-import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import path, { resolve } from 'path';
 import { URL } from 'url';
+
+import react from '@vitejs/plugin-react';
 import { defineConfig as vitestConfig } from 'vitest/config';
 
 const __dirname = new URL('.', import.meta.url).pathname;

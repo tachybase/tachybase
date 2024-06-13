@@ -1,5 +1,4 @@
-import { useFieldSchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React, { useCallback } from 'react';
 import {
   css,
   cx,
@@ -11,9 +10,11 @@ import {
   useCompile,
   useDesignable,
 } from '@tachybase/client';
+import { uid, useFieldSchema } from '@tachybase/schema';
+
 import { TabBar } from 'antd-mobile';
-import React, { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { useTranslation } from '../../../../locale';
 import { PageSchema } from '../../common';
 import { tabItemSchema } from './schema';

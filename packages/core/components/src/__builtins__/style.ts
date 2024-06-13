@@ -1,7 +1,7 @@
-import type { CSSInterpolation, CSSObject } from '@ant-design/cssinjs';
-import { useStyleRegister } from '@ant-design/cssinjs';
+import { useStyleRegister, type CSSInterpolation, type CSSObject } from '@ant-design/cssinjs';
 import { merge } from '@formily/shared';
 import type { ComponentTokenMap, GlobalToken } from 'antd/es/theme/interface';
+
 import { useConfig, useToken } from './hooks';
 
 export type OverrideComponent = keyof ComponentTokenMap | (string & {});

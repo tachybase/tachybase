@@ -1,8 +1,9 @@
 import { Field } from '@tachybase/schema';
-import { SQLInput, PreviewTable, FieldsConfigure, SQLRequestProvider } from './components/sql-collection';
-import { getConfigurableProperties } from './properties';
-import { i18n } from '../../i18n';
+
 import { CollectionTemplate } from '../../data-source/collection-template/CollectionTemplate';
+import { i18n } from '../../i18n';
+import { FieldsConfigure, PreviewTable, SQLInput, SQLRequestProvider } from './components/sql-collection';
+import { getConfigurableProperties } from './properties';
 
 export class SqlCollectionTemplate extends CollectionTemplate {
   name = 'sql';

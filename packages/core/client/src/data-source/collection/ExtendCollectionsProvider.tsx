@@ -1,6 +1,7 @@
-import React, { FC, ReactNode, createContext, useContext, useMemo } from 'react';
-import { CollectionOptions } from './Collection';
+import React, { createContext, FC, ReactNode, useContext, useMemo } from 'react';
+
 import { useDataSourceKey } from '../data-source/DataSourceProvider';
+import { CollectionOptions } from './Collection';
 import { CollectionManagerProvider } from './CollectionManagerProvider';
 
 export const ExtendCollectionsContext = createContext<CollectionOptions[]>(null);

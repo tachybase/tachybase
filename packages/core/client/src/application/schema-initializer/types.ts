@@ -1,6 +1,8 @@
-import { ISchema } from '@tachybase/schema';
-import { ButtonProps, PopoverProps } from 'antd';
 import { ComponentType, ReactNode } from 'react';
+import { ISchema } from '@tachybase/schema';
+
+import { ButtonProps, PopoverProps } from 'antd';
+
 import type {
   SchemaInitializerActionModalProps,
   SchemaInitializerItemGroupProps,

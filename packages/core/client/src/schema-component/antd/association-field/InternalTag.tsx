@@ -1,6 +1,6 @@
-import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
-import { toArr } from '@tachybase/schema';
 import React, { Fragment, useRef, useState } from 'react';
+import { observer, RecursionField, toArr, useField, useFieldSchema } from '@tachybase/schema';
+
 import { useDesignable } from '../../';
 import { BlockAssociationContext, WithoutTableFieldResource } from '../../../block-provider';
 import { CollectionProvider_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
@@ -10,10 +10,10 @@ import { useCompile } from '../../hooks';
 import { ActionContextProvider, useActionContext } from '../action';
 import { EllipsisWithTooltip } from '../input/EllipsisWithTooltip';
 import { useAssociationFieldContext, useFieldNames, useInsertSchema } from './hooks';
-import schema from './schema';
-import { getTabFormatValue, useLabelUiSchema } from './util';
 import { transformNestedData } from './InternalCascadeSelect';
 import { isObject } from './InternalViewer';
+import schema from './schema';
+import { getTabFormatValue, useLabelUiSchema } from './util';
 
 interface IEllipsisWithTooltipRef {
   setPopoverVisible: (boolean) => void;

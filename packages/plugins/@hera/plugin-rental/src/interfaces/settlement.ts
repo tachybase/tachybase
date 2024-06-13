@@ -1,5 +1,5 @@
-import { Record } from './record';
 import { Contract } from './contract';
+import { Record } from './record';
 
 export interface Settlement {
   settlement_summary_items: any[];

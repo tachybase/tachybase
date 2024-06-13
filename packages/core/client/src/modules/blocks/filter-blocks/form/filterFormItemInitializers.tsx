@@ -1,9 +1,9 @@
-import { gridRowColWrap, useFilterFormItemInitializerFields } from '../../../../schema-initializer/utils';
-import {
-  FilterParentCollectionFields,
-  FilterAssociatedFields,
-} from '../../../../schema-initializer/buttons/FormItemInitializers';
 import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
+import {
+  FilterAssociatedFields,
+  FilterParentCollectionFields,
+} from '../../../../schema-initializer/buttons/FormItemInitializers';
+import { gridRowColWrap, useFilterFormItemInitializerFields } from '../../../../schema-initializer/utils';
 
 /**
  * @deprecated

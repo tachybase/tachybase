@@ -1,5 +1,6 @@
-import { FormOutlined } from '@ant-design/icons';
 import React, { useCallback, useMemo } from 'react';
+
+import { FormOutlined } from '@ant-design/icons';
 
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
 import { useCollectionManager_deprecated } from '../../collection-manager';

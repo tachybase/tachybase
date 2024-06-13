@@ -1,6 +1,7 @@
-import { fsExists } from '@tachybase/utils';
 import fs from 'fs';
 import { resolve } from 'path';
+import { fsExists } from '@tachybase/utils';
+
 import Application from '../application';
 import { ApplicationNotInstall } from '../errors/application-not-install';
 

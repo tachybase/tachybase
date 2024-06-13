@@ -1,6 +1,7 @@
 import React from 'react';
-import { SchemaComponent, SchemaComponentProvider } from '../../../schema-component';
 import { render } from '@tachybase/test/client';
+
+import { SchemaComponent, SchemaComponentProvider } from '../../../schema-component';
 import { withDynamicSchemaProps } from '../../hoc';
 
 const HelloComponent = withDynamicSchemaProps((props: any) => (

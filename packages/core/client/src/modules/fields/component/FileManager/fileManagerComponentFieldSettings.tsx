@@ -1,17 +1,18 @@
-import { Field } from '@tachybase/schema';
-import { useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { Field, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
 import { useTranslation } from 'react-i18next';
+
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
 import { useDesignable, useFieldModeOptions, useIsAddNewForm } from '../../../../schema-component';
 import { isSubMode } from '../../../../schema-component/antd/association-field/util';
 import {
-  useIsFieldReadPretty,
   useIsAssociationField,
+  useIsFieldReadPretty,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import { allowMultiple } from '../Select/selectComponentFieldSettings';
 import { useIsShowMultipleSwitch } from '../../../../schema-settings/hooks/useIsShowMultipleSwitch';
+import { allowMultiple } from '../Select/selectComponentFieldSettings';
 
 const fieldComponent: any = {
   name: 'fieldComponent',

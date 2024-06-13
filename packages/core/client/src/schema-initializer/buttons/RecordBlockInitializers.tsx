@@ -1,9 +1,10 @@
-import { Schema } from '@tachybase/schema';
 import { useCallback, useMemo } from 'react';
+import { Schema } from '@tachybase/schema';
+
 import {
   useCollection,
-  useCollectionManager_deprecated,
   useCollection_deprecated,
+  useCollectionManager_deprecated,
   useCreateAssociationDetailsBlock,
   useCreateAssociationDetailsWithoutPagination,
   useCreateAssociationFormBlock,
@@ -16,11 +17,10 @@ import {
 } from '../..';
 import { CompatibleSchemaInitializer } from '../../application/schema-initializer/CompatibleSchemaInitializer';
 import { useCreateDetailsBlock } from '../../modules/blocks/data-blocks/details-multi/DetailsBlockInitializer';
-
-import { gridRowColWrap } from '../utils';
 import { useCreateSingleDetailsSchema } from '../../modules/blocks/data-blocks/details-single/RecordReadPrettyFormBlockInitializer';
 import { useCreateGridCardBlock } from '../../modules/blocks/data-blocks/grid-card/GridCardBlockInitializer';
 import { useCreateListBlock } from '../../modules/blocks/data-blocks/list/ListBlockInitializer';
+import { gridRowColWrap } from '../utils';
 
 const recursiveParent = (schema: Schema) => {
   if (!schema) return null;

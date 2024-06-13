@@ -1,5 +1,6 @@
-import { DataBlockInitializer, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import React from 'react';
+import { DataBlockInitializer, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
+
 import { createSchemaImageSearchBlock } from './ImageSearch.schema';
 
 interface ItemConfig {

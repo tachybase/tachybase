@@ -1,4 +1,5 @@
 import { ISchema } from '@tachybase/schema';
+
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
 import { getUniqueKeyFromCollection } from './o2m';
 import { constraintsProps, relationshipType, reverseFieldProperties } from './properties';

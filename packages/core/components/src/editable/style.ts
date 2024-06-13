@@ -1,4 +1,5 @@
 import { genStyleHook } from './../__builtins__';
+
 export default genStyleHook('editable', (token) => {
   const { antCls, componentCls, fontSizeSM, colorPrimary } = token;
   return {

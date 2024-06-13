@@ -1,9 +1,11 @@
-import { uid } from '@tachybase/utils';
 import fs from 'fs';
 import path from 'path';
+import { uid } from '@tachybase/utils';
+
 import Application from '../../application';
 import { getExposeUrl } from '../clientStaticUtils';
 import PluginManager from '../plugin-manager';
+
 //@ts-ignore
 
 export default {

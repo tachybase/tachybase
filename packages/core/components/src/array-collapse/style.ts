@@ -1,4 +1,5 @@
 import { genStyleHook } from './../__builtins__';
+
 export default genStyleHook('', (token) => {
   const { componentCls } = token;
   return {

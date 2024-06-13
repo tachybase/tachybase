@@ -1,7 +1,9 @@
+import React, { useMemo } from 'react';
 import { observer } from '@tachybase/schema';
+
 import { Tag } from 'antd';
 import { useAntdToken } from 'antd-style';
-import React, { useMemo } from 'react';
+
 import { useCompile } from '../../../schema-component';
 
 const Summary = observer(

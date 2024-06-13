@@ -1,5 +1,6 @@
-import { useParsedFilter } from '../../../../../block-provider/hooks/useParsedFilter';
 import { useMemo } from 'react';
+
+import { useParsedFilter } from '../../../../../block-provider/hooks/useParsedFilter';
 
 export function useGridCardBlockParams(props) {
   const { params } = props;

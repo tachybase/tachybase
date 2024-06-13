@@ -1,9 +1,11 @@
-import { FormOutlined } from '@ant-design/icons';
 import React from 'react';
+
+import { FormOutlined } from '@ant-design/icons';
+
 import { useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
-import { createFilterFormBlockSchema } from './createFilterFormBlockSchema';
-import { FilterBlockInitializer } from '../../../../schema-initializer/items/FilterBlockInitializer';
 import { Collection, CollectionFieldOptions } from '../../../../data-source';
+import { FilterBlockInitializer } from '../../../../schema-initializer/items/FilterBlockInitializer';
+import { createFilterFormBlockSchema } from './createFilterFormBlockSchema';
 
 export const FilterFormBlockInitializer = ({
   filterCollections,

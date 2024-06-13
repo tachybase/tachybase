@@ -1,6 +1,8 @@
-import dayjs from 'dayjs';
 import fs from 'fs';
 import { dirname, resolve } from 'path';
+
+import dayjs from 'dayjs';
+
 import Application from '../application';
 
 export default (app: Application) => {

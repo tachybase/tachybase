@@ -1,9 +1,9 @@
 /**
  * title: TreeSelect
  */
-import { FormItem } from '@tachybase/components';
-import { SchemaComponent, SchemaComponentProvider, TreeSelect } from '@tachybase/client';
 import React from 'react';
+import { SchemaComponent, SchemaComponentProvider, TreeSelect } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
 
 const dataSource = [
   {

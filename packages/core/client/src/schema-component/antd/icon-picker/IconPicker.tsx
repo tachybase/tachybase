@@ -1,11 +1,12 @@
-import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
-import { useFormLayout } from '@tachybase/components';
-import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
-import { isValid } from '@tachybase/schema';
-import { Button, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
+import { useFormLayout } from '@tachybase/components';
+import { connect, isValid, mapProps, mapReadPretty } from '@tachybase/schema';
+
+import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Button, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { Icon, hasIcon } from '../../../icon';
+
+import { hasIcon, Icon } from '../../../icon';
 import { StablePopover } from '../popover';
 import { IconFilterInput } from './IconFilterInput';
 import { IconFilterList } from './IconList';

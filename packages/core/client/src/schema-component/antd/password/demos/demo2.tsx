@@ -1,9 +1,9 @@
 /**
  * title: Check strength
  */
-import { FormItem } from '@tachybase/components';
-import { Password, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
 import React from 'react';
+import { Password, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
 
 const schema = {
   type: 'object',

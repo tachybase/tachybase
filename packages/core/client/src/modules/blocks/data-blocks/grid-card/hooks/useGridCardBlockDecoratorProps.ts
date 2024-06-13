@@ -1,5 +1,5 @@
-import { useGridCardBlockParams } from './useGridCardBlockParams';
 import { useParentRecordCommon } from '../../../useParentRecordCommon';
+import { useGridCardBlockParams } from './useGridCardBlockParams';
 
 export function useGridCardBlockDecoratorProps(props) {
   const params = useGridCardBlockParams(props);

@@ -1,4 +1,4 @@
-import { NocoPage, Page, PageConfig, oneFormBlockWithAllAssociationFieldsAndSelectorMode } from '@tachybase/test/e2e';
+import { NocoPage, oneFormBlockWithAllAssociationFieldsAndSelectorMode, Page, PageConfig } from '@tachybase/test/e2e';
 
 export async function createTable({
   page,

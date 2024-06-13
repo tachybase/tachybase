@@ -1,6 +1,7 @@
-import { Application } from '../Application';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+
+import { Application } from '../Application';
 
 describe('PluginSettingsManager', () => {
   let app: Application;

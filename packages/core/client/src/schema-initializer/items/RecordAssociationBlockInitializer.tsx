@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
+
 import { TableOutlined } from '@ant-design/icons';
 
+import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
 import { useCollectionManager_deprecated } from '../../collection-manager';
+import { createTableBlockUISchema } from '../../modules/blocks/data-blocks/table/createTableBlockUISchema';
 import { useSchemaTemplateManager } from '../../schema-templates';
 import { useRecordCollectionDataSourceItems } from '../utils';
-import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
-import { createTableBlockUISchema } from '../../modules/blocks/data-blocks/table/createTableBlockUISchema';
 
 /**
  * @deprecated

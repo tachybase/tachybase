@@ -3,12 +3,13 @@ import {
   Application,
   Plugin,
   SchemaInitializer,
-  SchemaInitializerItemType,
-  SchemaInitializerChildren,
-  useSchemaInitializerItem,
   SchemaInitializerChild,
+  SchemaInitializerChildren,
+  SchemaInitializerItemType,
+  useSchemaInitializerItem,
   useSchemaInitializerRender,
 } from '@tachybase/client';
+
 import { Divider, Menu } from 'antd';
 
 // TODO：这里要加上 Context

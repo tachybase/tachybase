@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActionInitializer } from '@tachybase/client';
+
 import { tval } from '../../locale';
 
 export const AddToChecklistActionInitializer = (props) => {

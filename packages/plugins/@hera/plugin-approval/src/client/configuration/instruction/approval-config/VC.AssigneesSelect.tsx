@@ -1,7 +1,7 @@
-import { RemoteSelect, SchemaComponent, Variable, useCollectionFilterOptions, useToken } from '@tachybase/client';
+import { default as React } from 'react';
+import { RemoteSelect, SchemaComponent, useCollectionFilterOptions, useToken, Variable } from '@tachybase/client';
 import { FilterDynamicComponent, useWorkflowVariableOptions } from '@tachybase/plugin-workflow/client';
 import { useField } from '@tachybase/schema';
-import { default as React } from 'react';
 
 // 添加审批人-选择器
 export const AssigneesSelect = (props) => {

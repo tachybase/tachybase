@@ -1,11 +1,12 @@
-import { TableOutlined } from '@ant-design/icons';
 import React, { useCallback } from 'react';
 
-import { useCollectionManager_deprecated } from '../../collection-manager';
+import { TableOutlined } from '@ant-design/icons';
+
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
+import { useCollectionManager_deprecated } from '../../collection-manager';
+import { createGridCardBlockUISchema } from '../../modules/blocks/data-blocks/grid-card/createGridCardBlockUISchema';
 import { useSchemaTemplateManager } from '../../schema-templates';
 import { useRecordCollectionDataSourceItems } from '../utils';
-import { createGridCardBlockUISchema } from '../../modules/blocks/data-blocks/grid-card/createGridCardBlockUISchema';
 
 /**
  * @deprecated

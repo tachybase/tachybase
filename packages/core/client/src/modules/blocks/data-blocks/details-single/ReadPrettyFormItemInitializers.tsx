@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { useTranslation } from 'react-i18next';
+
 import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
+import { SchemaInitializerChildren } from '../../../../application/schema-initializer/components/SchemaInitializerChildren';
 import { useCompile } from '../../../../schema-component';
 import {
   gridRowColWrap,
@@ -8,7 +11,6 @@ import {
   useFormItemInitializerFields,
   useInheritsFormItemInitializerFields,
 } from '../../../../schema-initializer/utils';
-import { SchemaInitializerChildren } from '../../../../application/schema-initializer/components/SchemaInitializerChildren';
 
 const ParentCollectionFields = () => {
   const inheritFields = useInheritsFormItemInitializerFields();

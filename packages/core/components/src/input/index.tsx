@@ -1,8 +1,10 @@
+import React from 'react';
+
 import { LoadingOutlined } from '@ant-design/icons';
 import { connect, mapProps, mapReadPretty, ReactFC } from '@formily/react';
 import { Input as AntdInput } from 'antd';
 import type { InputProps } from 'antd/es/input';
-import React from 'react';
+
 import { PreviewText } from '../preview-text';
 
 const InternalInput: ReactFC<InputProps> = connect(

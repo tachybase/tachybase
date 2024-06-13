@@ -1,5 +1,6 @@
-import { observer } from '@tachybase/schema';
 import React from 'react';
+import { observer } from '@tachybase/schema';
+
 import { AssociationFieldProvider } from './AssociationFieldProvider';
 import { FileManageReadPretty } from './FileManager';
 import { useAssociationFieldContext } from './hooks';

@@ -1,11 +1,13 @@
-import { Gateway, IncomingRequest } from '../gateway';
-import WebSocket, { WebSocketServer } from 'ws';
-import { nanoid } from 'nanoid';
 import { IncomingMessage } from 'http';
-import { AppSupervisor } from '../app-supervisor';
-import { applyErrorWithArgs, getErrorWithCode } from './errors';
-import lodash from 'lodash';
 import { Logger } from '@tachybase/logger';
+
+import lodash from 'lodash';
+import { nanoid } from 'nanoid';
+import WebSocket, { WebSocketServer } from 'ws';
+
+import { AppSupervisor } from '../app-supervisor';
+import { Gateway, IncomingRequest } from '../gateway';
+import { applyErrorWithArgs, getErrorWithCode } from './errors';
 
 declare class WebSocketWithId extends WebSocket {
   id: string;

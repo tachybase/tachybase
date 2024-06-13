@@ -1,9 +1,10 @@
-import { ArrayTable } from '@tachybase/components';
-import { ISchema, useForm } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import cloneDeep from 'lodash/cloneDeep';
 import React, { useState } from 'react';
+import { ArrayTable } from '@tachybase/components';
+import { ISchema, uid, useForm } from '@tachybase/schema';
+
+import cloneDeep from 'lodash/cloneDeep';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient, useRequest } from '../../api-client';
 import { useRecord } from '../../record-provider';
 import { ActionContextProvider, SchemaComponent } from '../../schema-component';

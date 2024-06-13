@@ -1,4 +1,5 @@
 import { ButtonProps } from 'antd';
+
 import { Application } from '../Application';
 import { SchemaInitializer } from './SchemaInitializer';
 import { SchemaInitializerItemTypeWithoutName } from './types';

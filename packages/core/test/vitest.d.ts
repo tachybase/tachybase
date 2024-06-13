@@ -1,3 +1,5 @@
+import { type UserConfig } from 'vitest/config';
+
 declare global {
   const suite: (typeof import('vitest'))['suite'];
   const test: (typeof import('vitest'))['test'];
@@ -15,7 +17,6 @@ declare global {
   const afterEach: (typeof import('vitest'))['afterEach'];
 }
 
-import { type UserConfig } from 'vitest/config';
 export declare const defineConfig: (
   config?: UserConfig & {
     server: boolean;

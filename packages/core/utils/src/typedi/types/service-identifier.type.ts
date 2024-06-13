@@ -1,6 +1,6 @@
 import { Token } from '../token.class';
-import { Constructable } from './constructable.type';
 import { AbstractConstructable } from './abstract-constructable.type';
+import { Constructable } from './constructable.type';
 
 /**
  * Unique service identifier.

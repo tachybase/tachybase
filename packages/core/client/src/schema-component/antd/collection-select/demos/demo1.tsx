@@ -1,6 +1,7 @@
-import { FormItem } from '@tachybase/components';
-import { ExtendCollectionsProvider, CollectionSelect, FormProvider, SchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { CollectionSelect, ExtendCollectionsProvider, FormProvider, SchemaComponent } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
+
 import { useTranslation } from 'react-i18next';
 
 const collections = [];

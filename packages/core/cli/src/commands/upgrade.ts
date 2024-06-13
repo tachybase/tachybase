@@ -1,7 +1,9 @@
-import { Command } from 'commander';
-import { resolve } from 'path';
-import { run, promptForTs, runAppCommand, hasCorePackages, hasTsNode } from '../util';
 import { existsSync, rmSync } from 'fs';
+import { resolve } from 'path';
+
+import { Command } from 'commander';
+
+import { hasCorePackages, hasTsNode, promptForTs, run, runAppCommand } from '../util';
 
 export default (cli: Command) => {
   cli

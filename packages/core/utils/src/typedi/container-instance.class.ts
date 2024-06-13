@@ -1,15 +1,15 @@
-import { ServiceNotFoundError } from './error/service-not-found.error';
+import { ContainerRegistry } from './container-registry.class';
+import { EMPTY_VALUE } from './empty.const';
 import { CannotInstantiateValueError } from './error/cannot-instantiate-value.error';
-import { Token } from './token.class';
-import { Constructable } from './types/constructable.type';
-import { ServiceIdentifier } from './types/service-identifier.type';
+import { ServiceNotFoundError } from './error/service-not-found.error';
+import { Handler } from './interfaces/handler.interface';
 import { ServiceMetadata } from './interfaces/service-metadata.interface';
 import { ServiceOptions } from './interfaces/service-options.interface';
-import { EMPTY_VALUE } from './empty.const';
+import { Token } from './token.class';
+import { Constructable } from './types/constructable.type';
 import { ContainerIdentifier } from './types/container-identifier.type';
-import { Handler } from './interfaces/handler.interface';
-import { ContainerRegistry } from './container-registry.class';
 import { ContainerScope } from './types/container-scope.type';
+import { ServiceIdentifier } from './types/service-identifier.type';
 
 /**
  * TypeDI can have multiple containers.

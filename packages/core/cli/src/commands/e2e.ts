@@ -1,11 +1,13 @@
-import { Command } from 'commander';
-import { run, isPortReachable } from '../util';
 import { execSync } from 'node:child_process';
-import axios from 'axios';
-import { pTest } from './p-test';
 import { cpus } from 'os';
-import treeKill from 'tree-kill';
+
+import axios from 'axios';
 import chalk from 'chalk';
+import { Command } from 'commander';
+import treeKill from 'tree-kill';
+
+import { isPortReachable, run } from '../util';
+import { pTest } from './p-test';
 
 /**
  * 检查服务是否启动成功

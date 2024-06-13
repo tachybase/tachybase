@@ -1,5 +1,6 @@
-import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
 import { useMemo } from 'react';
+
+import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
 import { useDataSourceManager } from '../../data-source/data-source/DataSourceManagerProvider';
 
 export const getOptions = (

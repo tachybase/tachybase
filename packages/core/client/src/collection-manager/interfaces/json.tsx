@@ -1,8 +1,9 @@
+import React from 'react';
 import { FormItem, FormLayout } from '@tachybase/components';
 import { registerValidateRules } from '@tachybase/schema';
-import React from 'react';
-import { defaultProps, operators } from './properties';
+
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
+import { defaultProps, operators } from './properties';
 
 registerValidateRules({
   json(value) {

@@ -1,6 +1,8 @@
-import { useAPIClient, useApp, withDynamicSchemaProps } from '@tachybase/client';
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import { useAPIClient, useApp, withDynamicSchemaProps } from '@tachybase/client';
+
 import Vditor from 'vditor';
+
 import { defaultToolbar } from '../interfaces/markdown-vditor';
 import { useCDN } from './const';
 import useStyle from './style';

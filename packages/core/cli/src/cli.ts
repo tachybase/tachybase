@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-
 import chalk from 'chalk';
-import { initEnv, genTsConfigPaths } from './util';
 import { Command } from 'commander';
-import commands from './commands';
 import semver from 'semver';
+
+import commands from './commands';
+import { genTsConfigPaths, initEnv } from './util';
 
 const cli = new Command();
 

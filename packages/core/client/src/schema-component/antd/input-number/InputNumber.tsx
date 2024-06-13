@@ -1,6 +1,8 @@
-import { connect, mapReadPretty } from '@tachybase/schema';
-import { InputNumber as AntdNumber, InputNumberProps } from 'antd';
 import React from 'react';
+import { connect, mapReadPretty } from '@tachybase/schema';
+
+import { InputNumber as AntdNumber, InputNumberProps } from 'antd';
+
 import { ReadPretty } from './ReadPretty';
 
 type ComposedInputNumber = React.ForwardRefExoticComponent<

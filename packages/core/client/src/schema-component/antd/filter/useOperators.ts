@@ -1,6 +1,7 @@
-import { useFieldSchema } from '@tachybase/schema';
-import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { useMemo } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
+
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 
 /**
  * 获取当前字段所支持的操作符列表

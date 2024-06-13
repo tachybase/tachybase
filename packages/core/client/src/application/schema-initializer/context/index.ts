@@ -1,4 +1,5 @@
 import React, { createContext } from 'react';
+
 import { InsertType, SchemaInitializerItemType, SchemaInitializerOptions } from '../types';
 
 export const SchemaInitializerContext = createContext<{

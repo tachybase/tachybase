@@ -1,14 +1,18 @@
-import { LoadingOutlined } from '@ant-design/icons';
-import { ArrayCollapse, ArrayItems, FormLayout } from '@tachybase/components';
-import { Field } from '@tachybase/schema';
-import { ISchema, connect, mapProps, mapReadPretty, useField, useFieldSchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
-import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo } from 'react';
+import { ArrayCollapse, ArrayItems, FormLayout } from '@tachybase/components';
+import { connect, Field, ISchema, mapProps, mapReadPretty, uid, useField, useFieldSchema } from '@tachybase/schema';
+
+import { LoadingOutlined } from '@ant-design/icons';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { useFilterByTk, useFormBlockContext } from '../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated, useSortFields } from '../../../collection-manager';
 import { GeneralSchemaItems } from '../../../schema-items';
+import { GeneralSchemaDesigner } from '../../../schema-settings/GeneralSchemaDesigner';
+import { useIsAllowToSetDefaultValue } from '../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
+import { useIsShowMultipleSwitch } from '../../../schema-settings/hooks/useIsShowMultipleSwitch';
+import { isPatternDisabled } from '../../../schema-settings/isPatternDisabled';
 import {
   SchemaSettingsDivider,
   SchemaSettingsModalItem,
@@ -16,17 +20,13 @@ import {
   SchemaSettingsSelectItem,
   SchemaSettingsSwitchItem,
 } from '../../../schema-settings/SchemaSettings';
-import { isPatternDisabled } from '../../../schema-settings/isPatternDisabled';
 import { SchemaSettingsDataScope } from '../../../schema-settings/SchemaSettingsDataScope';
-import { useIsAllowToSetDefaultValue } from '../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
-import { useIsShowMultipleSwitch } from '../../../schema-settings/hooks/useIsShowMultipleSwitch';
 import { useCompile, useDesignable, useFieldComponentOptions, useFieldTitle } from '../../hooks';
 import { removeNullCondition } from '../filter';
 import { RemoteSelect, RemoteSelectProps } from '../remote-select';
 import { defaultFieldNames } from '../select';
 import { ReadPretty } from './ReadPretty';
 import useServiceOptions from './useServiceOptions';
-import { GeneralSchemaDesigner } from '../../../schema-settings/GeneralSchemaDesigner';
 
 export type AssociationSelectProps<P = any> = RemoteSelectProps<P> & {
   action?: string;

@@ -1,6 +1,8 @@
-import { defineConfig } from 'tsup';
-import fg from 'fast-glob';
 import path from 'path';
+
+import fg from 'fast-glob';
+import { defineConfig } from 'tsup';
+
 import { globExcludeFiles } from './src/constant';
 
 const entry = fg.globSync(['src/**', ...globExcludeFiles], { cwd: __dirname, absolute: true });

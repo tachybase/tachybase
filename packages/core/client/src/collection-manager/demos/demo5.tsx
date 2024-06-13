@@ -1,14 +1,10 @@
-import { FormDrawer, FormLayout } from '@tachybase/components';
-import { createForm } from '@tachybase/schema';
-import { ISchema } from '@tachybase/schema';
-import { FormContext, SchemaOptionsContext } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React, { useContext } from 'react';
 import {
   AntdSchemaComponentProvider,
   Application,
   CardItem,
-  CollectionManagerProvider_deprecated,
   CollectionManagerProvider,
+  CollectionManagerProvider_deprecated,
   CollectionProvider_deprecated,
   FormItem,
   Grid,
@@ -20,13 +16,15 @@ import {
   SchemaComponentOptions,
   SchemaInitializer,
   SchemaInitializerItem,
-  useCollectionManager_deprecated,
   useCollectionManager,
+  useCollectionManager_deprecated,
   useSchemaInitializer,
   useSchemaInitializerItem,
 } from '@tachybase/client';
+import { FormDrawer, FormLayout } from '@tachybase/components';
+import { createForm, FormContext, ISchema, SchemaOptionsContext, uid } from '@tachybase/schema';
+
 import { cloneDeep } from 'lodash';
-import React, { useContext } from 'react';
 
 const collection: any = {
   name: 'posts',

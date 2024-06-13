@@ -1,5 +1,6 @@
-import { merge } from '@tachybase/schema';
 import React from 'react';
+import { merge } from '@tachybase/schema';
+
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../application';
 
 // Block

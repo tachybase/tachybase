@@ -1,7 +1,8 @@
 import fs from 'fs';
-import chalk from 'chalk';
 import { builtinModules } from 'module';
 import path from 'path';
+
+import chalk from 'chalk';
 
 const requireRegex = /require\s*\(['"`](.*?)['"`]\)/g;
 const importRegex = /^import(?:['"\s]*([\w*${}\s,]+)from\s*)?['"\s]['"\s](.*[@\w_-]+)['"\s].*/gm;
@@ -156,10 +157,14 @@ export function checkRequire(sourceFiles: string[], log: Log) {
 export function checkFileSize(outDir: string, log: Log) {
   const files = fs.readdirSync(outDir);
 
-  files.forEach(file => {
+  files.forEach((file) => {
     const fileSize = getFileSize(path.join(outDir, file));
     if (fileSize > 1024 * 1024) {
-      log(`The %s size %s exceeds 1MB. You can use dynamic import \`import()\` for lazy loading content.`, chalk.red(file), chalk.red(formatFileSize(fileSize)));
+      log(
+        `The %s size %s exceeds 1MB. You can use dynamic import \`import()\` for lazy loading content.`,
+        chalk.red(file),
+        chalk.red(formatFileSize(fileSize)),
+      );
     }
   });
 }

@@ -1,11 +1,11 @@
-import { ISchema } from '@tachybase/schema';
+import React from 'react';
 import {
   AntdSchemaComponentProvider,
   ExtendCollectionsProvider,
   SchemaComponent,
   SchemaComponentProvider,
 } from '@tachybase/client';
-import React from 'react';
+import { ISchema } from '@tachybase/schema';
 
 const schema: ISchema = {
   type: 'object',

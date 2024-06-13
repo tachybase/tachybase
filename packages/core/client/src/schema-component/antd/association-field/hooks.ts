@@ -1,11 +1,12 @@
-import { GeneralField } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
-import { reaction } from '@tachybase/schema';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { GeneralField, reaction, useField, useFieldSchema } from '@tachybase/schema';
 import { flatten, getValuesByPath } from '@tachybase/utils/client';
+
 import _, { isString } from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
+import { Collection } from '../../../data-source';
 import { isInFilterFormBlock } from '../../../filter-provider';
 import { mergeFilter } from '../../../filter-provider/utils';
 import { useRecord } from '../../../record-provider';
@@ -16,7 +17,6 @@ import { getVariableName } from '../../../variables/utils/getVariableName';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { useDesignable } from '../../hooks';
 import { AssociationFieldContext } from './context';
-import { Collection } from '../../../data-source';
 
 export const useInsertSchema = (component) => {
   const fieldSchema = useFieldSchema();

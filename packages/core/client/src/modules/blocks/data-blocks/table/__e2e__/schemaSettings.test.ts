@@ -1,11 +1,11 @@
 import {
-  Page,
   expect,
   expectSettingsMenu,
   oneEmptyTableBlockWithActions,
   oneEmptyTableWithTreeCollection,
   oneTableBlockWithActionsAndFormBlocks,
   oneTableBlockWithAddNewAndViewAndEditAndBasicFields,
+  Page,
   test,
   twoTableWithAssociationFields,
   twoTableWithSameCollection,

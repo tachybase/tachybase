@@ -1,7 +1,10 @@
 import { DataTypes } from '@tachybase/database';
 import { MockServer, mockServer } from '@tachybase/test';
+
 import { vi } from 'vitest';
+
 import Plugin from '../plugin';
+
 describe('app destroy', () => {
   let app: MockServer;
   afterEach(async () => {

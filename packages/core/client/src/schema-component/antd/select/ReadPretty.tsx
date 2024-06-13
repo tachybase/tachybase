@@ -1,11 +1,11 @@
-import { isArrayField } from '@tachybase/schema';
-import { observer, useField } from '@tachybase/schema';
-import { isValid } from '@tachybase/schema';
-import { Tag } from 'antd';
 import React from 'react';
+import { isArrayField, isValid, observer, useField } from '@tachybase/schema';
+
+import { Tag } from 'antd';
+
+import { useCollectionField } from '../../../data-source/collection-field/CollectionFieldProvider';
 import { EllipsisWithTooltip } from '../input/EllipsisWithTooltip';
 import { defaultFieldNames, getCurrentOptions } from './utils';
-import { useCollectionField } from '../../../data-source/collection-field/CollectionFieldProvider';
 
 export const ReadPretty = observer(
   (props: any) => {

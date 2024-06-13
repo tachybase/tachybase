@@ -6,7 +6,8 @@ import {
   oneFormBlockWithRolesFieldBasedUsers,
   test,
 } from '@tachybase/test/e2e';
-import { tableWithRoles, tableWithUsers, tableWithInherit, tableWithInheritWithoutAssociation } from './templatesOfBug';
+
+import { tableWithInherit, tableWithInheritWithoutAssociation, tableWithRoles, tableWithUsers } from './templatesOfBug';
 
 test.describe('where to open a popup and what can be added to it', () => {
   test('add new', async ({ page, mockPage }) => {

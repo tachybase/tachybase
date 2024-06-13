@@ -1,7 +1,9 @@
-import { LinkOutlined } from '@ant-design/icons';
-import { css, useApp } from '@tachybase/client';
-import { Button } from 'antd';
 import React from 'react';
+import { css, useApp } from '@tachybase/client';
+
+import { LinkOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+
 import { useTranslation } from '../locale';
 
 export const OpenInNewTab = () => {

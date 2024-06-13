@@ -1,6 +1,7 @@
-import { Application, CollectionManager, CollectionTemplate, Collection } from '@tachybase/client';
-import collections from '../collections.json';
+import { Application, Collection, CollectionManager, CollectionTemplate } from '@tachybase/client';
+
 import { app } from '../../../application/demos/demo3';
+import collections from '../collections.json';
 
 describe('CollectionManager', () => {
   let collectionManager: CollectionManager;

@@ -1,6 +1,6 @@
+import React from 'react';
 import { useDesigner, useSchemaInitializerRender } from '@tachybase/client';
 import { RecursionField, useFieldSchema } from '@tachybase/schema';
-import React from 'react';
 
 export const ImageSearchView = () => {
   const Designer = useDesigner();

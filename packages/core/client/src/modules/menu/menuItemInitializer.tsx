@@ -1,7 +1,7 @@
 import { SchemaInitializer } from '../../application/schema-initializer/SchemaInitializer';
+import { GroupItem } from './GroupItem';
 import { LinkMenuItem } from './LinkMenuItem';
 import { PageMenuItem } from './PageMenuItem';
-import { GroupItem } from './GroupItem';
 
 /**
  * @deprecated

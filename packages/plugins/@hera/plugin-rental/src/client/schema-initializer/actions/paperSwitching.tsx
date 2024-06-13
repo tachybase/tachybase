@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ActionInitializer, useRequest } from '@tachybase/client';
-import { Button, Divider, Input, InputRef, Radio, Select, Space } from 'antd';
-import { PdfPaperSwitchingContext } from '../../hooks/usePdfPath';
+
 import { PlusOutlined } from '@ant-design/icons';
+import { Button, Divider, Input, InputRef, Radio, Select, Space } from 'antd';
+
+import { PdfPaperSwitchingContext } from '../../hooks/usePdfPath';
 
 export const PaperSwitching = (props) => {
   const { setPaper } = useContext(PdfPaperSwitchingContext);

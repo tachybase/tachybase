@@ -1,7 +1,9 @@
 import React from 'react';
-import { Table, TableProps } from 'antd';
 import { SchemaComponent, UseDataBlockProps, useDataBlockRequest, withDynamicSchemaProps } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
+
+import { Table, TableProps } from 'antd';
+
 import { createApp } from './createApp';
 
 const collection = 'users';

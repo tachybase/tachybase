@@ -1,6 +1,8 @@
-import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import React from 'react';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
 import ReactQuill from 'react-quill';
+
 import { isVariable } from '../../../variables/utils/isVariable';
 import { ReadPretty as InputReadPretty } from '../input';
 import { useStyles } from './style';

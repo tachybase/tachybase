@@ -1,4 +1,4 @@
-import { NocoPage, Page, expect, oneEmptyTableBlockWithActions, test } from '@tachybase/test/e2e';
+import { expect, NocoPage, oneEmptyTableBlockWithActions, Page, test } from '@tachybase/test/e2e';
 
 test.describe('tabs schema settings', () => {
   let commonPage: NocoPage;

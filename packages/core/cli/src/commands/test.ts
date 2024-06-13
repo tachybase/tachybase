@@ -1,6 +1,8 @@
-import { Command } from 'commander';
-import { run } from '../util';
 import { sep } from 'path';
+
+import { Command } from 'commander';
+
+import { run } from '../util';
 
 function addTestCommand(name: string, cli: Command) {
   return cli

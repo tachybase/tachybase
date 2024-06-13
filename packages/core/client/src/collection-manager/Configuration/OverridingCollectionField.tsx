@@ -1,18 +1,19 @@
+import React, { useMemo, useState } from 'react';
 import { ArrayTable } from '@tachybase/components';
-import { ISchema, useForm } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import { ISchema, uid, useForm } from '@tachybase/schema';
+
 import { omit, set } from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
-import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useAPIClient, useRequest } from '../../api-client';
 import { useCollectionParentRecordData } from '../../data-source';
 import { RecordProvider, useRecord } from '../../record-provider';
 import { ActionContextProvider, SchemaComponent, useActionContext, useCompile } from '../../schema-component';
-import { useResourceActionContext, useResourceContext } from '../ResourceActionProvider';
 import { useCancelAction } from '../action-hooks';
 import { useCollectionManager_deprecated } from '../hooks';
 import { IField } from '../interfaces/types';
+import { useResourceActionContext, useResourceContext } from '../ResourceActionProvider';
 import * as components from './components';
 
 const getSchema = (schema: IField, record: any, compile, getContainer): ISchema => {

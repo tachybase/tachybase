@@ -1,4 +1,4 @@
-import { useFieldSchema } from '@tachybase/schema';
+import React from 'react';
 import {
   cx,
   DndContext,
@@ -8,8 +8,10 @@ import {
   useDesignable,
   useDesigner,
 } from '@tachybase/client';
+import { useFieldSchema } from '@tachybase/schema';
+
 import { List } from 'antd-mobile';
-import React from 'react';
+
 import { useTranslation } from '../../../../locale';
 import { PageSchema } from '../../common';
 import { MenuDesigner } from './Menu.Designer';

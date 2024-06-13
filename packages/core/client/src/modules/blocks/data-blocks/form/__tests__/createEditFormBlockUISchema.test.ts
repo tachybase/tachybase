@@ -1,5 +1,7 @@
 import { ISchema } from '@tachybase/schema';
+
 import { vi } from 'vitest';
+
 import { createEditFormBlockUISchema } from '../createEditFormBlockUISchema';
 
 vi.mock('@formily/shared', () => ({

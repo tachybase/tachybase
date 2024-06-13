@@ -1,7 +1,9 @@
 import React, { createContext, useContext } from 'react';
-import { useResponsiveFormLayout } from './useResponsiveFormLayout';
-import { usePrefixCls } from '../__builtins__';
+
 import cls from 'classnames';
+
+import { usePrefixCls } from '../__builtins__';
+import { useResponsiveFormLayout } from './useResponsiveFormLayout';
 
 export interface IFormLayoutProps {
   prefixCls?: string;

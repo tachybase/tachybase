@@ -1,5 +1,5 @@
-import { Icon } from '@tachybase/client';
 import React from 'react';
+import { Icon } from '@tachybase/client';
 
 Icon.createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js',

@@ -7,7 +7,9 @@ import {
   useFormBlockContext,
 } from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
+
 import _ from 'lodash';
+
 import { useTranslation } from '../../../../locale';
 
 export const SwiperFieldSettings = new SchemaSettings({

@@ -1,5 +1,8 @@
-import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import React from 'react';
+import { ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
+
+import _ from 'lodash';
+
 import { useCollectionManager_deprecated } from '../../../collection-manager';
 import {
   GeneralSchemaDesigner,
@@ -10,7 +13,6 @@ import {
 } from '../../../schema-settings';
 import { useCompile, useDesignable } from '../../hooks';
 import { useActionContext } from '../action';
-import _ from 'lodash';
 
 const useLabelFields = (collectionName?: any) => {
   const compile = useCompile();

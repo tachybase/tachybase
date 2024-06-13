@@ -1,11 +1,11 @@
-import { ISchema, Schema } from '@tachybase/schema';
-import { isArr } from '@tachybase/schema';
+import React from 'react';
+import { Field, isArr, ISchema, Schema } from '@tachybase/schema';
 import { getDefaultFormat, str2moment } from '@tachybase/utils/client';
+
 import { Tag } from 'antd';
 import dayjs from 'dayjs';
-import React from 'react';
+
 import { CollectionFieldOptions_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
-import { Field } from '@tachybase/schema';
 
 export const useLabelUiSchemaV2 = () => {
   const { getCollectionJoinField } = useCollectionManager_deprecated();

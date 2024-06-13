@@ -1,5 +1,7 @@
 import type { ISchema } from '@tachybase/schema';
+
 import { last } from 'lodash';
+
 import { ActionType } from '../../../schema-settings/LinkageRules/type';
 import { VariableOption, VariablesContextType } from '../../../variables/types';
 import { conditionAnalyses } from '../../common/utils/uitls';

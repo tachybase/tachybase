@@ -1,7 +1,8 @@
-import type { CollectionOptions, Collection } from '../collection';
 import type { ISchema } from '@tachybase/schema';
-import type { CollectionTemplateManager } from './CollectionTemplateManager';
+
 import type { Application } from '../../application/Application';
+import type { Collection, CollectionOptions } from '../collection';
+import type { CollectionTemplateManager } from './CollectionTemplateManager';
 
 interface AvailableFieldInterfacesInclude {
   include?: any[];

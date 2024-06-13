@@ -1,4 +1,5 @@
 import type { ButtonProps } from 'antd';
+
 import { SchemaInitializerItemType, SchemaInitializerItemTypeWithoutName, SchemaInitializerOptions } from './types';
 
 export class SchemaInitializer<P1 = ButtonProps, P2 = {}> {

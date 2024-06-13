@@ -1,5 +1,4 @@
-import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/schema';
+import React from 'react';
 import {
   Action,
   ActionBar,
@@ -10,7 +9,7 @@ import {
   SchemaComponentProvider,
   SchemaInitializer,
 } from '@tachybase/client';
-import React from 'react';
+import { ISchema, uid } from '@tachybase/schema';
 
 const addActionButton = new SchemaInitializer({
   name: 'addActionButton',

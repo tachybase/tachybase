@@ -7,9 +7,11 @@ import {
   useDesignable,
   useFormBlockContext,
 } from '@tachybase/client';
-import { useTranslation } from '../../../../../locale';
 import { useField, useFieldSchema } from '@tachybase/schema';
+
 import _ from 'lodash';
+
+import { useTranslation } from '../../../../../locale';
 import { isTabSearchCollapsibleInputItem } from '../utils';
 
 export const TabSearchItemFieldSettings = new SchemaSettings({

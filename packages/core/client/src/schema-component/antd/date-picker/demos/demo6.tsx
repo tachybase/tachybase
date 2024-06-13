@@ -1,10 +1,11 @@
 /**
  * title: DatePicker.RangePicker
  */
-import { FormItem } from '@tachybase/components';
-import { DatePicker, Input, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
-import dayjs from 'dayjs';
 import React from 'react';
+import { DatePicker, Input, SchemaComponent, SchemaComponentProvider } from '@tachybase/client';
+import { FormItem } from '@tachybase/components';
+
+import dayjs from 'dayjs';
 
 const schema = {
   type: 'object',

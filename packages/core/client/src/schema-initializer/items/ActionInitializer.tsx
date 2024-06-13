@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { InitializerWithSwitch } from './InitializerWithSwitch';
 import { useSchemaInitializerItem } from '../../application';
+import { InitializerWithSwitch } from './InitializerWithSwitch';
 
 export const ActionInitializer = (props) => {
   const itemConfig = useSchemaInitializerItem();

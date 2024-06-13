@@ -1,5 +1,6 @@
-import { APIClientProvider, AssociationSelect, FormProvider, SchemaComponent } from '@tachybase/client';
 import React from 'react';
+import { APIClientProvider, AssociationSelect, FormProvider, SchemaComponent } from '@tachybase/client';
+
 import { mockAPIClient } from '../../../../testUtils';
 
 const { apiClient, mockRequest } = mockAPIClient();

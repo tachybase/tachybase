@@ -1,10 +1,12 @@
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { useCollectionManager_deprecated, useCollection_deprecated, useDesignable, useSortFields } from '..';
-import { SchemaSettingsModalItem } from './SchemaSettings';
 import { ArrayItems } from '@tachybase/components';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
+
+import { useCollection_deprecated, useCollectionManager_deprecated, useDesignable, useSortFields } from '..';
+import { SchemaSettingsModalItem } from './SchemaSettings';
 
 export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {
   const field = useField();

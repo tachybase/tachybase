@@ -1,9 +1,11 @@
-import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
-import _ from 'lodash';
 import React from 'react';
+import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+
 import { useFormBlockContext } from '../../../block-provider';
-import { useCollectionManager_deprecated, useCollection_deprecated } from '../../../collection-manager';
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import {
   GeneralSchemaDesigner,
   SchemaSettingsDefaultSortingRules,

@@ -1,8 +1,9 @@
-import { SchemaKey } from '@tachybase/schema';
-import { useAPIClient } from '../../api-client';
-import { InheritanceCollectionMixin } from '../mixins/InheritanceCollectionMixin';
 import { useCallback, useMemo } from 'react';
+import { SchemaKey } from '@tachybase/schema';
+
+import { useAPIClient } from '../../api-client';
 import { useCollection } from '../../data-source/collection/CollectionProvider';
+import { InheritanceCollectionMixin } from '../mixins/InheritanceCollectionMixin';
 
 export type Collection_deprecated = ReturnType<typeof useCollection_deprecated>;
 

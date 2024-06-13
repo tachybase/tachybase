@@ -1,4 +1,4 @@
-import { getTreeKeys, hasSelectedKey, completedKeys, getCompatibleAllSelected } from '../utils';
+import { completedKeys, getCompatibleAllSelected, getTreeKeys, hasSelectedKey } from '../utils';
 
 /**
  * 判断该字段的 indeterminate 属性

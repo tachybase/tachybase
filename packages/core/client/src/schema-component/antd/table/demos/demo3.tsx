@@ -1,6 +1,6 @@
-import { ISchema } from '@tachybase/schema';
-import { Application, Input, SchemaComponent, SchemaComponentProvider, Table } from '@tachybase/client';
 import React from 'react';
+import { Application, Input, SchemaComponent, SchemaComponentProvider, Table } from '@tachybase/client';
+import { ISchema } from '@tachybase/schema';
 
 const schema: ISchema = {
   type: 'object',
