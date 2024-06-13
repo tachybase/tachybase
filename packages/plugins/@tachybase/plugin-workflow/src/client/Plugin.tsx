@@ -13,8 +13,10 @@ import PluginWorkflowJSParseClient from './features/js-parse';
 import PluginWorkflowJsonParseClient from './features/json-parse';
 import { PluginLoop } from './features/loop';
 import { PluginManual } from './features/manual';
+import { PluginOmniTrigger } from './features/omni-trigger';
 import { PluginParallel } from './features/parallel';
 import { PluginRequest } from './features/request';
+import { PluginResponse } from './features/response';
 import { PluginSql } from './features/sql';
 import { PluginVariables } from './features/variables';
 import { NAMESPACE } from './locale';
@@ -85,6 +87,8 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginAPIRegularClient);
     await this.pm.add(PluginWorkflowInterceptor);
     await this.pm.add(PluginVariables);
+    await this.pm.add(PluginResponse);
+    await this.pm.add(PluginOmniTrigger);
   }
 
   async load() {
@@ -131,16 +135,3 @@ export class PluginWorkflow extends Plugin {
     });
   }
 }
-
-export * from './Branch';
-export * from './FlowContext';
-export * from './constants';
-export * from './nodes';
-export { Trigger, useTrigger } from './triggers';
-export * from './variable';
-export * from './components';
-export * from './utils';
-export * from './hooks';
-export { default as useStyles } from './style';
-export * from './variable';
-export * from './ExecutionContextProvider';

@@ -95,9 +95,9 @@ export class WorkflowTriggerInterceptor extends Trigger {
     RadioWithTooltip,
     CheckboxGroupWithTooltip,
   };
-  isActionTriggerable = (a, u) => {
-    const { global: m } = a;
-    return !m && !u.direct;
+  isActionTriggerable = (config, context) => {
+    const { global } = config;
+    return !global && !context.direct;
   };
 
   useVariables(config, options) {
