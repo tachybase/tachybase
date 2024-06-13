@@ -54,6 +54,7 @@ export type MergeOptions = {
 };
 
 export interface ICollectionManager {
+  db: any;
   registerFieldTypes(types: Record<string, any>): void;
   registerFieldInterfaces(interfaces: Record<string, any>): void;
   registerCollectionTemplates(templates: Record<string, any>): void;

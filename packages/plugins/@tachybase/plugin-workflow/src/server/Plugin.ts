@@ -18,8 +18,10 @@ import PluginWorkflowJSParseServer from './features/js-parse/plugin';
 import PluginWorkflowJSONParseServer from './features/json-parse/plugin';
 import { PluginLoop } from './features/loop/Plugin';
 import { PluginManual } from './features/manual/Plugin';
+import { PluginOmniTrigger } from './features/omni-trigger';
 import { PluginParallel } from './features/parallel/Plugin';
 import { PluginRequest } from './features/request/Plugin';
+import { PluginResponse } from './features/response';
 import { PluginSql } from './features/sql/Plugin';
 import { PluginVariables } from './features/variables';
 import initFunctions, { CustomFunction } from './functions';
@@ -72,6 +74,8 @@ export default class PluginWorkflowServer extends Plugin {
   pluginAPIRegular: PluginWorkflowAPIRegularServer;
   pluginInterception: PluginInterception;
   pluginVariables: PluginVariables;
+  pluginResponse: PluginResponse;
+  pluginOmni: PluginOmniTrigger;
 
   constructor(app: Application, options?: PluginOptions) {
     super(app, options);
@@ -89,6 +93,8 @@ export default class PluginWorkflowServer extends Plugin {
     this.pluginAPIRegular = new PluginWorkflowAPIRegularServer(app, options);
     this.pluginInterception = new PluginInterception(app, options);
     this.pluginVariables = new PluginVariables(app, options);
+    this.pluginResponse = new PluginResponse(app, options);
+    this.pluginOmni = new PluginOmniTrigger(app, options);
   }
 
   getLogger(workflowId: ID): Logger {
@@ -317,6 +323,8 @@ export default class PluginWorkflowServer extends Plugin {
     await this.pluginAPIRegular.load();
     await this.pluginInterception.load();
     await this.pluginVariables.load();
+    await this.pluginResponse.load();
+    await this.pluginOmni.load();
   }
 
   toggle(workflow: WorkflowModel, enable?: boolean) {

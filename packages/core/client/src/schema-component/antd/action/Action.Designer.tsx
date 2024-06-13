@@ -336,7 +336,7 @@ export function RemoveButton(
   );
 }
 
-function WorkflowSelect({ actionType, direct = false, ...props }) {
+function WorkflowSelect({ formAction, buttonAction, actionType, direct = false, ...props }) {
   const { t } = useTranslation();
   const index = ArrayTable.useIndex();
   const { setValuesIn } = useForm();
@@ -377,17 +377,28 @@ function WorkflowSelect({ actionType, direct = false, ...props }) {
   });
 
   const optionFilter = useCallback(
-    ({ type, config }) => {
+    ({ key, type, config }) => {
+      if (key === props.value) {
+        return true;
+      }
       const trigger = workflowPlugin.triggers.get(type);
       if (trigger.isActionTriggerable === true) {
         return true;
       }
       if (typeof trigger.isActionTriggerable === 'function') {
-        return trigger.isActionTriggerable(config, { action: actionType, direct });
+        return trigger.isActionTriggerable(config, {
+          action: actionType,
+          formAction,
+          buttonAction,
+          /**
+           * @deprecated
+           */
+          direct: buttonAction === 'customize:triggerWorkflows',
+        });
       }
       return false;
     },
-    [workflowPlugin.triggers, actionType, direct],
+    [props.value, workflowPlugin.triggers, actionType, formAction, buttonAction],
   );
 
   return (
@@ -436,6 +447,8 @@ export function WorkflowConfig() {
   // TODO(refactor): should refactor for getting certain action type, better from 'x-action'.
   const formBlock = useFormBlockContext();
   const actionType = formBlock?.type || fieldSchema['x-action'];
+  const formAction = formBlock?.type;
+  const buttonAction = fieldSchema['x-action'];
 
   const description = {
     submit: t('Workflow will be triggered before or after submitting succeeded based on workflow type.', {
@@ -510,7 +523,7 @@ export function WorkflowConfig() {
                             value: '',
                           },
                           allowClear: false,
-                          loadData: actionType === 'destroy' ? null : undefined,
+                          loadData: buttonAction === 'destroy' ? null : undefined,
                         },
                         default: '',
                       },
@@ -530,6 +543,8 @@ export function WorkflowConfig() {
                         'x-component-props': {
                           placeholder: t('Select workflow', { ns: 'workflow' }),
                           actionType,
+                          formAction,
+                          buttonAction,
                           direct: fieldSchema['x-action'] === 'customize:triggerWorkflows',
                         },
                         required: true,
