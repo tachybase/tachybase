@@ -111,6 +111,45 @@ const schema = {
             },
           },
         },
+        createdAt: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': { width: 160 },
+          properties: {
+            createdAt: {
+              type: 'string',
+              'x-component': 'CollectionField',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        summary: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          title: tval('Summary'),
+          properties: {
+            summary: {
+              type: 'string',
+              'x-component': 'CollectionField',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        user: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': { width: 140 },
+          title: tval('The Notified Person'),
+          properties: {
+            user: {
+              'x-component': 'ColumnUser',
+              'x-read-pretty': true,
+            },
+          },
+        },
         workflow: {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
@@ -154,45 +193,6 @@ const schema = {
         //     },
         //   },
         // },
-        user: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          'x-component-props': { width: 140 },
-          title: tval('The Notified Person'),
-          properties: {
-            user: {
-              'x-component': 'ColumnUser',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        createdAt: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          'x-component-props': { width: 160 },
-          properties: {
-            createdAt: {
-              type: 'string',
-              'x-component': 'CollectionField',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        summary: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          title: tval('Summary'),
-          properties: {
-            summary: {
-              type: 'string',
-              'x-component': 'CollectionField',
-              'x-read-pretty': true,
-            },
-          },
-        },
       },
     },
   },
