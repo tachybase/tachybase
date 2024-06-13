@@ -195,7 +195,7 @@ export const InternalTabs = observer((props) => {
         if (fuzzysearch(filter, item?.label) || filterItem?.length) {
           return {
             ...item,
-            childrenItems: filterItem.length ? filterItem : item.childrenItems,
+            childrenItems: filterItem?.length ? filterItem : item.childrenItems,
           };
         }
       })
