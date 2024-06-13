@@ -404,6 +404,10 @@ export class PluginManager {
       }
       this.app.logger.debug(`before load plugin [${name}]`, { submodule: 'plugin-manager', method: 'load', name });
       await plugin.beforeLoad();
+      // beforeLoad features
+      for (const feature of plugin.featureInstances) {
+        await feature.beforeLoad();
+      }
     }
 
     current = 0;
@@ -426,6 +430,10 @@ export class PluginManager {
       await plugin.load();
       plugin.state.loaded = true;
       await this.app.emitAsync('afterLoadPlugin', plugin, options);
+      // load features
+      for (const feature of plugin.featureInstances) {
+        await feature.load();
+      }
     }
 
     this.app.setMaintainingMessage('loaded plugins');
@@ -463,6 +471,10 @@ export class PluginManager {
       plugin.installed = true;
       this.app.setMaintainingMessage(`after install plugin [${name}], ${current}/${total}`);
       await this.app.emitAsync('afterInstallPlugin', plugin, options);
+      // install features
+      for (const feature of plugin.featureInstances) {
+        await feature.install(options);
+      }
     }
     await this.repository.update({
       filter: {

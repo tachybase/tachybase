@@ -35,6 +35,8 @@ export interface PluginOptions {
 export abstract class Plugin<O = any> implements PluginInterface {
   options: any;
   app: Application;
+  features: (typeof Plugin)[];
+  featureInstances: Plugin[];
 
   /**
    * @deprecated
@@ -54,6 +56,13 @@ export abstract class Plugin<O = any> implements PluginInterface {
   constructor(app: Application, options?: any) {
     this.app = app;
     this.setOptions(options);
+    this.features = [];
+    this.featureInstances = [];
+  }
+
+  addFeature<T extends Plugin>(plugin: new (app: Application, options?: any) => T) {
+    this.features.push(plugin);
+    this.featureInstances.push(new plugin(this.app, this.options));
   }
 
   get log() {

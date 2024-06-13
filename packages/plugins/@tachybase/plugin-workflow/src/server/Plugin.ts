@@ -60,41 +60,24 @@ export default class PluginWorkflowServer extends Plugin {
   private loggerCache: LRUCache<string, Logger>;
   private meter = null;
 
-  pluginSql: PluginSql;
-  pluginRequest: PluginRequest;
-  pluginParallel: PluginParallel;
-  pluginManual: PluginManual;
-  pluginLoop: PluginLoop;
-  pluginDynamicCalculation: PluginDynamicCalculation;
-  pluginDelay: PluginDelay;
-  pluginAggregate: PluginAggregate;
-  pluginActionTrigger: PluginActionTrigger;
-  pluginJSONParse: PluginWorkflowJSONParseServer;
-  pluginJSParse: PluginWorkflowJSParseServer;
-  pluginAPIRegular: PluginWorkflowAPIRegularServer;
-  pluginInterception: PluginInterception;
-  pluginVariables: PluginVariables;
-  pluginResponse: PluginResponse;
-  pluginOmni: PluginOmniTrigger;
-
   constructor(app: Application, options?: PluginOptions) {
     super(app, options);
-    this.pluginSql = new PluginSql(app, options);
-    this.pluginRequest = new PluginRequest(app, options);
-    this.pluginParallel = new PluginParallel(app, options);
-    this.pluginManual = new PluginManual(app, options);
-    this.pluginLoop = new PluginLoop(app, options);
-    this.pluginDynamicCalculation = new PluginDynamicCalculation(app, options);
-    this.pluginDelay = new PluginDelay(app, options);
-    this.pluginAggregate = new PluginAggregate(app, options);
-    this.pluginActionTrigger = new PluginActionTrigger(app, options);
-    this.pluginJSONParse = new PluginWorkflowJSONParseServer(app, options);
-    this.pluginJSParse = new PluginWorkflowJSParseServer(app, options);
-    this.pluginAPIRegular = new PluginWorkflowAPIRegularServer(app, options);
-    this.pluginInterception = new PluginInterception(app, options);
-    this.pluginVariables = new PluginVariables(app, options);
-    this.pluginResponse = new PluginResponse(app, options);
-    this.pluginOmni = new PluginOmniTrigger(app, options);
+    this.addFeature(PluginSql);
+    this.addFeature(PluginRequest);
+    this.addFeature(PluginParallel);
+    this.addFeature(PluginManual);
+    this.addFeature(PluginLoop);
+    this.addFeature(PluginDynamicCalculation);
+    this.addFeature(PluginDelay);
+    this.addFeature(PluginAggregate);
+    this.addFeature(PluginActionTrigger);
+    this.addFeature(PluginWorkflowJSONParseServer);
+    this.addFeature(PluginWorkflowJSParseServer);
+    this.addFeature(PluginWorkflowAPIRegularServer);
+    this.addFeature(PluginInterception);
+    this.addFeature(PluginVariables);
+    this.addFeature(PluginResponse);
+    this.addFeature(PluginOmniTrigger);
   }
 
   getLogger(workflowId: ID): Logger {
@@ -309,22 +292,6 @@ export default class PluginWorkflowServer extends Plugin {
         await this.executing;
       }
     });
-    await this.pluginSql.load();
-    await this.pluginActionTrigger.load();
-    await this.pluginAggregate.load();
-    await this.pluginDelay.load();
-    await this.pluginDynamicCalculation.load();
-    await this.pluginLoop.load();
-    await this.pluginManual.load();
-    await this.pluginParallel.load();
-    await this.pluginRequest.load();
-    await this.pluginJSONParse.load();
-    await this.pluginJSParse.load();
-    await this.pluginAPIRegular.load();
-    await this.pluginInterception.load();
-    await this.pluginVariables.load();
-    await this.pluginResponse.load();
-    await this.pluginOmni.load();
   }
 
   toggle(workflow: WorkflowModel, enable?: boolean) {
