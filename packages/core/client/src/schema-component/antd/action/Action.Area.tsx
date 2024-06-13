@@ -32,11 +32,13 @@ export const ActionAreaStub = () => {
 
 export const ActionAreaPlayer = ({ children }) => {
   const { visible, setVisible } = useActionContext();
-  const { prevSetVisible, setPrevSetVisible, ref = { current: null } } = useContext(ActionAreaContext);
+  const { prevSetVisible, setPrevSetVisible, ref } = useContext(ActionAreaContext);
   useEffect(() => {
     if (visible) {
       setPrevSetVisible?.(() => {
         prevSetVisible?.(false);
+        // 因为无法判断是不是自己之前的那个 setVisible，如果是同一个 setVisible 那么上面那个设置会导致不显示
+        setVisible(true);
         return setVisible;
       });
     }
@@ -47,22 +49,38 @@ export const ActionAreaPlayer = ({ children }) => {
 
 export const ActionArea: ComposedActionDrawer = observer(
   (props) => {
-    const { footerNodeName = 'Action.Drawer.Footer' } = props;
+    const { footerNodeName = 'ActionArea.Footer' } = props;
     const schema = useFieldSchema();
     const field = useField();
     const { styles } = useStyles();
 
     const Current = () => (
-      <div className={styles}>
-        <RecursionField
-          basePath={field.address}
-          schema={schema}
-          onlyRenderProperties
-          filterProperties={(s) => {
-            return s['x-component'] !== footerNodeName;
-          }}
-        />
-      </div>
+      <>
+        <div className={styles.footer}>
+          <div className="title">
+            <strong>{field.title}</strong>
+          </div>
+          <RecursionField
+            basePath={field.address}
+            schema={schema}
+            onlyRenderProperties
+            filterProperties={(s) => {
+              return s['x-component'] === footerNodeName;
+            }}
+          />
+        </div>
+
+        <div className={styles.container}>
+          <RecursionField
+            basePath={field.address}
+            schema={schema}
+            onlyRenderProperties
+            filterProperties={(s) => {
+              return s['x-component'] !== footerNodeName;
+            }}
+          />
+        </div>
+      </>
     );
 
     return (
