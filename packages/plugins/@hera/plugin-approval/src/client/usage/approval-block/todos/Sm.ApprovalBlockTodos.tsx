@@ -75,6 +75,58 @@ export const SchemaApprovalBlockTodos = {
             },
           },
         },
+        createdAt: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': { width: 160 },
+          properties: {
+            createdAt: {
+              type: 'string',
+              'x-component': 'CollectionField',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        summary: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          title: tval('Approval Summary'),
+          properties: {
+            summary: {
+              type: 'string',
+              'x-component': 'CollectionField',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        user: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': { width: 140 },
+          title: `{{t("Assignee", { ns: "${NAMESPACE}" })}}`,
+          properties: {
+            user: {
+              'x-component': 'UserColumn',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        status: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': { width: 100 },
+          title: '{{t("Status", { ns: "workflow" })}}',
+          properties: {
+            status: {
+              'x-component': 'ApprovalRecordStatusColumn',
+              'x-read-pretty': true,
+            },
+          },
+        },
         workflow: {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
@@ -101,58 +153,6 @@ export const SchemaApprovalBlockTodos = {
           properties: {
             node: {
               'x-component': 'NodeColumn',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        status: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          'x-component-props': { width: 100 },
-          title: '{{t("Status", { ns: "workflow" })}}',
-          properties: {
-            status: {
-              'x-component': 'ApprovalRecordStatusColumn',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        user: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          'x-component-props': { width: 140 },
-          title: `{{t("Assignee", { ns: "${NAMESPACE}" })}}`,
-          properties: {
-            user: {
-              'x-component': 'UserColumn',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        createdAt: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          'x-component-props': { width: 160 },
-          properties: {
-            createdAt: {
-              type: 'string',
-              'x-component': 'CollectionField',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        summary: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          title: tval('Approval Summary'),
-          properties: {
-            summary: {
-              type: 'string',
-              'x-component': 'CollectionField',
               'x-read-pretty': true,
             },
           },

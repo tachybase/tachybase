@@ -16,13 +16,14 @@ export const useStyles = createStyles(({ css }) => {
         /* 隐藏滚动条 微软/火狐 */
         -ms-overflow-style: none;
         scrollbar-width: none;
+        border-right: 2px solid #d4d4d4;
+        padding: 2px;
+        margin-right: 5px;
         div {
-          background-color: #ddd;
+          background-color: #ffffff;
           white-space: normal;
           cursor: pointer;
-          margin-bottom: 2px;
-          padding-left: 2px;
-          padding-right: 2px;
+          margin: 5px 0 5px;
         }
         div:last-of-type {
           margin-bottom: 0;

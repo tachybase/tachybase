@@ -83,51 +83,6 @@ export const SchemaApprovalBlockLaunch = {
             },
           },
         },
-        workflow: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          'x-component-props': {
-            width: 200,
-          },
-          title: '{{t("Workflow", { ns: "workflow" })}}',
-          properties: {
-            workflow: {
-              'x-component': 'WorkflowColumn',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        status: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          'x-component-props': {
-            width: 100,
-          },
-          title: '{{t("Status", { ns: "workflow" })}}',
-          properties: {
-            status: {
-              'x-component': 'CollectionField',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        createdBy: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          'x-component-props': {
-            width: 140,
-          },
-          title: `{{t("Initiator", { ns: "${NAMESPACE}" })}}`,
-          properties: {
-            createdBy: {
-              'x-component': 'UserColumn',
-              'x-read-pretty': true,
-            },
-          },
-        },
         createdAt: {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
@@ -152,6 +107,51 @@ export const SchemaApprovalBlockLaunch = {
             summary: {
               type: 'string',
               'x-component': 'CollectionField',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        createdBy: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': {
+            width: 140,
+          },
+          title: `{{t("Initiator", { ns: "${NAMESPACE}" })}}`,
+          properties: {
+            createdBy: {
+              'x-component': 'UserColumn',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        status: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': {
+            width: 100,
+          },
+          title: '{{t("Status", { ns: "workflow" })}}',
+          properties: {
+            status: {
+              'x-component': 'CollectionField',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        workflow: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': {
+            width: 200,
+          },
+          title: '{{t("Workflow", { ns: "workflow" })}}',
+          properties: {
+            workflow: {
+              'x-component': 'WorkflowColumn',
               'x-read-pretty': true,
             },
           },

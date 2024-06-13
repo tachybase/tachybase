@@ -20,8 +20,9 @@ export const ObservableItem = ({ item, onChange, leftRef }) => {
   const { ref } = useInView({
     threshold: 0.1,
     onChange: (inView: boolean) => {
-      if (inView) {
-        leftRef.current?.querySelector('#parent-item-' + item.id).scrollIntoView({
+      if (inView && leftRef.current) {
+        const currentId = '#parent-item-' + item.id;
+        leftRef.current.querySelector(currentId).scrollIntoView({
           behavior: 'auto',
           block: 'nearest',
           inline: 'start',
@@ -239,6 +240,17 @@ export const InternalTabs = observer((props) => {
                       behavior: 'auto',
                       block: 'nearest',
                       inline: 'start',
+                    });
+                    const currentId = '#parent-item-' + item.id;
+                    ref.current.querySelector(currentId).scrollIntoView({
+                      behavior: 'auto',
+                      block: 'nearest',
+                      inline: 'start',
+                    });
+                    ref.current.querySelector(currentId).style.color = '#166cff';
+                    const allElements = ref.current.querySelectorAll('div:not(' + currentId + ')');
+                    allElements?.forEach(function (element: any) {
+                      element.style.color = '#1e1e1e';
                     });
                   }}
                 >

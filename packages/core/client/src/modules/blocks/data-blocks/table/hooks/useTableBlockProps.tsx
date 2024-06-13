@@ -1,18 +1,19 @@
-import { ArrayField } from '@tachybase/schema';
-import { useField, useFieldSchema } from '@tachybase/schema';
 import { useEffect } from 'react';
+import { ArrayField, useField, useFieldSchema } from '@tachybase/schema';
+
+import _ from 'lodash';
+
+import { findFilterTargets } from '../../../../../block-provider/hooks';
+import { useTableBlockContext } from '../../../../../block-provider/TableBlockProvider';
 import { useFilterBlock } from '../../../../../filter-provider/FilterProvider';
 import { mergeFilter } from '../../../../../filter-provider/utils';
 import { removeNullCondition } from '../../../../../schema-component';
-import { findFilterTargets } from '../../../../../block-provider/hooks';
-import { useTableBlockContext } from '../../../../../block-provider/TableBlockProvider';
-import _ from 'lodash';
 
 export const useTableBlockProps = () => {
   const field = useField<ArrayField>();
   const fieldSchema = useFieldSchema();
   const ctx = useTableBlockContext();
-  const globalSort = fieldSchema.parent?.['x-decorator-props']?.['params']?.['sort'];
+  const globalSort = fieldSchema.parent?.['x-decorator-props']?.['dragSortBy'];
   const { getDataBlocks } = useFilterBlock();
   const isLoading = ctx?.service?.loading;
   const params = ctx?.service?.params;
