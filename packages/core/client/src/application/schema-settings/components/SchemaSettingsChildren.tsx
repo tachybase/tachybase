@@ -1,5 +1,6 @@
 import React, { FC, memo, useEffect, useMemo, useRef } from 'react';
 
+import { useFieldComponentName } from '../../../common/useFieldComponentName';
 import { useFindComponent } from '../../../schema-component';
 import {
   SchemaSettingsActionModalItem,
@@ -17,7 +18,6 @@ import {
 } from '../../../schema-settings/SchemaSettings';
 import { SchemaSettingItemContext } from '../context';
 import { SchemaSettingsItemType } from '../types';
-import { useFieldComponentName } from '../../../common/useFieldComponentName';
 
 export interface SchemaSettingsChildrenProps {
   children: SchemaSettingsItemType[];
@@ -70,6 +70,15 @@ export const SchemaSettingsChildren: FC<SchemaSettingsChildrenProps> = (props) =
 const useChildrenDefault = () => undefined;
 const useComponentPropsDefault = () => undefined;
 const useVisibleDefault = () => true;
+
+const InternalComponent = ({ Component, componentProps, useComponentProps, children }) => {
+  const useComponentPropsRes = useComponentProps();
+  return (
+    <Component {...componentProps} {...useComponentPropsRes}>
+      {children}
+    </Component>
+  );
+};
 export const SchemaSettingsChild: FC<SchemaSettingsItemType> = memo((props) => {
   const {
     useVisible = useVisibleDefault,
@@ -82,7 +91,6 @@ export const SchemaSettingsChild: FC<SchemaSettingsItemType> = memo((props) => {
     componentProps,
   } = props as any;
   const useChildrenRes = useChildren();
-  const useComponentPropsRes = useComponentProps();
   const findComponent = useFindComponent();
   const componentChildren = useMemo(() => {
     const res = [...(useChildrenRes || []), ...(children || [])];
@@ -106,11 +114,11 @@ export const SchemaSettingsChild: FC<SchemaSettingsItemType> = memo((props) => {
 
   return (
     <SchemaSettingItemContext.Provider value={props}>
-      <C {...componentProps} {...useComponentPropsRes}>
+      <InternalComponent Component={C} useComponentProps={useComponentProps} componentProps={componentProps}>
         {Array.isArray(componentChildren) && componentChildren.length > 0 && (
           <SchemaSettingsChildren>{componentChildren}</SchemaSettingsChildren>
         )}
-      </C>
+      </InternalComponent>
     </SchemaSettingItemContext.Provider>
   );
 });
