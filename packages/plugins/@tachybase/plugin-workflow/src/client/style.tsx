@@ -45,7 +45,7 @@ const useStyles = createStyles(({ css, token }) => {
         overflow-y: scroll;
         padding: 8px;
         background-color: white;
-        width: 800px;
+        width: 600px;
       }
 
       .workflow-canvas-wrapper {
