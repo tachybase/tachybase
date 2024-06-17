@@ -111,13 +111,9 @@ export class OmniTrigger extends Trigger {
   };
   constructor(workflow) {
     super(workflow);
-    this.workflow.app.dataSourceManager.afterAddDataSource((dataSource) => {
-      if (!dataSource.collectionManager?.db) {
-        return;
-      }
-      dataSource.resourceManager.registerActionHandler('trigger', this.triggerAction);
-    });
-    workflow.app.pm.get(PluginErrorHandler).errorHandler.register(
+    this.workflow.app.resourcer.registerActionHandler('trigger', this.triggerAction);
+    this.workflow.app.acl.allow('*', 'trigger', 'loggedIn');
+    (this.workflow.app.pm.get(PluginErrorHandler) as PluginErrorHandler).errorHandler.register(
       (err) => err instanceof CustomActionInterceptionError,
       async (err, ctx) => {
         ctx.body = {
