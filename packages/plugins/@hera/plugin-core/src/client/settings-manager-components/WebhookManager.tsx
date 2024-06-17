@@ -2,6 +2,7 @@ import React from 'react';
 import { ExtendCollectionsProvider, SchemaComponent, WorkflowSelect } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
+import { CodeMirror } from '../components/code-mirror';
 import { tval } from '../locale';
 
 const collection = {
@@ -73,7 +74,9 @@ const collection = {
       uiSchema: {
         title: tval('Code'),
         type: 'string',
-        'x-component': 'Input.TextArea',
+        'x-component': 'CodeMirror',
+        default:
+          '// ctx.query can get user query\n// ctx.body to pass your data to workflow or to client who trigger this webhook.',
       } as ISchema,
     },
   ],
@@ -677,7 +680,7 @@ const schema: ISchema = {
 export const WebhookManager = () => {
   return (
     <ExtendCollectionsProvider collections={[collection]}>
-      <SchemaComponent memoized schema={schema} components={{ WorkflowSelect }}></SchemaComponent>
+      <SchemaComponent memoized schema={schema} components={{ WorkflowSelect, CodeMirror }}></SchemaComponent>
     </ExtendCollectionsProvider>
   );
 };

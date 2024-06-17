@@ -9,10 +9,13 @@
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
+    "@codemirror/autocomplete": "^6.16.2",
+    "@codemirror/lang-javascript": "^6.2.2",
     "@react-pdf/renderer": "^3.3.2",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@types/lodash": "~4.17.5",
+    "@uiw/react-codemirror": "^4.22.2",
     "ahooks": "^3.7.2",
     "antd": "5.18.1",
     "classnames": "^2.3.1",
