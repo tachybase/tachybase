@@ -13,6 +13,7 @@ import {
   Expression,
   SignatureInput,
 } from './components';
+import { CodeMirror } from './components/code-mirror';
 import { PluginAssistant } from './features/assistant';
 import { PluginGroupBlock } from './features/block-group';
 import { PluginContextMenu } from './features/context-menu';
@@ -143,6 +144,7 @@ export class PluginCoreClient extends Plugin {
       AssociatedField,
       AutoComplete,
       CalcResult,
+      CodeMirror,
       CreateSubmitActionInitializer,
       CustomAssociatedField,
       CustomComponentDispatcher,

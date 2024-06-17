@@ -67,7 +67,7 @@ export class ShowFieldCodeInterface extends CollectionFieldInterface {
       type: 'string',
       title: 'JSCode',
       'x-decorator': 'FormItem',
-      'x-component': 'Input.TextArea',
+      'x-component': 'CodeMirror',
       default: '',
       required: true,
     },

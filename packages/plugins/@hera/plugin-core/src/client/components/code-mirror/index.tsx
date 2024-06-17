@@ -89,7 +89,7 @@ export const CodeMirror = connect(({ value, onChange, ...otherProps }) => {
           override: [completionSource],
         }),
       ]}
-      height="200"
+      height="300px"
     ></CM>
   );
 });
