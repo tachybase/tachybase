@@ -19,7 +19,7 @@ export class KitAPIRegularUsage extends Plugin {
 
     ['table', 'details'].forEach((block) => {
       this.app.schemaInitializerManager.addItem(`${block}:configureActions`, 'customize.APIRegular', {
-        title: tval('Regular workflow'),
+        title: tval('Trigger workflow'),
         Component: 'APIRegularInitializer',
         name: 'apiRegular',
         useVisible() {

@@ -74,9 +74,11 @@ export const usePropsAPIRegular = () => {
     async onClick() {
       const selectedRecordKeys =
         tableBlockContext.field?.data?.selectedRowKeys ?? expressionScope?.selectedRecordKeys ?? [];
+      const { filter } = service.params?.[0] ?? {};
 
       const {
         bindWorkflow = false,
+        triggerWorkflows = false,
         assignedValues: originalAssignedValues = {},
         updateMode,
       } = actionSchema?.['x-action-settings'] ?? {};
@@ -90,7 +92,7 @@ export const usePropsAPIRegular = () => {
       actionField.data = field.data || {};
       actionField.data.loading = true;
 
-      if (!bindWorkflow) {
+      if (!triggerWorkflows && !bindWorkflow) {
         return modal.info({
           title: lang('Not bind workflow!'),
         });
@@ -122,11 +124,36 @@ export const usePropsAPIRegular = () => {
         title: lang('Confirm', { ns: 'client' }),
         content: lang('Trigger workflow?', { ns: 'client' }),
         async onOk() {
-          const params = {
-            filterByTk: bindWorkflow,
-            updateData: encodeURIComponent(JSON.stringify(updateData)),
-          };
-          run(params);
+          if (bindWorkflow) {
+            const params = {
+              filterByTk: bindWorkflow,
+              updateData: encodeURIComponent(JSON.stringify(updateData)),
+            };
+            run(params);
+          } else if (triggerWorkflows) {
+            if (isUpdateSelected) {
+              await resource.trigger({
+                filterByTk: selectedRecordKeys,
+                triggerWorkflows:
+                  triggerWorkflows && triggerWorkflows.length > 0
+                    ? triggerWorkflows
+                        .map((workflow) => [workflow.workflowKey, workflow.context].filter(Boolean).join('!'))
+                        .join(',')
+                    : [],
+              });
+            } else {
+              await resource.trigger({
+                filter,
+                triggerWorkflows:
+                  triggerWorkflows && triggerWorkflows.length > 0
+                    ? triggerWorkflows
+                        .map((workflow) => [workflow.workflowKey, workflow.context].filter(Boolean).join('!'))
+                        .join(',')
+                    : [],
+              });
+            }
+          }
+          // run(params);
           actionField.data.loading = false;
         },
         async onCancel() {

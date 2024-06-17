@@ -10,7 +10,7 @@ export const APIRegularInitializer = () => {
 
 const schema = {
   type: 'void',
-  title: tval('Regular workflow'),
+  title: tval('Trigger workflow'),
   'x-component': 'Action',
   'x-use-component-props': 'usePropsAPIRegular',
   'x-align': 'right',
@@ -21,10 +21,11 @@ const schema = {
   },
   'x-toolbar': 'ActionSchemaToolbar',
   'x-settings': 'actionSettings:APIRegular',
-  'x-action': 'customize:APIRegular',
+  'x-action': 'customize:triggerWorkflows',
   'x-action-settings': {
     bindWorkflow: false,
     updateMode: 'selected',
+    triggerWorkflows: [],
   },
   'x-component-props': {
     icon: 'CarryOutOutlined',
