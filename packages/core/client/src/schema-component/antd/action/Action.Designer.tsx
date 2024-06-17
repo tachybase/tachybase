@@ -336,7 +336,7 @@ export function RemoveButton(
   );
 }
 
-function WorkflowSelect({ formAction, buttonAction, actionType, direct = false, ...props }) {
+export function WorkflowSelect({ formAction, buttonAction, actionType, direct = false, ...props }) {
   const { t } = useTranslation();
   const index = ArrayTable.useIndex();
   const { setValuesIn } = useForm();

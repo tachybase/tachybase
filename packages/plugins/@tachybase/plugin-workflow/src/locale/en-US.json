@@ -1,5 +1,6 @@
 {
     "Workflow": "Workflow",
+    "Data will be updated": "Data will be updated",
     "Execution history": "Execution history",
     "Executed": "Executed",
     "Trigger type": "Trigger type",
@@ -12,6 +13,7 @@
     "Loading": "Loading",
     "Load failed": "Load failed",
     "Trigger": "Trigger",
+    "Trigger workflow": "Trigger workflow",
     "Trigger variables": "Trigger variables",
     "Trigger data": "Trigger data",
     "Trigger time": "Trigger time",
@@ -190,5 +192,6 @@
     "Ignore failed request and continue workflow": "Ignore failed request and continue workflow",
     "SQL action": "SQL action",
     "Execute a SQL statement in database": "Execute a SQL statement in database",
+    "Omni action event": "Omni action event",
     "Usage of SQL query result is not supported yet.": "Usage of SQL query result is not supported yet."
 }

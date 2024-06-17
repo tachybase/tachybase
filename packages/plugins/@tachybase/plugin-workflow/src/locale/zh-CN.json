@@ -1,6 +1,7 @@
 {
     "Workflow": "工作流",
     "Execution history": "执行历史",
+    "Data will be updated": "更新的数据",
     "Clear all executions": "清除所有执行记录",
     "Clear executions will not reset executed count, and started executions will not be deleted, are you sure you want to delete them all?": "清空执行记录不会重置执行次数，且执行中的也不会被删除，确定要删除所有执行记录吗？",
     "Executed": "已执行",
@@ -21,6 +22,7 @@
     "Auto delete history when execution is on end status": "执行结束后自动删除对应状态的历史记录",
     "Trigger": "触发器",
     "Trigger variables": "触发器变量",
+    "Trigger workflow": "触发工作流",
     "Trigger data": "触发器数据",
     "Trigger time": "触发时间",
     "Triggered at": "触发时间",
@@ -256,6 +258,7 @@
     "Ignore failed request and continue workflow": "忽略失败的请求并继续工作流",
     "SQL action": "SQL 操作",
     "Execute a SQL statement in database.": "在数据库中执行一个 SQL 语句",
+    "Omni action event": "万能操作事件",
     "Select a data source to execute SQL.": "选择一个数据源来执行 SQL",
     "SQL query result could be used through <1>JSON query node</1> (Commercial plugin).": "SQL 执行的结果可在 <1>JSON 解析节点</1> 中使用（商业插件）。"
 }

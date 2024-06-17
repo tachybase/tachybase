@@ -1,7 +1,7 @@
 import { joinCollectionName, parseCollectionName } from '@tachybase/data-source-manager';
 import PluginErrorHandler from '@tachybase/plugin-error-handler';
 
-import _ from 'lodash';
+import _, { isArray } from 'lodash';
 
 import { EXECUTION_STATUS } from '../../constants';
 import Trigger from '../../triggers';
@@ -16,12 +16,12 @@ class CustomActionInterceptionError extends Error {
   }
 }
 export class OmniTrigger extends Trigger {
-  static TYPE = 'custom-action';
+  static TYPE = 'omni-action';
   triggerAction = async (context, next) => {
     const {
       resourceName,
       actionName,
-      params: { filterByTk, values, triggerWorkflows = '' },
+      params: { filterByTk, values, triggerWorkflows = '', filter },
     } = context.action;
     if (actionName !== 'trigger' || resourceName === 'workflows') {
       return next();
@@ -70,7 +70,17 @@ export class OmniTrigger extends Trigger {
       const formData = dataPath ? _.get(values, dataPath) : values;
       let data = formData;
       if (filterByTk != null) {
-        data = await repository.findOne({ filterByTk, appends });
+        if (isArray(filterByTk)) {
+          data = await repository.find({ filterByTk, appends });
+        } else {
+          data = await repository.findOne({ filterByTk, appends });
+        }
+        if (!data) {
+          continue;
+        }
+        Object.assign(data, formData);
+      } else if (filter != null) {
+        data = await repository.find({ filter, appends });
         if (!data) {
           continue;
         }

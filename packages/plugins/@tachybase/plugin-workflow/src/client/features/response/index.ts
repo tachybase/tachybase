@@ -27,7 +27,9 @@ class ResponseInstruction extends Instruction {
     WorkflowVariableInput,
   };
   isAvailable({ workflow }) {
-    return workflow.type === 'request-interception' || ('action' === workflow.type && workflow.sync);
+    return (
+      workflow.type === 'request-interception' || (['action', 'omni-action'].includes(workflow.type) && workflow.sync)
+    );
   }
 }
 export class PluginResponse extends Plugin {

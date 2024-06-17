@@ -5,8 +5,9 @@ import {
   useDesignable,
   useRequest,
   useSchemaToolbar,
+  WorkflowConfig,
 } from '@tachybase/client';
-import { useFieldSchema } from '@tachybase/schema';
+import { isValid, useFieldSchema } from '@tachybase/schema';
 
 import { useTranslation } from 'react-i18next';
 
@@ -45,6 +46,14 @@ const schemaSettingsItems: SchemaSettingsItemType[] = [
           });
         },
       };
+    },
+  },
+  {
+    name: 'workflowConfig',
+    Component: WorkflowConfig,
+    useVisible() {
+      const fieldSchema = useFieldSchema();
+      return isValid(fieldSchema?.['x-action-settings']?.triggerWorkflows);
     },
   },
   {

@@ -1,11 +1,12 @@
 import React from 'react';
-import { ExtendCollectionsProvider, SchemaComponent } from '@tachybase/client';
+import { ExtendCollectionsProvider, SchemaComponent, WorkflowSelect } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
 import { tval } from '../locale';
 
 const collection = {
   name: 'webhooks',
+  title: 'webhooks',
   fields: [
     {
       type: 'string',
@@ -32,6 +33,21 @@ const collection = {
         'x-component': 'Radio.Group',
         'x-decorator': 'FormItem',
         default: false,
+      } as ISchema,
+    },
+    {
+      type: 'string',
+      name: 'workflowKey',
+      interface: 'select',
+      uiSchema: {
+        title: tval('name'),
+        type: 'string',
+        'x-component': 'WorkflowSelect',
+        'x-component-props': {
+          buttonAction: 'customize:triggerWorkflows',
+          label: 'title',
+          value: 'key',
+        },
       } as ISchema,
     },
     {
@@ -239,17 +255,11 @@ const schema: ISchema = {
                                                           type: 'void',
                                                           'x-component': 'Grid.Col',
                                                           properties: {
-                                                            workflow: {
+                                                            workflowKey: {
                                                               type: 'string',
                                                               'x-component': 'CollectionField',
                                                               'x-decorator': 'FormItem',
-                                                              'x-collection-field': 'webhooks.workflow',
-                                                              'x-component-props': {
-                                                                fieldNames: {
-                                                                  value: 'id',
-                                                                  label: 'name',
-                                                                },
-                                                              },
+                                                              'x-collection-field': 'webhooks.workflowKey',
                                                             },
                                                           },
                                                         },
@@ -373,17 +383,9 @@ const schema: ISchema = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               properties: {
-                workflow: {
-                  'x-collection-field': 'webhooks.workflow',
+                workflowKey: {
+                  'x-collection-field': 'webhooks.workflowKey',
                   'x-component': 'CollectionField',
-                  'x-component-props': {
-                    fieldNames: {
-                      value: 'id',
-                      label: 'name',
-                    },
-                    ellipsis: true,
-                    size: 'small',
-                  },
                   'x-read-pretty': true,
                   'x-decorator': null,
                   'x-decorator-props': {
@@ -575,17 +577,11 @@ const schema: ISchema = {
                                                                   type: 'void',
                                                                   'x-component': 'Grid.Col',
                                                                   properties: {
-                                                                    workflow: {
+                                                                    workflowKey: {
                                                                       type: 'string',
                                                                       'x-component': 'CollectionField',
                                                                       'x-decorator': 'FormItem',
-                                                                      'x-collection-field': 'webhooks.workflow',
-                                                                      'x-component-props': {
-                                                                        fieldNames: {
-                                                                          value: 'id',
-                                                                          label: 'name',
-                                                                        },
-                                                                      },
+                                                                      'x-collection-field': 'webhooks.workflowKey',
                                                                     },
                                                                   },
                                                                 },
@@ -681,7 +677,7 @@ const schema: ISchema = {
 export const WebhookManager = () => {
   return (
     <ExtendCollectionsProvider collections={[collection]}>
-      <SchemaComponent memoized schema={schema}></SchemaComponent>
+      <SchemaComponent memoized schema={schema} components={{ WorkflowSelect }}></SchemaComponent>
     </ExtendCollectionsProvider>
   );
 };
