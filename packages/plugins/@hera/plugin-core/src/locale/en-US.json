@@ -72,6 +72,7 @@
   "Triggered before submitting a create, update, or delete request to a collection, so that data validation, logical judgment, etc., can be performed before executing the request, and then either approving the request or rejecting the request by using the \"End process\" node.": "Triggered before submitting a create, update, or delete request to a collection, so that data validation, logical judgment, etc., can be performed before executing the request, and then either approving the request or rejecting the request by using the \"End process\" node.",
   "Triggered only when a form bound to this workflow is submitted": "Triggered only when a form bound to this workflow is submitted",
   "Update a record": "Update a record",
+  "Webhook manager": "Webhook manager",
   "User acted": "User acted",
   "Values submitted": "Values submitted",
   "classical": "classical",
