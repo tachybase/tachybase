@@ -1,7 +1,6 @@
 import { Application } from '@tachybase/client';
 
 import { tval } from '../locale';
-import { Features } from './Features';
 import { LinkManager } from './LinkManager';
 import { Configuration } from './TokenConfiguration';
 import { WebhookManager } from './WebhookManager';
@@ -16,10 +15,10 @@ export class PluginSettingsHelper {
       title: tval('Hera integration'),
       icon: 'HomeOutlined',
     });
-    this.app.pluginSettingsManager.add('hera.features', {
-      title: tval('Hera features'),
-      icon: 'ApiOutlined',
-      Component: Features,
+    this.app.pluginSettingsManager.add('hera.webhook', {
+      title: tval('Webhook manager'),
+      icon: 'ShareAltOutlined',
+      Component: WebhookManager,
     });
     this.app.pluginSettingsManager.add('hera.token', {
       title: tval('Third-party integration configuration'),
@@ -30,11 +29,6 @@ export class PluginSettingsHelper {
       title: tval('Link manager'),
       icon: 'ShareAltOutlined',
       Component: LinkManager,
-    });
-    this.app.pluginSettingsManager.add('hera.webhook', {
-      title: tval('Webhook manager'),
-      icon: 'ShareAltOutlined',
-      Component: WebhookManager,
     });
   }
 }

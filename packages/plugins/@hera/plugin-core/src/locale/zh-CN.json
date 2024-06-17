@@ -72,6 +72,7 @@
   "Trigger mode": "触发模式",
   "Triggered before the execution of a request initiated through an action button or API, such as before adding, updating, or deleting data. Suitable for data validation and logic judgment before action, and the request could be rejected by using the \"End process\" node.": "通过操作按钮或 API 发起请求并在执行前触发，比如新增、更新、删除数据之前。适用于在操作前进行数据验证、逻辑判断，并可通过“结束节点”来拦截请求。",
   "Update record action": "更新记录操作",
+  "Webhook manager": "Webhook 管理",
   "User acted": "操作者",
   "Values submitted": "提交的值对象",
   "classical": "经典版",
