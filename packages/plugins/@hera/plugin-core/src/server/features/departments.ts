@@ -1,6 +1,5 @@
-import { resolve } from 'path';
 import type { CollectionRepository } from '@tachybase/plugin-collection-manager';
-import { Plugin } from '@tachybase/server';
+import { InstallOptions, Plugin } from '@tachybase/server';
 
 import {
   aggregateSearch,
@@ -32,14 +31,14 @@ export class DepartmentsPlugin extends Plugin {
     });
   }
   async load() {
-    this.app.resource({
+    this.app.resourcer.define({
       name: 'users',
       actions: {
         listExcludeDept: listExcludeDept,
         setMainDepartment: setMainDepartmentAction,
       },
     });
-    this.app.resource({
+    this.app.resourcer.define({
       name: 'departments',
       actions: {
         aggregateSearch: aggregateSearch,
@@ -84,7 +83,12 @@ export class DepartmentsPlugin extends Plugin {
       this.app.cache.del(`departments:${userId}`);
     });
   }
-  async install(options) {
+
+  async upgrade() {
+    await this.install();
+  }
+
+  async install(options?: InstallOptions) {
     const collectionRepo = this.db.getRepository<CollectionRepository>('collections');
     if (collectionRepo) {
       await collectionRepo.db2cm('departments');

@@ -1,7 +1,7 @@
 import './actions';
 
 import path from 'path';
-import Application, { InstallOptions, NoticeLevel, Plugin, type PluginOptions } from '@tachybase/server';
+import { Plugin } from '@tachybase/server';
 import { Container } from '@tachybase/utils';
 
 import { DepartmentsPlugin } from './features/departments';
@@ -13,22 +13,14 @@ import { SqlLoader } from './services/sql-loader';
 import { WebControllerService as WebService } from './services/web-service';
 
 export class PluginCoreServer extends Plugin {
-  pluginDepartments: DepartmentsPlugin;
-  constructor(app: Application, options?: PluginOptions) {
-    super(app, options);
-    this.pluginDepartments = new DepartmentsPlugin(app, options);
-  }
   async afterAdd() {
     this.db.registerFieldTypes({
       calc: CalcField,
       tstzrange: TstzrangeField,
     });
-  }
-  beforeLoad() {
-    this.pluginDepartments.beforeLoad();
+    this.addFeature(DepartmentsPlugin);
   }
   async load() {
-    await this.pluginDepartments.load();
     try {
       await Container.get(ConnectionManager).load();
       const fontManger = Container.get(FontManager);
@@ -42,9 +34,6 @@ export class PluginCoreServer extends Plugin {
     } catch (err) {
       console.warn(err);
     }
-  }
-  async install(options?: InstallOptions) {
-    await this.pluginDepartments.install(options);
   }
   async afterEnable() {}
   async afterDisable() {}

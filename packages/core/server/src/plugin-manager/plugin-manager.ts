@@ -1027,6 +1027,9 @@ export class PluginManager {
       }
       this.app.log.debug(`upgrade plugin [${plugin.name}]`);
       await plugin.upgrade();
+      for (const feature of plugin.featureInstances) {
+        await feature.upgrade();
+      }
       plugin.state.upgraded = true;
     }
     await this.repository.update({
