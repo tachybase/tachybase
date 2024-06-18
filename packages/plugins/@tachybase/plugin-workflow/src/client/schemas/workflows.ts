@@ -1,8 +1,15 @@
 import React from 'react';
-import { useActionContext, useRecord, useResourceActionContext, useResourceContext } from '@tachybase/client';
+import {
+  useActionContext,
+  useAPIClient,
+  useRecord,
+  useResourceActionContext,
+  useResourceContext,
+} from '@tachybase/client';
 import { ISchema, useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
+import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 
 import { NAMESPACE } from '../locale';
@@ -195,6 +202,85 @@ export const workflowSchema: ISchema = {
                 confirm: {
                   title: "{{t('Delete record')}}",
                   content: "{{t('Are you sure you want to delete it?')}}",
+                },
+              },
+            },
+            load: {
+              type: 'void',
+              title: `{{t("Load", { ns: "${NAMESPACE}" })}}`,
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'UploadOutlined',
+                openSize: 'small',
+              },
+              properties: {
+                modal: {
+                  type: 'void',
+                  title: `{{t("Load a workflow", { ns: "${NAMESPACE}" })}}`,
+                  'x-decorator': 'FormV2',
+                  'x-component': 'Action.Modal',
+                  properties: {
+                    title: {
+                      type: 'string',
+                      title: '{{t("Title")}}',
+                      'x-decorator': 'FormItem',
+                      'x-component': 'Input',
+                    },
+                    file: {
+                      type: 'object',
+                      title: '{{ t("File") }}',
+                      required: true,
+                      'x-decorator': 'FormItem',
+                      'x-component': 'Upload.Attachment',
+                      'x-component-props': {
+                        action: 'attachments:create',
+                        multiple: false,
+                      },
+                    },
+                    footer: {
+                      type: 'void',
+                      'x-component': 'Action.Modal.Footer',
+                      properties: {
+                        submit: {
+                          type: 'void',
+                          title: '{{t("Submit")}}',
+                          'x-component': 'Action',
+                          'x-component-props': {
+                            type: 'primary',
+                            useAction() {
+                              const { t } = useTranslation();
+                              const api = useAPIClient();
+                              const { refresh } = useResourceActionContext();
+                              const { resource, targetKey } = useResourceContext();
+                              const { setVisible } = useActionContext();
+                              const { [targetKey]: filterByTk } = useRecord();
+                              const { values } = useForm();
+                              return {
+                                async run() {
+                                  const { data } = await api.request({
+                                    url: values.file.url,
+                                    baseURL: '/',
+                                  });
+                                  await resource.load({ filterByTk, values: { ...values, workflow: data } });
+                                  message.success(t('Operation succeeded'));
+                                  refresh();
+                                  setVisible(false);
+                                },
+                              };
+                            },
+                          },
+                        },
+                        cancel: {
+                          type: 'void',
+                          title: '{{t("Cancel")}}',
+                          'x-component': 'Action',
+                          'x-component-props': {
+                            useAction: '{{ cm.useCancelAction }}',
+                          },
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },
@@ -458,6 +544,29 @@ export const workflowSchema: ISchema = {
                           content: "{{t('Are you sure you want to delete it?')}}",
                         },
                         useAction: '{{ cm.useDestroyActionAndRefreshCM }}',
+                      },
+                    },
+                    dump: {
+                      type: 'void',
+                      title: '{{ t("Dump") }}',
+                      'x-component': 'Action.Link',
+                      'x-component-props': {
+                        useAction() {
+                          const { t } = useTranslation();
+                          const { refresh } = useResourceActionContext();
+                          const { resource, targetKey } = useResourceContext();
+                          const { [targetKey]: filterByTk } = useRecord();
+                          const { values } = useForm();
+                          return {
+                            async run() {
+                              const { data } = await resource.dump({ filterByTk, values });
+                              const blob = new Blob([JSON.stringify(data.data, null, 2)], { type: 'application/json' });
+                              saveAs(blob, data.data.title + '-' + data.data.key + '.json');
+                              message.success(t('Operation succeeded'));
+                              refresh();
+                            },
+                          };
+                        },
                       },
                     },
                   },
