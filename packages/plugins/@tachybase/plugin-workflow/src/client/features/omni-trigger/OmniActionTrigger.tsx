@@ -7,7 +7,7 @@ import { Trigger } from '../../triggers';
 import { getCollectionFieldOptions, UseVariableOptions } from '../../variable';
 
 export class OmniActionTrigger extends Trigger {
-  title = tval('Omni action event');
+  title = tval('General event');
   description = tval(
     `Omni Trigger is a versatile trigger. You can use it to trigger workflows in a table, trigger it from another workflow, or trigger it with a form button.`,
   );

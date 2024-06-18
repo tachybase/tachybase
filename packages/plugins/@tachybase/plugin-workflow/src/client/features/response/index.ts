@@ -28,7 +28,8 @@ class ResponseInstruction extends Instruction {
   };
   isAvailable({ workflow }) {
     return (
-      workflow.type === 'request-interception' || (['action', 'omni-action'].includes(workflow.type) && workflow.sync)
+      workflow.type === 'request-interception' ||
+      (['action', 'general-action'].includes(workflow.type) && workflow.sync)
     );
   }
 }

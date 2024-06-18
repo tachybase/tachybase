@@ -49,7 +49,7 @@ const triggerWorkflowLinkItem = {
 };
 export class PluginOmniTrigger extends Plugin {
   async load() {
-    this.app.pm.get<PluginWorkflow>('workflow').registerTrigger('omni-action', OmniActionTrigger);
+    this.app.pm.get<PluginWorkflow>('workflow').registerTrigger('general-action', OmniActionTrigger);
     this.app.addScopes({
       useFormWorkflowCustomActionProps,
       useRecordWorkflowCustomTriggerActionProps,
