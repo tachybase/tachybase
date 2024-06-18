@@ -12,11 +12,13 @@ import { removeNullCondition } from '../../../../../schema-component';
 export const useTableBlockProps = () => {
   const field = useField<ArrayField>();
   const fieldSchema = useFieldSchema();
+
   const ctx = useTableBlockContext();
   const globalSort = fieldSchema.parent?.['x-decorator-props']?.['dragSortBy'];
   const { getDataBlocks } = useFilterBlock();
   const isLoading = ctx?.service?.loading;
   const params = ctx?.service?.params;
+
   useEffect(() => {
     if (!isLoading) {
       const serviceResponse = ctx?.service?.data;
@@ -61,7 +63,14 @@ export const useTableBlockProps = () => {
       ctx.service.refresh();
     },
     onChange({ current, pageSize }, filters, sorter) {
-      const sort = sorter.order ? (sorter.order === `ascend` ? [sorter.field] : [`-${sorter.field}`]) : globalSort;
+      const parentSort = fieldSchema.parent?.['x-decorator-props']?.['params']?.sort;
+      const sort = globalSort
+        ? globalSort
+        : sorter.order
+          ? sorter.order === `ascend`
+            ? [sorter.field]
+            : [`-${sorter.field}`]
+          : parentSort;
       ctx.service.run({ ...ctx.service.params?.[0], page: current, pageSize, sort });
     },
     onClickRow(record, setSelectedRow, selectedRow) {
