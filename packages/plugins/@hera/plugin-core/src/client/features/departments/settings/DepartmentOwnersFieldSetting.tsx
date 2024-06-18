@@ -1,20 +1,10 @@
 import { SchemaSettings } from '@tachybase/client';
 
-import { neItems } from '../items/neItems';
-import { reItems } from '../items/reItems';
-import { teItems } from '../items/teItems';
+import { enableLinkItem } from './items/enableLinkItem';
+import { modeSelectItem } from './items/modeSelectItem';
+import { titleFieldItem } from './items/titleFieldItem';
 
 export const DepartmentOwnersFieldSetting = new SchemaSettings({
   name: 'fieldSettings:component:DepartmentOwnersField',
-  items: [
-    {
-      ...reItems,
-    },
-    {
-      ...teItems,
-    },
-    {
-      ...neItems,
-    },
-  ],
+  items: [modeSelectItem, titleFieldItem, enableLinkItem],
 });

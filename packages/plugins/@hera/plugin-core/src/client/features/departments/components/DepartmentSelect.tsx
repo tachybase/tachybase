@@ -2,15 +2,15 @@ import { useContext } from 'react';
 
 import { jsx } from 'react/jsx-runtime';
 
-import { contextK } from '../context/contextK';
-import { useHooksG } from '../hooks/useHooksG';
+import { DepartmentsContext } from '../context/DepartmentsContext';
+import { useDepTree2 } from '../hooks/useDepTree2';
 import { T } from '../others/T';
 import { y } from '../others/y';
 import { ComponentLle } from './ComponentLle';
 
 export const DepartmentSelect = () => {
-  const e = useHooksG(),
-    { departmentsResource: t } = useContext(contextK),
+  const e = useDepTree2(),
+    { departmentsResource: t } = useContext(DepartmentsContext),
     {
       service: { data: o },
     } = t || {};

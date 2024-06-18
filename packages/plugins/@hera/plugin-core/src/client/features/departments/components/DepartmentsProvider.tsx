@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRequest } from '@tachybase/client';
 
-import { contextK } from '../context/contextK';
+import { DepartmentsContext } from '../context/DepartmentsContext';
 
 export const DepartmentsProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -27,7 +27,7 @@ export const DepartmentsProvider = ({ children }) => {
     params: { pagination: false, filter: { parentId: null } },
   });
   return (
-    <contextK.Provider
+    <DepartmentsContext.Provider
       value={{
         user,
         setUser,
@@ -38,6 +38,6 @@ export const DepartmentsProvider = ({ children }) => {
       }}
     >
       {children}
-    </contextK.Provider>
+    </DepartmentsContext.Provider>
   );
 };

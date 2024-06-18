@@ -1,35 +1,38 @@
 import { useContext } from 'react';
-import { useActionContext, useAPIClient, useResourceActionContext } from '@tachybase/client';
+import { useActionContext, useAPIClient, useRecord, useResourceActionContext } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
+import { DepartmentsContext } from '../context/DepartmentsContext';
 import { DepartmentsExpandedContext } from '../context/DepartmentsExpandedContext';
 
-export const useCreateDepartment = () => {
-  const form = useForm();
+export const useUpdateDepartment = () => {
   const field = useField();
+  const form = useForm();
   const { setVisible } = useActionContext();
   const { refreshAsync } = useResourceActionContext();
   const api = useAPIClient();
+  const { id } = useRecord();
   const { expandedKeys, setLoadedKeys, setExpandedKeys } = useContext(DepartmentsExpandedContext);
+  const { department, setDepartment } = useContext(DepartmentsContext);
   return {
     async run() {
+      await form.submit();
+      field.data = field.data || {};
+      field.data.loading = true;
       try {
-        await form.submit();
-        field.data = field.data || {};
-        field.data.loading = true;
-        await api.resource('departments').create({ values: form.values });
+        await api.resource('departments').update({ filterByTk: id, values: form.values });
+        setDepartment({ department, ...form.values });
         setVisible(false);
         await form.reset();
-        field.data.loading = false;
         const keys = [...expandedKeys];
         setLoadedKeys([]);
         setExpandedKeys([]);
         await refreshAsync();
         setExpandedKeys(keys);
       } catch (error) {
-        if (field.data) {
-          field.data.loading = false;
-        }
+        console.log(error);
+      } finally {
+        field.data.loading = false;
       }
     },
   };

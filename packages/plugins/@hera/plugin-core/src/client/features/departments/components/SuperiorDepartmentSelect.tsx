@@ -3,17 +3,17 @@ import { useRecord } from '@tachybase/client';
 
 import { jsx } from 'react/jsx-runtime';
 
-import { contextK } from '../context/contextK';
-import { useHooksG } from '../hooks/useHooksG';
+import { DepartmentsContext } from '../context/DepartmentsContext';
+import { useDepTree2 } from '../hooks/useDepTree2';
 import { T } from '../others/T';
 import { y } from '../others/y';
 import { ComponentLle } from './ComponentLle';
 
 export const SuperiorDepartmentSelect = () => {
-  const e = useHooksG(),
+  const e = useDepTree2(),
     { setTreeData: t, getChildrenIds: o } = e,
     a = useRecord(),
-    { departmentsResource: r } = useContext(contextK),
+    { departmentsResource: r } = useContext(DepartmentsContext),
     {
       service: { data: c },
     } = r || {};

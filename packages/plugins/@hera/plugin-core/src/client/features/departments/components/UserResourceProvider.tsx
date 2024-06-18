@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import { CollectionProvider_deprecated, ResourceActionContext } from '@tachybase/client';
 
-// import { jsx } from 'react/jsx-runtime';
 import { collectionUsers } from '../collections/users.collection';
-import { contextK } from '../context/contextK';
+import { DepartmentsContext } from '../context/DepartmentsContext';
 
-export const BeComponent = ({ children }) => {
-  const { usersResource } = useContext(contextK);
+export const UserResourceProvider = ({ children }) => {
+  const { usersResource } = useContext(DepartmentsContext);
   const { service } = usersResource || {};
 
   return (
@@ -14,9 +13,4 @@ export const BeComponent = ({ children }) => {
       <CollectionProvider_deprecated collection={collectionUsers}>{children}</CollectionProvider_deprecated>
     </ResourceActionContext.Provider>
   );
-
-  // return jsx(ResourceActionContext.Provider, {
-  //   value: { ...o },
-  //   children: jsx(CollectionProvider_deprecated, { collection: collectionUsers, children: e.children }),
-  // });
 };

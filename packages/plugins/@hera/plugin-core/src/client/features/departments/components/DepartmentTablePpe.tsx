@@ -5,7 +5,7 @@ import { jsx } from 'react/jsx-runtime';
 
 import { useFilterActionPropsXe } from '../scopes/useFilterActionPropsXe';
 import { InternalDepartmentTableRe } from './InternalDepartmentTableRe';
-import { RequestProviderEet } from './RequestProviderEet';
+import { RequestProvider } from './RequestProvider';
 
 export const DepartmentTablePpe = ({ useDataSource: e, useDisabled: t }) =>
   jsx(SchemaComponent, {
@@ -15,7 +15,7 @@ export const DepartmentTablePpe = ({ useDataSource: e, useDisabled: t }) =>
     },
     components: {
       InternalDepartmentTable: InternalDepartmentTableRe,
-      RequestProvider: RequestProviderEet,
+      RequestProvider: RequestProvider,
     },
     schema: {
       type: 'void',

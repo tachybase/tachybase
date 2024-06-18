@@ -1,19 +1,12 @@
-import { useContext } from 'react';
-import {
-  CollectionContext,
-  useFilterFieldOptions,
-  useFilterFieldProps,
-  useResourceActionContext,
-} from '@tachybase/client';
+import { useCollection, useFilterFieldOptions, useFilterFieldProps, useResourceActionContext } from '@tachybase/client';
 
 export const useFilterActionPropsZ = () => {
-  var a, r;
-  const e = useContext(CollectionContext),
-    t = useFilterFieldOptions(e.fields),
-    o = useResourceActionContext();
+  const collection = useCollection();
+  const options = useFilterFieldOptions(collection.fields);
+  const service = useResourceActionContext();
   return useFilterFieldProps({
-    options: t,
-    params: ((r = (a = o.state) == null ? void 0 : a.params) == null ? void 0 : r[0]) || o.params,
-    service: o,
+    options,
+    params: service.state?.params?.[0] || service.params,
+    service,
   });
 };

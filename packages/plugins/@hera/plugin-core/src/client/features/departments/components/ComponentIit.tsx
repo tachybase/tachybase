@@ -4,7 +4,7 @@ import { SchemaComponent, useResourceActionContext } from '@tachybase/client';
 import { jsx, jsxs } from 'react/jsx-runtime';
 
 import { useTranslation } from '../../../locale';
-import { contextK } from '../context/contextK';
+import { DepartmentsContext } from '../context/DepartmentsContext';
 import { useBulkRemoveMembersAction } from '../hooks/useBulkRemoveMembersAction';
 import { useMembersDataSource } from '../hooks/useMembersDataSource';
 import { useRemoveMemberAction } from '../hooks/useRemoveMemberAction';
@@ -13,14 +13,14 @@ import { getSchemaHe } from '../schema/getSchemaHe';
 import { schemaWe } from '../schema/schemaWe';
 import { schemaZe } from '../schema/schemaZe';
 import { useFilterActionPropsZ } from '../scopes/useFilterActionPropsZ';
-import { AddMembersNnt } from './AddMembersNnt';
+import { AddMembers } from './AddMembers';
 import { DepartmentFieldYe } from './DepartmentFieldYe';
 import { IsOwnerFieldQe } from './IsOwnerFieldQe';
 import { UserDepartmentsFieldOot } from './UserDepartmentsFieldOot';
 
 export const ComponentIit = () => {
   const { t: tval } = useTranslation();
-  const { department, user } = useContext(contextK);
+  const { department, user } = useContext(DepartmentsContext);
   const { data, setState } = useResourceActionContext();
 
   const MemberActions = () => (department ? <SchemaComponent schema={schemaZe} /> : null);
@@ -55,7 +55,7 @@ export const ComponentIit = () => {
         }}
         components={{
           MemberActions: MemberActions,
-          AddMembers: AddMembersNnt,
+          AddMembers: AddMembers,
           RowRemoveAction: RowRemoveAction,
           DepartmentField: DepartmentFieldYe,
           IsOwnerField: IsOwnerFieldQe,

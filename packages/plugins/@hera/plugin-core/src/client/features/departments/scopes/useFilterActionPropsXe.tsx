@@ -10,42 +10,41 @@ import { useField } from '@tachybase/schema';
 
 import { useTranslation } from '../../../locale';
 import { ContextR } from '../components/ContextR';
-import { k } from '../others/k';
-import { T } from '../others/T';
-import { y } from '../others/y';
 
 export const useFilterActionPropsXe = () => {
-  const { setHasFilter: e, setExpandedKeys: t } = useContext(ContextR),
-    { t: o } = useTranslation(),
-    a = useContext(CollectionContext),
-    r = useFilterFieldOptions(a.fields),
-    c = useResourceActionContext(),
-    { run: i, defaultRequest: x } = c,
-    m = useField(),
-    { params: g } = x || {};
+  const { setHasFilter, setExpandedKeys } = useContext(ContextR);
+  const { t } = useTranslation();
+  const collection = useContext(CollectionContext);
+  const options = useFilterFieldOptions(collection.fields);
+  const service = useResourceActionContext();
+  const { run, defaultRequest } = service;
+  const field = useField();
+  const { params } = defaultRequest || {};
   return {
-    options: r,
-    onSubmit: (d) =>
-      k(this, null, function* () {
-        const A = g.filter,
-          b = removeNullCondition(d == null ? void 0 : d.filter);
-        i(T(y({}, g), { page: 1, pageSize: 10, filter: mergeFilter([b, A]) }));
-        const h = (b == null ? void 0 : b.$and) || (b == null ? void 0 : b.$or);
-        h != null && h.length
-          ? ((m.title = o('{{count}} filter items', { count: (h == null ? void 0 : h.length) || 0 })), e(true))
-          : ((m.title = o('Filter')), e(false));
-      }),
+    options: options,
+    onSubmit: async (args) => {
+      const filter = params.filter;
+      const defaultFilter = removeNullCondition(args?.filter) as any;
+      run({ ...params, page: 1, pageSize: 10, filter: mergeFilter([defaultFilter, filter]) });
+      const filters = defaultFilter?.$and || defaultFilter?.$or;
+      if (filters?.length) {
+        field.title = t('{{count}} filter items', { count: filters?.length || 0 });
+        setHasFilter(true);
+      } else {
+        field.title = t('Filter');
+        setHasFilter(false);
+      }
+    },
     onReset() {
-      i(
-        T(y({}, g || {}), {
-          filter: T(y({}, (g == null ? void 0 : g.filter) || {}), { parentId: null }),
-          page: 1,
-          pageSize: 10,
-        }),
-      ),
-        (m.title = o('Filter')),
-        e(false),
-        t([]);
+      run({
+        ...params,
+        filter: { ...(params?.filter || {}), parentId: null },
+        page: 1,
+        pageSize: 10,
+      });
+      field.title = t('Filter');
+      setHasFilter(false);
+      setExpandedKeys([]);
     },
   };
 };
