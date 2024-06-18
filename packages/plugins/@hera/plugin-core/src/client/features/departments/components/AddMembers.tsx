@@ -1,11 +1,10 @@
 import React, { useContext, useRef } from 'react';
 import { SchemaComponent, useAPIClient, useResourceActionContext } from '@tachybase/client';
 
-import { contextK } from '../context/contextK';
-import { k } from '../others/k';
+import { DepartmentsContext } from '../context/DepartmentsContext';
 import { schemaAddMembers } from '../schema/addMembers.schema';
 
-export const AddMembersNnt = () => {
+export const AddMembers = () => {
   const { department, useAddMembersAction, handleSelect } = useAction();
   return (
     <SchemaComponent
@@ -20,28 +19,15 @@ export const AddMembersNnt = () => {
 };
 
 function useAction() {
-  const { department } = useContext(contextK);
+  const { department } = useContext(DepartmentsContext);
   const { refresh } = useResourceActionContext();
   const ref = useRef([]);
   const api = useAPIClient();
   const useAddMembersAction = () => ({
-    run() {
-      return k(this, null, function* () {
-        const x = ref.current;
-
-        x != null &&
-          x.length &&
-          (yield api.resource('departments.members', department.id).add({ values: x }), (ref.current = []), refresh());
-      });
-    },
-  });
-
-  const useAddMembersAction2 = () => ({
     async run() {
       const x = ref.current;
-      if (x?.length > 0) {
-        await api.resource('departments.members', department.id).add({ values: x });
-        ref.current = [];
+      if (x?.length) {
+        await api.resource('departments.members', department.id).add({ values: x }), (ref.current = []);
         refresh();
       }
     },

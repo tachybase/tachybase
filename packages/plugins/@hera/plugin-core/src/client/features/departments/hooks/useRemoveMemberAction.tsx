@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { useAPIClient, useRecord, useResourceActionContext } from '@tachybase/client';
 
-import { contextK } from '../context/contextK';
+import { DepartmentsContext } from '../context/DepartmentsContext';
 import { k } from '../others/k';
 
 export const useRemoveMemberAction = () => {
   const e = useAPIClient(),
-    { department: t } = useContext(contextK),
+    { department: t } = useContext(DepartmentsContext),
     { id: o } = useRecord(),
     { refresh: a } = useResourceActionContext();
   return {

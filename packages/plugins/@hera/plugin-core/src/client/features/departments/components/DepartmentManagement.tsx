@@ -5,12 +5,12 @@ import { SchemaComponentOptions } from '@tachybase/client';
 import { Col, Row } from 'antd';
 
 import { useFilterActionPropsZ } from '../scopes/useFilterActionPropsZ';
-import { CeComponent } from './CeComponent';
-import { BeComponent } from './ComponentBe';
 import { ComponentEEE } from './ComponentEEE';
 import { ComponentIit } from './ComponentIit';
 import { DepartmentSelect } from './DepartmentSelect';
+import { DepartmentsResourceProvider } from './DepartmentsResourceProvider';
 import { SuperiorDepartmentSelect } from './SuperiorDepartmentSelect';
+import { UserResourceProvider } from './UserResourceProvider';
 
 export const DepartmentManagement = () => {
   return (
@@ -20,14 +20,14 @@ export const DepartmentManagement = () => {
     >
       <Row gutter={48} style={{ flexWrap: 'nowrap' }}>
         <Col span={6} style={{ borderRight: '1px solid #eee', minWidth: '300px' }}>
-          <CeComponent>
+          <DepartmentsResourceProvider>
             <ComponentEEE />
-          </CeComponent>
+          </DepartmentsResourceProvider>
         </Col>
         <Col flex="auto" style={{ overflow: 'hidden' }}>
-          <BeComponent>
+          <UserResourceProvider>
             <ComponentIit />
-          </BeComponent>
+          </UserResourceProvider>
         </Col>
       </Row>
     </SchemaComponentOptions>

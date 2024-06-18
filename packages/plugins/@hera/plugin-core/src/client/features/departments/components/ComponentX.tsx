@@ -6,17 +6,17 @@ import { App, Dropdown, Empty, Tree } from 'antd';
 import { jsx, jsxs } from 'react/jsx-runtime';
 
 import { useTranslation } from '../../../locale';
-import { contextK } from '../context/contextK';
-import { contextN } from '../context/contextN';
+import { DepartmentsContext } from '../context/DepartmentsContext';
+import { DepartmentsExpandedContext } from '../context/DepartmentsExpandedContext';
 import { k } from '../others/k';
 import { schemaHhe } from '../schema/schemaHhe';
 import { schemaYye } from '../schema/schemaYye';
 
 export const ComponentX = () => {
   const { data: e, loading: t } = useResourceActionContext();
-  const { department, setDepartment, setUser } = useContext(contextK);
+  const { department, setDepartment, setUser } = useContext(DepartmentsContext);
   const { treeData, nodeMap, loadData, loadedKeys, setLoadedKeys, initData, expandedKeys, setExpandedKeys } =
-    useContext(contextN);
+    useContext(DepartmentsExpandedContext);
 
   const h = (v) => {
     if (!v.length) return;
@@ -105,7 +105,7 @@ export const ComponentX = () => {
 ComponentX.Item = function ({ node: t, setVisible: o, setDrawer: a }) {
   const { t: r } = useTranslation(),
     { refreshAsync: c } = useResourceActionContext(),
-    { setLoadedKeys: i, expandedKeys: x, setExpandedKeys: m } = useContext(contextN),
+    { setLoadedKeys: i, expandedKeys: x, setExpandedKeys: m } = useContext(DepartmentsExpandedContext),
     { modal: g, message: d } = App.useApp(),
     A = useAPIClient(),
     b = () => {

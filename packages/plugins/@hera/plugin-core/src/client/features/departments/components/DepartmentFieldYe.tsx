@@ -3,11 +3,11 @@ import { EllipsisWithTooltip } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
 
 // import { jsx, jsxs } from 'react/jsx-runtime';
-import { contextK } from '../context/contextK';
+import { DepartmentsContext } from '../context/DepartmentsContext';
 import { getDepartmentStr } from '../utils/getDepartmentStr';
 
 export const DepartmentFieldYe = () => {
-  const { setDepartment } = useContext(contextK);
+  const { setDepartment } = useContext(DepartmentsContext);
   const field = useField<{ value: Array<any> }>();
   const fieldValues = field.value || [];
 

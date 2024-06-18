@@ -6,7 +6,7 @@ import { Table } from 'antd';
 import { jsx } from 'react/jsx-runtime';
 
 import { useTranslation } from '../../../locale';
-import { useHooksG } from '../hooks/useHooksG';
+import { useDepTree2 } from '../hooks/useDepTree2';
 import { T } from '../others/T';
 import { y } from '../others/y';
 import { getDepartmentStr } from '../utils/getDepartmentStr';
@@ -19,7 +19,7 @@ export const InternalDepartmentTableRe = ({ useDisabled: e = Ze }) => {
   console.log(o);
   const { run: a, data: r, loading: c, defaultRequest: i } = o,
     { resource: x, resourceOf: m, params: g } = i || {},
-    { treeData: d, initData: A, loadData: b } = useHooksG({ resource: x, resourceOf: m, params: g }),
+    { treeData: d, initData: A, loadData: b } = useDepTree2({ resource: x, resourceOf: m, params: g }),
     h = useField(),
     { disabled: F } = e(),
     { hasFilter: C, expandedKeys: v, setExpandedKeys: l } = useContext(ContextR);
@@ -37,14 +37,14 @@ export const InternalDepartmentTableRe = ({ useDisabled: e = Ze }) => {
     rowSelection: {
       selectedRowKeys: ((h == null ? void 0 : h.value) || []).map((f) => f.id),
       onChange: (f, S) => {
-        var O;
+        let O;
         return (O = h == null ? void 0 : h.setValue) == null ? void 0 : O.call(h, S);
       },
       getCheckboxProps: (f) => ({ disabled: F(f) }),
     },
     pagination: T(y({ showSizeChanger: true }, u), {
       onChange(f, S) {
-        var O;
+        let O;
         a(T(y({}, ((O = o == null ? void 0 : o.params) == null ? void 0 : O[0]) || {}), { page: f, pageSize: S }));
       },
     }),

@@ -5,15 +5,15 @@ import { UserOutlined } from '@ant-design/icons';
 import { Button, Divider, Row, theme } from 'antd';
 
 import { useTranslation } from '../../../locale';
-import { contextK } from '../context/contextK';
-import { ContextNProvider } from '../context/contextN';
+import { DepartmentsContext } from '../context/DepartmentsContext';
+import { DepartmentsExpandedContextProvider } from '../context/DepartmentsExpandedContext';
 import { useCreateDepartment } from '../hooks/useCreateDepartment';
-import { useHooksG } from '../hooks/useHooksG';
-import { useUpdateDepartmentLe } from '../hooks/useUpdateDepartmentLe';
+import { useDepTree2 } from '../hooks/useDepTree2';
+import { useUpdateDepartment } from '../hooks/useUpdateDepartment';
 import { ComponentSe } from './ComponentSe';
 import { ComponentX } from './ComponentX';
-import { ComponentXxe } from './ComponentXxe';
 import { DepartmentOwnersField } from './DepartmentOwnersField';
+import { NewDepartment } from './NewDepartment';
 
 interface drawerState {
   node?: object;
@@ -21,14 +21,14 @@ interface drawerState {
 }
 
 export const ComponentEEE = () => {
-  const { t: tval } = useTranslation();
+  const { t } = useTranslation();
 
   const [visible, setVisible] = useState(false);
   const [drawer, setDrawer] = useState<drawerState>({});
 
-  const { department, setDepartment } = useContext(contextK);
+  const { department, setDepartment } = useContext(DepartmentsContext);
   const { token } = theme.useToken();
-  const m = useHooksG({
+  const m = useDepTree2({
     label: ({ node }) => <ComponentX.Item node={node} setVisible={setVisible} setDrawer={setDrawer} />,
   });
 
@@ -36,10 +36,10 @@ export const ComponentEEE = () => {
     <SchemaComponentOptions
       scope={{
         useCreateDepartment,
-        useUpdateDepartment: useUpdateDepartmentLe,
+        useUpdateDepartment,
       }}
     >
-      <ContextNProvider value={m}>
+      <DepartmentsExpandedContextProvider value={m}>
         <Row>
           <ComponentSe />
           <Button
@@ -55,9 +55,9 @@ export const ComponentEEE = () => {
             }}
             block={true}
           >
-            {tval('All users')}
+            {t('All users')}
           </Button>
-          <ComponentXxe />
+          <NewDepartment />
         </Row>
         <Divider style={{ margin: '12px 0' }} />
         <ComponentX />
@@ -70,7 +70,7 @@ export const ComponentEEE = () => {
           <RecordProvider record={drawer.node || {}}>
             <SchemaComponent
               scope={{
-                t: tval,
+                t,
               }}
               components={{
                 DepartmentOwnersField,
@@ -79,48 +79,7 @@ export const ComponentEEE = () => {
             />
           </RecordProvider>
         </ActionContextProvider>
-      </ContextNProvider>
+      </DepartmentsExpandedContextProvider>
     </SchemaComponentOptions>
   );
-
-  // return jsx(SchemaComponentOptions, {
-  //   scope: {
-  //     useCreateDepartment: useCreateDepartment,
-  //     useUpdateDepartment: useUpdateDepartmentLe,
-  //   },
-  //   children: jsxs(contextN.Provider, {
-  //     value: m,
-  //     children: [
-  //       jsxs(Row, {
-  //         children: [
-  //           jsx(ComponentSe, {}),
-  //           jsx(Button, {
-  //             type: 'text',
-  //             icon: jsx(UserOutlined, {}),
-  //             style: { textAlign: 'left', marginBottom: '5px', background: c ? '' : x.colorBgTextHover },
-  //             onClick: () => {
-  //               i(null);
-  //             },
-  //             block: true,
-  //             children: e('All users'),
-  //           }),
-  //           jsx(ComponentXxe, {}),
-  //         ],
-  //       }),
-  //       jsx(Divider, { style: { margin: '12px 0' } }),
-  //       jsx(ComponentX, {}),
-  //       jsx(ActionContextProvider, {
-  //         value: { visible: t, setVisible: o },
-  //         children: jsx(RecordProvider, {
-  //           record: a.node || {},
-  //           children: jsx(SchemaComponent, {
-  //             scope: { t: e },
-  //             components: { DepartmentOwnersField: DepartmentOwnersField },
-  //             schema: a.schema || {},
-  //           }),
-  //         }),
-  //       }),
-  //     ],
-  //   }),
-  // });
 };

@@ -20,14 +20,13 @@ interface contextType {
   };
 }
 
-// XXX: 等待所有引用重置为以下两个函数后, 删除导出声明
-export const contextK = React.createContext<contextType>({
+export const DepartmentsContext = React.createContext<contextType>({
   user: {},
   department: {},
 });
 
-export const ContextKProvider = contextK.Provider;
+export const DepartmentsContextProvider = DepartmentsContext.Provider;
 
-export function useContextK() {
-  return useContext(contextK);
+export function useDepartments() {
+  return useContext(DepartmentsContext);
 }

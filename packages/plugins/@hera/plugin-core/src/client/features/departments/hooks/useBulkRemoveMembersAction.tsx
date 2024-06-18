@@ -4,7 +4,7 @@ import { useAPIClient, useResourceActionContext } from '@tachybase/client';
 import { App } from 'antd';
 
 import { useTranslation } from '../../../locale';
-import { contextK } from '../context/contextK';
+import { DepartmentsContext } from '../context/DepartmentsContext';
 import { k } from '../others/k';
 
 export const useBulkRemoveMembersAction = () => {
@@ -12,7 +12,7 @@ export const useBulkRemoveMembersAction = () => {
     { message: t } = App.useApp(),
     o = useAPIClient(),
     { state: a, setState: r, refresh: c } = useResourceActionContext(),
-    { department: i } = useContext(contextK);
+    { department: i } = useContext(DepartmentsContext);
   return {
     run() {
       return k(this, null, function* () {
