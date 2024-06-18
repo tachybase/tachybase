@@ -23,6 +23,7 @@ import { PluginParallel } from './features/parallel/Plugin';
 import { PluginRequest } from './features/request/Plugin';
 import { PluginResponse } from './features/response';
 import { PluginSql } from './features/sql/Plugin';
+import { PluginTriggerInstruction } from './features/trigger-instruction/plugin';
 import { PluginVariables } from './features/variables';
 import initFunctions, { CustomFunction } from './functions';
 import { Instruction, InstructionInterface } from './instructions';
@@ -78,6 +79,7 @@ export default class PluginWorkflowServer extends Plugin {
     this.addFeature(PluginVariables);
     this.addFeature(PluginResponse);
     this.addFeature(PluginOmniTrigger);
+    this.addFeature(PluginTriggerInstruction);
   }
 
   getLogger(workflowId: ID): Logger {

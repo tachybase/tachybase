@@ -18,6 +18,7 @@ import { PluginParallel } from './features/parallel';
 import { PluginRequest } from './features/request';
 import { PluginResponse } from './features/response';
 import { PluginSql } from './features/sql';
+import { PluginTriggerInstruction } from './features/trigger-instruction/plugin';
 import { PluginVariables } from './features/variables';
 import { NAMESPACE } from './locale';
 import { Instruction } from './nodes';
@@ -89,6 +90,7 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginVariables);
     await this.pm.add(PluginResponse);
     await this.pm.add(PluginOmniTrigger);
+    await this.pm.add(PluginTriggerInstruction);
   }
 
   async load() {
