@@ -54,7 +54,114 @@ export async function destroy(context: Context, next) {
   next();
 }
 
-export async function revision(context: Context, next) {
+export async function dump(context: Context, next: Next) {
+  const repository = utils.getRepositoryFromParams(context);
+  const { filterByTk, filter = {}, values = {} } = context.action.params;
+
+  context.body = await context.db.sequelize.transaction(async (transaction) => {
+    const origin = await repository.findOne({
+      filterByTk,
+      filter,
+      appends: ['nodes'],
+      context,
+      transaction,
+    });
+
+    const revisionData = filter.key
+      ? {
+          key: filter.key,
+          title: origin.title,
+          triggerTitle: origin.triggerTitle,
+          allExecuted: origin.allExecuted,
+          sync: origin.sync,
+        }
+      : values;
+
+    const dumpOne = {
+      ...origin.toJSON(),
+      ...revisionData,
+    };
+
+    return dumpOne;
+  });
+
+  await next();
+}
+
+export async function load(context: Context, next: Next) {
+  const plugin = context.app.getPlugin(Plugin);
+  const repository = utils.getRepositoryFromParams(context);
+  const { values = {} } = context.action.params;
+
+  context.body = await context.db.sequelize.transaction(async (transaction) => {
+    const origin = values.workflow;
+
+    const trigger = plugin.triggers.get(origin.type);
+
+    const instance = await repository.create({
+      values: {
+        title: values.title,
+        description: origin.description,
+        type: origin.type,
+        triggerTitle: origin.triggerTitle,
+        allExecuted: origin.allExecuted,
+        sync: origin.sync,
+        config:
+          typeof trigger.duplicateConfig === 'function'
+            ? await trigger.duplicateConfig(origin, { transaction })
+            : origin.config,
+      },
+      transaction,
+    });
+
+    const originalNodesMap = new Map();
+    origin.nodes.forEach((node) => {
+      originalNodesMap.set(node.id, node);
+    });
+
+    const oldToNew = new Map();
+    const newToOld = new Map();
+    for await (const node of origin.nodes) {
+      const instruction = plugin.instructions.get(node.type);
+      const newNode = await instance.createNode(
+        {
+          type: node.type,
+          key: node.key,
+          config:
+            typeof instruction.duplicateConfig === 'function'
+              ? await instruction.duplicateConfig(node, { transaction })
+              : node.config,
+          title: node.title,
+          branchIndex: node.branchIndex,
+        },
+        { transaction },
+      );
+      // NOTE: keep original node references for later replacement
+      oldToNew.set(node.id, newNode);
+      newToOld.set(newNode.id, node);
+    }
+
+    for await (const [oldId, newNode] of oldToNew.entries()) {
+      const oldNode = originalNodesMap.get(oldId);
+      const newUpstream = oldNode.upstreamId ? oldToNew.get(oldNode.upstreamId) : null;
+      const newDownstream = oldNode.downstreamId ? oldToNew.get(oldNode.downstreamId) : null;
+
+      await newNode.update(
+        {
+          upstreamId: newUpstream?.id ?? null,
+          downstreamId: newDownstream?.id ?? null,
+        },
+        { transaction },
+      );
+    }
+
+    return instance;
+  });
+
+  await next();
+}
+
+export async function revision(context: Context, next: Next) {
   const plugin = context.app.getPlugin(Plugin);
   const repository = utils.getRepositoryFromParams(context);
   const { filterByTk, filter = {}, values = {} } = context.action.params;
