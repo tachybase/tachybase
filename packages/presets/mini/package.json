@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-mini",
-  "version": "0.21.56",
+  "version": "0.21.57",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {
