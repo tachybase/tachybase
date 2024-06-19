@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CollectionProvider_deprecated, ResourceActionContext } from '@tachybase/client';
 
 import { collectionDepartments } from '../collections/departments.collection';
-import { ContextR } from './ContextR';
+import { FilterKeysContext } from '../context/FilterKeysContext';
 
 export const RequestProvider = (prop) => {
   const [expandedKeys, setExpandedKeys] = useState([]);
@@ -15,9 +15,9 @@ export const RequestProvider = (prop) => {
   return (
     <ResourceActionContext.Provider value={service}>
       <CollectionProvider_deprecated collection={collectionDepartments}>
-        <ContextR.Provider value={{ expandedKeys, setExpandedKeys, hasFilter, setHasFilter }}>
+        <FilterKeysContext.Provider value={{ expandedKeys, setExpandedKeys, hasFilter, setHasFilter }}>
           {prop.children}
-        </ContextR.Provider>
+        </FilterKeysContext.Provider>
       </CollectionProvider_deprecated>
     </ResourceActionContext.Provider>
   );

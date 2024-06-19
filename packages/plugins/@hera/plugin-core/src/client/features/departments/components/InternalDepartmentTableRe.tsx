@@ -10,7 +10,7 @@ import { useDepTree2 } from '../hooks/useDepTree2';
 import { T } from '../others/T';
 import { y } from '../others/y';
 import { getDepartmentStr } from '../utils/getDepartmentStr';
-import { ContextR } from './ContextR';
+import { FilterKeysContext } from '../context/FilterKeysContext';
 
 const Ze = () => ({ disabled: () => false });
 export const InternalDepartmentTableRe = ({ useDisabled: e = Ze }) => {
@@ -22,7 +22,7 @@ export const InternalDepartmentTableRe = ({ useDisabled: e = Ze }) => {
     { treeData: d, initData: A, loadData: b } = useDepTree2({ resource: x, resourceOf: m, params: g }),
     h = useField(),
     { disabled: F } = e(),
-    { hasFilter: C, expandedKeys: v, setExpandedKeys: l } = useContext(ContextR);
+    { hasFilter: C, expandedKeys: v, setExpandedKeys: l } = useContext(FilterKeysContext);
   useEffect(() => {
     C || A(r == null ? void 0 : r.data);
   }, [r, A, c, C]);

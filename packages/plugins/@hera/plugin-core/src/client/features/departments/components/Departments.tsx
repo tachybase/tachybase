@@ -4,9 +4,9 @@ import { RolesManagerContext } from '@tachybase/plugin-acl/client';
 
 import { useTranslation } from '../../../locale';
 import { collectionDepartments } from '../collections/departments.collection';
-import { useAddDepartmentsGgt } from '../hooks/useAddDepartmentsGgt';
+import { useAddDepartments } from '../hooks/useAddDepartments';
 import { useBulkRemoveDepartmentsYyt } from '../hooks/useBulkRemoveDepartmentsYyt';
-import { useDataSourceFt } from '../hooks/useDataSourceFt';
+import { useDataSource2 } from '../hooks/useDataSource2';
 import { useDisabledVvt } from '../hooks/useDisabledVvt';
 import { useRemoveDepartmentXxt } from '../hooks/useRemoveDepartmentXxt';
 import { getSchemaDdt } from '../schema/getSchemaDdt';
@@ -40,9 +40,9 @@ export const Departments = () => {
             t,
             useRemoveDepartment: useRemoveDepartmentXxt,
             useBulkRemoveDepartments: useBulkRemoveDepartmentsYyt,
-            useDataSource: useDataSourceFt,
+            useDataSource: useDataSource2,
             useDisabled: useDisabledVvt,
-            useAddDepartments: useAddDepartmentsGgt,
+            useAddDepartments,
           }}
         ></SchemaComponent>
       </CollectionProvider_deprecated>

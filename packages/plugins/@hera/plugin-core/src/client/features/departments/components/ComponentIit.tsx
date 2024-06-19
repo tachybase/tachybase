@@ -1,7 +1,5 @@
-import React, { Fragment, useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { SchemaComponent, useResourceActionContext } from '@tachybase/client';
-
-import { jsx, jsxs } from 'react/jsx-runtime';
 
 import { useTranslation } from '../../../locale';
 import { DepartmentsContext } from '../context/DepartmentsContext';
@@ -15,7 +13,7 @@ import { schemaZe } from '../schema/schemaZe';
 import { useFilterActionPropsZ } from '../scopes/useFilterActionPropsZ';
 import { AddMembers } from './AddMembers';
 import { DepartmentFieldYe } from './DepartmentFieldYe';
-import { IsOwnerFieldQe } from './IsOwnerFieldQe';
+import { IsOwnerField } from './IsOwnerField';
 import { UserDepartmentsFieldOot } from './UserDepartmentsFieldOot';
 
 export const ComponentIit = () => {
@@ -58,39 +56,11 @@ export const ComponentIit = () => {
           AddMembers: AddMembers,
           RowRemoveAction: RowRemoveAction,
           DepartmentField: DepartmentFieldYe,
-          IsOwnerField: IsOwnerFieldQe,
+          IsOwnerField: IsOwnerField,
           UserDepartmentsField: UserDepartmentsFieldOot,
         }}
         schema={schema}
       />
     </>
   );
-
-  // return jsxs(Fragment, {
-  //   children: [
-  //     o
-  //       ? jsx('h2', { children: e('Search results') })
-  //       : jsx('h2', {
-  //           children: e((t == null ? void 0 : t.title) || 'All users'),
-  //         }),
-  //     jsx(SchemaComponent, {
-  //       scope: {
-  //         useBulkRemoveMembersAction: useBulkRemoveMembersAction,
-  //         useMembersDataSource: useMembersDataSource,
-  //         t: e,
-  //         useShowTotal: useShowTotal,
-  //         useFilterActionProps: useFilterActionPropsZ,
-  //       },
-  //       components: {
-  //         MemberActions: c,
-  //         AddMembers: AddMembersNnt,
-  //         RowRemoveAction: i,
-  //         DepartmentField: DepartmentFieldYe,
-  //         IsOwnerField: IsOwnerFieldQe,
-  //         UserDepartmentsField: UserDepartmentsFieldOot,
-  //       },
-  //       schema: x,
-  //     }),
-  //   ],
-  // });
 };

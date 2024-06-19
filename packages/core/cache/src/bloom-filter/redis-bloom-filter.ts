@@ -10,26 +10,26 @@ export class RedisBloomFilter implements BloomFilter {
   }
 
   getStore() {
-    return this.cache.store.store as RedisStore;
+    return this.cache.store.store;
   }
 
   async reserve(key: string, errorRate: number, capacity: number) {
-    const store = this.getStore();
+    const store = this.getStore() as RedisStore;
     await store.client.bf.reserve(key, errorRate, capacity);
   }
 
   async add(key: string, value: string) {
-    const store = this.getStore();
+    const store = this.getStore() as RedisStore;
     await store.client.bf.add(key, value);
   }
 
   async mAdd(key: string, values: string[]) {
-    const store = this.getStore();
+    const store = this.getStore() as RedisStore;
     await store.client.bf.mAdd(key, values);
   }
 
   async exists(key: string, value: string) {
-    const store = this.getStore();
+    const store = this.getStore() as RedisStore;
     return await store.client.bf.exists(key, value);
   }
 }

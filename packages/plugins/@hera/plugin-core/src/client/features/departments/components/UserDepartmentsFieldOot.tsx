@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import {
   ActionContextProvider,
   SchemaComponent,
@@ -7,14 +7,14 @@ import {
   useRequest,
   useResourceActionContext,
 } from '@tachybase/client';
-import { useField, useForm } from '@tachybase/schema';
+import { Field, useField, useForm } from '@tachybase/schema';
 
 import { MoreOutlined, PlusOutlined } from '@ant-design/icons';
 import { App, Button, Dropdown, Tag } from 'antd';
 import { jsx, jsxs } from 'react/jsx-runtime';
 
 import { useTranslation } from '../../../locale';
-import { useDataSourceTtt } from '../hooks/useDataSourceTtt';
+import { useDataSource } from '../hooks/useDataSource';
 import { k } from '../others/k';
 import { T } from '../others/T';
 import { y } from '../others/y';
@@ -23,129 +23,128 @@ import { getDepartmentStr } from '../utils/getDepartmentStr';
 import { DepartmentTablePpe } from './DepartmentTablePpe';
 
 export const UserDepartmentsFieldOot = () => {
-  const { modal: e, message: t } = App.useApp(),
-    { t: o } = useTranslation(),
-    [a, r] = useState(false),
-    c = useRecord(),
-    i = useField(),
-    { refresh: x } = useResourceActionContext(),
-    m = (l) =>
-      l != null && l.length
-        ? l.map((u) => {
-            var f, S;
-            return T(y({}, u), {
-              isMain: (f = u.departmentsUsers) == null ? void 0 : f.isMain,
-              isOwner: (S = u.departmentsUsers) == null ? void 0 : S.isOwner,
-              title: getDepartmentStr(u),
-            });
-          })
-        : [],
-    g = useAPIClient();
+  const { modal, message } = App.useApp();
+  const { t } = useTranslation();
+  const [visible, setVisible] = useState(false);
+  const user = useRecord();
+  const field = useField<Field>();
+  const { refresh: x } = useResourceActionContext();
+  const m = (l) =>
+    l != null && l.length
+      ? l.map((u) => {
+          return {
+            ...u,
+            isMain: u.departmentsUsers?.isMain,
+            isOwner: u.departmentsUsers?.isOwner,
+            title: getDepartmentStr(u),
+          };
+        })
+      : [];
+  const api = useAPIClient();
   useRequest(
     () =>
-      g
-        .resource('users.departments', c.id)
+      api
+        .resource('users.departments', user.id)
         .list({ appends: ['parent(recursively=true)'], pagination: false })
-        .then((l) => {
-          var f;
-          const u = m((f = l == null ? void 0 : l.data) == null ? void 0 : f.data);
-          i.setValue(u);
+        .then((result) => {
+          const u = m(result?.data?.data);
+          field.setValue(u);
         }),
-    { ready: c.id },
+    { ready: user.id },
   );
-  const d = () => {
-      const l = useAPIClient(),
-        u = useForm(),
-        { departments: f } = u.values || {};
-      return {
-        run() {
-          return k(this, null, function* () {
-            yield l.resource('users.departments', c.id).add({ values: f.map((O) => O.id) }),
-              u.reset(),
-              i.setValue([
-                ...i.value,
-                ...f.map((O, $) =>
-                  T(y({}, O), { isMain: $ === 0 && i.value.length === 0, title: getDepartmentStr(O) }),
-                ),
-              ]),
-              r(false),
-              x();
-          });
-        },
-      };
-    },
-    A = (l) => {
-      e.confirm({
-        title: o('Remove department'),
-        content: o('Are you sure you want to remove it?'),
-        onOk: () =>
-          k(this, null, function* () {
-            yield g.resource('users.departments', c.id).remove({ values: [l.id] }),
-              t.success(o('Deleted successfully')),
-              i.setValue(
-                i.value
-                  .filter((u) => u.id !== l.id)
-                  .map((u, f) => T(y({}, u), { isMain: (l.isMain && f === 0) || u.isMain })),
+  const useAddDepartments = () => {
+    const api = useAPIClient();
+    const form = useForm();
+    const { departments: f } = form.values || {};
+    return {
+      run() {
+        return k(this, null, function* () {
+          yield api.resource('users.departments', user.id).add({ values: f.map((O) => O.id) }),
+            form.reset(),
+            field.setValue([
+              ...field.value,
+              ...f.map((O, $) =>
+                T(y({}, O), { isMain: $ === 0 && field.value.length === 0, title: getDepartmentStr(O) }),
               ),
-              x();
-          }),
-      });
-    },
-    b = (l) =>
-      k(this, null, function* () {
-        yield g.resource('users').setMainDepartment({ values: { userId: c.id, departmentId: l.id } }),
-          t.success(o('Set successfully')),
-          i.setValue(i.value.map((u) => T(y({}, u), { isMain: u.id === l.id }))),
-          x();
-      }),
-    h = (l) =>
-      k(this, null, function* () {
-        yield g.resource('departments').setOwner({ values: { userId: c.id, departmentId: l.id } }),
-          t.success(o('Set successfully')),
-          i.setValue(i.value.map((u) => T(y({}, u), { isOwner: u.id === l.id ? true : u.isOwner }))),
-          x();
-      }),
-    F = (l) =>
-      k(this, null, function* () {
-        yield g.resource('departments').removeOwner({ values: { userId: c.id, departmentId: l.id } }),
-          t.success(o('Set successfully')),
-          i.setValue(i.value.map((u) => T(y({}, u), { isOwner: u.id === l.id ? false : u.isOwner }))),
-          x();
-      }),
-    C = (l, u) => {
-      switch (l) {
-        case 'setMain':
-          b(u);
-          break;
-        case 'setOwner':
-          h(u);
-          break;
-        case 'removeOwner':
-          F(u);
-          break;
-        case 'remove':
-          A(u);
-      }
-    },
-    v = () => ({ disabled: (l) => i.value.some((u) => u.id === l.id) });
+            ]),
+            setVisible(false),
+            x();
+        });
+      },
+    };
+  };
+  const A = (l) => {
+    modal.confirm({
+      title: t('Remove department'),
+      content: t('Are you sure you want to remove it?'),
+      onOk: () =>
+        k(this, null, function* () {
+          yield api.resource('users.departments', user.id).remove({ values: [l.id] }),
+            message.success(t('Deleted successfully')),
+            field.setValue(
+              field.value
+                .filter((u) => u.id !== l.id)
+                .map((u, f) => T(y({}, u), { isMain: (l.isMain && f === 0) || u.isMain })),
+            ),
+            x();
+        }),
+    });
+  };
+  const b = (l) =>
+    k(this, null, function* () {
+      yield api.resource('users').setMainDepartment({ values: { userId: user.id, departmentId: l.id } }),
+        message.success(t('Set successfully')),
+        field.setValue(field.value.map((u) => T(y({}, u), { isMain: u.id === l.id }))),
+        x();
+    });
+  const h = (l) =>
+    k(this, null, function* () {
+      yield api.resource('departments').setOwner({ values: { userId: user.id, departmentId: l.id } }),
+        message.success(t('Set successfully')),
+        field.setValue(field.value.map((u) => T(y({}, u), { isOwner: u.id === l.id ? true : u.isOwner }))),
+        x();
+    });
+  const F = (l) =>
+    k(this, null, function* () {
+      yield api.resource('departments').removeOwner({ values: { userId: user.id, departmentId: l.id } }),
+        message.success(t('Set successfully')),
+        field.setValue(field.value.map((u) => T(y({}, u), { isOwner: u.id === l.id ? false : u.isOwner }))),
+        x();
+    });
+  const C = (l, u) => {
+    switch (l) {
+      case 'setMain':
+        b(u);
+        break;
+      case 'setOwner':
+        h(u);
+        break;
+      case 'removeOwner':
+        F(u);
+        break;
+      case 'remove':
+        A(u);
+    }
+  };
+  const useDisabled = () => ({ disabled: (l) => field.value.some((u) => u.id === l.id) });
   return jsxs(ActionContextProvider, {
-    value: { visible: a, setVisible: r },
+    value: { visible: visible, setVisible: setVisible },
     children: [
       jsxs(Fragment, {
         children: [
-          ((i == null ? void 0 : i.value) || []).map((l) =>
+          (field?.value || []).map((l) =>
             jsxs(
               Tag,
               {
                 style: { padding: '5px 8px', background: 'transparent', marginBottom: '5px' },
                 children: [
                   jsx('span', { style: { marginRight: '5px' }, children: l.title }),
-                  l.isMain ? jsx(Tag, { color: 'processing', bordered: false, children: o('Main') }) : '',
+                  l.isMain ? jsx(Tag, { color: 'processing', bordered: false, children: t('Main') }) : '',
                   jsx(Dropdown, {
                     menu: {
                       items: [
-                        ...(l.isMain ? [] : [{ label: o('Set as main department'), key: 'setMain' }]),
-                        { label: o('Remove'), key: 'remove' },
+                        ...(l.isMain ? [] : [{ label: t('Set as main department'), key: 'setMain' }]),
+                        { label: t('Remove'), key: 'remove' },
                       ],
                       onClick: ({ key: u }) => C(u, l),
                     },
@@ -159,21 +158,22 @@ export const UserDepartmentsFieldOot = () => {
               l.id,
             ),
           ),
-          jsx(Button, { icon: jsx(PlusOutlined, {}), onClick: () => r(true) }),
+          <Button key={1} icon={<PlusOutlined />} onClick={() => setVisible(true)} />,
         ],
       }),
-      jsx(SchemaComponent, {
-        schema: schemaJe,
-        components: {
+      <SchemaComponent
+        key={2}
+        schema={schemaJe}
+        components={{
           DepartmentTable: DepartmentTablePpe,
-        },
-        scope: {
-          user: c,
-          useDataSource: useDataSourceTtt,
-          useAddDepartments: d,
-          useDisabled: v,
-        },
-      }),
+        }}
+        scope={{
+          user,
+          useDataSource,
+          useAddDepartments,
+          useDisabled,
+        }}
+      />,
     ],
   });
 };

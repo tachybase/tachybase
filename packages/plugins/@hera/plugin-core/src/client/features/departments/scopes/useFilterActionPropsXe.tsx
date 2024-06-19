@@ -9,10 +9,10 @@ import {
 import { useField } from '@tachybase/schema';
 
 import { useTranslation } from '../../../locale';
-import { ContextR } from '../components/ContextR';
+import { FilterKeysContext } from '../context/FilterKeysContext';
 
 export const useFilterActionPropsXe = () => {
-  const { setHasFilter, setExpandedKeys } = useContext(ContextR);
+  const { setHasFilter, setExpandedKeys } = useContext(FilterKeysContext);
   const { t } = useTranslation();
   const collection = useContext(CollectionContext);
   const options = useFilterFieldOptions(collection.fields);
