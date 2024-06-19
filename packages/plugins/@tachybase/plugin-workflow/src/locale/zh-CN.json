@@ -312,7 +312,6 @@
   "Unassigned fields will be set to default values, and those without default values will be set to null.": "未被赋值的字段将被设置为默认值，没有默认值的设置为空值。",
   "Unconfigured": "未配置",
   "Unprocessed": "未处理",
-  "Unprocessed": "未处理",
   "Update all eligible data at one time, which has better performance when the amount of data is large. But the updated data will not trigger other workflows, and will not record audit logs.": "一次性更新所有符合条件的数据，在数据量较大时有比较好的性能；但被更新的数据不会触发其他工作流，也不会记录更新日志。",
   "Update in a batch": "批量更新",
   "Update mode": "更新模式",
@@ -344,6 +343,7 @@
   "Workflow will be triggered before or after submitting succeeded based on workflow type.": "工作流会基于其类型在提交成功之前或之后触发。",
   "Workflow will be triggered directly once the button clicked, without data saving.": "按钮点击后直接触发工作流，但不会保存数据。",
   "Workflow": "工作流",
+  "Webhook manager": "Webhook 管理",
   "\"Content-Type\" only support \"application/json\", and no need to specify": "\"Content-Type\" 请求头仅支持 \"application/json\"，无需填写",
   "concat": "连接",
   "ms": "毫秒"

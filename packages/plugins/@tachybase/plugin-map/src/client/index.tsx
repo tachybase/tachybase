@@ -1,5 +1,5 @@
 import React from 'react';
-import { CurrentAppInfoProvider, Plugin, SchemaComponentOptions } from '@tachybase/client';
+import { Plugin, SchemaComponentOptions } from '@tachybase/client';
 
 import { MapBlockOptions } from './block';
 import { mapActionInitializers, mapActionInitializers_deprecated } from './block/MapActionInitializers';
@@ -40,7 +40,7 @@ export class MapPlugin extends Plugin {
     });
 
     this.app.pluginSettingsManager.add(NAMESPACE, {
-      title: `{{t("Map Manager", { ns: "${NAMESPACE}" })}}`,
+      title: generateNTemplate('Map Manager'),
       icon: 'EnvironmentOutlined',
       Component: Configuration,
       aclSnippet: 'pm.map.configuration',

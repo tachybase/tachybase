@@ -1,21 +1,18 @@
-import { i18n } from '@tachybase/client';
-import { useTranslation } from 'react-i18next';
+import { i18n, tval, useApp } from '@tachybase/client';
 
 export const NAMESPACE = 'map';
 
-// i18n.addResources('zh-CN', NAMESPACE, zhCN);
-// i18n.addResources('en-US', NAMESPACE, enUS);
 
 export function lang(key: string) {
-  return i18n.t(key, { ns: NAMESPACE });
+  return i18n.t(key, { ns: [NAMESPACE, 'client'] });
 }
 
 export function generateNTemplate(key: string) {
-  return `{{t('${key}', { ns: '${NAMESPACE}', nsMode: 'fallback' })}}`;
+  return tval(key, { ns: [NAMESPACE, 'client'] });
 }
 
 export function useMapTranslation() {
-  return useTranslation(NAMESPACE, {
-    nsMode: 'fallback',
-  });
+    const { i18n } = useApp();
+    const t = (key: string, props = {}) => i18n.t(key, { ns: [NAMESPACE, 'client'], ...props });
+    return { t };
 }

@@ -7,10 +7,6 @@
     "Workflow"
   ],
   "license": "Apache-2.0",
-  "exports": {
-    ".": "./dist/server/index.js",
-    "./client": "./dist/client/index.js"
-  },
   "main": "./dist/server/index.js",
   "dependencies": {
     "jsonata": "^2.0.5"
