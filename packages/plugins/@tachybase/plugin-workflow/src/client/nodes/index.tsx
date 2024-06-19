@@ -38,10 +38,20 @@ export type NodeAvailableContext = {
   branchIndex: number;
 };
 
+export const enum BuiltinGroupType {
+  CONTROL = 'control',
+  COLLECTION = 'collection',
+  EXTENDED = 'extended',
+  MANUAL = 'manual',
+  ADVANCED = 'advanced',
+}
+
+export type GroupType = BuiltinGroupType | string;
+
 export abstract class Instruction {
   title: string;
   type: string;
-  group: string;
+  group: GroupType;
   description?: string;
   options?: { label: string; value: any; key: string }[];
   fieldset: { [key: string]: ISchema };

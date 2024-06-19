@@ -310,12 +310,21 @@ export const InternalAdminLayout = () => {
         </div>
       </Layout.Header>
       {params.name && (
-        <Layout.Sider theme={'light'} ref={sideMenuRef} style={{ height: '100vh' }}>
+        <Layout.Sider
+          theme={'light'}
+          ref={sideMenuRef}
+          style={{ height: '100vh' }}
+          className={css`
+            .ant-layout-sider-children {
+              display: flex;
+              flex-direction: column;
+            }
+          `}
+        >
           <header
             className={css`
-              flex-shrink: 0;
               height: var(--tb-header-height);
-              line-height: var(--tb-header-height);
+              width: 100%;
               background: transparent;
               pointer-events: none;
             `}

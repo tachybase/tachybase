@@ -1,11 +1,11 @@
 import React from 'react';
 import { Plugin, SchemaComponentContext, useSchemaComponentContext } from '@tachybase/client';
-import PluginACLClient from '@tachybase/plugin-acl/client';
+import { PluginACLClient } from '@tachybase/plugin-acl/client';
 
 import { tval } from '../../locale';
 import { Departments } from './components/Departments';
 import { DepartmentsProvider } from './components/DepartmentsProvider';
-import { MmtComponent } from './components/MmtComponent';
+import { DepartmentManagementComponent } from './components/DepartmentManagementComponent';
 import { UserDepartmentsField } from './components/UserDepartmentsField';
 import { DepartmentOwnersFieldSetting } from './settings/DepartmentOwnersFieldSetting';
 import { UserDepartmentsFieldSetting } from './settings/UserDepartmentsFieldSetting';
@@ -29,7 +29,7 @@ export class DepartmentsPlugin extends Plugin {
         return (
           <SchemaComponentContext.Provider value={{ ...context, designable: false }}>
             <DepartmentsProvider>
-              <MmtComponent />
+              <DepartmentManagementComponent />
             </DepartmentsProvider>
           </SchemaComponentContext.Provider>
         );

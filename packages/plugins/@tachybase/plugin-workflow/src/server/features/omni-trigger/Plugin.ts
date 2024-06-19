@@ -6,6 +6,6 @@ import { OmniTrigger } from './CustomActionTrigger';
 export class PluginOmniTrigger extends Plugin {
   async load() {
     const workflowPlugin = this.app.pm.get(PluginWorkflowServer) as PluginWorkflowServer;
-    workflowPlugin.registerTrigger('omni-action', OmniTrigger);
+    workflowPlugin.registerTrigger('general-action', OmniTrigger);
   }
 }

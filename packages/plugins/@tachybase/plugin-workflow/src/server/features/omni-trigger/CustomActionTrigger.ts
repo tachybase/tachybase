@@ -16,7 +16,7 @@ class CustomActionInterceptionError extends Error {
   }
 }
 export class OmniTrigger extends Trigger {
-  static TYPE = 'omni-action';
+  static TYPE = 'general-action';
   triggerAction = async (context, next) => {
     const {
       resourceName,

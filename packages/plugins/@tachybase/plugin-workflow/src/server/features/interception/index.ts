@@ -1,6 +1,6 @@
-import PluginWorkflow from '@tachybase/plugin-workflow';
 import { Plugin } from '@tachybase/server';
 
+import { PluginWorkflow } from '../..';
 import { RequestInterceptionTrigger } from './RequestInterceptionTrigger';
 
 export class PluginInterception extends Plugin {

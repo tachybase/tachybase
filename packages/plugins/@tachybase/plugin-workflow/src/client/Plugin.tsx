@@ -6,6 +6,7 @@ import { ExecutionPage } from './ExecutionPage';
 import { PluginActionTrigger } from './features/action-trigger';
 import { PluginAggregate } from './features/aggregate';
 import { PluginAPIRegularClient } from './features/api-regular';
+import PluginApproval from './features/approval';
 import { PluginDelay } from './features/delay';
 import { PluginDaynamicCalculation } from './features/dynamic-calculation';
 import { PluginWorkflowInterceptor } from './features/interceptor';
@@ -13,6 +14,7 @@ import PluginWorkflowJSParseClient from './features/js-parse';
 import PluginWorkflowJsonParseClient from './features/json-parse';
 import { PluginLoop } from './features/loop';
 import { PluginManual } from './features/manual';
+import PluginWorkflowNoticeClient from './features/notice';
 import { PluginOmniTrigger } from './features/omni-trigger';
 import { PluginParallel } from './features/parallel';
 import { PluginRequest } from './features/request';
@@ -20,6 +22,7 @@ import { PluginResponse } from './features/response';
 import { PluginSql } from './features/sql';
 import { PluginTriggerInstruction } from './features/trigger-instruction/plugin';
 import { PluginVariables } from './features/variables';
+import { PluginWebhook } from './features/webhook/plugin';
 import { NAMESPACE } from './locale';
 import { Instruction } from './nodes';
 import CalculationInstruction from './nodes/calculation';
@@ -91,6 +94,9 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginResponse);
     await this.pm.add(PluginOmniTrigger);
     await this.pm.add(PluginTriggerInstruction);
+    await this.pm.add(PluginApproval);
+    await this.pm.add(PluginWorkflowNoticeClient);
+    await this.pm.add(PluginWebhook);
   }
 
   async load() {

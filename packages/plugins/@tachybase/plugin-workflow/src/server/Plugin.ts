@@ -11,6 +11,7 @@ import { EXECUTION_STATUS } from './constants';
 import { PluginActionTrigger } from './features/action-trigger/Plugin';
 import { PluginAggregate } from './features/aggregate/Plugin';
 import PluginWorkflowAPIRegularServer from './features/api-regular/plugin';
+import PluginWorkflowApproval from './features/approval';
 import { PluginDelay } from './features/delay/Plugin';
 import { PluginDynamicCalculation } from './features/dynamic-calculation/Plugin';
 import { PluginInterception } from './features/interception';
@@ -18,6 +19,7 @@ import PluginWorkflowJSParseServer from './features/js-parse/plugin';
 import PluginWorkflowJSONParseServer from './features/json-parse/plugin';
 import { PluginLoop } from './features/loop/Plugin';
 import { PluginManual } from './features/manual/Plugin';
+import PluginWorkflowNoticeServer from './features/notice/plugin';
 import { PluginOmniTrigger } from './features/omni-trigger';
 import { PluginParallel } from './features/parallel/Plugin';
 import { PluginRequest } from './features/request/Plugin';
@@ -25,6 +27,7 @@ import { PluginResponse } from './features/response';
 import { PluginSql } from './features/sql/Plugin';
 import { PluginTriggerInstruction } from './features/trigger-instruction/plugin';
 import { PluginVariables } from './features/variables';
+import { PluginWebhook } from './features/webhook';
 import initFunctions, { CustomFunction } from './functions';
 import { Instruction, InstructionInterface } from './instructions';
 import CalculationInstruction from './instructions/CalculationInstruction';
@@ -80,6 +83,9 @@ export default class PluginWorkflowServer extends Plugin {
     this.addFeature(PluginResponse);
     this.addFeature(PluginOmniTrigger);
     this.addFeature(PluginTriggerInstruction);
+    this.addFeature(PluginWorkflowApproval);
+    this.addFeature(PluginWorkflowNoticeServer);
+    this.addFeature(PluginWebhook);
   }
 
   getLogger(workflowId: ID): Logger {
