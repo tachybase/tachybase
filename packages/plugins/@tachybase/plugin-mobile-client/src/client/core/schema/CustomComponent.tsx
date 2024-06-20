@@ -6,6 +6,7 @@ const customComponent = {
   'Upload.Attachment': 'MImageUploader',
   DatePicker: 'MDatePicker',
   Select: 'MSelect',
+  Cascader: 'MCascader',
 };
 
 export const canMobileField = (componentName: string) => customComponent[componentName];
