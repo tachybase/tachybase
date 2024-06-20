@@ -12,7 +12,7 @@
     "@ant-design/icons": "^5.3.7",
     "@types/tar-fs": "^2.0.2",
     "ahooks": "^3.7.2",
-    "antd": "5.18.1",
+    "antd": "5.18.3",
     "react-i18next": "^14.1.2",
     "tar-fs": "^3.0.4"
   },

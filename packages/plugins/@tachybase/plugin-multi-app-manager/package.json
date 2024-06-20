@@ -10,7 +10,7 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
-    "antd": "5.18.1",
+    "antd": "5.18.3",
     "async-mutex": "^0.3.2",
     "lodash": "4.17.21",
     "mysql2": "^2.3.3",

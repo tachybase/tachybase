@@ -11,7 +11,7 @@
   "devDependencies": {
     "@ant-design/icons": "^5.3.7",
     "@tachybase/schema": "workspace:*",
-    "antd": "^5.18.1",
+    "antd": "^5.18.3",
     "koa-send": "^5.0.1",
     "vditor": "^3.10.3"
   },

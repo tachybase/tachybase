@@ -1,3 +1,5 @@
+import { Gateway } from '@tachybase/server';
+
 import axios, { AxiosRequestConfig } from 'axios';
 import _ from 'lodash';
 
@@ -51,13 +53,18 @@ async function request(config, context) {
 
 export default class extends Instruction {
   async run(node: FlowNodeModel, prevJob, processor: Processor) {
-    const httpContext = _.get(processor, 'execution.dataValues.context.data.httpContext', {});
-    const userId = _.get(processor, 'execution.dataValues.context.data.user.id', 1);
-    const origin = _.get(httpContext, 'request.header.origin', '');
+    const userId = processor.getScope(node.id).$context.user.id;
+    // TODO is not work with cluster
+    const origin = Gateway.getInstance().runAtLoop;
     const token = this.workflow.app.authManager.jwt.sign({ userId });
     const context = { token, origin };
 
     const config = processor.getParsedValue(node.config, node.id) as RequestConfig;
+    // delete user token if outer http
+    if (config.url?.startsWith('http')) {
+      delete context.token;
+      delete context.origin;
+    }
     const { workflow } = processor.execution;
     const sync = this.workflow.isWorkflowSync(workflow);
 

@@ -11,7 +11,7 @@
   "devDependencies": {
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.18.1",
+    "antd": "5.18.3",
     "cron-parser": "4.4.0",
     "dayjs": "^1.11.8",
     "lodash": "4.17.21",
