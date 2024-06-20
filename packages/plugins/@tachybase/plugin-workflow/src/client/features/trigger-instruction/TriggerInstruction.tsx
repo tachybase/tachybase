@@ -5,18 +5,19 @@ import { Instruction } from '../../nodes';
 import { VariableOption } from '../../variable';
 
 export class TriggerInstruction extends Instruction {
-  title = tval('Trigger');
+  title = tval('Workflow');
   type = 'trigger-instruction';
   group = 'extended';
   fieldset = {
     workflowKey: {
       type: 'string',
-      title: tval('workflow'),
+      title: tval('Workflow'),
       name: 'workflowKey',
       'x-decorator': 'FormItem',
       'x-component': 'WorkflowSelect',
       'x-component-props': {
         buttonAction: 'customize:triggerWorkflows',
+        noCollection: true,
         label: 'title',
         value: 'key',
       },
