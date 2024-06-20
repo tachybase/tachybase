@@ -1,7 +1,4 @@
-import React from 'react';
 import { css } from '@tachybase/client';
-
-import { Trans } from 'react-i18next';
 
 import { defaultFieldNames, WorkflowVariableRawTextArea } from '../..';
 import { NAMESPACE } from '../../locale';
@@ -32,7 +29,6 @@ export default class extends Instruction {
       type: 'string',
       required: true,
       title: 'SQL',
-      description: '{{sqlDescription()}}',
       'x-decorator': 'FormItem',
       'x-component': 'WorkflowVariableRawTextArea',
       'x-component-props': {
@@ -42,19 +38,6 @@ export default class extends Instruction {
           font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
         `,
       },
-    },
-  };
-  scope = {
-    sqlDescription() {
-      return (
-        <Trans ns={NAMESPACE}>
-          {'SQL query result could be used through '}
-          <a href="https://docs-cn.tachybase.com/handbook/workflow-json-query" target="_blank" rel="noreferrer">
-            {'JSON query node'}
-          </a>
-          {' (Commercial plugin).'}
-        </Trans>
-      );
     },
   };
   components = {
