@@ -22,7 +22,7 @@
     "@formily/shared": "2.3.1",
     "@formily/validator": "2.3.1",
     "@uiw/react-codemirror": "^4.22.2",
-    "antd": "^5.18.1",
+    "antd": "^5.18.3",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.11",
     "react-sticky-box": "^1.0.2"

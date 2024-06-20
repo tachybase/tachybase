@@ -355,6 +355,14 @@ export class Gateway extends EventEmitter {
     return argv[2] === 'start';
   }
 
+  get runAt() {
+    return `http://${this.host}:${this.port}/`;
+  }
+
+  get runAtLoop() {
+    return `http://127.0.0.1:${this.port}/`;
+  }
+
   isHelp() {
     const argv = process.argv;
     return argv[2] === 'help';

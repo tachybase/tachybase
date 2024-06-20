@@ -3,7 +3,7 @@
   "version": "0.0.31",
   "main": "dist/server/index.js",
   "devDependencies": {
-    "antd": "^5.18.1"
+    "antd": "^5.18.3"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
