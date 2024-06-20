@@ -6,14 +6,14 @@ import { Table } from 'antd';
 import { jsx } from 'react/jsx-runtime';
 
 import { useTranslation } from '../../../locale';
+import { FilterKeysContext } from '../context/FilterKeysContext';
 import { useDepTree2 } from '../hooks/useDepTree2';
 import { T } from '../others/T';
 import { y } from '../others/y';
 import { getDepartmentStr } from '../utils/getDepartmentStr';
-import { FilterKeysContext } from '../context/FilterKeysContext';
 
 const Ze = () => ({ disabled: () => false });
-export const InternalDepartmentTableRe = ({ useDisabled: e = Ze }) => {
+export const InternalDepartmentTable = ({ useDisabled: e = Ze }) => {
   const { t } = useTranslation(),
     o = useResourceActionContext();
   console.log(o);

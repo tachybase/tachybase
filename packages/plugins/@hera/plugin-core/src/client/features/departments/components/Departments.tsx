@@ -10,9 +10,9 @@ import { useDataSource2 } from '../hooks/useDataSource2';
 import { useDisabledVvt } from '../hooks/useDisabledVvt';
 import { useRemoveDepartmentXxt } from '../hooks/useRemoveDepartmentXxt';
 import { getSchemaDdt } from '../schema/getSchemaDdt';
-import { useFilterActionPropsZ } from '../scopes/useFilterActionPropsZ';
-import { DepartmentTablePpe } from './DepartmentTablePpe';
-import { DepartmentTitleHht } from './DepartmentTitleHht';
+import { useDepartmentFilterActionProps } from '../scopes/useDepartmentFilterActionProps';
+import { DepartmentTable } from './DepartmentTable';
+import { DepartmentTitle } from './DepartmentTitle';
 
 export const Departments = () => {
   const { t } = useTranslation();
@@ -32,11 +32,11 @@ export const Departments = () => {
         <SchemaComponent
           schema={schema}
           components={{
-            DepartmentTable: DepartmentTablePpe,
-            DepartmentTitle: DepartmentTitleHht,
+            DepartmentTable: DepartmentTable,
+            DepartmentTitle: DepartmentTitle,
           }}
           scope={{
-            useFilterActionProps: useFilterActionPropsZ,
+            useFilterActionProps: useDepartmentFilterActionProps,
             t,
             useRemoveDepartment: useRemoveDepartmentXxt,
             useBulkRemoveDepartments: useBulkRemoveDepartmentsYyt,

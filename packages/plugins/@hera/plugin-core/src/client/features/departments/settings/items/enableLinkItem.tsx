@@ -19,12 +19,12 @@ export const enableLinkItem: SchemaSettingsItemType = {
     return {
       title: t('Enable link'),
       checked: schema['x-component-props']?.enableLink !== false,
-      onChange(x) {
+      onChange(enableLink) {
         schema['x-component-props'] = {
           ...schema?.['x-component-props'],
-          enableLink: x,
+          enableLink,
         };
-        field.componentProps.enableLink = x;
+        field.componentProps.enableLink = enableLink;
         dn.emit('patch', {
           schema: {
             'x-uid': schema['x-uid'],

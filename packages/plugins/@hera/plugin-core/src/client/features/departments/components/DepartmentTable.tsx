@@ -1,29 +1,28 @@
+import React from 'react';
 import { SchemaComponent } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
-import { jsx } from 'react/jsx-runtime';
-
-import { useFilterActionPropsXe } from '../scopes/useFilterActionPropsXe';
-import { InternalDepartmentTableRe } from './InternalDepartmentTableRe';
+import { useFilterActionProps } from '../scopes/useFilterActionProps';
+import { InternalDepartmentTable } from './InternalDepartmentTable';
 import { RequestProvider } from './RequestProvider';
 
-export const DepartmentTablePpe = ({ useDataSource: e, useDisabled: t }) =>
-  jsx(SchemaComponent, {
-    scope: {
-      useDisabled: t,
-      useFilterActionProps: useFilterActionPropsXe,
-    },
-    components: {
-      InternalDepartmentTable: InternalDepartmentTableRe,
-      RequestProvider: RequestProvider,
-    },
-    schema: {
+export const DepartmentTable = ({ useDataSource, useDisabled }) => (
+  <SchemaComponent
+    scope={{
+      useDisabled,
+      useFilterActionProps,
+    }}
+    components={{
+      InternalDepartmentTable,
+      RequestProvider,
+    }}
+    schema={{
       type: 'void',
       properties: {
         [uid()]: {
           type: 'void',
           'x-component': 'RequestProvider',
-          'x-component-props': { useDataSource: e },
+          'x-component-props': { useDataSource },
           properties: {
             actions: {
               type: 'void',
@@ -50,5 +49,6 @@ export const DepartmentTablePpe = ({ useDataSource: e, useDisabled: t }) =>
           },
         },
       },
-    },
-  });
+    }}
+  />
+);

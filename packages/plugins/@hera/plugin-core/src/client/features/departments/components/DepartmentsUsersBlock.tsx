@@ -10,14 +10,14 @@ import { useShowTotal } from '../hooks/useShowTotal';
 import { getSchemaHe } from '../schema/getSchemaHe';
 import { schemaWe } from '../schema/schemaWe';
 import { schemaZe } from '../schema/schemaZe';
-import { useFilterActionPropsZ } from '../scopes/useFilterActionPropsZ';
+import { useDepartmentFilterActionProps } from '../scopes/useDepartmentFilterActionProps';
 import { AddMembers } from './AddMembers';
-import { DepartmentFieldYe } from './DepartmentFieldYe';
+import { DepartmentField } from './DepartmentField';
 import { IsOwnerField } from './IsOwnerField';
-import { UserDepartmentsFieldOot } from './UserDepartmentsFieldOot';
+import { UserDepartmentsField } from './UserDepartmentsField';
 
-export const ComponentIit = () => {
-  const { t: tval } = useTranslation();
+export const DepartmentsUsersBlock = () => {
+  const { t } = useTranslation();
   const { department, user } = useContext(DepartmentsContext);
   const { data, setState } = useResourceActionContext();
 
@@ -42,22 +42,22 @@ export const ComponentIit = () => {
 
   return (
     <>
-      <h2>{user ? tval('Search results') : tval(department?.title ?? 'All users')}</h2>
+      <h2>{user ? t('Search results') : t(department?.title ?? 'All users')}</h2>
       <SchemaComponent
         scope={{
-          useBulkRemoveMembersAction: useBulkRemoveMembersAction,
-          useMembersDataSource: useMembersDataSource,
-          t: tval,
-          useShowTotal: useShowTotal,
-          useFilterActionProps: useFilterActionPropsZ,
+          useBulkRemoveMembersAction,
+          useMembersDataSource,
+          t,
+          useShowTotal,
+          useFilterActionProps: useDepartmentFilterActionProps,
         }}
         components={{
-          MemberActions: MemberActions,
-          AddMembers: AddMembers,
-          RowRemoveAction: RowRemoveAction,
-          DepartmentField: DepartmentFieldYe,
-          IsOwnerField: IsOwnerField,
-          UserDepartmentsField: UserDepartmentsFieldOot,
+          MemberActions,
+          AddMembers,
+          RowRemoveAction,
+          DepartmentField,
+          IsOwnerField,
+          UserDepartmentsField,
         }}
         schema={schema}
       />

@@ -1,6 +1,6 @@
 import { useCollection, useFilterFieldOptions, useFilterFieldProps, useResourceActionContext } from '@tachybase/client';
 
-export const useFilterActionPropsZ = () => {
+export const useDepartmentFilterActionProps = () => {
   const collection = useCollection();
   const options = useFilterFieldOptions(collection.fields);
   const service = useResourceActionContext();
