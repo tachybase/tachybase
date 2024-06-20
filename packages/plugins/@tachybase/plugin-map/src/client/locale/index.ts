@@ -1,4 +1,4 @@
-import { i18n, tval, useApp } from '@tachybase/client';
+import { i18n, tval, useTranslation} from '@tachybase/client';
 
 export const NAMESPACE = 'map';
 
@@ -12,7 +12,5 @@ export function generateNTemplate(key: string) {
 }
 
 export function useMapTranslation() {
-    const { i18n } = useApp();
-    const t = (key: string, props = {}) => i18n.t(key, { ns: [NAMESPACE, 'client'], ...props });
-    return { t };
+  return useTranslation([NAMESPACE, 'client']);
 }

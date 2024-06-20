@@ -16,7 +16,7 @@
     "dayjs": "^1.11.8",
     "lodash": "4.17.21",
     "react": "~18.3.1",
-    "react-i18next": "^11.15.1",
+    "react-i18next": "^14.1.2",
     "react-js-cron": "^3.1.0"
   },
   "peerDependencies": {

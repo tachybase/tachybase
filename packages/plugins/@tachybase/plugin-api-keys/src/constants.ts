@@ -1,1 +1,1 @@
-export const NAMESPACE = '@tachybase/plugin-api-keys';
+export const NAMESPACE = 'api-keys';
