@@ -14,7 +14,7 @@ export const collection: CollectionOptions = {
       name: 'name',
       interface: 'input',
       uiSchema: {
-        title: tval('name'),
+        title: tval('Name'),
         type: 'string',
         'x-component': 'Input',
         required: true,
@@ -27,8 +27,9 @@ export const collection: CollectionOptions = {
       uiSchema: {
         title: tval('Enabled'),
         type: 'string',
+        required: true,
         enum: [
-          { label: tval('On'), value: true, color: '#52c41a' },
+          { label: tval('On'), value: true },
           { label: tval('Off'), value: false },
         ],
         'x-component': 'Radio.Group',
@@ -41,7 +42,7 @@ export const collection: CollectionOptions = {
       name: 'workflowKey',
       interface: 'select',
       uiSchema: {
-        title: tval('name'),
+        title: tval('Workflow'),
         type: 'string',
         'x-component': 'WorkflowSelect',
         'x-component-props': {
@@ -59,6 +60,7 @@ export const collection: CollectionOptions = {
       uiSchema: {
         title: tval('Type'),
         type: 'string',
+        required: true,
         enum: [
           { label: tval('Code'), value: 'code' },
           { label: tval('Plugin'), value: 'plugin', disabled: true },
@@ -300,6 +302,10 @@ const schema: ISchema = {
                                                               type: 'string',
                                                               'x-component': 'CollectionField',
                                                               'x-decorator': 'FormItem',
+                                                              'x-decorator-props': {
+                                                                tooltip:
+                                                                  'ctx.request\nctx.body\nlib.JSON\nlib.Math\nlib.dayjs',
+                                                              },
                                                               'x-collection-field': 'webhooks.code',
                                                               'x-component-props': {},
                                                             },
@@ -622,6 +628,10 @@ const schema: ISchema = {
                                                                       type: 'string',
                                                                       'x-component': 'CollectionField',
                                                                       'x-decorator': 'FormItem',
+                                                                      'x-decorator-props': {
+                                                                        tooltip:
+                                                                          'ctx.request\nctx.body\nlib.JSON\nlib.Math\nlib.dayjs',
+                                                                      },
                                                                       'x-collection-field': 'webhooks.code',
                                                                       'x-component-props': {},
                                                                     },
