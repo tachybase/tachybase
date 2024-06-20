@@ -1,5 +1,6 @@
 import { Context } from '@tachybase/actions';
 import { PluginWorkflow } from '@tachybase/plugin-workflow';
+import { dayjs } from '@tachybase/utils';
 
 export class WebhookController {
   async getLink(ctx: Context) {
@@ -27,6 +28,11 @@ export class WebhookController {
     };
     run(webhook.code, {
       ctx: webhookCtx,
+      lib: {
+        JSON,
+        Math,
+        dayjs,
+      },
     });
     if (webhook?.workflowKey) {
       const wfRepo = ctx.db.getRepository('workflows');
@@ -48,9 +54,9 @@ export class WebhookController {
   }
 }
 
-function run(jsCode: string, { ctx }) {
+function run(jsCode: string, { ctx, lib }) {
   try {
-    return new Function('$root', `with($root) { ${jsCode}; }`)({ ctx });
+    return new Function('$root', `with($root) { ${jsCode}; }`)({ ctx, lib });
   } catch (err) {
     console.log('err', err);
   }
