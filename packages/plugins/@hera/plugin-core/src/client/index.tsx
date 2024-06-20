@@ -1,4 +1,5 @@
 import { EditTitleField, Plugin } from '@tachybase/client';
+import { CodeMirror } from '@tachybase/components';
 import { autorun, isValid, useFieldSchema } from '@tachybase/schema';
 
 import {
@@ -13,7 +14,6 @@ import {
   Expression,
   SignatureInput,
 } from './components';
-import { CodeMirror } from './components/code-mirror';
 import { PluginAssistant } from './features/assistant';
 import { PluginGroupBlock } from './features/block-group';
 import { PluginContextMenu } from './features/context-menu';

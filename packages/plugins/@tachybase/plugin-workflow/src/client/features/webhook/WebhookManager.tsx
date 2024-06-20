@@ -1,11 +1,11 @@
 import React from 'react';
-import { ExtendCollectionsProvider, SchemaComponent, WorkflowSelect } from '@tachybase/client';
+import { CollectionOptions, ExtendCollectionsProvider, SchemaComponent, WorkflowSelect } from '@tachybase/client';
+import { CodeMirror } from '@tachybase/components';
 import { ISchema } from '@tachybase/schema';
 
-import { CodeMirror } from '../../components/code-mirror';
 import { tval } from '../../locale';
 
-const collection = {
+export const collection: CollectionOptions = {
   name: 'webhooks',
   title: 'webhooks',
   fields: [
@@ -46,6 +46,7 @@ const collection = {
         'x-component': 'WorkflowSelect',
         'x-component-props': {
           buttonAction: 'customize:triggerWorkflows',
+          noCollection: true,
           label: 'title',
           value: 'key',
         },

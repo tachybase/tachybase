@@ -56,6 +56,7 @@
   "Based on certain date": "自定义时间",
   "Based on date field of collection": "根据数据表时间字段",
   "Basic": "基础",
+  "Bind collection?": "绑定数据集？",
   "Bind workflows": "绑定工作流",
   "Body": "请求体",
   "Branch into \"Yes\" and \"No\"": "“是”和“否”分别继续",

@@ -12,34 +12,27 @@ export class OmniActionTrigger extends Trigger {
     `Omni Trigger is a versatile trigger. You can use it to trigger workflows in a table, trigger it from another workflow, or trigger it with a form button.`,
   );
   fieldset = {
+    bindCollection: {
+      type: 'boolean',
+      title: tval('Bind collection?'),
+      'x-decorator': 'FormItem',
+      'x-component': 'Radio.Group',
+      enum: [
+        { label: tval('Yes'), value: true },
+        { label: tval('No'), value: false },
+      ],
+      required: true,
+      default: false,
+    },
     collection: {
       type: 'string',
       title: tval('Collection'),
       'x-decorator': 'FormItem',
       'x-component': 'DataSourceCollectionCascader',
-      'x-reactions': [{ target: 'changed', effects: ['onFieldValueChange'], fulfill: { state: { value: [] } } }],
-    },
-    isWebhook: {
-      type: 'boolean',
-      title: tval('is webhook'),
-      'x-decorator': 'FormItem',
-      'x-component': 'Radio.Group',
-      enum: [
-        { label: tval('No'), value: false },
-        { label: tval('Yes'), value: true },
-      ],
       required: true,
-      default: false,
       'x-reactions': [
-        {
-          target: 'collection',
-          effects: ['onFieldValueChange'],
-          fulfill: {
-            state: {
-              value: 'webhooks',
-            },
-          },
-        },
+        { target: 'changed', effects: ['onFieldValueChange'], fulfill: { state: { value: [] } } },
+        { dependencies: ['bindCollection'], fulfill: { state: { visible: '{{!!$deps[0]}}' } } },
       ],
     },
     appends: {
