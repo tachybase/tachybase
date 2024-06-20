@@ -20,6 +20,7 @@ export class PluginCoreServer extends Plugin {
     });
     this.addFeature(DepartmentsPlugin);
   }
+
   async load() {
     try {
       await Container.get(ConnectionManager).load();
@@ -35,8 +36,5 @@ export class PluginCoreServer extends Plugin {
       console.warn(err);
     }
   }
-  async afterEnable() {}
-  async afterDisable() {}
-  async remove() {}
 }
 export default PluginCoreServer;

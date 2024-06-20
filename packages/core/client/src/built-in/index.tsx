@@ -3,13 +3,13 @@ import { observer } from '@tachybase/schema';
 import { getSubAppName } from '@tachybase/sdk';
 
 import { DisconnectOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Button, Modal, Result, Spin } from 'antd';
+import { Button, Result, Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { useAPIClient } from '../api-client';
-import { Application, useApp } from '../application';
+import { Application, NoticeLevel, useApp } from '../application';
 import { Plugin } from '../application/Plugin';
 import { BlockSchemaComponentPlugin } from '../block-provider';
 import { CollectionPlugin } from '../collection-manager';
@@ -28,7 +28,7 @@ import { PinnedListPlugin } from './pinned-list';
 import { PMPlugin } from './pm';
 import { SystemSettingsPlugin } from './system-settings';
 
-export { AdminProvider } from './admin-layout';
+export { AdminProvider, NoticeArea } from './admin-layout';
 
 interface AppStatusProps {
   error: Error;
@@ -248,11 +248,9 @@ const AppMaintaining = observer(
 const AppMaintainingDialog = observer(
   ({ app }: AppStatusProps) => {
     const { icon, status, title, subTitle } = getProps(app);
-    return (
-      <Modal open={true} footer={null} closable={false}>
-        <Result icon={icon} status={status} title={app.i18n.t(title)} subTitle={app.i18n.t(subTitle)} />
-      </Modal>
-    );
+    const manager = app.noticeManager;
+    manager.status(app.i18n.t(title) + app.i18n.t(subTitle), NoticeLevel.INFO);
+    return null;
   },
   { displayName: 'AppMaintainingDialog' },
 );

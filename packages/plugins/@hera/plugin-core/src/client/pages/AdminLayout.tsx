@@ -5,6 +5,7 @@ import {
   CurrentUser,
   findByUid,
   findMenuItem,
+  NoticeArea,
   PinnedPluginList,
   SchemaComponent,
   useACLRoleContext,
@@ -17,7 +18,7 @@ import {
 } from '@tachybase/client';
 
 import { useSessionStorageState } from 'ahooks';
-import { Alert, App, Layout } from 'antd';
+import { App, Layout } from 'antd';
 import { Link, Outlet, useMatch, useNavigate, useParams } from 'react-router-dom';
 
 import { MobileLink } from '../components/system/MobileLink';
@@ -287,8 +288,14 @@ export const InternalAdminLayout = () => {
               className={css`
                 flex: 1 1 auto;
                 width: 0;
+                display: flex;
               `}
             >
+              <NoticeArea
+                className={css`
+                  flex: 1;
+                `}
+              />
               <MenuEditor sideMenuRef={sideMenuRef} />
             </div>
           </div>
