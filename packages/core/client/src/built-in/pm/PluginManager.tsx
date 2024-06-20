@@ -3,7 +3,21 @@ import { fuzzysearch } from '@tachybase/utils/client';
 
 import { PageHeader } from '@ant-design/pro-layout';
 import { useDebounce } from 'ahooks';
-import { Card, Form, Input, Radio, Result, Select, Space, Spin, Table, Tag, type TableProps } from 'antd';
+import {
+  Button,
+  Card,
+  Form,
+  Input,
+  Radio,
+  Result,
+  Select,
+  Space,
+  Spin,
+  Table,
+  Tag,
+  Typography,
+  type TableProps,
+} from 'antd';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -13,6 +27,7 @@ import { i18n } from '../../i18n';
 import { useToken } from '../../style';
 import { useACLRoleContext } from '../acl';
 import { SwitchAction } from './PluginCard';
+import { PluginDetail } from './PluginDetail';
 import { useStyles } from './style';
 import { IPluginData } from './types';
 
@@ -37,6 +52,32 @@ export interface AllowedActions {
   destroy: number[];
 }
 
+const ViewAction = ({ record }) => {
+  const [plugin, setPlugin] = useState<IPluginData>(undefined);
+  return (
+    <>
+      {plugin && <PluginDetail plugin={plugin} onCancel={() => setPlugin(undefined)} />}
+      <Button
+        type="link"
+        onClick={() => {
+          setPlugin(record);
+        }}
+      >
+        {i18n.t('View')}
+      </Button>
+    </>
+  );
+};
+
+const PluginDescription = ({ description, record }) => {
+  const { theme } = useStyles();
+  return (
+    <Typography.Paragraph type={record.isCompatible ? 'secondary' : 'danger'}>
+      {record.isCompatible ? description : i18n.t('Plugin dependencies check failed')}
+    </Typography.Paragraph>
+  );
+};
+
 const columns: TableProps<IPluginData>['columns'] = [
   {
     title: i18n.t('Name'),
@@ -56,15 +97,21 @@ const columns: TableProps<IPluginData>['columns'] = [
     title: i18n.t('Description'),
     dataIndex: 'description',
     key: 'description',
+    render: (description, record) => {
+      return <PluginDescription description={description} record={record} />;
+    },
   },
   {
     title: i18n.t('Action'),
     key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <SwitchAction {...record} />
-      </Space>
-    ),
+    render: (_, record) => {
+      return (
+        <Space size="middle">
+          <ViewAction record={record} />
+          <SwitchAction {...record} />
+        </Space>
+      );
+    },
   },
 ];
 
