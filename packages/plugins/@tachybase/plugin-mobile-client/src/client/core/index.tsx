@@ -9,6 +9,7 @@ import {
   ImageSearchItemView,
   ImageSearchProvider,
   ImageSearchView,
+  MCascader,
   MCheckbox,
   MContainer,
   MDatePicker,
@@ -87,6 +88,7 @@ export const MobileCore: React.FC<PropsWithChildren> = (props) => {
         MDatePicker,
         MRadio,
         MImageUploader,
+        MCascader,
         CollectionField: CollectionField,
         MSelect,
       }}

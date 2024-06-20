@@ -226,7 +226,6 @@ export const AntdSelect = observer((props) => {
                   if (paramsFilter[fieldNamesLabel]) delete paramsFilter[fieldNamesLabel];
                   setSearchValue('');
                   setFilter(paramsFilter);
-                  setSearchValue('');
                 }}
               >
                 确定
