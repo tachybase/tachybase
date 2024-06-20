@@ -6,7 +6,7 @@ import { tval } from '../../locale';
 import { Departments } from './components/Departments';
 import { DepartmentsProvider } from './components/DepartmentsProvider';
 import { DepartmentManagementComponent } from './components/DepartmentManagementComponent';
-import { UserDepartmentsField } from './components/UserDepartmentsField';
+import { UserDepartmentsFieldNotSupport } from './components/UserDepartmentsFieldNotSupport';
 import { DepartmentOwnersFieldSetting } from './settings/DepartmentOwnersFieldSetting';
 import { UserDepartmentsFieldSetting } from './settings/UserDepartmentsFieldSetting';
 import { UserMainDepartmentFieldSetting } from './settings/UserMainDepartmentFieldSetting';
@@ -14,9 +14,9 @@ import { UserMainDepartmentFieldSetting } from './settings/UserMainDepartmentFie
 export class DepartmentsPlugin extends Plugin {
   async load() {
     this.app.addComponents({
-      UserDepartmentsField: UserDepartmentsField,
-      UserMainDepartmentField: UserDepartmentsField,
-      DepartmentOwnersField: UserDepartmentsField,
+      UserDepartmentsField: UserDepartmentsFieldNotSupport,
+      UserMainDepartmentField: UserDepartmentsFieldNotSupport,
+      DepartmentOwnersField: UserDepartmentsFieldNotSupport,
     });
     this.app.schemaSettingsManager.add(UserDepartmentsFieldSetting);
     this.app.schemaSettingsManager.add(UserMainDepartmentFieldSetting);

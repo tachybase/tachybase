@@ -11,7 +11,7 @@ import { useField } from '@tachybase/schema';
 import { useTranslation } from '../../../locale';
 import { FilterKeysContext } from '../context/FilterKeysContext';
 
-export const useFilterActionPropsXe = () => {
+export const useFilterActionProps = () => {
   const { setHasFilter, setExpandedKeys } = useContext(FilterKeysContext);
   const { t } = useTranslation();
   const collection = useContext(CollectionContext);

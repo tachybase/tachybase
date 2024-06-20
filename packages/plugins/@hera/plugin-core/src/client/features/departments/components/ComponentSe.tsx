@@ -16,7 +16,7 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export const ComponentSe = () => {
+export const DepartmentsTree = () => {
   const { t } = useTranslation();
   const { token } = theme.useToken();
   const { setDepartment, setUser } = useContext(DepartmentsContext);

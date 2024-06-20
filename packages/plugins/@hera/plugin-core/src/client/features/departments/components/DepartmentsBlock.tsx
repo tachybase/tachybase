@@ -10,7 +10,7 @@ import { DepartmentsExpandedContextProvider } from '../context/DepartmentsExpand
 import { useCreateDepartment } from '../hooks/useCreateDepartment';
 import { useDepTree2 } from '../hooks/useDepTree2';
 import { useUpdateDepartment } from '../hooks/useUpdateDepartment';
-import { ComponentSe } from './ComponentSe';
+import { DepartmentsTree } from './ComponentSe';
 import { ComponentX } from './ComponentX';
 import { DepartmentOwnersField } from './DepartmentOwnersField';
 import { NewDepartment } from './NewDepartment';
@@ -20,7 +20,7 @@ interface drawerState {
   schema?: object;
 }
 
-export const ComponentEEE = () => {
+export const DepartmentsBlock = () => {
   const { t } = useTranslation();
 
   const [visible, setVisible] = useState(false);
@@ -41,7 +41,7 @@ export const ComponentEEE = () => {
     >
       <DepartmentsExpandedContextProvider value={m}>
         <Row>
-          <ComponentSe />
+          <DepartmentsTree />
           <Button
             type="text"
             icon={<UserOutlined />}
@@ -63,8 +63,8 @@ export const ComponentEEE = () => {
         <ComponentX />
         <ActionContextProvider
           value={{
-            visible: visible,
-            setVisible: setVisible,
+            visible,
+            setVisible,
           }}
         >
           <RecordProvider record={drawer.node || {}}>
