@@ -252,7 +252,7 @@ export class Application {
     });
     this.ws.on('serverDown', () => {
       this.maintaining = true;
-      this.maintained = false;
+      this.maintained = true;
     });
     this.ws.connect();
     try {

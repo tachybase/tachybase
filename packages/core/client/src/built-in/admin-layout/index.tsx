@@ -25,6 +25,7 @@ import {
 } from '../..';
 import { Plugin } from '../../application/Plugin';
 import { VariablesProvider } from '../../variables';
+import { NoticeArea } from './NoticeArea';
 
 const useStyles = createStyles(({ css, token }) => {
   return {
@@ -104,6 +105,10 @@ const useStyles = createStyles(({ css, token }) => {
     editor: css`
       flex: 1 1 auto;
       width: 0;
+      display: flex;
+    `,
+    notice: css`
+      flex: 1;
     `,
     sider: css`
       height: 100%;
@@ -411,6 +416,7 @@ export const InternalAdminLayout = (props: any) => {
               <h1 className={styles.title}>{result?.data?.data?.title}</h1>
             </div>
             <div className={styles.editor}>
+              <NoticeArea className={styles.notice} />
               <SetThemeOfHeaderSubmenu>
                 <MenuEditor sideMenuRef={sideMenuRef} />
               </SetThemeOfHeaderSubmenu>
@@ -472,3 +478,5 @@ export class AdminLayoutPlugin extends Plugin {
     this.app.addComponents({ AdminLayout });
   }
 }
+
+export * from './NoticeArea';

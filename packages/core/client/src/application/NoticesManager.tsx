@@ -1,4 +1,5 @@
 import React, { createContext, ReactNode, useContext, useEffect } from 'react';
+import { define, observable } from '@tachybase/schema';
 
 import { message, notification } from 'antd';
 import mitt, { Emitter, EventType } from 'mitt';
@@ -54,7 +55,11 @@ export class NoticeManager {
   constructor(private app: Application) {
     this.ws = app.ws;
     this.emitter = mitt();
+    define(this, {
+      currentStatus: observable.ref,
+    });
   }
+  currentStatus = '';
 
   on(data: { type: NoticeType; title?: string; content: string; level: NoticeLevel; eventType?: string; event?: any }) {
     if (data.type === NoticeType.NOTIFICATION) {
@@ -68,6 +73,7 @@ export class NoticeManager {
 
   status(content: string, level: NoticeLevel) {
     // 常驻消息
+    this.currentStatus = content;
   }
 
   toast(content: string, level: NoticeLevel) {
