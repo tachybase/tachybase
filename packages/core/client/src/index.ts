@@ -47,6 +47,7 @@ export * from './modules/blocks/data-blocks/details-multi/setDataLoadingModeSett
 export * from './modules/blocks/data-blocks/form';
 export * from './modules/blocks/data-blocks/table';
 export * from './modules/blocks/data-blocks/table-selector';
+export * from 'react-i18next';
 
 export * from './modules/blocks/useParentRecordCommon';
 

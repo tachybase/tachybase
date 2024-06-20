@@ -12,7 +12,7 @@
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "react": "^18.3.1",
-    "react-i18next": "^11.15.1"
+    "react-i18next": "^14.1.2"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

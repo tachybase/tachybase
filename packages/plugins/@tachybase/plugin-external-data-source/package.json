@@ -7,7 +7,7 @@
     "lodash": "^4.17.21",
     "mysql2": "^3.9.1",
     "pg": "^8.11.3",
-    "react-i18next": "^11.15.1"
+    "react-i18next": "^14.1.2"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.5"
