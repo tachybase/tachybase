@@ -53,7 +53,7 @@ async function request(config, context) {
 
 export default class extends Instruction {
   async run(node: FlowNodeModel, prevJob, processor: Processor) {
-    const userId = processor.getScope(node.id).$context.user.id;
+    const userId = _.get(processor.getScope(node.id), '$context.user.id', '');
     // TODO is not work with cluster
     const origin = Gateway.getInstance().runAtLoop;
     const token = this.workflow.app.authManager.jwt.sign({ userId });
