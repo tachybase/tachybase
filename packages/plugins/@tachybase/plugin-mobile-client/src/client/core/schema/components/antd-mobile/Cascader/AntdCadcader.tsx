@@ -6,7 +6,7 @@ import {
   useFieldServiceFilter,
   useRequest,
 } from '@tachybase/client';
-import { observer, useFieldSchema, useForm } from '@tachybase/schema';
+import { ArrayField, observer, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { isArray } from '@tachybase/utils/client';
 
 import { Button, CascaderView, Divider, Popup, SearchBar, Space } from 'antd-mobile';
@@ -18,7 +18,18 @@ import { MInput } from '../Input';
 import { useStyles } from './style';
 
 export const AntdCascader = observer((props) => {
-  const { service, fieldNames, disabled, multiple, onChange, value, formCascaderValues, index } = props as any;
+  const {
+    service,
+    fieldNames,
+    disabled,
+    useLoadData,
+    useDataSource,
+    multiple,
+    onChange,
+    value,
+    formCascaderValues,
+    index,
+  } = props as any;
   const fieldSchema = useFieldSchema();
   const cm = useCollectionManager();
   const { styles } = useStyles();
@@ -34,7 +45,8 @@ export const AntdCascader = observer((props) => {
   const [cascaderValue, setCascaderValue] = useState(value);
   const [valueText, setValueText] = useState('');
   const [flatOption, setFlatOption] = useState([]);
-  const { run } = useRequest(
+  const field = useField<ArrayField>();
+  const { loading: collectionLoading, run: collectionRun } = useRequest(
     {
       resource: collection?.name,
       action: 'list',
@@ -47,7 +59,8 @@ export const AntdCascader = observer((props) => {
       manual: true,
       onSuccess({ data }) {
         if (data) {
-          setOptions(cascadeOption(data));
+          setOptions(data);
+          field.dataSource = data || [];
           const valueOption = flatOptions(data);
           setFlatOption(valueOption);
           if (value) {
@@ -57,39 +70,40 @@ export const AntdCascader = observer((props) => {
       },
     },
   );
-
-  const cascadeOption = (option) => {
-    option.forEach((item) => {
-      item['value'] = item[fieldNames.value];
-      item['label'] = item[fieldNames.label];
-      if (item.children) {
-        item.children = cascadeOption(item.children);
-      }
-    });
-    return option;
-  };
+  const loadData = useLoadData?.(props);
+  const { loading: areaLoading, run: areaRun } = useDataSource?.({
+    onSuccess(data) {
+      field.dataSource = data?.data || [];
+      setOptions(data?.data);
+    },
+  }) || { loading: true, run: null };
+  if (!valueText && value && isChinaRegion) {
+    setValueText(getChinaRegionText(value, fieldNames));
+  }
   useEffect(() => {
     if (!isChinaRegion && collection?.name) {
       checkedPopup();
     }
   }, [filter]);
   useEffect(() => {
-    if (options.length) {
-      cascadeOption(options);
+    if (!isChinaRegion && flatOption.length) {
+      setValueText(getValueText(flatOption, value, '', fieldNames['label']));
     }
   }, [fieldSchema['x-component-props']?.['fieldNames']]);
 
   const handleSelect = async (option) => {
     if (option) {
-      setCascaderValue(option[option.length - 1]);
+      setCascaderValue(isChinaRegion ? option : option[option.length - 1]);
     } else {
       setCascaderValue({});
     }
   };
 
   const checkedPopup = () => {
-    if (collection && collection.name) {
-      run();
+    if (!isChinaRegion) {
+      collectionRun();
+    } else {
+      areaRun();
     }
   };
 
@@ -135,18 +149,47 @@ export const AntdCascader = observer((props) => {
         }}
       >
         <MobileProvider>
-          <SearchBar
-            placeholder="请输入内容"
-            value={searchValue}
-            onChange={(value) => {
-              const paramsFilter = { ...filter };
-              paramsFilter[fieldNames['label']] = { $includes: value };
-              setFilter(paramsFilter);
-              setSearchValue(value);
+          {!isChinaRegion ? (
+            <>
+              <SearchBar
+                placeholder="请输入内容"
+                value={searchValue}
+                onChange={(value) => {
+                  const paramsFilter = { ...filter };
+                  paramsFilter[fieldNames['label']] = { $includes: value };
+                  setFilter(paramsFilter);
+                  setSearchValue(value);
+                }}
+              />
+              <Divider />
+            </>
+          ) : null}
+          <CascaderView
+            loading={isChinaRegion ? areaLoading : collectionLoading}
+            fieldNames={fieldNames}
+            options={options}
+            onChange={(value, extend) => {
+              if (isChinaRegion) {
+                const maxLevel = field.componentProps.maxLevel;
+                const targetOption = extend['items'][extend['items'].length - 1];
+                if (maxLevel > targetOption.level) {
+                  targetOption.children = [];
+                }
+                loadData(extend['items'], (data) => {
+                  if (data?.data.length) {
+                    targetOption.children = data.data.map((item) => {
+                      if (maxLevel > item.level) {
+                        item.isLeaf = false;
+                      }
+                      return item;
+                    });
+                    setOptions([...options]);
+                  }
+                });
+              }
+              handleSelect(extend['items']);
             }}
           />
-          <Divider />
-          <CascaderView options={options} onChange={(value, extend) => handleSelect(extend['items'])} />
           <Space justify="evenly" align="center">
             <Button
               color="primary"
@@ -163,20 +206,25 @@ export const AntdCascader = observer((props) => {
             <Button
               color="primary"
               onClick={() => {
-                const changevalue = ['m2m', 'o2m'].includes(collectionField.interface)
-                  ? getChangValue(formCascaderValues, cascaderValue, index)
-                  : cascaderValue;
+                const changevalue = multiple ? getChangValue(formCascaderValues, cascaderValue, index) : cascaderValue;
                 onChange(changevalue);
-                setValueText(getValueText(flatOption, cascaderValue, '', fieldNames['label']));
+                const valText = isChinaRegion
+                  ? getChinaRegionText(cascaderValue, fieldNames)
+                  : getValueText(flatOption, cascaderValue, '', fieldNames['label']);
+                setValueText(valText);
                 setPopupVisible(false);
-                const paramsFilter = { ...filter };
-                if (paramsFilter[fieldNames['label']]) delete paramsFilter[fieldNames['label']];
-                setSearchValue('');
-                setFilter(paramsFilter);
+                if (!isChinaRegion) {
+                  const paramsFilter = { ...filter };
+                  delete paramsFilter[fieldNames['label']];
+                  setSearchValue('');
+                  setFilter(paramsFilter);
+                }
               }}
               disabled={
                 !changOnSelect
-                  ? cascaderValue && cascaderValue !== '{}' && !cascaderValue?.children
+                  ? cascaderValue &&
+                    cascaderValue !== '{}' &&
+                    (!cascaderValue?.children || !cascaderValue?.children.length)
                     ? false
                     : true
                   : cascaderValue && cascaderValue !== '{}'
@@ -232,16 +280,18 @@ const getChangValue = (formCascaderValues, cascaderValue, index) => {
   return value;
 };
 
+const getChinaRegionText = (value, fieldNames) => {
+  return value?.reduce((prev, curr, index) => {
+    return prev + `${curr[fieldNames['label']]}${value.length - 1 === index ? '' : '/'}`;
+  }, '');
+};
+
 export const InternalCascader = observer((props) => {
-  const { value, onChange } = props as any;
-  const fieldSchema = useFieldSchema();
-  const cm = useCollectionManager();
-  const collectionField = cm.getCollectionField(fieldSchema['x-collection-field']);
-  const form = useForm();
+  const { value, onChange, multiple } = props as any;
   const { t } = useTranslation();
   return (
     <>
-      {isArray(value) ? (
+      {isArray(value) && multiple ? (
         <>
           {value.map((item, index) => {
             const filterProps = {
@@ -256,7 +306,7 @@ export const InternalCascader = observer((props) => {
       ) : (
         <AntdCascader {...props} />
       )}
-      {['m2m', 'o2m'].includes(collectionField.interface) ? (
+      {multiple ? (
         <>
           <Button
             style={{
@@ -270,6 +320,7 @@ export const InternalCascader = observer((props) => {
             }}
             onClick={() => {
               const pushValue = value ? [...value, {}] : [{}, {}];
+
               onChange(pushValue);
             }}
           >
