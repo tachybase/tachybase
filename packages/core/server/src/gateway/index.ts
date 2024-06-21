@@ -356,11 +356,11 @@ export class Gateway extends EventEmitter {
   }
 
   get runAt() {
-    return `http://${this.host}:${this.port}/`;
+    return `http://${this.host}:${this.port}`;
   }
 
   get runAtLoop() {
-    return `http://127.0.0.1:${this.port}/`;
+    return `http://127.0.0.1:${this.port}`;
   }
 
   isHelp() {

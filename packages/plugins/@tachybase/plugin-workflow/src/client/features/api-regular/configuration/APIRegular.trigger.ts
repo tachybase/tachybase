@@ -22,7 +22,7 @@ const enum ACTION_TYPES {
   DESTROY = 'destroy',
 }
 export class APIRegularTrigger extends Trigger {
-  title = lang('API Regular');
+  title = lang('API Regular(deprecated)');
   description = lang('Trigger when an API call is made.');
   fieldset = {
     collection: {

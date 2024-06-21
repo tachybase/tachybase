@@ -1,9 +1,41 @@
 import React from 'react';
-import { CollectionOptions, ExtendCollectionsProvider, SchemaComponent, WorkflowSelect } from '@tachybase/client';
+import {
+  CollectionOptions,
+  ExtendCollectionsProvider,
+  ResourceActionProvider,
+  SchemaComponent,
+  useRecord,
+  WorkflowSelect,
+} from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
 import { ISchema } from '@tachybase/schema';
 
-import { tval } from '../../locale';
+import { Button, Space } from 'antd';
+
+import { ExecutionStatusColumn } from '../../components/ExecutionStatus';
+import OpenDrawer from '../../components/OpenDrawer';
+import { ExecutionLink } from '../../ExecutionLink';
+import { lang, tval } from '../../locale';
+import { executionSchema } from '../../schemas/executions';
+
+export const ExecutionResourceProvider = ({ request, filter = {}, ...others }) => {
+  const webhook = useRecord();
+  const props = {
+    ...others,
+    request: {
+      ...request,
+      params: {
+        ...request?.params,
+        filter: {
+          ...request?.params?.filter,
+          key: webhook.workflowKey,
+        },
+      },
+    },
+  };
+
+  return <ResourceActionProvider {...props} />;
+};
 
 export const collection: CollectionOptions = {
   name: 'webhooks',
@@ -397,11 +429,24 @@ const schema: ISchema = {
                   'x-collection-field': 'webhooks.workflowKey',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
-                  'x-decorator': null,
+                  'x-decorator': 'OpenDrawer',
                   'x-decorator-props': {
-                    labelStyle: {
-                      display: 'none',
+                    component: function Com({ children, onClick }) {
+                      const webhook = useRecord();
+                      return (
+                        <Space size="small">
+                          {children}
+                          {webhook.workflowKey ? (
+                            <Button type="link" onClick={onClick} style={{ padding: 0, marginLeft: '-4px' }}>
+                              ({lang('View executions')})
+                            </Button>
+                          ) : null}
+                        </Space>
+                      );
                     },
+                  },
+                  properties: {
+                    drawer: executionSchema,
                   },
                 },
               },
@@ -691,7 +736,18 @@ const schema: ISchema = {
 export const WebhookManager = () => {
   return (
     <ExtendCollectionsProvider collections={[collection]}>
-      <SchemaComponent memoized schema={schema} components={{ WorkflowSelect, CodeMirror }}></SchemaComponent>
+      <SchemaComponent
+        memoized
+        schema={schema}
+        components={{
+          ExecutionStatusColumn,
+          ExecutionResourceProvider,
+          OpenDrawer,
+          ExecutionLink,
+          WorkflowSelect,
+          CodeMirror,
+        }}
+      ></SchemaComponent>
     </ExtendCollectionsProvider>
   );
 };

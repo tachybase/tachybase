@@ -22,7 +22,10 @@ export class VariablesInstruction extends Instruction {
       title: tval('Value'),
       'x-decorator': 'FormItem',
       'x-component': 'WorkflowVariableInput',
-      'x-component-props': { useTypedConstant: true },
+      'x-component-props': {
+        useTypedConstant: true,
+        changeOnSelect: true,
+      },
       default: '',
     },
   };

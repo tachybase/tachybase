@@ -19,7 +19,7 @@ function SyncOptionSelect(props) {
 
   useFormEffects((form) => {
     onFieldChange('type', (f: any) => {
-      let disabled = record.id || !f.value;
+      let disabled = !f.value;
       if (f.value) {
         const trigger = workflowPlugin.triggers.get(f.value);
         if (trigger.sync != null) {
@@ -35,7 +35,6 @@ function SyncOptionSelect(props) {
 
   useEffect(() => {
     if (record.id) {
-      field.setPattern('disabled');
       const trigger = workflowPlugin.triggers.get(record.type);
       if (trigger.sync != null) {
         field.setValue(trigger.sync);
@@ -43,7 +42,7 @@ function SyncOptionSelect(props) {
         field.setInitialValue(false);
       }
     }
-  }, [record.id, field, workflowPlugin.triggers]);
+  }, [record.id, record.type, field, workflowPlugin.triggers]);
 
   return <RadioWithTooltip {...props} />;
 }
