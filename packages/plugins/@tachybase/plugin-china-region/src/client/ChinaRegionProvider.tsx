@@ -11,9 +11,7 @@ export const useChinaRegionDataSource = (options) => {
       params: {
         sort: 'code',
         paginate: false,
-        filter: {
-          level: 1,
-        },
+        filter: { level: 1 },
       },
     },
     {
@@ -38,7 +36,7 @@ export const useChinaRegionLoadData = () => {
   const api = useAPIClient();
   const field = useField<ArrayField>();
   const maxLevel = field.componentProps.maxLevel;
-  return (selectedOptions) => {
+  return (selectedOptions, onSuccess?) => {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     if (targetOption?.children?.length > 0) {
       return;
@@ -54,14 +52,18 @@ export const useChinaRegionLoadData = () => {
         },
       })
       .then(({ data }) => {
-        targetOption.loading = false;
-        targetOption.children =
-          data?.data?.map((item) => {
-            if (maxLevel > item.level) {
-              item.isLeaf = false;
-            }
-            return item;
-          }) || [];
+        if (onSuccess) {
+          onSuccess(data);
+        } else {
+          targetOption.loading = false;
+          targetOption.children =
+            data?.data?.map((item) => {
+              if (maxLevel > item.level) {
+                item.isLeaf = false;
+              }
+              return item;
+            }) || [];
+        }
         field.dataSource = [...field.dataSource];
       })
       .catch((err) => {
