@@ -8,12 +8,12 @@ import { useForm } from '@tachybase/schema';
 
 import { CollectionBlockInitializer } from '../../components';
 import { useWorkflowAnyExecuted } from '../../hooks';
-import { lang, NAMESPACE } from '../../locale';
+import { lang, NAMESPACE, tval } from '../../locale';
 import { Trigger } from '../../triggers';
 import { getCollectionFieldOptions } from '../../variable';
 
 export class ActionTrigger extends Trigger {
-  title = `{{t("Action event", { ns: "${NAMESPACE}" })}}`;
+  title = tval('Action event(deprecated)');
   description = `{{t("Triggers after specific operations on data are submitted, such as create, update, delete, etc., or directly submitting a record to the workflow.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     collection: {

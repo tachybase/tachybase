@@ -37,7 +37,7 @@ function useItems(item, options) {
 }
 export class WorkflowTriggerInterceptor extends Trigger {
   sync = true;
-  title = lang('Pre-action event');
+  title = lang('Interceptor');
   description = lang(
     'Triggered before the execution of a request initiated through an action button or API, such as before adding, updating, or deleting data. Suitable for data validation and logic judgment before action, and the request could be rejected by using the "End process" node.',
   );
