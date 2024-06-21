@@ -86,7 +86,7 @@ export class UiSchemaStoragePlugin extends Plugin {
     });
 
     this.app.acl.allow('uiSchemas', ['getProperties', 'getJsonSchema'], 'loggedIn');
-    this.app.acl.allow('uiSchemaTemplates', ['get', 'list'], 'loggedIn');
+    this.app.acl.allow('uiSchemaTemplates', ['get', 'list'], 'public');
   }
 
   async load() {
