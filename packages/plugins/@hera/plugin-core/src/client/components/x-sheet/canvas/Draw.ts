@@ -1,5 +1,9 @@
 import { DrawBox } from './DrawBox';
-import { dpr, drawFontLine, npx, npxLine, thinLineWidth } from './utils';
+import { npxLine } from './utils';
+import { drawFontLine } from './utils';
+import { npx } from './utils';
+import { thinLineWidth } from './utils';
+import { dpr } from './utils';
 
 interface Attr {
   align?: 'left' | 'center' | 'right';
@@ -159,7 +163,6 @@ export class Draw {
     const { ctx } = this;
     ctx.lineWidth = thinLineWidth();
     ctx.strokeStyle = color;
-    // console.log('style:', style);
     if (style === 'medium') {
       ctx.lineWidth = npx(2) - 0.5;
     } else if (style === 'thick') {
