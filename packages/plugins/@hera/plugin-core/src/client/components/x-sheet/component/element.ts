@@ -1,5 +1,4 @@
 import _ from 'lodash';
-
 class Element {
   el: HTMLElement;
   private _data: Record<string, any>;
@@ -25,7 +24,6 @@ class Element {
     const [fen, ...oen] = eventNames.split('.');
     const eventName = fen;
     this.el.addEventListener(eventName, (evt) => {
-      // console.log('excel debug', eventName, eventNames, oen, evt);
       handler(evt);
       for (let i = 0; i < oen.length; i += 1) {
         const k = oen[i];
@@ -60,7 +58,7 @@ class Element {
     };
   }
 
-  scroll = _.throttle((v?) => {
+  scroll = (v?) => {
     const { el } = this;
     if (v !== undefined) {
       if (v.left !== undefined) {
@@ -71,7 +69,7 @@ class Element {
       }
     }
     return { left: el.scrollLeft, top: el.scrollTop };
-  }, 10);
+  };
 
   box() {
     return this.el.getBoundingClientRect();
@@ -80,6 +78,9 @@ class Element {
   parent() {
     return new Element(this.el.parentElement);
   }
+
+  children(): NodeListOf<ChildNode>;
+  children(...others: (string | Element)[]): this;
 
   children(...eles) {
     if (arguments.length === 0) {
@@ -155,11 +156,11 @@ class Element {
     return this;
   }
 
-  // key, value
-  // key
-  // {k, v}...
-  attr(key, value) {
-    if (value !== undefined) {
+  attr(key: string, value: string): this;
+  attr(key: string, value: undefined): string;
+  attr(key: Record<string, string>, value: undefined): this;
+  attr(key: string | Record<string, string>, value: string | undefined): string | this {
+    if (value !== undefined && typeof key === 'string') {
       this.el.setAttribute(key, value);
     } else {
       if (typeof key === 'string') {
@@ -172,12 +173,15 @@ class Element {
     return this;
   }
 
-  removeAttr(key) {
+  removeAttr(key: string): this {
     this.el.removeAttribute(key);
     return this;
   }
 
-  html(content) {
+  html(content: undefined): string;
+  html(content: string): this;
+
+  html(content: string | undefined): string | this {
     if (content !== undefined) {
       this.el.innerHTML = content;
       return this;

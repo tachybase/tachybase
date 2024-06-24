@@ -1,11 +1,11 @@
-import { cssPrefix } from '../config';
 import { h, HComponent } from './element';
+import { cssPrefix } from '../config';
 
 export default class Scrollbar {
   private el: HComponent;
   private contentEl: HComponent;
   private _moveFn: (type: string, handler: (e: Event) => void) => void;
-  constructor(private vertical: 'vertical' | 'horizontal') {
+  constructor(private vertical: boolean) {
     this._moveFn = null;
     this.el = h('div', `${cssPrefix}-scrollbar ${vertical ? 'vertical' : 'horizontal'}`)
       .child((this.contentEl = h('div', '')))

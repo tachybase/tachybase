@@ -26,6 +26,7 @@ import { PluginHeraVersion } from './features/hera-version';
 import { PluginOutbound } from './features/outbound';
 import { PluginPageStyle } from './features/page-style';
 import { PluginPDF } from './features/pdf';
+import { PluginSheet } from './features/sheet';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
 import { useGetCustomComponents } from './hooks/useGetCustomComponents';
 import {
@@ -43,13 +44,6 @@ import { AutoComplete } from './schema-components';
 import AssociationCascader from './schema-components/association-cascader/AssociationCascader';
 import { CreateSubmitActionInitializer, SettingBlockInitializer } from './schema-initializer';
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
-import {
-  SheetBlock,
-  SheetBlockInitializer,
-  SheetBlockProvider,
-  sheetBlockSettings,
-  SheetBlockToolbar,
-} from './schema-initializer/blocks/SheetBlockInitializer';
 import {
   EditFormulaTitleField,
   EditTitle,
@@ -87,10 +81,10 @@ export class PluginCoreClient extends Plugin {
     // await this.app.pm.add(PluginModeHighlight);
     await this.app.pm.add(PluginFieldAppends);
     await this.app.pm.add(PluginCustomComponents);
+    await this.app.pm.add(PluginSheet);
   }
 
   async registerSettings() {
-    this.schemaSettingsManager.add(sheetBlockSettings);
     this.schemaSettingsManager.add(customComponentDispatcherSettings);
 
     this.schemaSettingsManager.addItem('fieldSettings:component:DatePicker', 'datePickerType', {
@@ -155,10 +149,6 @@ export class PluginCoreClient extends Plugin {
       Expression,
       PageLayout,
       SettingBlock: SettingBlockInitializer,
-      SheetBlock,
-      SheetBlockInitializer,
-      SheetBlockProvider,
-      SheetBlockToolbar,
       SignatureInput,
       ExcelFile,
     });
@@ -187,10 +177,6 @@ export class PluginCoreClient extends Plugin {
       },
     };
     this.app.schemaInitializerManager.addItem('page:addBlock', settingBlockItem.name, settingBlockItem);
-    this.app.schemaInitializerManager.addItem('page:addBlock', 'dataBlocks.sheetBlock', {
-      title: tval('Sheet'),
-      Component: 'SheetBlockInitializer',
-    });
     this.app.schemaInitializerManager.addItem('kanban:configureActions', refreshActionItem.name, refreshActionItem);
     const addCustomComponent = {
       name: 'addCustomComponent',
