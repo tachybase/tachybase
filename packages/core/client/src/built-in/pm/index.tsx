@@ -5,7 +5,7 @@ import { Plugin } from '../../application/Plugin';
 import { BlockTemplatesPane } from '../../schema-templates';
 import { SystemSettingsPane } from '../system-settings';
 import { PluginManager } from './PluginManager';
-import { PluginManagerLink, SettingsCenterDropdown } from './PluginManagerLink';
+import { DatasourceLink, PluginManagerLink, SettingsCenterDropdown, WorkflowLink } from './PluginManagerLink';
 import { AdminSettingsLayout } from './PluginSetting';
 
 export * from './PluginManager';

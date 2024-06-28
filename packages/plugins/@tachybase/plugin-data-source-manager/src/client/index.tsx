@@ -4,6 +4,7 @@ import { Plugin } from '@tachybase/client';
 import { BreadcumbTitle } from './component/BreadcumbTitle';
 import { CollectionManagerPage } from './component/CollectionsManager';
 import { DatabaseConnectionManagerPane } from './component/DatabaseConnectionManager';
+import { DatasourceLink } from './component/DatasourceLink';
 import { MainDataSourceManager } from './component/MainDataSourceManager';
 import { DataSourcePermissionManager } from './component/PermissionManager';
 import { DatabaseConnectionProvider } from './DatabaseConnectionProvider';
@@ -16,6 +17,7 @@ export class PluginDataSourceManagerClient extends Plugin {
     // 注册组件
     this.app.addComponents({
       DataSourcePermissionManager,
+      DatasourceLink,
     });
     this.app.use(DatabaseConnectionProvider);
     this.app.pluginSettingsManager.add(NAMESPACE, {
