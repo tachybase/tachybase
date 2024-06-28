@@ -2,6 +2,7 @@ import React from 'react';
 import { Plugin } from '@tachybase/client';
 import { Registry } from '@tachybase/utils/client';
 
+import { WorkflowLink } from './components/WorkflowLink';
 import { ExecutionPage } from './ExecutionPage';
 import { PluginActionTrigger } from './features/action-trigger';
 import { PluginAggregate } from './features/aggregate';
@@ -127,6 +128,7 @@ export class PluginWorkflow extends Plugin {
 
   addComponents() {
     this.app.addComponents({
+      WorkflowLink,
       WorkflowPage,
       ExecutionPage,
     });

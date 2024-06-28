@@ -331,9 +331,10 @@ export class BuiltInPlugin extends Plugin {
       name: 'pinned-list',
       config: {
         items: {
-          ui: { order: 100, component: 'DesignableSwitch', pin: true, snippet: 'ui.*' },
-          pm: { order: 200, component: 'PluginManagerLink', pin: true, snippet: 'pm' },
-          sc: { order: 300, component: 'SettingsCenterDropdown', pin: true, snippet: 'pm.*' },
+          wf: { order: 100, component: 'WorkflowLink', pin: true, snippet: 'pm.*' },
+          ds: { order: 200, component: 'DatasourceLink', pin: true, snippet: 'pm.*' },
+          pm: { order: 300, component: 'PluginManagerLink', pin: true, snippet: 'pm' },
+          sc: { order: 400, component: 'SettingsCenterDropdown', pin: true, snippet: 'pm.*' },
         },
       },
     });
