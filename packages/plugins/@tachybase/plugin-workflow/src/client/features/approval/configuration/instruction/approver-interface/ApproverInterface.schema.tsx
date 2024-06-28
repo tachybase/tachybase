@@ -2,16 +2,19 @@ import React, { useContext, useState } from 'react';
 import {
   createStyles,
   ExtendCollectionsProvider,
+  parseCollectionName,
   RecordProvider,
   SchemaComponent,
   SchemaComponentContext,
 } from '@tachybase/client';
+import { useForm } from '@tachybase/schema';
 import { uid } from '@tachybase/utils/client';
 
 import { useFlowContext } from '../../../../../FlowContext';
 import { CollectionApprovalTodos } from '../../../common/Cn.ApprovalTodos';
 import { NAMESPACE } from '../../../locale';
-import { ApproverBlock } from './VC.ApproverBlock';
+import { SchemaAddBlock } from '../../trigger/launcher-interface/SchemaAddBlock.component';
+import { ApproverBlock } from './ApproverBlock.view';
 
 const useStyles = createStyles(({ css }) => {
   return {
@@ -30,6 +33,8 @@ export const ApproverInterfaceComponent = () => {
   const { workflow } = useFlowContext();
   const { styles } = useStyles();
   const commentFields = CollectionApprovalTodos.fields.filter((field) => field.name === 'comment');
+  const schema = getSchema({ styles });
+
   return (
     <ExtendCollectionsProvider
       collections={[
@@ -48,25 +53,32 @@ export const ApproverInterfaceComponent = () => {
       >
         <RecordProvider record={{}} parent={false}>
           <SchemaComponent
-            components={{ SchemaContent: ApproverBlock }}
-            schema={{
-              name: 'drawer',
-              type: 'void',
-              title: `{{t("Approver's interface", { ns: "${NAMESPACE}" })}}`,
-              'x-component': 'Action.Drawer',
-              'x-component-props': {
-                className: styles.container,
-              },
-              properties: {
-                applyDetail: {
-                  type: 'string',
-                  'x-component': 'SchemaContent',
-                },
-              },
+            components={{
+              ApproverBlock,
+              SchemaAddBlock,
             }}
+            schema={schema}
           />
         </RecordProvider>
       </SchemaComponentContext.Provider>
     </ExtendCollectionsProvider>
   );
 };
+
+function getSchema({ styles }) {
+  return {
+    name: 'drawer',
+    type: 'void',
+    title: `{{t("Approver's interface", { ns: "${NAMESPACE}" })}}`,
+    'x-component': 'Action.Drawer',
+    'x-component-props': {
+      className: styles.container,
+    },
+    properties: {
+      applyDetail: {
+        type: 'string',
+        'x-component': 'ApproverBlock',
+      },
+    },
+  };
+}

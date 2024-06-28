@@ -5,6 +5,7 @@ import { useAvailableUpstreams, useNodeContext } from '../../../../../nodes';
 import { PluginWorkflow } from '../../../../../Plugin';
 import { useTrigger } from '../../../../../triggers';
 import { NAMESPACE } from '../../../locale';
+import { EditableForm } from './EditableForm.schema';
 import { ApproverAddBlockComponent } from './VC.ApproverAddBlock';
 import { ApproverAddBlockKit } from './VC.ApproverAddBlockKit';
 
@@ -29,6 +30,19 @@ export const ApproverAddBlockInitializer = new SchemaInitializer({
           type: 'item',
           title: '{{t("Actions")}}',
           Component: ApproverAddBlockKit,
+        },
+      ],
+    },
+    {
+      name: 'forms',
+      type: 'itemGroup',
+      title: '{{t("Form")}}',
+      children: [
+        {
+          name: 'form',
+          type: 'item',
+          title: `{{t("Apply form", { ns: "${NAMESPACE}" })}}`,
+          Component: EditableForm,
         },
       ],
     },
