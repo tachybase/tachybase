@@ -4,6 +4,7 @@ import { ArrayItems } from '@tachybase/components';
 import { uid } from '@tachybase/utils/client';
 
 import { RadioWithTooltip } from '../../../../components';
+import { useWorkflowAnyExecuted } from '../../../../hooks';
 import { Instruction } from '../../../../nodes';
 import { APPROVAL_ACTION_STATUS } from '../../constants';
 import { NAMESPACE } from '../../locale';
@@ -12,7 +13,7 @@ import { AssigneesSelect } from './approval-config/VC.AssigneesSelect';
 import { ContentTooltip } from './approval-config/VC.ContentTooltip';
 import { NegotiationConfig } from './approval-config/VC.NegotiationConfig';
 import { SchemaConfigButtonApprover } from './approval-config/VC.SchemaConfigButtonApprover';
-import { ApproverInterfaceComponent } from './approver-interface/VC.ApproverInterface';
+import { ApproverInterfaceComponent } from './approver-interface/ApproverInterface.schema';
 import { isApprovalReturnFunc } from './utils';
 import { ApprovalInstructionNode } from './VC.ApprovalInstructionNode';
 
@@ -41,6 +42,13 @@ export class ApprovalInstruction extends Instruction {
   ];
   // 审批节点表单设置
   fieldset = {
+    collection: {
+      type: 'string',
+      title: '{{t("Collection")}}',
+      'x-decorator': 'FormItem',
+      'x-component': 'DataSourceCollectionCascader',
+      // 'x-disabled': '{{ useWorkflowAnyExecuted() }}',
+    },
     branchMode: {
       type: 'boolean',
       title: `{{t("Pass mode", { ns: "${NAMESPACE}" })}}`,
@@ -175,6 +183,7 @@ export class ApprovalInstruction extends Instruction {
     },
   };
   // 审批节点组件
+  scope = { useWorkflowAnyExecuted };
   Component = ApprovalInstructionNode;
   components = {
     ArrayItems,

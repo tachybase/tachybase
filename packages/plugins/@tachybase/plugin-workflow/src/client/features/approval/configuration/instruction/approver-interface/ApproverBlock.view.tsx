@@ -17,11 +17,8 @@ import { ApprovalFormBlockProvider } from './VC.ApprovalFormBlockProvider';
 
 export const ApproverBlock = ({ value: srcID, onChange }) => {
   const apiClient = useAPIClient();
-  // const workflowPlugin = usePlugin(PluginWorkflow);
   const { values, setValuesIn } = useForm();
   const { setFormValueChanged } = useContext(ContextApproverConfig) as any;
-  // const current = useNodeContext();
-  // const nodes = useAvailableUpstreams(current);
   const onChangeFunc = useCallback(
     (data) => {
       const flatSet = flatSchemaArray(
@@ -42,7 +39,7 @@ export const ApproverBlock = ({ value: srcID, onChange }) => {
     [setFormValueChanged, setValuesIn, values.actions],
   );
 
-  const { data, loading } = useRequest(async () => {
+  const { data: schemaData, loading } = useRequest(async () => {
     if (srcID) {
       const { data: serviceData } = await apiClient.request({ url: `uiSchemas:getJsonSchema/${srcID}` });
       if (serviceData?.data?.['x-uid'] === srcID) {
@@ -88,7 +85,7 @@ export const ApproverBlock = ({ value: srcID, onChange }) => {
           SimpleDesigner,
         }}
         // @ts-ignore
-        schema={data}
+        schema={schemaData}
         onChange={onChangeFunc}
       />
     </ContextApproverBlock.Provider>
