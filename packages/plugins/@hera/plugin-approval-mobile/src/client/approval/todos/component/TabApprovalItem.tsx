@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAPIClient, useCollectionManager, useCompile } from '@tachybase/client';
 import { ExecutionStatusOptionsMap } from '@tachybase/plugin-workflow/client';
 import { observer } from '@tachybase/schema';
+import { dayjs } from '@tachybase/utils/client';
 
 import { useAsyncEffect } from 'ahooks';
 import { Empty, List, Space, Tag } from 'antd-mobile';
@@ -45,10 +46,13 @@ export const TabApprovalItem = observer((props) => {
                 {/* <Badge color="#6ac3ff" content={Badge.dot} style={{ '--right': '100%' }}> */}
                 <Space block>
                   {item.title}
-                  <Tag color={item.statusColor} fill="outline">
-                    {item.statusIcon}
-                    {item.statusTitle}
-                  </Tag>
+                  {item.statusTitle ? (
+                    <Tag color={item.statusColor} fill="outline">
+                      {item.statusIcon}
+                      {item.statusTitle}
+                    </Tag>
+                  ) : null}
+
                   <Tag color={item.priorityColor} fill="outline">
                     {item.priorityTitle}
                   </Tag>
@@ -99,9 +103,15 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
 
         const summary = Object.entries(item.summary)?.map(([key, value]) => {
           const field = cm.getCollectionField(`${collectionName}.${key}`);
+          let resonValue = value;
+          if (field.type === 'date' && value) {
+            resonValue = dayjs(value as string).format('YYYY-MM-DD');
+          }
+
           return {
             label: compile(field?.uiSchema?.title || key),
-            value: (Object.prototype.toString.call(value) === '[object Object]' ? value?.['name'] : value) || '',
+            value:
+              (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
           };
         });
         const nickName = item.snapshot.createdBy?.nickname || item.execution?.context?.data.createdBy?.nickname;
@@ -116,7 +126,11 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
           priorityColor: priorityType.color,
         };
       });
-      const filterResult = result.filter((value) => value.title.includes(input));
+      const filterResult = result.filter((value) => {
+        const reason = value?.reason.find((reasonItem) => reasonItem?.value.toString().includes(input));
+        return value.title.includes(input) || reason;
+      });
+
       filterResult.sort((a, b) => {
         return Date.parse(b.createdAt) - Date.parse(a.createdAt);
       });
@@ -157,7 +171,10 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
           priorityColor: priorityType.color,
         };
       });
-      const filterResult = result.filter((value) => value.title.includes(input));
+      const filterResult = result.filter((value) => {
+        const reason = value?.reason.find((reasonItem) => reasonItem?.value.toString().includes(input));
+        return value.title.includes(input) || reason;
+      });
 
       filterResult.sort((a, b) => {
         return Date.parse(b.createdAt) - Date.parse(a.createdAt);
@@ -197,14 +214,18 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
         const priorityType = ApprovalPriorityType.find(
           (priorityItem) => priorityItem.value === item.snapshot?.priority,
         );
-        const statusType = approvalStatusOptions.find((value) => value.value === item.status);
         const categoryTitle = item.workflow.title.replace('审批流:', '');
         const collectionName = item.collectionName;
         const summary = Object.entries(item.summary).map(([key, value]) => {
           const field = cm.getCollectionField(`${collectionName}.${key}`);
+          let resonValue = value;
+          if (field.type === 'date' && value) {
+            resonValue = dayjs(value as string).format('YYYY-MM-DD');
+          }
           return {
             label: compile(field?.uiSchema?.title || key),
-            value: (Object.prototype.toString.call(value) === '[object Object]' ? value?.['name'] : value) || '',
+            value:
+              (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
           };
         });
         const nickName = user.find((userItem) => userItem.id === item.snapshot?.createdById)?.nickname;
@@ -212,15 +233,18 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
           ...item,
           title: `${nickName}的${categoryTitle}`,
           categoryTitle: categoryTitle,
-          statusTitle: t(statusType.label),
-          statusColor: statusType.color,
+          statusTitle: null,
+          statusColor: null,
           reason: summary,
           priorityTitle: priorityType.label,
           priorityColor: priorityType.color,
         };
       });
 
-      const filterResult = result.filter((value) => value.title.includes(input));
+      const filterResult = result.filter((value) => {
+        const reason = value?.reason.find((reasonItem) => reasonItem?.value.toString().includes(input));
+        return value.title.includes(input) || reason;
+      });
 
       filterResult.sort((a, b) => {
         return Date.parse(b.createdAt) - Date.parse(a.createdAt);

@@ -6,7 +6,6 @@ import { Space } from 'antd-mobile';
 
 import { ApprovalReachDataType } from '../../component/ApprovalReachDataType';
 import { ApprovalTemplateType } from '../../component/ApprovalTemplateType';
-import { PendingStatus } from '../../constants';
 import { useTodosContext } from '../provider/todosContext';
 import { TabApplicantType } from './TabApplicantType';
 import { TabApprovalItem } from './TabApprovalItem';
