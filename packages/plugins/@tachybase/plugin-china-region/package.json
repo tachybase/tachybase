@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-china-region",
   "displayName": "Administrative divisions of China",
-  "version": "0.21.61",
+  "version": "0.21.62",
   "description": "Provides data and field type for administrative divisions of China.",
   "keywords": [
     "Fields"
