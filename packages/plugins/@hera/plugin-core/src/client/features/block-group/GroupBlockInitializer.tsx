@@ -148,9 +148,6 @@ export const groupBlockSettings = new SchemaSettings({
     {
       name: 'remove',
       type: 'remove',
-      componentProps: {
-        removeParentsIfNoChildren: true,
-      },
     },
   ],
 });
