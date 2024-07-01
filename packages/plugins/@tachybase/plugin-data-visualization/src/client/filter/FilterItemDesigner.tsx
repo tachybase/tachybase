@@ -11,6 +11,7 @@ import {
   SchemaSettingsModalItem,
   SchemaSettingsRemove,
   SchemaSettingsSelectItem,
+  SchemaSettingsSortingRule,
   useCollection_deprecated,
   useCollectionManager_deprecated,
   useCompile,
@@ -366,6 +367,7 @@ export const ChartFilterItemDesigner: React.FC = () => {
       {!isCustom && <EditOperator />}
       <EditTitleField />
       <EditDefaultValue />
+      <SchemaSettingsSortingRule />
       {collectionField ? <SchemaSettingsDivider /> : null}
       <SchemaSettingsRemove
         key="remove"

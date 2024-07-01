@@ -117,6 +117,7 @@ export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {
         });
         _.set(fieldSchema, 'x-component-props.service.params.sort', sortArr);
         props?.onSubmitCallBack?.(sortArr);
+        field.componentProps = fieldSchema['x-component-props'];
         dn.emit('patch', {
           schema: {
             ['x-uid']: fieldSchema['x-uid'],
