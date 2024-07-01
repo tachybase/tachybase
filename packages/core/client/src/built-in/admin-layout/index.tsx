@@ -19,6 +19,7 @@ import {
   SchemaComponent,
   useACLRoleContext,
   useAdminSchemaUid,
+  useApp,
   useDocumentTitle,
   useRequest,
   useSystemSettings,
@@ -403,6 +404,7 @@ const SetThemeOfHeaderSubmenu = ({ children }) => {
 export const InternalAdminLayout = (props: any) => {
   const sideMenuRef = useRef<HTMLDivElement>();
   const result = useSystemSettings();
+  const app = useApp();
   const params = useParams<any>();
   const { styles } = useStyles();
   return (
@@ -411,7 +413,12 @@ export const InternalAdminLayout = (props: any) => {
       <Layout.Header className={styles.header}>
         <div className={styles.headerA}>
           <div className={styles.headerB}>
-            <div className={styles.titleContainer}>
+            <div
+              className={styles.titleContainer}
+              onClick={() => {
+                location.href = app.adminUrl;
+              }}
+            >
               <img className={styles.logo} src={result?.data?.data?.logo?.url} />
               <h1 className={styles.title}>{result?.data?.data?.title}</h1>
             </div>

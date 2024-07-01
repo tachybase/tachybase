@@ -3,6 +3,14 @@ import { createStyles } from '@tachybase/client';
 export const useStyles = createStyles(({ css }) => {
   return {
     container: css`
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      height: 520px;
+      z-index: 1350;
+
       button {
         display: block;
         background: none;
@@ -18,20 +26,6 @@ export const useStyles = createStyles(({ css }) => {
 
       button:active {
         box-shadow: inset 0px 0px 80px 0px rgba(0, 0, 0, 0.25);
-      }
-
-      #wrapper {
-        height: 100vh;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      #app {
-        width: 320px;
-        height: 520px;
-        position: relative;
       }
 
       .calculator {

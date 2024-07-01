@@ -5,28 +5,36 @@ export const AutoScalingText = ({ children }) => {
   const [scale, setScale] = useState<number>(1);
 
   useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
+    const observer = new ResizeObserver((entries) => {
+      const node = entries[0].target as HTMLDivElement;
+      const parentNode = node.parentNode as HTMLDivElement;
+
+      const availableWidth = parentNode.offsetWidth;
+      const actualWidth = node.offsetWidth;
+      const actualScale = availableWidth / actualWidth;
+
+      setScale((scale) => {
+        if (actualScale < 1) {
+          return actualScale;
+        } else if (scale < 1) {
+          return 1;
+        }
+      });
+    });
     const node = ref.current;
-    const parentNode = node.parentNode;
-
-    // @ts-ignore
-    const availableWidth = parentNode.offsetWidth;
-    const actualWidth = node.offsetWidth;
-    const actualScale = availableWidth / actualWidth;
-
-    if (scale === actualScale) return;
-
-    if (actualScale < 1) {
-      setScale(actualScale);
-    } else if (scale < 1) {
-      setScale(1);
-    }
-  }, [scale]);
+    observer.observe(node);
+    return () => observer.unobserve(node);
+  }, []);
 
   return (
-    <div className="auto-scaling-text" style={{ transform: `scale(${scale},${scale})` }} ref={ref}>
+    <div
+      className="auto-scaling-text"
+      style={{
+        transition: 'transform 0.5s ease',
+        transform: `scale(${scale},${scale})`,
+      }}
+      ref={ref}
+    >
       {children}
     </div>
   );
