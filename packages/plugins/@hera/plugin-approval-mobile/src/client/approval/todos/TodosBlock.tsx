@@ -93,14 +93,14 @@ export const TodosBlock = observer((props) => {
                 schema={tabDuplicateSchema(t, props, fieldSchema['x-uid'])}
               />
             </Tabs.Tab>
-            <Tabs.Tab title={t('Executed')} key="executed">
+            {/* <Tabs.Tab title={t('Executed')} key="executed">
               <SchemaComponent
                 components={{
                   TabExecutedItem,
                 }}
                 schema={tabExecutedSchema(t, props, fieldSchema['x-uid'])}
               />
-            </Tabs.Tab>
+            </Tabs.Tab> */}
           </Tabs>
         </todosContext.Provider>
       </BlockItem>

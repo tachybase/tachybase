@@ -165,11 +165,12 @@ const getStepsResult = (result, t) => {
           status['color'] = approvalActionStatus?.color || approvalStatus?.color || 'default';
         }
       }
+
       if (Object.keys(stepItem).includes(value.nodeId ? value.nodeId.toString() : '')) {
         stepItem[value.nodeId].description.push({
           userName: value.user.nickname,
           status,
-          date: value.status === 0 ? '' : dayjs(value.execution.updatedAt).format('YYYY-MM-DD hh:mm:ss'),
+          date: value.status === 0 ? '' : dayjs(value.updatedAt).format('YYYY-MM-DD hh:mm:ss'),
         });
       } else {
         stepItem[value.nodeId || value.node?.title || t(status['label'])] = {
@@ -179,12 +180,7 @@ const getStepsResult = (result, t) => {
             {
               userName: value.user.nickname,
               status,
-              date:
-                value.status === 0
-                  ? ''
-                  : dayjs(
-                      value.nodeId ? value.execution?.updatedAt : value.execution?.createdAt || value.updatedAt,
-                    ).format('YYYY-MM-DD hh:mm:ss'),
+              date: value.status === 0 ? '' : dayjs(value.updatedAt).format('YYYY-MM-DD hh:mm:ss'),
             },
           ],
         };

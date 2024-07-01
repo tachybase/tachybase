@@ -35,7 +35,7 @@ export const AntdSelect = observer((props) => {
   const cm = useCollectionManager();
   const collection = useCollection();
   const [fieldServiceFilter] = useFieldServiceFilter(service?.params);
-  const [filter, setFilter] = useState(fieldServiceFilter);
+  const [filter, setFilter] = useState({});
   const api = useAPIClient();
   const [selectValue, setSelectValue] = useState(value);
   const fieldNamesLabel = fieldNames?.label || 'label';
@@ -54,7 +54,7 @@ export const AntdSelect = observer((props) => {
       resource: collectionName,
       action: 'list',
       params: {
-        filter,
+        filter: { ...fieldServiceFilter?.filter, ...filter },
       },
     },
     {
