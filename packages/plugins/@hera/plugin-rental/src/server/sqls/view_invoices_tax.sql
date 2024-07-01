@@ -12,6 +12,10 @@ WITH RECURSIVE
       category
     FROM
       invoice_input
+    WHERE
+      "category" = '0'
+      -- 筛选出进项发票种类为 0-专用发票; 0-专用发票,1-普通发票;只有专用发票计入增值税计算
+      -- 完税凭证加入增值税计算 99-完税凭证
     UNION ALL
     SELECT
       purchaser_id AS company_id, -- 完税凭证,同发票进项字段
@@ -44,7 +48,6 @@ WITH RECURSIVE
     WHERE
       "date" >= '2022-01-01' -- 筛选出日期在'2022-01-01'之后的数据 
       AND "state" = '1' -- 筛选出所有状态为正常的记录, 正常-1,作废-2
-      AND "category" = '0' -- 筛选出进项发票种类为 0-专用发票; 0-专用发票,1-普通发票;只有专用发票计入增值税计算
     GROUP BY
       company_id,
       "MONTH"
