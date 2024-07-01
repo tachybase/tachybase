@@ -48,6 +48,7 @@ export * from './modules/blocks/data-blocks/form';
 export * from './modules/blocks/data-blocks/table';
 export * from './modules/blocks/data-blocks/table-selector';
 export * from 'react-i18next';
+export { useHotkeys } from 'react-hotkeys-hook';
 
 export * from './modules/blocks/useParentRecordCommon';
 

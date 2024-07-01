@@ -1,60 +1,45 @@
 import React from 'react';
-import { css, useDesignable } from '@tachybase/client';
+import { useDesignable, useHotkeys } from '@tachybase/client';
 
-import { CalculatorOutlined, CommentOutlined, HighlightOutlined, ToolOutlined } from '@ant-design/icons';
+import {
+  CalculatorOutlined,
+  CommentOutlined,
+  HighlightOutlined,
+  SearchOutlined,
+  ToolOutlined,
+} from '@ant-design/icons';
 import { FloatButton } from 'antd';
-import { createPortal } from 'react-dom';
 
 import { useContextMenu } from '../context-menu/useContextMenu';
-import { CalculatorWrapper } from './calculator/Calculator';
+import { useCalculator } from './calculator/CalculatorProvider';
+import { useSearchAndJump } from './search-and-jump';
 
 export const AssistantProvider = ({ children }) => {
   const { designable, setDesignable } = useDesignable();
+  const { visible, setVisible } = useCalculator();
+  const { setOpen } = useSearchAndJump();
+
+  // 快捷键切换编辑状态
+  useHotkeys('Ctrl+Shift+U', () => setDesignable(!designable), [designable]);
+  useHotkeys('Ctrl+K', () => setOpen((open) => !open), []);
+  useHotkeys('Cmd+K', () => setOpen((open) => !open), []);
+
   const { contextMenuEnabled, setContextMenuEnable } = useContextMenu();
   return (
     <>
       {children}
       <FloatButton.Group trigger="hover" type="default" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
+        <FloatButton icon={<SearchOutlined />} onClick={() => setOpen(true)} />
         <FloatButton
           icon={<HighlightOutlined />}
           type={designable ? 'primary' : 'default'}
           onClick={() => setDesignable(!designable)}
         />
         <FloatButton
+          type={visible ? 'primary' : 'default'}
           icon={<CalculatorOutlined />}
           onClick={() => {
-            createPortal(
-              // <div
-              //   className={css`
-              //     position: fixed;
-              //     top: 0;
-              //     left: 0;
-              //     width: 1000px;
-              //     height: 1000px;
-              //     z-index: 9999;
-              //     background-color: red;
-              //   `}
-              // >
-              //   <div />
-              //   {/* <CalculatorWrapper /> */}
-              // </div>,
-              <div
-                className={css`
-                  position: fixed;
-                  top: 0;
-                  left: 0;
-                  right: 0;
-                  bottom: 0;
-                  z-index: 9000;
-                  display: 'flex';
-                  flex-direction: column;
-                `}
-              >
-                dsfasdfasfasdfadsf
-              </div>,
-              document.body,
-            );
-            alert('---');
+            setVisible((visible) => !visible);
           }}
         />
         <FloatButton icon={<CommentOutlined />} />
