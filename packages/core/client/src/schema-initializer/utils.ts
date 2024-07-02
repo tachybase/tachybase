@@ -487,24 +487,32 @@ const getItem = (
     if (processedCollections.includes(field.target)) return null;
 
     const subFields = getCollectionFields(field.target);
-
+    const options = [];
+    subFields.forEach((subField) => {
+      if (['m2o', 'obo'].includes(subField.interface)) {
+        options.push(getResultSchema(`${schemaName}.${subField.name}`, subField, collectionName));
+      }
+      options.push(
+        getItem(subField, `${schemaName}.${subField.name}`, collectionName, getCollectionFields, [
+          ...processedCollections,
+          field.target,
+        ]),
+      );
+    });
     return {
       type: 'subMenu',
       name: field.uiSchema?.title,
       title: field.uiSchema?.title,
-      children: subFields
-        .map((subField) =>
-          getItem(subField, `${schemaName}.${subField.name}`, collectionName, getCollectionFields, [
-            ...processedCollections,
-            field.target,
-          ]),
-        )
-        .filter(Boolean),
+      children: options.filter(Boolean),
     } as SchemaInitializerItemType;
   }
 
   if (isAssocField(field)) return null;
 
+  return getResultSchema(schemaName, field, collectionName);
+};
+
+const getResultSchema = (schemaName, field, collectionName) => {
   const schema = {
     type: 'string',
     name: schemaName,
@@ -520,8 +528,7 @@ const getItem = (
     'x-decorator': 'FormItem',
     'x-collection-field': `${collectionName}.${schemaName}`,
   };
-
-  return {
+  const result = {
     name: field.uiSchema?.title || field.name,
     type: 'item',
     title: field.uiSchema?.title || field.name,
@@ -529,6 +536,7 @@ const getItem = (
     remove: removeGridFormItem,
     schema,
   } as SchemaInitializerItemType;
+  return result;
 };
 
 // 筛选表单相关
