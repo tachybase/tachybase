@@ -22,6 +22,7 @@ import { BlockTemplateDetails, BlockTemplatePage } from '../schema-templates';
 import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
 import { ACLPlugin } from './acl';
 import { AdminLayoutPlugin } from './admin-layout';
+import { PluginBuiltInCollections } from './built-in-collections';
 import { RemoteDocumentTitlePlugin } from './document-title';
 import { LocalePlugin } from './locale/LocalePlugin';
 import { PinnedListPlugin } from './pinned-list';

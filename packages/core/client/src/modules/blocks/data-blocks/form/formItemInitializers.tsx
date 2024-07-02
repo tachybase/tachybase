@@ -1,5 +1,9 @@
 import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
-import { AssociatedFields, ParentCollectionFields } from '../../../../schema-initializer/buttons/FormItemInitializers';
+import {
+  AssociatedFields,
+  ExtendCollectionFields,
+  ParentCollectionFields,
+} from '../../../../schema-initializer/buttons/FormItemInitializers';
 import { gridRowColWrap, useFormItemInitializerFields } from '../../../../schema-initializer/utils';
 
 /**
@@ -21,6 +25,10 @@ export const formItemInitializers_deprecated = new CompatibleSchemaInitializer({
     {
       name: 'parentCollectionFields',
       Component: ParentCollectionFields,
+    },
+    {
+      name: 'extendCollectionFields',
+      Component: ExtendCollectionFields,
     },
     {
       name: 'associationFields',
@@ -54,6 +62,10 @@ export const formItemInitializers = new CompatibleSchemaInitializer(
       {
         name: 'parentCollectionFields',
         Component: ParentCollectionFields,
+      },
+      {
+        name: 'extendCollectionFields',
+        Component: ExtendCollectionFields,
       },
       {
         name: 'associationFields',

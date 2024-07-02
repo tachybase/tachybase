@@ -2,7 +2,6 @@ import React, { PropsWithChildren } from 'react';
 import { SchemaComponentOptions } from '@tachybase/client';
 
 import {
-  CollectionField,
   ImageSearchInitializer,
   ImageSearchItemIntializer,
   ImageSearchItemToolbar,
@@ -24,8 +23,6 @@ import {
   MSettings,
   MSettingsBlockInitializer,
   MTabBar,
-  NoticeBlock,
-  NoticeBlockInitializer,
   SwiperBlock,
   SwiperBlockInitializer,
   SwiperPage,
@@ -75,22 +72,30 @@ export const MobileCore: React.FC<PropsWithChildren> = (props) => {
         TabSearchCollapsibleInputMItem,
         TabSearchFieldSchemaInitializerGadget,
 
-        ImageSearchView: ImageSearchView,
-        ImageSearchInitializer: ImageSearchInitializer,
-        ImageSearchProvider: ImageSearchProvider,
-        ImageSearchItemIntializer: ImageSearchItemIntializer,
-        ImageSearchItemToolbar: ImageSearchItemToolbar,
-        ImageSearchItemView: ImageSearchItemView,
-        // NoticeBlock,
-        // NoticeBlockInitializer,
+        ImageSearchView,
+        ImageSearchInitializer,
+        ImageSearchProvider,
+        ImageSearchItemIntializer,
+        ImageSearchItemToolbar,
+        ImageSearchItemView,
         MInput,
         MCheckbox,
         MDatePicker,
         MRadio,
         MImageUploader,
         MCascader,
-        CollectionField: CollectionField,
         MSelect,
+        // mobile alternative components
+        Input: MInput,
+        'Input.TextArea': MInput.TextArea,
+        'Radio.Group': MRadio.Group,
+        'Checkbox.Group': MCheckbox.Group,
+        // 只支持图片，所以暂时禁用
+        // 'Upload.Attachment': MImageUploader,
+        DatePicker: MDatePicker,
+        Select: MSelect,
+        AlternativeAssociationSelect: MSelect,
+        Cascader: MCascader,
       }}
       scope={{
         useGridCardBlockItemProps,

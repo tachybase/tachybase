@@ -1,11 +1,13 @@
-import React from 'react';
-import { Field, observer, useField, useForm } from '@tachybase/schema';
+import React, { useContext } from 'react';
+import { Field, observer, SchemaOptionsContext, useField, useForm } from '@tachybase/schema';
+
+import _ from 'lodash';
 
 import { SchemaComponentOptions } from '../../';
 import { useAssociationCreateActionProps as useCAP } from '../../../block-provider/hooks';
 import { useCollection_deprecated } from '../../../collection-manager';
 import { AssociationFieldProvider } from './AssociationFieldProvider';
-import { AssociationSelect } from './AssociationSelect';
+import { AssociationSelect as Select } from './AssociationSelect';
 import { CreateRecordAction } from './components/CreateRecordAction';
 import { InternalFileManager } from './FileManager';
 import { useAssociationFieldContext } from './hooks';
@@ -23,6 +25,8 @@ const EditableAssociationField = observer(
     const field: Field = useField();
     const form = useForm();
     const { options: collectionField, currentMode } = useAssociationFieldContext();
+    const { components } = useContext(SchemaOptionsContext);
+    const AssociationSelect = _.get(components, 'AlternativeAssociationSelect') || Select;
 
     const useCreateActionProps = () => {
       const { onClick } = useCAP();

@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { connect, Field, merge, useField, useFieldSchema } from '@tachybase/schema';
 
+import { useDeepCompareEffect } from 'ahooks';
 import { concat } from 'lodash';
 
 import { useFormBlockContext } from '../../block-provider/FormBlockProvider';
@@ -41,7 +42,7 @@ export const CollectionFieldInternalField = (props: Props) => {
       ctx.field.added.add(fieldSchema.name);
     }
   });
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (!uiSchema) {
       return;
     }
@@ -69,7 +70,6 @@ export const CollectionFieldInternalField = (props: Props) => {
     const originalProps = compile(uiSchema['x-component-props']) || {};
     const componentProps = merge(originalProps, field.componentProps || {});
     field.component = [Component, componentProps];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uiSchema]);
   if (!uiSchema) {
     return null;
