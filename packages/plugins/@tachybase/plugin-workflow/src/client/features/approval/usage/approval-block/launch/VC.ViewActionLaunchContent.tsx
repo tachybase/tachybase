@@ -58,8 +58,6 @@ export const ViewActionLaunchContent = () => {
   ) as any;
   // @ts-ignore
   const approvalData = data?.data;
-  const { approval, execution, ...approvalValue } = approvalData || {};
-  const { workflow } = approval || {};
 
   if (loading) {
     return <Spin />;
@@ -68,6 +66,9 @@ export const ViewActionLaunchContent = () => {
   if (!approvalData) {
     return <Result status="error" title="Loading failed" />;
   }
+
+  const { approval, execution, ...approvalValue } = approvalData || {};
+  const { workflow } = approval || {};
 
   return (
     <FlowContextProvider

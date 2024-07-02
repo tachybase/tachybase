@@ -1,40 +1,43 @@
-import { useActionContext, useAPIClient } from '@tachybase/client';
+import { useAPIClient } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
 import _ from 'lodash';
 
 import { useFlowContext } from '../../../../../../FlowContext';
 import { useApproval } from '../../../approval-common/ApprovalData.provider';
+import { useHandleRefresh } from '../../common/useHandleRefresh';
 import { useContextApprovalStatus } from '../Pd.ApplyActionStatus';
 
 export function useSubmit() {
-  const from = useForm();
+  const { refreshTable } = useHandleRefresh();
+  const apiClient = useAPIClient();
+
+  const form = useForm();
   const field = useField();
-  const { setVisible, setSubmitted } = useActionContext() as any;
+
   const { id } = useApproval();
   const { workflow } = useFlowContext();
   const contextApprovalStatus = useContextApprovalStatus();
-  const apiClient = useAPIClient();
 
   return {
     async run() {
       try {
-        from.submit();
-
+        form.submit();
         _.set(field, ['data', 'loading'], true);
 
         apiClient.resource('approvals').update({
           filterByTk: id,
           values: {
             collectionName: workflow.config.collection,
-            data: from.values,
+            data: form.values,
             status: contextApprovalStatus,
+            schemaFormId: workflow.config.applyForm,
           },
         });
-        setSubmitted(true);
-        setVisible(false);
-        from.reset();
+
+        form.reset();
         _.set(field, ['data', 'loading'], false);
+        refreshTable();
       } catch (m) {
         _.set(field, ['data', 'loading'], false);
       }

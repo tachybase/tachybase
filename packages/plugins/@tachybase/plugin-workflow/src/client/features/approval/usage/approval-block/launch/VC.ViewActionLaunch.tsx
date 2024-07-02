@@ -22,11 +22,24 @@ export const ViewActionLaunch = ({ popoverComponent = 'Action.Drawer', popoverCo
           drawer: {
             type: 'void',
             'x-component': popoverComponent,
-            'x-component-props': { className: 'nb-action-popup', ...popoverComponentProps },
+            'x-component-props': {
+              className: 'nb-action-popup',
+              ...popoverComponentProps,
+            },
             properties: {
-              content: Object.assign({ type: 'void' }, record.approvalId ? {} : { 'x-decorator': 'RecordDecorator' }, {
-                'x-component': 'ViewActionContent',
-              }),
+              content: Object.assign(
+                {
+                  type: 'void',
+                },
+                record.approvalId
+                  ? {}
+                  : {
+                      'x-decorator': 'RecordDecorator',
+                    },
+                {
+                  'x-component': 'ViewActionContent',
+                },
+              ),
             },
           },
         },
