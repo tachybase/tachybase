@@ -93,7 +93,7 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
   const onInputChange = (v) => {
     const timeout = { current: null };
     clearTimeout(timeout.current);
-    const inputValue = v.target?.value || v;
+    const inputValue = v.target?.value ?? v;
     setValue(inputValue);
     if (inputValue === '') {
       timeout.current = setTimeout(() => {
@@ -101,6 +101,7 @@ export const useTabSearchCollapsibleInputItemAction = (props) => {
       }, 2000);
     }
   };
+
   const onButtonClick = () => {
     onSelect(value);
   };
