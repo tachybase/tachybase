@@ -23,9 +23,13 @@ export const useTabSearchCollapsibleInputItem = () => {
       // 保留原有的 filter
       let storedFilter = block.service.params?.[1]?.filters || {};
       if (value.length) {
-        storedFilter[key] = {
-          [filterKey]: value,
-        };
+        if (value[0]) {
+          storedFilter[key] = {
+            [filterKey]: value,
+          };
+        } else {
+          delete storedFilter[key]?.[filterKey];
+        }
 
         if (canBeCalculatedField) {
           storedFilter[key] = {
