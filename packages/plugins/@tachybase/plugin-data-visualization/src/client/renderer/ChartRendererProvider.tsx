@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import {
   CollectionManagerProvider,
   DEFAULT_DATA_SOURCE_KEY,
@@ -72,12 +72,14 @@ export const ChartRendererContext = createContext<
 ChartRendererContext.displayName = 'ChartRendererContext';
 
 export const ChartRendererProvider: React.FC<ChartRendererProps> = (props) => {
-  const { query, config, collection, transform, dataSource = DEFAULT_DATA_SOURCE_KEY } = props;
+  const { query, config: propsConfig, collection, transform, dataSource = DEFAULT_DATA_SOURCE_KEY } = props;
   const { addChart } = useContext(ChartDataContext);
   const { ready, form, enabled } = useContext(ChartFilterContext);
   const { getFilter, hasFilter, appendFilter } = useChartFilter();
   const schema = useFieldSchema();
   const api = useAPIClient();
+  const [pageSize, setPageSize] = useState(10);
+  const config = { pageSize, setPageSize, ...propsConfig };
   const service = useRequest(
     (dataSource, collection, query, manual) =>
       new Promise((resolve, reject) => {

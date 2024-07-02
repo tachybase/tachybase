@@ -8,7 +8,7 @@ export class Table extends AntdChart {
     super({ name: 'table', title: 'Table', Component: AntdTable });
   }
 
-  getProps({ data, fieldProps, general, advanced }: RenderProps) {
+  getProps({ data, fieldProps, general, advanced, ctx }: RenderProps) {
     const columns = data.length
       ? Object.keys(data[0]).map((item) => ({
           title: fieldProps[item]?.label || item,
@@ -33,7 +33,7 @@ export class Table extends AntdChart {
       item._key = index;
       return item;
     });
-    const pageSize = advanced?.pagination?.pageSize || 10;
+    const pageSize = ctx.config?.pageSize || advanced?.pagination?.pageSize || 10;
     return {
       // bordered: true,
       size: 'middle',
@@ -42,6 +42,9 @@ export class Table extends AntdChart {
           ? false
           : {
               pageSize,
+              onShowSizeChange: (curr, size) => {
+                ctx.config.setPageSize(size);
+              },
             },
       dataSource,
       columns,
