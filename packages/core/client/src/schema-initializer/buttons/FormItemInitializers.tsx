@@ -1,10 +1,14 @@
 import React from 'react';
+import { useForm } from '@tachybase/schema';
 
 import { useTranslation } from 'react-i18next';
 
-import { SchemaInitializerChildren } from '../../application';
-import { useCompile } from '../../schema-component';
+import { SchemaInitializerChildren, SchemaInitializerItemType } from '../../application';
+import { useCollectionManager_deprecated } from '../../collection-manager';
+import { useCollectionManager, useExtendCollections } from '../../data-source';
+import { useActionContext, useCompile } from '../../schema-component';
 import {
+  removeGridFormItem,
   useAssociatedFormItemInitializerFields,
   useFilterAssociatedFormItemInitializerFields,
   useFilterInheritsFormItemInitializerFields,
@@ -25,6 +29,84 @@ export const ParentCollectionFields = () => {
         title: t(`Parent collection fields`) + '(' + compile(`${Object.keys(inherit)[0]}`) + ')',
         children: Object.values(inherit)[0],
       });
+  });
+  return <SchemaInitializerChildren>{res}</SchemaInitializerChildren>;
+};
+
+export const ExtendCollectionFields = (props) => {
+  const collections = useExtendCollections();
+  const form = useForm();
+  const compile = useCompile();
+  const { getInterface, getCollection } = useCollectionManager_deprecated();
+  const { fieldSchema } = useActionContext();
+  if (!collections) {
+    return null;
+  }
+  const children = collections.map((collection) => {
+    // FIXME
+    const readPretty = form.readPretty;
+    const block = 'Form';
+    const action = fieldSchema?.['x-action'];
+
+    return {
+      type: 'subMenu',
+      title: compile(collection.title),
+      children: collection.fields
+        ?.filter((field) => field?.interface && !field?.isForeignKey && !field?.treeChildren)
+        ?.map((field) => {
+          const interfaceConfig = getInterface(field.interface);
+          const targetCollection = getCollection(field.target);
+          const isFileCollection = field?.target && getCollection(field?.target)?.template === 'file';
+          const isAssociationField = targetCollection;
+          const fieldNames = field?.uiSchema['x-component-props']?.['fieldNames'];
+          const schema = {
+            type: 'string',
+            name: field.name,
+            'x-toolbar': 'FormItemSchemaToolbar',
+            'x-settings': 'fieldSettings:FormItem',
+            'x-component': 'CollectionField',
+            'x-decorator': 'FormItem',
+            'x-collection-field': `${collection.name}.${field.name}`,
+            'x-component-props': isFileCollection
+              ? {
+                  fieldNames: {
+                    label: 'preview',
+                    value: 'id',
+                  },
+                }
+              : isAssociationField && fieldNames
+                ? {
+                    fieldNames: { ...fieldNames, label: targetCollection?.titleField || fieldNames.label },
+                  }
+                : {},
+            'x-read-pretty': field?.uiSchema?.['x-read-pretty'],
+          };
+          const resultItem = {
+            type: 'item',
+            name: field.name,
+            title: field?.uiSchema?.title || field.name,
+            Component: 'CollectionFieldInitializer',
+            remove: removeGridFormItem,
+            schemaInitialize: (s) => {
+              interfaceConfig?.schemaInitialize?.(s, {
+                field,
+                block,
+                readPretty,
+                action,
+                targetCollection,
+              });
+            },
+            schema,
+          } as SchemaInitializerItemType;
+          return resultItem;
+        }),
+    };
+  });
+  const res = [];
+  res.push({
+    type: 'itemGroup',
+    title: '{{ t("Extend collections") }}',
+    children,
   });
   return <SchemaInitializerChildren>{res}</SchemaInitializerChildren>;
 };

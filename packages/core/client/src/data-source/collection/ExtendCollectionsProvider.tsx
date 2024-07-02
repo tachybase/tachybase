@@ -1,4 +1,4 @@
-import React, { createContext, FC, ReactNode, useContext, useMemo } from 'react';
+import React, { createContext, ReactNode, useContext, useMemo } from 'react';
 
 import { useDataSourceKey } from '../data-source/DataSourceProvider';
 import { CollectionOptions } from './Collection';
@@ -12,7 +12,7 @@ export interface ExtendCollectionsProviderProps {
   children?: ReactNode;
 }
 
-export const ExtendCollectionsProvider: FC<ExtendCollectionsProviderProps> = ({ children, collections }) => {
+export const ExtendCollectionsProvider = ({ children, collections }: ExtendCollectionsProviderProps) => {
   const parentCollections = useExtendCollections();
   const extendCollections = useMemo(() => {
     return parentCollections ? [...parentCollections, ...collections] : collections;
