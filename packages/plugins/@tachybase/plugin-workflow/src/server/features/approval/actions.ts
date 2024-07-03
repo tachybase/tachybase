@@ -76,8 +76,7 @@ const approvals = {
     return actions.create(context, next);
   },
   async update(context, next) {
-    const { collectionName, data, status, schemaFormId } = context.action.params.values ?? {};
-
+    const { collectionName, data, status, schemaFormId, summaryConfig } = context.action.params.values ?? {};
     const [dataSourceName, cName] = parseCollectionName(collectionName);
     const dataSource = context.app.dataSourceManager.dataSources.get(dataSourceName);
     const collection = dataSource.collectionManager.getCollection(cName);
@@ -98,11 +97,18 @@ const approvals = {
       values: data,
       updateAssociationValues,
     });
+
+    const summary = getSummary({
+      summaryConfig,
+      data: data,
+    });
+
     context.action.mergeParams({
       values: {
         status: status ?? APPROVAL_STATUS.SUBMITTED,
         data: target.toJSON(),
         applicantRoleName: context.state.currentRole,
+        summary,
       },
     });
     return actions.update(context, next);

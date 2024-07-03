@@ -6,7 +6,7 @@ import { useHandleRefresh } from '../../common/useHandleRefresh';
 
 // 撤回
 export function useWithdrawAction() {
-  const { refreshTable } = useHandleRefresh(100);
+  const { refreshTable } = useHandleRefresh();
 
   const field = useField();
   const approval = useApproval();

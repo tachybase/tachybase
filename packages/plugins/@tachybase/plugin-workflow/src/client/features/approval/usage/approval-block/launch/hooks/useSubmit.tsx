@@ -32,6 +32,7 @@ export function useSubmit() {
             data: form.values,
             status: contextApprovalStatus,
             schemaFormId: workflow.config.applyForm,
+            summaryConfig: workflow.config.summary,
           },
         });
 
