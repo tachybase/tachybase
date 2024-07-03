@@ -1,11 +1,11 @@
-import { gridRowColWrap, SchemaInitializer, usePlugin } from '@tachybase/client';
+import { gridRowColWrap, SchemaInitializer, useDataSourceManager, usePlugin } from '@tachybase/client';
 
 import { useFlowContext } from '../../../../../FlowContext';
 import { useAvailableUpstreams, useNodeContext } from '../../../../../nodes';
 import { PluginWorkflow } from '../../../../../Plugin';
 import { useTrigger } from '../../../../../triggers';
 import { NAMESPACE } from '../../../locale';
-import { EditableForm } from './EditableForm.schema';
+import { approvalFormOptions, ApprovalFormType } from '../forms/Approval.options';
 import { ApproverAddBlockComponent } from './VC.ApproverAddBlock';
 import { ApproverAddBlockKit } from './VC.ApproverAddBlockKit';
 
@@ -30,19 +30,6 @@ export const ApproverAddBlockInitializer = new SchemaInitializer({
           type: 'item',
           title: '{{t("Actions")}}',
           Component: ApproverAddBlockKit,
-        },
-      ],
-    },
-    {
-      name: 'forms',
-      type: 'itemGroup',
-      title: '{{t("Form")}}',
-      children: [
-        {
-          name: 'form',
-          type: 'item',
-          title: `{{t("Apply form", { ns: "${NAMESPACE}" })}}`,
-          Component: EditableForm,
         },
       ],
     },
@@ -77,6 +64,22 @@ export const ApproverAddBlockInitializer = new SchemaInitializer({
               ]
             : []),
         ].filter(Boolean);
+      },
+    },
+    {
+      type: 'itemGroup',
+      name: 'form',
+      title: '{{t("Form")}}',
+      useChildren() {
+        const dm = useDataSourceManager();
+        const allCollections = dm.getAllCollections();
+        const values = Array.from(approvalFormOptions.getValues());
+        return values.map((item: ApprovalFormType) => {
+          // NOTE: 这里通过赋别名,避免 eslint 检查 hooks 语法,无法提交
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const { useInitializer: getInitializer } = item.config;
+          return getInitializer({ allCollections });
+        });
       },
     },
     {

@@ -234,6 +234,7 @@ const approvalRecords = {
   async submit(context, next) {
     const repository = utils.getRepositoryFromParams(context);
     const { filterByTk, values } = context.action.params;
+    const { data, status, needUpdateRecord } = values || {};
     const { currentUser } = context.state;
     if (!currentUser) {
       return context.throw(401);
@@ -254,13 +255,13 @@ const approvalRecords = {
       approvalRecord.execution.status ||
       approvalRecord.job.status ||
       approvalRecord.status !== APPROVAL_ACTION_STATUS.PENDING ||
-      !(approvalRecord.node.config.actions ?? []).includes(values.status)
+      (!needUpdateRecord && !(approvalRecord.node.config.actions ?? []).includes(status))
     ) {
       return context.throw(400);
     }
     await approvalRecord.update({
-      status: values.status,
-      comment: values.comment,
+      status: status,
+      comment: data.comment,
       snapshot: approvalRecord.approval.data,
       summary: approvalRecord.approval.summary,
       collectionName: approvalRecord.approval.collectionName,

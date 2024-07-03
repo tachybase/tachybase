@@ -2,15 +2,11 @@ import React, { createContext, useContext } from 'react';
 
 import { useContextApprovalExecutions } from './Pd.ApprovalExecutions';
 
-export interface ApprovalAction {
+interface ApprovalAction {
   status: number | null;
 }
 
 const ContextApprovalAction = createContext<Partial<ApprovalAction>>({});
-
-export function useContextApprovalAction() {
-  return useContext(ContextApprovalAction);
-}
 
 export function ApprovalActionProvider({ children, ...props }) {
   const { status } = useContextApprovalExecutions();
@@ -20,4 +16,9 @@ export function ApprovalActionProvider({ children, ...props }) {
   }
 
   return null;
+}
+
+export function useContextApprovalAction() {
+  const context = useContext(ContextApprovalAction);
+  return context;
 }

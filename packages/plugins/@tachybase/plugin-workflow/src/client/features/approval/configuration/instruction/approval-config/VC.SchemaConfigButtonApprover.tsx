@@ -2,7 +2,7 @@ import React from 'react';
 import { useActionContext } from '@tachybase/client';
 
 import { ConfigButtonView } from '../../trigger/ConfigButton.view';
-import { ContextApproverConfig } from '../Pd.ContextApproverConfig';
+import { ContextApproverConfig } from '../ApproverConfig.context';
 
 // 审批人操作界面->进入配置按钮
 export const SchemaConfigButtonApprover = (props) => {

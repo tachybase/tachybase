@@ -1,7 +1,7 @@
 import { JOB_STATUS } from '../../constants';
 import { lang, NAMESPACE } from './locale';
 
-// 审批状态
+// 审批发起的状态
 export const APPROVAL_STATUS = {
   DRAFT: 0,
   RETURNED: 1,
@@ -11,6 +11,7 @@ export const APPROVAL_STATUS = {
   REJECTED: -1,
 };
 
+// 审批执行的状态
 export const APPROVAL_ACTION_STATUS = {
   ASSIGNED: null,
   PENDING: 0,
