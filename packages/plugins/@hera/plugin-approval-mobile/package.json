@@ -1,6 +1,6 @@
 {
   "name": "@hera/plugin-approval-mobile",
-  "version": "0.0.48",
+  "version": "0.0.49",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
