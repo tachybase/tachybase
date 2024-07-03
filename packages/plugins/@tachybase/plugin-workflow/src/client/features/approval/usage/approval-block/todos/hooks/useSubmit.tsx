@@ -1,18 +1,20 @@
-import { useAPIClient } from '@tachybase/client';
+import { useAPIClient, useCollection } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
 import { useHandleRefresh } from '../../common/useHandleRefresh';
 import { useContextApprovalAction } from '../Pd.ApprovalAction';
 import { useContextApprovalExecutions } from '../Pd.ApprovalExecutions';
 
-export function useSubmit() {
+export function useSubmit(props: any = {}) {
   const { refreshTable } = useHandleRefresh();
-
   const field = useField();
   const api = useAPIClient();
   const form = useForm();
+  const collection = useCollection();
   const approvalExecutions = useContextApprovalExecutions();
   const { status } = useContextApprovalAction();
+  const { source } = props;
+  const needUpdateRecord = source === 'updateRecord';
 
   return {
     run: async () => {
@@ -20,14 +22,27 @@ export function useSubmit() {
         if (form.values.status) {
           return;
         }
-
         await form.submit();
         field.data = field.data ?? {};
         field.data.loading = true;
 
+        if (needUpdateRecord) {
+          const collectionName = collection.name;
+          const targetId = form.values.id;
+
+          await api.resource(collectionName).update({
+            filterByTk: targetId,
+            values: form.values,
+          });
+        }
+
         await api.resource('approvalRecords').submit({
           filterByTk: approvalExecutions.id,
-          values: { ...form.values, status },
+          values: {
+            status,
+            needUpdateRecord,
+            data: form.values,
+          },
         });
 
         field.data.loading = false;

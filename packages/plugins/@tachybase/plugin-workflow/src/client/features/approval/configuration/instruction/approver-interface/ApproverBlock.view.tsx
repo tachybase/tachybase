@@ -8,7 +8,7 @@ import { Spin } from 'antd';
 import { DetailsBlockProvider, SimpleDesigner } from '../../../../../components';
 import { FormBlockProvider } from '../../../common/Pd.FormBlock';
 import { flatSchemaArray } from '../../../constants';
-import { ContextApproverConfig } from '../Pd.ContextApproverConfig';
+import { ContextApproverConfig } from '../ApproverConfig.context';
 import { ActionBarProvider } from './Pd.ActionBarProvider';
 import { ApprovalActionProvider } from './Pd.ApprovalActionProvider';
 import { ContextApproverBlock } from './Pd.SchemaConfigButtonContext';

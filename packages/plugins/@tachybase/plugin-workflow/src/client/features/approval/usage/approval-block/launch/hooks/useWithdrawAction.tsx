@@ -27,7 +27,6 @@ export function useWithdrawAction() {
         field.data.loading = false;
         refreshTable();
       } catch (v) {
-        console.log('%c Line:33 🌽 v', 'font-size:18px;color:#33a5ff;background:#fca650', v);
         if (field.data) {
           field.data.loading = false;
         }

@@ -16,8 +16,6 @@ export function useDestroyAction() {
   return {
     async run() {
       try {
-        console.log('%c Line:16 🍓 run', 'font-size:18px;color:#6ec1c2;background:#93c0a4');
-
         _.set(field, ['data', 'loading'], true);
 
         await apiClient.resource('approvals').destroy({

@@ -13,9 +13,9 @@ import { AssigneesSelect } from './approval-config/VC.AssigneesSelect';
 import { ContentTooltip } from './approval-config/VC.ContentTooltip';
 import { NegotiationConfig } from './approval-config/VC.NegotiationConfig';
 import { SchemaConfigButtonApprover } from './approval-config/VC.SchemaConfigButtonApprover';
+import { ApprovalInstructionNode } from './ApprovalNode.component';
 import { ApproverInterfaceComponent } from './approver-interface/ApproverInterface.schema';
 import { isApprovalReturnFunc } from './utils';
-import { ApprovalInstructionNode } from './VC.ApprovalInstructionNode';
 
 // 工作流节点 nodes - 人工处理->审批
 export class ApprovalInstruction extends Instruction {
@@ -42,13 +42,6 @@ export class ApprovalInstruction extends Instruction {
   ];
   // 审批节点表单设置
   fieldset = {
-    collection: {
-      type: 'string',
-      title: '{{t("Collection")}}',
-      'x-decorator': 'FormItem',
-      'x-component': 'DataSourceCollectionCascader',
-      // 'x-disabled': '{{ useWorkflowAnyExecuted() }}',
-    },
     branchMode: {
       type: 'boolean',
       title: `{{t("Pass mode", { ns: "${NAMESPACE}" })}}`,
