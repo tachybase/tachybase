@@ -21,13 +21,15 @@ export const ApproverBlock = ({ value: srcID, onChange }) => {
   const { setFormValueChanged } = useContext(ContextApproverConfig) as any;
   const onChangeFunc = useCallback(
     (data) => {
-      const flatSet = flatSchemaArray(
-        data.toJSON(),
-        (field) => field['x-decorator'] === 'ApprovalFormBlockProvider',
-      ).reduce((accSet, curr) => {
-        flatSchemaArray(curr, (field) => field['x-component'] === 'Action').forEach((field) => {
+      const arr = flatSchemaArray(data.toJSON(), (field) => field['x-decorator'] === 'ApprovalFormBlockProvider');
+
+      const flatSet = arr.reduce((accSet, curr) => {
+        const currArr = flatSchemaArray(curr, (field) => field['x-component'] === 'Action');
+
+        for (const field of currArr) {
           accSet.add(Number.parseInt(field['x-action'], 10));
-        });
+        }
+
         return accSet;
       }, new Set());
 
@@ -57,7 +59,9 @@ export const ApproverBlock = ({ value: srcID, onChange }) => {
     };
 
     await apiClient.resource('uiSchemas').insert({ values: schema });
+
     onChange(id);
+
     return schema;
   });
 

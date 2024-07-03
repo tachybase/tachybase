@@ -70,7 +70,11 @@ export const CollectionApprovalTodos = {
       type: 'text',
       name: 'comment',
       interface: 'markdown',
-      uiSchema: { type: 'string', 'x-component': 'Markdown', title: `{{t("Comment", { ns: "${NAMESPACE}" })}}` },
+      uiSchema: {
+        type: 'string',
+        'x-component': 'Markdown',
+        title: `{{t("Comment", { ns: "${NAMESPACE}" })}}`,
+      },
     },
     {
       name: 'createdAt',
