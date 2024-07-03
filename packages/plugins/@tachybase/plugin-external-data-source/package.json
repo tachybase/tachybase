@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-external-data-source",
-  "version": "0.21.63",
+  "version": "0.21.64",
   "main": "dist/server/index.js",
   "dependencies": {
     "antd": "5.18.3",
