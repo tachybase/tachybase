@@ -26,6 +26,24 @@ const useStyles = createStyles(({ css }) => {
   };
 });
 
+function getSchema({ styles }) {
+  return {
+    name: 'drawer',
+    type: 'void',
+    title: `{{t("Approver's interface", { ns: "${NAMESPACE}" })}}`,
+    'x-component': 'Action.Drawer',
+    'x-component-props': {
+      className: styles.container,
+    },
+    properties: {
+      applyDetail: {
+        type: 'string',
+        'x-component': 'ApproverBlock',
+      },
+    },
+  };
+}
+
 // 审批人操作界面
 export const ApproverInterfaceComponent = () => {
   const context = useContext(SchemaComponentContext);
@@ -64,21 +82,3 @@ export const ApproverInterfaceComponent = () => {
     </ExtendCollectionsProvider>
   );
 };
-
-function getSchema({ styles }) {
-  return {
-    name: 'drawer',
-    type: 'void',
-    title: `{{t("Approver's interface", { ns: "${NAMESPACE}" })}}`,
-    'x-component': 'Action.Drawer',
-    'x-component-props': {
-      className: styles.container,
-    },
-    properties: {
-      applyDetail: {
-        type: 'string',
-        'x-component': 'ApproverBlock',
-      },
-    },
-  };
-}

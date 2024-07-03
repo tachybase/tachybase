@@ -53,6 +53,13 @@ const approvals = {
       context,
     });
     const instance = values.get();
+    const summary = getSummary({
+      summaryConfig: workflow.config.summary,
+      data: {
+        ...instance,
+        ...data,
+      },
+    });
     Object.keys(model.associations).forEach((key) => {
       delete instance[key];
     });
@@ -63,10 +70,7 @@ const approvals = {
         dataKey: values[collection.filterTargetKey],
         workflowKey: workflow.key,
         applicantRoleName: context.state.currentRole,
-        summary: getSummary({
-          summaryConfig: workflow.config.summary,
-          data: instance,
-        }),
+        summary,
       },
     });
     return actions.create(context, next);

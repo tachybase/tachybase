@@ -197,8 +197,7 @@ export default class ApprovalInstruction extends Instruction {
     }, []);
     const processing = Boolean(distribution.find((item) => item.status !== APPROVAL_ACTION_STATUS.PENDING));
     const status =
-      job.status ||
-      (getNegotiationMode(negotiation).getStatus(distribution, assignees, negotiation) ?? JOB_STATUS.PENDING);
+      getNegotiationMode(+negotiation).getStatus(distribution, assignees, negotiation) ?? JOB_STATUS.PENDING;
     const result = ApprovalJobStatusMap[status];
     processor.logger.debug(`approval resume job and next status: ${status}`);
     job.set({
