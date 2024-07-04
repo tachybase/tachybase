@@ -15,6 +15,7 @@ import { Button, Dropdown } from 'antd';
 
 import { useTranslation } from '../../../../locale';
 import { FlowContextProvider } from '../../common/FlowContext.provider';
+import { useActionResubmit } from '../hooks/useActionResubmit';
 import { useSubmit } from './hooks/useSubmit';
 import { useWithdrawAction } from './hooks/useWithdrawAction';
 import { ActionBarProvider } from './Pd.ActionBar';
@@ -117,6 +118,7 @@ export const ApplyButton = () => {
           scope={{
             useSubmit: useSubmit,
             useWithdrawAction,
+            useActionResubmit,
           }}
         />
       </SchemaComponentContext.Provider>
