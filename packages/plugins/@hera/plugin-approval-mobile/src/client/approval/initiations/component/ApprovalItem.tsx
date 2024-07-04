@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useAPIClient, useCurrentUserContext } from '@tachybase/client';
+import { useAPIClient, useCollectionManager, useCompile, useCurrentUserContext } from '@tachybase/client';
 import { observer } from '@tachybase/schema';
+import { dayjs } from '@tachybase/utils/client';
 
 import { useDeepCompareEffect } from 'ahooks';
 import { Badge, Empty, List, Space, Tag } from 'antd-mobile';
@@ -20,8 +21,10 @@ export const ApprovalItem = observer((props) => {
   const user = useCurrentUserContext();
   const contextFilter = useContext(InitiationsBlockContext);
   const inputFilter = contextFilter['key'] === 'userInitiations' ? contextFilter['inputFilter'] : '';
+  const cm = useCollectionManager();
+  const compile = useCompile();
   useDeepCompareEffect(() => {
-    changService(api, setData, user, { ...params?.[tabKey], ...filter }, t, setDefaultData);
+    changService(api, setData, user, { ...params?.[tabKey], ...filter }, t, setDefaultData, cm, compile);
   }, [filter, params]);
   useEffect(() => {
     if (inputFilter && defaultData.length) {
@@ -40,7 +43,7 @@ export const ApprovalItem = observer((props) => {
               <List.Item
                 key={index}
                 onClick={() => {
-                  navigate(`/mobile/approval/${item.id}/page`);
+                  navigate(`/mobile/approval/${item.latestExecutionId}/page`);
                 }}
               >
                 {/* <Badge color="#6ac3ff" content={Badge.dot} style={{ '--right': '100%' }}> */}
@@ -54,7 +57,9 @@ export const ApprovalItem = observer((props) => {
                   </Tag>
                 </Space>
                 {/* </Badge> */}
-                <Space block> 事由:{item.reason}</Space>
+                {item.reason?.map((reasonItem, index) => {
+                  return <Space block key={index}>{`${reasonItem.label}:${reasonItem.value}`}</Space>;
+                })}
               </List.Item>
             );
           })}
@@ -71,7 +76,7 @@ const approvalTodoListStatus = (item, t) => {
   return ApprovalStatusEnums.find((value) => value.value === status);
 };
 
-const changService = (api, setData, user, filter, t, setDefaultData) => {
+const changService = (api, setData, user, filter, t, setDefaultData, cm, compile) => {
   api
     .request({
       url: 'approvals:listCentralized',
@@ -82,13 +87,27 @@ const changService = (api, setData, user, filter, t, setDefaultData) => {
         const priorityType = ApprovalPriorityType.find((priorityItem) => priorityItem.value === item.data.priority);
         const statusType = approvalTodoListStatus(item, t);
         const categoryTitle = item.workflow.title.replace('审批流:', '');
+        const collectionName = item.workflow?.config?.collection || item.execution?.context?.collectionName;
+        const summary = Object.entries(item.summary)?.map(([key, value]) => {
+          const field = cm.getCollectionField(`${collectionName}.${key}`);
+          let resonValue = value;
+          if (field.type === 'date' && value) {
+            resonValue = dayjs(value as string).format('YYYY-MM-DD HH:mm:ss');
+          }
+
+          return {
+            label: compile(field?.uiSchema?.title || key),
+            value:
+              (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
+          };
+        });
         return {
           ...item,
           title: `${user.data.data.nickname}的${categoryTitle}`,
           categoryTitle: categoryTitle,
           statusTitle: t(statusType.label),
           statusColor: statusType.color,
-          reason: item.data.reason || item.data.reason_pay,
+          reason: summary || [],
           priorityTitle: priorityType.label,
           priorityColor: priorityType.color,
         };

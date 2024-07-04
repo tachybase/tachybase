@@ -80,10 +80,12 @@ export const AntdSelect = observer((props) => {
   const checkedPopup = () => {
     if (collectionName) {
       run();
-    } else {
+    } else if (fieldSchema['x-collection-field']) {
       const field = cm.getCollectionField(fieldSchema['x-collection-field']);
       const data = field.uiSchema?.enum;
       setOptions(data);
+    } else {
+      setOptions(fieldSchema.enum);
     }
   };
 
@@ -122,7 +124,7 @@ export const AntdSelect = observer((props) => {
     addData(data);
   };
   return (
-    <CollectionProvider name={collectionName || collection.name}>
+    <CollectionProvider name={collectionName || collection?.name}>
       <BlockItem>
         <div
           onClick={() => {

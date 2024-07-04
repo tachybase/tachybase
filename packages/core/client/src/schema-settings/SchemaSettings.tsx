@@ -52,18 +52,24 @@ import {
   APIClientProvider,
   ApplicationContext,
   AssociationOrCollectionProvider,
+  Checkbox,
   CollectionFieldOptions_deprecated,
   CollectionRecordProvider,
   createDesignable,
   DataSourceApplicationProvider,
+  DatePicker,
   Designable,
   findFormBlock,
   FormDialog,
   FormProvider,
+  Radio,
   RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentContext,
   SchemaComponentOptions,
+  Select,
+  Cascader as TCascader,
+  Input as TInput,
   useAPIClient,
   useApp,
   useBlockRequestContext,
@@ -1009,6 +1015,17 @@ export const SchemaSettingsModalItem: FC<SchemaSettingsModalItemProps> = (props)
     ...others
   } = props;
   const options = useContext(SchemaOptionsContext);
+  options.components = {
+    ...options.components,
+    Input: TInput,
+    'Input.TextArea': TInput.TextArea,
+    'Radio.Group': Radio.Group,
+    'Checkbox.Group': Checkbox.Group,
+    DatePicker,
+    Select,
+    AlternativeAssociationSelect: undefined,
+    Cascader: TCascader,
+  };
   const { styles } = useStyles();
   const collection = useCollection_deprecated();
   const apiClient = useAPIClient();

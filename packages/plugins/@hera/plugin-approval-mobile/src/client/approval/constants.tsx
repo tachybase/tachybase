@@ -57,6 +57,8 @@ export const APPROVAL_ACTION_STATUS = {
   PROCESSING: 3,
   /** 4：已完结 */
   APPROVED: 4,
+  /**5：重新提交 */
+  RESUBMIT: 5,
   /** -1：拒收 */
   REJECTED: -1,
 };
@@ -73,6 +75,7 @@ export const ApprovalStatusEnums = [
   { value: APPROVAL_ACTION_STATUS.PROCESSING, label: `Processing`, color: 'gold' },
   { value: APPROVAL_ACTION_STATUS.APPROVED, label: `Approved`, color: 'green' },
   { value: APPROVAL_ACTION_STATUS.REJECTED, label: `Rejected`, color: 'red' },
+  { value: APPROVAL_ACTION_STATUS.RESUBMIT, label: 'ReSubmit', color: 'blue', editable: true },
 ];
 
 export const ApprovalPriorityType = [

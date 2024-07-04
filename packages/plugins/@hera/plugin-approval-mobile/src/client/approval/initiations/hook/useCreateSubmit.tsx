@@ -36,7 +36,9 @@ export function useCreateSubmit() {
             content: '提交成功',
           });
           from.reset();
-          navigate(`/mobile/approval/${res.data.data.id}/page`);
+          setTimeout(() => {
+            navigate(-1);
+          }, 1000);
         }
 
         field.data.loading = false;

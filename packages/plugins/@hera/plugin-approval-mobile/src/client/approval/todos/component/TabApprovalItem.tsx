@@ -105,7 +105,7 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
           const field = cm.getCollectionField(`${collectionName}.${key}`);
           let resonValue = value;
           if (field.type === 'date' && value) {
-            resonValue = dayjs(value as string).format('YYYY-MM-DD');
+            resonValue = dayjs(value as string).format('YYYY-MM-DD HH:mm:ss');
           }
 
           return {
@@ -220,7 +220,7 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
           const field = cm.getCollectionField(`${collectionName}.${key}`);
           let resonValue = value;
           if (field.type === 'date' && value) {
-            resonValue = dayjs(value as string).format('YYYY-MM-DD');
+            resonValue = dayjs(value as string).format('YYYY-MM-DD HH:mm:ss');
           }
           return {
             label: compile(field?.uiSchema?.title || key),

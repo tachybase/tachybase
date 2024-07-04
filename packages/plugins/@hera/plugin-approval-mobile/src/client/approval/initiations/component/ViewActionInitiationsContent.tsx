@@ -103,6 +103,7 @@ export const ViewActionInitiationsContent = () => {
             scope={{
               useSubmit: useCreateSubmit,
               useWithdrawAction,
+              useActionResubmit,
             }}
           />
         </div>
@@ -110,6 +111,10 @@ export const ViewActionInitiationsContent = () => {
     </div>
   );
 };
+
+export function useActionResubmit() {
+  return { run() {} };
+}
 
 export function WithdrawActionProvider() {
   return null;
