@@ -12,13 +12,16 @@ import { useForm } from '@tachybase/schema';
 import { Result, Spin } from 'antd';
 
 import { DetailsBlockProvider } from '../../../../../components';
-import { FormBlockProvider } from '../../../common/Pd.FormBlock';
+import { FormBlockProvider } from '../../../common/FormBlock.provider';
+import { APPROVAL_STATUS } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
 import { ApprovalContext } from '../../approval-common/ApprovalData.provider';
 import { ContextWithActionEnabled } from '../../approval-common/WithActionEnabled.provider';
 import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
 import { FlowContextProvider } from '../common/FlowContext.provider';
 import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
+import { ProviderActionResubmit } from './ActionResubmit.provider';
+import { useActionResubmit } from './hooks/useActionResubmit';
 import { useDestroyAction } from './hooks/useDestroyAction';
 import { useFormBlockProps } from './hooks/useFormBlockProps';
 import { useSubmit } from './hooks/useSubmit';
@@ -59,6 +62,8 @@ export const ViewActionLaunchContent = () => {
   // @ts-ignore
   const approvalData = data?.data;
 
+  const needHideProcess = actionEnabled || approvalData?.status !== APPROVAL_STATUS.RESUBMIT;
+
   if (loading) {
     return <Spin />;
   }
@@ -90,6 +95,7 @@ export const ViewActionLaunchContent = () => {
               ApplyActionStatusProvider,
               WithdrawActionProvider,
               DetailsBlockProvider,
+              ProviderActionResubmit,
             }}
             scope={{
               useForm,
@@ -98,6 +104,7 @@ export const ViewActionLaunchContent = () => {
               useDetailsBlockProps: useFormBlockContext,
               useWithdrawAction,
               useDestroyAction,
+              useActionResubmit,
             }}
             schema={{
               name: `view-${approval == null ? void 0 : approval.id}`,
@@ -116,7 +123,9 @@ export const ViewActionLaunchContent = () => {
                           detail: {
                             type: 'void',
                             'x-decorator': 'SchemaComponentContextProvider',
-                            'x-decorator-props': { designable: false },
+                            'x-decorator-props': {
+                              designable: true,
+                            },
                             'x-component': 'RemoteSchemaComponent',
                             'x-component-props': {
                               uid: workflow?.config.applyForm,
@@ -126,7 +135,7 @@ export const ViewActionLaunchContent = () => {
                         },
                       },
                     },
-                    actionEnabled
+                    needHideProcess
                       ? {}
                       : {
                           process: {

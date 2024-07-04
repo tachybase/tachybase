@@ -2,11 +2,11 @@ import { SchemaInitializer } from '@tachybase/client';
 
 import { APPROVAL_STATUS } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
-import { LauncherActionConfigComponent } from './LauncherActionConfig.component';
+import { LauncherActionConfigComponent, LauncherActionConfigReSubmit } from './LauncherActionConfig.component';
 
 // 区块-配置操作
 export const LauncherActionConfigInitializer = new SchemaInitializer({
-  name: 'ApprovalApplyAddActionButton',
+  name: 'LauncherActionConfigInitializer',
   title: '{{t("Configure actions")}}',
   items: [
     {
@@ -24,6 +24,13 @@ export const LauncherActionConfigInitializer = new SchemaInitializer({
       title: `{{t("Save draft", { ns: "${NAMESPACE}" })}}`,
       Component: LauncherActionConfigComponent,
       action: APPROVAL_STATUS.DRAFT,
+    },
+    {
+      name: 'reSubmit',
+      type: 'item',
+      title: `{{t("resubmit", { ns: "${NAMESPACE}" })}}`,
+      action: APPROVAL_STATUS.RESUBMIT,
+      Component: LauncherActionConfigReSubmit,
     },
   ],
 });

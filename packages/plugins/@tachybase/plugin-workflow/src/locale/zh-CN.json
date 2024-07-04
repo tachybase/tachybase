@@ -355,5 +355,6 @@
   "Workflow": "工作流",
   "\"Content-Type\" only support \"application/json\", and no need to specify": "\"Content-Type\" 请求头仅支持 \"application/json\"，无需填写",
   "concat": "连接",
-  "ms": "毫秒"
+  "ms": "毫秒",
+   "reSubmit": "重新提交"
 }

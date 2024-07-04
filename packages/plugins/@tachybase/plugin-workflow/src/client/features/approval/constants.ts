@@ -8,6 +8,7 @@ export const APPROVAL_STATUS = {
   SUBMITTED: 2,
   PROCESSING: 3,
   APPROVED: 4,
+  RESUBMIT: 5,
   REJECTED: -1,
 };
 
@@ -37,17 +38,43 @@ export const approvalStatusConfigObj = approvalStatusOptions.reduce(
   {},
 );
 export const ApprovalStatusEnums = [
-  { value: APPROVAL_STATUS.DRAFT, label: `{{t("Draft", { ns: "${NAMESPACE}" })}}`, editable: true },
+  {
+    value: APPROVAL_STATUS.DRAFT,
+    label: `{{t("Draft", { ns: "${NAMESPACE}" })}}`,
+    editable: true,
+  },
   {
     value: APPROVAL_STATUS.RETURNED,
     label: `{{t("Returned", { ns: "${NAMESPACE}" })}}`,
     color: 'purple',
     editable: true,
   },
-  { value: APPROVAL_STATUS.SUBMITTED, label: `{{t("Submitted", { ns: "${NAMESPACE}" })}}`, color: 'cyan' },
-  { value: APPROVAL_STATUS.PROCESSING, label: `{{t("Processing", { ns: "${NAMESPACE}" })}}`, color: 'gold' },
-  { value: APPROVAL_STATUS.APPROVED, label: `{{t("Approved", { ns: "${NAMESPACE}" })}}`, color: 'green' },
-  { value: APPROVAL_STATUS.REJECTED, label: `{{t("Rejected", { ns: "${NAMESPACE}" })}}`, color: 'red' },
+  {
+    value: APPROVAL_STATUS.SUBMITTED,
+    label: `{{t("Submitted", { ns: "${NAMESPACE}" })}}`,
+    color: 'cyan',
+  },
+  {
+    value: APPROVAL_STATUS.PROCESSING,
+    label: `{{t("Processing", { ns: "${NAMESPACE}" })}}`,
+    color: 'gold',
+  },
+  {
+    value: APPROVAL_STATUS.APPROVED,
+    label: `{{t("Approved", { ns: "${NAMESPACE}" })}}`,
+    color: 'green',
+  },
+  {
+    value: APPROVAL_STATUS.RESUBMIT,
+    label: `{{t("reSubmit", { ns: "${NAMESPACE}" })}}`,
+    color: 'blue',
+    editable: true,
+  },
+  {
+    value: APPROVAL_STATUS.REJECTED,
+    label: `{{t("Rejected", { ns: "${NAMESPACE}" })}}`,
+    color: 'red',
+  },
 ];
 export const ApprovalStatusEnumDict = ApprovalStatusEnums.reduce((e, t) => Object.assign(e, { [t.value]: t }), {});
 export const JobStatusEnums = {

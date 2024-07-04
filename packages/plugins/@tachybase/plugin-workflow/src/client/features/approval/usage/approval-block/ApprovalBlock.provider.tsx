@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExtendCollectionsProvider, TableBlockProvider, useRecord } from '@tachybase/client';
 
-import { CollectionApprovalTodos } from '../../common/Cn.ApprovalTodos';
+import { CollectionApprovalTodos } from '../../common/ApprovalTodos.collection';
 import { CollectionApprovals } from '../approval-common/Approvals.collection';
 import { CollectionFlowNodes } from '../approval-common/FlowNodes.collection';
 import { CollectionWorkflows } from '../approval-common/Workflows.collection';

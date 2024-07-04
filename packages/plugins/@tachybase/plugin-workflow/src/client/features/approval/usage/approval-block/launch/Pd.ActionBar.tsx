@@ -11,7 +11,12 @@ export function ActionBarProvider(props) {
 
   const isSameId = data.data.id === createdById;
   const isSameExcutionId = latestExecutionId === approvalExecution.id;
-  const isExcutionDid = [APPROVAL_STATUS.DRAFT, APPROVAL_STATUS.RETURNED, APPROVAL_STATUS.SUBMITTED].includes(status);
+  const isExcutionDid = [
+    APPROVAL_STATUS.DRAFT,
+    APPROVAL_STATUS.RETURNED,
+    APPROVAL_STATUS.SUBMITTED,
+    APPROVAL_STATUS.RESUBMIT,
+  ].includes(status);
 
   if (!isSameId || !isSameExcutionId || !isExcutionDid) {
     return null;

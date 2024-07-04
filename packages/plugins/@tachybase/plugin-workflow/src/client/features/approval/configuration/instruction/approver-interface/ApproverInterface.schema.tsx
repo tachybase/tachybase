@@ -11,7 +11,7 @@ import { useForm } from '@tachybase/schema';
 import { uid } from '@tachybase/utils/client';
 
 import { useFlowContext } from '../../../../../FlowContext';
-import { CollectionApprovalTodos } from '../../../common/Cn.ApprovalTodos';
+import { CollectionApprovalTodos } from '../../../common/ApprovalTodos.collection';
 import { NAMESPACE } from '../../../locale';
 import { SchemaAddBlock } from '../../trigger/launcher-interface/SchemaAddBlock.component';
 import { ApproverBlock } from './ApproverBlock.view';

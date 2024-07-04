@@ -27,15 +27,21 @@ export const LauncherAddBlockButtonComponent = () => {
       ['x-acl-action']: deleteB,
       ...formSchema
     } = createFormBlockSchema({
-      actionInitializers: 'ApprovalApplyAddActionButton',
+      actionInitializers: 'LauncherActionConfigInitializer',
       actions: {
         submit: {
           type: 'void',
           title: '{{t("Submit")}}',
           'x-decorator': 'ApplyActionStatusProvider',
-          'x-decorator-props': { value: APPROVAL_STATUS.SUBMITTED },
+          'x-decorator-props': {
+            value: APPROVAL_STATUS.SUBMITTED,
+          },
           'x-component': 'Action',
-          'x-component-props': { type: 'primary', htmlType: 'submit', useAction: '{{ useSubmit }}' },
+          'x-component-props': {
+            type: 'primary',
+            htmlType: 'submit',
+            useAction: '{{ useSubmit }}',
+          },
           'x-designer': 'Action.Designer',
           'x-designer-props': {},
           'x-action': `${APPROVAL_STATUS.SUBMITTED}`,
