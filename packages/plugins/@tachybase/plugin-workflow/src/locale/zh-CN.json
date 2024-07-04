@@ -356,5 +356,7 @@
   "\"Content-Type\" only support \"application/json\", and no need to specify": "\"Content-Type\" 请求头仅支持 \"application/json\"，无需填写",
   "concat": "连接",
   "ms": "毫秒",
-   "reSubmit": "重新提交"
+   "reSubmit": "重新提交",
+   "Are you sure you want to resubmit it?": "确定生成一份新的提交记录吗?"
+
 }
