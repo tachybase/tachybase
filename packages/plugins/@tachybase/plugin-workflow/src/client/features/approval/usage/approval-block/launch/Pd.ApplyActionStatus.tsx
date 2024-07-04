@@ -18,7 +18,7 @@ export function ApplyActionStatusProvider(props) {
   const { data } = useCurrentUserContext();
   const isSameId = data.data.id === createdById;
   const isEnbled = workflow.enabled;
-  const isStatusDid = [APPROVAL_STATUS.DRAFT, APPROVAL_STATUS.RETURNED].includes(status);
+  const isStatusDid = [APPROVAL_STATUS.RESUBMIT, APPROVAL_STATUS.DRAFT, APPROVAL_STATUS.RETURNED].includes(status);
 
   if (isSameId && isEnbled && isStatusDid) {
     return <ContextApprovalStatus.Provider value={value}>{children}</ContextApprovalStatus.Provider>;

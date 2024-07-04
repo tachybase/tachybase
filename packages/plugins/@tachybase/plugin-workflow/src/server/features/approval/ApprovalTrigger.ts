@@ -38,7 +38,9 @@ export default class ApprovalTrigger extends Trigger {
       },
       transaction,
     });
-    if (!workflow || !approval.changed('status') || approval.status !== APPROVAL_STATUS.SUBMITTED) {
+    const isChangedStatus = approval.changed('status');
+    const isAllowStatusList = [APPROVAL_STATUS.SUBMITTED, APPROVAL_STATUS.RESUBMIT].includes(approval.status);
+    if (!workflow || !isChangedStatus || !isAllowStatusList) {
       return;
     }
     const [dataSourceName, collectionName] = parseCollectionName(approval.collectionName);

@@ -53,11 +53,13 @@ export const SchemaAddBlock = ({ value, onChange }) => {
           ActionBarProvider,
           ApplyActionStatusProvider,
           WithdrawActionProvider,
+          ProviderActionResubmit,
         }}
         scope={{
           useSubmit,
           useWithdrawAction,
           useFormBlockProps,
+          useActionResubmit,
         }}
         // @ts-ignore ugly
         schema={data}
@@ -79,6 +81,13 @@ function ApplyActionStatusProvider(props) {
 }
 function WithdrawActionProvider(props) {
   return null;
+}
+
+function useActionResubmit() {
+  return { run() {} };
+}
+function ProviderActionResubmit(props) {
+  return props.children;
 }
 // TODO:
 const E = (f, o, p) =>

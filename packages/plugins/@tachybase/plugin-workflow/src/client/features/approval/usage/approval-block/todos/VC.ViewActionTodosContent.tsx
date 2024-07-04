@@ -13,7 +13,7 @@ import _ from 'lodash';
 
 import { DetailsBlockProvider } from '../../../../../components';
 import { ExecutionContextProvider } from '../../../../../ExecutionContextProvider';
-import { FormBlockProvider } from '../../../common/Pd.FormBlock';
+import { FormBlockProvider } from '../../../common/FormBlock.provider';
 import { NAMESPACE, useTranslation } from '../../../locale';
 import { ApprovalContext } from '../../approval-common/ApprovalData.provider';
 import { ContextWithActionEnabled } from '../../approval-common/WithActionEnabled.provider';

@@ -2,6 +2,7 @@ import actions, { utils } from '@tachybase/actions';
 import { parseCollectionName } from '@tachybase/data-source-manager';
 
 import { EXECUTION_STATUS, JOB_STATUS, PluginWorkflow } from '../..';
+import { appends } from '../../../client/schemas/collection';
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 import { getSummary } from './tools';
 import { getAssociationName, jsonParse } from './utils';
@@ -84,7 +85,7 @@ const approvals = {
     /** 以下为,处理子表单子表格等关联字段的更新逻辑 */
     const schemaOfForm = await context.db.getRepository('uiSchemas').getJsonSchema(schemaFormId);
     const itemsOfSchema = await jsonParse(`**["x-component-props".mode]`, schemaOfForm);
-    const fieldAssociationName = itemsOfSchema
+    const fieldAssociationName = (itemsOfSchema || [])
       .filter((item) => {
         return ['Nester', 'SubTable', 'PopoverNester'].includes(item?.['x-component-props']?.mode);
       })
@@ -112,6 +113,61 @@ const approvals = {
       },
     });
     return actions.update(context, next);
+  },
+
+  // NOTE: 和 create 逻辑雷同, 但是 因为原本的 create 并非纯操作, 因此拷贝一份以便方便改动
+  async reSubmit(context, next) {
+    const { status, collectionName, data, workflowId, collectionAppends } = context.action.params.values ?? {};
+    const [dataSourceName, cName] = parseCollectionName(collectionName);
+    const dataSource = context.app.dataSourceManager.dataSources.get(dataSourceName);
+    if (!dataSource) {
+      return context.throw(400, `Data source "${dataSourceName}" not found`);
+    }
+    const collection = dataSource.collectionManager.getCollection(cName);
+    if (!collection) {
+      return context.throw(400, `Collection "${cName}" not found`);
+    }
+    const workflow = await context.db.getRepository('workflows').findOne({
+      filterByTk: workflowId,
+    });
+    if (!workflow?.enabled) {
+      return context.throw(400, 'Current workflow not found or disabled, please refresh and try again');
+    }
+    const { repository, model } = collection;
+    const values = await repository.create({
+      values: {
+        ...data,
+        createdBy: context.state.currentUser.id,
+        updatedBy: context.state.currentUser.id,
+      },
+      context,
+    });
+    const instance = values.get();
+
+    // NOTE: 这里需要取出关联字段, 用于摘要的构造;
+    // 有点奇怪的方式, 但是没想到更好的处理方式, 也许应该改造摘要的构造方式, 存储关联字段的id, 在前端请求具体数据.
+    const valuesWithAppends = await repository.findOne({
+      filterByTk: values.id,
+      appends: [...collectionAppends],
+    });
+    const summary = getSummary({
+      summaryConfig: workflow.config.summary,
+      data: valuesWithAppends,
+    });
+    Object.keys(model.associations).forEach((key) => {
+      delete instance[key];
+    });
+    context.action.mergeParams({
+      values: {
+        collectionName,
+        data: instance,
+        dataKey: values[collection.filterTargetKey],
+        workflowKey: workflow.key,
+        applicantRoleName: context.state.currentRole,
+        summary,
+      },
+    });
+    return actions.create(context, next);
   },
   async destroy(context, next) {
     const {

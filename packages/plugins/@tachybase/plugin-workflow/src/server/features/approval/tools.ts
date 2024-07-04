@@ -10,9 +10,10 @@ export function getSummary(params: ParamsType): object {
 
   const result = summaryConfig.reduce((summary, key) => {
     const value = _.get(data, key);
+    const realValue = Object.prototype.toString.call(value) === '[object Object]' ? value?.['name'] : value;
     return {
       ...summary,
-      [key]: value,
+      [key]: realValue,
     };
   }, {});
 

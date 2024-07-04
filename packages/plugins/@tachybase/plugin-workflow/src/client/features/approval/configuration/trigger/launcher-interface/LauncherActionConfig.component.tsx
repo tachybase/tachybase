@@ -1,6 +1,8 @@
 import React from 'react';
 import { ActionInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
+import { NAMESPACE } from '../../../locale';
+
 // 区块-配置操作
 export const LauncherActionConfigComponent = () => {
   const itemConfig = useSchemaInitializerItem();
@@ -25,6 +27,32 @@ export const LauncherActionConfigComponent = () => {
         'x-action-settings': {
           assignedValues: {},
         },
+      }}
+    />
+  );
+};
+
+// setup-action-resubmit
+export const LauncherActionConfigReSubmit = () => {
+  const itemConfig = useSchemaInitializerItem();
+  const { action, actionProps = {}, ...restItemConfig } = itemConfig;
+  return (
+    <ActionInitializer
+      {...restItemConfig}
+      schema={{
+        type: 'void',
+        title: restItemConfig.title,
+        'x-decorator': 'ProviderActionResubmit',
+        'x-component': 'Action',
+        'x-component-props': {
+          confirm: {
+            title: `{{t('resubmit', { ns: "${NAMESPACE}" })}}`,
+            content: `{{t('Are you sure you want to resubmit it?', { ns: "${NAMESPACE}" })}}`,
+          },
+          useAction: '{{ useActionResubmit }}',
+        },
+        'x-designer': 'Action.Designer',
+        'x-action': `reSubmit`,
       }}
     />
   );
