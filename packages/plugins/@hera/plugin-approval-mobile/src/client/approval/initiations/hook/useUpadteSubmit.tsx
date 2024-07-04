@@ -3,31 +3,34 @@ import { useField, useForm } from '@tachybase/schema';
 
 import { Toast } from 'antd-mobile';
 import _ from 'lodash';
+import { useNavigate } from 'react-router-dom';
 
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 import { useContextApprovalStatus } from '../provider/ApplyActionStatus';
 
 export function useUpdateSubmit() {
-  const from = useForm();
+  const form = useForm();
   const field = useField();
   const { approval } = useContextApprovalExecution();
   const { setSubmitted } = useActionContext() as any;
   const { workflow, id } = approval;
   const contextApprovalStatus = useContextApprovalStatus();
   const apiClient = useAPIClient();
+  const navigate = useNavigate();
   return {
     async run() {
       try {
-        from.submit();
-
+        form.submit();
         _.set(field, ['data', 'loading'], true);
 
         const res = await apiClient.resource('approvals').update({
           filterByTk: id,
           values: {
             collectionName: workflow.config.collection,
-            data: from.values,
+            data: form.values,
             status: contextApprovalStatus,
+            schemaFormId: workflow.config.applyForm,
+            summaryConfig: workflow.config.summary,
           },
         });
         if (res.status === 200) {
@@ -36,7 +39,7 @@ export function useUpdateSubmit() {
             content: '处理成功',
           });
           setTimeout(() => {
-            location.reload();
+            navigate(-1);
           }, 1000);
           setSubmitted(true);
         } else {

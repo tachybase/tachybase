@@ -67,5 +67,6 @@
   "UserInitiations":"UserInitiations",
   "Processed":"Processed",
   "Duplicate":"Duplicate",
-  "Executed":"Executed"
+  "Executed":"Executed",
+  "ReSubmit":"ReSubmit"
 }

@@ -98,5 +98,6 @@
   "Manually canceled whole execution when waiting.": "等待时被手动取消整个执行。",
   "Rejected from a manual node.": "被人工节点拒绝继续。",
   "General failed but should do another try.": "执行失败，需重试。",
-  "Queueing": "队列中"
+  "Queueing": "队列中",
+  "ReSubmit":"重新提交"
 }

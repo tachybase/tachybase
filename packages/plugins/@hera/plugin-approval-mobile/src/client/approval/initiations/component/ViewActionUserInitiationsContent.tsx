@@ -28,6 +28,9 @@ import '../../style/style.css';
 
 import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 
+import { useActionResubmit } from '../hook/useActionResubmit';
+import { ProviderActionResubmit } from '../provider/ActionResubmit.provider';
+
 export const ViewActionUserInitiationsContent = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -41,7 +44,7 @@ export const ViewActionUserInitiationsContent = () => {
       .request({
         url: 'approvalExecutions:get',
         params: {
-          filter: { approvalId: id },
+          filterByTk: id,
           appends: [
             'execution',
             'execution.jobs',
@@ -70,7 +73,7 @@ export const ViewActionUserInitiationsContent = () => {
       .catch(() => {
         console.error;
       });
-  }, []);
+  }, [id]);
   // @ts-ignore
   const { approval, execution, ...approvalValue } = recordData || {};
   const { workflow } = approval || {};
@@ -147,6 +150,7 @@ const UserInitiationsComponent = (applyDetail) => {
         WithdrawActionProvider,
         DetailsBlockProvider,
         MobileProvider,
+        ProviderActionResubmit,
       }}
       scope={{
         useForm,
@@ -155,6 +159,7 @@ const UserInitiationsComponent = (applyDetail) => {
         useDetailsBlockProps: useFormBlockContext,
         useWithdrawAction,
         useDestroyAction,
+        useActionResubmit,
       }}
       schema={formContextSchema}
     />

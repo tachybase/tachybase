@@ -16,8 +16,6 @@ import { UserInitiationsItem } from './component/UserInitiationsItem';
 
 import '../style/style.css';
 
-import { createGlobalStyle } from '@tachybase/client';
-
 export const InitiationsBlockContext = createContext({});
 
 export const InitiationsBlock = observer((props) => {
@@ -67,28 +65,6 @@ export const InitiationsBlock = observer((props) => {
               setContextFilter(filter);
             }}
           >
-            <Tabs.Tab title="发起申请" key="initiations">
-              <SchemaComponent
-                components={{
-                  InitiationsItem,
-                }}
-                schema={{
-                  type: 'void',
-                  name: 'initiations',
-                  title: t('Initiations'),
-                  'x-settings': 'ApprovalSettings',
-                  'x-component': 'InitiationsItem',
-                  'x-component-props': {
-                    ...props,
-                    collectionName: 'workflows',
-                    settingBlock: true,
-                    tabKey: 'initiations',
-                    parantUid: fieldSchema['x-uid'],
-                    parantParams: props['params'],
-                  },
-                }}
-              />
-            </Tabs.Tab>
             <Tabs.Tab title="我的发起" key="userInitiations">
               <SchemaComponent
                 components={{
@@ -105,6 +81,28 @@ export const InitiationsBlock = observer((props) => {
                     collectionName: 'approvals',
                     settingBlock: true,
                     tabKey: 'userInitiations',
+                    parantUid: fieldSchema['x-uid'],
+                    parantParams: props['params'],
+                  },
+                }}
+              />
+            </Tabs.Tab>
+            <Tabs.Tab title="发起申请" key="initiations">
+              <SchemaComponent
+                components={{
+                  InitiationsItem,
+                }}
+                schema={{
+                  type: 'void',
+                  name: 'initiations',
+                  title: t('Initiations'),
+                  'x-settings': 'ApprovalSettings',
+                  'x-component': 'InitiationsItem',
+                  'x-component-props': {
+                    ...props,
+                    collectionName: 'workflows',
+                    settingBlock: true,
+                    tabKey: 'initiations',
                     parantUid: fieldSchema['x-uid'],
                     parantParams: props['params'],
                   },
