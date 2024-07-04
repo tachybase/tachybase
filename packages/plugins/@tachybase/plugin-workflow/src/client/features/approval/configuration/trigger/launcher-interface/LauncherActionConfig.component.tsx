@@ -43,8 +43,12 @@ export const LauncherActionConfigReSubmit = () => {
         type: 'void',
         title: restItemConfig.title,
         'x-decorator': 'ProviderActionResubmit',
+        'x-decorator-props': {
+          status: action,
+        },
         'x-component': 'Action',
         'x-component-props': {
+          ...actionProps,
           confirm: {
             title: `{{t('resubmit', { ns: "${NAMESPACE}" })}}`,
             content: `{{t('Are you sure you want to resubmit it?', { ns: "${NAMESPACE}" })}}`,
@@ -53,6 +57,9 @@ export const LauncherActionConfigReSubmit = () => {
         },
         'x-designer': 'Action.Designer',
         'x-action': `reSubmit`,
+        'x-action-settings': {
+          assignedValues: {},
+        },
       }}
     />
   );
