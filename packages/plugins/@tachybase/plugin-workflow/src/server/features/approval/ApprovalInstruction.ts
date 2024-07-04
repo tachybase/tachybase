@@ -135,6 +135,10 @@ export default class ApprovalInstruction extends Instruction {
       except: ['data'],
     });
     const approvalExecution = approval.approvalExecutions.find((item) => item.executionId === processor.execution.id);
+    // NOTE: 属于重新提交的情况时候, 不必进入待办列表, 应该由用户手动提交
+    if (approval.status === APPROVAL_STATUS.RESUBMIT) {
+      return job;
+    }
     const RecordModel = db.getModel('approvalRecords');
     await RecordModel.bulkCreate(
       assignees.map((userId, index) => ({
