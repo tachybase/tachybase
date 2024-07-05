@@ -21,7 +21,7 @@ export const InitiationsBlockContext = createContext({});
 export const InitiationsBlock = observer((props) => {
   const fieldSchema = useFieldSchema();
   const { t } = useTranslation();
-  const [contextFilter, setContextFilter] = useState({ key: 'initiations', inputFilter: '' });
+  const [contextFilter, setContextFilter] = useState({ key: 'userInitiations', inputFilter: '' });
   const [changeValue, setChangeValue] = useState('');
   return (
     <ExtendCollectionsProvider

@@ -28,7 +28,14 @@ export const ApprovalItem = observer((props) => {
   }, [filter, params]);
   useEffect(() => {
     if (inputFilter && defaultData.length) {
-      const filterData = defaultData.filter((value) => (value.title as string)?.includes(inputFilter));
+      const filterData = defaultData.filter((value) => {
+        const reason = value?.reason.find((reasonItem) => reasonItem?.value?.toString().includes(inputFilter));
+        return value.title.includes(inputFilter) || reason;
+      });
+
+      filterData.sort((a, b) => {
+        return Date.parse(b.createdAt) - Date.parse(a.createdAt);
+      });
       setData(filterData);
     } else {
       setData(defaultData);
