@@ -39,7 +39,9 @@ export default class ApprovalTrigger extends Trigger {
       transaction,
     });
     const isChangedStatus = approval.changed('status');
-    const isAllowStatusList = [APPROVAL_STATUS.SUBMITTED, APPROVAL_STATUS.RESUBMIT].includes(approval.status);
+    const isAllowStatusList = [APPROVAL_STATUS.DRAFT, APPROVAL_STATUS.SUBMITTED, APPROVAL_STATUS.RESUBMIT].includes(
+      approval.status,
+    );
     if (!workflow || !isChangedStatus || !isAllowStatusList) {
       return;
     }

@@ -262,18 +262,18 @@ const approvals = {
     //   });
     //   await Promise.all(promises); // 等待所有的 resume 操作完成
     // }
-    if (jobs.length) {
-      const waitList = [];
-      jobs.forEach((job) => {
-        job.set('status', JOB_STATUS.CANCELED);
-        waitList.push(workflowPlugin.resume(job));
-      });
-      // await Promise.all(waitList)
-    } else {
-      await execution.update({
-        status: EXECUTION_STATUS.CANCELED,
-      });
-    }
+    // if (jobs.length) {
+    //   const waitList = [];
+    //   jobs.forEach((job) => {
+    //     job.set('status', JOB_STATUS.CANCELED);
+    //     waitList.push(workflowPlugin.resume(job));
+    //   });
+    //   // await Promise.all(waitList)
+    // } else {
+    await execution.update({
+      status: EXECUTION_STATUS.CANCELED,
+    });
+    // }
     /** FIXME: 以上 */
   },
   async listCentralized(context, next) {
