@@ -124,7 +124,7 @@ export const ViewActionLaunchContent = () => {
                             type: 'void',
                             'x-decorator': 'SchemaComponentContextProvider',
                             'x-decorator-props': {
-                              designable: true,
+                              designable: false,
                             },
                             'x-component': 'RemoteSchemaComponent',
                             'x-component-props': {

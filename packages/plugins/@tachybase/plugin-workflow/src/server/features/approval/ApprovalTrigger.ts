@@ -74,19 +74,17 @@ export default class ApprovalTrigger extends Trigger {
     }
     const { approvalId, data, summary, collectionName } = execution.context;
 
-    // NOTE: 因为这里的原本的 data, 在重新提交后再次重新提交, 丢失了审批人之类的多对多关系数据
+    // FIXME: 因为这里的原本的 data, 在重新提交后再次重新提交, 丢失了审批人之类的多对多关系数据
     // 找不到上下文传递数据的来源在哪里, 因此在这里重新取数据.因为存储的是快照, 这样是有其合理性的.
-    const approval = await this.workflow.db.getRepository('approvals').findOne({
-      filterByTk: approvalId,
-      transaction,
-    });
+    // 不合理, 会导致其他错误出现. 从非审批中心发起的单子, 拿到的是错误的数据.
+    // 现在的问题是, 多次复制后, 丢失了审批人, 等多对多的关联字段.
 
     const approvalExecution = await this.workflow.db.getRepository('approvalExecutions').create({
       values: {
         approvalId,
         executionId: execution.id,
         status: execution.status,
-        snapshot: approval?.data || data,
+        snapshot: data,
         summary,
         collectionName,
       },
