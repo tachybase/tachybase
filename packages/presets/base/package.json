@@ -4,7 +4,6 @@
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {
-    "@hera/plugin-approval": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/plugin-acl": "workspace:*",
     "@tachybase/plugin-action-bulk-edit": "workspace:*",
