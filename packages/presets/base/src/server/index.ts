@@ -34,11 +34,8 @@ export class PresetTachyBase extends Plugin {
     'kanban',
     'logger',
     'sequence-field',
-    // @tachybase
     'workflow',
-    // hera
     'audit-logs',
-    'approval',
   ];
 
   get builtInPlugins() {

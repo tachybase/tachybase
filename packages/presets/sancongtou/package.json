@@ -4,7 +4,6 @@
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "dependencies": {
-    "@hera/plugin-approval": "workspace:*",
     "@hera/plugin-approval-mobile": "workspace:*",
     "@hera/plugin-core": "workspace:*",
     "@hera/plugin-rental": "workspace:*",

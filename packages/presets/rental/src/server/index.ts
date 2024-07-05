@@ -13,7 +13,6 @@ export class PluginRental extends PresetTachyBase {
     'rental>=0.21.0',
     'field-markdown-vditor>=0.21.31',
     'comments>=0.21.31',
-    'workflow-notice>=0.21.43',
     'approval-mobile>=0.21.43',
     'external-data-source>=0.21.43',
   ];
