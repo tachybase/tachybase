@@ -107,7 +107,7 @@ const approvals = {
     context.action.mergeParams({
       values: {
         status: status ?? APPROVAL_STATUS.SUBMITTED,
-        data: target.toJSON(),
+        data: data,
         applicantRoleName: context.state.currentRole,
         summary,
       },
@@ -255,11 +255,10 @@ const approvals = {
         job.set('status', JOB_STATUS.CANCELED);
         workflowPlugin.resume(job);
       });
-    } else {
-      await execution.update({
-        status: EXECUTION_STATUS.CANCELED,
-      });
     }
+    await execution.update({
+      status: EXECUTION_STATUS.CANCELED,
+    });
   },
   async listCentralized(context, next) {
     const centralizedApprovalFlow = await context.db.getRepository('workflows').find({
