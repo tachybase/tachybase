@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow",
   "displayName": "Workflow",
-  "version": "0.21.64",
+  "version": "0.21.65",
   "description": "A powerful BPM tool that provides foundational support for business automation, with the capability to extend unlimited triggers and nodes.",
   "keywords": [
     "Workflow"

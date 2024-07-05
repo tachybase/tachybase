@@ -1,6 +1,6 @@
 {
   "name": "@hera/plugin-homepage",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "main": "dist/server/index.js",
   "devDependencies": {
     "antd": "^5.18.3"
