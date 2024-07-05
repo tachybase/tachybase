@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/build",
-  "version": "0.21.65",
+  "version": "0.21.66",
   "description": "Library build tool based on rollup.",
   "license": "Apache-2.0",
   "main": "lib/index.js",
