@@ -8,7 +8,13 @@ export function getAssociationName(str) {
   return str;
 }
 
-export function jsonParse(expression, scope) {
-  const result = jsonata(expression).evaluate(scope);
-  return result;
+export async function jsonParse(expression, scope): Promise<any[]> {
+  const result = await jsonata(expression).evaluate(scope);
+  if (result === null || result === undefined) {
+    return [];
+  } else if (Array.isArray(result)) {
+    return result;
+  } else {
+    return [result];
+  }
 }
