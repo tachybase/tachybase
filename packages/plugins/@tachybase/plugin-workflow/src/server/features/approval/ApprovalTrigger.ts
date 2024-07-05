@@ -73,12 +73,20 @@ export default class ApprovalTrigger extends Trigger {
       return;
     }
     const { approvalId, data, summary, collectionName } = execution.context;
+
+    // NOTE: 因为这里的原本的 data, 在重新提交后再次重新提交, 丢失了审批人之类的多对多关系数据
+    // 找不到上下文传递数据的来源在哪里, 因此在这里重新取数据.因为存储的是快照, 这样是有其合理性的.
+    const approval = await this.workflow.db.getRepository('approvals').findOne({
+      filterByTk: approvalId,
+      transaction,
+    });
+
     const approvalExecution = await this.workflow.db.getRepository('approvalExecutions').create({
       values: {
         approvalId,
         executionId: execution.id,
         status: execution.status,
-        snapshot: data,
+        snapshot: approval?.data || data,
         summary,
         collectionName,
       },
