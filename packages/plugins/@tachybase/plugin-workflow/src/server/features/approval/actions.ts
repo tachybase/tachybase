@@ -85,7 +85,7 @@ const approvals = {
     /** 以下为,处理子表单子表格等关联字段的更新逻辑 */
     const schemaOfForm = await context.db.getRepository('uiSchemas').getJsonSchema(schemaFormId);
     const itemsOfSchema = await jsonParse(`**["x-component-props".mode]`, schemaOfForm);
-    const fieldAssociationName = (itemsOfSchema || [])
+    const fieldAssociationName = itemsOfSchema
       .filter((item) => {
         return ['Nester', 'SubTable', 'PopoverNester'].includes(item?.['x-component-props']?.mode);
       })
@@ -249,16 +249,32 @@ const approvals = {
     context.body = approval;
     context.status = 202;
     await next();
-    const workflowPlugin = context.app.getPlugin(PluginWorkflow);
+    const workflowPlugin = context.app.getPlugin(PluginWorkflow) as PluginWorkflow;
+
+    /** FIXME: 这里 workflowPlugin.resume 内部有独特的异步逻辑, 并非用 await 能确保其完全执行结束.
+     * 需要更好的方案, 去解决这里的问题.
+     * 问题表现是: 有时候会出现, 撤销动作, 无法确保能将待办里的目标事项销毁
+     */
+    // if (jobs.length) {
+    //   const promises = jobs.map(async (job) => {
+    //     job.set('status', JOB_STATUS.CANCELED);
+    //     await workflowPlugin.resume(job);
+    //   });
+    //   await Promise.all(promises); // 等待所有的 resume 操作完成
+    // }
     if (jobs.length) {
+      const waitList = [];
       jobs.forEach((job) => {
         job.set('status', JOB_STATUS.CANCELED);
-        workflowPlugin.resume(job);
+        waitList.push(workflowPlugin.resume(job));
+      });
+      // await Promise.all(waitList)
+    } else {
+      await execution.update({
+        status: EXECUTION_STATUS.CANCELED,
       });
     }
-    await execution.update({
-      status: EXECUTION_STATUS.CANCELED,
-    });
+    /** FIXME: 以上 */
   },
   async listCentralized(context, next) {
     const centralizedApprovalFlow = await context.db.getRepository('workflows').find({
