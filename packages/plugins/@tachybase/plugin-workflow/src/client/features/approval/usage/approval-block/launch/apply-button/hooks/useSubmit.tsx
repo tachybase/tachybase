@@ -23,7 +23,7 @@ export function useCreateSubmit() {
   const { workflow } = useFlowContext();
 
   return {
-    async run({ approvalStatus }) {
+    async run(args) {
       try {
         from.submit();
         field.data = field.data || {};
@@ -33,7 +33,7 @@ export function useCreateSubmit() {
           values: {
             collectionName: joinCollectionName(collection.dataSource, collection.name),
             data: _.omit(from.values, [collection.getPrimaryKey()]),
-            status: typeof approvalStatus !== 'undefined' ? approvalStatus : status,
+            status: typeof args?.approvalStatus !== 'undefined' ? args?.approvalStatus : status,
             workflowId: workflow.id,
           },
         });
