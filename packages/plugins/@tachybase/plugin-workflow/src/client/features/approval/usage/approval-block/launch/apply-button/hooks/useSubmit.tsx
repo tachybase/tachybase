@@ -7,21 +7,23 @@ import {
 } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
+import _ from 'lodash';
+
 import { useFlowContext } from '../../../../../../../FlowContext';
 import { useContextApprovalStatus } from '../Pd.ActionStatus';
 
-export function useSubmit() {
+export function useCreateSubmit() {
   const from = useForm();
   const field = useField();
   const { setVisible } = useActionContext();
   const { __parent } = useBlockRequestContext();
   const collection = useCollection_deprecated();
-  const contextWe = useContextApprovalStatus();
+  const status = useContextApprovalStatus();
   const apiClient = useAPIClient();
   const { workflow } = useFlowContext();
 
   return {
-    async run() {
+    async run({ approvalStatus }) {
       try {
         from.submit();
         field.data = field.data || {};
@@ -30,8 +32,8 @@ export function useSubmit() {
         await apiClient.resource('approvals').create({
           values: {
             collectionName: joinCollectionName(collection.dataSource, collection.name),
-            data: from.values,
-            status: contextWe,
+            data: _.omit(from.values, [collection.getPrimaryKey()]),
+            status: typeof approvalStatus !== 'undefined' ? approvalStatus : status,
             workflowId: workflow.id,
           },
         });
@@ -43,7 +45,7 @@ export function useSubmit() {
         if (service) {
           service.refresh();
         }
-      } catch (h) {
+      } catch (error) {
         field.data && (field.data.loading = false);
       }
     },

@@ -1,8 +1,8 @@
 import actions, { utils } from '@tachybase/actions';
 import { parseCollectionName } from '@tachybase/data-source-manager';
+import { traverseJSON } from '@tachybase/database';
 
 import { EXECUTION_STATUS, JOB_STATUS, PluginWorkflow } from '../..';
-import { appends } from '../../../client/schemas/collection';
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 import { getSummary } from './tools';
 import { getAssociationName, jsonParse } from './utils';
@@ -47,7 +47,7 @@ const approvals = {
     const { repository, model } = collection;
     const values = await repository.create({
       values: {
-        ...data,
+        ...traverseJSON(data, { collection }),
         createdBy: context.state.currentUser.id,
         updatedBy: context.state.currentUser.id,
       },

@@ -16,6 +16,7 @@ import { FormBlockProvider } from '../../../common/FormBlock.provider';
 import { APPROVAL_STATUS } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
 import { ApprovalContext } from '../../approval-common/ApprovalData.provider';
+import { ResubmitProvider } from '../../approval-common/Resubmit.provider';
 import { ContextWithActionEnabled } from '../../approval-common/WithActionEnabled.provider';
 import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
 import { FlowContextProvider } from '../common/FlowContext.provider';
@@ -85,77 +86,79 @@ export const ViewActionLaunchContent = () => {
     >
       <ApprovalContext.Provider value={approval}>
         <ContextApprovalExecution.Provider value={approvalValue}>
-          <SchemaComponent
-            components={{
-              SchemaComponentProvider: SchemaComponentProvider,
-              RemoteSchemaComponent: RemoteSchemaComponent,
-              SchemaComponentContextProvider,
-              FormBlockProvider,
-              ActionBarProvider,
-              ApplyActionStatusProvider,
-              WithdrawActionProvider,
-              DetailsBlockProvider,
-              ProviderActionResubmit,
-            }}
-            scope={{
-              useForm,
-              useSubmit: useSubmit,
-              useFormBlockProps,
-              useDetailsBlockProps: useFormBlockContext,
-              useWithdrawAction,
-              useDestroyAction,
-              useActionResubmit,
-            }}
-            schema={{
-              name: `view-${approval == null ? void 0 : approval.id}`,
-              type: 'void',
-              properties: {
-                tabs: {
-                  type: 'void',
-                  'x-component': 'Tabs',
-                  properties: Object.assign(
-                    {
-                      detail: {
-                        type: 'void',
-                        title: `{{t('Application content', { ns: '${NAMESPACE}' })}}`,
-                        'x-component': 'Tabs.TabPane',
-                        properties: {
-                          detail: {
-                            type: 'void',
-                            'x-decorator': 'SchemaComponentContextProvider',
-                            'x-decorator-props': {
-                              designable: false,
-                            },
-                            'x-component': 'RemoteSchemaComponent',
-                            'x-component-props': {
-                              uid: workflow?.config.applyForm,
-                              noForm: true,
-                            },
-                          },
-                        },
-                      },
-                    },
-                    needHideProcess
-                      ? {}
-                      : {
-                          process: {
-                            type: 'void',
-                            title: `{{t('Approval process', { ns: '${NAMESPACE}' })}}`,
-                            'x-component': 'Tabs.TabPane',
-                            properties: {
-                              process: {
-                                type: 'void',
-                                'x-decorator': 'CardItem',
-                                'x-component': 'ApprovalCommon.ViewComponent.ApprovalProcess',
+          <ResubmitProvider>
+            <SchemaComponent
+              components={{
+                SchemaComponentProvider,
+                RemoteSchemaComponent,
+                SchemaComponentContextProvider,
+                FormBlockProvider,
+                ActionBarProvider,
+                ApplyActionStatusProvider,
+                WithdrawActionProvider,
+                DetailsBlockProvider,
+                ProviderActionResubmit,
+              }}
+              scope={{
+                useForm,
+                useSubmit,
+                useFormBlockProps,
+                useDetailsBlockProps: useFormBlockContext,
+                useWithdrawAction,
+                useDestroyAction,
+                useActionResubmit,
+              }}
+              schema={{
+                name: `view-${approval == null ? void 0 : approval.id}`,
+                type: 'void',
+                properties: {
+                  tabs: {
+                    type: 'void',
+                    'x-component': 'Tabs',
+                    properties: Object.assign(
+                      {
+                        detail: {
+                          type: 'void',
+                          title: `{{t('Application content', { ns: '${NAMESPACE}' })}}`,
+                          'x-component': 'Tabs.TabPane',
+                          properties: {
+                            detail: {
+                              type: 'void',
+                              'x-decorator': 'SchemaComponentContextProvider',
+                              'x-decorator-props': {
+                                designable: false,
+                              },
+                              'x-component': 'RemoteSchemaComponent',
+                              'x-component-props': {
+                                uid: workflow?.config.applyForm,
+                                noForm: true,
                               },
                             },
                           },
                         },
-                  ),
+                      },
+                      needHideProcess
+                        ? {}
+                        : {
+                            process: {
+                              type: 'void',
+                              title: `{{t('Approval process', { ns: '${NAMESPACE}' })}}`,
+                              'x-component': 'Tabs.TabPane',
+                              properties: {
+                                process: {
+                                  type: 'void',
+                                  'x-decorator': 'CardItem',
+                                  'x-component': 'ApprovalCommon.ViewComponent.ApprovalProcess',
+                                },
+                              },
+                            },
+                          },
+                    ),
+                  },
                 },
-              },
-            }}
-          />
+              }}
+            />
+          </ResubmitProvider>
         </ContextApprovalExecution.Provider>
       </ApprovalContext.Provider>
     </FlowContextProvider>

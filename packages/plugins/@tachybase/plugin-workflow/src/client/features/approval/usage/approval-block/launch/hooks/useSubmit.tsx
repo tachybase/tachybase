@@ -5,12 +5,17 @@ import _ from 'lodash';
 
 import { useFlowContext } from '../../../../../../FlowContext';
 import { useApproval } from '../../../approval-common/ApprovalData.provider';
+import { useResubmit } from '../../../approval-common/Resubmit.provider';
 import { useHandleRefresh } from '../../common/useHandleRefresh';
+import { useCreateSubmit } from '../apply-button/hooks/useSubmit';
 import { useContextApprovalStatus } from '../Pd.ApplyActionStatus';
 
 export function useSubmit() {
   const { refreshTable } = useHandleRefresh();
   const apiClient = useAPIClient();
+  const { isResubmit } = useResubmit();
+  const { run: create } = useCreateSubmit();
+  const status = useContextApprovalStatus();
 
   const form = useForm();
   const field = useField();
@@ -20,7 +25,10 @@ export function useSubmit() {
   const contextApprovalStatus = useContextApprovalStatus();
 
   return {
-    async run() {
+    async run(props) {
+      if (isResubmit) {
+        return await create({ approvalStatus: status });
+      }
       try {
         form.submit();
         _.set(field, ['data', 'loading'], true);
