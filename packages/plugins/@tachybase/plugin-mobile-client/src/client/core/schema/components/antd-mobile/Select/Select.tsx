@@ -28,7 +28,13 @@ export const MSelect = connect(
     return { ...filterProps };
   }),
   mapReadPretty((props) => {
-    return <AssociationField.ReadPretty {...props} />;
+    const collectionField = useCollectionField();
+    if (typeof props.value === 'object') {
+      return <AssociationField.ReadPretty {...props} />;
+    } else {
+      const option = collectionField?.uiSchema?.enum?.find((item) => item.value === props.value);
+      return <Tag color={getMobileColor(option?.color)}>{option?.label}</Tag>;
+    }
   }),
 );
 
