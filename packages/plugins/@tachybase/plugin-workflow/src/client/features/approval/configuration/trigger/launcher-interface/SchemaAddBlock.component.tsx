@@ -9,8 +9,6 @@ import {
 } from '@tachybase/client';
 import { uid } from '@tachybase/utils/client';
 
-import { Spin } from 'antd';
-
 import { useFlowContext } from '../../../../../FlowContext';
 
 //  发起人操作界面-创建区块
@@ -19,30 +17,26 @@ export const SchemaAddBlock = ({ value, onChange }) => {
   const { workflow } = useFlowContext();
   const { components } = useContext(SchemaComponentContext);
 
-  // TODO:
   // 获取对应数据表的表单Schema
-  const { data, loading } = useRequest(() =>
-    E(this, null, function* () {
-      let m;
-      if (value) {
-        const { data: h } = yield api.request({ url: `uiSchemas:getJsonSchema/${value}` });
-        if (((m = h.data) == null ? void 0 : m['x-uid']) === value) return h.data;
-      }
-      const l = uid(),
-        d = {
-          type: 'void',
-          name: l,
-          'x-uid': l,
-          'x-component': 'Grid',
-          'x-initializer': 'ApprovalApplyAddBlockButton',
-          properties: {},
-        };
-      return yield api.resource('uiSchemas').insert({ values: d }), onChange(l), d;
-    }),
-  );
+  const { data, loading } = useRequest(async () => {
+    if (value) {
+      const { data } = await api.request({ url: `uiSchemas:getJsonSchema/${value}` });
+      if (data.data?.['x-uid'] === value) return data.data;
+    }
+    const name = uid();
+    const values = {
+      type: 'void',
+      name: name,
+      'x-uid': name,
+      'x-component': 'Grid',
+      'x-initializer': 'ApprovalApplyAddBlockButton',
+      properties: {},
+    };
+    return await api.resource('uiSchemas').insert({ values }), onChange(name), values;
+  });
 
   if (loading) {
-    return <Spin />;
+    return;
   }
 
   return (
@@ -61,7 +55,6 @@ export const SchemaAddBlock = ({ value, onChange }) => {
           useFormBlockProps,
           useActionResubmit,
         }}
-        // @ts-ignore ugly
         schema={data}
       />
     </SchemaComponentProvider>
@@ -89,24 +82,3 @@ function useActionResubmit() {
 function ProviderActionResubmit(props) {
   return props.children;
 }
-// TODO:
-const E = (f, o, p) =>
-  // eslint-disable-next-line promise/param-names
-  new Promise((r, G) => {
-    const u = ($) => {
-        try {
-          A(p.next($));
-        } catch (U) {
-          G(U);
-        }
-      },
-      y = ($) => {
-        try {
-          A(p.throw($));
-        } catch (U) {
-          G(U);
-        }
-      },
-      A = ($) => ($.done ? r($.value) : Promise.resolve($.value).then(u, y));
-    A((p = p.apply(f, o)).next());
-  });

@@ -5,6 +5,7 @@ import { useForm } from '@tachybase/schema';
 import { useFlowContext } from '../../../../../../FlowContext';
 import { ApprovalStatusEnumDict } from '../../../../constants';
 import { useApproval } from '../../../approval-common/ApprovalData.provider';
+import { useResubmit } from '../../../approval-common/Resubmit.provider';
 import { useContextApprovalExecution } from '../../common/ApprovalExecution.provider';
 
 export function useFormBlockProps() {
@@ -13,11 +14,12 @@ export function useFormBlockProps() {
   const { workflow } = useFlowContext();
   const form = useForm();
   const { data } = useCurrentUserContext();
+  const { isResubmit } = useResubmit();
 
   const { editable } = ApprovalStatusEnumDict[approval.status];
 
   const needEditable =
-    editable &&
+    (isResubmit || editable) &&
     approval?.latestExecutionId === approvalExecution.id &&
     approval?.createdById === data?.data.id &&
     workflow.enabled;

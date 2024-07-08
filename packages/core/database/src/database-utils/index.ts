@@ -38,3 +38,5 @@ export default class DatabaseUtils {
     return this.db.options.schema || 'public';
   }
 }
+
+export * from './traverseJSON';

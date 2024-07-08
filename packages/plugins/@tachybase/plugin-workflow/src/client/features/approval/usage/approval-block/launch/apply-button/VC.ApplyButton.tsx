@@ -16,7 +16,7 @@ import { Button, Dropdown } from 'antd';
 import { useTranslation } from '../../../../locale';
 import { FlowContextProvider } from '../../common/FlowContext.provider';
 import { useActionResubmit } from '../hooks/useActionResubmit';
-import { useSubmit } from './hooks/useSubmit';
+import { useCreateSubmit } from './hooks/useSubmit';
 import { useWithdrawAction } from './hooks/useWithdrawAction';
 import { ActionBarProvider } from './Pd.ActionBar';
 import { ApplyActionStatusProvider } from './Pd.ActionStatus';
@@ -108,15 +108,16 @@ export const ApplyButton = () => {
         <SchemaComponent
           schema={schema}
           components={{
-            RemoteSchemaComponent: RemoteSchemaComponent,
-            CollectionProvider_deprecated: CollectionProvider_deprecated,
-            FlowContextProvider: FlowContextProvider,
-            ApplyActionStatusProvider: ApplyActionStatusProvider,
+            RemoteSchemaComponent,
+            CollectionProvider_deprecated,
+            FlowContextProvider,
+            ApplyActionStatusProvider,
             ActionBarProvider,
-            WithdrawActionProvider: WithdrawActionProvider,
+            ProviderActionResubmit: () => null,
+            WithdrawActionProvider,
           }}
           scope={{
-            useSubmit: useSubmit,
+            useSubmit: useCreateSubmit,
             useWithdrawAction,
             useActionResubmit,
           }}

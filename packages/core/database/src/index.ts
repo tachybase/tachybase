@@ -38,6 +38,7 @@ export * from './relation-repository/single-relation-repository';
 export * from './repository';
 export * from './update-associations';
 export { snakeCase } from './utils';
+export * from './database-utils';
 export * from './value-parsers';
 export * from './view-collection';
 export * from './view/view-inference';
