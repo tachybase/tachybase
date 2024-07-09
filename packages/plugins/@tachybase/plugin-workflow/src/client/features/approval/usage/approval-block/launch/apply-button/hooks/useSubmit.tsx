@@ -32,7 +32,7 @@ export function useCreateSubmit() {
         await apiClient.resource('approvals').create({
           values: {
             collectionName: joinCollectionName(collection.dataSource, collection.name),
-            data: _.omit(from.values, [collection.getPrimaryKey()]),
+            data: from.values,
             status: typeof args?.approvalStatus !== 'undefined' ? args?.approvalStatus : status,
             workflowId: workflow.id,
           },

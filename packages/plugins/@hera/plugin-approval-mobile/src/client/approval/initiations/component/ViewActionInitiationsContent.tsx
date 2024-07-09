@@ -18,6 +18,7 @@ import '../../style/style.css';
 import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 
 import { APPROVAL_ACTION_STATUS } from '../../constants';
+import { useActionResubmit } from '../hook/useActionResubmit';
 import { useCreateSubmit } from '../hook/useCreateSubmit';
 
 export const ViewActionInitiationsContent = () => {
@@ -94,10 +95,11 @@ export const ViewActionInitiationsContent = () => {
             schema={schema}
             components={{
               RemoteSchemaComponent: RemoteSchemaComponent,
-              CollectionProvider_deprecated: CollectionProvider_deprecated,
+              CollectionProvider_deprecated,
               ApplyActionStatusProvider: ContextInitiationsApprovalStatusProvider,
               ActionBarProvider,
               WithdrawActionProvider: WithdrawActionProvider,
+              ProviderActionResubmit: () => null,
               MobileProvider,
             }}
             scope={{
@@ -111,10 +113,6 @@ export const ViewActionInitiationsContent = () => {
     </div>
   );
 };
-
-export function useActionResubmit() {
-  return { run() {} };
-}
 
 export function WithdrawActionProvider() {
   return null;
