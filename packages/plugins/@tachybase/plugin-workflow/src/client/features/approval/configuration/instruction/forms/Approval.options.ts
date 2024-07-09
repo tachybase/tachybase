@@ -1,4 +1,5 @@
 import { SchemaInitializerItemType } from '@tachybase/client';
+import { ISchema } from '@tachybase/schema';
 import { Registry } from '@tachybase/utils/client';
 
 import { JOB_STATUS } from '../../../../../constants';

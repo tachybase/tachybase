@@ -11,7 +11,8 @@ export function ProviderActionResubmit(props) {
 
   const isSameId = data.data.id === createdById;
   const isDraft = status === APPROVAL_STATUS.DRAFT;
-  if (isSameId && !isResubmit && !isDraft) {
+  const isReturned = status === APPROVAL_STATUS.RETURNED;
+  if (isSameId && !isResubmit && !isDraft && !isReturned) {
     return props.children;
   }
 

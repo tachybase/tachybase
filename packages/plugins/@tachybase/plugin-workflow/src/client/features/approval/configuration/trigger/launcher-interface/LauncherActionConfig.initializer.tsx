@@ -26,7 +26,7 @@ export const LauncherActionConfigInitializer = new SchemaInitializer({
       action: APPROVAL_STATUS.DRAFT,
     },
     {
-      name: 'reSubmit',
+      name: 'Resubmit',
       type: 'item',
       title: `{{t("resubmit", { ns: "${NAMESPACE}" })}}`,
       action: APPROVAL_STATUS.RESUBMIT,

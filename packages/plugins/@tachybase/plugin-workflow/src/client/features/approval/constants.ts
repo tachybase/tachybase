@@ -66,7 +66,7 @@ export const ApprovalStatusEnums = [
   },
   {
     value: APPROVAL_STATUS.RESUBMIT,
-    label: `{{t("reSubmit", { ns: "${NAMESPACE}" })}}`,
+    label: `{{t("Resubmit", { ns: "${NAMESPACE}" })}}`,
     color: 'blue',
     editable: true,
   },

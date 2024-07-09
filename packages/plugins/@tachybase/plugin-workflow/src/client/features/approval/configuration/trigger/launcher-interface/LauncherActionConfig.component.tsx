@@ -56,7 +56,7 @@ export const LauncherActionConfigReSubmit = () => {
           useAction: '{{ useActionResubmit }}',
         },
         'x-designer': 'Action.Designer',
-        'x-action': `reSubmit`,
+        'x-action': `Resubmit`,
         'x-action-settings': {
           assignedValues: {},
         },
