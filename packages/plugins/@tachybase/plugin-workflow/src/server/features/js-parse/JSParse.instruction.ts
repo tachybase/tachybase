@@ -1,4 +1,6 @@
+import * as canvas from 'canvas';
 import _ from 'lodash';
+import qrcode from 'qrcode';
 
 import { FlowNodeModel, Instruction, JOB_STATUS, Processor } from '../..';
 
@@ -6,9 +8,21 @@ export class JSParseInstruction extends Instruction {
   async run(node: FlowNodeModel, input: any, processor: Processor) {
     const { source = '', JSCode = '', model } = node.config;
     const data = processor.getParsedValue(source, node.id);
-    const query = evalSimulate;
     try {
-      let result = query ? await query(JSCode, { scopes: data, handlers: {}, modules: {} }) : data;
+      const ctx = {
+        data,
+        body: {},
+      };
+      await evalSimulate(JSCode, {
+        ctx,
+        lib: {
+          JSON,
+          canvas,
+          qrcode,
+          log: console.log,
+        },
+      });
+      let result = ctx.body;
 
       if (typeof result === 'object' && result && model?.length) {
         if (Array.isArray(result)) {
@@ -47,10 +61,12 @@ function mapModel(data, model) {
   return result;
 }
 
-async function evalSimulate(jsCode, { scopes, handlers, modules }) {
-  try {
-    return new Function('$root', `with($root) { ${jsCode}; }`)({ scopes, handlers, modules });
-  } catch (err) {
-    console.log('err', err);
-  }
+async function evalSimulate(jsCode, { ctx, lib }) {
+  const AsyncFunction = async function () {}.constructor;
+  return await new AsyncFunction('$root', `with($root) { ${jsCode}; }`)({
+    ctx,
+    // 允许用户覆盖，这个时候可以使用 _ctx
+    __ctx: ctx,
+    lib,
+  });
 }

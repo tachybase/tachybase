@@ -88,9 +88,6 @@
     "pnpm": "8.15.5"
   },
   "pnpm": {
-    "neverBuiltDependencies": [
-      "canvas"
-    ],
     "overrides": {
       "@types/node": "20.14.2",
       "antd": "5.19.1",

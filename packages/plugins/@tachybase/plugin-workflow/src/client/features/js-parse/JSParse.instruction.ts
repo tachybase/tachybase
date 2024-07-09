@@ -27,7 +27,7 @@ export class JSParseInstruction extends Instruction {
       type: 'string',
       title: tval('JSCode expression'),
       'x-decorator': 'FormItem',
-      'x-component': 'Input.TextArea',
+      'x-component': 'CodeMirror',
       required: true,
     },
     model: {
