@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 import { useContextApprovalStatus } from '../provider/ApplyActionStatus';
+import { useResubmit } from '../provider/Resubmit.provider';
+import { useCreateSubmit } from './useCreateSubmit';
 
 export function useUpdateSubmit() {
   const form = useForm();
@@ -17,8 +19,13 @@ export function useUpdateSubmit() {
   const contextApprovalStatus = useContextApprovalStatus();
   const apiClient = useAPIClient();
   const navigate = useNavigate();
+  const { isResubmit } = useResubmit();
+  const { run: create } = useCreateSubmit();
   return {
     async run() {
+      if (isResubmit) {
+        return await create({ approvalStatus: contextApprovalStatus });
+      }
       try {
         form.submit();
         _.set(field, ['data', 'loading'], true);

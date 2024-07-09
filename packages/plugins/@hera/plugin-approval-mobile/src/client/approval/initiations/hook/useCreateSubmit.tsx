@@ -2,21 +2,27 @@ import { joinCollectionName, useAPIClient, useBlockRequestContext, useCollection
 import { useField, useForm } from '@tachybase/schema';
 
 import { Toast } from 'antd-mobile';
+import _ from 'lodash';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { APPROVAL_ACTION_STATUS } from '../../constants';
+import { useContextApprovalExecution } from '../../context/ApprovalExecution';
+import { useContextApprovalStatus } from '../component/ViewActionInitiationsContent';
+import { useResubmit } from '../provider/Resubmit.provider';
 
 export function useCreateSubmit() {
   const from = useForm();
   const field = useField();
   const collection = useCollection_deprecated();
-  const contextWe = APPROVAL_ACTION_STATUS.SUBMITTED;
+  const status = useContextApprovalStatus();
   const apiClient = useAPIClient();
   const params = useParams();
+  const { isResubmit } = useResubmit();
   const { id: workflowId } = params;
   const navigate = useNavigate();
+  const { approval } = useContextApprovalExecution();
+  const { workflow } = approval || {};
   return {
-    async run() {
+    async run(args) {
       try {
         from.submit();
         field.data = field.data || {};
@@ -26,8 +32,8 @@ export function useCreateSubmit() {
           values: {
             collectionName: joinCollectionName(collection.dataSource, collection.name),
             data: from.values,
-            status: contextWe,
-            workflowId: workflowId,
+            status: typeof args?.approvalStatus !== 'undefined' ? args?.approvalStatus : status,
+            workflowId: isResubmit ? workflow.id : workflowId,
           },
         });
         if (res.status === 200) {

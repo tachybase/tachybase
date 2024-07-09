@@ -30,6 +30,7 @@ import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 
 import { useActionResubmit } from '../hook/useActionResubmit';
 import { ProviderActionResubmit } from '../provider/ActionResubmit.provider';
+import { ResubmitProvider } from '../provider/Resubmit.provider';
 
 export const ViewActionUserInitiationsContent = () => {
   const params = useParams();
@@ -89,18 +90,20 @@ export const ViewActionUserInitiationsContent = () => {
         {'审批'}
       </NavBar>
       <ContextApprovalExecution.Provider value={recordData}>
-        <div className="approvalContext">
-          {Object.keys(recordData).length && !noDate ? (
-            <ContextApprovalExecution.Provider value={recordData}>
-              {UserInitiationsComponent(workflow?.config.applyForm)}
-            </ContextApprovalExecution.Provider>
-          ) : (
-            <div>
-              <Skeleton.Title animated />
-              <Skeleton.Paragraph lineCount={5} animated />
-            </div>
-          )}
-        </div>
+        <ResubmitProvider>
+          <div className="approvalContext">
+            {Object.keys(recordData).length && !noDate ? (
+              <ContextApprovalExecution.Provider value={recordData}>
+                {UserInitiationsComponent(workflow?.config.applyForm)}
+              </ContextApprovalExecution.Provider>
+            ) : (
+              <div>
+                <Skeleton.Title animated />
+                <Skeleton.Paragraph lineCount={5} animated />
+              </div>
+            )}
+          </div>
+        </ResubmitProvider>
       </ContextApprovalExecution.Provider>
     </div>
   );

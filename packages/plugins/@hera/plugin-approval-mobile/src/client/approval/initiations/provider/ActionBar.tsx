@@ -10,14 +10,8 @@ export function ActionBarProvider(props) {
 
   const isSameId = data.data.id === createdById;
   const isSameExcutionId = latestExecutionId === id;
-  const isExcutionDid = [
-    APPROVAL_ACTION_STATUS.DRAFT,
-    APPROVAL_ACTION_STATUS.RETURNED,
-    APPROVAL_ACTION_STATUS.SUBMITTED,
-    APPROVAL_ACTION_STATUS.RESUBMIT,
-  ].includes(status);
 
-  if (!isSameId || !isSameExcutionId || !isExcutionDid) {
+  if (!isSameId || !isSameExcutionId) {
     return null;
   }
 
