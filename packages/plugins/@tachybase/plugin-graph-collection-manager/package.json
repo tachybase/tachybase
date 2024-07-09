@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-graph-collection-manager",
   "displayName": "Graph collection manager",
-  "version": "0.21.68",
+  "version": "0.21.69",
   "description": "An ER diagram-like tool. Currently only the Master database is supported.",
   "keywords": [
     "Data model tools"
