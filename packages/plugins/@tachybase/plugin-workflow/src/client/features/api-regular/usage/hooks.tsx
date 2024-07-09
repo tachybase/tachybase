@@ -23,7 +23,7 @@ import { lang } from '../../../locale';
 export const usePropsAPIRegular = () => {
   const { field, resource, __parent, service } = useBlockRequestContext();
   const actionSchema = useFieldSchema();
-  const expressionScope = useContext(SchemaExpressionScopeContext);
+  const expressionScope: any = useContext(SchemaExpressionScopeContext);
   const tableBlockContext = useTableBlockContext();
   const { rowKey } = tableBlockContext;
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ export const usePropsAPIRegular = () => {
   const actionField: any = useField();
   const { modal, notification } = App.useApp();
   const variables = useVariables();
-  const record = useRecord();
+  // const record = useRecord();
   const { name, getField } = useCollection_deprecated();
   const localVariables = useLocalVariables();
   const { run } = useRequest(

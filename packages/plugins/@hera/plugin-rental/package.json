@@ -12,7 +12,7 @@
     "@tachybase/schema": "workspace:*",
     "@types/lodash": "4.17.5",
     "ahooks": "^3.7.2",
-    "antd": "5.18.3",
+    "antd": "5.19.1",
     "dayjs": "^1.11.8",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",

@@ -3,7 +3,7 @@
   "version": "0.21.68",
   "main": "dist/server/index.js",
   "dependencies": {
-    "antd": "5.18.3",
+    "antd": "5.19.1",
     "lodash": "^4.17.21",
     "mysql2": "^3.9.1",
     "pg": "^8.11.3",

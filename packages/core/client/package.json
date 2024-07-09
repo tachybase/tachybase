@@ -24,7 +24,7 @@
     "@tachybase/sdk": "workspace:*",
     "@tachybase/utils": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.18.3",
+    "antd": "5.19.1",
     "antd-style": "3.6.2",
     "axios": "^1.6.2",
     "classnames": "^2.3.1",
