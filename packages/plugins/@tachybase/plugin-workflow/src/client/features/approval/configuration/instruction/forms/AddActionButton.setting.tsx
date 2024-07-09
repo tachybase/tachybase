@@ -1,78 +1,39 @@
 import React from 'react';
-import { CompatibleSchemaInitializer, InitializerWithSwitch, useSchemaInitializerItem } from '@tachybase/client';
+import { InitializerWithSwitch, SchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
-import { JOB_STATUS } from '../../../../../constants';
 import { APPROVAL_ACTION_STATUS } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
 
-/**
- * @deprecated
- */
-// NOTE: 似乎没用, 但删除又报错, 先保留着
-const addActionButton_deprecated = new CompatibleSchemaInitializer({
+export const ApprovalAddActionButton = new SchemaInitializer({
   name: 'ApprovalAddActionButton',
   title: '{{t("Configure actions")}}',
   items: [
     {
-      name: 'jobStatusResolved',
+      name: 'approvalStatusResolved',
       title: `{{t("Continue the process", { ns: "${NAMESPACE}" })}}`,
       Component: ActionInitializer,
-      action: JOB_STATUS.RESOLVED,
+      statusApproval: APPROVAL_ACTION_STATUS.APPROVED,
       actionProps: {
         type: 'primary',
       },
     },
     {
-      name: 'jobStatusRejected',
+      name: 'approvalStatusRejected',
       title: `{{t("Terminate the process", { ns: "${NAMESPACE}" })}}`,
       Component: ActionInitializer,
-      action: JOB_STATUS.REJECTED,
+      statusApproval: APPROVAL_ACTION_STATUS.REJECTED,
       actionProps: {
         danger: true,
       },
     },
     {
-      name: 'jobStatusPending',
+      name: 'approvalStatusPending',
       title: `{{t("Save temporarily", { ns: "${NAMESPACE}" })}}`,
       Component: ActionInitializer,
-      action: JOB_STATUS.PENDING,
+      statusApproval: APPROVAL_ACTION_STATUS.PENDING,
     },
   ],
 });
-
-export const ApprovalAddActionButton = new CompatibleSchemaInitializer(
-  {
-    name: 'ApprovalAddActionButton',
-    title: '{{t("Configure actions")}}',
-    items: [
-      {
-        name: 'approvalStatusResolved',
-        title: `{{t("Continue the process", { ns: "${NAMESPACE}" })}}`,
-        Component: ActionInitializer,
-        statusApproval: APPROVAL_ACTION_STATUS.APPROVED,
-        actionProps: {
-          type: 'primary',
-        },
-      },
-      {
-        name: 'approvalStatusRejected',
-        title: `{{t("Terminate the process", { ns: "${NAMESPACE}" })}}`,
-        Component: ActionInitializer,
-        statusApproval: APPROVAL_ACTION_STATUS.REJECTED,
-        actionProps: {
-          danger: true,
-        },
-      },
-      {
-        name: 'approvalStatusPending',
-        title: `{{t("Save temporarily", { ns: "${NAMESPACE}" })}}`,
-        Component: ActionInitializer,
-        statusApproval: APPROVAL_ACTION_STATUS.PENDING,
-      },
-    ],
-  },
-  addActionButton_deprecated,
-);
 
 function ActionInitializer() {
   const itemConfig = useSchemaInitializerItem();

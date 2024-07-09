@@ -111,7 +111,8 @@
   "Custom form": "自定义表单",
   "Data of associated collection": "关联数据表数据",
   "Data of collection": "数据表数据",
-  "Data operation nodes in workflow will run in a same transaction until any interruption. Any failure will cause data rollback, and will also rollback the history of the execution.": "工作流中的节点将在同一个事务中运行。任何失败都会导致数据回滚，同时也会回滚相应的执行历史。", "Data record": "数据记录",
+  "Data operation nodes in workflow will run in a same transaction until any interruption. Any failure will cause data rollback, and will also rollback the history of the execution.": "工作流中的节点将在同一个事务中运行。任何失败都会导致数据回滚，同时也会回滚相应的执行历史。",
+  "Data record": "数据记录",
   "Data will be updated": "更新的数据",
   "Date variables": "日期变量",
   "Days": "天",
@@ -356,6 +357,6 @@
   "\"Content-Type\" only support \"application/json\", and no need to specify": "\"Content-Type\" 请求头仅支持 \"application/json\"，无需填写",
   "concat": "连接",
   "ms": "毫秒",
-   "reSubmit": "需重新提交",
-   "Are you sure you want to resubmit it?": "确定生成一份新的草稿吗?"
+  "Resubmit": "重新发起",
+  "Are you sure you want to resubmit it?": "是否确定重新发起？"
 }

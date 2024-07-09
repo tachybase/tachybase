@@ -276,6 +276,6 @@
   "\"Content-Type\" only support \"application/json\", and no need to specify": "\"Content-Type\" only support \"application/json\", and no need to specify",
   "concat": "concat",
   "ms": "ms",
-  "reSubmit": "reSubmit",
+  "Resubmit": "Resubmit",
   "Are you sure you want to resubmit it?": "Are you sure you want to resubmit it?"
 }

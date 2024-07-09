@@ -116,7 +116,7 @@ const approvals = {
   },
 
   // NOTE: 和 create 逻辑雷同, 但是 因为原本的 create 并非纯操作, 因此拷贝一份以便方便改动
-  async reSubmit(context, next) {
+  async resubmit(context, next) {
     const { status, collectionName, data, workflowId, collectionAppends } = context.action.params.values ?? {};
     const [dataSourceName, cName] = parseCollectionName(collectionName);
     const dataSource = context.app.dataSourceManager.dataSources.get(dataSourceName);
