@@ -27,9 +27,6 @@ export class JSParseInstruction extends Instruction {
       type: 'string',
       title: tval('JSCode expression'),
       'x-decorator': 'FormItem',
-      'x-decorator-props': {
-        tooltip: 'ctx.data\nctx.body\n__ctx\nlib.JSON\nlib.qrcode\ncanvas\nlib.dayjs\nlib.log',
-      },
       'x-component': 'CodeMirror',
       required: true,
     },

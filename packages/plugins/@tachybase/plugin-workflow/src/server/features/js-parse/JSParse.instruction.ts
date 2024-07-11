@@ -1,5 +1,3 @@
-import crypto from 'crypto';
-
 import * as canvas from 'canvas';
 import _ from 'lodash';
 import qrcode from 'qrcode';
@@ -21,7 +19,6 @@ export class JSParseInstruction extends Instruction {
           JSON,
           canvas,
           qrcode,
-          crypto,
           log: console.log,
         },
       });
@@ -65,7 +62,7 @@ function mapModel(data, model) {
 }
 
 async function evalSimulate(jsCode, { ctx, lib }) {
-  const AsyncFunction: any = async function () {}.constructor;
+  const AsyncFunction = async function () {}.constructor;
   return await new AsyncFunction('$root', `with($root) { ${jsCode}; }`)({
     ctx,
     // 允许用户覆盖，这个时候可以使用 _ctx
