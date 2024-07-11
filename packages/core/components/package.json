@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/components",
-  "version": "0.21.71",
+  "version": "0.21.70",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -21,7 +21,6 @@
     "@formily/reactive-react": "2.3.1",
     "@formily/shared": "2.3.1",
     "@formily/validator": "2.3.1",
-    "@uiw/codemirror-theme-vscode": "^4.23.0",
     "@uiw/react-codemirror": "^4.22.2",
     "antd": "5.19.1",
     "classnames": "^2.5.1",

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-iframe-block",
   "displayName": "Block: iframe",
-  "version": "0.21.71",
+  "version": "0.21.70",
   "description": "Create an iframe block on the page to embed and display external web pages or content.",
   "keywords": [
     "Blocks"
