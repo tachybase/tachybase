@@ -242,30 +242,6 @@ export class RecordService {
     if (!values) return;
     // 触发打印更新次数跳过
     if (Object.keys(values).length === 1 && values?.print_count) return;
-    if (values?.category === RecordCategory.lease && values.contract) {
-      const dateObject = values.date;
-      // 结束时间添加一天，新系统选择时间都是以当天0点开始，但是导入的数据存在不是以0点开始比如2023-12-21:03.000……，提醒结算单的时间可能为2023-12-21:00.000……
-      const settlement = await this.db.sequelize.query(
-        `SELECT * FROM settlements WHERE contract_id = ${values.contract.id} AND start_date <= '${dateObject}' AND end_date >= (TIMESTAMP '${dateObject}' - INTERVAL '1 day')`,
-      );
-      const settlementData: any = settlement[0];
-      if (settlementData.length) {
-        for (const item of settlementData) {
-          const settlement_id = item.id;
-          await this.db.getModel('settlements').update(
-            {
-              status: settlementStatus.needReCompute,
-            },
-            {
-              where: {
-                id: settlement_id,
-              },
-              transaction,
-            },
-          );
-        }
-      }
-    }
     if (values?.category === RecordCategory.purchase) {
       // 定价
       const rule = values.price_items;

@@ -51,6 +51,15 @@ export default class extends Trigger {
           },
         },
         {
+          target: 'blacklist',
+          effects: ['onFieldValueChange'],
+          fulfill: {
+            state: {
+              value: [],
+            },
+          },
+        },
+        {
           target: 'condition',
           effects: ['onFieldValueChange'],
           fulfill: {
@@ -88,6 +97,34 @@ export default class extends Trigger {
           fulfill: {
             state: {
               visible: '{{!!$deps[0]}}',
+            },
+          },
+        },
+      ],
+    },
+    blacklist: {
+      type: 'array',
+      title: `{{t("Changed fields - blacklist", { ns: "${NAMESPACE}" })}}`,
+      description: `{{t("Triggered only if none of the selected fields changes. When record is added or deleted, this field has no effect.", { ns: "${NAMESPACE}" })}}`,
+      'x-decorator': 'FormItem',
+      'x-component': 'FieldsSelect',
+      'x-component-props': {
+        mode: 'multiple',
+        placeholder: '{{t("Select field")}}',
+        filter(field) {
+          return (
+            !field.hidden &&
+            (field.uiSchema ? !field.uiSchema['x-read-pretty'] : true) &&
+            !['linkTo', 'hasOne', 'hasMany', 'belongsToMany'].includes(field.type)
+          );
+        },
+      },
+      'x-reactions': [
+        {
+          dependencies: ['collection', 'mode'],
+          fulfill: {
+            state: {
+              visible: `{{!!$deps[0] && ($deps[1] & ${COLLECTION_TRIGGER_MODE.UPDATED})}}`,
             },
           },
         },

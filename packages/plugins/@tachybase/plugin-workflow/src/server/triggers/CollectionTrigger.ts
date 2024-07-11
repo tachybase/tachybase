@@ -37,7 +37,7 @@ function getFieldRawName(collection: ICollection, name: string) {
 
 // async function, should return promise
 async function handler(this: CollectionTrigger, workflow: WorkflowModel, data: Model, options) {
-  const { condition, changed, mode, appends } = workflow.config;
+  const { condition, changed, mode, appends, blacklist } = workflow.config;
   const [dataSourceName, collectionName] = parseCollectionName(workflow.config.collection);
   const collection = this.workflow.app.dataSourceManager?.dataSources
     .get(dataSourceName)
@@ -54,6 +54,17 @@ async function handler(this: CollectionTrigger, workflow: WorkflowModel, data: M
         (name) => !['linkTo', 'hasOne', 'hasMany', 'belongsToMany'].includes(collection.getField(name).options.type),
       )
       .every((name) => !data.changedWithAssociations(getFieldRawName(collection, name)))
+  ) {
+    return;
+  }
+  if (
+    blacklist &&
+    blacklist.length &&
+    blacklist
+      .filter(
+        (name) => !['linkTo', 'hasOne', 'hasMany', 'belongsToMany'].includes(collection.getField(name).options.type),
+      )
+      .some((name) => data.changedWithAssociations(getFieldRawName(collection, name)))
   ) {
     return;
   }
