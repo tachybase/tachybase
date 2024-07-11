@@ -3,6 +3,7 @@ import { connect } from '@tachybase/schema';
 
 import { autocompletion } from '@codemirror/autocomplete';
 import { javascript } from '@codemirror/lang-javascript';
+import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 import CM from '@uiw/react-codemirror';
 
 // 定义全局对象和子对象的补全项
@@ -90,6 +91,7 @@ export const CodeMirror = connect(({ value, onChange, ...otherProps }) => {
         }),
       ]}
       height="300px"
+      theme={vscodeDark}
     ></CM>
   );
 });
