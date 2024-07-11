@@ -27,7 +27,7 @@ export class JSONParseInstruction extends Instruction {
       type: 'string',
       title: tval('Query expression'),
       'x-decorator': 'FormItem',
-      'x-component': 'Input.TextArea',
+      'x-component': 'CodeMirror',
     },
     model: {
       type: 'array',
