@@ -21,6 +21,7 @@
     "@formily/reactive-react": "2.3.1",
     "@formily/shared": "2.3.1",
     "@formily/validator": "2.3.1",
+    "@uiw/codemirror-theme-vscode": "^4.23.0",
     "@uiw/react-codemirror": "^4.22.2",
     "antd": "5.19.1",
     "classnames": "^2.5.1",
