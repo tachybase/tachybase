@@ -12,6 +12,7 @@ import { PluginActionTrigger } from './features/action-trigger/Plugin';
 import { PluginAggregate } from './features/aggregate/Plugin';
 import PluginWorkflowAPIRegularServer from './features/api-regular/plugin';
 import PluginWorkflowApproval from './features/approval';
+import PluginWorkflowDataMappingServer from './features/data-mapping/plugin';
 import { PluginDelay } from './features/delay/Plugin';
 import { PluginDynamicCalculation } from './features/dynamic-calculation/Plugin';
 import { PluginInterception } from './features/interception';
@@ -77,6 +78,7 @@ export default class PluginWorkflowServer extends Plugin {
     this.addFeature(PluginActionTrigger);
     this.addFeature(PluginWorkflowJSONParseServer);
     this.addFeature(PluginWorkflowJSParseServer);
+    this.addFeature(PluginWorkflowDataMappingServer);
     this.addFeature(PluginWorkflowAPIRegularServer);
     this.addFeature(PluginInterception);
     this.addFeature(PluginVariables);
