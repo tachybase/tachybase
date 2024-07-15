@@ -131,7 +131,7 @@ export default class ApprovalInstruction extends Instruction {
         'executions.id': processor.execution.id,
       },
       fields: ['id', 'status', 'data', 'summary', 'collectionName'],
-      appends: ['approvalExecutions'],
+      appends: ['approvalExecutions', 'createdBy'],
       except: ['data'],
     });
     const approvalExecution = approval.approvalExecutions.find((item) => item.executionId === processor.execution.id);
@@ -144,6 +144,7 @@ export default class ApprovalInstruction extends Instruction {
       assignees.map((userId, index) => ({
         approvalId: approval.id,
         approvalExecutionId: approvalExecution.id,
+        createdById: approval.createdBy?.id,
         userId,
         jobId: job.id,
         nodeId: node.id,

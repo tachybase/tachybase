@@ -53,6 +53,8 @@ const schemaItems = [
     collection: 'approvalRecords',
     params: {
       appends: [
+        'createdBy.id',
+        'createdBy.nickname',
         'user.id',
         'user.nickname',
         'node.id',
