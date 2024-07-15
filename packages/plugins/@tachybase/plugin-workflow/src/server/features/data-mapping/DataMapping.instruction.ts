@@ -12,19 +12,29 @@ export class DataMappingInstruction extends Instruction {
     const { sourceArray, type, code = '', model } = node.config;
     // 1. 获取数据源
     let data = {};
-    if (sourceArray.length > 1) {
-      // 多个数据源, 进行合并
-      data = sourceArray.reduce(
-        (cookedData, { keyName, sourcePath }) => ({
-          ...cookedData,
-          [keyName]: processor.getParsedValue(sourcePath, node.id),
-        }),
-        {},
-      );
-    } else {
-      // 单数据源, 平铺为单对象
-      const source = sourceArray[0]['sourcePath'];
-      data = processor.getParsedValue(source, node.id);
+
+    switch (sourceArray.length) {
+      case 0: {
+        // 无数据源,使用默认值
+        data = {};
+        break;
+      }
+      case 1: {
+        // 单数据源, 平铺为单对象; 忽略keyName
+        const source = sourceArray[0]['sourcePath'];
+        data = processor.getParsedValue(source, node.id);
+        break;
+      }
+      default: {
+        // 多个数据源, 进行合并
+        data = sourceArray.reduce(
+          (cookedData, { keyName, sourcePath }) => ({
+            ...cookedData,
+            [keyName]: processor.getParsedValue(sourcePath, node.id),
+          }),
+          {},
+        );
+      }
     }
 
     try {
