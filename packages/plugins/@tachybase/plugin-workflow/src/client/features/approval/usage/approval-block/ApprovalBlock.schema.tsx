@@ -7,6 +7,7 @@ import { TableOutlined } from '@ant-design/icons';
 import { NAMESPACE } from '../../locale';
 import { ApprovalBlockProvider } from './ApprovalBlock.provider';
 import { ApprovalBlockLaunch } from './launch/VC.ApprovalBlockLaunch';
+import { ApprovalBlockLaunchApplication } from './launch/VC.ApprovalBlockLaunchApplication';
 import { ApprovalBlockTodos } from './todos/VC.ApprovalBlockTodos';
 
 export class SCApprovalBlock extends Plugin {
@@ -14,6 +15,7 @@ export class SCApprovalBlock extends Plugin {
     this.app.addComponents({
       'ApprovalBlock.Decorator': ApprovalBlockProvider,
       'ApprovalBlock.Launch': ApprovalBlockLaunch,
+      'ApprovalBlock.Launch.Application': ApprovalBlockLaunchApplication,
       'ApprovalBlock.Todos': ApprovalBlockTodos,
     });
   }
@@ -21,14 +23,28 @@ export class SCApprovalBlock extends Plugin {
 
 const schemaItems = [
   {
-    type: 'item',
+    type: 'itemGroup',
+    name: 'Launch',
     title: `{{t("Launch", { ns: "${NAMESPACE}" })}}`,
-    'x-component': 'ApprovalBlock.Launch',
-    collection: 'approvals',
-    params: {
-      appends: ['createdBy.nickname', 'workflow.title', 'workflow.enabled'],
-      except: ['data'],
-    },
+    children: [
+      {
+        type: 'item',
+        title: `{{t("Launch", { ns: "${NAMESPACE}" })}}`,
+        'x-component': 'ApprovalBlock.Launch.Application',
+        collection: 'workflows',
+        action: 'list',
+      },
+      {
+        type: 'item',
+        title: `{{t("MyLaunch", { ns: "${NAMESPACE}" })}}`,
+        'x-component': 'ApprovalBlock.Launch',
+        collection: 'approvals',
+        params: {
+          appends: ['createdBy.nickname', 'workflow.title', 'workflow.enabled'],
+          except: ['data'],
+        },
+      },
+    ],
   },
   {
     type: 'item',
@@ -56,7 +72,7 @@ const schemaItems = [
 
 const getSchemaInsert = ({ item }) => {
   const id = uid();
-  const { collection, params, ['x-component']: xcomponent } = item;
+  const { collection, params, ['x-component']: xcomponent, action } = item;
   return {
     type: 'void',
     name: id,
@@ -66,7 +82,7 @@ const getSchemaInsert = ({ item }) => {
     'x-decorator-props': {
       collection,
       params,
-      action: 'listCentralized',
+      action: action || 'listCentralized',
     },
     'x-component': 'CardItem',
     properties: {
