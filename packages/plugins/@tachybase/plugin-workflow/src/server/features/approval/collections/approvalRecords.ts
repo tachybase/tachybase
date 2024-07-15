@@ -5,6 +5,7 @@ export default defineCollection({
   namespace: 'workflow.approvalRecords',
   dumpRules: 'required',
   name: 'approvalRecords',
+  createdBy: true,
   fields: [
     {
       type: 'string',

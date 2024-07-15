@@ -101,6 +101,20 @@ export const SchemaApprovalBlockTodos = {
             },
           },
         },
+        createdBy: {
+          type: 'void',
+          title: `{{t("Initiator", { ns: "${NAMESPACE}" })}}`,
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': { width: 160 },
+          properties: {
+            createdBy: {
+              type: 'string',
+              'x-component': 'UserColumn',
+              'x-read-pretty': true,
+            },
+          },
+        },
         user: {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',

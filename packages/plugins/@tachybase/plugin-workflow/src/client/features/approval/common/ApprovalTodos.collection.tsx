@@ -17,6 +17,27 @@ export const CollectionApprovalTodos = {
     },
     {
       type: 'belongsTo',
+      name: 'createdBy',
+      target: 'users',
+      foreignKey: 'createdById',
+      interface: 'm2o',
+      uiSchema: {
+        type: 'number',
+        title: `{{t("Initiator", { ns: "${NAMESPACE}" })}}`,
+        'x-component': 'RemoteSelect',
+        'x-component-props': {
+          fieldNames: {
+            label: 'nickname',
+            value: 'id',
+          },
+          service: {
+            resource: 'users',
+          },
+        },
+      },
+    },
+    {
+      type: 'belongsTo',
       name: 'user',
       target: 'users',
       foreignKey: 'userId',
