@@ -16,7 +16,7 @@ import { Button, Dropdown } from 'antd';
 import { useTranslation } from '../../../../locale';
 import { FlowContextProvider } from '../../common/FlowContext.provider';
 import { useActionResubmit } from '../hooks/useActionResubmit';
-import { useCreateSubmit } from './hooks/useSubmit';
+import { useSubmitCreate } from './hooks/useSubmitCreate';
 import { useWithdrawAction } from './hooks/useWithdrawAction';
 import { ActionBarProvider } from './Pd.ActionBar';
 import { ApplyActionStatusProvider } from './Pd.ActionStatus';
@@ -117,7 +117,7 @@ export const ApplyButton = () => {
             WithdrawActionProvider,
           }}
           scope={{
-            useSubmit: useCreateSubmit,
+            useSubmit: useSubmitCreate,
             useWithdrawAction,
             useActionResubmit,
           }}

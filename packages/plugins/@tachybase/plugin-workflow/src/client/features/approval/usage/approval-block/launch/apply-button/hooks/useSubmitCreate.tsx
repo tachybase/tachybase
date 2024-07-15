@@ -12,7 +12,7 @@ import _ from 'lodash';
 import { useFlowContext } from '../../../../../../../FlowContext';
 import { useContextApprovalStatus } from '../Pd.ActionStatus';
 
-export function useCreateSubmit() {
+export function useSubmitCreate() {
   const from = useForm();
   const field = useField();
   const { setVisible } = useActionContext();

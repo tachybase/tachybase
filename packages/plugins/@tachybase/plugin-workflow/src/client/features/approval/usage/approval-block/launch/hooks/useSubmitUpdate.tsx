@@ -7,14 +7,14 @@ import { useFlowContext } from '../../../../../../FlowContext';
 import { useApproval } from '../../../approval-common/ApprovalData.provider';
 import { useResubmit } from '../../../approval-common/Resubmit.provider';
 import { useHandleRefresh } from '../../common/useHandleRefresh';
-import { useCreateSubmit } from '../apply-button/hooks/useSubmit';
+import { useSubmitCreate } from '../apply-button/hooks/useSubmitCreate';
 import { useContextApprovalStatus } from '../Pd.ApplyActionStatus';
 
-export function useSubmit() {
+export function useSubmitUpdate() {
   const { refreshTable } = useHandleRefresh();
   const apiClient = useAPIClient();
   const { isResubmit } = useResubmit();
-  const { run: create } = useCreateSubmit();
+  const { run: create } = useSubmitCreate();
   const status = useContextApprovalStatus();
 
   const form = useForm();
