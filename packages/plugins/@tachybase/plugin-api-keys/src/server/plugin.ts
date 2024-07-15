@@ -27,7 +27,7 @@ export class PluginAPIKeysServer extends Plugin {
       async (ctx, next) => {
         const token = ctx.getBearerToken();
         // TODO 固定长度判断来优化性能
-        if (token && token.length !== 64) {
+        if (token?.length !== 64) {
           return await next();
         }
         const key = await repo.findOne({
