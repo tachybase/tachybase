@@ -358,5 +358,6 @@
   "concat": "连接",
   "ms": "毫秒",
   "Resubmit": "重新发起",
-  "Are you sure you want to resubmit it?": "是否确定重新发起？"
+  "Are you sure you want to resubmit it?": "是否确定重新发起？",
+  "MyLaunch":"我的发起"
 }
