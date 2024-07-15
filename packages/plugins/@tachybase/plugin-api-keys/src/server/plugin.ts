@@ -22,6 +22,30 @@ export class PluginAPIKeysServer extends Plugin {
   }
 
   async load() {
+    const repo = this.db.getRepository('apiKeys');
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const token = ctx.getBearerToken();
+        // TODO 固定长度判断来优化性能
+        if (token && token.length !== 64) {
+          return await next();
+        }
+        const key = await repo.findOne({
+          filter: {
+            accessToken: token,
+          },
+        });
+        ctx.getBearerToken = () => {
+          if (key) {
+            return key.token;
+          }
+          return token;
+        };
+
+        await next();
+      },
+      { tag: 'api-access-token', before: 'auth' },
+    );
     this.app.resourcer.use(async (ctx, next) => {
       const { resourceName, actionName } = ctx.action;
       if (resourceName === this.resourceName && ['list', 'destroy'].includes(actionName)) {

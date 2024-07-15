@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import actions, { Context, Next } from '@tachybase/actions';
 import { Repository } from '@tachybase/database';
 
@@ -18,13 +19,19 @@ export async function create(ctx: Context, next: Next) {
     throw ctx.throw(400, ctx.t('Role not found'));
   }
 
-  const token = ctx.app.authManager.jwt.sign(
+  const hash = createHash('sha256');
+  const jwtToken = ctx.app.authManager.jwt.sign(
     { userId: ctx.auth.user.id, roleName: role.name },
     { expiresIn: values.expiresIn },
   );
+
+  hash.update(jwtToken);
+  const token = hash.digest('hex');
+
   ctx.action.mergeParams({
     values: {
-      token,
+      token: jwtToken,
+      accessToken: token,
     },
   });
   return actions.create(ctx, async () => {

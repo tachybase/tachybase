@@ -92,5 +92,10 @@ export default {
       type: 'string',
       hidden: true,
     },
+    {
+      name: 'accessToken',
+      type: 'string',
+      hidden: true,
+    },
   ],
 } as CollectionOptions;
