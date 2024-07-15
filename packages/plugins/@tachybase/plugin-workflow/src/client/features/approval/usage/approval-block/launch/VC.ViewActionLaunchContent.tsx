@@ -25,7 +25,7 @@ import { ProviderActionResubmit } from './ActionResubmit.provider';
 import { useActionResubmit } from './hooks/useActionResubmit';
 import { useDestroyAction } from './hooks/useDestroyAction';
 import { useFormBlockProps } from './hooks/useFormBlockProps';
-import { useSubmit } from './hooks/useSubmit';
+import { useSubmitUpdate } from './hooks/useSubmitUpdate';
 import { useWithdrawAction } from './hooks/useWithdrawAction';
 import { ActionBarProvider } from './Pd.ActionBar';
 import { ApplyActionStatusProvider } from './Pd.ApplyActionStatus';
@@ -101,7 +101,7 @@ export const ViewActionLaunchContent = () => {
               }}
               scope={{
                 useForm,
-                useSubmit,
+                useSubmit: useSubmitUpdate,
                 useFormBlockProps,
                 useDetailsBlockProps: useFormBlockContext,
                 useWithdrawAction,

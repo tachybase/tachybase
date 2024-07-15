@@ -14,7 +14,7 @@ import { useFieldSchema } from '@tachybase/schema';
 import { Button, Col, Row } from 'antd';
 
 import { FlowContextProvider } from '../common/FlowContext.provider';
-import { useCreateSubmit } from './apply-button/hooks/useSubmit';
+import { useSubmitCreate } from './apply-button/hooks/useSubmitCreate';
 import { ActionBarProvider } from './apply-button/Pd.ActionBar';
 import { ApplyActionStatusProvider } from './apply-button/Pd.ActionStatus';
 import { useActionResubmit } from './hooks/useActionResubmit';
@@ -150,7 +150,7 @@ export const ApprovalBlockLaunchApplication = (props) => {
             WithdrawActionProvider,
           }}
           scope={{
-            useSubmit: useCreateSubmit,
+            useSubmit: useSubmitCreate,
             useWithdrawAction,
             useActionResubmit,
           }}
