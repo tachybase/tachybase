@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { compatOldTheme, defaultTheme, useGlobalTheme, useToken } from '@tachybase/client';
+import { defaultTheme, useGlobalTheme, useToken } from '@tachybase/client';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { App, Button, Space } from 'antd';
@@ -25,7 +25,7 @@ const ToEditTheme = () => {
           <Button
             onClick={() => {
               setCurrentSettingTheme(theme);
-              setTheme(compatOldTheme(theme));
+              setTheme(theme);
               setOpen(true);
               m.destroy();
             }}
@@ -36,7 +36,7 @@ const ToEditTheme = () => {
             type={'primary'}
             onClick={() => {
               setCurrentSettingTheme(theme);
-              setTheme(compatOldTheme(defaultTheme));
+              setTheme(defaultTheme);
               setOpen(true);
               m.destroy();
             }}
