@@ -1,0 +1,15 @@
+{
+  "name": "@tachybase/plugin-print-template",
+  "version": "0.21.73",
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "docxtemplater": "^3.48.0",
+    "pizzip": "^3.1.7",
+    "xml2js": "^0.6.2"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}
