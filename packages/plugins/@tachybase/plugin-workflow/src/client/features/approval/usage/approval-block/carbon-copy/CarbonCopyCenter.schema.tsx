@@ -1,15 +1,49 @@
-import { css } from '@tachybase/client';
+import React from 'react';
+import { css, SchemaComponent } from '@tachybase/client';
 
 import { NAMESPACE, tval } from '../../../locale';
+import { ColumnApprovalStatus } from '../../approval-common/approval-columns/approvalStatus.column';
+import { ColumnAction } from '../../approval-common/notice-columns/column.action';
+import { ColumnNode } from '../../approval-common/notice-columns/column.node';
+import { ColumnStatus } from '../../approval-common/notice-columns/column.status';
+import { ColumnUser } from '../../approval-common/notice-columns/column.user';
+import { ColumnWorkflow } from '../../approval-common/notice-columns/column.workflow';
 
-export const SchemaApprovalBlockTodos = {
+const schemaStyles = {
+  ActionbarStyle: css`
+    margin-bottom: 16px;
+  `,
+  TableV2Style: css`
+    .ant-table-cell {
+      text-align: center;
+    }
+  `,
+};
+
+export const CarbonCopyCenter = () => (
+  <SchemaComponent
+    components={{
+      ColumnNode,
+      ColumnWorkflow,
+      ColumnUser,
+      ColumnStatus,
+      ColumnAction,
+      ColumnApprovalStatus,
+    }}
+    schema={schema}
+  />
+);
+
+const schema = {
   type: 'void',
-  name: 'todos',
+  name: 'approval-carbon-copy-center',
   properties: {
     actions: {
       type: 'void',
       'x-component': 'ActionBar',
-      'x-component-props': { style: { marginBottom: 16 } },
+      'x-component-props': {
+        className: schemaStyles.ActionbarStyle,
+      },
       properties: {
         filter: {
           type: 'void',
@@ -18,7 +52,9 @@ export const SchemaApprovalBlockTodos = {
           'x-designer': 'Filter.Action.Designer',
           'x-component': 'Filter.Action',
           'x-use-component-props': 'useFilterActionProps',
-          'x-component-props': { icon: 'FilterOutlined' },
+          'x-component-props': {
+            icon: 'FilterOutlined',
+          },
           'x-align': 'left',
         },
         refresher: {
@@ -51,11 +87,13 @@ export const SchemaApprovalBlockTodos = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 60 },
+          'x-component-props': {
+            width: 60,
+          },
           title: '{{t("Actions")}}',
           properties: {
             action: {
-              'x-component': 'ApprovalBlock.ViewActionTodos',
+              'x-component': 'ColumnAction',
             },
           },
         },
@@ -92,7 +130,7 @@ export const SchemaApprovalBlockTodos = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          title: tval('Approval Summary'),
+          title: tval('Summary'),
           properties: {
             summary: {
               type: 'string',
@@ -103,14 +141,14 @@ export const SchemaApprovalBlockTodos = {
         },
         createdBy: {
           type: 'void',
-          title: `{{t("Initiator", { ns: "${NAMESPACE}" })}}`,
+          title: tval('Initiator'),
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
           'x-component-props': { width: 160 },
           properties: {
             createdBy: {
               type: 'string',
-              'x-component': 'UserColumn',
+              'x-component': 'ColumnUser',
               'x-read-pretty': true,
             },
           },
@@ -120,10 +158,10 @@ export const SchemaApprovalBlockTodos = {
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
           'x-component-props': { width: 140 },
-          title: `{{t("Assignee", { ns: "${NAMESPACE}" })}}`,
+          title: tval('The Notified Person'),
           properties: {
             user: {
-              'x-component': 'UserColumn',
+              'x-component': 'ColumnUser',
               'x-read-pretty': true,
             },
           },
@@ -132,11 +170,13 @@ export const SchemaApprovalBlockTodos = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 100 },
+          'x-component-props': {
+            width: 100,
+          },
           title: '{{t("Status", { ns: "workflow" })}}',
           properties: {
             status: {
-              'x-component': 'ApprovalRecordStatusColumn',
+              'x-component': 'ColumnApprovalStatus',
               'x-read-pretty': true,
             },
           },
@@ -151,7 +191,7 @@ export const SchemaApprovalBlockTodos = {
           title: '{{t("Workflow", { ns: "workflow" })}}',
           properties: {
             workflow: {
-              'x-component': 'WorkflowColumn',
+              'x-component': 'ColumnWorkflow',
               'x-read-pretty': true,
             },
           },
@@ -166,7 +206,7 @@ export const SchemaApprovalBlockTodos = {
           title: `{{t("Task node", { ns: "${NAMESPACE}" })}}`,
           properties: {
             node: {
-              'x-component': 'NodeColumn',
+              'x-component': 'ColumnNode',
               'x-read-pretty': true,
             },
           },

@@ -3,6 +3,7 @@ import { parseCollectionName } from '@tachybase/data-source-manager';
 import { traverseJSON } from '@tachybase/database';
 
 import { EXECUTION_STATUS, JOB_STATUS, PluginWorkflow } from '../..';
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY, COLLECTION_WORKFLOWS_NAME } from '../common/constants';
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 import { getSummary } from './tools';
 import { getAssociationName, jsonParse } from './utils';
@@ -357,6 +358,23 @@ const approvalRecords = {
     workflow.resume(approvalRecord.job);
   },
 };
+const approvalCarbonCopy = {
+  async listCentralized(context, next) {
+    const centralizedApprovalFlow = await context.db.getRepository(COLLECTION_WORKFLOWS_NAME).find({
+      filter: {
+        type: 'approval',
+        'config.centralized': true,
+      },
+      fields: ['id'],
+    });
+    context.action.mergeParams({
+      filter: {
+        workflowId: centralizedApprovalFlow.map((item) => item.id),
+      },
+    });
+    return actions.list(context, next);
+  },
+};
 function make(name, mod) {
   return Object.keys(mod).reduce(
     (result, key) => ({
@@ -371,5 +389,6 @@ export function init({ app }) {
     ...make('workflows', workflows),
     ...make('approvals', approvals),
     ...make('approvalRecords', approvalRecords),
+    ...make(COLLECTION_NAME_APPROVAL_CARBON_COPY, approvalCarbonCopy),
   });
 }

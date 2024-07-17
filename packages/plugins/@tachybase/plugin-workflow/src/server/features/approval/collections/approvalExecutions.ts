@@ -1,6 +1,6 @@
 import { defineCollection } from '@tachybase/database';
 
-// 审批
+// 审批-执行态
 export default defineCollection({
   namespace: 'workflow.approvalExecutions',
   dumpRules: 'required',

@@ -4,7 +4,7 @@ import { useCompile } from '@tachybase/client';
 import { Tag } from 'antd';
 
 import { APPROVAL_STATUS, approvalStatusConfigObj, ApprovalStatusEnumDict } from '../../../constants';
-import { ColumnStatusComponent } from '../approval-columns/column.status';
+import { ColumnStatusComponent } from '../approval-columns/status.column';
 
 export function renderColumnStatus(value, record, exist) {
   // return null;

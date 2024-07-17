@@ -74,7 +74,7 @@ export const SchemaApprovalBlockLaunch = {
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
           'x-component-props': { width: 80 },
-          title: '{{t("ID")}}',
+          title: tval('ID'),
           properties: {
             id: {
               type: 'number',
