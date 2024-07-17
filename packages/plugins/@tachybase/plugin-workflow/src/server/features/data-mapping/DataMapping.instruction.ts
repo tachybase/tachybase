@@ -1,6 +1,5 @@
 import crypto from 'crypto';
 
-import * as canvas from 'canvas';
 import jsonata from 'jsonata';
 import _ from 'lodash';
 import qrcode from 'qrcode';
@@ -90,7 +89,6 @@ async function convertByJsCode(code, data) {
     lib: {
       log: console.log,
       JSON,
-      canvas,
       qrcode,
       crypto,
       jsonata,

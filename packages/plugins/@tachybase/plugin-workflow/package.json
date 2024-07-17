@@ -21,7 +21,6 @@
     "@types/qrcode": "^1.5.5",
     "antd": "5.19.1",
     "axios": "^1.6.2",
-    "canvas": "^2.11.2",
     "cron-parser": "4.4.0",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
