@@ -1,0 +1,1 @@
+# @tachybase/plugin-print-template
