@@ -1,6 +1,5 @@
 import crypto from 'crypto';
 
-import * as canvas from 'canvas';
 import _ from 'lodash';
 import qrcode from 'qrcode';
 
@@ -19,7 +18,6 @@ export class JSParseInstruction extends Instruction {
         ctx,
         lib: {
           JSON,
-          canvas,
           qrcode,
           crypto,
           log: console.log,
