@@ -1,24 +1,36 @@
 import { defineCollection } from '@tachybase/database';
 
-// 审批-待办
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../common/constants';
+
+// 审批-抄送
 export default defineCollection({
-  namespace: 'workflow.approvalRecords',
+  namespace: 'workflow.approvalCarbonCopy',
   dumpRules: 'required',
-  name: 'approvalRecords',
+  name: COLLECTION_NAME_APPROVAL_CARBON_COPY,
   createdBy: true,
+  updatedBy: true,
   fields: [
     {
       type: 'string',
       name: 'collectionName',
     },
     {
+      type: 'string',
+      name: 'index',
+    },
+    {
+      type: 'string',
+      name: 'dataKey',
+    },
+    {
       type: 'belongsTo',
       name: 'approval',
     },
     {
-      type: 'belongsTo',
-      name: 'approvalExecution',
+      type: 'integer',
+      name: 'status',
     },
+
     {
       type: 'belongsTo',
       name: 'user',
@@ -26,9 +38,10 @@ export default defineCollection({
     },
     {
       type: 'belongsTo',
-      name: 'job',
-      target: 'jobs',
+      name: 'workflow',
+      onDelete: 'CASCADE',
     },
+
     {
       type: 'belongsTo',
       name: 'execution',
@@ -40,20 +53,8 @@ export default defineCollection({
     },
     {
       type: 'belongsTo',
-      name: 'workflow',
-    },
-    {
-      type: 'string',
-      name: 'index',
-    },
-    {
-      type: 'integer',
-      name: 'status',
-    },
-    {
-      type: 'jsonb',
-      name: 'snapshot',
-      defaultValue: {},
+      name: 'job',
+      target: 'jobs',
     },
     {
       type: 'jsonb',
@@ -61,8 +62,9 @@ export default defineCollection({
       defaultValue: {},
     },
     {
-      type: 'text',
-      name: 'comment',
+      type: 'jsonb',
+      name: 'snapshot',
+      defaultValue: {},
     },
   ],
 });

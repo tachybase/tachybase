@@ -278,5 +278,7 @@
   "ms": "ms",
   "Resubmit": "Resubmit",
   "Are you sure you want to resubmit it?": "Are you sure you want to resubmit it?",
-  "MyLaunch":"MyLaunch"
+  "MyLaunch":"MyLaunch",
+  "CarbonCopy":"CarbonCopy",
+  "ApprovalCarbonCopy":"Approval:CarbonCopy"
 }

@@ -61,7 +61,7 @@ export const ApprovalBlockLaunchApplication = (props) => {
 
   useEffect(() => {
     run();
-  }, []);
+  }, [decorator?.params?.filter]);
 
   const onClick = useCallback(
     (targetItems) => {

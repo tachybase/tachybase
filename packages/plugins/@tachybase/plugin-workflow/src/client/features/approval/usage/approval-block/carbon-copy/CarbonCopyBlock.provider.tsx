@@ -1,12 +1,11 @@
 import React from 'react';
 import { ExtendCollectionsProvider, TableBlockProvider, useRecord } from '@tachybase/client';
 
-import { CollectionApprovalTodos } from '../../collections/approvalRecords.collection';
-import { CollectionApprovals } from '../../collections/approvals.collection';
-import { CollectionFlowNodes } from '../../collections/flowNodes.collection';
-import { CollectionWorkflows } from '../../collections/workflows.collection';
+import { CollectionApprovalCarbonCopy } from '../../../collections/approvalCarbonCopy.collection';
+import { CollectionFlowNodes } from '../../../collections/flowNodes.collection';
+import { CollectionWorkflows } from '../../../collections/workflows.collection';
 
-export const ApprovalBlockProvider = ({ children, ...props }) => {
+export const CarbonCopyBlockProvider = ({ children, ...props }) => {
   const {
     collection,
     params = {
@@ -37,9 +36,7 @@ export const ApprovalBlockProvider = ({ children, ...props }) => {
   };
 
   return (
-    <ExtendCollectionsProvider
-      collections={[CollectionWorkflows, CollectionFlowNodes, CollectionApprovals, CollectionApprovalTodos]}
-    >
+    <ExtendCollectionsProvider collections={[CollectionWorkflows, CollectionFlowNodes, CollectionApprovalCarbonCopy]}>
       <TableBlockProvider name={collection} {...config}>
         {children}
       </TableBlockProvider>

@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
 
-import { KitApprovalInstruction } from './instruction/plugin';
+import { KitApprovalInstruction } from './instruction-approval/kit';
 import { KitApprovalTrigger } from './trigger/plugin';
 
 export default class KitApprovalConfiguration extends Plugin {

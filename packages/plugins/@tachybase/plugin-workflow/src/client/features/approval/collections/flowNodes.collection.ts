@@ -1,7 +1,7 @@
-import { NAMESPACE } from '../../locale';
+import { tval } from '../locale';
 
 export const CollectionFlowNodes = {
-  title: `{{t("Node", { ns: "${NAMESPACE}" })}}`,
+  title: tval('Node'),
   name: 'flow_nodes',
   fields: [
     {
