@@ -363,7 +363,7 @@ const findBlockTemplateSchema = (fieldSchema) => {
 };
 
 export const SchemaSettingsFormItemTemplate = function FormItemTemplate(props) {
-  const { insertAdjacentPosition = 'afterBegin', componentName, collectionName, resourceName } = props;
+  const { insertAdjacentPosition = 'beforeEnd', componentName, collectionName, resourceName } = props;
   const { t } = useTranslation();
   const compile = useCompile();
   const { getCollection } = useCollectionManager_deprecated();
