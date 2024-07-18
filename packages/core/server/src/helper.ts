@@ -57,6 +57,7 @@ export function registerMiddlewares(app: Application, options: ApplicationOption
     const bodyLimit = '10mb';
     app.use(
       bodyParser({
+        enableTypes: ['json', 'form', 'xml'],
         jsonLimit: bodyLimit,
         formLimit: bodyLimit,
         textLimit: bodyLimit,
