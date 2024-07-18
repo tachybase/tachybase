@@ -2,25 +2,12 @@ import actions, { utils } from '@tachybase/actions';
 import { parseCollectionName } from '@tachybase/data-source-manager';
 import { traverseJSON } from '@tachybase/database';
 
-import { EXECUTION_STATUS, JOB_STATUS, PluginWorkflow } from '../..';
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY, COLLECTION_WORKFLOWS_NAME } from '../common/constants';
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
-import { getSummary } from './tools';
-import { getAssociationName, jsonParse } from './utils';
+import { EXECUTION_STATUS, JOB_STATUS, PluginWorkflow } from '../../..';
+import { APPROVAL_STATUS } from '../constants';
+import { getSummary } from '../tools';
+import { getAssociationName, jsonParse } from '../utils';
 
-const workflows = {
-  async listApprovalFlows(context, next) {
-    context.action.mergeParams({
-      filter: {
-        type: 'approval',
-        enabled: true,
-        // TODO: 仅显示当前用户有权限的流程
-      },
-    });
-    return actions.list(context, next);
-  },
-};
-const approvals = {
+export const approvals = {
   async create(context, next) {
     const { status, collectionName, data, workflowId } = context.action.params.values ?? {};
     const [dataSourceName, cName] = parseCollectionName(collectionName);
@@ -293,103 +280,3 @@ const approvals = {
     return actions.list(context, next);
   },
 };
-const approvalRecords = {
-  async listCentralized(context, next) {
-    const centralizedApprovalFlow = await context.db.getRepository('workflows').find({
-      filter: {
-        type: 'approval',
-        'config.centralized': true,
-      },
-      fields: ['id'],
-    });
-    context.action.mergeParams({
-      filter: {
-        workflowId: centralizedApprovalFlow.map((item) => item.id),
-      },
-    });
-    return actions.list(context, next);
-  },
-  async submit(context, next) {
-    const repository = utils.getRepositoryFromParams(context);
-    const { filterByTk, values } = context.action.params;
-    const { data, status, needUpdateRecord } = values || {};
-    const { currentUser } = context.state;
-    if (!currentUser) {
-      return context.throw(401);
-    }
-    const approvalRecord = await repository.findOne({
-      filterByTk,
-      filter: {
-        userId: currentUser == null ? void 0 : currentUser.id,
-      },
-      appends: ['job', 'node', 'execution', 'workflow', 'approval'],
-      context,
-    });
-    if (!approvalRecord) {
-      return context.throw(404);
-    }
-    if (
-      !approvalRecord.workflow.enabled ||
-      approvalRecord.execution.status ||
-      approvalRecord.job.status ||
-      approvalRecord.status !== APPROVAL_ACTION_STATUS.PENDING ||
-      (!needUpdateRecord && !(approvalRecord.node.config.actions ?? []).includes(status))
-    ) {
-      return context.throw(400);
-    }
-    await approvalRecord.update({
-      status: status,
-      comment: data.comment,
-      snapshot: approvalRecord.approval.data,
-      summary: approvalRecord.approval.summary,
-      collectionName: approvalRecord.approval.collectionName,
-    });
-    context.body = approvalRecord.get();
-    context.status = 202;
-    await next();
-    approvalRecord.execution.workflow = approvalRecord.workflow;
-    approvalRecord.job.execution = approvalRecord.execution;
-    approvalRecord.job.latestUserJob = approvalRecord.get();
-    const workflow = context.app.getPlugin(PluginWorkflow);
-    const processor = workflow.createProcessor(approvalRecord.execution);
-    processor.logger.info(
-      `approval node (${approvalRecord.nodeId}) action trigger execution (${approvalRecord.execution.id}) to resume`,
-    );
-    workflow.resume(approvalRecord.job);
-  },
-};
-const approvalCarbonCopy = {
-  async listCentralized(context, next) {
-    const centralizedApprovalFlow = await context.db.getRepository(COLLECTION_WORKFLOWS_NAME).find({
-      filter: {
-        type: 'approval',
-        'config.centralized': true,
-      },
-      fields: ['id'],
-    });
-    context.action.mergeParams({
-      filter: {
-        workflowId: centralizedApprovalFlow.map((item) => item.id),
-        // approval.status: APPROVAL_STATUS.DRAFT,
-      },
-    });
-    return actions.list(context, next);
-  },
-};
-function make(name, mod) {
-  return Object.keys(mod).reduce(
-    (result, key) => ({
-      ...result,
-      [`${name}:${key}`]: mod[key],
-    }),
-    {},
-  );
-}
-export function init({ app }) {
-  app.actions({
-    ...make('workflows', workflows),
-    ...make('approvals', approvals),
-    ...make('approvalRecords', approvalRecords),
-    ...make(COLLECTION_NAME_APPROVAL_CARBON_COPY, approvalCarbonCopy),
-  });
-}
