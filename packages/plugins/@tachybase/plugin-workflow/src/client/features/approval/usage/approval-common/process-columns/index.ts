@@ -14,6 +14,7 @@ export const getAntdTableColumns = ({ t, styles }) => {
         };
       },
       render: renderColumnTaskNode,
+      width: 120,
     },
     {
       title: t('User'),

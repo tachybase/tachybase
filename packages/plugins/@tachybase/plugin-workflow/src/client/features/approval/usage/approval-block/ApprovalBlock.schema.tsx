@@ -45,7 +45,14 @@ const schemaItems = [
         'x-component': 'ApprovalBlock.Launch',
         collection: 'approvals',
         params: {
-          appends: ['createdBy.nickname', 'workflow.title', 'workflow.enabled'],
+          appends: [
+            'createdBy.nickname',
+            'workflow.title',
+            'workflow.enabled',
+            'records.id',
+            'records.status',
+            'records.node.title',
+          ],
           except: ['data'],
         },
       },

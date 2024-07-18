@@ -3,6 +3,7 @@ import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 import { JOB_STATUS } from '../../constants';
 import Instruction from '../../instructions';
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../common/constants';
+import { APPROVAL_STATUS } from './constants';
 import { parsePerson } from './tools';
 
 export default class ApprovalCarbonCopyInstruction extends Instruction {
@@ -25,27 +26,29 @@ export default class ApprovalCarbonCopyInstruction extends Instruction {
         appends: ['approvalExecutions', 'createdBy'],
         except: ['data'],
       });
-      const CarbonCopyModel = db.getModel(COLLECTION_NAME_APPROVAL_CARBON_COPY);
-      const notifiedPersonDataMap = targetPersonList.map((userId, index) => ({
-        userId,
-        jobId: job.id,
-        nodeId: node.id,
-        executionId: job.executionId,
-        workflowId: node.workflowId,
-        index,
-        // TODO: 怎么做到状态实时更新, 观察下审批发起的表的状态是怎么做的...
-        createdById: approval.createdBy?.id,
-        approvalId: approval.id,
-        status: approval.status,
-        snapshot: approval.data,
-        summary: approval.summary,
-        collectionName: approval.collectionName,
-        dataKey: approval.dataKey,
-      }));
+      // NOTE: 只有新发起审批的时候, 才生成抄送副本. 否则, 会生成不必要的重复副本
+      if ([APPROVAL_STATUS.SUBMITTED].includes(approval.status)) {
+        const CarbonCopyModel = db.getModel(COLLECTION_NAME_APPROVAL_CARBON_COPY);
+        const notifiedPersonDataMap = targetPersonList.map((userId, index) => ({
+          userId,
+          jobId: job.id,
+          nodeId: node.id,
+          executionId: job.executionId,
+          workflowId: node.workflowId,
+          index,
+          createdById: approval.createdBy?.id,
+          approvalId: approval.id,
+          status: approval.status,
+          snapshot: approval.data,
+          summary: approval.summary,
+          collectionName: approval.collectionName,
+          dataKey: approval.dataKey,
+        }));
 
-      await CarbonCopyModel.bulkCreate(notifiedPersonDataMap, {
-        transaction: processor.transaction,
-      });
+        await CarbonCopyModel.bulkCreate(notifiedPersonDataMap, {
+          transaction: processor.transaction,
+        });
+      }
     }
 
     return job;

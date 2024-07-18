@@ -60,7 +60,10 @@ export const CollectionApprovalTodos = {
         type: 'number',
         title: `{{t("Task node", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'RemoteSelect',
-        'x-component-props': { fieldNames: { label: 'title', value: 'id' }, service: { resource: 'flow_nodes' } },
+        'x-component-props': {
+          fieldNames: { label: 'title', value: 'id' },
+          service: { resource: 'flow_nodes' },
+        },
       },
     },
     {

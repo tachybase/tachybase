@@ -370,6 +370,7 @@ const approvalCarbonCopy = {
     context.action.mergeParams({
       filter: {
         workflowId: centralizedApprovalFlow.map((item) => item.id),
+        // approval.status: APPROVAL_STATUS.DRAFT,
       },
     });
     return actions.list(context, next);
