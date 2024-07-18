@@ -1,9 +1,8 @@
-import { tval } from '@tachybase/client';
 import { Gateway, Plugin } from '@tachybase/server';
 
-import { authType, namespace } from '../constants';
+import { authType } from '../constants';
 import { getAuthUrl, redirect } from './actions/dingding';
-import { Auth } from './auth';
+import { DingtalkAuth } from './dingtalk-auth';
 
 export class PluginDingdingServer extends Plugin {
   async afterAdd() {}
@@ -11,10 +10,8 @@ export class PluginDingdingServer extends Plugin {
   async beforeLoad() {}
 
   async load() {
-    console.log('hello world  dingding');
     this.app.authManager.registerTypes(authType, {
-      auth: Auth,
-      title: tval('DingTalk', { ns: namespace }),
+      auth: DingtalkAuth,
     });
     this.app.resourcer.define({
       name: 'dingtalk',
