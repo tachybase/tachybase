@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/server';
 
-import { generate } from './actions/printTemplates';
+import { generate, getTags } from './actions/printTemplates';
 
 export class PluginPrintTemplateServer extends Plugin {
   async afterAdd() {}
@@ -13,6 +13,7 @@ export class PluginPrintTemplateServer extends Plugin {
       name: 'printTemplates',
       actions: {
         generate,
+        getTags,
       },
     });
   }
