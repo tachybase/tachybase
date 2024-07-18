@@ -1,0 +1,21 @@
+{
+  "name": "@tachybase/plugin-dingtalk",
+  "version": "0.21.74",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@alicloud/dingtalk": "^2.1.30",
+    "@alicloud/openapi-client": "^0.4.10",
+    "@alicloud/tea-util": "^1.4.9",
+    "@ant-design/icons": "^5.3.7",
+    "antd": "5.19.1",
+    "react-router-dom": "^6.25.1"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/auth": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/plugin-auth": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}
