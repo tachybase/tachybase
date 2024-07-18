@@ -28,7 +28,6 @@ export function renderColumnTaskNode(text, { node, job, groupCount, statusCount 
             display: flex;
             align-items: center;
             gap: 0.5em;
-
             .ant-tag {
               margin-right: 0;
             }

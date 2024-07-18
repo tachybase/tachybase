@@ -156,6 +156,21 @@ export const SchemaApprovalBlockLaunch = {
             },
           },
         },
+        lastNode: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          'x-component-props': {
+            width: 200,
+          },
+          title: `{{t("Task node", { ns: "${NAMESPACE}" })}}`,
+          properties: {
+            lastNode: {
+              'x-component': 'ApprovalLastNodeColumn',
+              'x-read-pretty': true,
+            },
+          },
+        },
       },
     },
   },

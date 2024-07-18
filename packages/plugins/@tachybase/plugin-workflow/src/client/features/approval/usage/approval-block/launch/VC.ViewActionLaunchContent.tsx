@@ -63,7 +63,7 @@ export const ViewActionLaunchContent = () => {
   // @ts-ignore
   const approvalData = data?.data;
 
-  const needHideProcess = actionEnabled || approvalData?.status !== APPROVAL_STATUS.RESUBMIT;
+  const needHideProcess = actionEnabled;
 
   if (loading) {
     return <Spin />;

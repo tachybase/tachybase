@@ -2,7 +2,7 @@ import React from 'react';
 import { useCollectionManager, useCollectionRecordData, useCompile } from '@tachybase/client';
 import { dayjs } from '@tachybase/utils/client';
 
-import useStyles from './style';
+import useStyles from '../style';
 
 export const ApprovalsSummary = (props) => {
   const { value = '' } = props;
