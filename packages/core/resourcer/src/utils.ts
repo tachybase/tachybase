@@ -183,7 +183,7 @@ export function parseRequest(request: ParseRequest, options: ParseOptions = {}):
   }
 
   if (params.resourceName) {
-    const [resourceName, actionName] = params.resourceName.split(':');
+    const [resourceName, actionName] = params.resourceName.split(/:|@/);
     if (actionName) {
       params.resourceName = resourceName;
       params.actionName = actionName;

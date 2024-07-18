@@ -1,0 +1,1 @@
+# @samples/plugin-replace-page
