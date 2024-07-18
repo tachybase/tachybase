@@ -1,9 +1,9 @@
 import { BaseAuth } from '@tachybase/auth';
 
 import { namespace } from '../constants';
-import { DingtalkClient } from './client';
+import { DingtalkClient } from './dingtalk-client';
 
-export class Auth extends BaseAuth {
+export class DingtalkAuth extends BaseAuth {
   constructor(config) {
     const { ctx } = config;
     super({
