@@ -25,7 +25,7 @@ export class OidcPlugin extends Plugin {
     });
 
     // 注册接口
-    this.app.resource({
+    this.app.resourcer.define({
       name: 'oidc',
       actions: {
         getAuthUrl,

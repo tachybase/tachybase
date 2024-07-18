@@ -18,7 +18,7 @@
     "openid-client": "^5.4.2",
     "react": "~18.3.1",
     "react-i18next": "^14.1.2",
-    "react-router-dom": "^6.11.2"
+    "react-router-dom": "^6.25.1"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

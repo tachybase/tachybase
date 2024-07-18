@@ -7,7 +7,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "antd-mobile": "^5.36.1",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.25.1"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
