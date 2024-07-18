@@ -361,5 +361,6 @@
   "Are you sure you want to resubmit it?": "是否确定重新发起？",
   "MyLaunch":"我的发起",
   "CarbonCopy":"抄送",
-  "ApprovalCarbonCopy":"审批:抄送"
+  "ApprovalCarbonCopy":"审批:抄送",
+  "Approval Launch":"审批发起"
 }

@@ -16,6 +16,10 @@ import {
 
 import { lang, NAMESPACE, tval } from './locale';
 
+export const NOTICE_INSTRUCTION_NAMESPACE = 'notice';
+export const COLLECTION_NOTICE_NAME = 'workflowNotice';
+export const COLLECTION_NAME_APPROVAL_CARBON_COPY = 'approvalCarbonCopy';
+
 /**显示状态 */
 export const APPROVAL_STATUS = {
   /**已分配 */
@@ -241,4 +245,13 @@ export const ExecutionStatusOptions = [
     icon: <RedoOutlined />,
     description: 'General failed but should do another try.',
   },
+];
+
+export const ApprovalNoticeStatusOptions = [
+  { value: EXECUTION_STATUS.QUEUEING, label: 'Assigned', color: 'blue' },
+  { value: EXECUTION_STATUS.STARTED, label: 'Pending', color: 'gold' },
+  // { value: EXECUTION_STATUS.RETURNED, label: `{{t("Returned", { ns: "${NAMESPACE}" })}}`, color: 'purple' },
+  { value: 2, label: 'Approved', color: 'green' },
+  { value: EXECUTION_STATUS.REJECTED, label: 'Rejected', color: 'red' },
+  // { value: EXECUTION_STATUS.WITHDRAWN, label: `{{t("Withdrawn", { ns: "${NAMESPACE}" })}}` },
 ];

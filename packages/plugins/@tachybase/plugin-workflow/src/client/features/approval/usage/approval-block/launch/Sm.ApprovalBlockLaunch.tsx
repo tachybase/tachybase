@@ -35,12 +35,12 @@ export const SchemaApprovalBlockLaunch = {
           'x-component-props': { icon: 'ReloadOutlined' },
           'x-align': 'right',
         },
-        apply: {
-          type: 'void',
-          title: `{{t("Apply new", { ns: "${NAMESPACE}" })}}`,
-          'x-component': 'ApplyButton',
-          'x-align': 'right',
-        },
+        // apply: {
+        //   type: 'void',
+        //   title: `{{t("Apply new", { ns: "${NAMESPACE}" })}}`,
+        //   'x-component': 'ApplyButton',
+        //   'x-align': 'right',
+        // },
       },
     },
     table: {

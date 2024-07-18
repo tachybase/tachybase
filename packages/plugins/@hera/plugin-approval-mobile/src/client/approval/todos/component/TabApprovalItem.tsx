@@ -8,7 +8,13 @@ import { useAsyncEffect } from 'ahooks';
 import { Empty, List, Space, Tag } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
 
-import { APPROVAL_STATUS, ApprovalPriorityType, approvalStatusOptions, ExecutionStatusOptions } from '../../constants';
+import {
+  APPROVAL_STATUS,
+  ApprovalPriorityType,
+  ApprovalStatusEnums,
+  approvalStatusOptions,
+  ExecutionStatusOptions,
+} from '../../constants';
 import { useTranslation } from '../../locale';
 
 export const TabApprovalItem = observer((props) => {
@@ -189,11 +195,14 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
 export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData, params, filter, user) => {
   api
     .request({
-      url: 'workflowNotice:listCentralized',
+      url: 'approvalCarbonCopy:list',
       params: {
         pageSize: 9999,
         filter: { ...params, ...filter },
         appends: [
+          'createdBy.id',
+          'createdBy.nickname',
+          'approval.status',
           'user.id',
           'user.nickname',
           'node.id',
@@ -228,13 +237,14 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
               (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
           };
         });
+        const statusType = ApprovalStatusEnums.find((value) => value.value === item.approval?.status);
         const nickName = user.find((userItem) => userItem.id === item.snapshot?.createdById)?.nickname;
         return {
           ...item,
           title: `${nickName}的${categoryTitle}`,
           categoryTitle: categoryTitle,
-          statusTitle: null,
-          statusColor: null,
+          statusTitle: t(statusType.label),
+          statusColor: statusType.color,
           reason: summary,
           priorityTitle: priorityType.label,
           priorityColor: priorityType.color,

@@ -23,6 +23,7 @@ import '../../style/style.css';
 import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 import { observer } from '@tachybase/schema';
 
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../constants';
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
 import { useWorkflowNoticeFormBlockProps } from '../hook/useFormBlockProps';
 import { usePropsNoticeDetail } from '../hook/usePropsNoticeDetail';
@@ -40,10 +41,10 @@ export const ViewTodosWorkflowNoticeContent = observer((props) => {
   useEffect(() => {
     api
       .request({
-        url: 'workflowNotice:get',
+        url: `${COLLECTION_NAME_APPROVAL_CARBON_COPY}:get`,
         params: {
           filterByTk: id,
-          appends: ['execution', 'node', 'job', 'workflow', 'workflow.nodes', 'execution.jobs', 'user'],
+          appends: ['node', 'job', 'workflow', 'workflow.nodes', 'execution', 'execution.jobs', 'user'],
           except: ['workflow.config', 'workflow.options', 'nodes.config'],
           sort: ['-createdAt'],
         },
@@ -58,7 +59,7 @@ export const ViewTodosWorkflowNoticeContent = observer((props) => {
           nodes,
           execution,
         });
-        setSchemaId(node?.config.showNoticeDetail);
+        setSchemaId(node?.config.showCarbonCopyDetail);
         setNoticeData(data.data);
         return;
       })
