@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-saml",
   "displayName": "Auth: SAML 2.0",
-  "version": "0.21.74",
+  "version": "0.21.75",
   "description": "SAML 2.0 authentication.",
   "keywords": [
     "Authentication"

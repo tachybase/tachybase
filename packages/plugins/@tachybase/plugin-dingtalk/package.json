@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-dingtalk",
-  "version": "0.21.74",
+  "version": "0.21.75",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@alicloud/dingtalk": "^2.1.30",
