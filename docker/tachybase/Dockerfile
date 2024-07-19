@@ -1,14 +1,14 @@
 FROM git.daoyoucloud.com/tachybase/base:latest as base
 
-ARG NPM_REGISTRY=https://registry.npmjs.org/
+ARG NPM_REGISTRY=https://registry.npmjs.org
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
 # make cache
-COPY .pnpm-store /pnpm/store
 COPY . /app
 WORKDIR /app
-RUN corepack enable
+RUN npm config set registry $NPM_REGISTRY
+RUN npm i -g pnpm@8.15.5
 RUN pnpm config set registry $NPM_REGISTRY
 RUN pnpm install --shamefully-hoist
 RUN pnpm build:p
