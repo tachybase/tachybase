@@ -3,6 +3,7 @@ import { Op } from '@tachybase/database';
 
 import { COLLECTION_WORKFLOWS_NAME } from '../../common/constants';
 import { APPROVAL_STATUS } from '../constants';
+import { findUniqueObjects } from '../utils';
 
 export const approvalCarbonCopy = {
   async listCentralized(context, next) {
@@ -26,11 +27,14 @@ export const approvalCarbonCopy = {
 
     await actions.list(context, next);
 
-    // context.body = actions.list(context, next);
-
-    // context.body
-    // actions.list(context, next);
-    // return
-    // context.body = userJob;
+    // NOTE: 进一步筛选, 筛选出同个用户下相同的approvalid, 只保留最新的一份.
+    if (context.body.rows) {
+      context.body.rows = findUniqueObjects(
+        context.body.rows,
+        ['userId', 'approvalId'],
+        'createdAt',
+        (a: string, b: string) => new Date(a).getTime() - new Date(b).getTime(),
+      );
+    }
   },
 };
