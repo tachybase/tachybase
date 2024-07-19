@@ -71,7 +71,10 @@ export const useTableBlockProps = () => {
             ? [sorter.field]
             : [`-${sorter.field}`]
           : parentSort;
-      ctx.service.run({ ...ctx.service.params?.[0], page: current, pageSize, sort });
+      // NOTE: 这里将原本就有的排序参数保留
+      const sortParams = ctx.params.sort || [];
+      const sortFinal = [...new Set([...sortParams, ...(sort || [])])];
+      ctx.service.run({ ...ctx.service.params?.[0], page: current, pageSize, sort: sortFinal });
     },
     onClickRow(record, setSelectedRow, selectedRow) {
       const { targets, uid } = findFilterTargets(fieldSchema);
