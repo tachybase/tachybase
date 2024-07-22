@@ -1,17 +1,16 @@
 {
-  "name": "@tachybase/plugin-dingtalk",
-  "version": "0.21.76",
-  "description": "dingding authentication.",
+  "name": "@tachybase/plugin-work-wechat",
+  "version": "0.21.74",
+  "description": "work WeChat authentication.",
   "keywords": [
     "Authentication"
   ],
   "main": "dist/server/index.js",
-  "devDependencies": {
-    "@alicloud/dingtalk": "^2.1.30",
-    "@alicloud/openapi-client": "^0.4.10",
-    "@alicloud/tea-util": "^1.4.9",
+  "dependencies": {
     "@ant-design/icons": "^5.3.7",
+    "ahooks": "^3.8.0",
     "antd": "5.19.1",
+    "axios": "^1.7.2",
     "react-router-dom": "^6.25.1"
   },
   "peerDependencies": {
