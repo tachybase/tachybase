@@ -1,0 +1,23 @@
+{
+  "name": "@tachybase/plugin-share",
+  "displayName": "Share Externally",
+  "version": "0.21.73",
+  "description": "Share pages with external users.",
+  "keywords": [
+    "Users & permissions"
+  ],
+  "license": "Apache-2.0",
+  "main": "dist/server/index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/auth": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "与外部用户分享页面。",
+  "displayName.zh-CN": "对外分享"
+}

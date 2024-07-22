@@ -3645,6 +3645,27 @@ importers:
         specifier: ^3.1.0
         version: 3.2.0(antd@5.19.1)(react-dom@18.3.1)(react@18.3.1)
 
+  packages/plugins/@tachybase/plugin-share:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+
   packages/plugins/@tachybase/plugin-sms-auth:
     dependencies:
       '@tachybase/actions':
