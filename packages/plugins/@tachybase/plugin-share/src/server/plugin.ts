@@ -27,7 +27,7 @@ export class PluginShareServer extends Plugin {
     this.app.acl.addFixedParams('users', 'destroy', () => {
       return {
         filter: {
-          'username.$ne': 'guest',
+          'specialRole.$ne': 'guest',
         },
       };
     });
@@ -99,6 +99,7 @@ export class PluginShareServer extends Plugin {
         password: guestPassword,
         nickname: guestNickname,
         username: guestUsername,
+        specialRole: 'guest',
       },
     });
 

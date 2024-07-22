@@ -98,5 +98,9 @@ export default defineCollection({
       name: 'systemSettings',
       defaultValue: {},
     },
+    {
+      type: 'string',
+      name: 'specialRole',
+    },
   ],
 });
