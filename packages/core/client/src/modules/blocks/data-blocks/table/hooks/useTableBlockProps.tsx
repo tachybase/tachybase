@@ -64,17 +64,19 @@ export const useTableBlockProps = () => {
     },
     onChange({ current, pageSize }, filters, sorter) {
       const parentSort = fieldSchema.parent?.['x-decorator-props']?.['params']?.sort;
+      const sortParams = ctx.params.sort || [];
+      // NOTE: 这里将原本就有的排序参数保留
+      const parentSortReal = [...new Set([...sortParams, ...(parentSort || [])])];
+
       const sort = globalSort
         ? globalSort
         : sorter.order
           ? sorter.order === `ascend`
             ? [sorter.field]
             : [`-${sorter.field}`]
-          : parentSort;
-      // NOTE: 这里将原本就有的排序参数保留
-      const sortParams = ctx.params.sort || [];
-      const sortFinal = [...new Set([...sortParams, ...(sort || [])])];
-      ctx.service.run({ ...ctx.service.params?.[0], page: current, pageSize, sort: sortFinal });
+          : parentSortReal;
+
+      ctx.service.run({ ...ctx.service.params?.[0], page: current, pageSize, sort });
     },
     onClickRow(record, setSelectedRow, selectedRow) {
       const { targets, uid } = findFilterTargets(fieldSchema);
