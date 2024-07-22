@@ -207,7 +207,7 @@ export class Gateway extends EventEmitter {
       });
     }
 
-    if (!pathname.startsWith(process.env.API_BASE_PATH)) {
+    if (!pathname.startsWith(process.env.API_BASE_PATH) && !pathname.startsWith(process.env.EXTENSION_UI_BASE_PATH)) {
       req.url = req.url.substring(APP_PUBLIC_PATH.length - 1);
       await compress(req, res);
       return handler(req, res, {

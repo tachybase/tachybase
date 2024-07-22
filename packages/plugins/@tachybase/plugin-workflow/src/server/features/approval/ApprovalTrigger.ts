@@ -150,6 +150,9 @@ export default class ApprovalTrigger extends Trigger {
     await approvalExecution.update({ status: execution.status }, { transaction });
   };
   middleware = async (context, next) => {
+    if (!context.action) {
+      return;
+    }
     const {
       resourceName,
       actionName,

@@ -10,6 +10,7 @@ console.log('VERSION: ', packageJson.version);
 function getUmiConfig() {
   const { APP_PORT, API_BASE_URL, APP_PUBLIC_PATH } = process.env;
   const API_BASE_PATH = process.env.API_BASE_PATH || '/api/';
+  const EXTENSION_UI_BASE_PATH = process.env.EXTENSION_UI_BASE_PATH || '/adapters/';
   const PROXY_TARGET_URL = process.env.PROXY_TARGET_URL || `http://127.0.0.1:${APP_PORT}`;
   const LOCAL_STORAGE_BASE_URL = 'storage/uploads/';
   const STATIC_PATH = 'static/';
@@ -52,6 +53,11 @@ function getUmiConfig() {
         target: PROXY_TARGET_URL,
         changeOrigin: true,
         pathRewrite: { [`^${API_BASE_PATH}`]: API_BASE_PATH },
+      },
+      [EXTENSION_UI_BASE_PATH]: {
+        target: PROXY_TARGET_URL,
+        changeOrigin: true,
+        pathRewrite: { [`^${EXTENSION_UI_BASE_PATH}`]: EXTENSION_UI_BASE_PATH },
       },
       // for local storage
       ...getLocalStorageProxy(),
