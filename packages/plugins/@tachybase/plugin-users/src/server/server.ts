@@ -96,7 +96,7 @@ export default class PluginUsersServer extends Plugin {
     this.app.acl.addFixedParams('users', 'destroy', () => {
       return {
         filter: {
-          'id.$ne': 1,
+          'specialRole.$ne': 'root',
         },
       };
     });
@@ -175,6 +175,7 @@ export default class PluginUsersServer extends Plugin {
         password: rootPassword,
         nickname: rootNickname,
         username: rootUsername,
+        specialRole: 'root',
       },
     });
 
