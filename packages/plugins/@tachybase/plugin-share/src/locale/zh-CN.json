@@ -1,0 +1,6 @@
+{
+  "Guest": "访客",
+  "Guest user not found.": "访客用户未找到。",
+  "Not allowed to modify login information of guest user.": "不允许修改访客用户的登录信息。",
+  "Unauthorized": "未授权"
+}

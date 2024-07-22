@@ -412,8 +412,13 @@ export class PluginACL extends Plugin {
       if (plugin.getName() !== 'users') {
         return;
       }
+
+      // 为默认角色添加权限组
       const User = this.db.getCollection('users');
       await User.repository.update({
+        filter: {
+          id: 1,
+        },
         values: {
           roles: ['root', 'admin', 'member'],
         },
