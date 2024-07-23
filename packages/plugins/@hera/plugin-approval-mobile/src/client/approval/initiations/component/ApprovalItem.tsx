@@ -112,11 +112,11 @@ const changService = (api, setData, user, filter, t, setDefaultData, cm, compile
           ...item,
           title: `${user.data.data.nickname}的${categoryTitle}`,
           categoryTitle: categoryTitle,
-          statusTitle: t(statusType.label),
-          statusColor: statusType.color,
+          statusTitle: t(statusType?.label),
+          statusColor: statusType?.color || 'default',
           reason: summary || [],
-          priorityTitle: priorityType.label,
-          priorityColor: priorityType.color,
+          priorityTitle: priorityType?.label,
+          priorityColor: priorityType?.color,
         };
       });
       result.sort((a, b) => {
@@ -125,7 +125,6 @@ const changService = (api, setData, user, filter, t, setDefaultData, cm, compile
       setData(result);
       setDefaultData(result);
     })
-
     .catch(() => {
       console.error;
     });
