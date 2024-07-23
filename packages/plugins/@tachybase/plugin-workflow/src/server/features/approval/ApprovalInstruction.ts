@@ -1,8 +1,11 @@
+import { parseCollectionName } from '@tachybase/data-source-manager';
 import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 import { uid } from '@tachybase/utils';
 
 import { JOB_STATUS } from '../../constants';
 import Instruction from '../../instructions';
+import { toJSON } from '../../utils';
+import ApprovalTrigger from './ApprovalTrigger';
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
 
 const NEGOTIATION_MODE = {
@@ -184,6 +187,7 @@ export default class ApprovalInstruction extends Instruction {
       filter: {
         jobId: job.id,
       },
+      appends: ['approval'],
       except: ['snapshot'],
       sort: ['index'],
       transaction: processor.transaction,
@@ -238,6 +242,44 @@ export default class ApprovalInstruction extends Instruction {
         return null;
       }
     }
+    // NOTE: 审批对象数据, 可能在此期间变更, 需要拿到最新的审批对象数据, 更新到最新的 snapshot
+    /** 以下为更新 snapshot 逻辑 */
+    try {
+      const approval = records[0].approval;
+      const [dataSourceName, collectionName] = parseCollectionName(approval.collectionName);
+      const { repository } = this.workflow.app.dataSourceManager.dataSources
+        .get(dataSourceName)
+        .collectionManager.getCollection(collectionName);
+
+      const workflow = await approval.getWorkflow({
+        where: {
+          id: approval.get('workflowId'),
+          type: ApprovalTrigger.TYPE,
+          enabled: true,
+          'config.collection': approval.collectionName,
+        },
+        transaction: processor.transaction,
+      });
+
+      const data = await repository.findOne({
+        filterByTk: approval.get('dataKey'),
+        appends: workflow.config.appends,
+        transaction: this.workflow.useDataSourceTransaction(dataSourceName, processor.transaction),
+      });
+
+      await RecordRepo.update({
+        values: {
+          snapshot: toJSON(data),
+        },
+        filter: {
+          jobId: job.id,
+        },
+        transaction: processor.transaction,
+      });
+    } catch (error) {
+      console.log('%c Line:269 🥛 error', error);
+    }
+    /** 以上为更新 snapshot 逻辑 */
     return job;
   }
   async duplicateConfig(node, { transaction }) {
