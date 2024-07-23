@@ -24,7 +24,8 @@ export class PluginAdapterBullmqServer extends Plugin {
       queues: [new BullMQAdapter(defaultQueue)],
       serverAdapter,
     });
-    serverAdapter.setBasePath(process.env.EXTENSION_UI_BASE_PATH + 'mqui');
+    const EXTENSION_UI_BASE_PATH = process.env.EXTENSION_UI_BASE_PATH || '/adapters/';
+    serverAdapter.setBasePath(EXTENSION_UI_BASE_PATH + 'mqui');
     this.app.use(serverAdapter.registerPlugin(), { before: 'bodyParser' });
   }
 
