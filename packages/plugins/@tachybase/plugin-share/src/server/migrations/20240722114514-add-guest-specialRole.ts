@@ -1,6 +1,7 @@
 import { Migration } from '@tachybase/server';
 
 export default class AddGuestSpecialRoleMigration extends Migration {
+  on = 'afterLoad';
   appVersion = '<0.21.88';
 
   async up() {
