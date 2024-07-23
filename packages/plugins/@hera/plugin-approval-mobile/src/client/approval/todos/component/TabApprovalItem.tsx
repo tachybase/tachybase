@@ -243,11 +243,11 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
           ...item,
           title: `${nickName}的${categoryTitle}`,
           categoryTitle: categoryTitle,
-          statusTitle: t(statusType.label),
-          statusColor: statusType.color,
+          statusTitle: t(statusType?.label),
+          statusColor: statusType?.color || 'default',
           reason: summary,
-          priorityTitle: priorityType.label,
-          priorityColor: priorityType.color,
+          priorityTitle: priorityType?.label,
+          priorityColor: priorityType?.color,
         };
       });
 
