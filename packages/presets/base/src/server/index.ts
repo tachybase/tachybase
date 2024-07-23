@@ -54,6 +54,7 @@ export class PresetTachyBase extends Plugin {
     'multi-app-manager>=0.7.0-alpha.1',
     'multi-app-share-collection>=0.9.2-alpha.1',
     'oidc>=0.9.2-alpha.1',
+    'work-wechat>=0.21.50',
     'saml>=0.8.1-alpha.3',
     'sms-auth>=0.10.0-alpha.2',
     'snapshot-field>=0.8.1-alpha.3',
