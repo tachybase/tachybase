@@ -35,7 +35,6 @@ export const TabApprovalItem = observer((props) => {
       changeWorkflowNoticeService(api, t, cm, compile, input, setData, params?.[tabKey], filter, user?.data?.data);
     }
   }, [filter, params, input]);
-
   return (
     <div style={{ marginTop: '10px', minHeight: '70vh' }}>
       {data.length ? (
@@ -52,6 +51,9 @@ export const TabApprovalItem = observer((props) => {
                 {/* <Badge color="#6ac3ff" content={Badge.dot} style={{ '--right': '100%' }}> */}
                 <Space block>
                   {item.title}
+                  <Tag color="primary" fill="solid">
+                    {item.node?.title}
+                  </Tag>
                   {item.statusTitle ? (
                     <Tag color={item.statusColor} fill="outline">
                       {item.statusIcon}
