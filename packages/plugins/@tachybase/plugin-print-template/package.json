@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-print-template",
-  "version": "0.21.75",
+  "version": "0.21.76",
   "main": "dist/server/index.js",
   "dependencies": {
     "docxtemplater": "^3.48.0",
