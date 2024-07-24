@@ -127,11 +127,11 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
           ...item,
           title: `${nickName}的${categoryTitle}`,
           categoryTitle: categoryTitle,
-          statusTitle: t(statusType.label),
-          statusColor: statusType.color,
+          statusTitle: t(statusType?.label),
+          statusColor: statusType?.color || 'default',
           reason: summary || [],
-          priorityTitle: priorityType.label,
-          priorityColor: priorityType.color,
+          priorityTitle: priorityType?.label,
+          priorityColor: priorityType?.color,
         };
       });
       const filterResult = result.filter((value) => {
@@ -171,12 +171,12 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
           ...item,
           title: `${nickName}的${categoryTitle}`,
           categoryTitle: categoryTitle,
-          statusTitle: t(statusType.label),
-          statusColor: statusType.color,
-          statusIcon: statusType.icon,
+          statusTitle: t(statusType?.label),
+          statusColor: statusType?.color || 'default',
+          statusIcon: statusType?.icon,
           reason: [],
-          priorityTitle: priorityType.label,
-          priorityColor: priorityType.color,
+          priorityTitle: priorityType?.label,
+          priorityColor: priorityType?.color,
         };
       });
       const filterResult = result.filter((value) => {
