@@ -25,8 +25,8 @@ export class WorkAuth extends BaseAuth {
     }
 
     const workClient = new WorkClient({
-      clientId: this.options?.work?.corpId,
-      clientSecret: this.options?.work?.corpSecret,
+      clientId: this.options?.workWeChat?.corpId,
+      clientSecret: this.options?.workWeChat?.corpSecret,
       ctx: this.ctx,
     });
 
@@ -67,7 +67,8 @@ export class WorkAuth extends BaseAuth {
   }
 
   async getAuthUrl(redirect) {
-    const clientId = this.options?.work?.corpId;
+    const clientId = this.options?.workWeChat?.corpId;
+    const agentId = this.options?.workWeChat?.agentId;
     const app = this.ctx.app.name;
     // const redirectUrl = encodeURIComponent('https://hua.dev.daoyoucloud.com/api/workWeChat:redirect');
     const redirectUrl = encodeURIComponent(`${this.ctx.host}${process.env.API_BASE_PATH}workWeChat:redirect`);
@@ -75,7 +76,7 @@ export class WorkAuth extends BaseAuth {
     const state = encodeURIComponent(
       encodeURIComponent(`redirect=${redirect}&app=${app}&name=${this.ctx.headers['x-authenticator']}`),
     );
-    const url = `https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=${clientId}&agentid=${this.options?.work?.agentId}&redirect_uri=${redirectUrl}&state=${state}`;
+    const url = `https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=${clientId}&agentid=${agentId}&redirect_uri=${redirectUrl}&state=${state}`;
     return url;
   }
 }
