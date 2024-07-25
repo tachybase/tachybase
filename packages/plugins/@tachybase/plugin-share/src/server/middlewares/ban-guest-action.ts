@@ -8,7 +8,7 @@ function banGuestActionMiddleware() {
     // 注意由于已经注入访客 token, 还需要判断请求体里面用户是否为 guest
     const reqBody = ctx.request.body;
     if (
-      ctx.action.resourceName === 'auth' &&
+      ctx.action?.resourceName === 'auth' &&
       !['check', 'signOut'].includes(ctx.action.actionName) &&
       ctx.auth.user &&
       (reqBody.account === 'guest' || reqBody.account === 'guest@tachybase.com')
