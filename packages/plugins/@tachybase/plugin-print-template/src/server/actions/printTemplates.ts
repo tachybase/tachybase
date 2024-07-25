@@ -97,3 +97,17 @@ function generateDocxFromTemplate(templatePath, data): Buffer {
     throw error;
   }
 }
+
+export const readPDF = async (ctx: Context) => {
+  const id = ctx.action.params.id;
+  const repo = ctx.db.getRepository('templateManage');
+  const template: Model = await repo.findOne({
+    filter: { id },
+    appends: ['template'],
+  });
+
+  const rawTemplate = template.get();
+  const path = rawTemplate.pdf_SavePath;
+
+  ctx.body = fs.readFileSync(path);
+};

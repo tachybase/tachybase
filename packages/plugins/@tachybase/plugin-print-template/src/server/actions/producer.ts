@@ -46,10 +46,11 @@ export const addConversionJob = async (ctx: Context) => {
 
     console.log('Generated DOCX file path:', filePath);
 
-    const outputDir = '/root/tachybase/storage/uploads';
+    const id = ctx.action.params.id;
+    const outputDir = path.join(process.env.PWD, 'storage/uploads');
 
     // 添加作业到队列
-    const job = await pdfConversionQueue.add('convert', { wordFilePath: filePath, outputDir });
+    const job = await pdfConversionQueue.add('convert', { wordFilePath: filePath, outputDir, id });
 
     // 返回作业 ID 和 PDF 文件路径
     ctx.body = { jobId: job.id };
