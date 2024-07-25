@@ -8,7 +8,7 @@ import type { RequireJS } from './requirejs';
  */
 export function defineDevPlugins(plugins: Record<string, typeof Plugin>) {
   Object.entries(plugins).forEach(([packageName, plugin]) => {
-    window.define(`${packageName}/client`, () => plugin);
+    window.tbDefine(`${packageName}/client`, () => plugin);
   });
 }
 
@@ -16,7 +16,7 @@ export function defineDevPlugins(plugins: Record<string, typeof Plugin>) {
  * @internal
  */
 export function definePluginClient(packageName: string) {
-  window.define(`${packageName}/client`, ['exports', packageName], function (_exports: any, _pluginExports: any) {
+  window.tbDefine(`${packageName}/client`, ['exports', packageName], function (_exports: any, _pluginExports: any) {
     Object.defineProperty(_exports, '__esModule', {
       value: true,
     });
