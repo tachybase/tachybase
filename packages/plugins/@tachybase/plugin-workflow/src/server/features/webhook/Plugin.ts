@@ -12,8 +12,9 @@ export class PluginWebhook extends Plugin {
       name: 'webhooks',
       actions: {
         trigger: new WebhookController().getLink,
+        test: new WebhookController().test,
       },
     });
-    this.app.acl.allow('webhooks', 'trigger', 'loggedIn');
+    this.app.acl.allow('webhooks', ['trigger', 'test'], 'loggedIn');
   }
 }

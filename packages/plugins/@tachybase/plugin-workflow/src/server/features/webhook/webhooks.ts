@@ -11,6 +11,7 @@ export class WebhookController {
     if (name) {
       where['filter'] = {
         name: name,
+        type: 'code',
         enabled: true,
       };
     }
@@ -51,6 +52,14 @@ export class WebhookController {
       ctx.body = webhookCtx.body;
       return;
     }
+  }
+  async test(ctx: Context) {
+    const { name, params, body } = ctx.action.params.values;
+    ctx.request.query = params;
+    ctx.action.params = params || {};
+    ctx.action.params.name = name;
+    ctx.action.params.values = body;
+    await new WebhookController().getLink(ctx);
   }
 }
 

@@ -109,6 +109,12 @@ export class PluginWorkflow extends Plugin {
     this.app.pluginSettingsManager.add(NAMESPACE, {
       icon: 'PartitionOutlined',
       title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
+      aclSnippet: 'pm.workflow.workflows',
+    });
+
+    this.app.pluginSettingsManager.add(NAMESPACE + '.list', {
+      icon: 'PartitionOutlined',
+      title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
       Component: WorkflowPane,
       aclSnippet: 'pm.workflow.workflows',
     });
