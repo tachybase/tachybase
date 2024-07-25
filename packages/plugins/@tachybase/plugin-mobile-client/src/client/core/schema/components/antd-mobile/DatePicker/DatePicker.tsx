@@ -7,7 +7,10 @@ import { Button, DatePicker, Input, Space } from 'antd-mobile';
 export const MDatePicker = connect(
   (props) => {
     const [visible, setVisible] = useState(false);
-    const nowDate = props.value || new Date();
+    const nowDate = props?.value || new Date();
+    if (!props?.value) {
+      props.onChange(nowDate);
+    }
     return (
       <>
         <Button
@@ -23,6 +26,7 @@ export const MDatePicker = connect(
           onClose={() => {
             setVisible(false);
           }}
+          value={nowDate}
           onConfirm={(value) => {
             props.onChange(value);
             setVisible(false);
