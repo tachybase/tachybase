@@ -2,36 +2,30 @@ import React, { useState } from 'react';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { dayjs } from '@tachybase/utils/client';
 
-import { Button, DatePicker, Input, Space } from 'antd-mobile';
+import { Button, DatePicker } from 'antd-mobile';
+
+import { useTranslation } from '../../../../../locale';
 
 export const MDatePicker = connect(
   (props) => {
+    const { t } = useTranslation();
+    const { value, onChange } = props;
     const [visible, setVisible] = useState(false);
-    const nowDate = props?.value || new Date();
-    if (!props?.value) {
-      props.onChange(nowDate);
-    }
+    const [dateValue, setDateValue] = useState(value);
+
+    const dateValueShow = dateValue ? dayjs(dateValue).format('YYYY-MM-DD') : t('please enter the date');
+
+    const openPicker = () => setVisible(true);
+    const closePicker = () => setVisible(false);
+    const selectDateValue = (value) => {
+      setDateValue(value);
+      onChange(value);
+      setVisible(false);
+    };
     return (
       <>
-        <Button
-          onClick={() => {
-            setVisible(true);
-          }}
-        >
-          {dayjs(nowDate).format('YYYY-MM-DD')}
-        </Button>
-
-        <DatePicker
-          visible={visible}
-          onClose={() => {
-            setVisible(false);
-          }}
-          value={nowDate}
-          onConfirm={(value) => {
-            props.onChange(value);
-            setVisible(false);
-          }}
-        />
+        <Button onClick={openPicker}>{dateValueShow}</Button>
+        <DatePicker visible={visible} value={dateValue} onClose={closePicker} onConfirm={selectDateValue} />
       </>
     );
   },
