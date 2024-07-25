@@ -17,6 +17,7 @@
     "@tachybase/actions": "workspace:*",
     "@tachybase/auth": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
     "@tachybase/plugin-auth": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
