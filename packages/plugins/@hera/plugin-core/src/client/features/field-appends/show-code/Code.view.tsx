@@ -3,6 +3,7 @@ import { Input } from '@tachybase/client';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import { Descriptions } from 'antd';
+import dayjs from 'dayjs';
 import _ from 'lodash';
 
 import { CodeFieldProps } from './Code.interface';
@@ -47,7 +48,7 @@ function useAction(props: CodeFieldProps): string | React.ReactNode {
     dynamicCode({ jsCode, form, path, recordData, result }, { setResult, formatFunc });
   }, []);
 
-  const showItems = result.items.map((item) => {
+  const showItems = result?.items?.map((item) => {
     return {
       label: item.label,
       children: <p>{item.children}</p>,
@@ -83,20 +84,21 @@ async function dynamicCode({ jsCode, form, path, recordData, result }, { setResu
     //     ],
     //   });
     // }`;
-    /** 动态导入开始, 与 jsCode 配置相关的包 */
-    const dayjs = (await import('dayjs')).default;
-    const localeSetting = { invalidDate: '-' };
-    dayjs.updateLocale('en', localeSetting);
-    /** 动态导入结束 */
 
-    evalSimulate(jsCode, {
-      scopes: { form, path, recordData, result },
-      handlers: {
-        setResult,
-        formatFunc,
+    const ctx = {
+      data: { form, path, recordData, result, setResult, formatFunc },
+      body: {},
+    };
+
+    await evalSimulate(jsCode, {
+      ctx,
+      lib: {
+        log: console.log,
+        JSON,
+        dayjs,
       },
-      modules: { dayjs },
     });
+    setResult(ctx.body);
   } catch (error) {
     setResult({
       childrenType: '',
@@ -112,9 +114,10 @@ async function dynamicCode({ jsCode, form, path, recordData, result }, { setResu
 }
 
 // 模拟 eval 实现, 相对更安全的实现和更好的性能, 以及限制作用域范围,
-function evalSimulate(jsCode, { scopes, handlers, modules }) {
+async function evalSimulate(jsCode, { ctx, lib }) {
+  const AsyncFunction: any = async function () {}.constructor;
   try {
-    return new Function('$root', `with($root) { ${jsCode}; }`)({ scopes, handlers, modules });
+    return await new AsyncFunction('$root', `with($root) { ${jsCode}; }`)({ ctx, lib });
   } catch (err) {
     console.log('err', err);
   }
