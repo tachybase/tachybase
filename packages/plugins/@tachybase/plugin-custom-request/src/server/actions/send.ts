@@ -1,3 +1,5 @@
+import fs from 'fs';
+import http from 'http';
 import { Context, Next } from '@tachybase/actions';
 import { appendArrayColumn } from '@tachybase/evaluators';
 import { parse } from '@tachybase/utils';
@@ -160,10 +162,14 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
   );
 
   try {
-    ctx.body = await axios(axiosRequestConfig).then((res) => {
-      this.logger.info(`custom-request:send:${filterByTk} success`);
-      return res.data;
-    });
+    const res = await axios({ ...axiosRequestConfig, responseType: 'stream' });
+    ctx.set('Content-Type', `${res.headers['content-type']}`);
+    ctx.set('Content-disposition', `${res.headers['content-disposition']}`);
+    this.logger.info(`custom-request:send:${filterByTk} success`);
+
+    const readable = res.data as http.IncomingMessage;
+
+    ctx.body = readable;
   } catch (err) {
     if (axios.isAxiosError(err)) {
       ctx.status = err.response?.status || 500;

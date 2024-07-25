@@ -831,5 +831,10 @@
   "Load": "Load",
   "Dump": "Dump",
   "Chang on Parent": "Chang on Parent",
-  "Please enter search content": "Please enter search content"
+  "Please enter search content": "Please enter search content",
+  "Is DownLoad":"Is DownLoad",
+  "Show Data":"Show Data",
+  "Setting Down Title":"Setting Down Title",
+  "The current return type is not a document type":"The current return type is not a document type",
+  "Test Data":"Test Data"
 }
