@@ -278,7 +278,6 @@ const schema: ISchema = {
                                                                   'ctx.request\nctx.body\nlib.JSON\nlib.Math\nlib.dayjs',
                                                               },
                                                               'x-collection-field': 'webhooks.code',
-                                                              'x-component-props': {},
                                                             },
                                                           },
                                                         },
@@ -629,7 +628,6 @@ const schema: ISchema = {
                                                                           'ctx.request\nctx.body\nlib.JSON\nlib.Math\nlib.dayjs',
                                                                       },
                                                                       'x-collection-field': 'webhooks.code',
-                                                                      'x-component-props': {},
                                                                     },
                                                                   },
                                                                 },
@@ -781,7 +779,9 @@ const schema: ISchema = {
                                                                     params: {
                                                                       type: 'string',
                                                                       'x-component': 'CodeMirror',
-                                                                      'x-component-props': {},
+                                                                      'x-component-props': {
+                                                                        defaultValue: '{}',
+                                                                      },
                                                                       'x-decorator': 'FormItem',
                                                                       'x-decorator-props': {
                                                                         label: 'query',
@@ -790,7 +790,9 @@ const schema: ISchema = {
                                                                     body: {
                                                                       type: 'string',
                                                                       'x-component': 'CodeMirror',
-                                                                      'x-component-props': {},
+                                                                      'x-component-props': {
+                                                                        defaultValue: '{}',
+                                                                      },
                                                                       'x-decorator': 'FormItem',
                                                                       'x-decorator-props': {
                                                                         label: 'body',

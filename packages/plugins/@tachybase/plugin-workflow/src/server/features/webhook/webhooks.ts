@@ -40,7 +40,7 @@ export class WebhookController {
       const wf = await wfRepo.findOne({ filter: { key: webhook.workflowKey, enabled: true } });
       const processor = await pluginWorkflow.trigger(wf, { data: webhookCtx.body }, { httpContext: ctx });
       if (!processor) {
-        return ctx.throw(500);
+        return ctx.throw('Workflow should be sync.', 500);
       }
       const { lastSavedJob } = processor;
       ctx.withoutDataWrapping = true;
