@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-prometheus",
   "displayName": "Prometheus Monitoring",
-  "version": "0.21.79",
+  "version": "0.21.80",
   "description": "Prometheus collector for system telemetry",
   "keywords": [
     "Users & permissions"
