@@ -1,0 +1,26 @@
+{
+  "name": "@tachybase/plugin-prometheus",
+  "displayName": "Prometheus Monitoring",
+  "version": "0.21.77",
+  "description": "Prometheus collector for system telemetry",
+  "keywords": [
+    "Users & permissions"
+  ],
+  "license": "Apache-2.0",
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "@opentelemetry/exporter-prometheus": "^0.52.1",
+    "node-os-utils": "^1.3.7",
+    "prom-client": "^15.1.3"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/auth": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "系统遥测的 Prometheus 采集器",
+  "displayName.zh-CN": "Prometheus 监控"
+}
