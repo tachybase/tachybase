@@ -53,6 +53,7 @@
     "@tachybase/plugin-ui-schema-storage": "workspace:*",
     "@tachybase/plugin-users": "workspace:*",
     "@tachybase/plugin-verification": "workspace:*",
+    "@tachybase/plugin-work-wechat": "workspace:*",
     "@tachybase/plugin-workflow": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
     "@tachybase/schema": "workspace:*",
