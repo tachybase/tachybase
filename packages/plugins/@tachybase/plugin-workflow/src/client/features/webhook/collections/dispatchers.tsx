@@ -76,8 +76,10 @@ export const dispatchers: CollectionOptions = {
         title: tval('Code'),
         type: 'string',
         'x-component': 'CodeMirror',
-        default:
-          '// ctx.query can get user query\n// ctx.body to pass your data to workflow or to client who trigger this webhook.',
+        'x-component-props': {
+          defaultValue:
+            '// ctx.action.params can get user query\n// ctx.action.params.values can get user body\n// ctx.body to pass your data to workflow or to client who invoke this.',
+        },
       } as ISchema,
     },
   ],

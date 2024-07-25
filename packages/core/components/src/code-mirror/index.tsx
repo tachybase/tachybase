@@ -78,10 +78,10 @@ const completionSource = (context) => {
   return null;
 };
 
-export const CodeMirror = connect(({ value, onChange, ...otherProps }) => {
+export const CodeMirror = connect(({ value, onChange, defaultValue, ...otherProps }) => {
   return (
     <CM
-      value={value || ''}
+      value={value || defaultValue || ''}
       onChange={onChange}
       {...otherProps}
       extensions={[
