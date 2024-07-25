@@ -18,7 +18,6 @@ export const generate = async (ctx: Context) => {
     },
     appends: ['template'],
   });
-  console.log(template.get());
 
   const rawTemplate = template.get();
   const templatePath = path.join(process.env.PWD, rawTemplate.template[0].get().url);
@@ -27,18 +26,8 @@ export const generate = async (ctx: Context) => {
   try {
     // 生成定制的 docx 文件
     const buffer = generateDocxFromTemplate(templatePath, data);
-
-    // 创建一个可读流
-    const readableStream = new Readable({
-      read(size) {
-        this.push(buffer);
-        this.push(null);
-      },
-    });
-
     ctx.withoutDataWrapping = true;
-    ctx.set('Content-Type', 'application/octet-stream');
-    ctx.body = readableStream;
+    ctx.body = buffer;
   } catch (error) {
     console.error('Error:', error);
     ctx.status = 500;
@@ -66,7 +55,6 @@ export const getTags = async (ctx: Context) => {
 
     // 获取所有占位符
     const allTags = iModule.getAllTags();
-    console.log('All tags in the document:', allTags);
 
     // 将 tags 转换为 JSON 格式的字符串
     const tagsJson = JSON.stringify(allTags, null, 2);

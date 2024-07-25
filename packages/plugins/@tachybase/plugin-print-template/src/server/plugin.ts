@@ -16,6 +16,7 @@ export class PluginPrintTemplateServer extends Plugin {
         getTags,
       },
     });
+    this.app.acl.allow('printTemplates', '*', 'public');
   }
 
   async install() {}

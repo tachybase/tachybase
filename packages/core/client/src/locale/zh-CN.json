@@ -934,5 +934,10 @@
   "Sorry, the page you visited does not exist.": "对不起，您访问的页面不存在。",
   "Back Home": "回到主页",
   "Chang on Parent": "选择父级",
-  "Please enter search content": "请输入查询内容"
+  "Please enter search content": "请输入查询内容",
+  "Is DownLoad":"下载文件",
+  "Show Data":"显示数据",
+  "Setting Down Title":"设置文件名称",
+  "The current return type is not a document type":"当前返回类型不是文档类型",
+  "Test Data":"测试数据"
 }

@@ -787,6 +787,102 @@ export function SecondConFirm() {
     />
   );
 }
+export function IsDownLoad() {
+  const { dn } = useDesignable();
+  const fieldSchema = useFieldSchema();
+  const { t } = useTranslation();
+
+  return (
+    <SchemaSettingsSwitchItem
+      title={t('Is DownLoad')}
+      checked={!!fieldSchema?.['x-action-settings']?.onSuccess?.down}
+      onChange={(value) => {
+        if (!fieldSchema?.['x-action-settings']?.onSuccess) {
+          fieldSchema['x-action-settings'] = {
+            ...fieldSchema?.['x-action-settings'],
+            onSuccess: {
+              down: false,
+            },
+          };
+        }
+        fieldSchema['x-action-settings'].onSuccess.down = value;
+
+        dn.emit('patch', {
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            'x-action-settings': { ...fieldSchema['x-action-settings'] },
+          },
+        });
+      }}
+    />
+  );
+}
+export function ShowData() {
+  const { dn } = useDesignable();
+  const fieldSchema = useFieldSchema();
+  const { t } = useTranslation();
+  const field = useField();
+  return (
+    <SchemaSettingsSwitchItem
+      title={t('Show Data')}
+      checked={!!fieldSchema?.['x-component-props']?.showData}
+      onChange={(value) => {
+        if (!fieldSchema?.['x-component-props']) {
+          fieldSchema['x-component-props'] = { showData: false };
+        }
+        fieldSchema['x-component-props'].showData = value;
+        field.componentProps = fieldSchema['x-component-props'];
+        dn.emit('patch', {
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            'x-component-props': { ...fieldSchema['x-component-props'] },
+          },
+        });
+      }}
+    />
+  );
+}
+
+export function SettingDownTitle() {
+  const fieldSchema = useFieldSchema();
+  const { dn } = useDesignable();
+  const { t } = useTranslation();
+  return (
+    <SchemaSettingsModalItem
+      title={t('Setting Down Title')}
+      onSubmit={({ title }) => {
+        if (!fieldSchema?.['x-action-settings']) {
+          fieldSchema['x-action-settings'] = {
+            onSussess: {
+              downTitle: title,
+            },
+          };
+        } else {
+          fieldSchema['x-action-settings']['onSuccess'] = {
+            ...fieldSchema['x-action-settings']?.['onSuccess'],
+            downTitle: title,
+          };
+        }
+        dn.emit('patch', {
+          schema: {
+            ['x-uid']: fieldSchema['x-uid'],
+            'x-action-settings': { ...fieldSchema['x-action-settings'] },
+          },
+        });
+      }}
+      schema={{
+        type: 'item',
+        title: t('Setting Down Title'),
+        properties: {
+          title: {
+            'x-component': 'Input',
+            default: fieldSchema['x-action-settings']?.['onSuccess']?.downTitle || 'document.docx',
+          },
+        },
+      }}
+    />
+  );
+}
 
 /**
  * @deprecated
