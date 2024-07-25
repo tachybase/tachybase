@@ -1,11 +1,12 @@
 import { exec } from 'child_process';
 import path from 'path';
 import util from 'util';
+import Database from '@tachybase/database';
 import { Plugin } from '@tachybase/server';
 
 import { Worker } from 'bullmq';
 
-import { generate, getTags } from './actions/printTemplates';
+import { generate, getTags, readPDF } from './actions/printTemplates';
 import { addConversionJob } from './actions/producer';
 
 const execPromise = util.promisify(exec);
@@ -16,7 +17,7 @@ const redisOptions = {
   password: process.env.REDIS_PASSWORD || '',
 };
 
-async function convertDocxToPdf(wordFilePath: string, outputDir: string, job: any): Promise<string> {
+async function convertDocxToPdf(wordFilePath: string, outputDir: string, job: any, db: Database): Promise<string> {
   try {
     const fileName = path.basename(wordFilePath, '.docx') + '.pdf';
     const pdfFilePath = path.join(outputDir, fileName);
@@ -40,6 +41,15 @@ async function convertDocxToPdf(wordFilePath: string, outputDir: string, job: an
     // 更新进度到 100%：转换完成
     job.updateProgress(100);
 
+    db.getRepository('templateManage').update({
+      filter: {
+        id: job.data.id,
+      },
+      values: {
+        pdf_SavePath: pdfFilePath,
+      },
+    });
+
     return pdfFilePath;
   } catch (error) {
     console.error('Error during conversion:', error);
@@ -61,6 +71,7 @@ export class PluginPrintTemplateServer extends Plugin {
         generate,
         getTags,
         addConversionJob,
+        readPDF,
       },
     });
     this.app.acl.allow('printTemplates', '*', 'public');
@@ -78,7 +89,7 @@ export class PluginPrintTemplateServer extends Plugin {
         const { wordFilePath, outputDir } = job.data;
 
         // 自动更新进度
-        const pdfFilePath = await convertDocxToPdf(wordFilePath, outputDir, job);
+        const pdfFilePath = await convertDocxToPdf(wordFilePath, outputDir, job, this.app.db);
 
         // 返回 PDF 文件路径
         return { pdfFilePath };

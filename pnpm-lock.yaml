@@ -3559,6 +3559,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
       '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
