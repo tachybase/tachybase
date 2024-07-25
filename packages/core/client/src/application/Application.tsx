@@ -33,7 +33,7 @@ import { WebSocketClient, WebSocketClientOptions } from './WebSocketClient';
 
 declare global {
   interface Window {
-    define: RequireJS['define'];
+    tbDefine: RequireJS['define'];
   }
 }
 
@@ -132,7 +132,7 @@ export class Application {
   private initRequireJs() {
     this.requirejs = getRequireJs();
     defineGlobalDeps(this.requirejs);
-    window.define = this.requirejs.define;
+    window.tbDefine = this.requirejs.define;
   }
 
   private addDefaultProviders() {
