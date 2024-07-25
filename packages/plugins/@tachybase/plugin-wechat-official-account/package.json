@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-wechat-official-account",
-  "version": "0.21.76",
+  "version": "0.21.77",
   "main": "dist/server/index.js",
   "dependencies": {
     "@types/xml2js": "^0.4.14",
