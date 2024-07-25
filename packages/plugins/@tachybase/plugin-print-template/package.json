@@ -3,9 +3,19 @@
   "version": "0.21.77",
   "main": "dist/server/index.js",
   "dependencies": {
+    "@bull-board/api": "^5.21.1",
+    "@bull-board/koa": "^5.21.1",
+    "bullmq": "^5.10.3",
     "docxtemplater": "^3.48.0",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^10.1.1",
     "pizzip": "^3.1.7",
+    "ts-node": "9.1.1",
+    "typescript": "^5.5.4",
     "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@types/koa-router": "^7.4.8"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
