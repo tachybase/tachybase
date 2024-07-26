@@ -33,7 +33,11 @@ export const ApprovalBlockLaunchApplication = (props) => {
     {
       resource: decorator?.collection,
       action: decorator?.action,
-      params: { pageSize: 99999, filter: { ...decorator?.params?.filter } },
+      params: {
+        pageSize: 99999,
+        filter: { ...decorator?.params?.filter },
+        sort: 'createdAt',
+      },
     },
     {
       manual: true,

@@ -22,7 +22,11 @@ export const InitiationsItem = observer((props) => {
     api
       .request({
         url: 'workflows:list',
-        params: { pageSize: 9999, filter: { ...params?.[tabKey] } },
+        params: {
+          pageSize: 9999,
+          filter: { ...params?.[tabKey] },
+          sort: 'createdAt',
+        },
       })
       .then((res) => {
         const option = res?.data?.data.map((value) => {
