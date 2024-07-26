@@ -43,6 +43,10 @@ function InternalFormBlockInitializer({ schema, ...others }) {
       marginTop: '1.5em',
       flexWrap: 'wrap',
     };
+
+    // NOTE: 给表单区域添加 Provider, 方便根据不同进程,控制显示隐藏; ProviderApprovalUpdateForm 在 usage 文件夹里声明和注册
+    result.properties[formKey].properties['grid']['x-decorator'] = 'ProviderApprovalUpdateForm';
+
     traverseSchema(result, (node) => {
       if (node['x-uid']) {
         delete node['x-uid'];
