@@ -3,7 +3,7 @@ import { connect } from '@tachybase/schema';
 
 import Editor, { loader } from '@monaco-editor/react';
 
-loader.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.50.0/min/vs' } });
+loader.config({ paths: { vs: 'https://unpkg.com/monaco-editor@0.50.0/min/vs' } });
 
 export const CodeMirror = connect(({ value, onChange, ...otherProps }) => {
   return (
