@@ -19,7 +19,6 @@ import { ApprovalContext } from '../../approval-common/ApprovalData.provider';
 import { ContextWithActionEnabled } from '../../approval-common/WithActionEnabled.provider';
 import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
 import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
-import { ProviderApprovalUpdateForm } from './ApprovalUpdateForm.provider';
 import { ApprovalFormBlockDecorator } from './Dt.ApprovalFormBlock';
 import { useApprovalDetailBlockProps } from './hooks/useApprovalDetailBlockProps';
 import { useApprovalFormBlockProps } from './hooks/useApprovalFormBlockProps';
@@ -99,7 +98,6 @@ export const ViewActionTodosContent = () => {
                 ApprovalActionProvider,
                 ApprovalFormBlockProvider: ApprovalFormBlockDecorator,
                 DetailsBlockProvider,
-                ProviderApprovalUpdateForm,
               }}
               scope={{
                 useApprovalDetailBlockProps,

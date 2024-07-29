@@ -9,6 +9,7 @@ import { DetailsBlockProvider, SimpleDesigner } from '../../../../../components'
 import { FormBlockProvider } from '../../../common/FormBlock.provider';
 import { flatSchemaArray } from '../../../constants';
 import { ContextApproverConfig } from '../ApproverConfig.context';
+import { ProviderApprovalUpdateForm } from './ApprovalUpdateForm.provider';
 import { ActionBarProvider } from './Pd.ActionBarProvider';
 import { ApprovalActionProvider } from './Pd.ApprovalActionProvider';
 import { ContextApproverBlock } from './Pd.SchemaConfigButtonContext';
@@ -87,6 +88,7 @@ export const ApproverBlock = ({ value: srcID, onChange }) => {
           ApprovalActionProvider,
           DetailsBlockProvider,
           SimpleDesigner,
+          ProviderApprovalUpdateForm,
         }}
         // @ts-ignore
         schema={schemaData}
