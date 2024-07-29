@@ -20,8 +20,17 @@ export class DataMappingInstruction extends Instruction {
       }
       case 1: {
         // 单数据源, 平铺为单对象; 忽略keyName
-        const source = sourceArray[0]['sourcePath'];
-        data = processor.getParsedValue(source, node.id);
+        const keyName = sourceArray[0]['keyName'];
+        const sourcePath = sourceArray[0]['sourcePath'];
+        const rawData = processor.getParsedValue(sourcePath, node.id);
+        // NOTE: 后来想了想, 发现还是统一用法比较好. 所以提供统一的用法, 同时保留原本的用法; 如果提供了keyName 就是统一的用法, 如果没有, 就是平铺.
+        if (keyName) {
+          data = {
+            [keyName]: rawData,
+          };
+        } else {
+          data = rawData;
+        }
         break;
       }
       default: {
