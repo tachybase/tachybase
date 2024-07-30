@@ -1,5 +1,6 @@
 import { Registry } from '@tachybase/utils';
 
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-grpc';
 import { Resource } from '@opentelemetry/resources';
 import { BatchSpanProcessor, ConsoleSpanExporter, SpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
@@ -25,6 +26,13 @@ export class Trace {
     this.tracerName = tracerName || 'tachybase-trace';
     this.version = version || '';
     this.registerProcessor('console', () => new BatchSpanProcessor(new ConsoleSpanExporter()));
+    // 初始化 OTLP 作为链路追踪 Processor
+    const newOtlpExporter = new OTLPTraceExporter({
+      url: process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT_GRPC || 'http://localhost:4317',
+    });
+    // NOTE: 开发时可替换 BatchSpanProcessor 为 SimpleSpanProcessor 以便监测数据实时上传，区别详见
+    // https://opentelemetry.io/docs/languages/js/instrumentation/#picking-the-right-span-processor
+    this.registerProcessor('otlp', () => new BatchSpanProcessor(newOtlpExporter));
   }
 
   init(resource: Resource) {
@@ -35,6 +43,7 @@ export class Trace {
   }
 
   registerProcessor(name: string, processor: GetSpanProcessor) {
+    console.log('register trace processor:', name);
     this.processors.register(name, processor);
   }
 
@@ -55,6 +64,13 @@ export class Trace {
       const processor = this.getProcessor(name)();
       this.provider.addSpanProcessor(processor);
     });
+
+    // 创建链路追踪的 span，自动插桩的 span 才能正常 work，我也不知道为什么，别删就对了
+    const tracer = this.getTracer();
+    const span = tracer.startSpan('load');
+    span.setAttribute('event', 'load');
+    span.addEvent('load');
+    span.end();
   }
 
   shutdown() {
