@@ -1,17 +1,13 @@
-import React from 'react';
-import { Plugin, useRequest } from '@tachybase/client';
+import { Plugin } from '@tachybase/client';
+import PluginAuthClient from '@tachybase/plugin-auth/client';
 
-import { CustomAuthLayout } from './AuthLayout';
+import { authType } from '../constants';
+import { AdminSettingsForm, SignInButton } from './components';
 
-export class PluginReplacePageClient extends Plugin {
-  async afterAdd() {
-    // await this.app.pm.add()
+export class PluginWeCahtOfficialAccount extends Plugin {
+  async load() {
+    this.app.pm.get(PluginAuthClient).registerType(authType, { components: { SignInButton, AdminSettingsForm } });
   }
-
-  async beforeLoad() {}
-
-  // You can get and modify the app instance here
-  async load() {}
 }
 
-export default PluginReplacePageClient;
+export default PluginWeCahtOfficialAccount;

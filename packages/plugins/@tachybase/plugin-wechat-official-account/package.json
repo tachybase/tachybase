@@ -1,12 +1,21 @@
 {
   "name": "@tachybase/plugin-wechat-official-account",
-  "version": "0.21.79",
+  "version": "0.21.73",
+  "keywords": [
+    "Authentication"
+  ],
   "main": "dist/server/index.js",
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
     "@types/xml2js": "^0.4.14",
     "antd": "^5.18.3",
+    "axios": "^1.7.2",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "crypto": "^1.0.1",
+    "jsonwebtoken": "^8.5.1",
     "koa-bodyparser": "^4.3.0",
+    "qrcode.react": "^3.1.0",
     "react-router-dom": "^6.11.2",
     "xml2js": "^0.6.2"
   },
