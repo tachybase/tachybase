@@ -16,10 +16,10 @@ import { createForm, RecursionField, useField, useFieldSchema } from '@tachybase
 import _ from 'lodash';
 
 import { useFlowContext } from '../../../../../FlowContext';
-import { useContextApprovalExecutions } from './Pd.ApprovalExecutions';
+import { useContextApprovalRecords } from './Pd.ApprovalExecutions';
 
 export function ApprovalFormBlockDecorator(props) {
-  const approvalExecutions = useContextApprovalExecutions();
+  const approvalExecutions = useContextApprovalRecords();
   const { job } = approvalExecutions;
   const omitApproval = _.omit(approvalExecutions, ['approval', 'job', 'node', 'snapshot']);
   const { execution, workflow } = useFlowContext();

@@ -9,7 +9,7 @@ export function useApprovalDetailBlockProps() {
 
   useEffect(() => {
     form.setValues(snapshot);
-  }, [form, snapshot]);
+  }, [form, snapshot, form?.values?.account_pay_id]);
 
   return { form };
 }

@@ -3,7 +3,7 @@ import { useField, useForm } from '@tachybase/schema';
 
 import { useHandleRefresh } from '../../common/useHandleRefresh';
 import { useContextApprovalAction } from '../Pd.ApprovalAction';
-import { useContextApprovalExecutions } from '../Pd.ApprovalExecutions';
+import { useContextApprovalRecords } from '../Pd.ApprovalExecutions';
 
 export function useSubmit(props: any = {}) {
   const { refreshTable } = useHandleRefresh();
@@ -11,7 +11,7 @@ export function useSubmit(props: any = {}) {
   const api = useAPIClient();
   const form = useForm();
   const collection = useCollection();
-  const approvalExecutions = useContextApprovalExecutions();
+  const approvalExecutions = useContextApprovalRecords();
   const { status } = useContextApprovalAction();
   const { source } = props;
   const needUpdateRecord = source === 'updateRecord';

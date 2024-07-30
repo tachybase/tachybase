@@ -30,8 +30,8 @@ interface ApprovalExecutions {
   userId?: any;
 }
 
-export const ContextApprovalExecutions = createContext<Partial<ApprovalExecutions>>({});
+export const ContextApprovalRecords = createContext<Partial<ApprovalExecutions>>({});
 
-export function useContextApprovalExecutions() {
-  return useContext(ContextApprovalExecutions);
+export function useContextApprovalRecords() {
+  return useContext(ContextApprovalRecords);
 }
