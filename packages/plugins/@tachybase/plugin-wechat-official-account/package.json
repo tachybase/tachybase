@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-wechat-official-account",
-  "version": "0.21.73",
+  "version": "0.21.74",
   "keywords": [
     "Authentication"
   ],
@@ -20,6 +20,7 @@
     "xml2js": "^0.6.2"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/plugin-auth": "workspace:*",
     "@tachybase/server": "workspace:*",

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-print-template",
-  "version": "0.21.79",
+  "version": "0.21.80",
   "main": "dist/server/index.js",
   "dependencies": {
     "@bull-board/api": "^5.21.1",
@@ -18,6 +18,7 @@
     "@types/koa-router": "^7.4.8"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/server": "workspace:*",
