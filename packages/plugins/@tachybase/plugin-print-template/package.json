@@ -18,6 +18,7 @@
     "@types/koa-router": "^7.4.8"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/server": "workspace:*",
