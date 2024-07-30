@@ -12,14 +12,12 @@ import { NODE_MODULES } from '../constant';
 let previousColor = '';
 function randomColor() {
   const colors = [
-    'red',
     'green',
     'yellow',
     'blue',
     'magenta',
     'cyan',
     'gray',
-    'redBright',
     'greenBright',
     'yellowBright',
     'blueBright',
