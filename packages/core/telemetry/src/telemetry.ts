@@ -1,3 +1,5 @@
+import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/instrumentation';
 import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
@@ -29,6 +31,23 @@ export class Telemetry {
   }
 
   init() {
+    // 设置 OTel 日志等级
+    const diagLogLevel = process.env.OTEL_LOG_LEVEL;
+    if (diagLogLevel) {
+      diag.setLogger(new DiagConsoleLogger(), DiagLogLevel[diagLogLevel]);
+    }
+
+    // 自动插桩
+    try {
+      const instrumentations = getNodeAutoInstrumentations();
+      this.addInstrumentation(instrumentations);
+      console.log(
+        `auto-instrumentations added, num: ${instrumentations.length}, names: ${instrumentations.map((i) => i.instrumentationName.replace('@opentelemetry/instrumentation-', '') + '@' + i.instrumentationVersion).join(', ')}`,
+      );
+    } catch (error) {
+      console.error('Failed to add auto-instrumentations:', error);
+    }
+
     registerInstrumentations({
       instrumentations: this.instrumentations,
     });

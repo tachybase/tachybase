@@ -1,6 +1,7 @@
 import { Registry } from '@tachybase/utils';
 
 import opentelemetry from '@opentelemetry/api';
+import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
 import { Resource } from '@opentelemetry/resources';
 import {
   ConsoleMetricExporter,
@@ -9,6 +10,8 @@ import {
   PeriodicExportingMetricReader,
   View,
 } from '@opentelemetry/sdk-metrics';
+
+import initMeters from './meters';
 
 export type MetricOptions = {
   meterName?: string;
@@ -46,6 +49,7 @@ export class Metric {
   }
 
   registerReader(name: string, reader: GetMetricReader) {
+    console.log('register metric reader:', name);
     this.readers.register(name, reader);
   }
 
@@ -62,6 +66,31 @@ export class Metric {
   }
 
   start() {
+    // 创建 Prometheus 作为指标 Reader
+    try {
+      // 启动 Prometheus 服务器
+      const startServer = process.env.OTEL_PROMETHEUS_SERVER === 'on';
+      if (!startServer) {
+        console.warn('Prometheus server is disabled');
+      } else {
+        const port = Number(process.env.OTEL_PROMETHEUS_PORT) || 9464;
+        const reader = () =>
+          new PrometheusExporter(
+            {
+              port, // optional - default is 9464
+            },
+            () => {
+              console.log(`Prometheus exporter endpoint started on http://localhost:${port}/metrics`);
+            },
+          );
+        // 注册 Prometheus 作为指标 Reader
+        this.registerReader('prometheus', reader);
+      }
+    } catch (error) {
+      console.error('Failed to initialize Prometheus metrics reader:', error);
+    }
+
+    // 添加指标 Reader
     let readerName = this.readerName;
     if (typeof readerName === 'string') {
       readerName = readerName.split(',');
@@ -70,6 +99,22 @@ export class Metric {
       const reader = this.getReader(name)();
       this.provider.addMetricReader(reader);
     });
+
+    // 初始化指标 Meters
+    try {
+      const meter = this.getMeter();
+      const meters = new initMeters(meter);
+      meters
+        .start()
+        .then(() => {
+          console.log('Meters initialized');
+        })
+        .catch((error) => {
+          console.error('Failed to initialize meters:', error);
+        });
+    } catch (error) {
+      console.error('Failed to initialize meters:', error);
+    }
   }
 
   shutdown() {

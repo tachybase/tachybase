@@ -1,4 +1,4 @@
-export class processSelf {
+export class processMeters {
   meter: any;
   constructor(meter) {
     this.meter = meter;
@@ -29,6 +29,6 @@ export class processSelf {
     });
   }
   async shutdown() {
-    console.log('hardware meter shutdown');
+    console.log('process meter shutdown');
   }
 }

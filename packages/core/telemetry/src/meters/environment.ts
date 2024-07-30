@@ -2,13 +2,13 @@ import os from 'os';
 
 import osUtils from 'node-os-utils';
 
-export class hardware {
+export class environmentMeters {
   meter: any;
   constructor(meter) {
     this.meter = meter;
   }
   async start() {
-    console.log('hardware meter start');
+    console.log('environment meter start');
 
     const uptime = this.meter.createObservableGauge('environment.hardware.uptime', {
       description: 'Uptime in seconds',
@@ -72,6 +72,6 @@ export class hardware {
     });
   }
   async shutdown() {
-    console.log('hardware meter shutdown');
+    console.log('environment meter shutdown');
   }
 }

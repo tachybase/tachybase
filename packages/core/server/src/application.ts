@@ -1066,8 +1066,13 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       plugins: plugins || [],
     });
 
+    let serviceName = process.env.TELEMETRY_SERVICE_NAME;
+    if (!serviceName) {
+      this.log.warn('TELEMETRY_SERVICE_NAME is not set, will use default service name, please set it in .env file!');
+      serviceName = `tachybase-${this.name}`;
+    }
     this._telemetry = new Telemetry({
-      serviceName: `tachybase-${this.name}`,
+      serviceName,
       version: this.getVersion(),
       ...options.telemetry,
     });
