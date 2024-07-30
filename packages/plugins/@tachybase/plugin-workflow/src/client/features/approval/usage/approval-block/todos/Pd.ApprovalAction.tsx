@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-import { useContextApprovalExecutions } from './Pd.ApprovalExecutions';
+import { useContextApprovalRecords } from './Pd.ApprovalExecutions';
 
 interface ApprovalAction {
   status: number | null;
@@ -9,7 +9,7 @@ interface ApprovalAction {
 const ContextApprovalAction = createContext<Partial<ApprovalAction>>({});
 
 export function ApprovalActionProvider({ children, ...props }) {
-  const { status } = useContextApprovalExecutions();
+  const { status } = useContextApprovalRecords();
 
   if (!status || status === props.status) {
     return <ContextApprovalAction.Provider value={props}>{children}</ContextApprovalAction.Provider>;

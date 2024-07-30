@@ -25,7 +25,7 @@ import { useApprovalFormBlockProps } from './hooks/useApprovalFormBlockProps';
 import { useSubmit } from './hooks/useSubmit';
 import { ActionBarProvider } from './Pd.ActionBarProvider';
 import { ApprovalActionProvider } from './Pd.ApprovalAction';
-import { ContextApprovalExecutions } from './Pd.ApprovalExecutions';
+import { ContextApprovalRecords } from './Pd.ApprovalExecutions';
 
 // 审批-待办-查看: 内容
 export const ViewActionTodosContent = () => {
@@ -87,7 +87,7 @@ export const ViewActionTodosContent = () => {
     <ExecutionContextProvider workflow={omitWorkflow} nodes={nodes} execution={execution}>
       <ApprovalContext.Provider value={approval}>
         <ContextApprovalExecution.Provider value={approvalExecution}>
-          <ContextApprovalExecutions.Provider value={data.data}>
+          <ContextApprovalRecords.Provider value={data.data}>
             <SchemaComponent
               components={{
                 SchemaComponentProvider,
@@ -150,7 +150,7 @@ export const ViewActionTodosContent = () => {
                 ),
               }}
             />
-          </ContextApprovalExecutions.Provider>
+          </ContextApprovalRecords.Provider>
         </ContextApprovalExecution.Provider>
       </ApprovalContext.Provider>
     </ExecutionContextProvider>

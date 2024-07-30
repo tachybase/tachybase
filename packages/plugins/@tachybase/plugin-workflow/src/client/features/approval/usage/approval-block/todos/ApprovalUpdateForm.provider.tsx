@@ -1,8 +1,8 @@
 import { APPROVAL_ACTION_STATUS } from '../../../constants';
-import { useContextApprovalExecutions } from './Pd.ApprovalExecutions';
+import { useContextApprovalRecords } from './Pd.ApprovalExecutions';
 
 export const ProviderApprovalUpdateForm = (props) => {
-  const { status } = useContextApprovalExecutions();
+  const { status } = useContextApprovalRecords();
   if (status === APPROVAL_ACTION_STATUS.PENDING) {
     return props.children;
   } else {
