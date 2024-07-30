@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow-test",
   "displayName": "Workflow: test kit",
-  "version": "0.21.80",
+  "version": "0.21.81",
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "types": "./dist/server/index.d.ts",
