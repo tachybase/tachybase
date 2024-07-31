@@ -8,14 +8,10 @@
     "bullmq": "^5.10.3",
     "docxtemplater": "^3.48.0",
     "koa-bodyparser": "^4.4.1",
-    "koa-router": "^10.1.1",
     "pizzip": "^3.1.7",
     "ts-node": "9.1.1",
     "typescript": "^5.5.4",
     "xml2js": "^0.6.2"
-  },
-  "devDependencies": {
-    "@types/koa-router": "^7.4.8"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
