@@ -6,7 +6,6 @@ import { WorkflowLink } from './components/WorkflowLink';
 import { ExecutionPage } from './ExecutionPage';
 import { PluginActionTrigger } from './features/action-trigger';
 import { PluginAggregate } from './features/aggregate';
-import { PluginAPIRegularClient } from './features/api-regular';
 import PluginApproval from './features/approval';
 import PluginWorkflowDataMappingClient from './features/data-mapping';
 import { PluginDelay } from './features/delay';
@@ -91,7 +90,6 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginWorkflowJsonParseClient);
     await this.pm.add(PluginWorkflowJSParseClient);
     await this.pm.add(PluginWorkflowDataMappingClient);
-    await this.pm.add(PluginAPIRegularClient);
     await this.pm.add(PluginWorkflowInterceptor);
     await this.pm.add(PluginVariables);
     await this.pm.add(PluginResponse);

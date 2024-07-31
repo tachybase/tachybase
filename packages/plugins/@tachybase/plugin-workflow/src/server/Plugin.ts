@@ -79,7 +79,7 @@ export default class PluginWorkflowServer extends Plugin {
     this.addFeature(PluginWorkflowJSONParseServer);
     this.addFeature(PluginWorkflowJSParseServer);
     this.addFeature(PluginWorkflowDataMappingServer);
-    this.addFeature(PluginWorkflowAPIRegularServer);
+    // this.addFeature(PluginWorkflowAPIRegularServer);
     this.addFeature(PluginInterception);
     this.addFeature(PluginVariables);
     this.addFeature(PluginResponse);

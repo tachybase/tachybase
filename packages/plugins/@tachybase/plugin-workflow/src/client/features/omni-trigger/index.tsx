@@ -3,6 +3,7 @@ import { Plugin } from '@tachybase/client';
 import { tval } from '../../locale';
 import { PluginWorkflow } from '../../Plugin';
 import { OmniActionTrigger } from './OmniActionTrigger';
+import { KitAPIRegularUsage } from './usage/kit';
 import { useFormWorkflowCustomActionProps } from './useFormWorkflowCustomActionProps';
 import { useRecordWorkflowCustomTriggerActionProps } from './useRecordWorkflowCustomTriggerActionProps';
 
@@ -48,6 +49,9 @@ const triggerWorkflowLinkItem = {
   schema: { ...triggerWorkflowAction.schema, 'x-component': 'Action.Link' },
 };
 export class PluginOmniTrigger extends Plugin {
+  async afterAdd() {
+    await this.app.pm.add(KitAPIRegularUsage);
+  }
   async load() {
     this.app.pm.get<PluginWorkflow>('workflow').registerTrigger('general-action', OmniActionTrigger);
     this.app.addScopes({
