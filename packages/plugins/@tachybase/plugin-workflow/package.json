@@ -9,7 +9,9 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "dependencies": {
-    "jsonata": "^2.0.5"
+    "form-data": "^4.0.0",
+    "jsonata": "^2.0.5",
+    "mime-types": "^2.1.35"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",

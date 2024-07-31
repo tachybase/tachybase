@@ -83,7 +83,7 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginFieldAppends);
     await this.app.pm.add(PluginCustomComponents);
     await this.app.pm.add(PluginSheet);
-    await this.app.pm.add(PluginDemo);
+    // await this.app.pm.add(PluginDemo);
   }
 
   async registerSettings() {
