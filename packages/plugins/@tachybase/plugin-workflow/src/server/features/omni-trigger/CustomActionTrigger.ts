@@ -19,10 +19,9 @@ export class OmniTrigger extends Trigger {
   static TYPE = 'general-action';
   triggerAction = async (context, next) => {
     const {
-      resourceName,
-      actionName,
-      params: { filterByTk, values, triggerWorkflows = '', filter },
+      params: { filterByTk, values, triggerWorkflows = '', filter, resourceName, actionName },
     } = context.action;
+
     if (actionName !== 'trigger' || resourceName === 'workflows') {
       return next();
     }
