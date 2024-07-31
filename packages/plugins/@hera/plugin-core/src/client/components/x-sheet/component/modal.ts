@@ -1,7 +1,7 @@
-import { h, HComponent } from './element';
-import Icon from './icon';
 import { cssPrefix } from '../config';
+import { h, HComponent } from './element';
 import { bind, unbind } from './event';
+import Icon from './icon';
 
 export default class Modal {
   el: HComponent;

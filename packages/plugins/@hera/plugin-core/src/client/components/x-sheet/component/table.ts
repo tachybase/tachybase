@@ -1,11 +1,10 @@
+import { Draw, DrawBox, npx, thinLineWidth } from '../canvas';
 import { stringAt } from '../core/alphabet';
-import { getFontSizePxByPt } from '../core/font';
 import _cell from '../core/cell';
-import { formulam } from '../core/formula';
-import { formatm } from '../core/format';
-
-import { Draw, DrawBox, thinLineWidth, npx } from '../canvas';
 import DataProxy from '../core/data_proxy';
+import { getFontSizePxByPt } from '../core/font';
+import { formatm } from '../core/format';
+import { formulam } from '../core/formula';
 
 const cellPaddingWidth = 5;
 const tableFixedHeaderCleanStyle = { fillStyle: '#f4f5f8' };

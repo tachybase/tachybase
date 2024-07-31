@@ -1,5 +1,5 @@
-import Item from './item';
 import Icon from '../icon';
+import Item from './item';
 
 export default class ToggleItem extends Item {
   element() {

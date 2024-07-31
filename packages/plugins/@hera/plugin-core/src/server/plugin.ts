@@ -4,6 +4,7 @@ import path from 'path';
 import { Plugin } from '@tachybase/server';
 import { Container } from '@tachybase/utils';
 
+import { PluginDemo } from './features/demo/plugin';
 import { DepartmentsPlugin } from './features/departments';
 import CalcField from './fields/calc';
 import TstzrangeField from './fields/tstzrange';
@@ -19,6 +20,7 @@ export class PluginCoreServer extends Plugin {
       tstzrange: TstzrangeField,
     });
     this.addFeature(DepartmentsPlugin);
+    this.addFeature(PluginDemo);
   }
 
   async load() {

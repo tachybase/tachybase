@@ -1,6 +1,6 @@
+import { cssPrefix } from '../config';
 import Calendar from './calendar';
 import { h } from './element';
-import { cssPrefix } from '../config';
 
 export default class Datepicker {
   constructor() {

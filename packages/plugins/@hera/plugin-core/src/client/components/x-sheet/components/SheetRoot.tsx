@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { cssPrefix } from '../config';
-import { Bottombar } from './Bottombar';
-import { Toolbar } from './Toolbar';
-import { Table } from './Table';
-import { Print } from './Print';
+
 import { Options } from '..';
+import { cssPrefix } from '../config';
 import DataProxy from '../core/data_proxy';
+import { Bottombar } from './Bottombar';
+import { Print } from './Print';
+import { Table } from './Table';
+import { Toolbar } from './Toolbar';
 
 const SheetContext = createContext<DataProxy>(null);
 

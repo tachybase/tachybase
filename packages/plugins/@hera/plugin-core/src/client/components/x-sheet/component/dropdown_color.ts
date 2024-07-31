@@ -1,6 +1,6 @@
+import ColorPalette from './color_palette';
 import Dropdown from './dropdown';
 import Icon from './icon';
-import ColorPalette from './color_palette';
 
 export default class DropdownColor extends Dropdown {
   constructor(iconName, color) {

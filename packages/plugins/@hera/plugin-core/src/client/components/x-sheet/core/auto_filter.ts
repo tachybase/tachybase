@@ -1,4 +1,5 @@
 import { CellRange } from './cell_range';
+
 // operator: all|eq|neq|gt|gte|lt|lte|in|be
 // value:
 //   in => []

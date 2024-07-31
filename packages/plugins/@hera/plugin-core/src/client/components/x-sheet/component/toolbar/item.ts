@@ -1,7 +1,7 @@
 import { cssPrefix } from '../../config';
-import tooltip from '../tooltip';
-import { h } from '../element';
 import { t } from '../../locale/locale';
+import { h } from '../element';
+import tooltip from '../tooltip';
 
 export default class Item {
   // tooltip

@@ -1,7 +1,7 @@
+import { cssPrefix } from '../config';
+import Datepicker from './datepicker';
 import { h } from './element';
 import Suggest from './suggest';
-import Datepicker from './datepicker';
-import { cssPrefix } from '../config';
 
 function resetTextareaSize() {
   const { inputText } = this;

@@ -1,6 +1,6 @@
-import { h } from './element';
 import { cssPrefix } from '../config';
 import { t } from '../locale/locale';
+import { h } from './element';
 
 const patterns = {
   number: /(^\d+$)|(^\d+(\.\d{0,4})?$)/,

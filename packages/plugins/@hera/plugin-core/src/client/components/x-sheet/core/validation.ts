@@ -1,5 +1,5 @@
-import Validator from './validator';
 import { CellRange } from './cell_range';
+import Validator from './validator';
 
 class Validation {
   constructor(

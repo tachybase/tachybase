@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 class Element {
   el: HTMLElement;
   private _data: Record<string, any>;

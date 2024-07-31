@@ -1,5 +1,5 @@
-import DropdownItem from './dropdown_item';
 import DropdownAlign from '../dropdown_align';
+import DropdownItem from './dropdown_item';
 
 export default class Valign extends DropdownItem {
   constructor(value) {
