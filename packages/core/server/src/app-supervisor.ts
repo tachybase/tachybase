@@ -24,6 +24,7 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
   public apps: {
     [appName: string]: Application;
   } = {};
+  public lastSeenAt: Map<string, number> = new Map();
 
   public appErrors: {
     [appName: string]: Error;
@@ -105,6 +106,14 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
       status,
       options,
     });
+  }
+
+  touchApp(appName: string) {
+    if (!this.hasApp(appName)) {
+      return;
+    }
+
+    this.lastSeenAt.set(appName, Math.floor(Date.now() / 1000));
   }
 
   getMutexOfApp(appName: string) {
@@ -238,6 +247,7 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
       delete this.appErrors[app.name];
       delete this.lastMaintainingMessage[app.name];
       delete this.statusBeforeCommanding[app.name];
+      this.lastSeenAt.delete(app.name);
     });
 
     app.on('maintainingMessageChanged', ({ message, maintainingStatus }) => {

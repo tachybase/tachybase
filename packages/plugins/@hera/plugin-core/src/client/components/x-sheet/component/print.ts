@@ -1,9 +1,9 @@
-import { h } from './element';
-import { cssPrefix } from '../config';
-import Button from './button';
 import { Draw } from '../canvas';
-import { renderCell } from './table';
+import { cssPrefix } from '../config';
 import { t } from '../locale/locale';
+import Button from './button';
+import { h } from './element';
+import { renderCell } from './table';
 
 // resolution: 72 => 595 x 842
 // 150 => 1240 x 1754

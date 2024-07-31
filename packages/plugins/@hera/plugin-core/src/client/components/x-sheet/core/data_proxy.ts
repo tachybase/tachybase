@@ -1,16 +1,16 @@
-import Selector from './selector';
-import Scroll from './scroll';
-import History from './history';
-import Clipboard from './clipboard';
-import AutoFilter from './auto_filter';
-import { Merges } from './merge';
-import helper from './helper';
-import { Rows } from './row';
-import { Cols } from './col';
-import { Validations } from './validation';
-import { CellRange } from './cell_range';
-import { expr2xy, xy2expr } from './alphabet';
 import { t } from '../locale/locale';
+import { expr2xy, xy2expr } from './alphabet';
+import AutoFilter from './auto_filter';
+import { CellRange } from './cell_range';
+import Clipboard from './clipboard';
+import { Cols } from './col';
+import helper from './helper';
+import History from './history';
+import { Merges } from './merge';
+import { Rows } from './row';
+import Scroll from './scroll';
+import Selector from './selector';
+import { Validations } from './validation';
 
 // private methods
 /*

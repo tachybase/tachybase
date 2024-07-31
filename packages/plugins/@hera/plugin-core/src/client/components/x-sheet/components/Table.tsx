@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { cssPrefix } from '../config';
-import { useSheetData } from './SheetRoot';
+
 import { Draw } from '../canvas';
 import CanvasTable from '../component/table';
+import { cssPrefix } from '../config';
+import { useSheetData } from './SheetRoot';
 
 export const Table = () => {
   const data = useSheetData();

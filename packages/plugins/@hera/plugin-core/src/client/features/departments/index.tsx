@@ -3,9 +3,9 @@ import { Plugin, SchemaComponentContext, useSchemaComponentContext } from '@tach
 import { PluginACLClient } from '@tachybase/plugin-acl/client';
 
 import { tval } from '../../locale';
+import { DepartmentManagementComponent } from './components/DepartmentManagementComponent';
 import { Departments } from './components/Departments';
 import { DepartmentsProvider } from './components/DepartmentsProvider';
-import { DepartmentManagementComponent } from './components/DepartmentManagementComponent';
 import { UserDepartmentsFieldNotSupport } from './components/UserDepartmentsFieldNotSupport';
 import { DepartmentOwnersFieldSetting } from './settings/DepartmentOwnersFieldSetting';
 import { UserDepartmentsFieldSetting } from './settings/UserDepartmentsFieldSetting';

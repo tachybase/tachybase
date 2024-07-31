@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { cssPrefix } from '../config';
 import { Icon } from './Icon';
 

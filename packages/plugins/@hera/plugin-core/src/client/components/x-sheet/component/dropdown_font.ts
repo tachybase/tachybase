@@ -1,7 +1,7 @@
+import { cssPrefix } from '../config';
+import { baseFonts } from '../core/font';
 import Dropdown from './dropdown';
 import { h } from './element';
-import { baseFonts } from '../core/font';
-import { cssPrefix } from '../config';
 
 export default class DropdownFont extends Dropdown {
   constructor() {

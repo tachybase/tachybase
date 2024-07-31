@@ -1,7 +1,7 @@
+import { cssPrefix } from '../config';
 import Dropdown from './dropdown';
 import { h } from './element';
 import Icon from './icon';
-import { cssPrefix } from '../config';
 
 function buildItemWithIcon(iconName) {
   return h('div', `${cssPrefix}-item`).child(new Icon(iconName));

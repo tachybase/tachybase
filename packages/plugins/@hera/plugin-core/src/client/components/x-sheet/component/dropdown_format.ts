@@ -1,7 +1,7 @@
+import { cssPrefix } from '../config';
+import { baseFormats } from '../core/format';
 import Dropdown from './dropdown';
 import { h } from './element';
-import { baseFormats } from '../core/format';
-import { cssPrefix } from '../config';
 
 export default class DropdownFormat extends Dropdown {
   constructor() {

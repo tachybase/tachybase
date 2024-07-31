@@ -1,6 +1,6 @@
+import { cssPrefix } from '../config';
 import { h } from './element';
 import Suggest from './suggest';
-import { cssPrefix } from '../config';
 
 export default class FormSelect {
   constructor(key, items, width, getTitle = (it) => it, change = () => {}) {

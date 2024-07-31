@@ -1,5 +1,5 @@
-import DropdownItem from './dropdown_item';
 import DropdownFormula from '../dropdown_formula';
+import DropdownItem from './dropdown_item';
 
 export default class Format extends DropdownItem {
   constructor() {

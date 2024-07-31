@@ -1,5 +1,5 @@
-import { h, HComponent } from './element';
 import { cssPrefix } from '../config';
+import { h, HComponent } from './element';
 
 export default class Scrollbar {
   private el: HComponent;
