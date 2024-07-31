@@ -20,7 +20,7 @@ export class PluginCoreServer extends Plugin {
       tstzrange: TstzrangeField,
     });
     this.addFeature(DepartmentsPlugin);
-    this.addFeature(PluginDemo);
+    // this.addFeature(PluginDemo);
   }
 
   async load() {

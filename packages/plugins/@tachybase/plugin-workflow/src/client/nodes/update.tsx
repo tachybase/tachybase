@@ -23,10 +23,7 @@ function IndividualHooksRadioWithTooltip({ onChange, ...props }) {
       return;
     }
     const filteredValues = fields.reduce((result, item) => {
-      if (
-        item.name in valuesField.value &&
-        (target.value || !['hasOne', 'hasMany', 'belongsToMany'].includes(item.type))
-      ) {
+      if (item.name in valuesField.value && (target.value || ![].includes(item.type))) {
         result[item.name] = valuesField.value[item.name];
       }
       return result;
@@ -111,7 +108,7 @@ export default class extends Instruction {
           ...values,
           'x-component-props': {
             filter(this, field) {
-              return this.params?.individualHooks || !['hasOne', 'hasMany', 'belongsToMany'].includes(field.type);
+              return this.params?.individualHooks || ![].includes(field.type);
             },
           },
         },
