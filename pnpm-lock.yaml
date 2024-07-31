@@ -3583,9 +3583,6 @@ importers:
       koa-bodyparser:
         specifier: ^4.4.1
         version: 4.4.1
-      koa-router:
-        specifier: ^10.1.1
-        version: 10.1.1
       pizzip:
         specifier: ^3.1.7
         version: 3.1.7
@@ -3598,10 +3595,6 @@ importers:
       xml2js:
         specifier: ^0.6.2
         version: 0.6.2
-    devDependencies:
-      '@types/koa-router':
-        specifier: ^7.4.8
-        version: 7.4.8
 
   packages/plugins/@tachybase/plugin-saml:
     dependencies:
@@ -13555,12 +13548,6 @@ packages:
 
   /@types/koa-multer@1.0.4:
     resolution: {integrity: sha512-Aty7k5W/bVgvCtyc7iwzjP1QXp1CPsQE3klmIEVBphK2bthjJjUpgkvFNChckA8DPxaatzFmnotWZnXLAAnLog==}
-    dependencies:
-      '@types/koa': 2.15.0
-    dev: true
-
-  /@types/koa-router@7.4.8:
-    resolution: {integrity: sha512-SkWlv4F9f+l3WqYNQHnWjYnyTxYthqt8W9az2RTdQW7Ay8bc00iRZcrb8MC75iEfPqnGcg2csEl8tTG1NQPD4A==}
     dependencies:
       '@types/koa': 2.15.0
     dev: true
