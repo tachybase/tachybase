@@ -18,8 +18,9 @@ export type RequestConfig = Pick<AxiosRequestConfig, 'url' | 'method' | 'params'
 async function request(config, context) {
   // default headers
   const { token, origin } = context;
-  const { url: originUrl, method = 'POST', data, timeout = 5000 } = config;
+  const { method = 'POST', data, timeout = 5000 } = config;
 
+  const originUrl = (config.url?.url || '').trim();
   const url = originUrl.startsWith('http') ? originUrl : `${origin}${originUrl}`;
 
   let headers = (config.headers ?? []).reduce((result, header) => {
