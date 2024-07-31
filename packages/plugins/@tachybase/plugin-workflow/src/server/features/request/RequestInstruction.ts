@@ -20,7 +20,7 @@ async function request(config, context) {
   const { token, origin } = context;
   const { method = 'POST', data, timeout = 5000 } = config;
 
-  const originUrl = (config.url?.url || '').trim();
+  const originUrl = config.url?.trim() || '';
   const url = originUrl.startsWith('http') ? originUrl : `${origin}${originUrl}`;
 
   let headers = (config.headers ?? []).reduce((result, header) => {

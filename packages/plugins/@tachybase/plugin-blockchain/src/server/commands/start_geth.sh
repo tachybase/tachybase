@@ -1,0 +1,2 @@
+cd ../eth-private-chain/
+nohup geth --datadir "." --dev --dev.period 2 --http --http.api eth,web3,net --http.corsdomain "http://remix.ethereum.org" --password password.txt --http.port 8888 --ws --ws.api eth,web3,net --ws.origins "*" --ws.addr "127.0.0.1" --ws.port 8546 > geth_output.log 2>&1 &

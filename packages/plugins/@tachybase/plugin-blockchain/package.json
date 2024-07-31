@@ -1,0 +1,19 @@
+{
+  "name": "@tachybase/plugin-blockchain",
+  "version": "0.21.80",
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "child_process": "^1.0.2",
+    "crypto": "^1.0.1",
+    "fs": "0.0.1-security",
+    "hardhat": "^2.22.6",
+    "path": "^0.12.7",
+    "web3": "^4.11.1"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}
