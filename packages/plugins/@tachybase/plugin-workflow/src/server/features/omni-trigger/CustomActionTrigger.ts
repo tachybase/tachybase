@@ -42,7 +42,12 @@ export class OmniTrigger extends Trigger {
       triggerWorkflowsArray.push(key);
     }
     const workflows = Array.from(this.workflow.enabledCache.values())
-      .filter((item) => item.type === OmniTrigger.TYPE && item.config.collection === jointCollectionName)
+      .filter(
+        (item) =>
+          item.type === OmniTrigger.TYPE &&
+          item.config.collection === jointCollectionName &&
+          triggerWorkflowsArray.includes(item.key),
+      )
       .sort((a, b) => {
         const aIndex = triggerWorkflowsArray.indexOf(a.key);
         const bIndex = triggerWorkflowsArray.indexOf(b.key);
