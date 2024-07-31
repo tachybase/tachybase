@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { dayjs } from '@tachybase/utils';
 
 import jsonata from 'jsonata';
 import _ from 'lodash';
@@ -101,6 +102,7 @@ async function convertByJsCode(code, data) {
       qrcode,
       crypto,
       jsonata,
+      dayjs,
     },
   });
 
