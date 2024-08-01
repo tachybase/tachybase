@@ -197,7 +197,7 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
 export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData, params, filter, user) => {
   api
     .request({
-      url: 'approvalCarbonCopy:list',
+      url: 'approvalCarbonCopy:listCentralized',
       params: {
         pageSize: 9999,
         filter: { ...params, ...filter },

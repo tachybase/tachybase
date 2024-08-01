@@ -32,7 +32,11 @@ export const SchemaAddBlock = ({ value, onChange }) => {
       'x-initializer': 'ApprovalApplyAddBlockButton',
       properties: {},
     };
-    return await api.resource('uiSchemas').insert({ values }), onChange(name), values;
+
+    await api.resource('uiSchemas').insert({ values });
+    onChange(name);
+
+    return values;
   });
 
   if (loading) {
@@ -40,7 +44,7 @@ export const SchemaAddBlock = ({ value, onChange }) => {
   }
 
   return (
-    <SchemaComponentProvider components={components} designable={!workflow.executed}>
+    <SchemaComponentProvider components={components} designable={true}>
       <SchemaComponent
         memoized={true}
         components={{
@@ -55,7 +59,7 @@ export const SchemaAddBlock = ({ value, onChange }) => {
           useFormBlockProps,
           useActionResubmit,
         }}
-        schema={data}
+        schema={data as any}
       />
     </SchemaComponentProvider>
   );
