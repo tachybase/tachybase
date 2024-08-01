@@ -20,7 +20,7 @@
     "@antv/x6-react-shape": "^2.0.0",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.7.2",
-    "antd": "5.19.1",
+    "antd": "5.19.4",
     "dagre": "^0.8.5",
     "lodash": "4.17.21",
     "react": "^18.3.1",

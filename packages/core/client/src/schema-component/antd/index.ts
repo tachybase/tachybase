@@ -55,3 +55,4 @@ export * from './custom-cascader';
 export * from './unixTimestamp';
 export * from './nanoIDInput';
 export { PageHeader } from '@ant-design/pro-layout';
+export { CodeMirror } from '@tachybase/components';
