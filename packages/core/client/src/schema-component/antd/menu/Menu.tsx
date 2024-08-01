@@ -11,8 +11,8 @@ import {
 } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
 
-import { MoreOutlined } from '@ant-design/icons';
-import { Menu as AntdMenu, Button, Dropdown, MenuProps } from 'antd';
+import { AppstoreOutlined, InsertRowAboveOutlined, MoreOutlined } from '@ant-design/icons';
+import { Menu as AntdMenu, Button, Card, Col, Dropdown, MenuProps, Popover, Row } from 'antd';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -47,35 +47,70 @@ const HeaderMenu = ({
   children,
 }) => {
   const { Component, getMenuItems } = useMenuItem();
-  const { styles } = useStyles();
   const { token } = useToken();
-  const items = useMemo(() => {
+  const [items, setItems] = useState([]);
+  const { t } = useTranslation();
+  const { styles: itemStyle } = useStyles();
+  const result = getMenuItems(() => {
+    return children;
+  });
+  useEffect(() => {
+    setItems(getItem());
+  }, [children, designable, getMenuItems]);
+  const getItem = () => {
     const designerBtn = {
       key: 'x-designer-button',
-      style: { padding: '0 8px', order: -1 },
       label: render({
         'data-testid': 'schema-initializer-Menu-header',
-        style: { background: 'none' },
+        style: { background: 'none', height: '100%' },
       }),
       notdelete: true,
       disabled: true,
     };
-    const result = getMenuItems(() => {
-      return children;
-    });
     if (designable) {
       result.push(designerBtn);
     }
-
     return result;
-  }, [children, designable, getMenuItems, render]);
+  };
 
+  const onClick = (info) => {
+    const s = schema.properties?.[info.key];
+    if (!s) {
+      return;
+    }
+    if (mode === 'mix') {
+      if (s['x-component'] !== 'Menu.SubMenu') {
+        onSelect?.({ item: { props: info } });
+      } else {
+        const menuItemSchema = findMenuItem(s);
+        if (!menuItemSchema) {
+          return onSelect?.({ item: { props: info } });
+        }
+        setLoading(true);
+        const keys = findKeysByUid(schema, menuItemSchema['x-uid']);
+        setDefaultSelectedKeys(keys);
+        setTimeout(() => {
+          setLoading(false);
+        }, 100);
+        onSelect?.({
+          key: menuItemSchema.name,
+          item: {
+            props: {
+              schema: menuItemSchema,
+            },
+          },
+        });
+      }
+    } else {
+      onSelect?.({ item: { props: info } });
+    }
+  };
   return (
     <div style={{ display: 'flex' }}>
       <div style={{ flex: 1 }}></div>
       <div
         className={css`
-          .ant-btn {
+          .iconButton {
             border: 0;
             height: 46px;
             width: 46px;
@@ -83,50 +118,93 @@ const HeaderMenu = ({
             background: none;
             color: rgba(255, 255, 255, 0.65);
             &:hover {
-              background: none !important;
+              background: rgba(255, 255, 255, 0.1) !important;
             }
           }
         `}
       >
-        <Dropdown
-          menu={{
-            items,
-            onClick(info) {
-              const s = schema.properties?.[info.key];
-              if (!s) {
-                return;
-              }
-              if (mode === 'mix') {
-                if (s['x-component'] !== 'Menu.SubMenu') {
-                  onSelect?.(info);
-                } else {
-                  const menuItemSchema = findMenuItem(s);
-                  if (!menuItemSchema) {
-                    return onSelect?.(info);
-                  }
-                  setLoading(true);
-                  const keys = findKeysByUid(schema, menuItemSchema['x-uid']);
-                  setDefaultSelectedKeys(keys);
-                  setTimeout(() => {
-                    setLoading(false);
-                  }, 100);
-                  onSelect?.({
-                    key: menuItemSchema.name,
-                    item: {
-                      props: {
-                        schema: menuItemSchema,
-                      },
-                    },
-                  });
-                }
-              } else {
-                onSelect?.(info);
-              }
-            },
+        <Popover
+          placement="bottom"
+          arrow={false}
+          content={() => {
+            return (
+              <Card
+                className={css`
+                  border: none;
+                  max-width: 21rem;
+                `}
+              >
+                {items?.map((item) => {
+                  const { icon, field, Designer, schema, styles } = item?.menu || {};
+                  return (
+                    <Card.Grid
+                      style={{
+                        display: 'block',
+                        color: 'inherit',
+                        padding: token.marginSM,
+                        boxShadow: 'none',
+                        width: '7rem',
+                        height: '5rem',
+                      }}
+                      className={itemStyle.menuItem}
+                      key={item.key}
+                      onClick={() => {
+                        onClick(item);
+                      }}
+                    >
+                      {item.menu ? (
+                        <SchemaContext.Provider value={schema}>
+                          <FieldContext.Provider value={field}>
+                            <SortableItem
+                              role="button"
+                              aria-label={t(field.title)}
+                              className={styles.designerCss}
+                              removeParentsIfNoChildren={false}
+                              style={{ position: 'revert' }}
+                            >
+                              <a
+                                role="button"
+                                aria-label={t(field.title)}
+                                title={t(field.title)}
+                                className={css`
+                                  display: block;
+                                  color: inherit;
+                                  &:hover {
+                                    color: inherit;
+                                  }
+                                `}
+                              >
+                                <div style={{ fontSize: '1.2rem', textAlign: 'center', marginBottom: '0.3rem' }}>
+                                  <Icon type={icon || 'QuestionCircleOutlined'} />
+                                </div>
+                                <div
+                                  style={{
+                                    textAlign: 'center',
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    fontSize: token.fontSizeSM,
+                                  }}
+                                >
+                                  {t(field.title)}
+                                </div>
+                              </a>
+                              <Designer />
+                            </SortableItem>
+                          </FieldContext.Provider>
+                        </SchemaContext.Provider>
+                      ) : (
+                        <>{item.label}</>
+                      )}
+                    </Card.Grid>
+                  );
+                })}
+              </Card>
+            );
           }}
         >
-          <Button icon={<MoreOutlined style={{ color: token.colorTextHeaderMenu }} />} />
-        </Dropdown>
+          <Button className="iconButton" icon={<AppstoreOutlined style={{ color: token.colorTextHeaderMenu }} />} />
+        </Popover>
         <Component />
       </div>
     </div>
@@ -358,6 +436,7 @@ Menu.Item = observer(
         key: schema.name,
         eventKey: schema.name,
         schema,
+        menu: { icon, field, Designer, schema, styles },
         label: (
           <SchemaContext.Provider value={schema}>
             <FieldContext.Provider value={field}>
@@ -423,6 +502,7 @@ Menu.URL = observer(
         onClick: () => {
           window.open(props.href, '_blank');
         },
+        menu: { icon, field, Designer, schema, styles },
         label: (
           <SchemaContext.Provider value={schema}>
             <FieldContext.Provider value={field}>
@@ -474,6 +554,7 @@ Menu.SubMenu = observer(
         className: styles.menuItemClass,
         key: schema.name,
         eventKey: schema.name,
+        menu: { icon, field, Designer, schema, styles },
         label: (
           <SchemaContext.Provider value={schema}>
             <FieldContext.Provider value={field}>
