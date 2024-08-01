@@ -9,7 +9,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "ahooks": "^3.8.0",
-    "antd": "5.19.1",
+    "antd": "5.19.4",
     "axios": "^1.7.2",
     "react-router-dom": "^6.25.1"
   },

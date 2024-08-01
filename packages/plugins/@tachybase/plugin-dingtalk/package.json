@@ -11,7 +11,7 @@
     "@alicloud/openapi-client": "^0.4.10",
     "@alicloud/tea-util": "^1.4.9",
     "@ant-design/icons": "^5.3.7",
-    "antd": "5.19.1",
+    "antd": "5.19.4",
     "react-router-dom": "^6.25.1"
   },
   "peerDependencies": {

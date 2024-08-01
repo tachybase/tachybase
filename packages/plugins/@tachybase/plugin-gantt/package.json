@@ -13,7 +13,7 @@
     "@ctrl/tinycolor": "^3.6.0",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.19.1",
+    "antd": "5.19.4",
     "lodash": "4.17.21",
     "react-i18next": "^14.1.2"
   },

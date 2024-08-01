@@ -11,7 +11,7 @@
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "@types/jsonwebtoken": "^8.5.8",
-    "antd": "5.19.1",
+    "antd": "5.19.4",
     "jsonwebtoken": "^8.5.1",
     "react-i18next": "^14.1.2"
   },

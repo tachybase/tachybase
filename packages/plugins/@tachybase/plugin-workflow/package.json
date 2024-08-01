@@ -21,7 +21,7 @@
     "@types/file-saver": "^2.0.7",
     "@types/lodash": "^4.17.5",
     "@types/qrcode": "^1.5.5",
-    "antd": "5.19.1",
+    "antd": "5.19.4",
     "axios": "^1.6.2",
     "cron-parser": "4.4.0",
     "file-saver": "^2.0.5",
