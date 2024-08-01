@@ -1,6 +1,6 @@
 import { createStyles } from 'antd-style';
 
-export const useStyles = createStyles(({ css }) => {
+export const useStyles = createStyles(({ css, token }) => {
   return {
     subMenuDesignerCss: css`
       position: relative;
@@ -154,6 +154,41 @@ export const useStyles = createStyles(({ css }) => {
     menuItemClass: css`
       :active {
         background: inherit;
+      }
+    `,
+
+    menuItem: css`
+      &:hover {
+        border-radius: ${token.borderRadius}px;
+        background: rgba(0, 0, 0, 0.045);
+        overflow: hidden;
+      }
+      .ant-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        box-shadow: none;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+        span {
+          display: block;
+          text-align: center;
+          font-size: ${token.fontSizeSM}px;
+        }
+        .anticon {
+          font-size: 1.2rem;
+          margin-bottom: 0.3rem;
+          text-align: center;
+        }
+      }
+      .ant-btn-default {
+        box-shadow: none;
+      }
+      .general-schema-designer {
+        background: none;
       }
     `,
   };
