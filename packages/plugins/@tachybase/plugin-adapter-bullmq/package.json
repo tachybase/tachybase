@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-adapter-bullmq",
-  "version": "0.21.80",
+  "version": "0.21.81",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@bull-board/api": "^5.21.1",
