@@ -74,17 +74,31 @@ export class Metric {
         console.warn('Prometheus server is disabled');
       } else {
         const port = Number(process.env.OTEL_PROMETHEUS_PORT) || 9464;
-        const reader = () =>
-          new PrometheusExporter(
-            {
-              port, // optional - default is 9464
-            },
-            () => {
-              console.log(`Prometheus exporter endpoint started on http://localhost:${port}/metrics`);
-            },
-          );
-        // 注册 Prometheus 作为指标 Reader
-        this.registerReader('prometheus', reader);
+        if (port <= 0 || port >= 65536) {
+          throw new Error(`Invalid port: ${port}`);
+        }
+        if (port <= 1024) {
+          console.warn('Prometheus server will try to run on a privileged port, it may need root permission');
+        }
+        if (port === 9464) {
+          console.warn('Prometheus server will run on default port 9464');
+        }
+        try {
+          // 启动 Prometheus Exporter
+          const reader = () =>
+            new PrometheusExporter(
+              {
+                port,
+              },
+              () => {
+                console.log(`Prometheus exporter endpoint started on http://localhost:${port}/metrics`);
+              },
+            );
+          // 注册 Prometheus Exporter 作为指标 Reader
+          this.registerReader('prometheus', reader);
+        } catch (error) {
+          console.error('Failed to initialize Prometheus metrics reader:', error);
+        }
       }
     } catch (error) {
       console.error('Failed to initialize Prometheus metrics reader:', error);

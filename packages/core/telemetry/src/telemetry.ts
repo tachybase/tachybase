@@ -4,14 +4,23 @@ import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/
 import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 
+// 防止加载什么奇怪的东西
+import packageJson from '../../../../package.json';
+import { telemetryOptions } from './config';
 import { Metric, MetricOptions } from './metric';
 import { Trace, TraceOptions } from './trace';
+
+export { telemetryOptions } from './config';
 
 export interface TelemetryOptions {
   serviceName?: string;
   version?: string;
   trace?: TraceOptions;
   metric?: MetricOptions;
+}
+
+export interface AppTelemetryOptions extends TelemetryOptions {
+  enabled?: boolean;
 }
 
 export class Telemetry {
@@ -23,14 +32,13 @@ export class Telemetry {
   started = false;
 
   constructor(options?: TelemetryOptions) {
+    console.log('Create telemetry with options', options);
     const { trace, metric, serviceName, version } = options || {};
     this.trace = new Trace({ tracerName: `${serviceName}-trace`, version, ...trace });
     this.metric = new Metric({ meterName: `${serviceName}-meter`, version, ...metric });
-    this.serviceName = serviceName || 'tachybase';
+    this.serviceName = serviceName || 'tachybase-main';
     this.version = version || '';
-  }
 
-  init() {
     // 设置 OTel 日志等级
     const diagLogLevel = process.env.OTEL_LOG_LEVEL;
     if (diagLogLevel) {
@@ -51,6 +59,10 @@ export class Telemetry {
     registerInstrumentations({
       instrumentations: this.instrumentations,
     });
+  }
+
+  init() {
+    console.log('Start init telemetry', this.serviceName, this.version);
 
     const resource = Resource.default().merge(
       new Resource({
@@ -80,3 +92,25 @@ export class Telemetry {
     this.instrumentations.push(...instrumentation);
   }
 }
+
+let _telemetry: Telemetry;
+
+let serviceName = process.env.TELEMETRY_SERVICE_NAME;
+if (!serviceName) {
+  console.warn('TELEMETRY_SERVICE_NAME is not set, will use default service name, please set it in .env file!');
+  serviceName = `tachybase-main`;
+}
+
+export const getTelemetry = () => {
+  if (!_telemetry || typeof _telemetry === 'undefined') {
+    _telemetry = new Telemetry({
+      serviceName,
+      version: packageJson.version || 'UnkVer',
+      ...telemetryOptions,
+    });
+    _telemetry.init();
+  }
+  // 这里只需要 init，start 保留在 application 里
+
+  return _telemetry;
+};

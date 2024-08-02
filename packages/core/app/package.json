@@ -11,7 +11,8 @@
     "@tachybase/preset-hera-sancongtou": "workspace:*",
     "@tachybase/preset-mini": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
-    "@tachybase/server": "workspace:*"
+    "@tachybase/server": "workspace:*",
+    "@tachybase/telemetry": "workspace:*"
   },
   "devDependencies": {
     "@tachybase/cache": "workspace:*",
