@@ -1,9 +1,10 @@
+import { telemetryOptions as telemetry } from '@tachybase/telemetry';
+
 import { cacheManager } from './cache';
 import { parseDatabaseOptions } from './database';
 import logger from './logger';
 import plugins from './plugins';
 import resourcer from './resourcer';
-import { telemetry } from './telemetry';
 
 export async function getConfig() {
   return {

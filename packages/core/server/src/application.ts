@@ -17,7 +17,7 @@ import {
   SystemLoggerOptions,
 } from '@tachybase/logger';
 import { ResourceOptions, Resourcer } from '@tachybase/resourcer';
-import { Telemetry, TelemetryOptions } from '@tachybase/telemetry';
+import { AppTelemetryOptions, getTelemetry } from '@tachybase/telemetry';
 import { applyMixins, AsyncEmitter, importModule, Toposort, ToposortOptions } from '@tachybase/utils';
 
 import { Command, CommandOptions, ParseOptions } from 'commander';
@@ -65,10 +65,6 @@ export interface ResourcerOptions {
 export interface AppLoggerOptions {
   request: RequestLoggerOptions;
   system: SystemLoggerOptions;
-}
-
-export interface AppTelemetryOptions extends TelemetryOptions {
-  enabled?: boolean;
 }
 
 export interface ApplicationOptions {
@@ -310,10 +306,8 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     return this._locales;
   }
 
-  protected _telemetry: Telemetry;
-
   get telemetry() {
-    return this._telemetry;
+    return getTelemetry();
   }
 
   protected _version: ApplicationVersion;
@@ -516,12 +510,12 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       await this.emitAsync('beforeLoad', this, options);
     }
 
-    // Telemetry is initialized after beforeLoad hook
-    // since some configuration may be registered in beforeLoad hook
-    this.telemetry.init();
+    // Telemetry is already initialized in @tachybase/app
     if (this.options.telemetry?.enabled) {
       // Start collecting telemetry data if enabled
-      this.telemetry.start();
+      if (!this.telemetry.started) {
+        this.telemetry.start();
+      }
     }
 
     await this.pm.load(options);
@@ -1071,11 +1065,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       this.log.warn('TELEMETRY_SERVICE_NAME is not set, will use default service name, please set it in .env file!');
       serviceName = `tachybase-${this.name}`;
     }
-    this._telemetry = new Telemetry({
-      serviceName,
-      version: this.getVersion(),
-      ...options.telemetry,
-    });
 
     this._authManager = new AuthManager({
       authKey: 'X-Authenticator',

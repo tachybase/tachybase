@@ -1,6 +1,4 @@
-import { AppTelemetryOptions } from '@tachybase/server';
-
-export const telemetry: AppTelemetryOptions = {
+export const telemetryOptions = {
   enabled: process.env.TELEMETRY_ENABLED === 'on',
   metric: {
     readerName: process.env.OTEL_METRICS_READER,
