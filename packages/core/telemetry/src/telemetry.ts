@@ -4,8 +4,7 @@ import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/
 import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 
-// 防止加载什么奇怪的东西
-import packageJson from '../../../../package.json';
+import packageJson from '../../../../package.json'; // 防止加载什么奇怪的东西
 import { telemetryOptions } from './config';
 import { Metric, MetricOptions } from './metric';
 import { Trace, TraceOptions } from './trace';
@@ -34,10 +33,20 @@ export class Telemetry {
   constructor(options?: TelemetryOptions) {
     console.log('Create telemetry with options', options);
     const { trace, metric, serviceName, version } = options || {};
-    this.trace = new Trace({ tracerName: `${serviceName}-trace`, version, ...trace });
-    this.metric = new Metric({ meterName: `${serviceName}-meter`, version, ...metric });
     this.serviceName = serviceName || 'tachybase-main';
     this.version = version || '';
+    const resource = Resource.default().merge(
+      new Resource({
+        [SemanticResourceAttributes.SERVICE_NAME]: this.serviceName,
+        [SemanticResourceAttributes.SERVICE_VERSION]: this.version,
+      }),
+    );
+    this.trace = new Trace({ tracerName: `${serviceName}-trace`, version, ...trace, resource });
+    this.metric = new Metric({ meterName: `${serviceName}-meter`, version, ...metric, resource });
+  }
+
+  init() {
+    console.log('Start init telemetry', this.serviceName, this.version);
 
     // 设置 OTel 日志等级
     const diagLogLevel = process.env.OTEL_LOG_LEVEL;
@@ -59,20 +68,9 @@ export class Telemetry {
     registerInstrumentations({
       instrumentations: this.instrumentations,
     });
-  }
 
-  init() {
-    console.log('Start init telemetry', this.serviceName, this.version);
-
-    const resource = Resource.default().merge(
-      new Resource({
-        [SemanticResourceAttributes.SERVICE_NAME]: this.serviceName,
-        [SemanticResourceAttributes.SERVICE_VERSION]: this.version,
-      }),
-    );
-
-    this.trace.init(resource);
-    this.metric.init(resource);
+    this.trace.init();
+    this.metric.init();
   }
 
   start() {
@@ -108,7 +106,9 @@ export const getTelemetry = () => {
       version: packageJson.version || 'UnkVer',
       ...telemetryOptions,
     });
-    _telemetry.init();
+    if (telemetryOptions.enabled) {
+      _telemetry.init();
+    }
   }
   // 这里只需要 init，start 保留在 application 里
 
