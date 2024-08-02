@@ -2206,7 +2206,7 @@ importers:
     dependencies:
       '@nomicfoundation/hardhat-toolbox':
         specifier: ^5.0.0
-        version: 5.0.0(@nomicfoundation/hardhat-chai-matchers@2.0.7)(@nomicfoundation/hardhat-ethers@3.0.6)(@nomicfoundation/hardhat-ignition-ethers@0.15.5)(@nomicfoundation/hardhat-network-helpers@1.0.11)(@nomicfoundation/hardhat-verify@2.0.8)(@typechain/ethers-v6@0.5.1)(@typechain/hardhat@9.1.0)(@types/chai@4.3.16)(@types/mocha@10.0.7)(@types/node@20.14.2)(chai@4.3.10)(ethers@6.13.2)(hardhat-gas-reporter@1.0.10)(hardhat@2.22.6)(solidity-coverage@0.8.12)(ts-node@9.1.1)(typechain@8.3.2)(typescript@5.5.4)
+        version: 5.0.0(@nomicfoundation/hardhat-chai-matchers@2.0.7)(@nomicfoundation/hardhat-ethers@3.0.6)(@nomicfoundation/hardhat-ignition-ethers@0.15.5)(@nomicfoundation/hardhat-network-helpers@1.0.11)(@nomicfoundation/hardhat-verify@2.0.9)(@typechain/ethers-v6@0.5.1)(@typechain/hardhat@9.1.0)(@types/chai@4.3.16)(@types/mocha@10.0.7)(@types/node@20.14.2)(chai@4.3.10)(ethers@6.13.2)(hardhat-gas-reporter@1.0.10)(hardhat@2.22.7)(solidity-coverage@0.8.12)(ts-node@9.1.1)(typechain@8.3.2)(typescript@5.5.4)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../../../core/actions
@@ -2230,7 +2230,7 @@ importers:
         version: 0.0.1-security
       hardhat:
         specifier: ^2.22.6
-        version: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+        version: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
       path:
         specifier: ^0.12.7
         version: 0.12.7
@@ -4104,9 +4104,6 @@ importers:
       body-parser:
         specifier: ^1.20.2
         version: 1.20.2
-      crypto:
-        specifier: ^1.0.1
-        version: 1.0.1
       jsonwebtoken:
         specifier: ^8.5.1
         version: 8.5.1
@@ -4119,6 +4116,9 @@ importers:
       react-router-dom:
         specifier: ^6.11.2
         version: 6.25.1(react-dom@18.3.1)(react@18.3.1)
+      sequelize:
+        specifier: ^6.37.3
+        version: 6.37.3
       xml2js:
         specifier: ^0.6.2
         version: 0.6.2
@@ -5010,7 +5010,7 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-router: ^5.0.0 || ^6.0.0
     dependencies:
-      ahooks: 3.7.8(react@18.3.1)
+      ahooks: 3.7.11(react@18.3.1)
       query-string: 6.14.1
       react: 18.3.1
       react-router: 6.21.1(react@18.3.1)
@@ -10672,7 +10672,6 @@ packages:
   /@mapbox/node-pre-gyp@1.0.11:
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
-    requiresBuild: true
     dependencies:
       detect-libc: 2.0.3
       https-proxy-agent: 5.0.1
@@ -10834,52 +10833,52 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@nomicfoundation/edr-darwin-arm64@0.4.2:
-    resolution: {integrity: sha512-S+hhepupfqpBvMa9M1PVS08sVjGXsLnjyAsjhrrsjsNuTHVLhKzhkguvBD5g4If5skrwgOaVqpag4wnQbd15kQ==}
+  /@nomicfoundation/edr-darwin-arm64@0.5.0:
+    resolution: {integrity: sha512-G6OX/PESdfU4ZOyJ4MDh4eevW0wt2mduuxA+thXtTcStOiQTtPuV205h4kLOR5wRB1Zz6Zy0LedTMax7TzOtGw==}
     engines: {node: '>= 18'}
     dev: false
 
-  /@nomicfoundation/edr-darwin-x64@0.4.2:
-    resolution: {integrity: sha512-/zM94AUrXz6CmcsecRNHJ50jABDUFafmGc4iBmkfX/mTp4tVZj7XTyIogrQIt0FnTaeb4CgZoLap2+8tW/Uldg==}
+  /@nomicfoundation/edr-darwin-x64@0.5.0:
+    resolution: {integrity: sha512-fI7uHfHqPtdPZjkFUTpotc/F5gGv41ws+jSZy9+2AR9RDMOAIXMEArOx9rGLBcevWu8SFnyH/l/77kG/5FXbDw==}
     engines: {node: '>= 18'}
     dev: false
 
-  /@nomicfoundation/edr-linux-arm64-gnu@0.4.2:
-    resolution: {integrity: sha512-TV3Pr2tFvvmCfPCi9PaCGLtqn+oLaPKfL2NWpnoCeFFdzDQXi2L930yP1oUPY5RXd78NLdVHMkEkbhb2b6Wuvg==}
+  /@nomicfoundation/edr-linux-arm64-gnu@0.5.0:
+    resolution: {integrity: sha512-eMC3sWPkBZILg2/YB4Xv6IR0nggCLt5hS8K8jjHeGEeUs9pf8poBF2Oy+G4lSu0YLLjexGzHypz9/P+pIuxZHw==}
     engines: {node: '>= 18'}
     dev: false
 
-  /@nomicfoundation/edr-linux-arm64-musl@0.4.2:
-    resolution: {integrity: sha512-PALwrLBk1M9rolXyhSX8xdhe5jL0qf/PgiCIF7W7lUyVKrI/I0oiU0EHDk/Xw7yi2UJg4WRyhhZoHYa0g4g8Qg==}
+  /@nomicfoundation/edr-linux-arm64-musl@0.5.0:
+    resolution: {integrity: sha512-yPK0tKjYRxe5ktggFr8aBHH0DCI9uafuaD8QuzyrQAfSf/m/ebTdgthROdbYp6eRk5mJyfAQT/45fM3tnlYsWw==}
     engines: {node: '>= 18'}
     dev: false
 
-  /@nomicfoundation/edr-linux-x64-gnu@0.4.2:
-    resolution: {integrity: sha512-5svkftypDjAZ1LxV1onojlaqPRxrTEjJLkrUwLL+Fao5ZMe7aTnk5QQ1Jv76gW6WYZnMXNgjPhRcnw3oSNrqFA==}
+  /@nomicfoundation/edr-linux-x64-gnu@0.5.0:
+    resolution: {integrity: sha512-Hds8CRYi4DEyuErjcwUNSvNpMzmOYUihW4qYCoKgSBUVS5saX1PyPYvFYuYpeU5J8/T2iMk6yAPVLCxtKbgnKg==}
     engines: {node: '>= 18'}
     dev: false
 
-  /@nomicfoundation/edr-linux-x64-musl@0.4.2:
-    resolution: {integrity: sha512-qiMlXQTggdH9zfOB4Eil4rQ95z8s7QdLJcOfz5Aym12qJNkCyF9hi4cc4dDCWA0CdI3x3oLbuf8qb81SF8R45w==}
+  /@nomicfoundation/edr-linux-x64-musl@0.5.0:
+    resolution: {integrity: sha512-1hXMDSzdyh5ojwO3ZSRbt7t5KKYycGUlFdC3lgJRZ7gStB8xjb7RA3hZn2csn9OydS950Ne4nh+puNq91iXApw==}
     engines: {node: '>= 18'}
     dev: false
 
-  /@nomicfoundation/edr-win32-x64-msvc@0.4.2:
-    resolution: {integrity: sha512-hDkAb0iaMmGYwBY/rA1oCX8VpsezfQcHPEPIEGXEcWC3WbnOgIZo0Qkpu/g0OMtFOJSQlWLXvKZuV7blhnrQag==}
+  /@nomicfoundation/edr-win32-x64-msvc@0.5.0:
+    resolution: {integrity: sha512-CFagD423400xXkRmACIR13FoocN48qi4ogRnuFQIvBDtEE3aMEajfFj4bycmQQDqnqChsZy/jwD4OxbX6oaNJw==}
     engines: {node: '>= 18'}
     dev: false
 
-  /@nomicfoundation/edr@0.4.2:
-    resolution: {integrity: sha512-U7v0HuZHfrsl/5FpUzuB2FYA0+FUglHHwiO6NhvLtNYKMZcPzdS6iUriMp/7GWs0SVxW3bAht9GinZPxdhVwWg==}
+  /@nomicfoundation/edr@0.5.0:
+    resolution: {integrity: sha512-nAUyjGhxntXje/1AkDX9POfH+pqUxdi4XHzIhaf/dJYs7fgAFxL3STBK1OYcA3LR7vtiylLHMz7wxjqLzlLGKg==}
     engines: {node: '>= 18'}
     dependencies:
-      '@nomicfoundation/edr-darwin-arm64': 0.4.2
-      '@nomicfoundation/edr-darwin-x64': 0.4.2
-      '@nomicfoundation/edr-linux-arm64-gnu': 0.4.2
-      '@nomicfoundation/edr-linux-arm64-musl': 0.4.2
-      '@nomicfoundation/edr-linux-x64-gnu': 0.4.2
-      '@nomicfoundation/edr-linux-x64-musl': 0.4.2
-      '@nomicfoundation/edr-win32-x64-msvc': 0.4.2
+      '@nomicfoundation/edr-darwin-arm64': 0.5.0
+      '@nomicfoundation/edr-darwin-x64': 0.5.0
+      '@nomicfoundation/edr-linux-arm64-gnu': 0.5.0
+      '@nomicfoundation/edr-linux-arm64-musl': 0.5.0
+      '@nomicfoundation/edr-linux-x64-gnu': 0.5.0
+      '@nomicfoundation/edr-linux-x64-musl': 0.5.0
+      '@nomicfoundation/edr-win32-x64-msvc': 0.5.0
     dev: false
 
   /@nomicfoundation/ethereumjs-common@4.0.4:
@@ -10924,7 +10923,7 @@ packages:
       ethereum-cryptography: 0.1.3
     dev: false
 
-  /@nomicfoundation/hardhat-chai-matchers@2.0.7(@nomicfoundation/hardhat-ethers@3.0.6)(chai@4.3.10)(ethers@6.13.2)(hardhat@2.22.6):
+  /@nomicfoundation/hardhat-chai-matchers@2.0.7(@nomicfoundation/hardhat-ethers@3.0.6)(chai@4.3.10)(ethers@6.13.2)(hardhat@2.22.7):
     resolution: {integrity: sha512-RQfsiTwdf0SP+DtuNYvm4921X6VirCQq0Xyh+mnuGlTwEFSPZ/o27oQC+l+3Y/l48DDU7+ZcYBR+Fp+Rp94LfQ==}
     peerDependencies:
       '@nomicfoundation/hardhat-ethers': ^3.0.0
@@ -10932,17 +10931,17 @@ packages:
       ethers: ^6.1.0
       hardhat: ^2.9.4
     dependencies:
-      '@nomicfoundation/hardhat-ethers': 3.0.6(ethers@6.13.2)(hardhat@2.22.6)
+      '@nomicfoundation/hardhat-ethers': 3.0.6(ethers@6.13.2)(hardhat@2.22.7)
       '@types/chai-as-promised': 7.1.8
       chai: 4.3.10
       chai-as-promised: 7.1.2(chai@4.3.10)
       deep-eql: 4.1.3
       ethers: 6.13.2
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
       ordinal: 1.0.3
     dev: false
 
-  /@nomicfoundation/hardhat-ethers@3.0.6(ethers@6.13.2)(hardhat@2.22.6):
+  /@nomicfoundation/hardhat-ethers@3.0.6(ethers@6.13.2)(hardhat@2.22.7):
     resolution: {integrity: sha512-/xzkFQAaHQhmIAYOQmvHBPwL+NkwLzT9gRZBsgWUYeV+E6pzXsBQsHfRYbAZ3XEYare+T7S+5Tg/1KDJgepSkA==}
     peerDependencies:
       ethers: ^6.1.0
@@ -10950,13 +10949,13 @@ packages:
     dependencies:
       debug: 4.3.5(supports-color@5.5.0)
       ethers: 6.13.2
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
       lodash.isequal: 4.5.0
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@nomicfoundation/hardhat-ignition-ethers@0.15.5(@nomicfoundation/hardhat-ethers@3.0.6)(@nomicfoundation/hardhat-ignition@0.15.5)(@nomicfoundation/ignition-core@0.15.5)(ethers@6.13.2)(hardhat@2.22.6):
+  /@nomicfoundation/hardhat-ignition-ethers@0.15.5(@nomicfoundation/hardhat-ethers@3.0.6)(@nomicfoundation/hardhat-ignition@0.15.5)(@nomicfoundation/ignition-core@0.15.5)(ethers@6.13.2)(hardhat@2.22.7):
     resolution: {integrity: sha512-W6s1QN9CFxzSVZS6w9Jcj3WLaK32z2FP5MxNU2OKY1Fn9ZzLr+miXbUbWYuRHl6dxrrl6sE8cv33Cybv19pmCg==}
     peerDependencies:
       '@nomicfoundation/hardhat-ethers': ^3.0.4
@@ -10965,26 +10964,26 @@ packages:
       ethers: ^6.7.0
       hardhat: ^2.18.0
     dependencies:
-      '@nomicfoundation/hardhat-ethers': 3.0.6(ethers@6.13.2)(hardhat@2.22.6)
-      '@nomicfoundation/hardhat-ignition': 0.15.5(@nomicfoundation/hardhat-verify@2.0.8)(hardhat@2.22.6)
+      '@nomicfoundation/hardhat-ethers': 3.0.6(ethers@6.13.2)(hardhat@2.22.7)
+      '@nomicfoundation/hardhat-ignition': 0.15.5(@nomicfoundation/hardhat-verify@2.0.9)(hardhat@2.22.7)
       '@nomicfoundation/ignition-core': 0.15.5
       ethers: 6.13.2
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
     dev: false
 
-  /@nomicfoundation/hardhat-ignition@0.15.5(@nomicfoundation/hardhat-verify@2.0.8)(hardhat@2.22.6):
+  /@nomicfoundation/hardhat-ignition@0.15.5(@nomicfoundation/hardhat-verify@2.0.9)(hardhat@2.22.7):
     resolution: {integrity: sha512-Y5nhFXFqt4owA6Ooag8ZBFDF2RAZElMXViknVIsi3m45pbQimS50ti6FU8HxfRkDnBARa40CIn7UGV0hrelzDw==}
     peerDependencies:
       '@nomicfoundation/hardhat-verify': ^2.0.1
       hardhat: ^2.18.0
     dependencies:
-      '@nomicfoundation/hardhat-verify': 2.0.8(hardhat@2.22.6)
+      '@nomicfoundation/hardhat-verify': 2.0.9(hardhat@2.22.7)
       '@nomicfoundation/ignition-core': 0.15.5
       '@nomicfoundation/ignition-ui': 0.15.5
       chalk: 4.1.2
       debug: 4.3.5(supports-color@5.5.0)
       fs-extra: 10.1.0
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
       prompts: 2.4.2
     transitivePeerDependencies:
       - bufferutil
@@ -10992,16 +10991,16 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@nomicfoundation/hardhat-network-helpers@1.0.11(hardhat@2.22.6):
+  /@nomicfoundation/hardhat-network-helpers@1.0.11(hardhat@2.22.7):
     resolution: {integrity: sha512-uGPL7QSKvxrHRU69dx8jzoBvuztlLCtyFsbgfXIwIjnO3dqZRz2GNMHJoO3C3dIiUNM6jdNF4AUnoQKDscdYrA==}
     peerDependencies:
       hardhat: ^2.9.5
     dependencies:
       ethereumjs-util: 7.1.5
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
     dev: false
 
-  /@nomicfoundation/hardhat-toolbox@5.0.0(@nomicfoundation/hardhat-chai-matchers@2.0.7)(@nomicfoundation/hardhat-ethers@3.0.6)(@nomicfoundation/hardhat-ignition-ethers@0.15.5)(@nomicfoundation/hardhat-network-helpers@1.0.11)(@nomicfoundation/hardhat-verify@2.0.8)(@typechain/ethers-v6@0.5.1)(@typechain/hardhat@9.1.0)(@types/chai@4.3.16)(@types/mocha@10.0.7)(@types/node@20.14.2)(chai@4.3.10)(ethers@6.13.2)(hardhat-gas-reporter@1.0.10)(hardhat@2.22.6)(solidity-coverage@0.8.12)(ts-node@9.1.1)(typechain@8.3.2)(typescript@5.5.4):
+  /@nomicfoundation/hardhat-toolbox@5.0.0(@nomicfoundation/hardhat-chai-matchers@2.0.7)(@nomicfoundation/hardhat-ethers@3.0.6)(@nomicfoundation/hardhat-ignition-ethers@0.15.5)(@nomicfoundation/hardhat-network-helpers@1.0.11)(@nomicfoundation/hardhat-verify@2.0.9)(@typechain/ethers-v6@0.5.1)(@typechain/hardhat@9.1.0)(@types/chai@4.3.16)(@types/mocha@10.0.7)(@types/node@20.14.2)(chai@4.3.10)(ethers@6.13.2)(hardhat-gas-reporter@1.0.10)(hardhat@2.22.7)(solidity-coverage@0.8.12)(ts-node@9.1.1)(typechain@8.3.2)(typescript@5.5.4):
     resolution: {integrity: sha512-FnUtUC5PsakCbwiVNsqlXVIWG5JIb5CEZoSXbJUsEBun22Bivx2jhF1/q9iQbzuaGpJKFQyOhemPB2+XlEE6pQ==}
     peerDependencies:
       '@nomicfoundation/hardhat-chai-matchers': ^2.0.0
@@ -11023,37 +11022,37 @@ packages:
       typechain: ^8.3.0
       typescript: '>=4.5.0'
     dependencies:
-      '@nomicfoundation/hardhat-chai-matchers': 2.0.7(@nomicfoundation/hardhat-ethers@3.0.6)(chai@4.3.10)(ethers@6.13.2)(hardhat@2.22.6)
-      '@nomicfoundation/hardhat-ethers': 3.0.6(ethers@6.13.2)(hardhat@2.22.6)
-      '@nomicfoundation/hardhat-ignition-ethers': 0.15.5(@nomicfoundation/hardhat-ethers@3.0.6)(@nomicfoundation/hardhat-ignition@0.15.5)(@nomicfoundation/ignition-core@0.15.5)(ethers@6.13.2)(hardhat@2.22.6)
-      '@nomicfoundation/hardhat-network-helpers': 1.0.11(hardhat@2.22.6)
-      '@nomicfoundation/hardhat-verify': 2.0.8(hardhat@2.22.6)
+      '@nomicfoundation/hardhat-chai-matchers': 2.0.7(@nomicfoundation/hardhat-ethers@3.0.6)(chai@4.3.10)(ethers@6.13.2)(hardhat@2.22.7)
+      '@nomicfoundation/hardhat-ethers': 3.0.6(ethers@6.13.2)(hardhat@2.22.7)
+      '@nomicfoundation/hardhat-ignition-ethers': 0.15.5(@nomicfoundation/hardhat-ethers@3.0.6)(@nomicfoundation/hardhat-ignition@0.15.5)(@nomicfoundation/ignition-core@0.15.5)(ethers@6.13.2)(hardhat@2.22.7)
+      '@nomicfoundation/hardhat-network-helpers': 1.0.11(hardhat@2.22.7)
+      '@nomicfoundation/hardhat-verify': 2.0.9(hardhat@2.22.7)
       '@typechain/ethers-v6': 0.5.1(ethers@6.13.2)(typechain@8.3.2)(typescript@5.5.4)
-      '@typechain/hardhat': 9.1.0(@typechain/ethers-v6@0.5.1)(ethers@6.13.2)(hardhat@2.22.6)(typechain@8.3.2)
+      '@typechain/hardhat': 9.1.0(@typechain/ethers-v6@0.5.1)(ethers@6.13.2)(hardhat@2.22.7)(typechain@8.3.2)
       '@types/chai': 4.3.16
       '@types/mocha': 10.0.7
       '@types/node': 20.14.2
       chai: 4.3.10
       ethers: 6.13.2
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
-      hardhat-gas-reporter: 1.0.10(hardhat@2.22.6)
-      solidity-coverage: 0.8.12(hardhat@2.22.6)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat-gas-reporter: 1.0.10(hardhat@2.22.7)
+      solidity-coverage: 0.8.12(hardhat@2.22.7)
       ts-node: 9.1.1(typescript@5.5.4)
       typechain: 8.3.2(typescript@5.5.4)
       typescript: 5.5.4
     dev: false
 
-  /@nomicfoundation/hardhat-verify@2.0.8(hardhat@2.22.6):
-    resolution: {integrity: sha512-x/OYya7A2Kcz+3W/J78dyDHxr0ezU23DKTrRKfy5wDPCnePqnr79vm8EXqX3gYps6IjPBYyGPZ9K6E5BnrWx5Q==}
+  /@nomicfoundation/hardhat-verify@2.0.9(hardhat@2.22.7):
+    resolution: {integrity: sha512-7kD8hu1+zlnX87gC+UN4S0HTKBnIsDfXZ/pproq1gYsK94hgCk+exvzXbwR0X2giiY/RZPkqY9oKRi0Uev91hQ==}
     peerDependencies:
-      hardhat: ^2.0.4
+      hardhat: ^2.22.72.0.4
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/address': 5.7.0
       cbor: 8.1.0
       chalk: 2.4.2
       debug: 4.3.5(supports-color@5.5.0)
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
       lodash.clonedeep: 4.5.0
       semver: 6.3.1
       table: 6.8.2
@@ -12838,7 +12837,7 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@babel/runtime': 7.25.0
+      '@babel/runtime': 7.24.7
       classnames: 2.5.1
       rc-util: 5.43.0(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
@@ -12899,7 +12898,7 @@ packages:
       '@babel/runtime': 7.24.7
       '@rc-component/portal': 1.1.2(react-dom@18.3.1)(react@18.3.1)
       classnames: 2.5.1
-      rc-motion: 2.9.2(react-dom@18.3.1)(react@18.3.1)
+      rc-motion: 2.9.1(react-dom@18.3.1)(react@18.3.1)
       rc-resize-observer: 1.4.0(react-dom@18.3.1)(react@18.3.1)
       rc-util: 5.43.0(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
@@ -14217,7 +14216,7 @@ packages:
       typescript: 5.5.4
     dev: false
 
-  /@typechain/hardhat@9.1.0(@typechain/ethers-v6@0.5.1)(ethers@6.13.2)(hardhat@2.22.6)(typechain@8.3.2):
+  /@typechain/hardhat@9.1.0(@typechain/ethers-v6@0.5.1)(ethers@6.13.2)(hardhat@2.22.7)(typechain@8.3.2):
     resolution: {integrity: sha512-mtaUlzLlkqTlfPwB3FORdejqBskSnh+Jl8AIJGjXNAQfRQ4ofHADPl1+oU7Z3pAJzmZbUXII8MhOLQltcHgKnA==}
     peerDependencies:
       '@typechain/ethers-v6': ^0.5.1
@@ -14228,7 +14227,7 @@ packages:
       '@typechain/ethers-v6': 0.5.1(ethers@6.13.2)(typechain@8.3.2)(typescript@5.5.4)
       ethers: 6.13.2
       fs-extra: 9.1.0
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
       typechain: 8.3.2(typescript@5.5.4)
     dev: false
 
@@ -16254,12 +16253,12 @@ packages:
       acorn: 7.4.1
       acorn-walk: 7.2.0
 
-  /acorn-import-assertions@1.9.0(acorn@8.12.1):
+  /acorn-import-assertions@1.9.0(acorn@8.11.3):
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
     peerDependencies:
       acorn: ^8
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.11.3
     dev: false
 
   /acorn-import-attributes@1.9.5(acorn@8.12.1):
@@ -16269,12 +16268,12 @@ packages:
     dependencies:
       acorn: 8.12.1
 
-  /acorn-jsx@5.3.2(acorn@8.12.1):
+  /acorn-jsx@5.3.2(acorn@8.11.3):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.11.3
 
   /acorn-walk@7.2.0:
     resolution: {integrity: sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==}
@@ -16334,7 +16333,6 @@ packages:
   /agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
-    requiresBuild: true
     dependencies:
       debug: 4.3.5(supports-color@5.5.0)
     transitivePeerDependencies:
@@ -16752,7 +16750,6 @@ packages:
 
   /aproba@2.0.0:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
-    requiresBuild: true
 
   /arch@2.2.0:
     resolution: {integrity: sha512-Of/R0wqp83cgHozfIYLbBMnej79U/SVGOOyuB3VVFv1NRM/PSFMK12x9KVtiYzJqmnU5WR2qp0Z5rHb7sWGnFQ==}
@@ -16810,7 +16807,6 @@ packages:
   /are-we-there-yet@2.0.0:
     resolution: {integrity: sha512-Ci/qENmwHnsYo9xKIcUJN5LeDKdJ6R1Z1j9V/J5wyq8nh/mYPEpIKJbBZXtZjG04HiK7zV/p6Vs9952MrMeUIw==}
     engines: {node: '>=10'}
-    requiresBuild: true
     dependencies:
       delegates: 1.0.0
       readable-stream: 3.6.2
@@ -18152,7 +18148,7 @@ packages:
     engines: {node: '>= 8.10.0'}
     dependencies:
       anymatch: 3.1.3
-      braces: 3.0.3
+      braces: 3.0.2
       glob-parent: 5.1.2
       is-binary-path: 2.1.0
       is-glob: 4.0.3
@@ -18164,7 +18160,6 @@ packages:
   /chownr@2.0.0:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
     engines: {node: '>=10'}
-    requiresBuild: true
 
   /chrome-trace-event@1.0.4:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
@@ -18412,7 +18407,6 @@ packages:
   /color-support@1.1.3:
     resolution: {integrity: sha512-qiBjkpbMLO/HL68y+lh4q0/O1MZFj2RX6X/KmMa3+gJD3z+WwI1ZzDHysvqHGS3mP6mznPckpXmw1nI9cJjyRg==}
     hasBin: true
-    requiresBuild: true
 
   /color@3.2.1:
     resolution: {integrity: sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==}
@@ -18661,7 +18655,6 @@ packages:
 
   /console-control-strings@1.1.0:
     resolution: {integrity: sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==}
-    requiresBuild: true
 
   /consolidate@0.16.0(ejs@3.1.10)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-Nhl1wzCslqXYTJVDyJCu3ODohy9OfBMB5uD2BiBTzd7w+QY0lBzafkR8y8755yMYHAaMD4NuzbAw03/xzfw+eQ==}
@@ -20012,7 +20005,6 @@ packages:
 
   /delegates@1.0.0:
     resolution: {integrity: sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ==}
-    requiresBuild: true
 
   /denque@2.1.0:
     resolution: {integrity: sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==}
@@ -20061,7 +20053,6 @@ packages:
   /detect-libc@2.0.3:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
-    requiresBuild: true
 
   /detect-newline@4.0.1:
     resolution: {integrity: sha512-qE3Veg1YXzGHQhlA6jzebZN2qVf6NX+A7m7qlhCGG30dJixrAQhYOsJjsnBjJkCSmuOPpCk30145fr8FV0bzog==}
@@ -21234,8 +21225,8 @@ packages:
     resolution: {integrity: sha512-oruZaFkjorTpF32kDSI5/75ViwGeZginGGy2NoOSg3Q9bnwlnmDm4HLnkl0RE3n+njDXR037aY1+x58Z/zFdwQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      acorn: 8.12.1
-      acorn-jsx: 5.3.2(acorn@8.12.1)
+      acorn: 8.11.3
+      acorn-jsx: 5.3.2(acorn@8.11.3)
       eslint-visitor-keys: 3.4.3
 
   /esprima@2.7.3:
@@ -22192,7 +22183,6 @@ packages:
   /fs-minipass@2.1.0:
     resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
     engines: {node: '>= 8'}
-    requiresBuild: true
     dependencies:
       minipass: 3.3.6
 
@@ -22253,7 +22243,6 @@ packages:
   /gauge@3.0.2:
     resolution: {integrity: sha512-+5J6MS/5XksCuXq++uFRsnUd7Ovu1XenbeuIuNRJxYWjgQbPuFhT14lAvsWfqfAmnwluf1OwMjz39HjfLPci0Q==}
     engines: {node: '>=10'}
-    requiresBuild: true
     dependencies:
       aproba: 2.0.0
       color-support: 1.1.3
@@ -22542,7 +22531,6 @@ packages:
 
   /glob@5.0.15:
     resolution: {integrity: sha512-c9IPMazfRITpmAAKi22dK1VKxGDX9ehhqfABDriL/lzO92xcUKEJPQHrVA/2YHSNFB4iFlykVmWvwo48nr3OxA==}
-    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       inflight: 1.0.6
       inherits: 2.0.4
@@ -22565,7 +22553,6 @@ packages:
 
   /glob@7.1.7:
     resolution: {integrity: sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==}
-    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -22577,7 +22564,6 @@ packages:
 
   /glob@7.2.0:
     resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -22768,14 +22754,14 @@ packages:
     resolution: {integrity: sha512-VIZB+ibDhx7ObhAe7OVtoEbuP4h/MuOTHJ+J8h/eBXotJYl0fBgR72xDFCKgIh22OJZIOVNxBMWuhAr10r8HdA==}
     engines: {node: '>=6'}
 
-  /hardhat-gas-reporter@1.0.10(hardhat@2.22.6):
+  /hardhat-gas-reporter@1.0.10(hardhat@2.22.7):
     resolution: {integrity: sha512-02N4+So/fZrzJ88ci54GqwVA3Zrf0C9duuTyGt0CFRIh/CdNwbnTgkXkRfojOMLBQ+6t+lBIkgbsOtqMvNwikA==}
     peerDependencies:
       hardhat: ^2.0.2
     dependencies:
       array-uniq: 1.0.3
       eth-gas-reporter: 0.2.27
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
       sha1: 1.1.1
     transitivePeerDependencies:
       - '@codechecks/client'
@@ -22784,8 +22770,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /hardhat@2.22.6(ts-node@9.1.1)(typescript@5.5.4):
-    resolution: {integrity: sha512-abFEnd9QACwEtSvZZGSmzvw7N3zhQN1cDKz5SLHAupfG24qTHofCjqvD5kT5Wwsq5XOL0ON1Mq5rr4v0XX5ciw==}
+  /hardhat@2.22.7(ts-node@9.1.1)(typescript@5.5.4):
+    resolution: {integrity: sha512-nrXQAl+qUr75TsCLDo8P41YXLc+5U7qQMMCIrbbmy1/uQaVPncdjDrD5BR0CENvHRj7EBqO+JkofpozXoIfJKg==}
     hasBin: true
     peerDependencies:
       ts-node: '*'
@@ -22798,7 +22784,7 @@ packages:
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@metamask/eth-sig-util': 4.0.1
-      '@nomicfoundation/edr': 0.4.2
+      '@nomicfoundation/edr': 0.5.0
       '@nomicfoundation/ethereumjs-common': 4.0.4
       '@nomicfoundation/ethereumjs-tx': 5.0.4
       '@nomicfoundation/ethereumjs-util': 9.0.4
@@ -22894,7 +22880,6 @@ packages:
 
   /has-unicode@2.0.1:
     resolution: {integrity: sha512-8Rf9Y83NBReMnx0gFzA8JImQACstCYWUplepDa9xprwwtmgEZUF0h/i5xSA625zB/I37EtrswSST6OXxwaaIJQ==}
-    requiresBuild: true
 
   /has-yarn@2.1.0:
     resolution: {integrity: sha512-UqBRqi4ju7T+TqGNdqAO0PaSVGsDGJUBQvk9eUWNGRY1CFGDzYhLWoM7JQEemnlvVcv/YEmc2wNW8BC24EnUsw==}
@@ -23175,7 +23160,6 @@ packages:
   /https-proxy-agent@5.0.1:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
     engines: {node: '>= 6'}
-    requiresBuild: true
     dependencies:
       agent-base: 6.0.2
       debug: 4.3.5(supports-color@5.5.0)
@@ -23253,7 +23237,7 @@ packages:
   /i18next@23.11.5:
     resolution: {integrity: sha512-41pvpVbW9rhZPk5xjCX2TPJi2861LEig/YRhUkY+1FQ2IQPS0bKUDYnEqY8XPPbB48h1uIwLnP9iiEfuSl20CA==}
     dependencies:
-      '@babel/runtime': 7.25.0
+      '@babel/runtime': 7.24.7
 
   /iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -23330,8 +23314,8 @@ packages:
   /import-in-the-middle@1.7.1:
     resolution: {integrity: sha512-1LrZPDtW+atAxH42S6288qyDFNQ2YCty+2mxEPRtfazH6Z5QwkaBSTS2ods7hnVJioF6rkRfNoA6A/MstpFXLg==}
     dependencies:
-      acorn: 8.12.1
-      acorn-import-assertions: 1.9.0(acorn@8.12.1)
+      acorn: 8.11.3
+      acorn-import-assertions: 1.9.0(acorn@8.11.3)
       cjs-module-lexer: 1.2.3
       module-details-from-path: 1.0.3
     dev: false
@@ -25273,7 +25257,6 @@ packages:
   /make-dir@3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
     engines: {node: '>=8'}
-    requiresBuild: true
     dependencies:
       semver: 6.3.1
 
@@ -25768,7 +25751,6 @@ packages:
   /minipass@3.3.6:
     resolution: {integrity: sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==}
     engines: {node: '>=8'}
-    requiresBuild: true
     dependencies:
       yallist: 4.0.0
 
@@ -25780,7 +25762,6 @@ packages:
   /minipass@5.0.0:
     resolution: {integrity: sha512-3FnjYuehv9k6ovOEbyOswadCDPX1piCfhV8ncmYtHOjuPwylVWsghTLo7rabjC3Rx5xD4HDx8Wm1xnMF7S5qFQ==}
     engines: {node: '>=8'}
-    requiresBuild: true
 
   /minipass@7.0.4:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
@@ -25794,7 +25775,6 @@ packages:
   /minizlib@2.1.2:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
     engines: {node: '>= 8'}
-    requiresBuild: true
     dependencies:
       minipass: 3.3.6
       yallist: 4.0.0
@@ -25822,12 +25802,11 @@ packages:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
     engines: {node: '>=10'}
     hasBin: true
-    requiresBuild: true
 
   /mlly@1.6.1:
     resolution: {integrity: sha512-vLgaHvaeunuOXHSmEbZ9izxPx3USsk8KCQ8iC+aTlp5sKRSoZvwhHh5L9VbKSaVC6sJDqbyohIS76E2VmHIPAA==}
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.11.3
       pathe: 1.1.2
       pkg-types: 1.0.3
       ufo: 1.4.0
@@ -26356,7 +26335,6 @@ packages:
     resolution: {integrity: sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==}
     engines: {node: '>=6'}
     hasBin: true
-    requiresBuild: true
     dependencies:
       abbrev: 1.1.1
 
@@ -26434,7 +26412,6 @@ packages:
 
   /npmlog@5.0.1:
     resolution: {integrity: sha512-AqZtDUWOMKs1G/8lwylVjrdYgqA4d9nu8hc+0gzRxlDb1I10+FHBGMXs6aiQHFdCUUlqH99MUMuLfzWDNDtfxw==}
-    requiresBuild: true
     dependencies:
       are-we-there-yet: 2.0.0
       console-control-strings: 1.1.0
@@ -28739,6 +28716,19 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
+  /rc-motion@2.9.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-QD4bUqByjVQs7PhUT1d4bNxvtTcK9ETwtg7psbDfo6TmYalH/1hhjj4r2hbhW7g5OOEqYHhfwfj4noIvuOVRtQ==}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    dependencies:
+      '@babel/runtime': 7.24.7
+      classnames: 2.5.1
+      rc-util: 5.43.0(react-dom@18.3.1)(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: true
+
   /rc-motion@2.9.2(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-fUAhHKLDdkAXIDLH0GYwof3raS58dtNUmzLF2MeiR8o6n4thNpSDQhOqQzWE4WfFZDCi9VEN8n7tiB7czREcyw==}
     peerDependencies:
@@ -28946,9 +28936,9 @@ packages:
       react-dom: '*'
     dependencies:
       '@babel/runtime': 7.24.7
-      '@rc-component/trigger': 2.2.0(react-dom@18.3.1)(react@18.3.1)
+      '@rc-component/trigger': 2.1.1(react-dom@18.3.1)(react@18.3.1)
       classnames: 2.5.1
-      rc-motion: 2.9.2(react-dom@18.3.1)(react@18.3.1)
+      rc-motion: 2.9.1(react-dom@18.3.1)(react@18.3.1)
       rc-overflow: 1.3.2(react-dom@18.3.1)(react@18.3.1)
       rc-util: 5.43.0(react-dom@18.3.1)(react@18.3.1)
       rc-virtual-list: 3.11.4(react-dom@18.3.1)(react@18.3.1)
@@ -29170,7 +29160,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.7
       classnames: 2.5.1
-      rc-motion: 2.9.2(react-dom@18.3.1)(react@18.3.1)
+      rc-motion: 2.9.1(react-dom@18.3.1)(react@18.3.1)
       rc-util: 5.43.0(react-dom@18.3.1)(react@18.3.1)
       rc-virtual-list: 3.14.2(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
@@ -30304,7 +30294,6 @@ packages:
   /rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
-    requiresBuild: true
     dependencies:
       glob: 7.2.3
 
@@ -30647,7 +30636,6 @@ packages:
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
-    requiresBuild: true
 
   /semver@7.3.7:
     resolution: {integrity: sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==}
@@ -30806,7 +30794,6 @@ packages:
       wkx: 0.5.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /serialize-javascript@6.0.2:
     resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
@@ -30984,7 +30971,6 @@ packages:
 
   /signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
-    requiresBuild: true
 
   /signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
@@ -31141,7 +31127,7 @@ packages:
       - debug
     dev: false
 
-  /solidity-coverage@0.8.12(hardhat@2.22.6):
+  /solidity-coverage@0.8.12(hardhat@2.22.7):
     resolution: {integrity: sha512-8cOB1PtjnjFRqOgwFiD8DaUsYJtVJ6+YdXQtSZDrLGf8cdhhh8xzTtGzVTGeBf15kTv0v7lYPJlV/az7zLEPJw==}
     hasBin: true
     peerDependencies:
@@ -31156,7 +31142,7 @@ packages:
       ghost-testrpc: 0.0.2
       global-modules: 2.0.0
       globby: 10.0.2
-      hardhat: 2.22.6(ts-node@9.1.1)(typescript@5.5.4)
+      hardhat: 2.22.7(ts-node@9.1.1)(typescript@5.5.4)
       jsonschema: 1.4.1
       lodash: 4.17.21
       mocha: 10.7.0
@@ -32165,7 +32151,6 @@ packages:
   /tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
-    requiresBuild: true
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
@@ -32544,7 +32529,7 @@ packages:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
       '@types/node': 20.14.2
-      acorn: 8.12.1
+      acorn: 8.11.3
       acorn-walk: 8.3.2
       arg: 4.1.3
       create-require: 1.1.1
@@ -34401,7 +34386,6 @@ packages:
 
   /wide-align@1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
-    requiresBuild: true
     dependencies:
       string-width: 4.2.3
 

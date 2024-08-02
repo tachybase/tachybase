@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-wechat-official-account",
-  "version": "0.21.75",
+  "version": "0.21.81",
   "keywords": [
     "Authentication"
   ],
@@ -12,11 +12,11 @@
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
-    "crypto": "^1.0.1",
     "jsonwebtoken": "^8.5.1",
     "koa-bodyparser": "^4.3.0",
     "qrcode.react": "^3.1.0",
     "react-router-dom": "^6.11.2",
+    "sequelize": "^6.37.3",
     "xml2js": "^0.6.2"
   },
   "peerDependencies": {
