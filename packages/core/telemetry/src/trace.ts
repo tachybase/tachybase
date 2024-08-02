@@ -9,6 +9,7 @@ export type TraceOptions = {
   tracerName?: string;
   version?: string;
   processorName?: string | string[];
+  resource?: Resource;
 };
 
 type GetSpanProcessor = () => SpanProcessor;
@@ -21,10 +22,17 @@ export class Trace {
   provider: NodeTracerProvider;
 
   constructor(options?: TraceOptions) {
-    const { processorName, tracerName, version } = options || {};
+    const { processorName, tracerName, version, resource } = options || {};
     this.processorName = processorName || 'console';
     this.tracerName = tracerName || 'tachybase-trace';
     this.version = version || '';
+    this.provider = new NodeTracerProvider({
+      resource,
+    });
+    this.provider.register();
+  }
+
+  init() {
     this.registerProcessor('console', () => new BatchSpanProcessor(new ConsoleSpanExporter()));
     // 初始化 OTLP 作为链路追踪 Processor
     const newOtlpExporter = new OTLPTraceExporter({
@@ -33,13 +41,6 @@ export class Trace {
     // NOTE: 开发时可替换 BatchSpanProcessor 为 SimpleSpanProcessor 以便监测数据实时上传，区别详见
     // https://opentelemetry.io/docs/languages/js/instrumentation/#picking-the-right-span-processor
     this.registerProcessor('otlp', () => new BatchSpanProcessor(newOtlpExporter));
-  }
-
-  init(resource: Resource) {
-    this.provider = new NodeTracerProvider({
-      resource,
-    });
-    this.provider.register();
   }
 
   registerProcessor(name: string, processor: GetSpanProcessor) {

@@ -17,6 +17,7 @@ export type MetricOptions = {
   meterName?: string;
   version?: string;
   readerName?: string | string[];
+  resource?: Resource;
 };
 
 type GetMetricReader = () => MetricReader;
@@ -30,10 +31,15 @@ export class Metric {
   views: View[] = [];
 
   constructor(options?: MetricOptions) {
-    const { meterName, readerName, version } = options || {};
+    const { meterName, readerName, version, resource } = options || {};
     this.readerName = readerName || 'console';
     this.meterName = meterName || 'tachybase-meter';
     this.version = version || '';
+    this.provider = new MeterProvider({ resource, views: this.views });
+    opentelemetry.metrics.setGlobalMeterProvider(this.provider);
+  }
+
+  init() {
     this.registerReader(
       'console',
       () =>
@@ -41,11 +47,6 @@ export class Metric {
           exporter: new ConsoleMetricExporter(),
         }),
     );
-  }
-
-  init(resource: Resource) {
-    this.provider = new MeterProvider({ resource, views: this.views });
-    opentelemetry.metrics.setGlobalMeterProvider(this.provider);
   }
 
   registerReader(name: string, reader: GetMetricReader) {
