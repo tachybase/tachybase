@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { ISchema, useFieldSchema } from '@tachybase/schema';
+import { ISchema, useFieldSchema, useForm } from '@tachybase/schema';
 
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
@@ -150,6 +150,38 @@ export const defaultSettingItems = [
               });
               dn.refresh();
             },
+          };
+        },
+      },
+      {
+        name: 'values',
+        type: 'modal',
+        useComponentProps() {
+          const form = useForm();
+          const { t } = useTranslation();
+          return {
+            width: '800px',
+            schema: () => {
+              return {
+                type: 'object',
+                title: t('Values'),
+                properties: {
+                  values: {
+                    type: 'string',
+                    title: '{{ t("Schema") }}',
+                    default: JSON.stringify(form.values, null, 2),
+                    'x-decorator': 'FormItem',
+                    'x-component': 'CodeMirror',
+                    'x-component-props': {
+                      defaultLanguage: 'JSON',
+                      height: '500px',
+                    },
+                  },
+                } as ISchema,
+              };
+            },
+            title: t('Values'),
+            onSubmit: () => {},
           };
         },
       },
