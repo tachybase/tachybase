@@ -16,15 +16,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 8.15.5
-        env:
-
-      - name: Install Node.js
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.12.0
+          node-version: 20.16.0
           registry-url: ${{ vars.REGISTRY_URL }}
           cache: 'pnpm'
       - name: Install deps
