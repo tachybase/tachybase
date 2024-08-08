@@ -939,5 +939,15 @@
   "Show Data":"显示数据",
   "Setting Down Title":"设置文件名称",
   "The current return type is not a document type":"当前返回类型不是文档类型",
-  "Test Data":"测试数据"
+  "Test Data":"测试数据",
+  "Custom filter field": "自定义筛选字段",
+  "Custom option label": "自定义选项标签",
+  "Add custom field":"添加自定义字段",
+  "Input":"文本",
+  "AutoComplete":"文本选择",
+  "Field collection":"选择数据",
+  "AssociationCascader":"关系型级联选择",
+  "Edit Collection":"修改数据",
+  "Field Component":"字段组件",
+  "Custom filter":"自定义筛选"
 }

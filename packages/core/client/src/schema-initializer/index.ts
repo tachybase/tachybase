@@ -119,6 +119,7 @@ import {
 } from './buttons';
 import * as initializerComponents from './components';
 import * as items from './items';
+import { FilterFormItemCustom } from './items';
 
 export * from './buttons';
 export * from './items';
@@ -176,6 +177,7 @@ export class SchemaInitializerPlugin extends Plugin {
       DisassociateActionInitializer,
       FilterActionInitializer,
       RefreshActionInitializer,
+      FilterFormItemCustom,
     } as any);
 
     this.app.schemaInitializerManager.add(blockInitializers_deprecated);

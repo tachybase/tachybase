@@ -1,34 +1,30 @@
 import React, { useMemo } from 'react';
-import {
-  __UNSAFE__DynamicComponentProps,
-  __UNSAFE__VariableOption,
-  __UNSAFE__VariablesContextType,
-  css,
-  FormBlockContext,
-  getShouldChange,
-  RecordProvider,
-  SchemaComponent,
-  useCollectionManager_deprecated,
-} from '@tachybase/client';
 import { ArrayCollapse } from '@tachybase/components';
 import { Form, observer, useField, useFieldSchema } from '@tachybase/schema';
 
+import { css } from 'antd-style';
+
+import { FormBlockContext } from '../../block-provider';
+import { useCollectionManager_deprecated } from '../../collection-manager';
+import { RecordProvider } from '../../record-provider';
+import { SchemaComponent } from '../../schema-component';
+import { DynamicComponentProps } from '../../schema-component/antd/filter/DynamicComponent';
+import { VariableOption, VariablesContextType } from '../../variables/types';
+import { getShouldChange, VariableInput } from '../VariableInput';
 import { FilterContext } from './context';
-import { VariableInput } from './VariableInput';
 
 interface usePropsReturn {
   options: any;
   defaultValues: any[];
   collectionName: string;
   form: Form;
-  variables: __UNSAFE__VariablesContextType;
-  localVariables: __UNSAFE__VariableOption | __UNSAFE__VariableOption[];
+  variables: VariablesContextType;
+  localVariables: VariableOption | VariableOption[];
   record: Record<string, any>;
   /**
    * create 表示创建表单，update 表示更新表单
    */
   formBlockType: 'create' | 'update';
-  fields: any;
 }
 
 interface Props {
@@ -40,7 +36,7 @@ export const FormFilterScope = observer(
   (props: Props) => {
     const fieldSchema = useFieldSchema();
     const { useProps, dynamicComponent } = props;
-    const { options, defaultValues, collectionName, form, formBlockType, variables, localVariables, record, fields } =
+    const { options, defaultValues, collectionName, form, formBlockType, variables, localVariables, record } =
       useProps();
     const { getAllCollectionsInheritChain } = useCollectionManager_deprecated();
     const components = useMemo(() => ({ ArrayCollapse }), []);
@@ -63,7 +59,7 @@ export const FormFilterScope = observer(
                   `,
                 };
               },
-              dynamicComponent: (props: __UNSAFE__DynamicComponentProps) => {
+              dynamicComponent: (props: DynamicComponentProps) => {
                 const { collectionField } = props;
                 return (
                   <VariableInput
@@ -77,7 +73,6 @@ export const FormFilterScope = observer(
                       localVariables,
                       getAllCollectionsInheritChain,
                     })}
-                    fields={fields}
                   />
                 );
               },
@@ -85,15 +80,20 @@ export const FormFilterScope = observer(
           },
         },
       }),
-      [collectionName, defaultValues, form, localVariables, options, props, record, variables, fields],
+      [collectionName, defaultValues, form, localVariables, options, props, record, variables],
     );
     const value = useMemo(
-      () => ({ field: options, fieldSchema, dynamicComponent, options: options || [] }),
+      () => ({
+        field: options,
+        fieldSchema,
+        dynamicComponent,
+        options: options || [],
+      }),
       [dynamicComponent, fieldSchema, options],
     );
 
     return (
-      <FormBlockContext.Provider value={{ form, type: formBlockType }}>
+      <FormBlockContext.Provider value={{ form, type: formBlockType, collectionName: collectionName }}>
         <RecordProvider record={record}>
           <FilterContext.Provider value={value}>
             <SchemaComponent components={components} schema={schema} />

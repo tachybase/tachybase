@@ -1,32 +1,4 @@
-import React, { memo, Profiler, useCallback, useContext, useMemo } from 'react';
-import {
-  ACLCollectionFieldProvider,
-  BlockItem,
-  css,
-  cx,
-  EditComponent,
-  EditDescription,
-  FormDialog,
-  FormItem,
-  GeneralSchemaDesigner,
-  gridRowColWrap,
-  HTMLEncode,
-  i18n,
-  SchemaComponent,
-  SchemaComponentOptions,
-  SchemaInitializerItem,
-  SchemaSettingsDataScope,
-  SchemaSettingsDivider,
-  Select,
-  useAPIClient,
-  useCollectionManager,
-  useCollectionManager_deprecated,
-  useCompile,
-  useDesignable,
-  useFormBlockContext,
-  useGlobalTheme,
-  useSchemaInitializerItem,
-} from '@tachybase/client';
+import React, { memo, useCallback, useContext, useMemo } from 'react';
 import { ArrayItems, FormLayout } from '@tachybase/components';
 import {
   Field,
@@ -37,22 +9,48 @@ import {
   uid,
   useField,
   useFieldSchema,
-  useForm,
 } from '@tachybase/schema';
 
-import { ConfigProvider, Radio, Space } from 'antd';
+import { ConfigProvider, Space } from 'antd';
 import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
 
-import { tval, useTranslation } from '../../locale';
+import { useAPIClient } from '../../api-client';
+import { SchemaInitializerItem, useSchemaInitializerItem } from '../../application';
+import { SchemaSettings } from '../../application/schema-settings/SchemaSettings';
+import { useFormBlockContext } from '../../block-provider';
+import { ACLCollectionFieldProvider } from '../../built-in/acl';
+import { useCollectionManager_deprecated } from '../../collection-manager';
+import { useCollectionManager } from '../../data-source';
+import { i18n } from '../../i18n';
 import {
-  EditDefaultValue,
-  EditFormulaTitleField,
+  BlockItem,
+  EditDescription,
   EditTitle,
   EditTitleField,
+  FormDialog,
+  FormItem,
+  HTMLEncode,
+  SchemaComponent,
+  SchemaComponentOptions,
+  Select,
+  useCompile,
+  useDesignable,
+} from '../../schema-component';
+import {
+  EditCustomDefaultValue,
+  EditFormulaTitleField,
+  GeneralSchemaDesigner,
   SchemaSettingCollection,
   SchemaSettingComponent,
+  SchemaSettingsCustomRemove,
+  SchemaSettingsDataScope,
+  SchemaSettingsDivider,
+  SchemaSettingsRemove,
 } from '../../schema-settings';
-import { SchemaSettingsRemove } from '../../schema-settings/SchemaSettingsRemove';
+import { css, cx } from '../../style';
+import { useGlobalTheme } from '../../style/theme';
+import { gridRowColWrap } from '../utils';
 
 const FieldComponentProps: React.FC = observer(
   (props) => {
@@ -228,7 +226,7 @@ export const FilterCustomItemInitializer: React.FC<{
                     },
                     associationField: {
                       type: 'string',
-                      title: tval('Association field'),
+                      title: t('Association field'),
                       'x-decorator': 'FormItem',
                       'x-component': 'Select',
                       'x-visible': false,
@@ -290,7 +288,7 @@ export const FilterCustomItemInitializer: React.FC<{
     });
     const { title, component, collection, associationField } = values;
     const defaultSchema = getInterface(component)?.default?.uiSchema || {};
-    const titleField = cm.getCollection(collection).titleField;
+    const titleField = cm.getCollection(collection)?.titleField;
     const name = uid();
     insert(
       gridRowColWrap({
@@ -300,7 +298,8 @@ export const FilterCustomItemInitializer: React.FC<{
         name: 'custom.' + name,
         required: false,
         'x-component': component,
-        'x-designer': 'FilterItemCustomDesigner',
+        'x-toolbar': 'FormItemSchemaToolbar',
+        'x-settings': 'fieldSettings:FilterFormCustomSettings',
         'x-decorator': 'FilterFormItem',
         'x-decorator-props': collection,
         'x-component-props': {
@@ -364,18 +363,9 @@ export const FilterItemCustomDesigner: React.FC = () => {
       {component === 'Select' || component === 'AutoComplete' ? <SchemaSettingComponent /> : null}
       {component === 'Select' || component === 'AutoComplete' ? <EditTitleField /> : null}
       {component === 'Select' || component === 'AutoComplete' ? <EditFormulaTitleField /> : null}
-      <EditDefaultValue />
+      <EditCustomDefaultValue />
       <SchemaSettingsDivider />
-      <SchemaSettingsRemove
-        key="remove"
-        confirm={{
-          title: t('Delete field'),
-        }}
-        removeParentsIfNoChildren
-        breakRemoveOn={{
-          'x-component': 'Grid',
-        }}
-      />
+      <SchemaSettingsRemove />
     </GeneralSchemaDesigner>
   );
 };

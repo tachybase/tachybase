@@ -558,23 +558,32 @@ export const EditTitleField = () => {
   const { t } = useTranslation();
   const { dn } = useDesignable();
   const compile = useCompile();
+  const collectionManage = useCollectionManager_deprecated();
+  const isCustomFilterItem = ((fieldSchema?.name as string) ?? '').startsWith('custom.');
+  const collectionManageField = isCustomFilterItem
+    ? collectionManage.collections.filter((value) => value.name === fieldSchema['x-decorator-props'])[0]
+    : {};
   const collectionField = getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field']);
-  const targetFields = collectionField?.target
-    ? getCollectionFields(collectionField?.target)
-    : getCollectionFields(collectionField?.targetCollection) ?? [];
+  let targetFields = [];
+  if (collectionField) {
+    targetFields = collectionField?.target
+      ? getCollectionFields(collectionField?.target)
+      : getCollectionFields(collectionField?.targetCollection) ?? [];
+  } else if (collectionManageField) {
+    targetFields = collectionManageField['fields'];
+  }
   const options = targetFields
     .filter((field) => !field?.target && field.type !== 'boolean')
     .map((field) => ({
       value: field?.name,
       label: compile(field?.uiSchema?.title) || field?.name,
     }));
-
-  return options.length > 0 && fieldSchema['x-component'] === 'CollectionField' ? (
+  return options.length > 0 && (fieldSchema['x-component'] === 'CollectionField' || isCustomFilterItem) ? (
     <SchemaSettingsSelectItem
       key="title-field"
       title={t('Title field')}
       options={options}
-      value={field?.componentProps?.fieldNames?.label}
+      value={fieldSchema['x-component-props']?.['fieldNames']?.label || 'id'}
       onChange={(label) => {
         const schema = {
           ['x-uid']: fieldSchema['x-uid'],
@@ -584,10 +593,11 @@ export const EditTitleField = () => {
           ...field.componentProps.fieldNames,
           label,
         };
+        if (isCustomFilterItem) fieldNames['value'] = label;
         fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
         fieldSchema['x-component-props']['fieldNames'] = fieldNames;
         schema['x-component-props'] = fieldSchema['x-component-props'];
-        field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
+        field.componentProps = fieldSchema['x-component-props'];
         dn.emit('patch', {
           schema,
         });

@@ -37,6 +37,12 @@ export const filterFormItemInitializers_deprecated = new CompatibleSchemaInitial
       Component: 'MarkdownFormItemInitializer',
       name: 'addText',
     },
+    {
+      title: '{{t("Custom filter field")}}',
+      name: 'custom',
+      type: 'item',
+      Component: 'FilterFormItemCustom',
+    },
   ],
 });
 
@@ -69,6 +75,12 @@ export const filterFormItemInitializers = new CompatibleSchemaInitializer(
         title: '{{t("Add text")}}',
         Component: 'MarkdownFormItemInitializer',
         name: 'addText',
+      },
+      {
+        title: '{{t("Custom filter field")}}',
+        name: 'custom',
+        type: 'item',
+        Component: 'FilterFormItemCustom',
       },
     ],
   },

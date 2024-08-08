@@ -23,6 +23,7 @@ import {
   detailsBlockSettings,
   singleDataDetailsBlockSettings,
 } from '../modules/blocks/data-blocks/details-single/detailsBlockSettings';
+import { FilterItemCustomSettings } from '../modules/blocks/data-blocks/form';
 import {
   createFormBlockSettings,
   creationFormBlockSettings,
@@ -95,6 +96,7 @@ export class SchemaSettingsPlugin extends Plugin {
 
     // field settings
     this.schemaSettingsManager.add(fieldSettingsFormItem);
+    this.schemaSettingsManager.add(FilterItemCustomSettings);
     this.schemaSettingsManager.add(tableColumnSettings);
     this.schemaSettingsManager.add(filterCollapseItemFieldSettings);
 

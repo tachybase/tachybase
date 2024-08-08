@@ -20,16 +20,19 @@ import { isInitializersSame, useApp } from '../../../application';
 import { usePlugin } from '../../../application/hooks';
 import { SchemaSettingOptions, SchemaSettings } from '../../../application/schema-settings';
 import { useSchemaToolbar } from '../../../application/schema-toolbar';
-import { useFormBlockContext } from '../../../block-provider';
+import { useFormBlockContext, useFormBlockType } from '../../../block-provider';
 import {
   joinCollectionName,
   useCollection_deprecated,
+  useCollectionFilterOptions,
   useCollectionManager_deprecated,
 } from '../../../collection-manager';
-import { DataSourceProvider, useDataSourceKey } from '../../../data-source';
+import { DataSourceProvider, useCollection, useDataSourceKey } from '../../../data-source';
 import { FlagProvider } from '../../../flag-provider';
 import { SaveMode } from '../../../modules/actions/submit/createSubmitActionSettings';
+import { useRecord } from '../../../record-provider';
 import { SchemaSettingOpenModeSchemaItems } from '../../../schema-items';
+import { FormFilterScope } from '../../../schema-settings/filter-form/FormFilterScope';
 import { GeneralSchemaDesigner } from '../../../schema-settings/GeneralSchemaDesigner';
 import { DefaultValueProvider } from '../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
 import {
@@ -41,6 +44,8 @@ import {
   SchemaSettingsRemove,
   SchemaSettingsSwitchItem,
 } from '../../../schema-settings/SchemaSettings';
+import { useSchemaTemplateManager } from '../../../schema-templates';
+import { useLocalVariables, useVariables } from '../../../variables';
 import { useLinkageAction } from './hooks';
 import { requestSettingsSchema } from './utils';
 
@@ -598,6 +603,93 @@ export function WorkflowConfig() {
   );
 }
 
+const findGridSchema = (fieldSchema) => {
+  return fieldSchema.reduceProperties((buf, s) => {
+    if (s['x-component'] === 'FormV2') {
+      const f = s.reduceProperties((buf, s) => {
+        if (s['x-component'] === 'Grid' || s['x-component'] === 'BlockTemplate') {
+          return s;
+        }
+        return buf;
+      }, null);
+      if (f) {
+        return f;
+      }
+    }
+    return buf;
+  }, null);
+};
+
+export const useSetFilterScopeVisible = () => {
+  const fieldSchema = useFieldSchema();
+  return (
+    fieldSchema['x-component-props']?.useProps === '{{ useFilterBlockActionProps }}' ||
+    fieldSchema['x-use-component-props'] === 'useFilterBlockActionProps'
+  );
+};
+
+export const SetFilterScope = (props) => {
+  const { t } = useTranslation();
+  const fieldSchema = useFieldSchema();
+  const { collectionName } = props;
+  const gridSchema = findGridSchema(fieldSchema) || fieldSchema;
+  const { form } = useFormBlockContext();
+  const type = props?.type || ['Action', 'Action.Link'].includes(fieldSchema['x-component']) ? 'button' : 'field';
+  const variables = useVariables();
+  const localVariables = useLocalVariables();
+  const record = useRecord();
+  const { type: formBlockType } = useFormBlockType();
+  const schema = useMemo<ISchema>(
+    () => ({
+      type: 'object',
+      title: t('Custom filter'),
+      properties: {
+        fieldReaction: {
+          'x-component': FormFilterScope,
+          'x-component-props': {
+            useProps: () => {
+              const options = useCollectionFilterOptions(collectionName);
+              return {
+                options,
+                defaultValues: gridSchema?.['x-filter-rules'] || fieldSchema?.['x-filter-rules'],
+                type,
+                collectionName,
+                form,
+                variables,
+                localVariables,
+                record,
+                formBlockType,
+              };
+            },
+          },
+        },
+      },
+    }),
+    [],
+  );
+  const { getTemplateById } = useSchemaTemplateManager();
+  const { dn } = useDesignable();
+  const onSubmit = useCallback(
+    (v) => {
+      const rules = v.fieldReaction.condition;
+      const templateId = gridSchema['x-component'] === 'BlockTemplate' && gridSchema['x-component-props'].templateId;
+      const uid = (templateId && getTemplateById(templateId).uid) || gridSchema['x-uid'];
+      const schema = {
+        ['x-uid']: uid,
+      };
+
+      gridSchema['x-filter-rules'] = rules;
+      schema['x-filter-rules'] = rules;
+      dn.emit('patch', {
+        schema,
+      });
+      dn.refresh();
+    },
+    [dn, getTemplateById, gridSchema],
+  );
+  return <SchemaSettingsModalItem title={t('Custom filter')} width={770} schema={schema} onSubmit={onSubmit} />;
+};
+
 export const actionSettingsItems: SchemaSettingOptions['items'] = [
   {
     name: 'Customize',
@@ -732,6 +824,17 @@ export const actionSettingsItems: SchemaSettingOptions['items'] = [
           const { name } = useCollection_deprecated();
           return {
             collectionName: name,
+          };
+        },
+      },
+      {
+        name: 'Customize.setFilterScope',
+        Component: SetFilterScope,
+        useVisible: useSetFilterScopeVisible,
+        useComponentProps() {
+          const collection = useCollection();
+          return {
+            collectionName: collection.name,
           };
         },
       },

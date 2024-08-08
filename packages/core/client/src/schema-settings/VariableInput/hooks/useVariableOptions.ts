@@ -4,6 +4,7 @@ import { Form, ISchema, Schema } from '@tachybase/schema';
 import { CollectionFieldOptions_deprecated } from '../../../collection-manager';
 import { useBlockCollection } from './useBlockCollection';
 import { useDatetimeVariable } from './useDateVariable';
+import { useFilterVariable } from './useFilterVariable';
 import { useCurrentFormVariable } from './useFormVariable';
 import { useCurrentObjectVariable } from './useIterationVariable';
 import { useCurrentParentRecordVariable } from './useParentRecordVariable';
@@ -96,6 +97,14 @@ export const useVariableOptions = ({
     targetFieldSchema,
   });
 
+  const { currentCustomFilterSetting, shouldDisplayCustomFilter } = useFilterVariable({
+    schema: uiSchema,
+    form,
+    collectionName: blockParentCollectionName,
+    collectionField,
+    targetFieldSchema,
+  });
+
   return useMemo(() => {
     return [
       currentUserSettings,
@@ -106,6 +115,7 @@ export const useVariableOptions = ({
       shouldDisplayCurrentRecord && currentRecordSettings,
       shouldDisplayCurrentParentRecord && currentParentRecordSettings,
       shouldDisplayPopupRecord && popupRecordSettings,
+      shouldDisplayCustomFilter && currentCustomFilterSetting,
     ].filter(Boolean);
   }, [
     currentUserSettings,
@@ -121,5 +131,7 @@ export const useVariableOptions = ({
     currentParentRecordSettings,
     shouldDisplayPopupRecord,
     popupRecordSettings,
+    currentCustomFilterSetting,
+    shouldDisplayCustomFilter,
   ]);
 };

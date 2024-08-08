@@ -10,7 +10,7 @@ import { fuzzysearch } from '../../utils';
 export const AutoComplete = connect((props) => {
   const { fieldNames, params: fieldFilter } = props;
   const fieldSchema = useFieldSchema();
-  const targetKey = fieldNames.value;
+  const targetKey = fieldNames?.value;
   const api = useAPIClient();
   const [defultOptions, setDefultOptions] = useState([]);
   const [options, setOptions] = useState([]);
