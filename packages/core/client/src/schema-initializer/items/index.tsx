@@ -21,3 +21,4 @@ export * from './RecordReadPrettyAssociationFormBlockInitializer';
 export * from './SelectActionInitializer';
 export * from './SubmitActionInitializer';
 export * from './TableActionColumnInitializer';
+export * from './CustomFilterFormItemInitializer';

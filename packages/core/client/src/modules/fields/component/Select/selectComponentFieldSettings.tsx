@@ -20,7 +20,13 @@ import {
   useTitleFieldOptions,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import { getShouldChange, VariableInput } from '../../../../schema-settings';
+import {
+  EditCustomDefaultValue,
+  EditFormulaTitleField,
+  getShouldChange,
+  useFormulaTitleVisible,
+  VariableInput,
+} from '../../../../schema-settings';
 import { useIsShowMultipleSwitch } from '../../../../schema-settings/hooks/useIsShowMultipleSwitch';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
 import { SchemaSettingsSortingRule } from '../../../../schema-settings/SchemaSettingsSortingRule';
@@ -380,6 +386,15 @@ export const selectComponentFieldSettings = new SchemaSettings({
         const readPretty = useIsFieldReadPretty();
         return useIsAssociationField() && readPretty;
       },
+    },
+    {
+      name: 'formulatitleField',
+      Component: EditFormulaTitleField,
+      useVisible: useFormulaTitleVisible,
+    },
+    {
+      name: 'editDefaultValue',
+      Component: EditCustomDefaultValue,
     },
   ],
 });

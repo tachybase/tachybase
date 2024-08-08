@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import { ObjectField, Schema } from '@tachybase/schema';
 
 export interface FilterContextProps {
@@ -8,8 +8,13 @@ export interface FilterContextProps {
   options?: any[];
   disabled?: boolean;
   collectionName?: string;
+  customFilter?: boolean;
 }
 
 export const RemoveConditionContext = createContext(null);
 export const FilterContext = createContext<FilterContextProps>(null);
 export const FilterLogicContext = createContext(null);
+
+export const useFilterContext = () => {
+  return useContext(FilterContext);
+};

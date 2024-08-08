@@ -22,7 +22,7 @@ import { useCollection_deprecated, useCollectionManager_deprecated } from '../..
 import { useFilterBlock } from '../../filter-provider/FilterProvider';
 import { mergeFilter, transformToFilter } from '../../filter-provider/utils';
 import { useRecord } from '../../record-provider';
-import { removeNullCondition, useActionContext, useCompile } from '../../schema-component';
+import { getCustomCondition, removeNullCondition, useActionContext, useCompile } from '../../schema-component';
 import { isSubMode } from '../../schema-component/antd/association-field/util';
 import { useCurrentUserContext } from '../../user';
 import { useLocalVariables, useVariables } from '../../variables';
@@ -393,7 +393,6 @@ export const useFilterBlockActionProps = () => {
   const { getCollectionJoinField } = useCollectionManager_deprecated();
 
   actionField.data = actionField.data || {};
-
   return {
     async onClick() {
       const { targets = [], uid } = findFilterTargets(fieldSchema);
@@ -407,16 +406,44 @@ export const useFilterBlockActionProps = () => {
             if (!target) return;
 
             const param = block.service.params?.[0] || {};
+            for (const key in form.values) {
+              if (
+                (typeof form.values[key] === 'object' &&
+                  (JSON.stringify(form.values[key]) === '{}' || JSON.stringify(form.values[key]) === '[]')) ||
+                !form.values[key]
+              ) {
+                delete form.values[key];
+              }
+            }
             // 保留原有的 filter
             const storedFilter = block.service.params?.[1]?.filters || {};
 
+            const filter = {
+              formValues: {},
+              customValues: {},
+              customFilter: {},
+            };
+
+            if (Object.keys(form.values)?.includes('custom')) {
+              const values = { ...form.values };
+              delete values['custom'];
+              filter.formValues = { ...values };
+              for (const key in form.values['custom']) {
+                if (form.values['custom'][key]) {
+                  filter.customValues[key] = form.values['custom'][key];
+                }
+              }
+              filter.customFilter = getCustomCondition(filter.customValues, fieldSchema);
+            }
+
             storedFilter[uid] = removeNullCondition(
-              transformToFilter(form.values, fieldSchema, getCollectionJoinField, name),
+              transformToFilter(filter.formValues, fieldSchema, getCollectionJoinField, name),
             );
 
             const mergedFilter = mergeFilter([
               ...Object.values(storedFilter).map((filter) => removeNullCondition(filter)),
               block.defaultFilter,
+              filter.customFilter,
             ]);
 
             if (block.dataLoadingMode === 'manual' && _.isEmpty(mergedFilter)) {

@@ -8,6 +8,7 @@ import { useBlockRequestContext } from '../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { mergeFilter } from '../../../filter-provider/utils';
 import { useDataLoadingMode } from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
+import { hasDuplicateKeys } from './utils';
 
 export const useGetFilterOptions = () => {
   const { getCollectionFields } = useCollectionManager_deprecated();
@@ -149,8 +150,42 @@ const isEmpty = (obj) => {
   );
 };
 
-export const removeNullCondition = (filter) => {
-  const items = flat(filter || {});
+export const getCustomCondition = (filter, fieldSchema, customFlat = flat) => {
+  const filterSchema = fieldSchema ? fieldSchema['x-filter-rules'] : '';
+  const filterSchemaItem = customFlat(filterSchema || '') as any;
+  const items = customFlat(filter || {}) as any;
+  const values = {};
+  const isCustomFilter = filterSchema?.$and?.length || filterSchema?.$or?.length;
+  const isFilterCustom = isCustomFilter ? hasDuplicateKeys(items, filterSchemaItem) : false;
+  if (!isFilterCustom) {
+    if (isCustomFilter) {
+      for (const filterKey in filterSchemaItem) {
+        const match = filterSchemaItem[filterKey]?.slice(11, -2);
+        const collection = match?.split('.')[0];
+        const filterItems = Object.keys(items).filter((item) => item.includes(collection))[0];
+        if (filterItems) {
+          filterSchemaItem[filterKey] = items[filterItems];
+        }
+      }
+      for (const item in filterSchemaItem) {
+        if (filterSchemaItem[item].includes('$nFilter')) {
+          delete filterSchemaItem[item];
+        }
+      }
+      const flatFieldSchema = customFlat.unflatten(filterSchemaItem);
+      flatFieldSchema['$and'] = flatFieldSchema?.['$and']?.filter(Boolean);
+      flatFieldSchema['$or'] = flatFieldSchema?.['$or']?.filter(Boolean);
+      return flatFieldSchema;
+    } else {
+      return customFlat.unflatten({});
+    }
+  } else {
+    return customFlat.unflatten(items);
+  }
+};
+
+export const removeNullCondition = (filter, customFlat = flat) => {
+  const items = customFlat(filter || {}) as any;
   const values = {};
   for (const key in items) {
     const value = items[key];
@@ -158,7 +193,7 @@ export const removeNullCondition = (filter) => {
       values[key] = value;
     }
   }
-  return flat.unflatten(values);
+  return customFlat.unflatten(values);
 };
 
 export const useFilterActionProps = () => {
@@ -179,7 +214,7 @@ export const useFilterFieldProps = ({ options, service, params }) => {
       // filter parameter for the block
       const defaultFilter = params.filter;
       // filter parameter for the filter action
-      const filter = removeNullCondition(values?.filter);
+      const filter = removeNullCondition(values?.filter) as any;
 
       if (dataLoadingMode === 'manual' && _.isEmpty(filter)) {
         return service.mutate(undefined);

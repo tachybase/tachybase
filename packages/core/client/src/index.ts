@@ -51,11 +51,3 @@ export * from 'react-i18next';
 export { useHotkeys } from 'react-hotkeys-hook';
 
 export * from './modules/blocks/useParentRecordCommon';
-
-export * as __UNSAFE__ from './unsafe';
-export type {
-  DynamicComponentProps as __UNSAFE__DynamicComponentProps,
-  VariablesContextType as __UNSAFE__VariablesContextType,
-  VariableOption as __UNSAFE__VariableOption,
-  Option as __UNSAFE__VariableInputOption,
-} from './unsafe';

@@ -1,4 +1,4 @@
-import { EditTitleField, Plugin } from '@tachybase/client';
+import { Plugin, useFormulaTitleVisible } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
 import { autorun, isValid, useFieldSchema } from '@tachybase/schema';
 
@@ -18,10 +18,8 @@ import { PluginAssistant } from './features/assistant';
 import { PluginGroupBlock } from './features/block-group';
 import { PluginContextMenu } from './features/context-menu';
 import { PluginCustomComponents } from './features/custom-components';
-import { PluginDemo } from './features/demo';
 import { DepartmentsPlugin } from './features/departments';
 import { EmbedPlugin } from './features/embed';
-import { PluginExtendedFilterForm } from './features/extended-filter-form';
 import { PluginFieldAppends } from './features/field-appends';
 import { PluginHeraVersion } from './features/hera-version';
 import { PluginOutbound } from './features/outbound';
@@ -45,14 +43,7 @@ import { AutoComplete } from './schema-components';
 import AssociationCascader from './schema-components/association-cascader/AssociationCascader';
 import { CreateSubmitActionInitializer, SettingBlockInitializer } from './schema-initializer';
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
-import {
-  EditFormulaTitleField,
-  EditTitle,
-  IsTablePageSize,
-  PageModeSetting,
-  useFormulaTitleVisible,
-  usePaginationVisible,
-} from './schema-settings';
+import { EditTitle, IsTablePageSize, PageModeSetting, usePaginationVisible } from './schema-settings';
 import { SchemaSettingsDatePickerType } from './schema-settings/SchemaSettingsDatePickerType';
 import {
   SchemaSettingsDatePresets,
@@ -77,7 +68,6 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginContextMenu);
     await this.app.pm.add(PluginAssistant);
     await this.app.pm.add(PluginPDF);
-    await this.app.pm.add(PluginExtendedFilterForm);
     await this.app.pm.add(PluginOutbound);
     // await this.app.pm.add(PluginModeHighlight);
     await this.app.pm.add(PluginFieldAppends);
@@ -107,10 +97,6 @@ export class PluginCoreClient extends Plugin {
         const v2 = usePaginationVisible();
         return v1 || v2;
       },
-    });
-    this.schemaSettingsManager.addItem('FormItemSettings', 'formulatitleField', {
-      Component: EditFormulaTitleField,
-      useVisible: useFormulaTitleVisible,
     });
     this.schemaSettingsManager.addItem('FormItemSettings', 'isTablePageSize', {
       Component: IsTablePageSize,
@@ -147,7 +133,6 @@ export class PluginCoreClient extends Plugin {
       CustomComponentStub,
       CustomField,
       EditTitle,
-      EditTitleField,
       Expression,
       PageLayout,
       SettingBlock: SettingBlockInitializer,

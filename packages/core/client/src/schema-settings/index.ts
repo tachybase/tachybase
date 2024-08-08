@@ -9,6 +9,10 @@ export * from './SchemaSettingsDataScope';
 export * from './SchemaSettingsDefaultValue';
 export * from './SchemaSettingsDateFormat';
 export * from './SchemaSettingsSortingRule';
+export * from './SchemaSettingCollection';
+export * from './SchemaSettingComponent';
+export * from './EditFormulaTitleField';
+export * from './EditCustomDefaultValue';
 
 export { default as useParseDataScopeFilter } from './hooks/useParseDataScopeFilter';
 

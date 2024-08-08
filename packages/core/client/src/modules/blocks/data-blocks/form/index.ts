@@ -11,3 +11,4 @@ export * from './formActionInitializers';
 export * from './formItemInitializers';
 export * from './updateFormActionInitializers';
 export * from './createEditFormBlockUISchema';
+export * from './FilterItemCustomSettings';

@@ -47,11 +47,13 @@ export const nextTick = (fn: () => void) => {
 };
 
 export function fuzzysearch(needle: string, haystack: string): boolean {
-  const hlen = haystack.length;
-  const nlen = needle.length;
-  if (nlen > hlen) {
+  if (!needle || !haystack) {
     return false;
   }
+
+  const hlen = haystack.length;
+  const nlen = needle.length;
+
   if (nlen === hlen) {
     return needle === haystack;
   }
