@@ -5,7 +5,6 @@
   "dependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "child_process": "^1.0.2",
-    "crypto": "^1.0.1",
     "fs": "0.0.1-security",
     "hardhat": "^2.22.6",
     "path": "^0.12.7",
