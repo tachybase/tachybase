@@ -1,5 +1,6 @@
+import { getNodeAutoInstrumentations } from '@tachybase/opentelemetry-auto-instrumentations';
+
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
-import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/instrumentation';
 import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
@@ -31,7 +32,6 @@ export class Telemetry {
   started = false;
 
   constructor(options?: TelemetryOptions) {
-    console.log('Create telemetry with options', options);
     const { trace, metric, serviceName, version } = options || {};
     this.serviceName = serviceName || 'tachybase-main';
     this.version = version || '';
@@ -46,7 +46,7 @@ export class Telemetry {
   }
 
   init() {
-    console.log('Start init telemetry', this.serviceName, this.version);
+    console.log(`Start init telemetry service ${this.serviceName}@${this.version}`);
 
     // 设置 OTel 日志等级
     const diagLogLevel = process.env.OTEL_LOG_LEVEL;
@@ -95,7 +95,9 @@ let _telemetry: Telemetry;
 
 let serviceName = process.env.TELEMETRY_SERVICE_NAME;
 if (!serviceName) {
-  console.warn('TELEMETRY_SERVICE_NAME is not set, will use default service name, please set it in .env file!');
+  if (telemetryOptions.enabled) {
+    console.warn('TELEMETRY_SERVICE_NAME is not set, will use default service name, please set it in .env file!');
+  }
   serviceName = `tachybase-main`;
 }
 
