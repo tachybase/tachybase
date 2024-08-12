@@ -236,6 +236,9 @@ export const ACLActionProvider = (props) => {
   if (!actionPath) {
     return <>{props.children}</>;
   }
+  if (!resource) {
+    return <>{props.children}</>;
+  }
   const params = parseAction(actionPath, { schema, recordPkValue });
   if (!params) {
     return <ACLActionParamsContext.Provider value={params}>{props.children}</ACLActionParamsContext.Provider>;

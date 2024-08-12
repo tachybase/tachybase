@@ -67,7 +67,6 @@ export const Action: ComposedAction = withDynamicSchemaProps(
     const designerProps = fieldSchema['x-designer-props'];
     const openMode = fieldSchema?.['x-component-props']?.['openMode'];
     const openSize = fieldSchema?.['x-component-props']?.['openSize'];
-
     const disabled = form.disabled || field.disabled || field.data?.disabled || propsDisabled;
     const linkageRules = useMemo(() => fieldSchema?.['x-linkage-rules'] || [], [fieldSchema]);
     const { designable } = useDesignable();
@@ -175,7 +174,6 @@ export const Action: ComposedAction = withDynamicSchemaProps(
       </ActionContextProvider>
     );
 
-    // fix /description
     if (addChild) {
       return wrapSSR(
         <RecordProvider record={null} parent={record}>

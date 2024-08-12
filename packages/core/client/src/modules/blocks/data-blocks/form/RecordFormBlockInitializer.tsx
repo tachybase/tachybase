@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
 
 import { FormOutlined } from '@ant-design/icons';
 
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 import { useBlockAssociationContext } from '../../../../block-provider';
 import { useCollection_deprecated } from '../../../../collection-manager';
+import { useAssociationName } from '../../../../data-source';
 import { useRecordCollectionDataSourceItems } from '../../../../schema-initializer/utils';
 import { useSchemaTemplateManager } from '../../../../schema-templates';
 import { createEditFormBlockUISchema } from './createEditFormBlockUISchema';
@@ -41,10 +43,10 @@ export const RecordFormBlockInitializer = () => {
 
 export function useCreateEditFormBlock() {
   const { insert } = useSchemaInitializer();
-  const association = useBlockAssociationContext();
-
+  const association = useAssociationName();
   const createEditFormBlock = useCallback(
     ({ item }) => {
+      const collectionName = item.collectionName || item.name;
       if (!association && item.associationField) {
         const field = item.associationField;
         insert(
@@ -63,7 +65,7 @@ export function useCreateEditFormBlock() {
                   isCurrent: true,
                 }
               : {
-                  collectionName: item.collectionName || item.name,
+                  collectionName,
                   dataSource: item.dataSource,
                 },
           ),

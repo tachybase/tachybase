@@ -8,6 +8,14 @@ type SchemaComponentOnChange = {
   onChange?: (s: Schema) => void;
 };
 
+interface DistributedProps {
+  /**
+   * 是否和父级隔离刷新
+   * @default false
+   */
+  distributed?: boolean;
+}
+
 function toSchema(schema?: any) {
   if (Schema.isSchemaInstance(schema)) {
     return schema;
@@ -55,7 +63,8 @@ const MemoizedSchemaComponent = (props: ISchemaFieldProps & SchemaComponentOnCha
 };
 
 export const SchemaComponent = (
-  props: (ISchemaFieldProps | IRecursionFieldProps) & { memoized?: boolean } & SchemaComponentOnChange,
+  props: (ISchemaFieldProps | IRecursionFieldProps) & { memoized?: boolean } & SchemaComponentOnChange &
+    DistributedProps,
 ) => {
   const { memoized, ...others } = props;
   if (memoized) {
