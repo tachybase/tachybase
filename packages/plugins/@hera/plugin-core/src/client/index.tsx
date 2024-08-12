@@ -39,8 +39,6 @@ import {
 import { TstzrangeFieldInterface } from './interfaces/TstzrangeFieldInterface';
 import { Locale, tval } from './locale';
 import { AdminLayout, DetailsPage, PageLayout } from './pages';
-import { AutoComplete } from './schema-components';
-import AssociationCascader from './schema-components/association-cascader/AssociationCascader';
 import { CreateSubmitActionInitializer, SettingBlockInitializer } from './schema-initializer';
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
 import { EditTitle, IsTablePageSize, PageModeSetting, usePaginationVisible } from './schema-settings';
@@ -122,9 +120,7 @@ export class PluginCoreClient extends Plugin {
 
     this.app.addComponents({
       AdminLayout,
-      AssociationCascader,
       AssociatedField,
-      AutoComplete,
       CalcResult,
       CodeMirror,
       CreateSubmitActionInitializer,
