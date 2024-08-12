@@ -29,7 +29,6 @@ export const SchemaInitializerItem = memo(
     const childrenItems = useSchemaInitializerMenuItems(items, name, onClick);
     const { componentCls, hashId } = useSchemaInitializerStyles();
     const { attribute } = useAriaAttributeOfMenuItem();
-
     const menuItems = useMemo(() => {
       if (!(items && items.length > 0)) return undefined;
       return [

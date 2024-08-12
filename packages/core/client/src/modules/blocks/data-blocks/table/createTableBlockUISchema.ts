@@ -15,7 +15,7 @@ export const createTableBlockUISchema = (options: {
   return {
     type: 'void',
     'x-decorator': 'TableBlockProvider',
-    'x-acl-action': `${collectionName}:list`,
+    'x-acl-action': `${association || collectionName}:list`,
     'x-use-decorator-props': 'useTableBlockDecoratorProps',
     'x-decorator-props': {
       collection: collectionName,
@@ -63,8 +63,16 @@ export const createTableBlockUISchema = (options: {
             'x-action-column': 'actions',
             'x-decorator': 'TableV2.Column.ActionBar',
             'x-component': 'TableV2.Column',
-            'x-designer': 'TableV2.ActionColumnDesigner',
+            'x-component-props': {
+              width: 150,
+              fixed: 'right',
+            },
+            'x-toolbar': 'TableColumnSchemaToolbar',
             'x-initializer': 'table:configureItemActions',
+            'x-designer': 'TableV2.ActionColumnDesigner',
+            'x-toolbar-props': {
+              initializer: 'table:configureItemActions',
+            },
             properties: {
               [uid()]: {
                 type: 'void',

@@ -5,6 +5,7 @@ import { FormOutlined } from '@ant-design/icons';
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 import { useBlockAssociationContext } from '../../../../block-provider';
 import { useCollection_deprecated } from '../../../../collection-manager';
+import { useAssociationName, useCollectionManager } from '../../../../data-source';
 import { useRecordCollectionDataSourceItems } from '../../../../schema-initializer/utils';
 import { useSchemaTemplateManager } from '../../../../schema-templates';
 import { createDetailsUISchema } from './createDetailsUISchema';
@@ -29,8 +30,7 @@ export const RecordReadPrettyFormBlockInitializer = () => {
 export function useCreateSingleDetailsSchema() {
   const { insert } = useSchemaInitializer();
   const { getTemplateSchemaByMode } = useSchemaTemplateManager();
-  const association = useBlockAssociationContext();
-
+  const association = useAssociationName();
   const templateWrap = useCallback(
     (templateSchema, options) => {
       const { item } = options;
@@ -38,7 +38,7 @@ export function useCreateSingleDetailsSchema() {
         const blockSchema = createDetailsUISchema(
           association
             ? {
-                association,
+                association: association,
                 dataSource: item.dataSource,
                 templateSchema: templateSchema,
                 isCurrent: true,

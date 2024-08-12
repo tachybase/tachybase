@@ -7,3 +7,4 @@ export * from './data-block';
 export * from './data-source';
 export * from './collection-record';
 export * from './utils';
+export * from './commonsSettingsItem';

@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 import { CompatibleSchemaInitializer } from '../../../application/schema-initializer/CompatibleSchemaInitializer';
+import { useCollection } from '../../../data-source/collection/CollectionProvider';
 import { gridRowColWrap } from '../../../schema-initializer/utils';
 
 /**
@@ -48,13 +51,36 @@ export const createFormBlockInitializers = new CompatibleSchemaInitializer(
         type: 'itemGroup',
         title: '{{t("Data blocks")}}',
         name: 'dataBlocks',
-        children: [
-          {
-            name: 'form',
-            title: '{{t("Form")}}',
-            Component: 'CreateFormBlockInitializer',
-          },
-        ],
+        useChildren() {
+          const currentCollection = useCollection();
+          const { t } = useTranslation();
+
+          return [
+            {
+              name: 'form',
+              title: '{{t("Form")}}',
+              Component: 'FormBlockInitializer',
+              collectionName: currentCollection.name,
+              dataSource: currentCollection.dataSource,
+              componentProps: {
+                filterCollections({ collection, associationField }) {
+                  if (associationField) {
+                    return false;
+                  }
+                  if (collection.name === currentCollection.name) {
+                    return true;
+                  }
+                },
+                showAssociationFields: true,
+                onlyCurrentDataSource: true,
+                hideSearch: true,
+                componentType: 'FormItem',
+                currentText: t('Current collection'),
+                otherText: t('Other collections'),
+              },
+            },
+          ];
+        },
       },
       {
         type: 'itemGroup',
