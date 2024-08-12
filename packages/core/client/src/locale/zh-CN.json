@@ -949,5 +949,6 @@
   "AssociationCascader":"关系型级联选择",
   "Edit Collection":"修改数据",
   "Field Component":"字段组件",
-  "Custom filter":"自定义筛选"
+  "Custom filter":"自定义筛选",
+  "Parent Association field":"父级关联字段"
 }

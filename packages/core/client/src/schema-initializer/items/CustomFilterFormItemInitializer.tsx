@@ -226,7 +226,7 @@ export const FilterCustomItemInitializer: React.FC<{
                     },
                     associationField: {
                       type: 'string',
-                      title: t('Association field'),
+                      title: t('Parent Association field'),
                       'x-decorator': 'FormItem',
                       'x-component': 'Select',
                       'x-visible': false,
