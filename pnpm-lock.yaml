@@ -1300,6 +1300,9 @@ importers:
       '@opentelemetry/semantic-conventions':
         specifier: ^1.19.0
         version: 1.25.1
+      '@opentelemetry/winston-transport':
+        specifier: ^0.5.0
+        version: 0.5.0
       '@tachybase/opentelemetry-auto-instrumentations':
         specifier: ^0.1.1
         version: 0.1.1(@opentelemetry/api@1.7.0)(encoding@0.1.13)
@@ -8154,6 +8157,10 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
+
+  '@opentelemetry/winston-transport@0.5.0':
+    resolution: {integrity: sha512-uPtnRgP4+CAQjns7TXdhJf46WGRj8kESmBWvm+4aVpvqHGfU7c+f0yzMx8o04+LyXXkoOqYeq54X0grEFtVtdw==}
+    engines: {node: '>=14'}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -16404,6 +16411,7 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qrcode.react@3.1.0:
@@ -24013,6 +24021,11 @@ snapshots:
     dependencies:
       '@opentelemetry/api': 1.7.0
       '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.7.0)
+
+  '@opentelemetry/winston-transport@0.5.0':
+    dependencies:
+      '@opentelemetry/api-logs': 0.52.1
+      winston-transport: 4.6.0
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
