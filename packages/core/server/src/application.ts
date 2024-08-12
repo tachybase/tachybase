@@ -458,10 +458,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       await this.cacheManager.close();
     }
 
-    if (this.telemetry.started) {
-      await this.telemetry.shutdown();
-    }
-
     const oldDb = this.db;
 
     this.init();
@@ -483,10 +479,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
       if (this.cacheManager) {
         await this.cacheManager.close();
-      }
-
-      if (this.telemetry.started) {
-        await this.telemetry.shutdown();
       }
 
       const oldDb = this.db;

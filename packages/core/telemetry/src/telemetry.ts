@@ -81,6 +81,11 @@ export class Telemetry {
     this.started = true;
   }
 
+  /**
+   * 关闭链路追踪和指标监控, NOTE: 一旦调用此方法，将无法再次启动，需要重新实例化
+   * @returns
+   * @memberof Telemetry
+   */
   async shutdown() {
     await Promise.all([this.trace.shutdown(), this.metric.shutdown()]);
     this.started = false;
