@@ -45,16 +45,14 @@ export class RecordService {
         records.map((item) => item.id),
         transaction,
       );
-      // 删除新建时创建的订单
-      await this.db.sequelize.query(
-        `
-          delete from records
-          where records.direct_record_id = ${model.id}
-        `,
-        {
-          transaction,
+      await this.db.getRepository('records').destroy({
+        filter: {
+          direct_record_id: {
+            $eq: model.id,
+          },
         },
-      );
+        transaction,
+      });
       const numbers = deleteDatas.map((item) => item.number);
       await this._createRecord(model, values, transaction, context, numbers);
     }
@@ -392,6 +390,9 @@ export class RecordService {
         purchaseData['number'] = numbers[0];
       }
       purchaseData.items.forEach((element) => {
+        element.fee_items?.forEach((feeItem) => {
+          delete feeItem.id;
+        });
         delete element.record_id;
         delete element.id;
       });
@@ -411,6 +412,9 @@ export class RecordService {
         leaseData['number'] = numbers[1];
       }
       leaseData.items.forEach((element) => {
+        element.fee_items?.forEach((feeItem) => {
+          delete feeItem.id;
+        });
         delete element.record_id;
         delete element.id;
       });
@@ -448,6 +452,9 @@ export class RecordService {
         leaseInData['number'] = numbers[0];
       }
       leaseInData.items.forEach((element) => {
+        element.fee_items?.forEach((feeItem) => {
+          delete feeItem.id;
+        });
         delete element.record_id;
         delete element.id;
       });
@@ -467,6 +474,9 @@ export class RecordService {
         leaseOutData['number'] = numbers[1];
       }
       leaseOutData.items.forEach((element) => {
+        element.fee_items?.forEach((feeItem) => {
+          delete feeItem.id;
+        });
         delete element.record_id;
         delete element.id;
       });
