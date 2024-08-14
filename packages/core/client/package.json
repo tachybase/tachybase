@@ -18,6 +18,7 @@
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@emotion/css": "^11.7.1",
+    "@sentry/react": "^8.25.0",
     "@tachybase/components": "workspace:*",
     "@tachybase/evaluators": "workspace:*",
     "@tachybase/schema": "workspace:*",

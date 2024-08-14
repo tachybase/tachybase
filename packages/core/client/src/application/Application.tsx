@@ -2,6 +2,7 @@ import React, { ComponentType, ReactElement } from 'react';
 import { define, observable } from '@tachybase/schema';
 import { APIClientOptions, getSubAppName } from '@tachybase/sdk';
 
+import * as Sentry from '@sentry/react';
 import { i18n as i18next } from 'i18next';
 import { get, merge, set } from 'lodash';
 import { createRoot } from 'react-dom/client';
@@ -273,6 +274,59 @@ export class Application {
       };
       console.error(error, this.error);
     }
+    if (process.env.APP_ENV === 'production') {
+      const dsn = process.env.SENTRY_DSN;
+      if (dsn) {
+        const integrations = [];
+        let tracesSampleRate = 1.0;
+        let tracePropagationTargets = ['localhost', /^\//];
+        if (process.env.SENTRY_TRACE_ENABLE === 'on') {
+          integrations.push(Sentry.browserTracingIntegration());
+          if (Number(process.env.SENTRY_TRACE_SAMPLE_RATE) >= 0 && Number(process.env.SENTRY_TRACE_SAMPLE_RATE) <= 1) {
+            tracesSampleRate = parseFloat(process.env.SENTRY_TRACE_SAMPLE_RATE);
+          }
+          if (process.env.SENTRY_TRACE_PROPAGATION_TARGETS) {
+            tracePropagationTargets = process.env.SENTRY_TRACE_PROPAGATION_TARGETS.split(',').map((target) => {
+              if (target.startsWith('/')) {
+                return new RegExp(target);
+              }
+              return target;
+            });
+          }
+        }
+        let replaysSessionSampleRate = 0.1;
+        let replaysOnErrorSampleRate = 1.0;
+        if (process.env.SENTRY_SESSION_REPLAY_ENABLE === 'on') {
+          integrations.push(Sentry.replayIntegration());
+          if (
+            Number(process.env.SENTRY_SESSION_REPLAY_SAMPLE_RATE) >= 0 &&
+            Number(process.env.SENTRY_SESSION_REPLAY_SAMPLE_RATE) <= 1
+          ) {
+            replaysSessionSampleRate = parseFloat(process.env.SENTRY_SESSION_REPLAY_SAMPLE_RATE);
+          }
+          if (
+            Number(process.env.SENTRY_SESSION_REPLAY_ONERROR_SAMPLE_RATE) >= 0 &&
+            Number(process.env.SENTRY_SESSION_REPLAY_ONERROR_SAMPLE_RATE) <= 1
+          ) {
+            replaysOnErrorSampleRate = parseFloat(process.env.SENTRY_SESSION_REPLAY_ON_ERROR_SAMPLE_RATE);
+          }
+        }
+        Sentry.init({
+          dsn,
+          integrations,
+          // Performance Monitoring
+          tracesSampleRate, //  Capture 100% of the transactions
+          // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
+          tracePropagationTargets,
+          // Session Replay
+          replaysSessionSampleRate, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
+          replaysOnErrorSampleRate, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
+        });
+      } else {
+        console.log('SENTRY_DSN is not set, Sentry will not be initialized');
+      }
+    }
+
     this.loading = false;
   }
 
