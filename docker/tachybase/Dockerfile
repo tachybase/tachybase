@@ -10,7 +10,7 @@ WORKDIR /app
 RUN npm config set registry $NPM_REGISTRY
 RUN npm i -g pnpm@9.7.0
 RUN pnpm config set registry $NPM_REGISTRY
-RUN pnpm install --shamefully-hoist --config.build_from_source=sqlite3
+RUN pnpm install --shamefully-hoist
 RUN pnpm build:p
 
 COPY ./docker/tachybase/docker-entrypoint.sh /app/
