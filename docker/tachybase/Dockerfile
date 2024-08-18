@@ -1,4 +1,4 @@
-FROM git.daoyoucloud.com/tachybase/base:latest as base
+FROM git.daoyoucloud.com/tachybase/base:latest AS base
 
 ARG NPM_REGISTRY=https://registry.npmjs.org
 ENV PNPM_HOME="/pnpm"
@@ -8,7 +8,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 COPY . /app
 WORKDIR /app
 RUN npm config set registry $NPM_REGISTRY
-RUN npm i -g pnpm@8.15.5
+RUN npm i -g pnpm@9.7.0
 RUN pnpm config set registry $NPM_REGISTRY
 RUN pnpm install --shamefully-hoist
 RUN pnpm build:p
