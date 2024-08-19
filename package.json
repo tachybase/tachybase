@@ -89,7 +89,8 @@
   },
   "pnpm": {
     "neverBuiltDependencies": [
-      "canvas"
+      "canvas",
+      "sqlite3"
     ],
     "overrides": {
       "@types/node": "20.14.2",
