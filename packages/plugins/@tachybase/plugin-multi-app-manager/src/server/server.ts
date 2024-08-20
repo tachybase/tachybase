@@ -4,6 +4,7 @@ import Application, { AppSupervisor, Gateway, Plugin } from '@tachybase/server';
 
 import lodash from 'lodash';
 
+import { NAMESPACE } from '../constants';
 import { ApplicationModel } from '../server';
 
 export type AppDbCreator = (app: Application, options?: Transactionable & { context?: any }) => Promise<void>;
@@ -58,6 +59,8 @@ const defaultSubAppUpgradeHandle: SubAppUpgradeHandler = async (mainApp: Applica
 const defaultDbCreator = async (app: Application) => {
   const databaseOptions = app.options.database as any;
   const { host, port, username, password, dialect, database } = databaseOptions;
+  const tmpl = app.options?.tmpl;
+  // NOTE: 数据库复制的实现暂时只支持 postgres
 
   if (dialect === 'mysql') {
     const mysql = require('mysql2/promise');
@@ -87,9 +90,37 @@ const defaultDbCreator = async (app: Application) => {
     await client.connect();
 
     try {
-      await client.query(`CREATE DATABASE "${database}"`);
+      if (tmpl) {
+        app.log.info(`create new app db ${database} with tmpl db ${tmpl}...`);
+        const tmplExists = await client.query(`SELECT 1 FROM pg_database WHERE datname='${tmpl}'`);
+        if (tmplExists.rows.length === 0) {
+          // 模板不存在，报错结束
+          const errMsg = `template database ${tmpl} not exists.`;
+          app.log.error(errMsg);
+          AppSupervisor.getInstance().setAppError(database, new Error(errMsg));
+        } else {
+          // 模板存在，需要先判断是否需要暂时转换为模板数据库，解除占用，禁止连接，然后开始复制，完成后撤销这些操作
+          const result = await client.query(`SELECT datistemplate FROM pg_database WHERE datname='${tmpl}'`);
+          const tmplDbIsTmpl = result.rows.length > 0 && result.rows[0].datistemplate;
+          if (!tmplDbIsTmpl) await client.query(`ALTER DATABASE "${tmpl}" IS_TEMPLATE true`);
+          await client.query(`ALTER DATABASE "${tmpl}" ALLOW_CONNECTIONS false`);
+          let tmplDbInUse = true;
+          do {
+            const tmp = await client.query(
+              `SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='${tmpl}' AND pid<>pg_backend_pid()`,
+            );
+            tmplDbInUse = tmp.rows.length > 0;
+          } while (tmplDbInUse);
+          await client.query(`CREATE DATABASE "${database}" WITH TEMPLATE "${tmpl}"`);
+          if (!tmplDbIsTmpl) await client.query(`ALTER DATABASE "${tmpl}" IS_TEMPLATE false`);
+          await client.query(`ALTER DATABASE "${tmpl}" ALLOW_CONNECTIONS true`);
+        }
+      } else {
+        await client.query(`CREATE DATABASE "${database}"`);
+      }
     } catch (e) {
-      console.log(e);
+      app.log.error(JSON.stringify(e));
+      AppSupervisor.getInstance().setAppError(database, e);
     }
 
     await client.end();
@@ -327,6 +358,7 @@ export class PluginMultiAppManager extends Plugin {
       actions: ['applications:*'],
     });
 
+    // 注入 APP 运行状态，替换 tmpl 为 displayName(name) 的格式
     this.app.resourcer.use(async (ctx, next) => {
       await next();
       const { actionName, resourceName, params } = ctx.action;
@@ -335,8 +367,59 @@ export class PluginMultiAppManager extends Plugin {
         for (const application of applications) {
           const appStatus = AppSupervisor.getInstance().getAppStatus(application.name, 'stopped');
           application.status = appStatus;
+          if (application.tmpl) {
+            const matchedApp = applications.find((app) => app.name === application.tmpl);
+            if (matchedApp) {
+              application.tmpl = `${matchedApp.displayName}(${application.tmpl})`;
+            } else {
+              application.tmpl = `Not Exists(${application.tmpl})`;
+            }
+          }
         }
       }
+    });
+
+    // 基于模板创建应用时防止使用不适配的数据库，防止存入不存在的模板
+    this.app.resourcer.use(async (ctx, next) => {
+      const { actionName, resourceName, params } = ctx.action;
+      if (actionName === 'create' && resourceName === 'applications') {
+        const tmpl = params.values?.tmpl;
+        if (tmpl) {
+          const dbType = (this.app.options.database as any).dialect;
+          if (dbType !== 'postgres') {
+            ctx.withoutDataWrapping = true;
+            ctx.status = 400;
+            ctx.body = {
+              errors: [
+                {
+                  message: ctx.t('This database does not support to create application using template', {
+                    ns: NAMESPACE,
+                  }),
+                },
+              ],
+            };
+            return;
+          }
+          const matchedApp = await this.db.getRepository('applications').find({
+            filter: {
+              name: tmpl,
+            },
+          });
+          if (matchedApp.length === 0) {
+            ctx.withoutDataWrapping = true;
+            ctx.status = 400;
+            ctx.body = {
+              errors: [
+                {
+                  message: ctx.t('Template not exists', { ns: NAMESPACE }),
+                },
+              ],
+            };
+            return;
+          }
+        }
+      }
+      await next();
     });
   }
 }

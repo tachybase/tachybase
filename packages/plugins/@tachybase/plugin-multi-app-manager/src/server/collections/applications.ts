@@ -29,6 +29,10 @@ export default defineCollection({
       name: 'preset',
     },
     {
+      type: 'string',
+      name: 'tmpl',
+    },
+    {
       type: 'boolean',
       name: 'pinned',
     },

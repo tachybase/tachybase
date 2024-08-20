@@ -13,6 +13,7 @@ export class ApplicationModel extends Model {
   registerToSupervisor(mainApp: Application, options: registerAppOptions) {
     const appName = this.get('name') as string;
     const preset = this.get('preset') as string;
+    const tmpl = this.get('tmpl') as string;
     const appModelOptions = (this.get('options') as any) || {};
 
     const appOptions = options.appOptionsFactory(appName, mainApp, preset);
@@ -20,6 +21,7 @@ export class ApplicationModel extends Model {
     const subAppOptions = {
       ...(merge(appOptions, appModelOptions) as object),
       name: appName,
+      tmpl,
     };
 
     return new Application(subAppOptions);
