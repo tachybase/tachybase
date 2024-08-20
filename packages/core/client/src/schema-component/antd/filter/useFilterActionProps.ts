@@ -162,19 +162,22 @@ export const getCustomCondition = (filter, fieldSchema, customFlat = flat) => {
       for (const filterKey in filterSchemaItem) {
         const match = filterSchemaItem[filterKey]?.slice(11, -2);
         const collection = match?.split('.')[0];
-        const filterItems = Object.keys(items).filter((item) => item.includes(collection))[0];
-        if (filterItems) {
-          filterSchemaItem[filterKey] = items[filterItems];
+        const filterItems = Object.keys(items).filter((item) => item.includes(collection));
+        if (filterItems.length > 1) {
+          filterSchemaItem[filterKey] = filterItems.map((key) => items[key]);
+        } else {
+          filterSchemaItem[filterKey] = items[filterItems[0]];
         }
       }
       for (const item in filterSchemaItem) {
-        if (filterSchemaItem[item].includes('$nFilter')) {
+        if (!filterSchemaItem[item] || filterSchemaItem[item].includes('$nFilter')) {
           delete filterSchemaItem[item];
         }
       }
       const flatFieldSchema = customFlat.unflatten(filterSchemaItem);
       flatFieldSchema['$and'] = flatFieldSchema?.['$and']?.filter(Boolean);
       flatFieldSchema['$or'] = flatFieldSchema?.['$or']?.filter(Boolean);
+
       return flatFieldSchema;
     } else {
       return customFlat.unflatten({});

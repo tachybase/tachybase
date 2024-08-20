@@ -508,36 +508,54 @@ export const EditOperator = () => {
           ['x-filter-operators']: storedOperators,
         };
         let componentProps = {};
-
+        const isCustom = (fieldSchema.name as string).includes('__custom');
         // 根据操作符的配置，设置组件的属性
         if (operator?.schema?.['x-component']) {
-          _.set(fieldSchema, 'x-component-props.component', operator.schema['x-component']);
-          _.set(field, 'componentProps.component', operator.schema['x-component']);
+          _.set(fieldSchema, isCustom ? 'x-component' : 'x-component-props.component', operator.schema['x-component']);
+          _.set(field, isCustom ? 'component' : 'componentProps.component', operator.schema['x-component']);
           field.reset();
           componentProps = {
             component: operator.schema['x-component'],
-            ...operator.schema['x-component-props'],
+            ...operator.schema?.['x-component-props'],
           };
-          dn.emit('patch', {
+          const dnSchema = {
             schema: {
               ['x-uid']: fieldSchema['x-uid'],
               ['x-component-props']: componentProps,
             },
-          });
+          };
+          if (isCustom) {
+            dnSchema.schema['x-component'] = operator.schema?.['x-component'];
+            dnSchema.schema['x-component-props']['component'] = fieldSchema['x-component-props']['component'];
+          }
+          dn.emit('patch', dnSchema);
         } else if (fieldSchema['x-component-props']?.component) {
-          _.set(fieldSchema, 'x-component-props.component', null);
-          _.set(field, 'componentProps.component', null);
+          _.set(
+            fieldSchema,
+            isCustom ? 'x-component' : 'x-component-props.component',
+            isCustom ? fieldSchema['x-component-props']?.component : null,
+          );
+          _.set(
+            field,
+            isCustom ? 'component' : 'componentProps.component',
+            isCustom ? fieldSchema['x-component-props']?.component : null,
+          );
+
           field.reset();
           componentProps = {
-            component: null,
-            ...operator.schema['x-component-props'],
+            component: isCustom ? fieldSchema['x-component-props']?.component : null,
+            ...operator.schema?.['x-component-props'],
           };
-          dn.emit('patch', {
+          const dnSchema = {
             schema: {
               ['x-uid']: fieldSchema['x-uid'],
               ['x-component-props']: componentProps,
             },
-          });
+          };
+          if (isCustom) {
+            dnSchema.schema['x-component'] = fieldSchema['x-component-props']?.component;
+          }
+          dn.emit('patch', dnSchema);
         }
 
         field.componentProps = componentProps;
@@ -559,7 +577,7 @@ export const EditTitleField = () => {
   const { dn } = useDesignable();
   const compile = useCompile();
   const collectionManage = useCollectionManager_deprecated();
-  const isCustomFilterItem = ((fieldSchema?.name as string) ?? '').startsWith('custom.');
+  const isCustomFilterItem = ((fieldSchema?.name as string) ?? '').startsWith('__custom.');
   const collectionManageField = isCustomFilterItem
     ? collectionManage.collections.filter((value) => value.name === fieldSchema['x-decorator-props'])[0]
     : {};

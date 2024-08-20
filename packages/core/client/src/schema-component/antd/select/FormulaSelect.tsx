@@ -27,9 +27,9 @@ const ObjectSelect = (props: Props) => {
   const form = useForm();
 
   useEffect(() => {
-    if (collectionName && fieldSchema['name'].toString().includes('custom') && defaultValue) {
+    if (collectionName && fieldSchema['name'].toString().includes('__custom') && defaultValue) {
       const name = fieldSchema['name'].toString().split('.')[1];
-      form.values['custom'][name] = defaultValue?.[fieldNames.value];
+      form.values['__custom'][name] = defaultValue?.[fieldNames.value];
     }
   }, []);
   const toValue = (v: any) => {
@@ -94,9 +94,9 @@ const ObjectSelect = (props: Props) => {
         } else {
           onChange?.(current.shift() || null);
         }
-        if (collectionName && fieldSchema['name'].toString().includes('custom')) {
+        if (collectionName && fieldSchema['name'].toString().includes('__custom')) {
           const name = fieldSchema['name'].toString().split('.')[1];
-          form.values['custom'][name] = changed?.['value'];
+          form.values['__custom'][name] = changed?.['value'];
         }
       }}
       mode={mode}
