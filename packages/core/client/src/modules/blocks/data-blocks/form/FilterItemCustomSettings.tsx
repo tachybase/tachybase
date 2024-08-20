@@ -12,7 +12,6 @@ import {
   FilterCustomVariableInput,
   SchemaSettingCollection,
   SchemaSettingComponent,
-  SchemaSettingsCustomRemove,
   SchemaSettingsDataScope,
 } from '../../../../schema-settings';
 
@@ -111,7 +110,7 @@ export const FilterItemCustomSettings = new SchemaSettings({
         const field = useField();
         const { dn } = useDesignable();
         const fieldName = fieldSchema['name'] as string;
-        const name = fieldName.includes('custom') ? fieldSchema['collectionName'] : fieldName;
+        const name = fieldName.includes('__custom') ? fieldSchema['collectionName'] : fieldName;
         return {
           collectionName: name,
           defaultFilter: fieldSchema?.['x-component-props']?.params?.filter || {},
@@ -133,8 +132,7 @@ export const FilterItemCustomSettings = new SchemaSettings({
       },
       useVisible() {
         const fieldSchema = useFieldSchema();
-        const component = fieldSchema['x-component'];
-        return component !== 'Input';
+        return fieldSchema?.['collectionName'];
       },
     },
     {
@@ -152,7 +150,8 @@ export const FilterItemCustomSettings = new SchemaSettings({
       useVisible() {
         const fieldSchema = useFieldSchema();
         const component = fieldSchema['x-component'];
-        return component === 'Select' || component === 'AutoComplete';
+        const items = ['Select', 'AutoComplete', 'Radio.Group', 'Checkbox.Group'];
+        return items.includes(component);
       },
     },
     {
@@ -167,7 +166,7 @@ export const FilterItemCustomSettings = new SchemaSettings({
         const { dn } = useDesignable();
         const compile = useCompile();
         const collectionManage = useCollectionManager_deprecated();
-        const isCustomFilterItem = ((fieldSchema?.name as string) ?? '').startsWith('custom.');
+        const isCustomFilterItem = ((fieldSchema?.name as string) ?? '').startsWith('__custom.');
         const collectionManageField = isCustomFilterItem
           ? collectionManage.collections.filter((value) => value.name === fieldSchema['x-decorator-props'])[0]
           : {};

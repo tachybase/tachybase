@@ -43,7 +43,6 @@ import {
   GeneralSchemaDesigner,
   SchemaSettingCollection,
   SchemaSettingComponent,
-  SchemaSettingsCustomRemove,
   SchemaSettingsDataScope,
   SchemaSettingsDivider,
   SchemaSettingsRemove,
@@ -58,20 +57,6 @@ const FieldComponentProps: React.FC = observer(
     const schema = {
       type: 'object',
       properties: {
-        mode: {
-          type: 'string',
-          enum: [
-            {
-              label: '{{ t("Single select") }}',
-              value: '',
-            },
-          ],
-          'x-decorator': 'FormItem',
-          'x-component': 'Radio.Group',
-          'x-component-props': {
-            defaultValue: '',
-          },
-        },
         options: {
           title: '{{t("Options")}}',
           type: 'array',
@@ -143,7 +128,9 @@ export const useFieldComponents = () => {
     { label: t('AutoComplete'), value: 'AutoComplete' },
     { label: t('Select'), value: 'Select' },
     { label: t('AssociationCascader'), value: 'AssociationCascader' },
-    // { label: t('CustomSelect***'), value: 'CustomSelect' },
+    { label: t('DatePicker'), value: 'DatePicker' },
+    { label: t('Radio group'), value: 'Radio.Group' },
+    { label: t('Checkbox group'), value: 'Checkbox.Group' },
   ];
   return {
     options,
@@ -249,6 +236,16 @@ export const FilterCustomItemInitializer: React.FC<{
                       'x-decorator': 'FormItem',
                       'x-component': 'FieldComponentProps',
                       'x-visible': false,
+                      'x-reactions': [
+                        {
+                          dependencies: ['component'],
+                          fulfill: {
+                            schema: {
+                              'x-visible': "{{$deps[0] === 'Radio.Group' || $deps[0]==='Checkbox.Group'}}",
+                            },
+                          },
+                        },
+                      ],
                     },
                   },
                 }}
@@ -286,35 +283,40 @@ export const FilterCustomItemInitializer: React.FC<{
         });
       },
     });
-    const { title, component, collection, associationField } = values;
+    const { title, component, collection, associationField, props } = values;
     const defaultSchema = getInterface(component)?.default?.uiSchema || {};
     const titleField = cm.getCollection(collection)?.titleField;
     const name = uid();
-    insert(
-      gridRowColWrap({
-        ...defaultSchema,
-        type: 'string',
-        title: title,
-        name: 'custom.' + name,
-        required: false,
-        'x-component': component,
-        'x-toolbar': 'FormItemSchemaToolbar',
-        'x-settings': 'fieldSettings:FilterFormCustomSettings',
-        'x-decorator': 'FilterFormItem',
-        'x-decorator-props': collection,
-        'x-component-props': {
-          ...(defaultSchema['x-component-props'] || {}),
-          fieldNames: {
-            label: titleField,
-            value: titleField,
-          },
-          associationField,
-          collection,
-          objectValue: true,
+    const schema = {
+      ...defaultSchema,
+      type: 'string',
+      title: title,
+      name: '__custom.' + name,
+      required: false,
+      'x-component': component,
+      'x-toolbar': 'FormItemSchemaToolbar',
+      'x-settings': 'fieldSettings:FilterFormCustomSettings',
+      'x-decorator': 'FilterFormItem',
+      'x-decorator-props': collection,
+      'x-component-props': {
+        ...(defaultSchema['x-component-props'] || {}),
+        fieldNames: {
+          label: titleField,
+          value: titleField,
         },
-        collectionName: collection,
-      }),
-    );
+        associationField,
+        collection,
+        objectValue: true,
+        component: component,
+        ...props,
+      },
+      collectionName: collection,
+    };
+    if (component === 'DatePicker') {
+      schema['x-settings'] = 'fieldSettings:FilterFormItem';
+      schema['x-designer-props'] = { interface: 'datetime' };
+    }
+    insert(gridRowColWrap(schema));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme]);
@@ -330,7 +332,7 @@ export const FilterItemCustomDesigner: React.FC = () => {
   const { t } = useTranslation();
   const fieldSchema = useFieldSchema();
   const fieldName = fieldSchema['name'] as string;
-  const name = fieldName.includes('custom') ? fieldSchema['collectionName'] : fieldName;
+  const name = fieldName.includes('__custom') ? fieldSchema['collectionName'] : fieldName;
   const { form } = useFormBlockContext();
   const field = useField();
   const { dn } = useDesignable();

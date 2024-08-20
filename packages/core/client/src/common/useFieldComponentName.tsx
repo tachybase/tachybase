@@ -25,5 +25,5 @@ export function useFieldComponentName(): string {
     field?.componentProps?.['mode'] ||
     (isFileField ? 'FileManager' : '') ||
     collectionField?.uiSchema?.['x-component'];
-  return map[fieldComponentName] || fieldComponentName;
+  return map[fieldComponentName] || fieldComponentName || fieldSchema['x-component-props']?.['component'];
 }

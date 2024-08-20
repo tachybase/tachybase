@@ -28,10 +28,10 @@ export const useFilterVariable = (props: any = {}) => {
       });
     }
     const options = customFields
-      .filter((value) => value?.props?.name.includes('custom.'))
+      .filter((value) => value?.props?.name.includes('__custom.'))
       .map((custom) => {
         if (activeFields.includes(custom?.props?.name)) {
-          const value = custom?.props?.name.replace(/^custom\./, '');
+          const value = custom?.props?.name.replace(/^__custom\./, '');
           return {
             key: custom?.props?.name,
             value,

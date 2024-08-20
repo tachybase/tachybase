@@ -423,14 +423,13 @@ export const useFilterBlockActionProps = () => {
               customValues: {},
               customFilter: {},
             };
-
-            if (Object.keys(form.values)?.includes('custom')) {
+            if (Object.keys(form.values)?.includes('__custom')) {
               const values = { ...form.values };
-              delete values['custom'];
+              delete values['__custom'];
               filter.formValues = { ...values };
-              for (const key in form.values['custom']) {
-                if (form.values['custom'][key]) {
-                  filter.customValues[key] = form.values['custom'][key];
+              for (const key in form.values['__custom']) {
+                if (form.values['__custom'][key]) {
+                  filter.customValues[key] = form.values['__custom'][key];
                 }
               }
               filter.customFilter = getCustomCondition(filter.customValues, fieldSchema);

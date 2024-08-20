@@ -15,7 +15,7 @@ export const filterFormItemInitializers_deprecated = new CompatibleSchemaInitial
   title: '{{t("Configure fields")}}',
   items: [
     {
-      type: 'itemGroup',
+      type: 'subMenu',
       name: 'displayFields',
       title: '{{t("Display fields")}}',
       useChildren: useFilterFormItemInitializerFields,
@@ -54,7 +54,7 @@ export const filterFormItemInitializers = new CompatibleSchemaInitializer(
     title: '{{t("Configure fields")}}',
     items: [
       {
-        type: 'itemGroup',
+        type: 'subMenu',
         name: 'displayFields',
         title: '{{t("Display fields")}}',
         useChildren: useFilterFormItemInitializerFields,

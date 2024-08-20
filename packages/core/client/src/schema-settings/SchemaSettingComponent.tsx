@@ -8,7 +8,19 @@ import { SchemaSettingsSelectItem } from './SchemaSettings';
 export const SchemaSettingComponent = () => {
   const fieldSchema = useFieldSchema();
   const field = useField();
-  const { options } = useFieldComponents();
+  const checkedItems = ['Radio.Group', 'Checkbox.Group'];
+  const component = fieldSchema['x-component'];
+  const options = useFieldComponents()
+    .options.map((item) => {
+      if (checkedItems.includes(component)) {
+        return checkedItems.includes(item.value) ? item : null;
+      } else {
+        return checkedItems.includes(item.value) || item.value === 'DatePicker' || item.value === 'AssociationCascader'
+          ? null
+          : item;
+      }
+    })
+    .filter(Boolean);
   const { dn } = useDesignable();
   return (
     <SchemaSettingsSelectItem
