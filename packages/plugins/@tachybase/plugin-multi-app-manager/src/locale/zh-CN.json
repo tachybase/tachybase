@@ -10,5 +10,10 @@
   "Auto start": "自动启动",
   "Start mode": "启动方式",
   "Start on first visit": "首次访问时启动",
-  "Start with main application": "随主应用一同启动"
+  "Start with main application": "随主应用一同启动",
+  "Preset": "预设",
+  "Template": "模板",
+  "App status": "应用状态",
+  "Template not exists": "模板不存在",
+  "This database does not support to create application using template": "该数据库不支持使用模板创建应用程序"
 }

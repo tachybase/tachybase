@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   SchemaComponentOptions,
-  tval,
   useActionContext,
   useRecord,
   useRequest,
@@ -119,13 +118,13 @@ export const formSchema: ISchema = {
     //   'x-content': i18nText('Standalone deployment'),
     // },
     'options.autoStart': {
-      title: tval('Start mode', { ns: '@tachybase/plugin-multi-app-manager' }),
+      title: i18nText('Start mode'),
       'x-component': 'Radio.Group',
       'x-decorator': 'FormItem',
       default: false,
       enum: [
-        { label: tval('Start on first visit', { ns: '@tachybase/plugin-multi-app-manager' }), value: false },
-        { label: tval('Start with main application', { ns: '@tachybase/plugin-multi-app-manager' }), value: true },
+        { label: i18nText('Start on first visit'), value: false },
+        { label: i18nText('Start with main application'), value: true },
       ],
     },
     cname: {
@@ -134,16 +133,31 @@ export const formSchema: ISchema = {
       'x-decorator': 'FormItem',
     },
     preset: {
-      title: tval('Preset', { ns: '@tachybase/plugin-multi-app-manager' }),
+      title: i18nText('Preset'),
       'x-component': 'Select',
       'x-decorator': 'FormItem',
       default: 'tachybase',
       required: true,
       enum: [
-        { label: tval('tachybase', { ns: '@tachybase/plugin-multi-app-manager' }), value: 'tachybase' },
-        { label: tval('hera-rental', { ns: '@tachybase/plugin-multi-app-manager' }), value: 'hera-rental' },
-        { label: tval('hera-sancongtou', { ns: '@tachybase/plugin-multi-app-manager' }), value: 'hera-sancongtou' },
+        { label: i18nText('tachybase'), value: 'tachybase' },
+        { label: i18nText('hera-rental'), value: 'hera-rental' },
+        { label: i18nText('hera-sancongtou'), value: 'hera-sancongtou' },
       ],
+    },
+    tmpl: {
+      title: i18nText('Template'),
+      'x-component': 'RemoteSelect',
+      'x-component-props': {
+        fieldNames: {
+          label: 'displayName',
+          value: 'name',
+        },
+        service: {
+          resource: 'applications',
+        },
+      },
+      'x-decorator': 'FormItem',
+      'x-disabled': '{{ !createOnly }}',
     },
     pinned: {
       'x-component': 'CollectionField',

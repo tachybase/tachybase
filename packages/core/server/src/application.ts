@@ -84,6 +84,7 @@ export interface ApplicationOptions {
   authManager?: AuthManagerOptions;
   perfHooks?: boolean;
   telemetry?: AppTelemetryOptions;
+  tmpl?: any;
 }
 
 export interface DefaultState extends KoaDefaultState {

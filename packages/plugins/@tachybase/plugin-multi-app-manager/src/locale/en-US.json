@@ -7,5 +7,13 @@
   "Custom domain": "Custom domain",
   "Manage applications": "Manage applications",
   "Standalone deployment": "Standalone deployment",
-  "Auto start": "Auto start"
+  "Auto start": "Auto start",
+  "Start mode": "Start mode",
+  "Start on first visit": "Start on first visit",
+  "Start with main application": "Start with main application",
+  "Preset": "Preset",
+  "Template": "Template",
+  "App status": "App status",
+  "Template not exists": "模板不存在",
+  "This database does not support to create application using template": "This database does not support to create application using template"
 }
