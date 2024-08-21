@@ -419,11 +419,11 @@ export const useFilterBlockActionProps = () => {
             const storedFilter = block.service.params?.[1]?.filters || {};
 
             const filter = {
-              formValues: {},
+              formValues: { ...form.values },
               customValues: {},
               customFilter: {},
             };
-            if (Object.keys(form.values)?.includes('__custom')) {
+            if (Object.keys(filter.formValues)?.includes('__custom')) {
               const values = { ...form.values };
               delete values['__custom'];
               filter.formValues = { ...values };
@@ -438,7 +438,6 @@ export const useFilterBlockActionProps = () => {
             storedFilter[uid] = removeNullCondition(
               transformToFilter(filter.formValues, fieldSchema, getCollectionJoinField, name),
             );
-
             const mergedFilter = mergeFilter([
               ...Object.values(storedFilter).map((filter) => removeNullCondition(filter)),
               block.defaultFilter,

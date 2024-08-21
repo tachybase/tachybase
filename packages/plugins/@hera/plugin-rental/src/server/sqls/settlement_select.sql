@@ -48,6 +48,17 @@ SELECT
         WHERE
           contracts."updatedById" = u.id
       )
+    ) || JSONB_SET(
+      TO_JSONB(contracts),
+      '{alternative_contract}',
+      (
+        SELECT
+          COALESCE(JSONB_AGG(c3), '{}'::jsonb)
+        FROM
+          contracts c3
+        WHERE
+          c3.id = settlements.contract_id
+      )
     )
   ) AS contracts,
   (
@@ -83,7 +94,17 @@ FROM
     settlement_items."type" = :type
     OR settlement_items."type" = 'fee'
   )
-  JOIN contracts ON contracts."id" = settlements.contract_id
+  JOIN contracts ON contracts."id" = (
+    SELECT
+      CASE
+        WHEN c.project_id IS NULL THEN c.alternative_contract_id
+        ELSE c.id
+      END AS result_id
+    FROM
+      contracts c
+    WHERE
+      c.id = settlements.contract_id
+  )
 WHERE
   settlements.id = :settlementsId
 GROUP BY

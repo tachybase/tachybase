@@ -58,8 +58,11 @@ export class SettlementController {
       type: QueryTypes.SELECT,
     });
     const utcOffset = ctx.get('X-Timezone');
-    const { calc, contracts } = await this.settlmentService.settlement(settlement as any, utcOffset);
-
+    const { calc, contracts: settlementContracts } = await this.settlmentService.settlement(
+      settlement as any,
+      utcOffset,
+    );
+    const contracts = { ...settlementContracts, ...settlementContracts['alternative_contract'][0] };
     const cache = ctx.app.cacheManager.getCache('@hera/plugin-rental') as Cache;
     const key = stringify({ calc, contracts, result: systemSetting });
 
@@ -98,7 +101,11 @@ export class SettlementController {
       type: QueryTypes.SELECT,
     });
     const utcOffset = ctx.get('X-Timezone');
-    const { calc, contracts } = await this.settlmentService.settlement(settlement as any, utcOffset);
+    const { calc, contracts: settlementContracts } = await this.settlmentService.settlement(
+      settlement as any,
+      utcOffset,
+    );
+    const contracts = { ...settlementContracts, ...settlementContracts['alternative_contract'][0] };
     const excel = { calc, contracts, result: systemSetting };
     ctx.body = excel;
   }
