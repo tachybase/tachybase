@@ -140,7 +140,7 @@ SELECT
           contract_items ci
           LEFT JOIN contract_plans cp ON ci.contract_plan_id = cp.id
         WHERE
-          ci.contract_id = COALESCE(main.id, c.id)
+          ci.contract_id = c.id
           AND ci.start_date IS NOT NULL
           AND ci.end_date IS NOT NULL
       )
