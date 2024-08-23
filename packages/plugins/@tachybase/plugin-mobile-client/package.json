@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-mobile-client",
   "displayName": "Mobile client",
-  "version": "0.21.85",
+  "version": "0.21.86",
   "description": "Provides the ability to configure mobile pages.",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
