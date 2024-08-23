@@ -78,7 +78,7 @@ const ColDivider = (props) => {
 
   useDndMonitor({
     onDragStart(event) {
-      if (!isDragging) {
+      if (event.active.data.current.dividerRef?.current !== dividerRef.current) {
         return;
       }
       dragIdRef.current = event.active.id as string;
