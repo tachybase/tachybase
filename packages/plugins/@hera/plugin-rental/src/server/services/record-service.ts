@@ -396,6 +396,10 @@ export class RecordService {
         delete element.record_id;
         delete element.id;
       });
+      purchaseData.group_weight_items?.forEach((groupItem) => {
+        delete groupItem.record_id;
+        delete groupItem.id;
+      });
       await this.db.getRepository('records').create({ values: purchaseData, transaction, context });
       // 2. 创建租赁出库单
       const leaseData = {
@@ -417,6 +421,10 @@ export class RecordService {
         });
         delete element.record_id;
         delete element.id;
+      });
+      leaseData.group_weight_items?.forEach((groupItem) => {
+        delete groupItem.record_id;
+        delete groupItem.id;
       });
       await this.db.getRepository('records').create({ values: leaseData, transaction, context });
     }
@@ -458,6 +466,11 @@ export class RecordService {
         delete element.record_id;
         delete element.id;
       });
+
+      leaseInData.group_weight_items?.forEach((groupItem) => {
+        delete groupItem.record_id;
+        delete groupItem.id;
+      });
       await this.db.getRepository('records').create({ values: leaseInData, transaction, context });
       // 2.创建租赁出库单
       const leaseOutData = {
@@ -479,6 +492,10 @@ export class RecordService {
         });
         delete element.record_id;
         delete element.id;
+      });
+      leaseOutData.group_weight_items?.forEach((groupItem) => {
+        delete groupItem.record_id;
+        delete groupItem.id;
       });
       await this.db.getRepository('records').create({ values: leaseOutData, transaction, context });
     }

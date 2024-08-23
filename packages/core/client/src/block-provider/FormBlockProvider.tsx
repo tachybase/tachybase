@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
-import { createForm, Form, Schema, useField } from '@tachybase/schema';
+import { createForm, Form, RecursionField, Schema, useField, useFieldSchema } from '@tachybase/schema';
 
 import { Spin } from 'antd';
 
@@ -11,7 +11,8 @@ import {
   useCollectionRecord,
 } from '../data-source';
 import { RecordProvider, useRecord } from '../record-provider';
-import { useActionContext } from '../schema-component';
+import { useActionContext, useDesignable } from '../schema-component';
+import { Templates as DataTemplateSelect } from '../schema-component/antd/form-v2/Templates';
 import { BlockProvider, useBlockRequestContext } from './BlockProvider';
 import { FormActiveFieldsProvider } from './hooks/useFormActiveFields';
 
@@ -84,7 +85,9 @@ const InternalFormBlockProvider = (props) => {
   return (
     <FormBlockContext.Provider value={formBlockValue}>
       <RecordProvider isNew={record?.isNew} parent={record?.parentRecord?.data} record={record?.data}>
-        <div ref={formBlockRef}>{props.children}</div>
+        <div ref={formBlockRef}>
+          <RenderChildrenWithDataTemplates form={form} />
+        </div>
       </RecordProvider>
     </FormBlockContext.Provider>
   );
@@ -163,7 +166,20 @@ export const useFormBlockProps = (shouldClearInitialValues = false) => {
   };
 };
 
-/**
+const RenderChildrenWithDataTemplates = ({ form }) => {
+  const FieldSchema = useFieldSchema();
+  const { findComponent } = useDesignable();
+  const field = useField();
+  const Component = findComponent(field.component?.[0]) || React.Fragment;
+  return (
+    <Component {...field.componentProps}>
+      <DataTemplateSelect style={{ marginBottom: 18 }} form={form} />
+      <RecursionField schema={FieldSchema} onlyRenderProperties />
+    </Component>
+  );
+};
+
+/**InternalFormBlockProvider
  * @internal
  */
 export const findFormBlock = (schema: Schema) => {
