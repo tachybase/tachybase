@@ -13,16 +13,7 @@ export const WorkflowColumn = observer(
     if (value?.enabled) {
       return title;
     } else {
-      return (
-        <span
-          className={css`
-            text-decoration: line-through;
-          `}
-          title={t('Disabled')}
-        >
-          {title}
-        </span>
-      );
+      return <span title={t('Disabled')}>{`${title}*`}</span>;
     }
   },
   { displayName: 'WorkflowColumn' },

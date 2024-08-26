@@ -1,7 +1,8 @@
 import actions, { utils } from '@tachybase/actions';
 
 import { PluginWorkflow } from '../../..';
-import { APPROVAL_ACTION_STATUS } from '../constants';
+import { ERROR_CODE_MAP } from '../constants/error-code';
+import { APPROVAL_ACTION_STATUS } from '../constants/status';
 
 export const approvalRecords = {
   async listCentralized(context, next) {
@@ -38,15 +39,24 @@ export const approvalRecords = {
     if (!approvalRecord) {
       return context.throw(404);
     }
-    if (
-      !approvalRecord.workflow.enabled ||
-      approvalRecord.execution.status ||
-      approvalRecord.job.status ||
-      approvalRecord.status !== APPROVAL_ACTION_STATUS.PENDING ||
-      (!needUpdateRecord && !(approvalRecord.node.config.actions ?? []).includes(status))
-    ) {
-      return context.throw(400);
+
+    // NOTE: 为了更改设定, 让切换版本后, 已经在进程中的审批流程也可以执行下去. 所以这里先注释掉.
+    // 原设定是, 切换版本后, 已经在流程中的, 置为未处理状态, 然后禁止继续执行.
+    switch (true) {
+      // case !approvalRecord.workflow.enabled:
+      //   return context.throw(400, ERROR_CODE_MAP['not_enable_workflow']);
+      case approvalRecord.execution.status:
+        return context.throw(400, ERROR_CODE_MAP['execution_finished']);
+      case approvalRecord.job.status:
+        return context.throw(400, ERROR_CODE_MAP['job_finished']);
+      case approvalRecord.status !== APPROVAL_ACTION_STATUS.PENDING:
+        return context.throw(400, ERROR_CODE_MAP['not_approval_pending']);
+      case !needUpdateRecord && !(approvalRecord.node.config.actions ?? []).includes(status):
+        return context.throw(400, ERROR_CODE_MAP['not_need_update']);
+      default:
+        break;
     }
+
     await approvalRecord.update({
       status: status,
       comment: data.comment,
