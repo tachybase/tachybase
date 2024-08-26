@@ -37,7 +37,8 @@ export function ApprovalFormBlockDecorator(props) {
     return createForm({
       initialValues: omitApproval,
       pattern:
-        !workflow?.enabled || execution?.status || job?.status || omitApproval?.status == null
+        // NOTE: 为了让过期版本也能走完正常流程, 去除 !workflow?.enabled  条件
+        execution?.status || job?.status || omitApproval?.status == null
           ? 'disabled'
           : omitApproval.status || data.data?.id !== omitApproval.userId
             ? 'readPretty'

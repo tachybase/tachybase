@@ -6,7 +6,7 @@ import { JOB_STATUS } from '../../constants';
 import Instruction from '../../instructions';
 import { toJSON } from '../../utils';
 import ApprovalTrigger from './ApprovalTrigger';
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
+import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants/status';
 
 const NEGOTIATION_MODE = {
   SINGLE: Symbol('single'),

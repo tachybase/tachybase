@@ -8,7 +8,7 @@ import { BelongsTo, HasOne, Op } from 'sequelize';
 import { EXECUTION_STATUS, JOB_STATUS } from '../../constants';
 import Trigger from '../../triggers';
 import { toJSON } from '../../utils';
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants';
+import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from './constants/status';
 import { getSummary } from './tools';
 
 const ExecutionStatusMap = {

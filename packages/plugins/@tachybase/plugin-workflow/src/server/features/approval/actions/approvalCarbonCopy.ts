@@ -2,7 +2,7 @@ import actions from '@tachybase/actions';
 import { Op } from '@tachybase/database';
 
 import { COLLECTION_WORKFLOWS_NAME } from '../../common/constants';
-import { APPROVAL_STATUS } from '../constants';
+import { APPROVAL_STATUS } from '../constants/status';
 import { findUniqueObjects } from '../utils';
 
 export const approvalCarbonCopy = {

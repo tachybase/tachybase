@@ -3,7 +3,7 @@ import { parseCollectionName } from '@tachybase/data-source-manager';
 import { traverseJSON } from '@tachybase/database';
 
 import { EXECUTION_STATUS, JOB_STATUS, PluginWorkflow } from '../../..';
-import { APPROVAL_STATUS } from '../constants';
+import { APPROVAL_STATUS } from '../constants/status';
 import { getSummary } from '../tools';
 import { getAssociationName, jsonParse } from '../utils';
 

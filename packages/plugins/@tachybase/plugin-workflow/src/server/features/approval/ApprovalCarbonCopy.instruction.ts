@@ -3,7 +3,7 @@ import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 import { JOB_STATUS } from '../../constants';
 import Instruction from '../../instructions';
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../common/constants';
-import { APPROVAL_STATUS } from './constants';
+import { APPROVAL_STATUS } from './constants/status';
 import { parsePerson } from './tools';
 
 export default class ApprovalCarbonCopyInstruction extends Instruction {

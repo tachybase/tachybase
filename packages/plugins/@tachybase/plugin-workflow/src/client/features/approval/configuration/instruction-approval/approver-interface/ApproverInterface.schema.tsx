@@ -66,7 +66,6 @@ export const ApproverInterfaceComponent = () => {
         value={{
           ...context,
           refresh: () => setId(uid()),
-          designable: !workflow.executed,
         }}
       >
         <RecordProvider record={{}} parent={false}>
