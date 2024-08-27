@@ -34,6 +34,7 @@ export class SettlementService {
      */
     let createLeasDatas = [];
     let createFeesDatas = [];
+    const ruleProduct = [];
     settlementAbout.contracts.rule_items?.forEach((ruleItem) => {
       if (
         dayjs(settlementAbout.start_date).isSameOrAfter(ruleItem.start_date, 'day') &&
@@ -61,7 +62,12 @@ export class SettlementService {
               const productLength = rule.products.length;
               let productCategory = 'category';
               if (productLength === 1) {
+                if (!ruleProduct.includes(rule.products[0].product_id)) ruleProduct.push(rule.products[0].product_id);
                 productCategory = rule.products[0].product_id > RulesNumber ? 'category' : 'product';
+              } else {
+                rule.products.forEach((item) => {
+                  if (!ruleProduct.includes(item.product_id)) ruleProduct.push(item.product_id);
+                });
               }
               settlementAbout.records.forEach((item) => {
                 //计算正常租赁订单
@@ -436,7 +442,6 @@ export class SettlementService {
             }
           }
         });
-
         // 产品产生的费用
         fee_rules?.forEach((rule) => {
           let conversion = false;
@@ -465,6 +470,15 @@ export class SettlementService {
                 dayjs(item.date).isBetween(ruleItem.start_date, ruleItem.end_date, 'day', '[]') &&
                 dayjs(item.date).isSameOrAfter(settlementAbout.start_date)
               ) {
+                const isRuleRecord = item.record_items
+                  ?.map((productItem) => {
+                    return ruleProduct.includes(productItem.product_id) ||
+                      ruleProduct.includes(productItem.product.category_id + RulesNumber)
+                      ? productItem
+                      : null;
+                  })
+                  .filter(Boolean);
+                if (!isRuleRecord.length) return;
                 if (rule.count_source === countCource.outProduct || rule.count_source === countCource.outItem) {
                   if (item.movement === '-1') {
                     data.movement = '-1';
@@ -494,7 +508,12 @@ export class SettlementService {
                     data.count += item.weight_items.length
                       ? item.weight_items.length
                         ? item.weight_items.reduce((sum, curr) => {
-                            return sum + curr.weight;
+                            const weight = isRuleRecord.filter(
+                              (productItem) => productItem.product.category_id === curr.product_category_id,
+                            ).length
+                              ? curr.weight
+                              : 0;
+                            return sum + weight;
                           }, 0)
                         : 0
                       : item.weight;
@@ -536,6 +555,15 @@ export class SettlementService {
               ) {
                 settlementAbout.records?.forEach((item) => {
                   if (dayjs(item.date).isBetween(settlementAbout.start_date, settlementAbout.end_date, 'day', '[]')) {
+                    const isRuleRecord = item.record_items
+                      ?.map((productItem) => {
+                        return ruleProduct.includes(productItem.product_id) ||
+                          ruleProduct.includes(productItem.product.category_id + RulesNumber)
+                          ? productItem
+                          : null;
+                      })
+                      .filter(Boolean);
+                    if (!isRuleRecord.length) return;
                     const feeItem = item?.record_items.filter(
                       (value) => value && value.product_id === rule.fee_product_id,
                     );
@@ -578,6 +606,15 @@ export class SettlementService {
                     dayjs(item.date).isBetween(ruleItem.start_date, ruleItem.end_date, 'day', '[]') &&
                     dayjs(item.date).isSameOrAfter(settlementAbout.start_date)
                   ) {
+                    const isRuleRecord = item.record_items
+                      ?.map((productItem) => {
+                        return ruleProduct.includes(productItem.product_id) ||
+                          ruleProduct.includes(productItem.product.category_id + RulesNumber)
+                          ? productItem
+                          : null;
+                      })
+                      .filter(Boolean);
+                    if (!isRuleRecord.length) return;
                     if (item.movement === '-1') {
                       item.record_items?.forEach((recordItem) => {
                         if (recordItem) {
@@ -609,6 +646,15 @@ export class SettlementService {
                     dayjs(item.date).isBetween(ruleItem.start_date, ruleItem.end_date, 'day', '[]') &&
                     dayjs(item.date).isSameOrAfter(settlementAbout.start_date)
                   ) {
+                    const isRuleRecord = item.record_items
+                      ?.map((productItem) => {
+                        return ruleProduct.includes(productItem.product_id) ||
+                          ruleProduct.includes(productItem.product.category_id + RulesNumber)
+                          ? productItem
+                          : null;
+                      })
+                      .filter(Boolean);
+                    if (!isRuleRecord.length) return;
                     if (item.movement === '1') {
                       item.record_items?.forEach((recordItem) => {
                         if (recordItem) {
@@ -640,6 +686,15 @@ export class SettlementService {
                     dayjs(item.date).isBetween(ruleItem.start_date, ruleItem.end_date, 'day', '[]') &&
                     dayjs(item.date).isSameOrAfter(settlementAbout.start_date)
                   ) {
+                    const isRuleRecord = item.record_items
+                      ?.map((productItem) => {
+                        return ruleProduct.includes(productItem.product_id) ||
+                          ruleProduct.includes(productItem.product.category_id + RulesNumber)
+                          ? productItem
+                          : null;
+                      })
+                      .filter(Boolean);
+                    if (!isRuleRecord.length) return;
                     item.record_items?.forEach((recordItem) => {
                       if (recordItem) {
                         const { count } = ruleCount(rule, item, recordItem);
