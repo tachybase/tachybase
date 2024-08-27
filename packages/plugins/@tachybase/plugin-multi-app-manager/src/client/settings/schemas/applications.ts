@@ -85,6 +85,15 @@ export const useDestroy = () => {
   };
 };
 
+export const useRefresh = () => {
+  const { refresh } = useResourceActionContext();
+  return {
+    run() {
+      refresh();
+    },
+  };
+};
+
 export const useDestroyAll = () => {
   const { state, setState, refresh } = useResourceActionContext();
   const { resource } = useResourceContext();
@@ -262,6 +271,15 @@ export const schema: ISchema = {
             },
           },
           properties: {
+            refresh: {
+              type: 'void',
+              title: '{{t("Refresh")}}',
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'ReloadOutlined',
+                useAction: useRefresh,
+              },
+            },
             delete: {
               type: 'void',
               title: '{{ t("Delete") }}',

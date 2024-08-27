@@ -15,5 +15,10 @@
   "Template": "模板",
   "App status": "应用状态",
   "Template not exists": "模板不存在",
-  "This database does not support to create application using template": "该数据库不支持使用模板创建应用程序"
+  "This database does not support to create application using template": "该数据库不支持使用模板创建应用程序",
+  "View": "查看",
+  "Start": "启动",
+  "Stop": "停止",
+  "Refresh": "刷新",
+  "Template is in use": "模板正在使用"
 }

@@ -6,9 +6,12 @@ import lodash from 'lodash';
 
 import { NAMESPACE } from '../constants';
 import { ApplicationModel } from '../server';
+import * as actions from './actions/apps';
+import { AppOptionsFactory, LazyLoadApplication, onAfterStart } from './app-lifecycle';
+import { appSelectorMiddleware, injectAppListMiddleware } from './middlewares';
 
 export type AppDbCreator = (app: Application, options?: Transactionable & { context?: any }) => Promise<void>;
-export type AppOptionsFactory = (appName: string, mainApp: Application, preset: string) => any;
+export type { AppOptionsFactory };
 export type SubAppUpgradeHandler = (mainApp: Application) => Promise<void>;
 
 const defaultSubAppUpgradeHandle: SubAppUpgradeHandler = async (mainApp: Application) => {
@@ -205,10 +208,12 @@ export class PluginMultiAppManager extends Plugin {
           context: options.context,
         });
 
-        const startPromise = subApp.runCommand('start', '--quickstart');
+        if ((options as any).values.options.autoStart) {
+          const startPromise = subApp.runCommand('start', '--quickstart');
 
-        if (options?.context?.waitSubAppInstall) {
-          await startPromise;
+          if (options?.context?.waitSubAppInstall) {
+            await startPromise;
+          }
         }
       },
     );
@@ -219,136 +224,14 @@ export class PluginMultiAppManager extends Plugin {
 
     const self = this;
 
-    async function LazyLoadApplication({
-      appSupervisor,
-      appName,
-      options,
-    }: {
-      appSupervisor: AppSupervisor;
-      appName: string;
-      options: any;
-    }) {
-      const loadButNotStart = options?.upgrading;
+    AppSupervisor.getInstance().setAppBootstrapper(LazyLoadApplication(self));
 
-      const name = appName;
-      if (appSupervisor.hasApp(name)) {
-        return;
-      }
+    Gateway.getInstance().addAppSelectorMiddleware(appSelectorMiddleware(this.app));
 
-      const applicationRecord = (await self.app.db.getRepository('applications').findOne({
-        filter: {
-          name,
-        },
-      })) as ApplicationModel | null;
-
-      if (!applicationRecord) {
-        return;
-      }
-
-      const instanceOptions = applicationRecord.get('options');
-
-      if (instanceOptions?.standaloneDeployment && appSupervisor.runningMode !== 'single') {
-        return;
-      }
-
-      if (!applicationRecord) {
-        return;
-      }
-
-      const subApp = applicationRecord.registerToSupervisor(self.app, {
-        appOptionsFactory: self.appOptionsFactory,
-      });
-
-      // must skip load on upgrade
-      if (!loadButNotStart) {
-        await subApp.runCommand('start', '--quickstart');
-      }
-    }
-
-    AppSupervisor.getInstance().setAppBootstrapper(LazyLoadApplication);
-
-    Gateway.getInstance().addAppSelectorMiddleware(async (ctx, next) => {
-      const { req } = ctx;
-
-      if (!ctx.resolvedAppName && req.headers['x-hostname']) {
-        const repository = this.db.getRepository('applications');
-        if (!repository) {
-          await next();
-          return;
-        }
-
-        const appInstance = await repository.findOne({
-          filter: {
-            cname: req.headers['x-hostname'],
-          },
-        });
-
-        if (appInstance) {
-          ctx.resolvedAppName = appInstance.name;
-        }
-      }
-
-      await next();
-    });
-
-    this.app.on('afterStart', async (app) => {
-      const repository = this.db.getRepository('applications');
-      const appSupervisor = AppSupervisor.getInstance();
-
-      this.app.setMaintainingMessage('starting sub applications...');
-
-      if (appSupervisor.runningMode == 'single') {
-        Gateway.getInstance().addAppSelectorMiddleware((ctx) => (ctx.resolvedAppName = appSupervisor.singleAppName));
-
-        // If the sub application is running in single mode, register the application automatically
-        try {
-          await AppSupervisor.getInstance().getApp(appSupervisor.singleAppName);
-        } catch (err) {
-          console.error('Auto register sub application in single mode failed: ', appSupervisor.singleAppName, err);
-        }
-        return;
-      }
-
-      try {
-        const subApps = await repository.find({
-          filter: {
-            'options.autoStart': true,
-          },
-        });
-
-        const promises = [];
-
-        for (const subAppInstance of subApps) {
-          promises.push(
-            (async () => {
-              if (!appSupervisor.hasApp(subAppInstance.name)) {
-                await AppSupervisor.getInstance().getApp(subAppInstance.name);
-              } else if (appSupervisor.getAppStatus(subAppInstance.name) === 'initialized') {
-                (await AppSupervisor.getInstance().getApp(subAppInstance.name)).runCommand('start', '--quickstart');
-              }
-            })(),
-          );
-        }
-
-        await Promise.all(promises);
-      } catch (err) {
-        console.error('Auto register sub applications failed: ', err);
-      }
-    });
+    this.app.on('afterStart', onAfterStart(this.db));
 
     this.app.on('afterUpgrade', async (app, options) => {
       await this.subAppUpgradeHandler(app);
-    });
-
-    this.app.resourcer.registerActionHandlers({
-      'applications:listPinned': async (ctx, next) => {
-        const items = await this.db.getRepository('applications').find({
-          filter: {
-            pinned: true,
-          },
-        });
-        ctx.body = items;
-      },
     });
 
     this.app.acl.allow('applications', 'listPinned', 'loggedIn');
@@ -358,68 +241,18 @@ export class PluginMultiAppManager extends Plugin {
       actions: ['applications:*'],
     });
 
-    // 注入 APP 运行状态，替换 tmpl 为 displayName(name) 的格式
-    this.app.resourcer.use(async (ctx, next) => {
-      await next();
-      const { actionName, resourceName, params } = ctx.action;
-      if (actionName === 'list' && resourceName === 'applications') {
-        const applications = ctx.body.rows;
-        for (const application of applications) {
-          const appStatus = AppSupervisor.getInstance().getAppStatus(application.name, 'stopped');
-          application.status = appStatus;
-          if (application.tmpl) {
-            const matchedApp = applications.find((app) => app.name === application.tmpl);
-            if (matchedApp) {
-              application.tmpl = `${matchedApp.displayName}(${application.tmpl})`;
-            } else {
-              application.tmpl = `Not Exists(${application.tmpl})`;
-            }
-          }
-        }
+    const injectAppList = injectAppListMiddleware();
+
+    this.app.use(async (ctx, next) => {
+      try {
+        await injectAppList(ctx, next);
+      } catch (error) {
+        ctx.logger.error(error);
       }
     });
 
-    // 基于模板创建应用时防止使用不适配的数据库，防止存入不存在的模板
-    this.app.resourcer.use(async (ctx, next) => {
-      const { actionName, resourceName, params } = ctx.action;
-      if (actionName === 'create' && resourceName === 'applications') {
-        const tmpl = params.values?.tmpl;
-        if (tmpl) {
-          const dbType = (this.app.options.database as any).dialect;
-          if (dbType !== 'postgres') {
-            ctx.withoutDataWrapping = true;
-            ctx.status = 400;
-            ctx.body = {
-              errors: [
-                {
-                  message: ctx.t('This database does not support to create application using template', {
-                    ns: NAMESPACE,
-                  }),
-                },
-              ],
-            };
-            return;
-          }
-          const matchedApp = await this.db.getRepository('applications').find({
-            filter: {
-              name: tmpl,
-            },
-          });
-          if (matchedApp.length === 0) {
-            ctx.withoutDataWrapping = true;
-            ctx.status = 400;
-            ctx.body = {
-              errors: [
-                {
-                  message: ctx.t('Template not exists', { ns: NAMESPACE }),
-                },
-              ],
-            };
-            return;
-          }
-        }
-      }
-      await next();
-    });
+    for (const [key, action] of Object.entries(actions)) {
+      this.app.resourcer.registerActionHandler(`applications:${key}`, action);
+    }
   }
 }

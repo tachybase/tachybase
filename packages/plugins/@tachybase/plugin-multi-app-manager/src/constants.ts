@@ -1,3 +1,1 @@
-import { name } from '../package.json';
-
-export const NAMESPACE = name;
+export const NAMESPACE = 'multi-app-manager';
