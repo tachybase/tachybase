@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
 
-import { NAMESPACE } from '../locale';
+import { NAMESPACE } from '../constants';
 import { AppManager } from './AppManager';
 import { MultiAppManagerProvider } from './MultiAppManagerProvider';
 

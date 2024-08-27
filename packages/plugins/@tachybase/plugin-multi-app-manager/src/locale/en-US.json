@@ -15,5 +15,10 @@
   "Template": "Template",
   "App status": "App status",
   "Template not exists": "模板不存在",
-  "This database does not support to create application using template": "This database does not support to create application using template"
+  "This database does not support to create application using template": "This database does not support to create application using template",
+  "View": "View",
+  "Start": "Start",
+  "Stop": "Stop",
+  "Refresh": "Refresh",
+  "Template is in use": "Template is in use"
 }

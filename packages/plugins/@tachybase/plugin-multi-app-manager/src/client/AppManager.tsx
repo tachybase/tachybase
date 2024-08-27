@@ -1,8 +1,9 @@
-import React from 'react';
-import { SchemaComponent, useApp, useRecord } from '@tachybase/client';
+import React, { useMemo } from 'react';
+import { SchemaComponent, useAPIClient, useApp, useRecord, useResourceActionContext } from '@tachybase/client';
 
-import { Card } from 'antd';
+import { Card, Divider, Space } from 'antd';
 
+import { NAMESPACE } from '../constants';
 import { schema } from './settings/schemas/applications';
 import { usePluginUtils } from './utils';
 
@@ -18,10 +19,40 @@ const useLink = () => {
 const AppVisitor = () => {
   const { t } = usePluginUtils();
   const link = useLink();
+  const record = useRecord();
+  const apiClient = useAPIClient();
+  const { refresh } = useResourceActionContext();
+  const resource = useMemo(() => {
+    return apiClient.resource('applications');
+  }, [apiClient]);
+  const handleStart = () => {
+    resource
+      .start({ filterByTk: record.name })
+      .then(() => {
+        refresh();
+      })
+      .catch((error) => {
+        refresh();
+      });
+  };
+  const handleStop = () => {
+    resource
+      .stop({ filterByTk: record.name })
+      .then(() => {
+        refresh();
+      })
+      .catch((error) => {
+        refresh();
+      });
+  };
   return (
-    <a href={link} target={'_blank'} rel="noreferrer">
-      {t('View', { ns: 'client' })}
-    </a>
+    <Space split={<Divider type="horizontal" />}>
+      <a href={link} target={'_blank'} rel="noreferrer">
+        {t('View', { ns: NAMESPACE })}
+      </a>
+      <a onClick={() => handleStart()}>{t('Start', { ns: NAMESPACE })}</a>
+      <a onClick={() => handleStop()}>{t('Stop', { ns: NAMESPACE })}</a>
+    </Space>
   );
 };
 
