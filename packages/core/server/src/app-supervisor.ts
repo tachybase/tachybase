@@ -127,7 +127,9 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
   async bootStrapApp(appName: string, options = {}) {
     await this.getMutexOfApp(appName).runExclusive(async () => {
       if (!this.hasApp(appName)) {
-        this.setAppStatus(appName, 'initializing');
+        if (!this.getAppStatus(appName)) {
+          this.setAppStatus(appName, 'initializing');
+        }
 
         if (this.appBootstrapper) {
           await this.appBootstrapper({
