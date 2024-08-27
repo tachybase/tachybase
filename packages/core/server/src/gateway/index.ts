@@ -219,11 +219,7 @@ export class Gateway extends EventEmitter {
     const handleApp = await this.getRequestHandleAppName(req as IncomingRequest);
     const log = this.getLogger(handleApp, res);
 
-    const hasApp = AppSupervisor.getInstance().hasApp(handleApp);
-
-    if (!hasApp) {
-      void AppSupervisor.getInstance().bootStrapApp(handleApp);
-    }
+    await AppSupervisor.getInstance().getApp(handleApp);
 
     let appStatus = AppSupervisor.getInstance().getAppStatus(handleApp, 'initializing');
 
