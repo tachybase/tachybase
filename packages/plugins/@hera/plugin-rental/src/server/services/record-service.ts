@@ -1,7 +1,14 @@
 import Database, { CreateOptions, MagicAttributeModel, Transaction } from '@tachybase/database';
 import { Db, Service } from '@tachybase/utils';
 
-import { ConversionLogics, Movement, RecordCategory, RecordTypes, settlementStatus } from '../../utils/constants';
+import {
+  ConversionLogics,
+  Movement,
+  ProjectCategory,
+  RecordCategory,
+  RecordTypes,
+  settlementStatus,
+} from '../../utils/constants';
 import validateLicensePlate from '../../utils/validateLIcensePlate';
 
 @Service()
@@ -160,7 +167,12 @@ export class RecordService {
         const associatedCompanyProject = await this.db
           .getRepository('project')
           .findOne({ where: { company_id: out_stock.company_id } });
-        in_stock = associatedCompanyProject;
+        //
+        if (out_stock.category !== ProjectCategory.companyWarehouse) {
+          in_stock = associatedCompanyProject;
+        } else {
+          in_stock = values.in_stock;
+        }
       } else if (values.category === RecordCategory.staging) {
         in_stock = values.in_stock;
         out_stock = values.out_stock;
