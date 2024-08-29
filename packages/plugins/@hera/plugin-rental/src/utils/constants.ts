@@ -234,4 +234,19 @@ export enum RecordTypes {
   rentOutStock = '5',
 }
 
+export enum ProjectCategory {
+  /**1:公司仓库 */
+  companyWarehouse = '1',
+  /**
+   * 2:项目仓库
+   */
+  projectWarehouse = '2',
+  /**3:租赁客户 */
+  rentalCustomers = '3',
+  /**4:同行客户 */
+  peerCustomers = '4',
+  /**5:供应商 */
+  supplier = '5',
+}
+
 export const RulesNumber = 99999;
