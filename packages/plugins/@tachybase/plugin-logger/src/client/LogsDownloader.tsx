@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo } from 'react';
-import { useAPIClient, useRequest } from '@tachybase/client';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { CodeMirror, css, useAPIClient, useRequest } from '@tachybase/client';
 
 import { FileOutlined, FolderOutlined } from '@ant-design/icons';
 import { useMemoizedFn } from 'ahooks';
@@ -46,12 +46,28 @@ export const LogsDownloader = React.memo((props) => {
   const [searchValue, setSearchValue] = React.useState('');
   const [autoExpandParent, setAutoExpandParent] = React.useState(true);
   const [checkedKeys, setCheckedKeys] = React.useState<string[]>([]);
+  const [checkedName, setCheckedName] = useState();
   const { data } = useRequest(() =>
     api
       .resource('logger')
       .list()
       .then((res) => res.data?.data),
   );
+  const { data: previewData, run } = useRequest(
+    {
+      url: 'logger:preview',
+      method: 'post',
+      data: { file: checkedName },
+    },
+    {
+      manual: true,
+    },
+  );
+  useEffect(() => {
+    if (checkedName) {
+      run();
+    }
+  }, [checkedName]);
   const data2tree = useCallback(
     (data: Log[], parent: string): DataNode[] =>
       data.map((log: Log, index: number) => {
@@ -186,31 +202,62 @@ export const LogsDownloader = React.memo((props) => {
       <Alert message={''} description={<Tips />} type="info" showIcon />
       <Input.Search style={{ marginTop: 16, width: '450px' }} placeholder={t('Search')} onChange={onSearch} />
       <div
-        style={{
-          maxHeight: '400px',
-          width: '450px',
-          overflow: 'auto',
-          border: '1px solid',
-          marginTop: '6px',
-          marginBottom: '10px',
-          borderColor: token.colorBorder,
-        }}
+        className={css`
+          display: flex;
+        `}
       >
-        {tree.length ? (
-          <Tree
-            checkable
-            showIcon
-            showLine
-            checkedKeys={checkedKeys}
-            expandedKeys={expandedKeys}
-            autoExpandParent={autoExpandParent}
-            onExpand={onExpand}
-            onCheck={(keys: any) => setCheckedKeys(keys)}
-            treeData={tree}
-          />
-        ) : (
-          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-        )}
+        <div
+          style={{
+            maxHeight: '400px',
+            width: '450px',
+            overflow: 'auto',
+            border: '1px solid',
+            marginTop: '6px',
+            marginBottom: '10px',
+            borderColor: token.colorBorder,
+          }}
+        >
+          {tree.length ? (
+            <Tree
+              checkable
+              showIcon
+              showLine
+              checkedKeys={checkedKeys}
+              expandedKeys={expandedKeys}
+              autoExpandParent={autoExpandParent}
+              onExpand={onExpand}
+              onCheck={(keys: any) => setCheckedKeys(keys)}
+              treeData={tree}
+              selectable={true}
+              onSelect={(selectedKeys, e: { selected: boolean; selectedNodes; node; event }) => {
+                if (!e.node.children) {
+                  const name = getTreeNodeName(tree, selectedKeys[0], 0, '');
+                  if (name) {
+                    setCheckedName(name);
+                  } else {
+                    setCheckedName(undefined);
+                  }
+                }
+              }}
+            />
+          ) : (
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          )}
+        </div>
+        <div
+          style={{
+            maxHeight: '400px',
+            overflow: 'auto',
+            border: '1px solid',
+            marginTop: '6px',
+            marginBottom: '10px',
+            borderColor: token.colorBorder,
+            width: '1005px',
+            marginLeft: '10px',
+          }}
+        >
+          {checkedName ? <CodeMirror value={previewData?.data} width="1000px" height="398px" /> : null}
+        </div>
       </div>
       <Button type="primary" onClick={Download}>
         {t('Download')} (.tar.gz)
@@ -219,3 +266,17 @@ export const LogsDownloader = React.memo((props) => {
   );
 });
 LogsDownloader.displayName = 'LogsDownloader';
+
+const getTreeNodeName = (tree, currSelectedKeys, currKey, path) => {
+  const selectedKeys = currSelectedKeys.split('-');
+  const key = selectedKeys[currKey];
+  let currPath = path;
+  if (currKey > 0) {
+    currPath += `/${tree[key].title}`;
+  }
+  if (currKey === selectedKeys.length - 1) {
+    return currPath;
+  }
+  if (!tree[key].children) return;
+  return getTreeNodeName(tree[key].children, currSelectedKeys, currKey + 1, currPath);
+};
