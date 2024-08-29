@@ -1,4 +1,4 @@
-import { Migration } from '../../../../../../core/server/src/migration';
+import { Migration } from '@tachybase/server';
 
 export default class extends Migration {
   on = 'beforeLoad'; // 'beforeLoad' or 'afterLoad'
