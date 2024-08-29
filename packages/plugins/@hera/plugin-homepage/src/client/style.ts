@@ -9,28 +9,27 @@ export const useStyles = createStyles(({ css }) => ({
     header {
       .headerStyle {
         width: 100%;
-        height: 60px;
-        background-color: #f7f7f7;
+        height: 80px;
         display: flex;
         align-items: center;
         border-radius: 8px;
-        box-shadow: 0 0 1px 1px #e3e3e3;
-        padding: 0px 10px 0px 15px;
+        padding: 0px 20px 0px 20px;
         .headerTitle {
           height: 60px;
           color: #6c6c6c;
           font-size: 20px;
           font-weight: 400;
-          line-height: 60px;
+          text-align: right;
         }
         ul {
           color: #6c6c6c;
           display: flex;
+          justify-content: space-evenly;
           align-items: center;
           height: 100%;
           margin-top: 0;
           margin-bottom: 0;
-          padding: 0 0 0 25px;
+          padding: 0 20px 0 20px;
           li {
             list-style: none;
             padding-left: 5px;
@@ -38,76 +37,45 @@ export const useStyles = createStyles(({ css }) => ({
             text-align: center;
             height: 100%;
             line-height: 60px;
+            cursor: pointer;
             &:hover {
-              background-color: #e3e3e3;
+              color: #3578e2;
             }
           }
           .active {
-            background-color: #e3e3e3;
+            color: #3578e2;
+          }
+        }
+        .ant-btn {
+          width: 70%;
+          height: 50px;
+          &:hover {
+            color: white;
           }
         }
       }
     }
     main {
-      padding: 20px 10px;
       height: 500px;
-      div {
-        height: 500px;
-        img {
-          width: 100%;
-          height: auto;
-        }
+      position: relative;
+      img {
+        width: 100%;
+        height: auto;
       }
-      .ant-carousel .slick-dots-bottom {
-        bottom: 50px;
-      }
-      .ant-carousel .slick-dots li {
-        width: 10px;
-        height: 10px;
-        border-radius: 50px;
-        border: 1px solid #ffffff;
-      }
-
-      .ant-carousel .slick-dots li button {
-        width: 10px;
-        height: 10px;
-        border-radius: 50px;
-        opacity: 0;
-      }
-      .ant-carousel .slick-dots li.slick-active button {
-        opacity: 1;
+      .ant-btn {
+        width: 10%;
+        height: 50px;
+        position: absolute;
+        top: 48%;
+        left: 56%;
+        border-radius: 20px;
       }
     }
     footer {
+      position: absolute;
+      bottom: -30px;
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-top: 22px;
-      a {
-        color: #3372af;
-      }
-      ul {
-        display: flex;
-        margin: 0;
-        bottom: 0;
-        li {
-          list-style: none;
-          a {
-            border-right: 1.5px solid black;
-            padding: 0 5px;
-          }
-          &:nth-last-child(1) a {
-            border-right: 0;
-          }
-        }
-      }
-      div {
-        a {
-          margin-left: 5px;
-        }
-      }
+      text-align: center;
     }
   `,
 }));
