@@ -8,4 +8,6 @@ export default {
     'Application, database, plugins and other system logs, the error level logs will be sent to',
   'SQL execution logs, printed by Sequelize when the db logging is enabled':
     'SQL execution logs, printed by Sequelize when the db logging is enabled',
+  'App not found': 'App not found',
+  'Permission denied': 'Permission denied',
 };

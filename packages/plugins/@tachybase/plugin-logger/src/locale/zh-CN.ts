@@ -8,4 +8,6 @@ export default {
     '应用、数据库、插件和其他系统日志，错误级别日志将会打印到',
   'SQL execution logs, printed by Sequelize when the db logging is enabled':
     'SQL 执行日志, 数据库日志启用时，Sequelize 打印的 SQL 执行日志',
+  'App not found': '应用不存在',
+  'Permission denied': '无权限',
 };

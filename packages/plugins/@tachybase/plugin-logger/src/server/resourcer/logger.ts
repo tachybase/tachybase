@@ -1,4 +1,4 @@
-import { readdir } from 'fs/promises';
+import { readdir, readFile } from 'fs/promises';
 import { join } from 'path';
 import stream from 'stream';
 import zlib from 'zlib';
@@ -38,23 +38,35 @@ export default {
   name: 'logger',
   actions: {
     list: async (ctx: Context, next: Next) => {
+      const appName = ctx.app.name;
+      if (!appName) {
+        ctx.throw(400, ctx.t('App not found'));
+      }
       const path = getLoggerFilePath();
-      const readDir = async (path: string) => {
+      const readDir = async (path: string, hasPermission: boolean) => {
         const fileTree = [];
         try {
           const files = await readdir(path, { withFileTypes: true });
           for (const file of files) {
             if (file.isDirectory()) {
-              const subFiles = await readDir(join(path, file.name));
+              let hasSubDirPermission = hasPermission;
+              if (hasSubDirPermission === undefined) {
+                hasSubDirPermission = appName === 'main' || file.name === appName;
+              }
+              const subFiles = await readDir(join(path, file.name), hasSubDirPermission);
               if (!subFiles.length) {
                 continue;
               }
-              fileTree.push({
-                name: file.name,
-                files: subFiles,
-              });
+              if (hasSubDirPermission) {
+                fileTree.push({
+                  name: file.name,
+                  files: subFiles,
+                });
+              }
             } else if (file.name.endsWith('.log')) {
-              fileTree.push(file.name);
+              if (hasPermission || appName === 'main' || file.name.startsWith(appName + '.')) {
+                fileTree.push(file.name);
+              }
             }
           }
           return fileTree;
@@ -63,11 +75,15 @@ export default {
           return [];
         }
       };
-      const files = await readDir(path);
+      const files = await readDir(path, undefined);
       ctx.body = files;
       await next();
     },
     download: async (ctx: Context, next: Next) => {
+      const appName = ctx.app.name;
+      if (!appName) {
+        ctx.throw(400, ctx.t('App not found'));
+      }
       let { files = [] } = ctx.action.params.values || {};
       const invalid = files.some((file: string) => !file.endsWith('.log'));
       if (invalid) {
@@ -75,7 +91,10 @@ export default {
       }
       files = files.map((file: string) => {
         if (file.startsWith('/')) {
-          return file.slice(1);
+          file = file.slice(1);
+        }
+        if (appName !== 'main' && !file.startsWith(appName)) {
+          ctx.throw(401, ctx.t('Permission denied'));
         }
         return file;
       });
@@ -85,6 +104,30 @@ export default {
       } catch (err) {
         ctx.log.error(`download error: ${err.message}`, { files, err: err.stack });
         ctx.throw(500, ctx.t('Download logs failed.'));
+      }
+      await next();
+    },
+    preview: async (ctx: Context, next: Next) => {
+      const appName = ctx.app.name;
+      if (!appName) {
+        ctx.throw(400, ctx.t('App not found'));
+      }
+      let { file } = ctx.action.params.values || {};
+      if (!file || !file.endsWith('.log')) {
+        ctx.throw(400, ctx.t('Invalid file type: ') + file);
+      }
+      if (file.startsWith('/')) {
+        file = file.slice(1);
+      }
+      if (appName !== 'main' && !file.startsWith(appName)) {
+        ctx.throw(401, ctx.t('Permission denied'));
+      }
+      try {
+        const path = getLoggerFilePath();
+        ctx.body = await readFile(join(path, file), { encoding: 'utf8' });
+      } catch (err) {
+        ctx.log.error(`preview error: ${err.message}`, { file, err: err.stack });
+        ctx.throw(500, ctx.t('Preview logs failed.'));
       }
       await next();
     },
