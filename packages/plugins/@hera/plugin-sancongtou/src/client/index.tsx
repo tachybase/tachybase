@@ -4,6 +4,7 @@ import { Plugin } from '@tachybase/client';
 import { ShareProduct } from './custom-components/ShareProduct';
 import { ShowDetail } from './custom-components/ShowDetail';
 import { CardDetailSC, SCCardDetail } from './pages/CardDetail.schema';
+import { TestPage } from './pages/testPage/testPage';
 import { getPathProductDetail } from './utils/path';
 
 export class PluginSancongtouClient extends Plugin {
@@ -47,6 +48,10 @@ export class PluginSancongtouClient extends Plugin {
         id: ':id',
       }),
       Component: CardDetailSC,
+    });
+    this.app.router.add('mobile.testPage', {
+      path: '/mobile/:name/detail/:dataSource/:collection',
+      Component: TestPage,
     });
   }
 }

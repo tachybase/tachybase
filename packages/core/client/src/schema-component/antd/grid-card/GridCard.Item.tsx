@@ -9,7 +9,7 @@ import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSche
 import { useCollection } from '../../../data-source';
 import { useCollectionParentRecordData } from '../../../data-source/collection-record/CollectionRecordProvider';
 import { RecordProvider } from '../../../record-provider';
-import { useGridCardDetailUrl } from './hooks';
+import { useGridCardDetailUrl, useGridCustomPageUrl } from './hooks';
 
 const useStyles = createStyles(({ css }) => {
   return {
@@ -42,7 +42,7 @@ export const GridCardItem = withDynamicSchemaProps((props) => {
   const parentRecordData = useCollectionParentRecordData();
   const navigate = useNavigate();
   const { styles } = useStyles();
-  const detailUrl = useGridCardDetailUrl({ collection, field, fieldSchema });
+  const detailUrl = useGridCustomPageUrl({ field, fieldSchema });
   // XXX: 实现的有些丑陋, 需要想想有没有更好的办法
   const handleClick = () => {
     // 1. 依赖schema的层级,不合适

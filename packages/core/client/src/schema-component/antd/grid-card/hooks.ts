@@ -20,3 +20,15 @@ export const useGridCardDetailUrl = ({ collection, field, fieldSchema }) => {
 
   return `/mobile/${name}/${datasource}/${collectionName}/${primaryKeyValue}`;
 };
+
+export const useGridCustomPageUrl = ({ field, fieldSchema }) => {
+  const { linkCollection, fields, linkDataSource, link } =
+    fieldSchema?.parent?.parent?.['x-decorator-props']?.['linkConfig'] || {};
+  const { record } = field;
+  let options = '?';
+  fields.forEach((item, index) => {
+    if (!record[item]) return;
+    return (options += `${index === 0 ? '' : '&'}${item}=${record[item]}`);
+  });
+  return `${link}/${linkDataSource}/${linkCollection}${options}`;
+};

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useCollection, useCollectionFields, useCollectionManager, useDataSource } from '@tachybase/client';
 import { ArrayItems } from '@tachybase/components';
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
 
@@ -7,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
-import { useCollection_deprecated, useSortFields } from '../../../../collection-manager';
+import { useCollection_deprecated, useCollectionFieldsOptions, useSortFields } from '../../../../collection-manager';
 import { removeNullCondition, useDesignable } from '../../../../schema-component';
 import {
   defaultColumnCount,
@@ -301,6 +302,10 @@ export const gridCardBlockSettings = new SchemaSettings({
           },
         };
       },
+      useVisible() {
+        const fieldSchema = useFieldSchema();
+        return fieldSchema['x-decorator-props']?.['linkConfig']?.['link'];
+      },
     },
     {
       name: 'setInfiniteScroll',
@@ -321,6 +326,58 @@ export const gridCardBlockSettings = new SchemaSettings({
                 ['x-uid']: fieldSchema['x-uid'],
                 'x-decorator-props': fieldSchema['x-decorator-props'],
               },
+            });
+          },
+        };
+      },
+    },
+    {
+      name: 'setLinkConfig',
+      type: 'modal',
+      useComponentProps() {
+        const { t } = useTranslation();
+        const collection = useCollection();
+        const fieldSchema = useFieldSchema();
+        const fields = useSortFields(fieldSchema['x-decorator-props']?.['collection'] || collection.name);
+        const { dn } = useDesignable();
+        const dataSource = useDataSource();
+        return {
+          title: t('Set LinkConfig'),
+          schema: {
+            type: 'object',
+            title: 'Set LinkConfig',
+            properties: {
+              link: {
+                type: 'string',
+                title: t('Link'),
+                required: true,
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+                default: fieldSchema['x-decorator-props']?.['linkConfig']?.['link'] || '',
+              },
+              fields: {
+                type: 'object',
+                title: t('Field'),
+                'x-decorator': 'FormItem',
+                'x-component': 'Select',
+                enum: fields,
+                default: fieldSchema['x-decorator-props']?.['linkConfig']?.['fields'] || null,
+                'x-component-props': {
+                  multiple: true,
+                },
+              },
+            },
+          },
+          onSubmit: (value) => {
+            fieldSchema['x-decorator-props']['linkConfig'] = {
+              ...fieldSchema['x-decorator-props']?.['linkConfig'],
+              link: value.link,
+              fields: value.fields,
+              linkDataSource: dataSource.key,
+              linkCollection: collection.name,
+            };
+            dn.emit('patch', {
+              schema: { 'x-uid': fieldSchema['x-uid'], 'x-decorator-props': fieldSchema['x-decorator-props'] },
             });
           },
         };
