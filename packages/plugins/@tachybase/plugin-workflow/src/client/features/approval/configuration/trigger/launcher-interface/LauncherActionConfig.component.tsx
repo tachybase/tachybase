@@ -50,7 +50,7 @@ export const LauncherActionConfigReSubmit = () => {
         'x-component-props': {
           ...actionProps,
           confirm: {
-            title: `{{t('resubmit', { ns: "${NAMESPACE}" })}}`,
+            title: `{{t('Resubmit', { ns: "${NAMESPACE}" })}}`,
             content: `{{t('Are you sure you want to resubmit it?', { ns: "${NAMESPACE}" })}}`,
           },
           useAction: '{{ useActionResubmit }}',
