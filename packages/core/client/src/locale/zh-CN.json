@@ -943,12 +943,13 @@
   "Custom filter field": "自定义筛选字段",
   "Custom option label": "自定义选项标签",
   "Add custom field":"添加自定义字段",
-  "Input":"文本",
-  "AutoComplete":"文本选择",
+  "Input":"输入框",
+  "AutoComplete":"输入框(自动补全)",
   "Field collection":"选择数据",
   "AssociationCascader":"关系型级联选择",
   "Edit Collection":"修改数据",
   "Field Component":"字段组件",
   "Custom filter":"自定义筛选",
-  "Parent Association field":"父级关联字段"
+  "Parent Association field":"父级关联字段",
+  "DatePicker":"日期选择器"
 }
