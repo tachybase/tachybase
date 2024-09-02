@@ -11,7 +11,9 @@ export const OpenInNewTab = () => {
   const app = useApp();
 
   const onOpenInNewTab = () => {
-    window.open(app.getRouteUrl('/mobile'));
+    const search = window.location;
+    const hash = search.hash.slice(search.hash.indexOf('/'));
+    window.open(app.getRouteUrl(hash));
   };
 
   return (

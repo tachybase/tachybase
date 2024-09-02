@@ -26,7 +26,7 @@ export const useGridCustomPageUrl = ({ field, fieldSchema }) => {
     fieldSchema?.parent?.parent?.['x-decorator-props']?.['linkConfig'] || {};
   const { record } = field;
   let options = '?';
-  fields.forEach((item, index) => {
+  fields?.forEach((item, index) => {
     if (!record[item]) return;
     return (options += `${index === 0 ? '' : '&'}${item}=${record[item]}`);
   });
