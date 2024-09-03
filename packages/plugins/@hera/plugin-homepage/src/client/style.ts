@@ -76,6 +76,9 @@ export const useStyles = createStyles(({ css }) => ({
       bottom: -30px;
       width: 100%;
       text-align: center;
+      .beian {
+        color: #000000;
+      }
     }
   `,
 }));
