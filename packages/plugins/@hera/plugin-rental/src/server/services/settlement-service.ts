@@ -485,7 +485,12 @@ export class SettlementService {
                     data.count += item.weight_items.length
                       ? item.weight_items.length
                         ? item.weight_items.reduce((sum, curr) => {
-                            return sum + curr.weight;
+                            const weight = isRuleRecord.filter(
+                              (productItem) => productItem.product.category_id === curr.product_category_id,
+                            ).length
+                              ? curr.weight
+                              : 0;
+                            return sum + weight;
                           }, 0)
                         : 0
                       : item.weight;
@@ -530,7 +535,12 @@ export class SettlementService {
                   data.count += item.weight_items.length
                     ? item.weight_items.length
                       ? item.weight_items.reduce((sum, curr) => {
-                          return sum + curr.weight;
+                          const weight = isRuleRecord.filter(
+                            (productItem) => productItem.product.category_id === curr.product_category_id,
+                          ).length
+                            ? curr.weight
+                            : 0;
+                          return sum + weight;
                         }, 0)
                       : 0
                     : item.weight;
