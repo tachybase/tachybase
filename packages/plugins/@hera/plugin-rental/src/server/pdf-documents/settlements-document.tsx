@@ -220,11 +220,14 @@ const PreviewDocument = ({
       );
     }
   };
+
+  const partyA = contracts.partyA?.[0];
+  const partyB = contracts.partyB?.[0];
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>
-          {contracts.project?.associated_company?.name ?? `${PromptText.noContractedCompany}`}
+          {partyA?.name ?? `${PromptText.noContractedCompany}`}
           对账单
         </Text>
         <Text style={styles.subTitle}>客户各项费用明细</Text>
@@ -233,7 +236,7 @@ const PreviewDocument = ({
             <View style={styles.tableHeader}>
               <Text style={styles.headerLeft}>
                 承租单位：
-                {contracts?.project?.company?.name}
+                {partyB?.name}
               </Text>
               <Text style={styles.headerRight}>
                 合同编号：
@@ -416,7 +419,7 @@ const PreviewDocument = ({
                 <Text>备注：{contracts.project?.comment}</Text>
                 <Text>
                   出租单位：
-                  {contracts.project?.associated_company?.name ?? `${PromptText.noContractedCompany}`}
+                  {partyA?.name ?? `${PromptText.noContractedCompany}`}
                 </Text>
               </View>
             </View>

@@ -59,6 +59,30 @@ SELECT
         WHERE
           c3.id = settlements.contract_id
       )
+    ) || JSONB_SET(
+      TO_JSONB(contracts),
+      '{partyA}',
+      (
+        SELECT
+          COALESCE(JSONB_AGG(companyA), '{}'::jsonb)
+        FROM
+          company companyA
+          JOIN contracts c4 ON c4."partyAId" = companyA.id
+        WHERE
+          c4.id = settlements.contract_id
+      )
+    ) || JSONB_SET(
+      TO_JSONB(contracts),
+      '{partyB}',
+      (
+        SELECT
+          COALESCE(JSONB_AGG(companyB), '{}'::jsonb)
+        FROM
+          company companyB
+          JOIN contracts c4 ON c4."partyBId" = companyB.id
+        WHERE
+          c4.id = settlements.contract_id
+      )
     )
   ) AS contracts,
   (
