@@ -41,6 +41,19 @@ export async function create(ctx: Context, next: Next) {
   const params = ctx.action.params;
   const tmpl = params.values?.tmpl;
   if (tmpl) {
+    const startEnvs = params.values?.options?.startEnvs;
+    if (startEnvs) {
+      const dbDialect = startEnvs.split('\n').find((line) => line.startsWith('DB_DIALECT='));
+      if (dbDialect) {
+        const dbType = dbDialect.split('=')[1].trim();
+        if (dbType !== 'postgres') {
+          ctx.throw(
+            400,
+            ctx.t('This database does not support to create application using template', { ns: NAMESPACE }),
+          );
+        }
+      }
+    }
     const dbType = ctx.db.options.dialect;
     if (dbType !== 'postgres') {
       ctx.throw(400, ctx.t('This database does not support to create application using template', { ns: NAMESPACE }));

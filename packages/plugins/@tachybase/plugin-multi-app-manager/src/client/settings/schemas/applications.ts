@@ -168,6 +168,12 @@ export const formSchema: ISchema = {
       'x-decorator': 'FormItem',
       'x-disabled': '{{ !createOnly }}',
     },
+    'options.startEnvs': {
+      type: 'string',
+      title: i18nText('Start environment variables'),
+      'x-component': 'Input.TextArea',
+      'x-decorator': 'FormItem',
+    },
     pinned: {
       'x-component': 'CollectionField',
       'x-decorator': 'FormItem',

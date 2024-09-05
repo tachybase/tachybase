@@ -20,5 +20,6 @@
   "Start": "启动",
   "Stop": "停止",
   "Refresh": "刷新",
-  "Template is in use": "模板正在使用"
+  "Template is in use": "模板正在使用",
+  "Start environment variables": "启动环境变量"
 }
