@@ -9,6 +9,7 @@ import { converDate } from '../../../utils/daysUtils';
 
 export const excelDataHandle = (excelData) => {
   const { calc, contracts, result } = excelData;
+  const partyB = contracts.partyB?.[0];
   const categoryCount = (itemCategory) => {
     let category = '';
     switch (itemCategory) {
@@ -57,7 +58,7 @@ export const excelDataHandle = (excelData) => {
    */
   const nameRows = [
     {
-      companyName: { name: '承租单位：', value: `${contracts.project?.company?.name ?? ''}` },
+      companyName: { name: '承租单位：', value: `${partyB?.name ?? ''}` },
       companyName1: { name: '合同编号：', value: `${contracts.project?.code ?? ''}` },
       rowId: '3',
     },
@@ -573,9 +574,7 @@ export const ExportToExcel = async (data) => {
     });
   };
   //设置表格表头
-  ws.getCell('A1').value = `${
-    contracts.project?.associated_company?.name ?? `${PromptText.noContractedCompany}`
-  }  对账单`;
+  ws.getCell('A1').value = `${contracts.partyA?.[0]?.name ?? `${PromptText.noContractedCompany}`}  对账单`;
   ws.mergeCells('A1:J1');
   ws.getCell('A1').alignment = { vertical: 'middle', horizontal: 'center' };
   ws.getCell('A1').font = {
@@ -687,7 +686,7 @@ export const ExportToExcel = async (data) => {
     contracts.project?.associated_company.address;
   ws.getCell(`F${notesRow}`).value = `
   备注:${contracts.project?.comment ?? ''}
-  出租单位：${contracts.project?.associated_company?.name ?? PromptText.noContractedCompany}`;
+  出租单位：${contracts.partyA?.[0]?.name ?? PromptText.noContractedCompany}`;
   ws.mergeCells(`F${notesRow}:J${notesRow}`);
   const url = 'http://985.so/bpw6g';
   const imageUrl = await QRCode.toDataURL(url);
