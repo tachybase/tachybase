@@ -20,5 +20,6 @@
   "Start": "Start",
   "Stop": "Stop",
   "Refresh": "Refresh",
-  "Template is in use": "Template is in use"
+  "Template is in use": "Template is in use",
+  "Start environment variables": "Start environment variables"
 }

@@ -10,7 +10,7 @@ import { telemetryOptions } from './config';
 import { Metric, MetricOptions } from './metric';
 import { Trace, TraceOptions } from './trace';
 
-export { telemetryOptions } from './config';
+export { telemetryOptions };
 
 export interface TelemetryOptions {
   serviceName?: string;

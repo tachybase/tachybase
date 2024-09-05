@@ -176,7 +176,17 @@ export default {
                 example: true,
                 description: '应用是否默认跟随主应用启动',
               },
+              startEnvs: {
+                type: 'string',
+                example: 'APP_KEY=test-key\nAPI_BASE_PATH=/api/',
+                description: '应用启动时的环境变量',
+              },
             },
+          },
+          tmpl: {
+            type: 'string',
+            example: 'default',
+            description: '模板应用的 ID',
           },
           createdAt: {
             type: 'string',
