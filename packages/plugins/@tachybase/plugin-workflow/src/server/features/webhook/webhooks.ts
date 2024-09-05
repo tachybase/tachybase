@@ -19,6 +19,14 @@ export class WebhookController {
     if (!name) {
       throw new Error('not support');
     }
+
+    const { currentUser, currentRole } = ctx.state;
+    const { model: UserModel } = ctx.db.getCollection('users');
+    const userInfo = {
+      user: UserModel.build(currentUser).desensitize(),
+      roleName: currentRole,
+    };
+
     const pluginWorkflow = ctx.app.getPlugin(PluginWorkflow) as PluginWorkflow;
     const repo = ctx.db.getRepository('webhooks');
     const webhook = await repo.findOne(where);
@@ -38,7 +46,7 @@ export class WebhookController {
     if (webhook?.workflowKey) {
       const wfRepo = ctx.db.getRepository('workflows');
       const wf = await wfRepo.findOne({ filter: { key: webhook.workflowKey, enabled: true } });
-      const processor = await pluginWorkflow.trigger(wf, { data: webhookCtx.body }, { httpContext: ctx });
+      const processor = await pluginWorkflow.trigger(wf, { data: webhookCtx.body, ...userInfo }, { httpContext: ctx });
       if (!processor) {
         return ctx.throw('Workflow should be sync.', 500);
       }
