@@ -128,6 +128,7 @@ export const useCreateFormBlock = () => {
       dataSource: item.dataSource,
       templateSchema: templateSchema,
       collectionName: item.name,
+      association,
     });
     if (item.template && item.mode === 'reference') {
       schema['x-template-key'] = item.template.key;
