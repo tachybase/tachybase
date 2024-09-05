@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-mock-collections",
   "displayName": "mock-collections",
-  "version": "0.21.88",
+  "version": "0.21.89",
   "description": "mock-collections",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
