@@ -29,7 +29,13 @@ export const useAddToChecklistActionProps = () => {
 
       const numbers = [];
       result?.forEach((items) => {
-        numbers.push(...items.reduce((orders, current) => [...orders, ...current['单号']], []));
+        numbers.push(
+          ...items.reduce((orders, current) => {
+            const numberList = [...orders];
+            if (current['单号']) numberList.push(...current['单号']);
+            return numberList;
+          }, []),
+        );
       });
       await api.resource('detail_checks').create({
         values: {
