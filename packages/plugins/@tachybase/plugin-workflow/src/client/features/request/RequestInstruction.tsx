@@ -41,6 +41,24 @@ export default class extends Instruction {
         placeholder: 'https://www.tachybase.com',
       },
     },
+    //是否携带Authorization在请求头中
+    isHasAuthorization: {
+      type: 'string',
+      required: true,
+      title: `是否携带Authorization`,
+      'x-decorator': 'FormItem',
+      'x-component': 'Select',
+      'x-component-props': {
+        showSearch: false,
+        allowClear: false,
+        className: 'auto-width',
+      },
+      enum: [
+        { label: '是', value: true },
+        { label: '否', value: false },
+      ],
+      default: true,
+    },
     headers: {
       type: 'array',
       'x-component': 'ArrayItems',
@@ -132,6 +150,24 @@ export default class extends Instruction {
         },
       },
     },
+    bodyType: {
+      type: 'string',
+      required: true,
+      title: `请求体类型`,
+      'x-decorator': 'FormItem',
+      'x-component': 'Select',
+      'x-component-props': {
+        showSearch: false,
+        allowClear: false,
+        className: 'auto-width',
+      },
+      enum: [
+        { label: 'JSON', value: 'JSON' },
+        { label: 'formData', value: 'formData' },
+      ],
+      default: 'JSON',
+    },
+
     data: {
       type: 'string',
       title: `{{t("Body", { ns: "${NAMESPACE}" })}}`,
