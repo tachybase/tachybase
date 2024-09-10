@@ -65,7 +65,9 @@
     "auto-changelog": "^2.4.0",
     "axios": "^1.6.8",
     "commander": "^9.5.0",
+    "eslint": "^9.10.0",
     "eslint-plugin-jest-dom": "^5.4.0",
+    "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-testing-library": "^5.11.1",
     "globals": "^15.9.0",
     "husky": "^9.0.11",
@@ -79,6 +81,7 @@
     "react-dom": "^18.3.1",
     "tsx": "^4.15.2",
     "typescript": "5.4.5",
+    "typescript-eslint": "^8.4.0",
     "umi": "^4.3.3",
     "vitest": "^1.6.0"
   },
