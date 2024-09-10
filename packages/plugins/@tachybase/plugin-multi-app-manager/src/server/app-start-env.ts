@@ -66,10 +66,6 @@ export default function mergeApplicationStartEnvs(appName: String, mainApp: Appl
       options.database.timezone = startEnvs.DB_TIMEZONE;
       delete startEnvs.DB_TIMEZONE;
     }
-    if (startEnvs.DB_TABLE_PREFIX) {
-      options.database.tablePrefix = startEnvs.DB_TABLE_PREFIX;
-      delete startEnvs.DB_TABLE_PREFIX;
-    }
     if (startEnvs.DB_SCHEMA) {
       options.database.schema = startEnvs.DB_SCHEMA;
       delete startEnvs.DB_SCHEMA;
