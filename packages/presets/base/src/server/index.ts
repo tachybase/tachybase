@@ -61,6 +61,7 @@ export class PresetTachyBase extends Plugin {
     'sms-auth>=0.10.0-alpha.2',
     'snapshot-field>=0.8.1-alpha.3',
     'theme-editor>=0.11.1-alpha.1',
+    'wechat-auth>=0.21.89',
   ];
 
   get localPlugins() {

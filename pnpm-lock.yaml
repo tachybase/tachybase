@@ -4500,6 +4500,9 @@ importers:
       '@tachybase/plugin-verification':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-verification
+      '@tachybase/plugin-wechat-auth':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-wechat-auth
       '@tachybase/plugin-work-wechat':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-work-wechat
