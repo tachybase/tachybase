@@ -60,7 +60,10 @@ export class DingtalkAuth extends BaseAuth {
   async getAuthUrl(redirect) {
     const clientId = this.options?.dingtalk?.clientId;
     const app = this.ctx.app.name;
-    const redirectUrl = encodeURIComponent(`${this.ctx.origin}${process.env.API_BASE_PATH}dingtalk:redirect`);
+    const redirectUrl = encodeURIComponent(
+      `${this.ctx.protocol}://${this.ctx.host}${process.env.API_BASE_PATH}dingtalk:redirect`,
+    );
+    // TODO: 如果后续有登录后绑定的场景，服务端需要校验 state
     const state = encodeURIComponent(`redirect=${redirect}&app=${app}&name=${this.ctx.headers['x-authenticator']}`);
     const url = `https://login.dingtalk.com/oauth2/auth?client_id=${clientId}&response_type=code&scope=openid&state=${state}&redirect_uri=${redirectUrl}&prompt=consent`;
     return url;
