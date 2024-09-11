@@ -95,20 +95,26 @@ async function request(config, context) {
     const formData = new FormData();
     for (const [key, value] of Object.entries(data)) {
       if (key === 'file') {
-        const { resourceUrl, params: Params, headers: Header, body: Body } = data[key];
+        let { url: resourceUrl, params: resourceParams, headers: resourceHeader, body: resourceBody } = data[key];
+        resourceUrl = resourceUrl?.trim() || '';
+        if (!resourceUrl.startsWith('http')) {
+          //如果开头不是http默认该url是内部url,需要加上token
+          resourceUrl = `${origin}${resourceUrl}`;
+          resourceHeader.Authorization = 'Bearer ' + token
+        }
 
-        if (Header['Content-Type'] === 'multipart/form-data' && Body) {
+        if (resourceHeader['Content-Type'] === 'multipart/form-data' && resourceBody) {
           //resource  contentType类型
           const formData = new FormData();
-          Object.entries(Body).forEach(([key, value]) => {
+          Object.entries(resourceBody).forEach(([key, value]) => {
             formData.append(key, value);
           });
 
           config.data = formData;
         } else {
-          config.data = Body;
+          config.data = resourceBody;
         }
-        const stream = await downloadToStream(resourceUrl, Header, Params, Body);
+        const stream = await downloadToStream(resourceUrl, resourceHeader, resourceParams, resourceBody);
 
         formData.append('file', stream);
         headers = { ...formData.getHeaders() };
