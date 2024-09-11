@@ -41,12 +41,30 @@ export default class extends Instruction {
         placeholder: 'https://www.tachybase.com',
       },
     },
+    //是否携带Authorization在请求头中
+    needAuthorization: {
+      type: 'string',
+      required: true,
+      title: `{{t("needAuthorization", { ns: "${NAMESPACE}" })}}`,
+      'x-decorator': 'FormItem',
+      'x-component': 'Select',
+      'x-component-props': {
+        showSearch: false,
+        allowClear: false,
+        className: 'auto-width',
+      },
+      enum: [
+        { label: '是', value: true },
+        { label: '否', value: false },
+      ],
+      default: true,
+    },
     headers: {
       type: 'array',
       'x-component': 'ArrayItems',
       'x-decorator': 'FormItem',
       title: `{{t("Headers", { ns: "${NAMESPACE}" })}}`,
-      description: `{{t('"Content-Type" only support "application/json", and no need to specify', { ns: "${NAMESPACE}" })}}`,
+      description: `{{t('"Content-Type" only support "application/json and mutipart/form-data" ', { ns: "${NAMESPACE}" })}}`,
       items: {
         type: 'object',
         properties: {

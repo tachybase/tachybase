@@ -273,13 +273,14 @@
   "Withdrawn": "Withdrawn",
   "Workflow todos": "Workflow todos",
   "Workflow": "Workflow",
-  "\"Content-Type\" only support \"application/json\", and no need to specify": "\"Content-Type\" only support \"application/json\", and no need to specify",
+  "\"Content-Type\" only support \"application/json\" and \"multipart/form-data\" ": "\"Content-Type\" only support \"application/json\" and \"multipart/form-data\" ",
   "concat": "concat",
   "ms": "ms",
   "Resubmit": "Resubmit",
   "Are you sure you want to resubmit it?": "Are you sure you want to resubmit it?",
-  "MyLaunch":"MyLaunch",
-  "CarbonCopy":"CarbonCopy",
-  "ApprovalCarbonCopy":"Approval:CarbonCopy",
-  "Approval Launch":"Approval Launch"
+  "MyLaunch": "MyLaunch",
+  "CarbonCopy": "CarbonCopy",
+  "ApprovalCarbonCopy": "Approval:CarbonCopy",
+  "Approval Launch": "Approval Launch",
+  "needAuthorization": "needAuthorization"
 }
