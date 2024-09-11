@@ -355,13 +355,14 @@
   "Workflow will be triggered before or after submitting succeeded based on workflow type.": "工作流会基于其类型在提交成功之前或之后触发。",
   "Workflow will be triggered directly once the button clicked, without data saving.": "按钮点击后直接触发工作流，但不会保存数据。",
   "Workflow": "工作流",
-  "\"Content-Type\" only support \"application/json\", and no need to specify": "\"Content-Type\" 请求头仅支持 \"application/json\"，无需填写",
+  "\"Content-Type\" only support \"application/json\" and \"multipart/form-data\" ": "\"Content-Type\" 请求头仅支持 \"application/json\" 和 \"multipart/form-data \" ",
   "concat": "连接",
   "ms": "毫秒",
   "Resubmit": "重新发起",
   "Are you sure you want to resubmit it?": "是否重新复制一份？",
-  "MyLaunch":"我的发起",
-  "CarbonCopy":"抄送",
-  "ApprovalCarbonCopy":"审批:抄送",
-  "Approval Launch":"审批发起"
+  "MyLaunch": "我的发起",
+  "CarbonCopy": "抄送",
+  "ApprovalCarbonCopy": "审批:抄送",
+  "Approval Launch": "审批发起",
+  "needAuthorization": "是否携带权限校验"
 }

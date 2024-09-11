@@ -2,7 +2,7 @@ import { parseCollectionName } from '@tachybase/data-source-manager';
 import { Gateway } from '@tachybase/server';
 import { uid } from '@tachybase/utils';
 
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import FormData from 'form-data';
 import _ from 'lodash';
 import mime from 'mime-types';
@@ -33,11 +33,24 @@ export class CreateInstruction extends Instruction {
 
     const userId = _.get(processor.getScope(node.id), '$context.user.id', '');
     const token = this.workflow.app.authManager.jwt.sign({ userId });
-
-    const handleUrl = async (url) => {
+    const isJSON = (str) => {
+      try {
+        return JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+    };
+    //目前可处理url，json对象，base64
+    const handleResource = async (resource) => {
+      const parseRes = isJSON(resource);
+      const config: AxiosRequestConfig<any> = {
+        method: 'get',
+        url: resource,
+        responseType: 'stream',
+      };
       const form = new FormData();
-      if (url.startsWith('data:')) {
-        const matches = url.match(/^data:(.+);base64,(.+)$/);
+      if (resource.startsWith('data:')) {
+        const matches = resource.match(/^data:(.+);base64,(.+)$/);
         if (matches) {
           const contentType = matches[1];
           const base64Data = matches[2];
@@ -52,13 +65,33 @@ export class CreateInstruction extends Instruction {
         } else {
           throw new Error('Invalid data URL format');
         }
+      } else if (parseRes) {
+        const { resourceUrl, params, headers, body } = parseRes;
+        config.url = resourceUrl;
+        config.params = params;
+        config.headers = headers;
+        if (headers['content-type'] === 'multipart/form-data') {
+          const formData = new FormData();
+          Object.entries(body).forEach(([key, value]) => {
+            formData.append(key, value);
+          });
+          config.data = formData;
+        } else {
+          config.data = body;
+        }
+        const response = await axios(config);
+        const contentType = response.headers['content-type'];
+        // 根据 MIME 类型获取文件扩展名
+        const ext = mime.extension(contentType);
+        const filename = `${uid()}.${ext}`;
+        // 创建 FormData 实例
+        form.append('file', response.data, {
+          filename,
+          contentType: response.headers['content-type'],
+        });
       } else {
         // 下载指定 URL 的内容
-        const response = await axios({
-          method: 'get',
-          url,
-          responseType: 'stream',
-        });
+        const response = await axios(config);
         // 获取文件的 MIME 类型
         const contentType = response.headers['content-type'];
         // 根据 MIME 类型获取文件扩展名
@@ -90,11 +123,11 @@ export class CreateInstruction extends Instruction {
         const urls = options.values[attachmentField.options.name];
         if (Array.isArray(urls)) {
           for (const i in urls) {
-            urls[i] = await handleUrl(urls[i]);
+            urls[i] = await handleResource(urls[i]);
           }
         } else {
           const url = options.values[attachmentField.options.name];
-          options.values[attachmentField.options.name] = await handleUrl(url);
+          options.values[attachmentField.options.name] = await handleResource(url);
         }
       }
     }
