@@ -97,11 +97,6 @@ async function request(config, context) {
       if (key === 'file') {
         let { url: resourceUrl, params: resourceParams, headers: resourceHeader, body: resourceBody } = data[key];
         resourceUrl = resourceUrl?.trim() || '';
-        if (!resourceUrl.startsWith('http')) {
-          //如果开头不是http默认该url是内部url,需要加上token
-          resourceUrl = `${origin}${resourceUrl}`;
-          resourceHeader.Authorization = 'Bearer ' + token
-        }
 
         if (resourceHeader['Content-Type'] === 'multipart/form-data' && resourceBody) {
           //resource  contentType类型
