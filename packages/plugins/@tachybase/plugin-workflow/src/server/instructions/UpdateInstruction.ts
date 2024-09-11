@@ -68,18 +68,20 @@ export class UpdateInstruction extends Instruction {
           throw new Error('Invalid data URL format');
         }
       } else if (parseRes) {
-        const { resourceUrl, params, headers, body } = parseRes;
+        const { url: resourceUrl, params: resourceParams, headers: resourceHeaders, body: resourceBody } = parseRes;
         config.url = resourceUrl;
-        config.params = params;
-        config.headers = headers;
-        if (headers['content-type'] === 'multipart/form-data') {
+        config.params = resourceParams;
+        config.headers = resourceHeaders;
+        if (resourceHeaders['content-type'] === 'multipart/form-data') {
           const formData = new FormData();
-          Object.entries(body).forEach(([key, value]) => {
+          Object.entries(resourceBody).forEach(([key, value]) => {
+
             formData.append(key, value);
           });
           config.data = formData;
         } else {
-          config.data = body;
+          config.data = resourceBody;
+
         }
         const response = await axios(config);
         const contentType = response.headers['content-type'];
