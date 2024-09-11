@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/logger",
-  "version": "0.21.91",
+  "version": "0.21.92",
   "description": "logging library",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
