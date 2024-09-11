@@ -70,8 +70,9 @@ export class WorkAuth extends BaseAuth {
     const clientId = this.options?.workWeChat?.corpId;
     const agentId = this.options?.workWeChat?.agentId;
     const app = this.ctx.app.name;
-    // const redirectUrl = encodeURIComponent('https://hua.dev.daoyoucloud.com/api/workWeChat:redirect');
-    const redirectUrl = encodeURIComponent(`${this.ctx.host}${process.env.API_BASE_PATH}workWeChat:redirect`);
+    const redirectUrl = encodeURIComponent(
+      `${this.ctx.protocol}://${this.ctx.host}${process.env.API_BASE_PATH}workWeChat:redirect`,
+    );
     // TODO: 如果后续有登录后绑定的场景，服务端需要校验 state
     const state = encodeURIComponent(
       encodeURIComponent(`redirect=${redirect}&app=${app}&name=${this.ctx.headers['x-authenticator']}`),

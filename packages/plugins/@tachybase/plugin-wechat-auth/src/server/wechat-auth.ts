@@ -56,7 +56,10 @@ export class WeChatAuth extends BaseAuth {
   async getAuthCfg(redirect) {
     const appID = this.options?.wechatAuth?.AppID;
     const app = this.ctx.app.name;
-    const redirectUrl = encodeURIComponent(`${this.ctx.host}${process.env.API_BASE_PATH}wechatAuth:redirect`);
+    const ctx = this.ctx;
+    const redirectUrl = encodeURIComponent(
+      `${this.ctx.protocol}://${this.ctx.host}${process.env.API_BASE_PATH}wechatAuth:redirect`,
+    );
     // TODO: 如果后续有登录后绑定的场景，服务端需要校验 state
     const state = encodeURIComponent(
       encodeURIComponent(`redirect=${redirect}&app=${app}&name=${this.ctx.headers['x-authenticator']}`),
