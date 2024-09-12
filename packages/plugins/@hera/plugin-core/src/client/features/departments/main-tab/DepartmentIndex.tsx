@@ -4,7 +4,10 @@ import { SchemaComponentContext, useSchemaComponentContext } from '@tachybase/cl
 import { ViewDepartmentManagement } from './DepartmentManagement.view';
 import { ProviderDepartmentIndex } from './DepartmentIndex.provider';
 
-// TODO: 名称有待重新确认
+/**
+ * TODO: 组件名称有待重新确认
+ * @returns 
+ */
 export const DepartmentIndex = () => {
   const context = useSchemaComponentContext();
   return (

@@ -1,4 +1,4 @@
-export const schemaUnknownUserDepartment = {
+export const schemaUserSelectDepartment = {
   type: 'void',
   properties: {
     drawer: {

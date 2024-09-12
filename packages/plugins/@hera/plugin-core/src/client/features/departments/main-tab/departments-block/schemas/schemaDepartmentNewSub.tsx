@@ -1,6 +1,9 @@
 import { useActionContext, useRecord, useRequest } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
+/**
+ * 新增子部门表单
+ */
 export const schemaDepartmentNewSub = {
   type: 'object',
   properties: {

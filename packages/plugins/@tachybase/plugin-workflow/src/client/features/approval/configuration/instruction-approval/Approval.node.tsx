@@ -8,6 +8,7 @@ import { useWorkflowAnyExecuted } from '../../../../hooks';
 import { Instruction } from '../../../../nodes';
 import { APPROVAL_ACTION_STATUS } from '../../constants';
 import { NAMESPACE } from '../../locale';
+import { ViewSkipApproval } from './approval-config/SkipApproval.view';
 import { AssigneesAddition } from './approval-config/VC.AssigneesAddition';
 import { AssigneesSelect } from './approval-config/VC.AssigneesSelect';
 import { ContentTooltip } from './approval-config/VC.ContentTooltip';
@@ -116,6 +117,64 @@ export class ApprovalInstruction extends Instruction {
         },
       },
     },
+    skipArrpoval: {
+      type: 'array',
+      required: false,
+      title: `{{t("SkipArrpoval", { ns: "${NAMESPACE}" })}}`,
+      'x-decorator': 'FormItem',
+      'x-component': 'ArrayItems',
+      'x-component-props': {
+        className: css`
+          &[disabled] {
+            > .ant-formily-array-base-addition {
+              display: none;
+            }
+            > .ant-formily-array-items-item .ant-space-item:not(:nth-child(2)) {
+              display: none;
+            }
+          }
+        `,
+      },
+      items: {
+        type: 'void',
+        'x-component': 'Space',
+        'x-component-props': {
+          className: css`
+            width: 100%;
+            &.ant-space.ant-space-horizontal {
+              flex-wrap: nowrap;
+            }
+            > .ant-space-item:nth-child(2) {
+              flex-grow: 1;
+            }
+          `,
+        },
+        properties: {
+          sort: {
+            type: 'void',
+            'x-decorator': 'FormItem',
+            'x-component': 'ArrayItems.SortHandle',
+          },
+          input: {
+            type: 'string',
+            'x-decorator': 'FormItem',
+            'x-component': 'ViewSkipApproval',
+          },
+          remove: {
+            type: 'void',
+            'x-decorator': 'FormItem',
+            'x-component': 'ArrayItems.Remove',
+          },
+        },
+      },
+      properties: {
+        add: {
+          type: 'void',
+          title: `{{t("Add Condition", { ns: "${NAMESPACE}" })}}`,
+          'x-component': 'AssigneesAddition',
+        },
+      },
+    },
     negotiation: {
       type: 'number',
       title: `{{t("Negotiation mode", { ns: "${NAMESPACE}" })}}`,
@@ -186,6 +245,7 @@ export class ApprovalInstruction extends Instruction {
     NegotiationConfig,
     RadioWithTooltip,
     AssigneesAddition,
+    ViewSkipApproval,
   };
 
   isAvailable({ workflow, upstream, branchIndex }) {

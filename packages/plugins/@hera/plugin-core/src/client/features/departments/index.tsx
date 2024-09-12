@@ -9,7 +9,9 @@ import { UserMainDepartmentFieldSetting } from './settings/UserMainDepartmentFie
 
 export class DepartmentsPlugin extends Plugin {
   async afterAdd() {
+    // 用户和权限-部门
     this.pm.add(KitMainTabDepartments);
+    // 用户和权限-角色和权限-部门
     this.pm.add(KitRoleAuth);
   }
   async load() {
@@ -24,3 +26,4 @@ export class DepartmentsPlugin extends Plugin {
     this.app.schemaSettingsManager.add(DepartmentOwnersFieldSetting);
   }
 }
+

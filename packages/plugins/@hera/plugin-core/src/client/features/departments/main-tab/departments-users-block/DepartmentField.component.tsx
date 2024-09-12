@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { EllipsisWithTooltip } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
 
 import { getDepartmentStr } from '../../utils/getDepartmentStr';
-import { ContextDepartments } from '../context/Department.context';
+import { useContextDepartments } from '../context/Department.context';
 
 export const DepartmentField = () => {
-  const { setDepartment } = useContext(ContextDepartments);
+  const { setDepartment } = useContextDepartments();
   const field = useField<{ value: Array<any> }>();
   const fieldValues = field.value || [];
 

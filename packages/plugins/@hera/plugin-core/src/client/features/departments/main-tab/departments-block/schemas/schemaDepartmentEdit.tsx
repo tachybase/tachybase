@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { useActionContext, useAPIClient, useRecord, useRequest } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
+/**
+ * 编辑部门表单
+ */
 export const schemaDepartmentEdit = {
   type: 'object',
   properties: {

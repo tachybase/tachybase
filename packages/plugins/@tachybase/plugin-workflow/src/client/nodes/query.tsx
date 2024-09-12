@@ -44,6 +44,12 @@ export default class extends Instruction {
       'x-content': `{{t("Allow multiple records as result", { ns: "${NAMESPACE}" })}}`,
       description: `{{t("If checked, when there are multiple records in the query result, an array will be returned as the result, which can be operated on one by one using a loop node. Otherwise, only one record will be returned.", { ns: "${NAMESPACE}" })}}`,
     },
+    isTree: {
+      type: 'boolean',
+      'x-decorator': 'FormItem',
+      'x-component': 'Checkbox',
+      'x-content': `{{t("Allow query for tree data", { ns: "${NAMESPACE}" })}}`,
+    },
     params: {
       type: 'object',
       'x-component': 'fieldset',

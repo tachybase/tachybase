@@ -20,7 +20,7 @@ interface contextType {
   };
 }
 
-export const ContextDepartments = React.createContext<contextType>({
+const ContextDepartments = React.createContext<contextType>({
   user: {},
   department: {},
 });

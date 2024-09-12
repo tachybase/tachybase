@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { SchemaComponent, useResourceActionContext } from '@tachybase/client';
 
 import { useTranslation } from '../../../../locale';
 import { useDepartmentFilterActionProps } from '../../common/scopes/useDepartmentFilterActionProps';
-import { ContextDepartments } from '../context/Department.context';
+import { useContextDepartments } from '../context/Department.context';
 import { ViewAddMembers } from './AddMembers.view';
 import { DepartmentField } from './DepartmentField.component';
 import { getSchemaDepartmentsUsersBlock } from './DepartmentsUsersBlock.schema';
@@ -18,7 +18,7 @@ import { UserDepartmentsField } from './UserDepartmentsField.component';
 // 部门右边-用户列表部分
 export const ViewDepartmentsUsersBlock = () => {
   const { t } = useTranslation();
-  const { department, user } = useContext(ContextDepartments);
+  const { department, user } = useContextDepartments();
   const { data, setState } = useResourceActionContext();
 
   const MemberActions = () => <ViewMemberActions department={department} />;

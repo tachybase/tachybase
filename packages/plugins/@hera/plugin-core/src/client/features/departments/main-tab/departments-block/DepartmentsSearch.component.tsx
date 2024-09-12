@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { createStyles, useAPIClient, useRequest } from '@tachybase/client';
 
 import { Button, Dropdown, Empty, Input, theme } from 'antd';
 
 import { useTranslation } from '../../../../locale';
-import { ContextDepartments } from '../context/Department.context';
+import { useContextDepartments } from '../context/Department.context';
 
 const useStyles = createStyles(({ css }) => ({
   searchDropdown: css`
@@ -22,7 +22,7 @@ export const DepartmentsSearch = () => {
   const limit = 10;
   const api = useAPIClient();
 
-  const { setDepartment, setUser } = useContext(ContextDepartments);
+  const { setDepartment, setUser } = useContextDepartments();
   const [open, setOpen] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [users, setUsers] = useState([]);

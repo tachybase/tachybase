@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { CollectionProvider_deprecated, ResourceActionContext } from '@tachybase/client';
 
 import { collectionUsers } from '../collections/users.collection';
-import { ContextDepartments } from '../context/Department.context';
+import { useContextDepartments } from '../context/Department.context';
 
 export const ProviderUserResource = ({ children }) => {
-  const { usersResource } = useContext(ContextDepartments);
+  const { usersResource } = useContextDepartments();
   const { service } = usersResource || {};
 
   return (

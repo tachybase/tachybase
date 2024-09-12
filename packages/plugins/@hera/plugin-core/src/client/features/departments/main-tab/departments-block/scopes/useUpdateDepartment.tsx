@@ -1,8 +1,8 @@
 import { useActionContext, useAPIClient, useRecord, useResourceActionContext } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
-import { useContextDepartments } from '../context/Department.context';
-import { useContextDepartmentsExpanded } from '../context/DepartmentsExpanded.context';
+import { useContextDepartments } from '../../context/Department.context';
+import { useContextDepartmentsExpanded } from '../../context/DepartmentsExpanded.context';
 
 export const useUpdateDepartment = () => {
   const field = useField();

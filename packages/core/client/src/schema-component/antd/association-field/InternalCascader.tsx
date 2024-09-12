@@ -66,7 +66,13 @@ const Cascade = connect((props) => {
         resource
           .list({
             pageSize: 9999,
-            filter: { id: { $eq: propsValue.id } },
+            filter: propsValue.id
+              ? {
+                  id: {
+                    $eq: propsValue.id,
+                  },
+                }
+              : {},
             sort,
             tree: true,
           })
@@ -199,6 +205,7 @@ export const InternalCascader = observer(
   (props: any) => {
     const { options: collectionField } = useAssociationFieldContext();
     const selectForm = useMemo(() => createForm(), []);
+    // @ts-ignore
     const { t } = useTranslation();
     const field: any = useField();
     const fieldSchema = useFieldSchema();

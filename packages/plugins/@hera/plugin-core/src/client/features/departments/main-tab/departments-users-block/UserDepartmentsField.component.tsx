@@ -13,7 +13,7 @@ import { App, Button, Dropdown, Tag } from 'antd';
 
 import { useTranslation } from '../../../../locale';
 import { getDepartmentStr } from '../../utils/getDepartmentStr';
-import { ViewUnknownUserDepartment } from './UnknownUserDepartment.view';
+import { ViewUserSelectDepartment } from './UserSelectDepartment.view';
 
 export const UserDepartmentsField = () => {
   const { modal, message } = App.useApp();
@@ -112,23 +112,25 @@ export const UserDepartmentsField = () => {
     refresh();
   };
 
-  const C = (l, u) => {
-    switch (l) {
+  const setFunc = (key, val) => {
+    switch (key) {
       case 'setMain':
-        setMain(u);
+        setMain(val);
         break;
       case 'setOwner':
-        setOwner(u);
+        setOwner(val);
         break;
       case 'removeOwner':
-        removeOwner(u);
+        removeOwner(val);
         break;
       case 'remove':
-        showModalRemove(u);
+        showModalRemove(val);
     }
   };
 
-  const useDisabled = () => ({ disabled: (l) => field.value.some((u) => u.id === l.id) });
+  const useDisabled = () => ({
+    disabled: (target) => target && field.value.some((value) => value.id === target.id),
+  });
   return (
     <ActionContextProvider value={{ visible: visible, setVisible: setVisible }}>
       <Fragment>
@@ -146,10 +148,20 @@ export const UserDepartmentsField = () => {
             <Dropdown
               menu={{
                 items: [
-                  ...(val.isMain ? [] : [{ label: t('Set as main department'), key: 'setMain' }]),
-                  { label: t('Remove'), key: 'remove' },
+                  ...(val.isMain
+                    ? []
+                    : [
+                        {
+                          key: 'setMain',
+                          label: t('Set as main department'),
+                        },
+                      ]),
+                  {
+                    key: 'remove',
+                    label: t('Remove'),
+                  },
                 ],
-                onClick: ({ key }) => C(key, val),
+                onClick: ({ key }) => setFunc(key, val),
               }}
             >
               <div style={{ float: 'right' }}>
@@ -159,9 +171,9 @@ export const UserDepartmentsField = () => {
             </Dropdown>
           </Tag>
         ))}
-        <Button key={1} icon={<PlusOutlined />} onClick={() => setVisible(true)} />,
+        <Button key={1} icon={<PlusOutlined />} onClick={() => setVisible(true)} />
       </Fragment>
-      <ViewUnknownUserDepartment user={user} useAddDepartments={useAddDepartments} useDisabled={useDisabled} />
+      <ViewUserSelectDepartment user={user} useAddDepartments={useAddDepartments} useDisabled={useDisabled} />
     </ActionContextProvider>
   );
 };

@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRecord } from '@tachybase/client';
 
-import { ContextDepartments } from '../context/Department.context';
+import { useContextDepartments } from '../context/Department.context';
 import { useGetDepTree } from '../hooks/useGetDepTree';
 import { InternalSuperiorDepartmentSelect } from './InternalSuperiorDepartmentSelect';
 
@@ -9,7 +9,7 @@ export const SuperiorDepartmentSelect = () => {
   const depTree = useGetDepTree();
   const { setTreeData, getChildrenIds } = depTree;
   const record = useRecord();
-  const { departmentsResource } = useContext(ContextDepartments);
+  const { departmentsResource } = useContextDepartments();
   const {
     service: { data },
   } = departmentsResource || {};
