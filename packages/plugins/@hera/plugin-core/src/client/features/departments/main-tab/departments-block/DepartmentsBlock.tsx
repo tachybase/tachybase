@@ -1,24 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { ActionContextProvider, RecordProvider, SchemaComponent, SchemaComponentOptions } from '@tachybase/client';
 
 import { UserOutlined } from '@ant-design/icons';
 import { Button, Divider, Row, theme } from 'antd';
 
 import { useTranslation } from '../../../../locale';
-import { ContextDepartments } from '../context/Department.context';
+import { useContextDepartments } from '../context/Department.context';
 import { ProviderContextDepartmentsExpanded } from '../context/DepartmentsExpanded.context';
 import { useGetDepTree } from '../hooks/useGetDepTree';
 import { AddNewDepartment } from './AddNewDepartment.view';
 import { DepartmentOwnersField } from './DepartmentOwnersField.component';
 import { DepartmentsSearch } from './DepartmentsSearch.component';
 import { DepartmentsTree } from './DepartmentsTree.component';
-import { useCreateDepartment } from './useCreateDepartment';
-import { useUpdateDepartment } from './useUpdateDepartment';
+import { useCreateDepartment } from './scopes/useCreateDepartment';
+import { useUpdateDepartment } from './scopes/useUpdateDepartment';
 
 interface drawerState {
   node?: object;
   schema?: object;
 }
+
 // NOTE: 部门左边-部门列表部分
 export const DepartmentsBlock = () => {
   const { t } = useTranslation();
@@ -26,10 +27,13 @@ export const DepartmentsBlock = () => {
   const [visible, setVisible] = useState(false);
   const [drawer, setDrawer] = useState<drawerState>({});
 
-  const { department, setDepartment } = useContext(ContextDepartments);
+  const { department, setDepartment } = useContextDepartments();
   const { token } = theme.useToken();
+
+  const LabelComp = ({ node }) => <DepartmentsTree.Item node={node} setVisible={setVisible} setDrawer={setDrawer} />;
+
   const value = useGetDepTree({
-    label: ({ node }) => <DepartmentsTree.Item node={node} setVisible={setVisible} setDrawer={setDrawer} />,
+    label: LabelComp,
   });
 
   const schema = drawer.schema || {};
@@ -63,6 +67,7 @@ export const DepartmentsBlock = () => {
         </Row>
         <Divider style={{ margin: '12px 0' }} />
         <DepartmentsTree />
+        {/* 操作浮层部分 */}
         <ActionContextProvider
           value={{
             visible,

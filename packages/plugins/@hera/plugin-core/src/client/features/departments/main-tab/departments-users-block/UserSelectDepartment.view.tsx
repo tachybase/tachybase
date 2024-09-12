@@ -1,12 +1,13 @@
 import React from 'react';
 import { SchemaComponent } from '@tachybase/client';
 
+import { useTranslation } from '../../../../locale';
 import { ViewDepartmentTable } from '../../common/DepartmentTable.view';
 import { useDataSource } from './scopes/useDataSource';
-import { schemaUnknownUserDepartment as schema } from './UnknownUserDepartment.schema';
+import { schemaUserSelectDepartment as schema } from './UserSelectDepartment.schema';
 
-// TODO: 有待重新命名组件
-export const ViewUnknownUserDepartment = (props) => {
+export const ViewUserSelectDepartment = (props) => {
+  const { t } = useTranslation();
   const { user, useAddDepartments, useDisabled } = props;
   return (
     <SchemaComponent
@@ -16,6 +17,7 @@ export const ViewUnknownUserDepartment = (props) => {
         DepartmentTable: ViewDepartmentTable,
       }}
       scope={{
+        t,
         user,
         useDataSource,
         useAddDepartments,

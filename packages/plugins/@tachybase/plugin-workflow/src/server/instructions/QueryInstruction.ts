@@ -9,7 +9,13 @@ import { toJSON } from '../utils';
 
 export class QueryInstruction extends Instruction {
   async run(node: FlowNodeModel, input, processor: Processor) {
-    const { collection, multiple, params = {}, failOnEmpty = false } = node.config;
+    const { collection, multiple, isTree, params = {}, failOnEmpty = false } = node.config;
+
+    const otherOptions: any = {};
+
+    if (isTree) {
+      otherOptions.tree = true;
+    }
 
     const [dataSourceName, collectionName] = parseCollectionName(collection);
 
@@ -22,6 +28,7 @@ export class QueryInstruction extends Instruction {
       sort = [],
       ...options
     } = processor.getParsedValue(params, node.id);
+
     const appends = options.appends
       ? Array.from(
           options.appends.reduce((set, field) => {
@@ -33,6 +40,7 @@ export class QueryInstruction extends Instruction {
       : options.appends;
     const result = await (multiple ? repository.find : repository.findOne).call(repository, {
       ...options,
+      ...otherOptions,
       ...utils.pageArgsToLimitArgs(page, pageSize),
       sort: sort
         .filter((item) => item.field)

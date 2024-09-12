@@ -1,27 +1,31 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { css, useAPIClient, useResourceActionContext } from '@tachybase/client';
 
 import { MoreOutlined } from '@ant-design/icons';
 import { App, Dropdown, Empty, Tree } from 'antd';
 
 import { useTranslation } from '../../../../locale';
-import { schemaDepartmentEdit } from './DepartmentEdit.schema';
-import { schemaDepartmentNewSub } from './DepartmentNewSub.schema';
-import { ContextDepartments } from '../context/Department.context';
+import { getUserListByDepartment } from '../../utils/getUserListByDepartment';
+import { useContextDepartments } from '../context/Department.context';
 import { useContextDepartmentsExpanded } from '../context/DepartmentsExpanded.context';
+import { schemaDepartmentEdit } from './schemas/schemaDepartmentEdit';
+import { schemaDepartmentNewSub } from './schemas/schemaDepartmentNewSub';
 
 // 部门左边-部门列表
 export const DepartmentsTree = () => {
+  const api = useAPIClient();
   const { data, loading } = useResourceActionContext();
-  const { department, setDepartment, setUser } = useContext(ContextDepartments);
+  const { department, setDepartment, setUser } = useContextDepartments();
   const { treeData, nodeMap, loadData, loadedKeys, setLoadedKeys, initData, expandedKeys, setExpandedKeys } =
     useContextDepartmentsExpanded() as any;
 
-  const onSelect = (keys) => {
+  const onSelect = async (keys) => {
     if (!keys.length) {
       return;
     }
     const department = nodeMap[keys[0]];
+    const userList = await getUserListByDepartment(api, department.id);
+
     setDepartment(department);
     setUser(null);
   };
@@ -82,7 +86,7 @@ export const DepartmentsTree = () => {
   );
 };
 
-DepartmentsTree.Item = ({ node, setVisible, setDrawer }) => {
+const DepartmentsTreeItem = ({ node, setVisible, setDrawer }) => {
   const { t } = useTranslation();
   const { refreshAsync } = useResourceActionContext();
   const { setLoadedKeys, expandedKeys, setExpandedKeys } = useContextDepartmentsExpanded();
@@ -90,7 +94,7 @@ DepartmentsTree.Item = ({ node, setVisible, setDrawer }) => {
   const API = useAPIClient();
   const showModalDelete = () => {
     modal.confirm({
-      title: t('Delete'),
+      title: t('Delete department'),
       content: t('Are you sure you want to delete it?'),
       onOk: async () => {
         await API.resource('departments').destroy({ filterByTk: node.id });
@@ -115,7 +119,7 @@ DepartmentsTree.Item = ({ node, setVisible, setDrawer }) => {
     setVisible(true);
   };
   const onClick: any = ({ key, domeEvent }) => {
-    domeEvent.stopPropagation();
+    domeEvent?.stopPropagation();
     switch (key) {
       case 'new-sub':
         setSchema(schemaDepartmentNewSub);
@@ -162,3 +166,5 @@ DepartmentsTree.Item = ({ node, setVisible, setDrawer }) => {
     </div>
   );
 };
+
+DepartmentsTree.Item = DepartmentsTreeItem;

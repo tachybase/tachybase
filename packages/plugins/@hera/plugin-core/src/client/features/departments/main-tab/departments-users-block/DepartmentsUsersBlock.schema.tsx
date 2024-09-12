@@ -1,5 +1,7 @@
 import { uid } from '@tachybase/schema';
 
+import { tval } from '../../../../locale';
+
 export const getSchemaDepartmentsUsersBlock = (department, user) => {
   const schemaNotUser = user
     ? {}
@@ -38,7 +40,7 @@ export const getSchemaDepartmentsUsersBlock = (department, user) => {
           'x-decorator': 'Table.Column.Decorator',
           'x-component': 'Table.Column',
           'x-component-props': { style: { minWidth: 100 } },
-          title: '{{t("Owner")}}',
+          title: tval('Owner'),
           properties: {
             isOwner: {
               type: 'boolean',
@@ -105,7 +107,23 @@ export const getSchemaDepartmentsUsersBlock = (department, user) => {
             'x-decorator': 'Table.Column.Decorator',
             'x-component': 'Table.Column',
             properties: {
-              departments: { type: 'string', 'x-component': 'CollectionField', 'x-read-pretty': true },
+              departments: {
+                type: 'string',
+                'x-component': 'CollectionField',
+                'x-read-pretty': true,
+              },
+            },
+          },
+          mainDepartment: {
+            type: 'void',
+            'x-decorator': 'Table.Column.Decorator',
+            'x-component': 'Table.Column',
+            properties: {
+              mainDepartment: {
+                type: 'string',
+                'x-component': 'CollectionField',
+                'x-read-pretty': true,
+              },
             },
           },
           ...tableSchemaDepartMent,

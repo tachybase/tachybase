@@ -14,8 +14,8 @@ export class DataMappingInstruction extends Instruction {
   fieldset = {
     sourceArray: {
       type: 'array',
-      title: tval('Data source array'),
-      description: tval('Data source array'),
+      title: tval('Data source map'),
+      description: tval('Data source map'),
       'x-decorator': 'FormItem',
       'x-component': 'ArrayTable',
       items: {

@@ -1,10 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useResourceActionContext } from '@tachybase/client';
 
-import { ContextDepartments } from '../../context/Department.context';
+import { useContextDepartments } from '../../context/Department.context';
 
 export const useMembersDataSource = (props) => {
-  const { user } = useContext(ContextDepartments);
+  const { user } = useContextDepartments();
   const ctx = useResourceActionContext();
   useEffect(() => {
     if (user) {

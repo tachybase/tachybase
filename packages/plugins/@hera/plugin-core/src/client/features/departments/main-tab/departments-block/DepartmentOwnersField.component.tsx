@@ -6,6 +6,10 @@ import { Select } from 'antd';
 
 import { ViewUnKnownOwerns } from './UnknownOwerns.view';
 
+/**
+ * 部门编辑表单-负责人
+ * @returns 部门负责人字段组件
+ */
 export const DepartmentOwnersField = () => {
   const [visible, setVisible] = useState(false);
   const record = useRecord();
@@ -18,7 +22,7 @@ export const DepartmentOwnersField = () => {
   };
 
   const useSelectOwners = () => {
-    const { setVisible: setVisible } = useActionContext();
+    const { setVisible } = useActionContext();
     return {
       run() {
         const fieldValue = field.value || [];

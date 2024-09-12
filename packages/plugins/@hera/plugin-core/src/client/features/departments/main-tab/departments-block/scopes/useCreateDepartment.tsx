@@ -1,7 +1,6 @@
 import { useActionContext, useAPIClient, useResourceActionContext } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
-
-import { useContextDepartmentsExpanded } from '../context/DepartmentsExpanded.context';
+import { useContextDepartmentsExpanded } from '../../context/DepartmentsExpanded.context';
 
 export const useCreateDepartment = () => {
   const form = useForm();

@@ -11,7 +11,12 @@ export const ProviderDepartmentIndex = ({ children }) => {
       resource: 'users',
       action: 'list',
       params: {
-        appends: ['departments', 'departments.parent(recursively=true)'],
+        appends: [
+          'departments',
+          'departments.parent(recursively=true)',
+          'mainDepartment',
+          'mainDepartment.parent(recursively=true)',
+        ],
         filter: department
           ? {
               'departments.id': department.id,

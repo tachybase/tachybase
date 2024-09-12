@@ -118,6 +118,7 @@ async function parseAssignees(node, processor) {
   }
   return [...assignees];
 }
+
 export default class ApprovalInstruction extends Instruction {
   async run(node, prevJob, processor) {
     const job = await processor.saveJob({
