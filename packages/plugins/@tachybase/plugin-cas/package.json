@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-cas",
   "displayName": "Auth: CAS",
-  "version": "0.21.92",
+  "version": "0.21.93",
   "description": "CAS authentication.",
   "keywords": [
     "Authentication"
