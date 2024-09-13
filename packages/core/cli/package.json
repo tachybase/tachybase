@@ -19,7 +19,7 @@
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "dev": "rollup -c --watch --watch.include 'src/**' -m inline",
-    "prepare": "rimraf dist && BUILD_NO_DTS=1 rollup -c --silent",
+    "prepare": "rimraf dist && cross-env BUILD_NO_DTS=1 rollup -c --silent",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -52,6 +52,7 @@
     "@types/lodash": "^4.17.5",
     "@types/node": "20.14.2",
     "@types/semver": "^7.5.8",
+    "cross-env": "^7.0.3",
     "rimraf": "^5.0.5",
     "rollup": "^4.14.1",
     "rollup-plugin-dts": "^6.1.0",
