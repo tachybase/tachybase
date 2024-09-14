@@ -15,7 +15,7 @@ import {
 import { readFile, writeFile } from 'fs/promises';
 import { createRequire } from 'module';
 import { Socket } from 'net';
-import { dirname, join, resolve, sep, win32 } from 'path';
+import { dirname, join, resolve, sep } from 'path';
 
 import chalk from 'chalk';
 import { config } from 'dotenv';
@@ -208,7 +208,9 @@ export function generateAppDir() {
     }
     process.env.APP_PACKAGE_ROOT = appDevDir;
   } else {
-    if (win32.isAbsolute(appPkgPath)) {
+    process.env.APP_PACKAGE_ROOT = appPkgPath;
+    const isWindows = process.platform === 'win32';
+    if (isWindows) {
       // windows /c:/xxx
       process.env.APP_PACKAGE_ROOT = appPkgPath.substring(1);
     } else {
