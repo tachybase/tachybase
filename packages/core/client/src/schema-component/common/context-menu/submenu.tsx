@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import ContextMenuItem from './contextMenuItem';
 
-function Submenu({ children, title, attributes, className }) {
+export function Submenu({ children, title, attributes, className }) {
   const [submenuStyle, setSubmenuStyle] = useState(null);
   const submenuEl = useRef(null);
   const submenuItem = useRef(null);
@@ -39,7 +39,7 @@ function Submenu({ children, title, attributes, className }) {
     }
 
     setSubmenuStyle(style);
-  });
+  }, []);
 
   const hideSubmenu = useCallback(() => {
     const style = {
@@ -48,7 +48,7 @@ function Submenu({ children, title, attributes, className }) {
     };
 
     setSubmenuStyle(style);
-  });
+  }, []);
 
   return (
     <div
@@ -69,7 +69,6 @@ function Submenu({ children, title, attributes, className }) {
 }
 
 export default Submenu;
-
 Submenu.defaultProps = {
   title: 'Sub Menu',
   className: '',

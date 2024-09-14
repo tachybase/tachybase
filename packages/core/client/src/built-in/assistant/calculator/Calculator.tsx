@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { css } from '@tachybase/client';
 
 import { CalculatorDisplay } from './CalculatorDisplay';
 import { CalculatorKey } from './CalculatorKey';

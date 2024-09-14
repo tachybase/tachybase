@@ -22,7 +22,9 @@ import { BlockTemplateDetails, BlockTemplatePage } from '../schema-templates';
 import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
 import { ACLPlugin } from './acl';
 import { AdminLayoutPlugin } from './admin-layout';
+import { PluginAssistant } from './assistant';
 import { PluginBuiltInCollections } from './built-in-collections';
+import { PluginContextMenu } from './context-menu';
 import { RemoteDocumentTitlePlugin } from './document-title';
 import { LocalePlugin } from './locale/LocalePlugin';
 import { PinnedListPlugin } from './pinned-list';
@@ -30,6 +32,7 @@ import { PMPlugin } from './pm';
 import { SystemSettingsPlugin } from './system-settings';
 
 export { AdminProvider, NoticeArea } from './admin-layout';
+export * from './context-menu';
 
 interface AppStatusProps {
   error: Error;
@@ -349,5 +352,7 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(RemoteDocumentTitlePlugin, { name: 'remote-document-title' });
     await this.app.pm.add(PMPlugin, { name: 'builtin-pm' });
     await this.app.pm.add(CollectionPlugin, { name: 'builtin-collection' });
+    await this.app.pm.add(PluginContextMenu);
+    await this.app.pm.add(PluginAssistant);
   }
 }

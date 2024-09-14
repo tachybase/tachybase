@@ -1,19 +1,19 @@
-import React, { useCallback, useRef } from 'react';
+import React, { createContext, useCallback, useRef } from 'react';
 
 import classnames from 'classnames';
 
 import { callHideEvent } from './registerEvent';
 
-function ContextMenuItem({ children, onClick, disabled, preventClose, attributes, className }) {
+export function ContextMenuItem({ children, onClick, disabled, preventClose, attributes, className, ...props }) {
   const contextMenuItem = useRef(null);
-
-  const handleClickEvent = useCallback((e) => {
-    if (disabled) return;
-    onClick(e);
-
-    if (!preventClose) callHideEvent('ID_NOT_REQUIRED');
-  });
-
+  const handleClickEvent = useCallback(
+    (e) => {
+      if (disabled) return;
+      onClick(e);
+      if (!preventClose) callHideEvent('ID_NOT_REQUIRED');
+    },
+    [children, onClick, disabled, preventClose, attributes, className],
+  );
   return (
     <div
       className={classnames(
@@ -23,6 +23,7 @@ function ContextMenuItem({ children, onClick, disabled, preventClose, attributes
         },
         ...className.split(' '),
       )}
+      {...props}
       onClick={handleClickEvent}
       {...attributes}
       ref={contextMenuItem}
@@ -33,7 +34,6 @@ function ContextMenuItem({ children, onClick, disabled, preventClose, attributes
 }
 
 export default ContextMenuItem;
-
 ContextMenuItem.defaultProps = {
   disabled: false,
   preventClose: false,

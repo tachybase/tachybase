@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDesignable, useHotkeys } from '@tachybase/client';
+import { useContextMenu, useDesignable, useHotkeys } from '@tachybase/client';
 
 import {
   CalculatorOutlined,
@@ -10,7 +10,6 @@ import {
 } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 
-import { useContextMenu } from '../context-menu/useContextMenu';
 import { useCalculator } from './calculator/CalculatorProvider';
 import { useSearchAndJump } from './search-and-jump';
 
