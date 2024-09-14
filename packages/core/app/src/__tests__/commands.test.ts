@@ -67,7 +67,7 @@ describe.skip('cli', () => {
   test('install', async () => {
     const database = await createDatabase();
     const port = await getPortPromise({
-      port: 13000,
+      port: 3000,
     });
     console.log(process.env.DB_DIALECT, port);
     const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
@@ -97,7 +97,7 @@ describe.skip('cli', () => {
     console.log(process.env.DB_DIALECT);
     const database = await createDatabase();
     const port = await getPortPromise({
-      port: 13000,
+      port: 3000,
     });
     const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
@@ -127,7 +127,7 @@ describe.skip('cli', () => {
     console.log(process.env.DB_DIALECT);
     const database = await createDatabase();
     const port = await getPortPromise({
-      port: 13000,
+      port: 3000,
     });
     const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
@@ -153,7 +153,7 @@ describe.skip('cli', () => {
     console.log(process.env.DB_DIALECT);
     const database = await createDatabase();
     const port = await getPortPromise({
-      port: 13000,
+      port: 3000,
     });
     const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
@@ -183,7 +183,7 @@ describe.skip('cli', () => {
     console.log(process.env.DB_DIALECT);
     const database = await createDatabase();
     const port = await getPortPromise({
-      port: 13000,
+      port: 3000,
     });
     const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {
@@ -208,7 +208,7 @@ describe.skip('cli', () => {
     console.log(process.env.DB_DIALECT);
     const database = await createDatabase();
     const port = await getPortPromise({
-      port: 13000,
+      port: 3000,
     });
     const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
     const env = {

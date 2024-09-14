@@ -40,6 +40,6 @@ export default class extends Migration {
     }
     const c = this.db.getCollection('attachments');
     const table = c.getTableNameWithSchemaAsString();
-    await this.db.sequelize.query(`update ${table} set url = replace(url, 'http://localhost:13000', '')`);
+    await this.db.sequelize.query(`update ${table} set url = replace(url, 'http://localhost:3000', '')`);
   }
 }

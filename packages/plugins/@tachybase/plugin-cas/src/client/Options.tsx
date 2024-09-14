@@ -32,7 +32,7 @@ export const Options = () => {
             'x-decorator': 'FormItem',
             'x-decorator-props': {
               tooltip: generateNTemplate(
-                'The domain is usually the address of your server, in local development, you can use the address of your local machine, such as: http://localhost:13000',
+                'The domain is usually the address of your server, in local development, you can use the address of your local machine, such as: http://localhost:3000',
               ),
             },
             required: true,

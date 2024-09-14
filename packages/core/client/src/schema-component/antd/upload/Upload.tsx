@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Lightbox } from '@tachybase/components';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 
 import { DeleteOutlined, DownloadOutlined, InboxOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
@@ -6,9 +7,6 @@ import { Upload as AntdUpload, Button, Modal, Progress, Space, UploadFile } from
 import cls from 'classnames';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
-import LightBox from 'react-image-lightbox';
-
-import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
 
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { useProps } from '../../hooks/useProps';
@@ -201,7 +199,7 @@ Upload.Attachment = connect((props: UploadProps) => {
       </div>
       {/* 预览图片的弹框 */}
       {visible && fileType === 'image' && (
-        <LightBox
+        <Lightbox
           // discourageDownloads={true}
           mainSrc={images[fileIndex]?.imageUrl}
           nextSrc={images[(fileIndex + 1) % images.length]?.imageUrl}

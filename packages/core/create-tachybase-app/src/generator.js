@@ -130,7 +130,7 @@ class AppGenerator extends Generator {
       dependencies: dependencies.join(`,\n    `),
       envs: envs.join(`\n`),
       env: {
-        APP_PORT: 13000,
+        APP_PORT: 3000,
         APP_ENV: 'development',
         DB_DIALECT: dbDialect,
         APP_KEY: crypto.randomBytes(256).toString('base64'),

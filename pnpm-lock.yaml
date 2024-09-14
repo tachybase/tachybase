@@ -614,9 +614,6 @@ importers:
       react-iframe:
         specifier: ~1.8.5
         version: 1.8.5(react@18.3.1)
-      react-image-lightbox:
-        specifier: ^5.1.4
-        version: 5.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-intersection-observer:
         specifier: ^9.10.3
         version: 9.10.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -726,6 +723,12 @@ importers:
       dayjs:
         specifier: 1.11.10
         version: 1.11.10
+      prop-types:
+        specifier: ^15.8.1
+        version: 15.8.1
+      react-modal:
+        specifier: ^3.16.1
+        version: 3.16.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-sticky-box:
         specifier: ^1.0.2
         version: 1.0.2(react@18.3.1)
@@ -2171,9 +2174,6 @@ importers:
       '@hapi/topo':
         specifier: ^6.0.0
         version: 6.0.2
-      '@koa/multer':
-        specifier: ^3.0.2
-        version: 3.0.2(multer@1.4.5-lts.1)
       '@tachybase/components':
         specifier: workspace:*
         version: link:../../../core/components
@@ -2873,9 +2873,6 @@ importers:
       '@aws-sdk/client-s3':
         specifier: ^3.245.0
         version: 3.474.0
-      '@koa/multer':
-        specifier: ^3.0.0
-        version: 3.0.2(multer@1.4.5-lts.1)
       '@tachybase/components':
         specifier: workspace:*
         version: link:../../../core/components
@@ -3129,9 +3126,6 @@ importers:
       '@ant-design/icons':
         specifier: ~5.3.7
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@koa/multer':
-        specifier: ^3.0.2
-        version: 3.0.2(multer@1.4.5-lts.1)
       '@tachybase/components':
         specifier: workspace:*
         version: link:../../../core/components
@@ -3355,6 +3349,21 @@ importers:
       react-router-dom:
         specifier: ^6.25.1
         version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins/@tachybase/plugin-messages:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
 
   packages/plugins/@tachybase/plugin-mobile-client:
     dependencies:
@@ -4464,6 +4473,9 @@ importers:
       '@tachybase/plugin-map':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-map
+      '@tachybase/plugin-messages':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-messages
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
@@ -17407,13 +17419,6 @@ packages:
     resolution: {integrity: sha512-F4cQJGs3ydaG6fJWfuz9yLwOU0Trzl6kttXuUG+vYwosH8enOOFxZWEDQCSbNVO8ayjfYZeqLxEvdvcsSy4GvA==}
     peerDependencies:
       react: '>=16.x.x'
-
-  react-image-lightbox@5.1.4:
-    resolution: {integrity: sha512-kTiAODz091bgT7SlWNHab0LSMZAPJtlNWDGKv7pLlLY1krmf7FuG1zxE0wyPpeA8gPdwfr3cu6sPwZRqWsc3Eg==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-    peerDependencies:
-      react: 16.x || 17.x
-      react-dom: 16.x || 17.x
 
   react-intersection-observer@9.10.3:
     resolution: {integrity: sha512-9NYfKwPZRovB6QJee7fDg0zz/SyYrqXtn5xTZU0vwLtLVBtfu9aZt1pVmr825REE49VPDZ7Lm5SNHjJBOTZHpA==}
@@ -36109,13 +36114,6 @@ snapshots:
     dependencies:
       object-assign: 4.1.1
       react: 18.3.1
-
-  react-image-lightbox@5.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      prop-types: 15.8.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-modal: 3.16.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   react-intersection-observer@9.10.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:

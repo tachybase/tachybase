@@ -10,7 +10,7 @@ English | [中文](./README.zh-CN.md)
 
 ### 1、启用主题插件
 
-首先把 TachyBase 更新到最新版本，然后会在[插件管理页面](http://localhost:13000/admin/pm/list/local/)看到 `theme-editor` 的卡片，点击卡片右下角的 `启用` 按钮等待页面刷新。
+首先把 TachyBase 更新到最新版本，然后会在[插件管理页面](http://localhost:3000/admin/pm/list/local/)看到 `theme-editor` 的卡片，点击卡片右下角的 `启用` 按钮等待页面刷新。
 
 <a href="https://sm.ms/image/EkiMxUpngzAb8yo" target="_blank"><img src="https://s2.loli.net/2023/07/19/EkiMxUpngzAb8yo.png" height="400" style="object-fit: contain;"></a>
 

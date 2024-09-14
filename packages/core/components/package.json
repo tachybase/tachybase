@@ -23,6 +23,8 @@
     "antd": "5.19.4",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.11",
+    "prop-types": "^15.8.1",
+    "react-modal": "^3.16.1",
     "react-sticky-box": "^1.0.2"
   },
   "devDependencies": {

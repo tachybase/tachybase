@@ -320,7 +320,7 @@ export function initEnv() {
   const env = {
     APP_ENV: 'development',
     APP_KEY: 'test-jwt-secret',
-    APP_PORT: 13000,
+    APP_PORT: 3000,
     API_BASE_PATH: '/api/',
     DB_DIALECT: 'sqlite',
     DB_STORAGE: 'storage/db/tachybase.sqlite',

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Lightbox } from '@tachybase/components';
 import { Field, useField } from '@tachybase/schema';
 import { isString } from '@tachybase/utils/client';
 
@@ -8,7 +9,6 @@ import useUploadStyle from 'antd/es/upload/style';
 import cls from 'classnames';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
-import Lightbox from 'react-image-lightbox';
 
 import { useRecord } from '../../../record-provider';
 import { isImage, isPdf, toArr, toImages } from './shared';

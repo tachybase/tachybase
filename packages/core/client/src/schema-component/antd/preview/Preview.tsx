@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Lightbox } from '@tachybase/components';
 import { connect, mapReadPretty } from '@tachybase/schema';
 
 import { DeleteOutlined, DownloadOutlined, PlusOutlined } from '@ant-design/icons';
@@ -6,9 +7,6 @@ import { Upload as AntdUpload, Button, Progress, Space, UploadFile } from 'antd'
 import cls from 'classnames';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
-import Lightbox from 'react-image-lightbox';
-
-import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
 
 import { ReadPretty } from '../upload/ReadPretty';
 import { isImage, toFileList, useUploadProps } from '../upload/shared';
