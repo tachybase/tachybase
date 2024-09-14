@@ -304,7 +304,7 @@ export class Gateway extends EventEmitter {
       await this.watch();
 
       const startOptions = this.getStartOptions();
-      const port = startOptions.port || process.env.APP_PORT || 13000;
+      const port = startOptions.port || process.env.APP_PORT || 3000;
       const host = startOptions.host || process.env.APP_HOST || '0.0.0.0';
 
       this.start({

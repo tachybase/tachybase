@@ -10,7 +10,6 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
-    "@koa/multer": "^3.0.2",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@types/node-xlsx": "^0.15.1",

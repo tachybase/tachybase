@@ -16,6 +16,7 @@ export class PresetTachyBase extends Plugin {
     'verification',
     'users',
     'acl',
+    'messages',
     // optional plugins, default enabled
     'action-bulk-edit',
     'action-bulk-update',

@@ -5,7 +5,7 @@ import { Configuration } from './Configuration';
 
 export class PluginAPIKeysClient extends Plugin {
   async load() {
-    this.pluginSettingsManager.add(NAMESPACE, {
+    this.userSettingsManager.add(NAMESPACE, {
       icon: 'KeyOutlined',
       title: this.t('API keys'),
       Component: Configuration,

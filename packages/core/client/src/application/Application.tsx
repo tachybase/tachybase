@@ -28,6 +28,7 @@ import { ComponentTypeAndString, RouterManager, RouterOptions } from './RouterMa
 import { SchemaInitializer, SchemaInitializerManager } from './schema-initializer';
 import * as schemaInitializerComponents from './schema-initializer/components';
 import { SchemaSettings, SchemaSettingsManager } from './schema-settings';
+import { UserSettingOptions, UserSettingsManager } from './UserSettingsManager';
 import { compose, normalizeContainer } from './utils';
 import { defineGlobalDeps } from './utils/globalDeps';
 import { getRequireJs, type RequireJS } from './utils/requirejs';
@@ -36,6 +37,7 @@ import { WebSocketClient, WebSocketClientOptions } from './WebSocketClient';
 declare global {
   interface Window {
     define: RequireJS['define'];
+    require: RequireJS['require'];
   }
 }
 
@@ -53,6 +55,7 @@ export interface ApplicationOptions {
   scopes?: Record<string, any>;
   router?: RouterOptions;
   pluginSettings?: Record<string, PluginSettingOptions>;
+  userSettings?: Record<string, UserSettingOptions>;
   schemaSettings?: SchemaSettings[];
   schemaInitializers?: SchemaInitializer[];
   designable?: boolean;
@@ -77,6 +80,7 @@ export class Application {
   };
   public pluginManager: PluginManager;
   public pluginSettingsManager: PluginSettingsManager;
+  public userSettingsManager: UserSettingsManager;
   public devDynamicImport: DevDynamicImport;
   public requirejs: RequireJS;
   public notification;
@@ -129,6 +133,7 @@ export class Application {
     this.addProviders(options.providers || []);
     this.ws = new WebSocketClient(options.ws, this);
     this.pluginSettingsManager = new PluginSettingsManager(options.pluginSettings, this);
+    this.userSettingsManager = new UserSettingsManager(options.userSettings, this);
     this.addRoutes();
     this.name = this.options.name || getSubAppName(options.publicPath) || 'main';
     this.pluginContextMenu = new PluginContextMenu(options.pluginMenuItems, this);
@@ -138,7 +143,7 @@ export class Application {
     this.requirejs = getRequireJs();
     defineGlobalDeps(this.requirejs);
     window.define = this.requirejs.define;
-    window.require = this.requirejs.require;
+    window.require = this.requirejs.require as RequireJS['require'] & NodeRequire;
   }
 
   private addDefaultProviders() {

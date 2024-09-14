@@ -27,6 +27,10 @@ export class Plugin<T = any> {
     return this.app.pluginSettingsManager;
   }
 
+  get userSettingsManager() {
+    return this.app.userSettingsManager;
+  }
+
   get schemaInitializerManager() {
     return this.app.schemaInitializerManager;
   }

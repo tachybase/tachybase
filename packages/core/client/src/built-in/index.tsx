@@ -30,6 +30,8 @@ import { LocalePlugin } from './locale/LocalePlugin';
 import { PinnedListPlugin } from './pinned-list';
 import { PMPlugin } from './pm';
 import { SystemSettingsPlugin } from './system-settings';
+import { UserSettingsPlugin } from './user-settings';
+import { PluginWebNotification } from './web-notification/PluginWebNotification';
 
 export { AdminProvider, NoticeArea } from './admin-layout';
 export * from './context-menu';
@@ -352,7 +354,8 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(RemoteDocumentTitlePlugin, { name: 'remote-document-title' });
     await this.app.pm.add(PMPlugin, { name: 'builtin-pm' });
     await this.app.pm.add(CollectionPlugin, { name: 'builtin-collection' });
-    await this.app.pm.add(PluginContextMenu);
-    await this.app.pm.add(PluginAssistant);
+    await this.app.pm.add(PluginContextMenu, { name: 'context-menu' });
+    await this.app.pm.add(PluginAssistant, { name: 'drag-assistant' });
+    await this.app.pm.add(UserSettingsPlugin, { name: 'user-settings' });
   }
 }

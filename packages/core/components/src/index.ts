@@ -35,3 +35,4 @@ export * from './tree-select';
 export * from './upload';
 export * from './__builtins__';
 export * from './code-mirror';
+export * from './lightbox';

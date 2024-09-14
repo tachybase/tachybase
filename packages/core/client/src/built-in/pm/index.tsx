@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ADMIN_SETTINGS_PATH } from '../../application';
 import { Plugin } from '../../application/Plugin';
+import { USER_SETTINGS_PATH } from '../../application/UserSettingsManager';
 import { BlockTemplatesPane } from '../../schema-templates';
 import { SystemSettingsPane } from '../system-settings';
 import { PluginManager } from './PluginManager';
