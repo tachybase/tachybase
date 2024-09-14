@@ -1,5 +1,4 @@
-import { Plugin } from '@tachybase/client';
-
+import { Plugin } from '../../application/Plugin';
 import { AssistantProvider } from './Assistant.provider';
 import { CalculatorProvider } from './calculator/CalculatorProvider';
 import { SearchAndJumpProvider } from './search-and-jump';

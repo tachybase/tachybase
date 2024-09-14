@@ -21,6 +21,7 @@ import { AppSchemaComponentProvider } from './AppSchemaComponentProvider';
 import { AppComponent, BlankComponent, defaultAppComponents } from './components';
 import { NoticeManager } from './NoticesManager';
 import type { Plugin } from './Plugin';
+import { PluginContextMenu, PluginItemsOptions } from './PluginContextMenu';
 import { PluginManager, PluginType } from './PluginManager';
 import { PluginSettingOptions, PluginSettingsManager } from './PluginSettingsManager';
 import { ComponentTypeAndString, RouterManager, RouterOptions } from './RouterManager';
@@ -58,6 +59,7 @@ export interface ApplicationOptions {
   loadRemotePlugins?: boolean;
   devDynamicImport?: DevDynamicImport;
   dataSourceManager?: DataSourceManagerOptions;
+  pluginMenuItems?: Record<string, PluginItemsOptions>;
 }
 
 export class Application {
@@ -82,6 +84,7 @@ export class Application {
   public schemaSettingsManager: SchemaSettingsManager;
   public dataSourceManager: DataSourceManager;
   public noticeManager: NoticeManager;
+  public pluginContextMenu: PluginContextMenu;
 
   public name: string;
 
@@ -128,6 +131,7 @@ export class Application {
     this.pluginSettingsManager = new PluginSettingsManager(options.pluginSettings, this);
     this.addRoutes();
     this.name = this.options.name || getSubAppName(options.publicPath) || 'main';
+    this.pluginContextMenu = new PluginContextMenu(options.pluginMenuItems, this);
   }
 
   private initRequireJs() {

@@ -838,5 +838,10 @@
   "The current return type is not a document type":"The current return type is not a document type",
   "Test Data":"Test Data",
    "Add associations": "Add associations",
-   "DatePicker":"DatePicker"
+   "DatePicker":"DatePicker",
+   "Drag Assistant":"Drag Assistant",
+  "Disable Right Menu":"Disable Right Menu",
+  "Full Screen":"Full Screen",
+  "Designer Mode":"Designer Mode",
+  "There are no full screen blocks available at the current location":"There are no full screen blocks available at the current location"
 }

@@ -11,3 +11,4 @@ export * from './PluginSettingsManager';
 export * from './NoticesManager';
 export * from './hoc';
 export { ApplicationContext } from './context';
+export * from './PluginContextMenu';

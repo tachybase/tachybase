@@ -951,5 +951,10 @@
   "Field Component":"字段组件",
   "Custom filter":"自定义筛选",
   "Parent Association field":"父级关联字段",
-  "DatePicker":"日期选择器"
+  "DatePicker":"日期选择器",
+  "Drag Assistant":"拖动助手",
+  "Disable Right Menu":"禁用右键菜单",
+  "Full Screen":"切换全屏",
+  "Designer Mode":"设计者模式",
+  "There are no full screen blocks available at the current location":"当前位置没有可全屏区块"
 }

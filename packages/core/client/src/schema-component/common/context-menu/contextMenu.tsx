@@ -37,13 +37,29 @@ function ContextMenu({
     if (onHide) onHide();
   };
 
-  const handleMouseLeave = useCallback((e) => {
-    e.preventDefault();
+  const handleMouseLeave = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    onMouseLeave(e);
+      onMouseLeave(e);
 
-    if (hideOnLeave) callHideEvent(id);
-  });
+      if (hideOnLeave) callHideEvent(id);
+    },
+    [
+      children,
+      id,
+      appendTo,
+      hideOnLeave,
+      onMouseLeave,
+      onHide,
+      onShow,
+      preventHideOnScroll,
+      preventHideOnResize,
+      attributes,
+      className,
+      animation,
+    ],
+  );
 
   const clickOutsideCallback = (event) => {
     if (contextMenuEl.current && !contextMenuEl.current.contains(event.target)) {
@@ -151,9 +167,7 @@ function ContextMenu({
     <ContextComponent />
   );
 }
-
 export default ContextMenu;
-
 ContextMenu.defaultProps = {
   appendTo: null,
   hideOnLeave: false,

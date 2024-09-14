@@ -14,9 +14,7 @@ import {
   Expression,
   SignatureInput,
 } from './components';
-import { PluginAssistant } from './features/assistant';
 import { PluginGroupBlock } from './features/block-group';
-import { PluginContextMenu } from './features/context-menu';
 import { PluginCustomComponents } from './features/custom-components';
 import { DepartmentsPlugin } from './features/departments';
 import { EmbedPlugin } from './features/embed';
@@ -63,8 +61,6 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(DepartmentsPlugin);
     await this.app.pm.add(PluginPageStyle);
     await this.app.pm.add(PluginHeraVersion);
-    await this.app.pm.add(PluginContextMenu);
-    await this.app.pm.add(PluginAssistant);
     await this.app.pm.add(PluginPDF);
     await this.app.pm.add(PluginOutbound);
     // await this.app.pm.add(PluginModeHighlight);

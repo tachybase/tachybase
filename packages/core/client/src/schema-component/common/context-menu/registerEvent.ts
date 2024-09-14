@@ -2,7 +2,7 @@ import { uniqueId } from './helper';
 
 const events = {};
 
-let activeEvent = {};
+let activeEvent = {} as any;
 
 const registerEvent = (id, showMenu, hideMenu) => {
   const _ = uniqueId();
