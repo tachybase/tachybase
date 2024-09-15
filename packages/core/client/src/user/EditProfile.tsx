@@ -3,6 +3,7 @@ import { ISchema, uid, useForm } from '@tachybase/schema';
 
 import { MenuProps } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
 import {
   ActionContextProvider,
@@ -123,6 +124,7 @@ const schema: ISchema = {
 export const useEditProfile = () => {
   const ctx = useContext(DropdownVisibleContext);
   const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   return useMemo<MenuProps['items'][0]>(() => {
@@ -130,22 +132,9 @@ export const useEditProfile = () => {
       key: 'profile',
       eventKey: 'EditProfile',
       onClick: () => {
-        setVisible(true);
-        ctx?.setVisible(false);
+        navigate('/admin/profilers/user-profile');
       },
-      label: (
-        <div>
-          {t('Edit profile')}
-          <ActionContextProvider value={{ visible, setVisible }}>
-            <div onClick={(e) => e.stopPropagation()}>
-              <SchemaComponent
-                scope={{ useCurrentUserValues, useCloseAction, useSaveCurrentUserValues }}
-                schema={schema}
-              />
-            </div>
-          </ActionContextProvider>
-        </div>
-      ),
+      label: <div>{t('Edit profile')}</div>,
     };
   }, [visible]);
 };

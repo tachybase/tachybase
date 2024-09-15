@@ -2,6 +2,7 @@ import { Plugin, tval } from '@tachybase/client';
 import ACLPlugin from '@tachybase/plugin-acl/client';
 
 import { RoleUsersManager } from './RoleUsersManager';
+import { UserProfile } from './UserProfile';
 import { UsersManagement } from './UsersManagement';
 
 class PluginUsersClient extends Plugin {
@@ -15,6 +16,12 @@ class PluginUsersClient extends Plugin {
       icon: 'UserOutlined',
       Component: UsersManagement,
       aclSnippet: 'pm.users',
+    });
+
+    this.userSettingsManager.add('user-profile', {
+      icon: 'UserOutlined',
+      title: tval('Edit profile'),
+      Component: UserProfile,
     });
 
     const acl = this.app.pm.get(ACLPlugin);
