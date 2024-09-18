@@ -2,7 +2,7 @@ import { ISchema } from '@tachybase/schema';
 
 import { Collection } from '../../data-source';
 import { CollectionFieldInterface } from '../../data-source/collection-field-interface/CollectionFieldInterface';
-import { constraintsProps, relationshipType, reverseFieldProperties } from './properties';
+import { constraintsProps, operators, relationshipType, reverseFieldProperties } from './properties';
 
 export class O2MFieldInterface extends CollectionFieldInterface {
   name = 'o2m';
@@ -190,6 +190,7 @@ export class O2MFieldInterface extends CollectionFieldInterface {
   };
   filterable = {
     nested: true,
+    operators: operators.collectionField,
     children: [
       // {
       //   name: 'id',
