@@ -98,6 +98,8 @@ const checkedAutoPage = (position, message, t) => {
   if (!sibling.classList.contains('autoPage')) {
     const element = document.elementFromPoint(position?.x, position?.y);
     const blockElement = element.closest('.ant-card');
+    const navbar = document.querySelector('.ant-layout-header');
+    const navbarHeight = navbar.getBoundingClientRect();
     if (blockElement) {
       //需要展示的区块
       const copyBlockElement = blockElement.cloneNode(true);
@@ -107,17 +109,17 @@ const checkedAutoPage = (position, message, t) => {
       copyBlockElement.style.backgroundColor = '#ffffff';
 
       const autoNode = document.createElement('div');
-      autoNode.style.marginTop = '2.5%';
+      autoNode.style.marginTop = `${navbarHeight.height}px`;
       autoNode.style.width = '100%';
       autoNode.className = 'autoPage';
       //退出按钮
       const exitNode = document.createElement('div');
       exitNode.style.width = '100%';
-      exitNode.style.height = '3vh';
+      exitNode.style.height = '4vh';
       exitNode.style.textAlign = 'center';
-      exitNode.style.lineHeight = '3vh';
+      exitNode.style.lineHeight = '4vh';
       exitNode.style.backgroundColor = '#e6e6e6';
-      exitNode.textContent = '退出全屏';
+      exitNode.textContent = `${t('Exit Full Screen')}`;
       autoNode.appendChild(exitNode);
       autoNode.appendChild(copyBlockElement);
       autoNode.addEventListener('click', () => {
