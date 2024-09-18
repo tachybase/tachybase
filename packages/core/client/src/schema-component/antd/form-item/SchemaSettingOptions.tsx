@@ -484,6 +484,7 @@ export const useEnsureOperatorsValid = () => {
 export const EditOperator = () => {
   const compile = useCompile();
   const fieldSchema = useFieldSchema();
+
   const field = useField<Field>();
   const { t } = useTranslation();
   const { dn } = useDesignable();
@@ -507,7 +508,7 @@ export const EditOperator = () => {
           ['x-uid']: uid,
           ['x-filter-operators']: storedOperators,
         };
-        let componentProps = {};
+        let componentProps = { ...fieldSchema['x-component-props'] };
         const isCustom = (fieldSchema.name as string).includes('__custom');
         // 根据操作符的配置，设置组件的属性
         if (operator?.schema?.['x-component']) {
@@ -516,6 +517,7 @@ export const EditOperator = () => {
           field.reset();
           componentProps = {
             component: operator.schema['x-component'],
+            ...fieldSchema['x-component-props'],
             ...operator.schema?.['x-component-props'],
           };
           const dnSchema = {
@@ -544,6 +546,7 @@ export const EditOperator = () => {
           field.reset();
           componentProps = {
             component: isCustom ? fieldSchema['x-component-props']?.component : null,
+            ...fieldSchema['x-component-props'],
             ...operator.schema?.['x-component-props'],
           };
           const dnSchema = {
@@ -557,7 +560,6 @@ export const EditOperator = () => {
           }
           dn.emit('patch', dnSchema);
         }
-
         field.componentProps = componentProps;
         dn.emit('patch', {
           schema,

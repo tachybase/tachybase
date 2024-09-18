@@ -134,9 +134,9 @@ export const transformToFilter = (
   const result = {
     $and: Object.keys(values)
       .map((key) => {
+        const defKey = key;
         let value = _.get(values, key);
         const collectionField = getCollectionJoinField(`${collectionName}.${key}`);
-
         if (collectionField?.target) {
           value = getValuesByPath(value, collectionField.targetKey || 'id');
           key = `${key}.${collectionField.targetKey || 'id'}`;
@@ -145,7 +145,6 @@ export const transformToFilter = (
         if (!value) {
           return null;
         }
-
         // 处理布尔类型
         if (operators[key] === '$isTruly' || operators[key] === '$isFalsy') {
           if (value === 'true') {
@@ -162,10 +161,9 @@ export const transformToFilter = (
             };
           }
         }
-
         return {
           [key]: {
-            [operators[key] || '$eq']: value,
+            [operators[key] || operators[defKey] || '$eq']: value,
           },
         };
       })

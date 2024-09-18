@@ -174,3 +174,17 @@ export const collection = [
   { label: '{{t("is empty")}}', value: '$empty', noValue: true },
   { label: '{{t("is not empty")}}', value: '$notEmpty', noValue: true },
 ];
+
+export const collectionField = [
+  {
+    label: '{{t("is")}}',
+    value: '$eq',
+    selected: true,
+  },
+  {
+    label: '{{t("is not")}}',
+    value: '$ne',
+  },
+  { label: '{{t("is empty")}}', value: '$empty', noValue: true },
+  { label: '{{t("is not empty")}}', value: '$notEmpty', noValue: true },
+];
