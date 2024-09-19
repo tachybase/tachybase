@@ -34,9 +34,26 @@ export const ApprovalBlockLaunchApplication = (props) => {
       resource: decorator?.collection,
       action: decorator?.action,
       params: {
-        pageSize: 99999,
-        filter: { ...decorator?.params?.filter },
+        pagination: false,
         sort: 'createdAt',
+        filter: {
+          $and: [
+            // NOTE: 将审批类型的且处于启用状态的筛选出来
+            {
+              type: {
+                $eq: 'approval',
+              },
+            },
+            {
+              enabled: {
+                $eq: true,
+              },
+            },
+            {
+              ...decorator?.params?.filter,
+            },
+          ],
+        },
       },
     },
     {
@@ -133,7 +150,7 @@ export const ApprovalBlockLaunchApplication = (props) => {
                       onClick(item);
                     }}
                   >
-                    {item.title.replace('审批流:', '')}
+                    {item.title}
                   </Button>
                 </Col>
               );
