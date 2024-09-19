@@ -61,7 +61,7 @@ export const mBlockInitializers_deprecated = new CompatibleSchemaInitializer({
         },
         {
           name: 'markdown',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
         {
@@ -148,7 +148,7 @@ export const mBlockInitializers = new CompatibleSchemaInitializer(
           },
           {
             name: 'markdown',
-            title: tval('Markdown'),
+            title: tval('Demonstration text'),
             Component: 'MarkdownBlockInitializer',
           },
           {

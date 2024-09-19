@@ -176,7 +176,7 @@
   "Pie chart": "饼图",
   "Area chart": "面积图",
   "Other chart": "其他图表",
-  "Other blocks": "其他区块",
+  "Other blocks": "高级区块",
   "In configuration": "配置中",
   "Chart title": "图表标题",
   "Chart type": "图表类型",
@@ -958,5 +958,7 @@
   "Designer Mode":"设计者模式",
   "There are no full screen blocks available at the current location":"当前位置没有可全屏区块",
   "Exit Full Screen":"退出全屏",
+  "Embedded page": "嵌入页面",
+  "Demonstration text": "演示文本",
   "User settings":"个人设置"
 }

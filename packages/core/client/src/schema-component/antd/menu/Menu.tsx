@@ -11,8 +11,8 @@ import {
 } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
 
-import { AppstoreOutlined, InsertRowAboveOutlined, MoreOutlined } from '@ant-design/icons';
-import { Menu as AntdMenu, Button, Card, Col, Dropdown, MenuProps, Popover, Row } from 'antd';
+import { AppstoreAddOutlined } from '@ant-design/icons';
+import { Menu as AntdMenu, Button, Card, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -203,7 +203,7 @@ const HeaderMenu = ({
             );
           }}
         >
-          <Button className="iconButton" icon={<AppstoreOutlined style={{ color: token.colorTextHeaderMenu }} />} />
+          <Button className="iconButton" icon={<AppstoreAddOutlined style={{ color: token.colorTextHeaderMenu }} />} />
         </Popover>
         <Component />
       </div>

@@ -26,41 +26,45 @@ export class SCApprovalBlock extends Plugin {
   }
 }
 
-const schemaItems = [
+export const schemaItems = [
   {
-    type: 'itemGroup',
-    name: 'Launch',
-    title: `{{t("Launch", { ns: "${NAMESPACE}" })}}`,
-    children: [
-      {
-        type: 'item',
-        title: `{{t("Launch", { ns: "${NAMESPACE}" })}}`,
-        'x-component': 'ApprovalBlock.Launch.Application',
-        collection: 'workflows',
-        action: 'list',
-      },
-      {
-        type: 'item',
-        title: `{{t("MyLaunch", { ns: "${NAMESPACE}" })}}`,
-        'x-component': 'ApprovalBlock.Launch',
-        collection: 'approvals',
-        params: {
-          appends: [
-            'createdBy.nickname',
-            'workflow.title',
-            'workflow.enabled',
-            'records.id',
-            'records.status',
-            'records.node.title',
-          ],
-          except: ['data'],
-        },
-      },
-    ],
+    type: 'item',
+    icon: 'ClockCircleOutlined',
+    title: `{{t("Initiate Request", { ns: "${NAMESPACE}" })}}`,
+    'x-component': 'ApprovalBlock.Launch.Application',
+    collection: 'workflows',
+    action: 'list',
+    Component: 'ApprovalBlock.BlockInitializer',
+    useInsert: () => {
+      return (schema) => {
+        console.log('🚀 ~ file: ApprovalBlock.schema.tsx:45 ~ return ~ schema:', schema);
+      };
+    },
   },
   {
     type: 'item',
-    title: `{{t("Todos", { ns: "${NAMESPACE}" })}}`,
+    icon: 'AuditOutlined',
+    Component: 'ApprovalBlock.BlockInitializer',
+    title: `{{t("My Requests", { ns: "${NAMESPACE}" })}}`,
+    'x-component': 'ApprovalBlock.Launch',
+    collection: 'approvals',
+    params: {
+      appends: [
+        'createdBy.nickname',
+        'workflow.title',
+        'workflow.enabled',
+        'records.id',
+        'records.status',
+        'records.node.title',
+      ],
+      except: ['data'],
+    },
+  },
+  {
+    type: 'item',
+    icon: 'FormOutlined',
+    Component: 'ApprovalBlock.BlockInitializer',
+    title: `{{t("My Pending Tasks", { ns: "${NAMESPACE}" })}}`,
     'x-component': 'ApprovalBlock.Todos',
     collection: 'approvalRecords',
     params: {
@@ -84,7 +88,9 @@ const schemaItems = [
   },
   {
     type: 'item',
-    title: `{{t("CarbonCopy", { ns: "${NAMESPACE}" })}}`,
+    icon: 'MailOutlined',
+    Component: 'ApprovalBlock.BlockInitializer',
+    title: `{{t("CC'd to Me", { ns: "${NAMESPACE}" })}}`,
     'x-decorator': 'CarbonCopyBlockProvider',
     'x-component': 'CarbonCopyCenter',
     'x-toolbar': 'BlockSchemaToolbar',
@@ -112,7 +118,7 @@ const schemaItems = [
   },
 ];
 
-const getSchemaInsert = ({ item }) => {
+export const getSchemaInsert = ({ item }) => {
   const id = uid();
   const {
     collection,
@@ -156,7 +162,5 @@ export const ApprovalBlockComponent = () => {
     insert(schema);
   };
 
-  return (
-    <SchemaInitializerItem icon={<TableOutlined />} {...schemaInitializerItem} items={schemaItems} onClick={onClick} />
-  );
+  return <SchemaInitializerItem {...schemaInitializerItem} onClick={onClick} />;
 };

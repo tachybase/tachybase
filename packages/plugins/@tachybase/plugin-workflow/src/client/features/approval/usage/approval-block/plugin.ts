@@ -1,8 +1,8 @@
-import { Plugin } from '@tachybase/client';
+import { Plugin, useSchemaInitializer } from '@tachybase/client';
 
 import { tval } from '../../locale';
 import { KitApprovalCommon } from '../approval-common/plugin';
-import { ApprovalBlockComponent, SCApprovalBlock } from './ApprovalBlock.schema';
+import { ApprovalBlockComponent, getSchemaInsert, SCApprovalBlock, schemaItems } from './ApprovalBlock.schema';
 import { ViewActionLaunch } from './launch/VC.ViewActionLaunch';
 import { ProviderApprovalUpdateForm } from './todos/ApprovalUpdateForm.provider';
 import { ViewActionTodos } from './todos/VC.ViewActionTodos';
@@ -22,12 +22,12 @@ export class KitApprovalBlock extends Plugin {
       ProviderApprovalUpdateForm: ProviderApprovalUpdateForm,
     });
 
-    this.app.schemaInitializerManager.get('page:addBlock').add('otherBlocks.approval', {
+    this.app.schemaInitializerManager.get('page:addBlock').add('otherBlocks.workflow.approval', {
       key: 'approvalBlock',
       name: 'approvalBlock',
-      type: 'item',
+      type: 'itemGroup',
       title: tval('Approval'),
-      Component: 'ApprovalBlock.BlockInitializer',
+      children: schemaItems,
       icon: 'AuditOutlined',
     });
   }

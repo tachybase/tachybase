@@ -12,6 +12,7 @@ import {
   InitializerWithSwitch,
   SchemaComponent,
   SchemaComponentContext,
+  SchemaInitializer,
   SchemaInitializerItem,
   SchemaInitializerItemType,
   SchemaSettingsBlockTitleItem,
@@ -104,11 +105,8 @@ const blockTypeNames = {
   record: `{{t("Data record", { ns: "${NAMESPACE}" })}}`,
 };
 
-/**
- * @deprecated
- */
-export const addBlockButton_deprecated = new CompatibleSchemaInitializer({
-  name: 'AddBlockButton',
+export const addBlockButton = new SchemaInitializer({
+  name: 'workflowManual:popup:configureUserInterface:addBlock',
   wrap: gridRowColWrap,
   title: '{{t("Add block")}}',
   items: [
@@ -135,7 +133,7 @@ export const addBlockButton_deprecated = new CompatibleSchemaInitializer({
                 {
                   name: 'nodes',
                   type: 'subMenu',
-                  title: `{{t("Node result", { ns: "workflow" })}}`,
+                  title: `{{t("Node result", { ns: "${NAMESPACE}" })}}`,
                   children: nodeBlockInitializers,
                 },
               ]
@@ -164,81 +162,13 @@ export const addBlockButton_deprecated = new CompatibleSchemaInitializer({
       children: [
         {
           name: 'markdown',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
       ],
     },
   ],
 });
-
-export const addBlockButton = new CompatibleSchemaInitializer(
-  {
-    name: 'workflowManual:popup:configureUserInterface:addBlock',
-    wrap: gridRowColWrap,
-    title: '{{t("Add block")}}',
-    items: [
-      {
-        type: 'itemGroup',
-        name: 'dataBlocks',
-        title: '{{t("Data blocks")}}',
-        hideIfNoChildren: true,
-        useChildren() {
-          const workflowPlugin = usePlugin(WorkflowPlugin);
-          const current = useNodeContext();
-          const nodes = useAvailableUpstreams(current);
-          const triggerInitializers = [useTriggerInitializers()].filter(Boolean);
-          const nodeBlockInitializers = nodes
-            .map((node) => {
-              const instruction = workflowPlugin.instructions.get(node.type);
-              return instruction?.useInitializers?.(node);
-            })
-            .filter(Boolean);
-          const dataBlockInitializers: any = [
-            ...triggerInitializers,
-            ...(nodeBlockInitializers.length
-              ? [
-                  {
-                    name: 'nodes',
-                    type: 'subMenu',
-                    title: `{{t("Node result", { ns: "${NAMESPACE}" })}}`,
-                    children: nodeBlockInitializers,
-                  },
-                ]
-              : []),
-          ].filter(Boolean);
-          return dataBlockInitializers;
-        },
-      },
-      {
-        type: 'itemGroup',
-        name: 'form',
-        title: '{{t("Form")}}',
-        useChildren() {
-          const dm = useDataSourceManager();
-          const allCollections = dm.getAllCollections();
-          return Array.from(manualFormTypes.getValues()).map((item: ManualFormType) => {
-            const { useInitializer: getInitializer } = item.config;
-            return getInitializer({ allCollections });
-          });
-        },
-      },
-      {
-        type: 'itemGroup',
-        name: 'otherBlocks',
-        title: '{{t("Other blocks")}}',
-        children: [
-          {
-            name: 'markdown',
-            title: '{{t("Markdown")}}',
-            Component: 'MarkdownBlockInitializer',
-          },
-        ],
-      },
-    ],
-  },
-  addBlockButton_deprecated,
-);
 
 function AssignedFieldValues() {
   const ctx = useContext(SchemaComponentContext);
@@ -418,11 +348,8 @@ function ActionInitializer() {
   );
 }
 
-/**
- * @deprecated
- */
-export const addActionButton_deprecated = new CompatibleSchemaInitializer({
-  name: 'AddActionButton',
+export const addActionButton = new SchemaInitializer({
+  name: 'workflowManual:form:configureActions',
   title: '{{t("Configure actions")}}',
   items: [
     {
@@ -451,40 +378,6 @@ export const addActionButton_deprecated = new CompatibleSchemaInitializer({
     },
   ],
 });
-
-export const addActionButton = new CompatibleSchemaInitializer(
-  {
-    name: 'workflowManual:form:configureActions',
-    title: '{{t("Configure actions")}}',
-    items: [
-      {
-        name: 'jobStatusResolved',
-        title: `{{t("Continue the process", { ns: "${NAMESPACE}" })}}`,
-        Component: ContinueInitializer,
-        action: JOB_STATUS.RESOLVED,
-        actionProps: {
-          type: 'primary',
-        },
-      },
-      {
-        name: 'jobStatusRejected',
-        title: `{{t("Terminate the process", { ns: "${NAMESPACE}" })}}`,
-        Component: ActionInitializer,
-        action: JOB_STATUS.REJECTED,
-        actionProps: {
-          danger: true,
-        },
-      },
-      {
-        name: 'jobStatusPending',
-        title: `{{t("Save temporarily", { ns: "${NAMESPACE}" })}}`,
-        Component: ActionInitializer,
-        action: JOB_STATUS.PENDING,
-      },
-    ],
-  },
-  addActionButton_deprecated,
-);
 
 // NOTE: fake useAction for ui configuration
 function useSubmit() {

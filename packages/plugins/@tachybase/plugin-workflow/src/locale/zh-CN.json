@@ -211,7 +211,7 @@
   "No repeat": "不重复",
   "Node result": "节点数据",
   "Node type": "节点类型",
-  "Notice Center": "工作流:通知中心",
+  "Notice Center": "通知中心",
   "Notice blocks": "通知区块",
   "Notice": "通知",
   "Off": "停用",
@@ -366,5 +366,10 @@
   "CarbonCopy": "抄送",
   "ApprovalCarbonCopy": "审批:抄送",
   "Approval Launch": "审批发起",
+  "Initiate Request": "发起申请",
+  "My Requests": "我的申请",
+  "CC'd to Me": "抄送我的",
+  "My Pending Tasks": "我的代办",
+  "Common": "通用",
   "needAuthorization": "是否携带权限校验"
 }

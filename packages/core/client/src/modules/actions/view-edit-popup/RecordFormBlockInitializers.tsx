@@ -29,7 +29,7 @@ export const recordFormBlockInitializers = new SchemaInitializer({
       children: [
         {
           name: 'markdown',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
       ],

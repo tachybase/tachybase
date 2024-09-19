@@ -30,7 +30,7 @@ export const LauncherAddBlockButtonIntializer = new SchemaInitializer({
         {
           name: 'markdown',
           type: 'item',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
       ],

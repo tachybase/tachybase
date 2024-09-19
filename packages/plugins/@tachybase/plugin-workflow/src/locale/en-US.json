@@ -282,6 +282,11 @@
   "Are you sure you want to resubmit it?": "Are you sure you want to resubmit it?",
   "MyLaunch": "MyLaunch",
   "CarbonCopy": "CarbonCopy",
+  "Initiate Request": "Initiate Request",
+  "My Requests": "My Requests",
+  "CC'd to Me": "CC'd to Me",
+  "My Pending Tasks": "My Pending Tasks",
+  "Common": "Common",
   "ApprovalCarbonCopy": "Approval:CarbonCopy",
   "Approval Launch": "Approval Launch",
   "needAuthorization": "needAuthorization"

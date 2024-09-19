@@ -76,7 +76,7 @@ export const ApproverAddBlockInitializer = new SchemaInitializer({
         const values = Array.from(approvalFormOptions.getValues());
         return values.map((item: ApprovalFormType) => {
           // NOTE: 这里通过赋别名,避免 eslint 检查 hooks 语法,无法提交
-          // eslint-disable-next-line react-hooks/rules-of-hooks
+
           const { useInitializer: getInitializer } = item.config;
           return getInitializer({ allCollections });
         });
@@ -90,7 +90,7 @@ export const ApproverAddBlockInitializer = new SchemaInitializer({
         {
           name: 'markdown',
           type: 'item',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           component: 'MarkdownBlockInitializer',
         },
       ],
