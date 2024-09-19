@@ -4,8 +4,8 @@ const defaultTheme: ThemeConfig = {
   name: '',
   token: {
     // 顶部导航栏
-    colorPrimaryHeader: '#001529',
-    colorBgHeader: '#001529',
+    colorPrimaryHeader: '#3791e7',
+    colorBgHeader: '#3791e7',
     colorBgHeaderMenuHover: '#ffffff1a',
     colorBgHeaderMenuActive: '#ffffff1a',
     colorTextHeaderMenu: '#ffffffa6',
@@ -13,7 +13,7 @@ const defaultTheme: ThemeConfig = {
     colorTextHeaderMenuActive: '#ffffff',
 
     // UI 配置组件
-    colorSettings: '#F18B62',
+    colorSettings: '#2196f3',
     colorBgSettingsHover: 'rgba(241, 139, 98, 0.06)',
     colorBorderSettingsHover: 'rgba(241, 139, 98, 0.3)',
     motionUnit: 0.03,
