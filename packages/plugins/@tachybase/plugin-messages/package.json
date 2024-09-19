@@ -2,7 +2,9 @@
   "name": "@tachybase/plugin-messages",
   "version": "0.21.82",
   "main": "dist/server/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "antd": "5.19.4"
+  },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
