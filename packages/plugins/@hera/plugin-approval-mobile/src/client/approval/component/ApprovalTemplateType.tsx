@@ -21,7 +21,7 @@ export const ApprovalTemplateType = observer((props) => {
       })
       .then((res) => {
         const columnsData = res.data.data.map((value) => {
-          return { label: value.title?.replace('审批流:', '') || '', value: value.id };
+          return { label: value.title || '', value: value.id };
         });
         columnsData.unshift({
           value: 'all',

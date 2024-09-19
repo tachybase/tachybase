@@ -37,13 +37,13 @@ export const InitiationsItem = observer((props) => {
               <div
                 style={{ display: 'flex', flexDirection: 'column', alignContent: 'center' }}
                 onClick={(c) => {
-                  navigate(`/mobile/${value.title?.replace('审批流:', '') || ''}/approval/${value.id}/page`);
+                  navigate(`/mobile/${value.title || ''}/approval/${value.id}/page`);
                 }}
               >
                 <div>
                   <TeamFill />
                 </div>
-                {value.title?.replace('审批流:', '') || ''}
+                {value.title || ''}
               </div>
             ),
           };

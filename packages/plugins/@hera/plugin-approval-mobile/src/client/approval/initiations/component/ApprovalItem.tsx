@@ -93,7 +93,7 @@ const changService = (api, setData, user, filter, t, setDefaultData, cm, compile
       const result = res.data?.data.map((item) => {
         const priorityType = ApprovalPriorityType.find((priorityItem) => priorityItem.value === item.data.priority);
         const statusType = approvalTodoListStatus(item, t);
-        const categoryTitle = item.workflow.title.replace('审批流:', '');
+        const categoryTitle = item.workflow.title;
         const collectionName = item.workflow?.config?.collection || item.execution?.context?.collectionName;
         const summary = Object.entries(item.summary)?.map(([key, value]) => {
           const field = cm.getCollectionField(`${collectionName}.${key}`);
