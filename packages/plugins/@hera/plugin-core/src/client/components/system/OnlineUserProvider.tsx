@@ -51,7 +51,7 @@ export const OnlineUserDropdown = () => {
       className={css`
         .ant-btn {
           border: 0;
-          height: 46px;
+          height: var(--tb-header-height);
           width: 46px;
           border-radius: 0;
           background: none;

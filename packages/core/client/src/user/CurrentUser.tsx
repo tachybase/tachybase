@@ -172,7 +172,7 @@ const useStyles = createStyles(({ css, token }) => {
       display: inline-block;
       vertical-align: top;
       width: 46px;
-      height: 46px;
+      height: var(--tb-header-height);
       &:hover {
         background: rgba(255, 255, 255, 0.1) !important;
       }
@@ -181,11 +181,11 @@ const useStyles = createStyles(({ css, token }) => {
       max-width: 160px;
       overflow: hidden;
       display: inline-block;
-      line-height: 12px;
+      line-height: var(--tb-header-height);
       white-space: nowrap;
       text-overflow: ellipsis;
       cursor: pointer;
-      padding: 16px;
+      padding: 0 16px 16px 16px;
       color: ${token.colorTextHeaderMenu};
     `,
   };
