@@ -2,6 +2,7 @@ import { Plugin, tval } from '@tachybase/client';
 import ACLPlugin from '@tachybase/plugin-acl/client';
 
 import { RoleUsersManager } from './RoleUsersManager';
+import { ChangePassword } from './UserChangePassword';
 import { UserProfile } from './UserProfile';
 import { UsersManagement } from './UsersManagement';
 
@@ -16,6 +17,12 @@ class PluginUsersClient extends Plugin {
       icon: 'UserOutlined',
       Component: UsersManagement,
       aclSnippet: 'pm.users',
+    });
+
+    this.userSettingsManager.add('user-change-password', {
+      icon: 'LockOutlined',
+      title: tval('Change password'),
+      Component: ChangePassword,
     });
 
     this.userSettingsManager.add('user-profile', {

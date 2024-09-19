@@ -149,9 +149,9 @@ export const SettingsMenu: React.FC<{
   }, [
     addMenuItem,
     api.auth,
-    changePassword,
     controlApp,
     editProfile,
+    changePassword,
     languageSettings,
     navigate,
     redirectUrl,
