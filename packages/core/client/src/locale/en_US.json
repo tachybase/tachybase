@@ -149,6 +149,7 @@
   "Select grouping field": "Select grouping field",
   "Media": "Media",
   "Markdown": "Markdown",
+  "Demonstration text": "Demonstration text",
   "Wysiwyg": "Wysiwyg",
   "Chart blocks": "Chart blocks",
   "Column chart": "Column chart",
@@ -157,7 +158,7 @@
   "Pie chart": "Pie chart",
   "Area chart": "Area chart",
   "Other chart": "Other chart",
-  "Other blocks": "Other blocks",
+  "Other blocks": "Advanced blocks",
   "In configuration": "In configuration",
   "Chart title": "Chart title",
   "Chart type": "Chart type",
@@ -843,5 +844,6 @@
   "Disable Right Menu":"Disable Right Menu",
   "Full Screen":"Full Screen",
   "Designer Mode":"Designer Mode",
+  "Embedded page": "Embedded page",
   "There are no full screen blocks available at the current location":"There are no full screen blocks available at the current location"
 }

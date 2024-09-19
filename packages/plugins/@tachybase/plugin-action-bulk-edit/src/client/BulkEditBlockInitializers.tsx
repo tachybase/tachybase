@@ -31,7 +31,7 @@ export const CreateFormBulkEditBlockInitializers: SchemaInitializer = new Schema
       children: [
         {
           name: 'markdown',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
       ],
@@ -67,7 +67,7 @@ export const BulkEditBlockInitializers_deprecated = new CompatibleSchemaInitiali
       children: [
         {
           name: 'markdown',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
       ],
@@ -101,7 +101,7 @@ export const bulkEditBlockInitializers = new CompatibleSchemaInitializer(
         children: [
           {
             name: 'markdown',
-            title: '{{t("Markdown")}}',
+            title: '{{t("Demonstration text")}}',
             Component: 'MarkdownBlockInitializer',
           },
         ],

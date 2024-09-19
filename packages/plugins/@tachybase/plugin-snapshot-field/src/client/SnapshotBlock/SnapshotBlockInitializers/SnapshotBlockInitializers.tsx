@@ -31,7 +31,7 @@ export const snapshotBlockInitializers_deprecated = new CompatibleSchemaInitiali
       children: [
         {
           name: 'markdown',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
       ],
@@ -66,7 +66,7 @@ export const snapshotBlockInitializers = new CompatibleSchemaInitializer(
         children: [
           {
             name: 'markdown',
-            title: '{{t("Markdown")}}',
+            title: '{{t("Demonstration text")}}',
             Component: 'MarkdownBlockInitializer',
           },
         ],

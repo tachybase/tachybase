@@ -353,7 +353,7 @@ export const recordBlockInitializers_deprecated = new CompatibleSchemaInitialize
       children: [
         {
           name: 'markdown',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
       ],
@@ -450,7 +450,7 @@ export const recordBlockInitializers = new CompatibleSchemaInitializer(
         children: [
           {
             name: 'markdown',
-            title: '{{t("Markdown")}}',
+            title: '{{t("Demonstration text")}}',
             Component: 'MarkdownBlockInitializer',
           },
         ],

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContextMenu, useDesignable, useHotkeys } from '@tachybase/client';
+import { Icon, useContextMenu, useDesignable, useHotkeys } from '@tachybase/client';
 
 import {
   CalculatorOutlined,
@@ -30,7 +30,7 @@ export const AssistantProvider = ({ children }) => {
       <FloatButton.Group trigger="hover" type="default" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
         <FloatButton icon={<SearchOutlined />} onClick={() => setOpen(true)} />
         <FloatButton
-          icon={<HighlightOutlined />}
+          icon={<Icon type="Design" />}
           type={designable ? 'primary' : 'default'}
           onClick={() => setDesignable(!designable)}
         />

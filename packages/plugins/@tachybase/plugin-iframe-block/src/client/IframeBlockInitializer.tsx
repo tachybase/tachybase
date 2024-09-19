@@ -1,7 +1,7 @@
 import React from 'react';
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
-import { FormOutlined } from '@ant-design/icons';
+import { Html5Outlined } from '@ant-design/icons';
 
 export const IframeBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
@@ -9,7 +9,7 @@ export const IframeBlockInitializer = () => {
   return (
     <SchemaInitializerItem
       {...itemConfig}
-      icon={<FormOutlined />}
+      icon={<Html5Outlined />}
       onClick={() => {
         insert({
           type: 'void',

@@ -6,6 +6,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { useTranslation } from 'react-i18next';
 
 import { useDesignable } from '..';
+import { Icon } from '../../icon';
 import { useToken } from '../../style';
 
 export const DesignableSwitch = () => {
@@ -24,7 +25,7 @@ export const DesignableSwitch = () => {
     <Tooltip title={t('UI Editor')}>
       <Button
         data-testid={'ui-editor-button'}
-        icon={<HighlightOutlined style={{ color: token.colorTextHeaderMenu }} />}
+        icon={<Icon type="Design" style={{ color: token.colorTextHeaderMenu, fill: token.colorTextHeaderMenu }} />}
         title={t('UI Editor')}
         style={style}
         onClick={() => {

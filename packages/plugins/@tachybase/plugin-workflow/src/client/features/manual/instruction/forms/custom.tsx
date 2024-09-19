@@ -7,6 +7,7 @@ import {
   gridRowColWrap,
   RecordProvider,
   SchemaComponent,
+  SchemaInitializer,
   SchemaInitializerItem,
   SchemaInitializerItems,
   SchemaInitializerItemType,
@@ -336,27 +337,13 @@ const CustomItemsComponent = (props) => {
   );
 };
 
-/**
- * @deprecated
- */
-export const addCustomFormField_deprecated = new CompatibleSchemaInitializer({
-  name: 'AddCustomFormField',
+export const addCustomFormField = new SchemaInitializer({
+  name: 'workflowManual:customForm:configureFields',
   wrap: gridRowColWrap,
   insertPosition: 'beforeEnd',
   title: "{{t('Configure fields')}}",
   ItemsComponent: CustomItemsComponent,
 });
-
-export const addCustomFormField = new CompatibleSchemaInitializer(
-  {
-    name: 'workflowManual:customForm:configureFields',
-    wrap: gridRowColWrap,
-    insertPosition: 'beforeEnd',
-    title: "{{t('Configure fields')}}",
-    ItemsComponent: CustomItemsComponent,
-  },
-  addCustomFormField_deprecated,
-);
 
 function CustomFormFieldInitializer() {
   const itemConfig = useSchemaInitializerItem();

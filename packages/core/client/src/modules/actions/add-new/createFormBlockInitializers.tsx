@@ -32,7 +32,7 @@ export const createFormBlockInitializers_deprecated = new CompatibleSchemaInitia
       children: [
         {
           name: 'markdown',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
       ],
@@ -89,7 +89,7 @@ export const createFormBlockInitializers = new CompatibleSchemaInitializer(
         children: [
           {
             name: 'markdown',
-            title: '{{t("Markdown")}}',
+            title: '{{t("Demonstration text")}}',
             Component: 'MarkdownBlockInitializer',
           },
         ],

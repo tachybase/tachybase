@@ -66,7 +66,7 @@ export const blockInitializers_deprecated = new CompatibleSchemaInitializer({
       children: [
         {
           name: 'markdown',
-          title: '{{t("Markdown")}}',
+          title: '{{t("Demonstration text")}}',
           Component: 'MarkdownBlockInitializer',
         },
       ],
@@ -137,7 +137,7 @@ export const blockInitializers = new CompatibleSchemaInitializer(
         children: [
           {
             name: 'markdown',
-            title: '{{t("Markdown")}}',
+            title: '{{t("Demonstration text")}}',
             Component: 'MarkdownBlockInitializer',
           },
         ],

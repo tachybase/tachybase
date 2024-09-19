@@ -14,7 +14,7 @@ export class KitUsage extends Plugin {
       NoticeBlockInitializer: NoticeBlockInitializer,
     });
 
-    this.app.schemaInitializerManager.get('page:addBlock').add('otherBlocks.notice', {
+    this.app.schemaInitializerManager.get('page:addBlock').add('otherBlocks.workflow.common.notice', {
       key: 'noticeBlock',
       name: 'noticeBlock',
       type: 'item',

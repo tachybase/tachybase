@@ -14,7 +14,7 @@ import {
 import { FormLayout } from '@tachybase/components';
 import { SchemaOptionsContext } from '@tachybase/schema';
 
-import { FormOutlined } from '@ant-design/icons';
+import { CalendarOutlined } from '@ant-design/icons';
 
 import { useTranslation } from '../../../locale';
 import { createCalendarBlockUISchema } from '../createCalendarBlockUISchema';
@@ -39,7 +39,7 @@ export const CalendarBlockInitializer = ({
     <DataBlockInitializer
       {...itemConfig}
       componentType={'Calendar'}
-      icon={<FormOutlined />}
+      icon={<CalendarOutlined />}
       onCreateBlockSchema={async (options) => {
         if (createBlockSchema) {
           return createBlockSchema(options);

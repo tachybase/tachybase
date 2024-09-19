@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormOutlined } from '@ant-design/icons';
+import { FileTextOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
@@ -13,7 +13,7 @@ export const MarkdownBlockInitializer = () => {
   return (
     <SchemaInitializerItem
       {...itemConfig}
-      icon={<FormOutlined />}
+      icon={<FileTextOutlined />}
       onClick={() => {
         insert({
           type: 'void',
