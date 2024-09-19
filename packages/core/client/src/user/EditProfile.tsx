@@ -124,7 +124,6 @@ const schema: ISchema = {
 export const useEditProfile = () => {
   const ctx = useContext(DropdownVisibleContext);
   const [visible, setVisible] = useState(false);
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
   return useMemo<MenuProps['items'][0]>(() => {
@@ -132,9 +131,22 @@ export const useEditProfile = () => {
       key: 'profile',
       eventKey: 'EditProfile',
       onClick: () => {
-        navigate('/admin/profilers/user-profile');
+        setVisible(true);
+        ctx?.setVisible(false);
       },
-      label: <div>{t('Edit profile')}</div>,
+      label: (
+        <div>
+          {t('Edit profile')}
+          <ActionContextProvider value={{ visible, setVisible }}>
+            <div onClick={(e) => e.stopPropagation()}>
+              <SchemaComponent
+                scope={{ useCurrentUserValues, useCloseAction, useSaveCurrentUserValues }}
+                schema={schema}
+              />
+            </div>
+          </ActionContextProvider>
+        </div>
+      ),
     };
   }, [visible]);
 };

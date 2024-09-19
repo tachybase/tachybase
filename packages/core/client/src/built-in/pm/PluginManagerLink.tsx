@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ApiOutlined, SettingOutlined } from '@ant-design/icons';
+import { ApiOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -31,7 +31,30 @@ export const SettingsCenterDropdown = () => {
   const compile = useCompile();
   const { token } = useToken();
   const app = useApp();
-  const settings = app.pluginSettingsManager.getList();
+  const systemSettings = app.pluginSettingsManager.getList();
+  const userSettings = app.userSettingsManager.getList();
+  const settingItem = [];
+  userSettings
+    .filter((v) => v.isTopLevel !== false)
+    .forEach((setting) => {
+      settingItem.push({
+        key: setting.name,
+        icon: setting.icon,
+        label: <Link to={setting.path}>{compile(setting.title)}</Link>,
+      });
+    });
+  settingItem.push({
+    type: 'divider',
+  });
+  systemSettings
+    .filter((v) => v.isTopLevel !== false)
+    .forEach((setting) => {
+      settingItem.push({
+        key: setting.name,
+        icon: setting.icon,
+        label: <Link to={setting.path}>{compile(setting.title)}</Link>,
+      });
+    });
   return (
     <Dropdown
       menu={{
@@ -39,15 +62,7 @@ export const SettingsCenterDropdown = () => {
           maxHeight: '70vh',
           overflow: 'auto',
         },
-        items: settings
-          .filter((v) => v.isTopLevel !== false)
-          .map((setting) => {
-            return {
-              key: setting.name,
-              icon: setting.icon,
-              label: <Link to={setting.path}>{compile(setting.title)}</Link>,
-            };
-          }),
+        items: settingItem,
       }}
     >
       <Button

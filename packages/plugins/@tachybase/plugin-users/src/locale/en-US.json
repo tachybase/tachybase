@@ -3,5 +3,7 @@
   "Add users": "Add users",
   "Remove user": "Remove user",
   "Are you sure you want to remove it?": "Are you sure you want to remove it?",
-  "Random password": "Random password"
+  "Random password": "Random password",
+  "Edited successfully":"Edited successfully",
+  "Users Settings":"Users Settings"
 }
