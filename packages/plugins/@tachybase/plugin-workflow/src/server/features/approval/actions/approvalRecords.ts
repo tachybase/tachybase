@@ -45,9 +45,9 @@ export const approvalRecords = {
     switch (true) {
       // case !approvalRecord.workflow.enabled:
       //   return context.throw(400, ERROR_CODE_MAP['not_enable_workflow']);
-      case approvalRecord.execution.status:
+      case approvalRecord.execution?.status:
         return context.throw(400, ERROR_CODE_MAP['execution_finished']);
-      case approvalRecord.job.status:
+      case approvalRecord.job?.status:
         return context.throw(400, ERROR_CODE_MAP['job_finished']);
       case approvalRecord.status !== APPROVAL_ACTION_STATUS.PENDING:
         return context.throw(400, ERROR_CODE_MAP['not_approval_pending']);
