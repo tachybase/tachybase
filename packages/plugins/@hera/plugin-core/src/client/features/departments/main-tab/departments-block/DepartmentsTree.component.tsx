@@ -5,7 +5,6 @@ import { MoreOutlined } from '@ant-design/icons';
 import { App, Dropdown, Empty, Tree } from 'antd';
 
 import { useTranslation } from '../../../../locale';
-import { getUserListByDepartment } from '../../utils/getUserListByDepartment';
 import { useContextDepartments } from '../context/Department.context';
 import { useContextDepartmentsExpanded } from '../context/DepartmentsExpanded.context';
 import { schemaDepartmentEdit } from './schemas/schemaDepartmentEdit';
@@ -13,7 +12,6 @@ import { schemaDepartmentNewSub } from './schemas/schemaDepartmentNewSub';
 
 // 部门左边-部门列表
 export const DepartmentsTree = () => {
-  const api = useAPIClient();
   const { data, loading } = useResourceActionContext();
   const { department, setDepartment, setUser } = useContextDepartments();
   const { treeData, nodeMap, loadData, loadedKeys, setLoadedKeys, initData, expandedKeys, setExpandedKeys } =
@@ -24,8 +22,6 @@ export const DepartmentsTree = () => {
       return;
     }
     const department = nodeMap[keys[0]];
-    const userList = await getUserListByDepartment(api, department.id);
-
     setDepartment(department);
     setUser(null);
   };

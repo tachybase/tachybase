@@ -18,6 +18,18 @@ export const schemaMemberActions = {
         useAction: '{{ useBulkRemoveMembersAction }}',
       },
     },
+    refresh: {
+      type: 'void',
+      title: '{{ t("Refresh") }}',
+      'x-component': 'Action',
+      'x-use-component-props': 'useRefreshActionProps',
+      'x-component-props': {
+        icon: 'ReloadOutlined',
+        style: {
+          marginRight: 8,
+        },
+      },
+    },
     create: {
       type: 'void',
       title: '{{t("Add members")}}',

@@ -1,12 +1,12 @@
 import React from 'react';
 import { SchemaComponentContext, useSchemaComponentContext } from '@tachybase/client';
 
-import { ViewDepartmentManagement } from './DepartmentManagement.view';
 import { ProviderDepartmentIndex } from './DepartmentIndex.provider';
+import { ViewDepartmentManagement } from './DepartmentManagement.view';
 
 /**
  * TODO: 组件名称有待重新确认
- * @returns 
+ * @returns
  */
 export const DepartmentIndex = () => {
   const context = useSchemaComponentContext();

@@ -10,6 +10,5 @@ export const useDepartmentFilterActionProps = () => {
     params: service.state?.params?.[0] || service.params,
     service,
   });
-
   return result;
 };
