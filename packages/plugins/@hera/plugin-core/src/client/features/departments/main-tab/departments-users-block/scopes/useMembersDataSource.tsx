@@ -6,6 +6,7 @@ import { useContextDepartments } from '../../context/Department.context';
 export const useMembersDataSource = (props) => {
   const { user } = useContextDepartments();
   const ctx = useResourceActionContext();
+  const { onSuccess } = props;
   useEffect(() => {
     if (user) {
       props?.onSuccess({ data: [user] });
@@ -14,7 +15,7 @@ export const useMembersDataSource = (props) => {
     }
 
     if (!ctx.loading) {
-      props?.onSuccess(ctx.data);
+      onSuccess?.(ctx.data);
     }
   }, [user, ctx.loading]);
 

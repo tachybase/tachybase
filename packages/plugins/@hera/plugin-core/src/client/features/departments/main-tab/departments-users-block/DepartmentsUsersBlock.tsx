@@ -19,19 +19,23 @@ import { UserDepartmentsField } from './UserDepartmentsField.component';
 export const ViewDepartmentsUsersBlock = () => {
   const { t } = useTranslation();
   const { department, user } = useContextDepartments();
-  const { data, setState } = useResourceActionContext();
+  const { data, setState, refresh } = useResourceActionContext();
 
   const MemberActions = () => <ViewMemberActions department={department} />;
 
   const RowRemoveAction = () => <ViewRowRemoveAction department={department} />;
 
-  const schema = useMemo(() => getSchemaDepartmentsUsersBlock(department, user), [department, user]);
+  const schema = useMemo(() => getSchemaDepartmentsUsersBlock(department, user), [department?.id, user]);
 
   useEffect(() => {
     setState?.({
       selectedRowKeys: [],
     });
   }, [data, setState]);
+
+  useEffect(() => {
+    refresh?.();
+  }, [department?.id, user]);
 
   return (
     <>
