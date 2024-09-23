@@ -14,8 +14,8 @@ const defaultTheme: ThemeConfig = {
 
     // UI 配置组件
     colorSettings: '#2196f3',
-    colorBgSettingsHover: 'rgba(241, 139, 98, 0.06)',
-    colorBorderSettingsHover: 'rgba(241, 139, 98, 0.3)',
+    colorBgSettingsHover: 'rgba(33,150,243, 0.06)',
+    colorBorderSettingsHover: 'rgba(33,150,243, 0.3)',
     motionUnit: 0.03,
     motion: !process.env.__E2E__,
   },

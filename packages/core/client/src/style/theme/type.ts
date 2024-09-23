@@ -33,6 +33,5 @@ export interface ThemeConfig extends _ThemeConfig {
 }
 
 declare module 'antd-style' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface CustomToken extends TachybaseToken {}
 }

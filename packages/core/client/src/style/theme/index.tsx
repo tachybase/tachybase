@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useMemo, useRef } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 
 import { theme as antdTheme, ConfigProvider } from 'antd';
 import _ from 'lodash';
@@ -29,11 +29,11 @@ const GlobalThemeContext = createContext<GlobalThemeContextProps>(null);
 GlobalThemeContext.displayName = 'GlobalThemeContext';
 
 export const useGlobalTheme = () => {
-  return React.useContext(GlobalThemeContext) || ({ theme: {}, isDarkTheme: false } as GlobalThemeContextProps);
+  return useContext(GlobalThemeContext) || ({ theme: {}, isDarkTheme: false } as GlobalThemeContextProps);
 };
 
 export const GlobalThemeProvider = ({ children, theme: themeFromProps }) => {
-  const [theme, setTheme] = React.useState<ThemeConfig>(themeFromProps || defaultTheme);
+  const [theme, setTheme] = useState<ThemeConfig>(themeFromProps || defaultTheme);
   const currentSettingThemeRef = useRef<ThemeConfig>(null);
   const currentEditingThemeRef = useRef<ThemeItem>(null);
 
@@ -82,7 +82,9 @@ export const GlobalThemeProvider = ({ children, theme: themeFromProps }) => {
 
   return (
     <GlobalThemeContext.Provider value={value}>
-      <ConfigProvider theme={theme}>{children}</ConfigProvider>
+      <ConfigProvider theme={defaultTheme}>
+        <ConfigProvider theme={theme}>{children}</ConfigProvider>
+      </ConfigProvider>
     </GlobalThemeContext.Provider>
   );
 };
