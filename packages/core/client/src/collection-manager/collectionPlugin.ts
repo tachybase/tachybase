@@ -48,6 +48,7 @@ import { InheritanceCollectionMixin } from './mixins/InheritanceCollectionMixin'
 import {
   ExpressionCollectionTemplate,
   GeneralCollectionTemplate,
+  ImportCollectionTemplate,
   SqlCollectionTemplate,
   TreeCollectionTemplate,
   ViewCollectionTemplate,
@@ -170,6 +171,7 @@ export class CollectionPlugin extends Plugin {
       SqlCollectionTemplate,
       TreeCollectionTemplate,
       ViewCollectionTemplate,
+      ImportCollectionTemplate,
     ]);
   }
 }

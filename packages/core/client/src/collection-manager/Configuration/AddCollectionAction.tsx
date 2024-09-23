@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { ArrayTable } from '@tachybase/components';
 import { ISchema, uid, useField, useForm } from '@tachybase/schema';
 
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { DownOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import { Button, Dropdown, MenuProps } from 'antd';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,7 @@ import { useCollectionManager_deprecated } from '../hooks';
 import { useResourceActionContext, useResourceContext } from '../ResourceActionProvider';
 import * as components from './components';
 import { TemplateSummary } from './components/TemplateSummary';
+import { ImportCollectionMetaAction } from './ImportCollectionMetaAction';
 
 const getSchema = (schema, category, compile): ISchema => {
   if (!schema) {
@@ -148,6 +149,8 @@ export const AddCollectionAction = (props) => {
   const [schema, setSchema] = useState({});
   const compile = useCompile();
   const { t } = useTranslation();
+  const importRef = useRef<any>(null);
+
   const items = useMemo(() => {
     const result = [];
     collectionTemplates.forEach((item) => {
@@ -173,13 +176,19 @@ export const AddCollectionAction = (props) => {
         overflow: 'auto',
       },
       onClick: (info) => {
+        if (info.key === 'import') {
+          console.log('import', importRef.current);
+          // 打开上传文件的弹窗
+          importRef.current?.showModal();
+          return;
+        }
         const schema = getSchema(getTemplate(info.key), category, compile);
         setSchema(schema);
         setVisible(true);
       },
       items,
     };
-  }, [category, items]);
+  }, [category, items, importRef]);
 
   return (
     <RecordProvider record={record}>
@@ -205,6 +214,7 @@ export const AddCollectionAction = (props) => {
           }}
         />
       </ActionContextProvider>
+      <ImportCollectionMetaAction ref={importRef} />
     </RecordProvider>
   );
 };

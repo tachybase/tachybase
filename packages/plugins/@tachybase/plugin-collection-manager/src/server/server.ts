@@ -8,6 +8,7 @@ import { Mutex } from 'async-mutex';
 import lodash from 'lodash';
 
 import { CollectionRepository } from '.';
+import { collectionImportExportMeta } from './actions/collectionImportExportMeta';
 import {
   afterCreateForForeignKeyField,
   afterCreateForReverseField,
@@ -258,6 +259,8 @@ export class CollectionManagerPlugin extends Plugin {
 
     this.app.acl.allow('collections', 'list', 'loggedIn');
     this.app.acl.allow('collectionCategories', 'list', 'loggedIn');
+
+    this.app.resourcer.define(collectionImportExportMeta);
   }
 
   async load() {

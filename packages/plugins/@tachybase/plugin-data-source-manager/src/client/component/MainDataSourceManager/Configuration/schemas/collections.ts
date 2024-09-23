@@ -3,11 +3,14 @@ import {
   CollectionTemplateTag,
   i18n,
   useAPIClient,
+  useRecord,
+  useResourceContext,
   type CollectionOptions,
 } from '@tachybase/client';
 import { ISchema, Schema, uid } from '@tachybase/schema';
 
 import { message } from 'antd';
+import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 
 const compile = (source) => {
@@ -303,6 +306,29 @@ export const collectionTableSchema: ISchema = {
                     role: 'button',
                     'aria-label': '{{ "edit-button-" + $record.name }}',
                     type: 'primary',
+                  },
+                },
+                export: {
+                  type: 'void',
+                  title: '{{ t("Export") }}',
+                  'x-component': 'Action.Link',
+                  'x-component-props': {
+                    useAction() {
+                      const { resource, targetKey } = useResourceContext();
+                      const { [targetKey]: collectionName } = useRecord();
+                      return {
+                        async run() {
+                          const { data } = await resource.exportMeta(
+                            { collectionName },
+                            {
+                              method: 'get',
+                            },
+                          );
+                          const blob = new Blob([JSON.stringify(data.data, null, 2)], { type: 'application/json' });
+                          saveAs(blob, `${collectionName}.json`);
+                        },
+                      };
+                    },
                   },
                 },
                 delete: {

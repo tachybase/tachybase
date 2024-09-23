@@ -121,7 +121,7 @@ export const SourceKey = observer(
     const field: any = useField();
     const compile = useCompile();
     const options = getCollection(collectionName || name)
-      .fields?.filter((v) => {
+      ?.fields?.filter((v) => {
         return v.primaryKey || v.unique;
       })
       .map((k) => {
