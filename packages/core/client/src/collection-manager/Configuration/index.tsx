@@ -17,6 +17,7 @@ export * from './components/TemplateSummary';
 export * from './components/CollectionFieldInterfaceTag';
 export * from './components/CollectionCategory';
 export * from './components/CollectionTemplateTag';
+export * from './ImportCollectionMetaAction';
 
 registerValidateFormats({
   uid: /^[a-zA-Z][a-zA-Z0-9_-]*$/,

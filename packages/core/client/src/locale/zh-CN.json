@@ -958,7 +958,8 @@
   "Designer Mode":"设计者模式",
   "There are no full screen blocks available at the current location":"当前位置没有可全屏区块",
   "Exit Full Screen":"退出全屏",
+  "User settings":"个人设置",
+  "Import collection": "导入数据表",
   "Embedded page": "嵌入页面",
-  "Demonstration text": "演示文本",
-  "User settings":"个人设置"
+  "Demonstration text": "演示文本"
 }
