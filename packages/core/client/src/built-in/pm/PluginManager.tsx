@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { fuzzysearch } from '@tachybase/utils/client';
 
-import { PageHeader } from '@ant-design/pro-layout';
 import { useDebounce } from 'ahooks';
 import {
   Button,
@@ -350,25 +349,10 @@ const MarketplacePlugins = () => {
 };
 
 export const PluginManager = () => {
-  const params = useParams();
-  const navigate = useNavigate();
-  const { tabName = 'local' } = params;
-  const { t } = useTranslation();
   const { snippets = [] } = useACLRoleContext();
-  const { styles } = useStyles();
-
-  useEffect(() => {
-    const { tabName } = params;
-    if (!tabName) {
-      navigate(`/admin/pm/list/local/`, { replace: true });
-    }
-  }, []);
 
   return snippets.includes('pm') ? (
-    <div>
-      <PageHeader className={styles.pageHeader} ghost={false} title={t('Plugin manager')}></PageHeader>
-      <LocalPlugins />
-    </div>
+    <LocalPlugins />
   ) : (
     <Result status="404" title="404" subTitle="Sorry, the page you visited does not exist." />
   );
