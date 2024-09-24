@@ -25,6 +25,8 @@ import { getHighestSafeWindowContext, getWindowHeight, getWindowWidth, translate
 
 import './style.css';
 
+import { css } from '@tachybase/client';
+
 class ReactImageLightbox extends Component {
   static isTargetMatchImage(target) {
     return target && /ril-image-current/.test(target.className);
@@ -282,10 +284,9 @@ class ReactImageLightbox extends Component {
   }
 
   // Get info for the best suited image to display with the given srcType
-  getBestImageForType(srcType) {
-    let imageSrc = this.props[srcType];
+  getBestImageForType(srcType, fileSrc?) {
+    let imageSrc = fileSrc || this.props[srcType];
     let fitSizes = {};
-
     if (this.isImageLoaded(imageSrc)) {
       // Use full-size image if available
       fitSizes = this.getFitSizes(this.imageCache[imageSrc].width, this.imageCache[imageSrc].height);
@@ -392,6 +393,30 @@ class ReactImageLightbox extends Component {
       },
       {
         name: 'prevSrcThumbnail',
+        keyEnding: `t${this.keyCounter - 1}`,
+      },
+      {
+        name: 'mainFile',
+        keyEnding: `i${this.keyCounter}`,
+      },
+      {
+        name: 'mainSrcThumbnail',
+        keyEnding: `t${this.keyCounter}`,
+      },
+      {
+        name: 'nextFile',
+        keyEnding: `i${this.keyCounter + 1}`,
+      },
+      {
+        name: 'nextFileThumbnail',
+        keyEnding: `t${this.keyCounter + 1}`,
+      },
+      {
+        name: 'prevFile',
+        keyEnding: `i${this.keyCounter - 1}`,
+      },
+      {
+        name: 'prevFileThumbnail',
         keyEnding: `t${this.keyCounter - 1}`,
       },
     ];
@@ -1175,6 +1200,10 @@ class ReactImageLightbox extends Component {
       imageTitle,
       nextSrc,
       prevSrc,
+      mainFile,
+      nextFile,
+      prevFile,
+      previewList,
       toolbarButtons,
       reactModalStyle,
       onAfterOpen,
@@ -1203,17 +1232,21 @@ class ReactImageLightbox extends Component {
 
     // Images to be displayed
     const images = [];
-    const addImage = (srcType, imageClass, transforms) => {
-      // Ignore types that have no source defined for their full size image
-      if (!this.props[srcType]) {
-        return;
-      }
-      const bestImageInfo = this.getBestImageForType(srcType);
 
+    const addImage = (srcType, imageClass, transforms) => {
+      const fieldType = this.props[srcType]?.mimetype;
+      const { checkedComponent } = previewList[fieldType] || previewList['default'];
+      const bestImageInfo = (this.props[srcType]?.mimetype as string).includes('image')
+        ? this.getBestImageForType(srcType, this.props[srcType]?.imageUrl)
+        : {};
       const imageStyle = {
         ...transitionStyle,
         ...ReactImageLightbox.getTransform({
           ...transforms,
+          height: boxSize.height - 20,
+          width: boxSize.width - 20,
+          targetWidth: boxSize.width - 50,
+          targeHeight: boxSize.height - 50,
           ...bestImageInfo,
         }),
       };
@@ -1221,99 +1254,43 @@ class ReactImageLightbox extends Component {
       if (zoomLevel > MIN_ZOOM_LEVEL) {
         imageStyle.cursor = 'move';
       }
-
-      // support IE 9 and 11
-      const hasTrueValue = (object) => Object.keys(object).some((key) => object[key]);
-
-      // when error on one of the loads then push custom error stuff
-      if (bestImageInfo === null && hasTrueValue(loadErrorStatus)) {
-        images.push(
-          <div
-            className={`${imageClass} ril__image ril-errored`}
-            style={imageStyle}
-            key={this.props[srcType] + keyEndings[srcType]}
-          >
-            <div className="ril__errorContainer">{this.props.imageLoadErrorMessage}</div>
-          </div>,
-        );
-
-        return;
-      }
-      if (bestImageInfo === null) {
-        const loadingIcon =
-          loader !== undefined ? (
-            loader
-          ) : (
-            <div className="ril-loading-circle ril__loadingCircle ril__loadingContainer__icon">
-              {[...new Array(12)].map((_, index) => (
-                <div
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={index}
-                  className="ril-loading-circle-point ril__loadingCirclePoint"
-                />
-              ))}
-            </div>
-          );
-
-        // Fall back to loading icon if the thumbnail has not been loaded
-        images.push(
-          <div
-            className={`${imageClass} ril__image ril-not-loaded`}
-            style={imageStyle}
-            key={this.props[srcType] + keyEndings[srcType]}
-          >
-            <div className="ril__loadingContainer">{loadingIcon}</div>
-          </div>,
-        );
-
-        return;
-      }
-
-      const imageSrc = bestImageInfo.src;
-      if (discourageDownloads) {
-        imageStyle.backgroundImage = `url('${imageSrc}')`;
-        images.push(
-          <div
-            className={`${imageClass} ril__image ril__imageDiscourager`}
-            onDoubleClick={this.handleImageDoubleClick}
-            onWheel={this.handleImageMouseWheel}
-            style={imageStyle}
-            key={imageSrc + keyEndings[srcType]}
-          >
-            <div className="ril-download-blocker ril__downloadBlocker" />
-          </div>,
-        );
-      } else {
-        images.push(
-          <img
-            {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
-            className={`${imageClass} ril__image`}
-            onDoubleClick={this.handleImageDoubleClick}
-            onWheel={this.handleImageMouseWheel}
-            onDragStart={(e) => e.preventDefault()}
-            style={imageStyle}
-            src={imageSrc}
-            key={imageSrc + keyEndings[srcType]}
-            alt={typeof imageTitle === 'string' ? imageTitle : translate('Image')}
-            draggable={false}
-          />,
-        );
-      }
+      images.push(
+        <div
+          className={`${imageClass} ril__image`}
+          style={{
+            ...imageStyle,
+            width: bestImageInfo?.width || '90%',
+            height: '90%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {checkedComponent({
+            key: `${fieldType + keyEndings[srcType]}`,
+            onDoubleClick: this.handleImageDoubleClick,
+            onWheel: this.handleImageMouseWheel,
+            onDragStart: (e) => e.preventDefault(),
+            file: this.props[srcType],
+            bestImageInfo,
+          })}
+        </div>,
+      );
     };
 
     const zoomMultiplier = this.getZoomMultiplier();
     // Next Image (displayed on the right)
-    addImage('nextSrc', 'ril-image-next ril__imageNext', {
+    addImage('nextFile', 'ril-image-next ril__imageNext', {
       x: boxSize.width,
     });
     // Main Image
-    addImage('mainSrc', 'ril-image-current', {
+    addImage('mainFile', 'ril-image-current', {
       x: -1 * offsetX,
       y: -1 * offsetY,
       zoom: zoomMultiplier,
     });
     // Previous Image (displayed on the left)
-    addImage('prevSrc', 'ril-image-prev ril__imagePrev', {
+    addImage('prevFile', 'ril-image-prev ril__imagePrev', {
       x: -1 * boxSize.width,
     });
 
@@ -1336,7 +1313,6 @@ class ReactImageLightbox extends Component {
         ...reactModalStyle.content, // Allow style overrides via props
       },
     };
-
     return (
       <Modal
         isOpen
@@ -1497,33 +1473,37 @@ class ReactImageLightbox extends Component {
 }
 
 ReactImageLightbox.propTypes = {
+  previewList: PropTypes.object,
   //-----------------------------
   // Image sources
   //-----------------------------
 
   // Main display image url
-  mainSrc: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
+  mainSrc: PropTypes.string.isRequired,
+  mainFile: PropTypes.object,
 
   // Previous display image url (displayed to the left)
   // If left undefined, movePrev actions will not be performed, and the button not displayed
   prevSrc: PropTypes.string,
+  prevFile: PropTypes.object,
 
   // Next display image url (displayed to the right)
   // If left undefined, moveNext actions will not be performed, and the button not displayed
   nextSrc: PropTypes.string,
+  nextFile: PropTypes.object,
 
   //-----------------------------
   // Image thumbnail sources
   //-----------------------------
 
   // Thumbnail image url corresponding to props.mainSrc
-  mainSrcThumbnail: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  mainSrcThumbnail: PropTypes.string,
 
   // Thumbnail image url corresponding to props.prevSrc
-  prevSrcThumbnail: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  prevSrcThumbnail: PropTypes.string,
 
   // Thumbnail image url corresponding to props.nextSrc
-  nextSrcThumbnail: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  nextSrcThumbnail: PropTypes.string,
 
   //-----------------------------
   // Event Handlers

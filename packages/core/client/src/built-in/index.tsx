@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { useAPIClient } from '../api-client';
-import { Application, NoticeLevel, useApp } from '../application';
+import { Application, AttachmentPreviewManager, NoticeLevel, useApp } from '../application';
 import { Plugin } from '../application/Plugin';
 import { BlockSchemaComponentPlugin } from '../block-provider';
 import { CollectionPlugin } from '../collection-manager';
@@ -23,6 +23,7 @@ import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
 import { ACLPlugin } from './acl';
 import { AdminLayoutPlugin } from './admin-layout';
 import { PluginAssistant } from './assistant';
+import { AttachmentPreviewPlugin } from './attachment-preview';
 import { PluginBuiltInCollections } from './built-in-collections';
 import { PluginContextMenu } from './context-menu';
 import { RemoteDocumentTitlePlugin } from './document-title';
@@ -357,5 +358,6 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(PluginContextMenu, { name: 'context-menu' });
     await this.app.pm.add(PluginAssistant, { name: 'drag-assistant' });
     await this.app.pm.add(UserSettingsPlugin, { name: 'user-settings' });
+    await this.app.pm.add(AttachmentPreviewPlugin, { name: 'attachment-preview' });
   }
 }

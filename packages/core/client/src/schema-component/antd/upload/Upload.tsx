@@ -8,6 +8,7 @@ import cls from 'classnames';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 
+import { useApp } from '../../../application';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { useProps } from '../../hooks/useProps';
 import { ReadPretty } from './ReadPretty';
@@ -29,18 +30,15 @@ Upload.Attachment = connect((props: UploadProps) => {
   const { disabled, multiple, value, onChange } = props;
   const [fileList, setFileList] = useState<any[]>([]);
   const [sync, setSync] = useState(true);
+  const app = useApp();
+  const previewList = app.AttachmentPreviewManager.get();
   const images = fileList;
   const [fileIndex, setFileIndex] = useState(0);
   const [visible, setVisible] = useState(false);
-  const [fileType, setFileType] = useState<'image' | 'pdf'>();
   const { t } = useTranslation();
   const uploadProps = useUploadProps({ ...props });
   const { wrapSSR, hashId, componentCls: prefixCls } = useStyles();
   const internalFileList = useRef([]);
-
-  function closeIFrameModal() {
-    setVisible(false);
-  }
   useEffect(() => {
     if (sync) {
       const fileList = toFileList(value);
@@ -53,104 +51,23 @@ Upload.Attachment = connect((props: UploadProps) => {
     <div>
       <div className={cls(`${prefixCls}-wrapper`, `${prefixCls}-picture-card-wrapper`, 'nb-upload', hashId)}>
         <div className={cls(`${prefixCls}-list`, `${prefixCls}-list-picture-card`)}>
-          {fileList.map((file) => {
-            const handleClick = (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const index = fileList.indexOf(file);
-              if (isImage(file.extname)) {
-                setFileType('image');
-                setVisible(true);
-                setFileIndex(index);
-              } else if (isPdf(file.extname)) {
-                setVisible(true);
-                setFileIndex(index);
-                setFileType('pdf');
-              } else {
-                saveAs(file.url, `${file.title}${file.extname}`);
-              }
+          {fileList.map((file, index) => {
+            const fileProps = {
+              file,
+              prefixCls,
+              fileList,
+              setFileIndex,
+              setVisible,
+              disabled,
+              t,
+              setSync,
+              setFileList,
+              multiple,
+              onChange,
+              internalFileList,
+              preview: previewList[file?.mimetype] || previewList['default'],
             };
-            return (
-              <div
-                key={file.uid || file.id}
-                className={`${prefixCls}-list-picture-card-container ${prefixCls}-list-item-container`}
-              >
-                <div
-                  className={cls(
-                    `${prefixCls}-list-item`,
-                    `${prefixCls}-list-item-done`,
-                    `${prefixCls}-list-item-list-type-picture-card`,
-                  )}
-                >
-                  <div className={`${prefixCls}-list-item-info`}>
-                    <span className={`${prefixCls}-span`}>
-                      <a
-                        className={`${prefixCls}-list-item-thumbnail`}
-                        href={file.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={handleClick}
-                      >
-                        {file.imageUrl && (
-                          <img src={file.imageUrl} alt={file.title} className={`${prefixCls}-list-item-image`} />
-                        )}
-                      </a>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${prefixCls}-list-item-name`}
-                        title={file.title}
-                        href={file.url}
-                        onClick={handleClick}
-                      >
-                        {file.status === 'uploading' ? t('Uploading') : file.title}
-                      </a>
-                    </span>
-                  </div>
-                  <span className={`${prefixCls}-list-item-actions`}>
-                    <Space size={3}>
-                      <Button
-                        size={'small'}
-                        type={'text'}
-                        icon={<DownloadOutlined />}
-                        onClick={() => {
-                          saveAs(file.url, `${file.title}${file.extname}`);
-                        }}
-                      />
-                      {!disabled && (
-                        <Button
-                          size={'small'}
-                          type={'text'}
-                          icon={<DeleteOutlined />}
-                          onClick={() => {
-                            setSync(false);
-                            setFileList((prevFileList) => {
-                              if (!multiple) {
-                                onChange?.(null as any);
-                                setSync(true);
-                                return [];
-                              }
-                              const index = prevFileList.indexOf(file);
-                              prevFileList.splice(index, 1);
-                              internalFileList.current = internalFileList.current.filter(
-                                (item) => item.uid !== file.uid,
-                              );
-                              onChange?.(toValue([...prevFileList]));
-                              return [...prevFileList];
-                            });
-                          }}
-                        />
-                      )}
-                    </Space>
-                  </span>
-                  {file.status === 'uploading' && (
-                    <div className={`${prefixCls}-list-item-progress`}>
-                      <Progress strokeWidth={2} type={'line'} showInfo={false} percent={file.percent} />
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
+            return <UploadReadFile {...fileProps} key={index} />;
           })}
           {!disabled && (multiple || toArr(value).length < 1) && (
             <div className={cls(`${prefixCls}-list-picture-card-container`, `${prefixCls}-list-item-container`)}>
@@ -198,12 +115,16 @@ Upload.Attachment = connect((props: UploadProps) => {
         </div>
       </div>
       {/* 预览图片的弹框 */}
-      {visible && fileType === 'image' && (
+      {visible && (
         <Lightbox
           // discourageDownloads={true}
           mainSrc={images[fileIndex]?.imageUrl}
           nextSrc={images[(fileIndex + 1) % images.length]?.imageUrl}
           prevSrc={images[(fileIndex + images.length - 1) % images.length]?.imageUrl}
+          mainFile={images[fileIndex]}
+          nextFile={images[(fileIndex + 1) % images.length]}
+          prevFile={images[(fileIndex + images.length - 1) % images.length]}
+          previewList={previewList}
           onCloseRequest={() => setVisible(false)}
           onMovePrevRequest={() => setFileIndex((fileIndex + images.length - 1) % images.length)}
           onMoveNextRequest={() => setFileIndex((fileIndex + 1) % images.length)}
@@ -226,59 +147,6 @@ Upload.Attachment = connect((props: UploadProps) => {
             </button>,
           ]}
         />
-      )}
-
-      {visible && fileType === 'pdf' && (
-        <Modal
-          open={visible}
-          title={'PDF - ' + images[fileIndex].title}
-          onCancel={closeIFrameModal}
-          footer={[
-            <Button
-              key="download"
-              style={{
-                textTransform: 'capitalize',
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const file = images[fileIndex];
-                saveAs(file.url, `${file.title}${file.extname}`);
-              }}
-            >
-              {t('download')}
-            </Button>,
-            <Button key="close" onClick={closeIFrameModal} style={{ textTransform: 'capitalize' }}>
-              {t('close')}
-            </Button>,
-          ]}
-          width={'85vw'}
-          centered={true}
-        >
-          <div
-            style={{
-              padding: '8px',
-              maxWidth: '100%',
-              maxHeight: 'calc(100vh - 256px)',
-              height: '90vh',
-              width: '100%',
-              background: 'white',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              overflowY: 'auto',
-            }}
-          >
-            <iframe
-              src={images[fileIndex].url}
-              style={{
-                width: '100%',
-                maxHeight: '90vh',
-                flex: '1 1 auto',
-              }}
-            ></iframe>
-          </div>
-        </Modal>
       )}
     </div>,
   );
@@ -355,3 +223,107 @@ function updateFileList(file: UploadFile, fileList: (UploadFile | Readonly<Uploa
   }
   return nextFileList;
 }
+
+export const UploadReadFile = (props) => {
+  const {
+    file,
+    prefixCls,
+    fileList,
+    setFileIndex,
+    setVisible,
+    disabled,
+    t,
+    setSync,
+    setFileList,
+    multiple,
+    onChange,
+    internalFileList,
+    preview,
+  } = props;
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const index = fileList.indexOf(file);
+    setVisible(true);
+    setFileIndex(index);
+  };
+  const { viewComponet } = preview;
+  return (
+    <div
+      key={file.uid || file.id}
+      className={`${prefixCls}-list-picture-card-container ${prefixCls}-list-item-container`}
+    >
+      <div
+        className={cls(
+          `${prefixCls}-list-item`,
+          `${prefixCls}-list-item-done`,
+          `${prefixCls}-list-item-list-type-picture-card`,
+        )}
+      >
+        <div className={`${prefixCls}-list-item-info`}>
+          <span className={`${prefixCls}-span`}>
+            <a
+              className={`${prefixCls}-list-item-thumbnail`}
+              href={file.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleClick}
+              style={{ lineHeight: '100%' }}
+            >
+              {viewComponet({ prefixCls, file, setFileIndex, setVisible })}
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${prefixCls}-list-item-name`}
+              title={file.title}
+              href={file.url}
+              onClick={handleClick}
+            >
+              {file.status === 'uploading' ? t('Uploading') : file.title}
+            </a>
+          </span>
+        </div>
+        <span className={`${prefixCls}-list-item-actions`}>
+          <Space size={3}>
+            <Button
+              size={'small'}
+              type={'text'}
+              icon={<DownloadOutlined />}
+              onClick={() => {
+                saveAs(file.url, `${file.title}${file.extname}`);
+              }}
+            />
+            {!disabled && (
+              <Button
+                size={'small'}
+                type={'text'}
+                icon={<DeleteOutlined />}
+                onClick={() => {
+                  setSync(false);
+                  setFileList((prevFileList) => {
+                    if (!multiple) {
+                      onChange?.(null as any);
+                      setSync(true);
+                      return [];
+                    }
+                    const index = prevFileList.indexOf(file);
+                    prevFileList.splice(index, 1);
+                    internalFileList.current = internalFileList.current.filter((item) => item.uid !== file.uid);
+                    onChange?.(toValue([...prevFileList]));
+                    return [...prevFileList];
+                  });
+                }}
+              />
+            )}
+          </Space>
+        </span>
+        {file.status === 'uploading' && (
+          <div className={`${prefixCls}-list-item-progress`}>
+            <Progress strokeWidth={2} type={'line'} showInfo={false} percent={file.percent} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
