@@ -253,6 +253,20 @@ export class PluginACL extends Plugin {
       });
     });
 
+    // 只有初始化的时候才执行
+    this.app.db.on('roles.afterCreateWithAssociations', async (model, options) => {
+      const { transaction } = options;
+      await this.app.db.getRepository('dataSourcesRoles').updateOrCreate({
+        values: {
+          roleName: model.get('name'),
+          dataSourceKey: 'main',
+          strategy: model.get('strategy'),
+        },
+        filterKeys: ['roleName', 'dataSourceKey'],
+        transaction,
+      });
+    });
+
     this.app.db.on('roles.afterSaveWithAssociations', async (model, options) => {
       const { transaction } = options;
 
@@ -265,7 +279,6 @@ export class PluginACL extends Plugin {
         values: {
           roleName: model.get('name'),
           dataSourceKey: 'main',
-          strategy: model.get('strategy'),
         },
         filterKeys: ['roleName', 'dataSourceKey'],
         transaction,
