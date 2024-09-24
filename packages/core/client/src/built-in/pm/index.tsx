@@ -2,11 +2,10 @@ import React from 'react';
 
 import { ADMIN_SETTINGS_PATH } from '../../application';
 import { Plugin } from '../../application/Plugin';
-import { USER_SETTINGS_PATH } from '../../application/UserSettingsManager';
 import { BlockTemplatesPane } from '../../schema-templates';
 import { SystemSettingsPane } from '../system-settings';
 import { PluginManager } from './PluginManager';
-import { DatasourceLink, PluginManagerLink, SettingsCenterDropdown, WorkflowLink } from './PluginManagerLink';
+import { SettingsCenterDropdown } from './PluginManagerLink';
 import { AdminSettingsLayout } from './PluginSetting';
 
 export * from './PluginManager';
@@ -33,11 +32,16 @@ export class PMPlugin extends Plugin {
       Component: SystemSettingsPane,
       aclSnippet: 'pm.system-settings.system-settings',
     });
+    this.app.pluginSettingsManager.add('plugin-manager', {
+      icon: 'ApiOutlined',
+      title: '{{t("Plugin manager")}}',
+      Component: PluginManager,
+      aclSnippet: 'pm',
+    });
   }
 
   addComponents() {
     this.app.addComponents({
-      PluginManagerLink,
       SettingsCenterDropdown,
     });
   }

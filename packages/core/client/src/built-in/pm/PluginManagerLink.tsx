@@ -9,24 +9,6 @@ import { useApp } from '../../application';
 import { useCompile } from '../../schema-component';
 import { useToken } from '../../style';
 
-export const PluginManagerLink = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { token } = useToken();
-  return (
-    <Tooltip title={t('Plugin manager')}>
-      <Button
-        data-testid={'plugin-manager-button'}
-        icon={<ApiOutlined style={{ color: token.colorTextHeaderMenu }} />}
-        title={t('Plugin manager')}
-        onClick={() => {
-          navigate('/admin/pm/list');
-        }}
-      />
-    </Tooltip>
-  );
-};
-
 export const SettingsCenterDropdown = () => {
   const compile = useCompile();
   const { token } = useToken();
