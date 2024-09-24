@@ -12,3 +12,4 @@ export * from './NoticesManager';
 export * from './hoc';
 export { ApplicationContext } from './context';
 export * from './PluginContextMenu';
+export * from './AttachmentPreviewManager';

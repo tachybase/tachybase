@@ -18,6 +18,7 @@ import { i18n } from '../i18n';
 import { CSSVariableProvider } from '../style/css-variable';
 import { AntdAppProvider, GlobalThemeProvider } from '../style/theme';
 import { AppSchemaComponentProvider } from './AppSchemaComponentProvider';
+import { AttachmentPreviewManager, PluginAttachmentItemsOptions } from './AttachmentPreviewManager';
 import { AppComponent, BlankComponent, defaultAppComponents } from './components';
 import { NoticeManager } from './NoticesManager';
 import type { Plugin } from './Plugin';
@@ -63,6 +64,7 @@ export interface ApplicationOptions {
   devDynamicImport?: DevDynamicImport;
   dataSourceManager?: DataSourceManagerOptions;
   pluginMenuItems?: Record<string, PluginItemsOptions>;
+  attachmentItem?: Record<string, PluginAttachmentItemsOptions>;
 }
 
 export class Application {
@@ -89,7 +91,7 @@ export class Application {
   public dataSourceManager: DataSourceManager;
   public noticeManager: NoticeManager;
   public pluginContextMenu: PluginContextMenu;
-
+  public AttachmentPreviewManager: AttachmentPreviewManager;
   public name: string;
 
   loading = true;
@@ -137,6 +139,7 @@ export class Application {
     this.addRoutes();
     this.name = this.options.name || getSubAppName(options.publicPath) || 'main';
     this.pluginContextMenu = new PluginContextMenu(options.pluginMenuItems, this);
+    this.AttachmentPreviewManager = new AttachmentPreviewManager(options.attachmentItem, this);
   }
 
   private initRequireJs() {

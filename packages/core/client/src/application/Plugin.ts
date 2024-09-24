@@ -43,6 +43,10 @@ export class Plugin<T = any> {
     return this.app.dataSourceManager;
   }
 
+  get AttachmentPreviewManager() {
+    return this.app.AttachmentPreviewManager;
+  }
+
   async afterAdd() {}
 
   async beforeLoad() {}

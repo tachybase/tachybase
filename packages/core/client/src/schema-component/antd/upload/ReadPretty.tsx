@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Lightbox } from '@tachybase/components';
 import { Field, useField } from '@tachybase/schema';
 import { isString } from '@tachybase/utils/client';
@@ -10,8 +10,10 @@ import cls from 'classnames';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 
+import { SchemaComponent } from '../..';
+import { useApp } from '../../../application/hooks';
 import { useRecord } from '../../../record-provider';
-import { isImage, isPdf, toArr, toImages } from './shared';
+import { isImage, isPdf, toArr, toFileList, toImages } from './shared';
 import { useStyles } from './style';
 import type { UploadProps } from './type';
 
@@ -24,23 +26,17 @@ export const ReadPretty: Composed = () => null;
 
 ReadPretty.File = function File(props: UploadProps) {
   const { size, showCount = 0 } = props;
-  const { t } = useTranslation();
   const record = useRecord();
   const field = useField<Field>();
-  const value = isString(field.value) ? record : field.value;
-
-  const images = toImages(showCount === 0 ? toArr(value) : toArr(value).slice(0, showCount));
+  const images = isString(field.value) ? record : toFileList(field.value);
+  const app = useApp();
   const [fileIndex, setFileIndex] = useState(0);
   const [visible, setVisible] = useState(false);
-  const [fileType, setFileType] = useState<'image' | 'pdf'>();
   const { wrapSSR, hashId, componentCls: prefixCls } = useStyles();
   const useUploadStyleVal = (useUploadStyle as any).default ? (useUploadStyle as any).default : useUploadStyle;
+  const previewList = app.AttachmentPreviewManager.get();
   // 加载 antd 的样式
   useUploadStyleVal(prefixCls);
-
-  function closeIFrameModal() {
-    setVisible(false);
-  }
   return wrapSSR(
     <div>
       <div
@@ -53,95 +49,49 @@ ReadPretty.File = function File(props: UploadProps) {
         )}
       >
         <div className={cls(`${prefixCls}-list`, `${prefixCls}-list-picture-card`)}>
-          {images.map((file) => {
-            const handleClick = (e) => {
-              const index = images.indexOf(file);
-              if (isImage(file.extname)) {
-                e.preventDefault();
-                e.stopPropagation();
-                setVisible(true);
-                setFileIndex(index);
-                setFileType('image');
-              } else if (isPdf(file.extname)) {
-                e.preventDefault();
-                e.stopPropagation();
-                setVisible(true);
-                setFileIndex(index);
-                setFileType('pdf');
-              }
-              // else {
-              //   saveAs(file.url, `${file.title}${file.extname}`);
-              // }
-            };
+          {images.map((file, index) => {
+            if (size === 'small') {
+              return (
+                index === 0 && (
+                  <ReadFile
+                    file={file}
+                    prefixCls={prefixCls}
+                    // handleClick={handleClick}
+                    size={size}
+                    images={images}
+                    setFileIndex={setFileIndex}
+                    setVisible={setVisible}
+                    preview={previewList[file?.mimetype] || previewList['default']}
+                    key={index}
+                  />
+                )
+              );
+            }
             return (
-              <div
-                key={file.name}
-                className={cls(`${prefixCls}-list-picture-card-container`, `${prefixCls}-list-item-container`)}
-              >
-                <div
-                  className={cls(
-                    `${prefixCls}-list-item`,
-                    `${prefixCls}-list-item-done`,
-                    `${prefixCls}-list-item-list-type-picture-card`,
-                  )}
-                >
-                  <div className={`${prefixCls}-list-item-info`}>
-                    <span className={`${prefixCls}-span`}>
-                      <a
-                        className={`${prefixCls}-list-item-thumbnail`}
-                        href={file.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={handleClick}
-                      >
-                        {file.imageUrl && (
-                          <img
-                            src={`${file.imageUrl}${file.thumbnailRule || ''}`}
-                            alt={file.title}
-                            className={`${prefixCls}-list-item-image`}
-                          />
-                        )}
-                      </a>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${prefixCls}-list-item-name`}
-                        title={file.title}
-                        href={file.url}
-                        onClick={handleClick}
-                      >
-                        {file.title}
-                      </a>
-                    </span>
-                  </div>
-                  {size !== 'small' && (
-                    <span className={`${prefixCls}-list-item-actions`}>
-                      <Space size={3}>
-                        <Button
-                          size={'small'}
-                          type={'text'}
-                          icon={<DownloadOutlined />}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            saveAs(file.url, `${file.title}${file.extname}`);
-                          }}
-                        />
-                      </Space>
-                    </span>
-                  )}
-                </div>
-              </div>
+              <ReadFile
+                file={file}
+                prefixCls={prefixCls}
+                size={size}
+                images={images}
+                setFileIndex={setFileIndex}
+                setVisible={setVisible}
+                preview={previewList['image/jpeg']}
+                key={index}
+              />
             );
           })}
         </div>
       </div>
-      {visible && fileType === 'image' && (
+      {visible && (
         <Lightbox
           // discourageDownloads={true}
           mainSrc={images[fileIndex]?.imageUrl}
           nextSrc={images[(fileIndex + 1) % images.length]?.imageUrl}
           prevSrc={images[(fileIndex + images.length - 1) % images.length]?.imageUrl}
+          mainFile={images[fileIndex]}
+          nextFile={images[(fileIndex + 1) % images.length]}
+          prevFile={images[(fileIndex + images.length - 1) % images.length]}
+          previewList={previewList}
           // @ts-ignore
           onCloseRequest={(e) => {
             e.preventDefault();
@@ -171,59 +121,6 @@ ReadPretty.File = function File(props: UploadProps) {
           ]}
         />
       )}
-
-      {visible && fileType === 'pdf' && (
-        <Modal
-          open={visible}
-          title={'PDF - ' + images[fileIndex].title}
-          onCancel={closeIFrameModal}
-          footer={[
-            <Button
-              key={'download'}
-              style={{
-                textTransform: 'capitalize',
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const file = images[fileIndex];
-                saveAs(file.url, `${file.title}${file.extname}`);
-              }}
-            >
-              {t('download')}
-            </Button>,
-            <Button key={'close'} onClick={closeIFrameModal} style={{ textTransform: 'capitalize' }}>
-              {t('close')}
-            </Button>,
-          ]}
-          width={'85vw'}
-          centered={true}
-        >
-          <div
-            style={{
-              padding: '8px',
-              maxWidth: '100%',
-              maxHeight: 'calc(100vh - 256px)',
-              height: '90vh',
-              width: '100%',
-              background: 'white',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              overflowY: 'auto',
-            }}
-          >
-            <iframe
-              src={images[fileIndex].url}
-              style={{
-                width: '100%',
-                maxHeight: '90vh',
-                flex: '1 1 auto',
-              }}
-            ></iframe>
-          </div>
-        </Modal>
-      )}
     </div>,
   );
 };
@@ -241,4 +138,88 @@ ReadPretty.Upload = function Upload() {
       )}
     </div>
   ));
+};
+
+export const ReadFile = ({ file, prefixCls, size, images, setFileIndex, setVisible, preview }) => {
+  const { viewComponet } = preview;
+  const handleClick = (e) => {
+    const index = images.indexOf(file);
+    e.preventDefault();
+    e.stopPropagation();
+    setVisible(true);
+    setFileIndex(index);
+  };
+  return (
+    <div
+      key={file.name}
+      className={cls(`${prefixCls}-list-picture-card-container`, `${prefixCls}-list-item-container`)}
+      style={{ position: 'relative' }}
+    >
+      <div
+        className={cls(
+          `${prefixCls}-list-item`,
+          `${prefixCls}-list-item-done`,
+          `${prefixCls}-list-item-list-type-picture-card`,
+        )}
+      >
+        <div className={`${prefixCls}-list-item-info`}>
+          <span className={`${prefixCls}-span`}>
+            <a
+              className={`${prefixCls}-list-item-thumbnail`}
+              href={file.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleClick}
+              style={{ lineHeight: '100%' }}
+            >
+              {viewComponet({ images, size, prefixCls, file, setFileIndex, setVisible })}
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${prefixCls}-list-item-name`}
+              title={file.title}
+              href={file.url}
+              onClick={handleClick}
+            >
+              {file.title}
+            </a>
+          </span>
+        </div>
+        {size !== 'small' && (
+          <span className={`${prefixCls}-list-item-actions`}>
+            <Space size={3}>
+              <Button
+                size={'small'}
+                type={'text'}
+                icon={<DownloadOutlined />}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  saveAs(file.url, `${file.title}${file.extname}`);
+                }}
+              />
+            </Space>
+          </span>
+        )}
+      </div>
+      {images.length > 1 && size === 'small' && (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '0',
+            right: '0',
+            backgroundColor: '#9b999992',
+            width: '50%',
+            height: '30%',
+            lineHeight: '30%',
+            borderRadius: '40%',
+            textAlign: 'center',
+          }}
+        >
+          ...
+        </div>
+      )}
+    </div>
+  );
 };
