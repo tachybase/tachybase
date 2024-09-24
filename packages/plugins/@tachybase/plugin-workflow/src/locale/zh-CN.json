@@ -1,9 +1,6 @@
 {
   "A single number will be treated as a loop count, a single string will be treated as an array of characters, and other non-array values will be converted to arrays. The loop node ends when the loop count is reached, or when the array loop is completed. You can also add condition nodes to the loop to terminate it.": "单一数字值将被视为循环次数，单一字符串值将被视为字符数组，其他非数组值将被转换为数组。达到循环次数，或者将数组循环完成后，循环节点结束。你也可以在循环中添加条件节点，以终止循环。",
-  "API Regular(deprecated)": "通用API（已废弃）",
   "Aborted": "已终止",
-  "Action event": "操作事件",
-  "Action event(deprecated)": "操作事件（已废弃）",
   "Actions from any form block can be bound to this workflow for initiating approvals, and the approval process can be handled and tracked in the approval block of a single record which is typically applicable to business data.": "可以将任意表单区块的操作绑定到该工作流，用于发起审批，并在单条数据的审批区块里处理和跟踪审批过程，通常适用于业务数据。",
   "Add Notified Person": "添加被通知人",
   "Add assignee": "添加审批人",
