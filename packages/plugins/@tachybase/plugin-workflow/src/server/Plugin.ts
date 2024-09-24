@@ -8,9 +8,7 @@ import LRUCache from 'lru-cache';
 
 import initActions from './actions';
 import { EXECUTION_STATUS } from './constants';
-import { PluginActionTrigger } from './features/action-trigger/Plugin';
 import { PluginAggregate } from './features/aggregate/Plugin';
-import PluginWorkflowAPIRegularServer from './features/api-regular/plugin';
 import PluginWorkflowApproval from './features/approval';
 import PluginWorkflowDataMappingServer from './features/data-mapping/plugin';
 import { PluginDelay } from './features/delay/Plugin';
@@ -75,7 +73,6 @@ export default class PluginWorkflowServer extends Plugin {
     this.addFeature(PluginDynamicCalculation);
     this.addFeature(PluginDelay);
     this.addFeature(PluginAggregate);
-    this.addFeature(PluginActionTrigger);
     this.addFeature(PluginWorkflowJSONParseServer);
     this.addFeature(PluginWorkflowJSParseServer);
     this.addFeature(PluginWorkflowDataMappingServer);

@@ -4,7 +4,6 @@ import { Registry } from '@tachybase/utils/client';
 
 import { WorkflowLink } from './components/WorkflowLink';
 import { ExecutionPage } from './ExecutionPage';
-import { PluginActionTrigger } from './features/action-trigger';
 import { PluginAggregate } from './features/aggregate';
 import PluginApproval from './features/approval';
 import PluginWorkflowDataMappingClient from './features/data-mapping';
@@ -86,7 +85,6 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginDaynamicCalculation);
     await this.pm.add(PluginDelay);
     await this.pm.add(PluginAggregate);
-    await this.pm.add(PluginActionTrigger);
     await this.pm.add(PluginWorkflowJsonParseClient);
     await this.pm.add(PluginWorkflowJSParseClient);
     await this.pm.add(PluginWorkflowDataMappingClient);

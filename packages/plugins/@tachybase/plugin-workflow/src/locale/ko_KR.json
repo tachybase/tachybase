@@ -28,7 +28,6 @@
     "Workflow will be triggered after submitting succeeded.": "제출 성공 후 워크플로우가 트리거됩니다.",
     "Workflow will be triggered after saving succeeded.": "저장 성공 후 워크플로우가 트리거됩니다.",
     "Workflow will be triggered directly once the button is clicked, without data saving.": "버튼을 클릭하면 데이터 저장 없이 워크플로우가 직접 트리거됩니다.",
-    "Submit to workflow": "워크플로우에 제출",
     "Add workflow": "워크플로우 추가",
     "Select workflow": "워크플로우 선택",
     "Trigger data context": "트리거 데이터 컨텍스트",
