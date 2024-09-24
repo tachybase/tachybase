@@ -55,8 +55,11 @@ export class OmniActionTrigger extends Trigger {
   };
   scope = { useCollectionDataSource };
   components = {};
-  isActionTriggerable = (config, context) => {
-    return context.buttonAction === 'customize:triggerWorkflows';
+  isActionTriggerable = (config, context: any = {}) => {
+    const { buttonAction } = context;
+    const conditionList = [buttonAction === 'customize:triggerWorkflows', buttonAction === 'submit'];
+    const isAvailable = conditionList.some((val) => val === true);
+    return isAvailable;
   };
   useVariables(config: Record<string, any>, options?: UseVariableOptions) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
