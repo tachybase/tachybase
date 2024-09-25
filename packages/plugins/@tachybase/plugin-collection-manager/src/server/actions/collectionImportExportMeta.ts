@@ -1,11 +1,8 @@
 import fsPromises from 'fs/promises';
 import os from 'os';
-import { Readable } from 'stream';
 import { Context } from '@tachybase/actions';
 import { ResourceOptions } from '@tachybase/resourcer';
 import { koaMulter as multer, uid } from '@tachybase/utils';
-
-import lodash from 'lodash';
 
 export const collectionImportExportMeta: ResourceOptions = {
   name: 'collections',
@@ -38,20 +35,34 @@ export const collectionImportExportMeta: ResourceOptions = {
         if (metaList.some((item) => item.name === name)) {
           return;
         }
-        const meta = await Collections.repository.findOne({
+        const metaRecord = await Collections.repository.findOne({
           filterByTk: name,
           context: ctx,
           appends: ['category', 'fields'],
         });
-        if (!meta) {
+        if (!metaRecord) {
           return;
         }
+        const meta = metaRecord.toJSON();
+        if (meta.inherits) {
+          for (const inherit of meta.inherits) {
+            await getAssociationCollection(inherit);
+          }
+        }
+        if (meta.view) {
+          const collection = ctx.db.getCollection(meta.viewName);
+          const viewDef = await ctx.db.queryInterface.viewDef(collection.getTableNameWithSchemaAsString());
+          const viewSql = [
+            `DROP VIEW IF EXISTS ${collection.getTableNameWithSchemaAsString()}`,
+            `CREATE VIEW ${collection.getTableNameWithSchemaAsString()} AS ${viewDef}`,
+          ];
+          meta.viewSql = viewSql;
+        }
         metaList.push(meta);
-        const fields = meta.dataValues.fields;
+        const fields = meta.fields;
         for (const field of fields) {
-          ctx.logger.info('field.dataValues', field.dataValues);
-          if (field?.dataValues?.options?.target) {
-            await getAssociationCollection(field?.dataValues?.options?.target);
+          if (field?.options?.target) {
+            await getAssociationCollection(field?.options?.target);
           }
         }
       }
@@ -76,49 +87,102 @@ export const collectionImportExportMeta: ResourceOptions = {
       }
 
       let createCount = 0;
+      const reverseKeys = [];
+      // 检查field是否已经存在
+      const fieldRepo = ctx.db.getCollection('fields');
+
+      // old name => new name
+      const collectionNameMap = {};
+      const completedCollections = new Set();
+      const createList = [];
+
+      const existCollections = await ctx.db.getCollection('collections').repository.find({
+        filter: {
+          $or: {
+            name: { $in: metaList.map((item) => item.name) },
+            key: { $in: metaList.map((item) => item.key) },
+          },
+        },
+        context: ctx,
+      });
+
+      const allFieldKeys = [];
+      for (const meta of metaList) {
+        allFieldKeys.push(...meta.fields.map((item) => item.key));
+      }
+
+      const views = [];
+      const CollectionRepo = ctx.db.getCollection('collections');
 
       async function importCollection(meta) {
-        const CollectionRepo = ctx.db.getCollection('collections');
-        // 检查表是否存在
-        let collection = await CollectionRepo.repository.findOne({
-          filterByTk: meta.name,
-          context: ctx,
-        });
-        if (collection) {
+        if (!meta) {
           return;
-          throw new Error('collection name already exists, please change the name');
         }
-        collection = await CollectionRepo.repository.findOne({
-          filter: { key: meta.key },
-          context: ctx,
-        });
-        if (collection) {
+        if (completedCollections.has(meta.name)) {
           return;
-          throw new Error('collection key already exists, please change the key');
         }
-
-        // generate unique key
-        // meta.fields.forEach((field) => {
-        //   field.key = uid();
-        // });
-
-        // 检查field是否已经存在
-        const fieldRepo = ctx.db.getCollection('fields');
-        const fieldKeys = meta.fields.map((field) => field.key);
-
-        const existFields = await fieldRepo.repository.findOne({
-          filter: { key: { $in: fieldKeys } },
-          context: ctx,
-        });
-        if (existFields) {
+        if (meta.inherits && meta.inherits.length > 0) {
+          for (const inherit of meta.inherits) {
+            if (!completedCollections.has(inherit)) {
+              const inheritCollection = metaList.find((v) => v.name === inherit);
+              await importCollection(inheritCollection);
+            }
+          }
+        }
+        let collection = existCollections.find((v) => v.key === meta.key);
+        // key和name完全相同的两个collection, 出现重复
+        if (collection && collection.name === meta.name) {
+          completedCollections.add(collection.name);
           return;
-          throw new Error('field key already exists, please change the key');
         }
 
+        // key一样 name不一样则需要生成新的key
+        if (collection && collection.name !== meta.name) {
+          meta.key = uid();
+          return;
+        } else {
+          collection = existCollections.find((v) => v.name === meta.name);
+          if (collection) {
+            // 重复导入则放过
+            collection.name = `t_${uid()}`;
+            collectionNameMap[meta.name] = collection.name;
+            meta.name = collection.name;
+            if (meta.category && meta.category.length) {
+              meta.category.forEach((v) => {
+                v.collectionCategory.collectionName = collection.name;
+              });
+            }
+          }
+        }
+
+        const normalFieldKeys = [];
+        if (meta.fields) {
+          for (const field of meta.fields) {
+            if (!field.reverseKey) {
+              if (field.collectionName && collectionNameMap[field.collectionName]) {
+                field.collectionName = collectionNameMap[field.collectionName];
+              }
+              if (field.target && collectionNameMap[field.target]) {
+                field.target = collectionNameMap[field.target];
+              }
+              normalFieldKeys.push(field);
+            } else if (!reverseKeys.some((v) => v === field.key || v === field.reverseKey)) {
+              reverseKeys.push({ ...field, collectionName: meta.key });
+            }
+          }
+          meta.fields = normalFieldKeys;
+        }
+
+        // 视图
+        if (meta.view) {
+          views.push(meta);
+          return;
+        }
         await CollectionRepo.repository.create({
           values: meta,
           context: ctx,
         });
+        completedCollections.add(meta.name);
         createCount++;
       }
 
@@ -126,8 +190,26 @@ export const collectionImportExportMeta: ResourceOptions = {
         await importCollection(meta);
       }
 
+      for (const meta of views) {
+        if (!meta.viewSql || !meta.viewSql.length) {
+          continue;
+        }
+        for (const sql of meta.viewSql) {
+          await ctx.db.sequelize.query(sql);
+        }
+        await CollectionRepo.repository.create({
+          values: meta,
+          context: ctx,
+        });
+        createCount++;
+      }
+
+      for (const reverseKey of reverseKeys) {
+        await fieldRepo.repository.create(reverseKey);
+      }
+
       if (!createCount) {
-        throw new Error('no collection created, please check the key or name');
+        throw new Error('no collection created, please check the name');
       }
 
       ctx.body = { count: createCount };

@@ -75,8 +75,10 @@ const ImportUpload = (props: any) => {
         message.success(`${info.file.name} ` + t('file uploaded successfully'));
         refresh();
         await refreshCM();
+        window.location.reload();
       } else if (status === 'error') {
-        // message.error(`${info.file.name} ` + t('file upload failed'));
+        message.error(`${info.file.name} ` + t('file upload failed'));
+        window.location.reload();
       }
     },
     onDrop(e) {
@@ -137,7 +139,6 @@ export const ImportCollectionMetaAction = React.forwardRef((props, ref) => {
   const { t } = useTranslation();
   const [dataTypes, setDataTypes] = useState<any[]>(['required']);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [restoreData, setRestoreData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
   const showModal = () => {
@@ -150,12 +151,10 @@ export const ImportCollectionMetaAction = React.forwardRef((props, ref) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    // setRestoreData(null);
     setDataTypes(['required']);
   };
   return (
     <>
-      {/* <ButtonComponent onClick={showModal}>{t('Import')}</ButtonComponent> */}
       <Modal
         title={t('Import')}
         width={800}
