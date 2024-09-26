@@ -10,6 +10,7 @@ import { MessageNotificationProvider } from './MessageNotificationProvider';
 import { MessagePage } from './MessagePage';
 import { MessageProvider } from './MessageProvider';
 import { SubscriptionManager } from './SubscriptionManager';
+import { PluginWebNotification } from './web-notification/PluginWebNotification';
 
 interface MessageType {
   title: string;
@@ -20,7 +21,7 @@ export class PluginMessagesClient extends Plugin {
   private _messageTypes: MessageType[] = [];
 
   async afterAdd() {
-    // await this.app.pm.add()
+    await this.app.pm.add(PluginWebNotification, { name: 'message-web' });
   }
 
   async beforeLoad() {}
@@ -69,11 +70,6 @@ export class PluginMessagesClient extends Plugin {
       title: lang('Subscription management'),
       icon: 'BellOutlined',
       Component: SubscriptionManager,
-    });
-
-    this.registe({
-      name: 'browser',
-      title: lang('Browser notification'),
     });
 
     this.registe({

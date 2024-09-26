@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { css, useAPIClient, useApp } from '@tachybase/client';
+import { PinnedPluginListProvider, SchemaComponentOptions, useAPIClient, useApp, useToken } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
 import { Button, Dropdown } from 'antd';
@@ -9,6 +9,7 @@ const OnlineUserManger = () => {
   const app = useApp();
   const [onlineUserItems, setOnlineUserItems] = useState([]);
   const api = useAPIClient();
+  const { token } = useToken();
   useEffect(() => {
     app.ws.on('message', (event: MessageEvent) => {
       const data = JSON.parse(event.data);
@@ -38,32 +39,21 @@ const OnlineUserManger = () => {
 
   return (
     <Dropdown menu={{ items: onlineUserItems }}>
-      <Button style={{ width: 'auto' }} type="text">
+      <Button style={{ width: 'auto', color: token.colorTextHeaderMenu }} type="text">
         在线 {_.size(onlineUserItems)} 人
       </Button>
     </Dropdown>
   );
 };
 
-export const OnlineUserDropdown = () => {
+export const OnlineUserProvider = (props) => {
   return (
-    <div
-      className={css`
-        .ant-btn {
-          border: 0;
-          height: var(--tb-header-height);
-          width: 46px;
-          border-radius: 0;
-          background: none;
-          color: rgba(255, 255, 255, 0.65) !important;
-          &:hover {
-            background: rgba(255, 255, 255, 0.1);
-          }
-        }
-      `}
-      style={{ display: 'inline-block' }}
+    <PinnedPluginListProvider
+      items={{
+        ou: { order: 230, component: 'OnlineUserManger', pin: true, isPublic: true },
+      }}
     >
-      <OnlineUserManger />
-    </div>
+      <SchemaComponentOptions components={{ OnlineUserManger }}>{props.children}</SchemaComponentOptions>
+    </PinnedPluginListProvider>
   );
 };
