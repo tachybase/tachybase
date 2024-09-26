@@ -38,8 +38,8 @@ const useStyles = createStyles(({ css }) => {
 
 export const PinnedPluginList = () => {
   const { allowAll, snippets } = useACLRoleContext();
-  const getSnippetsAllow = (aclKey) => {
-    return allowAll || snippets?.includes(aclKey);
+  const getSnippetsAllow = (aclKey, isPublic = false) => {
+    return allowAll || isPublic || snippets?.includes(aclKey);
   };
   const { styles } = useStyles();
   const ctx = useContext(PinnedPluginListContext);
@@ -48,7 +48,7 @@ export const PinnedPluginList = () => {
     <div className={styles.container}>
       {Object.keys(ctx.items)
         .sort((a, b) => ctx.items[a].order - ctx.items[b].order)
-        .filter((key) => getSnippetsAllow(ctx.items[key].snippet))
+        .filter((key) => getSnippetsAllow(ctx.items[key].snippet, ctx.items[key].isPublic))
         .map((key) => {
           const Action = get(components, ctx.items[key].component);
           return Action ? <Action key={key} /> : null;

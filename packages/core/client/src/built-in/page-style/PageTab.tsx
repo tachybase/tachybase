@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import { css, RemoteSchemaComponent, useDocumentTitle } from '@tachybase/client';
 
+import { css } from '@emotion/css';
 import { Tabs } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { RemoteSchemaComponent } from '../../schema-component';
+import { useDocumentTitle } from '../document-title';
 import { PageStyleContext } from './PageStyle.provider';
 
 export const PageTab = () => {

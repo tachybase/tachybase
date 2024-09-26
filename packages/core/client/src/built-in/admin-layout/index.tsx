@@ -26,6 +26,8 @@ import {
 } from '../..';
 import { Plugin } from '../../application/Plugin';
 import { VariablesProvider } from '../../variables';
+import { PageTab } from '../page-style/PageTab';
+import { usePageStyle } from '../page-style/usePageStyle';
 import { NoticeArea } from './NoticeArea';
 
 const useStyles = createStyles(({ css, token }) => {
@@ -407,6 +409,7 @@ export const InternalAdminLayout = (props: any) => {
   const app = useApp();
   const params = useParams<any>();
   const { styles } = useStyles();
+  const pageStyle = usePageStyle();
   return (
     <Layout>
       <GlobalStyleForAdminLayout />
@@ -447,7 +450,7 @@ export const InternalAdminLayout = (props: any) => {
       {params.name && <Layout.Sider className={styles.sider} theme={'light'} ref={sideMenuRef}></Layout.Sider>}
       <Layout.Content className={styles.main}>
         <header className={styles.mainHeader}></header>
-        <Outlet />
+        {params.name && pageStyle === 'tab' ? <PageTab /> : <Outlet />}
       </Layout.Content>
     </Layout>
   );

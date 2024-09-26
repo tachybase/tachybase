@@ -845,5 +845,8 @@
   "Full Screen":"Full Screen",
   "Designer Mode":"Designer Mode",
   "Embedded page": "Embedded page",
+  "Page style": "Page Style",
+  "classical": "classical",
+  "tabs": "tabs",
   "There are no full screen blocks available at the current location":"There are no full screen blocks available at the current location"
 }

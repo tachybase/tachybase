@@ -3355,12 +3355,21 @@ importers:
 
   packages/plugins/@tachybase/plugin-messages:
     dependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../../core/client
       '@tachybase/database':
         specifier: workspace:*
         version: link:../../../core/database
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../plugin-workflow
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../../../core/server
@@ -3370,6 +3379,12 @@ importers:
       antd:
         specifier: 5.19.4
         version: 5.19.4(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ~6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   packages/plugins/@tachybase/plugin-mobile-client:
     dependencies:
