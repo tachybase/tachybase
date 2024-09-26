@@ -3656,6 +3656,18 @@ importers:
         specifier: ^6.25.1
         version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
+  packages/plugins/@tachybase/plugin-online-user:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+
   packages/plugins/@tachybase/plugin-print-template:
     dependencies:
       '@bull-board/api':
@@ -4512,6 +4524,9 @@ importers:
       '@tachybase/plugin-oidc':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-oidc
+      '@tachybase/plugin-online-user':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-online-user
       '@tachybase/plugin-saml':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-saml

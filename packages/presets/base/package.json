@@ -43,6 +43,7 @@
     "@tachybase/plugin-multi-app-manager": "workspace:*",
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",
     "@tachybase/plugin-oidc": "workspace:*",
+    "@tachybase/plugin-online-user": "workspace:*",
     "@tachybase/plugin-saml": "workspace:*",
     "@tachybase/plugin-sequence-field": "workspace:*",
     "@tachybase/plugin-sms-auth": "workspace:*",
