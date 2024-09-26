@@ -21,7 +21,6 @@ import { EmbedPlugin } from './features/embed';
 import { PluginFieldAppends } from './features/field-appends';
 import { PluginHeraVersion } from './features/hera-version';
 import { PluginOutbound } from './features/outbound';
-import { PluginPageStyle } from './features/page-style';
 import { PluginPDF } from './features/pdf';
 import { PluginSheet } from './features/sheet';
 import { useGetCustomAssociatedComponents } from './hooks/useGetCustomAssociatedComponents';
@@ -36,7 +35,7 @@ import {
 } from './interfaces';
 import { TstzrangeFieldInterface } from './interfaces/TstzrangeFieldInterface';
 import { Locale, tval } from './locale';
-import { AdminLayout, DetailsPage, PageLayout } from './pages';
+import { DetailsPage, PageLayout } from './pages';
 import { CreateSubmitActionInitializer, SettingBlockInitializer } from './schema-initializer';
 import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
 import { EditTitle, IsTablePageSize, PageModeSetting, usePaginationVisible } from './schema-settings';
@@ -59,7 +58,6 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginGroupBlock);
     await this.app.pm.add(EmbedPlugin);
     await this.app.pm.add(DepartmentsPlugin);
-    await this.app.pm.add(PluginPageStyle);
     await this.app.pm.add(PluginHeraVersion);
     await this.app.pm.add(PluginPDF);
     await this.app.pm.add(PluginOutbound);
@@ -115,7 +113,6 @@ export class PluginCoreClient extends Plugin {
     });
 
     this.app.addComponents({
-      AdminLayout,
       AssociatedField,
       CalcResult,
       CodeMirror,

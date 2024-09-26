@@ -1,5 +1,4 @@
-import { Plugin } from '@tachybase/client';
-
+import { Plugin } from '../../application/Plugin';
 import { PageStyleProvider } from './PageStyle.provider';
 
 export class PluginPageStyle extends Plugin {

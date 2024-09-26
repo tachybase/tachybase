@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { useAPIClient } from '../api-client';
-import { Application, AttachmentPreviewManager, NoticeLevel, useApp } from '../application';
+import { Application, NoticeLevel, useApp } from '../application';
 import { Plugin } from '../application/Plugin';
 import { BlockSchemaComponentPlugin } from '../block-provider';
 import { CollectionPlugin } from '../collection-manager';
@@ -24,15 +24,14 @@ import { ACLPlugin } from './acl';
 import { AdminLayoutPlugin } from './admin-layout';
 import { PluginAssistant } from './assistant';
 import { AttachmentPreviewPlugin } from './attachment-preview';
-import { PluginBuiltInCollections } from './built-in-collections';
 import { PluginContextMenu } from './context-menu';
 import { RemoteDocumentTitlePlugin } from './document-title';
 import { LocalePlugin } from './locale/LocalePlugin';
+import { PluginPageStyle } from './page-style';
 import { PinnedListPlugin } from './pinned-list';
 import { PMPlugin } from './pm';
 import { SystemSettingsPlugin } from './system-settings';
 import { UserSettingsPlugin } from './user-settings';
-import { PluginWebNotification } from './web-notification/PluginWebNotification';
 
 export { AdminProvider, NoticeArea } from './admin-layout';
 export * from './context-menu';
@@ -358,5 +357,6 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(PluginAssistant, { name: 'drag-assistant' });
     await this.app.pm.add(UserSettingsPlugin, { name: 'user-settings' });
     await this.app.pm.add(AttachmentPreviewPlugin, { name: 'attachment-preview' });
+    await this.app.pm.add(PluginPageStyle, { name: 'page-style' });
   }
 }

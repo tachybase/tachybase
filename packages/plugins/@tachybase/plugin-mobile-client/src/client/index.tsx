@@ -17,6 +17,7 @@ import {
 import { NAMESPACE } from './locale';
 import { MAppNotFound } from './MAppNotFound';
 import { MobileClientProvider } from './MobileClientProvider';
+import { MobileLinkProvider } from './MobileLinkProvider';
 import MApplication from './router/Application';
 
 export class MobileClientPlugin extends Plugin {
@@ -26,6 +27,7 @@ export class MobileClientPlugin extends Plugin {
     this.addRoutes();
     this.addSettings();
     this.app.use(MobileClientProvider);
+    this.app.use(MobileLinkProvider);
     this.app.schemaInitializerManager.add(mBlockInitializers_deprecated);
     this.app.schemaInitializerManager.add(mBlockInitializers);
     this.app.schemaInitializerManager.add(ImageSearchConfigureFields);

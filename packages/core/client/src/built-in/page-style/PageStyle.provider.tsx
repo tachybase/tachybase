@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { useCurrentUserContext, useCurrentUserSettingsMenu } from '@tachybase/client';
 
 import { TabsProps } from 'antd';
 
+import { useCurrentUserContext, useCurrentUserSettingsMenu } from '../../user';
 import { useTabSettings } from './useTabSettings';
 
 export interface PageStyleContextValue {

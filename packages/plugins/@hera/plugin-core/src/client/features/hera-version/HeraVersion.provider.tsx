@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useCurrentUserSettingsMenu } from '@tachybase/client';
 
 import { usePluginVersion } from '../../hooks/usePluginVersion';
-import { useTabSettings } from '../page-style/useTabSettings';
 
 const useHeraVersion = () => {
   const version = usePluginVersion();
@@ -16,10 +15,9 @@ const useHeraVersion = () => {
 export const HeraVersionProvider = ({ children }) => {
   const { addMenuItem } = useCurrentUserSettingsMenu();
   const heraVersion = useHeraVersion();
-  const tabItem = useTabSettings();
   useEffect(() => {
     addMenuItem(heraVersion, { before: 'divider_1' });
-  }, [addMenuItem, tabItem, heraVersion]);
+  }, [addMenuItem, heraVersion]);
 
   return <>{children}</>;
 };
