@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-blockchain",
-  "version": "0.22.4",
+  "version": "0.22.5",
   "main": "dist/server/index.js",
   "dependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
