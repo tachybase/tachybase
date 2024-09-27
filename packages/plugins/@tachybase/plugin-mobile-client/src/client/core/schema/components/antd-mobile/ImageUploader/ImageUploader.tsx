@@ -7,6 +7,7 @@ import { ImageUploader, ImageUploadItem } from 'antd-mobile';
 export const MImageUploader = connect(
   (props) => {
     const [fileList, setFileList] = useState<ImageUploadItem[]>([]);
+
     const [change, setChange] = useState(false);
     const field = props.value || [];
     useEffect(() => {
@@ -45,6 +46,11 @@ export const MImageUploader = connect(
         onChange={(file) => {
           setFileList(file);
           setChange(true);
+          props.onChange(field);
+        }}
+        onDelete={(file) => {
+          const fileIndex = field.findIndex((item) => item.id === file.key);
+          field.splice(fileIndex, 1);
           props.onChange(field);
         }}
       />
