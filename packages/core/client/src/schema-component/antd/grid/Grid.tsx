@@ -504,7 +504,7 @@ Grid.Col = observer(
 
     return (
       <GridColContext.Provider value={{ cols, schema }}>
-        <div ref={setNodeRef} style={{ ...style, ...droppableStyle }} className={cls('nb-grid-col')}>
+        <div ref={setNodeRef} style={{ ...style, ...droppableStyle }} className={cls('nb-grid-col  CardCol')}>
           {props.children}
         </div>
       </GridColContext.Provider>

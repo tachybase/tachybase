@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { uid } from '@tachybase/utils/client';
 
 import { css } from '@emotion/css';
 import { App } from 'antd';
@@ -92,56 +93,91 @@ export const disableRightMenu = {
 };
 
 const checkedAutoPage = (position, message, t) => {
-  const layoutSider = document.querySelector('.ant-layout-sider');
-  const layoutContent = document.querySelector('.ant-layout-content');
-  const sibling = layoutContent.previousElementSibling;
-  if (!sibling.classList.contains('autoPage')) {
-    const element = document.elementFromPoint(position?.x, position?.y);
-    const blockElement = element.closest('.ant-card');
-    const navbar = document.querySelector('.ant-layout-header');
-    const navbarHeight = navbar.getBoundingClientRect();
-    if (blockElement) {
-      //需要展示的区块
-      const copyBlockElement = blockElement.cloneNode(true);
-      copyBlockElement.style.width = '100%';
-      copyBlockElement.style.height = '90vh';
-      copyBlockElement.style.overflow = 'auto';
-      copyBlockElement.style.backgroundColor = '#ffffff';
+  const element = document.elementFromPoint(position?.x, position?.y);
+  const blockElement = element.closest('.ant-card');
+  const gridRow = blockElement?.closest('.CardRow');
+  const navbar = document.querySelector('.ant-layout-header');
+  const modal = blockElement.closest('.ant-modal-body');
+  const amplifierBlock = blockElement.closest('.amplifier-block');
+  const navbarHeight = navbar.getBoundingClientRect();
+  const classId = uid();
+  if (blockElement) {
+    const page = blockElement?.closest('.ant-nb-page ');
+    const drawer = blockElement?.closest('.ant-drawer-body');
+    const modal = blockElement?.closest('.ant-modal-body');
+    const tabNav = amplifierBlock.querySelector('.ant-tabs-nav');
+    if (tabNav) tabNav.style.display = 'none';
+    const parentNode = gridRow.parentNode;
+    Array.from(parentNode.children).forEach((sibling) => {
+      if (sibling !== gridRow) {
+        sibling.style.display = 'none';
+      }
+    });
+    const autoNode = document.createElement('div');
+    autoNode.style.width = amplifierBlock.getBoundingClientRect().width + 'px';
+    autoNode.className = 'autoPage' + classId;
+    autoNode.style.position = 'fixed';
+    autoNode.style.top = '0';
+    autoNode.style.zIndex = '100';
+    //退出按钮
+    const exitNode = document.createElement('div');
+    exitNode.style.width = '100%';
+    exitNode.style.height = '30px';
+    exitNode.style.textAlign = 'center';
+    exitNode.style.lineHeight = '30px';
+    exitNode.style.backgroundColor = '#e6e6e6';
+    exitNode.textContent = `${t('Exit Full Screen')}`;
+    autoNode.appendChild(exitNode);
+    autoNode.addEventListener('click', () => {
+      removeNode({ gridRow, classId });
+    });
 
-      const autoNode = document.createElement('div');
+    if (page) {
       autoNode.style.marginTop = `${navbarHeight.height}px`;
-      autoNode.style.width = '100%';
-      autoNode.className = 'autoPage';
-      //退出按钮
-      const exitNode = document.createElement('div');
-      exitNode.style.width = '100%';
-      exitNode.style.height = '4vh';
-      exitNode.style.textAlign = 'center';
-      exitNode.style.lineHeight = '4vh';
-      exitNode.style.backgroundColor = '#e6e6e6';
-      exitNode.textContent = `${t('Exit Full Screen')}`;
-      autoNode.appendChild(exitNode);
-      autoNode.appendChild(copyBlockElement);
-      autoNode.addEventListener('click', () => {
-        removeNode(layoutSider);
-      });
-      const fragment = document.createDocumentFragment();
-      fragment.appendChild(autoNode);
+      const header = document.querySelector('.ant-page-header');
+      const layoutSider = document.querySelector('.ant-layout-sider');
+      header.style.display = 'none';
       layoutSider.style.display = 'none';
-      layoutContent.style.display = 'none';
-      layoutContent?.parentNode.insertBefore(fragment, layoutContent);
-    } else {
-      message.warning(t('There are no full screen blocks available at the current location'));
+      page.style.marginTop = '30px';
+      page.insertAdjacentElement('beforebegin', autoNode);
+    } else if (drawer) {
+      autoNode.style.position = '';
+      drawer.insertAdjacentElement('beforebegin', autoNode);
+    } else if (modal) {
+      autoNode.style.position = '';
+      autoNode.style.width = '100%';
+      modal.insertAdjacentElement('beforebegin', autoNode);
     }
   } else {
-    removeNode(layoutSider);
+    message.warning(t('There are no full screen blocks available at the current location'));
   }
 };
 
-const removeNode = (layoutSider) => {
-  const layoutContent = document.querySelector('.ant-layout-content');
-  const sibling = layoutContent.previousElementSibling;
-  layoutSider.style.display = 'block';
-  layoutContent.style.display = 'block';
-  if (sibling.classList.contains('autoPage')) sibling.parentNode.removeChild(sibling);
+const removeNode = ({ gridRow: blockElement, classId }) => {
+  const page = blockElement?.closest('.ant-nb-page ');
+  const drawer = blockElement?.closest('.ant-drawer-body');
+  const parentNode = blockElement.parentNode;
+  const tabNav = document.querySelector('.ant-tabs-nav');
+  if (tabNav) tabNav.style.display = '';
+  Array.from(parentNode.children).forEach((sibling) => {
+    if (sibling !== blockElement) {
+      sibling.style.display = '';
+    }
+    if ((sibling.id as string).includes('DndDescribedBy')) {
+      sibling.style.display = 'none';
+    }
+  });
+  if (page) {
+    page.style.marginTop = '';
+    const layoutSider = document.querySelector('.ant-layout-sider');
+    const header = document.querySelector('.ant-page-header');
+    layoutSider.style.display = '';
+    header.style.display = '';
+  } else if (drawer) {
+    drawer.style.marginTop = '';
+  }
+
+  const autoPage = document.querySelector('.autoPage' + classId);
+
+  if (autoPage) autoPage.parentNode.removeChild(autoPage);
 };

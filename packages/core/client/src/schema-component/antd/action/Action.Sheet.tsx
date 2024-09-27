@@ -57,6 +57,7 @@ export const ActionSheet: ComposedActionDrawer = observer(
             </Button>
           </Space>
         }
+        className={`${props.className} amplifier-block`}
       >
         <RecursionField
           basePath={field.address}

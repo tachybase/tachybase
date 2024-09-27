@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
-import { Modal, ModalProps } from 'antd';
+import { CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
+import { css } from '@emotion/css';
+import { Button, Modal, ModalProps } from 'antd';
 import { createStyles } from 'antd-style';
 import classNames from 'classnames';
 
@@ -61,8 +63,18 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
         }}
         destroyOnClose
         open={visible}
-        onCancel={() => setVisible(false, true)}
-        className={classNames(others.className, modalProps?.className, styles.container)}
+        closable={false}
+        className={classNames(
+          others.className,
+          modalProps?.className,
+          styles.container,
+          'amplifier-block',
+          css`
+            .ant-modal-content {
+              padding-top: 32px;
+            }
+          `,
+        )}
         footer={
           footerSchema ? (
             <RecursionField
@@ -86,6 +98,24 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
             return s['x-component'] !== footerNodeName;
           }}
         />
+        <div
+          className={css`
+            position: absolute;
+            top: 0;
+            right: 5px;
+            display: flex;
+          `}
+        >
+          <Amplifier />
+          <Button
+            icon={<CloseOutlined />}
+            className={css`
+              background: none;
+              border: none;
+            `}
+            onClick={() => setVisible(false, true)}
+          />
+        </div>
       </Modal>
     );
   },
@@ -102,3 +132,39 @@ ActionModal.Footer = observer(
 );
 
 export default ActionModal;
+
+export const Amplifier = () => {
+  const [isAmplifier, setIsAmplifier] = useState(false);
+  const [blockWidth, setBlockWidth] = useState('');
+  return (
+    <Button
+      icon={isAmplifier ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
+      className={css`
+        background: none;
+        border: none;
+      `}
+      onClick={(e) => {
+        const element = e.target.closest('.ant-modal-content');
+        const modal = document.querySelector('.ant-modal');
+        const mask = document.querySelector('.ant-modal-mask');
+        if (isAmplifier) {
+          modal.style.width = blockWidth;
+          element.style.width = '';
+          modal.style.top = '';
+          modal.style.padding = '';
+          modal.style.margin = '';
+          mask.style.backgroundColor = '';
+        } else {
+          setBlockWidth(modal.getBoundingClientRect().width + 'px');
+          element.style.width = '100vw';
+          modal.style.width = '100%';
+          modal.style.top = '0';
+          modal.style.padding = '0';
+          modal.style.margin = '0';
+          mask.style.backgroundColor = '#f3f3f3';
+        }
+        setIsAmplifier(!isAmplifier);
+      }}
+    />
+  );
+};

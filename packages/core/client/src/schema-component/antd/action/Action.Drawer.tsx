@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
-import { Drawer } from 'antd';
+import { ArrowsAltOutlined, CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
+import { css } from '@emotion/css';
+import { Button, Drawer } from 'antd';
 import classNames from 'classnames';
 
 import { OpenSize } from './';
@@ -61,6 +63,10 @@ export const ActionDrawer: ComposedActionDrawer = observer(
             </div>
           )
         }
+        className={`${props.className} ${css`
+          position: relative;
+          padding-top: 30px;
+        `} amplifier-block`}
       >
         <RecursionField
           basePath={field.address}
@@ -70,6 +76,24 @@ export const ActionDrawer: ComposedActionDrawer = observer(
             return s['x-component'] !== footerNodeName;
           }}
         />
+        <div
+          className={css`
+            position: absolute;
+            top: 0;
+            right: 5px;
+            display: flex;
+          `}
+        >
+          <Amplifier />
+          <Button
+            icon={<CloseOutlined />}
+            className={css`
+              background: none;
+              border: none;
+            `}
+            onClick={() => setVisible(false, true)}
+          />
+        </div>
       </Drawer>
     );
   },
@@ -86,3 +110,27 @@ ActionDrawer.Footer = observer(
 );
 
 export default ActionDrawer;
+
+export const Amplifier = () => {
+  const [isAmplifier, setIsAmplifier] = useState(false);
+  const [blockWidth, setBlockWidth] = useState('');
+  return (
+    <Button
+      icon={isAmplifier ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
+      className={css`
+        background: none;
+        border: none;
+      `}
+      onClick={(e) => {
+        const element = e.target.closest('.ant-drawer-content-wrapper');
+        if (isAmplifier) {
+          element.style.width = blockWidth;
+        } else {
+          setBlockWidth(element.getBoundingClientRect().width + 'px');
+          element.style.width = '100%';
+        }
+        setIsAmplifier(!isAmplifier);
+      }}
+    />
+  );
+};
