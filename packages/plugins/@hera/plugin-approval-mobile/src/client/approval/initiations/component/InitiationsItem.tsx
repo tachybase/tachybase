@@ -24,7 +24,23 @@ export const InitiationsItem = observer((props) => {
         url: 'workflows:list',
         params: {
           pageSize: 9999,
-          filter: { ...params?.[tabKey] },
+          filter: {
+            $and: [
+              {
+                type: {
+                  $eq: 'approval',
+                },
+              },
+              {
+                enabled: {
+                  $eq: true,
+                },
+              },
+              {
+                ...params?.[tabKey],
+              },
+            ],
+          },
           sort: 'createdAt',
         },
       })
