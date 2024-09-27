@@ -450,7 +450,7 @@ export const InternalAdminLayout = (props: any) => {
       {params.name && <Layout.Sider className={styles.sider} theme={'light'} ref={sideMenuRef}></Layout.Sider>}
       <Layout.Content className={styles.main}>
         <header className={styles.mainHeader}></header>
-        {params.name && pageStyle === 'tab' ? <PageTab /> : <Outlet />}
+        <div className="amplifier-block">{params.name && pageStyle === 'tab' ? <PageTab /> : <Outlet />}</div>
       </Layout.Content>
     </Layout>
   );
