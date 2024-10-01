@@ -17,11 +17,15 @@ import {
   SyncFieldsAction,
   SyncFieldsActionCom,
   SyncSQLFieldsAction,
+  usePlugin,
   ViewCollectionField,
   ViewFieldAction,
 } from '@tachybase/client';
 import { ISchema, uid } from '@tachybase/schema';
 
+import { useLocation } from 'react-router-dom';
+
+import PluginDatabaseConnectionsClient from '../../';
 import { ConfigurationTable } from './ConfigurationTable';
 import { ConfigurationTabs } from './ConfigurationTabs';
 
@@ -35,6 +39,11 @@ const schema2: ISchema = {
 };
 
 export const CollectionManagerPage = () => {
+  const plugin = usePlugin(PluginDatabaseConnectionsClient);
+  const location = useLocation();
+  const dataSourceType = new URLSearchParams(location.search).get('type');
+
+  const type = dataSourceType && plugin.types.get(dataSourceType);
   return (
     <SchemaComponent
       schema={schema2}
@@ -44,11 +53,11 @@ export const CollectionManagerPage = () => {
         ConfigurationTabs,
         AddFieldAction,
         AddCollectionField,
-        AddCollection,
+        AddCollection: type?.AddCollection || AddCollection,
         AddCollectionAction,
-        EditCollection,
+        EditCollection: type?.EditCollection || EditCollection,
         EditCollectionAction,
-        DeleteCollection,
+        DeleteCollection: type?.DeleteCollection || DeleteCollection,
         DeleteCollectionAction,
         EditFieldAction,
         EditCollectionField,
@@ -59,6 +68,12 @@ export const CollectionManagerPage = () => {
         SyncFieldsAction,
         SyncFieldsActionCom,
         SyncSQLFieldsAction,
+      }}
+      scope={{
+        allowCollectionDeletion: !!type?.allowCollectionDeletion,
+        disabledConfigureFields: type?.disabledConfigureFields,
+        disableAddFields: type?.disableAddFields,
+        allowCollectionCreate: !!type?.allowCollectionCreate,
       }}
     />
   );

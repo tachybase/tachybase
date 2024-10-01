@@ -30,7 +30,7 @@ export const ViewDatabaseConnectionAction = () => {
         style={{ padding: '0px' }}
         disabled={!record.enabled}
         onClick={() => {
-          navigate(getConnectionCollectionPath(record.key));
+          navigate(getConnectionCollectionPath(record));
         }}
         role="button"
         aria-label={`${record?.key}-Configure`}

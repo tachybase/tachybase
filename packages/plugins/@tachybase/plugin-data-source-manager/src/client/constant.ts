@@ -1,2 +1,2 @@
-export const getConnectionCollectionPath = (name: string | number) =>
-  `/admin/settings/data-source-manager/${name}/collections`;
+export const getConnectionCollectionPath = ({ key, type }: { key: string | number; type: string }) =>
+  `/admin/settings/data-source-manager/${key}/collections?type=${type}`;

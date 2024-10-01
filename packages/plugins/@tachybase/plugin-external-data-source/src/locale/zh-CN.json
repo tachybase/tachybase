@@ -1,12 +1,16 @@
 {
   "Data source name": "数据源标识",
   "Data source display name": "数据源名称",
+  "Get":"Get(必填)",
   "Host": "服务器地址",
+  "If a collection lacks a primary key, you must configure a unique record key to locate row records within a block, failure to configure this will prevent the creation of data blocks for the collection.": "当数据表没有主键时，你需要配置记录唯一标识符，用于在区块中定位行记录，不配置将无法创建该表的数据区块。",
+  "List":"List(必填)",
   "Port": "端口",
   "Database": "数据库",
   "Database connections": "连接第三方数据库",
   "Test Connection": "测试连接",
   "Connection successful'": "连接成功",
+  "Create collection": "创建数据表",
   "Display name": "名称",
   "Username": "用户名",
   "Password": "密码",
@@ -22,5 +26,7 @@
   "Postgres":"PostgreSQL",
   "Enabled the data source":"启用数据源",
   "Table prefix":"表前缀",
-  "Randomly generated and can be modified. Support letters, numbers and underscores, must start with an letter.": "随机生成，可修改。支持英文、数字和下划线，必须以英文字母开头。"
+  "Randomly generated and can be modified. Support letters, numbers and underscores, must start with an letter.": "随机生成，可修改。支持英文、数字和下划线，必须以英文字母开头。",
+  "Record unique key": "记录唯一标识符",
+  "Request actions": "请求操作"
 }

@@ -3,10 +3,10 @@ import { SchemaComponent } from '@tachybase/client';
 
 import { Space } from 'antd';
 
-import { tval, usePluginTranslation } from '../locale';
+import { tval, useTranslation } from '../locale';
 
 export const PgDataSourceSettingsForm = () => {
-  const { t } = usePluginTranslation();
+  const { t } = useTranslation();
   return (
     <SchemaComponent
       scope={{ t }}
