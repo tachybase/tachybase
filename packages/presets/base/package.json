@@ -22,6 +22,7 @@
     "@tachybase/plugin-client": "workspace:*",
     "@tachybase/plugin-collection-manager": "workspace:*",
     "@tachybase/plugin-custom-request": "workspace:*",
+    "@tachybase/plugin-data-source-external": "workspace:*",
     "@tachybase/plugin-data-source-manager": "workspace:*",
     "@tachybase/plugin-data-visualization": "workspace:*",
     "@tachybase/plugin-dingtalk": "workspace:*",

@@ -2,18 +2,21 @@ import React from 'react';
 import { FormItem, SchemaComponent, TemplateSummary, useCancelAction } from '@tachybase/client';
 import { ArrayItems, ArrayTable, FormCollapse, FormLayout } from '@tachybase/components';
 
-import { getSchemaCollection } from '../collection-add/CreateCollection.schema';
-import { useActionEditCollection } from './useActionEditCollection';
+import { tval } from '../../../locale';
+import { useSchemaCollection } from './CreateCollection.schema';
+import { useActionCreateCollection } from './useActionCreateCollection';
 
-export const ViewEditCollectionForm = (props) => {
+export const ViewCreateCollection = (props) => {
   const { scope, getContainer, item } = props;
-  const schema = getSchemaCollection('{{ t("Edit collection") }}', useActionEditCollection, item);
+  const title = tval('Create collection', true);
+  const schema = useSchemaCollection(title, useActionCreateCollection);
 
   return (
     <SchemaComponent
       schema={schema}
       components={{
         ArrayTable,
+        // NOTE: 依赖的组件内部命名有误, 在这里进行命名映射
         TemplateSummay: TemplateSummary,
         FormCollapse,
         ArrayItems,
@@ -26,7 +29,7 @@ export const ViewEditCollectionForm = (props) => {
         showReverseFieldConfig: true,
         presetFieldsDisabled: true,
         getContainer,
-        useCancelAction: useCancelAction,
+        useCancelAction,
         ...scope,
       }}
     />

@@ -5,17 +5,17 @@ import { unflatten } from '@tachybase/utils/client';
 import lodash from 'lodash';
 
 import { useTranslation } from '../../../../locale';
-import { AlertError } from './components/AlertError';
-import { DebugResponseTabs } from './components/DebugResponseTabs';
-import { ResponseTab } from './components/ResponseTab';
-import { ExtractFieldMetadata } from './components/ExtractFieldMetadata';
 import { useContextRequestInfo } from '../../contexts/RequestForm.context';
-import { getSchemaParam } from './schemas/getSchemaParam';
 import { MethodPathComponent } from '../method-path/MethodPathComponent';
 import { RequestTab } from '../request-tab/RequestTab';
 import { ResponseTransformerComponent } from '../request-transformer/ResponseTransformerComponent';
+import { AlertError } from './components/AlertError';
+import { DebugResponseTabs } from './components/DebugResponseTabs';
+import { ExtractFieldMetadata } from './components/ExtractFieldMetadata';
+import { ResponseTab } from './components/ResponseTab';
+import { getSchemaParam } from './schemas/getSchemaParam';
 
-export const getSchemaDebug = () => {
+export const useSchemaDebug = () => {
   const { t } = useTranslation();
   const { actionKey, form, requestActionForm } = useContextRequestInfo();
   const schemaChild = getSchemaParam(actionKey, form);

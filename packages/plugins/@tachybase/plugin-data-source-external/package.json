@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-external-data-source",
+  "name": "@tachybase/plugin-data-source-external",
   "version": "0.22.5",
   "main": "dist/server/index.js",
   "dependencies": {

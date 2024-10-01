@@ -6,13 +6,13 @@ import { Card, Col, Row, Select } from 'antd';
 
 import { useTranslation } from '../../../../locale';
 import { useVariableOptions } from '../../scopes/useVariableOptions';
-import { getSchemaDebug } from './Debug.schema';
+import { useSchemaDebug } from './Debug.schema';
 import { useCancelAction } from './scopes/useCancelAction';
 import { useDebugAction } from './scopes/useDebugAction';
 
 export const ViewDebug = () => {
   const { t } = useTranslation();
-  const schema = getSchemaDebug();
+  const schema = useSchemaDebug();
 
   return (
     <SchemaComponent

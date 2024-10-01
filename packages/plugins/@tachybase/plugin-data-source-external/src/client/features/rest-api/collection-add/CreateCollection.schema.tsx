@@ -4,11 +4,11 @@ import { uid } from '@tachybase/schema';
 import lodash from 'lodash';
 
 import { NAMESPACE, tval } from '../../../locale';
+import { useSchemaRequestAction } from './getSchemaRequestAction';
 import { PreviewComponent } from './PreviewComponent';
 import { PreviewFields } from './PreviewFields';
-import { getSchemaRequestAction } from './getSchemaRequestAction';
 
-export function getSchemaCollection(title, useAction, item: Record<string, any> = {}) {
+export function useSchemaCollection(title, useAction, item: Record<string, any> = {}) {
   const cloneItem = lodash.cloneDeep(item);
 
   const data: Record<string, any> = {
@@ -19,6 +19,12 @@ export function getSchemaCollection(title, useAction, item: Record<string, any> 
   if (data.reverseField) {
     data.reverseField.name = `f_${uid()}`;
   }
+
+  const list = useSchemaRequestAction('list', `{{t("List",{ ns: "${NAMESPACE}" })}}`);
+  const get = useSchemaRequestAction('get', `{{t("Get",{ ns: "${NAMESPACE}" })}}`);
+  const create = useSchemaRequestAction('create', `{{t("Create",{ ns: "${NAMESPACE}" })}}`);
+  const update = useSchemaRequestAction('update', `{{t("Update",{ ns: "${NAMESPACE}" })}}`);
+  const destroy = useSchemaRequestAction('destroy', `{{t("Destroy",{ ns: "${NAMESPACE}" })}}`);
 
   return {
     type: 'object',
@@ -73,11 +79,11 @@ export function getSchemaCollection(title, useAction, item: Record<string, any> 
               defaultActiveKey: [],
             },
             properties: {
-              list: getSchemaRequestAction('list', `{{t("List",{ ns: "${NAMESPACE}" })}}`),
-              get: getSchemaRequestAction('get', `{{t("Get",{ ns: "${NAMESPACE}" })}}`),
-              create: getSchemaRequestAction('create', `{{t("Create",{ ns: "${NAMESPACE}" })}}`),
-              update: getSchemaRequestAction('update', `{{t("Update",{ ns: "${NAMESPACE}" })}}`),
-              destroy: getSchemaRequestAction('destroy', `{{t("Destroy",{ ns: "${NAMESPACE}" })}}`),
+              list,
+              get,
+              create,
+              update,
+              destroy,
             },
           },
           fields: {

@@ -3,8 +3,8 @@ import { useCollectionRecord, Variable } from '@tachybase/client';
 
 import { useContextRequestInfo } from '../../contexts/RequestForm.context';
 import { useVariableOptions } from '../../scopes/useVariableOptions';
-import { setFormValue } from '../../utils/setFormValue';
 import { responseTransformerAe } from '../../utils/responseTransformerAe';
+import { setFormValue } from '../../utils/setFormValue';
 
 export const ResponseTransformerComponent = () => {
   const { form, actionKey, responseTransformer, setResponseTransformer } = useContextRequestInfo();
@@ -24,6 +24,7 @@ export const ResponseTransformerComponent = () => {
       });
     }
   }, []);
+  const options = useVariableOptions(true);
 
   return (
     <Variable.JSON
@@ -39,7 +40,7 @@ export const ResponseTransformerComponent = () => {
         value: 'name',
         label: 'title',
       }}
-      scope={() => useVariableOptions(true)}
+      scope={() => options}
     />
   );
 };

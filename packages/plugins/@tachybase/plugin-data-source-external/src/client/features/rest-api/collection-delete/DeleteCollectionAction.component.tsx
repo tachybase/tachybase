@@ -16,7 +16,9 @@ export const DeleteCollectionAction = (props) => {
   const { item, isBulk, children, ...restProps } = props;
   const targetProps = _.omit(restProps, ['scope', 'getContainer', 'useAction']);
   const [visible, setVisible] = useState(false);
-  const { run } = isBulk ? useBulkDestroyActionAndRefreshCM() : useDestroyActionAndRefreshCM();
+  const { run: runBulkDestroy } = useBulkDestroyActionAndRefreshCM();
+  const { run: runDestroy } = useDestroyActionAndRefreshCM();
+  const run = isBulk ? runBulkDestroy : runDestroy;
   const onClick = () => {
     modal.confirm({
       title: t('Delete collection'),
@@ -28,7 +30,9 @@ export const DeleteCollectionAction = (props) => {
     <RecordProvider record={item}>
       <ActionContextProvider value={{ visible, setVisible }}>
         {isBulk ? (
-          <Button icon={<DeleteOutlined />} onClick={onClick} children={children || t('Delete')} />
+          <Button icon={<DeleteOutlined />} onClick={onClick}>
+            {children || t('Delete')}
+          </Button>
         ) : (
           <a onClick={onClick} {...targetProps}>
             {children || t('Delete')}

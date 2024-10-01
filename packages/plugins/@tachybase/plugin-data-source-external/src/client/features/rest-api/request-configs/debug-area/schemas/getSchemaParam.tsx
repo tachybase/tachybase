@@ -8,7 +8,7 @@ export function getSchemaParam(actionKey, form) {
 
   const schemaMap = getSchemaAction(form, actionKey);
 
-  for (let param of targetParams) {
+  for (const param of targetParams) {
     schemaChild[param] = schemaMap[param];
   }
 
