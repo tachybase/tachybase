@@ -7,9 +7,9 @@ import lodash from 'lodash';
 import { useParams } from 'react-router-dom';
 
 import { useTranslation } from '../../../../../locale';
-import { TooltipContainer } from './TooltipContainer';
 import { useContextRequestInfo } from '../../../contexts/RequestForm.context';
 import { useContextResponseInfo } from '../../../contexts/ResponseInfo.context';
+import { TooltipContainer } from './TooltipContainer';
 
 export const ExtractFieldMetadata = () => {
   const form = useForm();

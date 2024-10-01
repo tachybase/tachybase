@@ -1,5 +1,13 @@
-import { useCollectionManager_deprecated, useAPIClient, useActionContext, useResourceContext, useRecord, useResourceActionContext } from "@tachybase/client";
-import { useParams } from "react-router-dom";
+import {
+  useActionContext,
+  useAPIClient,
+  useCollectionManager_deprecated,
+  useRecord,
+  useResourceActionContext,
+  useResourceContext,
+} from '@tachybase/client';
+
+import { useParams } from 'react-router-dom';
 
 export function useDestroyActionAndRefreshCM() {
   const { run: runFunc } = useDestroyAction();

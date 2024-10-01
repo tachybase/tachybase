@@ -46,24 +46,25 @@ export class PresetTachyBase extends Plugin {
 
   #localPlugins = [
     // optional plugins, default disabled
+    'adapter-bullmq>=0.21.76',
     'api-doc>=0.13.0-alpha.1',
     'api-keys>=0.10.1-alpha.1',
     'cas>=0.13.0-alpha.5',
+    'data-source-external>=0.22.5',
+    'dingtalk>=0.21.76',
     'graph-collection-manager>=0.9.0-alpha.1',
     'localization-management>=0.11.1-alpha.1',
     'map>=0.8.1-alpha.3',
     'mobile-client>=0.10.0-alpha.2',
-    'dingtalk>=0.21.76',
-    'adapter-bullmq>=0.21.76',
     'multi-app-manager>=0.7.0-alpha.1',
     'multi-app-share-collection>=0.9.2-alpha.1',
     'oidc>=0.9.2-alpha.1',
-    'work-wechat>=0.21.76',
     'saml>=0.8.1-alpha.3',
     'sms-auth>=0.10.0-alpha.2',
     'snapshot-field>=0.8.1-alpha.3',
     'theme-editor>=0.11.1-alpha.1',
     'wechat-auth>=0.21.89',
+    'work-wechat>=0.21.76',
   ];
 
   get localPlugins() {

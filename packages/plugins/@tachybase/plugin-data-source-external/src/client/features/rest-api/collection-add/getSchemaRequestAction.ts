@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { css, useRequest } from '@tachybase/client';
 import { onFieldChange, uid, useForm } from '@tachybase/schema';
 import { unflatten } from '@tachybase/utils/client';
@@ -12,8 +12,8 @@ import { RequestTab } from '../request-configs/request-tab/RequestTab';
 import { ResponseTransformerComponent } from '../request-configs/request-transformer/ResponseTransformerComponent';
 import { ProviderRequestActionItems } from './RequestActionItems.provider';
 
-export const getSchemaRequestAction = (key, header) => {
-  const ref: any = React.useRef();
+export const useSchemaRequestAction = (key, header) => {
+  const ref: any = useRef();
   return {
     type: 'void',
     'x-decorator': ProviderRequestActionItems,
