@@ -1,12 +1,16 @@
 {
   "Data source name": "Data source name",
   "Data source display name": "Data source display name",
+  "Get":"Get(required)",
   "Host": "Host",
+  "If a collection lacks a primary key, you must configure a unique record key to locate row records within a block, failure to configure this will prevent the creation of data blocks for the collection.": "If a collection lacks a primary key, you must configure a unique record key to locate row records within a block, failure to configure this will prevent the creation of data blocks for the collection.",
+  "List":"List(required)",
   "Port": "Port",
   "Database": "Database",
   "Database connections": "Database connections",
   "Test Connection": "Test Connection",
   "Connection successful'": "Connection successful'",
+  "Create collection": "Create collection",
   "Display name": "Display name",
   "Username": "Username",
   "Password": "Password",
@@ -22,5 +26,7 @@
   "Postgres": "Postgres",
   "Enabled the data source": "Enabled the data source",
   "Table prefix": "Table prefix",
-  "Randomly generated and can be modified. Support letters, numbers and underscores, must start with an letter.": "Randomly generated and can be modified. Support letters, numbers and underscores, must start with an letter."
+  "Randomly generated and can be modified. Support letters, numbers and underscores, must start with an letter.": "Randomly generated and can be modified. Support letters, numbers and underscores, must start with an letter.",
+  "Record unique key": "Record unique key",
+  "Request actions": "Request actions"
 }

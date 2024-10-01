@@ -1,9 +1,14 @@
-import { Plugin } from '@tachybase/server';
+import Application, { Plugin, PluginOptions } from '@tachybase/server';
 
+import { PluginHttpDatasource } from './http/plugin';
 import { MySQLDataSource } from './mysql/mysql-data-source';
 import { PostgresDataSource } from './pg/postgres-data-source';
 
 export class PluginExternalDataSourceServer extends Plugin {
+  constructor(app: Application, options?: PluginOptions) {
+    super(app, options);
+    this.addFeature(PluginHttpDatasource);
+  }
   async afterAdd() {}
 
   async beforeLoad() {

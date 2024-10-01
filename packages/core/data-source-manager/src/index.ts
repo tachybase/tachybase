@@ -10,3 +10,4 @@ export * from './types';
 
 export * from './data-source-with-database';
 export * from './utils';
+export * from './collection';

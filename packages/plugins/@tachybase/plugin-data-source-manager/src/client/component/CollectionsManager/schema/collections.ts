@@ -168,7 +168,7 @@ export const collectionTableSchema: ISchema = {
           'x-component-props': {
             type: 'primary',
           },
-          'x-visible': false,
+          'x-visible': '{{allowCollectionCreate}}',
         },
       },
     },

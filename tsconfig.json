@@ -26,7 +26,7 @@
       "module": "commonjs"
     }
   },
-  "include": ["packages/**/*", "playwright.config.ts", "vitest.config.mts"],
+  "include": ["packages/**/*", "playwright.config.ts", "vitest.config.mts", "packages/plugins/@tachybase/plugin-external-data-source/src/client/features/rest-api/kit.tsx"],
   "exclude": [
     "packages/**/node_modules",
     "packages/**/dist",
