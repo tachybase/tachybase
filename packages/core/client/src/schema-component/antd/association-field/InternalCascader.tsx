@@ -56,12 +56,12 @@ const Cascade = connect((props) => {
   const changOnSelect = fieldSchema['x-component-props']?.changOnSelect || false;
   const field: any = useField();
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [chang, setChang] = useState(false);
+  const [change, setChange] = useState(false);
   const [dataList, setDataList] = useState({});
   const { styles } = useStyles();
   useEffect(() => {
     const propsValue = props.value || fieldSchema['x-component-props'].value;
-    if (!chang && propsValue) {
+    if (!change && propsValue) {
       if (!propsValue.parent && !Object.keys(dataList).length) {
         resource
           .list({
@@ -116,7 +116,7 @@ const Cascade = connect((props) => {
   };
 
   const handleSelect = async (option) => {
-    setChang(true);
+    setChange(true);
     if (option) {
       if (['o2m', 'm2m'].includes(collectionField.interface)) {
         const fieldValue = Array.isArray(associationField.fieldValue) ? associationField.fieldValue : [];
@@ -243,6 +243,13 @@ export const InternalCascader = observer(
       return [{}];
     };
     const defaultValue = toValue();
+    useEffect(() => {
+      const isChange = selectForm.values?.select_array?.filter((value) => value && Object.keys(value).length);
+      if (collectionField.interface !== 'm2o' && props.value && !isChange.length) {
+        selectForm.setInitialValues({ select_array: defaultValue });
+      }
+    }, [props.value]);
+
     const schema = {
       type: 'object',
       properties: {
