@@ -28,7 +28,8 @@ export function useSubmitCreate() {
         from.submit();
         field.data = field.data || {};
         field.data.loading = true;
-
+        delete from.values['createdAt'];
+        delete from.values['updatedAt'];
         await apiClient.resource('approvals').create({
           values: {
             collectionName: joinCollectionName(collection.dataSource, collection.name),

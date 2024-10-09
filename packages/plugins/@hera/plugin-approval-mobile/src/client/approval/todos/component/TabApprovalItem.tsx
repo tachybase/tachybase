@@ -109,18 +109,26 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
         const categoryTitle = item.workflow.title;
         const collectionName = item.workflow?.config?.collection || item.execution?.context?.collectionName;
 
-        const summary = Object.entries(item.summary)?.map(([key, value]) => {
+        const summary = [];
+        Object.entries(item.summary)?.forEach(([key, value]) => {
           const field = cm.getCollectionField(`${collectionName}.${key}`);
           let resonValue = value;
           if (field.type === 'date' && value) {
             resonValue = dayjs(value as string).format('YYYY-MM-DD HH:mm:ss');
           }
-
-          return {
-            label: compile(field?.uiSchema?.title || key),
-            value:
-              (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
-          };
+          if (key === 'createdAt') {
+            summary.unshift({
+              label: compile(field?.uiSchema?.title || key),
+              value:
+                (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
+            });
+          } else {
+            summary.push({
+              label: compile(field?.uiSchema?.title || key),
+              value:
+                (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
+            });
+          }
         });
         const nickName = item.snapshot.createdBy?.nickname || item.execution?.context?.data.createdBy?.nickname;
         return {
@@ -227,17 +235,26 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
         );
         const categoryTitle = item.workflow.title;
         const collectionName = item.collectionName;
-        const summary = Object.entries(item.summary).map(([key, value]) => {
+        const summary = [];
+        Object.entries(item.summary)?.forEach(([key, value]) => {
           const field = cm.getCollectionField(`${collectionName}.${key}`);
           let resonValue = value;
           if (field.type === 'date' && value) {
             resonValue = dayjs(value as string).format('YYYY-MM-DD HH:mm:ss');
           }
-          return {
-            label: compile(field?.uiSchema?.title || key),
-            value:
-              (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
-          };
+          if (key === 'createdAt') {
+            summary.unshift({
+              label: compile(field?.uiSchema?.title || key),
+              value:
+                (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
+            });
+          } else {
+            summary.push({
+              label: compile(field?.uiSchema?.title || key),
+              value:
+                (Object.prototype.toString.call(value) === '[object Object]' ? resonValue?.['name'] : resonValue) || '',
+            });
+          }
         });
         const statusType = ApprovalStatusEnums.find((value) => value.value === item.approval?.status);
         const nickName = user.find((userItem) => userItem.id === item.snapshot?.createdById)?.nickname;
