@@ -25,7 +25,8 @@ export class ProjectService {
       const SQL = this.sqlLoader.sqlFiles['project_products_inventory'];
       const query = SQL.replace('${project_id}', model.id);
       const inventory: any = await this.db.sequelize.query(query);
-      if (inventory[0][0] && inventory[0][0].count) throw new Error('项目产品尚未结清');
+      //NOTE 0.001:根据换算比例精度是3位数
+      if (inventory[0][0] && inventory[0][0].count >= 0.001) throw new Error('项目产品尚未结清');
     }
   }
 }
