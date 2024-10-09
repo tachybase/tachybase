@@ -57,16 +57,24 @@ async function handler(this: CollectionTrigger, workflow: WorkflowModel, data: M
   ) {
     return;
   }
-  if (
-    blacklist &&
-    blacklist.length &&
-    blacklist
-      .filter(
-        (name) => !['linkTo', 'hasOne', 'hasMany', 'belongsToMany'].includes(collection.getField(name).options.type),
-      )
-      .some((name) => data.changedWithAssociations(getFieldRawName(collection, name)))
-  ) {
-    return;
+
+  if (blacklist && blacklist.length) {
+    const changedWithAssociations = data.changedWithAssociations() as string[];
+    // 系统字段
+    const presetFields = ['createdBy', 'createdById', 'createdAt', 'updatedBy', 'updatedById', 'updatedAt'];
+    if (changedWithAssociations) {
+      // exclude system fields
+      const userFields = changedWithAssociations.filter(
+        (field) =>
+          !presetFields.includes(field) &&
+          collection.getField(field) &&
+          !['linkTo', 'hasOne', 'hasMany', 'belongsToMany'].includes(collection.getField(field).options.type),
+      );
+      const allInBlacklist = userFields.every((name) => blacklist.includes(name));
+      if (allInBlacklist) {
+        return;
+      }
+    }
   }
   // NOTE: if no configured condition match, do not trigger
   if (condition && condition.$and?.length) {
