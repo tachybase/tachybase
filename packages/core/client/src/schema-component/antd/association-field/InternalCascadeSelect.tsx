@@ -45,6 +45,7 @@ const CascadeSelect = connect((props) => {
   const resource = api.resource(collectionField.target);
   const { getCollectionJoinField, getInterface } = useCollectionManager_deprecated();
   const fieldNames = associationField?.componentProps?.fieldNames;
+  const [change, setChange] = useState(false);
   const targetField =
     collectionField?.target &&
     fieldNames?.label &&
@@ -57,7 +58,7 @@ const CascadeSelect = connect((props) => {
   }, [targetField]);
   const field: any = useField();
   useEffect(() => {
-    if (value) {
+    if (value && !change) {
       const values = Array.isArray(value)
         ? extractLastNonNullValueObjects(
             value?.filter((v) => v.value),
@@ -73,7 +74,7 @@ const CascadeSelect = connect((props) => {
       });
       setSelectedOptions(options);
     }
-  }, []);
+  }, [value]);
   const mapOptionsToTags = useCallback(
     (options) => {
       try {
@@ -140,6 +141,7 @@ const CascadeSelect = connect((props) => {
   };
 
   const handleSelect = async (value, option, index) => {
+    setChange(true);
     const data = await handleGetOptions({ parentId: option?.id });
     const options = [...selectedOptions];
     options.splice(index + 1);
@@ -272,6 +274,13 @@ export const InternalCascadeSelect = observer(
       return [{}];
     };
     const defaultValue = toValue();
+    useEffect(() => {
+      const isChange = selectForm.values?.select_array?.filter((value) => value && Object.keys(value).length);
+      if (collectionField.interface !== 'm2o' && props.value && !isChange.length) {
+        const value = extractLastNonNullValueObjects(defaultValue).filter((v) => v && Object.keys(v).length > 0);
+        selectForm.setValues({ select_array: value });
+      }
+    }, [props.value]);
     const schema = {
       type: 'object',
       properties: {
@@ -315,26 +324,24 @@ export const InternalCascadeSelect = observer(
       },
     };
     return (
-      props.value !== null && (
-        <FormProvider form={selectForm}>
-          {collectionField.interface === 'm2o' ? (
-            <SchemaComponent
-              components={{ FormItem }}
-              schema={{
-                ...fieldSchema,
-                default: field.value,
-                title: '',
-                'x-component': AssociationCascadeSelect,
-                'x-component-props': {
-                  ...props,
-                },
-              }}
-            />
-          ) : (
-            <SchemaField schema={schema} />
-          )}
-        </FormProvider>
-      )
+      <FormProvider form={selectForm}>
+        {collectionField.interface === 'm2o' ? (
+          <SchemaComponent
+            components={{ FormItem }}
+            schema={{
+              ...fieldSchema,
+              default: field.value,
+              title: '',
+              'x-component': AssociationCascadeSelect,
+              'x-component-props': {
+                ...props,
+              },
+            }}
+          />
+        ) : (
+          <SchemaField schema={schema} />
+        )}
+      </FormProvider>
     );
   },
   { displayName: 'InternalCascadeSelect' },
