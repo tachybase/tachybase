@@ -102,6 +102,7 @@ export const SchemaApprovalBlockLaunch = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
+          'x-component-props': { width: 350 },
           title: tval('Approval Summary'),
           properties: {
             summary: {

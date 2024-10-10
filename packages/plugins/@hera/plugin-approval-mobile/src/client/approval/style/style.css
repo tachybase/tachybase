@@ -52,3 +52,25 @@
   overflow: hidden;
   background-color: #f3f3f3;
 }
+
+.approvalsSummaryStyle-item {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  overflow: hidden;
+}
+
+.approvalsSummaryStyle-label {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #aaa;
+}
+
+.approvalsSummaryStyle-value {
+  white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

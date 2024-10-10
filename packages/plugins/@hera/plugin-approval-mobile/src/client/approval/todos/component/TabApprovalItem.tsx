@@ -67,7 +67,12 @@ export const TabApprovalItem = observer((props) => {
                 </Space>
                 {/* </Badge> */}
                 {item.reason?.map((reasonItem, index) => {
-                  return <Space block key={index}>{`${reasonItem.label}:${reasonItem.value}`}</Space>;
+                  return (
+                    <div className="approvalsSummaryStyle-item" key={index}>
+                      <div className="approvalsSummaryStyle-label">{`${reasonItem.label}:`}&nbsp;&nbsp;</div>
+                      <div className="approvalsSummaryStyle-value">{`${reasonItem.value}`}</div>
+                    </div>
+                  );
                 })}
               </List.Item>
             );
