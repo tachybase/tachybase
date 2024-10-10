@@ -130,7 +130,9 @@ export class SettlementService {
                             name: productLength > 1 ? rule.comment ?? '' : productName.name, //名称
                             label:
                               productLength > 1
-                                ? `${rule.comment}-${productName.label}$$ ` ?? '' + `-${productName.label}$$ `
+                                ? rule.comment
+                                  ? `${rule.comment}-${productName.label}$$ `
+                                  : ' ' + `-${productName.label}$$ `
                                 : productName.label, //规格
                             category: item.category, //费用类别
                             //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
@@ -206,8 +208,9 @@ export class SettlementService {
                         if (productLength > 1 && item) {
                           const itemData = { ...data };
                           itemData['item_count'] = curr.count * Number(movement);
-                          itemData['label'] =
-                            `${rule.comment}-${curr.product.label}$$` ?? '' + `-${curr.product.label}$$`;
+                          itemData['label'] = rule.comment
+                            ? `${rule.comment}-${curr.product.label}$$`
+                            : ' ' + `-${curr.product.label}$$`;
                           itemData['count'] = 0;
                           itemData['amount'] = 0;
                           createLeasDatas.push(itemData);
@@ -472,10 +475,13 @@ export class SettlementService {
               ) {
                 const isRuleRecord = item.record_items
                   ?.map((productItem) => {
-                    return ruleProduct.includes(productItem.product_id) ||
+                    return (
+                      productItem &&
+                      (ruleProduct.includes(productItem.product_id) ||
                       ruleProduct.includes(productItem.product.category_id + RulesNumber)
-                      ? productItem
-                      : null;
+                        ? productItem
+                        : null)
+                    );
                   })
                   .filter(Boolean);
                 if (!isRuleRecord.length) return;
@@ -567,10 +573,13 @@ export class SettlementService {
                   if (dayjs(item.date).isBetween(settlementAbout.start_date, settlementAbout.end_date, 'day', '[]')) {
                     const isRuleRecord = item.record_items
                       ?.map((productItem) => {
-                        return ruleProduct.includes(productItem.product_id) ||
+                        return (
+                          productItem &&
+                          (ruleProduct.includes(productItem.product_id) ||
                           ruleProduct.includes(productItem.product.category_id + RulesNumber)
-                          ? productItem
-                          : null;
+                            ? productItem
+                            : null)
+                        );
                       })
                       .filter(Boolean);
                     if (!isRuleRecord.length) return;
@@ -618,10 +627,13 @@ export class SettlementService {
                   ) {
                     const isRuleRecord = item.record_items
                       ?.map((productItem) => {
-                        return ruleProduct.includes(productItem.product_id) ||
+                        return (
+                          productItem &&
+                          (ruleProduct.includes(productItem.product_id) ||
                           ruleProduct.includes(productItem.product.category_id + RulesNumber)
-                          ? productItem
-                          : null;
+                            ? productItem
+                            : null)
+                        );
                       })
                       .filter(Boolean);
                     if (!isRuleRecord.length) return;
@@ -658,10 +670,13 @@ export class SettlementService {
                   ) {
                     const isRuleRecord = item.record_items
                       ?.map((productItem) => {
-                        return ruleProduct.includes(productItem.product_id) ||
+                        return (
+                          productItem &&
+                          (ruleProduct.includes(productItem.product_id) ||
                           ruleProduct.includes(productItem.product.category_id + RulesNumber)
-                          ? productItem
-                          : null;
+                            ? productItem
+                            : null)
+                        );
                       })
                       .filter(Boolean);
                     if (!isRuleRecord.length) return;
@@ -698,10 +713,13 @@ export class SettlementService {
                   ) {
                     const isRuleRecord = item.record_items
                       ?.map((productItem) => {
-                        return ruleProduct.includes(productItem.product_id) ||
+                        return (
+                          productItem &&
+                          (ruleProduct.includes(productItem.product_id) ||
                           ruleProduct.includes(productItem.product.category_id + RulesNumber)
-                          ? productItem
-                          : null;
+                            ? productItem
+                            : null)
+                        );
                       })
                       .filter(Boolean);
                     if (!isRuleRecord.length) return;
