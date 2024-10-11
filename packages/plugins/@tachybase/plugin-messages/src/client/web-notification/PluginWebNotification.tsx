@@ -3,10 +3,12 @@ import { Plugin } from '@tachybase/client';
 import PluginMessagesClient from '..';
 import { lang } from '../locale';
 
+const isSupported = () => 'Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window;
+
 export class PluginWebNotification extends Plugin {
   async afterLoad() {
     // ‌请求用户授予权限
-    if (Notification.permission !== 'denied') {
+    if (isSupported() && Notification.permission !== 'denied') {
       await Notification.requestPermission();
     }
   }
