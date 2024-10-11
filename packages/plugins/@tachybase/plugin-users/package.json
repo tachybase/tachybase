@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-users",
   "displayName": "Users",
-  "version": "0.22.5",
+  "version": "0.22.6",
   "description": "Provides basic user model, as well as created by and updated by fields.",
   "keywords": [
     "Users & permissions"
