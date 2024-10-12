@@ -1,5 +1,10 @@
 module.exports = {
-  plugins: ['prettier-plugin-sql', 'prettier-plugin-packagejson', '@ianvs/prettier-plugin-sort-imports'],
+  plugins: [
+    'prettier-plugin-sql',
+    'prettier-plugin-packagejson',
+    '@ianvs/prettier-plugin-sort-imports',
+    'prettier-plugin-sort-json',
+  ],
   singleQuote: true,
   trailingComma: 'all',
   printWidth: 120,
@@ -17,7 +22,18 @@ module.exports = {
   overrides: [
     {
       files: '.prettierrc',
-      options: { parser: 'json' },
+      options: {
+        parser: 'json',
+      },
+    },
+    {
+      files: 'packages/**/locale/**/*.json',
+      options: {
+        parser: 'json',
+        plugins: ['prettier-plugin-sort-json'],
+        // 字母按字典顺序排序
+        jsonSortOrder: '{ "/^[^\\\\d+]/": "lexical", "/^\\\\d+/": "numeric" }',
+      },
     },
     {
       files: '*.sql',
