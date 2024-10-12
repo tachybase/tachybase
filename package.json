@@ -74,6 +74,7 @@
     "lint-staged": "^13.3.0",
     "prettier": "^3.2.5",
     "prettier-plugin-packagejson": "^2.5.0",
+    "prettier-plugin-sort-json": "^4.0.0",
     "prettier-plugin-sql": "^0.17.1",
     "pretty-format": "^24.9.0",
     "pretty-quick": "^3.3.1",
