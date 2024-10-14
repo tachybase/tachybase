@@ -202,7 +202,7 @@ export const oneEmptyKanbanBlock: PageConfig = {
                                 title: '{{ t("View record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {

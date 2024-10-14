@@ -162,7 +162,7 @@ export const Page = (props) => {
                             <SortableItem
                               id={schema.name as string}
                               schema={schema}
-                              className={classNames('nb-action-link', 'designerCss', props.className)}
+                              className={classNames('tb-action-link', 'designerCss', props.className)}
                             >
                               {schema['x-icon'] && <Icon style={{ marginRight: 8 }} type={schema['x-icon']} />}
                               <span>{schema.title || t('Unnamed')}</span>
@@ -179,7 +179,7 @@ export const Page = (props) => {
             />
           )}
         </div>
-        <div className="nb-page-wrapper">
+        <div className="tb-page-wrapper">
           <ErrorBoundary FallbackComponent={ErrorFallback} onError={handleErrors}>
             {PageContent(loading, disablePageHeader, enablePageTabs, fieldSchema, activeKey, height, props)}
           </ErrorBoundary>
@@ -226,7 +226,7 @@ function PageContent(
     })
   ) : (
     <FixedBlock height={`calc(${height}px + 46px + ${token.marginLG}px * 2)`}>
-      <div className={`pageWithFixedBlockCss nb-page-content`}>{props.children}</div>
+      <div className={`pageWithFixedBlockCss tb-page-content`}>{props.children}</div>
     </FixedBlock>
   );
 }

@@ -15,7 +15,7 @@ const commonCSSOverride = css``;
 const commonDesignerCSS = css`
   --tb-designer-top: 2px;
   --tb-designer-right: 2px;
-  .nb-sortable-designer:hover {
+  .tb-sortable-designer:hover {
     position: relative;
     > .general-schema-designer {
       display: block;
@@ -50,7 +50,7 @@ const commonDesignerCSS = css`
 `;
 
 const drawerProps: DrawerProps = {
-  getContainer: '.nb-mobile-application',
+  getContainer: '.tb-mobile-application',
   width: '90%',
   style: {
     position: 'absolute',
@@ -90,7 +90,7 @@ const MApplication: React.FC<PropsWithChildren> = (props) => {
         <ActionContextProvider modalProps={modalProps as ModalProps} drawerProps={drawerProps}>
           <div
             className={cx(
-              'nb-mobile-application',
+              'tb-mobile-application',
               commonDesignerCSS,
               commonCSSVariables,
               commonCSSOverride,
@@ -112,7 +112,7 @@ const MApplication: React.FC<PropsWithChildren> = (props) => {
               </RemoteSchemaComponent>
             )}
             {/* Global action will insert here */}
-            <div id="nb-position-container"></div>
+            <div id="tb-position-container"></div>
           </div>
         </ActionContextProvider>
       </MobileCore>

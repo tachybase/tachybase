@@ -158,7 +158,7 @@ const ColDivider = (props) => {
           dividerRef.current = el;
         }
       }}
-      className={cls('nb-col-divider', 'ColDivider')}
+      className={cls('tb-col-divider', 'ColDivider')}
       style={droppableStyle}
     >
       <div
@@ -230,7 +230,7 @@ const RowDivider = (props) => {
   });
 
   return (
-    <span ref={visible ? setNodeRef : null} className={cls('nb-row-divider', 'RowDivider')} style={droppableStyle} />
+    <span ref={visible ? setNodeRef : null} className={cls('tb-row-divider', 'RowDivider')} style={droppableStyle} />
   );
 };
 
@@ -332,7 +332,7 @@ export const Grid: any = observer(
       <GridContext.Provider
         value={{ ref: gridRef, fieldSchema, renderSchemaInitializer: render, InitializerComponent, showDivider }}
       >
-        <div className={`nb-grid ${componentCls} ${hashId}`} style={{ position: 'relative' }} ref={gridRef}>
+        <div className={`tb-grid ${componentCls} ${hashId}`} style={{ position: 'relative' }} ref={gridRef}>
           <DndWrapper dndContext={props.dndContext}>
             {showDivider ? (
               <RowDivider
@@ -392,7 +392,7 @@ Grid.Row = observer(
     return (
       <GridRowContext.Provider value={{ schema: fieldSchema, cols }}>
         <div
-          className={cls('nb-grid-row', 'CardRow', {
+          className={cls('tb-grid-row', 'CardRow', {
             showDivider,
           })}
         >
@@ -504,7 +504,7 @@ Grid.Col = observer(
 
     return (
       <GridColContext.Provider value={{ cols, schema }}>
-        <div ref={setNodeRef} style={{ ...style, ...droppableStyle }} className={cls('nb-grid-col  CardCol')}>
+        <div ref={setNodeRef} style={{ ...style, ...droppableStyle }} className={cls('tb-grid-col  CardCol')}>
           {props.children}
         </div>
       </GridColContext.Provider>

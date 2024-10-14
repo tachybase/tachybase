@@ -14,7 +14,7 @@ import { ComposedActionDrawer } from './types';
 const useStyles = createStyles(({ css }) => {
   return {
     container: css`
-      &.nb-action-popup {
+      &.tb-action-popup {
         .ant-modal-header {
           display: none;
         }

@@ -43,7 +43,7 @@ export const KanbanCard: any = observer(
             .ant-card-body {
               padding: 16px;
             }
-            .nb-row-divider {
+            .tb-row-divider {
               height: 16px;
               margin-top: -16px;
               &:last-child {
@@ -63,8 +63,8 @@ export const KanbanCard: any = observer(
             .ant-formily-item {
               margin-bottom: 12px;
             }
-            .nb-grid-row:last-of-type {
-              .nb-grid-col {
+            .tb-grid-row:last-of-type {
+              .tb-grid-col {
                 .tb-form-item:last-of-type {
                   .ant-formily-item {
                     margin-bottom: 0;

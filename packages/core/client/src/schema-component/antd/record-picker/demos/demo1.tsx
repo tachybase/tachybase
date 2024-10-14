@@ -73,7 +73,7 @@ const schema: ISchema = {
           title: '{{ t("Select record") }}',
           'x-component': 'RecordPicker.Selector',
           'x-component-props': {
-            className: 'nb-record-picker-selector',
+            className: 'tb-record-picker-selector',
           },
           properties: {
             tableBlock: {

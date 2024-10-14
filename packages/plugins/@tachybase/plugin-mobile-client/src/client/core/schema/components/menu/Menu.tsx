@@ -43,7 +43,7 @@ const InternalMenu: React.FC = (props) => {
   };
 
   return (
-    <SortableItem className={cx('nb-mobile-menu', styles.mobileMenu)}>
+    <SortableItem className={cx('tb-mobile-menu', styles.mobileMenu)}>
       <List>
         {designable && (
           <List.Item>

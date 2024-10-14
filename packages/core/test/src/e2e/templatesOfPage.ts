@@ -1290,7 +1290,7 @@ export const oneEmptyTableBlockWithActions: PageConfig = {
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -1409,7 +1409,7 @@ export const oneEmptyTableBlockWithActions: PageConfig = {
                                 title: '{{t("Add record")}}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -1522,7 +1522,7 @@ export const oneEmptyTableBlockWithActions: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -1596,7 +1596,7 @@ export const oneEmptyTableBlockWithActions: PageConfig = {
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -1695,7 +1695,7 @@ export const oneEmptyTableBlockWithActions: PageConfig = {
                                         title: '{{ t("Duplicate") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -1897,7 +1897,7 @@ export const oneTableBlockWithActionsAndFormBlocks: PageConfig = {
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -2102,7 +2102,7 @@ export const oneTableBlockWithActionsAndFormBlocks: PageConfig = {
                                 title: '{{t("Add record")}}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -2302,7 +2302,7 @@ export const oneTableBlockWithActionsAndFormBlocks: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -2462,7 +2462,7 @@ export const oneTableBlockWithActionsAndFormBlocks: PageConfig = {
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -2738,7 +2738,7 @@ export const oneEmptyTableBlockWithCustomizeActions: PageConfig = {
                                 title: '{{t("Bulk edit")}}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -2962,7 +2962,7 @@ export const oneFormBlockWithRolesFieldBasedUsers: PageConfig = {
                                             'x-component': 'AssociationField.Selector',
                                             title: '{{ t("Select record") }}',
                                             'x-component-props': {
-                                              className: 'nb-record-picker-selector',
+                                              className: 'tb-record-picker-selector',
                                             },
                                             'x-index': 1,
                                             properties: {
@@ -3179,7 +3179,7 @@ export const oneFormBlockWithAllAssociationFieldsAndSelectorMode: PageConfig = {
                                             'x-component': 'AssociationField.Selector',
                                             title: '{{ t("Select record") }}',
                                             'x-component-props': {
-                                              className: 'nb-record-picker-selector',
+                                              className: 'tb-record-picker-selector',
                                             },
                                             'x-index': 1,
                                             properties: {
@@ -3282,7 +3282,7 @@ export const oneFormBlockWithAllAssociationFieldsAndSelectorMode: PageConfig = {
                                             'x-component': 'AssociationField.Selector',
                                             title: '{{ t("Select record") }}',
                                             'x-component-props': {
-                                              className: 'nb-record-picker-selector',
+                                              className: 'tb-record-picker-selector',
                                             },
                                             'x-index': 1,
                                             properties: {
@@ -3385,7 +3385,7 @@ export const oneFormBlockWithAllAssociationFieldsAndSelectorMode: PageConfig = {
                                             'x-component': 'AssociationField.Selector',
                                             title: '{{ t("Select record") }}',
                                             'x-component-props': {
-                                              className: 'nb-record-picker-selector',
+                                              className: 'tb-record-picker-selector',
                                             },
                                             'x-index': 1,
                                             properties: {
@@ -3488,7 +3488,7 @@ export const oneFormBlockWithAllAssociationFieldsAndSelectorMode: PageConfig = {
                                             'x-component': 'AssociationField.Selector',
                                             title: '{{ t("Select record") }}',
                                             'x-component-props': {
-                                              className: 'nb-record-picker-selector',
+                                              className: 'tb-record-picker-selector',
                                             },
                                             'x-index': 1,
                                             properties: {
@@ -3591,7 +3591,7 @@ export const oneFormBlockWithAllAssociationFieldsAndSelectorMode: PageConfig = {
                                             'x-component': 'AssociationField.Selector',
                                             title: '{{ t("Select record") }}',
                                             'x-component-props': {
-                                              className: 'nb-record-picker-selector',
+                                              className: 'tb-record-picker-selector',
                                             },
                                             'x-index': 1,
                                             properties: {
@@ -3976,7 +3976,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndBasicFields: PageConfig = {
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -4589,7 +4589,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndBasicFields: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -4689,7 +4689,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndBasicFields: PageConfig = {
                                                                                 title: '{{ t("Edit record") }}',
                                                                                 'x-component': 'Action.Container',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -5226,7 +5226,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndBasicFields: PageConfig = {
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -5978,7 +5978,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndBasicFieldsAndSubTable: Pag
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -6352,7 +6352,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndChoicesFields: PageConfig =
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -6801,7 +6801,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndChoicesFields: PageConfig =
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -6901,7 +6901,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndChoicesFields: PageConfig =
                                                                                 title: '{{ t("Edit record") }}',
                                                                                 'x-component': 'Action.Container',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -7263,7 +7263,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndChoicesFields: PageConfig =
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -7787,7 +7787,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndMediaFields: PageConfig = {
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -8119,7 +8119,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndMediaFields: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -8219,7 +8219,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndMediaFields: PageConfig = {
                                                                                 title: '{{ t("Edit record") }}',
                                                                                 'x-component': 'Action.Container',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -8467,7 +8467,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndMediaFields: PageConfig = {
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -8877,7 +8877,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndDatetimeFields: PageConfig 
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -9172,7 +9172,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndDatetimeFields: PageConfig 
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -9272,7 +9272,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndDatetimeFields: PageConfig 
                                                                                 title: '{{ t("Edit record") }}',
                                                                                 'x-component': 'Action.Container',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -9482,7 +9482,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndDatetimeFields: PageConfig 
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -9854,7 +9854,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAssociationFields: PageConf
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -10256,7 +10256,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAssociationFields: PageConf
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -10356,7 +10356,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAssociationFields: PageConf
                                                                                 title: '{{ t("Edit record") }}',
                                                                                 'x-component': 'Action.Container',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -10674,7 +10674,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAssociationFields: PageConf
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -11477,7 +11477,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAdvancedFields: PageConfig 
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -11849,7 +11849,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAdvancedFields: PageConfig 
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -11949,7 +11949,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAdvancedFields: PageConfig 
                                                                                 title: '{{ t("Edit record") }}',
                                                                                 'x-component': 'Action.Container',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -12238,7 +12238,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAdvancedFields: PageConfig 
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -12689,7 +12689,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -12864,7 +12864,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                                                                 title: '{{ t("View record") }}',
                                                                                 'x-component': 'RecordPicker.Viewer',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -12956,7 +12956,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                                                                 title: '{{ t("View record") }}',
                                                                                 'x-component': 'RecordPicker.Viewer',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -13243,7 +13243,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -13343,7 +13343,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                                                                 title: '{{ t("Edit record") }}',
                                                                                 'x-component': 'Action.Container',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -13513,7 +13513,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                                                                         'x-component':
                                                                                           'RecordPicker.Viewer',
                                                                                         'x-component-props': {
-                                                                                          className: 'nb-action-popup',
+                                                                                          className: 'tb-action-popup',
                                                                                         },
                                                                                         properties: {
                                                                                           tabs: {
@@ -13614,7 +13614,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                                                                         'x-component':
                                                                                           'RecordPicker.Viewer',
                                                                                         'x-component-props': {
-                                                                                          className: 'nb-action-popup',
+                                                                                          className: 'tb-action-popup',
                                                                                         },
                                                                                         properties: {
                                                                                           tabs: {
@@ -13830,7 +13830,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -14011,7 +14011,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                                                                         'x-component':
                                                                                           'RecordPicker.Viewer',
                                                                                         'x-component-props': {
-                                                                                          className: 'nb-action-popup',
+                                                                                          className: 'tb-action-popup',
                                                                                         },
                                                                                         properties: {
                                                                                           tabs: {
@@ -14112,7 +14112,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfi
                                                                                         'x-component':
                                                                                           'RecordPicker.Viewer',
                                                                                         'x-component-props': {
-                                                                                          className: 'nb-action-popup',
+                                                                                          className: 'tb-action-popup',
                                                                                         },
                                                                                         properties: {
                                                                                           tabs: {
@@ -15475,7 +15475,7 @@ export const oneTableSubformWithMultiLevelAssociationFields: PageConfig = {
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -15590,7 +15590,7 @@ export const oneTableSubformWithMultiLevelAssociationFields: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -16271,7 +16271,7 @@ export const oneTableSubformWithMultiLevelAssociationFields: PageConfig = {
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -17189,7 +17189,7 @@ export const oneTableSubtableWithMultiLevelAssociationFields: PageConfig = {
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -17304,7 +17304,7 @@ export const oneTableSubtableWithMultiLevelAssociationFields: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -17404,7 +17404,7 @@ export const oneTableSubtableWithMultiLevelAssociationFields: PageConfig = {
                                                                                 title: '{{ t("Edit record") }}',
                                                                                 'x-component': 'Action.Container',
                                                                                 'x-component-props': {
-                                                                                  className: 'nb-action-popup',
+                                                                                  className: 'tb-action-popup',
                                                                                 },
                                                                                 properties: {
                                                                                   tabs: {
@@ -17735,7 +17735,7 @@ export const oneTableSubtableWithMultiLevelAssociationFields: PageConfig = {
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -18201,7 +18201,7 @@ export const formBlockDefaultValueTemplate: PageConfig = {
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -18477,7 +18477,7 @@ export const formBlockDefaultValueTemplate: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -18551,7 +18551,7 @@ export const formBlockDefaultValueTemplate: PageConfig = {
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {

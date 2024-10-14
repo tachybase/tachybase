@@ -1,6 +1,6 @@
 import { genStyleHook } from '@tachybase/client';
 
-export const styles = genStyleHook('nb-comment', (tokens) => {
+export const styles = genStyleHook('tb-comment', (tokens) => {
   const { componentCls } = tokens;
   return {
     [componentCls]: {

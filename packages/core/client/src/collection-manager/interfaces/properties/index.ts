@@ -378,7 +378,7 @@ export const recordPickerViewer = {
   title: '{{ t("View record") }}',
   'x-component': 'RecordPicker.Viewer',
   'x-component-props': {
-    className: 'nb-action-popup',
+    className: 'tb-action-popup',
   },
   properties: {
     tabs: {

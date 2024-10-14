@@ -43,8 +43,8 @@ ReadPretty.File = function File(props: UploadProps) {
         className={cls(
           `${prefixCls}-wrapper`,
           `${prefixCls}-picture-card-wrapper`,
-          `nb-upload`,
-          size ? `nb-upload-${size}` : null,
+          `tb-upload`,
+          size ? `tb-upload-${size}` : null,
           hashId,
         )}
       >

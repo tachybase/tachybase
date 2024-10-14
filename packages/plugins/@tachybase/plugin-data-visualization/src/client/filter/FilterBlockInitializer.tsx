@@ -63,7 +63,7 @@ export const ChartFilterGrid: React.FC = (props) => {
   return (
     <div
       className={css`
-        .ant-nb-grid {
+        .ant-tb-grid {
           overflow: hidden;
           height: ${collapsed ? `${token.controlHeight * 2}px` : 'auto'};
         }

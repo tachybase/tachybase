@@ -55,7 +55,7 @@ export const createCalendarBlockUISchema = (options: {
                 type: 'void',
                 'x-component': 'Action.Drawer',
                 'x-component-props': {
-                  className: 'nb-action-popup',
+                  className: 'tb-action-popup',
                 },
                 title: generateNTemplate('View record'),
                 properties: {

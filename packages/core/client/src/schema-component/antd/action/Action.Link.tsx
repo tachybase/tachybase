@@ -10,7 +10,7 @@ import { ComposedAction } from './types';
 export const ActionLink: ComposedAction = withDynamicSchemaProps(
   observer((props: any) => {
     return (
-      <Action {...props} component={props.component || 'a'} className={classnames('nb-action-link', props.className)} />
+      <Action {...props} component={props.component || 'a'} className={classnames('tb-action-link', props.className)} />
     );
   }),
   { displayName: 'ActionLink' },

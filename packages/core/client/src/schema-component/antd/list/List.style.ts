@@ -1,12 +1,12 @@
 import { genStyleHook } from '../__builtins__';
 
-const useStyles = genStyleHook('nb-list', (token) => {
+const useStyles = genStyleHook('tb-list', (token) => {
   const { componentCls } = token;
   return {
     [componentCls]: {
       width: '100%',
       marginBottom: 0,
-      // '.nb-action-bar:not(:empty)': { marginTop: token.marginXS },
+      // '.tb-action-bar:not(:empty)': { marginTop: token.marginXS },
       '&:hover': { '> .general-schema-designer': { display: 'block' } },
       '> .general-schema-designer': {
         position: 'absolute',

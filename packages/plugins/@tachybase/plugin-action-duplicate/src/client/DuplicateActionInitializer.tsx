@@ -19,7 +19,7 @@ export const DuplicateActionInitializer = (props) => {
         title: '{{ t("Duplicate") }}',
         'x-component': 'Action.Container',
         'x-component-props': {
-          className: 'nb-action-popup',
+          className: 'tb-action-popup',
         },
         properties: {
           tabs: {

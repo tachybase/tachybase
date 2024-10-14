@@ -16,7 +16,7 @@ export default {
     'x-action': 'create',
     title: '{{ t("Add record") }}',
     'x-component-props': {
-      className: 'nb-action-popup',
+      className: 'tb-action-popup',
     },
     properties: {
       tabs: {
@@ -49,7 +49,7 @@ export default {
     'x-component': 'AssociationField.Selector',
     title: '{{ t("Select record") }}',
     'x-component-props': {
-      className: 'nb-record-picker-selector',
+      className: 'tb-record-picker-selector',
     },
     properties: {
       grid: {
@@ -91,7 +91,7 @@ export default {
     title: '{{ t("View record") }}',
     'x-component': 'AssociationField.Viewer',
     'x-component-props': {
-      className: 'nb-action-popup',
+      className: 'tb-action-popup',
     },
     properties: {
       tabs: {

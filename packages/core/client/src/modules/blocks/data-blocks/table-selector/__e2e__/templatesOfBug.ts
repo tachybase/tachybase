@@ -142,7 +142,7 @@ export const tableSelectorDataScopeVariable: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -263,7 +263,7 @@ export const tableSelectorDataScopeVariable: PageConfig = {
                                                                                           '{{ t("Select record") }}',
                                                                                         'x-component-props': {
                                                                                           className:
-                                                                                            'nb-record-picker-selector',
+                                                                                            'tb-record-picker-selector',
                                                                                         },
                                                                                         'x-index': 1,
                                                                                         properties: {
@@ -455,7 +455,7 @@ export const tableSelectorDataScopeVariable: PageConfig = {
                                                                                                                                             'x-component-props':
                                                                                                                                               {
                                                                                                                                                 className:
-                                                                                                                                                  'nb-action-popup',
+                                                                                                                                                  'tb-action-popup',
                                                                                                                                               },
                                                                                                                                             properties:
                                                                                                                                               {

@@ -3,7 +3,7 @@ import { createStyles } from '@tachybase/client';
 const useStyles = createStyles(({ token, css }) => {
   return {
     globalActionCSS: css`
-      #nb-position-container > & {
+      #tb-position-container > & {
         height: ${token.sizeXXL}px;
         border-top: 1px solid var(--tb-box-bg);
         margin-bottom: 0px !important;

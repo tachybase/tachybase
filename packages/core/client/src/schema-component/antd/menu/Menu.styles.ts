@@ -17,7 +17,7 @@ export const useStyles = createStyles(({ css, token }) => {
           display: block;
         }
       }
-      &.nb-action-link {
+      &.tb-action-link {
         > .general-schema-designer {
           top: -10px;
           bottom: -10px;
@@ -69,7 +69,7 @@ export const useStyles = createStyles(({ css, token }) => {
           display: block;
         }
       }
-      &.nb-action-link {
+      &.tb-action-link {
         > .general-schema-designer {
           top: -10px;
           bottom: -10px;

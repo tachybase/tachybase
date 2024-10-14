@@ -20,7 +20,7 @@ export const BulkEditActionInitializer = () => {
         title: '{{t("Bulk edit")}}',
         'x-component': 'Action.Container',
         'x-component-props': {
-          className: 'nb-action-popup',
+          className: 'tb-action-popup',
         },
         properties: {
           tabs: {

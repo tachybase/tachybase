@@ -47,7 +47,7 @@ export const FixedBlockWrapper = (props) => {
   if (!fixedBlock && fixedBlockUID) return <>{props.children}</>;
   return (
     <div
-      className="nb-fixed-block"
+      className="tb-fixed-block"
       style={{
         height: fixedBlockUID ? `calc(100vh - ${height})` : undefined,
       }}

@@ -61,19 +61,19 @@ const useStyles = createStyles(({ css, token }) => {
       align-items: center;
       justify-content: space-evenly;
       padding-right: 8px;
-      .nb-table-index {
+      .tb-table-index {
         opacity: 0;
       }
       &:not(.checked) {
-        .nb-table-index {
+        .tb-table-index {
           opacity: 1;
         }
       }
       &:hover {
-        .nb-table-index {
+        .tb-table-index {
           opacity: 0;
         }
-        .nb-origin-node {
+        .tb-origin-node {
           display: block;
         }
       }
@@ -159,7 +159,7 @@ const SortHandle = (props) => {
 const TableIndex = (props) => {
   const { index, ...otherProps } = props;
   return (
-    <div className={classNames('nb-table-index')} style={{ padding: '0 8px 0 16px' }} {...otherProps}>
+    <div className={classNames('tb-table-index')} style={{ padding: '0 8px 0 16px' }} {...otherProps}>
       {index + 1}
     </div>
   );
@@ -250,7 +250,7 @@ export const TableArray: React.FC<any> = observer(
                       <TableIndex role="button" aria-label={`table-index-${record?.name || index}`} index={index} />
                     )}
                   </div>
-                  <div className={classNames('nb-origin-node', checked ? 'checked' : null, styles.node)}>
+                  <div className={classNames('tb-origin-node', checked ? 'checked' : null, styles.node)}>
                     {originNode}
                   </div>
                 </div>

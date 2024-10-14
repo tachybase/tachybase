@@ -6,7 +6,7 @@ import { genStyleHook } from './../__builtins__';
  * Copyright (c) 2014, Jason Chen
  * Copyright (c) 2013, salesforce.com
  */
-export const useStyles = genStyleHook('nb-rich-text', (token) => {
+export const useStyles = genStyleHook('tb-rich-text', (token) => {
   const { componentCls } = token;
 
   return {

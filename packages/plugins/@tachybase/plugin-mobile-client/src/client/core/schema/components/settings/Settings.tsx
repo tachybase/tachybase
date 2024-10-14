@@ -8,7 +8,7 @@ export const InternalSettings = () => {
   return (
     <SortableItem
       className={cx(
-        'nb-mobile-setting',
+        'tb-mobile-setting',
         css`
           margin-bottom: var(--tb-spacing);
         `,

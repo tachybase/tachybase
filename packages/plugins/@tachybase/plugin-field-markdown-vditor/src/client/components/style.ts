@@ -1,6 +1,6 @@
 import { genStyleHook } from '@tachybase/client';
 
-export default genStyleHook('nb-field-markdown-vditor', (token) => {
+export default genStyleHook('tb-field-markdown-vditor', (token) => {
   const { componentCls } = token;
 
   return {

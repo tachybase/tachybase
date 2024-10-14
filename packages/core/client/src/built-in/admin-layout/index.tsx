@@ -341,7 +341,7 @@ const MenuEditor = (props) => {
  * 鼠标悬浮在顶部“更多”按钮时显示的子菜单的样式
  */
 const GlobalStyleForAdminLayout = createGlobalStyle`
-  .nb-container-of-header-submenu {
+  .tb-container-of-header-submenu {
     .ant-menu.ant-menu-submenu.ant-menu-submenu-popup {
       .ant-menu.ant-menu-sub.ant-menu-vertical {
         background-color: ${(p) => {
@@ -387,7 +387,7 @@ const SetThemeOfHeaderSubmenu = ({ children }) => {
 
   useEffect(() => {
     containerRef.current = document.createElement('div');
-    containerRef.current.classList.add('nb-container-of-header-submenu');
+    containerRef.current.classList.add('tb-container-of-header-submenu');
     document.body.appendChild(containerRef.current);
 
     return () => {

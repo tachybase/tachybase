@@ -1,6 +1,6 @@
 import { genStyleHook } from '../../../schema-component/antd/__builtins__';
 
-export const useSchemaInitializerStyles = genStyleHook('nb-schema-initializer', (token) => {
+export const useSchemaInitializerStyles = genStyleHook('tb-schema-initializer', (token) => {
   const { componentCls } = token;
   return {
     [componentCls]: {

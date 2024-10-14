@@ -32,7 +32,7 @@ const viewerSchema: ISchema = {
   title: tval('View record'),
   'x-component': pageDetailsViewer,
   'x-component-props': {
-    className: 'nb-action-popup',
+    className: 'tb-action-popup',
   },
   properties: {
     page: {

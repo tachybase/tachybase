@@ -102,7 +102,7 @@ const checkedAutoPage = (position, message, t) => {
   const navbarHeight = navbar.getBoundingClientRect();
   const classId = uid();
   if (blockElement) {
-    const page = blockElement?.closest('.ant-nb-page ');
+    const page = blockElement?.closest('.ant-tb-page ');
     const drawer = blockElement?.closest('.ant-drawer-body');
     const modal = blockElement?.closest('.ant-modal-body');
     const tabNav = amplifierBlock.querySelector('.ant-tabs-nav');
@@ -154,7 +154,7 @@ const checkedAutoPage = (position, message, t) => {
 };
 
 const removeNode = ({ gridRow: blockElement, classId }) => {
-  const page = blockElement?.closest('.ant-nb-page ');
+  const page = blockElement?.closest('.ant-tb-page ');
   const drawer = blockElement?.closest('.ant-drawer-body');
   const parentNode = blockElement.parentNode;
   const tabNav = document.querySelector('.ant-tabs-nav');

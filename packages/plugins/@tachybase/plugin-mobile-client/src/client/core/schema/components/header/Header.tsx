@@ -35,7 +35,7 @@ const InternalHeader = (props: HeaderProps) => {
   }, [token.colorBgContainer]);
 
   return (
-    <SortableItem className={cx('nb-mobile-header')} style={style}>
+    <SortableItem className={cx('tb-mobile-header')} style={style}>
       <NavBar backArrow={showBack} onBack={() => navigate(-1)}>
         {compiledTitle}
       </NavBar>

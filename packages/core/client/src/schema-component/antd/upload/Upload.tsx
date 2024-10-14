@@ -49,7 +49,7 @@ Upload.Attachment = connect((props: UploadProps) => {
 
   return wrapSSR(
     <div>
-      <div className={cls(`${prefixCls}-wrapper`, `${prefixCls}-picture-card-wrapper`, 'nb-upload', hashId)}>
+      <div className={cls(`${prefixCls}-wrapper`, `${prefixCls}-picture-card-wrapper`, 'tb-upload', hashId)}>
         <div className={cls(`${prefixCls}-list`, `${prefixCls}-list-picture-card`)}>
           {fileList.map((file, index) => {
             const fileProps = {

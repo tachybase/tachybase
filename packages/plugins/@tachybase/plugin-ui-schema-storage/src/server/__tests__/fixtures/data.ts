@@ -310,7 +310,7 @@ export default {
                                       'x-decorator': 'CollectionProvider_deprecated',
                                       'x-decorator-props': { name: 'attachments' },
                                       'x-component': 'Action.Drawer',
-                                      'x-component-props': { className: 'nb-action-popup' },
+                                      'x-component-props': { className: 'tb-action-popup' },
                                       type: 'void',
                                       title: 'Drawer Title',
                                       properties: {
@@ -564,7 +564,7 @@ export default {
                                       'x-decorator': 'CollectionProvider_deprecated',
                                       'x-decorator-props': { name: 't_94rsj6kbzvn' },
                                       'x-component': 'Action.Drawer',
-                                      'x-component-props': { className: 'nb-action-popup' },
+                                      'x-component-props': { className: 'tb-action-popup' },
                                       type: 'void',
                                       title: 'Drawer Title',
                                       properties: {
@@ -725,7 +725,7 @@ export default {
                                       'x-decorator': 'CollectionProvider_deprecated',
                                       'x-decorator-props': { name: 'users' },
                                       'x-component': 'Action.Drawer',
-                                      'x-component-props': { className: 'nb-action-popup' },
+                                      'x-component-props': { className: 'tb-action-popup' },
                                       type: 'void',
                                       title: 'Drawer Title',
                                       properties: {
@@ -953,7 +953,7 @@ export default {
                                       'x-decorator': 'CollectionProvider_deprecated',
                                       'x-decorator-props': { name: 't_j6omof6tza8' },
                                       'x-component': 'Action.Drawer',
-                                      'x-component-props': { className: 'nb-action-popup' },
+                                      'x-component-props': { className: 'tb-action-popup' },
                                       type: 'void',
                                       title: 'Drawer Title',
                                       properties: {
@@ -1226,7 +1226,7 @@ export default {
                                                                       'x-decorator-props': { name: 'users' },
                                                                       'x-component': 'Action.Drawer',
                                                                       'x-component-props': {
-                                                                        className: 'nb-action-popup',
+                                                                        className: 'tb-action-popup',
                                                                       },
                                                                       type: 'void',
                                                                       title: 'Drawer Title',
@@ -1417,7 +1417,7 @@ export default {
                                                                       'x-decorator-props': { name: 'attachments' },
                                                                       'x-component': 'Action.Drawer',
                                                                       'x-component-props': {
-                                                                        className: 'nb-action-popup',
+                                                                        className: 'tb-action-popup',
                                                                       },
                                                                       type: 'void',
                                                                       title: 'Drawer Title',
@@ -1857,7 +1857,7 @@ export default {
                                                       'x-decorator': 'CollectionProvider_deprecated',
                                                       'x-decorator-props': { name: 'users' },
                                                       'x-component': 'Action.Drawer',
-                                                      'x-component-props': { className: 'nb-action-popup' },
+                                                      'x-component-props': { className: 'tb-action-popup' },
                                                       type: 'void',
                                                       title: 'Drawer Title',
                                                       properties: {
@@ -2021,7 +2021,7 @@ export default {
                                                       'x-decorator': 'CollectionProvider_deprecated',
                                                       'x-decorator-props': { name: 'attachments' },
                                                       'x-component': 'Action.Drawer',
-                                                      'x-component-props': { className: 'nb-action-popup' },
+                                                      'x-component-props': { className: 'tb-action-popup' },
                                                       type: 'void',
                                                       title: 'Drawer Title',
                                                       properties: {
@@ -2257,7 +2257,7 @@ export default {
                       version: '2.0',
                       type: 'void',
                       'x-component': 'Action.Container',
-                      'x-component-props': { className: 'nb-action-popup' },
+                      'x-component-props': { className: 'tb-action-popup' },
                       title: '{{ t("View record") }}',
                       properties: {
                         tabs: {
@@ -2484,7 +2484,7 @@ export default {
                                                                           },
                                                                           'x-component': 'Action.Drawer',
                                                                           'x-component-props': {
-                                                                            className: 'nb-action-popup',
+                                                                            className: 'tb-action-popup',
                                                                           },
                                                                           type: 'void',
                                                                           title: 'Drawer Title',
@@ -2704,7 +2704,7 @@ export default {
                                                                           },
                                                                           'x-component': 'Action.Drawer',
                                                                           'x-component-props': {
-                                                                            className: 'nb-action-popup',
+                                                                            className: 'tb-action-popup',
                                                                           },
                                                                           type: 'void',
                                                                           title: 'Drawer Title',
@@ -2851,7 +2851,7 @@ export default {
                                                                           'x-decorator-props': { name: 'users' },
                                                                           'x-component': 'Action.Drawer',
                                                                           'x-component-props': {
-                                                                            className: 'nb-action-popup',
+                                                                            className: 'tb-action-popup',
                                                                           },
                                                                           type: 'void',
                                                                           title: 'Drawer Title',
@@ -3314,7 +3314,7 @@ export default {
                                                                                             'Action.Drawer',
                                                                                           'x-component-props': {
                                                                                             className:
-                                                                                              'nb-action-popup',
+                                                                                              'tb-action-popup',
                                                                                           },
                                                                                           type: 'void',
                                                                                           title: 'Drawer Title',
@@ -3711,7 +3711,7 @@ export default {
                                               'x-decorator': 'CollectionProvider_deprecated',
                                               'x-decorator-props': { name: 'attachments' },
                                               'x-component': 'Action.Drawer',
-                                              'x-component-props': { className: 'nb-action-popup' },
+                                              'x-component-props': { className: 'tb-action-popup' },
                                               type: 'void',
                                               title: 'Drawer Title',
                                               properties: {
@@ -3965,7 +3965,7 @@ export default {
                                               'x-decorator': 'CollectionProvider_deprecated',
                                               'x-decorator-props': { name: 't_94rsj6kbzvn' },
                                               'x-component': 'Action.Drawer',
-                                              'x-component-props': { className: 'nb-action-popup' },
+                                              'x-component-props': { className: 'tb-action-popup' },
                                               type: 'void',
                                               title: 'Drawer Title',
                                               properties: {
@@ -4127,7 +4127,7 @@ export default {
                                               'x-decorator': 'CollectionProvider_deprecated',
                                               'x-decorator-props': { name: 'users' },
                                               'x-component': 'Action.Drawer',
-                                              'x-component-props': { className: 'nb-action-popup' },
+                                              'x-component-props': { className: 'tb-action-popup' },
                                               type: 'void',
                                               title: 'Drawer Title',
                                               properties: {
@@ -4355,7 +4355,7 @@ export default {
                                               'x-decorator': 'CollectionProvider_deprecated',
                                               'x-decorator-props': { name: 't_j6omof6tza8' },
                                               'x-component': 'Action.Drawer',
-                                              'x-component-props': { className: 'nb-action-popup' },
+                                              'x-component-props': { className: 'tb-action-popup' },
                                               type: 'void',
                                               title: 'Drawer Title',
                                               properties: {
@@ -4635,7 +4635,7 @@ export default {
                                                                               'x-decorator-props': { name: 'users' },
                                                                               'x-component': 'Action.Drawer',
                                                                               'x-component-props': {
-                                                                                className: 'nb-action-popup',
+                                                                                className: 'tb-action-popup',
                                                                               },
                                                                               type: 'void',
                                                                               title: 'Drawer Title',
@@ -4835,7 +4835,7 @@ export default {
                                                                               },
                                                                               'x-component': 'Action.Drawer',
                                                                               'x-component-props': {
-                                                                                className: 'nb-action-popup',
+                                                                                className: 'tb-action-popup',
                                                                               },
                                                                               type: 'void',
                                                                               title: 'Drawer Title',
@@ -5173,7 +5173,7 @@ export default {
                                                                                       },
                                                                                       'x-component': 'Action.Drawer',
                                                                                       'x-component-props': {
-                                                                                        className: 'nb-action-popup',
+                                                                                        className: 'tb-action-popup',
                                                                                       },
                                                                                       type: 'void',
                                                                                       title: 'Drawer Title',
@@ -5384,7 +5384,7 @@ export default {
                                                                                       },
                                                                                       'x-component': 'Action.Drawer',
                                                                                       'x-component-props': {
-                                                                                        className: 'nb-action-popup',
+                                                                                        className: 'tb-action-popup',
                                                                                       },
                                                                                       type: 'void',
                                                                                       title: 'Drawer Title',
@@ -5636,7 +5636,7 @@ export default {
                                                               'x-decorator': 'CollectionProvider_deprecated',
                                                               'x-decorator-props': { name: 'users' },
                                                               'x-component': 'Action.Drawer',
-                                                              'x-component-props': { className: 'nb-action-popup' },
+                                                              'x-component-props': { className: 'tb-action-popup' },
                                                               type: 'void',
                                                               title: 'Drawer Title',
                                                               properties: {
@@ -6022,7 +6022,7 @@ export default {
                       'x-decorator': 'CollectionProvider_deprecated',
                       'x-decorator-props': { name: 't_94rsj6kbzvn' },
                       'x-component': 'Action.Drawer',
-                      'x-component-props': { className: 'nb-action-popup' },
+                      'x-component-props': { className: 'tb-action-popup' },
                       type: 'void',
                       title: 'Drawer Title',
                       properties: {
@@ -6207,7 +6207,7 @@ export default {
                       'x-decorator': 'CollectionProvider_deprecated',
                       'x-decorator-props': { name: 'users' },
                       'x-component': 'Action.Drawer',
-                      'x-component-props': { className: 'nb-action-popup' },
+                      'x-component-props': { className: 'tb-action-popup' },
                       type: 'void',
                       title: 'Drawer Title',
                       properties: {

@@ -2,7 +2,7 @@ import { TinyColor } from '@ctrl/tinycolor';
 
 import { genStyleHook } from './../__builtins__';
 
-export const useStyles = genStyleHook('nb-markdown', (token, { isDarkTheme }) => {
+export const useStyles = genStyleHook('tb-markdown', (token, { isDarkTheme }) => {
   const { componentCls } = token;
   const colorFillAlterSolid = new TinyColor(token.colorFillAlter)
     .onBackground(token.colorBgContainer)
@@ -10,7 +10,7 @@ export const useStyles = genStyleHook('nb-markdown', (token, { isDarkTheme }) =>
 
   const defaultStyle: any = {
     // default style of markdown
-    '&.nb-markdown-default': {
+    '&.tb-markdown-default': {
       'pre code.hljs': { display: 'block', overflowX: 'auto', padding: '1em' },
       'code.hljs': { padding: '3px 5px' },
       ':not(pre) code': {
@@ -55,7 +55,7 @@ export const useStyles = genStyleHook('nb-markdown', (token, { isDarkTheme }) =>
     },
 
     // table style of markdown
-    '&.nb-markdown-table': {
+    '&.tb-markdown-table': {
       table: {
         borderCollapse: 'collapse',
         width: '100%',
@@ -80,7 +80,7 @@ export const useStyles = genStyleHook('nb-markdown', (token, { isDarkTheme }) =>
 
   const darkStyle: any = {
     // default style of markdown
-    '&.nb-markdown-default': {
+    '&.tb-markdown-default': {
       'pre code.hljs': { display: 'block', overflowX: 'auto', padding: '1em' },
       'code.hljs': { padding: '3px 5px' },
       ':not(pre) code': {
@@ -118,7 +118,7 @@ export const useStyles = genStyleHook('nb-markdown', (token, { isDarkTheme }) =>
     },
 
     // table style of markdown
-    '&.nb-markdown-table': {
+    '&.tb-markdown-table': {
       table: {
         borderCollapse: 'collapse',
         width: '100%',

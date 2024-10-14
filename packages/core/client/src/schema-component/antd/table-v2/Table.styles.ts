@@ -30,7 +30,7 @@ export const useStyles = createStyles(({ css, token }) => {
     `,
     toolbar: css`
       // 扩大 SchemaToolbar 的面积
-      .nb-action-link {
+      .tb-action-link {
         margin: -${token.paddingContentVerticalLG}px -${token.marginSM}px;
         padding: ${token.paddingContentVerticalLG}px ${token.marginSM}px;
       }
@@ -64,7 +64,7 @@ export const useStyles = createStyles(({ css, token }) => {
     bodyCell: css`
       max-width: 300px;
       white-space: nowrap;
-      .nb-read-pretty-input-number {
+      .tb-read-pretty-input-number {
         text-align: right;
       }
       .ant-color-picker-trigger {
@@ -80,21 +80,21 @@ export const useStyles = createStyles(({ css, token }) => {
       align-items: center;
       justify-content: space-evenly;
       padding-right: 8px;
-      .nb-table-index {
+      .tb-table-index {
         opacity: 0;
       }
       &:not(.checked) {
-        .nb-table-index {
+        .tb-table-index {
           opacity: 1;
         }
       }
     `,
     rowSelectHover: css`
       &:hover {
-        .nb-table-index {
+        .tb-table-index {
           opacity: 0;
         }
-        .nb-origin-node {
+        .tb-origin-node {
           display: block;
         }
       }

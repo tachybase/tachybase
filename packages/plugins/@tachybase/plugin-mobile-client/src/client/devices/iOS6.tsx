@@ -9,7 +9,7 @@ const iOS6: React.FC<IProps> = (props) => {
   return (
     <div
       className={cx(
-        'nb-mobile-device-ios6',
+        'tb-mobile-device-ios6',
         css(`
           display: flex;
           width: 375px;

@@ -58,7 +58,7 @@ export const useSchemaDebug = () => {
         'x-component': 'Action.Modal',
         'x-component-props': {
           className: cx(
-            'nb-action-popup',
+            'tb-action-popup',
             css`
               .ant-modal-content {
                 padding: 0;

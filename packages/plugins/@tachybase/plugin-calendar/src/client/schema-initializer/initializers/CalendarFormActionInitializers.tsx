@@ -95,7 +95,7 @@ export const CalendarFormActionInitializers = new SchemaInitializer({
                 title: generateNTemplate('Popup'),
                 'x-component': 'Action.Container',
                 'x-component-props': {
-                  className: 'nb-action-popup',
+                  className: 'tb-action-popup',
                 },
                 properties: {
                   tabs: {
