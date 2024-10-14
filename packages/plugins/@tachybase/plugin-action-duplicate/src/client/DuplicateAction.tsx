@@ -162,7 +162,7 @@ export const DuplicateAction = observer(
           <div>
             {isLinkBtn ? (
               <a
-                className="nb-action-link"
+                className="tb-action-link"
                 role={props.role}
                 aria-label={props['aria-label']}
                 //@ts-ignore

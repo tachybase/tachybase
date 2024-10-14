@@ -212,7 +212,7 @@ const SortHandle = (props) => {
 const TableIndex = (props) => {
   const { index, ...otherProps } = props;
   return (
-    <div className={classNames('nb-table-index')} style={{ padding: '0 8px 0 16px' }} {...otherProps}>
+    <div className={classNames('tb-table-index')} style={{ padding: '0 8px 0 16px' }} {...otherProps}>
       {index}
     </div>
   );
@@ -432,7 +432,7 @@ export const Table: any = withDynamicSchemaProps(
                       {showIndex && <TableIndex index={index} />}
                     </div>
                     {isRowSelect && (
-                      <div className={classNames('nb-origin-node', checked ? 'checked' : null, styles.cellCheckedNode)}>
+                      <div className={classNames('tb-origin-node', checked ? 'checked' : null, styles.cellCheckedNode)}>
                         {originNode}
                       </div>
                     )}

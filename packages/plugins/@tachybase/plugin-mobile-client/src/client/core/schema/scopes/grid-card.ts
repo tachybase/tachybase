@@ -6,7 +6,7 @@ import { useInterfaceContext } from '../../../router/InterfaceProvider';
 
 const listCss = css`
   padding: 0 var(--tb-spacing);
-  & > .nb-action-bar {
+  & > .tb-action-bar {
     padding: unset !important;
     background: unset !important;
   }

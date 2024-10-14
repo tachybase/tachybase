@@ -23,7 +23,7 @@ const InternalItem: React.FC<TabBarItemProps> = () => {
   return (
     <SortableItem
       className={cx(
-        'nb-mobile-tab-bar-item',
+        'tb-mobile-tab-bar-item',
         css`
           position: absolute !important;
           width: 100%;

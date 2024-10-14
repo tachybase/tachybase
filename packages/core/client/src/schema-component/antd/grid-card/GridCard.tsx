@@ -136,7 +136,7 @@ const InternalGridCard = (props) => {
         useGridCardActionBarProps,
       }}
     >
-      <SortableItem className={cx('nb-card-list', styles.designer)}>
+      <SortableItem className={cx('tb-card-list', styles.designer)}>
         <AntdList
           pagination={
             !meta || meta.count <= meta.pageSize || needInfiniteScroll

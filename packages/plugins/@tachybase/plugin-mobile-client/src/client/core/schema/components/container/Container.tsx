@@ -56,13 +56,13 @@ const InternalContainer: React.FC = (props) => {
 
   return (
     <MobileProvider>
-      <SortableItem eid="nb-mobile-scroll-wrapper" className={cx('nb-mobile-container', styles.mobileContainer)}>
+      <SortableItem eid="tb-mobile-scroll-wrapper" className={cx('tb-mobile-container', styles.mobileContainer)}>
         <Designer></Designer>
         <div
           style={{
             paddingBottom: redirectToUid ? token.paddingLG * 2 : 0,
           }}
-          className="nb-mobile-container-content"
+          className="tb-mobile-container-content"
         >
           {redirectToUid ? (
             <TabContentComponent />
@@ -76,7 +76,7 @@ const InternalContainer: React.FC = (props) => {
           )}
         </div>
         {isTabBarEnabled && (
-          <div className={cx('nb-mobile-container-tab-bar', styles.tabBar)}>
+          <div className={cx('tb-mobile-container-tab-bar', styles.tabBar)}>
             <SchemaComponent
               onlyRenderProperties
               filterProperties={(schema) => {

@@ -1,13 +1,13 @@
 import { genStyleHook } from '../__builtins__';
 
-const useStyles = genStyleHook('nb-action', (token) => {
+const useStyles = genStyleHook('tb-action', (token) => {
   const { componentCls } = token;
 
   return {
     [componentCls]: {
       position: 'relative',
       '&:hover': { '> .general-schema-designer': { display: 'block' } },
-      '&.nb-action-link': {
+      '&.tb-action-link': {
         margin: '-12px',
         padding: '12px',
       },

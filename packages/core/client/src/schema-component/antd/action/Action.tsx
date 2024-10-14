@@ -147,7 +147,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
           style={buttonStyle}
           onClick={handleButtonClick}
           component={tarComponent || Button}
-          className={classnames(componentCls, hashId, className, 'nb-action')}
+          className={classnames(componentCls, hashId, className, 'tb-action')}
           type={props.type === 'danger' ? undefined : props.type}
         >
           {actionTitle}

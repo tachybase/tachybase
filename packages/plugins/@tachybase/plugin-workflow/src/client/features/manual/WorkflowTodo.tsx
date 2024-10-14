@@ -592,7 +592,7 @@ function Drawer() {
           name: `drawer-${id}-${status}`,
           'x-component': 'Action.Drawer',
           'x-component-props': {
-            className: 'nb-action-popup',
+            className: 'tb-action-popup',
           },
           title: `${workflow.title} - ${node.title ?? `#${node.id}`}`,
           properties: {

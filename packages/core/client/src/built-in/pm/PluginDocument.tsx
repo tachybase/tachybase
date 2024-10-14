@@ -67,7 +67,7 @@ export const PluginDocument: React.FC<PluginDocumentProps> = memo((props) => {
         <Spin />
       ) : (
         <div
-          className={`${componentCls} ${hashId} nb-markdown nb-markdown-default nb-markdown-table`}
+          className={`${componentCls} ${hashId} tb-markdown tb-markdown-default tb-markdown-table`}
           dangerouslySetInnerHTML={{ __html: error ? '' : htmlWithOutRelativeDirect }}
         ></div>
       )}

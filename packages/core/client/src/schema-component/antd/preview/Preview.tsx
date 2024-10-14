@@ -59,7 +59,7 @@ export const FileSelector = (props: Props) => {
 
   return wrapSSR(
     <div>
-      <div className={cls(`${prefixCls}-wrapper`, `${prefixCls}-picture-card-wrapper`, 'nb-upload', hashId)}>
+      <div className={cls(`${prefixCls}-wrapper`, `${prefixCls}-picture-card-wrapper`, 'tb-upload', hashId)}>
         <div className={cls(`${prefixCls}-list`, `${prefixCls}-list-picture-card`)}>
           {list.map((file) => {
             const handleClick = (e) => {

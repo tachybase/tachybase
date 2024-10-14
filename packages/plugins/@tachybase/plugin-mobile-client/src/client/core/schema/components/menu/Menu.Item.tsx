@@ -40,7 +40,7 @@ const InternalMenuItem: React.FC<MMenuItemProps> = (props) => {
   return (
     <SortableItem
       className={cx(
-        'nb-mobile-menu-item',
+        'tb-mobile-menu-item',
         css`
           width: 100%;
           background: var(--adm-color-background);

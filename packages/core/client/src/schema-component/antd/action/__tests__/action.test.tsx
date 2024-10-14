@@ -54,7 +54,7 @@ describe('Action', () => {
 
     expect(document.querySelector('.ant-drawer')).not.toBeInTheDocument();
     expect(document.querySelector('.ant-modal')).not.toBeInTheDocument();
-    expect(document.querySelector('.nb-action-page')).not.toBeInTheDocument();
+    expect(document.querySelector('.tb-action-page')).not.toBeInTheDocument();
 
     // drawer
     await userEvent.click(getByText('Drawer'));
@@ -63,7 +63,7 @@ describe('Action', () => {
     await waitFor(() => {
       expect(document.querySelector('.ant-drawer')).toBeInTheDocument();
       expect(document.querySelector('.ant-modal')).not.toBeInTheDocument();
-      expect(document.querySelector('.nb-action-page')).not.toBeInTheDocument();
+      expect(document.querySelector('.tb-action-page')).not.toBeInTheDocument();
     });
 
     await userEvent.click(getByText('Close'));
@@ -75,7 +75,7 @@ describe('Action', () => {
     await waitFor(() => {
       expect(document.querySelector('.ant-drawer')).not.toBeInTheDocument();
       expect(document.querySelector('.ant-modal')).toBeInTheDocument();
-      expect(document.querySelector('.nb-action-page')).not.toBeInTheDocument();
+      expect(document.querySelector('.tb-action-page')).not.toBeInTheDocument();
     });
 
     await userEvent.click(getByText('Close'));
@@ -87,12 +87,12 @@ describe('Action', () => {
     await waitFor(() => {
       expect(document.querySelector('.ant-drawer')).not.toBeInTheDocument();
       expect(document.querySelector('.ant-modal')).not.toBeInTheDocument();
-      expect(document.querySelector('.nb-action-page')).toBeInTheDocument();
+      expect(document.querySelector('.tb-action-page')).toBeInTheDocument();
     });
     await userEvent.click(getByText('Close'));
 
     // TODO: 点击关闭按钮时应该消失
-    // expect(document.querySelector('.nb-action-page')).not.toBeInTheDocument();
+    // expect(document.querySelector('.tb-action-page')).not.toBeInTheDocument();
   });
 });
 

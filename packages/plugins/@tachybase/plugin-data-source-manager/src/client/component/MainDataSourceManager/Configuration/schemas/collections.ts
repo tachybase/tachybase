@@ -339,7 +339,7 @@ export const collectionTableSchema: ISchema = {
                     role: 'button',
                     'aria-label': '{{ "delete-button-" + $record.name }}',
                     type: 'primary',
-                    className: 'nb-action-link',
+                    className: 'tb-action-link',
                   },
                 },
               },

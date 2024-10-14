@@ -85,7 +85,7 @@ export const MarkdownVoid: any = observer(
       />
     ) : (
       <div
-        className={cls([componentCls, hashId, 'nb-markdown nb-markdown-default nb-markdown-table', className])}
+        className={cls([componentCls, hashId, 'tb-markdown tb-markdown-default tb-markdown-table', className])}
         style={props.style}
         dangerouslySetInnerHTML={{ __html: html }}
       />

@@ -205,7 +205,7 @@ export const oneTableWithViewAction: PageConfig = {
                                         version: '2.0',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         _isJSONSchemaObject: true,
                                         properties: {
@@ -476,7 +476,7 @@ export const oneCalenderWithViewAction: PageConfig = {
                                     version: '2.0',
                                     'x-component': 'Action.Container',
                                     'x-component-props': {
-                                      className: 'nb-action-popup',
+                                      className: 'tb-action-popup',
                                     },
                                     _isJSONSchemaObject: true,
                                     properties: {
@@ -762,7 +762,7 @@ export const oneCalenderWithViewAction: PageConfig = {
                                 version: '2.0',
                                 'x-component': 'Action.Drawer',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 _isJSONSchemaObject: true,
                                 properties: {

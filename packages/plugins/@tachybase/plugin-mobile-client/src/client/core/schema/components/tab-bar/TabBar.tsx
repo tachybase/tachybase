@@ -50,7 +50,7 @@ export const InternalTabBar: React.FC = (props) => {
   return (
     <SortableItem
       className={cx(
-        'nb-mobile-tab-bar',
+        'tb-mobile-tab-bar',
         css`
           position: relative;
           width: 100%;

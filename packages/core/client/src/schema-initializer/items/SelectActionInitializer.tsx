@@ -18,7 +18,7 @@ export const SelectActionInitializer = (props) => {
         'x-component': 'AssociationField.Selector',
         title: '{{ t("Select record") }}',
         'x-component-props': {
-          className: 'nb-record-picker-selector',
+          className: 'tb-record-picker-selector',
         },
         properties: {
           grid: {

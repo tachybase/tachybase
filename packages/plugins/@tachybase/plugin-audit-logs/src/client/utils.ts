@@ -188,7 +188,7 @@ export const createSchema = () => {
                     type: 'void',
                     'x-component': 'Action.Container',
                     'x-component-props': {
-                      className: 'nb-action-popup',
+                      className: 'tb-action-popup',
                     },
                     title: tval('View record'),
                     properties: {

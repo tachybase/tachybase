@@ -44,7 +44,7 @@ export const Sortable = (props: any) => {
     {
       role: 'none',
       ...others,
-      className: cx('nb-sortable-designer', props.className),
+      className: cx('tb-sortable-designer', props.className),
       ref: setNodeRef,
       style: droppableStyle,
     },

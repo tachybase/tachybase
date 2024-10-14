@@ -270,7 +270,7 @@ export const oneEmptyGantt: PageConfig = {
                                 type: 'void',
                                 'x-component': 'Action.Drawer',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 title: '{{ t("View record") }}',
                                 properties: {

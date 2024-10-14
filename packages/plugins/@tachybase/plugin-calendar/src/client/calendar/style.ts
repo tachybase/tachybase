@@ -1,6 +1,6 @@
 import { genStyleHook } from '@tachybase/client';
 
-export default genStyleHook('nb-calendar', (token) => {
+export default genStyleHook('tb-calendar', (token) => {
   const { componentCls } = token;
 
   return {

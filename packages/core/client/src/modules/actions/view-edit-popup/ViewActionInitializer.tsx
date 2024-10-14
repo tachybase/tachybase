@@ -19,7 +19,7 @@ export const ViewActionInitializer = (props) => {
         title: '{{ t("View record") }}',
         'x-component': 'Action.Container',
         'x-component-props': {
-          className: 'nb-action-popup',
+          className: 'tb-action-popup',
         },
         properties: {
           tabs: {

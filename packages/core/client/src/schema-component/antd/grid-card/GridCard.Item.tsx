@@ -28,7 +28,7 @@ const useStyles = createStyles(({ css }) => {
         padding: 24px 24px 0px;
         height: 100%;
       }
-      .nb-action-bar {
+      .tb-action-bar {
         padding: 5px 0;
       }
     `,

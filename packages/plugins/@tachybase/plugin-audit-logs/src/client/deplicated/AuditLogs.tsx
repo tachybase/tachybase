@@ -197,7 +197,7 @@ export const AuditLogs: any = () => {
                             title: tval('View record'),
                             'x-component': 'Action.Container',
                             'x-component-props': {
-                              className: 'nb-action-popup',
+                              className: 'tb-action-popup',
                             },
                             properties: {
                               grid: {

@@ -12,7 +12,7 @@ import { useDesignable } from '../../hooks';
 const useStyles = createStyles(({ css }, props: { designable: boolean }) => {
   return {
     item: css`
-      .nb-action-bar {
+      .tb-action-bar {
         gap: 20px !important;
         margin-top: ${props.designable ? '20px' : '0px'};
       }

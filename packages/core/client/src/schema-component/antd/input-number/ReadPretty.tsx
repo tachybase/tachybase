@@ -119,7 +119,7 @@ export const ReadPretty: React.FC<InputProps & InputNumberProps> = (props: any) 
   }
 
   return (
-    <div className={'nb-read-pretty-input-number'}>
+    <div className={'tb-read-pretty-input-number'}>
       {addonBefore}
       <span dangerouslySetInnerHTML={{ __html: result }} />
       {addonAfter}

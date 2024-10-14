@@ -60,7 +60,7 @@ const InternalList = (props) => {
         useListActionBarProps,
       }}
     >
-      <SortableItem className={cx('nb-list', componentCls, hashId)}>
+      <SortableItem className={cx('tb-list', componentCls, hashId)}>
         <AntdList
           {...props}
           pagination={

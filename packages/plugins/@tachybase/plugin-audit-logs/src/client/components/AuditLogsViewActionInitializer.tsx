@@ -89,7 +89,7 @@ export const AuditLogsViewActionInitializer = () => {
         title: tval('View record'),
         'x-component': 'Action.Container',
         'x-component-props': {
-          className: 'nb-action-popup',
+          className: 'tb-action-popup',
         },
         properties: {
           tabs: {
@@ -257,7 +257,7 @@ export const AuditLogsViewActionInitializer = () => {
                                                         title: tval('View record'),
                                                         'x-component': 'RecordPicker.Viewer',
                                                         'x-component-props': {
-                                                          className: 'nb-action-popup',
+                                                          className: 'tb-action-popup',
                                                         },
                                                         properties: {
                                                           tabs: {

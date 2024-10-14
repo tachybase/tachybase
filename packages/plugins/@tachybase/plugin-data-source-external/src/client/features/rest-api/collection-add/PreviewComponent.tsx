@@ -72,12 +72,12 @@ export const PreviewComponent = (props) => {
   }, [form.values.fields]);
 
   return (
-    <div key={uid()} style={{ marginBottom: 'var(--nb-spacing)' }}>
+    <div key={uid()} style={{ marginBottom: 'var(--tb-spacing)' }}>
       {dataSource?.length > 0 && (
         <>
           <div
             className="ant-formily-item-label"
-            style={{ marginTop: 'var(--nb-spacing)', display: 'flex', padding: '0 0 8px' }}
+            style={{ marginTop: 'var(--tb-spacing)', display: 'flex', padding: '0 0 8px' }}
           >
             <div className="ant-formily-item-label-content">
               <span>

@@ -72,7 +72,7 @@ const InternalPage: React.FC = (props) => {
             <ActionBarProvider
               container={
                 (typeof props.active !== 'undefined' ? props.active : true) && onlyInPage
-                  ? document.getElementById('nb-position-container')
+                  ? document.getElementById('tb-position-container')
                   : null
               }
               forceProps={{
@@ -92,15 +92,15 @@ const InternalPage: React.FC = (props) => {
   );
 
   return (
-    <SortableItem eid="nb-mobile-scroll-wrapper" className={cx('nb-mobile-page', styles.mobilePage)}>
+    <SortableItem eid="tb-mobile-scroll-wrapper" className={cx('tb-mobile-page', styles.mobilePage)}>
       <Designer {...fieldSchema?.['x-designer-props']}></Designer>
       <div
         style={{
           paddingBottom: tabsSchema ? null : 'var(--tb-spacing)',
         }}
-        className={cx('nb-mobile-page-header', styles.mobilePageHeader, {
+        className={cx('tb-mobile-page-header', styles.mobilePageHeader, {
           [css`
-            & > .ant-nb-grid {
+            & > .ant-tb-grid {
               margin-top: 14px;
             }
           `]: (tabsSchema && !isTabsEnabled) || !tabsSchema,

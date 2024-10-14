@@ -1,6 +1,6 @@
 import { genStyleHook } from '../__builtins__';
 
-const useStyles = genStyleHook('nb-variable-select', (token) => {
+const useStyles = genStyleHook('tb-variable-select', (token) => {
   const { componentCls } = token;
 
   return {

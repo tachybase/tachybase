@@ -23,7 +23,7 @@ export const ViewActionLaunch = ({ popoverComponent = 'Action.Drawer', popoverCo
             type: 'void',
             'x-component': popoverComponent,
             'x-component-props': {
-              className: 'nb-action-popup',
+              className: 'tb-action-popup',
               ...popoverComponentProps,
             },
             properties: {

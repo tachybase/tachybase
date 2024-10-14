@@ -61,7 +61,7 @@ export const HomePageConfiguration = (props) => {
                     title: '{{ t("Add record") }}',
                     'x-component': 'Action.Container',
                     'x-component-props': {
-                      className: 'nb-action-popup',
+                      className: 'tb-action-popup',
                     },
                     properties: {
                       tabs: {
@@ -337,7 +337,7 @@ export const HomePageConfiguration = (props) => {
                             title: '{{ t("Edit record") }}',
                             'x-component': 'Action.Container',
                             'x-component-props': {
-                              className: 'nb-action-popup',
+                              className: 'tb-action-popup',
                             },
                             properties: {
                               tabs: {

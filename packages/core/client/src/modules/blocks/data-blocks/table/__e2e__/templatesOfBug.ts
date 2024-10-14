@@ -445,7 +445,7 @@ export const T2187 = {
                                         title: '{{ t("Duplicate") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -839,7 +839,7 @@ export const T3686: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {

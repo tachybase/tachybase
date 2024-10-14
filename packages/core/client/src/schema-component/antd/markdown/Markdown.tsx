@@ -32,7 +32,7 @@ export const MarkdownReadPretty = (props) => {
   const text = convertToText(html);
   const value = (
     <div
-      className={`${hashId} ${className} nb-markdown nb-markdown-default nb-markdown-table`}
+      className={`${hashId} ${className} tb-markdown tb-markdown-default tb-markdown-table`}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

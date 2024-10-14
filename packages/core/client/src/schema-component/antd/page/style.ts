@@ -1,6 +1,6 @@
 import { genStyleHook } from './../__builtins__';
 
-export const useStyles = genStyleHook('nb-page', (token) => {
+export const useStyles = genStyleHook('tb-page', (token) => {
   const { componentCls } = token;
 
   return {
@@ -67,7 +67,7 @@ export const useStyles = genStyleHook('nb-page', (token) => {
       '.designerCss': {
         position: 'relative',
         '&:hover': { '> .general-schema-designer': { display: 'block' } },
-        '&.nb-action-link': {
+        '&.tb-action-link': {
           '> .general-schema-designer': {
             top: '-10px',
             bottom: '-10px',
@@ -105,12 +105,12 @@ export const useStyles = genStyleHook('nb-page', (token) => {
 
       '.pageWithFixedBlockCss': {
         height: '100%',
-        '> .nb-grid:not(:last-child)': {
-          '> .nb-schema-initializer-button': { display: 'none' },
+        '> .tb-grid:not(:last-child)': {
+          '> .tb-schema-initializer-button': { display: 'none' },
         },
       },
 
-      '.nb-page-wrapper': {
+      '.tb-page-wrapper': {
         margin: token.marginLG,
         flex: 1,
       },

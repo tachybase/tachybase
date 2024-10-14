@@ -1,6 +1,6 @@
 import { genStyleHook } from '../__builtins__';
 
-const useStyles = genStyleHook('nb-association-filter-item', (token) => {
+const useStyles = genStyleHook('tb-association-filter-item', (token) => {
   const { componentCls } = token;
 
   return {

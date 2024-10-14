@@ -21,7 +21,7 @@ const useStyles = createStyles(({ css }) => {
           display: block;
         }
       }
-      &.nb-action-link {
+      &.tb-action-link {
         > .general-schema-designer {
           top: -10px;
           bottom: -10px;
@@ -108,7 +108,7 @@ Tabs.TabPane = observer(
     const Designer = useDesigner();
     const field = useField();
     return (
-      <SortableItem className={classNames('nb-action-link', styles.designer, props.className)}>
+      <SortableItem className={classNames('tb-action-link', styles.designer, props.className)}>
         {props.icon && <Icon style={{ marginRight: 2 }} type={props.icon} />} {props.tab || field.title}
         <Designer />
       </SortableItem>

@@ -68,7 +68,7 @@ export const ActionBar = withDynamicSchemaProps(
             <div
               style={{ display: 'flex', alignItems: 'center', gap: 8, ...style }}
               {...others}
-              className={cx(others.className, 'nb-action-bar')}
+              className={cx(others.className, 'tb-action-bar')}
             >
               {props.children && (
                 <div>
@@ -101,7 +101,7 @@ export const ActionBar = withDynamicSchemaProps(
               }
         }
         {...others}
-        className={cx(others.className, 'nb-action-bar')}
+        className={cx(others.className, 'tb-action-bar')}
       >
         <div
           style={{

@@ -92,7 +92,7 @@ export const oneTableBlock: PageConfig = {
                                 version: '2.0',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 _isJSONSchemaObject: true,
                                 properties: {
@@ -826,7 +826,7 @@ export const oneTableBlock: PageConfig = {
                                         version: '2.0',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         _isJSONSchemaObject: true,
                                         properties: {
@@ -1156,7 +1156,7 @@ export const oneTableBlock: PageConfig = {
                                         version: '2.0',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         _isJSONSchemaObject: true,
                                         properties: {
@@ -1230,7 +1230,7 @@ export const oneTableBlock: PageConfig = {
                                         version: '2.0',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         _isJSONSchemaObject: true,
                                         properties: {
@@ -1819,7 +1819,7 @@ export const oneTableBlock: PageConfig = {
                                         version: '2.0',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         _isJSONSchemaObject: true,
                                         properties: {
@@ -2702,7 +2702,7 @@ export const newTableBlock: PageConfig = {
                                 title: '{{t("Bulk edit")}}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -2781,7 +2781,7 @@ export const newTableBlock: PageConfig = {
                                 title: '{{ t("Add record") }}',
                                 'x-component': 'Action.Container',
                                 'x-component-props': {
-                                  className: 'nb-action-popup',
+                                  className: 'tb-action-popup',
                                 },
                                 properties: {
                                   tabs: {
@@ -2925,7 +2925,7 @@ export const newTableBlock: PageConfig = {
                                         title: '{{ t("View record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {
@@ -3000,7 +3000,7 @@ export const newTableBlock: PageConfig = {
                                         title: '{{ t("Edit record") }}',
                                         'x-component': 'Action.Container',
                                         'x-component-props': {
-                                          className: 'nb-action-popup',
+                                          className: 'tb-action-popup',
                                         },
                                         properties: {
                                           tabs: {

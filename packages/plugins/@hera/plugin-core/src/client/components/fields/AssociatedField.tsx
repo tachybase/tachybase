@@ -16,7 +16,7 @@ const viewerSchema: ISchema = {
   title: '{{ t("View record") }}',
   'x-component': 'AssociationField.Viewer',
   'x-component-props': {
-    className: 'nb-action-popup',
+    className: 'tb-action-popup',
   },
   properties: {
     tabs: {

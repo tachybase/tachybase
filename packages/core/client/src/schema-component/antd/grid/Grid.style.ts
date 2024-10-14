@@ -1,6 +1,6 @@
 import { genStyleHook } from '../__builtins__';
 
-const useStyles = genStyleHook('nb-grid', (token) => {
+const useStyles = genStyleHook('tb-grid', (token) => {
   const { componentCls } = token;
 
   return {

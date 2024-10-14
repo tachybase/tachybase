@@ -221,7 +221,7 @@ const useStyles = createStyles(({ token, css }) => {
     `,
 
     collectionListClass: css`
-      .nb-action-bar {
+      .tb-action-bar {
         float: right;
         position: fixed;
         margin-top: 24px;
