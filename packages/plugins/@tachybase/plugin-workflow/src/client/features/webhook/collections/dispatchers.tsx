@@ -62,10 +62,33 @@ export const dispatchers: CollectionOptions = {
         enum: [
           { label: tval('HTTP endpoint'), value: 'code' },
           { label: tval('Scheduler'), value: 'cron' },
+          { label: tval('API action'), value: 'action' },
         ],
         'x-component': 'Radio.Group',
         'x-decorator': 'FormItem',
         default: 'code',
+      } as ISchema,
+    },
+    {
+      type: 'string',
+      name: 'resourceName',
+      interface: 'input',
+      uiSchema: {
+        title: tval('Resource'),
+        type: 'string',
+        'x-component': 'Input',
+        required: true,
+      } as ISchema,
+    },
+    {
+      type: 'string',
+      name: 'actionName',
+      interface: 'input',
+      uiSchema: {
+        title: tval('Action'),
+        type: 'string',
+        'x-component': 'Input',
+        required: true,
       } as ISchema,
     },
     {
@@ -78,7 +101,7 @@ export const dispatchers: CollectionOptions = {
         'x-component': 'CodeMirror',
         'x-component-props': {
           defaultValue:
-            '// ctx.action.params can get user query\n// ctx.action.params.values can get user body\n// ctx.body to pass your data to workflow or to client who invoke this.',
+            '// ctx.action.params can get user query\n// ctx.action.params.values can get user body\n// const { changed, data, error } = await ctx.getChanged(); can get changed fields and raw data\n// ctx.body to pass your data to workflow or to client who invoke this.',
         },
       } as ISchema,
     },

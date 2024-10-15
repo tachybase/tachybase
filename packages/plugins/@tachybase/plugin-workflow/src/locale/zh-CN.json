@@ -367,5 +367,7 @@
   "CC'd to Me": "抄送我的",
   "My Pending Tasks": "我的代办",
   "Common": "通用",
-  "needAuthorization": "是否携带权限校验"
+  "needAuthorization": "是否携带权限校验",
+  "API action": "api操作",
+  "Resource": "数据表"
 }

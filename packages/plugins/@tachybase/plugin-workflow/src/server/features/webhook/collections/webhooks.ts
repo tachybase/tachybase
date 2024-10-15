@@ -27,5 +27,9 @@ export default defineCollection({
       name: 'code',
       type: 'text',
     },
+    {
+      name: 'settings',
+      type: 'json',
+    },
   ],
 });
