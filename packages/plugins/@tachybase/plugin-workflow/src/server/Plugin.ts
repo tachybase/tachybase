@@ -298,6 +298,14 @@ export default class PluginWorkflowServer extends Plugin {
         await this.executing;
       }
     });
+
+    this.db.on('webhooks.afterCreate', this.removeWebhooksCache.bind(this));
+    this.db.on('webhooks.afterUpdate', this.removeWebhooksCache.bind(this));
+    this.db.on('webhooks.afterDestroy', this.removeWebhooksCache.bind(this));
+  }
+
+  async removeWebhooksCache() {
+    this.app.cache.del('webhooks');
   }
 
   toggle(workflow: WorkflowModel, enable?: boolean) {

@@ -261,6 +261,64 @@ const schema: ISchema = {
                                                         },
                                                       },
                                                     },
+                                                    resourceName: {
+                                                      type: 'void',
+                                                      'x-component': 'Grid.Row',
+                                                      properties: {
+                                                        '5w93jhg5355': {
+                                                          type: 'void',
+                                                          'x-component': 'Grid.Col',
+                                                          properties: {
+                                                            resourceName: {
+                                                              type: 'string',
+                                                              'x-component': 'CollectionField',
+                                                              'x-decorator': 'FormItem',
+                                                              'x-collection-field': 'webhooks.resourceName',
+                                                              'x-reactions': [
+                                                                {
+                                                                  dependencies: ['.type'],
+                                                                  fulfill: {
+                                                                    state: {
+                                                                      hidden: '{{ $deps[0] !== "action" }}',
+                                                                    },
+                                                                  },
+                                                                },
+                                                              ],
+                                                              'x-component-props': {},
+                                                            },
+                                                          },
+                                                        },
+                                                      },
+                                                    },
+                                                    actionName: {
+                                                      type: 'void',
+                                                      'x-component': 'Grid.Row',
+                                                      properties: {
+                                                        '5w93jhg5355': {
+                                                          type: 'void',
+                                                          'x-component': 'Grid.Col',
+                                                          properties: {
+                                                            actionName: {
+                                                              type: 'string',
+                                                              'x-component': 'CollectionField',
+                                                              'x-decorator': 'FormItem',
+                                                              'x-collection-field': 'webhooks.actionName',
+                                                              'x-reactions': [
+                                                                {
+                                                                  dependencies: ['.type'],
+                                                                  fulfill: {
+                                                                    state: {
+                                                                      hidden: '{{ $deps[0] !== "action" }}',
+                                                                    },
+                                                                  },
+                                                                },
+                                                              ],
+                                                              'x-component-props': {},
+                                                            },
+                                                          },
+                                                        },
+                                                      },
+                                                    },
                                                     '38fm61ehxvn': {
                                                       type: 'void',
                                                       'x-component': 'Grid.Row',
@@ -605,6 +663,64 @@ const schema: ISchema = {
                                                                       'x-component': 'CollectionField',
                                                                       'x-decorator': 'FormItem',
                                                                       'x-collection-field': 'webhooks.type',
+                                                                      'x-component-props': {},
+                                                                    },
+                                                                  },
+                                                                },
+                                                              },
+                                                            },
+                                                            resourceName: {
+                                                              type: 'void',
+                                                              'x-component': 'Grid.Row',
+                                                              properties: {
+                                                                '5w93jhg5355': {
+                                                                  type: 'void',
+                                                                  'x-component': 'Grid.Col',
+                                                                  properties: {
+                                                                    resourceName: {
+                                                                      type: 'string',
+                                                                      'x-component': 'CollectionField',
+                                                                      'x-decorator': 'FormItem',
+                                                                      'x-collection-field': 'webhooks.resourceName',
+                                                                      'x-reactions': [
+                                                                        {
+                                                                          dependencies: ['.type'],
+                                                                          fulfill: {
+                                                                            state: {
+                                                                              hidden: '{{ $deps[0] !== "action" }}',
+                                                                            },
+                                                                          },
+                                                                        },
+                                                                      ],
+                                                                      'x-component-props': {},
+                                                                    },
+                                                                  },
+                                                                },
+                                                              },
+                                                            },
+                                                            actionName: {
+                                                              type: 'void',
+                                                              'x-component': 'Grid.Row',
+                                                              properties: {
+                                                                '5w93jhg5355': {
+                                                                  type: 'void',
+                                                                  'x-component': 'Grid.Col',
+                                                                  properties: {
+                                                                    actionName: {
+                                                                      type: 'string',
+                                                                      'x-component': 'CollectionField',
+                                                                      'x-decorator': 'FormItem',
+                                                                      'x-collection-field': 'webhooks.actionName',
+                                                                      'x-reactions': [
+                                                                        {
+                                                                          dependencies: ['.type'],
+                                                                          fulfill: {
+                                                                            state: {
+                                                                              hidden: '{{ $deps[0] !== "action" }}',
+                                                                            },
+                                                                          },
+                                                                        },
+                                                                      ],
                                                                       'x-component-props': {},
                                                                     },
                                                                   },

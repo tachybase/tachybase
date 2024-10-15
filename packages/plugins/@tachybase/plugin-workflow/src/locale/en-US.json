@@ -289,5 +289,7 @@
   "Common": "Common",
   "ApprovalCarbonCopy": "Approval:CarbonCopy",
   "Approval Launch": "Approval Launch",
-  "needAuthorization": "needAuthorization"
+  "needAuthorization": "needAuthorization",
+  "API action": "API action",
+  "Resource": "Resource"
 }
