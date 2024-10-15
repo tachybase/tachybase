@@ -28,6 +28,7 @@ import { Plugin } from '../../application/Plugin';
 import { VariablesProvider } from '../../variables';
 import { PageTab } from '../page-style/PageTab';
 import { usePageStyle } from '../page-style/usePageStyle';
+import { AdminContent } from './AdminContent';
 import { NoticeArea } from './NoticeArea';
 
 const useStyles = createStyles(({ css, token }) => {
@@ -450,7 +451,9 @@ export const InternalAdminLayout = (props: any) => {
       {params.name && <Layout.Sider className={styles.sider} theme={'light'} ref={sideMenuRef}></Layout.Sider>}
       <Layout.Content className={styles.main}>
         <header className={styles.mainHeader}></header>
-        <div className="amplifier-block">{params.name && pageStyle === 'tab' ? <PageTab /> : <Outlet />}</div>
+        <div className="amplifier-block">
+          <AdminContent />
+        </div>
       </Layout.Content>
     </Layout>
   );
