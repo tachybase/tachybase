@@ -1,1 +1,1 @@
-# @hera/plugin-external-data-source
+# @hera/plugin-data-source-external

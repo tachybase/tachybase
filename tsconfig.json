@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "lib": ["esnext", "DOM.Iterable", "DOM"],
     "esModuleInterop": true,
@@ -21,12 +20,6 @@
     "downlevelIteration": true,
     "baseUrl": "."
   },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  },
-  "include": ["packages/**/*", "playwright.config.ts", "vitest.config.mts", "packages/plugins/@tachybase/plugin-external-data-source/src/client/features/rest-api/kit.tsx"],
   "exclude": [
     "packages/**/node_modules",
     "packages/**/dist",
@@ -35,5 +28,12 @@
     "packages/core/cli/**/*",
     "packages/**/lib",
     "packages/**/es"
-  ]
+  ],
+  "extends": "./tsconfig.paths.json",
+  "include": ["packages/**/*", "playwright.config.ts", "vitest.config.mts"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }
