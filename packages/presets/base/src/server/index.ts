@@ -47,6 +47,13 @@ export class PresetTachyBase extends Plugin {
   #localPlugins = [
     // optional plugins, default disabled
     'adapter-bullmq>=0.21.76',
+    'homepage>=0.22.6',
+    'core>=0.22.6',
+    'rental>=0.22.6',
+    'field-markdown-vditor>=0.22.6',
+    'comments>=0.22.6',
+    'sancongtou>=0.22.6',
+    'approval-mobile>=0.22.6',
     'api-doc>=0.13.0-alpha.1',
     'api-keys>=0.10.1-alpha.1',
     'cas>=0.13.0-alpha.5',

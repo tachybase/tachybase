@@ -1,9 +1,9 @@
 {
-  "Users & Permissions": "Users & Permissions",
   "Add users": "Add users",
-  "Remove user": "Remove user",
   "Are you sure you want to remove it?": "Are you sure you want to remove it?",
+  "Edited successfully": "Edited successfully",
   "Random password": "Random password",
-  "Edited successfully":"Edited successfully",
-  "Users Settings":"Users Settings"
+  "Remove user": "Remove user",
+  "Users & Permissions": "Users & Permissions",
+  "Users Settings": "Users Settings"
 }

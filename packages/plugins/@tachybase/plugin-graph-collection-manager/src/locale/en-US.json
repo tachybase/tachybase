@@ -1,15 +1,15 @@
 {
-  "Graph Collection": "Graph Collection",
-  "Collection List": "Collection List",
-  "Full Screen": "Full Screen",
-  "Collection Search": "Collection Search",
-  "Create Collection": "Create Collection",
   "All Fields": "All Fields",
+  "All relationships": "All relationships",
   "Association Fields": "Association Fields",
   "Choices fields": "Choices fields",
-  "All relationships": "All relationships",
+  "Collection List": "Collection List",
+  "Collection Search": "Collection Search",
+  "Create Collection": "Create Collection",
   "Entity relationship only": "Entity relationship only",
-  "Inheritance relationship only": "Inheritance relationship only",
+  "Full Screen": "Full Screen",
+  "Graph Collection": "Graph Collection",
   "Graphical interface": "Graphical interface",
+  "Inheritance relationship only": "Inheritance relationship only",
   "Selection": "Selection"
 }

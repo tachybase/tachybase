@@ -8,7 +8,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 COPY . /app
 WORKDIR /app
 RUN npm config set registry $NPM_REGISTRY
-RUN npm i -g pnpm@9.7.0
+RUN npm i -g pnpm@9.12.1
 RUN pnpm config set registry $NPM_REGISTRY
 RUN pnpm install --shamefully-hoist --config.build_from_source=sqlite3
 RUN pnpm build:p

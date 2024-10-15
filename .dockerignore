@@ -14,6 +14,8 @@ packages/*/*/node_modules
 
 /.vscode
 /.idea
+/.husky
+/.gitea
 
 *.sqlite
 /uploads
