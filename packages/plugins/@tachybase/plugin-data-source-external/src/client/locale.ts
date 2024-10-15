@@ -1,6 +1,6 @@
 import { i18n, tval as nTval, useApp } from '@tachybase/client';
 
-export const NAMESPACE = '@hera/plugin-external-data-source';
+export const NAMESPACE = '@hera/plugin-data-source-external';
 
 // NOTE: 保持翻译统一经由这里处理, 所有本插件内的翻译方法从这里统一导出
 export const tval = (key: string, useCore = false) => nTval(key, { ns: useCore ? undefined : NAMESPACE });
