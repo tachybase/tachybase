@@ -1,17 +1,17 @@
 {
-  "Verification": "Verificação",
-  "Verification providers": "Provedores de verificação",
-  "Provider type": "Tipo de provedor",
-  "Aliyun SMS": "Serviço de Mensagem de Texto Aliyun",
   "Access Key ID": "ID da chave de acesso",
   "Access Key Secret": "Chave secreta de acesso",
+  "Aliyun SMS": "Serviço de Mensagem de Texto Aliyun",
   "Endpoint": "Ponto de extremidade",
-  "Sign": "Assinatura",
-  "Template code": "Código do modelo",
+  "Provider type": "Tipo de provedor",
+  "Region": "Região",
   "Secret Id": "ID secreto",
   "Secret Key": "Chave secreta",
-  "Region": "Região",
+  "Sign": "Assinatura",
   "Sign name": "Conteúdo de assinatura de SMS",
   "Sms sdk app id": "ID do aplicativo de SMS",
-  "Template Id": "ID do modelo de SMS"
+  "Template Id": "ID do modelo de SMS",
+  "Template code": "Código do modelo",
+  "Verification": "Verificação",
+  "Verification providers": "Provedores de verificação"
 }

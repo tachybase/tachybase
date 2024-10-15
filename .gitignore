@@ -6,8 +6,6 @@ es/
 .env.e2e
 .env.local
 .DS_Store
-yarn-error.log
-lerna-debug.log
 /.vscode
 /.idea
 *.sqlite
@@ -42,7 +40,6 @@ tsconfig.paths.json
 /storage/playwright
 .swc
 ncc-cache/
-yarn--**
 v8-compile-cache-**
 .env.local.*
 .pnpm-store

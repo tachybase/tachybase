@@ -7,9 +7,6 @@
   "types": "./lib/index.d.ts",
   "dependencies": {
     "@tachybase/database": "workspace:*",
-    "@tachybase/preset-hera-rental": "workspace:*",
-    "@tachybase/preset-hera-sancongtou": "workspace:*",
-    "@tachybase/preset-mini": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/telemetry": "workspace:*"

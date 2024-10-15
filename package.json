@@ -45,7 +45,6 @@
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
     "@commitlint/prompt-cli": "^16.3.0",
@@ -55,9 +54,6 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
     "@tachybase/build": "workspace:*",
     "@tachybase/cli": "workspace:*",
-    "@tachybase/preset-hera-rental": "workspace:*",
-    "@tachybase/preset-hera-sancongtou": "workspace:*",
-    "@tachybase/preset-mini": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@types/react": "^18.3.3",
@@ -86,14 +82,14 @@
     "umi": "^4.3.3",
     "vitest": "^1.6.0"
   },
-  "packageManager": "pnpm@9.7.0",
+  "packageManager": "pnpm@9.12.1",
   "engines": {
     "node": "20.16.0",
-    "pnpm": "9.7.0"
+    "pnpm": "9.12.1"
   },
   "volta": {
     "node": "20.16.0",
-    "pnpm": "9.7.0"
+    "pnpm": "9.12.1"
   },
   "pnpm": {
     "neverBuiltDependencies": [
