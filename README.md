@@ -14,6 +14,7 @@
 
 <p align="center">
 <span style="color:red; font-weight:bold;">目前框架还在 alpha 阶段，用在生产中请谨慎，碰到任何问题可以联系我们处理</span>
+<br>
 塔奇平台（Tachybase）致力于打造一个用户友好的应用研发平台，旨在降低开发门槛，提升研发效率，为企业用户和开发者提供一站式解决方案。
 </p>
 
