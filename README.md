@@ -1,7 +1,7 @@
 <h1 align="center" style="border-bottom: none">
     <div>
         <a style="color:#36f" href="https://www.tachybase.com">
-            <img src="/packages/core/app/client/public/tachybase.png" width="80" />
+            <img src="https://private-user-images.githubusercontent.com/4080924/376667122-0930a0f2-41ab-4dff-9646-8f6daade2829.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjkwMDQwODYsIm5iZiI6MTcyOTAwMzc4NiwicGF0aCI6Ii80MDgwOTI0LzM3NjY2NzEyMi0wOTMwYTBmMi00MWFiLTRkZmYtOTY0Ni04ZjZkYWFkZTI4MjkucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MTAxNSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDEwMTVUMTQ0OTQ2WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9OTUyOTUwNDNjNzZmZWEyZDc1ODk2Y2VmNDcwODM0NzMyMTJlNjA5ZTM3MzM4MGI5YTU0MTE2NWQwMDBhMTA0NiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.3QbOn5LhUVGBMWp6JJYE-NFnDqZbV0HHDuZ8QVLVAdI" width="80" />
             <br>
             塔奇平台
         </a>
@@ -13,6 +13,7 @@
 [English Version](README.EN-US.md)
 
 <p align="center">
+<span style="color:red; font-weight:bold;">目前框架还在 alpha 阶段，用在生产中请谨慎，碰到任何问题可以联系我们处理</span>
 塔奇平台（Tachybase）致力于打造一个用户友好的应用研发平台，旨在降低开发门槛，提升研发效率，为企业用户和开发者提供一站式解决方案。
 </p>
 
