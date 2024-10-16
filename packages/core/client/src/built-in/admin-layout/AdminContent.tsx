@@ -28,6 +28,7 @@ const WelcomeCard = () => {
       >
         <Space>
           <Button>使用手册</Button>
+          <Button>插件管理</Button>
           <Button type="primary">新增入口</Button>
         </Space>
       </Flex>
