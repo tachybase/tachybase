@@ -17,27 +17,6 @@ export class PresetTachyBase extends Plugin {
     'users',
     'acl',
     'messages',
-    // optional plugins, default enabled
-    'online-user',
-    'action-bulk-edit',
-    'action-bulk-update',
-    'action-duplicate',
-    'action-print',
-    'backup-restore',
-    'calendar',
-    'china-region',
-    'custom-request',
-    'data-visualization',
-    'export',
-    'formula-field',
-    'gantt',
-    'iframe-block',
-    'import',
-    'kanban',
-    'logger',
-    'sequence-field',
-    'workflow',
-    'audit-logs',
   ];
 
   get builtInPlugins() {
@@ -45,33 +24,54 @@ export class PresetTachyBase extends Plugin {
   }
 
   #localPlugins = [
-    // optional plugins, default disabled
-    'adapter-bullmq>=0.21.76',
-    'homepage>=0.22.6',
-    'core>=0.22.6',
-    'rental>=0.22.6',
-    'field-markdown-vditor>=0.22.6',
-    'comments>=0.22.6',
-    'sancongtou>=0.22.6',
-    'approval-mobile>=0.22.6',
-    'api-doc>=0.13.0-alpha.1',
-    'api-keys>=0.10.1-alpha.1',
-    'cas>=0.13.0-alpha.5',
-    'data-source-external>=0.22.5',
-    'dingtalk>=0.21.76',
-    'graph-collection-manager>=0.9.0-alpha.1',
-    'localization-management>=0.11.1-alpha.1',
-    'map>=0.8.1-alpha.3',
-    'mobile-client>=0.10.0-alpha.2',
-    'multi-app-manager>=0.7.0-alpha.1',
-    'multi-app-share-collection>=0.9.2-alpha.1',
-    'oidc>=0.9.2-alpha.1',
-    'saml>=0.8.1-alpha.3',
-    'sms-auth>=0.10.0-alpha.2',
-    'snapshot-field>=0.8.1-alpha.3',
-    'theme-editor>=0.11.1-alpha.1',
-    'wechat-auth>=0.21.89',
-    'work-wechat>=0.21.76',
+    // [name, version, enabled]
+    ['online-user', '0.22.7', true],
+    ['action-bulk-edit', '0.22.7', true],
+    ['action-bulk-update', '0.22.7', true],
+    ['action-duplicate', '0.22.7', true],
+    ['action-print', '0.22.7', true],
+    ['backup-restore', '0.22.7', true],
+    ['calendar', '0.22.7', true],
+    ['china-region', '0.22.7', true],
+    ['custom-request', '0.22.7', true],
+    ['data-visualization', '0.22.7', true],
+    ['export', '0.22.7', true],
+    ['formula-field', '0.22.7', true],
+    ['gantt', '0.22.7', true],
+    ['iframe-block', '0.22.7', true],
+    ['import', '0.22.7', true],
+    ['kanban', '0.22.7', true],
+    ['logger', '0.22.7', true],
+    ['sequence-field', '0.22.7', true],
+    ['workflow', '0.22.7', true],
+    ['audit-logs', '0.22.7', true],
+    // default disable
+    ['adapter-bullmq', '0.21.76', false],
+    ['homepage', '0.22.6', false],
+    ['core', '0.22.6', false],
+    ['rental', '0.22.6', false],
+    ['field-markdown-vditor', '0.22.6', false],
+    ['comments', '0.22.6', false],
+    ['sancongtou', '0.22.6', false],
+    ['approval-mobile', '0.22.6', false],
+    ['api-doc', '0.13.0-alpha.1', false],
+    ['api-keys', '0.10.1-alpha.1', false],
+    ['cas', '0.13.0-alpha.5', false],
+    ['data-source-external', '0.22.5', false],
+    ['dingtalk', '0.21.76', false],
+    ['graph-collection-manager', '0.9.0-alpha.1', false],
+    ['localization-management', '0.11.1-alpha.1', false],
+    ['map', '0.8.1-alpha.3', false],
+    ['mobile-client', '0.10.0-alpha.2', false],
+    ['multi-app-manager', '0.7.0-alpha.1', false],
+    ['multi-app-share-collection', '0.9.2-alpha.1', false],
+    ['oidc', '0.9.2-alpha.1', false],
+    ['saml', '0.8.1-alpha.3', false],
+    ['sms-auth', '0.10.0-alpha.2', false],
+    ['snapshot-field', '0.8.1-alpha.3', false],
+    ['theme-editor', '0.11.1-alpha.1', false],
+    ['wechat-auth', '0.21.89', false],
+    ['work-wechat', '0.21.76', false],
   ];
 
   get localPlugins() {
@@ -83,15 +83,51 @@ export class PresetTachyBase extends Plugin {
   }
 
   getBuiltInPlugins() {
-    const { APPEND_PRESET_BUILT_IN_PLUGINS } = process.env;
-    return _.uniq(this.splitNames(APPEND_PRESET_BUILT_IN_PLUGINS).concat(this.builtInPlugins));
+    const { PRESETS_CORE_PLUGINS } = process.env;
+    const [addPlugins, removedPlugins] = this.parseNames(PRESETS_CORE_PLUGINS);
+    return _.uniq(this.builtInPlugins.concat(addPlugins).filter((name) => !removedPlugins.includes(name)));
+  }
+
+  parseNames(plugins: string) {
+    const addPlugins = this.splitNames(plugins).filter((name) => !name.startsWith('!') && !name.startsWith('|'));
+    const removedPlugins = this.splitNames(plugins)
+      .filter((name) => name.startsWith('!'))
+      .map((name) => name.slice(1));
+
+    const addDisabledPlugins = this.splitNames(plugins)
+      .filter((name) => name.startsWith('|'))
+      .map((name) => name.slice(1));
+
+    return [addPlugins, removedPlugins, addDisabledPlugins];
   }
 
   getLocalPlugins() {
-    const { APPEND_PRESET_LOCAL_PLUGINS } = process.env;
-    const plugins = this.splitNames(APPEND_PRESET_LOCAL_PLUGINS)
-      .concat(this.localPlugins)
-      .map((name) => name.split('>='));
+    const { PRESETS_LOCAL_PLUGINS } = process.env;
+    let plugins = [].concat(this.localPlugins);
+    const [addPlugins, removedPlugins, addDisabledPlugins] = this.parseNames(PRESETS_LOCAL_PLUGINS);
+
+    addPlugins.forEach((plugin) => {
+      const found = plugins.find((p) => p[0] === plugin);
+      if (found) {
+        found[2] = true;
+      } else {
+        plugins.push([plugin, '0.0.0', true]);
+      }
+    });
+
+    removedPlugins.forEach((plugin) => {
+      plugins = plugins.filter((p) => p[0] !== plugin);
+    });
+
+    addDisabledPlugins.forEach((plugin) => {
+      const found = plugins.find((p) => p === plugin);
+      if (found) {
+        found[2] = false;
+      } else {
+        plugins.push([plugin, '0.0.0', false]);
+      }
+    });
+
     return plugins;
   }
 
@@ -124,8 +160,9 @@ export class PresetTachyBase extends Plugin {
       await Promise.all(
         this.getLocalPlugins().map(async (plugin) => {
           const name = plugin[0];
+          const enabled = plugin[2];
           const packageJson = await this.getPackageJson(name);
-          return { name, packageName: packageJson.name, version: packageJson.version };
+          return { name, packageName: packageJson.name, version: packageJson.version, enabled };
         }),
       ),
     );
@@ -154,8 +191,9 @@ export class PresetTachyBase extends Plugin {
         }
       }
       const name = plugin[0];
+      const enabled = plugin[2];
       const packageJson = await this.getPackageJson(name);
-      plugins.push({ name, packageName: packageJson.name, version: packageJson.version });
+      plugins.push({ name, packageName: packageJson.name, version: packageJson.version, enabled });
     }
     return plugins;
   }
