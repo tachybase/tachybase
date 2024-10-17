@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { css } from '@tachybase/client';
+import { css, useApp } from '@tachybase/client';
 
 import { Space } from 'antd';
 import { debounce } from 'lodash';
@@ -14,8 +14,10 @@ export const InternalPDFViewer = (props) => {
   const [, setHeight] = useState(0);
   useEffect(() => {
     const updateUI = debounce(() => {
-      setWidth(containerRef.current.offsetWidth);
-      setHeight(containerRef.current.offsetHeight);
+      if (containerRef.current) {
+        setWidth(containerRef.current.offsetWidth);
+        setHeight(containerRef.current.offsetHeight);
+      }
     }, 200);
     const observer = new ResizeObserver(() => {
       updateUI();
@@ -52,6 +54,10 @@ export const InternalPDFViewer = (props) => {
           overflow: hidden;
           display: flex;
           justify-content: center;
+
+          div::-webkit-scrollbar {
+            display: none;
+          }
         `}
       >
         {pdfPath ? <PDFViewer file={pdfPath} width={width} ref={ref} /> : ''}
