@@ -1,25 +1,13 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
-
-import { LoadingOutlined } from '@ant-design/icons';
-import { Spin, Tag } from 'antd';
-import { saveAs } from 'file-saver';
-import { Document, Page, pdfjs } from 'react-pdf';
-
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
-
-import { css, useRequest } from '@tachybase/client';
+import { useApp, useRequest } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
+import { saveAs } from 'file-saver';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { useTranslation } from '../locale';
-
-const options = {
-  cMapUrl: '/cmaps/',
-  standardFontDataUrl: '/standard_fonts/',
-};
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cat.net/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface PDFViewerProps {
   file: string;
@@ -41,8 +29,11 @@ const LoadingSpin = ({ children, spinning }) => {
 };
 
 export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) => {
-  const { t } = useTranslation();
-  const [numPages, setNumPages] = useState<number>(0);
+  const app = useApp();
+  const previewList = app.AttachmentPreviewManager.get();
+  const { checkedComponent } = previewList['application/pdf'];
+
+  const [pdfUrl, setPdfUrl] = useState('');
   const [contentWindow, setContentWindow] = useState<Window>(null);
   const { file, width = 960 } = props;
   const { loading, data } = useRequest(
@@ -63,25 +54,34 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
       contentWindow.print();
     },
   }));
+
   useEffect(() => {
     if (loading || !data) {
       return;
     }
     const blob = new Blob([data as ArrayBuffer], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
+    setPdfUrl(url);
+  }, [data, loading]);
+
+  useEffect(() => {
+    if (!pdfUrl) {
+      return;
+    }
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
-    iframe.src = url;
+    iframe.src = pdfUrl;
     iframe.onload = () => {
       setContentWindow(iframe.contentWindow);
     };
     document.body.appendChild(iframe);
+
     return () => {
       // 需要释放资源
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(pdfUrl);
       document.body.removeChild(iframe);
     };
-  }, [data, loading]);
+  }, [pdfUrl]);
 
   return (
     <LoadingSpin spinning={loading}>
@@ -91,40 +91,12 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
         panning={{ allowLeftClickPan: false }}
       >
         <TransformComponent>
-          <Document
-            options={options}
-            file={data as ArrayBuffer}
-            loading={() => (
-              <LoadingSpin spinning={true}>
-                <div style={{ height: '100vh' }}></div>
-              </LoadingSpin>
-            )}
-            onLoadSuccess={async (doc) => {
-              setNumPages(doc.numPages);
-            }}
-            noData={<div style={{ height: '100vh' }}></div>}
-            error={<div>{t('error')}</div>}
-          >
-            {Array.from(new Array(numPages), (el, index) => (
-              <Page key={`page_${index + 1}`} pageNumber={index + 1} width={width}>
-                <div
-                  className={css`
-                    text-align: center;
-                    border-bottom: 1px dashed;
-                  `}
-                >
-                  <Tag
-                    className={css`
-                      margin-bottom: 2px;
-                    `}
-                    bordered={false}
-                  >
-                    第 {index + 1}/{numPages} 页
-                  </Tag>
-                </div>
-              </Page>
-            ))}
-          </Document>
+          {checkedComponent({
+            file: {
+              url: pdfUrl,
+            },
+            width,
+          })}
         </TransformComponent>
       </TransformWrapper>
     </LoadingSpin>
