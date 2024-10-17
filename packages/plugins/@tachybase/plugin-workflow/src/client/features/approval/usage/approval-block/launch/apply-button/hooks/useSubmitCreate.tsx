@@ -13,7 +13,7 @@ import { useFlowContext } from '../../../../../../../FlowContext';
 import { useContextApprovalStatus } from '../Pd.ActionStatus';
 
 export function useSubmitCreate() {
-  const from = useForm();
+  const form = useForm();
   const field = useField();
   const { setVisible } = useActionContext();
   const { __parent } = useBlockRequestContext();
@@ -25,29 +25,31 @@ export function useSubmitCreate() {
   return {
     async run(args) {
       try {
-        from.submit();
+        await form.submit();
         field.data = field.data || {};
         field.data.loading = true;
-        delete from.values['createdAt'];
-        delete from.values['updatedAt'];
+        delete form.values['createdAt'];
+        delete form.values['updatedAt'];
         await apiClient.resource('approvals').create({
           values: {
             collectionName: joinCollectionName(collection.dataSource, collection.name),
-            data: from.values,
+            data: form.values,
             status: typeof args?.approvalStatus !== 'undefined' ? args?.approvalStatus : status,
             workflowId: workflow.id,
           },
         });
 
         setVisible(false);
-        from.reset();
+        form.reset();
         field.data.loading = false;
         const service = __parent.service;
         if (service) {
           service.refresh();
         }
       } catch (error) {
-        field.data && (field.data.loading = false);
+        if (field.data) {
+          field.data.loading = false;
+        }
       }
     },
   };

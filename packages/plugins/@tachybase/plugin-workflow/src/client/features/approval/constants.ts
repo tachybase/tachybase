@@ -1,25 +1,43 @@
 import { JOB_STATUS } from '../../constants';
 import { lang, NAMESPACE } from './locale';
 
-// 审批发起的状态
+/**审批发起的状态*/
 export const APPROVAL_STATUS = {
+  /** 草稿 */
   DRAFT: 0,
+  /** 退回 */
   RETURNED: 1,
+  /** 提交 */
   SUBMITTED: 2,
+  /** 处理中 */
   PROCESSING: 3,
+  /** 通过 */
   APPROVED: 4,
+  /** 重新发起 */
   RESUBMIT: 5,
+  /** 已拒绝 */
   REJECTED: -1,
+  /** 异常 */
+  ERROR: -2,
 };
 
-// 审批执行的状态
+/**
+ *  审批执行的状态
+ */
 export const APPROVAL_ACTION_STATUS = {
+  /** 已分配 */
   ASSIGNED: null,
+  /** 待处理 */
   PENDING: 0,
+  /** 退回 */
   RETURNED: 1,
+  /** 通过 */
   APPROVED: 2,
+  /** 已拒绝 */
   REJECTED: -1,
+  /** 取消 */
   CANCELED: -2,
+  /** 撤回 */
   WITHDRAWN: -3,
 };
 export const approvalStatusOptions = [
@@ -75,6 +93,11 @@ export const ApprovalStatusEnums = [
     label: `{{t("Rejected", { ns: "${NAMESPACE}" })}}`,
     color: 'red',
   },
+  {
+    value: APPROVAL_STATUS.ERROR,
+    label: `{{t("ERROR", { ns: "${NAMESPACE}" })}}`,
+    color: '#FF0000',
+  },
 ];
 export const ApprovalStatusEnumDict = ApprovalStatusEnums.reduce((e, t) => Object.assign(e, { [t.value]: t }), {});
 export const JobStatusEnums = {
@@ -111,10 +134,9 @@ export function flatSchemaArray(sourceData, filter, needRecursion = false) {
   if (filter(sourceData) && (!needRecursion || !sourceData.properties)) {
     flatArray.push(sourceData);
   } else {
-    sourceData.properties &&
-      Object.keys(sourceData.properties).forEach((key) => {
-        flatArray.push(...flatSchemaArray(sourceData.properties[key], filter));
-      });
+    Object.keys(sourceData.properties).forEach((key) => {
+      flatArray.push(...flatSchemaArray(sourceData.properties[key], filter));
+    });
   }
 
   return flatArray;

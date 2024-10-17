@@ -27,7 +27,7 @@ export function useUpdateSubmit() {
         return await create({ approvalStatus: contextApprovalStatus });
       }
       try {
-        form.submit();
+        await form.submit();
         _.set(field, ['data', 'loading'], true);
 
         const res = await apiClient.resource('approvals').update({

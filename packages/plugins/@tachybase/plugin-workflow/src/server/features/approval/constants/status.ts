@@ -1,3 +1,4 @@
+/** 审批发起的状态 */
 export const APPROVAL_STATUS = {
   DRAFT: 0,
   RETURNED: 1,
@@ -6,7 +7,10 @@ export const APPROVAL_STATUS = {
   APPROVED: 4,
   RESUBMIT: 5,
   REJECTED: -1,
+  ERROR: -2,
 };
+
+/** 审批执行的状态 */
 export const APPROVAL_ACTION_STATUS = {
   ASSIGNED: null,
   PENDING: 0,

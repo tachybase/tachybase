@@ -24,7 +24,7 @@ export function useCreateSubmit() {
   return {
     async run(args) {
       try {
-        from.submit();
+        await from.submit();
         field.data = field.data || {};
         field.data.loading = true;
         delete from.values['createdAt'];
@@ -50,7 +50,9 @@ export function useCreateSubmit() {
 
         field.data.loading = false;
       } catch (h) {
-        field.data && (field.data.loading = false);
+        if (field.data) {
+          field.data.loading = false;
+        }
       }
     },
   };
