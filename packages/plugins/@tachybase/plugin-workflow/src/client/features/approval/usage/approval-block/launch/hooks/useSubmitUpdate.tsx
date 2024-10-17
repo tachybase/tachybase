@@ -30,7 +30,7 @@ export function useSubmitUpdate() {
         return await create({ approvalStatus: status });
       }
       try {
-        form.submit();
+        await form.submit();
         _.set(field, ['data', 'loading'], true);
 
         apiClient.resource('approvals').update({
