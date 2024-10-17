@@ -1273,6 +1273,7 @@ class ReactImageLightbox extends Component {
             onDragStart: (e) => e.preventDefault(),
             file: this.props[srcType],
             bestImageInfo,
+            mimetype: fieldType,
           })}
         </div>,
       );
