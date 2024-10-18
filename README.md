@@ -10,7 +10,7 @@
 
 <br>
 
-[English Version](README.EN-US.md)
+
 
 <p align="center">
 <span style="color:red; font-weight:bold;">目前框架还在 alpha 阶段，用在生产中请谨慎，碰到任何问题可以联系我们处理</span>
@@ -18,6 +18,9 @@
 塔奇平台（Tachybase）致力于打造一个用户友好的应用研发平台，旨在降低开发门槛，提升研发效率，为企业用户和开发者提供一站式解决方案。
 </p>
 
+# 其他语言
+
+[[English Version](README.EN-US.md)][中文版本]
 # 安装
 
 ## 使用 Sqlite 开始
@@ -57,6 +60,10 @@ pnpm dev
 
 - ⚡ &nbsp;REST APIs
 - ⚡ &nbsp;Tachybase SDK
+
+# 应用模板
+正在制作中，预计春节前上线，目前开放测试，欢迎联系
+![应用模板](https://private-user-images.githubusercontent.com/4080924/377728453-d567d671-734c-43a3-9b62-527216925946.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjkyMjgyMjAsIm5iZiI6MTcyOTIyNzkyMCwicGF0aCI6Ii80MDgwOTI0LzM3NzcyODQ1My1kNTY3ZDY3MS03MzRjLTQzYTMtOWI2Mi01MjcyMTY5MjU5NDYucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MTAxOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDEwMThUMDUwNTIwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZGEwZWMyOTE1YWM5MGY4ZDY0NjI4ZjE1MjY0Y2FmMzIxNGU3MmVkMTg0ZGZmZGIwNTk2NDViZTRhNGQwYTk4ZiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.GZlKlr8bivoUG9QgpIjWqJ0B3eivXoTbi-3rERMtyUA)
 
 # 我们为什么要做这个？
 
