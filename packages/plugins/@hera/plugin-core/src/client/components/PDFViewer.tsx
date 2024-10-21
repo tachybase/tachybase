@@ -5,7 +5,6 @@ import { uid } from '@tachybase/schema';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import { saveAs } from 'file-saver';
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { useTranslation } from '../locale';
 
@@ -85,20 +84,12 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
 
   return (
     <LoadingSpin spinning={loading}>
-      <TransformWrapper
-        wheel={{ disabled: true }}
-        doubleClick={{ disabled: true }}
-        panning={{ allowLeftClickPan: false }}
-      >
-        <TransformComponent>
-          {checkedComponent({
-            file: {
-              url: pdfUrl,
-            },
-            width,
-          })}
-        </TransformComponent>
-      </TransformWrapper>
+      {checkedComponent({
+        file: {
+          url: pdfUrl,
+        },
+        width,
+      })}
     </LoadingSpin>
   );
 });

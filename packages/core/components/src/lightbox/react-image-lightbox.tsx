@@ -27,7 +27,67 @@ import './style.css';
 
 import { css } from '@tachybase/client';
 
-class ReactImageLightbox extends Component {
+import { IReactImageLightboxProps, IReactImageLightboxState } from './interface';
+
+class ReactImageLightbox extends Component<IReactImageLightboxProps, IReactImageLightboxState> {
+  moveRequested: boolean;
+  imageCache: any;
+  listeners: any;
+  timeouts: any[];
+  didUnmount: boolean;
+  windowContext: any;
+  outerEl: any;
+  zoomInBtn: any;
+  zoomOutBtn: any;
+  caption: any;
+  currentAction: any;
+  eventsSource: any;
+  pointerList: any;
+  preventInnerClose: boolean;
+  preventInnerCloseTimeout: any;
+  keyPressed: boolean;
+  lastKeyDownTime: number;
+  resizeTimeout: any;
+  wheelActionTimeout: any;
+  resetScrollTimeout: any;
+  scrollX: number;
+  scrollY: number;
+  moveStartX: number;
+  moveStartY: number;
+  moveStartOffsetX: number;
+  moveStartOffsetY: number;
+  swipeStartX: number;
+  swipeStartY: number;
+  swipeEndX: number;
+  swipeEndY: number;
+  pinchTouchList: any;
+  pinchDistance: number;
+  keyCounter: number;
+
+  static defaultProps = {
+    animationDisabled: false,
+    clickOutsideToClose: true,
+    enableZoom: true,
+    imageCountSeparator: 'of',
+    nextSrc: null,
+    prevSrc: null,
+    mainSrc: null,
+    onCloseRequest: () => {},
+    onMovePrevRequest: () => {},
+    onMoveNextRequest: () => {},
+    onImageLoad: () => {},
+    onImageLoadError: () => {},
+    onZoomChange: () => {},
+    reactModalStyle: {},
+    showZoomButtons: true,
+    zoomStep: ZOOM_RATIO,
+    zoomButtonsContainerStyle: {},
+    zoomButtonsStyle: {},
+    zoomContainerStyle: {},
+    zoomLevel: MIN_ZOOM_LEVEL,
+    zoomTransitionDuration: 300,
+  };
+
   static isTargetMatchImage(target) {
     return target && /ril-image-current/.test(target.className);
   }
@@ -73,7 +133,7 @@ class ReactImageLightbox extends Component {
     };
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -286,7 +346,7 @@ class ReactImageLightbox extends Component {
   // Get info for the best suited image to display with the given srcType
   getBestImageForType(srcType, fileSrc?) {
     let imageSrc = fileSrc || this.props[srcType];
-    let fitSizes = {};
+    let fitSizes: any = {};
     if (this.isImageLoaded(imageSrc)) {
       // Use full-size image if available
       fitSizes = this.getFitSizes(this.imageCache[imageSrc].width, this.imageCache[imageSrc].height);
@@ -308,10 +368,10 @@ class ReactImageLightbox extends Component {
   }
 
   // Get sizing for when an image is larger than the window
-  getFitSizes(width, height, stretch) {
+  getFitSizes(width, height, stretch = false) {
     const boxSize = this.getLightboxRect();
-    let maxHeight = boxSize.height - this.props.imagePadding * 2;
-    let maxWidth = boxSize.width - this.props.imagePadding * 2;
+    let maxHeight = boxSize.height - (this.props as any).imagePadding * 2;
+    let maxWidth = boxSize.width - (this.props as any).imagePadding * 2;
 
     if (!stretch) {
       maxHeight = Math.min(maxHeight, height);
@@ -453,7 +513,7 @@ class ReactImageLightbox extends Component {
   }
 
   // Change zoom level
-  changeZoom(zoomLevel, clientX, clientY) {
+  changeZoom(zoomLevel, clientX?, clientY?) {
     // Ignore if zoom disabled
     if (!this.props.enableZoom) {
       return;
@@ -897,7 +957,7 @@ class ReactImageLightbox extends Component {
     }
   }
 
-  handleMoveEnd() {
+  handleMoveEnd(event?) {
     this.currentAction = ACTION_NONE;
     this.moveStartX = 0;
     this.moveStartY = 0;
@@ -1003,7 +1063,7 @@ class ReactImageLightbox extends Component {
     this.changeZoom(zoomLevel, clientX, clientY);
   }
 
-  handlePinchEnd() {
+  handlePinchEnd(event?) {
     this.currentAction = ACTION_NONE;
     this.pinchTouchList = null;
     this.pinchDistance = 0;
@@ -1154,7 +1214,7 @@ class ReactImageLightbox extends Component {
 
   requestMove(direction, event) {
     // Reset the zoom level on image move
-    const nextState = {
+    const nextState: IReactImageLightboxState = {
       zoomLevel: MIN_ZOOM_LEVEL,
       offsetX: 0,
       offsetY: 0,
@@ -1181,12 +1241,12 @@ class ReactImageLightbox extends Component {
   }
 
   // Request to transition to the next image
-  requestMoveNext(event) {
+  requestMoveNext(event?) {
     this.requestMove('next', event);
   }
 
   // Request to transition to the previous image
-  requestMovePrev(event) {
+  requestMovePrev(event?) {
     this.requestMove('prev', event);
   }
 
@@ -1236,10 +1296,10 @@ class ReactImageLightbox extends Component {
     const addImage = (srcType, imageClass, transforms) => {
       const fieldType = this.props[srcType]?.mimetype;
       const { checkedComponent } = previewList[fieldType] || previewList['default'];
-      const bestImageInfo = (this.props[srcType]?.mimetype as string).includes('image')
+      const bestImageInfo: any = (this.props[srcType]?.mimetype as string).includes('image')
         ? this.getBestImageForType(srcType, this.props[srcType]?.imageUrl)
         : {};
-      const imageStyle = {
+      const imageStyle: any = {
         ...transitionStyle,
         ...ReactImageLightbox.getTransform({
           ...transforms,
@@ -1347,7 +1407,7 @@ class ReactImageLightbox extends Component {
           onMouseDown={this.handleMouseDown}
           onTouchStart={this.handleTouchStart}
           onTouchMove={this.handleTouchMove}
-          tabIndex="-1" // Enables key handlers on div
+          tabIndex={'-1' as unknown as number} // Enables key handlers on div
           onKeyDown={this.handleKeyInput}
           onKeyUp={this.handleKeyInput}
         >
@@ -1472,7 +1532,7 @@ class ReactImageLightbox extends Component {
     );
   }
 }
-
+// @ts-ignore
 ReactImageLightbox.propTypes = {
   previewList: PropTypes.object,
   //-----------------------------
@@ -1621,6 +1681,7 @@ ReactImageLightbox.propTypes = {
 };
 
 ReactImageLightbox.defaultProps = {
+  // @ts-ignore
   imageTitle: null,
   imageCaption: null,
   toolbarButtons: null,
