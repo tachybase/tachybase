@@ -63,6 +63,7 @@
     "react-router-dom": "^6.25.1",
     "react-to-print": "^2.14.7",
     "react-transition-group": "^4.4.5",
+    "react-zoom-pan-pinch": "^3.4.4",
     "renderer": "link:@types/@react-pdf/renderer",
     "sanitize-html": "2.10.0",
     "use-deep-compare-effect": "^1.8.1"

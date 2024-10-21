@@ -35,7 +35,6 @@
     "react-pdf": "^7.5.1",
     "react-router-dom": "^6.25.1",
     "react-transition-group": "^4.4.5",
-    "react-zoom-pan-pinch": "^3.4.4",
     "redis": "^4.6.11",
     "sequelize": "^6.37.3",
     "signature_pad": "4.1.7",

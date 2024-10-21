@@ -5,7 +5,8 @@ export const useStyles = createStyles(({ css }) => {
     container: css`
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      /* justify-content: center; */
+      width: 100%;
       height: 90vh;
       overflow-x: scroll;
       overflow-y: scroll;
