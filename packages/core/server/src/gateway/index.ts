@@ -48,6 +48,12 @@ export interface AppSelectorMiddlewareContext {
   resolvedAppName: string | null;
 }
 
+export interface Handler {
+  name: string;
+  prefix: string;
+  callback: (req: IncomingMessage, res: ServerResponse) => void;
+}
+
 export class Gateway extends EventEmitter {
   private static instance: Gateway;
   /**
@@ -61,6 +67,7 @@ export class Gateway extends EventEmitter {
   private host = '0.0.0.0';
   private wsServer: WSServer;
   private socketPath = resolve(process.cwd(), 'storage', 'gateway.sock');
+  private handlers: Map<string, Handler> = new Map();
 
   loggers = new Registry<SystemLogger>();
 
@@ -169,6 +176,11 @@ export class Gateway extends EventEmitter {
   }
 
   async requestHandler(req: IncomingMessage, res: ServerResponse) {
+    for (const handler of this.handlers.values()) {
+      if (req.url?.startsWith(handler.prefix)) {
+        return handler.callback(req, res);
+      }
+    }
     const { pathname } = parse(req.url);
     const { PLUGIN_STATICS_PATH, APP_PUBLIC_PATH } = process.env;
 
@@ -429,6 +441,14 @@ export class Gateway extends EventEmitter {
         options.callback(this.server);
       }
     });
+  }
+
+  registerHandler(handler: Handler) {
+    this.handlers.set(handler.name, handler);
+  }
+
+  unregisterHandler(name: string) {
+    this.handlers.delete(name);
   }
 
   async tryConnectToIPCServer() {
