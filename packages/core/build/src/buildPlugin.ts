@@ -242,6 +242,10 @@ export async function buildServerDeps(cwd: string, serverFiles: string[], log: P
 
         // emit assets
         Object.entries(assets).forEach(([name, item]) => {
+          const fileurl = path.join(outputDir, name);
+          if (!fs.existsSync(path.dirname(fileurl))) {
+            fs.mkdirSync(path.dirname(fileurl), { recursive: true })
+          }
           fs.writeFileSync(path.join(outputDir, name), item.source, {
             encoding: 'utf-8',
             mode: item.permissions,
