@@ -3,7 +3,8 @@ import process from 'node:process';
 import { Gateway, Plugin } from '@tachybase/server';
 
 import express from 'express';
-import RED from 'node-red';
+
+import RED from './red';
 
 export class PluginAdapterRedNodeServer extends Plugin {
   async afterAdd() {}

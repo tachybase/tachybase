@@ -1981,6 +1981,18 @@ importers:
         specifier: workspace:*
         version: link:../../../core/test
     devDependencies:
+      '@node-red/editor-api':
+        specifier: 4.0.5
+        version: 4.0.5
+      '@node-red/nodes':
+        specifier: 4.0.5
+        version: 4.0.5
+      '@node-red/runtime':
+        specifier: 4.0.5
+        version: 4.0.5
+      '@node-red/util':
+        specifier: 4.0.5
+        version: 4.0.5
       '@types/express':
         specifier: 5.0.0
         version: 5.0.0
@@ -21428,13 +21440,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.24.7
 
-  '@babel/helper-module-imports@7.24.7':
-    dependencies:
-      '@babel/traverse': 7.24.7
-      '@babel/types': 7.24.7
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/helper-module-imports@7.24.7(supports-color@5.5.0)':
     dependencies:
       '@babel/traverse': 7.24.7(supports-color@5.5.0)
@@ -22202,21 +22207,6 @@ snapshots:
       '@babel/parser': 7.25.3
       '@babel/types': 7.25.2
 
-  '@babel/traverse@7.24.7':
-    dependencies:
-      '@babel/code-frame': 7.24.7
-      '@babel/generator': 7.24.7
-      '@babel/helper-environment-visitor': 7.24.7
-      '@babel/helper-function-name': 7.24.7
-      '@babel/helper-hoist-variables': 7.24.7
-      '@babel/helper-split-export-declaration': 7.24.7
-      '@babel/parser': 7.24.7
-      '@babel/types': 7.24.7
-      debug: 4.3.5
-      globals: 11.12.0
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/traverse@7.24.7(supports-color@5.5.0)':
     dependencies:
       '@babel/code-frame': 7.24.7
@@ -22620,7 +22610,7 @@ snapshots:
 
   '@emotion/babel-plugin@11.11.0':
     dependencies:
-      '@babel/helper-module-imports': 7.24.7
+      '@babel/helper-module-imports': 7.24.7(supports-color@5.5.0)
       '@babel/runtime': 7.25.0
       '@emotion/hash': 0.9.1
       '@emotion/memoize': 0.8.1
@@ -24704,7 +24694,7 @@ snapshots:
       debug: 4.3.6(supports-color@8.1.1)
       eventemitter2: 6.4.9
       extrareqp2: 1.0.0(debug@4.3.6)
-      ws: 7.5.9
+      ws: 7.5.10
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -28176,7 +28166,7 @@ snapshots:
 
   axios@1.7.2:
     dependencies:
-      follow-redirects: 1.15.6
+      follow-redirects: 1.15.6(debug@4.3.5)
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -31484,8 +31474,6 @@ snapshots:
 
   fn.name@1.1.0: {}
 
-  follow-redirects@1.15.6: {}
-
   follow-redirects@1.15.6(debug@4.3.5):
     optionalDependencies:
       debug: 4.3.5(supports-color@5.5.0)
@@ -34132,7 +34120,7 @@ snapshots:
 
   moment-timezone@0.5.43:
     dependencies:
-      moment: 2.29.4
+      moment: 2.30.1
 
   moment-timezone@0.5.46:
     dependencies:
@@ -38375,7 +38363,7 @@ snapshots:
       '@tsconfig/node16': 1.0.4
       '@types/node': 20.14.2
       acorn: 8.12.1
-      acorn-walk: 8.3.2
+      acorn-walk: 8.3.4
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2
@@ -38393,7 +38381,7 @@ snapshots:
       '@tsconfig/node16': 1.0.4
       '@types/node': 20.14.2
       acorn: 8.12.1
-      acorn-walk: 8.3.2
+      acorn-walk: 8.3.4
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2
@@ -38412,7 +38400,7 @@ snapshots:
       '@tsconfig/node16': 1.0.4
       '@types/node': 22.4.0
       acorn: 8.12.1
-      acorn-walk: 8.3.2
+      acorn-walk: 8.3.4
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2
