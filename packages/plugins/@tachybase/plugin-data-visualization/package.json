@@ -8,6 +8,9 @@
   ],
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
+  "dependencies": {
+    "fs-extra": "^11.1.1"
+  },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@ant-design/plots": "^2.1.4",
