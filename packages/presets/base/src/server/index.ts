@@ -48,6 +48,7 @@ export class PresetTachyBase extends Plugin {
     // default disable
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],
+    ['adapter-remix', '0.22.9', false],
     ['homepage', '0.22.6', false],
     ['core', '0.22.6', false],
     ['rental', '0.22.6', false],
