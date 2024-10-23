@@ -17,6 +17,7 @@
     "@tachybase/plugin-action-print": "workspace:*",
     "@tachybase/plugin-adapter-bullmq": "workspace:*",
     "@tachybase/plugin-adapter-red-node": "workspace:*",
+    "@tachybase/plugin-adapter-remix": "workspace:*",
     "@tachybase/plugin-api-doc": "workspace:*",
     "@tachybase/plugin-api-keys": "workspace:*",
     "@tachybase/plugin-audit-logs": "workspace:*",
