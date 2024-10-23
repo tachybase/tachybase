@@ -1,8 +1,10 @@
-import { resolve } from 'path';
+import path, { resolve } from 'path';
 import { Cache } from '@tachybase/cache';
 import { InstallOptions, Plugin } from '@tachybase/server';
+import { Container } from '@tachybase/utils';
 
 import { query } from './actions/query';
+import { SqlLoader } from './services/sql-loader';
 
 export class DataVisualizationPlugin extends Plugin {
   cache: Cache;
@@ -20,6 +22,8 @@ export class DataVisualizationPlugin extends Plugin {
   }
 
   async load() {
+    const sqlLoader = Container.get(SqlLoader);
+    await sqlLoader.loadSqlFiles(path.join(__dirname, './sqls'));
     this.db.addMigrations({
       namespace: 'data-visulization',
       directory: resolve(__dirname, 'migrations'),
