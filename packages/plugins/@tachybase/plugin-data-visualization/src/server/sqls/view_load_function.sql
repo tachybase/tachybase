@@ -1,3 +1,4 @@
+-- dialect: postgres
 CREATE
 OR REPLACE FUNCTION format_timestamp_with_timezone (
   date_val TIMESTAMP WITH TIME ZONE,
