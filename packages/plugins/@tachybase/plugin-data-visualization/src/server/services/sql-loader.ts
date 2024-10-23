@@ -15,7 +15,7 @@ export class SqlLoader {
   async loadSqlFiles(directory: string): Promise<{ [key: string]: string }> {
     try {
       const files = await fs.readdir(directory);
-
+      const dialect = this.db.options.dialect;
       await Promise.all(
         files.map(async (file) => {
           const filePath = path.join(directory, file);
@@ -23,6 +23,16 @@ export class SqlLoader {
           if (stat.isFile() && path.extname(file) === '.sql') {
             const content = await fs.readFile(filePath, 'utf-8');
             const filename = path.basename(file, '.sql');
+            // 解析content第一行
+            // -- dialect: mysql,postgres,sqlite,mariadb,mssql,db2,snowflake,oracle
+            // 判断支持的dialect
+            const dialects = content
+              .split('\n')
+              .filter((line) => line.startsWith('-- dialect:'))
+              .map((line) => line.split(':')[1].trim());
+            if (!dialects.includes(dialect)) {
+              return;
+            }
             this.sqlFiles[filename] = content;
             if (filename.startsWith('view_')) {
               await this.loadView(filename, content);
