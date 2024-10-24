@@ -8,7 +8,7 @@ const validateLicensePlate = (plateNumber: string): boolean => {
   if (!plateNumber) {
     return false;
   }
-  const regularExpression = /^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
+  const regularExpression = /^[\u4e00-\u9fa5]{1}[A-Z]{1}([A-Z_0-9]{4}|[A-Z_0-9]{5})[A-Z0-9挂学警港澳]{1}$/;
   return regularExpression.test(plateNumber);
 };
 
