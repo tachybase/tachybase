@@ -2,10 +2,11 @@ import lodash from 'lodash';
 
 export function transactionWrapperBuilder(transactionGenerator) {
   return function transaction(transactionInjector?) {
-    return (target, name, descriptor) => {
-      const oldValue = descriptor.value;
+    return (originalMethod: any, context: ClassMethodDecoratorContext) => {
+      const name = String(context.name);
+      const oldValue = originalMethod;
 
-      descriptor.value = async function (...args: unknown[]) {
+      const newMethod = async function (...args: unknown[]) {
         let transaction;
         let newTransaction = false;
 
@@ -53,7 +54,7 @@ export function transactionWrapperBuilder(transactionGenerator) {
         }
       };
 
-      return descriptor;
+      return newMethod;
     };
   };
 }

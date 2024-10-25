@@ -14,7 +14,6 @@
     "inlineSources": true,
     "resolveJsonModule": true,
     "declaration": true,
-    "experimentalDecorators": true,
     "downlevelIteration": true,
     "baseUrl": "."
   }

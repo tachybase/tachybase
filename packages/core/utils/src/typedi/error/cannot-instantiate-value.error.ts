@@ -26,9 +26,9 @@ export class CannotInstantiateValueError extends Error {
     } else if (identifier instanceof Token) {
       this.normalizedIdentifier = `Token<${identifier.name || 'UNSET_NAME'}>`;
     } else if (identifier && (identifier.name || identifier.prototype?.name)) {
-      this.normalizedIdentifier =
-        `MaybeConstructable<${identifier.name}>` ||
-        `MaybeConstructable<${(identifier.prototype as { name: string })?.name}>`;
+      this.normalizedIdentifier = identifier.name
+        ? `MaybeConstructable<${identifier.name}>`
+        : `MaybeConstructable<${(identifier.prototype as { name: string })?.name}>`;
     }
   }
 }

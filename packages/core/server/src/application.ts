@@ -18,7 +18,14 @@ import {
 } from '@tachybase/logger';
 import { ResourceOptions, Resourcer } from '@tachybase/resourcer';
 import { AppTelemetryOptions, getTelemetry } from '@tachybase/telemetry';
-import { applyMixins, AsyncEmitter, importModule, Toposort, ToposortOptions } from '@tachybase/utils';
+import {
+  applyMixins,
+  AsyncEmitter,
+  ContainerInstance,
+  importModule,
+  Toposort,
+  ToposortOptions,
+} from '@tachybase/utils';
 
 import { Command, CommandOptions, ParseOptions } from 'commander';
 import { sync } from 'glob';
@@ -185,6 +192,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   private _noticeManager: NoticeManager;
   static KEY_CORE_APP_PREFIX = 'KEY_CORE_APP_';
   private currentId = nanoid();
+  public container: ContainerInstance;
 
   constructor(public options: ApplicationOptions) {
     super();

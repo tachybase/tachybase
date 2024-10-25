@@ -33,10 +33,8 @@ export type CollectionSortable =
 type dumpable = 'required' | 'optional' | 'skip';
 type dumpableType = 'meta' | 'business' | 'config';
 
-function EnsureAtomicity(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-  const originalMethod = descriptor.value;
-
-  descriptor.value = function (...args: any[]) {
+function EnsureAtomicity(originalMethod: any, context: ClassMethodDecoratorContext) {
+  const newMethod = function (...args: any[]) {
     const model = this.model;
     const beforeAssociationKeys = Object.keys(model.associations);
     const beforeRawAttributes = Object.keys(model.rawAttributes);
@@ -60,7 +58,7 @@ function EnsureAtomicity(target: any, propertyKey: string, descriptor: PropertyD
     }
   };
 
-  return descriptor;
+  return newMethod;
 }
 
 export type BaseDumpRules = {

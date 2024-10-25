@@ -33,10 +33,8 @@ interface InsertAdjacentOptions extends removeParentOptions {
 const nodeKeys = ['properties', 'definitions', 'patternProperties', 'additionalProperties', 'items'];
 
 function transaction(transactionAbleArgPosition?: number) {
-  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-    const originalMethod = descriptor.value;
-
-    descriptor.value = async function (...args) {
+  return (originalMethod: any) => {
+    const newMethod = async function (...args) {
       if (!lodash.isNumber(transactionAbleArgPosition)) {
         transactionAbleArgPosition = originalMethod.length - 1;
       }
@@ -67,7 +65,7 @@ function transaction(transactionAbleArgPosition?: number) {
       }
     };
 
-    return descriptor;
+    return newMethod;
   };
 }
 

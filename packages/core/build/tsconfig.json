@@ -15,7 +15,6 @@
     "inlineSources": true,
     "resolveJsonModule": true,
     "declaration": true,
-    "experimentalDecorators": true,
     "downlevelIteration": true
   },
   "exclude": ["bin", "node_modules", "lib"]

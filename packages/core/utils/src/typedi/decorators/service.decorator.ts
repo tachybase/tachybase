@@ -7,14 +7,14 @@ import { Constructable } from '../types/constructable.type';
 /**
  * Marks class as a service that can be injected using Container.
  */
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+
 export function Service<T = unknown>(): Function;
 export function Service<T = unknown>(options: ServiceOptions<T>): Function;
-export function Service<T>(options: ServiceOptions<T> = {}): ClassDecorator {
-  return (targetConstructor) => {
+export function Service<T>(options: ServiceOptions<T> = {}) {
+  return (target: Constructable<T>, context: ClassDecoratorContext) => {
     const serviceMetadata: ServiceMetadata<T> = {
-      id: options.id || targetConstructor,
-      type: targetConstructor as unknown as Constructable<T>,
+      id: options.id || target,
+      type: target,
       factory: (options as any).factory || undefined,
       multiple: options.multiple || false,
       eager: options.eager || false,
@@ -23,6 +23,11 @@ export function Service<T>(options: ServiceOptions<T> = {}): ClassDecorator {
       value: EMPTY_VALUE,
     };
 
+    ((context.metadata.injects as any[]) || []).forEach((inject) => {
+      inject(target);
+    });
+
     ContainerInstance.default.set(serviceMetadata);
+    return target;
   };
 }

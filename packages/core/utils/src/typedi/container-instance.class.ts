@@ -284,7 +284,7 @@ export class ContainerInstance {
   /**
    * Helper method that imports given services.
    */
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+
   public import(services: Function[]): ContainerInstance {
     this.throwIfDisposed();
 
@@ -428,9 +428,7 @@ export class ContainerInstance {
 
       if (paramHandler) return paramHandler.value(this);
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       if (paramType && paramType.name && !this.isPrimitiveParamType(paramType.name)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         return this.get(paramType);
       }
 
@@ -451,7 +449,7 @@ export class ContainerInstance {
   private applyPropertyHandlers(target: Function, instance: { [key: string]: any }) {
     this.handlers.forEach((handler) => {
       if (typeof handler.index === 'number') return;
-      if (handler.object.constructor !== target && !(target.prototype instanceof handler.object.constructor)) return;
+      if (handler.object !== target && !(target.prototype instanceof handler.object)) return;
 
       if (handler.propertyName) {
         instance[handler.propertyName] = handler.value(this);

@@ -1,7 +1,7 @@
-const mustHaveFilter = () => (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-  const oldValue = descriptor.value;
+const mustHaveFilter = () => (originalMethod: any, context: ClassMethodDecoratorContext) => {
+  const oldValue = originalMethod;
 
-  descriptor.value = function (...args: any[]) {
+  const newMethod = function (...args: any[]) {
     const options = args[0];
 
     if (Array.isArray(options.values)) {
@@ -9,13 +9,13 @@ const mustHaveFilter = () => (target: any, propertyKey: string, descriptor: Prop
     }
 
     if (!options?.filter && !options?.filterByTk && !options?.forceUpdate) {
-      throw new Error(`must provide filter or filterByTk for ${propertyKey} call, or set forceUpdate to true`);
+      throw new Error(`must provide filter or filterByTk for ${String(context.name)} call, or set forceUpdate to true`);
     }
 
     return oldValue.apply(this, args);
   };
 
-  return descriptor;
+  return newMethod;
 };
 
 export default mustHaveFilter;

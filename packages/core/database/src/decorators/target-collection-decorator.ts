@@ -1,9 +1,9 @@
 import lodash from 'lodash';
 
-const injectTargetCollection = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-  const oldValue = descriptor.value;
+const injectTargetCollection = (originalMethod: any) => {
+  const oldValue = originalMethod;
 
-  descriptor.value = function (...args: any[]) {
+  const newMethod = function (...args: any[]) {
     const options = args[0];
     const values = options.values;
 
@@ -14,7 +14,7 @@ const injectTargetCollection = (target: any, propertyKey: string, descriptor: Pr
     return oldValue.apply(this, args);
   };
 
-  return descriptor;
+  return newMethod;
 };
 
 export default injectTargetCollection;

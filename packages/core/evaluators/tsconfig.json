@@ -16,7 +16,6 @@
     "resolveJsonModule": true,
     "declaration": true,
     "typeRoots": ["./node_modules/@types"],
-    "experimentalDecorators": true,
     "downlevelIteration": true
   },
   "exclude": [

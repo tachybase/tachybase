@@ -1,17 +1,4 @@
-import Container, { Inject, Service } from './typedi';
-
-// declare type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
-// declare type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
-// declare type MethodDecorator = <T>(
-//   target: Object,
-//   propertyKey: string | symbol,
-//   descriptor: TypedPropertyDescriptor<T>,
-// ) => TypedPropertyDescriptor<T> | void;
-// declare type ParameterDecorator = (
-//   target: Object,
-//   propertyKey: string | symbol | undefined,
-//   parameterIndex: number,
-// ) => void;
+import Container, { Constructable, Inject, Service } from './typedi';
 
 export interface ActionDef {
   type: string;
@@ -32,9 +19,9 @@ export function Db() {
 }
 
 export function Controller(name: string) {
-  return function (target: any) {
+  return function (target: any, context: ClassDecoratorContext) {
     const serviceOptions = { id: 'controller', multiple: true };
-    Service(serviceOptions)(target);
+    Service(serviceOptions)(target, context);
     const actions = Container.get('actions') as Map<Function, ActionDef[]>;
     if (!actions.has(target)) {
       actions.set(target, []);
@@ -47,15 +34,20 @@ export function Controller(name: string) {
 }
 
 export function Action(name: string) {
-  return function (target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
-    const actions = Container.get('actions') as Map<Function, ActionDef[]>;
-    if (!actions.has(target.constructor)) {
-      actions.set(target.constructor, []);
+  return function (_: any, context: ClassFieldDecoratorContext) {
+    if (!context.metadata.injects) {
+      context.metadata.injects = [];
     }
-    actions.get(target.constructor).push({
-      type: 'action',
-      method: propertyKey,
-      actionName: name,
+    (context.metadata.injects as any[]).push((target: Constructable<unknown>) => {
+      const actions = Container.get('actions') as Map<Function, ActionDef[]>;
+      if (!actions.has(target)) {
+        actions.set(target, []);
+      }
+      actions.get(target).push({
+        type: 'action',
+        method: String(context.name),
+        actionName: name,
+      });
     });
   };
 }
