@@ -122,7 +122,7 @@ export class PresetTachyBase extends Plugin {
     });
 
     addDisabledPlugins.forEach((plugin) => {
-      const found = plugins.find((p) => p === plugin);
+      const found = plugins.find((p) => p[0] === plugin);
       if (found) {
         found[2] = false;
       } else {
