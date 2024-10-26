@@ -14,18 +14,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.18.0
-          registry-url: ${{ vars.REGISTRY_URL }}
-          cache: 'pnpm'
-      - name: Install deps
-        run: pnpm install
-      - name: Build
-        run: pnpm build:p
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Login to Docker Hub
@@ -43,9 +31,6 @@ jobs:
           context: .
           file: docker/tachybase/Dockerfile
           push: true
-          # not work now https://github.com/go-gitea/gitea/pull/29584 wait for gitea 1.23.0
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           build-args: |
             TACHYBASE_VERSION=${{ steps.extract_tag.outputs.version }}
             NPM_REGISTRY=${{ vars.REGISTRY_URL }}

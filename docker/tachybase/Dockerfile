@@ -8,5 +8,9 @@ RUN corepack enable
 COPY . /app
 WORKDIR /app
 
+RUN pnpm config set registry $NPM_REGISTRY
+RUN pnpm install --shamefully-hoist
+RUN pnpm build:p
+
 COPY ./docker/tachybase/docker-entrypoint.sh /app/
 CMD ["/app/docker-entrypoint.sh"]
