@@ -1,4 +1,4 @@
-FROM node:20.18.0 AS base
+FROM docker.1tops.org/node:20.18.0 AS base
 
 ARG NPM_REGISTRY=https://registry.npmjs.org
 ENV PNPM_HOME="/pnpm"
