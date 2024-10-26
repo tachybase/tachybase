@@ -21,7 +21,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 20.16.0
+          node-version: 20.18.0
           registry-url: ${{ vars.REGISTRY_URL }}
           cache: 'pnpm'
       - name: Install deps

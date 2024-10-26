@@ -19,9 +19,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.16.0
+          node-version: 20.18.0
           registry-url: ${{ vars.REGISTRY_URL }}
           cache: 'pnpm'
+      - name: Install deps
+        run: pnpm install
+      - name: Build
+        run: pnpm build:p
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Login to Docker Hub
