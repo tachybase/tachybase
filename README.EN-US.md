@@ -1,7 +1,7 @@
 <h1 align="center" style="border-bottom: none">
     <div>
         <a style="color:#36f" href="https://www.tachybase.com">
-            <img src="https://private-user-images.githubusercontent.com/4080924/380268389-addb07fb-bcc8-4335-85bd-91e5363d60da.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Mjk4Nzc5NjQsIm5iZiI6MTcyOTg3NzY2NCwicGF0aCI6Ii80MDgwOTI0LzM4MDI2ODM4OS1hZGRiMDdmYi1iY2M4LTQzMzUtODViZC05MWU1MzYzZDYwZGEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MTAyNSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDEwMjVUMTczNDI0WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZjkxZjAzMTAyMDNiMDRiZjg1N2VkNTdiNGEzYTlmZGI0MjUxZDIyNGYyMGRiMDM4OTkxMzc1MzAwYjM2ZGM3YiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.ZhzXs8Wkia9QdwKn0IxKWz7VAMowF0qL6aGADD0Sc5A" width="80" />
+            <img src="https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/3733d6bd0a3376a93ba6180b32194369.png" width="80" />
             <br>
             Tachybase
         </a>
