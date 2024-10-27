@@ -9,11 +9,11 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "devDependencies": {
-    "@hapi/topo": "^6.0.0",
+    "@hapi/topo": "^6.0.2",
     "@types/lodash": "4.17.5",
     "async-mutex": "^0.3.2",
     "lodash": "4.17.21",
-    "sequelize": "^6.26.0",
+    "sequelize": "^6.37.3",
     "toposort": "^2.0.2"
   },
   "peerDependencies": {

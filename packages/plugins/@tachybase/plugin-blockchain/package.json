@@ -6,7 +6,7 @@
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "child_process": "^1.0.2",
     "fs": "0.0.1-security",
-    "hardhat": "^2.22.6",
+    "hardhat": "^2.22.7",
     "path": "^0.12.7",
     "web3": "^4.11.1"
   },

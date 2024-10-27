@@ -10,10 +10,10 @@
   "main": "dist/server/index.js",
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
-    "@ctrl/tinycolor": "^3.6.0",
+    "@ctrl/tinycolor": "^3.6.1",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.19.4",
+    "antd": "5.21.5",
     "lodash": "4.17.21",
     "react-i18next": "^14.1.2"
   },

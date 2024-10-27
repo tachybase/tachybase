@@ -11,8 +11,8 @@
   "devDependencies": {
     "@ant-design/icons": "^5.3.7",
     "@tachybase/schema": "workspace:*",
-    "ahooks": "^3.7.2",
-    "antd": "5.19.4",
+    "ahooks": "^3.8.0",
+    "antd": "5.21.5",
     "deepmerge": "^4.3.1",
     "react-i18next": "^14.1.2"
   },

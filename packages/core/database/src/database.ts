@@ -6,7 +6,7 @@ import { applyMixins, AsyncEmitter } from '@tachybase/utils';
 import chalk from 'chalk';
 import merge from 'deepmerge';
 import { backOff } from 'exponential-backoff';
-import glob from 'glob';
+import { globSync } from 'glob';
 import lodash from 'lodash';
 import { nanoid } from 'nanoid';
 import semver from 'semver';
@@ -484,7 +484,7 @@ export class Database extends EventEmitter implements AsyncEmitter {
   addMigrations(options: AddMigrationsOptions) {
     const { namespace, context, extensions = ['js', 'ts'], directory } = options;
     const patten = `${directory}/*.{${extensions.join(',')}}`;
-    const files = glob.sync(patten, {
+    const files = globSync(patten, {
       ignore: ['**/*.d.ts'],
     });
 

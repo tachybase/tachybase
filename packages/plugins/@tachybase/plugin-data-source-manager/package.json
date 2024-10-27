@@ -12,13 +12,13 @@
     "@dnd-kit/core": "^6.1.0",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "ahooks": "^3.7.2",
-    "antd": "5.19.4",
+    "ahooks": "^3.8.0",
+    "antd": "5.21.5",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
     "react-i18next": "^14.1.2",
     "react-router-dom": "^6.25.1",
-    "sequelize": "^6.26.0"
+    "sequelize": "^6.37.3"
   },
   "peerDependencies": {
     "@tachybase/acl": "workspace:*",

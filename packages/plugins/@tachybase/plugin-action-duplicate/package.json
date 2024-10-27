@@ -10,7 +10,7 @@
   "main": "dist/server/index.js",
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
-    "antd": "5.19.4",
+    "antd": "5.21.5",
     "lodash": "4.17.21",
     "react-i18next": "^14.1.2"
   },

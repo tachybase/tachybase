@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "devDependencies": {
-    "react-to-print": "^2.14.7"
+    "react-to-print": "^2.14.15"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

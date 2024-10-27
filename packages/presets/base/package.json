@@ -68,7 +68,7 @@
     "@tachybase/plugin-workflow": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "cronstrue": "^2.11.0",
+    "cronstrue": "^2.47.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {

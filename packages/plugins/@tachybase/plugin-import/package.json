@@ -12,16 +12,16 @@
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "@types/node-xlsx": "^0.15.1",
-    "antd": "5.19.4",
+    "@types/node-xlsx": "^0.15.3",
+    "antd": "5.21.5",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
-    "mathjs": "^10.6.0",
-    "node-xlsx": "^0.16.1",
+    "mathjs": "^10.6.4",
+    "node-xlsx": "^0.16.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^14.1.2",
-    "xlsx": "^0.17.0"
+    "xlsx": "^0.17.5"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

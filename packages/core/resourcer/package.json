@@ -7,12 +7,12 @@
   "types": "./lib/index.d.ts",
   "dependencies": {
     "@tachybase/utils": "workspace:*",
-    "deepmerge": "^4.2.2",
-    "glob": "^7.1.6",
+    "deepmerge": "^4.3.1",
+    "glob": "^11.0.0",
     "koa-compose": "^4.1.0",
     "lodash": "^4.17.21",
-    "path-to-regexp": "^6.1.0",
-    "qs": "^6.9.4"
+    "path-to-regexp": "^6.2.1",
+    "qs": "^6.12.3"
   },
   "devDependencies": {
     "@types/node": "20.14.2"

@@ -6,12 +6,12 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
-    "chalk": "^4",
-    "koa": "^2.13.4",
+    "chalk": "^4.1.2",
+    "koa": "^2.15.3",
     "lodash": "^4.17.21",
     "triple-beam": "^1.4.1",
-    "winston": "^3.8.2",
+    "winston": "^3.11.0",
     "winston-daily-rotate-file": "^4.7.1",
-    "winston-transport": "^4.5.0"
+    "winston-transport": "^4.6.0"
   }
 }

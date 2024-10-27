@@ -1,6 +1,6 @@
 import { importModule, Toposort, ToposortOptions } from '@tachybase/utils';
 
-import glob from 'glob';
+import { globSync } from 'glob';
 import compose from 'koa-compose';
 import _ from 'lodash';
 import { pathToRegexp } from 'path-to-regexp';
@@ -183,7 +183,7 @@ export class Resourcer {
   public async import(options: ImportOptions): Promise<Map<string, Resource>> {
     const { extensions = ['js', 'ts', 'json'], directory } = options;
     const patten = `${directory}/*.{${extensions.join(',')}}`;
-    const files = glob.sync(patten, {
+    const files = globSync(patten, {
       ignore: ['**/*.d.ts'],
     });
     const resources = new Map<string, Resource>();

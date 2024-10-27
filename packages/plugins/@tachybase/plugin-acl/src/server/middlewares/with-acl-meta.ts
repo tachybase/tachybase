@@ -113,7 +113,7 @@ function createWithACLMetaMiddleware() {
         return listData.map((tree) => getAllNodeIds(tree.toJSON())).flat();
       }
 
-      return listData.map((item) => item[primaryKeyField]);
+      return listData.filter(Boolean).map((item) => item[primaryKeyField]);
     })();
 
     const conditions = [];

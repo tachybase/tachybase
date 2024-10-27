@@ -7,7 +7,6 @@
     "build": "tachybase build --no-dts",
     "build:full": "tachybase build",
     "build:p": "tachybase build --no-dts",
-    "changelog": "auto-changelog -p -t keepachangelog",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
     "dev-local": "APP_ENV_PATH=.env.local tachybase dev",
@@ -42,7 +41,7 @@
   },
   "dependencies": {
     "pm2": "^5.3.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^6.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.3.0",
@@ -58,12 +57,11 @@
     "@tachybase/test": "workspace:*",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "auto-changelog": "^2.4.0",
-    "axios": "^1.6.8",
+    "axios": "^1.7.7",
     "commander": "^9.5.0",
-    "eslint": "^9.10.0",
+    "eslint": "^9.13.0",
     "eslint-plugin-jest-dom": "^5.4.0",
-    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-testing-library": "^5.11.1",
     "globals": "^15.9.0",
     "husky": "^9.0.11",
@@ -77,18 +75,18 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tsx": "^4.15.2",
-    "typescript": "5.4.5",
+    "typescript": "5.6.3",
     "typescript-eslint": "^8.4.0",
-    "umi": "^4.3.3",
+    "umi": "^4.3.28",
     "vitest": "^1.6.0"
   },
   "packageManager": "pnpm@9.12.2",
   "engines": {
-    "node": "20.16.0",
+    "node": "20.18.0",
     "pnpm": "9.12.2"
   },
   "volta": {
-    "node": "20.16.0",
+    "node": "20.18.0",
     "pnpm": "9.12.2"
   },
   "pnpm": {
@@ -97,7 +95,7 @@
     ],
     "overrides": {
       "@types/node": "20.14.2",
-      "antd": "5.19.4",
+      "antd": "5.21.5",
       "dayjs": "1.11.10"
     }
   }

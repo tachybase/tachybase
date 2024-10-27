@@ -9,23 +9,23 @@
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "dependencies": {
-    "fs-extra": "^11.1.1"
+    "fs-extra": "^11.2.0"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
-    "@ant-design/plots": "^2.1.4",
+    "@ant-design/plots": "^2.1.14",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "ahooks": "^3.7.2",
-    "antd": "5.19.4",
-    "dayjs": "^1.11.8",
-    "deepmerge": "^4.2.2",
+    "ahooks": "^3.8.0",
+    "antd": "5.21.5",
+    "dayjs": "1.11.10",
+    "deepmerge": "^4.3.1",
     "koa-compose": "^4.1.0",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
-    "react-error-boundary": "^4.0.10",
+    "react-error-boundary": "^4.0.11",
     "react-i18next": "^14.1.2",
-    "sequelize": "^6.26.0"
+    "sequelize": "^6.37.3"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

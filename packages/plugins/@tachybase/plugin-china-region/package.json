@@ -10,8 +10,8 @@
   "main": "./dist/server/index.js",
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
-    "@types/cross-spawn": "^6.0.2",
-    "china-division": "^2.4.0",
+    "@types/cross-spawn": "^6.0.6",
+    "china-division": "^2.7.0",
     "cross-spawn": "^7.0.3"
   },
   "peerDependencies": {

@@ -7,14 +7,14 @@
   "types": "./lib/index.d.ts",
   "dependencies": {
     "bloom-filters": "^3.0.1",
-    "cache-manager": "^5.2.4",
+    "cache-manager": "^5.3.1",
     "cache-manager-redis-yet": "^4.1.2",
-    "deepmerge": "^4.2.2",
+    "deepmerge": "^4.3.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.5",
-    "redis": "^4.6.10",
+    "redis": "^4.6.13",
     "vitest": "^1.6.0"
   }
 }

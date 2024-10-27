@@ -17,12 +17,12 @@
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",
     "@tachybase/plugin-workflow-test": "workspace:*",
-    "@types/ejs": "^3.1.1",
+    "@types/ejs": "^3.1.5",
     "@types/file-saver": "^2.0.7",
     "@types/lodash": "^4.17.5",
     "@types/qrcode": "^1.5.5",
-    "antd": "5.19.4",
-    "axios": "^1.6.2",
+    "antd": "5.21.5",
+    "axios": "^1.7.7",
     "cron-parser": "4.4.0",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
@@ -30,9 +30,9 @@
     "qrcode": "^1.5.3",
     "react": "~18.3.1",
     "react-i18next": "^14.1.2",
-    "react-js-cron": "^3.1.0",
+    "react-js-cron": "^3.2.0",
     "react-router-dom": "^6.25.1",
-    "sequelize": "^6.26.0"
+    "sequelize": "^6.37.3"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

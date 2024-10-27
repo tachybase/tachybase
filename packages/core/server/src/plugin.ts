@@ -4,7 +4,7 @@ import { Model } from '@tachybase/database';
 import { LoggerOptions } from '@tachybase/logger';
 import { fsExists, importModule } from '@tachybase/utils';
 
-import glob from 'glob';
+import { globSync } from 'glob';
 import type { TFuncKey, TOptions } from 'i18next';
 
 import { Application } from './application';
@@ -178,7 +178,7 @@ export abstract class Plugin<O = any> implements PluginInterface {
       'server/commands',
     );
     const patten = `${directory}/*.{${extensions.join(',')}}`;
-    const files = glob.sync(patten, {
+    const files = globSync(patten, {
       ignore: ['**/*.d.ts'],
     });
     for (const file of files) {
