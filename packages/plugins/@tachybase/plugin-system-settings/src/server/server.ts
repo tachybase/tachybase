@@ -13,10 +13,10 @@ export class SystemSettingsPlugin extends Plugin {
         enabledLanguages: [this.getInitAppLang(options)],
         logo: {
           title: 'tachybase-logo',
-          filename: '78121ffd55a6d987cadc6577496e6014.svg',
-          extname: '.svg',
-          mimetype: 'image/svg+xml',
-          url: 'https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/78121ffd55a6d987cadc6577496e6014.svg',
+          filename: '5257a6a1b5fb1f2572763a2c0e230c85.png',
+          extname: '.png',
+          mimetype: 'image/png',
+          url: 'https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/5257a6a1b5fb1f2572763a2c0e230c85.png',
         },
       },
     });
