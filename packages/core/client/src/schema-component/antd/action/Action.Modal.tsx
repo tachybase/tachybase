@@ -16,9 +16,15 @@ const useStyles = createStyles(({ css }) => {
     container: css`
       &.tb-action-popup {
         .ant-modal-header {
-          display: none;
+          // TODO: theme variables
+          margin-top: -20px;
+          margin-left: -24px;
+          margin-right: -24px;
+          padding-top: 20px;
+          padding-left: 24px;
+          padding-right: 24px;
+          padding-bottom: 20px;
         }
-
         .ant-modal-content {
           background: var(--tb-box-bg);
         }
@@ -54,7 +60,23 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
     return (
       <Modal
         width={actualWidth}
-        title={field.title}
+        title={
+          <div style={{ display: 'flex' }}>
+            <span style={{ flex: 1 }}>{field.title}</span>
+            <>
+              <Amplifier />
+              <Button
+                type="text"
+                icon={<CloseOutlined />}
+                className={css`
+                  background: none;
+                  border: none;
+                `}
+                onClick={() => setVisible(false, true)}
+              />
+            </>
+          </div>
+        }
         {...(others as ModalProps)}
         {...modalProps}
         style={{
@@ -64,17 +86,7 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
         destroyOnClose
         open={visible}
         closable={false}
-        className={classNames(
-          others.className,
-          modalProps?.className,
-          styles.container,
-          'amplifier-block',
-          css`
-            .ant-modal-content {
-              padding-top: 32px;
-            }
-          `,
-        )}
+        className={classNames(others.className, modalProps?.className, styles.container, 'amplifier-block')}
         footer={
           footerSchema ? (
             <RecursionField
@@ -98,24 +110,6 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
             return s['x-component'] !== footerNodeName;
           }}
         />
-        <div
-          className={css`
-            position: absolute;
-            top: 0;
-            right: 5px;
-            display: flex;
-          `}
-        >
-          <Amplifier />
-          <Button
-            icon={<CloseOutlined />}
-            className={css`
-              background: none;
-              border: none;
-            `}
-            onClick={() => setVisible(false, true)}
-          />
-        </div>
       </Modal>
     );
   },
@@ -139,6 +133,7 @@ export const Amplifier = () => {
   return (
     <Button
       icon={isAmplifier ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
+      type="text"
       className={css`
         background: none;
         border: none;

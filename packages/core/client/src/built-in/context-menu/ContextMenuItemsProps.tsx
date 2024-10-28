@@ -1,50 +1,9 @@
-import React, { useRef, useState } from 'react';
 import { uid } from '@tachybase/utils/client';
 
-import { css } from '@emotion/css';
 import { App } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import { useDesignable } from '../../schema-component';
-import { useJoystick } from './useJoystick';
-
-export const dragAssistant = {
-  name: 'dragAssistant',
-  useLoadMethod: () => {
-    const [enableDragable, setEnableDragable] = useState(false);
-    const { t } = useTranslation();
-    const ref = useRef<HTMLDivElement>() as any;
-    useJoystick(ref);
-    return {
-      title: t('Drag Assistant'),
-      actionProps: {
-        onClick: () => {
-          setEnableDragable((enable) => !enable);
-        },
-      },
-      children() {
-        return (
-          enableDragable && (
-            <div
-              ref={ref}
-              className={css`
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                z-index: 30;
-                width: 100vw;
-                height: 100vh;
-                background-color: rgba(141, 141, 113, 0.274);
-              `}
-            ></div>
-          )
-        );
-      },
-    };
-  },
-};
 
 export const designerMode = {
   name: 'designerMode',
@@ -52,7 +11,7 @@ export const designerMode = {
     const { designable, setDesignable } = useDesignable() as any;
     const { t } = useTranslation();
     return {
-      title: t('Designer Mode'),
+      title: t('Designer mode'),
       actionProps: {
         onClick: () => {
           setDesignable(!designable);
@@ -68,7 +27,7 @@ export const fullScreen = {
     const { t } = useTranslation();
     const { message } = App.useApp();
     return {
-      title: t('Full Screen'),
+      title: t('Fullscreen'),
       actionProps: {
         onClick: () => {
           checkedAutoPage(position, message, t);
@@ -81,8 +40,9 @@ export const fullScreen = {
 export const disableRightMenu = {
   name: 'disableRightMenu',
   useLoadMethod: ({ enable, setEnable }) => {
+    const { t } = useTranslation();
     return {
-      title: 'Disable Right Menu',
+      title: t('Disable contextmenu'),
       actionProps: {
         onClick: () => {
           setEnable(!enable);
@@ -126,7 +86,7 @@ const checkedAutoPage = (position, message, t) => {
     exitNode.style.textAlign = 'center';
     exitNode.style.lineHeight = '30px';
     exitNode.style.backgroundColor = '#e6e6e6';
-    exitNode.textContent = `${t('Exit Full Screen')}`;
+    exitNode.textContent = `${t('Exit fullscreen')}`;
     autoNode.appendChild(exitNode);
     autoNode.addEventListener('click', () => {
       removeNode({ gridRow, classId });
@@ -149,7 +109,7 @@ const checkedAutoPage = (position, message, t) => {
       modal.insertAdjacentElement('beforebegin', autoNode);
     }
   } else {
-    message.warning(t('There are no full screen blocks available at the current location'));
+    message.warning(t('There are no fullscreen blocks available at the current location'));
   }
 };
 

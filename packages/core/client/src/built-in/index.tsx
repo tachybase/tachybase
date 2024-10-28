@@ -30,6 +30,8 @@ import { LocalePlugin } from './locale/LocalePlugin';
 import { PluginPageStyle } from './page-style';
 import { PinnedListPlugin } from './pinned-list';
 import { PMPlugin } from './pm';
+import { QuickAccessPlugin } from './quick-access';
+import { ScrollAssistantPlugin } from './scroll-assistant';
 import { SystemSettingsPlugin } from './system-settings';
 import { UserSettingsPlugin } from './user-settings';
 
@@ -354,9 +356,11 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(PMPlugin, { name: 'builtin-pm' });
     await this.app.pm.add(CollectionPlugin, { name: 'builtin-collection' });
     await this.app.pm.add(PluginContextMenu, { name: 'context-menu' });
-    await this.app.pm.add(PluginAssistant, { name: 'drag-assistant' });
+    await this.app.pm.add(PluginAssistant, { name: 'assistant' });
     await this.app.pm.add(UserSettingsPlugin, { name: 'user-settings' });
     await this.app.pm.add(AttachmentPreviewPlugin, { name: 'attachment-preview' });
     await this.app.pm.add(PluginPageStyle, { name: 'page-style' });
+    await this.app.pm.add(QuickAccessPlugin, { name: 'quick-access' });
+    await this.app.pm.add(ScrollAssistantPlugin, { name: 'scroll-assistant' });
   }
 }

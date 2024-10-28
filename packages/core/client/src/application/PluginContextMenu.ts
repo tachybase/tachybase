@@ -1,5 +1,3 @@
-import type { Application } from './Application';
-
 export interface PluginItemsOptions {
   name?: string;
   useLoadMethod?: (any) => methodOptionsType;
@@ -13,10 +11,8 @@ export interface methodOptionsType {
 
 export class PluginContextMenu {
   protected menuItems: Record<string, PluginItemsOptions> = {};
-  public app: Application;
 
-  constructor(_pluginMenuItems: Record<string, PluginItemsOptions>, app: Application) {
-    this.app = app;
+  constructor(_pluginMenuItems: Record<string, PluginItemsOptions>) {
     Object.entries(_pluginMenuItems || {}).forEach(([name, PluginItemsOptions]) => {
       this.add(name, PluginItemsOptions);
     });

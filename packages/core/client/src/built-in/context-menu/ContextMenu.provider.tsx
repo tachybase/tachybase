@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
+import { Dropdown, theme, type MenuProps } from 'antd';
+
 import { useApp } from '../../application';
-import { ContextMenu, ContextMenuItem, ContextMenuTrigger } from '../../schema-component/common/context-menu';
 import { ContextMenuContext } from './useContextMenu';
 
 export const ContextMenuProvider = ({ children }) => {
@@ -12,10 +13,16 @@ export const ContextMenuProvider = ({ children }) => {
     actions: [],
     childrens: [],
   };
+  const items: MenuProps['items'] = [];
   Object.values(contextItems).forEach((item) => {
     const { actionProps, children: nodeChildren, title } = item.useLoadMethod({ enable, setEnable, position });
     menuItems.actions.push({ title, actionProps });
     menuItems.childrens.push(nodeChildren);
+    items.push({
+      label: title,
+      key: title,
+      onClick: actionProps.onClick,
+    });
   });
 
   return (
@@ -26,17 +33,18 @@ export const ContextMenuProvider = ({ children }) => {
         position,
       }}
     >
-      <ContextMenu id="my-context-menu-1">
-        {menuItems.actions.map((item, index) => (
-          <ContextMenuItem {...item.actionProps} key={index}>
-            {item.title}
-          </ContextMenuItem>
-        ))}
-      </ContextMenu>
-      <ContextMenuTrigger disable={!enable} id="my-context-menu-1" position={position} setPosition={setPosition}>
-        {menuItems.childrens.map((children) => children && children())}
-        {children}
-      </ContextMenuTrigger>
+      <Dropdown menu={{ items }} trigger={enable ? ['contextMenu'] : []}>
+        <div
+          onContextMenu={(e) => {
+            setPosition({
+              x: e.clientX,
+              y: e.clientY,
+            });
+          }}
+        >
+          {children}
+        </div>
+      </Dropdown>
     </ContextMenuContext.Provider>
   );
 };

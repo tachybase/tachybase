@@ -71,7 +71,6 @@ export const useJoystick = (ref) => {
      */
     function down(event: MouseEvent) {
       if (event.buttons === 1) {
-        console.log('🚀 ~ file: ContextMenu.provider.tsx:81 ~ down ~ event:', event);
         pressing = true;
         prevX = getClientPosition(event).x;
         prevY = getClientPosition(event).y;

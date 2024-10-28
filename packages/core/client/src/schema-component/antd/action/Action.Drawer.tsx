@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
-import { ArrowsAltOutlined, CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
+import { CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
 import { Button, Drawer } from 'antd';
 import classNames from 'classnames';
@@ -38,6 +38,20 @@ export const ActionDrawer: ComposedActionDrawer = observer(
     return (
       <Drawer
         width={openSizeWidthMap.get(openSize)}
+        extra={
+          <>
+            <Amplifier />
+            <Button
+              type="text"
+              icon={<CloseOutlined />}
+              className={css`
+                background: none;
+                border: none;
+              `}
+              onClick={() => setVisible(false, true)}
+            />
+          </>
+        }
         title={field.title}
         {...others}
         {...drawerProps}
@@ -46,6 +60,7 @@ export const ActionDrawer: ComposedActionDrawer = observer(
           ...others?.style,
         }}
         destroyOnClose
+        closable={false}
         open={visible}
         onClose={() => setVisible(false, true)}
         rootClassName={classNames(componentCls, hashId, drawerProps?.className, others.className, 'reset')}
@@ -63,10 +78,7 @@ export const ActionDrawer: ComposedActionDrawer = observer(
             </div>
           )
         }
-        className={`${props.className} ${css`
-          position: relative;
-          padding-top: 30px;
-        `} amplifier-block`}
+        className={`${props.className} amplifier-block`}
       >
         <RecursionField
           basePath={field.address}
@@ -76,24 +88,6 @@ export const ActionDrawer: ComposedActionDrawer = observer(
             return s['x-component'] !== footerNodeName;
           }}
         />
-        <div
-          className={css`
-            position: absolute;
-            top: 0;
-            right: 5px;
-            display: flex;
-          `}
-        >
-          <Amplifier />
-          <Button
-            icon={<CloseOutlined />}
-            className={css`
-              background: none;
-              border: none;
-            `}
-            onClick={() => setVisible(false, true)}
-          />
-        </div>
       </Drawer>
     );
   },
@@ -116,6 +110,7 @@ export const Amplifier = () => {
   const [blockWidth, setBlockWidth] = useState('');
   return (
     <Button
+      type="text"
       icon={isAmplifier ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
       className={css`
         background: none;
