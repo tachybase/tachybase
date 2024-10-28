@@ -35,7 +35,7 @@ const deps: Record<string, string> = {
   '@dnd-kit/sortable': '8.x',
   '@dnd-kit/utilities': '3.x',
   dayjs: '1.x',
-  mysql2: '2.x',
+  mysql2: '3.x',
   pg: '8.x',
   'pg-hstore': '2.x',
   sqlite3: '5.x',

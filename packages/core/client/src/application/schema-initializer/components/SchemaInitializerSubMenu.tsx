@@ -40,6 +40,10 @@ const useStyles = createStyles(({ css, token }) => {
           width: 100%;
         }
       }
+      // associated issue https://github.com/ant-design/ant-design/issues/51361
+      .ant-menu-title-content {
+        display: inline;
+      }
     `,
   };
 });
