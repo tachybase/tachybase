@@ -134,9 +134,10 @@ export function flatSchemaArray(sourceData, filter, needRecursion = false) {
   if (filter(sourceData) && (!needRecursion || !sourceData.properties)) {
     flatArray.push(sourceData);
   } else {
-    Object.keys(sourceData.properties).forEach((key) => {
-      flatArray.push(...flatSchemaArray(sourceData.properties[key], filter));
-    });
+    sourceData.properties &&
+      Object.keys(sourceData.properties).forEach((key) => {
+        flatArray.push(...flatSchemaArray(sourceData.properties[key], filter));
+      });
   }
 
   return flatArray;
