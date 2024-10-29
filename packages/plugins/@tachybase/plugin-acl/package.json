@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-acl",
   "displayName": "Access control",
-  "version": "0.22.12",
+  "version": "0.22.13",
   "description": "Based on roles, resources, and actions, access control can precisely manage interface configuration permissions, data operation permissions, menu access permissions, and plugin permissions.",
   "keywords": [
     "Users & permissions"

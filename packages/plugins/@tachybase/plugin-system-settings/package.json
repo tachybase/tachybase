@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-system-settings",
   "displayName": "System settings",
-  "version": "0.22.12",
+  "version": "0.22.13",
   "description": "Used to adjust the system title, logo, language, etc.",
   "keywords": [
     "System management"
