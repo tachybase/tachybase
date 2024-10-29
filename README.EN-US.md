@@ -21,6 +21,13 @@ Tachybase Platform is dedicated to creating a user-friendly application developm
 # Other Languages
 
 [[中文版本](README.EN-US.md)][English version]
+
+# screenshots
+
+<img src="https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/c862eed8bdeb178ed9f85c999288ce62.webp" width="400" />
+<img src="https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/506541d03628c5bddde74c6117612a1c.png" width="400" />
+<img src="https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/c862eed8bdeb178ed9f85c999288ce62.webp" width="400" />
+
 # Installation
 
 ## Getting Started with SQLite
