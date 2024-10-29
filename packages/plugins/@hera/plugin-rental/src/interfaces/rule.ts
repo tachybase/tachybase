@@ -28,6 +28,7 @@ export interface LeaseRule {
 export interface Rule {
   fee_item: FeeRule[];
   lease_items: LeaseRule[];
+  shortest_day: number;
 }
 
 export interface RuleItem {

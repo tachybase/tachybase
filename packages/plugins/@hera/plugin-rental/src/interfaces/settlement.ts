@@ -29,4 +29,5 @@ export interface Settlement {
   updatedAt: number;
   sort: number;
   name: number;
+  free_date: any[];
 }

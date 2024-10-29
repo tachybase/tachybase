@@ -223,11 +223,14 @@ const PreviewDocument = ({
 
   const partyA = contracts.partyA?.[0];
   const partyB = contracts.partyB?.[0];
+  const settlementTitle = contracts.partyA?.[0].roles.includes('associated')
+    ? contracts.partyA?.[0].name
+    : contracts.partyB?.[0].name;
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>
-          {partyA?.name ?? `${PromptText.noContractedCompany}`}
+          {settlementTitle ?? `${PromptText.noContractedCompany}`}
           对账单
         </Text>
         <Text style={styles.subTitle}>客户各项费用明细</Text>
@@ -245,15 +248,15 @@ const PreviewDocument = ({
             </View>
             <View style={styles.tableHeader}>
               <Text style={styles.headerLeft}>
-                项目名称：
-                {contracts.project?.name}
+                出租单位：
+                {partyA?.name}
               </Text>
               <Text style={styles.headerRight}>签约时间：{converDate(contracts.date, 'YYYY-MM-DD')}</Text>
             </View>
             <view style={styles.tableHeader}>
               <Text style={styles.headerLeft}>
-                项目地址：
-                {contracts.project?.address}
+                项目名称：
+                {contracts.project?.name}
               </Text>
               <Text style={styles.headerRight}>
                 结算时间：{converDate(calc.start, 'YYYY-MM-DD')} 至 {converDate(calc.end, 'YYYY-MM-DD')}
@@ -261,10 +264,12 @@ const PreviewDocument = ({
             </view>
             <view style={styles.tableHeader}>
               <Text style={styles.headerLeft}>
-                项目联系人：
-                {contracts.project?.contacts.map((contact) => contact.name + ' ' + contact.phone).join(' ')}
+                项目地址：
+                {contracts.project?.address}
               </Text>
-              <Text style={styles.headerRight}>经办人：{contracts.operator.nickname}</Text>
+              <Text style={styles.headerRight}>
+                项目联系人：{contracts.project?.contacts.map((contact) => contact.name + ' ' + contact.phone).join(' ')}
+              </Text>
             </view>
             <View style={styles.spacing} />
             <View style={styles.tableContentTitle}>

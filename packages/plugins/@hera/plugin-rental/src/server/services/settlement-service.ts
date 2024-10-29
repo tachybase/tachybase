@@ -1,6 +1,7 @@
 import Database from '@tachybase/database';
 import { Db, Service } from '@tachybase/utils';
 
+import Item from 'antd/es/list/Item';
 import dayjs from 'dayjs';
 
 import { Record } from '../../interfaces/record';
@@ -34,7 +35,49 @@ export class SettlementService {
      */
     let createLeasDatas = [];
     let createFeesDatas = [];
+
+    const freeEndDate = dayjs(settlementAbout.free_date?.[1].value).add(-1, 'day');
+    const isFreeDate =
+      settlementAbout.free_date?.length === 2 &&
+      dayjs(settlementAbout.free_date[0].value).isSameOrAfter(settlementAbout.start_date, 'day') &&
+      dayjs(freeEndDate).isSameOrBefore(settlementAbout.end_date, 'day');
     const ruleProduct = [];
+    const historyInventory = {}; //计算产品库存
+    const outMovement = settlementAbout.contracts.party_a?.roles.includes('associated') ? '-1' : '1';
+    const entMovement = outMovement === '-1' ? '1' : '-1';
+    //统计出库数量
+    settlementAbout.records?.forEach((recordItems) => {
+      if (recordItems.movement === outMovement) {
+        recordItems.record_items?.forEach((item) => {
+          historyInventory[item.product_id] = [
+            ...(historyInventory[item.product_id] ?? []),
+            {
+              recordId: recordItems.id,
+              count: item.count,
+              recordDate: recordItems.date,
+              remainingNumber: item.count,
+              name: item.product.name,
+              label: item.product.label,
+              id: item.product_id,
+            },
+          ];
+        });
+      }
+    });
+    //将往期数量抵扣
+    settlementAbout.records?.forEach((recordItems) => {
+      if (recordItems.movement === entMovement && dayjs(recordItems.date).isBefore(settlementAbout.start_date, 'day')) {
+        recordItems.record_items?.forEach((item) => {
+          let isDeduction = false;
+          historyInventory[item.product_id]?.forEach((currRecord, index) => {
+            if (currRecord.remainingNumber !== 0 && !isDeduction) {
+              isDeduction = true;
+              differCount(item, item, item.count, currRecord, historyInventory[item.product_id], index);
+            }
+          });
+        });
+      }
+    });
     settlementAbout.contracts.rule_items?.forEach((ruleItem) => {
       if (
         dayjs(settlementAbout.start_date).isSameOrAfter(ruleItem.start_date, 'day') &&
@@ -55,6 +98,7 @@ export class SettlementService {
             countRule.push(...rule.products.map((value) => value));
           }
         });
+
         // 正常租赁数据
         lease_rules?.forEach((rule) => {
           if (rule) {
@@ -104,29 +148,46 @@ export class SettlementService {
                                   settlementAbout.end_date,
                                 );
                           const movement = item.movement === '-1' ? '1' : '-1';
-                          if (productLength > 1) {
-                            createLeasDatas.push({
-                              settlement_id: settlementsId, //合同ID
-                              movement: item.movement, //出入库状态
-                              date: item.date, //时间
-                              name: rule.comment ?? '', //名称
-                              label: rule.comment ?? '',
-                              category: item.category, //费用类别
-                              //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
-                              days: day,
-                              is_excluded: false,
-                              item_count: 0,
-                              count: recordItem.weight * Number(movement),
-                              unit_price: rule.unit_price * 1000,
-                              amount: recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
-                              unit_name: '吨',
-                              productCategory,
-                            });
-                          }
-                          createLeasDatas.push({
+                          const data = {
                             settlement_id: settlementsId, //合同ID
                             movement: item.movement, //出入库状态
                             date: item.date, //时间
+                            name: rule.comment ?? '', //名称
+                            label: rule.comment ?? '',
+                            category: item.category, //费用类别
+                            //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
+                            days: day,
+                            is_excluded: false,
+                            item_count: 0,
+                            count: recordItem.weight * Number(movement),
+                            unit_price: rule.unit_price * 1000,
+                            amount: recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
+                            unit_name: '吨',
+                            productCategory,
+                          };
+                          if (productLength > 1) {
+                            createLeasDatas.push(data);
+                            if (isFreeDate && dayjs(item.date).isBefore(settlementAbout.free_date[0].value)) {
+                              const freeData = {
+                                ...data,
+                                name: recordItem.product.name + '-期限免租', //名称
+                                label: recordItem.product.label + '-期限免租', //规格
+                                category: '免租', //费用类别
+                              };
+                              const l = dayjs(settlementAbout.free_date[1].value).startOf('day');
+                              const r = dayjs(settlementAbout.free_date[0].value).startOf('day');
+                              const days = l.diff(r, 'day');
+                              freeData['item_count'] = data['item_count'] * Number(entMovement === '-1' ? '1' : '-1');
+                              freeData['count'] = data.count * Number(item.movement);
+                              freeData['days'] = days;
+                              freeData['amount'] = freeData['count'] * data.unit_price * (freeData.days || 0);
+                              freeData['amount'] = isNaN(freeData['amount']) ? 0 : freeData['amount'];
+                              createLeasDatas.push(freeData);
+                            }
+                          }
+
+                          const countData = {
+                            ...data,
                             name: productLength > 1 ? rule.comment ?? '' : productName.name, //名称
                             label:
                               productLength > 1
@@ -134,20 +195,31 @@ export class SettlementService {
                                   ? `${rule.comment}-${productName.label}$$ `
                                   : ' ' + `-${productName.label}$$ `
                                 : productName.label, //规格
-                            category: item.category, //费用类别
-                            //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
-                            days: day,
-                            is_excluded: false,
                             item_count: product.count,
                             count: productLength > 1 ? 0 : recordItem.weight * Number(movement),
-                            unit_price: rule.unit_price * 1000,
                             amount:
                               productLength > 1
                                 ? 0
                                 : recordItem.weight * (rule.unit_price * 1000) * day * Number(movement),
-                            unit_name: '吨',
-                            productCategory,
-                          });
+                          };
+                          createLeasDatas.push(countData);
+                          if (isFreeDate && dayjs(item.date).isBefore(settlementAbout.free_date[0].value)) {
+                            const freeData = {
+                              ...data,
+                              name: recordItem.product.name + '-期限免租$$', //名称
+                              label: recordItem.product.label + '-期限免租$$', //规格
+                              category: '免租', //费用类别
+                            };
+                            const l = dayjs(settlementAbout.free_date[1].value).startOf('day');
+                            const r = dayjs(settlementAbout.free_date[0].value).startOf('day');
+                            const days = l.diff(r, 'day');
+                            freeData['item_count'] = data['item_count'] * Number(entMovement === '-1' ? '1' : '-1');
+                            freeData['count'] = data.count * Number(item.movement);
+                            freeData['days'] = days;
+                            freeData['amount'] = freeData['count'] * data.unit_price * (freeData.days || 0);
+                            freeData['amount'] = isNaN(freeData['amount']) ? 0 : freeData['amount'];
+                            createLeasDatas.push(freeData);
+                          }
                         }
                       }
                     });
@@ -223,6 +295,23 @@ export class SettlementService {
                       }, 0);
                       data['item_count'] = productLength > 1 ? 0 : item_count * Number(movement);
                       createLeasDatas.push(data);
+                      if (isFreeDate && dayjs(item.date).isBefore(settlementAbout.free_date[0].value)) {
+                        const freeData = {
+                          ...data,
+                          name: recordItem.product.name + '-期限免租', //名称
+                          label: recordItem.product.label + '-期限免租', //规格
+                          category: '免租', //费用类别
+                        };
+                        const l = dayjs(settlementAbout.free_date[1].value).startOf('day');
+                        const r = dayjs(settlementAbout.free_date[0].value).startOf('day');
+                        const days = l.diff(r, 'day');
+                        freeData['item_count'] = data['item_count'] * Number(entMovement === '-1' ? '1' : '-1');
+                        freeData['count'] = data.count * Number(item.movement);
+                        freeData['days'] = days;
+                        freeData['amount'] = freeData['count'] * data.unit_price * (freeData.days || 0);
+                        freeData['amount'] = isNaN(freeData['amount']) ? 0 : freeData['amount'];
+                        createLeasDatas.push(freeData);
+                      }
                     }
                   }
                 } else {
@@ -265,6 +354,69 @@ export class SettlementService {
                         data['unit_price'] = price;
                         data['amount'] = data['count'] * price * (data.days || 0);
                         createLeasDatas.push(data);
+                        if (isFreeDate && dayjs(item.date).isBefore(settlementAbout.free_date[0].value)) {
+                          const freeData = {
+                            ...data,
+                            name: recordItem.product.name + '-期限免租', //名称
+                            label: recordItem.product.label + '-期限免租', //规格
+                            category: '免租', //费用类别
+                          };
+                          const l = dayjs(settlementAbout.free_date[1].value).startOf('day');
+                          const r = dayjs(settlementAbout.free_date[0].value).startOf('day');
+                          const days = l.diff(r, 'day');
+                          freeData['item_count'] = data['item_count'] * Number(entMovement === '-1' ? '1' : '-1');
+                          freeData['count'] = count * Number(item.movement);
+                          freeData['days'] = days;
+                          freeData['amount'] = freeData['count'] * price * (freeData.days || 0);
+                          freeData['amount'] = isNaN(freeData['amount']) ? 0 : freeData['amount'];
+                          createLeasDatas.push(freeData);
+                        }
+
+                        if (
+                          dayjs(item.date).isSameOrAfter(settlementAbout.start_date, 'day') &&
+                          item.movement === entMovement
+                        ) {
+                          let isDeduction = false;
+                          historyInventory[recordItem.product_id]?.sort((a, b) => {
+                            return new Date(a.recordDate).getTime() - new Date(b.recordDate).getTime();
+                          });
+                          historyInventory[recordItem.product_id]?.forEach((currRecord, index) => {
+                            if (currRecord.remainingNumber !== 0 && !isDeduction) {
+                              isDeduction = true;
+                              const differData = {
+                                ...data,
+                                name: recordItem.product.name + '-最短租期', //名称
+                                label: recordItem.product.label + '-最短租期', //规格
+                                category: '补差', //费用类别
+                              };
+                              differCount(
+                                item,
+                                recordItem,
+                                recordItem.count,
+                                currRecord,
+                                historyInventory[recordItem.product_id],
+                                index,
+                                (count, recordDate) => {
+                                  const { count: productCount, unit } = ruleCount(rule, item, recordItem, count);
+                                  differData['count'] = productCount * Number(entMovement);
+                                  differData['unit_name'] = unit;
+                                  differData['item_count'] = count * Number(entMovement);
+                                  calcDiffer(
+                                    settlementAbout.contracts.calc_type,
+                                    recordDate,
+                                    item.date,
+                                    ruleItem.rule.shortest_day,
+                                    differData,
+                                    createLeasDatas,
+                                    entMovement,
+                                    settlementAbout.free_date,
+                                    recordItem,
+                                  );
+                                },
+                              );
+                            }
+                          });
+                        }
                       }
                     }
                   });
@@ -784,7 +936,8 @@ export class SettlementService {
     const summaryCategoryItems = [];
     for (const value in createCategoryDatasItem) {
       createCategoryDatasItem[value].forEach((item) => {
-        if (!summaryCategoryItems.find((value) => value.name === item.name && item.category === '0')) {
+        if (item.category !== '0') return;
+        if (!summaryCategoryItems.find((value) => value.name === item.name)) {
           summaryCategoryItems.push({
             settlement_id: settlementsId,
             name: item.name,
@@ -806,7 +959,8 @@ export class SettlementService {
     const summaryProductItems = [];
     for (const value in createProductDatasItem) {
       createProductDatasItem[value].forEach((item) => {
-        if (!summaryProductItems.find((value) => value.name === item.name && item.category === '0')) {
+        if (item.category !== '0') return;
+        if (!summaryProductItems.find((value) => value.name === item.name)) {
           summaryProductItems.push({
             settlement_id: settlementsId,
             name: item.name,
@@ -857,7 +1011,7 @@ export class SettlementService {
         case Itemcategory.loadFreight:
           summaryPeriod.loadfreight += value.amount;
           break;
-        case Itemcategory.other:
+        default:
           summaryPeriod.other += value.amount;
           break;
       }
@@ -994,6 +1148,66 @@ export class SettlementService {
     return { calc, contracts };
   }
 }
+
+/**
+ * 计算出入库数量相抵
+ * @param count
+ * @param currRecord
+ * @param product
+ * @param index
+ * @returns
+ */
+const differCount = (item, recordItem, count, currRecord, product, index, runPush?) => {
+  if (count <= currRecord.remainingNumber) {
+    currRecord.remainingNumber = currRecord.remainingNumber + count * -1;
+    if (runPush) {
+      runPush(count, currRecord.recordDate);
+    }
+    return;
+  }
+  const nextNumber = count - currRecord.remainingNumber;
+  if (runPush) {
+    runPush(currRecord.remainingNumber, currRecord.recordDate);
+  }
+  currRecord.remainingNumber = 0;
+  const nextRecord = product[index + 1];
+  if (nextRecord) {
+    return differCount(item, recordItem, nextNumber, nextRecord, product, index + 1);
+  }
+};
+
+/**
+ * 最短租期计算
+ * @param type
+ * @param start
+ * @param end
+ * @param shortest_day
+ */
+const calcDiffer = (type, start, end, shortest_day, differData, pushDatas, entMovement, free_date, recordItem) => {
+  const differDay = afterDays(type, entMovement, start, end);
+  if (shortest_day - differDay > 0) {
+    differData['days'] = shortest_day - differDay;
+    differData['amount'] = differData['count'] * differData['unit_price'] * differData['days'];
+    pushDatas.push(differData);
+    if (free_date?.length === 2 && dayjs(differData.date).isBefore(free_date[0].value)) {
+      const l = dayjs(free_date[1].value).startOf('day');
+      const r = dayjs(free_date[0].value).startOf('day');
+      const days = l.diff(r, 'day');
+      const freeData = {
+        ...differData,
+        name: recordItem.product.name + '-最短租期期限免租', //名称
+        label: recordItem.product.label + '-最短租期期限免租', //规格
+        category: '免租', //费用类别
+      };
+      freeData['item_count'] = differData.item_count * Number(entMovement === '-1' ? '1' : '-1');
+      freeData['count'] = differData.count * Number(entMovement === '-1' ? '1' : '-1');
+      freeData['days'] = differData.days >= days ? days : differData.days;
+      freeData['amount'] = freeData['count'] * freeData['price'] * (freeData.days || 0);
+      freeData['amount'] = isNaN(freeData['amount']) ? 0 : freeData['amount'];
+      pushDatas.push(freeData);
+    }
+  }
+};
 
 /**
  *  计算订单实际重量
@@ -1191,13 +1405,13 @@ const feeData = (data, settlementAbout: Settlement, type) => {
       } else if (value.productCategory === 'product') {
         name = value.label;
       }
-      let listKey = `${value.name}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}`;
+      let listKey = `${value.name}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}_${value.days ?? 0}`;
       switch (type) {
         case 'category':
-          listKey = `${value.name}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}`;
+          listKey = `${value.name}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}_${value.days ?? 0}`;
           break;
         case 'product':
-          listKey = `${value.label}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}`;
+          listKey = `${value.label}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}_${value.days ?? 0}`;
           name = value.label;
       }
       if (!feeItem[listKey]) {
@@ -1208,7 +1422,7 @@ const feeData = (data, settlementAbout: Settlement, type) => {
           amount: value.amount,
           category: value.category,
           count: value.count,
-          days: 0,
+          days: value.days ?? 0,
           name: name,
           item_count: value.item_count,
           unit_name: value.unit_name,
@@ -1269,15 +1483,15 @@ const screenData = (data, settlementAbout, type) => {
     } else if (value.productCategory === 'product') {
       name = value.label;
     }
-    let listKey = `${name}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}`;
+    let listKey = `${name}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}_${value.days ?? 0}`;
     let historyKey = `${name}`;
     switch (type) {
       case 'category':
-        listKey = `${name}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}`;
+        listKey = `${name}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}_${value.days ?? 0}`;
         historyKey = `${name}`;
         break;
       case 'product':
-        listKey = `${value.label}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}`;
+        listKey = `${value.label}_${value.movement}_${converDate(value.date, 'YYYY-MM-DD')}_${value.days ?? 0}`;
         historyKey = `${value.label}`;
         name = value.label;
         break;
@@ -1289,7 +1503,7 @@ const screenData = (data, settlementAbout, type) => {
           amount: value.amount,
           category: value.category,
           count: value.count,
-          days: getCalcDays(settlementAbout.start_date, settlementAbout.end_date),
+          days: value.days ?? getCalcDays(settlementAbout.start_date, settlementAbout.end_date),
           name: name,
           unit_name: value.unit_name,
           unit_price: value.unit_price,
