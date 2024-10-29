@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export const useJoystick = (ref) => {
+export const useJoystick = (ref, callbacks?) => {
   useEffect(() => {
     if (!ref.current) {
       return;
@@ -10,7 +10,7 @@ export const useJoystick = (ref) => {
      */
     const config = {
       /** 摇杆半径 */
-      radius: 100,
+      radius: 20,
     };
 
     /**
@@ -53,6 +53,9 @@ export const useJoystick = (ref) => {
     ele.addEventListener('touchstart', down);
     ele.addEventListener('touchmove', move);
     ele.addEventListener('touchend', up);
+    ele.addEventListener('contextmenu', onContextmenu);
+
+    ele.addEventListener('mousewheel', onMousewheel);
 
     const stickEle = createStickCanvas();
     const baseEle = createBaseCanvas();
@@ -142,13 +145,23 @@ export const useJoystick = (ref) => {
       }
     }
 
+    function onMousewheel(event: WheelEvent) {
+      moveTable(event.deltaY, 0);
+    }
+
+    function onContextmenu(event: MouseEvent) {
+      event.stopPropagation();
+      event.preventDefault();
+      callbacks.onContextmenu(event);
+    }
+
     /**
      * 创建摇杆canvas
      */
     function createStickCanvas() {
       const canvas = document.createElement('canvas');
-      canvas.width = 86;
-      canvas.height = 86;
+      canvas.width = 40;
+      canvas.height = 40;
       const ctx = canvas.getContext('2d');
       ctx.beginPath();
       ctx.lineWidth = 6;
@@ -161,18 +174,18 @@ export const useJoystick = (ref) => {
      */
     function createBaseCanvas() {
       const canvas = document.createElement('canvas');
-      canvas.width = 126;
-      canvas.height = 126;
+      canvas.width = 60;
+      canvas.height = 60;
 
       const ctx = canvas.getContext('2d');
       ctx.beginPath();
       ctx.lineWidth = 6;
-      ctx.arc(canvas.width / 2, canvas.width / 2, 40, 0, Math.PI * 2, true);
+      ctx.arc(canvas.width / 2, canvas.width / 2, 5, 0, Math.PI * 2, true);
       ctx.stroke();
 
       ctx.beginPath();
       ctx.lineWidth = 2;
-      ctx.arc(canvas.width / 2, canvas.width / 2, 60, 0, Math.PI * 2, true);
+      ctx.arc(canvas.width / 2, canvas.width / 2, 10, 0, Math.PI * 2, true);
       ctx.stroke();
 
       return canvas;
@@ -223,14 +236,21 @@ export const useJoystick = (ref) => {
         };
       } else {
         return {
-          x: event.clientX,
-          y: event.clientY,
+          x: event.clientX - ele.offsetLeft,
+          y: event.clientY - ele.offsetTop,
         };
       }
     }
 
     return () => {
       clearInterval(timerId);
+      ele?.removeEventListener('mousedown', down);
+      ele?.removeEventListener('mousemove', move);
+      ele?.removeEventListener('mouseup', up);
+
+      ele?.removeEventListener('touchstart', down);
+      ele?.removeEventListener('touchmove', move);
+      ele?.removeEventListener('touchend', up);
     };
   });
 };

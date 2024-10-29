@@ -6,9 +6,13 @@ import { useScrollAssistantStatus } from './ScrollAssistantStatus.provider';
 import { useJoystick } from './useJoystick';
 
 export const ScrollAssistantProvider = ({ children }) => {
-  const { enable } = useScrollAssistantStatus();
+  const { enable, setEnable } = useScrollAssistantStatus();
   const ref = useRef<HTMLDivElement>() as any;
-  useJoystick(ref);
+  useJoystick(ref, {
+    onContextmenu() {
+      setEnable(false);
+    },
+  });
   return (
     <>
       {children}
@@ -18,13 +22,11 @@ export const ScrollAssistantProvider = ({ children }) => {
           className={css`
             position: absolute;
             top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            z-index: 30;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(141, 141, 113, 0.274);
+            left: 200px;
+            height: var(--tb-header-height);
+            right: 200px;
+            z-index: 99999;
+            background-color: rgba(226, 252, 173, 0.274);
           `}
         ></div>
       )}
