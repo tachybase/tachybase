@@ -21,6 +21,12 @@
 # 其他语言
 
 [[English Version](README.EN-US.md)][中文版本]
+
+# 应用模板
+
+[Demo 应用](https://demos.tachybase.com/admin/628sp6la1mw) 账号：`tachybase` 密码：`!Admin123.`
+正在制作中，预计春节前上线，目前开放测试，欢迎联系
+
 # 安装
 
 ## 使用 Sqlite 开始
@@ -67,9 +73,6 @@ pnpm dev
 
 - ⚡ &nbsp;REST APIs
 - ⚡ &nbsp;Tachybase SDK
-
-# 应用模板
-正在制作中，预计春节前上线，目前开放测试，欢迎联系
 
 # 我们为什么要做这个？
 

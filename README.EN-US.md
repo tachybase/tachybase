@@ -22,6 +22,11 @@ Tachybase Platform is dedicated to creating a user-friendly application developm
 
 [[中文版本](README.EN-US.md)][English version]
 
+# Application Templates
+
+[Demo](https://demos.tachybase.com/admin/628sp6la1mw) Username: `tachybase` Password: `!Admin123.`
+In progress, expected to launch before the Lunar New Year. Currently open for testing—please contact us for access.
+
 # screenshots
 
 <img src="https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/c862eed8bdeb178ed9f85c999288ce62.webp" width="400" />
@@ -66,10 +71,6 @@ We provide the following options for programmatic access. You can use tokens to 
 
 - ⚡ &nbsp;REST APIs
 - ⚡ &nbsp;Tachybase SDK
-
-# Application Templates
-
-In progress, expected to launch before the Lunar New Year. Currently open for testing—please contact us for access.
 
 # Why Are We Building This?
 
