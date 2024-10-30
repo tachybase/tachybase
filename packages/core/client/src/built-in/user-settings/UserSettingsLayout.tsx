@@ -146,7 +146,7 @@ export const UserSettingsLayout = () => {
                   <Menu
                     style={{ marginLeft: -theme.margin }}
                     onClick={({ key }) => {
-                      navigate(replaceRouteParams(app.pluginSettingsManager.getRoutePath(key), params));
+                      navigate(replaceRouteParams(app.systemSettingsManager.getRoutePath(key), params));
                     }}
                     selectedKeys={[currentSetting?.name]}
                     mode="horizontal"

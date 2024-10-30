@@ -5,7 +5,7 @@
 ## 使用方法
 
 ### 认证器管理
-页面：系统设置 - 认证
+页面：应用配置 - 认证
 
 
 <img src="https://s2.loli.net/2023/05/15/NdriQZvBuE6hGRS.png" width="800px" />

@@ -10,16 +10,16 @@ export * from './TokenConfiguration';
 export class PluginSettingsHelper {
   constructor(private app: Application) {}
   async load() {
-    this.app.pluginSettingsManager.add('hera', {
+    this.app.systemSettingsManager.add('hera', {
       title: tval('Hera integration'),
       icon: 'HomeOutlined',
     });
-    this.app.pluginSettingsManager.add('hera.token', {
+    this.app.systemSettingsManager.add('hera.token', {
       title: tval('Third-party integration configuration'),
       icon: 'ShareAltOutlined',
       Component: Configuration,
     });
-    this.app.pluginSettingsManager.add('hera.linkmanage', {
+    this.app.systemSettingsManager.add('hera.linkmanage', {
       title: tval('Link manager'),
       icon: 'ShareAltOutlined',
       Component: LinkManager,

@@ -21,7 +21,7 @@ export const BreadcumbTitle = () => {
     const status = dataSourceValue?.status;
     const option = statusEnum.find((v) => v.value === status);
     const res = [
-      { title: <Link to={app.pluginSettingsManager.getRoutePath(NAMESPACE)}>{lang('Data source manager')}</Link> },
+      { title: <Link to={app.systemSettingsManager.getRoutePath(NAMESPACE)}>{lang('Data source manager')}</Link> },
     ];
     if (dataSourceValue) {
       res.push({

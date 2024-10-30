@@ -145,7 +145,7 @@ describe('PluginManager', () => {
         expect(this.pm).toBe(this.app.pm);
         expect(this.router).toBe(this.app.router);
         expect(this.pluginManager).toBe(this.app.pluginManager);
-        expect(this.pluginSettingsManager).toBe(this.app.pluginSettingsManager);
+        expect(this.systemSettingsManager).toBe(this.app.systemSettingsManager);
         expect(this.schemaInitializerManager).toBe(this.app.schemaInitializerManager);
         expect(this.schemaSettingsManager).toBe(this.app.schemaSettingsManager);
       }

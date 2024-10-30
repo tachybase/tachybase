@@ -23,8 +23,8 @@ export class Plugin<T = any> {
     return this.app.router;
   }
 
-  get pluginSettingsManager() {
-    return this.app.pluginSettingsManager;
+  get systemSettingsManager() {
+    return this.app.systemSettingsManager;
   }
 
   get userSettingsManager() {

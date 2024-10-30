@@ -40,7 +40,7 @@ const SCDocumentation = () => {
 
 export class PluginAPIDocClient extends Plugin {
   async load() {
-    this.app.pluginSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add(NAMESPACE, {
       title: `{{t("API documentation", { ns: "${NAMESPACE}" })}}`,
       icon: 'BookOutlined',
       Component: SCDocumentation,

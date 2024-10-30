@@ -39,7 +39,7 @@ export class MapPlugin extends Plugin {
       Component: 'MapBlockInitializer',
     });
 
-    this.app.pluginSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add(NAMESPACE, {
       title: generateNTemplate('Map Manager'),
       icon: 'EnvironmentOutlined',
       Component: Configuration,

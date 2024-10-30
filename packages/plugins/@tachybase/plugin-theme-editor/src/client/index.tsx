@@ -80,7 +80,7 @@ CustomThemeProvider.displayName = 'CustomThemeProvider';
 export class ThemeEditorPlugin extends Plugin {
   async load() {
     this.app.use(CustomThemeProvider);
-    this.app.pluginSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add(NAMESPACE, {
       title: `{{t("Theme editor", {ns:"${NAMESPACE}"})}}`,
       icon: 'BgColorsOutlined',
       Component: ThemeList,

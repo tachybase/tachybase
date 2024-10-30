@@ -37,8 +37,8 @@ export const PluginPermissions: React.FC<{
   const { role } = useContext(RolesManagerContext);
   const api = useAPIClient();
   const compile = useCompile();
-  const settings = app.pluginSettingsManager.getList(false);
-  const allAclSnippets = app.pluginSettingsManager.getAclSnippets();
+  const settings = app.systemSettingsManager.getList(false);
+  const allAclSnippets = app.systemSettingsManager.getAclSnippets();
   const [snippets, setSnippets] = useState<string[]>(role?.snippets || []);
   const flatPlugins = useMemo(() => {
     return flatMap(settings, (item) => {

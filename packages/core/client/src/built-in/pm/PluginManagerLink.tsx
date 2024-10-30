@@ -13,7 +13,7 @@ export const SettingsCenterDropdown = () => {
   const compile = useCompile();
   const { token } = useToken();
   const app = useApp();
-  const systemSettings = app.pluginSettingsManager.getList();
+  const systemSettings = app.systemSettingsManager.getList();
   const userSettings = app.userSettingsManager.getList();
   const settingItem = [];
   userSettings

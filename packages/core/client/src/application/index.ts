@@ -7,7 +7,7 @@ export * from './components';
 export * from './schema-initializer';
 export * from './schema-settings';
 export * from './schema-toolbar';
-export * from './PluginSettingsManager';
+export * from './SystemSettingsManager';
 export * from './NoticesManager';
 export * from './hoc';
 export { ApplicationContext } from './context';

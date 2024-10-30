@@ -27,7 +27,7 @@ Icon.register({ Dispatcher, Design });
 
 export class PluginWebhook extends Plugin {
   async load() {
-    this.app.pluginSettingsManager.add('workflow.webhook', {
+    this.app.systemSettingsManager.add('workflow.webhook', {
       title: tval('Dispatcher'),
       icon: 'Dispatcher',
       Component: WebhookManager,

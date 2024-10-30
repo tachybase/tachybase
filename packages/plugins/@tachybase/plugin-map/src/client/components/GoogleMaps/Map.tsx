@@ -379,7 +379,7 @@ export const GoogleMapsComponent = React.forwardRef<GoogleMapForwardedRefProps, 
           action={
             <Button
               type="primary"
-              onClick={() => navigate(app.pluginSettingsManager.getRoutePath('map') + '?tab=google')}
+              onClick={() => navigate(app.systemSettingsManager.getRoutePath('map') + '?tab=google')}
             >
               {t('Go to the configuration page')}
             </Button>

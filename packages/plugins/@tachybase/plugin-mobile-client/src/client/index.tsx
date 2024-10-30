@@ -39,17 +39,17 @@ export class MobileClientPlugin extends Plugin {
   }
 
   addSettings() {
-    this.app.pluginSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add(NAMESPACE, {
       title: `{{t("Mobile Client-side", { ns: "${NAMESPACE}" })}}`,
       icon: 'MobileOutlined',
       Component: () => <Outlet />,
     });
-    this.app.pluginSettingsManager.add(`${NAMESPACE}.interface`, {
+    this.app.systemSettingsManager.add(`${NAMESPACE}.interface`, {
       title: `{{t("Interface Configuration", { ns: "${NAMESPACE}" })}}`,
       Component: InterfaceConfiguration,
       sort: 1,
     });
-    this.app.pluginSettingsManager.add(`${NAMESPACE}.app`, {
+    this.app.systemSettingsManager.add(`${NAMESPACE}.app`, {
       title: `{{t("App Configuration", { ns: "${NAMESPACE}" })}}`,
       Component: AppConfiguration,
       sort: 2,

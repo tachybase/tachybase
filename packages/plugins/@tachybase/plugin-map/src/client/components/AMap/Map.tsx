@@ -383,7 +383,7 @@ export const AMapComponent = React.forwardRef<AMapForwardedRefProps, AMapCompone
     return (
       <Alert
         action={
-          <Button type="primary" onClick={() => navigate(app.pluginSettingsManager.getRoutePath('map'))}>
+          <Button type="primary" onClick={() => navigate(app.systemSettingsManager.getRoutePath('map'))}>
             {t('Go to the configuration page')}
           </Button>
         }

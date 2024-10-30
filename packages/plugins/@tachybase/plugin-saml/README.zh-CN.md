@@ -17,7 +17,7 @@
 <img src="https://s2.loli.net/2023/05/18/O7UYh9pjePrKzTq.png" width="800px" />   
 
 
-进行应用设置之后，复制**SSO网址**、**实体ID**和**证书**。
+进行应用配置之后，复制**SSO网址**、**实体ID**和**证书**。
 
 <img src="https://s2.loli.net/2023/05/18/Mpwk3dAIvShmUCe.png" width="800px"/>
 

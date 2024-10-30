@@ -27,7 +27,7 @@ export class PluginAuthClient extends Plugin {
   }
 
   async load() {
-    this.app.pluginSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add(NAMESPACE, {
       icon: 'LoginOutlined',
       title: `{{t("Authentication", { ns: "${NAMESPACE}" })}}`,
       Component: Authenticator,

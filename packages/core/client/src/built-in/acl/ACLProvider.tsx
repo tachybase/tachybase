@@ -61,7 +61,7 @@ export const ACLRolesCheckProvider = (props) => {
         if (data?.data?.role !== api.auth.role) {
           api.auth.setRole(data?.data?.role);
         }
-        app.pluginSettingsManager.setAclSnippets(data?.data?.snippets || []);
+        app.systemSettingsManager.setAclSnippets(data?.data?.snippets || []);
       },
     },
   );

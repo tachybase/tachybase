@@ -20,23 +20,25 @@ export class PMPlugin extends Plugin {
   }
 
   addSettings() {
-    this.app.pluginSettingsManager.add('ui-schema-storage', {
+    this.app.systemSettingsManager.add('ui-schema-storage', {
       title: '{{t("Block templates")}}',
       icon: 'LayoutOutlined',
       Component: BlockTemplatesPane,
       aclSnippet: 'pm.ui-schema-storage.block-templates',
     });
-    this.app.pluginSettingsManager.add('system-settings', {
+    this.app.systemSettingsManager.add('system-settings', {
       icon: 'SettingOutlined',
       title: '{{t("System settings")}}',
       Component: SystemSettingsPane,
       aclSnippet: 'pm.system-settings.system-settings',
+      sort: -100,
     });
-    this.app.pluginSettingsManager.add('plugin-manager', {
+    this.app.systemSettingsManager.add('plugin-manager', {
       icon: 'ApiOutlined',
       title: '{{t("Plugin manager")}}',
       Component: PluginManager,
       aclSnippet: 'pm',
+      sort: -90,
     });
   }
 

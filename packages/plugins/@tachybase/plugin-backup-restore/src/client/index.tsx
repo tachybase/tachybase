@@ -7,7 +7,7 @@ import { NAMESPACE } from './locale';
 export class PluginBackupRestoreClient extends Plugin {
   async load() {
     this.app.use(DuplicatorProvider);
-    this.app.pluginSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add(NAMESPACE, {
       title: this.t('Backup & Restore'),
       icon: 'CloudServerOutlined',
       Component: BackupAndRestoreList,

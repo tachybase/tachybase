@@ -3069,76 +3069,6 @@ importers:
         specifier: ^14.1.2
         version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/plugins/@tachybase/plugin-graph-collection-manager:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@antv/x6':
-        specifier: ^2.16.1
-        version: 2.16.1
-      '@antv/x6-plugin-dnd':
-        specifier: ^2.1.1
-        version: 2.1.1(@antv/x6@2.16.1)
-      '@antv/x6-plugin-export':
-        specifier: ^2.1.6
-        version: 2.1.6(@antv/x6@2.16.1)
-      '@antv/x6-plugin-minimap':
-        specifier: ^2.0.6
-        version: 2.0.6(@antv/x6@2.16.1)
-      '@antv/x6-plugin-scroller':
-        specifier: ^2.0.10
-        version: 2.0.10(@antv/x6@2.16.1)
-      '@antv/x6-plugin-selection':
-        specifier: ^2.2.1
-        version: 2.2.1(@antv/x6@2.16.1)
-      '@antv/x6-plugin-snapline':
-        specifier: ^2.1.7
-        version: 2.1.7(@antv/x6@2.16.1)
-      '@antv/x6-react-shape':
-        specifier: ^2.2.2
-        version: 2.2.2(@antv/x6@2.16.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      ahooks:
-        specifier: ^3.8.0
-        version: 3.8.0(react@18.3.1)
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      dagre:
-        specifier: ^0.8.5
-        version: 0.8.5
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   packages/plugins/@tachybase/plugin-iframe-block:
     dependencies:
       '@tachybase/actions':
@@ -4586,9 +4516,6 @@ importers:
       '@tachybase/plugin-gantt':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-gantt
-      '@tachybase/plugin-graph-collection-manager':
-        specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-graph-collection-manager
       '@tachybase/plugin-iframe-block':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-iframe-block
@@ -4963,52 +4890,6 @@ packages:
 
   '@antv/util@3.3.7':
     resolution: {integrity: sha512-qqPg7rIPCsJyl7N56jAC25v/99mJ3ApVkgBsGijhiWrEeKvzXBPk1r5P77Pm9nCljpnn+hH8Z3t5AivbEoTJMg==}
-
-  '@antv/x6-common@2.0.16':
-    resolution: {integrity: sha512-iT60SnTpzoXJwURH+ERYGsTQ8lOuXd7nBuDhgx135VdBG88TizgKrSknz35k8+6j6Qv7O8mRDCGmi2He9li8kg==}
-
-  '@antv/x6-geometry@2.0.5':
-    resolution: {integrity: sha512-MId6riEQkxphBpVeTcL4ZNXL4lScyvDEPLyIafvWMcWNTGK0jgkK7N20XSzqt8ltJb0mGUso5s56mrk8ysHu2A==}
-
-  '@antv/x6-plugin-dnd@2.1.1':
-    resolution: {integrity: sha512-v0szzik1RkadPDn4Qi5mOSaB2AeI78D40/YuCYbPVzplG+HydGsHwO3MLTgJPQ+R5n0eM0W5F850p1VfTOHR7g==}
-    peerDependencies:
-      '@antv/x6': ^2.x
-
-  '@antv/x6-plugin-export@2.1.6':
-    resolution: {integrity: sha512-m0ukMmZhrFE5n7uCR43DVQBdiUfpjGN+vm1mc+6RTZdHK8pa6Mxr0RZztaxPy34YA4tli+bGY3ePslsNPfh6PQ==}
-    peerDependencies:
-      '@antv/x6': ^2.x
-
-  '@antv/x6-plugin-minimap@2.0.6':
-    resolution: {integrity: sha512-of16qYK+M+wiIdEu/AP2oOep49a+SV2XxoD6SX5gnqH5/liGOUKzdatITncW3c3iBgniwRrUmz8XS6GTQNKN0Q==}
-    peerDependencies:
-      '@antv/x6': ^2.x
-
-  '@antv/x6-plugin-scroller@2.0.10':
-    resolution: {integrity: sha512-CrC5zCbtPe7LJEKK8ucLcDN+9lMtTJNApFmFObAiR/y2LO1QFCHz8GGLVeNOZaIEmJbR/Z/etpJkvc1LE7WhTg==}
-    peerDependencies:
-      '@antv/x6': ^2.x
-
-  '@antv/x6-plugin-selection@2.2.1':
-    resolution: {integrity: sha512-9rV4jKcvqNqcGNBAm14nwOBtC+XC8/6qJTce8f8YBsE3XGSxrr8gNn2bmgzcV+3R+McXbAUaQT5P+vQV1Q6raA==}
-    peerDependencies:
-      '@antv/x6': ^2.x
-
-  '@antv/x6-plugin-snapline@2.1.7':
-    resolution: {integrity: sha512-AsysoCb9vES0U2USNhEpYuO/W8I0aYfkhlbee5Kt4NYiMfQfZKQyqW/YjDVaS2pm38C1NKu1LdPVk/BBr4CasA==}
-    peerDependencies:
-      '@antv/x6': ^2.x
-
-  '@antv/x6-react-shape@2.2.2':
-    resolution: {integrity: sha512-uwehrdNCPkgBpVfsxEQk1M77Q+q9D7+HkqIm4Fm3Oz4kzkKCoc3KoxCIoLimbANAhqAPEJ40sRR0ZY+lzmP7WQ==}
-    peerDependencies:
-      '@antv/x6': ^2.x
-      react: '>=18.0.0'
-      react-dom: '>= 18.0.0'
-
-  '@antv/x6@2.16.1':
-    resolution: {integrity: sha512-frH8gEa24dZGl/ca8tHVM2NWVETt3o8Cac7t55SyjzX1AKFifrV2SRqgp/Z4mrUt/SmfjUr6jUId5ZyQZJNRgQ==}
 
   '@arvinxu/layout-kit@1.4.0':
     resolution: {integrity: sha512-dEsmFwZa/NJ2XvDBL4sCPbgFPvCvpxP+G+90Ay9zqN92vc4YbgVo4NjpjsDihiNqwDQjWhasGCC3+v4w7bdYqg==}
@@ -12306,9 +12187,6 @@ packages:
 
   dagre-d3-es@7.0.9:
     resolution: {integrity: sha512-rYR4QfVmy+sR44IBDvVtcAmOReGBvRCWDpO2QjYwqgh9yijw6eSHBqaPG/LIOEy7aBsniLvtMW6pg19qJhq60w==}
-
-  dagre@0.8.5:
-    resolution: {integrity: sha512-/aTqmnRta7x7MCCpExk7HQL2O4owCT2h8NT//9I1OQ9vt29Pa0BzSAkR5lwFUcQ7491yVi/3CXU9jQ5o0Mn2Sw==}
 
   dargs@7.0.0:
     resolution: {integrity: sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==}
@@ -19946,10 +19824,6 @@ packages:
   utila@0.4.0:
     resolution: {integrity: sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==}
 
-  utility-types@3.10.0:
-    resolution: {integrity: sha512-O11mqxmi7wMKCo6HKFt5AhO4BwY3VV68YU07tgxfz8zJTIxr4BpsezN49Ffwy9j3ZpwwJp4fkRwjRzq3uWE6Rg==}
-    engines: {node: '>= 4'}
-
   utility@1.18.0:
     resolution: {integrity: sha512-PYxZDA+6QtvRvm//++aGdmKG/cI07jNwbROz0Ql+VzFV1+Z0Dy55NI4zZ7RHc9KKpBePNFwoErqIuqQv/cjiTA==}
     engines: {node: '>= 0.12.0'}
@@ -21301,49 +21175,6 @@ snapshots:
       fast-deep-equal: 3.1.3
       gl-matrix: 3.4.3
       tslib: 2.8.0
-
-  '@antv/x6-common@2.0.16':
-    dependencies:
-      lodash-es: 4.17.21
-      utility-types: 3.10.0
-
-  '@antv/x6-geometry@2.0.5': {}
-
-  '@antv/x6-plugin-dnd@2.1.1(@antv/x6@2.16.1)':
-    dependencies:
-      '@antv/x6': 2.16.1
-
-  '@antv/x6-plugin-export@2.1.6(@antv/x6@2.16.1)':
-    dependencies:
-      '@antv/x6': 2.16.1
-
-  '@antv/x6-plugin-minimap@2.0.6(@antv/x6@2.16.1)':
-    dependencies:
-      '@antv/x6': 2.16.1
-
-  '@antv/x6-plugin-scroller@2.0.10(@antv/x6@2.16.1)':
-    dependencies:
-      '@antv/x6': 2.16.1
-
-  '@antv/x6-plugin-selection@2.2.1(@antv/x6@2.16.1)':
-    dependencies:
-      '@antv/x6': 2.16.1
-
-  '@antv/x6-plugin-snapline@2.1.7(@antv/x6@2.16.1)':
-    dependencies:
-      '@antv/x6': 2.16.1
-
-  '@antv/x6-react-shape@2.2.2(@antv/x6@2.16.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@antv/x6': 2.16.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
-  '@antv/x6@2.16.1':
-    dependencies:
-      '@antv/x6-common': 2.0.16
-      '@antv/x6-geometry': 2.0.5
-      utility-types: 3.10.0
 
   '@arvinxu/layout-kit@1.4.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)':
     dependencies:
@@ -30445,11 +30276,6 @@ snapshots:
       d3: 7.8.5
       lodash-es: 4.17.21
 
-  dagre@0.8.5:
-    dependencies:
-      graphlib: 2.1.8
-      lodash: 4.17.21
-
   dargs@7.0.0: {}
 
   dashdash@1.14.1:
@@ -39487,8 +39313,6 @@ snapshots:
       which-typed-array: 1.1.15
 
   utila@0.4.0: {}
-
-  utility-types@3.10.0: {}
 
   utility@1.18.0:
     dependencies:

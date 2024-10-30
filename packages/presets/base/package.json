@@ -40,7 +40,6 @@
     "@tachybase/plugin-file-manager": "workspace:*",
     "@tachybase/plugin-formula-field": "workspace:*",
     "@tachybase/plugin-gantt": "workspace:*",
-    "@tachybase/plugin-graph-collection-manager": "workspace:*",
     "@tachybase/plugin-iframe-block": "workspace:*",
     "@tachybase/plugin-import": "workspace:*",
     "@tachybase/plugin-kanban": "workspace:*",

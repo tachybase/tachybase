@@ -24,11 +24,11 @@ import { NoticeManager } from './NoticesManager';
 import type { Plugin } from './Plugin';
 import { PluginContextMenu, PluginItemsOptions } from './PluginContextMenu';
 import { PluginManager, PluginType } from './PluginManager';
-import { PluginSettingOptions, PluginSettingsManager } from './PluginSettingsManager';
 import { ComponentTypeAndString, RouterManager, RouterOptions } from './RouterManager';
 import { SchemaInitializer, SchemaInitializerManager } from './schema-initializer';
 import * as schemaInitializerComponents from './schema-initializer/components';
 import { SchemaSettings, SchemaSettingsManager } from './schema-settings';
+import { PluginSettingOptions, SystemSettingsManager } from './SystemSettingsManager';
 import { UserSettingOptions, UserSettingsManager } from './UserSettingsManager';
 import { compose, normalizeContainer } from './utils';
 import { defineGlobalDeps } from './utils/globalDeps';
@@ -81,7 +81,7 @@ export class Application {
     CollectionField,
   };
   public pluginManager: PluginManager;
-  public pluginSettingsManager: PluginSettingsManager;
+  public systemSettingsManager: SystemSettingsManager;
   public userSettingsManager: UserSettingsManager;
   public devDynamicImport: DevDynamicImport;
   public requirejs: RequireJS;
@@ -134,11 +134,11 @@ export class Application {
     this.addReactRouterComponents();
     this.addProviders(options.providers || []);
     this.ws = new WebSocketClient(options.ws, this);
-    this.pluginSettingsManager = new PluginSettingsManager(options.pluginSettings, this);
+    this.systemSettingsManager = new SystemSettingsManager(options.pluginSettings, this);
     this.userSettingsManager = new UserSettingsManager(options.userSettings, this);
     this.addRoutes();
     this.name = this.options.name || getSubAppName(options.publicPath) || 'main';
-    this.pluginContextMenu = new PluginContextMenu(options.pluginMenuItems, this);
+    this.pluginContextMenu = new PluginContextMenu(options.pluginMenuItems);
     this.AttachmentPreviewManager = new AttachmentPreviewManager(options.attachmentItem, this);
   }
 

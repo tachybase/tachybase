@@ -41,7 +41,7 @@ const MultiAppManager = () => {
     {
       key: '.manager',
       label: (
-        <Link to={instance.pluginSettingsManager.getRoutePath('multi-app-manager')}>{t('Manage applications')}</Link>
+        <Link to={instance.systemSettingsManager.getRoutePath('multi-app-manager')}>{t('Manage applications')}</Link>
       ),
     },
   ];
@@ -61,7 +61,7 @@ export const MultiAppManagerProvider = (props) => {
   return (
     <PinnedPluginListProvider
       items={{
-        am: { order: 201, component: 'MultiAppManager', pin: true },
+        am: { order: 201, component: 'MultiAppManager', pin: true, snippet: 'pm.*' },
       }}
     >
       <SchemaComponentOptions components={{ MultiAppManager, AppNameInput }}>{props.children}</SchemaComponentOptions>

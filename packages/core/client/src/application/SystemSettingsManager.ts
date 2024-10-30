@@ -42,7 +42,7 @@ export interface PluginSettingsPageType {
   [index: string]: any;
 }
 
-export class PluginSettingsManager {
+export class SystemSettingsManager {
   protected settings: Record<string, PluginSettingOptions> = {};
   protected aclSnippets: string[] = [];
   public app: Application;

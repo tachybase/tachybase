@@ -56,7 +56,7 @@ export const AdminSettingsLayout = () => {
   const params = useParams();
   const compile = useCompile();
   const settings = useMemo(() => {
-    const list = app.pluginSettingsManager.getList();
+    const list = app.systemSettingsManager.getList();
     // compile title
     function traverse(settings: PluginSettingsPageType[]) {
       settings.forEach((item) => {
@@ -69,7 +69,7 @@ export const AdminSettingsLayout = () => {
     }
     traverse(list);
     return list;
-  }, [app.pluginSettingsManager, compile]);
+  }, [app.systemSettingsManager, compile]);
   const getFirstDeepChildPath = useCallback((settings: PluginSettingsPageType[]) => {
     if (!settings || !settings.length) {
       return '/admin';
@@ -149,7 +149,7 @@ export const AdminSettingsLayout = () => {
                   <Menu
                     style={{ marginLeft: -theme.margin }}
                     onClick={({ key }) => {
-                      navigate(replaceRouteParams(app.pluginSettingsManager.getRoutePath(key), params));
+                      navigate(replaceRouteParams(app.systemSettingsManager.getRoutePath(key), params));
                     }}
                     selectedKeys={[currentSetting?.name]}
                     mode="horizontal"

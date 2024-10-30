@@ -119,7 +119,7 @@ export function WorkflowCanvas() {
 
         navigate(
           workflow.current
-            ? app.pluginSettingsManager.getRoutePath('workflow')
+            ? app.systemSettingsManager.getRoutePath('workflow')
             : getWorkflowDetailPath(revisions.find((item) => item.current)?.id),
         );
       },
@@ -156,7 +156,7 @@ export function WorkflowCanvas() {
         <header>
           <Breadcrumb
             items={[
-              { title: <Link to={app.pluginSettingsManager.getRoutePath('workflow')}>{lang('Workflow')}</Link> },
+              { title: <Link to={app.systemSettingsManager.getRoutePath('workflow')}>{lang('Workflow')}</Link> },
               { title: <strong>{workflow.title}</strong> },
             ]}
           />

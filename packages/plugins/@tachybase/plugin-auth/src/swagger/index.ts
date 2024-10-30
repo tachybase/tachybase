@@ -611,7 +611,7 @@ export default {
           },
           systemSettings: {
             type: 'object',
-            description: '系统设置',
+            description: '应用配置',
             properties: {
               theme: {
                 type: 'string',

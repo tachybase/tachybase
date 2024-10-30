@@ -3,7 +3,7 @@
   "Allow to sign up": "允许注册",
   "Auth Type": "认证类型",
   "Auth UID": "认证标识",
-  "Authentication": "用户认证",
+  "Authentication": "认证方式",
   "Authenticators": "认证器",
   "No authentication methods available.": "没有可用的认证方式。",
   "Not a valid cellphone number, please re-enter": "不是有效的手机号，请重新输入",

@@ -17,7 +17,7 @@ export const DatasourceLink = () => {
         icon={<DatabaseOutlined style={{ color: token.colorTextHeaderMenu }} />}
         title={t('Data sources')}
         onClick={() => {
-          navigate('/admin/settings/data-source-manager/main/collections');
+          navigate('/admin/settings/collections');
         }}
       />
     </Tooltip>

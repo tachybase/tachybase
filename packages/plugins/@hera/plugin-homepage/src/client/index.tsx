@@ -14,7 +14,7 @@ export class PluginHomePageClient extends Plugin {
       path: '/',
       Component: 'HomePage',
     });
-    this.app.pluginSettingsManager.add('homepage', {
+    this.app.systemSettingsManager.add('homepage', {
       title: tval('Homepage config'),
       icon: 'HomeOutlined',
       Component: HomePageConfiguration,
