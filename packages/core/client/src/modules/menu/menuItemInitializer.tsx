@@ -16,7 +16,7 @@ export const menuItemInitializer_deprecated = new SchemaInitializer({
   },
   items: [
     {
-      name: 'group',
+      name: 'submenu',
       Component: GroupItem,
     },
     {
@@ -37,7 +37,7 @@ export const menuItemInitializer = new SchemaInitializer({
   title: '{{t("Add menu item")}}',
   items: [
     {
-      name: 'group',
+      name: 'submenu',
       Component: GroupItem,
     },
     {

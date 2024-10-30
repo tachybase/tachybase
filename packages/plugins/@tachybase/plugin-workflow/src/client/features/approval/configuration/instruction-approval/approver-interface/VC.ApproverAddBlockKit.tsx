@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { APPROVAL_ACTION_STATUS, flatSchemaArray } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
 
-// 创建区块-操作switch
+// 添加区块-操作switch
 export const ApproverAddBlockKit = () => {
   const itemConfig = useSchemaInitializerItem();
   const formSchema = createFormBlockSchema({

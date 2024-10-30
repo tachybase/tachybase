@@ -178,14 +178,13 @@ const useStyles = createStyles(({ css, token }) => {
       }
     `,
     button: css`
-      max-width: 160px;
       overflow: hidden;
       display: inline-block;
       line-height: var(--tb-header-height);
       white-space: nowrap;
       text-overflow: ellipsis;
       cursor: pointer;
-      padding: 0 16px 16px 16px;
+      padding: 0 16px 0 16px;
       color: ${token.colorTextHeaderMenu};
     `,
   };

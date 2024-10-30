@@ -61,7 +61,6 @@ export class PresetTachyBase extends Plugin {
     ['cas', '0.13.0-alpha.5', false],
     ['data-source-external', '0.22.5', false],
     ['dingtalk', '0.21.76', false],
-    ['graph-collection-manager', '0.9.0-alpha.1', false],
     ['localization-management', '0.11.1-alpha.1', false],
     ['map', '0.8.1-alpha.3', false],
     ['mobile-client', '0.10.0-alpha.2', false],

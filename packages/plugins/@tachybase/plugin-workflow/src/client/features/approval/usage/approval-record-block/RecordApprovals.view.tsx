@@ -6,7 +6,7 @@ import { UserColumn } from '../approval-common/approval-columns/user.column';
 import { WorkflowColumn } from '../approval-common/approval-columns/workflow.column';
 import { SchemaRecordApprovals } from './RecordApprovals.schema';
 
-// 视图组件,创建区块-相关审批
+// 视图组件,添加区块-相关审批
 export const RecordApprovals = () => {
   return (
     <SchemaComponent

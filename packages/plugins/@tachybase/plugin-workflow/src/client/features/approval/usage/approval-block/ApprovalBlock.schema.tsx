@@ -152,7 +152,7 @@ export const getSchemaInsert = ({ item }) => {
   };
 };
 
-// 创建区块-审批(发起/待办)
+// 添加区块-审批(发起/待办)
 export const ApprovalBlockComponent = () => {
   const schemaInitializerItem = useSchemaInitializerItem();
   const { insert } = useSchemaInitializer();

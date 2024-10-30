@@ -18,7 +18,7 @@ export const GroupItem = () => {
 
   const handleClick = useCallback(async () => {
     const values = await FormDialog(
-      t('Add group'),
+      t('Add submenu'),
       () => {
         return (
           <SchemaComponentOptions scope={options.scope} components={{ ...options.components }}>
@@ -69,5 +69,5 @@ export const GroupItem = () => {
       ],
     });
   }, [insert, options.components, options.scope, t, theme]);
-  return <SchemaInitializerItem title={t('Group')} onClick={handleClick} className={styles.menuItem} />;
+  return <SchemaInitializerItem title={t('Submenu')} onClick={handleClick} className={styles.menuItem} />;
 };

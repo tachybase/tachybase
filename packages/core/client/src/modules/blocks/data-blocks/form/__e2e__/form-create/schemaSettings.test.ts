@@ -391,7 +391,7 @@ test.describe('creation form block schema settings', () => {
     await expect(page.getByRole('menuitem', { name: 'Save as block template' })).toBeHidden();
     await expect(page.getByRole('menuitem', { name: 'Convert reference to duplicate' })).toBeVisible();
 
-    // 创建区块的时候，可以选择刚才保存的模板 --------------------------------------------------
+    // 添加区块的时候，可以选择刚才保存的模板 --------------------------------------------------
     await page.getByLabel('schema-initializer-Grid-page:addBlock').hover();
     await page.getByRole('menuitem', { name: 'form Form right' }).first().hover();
     await page.getByRole('menuitem', { name: 'General right' }).hover();

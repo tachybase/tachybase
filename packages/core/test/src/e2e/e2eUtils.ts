@@ -145,7 +145,7 @@ export interface PageConfig {
    * 页面类型
    * @default 'page'
    */
-  type?: 'group' | 'page' | 'link';
+  type?: 'submenu' | 'page' | 'link';
   /**
    * type 为 link 时，表示跳转的链接
    */
@@ -980,7 +980,7 @@ export async function expectInitializerMenu({ showMenu, supportedOptions, page }
 }
 
 /**
- * 用于辅助在 page 中创建区块
+ * 用于辅助在 page 中添加区块
  * @param page
  * @param name
  */

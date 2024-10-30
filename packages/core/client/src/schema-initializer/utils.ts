@@ -984,7 +984,7 @@ export const useCollectionDataSourceItems = ({
         }
       } else if (noAssociationMenu[0].children.length) {
         if (hideOtherRecordsInPopup) {
-          // 当可选数据表只有一个时，实现只点击一次区块 menu 就能创建区块
+          // 当可选数据表只有一个时，实现只点击一次区块 menu 就能添加区块
           if (noAssociationMenu[0].children.length <= 1) {
             noAssociationMenu[0].children = (noAssociationMenu[0].children[0]?.children as any) || [];
             return noAssociationMenu;

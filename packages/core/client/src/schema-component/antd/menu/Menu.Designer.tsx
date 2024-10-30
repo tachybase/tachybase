@@ -74,7 +74,7 @@ const InsertMenuItems = (props) => {
     <SchemaSettingsSubMenu eventKey={eventKey} title={title}>
       <SchemaSettingsModalItem
         eventKey={`${insertPosition}group`}
-        title={t('Group')}
+        title={t('Submenu')}
         schema={
           {
             type: 'object',
