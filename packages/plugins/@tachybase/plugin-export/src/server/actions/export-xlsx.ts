@@ -1,8 +1,10 @@
 import { Context, Next } from '@tachybase/actions';
 import { Repository } from '@tachybase/database';
+import { dayjs } from '@tachybase/utils';
 
 import xlsx from 'node-xlsx';
 
+import { EXPORT_LENGTH_MAX } from '../constants';
 import render from '../renders';
 import { columns2Appends } from '../utils';
 
@@ -25,8 +27,21 @@ export async function exportXlsx(ctx: Context, next: Next) {
     sort,
     context: ctx,
   });
+  if (data.length > EXPORT_LENGTH_MAX) {
+    ctx.throw(400, 'Too many records to export');
+  }
   const collectionFields = columns.map((col) => collection.fields.get(col.dataIndex[0]));
   const { rows, ranges } = await render({ columns, fields: collectionFields, data }, ctx);
+  const timezone = ctx.get('x-timezone');
+  if (timezone) {
+    for (const data of rows) {
+      for (const key in data) {
+        if (data[key] instanceof Date) {
+          data[key] = dayjs(data[key]).utcOffset(timezone).format('YYYY-MM-DD HH:mm:ss');
+        }
+      }
+    }
+  }
   ctx.body = xlsx.build([
     {
       name: 'Sheet 1',
