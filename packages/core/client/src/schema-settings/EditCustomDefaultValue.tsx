@@ -36,7 +36,10 @@ export const EditCustomDefaultValue = () => {
       onSubmit={({ default: { value } }) => {
         field.setValue(value);
         fieldSchema['default'] = value;
-        fieldSchema['x-component-props']['defaultValue'] = value;
+        fieldSchema['x-component-props'] = {
+          ...fieldSchema['x-component-props'],
+          defaultValue: value,
+        };
         dn.emit('patch', {
           schema: {
             'x-uid': fieldSchema['x-uid'],
