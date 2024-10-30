@@ -9,6 +9,7 @@ ARG TACHYBASE_VERSION=0.21.16
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV COREPACK_NPM_REGISTRY=$NPM_REGISTRY
 RUN corepack enable
 
 WORKDIR /app
@@ -34,6 +35,7 @@ COPY ./docker/tachybase/docker-entrypoint.sh /app/
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV COREPACK_NPM_REGISTRY=$NPM_REGISTRY
 RUN corepack enable
 RUN pnpm config set registry $NPM_REGISTRY
 
