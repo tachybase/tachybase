@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Plugin } from '../../application/Plugin';
 import { ScrollAssistantProvider } from './ScrollAssistant.provider';
-import { ScrollAssistantStatusProvider, useScrollAssistantStatus } from './ScrollAssistantStatus.provider';
+import { useScrollAssistantStatus } from './ScrollAssistantStatus.provider';
 
 export const scrollAssistant = {
   name: 'scrollAssistant',

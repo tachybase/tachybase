@@ -2,10 +2,9 @@ import React from 'react';
 
 import { css } from '@emotion/css';
 import { Button, Card, Flex, Space, Typography } from 'antd';
-import { Outlet, useMatch, useParams } from 'react-router';
+import { Outlet, useMatch } from 'react-router';
 
-import { PageTab } from '../page-style/PageTab';
-import { usePageStyle } from '../page-style/usePageStyle';
+import { useApp } from '../../application';
 
 const WelcomeCard = () => {
   return (
@@ -37,12 +36,12 @@ const WelcomeCard = () => {
 };
 
 export const AdminContent = () => {
+  const app = useApp();
+  const CustomAdminContent = app.getComponent('CustomAdminContent');
   const isMatchAdmin = useMatch('/admin');
-  const params = useParams<any>();
-  const pageStyle = usePageStyle();
   if (isMatchAdmin) {
     return <WelcomeCard />;
   } else {
-    return params.name && pageStyle === 'tab' ? <PageTab /> : <Outlet />;
+    return CustomAdminContent ? <CustomAdminContent /> : <Outlet />;
   }
 };

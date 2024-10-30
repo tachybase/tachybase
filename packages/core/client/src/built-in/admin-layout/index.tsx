@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-import { useSessionStorageState } from 'ahooks';
-import { App, ConfigProvider, Divider, Layout } from 'antd';
-import { createGlobalStyle, createStyles } from 'antd-style';
-import { Link, Outlet, useLocation, useMatch, useNavigate, useParams } from 'react-router-dom';
+import { Layout } from 'antd';
+import { createStyles } from 'antd-style';
+import { useLocation, useMatch, useNavigate, useParams } from 'react-router-dom';
 
 import {
   ACLRolesCheckProvider,
@@ -26,9 +25,8 @@ import {
 } from '../..';
 import { Plugin } from '../../application/Plugin';
 import { VariablesProvider } from '../../variables';
-import { PageTab } from '../page-style/PageTab';
-import { usePageStyle } from '../page-style/usePageStyle';
 import { AdminContent } from './AdminContent';
+import { AdminTabs } from './AdminTabs';
 import { NoticeArea } from './NoticeArea';
 
 const useStyles = createStyles(({ css, token }) => {
@@ -194,8 +192,6 @@ const useMenuProps = () => {
 };
 
 const MenuEditor = (props) => {
-  const { notification } = App.useApp();
-  const [hasNotice, setHasNotice] = useSessionStorageState('plugin-notice', { defaultValue: false });
   const { setTitle } = useDocumentTitle();
   const navigate = useNavigate();
   const params = useParams<any>();
@@ -290,44 +286,6 @@ const MenuEditor = (props) => {
     return s;
   }, [data?.data]);
 
-  useRequest(
-    {
-      url: 'applicationPlugins:list',
-      params: {
-        sort: 'id',
-        paginate: false,
-      },
-    },
-    {
-      onSuccess: ({ data }) => {
-        setHasNotice(true);
-        const errorPlugins = data.filter((item) => !item.isCompatible);
-        if (errorPlugins.length) {
-          notification.error({
-            message: 'Plugin dependencies check failed',
-            description: (
-              <div>
-                <div>
-                  These plugins failed dependency checks. Please go to the{' '}
-                  <Link to="/admin/pm/list/local/">plugin management page</Link> for more details.{' '}
-                </div>
-                <ul>
-                  {errorPlugins.map((item) => (
-                    <li key={item.id}>
-                      {item.displayName} - {item.packageName}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ),
-          });
-        }
-      },
-      manual: true,
-      // ready: !hasNotice,
-    },
-  );
-
   if (loading) {
     return;
   }
@@ -338,82 +296,14 @@ const MenuEditor = (props) => {
   );
 };
 
-/**
- * 鼠标悬浮在顶部“更多”按钮时显示的子菜单的样式
- */
-const GlobalStyleForAdminLayout = createGlobalStyle`
-  .tb-container-of-header-submenu {
-    .ant-menu.ant-menu-submenu.ant-menu-submenu-popup {
-      .ant-menu.ant-menu-sub.ant-menu-vertical {
-        background-color: ${(p) => {
-          // @ts-ignore
-          return p.theme.colorBgHeader + ' !important';
-        }};
-        color: ${(p) => {
-          // @ts-ignore
-          return p.theme.colorTextHeaderMenu + ' !important';
-        }};
-        .ant-menu-item:hover {
-          color: ${(p) => {
-            // @ts-ignore
-            return p.theme.colorTextHeaderMenuHover + ' !important';
-          }};
-          background-color: ${(p) => {
-            // @ts-ignore
-            return p.theme.colorBgHeaderMenuHover + ' !important';
-          }};
-        }
-        .ant-menu-item.ant-menu-item-selected {
-          color: ${(p) => {
-            // @ts-ignore
-            return p.theme.colorTextHeaderMenuActive + ' !important';
-          }};
-          background-color: ${(p) => {
-            // @ts-ignore
-            return p.theme.colorBgHeaderMenuActive + ' !important';
-          }};
-        }
-      }
-    }
-  }
-`;
-
-/**
- * 确保顶部菜单的子菜单的主题样式正确
- * @param param0
- * @returns
- */
-const SetThemeOfHeaderSubmenu = ({ children }) => {
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    containerRef.current = document.createElement('div');
-    containerRef.current.classList.add('tb-container-of-header-submenu');
-    document.body.appendChild(containerRef.current);
-
-    return () => {
-      document.body.removeChild(containerRef.current);
-    };
-  }, []);
-
-  return (
-    <>
-      <GlobalStyleForAdminLayout />
-      <ConfigProvider getPopupContainer={() => containerRef.current}>{children}</ConfigProvider>
-    </>
-  );
-};
-
 export const InternalAdminLayout = (props: any) => {
   const sideMenuRef = useRef<HTMLDivElement>();
   const result = useSystemSettings();
   const app = useApp();
   const params = useParams<any>();
   const { styles } = useStyles();
-  const pageStyle = usePageStyle();
   return (
     <Layout>
-      <GlobalStyleForAdminLayout />
       <Layout.Header className={styles.header}>
         <div className={styles.headerA}>
           <div className={styles.headerB}>
@@ -426,24 +316,14 @@ export const InternalAdminLayout = (props: any) => {
               <img className={styles.logo} src={result?.data?.data?.logo?.url} />
               <h1 className={styles.title}>{result?.data?.data?.title}</h1>
             </div>
+            <MenuEditor sideMenuRef={sideMenuRef} />
             <div className={styles.editor}>
+              <AdminTabs />
               <NoticeArea className={styles.notice} />
-              <SetThemeOfHeaderSubmenu>
-                <MenuEditor sideMenuRef={sideMenuRef} />
-              </SetThemeOfHeaderSubmenu>
             </div>
           </div>
           <div className={styles.right}>
             <PinnedPluginList />
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorSplit: 'rgba(255, 255, 255, 0.1)',
-                },
-              }}
-            >
-              <Divider type="vertical" />
-            </ConfigProvider>
             <CurrentUser />
           </div>
         </div>

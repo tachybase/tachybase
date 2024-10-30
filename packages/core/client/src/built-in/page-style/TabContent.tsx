@@ -1,17 +1,25 @@
 import React, { useContext, useEffect } from 'react';
 
-import { css } from '@emotion/css';
-import { Tabs } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 
 import { RemoteSchemaComponent } from '../../schema-component';
 import { useDocumentTitle } from '../document-title';
 import { PageStyleContext } from './PageStyle.provider';
+import { usePageStyle } from './usePageStyle';
 
-export const PageTab = () => {
+export const TabContentInternal = ({ items, activeKey }) => {
+  const item = items.find((item) => item.key === activeKey);
+
+  if (!item) {
+    return null;
+  }
+
+  return item.children;
+};
+
+export const TabContent = () => {
   const params = useParams<{ name?: string }>();
   const { title, setTitle } = useDocumentTitle();
-  const navigate = useNavigate();
   const { items, setItems } = useContext(PageStyleContext);
 
   useEffect(() => {
@@ -34,33 +42,15 @@ export const PageTab = () => {
     }
   }, [params.name, title]);
 
-  const onEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string, action: 'add' | 'remove') => {
-    if (action === 'remove') {
-      setItems((items) => {
-        return items.filter((item) => item.key !== targetKey);
-      });
-    }
-  };
-  return (
-    <Tabs
-      className={css`
-        margin: 0;
-        .ant-tabs-nav {
-          margin: 0;
-        }
-      `}
-      type="editable-card"
-      items={items}
-      onEdit={onEdit}
-      hideAdd
-      onChange={(key) => {
-        navigate(`/admin/${key}`);
-      }}
-      activeKey={params.name}
-    />
-  );
+  return <TabContentInternal items={items} activeKey={params.name} />;
 };
 
 export function MyRouteSchemaComponent({ name }: { name: string }) {
   return <RemoteSchemaComponent onlyRenderProperties uid={name} />;
 }
+
+export const CustomAdminContent = () => {
+  const params = useParams<any>();
+  const pageStyle = usePageStyle();
+  return params.name && pageStyle === 'tab' ? <TabContent /> : <Outlet />;
+};

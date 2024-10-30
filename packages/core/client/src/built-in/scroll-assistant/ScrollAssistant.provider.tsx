@@ -22,9 +22,9 @@ export const ScrollAssistantProvider = ({ children }) => {
           className={css`
             position: absolute;
             top: 0;
-            left: 200px;
+            left: 500px;
+            right: 500px;
             height: var(--tb-header-height);
-            right: 200px;
             z-index: 99999;
             background-color: rgba(226, 252, 173, 0.274);
           `}
