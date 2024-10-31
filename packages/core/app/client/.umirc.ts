@@ -25,7 +25,7 @@ export default defineConfig({
   title: 'Loading...',
   devtool: process.env.NODE_ENV === 'development' ? 'source-map' : false,
   favicons: [`${appPublicPath}favicon/favicon.ico`],
-  metas: [{ name: 'viewport', content: 'initial-scale=1' }],
+  metas: [{ name: 'viewport', content: 'initial-scale=0.1' }],
   links: [
     { rel: 'apple-touch-icon', size: '180x180', ref: `${appPublicPath}favicon/apple-touch-icon.png` },
     { rel: 'icon', type: 'image/png', size: '32x32', ref: `${appPublicPath}favicon/favicon-32x32.png` },
