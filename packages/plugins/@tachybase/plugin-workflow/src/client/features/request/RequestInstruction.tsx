@@ -165,6 +165,19 @@ export default class extends Instruction {
       },
       description: `{{t("Only support standard JSON data", { ns: "${NAMESPACE}" })}}`,
     },
+    comment: {
+      type: 'string',
+      title: `{{t("Comment", { ns: "${NAMESPACE}" })}}`,
+      'x-decorator': 'FormItem',
+      'x-decorator-props': {},
+      'x-component': 'Input.TextArea',
+      'x-component-props': {
+        autoSize: {
+          minRows: 3,
+        },
+        placeholder: `{{t("Input body comment", { ns: "${NAMESPACE}" })}}`,
+      },
+    },
     timeout: {
       type: 'number',
       title: `{{t("Timeout config", { ns: "${NAMESPACE}" })}}`,

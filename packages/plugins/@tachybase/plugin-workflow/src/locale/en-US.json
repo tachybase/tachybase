@@ -155,6 +155,7 @@
   "In the workflow, notification messages can be viewed by the notified person in the notification center.": "In the workflow, notification messages can be viewed by the notified person in the notification center.",
   "Initiate Request": "Initiate Request",
   "Initiator": "Initiator",
+  "Input body comment": "Input body comment",
   "Input request data": "Input request data",
   "Insert": "Insert",
   "Interceptor": "Interceptor",
@@ -292,6 +293,7 @@
   "Withdrawn": "Withdrawn",
   "Workflow": "Workflow",
   "Workflow todos": "Workflow todos",
+  "comment": "comment",
   "concat": "concat",
   "ms": "ms",
   "needAuthorization": "needAuthorization"
