@@ -534,7 +534,7 @@ export const SchemaSettingsItemGroup: FC<SchemaSettingsItemGroupProps> = (props)
   const key = useMemo(() => uid(), []);
   const item = {
     key,
-    type: 'submenu',
+    type: 'group',
     title: props.title,
     label: props.title,
     children: getMenuItems(() => props.children),

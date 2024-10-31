@@ -26,6 +26,10 @@ export const useStyles = genStyleHook('tb-action-drawer', (token) => {
         },
       },
 
+      '.ant-drawer-title': {
+        textAlign: 'center',
+      },
+
       '.footer': {
         display: 'flex',
         justifyContent: 'flex-end',
