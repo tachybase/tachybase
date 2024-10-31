@@ -61,6 +61,7 @@
     "react-quill": "^2.0.0",
     "react-router": "^6.25.1",
     "react-router-dom": "^6.25.1",
+    "react-svg": "^16.1.34",
     "react-to-print": "^2.14.15",
     "react-transition-group": "^4.4.5",
     "react-zoom-pan-pinch": "^3.4.4",

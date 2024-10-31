@@ -617,6 +617,9 @@ importers:
       react-router-dom:
         specifier: ^6.25.1
         version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-svg:
+        specifier: ^16.1.34
+        version: 16.1.34(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-to-print:
         specifier: ^2.14.15
         version: 2.14.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7261,49 +7264,42 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@napi-rs/nice-linux-arm64-musl@1.0.1':
     resolution: {integrity: sha512-wG8fa2VKuWM4CfjOjjRX9YLIbysSVV1S3Kgm2Fnc67ap/soHBeYZa6AGMeR5BJAylYRjnoVOzV19Cmkco3QEPw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@napi-rs/nice-linux-ppc64-gnu@1.0.1':
     resolution: {integrity: sha512-lxQ9WrBf0IlNTCA9oS2jg/iAjQyTI6JHzABV664LLrLA/SIdD+I1i3Mjf7TsnoUbgopBcCuDztVLfJ0q9ubf6Q==}
     engines: {node: '>= 10'}
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@napi-rs/nice-linux-riscv64-gnu@1.0.1':
     resolution: {integrity: sha512-3xs69dO8WSWBb13KBVex+yvxmUeEsdWexxibqskzoKaWx9AIqkMbWmE2npkazJoopPKX2ULKd8Fm9veEn0g4Ig==}
     engines: {node: '>= 10'}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@napi-rs/nice-linux-s390x-gnu@1.0.1':
     resolution: {integrity: sha512-lMFI3i9rlW7hgToyAzTaEybQYGbQHDrpRkg+1gJWEpH0PLAQoZ8jiY0IzakLfNWnVda1eTYYlxxFYzW8Rqczkg==}
     engines: {node: '>= 10'}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@napi-rs/nice-linux-x64-gnu@1.0.1':
     resolution: {integrity: sha512-XQAJs7DRN2GpLN6Fb+ZdGFeYZDdGl2Fn3TmFlqEL5JorgWKrQGRUrpGKbgZ25UeZPILuTKJ+OowG2avN8mThBA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@napi-rs/nice-linux-x64-musl@1.0.1':
     resolution: {integrity: sha512-/rodHpRSgiI9o1faq9SZOp/o2QkKQg7T+DK0R5AkbnI/YxvAIEHf2cngjYzLMQSQgUhxym+LFr+UGZx4vK4QdQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@napi-rs/nice-win32-arm64-msvc@1.0.1':
     resolution: {integrity: sha512-rEcz9vZymaCB3OqEXoHnp9YViLct8ugF+6uO5McifTedjq4QMQs3DHz35xBEGhH3gJWEsXMUbzazkz5KNM5YUg==}
@@ -7416,28 +7412,24 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@node-rs/bcrypt-linux-arm64-musl@1.10.4':
     resolution: {integrity: sha512-rLvSMW/gVUBd2k2gAqQfuOReHWd9+jvz58E3i1TbkRE3a5ChvjOFc9qKPEmXuXuD9Mdj7gUwcYwpq8MdB5MtNw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@node-rs/bcrypt-linux-x64-gnu@1.10.4':
     resolution: {integrity: sha512-I++6bh+BIp70X/D/crlSgCq8K0s9nGvzmvAGFkqSG4h3LBtjJx4RKbygnoWvcBV9ErK1rvcjfMyjwZt1ukueFA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@node-rs/bcrypt-linux-x64-musl@1.10.4':
     resolution: {integrity: sha512-f9RPl/5n2NS0mMJXB4IYbodKnq5HzOK5x1b9eKbcjsY0rw3mJC3K0XRFc8iaw1a5chA+xV1TPXz5mkykmr2CQQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@node-rs/bcrypt-wasm32-wasi@1.10.4':
     resolution: {integrity: sha512-VaDOf+wic0yoHFimMkC5VMa/33BNqg6ieD+C/ibb7Av3NnVW4/W9YpDpqAWMR2w3fA40uTLWZ7FZSrcFck27oA==}
@@ -8610,97 +8602,81 @@ packages:
     resolution: {integrity: sha512-0KXvIJQMOImLCVCz9uvvdPgfyWo93aHHp8ui3FrtOP57svqrF/roSSR5pjqL2hcMp0ljeGlU4q9o/rQaAQ3AYA==}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.24.0':
     resolution: {integrity: sha512-it2BW6kKFVh8xk/BnHfakEeoLPv8STIISekpoF+nBgWM4d55CZKc7T4Dx1pEbTnYm/xEKMgy1MNtYuoA8RFIWw==}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.14.1':
     resolution: {integrity: sha512-p9rGKYkHdFMzhckOTFubfxgyIO1vw//7IIjBBRVzyZebWlzRLeNhqxuSaZ7kCEKVkm/kuC9fVRW9HkC/zNRG2w==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-gnu@4.24.0':
     resolution: {integrity: sha512-i0xTLXjqap2eRfulFVlSnM5dEbTVque/3Pi4g2y7cxrs7+a9De42z4XxKLYJ7+OhE3IgxvfQM7vQc43bwTgPwA==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.14.1':
     resolution: {integrity: sha512-nDY6Yz5xS/Y4M2i9JLQd3Rofh5OR8Bn8qe3Mv/qCVpHFlwtZSBYSPaU4mrGazWkXrdQ98GB//H0BirGR/SKFSw==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm64-musl@4.24.0':
     resolution: {integrity: sha512-9E6MKUJhDuDh604Qco5yP/3qn3y7SLXYuiC0Rpr89aMScS2UAmK1wHP2b7KAa1nSjWJc/f/Lc0Wl1L47qjiyQw==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.14.1':
     resolution: {integrity: sha512-im7HE4VBL+aDswvcmfx88Mp1soqL9OBsdDBU8NqDEYtkri0qV0THhQsvZtZeNNlLeCUQ16PZyv7cqutjDF35qw==}
     cpu: [ppc64le]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.24.0':
     resolution: {integrity: sha512-2XFFPJ2XMEiF5Zi2EBf4h73oR1V/lycirxZxHZNc93SqDN/IWhYYSYj8I9381ikUFXZrz2v7r2tOVk2NBwxrWw==}
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.14.1':
     resolution: {integrity: sha512-RWdiHuAxWmzPJgaHJdpvUUlDz8sdQz4P2uv367T2JocdDa98iRw2UjIJ4QxSyt077mXZT2X6pKfT2iYtVEvOFw==}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.24.0':
     resolution: {integrity: sha512-M3Dg4hlwuntUCdzU7KjYqbbd+BLq3JMAOhCKdBE3TcMGMZbKkDdJ5ivNdehOssMCIokNHFOsv7DO4rlEOfyKpg==}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-s390x-gnu@4.14.1':
     resolution: {integrity: sha512-VMgaGQ5zRX6ZqV/fas65/sUGc9cPmsntq2FiGmayW9KMNfWVG/j0BAqImvU4KTeOOgYSf1F+k6at1UfNONuNjA==}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-s390x-gnu@4.24.0':
     resolution: {integrity: sha512-mjBaoo4ocxJppTorZVKWFpy1bfFj9FeCMJqzlMQGjpNPY9JwQi7OuS1axzNIk0nMX6jSgy6ZURDZ2w0QW6D56g==}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.14.1':
     resolution: {integrity: sha512-9Q7DGjZN+hTdJomaQ3Iub4m6VPu1r94bmK2z3UeWP3dGUecRC54tmVu9vKHTm1bOt3ASoYtEz6JSRLFzrysKlA==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.24.0':
     resolution: {integrity: sha512-ZXFk7M72R0YYFN5q13niV0B7G8/5dcQ9JDp8keJSfr3GoZeXEoMHP/HlvqROA3OMbMdfr19IjCeNAnPUG93b6A==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.14.1':
     resolution: {integrity: sha512-JNEG/Ti55413SsreTguSx0LOVKX902OfXIKVg+TCXO6Gjans/k9O6ww9q3oLGjNDaTLxM+IHFMeXy/0RXL5R/g==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-x64-musl@4.24.0':
     resolution: {integrity: sha512-w1i+L7kAXZNdYl+vFvzSZy8Y1arS7vMgIy8wusXJzRrPyof5LAb02KGr1PD2EkRcl73kHulIID0M501lN+vobQ==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-win32-arm64-msvc@4.14.1':
     resolution: {integrity: sha512-ryS22I9y0mumlLNwDFYZRDFLwWh3aKaC72CWjFcFvxK0U6v/mOkM5Up1bTbCRAhv3kEIwW2ajROegCIQViUCeA==}
@@ -9139,6 +9115,9 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
+
+  '@tanem/svg-injector@10.1.68':
+    resolution: {integrity: sha512-UkJajeR44u73ujtr5GVSbIlELDWD/mzjqWe54YMK61ljKxFcJoPd9RBSaO7xj02ISCWUqJW99GjrS+sVF0UnrA==}
 
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
@@ -9915,28 +9894,24 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@umijs/es-module-parser-linux-arm64-musl@0.0.7':
     resolution: {integrity: sha512-cqQffARWkmQ3n1RYNKZR3aD6X8YaP6u1maASjDgPQOpZMAlv/OSDrM/7iGujWTs0PD0haockNG9/DcP6lgPHMw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@umijs/es-module-parser-linux-x64-gnu@0.0.7':
     resolution: {integrity: sha512-PHrKHtT665Za0Ydjch4ACrNpRU+WIIden12YyF1CtMdhuLDSoU6UfdhF3NoDbgEUcXVDX/ftOqmj0SbH3R1uew==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@umijs/es-module-parser-linux-x64-musl@0.0.7':
     resolution: {integrity: sha512-cyZvUK5lcECLWzLp/eU1lFlCETcz+LEb+wrdARQSST1dgoIGZsT4cqM1WzYmdZNk3o883tiZizLt58SieEiHBQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@umijs/es-module-parser-win32-arm64-msvc@0.0.7':
     resolution: {integrity: sha512-V7WxnUI88RboSl0RWLNQeKBT7EDW35fW6Tn92zqtoHHxrhAIL9DtDyvC8REP4qTxeZ6Oej/Ax5I6IjsLx3yTOg==}
@@ -9977,28 +9952,24 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@umijs/mako-linux-arm64-musl@0.9.3':
     resolution: {integrity: sha512-3c2NbXLVLg6FkkG94lXKh7S2w4FfH2vC0HNeTx16D6JldJSTE+D1hh/W8RKOrkOvnrcOR2aKWCRSzBx9xfleWg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@umijs/mako-linux-x64-gnu@0.9.3':
     resolution: {integrity: sha512-ycMsOsoJ8uZx5qBPWspN+OlCSRWJqs8rsfW9PONEFe2c+9/+7fo0KZukeXN1WU6L+EyQ2eWlvJjvnTp7gXSCZA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@umijs/mako-linux-x64-musl@0.9.3':
     resolution: {integrity: sha512-X7KXe9D3L77sj+yE3PMTsb/NIRuxjs/eZlJR7d3bcT+M7fxpxjcBHqht8XFP03sJgbfvcKBxChFXZW33DKLjfQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@umijs/mako-win32-ia32-msvc@0.9.3':
     resolution: {integrity: sha512-hrRdoo5jQ9X5V+6d2x0dxUYQTGAlxKCMUbvQ3RswUgoK0HrNQb/aLVloQduOl9CDFOluoTX9EMjIM6JKEqKDKQ==}
@@ -13729,11 +13700,9 @@ packages:
 
   glob@5.0.15:
     resolution: {integrity: sha512-c9IPMazfRITpmAAKi22dK1VKxGDX9ehhqfABDriL/lzO92xcUKEJPQHrVA/2YHSNFB4iFlykVmWvwo48nr3OxA==}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@7.1.7:
     resolution: {integrity: sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@7.2.0:
     resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==}
@@ -15013,56 +14982,48 @@ packages:
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   lightningcss-linux-arm64-gnu@1.26.0:
     resolution: {integrity: sha512-iJmZM7fUyVjH+POtdiCtExG+67TtPUTer7K/5A8DIfmPfrmeGvzfRyBltGhQz13Wi15K1lf2cPYoRaRh6vcwNA==}
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   lightningcss-linux-arm64-musl@1.22.1:
     resolution: {integrity: sha512-MCV6RuRpzXbunvzwY644iz8cw4oQxvW7oer9xPkdadYqlEyiJJ6wl7FyJOH7Q6ZYH4yjGAUCvxDBxPbnDu9ZVg==}
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   lightningcss-linux-arm64-musl@1.26.0:
     resolution: {integrity: sha512-XxoEL++tTkyuvu+wq/QS8bwyTXZv2y5XYCMcWL45b8XwkiS8eEEEej9BkMGSRwxa5J4K+LDeIhLrS23CpQyfig==}
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   lightningcss-linux-x64-gnu@1.22.1:
     resolution: {integrity: sha512-RjNgpdM20VUXgV7us/VmlO3Vn2ZRiDnc3/bUxCVvySZWPiVPprpqW/QDWuzkGa+NCUf6saAM5CLsZLSxncXJwg==}
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   lightningcss-linux-x64-gnu@1.26.0:
     resolution: {integrity: sha512-1dkTfZQAYLj8MUSkd6L/+TWTG8V6Kfrzfa0T1fSlXCXQHrt1HC1/UepXHtKHDt/9yFwyoeayivxXAsApVxn6zA==}
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   lightningcss-linux-x64-musl@1.22.1:
     resolution: {integrity: sha512-ZgO4C7Rd6Hv/5MnyY2KxOYmIlzk4rplVolDt3NbkNR8DndnyX0Q5IR4acJWNTBICQ21j3zySzKbcJaiJpk/4YA==}
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   lightningcss-linux-x64-musl@1.26.0:
     resolution: {integrity: sha512-yX3Rk9m00JGCUzuUhFEojY+jf/6zHs3XU8S8Vk+FRbnr4St7cjyMXdNjuA2LjiT8e7j8xHRCH8hyZ4H/btRE4A==}
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   lightningcss-win32-arm64-msvc@1.26.0:
     resolution: {integrity: sha512-X/597/cFnCogy9VItj/+7Tgu5VLbAtDF7KZDPdSw0MaL6FL940th1y3HiOzFIlziVvAtbo0RB3NAae1Oofr+Tw==}
@@ -17833,6 +17794,12 @@ packages:
     resolution: {integrity: sha512-Kyvtppdtv1KqJyNU4DtrSMI0unyQRgtraZvVQ0GAazVbYiTsIVpyhpr+5R0Aavzu4uJNSe1awj2rk/qI7i6Zfw==}
     peerDependencies:
       react: '>=16.8.0'
+
+  react-svg@16.1.34:
+    resolution: {integrity: sha512-L4ak1qNFLgzVbHm0xQEpHoIOqb3um/B0ybahd3U2TKoGZxb0JaPVI5lsAhvSng2P1kcsYEok2Z7RpcKx7arJGw==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
 
   react-to-print@2.14.15:
     resolution: {integrity: sha512-SKnwOzU2cJ8eaAkoJO7+gNhvfEDmm+Y34IdcHsjtHioUevUPhprqbVtvNJlZ2JkGJ8ExK2QNWM9pXECTDR5D8w==}
@@ -20879,12 +20846,12 @@ snapshots:
       '@antv/color-util': 2.0.6
       '@antv/scale': 0.3.18
       '@antv/util': 2.0.17
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/color-util@2.0.6':
     dependencies:
       '@antv/util': 2.0.17
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/component@0.8.35':
     dependencies:
@@ -20896,7 +20863,7 @@ snapshots:
       '@antv/scale': 0.3.18
       '@antv/util': 2.0.17
       fecha: 4.2.3
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/component@1.0.2':
     dependencies:
@@ -20909,7 +20876,7 @@ snapshots:
     dependencies:
       '@antv/matrix-util': 3.1.0-beta.3
       '@antv/util': 2.0.17
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/coord@0.4.7':
     dependencies:
@@ -20919,7 +20886,7 @@ snapshots:
 
   '@antv/dom-util@2.0.4':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/event-emitter@0.1.3': {}
 
@@ -20935,7 +20902,7 @@ snapshots:
       d3-interpolate: 3.0.1
       d3-timer: 1.0.10
       detect-browser: 5.3.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/g-camera-api@1.2.23':
     dependencies:
@@ -20952,7 +20919,7 @@ snapshots:
       '@antv/path-util': 2.0.15
       '@antv/util': 2.0.17
       gl-matrix: 3.4.3
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/g-canvas@1.11.27':
     dependencies:
@@ -21049,7 +21016,7 @@ snapshots:
       '@antv/g-math': 0.1.9
       '@antv/util': 2.0.17
       detect-browser: 5.3.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/g-web-animations-api@1.2.23':
     dependencies:
@@ -21081,7 +21048,7 @@ snapshots:
       '@antv/path-util': 2.0.15
       '@antv/scale': 0.3.18
       '@antv/util': 2.0.17
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/g2@5.1.15':
     dependencies:
@@ -21136,31 +21103,31 @@ snapshots:
     dependencies:
       '@antv/util': 2.0.17
       gl-matrix: 3.4.3
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/matrix-util@3.1.0-beta.3':
     dependencies:
       '@antv/util': 2.0.17
       gl-matrix: 3.4.3
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/path-util@2.0.15':
     dependencies:
       '@antv/matrix-util': 3.0.4
       '@antv/util': 2.0.17
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/path-util@3.0.1':
     dependencies:
       gl-matrix: 3.4.3
       lodash-es: 4.17.21
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/scale@0.3.18':
     dependencies:
       '@antv/util': 2.0.17
       fecha: 4.2.3
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/scale@0.4.15':
     dependencies:
@@ -21171,7 +21138,7 @@ snapshots:
   '@antv/util@2.0.17':
     dependencies:
       csstype: 3.1.3
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@antv/util@3.3.7':
     dependencies:
@@ -21340,7 +21307,7 @@ snapshots:
       '@smithy/util-endpoints': 1.0.7
       '@smithy/util-retry': 2.0.8
       '@smithy/util-utf8': 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.0
     transitivePeerDependencies:
       - aws-crt
 
@@ -21385,7 +21352,7 @@ snapshots:
       '@smithy/util-retry': 2.0.8
       '@smithy/util-utf8': 2.0.2
       fast-xml-parser: 4.2.5
-      tslib: 2.6.3
+      tslib: 2.8.0
     transitivePeerDependencies:
       - aws-crt
 
@@ -21396,14 +21363,14 @@ snapshots:
       '@smithy/signature-v4': 2.0.18
       '@smithy/smithy-client': 2.1.18
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/credential-provider-env@3.468.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/property-provider': 2.0.16
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/credential-provider-ini@3.474.0':
     dependencies:
@@ -21416,7 +21383,7 @@ snapshots:
       '@smithy/property-provider': 2.0.16
       '@smithy/shared-ini-file-loader': 2.2.7
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
     transitivePeerDependencies:
       - aws-crt
 
@@ -21432,7 +21399,7 @@ snapshots:
       '@smithy/property-provider': 2.0.16
       '@smithy/shared-ini-file-loader': 2.2.7
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
     transitivePeerDependencies:
       - aws-crt
 
@@ -21442,7 +21409,7 @@ snapshots:
       '@smithy/property-provider': 2.0.16
       '@smithy/shared-ini-file-loader': 2.2.7
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/credential-provider-sso@3.474.0':
     dependencies:
@@ -21452,7 +21419,7 @@ snapshots:
       '@smithy/property-provider': 2.0.16
       '@smithy/shared-ini-file-loader': 2.2.7
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
     transitivePeerDependencies:
       - aws-crt
 
@@ -21461,7 +21428,7 @@ snapshots:
       '@aws-sdk/types': 3.468.0
       '@smithy/property-provider': 2.0.16
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/lib-storage@3.474.0(@aws-sdk/client-s3@3.474.0)':
     dependencies:
@@ -21482,14 +21449,14 @@ snapshots:
       '@smithy/protocol-http': 3.0.11
       '@smithy/types': 2.7.0
       '@smithy/util-config-provider': 2.0.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-expect-continue@3.468.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/protocol-http': 3.0.11
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-flexible-checksums@3.468.0':
     dependencies:
@@ -21500,33 +21467,33 @@ snapshots:
       '@smithy/protocol-http': 3.0.11
       '@smithy/types': 2.7.0
       '@smithy/util-utf8': 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-host-header@3.468.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/protocol-http': 3.0.11
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-location-constraint@3.468.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-logger@3.468.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-recursion-detection@3.468.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/protocol-http': 3.0.11
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-sdk-s3@3.474.0':
     dependencies:
@@ -21538,7 +21505,7 @@ snapshots:
       '@smithy/smithy-client': 2.1.18
       '@smithy/types': 2.7.0
       '@smithy/util-config-provider': 2.0.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-signing@3.468.0':
     dependencies:
@@ -21548,13 +21515,13 @@ snapshots:
       '@smithy/signature-v4': 2.0.18
       '@smithy/types': 2.7.0
       '@smithy/util-middleware': 2.0.8
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-ssec@3.468.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/middleware-user-agent@3.470.0':
     dependencies:
@@ -21562,7 +21529,7 @@ snapshots:
       '@aws-sdk/util-endpoints': 3.470.0
       '@smithy/protocol-http': 3.0.11
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/region-config-resolver@3.470.0':
     dependencies:
@@ -21570,7 +21537,7 @@ snapshots:
       '@smithy/types': 2.7.0
       '@smithy/util-config-provider': 2.0.0
       '@smithy/util-middleware': 2.0.8
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/signature-v4-multi-region@3.474.0':
     dependencies:
@@ -21579,7 +21546,7 @@ snapshots:
       '@smithy/protocol-http': 3.0.11
       '@smithy/signature-v4': 2.0.18
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/token-providers@3.470.0':
     dependencies:
@@ -21619,51 +21586,51 @@ snapshots:
       '@smithy/util-endpoints': 1.0.7
       '@smithy/util-retry': 2.0.8
       '@smithy/util-utf8': 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.0
     transitivePeerDependencies:
       - aws-crt
 
   '@aws-sdk/types@3.468.0':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/util-arn-parser@3.465.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/util-endpoints@3.470.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/util-endpoints': 1.0.7
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/util-locate-window@3.465.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/util-user-agent-browser@3.468.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/types': 2.7.0
       bowser: 2.11.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/util-user-agent-node@3.470.0':
     dependencies:
       '@aws-sdk/types': 3.468.0
       '@smithy/node-config-provider': 2.1.8
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/util-utf8-browser@3.259.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@aws-sdk/xml-builder@3.472.0':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@babel/code-frame@7.24.7':
     dependencies:
@@ -26124,16 +26091,16 @@ snapshots:
   '@smithy/abort-controller@2.0.15':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/chunked-blob-reader-native@2.0.1':
     dependencies:
       '@smithy/util-base64': 2.0.1
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/chunked-blob-reader@2.0.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/config-resolver@2.0.21':
     dependencies:
@@ -26141,7 +26108,7 @@ snapshots:
       '@smithy/types': 2.7.0
       '@smithy/util-config-provider': 2.0.0
       '@smithy/util-middleware': 2.0.8
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/core@1.1.0':
     dependencies:
@@ -26151,7 +26118,7 @@ snapshots:
       '@smithy/protocol-http': 3.0.11
       '@smithy/smithy-client': 2.1.18
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/credential-provider-imds@2.1.4':
     dependencies:
@@ -26159,37 +26126,37 @@ snapshots:
       '@smithy/property-provider': 2.0.16
       '@smithy/types': 2.7.0
       '@smithy/url-parser': 2.0.15
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/eventstream-codec@2.0.15':
     dependencies:
       '@aws-crypto/crc32': 3.0.0
       '@smithy/types': 2.7.0
       '@smithy/util-hex-encoding': 2.0.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/eventstream-serde-browser@2.0.15':
     dependencies:
       '@smithy/eventstream-serde-universal': 2.0.15
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/eventstream-serde-config-resolver@2.0.15':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/eventstream-serde-node@2.0.15':
     dependencies:
       '@smithy/eventstream-serde-universal': 2.0.15
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/eventstream-serde-universal@2.0.15':
     dependencies:
       '@smithy/eventstream-codec': 2.0.15
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/fetch-http-handler@2.3.1':
     dependencies:
@@ -26197,48 +26164,48 @@ snapshots:
       '@smithy/querystring-builder': 2.0.15
       '@smithy/types': 2.7.0
       '@smithy/util-base64': 2.0.1
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/hash-blob-browser@2.0.16':
     dependencies:
       '@smithy/chunked-blob-reader': 2.0.0
       '@smithy/chunked-blob-reader-native': 2.0.1
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/hash-node@2.0.17':
     dependencies:
       '@smithy/types': 2.7.0
       '@smithy/util-buffer-from': 2.0.0
       '@smithy/util-utf8': 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/hash-stream-node@2.0.17':
     dependencies:
       '@smithy/types': 2.7.0
       '@smithy/util-utf8': 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/invalid-dependency@2.0.15':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/is-array-buffer@2.0.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/md5-js@2.0.17':
     dependencies:
       '@smithy/types': 2.7.0
       '@smithy/util-utf8': 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/middleware-content-length@2.0.17':
     dependencies:
       '@smithy/protocol-http': 3.0.11
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/middleware-endpoint@2.2.3':
     dependencies:
@@ -26248,7 +26215,7 @@ snapshots:
       '@smithy/types': 2.7.0
       '@smithy/url-parser': 2.0.15
       '@smithy/util-middleware': 2.0.8
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/middleware-retry@2.0.24':
     dependencies:
@@ -26259,25 +26226,25 @@ snapshots:
       '@smithy/types': 2.7.0
       '@smithy/util-middleware': 2.0.8
       '@smithy/util-retry': 2.0.8
-      tslib: 2.6.3
+      tslib: 2.8.0
       uuid: 8.3.2
 
   '@smithy/middleware-serde@2.0.15':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/middleware-stack@2.0.9':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/node-config-provider@2.1.8':
     dependencies:
       '@smithy/property-provider': 2.0.16
       '@smithy/shared-ini-file-loader': 2.2.7
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/node-http-handler@2.2.1':
     dependencies:
@@ -26285,28 +26252,28 @@ snapshots:
       '@smithy/protocol-http': 3.0.11
       '@smithy/querystring-builder': 2.0.15
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/property-provider@2.0.16':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/protocol-http@3.0.11':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/querystring-builder@2.0.15':
     dependencies:
       '@smithy/types': 2.7.0
       '@smithy/util-uri-escape': 2.0.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/querystring-parser@2.0.15':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/service-error-classification@2.0.8':
     dependencies:
@@ -26315,7 +26282,7 @@ snapshots:
   '@smithy/shared-ini-file-loader@2.2.7':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/signature-v4@2.0.18':
     dependencies:
@@ -26326,46 +26293,46 @@ snapshots:
       '@smithy/util-middleware': 2.0.8
       '@smithy/util-uri-escape': 2.0.0
       '@smithy/util-utf8': 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/smithy-client@2.1.18':
     dependencies:
       '@smithy/middleware-stack': 2.0.9
       '@smithy/types': 2.7.0
       '@smithy/util-stream': 2.0.23
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/types@2.7.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/url-parser@2.0.15':
     dependencies:
       '@smithy/querystring-parser': 2.0.15
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-base64@2.0.1':
     dependencies:
       '@smithy/util-buffer-from': 2.0.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-body-length-browser@2.0.1':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-body-length-node@2.1.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-buffer-from@2.0.0':
     dependencies:
       '@smithy/is-array-buffer': 2.0.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-config-provider@2.0.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-defaults-mode-browser@2.0.22':
     dependencies:
@@ -26373,7 +26340,7 @@ snapshots:
       '@smithy/smithy-client': 2.1.18
       '@smithy/types': 2.7.0
       bowser: 2.11.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-defaults-mode-node@2.0.29':
     dependencies:
@@ -26383,28 +26350,28 @@ snapshots:
       '@smithy/property-provider': 2.0.16
       '@smithy/smithy-client': 2.1.18
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-endpoints@1.0.7':
     dependencies:
       '@smithy/node-config-provider': 2.1.8
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-hex-encoding@2.0.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-middleware@2.0.8':
     dependencies:
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-retry@2.0.8':
     dependencies:
       '@smithy/service-error-classification': 2.0.8
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-stream@2.0.23':
     dependencies:
@@ -26415,22 +26382,22 @@ snapshots:
       '@smithy/util-buffer-from': 2.0.0
       '@smithy/util-hex-encoding': 2.0.0
       '@smithy/util-utf8': 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-uri-escape@2.0.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-utf8@2.0.2':
     dependencies:
       '@smithy/util-buffer-from': 2.0.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@smithy/util-waiter@2.0.15':
     dependencies:
       '@smithy/abort-controller': 2.0.15
       '@smithy/types': 2.7.0
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   '@solidity-parser/parser@0.18.0': {}
 
@@ -26602,6 +26569,12 @@ snapshots:
       semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
+
+  '@tanem/svg-injector@10.1.68':
+    dependencies:
+      '@babel/runtime': 7.26.0
+      content-type: 1.0.5
+      tslib: 2.8.0
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -29203,7 +29176,7 @@ snapshots:
   camel-case@4.1.2:
     dependencies:
       pascal-case: 3.1.2
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   camelcase-keys@6.2.2:
     dependencies:
@@ -30672,7 +30645,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   dot-prop@4.2.1:
     dependencies:
@@ -33996,7 +33969,7 @@ snapshots:
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   lowercase-keys@1.0.1: {}
 
@@ -34682,7 +34655,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   node-abi@3.65.0:
     dependencies:
@@ -35228,7 +35201,7 @@ snapshots:
   param-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   parchment@1.1.4: {}
 
@@ -35285,7 +35258,7 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   passport-http-bearer@1.0.1:
     dependencies:
@@ -36922,6 +36895,15 @@ snapshots:
       react: 18.3.1
       resize-observer-polyfill: 1.5.1
 
+  react-svg@16.1.34(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.26.0
+      '@tanem/svg-injector': 10.1.68
+      '@types/prop-types': 15.7.12
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   react-to-print@2.14.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -38401,7 +38383,7 @@ snapshots:
   synckit@0.8.6:
     dependencies:
       '@pkgr/utils': 2.4.2
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   synckit@0.9.0:
     dependencies:
@@ -39215,7 +39197,7 @@ snapshots:
 
   upper-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   uri-js@4.4.1:
     dependencies:
