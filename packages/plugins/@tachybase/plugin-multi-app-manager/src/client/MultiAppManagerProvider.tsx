@@ -5,6 +5,7 @@ import { Button, Dropdown } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { AppNameInput } from './AppNameInput';
+import { MultiAppBlockInitializer } from './MultiAppBlockInitializer';
 import { useStyles } from './MultiAppManagerProvider.style';
 import { usePluginUtils } from './utils';
 
@@ -64,7 +65,15 @@ export const MultiAppManagerProvider = (props) => {
         am: { order: 201, component: 'MultiAppManager', pin: true, snippet: 'pm.*' },
       }}
     >
-      <SchemaComponentOptions components={{ MultiAppManager, AppNameInput }}>{props.children}</SchemaComponentOptions>
+      <SchemaComponentOptions
+        components={{
+          MultiAppManager,
+          AppNameInput,
+          MultiAppBlockInitializer,
+        }}
+      >
+        {props.children}
+      </SchemaComponentOptions>
     </PinnedPluginListProvider>
   );
 };

@@ -8,6 +8,9 @@
   ],
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
+  "dependencies": {
+    "@ant-design/icons": "^5.5.1"
+  },
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "antd": "5.21.5",
