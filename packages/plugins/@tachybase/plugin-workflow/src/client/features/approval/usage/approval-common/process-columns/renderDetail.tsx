@@ -5,10 +5,14 @@ import { ViewActionLaunch } from '../../approval-block/launch/VC.ViewActionLaunc
 import { ViewActionTodos } from '../../approval-block/todos/VC.ViewActionTodos';
 import { ContextWithActionEnabled } from '../WithActionEnabled.provider';
 
-// Component开头的是,不知道起什么名字合适的
-export function renderColumnDetail(e, props, exist) {
-  return exist ? <ColumnDetailExist {...props} /> : <ColumnDetailNotExist {...props} />;
+export function renderDetail(text, record, index) {
+  return <ColumnDetail text={text} record={record} exist={index > 0} />;
 }
+
+const ColumnDetail = (props) => {
+  const { exist, record } = props;
+  return exist ? <ColumnDetailExist {...record} /> : <ColumnDetailNotExist {...record} />;
+};
 
 // Exist
 const ColumnDetailExist = (props) => {

@@ -9,14 +9,20 @@ import {
   RecordProvider,
   useAPIClient,
   useAssociationNames,
+  useCurrentUserContext,
   useDesignable,
 } from '@tachybase/client';
 import { createForm, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
 import { useContextApprovalExecution } from '../usage/approval-block/common/ApprovalExecution.provider';
+import { useContextApprovalRecords } from '../usage/approval-block/todos/Pd.ApprovalExecutions';
 
 export const FormBlockProvider = (props) => {
+  const { formType } = props;
   const context = useContextApprovalExecution();
+  const { data: currentUser } = useCurrentUserContext();
+  const { userId: approvalUserId } = useContextApprovalRecords();
+
   const fieldSchema = useFieldSchema();
   const field = useField();
   const formBlockRef = useRef(null);
@@ -42,6 +48,11 @@ export const FormBlockProvider = (props) => {
     }),
     [field, form, params, service, updateAssociationValues],
   );
+
+  // 当更新表单时候, 不应该让除审批人外的用户看到表单更新入口
+  if (['update'].includes(formType) && currentUser?.data.id !== approvalUserId) {
+    return null;
+  }
 
   return (
     <CollectionProvider_deprecated dataSource={props.dataSource} collection={props.collection}>

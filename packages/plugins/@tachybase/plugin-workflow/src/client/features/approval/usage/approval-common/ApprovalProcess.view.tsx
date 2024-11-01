@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { createStyles, useCurrentUserContext } from '@tachybase/client';
+import { CardItem, createStyles, useCurrentUserContext } from '@tachybase/client';
 
 import { Space, Table } from 'antd';
 import _ from 'lodash';
@@ -38,11 +38,19 @@ export const ApprovalProcess = (props) => {
 
   return (
     <ContextWithActionEnabled.Provider value={{ actionEnabled: props.actionEnabled }}>
-      <Space direction="vertical" size="middle" className={styles.layout}>
-        {results.map((item) => (
-          <Table key={item.id} dataSource={item.records} rowKey={'id'} pagination={false} columns={columns} />
-        ))}
-      </Space>
+      <CardItem title={t('Current record')}>
+        <Table dataSource={results.at(-1)?.records} rowKey={'id'} pagination={false} columns={columns} />
+      </CardItem>
+
+      {results.length > 1 && (
+        <CardItem title={t('Historical records')}>
+          <Space direction="vertical" size="middle" className={styles.layout}>
+            {results.map((item) => (
+              <Table key={item.id} dataSource={item.records} rowKey={'id'} pagination={false} columns={columns} />
+            ))}
+          </Space>
+        </CardItem>
+      )}
     </ContextWithActionEnabled.Provider>
   );
 };

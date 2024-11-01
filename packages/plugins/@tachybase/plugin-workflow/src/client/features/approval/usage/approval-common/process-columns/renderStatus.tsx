@@ -6,11 +6,16 @@ import { Tag } from 'antd';
 import { APPROVAL_STATUS, approvalStatusConfigObj, ApprovalStatusEnumDict } from '../../../constants';
 import { ColumnStatusComponent } from '../approval-columns/status.column';
 
-export function renderColumnStatus(value, record, exist) {
-  // return null;
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export function renderStatus(value, record, index) {
+  return <ColumnStatus value={value} record={record} index={index} />;
+}
+
+const ColumnStatus = (props) => {
+  const { value, record, index } = props;
   const compile = useCompile();
-  if (!exist) {
+
+  if (!index) {
+    // 第一个必定为发起项
     const approvalStatusItem =
       ApprovalStatusEnumDict[
         record.status === APPROVAL_STATUS.DRAFT ? APPROVAL_STATUS.DRAFT : APPROVAL_STATUS.SUBMITTED
@@ -20,4 +25,4 @@ export function renderColumnStatus(value, record, exist) {
 
   const option = approvalStatusConfigObj[value];
   return <ColumnStatusComponent value={value} record={record} option={option} />;
-}
+};

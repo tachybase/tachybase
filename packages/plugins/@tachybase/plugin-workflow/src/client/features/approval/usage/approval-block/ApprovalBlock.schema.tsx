@@ -2,8 +2,6 @@ import React from 'react';
 import { Plugin, SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import { uid } from '@tachybase/utils/client';
 
-import { TableOutlined } from '@ant-design/icons';
-
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../common/constants';
 import { NAMESPACE } from '../../locale';
 import { ApprovalBlockProvider } from './ApprovalBlock.provider';
@@ -11,7 +9,7 @@ import { CarbonCopyBlockProvider } from './carbon-copy/CarbonCopyBlock.provider'
 import { CarbonCopyCenter } from './carbon-copy/CarbonCopyCenter.schema';
 import { ApprovalBlockLaunch } from './launch/VC.ApprovalBlockLaunch';
 import { ApprovalBlockLaunchApplication } from './launch/VC.ApprovalBlockLaunchApplication';
-import { ApprovalBlockTodos } from './todos/VC.ApprovalBlockTodos';
+import { ViewApprovalBlockTodos } from './todos/ApprovalBlockTodos';
 
 export class SCApprovalBlock extends Plugin {
   async load() {
@@ -19,7 +17,7 @@ export class SCApprovalBlock extends Plugin {
       'ApprovalBlock.Decorator': ApprovalBlockProvider,
       'ApprovalBlock.Launch': ApprovalBlockLaunch,
       'ApprovalBlock.Launch.Application': ApprovalBlockLaunchApplication,
-      'ApprovalBlock.Todos': ApprovalBlockTodos,
+      'ApprovalBlock.Todos': ViewApprovalBlockTodos,
       CarbonCopyBlockProvider: CarbonCopyBlockProvider,
       CarbonCopyCenter: CarbonCopyCenter,
     });

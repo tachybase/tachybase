@@ -141,7 +141,6 @@ export const ViewActionTodosContent = () => {
                           properties: {
                             history: {
                               type: 'void',
-                              'x-decorator': 'CardItem',
                               'x-component': 'ApprovalCommon.ViewComponent.ApprovalProcess',
                             },
                           },

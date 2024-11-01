@@ -49,10 +49,10 @@ export const approvalStatusOptions = [
   { value: APPROVAL_ACTION_STATUS.WITHDRAWN, label: `{{t("Withdrawn", { ns: "${NAMESPACE}" })}}` },
 ];
 export const approvalStatusConfigObj = approvalStatusOptions.reduce(
-  (e, t) =>
-    Object.assign(e, {
-      [t.value]: t,
-    }),
+  (configMap, option) => ({
+    ...configMap,
+    [option.value]: option,
+  }),
   {},
 );
 export const ApprovalStatusEnums = [

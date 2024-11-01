@@ -5,6 +5,7 @@ import { Field, observer, useField } from '@tachybase/schema';
 import { Tag } from 'antd';
 import _ from 'lodash';
 
+import { useFlowContext } from '../../../../../FlowContext';
 import { APPROVAL_ACTION_STATUS, approvalStatusConfigObj } from '../../../constants';
 import { useTranslation } from '../../../locale';
 
@@ -23,13 +24,16 @@ export const ColumnStatusComponent = (props) => {
   const omitProps = _.omit(props, ['value', 'record']);
   const compile = useCompile();
   const { t } = useTranslation();
+  const flow = useFlowContext();
   const { option = approvalStatusConfigObj[value] } = omitProps;
   const { workflow, execution, job } = record ?? {};
 
-  return (!(workflow != null && workflow.enabled) || (execution != null && execution.stauts) || job?.status) &&
-    [APPROVAL_ACTION_STATUS.ASSIGNED, APPROVAL_ACTION_STATUS.PENDING].includes(value) ? (
-    <Tag>{t('Unprocessed')}</Tag>
-  ) : (
-    <Tag color={option.color}>{compile(option.label)}</Tag>
-  );
+  const isWorkFlowEnabled = workflow?.enabled || flow?.workflow?.enabled;
+  const isNeedShowUnprocessed = !isWorkFlowEnabled || execution?.stauts || job?.status;
+
+  if (isNeedShowUnprocessed && [APPROVAL_ACTION_STATUS.ASSIGNED, APPROVAL_ACTION_STATUS.PENDING].includes(value)) {
+    return <Tag>{t('Unprocessed')}</Tag>;
+  }
+
+  return <Tag color={option.color}>{compile(option.label)}</Tag>;
 };

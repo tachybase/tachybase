@@ -5,10 +5,10 @@ import { NodeColumn } from '../../approval-common/approval-columns/node.column';
 import { ApprovalRecordStatusColumn } from '../../approval-common/approval-columns/status.column';
 import { UserColumn } from '../../approval-common/approval-columns/user.column';
 import { WorkflowColumn } from '../../approval-common/approval-columns/workflow.column';
-import { SchemaApprovalBlockTodos } from './Sm.ApprovalBlockTodos';
+import { schemaApprovalBlockTodos } from './ApprovalBlockTodos.schema';
 
 // 审批-待办
-export const ApprovalBlockTodos = () => (
+export const ViewApprovalBlockTodos = () => (
   <SchemaComponent
     components={{
       NodeColumn,
@@ -16,6 +16,6 @@ export const ApprovalBlockTodos = () => (
       UserColumn,
       ApprovalRecordStatusColumn,
     }}
-    schema={SchemaApprovalBlockTodos}
+    schema={schemaApprovalBlockTodos}
   />
 );
