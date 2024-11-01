@@ -2,7 +2,7 @@ import { Migration } from '@tachybase/server';
 
 export default class RemoveBuitInAuditLogsMigration extends Migration {
   on = 'beforeLoad';
-  appVersion = '<0.22.13';
+  appVersion = '<0.22.14';
   async up() {
     await this.pm.repository.destroy({
       filter: {
