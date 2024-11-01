@@ -16,10 +16,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
-      - name: Set user
-        run: |
-          git config --global user.name 'release bot'
-          git config --global user.email 'bot@tachybase.com'
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
       - name: Setup Node.js
@@ -30,11 +26,7 @@ jobs:
           cache: 'pnpm'
       - name: Install deps
         run: pnpm install
-      - name: Commit and push
-        run: |
-          git pull origin main
-          pnpm release
-          git push origin main
+      - uses: tachybase/git-auto-commit-action@v5
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Login to Docker Hub
