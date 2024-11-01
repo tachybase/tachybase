@@ -32,7 +32,7 @@ jobs:
       - name: Commit
         uses: tachybase/git-auto-commit-action@v5
         with:
-          commit_message: chore(version): release ${{ steps.do_version.outputs.version }}
+          commit_message: "chore(version): release ${{ steps.do_version.outputs.version }}"
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Login to Docker Hub
