@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-print-template",
-  "version": "0.22.14",
+  "version": "0.22.15",
   "main": "dist/server/index.js",
   "dependencies": {
     "@bull-board/api": "^5.21.1",
