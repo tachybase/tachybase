@@ -6,7 +6,7 @@ cp -r /app/packages/core/app/dist/client/* /app/public/
 
 # handle sentry
 original_file="/app/packages/core/app/dist/client/index.html"
-sentry_part="index.sentry.html"
+sentry_part="/app/public/index.sentry.html"
 output_file="/app/public/index.html"
 
 # The implementation depends on index.html.
