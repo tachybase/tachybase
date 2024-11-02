@@ -47,8 +47,11 @@ const CheckedComponent = (props) => {
       inputRef={containerRef}
       file={pdfInfo}
       options={options}
+      onLoadError={(error) => {
+        window?.Sentry?.captureException(error);
+      }}
       noData={<div style={{ height: '100vh' }}></div>}
-      error={<div>{t('error')}</div>}
+      error={<div>{t('Load PDF file error')}</div>}
       loading=""
       onLoadSuccess={onDocumentLoadSuccess}
     >

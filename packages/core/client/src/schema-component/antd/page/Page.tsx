@@ -65,6 +65,7 @@ export const Page = (props) => {
   const aclStyles = useAClStyles();
 
   const handleErrors = (error) => {
+    window?.Sentry?.captureException(error);
     console.error(error);
   };
 

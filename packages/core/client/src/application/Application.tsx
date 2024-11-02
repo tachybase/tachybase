@@ -39,6 +39,8 @@ declare global {
   interface Window {
     define: RequireJS['define'];
     require: RequireJS['require'];
+    // TODO type definition
+    Sentry?: any;
   }
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Button, Result, Typography } from 'antd';
 import { FallbackProps, useErrorBoundary } from 'react-error-boundary';

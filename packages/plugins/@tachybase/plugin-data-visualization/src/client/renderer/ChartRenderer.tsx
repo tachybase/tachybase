@@ -67,6 +67,7 @@ export const ChartRenderer: React.FC & {
     <Spin spinning={service.loading}>
       <ErrorBoundary
         onError={(error) => {
+          window?.Sentry?.captureException(error);
           console.error(error);
         }}
         FallbackComponent={ErrorFallback}
