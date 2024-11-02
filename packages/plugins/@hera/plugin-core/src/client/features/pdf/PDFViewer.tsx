@@ -50,7 +50,7 @@ export const InternalPDFViewer = (props) => {
         ref={containerRef}
         className={css`
           border: 1px dashed black;
-          /* margin-top: 12px; */
+          margin-top: 12px;
           overflow: hidden;
           display: flex;
           justify-content: center;

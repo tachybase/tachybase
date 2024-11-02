@@ -34,7 +34,7 @@ export function Controller(name: string) {
 }
 
 export function Action(name: string) {
-  return function (_: any, context: ClassFieldDecoratorContext) {
+  return function (_: any, context: ClassMethodDecoratorContext) {
     if (!context.metadata.injects) {
       context.metadata.injects = [];
     }

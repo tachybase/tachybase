@@ -11,11 +11,11 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
 const options = {
-  cMapUrl: 'https://unpkg.com/pdfjs-dist@2.7.570/cmaps/',
+  cMapUrl: `https://assets.tachybase.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
   cMapPacked: true,
-  standardFontDataUrl: '/standard_fonts/',
+  standardFontDataUrl: `https://assets.tachybase.com/pdfjs-dist@${pdfjs.version}/standard_fonts/`,
 };
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cat.net/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = `https://assets.tachybase.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const CheckedComponent = (props) => {
   const { file, fileInfo, width } = props;
