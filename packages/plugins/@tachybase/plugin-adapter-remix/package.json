@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-adapter-remix",
-  "version": "0.22.17",
+  "version": "0.22.18",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@remix-run/express": "^2.13.1",
