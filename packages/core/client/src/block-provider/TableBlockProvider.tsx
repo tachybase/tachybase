@@ -30,7 +30,7 @@ interface Props {
   childrenColumnName: any;
   fieldNames?: any;
   /**
-   * Table 区块的 collection name
+   * Table 卡片的 collection name
    */
   collection?: string;
 }

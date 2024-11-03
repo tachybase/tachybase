@@ -23,7 +23,7 @@ export const createMapBlockUISchema = (options: {
     'x-toolbar': 'BlockSchemaToolbar',
     'x-settings': 'blockSettings:map',
     'x-component': 'CardItem',
-    // 保存当前筛选区块所能过滤的数据区块
+    // 保存当前筛选卡片所能过滤的数据卡片
     'x-filter-targets': [],
     properties: {
       actions: {

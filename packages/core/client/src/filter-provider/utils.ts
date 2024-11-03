@@ -56,7 +56,7 @@ export const getSupportFieldsByForeignKey = (
 };
 
 /**
- * 根据筛选区块类型筛选出支持的数据区块（同表或具有关系字段的表）
+ * 根据筛选卡片类型筛选出支持的数据卡片（同表或具有关系字段的表）
  * @param filterBlockType
  * @returns
  */
@@ -66,14 +66,14 @@ export const useSupportedBlocks = (filterBlockType: FilterBlockType) => {
   const collection = useCollection_deprecated();
   const { getAllCollectionsInheritChain } = useCollectionManager_deprecated();
 
-  // Form 和 Collapse 仅支持同表的数据区块
+  // Form 和 Collapse 仅支持同表的数据卡片
   if (filterBlockType === FilterBlockType.FORM || filterBlockType === FilterBlockType.COLLAPSE) {
     return getDataBlocks().filter((block) => {
       return isSameCollection(block.collection, collection);
     });
   }
 
-  // Table 和 Tree 支持同表或者关系表的数据区块
+  // Table 和 Tree 支持同表或者关系表的数据卡片
   if (filterBlockType === FilterBlockType.TABLE || filterBlockType === FilterBlockType.TREE) {
     return getDataBlocks().filter((block) => {
       // 1. 同表
@@ -257,7 +257,7 @@ export const useFilterAPI = () => {
   );
 
   return {
-    /** 当前区块是否已连接其它区块 */
+    /** 当前卡片是否已连接其它卡片 */
     isConnected,
     /** 调用该方法进行过滤 */
     doFilter,

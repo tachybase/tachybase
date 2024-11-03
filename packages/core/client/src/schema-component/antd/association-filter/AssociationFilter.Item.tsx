@@ -22,7 +22,7 @@ export const AssociationFilterItem = withDynamicSchemaProps(
     const { token } = useToken();
     const collectionField = AssociationFilter.useAssociationField();
 
-    // 把一些可定制的状态通过 hook 提取出去了，为了兼容之前添加的 Table 区块，这里加了个默认值
+    // 把一些可定制的状态通过 hook 提取出去了，为了兼容之前添加的 Table 卡片，这里加了个默认值
     const fieldSchema = useFieldSchema();
     const Designer = useDesigner();
     const compile = useCompile();

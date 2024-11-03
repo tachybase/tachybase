@@ -110,7 +110,7 @@ const InternalGridCard = (props) => {
 
   /* 以下为无限滚动逻辑 */
   // XXX: 需要仔细梳理这里的逻辑, 目前的实现有点效果问题, 刷新不顺滑;
-  // 似乎和 tachybase 本身的渲染机制有关, 渲染单个列表项的时候, 总是去取对应的 fieldSchema, 然后赋值上field.value. 这个机制导致了总是会刷新整个区块, 而不是期望的只更新增量部分.
+  // 似乎和 tachybase 本身的渲染机制有关, 渲染单个列表项的时候, 总是去取对应的 fieldSchema, 然后赋值上field.value. 这个机制导致了总是会刷新整个卡片, 而不是期望的只更新增量部分.
   // HACK: 这里其实是借用原本的翻页刷新机制, 模拟了无限滚动的机制. 没有时间成本去更改上游, 这样处理还算是个比较好的实现
   const [hasMore, setHasMore] = useState(true);
   const [fetchCount, setFetchCount] = useState(1);

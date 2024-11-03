@@ -33,7 +33,7 @@ export const GroupBlock = (props) => {
   if (service.loading && !field.loaded) {
     return <Spin />;
   }
-  // 兼容旧版区块防止报错导致无法配置
+  // 兼容旧版卡片防止报错导致无法配置
   if (!params?.config || !('map' in params.config)) {
     return;
   }

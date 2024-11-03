@@ -311,7 +311,7 @@ export const oneEmptyGantt: PageConfig = {
 };
 
 /**
- * 页面中有一个空的 Table 区块，并且有这些按钮：Add new / Delete / Refresh / Add record / Filter / view / edit / delete / duplicate
+ * 页面中有一个空的 Table 卡片，并且有这些按钮：Add new / Delete / Refresh / Add record / Filter / view / edit / delete / duplicate
  */
 export const oneEmptyTableBlockWithDuplicateActions: PageConfig = {
   collections: general,

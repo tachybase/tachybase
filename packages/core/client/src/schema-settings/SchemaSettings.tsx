@@ -723,7 +723,7 @@ export const SchemaSettingsConnectDataBlocks: FC<SchemaSettingsConnectDataBlocks
     }
 
     const target = targets.find((target) => target.uid === block.uid);
-    // 与筛选区块的数据表具有关系的表
+    // 与筛选卡片的数据表具有关系的表
     return (
       <SchemaSettingsSelectItem
         key={block.uid}

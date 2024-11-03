@@ -6,7 +6,7 @@ export function createDetailsUISchema(options: {
   association?: string;
   templateSchema?: ISchema;
   /**
-   * 如果为 true，则表示当前创建的区块 record 就是 useRecord 返回的 record
+   * 如果为 true，则表示当前创建的卡片 record 就是 useRecord 返回的 record
    */
   isCurrent?: boolean;
 }): ISchema {

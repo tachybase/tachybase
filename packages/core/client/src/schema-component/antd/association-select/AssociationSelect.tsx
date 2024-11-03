@@ -610,7 +610,7 @@ AssociationSelect.Designer = function Designer() {
 };
 
 /**
- * 用于筛选表单区块
+ * 用于筛选表单卡片
  * @returns
  */
 AssociationSelect.FilterDesigner = function FilterDesigner() {

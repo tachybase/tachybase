@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useActionContext } from '../../action';
 
 /**
- * 判断当前区块是否在页面而不是在弹窗中
+ * 判断当前卡片是否在页面而不是在弹窗中
  */
 export const useIsBlockInPage = () => {
   const { visible } = useActionContext();

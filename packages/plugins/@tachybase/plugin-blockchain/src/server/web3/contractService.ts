@@ -83,7 +83,7 @@ class ContractService {
   }
 
   /**
-   * 存储数据到区块链
+   * 存储数据到卡片链
    * @param {string} id 数据的唯一标识符
    * @param {string} hashedData 加密后的数据
    * @param {string} salt 数据使用的盐
@@ -94,7 +94,7 @@ class ContractService {
   }
 
   /**
-   * 从区块链获取数据
+   * 从卡片链获取数据
    * @param {string} id 数据的唯一标识符
    * @returns {Promise<{ hashedData: string; salt: string }>} 返回哈希数据和盐
    */
@@ -111,7 +111,7 @@ class ContractService {
 
     dataStoredSubscription.on('data', (event) => {
       console.log('交易hash:' + event.transactionHash);
-      console.log('区块高度:' + event.blockNumber);
+      console.log('卡片高度:' + event.blockNumber);
       console.log('DataStored event:', event.returnValues);
     });
     dataStoredSubscription.on('error', (error) => {
@@ -123,7 +123,7 @@ class ContractService {
 
     dataDeletedSubscription.on('data', (event) => {
       console.log('交易hash:' + event.transactionHash);
-      console.log('区块高度:' + event.blockNumber);
+      console.log('卡片高度:' + event.blockNumber);
       console.log('DataDeleted event:', event.returnValues);
     });
     dataDeletedSubscription.on('error', (error) => {

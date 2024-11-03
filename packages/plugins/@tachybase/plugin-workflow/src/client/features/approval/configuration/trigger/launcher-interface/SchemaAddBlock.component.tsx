@@ -11,7 +11,7 @@ import { uid } from '@tachybase/utils/client';
 
 import { useFlowContext } from '../../../../../FlowContext';
 
-//  发起人操作界面-添加区块
+//  发起人操作界面-添加卡片
 export const SchemaAddBlock = ({ value, onChange }) => {
   const api = useAPIClient();
   const { workflow } = useFlowContext();

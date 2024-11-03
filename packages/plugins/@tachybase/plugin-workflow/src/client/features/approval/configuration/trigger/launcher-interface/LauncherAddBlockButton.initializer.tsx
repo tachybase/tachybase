@@ -3,7 +3,7 @@ import { gridRowColWrap, SchemaInitializer } from '@tachybase/client';
 import { NAMESPACE } from '../../../locale';
 import { LauncherAddBlockButtonComponent } from './LauncherBlockButton.component';
 
-// 添加区块
+// 添加卡片
 export const LauncherAddBlockButtonIntializer = new SchemaInitializer({
   name: 'ApprovalApplyAddBlockButton',
   wrap: gridRowColWrap,

@@ -14,7 +14,7 @@
   "Field database type": "字段数据库类型",
   "Get": "Get(必填)",
   "Host": "服务器地址",
-  "If a collection lacks a primary key, you must configure a unique record key to locate row records within a block, failure to configure this will prevent the creation of data blocks for the collection.": "当数据表没有主键时，你需要配置记录唯一标识符，用于在区块中定位行记录，不配置将无法创建该表的数据区块。",
+  "If a collection lacks a primary key, you must configure a unique record key to locate row records within a block, failure to configure this will prevent the creation of data blocks for the collection.": "当数据表没有主键时，你需要配置记录唯一标识符，用于在卡片中定位行记录，不配置将无法创建该表的数据卡片。",
   "List": "List(必填)",
   "Password": "密码",
   "Permissions": "权限",

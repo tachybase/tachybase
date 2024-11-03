@@ -97,7 +97,7 @@ test.describe('table data selector schema settings', () => {
 
     await page.getByLabel('block-item-CollectionField-').nth(1).click();
 
-    // 3. 创建 Table 区块
+    // 3. 创建 Table 卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'form Table' }).click();
 

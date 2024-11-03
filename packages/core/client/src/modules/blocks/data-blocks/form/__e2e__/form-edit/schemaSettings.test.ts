@@ -27,7 +27,7 @@ test.describe('edit form block schema settings', () => {
     await page.getByRole('button', { name: 'OK', exact: true }).click();
 
     const runExpect = async () => {
-      // 设置成功后，显示在区块顶部
+      // 设置成功后，显示在卡片顶部
       await expect(
         page.getByLabel('block-item-CardItem-general-form').getByText('Block title 123', { exact: true }),
       ).toBeVisible();
@@ -138,10 +138,10 @@ test.describe('edit form block schema settings', () => {
     await page.getByRole('menuitem', { name: 'Delete' }).click();
     await page.getByRole('button', { name: 'OK', exact: true }).click();
 
-    // 设置成功后，显示在区块顶部
+    // 设置成功后，显示在卡片顶部
     await expect(page.getByLabel('block-item-CardItem-general-form')).not.toBeVisible();
 
-    // 刷新页面后，区块依然是被删除状态
+    // 刷新页面后，卡片依然是被删除状态
     await page.reload();
     await page.getByText('Edit', { exact: true }).click();
     await expect(page.getByLabel('block-item-CardItem-general-form')).not.toBeVisible();

@@ -45,7 +45,7 @@ export const SwiperBlock = withDynamicSchemaProps((props) => {
               backgroundColor: '#e0e0e0',
             }}
           >
-            当前区块没有可加载数据
+            当前卡片没有可加载数据
           </div>
         </Swiper.Item>,
       ];

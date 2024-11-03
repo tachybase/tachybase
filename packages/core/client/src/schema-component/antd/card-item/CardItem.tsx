@@ -9,7 +9,7 @@ import useStyles from './style';
 
 interface Props {
   children?: React.ReactNode;
-  /** 区块标识 */
+  /** 卡片标识 */
   name?: string;
   [key: string]: unknown;
 }

@@ -5,7 +5,7 @@ import { GeneralSchemaDesigner } from '../../../schema-settings';
 import { useSchemaTemplate } from '../../../schema-templates';
 
 /**
- * 筛选区块所使用的表单设计器
+ * 筛选卡片所使用的表单设计器
  * @returns
  */
 export const FilterDesigner = () => {

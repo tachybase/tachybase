@@ -25,5 +25,6 @@
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
   },
-  "description.zh-CN": ""
+  "description.zh-CN": "多应用数据共享",
+  "displayName.zh-CN": "多应用数据共享"
 }

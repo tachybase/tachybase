@@ -53,7 +53,7 @@ const InternalFormBlockProvider = (props) => {
       params,
       action,
       form,
-      // update 表示是表单编辑区块，create 表示是表单新增区块
+      // update 表示是表单编辑卡片，create 表示是表单新增卡片
       type: action === 'get' ? 'update' : 'create',
       field,
       service,
@@ -95,7 +95,7 @@ const InternalFormBlockProvider = (props) => {
 
 /**
  * @internal
- * 获取表单区块的类型：update 表示是表单编辑区块，create 表示是表单新增区块
+ * 获取表单卡片的类型：update 表示是表单编辑卡片，create 表示是表单新增卡片
  * @returns
  */
 export const useFormBlockType = () => {

@@ -15,7 +15,7 @@ interface ProviderProps extends Partial<FormActiveFieldsProviderValue> {
 }
 
 /**
- * 用于提供获取和更新当前表单区块中已显示出来的字段
+ * 用于提供获取和更新当前表单卡片中已显示出来的字段
  * @param param0
  * @returns
  */
@@ -58,7 +58,7 @@ export const FormActiveFieldsProvider = ({
 };
 
 /**
- * 用于获取和更新当前表单区块中已显示出来的字段
+ * 用于获取和更新当前表单卡片中已显示出来的字段
  * @returns
  */
 export const useFormActiveFields = () => {

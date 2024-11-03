@@ -14,7 +14,7 @@ const mockData = {
   percent2: 55,
 };
 
-//甘特图的区块参数配置
+//甘特图的卡片参数配置
 test.describe('configure params in gantt block', () => {
   test('set data scope in gantt block', async ({ page, mockPage, mockRecords }) => {
     await mockPage(oneEmptyGantt).goto();

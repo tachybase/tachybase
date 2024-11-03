@@ -1,7 +1,7 @@
 import { general, PageConfig } from '@tachybase/test/e2e';
 
 /**
- * 页面中有一个空的 Table 区块，并且配有字段:普通字段和关系字段
+ * 页面中有一个空的 Table 卡片，并且配有字段:普通字段和关系字段
  */
 export const oneTableBlock: PageConfig = {
   collections: general,

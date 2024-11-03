@@ -7,7 +7,7 @@ import { WorkflowColumn } from '../../approval-common/approval-columns/workflow.
 import { ApplyButton } from './apply-button/VC.ApplyButton';
 import { SchemaApprovalBlockLaunch } from './Sm.ApprovalBlockLaunch';
 
-// 审批-发起: 区块表格
+// 审批-发起: 卡片表格
 export const ApprovalBlockLaunch = () => {
   return (
     <SchemaComponent

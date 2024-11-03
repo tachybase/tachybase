@@ -2,7 +2,7 @@ import { expect, test } from '@tachybase/test/e2e';
 
 import { oneEmptyKanbanBlock } from './utils';
 
-//看板的区块参数配置
+//看板的卡片参数配置
 test.describe('configure setting', () => {
   test('set the data scope', async ({ page, mockPage, mockRecords }) => {
     const nocoPage = await mockPage(oneEmptyKanbanBlock).waitForInit();

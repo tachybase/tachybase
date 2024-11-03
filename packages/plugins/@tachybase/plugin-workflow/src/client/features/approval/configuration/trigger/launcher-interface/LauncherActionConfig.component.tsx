@@ -3,7 +3,7 @@ import { ActionInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
 import { NAMESPACE } from '../../../locale';
 
-// 区块-配置操作
+// 卡片-配置操作
 export const LauncherActionConfigComponent = () => {
   const itemConfig = useSchemaInitializerItem();
   const { action, actionProps = {}, ...restItemConfig } = itemConfig;

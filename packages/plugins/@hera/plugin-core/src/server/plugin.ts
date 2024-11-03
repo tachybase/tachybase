@@ -25,7 +25,6 @@ export class PluginCoreServer extends Plugin {
 
   async load() {
     try {
-      await Container.get(ConnectionManager).load();
       const fontManger = Container.get(FontManager);
       const sqlLoader = Container.get(SqlLoader);
       await sqlLoader.loadSqlFiles(path.join(__dirname, './sqls'));

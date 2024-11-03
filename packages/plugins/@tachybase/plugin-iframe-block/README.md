@@ -2,7 +2,7 @@
 
 English | [中文](./README.zh-CN.md)
 
-Iframe 区块插件。
+Iframe 卡片插件。
 
 ## 安装激活
 

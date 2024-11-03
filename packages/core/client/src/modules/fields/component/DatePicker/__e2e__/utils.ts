@@ -1,7 +1,7 @@
 import { generalWithDatetime, PageConfig } from '@tachybase/test/e2e';
 
 /**
- * 1. 一个 Table 区块
+ * 1. 一个 Table 卡片
  * 5. 所有字段都是 datetime 字段
  */
 export const oneTableBlockWithDatetimeFields: PageConfig = {
@@ -177,7 +177,7 @@ export const oneTableBlockWithDatetimeFields: PageConfig = {
 };
 
 /**
- * 1. 一个 Form 区块
+ * 1. 一个 Form 卡片
  * 5. 所有字段都是 datetime 字段
  */
 export const oneFormBlockWithDatetimeFields: PageConfig = {

@@ -165,10 +165,12 @@ export const AMapBlock = (props) => {
           return extData.id === item[primaryKey];
         });
 
-        // 筛选区块模式
+        // 筛选卡片模式
         if (isConnected) {
           setPrevSelected((prev) => {
-            prev && clearSelected(prev);
+            if (prev) {
+              clearSelected(prev);
+            }
             if (prev === o) {
               clearSelected(o);
 

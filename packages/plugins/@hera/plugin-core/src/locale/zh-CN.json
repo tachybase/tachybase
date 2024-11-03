@@ -27,7 +27,7 @@
   "Edit department": "编辑部门",
   "Global mode, triggered before executing the following actions": "全局模式，以下操作执行前都触发",
   "Group": "汇总",
-  "Group block": "汇总区块",
+  "Group block": "汇总卡片",
   "Hera integration": "赫拉集成",
   "HomePage Config": "主页配置",
   "Last month": "上月",
@@ -69,7 +69,7 @@
   "The department has sub-departments, please delete them first": "部门下有子部门，请先删除子部门",
   "Theme": "主题",
   "Third-party integration configuration": "第三方集成配置",
-  "This field is currently not supported for use in form blocks.": "该字段目前不支持在表单区块中使用。",
+  "This field is currently not supported for use in form blocks.": "该字段目前不支持在表单卡片中使用。",
   "This month": "本月",
   "This year": "今年",
   "Trigger mode": "触发模式",
@@ -84,7 +84,7 @@
   "error": "出错了",
   "loading...": "加载中...",
   "outbound": "外链",
-  "preview block": "预览区块",
+  "preview block": "预览卡片",
   "tabs": "多标签",
   "year": "年"
 }

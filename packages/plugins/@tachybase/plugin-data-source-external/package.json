@@ -20,5 +20,7 @@
     "@tachybase/database": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "支持更多的数据源",
+  "displayName.zh-CN": "外部数据源支持"
 }

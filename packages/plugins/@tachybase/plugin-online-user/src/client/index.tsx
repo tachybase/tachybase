@@ -1,4 +1,7 @@
 import { Plugin } from '@tachybase/client';
+import { autorun } from '@tachybase/schema';
+
+import { OnlineUserProvider } from './OnlineUserProvider';
 
 export class PluginOnlineUserClient extends Plugin {
   async afterAdd() {
@@ -9,12 +12,20 @@ export class PluginOnlineUserClient extends Plugin {
 
   // You can get and modify the app instance here
   async load() {
-    console.log(this.app);
-    // this.app.addComponents({})
-    // this.app.addScopes({})
-    // this.app.addProvider()
-    // this.app.addProviders()
-    // this.app.router.add()
+    this.app.use(OnlineUserProvider);
+
+    // listen to connected events.
+    autorun(() => {
+      if (this.app.ws.connected) {
+        const data = {
+          type: 'plugin-online-user:client',
+          payload: {
+            token: this.app.apiClient.auth.getToken(),
+          },
+        };
+        this.app.ws.send(JSON.stringify(data));
+      }
+    });
   }
 }
 

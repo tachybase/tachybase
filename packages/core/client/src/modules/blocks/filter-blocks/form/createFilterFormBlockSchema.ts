@@ -22,9 +22,9 @@ export const createFilterFormBlockSchema = (options: {
     'x-toolbar': 'BlockSchemaToolbar',
     'x-settings': 'blockSettings:filterForm',
     'x-component': 'CardItem',
-    // 保存当前筛选区块所能过滤的数据区块
+    // 保存当前筛选卡片所能过滤的数据卡片
     'x-filter-targets': [],
-    // 用于存储用户设置的每个字段的运算符，目前仅筛选表单区块支持自定义
+    // 用于存储用户设置的每个字段的运算符，目前仅筛选表单卡片支持自定义
     'x-filter-operators': {},
     properties: {
       [uid()]: {

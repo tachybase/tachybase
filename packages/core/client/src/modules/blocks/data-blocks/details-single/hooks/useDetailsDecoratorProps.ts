@@ -7,7 +7,7 @@ import {
 } from '../../../../../data-source/collection-record/CollectionRecordProvider';
 
 /**
- * 应用在通过 Current record 选项创建的区块中（弹窗中的 Add block 菜单）
+ * 应用在通过 Current record 选项创建的卡片中（弹窗中的 Add block 菜单）
  * @param props
  * @returns
  */

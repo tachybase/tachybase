@@ -5,11 +5,14 @@ import { uid } from '@tachybase/schema';
 import { Button, Dropdown } from 'antd';
 import _ from 'lodash';
 
+import { useTranslation } from './locale';
+
 const OnlineUserManger = () => {
   const app = useApp();
   const [onlineUserItems, setOnlineUserItems] = useState([]);
   const api = useAPIClient();
   const { token } = useToken();
+  const { t } = useTranslation();
   useEffect(() => {
     app.ws.on('message', (event: MessageEvent) => {
       const data = JSON.parse(event.data);
@@ -40,7 +43,7 @@ const OnlineUserManger = () => {
   return (
     <Dropdown menu={{ items: onlineUserItems }}>
       <Button style={{ width: 'auto', color: token.colorTextHeaderMenu }} type="text">
-        在线 {_.size(onlineUserItems)} 人
+        {t('{{num}} people online', { num: _.size(onlineUserItems) })}
       </Button>
     </Dropdown>
   );

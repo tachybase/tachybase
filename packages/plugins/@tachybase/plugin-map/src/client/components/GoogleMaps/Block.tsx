@@ -200,10 +200,12 @@ export const GoogleMapsBlock = (props) => {
           return id === item[primaryKey];
         });
 
-        // 筛选区块模式
+        // 筛选卡片模式
         if (isConnected) {
           setPrevSelected((prev) => {
-            prev && clearSelected(overlay);
+            if (prev) {
+              clearSelected(overlay);
+            }
             if (prev === o) {
               clearSelected(overlay);
 

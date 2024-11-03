@@ -122,7 +122,7 @@ const mySettings = new SchemaSettings({
 | itemGroup | SchemaSettingsItemGroup | 分组，同 Menu 组件的 `type: 'group'` |
 | subMenu | SchemaSettingsSubMenu | 子菜单，同 Menu 组件的子菜单 |
 | divider | SchemaSettingsDivider | 分割线，同 Menu 组件的  `type: 'divider'` |
-| remove | SchemaSettingsRemove | 删除，用于删除一个区块 |
+| remove | SchemaSettingsRemove | 删除，用于删除一个卡片 |
 | select | SchemaSettingsSelectItem | 下拉选择 |
 | cascader | SchemaSettingsCascaderItem | 级联选择 |
 | switch | SchemaSettingsSwitchItem | 开关 |

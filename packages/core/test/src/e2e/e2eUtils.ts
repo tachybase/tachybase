@@ -257,7 +257,7 @@ interface ExtendUtils {
    */
   destoryExternalDataSource: <T = any>(key: string) => Promise<T>;
   /**
-   * 清空区块模板
+   * 清空卡片模板
    */
   clearBlockTemplates: () => Promise<void>;
 }
@@ -462,7 +462,7 @@ const _test = base.extend<ExtendUtils>({
     await use(mockRole);
   },
   updateRole: async ({ page }, use) => {
-    async (roleSetting: AclRoleSetting) => {
+    const updateRole = async (roleSetting: AclRoleSetting) => {
       return updateRole(roleSetting);
     };
 
@@ -980,7 +980,7 @@ export async function expectInitializerMenu({ showMenu, supportedOptions, page }
 }
 
 /**
- * 用于辅助在 page 中添加区块
+ * 用于辅助在 page 中添加卡片
  * @param page
  * @param name
  */

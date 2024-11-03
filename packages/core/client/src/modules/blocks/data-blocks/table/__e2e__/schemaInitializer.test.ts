@@ -19,7 +19,7 @@ test.describe('where table block can be added', () => {
     // 打开弹窗
     await page.getByLabel('action-Action.Link-View').click();
 
-    // 添加当前表关系区块
+    // 添加当前表关系卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'table Table right' }).hover();
     await page.getByRole('menuitem', { name: 'Associated records' }).hover();
@@ -30,7 +30,7 @@ test.describe('where table block can be added', () => {
       .hover();
     await page.getByRole('menuitem', { name: 'childTargetText' }).click();
 
-    // 添加父表关系区块
+    // 添加父表关系卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'table Table right' }).hover();
     await page.getByRole('menuitem', { name: 'Associated records' }).hover();
@@ -38,14 +38,14 @@ test.describe('where table block can be added', () => {
     await page.getByLabel('schema-initializer-TableV2-table:configureColumns-parentTargetCollection').hover();
     await page.getByRole('menuitem', { name: 'parentTargetText' }).click();
 
-    // 普通关系区块应该显示正常
+    // 普通关系卡片应该显示正常
     await expect(
       page
         .getByLabel('block-item-CardItem-childTargetCollection-table')
         .getByText(childRecord.childAssociationField[0].childTargetText),
     ).toBeVisible();
 
-    // 父表关系区块应该显示正常
+    // 父表关系卡片应该显示正常
     await expect(
       page
         .getByLabel('block-item-CardItem-parentTargetCollection-table')

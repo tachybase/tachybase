@@ -190,7 +190,7 @@ export const SubFormProvider = SubFormContext.Provider;
  * 用于获取子表单所对应的 form 对象，其应该保持响应性，即一个 Proxy 对象；
  *
  * ## 为什么要有这个方法？
- * 1. 目前使用 useForm 方法获取到的是普通表单区块的 form 对象，无法通过简单的方法获取到子表单对应的 form 对象；
+ * 1. 目前使用 useForm 方法获取到的是普通表单卡片的 form 对象，无法通过简单的方法获取到子表单对应的 form 对象；
  * 2. 虽然现在 useRecord  也可以获取到相同值的对象，但是这个对象不是响应式的（因其内部 copy 过一次），字段值变更时无法监听到；
  * 3. 可能更好的方式是在 useForm 返回的 form 对象添加一个 parent 属性，但可能会影响其它部分的代码，所以暂时不做修改；
  * @returns

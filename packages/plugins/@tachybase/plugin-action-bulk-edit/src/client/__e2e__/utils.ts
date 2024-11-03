@@ -311,7 +311,7 @@ export const oneEmptyGantt: PageConfig = {
 };
 
 /**
- * 一个空的 Table 区块，并且有这些按钮：Bulk edit
+ * 一个空的 Table 卡片，并且有这些按钮：Bulk edit
  */
 export const oneEmptyTableBlockWithCustomizeActions: PageConfig = {
   collections: generalWithDatetimeFields,

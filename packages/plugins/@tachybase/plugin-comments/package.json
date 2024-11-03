@@ -15,5 +15,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "评论",
+  "displayName.zh-CN": "评论"
 }

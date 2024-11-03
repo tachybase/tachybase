@@ -23,6 +23,6 @@
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
   },
-  "description.zh-CN": "提供甘特图区块。",
-  "displayName.zh-CN": "区块：甘特图"
+  "description.zh-CN": "提供甘特图卡片。",
+  "displayName.zh-CN": "卡片：甘特图"
 }

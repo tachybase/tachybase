@@ -6,7 +6,7 @@ test('basic', async ({ page, mockPage, mockRecord }) => {
   await mockPage(disassociatePage).goto();
   const record = await mockRecord('collection1');
 
-  // 1. 打开弹窗，并创建一个 Table 关系区块
+  // 1. 打开弹窗，并创建一个 Table 关系卡片
   await page.getByLabel('action-Action.Link-Edit record-update-collection1-table-0').click();
   await page.getByLabel('schema-initializer-Grid-popup').hover();
   await page.getByRole('menuitem', { name: 'table Table right' }).hover();

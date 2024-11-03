@@ -117,7 +117,7 @@ export const AssignedField = (props: AssignedFieldProps) => {
       const fields = getCollectionFields(name);
 
       // fix
-      // 工作流人工节点的 `自定义表单` 区块，与其它表单区块不同，根据它的数据表名称，获取到的字段列表为空，所以需要在这里特殊处理一下
+      // 工作流人工节点的 `自定义表单` 卡片，与其它表单卡片不同，根据它的数据表名称，获取到的字段列表为空，所以需要在这里特殊处理一下
       if (!fields?.length && currentForm) {
         currentForm.children = formatVariableScop(currentFormFields);
       }

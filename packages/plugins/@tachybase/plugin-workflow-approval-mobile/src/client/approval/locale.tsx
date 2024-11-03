@@ -1,6 +1,6 @@
 import { i18n, tval as nTval } from '@tachybase/client';
 
-export const NAMESPACE = '@hera/plugin-approval-mobile';
+export const NAMESPACE = 'workflow-approval-mobile';
 
 export function usePluginTranslation(): any {
   return useTranslation();

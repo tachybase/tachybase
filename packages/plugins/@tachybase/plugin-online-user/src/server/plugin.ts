@@ -1,11 +1,16 @@
 import { Plugin } from '@tachybase/server';
+import { Container } from '@tachybase/utils';
+
+import { ConnectionManager } from './services/connection-manager';
 
 export class PluginOnlineUserServer extends Plugin {
   async afterAdd() {}
 
   async beforeLoad() {}
 
-  async load() {}
+  async load() {
+    await Container.get(ConnectionManager).load();
+  }
 
   async install() {}
 

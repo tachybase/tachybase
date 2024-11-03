@@ -33,7 +33,7 @@ export interface ITemplate {
     dataScope?: object;
     titleField?: string;
   }[];
-  /** 是否在 Form 区块显示模板选择器 */
+  /** 是否在 Form 卡片显示模板选择器 */
   display: boolean;
 }
 

@@ -15,6 +15,6 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   },
-  "description.zh-CN": "提供移动端: 定制化的三聪头项目页面,.",
-  "displayName.zh-CN": "移动端: 三聪头,定制化页面配置"
+  "description.zh-CN": "号卡营销系统",
+  "displayName.zh-CN": "号卡营销系统"
 }

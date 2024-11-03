@@ -26,5 +26,6 @@ export * from './uid';
 export * from './url';
 export * from './typedi';
 export * from './decorators';
+export * from './cluster';
 
 export { dayjs, lodash };

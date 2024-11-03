@@ -21,7 +21,7 @@ import { useActionResubmit } from './hooks/useActionResubmit';
 import { useWithdrawAction } from './hooks/useWithdrawAction';
 import { WithdrawActionProvider } from './Pd.WithdrawAction';
 
-// 审批-发起: 申请区块
+// 审批-发起: 申请卡片
 export const ApprovalBlockLaunchApplication = (props) => {
   const fieldSchema = useFieldSchema();
   const decorator = fieldSchema?.parent?.['x-decorator-props'];

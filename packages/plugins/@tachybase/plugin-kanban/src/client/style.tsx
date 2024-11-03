@@ -12,7 +12,7 @@ export const useStyles = createStyles(({ token, css }) => {
           color: #8c8c8c;
           fontweight: normal;
         }
-        // 为了撑满固定区块时的高度
+        // 为了撑满固定卡片时的高度
         & > * {
           height: 100%;
         }

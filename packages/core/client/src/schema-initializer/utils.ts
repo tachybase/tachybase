@@ -762,14 +762,16 @@ export const useCurrentSchema = (action: string, key: string, find = findSchema,
         field.setInitialValue?.(null);
         field.reset?.();
       });
-      schema && rm(schema, remove);
+      if (schema) {
+        rm(schema, remove);
+      }
     },
   };
 };
 
 /**
  * @deprecated
- * 待统一区块的创建之后，将废弃该方法
+ * 待统一卡片的创建之后，将废弃该方法
  */
 export const useRecordCollectionDataSourceItems = (
   componentName,
@@ -984,7 +986,7 @@ export const useCollectionDataSourceItems = ({
         }
       } else if (noAssociationMenu[0].children.length) {
         if (hideOtherRecordsInPopup) {
-          // 当可选数据表只有一个时，实现只点击一次区块 menu 就能添加区块
+          // 当可选数据表只有一个时，实现只点击一次卡片 menu 就能添加卡片
           if (noAssociationMenu[0].children.length <= 1) {
             noAssociationMenu[0].children = (noAssociationMenu[0].children[0]?.children as any) || [];
             return noAssociationMenu;
@@ -1526,7 +1528,7 @@ function useAssociationFields({
       .map((field, index) => {
         const title = compile(field.uiSchema.title || field.name);
         const templates = getTemplatesByCollection(dataSource, field.target).filter((template) => {
-          // 针对弹窗中的详情区块
+          // 针对弹窗中的详情卡片
           if (componentName === 'ReadPrettyFormItem') {
             if (['hasOne', 'belongsTo'].includes(field.type)) {
               return template.componentName === 'ReadPrettyFormItem';

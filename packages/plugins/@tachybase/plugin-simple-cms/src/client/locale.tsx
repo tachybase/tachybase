@@ -1,6 +1,6 @@
 import { Application, i18n, tval as nTval, useApp } from '@tachybase/client';
 
-const NAMESPACE = '@hera/plugin-homepage';
+const NAMESPACE = 'simple-cms';
 
 export class Locale {
   private app: Application;

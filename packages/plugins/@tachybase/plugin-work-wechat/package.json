@@ -21,5 +21,7 @@
     "@tachybase/plugin-auth": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "提供企业微信的认证支持",
+  "displayName.zh-CN": "认证：企业微信"
 }

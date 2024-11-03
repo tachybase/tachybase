@@ -20,7 +20,6 @@ import { DepartmentsPlugin } from './features/departments';
 import { EmbedPlugin } from './features/embed';
 import { PluginFieldAppends } from './features/field-appends';
 import { PluginHeraVersion } from './features/hera-version';
-import { PluginOnlineUsers } from './features/online-users';
 import { PluginOutbound } from './features/outbound';
 import { PluginPDF } from './features/pdf';
 import { PluginSheet } from './features/sheet';
@@ -63,7 +62,6 @@ export class PluginCoreClient extends Plugin {
     await this.app.pm.add(PluginPDF);
     await this.app.pm.add(PluginOutbound);
     // await this.app.pm.add(PluginModeHighlight);
-    await this.app.pm.add(PluginOnlineUsers);
     await this.app.pm.add(PluginFieldAppends);
     await this.app.pm.add(PluginCustomComponents);
     await this.app.pm.add(PluginSheet);
@@ -205,19 +203,6 @@ export class PluginCoreClient extends Plugin {
     await this.registerSettings();
     await this.registerRouters();
     await this.registerInterfaces();
-
-    // listen to connected events.
-    autorun(() => {
-      if (this.app.ws.connected) {
-        const data = {
-          type: 'plugin-online-user:client',
-          payload: {
-            token: this.app.apiClient.auth.getToken(),
-          },
-        };
-        this.app.ws.send(JSON.stringify(data));
-      }
-    });
   }
 }
 

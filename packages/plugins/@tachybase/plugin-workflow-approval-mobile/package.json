@@ -1,6 +1,6 @@
 {
-  "name": "@hera/plugin-approval-mobile",
-  "version": "0.1.20",
+  "name": "@tachybase/plugin-workflow-approval-mobile",
+  "version": "0.22.20",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
@@ -21,6 +21,6 @@
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
   },
-  "description.zh-CN": "提供定制化的移动端页面审批的功能。",
-  "displayName.zh-CN": "移动端:审批"
+  "description.zh-CN": "提供针对移动端设计的审批相关卡片",
+  "displayName.zh-CN": "工作流 - 移动端审批插件"
 }

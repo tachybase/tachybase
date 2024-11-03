@@ -2,7 +2,7 @@ import { expect, test } from '@tachybase/test/e2e';
 
 import { generalWithSingleSelect, oneEmptyKanbanBlock } from './utils';
 
-//在页面中可以创建看板区块
+//在页面中可以创建看板卡片
 test.describe('blockInitializers should add kanban block', () => {
   test('create kanban blocks in the page', async ({ page, mockPage, mockCollections, mockRecord }) => {
     await mockCollections(generalWithSingleSelect);

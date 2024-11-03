@@ -12,7 +12,7 @@ import {
 import { APPROVAL_STATUS, flatSchemaArray } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
 
-// 添加区块-Initializer的component
+// 添加卡片-Initializer的component
 export const LauncherAddBlockButtonComponent = () => {
   const itemConfig = useSchemaInitializerItem();
   const { insert } = useSchemaInitializer();

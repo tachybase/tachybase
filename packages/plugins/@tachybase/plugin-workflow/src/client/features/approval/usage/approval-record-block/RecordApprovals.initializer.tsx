@@ -4,7 +4,7 @@ import { uid } from '@tachybase/utils/client';
 
 import { AuditOutlined } from '@ant-design/icons';
 
-// 初始化器,添加区块-相关审批
+// 初始化器,添加卡片-相关审批
 export function RecordApprovalsInitializer() {
   const schemaInitializerItem = useSchemaInitializerItem();
   const { insert } = useSchemaInitializer();

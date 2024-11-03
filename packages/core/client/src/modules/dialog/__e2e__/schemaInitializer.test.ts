@@ -179,7 +179,7 @@ test.describe('where to open a popup and what can be added to it', () => {
     await expect(page.getByLabel('block-item-Markdown.Void-general-markdown')).toBeVisible();
 
     // add relationship blocks
-    // 下拉列表中，可选择以下区块进行创建
+    // 下拉列表中，可选择以下卡片进行创建
     await page.getByLabel('schema-initializer-Grid-popup:common:addBlock-general').hover();
     await expect(page.getByRole('menuitem', { name: 'table Details right' })).toBeVisible();
     await expect(page.getByRole('menuitem', { name: 'form Form (Edit)' })).toBeVisible();
@@ -239,7 +239,7 @@ test.describe('add blocks to the popup', () => {
     // 打开弹窗
     await page.getByLabel('action-Action.Link-View-view-roles-table-root').click();
 
-    // 直接点击 Details 选项创建详情区块
+    // 直接点击 Details 选项创建详情卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'table Details' }).click();
     await page.getByLabel('schema-initializer-Grid-details:configureFields-roles').hover();
@@ -247,7 +247,7 @@ test.describe('add blocks to the popup', () => {
     await expect(page.getByLabel('block-item-CollectionField-Role').getByText('root')).toBeVisible();
     await page.mouse.move(300, 0);
 
-    // 直接点击 Form(Edit) 选项创建表单区块
+    // 直接点击 Form(Edit) 选项创建表单卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'form Form (Edit)' }).click();
     await page.getByLabel('schema-initializer-Grid-form:').hover();
@@ -263,7 +263,7 @@ test.describe('add blocks to the popup', () => {
     // 打开弹窗
     await page.getByLabel('action-Action.Link-View-view-').click();
 
-    // 通过点击 Current record 选项创建详情区块
+    // 通过点击 Current record 选项创建详情卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'table Details right' }).hover();
     await page.getByRole('menuitem', { name: 'Current record' }).click();
@@ -272,7 +272,7 @@ test.describe('add blocks to the popup', () => {
     await page.mouse.move(300, 0);
     await expect(page.getByLabel('block-item-CollectionField-users').getByText('Super Admin')).toBeVisible();
 
-    // 通过 Association records 创建一个关系区块
+    // 通过 Association records 创建一个关系卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'table Details right' }).hover();
     await page.getByRole('menuitem', { name: 'Associated records' }).hover();
@@ -291,7 +291,7 @@ test.describe('add blocks to the popup', () => {
     // 打开弹窗
     await page.getByLabel('action-Action.Link-View-view-father-table-0').click();
 
-    // 通过 Current record 创建详情区块
+    // 通过 Current record 创建详情卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'table Details right' }).hover();
     await page.getByRole('menuitem', { name: 'Current record right' }).hover();
@@ -304,7 +304,7 @@ test.describe('add blocks to the popup', () => {
       page.getByLabel('block-item-CollectionField-father').getByText(fatherRecord.singleLineText),
     ).toBeVisible();
 
-    // 通过 Association records 创建关系区块
+    // 通过 Association records 创建关系卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'table Table right' }).hover();
     await page.getByRole('menuitem', { name: 'Associated records' }).hover();
@@ -333,7 +333,7 @@ test.describe('add blocks to the popup', () => {
     // 打开弹窗
     await page.getByLabel('action-Action.Link-View-view-father-table-0').click();
 
-    // 通过 Current record 创建详情区块
+    // 通过 Current record 创建详情卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'table Details right' }).hover();
     await page.getByRole('menuitem', { name: 'Current record right' }).hover();
@@ -352,7 +352,7 @@ test.describe('add blocks to the popup', () => {
     // 打开弹窗
     await page.getByLabel('action-Action.Link-View-view-').click();
 
-    // 通过 Association records 创建一个关系区块
+    // 通过 Association records 创建一个关系卡片
     await page.getByLabel('schema-initializer-Grid-popup').hover();
     await page.getByRole('menuitem', { name: 'table Table right' }).hover();
     await page.getByRole('menuitem', { name: 'Associated records' }).hover();

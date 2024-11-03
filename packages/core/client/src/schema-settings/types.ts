@@ -26,7 +26,7 @@ export interface DataScopeProps {
    */
   dynamicComponent?: (props: any) => React.ReactNode;
   /**
-   * 当前表单区块中的表单实例
+   * 当前表单卡片中的表单实例
    */
   form: Form;
 }

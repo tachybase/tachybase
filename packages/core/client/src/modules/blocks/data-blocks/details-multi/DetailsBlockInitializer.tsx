@@ -22,7 +22,7 @@ export const DetailsBlockInitializer = ({
   onlyCurrentDataSource: boolean;
   hideSearch?: boolean;
   /**
-   * 页面中的详情区块类型是 Details，弹窗中的详情区块类型是 ReadPrettyFormItem；
+   * 页面中的详情卡片类型是 Details，弹窗中的详情卡片类型是 ReadPrettyFormItem；
    * 虽然这里的命名现在看起来比较奇怪，但为了兼容旧版本的 template，暂时保留这个命名。
    */
   componentType?: 'Details' | 'ReadPrettyFormItem';

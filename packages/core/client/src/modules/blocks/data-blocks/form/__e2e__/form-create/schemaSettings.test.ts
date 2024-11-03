@@ -30,7 +30,7 @@ test.describe('creation form block schema settings', () => {
     await page.getByRole('button', { name: 'OK', exact: true }).click();
 
     const runExpect = async () => {
-      // 设置成功后，显示在区块顶部
+      // 设置成功后，显示在卡片顶部
       await expect(
         page.getByLabel('block-item-CardItem-general-form').getByText('Block title 123', { exact: true }),
       ).toBeVisible();
@@ -270,7 +270,7 @@ test.describe('creation form block schema settings', () => {
       ).toHaveValue('123');
 
       try {
-        // 2. 将表单区块保存为模板后
+        // 2. 将表单卡片保存为模板后
         await page.getByLabel('block-item-CardItem-users-form').hover();
         await page.getByLabel('designer-schema-settings-CardItem-blockSettings:createForm-users').hover();
         await page.getByRole('menuitem', { name: 'Save as block template' }).click();
@@ -356,10 +356,10 @@ test.describe('creation form block schema settings', () => {
     await page.getByRole('menuitem', { name: 'Delete' }).click();
     await page.getByRole('button', { name: 'OK', exact: true }).click();
 
-    // 设置成功后，显示在区块顶部
+    // 设置成功后，显示在卡片顶部
     await expect(page.getByLabel('block-item-CardItem-general-form')).not.toBeVisible();
 
-    // 刷新页面后，区块依然是被删除状态
+    // 刷新页面后，卡片依然是被删除状态
     await page.reload();
     await page.getByRole('button', { name: 'Add new' }).click();
     await expect(page.getByLabel('block-item-CardItem-general-form')).not.toBeVisible();
@@ -378,7 +378,7 @@ test.describe('creation form block schema settings', () => {
     await page.getByRole('dialog').getByRole('textbox').fill('new_form_template');
     await page.getByRole('dialog').getByRole('button', { name: 'OK', exact: true }).click();
 
-    // 区块左上角应该显示一个文案
+    // 卡片左上角应该显示一个文案
     await page.getByLabel('block-item-CardItem-general-form').hover();
     await expect(
       page
@@ -391,7 +391,7 @@ test.describe('creation form block schema settings', () => {
     await expect(page.getByRole('menuitem', { name: 'Save as block template' })).toBeHidden();
     await expect(page.getByRole('menuitem', { name: 'Convert reference to duplicate' })).toBeVisible();
 
-    // 添加区块的时候，可以选择刚才保存的模板 --------------------------------------------------
+    // 添加卡片的时候，可以选择刚才保存的模板 --------------------------------------------------
     await page.getByLabel('schema-initializer-Grid-page:addBlock').hover();
     await page.getByRole('menuitem', { name: 'form Form right' }).first().hover();
     await page.getByRole('menuitem', { name: 'General right' }).hover();
@@ -408,7 +408,7 @@ test.describe('creation form block schema settings', () => {
     await page.getByRole('menuitem', { name: 'Reference template right' }).click();
     await page.getByRole('menuitem', { name: 'new_form_template (Fields only)' }).click();
 
-    // 页面中的区块应该成功被创建
+    // 页面中的卡片应该成功被创建
     await expect(page.getByLabel('block-item-CardItem-general-form')).toHaveCount(3);
 
     // 保存为模板之后，应该在 ui-schema-storage 页面显示出来 -----------------------------------------
@@ -905,7 +905,7 @@ test.describe('creation form block schema settings', () => {
     await page.getByRole('button', { name: 'OK', exact: true }).click();
     await page.getByLabel('block-item-CardItem-users-form').hover();
 
-    //保存模板后当前区块为引用区块
+    //保存模板后当前卡片为引用卡片
     await expect(page.getByLabel('block-item-CardItem-users-form')).toHaveText(/Reference template/);
 
     // using block template

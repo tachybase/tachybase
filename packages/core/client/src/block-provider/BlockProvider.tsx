@@ -184,7 +184,7 @@ export const RenderChildrenWithAssociationFilter: React.FC<any> = (props) => {
 };
 
 const BlockContext = createContext<{
-  /** 用以区分区块的标识 */
+  /** 用以区分卡片的标识 */
   name: string;
 }>(null);
 BlockContext.displayName = 'BlockContext';

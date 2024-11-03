@@ -35,28 +35,28 @@ type Collection = ReturnType<typeof useCollection_deprecated>;
 export interface DataBlock {
   /** 唯一标识符，schema 中的 name 值 */
   uid: string;
-  /** 用户自行设置的区块名称 */
+  /** 用户自行设置的卡片名称 */
   title?: string;
-  /** 与数据区块相关的数据表信息 */
+  /** 与数据卡片相关的数据表信息 */
   collection: Collection;
-  /** 根据提供的参数执行该方法即可刷新数据区块的数据 */
+  /** 根据提供的参数执行该方法即可刷新数据卡片的数据 */
   doFilter: (params: any, params2?: any) => Promise<void>;
-  /** 清除筛选区块设置的筛选参数 */
+  /** 清除筛选卡片设置的筛选参数 */
   clearFilter: (uid: string) => void;
-  /** 将数据区块的数据置为空 */
+  /** 将数据卡片的数据置为空 */
   clearData: () => void;
-  /** 数据区块表中所有的关系字段 */
+  /** 数据卡片表中所有的关系字段 */
   associatedFields?: CollectionFieldOptions_deprecated[];
-  /** 数据区块表中所有的外键字段 */
+  /** 数据卡片表中所有的外键字段 */
   foreignKeyFields?: ForeignKeyField[];
-  /** 数据区块已经存在的过滤条件（通过 `设置数据范围` 或者其它能设置筛选条件的功能） */
+  /** 数据卡片已经存在的过滤条件（通过 `设置数据范围` 或者其它能设置筛选条件的功能） */
   defaultFilter?: FilterParam;
-  /** 数据区块用于请求数据的接口 */
+  /** 数据卡片用于请求数据的接口 */
   service?: any;
-  /** 数据区块所的 DOM 容器 */
+  /** 数据卡片所的 DOM 容器 */
   dom: HTMLElement;
   /**
-   * auto: 数据区块会在初始渲染时请求数据
+   * auto: 数据卡片会在初始渲染时请求数据
    * manual: 只有当点击了筛选按钮，才会请求数据
    */
   dataLoadingMode?: 'auto' | 'manual';
@@ -71,7 +71,7 @@ const FilterContext = createContext<FilterContextValue>(null);
 FilterContext.displayName = 'FilterContext';
 
 /**
- * 主要用于记录当前页面中的数据区块的信息，用于在过滤区块中使用
+ * 主要用于记录当前页面中的数据卡片的信息，用于在过滤卡片中使用
  * @param props
  * @returns
  */
@@ -81,7 +81,7 @@ export const FilterBlockProvider = ({ children }) => {
 };
 
 /**
- * 用于收集当前页面中的数据区块的信息，用于在过滤区块中使用
+ * 用于收集当前页面中的数据卡片的信息，用于在过滤卡片中使用
  * @param param0
  * @returns
  */
@@ -156,7 +156,7 @@ export const DataBlockCollector = ({
 };
 
 /**
- * 返回一些方法用于收集和获取当前页面中的数据区块的信息
+ * 返回一些方法用于收集和获取当前页面中的数据卡片的信息
  * @returns
  */
 export const useFilterBlock = () => {

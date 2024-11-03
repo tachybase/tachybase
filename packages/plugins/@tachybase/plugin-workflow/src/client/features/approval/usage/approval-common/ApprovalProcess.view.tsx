@@ -25,7 +25,7 @@ const getStyles = createStyles(({ css, token }) => ({
   `,
 }));
 
-// 审批(发起/待办)区块-查看-审批处理
+// 审批(发起/待办)卡片-查看-审批处理
 export const ApprovalProcess = (props) => {
   const { t } = usePluginTranslation();
   const approvalContext = useApproval();

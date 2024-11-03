@@ -34,6 +34,6 @@
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
   },
-  "description.zh-CN": "地图区块，支持高德地图和 Google 地图，你也可以扩展更多地图类型。",
-  "displayName.zh-CN": "区块：地图"
+  "description.zh-CN": "地图卡片，支持高德地图和 Google 地图，你也可以扩展更多地图类型。",
+  "displayName.zh-CN": "卡片：地图"
 }

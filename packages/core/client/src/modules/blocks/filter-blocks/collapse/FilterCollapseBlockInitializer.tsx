@@ -29,7 +29,7 @@ export const FilterCollapseBlockInitializer = ({
         const schema = createCollapseBlockSchema({
           dataSource: item.dataSource,
           collectionName: item.collectionName || item.name,
-          // 与数据区块做区分
+          // 与数据卡片做区分
           blockType: 'filter',
         });
         insert(schema);

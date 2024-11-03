@@ -1,11 +1,9 @@
 import Application, { Gateway } from '@tachybase/server';
-import { App, Service } from '@tachybase/utils';
+import { App, currentProcessNum, isMain, Service } from '@tachybase/utils';
 
 import jwt from 'jsonwebtoken';
 import { createClient } from 'redis';
 import WebSocket from 'ws';
-
-import { currentProcessNum, isMain } from '../utils/multiprocess';
 
 const KEY_ONLINE_USERS = 'online_users';
 

@@ -63,7 +63,7 @@ const Root = () => {
             name: 'page',
             'x-component': 'ActionBar',
             // 指定初始化的按钮组件，
-            // Table、Form、Details、Calendar、Kanban 等等不同区块
+            // Table、Form、Details、Calendar、Kanban 等等不同卡片
             // 可以根据情况组装自己的 initializer
             'x-initializer': 'addAction',
             properties: {

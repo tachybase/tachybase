@@ -21,5 +21,7 @@
     "@tachybase/plugin-auth": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "认证：钉钉",
+  "displayName.zh-CN": "认证：钉钉"
 }

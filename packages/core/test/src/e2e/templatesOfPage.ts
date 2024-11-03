@@ -69,7 +69,7 @@ export const tabPageEmpty: PageConfig = {
 
 /**
  * 1. 一个数据表，且拥有一个对一的关系字段
- * 2. 一个 Table 区块，且基于上面的 collection
+ * 2. 一个 Table 卡片，且基于上面的 collection
  */
 export const oneEmptyTable: PageConfig = {
   collections: [
@@ -280,7 +280,7 @@ export const oneEmptyTable: PageConfig = {
 };
 
 /**
- * 1. 页面中有一个空的 Form 区块
+ * 1. 页面中有一个空的 Form 卡片
  */
 export const oneEmptyForm: PageConfig = {
   collections: generalWithM2oSingleSelect,
@@ -555,7 +555,7 @@ export const oneEmptyFormWithActions: PageConfig = {
 };
 
 /**
- * 1. 页面中有一个空的 Details 区块
+ * 1. 页面中有一个空的 Details 卡片
  */
 export const oneEmptyDetailsBlock: PageConfig = {
   collections: generalWithM2oSingleSelect,
@@ -683,7 +683,7 @@ export const oneEmptyDetailsBlock: PageConfig = {
 };
 
 /**
- * 1. 页面中有一个空的 List 区块
+ * 1. 页面中有一个空的 List 卡片
  */
 export const oneEmptyListBlock: PageConfig = {
   collections: generalWithM2oSingleSelect,
@@ -832,7 +832,7 @@ export const oneEmptyListBlock: PageConfig = {
 };
 
 /**
- * 1. 页面中有一个空的 Grid Card 区块
+ * 1. 页面中有一个空的 Grid Card 卡片
  */
 export const oneEmptyGridCardBlock: PageConfig = {
   collections: generalWithM2oSingleSelect,
@@ -984,7 +984,7 @@ export const oneEmptyGridCardBlock: PageConfig = {
 };
 
 /**
- * 1. 页面中有一个空的 Filter Form 区块
+ * 1. 页面中有一个空的 Filter Form 卡片
  */
 export const oneEmptyFilterFormBlock: PageConfig = {
   collections: generalWithM2oSingleSelect,
@@ -1095,7 +1095,7 @@ export const oneEmptyFilterFormBlock: PageConfig = {
 };
 
 /**
- * 1. 页面中有一个空的 Filter Collapse 区块
+ * 1. 页面中有一个空的 Filter Collapse 卡片
  */
 export const oneEmptyFilterCollapseBlock: PageConfig = {
   collections: generalWithM2oSingleSelect,
@@ -1180,7 +1180,7 @@ export const oneEmptyFilterCollapseBlock: PageConfig = {
 };
 
 /**
- * 页面中有一个空的 Table 区块，并且有这些按钮：Add new / Delete / Refresh / Add record / Filter / view / edit / delete / duplicate
+ * 页面中有一个空的 Table 卡片，并且有这些按钮：Add new / Delete / Refresh / Add record / Filter / view / edit / delete / duplicate
  */
 export const oneEmptyTableBlockWithActions: PageConfig = {
   collections: generalWithM2oSingleSelect,
@@ -1786,10 +1786,10 @@ export const oneEmptyTableBlockWithActions: PageConfig = {
 };
 
 /**
- * 页面中有一个 Table 区块，并且有这些按钮：Add new / Delete / Refresh / Add record / Filter / view / edit / delete / duplicate；
- * 1. 其中 Add new 弹窗中有一个新增表单区块；
- * 2. 其中 view 弹窗中有一个详情表单区块；
- * 3. 其中 edit 弹窗中有一个编辑表单区块；
+ * 页面中有一个 Table 卡片，并且有这些按钮：Add new / Delete / Refresh / Add record / Filter / view / edit / delete / duplicate；
+ * 1. 其中 Add new 弹窗中有一个新增表单卡片；
+ * 2. 其中 view 弹窗中有一个详情表单卡片；
+ * 3. 其中 edit 弹窗中有一个编辑表单卡片；
  */
 export const oneTableBlockWithActionsAndFormBlocks: PageConfig = {
   collections: generalWithSingleLineText,
@@ -2644,7 +2644,7 @@ export const oneTableBlockWithActionsAndFormBlocks: PageConfig = {
 };
 
 /**
- * 一个空的 Table 区块，并且有这些按钮：Bulk edit
+ * 一个空的 Table 卡片，并且有这些按钮：Bulk edit
  */
 export const oneEmptyTableBlockWithCustomizeActions: PageConfig = {
   collections: generalWithM2oSingleSelect,
@@ -2867,7 +2867,7 @@ export const oneEmptyTableBlockWithCustomizeActions: PageConfig = {
 };
 
 /**
- * 一个基于 Users 表的 Form 区块，且有一个 Roles 字段，并且是数据选择器模式
+ * 一个基于 Users 表的 Form 卡片，且有一个 Roles 字段，并且是数据选择器模式
  */
 export const oneFormBlockWithRolesFieldBasedUsers: PageConfig = {
   pageSchema: {
@@ -3085,7 +3085,7 @@ export const oneFormBlockWithRolesFieldBasedUsers: PageConfig = {
 };
 
 /**
- * 一个 Form 区块，包含所有的关系字段，且都是数据选择器模式
+ * 一个 Form 卡片，包含所有的关系字段，且都是数据选择器模式
  */
 export const oneFormBlockWithAllAssociationFieldsAndSelectorMode: PageConfig = {
   collections: generalWithAssociation,
@@ -3716,7 +3716,7 @@ export const oneFormBlockWithAllAssociationFieldsAndSelectorMode: PageConfig = {
 };
 
 /**
- * 页面中有一个详情区块，且有一个名为 toGeneral 的关系字段（m2o），指向 General 表
+ * 页面中有一个详情卡片，且有一个名为 toGeneral 的关系字段（m2o），指向 General 表
  */
 export const oneDetailBlockWithM2oFieldToGeneral: PageConfig = {
   collections: generalWithM2oSingleSelect,
@@ -3881,10 +3881,10 @@ export const oneDetailBlockWithM2oFieldToGeneral: PageConfig = {
 };
 
 /**
- * 1. 一个 Table 区块
- * 2. 点击 Add new 有一个 Form 区块
- * 3. 点击 View 有一个 Details 区块
- * 4. 点击 Edit 有一个 Form 区块
+ * 1. 一个 Table 卡片
+ * 2. 点击 Add new 有一个 Form 卡片
+ * 3. 点击 View 有一个 Details 卡片
+ * 4. 点击 Edit 有一个 Form 卡片
  * 5. 所有字段都是 basic 字段
  */
 export const oneTableBlockWithAddNewAndViewAndEditAndBasicFields: PageConfig = {
@@ -5831,10 +5831,10 @@ export const oneTableBlockWithAddNewAndViewAndEditAndBasicFields: PageConfig = {
 };
 
 /**
- * 1. 一个 Table 区块
- * 2. 点击 Add new 有一个 Form 区块，里面有一个 sub-table 字段
- * 3. 点击 View 有一个 Details 区块，里面有一个 sub-table 字段
- * 4. 点击 Edit 有一个 Form 区块，里面有一个 sub-table 字段
+ * 1. 一个 Table 卡片
+ * 2. 点击 Add new 有一个 Form 卡片，里面有一个 sub-table 字段
+ * 3. 点击 View 有一个 Details 卡片，里面有一个 sub-table 字段
+ * 4. 点击 Edit 有一个 Form 卡片，里面有一个 sub-table 字段
  * 5. sub-table 中的所有字段都是 basic 字段
  */
 export const oneTableBlockWithAddNewAndViewAndEditAndBasicFieldsAndSubTable: PageConfig = {
@@ -6257,10 +6257,10 @@ export const oneTableBlockWithAddNewAndViewAndEditAndBasicFieldsAndSubTable: Pag
 };
 
 /**
- * 1. 一个 Table 区块
- * 2. 点击 Add new 有一个 Form 区块
- * 3. 点击 View 有一个 Details 区块
- * 4. 点击 Edit 有一个 Form 区块
+ * 1. 一个 Table 卡片
+ * 2. 点击 Add new 有一个 Form 卡片
+ * 3. 点击 View 有一个 Details 卡片
+ * 4. 点击 Edit 有一个 Form 卡片
  * 5. 所有字段都是 choices 字段
  */
 export const oneTableBlockWithAddNewAndViewAndEditAndChoicesFields: PageConfig = {
@@ -7692,10 +7692,10 @@ export const oneTableBlockWithAddNewAndViewAndEditAndChoicesFields: PageConfig =
 };
 
 /**
- * 1. 一个 Table 区块
- * 2. 点击 Add new 有一个 Form 区块
- * 3. 点击 View 有一个 Details 区块
- * 4. 点击 Edit 有一个 Form 区块
+ * 1. 一个 Table 卡片
+ * 2. 点击 Add new 有一个 Form 卡片
+ * 3. 点击 View 有一个 Details 卡片
+ * 4. 点击 Edit 有一个 Form 卡片
  * 5. 所有字段都是 media 字段
  */
 export const oneTableBlockWithAddNewAndViewAndEditAndMediaFields: PageConfig = {
@@ -8782,10 +8782,10 @@ export const oneTableBlockWithAddNewAndViewAndEditAndMediaFields: PageConfig = {
 };
 
 /**
- * 1. 一个 Table 区块
- * 2. 点击 Add new 有一个 Form 区块
- * 3. 点击 View 有一个 Details 区块
- * 4. 点击 Edit 有一个 Form 区块
+ * 1. 一个 Table 卡片
+ * 2. 点击 Add new 有一个 Form 卡片
+ * 3. 点击 View 有一个 Details 卡片
+ * 4. 点击 Edit 有一个 Form 卡片
  * 5. 所有字段都是 datetime 字段
  */
 export const oneTableBlockWithAddNewAndViewAndEditAndDatetimeFields: PageConfig = {
@@ -9759,10 +9759,10 @@ export const oneTableBlockWithAddNewAndViewAndEditAndDatetimeFields: PageConfig 
 };
 
 /**
- * 1. 一个 Table 区块
- * 2. 点击 Add new 有一个 Form 区块
- * 3. 点击 View 有一个 Details 区块
- * 4. 点击 Edit 有一个 Form 区块
+ * 1. 一个 Table 卡片
+ * 2. 点击 Add new 有一个 Form 卡片
+ * 3. 点击 View 有一个 Details 卡片
+ * 4. 点击 Edit 有一个 Form 卡片
  * 5. 所有字段都是 relation 字段
  */
 export const oneTableBlockWithAddNewAndViewAndEditAndAssociationFields: PageConfig = {
@@ -11059,7 +11059,7 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAssociationFields: PageConf
 };
 
 /**
- * 页面中有一个 filter form 区块，包含所有关系字段类型的字段
+ * 页面中有一个 filter form 卡片，包含所有关系字段类型的字段
  */
 export const oneFilterFormBlockWithAllAssociationFields: PageConfig = {
   collections: generalWithAssociation,
@@ -11382,10 +11382,10 @@ export const oneFilterFormBlockWithAllAssociationFields: PageConfig = {
 };
 
 /**
- * 1. 一个 Table 区块
- * 2. 点击 Add new 有一个 Form 区块
- * 3. 点击 View 有一个 Details 区块
- * 4. 点击 Edit 有一个 Form 区块
+ * 1. 一个 Table 卡片
+ * 2. 点击 Add new 有一个 Form 卡片
+ * 3. 点击 View 有一个 Details 卡片
+ * 4. 点击 Edit 有一个 Form 卡片
  * 5. 所有字段都是 advanced 字段
  */
 export const oneTableBlockWithAddNewAndViewAndEditAndAdvancedFields: PageConfig = {
@@ -12594,10 +12594,10 @@ export const oneTableBlockWithAddNewAndViewAndEditAndAdvancedFields: PageConfig 
 };
 
 /**
- * 1. 一个 Table 区块
- * 2. 点击 Add new 有一个 Form 区块
- * 3. 点击 View 有一个 Details 区块
- * 4. 点击 Edit 有一个 Form 区块
+ * 1. 一个 Table 卡片
+ * 2. 点击 Add new 有一个 Form 卡片
+ * 3. 点击 View 有一个 Details 卡片
+ * 4. 点击 Edit 有一个 Form 卡片
  * 5. 所有字段都是 systemInfo 字段
  */
 export const oneTableBlockWithAddNewAndViewAndEditAndSystemInfoFields: PageConfig = {
@@ -14812,7 +14812,7 @@ export const oneCollapseAndOneTableWithSameCollection: PageConfig = {
 };
 
 /**
- * 一个包含多层级关系字段的表单区块
+ * 一个包含多层级关系字段的表单卡片
  */
 
 export const oneFormWithMultiLevelAssociationFields: PageConfig = {
@@ -15066,7 +15066,7 @@ export const oneFormWithMultiLevelAssociationFields: PageConfig = {
 };
 
 /**
- * 一个包含多层级关系字段的子表单区块，并包含在一个表单区块中
+ * 一个包含多层级关系字段的子表单卡片，并包含在一个表单卡片中
  */
 
 export const oneSubformWithMultiLevelAssociationFields: PageConfig = {
@@ -15383,7 +15383,7 @@ export const oneSubformWithMultiLevelAssociationFields: PageConfig = {
 };
 
 /**
- * 一个包含多层级关系字段的子表单区块，并包含在一个表单区块中，该区块存在于一个编辑弹窗中
+ * 一个包含多层级关系字段的子表单卡片，并包含在一个表单卡片中，该卡片存在于一个编辑弹窗中
  */
 
 export const oneTableSubformWithMultiLevelAssociationFields: PageConfig = {
@@ -17097,7 +17097,7 @@ export const oneTableSubformWithMultiLevelAssociationFields: PageConfig = {
 };
 
 /**
- * 一个包含多层级关系字段的子表格区块，并包含在一个表单区块中，该区块存在于一个编辑弹窗中
+ * 一个包含多层级关系字段的子表格卡片，并包含在一个表单卡片中，该卡片存在于一个编辑弹窗中
  */
 
 export const oneTableSubtableWithMultiLevelAssociationFields: PageConfig = {
@@ -18643,7 +18643,7 @@ export const formBlockDefaultValueTemplate: PageConfig = {
 };
 
 /**
- * 一个基于 users 表创建的表单区块
+ * 一个基于 users 表创建的表单卡片
  */
 
 export const oneFormBlockBasedOnUsers: PageConfig = {

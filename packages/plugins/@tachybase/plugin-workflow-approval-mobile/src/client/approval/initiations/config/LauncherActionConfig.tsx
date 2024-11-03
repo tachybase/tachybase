@@ -4,7 +4,7 @@ import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from '../../constants';
 import { NAMESPACE } from '../../locale';
 import { LauncherActionConfigComponent } from './LauncherActionConfigComponent';
 
-// 区块-配置操作
+// 卡片-配置操作
 export const LauncherActionConfigInitializer = new SchemaInitializer({
   name: 'ApprovalApplyAddActionButton',
   title: '{{t("Configure actions")}}',

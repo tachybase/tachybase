@@ -1,1 +1,0 @@
-# @hera/plugin-home-page

@@ -14,9 +14,9 @@ import { useSubFormValue } from '../../association-field/hooks';
 import { isDisplayField } from '../utils';
 
 /**
- * 用于懒加载 Form 区块中只用于展示的关联字段的值
+ * 用于懒加载 Form 卡片中只用于展示的关联字段的值
  *
- * - 在表单区块中，有一个 Display association fields 的选项，这里面的字段，只是为了显示出相应的值，不可更改
+ * - 在表单卡片中，有一个 Display association fields 的选项，这里面的字段，只是为了显示出相应的值，不可更改
  * - 这里就是加载这些字段值的地方
  */
 const useLazyLoadDisplayAssociationFieldsOfForm = () => {

@@ -2,7 +2,7 @@
 
 [English](./README.md) | 中文
 
-Iframe 区块插件。
+Iframe 卡片插件。
 
 ## 安装激活
 
