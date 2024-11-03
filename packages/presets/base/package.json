@@ -31,6 +31,7 @@
     "@tachybase/plugin-data-source-external": "workspace:*",
     "@tachybase/plugin-data-source-manager": "workspace:*",
     "@tachybase/plugin-data-visualization": "workspace:*",
+    "@tachybase/plugin-demos-game-runesweeper": "workspace:*",
     "@tachybase/plugin-dingtalk": "workspace:*",
     "@tachybase/plugin-error-handler": "workspace:*",
     "@tachybase/plugin-export": "workspace:*",

@@ -2707,6 +2707,27 @@ importers:
         specifier: ^6.37.3
         version: 6.37.3
 
+  packages/plugins/@tachybase/plugin-demos-game-runesweeper:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      canvas-confetti:
+        specifier: ^1.9.2
+        version: 1.9.3
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-swipeable:
+        specifier: ^7.0.1
+        version: 7.0.1(react@18.3.1)
+
   packages/plugins/@tachybase/plugin-dingtalk:
     dependencies:
       '@tachybase/actions':
@@ -4520,6 +4541,9 @@ importers:
       '@tachybase/plugin-data-visualization':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-data-visualization
+      '@tachybase/plugin-demos-game-runesweeper':
+        specifier: workspace:*
+        version: link:../../plugins/@tachybase/plugin-demos-game-runesweeper
       '@tachybase/plugin-dingtalk':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-dingtalk
@@ -11129,6 +11153,9 @@ packages:
 
   caniuse-lite@1.0.30001671:
     resolution: {integrity: sha512-jocyVaSSfXg2faluE6hrWkMgDOiULBMca4QLtDT39hw1YxaIPHWc1CcTCKkPmHgGH6tKji6ZNbMSmUAvENf2/A==}
+
+  canvas-confetti@1.9.3:
+    resolution: {integrity: sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==}
 
   canvas@2.11.2:
     resolution: {integrity: sha512-ItanGBMrmRV7Py2Z+Xhs7cT+FNt5K0vPL4p9EZ/UX/Mu7hFbkxSjKF2KVtPwX7UYWp7dRKnrTvReflgrItJbdw==}
@@ -17870,6 +17897,11 @@ packages:
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+
+  react-swipeable@7.0.1:
+    resolution: {integrity: sha512-RKB17JdQzvECfnVj9yDZsiYn3vH0eyva/ZbrCZXZR0qp66PBRhtg4F9yJcJTWYT5Adadi+x4NoG53BxKHwIYLQ==}
+    peerDependencies:
+      react: ^16.8.3 || ^17 || ^18
 
   react-to-print@2.14.15:
     resolution: {integrity: sha512-SKnwOzU2cJ8eaAkoJO7+gNhvfEDmm+Y34IdcHsjtHioUevUPhprqbVtvNJlZ2JkGJ8ExK2QNWM9pXECTDR5D8w==}
@@ -29270,6 +29302,8 @@ snapshots:
 
   caniuse-lite@1.0.30001671: {}
 
+  canvas-confetti@1.9.3: {}
+
   canvas@2.11.2(encoding@0.1.13):
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.11(encoding@0.1.13)
@@ -36973,6 +37007,10 @@ snapshots:
       prop-types: 15.8.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  react-swipeable@7.0.1(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   react-to-print@2.14.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:

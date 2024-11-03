@@ -8,9 +8,9 @@ const isSupported = () => 'Notification' in window && 'serviceWorker' in navigat
 export class PluginWebNotification extends Plugin {
   async afterLoad() {
     // ‌请求用户授予权限
-    if (isSupported() && Notification.permission !== 'denied') {
-      await Notification.requestPermission();
-    }
+    // if (isSupported() && Notification.permission !== 'denied') {
+    //   await Notification.requestPermission();
+    // }
   }
 
   async load() {

@@ -50,6 +50,7 @@ export class PresetTachyBase extends Plugin {
     ['adapter-red-node', '0.22.8', false],
     ['adapter-remix', '0.22.9', false],
     ['simple-cms', '0.22.6', false],
+    ['demos-game-runesweeper', '0.22.20', false],
     ['core', '0.22.6', false],
     ['rental', '0.22.6', false],
     ['field-markdown-vditor', '0.22.6', false],
