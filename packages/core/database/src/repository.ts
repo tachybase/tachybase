@@ -142,6 +142,11 @@ export interface UpdateOptions extends Omit<SequelizeUpdateOptions, 'where'> {
   updateAssociationValues?: AssociationKeysToBeUpdate;
   targetCollection?: string;
   context?: any;
+  /**
+   * false: will not update updateAt field, default: false
+   * @default false
+   */
+  silent?: boolean;
 }
 
 interface UpdateManyOptions extends Omit<UpdateOptions, 'values'> {

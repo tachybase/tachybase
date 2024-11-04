@@ -85,12 +85,17 @@ export class SortAbleCollection {
     const targetInstance = await this.collection.repository.findById(targetInstanceId);
 
     if (this.scopeKey && sourceInstance.get(this.scopeKey) !== targetInstance.get(this.scopeKey)) {
-      await sourceInstance.update({
-        [this.scopeKey]: targetInstance.get(this.scopeKey),
+      await this.collection.repository.update({
+        targetCollection: this.collection.name,
+        filterByTk: sourceInstanceId,
+        values: {
+          [this.scopeKey]: targetInstance.get(this.scopeKey),
+        },
+        silent: false,
       });
     }
 
-    await this.sameScopeMove(sourceInstance, targetInstance, options);
+    await this.sameScopeMove(sourceInstance, targetInstance, options, sourceInstanceId);
   }
 
   async changeScope(sourceInstanceId: TargetKey, targetScope: any, method?: string) {
@@ -98,14 +103,14 @@ export class SortAbleCollection {
     const targetScopeValue = targetScope[this.scopeKey];
 
     if (targetScopeValue && sourceInstance.get(this.scopeKey) !== targetScopeValue) {
-      await sourceInstance.update(
-        {
+      await this.collection.repository.update({
+        targetCollection: this.collection.name,
+        filterByTk: sourceInstanceId,
+        values: {
           [this.scopeKey]: targetScopeValue,
         },
-        {
-          silent: false,
-        },
-      );
+        silent: false,
+      });
 
       if (method === 'prepend') {
         await this.sticky(sourceInstanceId);
@@ -114,18 +119,17 @@ export class SortAbleCollection {
   }
 
   async sticky(sourceInstanceId: TargetKey) {
-    const sourceInstance = await this.collection.repository.findById(sourceInstanceId);
-    await sourceInstance.update(
-      {
+    await this.collection.repository.update({
+      targetCollection: this.collection.name,
+      filterByTk: sourceInstanceId,
+      values: {
         [this.field.get('name')]: 0,
       },
-      {
-        silent: true,
-      },
-    );
+      silent: true,
+    });
   }
 
-  async sameScopeMove(sourceInstance: Model, targetInstance: Model, options: MoveOptions) {
+  async sameScopeMove(sourceInstance: Model, targetInstance: Model, options: MoveOptions, sourceInstanceId: TargetKey) {
     const fieldName = this.field.get('name');
 
     const sourceSort = sourceInstance.get(fieldName);
@@ -169,13 +173,13 @@ export class SortAbleCollection {
       silent: true,
     });
 
-    await sourceInstance.update(
-      {
+    await this.collection.repository.update({
+      targetCollection: this.collection.name,
+      filterByTk: sourceInstanceId,
+      values: {
         [fieldName]: targetSort,
       },
-      {
-        silent: true,
-      },
-    );
+      silent: true,
+    });
   }
 }
