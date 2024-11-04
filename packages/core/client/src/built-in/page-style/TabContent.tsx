@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
+import { css } from '@emotion/css';
 import { Outlet, useParams } from 'react-router-dom';
 
 import { RemoteSchemaComponent } from '../../schema-component';
@@ -8,13 +9,20 @@ import { PageStyleContext } from './PageStyle.provider';
 import { usePageStyle } from './usePageStyle';
 
 export const TabContentInternal = ({ items, activeKey }) => {
-  const item = items.find((item) => item.key === activeKey);
-
-  if (!item) {
-    return null;
-  }
-
-  return item.children;
+  return items.map((item) => (
+    <div
+      className={
+        activeKey !== item.key
+          ? css`
+              display: none;
+            `
+          : ''
+      }
+      key={item.key}
+    >
+      {item.children}
+    </div>
+  ));
 };
 
 export const TabContent = () => {
