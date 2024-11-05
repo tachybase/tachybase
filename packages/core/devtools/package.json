@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/devtools",
-  "version": "0.22.22",
+  "version": "0.22.23",
   "description": "",
   "license": "Apache-2.0",
   "main": "./src/index.js",
