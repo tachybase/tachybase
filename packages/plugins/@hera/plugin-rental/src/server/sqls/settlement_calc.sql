@@ -144,6 +144,30 @@ SELECT
           AND ci.start_date IS NOT NULL
           AND ci.end_date IS NOT NULL
       )
+    ) || JSONB_SET(
+      TO_JSONB(c),
+      '{party_a}',
+      (
+        SELECT
+          COALESCE(JSONB_AGG(companyA), '{}'::jsonb)
+        FROM
+          company companyA
+          JOIN contracts c4 ON c4."partyAId" = companyA.id
+        WHERE
+          c4.id = s.contract_id
+      )
+    ) || JSONB_SET(
+      TO_JSONB(c),
+      '{party_b}',
+      (
+        SELECT
+          COALESCE(JSONB_AGG(companyB), '{}'::jsonb)
+        FROM
+          company companyB
+          JOIN contracts c4 ON c4."partyBId" = companyB.id
+        WHERE
+          c4.id = s.contract_id
+      )
     )
   ) AS contracts,
   (

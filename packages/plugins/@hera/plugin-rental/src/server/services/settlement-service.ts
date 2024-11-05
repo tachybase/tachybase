@@ -43,7 +43,7 @@ export class SettlementService {
       dayjs(freeEndDate).isSameOrBefore(settlementAbout.end_date, 'day');
     const ruleProduct = [];
     const historyInventory = {}; //计算产品库存
-    const outMovement = settlementAbout.contracts.party_a?.roles.includes('associated') ? '-1' : '1';
+    const outMovement = settlementAbout.contracts.party_a[0].roles.includes('associated') ? '-1' : '1';
     const entMovement = outMovement === '-1' ? '1' : '-1';
     //统计出库数量
     settlementAbout.records?.forEach((recordItems) => {
@@ -374,7 +374,8 @@ export class SettlementService {
 
                         if (
                           dayjs(item.date).isSameOrAfter(settlementAbout.start_date, 'day') &&
-                          item.movement === entMovement
+                          item.movement === entMovement &&
+                          ruleItem.rule.shortest_day
                         ) {
                           let isDeduction = false;
                           historyInventory[recordItem.product_id]?.sort((a, b) => {
@@ -1185,10 +1186,10 @@ const differCount = (item, recordItem, count, currRecord, product, index, runPus
  */
 const calcDiffer = (type, start, end, shortest_day, differData, pushDatas, entMovement, free_date, recordItem) => {
   const differDay = afterDays(type, entMovement, start, end);
-  if (shortest_day - differDay > 0) {
+  if (differDay > 0 && shortest_day - differDay > 0) {
     differData['days'] = shortest_day - differDay;
     differData['amount'] = differData['count'] * differData['unit_price'] * differData['days'];
-    pushDatas.push(differData);
+    if (differData['amount'] > 0) pushDatas.push(differData);
     if (free_date?.length === 2 && dayjs(differData.date).isBefore(free_date[0].value)) {
       const l = dayjs(free_date[1].value).startOf('day');
       const r = dayjs(free_date[0].value).startOf('day');
