@@ -77,12 +77,11 @@ async function createDevPluginSymLink(pluginName, dir) {
     }
     const link = resolve(nodeModulesPath, pluginName);
     if (await fsExists(link)) {
-      console.log('===', pluginName);
       await unlink(link);
     }
     await symlink(resolve(packagePluginsPath, pluginName), link, 'dir');
   } catch (error) {
-    // console.error(error);
+    console.error(error);
   }
 }
 

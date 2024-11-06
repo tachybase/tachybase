@@ -82,7 +82,6 @@ export default () => {
   const initWasm = async () => {
     try {
       setLoading(true);
-      console.log('========', wasmURL);
       await initialize({
         wasmURL: wasmURL,
       });
