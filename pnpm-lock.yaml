@@ -1467,6 +1467,1111 @@ importers:
         specifier: 20.14.2
         version: 20.14.2
 
+  packages/plugins-action/@tachybase/plugin-action-bulk-edit:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.7
+        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../../../core/components
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-action/@tachybase/plugin-action-bulk-update:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-action/@tachybase/plugin-action-duplicate:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-action/@tachybase/plugin-action-print:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      react-to-print:
+        specifier: ^2.14.15
+        version: 2.14.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-auth/@tachybase/plugin-auth:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/cache':
+        specifier: workspace:*
+        version: link:../../../core/cache
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      cron:
+        specifier: ^3.1.7
+        version: 3.1.7
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-auth/@tachybase/plugin-cas:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/plugin-auth':
+        specifier: workspace:*
+        version: link:../plugin-auth
+      '@tachybase/sdk':
+        specifier: workspace:*
+        version: link:../../../core/sdk
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ~6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-auth/@tachybase/plugin-dingtalk:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/plugin-auth':
+        specifier: workspace:*
+        version: link:../plugin-auth
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@alicloud/dingtalk':
+        specifier: ^2.1.30
+        version: 2.1.30
+      '@alicloud/openapi-client':
+        specifier: ^0.4.10
+        version: 0.4.10
+      '@alicloud/tea-util':
+        specifier: ^1.4.9
+        version: 1.4.9
+      '@ant-design/icons':
+        specifier: ^5.3.7
+        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-auth/@tachybase/plugin-oidc:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/plugin-auth':
+        specifier: workspace:*
+        version: link:../plugin-auth
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../../../core/components
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      ahooks:
+        specifier: ^3.8.0
+        version: 3.8.1(react@18.3.1)
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      nanoid:
+        specifier: 3.3.4
+        version: 3.3.4
+      openid-client:
+        specifier: ^5.6.1
+        version: 5.6.1
+      react:
+        specifier: ~18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-auth/@tachybase/plugin-saml:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/plugin-auth':
+        specifier: workspace:*
+        version: link:../plugin-auth
+      '@tachybase/sdk':
+        specifier: workspace:*
+        version: link:../../../core/sdk
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@node-saml/node-saml':
+        specifier: ^4.0.5
+        version: 4.0.5
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ~18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-auth/@tachybase/plugin-sms-auth:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/plugin-auth':
+        specifier: workspace:*
+        version: link:../plugin-auth
+      '@tachybase/plugin-verification':
+        specifier: workspace:*
+        version: link:../../../plugins/@tachybase/plugin-verification
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ~18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-auth/@tachybase/plugin-wechat-auth:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/plugin-auth':
+        specifier: workspace:*
+        version: link:../plugin-auth
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-auth/@tachybase/plugin-wechat-official-account:
+    dependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.7
+        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/plugin-auth':
+        specifier: workspace:*
+        version: link:../plugin-auth
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@types/xml2js':
+        specifier: ^0.4.14
+        version: 0.4.14
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: ^1.7.7
+        version: 1.7.7
+      body-parser:
+        specifier: ^1.20.2
+        version: 1.20.3
+      jsonwebtoken:
+        specifier: ^8.5.1
+        version: 8.5.1
+      koa-bodyparser:
+        specifier: ^4.4.1
+        version: 4.4.1
+      qrcode.react:
+        specifier: ^3.1.0
+        version: 3.1.0(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      sequelize:
+        specifier: ^6.37.3
+        version: 6.37.3
+      xml2js:
+        specifier: ^0.6.2
+        version: 0.6.2
+
+  packages/plugins-auth/@tachybase/plugin-work-wechat:
+    dependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.7
+        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/plugin-auth':
+        specifier: workspace:*
+        version: link:../plugin-auth
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      ahooks:
+        specifier: ^3.8.0
+        version: 3.8.1(react@18.3.1)
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: ^1.7.7
+        version: 1.7.7
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-experiments/@tachybase/plugin-adapter-bullmq:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@bull-board/api':
+        specifier: ^5.21.1
+        version: 5.21.4(@bull-board/ui@5.21.1)
+      '@bull-board/koa':
+        specifier: ^5.21.1
+        version: 5.21.1(@types/koa@2.15.0)(handlebars@4.7.8)(lodash@4.17.21)(mustache@4.2.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
+      bullmq:
+        specifier: ^5.10.3
+        version: 5.10.3
+
+  packages/plugins-experiments/@tachybase/plugin-adapter-red-node:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@node-red/editor-api':
+        specifier: 4.0.5
+        version: 4.0.5
+      '@node-red/nodes':
+        specifier: 4.0.5
+        version: 4.0.5
+      '@node-red/runtime':
+        specifier: 4.0.5
+        version: 4.0.5
+      '@node-red/util':
+        specifier: 4.0.5
+        version: 4.0.5
+      '@types/express':
+        specifier: 5.0.0
+        version: 5.0.0
+      '@types/node-red':
+        specifier: ^1.3.5
+        version: 1.3.5
+      express:
+        specifier: 4.21.1
+        version: 4.21.1
+      node-red:
+        specifier: 4.0.5
+        version: 4.0.5
+
+  packages/plugins-experiments/@tachybase/plugin-adapter-remix:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@remix-run/express':
+        specifier: ^2.13.1
+        version: 2.13.1(express@4.21.1)(typescript@5.6.3)
+      '@remix-run/react':
+        specifier: ^2.13.1
+        version: 2.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      express:
+        specifier: ^4.21.1
+        version: 4.21.1
+      isbot:
+        specifier: ^5.1.17
+        version: 5.1.17
+      match-sorter:
+        specifier: ^7.0.0
+        version: 7.0.0
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      sort-by:
+        specifier: ^1.2.0
+        version: 1.2.0
+      tiny-invariant:
+        specifier: ^1.3.3
+        version: 1.3.3
+
+  packages/plugins-experiments/@tachybase/plugin-blockchain:
+    dependencies:
+      '@nomicfoundation/hardhat-toolbox':
+        specifier: ^5.0.0
+        version: 5.0.0(irpgyf3qejevlvatgp7eohn2iu)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      child_process:
+        specifier: ^1.0.2
+        version: 1.0.2
+      fs:
+        specifier: 0.0.1-security
+        version: 0.0.1-security
+      hardhat:
+        specifier: ^2.22.7
+        version: 2.22.7(ts-node@10.9.2(@types/node@22.4.0)(typescript@5.6.3))(typescript@5.6.3)
+      path:
+        specifier: ^0.12.7
+        version: 0.12.7
+      web3:
+        specifier: ^4.11.1
+        version: 4.11.1(encoding@0.1.13)(typescript@5.6.3)(zod@3.23.8)
+
+  packages/plugins-experiments/@tachybase/plugin-cloud-component:
+    dependencies:
+      '@bytemd/plugin-gemoji':
+        specifier: 1.21.0
+        version: 1.21.0(bytemd@1.21.0)
+      '@bytemd/plugin-gfm':
+        specifier: 1.21.0
+        version: 1.21.0(bytemd@1.21.0)
+      '@bytemd/plugin-highlight':
+        specifier: 1.21.0
+        version: 1.21.0(bytemd@1.21.0)
+      '@bytemd/react':
+        specifier: 1.21.0
+        version: 1.21.0(react@18.3.1)
+      '@micro-zoe/micro-app':
+        specifier: 1.0.0-rc.13
+        version: 1.0.0-rc.13
+      '@monaco-editor/react':
+        specifier: 4.6.0
+        version: 4.6.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+      ahooks:
+        specifier: 3.8.1
+        version: 3.8.1(react@18.3.1)
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      bytemd:
+        specifier: 1.21.0
+        version: 1.21.0
+      esbuild-wasm:
+        specifier: 0.24.0
+        version: 0.24.0
+      github-markdown-css:
+        specifier: 5.7.0
+        version: 5.7.0
+      highlight.js:
+        specifier: 11.10.0
+        version: 11.10.0
+      less:
+        specifier: 4.2.0
+        version: 4.2.0
+      md5:
+        specifier: 2.3.0
+        version: 2.3.0
+      prettier:
+        specifier: 3.3.3
+        version: 3.3.3
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-error-boundary:
+        specifier: 4.1.2
+        version: 4.1.2(react@18.3.1)
+      react-router-dom:
+        specifier: 6.27.0
+        version: 6.27.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-experiments/@tachybase/plugin-comments:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../../../core/components
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      dayjs:
+        specifier: 1.11.10
+        version: 1.11.10
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-experiments/@tachybase/plugin-demos-game-runesweeper:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      canvas-confetti:
+        specifier: ^1.9.2
+        version: 1.9.3
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-swipeable:
+        specifier: ^7.0.1
+        version: 7.0.1(react@18.3.1)
+
+  packages/plugins-experiments/@tachybase/plugin-messages:
+    dependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/plugin-workflow':
+        specifier: workspace:*
+        version: link:../../../plugins/@tachybase/plugin-workflow
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ~6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-experiments/@tachybase/plugin-online-user:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      jsonwebtoken:
+        specifier: ^8.5.1
+        version: 8.5.1
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      redis:
+        specifier: ^4.6.13
+        version: 4.6.13
+      ws:
+        specifier: ^8.18.0
+        version: 8.18.0
+
+  packages/plugins-experiments/@tachybase/plugin-print-template:
+    dependencies:
+      '@bull-board/api':
+        specifier: ^5.21.1
+        version: 5.21.4(@bull-board/ui@5.21.4)
+      '@bull-board/koa':
+        specifier: ^5.21.1
+        version: 5.21.1(@types/koa@2.15.0)(handlebars@4.7.8)(lodash@4.17.21)(mustache@4.2.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      bullmq:
+        specifier: ^5.10.3
+        version: 5.10.3
+      docxtemplater:
+        specifier: ^3.48.0
+        version: 3.48.0
+      koa-bodyparser:
+        specifier: ^4.4.1
+        version: 4.4.1
+      pizzip:
+        specifier: ^3.1.7
+        version: 3.1.7
+      ts-node:
+        specifier: 9.1.1
+        version: 9.1.1(typescript@5.6.3)
+      typescript:
+        specifier: ^5.6.3
+        version: 5.6.3
+      xml2js:
+        specifier: ^0.6.2
+        version: 0.6.2
+
+  packages/plugins-experiments/@tachybase/plugin-share:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/auth':
+        specifier: workspace:*
+        version: link:../../../core/auth
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+
+  packages/plugins-experiments/@tachybase/plugin-simple-cms:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-field/@tachybase/plugin-china-region:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      '@types/cross-spawn':
+        specifier: ^6.0.6
+        version: 6.0.6
+      china-division:
+        specifier: ^2.7.0
+        version: 2.7.0
+      cross-spawn:
+        specifier: ^7.0.3
+        version: 7.0.3
+
+  packages/plugins-field/@tachybase/plugin-field-markdown-vditor:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.7
+        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      koa-send:
+        specifier: ^5.0.1
+        version: 5.0.1
+      vditor:
+        specifier: ^3.10.4
+        version: 3.10.4
+
+  packages/plugins-field/@tachybase/plugin-formula-field:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/evaluators':
+        specifier: workspace:*
+        version: link:../../../core/evaluators
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../../../core/components
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-field/@tachybase/plugin-sequence-field:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../../../core/actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/plugin-collection-manager':
+        specifier: workspace:*
+        version: link:../../../plugins/@tachybase/plugin-collection-manager
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../../../core/components
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      cron-parser:
+        specifier: 4.4.0
+        version: 4.4.0
+      dayjs:
+        specifier: 1.11.10
+        version: 1.11.10
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      react:
+        specifier: ~18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-js-cron:
+        specifier: ^3.2.0
+        version: 3.2.0(antd@5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugins-field/@tachybase/plugin-snapshot-field:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../../core/client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../../core/database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../../core/server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../../core/test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../../../core/utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../../../core/schema
+      antd:
+        specifier: 5.21.6
+        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      rc-tree-select:
+        specifier: 5.5.5
+        version: 5.5.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ~18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^14.1.2
+        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
   packages/plugins/@hera/plugin-core:
     dependencies:
       '@tachybase/actions':
@@ -1770,211 +2875,6 @@ importers:
         specifier: ^14.1.2
         version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/plugins/@tachybase/plugin-action-bulk-edit:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ^5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../../../core/components
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-action-bulk-update:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-action-duplicate:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-action-print:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      react-to-print:
-        specifier: ^2.14.15
-        version: 2.14.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-adapter-bullmq:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@bull-board/api':
-        specifier: ^5.21.1
-        version: 5.21.1(@bull-board/ui@5.21.1)
-      '@bull-board/koa':
-        specifier: ^5.21.1
-        version: 5.21.1(@types/koa@2.15.0)(handlebars@4.7.8)(lodash@4.17.21)(mustache@4.2.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
-      bullmq:
-        specifier: ^5.10.3
-        version: 5.10.3
-
-  packages/plugins/@tachybase/plugin-adapter-red-node:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@node-red/editor-api':
-        specifier: 4.0.5
-        version: 4.0.5
-      '@node-red/nodes':
-        specifier: 4.0.5
-        version: 4.0.5
-      '@node-red/runtime':
-        specifier: 4.0.5
-        version: 4.0.5
-      '@node-red/util':
-        specifier: 4.0.5
-        version: 4.0.5
-      '@types/express':
-        specifier: 5.0.0
-        version: 5.0.0
-      '@types/node-red':
-        specifier: ^1.3.5
-        version: 1.3.5
-      express:
-        specifier: 4.21.1
-        version: 4.21.1
-      node-red:
-        specifier: 4.0.5
-        version: 4.0.5
-
-  packages/plugins/@tachybase/plugin-adapter-remix:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@remix-run/express':
-        specifier: ^2.13.1
-        version: 2.13.1(express@4.21.1)(typescript@5.6.3)
-      '@remix-run/react':
-        specifier: ^2.13.1
-        version: 2.13.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
-      express:
-        specifier: ^4.21.1
-        version: 4.21.1
-      isbot:
-        specifier: ^5.1.17
-        version: 5.1.17
-      match-sorter:
-        specifier: ^7.0.0
-        version: 7.0.0
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      sort-by:
-        specifier: ^1.2.0
-        version: 1.2.0
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
-
   packages/plugins/@tachybase/plugin-api-doc:
     dependencies:
       '@tachybase/actions':
@@ -2092,55 +2992,6 @@ importers:
         specifier: ^14.1.2
         version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/plugins/@tachybase/plugin-auth:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@tachybase/cache':
-        specifier: workspace:*
-        version: link:../../../core/cache
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      cron:
-        specifier: ^3.1.7
-        version: 3.1.7
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   packages/plugins/@tachybase/plugin-backup-restore:
     dependencies:
       '@tachybase/actions':
@@ -2226,39 +3077,6 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
 
-  packages/plugins/@tachybase/plugin-blockchain:
-    dependencies:
-      '@nomicfoundation/hardhat-toolbox':
-        specifier: ^5.0.0
-        version: 5.0.0(irpgyf3qejevlvatgp7eohn2iu)
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      child_process:
-        specifier: ^1.0.2
-        version: 1.0.2
-      fs:
-        specifier: 0.0.1-security
-        version: 0.0.1-security
-      hardhat:
-        specifier: ^2.22.7
-        version: 2.22.7(ts-node@10.9.2(@types/node@22.4.0)(typescript@5.6.3))(typescript@5.6.3)
-      path:
-        specifier: ^0.12.7
-        version: 0.12.7
-      web3:
-        specifier: ^4.11.1
-        version: 4.11.1(encoding@0.1.13)(typescript@5.6.3)(zod@3.23.8)
-
   packages/plugins/@tachybase/plugin-calendar:
     dependencies:
       '@tachybase/client':
@@ -2310,74 +3128,6 @@ importers:
       solarlunar-es:
         specifier: ^1.0.9
         version: 1.0.9
-
-  packages/plugins/@tachybase/plugin-cas:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth
-      '@tachybase/sdk':
-        specifier: workspace:*
-        version: link:../../../core/sdk
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ~6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-china-region:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      '@types/cross-spawn':
-        specifier: ^6.0.6
-        version: 6.0.6
-      china-division:
-        specifier: ^2.7.0
-        version: 2.7.0
-      cross-spawn:
-        specifier: ^7.0.3
-        version: 7.0.3
 
   packages/plugins/@tachybase/plugin-client:
     dependencies:
@@ -2452,40 +3202,6 @@ importers:
       toposort:
         specifier: ^2.0.2
         version: 2.0.2
-
-  packages/plugins/@tachybase/plugin-comments:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../../../core/components
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      dayjs:
-        specifier: 1.11.10
-        version: 1.11.10
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   packages/plugins/@tachybase/plugin-custom-request:
     dependencies:
@@ -2707,67 +3423,6 @@ importers:
         specifier: ^6.37.3
         version: 6.37.3
 
-  packages/plugins/@tachybase/plugin-demos-game-runesweeper:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      canvas-confetti:
-        specifier: ^1.9.2
-        version: 1.9.3
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-swipeable:
-        specifier: ^7.0.1
-        version: 7.0.1(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-dingtalk:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@alicloud/dingtalk':
-        specifier: ^2.1.30
-        version: 2.1.30
-      '@alicloud/openapi-client':
-        specifier: ^0.4.10
-        version: 0.4.10
-      '@alicloud/tea-util':
-        specifier: ^1.4.9
-        version: 1.4.9
-      '@ant-design/icons':
-        specifier: ^5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   packages/plugins/@tachybase/plugin-error-handler:
     dependencies:
       '@tachybase/client':
@@ -2841,37 +3496,6 @@ importers:
       react-i18next:
         specifier: ^14.1.2
         version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-field-markdown-vditor:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ^5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      koa-send:
-        specifier: ^5.0.1
-        version: 5.0.1
-      vditor:
-        specifier: ^3.10.4
-        version: 3.10.4
 
   packages/plugins/@tachybase/plugin-file-manager:
     dependencies:
@@ -2951,40 +3575,6 @@ importers:
       supertest:
         specifier: ^6.3.3
         version: 6.3.3
-
-  packages/plugins/@tachybase/plugin-formula-field:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/evaluators':
-        specifier: workspace:*
-        version: link:../../../core/evaluators
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../../../core/components
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   packages/plugins/@tachybase/plugin-gantt:
     dependencies:
@@ -3307,39 +3897,6 @@ importers:
         specifier: ^6.25.1
         version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/plugins/@tachybase/plugin-messages:
-    dependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/plugin-workflow':
-        specifier: workspace:*
-        version: link:../plugin-workflow
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ~6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   packages/plugins/@tachybase/plugin-mobile-client:
     dependencies:
       '@tachybase/client':
@@ -3558,367 +4115,6 @@ importers:
         specifier: ^1.5.12
         version: 1.5.12
 
-  packages/plugins/@tachybase/plugin-oidc:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../../../core/components
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      ahooks:
-        specifier: ^3.8.0
-        version: 3.8.0(react@18.3.1)
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      nanoid:
-        specifier: 3.3.4
-        version: 3.3.4
-      openid-client:
-        specifier: ^5.6.1
-        version: 5.6.1
-      react:
-        specifier: ~18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-online-user:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      jsonwebtoken:
-        specifier: ^8.5.1
-        version: 8.5.1
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      redis:
-        specifier: ^4.6.13
-        version: 4.6.13
-      ws:
-        specifier: ^8.18.0
-        version: 8.18.0
-
-  packages/plugins/@tachybase/plugin-print-template:
-    dependencies:
-      '@bull-board/api':
-        specifier: ^5.21.1
-        version: 5.21.1(@bull-board/ui@5.21.4)
-      '@bull-board/koa':
-        specifier: ^5.21.1
-        version: 5.21.1(@types/koa@2.15.0)(handlebars@4.7.8)(lodash@4.17.21)(mustache@4.2.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      bullmq:
-        specifier: ^5.10.3
-        version: 5.10.3
-      docxtemplater:
-        specifier: ^3.48.0
-        version: 3.48.0
-      koa-bodyparser:
-        specifier: ^4.4.1
-        version: 4.4.1
-      pizzip:
-        specifier: ^3.1.7
-        version: 3.1.7
-      ts-node:
-        specifier: 9.1.1
-        version: 9.1.1(typescript@5.6.3)
-      typescript:
-        specifier: ^5.6.3
-        version: 5.6.3
-      xml2js:
-        specifier: ^0.6.2
-        version: 0.6.2
-
-  packages/plugins/@tachybase/plugin-saml:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth
-      '@tachybase/sdk':
-        specifier: workspace:*
-        version: link:../../../core/sdk
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@node-saml/node-saml':
-        specifier: ^4.0.5
-        version: 4.0.5
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react:
-        specifier: ~18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-sequence-field:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/plugin-collection-manager':
-        specifier: workspace:*
-        version: link:../plugin-collection-manager
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../../../core/components
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      cron-parser:
-        specifier: 4.4.0
-        version: 4.4.0
-      dayjs:
-        specifier: 1.11.10
-        version: 1.11.10
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      react:
-        specifier: ~18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-js-cron:
-        specifier: ^3.2.0
-        version: 3.2.0(antd@5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-share:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-
-  packages/plugins/@tachybase/plugin-simple-cms:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-sms-auth:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth
-      '@tachybase/plugin-verification':
-        specifier: workspace:*
-        version: link:../plugin-verification
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-    devDependencies:
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react:
-        specifier: ~18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-snapshot-field:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../../../core/utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      rc-tree-select:
-        specifier: 5.5.5
-        version: 5.5.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react:
-        specifier: ~18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   packages/plugins/@tachybase/plugin-system-settings:
     dependencies:
       '@tachybase/client':
@@ -4057,7 +4253,7 @@ importers:
         version: link:../plugin-acl
       '@tachybase/plugin-auth':
         specifier: workspace:*
-        version: link:../plugin-auth
+        version: link:../../../plugins-auth/@tachybase/plugin-auth
       '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../../../core/resourcer
@@ -4141,133 +4337,6 @@ importers:
       tencentcloud-sdk-nodejs:
         specifier: ^4.0.759
         version: 4.0.759(encoding@0.1.13)
-
-  packages/plugins/@tachybase/plugin-wechat-auth:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../../../core/schema
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/plugins/@tachybase/plugin-wechat-official-account:
-    dependencies:
-      '@ant-design/icons':
-        specifier: ^5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      '@types/xml2js':
-        specifier: ^0.4.14
-        version: 0.4.14
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      axios:
-        specifier: ^1.7.7
-        version: 1.7.7
-      body-parser:
-        specifier: ^1.20.2
-        version: 1.20.2
-      jsonwebtoken:
-        specifier: ^8.5.1
-        version: 8.5.1
-      koa-bodyparser:
-        specifier: ^4.4.1
-        version: 4.4.1
-      qrcode.react:
-        specifier: ^3.1.0
-        version: 3.1.0(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      sequelize:
-        specifier: ^6.37.3
-        version: 6.37.3
-      xml2js:
-        specifier: ^0.6.2
-        version: 0.6.2
-
-  packages/plugins/@tachybase/plugin-work-wechat:
-    dependencies:
-      '@ant-design/icons':
-        specifier: ^5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../../../core/actions
-      '@tachybase/auth':
-        specifier: workspace:*
-        version: link:../../../core/auth
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../../../core/client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../../../core/database
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../../../core/server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../../../core/test
-      ahooks:
-        specifier: ^3.8.0
-        version: 3.8.0(react@18.3.1)
-      antd:
-        specifier: 5.21.6
-        version: 5.21.6(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      axios:
-        specifier: ^1.7.7
-        version: 1.7.7
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   packages/plugins/@tachybase/plugin-workflow:
     dependencies:
@@ -4477,25 +4546,25 @@ importers:
         version: link:../../plugins/@tachybase/plugin-acl
       '@tachybase/plugin-action-bulk-edit':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-action-bulk-edit
+        version: link:../../plugins-action/@tachybase/plugin-action-bulk-edit
       '@tachybase/plugin-action-bulk-update':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-action-bulk-update
+        version: link:../../plugins-action/@tachybase/plugin-action-bulk-update
       '@tachybase/plugin-action-duplicate':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-action-duplicate
+        version: link:../../plugins-action/@tachybase/plugin-action-duplicate
       '@tachybase/plugin-action-print':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-action-print
+        version: link:../../plugins-action/@tachybase/plugin-action-print
       '@tachybase/plugin-adapter-bullmq':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-adapter-bullmq
+        version: link:../../plugins-experiments/@tachybase/plugin-adapter-bullmq
       '@tachybase/plugin-adapter-red-node':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-adapter-red-node
+        version: link:../../plugins-experiments/@tachybase/plugin-adapter-red-node
       '@tachybase/plugin-adapter-remix':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-adapter-remix
+        version: link:../../plugins-experiments/@tachybase/plugin-adapter-remix
       '@tachybase/plugin-api-doc':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-api-doc
@@ -4507,7 +4576,7 @@ importers:
         version: link:../../plugins/@tachybase/plugin-audit-logs
       '@tachybase/plugin-auth':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-auth
+        version: link:../../plugins-auth/@tachybase/plugin-auth
       '@tachybase/plugin-backup-restore':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-backup-restore
@@ -4516,10 +4585,10 @@ importers:
         version: link:../../plugins/@tachybase/plugin-calendar
       '@tachybase/plugin-cas':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-cas
+        version: link:../../plugins-auth/@tachybase/plugin-cas
       '@tachybase/plugin-china-region':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-china-region
+        version: link:../../plugins-field/@tachybase/plugin-china-region
       '@tachybase/plugin-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-client
@@ -4528,7 +4597,7 @@ importers:
         version: link:../../plugins/@tachybase/plugin-collection-manager
       '@tachybase/plugin-comments':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-comments
+        version: link:../../plugins-experiments/@tachybase/plugin-comments
       '@tachybase/plugin-custom-request':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-custom-request
@@ -4543,10 +4612,10 @@ importers:
         version: link:../../plugins/@tachybase/plugin-data-visualization
       '@tachybase/plugin-demos-game-runesweeper':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-demos-game-runesweeper
+        version: link:../../plugins-experiments/@tachybase/plugin-demos-game-runesweeper
       '@tachybase/plugin-dingtalk':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-dingtalk
+        version: link:../../plugins-auth/@tachybase/plugin-dingtalk
       '@tachybase/plugin-error-handler':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-error-handler
@@ -4555,13 +4624,13 @@ importers:
         version: link:../../plugins/@tachybase/plugin-export
       '@tachybase/plugin-field-markdown-vditor':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-field-markdown-vditor
+        version: link:../../plugins-field/@tachybase/plugin-field-markdown-vditor
       '@tachybase/plugin-file-manager':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-file-manager
       '@tachybase/plugin-formula-field':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-formula-field
+        version: link:../../plugins-field/@tachybase/plugin-formula-field
       '@tachybase/plugin-gantt':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-gantt
@@ -4585,7 +4654,7 @@ importers:
         version: link:../../plugins/@tachybase/plugin-map
       '@tachybase/plugin-messages':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-messages
+        version: link:../../plugins-experiments/@tachybase/plugin-messages
       '@tachybase/plugin-mobile-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-mobile-client
@@ -4600,25 +4669,25 @@ importers:
         version: link:../../plugins/@tachybase/plugin-multi-app-share-collection
       '@tachybase/plugin-oidc':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-oidc
+        version: link:../../plugins-auth/@tachybase/plugin-oidc
       '@tachybase/plugin-online-user':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-online-user
+        version: link:../../plugins-experiments/@tachybase/plugin-online-user
       '@tachybase/plugin-saml':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-saml
+        version: link:../../plugins-auth/@tachybase/plugin-saml
       '@tachybase/plugin-sequence-field':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-sequence-field
+        version: link:../../plugins-field/@tachybase/plugin-sequence-field
       '@tachybase/plugin-simple-cms':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-simple-cms
+        version: link:../../plugins-experiments/@tachybase/plugin-simple-cms
       '@tachybase/plugin-sms-auth':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-sms-auth
+        version: link:../../plugins-auth/@tachybase/plugin-sms-auth
       '@tachybase/plugin-snapshot-field':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-snapshot-field
+        version: link:../../plugins-field/@tachybase/plugin-snapshot-field
       '@tachybase/plugin-system-settings':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-system-settings
@@ -4636,10 +4705,10 @@ importers:
         version: link:../../plugins/@tachybase/plugin-verification
       '@tachybase/plugin-wechat-auth':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-wechat-auth
+        version: link:../../plugins-auth/@tachybase/plugin-wechat-auth
       '@tachybase/plugin-work-wechat':
         specifier: workspace:*
-        version: link:../../plugins/@tachybase/plugin-work-wechat
+        version: link:../../plugins-auth/@tachybase/plugin-work-wechat
       '@tachybase/plugin-workflow':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-workflow
@@ -5852,6 +5921,26 @@ packages:
 
   '@bull-board/ui@5.21.4':
     resolution: {integrity: sha512-z2otIDhN4EpKRXeBjZZrqbOPtX5pFwkeEs6uGG77/4m6bSjUl+RTRFpzBSVxrwctqxge+S+CNOCmfDiDMGqi8Q==}
+
+  '@bytemd/plugin-gemoji@1.21.0':
+    resolution: {integrity: sha512-/u90E0xHM0SmK5nt+c82UYtgm+ECq16ofp+bi/KZnzoq2vzqscflxxMRz59u2t3UejFpCMaqdIcnfzn0/eYvsA==}
+    peerDependencies:
+      bytemd: ^1.5.0
+
+  '@bytemd/plugin-gfm@1.21.0':
+    resolution: {integrity: sha512-ZlrLa+Nl80gUDeC1hTnyRDfgJU3DGQVjQvX9rIIitUCler+KsAiagEnng6S/W2SZNpv+f8eWpVNL8KA8X3d7Tg==}
+    peerDependencies:
+      bytemd: ^1.5.0
+
+  '@bytemd/plugin-highlight@1.21.0':
+    resolution: {integrity: sha512-JM9rwzj9pFBXVwxmD9mgGIQPO4cTFVHvDhffS93IMK+tqvo0Vw76zDIqJWT3f421j8iNxffGsVQQs6389u3Z9A==}
+    peerDependencies:
+      bytemd: ^1.5.0
+
+  '@bytemd/react@1.21.0':
+    resolution: {integrity: sha512-WYb+XlFHWraK9KWuNUlWMZoKlI55wDj4388E40zCsxaN/O6UUnCGdrE+6ZiVGPN3ZiqfQ1iceGIzmJ2PiB2T9w==}
+    peerDependencies:
+      react: '*'
 
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
@@ -7229,6 +7318,9 @@ packages:
   '@metamask/eth-sig-util@4.0.1':
     resolution: {integrity: sha512-tghyZKLHZjcdlDqCA3gNZmLeR0XvOE9U1qoQO9ohyAZT6Pya+H9vkBPcsyXytmYLNgVoin7CKCmweo/R43V+tQ==}
     engines: {node: '>=12.0.0'}
+
+  '@micro-zoe/micro-app@1.0.0-rc.13':
+    resolution: {integrity: sha512-2FA2dpYFAIKwoNtDABrGB3TpVWkqfi3wxxbtfRPkomEhiWLZyth7mocY1TjpUCIcNNiIxdfz42ebZA0tK+6dkw==}
 
   '@monaco-editor/loader@1.4.0':
     resolution: {integrity: sha512-00ioBig0x642hytVspPl7DbQyaSWRaolYie/UFNjoTdvoKPzo6xrXLhTk9ixgIKcLH5b5vDOjVNiGyY+uDCUlg==}
@@ -8787,9 +8879,6 @@ packages:
   '@rushstack/ts-command-line@4.17.1':
     resolution: {integrity: sha512-2jweO1O57BYP5qdBGl6apJLB+aRIn5ccIRTPDyULh0KMwVzFqWtw6IZWt1qtUoZD/pD2RNkIOosH6Cq45rIYeg==}
 
-  '@scure/base@1.1.7':
-    resolution: {integrity: sha512-PPNYBslrLNNUQ/Yad37MHYsNQtK67EhWb6WtSvNLLPo7SdVZgkUjD6Dg+5On7zNwmskf8OX7I7Nx5oN+MIWE0g==}
-
   '@scure/base@1.1.9':
     resolution: {integrity: sha512-8YKhl8GHiNI/pU2VMaofa2Tor7PJRAjwQLBBuilkJ9L5+13yVbC7JO/wS7piioAvPSwR3JKM1IJ/u4xQzbcXKg==}
 
@@ -9327,9 +9416,6 @@ packages:
   '@types/bn.js@4.11.6':
     resolution: {integrity: sha512-pqr857jrp2kPuO9uRjZ3PwnJTjoQy+fcdxvBTvHm6dkmEL9q+hDD/2j/0ELOBPtPnS8LjCX0gI9nbl8lVkadpg==}
 
-  '@types/bn.js@5.1.5':
-    resolution: {integrity: sha512-V46N0zwKRF5Q00AZ6hWtN0T8gGmDUaUzLWQvHFo5yThtVwK/VCenFY3wXVbOvNfajEpsTfQM4IN9k/d6gUVX3A==}
-
   '@types/bn.js@5.1.6':
     resolution: {integrity: sha512-Xh8vSwUeMKeYYrj3cX4lGQgFSF/N03r+tv4AiLl1SucqV+uTQpxRcnM8AkXKHwYP9ZPXOYXRr2KPXpVlIvqh9w==}
 
@@ -9344,6 +9430,9 @@ packages:
 
   '@types/chai@4.3.17':
     resolution: {integrity: sha512-zmZ21EWzR71B4Sscphjief5djsLre50M6lI622OSySTmn9DB3j+C3kWroHfBQWXbOBwbgg/M8CG/hUxDLIloow==}
+
+  '@types/codemirror@5.60.15':
+    resolution: {integrity: sha512-dTOvwEQ+ouKJ/rE9LT1Ue2hmP6H1mZv5+CCnNWu2qtiOe2LQa9lCprEY20HxiDmV/Bxh+dXjywmy5aKvoGjULA==}
 
   '@types/connect@3.4.36':
     resolution: {integrity: sha512-P63Zd/JUGq+PdrM1lv0Wv5SBYeA2+CORvbrXbngriYY0jzLUWfQMQQxOhjONEz/wlHOAxOdY7CY65rgQdTjq2w==}
@@ -9432,6 +9521,9 @@ packages:
   '@types/hapi__joi@17.1.9':
     resolution: {integrity: sha512-oOMFT8vmCTFncsF1engrs04jatz8/Anwx3De9uxnOK4chgSEgWBvFtpSoJo8u3784JNO+ql5tzRR6phHoRnscQ==}
 
+  '@types/hast@2.3.10':
+    resolution: {integrity: sha512-McWspRw8xx8J9HurkVBfYj0xKoE25tOFlHGdx4MJ5xORQrMGZNqJhVQWaIbm6Oyla5kYOXtDiopzKRJzEOkwJw==}
+
   '@types/hoist-non-react-statics@3.3.5':
     resolution: {integrity: sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg==}
 
@@ -9500,6 +9592,9 @@ packages:
 
   '@types/linkify-it@3.0.5':
     resolution: {integrity: sha512-yg6E+u0/+Zjva+buc3EIb+29XEg4wltq7cSmd4Uc2EE/1nUVmxyzpX6gUXD0V8jIrG0r7YeOGVIbYRkxeooCtw==}
+
+  '@types/lodash-es@4.17.12':
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
 
   '@types/lodash@4.17.5':
     resolution: {integrity: sha512-MBIOHVZqVqgfro1euRDWX7OO0fBVUUMrN6Pwm8LQsz8cWhEpihlvR70ENj3f40j58TNxZaWv2ndSkInykNBBJw==}
@@ -9590,6 +9685,9 @@ packages:
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
+
+  '@types/parse5@6.0.3':
+    resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
 
   '@types/passport@1.0.16':
     resolution: {integrity: sha512-FD0qD5hbPWQzaM0wHUnJ/T0BBCJBxCeemtnCwc/ThhTg3x9jfrAcRUmj5Dopza+MfFS9acTe3wk7rcVnRIp/0A==}
@@ -9698,6 +9796,9 @@ packages:
 
   '@types/tedious@4.0.14':
     resolution: {integrity: sha512-KHPsfX/FoVbUGbyYvk1q9MMQHLPeRZhRJZdO45Q4YjvFkv4hMNghCWTvy7rdKessBsmtz4euWCWAB6/tVpI1Iw==}
+
+  '@types/tern@0.23.9':
+    resolution: {integrity: sha512-ypzHFE/wBzh+BlH6rrBgS5I/Z7RD21pGhZ2rltb/+ZrVM1awdZwjx7hE5XfuYgHWk9uvV5HLZN3SloevCAp3Bw==}
 
   '@types/triple-beam@1.3.5':
     resolution: {integrity: sha512-6WaYesThRMCl19iryMYP7/x2OVgCtbIVflDGFpWnb9irXI3UjYE4AzmYuiUKY1AJstGijoY+MgUszMgRxIYTYw==}
@@ -10387,6 +10488,12 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
+  ahooks@3.8.1:
+    resolution: {integrity: sha512-JoP9+/RWO7MnI/uSKdvQ8WB10Y3oo1PjLv+4Sv4Vpm19Z86VUMdXh+RhWvMGxZZs06sq2p0xVtFk8Oh5ZObsoA==}
+    engines: {node: '>=8.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+
   ajv-formats@1.6.1:
     resolution: {integrity: sha512-4CjkH20If1lhR5CGtqkrVg3bbOtFEG80X9v6jDOIUhbzzbB+UzPBGy8GQhUNVZ0yvMHdMpawCOcy5ydGMsagGQ==}
     peerDependencies:
@@ -10801,6 +10908,9 @@ packages:
   babel-runtime@6.26.0:
     resolution: {integrity: sha512-ITKNuq2wKlW1fJg9sSW52eepoYgZBggvOAHC0u/CYu/qxQ9EVzThCgR69BnSXLHjy2f7SY5zaQ4yt7H9ZVxY2g==}
 
+  bail@2.0.2:
+    resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
+
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
@@ -10900,10 +11010,6 @@ packages:
 
   bodec@0.1.0:
     resolution: {integrity: sha512-Ylo+MAo5BDUq1KA3f3R/MFhh+g8cnHmo8bz3YPGhI1znrMaf77ol1sfvYJzsw3nTE+Y2GryfDxBaR+AqpAkEHQ==}
-
-  body-parser@1.20.2:
-    resolution: {integrity: sha512-ml9pReCu3M61kGlqoTm2umSXTlRTuGTx0bfYj+uIUKKYycG5NtSbeetV3faSU6R7ajOPw0g/J1PvK4qNy7s5bA==}
-    engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
 
   body-parser@1.20.3:
     resolution: {integrity: sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==}
@@ -11075,6 +11181,9 @@ packages:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
     engines: {node: '>=10.16.0'}
 
+  bytemd@1.21.0:
+    resolution: {integrity: sha512-6nc658omwzcLdc/lT24w8G2x5pptZXiMyrQPbFuHwhYbmrLnsmKLm+9klsOx2/Lg2cYHYb2WzVh7zKZ9MZCVdg==}
+
   bytes@3.0.0:
     resolution: {integrity: sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==}
     engines: {node: '>= 0.8'}
@@ -11172,6 +11281,9 @@ packages:
     resolution: {integrity: sha512-JPypkxsB10s9QOWwa6zwPzqE1Md3vqpPc+cai4sAecuCsRyAtAl/pMyhPlMbT/xtPnm2dznJZYRLui57qiRhaQ==}
     engines: {node: '>=16'}
 
+  ccount@2.0.1:
+    resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
+
   center-align@0.1.3:
     resolution: {integrity: sha512-Baz3aNe2gd2LP2qk5U+sDk/m4oSuwSDcBfayTCTBoWpfIGO5XFxPmjILQII4NGiZjD6DoDI6kf7gKaxkf7s3VQ==}
     engines: {node: '>=0.10.0'}
@@ -11224,11 +11336,20 @@ packages:
     resolution: {integrity: sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==}
     engines: {node: '>=10'}
 
+  character-entities-html4@2.1.0:
+    resolution: {integrity: sha512-1v7fgQRj6hnSwFpq1Eu0ynr/CDEw0rXo2B61qXrLNdHZmPKgb7fqS1a2JwF0rISo9q77jDI8VMEHoApn8qDoZA==}
+
   character-entities-legacy@1.1.4:
     resolution: {integrity: sha512-3Xnr+7ZFS1uxeiUDvV02wQ+QDbc55o97tIV5zHScSPJpcLm/r0DFPcoY3tYRp+VZukxuMeKgXYmsXQHO05zQeA==}
 
+  character-entities-legacy@3.0.0:
+    resolution: {integrity: sha512-RpPp0asT/6ufRm//AJVwpViZbGM/MkjQFxJccQRHmISF/22NBtsHqAWmL+/pmkPWoIUJdWyeVleTl1wydHATVQ==}
+
   character-entities@1.2.4:
     resolution: {integrity: sha512-iBMyeEHxfVnIakwOuDXpVkc54HijNgCyQB2w0VfGQThle6NXn50zU6V/u+LDhxHcDUPojn6Kpga3PTAD8W1bQw==}
+
+  character-entities@2.0.2:
+    resolution: {integrity: sha512-shx7oQ0Awen/BRIdkjkvz54PnEEI/EjwXDSIZp86/KKdbafHh1Df/RYGBhn4hbe2+uKC9FnT5UCEdyPz3ai9hQ==}
 
   character-reference-invalid@1.1.4:
     resolution: {integrity: sha512-mKKUkUbhPpQlCOfIuZkvSEgktjPFIsZKRRbC6KWVEMvlzblj3i3asQv5ODsrwt0N3pHAEvjP8KTQPHkp0+6jOg==}
@@ -11423,6 +11544,11 @@ packages:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
     engines: {iojs: '>= 1.0.0', node: '>= 0.12.0'}
 
+  codemirror-ssr@0.65.0:
+    resolution: {integrity: sha512-ofTAfPkQV56SYFfymNMYJ1ELo3+Jnkw3mOLgnIiQjhonwNmNzX1OFvnihAnYRXL0PWl2kT7s0gKrLc2ExshK4g==}
+    peerDependencies:
+      '@types/codemirror': ^5.0.0
+
   codepage@1.15.0:
     resolution: {integrity: sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==}
     engines: {node: '>=0.8'}
@@ -11470,6 +11596,9 @@ packages:
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
     engines: {node: '>= 0.8'}
+
+  comma-separated-tokens@2.0.3:
+    resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
 
   command-exists@1.2.9:
     resolution: {integrity: sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==}
@@ -12382,6 +12511,9 @@ packages:
   decimal.js@10.4.3:
     resolution: {integrity: sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==}
 
+  decode-named-character-reference@1.0.2:
+    resolution: {integrity: sha512-O8x12RzrUF8xyVcY0KJowWsmaJxQbmy0/EtnNtHRpsOcT7dFk5W598coHqBVpmWo1oQQfsCqfCmkZN5DJrZVdg==}
+
   decode-uri-component@0.2.2:
     resolution: {integrity: sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==}
     engines: {node: '>=0.10'}
@@ -12732,9 +12864,6 @@ packages:
   elliptic@6.5.4:
     resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
 
-  elliptic@6.5.5:
-    resolution: {integrity: sha512-7EjbcmUm17NQFu4Pmgmq2olYMj8nwMnpcddByChSUjArp8F5DQWcIcpriwO4ZToLNAJig0yiyjswfyGNje/ixw==}
-
   elliptic@6.6.0:
     resolution: {integrity: sha512-dpwoQcLc/2WLQvJvLRHKZ+f9FgOdjnq11rurqwekGQygGPsYSK29OMMD2WalatiqQ+XGFDglTNixpPfI+lpaAA==}
 
@@ -12881,6 +13010,11 @@ packages:
     peerDependencies:
       esbuild: '>=0.12 <1'
 
+  esbuild-wasm@0.24.0:
+    resolution: {integrity: sha512-xhNn5tL1AhkPg4ft59yXT6FkwKXiPSYyz1IeinJHUJpjvOHOIPvdmFQc0pGdjxlKSbzZc2mNmtVOWAR1EF/JAg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   esbuild@0.12.15:
     resolution: {integrity: sha512-72V4JNd2+48eOVCXx49xoSWHgC3/cCy96e7mbXKY+WOWghN00cCmlGnwVLRhRHorvv0dgCyuMYBZlM2xDM5OQw==}
     hasBin: true
@@ -12931,6 +13065,10 @@ packages:
   escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
+
+  escape-string-regexp@5.0.0:
+    resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
+    engines: {node: '>=12'}
 
   escodegen@1.8.1:
     resolution: {integrity: sha512-yhi5S+mNTOuRvyW4gWlg5W1byMaQGWWSYHXsuFZ7GBo7tpyOwi2EdzMP/QWxh9hwkD2m+wDVHJsxhRIj+v/b/A==}
@@ -13651,6 +13789,9 @@ packages:
     resolution: {integrity: sha512-Jh/AIwwgaxan+7ZUUmRLCjtchyDiqh4KjBJ5tW3plBZb5iL/BPcso8A5DlzeD9qlw0duCamnNdpFjxwaT0KyKg==}
     engines: {node: '>=14'}
 
+  gemoji@7.1.0:
+    resolution: {integrity: sha512-wI0YWDIfQraQMDs0yXAVQiVBZeMm/rIYssf8LZlMDdssKF19YqJKOHkv4zvwtVQTBJ0LNmErv1S+DqlVUudz8g==}
+
   generate-function@2.3.1:
     resolution: {integrity: sha512-eeB5GfMNeevm/GRYq20ShmsaGcmI81kIX2K9XQx5miC8KdHaC6Jm0qQ8ZNeGOi7wYB8OsdxKs+Y2oVuTFuVwKQ==}
 
@@ -13761,6 +13902,10 @@ packages:
 
   github-from-package@0.0.0:
     resolution: {integrity: sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==}
+
+  github-markdown-css@5.7.0:
+    resolution: {integrity: sha512-GoYhaqELL4YUjz4tZ00PQ4JzFQkMfrBVuEeRB8W74HoikHWNiaGqSgynpwJEc+xom5uf04qoD/tUSS6ziZltaQ==}
+    engines: {node: '>=10'}
 
   gl-matrix@3.4.3:
     resolution: {integrity: sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==}
@@ -13979,6 +14124,30 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
+  hast-util-from-parse5@7.1.2:
+    resolution: {integrity: sha512-Nz7FfPBuljzsN3tCQ4kCBKqdNhQE2l0Tn+X1ubgKBPRoiDIu1mL08Cfw4k7q71+Duyaw7DXDN+VTAp4Vh3oCOw==}
+
+  hast-util-parse-selector@3.1.1:
+    resolution: {integrity: sha512-jdlwBjEexy1oGz0aJ2f4GKMaVKkA9jwjr4MjAAI22E5fM/TXVZHuS5OpONtdeIkRKqAaryQ2E9xNQxijoThSZA==}
+
+  hast-util-raw@7.2.3:
+    resolution: {integrity: sha512-RujVQfVsOrxzPOPSzZFiwofMArbQke6DJjnFfceiEbFh7S05CbPt0cYN+A5YeD3pso0JQk6O1aHBnx9+Pm2uqg==}
+
+  hast-util-sanitize@4.1.0:
+    resolution: {integrity: sha512-Hd9tU0ltknMGRDv+d6Ro/4XKzBqQnP/EZrpiTbpFYfXv/uOhWeKc+2uajcbEvAEH98VZd7eII2PiXm13RihnLw==}
+
+  hast-util-to-html@8.0.4:
+    resolution: {integrity: sha512-4tpQTUOr9BMjtYyNlt0P50mH7xj0Ks2xpo8M943Vykljf99HW6EzulIoJP1N3eKOSScEHzyzi9dm7/cn0RfGwA==}
+
+  hast-util-to-parse5@7.1.0:
+    resolution: {integrity: sha512-YNRgAJkH2Jky5ySkIqFXTQiaqcAtJyVE+D5lkN6CdtOqrnkLfGYYrEcKuHOJZlp+MwjSwuD3fZuawI+sic/RBw==}
+
+  hast-util-whitespace@2.0.1:
+    resolution: {integrity: sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==}
+
+  hastscript@7.2.0:
+    resolution: {integrity: sha512-TtYPq24IldU8iKoJQqvZOuhi5CyCQRAbvDOX0x1eW6rsHSxa/1i2CCiptNTotGHJ3VoHRGmqiv6/D3q113ikkw==}
+
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
@@ -13995,6 +14164,10 @@ packages:
 
   highlight.js@10.7.3:
     resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
+
+  highlight.js@11.10.0:
+    resolution: {integrity: sha512-SYVnVFswQER+zu1laSya563s+F8VDGt7o35d4utbamowvUNLLMovFqwCLSocpZTz3MgaSRA1IbqRWZv97dtErQ==}
+    engines: {node: '>=12.0.0'}
 
   history@5.3.0:
     resolution: {integrity: sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==}
@@ -14060,6 +14233,9 @@ packages:
   html-tokenize@2.0.1:
     resolution: {integrity: sha512-QY6S+hZ0f5m1WT8WffYN+Hg+xm/w5I8XeUcAq/ZYP5wVC8xbKi4Whhru3FtrAebD5EhBW8rmFzkDI6eCAuFe2w==}
     hasBin: true
+
+  html-void-elements@2.0.1:
+    resolution: {integrity: sha512-0quDb7s97CfemeJAnW9wC0hw78MtW7NU3hqtCD75g2vFlDLt36llsYD7uB7SUzojLMP24N5IatXf7ylGXiGG9A==}
 
   html-webpack-plugin@5.5.0:
     resolution: {integrity: sha512-sy88PC2cRTVxvETRgUHFrL4No3UxvcH8G1NepGhqaTT+GXN2kTamqasot0inS5hXeg1cMbFDt27zzo9p35lZVw==}
@@ -14922,6 +15098,10 @@ packages:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
 
+  kleur@4.1.5:
+    resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
+    engines: {node: '>=6'}
+
   known-css-properties@0.34.0:
     resolution: {integrity: sha512-tBECoUqNFbyAY4RrbqsBQqDFpGXAEbdD5QKr8kACx3+rnArmuuR22nKQWKazvp07N9yjTyDZaw/20UIH8tL9DQ==}
 
@@ -15332,6 +15512,9 @@ packages:
   long@5.2.3:
     resolution: {integrity: sha512-lcHwpNoggQTObv5apGNCTdJrO69eHOZMi4BNC+rTLER8iHAqGrUVeLh/irVIM7zTw2bOXA8T6uNPeujwOLg/2Q==}
 
+  longest-streak@3.1.0:
+    resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
+
   longest@1.0.1:
     resolution: {integrity: sha512-k+yt5n3l48JU4k8ftnKG6V7u32wyH2NfKzeMto9F/QRE0amxy/LayxwlvjjkZEIzqR+19IrtFO8p5kB9QaYUFg==}
     engines: {node: '>=0.10.0'}
@@ -15474,6 +15657,9 @@ packages:
   markdown-table@2.0.0:
     resolution: {integrity: sha512-Ezda85ToJUBhM6WGaG6veasyym+Tbs3cMAw/ZhOPqXiYsr0jgocBV3j3nx+4lk47plLlIqjwuTm/ywVI+zjJ/A==}
 
+  markdown-table@3.0.4:
+    resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
+
   match-sorter@7.0.0:
     resolution: {integrity: sha512-J1370vFVhvn81QrUYv54y3IZbsaG1X4otKSwtGZbyfZxgWgjVxdRkASY+uaT2IlQUGeWFBEPbGFVKv1DNnHYKA==}
 
@@ -15488,11 +15674,53 @@ packages:
   md5.js@1.3.5:
     resolution: {integrity: sha512-xitP+WxNPcTTOgnTJcrhM0xvdPepipPSf3I8EIpGKeFLjt3PlJLIDG3u8EX53ZIubkb+5U2+3rELYpEhHhzdkg==}
 
+  md5@2.3.0:
+    resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==}
+
+  mdast-util-definitions@5.1.2:
+    resolution: {integrity: sha512-8SVPMuHqlPME/z3gqVwWY4zVXn8lqKv/pAhC57FuJ40ImXyBpmO5ukh98zB2v7Blql2FiHjHv9LVztSIqjY+MA==}
+
+  mdast-util-find-and-replace@2.2.2:
+    resolution: {integrity: sha512-MTtdFRz/eMDHXzeK6W3dO7mXUlF82Gom4y0oOgvHhh/HXZAGvIQDUvQ0SuUx+j2tv44b8xTHOm8K/9OoRFnXKw==}
+
   mdast-util-from-markdown@0.8.5:
     resolution: {integrity: sha512-2hkTXtYYnr+NubD/g6KGBS/0mFmBcifAsI0yIWRiRo0PjVs6SSOSOdtzbp6kSGnShDN6G5aWZpKQ2lWRy27mWQ==}
 
+  mdast-util-from-markdown@1.3.1:
+    resolution: {integrity: sha512-4xTO/M8c82qBcnQc1tgpNtubGUW/Y1tBQ1B0i5CtSoelOLKFYlElIr3bvgREYYO5iRqbMY1YuqZng0GVOI8Qww==}
+
+  mdast-util-gfm-autolink-literal@1.0.3:
+    resolution: {integrity: sha512-My8KJ57FYEy2W2LyNom4n3E7hKTuQk/0SES0u16tjA9Z3oFkF4RrC/hPAPgjlSpezsOvI8ObcXcElo92wn5IGA==}
+
+  mdast-util-gfm-footnote@1.0.2:
+    resolution: {integrity: sha512-56D19KOGbE00uKVj3sgIykpwKL179QsVFwx/DCW0u/0+URsryacI4MAdNJl0dh+u2PSsD9FtxPFbHCzJ78qJFQ==}
+
+  mdast-util-gfm-strikethrough@1.0.3:
+    resolution: {integrity: sha512-DAPhYzTYrRcXdMjUtUjKvW9z/FNAMTdU0ORyMcbmkwYNbKocDpdk+PX1L1dQgOID/+vVs1uBQ7ElrBQfZ0cuiQ==}
+
+  mdast-util-gfm-table@1.0.7:
+    resolution: {integrity: sha512-jjcpmNnQvrmN5Vx7y7lEc2iIOEytYv7rTvu+MeyAsSHTASGCCRA79Igg2uKssgOs1i1po8s3plW0sTu1wkkLGg==}
+
+  mdast-util-gfm-task-list-item@1.0.2:
+    resolution: {integrity: sha512-PFTA1gzfp1B1UaiJVyhJZA1rm0+Tzn690frc/L8vNX1Jop4STZgOE6bxUhnzdVSB+vm2GU1tIsuQcA9bxTQpMQ==}
+
+  mdast-util-gfm@2.0.2:
+    resolution: {integrity: sha512-qvZ608nBppZ4icQlhQQIAdc6S3Ffj9RGmzwUKUWuEICFnd1LVkN3EktF7ZHAgfcEdvZB5owU9tQgt99e2TlLjg==}
+
+  mdast-util-phrasing@3.0.1:
+    resolution: {integrity: sha512-WmI1gTXUBJo4/ZmSk79Wcb2HcjPJBzM1nlI/OUWA8yk2X9ik3ffNbBGsU+09BFmXaL1IBb9fiuvq6/KMiNycSg==}
+
+  mdast-util-to-hast@12.3.0:
+    resolution: {integrity: sha512-pits93r8PhnIoU4Vy9bjW39M2jJ6/tdHyja9rrot9uujkN7UTU9SDnE6WNJz/IGyQk3XHX6yNNtrBH6cQzm8Hw==}
+
+  mdast-util-to-markdown@1.5.0:
+    resolution: {integrity: sha512-bbv7TPv/WC49thZPg3jXuqzuvI45IL2EVAr/KxF0BSdHsU0ceFHOmwQn6evxAh1GaoK/6GQ1wp4R4oW2+LFL/A==}
+
   mdast-util-to-string@2.0.0:
     resolution: {integrity: sha512-AW4DRS3QbBayY/jJmD8437V1Gombjf8RSOUCMFBuo5iHi58AGEgVCKQ+ezHkZZDpAQS75hcBMpLqjpJTjtUL7w==}
+
+  mdast-util-to-string@3.2.0:
+    resolution: {integrity: sha512-V4Zn/ncyN1QNSqSBxTrMOLpjr+IKdHl2v3KVLoWmDPscP4r9GcCi71gjgvUV1SFSKh92AjAG4peFuBl2/YgCJg==}
 
   mdn-data@2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
@@ -15576,8 +15804,92 @@ packages:
   micro-ftch@0.3.1:
     resolution: {integrity: sha512-/0LLxhzP0tfiR5hcQebtudP56gUurs2CLkGarnCiB/OqEyUFQ6U3paQi/tgLv0hBJYt2rnr9MNpxz4fiiugstg==}
 
+  micromark-core-commonmark@1.1.0:
+    resolution: {integrity: sha512-BgHO1aRbolh2hcrzL2d1La37V0Aoz73ymF8rAcKnohLy93titmv62E0gP8Hrx9PKcKrqCZ1BbLGbP3bEhoXYlw==}
+
+  micromark-extension-gfm-autolink-literal@1.0.5:
+    resolution: {integrity: sha512-z3wJSLrDf8kRDOh2qBtoTRD53vJ+CWIyo7uyZuxf/JAbNJjiHsOpG1y5wxk8drtv3ETAHutCu6N3thkOOgueWg==}
+
+  micromark-extension-gfm-footnote@1.1.2:
+    resolution: {integrity: sha512-Yxn7z7SxgyGWRNa4wzf8AhYYWNrwl5q1Z8ii+CSTTIqVkmGZF1CElX2JI8g5yGoM3GAman9/PVCUFUSJ0kB/8Q==}
+
+  micromark-extension-gfm-strikethrough@1.0.7:
+    resolution: {integrity: sha512-sX0FawVE1o3abGk3vRjOH50L5TTLr3b5XMqnP9YDRb34M0v5OoZhG+OHFz1OffZ9dlwgpTBKaT4XW/AsUVnSDw==}
+
+  micromark-extension-gfm-table@1.0.7:
+    resolution: {integrity: sha512-3ZORTHtcSnMQEKtAOsBQ9/oHp9096pI/UvdPtN7ehKvrmZZ2+bbWhi0ln+I9drmwXMt5boocn6OlwQzNXeVeqw==}
+
+  micromark-extension-gfm-tagfilter@1.0.2:
+    resolution: {integrity: sha512-5XWB9GbAUSHTn8VPU8/1DBXMuKYT5uOgEjJb8gN3mW0PNW5OPHpSdojoqf+iq1xo7vWzw/P8bAHY0n6ijpXF7g==}
+
+  micromark-extension-gfm-task-list-item@1.0.5:
+    resolution: {integrity: sha512-RMFXl2uQ0pNQy6Lun2YBYT9g9INXtWJULgbt01D/x8/6yJ2qpKyzdZD3pi6UIkzF++Da49xAelVKUeUMqd5eIQ==}
+
+  micromark-extension-gfm@2.0.3:
+    resolution: {integrity: sha512-vb9OoHqrhCmbRidQv/2+Bc6pkP0FrtlhurxZofvOEy5o8RtuuvTq+RQ1Vw5ZDNrVraQZu3HixESqbG+0iKk/MQ==}
+
+  micromark-factory-destination@1.1.0:
+    resolution: {integrity: sha512-XaNDROBgx9SgSChd69pjiGKbV+nfHGDPVYFs5dOoDd7ZnMAE+Cuu91BCpsY8RT2NP9vo/B8pds2VQNCLiu0zhg==}
+
+  micromark-factory-label@1.1.0:
+    resolution: {integrity: sha512-OLtyez4vZo/1NjxGhcpDSbHQ+m0IIGnT8BoPamh+7jVlzLJBH98zzuCoUeMxvM6WsNeh8wx8cKvqLiPHEACn0w==}
+
+  micromark-factory-space@1.1.0:
+    resolution: {integrity: sha512-cRzEj7c0OL4Mw2v6nwzttyOZe8XY/Z8G0rzmWQZTBi/jjwyw/U4uqKtUORXQrR5bAZZnbTI/feRV/R7hc4jQYQ==}
+
+  micromark-factory-title@1.1.0:
+    resolution: {integrity: sha512-J7n9R3vMmgjDOCY8NPw55jiyaQnH5kBdV2/UXCtZIpnHH3P6nHUKaH7XXEYuWwx/xUJcawa8plLBEjMPU24HzQ==}
+
+  micromark-factory-whitespace@1.1.0:
+    resolution: {integrity: sha512-v2WlmiymVSp5oMg+1Q0N1Lxmt6pMhIHD457whWM7/GUlEks1hI9xj5w3zbc4uuMKXGisksZk8DzP2UyGbGqNsQ==}
+
+  micromark-util-character@1.2.0:
+    resolution: {integrity: sha512-lXraTwcX3yH/vMDaFWCQJP1uIszLVebzUa3ZHdrgxr7KEU/9mL4mVgCpGbyhvNLNlauROiNUq7WN5u7ndbY6xg==}
+
+  micromark-util-chunked@1.1.0:
+    resolution: {integrity: sha512-Ye01HXpkZPNcV6FiyoW2fGZDUw4Yc7vT0E9Sad83+bEDiCJ1uXu0S3mr8WLpsz3HaG3x2q0HM6CTuPdcZcluFQ==}
+
+  micromark-util-classify-character@1.1.0:
+    resolution: {integrity: sha512-SL0wLxtKSnklKSUplok1WQFoGhUdWYKggKUiqhX+Swala+BtptGCu5iPRc+xvzJ4PXE/hwM3FNXsfEVgoZsWbw==}
+
+  micromark-util-combine-extensions@1.1.0:
+    resolution: {integrity: sha512-Q20sp4mfNf9yEqDL50WwuWZHUrCO4fEyeDCnMGmG5Pr0Cz15Uo7KBs6jq+dq0EgX4DPwwrh9m0X+zPV1ypFvUA==}
+
+  micromark-util-decode-numeric-character-reference@1.1.0:
+    resolution: {integrity: sha512-m9V0ExGv0jB1OT21mrWcuf4QhP46pH1KkfWy9ZEezqHKAxkj4mPCy3nIH1rkbdMlChLHX531eOrymlwyZIf2iw==}
+
+  micromark-util-decode-string@1.1.0:
+    resolution: {integrity: sha512-YphLGCK8gM1tG1bd54azwyrQRjCFcmgj2S2GoJDNnh4vYtnL38JS8M4gpxzOPNyHdNEpheyWXCTnnTDY3N+NVQ==}
+
+  micromark-util-encode@1.1.0:
+    resolution: {integrity: sha512-EuEzTWSTAj9PA5GOAs992GzNh2dGQO52UvAbtSOMvXTxv3Criqb6IOzJUBCmEqrrXSblJIJBbFFv6zPxpreiJw==}
+
+  micromark-util-html-tag-name@1.2.0:
+    resolution: {integrity: sha512-VTQzcuQgFUD7yYztuQFKXT49KghjtETQ+Wv/zUjGSGBioZnkA4P1XXZPT1FHeJA6RwRXSF47yvJ1tsJdoxwO+Q==}
+
+  micromark-util-normalize-identifier@1.1.0:
+    resolution: {integrity: sha512-N+w5vhqrBihhjdpM8+5Xsxy71QWqGn7HYNUvch71iV2PM7+E3uWGox1Qp90loa1ephtCxG2ftRV/Conitc6P2Q==}
+
+  micromark-util-resolve-all@1.1.0:
+    resolution: {integrity: sha512-b/G6BTMSg+bX+xVCshPTPyAu2tmA0E4X98NSR7eIbeC6ycCqCeE7wjfDIgzEbkzdEVJXRtOG4FbEm/uGbCRouA==}
+
+  micromark-util-sanitize-uri@1.2.0:
+    resolution: {integrity: sha512-QO4GXv0XZfWey4pYFndLUKEAktKkG5kZTdUNaTAkzbuJxn2tNBOr+QtxR2XpWaMhbImT2dPzyLrPXLlPhph34A==}
+
+  micromark-util-subtokenize@1.1.0:
+    resolution: {integrity: sha512-kUQHyzRoxvZO2PuLzMt2P/dwVsTiivCK8icYTeR+3WgbuPqfHgPPy7nFKbeqRivBvn/3N3GBiNC+JRTMSxEC7A==}
+
+  micromark-util-symbol@1.1.0:
+    resolution: {integrity: sha512-uEjpEYY6KMs1g7QfJ2eX1SQEV+ZT4rUD3UcF6l57acZvLNK7PBZL+ty82Z1qhK1/yXIY4bdx04FKMgR0g4IAag==}
+
+  micromark-util-types@1.1.0:
+    resolution: {integrity: sha512-ukRBgie8TIAcacscVHSiddHjO4k/q3pnedmzMQ4iwDcK0FtFCohKOlFbaOL/mPgfnPsL3C1ZyxJa4sbWrBl3jg==}
+
   micromark@2.11.4:
     resolution: {integrity: sha512-+WoovN/ppKolQOFIAajxi7Lu9kInbPxFuTBVEavFcL8eAfVstoc5MocPmqBeAdBOJV00uaVjegzH4+MA0DN/uA==}
+
+  micromark@3.2.0:
+    resolution: {integrity: sha512-uD66tJj54JLYq0De10AhWycZWGQNUvDI55xPgk2sQM5kn1JYlhbCMTtEeT27+vAhW2FBQxLlOmS3pmA7/2z4aA==}
 
   micromatch@4.0.5:
     resolution: {integrity: sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==}
@@ -15769,11 +16081,6 @@ packages:
 
   mnemonist@0.38.5:
     resolution: {integrity: sha512-bZTFT5rrPKtPJxj8KSV0WkPyNxl72vQepqqVUAW2ARUpUSF2qXMB6jZj7hW5/k7C1rtpzqbD/IIbJwLXUjCHeg==}
-
-  mocha@10.7.0:
-    resolution: {integrity: sha512-v8/rBWr2VO5YkspYINnvu81inSz2y3ODJrhO175/Exzor1RcEZZkizgE2A+w/CAXXoESS8Kys5E62dOHGHzULA==}
-    engines: {node: '>= 14.0.0'}
-    hasBin: true
 
   mocha@10.7.3:
     resolution: {integrity: sha512-uQWxAu44wwiACGqjbPYmjo7Lg8sFrS3dQe7PP2FQI+woptP4vZXSMcfMyFL/e1yFEeEpV4RtyTpZROOKmxis+A==}
@@ -17105,6 +17412,11 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
+  prettier@3.3.3:
+    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
+    engines: {node: '>=14'}
+    hasBin: true
+
   pretty-bytes@5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
     engines: {node: '>=6'}
@@ -17187,6 +17499,9 @@ packages:
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
 
+  property-information@6.5.0:
+    resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
+
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
 
@@ -17247,10 +17562,6 @@ packages:
     resolution: {integrity: sha512-puyri6ApkEHYiVl4CFzo1tDkAZ+ATcnbJrJ6RiBM1Fhctdn/ix9MTE3hRph33omisEbC/2fcfemsseiKgBPKZg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-
-  qs@6.11.0:
-    resolution: {integrity: sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==}
-    engines: {node: '>=0.6'}
 
   qs@6.12.3:
     resolution: {integrity: sha512-AWJm14H1vVaO/iNZ4/hO+HyaTehuy9nRqVdkTqlJt0HWvBiBIEXFmb4C0DGeYo3Xes9rrEW+TxHsaigCbN5ICQ==}
@@ -17444,12 +17755,6 @@ packages:
 
   rc-menu@9.15.1:
     resolution: {integrity: sha512-UKporqU6LPfHnpPmtP6hdEK4iO5Q+b7BRv/uRpxdIyDGplZy9jwUjsnpev5bs3PQKB0H0n34WAPDfjAfn3kAPA==}
-    peerDependencies:
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-
-  rc-motion@2.9.2:
-    resolution: {integrity: sha512-fUAhHKLDdkAXIDLH0GYwof3raS58dtNUmzLF2MeiR8o6n4thNpSDQhOqQzWE4WfFZDCi9VEN8n7tiB7czREcyw==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -17721,6 +18026,11 @@ packages:
 
   react-error-boundary@4.0.11:
     resolution: {integrity: sha512-U13ul67aP5DOSPNSCWQ/eO0AQEYzEFkVljULQIjMV0KlffTAhxuDoBKdO0pb/JZ8mDhMKFZ9NZi0BmLGUiNphw==}
+    peerDependencies:
+      react: '>=16.13.1'
+
+  react-error-boundary@4.1.2:
+    resolution: {integrity: sha512-GQDxZ5Jd+Aq/qUxbCm1UtzmL/s++V7zKgE8yMktJiCQXCCFZnMZh9ng+6/Ne6PjNSXH0L9CjeOEREfRnq6Duag==}
     peerDependencies:
       react: '>=16.13.1'
 
@@ -18081,12 +18391,33 @@ packages:
     resolution: {integrity: sha512-dQUtn90WanSNl+7mQKcXAgZxvUe7Z0SqXlgzv0za4LwiUhyzBC58yQO3liFoUgu8GiJVInAhJjkj1N0EtQ5nkQ==}
     hasBin: true
 
+  rehype-raw@6.1.1:
+    resolution: {integrity: sha512-d6AKtisSRtDRX4aSPsJGTfnzrX2ZkHQLE5kiUuGOeEoLpbEulFF4hj0mLPbsa+7vmguDKOVVEQdHKDSwoaIDsQ==}
+
+  rehype-sanitize@5.0.1:
+    resolution: {integrity: sha512-da/jIOjq8eYt/1r9GN6GwxIR3gde7OZ+WV8pheu1tL8K0D9KxM2AyMh+UEfke+FfdM3PvGHeYJU0Td5OWa7L5A==}
+
+  rehype-stringify@9.0.4:
+    resolution: {integrity: sha512-Uk5xu1YKdqobe5XpSskwPvo1XeHUUucWEQSl8hTrXt5selvca1e8K1EZ37E6YoZ4BT8BCqCdVfQW7OfHfthtVQ==}
+
   reinterval@1.1.0:
     resolution: {integrity: sha512-QIRet3SYrGp0HUHO88jVskiG6seqUGC5iAG7AwI/BV4ypGcuqk9Du6YQBUOUqm9c8pw1eyLoIaONifRua1lsEQ==}
 
   relateurl@0.2.7:
     resolution: {integrity: sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==}
     engines: {node: '>= 0.10'}
+
+  remark-gemoji@7.0.1:
+    resolution: {integrity: sha512-vhjuntkvYxRgM4Um6L5N7B3SrNu3eX6jNqpqAywpAvSYPbmDPNL3I5E6zWm+KPCyh3OpKRc5OPnz7SifggzePw==}
+
+  remark-gfm@3.0.1:
+    resolution: {integrity: sha512-lEFDoi2PICJyNrACFOfDD3JlLkuSbOa5Wd8EPt06HUdptv8Gn0bxYTdbU/XXQ3swAPkEaGxxPN9cbnMHvVu1Ig==}
+
+  remark-parse@10.0.2:
+    resolution: {integrity: sha512-3ydxgHa/ZQzG8LvC7jTXccARYDcRld3VfcgIIFs7bI6vbRSxJJmzgLEIIoYKyrfhaY+ujuWaf/PJiMZXoiCXgw==}
+
+  remark-rehype@10.1.0:
+    resolution: {integrity: sha512-EFmR5zppdBp0WQeDVZ/b66CWJipB2q2VLNFMabzDSGR66Z2fQii83G5gTBbgGEnEEA0QRussvrFHxk1HWGJskw==}
 
   remove-accents@0.5.0:
     resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
@@ -18324,6 +18655,10 @@ packages:
   rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
 
+  sade@1.8.1:
+    resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
+    engines: {node: '>=6'}
+
   safe-array-concat@1.1.2:
     resolution: {integrity: sha512-vj6RsCsWBCf19jIeHEfkRMw8DPiBb+DMXklQ/1SGDHOMlHdPUkZXFQ2YdplS23zESTijAcurb1aSgJA3AgMu1Q==}
     engines: {node: '>=0.4'}
@@ -18414,6 +18749,9 @@ packages:
   seek-bzip@1.0.6:
     resolution: {integrity: sha512-e1QtP3YL5tWww8uKaOCQ18UxIT2laNBXHjV/S2WYCiK4udiv8lkG89KRIoCjUagnAmCBurjF4zEVX2ByBbnCjQ==}
     hasBin: true
+
+  select-files@1.0.1:
+    resolution: {integrity: sha512-8h4DSpjfFa0hyMP3z3ye4SxyhdaE5RgaXeScRpH7xl4YblnZSHwexmLdLNdSKwTO8H9ccDKj7Votz0io+18+BQ==}
 
   select-hose@2.0.0:
     resolution: {integrity: sha512-mEugaLK+YfkijB4fx0e6kImuJdCIt2LxCRcbEYPqRGCs4F2ogyfZU5IAZRdjCP8JPq2AtdNoC/Dux63d9Kiryg==}
@@ -18721,6 +19059,9 @@ packages:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
 
+  space-separated-tokens@2.0.2:
+    resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
+
   spawn-command@0.0.2-1:
     resolution: {integrity: sha512-n98l9E2RMSJ9ON1AKisHzz7V42VDiBQGY6PB1BwRglz99wpVsSuGzQ+jOi6lFXBGVTCrRpltvjm+/XA+tpeJrg==}
 
@@ -18922,6 +19263,9 @@ packages:
 
   string_decoder@1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
+
+  stringify-entities@4.0.4:
+    resolution: {integrity: sha512-IwfBptatlO+QCJUo19AqvrPNqlVMpW9YEL2LIVY+Rpv2qsjCGxaDLNRgeGsQWJhfItebuJhsGSLjaBbNSQ+ieg==}
 
   strip-ansi@3.0.1:
     resolution: {integrity: sha512-VhumSSbBqDTP8p2ZLKj40UjBCV4+v8bUSEpUb4KjRgWk9pbqGF4REFj6KEagidb2f/M6AzC0EmFyDNGaw9OCzg==}
@@ -19275,6 +19619,9 @@ packages:
     resolution: {integrity: sha512-KYad6Vy5VDWV4GH3fjpseMQ/XU2BhIYP7Vzd0LG44qRWm/Yt2WCOTicFdvmgo6gWaqooMQCawTtILVQJupKu7A==}
     engines: {node: '>=14.0.0'}
 
+  tippy.js@6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
+
   titleize@3.0.0:
     resolution: {integrity: sha512-KxVu8EYHDPBdUYdKZdKtU2aj2XfEx9AfjXxE/Aj0vT06w2icA09Vus1rh6eSu1y01akYg6BjIK/hxyLJINoMLQ==}
     engines: {node: '>=12'}
@@ -19365,6 +19712,9 @@ packages:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
     hasBin: true
 
+  trim-lines@3.0.1:
+    resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
+
   trim-newlines@3.0.1:
     resolution: {integrity: sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==}
     engines: {node: '>=8'}
@@ -19376,6 +19726,9 @@ packages:
   triple-beam@1.4.1:
     resolution: {integrity: sha512-aZbgViZrg1QNcG+LULa7nhZpJTZSLm/mXnHXnbAbjmN5aSa0y7V+wvv6+4WaBtpISJzThKy+PIPxc1Nq1EJ9mg==}
     engines: {node: '>= 14.0.0'}
+
+  trough@2.2.0:
+    resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
 
   ts-api-utils@1.0.3:
     resolution: {integrity: sha512-wNMeqtMz5NtwpT/UZGY5alT+VoKdSsOOP/kqHFcUW1P/VRhH2wJ48+DN2WwUliNbQ976ETwDL0Ifd2VVvgonvg==}
@@ -19749,6 +20102,9 @@ packages:
   unicode-trie@2.0.0:
     resolution: {integrity: sha512-x7bc76x0bm4prf1VLg79uhAzKw8DVboClSN5VxJuQ+LKDOVEW9CdH+VY7SP+vX7xCYQqzzgQpFqz15zeLvAtZQ==}
 
+  unified@10.1.2:
+    resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}
+
   unique-filename@1.1.1:
     resolution: {integrity: sha512-Vmp0jIp2ln35UTXuryvjzkjGdRyf9b2lTXuSYUiPmzRcl3FDtYqAwOnTJkAngD9SWhnoJzDbTKwaOrZ+STtxNQ==}
 
@@ -19763,8 +20119,26 @@ packages:
     resolution: {integrity: sha512-uNaeirEPvpZWSgzwsPGtU2zVSTrn/8L5q/IexZmH0eH6SA73CmAA5U4GwORTxQAZs95TAXLNqeLoPPNO5gZfWg==}
     engines: {node: '>=8'}
 
+  unist-util-generated@2.0.1:
+    resolution: {integrity: sha512-qF72kLmPxAw0oN2fwpWIqbXAVyEqUzDHMsbtPvOudIlUzXYFIeQIuxXQCRCFh22B7cixvU0MG7m3MW8FTq/S+A==}
+
+  unist-util-is@5.2.1:
+    resolution: {integrity: sha512-u9njyyfEh43npf1M+yGKDGVPbY/JWEemg5nH05ncKPfi+kBbKBJoTdsogMu33uhytuLlv9y0O7GH7fEdwLdLQw==}
+
+  unist-util-position@4.0.4:
+    resolution: {integrity: sha512-kUBE91efOWfIVBo8xzh/uZQ7p9ffYRtUbMRZBNFYwf0RK8koUMx6dGUfwylLOKmaT2cs4wSW96QoYUSXAyEtpg==}
+
   unist-util-stringify-position@2.0.3:
     resolution: {integrity: sha512-3faScn5I+hy9VleOq/qNbAd6pAx7iH5jYBMS9I1HgQVijz/4mv5Bvw5iw1sC/90CODiKo81G/ps8AJrISn687g==}
+
+  unist-util-stringify-position@3.0.3:
+    resolution: {integrity: sha512-k5GzIBZ/QatR8N5X2y+drfpWG8IDBzdnVj6OInRNWm1oXrzydiaAT2OQiA8DPRRZyAKb9b6I2a6PxYklZD0gKg==}
+
+  unist-util-visit-parents@5.1.3:
+    resolution: {integrity: sha512-x6+y8g7wWMyQhL1iZfhIPhDAs7Xwbn9nRosDXl7qoPTSCy0yNxnKc+hWokFifWQIDGi154rdUqKvbCa4+1kLhg==}
+
+  unist-util-visit@4.1.2:
+    resolution: {integrity: sha512-MSd8OUGISqHdVvfY9TPhyK2VdUrPgxkUtWSuMHF6XAAFuL4LokseigBnZtPnJMu+FbynTkFNnFlyjxpVKujMRg==}
 
   universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
@@ -19924,6 +20298,11 @@ packages:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
 
+  uvu@0.5.6:
+    resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}
+    engines: {node: '>=8'}
+    hasBin: true
+
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
 
@@ -19951,6 +20330,15 @@ packages:
   verror@1.10.0:
     resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
     engines: {'0': node >=0.6.0}
+
+  vfile-location@4.1.0:
+    resolution: {integrity: sha512-YF23YMyASIIJXpktBa4vIGLJ5Gs88UB/XePgqPmTa7cDA+JeO3yclbpheQYCHjVHBn/yePzrXuygIL+xbvRYHw==}
+
+  vfile-message@3.1.4:
+    resolution: {integrity: sha512-fa0Z6P8HUrQN4BZaX05SIVXic+7kE3b05PWAtPuYP9QLHsLKYR7/AlLW3NtOrpXRLeawpDLMsVkmk5DG0NXgWw==}
+
+  vfile@5.3.7:
+    resolution: {integrity: sha512-r7qlzkgErKjobAmyNIkkSpizsFPYiUPuJb5pNW1RB4JcYVZhs4lIbVqk8XPk033CV/1z8ss5pkax8SuhGpcG8g==}
 
   viem@2.7.14:
     resolution: {integrity: sha512-5b1KB1gXli02GOQHZIUsRluNUwssl2t4hqdFAzyWPwJ744N83jAOBOjOkrGz7K3qMIv9b0GQt3DoZIErSQTPkQ==}
@@ -20101,6 +20489,9 @@ packages:
 
   web-encoding@1.1.5:
     resolution: {integrity: sha512-HYLeVCdJ0+lBYV2FvNZmv3HJ2Nt0QYXqZojk3d9FJOLkwnuhzM9tmamh8d7HPM8QqjKH8DeHkFTx+CFlWpZZDA==}
+
+  web-namespaces@2.0.1:
+    resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
 
   web-streams-polyfill@3.3.3:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
@@ -20332,6 +20723,9 @@ packages:
   wmf@1.0.2:
     resolution: {integrity: sha512-/p9K7bEh0Dj6WbXg4JG0xvLQmIadrner1bi45VMJTfnbVHsc7yIajZyoSoK60/dtVBs12Fm6WkUI5/3WAVsNMw==}
     engines: {node: '>=0.8'}
+
+  word-count@0.2.2:
+    resolution: {integrity: sha512-tPRTbQ+nTCPY3F0z1f/y0PX22ScE6l/4/8j9KqA3h77JhlZ/w6cbVS8LIO5Pq/aV96SWBOoiE2IEgzxF0Cn+kA==}
 
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
@@ -20631,6 +21025,9 @@ packages:
 
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+
+  zwitch@2.0.4:
+    resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
 
@@ -22795,9 +23192,9 @@ snapshots:
       '@bull-board/ui': 5.21.1
       redis-info: 3.1.0
 
-  '@bull-board/api@5.21.1(@bull-board/ui@5.21.4)':
+  '@bull-board/api@5.21.4(@bull-board/ui@5.21.1)':
     dependencies:
-      '@bull-board/ui': 5.21.4
+      '@bull-board/ui': 5.21.1
       redis-info: 3.1.0
 
   '@bull-board/api@5.21.4(@bull-board/ui@5.21.4)':
@@ -22878,6 +23275,30 @@ snapshots:
   '@bull-board/ui@5.21.4':
     dependencies:
       '@bull-board/api': 5.21.4(@bull-board/ui@5.21.4)
+
+  '@bytemd/plugin-gemoji@1.21.0(bytemd@1.21.0)':
+    dependencies:
+      bytemd: 1.21.0
+      remark-gemoji: 7.0.1
+
+  '@bytemd/plugin-gfm@1.21.0(bytemd@1.21.0)':
+    dependencies:
+      bytemd: 1.21.0
+      remark-gfm: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
+
+  '@bytemd/plugin-highlight@1.21.0(bytemd@1.21.0)':
+    dependencies:
+      bytemd: 1.21.0
+      highlight.js: 11.10.0
+
+  '@bytemd/react@1.21.0(react@18.3.1)':
+    dependencies:
+      bytemd: 1.21.0
+      react: 18.3.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@colors/colors@1.5.0':
     optional: true
@@ -24142,6 +24563,8 @@ snapshots:
       tweetnacl: 1.0.3
       tweetnacl-util: 0.15.1
 
+  '@micro-zoe/micro-app@1.0.0-rc.13': {}
+
   '@monaco-editor/loader@1.4.0(monaco-editor@0.50.0)':
     dependencies:
       monaco-editor: 0.50.0
@@ -24437,7 +24860,7 @@ snapshots:
       '@types/xml-encryption': 1.2.4
       '@types/xml2js': 0.4.14
       '@xmldom/xmldom': 0.8.10
-      debug: 4.3.5(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@8.1.1)
       xml-crypto: 3.2.0
       xml-encryption: 3.0.2
       xml2js: 0.5.0
@@ -25643,7 +26066,7 @@ snapshots:
       '@babel/runtime': 7.26.0
       '@rc-component/portal': 1.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       classnames: 2.5.1
-      rc-motion: 2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      rc-motion: 2.9.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-resize-observer: 1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-util: 5.43.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
@@ -26042,15 +26465,13 @@ snapshots:
       colors: 1.2.5
       string-argv: 0.3.2
 
-  '@scure/base@1.1.7': {}
-
   '@scure/base@1.1.9': {}
 
   '@scure/bip32@1.1.5':
     dependencies:
       '@noble/hashes': 1.2.0
       '@noble/secp256k1': 1.7.1
-      '@scure/base': 1.1.7
+      '@scure/base': 1.1.9
 
   '@scure/bip32@1.3.2':
     dependencies:
@@ -26062,12 +26483,12 @@ snapshots:
     dependencies:
       '@noble/curves': 1.4.2
       '@noble/hashes': 1.4.0
-      '@scure/base': 1.1.7
+      '@scure/base': 1.1.9
 
   '@scure/bip39@1.1.1':
     dependencies:
       '@noble/hashes': 1.2.0
-      '@scure/base': 1.1.7
+      '@scure/base': 1.1.9
 
   '@scure/bip39@1.2.1':
     dependencies:
@@ -26077,7 +26498,7 @@ snapshots:
   '@scure/bip39@1.3.0':
     dependencies:
       '@noble/hashes': 1.4.0
-      '@scure/base': 1.1.7
+      '@scure/base': 1.1.9
 
   '@sentry-internal/browser-utils@8.25.0':
     dependencies:
@@ -26811,10 +27232,6 @@ snapshots:
     dependencies:
       '@types/node': 20.14.2
 
-  '@types/bn.js@5.1.5':
-    dependencies:
-      '@types/node': 20.14.2
-
   '@types/bn.js@5.1.6':
     dependencies:
       '@types/node': 20.14.2
@@ -26833,6 +27250,10 @@ snapshots:
       '@types/chai': 4.3.17
 
   '@types/chai@4.3.17': {}
+
+  '@types/codemirror@5.60.15':
+    dependencies:
+      '@types/tern': 0.23.9
 
   '@types/connect@3.4.36':
     dependencies:
@@ -26943,6 +27364,10 @@ snapshots:
 
   '@types/hapi__joi@17.1.9': {}
 
+  '@types/hast@2.3.10':
+    dependencies:
+      '@types/unist': 2.0.10
+
   '@types/hoist-non-react-statics@3.3.5':
     dependencies:
       '@types/react': 18.3.3
@@ -27023,6 +27448,10 @@ snapshots:
       '@types/koa': 2.15.0
 
   '@types/linkify-it@3.0.5': {}
+
+  '@types/lodash-es@4.17.12':
+    dependencies:
+      '@types/lodash': 4.17.5
 
   '@types/lodash@4.17.5': {}
 
@@ -27133,6 +27562,8 @@ snapshots:
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/parse-json@4.0.2': {}
+
+  '@types/parse5@6.0.3': {}
 
   '@types/passport@1.0.16':
     dependencies:
@@ -27272,6 +27703,10 @@ snapshots:
   '@types/tedious@4.0.14':
     dependencies:
       '@types/node': 20.14.2
+
+  '@types/tern@0.23.9':
+    dependencies:
+      '@types/estree': 1.0.6
 
   '@types/triple-beam@1.3.5': {}
 
@@ -28178,7 +28613,7 @@ snapshots:
 
   acorn-walk@8.3.4:
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.13.0
 
   acorn@7.4.1: {}
 
@@ -28231,6 +28666,19 @@ snapshots:
       dayjs: 1.11.10
       intersection-observer: 0.12.2
       js-cookie: 2.2.1
+      lodash: 4.17.21
+      react: 18.3.1
+      react-fast-compare: 3.2.2
+      resize-observer-polyfill: 1.5.1
+      screenfull: 5.2.0
+      tslib: 2.8.0
+
+  ahooks@3.8.1(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.26.0
+      dayjs: 1.11.10
+      intersection-observer: 0.12.2
+      js-cookie: 3.0.5
       lodash: 4.17.21
       react: 18.3.1
       react-fast-compare: 3.2.2
@@ -28370,7 +28818,7 @@ snapshots:
       '@rc-component/mini-decimal': 1.1.0
       '@react-spring/web': 9.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@use-gesture/react': 10.3.0(react@18.3.1)
-      ahooks: 3.8.0(react@18.3.1)
+      ahooks: 3.8.1(react@18.3.1)
       antd-mobile-icons: 0.3.0
       antd-mobile-v5-count: 1.0.1
       classnames: 2.5.1
@@ -28716,7 +29164,7 @@ snapshots:
 
   axios@1.7.7:
     dependencies:
-      follow-redirects: 1.15.9(debug@4.3.5)
+      follow-redirects: 1.15.9(debug@4.3.7)
       form-data: 4.0.1
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -28840,6 +29288,8 @@ snapshots:
       core-js: 2.6.12
       regenerator-runtime: 0.11.1
 
+  bail@2.0.2: {}
+
   balanced-match@1.0.2: {}
 
   balanced-match@2.0.0: {}
@@ -28936,23 +29386,6 @@ snapshots:
   bn.js@5.2.1: {}
 
   bodec@0.1.0: {}
-
-  body-parser@1.20.2:
-    dependencies:
-      bytes: 3.1.2
-      content-type: 1.0.5
-      debug: 2.6.9
-      depd: 2.0.0
-      destroy: 1.2.0
-      http-errors: 2.0.0
-      iconv-lite: 0.4.24
-      on-finished: 2.4.1
-      qs: 6.11.0
-      raw-body: 2.5.2
-      type-is: 1.6.18
-      unpipe: 1.0.0
-    transitivePeerDependencies:
-      - supports-color
 
   body-parser@1.20.3:
     dependencies:
@@ -29172,8 +29605,8 @@ snapshots:
       ioredis: 5.4.1
       msgpackr: 1.11.0
       node-abort-controller: 3.1.1
-      semver: 7.6.2
-      tslib: 2.6.3
+      semver: 7.6.3
+      tslib: 2.8.0
       uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
@@ -29190,6 +29623,30 @@ snapshots:
   busboy@1.6.0:
     dependencies:
       streamsearch: 1.1.0
+
+  bytemd@1.21.0:
+    dependencies:
+      '@popperjs/core': 2.11.8
+      '@types/codemirror': 5.60.15
+      '@types/hast': 2.3.10
+      '@types/lodash-es': 4.17.12
+      '@types/mdast': 3.0.15
+      codemirror-ssr: 0.65.0(@types/codemirror@5.60.15)
+      hast-util-sanitize: 4.1.0
+      lodash-es: 4.17.21
+      rehype-raw: 6.1.1
+      rehype-sanitize: 5.0.1
+      rehype-stringify: 9.0.4
+      remark-parse: 10.0.2
+      remark-rehype: 10.1.0
+      select-files: 1.0.1
+      tippy.js: 6.3.7
+      unified: 10.1.2
+      unist-util-visit: 4.1.2
+      vfile: 5.3.7
+      word-count: 0.2.2
+    transitivePeerDependencies:
+      - supports-color
 
   bytes@3.0.0: {}
 
@@ -29324,6 +29781,8 @@ snapshots:
     dependencies:
       nofilter: 3.1.0
 
+  ccount@2.0.1: {}
+
   center-align@0.1.3:
     dependencies:
       align-text: 0.1.4
@@ -29395,9 +29854,15 @@ snapshots:
 
   char-regex@1.0.2: {}
 
+  character-entities-html4@2.1.0: {}
+
   character-entities-legacy@1.1.4: {}
 
+  character-entities-legacy@3.0.0: {}
+
   character-entities@1.2.4: {}
+
+  character-entities@2.0.2: {}
 
   character-reference-invalid@1.1.4: {}
 
@@ -29616,6 +30081,10 @@ snapshots:
 
   co@4.6.0: {}
 
+  codemirror-ssr@0.65.0(@types/codemirror@5.60.15):
+    dependencies:
+      '@types/codemirror': 5.60.15
+
   codepage@1.15.0: {}
 
   color-convert@1.9.3:
@@ -29659,6 +30128,8 @@ snapshots:
   combined-stream@1.0.8:
     dependencies:
       delayed-stream: 1.0.0
+
+  comma-separated-tokens@2.0.3: {}
 
   command-exists@1.2.9: {}
 
@@ -30004,7 +30475,7 @@ snapshots:
 
   cron-parser@4.9.0:
     dependencies:
-      luxon: 3.4.4
+      luxon: 3.5.0
 
   cron@2.4.4:
     dependencies:
@@ -30458,6 +30929,10 @@ snapshots:
 
   decimal.js@10.4.3: {}
 
+  decode-named-character-reference@1.0.2:
+    dependencies:
+      character-entities: 2.0.2
+
   decode-uri-component@0.2.2: {}
 
   decompress-response@3.3.0:
@@ -30828,16 +31303,6 @@ snapshots:
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
 
-  elliptic@6.5.5:
-    dependencies:
-      bn.js: 4.12.0
-      brorand: 1.1.0
-      hash.js: 1.1.7
-      hmac-drbg: 1.0.1
-      inherits: 2.0.4
-      minimalistic-assert: 1.0.1
-      minimalistic-crypto-utils: 1.0.1
-
   elliptic@6.6.0:
     dependencies:
       bn.js: 4.12.0
@@ -31048,6 +31513,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  esbuild-wasm@0.24.0: {}
+
   esbuild@0.12.15: {}
 
   esbuild@0.18.20:
@@ -31191,6 +31658,8 @@ snapshots:
   escape-string-regexp@1.0.5: {}
 
   escape-string-regexp@4.0.0: {}
+
+  escape-string-regexp@5.0.0: {}
 
   escodegen@1.8.1:
     dependencies:
@@ -31493,7 +31962,7 @@ snapshots:
       '@types/bn.js': 4.11.6
       bn.js: 4.12.0
       create-hash: 1.2.0
-      elliptic: 6.5.5
+      elliptic: 6.6.0
       ethereum-cryptography: 0.1.3
       ethjs-util: 0.1.6
       rlp: 2.2.7
@@ -31920,6 +32389,10 @@ snapshots:
     optionalDependencies:
       debug: 4.3.5(supports-color@5.5.0)
 
+  follow-redirects@1.15.9(debug@4.3.7):
+    optionalDependencies:
+      debug: 4.3.7(supports-color@8.1.1)
+
   fontkit@2.0.2:
     dependencies:
       '@swc/helpers': 0.4.36
@@ -32130,6 +32603,8 @@ snapshots:
       - encoding
       - supports-color
 
+  gemoji@7.1.0: {}
+
   generate-function@2.3.1:
     dependencies:
       is-property: 1.0.2
@@ -32235,6 +32710,8 @@ snapshots:
   git-sha1@0.1.2: {}
 
   github-from-package@0.0.0: {}
+
+  github-markdown-css@5.7.0: {}
 
   gl-matrix@3.4.3: {}
 
@@ -32465,7 +32942,7 @@ snapshots:
       '@nomicfoundation/ethereumjs-util': 9.0.4
       '@nomicfoundation/solidity-analyzer': 0.1.2
       '@sentry/node': 5.30.0
-      '@types/bn.js': 5.1.5
+      '@types/bn.js': 5.1.6
       '@types/lru-cache': 5.1.1
       adm-zip: 0.4.16
       aggregate-error: 3.1.0
@@ -32474,7 +32951,7 @@ snapshots:
       chalk: 2.4.2
       chokidar: 3.6.0
       ci-info: 2.0.0
-      debug: 4.3.5(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@8.1.1)
       enquirer: 2.4.1
       env-paths: 2.2.1
       ethereum-cryptography: 1.2.0
@@ -32483,23 +32960,23 @@ snapshots:
       fp-ts: 1.19.3
       fs-extra: 7.0.1
       glob: 7.2.0
-      immutable: 4.3.5
+      immutable: 4.3.7
       io-ts: 1.10.4
       keccak: 3.0.4
       lodash: 4.17.21
       mnemonist: 0.38.5
-      mocha: 10.7.0
+      mocha: 10.7.3
       p-map: 4.0.0
       raw-body: 2.5.2
       resolve: 1.17.0
       semver: 6.3.1
-      solc: 0.8.26(debug@4.3.5)
+      solc: 0.8.26(debug@4.3.7)
       source-map-support: 0.5.21
       stacktrace-parser: 0.1.10
       tsort: 0.0.1
       undici: 5.28.4
       uuid: 8.3.2
-      ws: 7.5.9
+      ws: 7.5.10
     optionalDependencies:
       ts-node: 10.9.2(@types/node@22.4.0)(typescript@5.6.3)
       typescript: 5.6.3
@@ -32564,6 +33041,71 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
+  hast-util-from-parse5@7.1.2:
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/unist': 2.0.10
+      hastscript: 7.2.0
+      property-information: 6.5.0
+      vfile: 5.3.7
+      vfile-location: 4.1.0
+      web-namespaces: 2.0.1
+
+  hast-util-parse-selector@3.1.1:
+    dependencies:
+      '@types/hast': 2.3.10
+
+  hast-util-raw@7.2.3:
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/parse5': 6.0.3
+      hast-util-from-parse5: 7.1.2
+      hast-util-to-parse5: 7.1.0
+      html-void-elements: 2.0.1
+      parse5: 6.0.1
+      unist-util-position: 4.0.4
+      unist-util-visit: 4.1.2
+      vfile: 5.3.7
+      web-namespaces: 2.0.1
+      zwitch: 2.0.4
+
+  hast-util-sanitize@4.1.0:
+    dependencies:
+      '@types/hast': 2.3.10
+
+  hast-util-to-html@8.0.4:
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/unist': 2.0.10
+      ccount: 2.0.1
+      comma-separated-tokens: 2.0.3
+      hast-util-raw: 7.2.3
+      hast-util-whitespace: 2.0.1
+      html-void-elements: 2.0.1
+      property-information: 6.5.0
+      space-separated-tokens: 2.0.2
+      stringify-entities: 4.0.4
+      zwitch: 2.0.4
+
+  hast-util-to-parse5@7.1.0:
+    dependencies:
+      '@types/hast': 2.3.10
+      comma-separated-tokens: 2.0.3
+      property-information: 6.5.0
+      space-separated-tokens: 2.0.2
+      web-namespaces: 2.0.1
+      zwitch: 2.0.4
+
+  hast-util-whitespace@2.0.1: {}
+
+  hastscript@7.2.0:
+    dependencies:
+      '@types/hast': 2.3.10
+      comma-separated-tokens: 2.0.3
+      hast-util-parse-selector: 3.1.1
+      property-information: 6.5.0
+      space-separated-tokens: 2.0.2
+
   he@1.2.0: {}
 
   heap@0.2.7: {}
@@ -32573,6 +33115,8 @@ snapshots:
   hexoid@1.0.0: {}
 
   highlight.js@10.7.3: {}
+
+  highlight.js@11.10.0: {}
 
   history@5.3.0:
     dependencies:
@@ -32649,6 +33193,8 @@ snapshots:
       minimist: 1.2.8
       readable-stream: 1.0.34
       through2: 0.4.2
+
+  html-void-elements@2.0.1: {}
 
   html-webpack-plugin@5.5.0(webpack@5.93.0):
     dependencies:
@@ -32819,8 +33365,7 @@ snapshots:
 
   immutable@4.3.5: {}
 
-  immutable@4.3.7:
-    optional: true
+  immutable@4.3.7: {}
 
   import-fresh@3.3.0:
     dependencies:
@@ -33591,6 +34136,8 @@ snapshots:
 
   kleur@3.0.3: {}
 
+  kleur@4.1.5: {}
+
   known-css-properties@0.34.0: {}
 
   koa-bodyparser@4.4.1:
@@ -34059,6 +34606,8 @@ snapshots:
 
   long@5.2.3: {}
 
+  longest-streak@3.1.0: {}
+
   longest@1.0.1: {}
 
   loose-envify@1.4.0:
@@ -34114,8 +34663,7 @@ snapshots:
 
   luxon@3.4.4: {}
 
-  luxon@3.5.0:
-    optional: true
+  luxon@3.5.0: {}
 
   lz-string@1.5.0: {}
 
@@ -34205,9 +34753,11 @@ snapshots:
     dependencies:
       repeat-string: 1.6.1
 
+  markdown-table@3.0.4: {}
+
   match-sorter@7.0.0:
     dependencies:
-      '@babel/runtime': 7.25.0
+      '@babel/runtime': 7.26.0
       remove-accents: 0.5.0
 
   mathjs@10.6.4:
@@ -34230,6 +34780,25 @@ snapshots:
       inherits: 2.0.4
       safe-buffer: 5.2.1
 
+  md5@2.3.0:
+    dependencies:
+      charenc: 0.0.2
+      crypt: 0.0.2
+      is-buffer: 1.1.6
+
+  mdast-util-definitions@5.1.2:
+    dependencies:
+      '@types/mdast': 3.0.15
+      '@types/unist': 2.0.10
+      unist-util-visit: 4.1.2
+
+  mdast-util-find-and-replace@2.2.2:
+    dependencies:
+      '@types/mdast': 3.0.15
+      escape-string-regexp: 5.0.0
+      unist-util-is: 5.2.1
+      unist-util-visit-parents: 5.1.3
+
   mdast-util-from-markdown@0.8.5:
     dependencies:
       '@types/mdast': 3.0.15
@@ -34240,7 +34809,99 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  mdast-util-from-markdown@1.3.1:
+    dependencies:
+      '@types/mdast': 3.0.15
+      '@types/unist': 2.0.10
+      decode-named-character-reference: 1.0.2
+      mdast-util-to-string: 3.2.0
+      micromark: 3.2.0
+      micromark-util-decode-numeric-character-reference: 1.1.0
+      micromark-util-decode-string: 1.1.0
+      micromark-util-normalize-identifier: 1.1.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      unist-util-stringify-position: 3.0.3
+      uvu: 0.5.6
+    transitivePeerDependencies:
+      - supports-color
+
+  mdast-util-gfm-autolink-literal@1.0.3:
+    dependencies:
+      '@types/mdast': 3.0.15
+      ccount: 2.0.1
+      mdast-util-find-and-replace: 2.2.2
+      micromark-util-character: 1.2.0
+
+  mdast-util-gfm-footnote@1.0.2:
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-to-markdown: 1.5.0
+      micromark-util-normalize-identifier: 1.1.0
+
+  mdast-util-gfm-strikethrough@1.0.3:
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-to-markdown: 1.5.0
+
+  mdast-util-gfm-table@1.0.7:
+    dependencies:
+      '@types/mdast': 3.0.15
+      markdown-table: 3.0.4
+      mdast-util-from-markdown: 1.3.1
+      mdast-util-to-markdown: 1.5.0
+    transitivePeerDependencies:
+      - supports-color
+
+  mdast-util-gfm-task-list-item@1.0.2:
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-to-markdown: 1.5.0
+
+  mdast-util-gfm@2.0.2:
+    dependencies:
+      mdast-util-from-markdown: 1.3.1
+      mdast-util-gfm-autolink-literal: 1.0.3
+      mdast-util-gfm-footnote: 1.0.2
+      mdast-util-gfm-strikethrough: 1.0.3
+      mdast-util-gfm-table: 1.0.7
+      mdast-util-gfm-task-list-item: 1.0.2
+      mdast-util-to-markdown: 1.5.0
+    transitivePeerDependencies:
+      - supports-color
+
+  mdast-util-phrasing@3.0.1:
+    dependencies:
+      '@types/mdast': 3.0.15
+      unist-util-is: 5.2.1
+
+  mdast-util-to-hast@12.3.0:
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/mdast': 3.0.15
+      mdast-util-definitions: 5.1.2
+      micromark-util-sanitize-uri: 1.2.0
+      trim-lines: 3.0.1
+      unist-util-generated: 2.0.1
+      unist-util-position: 4.0.4
+      unist-util-visit: 4.1.2
+
+  mdast-util-to-markdown@1.5.0:
+    dependencies:
+      '@types/mdast': 3.0.15
+      '@types/unist': 2.0.10
+      longest-streak: 3.1.0
+      mdast-util-phrasing: 3.0.1
+      mdast-util-to-string: 3.2.0
+      micromark-util-decode-string: 1.1.0
+      unist-util-visit: 4.1.2
+      zwitch: 2.0.4
+
   mdast-util-to-string@2.0.0: {}
+
+  mdast-util-to-string@3.2.0:
+    dependencies:
+      '@types/mdast': 3.0.15
 
   mdn-data@2.0.14: {}
 
@@ -34330,10 +34991,201 @@ snapshots:
 
   micro-ftch@0.3.1: {}
 
+  micromark-core-commonmark@1.1.0:
+    dependencies:
+      decode-named-character-reference: 1.0.2
+      micromark-factory-destination: 1.1.0
+      micromark-factory-label: 1.1.0
+      micromark-factory-space: 1.1.0
+      micromark-factory-title: 1.1.0
+      micromark-factory-whitespace: 1.1.0
+      micromark-util-character: 1.2.0
+      micromark-util-chunked: 1.1.0
+      micromark-util-classify-character: 1.1.0
+      micromark-util-html-tag-name: 1.2.0
+      micromark-util-normalize-identifier: 1.1.0
+      micromark-util-resolve-all: 1.1.0
+      micromark-util-subtokenize: 1.1.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      uvu: 0.5.6
+
+  micromark-extension-gfm-autolink-literal@1.0.5:
+    dependencies:
+      micromark-util-character: 1.2.0
+      micromark-util-sanitize-uri: 1.2.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+
+  micromark-extension-gfm-footnote@1.1.2:
+    dependencies:
+      micromark-core-commonmark: 1.1.0
+      micromark-factory-space: 1.1.0
+      micromark-util-character: 1.2.0
+      micromark-util-normalize-identifier: 1.1.0
+      micromark-util-sanitize-uri: 1.2.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      uvu: 0.5.6
+
+  micromark-extension-gfm-strikethrough@1.0.7:
+    dependencies:
+      micromark-util-chunked: 1.1.0
+      micromark-util-classify-character: 1.1.0
+      micromark-util-resolve-all: 1.1.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      uvu: 0.5.6
+
+  micromark-extension-gfm-table@1.0.7:
+    dependencies:
+      micromark-factory-space: 1.1.0
+      micromark-util-character: 1.2.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      uvu: 0.5.6
+
+  micromark-extension-gfm-tagfilter@1.0.2:
+    dependencies:
+      micromark-util-types: 1.1.0
+
+  micromark-extension-gfm-task-list-item@1.0.5:
+    dependencies:
+      micromark-factory-space: 1.1.0
+      micromark-util-character: 1.2.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      uvu: 0.5.6
+
+  micromark-extension-gfm@2.0.3:
+    dependencies:
+      micromark-extension-gfm-autolink-literal: 1.0.5
+      micromark-extension-gfm-footnote: 1.1.2
+      micromark-extension-gfm-strikethrough: 1.0.7
+      micromark-extension-gfm-table: 1.0.7
+      micromark-extension-gfm-tagfilter: 1.0.2
+      micromark-extension-gfm-task-list-item: 1.0.5
+      micromark-util-combine-extensions: 1.1.0
+      micromark-util-types: 1.1.0
+
+  micromark-factory-destination@1.1.0:
+    dependencies:
+      micromark-util-character: 1.2.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+
+  micromark-factory-label@1.1.0:
+    dependencies:
+      micromark-util-character: 1.2.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      uvu: 0.5.6
+
+  micromark-factory-space@1.1.0:
+    dependencies:
+      micromark-util-character: 1.2.0
+      micromark-util-types: 1.1.0
+
+  micromark-factory-title@1.1.0:
+    dependencies:
+      micromark-factory-space: 1.1.0
+      micromark-util-character: 1.2.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+
+  micromark-factory-whitespace@1.1.0:
+    dependencies:
+      micromark-factory-space: 1.1.0
+      micromark-util-character: 1.2.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+
+  micromark-util-character@1.2.0:
+    dependencies:
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+
+  micromark-util-chunked@1.1.0:
+    dependencies:
+      micromark-util-symbol: 1.1.0
+
+  micromark-util-classify-character@1.1.0:
+    dependencies:
+      micromark-util-character: 1.2.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+
+  micromark-util-combine-extensions@1.1.0:
+    dependencies:
+      micromark-util-chunked: 1.1.0
+      micromark-util-types: 1.1.0
+
+  micromark-util-decode-numeric-character-reference@1.1.0:
+    dependencies:
+      micromark-util-symbol: 1.1.0
+
+  micromark-util-decode-string@1.1.0:
+    dependencies:
+      decode-named-character-reference: 1.0.2
+      micromark-util-character: 1.2.0
+      micromark-util-decode-numeric-character-reference: 1.1.0
+      micromark-util-symbol: 1.1.0
+
+  micromark-util-encode@1.1.0: {}
+
+  micromark-util-html-tag-name@1.2.0: {}
+
+  micromark-util-normalize-identifier@1.1.0:
+    dependencies:
+      micromark-util-symbol: 1.1.0
+
+  micromark-util-resolve-all@1.1.0:
+    dependencies:
+      micromark-util-types: 1.1.0
+
+  micromark-util-sanitize-uri@1.2.0:
+    dependencies:
+      micromark-util-character: 1.2.0
+      micromark-util-encode: 1.1.0
+      micromark-util-symbol: 1.1.0
+
+  micromark-util-subtokenize@1.1.0:
+    dependencies:
+      micromark-util-chunked: 1.1.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      uvu: 0.5.6
+
+  micromark-util-symbol@1.1.0: {}
+
+  micromark-util-types@1.1.0: {}
+
   micromark@2.11.4:
     dependencies:
       debug: 4.3.7(supports-color@8.1.1)
       parse-entities: 2.0.0
+    transitivePeerDependencies:
+      - supports-color
+
+  micromark@3.2.0:
+    dependencies:
+      '@types/debug': 4.1.12
+      debug: 4.3.7(supports-color@8.1.1)
+      decode-named-character-reference: 1.0.2
+      micromark-core-commonmark: 1.1.0
+      micromark-factory-space: 1.1.0
+      micromark-util-character: 1.2.0
+      micromark-util-chunked: 1.1.0
+      micromark-util-combine-extensions: 1.1.0
+      micromark-util-decode-numeric-character-reference: 1.1.0
+      micromark-util-encode: 1.1.0
+      micromark-util-normalize-identifier: 1.1.0
+      micromark-util-resolve-all: 1.1.0
+      micromark-util-sanitize-uri: 1.2.0
+      micromark-util-subtokenize: 1.1.0
+      micromark-util-symbol: 1.1.0
+      micromark-util-types: 1.1.0
+      uvu: 0.5.6
     transitivePeerDependencies:
       - supports-color
 
@@ -34505,29 +35357,6 @@ snapshots:
   mnemonist@0.38.5:
     dependencies:
       obliterator: 2.0.4
-
-  mocha@10.7.0:
-    dependencies:
-      ansi-colors: 4.1.3
-      browser-stdout: 1.3.1
-      chokidar: 3.6.0
-      debug: 4.3.7(supports-color@8.1.1)
-      diff: 5.2.0
-      escape-string-regexp: 4.0.0
-      find-up: 5.0.0
-      glob: 8.1.0
-      he: 1.2.0
-      js-yaml: 4.1.0
-      log-symbols: 4.1.0
-      minimatch: 5.1.6
-      ms: 2.1.3
-      serialize-javascript: 6.0.2
-      strip-json-comments: 3.1.1
-      supports-color: 8.1.1
-      workerpool: 6.5.1
-      yargs: 16.2.0
-      yargs-parser: 20.2.9
-      yargs-unparser: 2.0.0
 
   mocha@10.7.3:
     dependencies:
@@ -36013,6 +36842,8 @@ snapshots:
 
   prettier@3.2.5: {}
 
+  prettier@3.3.3: {}
+
   pretty-bytes@5.6.0: {}
 
   pretty-error@4.0.0:
@@ -36098,6 +36929,8 @@ snapshots:
       object-assign: 4.1.1
       react-is: 16.13.1
 
+  property-information@6.5.0: {}
+
   proto-list@1.2.4: {}
 
   protobufjs@7.3.2:
@@ -36173,10 +37006,6 @@ snapshots:
       encode-utf8: 1.0.3
       pngjs: 5.0.0
       yargs: 15.4.1
-
-  qs@6.11.0:
-    dependencies:
-      side-channel: 1.0.6
 
   qs@6.12.3:
     dependencies:
@@ -36436,14 +37265,6 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  rc-motion@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@babel/runtime': 7.26.0
-      classnames: 2.5.1
-      rc-util: 5.43.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   rc-motion@2.9.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.26.0
@@ -36559,9 +37380,9 @@ snapshots:
   rc-select@14.13.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.26.0
-      '@rc-component/trigger': 2.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@rc-component/trigger': 2.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       classnames: 2.5.1
-      rc-motion: 2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      rc-motion: 2.9.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-overflow: 1.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-util: 5.43.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-virtual-list: 3.14.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -36667,7 +37488,7 @@ snapshots:
 
   rc-tree-select@5.5.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.25.0
+      '@babel/runtime': 7.26.0
       classnames: 2.5.1
       rc-select: 14.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-tree: 5.7.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -36689,7 +37510,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
       classnames: 2.5.1
-      rc-motion: 2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      rc-motion: 2.9.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-util: 5.43.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-virtual-list: 3.14.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
@@ -36814,6 +37635,11 @@ snapshots:
   react-error-boundary@4.0.11(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.25.0
+      react: 18.3.1
+
+  react-error-boundary@4.1.2(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.26.0
       react: 18.3.1
 
   react-error-overlay@6.0.9: {}
@@ -37224,9 +38050,58 @@ snapshots:
     dependencies:
       jsesc: 0.5.0
 
+  rehype-raw@6.1.1:
+    dependencies:
+      '@types/hast': 2.3.10
+      hast-util-raw: 7.2.3
+      unified: 10.1.2
+
+  rehype-sanitize@5.0.1:
+    dependencies:
+      '@types/hast': 2.3.10
+      hast-util-sanitize: 4.1.0
+      unified: 10.1.2
+
+  rehype-stringify@9.0.4:
+    dependencies:
+      '@types/hast': 2.3.10
+      hast-util-to-html: 8.0.4
+      unified: 10.1.2
+
   reinterval@1.1.0: {}
 
   relateurl@0.2.7: {}
+
+  remark-gemoji@7.0.1:
+    dependencies:
+      '@types/mdast': 3.0.15
+      gemoji: 7.1.0
+      unified: 10.1.2
+      unist-util-visit: 4.1.2
+
+  remark-gfm@3.0.1:
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-gfm: 2.0.2
+      micromark-extension-gfm: 2.0.3
+      unified: 10.1.2
+    transitivePeerDependencies:
+      - supports-color
+
+  remark-parse@10.0.2:
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-util-from-markdown: 1.3.1
+      unified: 10.1.2
+    transitivePeerDependencies:
+      - supports-color
+
+  remark-rehype@10.1.0:
+    dependencies:
+      '@types/hast': 2.3.10
+      '@types/mdast': 3.0.15
+      mdast-util-to-hast: 12.3.0
+      unified: 10.1.2
 
   remove-accents@0.5.0: {}
 
@@ -37509,6 +38384,10 @@ snapshots:
     dependencies:
       tslib: 2.8.0
 
+  sade@1.8.1:
+    dependencies:
+      mri: 1.2.0
+
   safe-array-concat@1.1.2:
     dependencies:
       call-bind: 1.0.7
@@ -37617,7 +38496,7 @@ snapshots:
 
   secp256k1@4.0.3:
     dependencies:
-      elliptic: 6.5.5
+      elliptic: 6.6.0
       node-addon-api: 2.0.2
       node-gyp-build: 4.8.1
 
@@ -37626,6 +38505,8 @@ snapshots:
   seek-bzip@1.0.6:
     dependencies:
       commander: 2.20.3
+
+  select-files@1.0.1: {}
 
   select-hose@2.0.0: {}
 
@@ -37890,11 +38771,11 @@ snapshots:
 
   solarlunar-es@1.0.9: {}
 
-  solc@0.8.26(debug@4.3.5):
+  solc@0.8.26(debug@4.3.7):
     dependencies:
       command-exists: 1.2.9
       commander: 8.3.0
-      follow-redirects: 1.15.9(debug@4.3.5)
+      follow-redirects: 1.15.9(debug@4.3.7)
       js-sha3: 0.8.0
       memorystream: 0.3.1
       semver: 5.7.2
@@ -37990,6 +38871,8 @@ snapshots:
   source-map@0.8.0-beta.0:
     dependencies:
       whatwg-url: 7.1.0
+
+  space-separated-tokens@2.0.2: {}
 
   spawn-command@0.0.2-1: {}
 
@@ -38240,6 +39123,11 @@ snapshots:
   string_decoder@1.3.0:
     dependencies:
       safe-buffer: 5.2.1
+
+  stringify-entities@4.0.4:
+    dependencies:
+      character-entities-html4: 2.1.0
+      character-entities-legacy: 3.0.0
 
   strip-ansi@3.0.1:
     dependencies:
@@ -38700,6 +39588,10 @@ snapshots:
 
   tinyspy@2.2.1: {}
 
+  tippy.js@6.3.7:
+    dependencies:
+      '@popperjs/core': 2.11.8
+
   titleize@3.0.0: {}
 
   tldts-core@6.1.52: {}
@@ -38779,11 +39671,15 @@ snapshots:
 
   tree-kill@1.2.2: {}
 
+  trim-lines@3.0.1: {}
+
   trim-newlines@3.0.1: {}
 
   trim-right@1.0.1: {}
 
   triple-beam@1.4.1: {}
+
+  trough@2.2.0: {}
 
   ts-api-utils@1.0.3(typescript@5.6.3):
     dependencies:
@@ -39226,6 +40122,16 @@ snapshots:
       pako: 0.2.9
       tiny-inflate: 1.0.3
 
+  unified@10.1.2:
+    dependencies:
+      '@types/unist': 2.0.10
+      bail: 2.0.2
+      extend: 3.0.2
+      is-buffer: 2.0.5
+      is-plain-obj: 4.1.0
+      trough: 2.2.0
+      vfile: 5.3.7
+
   unique-filename@1.1.1:
     dependencies:
       unique-slug: 2.0.2
@@ -39244,9 +40150,34 @@ snapshots:
     dependencies:
       crypto-random-string: 2.0.0
 
+  unist-util-generated@2.0.1: {}
+
+  unist-util-is@5.2.1:
+    dependencies:
+      '@types/unist': 2.0.10
+
+  unist-util-position@4.0.4:
+    dependencies:
+      '@types/unist': 2.0.10
+
   unist-util-stringify-position@2.0.3:
     dependencies:
       '@types/unist': 2.0.10
+
+  unist-util-stringify-position@3.0.3:
+    dependencies:
+      '@types/unist': 2.0.10
+
+  unist-util-visit-parents@5.1.3:
+    dependencies:
+      '@types/unist': 2.0.10
+      unist-util-is: 5.2.1
+
+  unist-util-visit@4.1.2:
+    dependencies:
+      '@types/unist': 2.0.10
+      unist-util-is: 5.2.1
+      unist-util-visit-parents: 5.1.3
 
   universalify@0.1.2: {}
 
@@ -39427,6 +40358,13 @@ snapshots:
 
   uuid@9.0.1: {}
 
+  uvu@0.5.6:
+    dependencies:
+      dequal: 2.0.3
+      diff: 5.2.0
+      kleur: 4.1.5
+      sade: 1.8.1
+
   v8-compile-cache-lib@3.0.1: {}
 
   validate-npm-package-license@3.0.4:
@@ -39453,6 +40391,23 @@ snapshots:
       assert-plus: 1.0.0
       core-util-is: 1.0.2
       extsprintf: 1.4.1
+
+  vfile-location@4.1.0:
+    dependencies:
+      '@types/unist': 2.0.10
+      vfile: 5.3.7
+
+  vfile-message@3.1.4:
+    dependencies:
+      '@types/unist': 2.0.10
+      unist-util-stringify-position: 3.0.3
+
+  vfile@5.3.7:
+    dependencies:
+      '@types/unist': 2.0.10
+      is-buffer: 2.0.5
+      unist-util-stringify-position: 3.0.3
+      vfile-message: 3.1.4
 
   viem@2.7.14(typescript@5.6.3)(zod@3.23.8):
     dependencies:
@@ -39661,6 +40616,8 @@ snapshots:
       util: 0.12.5
     optionalDependencies:
       '@zxing/text-encoding': 0.9.0
+
+  web-namespaces@2.0.1: {}
 
   web-streams-polyfill@3.3.3: {}
 
@@ -40100,6 +41057,8 @@ snapshots:
 
   wmf@1.0.2: {}
 
+  word-count@0.2.2: {}
+
   word-wrap@1.2.5: {}
 
   word@0.3.0: {}
@@ -40306,7 +41265,7 @@ snapshots:
   yargs@16.2.0:
     dependencies:
       cliui: 7.0.4
-      escalade: 3.1.2
+      escalade: 3.2.0
       get-caller-file: 2.0.5
       require-directory: 2.1.1
       string-width: 4.2.3
@@ -40356,3 +41315,5 @@ snapshots:
       zod: 3.23.8
 
   zod@3.23.8: {}
+
+  zwitch@2.0.4: {}

@@ -36,7 +36,7 @@ import { SystemSettingsPlugin } from './system-settings';
 import { UserSettingsPlugin } from './user-settings';
 
 export { AdminProvider, NoticeArea } from './admin-layout';
-export * from './context-menu';
+export * from './context-menu/useContextMenu';
 
 interface AppStatusProps {
   error: Error;

@@ -103,14 +103,14 @@ export class PluginWorkflow extends Plugin {
     this.addComponents();
 
     this.app.systemSettingsManager.add(NAMESPACE, {
-      icon: 'PartitionOutlined',
+      icon: 'workflow',
       title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
       aclSnippet: 'pm.workflow.workflows',
       sort: -80,
     });
 
     this.app.systemSettingsManager.add(NAMESPACE + '.list', {
-      icon: 'PartitionOutlined',
+      icon: 'workflow',
       title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
       Component: WorkflowPane,
       aclSnippet: 'pm.workflow.workflows',

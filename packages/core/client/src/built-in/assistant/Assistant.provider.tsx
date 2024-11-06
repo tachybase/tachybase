@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Icon, useContextMenu, useDesignable, useHotkeys } from '@tachybase/client';
 
 import {
@@ -10,6 +10,7 @@ import {
 } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 
+import AIChatModal from './AIChatModal';
 import { useCalculator } from './calculator/CalculatorProvider';
 import { useSearchAndJump } from './search-and-jump';
 
@@ -17,6 +18,8 @@ export const AssistantProvider = ({ children }) => {
   const { designable, setDesignable } = useDesignable();
   const { visible, setVisible } = useCalculator();
   const { setOpen } = useSearchAndJump();
+
+  const ref = useRef<any>();
 
   // 快捷键切换编辑状态
   useHotkeys('Ctrl+Shift+U', () => setDesignable(!designable), [designable]);
@@ -27,6 +30,7 @@ export const AssistantProvider = ({ children }) => {
   return (
     <>
       {children}
+      <AIChatModal mRef={ref} onGenerateLoad={async (msg) => true} onReloadWrite={() => {}} />
       <FloatButton.Group trigger="hover" type="default" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
         <FloatButton icon={<SearchOutlined />} onClick={() => setOpen(true)} />
         <FloatButton
@@ -41,7 +45,12 @@ export const AssistantProvider = ({ children }) => {
             setVisible((visible) => !visible);
           }}
         />
-        <FloatButton icon={<CommentOutlined />} />
+        <FloatButton
+          icon={<CommentOutlined />}
+          onClick={() => {
+            ref.current?.openModal();
+          }}
+        />
         <FloatButton
           type={contextMenuEnabled ? 'primary' : 'default'}
           icon={<ToolOutlined onClick={() => setContextMenuEnable(!contextMenuEnabled)} />}

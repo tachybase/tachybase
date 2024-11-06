@@ -10,7 +10,12 @@ process.env.DID_YOU_KNOW = 'none';
 
 const pluginPrefix = (process.env.PLUGIN_PACKAGE_PREFIX || '').split(',').filter((item) => !item.includes('preset')); // 因为现在 preset 是直接引入的，所以不能忽略，如果以后 preset 也是动态插件的形式引入，那么这里可以去掉
 
-const pluginDirs = (process.env.PLUGIN_PATH || 'packages/plugins/,packages/samples/,packages/pro-plugins/')
+const pluginDirs = (
+  process.env.PLUGIN_PATH ||
+  ['plugins', 'plugins-auth', 'plugins-action', 'plugins-field', 'plugins-experiments']
+    .map((dir) => 'packages/' + dir + '/')
+    .join(',')
+)
   .split(',')
   .map((item) => path.join(process.cwd(), item));
 

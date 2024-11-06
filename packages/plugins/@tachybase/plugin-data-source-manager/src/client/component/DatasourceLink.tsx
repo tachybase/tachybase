@@ -12,10 +12,10 @@ export const DatasourceLink = () => {
   const navigate = useNavigate();
   const { token } = useToken();
   return (
-    <Tooltip title={t('Data sources')}>
+    <Tooltip title={t('Collections')}>
       <Button
         icon={<DatabaseOutlined style={{ color: token.colorTextHeaderMenu }} />}
-        title={t('Data sources')}
+        title={t('Collections')}
         onClick={() => {
           navigate('/admin/settings/collections');
         }}

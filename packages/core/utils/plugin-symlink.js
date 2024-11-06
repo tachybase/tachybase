@@ -1,5 +1,7 @@
 const { dirname, resolve } = require('path');
-const { readFile, writeFile, readdir, symlink, unlink, mkdir, stat } = require('fs').promises;
+const { readdir, symlink, unlink, mkdir, stat } = require('fs').promises;
+
+const dirs = ['plugins', 'plugins-auth', 'plugins-action', 'plugins-field', 'plugins-experiments'];
 
 async function getStoragePluginNames(target) {
   const plugins = [];
@@ -32,8 +34,7 @@ exports.fsExists = fsExists;
 
 async function createStoragePluginSymLink(pluginName) {
   const storagePluginsPath = resolve(process.cwd(), 'storage/plugins');
-  const nodeModulesPath = process.env.NODE_MODULES_PATH; // resolve(dirname(require.resolve('@tachybase/server/package.json')), 'node_modules');
-  // const nodeModulesPath = resolve(process.cwd(), 'node_modules');
+  const nodeModulesPath = process.env.NODE_MODULES_PATH;
   try {
     if (pluginName.startsWith('@')) {
       const [orgName] = pluginName.split('/');
@@ -64,9 +65,9 @@ async function createStoragePluginsSymlink() {
 
 exports.createStoragePluginsSymlink = createStoragePluginsSymlink;
 
-async function createDevPluginSymLink(pluginName) {
-  const packagePluginsPath = resolve(process.cwd(), 'packages/plugins');
-  const nodeModulesPath = process.env.NODE_MODULES_PATH; // resolve(dirname(require.resolve('@tachybase/server/package.json')), 'node_modules');
+async function createDevPluginSymLink(pluginName, dir) {
+  const packagePluginsPath = resolve(process.cwd(), 'packages/' + dir);
+  const nodeModulesPath = process.env.NODE_MODULES_PATH;
   try {
     if (pluginName.startsWith('@')) {
       const [orgName] = pluginName.split('/');
@@ -76,23 +77,27 @@ async function createDevPluginSymLink(pluginName) {
     }
     const link = resolve(nodeModulesPath, pluginName);
     if (await fsExists(link)) {
+      console.log('===', pluginName);
       await unlink(link);
     }
     await symlink(resolve(packagePluginsPath, pluginName), link, 'dir');
   } catch (error) {
-    console.error(error);
+    // console.error(error);
   }
 }
 
 exports.createDevPluginSymLink = createDevPluginSymLink;
 
 async function createDevPluginsSymlink() {
-  const storagePluginsPath = resolve(process.cwd(), 'packages/plugins');
-  if (!(await fsExists(storagePluginsPath))) {
-    return;
+  const pluginNames = [];
+  for (const dir of dirs) {
+    const storagePluginsPath = resolve(process.cwd(), 'packages/' + dir);
+    if (!(await fsExists(storagePluginsPath))) {
+      return;
+    }
+    pluginNames.push(...[...(await getStoragePluginNames(storagePluginsPath))].map((name) => [name, dir]));
   }
-  const pluginNames = await getStoragePluginNames(storagePluginsPath);
-  await Promise.all(pluginNames.map((pluginName) => createDevPluginSymLink(pluginName)));
+  await Promise.all(pluginNames.map(([pluginName, dir]) => createDevPluginSymLink(pluginName, dir)));
 }
 
 exports.createDevPluginsSymlink = createDevPluginsSymlink;
