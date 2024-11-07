@@ -69,7 +69,8 @@ export const TabHeader = () => {
       onClick={() => {
         navigate(`/admin/${item.key}`);
       }}
-      onClose={() => {
+      onClose={(e) => {
+        e.stopPropagation();
         setItems((items) => {
           return items.filter((i) => i.key !== item.key);
         });
