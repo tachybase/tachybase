@@ -17,8 +17,18 @@ const options = {
 };
 pdfjs.GlobalWorkerOptions.workerSrc = `https://assets.tachybase.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
+const TransformInternal = ({ noTransformWrapper = false, children }) => {
+  return noTransformWrapper ? (
+    children
+  ) : (
+    <TransformWrapper>
+      <TransformComponent>{children}</TransformComponent>
+    </TransformWrapper>
+  );
+};
+
 const CheckedComponent = (props) => {
-  const { file, fileInfo, width } = props;
+  const { file, fileInfo, width, noTransformWrapper = false } = props;
   // NOTE: 有 url 就使用 url 形式, 没有就取 fileInfo, 默认为数据流
   const pdfInfo = file?.url || fileInfo;
   // @ts-ignore
@@ -55,19 +65,17 @@ const CheckedComponent = (props) => {
       loading=""
       onLoadSuccess={onDocumentLoadSuccess}
     >
-      <TransformWrapper>
-        <TransformComponent>
-          {Array.from(new Array(numPages), (el, index) => (
-            <Page key={`page_${index + 1}`} pageNumber={index + 1} width={width || pdfWidth}>
-              <div className={styles.footer}>
-                <Tag className={styles.footerText} bordered={false}>
-                  {index + 1}/{numPages}
-                </Tag>
-              </div>
-            </Page>
-          ))}
-        </TransformComponent>
-      </TransformWrapper>
+      <TransformInternal noTransformWrapper={noTransformWrapper}>
+        {Array.from(new Array(numPages), (el, index) => (
+          <Page key={`page_${index + 1}`} pageNumber={index + 1} width={width || pdfWidth}>
+            <div className={styles.footer}>
+              <Tag className={styles.footerText} bordered={false}>
+                {index + 1}/{numPages}
+              </Tag>
+            </div>
+          </Page>
+        ))}
+      </TransformInternal>
     </Document>
   );
 };

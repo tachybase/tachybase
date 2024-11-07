@@ -1,10 +1,7 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { dayjs } from '@tachybase/utils/client';
 
 import * as Babel from '@babel/standalone';
-import Editor from '@monaco-editor/react';
 import { useDebounceFn, useKeyPress } from 'ahooks';
-import * as antd from 'antd';
 import { Spin, Splitter } from 'antd';
 import parserJavaScript from 'prettier/plugins/babel';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
@@ -14,14 +11,7 @@ import ComPreview from './ComPreview';
 
 import './index.less';
 
-console.log(Babel.transform, '==-======', Babel);
-
-declare global {
-  interface Window {
-    dayjs: any;
-    antd: any;
-  }
-}
+import { CodeEditor } from '@tachybase/components';
 
 /**
  * 组件代码编辑
@@ -33,17 +23,6 @@ export default forwardRef((_: any, ref: any) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const editorRef = useRef<any>(null);
-
-  /**
-   * 把React、dayjs、antd挂载到window上，否则esbuild无法编译
-   * 此处初始化只是为了解决本地热更新问题。
-   * 由于屏蔽了external，所以本地需要通过import获取，线上通过cdn加载。
-   */
-  function initContext() {
-    window.React = window.React || React;
-    window.dayjs = window.dayjs || dayjs;
-    window.antd = window.antd || antd;
-  }
 
   // 初始化代码
   async function initCode() {
@@ -57,7 +36,6 @@ export default forwardRef((_: any, ref: any) => {
   }
 
   useEffect(() => {
-    initContext();
     initCode();
   }, []);
 
@@ -138,7 +116,10 @@ export default forwardRef((_: any, ref: any) => {
     if (!code) return;
     try {
       localStorage.setItem('react-code', code);
-      const result = Babel.transform(code, { presets: [['env', { modules: 'amd' }], 'react'] }).code;
+      const result = Babel.transform(code, {
+        filename: 'file.tsx',
+        presets: [['env', { modules: 'amd' }], 'react', 'typescript'],
+      }).code;
       setLoading(false);
       setCompileCode(result);
       setError('');
@@ -161,8 +142,8 @@ export default forwardRef((_: any, ref: any) => {
     <div className="code-editor">
       <Splitter>
         <Splitter.Panel defaultSize="50%">
-          <Editor
-            language={'javascript'}
+          <CodeEditor
+            defaultLanguage="typescript"
             value={code}
             onChange={(value) => {
               setLoading(true);
@@ -174,6 +155,7 @@ export default forwardRef((_: any, ref: any) => {
                 enabled: false,
               },
             }}
+            height="100%"
             onMount={(editor) => (editorRef.current = editor)}
           />
         </Splitter.Panel>

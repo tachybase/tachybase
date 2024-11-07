@@ -53,6 +53,7 @@
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",
     "@tachybase/plugin-oidc": "workspace:*",
     "@tachybase/plugin-online-user": "workspace:*",
+    "@tachybase/plugin-pdf-editor": "workspace:*",
     "@tachybase/plugin-saml": "workspace:*",
     "@tachybase/plugin-sequence-field": "workspace:*",
     "@tachybase/plugin-simple-cms": "workspace:*",

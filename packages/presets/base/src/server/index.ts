@@ -75,6 +75,7 @@ export class PresetTachyBase extends Plugin {
     ['wechat-auth', '0.21.89', false],
     ['work-wechat', '0.21.76', false],
     ['cloud-component', '0.22.25', false],
+    ['pdf-editor', '0.22.25', false],
   ];
 
   get localPlugins() {

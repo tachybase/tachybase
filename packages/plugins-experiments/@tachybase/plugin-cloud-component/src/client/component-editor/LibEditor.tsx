@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { loader } from '@monaco-editor/react';
-import { Button, Space, Spin, Tabs } from 'antd';
+import { Spin, Tabs } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import { defaultConfigCode, defaultLessCode, defaultMdCode, defaultReactCode } from './components/InitValue';
+import { defaultMdCode, defaultReactCode } from './components/InitValue';
 import MDEditor from './components/MDEditor';
 import ReactEditor from './components/ReactEditor';
 
@@ -20,13 +19,6 @@ export default () => {
   const [activeTabKey, setActiveTabKey] = useState<string>('react');
 
   const navigate = useNavigate();
-
-  // 初始化monaco，默认为jsdelivery分发，由于网络原因改为本地cdn
-  loader.config({
-    paths: {
-      vs: 'https://assets.tachybase.com/monaco-editor@0.52.0/min/vs',
-    },
-  });
 
   const items = [
     {
@@ -45,8 +37,6 @@ export default () => {
   useEffect(() => {
     // 如果hash有值，说明已经提交过
     localStorage.setItem('react-code', defaultReactCode);
-    localStorage.setItem('less-code', defaultLessCode);
-    localStorage.setItem('config-code', defaultConfigCode);
     localStorage.setItem('md-code', defaultMdCode);
   }, []);
 
@@ -71,22 +61,13 @@ export default () => {
   };
 
   return (
-    <>
-      <Spin spinning={loading} tip="正在编译中...">
-        <Tabs
-          items={items}
-          activeKey={activeTabKey}
-          tabBarStyle={{ paddingLeft: 65, paddingRight: 30 }}
-          onChange={handleTabChange}
-          tabBarExtraContent={
-            <Space size={20}>
-              <Button type="default" onClick={handleBack}>
-                返回
-              </Button>
-            </Space>
-          }
-        />
-      </Spin>
-    </>
+    <Spin spinning={loading} tip="正在编译中...">
+      <Tabs
+        items={items}
+        activeKey={activeTabKey}
+        tabBarStyle={{ paddingLeft: 65, paddingRight: 30 }}
+        onChange={handleTabChange}
+      />
+    </Spin>
   );
 };

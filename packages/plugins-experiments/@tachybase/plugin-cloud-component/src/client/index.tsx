@@ -4,9 +4,11 @@ import LibEditor from './component-editor/LibEditor';
 
 export class PluginCloudComponentClient extends Plugin {
   async load() {
-    this.app.router.add('editor', {
-      path: '/editor',
+    this.app.systemSettingsManager.add('cloud-component-edit', {
+      title: 'Cloud component',
+      icon: 'deploymentunitoutlined',
       Component: LibEditor,
+      sort: 201,
     });
   }
 }

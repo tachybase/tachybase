@@ -31,16 +31,8 @@ function ComPreview({ config, refreshTag }: { config?: any; refreshTag: number }
     // 编译后的代码，通过Blob对象来创建URL
     const blob = new Blob([reactCompile], { type: 'application/javascript' });
     const url = URL.createObjectURL(blob);
-    console.log('🚀 ~ file: ComPreview.tsx:34 ~ loadModule ~ url:', url);
 
     try {
-      // app.requirejs.requirejs.config({
-      //   paths: {
-      //     'dynamic-component': url,
-      //   },
-      // });
-      // const module = await import(url);
-      // console.log('---', module);
       app.requirejs.require([url], function (myModule) {
         setComponent(() => myModule.default);
       });

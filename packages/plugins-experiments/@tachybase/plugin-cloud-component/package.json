@@ -12,6 +12,7 @@
     "@bytemd/react": "1.21.0",
     "@micro-zoe/micro-app": "1.0.0-rc.13",
     "@monaco-editor/react": "4.6.0",
+    "@tachybase/components": "workspace:*",
     "ahooks": "3.8.1",
     "antd": "5.21.6",
     "bytemd": "1.21.0",
