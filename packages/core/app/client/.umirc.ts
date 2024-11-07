@@ -93,4 +93,5 @@ export default defineConfig({
     return config;
   },
   routes: [{ path: '/*', component: 'index' }],
+  mako: {},
 });

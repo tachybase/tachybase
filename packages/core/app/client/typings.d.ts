@@ -6,3 +6,13 @@ declare module '*.svg' {
   const url: string;
   export default url;
 }
+
+declare module '*.wasm?url' {
+  const url: string;
+  export default url;
+}
+
+declare module '*.webp' {
+  const url: string;
+  export default url;
+}
