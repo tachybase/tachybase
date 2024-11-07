@@ -25,6 +25,7 @@
     "@tachybase/plugin-cas": "workspace:*",
     "@tachybase/plugin-china-region": "workspace:*",
     "@tachybase/plugin-client": "workspace:*",
+    "@tachybase/plugin-cloud-component": "workspace:*",
     "@tachybase/plugin-collection-manager": "workspace:*",
     "@tachybase/plugin-comments": "workspace:*",
     "@tachybase/plugin-custom-request": "workspace:*",

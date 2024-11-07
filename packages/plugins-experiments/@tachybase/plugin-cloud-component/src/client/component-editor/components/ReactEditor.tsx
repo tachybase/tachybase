@@ -1,11 +1,11 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { dayjs } from '@tachybase/utils/client';
 
+import * as Babel from '@babel/standalone';
 import Editor from '@monaco-editor/react';
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import * as antd from 'antd';
 import { Spin, Splitter } from 'antd';
-import { build } from 'esbuild-wasm';
 import parserJavaScript from 'prettier/plugins/babel';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
 import * as prettier from 'prettier/standalone';
@@ -13,6 +13,8 @@ import * as prettier from 'prettier/standalone';
 import ComPreview from './ComPreview';
 
 import './index.less';
+
+console.log(Babel.transform, '==-======', Babel);
 
 declare global {
   interface Window {
@@ -136,24 +138,11 @@ export default forwardRef((_: any, ref: any) => {
     if (!code) return;
     try {
       localStorage.setItem('react-code', code);
-      const result = await build({
-        bundle: true,
-        format: 'esm',
-        platform: 'browser',
-        minify: false,
-        outfile: 'out.js',
-        // jsx: 'automatic',// 浏览器不支持jsx-runtime
-        stdin: {
-          contents: code,
-          loader: 'tsx',
-        },
-      });
+      const result = Babel.transform(code, { presets: [['env', { modules: 'amd' }], 'react'] }).code;
       setLoading(false);
-      const output = result.outputFiles?.[0] || {};
-      console.log('----', output);
-      setCompileCode(output.text);
+      setCompileCode(result);
       setError('');
-      localStorage.setItem('react-compile', output.text);
+      localStorage.setItem('react-compile', result);
       setRefreshTag(refreshTag + 1);
     } catch (error: any) {
       setError(error.message);

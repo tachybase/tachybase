@@ -1,8 +1,11 @@
 {
   "name": "@tachybase/plugin-cloud-component",
+  "displayName": "Cloud component",
   "version": "0.22.24",
+  "description": "Cloud component",
   "main": "dist/server/index.js",
   "dependencies": {
+    "@babel/standalone": "7.26.2",
     "@bytemd/plugin-gemoji": "1.21.0",
     "@bytemd/plugin-gfm": "1.21.0",
     "@bytemd/plugin-highlight": "1.21.0",
@@ -27,5 +30,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "云组件",
+  "displayName.zh-CN": "云组件"
 }

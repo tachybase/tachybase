@@ -3,13 +3,11 @@
  */
 
 // 默认组件代码
-export const defaultReactCode = `/**
-* 支持React、Antd、dayjs 等插件使用，需要从window对象中导入：
-* eg: const { Button } = window.antd;
-* const { useEffect,useState } = window.React;
-*/
+export const defaultReactCode = `import React from 'react';
+import dayjs from 'dayjs';
+import { Button, Card } from 'antd';
+
 export default ({ id, type, config, onClick }, ref) => {
-  const { Button } = window.antd;
   const format = () => {
     return dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss');
   };
@@ -18,12 +16,12 @@ export default ({ id, type, config, onClick }, ref) => {
     onClick?.({ id, type });
   };
   return (
-    <div className="bgColor" data-id={id} data-type={type}>
+    <Card className="bgColor" data-id={id} data-type={type}>
       <Button style={config.style} {...config.props} onClick={handleClick}>
         {config.props.text}
       </Button>
       <p>{format()}</p>
-    </div>
+    </Card>
   );
 };
 `;
@@ -107,7 +105,7 @@ export default {
       title: '结束loading',
     },
   ],
-};   
+};
 `;
 
 export const defaultMdCode = `# 自定义组件

@@ -5,6 +5,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import './index.less';
 
+import { useApp } from '@tachybase/client';
+
 export const createId = (name: string, len: number = 10) => {
   return (
     name +
@@ -20,6 +22,7 @@ export const createId = (name: string, len: number = 10) => {
  */
 function ComPreview({ config, refreshTag }: { config?: any; refreshTag: number }) {
   const [Component, setComponent] = useState<any>(null);
+  const app = useApp();
 
   // 加载模块
   const loadModule = async () => {
@@ -28,11 +31,19 @@ function ComPreview({ config, refreshTag }: { config?: any; refreshTag: number }
     // 编译后的代码，通过Blob对象来创建URL
     const blob = new Blob([reactCompile], { type: 'application/javascript' });
     const url = URL.createObjectURL(blob);
+    console.log('🚀 ~ file: ComPreview.tsx:34 ~ loadModule ~ url:', url);
 
     try {
-      const module = await import(url);
-      console.log('---', module);
-      setComponent(() => module.default);
+      // app.requirejs.requirejs.config({
+      //   paths: {
+      //     'dynamic-component': url,
+      //   },
+      // });
+      // const module = await import(url);
+      // console.log('---', module);
+      app.requirejs.require([url], function (myModule) {
+        setComponent(() => myModule.default);
+      });
     } catch (error) {
       console.error('模块加载失败:', error);
     }

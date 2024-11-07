@@ -2107,6 +2107,9 @@ importers:
 
   packages/plugins-experiments/@tachybase/plugin-cloud-component:
     dependencies:
+      '@babel/standalone':
+        specifier: 7.26.2
+        version: 7.26.2
       '@bytemd/plugin-gemoji':
         specifier: 1.21.0
         version: 1.21.0(bytemd@1.21.0)
@@ -4592,6 +4595,9 @@ importers:
       '@tachybase/plugin-client':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-client
+      '@tachybase/plugin-cloud-component':
+        specifier: workspace:*
+        version: link:../../plugins-experiments/@tachybase/plugin-cloud-component
       '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../../plugins/@tachybase/plugin-collection-manager
@@ -5868,6 +5874,10 @@ packages:
 
   '@babel/runtime@7.26.0':
     resolution: {integrity: sha512-FDSOghenHTiToteC/QRlv2q3DhPZ/oOXTBoirfWNx1Cx3TMVcGWQtMMmQcSvb/JjpNeGzx8Pq/b4fKEJuWm1sw==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/standalone@7.26.2':
+    resolution: {integrity: sha512-i2VbegsRfwa9yq3xmfDX3tG2yh9K0cCqwpSyVG2nPxifh0EOnucAZUeO/g4lW2Zfg03aPJNtPfxQbDHzXc7H+w==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.24.7':
@@ -23130,6 +23140,8 @@ snapshots:
   '@babel/runtime@7.26.0':
     dependencies:
       regenerator-runtime: 0.14.1
+
+  '@babel/standalone@7.26.2': {}
 
   '@babel/template@7.24.7':
     dependencies:
