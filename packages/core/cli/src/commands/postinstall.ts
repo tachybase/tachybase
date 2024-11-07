@@ -1,7 +1,6 @@
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
 import { resolve } from 'path';
-import { createDevPluginsSymlink, createStoragePluginsSymlink } from '@tachybase/utils/plugin-symlink';
 
 import { Command } from 'commander';
 
@@ -15,11 +14,12 @@ export default (cli: Command) => {
     .option('--skip-umi')
     .action(async (options) => {
       generatePlaywrightPath(true);
-      await createStoragePluginsSymlink();
+      const utils = await import('@tachybase/utils');
+      await utils.createStoragePluginsSymlink();
       if (!isDev()) {
         return;
       }
-      await createDevPluginsSymlink();
+      await utils.createDevPluginsSymlink();
       const cwd = process.cwd();
       if (!existsSync(resolve(cwd, '.env')) && existsSync(resolve(cwd, '.env.example'))) {
         const content = await readFile(resolve(cwd, '.env.example'), 'utf-8');

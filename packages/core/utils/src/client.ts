@@ -14,7 +14,6 @@ export * from './notification';
 export * from './number';
 export * from './parse-filter';
 export * from './registry';
-// export * from './toposort';
 export * from './isPortalInBody';
 export * from './uid';
 export * from './url';

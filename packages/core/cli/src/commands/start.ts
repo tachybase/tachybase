@@ -49,8 +49,6 @@ export default (cli: Command) => {
           // @ts-ignore
           [
             'start',
-            '-i',
-            _.toNumber(opts.instances || 1),
             `${APP_PACKAGE_ROOT}/lib/index.js`,
             NODE_ARGS ? `--node-args="${NODE_ARGS}"` : undefined,
             '--',

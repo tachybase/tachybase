@@ -2,8 +2,7 @@ import fs from 'fs';
 import net from 'net';
 import { basename, dirname, join, resolve, sep } from 'path';
 import { CleanOptions, Collection, SyncOptions } from '@tachybase/database';
-import { Container, importModule, isURL } from '@tachybase/utils';
-import { fsExists } from '@tachybase/utils/plugin-symlink';
+import { Container, fsExists, importModule, isURL } from '@tachybase/utils';
 
 import execa from 'execa';
 import fg from 'fast-glob';

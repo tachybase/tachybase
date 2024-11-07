@@ -1,8 +1,7 @@
 import { builtinModules } from 'module';
 import os from 'os';
 import path from 'path';
-import { importModule, isURL } from '@tachybase/utils';
-import { createStoragePluginSymLink } from '@tachybase/utils/plugin-symlink';
+import { createStoragePluginSymLink, importModule, isURL } from '@tachybase/utils';
 
 import axios, { AxiosRequestConfig } from 'axios';
 import decompress from 'decompress';

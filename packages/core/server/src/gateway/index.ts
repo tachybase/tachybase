@@ -6,8 +6,7 @@ import { promisify } from 'node:util';
 import { resolve } from 'path';
 import { parse } from 'url';
 import { createSystemLogger, getLoggerFilePath, SystemLogger } from '@tachybase/logger';
-import { Registry, Toposort, ToposortOptions, uid } from '@tachybase/utils';
-import { createStoragePluginsSymlink } from '@tachybase/utils/plugin-symlink';
+import { createStoragePluginsSymlink, Registry, Toposort, ToposortOptions, uid } from '@tachybase/utils';
 
 import { Command } from 'commander';
 import compression from 'compression';

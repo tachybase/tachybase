@@ -62,13 +62,6 @@ export default defineConfig({
   define: {
     ...umiConfig.define,
     'process.env.USE_REMOTE_PLUGIN': process.env.USE_REMOTE_PLUGIN,
-    'process.env.SENTRY_DSN': process.env.SENTRY_DSN,
-    'process.env.SENTRY_TRACE_ENABLE': process.env.SENTRY_TRACE_ENABLE,
-    'process.env.SENTRY_TRACE_SAMPLE_RATE': process.env.SENTRY_TRACE_SAMPLE_RATE,
-    'process.env.SENTRY_TRACE_PROPAGATION_TARGETS': process.env.SENTRY_TRACE_PROPAGATION_TARGETS,
-    'process.env.SENTRY_SESSION_REPLAY_ENABLE': process.env.SENTRY_SESSION_REPLAY_ENABLE,
-    'process.env.SENTRY_SESSION_REPLAY_SAMPLE_RATE': process.env.SENTRY_SESSION_REPLAY_SAMPLE_RATE,
-    'process.env.SENTRY_SESSION_REPLAY_ONERROR_SAMPLE_RATE': process.env.SENTRY_SESSION_REPLAY_ONERROR_SAMPLE_RATE,
   },
   proxy: {
     ...umiConfig.proxy,

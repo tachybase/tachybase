@@ -1,5 +1,7 @@
-const { dirname, resolve } = require('path');
-const { readdir, symlink, unlink, mkdir, stat } = require('fs').promises;
+import { mkdir, readdir, symlink, unlink } from 'node:fs/promises';
+import { resolve } from 'node:path';
+
+import { fsExists } from './fs-exists';
 
 const dirs = ['plugins', 'plugins-auth', 'plugins-action', 'plugins-field', 'plugins-experiments'];
 
@@ -21,18 +23,7 @@ async function getStoragePluginNames(target) {
   return plugins;
 }
 
-async function fsExists(path) {
-  try {
-    await stat(path);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-exports.fsExists = fsExists;
-
-async function createStoragePluginSymLink(pluginName) {
+export async function createStoragePluginSymLink(pluginName) {
   const storagePluginsPath = resolve(process.cwd(), 'storage/plugins');
   const nodeModulesPath = process.env.NODE_MODULES_PATH;
   try {
@@ -52,9 +43,7 @@ async function createStoragePluginSymLink(pluginName) {
   }
 }
 
-exports.createStoragePluginSymLink = createStoragePluginSymLink;
-
-async function createStoragePluginsSymlink() {
+export async function createStoragePluginsSymlink() {
   const storagePluginsPath = resolve(process.cwd(), 'storage/plugins');
   if (!(await fsExists(storagePluginsPath))) {
     return;
@@ -63,9 +52,7 @@ async function createStoragePluginsSymlink() {
   await Promise.all(pluginNames.map((pluginName) => createStoragePluginSymLink(pluginName)));
 }
 
-exports.createStoragePluginsSymlink = createStoragePluginsSymlink;
-
-async function createDevPluginSymLink(pluginName, dir) {
+export async function createDevPluginSymLink(pluginName, dir) {
   const packagePluginsPath = resolve(process.cwd(), 'packages/' + dir);
   const nodeModulesPath = process.env.NODE_MODULES_PATH;
   try {
@@ -85,9 +72,7 @@ async function createDevPluginSymLink(pluginName, dir) {
   }
 }
 
-exports.createDevPluginSymLink = createDevPluginSymLink;
-
-async function createDevPluginsSymlink() {
+export async function createDevPluginsSymlink() {
   const pluginNames = [];
   for (const dir of dirs) {
     const storagePluginsPath = resolve(process.cwd(), 'packages/' + dir);
@@ -98,5 +83,3 @@ async function createDevPluginsSymlink() {
   }
   await Promise.all(pluginNames.map(([pluginName, dir]) => createDevPluginSymLink(pluginName, dir)));
 }
-
-exports.createDevPluginsSymlink = createDevPluginsSymlink;

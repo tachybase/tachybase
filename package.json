@@ -13,7 +13,7 @@
     "dev-server": "tachybase dev --server",
     "e2e": "tachybase e2e",
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "tachybase postinstall",
+    "postinstall": "tachybase build --no-dts @tachybase/utils && tachybase postinstall",
     "lint": "eslint .",
     "pm": "tachybase pm",
     "pm2": "tachybase pm2",
