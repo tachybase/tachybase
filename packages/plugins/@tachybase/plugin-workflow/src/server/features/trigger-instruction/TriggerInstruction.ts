@@ -1,21 +1,39 @@
+import Jobs from '../../collections/2-jobs';
 import { JOB_STATUS } from '../../constants';
 import Instruction from '../../instructions';
+import Processor from '../../Processor';
 
 export class TriggerInstruction extends Instruction {
-  async run(node, input, processor) {
+  async run(node, input, processor: Processor) {
     const workflowKey = node.config.workflowKey;
     const wfRepo = this.workflow.db.getRepository('workflows');
     const wf = await wfRepo.findOne({ filter: { key: workflowKey, enabled: true } });
-    const p = await this.workflow.trigger(wf, { data: 'not-support' });
-    if (!p) {
+    if (wf.sync) {
+      const p = await this.workflow.trigger(wf, input.result);
+      if (!p) {
+        return {
+          status: JOB_STATUS.FAILED,
+        };
+      }
+      const { lastSavedJob } = p;
       return {
-        status: JOB_STATUS.FAILED,
+        status: JOB_STATUS.RESOLVED,
+        result: lastSavedJob?.result,
+      };
+    } else {
+      this.workflow.trigger(wf, input.result, {
+        parentNode: node.id,
+        parent: processor.execution,
+      });
+      return {
+        status: JOB_STATUS.PENDING,
       };
     }
-    const { lastSavedJob } = processor;
-    return {
-      status: JOB_STATUS.RESOLVED,
-      result: lastSavedJob.result,
-    };
+  }
+
+  async resume(node, prevJob, processor: Processor) {
+    prevJob.set('result', prevJob.result);
+    prevJob.set('status', prevJob.status);
+    return prevJob;
   }
 }

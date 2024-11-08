@@ -376,5 +376,6 @@
   "comment": "备注",
   "concat": "连接",
   "ms": "毫秒",
-  "needAuthorization": "是否携带权限校验"
+  "needAuthorization": "是否携带权限校验",
+  "workflow loop!": "存在环形调用！"
 }

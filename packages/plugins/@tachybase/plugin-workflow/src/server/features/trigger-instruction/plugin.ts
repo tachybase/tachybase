@@ -1,6 +1,7 @@
 import { Plugin } from '@tachybase/server';
 
 import { PluginWorkflow } from '../..';
+import { flownodeCheck } from './flownode-check';
 import { TriggerInstruction } from './TriggerInstruction';
 
 export class PluginTriggerInstruction extends Plugin {
@@ -10,5 +11,7 @@ export class PluginTriggerInstruction extends Plugin {
 
     // register instruction
     workflowPlugin.registerInstruction('trigger-instruction', TriggerInstruction);
+
+    this.app.acl.use(flownodeCheck);
   }
 }

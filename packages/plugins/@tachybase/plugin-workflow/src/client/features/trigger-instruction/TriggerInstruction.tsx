@@ -1,8 +1,19 @@
-import { ISchema } from '@tachybase/schema';
+import { useCollectionManager_deprecated, useCompile } from '@tachybase/client';
+import { ISchema, useForm } from '@tachybase/schema';
 
+import { useFlowContext } from '../../FlowContext';
 import { tval } from '../../locale';
 import { Instruction } from '../../nodes';
-import { VariableOption } from '../../variable';
+import { getCollectionFieldOptions, VariableOption } from '../../variable';
+
+const useWorkflowTrigger = () => {
+  const { workflow } = useFlowContext();
+
+  return {
+    parentSync: workflow?.sync,
+    parentKey: workflow?.key,
+  };
+};
 
 export class TriggerInstruction extends Instruction {
   title = tval('Workflow');
@@ -21,13 +32,73 @@ export class TriggerInstruction extends Instruction {
         label: 'title',
         value: 'key',
       },
+      'x-use-component-props': useWorkflowTrigger,
       required: true,
-    } as ISchema,
+    },
+    bindCollection: {
+      type: 'boolean',
+      title: tval('Bind collection?'),
+      'x-decorator': 'FormItem',
+      'x-component': 'Radio.Group',
+      enum: [
+        { label: tval('Yes'), value: true },
+        { label: tval('No'), value: false },
+      ],
+      required: true,
+      default: false,
+    },
+    collection: {
+      type: 'string',
+      title: tval('Collection'),
+      'x-decorator': 'FormItem',
+      'x-component': 'DataSourceCollectionCascader',
+      required: true,
+      'x-reactions': [
+        { target: 'changed', effects: ['onFieldValueChange'], fulfill: { state: { value: [] } } },
+        { dependencies: ['bindCollection'], fulfill: { state: { visible: '{{!!$deps[0]}}' } } },
+      ],
+    },
+    appends: {
+      type: 'array',
+      title: tval('Associations to use'),
+      description: tval(
+        'Please select the associated fields that need to be accessed in subsequent nodes. With more than two levels of to-many associations may cause performance issue, please use with caution.',
+      ),
+      'x-decorator': 'FormItem',
+      'x-component': 'AppendsTreeSelect',
+      'x-component-props': {
+        multiple: true,
+        useCollection() {
+          const form = useForm();
+          return form.values?.collection;
+        },
+      },
+      'x-reactions': [{ dependencies: ['collection'], fulfill: { state: { visible: '{{!!$deps[0]}}' } } }],
+    },
   };
-  useVariables(node, options): VariableOption {
-    return {
-      value: node.key,
-      label: node.title,
-    };
+  useVariables({ key: name, title, config }, options) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const compile = useCompile();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { getCollectionFields } = useCollectionManager_deprecated();
+    const [result] = getCollectionFieldOptions({
+      appends: [name, ...(config.params?.appends?.map((item) => `${name}.${item}`) || [])],
+      ...options,
+      fields: [
+        {
+          collectionName: config.collection,
+          name,
+          type: 'hasOne',
+          target: config.collection,
+          uiSchema: {
+            title,
+          },
+        },
+      ],
+      compile,
+      getCollectionFields,
+    });
+
+    return result;
   }
 }

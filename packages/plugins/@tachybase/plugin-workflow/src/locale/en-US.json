@@ -298,5 +298,6 @@
   "comment": "comment",
   "concat": "concat",
   "ms": "ms",
-  "needAuthorization": "needAuthorization"
+  "needAuthorization": "needAuthorization",
+  "workflow loop!": "workflow loop!"
 }

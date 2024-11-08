@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 import { RemoteSelect, useCompile, useDesignable } from '../..';
 import { isInitializersSame, useApp } from '../../../application';
+import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { usePlugin } from '../../../application/hooks';
 import { SchemaSettingOptions, SchemaSettings } from '../../../application/schema-settings';
 import { useSchemaToolbar } from '../../../application/schema-toolbar';
@@ -341,7 +342,7 @@ export function RemoveButton(
   );
 }
 
-export function WorkflowSelect({
+function WorkflowSelectComponent({
   formAction,
   buttonAction,
   actionType,
@@ -430,6 +431,8 @@ export function WorkflowSelect({
               type: workflowTypes,
               enabled: true,
               'config.collection': noCollection ? undefined : workflowCollection,
+              sync: props.parentSync ? props.parentSync : undefined,
+              key: props.parentKey ? { $ne: props.parentKey } : undefined,
             },
           },
         }}
@@ -450,6 +453,8 @@ export function WorkflowSelect({
     </DataSourceProvider>
   );
 }
+
+export const WorkflowSelect = withDynamicSchemaProps(WorkflowSelectComponent);
 
 export function WorkflowConfig() {
   const { dn } = useDesignable();

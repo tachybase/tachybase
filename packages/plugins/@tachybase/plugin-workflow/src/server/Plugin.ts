@@ -7,7 +7,7 @@ import { Registry } from '@tachybase/utils';
 import LRUCache from 'lru-cache';
 
 import initActions from './actions';
-import { EXECUTION_STATUS } from './constants';
+import { EXECUTION_STATUS, JOB_STATUS } from './constants';
 import { PluginAggregate } from './features/aggregate/Plugin';
 import PluginWorkflowApproval from './features/approval';
 import PluginWorkflowDataMappingServer from './features/data-mapping/plugin';
@@ -386,7 +386,7 @@ export default class PluginWorkflowServer extends Plugin {
     return null;
   }
 
-  public async resume(job) {
+  public async resume(job: JobModel) {
     if (!job.execution) {
       job.execution = await job.getExecution();
     }
@@ -417,6 +417,8 @@ export default class PluginWorkflowServer extends Plugin {
         context,
         key: workflow.key,
         status: EXECUTION_STATUS.QUEUEING,
+        parentNode: options.parentNode || null,
+        parentId: options.parent ? options.parent.id : null,
       },
       { transaction },
     );
@@ -547,8 +549,23 @@ export default class PluginWorkflowServer extends Plugin {
     try {
       await (job ? processor.resume(job) : processor.start());
       logger.info(`execution (${execution.id}) finished with status: ${execution.status}`, { execution });
-      if (execution.status && execution.workflow.options?.deleteExecutionOnStatus?.includes(execution.status)) {
-        await execution.destroy();
+
+      if (execution.status && execution.parentNode) {
+        // 根据parentId找到parent
+        const { database } = <typeof ExecutionModel>execution.constructor;
+        const { model } = database.getCollection('executions');
+        const parent = (await model.findByPk(execution.parentId, options)) as ExecutionModel;
+        const jobs = await parent.getJobs();
+        const job = jobs.find((v) => v.status === JOB_STATUS.PENDING && v.nodeId === execution.parentNode);
+        if (job) {
+          const lastSavedJob = processor.lastSavedJob;
+          job.status = execution.status;
+          // 为了防止没有返回值导致错误, 取默认输入值
+          job.result = lastSavedJob.result || execution.context;
+          await this.resume(job);
+        } else {
+          logger.error(`execution (${execution.id}) error: parent job not found`);
+        }
       }
     } catch (err) {
       logger.error(`execution (${execution.id}) error: ${err.message}`, err);

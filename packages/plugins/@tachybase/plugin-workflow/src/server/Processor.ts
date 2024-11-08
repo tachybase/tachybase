@@ -175,7 +175,6 @@ export default class Processor {
     if (typeof instruction.run !== 'function') {
       return Promise.reject(new Error('`run` should be implemented for customized execution of the node'));
     }
-
     return this.exec(instruction.run.bind(instruction), node, input);
   }
 

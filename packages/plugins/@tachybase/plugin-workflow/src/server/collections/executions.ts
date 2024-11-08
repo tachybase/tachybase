@@ -28,5 +28,17 @@ export default {
       type: 'integer',
       name: 'status',
     },
+    {
+      type: 'integer',
+      name: 'parentNode',
+    },
+    {
+      type: 'belongsTo',
+      name: 'parent',
+      foreignKey: 'parentId',
+      treeParent: true,
+      target: 'executions',
+      sourceKey: 'id',
+    },
   ],
 } as CollectionOptions;
