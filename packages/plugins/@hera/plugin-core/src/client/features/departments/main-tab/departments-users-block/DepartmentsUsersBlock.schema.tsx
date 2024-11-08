@@ -1,5 +1,3 @@
-import { uid } from '@tachybase/schema';
-
 import { tval } from '../../../../locale';
 
 export const getSchemaDepartmentsUsersBlock = (department, user, setShowChildren) => {
@@ -30,8 +28,8 @@ export const getSchemaDepartmentsUsersBlock = (department, user, setShowChildren
               type: 'boolean',
               'x-component': 'Select',
               enum: [
-                { label: tval('Exclude members of sub-departments'), value: false },
-                { label: tval('All members'), value: true },
+                { label: tval('Only display direct members of the department'), value: false },
+                { label: tval('Show all members'), value: true },
               ],
               'x-component-props': {
                 defaultValue: false,
