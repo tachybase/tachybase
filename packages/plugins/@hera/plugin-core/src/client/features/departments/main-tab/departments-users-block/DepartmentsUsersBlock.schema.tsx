@@ -2,7 +2,7 @@ import { uid } from '@tachybase/schema';
 
 import { tval } from '../../../../locale';
 
-export const getSchemaDepartmentsUsersBlock = (department, user) => {
+export const getSchemaDepartmentsUsersBlock = (department, user, setShowChildren) => {
   const schemaNotUser = user
     ? {}
     : {
@@ -15,7 +15,7 @@ export const getSchemaDepartmentsUsersBlock = (department, user) => {
             },
           },
           properties: {
-            [uid()]: {
+            filter: {
               type: 'void',
               title: '{{ t("Filter") }}',
               'x-action': 'filter',
@@ -23,6 +23,19 @@ export const getSchemaDepartmentsUsersBlock = (department, user) => {
               'x-use-component-props': 'useFilterActionProps',
               'x-component-props': {
                 icon: 'FilterOutlined',
+              },
+              'x-align': 'left',
+            },
+            showChildren: {
+              type: 'boolean',
+              'x-component': 'Select',
+              enum: [
+                { label: tval('Exclude members of sub-departments'), value: false },
+                { label: tval('All members'), value: true },
+              ],
+              'x-component-props': {
+                defaultValue: false,
+                onChange: setShowChildren,
               },
               'x-align': 'left',
             },

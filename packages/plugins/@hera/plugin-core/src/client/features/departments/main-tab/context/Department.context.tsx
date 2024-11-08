@@ -18,11 +18,14 @@ interface contextType {
   usersResource?: {
     service?: Result<any, any>;
   };
+  showChildren?: boolean;
+  setShowChildren?: (showChildren: boolean) => void;
 }
 
 const ContextDepartments = React.createContext<contextType>({
   user: {},
   department: {},
+  setShowChildren: () => {},
 });
 
 export const ProviderContextDepartments = ContextDepartments.Provider;

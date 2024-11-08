@@ -17,6 +17,7 @@ import {
   setMainDepartment,
   updateDepartmentIsLeaf,
 } from '../middlewares';
+import { listUsersIncludeChildDepartment } from '../middlewares/list-users-include-child-department';
 import { DepartmentModel } from '../models/department';
 
 export class DepartmentsPlugin extends Plugin {
@@ -71,6 +72,7 @@ export class DepartmentsPlugin extends Plugin {
     this.app.resourcer.use(updateDepartmentIsLeaf);
     this.app.resourcer.use(resetUserDepartmentsCache);
     this.app.resourcer.use(setMainDepartment);
+    this.app.resourcer.use(listUsersIncludeChildDepartment);
     this.app.db.on('departmentsUsers.afterSave', async (model) => {
       const cache = this.app.cache;
       await cache.del(`departments:${model.get('userId')}`);

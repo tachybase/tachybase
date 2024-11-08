@@ -6,6 +6,7 @@ import { ProviderContextDepartments } from './context/Department.context';
 export const ProviderDepartmentIndex = ({ children }) => {
   const [user, setUser] = useState(null);
   const [department, setDepartment] = useState(null);
+  const [showChildren, setShowChildren] = useState<boolean>(false);
   const usersRequest = useRequest(
     {
       resource: 'users',
@@ -20,6 +21,7 @@ export const ProviderDepartmentIndex = ({ children }) => {
         filter: department
           ? {
               'departments.id': department.id,
+              showChildren,
             }
           : {},
         pageSize: 50,
@@ -46,6 +48,8 @@ export const ProviderDepartmentIndex = ({ children }) => {
     setUser,
     department,
     setDepartment,
+    showChildren,
+    setShowChildren,
     usersResource: {
       service: usersRequest,
     },

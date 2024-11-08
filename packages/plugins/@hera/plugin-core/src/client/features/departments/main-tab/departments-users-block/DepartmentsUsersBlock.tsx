@@ -18,14 +18,17 @@ import { UserDepartmentsField } from './UserDepartmentsField.component';
 // 部门右边-用户列表部分
 export const ViewDepartmentsUsersBlock = () => {
   const { t } = useTranslation();
-  const { department, user } = useContextDepartments();
+  const { department, user, setShowChildren, showChildren } = useContextDepartments();
   const { data, setState, refresh } = useResourceActionContext();
 
   const MemberActions = () => <ViewMemberActions department={department} />;
 
   const RowRemoveAction = () => <ViewRowRemoveAction department={department} />;
 
-  const schema = useMemo(() => getSchemaDepartmentsUsersBlock(department, user), [department?.id, user]);
+  const schema = useMemo(
+    () => getSchemaDepartmentsUsersBlock(department, user, setShowChildren),
+    [department?.id, user, setShowChildren],
+  );
 
   useEffect(() => {
     setState?.({
@@ -35,7 +38,7 @@ export const ViewDepartmentsUsersBlock = () => {
 
   useEffect(() => {
     refresh?.();
-  }, [department?.id, user]);
+  }, [department?.id, user, showChildren]);
 
   return (
     <>
