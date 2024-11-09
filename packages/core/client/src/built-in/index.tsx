@@ -265,6 +265,7 @@ const AppMaintainingDialog = observer(
 
 export const AppNotFound = () => {
   const navigate = useNavigate();
+  // @ts-ignore
   const { t } = useTranslation();
   const app = useApp();
   return (
@@ -339,10 +340,31 @@ export class BuiltInPlugin extends Plugin {
       name: 'pinned-list',
       config: {
         items: {
-          ui: { order: 50, component: 'DesignableSwitch', pin: true, snippet: 'ui.*' },
-          wf: { order: 100, component: 'WorkflowLink', pin: true, snippet: 'pm.*' },
-          ds: { order: 200, component: 'DatasourceLink', pin: true, snippet: 'pm.*' },
-          sc: { order: 400, component: 'SettingsCenterDropdown', pin: true, snippet: 'pm.*' },
+          ui: {
+            order: 50,
+            component: 'DesignableSwitch',
+            pin: true,
+            snippet: 'ui.*',
+          },
+          wf: {
+            order: 100,
+            component: 'WorkflowLink',
+            pin: true,
+            snippet: 'pm.*',
+          },
+          ds: {
+            order: 200,
+            component: 'DatasourceLink',
+            pin: true,
+            snippet: 'pm.*',
+          },
+          sc: {
+            order: 400,
+            component: 'SettingsCenterDropdown',
+            pin: true,
+            snippet: 'pm.*',
+            isPublic: true,
+          },
         },
       },
     });
