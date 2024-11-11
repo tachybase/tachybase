@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useDesignable } from '../../schema-component';
 
+// 设计模式开关
 export const designerMode = {
   name: 'designerMode',
   useLoadMethod: () => {
@@ -21,6 +22,7 @@ export const designerMode = {
   },
 };
 
+// 切换全屏开关
 export const fullScreen = {
   name: 'fullScreen',
   useLoadMethod: ({ position }) => {
@@ -37,8 +39,10 @@ export const fullScreen = {
   },
 };
 
+// 右键禁用开关
 export const disableRightMenu = {
   name: 'disableRightMenu',
+  sort: 4,
   useLoadMethod: ({ enable, setEnable }) => {
     const { t } = useTranslation();
     return {
