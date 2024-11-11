@@ -96,7 +96,8 @@
     "overrides": {
       "@types/node": "20.14.2",
       "antd": "5.21.6",
-      "dayjs": "1.11.10"
+      "dayjs": "1.11.10",
+      "path-to-regexp": "6.2.1"
     }
   }
 }

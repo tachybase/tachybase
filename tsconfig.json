@@ -29,7 +29,7 @@
     "packages/**/es"
   ],
   "extends": "./tsconfig.paths.json",
-  "include": ["packages/**/*", "playwright.config.ts", "vitest.config.mts"],
+  "include": ["packages/**/*", "apps/**/*", "playwright.config.ts", "vitest.config.mts", "eslint.config.mjs"],
   "ts-node": {
     "compilerOptions": {
       "module": "commonjs"
