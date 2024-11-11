@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-share",
   "displayName": "Share Externally",
-  "version": "0.22.25",
+  "version": "0.22.26",
   "description": "Share pages with external users.",
   "keywords": [
     "Users & permissions"
