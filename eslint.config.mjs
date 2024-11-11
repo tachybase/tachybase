@@ -125,6 +125,7 @@ export default [
       '@typescript-eslint/ban-ts-comment': 'off',
       '@typescript-eslint/no-var-requires': 'off',
       'promise/always-return': 'off',
+      'react/react-in-jsx-scope': 'off',
     },
   },
   {

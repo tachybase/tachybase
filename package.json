@@ -14,7 +14,7 @@
     "e2e": "tachybase e2e",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "tachybase build --no-dts @tachybase/utils && tachybase postinstall",
-    "lint": "eslint .",
+    "lint": "oxlint -c oxlintrc.json --import-plugin",
     "pm": "tachybase pm",
     "pm2": "tachybase pm2",
     "prepare": "husky",
@@ -36,7 +36,7 @@
       "prettier --write"
     ],
     "*.ts?(x)": [
-      "eslint --fix"
+      "oxlint -c oxlintrc.json --import-plugin --fix"
     ]
   },
   "dependencies": {
@@ -66,6 +66,7 @@
     "globals": "^15.9.0",
     "husky": "^9.0.11",
     "lint-staged": "^13.3.0",
+    "oxlint": "^0.11.1",
     "prettier": "^3.2.5",
     "prettier-plugin-packagejson": "^2.5.0",
     "prettier-plugin-sort-json": "^4.0.0",
