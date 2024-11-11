@@ -5,7 +5,8 @@ import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/
 import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 
-import packageJson from '../../../../package.json'; // 防止加载什么奇怪的东西
+// TODO: 需要更改为更合适的取主版本的方法
+import packageJson from '../package.json'; // 防止加载什么奇怪的东西
 import { telemetryOptions } from './config';
 import { Metric, MetricOptions } from './metric';
 import { Trace, TraceOptions } from './trace';
