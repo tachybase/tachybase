@@ -1,5 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import { SchemaComponent, SchemaComponentContext, usePlugin, useRecord } from '@tachybase/client';
+import {
+  SchemaComponent,
+  SchemaComponentContext,
+  usePlugin,
+  useRecord,
+  useResourceActionContext,
+} from '@tachybase/client';
 import { onFieldChange, useField, useFormEffects } from '@tachybase/schema';
 
 import { Card } from 'antd';
@@ -47,6 +53,16 @@ function SyncOptionSelect(props) {
   return <RadioWithTooltip {...props} />;
 }
 
+function useRefreshActionProps() {
+  const service = useResourceActionContext();
+
+  return {
+    async onClick() {
+      service?.refresh?.();
+    },
+  };
+}
+
 export function WorkflowPane() {
   const ctx = useContext(SchemaComponentContext);
   const { getTriggersOptions } = usePlugin(WorkflowPlugin);
@@ -65,6 +81,7 @@ export function WorkflowPane() {
             ExecutionStatusColumn,
           }}
           scope={{
+            useRefreshActionProps,
             getTriggersOptions,
           }}
         />

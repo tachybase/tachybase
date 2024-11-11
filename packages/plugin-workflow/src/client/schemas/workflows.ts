@@ -192,6 +192,15 @@ export const workflowSchema: ISchema = {
               },
               'x-align': 'left',
             },
+            refresh: {
+              type: 'void',
+              title: '{{ t("Refresh") }}',
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'ReloadOutlined',
+              },
+              'x-use-component-props': 'useRefreshActionProps',
+            },
             delete: {
               type: 'void',
               title: '{{t("Delete")}}',

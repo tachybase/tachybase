@@ -87,6 +87,29 @@ const schema: ISchema = {
             },
           },
           properties: {
+            filter: {
+              type: 'void',
+              title: '{{ t("Filter") }}',
+              default: {
+                $and: [{ name: { $includes: '' } }],
+              },
+              'x-action': 'filter',
+              'x-component': 'Filter.Action',
+              'x-use-component-props': 'useFilterActionProps',
+              'x-component-props': {
+                icon: 'FilterOutlined',
+              },
+              'x-align': 'left',
+            },
+            refresh: {
+              type: 'void',
+              title: '{{ t("Refresh") }}',
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'ReloadOutlined',
+              },
+              'x-use-component-props': 'useRefreshActionProps',
+            },
             z8monqcdrdn: {
               type: 'void',
               'x-action': 'create',
@@ -407,6 +430,7 @@ const schema: ISchema = {
               },
               properties: {
                 enabled: {
+                  type: 'boolean',
                   'x-collection-field': 'webhooks.enabled',
                   'x-component': 'CollectionField',
                   'x-component-props': {
