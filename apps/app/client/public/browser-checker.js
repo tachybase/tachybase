@@ -1,4 +1,4 @@
-showLog = true;
+var showLog = true;
 function log(m) {
   if (window.console && showLog) {
     console.log(m);
@@ -155,7 +155,7 @@ function css_browser_selector(u) {
         break;
       }
     }
-    widthClasses = '';
+    var widthClasses = '';
     for (var info in uaInfo) {
       widthClasses += ' ' + info + '_' + uaInfo[info];
     }
@@ -177,4 +177,39 @@ function css_browser_selector(u) {
   html.className = (cssbs + html.className.replace(/\b(no[-|_]?)?js\b/g, '')).replace(/^ /, '').replace(/ +/g, ' ');
   return cssbs;
 }
+
+// 适配平板设备
+function tabletOrWebScreen() {
+  var width = Math.max(screen.width, screen.height);
+  var height = Math.min(screen.width, screen.height);
+  if (width >= 768 && height >= 768) {
+    return true;
+  }
+  return false;
+}
+
+function browser_check(u) {
+  try {
+    var isTablet = RegExp('ipad|tablet', 'i').test(u);
+
+    var isTabletScreen = tabletOrWebScreen();
+
+    if (isTablet || isTabletScreen) {
+      var meta = document.querySelector('meta[name="viewport"]');
+      if (!meta) {
+        // 如果没有找到，创建一个新的meta标签
+        meta = document.createElement('meta');
+        meta.setAttribute('name', 'viewport');
+        document.head.appendChild(meta);
+      }
+      // 设置initial-scale
+      meta.setAttribute('content', 'initial-scale=1.0');
+    }
+  } catch (error) {
+    console.log('browser_check', error);
+  }
+}
+
 css_browser_selector(navigator.userAgent);
+
+browser_check(navigator.userAgent);
