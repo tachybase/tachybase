@@ -2,13 +2,15 @@ import React, { useMemo } from 'react';
 import { useCollectionRecordData } from '@tachybase/client';
 
 import { APPROVAL_ACTION_STATUS } from '../../../constants';
+import { useTranslation } from '../../../locale';
 
 export const ApprovalLastNodeColumn = () => {
   const approvalContext = useCollectionRecordData();
+  const { t } = useTranslation();
 
   const lastNodeTitle = useMemo(() => getLastNodeTitle(approvalContext), [approvalContext]);
 
-  return <div>{lastNodeTitle}</div>;
+  return <div>{lastNodeTitle || t('Not initiated')}</div>;
 };
 
 function getLastNodeTitle(approvalContext) {

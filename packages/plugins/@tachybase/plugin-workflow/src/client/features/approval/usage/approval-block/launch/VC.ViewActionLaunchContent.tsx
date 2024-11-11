@@ -147,7 +147,6 @@ export const ViewActionLaunchContent = () => {
                               properties: {
                                 process: {
                                   type: 'void',
-                                  'x-decorator': 'CardItem',
                                   'x-component': 'ApprovalCommon.ViewComponent.ApprovalProcess',
                                 },
                               },

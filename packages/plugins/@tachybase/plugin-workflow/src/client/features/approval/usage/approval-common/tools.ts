@@ -7,7 +7,7 @@ import { lang } from '../../locale';
 // TODO: 拆了这个大文件
 export function getResults(params) {
   const { approval, currentUser } = params;
-  const { workflow, approvalExecutions: originApprovalExecutions, records } = approval;
+  const { id, workflow, approvalExecutions: originApprovalExecutions, records } = approval;
 
   const approvalExecutions = _.cloneDeep(originApprovalExecutions);
 
@@ -19,6 +19,7 @@ export function getResults(params) {
       [curr.id]: Object.assign(curr, {
         records: [
           {
+            approvalId: id,
             groupCount: 1,
             node: {
               title: lang('Apply'),

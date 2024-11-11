@@ -42,7 +42,16 @@ export default class ApprovalTrigger extends Trigger {
     const isAllowStatusList = [APPROVAL_STATUS.DRAFT, APPROVAL_STATUS.SUBMITTED, APPROVAL_STATUS.RESUBMIT].includes(
       approval.status,
     );
-    if (!workflow || !isChangedStatus || !isAllowStatusList) {
+    // NOTE: 禁止再触发工作流的情况, 比如撤回(从提交态,变更为草稿态).
+    const previousApprovalStatus = approval.previous('status');
+    const currentApprovalStatus = approval.status;
+    const forbiddenList = [[APPROVAL_STATUS.SUBMITTED, APPROVAL_STATUS.DRAFT]];
+    const isForbiddenWhenStatusChange = forbiddenList.some(
+      ([prev, curr]) => prev === previousApprovalStatus && curr === currentApprovalStatus,
+    );
+
+    // 工作流触发拦截逻辑
+    if (!workflow || !isChangedStatus || !isAllowStatusList || isForbiddenWhenStatusChange) {
       return;
     }
     const [dataSourceName, collectionName] = parseCollectionName(approval.collectionName);

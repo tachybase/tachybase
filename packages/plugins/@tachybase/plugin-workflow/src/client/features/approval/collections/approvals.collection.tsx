@@ -72,6 +72,17 @@ export const CollectionApprovals = {
       },
     },
     {
+      name: 'updatedAt',
+      type: 'date',
+      interface: 'updatedAt',
+      uiSchema: {
+        type: 'datetime',
+        title: tval('Launched time'),
+        'x-component': 'DatePicker',
+        'x-component-props': { showTime: true },
+      },
+    },
+    {
       type: 'string',
       name: 'summary',
       interface: 'input',
