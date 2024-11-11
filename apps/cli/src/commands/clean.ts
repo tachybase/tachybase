@@ -9,14 +9,17 @@ import { isDev, run } from '../util';
 export default (cli: Command) => {
   cli
     .command('clean')
+    .option('--all')
     .allowUnknownOption()
-    .action(() => {
+    .action((opts) => {
       if (!isDev()) {
         return;
       }
       run('rimraf', ['-rf', './storage/app-dev']);
-      run('rimraf', ['-rf', 'apps/*/*/{lib,esm,es,dist,node_modules}']);
-      run('rimraf', ['-rf', 'packages/*/*/{lib,esm,es,dist,node_modules}']);
-      run('rimraf', ['-rf', 'packages/*/@*/*/{lib,esm,es,dist,node_modules}']);
+      if (opts.all) {
+        run('rimraf', ['-rf', '{node_modules,.umi,tsconfig.paths.json}']);
+      }
+      run('rimraf', ['-rf', 'apps/*/{lib,esm,es,dist,node_modules}']);
+      run('rimraf', ['-rf', 'packages/*/{lib,esm,es,dist,node_modules}']);
     });
 };
