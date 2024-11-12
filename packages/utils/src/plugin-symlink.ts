@@ -83,7 +83,7 @@ export async function createDevPluginsSymlink() {
   const pluginNames = await getStoragePluginNames(storagePluginsPath);
   await Promise.all(
     pluginNames
-      .filter((pluginName: string) => pluginName.startsWith('plugin-'))
+      .filter((pluginName: string) => pluginName.startsWith('plugin-') || pluginName.startsWith('module-'))
       .map((pluginName) => createDevPluginSymLink(pluginName)),
   );
 }

@@ -121,7 +121,7 @@ const external = [
   'lodash',
   'china-division',
 ];
-const pluginPrefix = (process.env.PLUGIN_PACKAGE_PREFIX || '@tachybase/plugin-,@tachybase/preset-,@hera/plugin-').split(
+const pluginPrefix = (process.env.PLUGIN_PACKAGE_PREFIX || '@tachybase/plugin-,@tachybase/preset-,@tachybase/module-,@hera/plugin-,@hera/module-').split(
   ',',
 );
 

@@ -24,6 +24,7 @@ import {
   removeTmpDir,
   updatePluginByCompressedFileUrl,
 } from './utils';
+import { pluginPrefix } from './constants';
 
 export const sleep = async (timeout = 0) => {
   return new Promise((resolve) => {
@@ -136,7 +137,7 @@ export class PluginManager {
    * @internal
    */
   static getPluginPkgPrefix() {
-    return (process.env.PLUGIN_PACKAGE_PREFIX || '@tachybase/plugin-,@tachybase/preset-,@hera/plugin-').split(',');
+    return pluginPrefix;
   }
 
   /**

@@ -29,6 +29,7 @@ export const EsbuildSupportExts = [
 
 export const PATTERN_PLUGIN = '@[^/]+/plugin-';
 export const PATTERN_PRESET = '@[^/]+/preset-';
+export const PATTERN_MODULE = '@[^/]+/preset-';
 export const ROOT_PATH = path.join(__dirname, '../../../');
 export const NODE_MODULES = path.join(ROOT_PATH, 'node_modules');
 export const PACKAGES_PATH = path.join(ROOT_PATH, 'packages');
@@ -44,6 +45,7 @@ export const getCjsPackages = (packages: Project[]) =>
   packages
     .filter((item) => !item.manifest.name.match(PATTERN_PLUGIN))
     .filter((item) => !item.manifest.name.match(PATTERN_PRESET))
+    .filter((item) => !item.manifest.name.match(PATTERN_MODULE))
     .filter((item) => !CJS_EXCLUDE_PACKAGES.includes(item.dir));
 
 // tar
