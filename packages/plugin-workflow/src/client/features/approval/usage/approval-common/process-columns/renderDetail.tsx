@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { DatePicker, InputReadPretty, RecordProvider, useCurrentUserContext } from '@tachybase/client';
 
-import { ViewActionLaunch } from '../../approval-block/launch/VC.ViewActionLaunch';
+import { ViewActionLaunch } from '../../approval-block/launch/ActionLaunch.view';
 import { ViewActionTodos } from '../../approval-block/todos/VC.ViewActionTodos';
 import { ContextWithActionEnabled } from '../WithActionEnabled.provider';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { SchemaComponent, useRecord } from '@tachybase/client';
 
+import { ActionLaunchContent } from './ActionLaunchContent.component';
 import { RecordDecorator } from './Dt.Record';
-import { ViewActionLaunchContent } from './VC.ViewActionLaunchContent';
 
 // 审批-发起: 操作-查看
 export const ViewActionLaunch = ({ popoverComponent = 'Action.Drawer', popoverComponentProps = {} }) => {
@@ -10,7 +10,7 @@ export const ViewActionLaunch = ({ popoverComponent = 'Action.Drawer', popoverCo
   return (
     <SchemaComponent
       components={{
-        ViewActionContent: ViewActionLaunchContent,
+        ViewActionContent: ActionLaunchContent,
         RecordDecorator,
       }}
       schema={{

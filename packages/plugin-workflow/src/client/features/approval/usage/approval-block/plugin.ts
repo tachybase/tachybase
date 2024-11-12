@@ -3,7 +3,7 @@ import { Plugin, useSchemaInitializer } from '@tachybase/client';
 import { tval } from '../../locale';
 import { KitApprovalCommon } from '../approval-common/plugin';
 import { ApprovalBlockComponent, getSchemaInsert, SCApprovalBlock, schemaItems } from './ApprovalBlock.schema';
-import { ViewActionLaunch } from './launch/VC.ViewActionLaunch';
+import { ViewActionLaunch } from './launch/ActionLaunch.view';
 import { ProviderApprovalUpdateForm } from './todos/ApprovalUpdateForm.provider';
 import { ViewActionTodos } from './todos/VC.ViewActionTodos';
 
