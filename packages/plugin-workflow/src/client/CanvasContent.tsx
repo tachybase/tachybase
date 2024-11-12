@@ -10,21 +10,23 @@ import { lang } from './locale';
 import useStyles from './style';
 import { TriggerConfig } from './triggers';
 
+const WorkflowZoomKey = 'workflow-zoom'
+
 export function CanvasContent({ entry }) {
   const { styles } = useStyles();
   const { workflow } = useFlowContext();
   const [zoom, setZoom] = React.useState(100);
 
   const update = _.debounce((v) => {
-    localStorage.setItem('workflow-' + workflow.key + '-zoom', v);
+    localStorage.setItem(WorkflowZoomKey, v);
   });
   useEffect(() => {
     // TODO @tachybase/clien api
-    const sizeValue = localStorage.getItem('workflow-' + workflow.key + '-zoom');
+    const sizeValue = localStorage.getItem(WorkflowZoomKey);
     if (sizeValue && Number(sizeValue) > 0) {
       setZoom(Number(sizeValue));
     }
-  }, [workflow.key]);
+  }, []);
 
   return (
     <div className="workflow-canvas-wrapper">

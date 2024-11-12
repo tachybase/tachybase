@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActionAreaProvider, ActionAreaStub } from '@tachybase/client';
 
 import { Splitter } from 'antd';
@@ -7,17 +7,18 @@ import _ from 'lodash';
 import { CanvasContent } from './CanvasContent';
 import { useFlowContext } from './FlowContext';
 
+const WorkflowSplitterKey = 'workflow-splitter';
+
 export const CanvasContentWrapper = ({ entry }) => {
   const workflow = useFlowContext();
-  const sizeValue = localStorage.getItem('workflow-' + workflow.workflow.key + '-splitter');
-  const [size, setSize] = useState(sizeValue && Number(sizeValue) > 0 ? Number(sizeValue) : 600);
+  const [size, setSize] = useState(600);
 
   const update = _.debounce((v) => {
-    localStorage.setItem('workflow-' + workflow.workflow.key + '-splitter', v);
+    localStorage.setItem(WorkflowSplitterKey, v);
   });
   useEffect(() => {
     // TODO @tachybase/clien api
-    const sizeValue = localStorage.getItem('workflow-' + workflow.workflow.key + '-splitter');
+    const sizeValue = localStorage.getItem(WorkflowSplitterKey);
     if (sizeValue && Number(sizeValue) > 0) {
       setSize(Number(sizeValue));
     }
