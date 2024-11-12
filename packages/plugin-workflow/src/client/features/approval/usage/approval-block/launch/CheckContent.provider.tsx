@@ -5,7 +5,7 @@ import { ResubmitProvider } from '../../approval-common/Resubmit.provider';
 import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
 import { FlowContextProvider } from '../common/FlowContext.provider';
 
-export const ProviderActionLaunchContent = (props) => {
+export const ProviderCheckContent = (props) => {
   const { params, children } = props;
   const { workflow, approval, execution, approvalValue } = params;
 

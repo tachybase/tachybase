@@ -1,8 +1,8 @@
 import { useCurrentUserContext } from '@tachybase/client';
 
-import { APPROVAL_STATUS } from '../../../constants';
-import { useApproval } from '../../approval-common/ApprovalData.provider';
-import { useResubmit } from '../../approval-common/Resubmit.provider';
+import { APPROVAL_STATUS } from '../../../../constants';
+import { useApproval } from '../../../approval-common/ApprovalData.provider';
+import { useResubmit } from '../../../approval-common/Resubmit.provider';
 
 export function ProviderActionResubmit(props) {
   const { data } = useCurrentUserContext();

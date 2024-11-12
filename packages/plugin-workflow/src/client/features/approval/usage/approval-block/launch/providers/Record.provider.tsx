@@ -1,7 +1,7 @@
 import React from 'react';
 import { RecordProvider, useRecord } from '@tachybase/client';
 
-export function RecordDecorator(props) {
+export function ProviderRecord(props) {
   const { latestExecutionId } = useRecord();
   return (
     // @ts-ignore

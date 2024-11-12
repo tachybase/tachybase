@@ -1,6 +1,6 @@
 import { NAMESPACE } from "../../../locale"
 
-export const getSchemaActionLaunchContent = (params) => {
+export const getSchemaCheckContent = (params) => {
   const { approval, workflow, needHideProcess } = params
   return ({
     name: `view-${approval?.id}`,

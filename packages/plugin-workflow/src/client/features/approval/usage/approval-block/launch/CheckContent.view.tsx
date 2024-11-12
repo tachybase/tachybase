@@ -11,8 +11,8 @@ import { DetailsBlockProvider } from '../../../../../components';
 import { FormBlockProvider } from '../../../common/FormBlock.provider';
 import { ContextWithActionEnabled } from '../../approval-common/WithActionEnabled.provider';
 import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
-import { getSchemaActionLaunchContent } from './ActionLaunchContent.schema';
-import { ProviderActionResubmit } from './ActionResubmit.provider';
+import { getSchemaCheckContent } from './CheckContent.schema';
+import { ProviderActionResubmit } from './providers/ActionResubmit.provider';
 import { useActionResubmit } from './hooks/useActionResubmit';
 import { useDestroyAction } from './hooks/useDestroyAction';
 import { useFormBlockProps } from './hooks/useFormBlockProps';
@@ -22,11 +22,11 @@ import { ActionBarProvider } from './Pd.ActionBar';
 import { ApplyActionStatusProvider } from './Pd.ApplyActionStatus';
 import { WithdrawActionProvider } from './Pd.WithdrawAction';
 
-export const ViewActionLaunchContent = (props) => {
+export const ViewCheckContent = (props) => {
   const { approval, workflow } = props;
   const { actionEnabled } = useContext(ContextWithActionEnabled);
 
-  const schema = getSchemaActionLaunchContent({ approval, workflow, needHideProcess: actionEnabled });
+  const schema = getSchemaCheckContent({ approval, workflow, needHideProcess: actionEnabled });
 
   return (
     <SchemaComponent

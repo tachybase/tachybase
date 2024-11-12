@@ -3,10 +3,10 @@ import { useRecord, useRequest } from '@tachybase/client';
 
 import { Result, Spin } from 'antd';
 
-import { ProviderActionLaunchContent } from './ActionLaunchContent.provider';
-import { ViewActionLaunchContent } from './ActionLaunchContent.view';
+import { ProviderCheckContent } from './CheckContent.provider';
+import { ViewCheckContent } from './CheckContent.view';
 
-export const ActionLaunchContent = () => {
+export const CheckContent = () => {
   const { id } = useRecord();
   const { loading, data } = useRequest(
     {
@@ -48,8 +48,8 @@ export const ActionLaunchContent = () => {
   const { approval, execution, ...approvalValue } = approvalData || {};
   const { workflow } = approval || {};
   return (
-    <ProviderActionLaunchContent params={{ workflow, approval, execution, approvalValue }}>
-      <ViewActionLaunchContent approval={approval} workflow={workflow} />
-    </ProviderActionLaunchContent>
+    <ProviderCheckContent params={{ workflow, approval, execution, approvalValue }}>
+      <ViewCheckContent approval={approval} workflow={workflow} />
+    </ProviderCheckContent>
   );
 };

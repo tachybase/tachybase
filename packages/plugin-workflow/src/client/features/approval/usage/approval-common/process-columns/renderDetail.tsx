@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { DatePicker, InputReadPretty, RecordProvider, useCurrentUserContext } from '@tachybase/client';
 
-import { ViewActionLaunch } from '../../approval-block/launch/ActionLaunch.view';
+import { ViewCheckLink } from '../../approval-block/launch/CheckLink.view';
 import { ViewActionTodos } from '../../approval-block/todos/VC.ViewActionTodos';
 import { ContextWithActionEnabled } from '../WithActionEnabled.provider';
 
@@ -48,7 +48,7 @@ const ColumnDetailNotExist = (props) => {
       {actionEnabled && props.user.id === data?.data.id ? (
         // @ts-ignore
         <RecordProvider record={props.execution} parent={false}>
-          <ViewActionLaunch />
+          <ViewCheckLink />
         </RecordProvider>
       ) : null}
     </>
