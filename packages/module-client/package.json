@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-client",
   "displayName": "WEB client",
-  "version": "0.22.31",
+  "version": "0.22.32",
   "description": "Provides a client interface for the TachyBase server",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
