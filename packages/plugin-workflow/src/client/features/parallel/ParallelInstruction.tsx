@@ -33,6 +33,12 @@ export default class extends Instruction {
             label: `{{t('All succeeded', { ns: "${NAMESPACE}" })}}`,
             tooltip: `{{t('Continue after all branches succeeded', { ns: "${NAMESPACE}" })}}`,
           },
+
+          {
+            value: 'allSettled',
+            label: `{{t('All settled', { ns: "${NAMESPACE}" })}}`,
+            tooltip: `{{t('Continue after all branches finished', { ns: "${NAMESPACE}" })}}`,
+          },
           {
             value: 'any',
             label: `{{t('Any succeeded', { ns: "${NAMESPACE}" })}}`,

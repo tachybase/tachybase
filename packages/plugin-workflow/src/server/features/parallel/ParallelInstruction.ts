@@ -1,9 +1,11 @@
 import { FlowNodeModel, Instruction, JOB_STATUS, JobModel, Processor } from '../..';
 
+
 export const PARALLEL_MODE = {
   ALL: 'all',
   ANY: 'any',
   RACE: 'race',
+  ALL_SETTLED: 'allSettled',
 } as const;
 
 const Modes = {
@@ -17,6 +19,17 @@ const Modes = {
         return failedStatus;
       }
       if (result.every((status) => status != null && status === JOB_STATUS.RESOLVED)) {
+        return JOB_STATUS.RESOLVED;
+      }
+      return JOB_STATUS.PENDING;
+    },
+  },
+  [PARALLEL_MODE.ALL_SETTLED]: {
+    next(previous) {
+      return true;
+    },
+    getStatus(result) {
+      if (result.every((status) => status != null)) {
         return JOB_STATUS.RESOLVED;
       }
       return JOB_STATUS.PENDING;
