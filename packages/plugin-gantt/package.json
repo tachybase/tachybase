@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-gantt",
   "displayName": "Block: Gantt",
-  "version": "0.22.30",
+  "version": "0.22.31",
   "description": "Provides Gantt block.",
   "keywords": [
     "Blocks"
