@@ -220,7 +220,7 @@ export async function moveUp(context: Context, next) {
   const repository = utils.getRepositoryFromParams(context) as Repository;
   const { filterByTk } = context.action.params;
 
-  const fields = ['id', 'upstreamId', 'downstreamId', 'branchIndex'];
+  const fields = ['id', 'upstreamId', 'downstreamId', 'branchIndex', 'key'];
   const instance = await repository.findOne({
     filterByTk,
     fields: [...fields, 'workflowId'],
@@ -290,7 +290,7 @@ export async function moveDown(context: Context, next) {
   const repository = utils.getRepositoryFromParams(context) as Repository;
   const { filterByTk } = context.action.params;
 
-  const fields = ['id', 'upstreamId', 'downstreamId', 'branchIndex'];
+  const fields = ['id', 'upstreamId', 'downstreamId', 'branchIndex', 'key'];
   const instance = await repository.findOne({
     filterByTk,
     fields: [...fields, 'workflowId'],
