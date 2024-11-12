@@ -42,15 +42,15 @@ const useStyles = createStyles(({ css, token }) => {
 
       .workflow-operator-area {
         overflow-y: scroll;
-        padding: 8px;
+        padding: 24px 18px 48px 18px;
         background-color: white;
-        width: 600px;
       }
 
       .workflow-canvas-wrapper {
         flex-grow: 1;
         overflow: hidden;
         position: relative;
+        height: 100%;
       }
 
       .workflow-canvas-zoomer {
@@ -73,6 +73,7 @@ const useStyles = createStyles(({ css, token }) => {
         flex-direction: column;
         align-items: center;
         padding: 2em;
+        padding-bottom: 48px;
 
         > .ant-alert {
           margin-bottom: 2em;
@@ -240,36 +241,55 @@ const useStyles = createStyles(({ css, token }) => {
 
     nodeCardClass: css`
       position: relative;
-      width: 20em;
-      background: ${token.colorBgContainer};
-      padding: 1em;
-      box-shadow: ${token.boxShadowTertiary};
-      border-radius: ${token.borderRadiusLG}px;
+      display: flex;
+      background: #fcdcb4;
+      padding: 0;
+      border-radius: 12px;
       cursor: pointer;
-      transition: box-shadow 0.3s ease;
-
-      &:hover {
-        box-shadow: ${token.boxShadow};
-
-        .workflow-node-remove-button {
-          display: block;
-        }
-      }
 
       &.configuring {
-        box-shadow: ${token.boxShadow};
+        border: 1px solid red;
+      }
+
+      .workflow-node-prefix {
+        background-color: #f9ce94;
+        color: white;
+        display: inline-flex;
+        border-right: solid 1px;
+        padding-right: 12px;
+        padding-left: 12px;
+        box-sizing: border-box;
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+      }
+
+      .workflow-node-suffix {
+        background-color: #f9ce94;
+        color: white;
+        display: inline-flex;
+        border-left: solid 1px;
+        padding-right: 12px;
+        padding-left: 12px;
+        box-sizing: border-box;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+
+        .icon-button {
+          display: inline-flex;
+          align-items: center;
+          color: inherit;
+          font-style: normal;
+          line-height: 0;
+          text-align: center;
+          text-transform: none;
+          vertical-align: -0.125em;
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+        }
       }
 
       .workflow-node-remove-button {
-        display: none;
-        position: absolute;
-        right: 0.5em;
-        top: 0.5em;
         color: ${token.colorText};
-
-        &[disabled] {
-          display: none;
-        }
 
         &:hover {
           color: ${token.colorErrorHover};
@@ -278,42 +298,19 @@ const useStyles = createStyles(({ css, token }) => {
 
       .ant-input {
         font-weight: bold;
-
-        &:not(:focus) {
-          transition:
-            background-color 0.3s ease,
-            border-color 0.3s ease;
-          border-color: ${token.colorBorderBg};
-          background-color: ${token.colorBgContainerDisabled};
-
-          &:not(:disabled):hover {
-            border-color: ${token.colorPrimaryBorderHover};
-          }
-
-          &:disabled:hover {
-            border-color: ${token.colorBorderBg};
-          }
-        }
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
       }
 
       .workflow-node-config-button {
         padding: 0;
-      }
-
-      &:hover {
-        box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.25);
-
-        .workflow-node-remove-button {
-          display: block;
-        }
+        display: none;
       }
     `,
 
     nodeJobButtonClass: css`
-      display: flex;
-      position: absolute;
-      top: calc(1em - 1px);
-      right: 1em;
+      display: inline-flex;
       justify-content: center;
       align-items: center;
       color: ${token.colorTextLightSolid};
@@ -402,6 +399,10 @@ const useStyles = createStyles(({ css, token }) => {
       border-radius: 50%;
       background-color: ${token.colorText};
       color: ${token.colorBgContainer};
+
+      .workflow-node-config-button {
+        display: none;
+      }
     `,
   };
 });

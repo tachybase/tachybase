@@ -2,9 +2,8 @@
   "name": "@tachybase/plugin-online-user",
   "version": "0.22.29",
   "main": "dist/server/index.js",
-  "dependencies": {},
   "devDependencies": {
-    "antd": "5.21.6",
+    "antd": "5.22.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "4.17.21",
     "react": "^18.3.1",

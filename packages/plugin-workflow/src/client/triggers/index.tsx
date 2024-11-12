@@ -218,20 +218,10 @@ export const TriggerConfig = () => {
     <div
       role="button"
       aria-label={`${titleText}-${editingTitle}`}
-      className={cx(styles.nodeCardClass)}
+      className={cx(styles.terminalClass)}
       onClick={onOpenDrawer}
     >
-      <div className={cx(styles.nodeMetaClass, 'workflow-node-meta')}>
-        <Tag color="gold">{titleText}</Tag>
-      </div>
-      <div>
-        <Input.TextArea
-          value={editingTitle}
-          onChange={(ev) => setEditingTitle(ev.target.value)}
-          onBlur={(ev) => onChangeTitle(ev.target.value)}
-          autoSize
-        />
-      </div>
+      {lang('Start')}
       <TriggerExecution />
       <ActionContextProvider
         value={{
@@ -294,8 +284,7 @@ export const TriggerConfig = () => {
                       },
                       properties: fieldset,
                     },
-                    actions: {
-                      ...(workflow.executed
+                    actions: (workflow.executed
                         ? {}
                         : {
                             type: 'void',
@@ -318,7 +307,6 @@ export const TriggerConfig = () => {
                               },
                             },
                           }),
-                    },
                   },
                 },
               },

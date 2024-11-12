@@ -15,7 +15,7 @@ import {
 import { str2moment } from '@tachybase/utils/client';
 
 import { DownOutlined, ExclamationCircleFilled, StopOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Dropdown, message, Modal, Result, Space, Spin, Tag, Tooltip } from 'antd';
+import { Breadcrumb, Button, Dropdown, message, Modal, Result, Space, Spin, Splitter, Tag, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -172,7 +172,7 @@ function ExecutionsDropdown(props) {
 
   const onClick = useCallback(
     ({ key }) => {
-      if (key != execution.id) {
+      if (key !== execution.id) {
         navigate(getWorkflowExecutionsPath(key));
       }
     },
@@ -293,12 +293,14 @@ export function ExecutionCanvas() {
         </aside>
       </div>
       <ActionAreaProvider>
-        <div className="workflow-content">
-          <CanvasContent entry={entry} />
-          <div className="workflow-operator-area">
+        <Splitter>
+          <Splitter.Panel>
+            <CanvasContent entry={entry} />
+          </Splitter.Panel>
+          <Splitter.Panel defaultSize="600px" min="480px" collapsible className='workflow-operator-area'>
             <ActionAreaStub />
-          </div>
-        </div>
+          </Splitter.Panel>
+        </Splitter>
       </ActionAreaProvider>
       <JobModal />
     </FlowContext.Provider>

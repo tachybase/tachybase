@@ -21,6 +21,8 @@ export default function ({ app }) {
     ...make('flow_nodes', {
       update: nodes.update,
       destroy: nodes.destroy,
+      moveUp: nodes.moveUp,
+      moveDown: nodes.moveDown,
     }),
     ...make('executions', executions),
   });

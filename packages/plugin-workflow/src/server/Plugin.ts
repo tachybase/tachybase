@@ -97,7 +97,7 @@ export default class PluginWorkflowServer extends Plugin {
     const logger = this.createLogger({
       dirname: path.join('workflows', date),
       filename: `${workflowId}.log`,
-      transports: [...(process.env.NODE_ENV !== 'production' ? ['console'] : ['file'])],
+      transports: (process.env.NODE_ENV !== 'production' ? ['console'] : ['file']),
     } as LoggerOptions);
 
     this.loggerCache.set(key, logger);
@@ -243,16 +243,7 @@ export default class PluginWorkflowServer extends Plugin {
     });
 
     this.app.acl.allow('workflows', ['trigger'], 'loggedIn');
-
-    await this.importCollections(path.resolve(__dirname, 'collections'));
-
-    this.db.addMigrations({
-      namespace: this.name,
-      directory: path.resolve(__dirname, 'migrations'),
-      context: {
-        plugin: this,
-      },
-    });
+    this.app.acl.allow('flow_nodes', ['moveUp', 'moveDown'], 'loggedIn');
 
     db.on('workflows.beforeSave', this.onBeforeSave);
     db.on('workflows.afterSave', (model: WorkflowModel) => this.toggle(model));

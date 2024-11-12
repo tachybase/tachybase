@@ -1,9 +1,10 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActionContextProvider,
   css,
   cx,
   FormProvider,
+  Icon,
   SchemaComponent,
   SchemaInitializerItemType,
   useActionContext,
@@ -129,6 +130,45 @@ export function useUpstreamScopes(node) {
   return stack;
 }
 
+// TODO
+const AutoResizeInput = ({ ...props }) => {
+  const [inputWidth, setInputWidth] = useState(0); // 初始宽度
+  const spanRef = useRef(null);
+
+  const handleInputChange = (e) => {
+    // TODO fix width offset
+    setInputWidth(spanRef.current.offsetWidth + 30.2); // 更新宽度
+    props.onChange?.(e);
+  };
+
+  useEffect(() => {
+    setInputWidth(spanRef.current.offsetWidth + 30.2); // 初始宽度
+  }, []);
+
+  return (
+    <div style={{ display: 'inline-block', position: 'relative' }}>
+      <Input
+        {...props}
+        onChange={handleInputChange}
+        style={{
+          width: `${inputWidth}px`,
+        }}
+      />
+      <span
+        ref={spanRef}
+        style={{
+          position: 'absolute',
+          visibility: 'hidden',
+          whiteSpace: 'pre',
+          font: 'inherit',
+        }}
+      >
+        {props.value || props.placeholder}
+      </span>
+    </div>
+  );
+};
+
 export function Node({ data }) {
   const { styles } = useStyles();
   const { getAriaLabel } = useGetAriaLabelOfAddButton(data);
@@ -147,6 +187,66 @@ export function Node({ data }) {
         )}
       </div>
     </NodeContext.Provider>
+  );
+}
+
+export function ArrowDownButton() {
+  const { t } = useTranslation();
+  const api = useAPIClient();
+  const { workflow, nodes, refresh } = useFlowContext() ?? {};
+  const current = useNodeContext();
+  const { modal } = App.useApp();
+
+  if (!workflow) {
+    return null;
+  }
+  const resource = api.resource('flow_nodes');
+
+  async function onMoveDown() {
+    await resource.moveDown?.({
+      filterByTk: current.id,
+    });
+    refresh();
+  }
+
+  return workflow.executed ? null : (
+    <Button
+      type="text"
+      shape="circle"
+      icon={<Icon type="ArrowDownOutlined" />}
+      onClick={onMoveDown}
+      className="workflow-node-remove-button"
+    />
+  );
+}
+
+export function ArrowUpButton() {
+  const api = useAPIClient();
+  const { workflow, nodes, refresh } = useFlowContext() ?? {};
+  const current = useNodeContext();
+
+  if (!workflow) {
+    return null;
+  }
+  const resource = api.resource('flow_nodes');
+
+  async function onMoveUp() {
+
+      await resource.moveUp?.({
+        filterByTk: current.id,
+      });
+      refresh();
+
+  }
+
+  return workflow.executed ? null : (
+    <Button
+      type="text"
+      shape="circle"
+      icon={<Icon type="ArrowUpOutlined" />}
+      onClick={onMoveUp}
+      className="workflow-node-remove-button"
+    />
   );
 }
 
@@ -230,7 +330,7 @@ export function JobButton() {
   }
 
   function onOpenJob({ key }) {
-    const job = jobs.find((item) => item.id == key);
+    const job = jobs.find((item) => item.id === key);
     setViewJob(job);
   }
 
@@ -327,6 +427,9 @@ export function NodeDefaultView(props) {
     if (ev.target === ev.currentTarget) {
       setEditingConfig(true);
       return;
+    }
+    if (ev.target?.classList?.contains('workflow-node-edit')) {
+      setEditingConfig(true);
     }
     const whiteSet = new Set(['workflow-node-meta', 'workflow-node-config-button', 'ant-input-disabled']);
     for (let el = ev.target; el && el !== ev.currentTarget && el !== document.documentElement; el = el.parentNode) {
@@ -453,19 +556,30 @@ export function NodeDefaultView(props) {
         className={cx(styles.nodeCardClass, { configuring: editingConfig })}
         onClick={onOpenDrawer}
       >
-        <div className={cx(styles.nodeMetaClass, 'workflow-node-meta')}>
-          <Tag>{typeTitle}</Tag>
-          <span className="workflow-node-id">{data.id}</span>
+        <div className="workflow-node-prefix">
+          <Icon type="dispatcher" />
         </div>
-        <Input.TextArea
+        <AutoResizeInput
+          className="workflow-node-edit"
           disabled={workflow.executed}
           value={editingTitle}
           onChange={(ev) => setEditingTitle(ev.target.value)}
           onBlur={(ev) => onChangeTitle(ev.target.value)}
-          autoSize
         />
-        <RemoveButton />
-        <JobButton />
+        <div className="workflow-node-suffix">
+          <div className="icon-button">
+            <ArrowUpButton />
+          </div>
+          <div className="icon-button">
+            <ArrowDownButton />
+          </div>
+          <div className="icon-button">
+            <RemoveButton />
+          </div>
+          <div className="icon-button">
+            <JobButton />
+          </div>
+        </div>
         <ActionContextProvider
           value={{
             visible: editingConfig,

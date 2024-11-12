@@ -14,7 +14,7 @@ import {
 import { str2moment } from '@tachybase/utils/client';
 
 import { DownOutlined, EllipsisOutlined, RightOutlined } from '@ant-design/icons';
-import { App, Breadcrumb, Button, Dropdown, message, Result, Spin, Switch } from 'antd';
+import { App, Breadcrumb, Button, Dropdown, Flex, message, Result, Spin, Splitter, Switch, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -75,7 +75,7 @@ export function WorkflowCanvas() {
   const entry = nodes.find((item) => !item.upstream);
 
   function onSwitchVersion({ key }) {
-    if (key != workflow.id) {
+    if (key !== workflow.id) {
       navigate(getWorkflowDetailPath(key));
     }
   }
@@ -240,12 +240,14 @@ export function WorkflowCanvas() {
         </aside>
       </div>
       <ActionAreaProvider>
-        <div className="workflow-content">
-          <CanvasContent entry={entry} />
-          <div className="workflow-operator-area">
+        <Splitter>
+          <Splitter.Panel>
+            <CanvasContent entry={entry} />
+          </Splitter.Panel>
+          <Splitter.Panel defaultSize="600px" min="480px" collapsible className='workflow-operator-area'>
             <ActionAreaStub />
-          </div>
-        </div>
+          </Splitter.Panel>
+        </Splitter>
       </ActionAreaProvider>
     </FlowContext.Provider>
   );

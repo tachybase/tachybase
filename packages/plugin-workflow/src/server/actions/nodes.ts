@@ -1,7 +1,10 @@
 import { Context, utils } from '@tachybase/actions';
 import { MultipleRelationRepository, Op, Repository } from '@tachybase/database';
 
+
+
 import type { WorkflowModel } from '../types';
+
 
 export async function create(context: Context, next) {
   const { db } = context;
@@ -208,6 +211,139 @@ export async function update(context: Context, next) {
       transaction,
     });
   });
+
+  await next();
+}
+
+export async function moveUp(context: Context, next) {
+  const { db } = context;
+  const repository = utils.getRepositoryFromParams(context) as Repository;
+  const { filterByTk } = context.action.params;
+
+  const fields = ['id', 'upstreamId', 'downstreamId', 'branchIndex'];
+  const instance = await repository.findOne({
+    filterByTk,
+    fields: [...fields, 'workflowId'],
+    appends: ['upstream', 'downstream', 'workflow'],
+  });
+  if (instance.workflow.executed) {
+    context.throw(400, 'Nodes in executed workflow could not be deleted');
+  }
+
+  await db.sequelize.transaction(async (transaction) => {
+    const { upstream, downstream } = instance.get();
+
+    if (!upstream) {
+      context.throw(400, 'First node could not be moved up');
+    }
+
+    const upUpStreamId = upstream.upstreamId;
+    const upStreamId = upstream.id;
+
+    if (upUpStreamId) {
+      await repository.update({
+        filterByTk: upUpStreamId,
+        values: {
+          downstreamId: instance.id,
+        },
+        transaction,
+      });
+    }
+
+    await upstream.update(
+      {
+        downstreamId: instance.downstreamId,
+        upstreamId: instance.id,
+      },
+      { transaction },
+    );
+
+    await instance.update(
+      {
+        downstreamId: instance.upstreamId,
+        upstreamId: upUpStreamId,
+      },
+      {
+        transaction,
+      },
+    );
+
+    if (downstream) {
+      await downstream.update(
+        {
+          upstreamId: upStreamId,
+        },
+        {
+          transaction,
+        },
+      );
+    }
+  });
+
+  context.body = instance;
+
+  await next();
+}
+
+export async function moveDown(context: Context, next) {
+  const { db } = context;
+  const repository = utils.getRepositoryFromParams(context) as Repository;
+  const { filterByTk } = context.action.params;
+
+  const fields = ['id', 'upstreamId', 'downstreamId', 'branchIndex'];
+  const instance = await repository.findOne({
+    filterByTk,
+    fields: [...fields, 'workflowId'],
+    appends: ['upstream', 'downstream', 'workflow'],
+  });
+  if (instance.workflow.executed) {
+    context.throw(400, 'Nodes in executed workflow could not be deleted');
+  }
+
+  await db.sequelize.transaction(async (transaction) => {
+    const { upstream, downstream } = instance.get();
+
+    const downDownstreamId = downstream.downstreamId
+
+    if (!downstream) {
+      context.throw(400, 'Last node could not be moved up');
+    }
+
+    if (upstream) {
+      await upstream.update({
+        downstreamId: instance.downstreamId,
+      }, {
+        transaction
+      })
+    }
+
+    await downstream.update({
+      upstreamId: instance.upstreamId,
+      downstreamId: instance.id,
+    }, {
+      transaction
+    })
+
+    await instance.update({
+      downstreamId: downDownstreamId,
+      upstreamId: downstream.id,
+    }, {
+      transaction,
+    })
+
+    if (downDownstreamId) {
+      await repository.update({
+        filterByTk: downDownstreamId,
+        values: {
+          upstreamId: instance.id,
+        },
+        transaction,
+      });
+    }
+
+  });
+
+  context.body = instance;
 
   await next();
 }
