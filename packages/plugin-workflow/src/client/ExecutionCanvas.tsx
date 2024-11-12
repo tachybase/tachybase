@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  ActionAreaProvider,
-  ActionAreaStub,
   ActionContextProvider,
   cx,
   SchemaComponent,
@@ -20,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import WorkflowPlugin from '.';
-import { CanvasContent } from './CanvasContent';
+import { CanvasContentWrapper } from './CanvasContentWrapper';
 import { StatusButton } from './components/StatusButton';
 import { ExecutionStatusOptionsMap, JobStatusOptions } from './constants';
 import { FlowContext, useFlowContext } from './FlowContext';
@@ -292,16 +290,7 @@ export function ExecutionCanvas() {
           <time>{str2moment(execution.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</time>
         </aside>
       </div>
-      <ActionAreaProvider>
-        <Splitter>
-          <Splitter.Panel>
-            <CanvasContent entry={entry} />
-          </Splitter.Panel>
-          <Splitter.Panel defaultSize="600px" min="480px" collapsible className='workflow-operator-area'>
-            <ActionAreaStub />
-          </Splitter.Panel>
-        </Splitter>
-      </ActionAreaProvider>
+      <CanvasContentWrapper entry={entry} />
       <JobModal />
     </FlowContext.Provider>
   );

@@ -73,12 +73,17 @@ const useStyles = createStyles(({ css, token }) => {
         flex-direction: column;
         align-items: center;
         padding: 2em;
-        padding-bottom: 48px;
+        padding-bottom: 200px;
+        scrollbar-width: none;
 
         > .ant-alert {
           margin-bottom: 2em;
           font-size: 85%;
         }
+      }
+
+      .workflow-canvas::-webkit-scrollbar {
+        display: none;
       }
     `,
 

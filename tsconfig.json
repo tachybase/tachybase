@@ -20,11 +20,16 @@
     "baseUrl": "."
   },
   "exclude": [
+    "apps/**/node_modules",
+    "apps/**/dist",
+    "apps/**/public",
+    "apps/build/bin",
+    "apps/cli/**/*",
+    "apps/**/lib",
+    "apps/**/es",
     "packages/**/node_modules",
     "packages/**/dist",
     "packages/**/public",
-    "packages/core/build/bin",
-    "packages/core/cli/**/*",
     "packages/**/lib",
     "packages/**/es"
   ],

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { css, cx } from '@tachybase/client';
 
 import { Alert, Slider } from 'antd';
+import _ from 'lodash';
 
 import { Branch } from './Branch';
 import { useFlowContext } from './FlowContext';
@@ -13,6 +14,17 @@ export function CanvasContent({ entry }) {
   const { styles } = useStyles();
   const { workflow } = useFlowContext();
   const [zoom, setZoom] = React.useState(100);
+
+  const update = _.debounce((v) => {
+    localStorage.setItem('workflow-' + workflow.key + '-zoom', v);
+  });
+  useEffect(() => {
+    // TODO @tachybase/clien api
+    const sizeValue = localStorage.getItem('workflow-' + workflow.key + '-zoom');
+    if (sizeValue && Number(sizeValue) > 0) {
+      setZoom(Number(sizeValue));
+    }
+  }, [workflow.key]);
 
   return (
     <div className="workflow-canvas-wrapper">
@@ -52,7 +64,18 @@ export function CanvasContent({ entry }) {
         </div>
       </div>
       <div className="workflow-canvas-zoomer">
-        <Slider vertical reverse defaultValue={100} step={10} min={10} value={zoom} onChange={setZoom} />
+        <Slider
+          vertical
+          reverse
+          defaultValue={100}
+          step={10}
+          min={10}
+          value={zoom}
+          onChange={(v) => {
+            setZoom(v);
+            update(v);
+          }}
+        />
       </div>
     </div>
   );

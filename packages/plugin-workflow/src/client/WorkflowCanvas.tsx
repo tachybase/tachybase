@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  ActionAreaProvider,
-  ActionAreaStub,
   ActionContextProvider,
   cx,
   ResourceActionProvider,
@@ -14,11 +12,11 @@ import {
 import { str2moment } from '@tachybase/utils/client';
 
 import { DownOutlined, EllipsisOutlined, RightOutlined } from '@ant-design/icons';
-import { App, Breadcrumb, Button, Dropdown, Flex, message, Result, Spin, Splitter, Switch, Typography } from 'antd';
+import { App, Breadcrumb, Button, Dropdown, message, Result, Spin, Switch } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { CanvasContent } from './CanvasContent';
+import { CanvasContentWrapper } from './CanvasContentWrapper';
 import { ExecutionStatusColumn } from './components/ExecutionStatus';
 import { ExecutionLink } from './ExecutionLink';
 import { FlowContext, useFlowContext } from './FlowContext';
@@ -239,16 +237,7 @@ export function WorkflowCanvas() {
           </ActionContextProvider>
         </aside>
       </div>
-      <ActionAreaProvider>
-        <Splitter>
-          <Splitter.Panel>
-            <CanvasContent entry={entry} />
-          </Splitter.Panel>
-          <Splitter.Panel defaultSize="600px" min="480px" collapsible className='workflow-operator-area'>
-            <ActionAreaStub />
-          </Splitter.Panel>
-        </Splitter>
-      </ActionAreaProvider>
+      <CanvasContentWrapper entry={entry} />
     </FlowContext.Provider>
   );
 }
