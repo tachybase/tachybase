@@ -49,7 +49,7 @@ export class PluginGenerator extends Generator {
 
   async writing() {
     const { name } = this.context;
-    const target = resolve(process.cwd(), 'packages/plugins/', name);
+    const target = resolve(process.cwd(), 'packages/', name);
     if (existsSync(target)) {
       this.log(chalk.red(`[${name}] plugin already exists.`));
       return;
@@ -63,6 +63,6 @@ export class PluginGenerator extends Generator {
     this.log('');
     genTsConfigPaths();
     execa('pnpm', ['postinstall', '--skip-umi'], { shell: true, stdio: 'inherit' });
-    this.log(`The plugin folder is in ${chalk.green(`packages/plugins/${name}`)}`);
+    this.log(`The plugin folder is in ${chalk.green(`packages/${name}`)}`);
   }
 }

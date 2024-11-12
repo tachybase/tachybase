@@ -234,7 +234,7 @@ export class PluginManager {
 
   async create(pluginName: string, options?: { forceRecreate?: boolean }) {
     const createPlugin = async (name) => {
-      const pluginDir = resolve(process.cwd(), 'packages/plugins', name);
+      const pluginDir = resolve(process.cwd(), 'packages', name);
       if (options?.forceRecreate) {
         await fs.promises.rm(pluginDir, { recursive: true, force: true });
       }
