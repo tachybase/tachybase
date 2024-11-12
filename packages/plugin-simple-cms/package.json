@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-simple-cms",
-  "version": "0.22.26",
+  "version": "0.22.27",
   "main": "dist/server/index.js",
   "devDependencies": {
     "antd": "5.21.5"

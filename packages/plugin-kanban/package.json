@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-kanban",
   "displayName": "Block: Kanban",
-  "version": "0.22.26",
+  "version": "0.22.27",
   "description": "Provides kanban block.",
   "keywords": [
     "Blocks"

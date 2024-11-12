@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-work-wechat",
-  "version": "0.22.26",
+  "version": "0.22.27",
   "description": "work WeChat authentication.",
   "keywords": [
     "Authentication"
