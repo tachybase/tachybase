@@ -1,11 +1,11 @@
 import { Migration } from '@tachybase/server';
 
-
 export default class extends Migration {
   on = 'beforeLoad'; // 'beforeLoad' or 'afterLoad'
   appVersion = '<0.22.28';
   async up() {
-    const result: any = await this.app.db.sequelize.query(`
+    try {
+      const result: any = await this.app.db.sequelize.query(`
         UPDATE contracts
 SET
    status = b.status
@@ -21,7 +21,10 @@ WHERE
                )
            END
     `);
-    const count = result[1].rowCount || 0;
-    console.log('共更新数据：' + count + '条');
+      const count = result[1].rowCount || 0;
+      console.log('共更新数据：' + count + '条');
+    } catch (e) {
+      this.app.logger.error(e);
+    }
   }
 }
