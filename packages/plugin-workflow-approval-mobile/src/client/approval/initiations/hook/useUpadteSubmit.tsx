@@ -1,4 +1,4 @@
-import { useActionContext, useAPIClient } from '@tachybase/client';
+import { useActionContext, useAPIClient, useFormBlockContext } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
 import { Toast } from 'antd-mobile';
@@ -21,6 +21,7 @@ export function useUpdateSubmit() {
   const navigate = useNavigate();
   const { isResubmit } = useResubmit();
   const { run: create } = useCreateSubmit();
+  const { updateAssociationValues } = useFormBlockContext();
   return {
     async run() {
       if (isResubmit) {
@@ -36,8 +37,8 @@ export function useUpdateSubmit() {
             collectionName: workflow.config.collection,
             data: form.values,
             status: contextApprovalStatus,
-            schemaFormId: workflow.config.applyForm,
             summaryConfig: workflow.config.summary,
+            updateAssociationValues,
           },
         });
         if (res.status === 200) {

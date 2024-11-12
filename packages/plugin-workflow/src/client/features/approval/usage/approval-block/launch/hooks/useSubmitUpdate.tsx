@@ -1,4 +1,4 @@
-import { useAPIClient } from '@tachybase/client';
+import { useAPIClient, useFormBlockContext } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
 import _ from 'lodash';
@@ -23,6 +23,7 @@ export function useSubmitUpdate() {
   const { id } = useApproval();
   const { workflow } = useFlowContext();
   const contextApprovalStatus = useContextApprovalStatus();
+  const { updateAssociationValues } = useFormBlockContext();
 
   return {
     async run(props) {
@@ -39,8 +40,9 @@ export function useSubmitUpdate() {
             collectionName: workflow.config.collection,
             data: form.values,
             status: contextApprovalStatus,
-            schemaFormId: workflow.config.applyForm,
             summaryConfig: workflow.config.summary,
+            // NOTE: 告诉后端该同步更新哪些关联字段, 比如审批的明细项
+            updateAssociationValues,
           },
         });
 

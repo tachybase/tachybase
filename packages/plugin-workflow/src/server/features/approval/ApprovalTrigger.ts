@@ -90,7 +90,9 @@ export default class ApprovalTrigger extends Trigger {
     // 不合理, 会导致其他错误出现. 从非审批中心发起的单子, 拿到的是错误的数据.
     // 现在的问题是, 多次复制后, 丢失了审批人, 等多对多的关联字段.
 
-    const approvalExecution = await this.workflow.db.getRepository('approvalExecutions').create({
+    const ApprovalExecutionRepo = this.workflow.db.getRepository('approvalExecutions')
+
+    const approvalExecution = await ApprovalExecutionRepo.create({
       values: {
         approvalId,
         executionId: execution.id,
@@ -101,7 +103,10 @@ export default class ApprovalTrigger extends Trigger {
       },
       transaction,
     });
-    await this.workflow.db.getRepository('approvals').update({
+
+    const ApprovalsRepo = this.workflow.db.getRepository('approvals')
+
+    await ApprovalsRepo.update({
       filterByTk: approvalId,
       values: { latestExecutionId: approvalExecution.id },
       transaction,

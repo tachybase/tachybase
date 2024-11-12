@@ -65,21 +65,10 @@ export const approvals = {
     return actions.create(context, next);
   },
   async update(context, next) {
-    const { collectionName, data, status, schemaFormId, summaryConfig } = context.action.params.values ?? {};
+    const { collectionName, data, status, updateAssociationValues, summaryConfig } = context.action.params.values ?? {};
     const [dataSourceName, cName] = parseCollectionName(collectionName);
     const dataSource = context.app.dataSourceManager.dataSources.get(dataSourceName);
     const collection = dataSource.collectionManager.getCollection(cName);
-
-    /** 以下为,处理子表单子表格等关联字段的更新逻辑 */
-    const schemaOfForm = await context.db.getRepository('uiSchemas').getJsonSchema(schemaFormId);
-    const itemsOfSchema = await jsonParse(`**["x-component-props".mode]`, schemaOfForm);
-    const fieldAssociationName = itemsOfSchema
-      .filter((item) => {
-        return ['Nester', 'SubTable', 'PopoverNester'].includes(item?.['x-component-props']?.mode);
-      })
-      .map((item) => getAssociationName(item['x-collection-field']));
-    const updateAssociationValues = [...new Set(fieldAssociationName)];
-    /** 以上为,处理子表单子表格等关联字段的更新逻辑 */
 
     const [target] = await collection.repository.update({
       filterByTk: data[collection.filterTargetKey],
