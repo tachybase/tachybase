@@ -1,24 +1,22 @@
 import Database from '@tachybase/database';
 import { Db, Service } from '@tachybase/utils';
 
+
+
 import Item from 'antd/es/list/Item';
 import dayjs from 'dayjs';
+
+
 
 import { Record } from '../../interfaces/record';
 import { RecordItems } from '../../interfaces/records';
 import { FeeRule, LeaseRule } from '../../interfaces/rule';
 import { Settlement } from '../../interfaces/settlement';
-import {
-  AddItemsCategory,
-  CalcDateType,
-  ConversionLogics,
-  countCource,
-  Itemcategory,
-  RulesNumber,
-} from '../../utils/constants';
+import { AddItemsCategory, CalcDateType, ConversionLogics, countCource, Itemcategory, RulesNumber } from '../../utils/constants';
 import { formatQuantity } from '../../utils/currencyUtils';
 import { converDate } from '../../utils/daysUtils';
 import { converUnitCount } from '../../utils/unitUtils';
+
 
 @Service()
 export class SettlementService {
@@ -69,7 +67,7 @@ export class SettlementService {
       if (recordItems.movement === entMovement && dayjs(recordItems.date).isBefore(settlementAbout.start_date, 'day')) {
         recordItems.record_items?.forEach((item) => {
           let isDeduction = false;
-          historyInventory[item.product_id]?.forEach((currRecord, index) => {
+          historyInventory[item?.product_id]?.forEach((currRecord, index) => {
             if (currRecord.remainingNumber !== 0 && !isDeduction) {
               isDeduction = true;
               differCount(item, item, item.count, currRecord, historyInventory[item.product_id], index);
@@ -495,6 +493,7 @@ export class SettlementService {
                                               value.count,
                                               rulefee,
                                             );
+                                             const price = value.price || rulefee.unit_price;
                                             createFeesDatas.push({
                                               settlement_id: settlementsId,
                                               date: item.date,
@@ -504,8 +503,8 @@ export class SettlementService {
                                               movement: item.movement,
                                               item_count: value.count,
                                               count: count,
-                                              unit_price: rulefee.unit_price,
-                                              amount: rulefee.unit_price * count,
+                                              unit_price: price,
+                                              amount: price * count,
                                               unit_name: unit,
                                               is_excluded: value.is_excluded,
                                               productCategory,
