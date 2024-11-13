@@ -8,6 +8,7 @@ import './style';
 import {
   BlockItem,
   CollectionProvider,
+  MobileProvider,
   SchemaComponent,
   useAPIClient,
   useCollection,
@@ -20,7 +21,6 @@ import {
 import { isArray } from '@tachybase/utils/client';
 
 import { getMobileColor } from '../../../CustomColor';
-import { MobileProvider } from '../../../provider';
 import { MInput } from '../Input';
 import { CreateRecordAction } from './CreateRecordAction';
 import { useStyles } from './style';

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   CollectionProvider_deprecated,
+  MobileProvider,
   parseCollectionName,
   RemoteSchemaComponent,
   SchemaComponent,
@@ -14,8 +15,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from '../../locale';
 
 import '../../style/style.css';
-
-import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 
 import { APPROVAL_ACTION_STATUS } from '../../constants';
 import { useActionResubmit } from '../hook/useActionResubmit';

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { SchemaComponent, useAPIClient, useFormBlockContext, usePlugin } from '@tachybase/client';
+import { MobileProvider, SchemaComponent, useAPIClient, useFormBlockContext, usePlugin } from '@tachybase/client';
 import PluginWorkflowClient, {
   DetailsBlockProvider,
   FlowContext,
@@ -17,7 +17,6 @@ import { useTranslation } from '../../locale';
 
 import '../../style/style.css';
 
-import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 import { observer } from '@tachybase/schema';
 import { Registry } from '@tachybase/utils/client';
 

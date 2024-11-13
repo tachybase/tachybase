@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   BlockItem,
   CollectionProvider,
+  MobileProvider,
   useCollectionManager,
   useFieldServiceFilter,
   useRequest,
@@ -13,7 +14,6 @@ import { Button, CascaderView, Divider, Popup, SearchBar, Space } from 'antd-mob
 import { CloseOutline } from 'antd-mobile-icons';
 
 import { useTranslation } from '../../../../../locale';
-import { MobileProvider } from '../../../provider';
 import { MInput } from '../Input';
 import { useStyles } from './style';
 

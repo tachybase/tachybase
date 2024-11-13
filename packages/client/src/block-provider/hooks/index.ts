@@ -35,6 +35,7 @@ import { TableFieldResource } from '../TableFieldProvider';
 export * from './useFormActiveFields';
 export * from './useParsedFilter';
 export * from './useDataBlockSourceId';
+export * from './useIsMobile';
 
 function renderTemplate(str: string, data: any) {
   const re = /\{\{\s*((\w+\.?)+)\s*\}\}/g;

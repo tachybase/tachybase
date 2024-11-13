@@ -1,7 +1,6 @@
-import { SchemaInitializer, useCollection, useCollectionManager } from '@tachybase/client';
+import { SchemaInitializer, useCollection, useCollectionManager, useIsMobile } from '@tachybase/client';
 
 import { tval } from '../../../../../locale';
-import { useIsMobile } from '../../../hooks';
 import { createTabSearchItemSchema } from '../create/createTabSearchItemSchema';
 import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../utils';
 import { TabSearchAssociatedFields } from './TabSearchAssociated.fields';

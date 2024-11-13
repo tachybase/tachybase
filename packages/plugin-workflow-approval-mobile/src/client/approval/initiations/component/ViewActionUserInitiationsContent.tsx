@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  MobileProvider,
   RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentProvider,
@@ -25,8 +26,6 @@ import { ApplyActionStatusProvider } from '../provider/ApplyActionStatus';
 import { WithdrawActionProvider } from '../provider/WithdrawAction';
 
 import '../../style/style.css';
-
-import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 
 import { useActionResubmit } from '../hook/useActionResubmit';
 import { ProviderActionResubmit } from '../provider/ActionResubmit.provider';

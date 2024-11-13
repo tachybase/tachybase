@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
   CollectionProvider,
   CollectionProvider_deprecated,
+  MobileProvider,
   RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentProvider,
@@ -20,7 +21,6 @@ import { useTranslation } from '../../locale';
 
 import '../../style/style.css';
 
-import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 import { observer } from '@tachybase/schema';
 
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../constants';

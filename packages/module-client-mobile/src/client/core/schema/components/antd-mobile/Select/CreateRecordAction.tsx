@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { ActionContextProvider, css, SchemaComponentOptions, useApp, useCollection } from '@tachybase/client';
+import {
+  ActionContextProvider,
+  css,
+  MobileProvider,
+  SchemaComponentOptions,
+  useApp,
+  useCollection,
+} from '@tachybase/client';
 import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
 import { Button, CenterPopup, Modal, Popup } from 'antd-mobile';
-
-import { MobileProvider } from '../../../provider';
 
 export const CreateRecordAction = observer(
   (props) => {

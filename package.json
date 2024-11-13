@@ -32,7 +32,7 @@
     "ts": "tachybase test:server"
   },
   "lint-staged": {
-    "*.{js,json,sql}": [
+    "*.{js,json,sql,ts,tsx}": [
       "prettier --write"
     ],
     "*.ts?(x)": [

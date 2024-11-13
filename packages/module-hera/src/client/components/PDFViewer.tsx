@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
-import { useApp, useRequest } from '@tachybase/client';
+import { useApp, useIsMobile, useRequest } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
 import { LoadingOutlined } from '@ant-design/icons';
@@ -31,7 +31,7 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
   const app = useApp();
   const previewList = app.AttachmentPreviewManager.get();
   const { checkedComponent } = previewList['application/pdf'];
-
+  const isMobile = useIsMobile();
   const [pdfUrl, setPdfUrl] = useState('');
   const [contentWindow, setContentWindow] = useState<Window>(null);
   const { file, width = 960 } = props;
@@ -89,6 +89,7 @@ export const PDFViewer = forwardRef<PDFViewerRef, PDFViewerProps>((props, ref) =
           url: pdfUrl,
         },
         width,
+        noTransformWrapper: !isMobile,
       })}
     </LoadingSpin>
   );

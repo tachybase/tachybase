@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  MobileProvider,
   RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentProvider,
@@ -26,7 +27,6 @@ import { ApprovalFormBlockDecorator } from '../provider/ApprovalFormBlock';
 
 import '../../style/style.css';
 
-import { MobileProvider } from '@tachybase/plugin-mobile-client/client';
 import { observer } from '@tachybase/schema';
 
 // 审批-待办-查看: 内容

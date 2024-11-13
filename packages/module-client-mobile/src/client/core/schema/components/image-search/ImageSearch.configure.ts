@@ -1,6 +1,5 @@
-import { SchemaInitializer, useCollection, useCollectionManager } from '@tachybase/client';
+import { SchemaInitializer, useCollection, useCollectionManager, useIsMobile } from '@tachybase/client';
 
-import { useIsMobile } from '../../hooks';
 import { canBeOptionalField, canBeRelatedField } from '../tab-search/utils';
 import { createSchemaImageSearchItem } from './search-item/ImageSearchItem.schema';
 

@@ -11,10 +11,10 @@ import {
   useCollectionManager,
   useDataSource,
   useDataSourceManager,
+  useIsMobile,
 } from '@tachybase/client';
 
 import { tval } from '../../../../../locale';
-import { useIsMobile } from '../../../hooks';
 import { mapToMobile } from '../mapToMobile';
 import { canBeDataField, canBeOptionalField, canBeRelatedField, canBeSearchField } from '../utils';
 
