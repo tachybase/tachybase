@@ -13,10 +13,10 @@ export const TableInitiated = () => {
     <SchemaComponent
       schema={schema}
       components={{
+        ApplyButton,
         NodeColumn,
         WorkflowColumn,
         UserColumn,
-        ApplyButton,
       }}
     />
   );

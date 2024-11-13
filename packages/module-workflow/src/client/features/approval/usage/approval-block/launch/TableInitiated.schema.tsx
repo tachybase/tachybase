@@ -25,6 +25,11 @@ export const schemaTableInitiated = {
           'x-component-props': { icon: 'FilterOutlined' },
           'x-align': 'left',
         },
+        filterSummary: {
+          type: 'void',
+          'x-component': 'FilterSummary',
+          'x-align': 'left',
+        },
         refresher: {
           type: 'void',
           title: '{{ t("Refresh") }}',

@@ -1,11 +1,12 @@
-import { Plugin, useSchemaInitializer } from '@tachybase/client';
+import { Plugin } from '@tachybase/client';
 
 import { tval } from '../../locale';
 import { KitApprovalCommon } from '../approval-common/plugin';
-import { ApprovalBlockComponent, getSchemaInsert, SCApprovalBlock, schemaItems } from './ApprovalBlock.schema';
+import { ApprovalBlockComponent, SCApprovalBlock, schemaItems } from './ApprovalBlock.schema';
 import { ViewCheckLink } from './launch/CheckLink.view';
 import { ProviderApprovalUpdateForm } from './todos/ApprovalUpdateForm.provider';
 import { ViewActionTodos } from './todos/VC.ViewActionTodos';
+import { FilterSummary } from './common/FilterSummary.component';
 
 export class KitApprovalBlock extends Plugin {
   async afterAdd() {
@@ -20,6 +21,7 @@ export class KitApprovalBlock extends Plugin {
       'ApprovalBlock.ViewActionTodos': ViewActionTodos,
       // NOTE: 这里注册在全局, 而不是组件内的作用域, 是为了让手机端共享到
       ProviderApprovalUpdateForm: ProviderApprovalUpdateForm,
+      FilterSummary,
     });
 
     this.app.schemaInitializerManager.get('page:addBlock').add('otherBlocks.workflow.approval', {
