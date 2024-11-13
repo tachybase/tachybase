@@ -1,6 +1,6 @@
 {
   "name": "tachybase",
-  "version": "0.22.32",
+  "version": "0.22.33",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
