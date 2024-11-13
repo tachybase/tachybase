@@ -2,13 +2,18 @@ import { Context } from '@tachybase/actions';
 import { Cache } from '@tachybase/cache';
 import { Action, Controller, Db, Inject } from '@tachybase/utils';
 
+
+
 import { SqlLoader, SystemSettingService } from '@hera/plugin-core';
 import { stringify } from 'flatted';
 import getStream from 'get-stream';
 import { QueryTypes } from 'sequelize';
 
+
+
 import { renderIt } from '../pdf-documents/settlements-document';
 import { SettlementService } from '../services/settlement-service';
+
 
 @Controller('settlements')
 export class SettlementController {
@@ -37,7 +42,7 @@ export class SettlementController {
       },
       type: QueryTypes.SELECT,
     });
-    await this.settlmentService.calculate(settlement as any, settlementsId);
+    await this.settlmentService.calculate(settlement as any, settlementsId,ctx);
   }
 
   @Action('pdf')

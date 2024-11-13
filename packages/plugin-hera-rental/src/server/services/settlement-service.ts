@@ -1,29 +1,31 @@
 import Database from '@tachybase/database';
+import { PluginWorkflow } from '@tachybase/plugin-workflow';
 import { Db, Service } from '@tachybase/utils';
 
-
-
-import Item from 'antd/es/list/Item';
 import dayjs from 'dayjs';
-
-
 
 import { Record } from '../../interfaces/record';
 import { RecordItems } from '../../interfaces/records';
 import { FeeRule, LeaseRule } from '../../interfaces/rule';
 import { Settlement } from '../../interfaces/settlement';
-import { AddItemsCategory, CalcDateType, ConversionLogics, countCource, Itemcategory, RulesNumber } from '../../utils/constants';
+import {
+  AddItemsCategory,
+  CalcDateType,
+  ConversionLogics,
+  countCource,
+  Itemcategory,
+  RulesNumber,
+} from '../../utils/constants';
 import { formatQuantity } from '../../utils/currencyUtils';
 import { converDate } from '../../utils/daysUtils';
 import { converUnitCount } from '../../utils/unitUtils';
-
 
 @Service()
 export class SettlementService {
   @Db()
   private db: Database;
 
-  async calculate(settlementAbout: Settlement, settlementsId) {
+  async calculate(settlementAbout: Settlement, settlementsId, ctx) {
     /**
      * 租金计算方式
      * 0: 计头不计尾
@@ -493,7 +495,7 @@ export class SettlementService {
                                               value.count,
                                               rulefee,
                                             );
-                                             const price = value.price || rulefee.unit_price;
+                                            const price = value.price || rulefee.unit_price;
                                             createFeesDatas.push({
                                               settlement_id: settlementsId,
                                               date: item.date,
@@ -1067,6 +1069,11 @@ export class SettlementService {
     await this.db.getModel('settlement_history_items').bulkCreate(createCategoryDatasItem.history);
     await this.db.getModel('settlement_history_items').bulkCreate(createProductDatasItem.history);
     await this.db.getModel('settlement_summary_items').bulkCreate(summaryItems);
+    const pluginWorkflow = ctx.app.getPlugin(PluginWorkflow) as PluginWorkflow;
+    const wf = await ctx.db
+      .getRepository('workflows')
+      .findOne({ filter: { title: '结算单生成应收/应付', enabled: true } });
+    await pluginWorkflow.trigger(wf, { data: { ...summaryPeriod, settlementsId } }, { httpContext: ctx });
   }
 
   async settlement(settlementAbout: Settlement, utcOffset) {
