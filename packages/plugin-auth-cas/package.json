@@ -11,7 +11,7 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "antd": "5.22.0",
-    "react-i18next": "^14.1.2",
+    "react-i18next": "^15.1.1",
     "react-router-dom": "~6.25.1"
   },
   "peerDependencies": {

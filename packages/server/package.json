@@ -34,7 +34,7 @@
     "decompress": "4.2.1",
     "find-package-json": "^1.2.0",
     "fs-extra": "^11.2.0",
-    "i18next": "22.5.1",
+    "i18next": "23.16.5",
     "ini": "^4.1.1",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",

@@ -14,7 +14,7 @@
     "ahooks": "^3.8.0",
     "antd": "5.22.0",
     "deepmerge": "^4.3.1",
-    "react-i18next": "^14.1.2"
+    "react-i18next": "^15.1.1"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
