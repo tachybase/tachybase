@@ -12,6 +12,7 @@ import { useValues } from './useValues';
 
 export const FilterItem = observer(
   (props: any) => {
+    // @ts-ignore 翻译 api
     const { t } = useTranslation();
     const compile = useCompile();
     const remove = useContext(RemoveConditionContext);

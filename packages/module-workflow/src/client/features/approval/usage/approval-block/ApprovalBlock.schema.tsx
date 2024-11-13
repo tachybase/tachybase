@@ -7,7 +7,7 @@ import { NAMESPACE } from '../../locale';
 import { ApprovalBlockProvider } from './ApprovalBlock.provider';
 import { CarbonCopyBlockProvider } from './carbon-copy/CarbonCopyBlock.provider';
 import { CarbonCopyCenter } from './carbon-copy/CarbonCopyCenter.schema';
-import { ApprovalBlockLaunch } from './launch/VC.ApprovalBlockLaunch';
+import { TableInitiated } from './launch/TableInitiated';
 import { ApprovalBlockLaunchApplication } from './launch/VC.ApprovalBlockLaunchApplication';
 import { ViewApprovalBlockTodos } from './todos/ApprovalBlockTodos';
 
@@ -15,7 +15,7 @@ export class SCApprovalBlock extends Plugin {
   async load() {
     this.app.addComponents({
       'ApprovalBlock.Decorator': ApprovalBlockProvider,
-      'ApprovalBlock.Launch': ApprovalBlockLaunch,
+      'ApprovalBlock.Launch': TableInitiated,
       'ApprovalBlock.Launch.Application': ApprovalBlockLaunchApplication,
       'ApprovalBlock.Todos': ViewApprovalBlockTodos,
       CarbonCopyBlockProvider: CarbonCopyBlockProvider,

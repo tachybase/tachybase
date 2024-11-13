@@ -83,11 +83,10 @@ export const CollectionApprovals = {
       },
     },
     {
-      type: 'string',
+      type: 'jsonb',
       name: 'summary',
-      interface: 'input',
       uiSchema: {
-        type: 'string',
+        type: 'array',
         title: tval('Summary'),
         'x-component': 'ApprovalsSummary',
         'x-component-props': {

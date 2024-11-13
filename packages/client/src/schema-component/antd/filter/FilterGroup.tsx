@@ -18,6 +18,7 @@ export const FilterGroup = connect((props) => {
   const { bordered = true, disabled } = props;
   const field = useField<ObjectFieldModel>();
   const remove = useContext(RemoveConditionContext);
+  // @ts-ignore 翻译 api
   const { t } = useTranslation();
   const { token } = useToken();
 
