@@ -203,7 +203,7 @@ export default function devDynamicImport(packageName: string): Promise<any> {
   }
 
   getContent(pluginsPath) {
-    const pluginFolders = glob.sync(['plugin-*/package.json', '*/*/package.json'], {
+    const pluginFolders = glob.sync(['plugin-*/package.json', 'module-*/package.json', '*/*/package.json'], {
       cwd: pluginsPath,
       onlyFiles: true,
       absolute: true,
