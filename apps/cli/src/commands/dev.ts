@@ -8,6 +8,7 @@ export default (cli: Command) => {
   cli
     .command('dev')
     .option('-p, --port [port]')
+    .option('--proxy-port [port]')
     .option('--client')
     .option('--server')
     .option('--db-sync')
@@ -58,7 +59,7 @@ export default (cli: Command) => {
         serverPort = Number(APP_PORT!);
       } else if (!server && !client) {
         serverPort = await getPortPromise({
-          port: 1 * clientPort + 1,
+          port: 1 * clientPort + 10,
         });
       }
 
@@ -93,7 +94,7 @@ export default (cli: Command) => {
               APP_PORT: serverPort + '',
             },
           }).catch((err) => {
-            if (err.exitCode == 100) {
+            if (err.exitCode === 100) {
               console.log('Restarting server...');
               runDevServer();
             } else {
@@ -107,15 +108,16 @@ export default (cli: Command) => {
 
       if (client || !server) {
         console.log('starting client', 1 * clientPort);
+        const proxyPort = opts.proxyPort || serverPort;
+        console.log('proxy port', proxyPort);
         run('umi', ['dev'], {
           env: {
             PORT: clientPort + '',
             APP_ROOT: `${APP_PACKAGE_ROOT}/client`,
             WEBSOCKET_URL:
               process.env.WEBSOCKET_URL ||
-              (serverPort ? `ws://localhost:${serverPort}${process.env.WS_PATH}` : undefined),
-            PROXY_TARGET_URL:
-              process.env.PROXY_TARGET_URL || (serverPort ? `http://127.0.0.1:${serverPort}` : undefined),
+              (proxyPort ? `ws://localhost:${proxyPort}${process.env.WS_PATH}` : undefined),
+            PROXY_TARGET_URL: process.env.PROXY_TARGET_URL || (proxyPort ? `http://127.0.0.1:${proxyPort}` : undefined),
           },
         });
       }
