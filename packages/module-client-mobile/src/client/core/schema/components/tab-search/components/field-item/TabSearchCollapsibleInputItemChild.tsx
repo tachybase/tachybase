@@ -1,4 +1,7 @@
 import React from 'react';
+import { css } from '@tachybase/client';
+import { DatePicker } from '@tachybase/components';
+import { dayjs } from '@tachybase/utils/client';
 
 import { Button, Col, Divider, Input, Select } from 'antd';
 
@@ -20,6 +23,30 @@ export const IInput = (props) => {
   return (
     <Col flex={options.length > 1 ? 3 : 4}>
       <Input placeholder={t('Please enter search content')} value={value} onChange={onChange} />
+    </Col>
+  );
+};
+
+export const IDatePicker = (props) => {
+  const { options, value, onInputChange } = props;
+  const time = value.split('&');
+  const onDateChange = (e) => {
+    const timeString = `"${e[0]}"&"${e[1]}"`;
+    onInputChange(timeString);
+  };
+  return (
+    <Col flex={options.length > 1 ? 3 : 4}>
+      <DatePicker.RangePicker
+        className={css`
+          width: 100%;
+          border: none;
+          input {
+            text-align: center;
+          }
+        `}
+        value={time}
+        onChange={onDateChange}
+      />
     </Col>
   );
 };

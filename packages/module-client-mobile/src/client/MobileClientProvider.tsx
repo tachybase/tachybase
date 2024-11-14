@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, useEffect } from 'react';
+import { MobileProvider } from '@tachybase/client';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -14,6 +15,6 @@ export const MobileClientProvider = React.memo((props: PropsWithChildren) => {
     }
   }, [location.pathname, navigation]);
 
-  return <>{props.children}</>;
+  return <MobileProvider>{props.children}</MobileProvider>;
 });
 MobileClientProvider.displayName = 'MobileClientProvider';

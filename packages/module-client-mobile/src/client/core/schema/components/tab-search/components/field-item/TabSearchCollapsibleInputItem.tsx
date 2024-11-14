@@ -3,13 +3,24 @@ import { SortableItem, withDynamicSchemaProps } from '@tachybase/client';
 
 import { ConfigProvider, Row } from 'antd';
 
+import { canBeDataField } from '../../utils';
 import { useTabSearchCollapsibleInputItemAction } from './TabSearchCollapsibleInputItemAction';
-import { IButton, IInput, ISelect } from './TabSearchCollapsibleInputItemChild';
+import { IButton, IDatePicker, IInput, ISelect } from './TabSearchCollapsibleInputItemChild';
 
 export const TabSearchCollapsibleInputItem = withDynamicSchemaProps(
   (props) => {
-    const { collectionField, Designer, options, value, onSelectChange, onInputChange, onButtonClick, customLabelKey } =
-      useTabSearchCollapsibleInputItemAction(props);
+    const {
+      fieldInterface,
+      collectionField,
+      Designer,
+      options,
+      value,
+      onSelectChange,
+      onInputChange,
+      onButtonClick,
+      customLabelKey,
+      onDateClick,
+    } = useTabSearchCollapsibleInputItemAction(props);
 
     if (!collectionField) {
       return null;
@@ -34,7 +45,12 @@ export const TabSearchCollapsibleInputItem = withDynamicSchemaProps(
         >
           <Row style={{ marginTop: '2vh', backgroundColor: '#f9f9f9' }}>
             <ISelect options={options} onChange={onSelectChange} customLabelKey={customLabelKey} />
-            <IInput options={options} value={value} onChange={onInputChange} />
+            {canBeDataField(fieldInterface) ? (
+              <IDatePicker options={options} value={value} onInputChange={onInputChange} onChange={onDateClick} />
+            ) : (
+              <IInput options={options} value={value} onChange={onInputChange} />
+            )}
+
             <IButton onClick={onButtonClick} />
           </Row>
         </ConfigProvider>
