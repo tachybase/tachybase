@@ -1,15 +1,12 @@
 import React, { useRef } from 'react';
-import { Icon, useContextMenu, useDesignable, useHotkeys } from '@tachybase/client';
 
-import {
-  CalculatorOutlined,
-  CommentOutlined,
-  HighlightOutlined,
-  SearchOutlined,
-  ToolOutlined,
-} from '@ant-design/icons';
+import { CalculatorOutlined, CommentOutlined, SearchOutlined, ToolOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
+import { useHotkeys } from 'react-hotkeys-hook';
 
+import { Icon } from '../../icon';
+import { useDesignable } from '../../schema-component';
+import { useContextMenu } from '../context-menu';
 import AIChatModal from './AIChatModal';
 import { useCalculator } from './calculator/CalculatorProvider';
 import { useSearchAndJump } from './search-and-jump';

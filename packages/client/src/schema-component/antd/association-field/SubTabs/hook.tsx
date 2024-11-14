@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { DEBOUNCE_WAIT, isVariable, mergeFilter, useParseDataScopeFilter } from '@tachybase/client';
 import { reaction } from '@tachybase/schema';
 import { flatten, getValuesByPath } from '@tachybase/utils/client';
 
 import _ from 'lodash';
 
+import { mergeFilter } from '../../../../filter-provider';
+import { useParseDataScopeFilter } from '../../../../schema-settings';
+import { DEBOUNCE_WAIT, isVariable } from '../../../../variables';
 import { getPath } from '../../../../variables/utils/getPath';
 import { getVariableName } from '../../../../variables/utils/getVariableName';
 

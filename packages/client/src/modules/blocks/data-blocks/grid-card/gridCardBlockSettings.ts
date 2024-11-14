@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useCollection, useCollectionFields, useCollectionManager, useDataSource } from '@tachybase/client';
 import { ArrayItems } from '@tachybase/components';
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
 
@@ -9,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated, useCollectionFieldsOptions, useSortFields } from '../../../../collection-manager';
+import { useCollection, useDataSource } from '../../../../data-source';
 import { removeNullCondition, useDesignable } from '../../../../schema-component';
 import {
   defaultColumnCount,

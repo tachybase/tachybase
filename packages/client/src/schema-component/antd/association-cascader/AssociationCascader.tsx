@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react';
-import { useCollectionManager, useRequest } from '@tachybase/client';
 import { connect, mapProps } from '@tachybase/schema';
 
 import { Cascader } from 'antd';
 import _ from 'lodash';
+
+import { useRequest } from '../../../api-client';
+import { useCollectionManager } from '../../../data-source';
 
 export const AssociationCascader = connect(
   (props) => {

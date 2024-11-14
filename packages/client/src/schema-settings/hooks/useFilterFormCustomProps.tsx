@@ -1,4 +1,4 @@
-import { useSchemaInitializer } from '@tachybase/client';
+import { useSchemaInitializer } from '../../application';
 
 export const useFilterFormCustomProps = () => {
   const { insert } = useSchemaInitializer();
