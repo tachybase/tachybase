@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@tachybase/app": "workspace:*",
+    "@tachybase/app-mako": "workspace:*",
     "@tachybase/utils": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@umijs/utils": "3.5.20",
