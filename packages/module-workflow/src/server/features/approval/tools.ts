@@ -1,4 +1,5 @@
 import actions from '@tachybase/actions';
+
 import _ from 'lodash';
 
 interface ParamsType {
@@ -45,20 +46,18 @@ export async function parsePerson({ node, processor, keyName }) {
 }
 
 export async function searchSummaryQuery(context, next, summaryQueryValue) {
-  context.action.params.paginate = false
-  await actions.list(context, next)
+  context.action.params.paginate = false;
+  await actions.list(context, next);
   // 前端不分页, 因此这里是直接返回全部数据
   const resultList = context.body ?? [];
 
   const filteredResultList = resultList.filter((item) => {
-    const summary = item.summary ?? {}
+    const summary = item.summary ?? {};
 
-    const haveMatch = Object.values(summary).some((value) =>
-      `${value}`.includes(summaryQueryValue)
-    )
+    const haveMatch = Object.values(summary).some((value) => `${value}`.includes(summaryQueryValue));
 
-    return haveMatch
-  })
+    return haveMatch;
+  });
 
   context.body = filteredResultList;
   context.paginate = false;

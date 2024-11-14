@@ -3,10 +3,10 @@ import { Plugin } from '@tachybase/client';
 import { tval } from '../../locale';
 import { KitApprovalCommon } from '../approval-common/plugin';
 import { ApprovalBlockComponent, SCApprovalBlock, schemaItems } from './ApprovalBlock.schema';
+import { FilterSummary } from './common/FilterSummary.component';
 import { ViewCheckLink } from './launch/CheckLink.view';
 import { ProviderApprovalUpdateForm } from './todos/ApprovalUpdateForm.provider';
 import { ViewActionTodos } from './todos/VC.ViewActionTodos';
-import { FilterSummary } from './common/FilterSummary.component';
 
 export class KitApprovalBlock extends Plugin {
   async afterAdd() {
