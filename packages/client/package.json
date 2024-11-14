@@ -22,6 +22,7 @@
     "@sentry/react": "^8.25.0",
     "@tachybase/components": "workspace:*",
     "@tachybase/evaluators": "workspace:*",
+    "@tachybase/requirejs": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/sdk": "workspace:*",
     "@tachybase/utils": "workspace:*",

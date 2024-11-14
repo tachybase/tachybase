@@ -1,6 +1,7 @@
 import React from 'react';
 import * as tachybaseComponents from '@tachybase/components';
 import * as tachybaseEvaluators from '@tachybase/evaluators/client';
+import type { RequireJS } from '@tachybase/requirejs';
 import * as tachybaseSchema from '@tachybase/schema';
 import * as tachybaseSDK from '@tachybase/sdk';
 import * as tachybaseClientUtils from '@tachybase/utils/client';
@@ -27,7 +28,6 @@ import * as ReactRouterDom from 'react-router-dom';
 import jsxRuntime from 'react/jsx-runtime';
 
 import * as tachybaseClient from '../../index';
-import type { RequireJS } from './requirejs';
 
 /**
  * @internal

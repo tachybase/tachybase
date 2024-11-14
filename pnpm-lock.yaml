@@ -568,6 +568,9 @@ importers:
       '@tachybase/evaluators':
         specifier: workspace:*
         version: link:../evaluators
+      '@tachybase/requirejs':
+        specifier: workspace:*
+        version: link:../requirejs
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../schema
@@ -4417,6 +4420,8 @@ importers:
       '@types/lodash':
         specifier: ^4.17.5
         version: 4.17.5
+
+  packages/requirejs: {}
 
   packages/resourcer:
     dependencies:

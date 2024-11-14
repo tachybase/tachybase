@@ -301,7 +301,7 @@ export interface Require {
   /**
    * Semi-private function, overload in special instance of undef()
    */
-  onResourceLoad(context: Object, map: RequireMap, depArray: RequireMap[]): void;
+  onResourceLoad(context: object, map: RequireMap, depArray: RequireMap[]): void;
 }
 
 export interface RequireDefine {
@@ -362,5 +362,5 @@ export interface RequireDefine {
    * define.amd.jQuery is specific to jQuery and indicates that the loader is able to account for multiple version
    * of jQuery being loaded simultaneously.
    */
-  amd: Object;
+  amd: object;
 }

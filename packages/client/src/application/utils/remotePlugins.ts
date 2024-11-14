@@ -1,7 +1,8 @@
+import type { RequireJS } from '@tachybase/requirejs';
+
 import type { DevDynamicImport } from '../Application';
 import type { Plugin } from '../Plugin';
 import type { PluginData } from '../PluginManager';
-import type { RequireJS } from './requirejs';
 
 /**
  * @internal

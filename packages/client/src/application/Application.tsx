@@ -1,4 +1,5 @@
 import React, { ComponentType, ReactElement } from 'react';
+import { getRequireJs, type RequireJS } from '@tachybase/requirejs';
 import { define, observable } from '@tachybase/schema';
 import { APIClientOptions, getSubAppName } from '@tachybase/sdk';
 
@@ -32,7 +33,6 @@ import { PluginSettingOptions, SystemSettingsManager } from './SystemSettingsMan
 import { UserSettingOptions, UserSettingsManager } from './UserSettingsManager';
 import { compose, normalizeContainer } from './utils';
 import { defineGlobalDeps } from './utils/globalDeps';
-import { getRequireJs, type RequireJS } from './utils/requirejs';
 import { WebSocketClient, WebSocketClientOptions } from './WebSocketClient';
 
 declare global {
