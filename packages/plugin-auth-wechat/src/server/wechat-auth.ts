@@ -2,6 +2,7 @@ import { AuthConfig, BaseAuth } from '@tachybase/auth';
 
 import { namespace, weChatApiOauthBaseUrl, weChatApiOauthScope } from '../constants';
 import { dayjs } from '@tachybase/utils';
+import { Context } from '@tachybase/actions';
 
 export { Model } from '@tachybase/database';
 
@@ -15,25 +16,9 @@ export class WeChatAuth extends BaseAuth {
   }
 
   async validate() {
-    const ctx = this.ctx;
-    let { code } = ctx.request.query || {};
-    code = Array.isArray(code) ? code[0] : code;
-
-    if (!code) {
-      ctx.logger.error('Failed to get code');
-      ctx.throw(401, ctx.t('Unauthorized', { ns: namespace }));
-    }
-
+    const { ctx } = this;
     try {
-      const getAccessTokenRsp = await fetch(
-        `${weChatApiOauthBaseUrl}access_token?appid=${this.options?.wechatAuth?.AppID}&secret=${this.options?.wechatAuth?.AppSecret}&code=${code}&grant_type=authorization_code`,
-      );
-      const getAccessTokenRspJson = await getAccessTokenRsp.json();
-      if (getAccessTokenRspJson.errcode) {
-        ctx.logger.error(`Failed to get user accessToken: ${getAccessTokenRspJson.errmsg}`);
-        ctx.throw(401, ctx.t('Failed to get accessToken', { ns: namespace }));
-      }
-      const { access_token, unionid } = getAccessTokenRspJson;
+      const { unionid } = await this.getUnionid();
       const authenticator = this.authenticator;
       const user = await authenticator.findUser(unionid);
       if (user) {
@@ -54,8 +39,8 @@ export class WeChatAuth extends BaseAuth {
     }
   }
 
-  async getUuid(): Promise<string> {
-    const ctx = this.ctx;
+  async getUnionid(getInfo = false): Promise<{ unionid?: string, info?: any }> {
+    const { ctx } = this;
     let { code } = ctx.request.query || {};
     code = Array.isArray(code) ? code[0] : code;
 
@@ -65,32 +50,44 @@ export class WeChatAuth extends BaseAuth {
     }
     try {
       const getAccessTokenRsp = await fetch(
-        `${weChatApiOauthBaseUrl}access_token?appid=${this.options?.wechatAuth?.AppID}&secret=${this.options?.wechatAuth?.AppSecret}&code=${code}&grant_type=authorization_code`,
+        `${weChatApiOauthBaseUrl}/oauth2/access_token?appid=${this.options?.wechatAuth?.AppID}&secret=${this.options?.wechatAuth?.AppSecret}&code=${code}&grant_type=authorization_code`,
       );
       const getAccessTokenRspJson = await getAccessTokenRsp.json();
       if (getAccessTokenRspJson.errcode) {
         ctx.logger.error(`Failed to get user accessToken: ${getAccessTokenRspJson.errmsg}`);
         ctx.throw(401, ctx.t('Failed to get accessToken', { ns: namespace }));
       }
-      const { access_token, unionid } = getAccessTokenRspJson;
-      return unionid;
+      const { access_token, unionid, openid } = getAccessTokenRspJson;
+      if (getInfo) {
+        const getInfoRsp = await fetch(
+          `${weChatApiOauthBaseUrl}/userinfo?access_token=${access_token}&openid=${openid}&lang=zh_CN`,
+        );
+        const getInfoRspJson = await getInfoRsp.json();
+        if (!getInfoRspJson.errcode) {
+          return { unionid, info: getInfoRspJson};
+        }
+      }
+      return { unionid };
     } catch (e) {
       ctx.logger.error('Failed to get code');
-      return '';
+      return {};
     }
   }
 
   async bindUser(userId: number) {
-    const uuid = await this.getUuid();
-    if (!uuid) {
-      this.ctx.throw(400, 'Bind user failed: no user found');
+    const { unionid, info } = await this.getUnionid(true);
+    if (!unionid) {
+      this.ctx.throw(400, 'Bind user failed: no weixin user found');
     }
     const authenticator = this.authenticator;
-    const existUser = await authenticator.findUser(uuid);
+    const existUser = await authenticator.findUser(unionid);
     if (existUser) {
       this.ctx.throw(400, 'Bind user failed: wechat can bine one user!');
     }
-    await authenticator.bindUser(userId, uuid);
+    await authenticator.bindUser(userId, unionid, {
+      nickname: info?.nickname,
+      avatar: info?.headimgurl,
+    });
   }
 
   async getAuthCfg(redirect: string) {

@@ -40,14 +40,13 @@ const collection = {
     },
     {
       type: 'string',
-      name: 'bindUUID',
+      name: 'nickname',
       uiSchema: {
         type: 'string',
-        title: '{{t("Bind UUID")}}',
+        title: '{{t("Nickname")}}',
         'x-component': 'Input',
       },
     },
-    // TODO: 显示绑定用户的id
   ],
 };
 
@@ -120,6 +119,18 @@ export const authenticatorsSchema: ISchema = {
           properties: {
             bind: {
               type: 'boolean',
+              'x-component': 'CollectionField',
+              'x-read-pretty': true,
+            },
+          },
+        },
+        nickname: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          properties: {
+            nickname: {
+              type: 'string',
               'x-component': 'CollectionField',
               'x-read-pretty': true,
             },

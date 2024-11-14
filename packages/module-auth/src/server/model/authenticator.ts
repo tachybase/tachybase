@@ -51,11 +51,12 @@ export class AuthModel extends Model implements Authenticator {
     return await this.newUser(uuid, userValues);
   }
 
-  async bindUser(userId: number, uuid: string) {
+  async bindUser(userId: number, uuid: string, info: Record<string, any>) {
     await this.sequelize.transaction(async (transaction) => {
       await this.addUser(userId, {
         through: {
           uuid: uuid,
+          ...info,
         },
         transaction,
       });

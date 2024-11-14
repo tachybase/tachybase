@@ -108,17 +108,24 @@ export default {
       ctx.body = list;
       return next();
     }
-    const userInfo = await repository.find({
-      fields: ['authType'],
+
+    const nameList = list.map((item) => item.name);
+
+    const thirdRepo = ctx.db.getRepository('usersAuthenticators');
+    const userInfo = await thirdRepo.find({
+      fields: ['authenticator', 'nickname'],
       filter: {
-        enabled: true,
-        'options.public.configBind': true,
-        'users.id': userId,
+        userId,
+        authenticator: {
+          $in: nameList,
+        }
       },
-      appends: ['users'],
+      raw: true,
     });
     for (const item of list) {
-      item.bind = userInfo.some((info) => info.authType === item.authType);
+      const userItem = userInfo.find((info) => info.authenticator === item.name)
+      item.bind = userItem? true : false;
+      item.nickname = userItem? userItem.nickname : '';
     }
     ctx.body = list;
     await next();

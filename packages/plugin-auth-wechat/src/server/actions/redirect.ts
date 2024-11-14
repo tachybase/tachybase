@@ -1,5 +1,7 @@
 import { Context, Next } from '@tachybase/actions';
 import { AppSupervisor } from '@tachybase/server';
+import { dayjs } from '@tachybase/utils';
+import { AUTH_TIMEOUT_MINUTE } from '../../constants';
 
 
 export const redirect = async (ctx: Context, next: Next) => {
@@ -37,6 +39,13 @@ export const redirect = async (ctx: Context, next: Next) => {
       ctx.redirect(`${prefix}${redirect}?error=${error.message}`);
     }
     return next();
+  }
+
+  const ts = search.get('ts') ? +search.get('ts') : 0;
+  if (ts) {
+    if (ts < dayjs().subtract(AUTH_TIMEOUT_MINUTE, 'minute').unix()) {
+      ctx.throw(400, 'timeout');
+    }
   }
 
   try {
