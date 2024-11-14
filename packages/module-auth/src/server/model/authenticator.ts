@@ -16,6 +16,7 @@ export class AuthModel extends Model implements Authenticator {
       user = users[0];
       return user;
     }
+    return null;
   }
 
   async newUser(uuid: string, userValues?: any) {
@@ -48,5 +49,16 @@ export class AuthModel extends Model implements Authenticator {
     }
 
     return await this.newUser(uuid, userValues);
+  }
+
+  async bindUser(userId: number, uuid: string) {
+    await this.sequelize.transaction(async (transaction) => {
+      await this.addUser(userId, {
+        through: {
+          uuid: uuid,
+        },
+        transaction,
+      });
+    });
   }
 }

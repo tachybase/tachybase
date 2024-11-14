@@ -5,5 +5,6 @@ export default {
   "User not found": "User not found",
   "Failed to get accessToken": "Failed to get accessToken",
   "Copied": "Copied",
-  "Failed to copy": "Failed to copy"
+  "Failed to copy": "Failed to copy",
+  "User can bind or unbind the sign in type": "User can bind or unbind the sign in type"
 }

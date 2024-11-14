@@ -5,5 +5,6 @@ export default {
   "User not found": "用户不存在",
   "Failed to get accessToken": "未获取到accessToken",
   "Copied": "已复制",
-  "Failed to copy": "复制失败"
+  "Failed to copy": "复制失败",
+  "User can bind or unbind the sign in type": "用户可以绑定或解绑登录类型"
 }

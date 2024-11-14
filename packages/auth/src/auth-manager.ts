@@ -120,4 +120,9 @@ export class AuthManager {
       await next();
     };
   }
+
+  async getOptions(name: string) {
+    const authenticator = await this.storer.get(name);
+    return authenticator.options;
+  }
 }

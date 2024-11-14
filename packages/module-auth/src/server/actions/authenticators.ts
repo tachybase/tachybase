@@ -1,6 +1,6 @@
 import { Context, Next } from '@tachybase/actions';
 import { AuthManager } from '@tachybase/auth';
-import { Model, Repository } from '@tachybase/database';
+import { Model, MultipleRelationRepository, Repository } from '@tachybase/database';
 
 import { namespace } from '../../preset';
 
@@ -89,4 +89,47 @@ export default {
 
     await next();
   },
+  bindTypes: async (ctx: Context, next: Next) => {
+    const userId = ctx.auth?.user?.id;
+    if (!userId) {
+      ctx.throw(400, ctx.t('User not found', { ns: namespace }));
+    }
+    const repository = ctx.db.getRepository('authenticators');
+    const list = await repository.find({
+      fields: ['name', 'authType', 'title', 'description', 'sort'],
+      filter: {
+        enabled: true,
+        'options.public.configBind': true,
+      },
+      sort: 'sort',
+      raw: true,
+    });
+    if (!list.length) {
+      ctx.body = list;
+      return next();
+    }
+    const userInfo = await repository.find({
+      fields: ['authType'],
+      filter: {
+        enabled: true,
+        'options.public.configBind': true,
+        'users.id': userId,
+      },
+      appends: ['users'],
+    });
+    for (const item of list) {
+      item.bind = userInfo.some((info) => info.authType === item.authType);
+    }
+    ctx.body = list;
+    await next();
+  },
+  unbind: async (ctx: Context, next: Next) =>  {
+    const userId = ctx.auth?.user?.id;
+    const { authenticator } = ctx.action.params;
+    if (!userId) {
+      ctx.throw(400, ctx.t('User not found', { ns: namespace }));
+    }
+    await ctx.db.getRepository<MultipleRelationRepository>('authenticators.users', authenticator).remove([ userId ]);
+    return next();
+  }
 };

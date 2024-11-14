@@ -37,6 +37,13 @@ export const AdminSettingsForm = () => {
                   'x-component': 'Checkbox',
                   default: false,
                 },
+                configBind: {
+                  'x-decorator': 'FormItem',
+                  type: 'boolean',
+                  title: '{{t("User can bind or unbind the sign in type")}}',
+                  'x-component': 'Checkbox',
+                  default: false,
+                },
               },
             },
             wechatAuth: {

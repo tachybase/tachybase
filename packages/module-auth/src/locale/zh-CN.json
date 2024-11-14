@@ -1,10 +1,13 @@
 {
   "Allow to sign in with": "允许使用以下方式登录",
   "Allow to sign up": "允许注册",
+  "Are you sure to unbind this authenticator?": "确定要解绑该认证器吗？",
   "Auth Type": "认证类型",
   "Auth UID": "认证标识",
   "Authentication": "认证方式",
+  "Authentication login bind": "认证登录绑定",
   "Authenticators": "认证器",
+  "Bind": "绑定",
   "No authentication methods available.": "没有可用的认证方式。",
   "Not a valid cellphone number, please re-enter": "不是有效的手机号，请重新输入",
   "Not allowed to sign up": "禁止注册",
@@ -22,5 +25,7 @@
   "The phone number has been registered, please login directly": "手机号已注册，请直接登录",
   "The phone number is not registered, please register first": "手机号未注册，请先注册",
   "The username or email is incorrect, please re-enter": "用户名或邮箱有误，请重新输入",
+  "Unbind": "解绑",
+  "User can bind or unbind the sign in type": "用户可以绑定或解绑登录方式",
   "Username/Email": "用户名/邮箱"
 }

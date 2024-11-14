@@ -6,6 +6,7 @@ import { presetAuthType } from '../preset';
 import { Authenticator as AuthenticatorType } from './authenticator';
 import { AuthProvider } from './AuthProvider';
 import { Options, SignInForm, SignUpForm } from './basic';
+import { AuthenticatorBind } from './bind/AuthenticatorBind';
 import { NAMESPACE } from './locale';
 import { AuthLayout, SignInPage, SignUpPage } from './pages';
 import { Authenticator } from './settings/Authenticator';
@@ -16,6 +17,8 @@ export type AuthOptions = {
     SignInButton: ComponentType<{ authenticator: AuthenticatorType }>;
     SignUpForm: ComponentType<{ authenticatorName: string }>;
     AdminSettingsForm: ComponentType;
+    // 在此处添加 绑定/解绑 表单
+    BindForm: ComponentType<{ authenticator: AuthenticatorType }>;
   }>;
 };
 
@@ -31,6 +34,13 @@ export class PluginAuthClient extends Plugin {
       icon: 'LoginOutlined',
       title: `{{t("Authentication", { ns: "${NAMESPACE}" })}}`,
       Component: Authenticator,
+      aclSnippet: 'pm.auth.authenticators',
+    });
+
+    this.app.userSettingsManager.add(NAMESPACE, {
+      icon: 'LoginOutlined',
+      title: `{{t("Authentication login bind", { ns: "${NAMESPACE}" })}}`,
+      Component: AuthenticatorBind,
       aclSnippet: 'pm.auth.authenticators',
     });
 

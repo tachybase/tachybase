@@ -32,7 +32,7 @@ const qrForm: ISchema = {
   },
 };
 
-export const SignInForm = (props: { authenticator: Authenticator }) => {
+export const SignInForm = (props: { authenticator: Authenticator; bind: boolean }) => {
   const authenticator = props.authenticator;
   const { name, options } = authenticator;
   const autoSignUp = !!options?.autoSignUp;
@@ -40,7 +40,11 @@ export const SignInForm = (props: { authenticator: Authenticator }) => {
   const api = useAPIClient();
   const location = useLocation();
   const urlSearchParams = new URLSearchParams(location.search);
-  const redirect = urlSearchParams.get('redirect');
+  let redirect = urlSearchParams.get('redirect');
+  if (props.bind) {
+    // 当前路径
+    redirect = location.pathname;
+  }
   const { theme } = useGlobalTheme();
   const isDark = theme.name.toLowerCase().includes('dark');
   const wcQrStyle = isDark ? 'white' : 'black';
@@ -54,7 +58,7 @@ export const SignInForm = (props: { authenticator: Authenticator }) => {
           method: 'post',
           url: 'wechatAuth:getAuthCfg',
           headers: { 'X-Authenticator': authenticator.name },
-          data: { redirect },
+          data: { redirect, bind: props.bind, authenticator: authenticator.name },
         });
         const cfg = result?.data?.data;
 

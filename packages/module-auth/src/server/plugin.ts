@@ -66,6 +66,7 @@ export class PluginAuthServer extends Plugin {
     ['check', 'signIn', 'signUp'].forEach((action) => this.app.acl.allow('auth', action));
     ['signOut', 'changePassword'].forEach((action) => this.app.acl.allow('auth', action, 'loggedIn'));
     this.app.acl.allow('authenticators', 'publicList');
+    this.app.acl.allow('authenticators', 'bindTypes', 'loggedIn');
     this.app.acl.registerSnippet({
       name: `pm.${this.name}.authenticators`,
       actions: ['authenticators:*'],

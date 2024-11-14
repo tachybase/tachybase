@@ -1,10 +1,13 @@
 {
   "Allow to sign in with": "Allow to sign in with",
   "Allow to sign up": "Allow to sign up",
+  "Are you sure to unbind this authenticator?": "Are you sure to unbind this authenticator?",
   "Auth Type": "Auth Type",
   "Auth UID": "Auth UID",
   "Authentication": "Authentication",
+  "Authentication login bind": "Authentication login bind",
   "Authenticators": "Authenticators",
+  "Bind": "Bind",
   "No authentication methods available.": "No authentication methods available.",
   "Not a valid cellphone number, please re-enter": "Not a valid cellphone number, please re-enter",
   "Not allowed to sign up": "Not allowed to sign up",
@@ -22,5 +25,7 @@
   "The phone number has been registered, please login directly": "The phone number has been registered, please login directly",
   "The phone number is not registered, please register first": "The phone number is not registered, please register first",
   "The username or email is incorrect, please re-enter": "The username or email is incorrect, please re-enter",
+  "Unbind": "Unbind",
+  "User can bind or unbind the sign in type": "User can bind or unbind the sign in type",
   "Username/Email": "Username/Email"
 }
