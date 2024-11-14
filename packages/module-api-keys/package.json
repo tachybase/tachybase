@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-api-keys",
   "displayName": "Auth: API keys",
-  "version": "0.22.34",
+  "version": "0.22.35",
   "description": "Allows users to use API key to access application's HTTP API",
   "keywords": [
     "Authentication"

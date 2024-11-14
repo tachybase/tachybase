@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-workflow-approval-mobile",
-  "version": "0.22.34",
+  "version": "0.22.35",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
