@@ -1,60 +1,72 @@
+> [!CAUTION]
+> Tachybase is still in the alpha stage. If you plan to use it in production, please proceed with caution. The codebase contains many experimental features and will undergo significant refactoring. Please feel free to contact us if you encounter any issues.
+
 <h1 align="center" style="border-bottom: none">
     <div>
         <a style="color:#36f" href="https://www.tachybase.com">
             <img src="https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/3733d6bd0a3376a93ba6180b32194369.png" width="80" />
             <br>
-            灵矶
+            Tachybase
         </a>
     </div>
 </h1>
 
 <br>
 
-
-
 <p align="center">
-<span style="color:red; font-weight:bold;">灵矶还处于 alpha 阶段，用在生产中请谨慎，碰到任何问题可以联系我们处理</span>
-<br>
-灵矶是一个灵活多变的应用系统，应用开发者可以基于灵矶做出丰富应用逻辑，而核心开发者可以聚焦于关键模块的稳定性和对不同环境的适配。
+  Tachybase is a highly flexible application system, where developers can build complex application logic, while core developers focus on ensuring the stability of key modules and adapting to different environments. 
+</p>
+<p align="center">
+  [English Version][<a href="./README.md">中文版本</a>]
 </p>
 
-# 其他语言
+# Project Overview
 
-[[English Version](README.EN-US.md)][中文版本]
+Tachybase is designed with a three-layer structure: Kernel Layer, Module Layer, and Plugin Layer.
 
-# 简介
+- __Kernel Layer__ provides core plugin mechanisms and unified interfaces.
+- __Module Layer__ implements specific application functions, such as building a low-code platform or creating a service orchestration tool with Tachybase.
+- __Plugin Layer__ offers more choices, for example, in the authentication module, different authentication sources can be implemented as plugins.
 
-我们从内到外设计了三层结构，分别是内核层、模块层和插件层，内核层提供最最为核心的插件机制、统一的接口，模块层用于实现特定用途的应用，例如可以使用灵矶来
-制作一个低代码平台，或者使用灵矶来做一个服务编排工具，插件层用来提供更多的选择，例如模块层设计了认证机制，那么可以在插件层实现不同认证来源作为插件。
+Currently, Tachybase aims to handle the framework's core functions and some common business logic, while providing low-code and AI capabilities for easier use. In the future, Tachybase will evolve into a flexible foundation, with different product layers based on it, offering unique positioning. Future versions will continue along the core, module, and plugin design route, while becoming increasingly productized.
 
-现阶段本质上是想把框架的事情，以及一部分业务的通用逻辑做掉，然后提供一定的无代码能力/AI能力方便使用的同时，又高度可扩展，
-未来会演化成灵矶的底座，和灵矶的上层，上层会根据不同的产品有不一样的定位，会继续沿着上述的路线（内核、模块、插件）进行打造，
-但是同时也会是一个高度风格化、产品化的框架。
+# Development Roadmap
 
-# 路线图
+The following is an overview of the development roadmap. The detailed plan will be published before the Chinese New Year along with the relevant application templates.
 
-这里提供一个大图，具体的开发计划会与相关应用模板一并在春节前公布。
+- [x] Kernel: Kernel API
+- [ ] Kernel: Message Mechanism
+- [ ] Kernel: Module API
+- [x] Module: Ant Design-based UI Library
+- [x] Module: Workflow
+- [x] Module: No-code Capability
+- [ ] Module: Cloud Functions
+- [ ] Module: Cloud Components
+- [ ] Module: Message Queue
+- [ ] Module: Scheduled Tasks
+- [x] Plugin: Workflow - Approval
+- [ ] Plugin: Workflow - Data Templates
 
-- [x] 内核：内核 API
-- [ ] 内核：消息机制
-- [ ] 内核：模块 API
-- [x] 模块：工作流
-- [x] 模块：无代码能力
-- [ ] 模块：云函数
-- [ ] 模块：云组件
-- [ ] 模块：消息队列
-- [ ] 模块：定时任务
-- [x] 插件：工作流 - 审批
-- [ ] 插件：工作流 - 数据模板
+UI planning principles: The core mechanisms are designed in the Kernel Layer, and the specific components are provided in the Module Layer.
+
+- [x] Kernel: Modal Interaction (for context-sensitive interactions)
+- [x] Kernel: Tab Interaction (for interactions when a single page cannot contain too much content)
+- [ ] Kernel: Independent Pages (for core or shared content)
+- [x] Module: Basic Components (single-line text, multi-line text, numbers, etc.)
+- [x] Module: Related Components (sub-table, sub-detail, etc.)
+- [x] Module: Specialized Components (dashboard, calendar, Gantt chart, file browser, etc.)
 
 
+# Try
 
-# 应用模板
+[Demo application](https://demos.tachybase.com/admin/628sp6la1mw) 
 
-[Demo 应用](https://demos.tachybase.com/admin/628sp6la1mw) 账号：`tachybase` 密码：`!Admin123.`
-正在制作中，预计春节前上线，目前开放测试，欢迎联系
+- Username：`tachybase` 
+- Password：`!Admin123.`
 
-# 快速开始
+This version is still under development and is expected to go live before Chinese New Year. It is currently available for testing. Please contact us for more information.
+
+# Quick Start
 
 ```bash 
 pnpm install
@@ -62,18 +74,15 @@ pnpm tachybase install
 pnpm dev
 ```
 
-默认的账号为：`tachybase`，默认密码为 `!Admin123.`
+Default username：`tachybase`，password: `!Admin123.`
+The default database is `sqlite`. It is recommended to use a relational database for production environments.
 
-# 开源许可证
+# License
 
-<p>
-此项目在 <a href="./LICENSE">Apache 2.0</a> 下.
-</p>
+This project is licensed under the [Apache 2.0](LICENSE) License。
 
-# 贡献
+# Contributing
 
-我们不限制贡献的方式，积极使用该项目，向我们回馈就是最大的贡献。
-
-- 使用
-- 提建议
-- 提合并请求
+- Provide background information on deployment and usage, and describe the situations where the current system services fall short. Depending on the impact, we will categorize this into different development levels (Kernel, Module, or Plugin).
+- Share usage cases where the current interaction methods do not meet your needs. We will address these based on their impact level.
+- You are welcome to directly contribute code. We currently do not have a dedicated community group, but you can submit ideas through tickets, and we can discuss them together.
