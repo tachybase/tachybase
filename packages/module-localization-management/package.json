@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-localization-management",
   "displayName": "Localization",
-  "version": "0.22.35",
+  "version": "0.22.36",
   "description": "Allows to manage localization resources of the application.",
   "keywords": [
     "System management"

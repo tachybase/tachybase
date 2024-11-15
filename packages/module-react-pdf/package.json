@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-react-pdf",
-  "version": "0.22.35",
+  "version": "0.22.36",
   "main": "dist/server/index.js",
   "dependencies": {},
   "peerDependencies": {

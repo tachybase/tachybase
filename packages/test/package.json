@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/test",
-  "version": "0.22.35",
+  "version": "0.22.36",
   "license": "Apache-2.0",
   "exports": {
     ".": {
