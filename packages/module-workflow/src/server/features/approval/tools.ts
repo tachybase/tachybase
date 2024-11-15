@@ -45,6 +45,7 @@ export async function parsePerson({ node, processor, keyName }) {
   return [...targetPerson];
 }
 
+// TODO: 等前端 approval 重构完成后, 将 summary 名称改为 fuzzySearch
 export async function searchSummaryQuery(context, next, summaryQueryValue) {
   context.action.params.paginate = false;
   await actions.list(context, next);
@@ -52,9 +53,17 @@ export async function searchSummaryQuery(context, next, summaryQueryValue) {
   const resultList = context.body ?? [];
 
   const filteredResultList = resultList.filter((item) => {
-    const summary = item.summary ?? {};
+    const { approvalId, createdAt, createdBy, user, summary = {} } = item;
+    // NOTE: 可查编号,摘要,发起人昵称,创建时间,审批人昵称
+    const targetValueMap = {
+      approvalId,
+      createdName: createdBy?.nickname,
+      createdAt: createdAt.toLocaleString().replace(/\//g, '-'),
+      userName: user?.nickname,
+      ...summary,
+    };
 
-    const haveMatch = Object.values(summary).some((value) => `${value}`.includes(summaryQueryValue));
+    const haveMatch = Object.values(targetValueMap).some((value) => `${value}`.includes(summaryQueryValue));
 
     return haveMatch;
   });
