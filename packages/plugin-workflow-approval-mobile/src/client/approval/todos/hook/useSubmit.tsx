@@ -1,4 +1,4 @@
-import { useActionContext, useAPIClient, useCollection, useTableBlockContext } from '@tachybase/client';
+import { useAPIClient, useCollection, useTableBlockContext } from '@tachybase/client';
 import { useFlowContext } from '@tachybase/plugin-workflow/client';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 
@@ -11,14 +11,15 @@ export function useSubmit(props) {
   const field = useField();
   const api = useAPIClient();
   const form = useForm();
-  const { id } = useContextApprovalExecution();
+  // TODO: 等合并手机端和 pc 端的时候, 注意这里实际名字应该是 useContextApprovalRecords
+  const approvalRecord = useContextApprovalExecution();
   const { status } = useContextApprovalAction();
   const collection = useCollection();
   const needUpdateRecord = props?.source === 'updateRecord';
   return {
     run: async () => {
       try {
-        if (form.values.status) {
+        if (!!approvalRecord.status) {
           return;
         }
         await form.submit();
@@ -34,7 +35,7 @@ export function useSubmit(props) {
           });
         }
         const res = await api.resource('approvalRecords').submit({
-          filterByTk: id,
+          filterByTk: approvalRecord.id,
           values: {
             status,
             needUpdateRecord,

@@ -11,7 +11,7 @@ export function useSubmit(props: any = {}) {
   const api = useAPIClient();
   const form = useForm();
   const collection = useCollection();
-  const approvalExecutions = useContextApprovalRecords();
+  const approvalRecord = useContextApprovalRecords();
   const { status } = useContextApprovalAction();
   const { source } = props;
   const needUpdateRecord = source === 'updateRecord';
@@ -19,7 +19,8 @@ export function useSubmit(props: any = {}) {
   return {
     run: async () => {
       try {
-        if (form.values.status) {
+        // NOTE: 只有审批待办表的状态为 0(待处理), 才可以被审批
+        if (!!approvalRecord.status) {
           return;
         }
         await form.submit();
@@ -37,7 +38,7 @@ export function useSubmit(props: any = {}) {
         }
 
         await api.resource('approvalRecords').submit({
-          filterByTk: approvalExecutions.id,
+          filterByTk: approvalRecord.id,
           values: {
             status,
             needUpdateRecord,
