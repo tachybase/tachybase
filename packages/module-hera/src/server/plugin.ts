@@ -33,12 +33,8 @@ export class PluginCoreServer extends Plugin {
   }
 
   async load() {
-    try {
-      this.app.acl.allow('link-manage', 'init', 'public');
-      this.app.acl.allow('hera', 'version', 'public');
-    } catch (err) {
-      console.warn(err);
-    }
+    this.app.acl.allow('link-manage', 'init', 'public');
+    this.app.acl.allow('hera', 'version', 'public');
   }
 }
 export default PluginCoreServer;

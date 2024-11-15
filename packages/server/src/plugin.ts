@@ -314,12 +314,11 @@ export function InjectedPlugin<T extends Plugin>({
 }) {
   return function (target: { new (...args: any[]): T }, context: ClassDecoratorContext) {
     // TODO fix any
+
     const originalLoad = target.prototype.load;
     target.prototype.load = async function () {
       const services = Services.map((i) => Container.get<any>(i));
       const resources = Resources.map((i) => Container.get<any>(i));
-      Controllers.map(Container.get.bind(Container));
-
       await originalLoad.call(this);
 
       for (const service of services) {
