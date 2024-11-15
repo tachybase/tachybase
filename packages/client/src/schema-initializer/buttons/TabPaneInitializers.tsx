@@ -40,30 +40,6 @@ export const TabPaneInitializers = (props?: any) => {
     };
   };
 
-  const useLoadAction = () => {
-    const api = useAPIClient();
-    const form = useForm();
-    const actionField = useField();
-    const ctx = useActionContext();
-    return {
-      async run() {
-        actionField.data ??= {};
-        actionField.data.loading = true;
-        const { file } = form.values;
-        const { data } = await api.request({
-          url: file.url,
-          baseURL: '/',
-        });
-        const s = data ?? {};
-        Object.values(s.properties).forEach((s) => {
-          insertBeforeEnd(s as ISchema);
-        });
-        actionField.data.loading = false;
-        ctx.setVisible(false);
-      },
-    };
-  };
-
   const useSubmitAction = () => {
     const form = useForm();
     const ctx = useActionContext();
@@ -115,89 +91,6 @@ export const TabPaneInitializers = (props?: any) => {
             },
           },
           properties: {
-            action2: {
-              type: 'void',
-              'x-component': 'Action',
-              'x-component-props': {
-                icon: 'SaveOutlined',
-                style: {
-                  borderColor: 'var(--colorSettings)',
-                  color: 'var(--colorSettings)',
-                  marginRight: 'var(--tb-spacing)',
-                },
-                type: 'dashed',
-                useAction: useDumpAction,
-                'aria-label': getAriaLabel(),
-              },
-              title: '{{t("Dump")}}',
-            },
-            action3: {
-              type: 'void',
-              'x-component': 'Action',
-              'x-component-props': {
-                icon: 'UploadOutlined',
-                style: {
-                  borderColor: 'var(--colorSettings)',
-                  color: 'var(--colorSettings)',
-                  marginRight: 'var(--tb-spacing)',
-                },
-                type: 'dashed',
-                'aria-label': getAriaLabel(),
-              },
-              title: '{{t("Load")}}',
-              properties: {
-                drawer1: {
-                  'x-decorator': 'Form',
-                  'x-component': 'Action.Modal',
-                  'x-component-props': {
-                    width: 520,
-                  },
-                  type: 'void',
-                  title: '{{t("Load")}}',
-                  properties: {
-                    file: {
-                      type: 'object',
-                      title: '{{ t("File") }}',
-                      required: true,
-                      'x-decorator': 'FormItem',
-                      'x-component': 'Upload.Attachment',
-                      'x-component-props': {
-                        action: 'attachments:create',
-                        multiple: false,
-                      },
-                    },
-                    footer: {
-                      'x-component': 'Action.Modal.Footer',
-                      type: 'void',
-                      properties: {
-                        cancel: {
-                          title: '{{t("Cancel")}}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            useAction: () => {
-                              const ctx = useActionContext();
-                              return {
-                                async run() {
-                                  ctx.setVisible(false);
-                                },
-                              };
-                            },
-                          },
-                        },
-                        submit: {
-                          title: '{{t("Submit")}}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            type: 'primary',
-                            useAction: useLoadAction,
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            },
             action1: {
               type: 'void',
               'x-component': 'Action',
