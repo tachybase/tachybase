@@ -268,7 +268,10 @@ const PreviewDocument = ({
                 {contracts.project?.address}
               </Text>
               <Text style={styles.headerRight}>
-                项目联系人：{contracts.project?.contacts.map((contact) => contact.name + ' ' + contact.phone).join(' ')}
+                项目联系人：
+                {contracts.project?.contacts
+                  .map((contact) => contact.name.toString() + ' ' + contact.phone.toString())
+                  .join(' ')}
               </Text>
             </view>
             <View style={styles.spacing} />

@@ -66,4 +66,5 @@ export interface Record_fee_item {
   is_excluded: boolean;
   updatedById: number;
   record_item_id: number;
+  price: number;
 }

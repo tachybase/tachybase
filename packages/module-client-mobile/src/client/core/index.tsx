@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { SchemaComponentOptions } from '@tachybase/client';
+import { MobileProvider, SchemaComponentOptions } from '@tachybase/client';
 
 import {
   ImageSearchInitializer,
@@ -48,67 +48,69 @@ import './assets/svg';
 
 export const MobileCore: React.FC<PropsWithChildren> = (props) => {
   return (
-    <SchemaComponentOptions
-      components={{
-        MMenuBlockInitializer,
-        MSettingsBlockInitializer,
-        MContainer,
-        MMenu,
-        MTabBar,
-        MPage,
-        MHeader,
-        MSettings,
+    <MobileProvider>
+      <SchemaComponentOptions
+        components={{
+          MMenuBlockInitializer,
+          MSettingsBlockInitializer,
+          MContainer,
+          MMenu,
+          MTabBar,
+          MPage,
+          MHeader,
+          MSettings,
 
-        SwiperBlockInitializer,
-        SwiperBlock,
-        SwiperPage,
+          SwiperBlockInitializer,
+          SwiperBlock,
+          SwiperPage,
 
-        TabSearch,
-        TabSearchProvider,
-        TabSearchBlockInitializer,
-        TabSearchFieldItem,
-        TabSearchFieldMItem,
-        TabSearchCollapsibleInputItem,
-        TabSearchCollapsibleInputMItem,
-        TabSearchFieldSchemaInitializerGadget,
+          TabSearch,
+          TabSearchProvider,
+          TabSearchBlockInitializer,
+          TabSearchFieldItem,
+          TabSearchFieldMItem,
+          TabSearchCollapsibleInputItem,
+          TabSearchCollapsibleInputMItem,
+          TabSearchFieldSchemaInitializerGadget,
 
-        ImageSearchView,
-        ImageSearchInitializer,
-        ImageSearchProvider,
-        ImageSearchItemIntializer,
-        ImageSearchItemToolbar,
-        ImageSearchItemView,
-        MInput,
-        MCheckbox,
-        MDatePicker,
-        MRadio,
-        MImageUploader,
-        MCascader,
-        MSelect,
-        // mobile alternative components
-        Input: MInput,
-        'Input.TextArea': MInput.TextArea,
-        'Radio.Group': MRadio.Group,
-        'Checkbox.Group': MCheckbox.Group,
-        // 只支持图片，所以暂时禁用
-        // 'Upload.Attachment': MImageUploader,
-        DatePicker: MDatePicker,
-        Select: MSelect,
-        AlternativeAssociationSelect: MSelect,
-        Cascader: MCascader,
-      }}
-      scope={{
-        useGridCardBlockItemProps,
-        useGridCardBlockProps,
-        useSwiperBlockProps,
-        usePropsOptionalImageSearchItemField: usePropsOptionalImageSearchItemField,
-        usePropsRelatedImageSearchItemField: usePropsRelatedImageSearchItemField,
-        useTabSearchFieldItemProps,
-        useTabSearchFieldItemRelatedProps,
-      }}
-    >
-      {props.children}
-    </SchemaComponentOptions>
+          ImageSearchView,
+          ImageSearchInitializer,
+          ImageSearchProvider,
+          ImageSearchItemIntializer,
+          ImageSearchItemToolbar,
+          ImageSearchItemView,
+          MInput,
+          MCheckbox,
+          MDatePicker,
+          MRadio,
+          MImageUploader,
+          MCascader,
+          MSelect,
+          // mobile alternative components
+          Input: MInput,
+          'Input.TextArea': MInput.TextArea,
+          'Radio.Group': MRadio.Group,
+          'Checkbox.Group': MCheckbox.Group,
+          // 只支持图片，所以暂时禁用
+          // 'Upload.Attachment': MImageUploader,
+          DatePicker: MDatePicker,
+          Select: MSelect,
+          AlternativeAssociationSelect: MSelect,
+          Cascader: MCascader,
+        }}
+        scope={{
+          useGridCardBlockItemProps,
+          useGridCardBlockProps,
+          useSwiperBlockProps,
+          usePropsOptionalImageSearchItemField: usePropsOptionalImageSearchItemField,
+          usePropsRelatedImageSearchItemField: usePropsRelatedImageSearchItemField,
+          useTabSearchFieldItemProps,
+          useTabSearchFieldItemRelatedProps,
+        }}
+      >
+        {props.children}
+      </SchemaComponentOptions>
+    </MobileProvider>
   );
 };
 

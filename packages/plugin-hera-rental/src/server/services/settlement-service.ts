@@ -105,12 +105,21 @@ export class SettlementService {
             if (rule.products.length) {
               const productLength = rule.products.length;
               let productCategory = 'category';
+              let isNewProduct = true;
               if (productLength === 1) {
-                if (!ruleProduct.includes(rule.products[0].product_id)) ruleProduct.push(rule.products[0].product_id);
+                if (!ruleProduct.includes(rule.products[0].product_id)) {
+                  ruleProduct.push(rule.products[0].product_id);
+                } else {
+                  isNewProduct = false;
+                }
                 productCategory = rule.products[0].product_id > RulesNumber ? 'category' : 'product';
               } else {
                 rule.products.forEach((item) => {
-                  if (!ruleProduct.includes(item.product_id)) ruleProduct.push(item.product_id);
+                  if (!ruleProduct.includes(item.product_id)) {
+                    ruleProduct.push(item.product_id);
+                  } else {
+                    isNewProduct = false;
+                  }
                 });
               }
               settlementAbout.records.forEach((item) => {
@@ -188,7 +197,7 @@ export class SettlementService {
 
                           const countData = {
                             ...data,
-                            name: productLength > 1 ? rule.comment ?? '' : productName.name, //名称
+                            name: productLength > 1 ? (rule.comment ?? '') : productName.name, //名称
                             label:
                               productLength > 1
                                 ? rule.comment
@@ -258,8 +267,8 @@ export class SettlementService {
                         settlement_id: settlementsId, //合同ID
                         movement: item.movement, //出入库状态
                         date: item.date, //时间
-                        name: productLength > 1 ? rule.comment ?? '' : recordItem.product.name, //名称
-                        label: productLength > 1 ? rule.comment ?? '' : recordItem.product.name, //规格
+                        name: productLength > 1 ? (rule.comment ?? '') : recordItem.product.name, //名称
+                        label: productLength > 1 ? (rule.comment ?? '') : recordItem.product.name, //规格
                         category: item.category, //费用类别
                         //租赁天数  历史订单就存开始日期到结束日期  当前订单存储订单日期到结束日期
                         days: day,
@@ -419,6 +428,56 @@ export class SettlementService {
                           });
                         }
                       }
+                    }
+                  });
+                }
+
+                //计算有关联产品无规则记录的费用订单
+                if (isNewProduct) {
+                  item.record_items.forEach((recordItem) => {
+                    if (
+                      rule.products.find(
+                        (productItem) =>
+                          (productItem.product_id > RulesNumber &&
+                            productItem.product_id - RulesNumber === recordItem.product.category_id) ||
+                          productItem.product_id === recordItem.product.id,
+                      )
+                    ) {
+                      recordItem.record_item_fee_items?.forEach((feeItem) => {
+                        if (
+                          !rule.product_fee.length ||
+                          !rule.product_fee.find((fee) => fee.fee_product_id === feeItem.product_id)
+                        ) {
+                          let productname;
+                          switch (productCategory) {
+                            case 'category':
+                              productname = recordItem.product.name;
+                              break;
+                            case 'product':
+                              productname = recordItem.product.label;
+                              break;
+                          }
+                          const spec = feeItem.product.spec;
+                          const name = feeItem.product.name;
+                          const count = feeItem.count;
+                          const itemCount = feeItem.count;
+                          createFeesDatas.push({
+                            settlement_id: settlementsId,
+                            date: item.date,
+                            name: productname + '-' + spec,
+                            label: recordItem.product.label + '-' + spec,
+                            category: name,
+                            movement: item.movement,
+                            item_count: itemCount,
+                            count: count,
+                            unit_price: feeItem.price,
+                            amount: feeItem.price * count,
+                            unit_name: '根',
+                            is_excluded: false,
+                            productCategory,
+                          });
+                        }
+                      });
                     }
                   });
                 }
