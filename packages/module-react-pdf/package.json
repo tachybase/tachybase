@@ -1,0 +1,11 @@
+{
+  "name": "@tachybase/module-react-pdf",
+  "version": "0.22.35",
+  "main": "dist/server/index.js",
+  "dependencies": {},
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}

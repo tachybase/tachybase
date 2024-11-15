@@ -2,10 +2,10 @@ import fs from 'fs';
 import { basename, resolve } from 'path';
 import { Model } from '@tachybase/database';
 import { LoggerOptions } from '@tachybase/logger';
-import { fsExists, importModule } from '@tachybase/utils';
+import { Container, fsExists, importModule } from '@tachybase/utils';
 
 import { globSync } from 'glob';
-import type { TFuncKey, TOptions } from 'i18next';
+import type { ParseKeys, TOptions } from 'i18next';
 
 import { Application } from './application';
 import { getExposeChangelogUrl, getExposeReadmeUrl, InstallOptions } from './plugin-manager';
@@ -32,7 +32,7 @@ export interface PluginOptions {
   [key: string]: any;
 }
 
-export abstract class Plugin<O = any> implements PluginInterface {
+export abstract class Plugin implements PluginInterface {
   options: any;
   app: Application;
   features: (typeof Plugin)[];
@@ -243,7 +243,7 @@ export abstract class Plugin<O = any> implements PluginInterface {
     return [];
   }
 
-  t(text: TFuncKey | TFuncKey[], options: TOptions = {}) {
+  t(text: ParseKeys | ParseKeys[], options: TOptions = {}) {
     return this.app.i18n.t(text, { ns: this.options['packageName'], ...(options as any) });
   }
 
@@ -301,6 +301,38 @@ export abstract class Plugin<O = any> implements PluginInterface {
 
     return results;
   }
+}
+
+export function InjectedPlugin<T extends Plugin>({
+  Services = [],
+  Resources = [],
+  Controllers = [],
+}: {
+  Services?: any[];
+  Resources?: any[];
+  Controllers?: any[];
+}) {
+  return function (target: { new (...args: any[]): T }, context: ClassDecoratorContext) {
+    // TODO fix any
+    const originalLoad = target.prototype.load;
+    target.prototype.load = async function () {
+      const services = Services.map((i) => Container.get<any>(i));
+      const resources = Resources.map((i) => Container.get<any>(i));
+      Controllers.map(Container.get.bind(Container));
+
+      await originalLoad.call(this);
+
+      for (const service of services) {
+        await service.load?.();
+      }
+
+      for (const resource of resources) {
+        await resource.load?.();
+      }
+    };
+
+    return target;
+  };
 }
 
 export default Plugin;

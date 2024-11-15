@@ -21,6 +21,11 @@ export class FontManager {
         }, []);
     });
   }
+
+  async load() {
+    await this.loadFonts();
+  }
+
   async loadFonts(flag = true) {
     const fonts = [
       {

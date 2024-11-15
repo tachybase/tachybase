@@ -48,7 +48,7 @@ export class PluginGenerator extends Generator {
   }
 
   async writing() {
-    const { name } = this.context;
+    const name = this.context.name.split('/').pop();
     const target = resolve(process.cwd(), 'packages/', name);
     if (existsSync(target)) {
       this.log(chalk.red(`[${name}] plugin already exists.`));

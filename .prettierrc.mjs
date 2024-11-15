@@ -1,4 +1,7 @@
-module.exports = {
+// @ts-check
+
+/** @type {import("prettier").Config} */
+export default {
   plugins: [
     'prettier-plugin-sql',
     'prettier-plugin-packagejson',
@@ -17,8 +20,8 @@ module.exports = {
     '',
     '^[.]', // relative imports
   ],
-  importOrderTypeScriptVersion: '5.4.5',
-  importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
+  importOrderTypeScriptVersion: '5.6.3',
+  importOrderParserPlugins: ['typescript', 'jsx', '["decorators", { "decoratorsBeforeExport": true }]'],
   overrides: [
     {
       files: '.prettierrc',

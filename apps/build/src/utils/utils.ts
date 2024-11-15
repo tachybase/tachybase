@@ -9,36 +9,9 @@ import { InlineConfig as ViteConfig } from 'vite';
 
 import { NODE_MODULES } from '../constant';
 
-let previousColor = '';
-function randomColor() {
-  const colors = [
-    'green',
-    'yellow',
-    'blue',
-    'magenta',
-    'cyan',
-    'gray',
-    'greenBright',
-    'yellowBright',
-    'blueBright',
-    'magentaBright',
-    'cyanBright',
-  ];
-
-  let color = previousColor;
-  while (color === previousColor) {
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    color = colors[randomIndex];
-  }
-
-  previousColor = color;
-  return chalk[color];
-}
-
 export type PkgLog = (msg: string, ...args: any[]) => void;
 export const getPkgLog = (pkgName: string) => {
-  const pkgColor = randomColor();
-  const pkgStr = chalk.bold(pkgColor(pkgName));
+  const pkgStr = chalk.underline.magentaBright(pkgName);
   const pkgLog: PkgLog = (msg: string, ...optionalParams: any[]) => console.log(`${pkgStr}: ${msg}`, ...optionalParams);
   return pkgLog;
 };

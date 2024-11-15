@@ -166,6 +166,9 @@ export async function buildPackage(
   if (hasTar) {
     await tarPlugin(pkg.dir, log);
   }
+
+  // empty line
+  console.log();
 }
 
 function runScript(args: string[], cwd: string, envs: Record<string, string> = {}) {
