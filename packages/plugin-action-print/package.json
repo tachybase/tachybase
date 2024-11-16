@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-print",
   "displayName": "Action: Print",
-  "version": "0.22.36",
+  "version": "0.22.37",
   "description": "Calls the browser's print function to print a record.",
   "keywords": [
     "Actions"
