@@ -118,25 +118,25 @@ export default {
         userId,
         authenticator: {
           $in: nameList,
-        }
+        },
       },
       raw: true,
     });
     for (const item of list) {
-      const userItem = userInfo.find((info) => info.authenticator === item.name)
-      item.bind = userItem? true : false;
-      item.nickname = userItem? userItem.nickname : '';
+      const userItem = userInfo.find((info) => info.authenticator === item.name);
+      item.bind = userItem ? true : false;
+      item.nickname = userItem ? userItem.nickname : '';
     }
     ctx.body = list;
     await next();
   },
-  unbind: async (ctx: Context, next: Next) =>  {
+  unbind: async (ctx: Context, next: Next) => {
     const userId = ctx.auth?.user?.id;
     const { authenticator } = ctx.action.params;
     if (!userId) {
       ctx.throw(400, ctx.t('User not found', { ns: namespace }));
     }
-    await ctx.db.getRepository<MultipleRelationRepository>('authenticators.users', authenticator).remove([ userId ]);
+    await ctx.db.getRepository<MultipleRelationRepository>('authenticators.users', authenticator).remove([userId]);
     return next();
-  }
+  },
 };

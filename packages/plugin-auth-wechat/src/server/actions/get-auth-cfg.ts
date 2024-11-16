@@ -1,6 +1,8 @@
 import { Context, Next } from '@tachybase/actions';
-import { AUTH_TIMEOUT_MINUTE, weChatApiOauthScope } from '../../constants';
 import Application from '@tachybase/server';
+
+import { AUTH_TIMEOUT_MINUTE, weChatApiOauthScope } from '../../constants';
+
 export const getAuthCfg = async (ctx: Context, next: Next) => {
   const { redirect, bind } = ctx.action.params.values;
   if (bind) {
@@ -30,10 +32,7 @@ const getBindAuthCfg = (ctx, redirect: string, appID: string) => {
   }
   let state = `redirect=${redirect}&app=${app}&name=${ctx.headers['x-authenticator']}`;
 
-  const token = ctx.app.authManager.jwt.sign(
-    { userId: ctx.auth.user.id },
-    { expiresIn: `${AUTH_TIMEOUT_MINUTE}m` },
-  );
+  const token = ctx.app.authManager.jwt.sign({ userId: ctx.auth.user.id }, { expiresIn: `${AUTH_TIMEOUT_MINUTE}m` });
   state += `&bindToken=${token}`;
   return {
     appId: appID,
@@ -41,4 +40,4 @@ const getBindAuthCfg = (ctx, redirect: string, appID: string) => {
     redirectUrl: encodeURIComponent(redirectUrl),
     state: encodeURIComponent(encodeURIComponent(state)),
   };
-}
+};

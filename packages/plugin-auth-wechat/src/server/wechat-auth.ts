@@ -1,8 +1,8 @@
+import { Context } from '@tachybase/actions';
 import { AuthConfig, BaseAuth } from '@tachybase/auth';
+import { dayjs } from '@tachybase/utils';
 
 import { namespace, weChatApiOauthBaseUrl, weChatApiOauthScope } from '../constants';
-import { dayjs } from '@tachybase/utils';
-import { Context } from '@tachybase/actions';
 
 export { Model } from '@tachybase/database';
 
@@ -39,7 +39,7 @@ export class WeChatAuth extends BaseAuth {
     }
   }
 
-  async getUnionid(getInfo = false): Promise<{ unionid?: string, info?: any }> {
+  async getUnionid(getInfo = false): Promise<{ unionid?: string; info?: any }> {
     const { ctx } = this;
     let { code } = ctx.request.query || {};
     code = Array.isArray(code) ? code[0] : code;
@@ -64,7 +64,7 @@ export class WeChatAuth extends BaseAuth {
         );
         const getInfoRspJson = await getInfoRsp.json();
         if (!getInfoRspJson.errcode) {
-          return { unionid, info: getInfoRspJson};
+          return { unionid, info: getInfoRspJson };
         }
       }
       return { unionid };
@@ -105,7 +105,9 @@ export class WeChatAuth extends BaseAuth {
     }
     // 如果后续有登录后绑定的场景，服务端需要校验 state
     const state = encodeURIComponent(
-      encodeURIComponent(`redirect=${redirect}&app=${app}&name=${this.ctx.headers['x-authenticator']}&ts=${dayjs().unix()}`),
+      encodeURIComponent(
+        `redirect=${redirect}&app=${app}&name=${this.ctx.headers['x-authenticator']}&ts=${dayjs().unix()}`,
+      ),
     );
     return {
       appId: appID,

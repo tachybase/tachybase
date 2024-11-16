@@ -11,7 +11,7 @@ import { useForm } from '@tachybase/schema';
 import { uid } from '@tachybase/utils/client';
 
 import { useFlowContext } from '../../../../../FlowContext';
-import { CollectionApprovalTodos } from '../../../collections/approvalRecords.collection';
+import { collectionApprovalTodos } from '../../../collections/approvalRecords';
 import { NAMESPACE } from '../../../locale';
 import { SchemaAddBlock } from '../../trigger/launcher-interface/SchemaAddBlock.component';
 import { ApproverBlock } from './ApproverBlock.view';
@@ -50,14 +50,14 @@ export const ApproverInterfaceComponent = () => {
   const [, setId] = useState(uid());
   const { workflow } = useFlowContext();
   const { styles } = useStyles();
-  const commentFields = CollectionApprovalTodos.fields.filter((field) => field.name === 'comment');
+  const commentFields = collectionApprovalTodos.fields.filter((field) => field.name === 'comment');
   const schema = getSchema({ styles });
 
   return (
     <ExtendCollectionsProvider
       collections={[
         {
-          ...CollectionApprovalTodos,
+          ...collectionApprovalTodos,
           fields: commentFields,
         },
       ]}

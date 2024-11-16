@@ -1,8 +1,8 @@
 import { Context, Next } from '@tachybase/actions';
 import { AppSupervisor } from '@tachybase/server';
 import { dayjs } from '@tachybase/utils';
-import { AUTH_TIMEOUT_MINUTE } from '../../constants';
 
+import { AUTH_TIMEOUT_MINUTE } from '../../constants';
 
 export const redirect = async (ctx: Context, next: Next) => {
   let { state } = ctx.request.query;
