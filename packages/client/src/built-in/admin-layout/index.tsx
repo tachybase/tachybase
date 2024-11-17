@@ -177,7 +177,7 @@ export const InternalAdminLayout = (props: any) => {
   const params = useParams<any>();
   const { styles } = useStyles();
   return (
-    <Layout>
+    <Layout className={styles.layout}>
       <Layout.Header className={styles.header}>
         <div className={styles.headerA}>
           <div className={styles.headerB}>
@@ -202,13 +202,14 @@ export const InternalAdminLayout = (props: any) => {
           </div>
         </div>
       </Layout.Header>
-      {params.name && <Layout.Sider className={styles.sider} theme={'light'} ref={sideMenuRef}></Layout.Sider>}
-      <Layout.Content className={styles.main}>
-        <header className={styles.mainHeader}></header>
-        <div className="amplifier-block">
-          <AdminContent />
-        </div>
-      </Layout.Content>
+      <Layout>
+        {params.name && <Layout.Sider className={styles.sider} theme={'light'} ref={sideMenuRef}></Layout.Sider>}
+        <Layout.Content className={styles.main}>
+          <div className="amplifier-block">
+            <AdminContent />
+          </div>
+        </Layout.Content>
+      </Layout>
     </Layout>
   );
 };

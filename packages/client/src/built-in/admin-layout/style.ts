@@ -2,6 +2,12 @@ import { createStyles } from 'antd-style';
 
 export const useStyles = createStyles(({ css, token }) => {
   return {
+    layout: css`
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-height: 100vh;
+    `,
     header: css`
       .ant-menu.ant-menu-dark .ant-menu-item-selected,
       .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected,
@@ -17,13 +23,9 @@ export const useStyles = createStyles(({ css, token }) => {
         color: ${token.colorTextHeaderMenuHover} !important;
       }
 
-      position: fixed;
-      left: 0;
-      right: 0;
       height: var(--tb-header-height);
       line-height: var(--tb-header-height);
       padding: 0;
-      z-index: 100;
       background-color: ${token.colorBgHeader} !important;
 
       .ant-menu {
@@ -102,9 +104,7 @@ export const useStyles = createStyles(({ css, token }) => {
       display: flex;
       flex-direction: column;
       position: relative;
-      overflow-y: auto;
-      height: 100vh;
-      max-height: 100vh;
+      height: 100%;
       > div {
         position: relative;
       }
@@ -116,13 +116,6 @@ export const useStyles = createStyles(({ css, token }) => {
         z-index: 0;
         padding: 0px 50px;
       }
-    `,
-    mainHeader: css`
-      flex-shrink: 0;
-      height: var(--tb-header-height);
-      line-height: var(--tb-header-height);
-      background: transparent;
-      pointer-events: none;
     `,
   };
 });

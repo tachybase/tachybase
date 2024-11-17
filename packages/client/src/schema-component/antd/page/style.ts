@@ -10,6 +10,9 @@ export const useStyles = genStyleHook('tb-page', (token) => {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
+      height: 'calc(100vh - var(--tb-header-height))',
+      overflow: 'hidden',
+
       '&:hover': { '> .general-schema-designer': { display: 'block' } },
       '.ant-page-header': { zIndex: 1, position: 'relative' },
       '> .general-schema-designer': {
@@ -38,6 +41,8 @@ export const useStyles = genStyleHook('tb-page', (token) => {
           },
         },
       },
+
+      '.tb-page-header-wrapper': {},
 
       '.pageHeaderCss': {
         backgroundColor: token.colorBgContainer,
@@ -111,8 +116,17 @@ export const useStyles = genStyleHook('tb-page', (token) => {
       },
 
       '.tb-page-wrapper': {
-        margin: token.marginLG,
         flex: 1,
+        padding: token.paddingMD,
+        paddingBottom: 0,
+        overflowX: 'hidden',
+        overflowY: 'scroll',
+      },
+
+      '.tb-tabs-wrapper': {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
       },
     },
   };

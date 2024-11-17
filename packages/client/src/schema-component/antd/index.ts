@@ -45,6 +45,7 @@ export * from './remote-select';
 export * from './rich-text';
 export * from './select';
 export * from './space';
+export * from './scroll-area';
 export * from './table';
 export * from './table-v2';
 export * from './tabs';

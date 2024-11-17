@@ -10,7 +10,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 
-import { FormDialog } from '..';
+import { FormDialog, ScrollArea } from '..';
 import { useToken } from '../__builtins__';
 import { useStyles as useAClStyles } from '../../../built-in/acl/style';
 import { useDocumentTitle } from '../../../built-in/document-title';
@@ -78,6 +78,7 @@ export const Page = (props) => {
           ref={(ref) => {
             setHeight(Math.floor(ref?.getBoundingClientRect().height || 0) + 1);
           }}
+          className="tb-page-header-wrapper"
         >
           {!disablePageHeader && (
             <AntdPageHeader
@@ -101,61 +102,64 @@ export const Page = (props) => {
                         }, 50);
                       }}
                       tabBarExtraContent={
-                        dn.designable && (
-                          <Button
-                            aria-label={getAriaLabel('tabs')}
-                            icon={<PlusOutlined />}
-                            className={'addTabBtn'}
-                            type={'dashed'}
-                            onClick={async () => {
-                              const values = await FormDialog(
-                                t('Add tab'),
-                                () => {
-                                  return (
-                                    <SchemaComponentOptions
-                                      scope={options.scope}
-                                      components={{ ...options.components }}
-                                    >
-                                      <FormLayout layout={'vertical'}>
-                                        <SchemaComponent
-                                          schema={{
-                                            properties: {
-                                              title: {
-                                                title: t('Tab name'),
-                                                'x-component': 'Input',
-                                                'x-decorator': 'FormItem',
-                                                required: true,
+                        <div className="tb-tabs-wrapper">
+                          <ScrollArea />
+                          {dn.designable && (
+                            <Button
+                              aria-label={getAriaLabel('tabs')}
+                              icon={<PlusOutlined />}
+                              className={'addTabBtn'}
+                              type={'dashed'}
+                              onClick={async () => {
+                                const values = await FormDialog(
+                                  t('Add tab'),
+                                  () => {
+                                    return (
+                                      <SchemaComponentOptions
+                                        scope={options.scope}
+                                        components={{ ...options.components }}
+                                      >
+                                        <FormLayout layout={'vertical'}>
+                                          <SchemaComponent
+                                            schema={{
+                                              properties: {
+                                                title: {
+                                                  title: t('Tab name'),
+                                                  'x-component': 'Input',
+                                                  'x-decorator': 'FormItem',
+                                                  required: true,
+                                                },
+                                                icon: {
+                                                  title: t('Icon'),
+                                                  'x-component': 'IconPicker',
+                                                  'x-decorator': 'FormItem',
+                                                },
                                               },
-                                              icon: {
-                                                title: t('Icon'),
-                                                'x-component': 'IconPicker',
-                                                'x-decorator': 'FormItem',
-                                              },
-                                            },
-                                          }}
-                                        />
-                                      </FormLayout>
-                                    </SchemaComponentOptions>
-                                  );
-                                },
-                                theme,
-                              ).open({
-                                initialValues: {},
-                              });
-                              const { title, icon } = values;
-                              dn.insertBeforeEnd({
-                                type: 'void',
-                                title,
-                                'x-icon': icon,
-                                'x-component': 'Grid',
-                                'x-initializer': 'page:addBlock',
-                                properties: {},
-                              });
-                            }}
-                          >
-                            {t('Add tab')}
-                          </Button>
-                        )
+                                            }}
+                                          />
+                                        </FormLayout>
+                                      </SchemaComponentOptions>
+                                    );
+                                  },
+                                  theme,
+                                ).open({
+                                  initialValues: {},
+                                });
+                                const { title, icon } = values;
+                                dn.insertBeforeEnd({
+                                  type: 'void',
+                                  title,
+                                  'x-icon': icon,
+                                  'x-component': 'Grid',
+                                  'x-initializer': 'page:addBlock',
+                                  properties: {},
+                                });
+                              }}
+                            >
+                              {t('Add tab')}
+                            </Button>
+                          )}
+                        </div>
                       }
                       items={fieldSchema.mapProperties((schema) => {
                         return {
@@ -177,6 +181,7 @@ export const Page = (props) => {
                   </DndContext>
                 )
               }
+              extra={!enablePageTabs && <ScrollArea />}
             />
           )}
         </div>
