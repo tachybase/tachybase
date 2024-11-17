@@ -4,23 +4,20 @@ import {
   ResourceActionProvider,
   SchemaComponent,
   useAPIClient,
-  useRecord,
+  useCollectionRecordData,
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
+import { ExecutionLink, executionSchema, ExecutionStatusColumn, OpenDrawer } from '@tachybase/module-workflow/client';
 import { ISchema, useForm } from '@tachybase/schema';
 
 import { Button, Space } from 'antd';
 
-import { ExecutionStatusColumn } from '../../components/ExecutionStatus';
-import OpenDrawer from '../../components/OpenDrawer';
-import { ExecutionLink } from '../../ExecutionLink';
-import { lang } from '../../locale';
-import { executionSchema } from '../../schemas/executions';
+import { lang } from '../locale';
 import { dispatchers } from './collections/dispatchers';
 
 export const ExecutionResourceProvider = ({ request, filter = {}, ...others }) => {
-  const webhook = useRecord();
+  const webhook = useCollectionRecordData();
   const props = {
     ...others,
     request: {
@@ -40,7 +37,7 @@ export const ExecutionResourceProvider = ({ request, filter = {}, ...others }) =
 
 export const useTestActionProps = () => {
   const form = useForm();
-  const webhook = useRecord();
+  const webhook = useCollectionRecordData();
   const api = useAPIClient();
   return {
     async onClick() {
@@ -461,7 +458,7 @@ const schema: ISchema = {
                   'x-decorator': 'OpenDrawer',
                   'x-decorator-props': {
                     component: function Com({ children, onClick }) {
-                      const webhook = useRecord();
+                      const webhook = useCollectionRecordData();
                       return (
                         <Space size="small">
                           {children}

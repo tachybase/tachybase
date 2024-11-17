@@ -11,7 +11,7 @@
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-workflow": "workspace:*",
+    "@tachybase/module-workflow": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"

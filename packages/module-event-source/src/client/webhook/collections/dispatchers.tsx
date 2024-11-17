@@ -1,7 +1,5 @@
-import { CollectionOptions } from '@tachybase/client';
+import { CollectionOptions, tval } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
-
-import { tval } from '../../../locale';
 
 export const dispatchers: CollectionOptions = {
   name: 'webhooks',

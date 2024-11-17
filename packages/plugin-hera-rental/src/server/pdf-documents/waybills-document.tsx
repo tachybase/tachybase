@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Document, Page, renderToStream, StyleSheet, Text, View } from '@hera/plugin-core';
+import { Document, Page, renderToStream, StyleSheet, Text, View } from '@tachybase/module-pdf';
 
 import { Waybill } from '../../interfaces/waybill';
 import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';

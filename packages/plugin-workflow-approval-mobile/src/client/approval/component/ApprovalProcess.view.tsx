@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { createStyles, useCurrentUserContext } from '@tachybase/client';
-import { EXECUTION_STATUS } from '@tachybase/plugin-workflow/client';
+import { EXECUTION_STATUS } from '@tachybase/module-workflow/client';
 import { dayjs } from '@tachybase/utils/client';
 
 import { Space, Steps, Tag } from 'antd-mobile';

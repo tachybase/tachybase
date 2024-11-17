@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAPIClient, useCollectionManager, useCompile } from '@tachybase/client';
-import { ExecutionStatusOptionsMap } from '@tachybase/plugin-workflow/client';
+import { ExecutionStatusOptionsMap } from '@tachybase/module-workflow/client';
 import { observer } from '@tachybase/schema';
 import { dayjs } from '@tachybase/utils/client';
 

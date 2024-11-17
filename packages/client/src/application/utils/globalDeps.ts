@@ -2,6 +2,7 @@ import React from 'react';
 import * as tachybaseComponents from '@tachybase/components';
 import * as tachybaseEvaluators from '@tachybase/evaluators/client';
 import type { RequireJS } from '@tachybase/requirejs';
+import * as tachybaseRequirejs from '@tachybase/requirejs';
 import * as tachybaseSchema from '@tachybase/schema';
 import * as tachybaseSDK from '@tachybase/sdk';
 import * as tachybaseClientUtils from '@tachybase/utils/client';
@@ -58,6 +59,7 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('@tachybase/evaluators/client', () => tachybaseEvaluators);
   requirejs.define('@tachybase/sdk', () => tachybaseSDK);
   requirejs.define('@tachybase/schema', () => tachybaseSchema);
+  requirejs.define('@tachybase/requirejs', () => tachybaseRequirejs);
   requirejs.define('@tachybase/components', () => tachybaseComponents);
 
   // dnd-kit 相关

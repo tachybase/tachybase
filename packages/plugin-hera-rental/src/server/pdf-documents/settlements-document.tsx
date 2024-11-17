@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { Document, Image, Page, renderToStream, StyleSheet, Text, View } from '@tachybase/module-pdf';
 
-import { Document, Image, Page, renderToStream, StyleSheet, Text, View } from '@hera/plugin-core';
 import _ from 'lodash';
 import * as QRCode from 'qrcode';
 

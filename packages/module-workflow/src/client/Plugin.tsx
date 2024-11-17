@@ -22,7 +22,6 @@ import { PluginResponse } from './features/response';
 import { PluginSql } from './features/sql';
 import { PluginTriggerInstruction } from './features/trigger-instruction/plugin';
 import { PluginVariables } from './features/variables';
-import { PluginWebhook } from './features/webhook/plugin';
 import { NAMESPACE } from './locale';
 import { Instruction } from './nodes';
 import CalculationInstruction from './nodes/calculation';
@@ -95,7 +94,6 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginTriggerInstruction);
     await this.pm.add(PluginApproval);
     await this.pm.add(PluginWorkflowNoticeClient);
-    await this.pm.add(PluginWebhook);
   }
 
   async load() {

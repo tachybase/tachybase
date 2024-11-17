@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/server';
 
-export class ModuleReactPdfServer extends Plugin {
+export class ModuleEventSourceServer extends Plugin {
   async afterAdd() {}
 
   async beforeLoad() {}
@@ -16,4 +16,4 @@ export class ModuleReactPdfServer extends Plugin {
   async remove() {}
 }
 
-export default ModuleReactPdfServer;
+export default ModuleEventSourceServer;

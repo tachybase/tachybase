@@ -1,5 +1,5 @@
 import React, { createContext, useEffect } from 'react';
-import { useFlowContext } from '@tachybase/plugin-workflow/client';
+import { useFlowContext } from '@tachybase/module-workflow/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
 
 export const ManualActionStatusContext = createContext<number | null>(null);

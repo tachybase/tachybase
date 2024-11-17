@@ -10,11 +10,10 @@ import {
 import { DepartmentsPlugin } from './features/departments';
 import CalcField from './fields/calc';
 import TstzrangeField from './fields/tstzrange';
-import { FontManager } from './services/font-manager';
 import { WebControllerService as WebService } from './services/web-service';
 
 @InjectedPlugin({
-  Services: [FontManager, WebService],
+  Services: [WebService],
   Controllers: [
     RobotController,
     TokenConfigurationController,

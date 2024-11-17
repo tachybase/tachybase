@@ -1,4 +1,4 @@
-import { FlowNodeModel, IJob, Instruction, InstructionResult, JOB_STATUS, Processor } from '@tachybase/plugin-workflow';
+import { FlowNodeModel, IJob, Instruction, InstructionResult, JOB_STATUS, Processor } from '@tachybase/module-workflow';
 
 export class MessageInstruction extends Instruction {
   async run(node: FlowNodeModel, input: any, processor: Processor): Promise<IJob> {

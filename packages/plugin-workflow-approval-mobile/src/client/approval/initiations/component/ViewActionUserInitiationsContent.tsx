@@ -8,7 +8,7 @@ import {
   useDestroyAction,
   useFormBlockContext,
 } from '@tachybase/client';
-import { DetailsBlockProvider } from '@tachybase/plugin-workflow/client';
+import { DetailsBlockProvider } from '@tachybase/module-workflow/client';
 import { useForm } from '@tachybase/schema';
 
 import { NavBar, Skeleton, TabBar } from 'antd-mobile';

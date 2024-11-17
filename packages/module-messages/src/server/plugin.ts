@@ -1,5 +1,5 @@
 import { Model } from '@tachybase/database';
-import { PluginWorkflow } from '@tachybase/plugin-workflow';
+import { PluginWorkflow } from '@tachybase/module-workflow';
 import { Gateway, Plugin } from '@tachybase/server';
 
 import { MessageInstruction } from './instructions/message-instruction';

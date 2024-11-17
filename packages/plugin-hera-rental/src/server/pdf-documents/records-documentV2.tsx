@@ -1,7 +1,7 @@
 import React from 'react';
+import { Document, Image, Page, renderToStream, StyleSheet, Text, View } from '@tachybase/module-pdf';
 import { dayjs } from '@tachybase/utils';
 
-import { Document, Image, Page, renderToStream, StyleSheet, Text, View } from '@hera/plugin-core';
 import * as QRCode from 'qrcode';
 
 import { RecordCategory } from '../../utils/constants';
@@ -24,7 +24,7 @@ const PreviewDocument = ({
   detail: any;
   record: any[];
   priceRule: any[];
-  printSetup: String;
+  printSetup: string;
   printStyle: any;
 }) => {
   const fontSizes = {
@@ -518,8 +518,8 @@ export const renderItV2 = async (rent: {
   detail: any;
   record: any[];
   priceRule: any[];
-  isDouble: Number;
-  printSetup: String;
+  isDouble: number;
+  printSetup: string;
   printStyle: any;
 }) => {
   const url = 'https://shcx.daoyoucloud.com/admin';

@@ -1,0 +1,25 @@
+{
+  "name": "@tachybase/module-pdf",
+  "version": "0.22.37",
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "@babel/core": "7.26.0",
+    "@babel/preset-env": "7.26.0",
+    "@babel/preset-react": "7.25.9",
+    "@babel/preset-typescript": "7.26.0",
+    "@react-pdf/renderer": "4.0.2",
+    "fs-extra": "11.2.0",
+    "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "@types/babel__core": "7.20.5",
+    "@types/lodash": "4.17.13"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/module-workflow": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  }
+}

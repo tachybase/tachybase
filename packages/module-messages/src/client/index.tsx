@@ -1,5 +1,5 @@
 import { Plugin, SchemaInitializerItemType } from '@tachybase/client';
-import PluginWorkflow from '@tachybase/plugin-workflow/client';
+import PluginWorkflow from '@tachybase/module-workflow/client';
 
 import { MessageTableColumnInitializers } from './initializers/MessageColumnInitializers';
 import { MessageTableActionColumnInitializers } from './initializers/MessageTableActionColumnInitializers';

@@ -5,7 +5,7 @@ import PluginWorkflowClient, {
   FlowContext,
   linkNodes,
   useAvailableUpstreams,
-} from '@tachybase/plugin-workflow/client';
+} from '@tachybase/module-workflow/client';
 
 import { Result } from 'antd';
 import { NavBar, Skeleton } from 'antd-mobile';

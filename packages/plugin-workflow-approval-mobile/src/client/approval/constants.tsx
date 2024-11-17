@@ -1,6 +1,6 @@
 import React from 'react';
 import { SchemaInitializerItemType } from '@tachybase/client';
-import { JOB_STATUS } from '@tachybase/plugin-workflow/client';
+import { JOB_STATUS } from '@tachybase/module-workflow/client';
 import { ISchema } from '@tachybase/schema';
 
 import {

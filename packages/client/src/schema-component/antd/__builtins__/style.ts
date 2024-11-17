@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { merge } from '@tachybase/schema';
 
 import { useStyleRegister, type CSSInterpolation, type CSSObject } from '@ant-design/cssinjs';
@@ -100,14 +99,8 @@ export const genStyleHook = <ComponentName extends OverrideComponent>(
       },
     );
 
-    // useStyleRegister 有 BUG，会导致重复渲染，所以这里做了一层缓存
-    // 等 https://github.com/ant-design/cssinjs/pull/176 合并后，可以去掉这层缓存
-    const memoizedWrapSSR = useMemo(() => {
-      return wrapSSR;
-    }, [theme, token, hashId, prefixCls, iconPrefixCls, rootPrefixCls, props]);
-
     return {
-      wrapSSR: memoizedWrapSSR,
+      wrapSSR,
       hashId,
       componentCls: prefixCls,
       rootPrefixCls,

@@ -1,10 +1,13 @@
 {
-  "name": "@tachybase/module-react-pdf",
+  "name": "@tachybase/module-event-source",
   "version": "0.22.37",
   "main": "dist/server/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "antd": "5.22.0"
+  },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
+    "@tachybase/module-workflow": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   }

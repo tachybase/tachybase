@@ -7,7 +7,7 @@ import {
   useAPIClient,
   useFormBlockContext,
 } from '@tachybase/client';
-import { DetailsBlockProvider } from '@tachybase/plugin-workflow/client';
+import { DetailsBlockProvider } from '@tachybase/module-workflow/client';
 
 import { Result } from 'antd';
 import { NavBar, Skeleton, TabBar } from 'antd-mobile';

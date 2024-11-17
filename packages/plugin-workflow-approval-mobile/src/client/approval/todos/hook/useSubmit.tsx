@@ -1,5 +1,5 @@
 import { useAPIClient, useCollection, useTableBlockContext } from '@tachybase/client';
-import { useFlowContext } from '@tachybase/plugin-workflow/client';
+import { useFlowContext } from '@tachybase/module-workflow/client';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import { Toast } from 'antd-mobile';

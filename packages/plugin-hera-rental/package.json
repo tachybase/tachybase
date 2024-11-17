@@ -31,6 +31,7 @@
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/module-pdf": "workspace:*",
     "@tachybase/plugin-collection-manager": "workspace:*",
     "@tachybase/plugin-data-visualization": "workspace:*",
     "@tachybase/server": "workspace:*",

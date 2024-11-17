@@ -1,4 +1,5 @@
-import path from 'path';
+import path from 'node:path';
+import { Logger } from '@tachybase/logger';
 import { Service } from '@tachybase/utils';
 
 import { Font } from '@react-pdf/renderer';
@@ -7,7 +8,10 @@ import fs from 'fs-extra';
 
 @Service()
 export class FontManager {
-  constructor() {
+  private logger: Logger;
+  constructor() {}
+
+  async load() {
     // 中文换行问题
     Font.registerHyphenationCallback((word) => {
       if (word.length === 1) {
@@ -20,9 +24,7 @@ export class FontManager {
           return arr;
         }, []);
     });
-  }
 
-  async load() {
     await this.loadFonts();
   }
 
@@ -78,7 +80,7 @@ export class FontManager {
             const filepath = path.join(fontsDir, filename);
             const isExists = await fs.exists(filepath);
             if (!isExists) {
-              console.log('[plugin-hera-core]', 'download ' + filepath);
+              this.logger.info(FontManager.name, 'download ' + filepath);
               const response = await axios({
                 method: 'GET',
                 url: font.url,
@@ -89,7 +91,7 @@ export class FontManager {
                 await new Promise((resolve, reject) => {
                   response.data.pipe(writer);
                   writer.on('finish', () => {
-                    console.log('[plugin-hera-core]', 'download ' + filepath + ' done.');
+                    this.logger.info(FontManager.name, 'download ' + filepath + ' done.');
                     resolve('done');
                   });
                   writer.on('error', () => {
@@ -97,7 +99,7 @@ export class FontManager {
                   });
                 });
               } catch (err) {
-                console.error('download error.', err);
+                this.logger.error('download error.', err);
                 // TODO 这里有问题，没有办法实际删除错误的文件，有可能文件不是这里产生的
                 await fs.remove(filepath);
               }

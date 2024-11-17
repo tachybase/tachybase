@@ -1,5 +1,5 @@
 import Database from '@tachybase/database';
-import { PluginWorkflow } from '@tachybase/plugin-workflow';
+import { PluginWorkflow } from '@tachybase/module-workflow';
 import { Db, Service } from '@tachybase/utils';
 
 import dayjs from 'dayjs';

@@ -1,7 +1,7 @@
 import { Context } from '@tachybase/actions';
 import { IField } from '@tachybase/data-source-manager';
 import Database, { Model } from '@tachybase/database';
-import { PluginWorkflow } from '@tachybase/plugin-workflow';
+import { PluginWorkflow } from '@tachybase/module-workflow';
 import { ActionParams } from '@tachybase/resourcer';
 import Application from '@tachybase/server';
 import { dayjs } from '@tachybase/utils';
@@ -55,7 +55,7 @@ function getDiffKeyExceptAfter(before: any, after: any, path = ''): string[] {
       return [];
     }
   }
-  if (Array.isArray(before) && Array.isArray(after) && before.length != after.length) {
+  if (Array.isArray(before) && Array.isArray(after) && before.length !== after.length) {
     return [path];
   }
 
@@ -204,8 +204,10 @@ export class WebhookController {
         return ctx.throw('Workflow should be sync.', 500);
       }
       const { lastSavedJob } = processor;
-      ctx.withoutDataWrapping = true;
-      ctx.body = lastSavedJob.result;
+      if (typeof ctx.body === 'undefined') {
+        ctx.withoutDataWrapping = true;
+        ctx.body = lastSavedJob.result;
+      }
       return;
     }
     if (webhookCtx.body) {

@@ -1,4 +1,4 @@
-import { JobStatusOptions } from '@tachybase/plugin-workflow/client';
+import { JobStatusOptions } from '@tachybase/module-workflow/client';
 
 import { NAMESPACE } from '../locale';
 

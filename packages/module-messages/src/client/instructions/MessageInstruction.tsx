@@ -1,4 +1,4 @@
-import { Instruction, VariableOption } from '@tachybase/plugin-workflow/client';
+import { Instruction, VariableOption } from '@tachybase/module-workflow/client';
 
 export class MessageInstruction extends Instruction {
   title = 'Messages';

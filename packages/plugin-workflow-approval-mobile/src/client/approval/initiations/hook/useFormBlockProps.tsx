@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useCurrentUserContext } from '@tachybase/client';
-import { useFlowContext } from '@tachybase/plugin-workflow/client';
+import { useFlowContext } from '@tachybase/module-workflow/client';
 import { useForm } from '@tachybase/schema';
 
 import { ApprovalStatusEnums } from '../../constants';

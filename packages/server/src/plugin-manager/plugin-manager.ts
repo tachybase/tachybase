@@ -11,6 +11,7 @@ import _ from 'lodash';
 import Application from '../application';
 import { createAppProxy, tsxRerunning } from '../helper';
 import { Plugin } from '../plugin';
+import { pluginPrefix } from './constants';
 import { uploadMiddleware } from './middleware';
 import collectionOptions from './options/collection';
 import resourceOptions from './options/resource';
@@ -24,7 +25,6 @@ import {
   removeTmpDir,
   updatePluginByCompressedFileUrl,
 } from './utils';
-import { pluginPrefix } from './constants';
 
 export const sleep = async (timeout = 0) => {
   return new Promise((resolve) => {
@@ -385,6 +385,7 @@ export class PluginManager {
     Container.reset();
     Container.set({ id: 'db', value: this.app.db });
     Container.set({ id: 'app', value: this.app });
+    Container.set({ id: 'logger', value: this.app.logger });
     this.app.setMaintainingMessage('loading plugins...');
     const total = this.pluginInstances.size;
 

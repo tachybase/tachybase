@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ActionContextProvider, SchemaComponent } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 
-export default function ({ component = 'div', children, ...props }) {
+export function OpenDrawer({ component = 'div', children, ...props }) {
   const [visible, setVisible] = useState(false);
   const fieldSchema = useFieldSchema();
   return (
@@ -21,3 +21,5 @@ export default function ({ component = 'div', children, ...props }) {
     </ActionContextProvider>
   );
 }
+
+export default OpenDrawer;

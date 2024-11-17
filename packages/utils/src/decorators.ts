@@ -18,6 +18,10 @@ export function Db() {
   return Inject('db');
 }
 
+export function InjectLog() {
+  return Inject('logger');
+}
+
 export function Controller(name: string) {
   return function (target: any, context: ClassDecoratorContext) {
     const serviceOptions = { id: 'controller', multiple: true };

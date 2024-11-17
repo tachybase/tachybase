@@ -10,7 +10,7 @@ import {
   useFormBlockContext,
   usePlugin,
 } from '@tachybase/client';
-import { DetailsBlockProvider, FlowContext, linkNodes } from '@tachybase/plugin-workflow/client';
+import { DetailsBlockProvider, FlowContext, linkNodes } from '@tachybase/module-workflow/client';
 
 import { Result } from 'antd';
 import { NavBar, Skeleton } from 'antd-mobile';
