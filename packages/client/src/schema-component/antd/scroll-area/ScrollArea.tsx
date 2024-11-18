@@ -35,7 +35,7 @@ export const ScrollArea = () => {
       style={{
         display: 'grid',
         placeItems: 'center',
-        width: '150px',
+        minWidth: '150px',
         height: '30px',
         padding: '2px 10px',
         border: '2px dashed rgba(0, 0, 0, 0.2)',

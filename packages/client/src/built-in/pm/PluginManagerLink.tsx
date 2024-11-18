@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { ApiOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Tooltip } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { SettingOutlined } from '@ant-design/icons';
+import { Button, Dropdown } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { useApp } from '../../application';
 import { useCompile } from '../../schema-component';

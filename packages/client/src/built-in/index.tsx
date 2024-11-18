@@ -3,6 +3,8 @@ import { observer } from '@tachybase/schema';
 import { getSubAppName } from '@tachybase/sdk';
 
 import { DisconnectOutlined, LoadingOutlined } from '@ant-design/icons';
+import { css } from '@emotion/css';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Button, Result, Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
@@ -44,18 +46,20 @@ interface AppStatusProps {
 }
 
 const AppSpin = () => {
-  // TODO: better loading and mobile loading fix
   return (
-    <Spin
-      size="large"
-      style={{
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        fontSize: 72 * (window.devicePixelRatio || 1),
-        transform: 'translate(-50%, -50%)',
-      }}
-    />
+    <div
+      className={css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #f5f5f5;
+        overflow: hidden;
+      `}
+    >
+      <DotLottieReact style={{ width: '100%', maxWidth: '640px' }} src="/spin.lottie" loop autoplay />
+    </div>
   );
 };
 
