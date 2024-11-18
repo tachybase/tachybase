@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-adapter-red-node",
-  "version": "0.22.38",
+  "version": "0.22.39",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@node-red/editor-api": "4.0.5",

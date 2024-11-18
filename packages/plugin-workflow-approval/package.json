@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow-approval",
   "displayName": "Approval",
-  "version": "0.22.38",
+  "version": "0.22.39",
   "description": "Approval base in Workflow",
   "keywords": [
     "Approval",
