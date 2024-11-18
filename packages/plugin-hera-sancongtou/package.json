@@ -4,6 +4,9 @@
   "version": "0.1.38",
   "description": "Provide mobile client customization for the sancongtou  project.",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @hera/plugin-sancongtou"
+  },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "antd-mobile": "^5.36.1",

@@ -8,6 +8,9 @@
     "Workflow"
   ],
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-workflow-approval"
+  },
   "dependencies": {
     "@ant-design/icons": "~5.3.7",
     "@types/lodash": "^4.17.5",

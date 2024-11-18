@@ -5,6 +5,9 @@
   "main": "lib/index.js",
   "module": "es/index.mjs",
   "types": "es/index.d.ts",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/client"
+  },
   "dependencies": {
     "@ahooksjs/use-url-state": "3.5.1",
     "@ant-design/cssinjs": "^1.21.0",

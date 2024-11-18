@@ -2,6 +2,9 @@
   "name": "@tachybase/module-event-source",
   "version": "0.22.38",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/module-event-source"
+  },
   "dependencies": {
     "antd": "5.22.0"
   },

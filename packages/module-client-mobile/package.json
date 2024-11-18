@@ -5,6 +5,9 @@
   "description": "Provides the ability to configure mobile pages.",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-mobile-client"
+  },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",

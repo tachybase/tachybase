@@ -3,6 +3,9 @@
   "version": "0.22.38",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/preset-tachybase"
+  },
   "dependencies": {
     "@hera/plugin-core": "workspace:*",
     "@hera/plugin-rental": "workspace:*",

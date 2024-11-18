@@ -2,6 +2,9 @@
   "name": "@tachybase/plugin-online-user",
   "version": "0.22.38",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-online-user"
+  },
   "devDependencies": {
     "antd": "5.22.0",
     "jsonwebtoken": "^8.5.1",

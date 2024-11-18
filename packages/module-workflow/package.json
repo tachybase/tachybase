@@ -8,6 +8,9 @@
   ],
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/module-workflow"
+  },
   "dependencies": {
     "form-data": "^4.0.0",
     "jsonata": "^2.0.5",

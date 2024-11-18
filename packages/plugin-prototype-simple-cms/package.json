@@ -2,6 +2,9 @@
   "name": "@tachybase/plugin-simple-cms",
   "version": "0.22.38",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-simple-cms"
+  },
   "devDependencies": {
     "antd": "5.22.0"
   },

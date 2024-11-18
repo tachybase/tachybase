@@ -7,6 +7,9 @@
     "System management"
   ],
   "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-multi-app-share-collection"
+  },
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "antd": "5.22.0",

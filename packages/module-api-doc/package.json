@@ -6,6 +6,9 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "types": "./dist/server/index.d.ts",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-api-doc"
+  },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "antd": "5.22.0",

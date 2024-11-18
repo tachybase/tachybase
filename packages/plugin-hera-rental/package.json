@@ -7,6 +7,9 @@
     "System management"
   ],
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @hera/plugin-rental"
+  },
   "devDependencies": {
     "@ant-design/icons": "^5.3.7",
     "@tachybase/schema": "workspace:*",

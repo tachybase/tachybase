@@ -6,6 +6,9 @@
     "Authentication"
   ],
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-dingtalk"
+  },
   "devDependencies": {
     "@alicloud/dingtalk": "^2.1.30",
     "@alicloud/openapi-client": "^0.4.10",

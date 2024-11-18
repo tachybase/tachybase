@@ -2,6 +2,9 @@
   "name": "@tachybase/plugin-adapter-red-node",
   "version": "0.22.38",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-adapter-red-node"
+  },
   "devDependencies": {
     "@node-red/editor-api": "4.0.5",
     "@node-red/nodes": "4.0.5",
