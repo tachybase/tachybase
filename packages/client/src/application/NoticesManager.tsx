@@ -22,6 +22,10 @@ export const enum NoticeType {
   CUSTOM = 'custom',
 }
 
+export const enum NoticeDuration {
+  Short = 'SHORT',
+}
+
 export interface NoticeManagerContextProps {
   manager: NoticeManager;
 }
@@ -58,8 +62,15 @@ export class NoticeManager {
     define(this, {
       currentStatus: observable.ref,
     });
+    setInterval(() => {
+      const now = Date.now();
+      if (now - this.currentStatusUpdatedAt > 1000 * 30) {
+        this.currentStatus = '';
+      }
+    }, 1000);
   }
   currentStatus = '';
+  currentStatusUpdatedAt = Date.now();
 
   on(data: { type: NoticeType; title?: string; content: string; level: NoticeLevel; eventType?: string; event?: any }) {
     if (data.type === NoticeType.NOTIFICATION) {
@@ -71,9 +82,10 @@ export class NoticeManager {
     }
   }
 
-  status(content: string, level: NoticeLevel) {
+  status(content: string, level: NoticeLevel, duration?: NoticeDuration) {
     // 常驻消息
     this.currentStatus = content;
+    this.currentStatusUpdatedAt = Date.now();
   }
 
   toast(content: string, level: NoticeLevel) {

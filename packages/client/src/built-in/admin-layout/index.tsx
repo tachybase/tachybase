@@ -193,7 +193,6 @@ export const InternalAdminLayout = (props: any) => {
             <MenuEditor sideMenuRef={sideMenuRef} />
             <div className={styles.editor}>
               <AdminTabs />
-              <NoticeArea className={styles.notice} />
             </div>
           </div>
           <div className={styles.right}>
@@ -233,6 +232,7 @@ export const AdminProvider = (props) => {
 export const AdminLayout = (props) => {
   return (
     <AdminProvider>
+      <NoticeArea />
       <InternalAdminLayout {...props} />
     </AdminProvider>
   );
