@@ -2,11 +2,17 @@ import React from 'react';
 import {
   useActionContext,
   useAPIClient,
-  useRecord,
-  useResourceActionContext,
-  useResourceContext,
+  useCollectionRecordData,
+  useDataBlockRequest,
+  useDataBlockResource,
+  useFilterByTk,
 } from '@tachybase/client';
-import { collectionWorkflows, executionSchema, workflowFieldset } from '@tachybase/module-workflow/client';
+import {
+  collectionWorkflows,
+  createWorkflow,
+  executionSchema,
+  updateWorkflow,
+} from '@tachybase/module-workflow/client';
 import { useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
@@ -17,28 +23,22 @@ import { NAMESPACE, useTranslation } from './locale';
 export const schemaApprovalPanne = {
   type: 'void',
   properties: {
-    approvalProvider: {
+    provider: {
       type: 'void',
-      'x-decorator': 'ResourceActionProvider',
+      'x-decorator': 'TableBlockProvider',
+      'x-component': 'CardItem',
       'x-decorator-props': {
         collection: collectionWorkflows,
-        resourceName: 'workflows',
-        request: {
-          resource: 'workflows',
-          action: 'list',
-          params: {
-            filter: {
-              current: true,
-              type: ['approval'].join(','),
-            },
-            sort: ['-initAt'],
-            except: ['config'],
+        action: 'list',
+        params: {
+          filter: {
+            current: true,
+            type: 'approval',
           },
+          sort: ['-initAt'],
+          except: ['config'],
         },
-      },
-      'x-component': 'CollectionProvider_deprecated',
-      'x-component-props': {
-        collection: collectionWorkflows,
+        rowKey: 'id',
       },
       properties: {
         actions: {
@@ -58,7 +58,7 @@ export const schemaApprovalPanne = {
               },
               'x-action': 'filter',
               'x-component': 'Filter.Action',
-              'x-use-component-props': 'cm.useFilterActionProps',
+              'x-use-component-props': 'useFilterActionProps',
               'x-component-props': {
                 icon: 'FilterOutlined',
               },
@@ -67,7 +67,9 @@ export const schemaApprovalPanne = {
             refresh: {
               type: 'void',
               title: '{{ t("Refresh") }}',
+              'x-action': 'refresh',
               'x-component': 'Action',
+              'x-settings': 'actionSettings:refresh',
               'x-component-props': {
                 icon: 'ReloadOutlined',
               },
@@ -76,10 +78,12 @@ export const schemaApprovalPanne = {
             delete: {
               type: 'void',
               title: '{{t("Delete")}}',
+              'x-action': 'destroy',
+              'x-decorator': 'ACLActionProvider',
               'x-component': 'Action',
+              'x-use-component-props': 'useDestroyActionProps',
               'x-component-props': {
                 icon: 'DeleteOutlined',
-                useAction: '{{ cm.useBulkDestroyAction }}',
                 confirm: {
                   title: "{{t('Delete record')}}",
                   content: "{{t('Are you sure you want to delete it?')}}",
@@ -131,10 +135,10 @@ export const schemaApprovalPanne = {
                             useAction() {
                               const { t } = useTranslation();
                               const api = useAPIClient();
-                              const { refresh } = useResourceActionContext();
-                              const { resource, targetKey } = useResourceContext();
+                              const { refresh } = useDataBlockRequest();
+                              const resource = useDataBlockResource();
+                              const filterByTk = useFilterByTk();
                               const { setVisible } = useActionContext();
-                              const { [targetKey]: filterByTk } = useRecord();
                               const { values } = useForm();
                               return {
                                 async run() {
@@ -155,9 +159,7 @@ export const schemaApprovalPanne = {
                           type: 'void',
                           title: '{{t("Cancel")}}',
                           'x-component': 'Action',
-                          'x-component-props': {
-                            useAction: '{{ cm.useCancelAction }}',
-                          },
+                          'x-use-component-props': 'useCancelActionProps',
                         },
                       },
                     },
@@ -165,73 +167,24 @@ export const schemaApprovalPanne = {
                 },
               },
             },
-            create: {
-              type: 'void',
-              title: '{{t("Add new")}}',
-              'x-component': 'Action',
-              'x-component-props': {
-                type: 'primary',
-                icon: 'PlusOutlined',
-              },
-              properties: {
-                drawer: {
-                  type: 'void',
-                  'x-component': 'Action.Drawer',
-                  'x-decorator': 'Form',
-                  'x-decorator-props': {
-                    initialValue: {
-                      current: true,
-                    },
-                  },
-                  title: '{{t("Add new")}}',
-                  properties: {
-                    title: workflowFieldset.title,
-                    type: workflowFieldset.type,
-                    sync: workflowFieldset.sync,
-                    description: workflowFieldset.description,
-                    options: workflowFieldset.options,
-                    footer: {
-                      type: 'void',
-                      'x-component': 'Action.Drawer.Footer',
-                      properties: {
-                        cancel: {
-                          title: '{{ t("Cancel") }}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            useAction: '{{ cm.useCancelAction }}',
-                          },
-                        },
-                        submit: {
-                          title: '{{ t("Submit") }}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            type: 'primary',
-                            useAction: '{{ cm.useCreateAction }}',
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            },
+            create: createWorkflow,
           },
         },
         table: {
-          type: 'void',
-          'x-component': 'Table.Void',
+          type: 'array',
+          'x-component': 'TableV2',
+          'x-use-component-props': 'useTableBlockProps',
           'x-component-props': {
             rowKey: 'id',
             rowSelection: {
               type: 'checkbox',
             },
-            useDataSource: '{{ cm.useDataSourceFromRAC }}',
           },
           properties: {
             title: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 title: {
                   type: 'string',
@@ -242,8 +195,8 @@ export const schemaApprovalPanne = {
             },
             type: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 type: {
                   type: 'string',
@@ -254,8 +207,8 @@ export const schemaApprovalPanne = {
             },
             enabled: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 enabled: {
                   type: 'boolean',
@@ -267,15 +220,15 @@ export const schemaApprovalPanne = {
             },
             allExecuted: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 allExecuted: {
                   type: 'number',
                   'x-decorator': 'OpenDrawer',
                   'x-decorator-props': {
                     component: function Com(props) {
-                      const record = useRecord();
+                      const record = useCollectionRecordData();
                       return React.createElement('a', {
                         'aria-label': `executed-${record.title}`,
                         ...props,
@@ -293,7 +246,7 @@ export const schemaApprovalPanne = {
             actions: {
               type: 'void',
               title: '{{ t("Actions") }}',
-              'x-component': 'Table.Column',
+              'x-component': 'TableV2.Column',
               properties: {
                 actions: {
                   type: 'void',
@@ -306,54 +259,7 @@ export const schemaApprovalPanne = {
                       type: 'void',
                       'x-component': 'WorkflowLink',
                     },
-                    update: {
-                      type: 'void',
-                      title: '{{ t("Edit") }}',
-                      'x-component': 'Action.Link',
-                      'x-component-props': {
-                        type: 'primary',
-                      },
-                      properties: {
-                        drawer: {
-                          type: 'void',
-                          'x-component': 'Action.Drawer',
-                          'x-decorator': 'Form',
-                          'x-decorator-props': {
-                            useValues: '{{ cm.useValuesFromRecord }}',
-                          },
-                          title: '{{ t("Edit") }}',
-                          properties: {
-                            title: workflowFieldset.title,
-                            type: workflowFieldset.type,
-                            enabled: workflowFieldset.enabled,
-                            sync: workflowFieldset.sync,
-                            description: workflowFieldset.description,
-                            options: workflowFieldset.options,
-                            footer: {
-                              type: 'void',
-                              'x-component': 'Action.Drawer.Footer',
-                              properties: {
-                                cancel: {
-                                  title: '{{ t("Cancel") }}',
-                                  'x-component': 'Action',
-                                  'x-component-props': {
-                                    useAction: '{{ cm.useCancelAction }}',
-                                  },
-                                },
-                                submit: {
-                                  title: '{{ t("Submit") }}',
-                                  'x-component': 'Action',
-                                  'x-component-props': {
-                                    type: 'primary',
-                                    useAction: '{{ cm.useUpdateAction }}',
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
+                    update: updateWorkflow,
                     revision: {
                       type: 'void',
                       title: `{{t("Duplicate", { ns: "${NAMESPACE}" })}}`,
@@ -386,10 +292,10 @@ export const schemaApprovalPanne = {
                                     type: 'primary',
                                     useAction() {
                                       const { t } = useTranslation();
-                                      const { refresh } = useResourceActionContext();
-                                      const { resource, targetKey } = useResourceContext();
+                                      const { refresh } = useDataBlockRequest();
+                                      const resource = useDataBlockResource();
                                       const { setVisible } = useActionContext();
-                                      const { [targetKey]: filterByTk } = useRecord();
+                                      const filterByTk = useFilterByTk();
                                       const { values } = useForm();
                                       return {
                                         async run() {
@@ -407,7 +313,7 @@ export const schemaApprovalPanne = {
                                   title: '{{t("Cancel")}}',
                                   'x-component': 'Action',
                                   'x-component-props': {
-                                    useAction: '{{ cm.useCancelAction }}',
+                                    useAction: '{{ useCancelAction }}',
                                   },
                                 },
                               },
@@ -418,14 +324,15 @@ export const schemaApprovalPanne = {
                     },
                     delete: {
                       type: 'void',
-                      title: '{{ t("Delete") }}',
+                      title: '{{t("Delete")}}',
+                      'x-action': 'destroy',
                       'x-component': 'Action.Link',
+                      'x-use-component-props': 'useDestroyActionProps',
                       'x-component-props': {
                         confirm: {
                           title: "{{t('Delete record')}}",
                           content: "{{t('Are you sure you want to delete it?')}}",
                         },
-                        useAction: '{{ cm.useDestroyActionAndRefreshCM }}',
                       },
                     },
                     dump: {
@@ -435,17 +342,15 @@ export const schemaApprovalPanne = {
                       'x-component-props': {
                         useAction() {
                           const { t } = useTranslation();
-                          const { refresh } = useResourceActionContext();
-                          const { resource, targetKey } = useResourceContext();
-                          const { [targetKey]: filterByTk } = useRecord();
-                          const { values } = useForm();
+                          const resource = useDataBlockResource();
+                          const filterByTk = useFilterByTk();
+
                           return {
                             async run() {
-                              const { data } = await resource.dump({ filterByTk, values });
+                              const { data } = await resource.dump({ filterByTk });
                               const blob = new Blob([JSON.stringify(data.data, null, 2)], { type: 'application/json' });
                               saveAs(blob, data.data.title + '-' + data.data.key + '.json');
                               message.success(t('Operation succeeded'));
-                              refresh();
                             },
                           };
                         },

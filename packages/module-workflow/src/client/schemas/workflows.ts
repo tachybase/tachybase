@@ -144,7 +144,7 @@ export const workflowFieldset = {
   },
 };
 
-const create: ISchema = {
+export const createWorkflow: ISchema = {
   type: 'void',
   'x-action': 'create',
   'x-acl-action': 'create',
@@ -233,7 +233,7 @@ const create: ISchema = {
   },
 };
 
-export const update: ISchema = {
+export const updateWorkflow: ISchema = {
   type: 'void',
   title: '{{ t("Edit") }}',
   'x-action': 'update',
@@ -461,7 +461,7 @@ export const workflowSchema: ISchema = {
                 },
               },
             },
-            create,
+            create: createWorkflow,
           },
         },
         table: {
@@ -553,7 +553,7 @@ export const workflowSchema: ISchema = {
                       type: 'void',
                       'x-component': 'WorkflowLink',
                     },
-                    update,
+                    update: updateWorkflow,
                     revision: {
                       type: 'void',
                       title: `{{t("Duplicate", { ns: "${NAMESPACE}" })}}`,
