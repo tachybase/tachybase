@@ -9,6 +9,7 @@ import {
 import { onFieldChange, useField, useFormEffects } from '@tachybase/schema';
 
 import { Card } from 'antd';
+import { useLocation } from 'react-router-dom';
 
 import WorkflowPlugin, { RadioWithTooltip } from '.';
 import { ExecutionStatusColumn, ExecutionStatusSelect } from './components/ExecutionStatus';
@@ -63,14 +64,15 @@ function useRefreshActionProps() {
   };
 }
 
-export function WorkflowPane() {
+export function WorkflowPane(props) {
+  const { schema = workflowSchema } = props;
   const ctx = useContext(SchemaComponentContext);
   const { getTriggersOptions } = usePlugin(WorkflowPlugin);
   return (
     <Card bordered={false}>
       <SchemaComponentContext.Provider value={{ ...ctx, designable: false }}>
         <SchemaComponent
-          schema={workflowSchema}
+          schema={schema}
           components={{
             WorkflowLink,
             ExecutionResourceProvider,

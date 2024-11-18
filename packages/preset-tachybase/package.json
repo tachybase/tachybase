@@ -69,7 +69,6 @@
     "@tachybase/plugin-verification": "workspace:*",
     "@tachybase/plugin-wechat-auth": "workspace:*",
     "@tachybase/plugin-work-wechat": "workspace:*",
-    "@tachybase/plugin-workflow-approval-mobile": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "cronstrue": "^2.47.0",

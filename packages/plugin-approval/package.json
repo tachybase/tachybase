@@ -1,0 +1,36 @@
+{
+  "name": "@tachybase/plugin-approval",
+  "displayName": "Approval",
+  "version": "0.22.37",
+  "description": "Approval base in Workflow",
+  "keywords": [
+    "Approval",
+    "Workflow"
+  ],
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "@ant-design/icons": "~5.3.7",
+    "@types/lodash": "^4.17.5",
+    "ahooks": "^3.8.0",
+    "antd": "5.22.0",
+    "antd-mobile": "^5.36.1",
+    "antd-mobile-icons": "^0.3.0",
+    "file-saver": "^2.0.5",
+    "jsonata": "^2.0.5",
+    "lodash": "4.17.21",
+    "react-i18next": "^15.1.1",
+    "react-router-dom": "~6.25.1",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.7"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/module-workflow": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "审批系统是一个强大的BPM工具，为业务流程自动化提供基础支持，同时具备高度灵活性和可扩展性，确保审批流程的效率和合规性，助力企业释放创新潜力。",
+  "displayName.zh-CN": "审批"
+}

@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { NAMESPACE } from '../locale';
 import { executionSchema } from './executions';
 
-const collection = {
+export const collectionWorkflows = {
   name: 'workflows',
   fields: [
     {
@@ -88,7 +88,7 @@ const collection = {
   ],
 };
 
-const workflowFieldset = {
+export const workflowFieldset = {
   title: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
@@ -150,7 +150,7 @@ export const workflowSchema: ISchema = {
       type: 'void',
       'x-decorator': 'ResourceActionProvider',
       'x-decorator-props': {
-        collection,
+        collection: collectionWorkflows,
         resourceName: 'workflows',
         request: {
           resource: 'workflows',
@@ -158,6 +158,10 @@ export const workflowSchema: ISchema = {
           params: {
             filter: {
               current: true,
+              type: {
+                // TODO: 等到工作流整理完成只留下通用事件后, 这里不要依赖 approval 这个字段
+                $not: ['approval'].join(','),
+              },
             },
             sort: ['-initAt'],
             except: ['config'],
@@ -166,7 +170,7 @@ export const workflowSchema: ISchema = {
       },
       'x-component': 'CollectionProvider_deprecated',
       'x-component-props': {
-        collection,
+        collection: collectionWorkflows,
       },
       properties: {
         actions: {

@@ -9,7 +9,6 @@ import LRUCache from 'lru-cache';
 import initActions from './actions';
 import { EXECUTION_STATUS, JOB_STATUS } from './constants';
 import { PluginAggregate } from './features/aggregate/Plugin';
-import PluginWorkflowApproval from './features/approval';
 import PluginWorkflowDataMappingServer from './features/data-mapping/plugin';
 import { PluginDelay } from './features/delay/Plugin';
 import { PluginDynamicCalculation } from './features/dynamic-calculation/Plugin';
@@ -81,7 +80,6 @@ export default class PluginWorkflowServer extends Plugin {
     this.addFeature(PluginResponse);
     this.addFeature(PluginOmniTrigger);
     this.addFeature(PluginTriggerInstruction);
-    this.addFeature(PluginWorkflowApproval);
     this.addFeature(PluginWorkflowNoticeServer);
     this.addFeature(PluginWebhook);
   }
@@ -97,7 +95,7 @@ export default class PluginWorkflowServer extends Plugin {
     const logger = this.createLogger({
       dirname: path.join('workflows', date),
       filename: `${workflowId}.log`,
-      transports: (process.env.NODE_ENV !== 'production' ? ['console'] : ['file']),
+      transports: process.env.NODE_ENV !== 'production' ? ['console'] : ['file'],
     } as LoggerOptions);
 
     this.loggerCache.set(key, logger);
