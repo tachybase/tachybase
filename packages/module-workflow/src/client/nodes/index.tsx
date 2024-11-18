@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import {
   ActionContextProvider,
   css,
@@ -17,11 +17,11 @@ import { createForm, ISchema, useForm } from '@tachybase/schema';
 import { parse, str2moment } from '@tachybase/utils/client';
 
 import { CloseOutlined, DeleteOutlined } from '@ant-design/icons';
-import { App, Button, Dropdown, Input, message, Tag, Tooltip } from 'antd';
+import { App, Button, Dropdown, message, Tag, Tooltip } from 'antd';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import WorkflowPlugin from '..';
+import WorkflowPlugin, { AutoResizeInput } from '..';
 import { AddButton } from '../AddButton';
 import { DrawerDescription } from '../components/DrawerDescription';
 import { StatusButton } from '../components/StatusButton';
@@ -131,43 +131,6 @@ export function useUpstreamScopes(node) {
 }
 
 // TODO
-const AutoResizeInput = ({ ...props }) => {
-  const [inputWidth, setInputWidth] = useState(0); // 初始宽度
-  const spanRef = useRef(null);
-
-  const handleInputChange = (e) => {
-    // TODO fix width offset
-    setInputWidth(spanRef.current.offsetWidth + 30.2); // 更新宽度
-    props.onChange?.(e);
-  };
-
-  useEffect(() => {
-    setInputWidth(spanRef.current.offsetWidth + 30.2); // 初始宽度
-  }, []);
-
-  return (
-    <div style={{ display: 'inline-block', position: 'relative' }}>
-      <Input
-        {...props}
-        onChange={handleInputChange}
-        style={{
-          width: `${inputWidth}px`,
-        }}
-      />
-      <span
-        ref={spanRef}
-        style={{
-          position: 'absolute',
-          visibility: 'hidden',
-          whiteSpace: 'pre',
-          font: 'inherit',
-        }}
-      >
-        {props.value || props.placeholder}
-      </span>
-    </div>
-  );
-};
 
 export function Node({ data }) {
   const { styles } = useStyles();
@@ -231,12 +194,10 @@ export function ArrowUpButton() {
   const resource = api.resource('flow_nodes');
 
   async function onMoveUp() {
-
-      await resource.moveUp?.({
-        filterByTk: current.id,
-      });
-      refresh();
-
+    await resource.moveUp?.({
+      filterByTk: current.id,
+    });
+    refresh();
   }
 
   return workflow.executed ? null : (
@@ -561,7 +522,7 @@ export function NodeDefaultView(props) {
         </div>
         <AutoResizeInput
           className="workflow-node-edit"
-          disabled={workflow.executed}
+          readonly={workflow.executed}
           value={editingTitle}
           onChange={(ev) => setEditingTitle(ev.target.value)}
           onBlur={(ev) => onChangeTitle(ev.target.value)}

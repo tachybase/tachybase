@@ -20,7 +20,7 @@ export const SettingsCenterDropdown = () => {
     .filter((v) => v.isTopLevel !== false)
     .forEach((setting) => {
       settingItem.push({
-        key: setting.name,
+        key: 'userSetting:' + setting.name,
         icon: setting.icon,
         label: <Link to={setting.path}>{compile(setting.title)}</Link>,
       });
@@ -32,7 +32,7 @@ export const SettingsCenterDropdown = () => {
     .filter((v) => v.isTopLevel !== false)
     .forEach((setting) => {
       settingItem.push({
-        key: setting.name,
+        key: 'systemSetting:' + setting.name,
         icon: setting.icon,
         label: <Link to={setting.path}>{compile(setting.title)}</Link>,
       });
