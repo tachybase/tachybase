@@ -2,7 +2,7 @@ import React from 'react';
 import { Plugin, SchemaComponentOptions } from '@tachybase/client';
 
 import { MapBlockOptions } from './block';
-import { mapActionInitializers, mapActionInitializers_deprecated } from './block/MapActionInitializers';
+import { mapActionInitializers } from './block/MapActionInitializers';
 import { mapBlockSettings } from './block/MapBlock.Settings';
 import { useMapBlockProps } from './block/MapBlockProvider';
 import { Configuration, Map } from './components';
@@ -29,7 +29,6 @@ export class MapPlugin extends Plugin {
         order: 51,
       },
     });
-    this.app.schemaInitializerManager.add(mapActionInitializers_deprecated);
     this.app.schemaInitializerManager.add(mapActionInitializers);
     this.schemaSettingsManager.add(mapBlockSettings);
 

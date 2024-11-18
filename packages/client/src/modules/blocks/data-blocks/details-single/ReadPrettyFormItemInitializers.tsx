@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
 import { SchemaInitializerChildren } from '../../../../application/schema-initializer/components/SchemaInitializerChildren';
+import { SchemaInitializer } from '../../../../application/schema-initializer/SchemaInitializer';
 import { useCompile } from '../../../../schema-component';
 import {
   gridRowColWrap,
@@ -47,12 +47,8 @@ const AssociatedFields = () => {
   return <SchemaInitializerChildren>{schema}</SchemaInitializerChildren>;
 };
 
-/**
- * @deprecated
- * 已弃用，请使用 readPrettyFormItemInitializers 代替
- */
-export const readPrettyFormItemInitializers_deprecated = new CompatibleSchemaInitializer({
-  name: 'ReadPrettyFormItemInitializers',
+export const readPrettyFormItemInitializers = new SchemaInitializer({
+  name: 'details:configureFields',
   wrap: gridRowColWrap,
   icon: 'SettingOutlined',
   title: '{{t("Configure fields")}}',
@@ -83,7 +79,6 @@ export const readPrettyFormItemInitializers_deprecated = new CompatibleSchemaIni
         type: 'void',
         'x-editable': false,
         'x-decorator': 'FormItem',
-        // 'x-designer': 'Markdown.Void.Designer',
         'x-toolbar': 'BlockSchemaToolbar',
         'x-settings': 'blockSettings:markdown',
         'x-component': 'Markdown.Void',
@@ -94,50 +89,3 @@ export const readPrettyFormItemInitializers_deprecated = new CompatibleSchemaIni
     },
   ],
 });
-
-export const readPrettyFormItemInitializers = new CompatibleSchemaInitializer(
-  {
-    name: 'details:configureFields',
-    wrap: gridRowColWrap,
-    icon: 'SettingOutlined',
-    title: '{{t("Configure fields")}}',
-    items: [
-      {
-        type: 'itemGroup',
-        name: 'displayFields',
-        title: '{{t("Display fields")}}',
-        useChildren: useFormItemInitializerFields,
-      },
-      {
-        name: 'parentCollectionFields',
-        Component: ParentCollectionFields,
-      },
-      {
-        name: 'associationFields',
-        Component: AssociatedFields,
-      },
-      {
-        name: 'divider',
-        type: 'divider',
-      },
-      {
-        name: 'addText',
-        title: '{{t("Add text")}}',
-        Component: 'BlockItemInitializer',
-        schema: {
-          type: 'void',
-          'x-editable': false,
-          'x-decorator': 'FormItem',
-          // 'x-designer': 'Markdown.Void.Designer',
-          'x-toolbar': 'BlockSchemaToolbar',
-          'x-settings': 'blockSettings:markdown',
-          'x-component': 'Markdown.Void',
-          'x-component-props': {
-            content: '{{t("This is a demo text, **supports Markdown syntax**.")}}',
-          },
-        },
-      },
-    ],
-  },
-  readPrettyFormItemInitializers_deprecated,
-);

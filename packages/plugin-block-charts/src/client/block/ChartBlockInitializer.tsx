@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import {
-  CompatibleSchemaInitializer,
   DataBlockInitializer,
   DEFAULT_DATA_SOURCE_KEY,
+  SchemaInitializer,
   SchemaInitializerItem,
   useACLRoleContext,
   useSchemaInitializer,
@@ -52,11 +52,8 @@ const ChartInitializer = () => {
   );
 };
 
-/**
- * @deprecated
- */
-export const chartInitializers_deprecated = new CompatibleSchemaInitializer({
-  name: 'ChartInitializers',
+export const chartInitializers = new SchemaInitializer({
+  name: 'charts:addBlock',
   icon: 'PlusOutlined',
   title: '{{t("Add block")}}',
   items: [
@@ -79,34 +76,6 @@ export const chartInitializers_deprecated = new CompatibleSchemaInitializer({
     },
   ],
 });
-
-export const chartInitializers = new CompatibleSchemaInitializer(
-  {
-    name: 'charts:addBlock',
-    icon: 'PlusOutlined',
-    title: '{{t("Add block")}}',
-    items: [
-      {
-        name: 'chart',
-        title: lang('Chart'),
-        Component: ChartInitializer,
-      },
-      {
-        name: 'otherBlocks',
-        type: 'itemGroup',
-        title: lang('Other blocks'),
-        children: [
-          {
-            name: 'filter',
-            title: lang('Filter'),
-            Component: FilterBlockInitializer,
-          },
-        ],
-      },
-    ],
-  },
-  chartInitializers_deprecated,
-);
 
 export const ChartV2BlockInitializer: React.FC = () => {
   const itemConfig = useSchemaInitializerItem();

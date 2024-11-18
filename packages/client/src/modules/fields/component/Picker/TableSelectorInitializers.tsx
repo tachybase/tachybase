@@ -1,5 +1,5 @@
-import { useCollection_deprecated } from '../../../..';
-import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
+import { useCollection } from '../../../..';
+import { SchemaInitializer } from '../../../../application/schema-initializer/SchemaInitializer';
 import { gridRowColWrap } from '../../../../schema-initializer/utils';
 
 const commonOptions = {
@@ -24,7 +24,7 @@ const commonOptions = {
       title: '{{t("Filter blocks")}}',
       name: 'filterBlocks',
       useChildren() {
-        const { name, dataSource } = useCollection_deprecated();
+        const { name, dataSource } = useCollection();
         return [
           {
             name: 'filterFormBlockInTableSelector',
@@ -68,7 +68,6 @@ const commonOptions = {
             type: 'void',
             'x-editable': false,
             'x-decorator': 'BlockItem',
-            // 'x-designer': 'Markdown.Void.Designer',
             'x-toolbar': 'BlockSchemaToolbar',
             'x-settings': 'blockSettings:markdown',
             'x-component': 'Markdown.Void',
@@ -79,21 +78,10 @@ const commonOptions = {
         },
       ],
     },
-  ],
+  ] as any,
 };
 
-/**
- * @deprecated
- */
-export const tableSelectorInitializers_deprecated = new CompatibleSchemaInitializer({
-  name: 'TableSelectorInitializers',
+export const tableSelectorInitializers = new SchemaInitializer({
+  name: 'popup:tableSelector:addBlock',
   ...commonOptions,
 });
-
-export const tableSelectorInitializers = new CompatibleSchemaInitializer(
-  {
-    name: 'popup:tableSelector:addBlock',
-    ...commonOptions,
-  },
-  tableSelectorInitializers_deprecated,
-);

@@ -1,21 +1,10 @@
 import { Plugin } from '@tachybase/client';
 
-import {
-  chartInitializers,
-  chartInitializers_deprecated,
-  ChartV2Block,
-  ChartV2BlockDesigner,
-  ChartV2BlockInitializer,
-} from './block';
+import { chartInitializers, ChartV2Block, ChartV2BlockDesigner, ChartV2BlockInitializer } from './block';
 import antd from './chart/antd';
 import g2plot from './chart/g2plot';
 import { ChartGroup } from './chart/group';
-import {
-  chartFilterActionInitializers,
-  chartFilterActionInitializers_deprecated,
-  chartFilterItemInitializers,
-  chartFilterItemInitializers_deprecated,
-} from './filter';
+import { chartFilterActionInitializers, chartFilterItemInitializers } from './filter';
 import { lang } from './locale';
 
 class DataVisualizationPlugin extends Plugin {
@@ -30,11 +19,8 @@ class DataVisualizationPlugin extends Plugin {
       ChartV2Block,
     });
 
-    this.app.schemaInitializerManager.add(chartInitializers_deprecated);
     this.app.schemaInitializerManager.add(chartInitializers);
-    this.app.schemaInitializerManager.add(chartFilterItemInitializers_deprecated);
     this.app.schemaInitializerManager.add(chartFilterItemInitializers);
-    this.app.schemaInitializerManager.add(chartFilterActionInitializers_deprecated);
     this.app.schemaInitializerManager.add(chartFilterActionInitializers);
 
     const blockInitializers = this.app.schemaInitializerManager.get('page:addBlock');

@@ -2,7 +2,6 @@ import React, { useContext, useMemo, useState } from 'react';
 import {
   ActionContextProvider,
   CollectionProvider_deprecated,
-  CompatibleSchemaInitializer,
   FormBlockContext,
   gridRowColWrap,
   RecordProvider,

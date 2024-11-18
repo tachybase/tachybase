@@ -16,7 +16,7 @@ import { Alert, Flex, ModalProps, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import { RemoteSelect, useCompile, useDesignable } from '../..';
-import { isInitializersSame, useApp } from '../../../application';
+import { useApp } from '../../../application';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { usePlugin } from '../../../application/hooks';
 import { SchemaSettingOptions, SchemaSettings } from '../../../application/schema-settings';
@@ -810,7 +810,7 @@ export const actionSettingsItems: SchemaSettingOptions['items'] = [
           const fieldSchema = useFieldSchema();
           return (
             fieldSchema['x-action'] === 'submit' &&
-            isInitializersSame(fieldSchema.parent?.['x-initializer'], 'createForm:configureActions')
+            fieldSchema.parent?.['x-initializer'] === 'createForm:configureActions'
           );
         },
       },

@@ -10,7 +10,6 @@ import { useCollection_deprecated } from '../../../collection-manager';
 import {
   associationFilterFilterBlockInitializer,
   filterCollapseItemInitializer,
-  filterCollapseItemInitializer_deprecated,
 } from '../../../modules/blocks/filter-blocks/collapse/filterCollapseItemInitializer';
 import { DndContext, SortableItem } from '../../common';
 import { useDesigner } from '../../hooks';
@@ -106,7 +105,6 @@ AssociationFilter.useAssociationField = () => {
 export class AssociationFilterPlugin extends Plugin {
   async load() {
     this.app.schemaInitializerManager.add(associationFilterFilterBlockInitializer);
-    this.app.schemaInitializerManager.add(filterCollapseItemInitializer_deprecated);
     this.app.schemaInitializerManager.add(filterCollapseItemInitializer);
     this.app.schemaInitializerManager.add(associationFilterInitializer);
   }

@@ -1,6 +1,6 @@
 import { isValid, useFieldSchema } from '@tachybase/schema';
 
-import { isInitializersSame, useSchemaToolbar } from '../../../application';
+import { useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import {
   AfterSuccess,
@@ -80,7 +80,7 @@ export const submitActionSettings = new SchemaSettings({
         const fieldSchema = useFieldSchema();
         return (
           fieldSchema['x-action'] === 'submit' &&
-          isInitializersSame(fieldSchema.parent?.['x-initializer'], 'createForm:configureActions')
+          fieldSchema.parent?.['x-initializer'] === 'createForm:configureActions'
         );
       },
     },

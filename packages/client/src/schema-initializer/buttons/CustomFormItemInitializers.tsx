@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { CompatibleSchemaInitializer } from '../../application/schema-initializer/CompatibleSchemaInitializer';
 import { SchemaInitializerChildren } from '../../application/schema-initializer/components/SchemaInitializerChildren';
+import { SchemaInitializer } from '../../application/schema-initializer/SchemaInitializer';
 import { useCompile } from '../../schema-component';
 import { gridRowColWrap, useCustomFormItemInitializerFields, useInheritsFormItemInitializerFields } from '../utils';
 
@@ -26,11 +26,8 @@ const ParentCollectionFields = () => {
   return <SchemaInitializerChildren>{res}</SchemaInitializerChildren>;
 };
 
-/**
- * @deprecated
- */
-export const customFormItemInitializers_deprecated = new CompatibleSchemaInitializer({
-  name: 'CustomFormItemInitializers',
+export const customFormItemInitializers = new SchemaInitializer({
+  name: 'assignFieldValuesForm:configureFields',
   wrap: gridRowColWrap,
   icon: 'SettingOutlined',
   title: '{{t("Configure fields")}}',
@@ -47,25 +44,3 @@ export const customFormItemInitializers_deprecated = new CompatibleSchemaInitial
     },
   ],
 });
-
-export const customFormItemInitializers = new CompatibleSchemaInitializer(
-  {
-    name: 'assignFieldValuesForm:configureFields',
-    wrap: gridRowColWrap,
-    icon: 'SettingOutlined',
-    title: '{{t("Configure fields")}}',
-    items: [
-      {
-        type: 'itemGroup',
-        title: '{{t("Configure fields")}}',
-        name: 'configureFields',
-        useChildren: useCustomFormItemInitializerFields,
-      },
-      {
-        name: 'parentCollectionFields',
-        Component: ParentCollectionFields,
-      },
-    ],
-  },
-  customFormItemInitializers_deprecated,
-);

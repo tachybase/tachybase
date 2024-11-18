@@ -5,7 +5,6 @@ import {
   CollectionFieldProvider,
   CollectionManagerProvider,
   CollectionProvider,
-  CompatibleSchemaInitializer,
   css,
   cx,
   DEFAULT_DATA_SOURCE_KEY,
@@ -14,6 +13,7 @@ import {
   HTMLEncode,
   SchemaComponent,
   SchemaComponentOptions,
+  SchemaInitializer,
   SchemaInitializerItem,
   useCollectionManager_deprecated,
   useCompile,
@@ -281,7 +281,7 @@ export const ChartFilterCustomItemInitializer: React.FC<{
         'x-designer': 'ChartFilterItemDesigner',
         'x-decorator': 'ChartFilterFormItem',
         'x-component-props': {
-          ...(defaultSchema['x-component-props'] || {}),
+          ...defaultSchema['x-component-props'],
           ...props,
           chartCascader: true,
         },
@@ -351,15 +351,4 @@ const filterItemInitializers = {
   ],
 };
 
-/**
- * @deprecated
- */
-export const chartFilterItemInitializers_deprecated = new CompatibleSchemaInitializer({
-  ...filterItemInitializers,
-  name: 'ChartFilterItemInitializers',
-});
-
-export const chartFilterItemInitializers = new CompatibleSchemaInitializer(
-  filterItemInitializers,
-  chartFilterItemInitializers_deprecated,
-);
+export const chartFilterItemInitializers = new SchemaInitializer(filterItemInitializers);

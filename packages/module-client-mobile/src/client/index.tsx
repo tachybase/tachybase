@@ -8,7 +8,6 @@ import {
   ImageSearchConfigureFields,
   ImageSearchItemFieldSettings,
   mBlockInitializers,
-  mBlockInitializers_deprecated,
   SwiperFieldSettings,
   SwiperPage,
   TabSearchFieldSchemaInitializer,
@@ -28,7 +27,6 @@ export class MobileClientPlugin extends Plugin {
     this.addSettings();
     this.app.use(MobileClientProvider);
     this.app.use(MobileLinkProvider);
-    this.app.schemaInitializerManager.add(mBlockInitializers_deprecated);
     this.app.schemaInitializerManager.add(mBlockInitializers);
     this.app.schemaInitializerManager.add(ImageSearchConfigureFields);
     this.app.schemaInitializerManager.add(TabSearchFieldSchemaInitializer);

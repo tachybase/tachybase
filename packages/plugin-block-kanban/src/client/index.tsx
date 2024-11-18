@@ -1,13 +1,13 @@
 import React from 'react';
-import { Action, CurrentAppInfoProvider, Plugin, SchemaComponentOptions } from '@tachybase/client';
+import { Action, Plugin, SchemaComponentOptions } from '@tachybase/client';
 
 import { Kanban } from './Kanban';
 import { KanbanCard } from './Kanban.Card';
-import { KanbanCardDesigner, kanbanCardInitializers, kanbanCardInitializers_deprecated } from './Kanban.Card.Designer';
+import { KanbanCardDesigner, kanbanCardInitializers } from './Kanban.Card.Designer';
 import { KanbanCardViewer } from './Kanban.CardViewer';
 import { KanbanDesigner } from './Kanban.Designer';
 import { kanbanSettings } from './Kanban.Settings';
-import { kanbanActionInitializers, kanbanActionInitializers_deprecated } from './KanbanActionInitializers';
+import { kanbanActionInitializers } from './KanbanActionInitializers';
 import { KanbanBlockInitializer } from './KanbanBlockInitializer';
 import { KanbanBlockProvider, useKanbanBlockProps } from './KanbanBlockProvider';
 
@@ -34,9 +34,7 @@ KanbanPluginProvider.displayName = 'KanbanPluginProvider';
 class KanbanPlugin extends Plugin {
   async load() {
     this.app.use(KanbanPluginProvider);
-    this.app.schemaInitializerManager.add(kanbanCardInitializers_deprecated);
     this.app.schemaInitializerManager.add(kanbanCardInitializers);
-    this.app.schemaInitializerManager.add(kanbanActionInitializers_deprecated);
     this.app.schemaInitializerManager.add(kanbanActionInitializers);
     this.app.schemaSettingsManager.add(kanbanSettings);
 

@@ -6,12 +6,11 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { useAPIClient } from '../../../../api-client';
-import { CompatibleSchemaInitializer } from '../../../../application/schema-initializer/CompatibleSchemaInitializer';
 import { SchemaInitializerActionModal } from '../../../../application/schema-initializer/components/SchemaInitializerActionModal';
 import { SchemaInitializerItem } from '../../../../application/schema-initializer/components/SchemaInitializerItem';
 import { useSchemaInitializer } from '../../../../application/schema-initializer/context';
-import { useCollection_deprecated } from '../../../../collection-manager';
-import { useDataBlockProps } from '../../../../data-source';
+import { SchemaInitializer } from '../../../../application/schema-initializer/SchemaInitializer';
+import { useCollection, useDataBlockProps } from '../../../../data-source';
 import { createDesignable, useDesignable } from '../../../../schema-component';
 import { useGetAriaLabelOfDesigner } from '../../../../schema-settings/hooks/useGetAriaLabelOfDesigner';
 
@@ -136,7 +135,7 @@ const commonOptions = {
             'x-decorator': 'ACLActionProvider',
           },
           useVisible() {
-            const collection = useCollection_deprecated();
+            const collection = useCollection();
             return (collection.template !== 'view' || collection?.writableView) && collection.template !== 'sql';
           },
         },
@@ -151,7 +150,7 @@ const commonOptions = {
             'x-decorator': 'ACLActionProvider',
           },
           useVisible() {
-            const collection = useCollection_deprecated();
+            const collection = useCollection();
             return (collection.template !== 'view' || collection?.writableView) && collection.template !== 'sql';
           },
         },
@@ -168,7 +167,7 @@ const commonOptions = {
           },
           useVisible() {
             const props = useDataBlockProps();
-            const collection = useCollection_deprecated();
+            const collection = useCollection();
             return (
               !!props?.association &&
               (collection.template !== 'view' || collection?.writableView) &&
@@ -188,7 +187,7 @@ const commonOptions = {
           },
           useVisible() {
             const fieldSchema = useFieldSchema();
-            const collection = useCollection_deprecated();
+            const collection = useCollection();
             const { treeTable } = fieldSchema?.parent?.parent['x-decorator-props'] || {};
             return collection.tree && treeTable !== false;
           },
@@ -216,7 +215,7 @@ const commonOptions = {
           name: 'updateRecord',
           Component: 'UpdateRecordActionInitializer',
           useVisible() {
-            const collection = useCollection_deprecated();
+            const collection = useCollection();
             return (collection.template !== 'view' || collection?.writableView) && collection.template !== 'sql';
           },
         },
@@ -228,7 +227,7 @@ const commonOptions = {
             'x-action': 'customize:table:request',
           },
           useVisible() {
-            const collection = useCollection_deprecated();
+            const collection = useCollection();
             return (collection.template !== 'view' || collection?.writableView) && collection.template !== 'sql';
           },
         },
@@ -247,18 +246,7 @@ const commonOptions = {
   ],
 };
 
-/**
- * @deprecated
- */
-export const tableActionColumnInitializers_deprecated = new CompatibleSchemaInitializer({
-  name: 'TableActionColumnInitializers',
+export const tableActionColumnInitializers = new SchemaInitializer({
+  name: 'table:configureItemActions',
   ...commonOptions,
 });
-
-export const tableActionColumnInitializers = new CompatibleSchemaInitializer(
-  {
-    name: 'table:configureItemActions',
-    ...commonOptions,
-  },
-  tableActionColumnInitializers_deprecated,
-);

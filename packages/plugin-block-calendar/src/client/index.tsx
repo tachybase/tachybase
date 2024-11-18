@@ -8,7 +8,6 @@ import { useCalendarBlockDecoratorProps } from './hooks/useCalendarBlockDecorato
 import { CalendarBlockProvider, useCalendarBlockProps } from './schema-initializer/CalendarBlockProvider';
 import {
   calendarActionInitializers,
-  CalendarActionInitializers_deprecated,
   CalendarFormActionInitializers,
   deleteEventActionInitializer,
 } from './schema-initializer/initializers';
@@ -61,7 +60,6 @@ export class PluginCalendarClient extends Plugin {
     });
     this.app.addScopes({ useCalendarBlockProps, useCalendarBlockDecoratorProps });
     this.schemaSettingsManager.add(calendarBlockSettings);
-    this.app.schemaInitializerManager.add(CalendarActionInitializers_deprecated);
     this.app.schemaInitializerManager.add(calendarActionInitializers);
     this.app.schemaInitializerManager.add(CalendarFormActionInitializers);
     this.app.schemaInitializerManager
