@@ -31,9 +31,6 @@ export class PluginCoreServer extends Plugin {
     this.addFeature(DepartmentsPlugin);
   }
 
-  async load() {
-    this.app.acl.allow('link-manage', 'init', 'public');
-    this.app.acl.allow('hera', 'version', 'public');
-  }
+  async load() {}
 }
 export default PluginCoreServer;

@@ -33,9 +33,6 @@ export class AllowManager {
 
   allow(resourceName: string, actionName: string, condition?: string | ConditionFunc) {
     const actionMap = this.skipActions.get(resourceName) || new Map<string, string | ConditionFunc>();
-    if (actionMap && actionMap.get(actionName) === 'public') {
-      return;
-    }
     actionMap.set(actionName, condition || true);
 
     this.skipActions.set(resourceName, actionMap);
@@ -94,7 +91,7 @@ export class AllowManager {
 
       if (skip) {
         ctx.permission = {
-          ...ctx.permission,
+          ...(ctx.permission || {}),
           skip: true,
         };
       }

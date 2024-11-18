@@ -35,7 +35,7 @@ export class LinkManagerController {
     });
     return next();
   }
-  @Action('init')
+  @Action('init', { acl: 'public' })
   async init(ctx: Context, next: () => Promise<any>) {
     const {
       params: { name },

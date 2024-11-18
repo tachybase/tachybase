@@ -8,7 +8,7 @@ export class PluginVersionController {
   @Inject(() => PluginVersionService)
   pluginVersion: PluginVersionService;
 
-  @Action('version')
+  @Action('version', { acl: 'public' })
   async version(ctx: Context, next: Next) {
     ctx.body = await this.pluginVersion.get();
     await next();

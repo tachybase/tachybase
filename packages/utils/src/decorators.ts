@@ -5,6 +5,9 @@ export interface ActionDef {
   resourceName?: string;
   actionName?: string;
   method?: string;
+  options?: {
+    acl?: string;
+  };
 }
 
 // init actions
@@ -37,7 +40,12 @@ export function Controller(name: string) {
   };
 }
 
-export function Action(name: string) {
+export function Action(
+  name: string,
+  options?: {
+    acl?: string;
+  },
+) {
   return function (_: any, context: ClassMethodDecoratorContext) {
     if (!context.metadata.injects) {
       context.metadata.injects = [];
@@ -51,6 +59,7 @@ export function Action(name: string) {
         type: 'action',
         method: String(context.name),
         actionName: name,
+        options,
       });
     });
   };
