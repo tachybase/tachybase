@@ -1,4 +1,3 @@
-import PluginApprovalClient from '@tachybase/plugin-approval/client';
 import { Migration } from '@tachybase/server';
 
 export default class extends Migration {
@@ -14,8 +13,15 @@ export default class extends Migration {
 
     if (isExisted) {
       // 添加新的审批插件
-      await this.pm.add(PluginApprovalClient);
-      await this.pm.enable('@tachybase/plugin-approval');
+      await this.pm.repository.update({
+        filter: {
+          packageName: '@tachybase/plugin-workflow-approval',
+        },
+        values: {
+          enabled: true,
+          installed: true,
+        },
+      });
     }
   }
 }

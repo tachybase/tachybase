@@ -47,6 +47,7 @@ export class PresetTachyBase extends Plugin {
     ['audit-logs', '0.22.7', true],
     // default disable
     ['pdf', '0.22.37', true],
+    ['workflow-approval', '0.22.37', false],
     ['event-source', '0.22.37', true],
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],
