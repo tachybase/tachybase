@@ -74,6 +74,7 @@ export async function dump(context: Context, next: Next) {
           triggerTitle: origin.triggerTitle,
           allExecuted: origin.allExecuted,
           sync: origin.sync,
+          initAt: origin.initAt,
         }
       : values;
 
@@ -106,6 +107,7 @@ export async function load(context: Context, next: Next) {
         triggerTitle: origin.triggerTitle,
         allExecuted: origin.allExecuted,
         sync: origin.sync,
+        initAt: origin.initAt,
         config:
           typeof trigger.duplicateConfig === 'function'
             ? await trigger.duplicateConfig(origin, { transaction })
@@ -184,6 +186,7 @@ export async function revision(context: Context, next: Next) {
           triggerTitle: origin.triggerTitle,
           allExecuted: origin.allExecuted,
           sync: origin.sync,
+          initAt: origin.initAt,
         }
       : values;
 

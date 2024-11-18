@@ -159,7 +159,7 @@ export const workflowSchema: ISchema = {
             filter: {
               current: true,
             },
-            sort: ['-createdAt'],
+            sort: ['-initAt'],
             except: ['config'],
           },
         },

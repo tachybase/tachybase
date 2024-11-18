@@ -85,6 +85,11 @@ export default function () {
         name: 'options',
         defaultValue: {},
       },
+      {
+        type: 'date',
+        name: 'initAt',
+        defaultValue: () => new Date(),
+      },
     ],
     // NOTE: use unique index for avoiding deadlock in mysql when setCurrent
     indexes: [
