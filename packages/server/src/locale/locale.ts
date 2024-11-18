@@ -1,5 +1,6 @@
 import { Cache } from '@tachybase/cache';
 import { lodash } from '@tachybase/utils';
+
 import Application from '../application';
 import { getResource } from './resource';
 
@@ -93,6 +94,9 @@ export class Locale {
           resources[packageName] = { ...res };
           if (packageName.includes('@tachybase/plugin-')) {
             resources[packageName.substring('@tachybase/plugin-'.length)] = { ...res };
+          }
+          if (packageName.includes('@tachybase/module-')) {
+            resources[packageName.substring('@tachybase/module-'.length)] = { ...res };
           }
         }
       } catch (err) {

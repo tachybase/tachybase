@@ -65,6 +65,12 @@ export { Logger } from 'winston';
 export type PluginType = string | typeof Plugin;
 export type PluginConfiguration = PluginType | [PluginType, any];
 
+declare module '@tachybase/resourcer' {
+  interface ResourcerContext {
+    app?: Application;
+  }
+}
+
 export interface ResourcerOptions {
   prefix?: string;
 }
@@ -197,7 +203,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   constructor(public options: ApplicationOptions) {
     super();
     this.context.reqId = randomUUID();
-    this.rawOptions = this.name == 'main' ? lodash.cloneDeep(options) : {};
+    this.rawOptions = this.name === 'main' ? lodash.cloneDeep(options) : {};
     this.init();
 
     this._appSupervisor.addApp(this);
@@ -354,7 +360,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     this.emit('maintaining', _maintainingCommandStatus);
 
-    if (_maintainingCommandStatus.status == 'command_end') {
+    if (_maintainingCommandStatus.status === 'command_end') {
       this._maintaining = false;
       return;
     }
@@ -1026,7 +1032,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       dirname: getLoggerFilePath(this.name),
       filename: 'system',
       seperateError: true,
-      ...(options.logger?.system || {}),
+      ...options.logger?.system,
     }).child({
       reqId: this.context.reqId,
       app: this.name,
@@ -1064,7 +1070,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this._authManager = new AuthManager({
       authKey: 'X-Authenticator',
       default: 'basic',
-      ...(this.options.authManager || {}),
+      ...this.options.authManager,
     });
 
     this.resource({
