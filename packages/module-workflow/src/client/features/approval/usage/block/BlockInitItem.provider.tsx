@@ -6,7 +6,7 @@ import { CollectionApprovals } from '../../collections/approvals';
 import { CollectionFlowNodes } from '../../collections/flowNodes';
 import { CollectionWorkflows } from '../../collections/workflows';
 
-export const ProviderApprovalBlockItem = ({ children, ...props }) => {
+export const ProviderBlockInitItem = ({ children, ...props }) => {
   const {
     collection,
     params = {

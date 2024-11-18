@@ -1,5 +1,5 @@
 import { APPROVAL_ACTION_STATUS } from '../../../constants';
-import { useContextApprovalRecords } from './Pd.ApprovalExecutions';
+import { useContextApprovalRecords } from './ApprovalExecutions.provider';
 
 export const ProviderApprovalUpdateForm = (props) => {
   const { status } = useContextApprovalRecords();

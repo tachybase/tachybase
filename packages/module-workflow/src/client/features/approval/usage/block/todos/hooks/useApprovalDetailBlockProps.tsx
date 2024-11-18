@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useFormBlockContext } from '@tachybase/client';
 
-import { useContextApprovalRecords } from '../Pd.ApprovalExecutions';
+import { useContextApprovalRecords } from '../ApprovalExecutions.provider';
 
 export function useApprovalDetailBlockProps() {
   const { snapshot } = useContextApprovalRecords();

@@ -4,30 +4,30 @@ import { NAMESPACE, tval } from '../../locale';
 export const initializerName = 'otherBlocks.workflow.approval';
 
 export const initializerApprovalBlock = {
+  type: 'itemGroup',
   key: 'approvalBlock',
   name: 'approvalBlock',
-  type: 'itemGroup',
   title: tval('Approval'),
   icon: 'AuditOutlined',
   children: [
     {
       type: 'item',
-      icon: 'ClockCircleOutlined',
       title: `{{t("Initiate Request", { ns: "${NAMESPACE}" })}}`,
-      'x-component': 'ApprovalBlock.Launch.Application',
+      icon: 'ClockCircleOutlined',
+      'x-component': 'Approval:InitiateApplication',
+      Component: 'Approval:ViewBlockInitItem',
       collection: 'workflows',
       action: 'list',
-      Component: 'ApprovalBlock.BlockInitializer',
       useInsert: () => {
         return (schema) => {};
       },
     },
     {
       type: 'item',
-      icon: 'AuditOutlined',
-      Component: 'ApprovalBlock.BlockInitializer',
       title: `{{t("My Requests", { ns: "${NAMESPACE}" })}}`,
-      'x-component': 'ApprovalBlock.Launch',
+      icon: 'AuditOutlined',
+      'x-component': 'Approval:ViewTableInitiated',
+      Component: 'Approval:ViewBlockInitItem',
       collection: 'approvals',
       params: {
         appends: [
@@ -43,10 +43,10 @@ export const initializerApprovalBlock = {
     },
     {
       type: 'item',
-      icon: 'FormOutlined',
-      Component: 'ApprovalBlock.BlockInitializer',
       title: `{{t("My Pending Tasks", { ns: "${NAMESPACE}" })}}`,
-      'x-component': 'ApprovalBlock.Todos',
+      icon: 'FormOutlined',
+      'x-component': 'Approval:ViewTableTodos',
+      Component: 'Approval:ViewBlockInitItem',
       collection: 'approvalRecords',
       params: {
         appends: [
@@ -69,13 +69,13 @@ export const initializerApprovalBlock = {
     },
     {
       type: 'item',
+      title: `{{t("Carbon Copy me", { ns: "${NAMESPACE}" })}}`,
       icon: 'MailOutlined',
-      Component: 'ApprovalBlock.BlockInitializer',
-      title: `{{t("CC'd to Me", { ns: "${NAMESPACE}" })}}`,
       'x-decorator': 'CarbonCopyBlockProvider',
       'x-component': 'CarbonCopyCenter',
       'x-toolbar': 'BlockSchemaToolbar',
       'x-settings': 'blockSettings:table',
+      Component: 'Approval:ViewBlockInitItem',
       collection: COLLECTION_NAME_APPROVAL_CARBON_COPY,
       params: {
         appends: [

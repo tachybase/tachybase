@@ -13,16 +13,19 @@ import { useFieldSchema } from '@tachybase/schema';
 
 import { Button, Col, Row } from 'antd';
 
-import { FlowContextProvider } from '../common/FlowContext.provider';
-import { useSubmitCreate } from './apply-button/hooks/useSubmitCreate';
-import { ActionBarProvider } from './apply-button/Pd.ActionBar';
-import { ApplyActionStatusProvider } from './apply-button/Pd.ActionStatus';
-import { useActionResubmit } from './hooks/useActionResubmit';
-import { useWithdrawAction } from './hooks/useWithdrawAction';
-import { WithdrawActionProvider } from './Pd.WithdrawAction';
+import { FlowContextProvider } from './common/FlowContext.provider';
+import { useSubmitCreate } from './initiations/apply-button/hooks/useSubmitCreate';
+import { ActionBarProvider } from './initiations/apply-button/Pd.ActionBar';
+import { ApplyActionStatusProvider } from './initiations/apply-button/Pd.ActionStatus';
+import { useActionResubmit } from './initiations/hooks/useActionResubmit';
+import { useWithdrawAction } from './initiations/hooks/useWithdrawAction';
+import { WithdrawActionProvider } from './initiations/Pd.WithdrawAction';
 
-// 审批-发起: 申请卡片
-export const ApprovalBlockLaunchApplication = (props) => {
+/**
+ * DOC:
+ * 区块初始化组件: 审批: 发起申请
+ */
+export const InitiateApplication = () => {
   const fieldSchema = useFieldSchema();
   const decorator = fieldSchema?.parent?.['x-decorator-props'];
   const [options, setOptions] = useState([]);

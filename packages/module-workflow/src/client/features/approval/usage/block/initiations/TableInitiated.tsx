@@ -7,8 +7,11 @@ import { WorkflowColumn } from '../../common/approval-columns/workflow.column';
 import { ApplyButton } from './apply-button/VC.ApplyButton';
 import { schemaTableInitiated as schema } from './TableInitiated.schema';
 
-// 审批-发起: 我的发起 Table
-export const TableInitiated = () => {
+/**
+ * DOC:
+ * 区块初始化组件: 审批: 我的发起
+ */
+export const ViewTableInitiated = () => {
   return (
     <SchemaComponent
       schema={schema}

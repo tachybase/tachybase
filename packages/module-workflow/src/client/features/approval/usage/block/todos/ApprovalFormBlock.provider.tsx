@@ -16,7 +16,7 @@ import { createForm, RecursionField, useField, useFieldSchema } from '@tachybase
 import _ from 'lodash';
 
 import { useFlowContext } from '../../../../../FlowContext';
-import { useContextApprovalRecords } from './Pd.ApprovalExecutions';
+import { useContextApprovalRecords } from './ApprovalExecutions.provider';
 
 export const ApprovalFormBlockDecorator = (props) => {
   const approvalExecutions = useContextApprovalRecords();

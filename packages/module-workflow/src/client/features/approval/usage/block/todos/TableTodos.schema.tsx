@@ -2,7 +2,7 @@ import { css } from '@tachybase/client';
 
 import { NAMESPACE, tval } from '../../../locale';
 
-export const schemaApprovalBlockTodos = {
+export const schemaTableTodos = {
   type: 'void',
   name: 'todos',
   properties: {

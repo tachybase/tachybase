@@ -1,7 +1,7 @@
 import { uid } from '@tachybase/utils/client';
 
-export const getSchemaApprovalBlockItem = (params) => {
-  const { item } = params;
+export const getSchemaBlockInitItem = (params) => {
+  const { item: itemSchema } = params;
   const id = uid();
   const {
     collection,
@@ -11,12 +11,13 @@ export const getSchemaApprovalBlockItem = (params) => {
     ['x-decorator']: decorator,
     ['x-toolbar']: toolbar,
     ['x-settings']: settings,
-  } = item;
+  } = itemSchema;
+
   return {
     type: 'void',
     name: id,
     'x-uid': id,
-    'x-decorator': decorator || 'ProviderApprovalBlockItem',
+    'x-decorator': decorator || 'Approval:ProviderBlockInitItem',
     'x-decorator-props': {
       collection,
       params: paramsItem,

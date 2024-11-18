@@ -19,14 +19,14 @@ import { ApprovalContext } from '../../common/ApprovalData.provider';
 import { ContextWithActionEnabled } from '../../common/WithActionEnabled.provider';
 import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
 import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
+import { ActionBarProvider } from './ActionBar.provider';
 import { getSchemaActionTodosContent } from './ActionTodosContent.schema';
-import { ApprovalFormBlockDecorator } from './Dt.ApprovalFormBlock';
+import { ApprovalActionProvider } from './ApprovalAction.provider';
+import { ContextApprovalRecords } from './ApprovalExecutions.provider';
+import { ApprovalFormBlockDecorator } from './ApprovalFormBlock.provider';
 import { useApprovalDetailBlockProps } from './hooks/useApprovalDetailBlockProps';
 import { useApprovalFormBlockProps } from './hooks/useApprovalFormBlockProps';
 import { useSubmit } from './hooks/useSubmit';
-import { ActionBarProvider } from './Pd.ActionBarProvider';
-import { ApprovalActionProvider } from './Pd.ApprovalAction';
-import { ContextApprovalRecords } from './Pd.ApprovalExecutions';
 
 // 审批-待办-查看: 内容
 export const ViewActionTodosContent = () => {
@@ -91,6 +91,7 @@ export const ViewActionTodosContent = () => {
         <ContextApprovalExecution.Provider value={approvalExecution}>
           <ContextApprovalRecords.Provider value={data.data}>
             <SchemaComponent
+              schema={schema}
               components={{
                 SchemaComponentProvider,
                 RemoteSchemaComponent,
@@ -107,7 +108,6 @@ export const ViewActionTodosContent = () => {
                 useDetailsBlockProps: useFormBlockContext,
                 useSubmit,
               }}
-              schema={schema}
             />
           </ContextApprovalRecords.Provider>
         </ContextApprovalExecution.Provider>

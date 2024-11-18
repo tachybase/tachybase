@@ -5,7 +5,7 @@ import { str2moment } from '@tachybase/utils/client';
 import { Space, Tag } from 'antd';
 
 import { approvalStatusConfigObj } from '../../../constants';
-import { useContextApprovalRecords } from './Pd.ApprovalExecutions';
+import { useContextApprovalRecords } from './ApprovalExecutions.provider';
 
 export function ActionBarProvider(props) {
   const { status } = useContextApprovalRecords();

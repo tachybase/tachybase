@@ -2,16 +2,16 @@ import { Plugin } from '@tachybase/client';
 
 import { KitApprovalCommon } from '../common/plugin';
 import { initializerApprovalBlock, initializerName } from './ApprovalBlock.initializer';
-import { ProviderApprovalBlockItem } from './ApprovalBlockItem.provider';
-import { ApprovalBlockComponent } from './ApprovalBlockItem.view';
+import { ProviderBlockInitItem } from './BlockInitItem.provider';
+import { ViewBlockInitItem } from './BlockInitItem.view';
 import { CarbonCopyBlockProvider } from './carbon-copy/CarbonCopyBlock.provider';
 import { CarbonCopyCenter } from './carbon-copy/CarbonCopyCenter.schema';
 import { FilterSummary } from './common/FilterSummary.component';
+import { InitiateApplication } from './InitiateApplication.component';
 import { ViewCheckLink } from './initiations/CheckLink.view';
-import { TableInitiated } from './initiations/TableInitiated';
-import { ApprovalBlockLaunchApplication } from './initiations/VC.ApprovalBlockLaunchApplication';
-import { ViewApprovalBlockTodos } from './todos/ApprovalBlockTodos';
+import { ViewTableInitiated } from './initiations/TableInitiated';
 import { ProviderApprovalUpdateForm } from './todos/ApprovalUpdateForm.provider';
+import { ViewTableTodos } from './todos/TableTodos';
 import { ViewActionTodos } from './todos/VC.ViewActionTodos';
 
 export class KitApprovalBlock extends Plugin {
@@ -21,22 +21,36 @@ export class KitApprovalBlock extends Plugin {
 
   async load() {
     this.app.addComponents({
-      /**
-       * @deprecated, use 'ProviderApprovalBlockItem' instead
-       */
-      'ApprovalBlock.Decorator': ProviderApprovalBlockItem,
-      ProviderApprovalBlockItem,
-      'ApprovalBlock.Launch': TableInitiated,
-      'ApprovalBlock.Launch.Application': ApprovalBlockLaunchApplication,
-      'ApprovalBlock.Todos': ViewApprovalBlockTodos,
       CarbonCopyBlockProvider: CarbonCopyBlockProvider,
       CarbonCopyCenter: CarbonCopyCenter,
-      'ApprovalBlock.BlockInitializer': ApprovalBlockComponent,
+
       'ApprovalBlock.ViewActionLaunch': ViewCheckLink,
       'ApprovalBlock.ViewActionTodos': ViewActionTodos,
       // NOTE: 这里注册在全局, 而不是组件内的作用域, 是为了让手机端共享到
       ProviderApprovalUpdateForm: ProviderApprovalUpdateForm,
       FilterSummary,
+
+      /**
+       * DOC:
+       * 新的用法, 注册在全局, 而不是组件内的作用域的时候, 使用可以区分的前缀标明作用域
+       * 同时组件名和原名称保持一致,为了能够快速搜索定位 schema 里的原组件
+       * 例如:'Approval:ProviderBlockInitItem'
+       */
+      'Approval:ViewBlockInitItem': ViewBlockInitItem,
+      'Approval:ProviderBlockInitItem': ProviderBlockInitItem,
+      'Approval:InitiateApplication': InitiateApplication,
+      'Approval:ViewTableInitiated': ViewTableInitiated,
+      'Approval:ViewTableTodos': ViewTableTodos,
+
+      /**
+       * @deprecated,
+       * 兼容旧版用法, 防止线上已经按照旧版配置的 schema, 运行的时候找不到原组件
+       */
+      'ApprovalBlock.BlockInitializer': ViewBlockInitItem,
+      'ApprovalBlock.Decorator': ProviderBlockInitItem,
+      'ApprovalBlock.Launch.Application': InitiateApplication,
+      'ApprovalBlock.Launch': ViewTableInitiated,
+      'ApprovalBlock.Todos': ViewTableTodos,
     });
 
     const targetManager = this.app.schemaInitializerManager.get('page:addBlock');

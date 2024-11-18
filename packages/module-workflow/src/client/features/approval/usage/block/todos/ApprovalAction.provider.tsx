@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-import { useContextApprovalRecords } from './Pd.ApprovalExecutions';
+import { useContextApprovalRecords } from './ApprovalExecutions.provider';
 
 interface ApprovalAction {
   status: number | null;
