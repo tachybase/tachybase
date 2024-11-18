@@ -17,7 +17,7 @@ export const getSchemaBlockInitItem = (params) => {
     type: 'void',
     name: id,
     'x-uid': id,
-    'x-decorator': decorator || 'Approval:ProviderBlockInitItem',
+    'x-decorator': decorator || 'Approval-ProviderBlockInitItem',
     'x-decorator-props': {
       collection,
       params: paramsItem,

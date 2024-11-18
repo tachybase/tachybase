@@ -14,8 +14,8 @@ export const initializerApprovalBlock = {
       type: 'item',
       title: `{{t("Initiate Request", { ns: "${NAMESPACE}" })}}`,
       icon: 'ClockCircleOutlined',
-      'x-component': 'Approval:InitiateApplication',
-      Component: 'Approval:ViewBlockInitItem',
+      'x-component': 'Approval-InitiateApplication',
+      Component: 'Approval-ViewBlockInitItem',
       collection: 'workflows',
       action: 'list',
       useInsert: () => {
@@ -26,8 +26,8 @@ export const initializerApprovalBlock = {
       type: 'item',
       title: `{{t("My Requests", { ns: "${NAMESPACE}" })}}`,
       icon: 'AuditOutlined',
-      'x-component': 'Approval:ViewTableInitiated',
-      Component: 'Approval:ViewBlockInitItem',
+      'x-component': 'Approval-ViewTableInitiated',
+      Component: 'Approval-ViewBlockInitItem',
       collection: 'approvals',
       params: {
         appends: [
@@ -45,8 +45,8 @@ export const initializerApprovalBlock = {
       type: 'item',
       title: `{{t("My Pending Tasks", { ns: "${NAMESPACE}" })}}`,
       icon: 'FormOutlined',
-      'x-component': 'Approval:ViewTableTodos',
-      Component: 'Approval:ViewBlockInitItem',
+      'x-component': 'Approval-ViewTableTodos',
+      Component: 'Approval-ViewBlockInitItem',
       collection: 'approvalRecords',
       params: {
         appends: [
@@ -75,7 +75,7 @@ export const initializerApprovalBlock = {
       'x-component': 'CarbonCopyCenter',
       'x-toolbar': 'BlockSchemaToolbar',
       'x-settings': 'blockSettings:table',
-      Component: 'Approval:ViewBlockInitItem',
+      Component: 'Approval-ViewBlockInitItem',
       collection: COLLECTION_NAME_APPROVAL_CARBON_COPY,
       params: {
         appends: [
