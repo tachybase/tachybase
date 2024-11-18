@@ -1,6 +1,6 @@
 import { i18n, tval as nTval } from '@tachybase/client';
 
-export const NAMESPACE = '@tachybase/plugin-approval';
+export const NAMESPACE = '@tachybase/plugin-workflow-approval';
 
 export function usePluginTranslation(): any {
   return useTranslation();
