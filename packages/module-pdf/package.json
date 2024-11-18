@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-pdf",
-  "version": "0.22.37",
+  "version": "0.22.38",
   "main": "dist/server/index.js",
   "dependencies": {
     "@babel/core": "7.26.0",

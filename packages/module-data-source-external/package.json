@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-data-source-external",
-  "version": "0.22.37",
+  "version": "0.22.38",
   "main": "dist/server/index.js",
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
