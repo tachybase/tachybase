@@ -5,6 +5,8 @@ import { SchemaInitializerItemType, SchemaInitializerItemTypeWithoutName, Schema
 export class SchemaInitializer<P1 = ButtonProps, P2 = {}> {
   options: SchemaInitializerOptions<P1, P2>;
   name: string;
+  waitlist: [string, SchemaInitializerItemTypeWithoutName][] = [];
+
   get items() {
     return this.options.items;
   }
@@ -39,6 +41,11 @@ export class SchemaInitializer<P1 = ButtonProps, P2 = {}> {
       } else {
         parentItem.children[index] = data;
       }
+      if (this.waitlist.length > 0) {
+        this.add(...this.waitlist.shift());
+      }
+    } else {
+      this.waitlist.push([name, item]);
     }
   }
 
