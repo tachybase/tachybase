@@ -34,7 +34,7 @@ export const ROOT_PATH = path.join(__dirname, '../../../');
 export const NODE_MODULES = path.join(ROOT_PATH, 'node_modules');
 export const PACKAGES_PATH = path.join(ROOT_PATH, 'packages');
 export const getPluginPackages = (packages: Project[]) =>
-  packages.filter((item) => !!item.manifest.name.match(PATTERN_PLUGIN));
+  packages.filter((item) => !!item.manifest.name.match(PATTERN_PLUGIN) || !!item.manifest.name.match(PATTERN_MODULE));
 export const getPresetsPackages = (packages: Project[]) =>
   packages.filter((item) => !!item.manifest.name.match(PATTERN_PRESET));
 export const CORE_APP = path.join(ROOT_PATH, `apps/${process.env.APP_ENTRY || 'app'}`);
