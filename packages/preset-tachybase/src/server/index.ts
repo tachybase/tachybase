@@ -59,7 +59,6 @@ export class PresetTachyBase extends Plugin {
     ['field-markdown-vditor', '0.22.6', false],
     ['comments', '0.22.6', false],
     ['sancongtou', '0.22.6', false],
-    ['workflow-approval-mobile', '0.22.6', false],
     ['api-doc', '0.13.0-alpha.1', false],
     ['api-keys', '0.10.1-alpha.1', false],
     ['cas', '0.13.0-alpha.5', false],
