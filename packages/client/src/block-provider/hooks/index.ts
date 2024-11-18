@@ -174,6 +174,17 @@ export function useCollectValuesToSubmit() {
   ]);
 }
 
+export const useCancelActionProps = () => {
+  const form = useForm();
+  const ctx = useActionContext();
+  return {
+    async onClick() {
+      ctx.setVisible(false);
+      void form.reset();
+    },
+  };
+};
+
 export const useCreateActionProps = () => {
   const filterByTk = useFilterByTk();
   const record = useCollectionRecord();

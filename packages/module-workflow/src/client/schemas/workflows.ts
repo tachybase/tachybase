@@ -2,9 +2,10 @@ import React from 'react';
 import {
   useActionContext,
   useAPIClient,
-  useRecord,
-  useResourceActionContext,
-  useResourceContext,
+  useCollectionRecordData,
+  useDataBlockRequest,
+  useDataBlockResource,
+  useFilterByTk,
 } from '@tachybase/client';
 import { ISchema, useForm } from '@tachybase/schema';
 
@@ -143,34 +144,195 @@ export const workflowFieldset = {
   },
 };
 
+const create: ISchema = {
+  type: 'void',
+  'x-action': 'create',
+  'x-acl-action': 'create',
+  title: "{{t('Add new')}}",
+  'x-component': 'Action',
+  'x-decorator': 'ACLActionProvider',
+  'x-component-props': {
+    openMode: 'drawer',
+    type: 'primary',
+    component: 'CreateRecordAction',
+    icon: 'PlusOutlined',
+  },
+  'x-align': 'right',
+  'x-acl-action-props': {
+    skipScopeCheck: true,
+  },
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Add record") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        body: {
+          type: 'void',
+          'x-acl-action-props': {
+            skipScopeCheck: true,
+          },
+          'x-acl-action': `${collectionWorkflows.name}:create`,
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
+          'x-decorator-props': {
+            dataSource: 'main',
+            collection: collectionWorkflows,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useCreateFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
+                    },
+                  },
+                  properties: {
+                    cancel: {
+                      title: '{{ t("Cancel") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCreateActionProps',
+                      'x-component-props': {
+                        type: 'primary',
+                        htmlType: 'submit',
+                      },
+                      'x-action-settings': {
+                        assignedValues: {},
+                        triggerWorkflows: [],
+                        pageMode: false,
+                      },
+                    },
+                  },
+                },
+                title: workflowFieldset.title,
+                type: workflowFieldset.type,
+                sync: workflowFieldset.sync,
+                description: workflowFieldset.description,
+                options: workflowFieldset.options,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+export const update: ISchema = {
+  type: 'void',
+  title: '{{ t("Edit") }}',
+  'x-action': 'update',
+  'x-component': 'Action.Link',
+  'x-component-props': {
+    openMode: 'drawer',
+    icon: 'EditOutlined',
+  },
+  'x-decorator': 'ACLActionProvider',
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Edit record") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        card: {
+          type: 'void',
+          'x-acl-action-props': {
+            skipScopeCheck: false,
+          },
+          'x-acl-action': `${collectionWorkflows.name}:update`,
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
+          'x-decorator-props': {
+            action: 'get',
+            dataSource: 'main',
+            collection: collectionWorkflows,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useEditFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
+                    },
+                  },
+                  properties: {
+                    cancel: {
+                      title: '{{ t("Cancel") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useUpdateActionProps',
+                      'x-component-props': {
+                        type: 'primary',
+                      },
+                    },
+                  },
+                },
+                title: workflowFieldset.title,
+                type: workflowFieldset.type,
+                enabled: workflowFieldset.enabled,
+                sync: workflowFieldset.sync,
+                description: workflowFieldset.description,
+                options: workflowFieldset.options,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
 export const workflowSchema: ISchema = {
   type: 'void',
   properties: {
     provider: {
       type: 'void',
-      'x-decorator': 'ResourceActionProvider',
+      'x-decorator': 'TableBlockProvider',
+      'x-component': 'CardItem',
       'x-decorator-props': {
         collection: collectionWorkflows,
-        resourceName: 'workflows',
-        request: {
-          resource: 'workflows',
-          action: 'list',
-          params: {
-            filter: {
-              current: true,
-              type: {
-                // TODO: 等到工作流整理完成只留下通用事件后, 这里不要依赖 approval 这个字段
-                $not: ['approval'].join(','),
-              },
+        action: 'list',
+        params: {
+          filter: {
+            current: true,
+            type: {
+              // TODO: 等工作流整理完成后, 去除这里的依赖审批 "approval" 字段
+              $not: 'approval',
             },
-            sort: ['-initAt'],
-            except: ['config'],
           },
+          sort: ['-initAt'],
+          except: ['config'],
         },
-      },
-      'x-component': 'CollectionProvider_deprecated',
-      'x-component-props': {
-        collection: collectionWorkflows,
+        rowKey: 'id',
       },
       properties: {
         actions: {
@@ -190,7 +352,7 @@ export const workflowSchema: ISchema = {
               },
               'x-action': 'filter',
               'x-component': 'Filter.Action',
-              'x-use-component-props': 'cm.useFilterActionProps',
+              'x-use-component-props': 'useFilterActionProps',
               'x-component-props': {
                 icon: 'FilterOutlined',
               },
@@ -199,7 +361,9 @@ export const workflowSchema: ISchema = {
             refresh: {
               type: 'void',
               title: '{{ t("Refresh") }}',
+              'x-action': 'refresh',
               'x-component': 'Action',
+              'x-settings': 'actionSettings:refresh',
               'x-component-props': {
                 icon: 'ReloadOutlined',
               },
@@ -208,10 +372,12 @@ export const workflowSchema: ISchema = {
             delete: {
               type: 'void',
               title: '{{t("Delete")}}',
+              'x-action': 'destroy',
+              'x-decorator': 'ACLActionProvider',
               'x-component': 'Action',
+              'x-use-component-props': 'useDestroyActionProps',
               'x-component-props': {
                 icon: 'DeleteOutlined',
-                useAction: '{{ cm.useBulkDestroyAction }}',
                 confirm: {
                   title: "{{t('Delete record')}}",
                   content: "{{t('Are you sure you want to delete it?')}}",
@@ -263,10 +429,10 @@ export const workflowSchema: ISchema = {
                             useAction() {
                               const { t } = useTranslation();
                               const api = useAPIClient();
-                              const { refresh } = useResourceActionContext();
-                              const { resource, targetKey } = useResourceContext();
+                              const { refresh } = useDataBlockRequest();
+                              const resource = useDataBlockResource();
+                              const filterByTk = useFilterByTk();
                               const { setVisible } = useActionContext();
-                              const { [targetKey]: filterByTk } = useRecord();
                               const { values } = useForm();
                               return {
                                 async run() {
@@ -287,9 +453,7 @@ export const workflowSchema: ISchema = {
                           type: 'void',
                           title: '{{t("Cancel")}}',
                           'x-component': 'Action',
-                          'x-component-props': {
-                            useAction: '{{ cm.useCancelAction }}',
-                          },
+                          'x-use-component-props': 'useCancelActionProps',
                         },
                       },
                     },
@@ -297,73 +461,24 @@ export const workflowSchema: ISchema = {
                 },
               },
             },
-            create: {
-              type: 'void',
-              title: '{{t("Add new")}}',
-              'x-component': 'Action',
-              'x-component-props': {
-                type: 'primary',
-                icon: 'PlusOutlined',
-              },
-              properties: {
-                drawer: {
-                  type: 'void',
-                  'x-component': 'Action.Drawer',
-                  'x-decorator': 'Form',
-                  'x-decorator-props': {
-                    initialValue: {
-                      current: true,
-                    },
-                  },
-                  title: '{{t("Add new")}}',
-                  properties: {
-                    title: workflowFieldset.title,
-                    type: workflowFieldset.type,
-                    sync: workflowFieldset.sync,
-                    description: workflowFieldset.description,
-                    options: workflowFieldset.options,
-                    footer: {
-                      type: 'void',
-                      'x-component': 'Action.Drawer.Footer',
-                      properties: {
-                        cancel: {
-                          title: '{{ t("Cancel") }}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            useAction: '{{ cm.useCancelAction }}',
-                          },
-                        },
-                        submit: {
-                          title: '{{ t("Submit") }}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            type: 'primary',
-                            useAction: '{{ cm.useCreateAction }}',
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            },
+            create,
           },
         },
         table: {
-          type: 'void',
-          'x-component': 'Table.Void',
+          type: 'array',
+          'x-component': 'TableV2',
+          'x-use-component-props': 'useTableBlockProps',
           'x-component-props': {
             rowKey: 'id',
             rowSelection: {
               type: 'checkbox',
             },
-            useDataSource: '{{ cm.useDataSourceFromRAC }}',
           },
           properties: {
             title: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 title: {
                   type: 'string',
@@ -374,8 +489,8 @@ export const workflowSchema: ISchema = {
             },
             type: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 type: {
                   type: 'string',
@@ -386,8 +501,8 @@ export const workflowSchema: ISchema = {
             },
             enabled: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 enabled: {
                   type: 'boolean',
@@ -399,15 +514,15 @@ export const workflowSchema: ISchema = {
             },
             allExecuted: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 allExecuted: {
                   type: 'number',
                   'x-decorator': 'OpenDrawer',
                   'x-decorator-props': {
                     component: function Com(props) {
-                      const record = useRecord();
+                      const record = useCollectionRecordData();
                       return React.createElement('a', {
                         'aria-label': `executed-${record.title}`,
                         ...props,
@@ -425,7 +540,7 @@ export const workflowSchema: ISchema = {
             actions: {
               type: 'void',
               title: '{{ t("Actions") }}',
-              'x-component': 'Table.Column',
+              'x-component': 'TableV2.Column',
               properties: {
                 actions: {
                   type: 'void',
@@ -438,54 +553,7 @@ export const workflowSchema: ISchema = {
                       type: 'void',
                       'x-component': 'WorkflowLink',
                     },
-                    update: {
-                      type: 'void',
-                      title: '{{ t("Edit") }}',
-                      'x-component': 'Action.Link',
-                      'x-component-props': {
-                        type: 'primary',
-                      },
-                      properties: {
-                        drawer: {
-                          type: 'void',
-                          'x-component': 'Action.Drawer',
-                          'x-decorator': 'Form',
-                          'x-decorator-props': {
-                            useValues: '{{ cm.useValuesFromRecord }}',
-                          },
-                          title: '{{ t("Edit") }}',
-                          properties: {
-                            title: workflowFieldset.title,
-                            type: workflowFieldset.type,
-                            enabled: workflowFieldset.enabled,
-                            sync: workflowFieldset.sync,
-                            description: workflowFieldset.description,
-                            options: workflowFieldset.options,
-                            footer: {
-                              type: 'void',
-                              'x-component': 'Action.Drawer.Footer',
-                              properties: {
-                                cancel: {
-                                  title: '{{ t("Cancel") }}',
-                                  'x-component': 'Action',
-                                  'x-component-props': {
-                                    useAction: '{{ cm.useCancelAction }}',
-                                  },
-                                },
-                                submit: {
-                                  title: '{{ t("Submit") }}',
-                                  'x-component': 'Action',
-                                  'x-component-props': {
-                                    type: 'primary',
-                                    useAction: '{{ cm.useUpdateAction }}',
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
+                    update,
                     revision: {
                       type: 'void',
                       title: `{{t("Duplicate", { ns: "${NAMESPACE}" })}}`,
@@ -518,10 +586,10 @@ export const workflowSchema: ISchema = {
                                     type: 'primary',
                                     useAction() {
                                       const { t } = useTranslation();
-                                      const { refresh } = useResourceActionContext();
-                                      const { resource, targetKey } = useResourceContext();
+                                      const { refresh } = useDataBlockRequest();
+                                      const resource = useDataBlockResource();
                                       const { setVisible } = useActionContext();
-                                      const { [targetKey]: filterByTk } = useRecord();
+                                      const filterByTk = useFilterByTk();
                                       const { values } = useForm();
                                       return {
                                         async run() {
@@ -539,7 +607,7 @@ export const workflowSchema: ISchema = {
                                   title: '{{t("Cancel")}}',
                                   'x-component': 'Action',
                                   'x-component-props': {
-                                    useAction: '{{ cm.useCancelAction }}',
+                                    useAction: '{{ useCancelAction }}',
                                   },
                                 },
                               },
@@ -550,14 +618,15 @@ export const workflowSchema: ISchema = {
                     },
                     delete: {
                       type: 'void',
-                      title: '{{ t("Delete") }}',
+                      title: '{{t("Delete")}}',
+                      'x-action': 'destroy',
                       'x-component': 'Action.Link',
+                      'x-use-component-props': 'useDestroyActionProps',
                       'x-component-props': {
                         confirm: {
                           title: "{{t('Delete record')}}",
                           content: "{{t('Are you sure you want to delete it?')}}",
                         },
-                        useAction: '{{ cm.useDestroyActionAndRefreshCM }}',
                       },
                     },
                     dump: {
@@ -567,17 +636,15 @@ export const workflowSchema: ISchema = {
                       'x-component-props': {
                         useAction() {
                           const { t } = useTranslation();
-                          const { refresh } = useResourceActionContext();
-                          const { resource, targetKey } = useResourceContext();
-                          const { [targetKey]: filterByTk } = useRecord();
-                          const { values } = useForm();
+                          const resource = useDataBlockResource();
+                          const filterByTk = useFilterByTk();
+
                           return {
                             async run() {
-                              const { data } = await resource.dump({ filterByTk, values });
+                              const { data } = await resource.dump({ filterByTk });
                               const blob = new Blob([JSON.stringify(data.data, null, 2)], { type: 'application/json' });
                               saveAs(blob, data.data.title + '-' + data.data.key + '.json');
                               message.success(t('Operation succeeded'));
-                              refresh();
                             },
                           };
                         },

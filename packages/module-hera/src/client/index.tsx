@@ -193,6 +193,7 @@ export class PluginCoreClient extends Plugin {
       console.info('current schemaSettings', this.app.schemaSettingsManager.getAll());
       console.info('current schemaInitializer', this.app.schemaInitializerManager.getAll());
       console.info('current providers', this.app.providers);
+      console.info('current scopes', this.app.scopes);
     }
   }
 

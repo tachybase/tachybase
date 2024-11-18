@@ -1,9 +1,8 @@
-import { createElement } from 'react';
+import React, { createElement } from 'react';
 import { usePlugin, useRecord } from '@tachybase/client';
 
 import AuthPlugin, { AuthOptions } from '..';
 import { Authenticator } from '../authenticator';
-import React from 'react';
 
 const useBindForms = (): {
   [authType: string]: AuthOptions['components']['BindForm'];

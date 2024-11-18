@@ -1,10 +1,16 @@
 import React from 'react';
-import { SchemaComponent, useAPIClient, useCollectionManager_deprecated, useRecord, useResourceActionContext } from '@tachybase/client';
+import {
+  SchemaComponent,
+  useAPIClient,
+  useCollectionManager_deprecated,
+  useRecord,
+  useResourceActionContext,
+} from '@tachybase/client';
 
 import { Card } from 'antd';
-import { BindForm } from './BindForm';
 
 import { useAuthTranslation } from '../locale';
+import { BindForm } from './BindForm';
 import { authenticatorsSchema } from './schemas/authenticators';
 
 const useUnbindAction = () => {
