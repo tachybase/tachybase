@@ -108,6 +108,10 @@ export const useStyles = createStyles(({ css, token }) => {
       > div {
         position: relative;
       }
+      .ant-layout-content {
+        height: calc(100vh - var(--tb-header-height));
+        overflow: auto;
+      }
       .ant-layout-footer {
         position: absolute;
         bottom: 0;
