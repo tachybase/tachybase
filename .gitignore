@@ -36,3 +36,4 @@ ncc-cache/
 v8-compile-cache-**
 .env.local.*
 .pnpm-store
+**/.turbo

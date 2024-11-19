@@ -7,6 +7,9 @@
     "System management"
   ],
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-theme-editor"
+  },
   "devDependencies": {
     "@ant-design/cssinjs": "^1.21.0",
     "@ant-design/icons": "~5.3.7",

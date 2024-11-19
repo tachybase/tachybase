@@ -7,6 +7,9 @@
     "Data model tools"
   ],
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-data-source-manager"
+  },
   "devDependencies": {
     "@ant-design/icons": "^5.3.7",
     "@dnd-kit/core": "^6.1.0",

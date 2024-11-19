@@ -2,6 +2,9 @@
   "name": "@tachybase/plugin-demos-game-runesweeper",
   "version": "0.22.39",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-demos-game-runesweeper"
+  },
   "dependencies": {
     "canvas-confetti": "^1.9.2",
     "react": "18.3.1",

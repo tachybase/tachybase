@@ -2,6 +2,9 @@
   "name": "@tachybase/plugin-blockchain",
   "version": "0.22.39",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-blockchain"
+  },
   "dependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "child_process": "^1.0.2",

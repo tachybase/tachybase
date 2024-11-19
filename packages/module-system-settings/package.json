@@ -8,6 +8,9 @@
   ],
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-system-settings"
+  },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",

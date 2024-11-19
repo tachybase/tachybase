@@ -4,6 +4,9 @@
   "version": "0.22.38",
   "description": "Cloud component",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-cloud-component"
+  },
   "dependencies": {
     "@babel/standalone": "7.26.2",
     "@bytemd/plugin-gemoji": "1.21.0",

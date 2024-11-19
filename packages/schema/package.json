@@ -4,6 +4,9 @@
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/schema"
+  },
   "dependencies": {
     "@formily/core": "2.3.1",
     "@formily/grid": "2.3.1",

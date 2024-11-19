@@ -4,6 +4,9 @@
   "version": "0.22.39",
   "description": "Print template: rendered by react",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-pdf-editor"
+  },
   "dependencies": {
     "@babel/standalone": "7.26.2",
     "@react-pdf/renderer": "4.0.0",

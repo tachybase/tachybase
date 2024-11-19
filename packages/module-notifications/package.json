@@ -4,6 +4,9 @@
   "description": "",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-notifications"
+  },
   "devDependencies": {
     "@types/nodemailer": "6.4.4",
     "lodash": "4.17.21",

@@ -8,6 +8,9 @@
   ],
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-verification"
+  },
   "devDependencies": {
     "@alicloud/dysmsapi20170525": "2.0.17",
     "@alicloud/openapi-client": "0.4.1",

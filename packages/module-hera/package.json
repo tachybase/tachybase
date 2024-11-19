@@ -7,6 +7,9 @@
     "System management"
   ],
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @hera/plugin-core"
+  },
   "devDependencies": {
     "@alicloud/captcha20230305": "^1.1.3",
     "@ant-design/icons": "~5.3.7",
