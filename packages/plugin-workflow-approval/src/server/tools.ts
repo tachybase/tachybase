@@ -53,9 +53,10 @@ export async function searchSummaryQuery(context, next, summaryQueryValue) {
   const resultList = context.body ?? [];
 
   const filteredResultList = resultList.filter((item) => {
-    const { approvalId, createdAt, createdBy, user, summary = {} } = item;
+    const { id, approvalId, createdAt, createdBy, user, summary = {} } = item;
     // NOTE: 可查编号,摘要,发起人昵称,创建时间,审批人昵称
     const targetValueMap = {
+      id,
       approvalId,
       createdName: createdBy?.nickname,
       createdAt: createdAt.toLocaleString().replace(/\//g, '-'),
