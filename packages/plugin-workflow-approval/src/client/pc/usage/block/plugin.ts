@@ -24,11 +24,12 @@ export class KitApprovalBlock extends Plugin {
       CarbonCopyBlockProvider: CarbonCopyBlockProvider,
       CarbonCopyCenter: CarbonCopyCenter,
 
-      'ApprovalBlock.ViewActionLaunch': ViewCheckLink,
-      'ApprovalBlock.ViewActionTodos': ViewActionTodos,
       // NOTE: 这里注册在全局, 而不是组件内的作用域, 是为了让手机端共享到
       ProviderApprovalUpdateForm: ProviderApprovalUpdateForm,
       FilterSummary,
+
+      'ApprovalBlock.ViewActionLaunch': ViewCheckLink,
+      'ApprovalBlock.ViewActionTodos': ViewActionTodos,
 
       /**
        * DOC:
@@ -47,10 +48,11 @@ export class KitApprovalBlock extends Plugin {
        * @deprecated,
        * 兼容旧版用法, 防止线上已经按照旧版配置的 schema, 运行的时候找不到原组件
        */
+
       'ApprovalBlock.BlockInitializer': ViewBlockInitItem,
       'ApprovalBlock.Decorator': ProviderBlockInitItem,
-      'ApprovalBlock.Launch.Application': InitiateApplication,
       'ApprovalBlock.Launch': ViewTableInitiated,
+      'ApprovalBlock.Launch.Application': InitiateApplication,
       'ApprovalBlock.Todos': ViewTableTodos,
     });
 
