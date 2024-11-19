@@ -4,10 +4,10 @@ import { str2moment } from '@tachybase/utils/client';
 
 import { Space, Tag } from 'antd';
 
-import { approvalStatusConfigObj } from '../../../constants';
+import { approvalStatusConfigObj } from '../../../../constants';
 import { useContextApprovalRecords } from './ApprovalExecutions.provider';
 
-export function ActionBarProvider(props) {
+export const ActionBarProvider = (props) => {
   const { status } = useContextApprovalRecords();
 
   if (status) {
@@ -15,7 +15,7 @@ export function ActionBarProvider(props) {
   } else {
     return <ClientActionBarProvider {...props} />;
   }
-}
+};
 
 const ComponentUserInfo = () => {
   const compile = useCompile();

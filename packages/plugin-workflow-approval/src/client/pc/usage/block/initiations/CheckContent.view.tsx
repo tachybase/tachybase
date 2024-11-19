@@ -17,10 +17,10 @@ import { useDestroyAction } from './hooks/useDestroyAction';
 import { useFormBlockProps } from './hooks/useFormBlockProps';
 import { useSubmitUpdate } from './hooks/useSubmitUpdate';
 import { useWithdrawAction } from './hooks/useWithdrawAction';
-import { ActionBarProvider } from './Pd.ActionBar';
-import { ApplyActionStatusProvider } from './Pd.ApplyActionStatus';
-import { WithdrawActionProvider } from './Pd.WithdrawAction';
+import { ActionBarProvider } from './providers/ActionBar.provider';
 import { ProviderActionResubmit } from './providers/ActionResubmit.provider';
+import { ProviderApplyActionStatus } from './providers/ApplyActionStatus.provider';
+import { WithdrawActionProvider } from './WithdrawAction.provider';
 
 export const ViewCheckContent = (props) => {
   const { approval, workflow } = props;
@@ -37,7 +37,7 @@ export const ViewCheckContent = (props) => {
         SchemaComponentContextProvider,
         FormBlockProvider,
         ActionBarProvider,
-        ApplyActionStatusProvider,
+        ApplyActionStatusProvider: ProviderApplyActionStatus,
         WithdrawActionProvider,
         DetailsBlockProvider,
         ProviderActionResubmit,

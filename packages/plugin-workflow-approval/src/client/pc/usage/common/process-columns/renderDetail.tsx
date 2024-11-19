@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { DatePicker, InputReadPretty, RecordProvider, useCurrentUserContext } from '@tachybase/client';
 
-import { ViewCheckLink } from '../../block/initiations/CheckLink.view';
-import { ViewActionTodos } from '../../block/todos/VC.ViewActionTodos';
+import { ViewCheckLink as ViewCheckLinkInitiations } from '../../block/initiations/CheckLink.view';
+import { ViewCheckLink as ViewCheckLinkTodos } from '../../block/todos/CheckLink.view';
 import { ContextWithActionEnabled } from '../WithActionEnabled.provider';
 
 export function renderDetail(text, record, index) {
@@ -31,7 +31,7 @@ const ColumnDetailExist = (props) => {
       {actionEnabled && props.userId === data?.data.id ? (
         // @ts-ignore
         <RecordProvider record={props} parent={false}>
-          <ViewActionTodos />
+          <ViewCheckLinkTodos />
         </RecordProvider>
       ) : null}
     </>
@@ -48,7 +48,7 @@ const ColumnDetailNotExist = (props) => {
       {actionEnabled && props.user.id === data?.data.id ? (
         // @ts-ignore
         <RecordProvider record={props.execution} parent={false}>
-          <ViewCheckLink />
+          <ViewCheckLinkInitiations />
         </RecordProvider>
       ) : null}
     </>

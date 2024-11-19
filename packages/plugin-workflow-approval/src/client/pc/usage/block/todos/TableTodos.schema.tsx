@@ -60,7 +60,7 @@ export const schemaTableTodos = {
           title: '{{t("Actions")}}',
           properties: {
             action: {
-              'x-component': 'ApprovalBlock.ViewActionTodos',
+              'x-component': 'ViewCheckLink',
             },
           },
         },

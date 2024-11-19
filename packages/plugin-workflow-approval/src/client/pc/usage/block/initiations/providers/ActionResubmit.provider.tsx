@@ -4,7 +4,7 @@ import { APPROVAL_STATUS } from '../../../../constants';
 import { useApproval } from '../../../common/ApprovalData.provider';
 import { useResubmit } from '../../../common/Resubmit.provider';
 
-export function ProviderActionResubmit(props) {
+export const ProviderActionResubmit = (props) => {
   const { data } = useCurrentUserContext();
   const { isResubmit } = useResubmit();
   const { status, createdById } = useApproval();
@@ -17,4 +17,4 @@ export function ProviderActionResubmit(props) {
   }
 
   return null;
-}
+};

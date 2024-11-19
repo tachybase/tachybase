@@ -8,7 +8,7 @@ import { useApproval } from '../../../common/ApprovalData.provider';
 import { useResubmit } from '../../../common/Resubmit.provider';
 import { useHandleRefresh } from '../../common/useHandleRefresh';
 import { useSubmitCreate } from '../apply-button/hooks/useSubmitCreate';
-import { useContextApprovalStatus } from '../Pd.ApplyActionStatus';
+import { useContextApprovalStatus } from '../ApprovalStatus.context';
 
 export function useSubmitUpdate() {
   const { refreshTable } = useHandleRefresh();

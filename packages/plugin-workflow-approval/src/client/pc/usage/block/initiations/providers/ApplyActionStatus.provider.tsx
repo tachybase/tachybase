@@ -1,18 +1,13 @@
-import React, { createContext, useContext } from 'react';
+import React from 'react';
 import { useCurrentUserContext } from '@tachybase/client';
 import { useFlowContext } from '@tachybase/module-workflow/client';
 
-import { APPROVAL_STATUS } from '../../../constants';
-import { useApproval } from '../../common/ApprovalData.provider';
-import { useResubmit } from '../../common/Resubmit.provider';
+import { APPROVAL_STATUS } from '../../../../constants';
+import { useApproval } from '../../../common/ApprovalData.provider';
+import { useResubmit } from '../../../common/Resubmit.provider';
+import { ProviderContextApprovalStatus } from '../ApprovalStatus.context';
 
-const ContextApprovalStatus = createContext(APPROVAL_STATUS.SUBMITTED);
-
-export function useContextApprovalStatus() {
-  return useContext(ContextApprovalStatus);
-}
-
-export function ApplyActionStatusProvider(props) {
+export const ProviderApplyActionStatus = (props) => {
   const { value, children } = props;
   const { status, createdById } = useApproval();
   const { workflow } = useFlowContext();
@@ -27,8 +22,8 @@ export function ApplyActionStatusProvider(props) {
   }
 
   if ((isSameId && isEnabled && isStatusDid) || (isSameId && isEnabled && isResubmit)) {
-    return <ContextApprovalStatus.Provider value={value}>{children}</ContextApprovalStatus.Provider>;
+    return <ProviderContextApprovalStatus value={value}>{children}</ProviderContextApprovalStatus>;
   }
 
   return null;
-}
+};

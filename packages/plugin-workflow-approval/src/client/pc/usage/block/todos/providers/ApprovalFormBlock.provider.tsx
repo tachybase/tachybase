@@ -18,7 +18,7 @@ import _ from 'lodash';
 
 import { useContextApprovalRecords } from './ApprovalExecutions.provider';
 
-export const ApprovalFormBlockDecorator = (props) => {
+export const ApprovalFormBlockProvider = (props) => {
   const approvalExecutions = useContextApprovalRecords();
   const { job } = approvalExecutions;
   const omitApproval = _.omit(approvalExecutions, ['approval', 'job', 'node', 'snapshot']);

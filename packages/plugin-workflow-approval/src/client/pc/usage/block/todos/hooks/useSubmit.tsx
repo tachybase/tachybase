@@ -2,8 +2,8 @@ import { useAPIClient, useCollection } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
 import { useHandleRefresh } from '../../common/useHandleRefresh';
-import { useContextApprovalAction } from '../ApprovalAction.provider';
-import { useContextApprovalRecords } from '../ApprovalExecutions.provider';
+import { useContextApprovalAction } from '../providers/ApprovalAction.provider';
+import { useContextApprovalRecords } from '../providers/ApprovalExecutions.provider';
 
 export function useSubmit(props: any = {}) {
   const { refreshTable } = useHandleRefresh();

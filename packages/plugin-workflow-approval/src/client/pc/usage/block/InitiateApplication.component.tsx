@@ -14,12 +14,12 @@ import { useFieldSchema } from '@tachybase/schema';
 import { Button, Col, Row } from 'antd';
 
 import { FlowContextProvider } from './common/FlowContext.provider';
+import { ActionBarProvider } from './initiations/apply-button/ActionBar.provider';
+import { ApplyActionStatusProvider } from './initiations/apply-button/ActionStatus.provider';
 import { useSubmitCreate } from './initiations/apply-button/hooks/useSubmitCreate';
-import { ActionBarProvider } from './initiations/apply-button/Pd.ActionBar';
-import { ApplyActionStatusProvider } from './initiations/apply-button/Pd.ActionStatus';
 import { useActionResubmit } from './initiations/hooks/useActionResubmit';
 import { useWithdrawAction } from './initiations/hooks/useWithdrawAction';
-import { WithdrawActionProvider } from './initiations/Pd.WithdrawAction';
+import { WithdrawActionProvider } from './initiations/WithdrawAction.provider';
 
 /**
  * DOC:

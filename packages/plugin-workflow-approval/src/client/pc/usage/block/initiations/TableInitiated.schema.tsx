@@ -70,7 +70,7 @@ export const schemaTableInitiated = {
           title: '{{t("Actions")}}',
           properties: {
             action: {
-              'x-component': 'ApprovalBlock.ViewActionLaunch',
+              'x-component': 'ViewCheckLink',
             },
           },
         },

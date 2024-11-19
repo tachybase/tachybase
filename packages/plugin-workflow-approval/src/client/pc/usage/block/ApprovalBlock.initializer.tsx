@@ -24,7 +24,7 @@ export const initializerApprovalBlock = {
     },
     {
       type: 'item',
-      title: `{{t("My Requests", { ns: "${NAMESPACE}" })}}`,
+      title: `{{t("My Initiations", { ns: "${NAMESPACE}" })}}`,
       icon: 'AuditOutlined',
       'x-component': 'Approval-ViewTableInitiated',
       Component: 'Approval-ViewBlockInitItem',

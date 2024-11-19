@@ -8,11 +8,11 @@ import { CarbonCopyBlockProvider } from './carbon-copy/CarbonCopyBlock.provider'
 import { CarbonCopyCenter } from './carbon-copy/CarbonCopyCenter.schema';
 import { FilterSummary } from './common/FilterSummary.component';
 import { InitiateApplication } from './InitiateApplication.component';
-import { ViewCheckLink } from './initiations/CheckLink.view';
+import { ViewCheckLink as ViewCheckLinkInitiations } from './initiations/CheckLink.view';
 import { ViewTableInitiated } from './initiations/TableInitiated';
-import { ProviderApprovalUpdateForm } from './todos/ApprovalUpdateForm.provider';
+import { ViewCheckLink as ViewCheckLinkTodos } from './todos/CheckLink.view';
+import { ProviderApprovalUpdateForm } from './todos/providers/ApprovalUpdateForm.provider';
 import { ViewTableTodos } from './todos/TableTodos';
-import { ViewActionTodos } from './todos/VC.ViewActionTodos';
 
 export class KitApprovalBlock extends Plugin {
   async afterAdd() {
@@ -27,9 +27,6 @@ export class KitApprovalBlock extends Plugin {
       // NOTE: 这里注册在全局, 而不是组件内的作用域, 是为了让手机端共享到
       ProviderApprovalUpdateForm: ProviderApprovalUpdateForm,
       FilterSummary,
-
-      'ApprovalBlock.ViewActionLaunch': ViewCheckLink,
-      'ApprovalBlock.ViewActionTodos': ViewActionTodos,
 
       /**
        * DOC:
@@ -48,12 +45,13 @@ export class KitApprovalBlock extends Plugin {
        * @deprecated,
        * 兼容旧版用法, 防止线上已经按照旧版配置的 schema, 运行的时候找不到原组件
        */
-
       'ApprovalBlock.BlockInitializer': ViewBlockInitItem,
       'ApprovalBlock.Decorator': ProviderBlockInitItem,
       'ApprovalBlock.Launch': ViewTableInitiated,
       'ApprovalBlock.Launch.Application': InitiateApplication,
       'ApprovalBlock.Todos': ViewTableTodos,
+      'ApprovalBlock.ViewActionLaunch': ViewCheckLinkInitiations,
+      'ApprovalBlock.ViewActionTodos': ViewCheckLinkTodos,
     });
 
     const targetManager = this.app.schemaInitializerManager.get('page:addBlock');
