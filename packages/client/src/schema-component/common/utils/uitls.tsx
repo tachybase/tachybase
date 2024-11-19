@@ -78,8 +78,9 @@ export const conditionAnalyses = async ({
   const type = Object.keys(ruleGroup)[0] || '$and';
   const conditions = ruleGroup[type];
 
-  let results = conditions.map(async (condition) => {
-    // fix
+  let results = [];
+
+  for (const condition of conditions) {
     if ('$and' in condition || '$or' in condition) {
       return await conditionAnalyses({ ruleGroup: condition, variables, localVariables });
     }
@@ -91,7 +92,31 @@ export const conditionAnalyses = async ({
       return true;
     }
 
-    const targetVariableName = targetFieldToVariableString(getTargetField(condition));
+    const targetFieldArr = getTargetField(condition);
+    const targetVariableName = targetFieldToVariableString(targetFieldArr);
+
+    /**
+     * NOTE: 因为联动规则, 添加的时候, 请求数据已经加入了相应的关联字段,
+     * 因此直接查看当前是否能访问到当前记录, 如果能访问到, 无需再次专门去请求关联字段
+     */
+    const localFormRecord = localVariables.find((v) => v.name === '$nForm');
+    if (localFormRecord?.ctx) {
+      const targetValue = _.get(localFormRecord.ctx, targetFieldArr);
+
+      const targetCollectionField = await variables.getCollectionField(targetVariableName, localVariables);
+
+      const result = getJsonLogic().apply({
+        [operator]: [
+          transformVariableValue(targetValue, { targetCollectionField }),
+          transformVariableValue(jsonlogic.value, { targetCollectionField }),
+        ],
+      });
+
+      results.push(result);
+      continue;
+    }
+
+    // NOTE: 走保底逻辑, 独立查询
     const targetValue = variables.parseVariable(targetVariableName, localVariables);
 
     const parsingResult = isVariable(jsonlogic?.value)
@@ -102,17 +127,20 @@ export const conditionAnalyses = async ({
       const jsonLogic = getJsonLogic();
       const [value, targetValue] = await Promise.all(parsingResult);
       const targetCollectionField = await variables.getCollectionField(targetVariableName, localVariables);
-      return jsonLogic.apply({
+
+      // XXX: 这里还需要理清下, 包内自己定义的 jsonLogic 的 API 是什么? 用法是什么?, 和通用逻辑是否一致
+      const result = jsonLogic.apply({
         [operator]: [
           transformVariableValue(targetValue, { targetCollectionField }),
           transformVariableValue(value, { targetCollectionField }),
         ],
       });
+
+      results.push(result);
     } catch (error) {
       throw error;
     }
-  });
-  results = await Promise.all(results);
+  }
 
   if (type === '$and') {
     return every(results, (v) => v);
