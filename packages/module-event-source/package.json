@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-event-source",
-  "version": "0.22.41",
+  "version": "0.22.42",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-event-source"
