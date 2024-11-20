@@ -23,7 +23,7 @@ import { NAMESPACE, useTranslation } from '../locale';
 export const schemaApprovalPanne = {
   type: 'void',
   properties: {
-    provider: {
+    approvalProvider: {
       type: 'void',
       'x-decorator': 'TableBlockProvider',
       'x-component': 'CardItem',
