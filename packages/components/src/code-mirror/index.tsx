@@ -15,16 +15,7 @@ export const CodeMirror = connect(({ value, onChange, ...otherProps }) => {
       });
     }
   }, [monaco]);
-  return (
-    <Editor
-      theme="vs-dark"
-      value={value}
-      height="300px"
-      defaultLanguage="javascript"
-      onChange={onChange}
-      {...otherProps}
-    />
-  );
+  return <Editor value={value} height="300px" defaultLanguage="javascript" onChange={onChange} {...otherProps} />;
 });
 
 export const CodeEditor = CodeMirror;
