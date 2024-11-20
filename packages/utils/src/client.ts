@@ -20,3 +20,4 @@ export * from './url';
 export { dayjs, lodash, Dayjs };
 export * from './parseHTML';
 export * from './dom';
+export * from './currencyUtils';

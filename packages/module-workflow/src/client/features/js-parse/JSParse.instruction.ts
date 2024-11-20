@@ -146,4 +146,8 @@ export class JSParseInstruction extends Instruction {
     };
     return result;
   }
+
+  isAvailable() {
+    return false;
+  }
 }

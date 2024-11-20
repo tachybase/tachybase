@@ -1,6 +1,11 @@
 import { css, tval } from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
-import { Instruction, VariableOption, WorkflowVariableInput } from '@tachybase/module-workflow/client';
+import {
+  Instruction,
+  NodeAvailableContext,
+  VariableOption,
+  WorkflowVariableInput,
+} from '@tachybase/module-workflow/client';
 
 export class PdfInstruction extends Instruction {
   title = tval('pdf');
@@ -106,12 +111,20 @@ export class PdfInstruction extends Instruction {
         tooltip: 'jscode: ctx.data\nctx.body\n__ctx\nlib.JSON\nlib.qrcode\ncanvas\nlib.dayjs\nlib.log',
       },
       'x-component': 'CodeMirror',
+      'x-component-props': {
+        defaultLanguage: 'typescript',
+        height: '80vh',
+      },
     },
   };
-  components = {
+  components: any = {
     ArrayTable,
     WorkflowVariableInput,
   };
+
+  isAvailable(ctx: NodeAvailableContext): boolean {
+    return false;
+  }
 
   useVariables(node, options): VariableOption {
     const { key, title, config } = node;

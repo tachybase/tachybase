@@ -1,6 +1,9 @@
-import crypto from 'crypto';
+import crypto from 'node:crypto';
+import { createContext, Script } from 'node:vm';
+import { Context } from '@tachybase/actions';
 import { dayjs } from '@tachybase/utils';
 
+import { transform } from '@babel/core';
 import jsonata from 'jsonata';
 import _ from 'lodash';
 import qrcode from 'qrcode';
@@ -54,8 +57,12 @@ export class DataMappingInstruction extends Instruction {
           result = await convertByJSONata(code, data);
           break;
         case 'js':
-        default:
           result = await convertByJsCode(code, data);
+          break;
+        case 'ts':
+          result = await convertByTsCode(code, data, processor);
+          break;
+        default:
       }
 
       // 3. 将结果集, 进行简单数据映射
@@ -107,6 +114,58 @@ async function convertByJsCode(code, data) {
   });
 
   return ctx.body;
+}
+
+async function convertByTsCode(code, data, processor) {
+  const { httpContext } = processor.options as unknown as {
+    httpContext: Context;
+  };
+
+  const compiledCode = transform(code, {
+    sourceType: 'module',
+    filename: 'a.tsx',
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          modules: 'commonjs',
+          targets: {
+            node: 'current',
+          },
+        },
+      ],
+      '@babel/preset-react',
+      '@babel/preset-typescript',
+    ],
+  }).code;
+
+  // 创建一个独立的模块上下文
+  const script = new Script(compiledCode);
+
+  const defaultFunction = async (event, context) => {
+    return {};
+  };
+
+  // 创建上下文并加载 Node 的标准模块
+  const sandbox = {
+    module: {},
+    exports: { default: defaultFunction },
+    require,
+    console,
+  };
+  createContext(sandbox);
+
+  // 执行代码并导出结果
+  script.runInContext(sandbox);
+
+  // 执行默认导出的函数
+  const func = sandbox.exports.default;
+
+  const result = await func(data, {
+    httpContext,
+  });
+
+  return result;
 }
 
 // utils

@@ -116,6 +116,7 @@
   "Current record": "当前记录",
   "Current status": "当前状态",
   "Custom form": "自定义表单",
+  "Data Mapping": "脚本",
   "Data of associated collection": "关联数据表数据",
   "Data of collection": "数据表数据",
   "Data operation nodes in workflow will run in a same transaction until any interruption. Any failure will cause data rollback, and will also rollback the history of the execution.": "工作流中的节点将在同一个事务中运行。任何失败都会导致数据回滚，同时也会回滚相应的执行历史。",

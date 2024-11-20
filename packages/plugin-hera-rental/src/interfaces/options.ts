@@ -1,5 +1,5 @@
 export interface RecordPdfOptions {
   isDouble: number;
-  printSetup: String;
+  printSetup: string;
   styleId: number;
 }

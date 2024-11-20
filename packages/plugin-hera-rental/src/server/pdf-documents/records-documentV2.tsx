@@ -1,11 +1,10 @@
 import React from 'react';
 import { Document, Image, Page, renderToStream, StyleSheet, Text, View } from '@tachybase/module-pdf';
-import { dayjs } from '@tachybase/utils';
+import { dayjs, formatCurrency, formatQuantity } from '@tachybase/utils';
 
 import * as QRCode from 'qrcode';
 
 import { RecordCategory } from '../../utils/constants';
-import { formatCurrency, formatQuantity } from '../../utils/currencyUtils';
 
 /**
  *

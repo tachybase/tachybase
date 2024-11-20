@@ -8,13 +8,13 @@ import LRUCache from 'lru-cache';
 
 import initActions from './actions';
 import { EXECUTION_STATUS, JOB_STATUS } from './constants';
+import PluginWorkflowJSParseServer from './features/_deprecated-js-parse/plugin';
+import PluginWorkflowJSONParseServer from './features/_deprecated-json-parse/plugin';
 import { PluginAggregate } from './features/aggregate/Plugin';
 import PluginWorkflowDataMappingServer from './features/data-mapping/plugin';
 import { PluginDelay } from './features/delay/Plugin';
 import { PluginDynamicCalculation } from './features/dynamic-calculation/Plugin';
 import { PluginInterception } from './features/interception';
-import PluginWorkflowJSParseServer from './features/js-parse/plugin';
-import PluginWorkflowJSONParseServer from './features/json-parse/plugin';
 import { PluginLoop } from './features/loop/Plugin';
 import { PluginManual } from './features/manual/Plugin';
 import PluginWorkflowNoticeServer from './features/notice/plugin';

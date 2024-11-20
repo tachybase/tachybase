@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Document, Page, renderToStream, StyleSheet, Text } from '@hera/plugin-core';
+import { Document, Page, renderToStream, StyleSheet, Text } from '@tachybase/module-pdf';
 
 const PreviewDocument = ({ message }: { message: string }) => {
   const styles = StyleSheet.create({

@@ -142,4 +142,8 @@ export class JSONParseInstruction extends Instruction {
     };
     return result;
   }
+
+  isAvailable() {
+    return false;
+  }
 }

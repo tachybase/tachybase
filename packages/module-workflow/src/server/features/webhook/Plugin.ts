@@ -1,6 +1,5 @@
 import path from 'path';
 import { Context } from '@tachybase/actions';
-import { Model } from '@tachybase/database';
 import Application, { Plugin } from '@tachybase/server';
 
 import lodash from 'lodash';
@@ -19,16 +18,16 @@ export class PluginWebhook extends Plugin {
       });
 
       for (const resourceDef of resources) {
-        this.app.resourcer.define({
-          name: resourceDef.resourceName,
-          actions: {
-            [resourceDef.actionName]: async (ctx: Context) => {
-              const body = await new WebhookController().action(ctx, resourceDef);
-              await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
-            },
-          },
-        });
-        this.app.acl.allow(resourceDef.resourceName, resourceDef.actionName, 'public');
+        if (!this.app.resourcer.isDefined(resourceDef.resourceName)) {
+          this.app.resourcer.define({ name: resourceDef.resourceName });
+        }
+        this.app.resourcer
+          .getResource(resourceDef.resourceName)
+          .addAction(resourceDef.actionName, async (ctx: Context) => {
+            const body = await new WebhookController().action(ctx, resourceDef);
+            await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
+          });
+        this.app.acl.allow(resourceDef.resourceName, resourceDef.actionName, 'loggedIn');
       }
     });
 

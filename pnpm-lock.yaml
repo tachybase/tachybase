@@ -2450,6 +2450,18 @@ importers:
 
   packages/module-workflow:
     dependencies:
+      '@babel/core':
+        specifier: 7.26.0
+        version: 7.26.0
+      '@babel/preset-env':
+        specifier: 7.26.0
+        version: 7.26.0(@babel/core@7.26.0)
+      '@babel/preset-react':
+        specifier: 7.25.9
+        version: 7.25.9(@babel/core@7.26.0)
+      '@babel/preset-typescript':
+        specifier: 7.26.0
+        version: 7.26.0(@babel/core@7.26.0)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
@@ -2511,6 +2523,9 @@ importers:
       '@tachybase/plugin-workflow-test':
         specifier: workspace:*
         version: link:../plugin-workflow-test
+      '@types/babel__core':
+        specifier: 7.20.5
+        version: 7.20.5
       '@types/ejs':
         specifier: ^3.1.5
         version: 3.1.5

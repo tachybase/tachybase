@@ -45,10 +45,6 @@ export class PdfInstruction extends Instruction {
     }
 
     try {
-      // 2. 根据 type 类型, 对源数据进行复杂数据映射
-      let result = {};
-      // result = await convertByJsCode(code, data);
-
       const { httpContext } = processor.options as unknown as {
         httpContext: Context;
       };
@@ -94,8 +90,9 @@ export class PdfInstruction extends Instruction {
       // 执行默认导出的函数
       const func = sandbox.exports.default;
 
-      httpContext.withoutDataWrapping = true;
-      httpContext.body = await func(data, {});
+      const result = await func(data, {
+        httpContext,
+      });
 
       return {
         result,

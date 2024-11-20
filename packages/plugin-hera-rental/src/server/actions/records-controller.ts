@@ -96,7 +96,7 @@ export class RecordPreviewController {
       ctx.body = { ...result };
     }
   }
-  @Action('allweight')
+
   async groupWeight(ctx: Context) {
     const { filter } = ctx.action.params.values;
     const collectionName = 'records';
@@ -176,7 +176,6 @@ export class RecordPreviewController {
     ctx.body = data;
   }
 
-  @Action('pdf')
   async printPreview(ctx: Context) {
     const {
       params: { recordId, isDouble, settingType, margingTop, styleId = -1 },

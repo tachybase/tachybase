@@ -97,8 +97,9 @@ export class DataMappingInstruction extends Instruction {
       'x-decorator': 'FormItem',
       'x-component': 'Radio.Group',
       enum: [
-        { label: 'js', value: 'js' },
+        { label: 'JavaScript', value: 'js' },
         { label: 'JSONata', value: 'jsonata' },
+        { label: 'TypeScript', value: 'ts' },
       ],
       default: 'js',
     },
@@ -110,6 +111,10 @@ export class DataMappingInstruction extends Instruction {
         tooltip: 'jscode: ctx.data\nctx.body\n__ctx\nlib.JSON\nlib.qrcode\ncanvas\nlib.dayjs\nlib.log',
       },
       'x-component': 'CodeMirror',
+      'x-component-props': {
+        defaultLanguage: 'typescript',
+        height: '80vh',
+      },
     },
     model: {
       type: 'array',
