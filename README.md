@@ -81,6 +81,10 @@ The default database is `sqlite`. It is recommended to use a relational database
 
 This project is licensed under the [Apache 2.0](LICENSE) License。
 
+# Third-party Code Notice
+
+The project includes a significant amount of code from third-party libraries such as NocoBase, Formily, and Ant Design (antd). This code adheres to their original licenses and agreements. It will be gradually rewritten in the future. Please be mindful of this when using it in the early stages of the project.
+
 # Contributing
 
 - Provide background information on deployment and usage, and describe the situations where the current system services fall short. Depending on the impact, we will categorize this into different development levels (Kernel, Module, or Plugin).
