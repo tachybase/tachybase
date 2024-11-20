@@ -1,6 +1,12 @@
-import { Plugin } from '@tachybase/server';
+import Application, { Plugin, PluginOptions } from '@tachybase/server';
+
+import { PluginWebhook } from './webhooks/Plugin';
 
 export class ModuleEventSourceServer extends Plugin {
+  constructor(app: Application, options?: PluginOptions) {
+    super(app, options);
+    this.addFeature(PluginWebhook);
+  }
   async afterAdd() {}
 
   async beforeLoad() {}

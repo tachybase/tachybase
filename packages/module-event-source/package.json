@@ -6,12 +6,20 @@
     "build": "tachybase-build --no-dts @tachybase/module-event-source"
   },
   "dependencies": {
-    "antd": "5.22.0"
+    "antd": "5.22.0",
+    "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "4.17.13"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/data-source-manager": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*"
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   }
 }

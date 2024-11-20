@@ -31,5 +31,13 @@ export default defineCollection({
       name: 'settings',
       type: 'json',
     },
+    {
+      name: 'actionName',
+      type: 'string',
+    },
+    {
+      name: 'resourceName',
+      type: 'text',
+    },
   ],
 });
