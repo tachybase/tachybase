@@ -11,6 +11,7 @@ import { ComposedActionDrawer } from './types';
 export const ActionContainer: ComposedActionDrawer = observer(
   (props: any) => {
     const { openMode } = useActionContext();
+
     if (openMode === 'drawer') {
       return <ActionDrawer footerNodeName={'Action.Container.Footer'} {...props} />;
     }

@@ -15,7 +15,9 @@ export const CreateSubmitActionInitializer = (props) => {
       htmlType: 'submit',
     },
     'x-action-settings': {
+      assignedValues: {},
       triggerWorkflows: [],
+      pageMode: false,
     },
   };
   return <ActionInitializer {...props} schema={schema} />;

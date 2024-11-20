@@ -7,9 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import { useCollection_deprecated } from '../../../collection-manager';
-import { useDesignable } from '../../../schema-component';
+import { useActionContext, useDesignable } from '../../../schema-component';
 import {
+  AfterSuccess,
   ButtonEditor,
+  findSchema,
   RemoveButton,
   SecondConFirm,
   WorkflowConfig,
@@ -138,6 +140,40 @@ export const createSubmitActionSettings = new SchemaSettings({
     {
       name: 'secondConfirmation',
       Component: SecondConFirm,
+    },
+    {
+      name: 'afterSuccessfulSubmission',
+      Component: AfterSuccess,
+    },
+    {
+      name: 'jumpDetails',
+      type: 'switch',
+      useVisible() {
+        const { fieldSchema } = useActionContext();
+        const openMode = findSchema(fieldSchema);
+        return !openMode || openMode === 'page';
+      },
+      useComponentProps() {
+        const { t } = useTranslation();
+        const fieldSchema = useFieldSchema();
+        const field = useField();
+        const { dn, refresh } = useDesignable();
+        return {
+          title: t('Jump details'),
+          checked: fieldSchema?.['x-action-settings']?.pageMode,
+          onChange(checked) {
+            const schema = { 'x-uid': fieldSchema['x-uid'] };
+            field['actionSetting'] = { ...field?.['ationSetting'], pageMode: checked };
+            fieldSchema['x-action-settings'] = {
+              ...fieldSchema?.['x-action-settings'],
+              pageMode: checked,
+            };
+            schema['x-action-settings'] = fieldSchema['x-action-settings'];
+            dn.emit('patch', { schema });
+            refresh();
+          },
+        };
+      },
     },
     {
       name: 'workflowConfig',

@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useEffect } from 'react';
-import { Field, Form, untracked, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { Field, Form, ISchema, untracked, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { isURL, parse } from '@tachybase/utils/client';
 
 import { App } from 'antd';
@@ -22,7 +22,13 @@ import { useCollection_deprecated, useCollectionManager_deprecated } from '../..
 import { useFilterBlock } from '../../filter-provider/FilterProvider';
 import { mergeFilter, transformToFilter } from '../../filter-provider/utils';
 import { useRecord } from '../../record-provider';
-import { getCustomCondition, removeNullCondition, useActionContext, useCompile } from '../../schema-component';
+import {
+  getCustomCondition,
+  removeNullCondition,
+  useActionContext,
+  useCompile,
+  useDesignable,
+} from '../../schema-component';
 import { isSubMode } from '../../schema-component/antd/association-field/util';
 import { useCurrentUserContext } from '../../user';
 import { useLocalVariables, useVariables } from '../../variables';
@@ -150,7 +156,6 @@ export function useCollectValuesToSubmit() {
       values[treeParentField?.name ?? 'parent'] = omit(currentRecord?.__parent, ['children']);
       values[treeParentField?.foreignKey ?? 'parentId'] = currentRecord?.__parent?.id;
     }
-
     return {
       ...values,
       ...overwriteValues,
@@ -174,6 +179,54 @@ export function useCollectValuesToSubmit() {
   ]);
 }
 
+const pageDetailsViewer = 'PageLayout';
+
+const viewerSchema: ISchema = {
+  type: 'void',
+  title: '{{t("View record")}}',
+  'x-component': pageDetailsViewer,
+  'x-component-props': {
+    className: 'tb-action-popup',
+  },
+  properties: {
+    page: {
+      type: 'void',
+      title: '{{t("Detail page")}}',
+      'x-designer': 'Page.Designer',
+      'x-component': 'Page',
+      'x-component-props': { disablePageHeader: true },
+      properties: {
+        grid: {
+          type: 'void',
+          'x-component': 'Grid',
+          'x-initializer': 'popup:common:addBlock',
+          properties: {},
+        },
+      },
+    },
+  },
+};
+
+export const useInsertSchema = () => {
+  const fieldSchema = useFieldSchema();
+  const { insertAfterBegin } = useDesignable();
+  const insert = useCallback(
+    (ss) => {
+      const schema = fieldSchema.reduceProperties((buf, s) => {
+        if (s['x-component'] === pageDetailsViewer) {
+          return s;
+        }
+        return buf;
+      }, null);
+      if (!schema) {
+        insertAfterBegin(_.cloneDeep(ss));
+      }
+    },
+    [pageDetailsViewer],
+  );
+  return insert;
+};
+
 export const useCancelActionProps = () => {
   const form = useForm();
   const ctx = useActionContext();
@@ -186,10 +239,10 @@ export const useCancelActionProps = () => {
 };
 
 export const useCreateActionProps = () => {
-  const filterByTk = useFilterByTk();
   const record = useCollectionRecord();
   const form = useForm();
   const { field, resource, __parent } = useBlockRequestContext();
+  const { fields, name } = useCollection_deprecated();
   const { setVisible } = useActionContext();
   const navigate = useNavigate();
   const actionSchema = useFieldSchema();
@@ -201,37 +254,52 @@ export const useCreateActionProps = () => {
   const collectValues = useCollectValuesToSubmit();
   const action = record.isNew ? actionField.componentProps.saveMode || 'create' : 'update';
   const filterKeys = actionField.componentProps.filterKeys?.checked || [];
-
+  const dn = useDesignable();
+  const insert = useInsertSchema();
+  let fieldSchema2 = useFieldSchema();
   return {
     async onClick() {
-      const { onSuccess, skipValidator, triggerWorkflows } = actionSchema?.['x-action-settings'] ?? {};
+      const { onSuccess, skipValidator, triggerWorkflows, pageMode } = actionSchema?.['x-action-settings'] ?? {};
 
       if (!skipValidator) {
         await form.submit();
       }
-      const values = await collectValues();
       actionField.data = field.data || {};
       actionField.data.loading = true;
       try {
         const data = await resource[action]({
-          values,
+          values: await collectValues(),
           filterKeys: filterKeys,
-          filterByTk,
           // TODO(refactor): should change to inject by plugin
           triggerWorkflows: triggerWorkflows?.length
             ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
             : undefined,
           updateAssociationValues,
         });
-        setVisible?.(false);
         actionField.data.loading = false;
         actionField.data.data = data;
         __parent?.service?.refresh?.();
         if (!onSuccess?.successMessage) {
           message.success(t('Saved successfully'));
-          await resetFormCorrectly(form);
-          return;
+          if (pageMode) {
+            if (dn.designable) {
+              insert(viewerSchema);
+            }
+            fieldSchema2.reduceProperties((buf, s) => {
+              if (s['x-component'] === pageDetailsViewer) {
+                fieldSchema2 = s;
+                return s;
+              }
+              return buf;
+            });
+            if (fieldSchema2['x-component'] === pageDetailsViewer) {
+              navigate(`page/${fieldSchema2['x-uid']}/records/${name}/${data?.data?.data?.id ?? ''}`);
+            }
+            await resetFormCorrectly(form);
+            return;
+          }
         }
+
         if (onSuccess?.manualClose) {
           modal.success({
             title: compile(onSuccess?.successMessage),
@@ -256,6 +324,13 @@ export const useCreateActionProps = () => {
               navigate(onSuccess.redirectTo);
             }
           }
+        }
+        if (!onSuccess?.popupClose) {
+          await resetFormCorrectly(form);
+          setVisible?.(false);
+        }
+        if (!onSuccess) {
+          setVisible?.(false);
         }
       } catch (error) {
         actionField.data.loading = false;

@@ -137,3 +137,60 @@ export const linkageAction = async ({
       return null;
   }
 };
+
+export const afterSuccessSchema: ISchema = {
+  type: 'object',
+  title: '{{t("After successful submission")}}',
+  properties: {
+    successMessage: {
+      title: '{{t("Popup message")}}',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input.TextArea',
+      'x-component-props': {},
+    },
+    popupClose: {
+      title: '{{t("Popup close method")}}',
+      enum: [
+        { label: '{{t("Automatic close")}}', value: false },
+        { label: '{{t("Manually close")}}', value: true },
+      ],
+      'x-decorator': 'FormItem',
+      'x-component': 'Radio.Group',
+      'x-component-props': {},
+    },
+    manualClose: {
+      title: '{{t("Message clear metchod")}}',
+      enum: [
+        { label: '{{t("Automatic close")}}', value: false },
+        { label: '{{t("Manually close")}}', value: true },
+      ],
+      'x-decorator': 'FormItem',
+      'x-component': 'Radio.Group',
+      'x-component-props': {},
+    },
+    redirecting: {
+      title: '{{t("Then")}}',
+      enum: [
+        { label: '{{t("Stay on current page")}}', value: false },
+        { label: '{{t("Redirect to")}}', value: true },
+      ],
+      'x-decorator': 'FormItem',
+      'x-component': 'Radio.Group',
+      'x-component-props': {},
+      'x-reactions': {
+        target: 'redirectTo',
+        fulfill: {
+          state: {
+            visible: '{{!!$self.value}}',
+          },
+        },
+      },
+    },
+    redirectTo: {
+      title: '{{t("Link")}}',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+      'x-component-props': {},
+    },
+  },
+};

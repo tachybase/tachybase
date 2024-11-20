@@ -36,8 +36,7 @@ import {
 import { TstzrangeFieldInterface } from './interfaces/TstzrangeFieldInterface';
 import { Locale, tval } from './locale';
 import { DetailsPage, PageLayout } from './pages';
-import { CreateSubmitActionInitializer, SettingBlockInitializer } from './schema-initializer';
-import { useCreateActionProps } from './schema-initializer/actions/hooks/useCreateActionProps';
+import { SettingBlockInitializer } from './schema-initializer';
 import { EditTitle, IsTablePageSize, PageModeSetting, usePaginationVisible } from './schema-settings';
 import { SchemaSettingsDatePickerType } from './schema-settings/SchemaSettingsDatePickerType';
 import {
@@ -105,7 +104,6 @@ export class PluginCoreClient extends Plugin {
 
   async registerScopesAndComponents() {
     this.app.addScopes({
-      useCreateActionProps,
       useGetCustomAssociatedComponents,
       useGetCustomComponents,
       useCustomPresets1,
@@ -116,7 +114,6 @@ export class PluginCoreClient extends Plugin {
       AssociatedField,
       CalcResult,
       CodeMirror,
-      CreateSubmitActionInitializer,
       CustomAssociatedField,
       CustomComponentDispatcher,
       CustomComponentStub,

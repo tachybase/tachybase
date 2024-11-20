@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { ArrayTable } from '@tachybase/components';
 import {
   Field,
@@ -15,7 +15,7 @@ import {
 import { Alert, Flex, ModalProps, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { RemoteSelect, useCompile, useDesignable } from '../..';
+import { ActionContext, RemoteSelect, useCompile, useDesignable } from '../..';
 import { useApp } from '../../../application';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { usePlugin } from '../../../application/hooks';
@@ -47,8 +47,8 @@ import {
 } from '../../../schema-settings/SchemaSettings';
 import { useSchemaTemplateManager } from '../../../schema-templates';
 import { useLocalVariables, useVariables } from '../../../variables';
-import { useLinkageAction } from './hooks';
-import { requestSettingsSchema } from './utils';
+import { useActionContext, useLinkageAction } from './hooks';
+import { afterSuccessSchema, requestSettingsSchema } from './utils';
 
 const MenuGroup = (props) => {
   return props.children;
@@ -247,62 +247,34 @@ export function SkipValidation() {
     />
   );
 }
+
+export const findSchema = (schema) => {
+  if (!schema) return;
+  if (schema['x-decorator'] === 'ACLActionProvider') {
+    return schema['x-component-props'].openMode;
+  }
+  return findSchema(schema?.parent);
+};
+
 export function AfterSuccess() {
   const { dn } = useDesignable();
   const { t } = useTranslation();
   const fieldSchema = useFieldSchema();
+  const ctx = useActionContext();
+  const openMode = findSchema(ctx.fieldSchema);
+  const component = fieldSchema.parent.parent['x-component'];
+  const schema = { ...(afterSuccessSchema as any) };
+  if (
+    ((!openMode || openMode === 'page') && (component as string).includes('Form')) ||
+    !(component as string).includes('Form')
+  ) {
+    delete schema.properties.popupClose;
+  }
   return (
     <SchemaSettingsModalItem
       title={t('After successful submission')}
       initialValues={fieldSchema?.['x-action-settings']?.['onSuccess']}
-      schema={
-        {
-          type: 'object',
-          title: t('After successful submission'),
-          properties: {
-            successMessage: {
-              title: t('Popup message'),
-              'x-decorator': 'FormItem',
-              'x-component': 'Input.TextArea',
-              'x-component-props': {},
-            },
-            manualClose: {
-              title: t('Popup close method'),
-              enum: [
-                { label: t('Automatic close'), value: false },
-                { label: t('Manually close'), value: true },
-              ],
-              'x-decorator': 'FormItem',
-              'x-component': 'Radio.Group',
-              'x-component-props': {},
-            },
-            redirecting: {
-              title: t('Then'),
-              enum: [
-                { label: t('Stay on current page'), value: false },
-                { label: t('Redirect to'), value: true },
-              ],
-              'x-decorator': 'FormItem',
-              'x-component': 'Radio.Group',
-              'x-component-props': {},
-              'x-reactions': {
-                target: 'redirectTo',
-                fulfill: {
-                  state: {
-                    visible: '{{!!$self.value}}',
-                  },
-                },
-              },
-            },
-            redirectTo: {
-              title: t('Link'),
-              'x-decorator': 'FormItem',
-              'x-component': 'Input',
-              'x-component-props': {},
-            },
-          },
-        } as ISchema
-      }
+      schema={{ ...schema } as ISchema}
       onSubmit={(onSuccess) => {
         fieldSchema['x-action-settings']['onSuccess'] = onSuccess;
         dn.emit('patch', {
