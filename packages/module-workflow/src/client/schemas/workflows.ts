@@ -310,6 +310,130 @@ export const updateWorkflow: ISchema = {
     },
   },
 };
+const revisionWorkflow: ISchema = {
+  type: 'void',
+  title: `{{t("Duplicate", { ns: "${NAMESPACE}" })}}`,
+  'x-component': 'Action.Link',
+  'x-component-props': {
+    openSize: 'small',
+  },
+  properties: {
+    modal: {
+      type: 'void',
+      title: `{{t("Duplicate to new workflow", { ns: "${NAMESPACE}" })}}`,
+      'x-decorator': 'FormV2',
+      'x-component': 'Action.Modal',
+      properties: {
+        title: {
+          type: 'string',
+          title: '{{t("Title")}}',
+          'x-decorator': 'FormItem',
+          'x-component': 'Input',
+        },
+        footer: {
+          type: 'void',
+          'x-component': 'Action.Modal.Footer',
+          properties: {
+            submit: {
+              type: 'void',
+              title: '{{t("Submit")}}',
+              'x-component': 'Action',
+              'x-component-props': {
+                type: 'primary',
+                useAction() {
+                  const { t } = useTranslation();
+                  const { refresh } = useDataBlockRequest();
+                  const resource = useDataBlockResource();
+                  const { setVisible } = useActionContext();
+                  const filterByTk = useFilterByTk();
+                  const { values } = useForm();
+                  return {
+                    async run() {
+                      await resource.revision({ filterByTk, values });
+                      message.success(t('Operation succeeded'));
+                      refresh();
+                      setVisible(false);
+                    },
+                  };
+                },
+              },
+            },
+            cancel: {
+              type: 'void',
+              title: '{{t("Cancel")}}',
+              'x-component': 'Action',
+              'x-use-component-props': 'useCancelActionProps',
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+const testWorkflow: ISchema = {
+  type: 'void',
+  title: `{{t("Test", { ns: "${NAMESPACE}" })}}`,
+  'x-component': 'Action.Link',
+  properties: {
+    modal: {
+      type: 'void',
+      title: `{{t("Duplicate to new workflow", { ns: "${NAMESPACE}" })}}`,
+      'x-decorator': 'FormV2',
+      'x-component': 'Action.Modal',
+      properties: {
+        params: {
+          type: 'string',
+          title: '{{t("Input")}}',
+          'x-decorator': 'FormItem',
+          default: { data: {}, ctx: {} },
+          'x-component': 'Input.JSON',
+          'x-component-props': {
+            autoSize: {
+              minRows: 20,
+              maxRows: 50,
+            },
+          },
+        },
+        footer: {
+          type: 'void',
+          'x-component': 'Action.Modal.Footer',
+          properties: {
+            submit: {
+              type: 'void',
+              title: '{{t("Submit")}}',
+              'x-component': 'Action',
+              'x-component-props': {
+                type: 'primary',
+                useAction() {
+                  const { t } = useTranslation();
+                  const { refresh } = useDataBlockRequest();
+                  const resource = useDataBlockResource();
+                  const { setVisible } = useActionContext();
+                  const filterByTk = useFilterByTk();
+                  const { values } = useForm();
+                  return {
+                    async run() {
+                      await resource.test({ filterByTk, values });
+                      refresh();
+                      setVisible(false);
+                    },
+                  };
+                },
+              },
+            },
+            cancel: {
+              type: 'void',
+              title: '{{t("Cancel")}}',
+              'x-component': 'Action',
+              'x-use-component-props': 'useCancelActionProps',
+            },
+          },
+        },
+      },
+    },
+  },
+};
 
 export const workflowSchema: ISchema = {
   type: 'void',
@@ -554,68 +678,8 @@ export const workflowSchema: ISchema = {
                       'x-component': 'WorkflowLink',
                     },
                     update: updateWorkflow,
-                    revision: {
-                      type: 'void',
-                      title: `{{t("Duplicate", { ns: "${NAMESPACE}" })}}`,
-                      'x-component': 'Action.Link',
-                      'x-component-props': {
-                        openSize: 'small',
-                      },
-                      properties: {
-                        modal: {
-                          type: 'void',
-                          title: `{{t("Duplicate to new workflow", { ns: "${NAMESPACE}" })}}`,
-                          'x-decorator': 'FormV2',
-                          'x-component': 'Action.Modal',
-                          properties: {
-                            title: {
-                              type: 'string',
-                              title: '{{t("Title")}}',
-                              'x-decorator': 'FormItem',
-                              'x-component': 'Input',
-                            },
-                            footer: {
-                              type: 'void',
-                              'x-component': 'Action.Modal.Footer',
-                              properties: {
-                                submit: {
-                                  type: 'void',
-                                  title: '{{t("Submit")}}',
-                                  'x-component': 'Action',
-                                  'x-component-props': {
-                                    type: 'primary',
-                                    useAction() {
-                                      const { t } = useTranslation();
-                                      const { refresh } = useDataBlockRequest();
-                                      const resource = useDataBlockResource();
-                                      const { setVisible } = useActionContext();
-                                      const filterByTk = useFilterByTk();
-                                      const { values } = useForm();
-                                      return {
-                                        async run() {
-                                          await resource.revision({ filterByTk, values });
-                                          message.success(t('Operation succeeded'));
-                                          refresh();
-                                          setVisible(false);
-                                        },
-                                      };
-                                    },
-                                  },
-                                },
-                                cancel: {
-                                  type: 'void',
-                                  title: '{{t("Cancel")}}',
-                                  'x-component': 'Action',
-                                  'x-component-props': {
-                                    useAction: '{{ useCancelAction }}',
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
+                    revision: revisionWorkflow,
+                    test: testWorkflow,
                     delete: {
                       type: 'void',
                       title: '{{t("Delete")}}',

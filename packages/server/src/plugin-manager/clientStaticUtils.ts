@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export const PLUGIN_STATICS_PATH = '/static/plugins/';
 
@@ -9,7 +9,6 @@ function findPackageJson(filePath) {
 
   if (fs.existsSync(packageJsonPath)) {
     return directory; // 返回找到的 package.json 所在目录
-    // FIXME 这个在 windows 上应该跑不了
   } else if (directory !== '/') {
     // 递归寻找直到根目录
     return findPackageJson(directory);

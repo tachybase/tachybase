@@ -353,7 +353,7 @@ export class Gateway extends EventEmitter {
       })
       .catch(async (e) => {
         if (e.code !== 'commander.helpDisplayed') {
-          mainApp.log.error(e);
+          mainApp.logger.error(e);
         }
         if (!isStart && !(await mainApp.isStarted())) {
           await mainApp.stop({ logging: false });

@@ -148,5 +148,4 @@ ReadPretty.Input = _Input;
 ReadPretty.TextArea = _TextArea;
 ReadPretty.URL = _URL;
 ReadPretty.Html = _Html;
-ReadPretty.TextArea = _TextArea;
 ReadPretty.JSON = _JSON;

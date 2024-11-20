@@ -67,7 +67,7 @@ export default class UpdateIdToBigIntMigrator extends Migration {
           throw err;
         }
 
-        this.app.log.info(`updated ${tableName}.${fieldName} to BIGINT`, { tableName, fieldName });
+        this.app.logger.info(`updated ${tableName}.${fieldName} to BIGINT`, { tableName, fieldName });
       }
     };
 

@@ -21,7 +21,7 @@ export default function addRestoreCommand(app: Application) {
     .action(async (restoreFilePath, options) => {
       // should confirm data will be overwritten
       if (!options.force) {
-        app.log.warn('This action will overwrite your current data, please make sure you have a backup❗️❗️');
+        app.logger.warn('This action will overwrite your current data, please make sure you have a backup❗️❗️');
         return;
       }
 
@@ -44,7 +44,7 @@ export default function addRestoreCommand(app: Application) {
         const subApp = await AppSupervisor.getInstance().getApp(options.app);
 
         if (!subApp) {
-          app.log.error(`app ${options.app} not found`);
+          app.logger.error(`app ${options.app} not found`);
           await app.stop();
           return;
         }

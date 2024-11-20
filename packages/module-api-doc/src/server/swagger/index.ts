@@ -64,7 +64,7 @@ export class SwaggerManager {
         try {
           others = merge(others, await this.collection2Swagger(collection.name, false));
         } catch (e) {
-          this.app.log.error(e);
+          this.app.logger.error(e);
         }
       }
     }

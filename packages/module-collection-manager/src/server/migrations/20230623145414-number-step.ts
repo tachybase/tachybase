@@ -11,7 +11,7 @@ export default class extends Migration {
     const transaction = await this.db.sequelize.transaction();
 
     const migrateFieldsSchema = async (collection: Collection) => {
-      this.app.log.info(`Start to migrate ${collection.name} collection's ui schema`);
+      this.app.logger.info(`Start to migrate ${collection.name} collection's ui schema`);
 
       const fieldRecords: Array<FieldModel> = await collection.repository.find({
         transaction,
@@ -20,7 +20,7 @@ export default class extends Migration {
         },
       });
 
-      this.app.log.info(`Total ${fieldRecords.length} fields need to be migrated`);
+      this.app.logger.info(`Total ${fieldRecords.length} fields need to be migrated`);
 
       for (const fieldRecord of fieldRecords) {
         const uiSchema = fieldRecord.get('uiSchema');
@@ -41,7 +41,7 @@ export default class extends Migration {
       await transaction.commit();
     } catch (error) {
       await transaction.rollback();
-      this.app.log.error(error);
+      this.app.logger.error(error);
       throw error;
     }
   }

@@ -331,6 +331,10 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     return this._version;
   }
 
+  /**
+   * Use {@link logger}
+   * @deprecated
+   */
   get log() {
     return this._logger;
   }
@@ -395,7 +399,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
    * @deprecated
    */
   plugin<O = any>(pluginClass: any, options?: O) {
-    this.log.debug(`add plugin`, { method: 'plugin', name: pluginClass.name });
+    this.logger.debug(`add plugin`, { method: 'plugin', name: pluginClass.name });
     this.pm.addPreset(pluginClass, options);
   }
 
@@ -467,7 +471,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       return;
     }
 
-    this.log.info('app reinitializing');
+    this.logger.info('app reinitializing');
 
     if (this.cacheManager) {
       await this.cacheManager.close();
@@ -490,7 +494,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     if (options?.reload) {
       this.setMaintainingMessage('app reload');
-      this.log.info(`app.reload()`, { method: 'load' });
+      this.logger.info(`app.reload()`, { method: 'load' });
 
       if (this.cacheManager) {
         await this.cacheManager.close();
@@ -539,7 +543,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   }
 
   async reload(options?: any) {
-    this.log.debug(`start reload`, { method: 'reload' });
+    this.logger.debug(`start reload`, { method: 'reload' });
 
     this._loaded = false;
 
@@ -550,10 +554,10 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       reload: true,
     });
 
-    this.log.debug('emit afterReload', { method: 'reload' });
+    this.logger.debug('emit afterReload', { method: 'reload' });
     this.setMaintainingMessage('emit afterReload');
     await this.emitAsync('afterReload', this, options);
-    this.log.debug(`finish reload`, { method: 'reload' });
+    this.logger.debug(`finish reload`, { method: 'reload' });
   }
 
   /**
@@ -672,21 +676,21 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     return {
       beforeLoad: {
         up: async () => {
-          this.log.debug('run core migrations(beforeLoad)');
+          this.logger.debug('run core migrations(beforeLoad)');
           const migrator = this.db.createMigrator({ migrations: migrations.beforeLoad });
           await migrator.up();
         },
       },
       afterSync: {
         up: async () => {
-          this.log.debug('run core migrations(afterSync)');
+          this.logger.debug('run core migrations(afterSync)');
           const migrator = this.db.createMigrator({ migrations: migrations.afterSync });
           await migrator.up();
         },
       },
       afterLoad: {
         up: async () => {
-          this.log.debug('run core migrations(afterLoad)');
+          this.logger.debug('run core migrations(afterLoad)');
           const migrator = this.db.createMigrator({ migrations: migrations.afterLoad });
           await migrator.up();
         },
@@ -698,7 +702,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
    * @internal
    */
   async loadPluginCommands() {
-    this.log.debug('load plugin commands');
+    this.logger.debug('load plugin commands');
     await this.pm.loadCommands();
   }
 
@@ -819,7 +823,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       return;
     }
 
-    this.log.info('restarting...');
+    this.logger.info('restarting...');
 
     this._started = false;
     await this.emitAsync('beforeStop');
@@ -837,7 +841,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
             info() {},
             error() {},
           }
-        : this.log;
+        : this.logger;
     log.debug('stop app...', { method: 'stop' });
     this.setMaintainingMessage('stopping app...');
 
@@ -875,15 +879,15 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   }
 
   async destroy(options: any = {}) {
-    this.log.debug('start destroy app', { method: 'destory' });
+    this.logger.debug('start destroy app', { method: 'destory' });
     this.setMaintainingMessage('destroying app...');
     await this.emitAsync('beforeDestroy', this, options);
     await this.stop(options);
 
-    this.log.debug('emit afterDestroy', { method: 'destory' });
+    this.logger.debug('emit afterDestroy', { method: 'destory' });
     await this.emitAsync('afterDestroy', this, options);
 
-    this.log.debug('finish destroy app', { method: 'destory' });
+    this.logger.debug('finish destroy app', { method: 'destory' });
   }
 
   async isInstalled() {
@@ -898,14 +902,14 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       await this.db.clean({ drop: true });
     }
     if (await this.isInstalled()) {
-      this.log.warn('app is installed');
+      this.logger.warn('app is installed');
       return;
     }
     await this.reInit();
     await this.db.sync();
     await this.load({ hooks: false });
 
-    this.log.debug('emit beforeInstall', { method: 'install' });
+    this.logger.debug('emit beforeInstall', { method: 'install' });
     this.setMaintainingMessage('call beforeInstall hook...');
     await this.emitAsync('beforeInstall', this, options);
 
@@ -930,7 +934,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     // this.log.debug('update version', { method: 'install' });
     // await this.version.update();
 
-    this.log.debug('emit afterInstall', { method: 'install' });
+    this.logger.debug('emit afterInstall', { method: 'install' });
     this.setMaintainingMessage('call afterInstall hook...');
     await this.emitAsync('afterInstall', this, options);
 
@@ -944,7 +948,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   }
 
   async upgrade(options: any = {}) {
-    this.log.info('upgrading...');
+    this.logger.info('upgrading...');
     await this.reInit();
     const migrator1 = await this.loadCoreMigrations();
     await migrator1.beforeLoad.up();

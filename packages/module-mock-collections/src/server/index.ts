@@ -219,7 +219,7 @@ export class PluginMockCollectionsServer extends Plugin {
               return v;
             }),
           );
-          return count == 1 ? items[0] : items;
+          return count === 1 ? items[0] : items;
         };
         const repository = ctx.db.getRepository(resourceName);
         let size = count;
@@ -277,7 +277,7 @@ export class PluginMockCollectionsServer extends Plugin {
                 transaction,
               });
             } catch (error) {
-              this.app.log.error(error.message, { collection });
+              this.app.logger.error(error.message, { collection });
               throw error;
             }
           }
@@ -290,7 +290,7 @@ export class PluginMockCollectionsServer extends Plugin {
                 transaction,
               });
             } catch (error) {
-              this.app.log.error(error.message, { collectionField });
+              this.app.logger.error(error.message, { collectionField });
               throw error;
             }
           }

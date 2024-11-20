@@ -349,12 +349,12 @@ export class Dumper extends AppMigrator {
     const dir = this.workDir;
 
     const collectionName = options.name;
-    app.log.info(`dumping collection ${collectionName}`);
+    app.logger.info(`dumping collection ${collectionName}`);
 
     const collection = app.db.getCollection(collectionName);
 
     if (!collection) {
-      this.app.log.warn(`collection ${collectionName} not found`);
+      this.app.logger.warn(`collection ${collectionName} not found`);
       return;
     }
 

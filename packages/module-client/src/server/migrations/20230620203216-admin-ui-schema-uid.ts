@@ -38,6 +38,6 @@ export default class extends Migration {
     if (!instance?.options?.adminSchemaUid) {
       throw new Error('adminSchemaUid invalid');
     }
-    this.app.log.info('systemSettings.options', instance.toJSON());
+    this.app.logger.info('systemSettings.options', instance.toJSON());
   }
 }

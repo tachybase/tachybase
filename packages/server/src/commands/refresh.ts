@@ -8,6 +8,6 @@ export default (app: Application) => {
       await app.restart({
         cliArgs,
       });
-      app.log.info('refreshing...');
+      app.logger.info('refreshing...');
     });
 };

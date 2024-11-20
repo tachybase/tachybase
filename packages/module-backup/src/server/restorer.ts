@@ -150,7 +150,7 @@ export class Restorer extends AppMigrator {
     for (const group of importGroups) {
       const collections = dumpableCollectionsGroupByGroup[group];
       if (!collections) {
-        this.app.log.warn(`group ${group} not found`);
+        this.app.logger.warn(`group ${group} not found`);
         continue;
       }
       for (const collection of Restorer.sortCollectionsByInherits(collections)) {
@@ -222,7 +222,7 @@ export class Restorer extends AppMigrator {
 
     const columns = meta['columns'];
 
-    if (columns.length == 0) {
+    if (columns.length === 0) {
       app.logger.info(`${collectionName} has no columns`);
       return;
     }
@@ -286,7 +286,7 @@ export class Restorer extends AppMigrator {
     // read file content from collection data
     const rows = await readLines(collectionDataPath);
 
-    if (rows.length == 0) {
+    if (rows.length === 0) {
       app.logger.info(`${collectionName} has no data to import`);
       this.importedCollections.push(collectionName);
       return;
@@ -311,7 +311,7 @@ export class Restorer extends AppMigrator {
         return true;
       });
 
-    if (rowsWithMeta.length == 0) {
+    if (rowsWithMeta.length === 0) {
       app.logger.info(`${collectionName} has no data to import`);
       this.importedCollections.push(collectionName);
       return;
@@ -386,7 +386,7 @@ export class Restorer extends AppMigrator {
 
     for (const sqlData of queries) {
       try {
-        this.app.log.info(`import sql: ${sqlData.sql}`);
+        this.app.logger.info(`import sql: ${sqlData.sql}`);
         for (const sql of lodash.castArray(sqlData.sql)) {
           await this.app.db.sequelize.query(sql);
         }

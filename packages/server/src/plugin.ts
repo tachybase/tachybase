@@ -66,7 +66,7 @@ export abstract class Plugin implements PluginInterface {
   }
 
   get log() {
-    return this.app.log.child({
+    return this.app.logger.child({
       reqId: this.app.context.reqId,
       module: this.name,
     });
@@ -188,7 +188,7 @@ export abstract class Plugin implements PluginInterface {
       callback(this.app);
     }
     if (files.length) {
-      this.app.log.debug(`load commands [${this.name}]`);
+      this.app.logger.debug(`load commands [${this.name}]`);
     }
   }
 
@@ -196,7 +196,7 @@ export abstract class Plugin implements PluginInterface {
    * @internal
    */
   async loadMigrations() {
-    this.app.log.debug(`load plugin migrations [${this.name}]`);
+    this.app.logger.debug(`load plugin migrations [${this.name}]`);
     if (!this.options.packageName) {
       return { beforeLoad: [], afterSync: [], afterLoad: [] };
     }

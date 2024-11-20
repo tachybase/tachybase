@@ -253,6 +253,7 @@
   "Task": "Task",
   "Task node": "Task node",
   "Terminate the process": "Terminate the process",
+  "Test": "Test",
   "The Notified Person": "The Notified Person",
   "The interface of show notice detail": "The interface of show notice detail",
   "The result of this node has been referenced by other nodes ({{nodes}}), please remove the usage before deleting.": "The result of this node has been referenced by other nodes ({{nodes}}), please remove the usage before deleting.",

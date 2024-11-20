@@ -20,7 +20,7 @@ const defaultSubAppUpgradeHandle: SubAppUpgradeHandler = async (mainApp: Applica
 
   const appSupervisor = AppSupervisor.getInstance();
 
-  if (appSupervisor.runningMode == 'single') {
+  if (appSupervisor.runningMode === 'single') {
     findOptions['filter'] = {
       name: appSupervisor.singleAppName,
     };
@@ -94,12 +94,12 @@ const defaultDbCreator = async (app: Application) => {
 
     try {
       if (tmpl) {
-        app.log.info(`create new app db ${database} with tmpl db ${tmpl}...`);
+        app.logger.info(`create new app db ${database} with tmpl db ${tmpl}...`);
         const tmplExists = await client.query(`SELECT 1 FROM pg_database WHERE datname='${tmpl}'`);
         if (tmplExists.rows.length === 0) {
           // 模板不存在，报错结束
           const errMsg = `template database ${tmpl} not exists.`;
-          app.log.error(errMsg);
+          app.logger.error(errMsg);
           AppSupervisor.getInstance().setAppError(database, new Error(errMsg));
         } else {
           // 模板存在，需要先判断是否需要暂时转换为模板数据库，解除占用，禁止连接，然后开始复制，完成后撤销这些操作
@@ -122,7 +122,7 @@ const defaultDbCreator = async (app: Application) => {
         await client.query(`CREATE DATABASE "${database}"`);
       }
     } catch (e) {
-      app.log.error(JSON.stringify(e));
+      app.logger.error(JSON.stringify(e));
       AppSupervisor.getInstance().setAppError(database, e);
     }
 

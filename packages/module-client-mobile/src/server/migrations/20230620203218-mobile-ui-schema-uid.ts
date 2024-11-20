@@ -33,6 +33,6 @@ export default class extends Migration {
     if (!instance?.options?.mobileSchemaUid) {
       throw new Error('mobileSchemaUid invalid');
     }
-    this.app.log.info('systemSettings.options', instance.toJSON());
+    this.app.logger.info('systemSettings.options', instance.toJSON());
   }
 }

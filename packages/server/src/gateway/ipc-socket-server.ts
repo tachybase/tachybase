@@ -110,7 +110,7 @@ export class IPCSocketServer {
           from: 'node',
         })
       ) {
-        mainApp.log.debug('Not handle by ipc server');
+        mainApp.logger.debug('Not handle by ipc server');
         return false;
       }
 

@@ -252,7 +252,7 @@ export class PluginManager {
     } catch (error) {
       return;
     }
-    this.app.log.info('attempt to add the plugin to the app');
+    this.app.logger.info('attempt to add the plugin to the app');
     let packageName: string;
     try {
       packageName = await PluginManager.getPackageName(pluginName);
@@ -260,7 +260,7 @@ export class PluginManager {
       packageName = pluginName;
     }
     const json = await PluginManager.getPackageJson(packageName);
-    this.app.log.info(`add plugin [${packageName}]`, {
+    this.app.logger.info(`add plugin [${packageName}]`, {
       name: pluginName,
       packageName: packageName,
       version: json.version,
@@ -280,7 +280,7 @@ export class PluginManager {
   async add(plugin?: any, options: any = {}, insert = false, isUpgrade = false) {
     if (!isUpgrade && this.has(plugin)) {
       const name = typeof plugin === 'string' ? plugin : plugin.name;
-      this.app.log.warn(`plugin [${name}] added`);
+      this.app.logger.warn(`plugin [${name}] added`);
       return;
     }
     if (!options.name && typeof plugin === 'string') {
@@ -298,10 +298,10 @@ export class PluginManager {
         options['version'] = packageJson.version;
       }
     } catch (error) {
-      console.error(error);
+      this.app.logger.error(error);
       // empty
     }
-    this.app.log.debug(`add plugin [${options.name}]`, {
+    this.app.logger.debug(`add plugin [${options.name}]`, {
       method: 'add',
       submodule: 'plugin-manager',
       name: options.name,
@@ -310,7 +310,7 @@ export class PluginManager {
     try {
       P = await PluginManager.resolvePlugin(options.packageName || plugin, isUpgrade, !!options.packageName);
     } catch (error) {
-      this.app.log.warn('plugin not found', error);
+      this.app.logger.warn('plugin not found', error);
       return;
     }
 
@@ -343,7 +343,7 @@ export class PluginManager {
    * @internal
    */
   async loadCommands() {
-    this.app.log.debug('load commands');
+    this.app.logger.debug('load commands');
     const items = await this.repository.find({
       filter: {
         enabled: true,
@@ -419,7 +419,7 @@ export class PluginManager {
       }
       const name = plugin.name || P.name;
       current += 1;
-      this.app.setMaintainingMessage(`load plugin [${name}], ${current}/${total}`);
+      this.app.setMaintainingMessage(`${this.app.i18n.t('load plugin')} [${name}], ${current}/${total}`);
 
       if (!plugin.enabled) {
         continue;
@@ -445,7 +445,7 @@ export class PluginManager {
     const total = this.pluginInstances.size;
     let current = 0;
 
-    this.app.log.debug('call db.sync()');
+    this.app.logger.debug('call db.sync()');
     await this.app.db.sync();
     const toBeUpdated = [];
 
@@ -489,7 +489,7 @@ export class PluginManager {
 
   async enable(name: string | string[]) {
     const pluginNames = _.castArray(name);
-    this.app.log.debug(`enabling plugin ${pluginNames.join(',')}`);
+    this.app.logger.debug(`enabling plugin ${pluginNames.join(',')}`);
     this.app.setMaintainingMessage(`enabling plugin ${pluginNames.join(',')}`);
     const toBeUpdated = [];
     for (const pluginName of pluginNames) {
@@ -518,13 +518,13 @@ export class PluginManager {
     });
     try {
       await this.app.reload();
-      this.app.log.debug(`syncing database in enable plugin ${pluginNames.join(',')}...`);
+      this.app.logger.debug(`syncing database in enable plugin ${pluginNames.join(',')}...`);
       this.app.setMaintainingMessage(`syncing database in enable plugin ${pluginNames.join(',')}...`);
       await this.app.db.sync();
       for (const pluginName of pluginNames) {
         const plugin = this.get(pluginName);
         if (!plugin.installed) {
-          this.app.log.debug(`installing plugin ${pluginName}...`);
+          this.app.logger.debug(`installing plugin ${pluginName}...`);
           this.app.setMaintainingMessage(`installing plugin ${pluginName}...`);
           await plugin.install();
           plugin.installed = true;
@@ -540,10 +540,10 @@ export class PluginManager {
       });
       for (const pluginName of pluginNames) {
         const plugin = this.get(pluginName);
-        this.app.log.debug(`emit afterEnablePlugin event...`);
+        this.app.logger.debug(`emit afterEnablePlugin event...`);
         await plugin.afterEnable();
         await this.app.emitAsync('afterEnablePlugin', pluginName);
-        this.app.log.debug(`afterEnablePlugin event emitted`);
+        this.app.logger.debug(`afterEnablePlugin event emitted`);
       }
       await this.app.tryReloadOrRestart();
     } catch (error) {
@@ -565,7 +565,7 @@ export class PluginManager {
 
   async disable(name: string | string[]) {
     const pluginNames = _.castArray(name);
-    this.app.log.debug(`disabling plugin ${pluginNames.join(',')}`);
+    this.app.logger.debug(`disabling plugin ${pluginNames.join(',')}`);
     this.app.setMaintainingMessage(`disabling plugin ${pluginNames.join(',')}`);
     const toBeUpdated = [];
     for (const pluginName of pluginNames) {
@@ -596,10 +596,10 @@ export class PluginManager {
       await this.app.tryReloadOrRestart();
       for (const pluginName of pluginNames) {
         const plugin = this.get(pluginName);
-        this.app.log.debug(`emit afterDisablePlugin event...`);
+        this.app.logger.debug(`emit afterDisablePlugin event...`);
         await plugin.afterDisable();
         await this.app.emitAsync('afterDisablePlugin', pluginName);
-        this.app.log.debug(`afterDisablePlugin event emitted`);
+        this.app.logger.debug(`afterDisablePlugin event emitted`);
       }
     } catch (error) {
       await this.repository.update({
@@ -631,7 +631,7 @@ export class PluginManager {
           const dir = resolve(process.env.NODE_MODULES_PATH, plugin.packageName);
           try {
             const realDir = await fs.promises.realpath(dir);
-            this.app.log.debug(`rm -rf ${realDir}`);
+            this.app.logger.debug(`rm -rf ${realDir}`);
             return fs.promises.rm(realDir, { force: true, recursive: true });
           } catch (error) {
             return false;
@@ -935,21 +935,21 @@ export class PluginManager {
     return {
       beforeLoad: {
         up: async () => {
-          this.app.log.debug('run preset migrations(beforeLoad)');
+          this.app.logger.debug('run preset migrations(beforeLoad)');
           const migrator = this.app.db.createMigrator({ migrations: migrations.beforeLoad });
           await migrator.up();
         },
       },
       afterSync: {
         up: async () => {
-          this.app.log.debug('run preset migrations(afterSync)');
+          this.app.logger.debug('run preset migrations(afterSync)');
           const migrator = this.app.db.createMigrator({ migrations: migrations.afterSync });
           await migrator.up();
         },
       },
       afterLoad: {
         up: async () => {
-          this.app.log.debug('run preset migrations(afterLoad)');
+          this.app.logger.debug('run preset migrations(afterLoad)');
           const migrator = this.app.db.createMigrator({ migrations: migrations.afterLoad });
           await migrator.up();
         },
@@ -981,21 +981,21 @@ export class PluginManager {
     return {
       beforeLoad: {
         up: async () => {
-          this.app.log.debug('run others migrations(beforeLoad)');
+          this.app.logger.debug('run others migrations(beforeLoad)');
           const migrator = this.app.db.createMigrator({ migrations: migrations.beforeLoad });
           await migrator.up();
         },
       },
       afterSync: {
         up: async () => {
-          this.app.log.debug('run others migrations(afterSync)');
+          this.app.logger.debug('run others migrations(afterSync)');
           const migrator = this.app.db.createMigrator({ migrations: migrations.afterSync });
           await migrator.up();
         },
       },
       afterLoad: {
         up: async () => {
-          this.app.log.debug('run others migrations(afterLoad)');
+          this.app.logger.debug('run others migrations(afterLoad)');
           const migrator = this.app.db.createMigrator({ migrations: migrations.afterLoad });
           await migrator.up();
         },
@@ -1012,7 +1012,7 @@ export class PluginManager {
   }
 
   async upgrade() {
-    this.app.log.info('run upgrade');
+    this.app.logger.info('run upgrade');
     const toBeUpdated = [];
     for (const [P, plugin] of this.getPlugins()) {
       if (plugin.state.upgraded) {
@@ -1022,11 +1022,11 @@ export class PluginManager {
         continue;
       }
       if (!plugin.isPreset && !plugin.installed) {
-        this.app.log.info(`install built-in plugin [${plugin.name}]`);
+        this.app.logger.info(`install built-in plugin [${plugin.name}]`);
         await plugin.install();
         toBeUpdated.push(plugin.name);
       }
-      this.app.log.debug(`upgrade plugin [${plugin.name}]`);
+      this.app.logger.debug(`upgrade plugin [${plugin.name}]`);
       await plugin.upgrade();
       for (const feature of plugin.featureInstances) {
         await feature.upgrade();

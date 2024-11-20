@@ -14,6 +14,6 @@ export default (app: Application) => {
       }
       await app.install(options);
       const reinstall = options.clean || options.force;
-      app.log.info(`app ${reinstall ? 'reinstalled' : 'installed'} successfully [v${app.getVersion()}]`);
+      app.logger.info(`app ${reinstall ? 'reinstalled' : 'installed'} successfully [v${app.getVersion()}]`);
     });
 };

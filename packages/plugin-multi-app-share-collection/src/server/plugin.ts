@@ -165,7 +165,7 @@ export class MultiAppShareCollectionPlugin extends Plugin {
     if (
       AppSupervisor.getInstance()
         .listeners('afterAppAdded')
-        .filter((f) => f.name == addPluginToSubApp.name).length == 0
+        .filter((f) => f.name === addPluginToSubApp.name).length === 0
     ) {
       AppSupervisor.getInstance().on('afterAppAdded', addPluginToSubApp);
     }
@@ -188,7 +188,7 @@ export class MultiAppShareCollectionPlugin extends Plugin {
           transaction,
         });
 
-        if (defaultRole && (await subAppUserModel.countRoles({ transaction })) == 0) {
+        if (defaultRole && (await subAppUserModel.countRoles({ transaction })) === 0) {
           await subAppUserModel.addRoles(defaultRole, { transaction });
         }
       });
@@ -232,16 +232,9 @@ export class MultiAppShareCollectionPlugin extends Plugin {
     const multiAppManager = this.app.getPlugin<any>('multi-app-manager');
 
     if (!multiAppManager) {
-      this.app.log.warn('multi-app-share-collection plugin need multi-app-manager plugin enabled');
+      this.app.logger.warn('multi-app-share-collection plugin need multi-app-manager plugin enabled');
       return;
     }
-
-    await this.importCollections(resolve(__dirname, 'collections'));
-
-    // this.db.addMigrations({
-    //   namespace: 'multi-app-share-collection',
-    //   directory: resolve(__dirname, './migrations'),
-    // });
 
     this.app.resourcer.registerActionHandlers({
       'applications:shareCollections': async (ctx, next) => {

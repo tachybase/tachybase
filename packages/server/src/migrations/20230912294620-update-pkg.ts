@@ -22,9 +22,9 @@ export default class extends Migration {
             packageName,
           },
         });
-        this.app.log.info(`update ${packageName}`);
+        this.app.logger.info(`update ${packageName}`);
       } catch (error) {
-        this.app.log.warn(error.message);
+        this.app.logger.warn(error.message);
       }
     }
   }

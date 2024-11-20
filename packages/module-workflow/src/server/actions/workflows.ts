@@ -163,6 +163,43 @@ export async function load(context: Context, next: Next) {
   await next();
 }
 
+export async function test(context: Context, next: Next) {
+  const plugin = context.app.getPlugin(Plugin);
+  const repository = utils.getRepositoryFromParams(context);
+  const { filterByTk, filter = {}, values = {} } = context.action.params;
+
+  if (!context.state) {
+    context.state = {};
+  }
+  if (!context.state.messages) {
+    context.state.messages = [];
+  }
+
+  const workflow = await repository.findOne({
+    filterByTk,
+    filter,
+    appends: ['nodes'],
+    context,
+  });
+
+  const result = await plugin.trigger(
+    workflow,
+    {
+      data: {
+        ...values.data,
+        user: context.state.currentUse,
+      },
+    },
+    { httpContext: context },
+  );
+
+  context.app.logger.info(result);
+
+  context.state.messages.push({ message: 'testing' });
+
+  context.body = 'here???';
+}
+
 export async function revision(context: Context, next: Next) {
   const plugin = context.app.getPlugin(Plugin);
   const repository = utils.getRepositoryFromParams(context);

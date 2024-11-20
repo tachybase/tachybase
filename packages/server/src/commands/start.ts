@@ -28,7 +28,7 @@ export default (app: Application) => {
 
         app['_started'] = true;
         await app.restart();
-        app.log.info('app has been started');
+        app.logger.info('app has been started');
         return;
       }
       if (!(await app.isInstalled())) {
@@ -44,6 +44,6 @@ export default (app: Application) => {
         cliArgs,
         checkInstall: true,
       });
-      app.log.info('app has been started');
+      app.logger.info('app has been started');
     });
 };
