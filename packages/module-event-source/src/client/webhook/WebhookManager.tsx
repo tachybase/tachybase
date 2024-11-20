@@ -8,7 +8,13 @@ import {
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
-import { ExecutionLink, executionSchema, ExecutionStatusColumn, OpenDrawer } from '@tachybase/module-workflow/client';
+import {
+  ExecutionLink,
+  executionSchema,
+  ExecutionStatusColumn,
+  ExecutionTime,
+  OpenDrawer,
+} from '@tachybase/module-workflow/client';
 import { ISchema, useForm } from '@tachybase/schema';
 
 import { Button, Space } from 'antd';
@@ -612,6 +618,7 @@ export const WebhookManager = () => {
           ExecutionResourceProvider,
           OpenDrawer,
           ExecutionLink,
+          ExecutionTime,
           WorkflowSelect,
           CodeMirror,
         }}

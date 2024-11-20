@@ -4,6 +4,7 @@ import { onFieldChange, useField, useFormEffects } from '@tachybase/schema';
 
 import WorkflowPlugin, { RadioWithTooltip } from '.';
 import { ExecutionStatusColumn, ExecutionStatusSelect } from './components/ExecutionStatus';
+import { ExecutionTime } from './components/ExecutionTime';
 import OpenDrawer from './components/OpenDrawer';
 import { ExecutionLink } from './ExecutionLink';
 import { ExecutionResourceProvider } from './ExecutionResourceProvider';
@@ -49,6 +50,7 @@ export function WorkflowPane(props) {
             ExecutionStatusSelect,
             SyncOptionSelect,
             ExecutionStatusColumn,
+            ExecutionTime,
           }}
           scope={{
             getTriggersOptions,

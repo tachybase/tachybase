@@ -159,6 +159,7 @@
   "Execute workflow asynchronously or synchronously based on trigger type, and could not be changed after created.": "基于触发类型异步或同步执行工作流，创建后不可更改。",
   "Executed": "已执行",
   "Executed at": "执行于",
+  "Executed time": "执行时间",
   "Executed workflow cannot be modified": "已经执行过的工作流不能被修改",
   "Execution history": "执行历史",
   "Exit when query result is null": "查询结果为空时，退出流程",

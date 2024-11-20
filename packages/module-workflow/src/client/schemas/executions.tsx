@@ -157,6 +157,20 @@ export const executionSchema = {
                 },
               },
             },
+            executionTime: {
+              type: 'void',
+              title: `{{t("Executed time", { ns: "${NAMESPACE}" })}}`,
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              properties: {
+                excutionTime: {
+                  type: 'string',
+                  'x-decorator': 'ExecutionTime',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
             workflowId: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
