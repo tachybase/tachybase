@@ -101,15 +101,9 @@ export class PluginWorkflow extends Plugin {
     this.app.systemSettingsManager.add(NAMESPACE, {
       icon: 'workflow',
       title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
-      aclSnippet: 'pm.workflow.workflows',
-      sort: -80,
-    });
-
-    this.app.systemSettingsManager.add(NAMESPACE + '.list', {
-      icon: 'workflow',
-      title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
       Component: WorkflowPane,
       aclSnippet: 'pm.workflow.workflows',
+      sort: -80,
     });
 
     this.app.schemaSettingsManager.add(customizeSubmitToWorkflowActionSettings);

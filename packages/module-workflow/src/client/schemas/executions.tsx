@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  dataSource,
-  useActionContext,
-  useDataBlockRequest,
-  useDataBlockResource,
-  useRecord,
-  useResourceActionContext,
-  useResourceContext,
-} from '@tachybase/client';
+import { useActionContext, useDataBlockRequest, useDataBlockResource } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
 import { message } from 'antd';

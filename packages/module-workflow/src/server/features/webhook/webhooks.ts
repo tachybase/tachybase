@@ -225,7 +225,7 @@ export class WebhookController {
     await new WebhookController().getLink(ctx);
   }
 
-  async action(ctx: Context, action: any) {
+  async action(ctx: Context, action: { code: string }) {
     const webhookCtx = {
       request: ctx.request,
       action: ctx.action,

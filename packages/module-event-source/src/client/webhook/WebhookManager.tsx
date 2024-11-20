@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   ExtendCollectionsProvider,
-  ResourceActionProvider,
   SchemaComponent,
-  useAPIClient,
+  TableBlockProvider,
   useCollectionRecordData,
+  useDataBlockResource,
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
@@ -16,41 +16,357 @@ import { Button, Space } from 'antd';
 import { lang } from '../locale';
 import { dispatchers } from './collections/dispatchers';
 
-export const ExecutionResourceProvider = ({ request, filter = {}, ...others }) => {
+// TODO
+export const ExecutionResourceProvider = ({ params, filter = {}, ...others }) => {
   const webhook = useCollectionRecordData();
   const props = {
     ...others,
-    request: {
-      ...request,
-      params: {
-        ...request?.params,
-        filter: {
-          ...request?.params?.filter,
-          key: webhook.workflowKey,
-        },
+    params: {
+      ...params,
+      filter: {
+        ...params?.filter,
+        key: webhook.workflowKey,
       },
     },
   };
 
-  return <ResourceActionProvider {...props} />;
+  return <TableBlockProvider {...props} />;
 };
 
 export const useTestActionProps = () => {
   const form = useForm();
   const webhook = useCollectionRecordData();
-  const api = useAPIClient();
+  const resource = useDataBlockResource();
   return {
     async onClick() {
-      const res = await api.resource('webhooks').test({
+      const res = await resource.test({
         values: {
-          body: JSON.parse(form.values.body),
-          params: JSON.parse(form.values.params),
+          body: JSON.parse(form.values.body || '{}'),
+          params: JSON.parse(form.values.params || '{}'),
           name: webhook.name,
         },
       });
       alert(JSON.stringify(res.data));
     },
   };
+};
+
+const properties = {
+  name: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'webhooks.name',
+    'x-component-props': {},
+  },
+  enabled: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'webhooks.enabled',
+    'x-component-props': {},
+  },
+  workflowKey: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'webhooks.workflowKey',
+  },
+  type: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'webhooks.type',
+    'x-component-props': {},
+  },
+  resourceName: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'webhooks.resourceName',
+    'x-reactions': [
+      {
+        dependencies: ['.type'],
+        fulfill: {
+          state: {
+            hidden: '{{ $deps[0] !== "action" && $deps[0] !== "resource" }}',
+          },
+        },
+      },
+    ],
+    'x-component-props': {},
+  },
+  actionName: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'webhooks.actionName',
+    'x-reactions': [
+      {
+        dependencies: ['.type'],
+        fulfill: {
+          state: {
+            hidden: '{{ $deps[0] !== "action" && $deps[0] !== "resource" }}',
+          },
+        },
+      },
+    ],
+    'x-component-props': {},
+  },
+  code: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-decorator-props': {
+      tooltip: 'ctx.request\nctx.body\nlib.JSON\nlib.Math\nlib.dayjs',
+    },
+    'x-collection-field': 'webhooks.code',
+  },
+};
+
+const createForm: ISchema = {
+  type: 'void',
+  'x-acl-action-props': {
+    skipScopeCheck: true,
+  },
+  'x-acl-action': 'webhooks:create',
+  'x-decorator': 'FormBlockProvider',
+  'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
+  'x-decorator-props': {
+    dataSource: 'main',
+    collection: dispatchers.name,
+  },
+  'x-component': 'CardItem',
+  properties: {
+    form: {
+      type: 'void',
+      'x-component': 'FormV2',
+      'x-use-component-props': 'useCreateFormBlockProps',
+      properties: {
+        actionBar: {
+          type: 'void',
+          'x-component': 'ActionBar',
+          'x-component-props': {
+            style: {
+              marginBottom: 'var(--tb-spacing)',
+            },
+          },
+          properties: {
+            submit: {
+              title: '{{t("Submit")}}',
+              'x-action': 'submit',
+              'x-component': 'Action',
+              'x-use-component-props': 'useCreateActionProps',
+              'x-component-props': {
+                type: 'primary',
+                htmlType: 'submit',
+              },
+              type: 'void',
+            },
+          },
+        },
+        ...properties,
+      },
+    },
+  },
+};
+
+const editAction: ISchema = {
+  type: 'void',
+  title: '{{ t("Edit") }}',
+  'x-action': 'update',
+  'x-component': 'Action.Link',
+  'x-component-props': {
+    openMode: 'drawer',
+    icon: 'EditOutlined',
+  },
+  'x-decorator': 'ACLActionProvider',
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Edit record") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        card: {
+          type: 'void',
+          'x-acl-action-props': {
+            skipScopeCheck: false,
+          },
+          'x-acl-action': 'webhooks:update',
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
+          'x-decorator-props': {
+            action: 'get',
+            dataSource: 'main',
+            collection: dispatchers,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useEditFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 'var(--tb-spacing)',
+                    },
+                  },
+                  properties: {
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-action': 'submit',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useUpdateActionProps',
+                      'x-component-props': {
+                        type: 'primary',
+                        htmlType: 'submit',
+                      },
+                      'x-action-settings': {
+                        triggerWorkflows: [],
+                        onSuccess: {
+                          manualClose: false,
+                          redirecting: false,
+                          successMessage: '{{t("Updated successfully")}}',
+                        },
+                        isDeltaChanged: false,
+                      },
+                      type: 'void',
+                    },
+                  },
+                },
+                ...properties,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+const deleteAction: ISchema = {
+  title: '{{ t("Delete") }}',
+  'x-action': 'destroy',
+  'x-component': 'Action.Link',
+  'x-use-component-props': 'useDestroyActionProps',
+  'x-component-props': {
+    icon: 'DeleteOutlined',
+    confirm: {
+      title: "{{t('Delete record')}}",
+      content: "{{t('Are you sure you want to delete it?')}}",
+    },
+  },
+  'x-action-settings': {
+    triggerWorkflows: [],
+  },
+  'x-decorator': 'ACLActionProvider',
+  type: 'void',
+};
+
+const testAction: ISchema = {
+  type: 'void',
+  title: '{{ t("Test") }}',
+  'x-action': 'update',
+  'x-component': 'Action.Link',
+  'x-component-props': {
+    openMode: 'drawer',
+    icon: 'EditOutlined',
+  },
+  'x-decorator': 'ACLActionProvider',
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Edit record") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        card: {
+          type: 'void',
+          'x-acl-action-props': {
+            skipScopeCheck: false,
+          },
+          'x-acl-action': 'webhooks:update',
+          'x-decorator': 'FormBlockProvider',
+          'x-decorator-props': {
+            action: 'get',
+            dataSource: 'main',
+            collection: dispatchers.name,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            testForm: {
+              type: 'void',
+              'x-component': 'FormV2',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 'var(--tb-spacing)',
+                    },
+                  },
+                  properties: {
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-action': 'submit',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useTestActionProps',
+                      'x-component-props': {
+                        type: 'primary',
+                        htmlType: 'submit',
+                      },
+                      'x-action-settings': {
+                        triggerWorkflows: [],
+                        onSuccess: {
+                          manualClose: false,
+                          redirecting: false,
+                          successMessage: '{{t("Updated successfully")}}',
+                        },
+                        isDeltaChanged: false,
+                      },
+                      type: 'void',
+                    },
+                  },
+                },
+                params: {
+                  type: 'string',
+                  'x-component': 'CodeMirror',
+                  'x-component-props': {
+                    defaultValue: '{}',
+                  },
+                  'x-decorator': 'FormItem',
+                  'x-decorator-props': {
+                    label: 'query',
+                  },
+                },
+                body: {
+                  type: 'string',
+                  'x-component': 'CodeMirror',
+                  'x-component-props': {
+                    defaultValue: '{}',
+                  },
+                  'x-decorator': 'FormItem',
+                  'x-decorator-props': {
+                    label: 'body',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 };
 
 const schema: ISchema = {
@@ -107,7 +423,7 @@ const schema: ISchema = {
               },
               'x-use-component-props': 'useRefreshActionProps',
             },
-            z8monqcdrdn: {
+            create: {
               type: 'void',
               'x-action': 'create',
               'x-acl-action': 'create',
@@ -133,257 +449,14 @@ const schema: ISchema = {
                     className: 'tb-action-popup',
                   },
                   properties: {
-                    tabs: {
-                      type: 'void',
-                      'x-component': 'Tabs',
-                      'x-component-props': {},
-                      properties: {
-                        tab1: {
-                          type: 'void',
-                          title: '{{t("Add new")}}',
-                          'x-component': 'Tabs.TabPane',
-                          'x-component-props': {},
-                          properties: {
-                            grid: {
-                              type: 'void',
-                              'x-component': 'Grid',
-                              properties: {
-                                ei36i9ijtdz: {
-                                  type: 'void',
-                                  'x-component': 'Grid.Row',
-                                  properties: {
-                                    uf8t2a39414: {
-                                      type: 'void',
-                                      'x-component': 'Grid.Col',
-                                      properties: {
-                                        xkkjkzn90fv: {
-                                          type: 'void',
-                                          'x-acl-action-props': {
-                                            skipScopeCheck: true,
-                                          },
-                                          'x-acl-action': 'webhooks:create',
-                                          'x-decorator': 'FormBlockProvider',
-                                          'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
-                                          'x-decorator-props': {
-                                            dataSource: 'main',
-                                            collection: dispatchers,
-                                          },
-                                          'x-component': 'CardItem',
-                                          properties: {
-                                            '5gbs46leolu': {
-                                              type: 'void',
-                                              'x-component': 'FormV2',
-                                              'x-use-component-props': 'useCreateFormBlockProps',
-                                              properties: {
-                                                '9tt9z4mql3z': {
-                                                  type: 'void',
-                                                  'x-component': 'ActionBar',
-                                                  'x-component-props': {
-                                                    style: {
-                                                      marginBottom: 24,
-                                                    },
-                                                  },
-                                                  properties: {
-                                                    gqrnx8zyjp1: {
-                                                      title: '{{t("Submit")}}',
-                                                      'x-action': 'submit',
-                                                      'x-component': 'Action',
-                                                      'x-component-props': {
-                                                        type: 'primary',
-                                                        htmlType: 'submit',
-                                                        useProps: '{{ useCreateActionProps }}',
-                                                      },
-                                                      'x-action-settings': {
-                                                        assignedValues: {},
-                                                        triggerWorkflows: [],
-                                                        pageMode: false,
-                                                      },
-                                                      type: 'void',
-                                                    },
-                                                  },
-                                                },
-                                                grid: {
-                                                  type: 'void',
-                                                  'x-component': 'Grid',
-                                                  properties: {
-                                                    '5sakq51jsle': {
-                                                      type: 'void',
-                                                      'x-component': 'Grid.Row',
-                                                      properties: {
-                                                        '6p28yhfkrbi': {
-                                                          type: 'void',
-                                                          'x-component': 'Grid.Col',
-                                                          properties: {
-                                                            name: {
-                                                              type: 'string',
-                                                              'x-component': 'CollectionField',
-                                                              'x-decorator': 'FormItem',
-                                                              'x-collection-field': 'webhooks.name',
-                                                              'x-component-props': {},
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                    y7idu8knr7g: {
-                                                      type: 'void',
-                                                      'x-component': 'Grid.Row',
-                                                      properties: {
-                                                        zbq1q6f85lf: {
-                                                          type: 'void',
-                                                          'x-component': 'Grid.Col',
-                                                          properties: {
-                                                            enabled: {
-                                                              type: 'string',
-                                                              'x-component': 'CollectionField',
-                                                              'x-decorator': 'FormItem',
-                                                              'x-collection-field': 'webhooks.enabled',
-                                                              'x-component-props': {},
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                    hmyd06j1xh1: {
-                                                      type: 'void',
-                                                      'x-component': 'Grid.Row',
-                                                      properties: {
-                                                        '6l4tt4kcu2h': {
-                                                          type: 'void',
-                                                          'x-component': 'Grid.Col',
-                                                          properties: {
-                                                            workflowKey: {
-                                                              type: 'string',
-                                                              'x-component': 'CollectionField',
-                                                              'x-decorator': 'FormItem',
-                                                              'x-collection-field': 'webhooks.workflowKey',
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                    qrrbe5or0h5: {
-                                                      type: 'void',
-                                                      'x-component': 'Grid.Row',
-                                                      properties: {
-                                                        '5w93jhg5355': {
-                                                          type: 'void',
-                                                          'x-component': 'Grid.Col',
-                                                          properties: {
-                                                            type: {
-                                                              type: 'string',
-                                                              'x-component': 'CollectionField',
-                                                              'x-decorator': 'FormItem',
-                                                              'x-collection-field': 'webhooks.type',
-                                                              'x-component-props': {},
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                    resourceName: {
-                                                      type: 'void',
-                                                      'x-component': 'Grid.Row',
-                                                      properties: {
-                                                        '5w93jhg5355': {
-                                                          type: 'void',
-                                                          'x-component': 'Grid.Col',
-                                                          properties: {
-                                                            resourceName: {
-                                                              type: 'string',
-                                                              'x-component': 'CollectionField',
-                                                              'x-decorator': 'FormItem',
-                                                              'x-collection-field': 'webhooks.resourceName',
-                                                              'x-reactions': [
-                                                                {
-                                                                  dependencies: ['.type'],
-                                                                  fulfill: {
-                                                                    state: {
-                                                                      hidden: '{{ $deps[0] !== "action" }}',
-                                                                    },
-                                                                  },
-                                                                },
-                                                              ],
-                                                              'x-component-props': {},
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                    actionName: {
-                                                      type: 'void',
-                                                      'x-component': 'Grid.Row',
-                                                      properties: {
-                                                        '5w93jhg5355': {
-                                                          type: 'void',
-                                                          'x-component': 'Grid.Col',
-                                                          properties: {
-                                                            actionName: {
-                                                              type: 'string',
-                                                              'x-component': 'CollectionField',
-                                                              'x-decorator': 'FormItem',
-                                                              'x-collection-field': 'webhooks.actionName',
-                                                              'x-reactions': [
-                                                                {
-                                                                  dependencies: ['.type'],
-                                                                  fulfill: {
-                                                                    state: {
-                                                                      hidden: '{{ $deps[0] !== "action" }}',
-                                                                    },
-                                                                  },
-                                                                },
-                                                              ],
-                                                              'x-component-props': {},
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                    '38fm61ehxvn': {
-                                                      type: 'void',
-                                                      'x-component': 'Grid.Row',
-                                                      properties: {
-                                                        arovreokda8: {
-                                                          type: 'void',
-                                                          'x-component': 'Grid.Col',
-                                                          properties: {
-                                                            code: {
-                                                              type: 'string',
-                                                              'x-component': 'CollectionField',
-                                                              'x-decorator': 'FormItem',
-                                                              'x-decorator-props': {
-                                                                tooltip:
-                                                                  'ctx.request\nctx.body\nlib.JSON\nlib.Math\nlib.dayjs',
-                                                              },
-                                                              'x-collection-field': 'webhooks.code',
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                  },
-                                                },
-                                              },
-                                            },
-                                          },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
+                    form: createForm,
                   },
                 },
               },
             },
           },
         },
-        '8l8237xpji1': {
+        table: {
           type: 'array',
           'x-component': 'TableV2',
           'x-use-component-props': 'useTableBlockProps',
@@ -394,7 +467,7 @@ const schema: ISchema = {
             },
           },
           properties: {
-            c5we84shjz1: {
+            nameColumn: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
@@ -418,7 +491,7 @@ const schema: ISchema = {
                 },
               },
             },
-            q5o7ghhoepw: {
+            enabledColumn: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
@@ -443,7 +516,7 @@ const schema: ISchema = {
                 },
               },
             },
-            ud1epmyj09v: {
+            workflowKeyColumn: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
@@ -477,7 +550,7 @@ const schema: ISchema = {
                 },
               },
             },
-            '8i54l0rnfth': {
+            typeColumn: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
@@ -499,7 +572,7 @@ const schema: ISchema = {
                 },
               },
             },
-            xatpoztbh5h: {
+            actionColumn: {
               type: 'void',
               title: '{{ t("Actions") }}',
               'x-decorator': 'TableV2.Column.ActionBar',
@@ -510,455 +583,13 @@ const schema: ISchema = {
               },
               'x-action-column': 'actions',
               properties: {
-                gta931e187b: {
+                space: {
                   type: 'void',
-                  'x-decorator': 'DndContext',
                   'x-component': 'Space',
-                  'x-component-props': {
-                    split: '|',
-                  },
                   properties: {
-                    oyggiyxrxlr: {
-                      type: 'void',
-                      title: '{{ t("Edit") }}',
-                      'x-action': 'update',
-                      'x-component': 'Action.Link',
-                      'x-component-props': {
-                        openMode: 'drawer',
-                        icon: 'EditOutlined',
-                      },
-                      'x-decorator': 'ACLActionProvider',
-                      properties: {
-                        drawer: {
-                          type: 'void',
-                          title: '{{ t("Edit record") }}',
-                          'x-component': 'Action.Container',
-                          'x-component-props': {
-                            className: 'tb-action-popup',
-                          },
-                          properties: {
-                            tabs: {
-                              type: 'void',
-                              'x-component': 'Tabs',
-                              'x-component-props': {},
-                              properties: {
-                                tab1: {
-                                  type: 'void',
-                                  title: '{{t("Edit")}}',
-                                  'x-component': 'Tabs.TabPane',
-                                  'x-component-props': {},
-                                  properties: {
-                                    grid: {
-                                      type: 'void',
-                                      'x-component': 'Grid',
-                                      properties: {
-                                        to6mk4v552h: {
-                                          type: 'void',
-                                          'x-component': 'Grid.Row',
-                                          properties: {
-                                            sqvdrzdbr7r: {
-                                              type: 'void',
-                                              'x-component': 'Grid.Col',
-                                              properties: {
-                                                '8uym9fty5oy': {
-                                                  type: 'void',
-                                                  'x-acl-action-props': {
-                                                    skipScopeCheck: false,
-                                                  },
-                                                  'x-acl-action': 'webhooks:update',
-                                                  'x-decorator': 'FormBlockProvider',
-                                                  'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
-                                                  'x-decorator-props': {
-                                                    action: 'get',
-                                                    dataSource: 'main',
-                                                    collection: dispatchers,
-                                                  },
-                                                  'x-component': 'CardItem',
-                                                  properties: {
-                                                    je28rbthifp: {
-                                                      type: 'void',
-                                                      'x-component': 'FormV2',
-                                                      'x-use-component-props': 'useEditFormBlockProps',
-                                                      properties: {
-                                                        yviwt5e73dx: {
-                                                          type: 'void',
-                                                          'x-component': 'ActionBar',
-                                                          'x-component-props': {
-                                                            style: {
-                                                              marginBottom: 'var(--tb-spacing)',
-                                                            },
-                                                          },
-                                                          properties: {
-                                                            unkmoqgvtvr: {
-                                                              title: '{{ t("Submit") }}',
-                                                              'x-action': 'submit',
-                                                              'x-component': 'Action',
-                                                              'x-use-component-props': 'useUpdateActionProps',
-                                                              'x-component-props': {
-                                                                type: 'primary',
-                                                                htmlType: 'submit',
-                                                              },
-                                                              'x-action-settings': {
-                                                                triggerWorkflows: [],
-                                                                onSuccess: {
-                                                                  manualClose: false,
-                                                                  redirecting: false,
-                                                                  successMessage: '{{t("Updated successfully")}}',
-                                                                },
-                                                                isDeltaChanged: false,
-                                                              },
-                                                              type: 'void',
-                                                            },
-                                                          },
-                                                        },
-                                                        grid: {
-                                                          type: 'void',
-                                                          'x-component': 'Grid',
-                                                          properties: {
-                                                            '5sakq51jsle': {
-                                                              type: 'void',
-                                                              'x-component': 'Grid.Row',
-                                                              properties: {
-                                                                '6p28yhfkrbi': {
-                                                                  type: 'void',
-                                                                  'x-component': 'Grid.Col',
-                                                                  properties: {
-                                                                    name: {
-                                                                      type: 'string',
-                                                                      'x-component': 'CollectionField',
-                                                                      'x-decorator': 'FormItem',
-                                                                      'x-collection-field': 'webhooks.name',
-                                                                      'x-component-props': {},
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                            },
-                                                            y7idu8knr7g: {
-                                                              type: 'void',
-                                                              'x-component': 'Grid.Row',
-                                                              properties: {
-                                                                zbq1q6f85lf: {
-                                                                  type: 'void',
-                                                                  'x-component': 'Grid.Col',
-                                                                  properties: {
-                                                                    enabled: {
-                                                                      type: 'string',
-                                                                      'x-component': 'CollectionField',
-                                                                      'x-decorator': 'FormItem',
-                                                                      'x-collection-field': 'webhooks.enabled',
-                                                                      'x-component-props': {},
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                            },
-                                                            hmyd06j1xh1: {
-                                                              type: 'void',
-                                                              'x-component': 'Grid.Row',
-                                                              properties: {
-                                                                '6l4tt4kcu2h': {
-                                                                  type: 'void',
-                                                                  'x-component': 'Grid.Col',
-                                                                  properties: {
-                                                                    workflowKey: {
-                                                                      type: 'string',
-                                                                      'x-component': 'CollectionField',
-                                                                      'x-decorator': 'FormItem',
-                                                                      'x-collection-field': 'webhooks.workflowKey',
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                            },
-                                                            qrrbe5or0h5: {
-                                                              type: 'void',
-                                                              'x-component': 'Grid.Row',
-                                                              properties: {
-                                                                '5w93jhg5355': {
-                                                                  type: 'void',
-                                                                  'x-component': 'Grid.Col',
-                                                                  properties: {
-                                                                    type: {
-                                                                      type: 'string',
-                                                                      'x-component': 'CollectionField',
-                                                                      'x-decorator': 'FormItem',
-                                                                      'x-collection-field': 'webhooks.type',
-                                                                      'x-component-props': {},
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                            },
-                                                            resourceName: {
-                                                              type: 'void',
-                                                              'x-component': 'Grid.Row',
-                                                              properties: {
-                                                                '5w93jhg5355': {
-                                                                  type: 'void',
-                                                                  'x-component': 'Grid.Col',
-                                                                  properties: {
-                                                                    resourceName: {
-                                                                      type: 'string',
-                                                                      'x-component': 'CollectionField',
-                                                                      'x-decorator': 'FormItem',
-                                                                      'x-collection-field': 'webhooks.resourceName',
-                                                                      'x-reactions': [
-                                                                        {
-                                                                          dependencies: ['.type'],
-                                                                          fulfill: {
-                                                                            state: {
-                                                                              hidden: '{{ $deps[0] !== "action" }}',
-                                                                            },
-                                                                          },
-                                                                        },
-                                                                      ],
-                                                                      'x-component-props': {},
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                            },
-                                                            actionName: {
-                                                              type: 'void',
-                                                              'x-component': 'Grid.Row',
-                                                              properties: {
-                                                                '5w93jhg5355': {
-                                                                  type: 'void',
-                                                                  'x-component': 'Grid.Col',
-                                                                  properties: {
-                                                                    actionName: {
-                                                                      type: 'string',
-                                                                      'x-component': 'CollectionField',
-                                                                      'x-decorator': 'FormItem',
-                                                                      'x-collection-field': 'webhooks.actionName',
-                                                                      'x-reactions': [
-                                                                        {
-                                                                          dependencies: ['.type'],
-                                                                          fulfill: {
-                                                                            state: {
-                                                                              hidden: '{{ $deps[0] !== "action" }}',
-                                                                            },
-                                                                          },
-                                                                        },
-                                                                      ],
-                                                                      'x-component-props': {},
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                            },
-                                                            '38fm61ehxvn': {
-                                                              type: 'void',
-                                                              'x-component': 'Grid.Row',
-                                                              properties: {
-                                                                arovreokda8: {
-                                                                  type: 'void',
-                                                                  'x-component': 'Grid.Col',
-                                                                  properties: {
-                                                                    code: {
-                                                                      type: 'string',
-                                                                      'x-component': 'CollectionField',
-                                                                      'x-decorator': 'FormItem',
-                                                                      'x-decorator-props': {
-                                                                        tooltip:
-                                                                          'ctx.request\nctx.body\nlib.JSON\nlib.Math\nlib.dayjs',
-                                                                      },
-                                                                      'x-collection-field': 'webhooks.code',
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                  },
-                                                },
-                                              },
-                                            },
-                                          },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                    q74i285l3sx: {
-                      title: '{{ t("Delete") }}',
-                      'x-action': 'destroy',
-                      'x-component': 'Action.Link',
-                      'x-use-component-props': 'useDestroyActionProps',
-                      'x-component-props': {
-                        icon: 'DeleteOutlined',
-                        confirm: {
-                          title: "{{t('Delete record')}}",
-                          content: "{{t('Are you sure you want to delete it?')}}",
-                        },
-                      },
-                      'x-action-settings': {
-                        triggerWorkflows: [],
-                      },
-                      'x-decorator': 'ACLActionProvider',
-                      type: 'void',
-                    },
-                    test: {
-                      type: 'void',
-                      title: '{{ t("Test") }}',
-                      'x-action': 'update',
-                      'x-component': 'Action.Link',
-                      'x-component-props': {
-                        openMode: 'drawer',
-                        icon: 'EditOutlined',
-                      },
-                      'x-decorator': 'ACLActionProvider',
-                      properties: {
-                        drawer: {
-                          type: 'void',
-                          title: '{{ t("Edit record") }}',
-                          'x-component': 'Action.Container',
-                          'x-component-props': {
-                            className: 'tb-action-popup',
-                          },
-                          properties: {
-                            tabs: {
-                              type: 'void',
-                              'x-component': 'Tabs',
-                              'x-component-props': {},
-                              properties: {
-                                tab1: {
-                                  type: 'void',
-                                  title: '{{t("Edit")}}',
-                                  'x-component': 'Tabs.TabPane',
-                                  'x-component-props': {},
-                                  properties: {
-                                    grid: {
-                                      type: 'void',
-                                      'x-component': 'Grid',
-                                      properties: {
-                                        to6mk4v552h: {
-                                          type: 'void',
-                                          'x-component': 'Grid.Row',
-                                          properties: {
-                                            sqvdrzdbr7r: {
-                                              type: 'void',
-                                              'x-component': 'Grid.Col',
-                                              properties: {
-                                                '8uym9fty5oy': {
-                                                  type: 'void',
-                                                  'x-acl-action-props': {
-                                                    skipScopeCheck: false,
-                                                  },
-                                                  'x-acl-action': 'webhooks:update',
-                                                  'x-decorator': 'FormBlockProvider',
-                                                  'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
-                                                  'x-decorator-props': {
-                                                    action: 'get',
-                                                    dataSource: 'main',
-                                                    collection: dispatchers,
-                                                  },
-                                                  'x-component': 'CardItem',
-                                                  properties: {
-                                                    je28rbthifp: {
-                                                      type: 'void',
-                                                      'x-component': 'FormV2',
-                                                      'x-use-component-props': 'useEditFormBlockProps',
-                                                      properties: {
-                                                        yviwt5e73dx: {
-                                                          type: 'void',
-                                                          'x-component': 'ActionBar',
-                                                          'x-component-props': {
-                                                            style: {
-                                                              marginBottom: 'var(--tb-spacing)',
-                                                            },
-                                                          },
-                                                          properties: {
-                                                            unkmoqgvtvr: {
-                                                              title: '{{ t("Submit") }}',
-                                                              'x-action': 'submit',
-                                                              'x-component': 'Action',
-                                                              'x-use-component-props': 'useTestActionProps',
-                                                              'x-component-props': {
-                                                                type: 'primary',
-                                                                htmlType: 'submit',
-                                                              },
-                                                              'x-action-settings': {
-                                                                triggerWorkflows: [],
-                                                                onSuccess: {
-                                                                  manualClose: false,
-                                                                  redirecting: false,
-                                                                  successMessage: '{{t("Updated successfully")}}',
-                                                                },
-                                                                isDeltaChanged: false,
-                                                              },
-                                                              type: 'void',
-                                                            },
-                                                          },
-                                                        },
-                                                        grid: {
-                                                          type: 'void',
-                                                          'x-component': 'Grid',
-                                                          properties: {
-                                                            '38fm61ehxvn': {
-                                                              type: 'void',
-                                                              'x-component': 'Grid.Row',
-                                                              properties: {
-                                                                arovreokda8: {
-                                                                  type: 'void',
-                                                                  'x-component': 'Grid.Col',
-                                                                  properties: {
-                                                                    params: {
-                                                                      type: 'string',
-                                                                      'x-component': 'CodeMirror',
-                                                                      'x-component-props': {
-                                                                        defaultValue: '{}',
-                                                                      },
-                                                                      'x-decorator': 'FormItem',
-                                                                      'x-decorator-props': {
-                                                                        label: 'query',
-                                                                      },
-                                                                    },
-                                                                    body: {
-                                                                      type: 'string',
-                                                                      'x-component': 'CodeMirror',
-                                                                      'x-component-props': {
-                                                                        defaultValue: '{}',
-                                                                      },
-                                                                      'x-decorator': 'FormItem',
-                                                                      'x-decorator-props': {
-                                                                        label: 'body',
-                                                                      },
-                                                                    },
-                                                                  },
-                                                                },
-                                                              },
-                                                            },
-                                                          },
-                                                        },
-                                                      },
-                                                    },
-                                                  },
-                                                },
-                                              },
-                                            },
-                                          },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
+                    editAction,
+                    deleteAction,
+                    testAction,
                   },
                 },
               },
@@ -974,7 +605,6 @@ export const WebhookManager = () => {
   return (
     <ExtendCollectionsProvider collections={[dispatchers]}>
       <SchemaComponent
-        memoized
         schema={schema}
         scope={{ useTestActionProps }}
         components={{
@@ -985,7 +615,7 @@ export const WebhookManager = () => {
           WorkflowSelect,
           CodeMirror,
         }}
-      ></SchemaComponent>
+      />
     </ExtendCollectionsProvider>
   );
 };

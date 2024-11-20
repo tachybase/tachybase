@@ -1,4 +1,5 @@
 import path from 'path';
+import { Context } from '@tachybase/actions';
 import { Model } from '@tachybase/database';
 import Application, { Plugin } from '@tachybase/server';
 
@@ -8,6 +9,29 @@ import { WebhookController } from './webhooks';
 
 export class PluginWebhook extends Plugin {
   async load() {
+    this.app.on('afterStart', async () => {
+      const webhooksRepo = this.db.getRepository('webhooks');
+      const resources = await webhooksRepo.find({
+        filter: {
+          enabled: true,
+          type: 'resource',
+        },
+      });
+
+      for (const resourceDef of resources) {
+        this.app.resourcer.define({
+          name: resourceDef.resourceName,
+          actions: {
+            [resourceDef.actionName]: async (ctx: Context) => {
+              const body = await new WebhookController().action(ctx, resourceDef);
+              await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
+            },
+          },
+        });
+        this.app.acl.allow(resourceDef.resourceName, resourceDef.actionName, 'public');
+      }
+    });
+
     await this.db.import({
       directory: path.resolve(__dirname, 'collections'),
     });

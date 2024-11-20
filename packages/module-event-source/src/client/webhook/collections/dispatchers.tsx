@@ -61,6 +61,7 @@ export const dispatchers: CollectionOptions = {
           { label: tval('HTTP endpoint'), value: 'code' },
           { label: tval('Scheduler'), value: 'cron' },
           { label: tval('API action'), value: 'action' },
+          { label: tval('Resource'), value: 'resource' },
         ],
         'x-component': 'Radio.Group',
         'x-decorator': 'FormItem',

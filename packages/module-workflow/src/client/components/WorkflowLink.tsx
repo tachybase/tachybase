@@ -1,7 +1,6 @@
 import React from 'react';
-import { useToken } from '@tachybase/client';
+import { Icon, useToken } from '@tachybase/client';
 
-import { PartitionOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +13,7 @@ export const WorkflowLink = () => {
   return (
     <Tooltip title={t('Workflow')}>
       <Button
-        icon={<PartitionOutlined style={{ color: token.colorTextHeaderMenu }} />}
+        icon={<Icon type="workflow" style={{ color: token.colorTextHeaderMenu }} />}
         title={t('Workflow')}
         onClick={() => {
           navigate('/admin/settings/workflow');
