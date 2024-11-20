@@ -18,7 +18,7 @@ import { useForm } from '@tachybase/schema';
 import { message } from 'antd';
 import { saveAs } from 'file-saver';
 
-import { NAMESPACE, useTranslation } from './locale';
+import { NAMESPACE, useTranslation } from '../locale';
 
 export const schemaApprovalPanne = {
   type: 'void',

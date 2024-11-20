@@ -3,7 +3,7 @@ import { Plugin } from '@tachybase/client';
 import PluginApprovalH5 from './h5';
 import PluginApprovalPC from './pc';
 
-export class PluginApprovalClient extends Plugin {
+class PluginApprovalClient extends Plugin {
   async afterAdd() {
     // 引入 PC 端代码
     await this.app.pm.add(PluginApprovalPC);

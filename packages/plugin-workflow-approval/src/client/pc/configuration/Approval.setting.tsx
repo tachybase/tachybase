@@ -1,5 +1,5 @@
+import { tval } from '../locale';
 import { ApprovalPane } from './ApprovalPane.component';
-import { tval } from './locale';
 
 export const systemSettingName = 'system-approval';
 
