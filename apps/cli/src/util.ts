@@ -195,7 +195,7 @@ export async function getVersion() {
 }
 
 export function generateAppDir() {
-  const appEntry = process.env.APP_ENTRY || 'app-mako';
+  const appEntry = process.env.APP_ENTRY || 'app';
   const appPkgPath = dirname(dirname(new URL(import.meta.resolve(`@tachybase/${appEntry}/src/index.ts`)).pathname));
   const appDevDir = resolve(process.cwd(), './storage/.app-dev');
   if (isDev() && !hasCorePackages() && appPkgPath.includes('node_modules')) {
