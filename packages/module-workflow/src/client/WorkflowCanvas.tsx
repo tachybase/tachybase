@@ -4,6 +4,7 @@ import {
   cx,
   ResourceActionProvider,
   SchemaComponent,
+  TableBlockProvider,
   useApp,
   useDocumentTitle,
   useResourceActionContext,
@@ -25,23 +26,20 @@ import { executionSchema } from './schemas/executions';
 import useStyles from './style';
 import { getWorkflowDetailPath, linkNodes } from './utils';
 
-function ExecutionResourceProvider({ request, filter = {}, ...others }) {
+function ExecutionResourceProvider({ params, filter = {}, ...others }) {
   const { workflow } = useFlowContext();
   const props = {
     ...others,
-    request: {
-      ...request,
-      params: {
-        ...request?.params,
-        filter: {
-          ...request?.params?.filter,
-          key: workflow.key,
-        },
+    params: {
+      ...params,
+      filter: {
+        ...params?.filter,
+        key: workflow.key,
       },
     },
   };
 
-  return <ResourceActionProvider {...props} />;
+  return <TableBlockProvider {...props} />;
 }
 
 export function WorkflowCanvas() {

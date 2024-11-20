@@ -1,5 +1,15 @@
 import React, { useCallback } from 'react';
-import { Action, css, useCompile, useRecord, useResourceActionContext, useResourceContext } from '@tachybase/client';
+import {
+  Action,
+  css,
+  useCollectionRecordData,
+  useCompile,
+  useDataBlockRequest,
+  useDataBlockResource,
+  useRecord,
+  useResourceActionContext,
+  useResourceContext,
+} from '@tachybase/client';
 
 import { ExclamationCircleFilled, StopOutlined } from '@ant-design/icons';
 import { Button, message, Modal, Select, Tag, Tooltip } from 'antd';
@@ -59,9 +69,9 @@ export function ExecutionStatusSelect({ ...props }) {
 
 export function ExecutionStatusColumn(props) {
   const { t } = useTranslation();
-  const { refresh } = useResourceActionContext();
-  const { resource } = useResourceContext();
-  const record = useRecord();
+  const { refresh } = useDataBlockRequest();
+  const resource = useDataBlockResource();
+  const record = useCollectionRecordData();
   const onCancel = useCallback(() => {
     Modal.confirm({
       title: lang('Cancel the execution'),

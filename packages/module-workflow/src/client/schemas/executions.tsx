@@ -1,5 +1,13 @@
 import React from 'react';
-import { useActionContext, useRecord, useResourceActionContext, useResourceContext } from '@tachybase/client';
+import {
+  dataSource,
+  useActionContext,
+  useDataBlockRequest,
+  useDataBlockResource,
+  useRecord,
+  useResourceActionContext,
+  useResourceContext,
+} from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
 import { message } from 'antd';
@@ -11,7 +19,7 @@ import { NAMESPACE } from '../locale';
 import { getWorkflowDetailPath } from '../utils';
 
 export const executionCollection = {
-  name: 'execution-executions',
+  name: 'executions',
   fields: [
     {
       interface: 'id',
@@ -76,16 +84,13 @@ export const executionSchema = {
       'x-decorator': 'ExecutionResourceProvider',
       'x-decorator-props': {
         collection: executionCollection,
-        resourceName: 'executions',
-        request: {
-          resource: 'executions',
-          action: 'list',
-          params: {
-            appends: ['workflow.id', 'workflow.title'],
-            pageSize: 20,
-            sort: ['-createdAt'],
-            filter: {},
-          },
+        dataSource: 'main',
+
+        action: 'list',
+        params: {
+          appends: ['workflow.id', 'workflow.title'],
+          pageSize: 20,
+          sort: ['-createdAt'],
         },
       },
       properties: {
@@ -105,12 +110,12 @@ export const executionSchema = {
               'x-component-props': {
                 useAction() {
                   const { t } = useTranslation();
-                  const { refresh, defaultRequest } = useResourceActionContext();
-                  const { resource } = useResourceContext();
+                  const { refresh, params } = useDataBlockRequest();
+                  const resource = useDataBlockResource();
                   const { setVisible } = useActionContext();
                   return {
                     async run() {
-                      await resource.destroy({ filter: defaultRequest.params?.filter });
+                      await resource.destroy({ filter: params?.filter });
                       message.success(t('Operation succeeded'));
                       refresh();
                       setVisible(false);
@@ -126,17 +131,17 @@ export const executionSchema = {
           },
         },
         table: {
-          type: 'void',
-          'x-component': 'Table.Void',
+          type: 'array',
+          'x-component': 'TableV2',
+          'x-use-component-props': 'useTableBlockProps',
           'x-component-props': {
             rowKey: 'id',
-            useDataSource: '{{ cm.useDataSourceFromRAC }}',
           },
           properties: {
             id: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 id: {
                   type: 'number',
@@ -147,8 +152,8 @@ export const executionSchema = {
             },
             createdAt: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 createdAt: {
                   type: 'datetime',
@@ -162,8 +167,8 @@ export const executionSchema = {
             },
             workflowId: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 workflowId: {
                   type: 'number',
@@ -174,8 +179,8 @@ export const executionSchema = {
             },
             status: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               title: `{{t("Status", { ns: "${NAMESPACE}" })}}`,
               properties: {
                 status: {
@@ -189,7 +194,7 @@ export const executionSchema = {
             actions: {
               type: 'void',
               title: '{{ t("Actions") }}',
-              'x-component': 'Table.Column',
+              'x-component': 'TableV2.Column',
               properties: {
                 actions: {
                   type: 'void',

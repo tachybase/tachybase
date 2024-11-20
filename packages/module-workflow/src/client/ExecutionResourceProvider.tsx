@@ -1,21 +1,19 @@
 import React from 'react';
-import { ResourceActionProvider, useRecord } from '@tachybase/client';
+import { ResourceActionProvider, TableBlockProvider, useCollectionRecordData, useRecord } from '@tachybase/client';
 
-export const ExecutionResourceProvider = ({ request, filter = {}, ...others }) => {
-  const workflow = useRecord();
+export const ExecutionResourceProvider = ({ params, filter = {}, ...others }) => {
+  const workflow = useCollectionRecordData();
   const props = {
     ...others,
-    request: {
-      ...request,
-      params: {
-        ...request?.params,
-        filter: {
-          ...request?.params?.filter,
-          key: workflow.key,
-        },
+
+    params: {
+      ...params,
+      filter: {
+        ...params?.filter,
+        key: workflow.key,
       },
     },
   };
 
-  return <ResourceActionProvider {...props} />;
+  return <TableBlockProvider {...props} />;
 };
