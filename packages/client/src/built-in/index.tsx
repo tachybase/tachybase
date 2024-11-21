@@ -14,6 +14,7 @@ import { useAPIClient } from '../api-client';
 import { Application, NoticeLevel, useApp } from '../application';
 import { Plugin } from '../application/Plugin';
 import { BlockSchemaComponentPlugin } from '../block-provider';
+import { PageLayout } from '../block-provider/PageLayout';
 import { CollectionPlugin } from '../collection-manager';
 import { RouteSchemaComponent } from '../route-switch';
 import { AntdSchemaComponentPlugin, SchemaComponentPlugin } from '../schema-component';
@@ -28,6 +29,7 @@ import { PluginAssistant } from './assistant';
 import { AttachmentPreviewPlugin } from './attachment-preview';
 import { PluginContextMenu } from './context-menu';
 import { RemoteDocumentTitlePlugin } from './document-title';
+import { PluginDynamicPage } from './dynamic-page';
 import { LocalePlugin } from './locale/LocalePlugin';
 import { PluginPageStyle } from './page-style';
 import { PinnedListPlugin } from './pinned-list';
@@ -333,6 +335,7 @@ export class BuiltInPlugin extends Plugin {
       RouteSchemaComponent,
       BlockTemplatePage,
       BlockTemplateDetails,
+      PageLayout,
     });
   }
   async addPlugins() {
@@ -388,5 +391,6 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(PluginPageStyle, { name: 'page-style' });
     await this.app.pm.add(QuickAccessPlugin, { name: 'quick-access' });
     await this.app.pm.add(ScrollAssistantPlugin, { name: 'scroll-assistant' });
+    await this.app.pm.add(PluginDynamicPage, { name: 'dynamic-page' });
   }
 }

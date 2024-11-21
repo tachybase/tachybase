@@ -6,11 +6,13 @@ import { App, Button } from 'antd';
 import classnames from 'classnames';
 import { default as lodash } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { StablePopover, useActionContext } from '../..';
 import { useDesignable } from '../../';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { useACLActionParamsContext } from '../../../built-in/acl';
+import { useCollection, useCollectionRecordData } from '../../../data-source';
 import { Icon } from '../../../icon';
 import { RecordProvider, useRecord } from '../../../record-provider';
 import { useLocalVariables, useVariables } from '../../../variables';
@@ -53,6 +55,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
       ...others
     } = useProps(props); // 新版 UISchema（1.0 之后）中已经废弃了 useProps，这里之所以继续保留是为了兼容旧版的 UISchema
     const aclCtx = useACLActionParamsContext();
+    const navigate = useNavigate();
     const { wrapSSR, componentCls, hashId } = useStyles();
     const { t } = useTranslation();
     const [visible, setVisible] = useState(false);
@@ -64,6 +67,8 @@ export const Action: ComposedAction = withDynamicSchemaProps(
     const compile = useCompile();
     const form = useForm();
     const record = useRecord();
+    const cRecord = useCollectionRecordData();
+    const collection = useCollection();
     const designerProps = fieldSchema['x-designer-props'];
     const openMode = fieldSchema?.['x-component-props']?.['openMode'];
     const openSize = fieldSchema?.['x-component-props']?.['openSize'];
@@ -107,7 +112,32 @@ export const Action: ComposedAction = withDynamicSchemaProps(
         if (!disabled && aclCtx) {
           const onOk = () => {
             onClick?.(e);
-            setVisible(true);
+            /**
+             * 将标准 Base64 转换为 URL 安全的 Base64
+             * @param {string} input - 需要转换的字符串
+             * @returns {string} URL 安全的 Base64 字符串
+             */
+            function toBase64UrlSafe(input) {
+              const base64String = btoa(input); // 转换为标准 Base64
+              return base64String.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); // 替换并移除 '='
+            }
+
+            // setVisible(true);
+            console.log(fieldSchema);
+            console.log(name);
+            console.log(record);
+            const containerSchema = fieldSchema.reduceProperties((buf, s) =>
+              s['x-component'] === 'Action.Container' ? s : buf,
+            );
+            console.log(cRecord);
+            const target = toBase64UrlSafe(
+              JSON.stringify({
+                uid: containerSchema['x-uid'],
+                collection: collection.name,
+                filterByTk: cRecord[collection.getPrimaryKey()],
+              }),
+            );
+            navigate(target);
             run();
           };
           if (confirm?.content) {

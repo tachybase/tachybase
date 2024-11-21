@@ -35,7 +35,6 @@ import {
 } from './interfaces';
 import { TstzrangeFieldInterface } from './interfaces/TstzrangeFieldInterface';
 import { Locale, tval } from './locale';
-import { DetailsPage, PageLayout } from './pages';
 import { SettingBlockInitializer } from './schema-initializer';
 import { EditTitle, IsTablePageSize, PageModeSetting, usePaginationVisible } from './schema-settings';
 import { SchemaSettingsDatePickerType } from './schema-settings/SchemaSettingsDatePickerType';
@@ -120,19 +119,13 @@ export class PluginCoreClient extends Plugin {
       CustomField,
       EditTitle,
       Expression,
-      PageLayout,
       SettingBlock: SettingBlockInitializer,
       SignatureInput,
       ExcelFile,
     });
   }
 
-  async registerRouters() {
-    this.app.router.add('admin.details_page', {
-      path: '/admin/:name/page/:pageId/records/*',
-      Component: DetailsPage,
-    });
-  }
+  async registerRouters() {}
 
   async registerSchemaInitializer() {
     const settingBlockItem = {
