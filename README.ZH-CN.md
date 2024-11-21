@@ -17,7 +17,7 @@
   灵矶是一个灵活多变的应用系统，应用开发者可以基于灵矶做出丰富应用逻辑，而核心开发者可以聚焦于关键模块的稳定性和对不同环境的适配。
 </p>
 <p align="center">
-  [<a href="./README.md">English Version</a>][中文版本]
+  [<a href="./README.md">English Version</a>][<a href="https://tachybase.org">文档</a>][中文版本]
 </p>
 
 # 简介

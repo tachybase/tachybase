@@ -17,7 +17,7 @@
   Tachybase is a highly flexible application system, where developers can build complex application logic, while core developers focus on ensuring the stability of key modules and adapting to different environments. 
 </p>
 <p align="center">
-  [English Version][<a href="./README.md">中文版本</a>]
+  [English Version][<a href="https://tachybase.org">DOCS</a>][<a href="./README.md">中文版本</a>]
 </p>
 
 # Project Overview
