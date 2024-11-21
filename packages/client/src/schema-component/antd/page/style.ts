@@ -42,7 +42,10 @@ export const useStyles = genStyleHook('tb-page', (token) => {
         },
       },
 
-      '.tb-page-header-wrapper': {},
+      '.tb-page-header-wrapper': {
+        zIndex: 10,
+        boxShadow: '1px 1px 10px 1px rgba(0, 0, 0, 0.1)',
+      },
 
       '.pageHeaderCss': {
         backgroundColor: token.colorBgContainer,
