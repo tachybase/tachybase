@@ -83,7 +83,7 @@ This project is licensed under the [Apache 2.0](LICENSE) License。
 
 # Third-party Code Notice
 
-The project includes a significant amount of code from third-party libraries such as NocoBase, Formily, and Ant Design (antd). This code adheres to their original licenses and agreements. It will be gradually rewritten in the future. Please be mindful of this when using it in the early stages of the project.
+The project includes a significant amount of code from third-party libraries such as RequireJS, JsonLogic, NocoBase, Formily, and Ant Design (antd). This code adheres to their original licenses and agreements. It will be gradually rewritten in the future. Please be mindful of this when using it in the early stages of the project.
 
 # Contributing
 

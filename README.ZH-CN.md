@@ -83,7 +83,7 @@ pnpm dev
 
 # 第三方代码声明
 
-项目中包含大量来自第三方库的代码，例如 NocoBase、Formily 和 Ant Design（antd）。这些代码遵循其原有的版权和协议要求。未来会逐步进行重构和替换，在项目早期使用时请注意相关授权要求。
+项目中包含大量来自第三方库的代码，例如 RequireJS, JsonLogic, NocoBase、Formily 和 Ant Design（antd）。这些代码遵循其原有的版权和协议要求。未来会逐步进行重构和替换，在项目早期使用时请注意相关授权要求。
 
 # 贡献
 
