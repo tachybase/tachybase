@@ -3117,6 +3117,39 @@ importers:
         specifier: ^6.25.1
         version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
+  packages/plugin-auth-pages:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/plugin-auth':
+        specifier: workspace:*
+        version: link:../module-auth
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.11.2
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugin-auth-prototype-lark:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+
   packages/plugin-auth-saml:
     dependencies:
       '@tachybase/actions':
@@ -3243,7 +3276,7 @@ importers:
         specifier: ^6.25.1
         version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/plugin-auth-work-wechat:
+  packages/plugin-auth-wecom:
     dependencies:
       '@ant-design/icons':
         specifier: ^5.3.7
@@ -4385,15 +4418,39 @@ importers:
       '@tachybase/plugin-auth':
         specifier: workspace:*
         version: link:../module-auth
+      '@tachybase/plugin-auth-cas':
+        specifier: workspace:*
+        version: link:../plugin-auth-cas
+      '@tachybase/plugin-auth-dingtalk':
+        specifier: workspace:*
+        version: link:../plugin-auth-dingtalk
+      '@tachybase/plugin-auth-lark':
+        specifier: workspace:*
+        version: link:../plugin-auth-prototype-lark
+      '@tachybase/plugin-auth-oidc':
+        specifier: workspace:*
+        version: link:../plugin-auth-oidc
+      '@tachybase/plugin-auth-pages':
+        specifier: workspace:*
+        version: link:../plugin-auth-pages
+      '@tachybase/plugin-auth-saml':
+        specifier: workspace:*
+        version: link:../plugin-auth-saml
+      '@tachybase/plugin-auth-sms':
+        specifier: workspace:*
+        version: link:../plugin-auth-sms
+      '@tachybase/plugin-auth-wechat':
+        specifier: workspace:*
+        version: link:../plugin-auth-wechat
+      '@tachybase/plugin-auth-wecom':
+        specifier: workspace:*
+        version: link:../plugin-auth-wecom
       '@tachybase/plugin-backup-restore':
         specifier: workspace:*
         version: link:../module-backup
       '@tachybase/plugin-calendar':
         specifier: workspace:*
         version: link:../plugin-block-calendar
-      '@tachybase/plugin-cas':
-        specifier: workspace:*
-        version: link:../plugin-auth-cas
       '@tachybase/plugin-china-region':
         specifier: workspace:*
         version: link:../plugin-field-china-region
@@ -4424,9 +4481,6 @@ importers:
       '@tachybase/plugin-demos-game-runesweeper':
         specifier: workspace:*
         version: link:../plugin-prototype-game-runesweeper
-      '@tachybase/plugin-dingtalk':
-        specifier: workspace:*
-        version: link:../plugin-auth-dingtalk
       '@tachybase/plugin-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
@@ -4478,27 +4532,18 @@ importers:
       '@tachybase/plugin-multi-app-share-collection':
         specifier: workspace:*
         version: link:../plugin-multi-app-share-collection
-      '@tachybase/plugin-oidc':
-        specifier: workspace:*
-        version: link:../plugin-auth-oidc
       '@tachybase/plugin-online-user':
         specifier: workspace:*
         version: link:../plugin-prototype-online-user
       '@tachybase/plugin-pdf-editor':
         specifier: workspace:*
         version: link:../module-prototype-pdf-editor
-      '@tachybase/plugin-saml':
-        specifier: workspace:*
-        version: link:../plugin-auth-saml
       '@tachybase/plugin-sequence-field':
         specifier: workspace:*
         version: link:../plugin-field-sequence
       '@tachybase/plugin-simple-cms':
         specifier: workspace:*
         version: link:../plugin-prototype-simple-cms
-      '@tachybase/plugin-sms-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth-sms
       '@tachybase/plugin-snapshot-field':
         specifier: workspace:*
         version: link:../plugin-field-snapshot
@@ -4517,12 +4562,6 @@ importers:
       '@tachybase/plugin-verification':
         specifier: workspace:*
         version: link:../module-verification
-      '@tachybase/plugin-wechat-auth':
-        specifier: workspace:*
-        version: link:../plugin-auth-wechat
-      '@tachybase/plugin-work-wechat':
-        specifier: workspace:*
-        version: link:../plugin-auth-work-wechat
       '@tachybase/plugin-workflow-approval':
         specifier: workspace:*
         version: link:../plugin-workflow-approval

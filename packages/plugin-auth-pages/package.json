@@ -1,0 +1,20 @@
+{
+  "name": "@tachybase/plugin-auth-pages",
+  "displayName": "Auth: Pages",
+  "version": "0.22.42",
+  "description": "Pages for auth",
+  "keywords": [
+    "Authentication"
+  ],
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "antd": "5.22.0",
+    "react-router-dom": "^6.11.2"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/plugin-auth": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}
