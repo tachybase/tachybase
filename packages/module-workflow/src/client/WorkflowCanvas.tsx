@@ -7,6 +7,7 @@ import {
   TableBlockProvider,
   useApp,
   useDocumentTitle,
+  useFilterByTk,
   useResourceActionContext,
   useResourceContext,
 } from '@tachybase/client';
@@ -25,7 +26,7 @@ import { FlowContext, useFlowContext } from './FlowContext';
 import { lang } from './locale';
 import { executionSchema } from './schemas/executions';
 import useStyles from './style';
-import { getWorkflowDetailPath, linkNodes } from './utils';
+import { getWorkflowDetailPath, getWorkflowExecutionsPath, linkNodes } from './utils';
 
 function ExecutionResourceProvider({ params, filter = {}, ...others }) {
   const { workflow } = useFlowContext();
@@ -39,7 +40,6 @@ function ExecutionResourceProvider({ params, filter = {}, ...others }) {
       },
     },
   };
-
   return <TableBlockProvider {...props} />;
 }
 
@@ -87,6 +87,19 @@ export function WorkflowCanvas() {
     refresh();
   }
 
+  async function onRetry() {
+    const {
+      data: { data: executionId },
+    } = await resource.retry({
+      filterByTk: workflow.id,
+      filter: {
+        key: workflow.key,
+      },
+    });
+
+    navigate(`/admin/workflow/executions/${executionId.executionId}`);
+  }
+
   async function onRevision() {
     const {
       data: { data: revision },
@@ -128,6 +141,8 @@ export function WorkflowCanvas() {
       case 'history':
         setVisible(true);
         return;
+      case 'Retry':
+        return onRetry();
       case 'revision':
         return onRevision();
       case 'delete':
@@ -208,6 +223,13 @@ export function WorkflowCanvas() {
                   'aria-label': 'history',
                   key: 'history',
                   label: lang('Execution history'),
+                  disabled: !workflow.allExecuted,
+                },
+                {
+                  role: 'button',
+                  'aria-label': 'Retry',
+                  key: 'Retry',
+                  label: lang('Retry'),
                   disabled: !workflow.allExecuted,
                 },
                 {
