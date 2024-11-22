@@ -6,7 +6,7 @@ import { App, Button } from 'antd';
 import classnames from 'classnames';
 import { default as lodash } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { StablePopover, useActionContext } from '../..';
 import { useDesignable } from '../../';
@@ -14,7 +14,7 @@ import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSche
 import { useACLActionParamsContext } from '../../../built-in/acl';
 import { useCollection, useCollectionRecordData } from '../../../data-source';
 import { Icon } from '../../../icon';
-import { RecordProvider, useRecord } from '../../../record-provider';
+import { RecordProvider } from '../../../record-provider';
 import { useLocalVariables, useVariables } from '../../../variables';
 import { SortableItem } from '../../common';
 import { useCompile, useComponent, useDesigner } from '../../hooks';
@@ -66,8 +66,8 @@ export const Action: ComposedAction = withDynamicSchemaProps(
     const fieldSchema = useFieldSchema();
     const compile = useCompile();
     const form = useForm();
-    const record = useRecord();
-    const cRecord = useCollectionRecordData();
+    // TODO 这里这么改，会影响还没重构的设置代码，但是剩下没重构的插件设置代码也没几个，可以碰到修改就行
+    const record = useCollectionRecordData();
     const collection = useCollection();
     const designerProps = fieldSchema['x-designer-props'];
     const openMode = fieldSchema?.['x-component-props']?.['openMode'];
@@ -82,6 +82,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
     const { getAriaLabel } = useGetAriaLabelOfAction(title);
     let actionTitle = title || compile(fieldSchema.title);
     actionTitle = lodash.isString(actionTitle) ? t(actionTitle) : actionTitle;
+    const location = useLocation();
 
     useEffect(() => {
       field.stateOfLinkageRules = {};
@@ -121,23 +122,18 @@ export const Action: ComposedAction = withDynamicSchemaProps(
               const base64String = btoa(input); // 转换为标准 Base64
               return base64String.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); // 替换并移除 '='
             }
-
-            // setVisible(true);
-            console.log(fieldSchema);
-            console.log(name);
-            console.log(record);
+            // TODO: 这块需要验证下插件的设置有没有问题
             const containerSchema = fieldSchema.reduceProperties((buf, s) =>
               s['x-component'] === 'Action.Container' ? s : buf,
             );
-            console.log(cRecord);
             const target = toBase64UrlSafe(
               JSON.stringify({
                 uid: containerSchema['x-uid'],
                 collection: collection.name,
-                filterByTk: cRecord[collection.getPrimaryKey()],
+                filterByTk: record[collection.getPrimaryKey()],
               }),
             );
-            navigate(target);
+            navigate(`${location.pathname}/${target}`);
             run();
           };
           if (confirm?.content) {
