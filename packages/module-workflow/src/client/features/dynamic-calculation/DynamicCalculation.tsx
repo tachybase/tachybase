@@ -3,7 +3,7 @@ import { SchemaInitializerItemType, useCollectionManager_deprecated, Variable } 
 
 import { BaseTypeSets, defaultFieldNames, useWorkflowVariableOptions, ValueBlock, WorkflowVariableInput } from '../..';
 import { lang, NAMESPACE } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 function useDynamicExpressionCollectionFieldMatcher(field): boolean {
   if (!['belongsTo', 'hasOne'].includes(field.type)) {

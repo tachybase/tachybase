@@ -16,7 +16,7 @@ import {
   WorkflowVariableInput,
 } from '../..';
 import { lang, NAMESPACE } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 function findOption(options: VariableOption[], paths: string[]) {
   let opts = options;
@@ -119,7 +119,7 @@ export default class extends Instruction {
     const { fieldNames = defaultFieldNames } = options;
 
     // const { workflow } = useFlowContext();
-    // const current = useNodeContext();
+    // const current = useContextNode();
     // const upstreams = useAvailableUpstreams(current);
     // find target data model by path described in `config.target`
     // 1. get options from $context/$jobsMapByNodeKey

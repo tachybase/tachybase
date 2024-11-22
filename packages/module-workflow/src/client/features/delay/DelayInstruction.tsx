@@ -5,7 +5,7 @@ import { InputNumber, Select } from 'antd';
 
 import { JOB_STATUS } from '../..';
 import { NAMESPACE } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 const UnitOptions = [
   { value: 1_000, label: `{{t('Seconds', { ns: "workflow" })}}` },

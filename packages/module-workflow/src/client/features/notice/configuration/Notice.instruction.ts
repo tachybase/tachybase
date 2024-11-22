@@ -1,6 +1,6 @@
 import { ArrayItems } from '@tachybase/components';
 
-import { GroupType, Instruction } from '../../../nodes';
+import { GroupType, Instruction } from '../../../nodes/default-node/interface';
 import { NOTICE_INSTRUCTION_NAMESPACE } from '../../common/constants';
 import { tval } from '../locale';
 import { AdditionNotifiedPerson } from './config-items/AddNotifiedPerson.view';

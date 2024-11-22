@@ -7,7 +7,6 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Select } from 'antd';
 import { Trans, useTranslation } from 'react-i18next';
 
-import { Instruction, NodeDefaultView } from '.';
 import { Branch } from '../Branch';
 import { RadioWithTooltip, RadioWithTooltipOption } from '../components/RadioWithTooltip';
 import { renderEngineReference } from '../components/renderEngineReference';
@@ -15,6 +14,8 @@ import { useFlowContext } from '../FlowContext';
 import { lang, NAMESPACE } from '../locale';
 import useStyles from '../style';
 import { useWorkflowVariableOptions, WorkflowVariableTextArea } from '../variable';
+import { Instruction } from './default-node/interface';
+import { NodeDefaultView } from './default-node/NodeDefaultView';
 
 interface Calculator {
   name: string;

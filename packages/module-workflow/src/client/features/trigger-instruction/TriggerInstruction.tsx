@@ -3,7 +3,7 @@ import { ISchema, useForm } from '@tachybase/schema';
 
 import { useFlowContext } from '../../FlowContext';
 import { tval } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 import { getCollectionFieldOptions, VariableOption } from '../../variable';
 
 const useWorkflowTrigger = () => {

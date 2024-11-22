@@ -7,7 +7,7 @@ import { Button, Dropdown, MenuProps } from 'antd';
 import WorkflowPlugin from '.';
 import { useFlowContext } from './FlowContext';
 import { NAMESPACE } from './locale';
-import { Instruction } from './nodes';
+import { Instruction } from './nodes/default-node/interface';
 import useStyles from './style';
 
 interface AddButtonProps {

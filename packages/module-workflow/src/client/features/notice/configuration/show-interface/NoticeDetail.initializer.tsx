@@ -1,7 +1,7 @@
 import { gridRowColWrap, SchemaInitializer, usePlugin } from '@tachybase/client';
 
+import { useAvailableUpstreams, useContextNode } from '../../../..';
 import { useFlowContext } from '../../../../FlowContext';
-import { useAvailableUpstreams, useNodeContext } from '../../../../nodes';
 import { PluginWorkflow } from '../../../../Plugin';
 import { useTrigger } from '../../../../triggers';
 import { tval } from '../../locale';
@@ -34,7 +34,7 @@ export const NoticeDetailInitializer = new SchemaInitializer({
         const workflowPlugin = usePlugin(PluginWorkflow);
         const { workflow } = useFlowContext();
         const trigger = useTrigger();
-        const currentNodeContext = useNodeContext();
+        const currentNodeContext = useContextNode();
         const nodes = useAvailableUpstreams(currentNodeContext);
         const triggerInitializers = [trigger.useInitializers?.call(trigger, workflow.config)].filter(Boolean);
         const nodeBlockInitializers = nodes

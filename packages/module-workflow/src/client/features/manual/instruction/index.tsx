@@ -2,7 +2,7 @@ import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile,
 
 import WorkflowPlugin, { CollectionBlockInitializer, defaultFieldNames, getCollectionFieldOptions } from '../../..';
 import { NAMESPACE } from '../../../locale';
-import { Instruction } from '../../../nodes';
+import { Instruction } from '../../../nodes/default-node/interface';
 import { AssigneesSelect } from './AssigneesSelect';
 import { ModeConfig } from './ModeConfig';
 import { SchemaConfig, SchemaConfigButton } from './SchemaConfig';
