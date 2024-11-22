@@ -3,9 +3,9 @@ import { useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
 
-import { useFlowContext } from '../../FlowContext';
-import { lang } from '../../locale';
-import { useContextNode } from './Node.context';
+import { useFlowContext } from '../../../FlowContext';
+import { lang } from '../../../locale';
+import { useContextNode } from '../Node.context';
 
 export function useUpdateAction() {
   const form = useForm();

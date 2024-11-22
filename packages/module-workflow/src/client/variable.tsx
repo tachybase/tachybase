@@ -4,9 +4,9 @@ import { parseCollectionName, useCompile, usePlugin, Variable } from '@tachybase
 import WorkflowPlugin from '.';
 import { useFlowContext } from './FlowContext';
 import { lang, NAMESPACE } from './locale';
+import { useAvailableUpstreams } from './nodes/default-node/hooks/useAvailableUpstreams';
+import { useUpstreamScopes } from './nodes/default-node/hooks/useUpstreamScopes';
 import { useContextNode } from './nodes/default-node/Node.context';
-import { useAvailableUpstreams } from './nodes/default-node/useAvailableUpstreams';
-import { useUpstreamScopes } from './nodes/default-node/useUpstreamScopes';
 
 export type VariableOption = {
   key?: string;

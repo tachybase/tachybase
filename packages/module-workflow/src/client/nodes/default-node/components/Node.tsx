@@ -3,11 +3,11 @@ import { cx, usePlugin } from '@tachybase/client';
 
 import { CloseOutlined } from '@ant-design/icons';
 
-import WorkflowPlugin, { NodeDefaultView } from '../..';
-import { AddButton } from '../../AddButton';
-import { useGetAriaLabelOfAddButton } from '../../hooks/useGetAriaLabelOfAddButton';
-import useStyles from '../../style';
-import { ProviderContextNode } from './Node.context';
+import WorkflowPlugin, { NodeDefaultView } from '../../..';
+import { AddButton } from '../../../AddButton';
+import { useGetAriaLabelOfAddButton } from '../../../hooks/useGetAriaLabelOfAddButton';
+import useStyles from '../../../style';
+import { ProviderContextNode } from '../Node.context';
 
 export const Node = ({ data }) => {
   const { styles } = useStyles();

@@ -4,8 +4,8 @@ import { Space } from '@tachybase/client';
 import { Radio, Select } from 'antd';
 
 import { lang } from '../../locale';
+import { useAvailableUpstreams } from '../../nodes/default-node/hooks/useAvailableUpstreams';
 import { useContextNode } from '../../nodes/default-node/Node.context';
-import { useAvailableUpstreams } from '../../nodes/default-node/useAvailableUpstreams';
 import { useStyles } from './useStyles';
 
 export function VariableTargetSelect({ value, onChange }) {
