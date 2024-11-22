@@ -126,14 +126,19 @@ export const Action: ComposedAction = withDynamicSchemaProps(
             const containerSchema = fieldSchema.reduceProperties((buf, s) =>
               s['x-component'] === 'Action.Container' ? s : buf,
             );
-            const target = toBase64UrlSafe(
-              JSON.stringify({
-                uid: containerSchema['x-uid'],
-                collection: collection.name,
-                filterByTk: record[collection.getPrimaryKey()],
-              }),
-            );
-            navigate(`${location.pathname}/${target}`);
+            // TODO: 增加上下文判断
+            if (containerSchema) {
+              const target = toBase64UrlSafe(
+                JSON.stringify({
+                  uid: containerSchema['x-uid'],
+                  collection: collection.name,
+                  filterByTk: record[collection.getPrimaryKey()],
+                }),
+              );
+              navigate(`${location.pathname}/${target}`);
+            } else {
+              setVisible(true);
+            }
             run();
           };
           if (confirm?.content) {
