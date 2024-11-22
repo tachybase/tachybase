@@ -522,7 +522,7 @@ export function NodeDefaultView(props) {
         </div>
         <AutoResizeInput
           className="workflow-node-edit"
-          readonly={workflow.executed}
+          readOnly={workflow.executed}
           value={editingTitle}
           onChange={(ev) => setEditingTitle(ev.target.value)}
           onBlur={(ev) => onChangeTitle(ev.target.value)}
