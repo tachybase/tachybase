@@ -62,10 +62,12 @@ export const TabHeader = () => {
   const navigate = useNavigate();
   const { items, setItems } = useContext(PageStyleContext);
   const params = useParams<{ name?: string }>();
+  // TODO: 封装一下
+  const targetKey = params.name + (params['*'] ? '/' + params['*'] : '');
   return items.map((item) => (
     <Tag
       key={item.key}
-      active={item.key === params.name}
+      active={item.key === targetKey}
       onClick={() => {
         navigate(`/admin/${item.key}`);
       }}

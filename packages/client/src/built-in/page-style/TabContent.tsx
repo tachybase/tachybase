@@ -5,6 +5,7 @@ import { Outlet, useParams } from 'react-router-dom';
 
 import { RemoteSchemaComponent } from '../../schema-component';
 import { useDocumentTitle } from '../document-title';
+import { DynamicPage } from '../dynamic-page/DynamicPage';
 import { PageStyleContext } from './PageStyle.provider';
 import { usePageStyle } from './usePageStyle';
 
@@ -29,16 +30,18 @@ export const TabContent = () => {
   const params = useParams<{ name?: string }>();
   const { title, setTitle } = useDocumentTitle();
   const { items, setItems } = useContext(PageStyleContext);
+  const targetKey = params.name + (params['*'] ? '/' + params['*'] : '');
 
   useEffect(() => {
-    if (params.name && title) {
-      const targetItem = items.find((value) => value.key === params.name);
+    if (targetKey && title) {
+      const targetItem = items.find((value) => value.key === targetKey);
       if (!targetItem) {
         // 现有tab页数组里,不存在之前浏览的tab页面,添加新的tab页进数组
         setItems([
           ...items,
           {
-            key: params.name,
+            key: targetKey,
+            // TODO: 这里title计算需要处理
             label: title,
             children: <MyRouteSchemaComponent name={params.name} />,
           },
@@ -48,12 +51,16 @@ export const TabContent = () => {
         setTitle(targetItem.label);
       }
     }
-  }, [params.name, title]);
+  }, [targetKey, title]);
 
   return <TabContentInternal items={items} activeKey={params.name} />;
 };
 
 export function MyRouteSchemaComponent({ name }: { name: string }) {
+  const params = useParams<any>();
+  if (params['*']) {
+    return <DynamicPage />;
+  }
   return <RemoteSchemaComponent onlyRenderProperties uid={name} />;
 }
 
