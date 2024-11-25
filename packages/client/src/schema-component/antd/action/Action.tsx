@@ -135,7 +135,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
                   filterByTk: record[collection.getPrimaryKey()],
                 }),
               );
-              navigate(`${location.pathname}/${target}`);
+              navigate(target);
             } else {
               setVisible(true);
             }

@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import { css } from '@emotion/css';
 import { Button } from 'antd';
 import cx from 'classnames';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 import { Icon } from '../../icon';
 import { PageStyleContext } from './PageStyle.provider';
@@ -60,16 +61,15 @@ export const Tag = ({ onClick, onClose, children, active }) => {
 
 export const TabHeader = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { items, setItems } = useContext(PageStyleContext);
-  const params = useParams<{ name?: string }>();
-  // TODO: 封装一下
-  const targetKey = params.name + (params['*'] ? '/' + params['*'] : '');
+  const targetKey = location.pathname;
   return items.map((item) => (
     <Tag
       key={item.key}
       active={item.key === targetKey}
       onClick={() => {
-        navigate(`/admin/${item.key}`);
+        navigate(item.key);
       }}
       onClose={(e) => {
         e.stopPropagation();

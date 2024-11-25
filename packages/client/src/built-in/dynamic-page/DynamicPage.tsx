@@ -5,7 +5,7 @@ import { css } from '@emotion/css';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { DataBlockProvider } from '../../data-source';
-import { RecordProvider } from '../../record-provider';
+import { RecordContext_deprecated } from '../../record-provider';
 import { RemoteSchemaComponent } from '../../schema-component';
 import { useHeadStyles } from './style';
 
@@ -52,10 +52,10 @@ export const DynamicPage = () => {
           }}
         />
       </div>
-      <DataBlockProvider filterByTk={filterByTk} collection={collection}>
-        <RecordProvider record={{ id: filterByTk }}>
+      <DataBlockProvider params={{ filterByTk }} action="get" collection={collection}>
+        <RecordContext_deprecated.Provider value={{ id: filterByTk }}>
           <RemoteSchemaComponent uid={uid} onlyRenderProperties />
-        </RecordProvider>
+        </RecordContext_deprecated.Provider>
       </DataBlockProvider>
     </div>
   );

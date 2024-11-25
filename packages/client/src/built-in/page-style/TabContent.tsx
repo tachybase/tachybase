@@ -1,11 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 
 import { css } from '@emotion/css';
-import { Outlet, useOutlet, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useOutlet, useParams } from 'react-router-dom';
 
-import { RemoteSchemaComponent } from '../../schema-component';
 import { useDocumentTitle } from '../document-title';
-import { DynamicPage } from '../dynamic-page/DynamicPage';
 import { PageStyleContext } from './PageStyle.provider';
 import { usePageStyle } from './usePageStyle';
 
@@ -27,10 +25,10 @@ export const TabContentInternal = ({ items, activeKey }) => {
 };
 
 export const TabContent = () => {
-  const params = useParams<{ name?: string }>();
   const { title, setTitle } = useDocumentTitle();
+  const location = useLocation();
   const { items, setItems } = useContext(PageStyleContext);
-  const targetKey = params.name + (params['*'] ? '/' + params['*'] : '');
+  const targetKey = location.pathname;
   const outlet = useOutlet();
 
   useEffect(() => {
@@ -54,16 +52,8 @@ export const TabContent = () => {
     }
   }, [targetKey, title]);
 
-  return <TabContentInternal items={items} activeKey={params.name} />;
+  return <TabContentInternal items={items} activeKey={targetKey} />;
 };
-
-export function MyRouteSchemaComponent({ name }: { name: string }) {
-  const params = useParams<any>();
-  if (params['*']) {
-    return <DynamicPage />;
-  }
-  return <RemoteSchemaComponent onlyRenderProperties uid={name} />;
-}
 
 export const CustomAdminContent = () => {
   const params = useParams<any>();

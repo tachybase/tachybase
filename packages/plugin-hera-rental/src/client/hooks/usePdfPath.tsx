@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { useRecord } from '@tachybase/client';
+import { useCollection, useCollectionRecordData } from '@tachybase/client';
 
 import { SettlementStyleContext } from '../schema-initializer/actions/SettlementStyleSwitchActionInitializer';
 
@@ -42,7 +42,7 @@ export const PdfIsDoubleProvider = (props) => {
 };
 
 export const useRecordPdfPath = () => {
-  const record = useRecord();
+  const record = useCollectionRecordData();
   const { styleId } = useContext(PrintStyleContext);
   const { settingType } = useContext(PdfIsLoadContext);
   const path = useMemo(
@@ -62,14 +62,19 @@ export const WaybillsProvider = (props) => {
 };
 
 export const useWaybillPdfPath = () => {
-  const record = useRecord();
-  const recordId = record.__collectionName === 'records' ? record.waybill?.id : record.id;
+  const record = useCollectionRecordData();
+  const collection = useCollection();
+  if (!record) {
+    return;
+  }
+  const recordId = collection.name === 'records' ? record.waybill?.id : record.id;
+
   const { margingTop } = useContext(PdfMargingTopContext);
   return `/waybills:pdf?recordId=${recordId}&margingTop=${margingTop}`;
 };
 
 export const useSettlementPdfPath = () => {
-  const record = useRecord();
+  const record = useCollectionRecordData();
   const { style } = useContext(SettlementStyleContext);
   return `/settlements:pdf?settlementsId=${record.id}&type=${style}`;
 };
