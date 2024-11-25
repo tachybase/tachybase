@@ -16,7 +16,7 @@ import { MessageDesigner } from './MessageDesigner';
 
 const collection = {
   name: 'messages',
-  title: tval('Messages'),
+  title: tval('In-site messages'),
   fields: [
     {
       name: 'createdAt',

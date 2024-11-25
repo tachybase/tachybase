@@ -12,10 +12,10 @@ const NotificationLink = () => {
   const { token } = useToken();
   const { t } = useTranslation();
   return (
-    <Tooltip title={t('Messages')}>
+    <Tooltip title={t('In-site messages')}>
       <Button
         icon={<BellOutlined style={{ color: token.colorTextHeaderMenu }} />}
-        title={t('Messages')}
+        title={t('In-site messages')}
         onClick={() => {
           navigate('/admin/messages');
         }}

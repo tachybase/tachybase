@@ -1,15 +1,11 @@
 import React from 'react';
 import { ExtendCollectionsProvider, TableBlockProvider } from '@tachybase/client';
 
-import { useAuditChangesCollection, useCollectionsCollection, useMessageCollection } from './collections';
+import MessageCollection from '../collections/messages';
 
 export const MessageBlockProvider = ({ children, ...restProps }) => {
-  const auditChangesCollection = useAuditChangesCollection();
-  const MessageCollection = useMessageCollection();
-  const collectionsCollection = useCollectionsCollection();
-
   return (
-    <ExtendCollectionsProvider collections={[MessageCollection, auditChangesCollection, collectionsCollection]}>
+    <ExtendCollectionsProvider collections={[MessageCollection]}>
       <TableBlockProvider name="message" {...restProps}>
         {children}
       </TableBlockProvider>

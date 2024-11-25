@@ -1,14 +1,16 @@
 import { Plugin, SchemaInitializerItemType } from '@tachybase/client';
 import PluginWorkflow from '@tachybase/module-workflow/client';
+import { autorun } from '@tachybase/schema';
 
 import { MessageTableColumnInitializers } from './initializers/MessageColumnInitializers';
 import { MessageTableActionColumnInitializers } from './initializers/MessageTableActionColumnInitializers';
 import { MessageTableActionInitializers } from './initializers/MessageTableActionInitializers';
 import { MessageInstruction } from './instructions/MessageInstruction';
-import { lang, tval } from './locale';
+import { lang, NAMESPACE, tval } from './locale';
 import { MessageNotificationProvider } from './MessageNotificationProvider';
 import { MessagePage } from './MessagePage';
 import { MessageProvider } from './MessageProvider';
+import { SCMessageDetail } from './show-interface/MessageDetail.schema';
 import { SubscriptionManager } from './SubscriptionManager';
 import { PluginWebNotification } from './web-notification/PluginWebNotification';
 
@@ -21,6 +23,8 @@ export class PluginMessagesClient extends Plugin {
   private _messageTypes: MessageType[] = [];
 
   async afterAdd() {
+    // todo: kit导出
+    await this.app.pm.add(SCMessageDetail);
     await this.app.pm.add(PluginWebNotification, { name: 'message-web' });
   }
 
@@ -55,7 +59,7 @@ export class PluginMessagesClient extends Plugin {
     const blockInitializers = this.app.schemaInitializerManager.get('page:addBlock');
     const recordBlockInitializers = this.app.schemaInitializerManager.get('popup:common:addBlock');
     const messages: Omit<SchemaInitializerItemType, 'name'> = {
-      title: tval('messages'),
+      title: tval('In-site messages'),
       Component: 'MessageBlockInitializer',
     };
     blockInitializers.add('otherBlocks.messages', messages);
@@ -75,6 +79,18 @@ export class PluginMessagesClient extends Plugin {
     this.registe({
       name: 'sms',
       title: lang('SMS notification'),
+    });
+
+    autorun(() => {
+      if (this.app.ws.connected) {
+        const data = {
+          type: 'signIn',
+          payload: {
+            token: this.app.apiClient.auth.getToken(),
+          },
+        };
+        this.app.ws.send(JSON.stringify(data));
+      }
     });
   }
 }

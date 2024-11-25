@@ -5,6 +5,7 @@ import { useFieldSchema } from '@tachybase/schema';
 import { MenuOutlined } from '@ant-design/icons';
 
 import { tval, useTranslation } from '../locale';
+import { setMessageDeleteDisabled } from '../MessageProvider';
 
 export const MessageTableActionColumnInitializers = new SchemaInitializer({
   name: 'MessageTable:configureItemActions',
@@ -51,6 +52,17 @@ export const MessageTableActionColumnInitializers = new SchemaInitializer({
             'x-component': 'Action.Link',
             'x-action': 'view',
             'x-decorator': 'ACLActionProvider',
+          },
+        },
+        {
+          name: 'delete',
+          type: 'item',
+          title: tval('Delete'),
+          Component: 'DestroyActionInitializer',
+          schema: {
+            'x-component': 'Action.Link',
+            'x-decorator': 'ACLActionProvider',
+            'x-reactions': `{{ ${setMessageDeleteDisabled.toString()} }}`,
           },
         },
       ],

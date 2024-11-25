@@ -478,3 +478,5 @@ export class Gateway extends EventEmitter {
     }
   }
 }
+
+export { WSServer } from './ws-server';

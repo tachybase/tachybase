@@ -33,6 +33,16 @@ export const MessageTableActionInitializers = new SchemaInitializer({
             'x-align': 'right',
           },
         },
+        {
+          name: 'Delete',
+          title: tval('Delete'),
+          Component: 'BulkDestroyActionInitializer',
+          schema: {
+            'x-align': 'right',
+            'x-component': 'Action',
+            'x-decorator': 'ACLActionProvider',
+          },
+        },
       ],
     },
   ],

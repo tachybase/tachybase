@@ -32,7 +32,7 @@ export const MessageBlockInitializer = () => {
       onClick={() => {
         insert(schema as ISchema);
       }}
-      title={t('Messages')}
+      title={t('In-site messages')}
       {...itemConfig}
     />
   );

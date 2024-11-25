@@ -7,9 +7,15 @@
   },
   "dependencies": {
     "@ant-design/icons": "~5.3.7",
+    "ahooks": "3.8.1",
     "antd": "5.22.0",
+    "jsonwebtoken": "8.5.1",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "~6.25.1"
+    "react-router-dom": "~6.25.1",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
