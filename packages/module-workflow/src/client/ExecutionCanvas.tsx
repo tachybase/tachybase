@@ -51,8 +51,12 @@ function JobModal() {
   const { instructions } = usePlugin(WorkflowPlugin);
   const compile = useCompile();
   const { viewJob: job, setViewJob } = useFlowContext();
-  const { styles } = useStyles();
 
+  if (!job) {
+    return;
+  }
+
+  const { styles } = useStyles();
   const { node = {} } = job ?? {};
   const instruction = instructions.get(node.type);
 
@@ -66,7 +70,10 @@ function JobModal() {
               type: 'void',
               'x-decorator': 'Form',
               'x-decorator-props': {
-                initialValue: job,
+                initialValue: {
+                  ...job,
+                  result: JSON.stringify(job.result, null, 2),
+                },
               },
               'x-component': 'Action.Modal',
               title: (
@@ -96,14 +103,42 @@ function JobModal() {
                   'x-read-pretty': true,
                 },
                 result: {
-                  type: 'object',
+                  type: 'string',
                   title: `{{t("Node result", { ns: "${NAMESPACE}" })}}`,
                   'x-decorator': 'FormItem',
-                  'x-component': 'Input.JSON',
+                  'x-component': 'CodeMirror',
                   'x-component-props': {
-                    className: styles.nodeJobResultClass,
+                    defaultLanguage: 'json',
                   },
                   'x-read-pretty': true,
+                },
+                footer: {
+                  type: 'void',
+                  'x-component': 'Action.Modal.Footer',
+                  properties: {
+                    copy: {
+                      type: 'void',
+                      title: '{{t("Duplicate")}}',
+                      'x-component': 'Action',
+                      'x-component-props': {
+                        type: 'primary',
+                        useAction() {
+                          const { t } = useTranslation();
+                          return {
+                            async run() {
+                              try {
+                                const textToCopy = JSON.stringify(job.result, null, 2);
+                                await navigator.clipboard.writeText(textToCopy);
+                                message.success(t('Copied'));
+                              } catch (error) {
+                                message.error(t('Copy failed'));
+                              }
+                            },
+                          };
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },

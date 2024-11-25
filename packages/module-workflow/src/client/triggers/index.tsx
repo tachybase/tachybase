@@ -12,6 +12,7 @@ import {
   useCompile,
   usePlugin,
   useResourceActionContext,
+  useTranslation,
 } from '@tachybase/client';
 import { createForm, ISchema, useForm } from '@tachybase/schema';
 
@@ -96,7 +97,10 @@ function TriggerExecution() {
             type: 'void',
             'x-decorator': 'Form',
             'x-decorator-props': {
-              initialValue: execution,
+              initialValue: {
+                ...execution,
+                context: JSON.stringify(execution.context || {}, null, 2),
+              },
             },
             'x-component': 'Action.Modal',
             title: (
@@ -118,17 +122,42 @@ function TriggerExecution() {
                 'x-read-pretty': true,
               },
               context: {
-                type: 'object',
+                type: 'string',
                 title: `{{t("Trigger variables", { ns: "${NAMESPACE}" })}}`,
                 'x-decorator': 'FormItem',
-                'x-component': 'Input.JSON',
+                'x-component': 'CodeMirror',
                 'x-component-props': {
-                  className: css`
-                    padding: 1em;
-                    background-color: #eee;
-                  `,
+                  defaultLanguage: 'json',
                 },
                 'x-read-pretty': true,
+              },
+              footer: {
+                type: 'void',
+                'x-component': 'Action.Modal.Footer',
+                properties: {
+                  copy: {
+                    type: 'void',
+                    title: '{{t("Duplicate")}}',
+                    'x-component': 'Action',
+                    'x-component-props': {
+                      type: 'primary',
+                      useAction() {
+                        const { t } = useTranslation();
+                        return {
+                          async run() {
+                            try {
+                              const textToCopy = JSON.stringify(execution.context, null, 2);
+                              await navigator.clipboard.writeText(textToCopy);
+                              message.success(t('Copied'));
+                            } catch (error) {
+                              message.error(t('Copy failed'));
+                            }
+                          },
+                        };
+                      },
+                    },
+                  },
+                },
               },
             },
           },
@@ -284,29 +313,29 @@ export const TriggerConfig = () => {
                       },
                       properties: fieldset,
                     },
-                    actions: (workflow.executed
-                        ? {}
-                        : {
-                            type: 'void',
-                            'x-component': 'ActionArea.Footer',
-                            properties: {
-                              cancel: {
-                                title: '{{t("Cancel")}}',
-                                'x-component': 'Action',
-                                'x-component-props': {
-                                  useAction: '{{ cm.useCancelAction }}',
-                                },
-                              },
-                              submit: {
-                                title: '{{t("Submit")}}',
-                                'x-component': 'Action',
-                                'x-component-props': {
-                                  type: 'primary',
-                                  useAction: useUpdateConfigAction,
-                                },
+                    actions: workflow.executed
+                      ? {}
+                      : {
+                          type: 'void',
+                          'x-component': 'ActionArea.Footer',
+                          properties: {
+                            cancel: {
+                              title: '{{t("Cancel")}}',
+                              'x-component': 'Action',
+                              'x-component-props': {
+                                useAction: '{{ cm.useCancelAction }}',
                               },
                             },
-                          }),
+                            submit: {
+                              title: '{{t("Submit")}}',
+                              'x-component': 'Action',
+                              'x-component-props': {
+                                type: 'primary',
+                                useAction: useUpdateConfigAction,
+                              },
+                            },
+                          },
+                        },
                   },
                 },
               },
