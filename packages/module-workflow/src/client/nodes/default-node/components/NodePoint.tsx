@@ -1,17 +1,20 @@
 import React from 'react';
-import { Icon } from '@tachybase/client';
+import { cx, Icon } from '@tachybase/client';
 
 import { AutoResizeInput } from '../../..';
-import { ArrowDownButton } from '../buttons/ArrowDownButton';
-import { ArrowUpButton } from '../buttons/ArrowUpButton';
+import { DragButton } from '../buttons/DragButton';
 import { JobButton } from '../buttons/JobButton';
 import { RemoveButton } from '../buttons/RemoveButton';
+import useStyles from './NodePoint.style';
 
 // 节点组件
 export const NodePoint = (props) => {
   const { workflow, editingTitle, setEditingTitle, onChangeTitle } = props;
+
+  const { styles } = useStyles();
+
   return (
-    <div>
+    <div className={cx(styles.nodePoint)}>
       <IdentityIcon />
       <AutoResizeInput
         className="workflow-node-edit"
@@ -44,13 +47,16 @@ const ButtonArea = (props) => {
   return (
     <div className="workflow-node-suffix">
       <div className="icon-button">
+        <RemoveButton />
+      </div>
+      {/* <div className="icon-button">
         <ArrowUpButton />
       </div>
       <div className="icon-button">
         <ArrowDownButton />
-      </div>
+      </div> */}
       <div className="icon-button">
-        <RemoveButton />
+        <DragButton />
       </div>
       <div className="icon-button">
         <JobButton />

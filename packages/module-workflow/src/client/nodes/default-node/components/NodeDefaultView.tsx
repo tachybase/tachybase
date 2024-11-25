@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { cx, useAPIClient, useCompile, usePlugin } from '@tachybase/client';
 
-import WorkflowPlugin from '../..';
-import { useFlowContext } from '../../FlowContext';
-import { NodeConfig } from './components/NodeConfig';
-import useStyles from './components/NodeDefaultView.style';
-import { NodePoint } from './components/NodePoint';
+import WorkflowPlugin from '../../..';
+import { useFlowContext } from '../../../FlowContext';
+import { NodeConfig } from './NodeConfig';
+import useStyles from './NodeDefaultView.style';
+import { NodePoint } from './NodePoint';
 
 export const NodeDefaultView = (props) => {
   const { data, children } = props;

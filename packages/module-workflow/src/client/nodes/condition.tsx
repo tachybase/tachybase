@@ -14,8 +14,8 @@ import { useFlowContext } from '../FlowContext';
 import { lang, NAMESPACE } from '../locale';
 import useStyles from '../style';
 import { useWorkflowVariableOptions, WorkflowVariableTextArea } from '../variable';
+import { NodeDefaultView } from './default-node/components/NodeDefaultView';
 import { Instruction } from './default-node/interface';
-import { NodeDefaultView } from './default-node/NodeDefaultView';
 
 interface Calculator {
   name: string;
@@ -450,12 +450,40 @@ export default class extends Instruction {
         {rejectOnFalse ? null : (
           <div className={styles.nodeSubtreeClass}>
             <div className={styles.branchBlockClass}>
-              <Branch from={data} entry={falseEntry} branchIndex={0} />
               <Branch from={data} entry={trueEntry} branchIndex={1} />
+              <Branch from={data} entry={falseEntry} branchIndex={0} />
             </div>
             <div className={styles.conditionClass}>
-              <span style={{ right: '4em' }}>{t('No')}</span>
-              <span style={{ left: '4em' }}>{t('Yes')}</span>
+              <span
+                style={{
+                  right: '4em',
+                  display: 'inline-block',
+                  padding: '0.5em',
+                  textAlign: 'center',
+                  backgroundColor: 'white',
+                  borderRadius: '50%',
+                  color: 'black',
+                  fontSize: '1em',
+                  lineHeight: '1em',
+                }}
+              >
+                {t('Yes')}
+              </span>
+              <span
+                style={{
+                  left: '4em',
+                  display: 'inline-block',
+                  padding: '0.5em',
+                  textAlign: 'center',
+                  backgroundColor: 'white',
+                  borderRadius: '50%',
+                  color: 'black',
+                  fontSize: '1em',
+                  lineHeight: '1em',
+                }}
+              >
+                {t('No')}
+              </span>
             </div>
           </div>
         )}

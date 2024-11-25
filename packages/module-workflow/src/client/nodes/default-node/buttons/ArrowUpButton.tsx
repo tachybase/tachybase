@@ -25,11 +25,11 @@ export const ArrowUpButton = () => {
 
   return workflow.executed ? null : (
     <Button
+      className="workflow-node-up-button"
       type="text"
       shape="circle"
       icon={<Icon type="ArrowUpOutlined" />}
       onClick={onMoveUp}
-      className="workflow-node-remove-button"
     />
   );
 };

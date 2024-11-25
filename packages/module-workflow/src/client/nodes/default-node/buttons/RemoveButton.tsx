@@ -67,11 +67,11 @@ export const RemoveButton = () => {
 
   return workflow.executed ? null : (
     <Button
+      className="workflow-node-remove-button"
       type="text"
       shape="circle"
       icon={<DeleteOutlined />}
       onClick={onRemove}
-      className="workflow-node-remove-button"
     />
   );
 };

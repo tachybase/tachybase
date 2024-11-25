@@ -18,5 +18,5 @@ export * from './variable';
 export * from './WorkflowPane';
 
 export * from './nodes/default-node';
+export * from './nodes/default-node/components/NodeDefaultView';
 export * from './nodes/default-node/interface';
-export * from './nodes/default-node/NodeDefaultView';

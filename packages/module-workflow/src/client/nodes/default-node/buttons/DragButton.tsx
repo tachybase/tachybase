@@ -1,26 +1,24 @@
 import React from 'react';
-import { Icon, useAPIClient } from '@tachybase/client';
+import { useAPIClient } from '@tachybase/client';
 
-import { App, Button } from 'antd';
-import { useTranslation } from 'react-i18next';
+import { HolderOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 import { useFlowContext } from '../../../FlowContext';
 import { useContextNode } from '../Node.context';
 
-export const ArrowDownButton = () => {
-  const { t } = useTranslation();
+export const DragButton = () => {
   const api = useAPIClient();
   const { workflow, nodes, refresh } = useFlowContext() ?? {};
   const current = useContextNode();
-  const { modal } = App.useApp();
 
   if (!workflow) {
     return null;
   }
   const resource = api.resource('flow_nodes');
 
-  async function onMoveDown() {
-    await resource.moveDown?.({
+  async function onMoveUp() {
+    await resource.moveUp?.({
       filterByTk: current.id,
     });
     refresh();
@@ -28,11 +26,11 @@ export const ArrowDownButton = () => {
 
   return workflow.executed ? null : (
     <Button
-      className="workflow-node-down-button"
+      className="workflow-node-drag-button"
       type="text"
       shape="circle"
-      icon={<Icon type="ArrowDownOutlined" />}
-      onClick={onMoveDown}
+      icon={<HolderOutlined />}
+      onClick={onMoveUp}
     />
   );
 };
