@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/app-mako",
-  "version": "0.22.45",
+  "version": "0.22.46",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
