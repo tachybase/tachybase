@@ -41,7 +41,7 @@ function createWithACLMetaMiddleware() {
     const dataPath = ctx.body?.rows ? 'body.rows' : 'body';
     let listData = lodash.get(ctx, dataPath);
 
-    if (actionName == 'get') {
+    if (actionName === 'get') {
       listData = lodash.castArray(listData);
     }
 
@@ -108,7 +108,7 @@ function createWithACLMetaMiddleware() {
 
     const ids = (() => {
       if (collection.options.tree) {
-        if (listData.length == 0) return [];
+        if (listData.length === 0) return [];
         const getAllNodeIds = (data) => [data[primaryKeyField], ...(data.children || []).flatMap(getAllNodeIds)];
         return listData.map((tree) => getAllNodeIds(tree.toJSON())).flat();
       }
@@ -151,7 +151,7 @@ function createWithACLMetaMiddleware() {
 
             // change camelCase to snake_case
             const iterate = (rootObj, path = []) => {
-              const obj = path.length == 0 ? rootObj : lodash.get(rootObj, path);
+              const obj = path.length === 0 ? rootObj : lodash.get(rootObj, path);
 
               if (Array.isArray(obj)) {
                 for (let i = 0; i < obj.length; i++) {
@@ -168,7 +168,7 @@ function createWithACLMetaMiddleware() {
               }
 
               Reflect.ownKeys(obj).forEach((key) => {
-                if (Array.isArray(obj) && key == 'length') {
+                if (Array.isArray(obj) && key === 'length') {
                   return;
                 }
 
@@ -206,6 +206,7 @@ function createWithACLMetaMiddleware() {
         Model,
       );
 
+      // like'("project->users"."id" = 17)' like'("users"."id" = 17)'
       const whereCase = actionSql.match(/WHERE (.*?);/)[1];
 
       conditions.push({
@@ -214,6 +215,18 @@ function createWithACLMetaMiddleware() {
         include: queryParams.include,
       });
     }
+
+    let include = conditions.map((condition) => condition.include).flat();
+    const whereCases = conditions.map((condition) => condition.whereCase);
+    // 过滤include 根据whereCase . 或者 -> 之后第一个关联表 include才有效
+    include = include.filter((inc) => {
+      return conditions.some((condition) => {
+        // FIXME: whereCases的格式很不固定 有 a->b 也有 a.b 至于a,b有没有引号也不确定,很奇怪,为防止报错只过滤一部分包含的情况
+        // const regexWithQuotes = new RegExp(`"?${inc.association}"?[.]|"?${inc.association}"?->`);
+        // return whereCases.some((whereCase) => regexWithQuotes.test(whereCase));
+        return whereCases.some((whereCase) => whereCase.includes(inc.association));
+      });
+    });
 
     const results = await collection.model.findAll({
       where: {
@@ -225,7 +238,7 @@ function createWithACLMetaMiddleware() {
           return [ctx.db.sequelize.literal(`CASE WHEN ${condition.whereCase} THEN 1 ELSE 0 END`), condition.action];
         }),
       ],
-      include: conditions.map((condition) => condition.include).flat(),
+      include,
     });
 
     const allowedActions = inspectActions
@@ -241,14 +254,14 @@ function createWithACLMetaMiddleware() {
         return acc;
       }, {});
 
-    if (actionName == 'get') {
+    if (actionName === 'get') {
       ctx.bodyMeta = {
-        ...(ctx.bodyMeta || {}),
+        ...ctx.bodyMeta,
         allowedActions: allowedActions,
       };
     }
 
-    if (actionName == 'list') {
+    if (actionName === 'list') {
       ctx.body.allowedActions = allowedActions;
     }
   };

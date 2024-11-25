@@ -1,7 +1,7 @@
 import { useCollectionDataSource } from '@tachybase/client';
 
 import { tval } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 import { defaultFieldNames, WorkflowVariableInput } from '../../variable';
 import { VariableTargetSelect } from './VariableTargetSelect';
 

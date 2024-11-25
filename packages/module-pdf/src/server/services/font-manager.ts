@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { Logger } from '@tachybase/logger';
-import { Service } from '@tachybase/utils';
+import { InjectLog, Service } from '@tachybase/utils';
 
 import { Font } from '@react-pdf/renderer';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import fs from 'fs-extra';
 
 @Service()
 export class FontManager {
+  @InjectLog()
   private logger: Logger;
   constructor() {}
 
@@ -29,6 +30,7 @@ export class FontManager {
   }
 
   async loadFonts(flag = true) {
+    this.logger.info('load fonts.');
     const fonts = [
       {
         family: 'source-han-sans',
@@ -80,7 +82,7 @@ export class FontManager {
             const filepath = path.join(fontsDir, filename);
             const isExists = await fs.exists(filepath);
             if (!isExists) {
-              this.logger.info(FontManager.name, 'download ' + filepath);
+              this.logger.info('download ' + filepath);
               const response = await axios({
                 method: 'GET',
                 url: font.url,
@@ -91,7 +93,7 @@ export class FontManager {
                 await new Promise((resolve, reject) => {
                   response.data.pipe(writer);
                   writer.on('finish', () => {
-                    this.logger.info(FontManager.name, 'download ' + filepath + ' done.');
+                    this.logger.info('download ' + filepath + ' done.');
                     resolve('done');
                   });
                   writer.on('error', () => {
@@ -99,7 +101,7 @@ export class FontManager {
                   });
                 });
               } catch (err) {
-                this.logger.error('download error.', err);
+                this.logger.error('download error.', { err });
                 // TODO 这里有问题，没有办法实际删除错误的文件，有可能文件不是这里产生的
                 await fs.remove(filepath);
               }

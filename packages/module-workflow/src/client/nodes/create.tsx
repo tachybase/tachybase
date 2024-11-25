@@ -5,12 +5,12 @@ import {
   useCompile,
 } from '@tachybase/client';
 
-import { Instruction } from '.';
 import { CollectionBlockInitializer } from '../components/CollectionBlockInitializer';
 import CollectionFieldset from '../components/CollectionFieldset';
 import { NAMESPACE } from '../locale';
 import { appends, collection, values } from '../schemas/collection';
 import { getCollectionFieldOptions } from '../variable';
+import { Instruction } from './default-node/interface';
 
 export default class extends Instruction {
   title = `{{t("Create record", { ns: "${NAMESPACE}" })}}`;

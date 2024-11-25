@@ -24,7 +24,7 @@ import {
   ValueBlock,
 } from '../..';
 import { lang, NAMESPACE } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 function matchToManyField(field): boolean {
   // const fieldPrefix = `${field.name}.`;

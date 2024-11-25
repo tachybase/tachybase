@@ -2,7 +2,7 @@ import { ArrayItems } from '@tachybase/components';
 
 import { defaultFieldNames, WorkflowVariableInput, WorkflowVariableJSON, WorkflowVariableTextArea } from '../..';
 import { NAMESPACE } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 export default class extends Instruction {
   title = `{{t("HTTP request", { ns: "${NAMESPACE}" })}}`;

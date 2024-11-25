@@ -36,8 +36,8 @@ import { useTranslation } from 'react-i18next';
 import WorkflowPlugin, {
   SimpleDesigner,
   useAvailableUpstreams,
+  useContextNode,
   useFlowContext,
-  useNodeContext,
   useTrigger,
   useWorkflowVariableOptions,
 } from '../../..';
@@ -114,7 +114,7 @@ export const addBlockButton = new SchemaInitializer({
       hideIfNoChildren: true,
       useChildren() {
         const workflowPlugin = usePlugin(WorkflowPlugin);
-        const current = useNodeContext();
+        const current = useContextNode();
         const nodes = useAvailableUpstreams(current);
         const triggerInitializers = [useTriggerInitializers()].filter(Boolean);
         const nodeBlockInitializers = nodes
@@ -388,7 +388,7 @@ function useSubmit() {
 export function SchemaConfig({ value, onChange }) {
   const workflowPlugin = usePlugin(WorkflowPlugin);
   const ctx = useContext(SchemaComponentContext);
-  const node = useNodeContext();
+  const node = useContextNode();
   const nodes = useAvailableUpstreams(node);
   const form = useForm();
   const { workflow } = useFlowContext();

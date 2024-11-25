@@ -1,8 +1,8 @@
 import { gridRowColWrap, SchemaInitializer, usePlugin } from '@tachybase/client';
 import PluginWorkflow, {
   useAvailableUpstreams,
+  useContextNode,
   useFlowContext,
-  useNodeContext,
   useTrigger,
 } from '@tachybase/module-workflow/client';
 
@@ -36,7 +36,7 @@ export const CarbonCopyDetailInitializer = new SchemaInitializer({
         const workflowPlugin = usePlugin(PluginWorkflow);
         const { workflow } = useFlowContext();
         const trigger = useTrigger();
-        const currentNodeContext = useNodeContext();
+        const currentNodeContext = useContextNode();
         const nodes = useAvailableUpstreams(currentNodeContext);
         const triggerInitializers = [trigger.useInitializers?.call(trigger, workflow.config)].filter(Boolean);
         const nodeBlockInitializers = nodes

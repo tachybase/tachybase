@@ -4,11 +4,11 @@ import { css, useAPIClient, useCompile, usePlugin } from '@tachybase/client';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown, MenuProps } from 'antd';
 
-import WorkflowPlugin from '.';
-import { useFlowContext } from './FlowContext';
-import { NAMESPACE } from './locale';
-import { Instruction } from './nodes';
-import useStyles from './style';
+import WorkflowPlugin from '../../..';
+import { useFlowContext } from '../../../FlowContext';
+import { NAMESPACE } from '../../../locale';
+import { Instruction } from '../interface';
+import useStyles from './AddButton.style';
 
 interface AddButtonProps {
   upstream;
@@ -16,7 +16,10 @@ interface AddButtonProps {
   [key: string]: any;
 }
 
-export function AddButton(props: AddButtonProps) {
+/**
+ * 添加按钮以及节点之间的连接线
+ */
+export const AddButton = (props: AddButtonProps) => {
   const { upstream, branchIndex = null } = props;
   const engine = usePlugin(WorkflowPlugin);
   const compile = useCompile();
@@ -113,8 +116,13 @@ export function AddButton(props: AddButtonProps) {
           }
         `}
       >
-        <Button aria-label={props['aria-label'] || 'add-button'} shape="circle" icon={<PlusOutlined />} />
+        <Button
+          className="add-btn"
+          icon={<PlusOutlined />}
+          type="primary"
+          aria-label={props['aria-label'] || 'add-button'}
+        />
       </Dropdown>
     </div>
   );
-}
+};

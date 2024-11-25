@@ -2,7 +2,7 @@ import { css } from '@tachybase/client';
 
 import { defaultFieldNames, WorkflowVariableRawTextArea } from '../..';
 import { NAMESPACE } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 export default class extends Instruction {
   title = `{{t("SQL action", { ns: "${NAMESPACE}" })}}`;

@@ -288,6 +288,41 @@ export async function revision(context: Context, next: Next) {
   await next();
 }
 
+export async function retry(context: Context, next: Next) {
+  const plugin = context.app.getPlugin(Plugin);
+  const repository = utils.getRepositoryFromParams(context);
+  const { filterByTk, filter = {}, values = {} } = context.action.params;
+  const ExecutionRepo = context.db.getRepository('executions');
+
+  if (!context.state) {
+    context.state = {};
+  }
+  if (!context.state.messages) {
+    context.state.messages = [];
+  }
+  const workflow = await repository.findOne({
+    filterByTk,
+    filter,
+    appends: ['nodes'],
+    context,
+  });
+
+  const execution = await ExecutionRepo.findOne({
+    filter: { key: workflow.key },
+    sort: ['-createdAt'],
+  });
+  if (!execution) {
+    context.state.messages.push({ message: 'No execution records found for this workflow.' });
+  }
+  const executionId = execution.id;
+  const result = await plugin.trigger(workflow, execution.context, { httpContext: context });
+  context.app.logger.info(result);
+  context.state.messages.push({ message: 'Execute successfully' });
+  context.body = { executionId: executionId };
+
+  await next();
+}
+
 export async function sync(context: Context, next) {
   const plugin = context.app.getPlugin(Plugin);
   const repository = utils.getRepositoryFromParams(context);

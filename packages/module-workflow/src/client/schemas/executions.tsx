@@ -163,7 +163,7 @@ export const executionSchema = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               properties: {
-                excutionTime: {
+                executionTime: {
                   type: 'string',
                   'x-decorator': 'ExecutionTime',
                   'x-component': 'CollectionField',

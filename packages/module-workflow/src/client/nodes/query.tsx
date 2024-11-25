@@ -8,12 +8,12 @@ import {
 import { ArrayItems } from '@tachybase/components';
 import { useForm } from '@tachybase/schema';
 
-import { Instruction } from '.';
 import { CollectionBlockInitializer } from '../components/CollectionBlockInitializer';
 import { FilterDynamicComponent } from '../components/FilterDynamicComponent';
 import { NAMESPACE } from '../locale';
 import { appends, collection, filter, pagination, sort } from '../schemas/collection';
 import { getCollectionFieldOptions, WorkflowVariableInput } from '../variable';
+import { Instruction } from './default-node/interface';
 
 export default class extends Instruction {
   title = `{{t("Query record", { ns: "${NAMESPACE}" })}}`;

@@ -1,11 +1,11 @@
 import React from 'react';
-import { css, cx } from '@tachybase/client';
+import { cx } from '@tachybase/client';
 
 import { CloseOutlined } from '@ant-design/icons';
 
-import { AddButton } from './AddButton';
 import { useGetAriaLabelOfAddButton } from './hooks/useGetAriaLabelOfAddButton';
-import { Node } from './nodes';
+import { Node } from './nodes/default-node';
+import { AddButton } from './nodes/default-node/components/AddButton';
 import useStyles from './style';
 
 export function Branch({

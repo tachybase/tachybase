@@ -135,7 +135,7 @@ export const defaultSettingItems = [
                       'x-decorator': 'FormItem',
                       'x-component': 'CodeMirror',
                       'x-component-props': {
-                        defaultLanguage: 'JSON',
+                        defaultLanguage: 'json',
                         height: '500px',
                       },
                     },
@@ -173,7 +173,7 @@ export const defaultSettingItems = [
                     'x-decorator': 'FormItem',
                     'x-component': 'CodeMirror',
                     'x-component-props': {
-                      defaultLanguage: 'JSON',
+                      defaultLanguage: 'json',
                       height: '500px',
                     },
                   },

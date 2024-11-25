@@ -2,7 +2,7 @@ import { Plugin } from '@tachybase/client';
 
 import { RadioWithTooltip } from '../../components';
 import { tval } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 import { PluginWorkflow } from '../../Plugin';
 import { WorkflowVariableInput, WorkflowVariableTextArea } from '../../variable';
 

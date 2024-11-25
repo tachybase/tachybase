@@ -4,12 +4,13 @@ import { Space } from '@tachybase/client';
 import { Radio, Select } from 'antd';
 
 import { lang } from '../../locale';
-import { useAvailableUpstreams, useNodeContext } from '../../nodes';
+import { useAvailableUpstreams } from '../../nodes/default-node/hooks/useAvailableUpstreams';
+import { useContextNode } from '../../nodes/default-node/Node.context';
 import { useStyles } from './useStyles';
 
 export function VariableTargetSelect({ value, onChange }) {
   const isNull = value == null;
-  const node = useNodeContext();
+  const node = useContextNode();
   const nodes = useAvailableUpstreams(node, (n) => n.type === 'variable' && !n.config.target);
   const { styles } = useStyles();
   const onTargetChange = useCallback(

@@ -4,7 +4,7 @@ import { ArrayTable } from '@tachybase/components';
 import { VariableOption, WorkflowVariableInput } from '../..';
 import { NAMESPACE_INSTRUCTION_JS_PARSE } from '../../../common/constants';
 import { tval } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 export class JSParseInstruction extends Instruction {
   title = tval('JS Parse');

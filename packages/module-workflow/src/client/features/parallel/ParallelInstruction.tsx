@@ -13,7 +13,7 @@ import {
   useStyles,
 } from '../..';
 import { lang, NAMESPACE } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 export default class extends Instruction {
   title = `{{t("Parallel branch", { ns: "${NAMESPACE}" })}}`;

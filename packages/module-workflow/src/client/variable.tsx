@@ -4,7 +4,9 @@ import { parseCollectionName, useCompile, usePlugin, Variable } from '@tachybase
 import WorkflowPlugin from '.';
 import { useFlowContext } from './FlowContext';
 import { lang, NAMESPACE } from './locale';
-import { useAvailableUpstreams, useNodeContext, useUpstreamScopes } from './nodes';
+import { useAvailableUpstreams } from './nodes/default-node/hooks/useAvailableUpstreams';
+import { useUpstreamScopes } from './nodes/default-node/hooks/useUpstreamScopes';
+import { useContextNode } from './nodes/default-node/Node.context';
 
 export type VariableOption = {
   key?: string;
@@ -47,7 +49,7 @@ export const nodesOptions = {
   value: '$jobsMapByNodeKey',
   useOptions(options: UseVariableOptions) {
     const { instructions } = usePlugin(WorkflowPlugin);
-    const current = useNodeContext();
+    const current = useContextNode();
     const upstreams = useAvailableUpstreams(current);
     const result: VariableOption[] = [];
     upstreams.forEach((node) => {
@@ -78,7 +80,7 @@ export const scopeOptions = {
   useOptions(options: UseVariableOptions & { current: any }) {
     const { fieldNames = defaultFieldNames, current } = options;
     const { instructions } = usePlugin(WorkflowPlugin);
-    const source = useNodeContext();
+    const source = useContextNode();
     const from = current ?? source;
     const scopes = useUpstreamScopes(from);
     const result: VariableOption[] = [];
@@ -102,17 +104,15 @@ export const systemOptions = {
   label: `{{t("System variables", { ns: "${NAMESPACE}" })}}`,
   value: '$system',
   useOptions({ types, fieldNames = defaultFieldNames }: UseVariableOptions) {
-    return [
-      ...(!types || types.includes('date')
-        ? [
-            {
-              key: 'now',
-              [fieldNames.label]: lang('System time'),
-              [fieldNames.value]: 'now',
-            },
-          ]
-        : []),
-    ];
+    return !types || types.includes('date')
+      ? [
+          {
+            key: 'now',
+            [fieldNames.label]: lang('System time'),
+            [fieldNames.value]: 'now',
+          },
+        ]
+      : [];
   },
 };
 

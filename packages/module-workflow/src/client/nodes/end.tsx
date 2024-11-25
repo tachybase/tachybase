@@ -1,6 +1,6 @@
-import { Instruction } from '.';
 import { JOB_STATUS } from '../constants';
 import { NAMESPACE } from '../locale';
+import { Instruction } from './default-node/interface';
 
 export default class extends Instruction {
   title = `{{t("End process", { ns: "${NAMESPACE}" })}}`;

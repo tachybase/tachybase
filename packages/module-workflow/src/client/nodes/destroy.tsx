@@ -1,10 +1,10 @@
 import { useCollectionDataSource } from '@tachybase/client';
 
-import { Instruction } from '.';
 import { FilterDynamicComponent } from '../components/FilterDynamicComponent';
 import { lang, NAMESPACE } from '../locale';
 import { collection, filter } from '../schemas/collection';
 import { isValidFilter } from '../utils';
+import { Instruction } from './default-node/interface';
 
 export default class extends Instruction {
   title = '{{t("Delete record")}}';

@@ -4,7 +4,7 @@ import { ArrayTable } from '@tachybase/components';
 import { VariableOption, WorkflowVariableInput } from '../..';
 import { NAMESPACE_INSTRUCTION_JSON_PARSE } from '../../../common/constants';
 import { tval } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 export class JSONParseInstruction extends Instruction {
   title = tval('JSON Parse');

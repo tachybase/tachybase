@@ -4,7 +4,7 @@ import { ArrayTable } from '@tachybase/components';
 import { VariableOption, WorkflowVariableInput } from '../..';
 import { NAMESPACE_INSTRUCTION_DATA_MAPPING } from '../../../common/constants';
 import { tval } from '../../locale';
-import { Instruction } from '../../nodes';
+import { Instruction } from '../../nodes/default-node/interface';
 
 export class DataMappingInstruction extends Instruction {
   title = tval('Data Mapping');
