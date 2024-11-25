@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 
 import { css } from '@emotion/css';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useOutlet, useParams } from 'react-router-dom';
 
 import { RemoteSchemaComponent } from '../../schema-component';
 import { useDocumentTitle } from '../document-title';
@@ -31,6 +31,7 @@ export const TabContent = () => {
   const { title, setTitle } = useDocumentTitle();
   const { items, setItems } = useContext(PageStyleContext);
   const targetKey = params.name + (params['*'] ? '/' + params['*'] : '');
+  const outlet = useOutlet();
 
   useEffect(() => {
     if (targetKey && title) {
@@ -43,7 +44,7 @@ export const TabContent = () => {
             key: targetKey,
             // TODO: 这里title计算需要处理
             label: title,
-            children: <MyRouteSchemaComponent name={params.name} />,
+            children: outlet,
           },
         ]);
       } else {
