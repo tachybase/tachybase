@@ -241,6 +241,14 @@ export class PluginMultiAppManager extends Plugin {
       actions: ['applications:*'],
     });
 
+    this.app.acl.addFixedParams('applications', 'destroy', () => {
+      return {
+        filter: {
+          isTemplate: false,
+        },
+      };
+    });
+
     const injectAppList = injectAppListMiddleware();
 
     this.app.use(async (ctx, next) => {

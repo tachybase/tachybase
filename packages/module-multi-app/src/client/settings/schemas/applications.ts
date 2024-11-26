@@ -70,6 +70,16 @@ const collection = {
         'x-component': 'Radio.Group',
       },
     },
+    {
+      type: 'string',
+      name: 'isTemplate',
+      interface: 'checkbox',
+      uiSchema: {
+        type: 'boolean',
+        'x-content': i18nText('Is template'),
+        'x-component': 'Checkbox',
+      },
+    },
   ],
 };
 
@@ -192,6 +202,11 @@ export const formSchema: ISchema = {
         },
         service: {
           resource: 'applications',
+          params: {
+            filter: {
+              $or: [{ isTemplate: true }, { createdById: '{{ userId }}' }],
+            },
+          },
         },
       },
       'x-decorator': 'FormItem',
@@ -205,6 +220,11 @@ export const formSchema: ISchema = {
       'x-hidden': true, // main and multi use same env cause problem
     },
     pinned: {
+      'x-component': 'CollectionField',
+      'x-decorator': 'FormItem',
+      'x-hidden': '{{ !admin }}',
+    },
+    isTemplate: {
       'x-component': 'CollectionField',
       'x-decorator': 'FormItem',
       'x-hidden': '{{ !admin }}',
@@ -438,6 +458,19 @@ export const schema: ISchema = {
               'x-component': 'Table.Column',
               properties: {
                 pinned: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            isTemplate: {
+              type: 'void',
+              title: i18nText('Is template'),
+              'x-decorator': 'Table.Column.Decorator',
+              'x-component': 'Table.Column',
+              properties: {
+                isTemplate: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,

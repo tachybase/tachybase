@@ -51,5 +51,10 @@ export default defineCollection({
       type: 'json',
       name: 'options',
     },
+    {
+      type: 'boolean',
+      name: 'isTemplate',
+      defaultValue: false,
+    },
   ],
 });
