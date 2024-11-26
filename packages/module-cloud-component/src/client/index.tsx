@@ -6,22 +6,22 @@ import { CloudComponentManager } from './manager/CloudComponentManager';
 export class PluginCloudComponentClient extends Plugin {
   async load() {
     this.app.systemSettingsManager.add('cloud-component', {
-      title: 'Cloud component',
+      title: this.t('Cloud Component'),
       icon: 'deploymentunitoutlined',
       sort: 201,
     });
     this.app.systemSettingsManager.add('cloud-component.main', {
-      title: 'Cloud component',
+      title: this.t('Cloud Component'),
       icon: 'deploymentunitoutlined',
       Component: CloudComponentManager,
       sort: 201,
     });
-    this.app.systemSettingsManager.add('cloud-component.edit', {
-      title: 'Cloud component',
-      icon: 'deploymentunitoutlined',
-      Component: LibEditor,
-      sort: 201,
-    });
+    // this.app.systemSettingsManager.add('cloud-component.edit', {
+    //   title: this.t('Cloud Component'),
+    //   icon: 'deploymentunitoutlined',
+    //   Component: LibEditor,
+    //   sort: 201,
+    // });
   }
 }
 

@@ -10,32 +10,27 @@ import 'highlight.js/styles/vs.min.css';
 import 'github-markdown-css';
 import './index.less';
 
+import { connect } from '@tachybase/schema';
+
 /**
  * Markdown 编辑器
  */
-function MDEditor(_: any, ref: any) {
+function MDEditor(props: any, ref: any) {
   const [code, setCode] = useState<string>(localStorage.getItem('md-code') || '');
 
-  useImperativeHandle(ref, () => {
-    return {
-      getCode() {
-        return code;
-      },
-    };
-  });
+  // useImperativeHandle(ref, () => {
+  //   return {
+  //     getCode() {
+  //       return code;
+  //     },
+  //   };
+  // });
 
   return (
     <div className="code-editor">
-      <Editor
-        value={code}
-        plugins={[gfm(), gemoji(), highlight()]}
-        onChange={(v) => {
-          localStorage.setItem('md-code', v);
-          setCode(v);
-        }}
-      />
+      <Editor {...props} plugins={[gfm(), gemoji(), highlight()]} />
     </div>
   );
 }
 
-export default forwardRef(MDEditor);
+export default connect(MDEditor);

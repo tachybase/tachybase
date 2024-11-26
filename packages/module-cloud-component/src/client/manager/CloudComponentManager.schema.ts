@@ -1,5 +1,7 @@
+import { uid } from '@tachybase/utils/client';
+
+import { tval } from '../locale';
 import { fieldsets } from './CloudComponentManager.fields';
-import SplitEditor from './SplitEditor';
 
 const create = {
   type: 'void',
@@ -71,10 +73,11 @@ const create = {
                       type: 'void',
                       'x-component': 'FormTab.TabPane',
                       'x-component-props': {
-                        tab: 'name',
+                        tab: tval('Basic'),
                       },
                       properties: {
                         name: fieldsets.name,
+                        enabled: fieldsets.enabled,
                       },
                     },
                     code: {
@@ -109,7 +112,6 @@ const create = {
                     },
                   },
                 },
-                // ...fieldsets,
               },
             },
           },
@@ -157,29 +159,70 @@ const edit = {
               'x-component': 'FormV2',
               'x-use-component-props': 'useEditFormBlockProps',
               properties: {
-                actions: {
+                editor: {
                   type: 'void',
-                  'x-component': 'ActionBar',
-                  'x-component-props': {
-                    style: {
-                      marginBottom: 'var(--tb-spacing)',
-                    },
-                  },
+                  'x-component': 'FormTab',
                   properties: {
-                    submit: {
-                      title: '{{ t("Submit") }}',
-                      'x-action': 'submit',
-                      'x-component': 'Action',
-                      'x-use-component-props': 'useUpdateActionProps',
-                      'x-component-props': {
-                        type: 'primary',
-                        htmlType: 'submit',
-                      },
+                    actions: {
                       type: 'void',
+                      'x-component': 'FormTab.TabExtraContent',
+                      properties: {
+                        submit: {
+                          title: '{{ t("Submit") }}',
+                          'x-action': 'submit',
+                          'x-component': 'Action',
+                          'x-use-component-props': 'useUpdateActionProps',
+                          'x-component-props': {
+                            type: 'primary',
+                            htmlType: 'submit',
+                          },
+                          type: 'void',
+                        },
+                      },
+                    },
+                    name: {
+                      type: 'void',
+                      'x-component': 'FormTab.TabPane',
+                      'x-component-props': {
+                        tab: tval('Basic'),
+                      },
+                      properties: {
+                        name: fieldsets.name,
+                        enabled: fieldsets.enabled,
+                      },
+                    },
+                    code: {
+                      type: 'void',
+                      'x-component': 'FormTab.TabPane',
+                      'x-component-props': {
+                        tab: 'code',
+                      },
+                      properties: {
+                        code: fieldsets.code,
+                      },
+                    },
+                    data: {
+                      type: 'void',
+                      'x-component': 'FormTab.TabPane',
+                      'x-component-props': {
+                        tab: 'data',
+                      },
+                      properties: {
+                        data: fieldsets.data,
+                      },
+                    },
+                    description: {
+                      type: 'void',
+                      'x-component': 'FormTab.TabPane',
+                      'x-component-props': {
+                        tab: 'description',
+                      },
+                      properties: {
+                        description: fieldsets.description,
+                      },
                     },
                   },
                 },
-                ...fieldsets,
               },
             },
           },

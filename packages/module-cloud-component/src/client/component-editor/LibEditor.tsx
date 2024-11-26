@@ -55,11 +55,6 @@ export default () => {
     }
   };
 
-  // 返回
-  const handleBack = () => {
-    navigate('/libs');
-  };
-
   return (
     <Spin spinning={loading} tip="正在编译中...">
       <Tabs

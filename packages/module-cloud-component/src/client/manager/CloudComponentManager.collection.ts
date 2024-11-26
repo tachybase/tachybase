@@ -1,5 +1,6 @@
 import { CollectionOptions } from '@tachybase/client';
 
+import MDEditor from '../component-editor/components/MDEditor';
 import ReactEditor from '../component-editor/components/ReactEditor';
 
 export const collection: CollectionOptions = {
@@ -155,7 +156,7 @@ export const collection: CollectionOptions = {
             minRows: 5,
           },
         },
-        default: null,
+        default: '{}',
         title: '组件数据',
       },
       jsonb: false,
@@ -170,7 +171,7 @@ export const collection: CollectionOptions = {
       reverseKey: null,
       uiSchema: {
         type: 'string',
-        'x-component': 'Input.TextArea',
+        'x-component': MDEditor,
         title: '组件文档',
       },
     },
