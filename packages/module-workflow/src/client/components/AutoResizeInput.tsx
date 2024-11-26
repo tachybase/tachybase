@@ -17,7 +17,7 @@ export const AutoResizeInput = ({ ...props }) => {
   }, []);
 
   return (
-    <div style={{ display: 'inline-block', position: 'relative' }}>
+    <div style={{ display: 'inline-block', position: 'relative', height: '100%' }}>
       <Input
         {...props}
         onChange={handleInputChange}

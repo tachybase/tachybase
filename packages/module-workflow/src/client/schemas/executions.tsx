@@ -130,14 +130,41 @@ export const executionSchema = {
             rowKey: 'id',
           },
           properties: {
+            actions: {
+              type: 'void',
+              title: '{{ t("Actions") }}',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 50,
+              },
+              properties: {
+                actions: {
+                  type: 'void',
+                  'x-component': 'Space',
+                  'x-component-props': {
+                    split: '|',
+                  },
+                  properties: {
+                    link: {
+                      type: 'void',
+                      'x-component': 'ExecutionLink',
+                    },
+                  },
+                },
+              },
+            },
             id: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 50,
+              },
               properties: {
                 id: {
                   type: 'number',
                   'x-component': 'CollectionField',
+
                   'x-read-pretty': true,
                 },
               },
@@ -146,6 +173,9 @@ export const executionSchema = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 100,
+              },
               properties: {
                 createdAt: {
                   type: 'datetime',
@@ -162,6 +192,9 @@ export const executionSchema = {
               title: `{{t("Executed time", { ns: "${NAMESPACE}" })}}`,
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 50,
+              },
               properties: {
                 executionTime: {
                   type: 'string',
@@ -175,6 +208,9 @@ export const executionSchema = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 50,
+              },
               properties: {
                 workflowId: {
                   type: 'number',
@@ -185,35 +221,18 @@ export const executionSchema = {
             },
             status: {
               type: 'void',
+              title: `{{t("Status", { ns: "${NAMESPACE}" })}}`,
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
-              title: `{{t("Status", { ns: "${NAMESPACE}" })}}`,
+              'x-component-props': {
+                width: 50,
+              },
               properties: {
                 status: {
                   type: 'number',
                   'x-decorator': 'ExecutionStatusColumn',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
-                },
-              },
-            },
-            actions: {
-              type: 'void',
-              title: '{{ t("Actions") }}',
-              'x-component': 'TableV2.Column',
-              properties: {
-                actions: {
-                  type: 'void',
-                  'x-component': 'Space',
-                  'x-component-props': {
-                    split: '|',
-                  },
-                  properties: {
-                    link: {
-                      type: 'void',
-                      'x-component': 'ExecutionLink',
-                    },
-                  },
                 },
               },
             },

@@ -602,21 +602,12 @@ export const workflowSchema: ISchema = {
             title: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
+              'x-decorator-props': {
+                tooltip: '{{t("The port number of the TachyBase service if it is not 80 or 443")}}',
+              },
               'x-component': 'TableV2.Column',
               properties: {
                 title: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
-                },
-              },
-            },
-            type: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              properties: {
-                type: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
@@ -627,6 +618,10 @@ export const workflowSchema: ISchema = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+                align: 'center',
+              },
               properties: {
                 enabled: {
                   type: 'boolean',
@@ -640,6 +635,14 @@ export const workflowSchema: ISchema = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
               properties: {
                 allExecuted: {
                   type: 'number',

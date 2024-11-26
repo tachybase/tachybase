@@ -22,6 +22,8 @@ export const useStyles = createStyles(({ css, token }) => {
       }
 
       .workflow-node-edit {
+        box-sizing: border-box;
+        height: 100%;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
         background-color: #fff;
