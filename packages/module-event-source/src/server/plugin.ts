@@ -1,25 +1,16 @@
-import Application, { Plugin, PluginOptions } from '@tachybase/server';
+import Application, { InjectedPlugin, Plugin, PluginOptions } from '@tachybase/server';
 
+import { CustomEventSourceController } from './actions/CustomEventSourceController';
 import { PluginWebhook } from './webhooks/Plugin';
 
+@InjectedPlugin({
+  Controllers: [CustomEventSourceController],
+})
 export class ModuleEventSourceServer extends Plugin {
   constructor(app: Application, options?: PluginOptions) {
     super(app, options);
     this.addFeature(PluginWebhook);
   }
-  async afterAdd() {}
-
-  async beforeLoad() {}
-
-  async load() {}
-
-  async install() {}
-
-  async afterEnable() {}
-
-  async afterDisable() {}
-
-  async remove() {}
 }
 
 export default ModuleEventSourceServer;
