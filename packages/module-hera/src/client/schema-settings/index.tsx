@@ -1,20 +1,13 @@
-import React, { useEffect, useMemo } from 'react';
+import React from 'react';
 import {
-  getShouldChange,
-  SchemaComponent,
   SchemaSettingsModalItem,
   SchemaSettingsSwitchItem,
   useCollection_deprecated,
   useCollectionManager_deprecated,
-  useCurrentUserVariable,
-  useDatetimeVariable,
   useDesignable,
-  VariableInput,
-  VariableScopeProvider,
 } from '@tachybase/client';
 import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
 
-import { useMemoizedFn } from 'ahooks';
 import _ from 'lodash';
 
 import { useTranslation } from '../locale';
@@ -96,30 +89,6 @@ export const IsTablePageSize = () => {
           },
         });
         dn.refresh();
-      }}
-    />
-  );
-};
-
-// 添加跳转页面选项
-export const PageModeSetting = () => {
-  const { dn } = useDesignable();
-  const { t } = useTranslation();
-  const fieldSchema = useFieldSchema();
-  return (
-    <SchemaSettingsSwitchItem
-      title={t('Navigate to new page')}
-      checked={!!fieldSchema?.['x-action-settings']?.pageMode}
-      onChange={(value) => {
-        fieldSchema['x-action-settings'].pageMode = value;
-        dn.emit('patch', {
-          schema: {
-            ['x-uid']: fieldSchema['x-uid'],
-            'x-action-settings': {
-              ...fieldSchema['x-action-settings'],
-            },
-          },
-        });
       }}
     />
   );

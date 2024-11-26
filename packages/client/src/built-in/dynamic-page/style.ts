@@ -1,4 +1,4 @@
-import { createStyles } from '@tachybase/client';
+import { createStyles } from 'antd-style';
 
 export const useStyles = createStyles(({ css }) => ({
   home: css`

@@ -18,6 +18,7 @@ import {
   useFormBlockContext,
 } from '../..';
 import { useAPIClient, useRequest } from '../../api-client';
+import { PathHandler } from '../../built-in/dynamic-page/utils';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../collection-manager';
 import { useFilterBlock } from '../../filter-provider/FilterProvider';
 import { mergeFilter, transformToFilter } from '../../filter-provider/utils';
@@ -179,12 +180,12 @@ export function useCollectValuesToSubmit() {
   ]);
 }
 
-const pageDetailsViewer = 'PageLayout';
+const pageDetailsViewer = 'Action.Container';
 
 const viewerSchema: ISchema = {
   type: 'void',
   title: '{{t("View record")}}',
-  'x-component': pageDetailsViewer,
+  'x-component': 'Action.Container',
   'x-component-props': {
     className: 'tb-action-popup',
   },
@@ -293,7 +294,12 @@ export const useCreateActionProps = () => {
               return buf;
             });
             if (fieldSchema2['x-component'] === pageDetailsViewer) {
-              navigate(`page/${fieldSchema2['x-uid']}/records/${name}/${data?.data?.data?.id ?? ''}`);
+              navigate(
+                `../${fieldSchema2['x-uid']}/${PathHandler.getInstance().toWildcardPath({
+                  collection: name,
+                  filterByTk: data?.data?.data?.id,
+                })}`,
+              );
             }
             await resetFormCorrectly(form);
             return;

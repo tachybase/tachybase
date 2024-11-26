@@ -6,13 +6,17 @@ import { App, Button } from 'antd';
 import classnames from 'classnames';
 import { default as lodash } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { StablePopover, useActionContext } from '../..';
 import { useDesignable } from '../../';
+import { useApp } from '../../../application';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { useACLActionParamsContext } from '../../../built-in/acl';
+import { PathHandler } from '../../../built-in/dynamic-page/utils';
+import { useCollection, useCollectionRecordData } from '../../../data-source';
 import { Icon } from '../../../icon';
-import { RecordProvider, useRecord } from '../../../record-provider';
+import { RecordProvider } from '../../../record-provider';
 import { useLocalVariables, useVariables } from '../../../variables';
 import { SortableItem } from '../../common';
 import { useCompile, useComponent, useDesigner } from '../../hooks';
@@ -53,17 +57,22 @@ export const Action: ComposedAction = withDynamicSchemaProps(
       ...others
     } = useProps(props); // 新版 UISchema（1.0 之后）中已经废弃了 useProps，这里之所以继续保留是为了兼容旧版的 UISchema
     const aclCtx = useACLActionParamsContext();
+    const navigate = useNavigate();
     const { wrapSSR, componentCls, hashId } = useStyles();
     const { t } = useTranslation();
     const [visible, setVisible] = useState(false);
     const [formValueChanged, setFormValueChanged] = useState(false);
     const Designer = useDesigner();
     const field = useField<any>();
+    const app = useApp();
+    const pageMode = app.usePageMode();
     const { run, element } = useAction(actionCallback);
     const fieldSchema = useFieldSchema();
     const compile = useCompile();
     const form = useForm();
-    const record = useRecord();
+    // TODO 这里这么改，会影响还没重构的设置代码，但是剩下没重构的插件设置代码也没几个，可以碰到修改就行
+    const record = useCollectionRecordData();
+    const collection = useCollection();
     const designerProps = fieldSchema['x-designer-props'];
     const openMode = fieldSchema?.['x-component-props']?.['openMode'];
     const openSize = fieldSchema?.['x-component-props']?.['openSize'];
@@ -107,7 +116,20 @@ export const Action: ComposedAction = withDynamicSchemaProps(
         if (!disabled && aclCtx) {
           const onOk = () => {
             onClick?.(e);
-            setVisible(true);
+            // TODO: 这块需要验证下插件的设置有没有问题
+            const containerSchema = fieldSchema.reduceProperties((buf, s) =>
+              s['x-component'] === 'Action.Container' ? s : buf,
+            );
+            // TODO: 增加上下文判断
+            if (pageMode?.enable && containerSchema) {
+              const target = PathHandler.getInstance().toWildcardPath({
+                collection: collection.name,
+                filterByTk: record[collection.getPrimaryKey()],
+              });
+              navigate('../' + containerSchema['x-uid'] + '/' + target);
+            } else {
+              setVisible(true);
+            }
             run();
           };
           if (confirm?.content) {

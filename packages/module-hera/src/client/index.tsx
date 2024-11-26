@@ -1,6 +1,5 @@
 import { Plugin, useFormulaTitleVisible } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
-import { autorun, isValid, useFieldSchema } from '@tachybase/schema';
 
 import {
   AssociatedField,
@@ -35,9 +34,8 @@ import {
 } from './interfaces';
 import { TstzrangeFieldInterface } from './interfaces/TstzrangeFieldInterface';
 import { Locale, tval } from './locale';
-import { DetailsPage, PageLayout } from './pages';
 import { SettingBlockInitializer } from './schema-initializer';
-import { EditTitle, IsTablePageSize, PageModeSetting, usePaginationVisible } from './schema-settings';
+import { EditTitle, IsTablePageSize, usePaginationVisible } from './schema-settings';
 import { SchemaSettingsDatePickerType } from './schema-settings/SchemaSettingsDatePickerType';
 import {
   SchemaSettingsDatePresets,
@@ -93,13 +91,6 @@ export class PluginCoreClient extends Plugin {
       Component: IsTablePageSize,
       useVisible: usePaginationVisible,
     });
-    this.app.schemaSettingsManager.addItem('actionSettings:submit', 'pageMode', {
-      Component: PageModeSetting,
-      useVisible() {
-        const fieldSchema = useFieldSchema();
-        return isValid(fieldSchema?.['x-action-settings']?.pageMode);
-      },
-    });
   }
 
   async registerScopesAndComponents() {
@@ -120,19 +111,13 @@ export class PluginCoreClient extends Plugin {
       CustomField,
       EditTitle,
       Expression,
-      PageLayout,
       SettingBlock: SettingBlockInitializer,
       SignatureInput,
       ExcelFile,
     });
   }
 
-  async registerRouters() {
-    this.app.router.add('admin.details_page', {
-      path: '/admin/:name/page/:pageId/records/*',
-      Component: DetailsPage,
-    });
-  }
+  async registerRouters() {}
 
   async registerSchemaInitializer() {
     const settingBlockItem = {
