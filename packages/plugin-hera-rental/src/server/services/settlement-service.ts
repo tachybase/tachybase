@@ -25,7 +25,7 @@ export class SettlementService {
   @Db()
   private db: Database;
 
-  async calculate(settlementAbout: Settlement, settlementsId, ctx) {
+  async calculate(settlementAbout: Settlement, settlementsId) {
     /**
      * 租金计算方式
      * 0: 计头不计尾
@@ -1128,11 +1128,6 @@ export class SettlementService {
     await this.db.getModel('settlement_history_items').bulkCreate(createCategoryDatasItem.history);
     await this.db.getModel('settlement_history_items').bulkCreate(createProductDatasItem.history);
     await this.db.getModel('settlement_summary_items').bulkCreate(summaryItems);
-    const pluginWorkflow = ctx.app.getPlugin(PluginWorkflow) as PluginWorkflow;
-    const wf = await ctx.db
-      .getRepository('workflows')
-      .findOne({ filter: { title: '结算单生成应收/应付', enabled: true } });
-    await pluginWorkflow.trigger(wf, { data: { ...summaryPeriod, settlementsId } }, { httpContext: ctx });
   }
 
   async settlement(settlementAbout: Settlement, utcOffset) {
