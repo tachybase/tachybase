@@ -49,6 +49,9 @@ export const TabApprovalItem = observer((props) => {
               >
                 {/* <Badge color="#6ac3ff" content={Badge.dot} style={{ '--right': '100%' }}> */}
                 <Space block>
+                  <Tag color="success" fill="solid">
+                    {item.approvalId}
+                  </Tag>
                   {item.title}
                   <Tag color="primary" fill="solid">
                     {item.node?.title}

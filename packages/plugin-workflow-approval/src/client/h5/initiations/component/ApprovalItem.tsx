@@ -4,7 +4,7 @@ import { observer } from '@tachybase/schema';
 import { dayjs } from '@tachybase/utils/client';
 
 import { useDeepCompareEffect } from 'ahooks';
-import { Badge, Empty, List, Space, Tag } from 'antd-mobile';
+import { Empty, List, Space, Tag } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
 
 import { ApprovalPriorityType, ApprovalStatusEnums } from '../../constants';
@@ -55,6 +55,9 @@ export const ApprovalItem = observer((props) => {
               >
                 {/* <Badge color="#6ac3ff" content={Badge.dot} style={{ '--right': '100%' }}> */}
                 <Space block>
+                  <Tag color="success" fill="solid">
+                    {item.id}
+                  </Tag>
                   {item.title}
                   <Tag color={item.statusColor} fill="outline">
                     {item.statusTitle}
