@@ -74,6 +74,8 @@ export async function create(ctx: Context, next: Next) {
   await ctx.db.getRepository('applications').create({
     values: {
       ...params.values,
+      createdBy: ctx.state.currentUser.id,
+      updatedBy: ctx.state.currentUser.id,
     },
   });
   const app = await ctx.db.getRepository('applications').find({

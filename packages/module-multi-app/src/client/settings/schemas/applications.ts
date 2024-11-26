@@ -120,6 +120,7 @@ export const formSchema: ISchema = {
       'x-component': 'CollectionField',
       'x-decorator': 'FormItem',
       'x-disabled': '{{ !createOnly }}',
+      'x-hidden': '{{ !admin }}',
     },
     // 'options.standaloneDeployment': {
     //   'x-component': 'Checkbox',
@@ -135,11 +136,38 @@ export const formSchema: ISchema = {
         { label: i18nText('Start on first visit'), value: false },
         { label: i18nText('Start with main application'), value: true },
       ],
+      'x-hidden': '{{ !admin }}',
     },
-    cname: {
-      title: i18nText('Custom domain'),
+    cnamePrefix: {
+      title: i18nText('Custom domain prefix'),
       'x-component': 'Input',
       'x-decorator': 'FormItem',
+      'x-component-props': {
+        addonAfter: `.${window.location.hostname}`,
+      },
+      'x-reactions': {
+        dependencies: ['cname'],
+        fulfill: {
+          state: {
+            value: '{{($deps[0] && $deps[0].replace(new RegExp("\\."+window.location.hostname+"$"), "")) || ""}}',
+          },
+        },
+      },
+    },
+    cname: {
+      'x-hidden': true,
+      'x-component': 'Input',
+      'x-decorator': 'FormItem',
+      'x-read-pretty': true,
+      // 依赖cnamePrefix取${cnamePrefix}.${window.location.hostname}
+      'x-reactions': {
+        dependencies: ['cnamePrefix'],
+        fulfill: {
+          state: {
+            value: `{{$deps[0] ? $deps[0] + ".${window.location.hostname}" : null}}`,
+          },
+        },
+      },
     },
     preset: {
       title: i18nText('Preset'),
@@ -152,6 +180,7 @@ export const formSchema: ISchema = {
         { label: i18nText('hera-rental'), value: 'hera-rental' },
         { label: i18nText('hera-sancongtou'), value: 'hera-sancongtou' },
       ],
+      'x-hidden': true,
     },
     tmpl: {
       title: i18nText('Template'),
@@ -173,10 +202,12 @@ export const formSchema: ISchema = {
       title: i18nText('Start environment variables'),
       'x-component': 'Input.TextArea',
       'x-decorator': 'FormItem',
+      'x-hidden': true, // main and multi use same env cause problem
     },
     pinned: {
       'x-component': 'CollectionField',
       'x-decorator': 'FormItem',
+      'x-hidden': '{{ !admin }}',
     },
   },
 };
@@ -186,7 +217,9 @@ export const tableActionColumnSchema: ISchema = {
     view: {
       type: 'void',
       'x-component': 'AppVisitor',
-      'x-component-props': {},
+      'x-component-props': {
+        admin: '{{ admin }}',
+      },
     },
     update: {
       type: 'void',
@@ -260,6 +293,9 @@ export const schema: ISchema = {
             pageSize: 50,
             sort: ['-createdAt'],
             appends: [],
+            filter: {
+              createdById: '{{ admin ? undefined : userId }}',
+            },
           },
         },
       },
@@ -298,6 +334,7 @@ export const schema: ISchema = {
                   content: "{{t('Are you sure you want to delete it?')}}",
                 },
               },
+              'x-hidden': '{{ !admin }}',
             },
             create: {
               type: 'void',

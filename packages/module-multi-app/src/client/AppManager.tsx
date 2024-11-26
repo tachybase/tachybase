@@ -1,5 +1,12 @@
 import React, { useMemo } from 'react';
-import { SchemaComponent, useAPIClient, useApp, useRecord, useResourceActionContext } from '@tachybase/client';
+import {
+  SchemaComponent,
+  useAPIClient,
+  useApp,
+  useCurrentUserContext,
+  useRecord,
+  useResourceActionContext,
+} from '@tachybase/client';
 
 import { Card, Divider, Space } from 'antd';
 
@@ -56,10 +63,13 @@ const AppVisitor = () => {
   );
 };
 
-export const AppManager = () => {
+export const AppManager = (props) => {
+  const { admin = true } = props;
+  const currentUser = useCurrentUserContext();
+  const userId = currentUser?.data?.data?.id;
   return (
     <Card bordered={false}>
-      <SchemaComponent schema={schema} components={{ AppVisitor }} />
+      <SchemaComponent schema={schema} scope={{ admin, userId }} components={{ AppVisitor }} />
     </Card>
   );
 };

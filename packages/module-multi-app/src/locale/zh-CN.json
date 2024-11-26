@@ -5,6 +5,8 @@
   "Applications": "应用",
   "Auto start": "自动启动",
   "Custom domain": "自定义域名",
+  "Custom domain prefix": "自定义域名前缀",
+  "Is template": "是否模板",
   "Manage applications": "管理应用",
   "Multi-app manager": "多应用管理",
   "Pin to menu": "在菜单上显示",

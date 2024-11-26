@@ -9,6 +9,8 @@ export default defineCollection({
   autoGenId: false,
   sortable: 'sort',
   filterTargetKey: 'name',
+  createdBy: true,
+  updatedBy: true,
   fields: [
     {
       type: 'uid',

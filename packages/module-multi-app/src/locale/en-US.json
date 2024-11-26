@@ -5,6 +5,8 @@
   "Applications": "Applications",
   "Auto start": "Auto start",
   "Custom domain": "Custom domain",
+  "Custom domain prefix": "Custom domain prefix",
+  "Is template": "Is template",
   "Manage applications": "Manage applications",
   "Multi-app manager": "Multi-app manager",
   "Pin to menu": "Pin to menu",

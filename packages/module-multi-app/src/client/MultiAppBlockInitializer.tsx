@@ -25,18 +25,19 @@ export const MultiAppBlockInitializer = () => {
           type: 'void',
           'x-decorator-props': {},
           'x-component': 'CardItem',
-          // 'x-designer': 'TableBlockDesigner',
           'x-toolbar': 'BlockSchemaToolbar',
           'x-settings': 'blockSettings:table',
           properties: {
             app: {
               type: 'void',
               'x-component': 'AppManager',
+              'x-component-props': {
+                admin: false,
+              },
             },
           },
         });
       }}
-      // title={t('Multi app manager')}
     />
   );
 };
