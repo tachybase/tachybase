@@ -1,14 +1,14 @@
 import { CollectionOptions } from '@tachybase/client';
 
+import ReactEditor from '../component-editor/components/ReactEditor';
+
 export const collection: CollectionOptions = {
-  key: 'ojwl16z833h',
   name: 'cloudComponents',
   title: '云组件',
   hidden: false,
   description: null,
   fields: [
     {
-      key: '7ual55t73vc',
       name: 'id',
       type: 'bigInt',
       interface: 'integer',
@@ -27,7 +27,6 @@ export const collection: CollectionOptions = {
       },
     },
     {
-      key: 'j9r9grvl0v0',
       name: 'createdAt',
       type: 'date',
       interface: 'createdAt',
@@ -45,7 +44,6 @@ export const collection: CollectionOptions = {
       },
     },
     {
-      key: 'ng4sopamz8s',
       name: 'createdBy',
       type: 'belongsTo',
       interface: 'createdBy',
@@ -70,7 +68,6 @@ export const collection: CollectionOptions = {
       targetKey: 'id',
     },
     {
-      key: 'bgz2nz990hs',
       name: 'updatedAt',
       type: 'date',
       interface: 'updatedAt',
@@ -88,7 +85,6 @@ export const collection: CollectionOptions = {
       },
     },
     {
-      key: 'd4buc2p023i',
       name: 'updatedBy',
       type: 'belongsTo',
       interface: 'updatedBy',
@@ -113,7 +109,6 @@ export const collection: CollectionOptions = {
       targetKey: 'id',
     },
     {
-      key: 'mugo60v2vkn',
       name: 'name',
       type: 'string',
       interface: 'input',
@@ -130,7 +125,6 @@ export const collection: CollectionOptions = {
       primaryKey: false,
     },
     {
-      key: 'f1chvlpvplp',
       name: 'code',
       type: 'text',
       interface: 'textarea',
@@ -140,12 +134,11 @@ export const collection: CollectionOptions = {
       reverseKey: null,
       uiSchema: {
         type: 'string',
-        'x-component': 'Input.TextArea',
+        'x-component': ReactEditor,
         title: '组件代码',
       },
     },
     {
-      key: '0ruhfmjlwzv',
       name: 'data',
       type: 'json',
       interface: 'json',
@@ -168,7 +161,6 @@ export const collection: CollectionOptions = {
       jsonb: false,
     },
     {
-      key: 'ni0obrsc3g0',
       name: 'description',
       type: 'text',
       interface: 'textarea',
@@ -183,7 +175,6 @@ export const collection: CollectionOptions = {
       },
     },
     {
-      key: 'biyfqb10he6',
       name: 'enabled',
       type: 'boolean',
       interface: 'checkbox',

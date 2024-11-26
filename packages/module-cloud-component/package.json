@@ -1,11 +1,11 @@
 {
-  "name": "@tachybase/plugin-cloud-component",
+  "name": "@tachybase/module-cloud-component",
   "displayName": "Cloud component",
   "version": "0.22.47",
   "description": "Cloud component",
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-cloud-component"
+    "build": "tachybase-build --no-dts @tachybase/module-cloud-component"
   },
   "dependencies": {
     "@babel/standalone": "7.26.2",
