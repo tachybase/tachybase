@@ -26,4 +26,5 @@ export interface Record {
   direct_record_id: number;
   id: number;
   fee_item: any;
+  is_end: boolean;
 }

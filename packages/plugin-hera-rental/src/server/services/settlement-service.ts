@@ -433,7 +433,12 @@ export class SettlementService {
                 }
 
                 //计算有关联产品无规则记录的费用订单
-                if (isNewProduct) {
+                if (
+                  isNewProduct &&
+                  dayjs(item.date).isBetween(ruleItem.start_date, ruleItem.end_date, 'day', '[]') &&
+                  dayjs(item.date).isSameOrAfter(settlementAbout.start_date) &&
+                  item.is_end
+                ) {
                   item.record_items.forEach((recordItem) => {
                     if (
                       rule.products.find(
