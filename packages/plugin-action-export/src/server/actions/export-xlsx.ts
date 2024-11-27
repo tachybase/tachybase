@@ -19,6 +19,13 @@ export async function exportXlsx(ctx: Context, next: Next) {
   const collection = repository.collection;
   columns = columns?.filter((col) => collection.hasField(col.dataIndex[0]) && col?.dataIndex?.length > 0);
   const appends = columns2Appends(columns, ctx);
+  const count = await repository.count({
+    filter,
+    context: ctx,
+  });
+  if (count > EXPORT_LENGTH_MAX) {
+    ctx.throw(400, `Too many records to export: ${count}`);
+  }
   const data = await repository.find({
     filter,
     fields,
@@ -27,9 +34,6 @@ export async function exportXlsx(ctx: Context, next: Next) {
     sort,
     context: ctx,
   });
-  if (data.length > EXPORT_LENGTH_MAX) {
-    ctx.throw(400, 'Too many records to export');
-  }
   const collectionFields = columns.map((col) => collection.fields.get(col.dataIndex[0]));
   const { rows, ranges } = await render({ columns, fields: collectionFields, data }, ctx);
   const timezone = ctx.get('x-timezone');
