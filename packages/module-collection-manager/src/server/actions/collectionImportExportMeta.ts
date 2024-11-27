@@ -74,6 +74,7 @@ export const collectionImportExportMeta: ResourceOptions = {
     },
     async importMeta(ctx: Context, next) {
       const { file } = ctx;
+      const category = (ctx.request.body as { category?: string })?.category;
       if (!file) {
         throw new Error('file not found');
       }
@@ -94,7 +95,6 @@ export const collectionImportExportMeta: ResourceOptions = {
       // old name => new name
       const collectionNameMap = {};
       const completedCollections = new Set();
-      const createList = [];
 
       const existCollections = await ctx.db.getCollection('collections').repository.find({
         filter: {
@@ -147,11 +147,11 @@ export const collectionImportExportMeta: ResourceOptions = {
             collection.name = `t_${uid()}`;
             collectionNameMap[meta.name] = collection.name;
             meta.name = collection.name;
-            if (meta.category && meta.category.length) {
-              meta.category.forEach((v) => {
-                v.collectionCategory.collectionName = collection.name;
-              });
-            }
+            // if (meta.category && meta.category.length) {
+            //   meta.category.forEach((v) => {
+            //     v.collectionCategory.collectionName = collection.name;
+            //   });
+            // }
           }
         }
 
@@ -177,6 +177,11 @@ export const collectionImportExportMeta: ResourceOptions = {
         if (meta.view) {
           views.push(meta);
           return;
+        }
+        if (category) {
+          meta.category = {
+            id: +category,
+          };
         }
         await CollectionRepo.repository.create({
           values: meta,

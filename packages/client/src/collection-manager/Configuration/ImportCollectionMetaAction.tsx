@@ -60,11 +60,17 @@ const ImportUpload = (props: any) => {
   const { t } = useTranslation();
   const { refreshCM } = useCollectionManager_deprecated();
   const { close } = props;
-  const { refresh } = useResourceActionContext();
+  const {
+    refresh,
+    state: { category },
+  } = useResourceActionContext();
 
   const uploadProps: UploadProps = {
     multiple: false,
     action: '/collections:importMeta',
+    data: {
+      category: category?.[0] || undefined,
+    },
     async onChange(info) {
       if (info.fileList.length > 1) {
         info.fileList.splice(0, info.fileList.length - 1); // 只保留一个文件
@@ -75,10 +81,8 @@ const ImportUpload = (props: any) => {
         message.success(`${info.file.name} ` + t('file uploaded successfully'));
         refresh();
         await refreshCM();
-        window.location.reload();
       } else if (status === 'error') {
         message.error(`${info.file.name} ` + t('file upload failed'));
-        window.location.reload();
       }
     },
     onDrop(e) {
