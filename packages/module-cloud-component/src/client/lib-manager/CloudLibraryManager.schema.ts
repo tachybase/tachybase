@@ -74,8 +74,11 @@ const create = {
                         tab: tval('Basic'),
                       },
                       properties: {
+                        module: fieldsets.module,
                         name: fieldsets.name,
                         enabled: fieldsets.enabled,
+                        isClient: fieldsets.isClient,
+                        isServer: fieldsets.isServer,
                       },
                     },
                     code: {
@@ -185,8 +188,11 @@ const edit = {
                         tab: tval('Basic'),
                       },
                       properties: {
+                        module: fieldsets.module,
                         name: fieldsets.name,
                         enabled: fieldsets.enabled,
+                        isClient: fieldsets.isClient,
+                        isServer: fieldsets.isServer,
                       },
                     },
                     code: {
@@ -271,22 +277,23 @@ export const table = {
         },
       },
       properties: {
-        actions: {
+        module: {
           type: 'void',
-          title: '{{ t("Actions") }}',
-          'x-action-column': 'actions',
-          'x-decorator': 'TableV2.Column.ActionBar',
+          'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': {
-            width: 100,
-            fixed: 'right',
-          },
           properties: {
-            actions: {
-              type: 'void',
-              'x-component': 'Space',
-              properties: {
-                edit,
+            module: {
+              'x-collection-field': 'cloudLibraries.module',
+              'x-component': 'CollectionField',
+              'x-component-props': {
+                ellipsis: true,
+              },
+              'x-read-pretty': true,
+              'x-decorator': null,
+              'x-decorator-props': {
+                labelStyle: {
+                  display: 'none',
+                },
               },
             },
           },
@@ -329,6 +336,68 @@ export const table = {
                 labelStyle: {
                   display: 'none',
                 },
+              },
+            },
+          },
+        },
+        isClient: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          properties: {
+            isClient: {
+              'x-collection-field': 'cloudLibraries.isClient',
+              'x-component': 'CollectionField',
+              'x-component-props': {
+                ellipsis: true,
+              },
+              'x-read-pretty': true,
+              'x-decorator': null,
+              'x-decorator-props': {
+                labelStyle: {
+                  display: 'none',
+                },
+              },
+            },
+          },
+        },
+        isServer: {
+          type: 'void',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
+          properties: {
+            isServer: {
+              'x-collection-field': 'cloudLibraries.isServer',
+              'x-component': 'CollectionField',
+              'x-component-props': {
+                ellipsis: true,
+              },
+              'x-read-pretty': true,
+              'x-decorator': null,
+              'x-decorator-props': {
+                labelStyle: {
+                  display: 'none',
+                },
+              },
+            },
+          },
+        },
+        actions: {
+          type: 'void',
+          title: '{{ t("Actions") }}',
+          'x-action-column': 'actions',
+          'x-decorator': 'TableV2.Column.ActionBar',
+          'x-component': 'TableV2.Column',
+          'x-component-props': {
+            width: 100,
+            fixed: 'right',
+          },
+          properties: {
+            actions: {
+              type: 'void',
+              'x-component': 'Space',
+              properties: {
+                edit,
               },
             },
           },

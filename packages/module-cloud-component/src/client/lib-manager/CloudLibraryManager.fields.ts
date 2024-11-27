@@ -1,4 +1,11 @@
 export const fieldsets = {
+  module: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'cloudLibraries.module',
+    'x-component-props': {},
+  },
   name: {
     type: 'string',
     'x-component': 'CollectionField',
@@ -37,6 +44,22 @@ export const fieldsets = {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
     'x-collection-field': 'cloudLibraries.enabled',
+    'x-component-props': {},
+  },
+
+  isServer: {
+    type: 'boolean',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'cloudLibraries.isServer',
+    'x-component-props': {},
+  },
+
+  isClient: {
+    type: 'boolean',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'cloudLibraries.isClient',
     'x-component-props': {},
   },
 };
