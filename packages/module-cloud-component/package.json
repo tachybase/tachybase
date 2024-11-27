@@ -1,13 +1,14 @@
 {
-  "name": "@tachybase/plugin-cloud-component",
+  "name": "@tachybase/module-cloud-component",
   "displayName": "Cloud component",
   "version": "0.22.49",
   "description": "Cloud component",
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-cloud-component"
+    "build": "tachybase-build --no-dts @tachybase/module-cloud-component"
   },
   "dependencies": {
+    "@babel/core": "7.26.0",
     "@babel/standalone": "7.26.2",
     "@bytemd/plugin-gemoji": "1.21.0",
     "@bytemd/plugin-gfm": "1.21.0",
@@ -23,6 +24,7 @@
     "github-markdown-css": "5.7.0",
     "highlight.js": "11.10.0",
     "less": "4.2.0",
+    "lodash": "4.17.21",
     "md5": "2.3.0",
     "prettier": "3.3.3",
     "react": "18.3.1",

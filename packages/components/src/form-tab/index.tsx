@@ -29,6 +29,7 @@ interface IFeedbackBadgeProps {
 
 type ComposedFormTab = React.FC<React.PropsWithChildren<IFormTabProps>> & {
   TabPane: React.FC<React.PropsWithChildren<IFormTabPaneProps>>;
+  TabExtraContent: React.FC<React.PropsWithChildren<IFormTabPaneProps>>;
   createFormTab: (defaultActiveKey?: string) => IFormTab;
 };
 
@@ -40,6 +41,29 @@ const useTabs = () => {
     const field = tabsField.query(tabsField.address.concat(name)).take();
     if (field?.display === 'none' || field?.display === 'hidden') return;
     if (schema['x-component']?.indexOf('TabPane') > -1) {
+      const key = field?.componentProps?.key || schema?.['x-component-props']?.key || name;
+      tabs.push({
+        name,
+        props: {
+          ...schema?.['x-component-props'],
+          ...field?.componentProps,
+          key,
+        },
+        schema,
+      });
+    }
+  });
+  return tabs;
+};
+
+const useTabExtraContent = () => {
+  const tabsField = useField();
+  const schema = useFieldSchema();
+  const tabs: { name: SchemaKey; props: any; schema: Schema }[] = [];
+  schema.mapProperties((schema, name) => {
+    const field = tabsField.query(tabsField.address.concat(name)).take();
+    if (field?.display === 'none' || field?.display === 'hidden') return;
+    if (schema['x-component']?.indexOf('TabExtraContent') > -1) {
       const key = field?.componentProps?.key || schema?.['x-component-props']?.key || name;
       tabs.push({
         name,
@@ -83,6 +107,7 @@ const createFormTab = (defaultActiveKey?: string) => {
 
 export const FormTab: ComposedFormTab = observer(({ formTab, ...props }: IFormTabProps) => {
   const tabs = useTabs();
+  const tabExtraContent = useTabExtraContent();
   const _formTab = useMemo(() => {
     return formTab ? formTab : createFormTab();
   }, []);
@@ -92,6 +117,13 @@ export const FormTab: ComposedFormTab = observer(({ formTab, ...props }: IFormTa
   return (
     <Tabs
       {...props}
+      tabBarExtraContent={
+        <>
+          {tabExtraContent.map(({ schema, name }, key) => (
+            <RecursionField key={key} schema={schema} name={name} />
+          ))}
+        </>
+      }
       className={cls(prefixCls, props.className)}
       activeKey={activeKey}
       onChange={(key) => {
@@ -114,7 +146,12 @@ const TabPane: React.FC<React.PropsWithChildren<IFormTabPaneProps>> = ({ childre
   return <Fragment>{children}</Fragment>;
 };
 
+const TabExtraContent: React.FC<React.PropsWithChildren<IFormTabPaneProps>> = ({ children }) => {
+  return <Fragment>{children}</Fragment>;
+};
+
 FormTab.TabPane = TabPane;
+FormTab.TabExtraContent = TabExtraContent;
 FormTab.createFormTab = createFormTab;
 
 export default FormTab;

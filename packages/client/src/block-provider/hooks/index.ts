@@ -12,6 +12,7 @@ import { useReactToPrint } from 'react-to-print';
 
 import {
   AssociationFilter,
+  useCollection,
   useCollectionRecord,
   useDataSourceHeaders,
   useFormActiveFields,
@@ -239,11 +240,39 @@ export const useCancelActionProps = () => {
   };
 };
 
+const useJumpDetails = () => {
+  const collection = useCollection();
+  const fieldSchema = useFieldSchema();
+  const dn = useDesignable();
+  const insert = useInsertSchema();
+  const navigate = useNavigate();
+
+  return (filterByTk: string) => {
+    if (dn.designable) {
+      insert(viewerSchema);
+    }
+    const targetSchema = fieldSchema.reduceProperties((buf, s) => {
+      if (s['x-component'] === pageDetailsViewer) {
+        return s;
+      }
+      return buf;
+    });
+    if (targetSchema) {
+      navigate(
+        `../${targetSchema['x-uid']}/${PathHandler.getInstance().toWildcardPath({
+          collection: collection.name,
+          filterByTk,
+        })}`,
+      );
+    }
+  };
+};
+
 export const useCreateActionProps = () => {
   const record = useCollectionRecord();
   const form = useForm();
   const { field, resource, __parent } = useBlockRequestContext();
-  const { fields, name } = useCollection_deprecated();
+  const jumpDetails = useJumpDetails();
   const { setVisible } = useActionContext();
   const navigate = useNavigate();
   const actionSchema = useFieldSchema();
@@ -255,9 +284,6 @@ export const useCreateActionProps = () => {
   const collectValues = useCollectValuesToSubmit();
   const action = record.isNew ? actionField.componentProps.saveMode || 'create' : 'update';
   const filterKeys = actionField.componentProps.filterKeys?.checked || [];
-  const dn = useDesignable();
-  const insert = useInsertSchema();
-  let fieldSchema2 = useFieldSchema();
   return {
     async onClick() {
       const { onSuccess, skipValidator, triggerWorkflows, pageMode } = actionSchema?.['x-action-settings'] ?? {};
@@ -280,35 +306,18 @@ export const useCreateActionProps = () => {
         actionField.data.loading = false;
         actionField.data.data = data;
         __parent?.service?.refresh?.();
-        if (!onSuccess?.successMessage) {
-          message.success(t('Saved successfully'));
-          if (pageMode) {
-            if (dn.designable) {
-              insert(viewerSchema);
-            }
-            fieldSchema2.reduceProperties((buf, s) => {
-              if (s['x-component'] === pageDetailsViewer) {
-                fieldSchema2 = s;
-                return s;
-              }
-              return buf;
-            });
-            if (fieldSchema2['x-component'] === pageDetailsViewer) {
-              navigate(
-                `../${fieldSchema2['x-uid']}/${PathHandler.getInstance().toWildcardPath({
-                  collection: name,
-                  filterByTk: data?.data?.data?.id,
-                })}`,
-              );
-            }
-          }
+
+        if (pageMode) {
           await resetFormCorrectly(form);
+          // FIXME primary key
+          jumpDetails(data?.data?.data?.id);
           return;
         }
 
+        const successMessage = onSuccess?.successMessage ? compile(onSuccess?.successMessage) : t('Saved successfully');
         if (onSuccess?.manualClose) {
           modal.success({
-            title: compile(onSuccess?.successMessage),
+            title: successMessage,
             onOk: async () => {
               await resetFormCorrectly(form);
               if (onSuccess?.redirecting && onSuccess?.redirectTo) {
@@ -321,7 +330,7 @@ export const useCreateActionProps = () => {
             },
           });
         } else {
-          message.success(compile(onSuccess?.successMessage));
+          message.success(successMessage);
           await resetFormCorrectly(form);
           if (onSuccess?.redirecting && onSuccess?.redirectTo) {
             if (isURL(onSuccess.redirectTo)) {

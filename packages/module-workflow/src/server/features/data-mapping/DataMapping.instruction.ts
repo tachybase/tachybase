@@ -116,10 +116,11 @@ async function convertByJsCode(code, data) {
   return ctx.body;
 }
 
-async function convertByTsCode(code, data, processor) {
+async function convertByTsCode(code, data, processor: Processor) {
   const { httpContext } = processor.options as unknown as {
     httpContext: Context;
   };
+  const app = processor.options.plugin.app;
 
   const compiledCode = transform(code, {
     sourceType: 'module',
@@ -146,11 +147,20 @@ async function convertByTsCode(code, data, processor) {
     return {};
   };
 
+  const contextRequire = function (moduleName: string) {
+    // 拦截逻辑：优先检查自定义模块表
+    if (app.modules[moduleName]) {
+      return app.modules[moduleName];
+    }
+    return require.call(this, moduleName);
+  };
+  Object.assign(contextRequire, require);
+
   // 创建上下文并加载 Node 的标准模块
   const sandbox = {
     module: {},
     exports: { default: defaultFunction },
-    require,
+    require: contextRequire,
     console,
   };
   createContext(sandbox);

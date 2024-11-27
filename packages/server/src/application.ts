@@ -199,6 +199,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   static KEY_CORE_APP_PREFIX = 'KEY_CORE_APP_';
   private currentId = nanoid();
   public container: ContainerInstance;
+  public modules: Record<string, any> = {};
 
   constructor(public options: ApplicationOptions) {
     super();
