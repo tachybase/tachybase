@@ -235,6 +235,7 @@ export class PluginMultiAppManager extends Plugin {
     });
 
     this.app.acl.allow('applications', 'listPinned', 'loggedIn');
+    this.app.acl.allow('applications', 'list', 'loggedIn');
 
     this.app.acl.registerSnippet({
       name: `pm.${this.name}.applications`,

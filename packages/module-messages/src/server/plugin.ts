@@ -45,19 +45,19 @@ export class PluginMessagesServer extends Plugin {
     });
 
     this.app.acl.allow('messages', '*', 'loggedIn');
-    const onwerMessage = () => {
+    const ownerMessage = () => {
       return {
         filter: {
           userId: '{{ctx.state.currentUser.id}}',
         },
       };
     };
-    this.app.acl.addFixedParams('systemSettings', 'list', onwerMessage);
-    this.app.acl.addFixedParams('systemSettings', 'update', onwerMessage);
-    this.app.acl.addFixedParams('systemSettings', 'destroy', onwerMessage);
+    this.app.acl.addFixedParams('messages', 'list', ownerMessage);
+    this.app.acl.addFixedParams('messages', 'update', ownerMessage);
+    this.app.acl.addFixedParams('messages', 'destroy', ownerMessage);
 
     // 防止批量删除,错删了未read部分
-    this.app.acl.addFixedParams('systemSettings', 'destroy', () => {
+    this.app.acl.addFixedParams('messages', 'destroy', () => {
       return {
         filter: {
           read: true,
