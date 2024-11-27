@@ -301,9 +301,9 @@ export const useCreateActionProps = () => {
                 })}`,
               );
             }
-            await resetFormCorrectly(form);
-            return;
           }
+          await resetFormCorrectly(form);
+          return;
         }
 
         if (onSuccess?.manualClose) {
