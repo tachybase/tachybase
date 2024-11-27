@@ -5,7 +5,7 @@ import { FormTab } from '@tachybase/components';
 import { collection } from './CloudLibrary.collection';
 import { schema } from './CloudLibraryManager.schema';
 
-export const CloudComponentManager = () => {
+export const CloudLibraryManager = () => {
   return (
     <ExtendCollectionsProvider collections={[collection]}>
       <SchemaComponent
