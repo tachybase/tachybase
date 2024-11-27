@@ -78,7 +78,7 @@ const ImportUpload = (props: any) => {
         window.location.reload();
       } else if (status === 'error') {
         message.error(`${info.file.name} ` + t('file upload failed'));
-        window.location.reload();
+        // window.location.reload();
       }
     },
     onDrop(e) {

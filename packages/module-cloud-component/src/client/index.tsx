@@ -1,28 +1,28 @@
 import { Plugin } from '@tachybase/client';
 
-import LibEditor from './component-editor/LibEditor';
+import { CloudLibraryManager } from './lib-manager/CloudLibraryManager';
 import { CloudComponentManager } from './manager/CloudComponentManager';
 
-export class PluginCloudComponentClient extends Plugin {
+export class ModuleCloudComponentClient extends Plugin {
   async load() {
     this.app.systemSettingsManager.add('cloud-component', {
       title: this.t('Cloud Component'),
       icon: 'deploymentunitoutlined',
       sort: 201,
     });
-    this.app.systemSettingsManager.add('cloud-component.main', {
+    this.app.systemSettingsManager.add('cloud-component.component', {
       title: this.t('Cloud Component'),
       icon: 'deploymentunitoutlined',
       Component: CloudComponentManager,
       sort: 201,
     });
-    // this.app.systemSettingsManager.add('cloud-component.edit', {
-    //   title: this.t('Cloud Component'),
-    //   icon: 'deploymentunitoutlined',
-    //   Component: LibEditor,
-    //   sort: 201,
-    // });
+    this.app.systemSettingsManager.add('cloud-component.library', {
+      title: this.t('Cloud Library'),
+      icon: 'deploymentunitoutlined',
+      Component: CloudLibraryManager,
+      sort: 202,
+    });
   }
 }
 
-export default PluginCloudComponentClient;
+export default ModuleCloudComponentClient;

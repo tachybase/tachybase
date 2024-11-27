@@ -28,12 +28,13 @@ export class PathHandler {
    * @param schemaId 从路由参数中提取的必选字段
    * @returns 解析结果对象
    */
-  public parse(wildcardPath: string, schemaId: string): ParsedPath {
+  public parse(wildcardPath: string, schemaId: string): ParsedPath | false {
     if (!schemaId) {
       throw new Error('schemaId is required.');
     }
 
     const segments = wildcardPath.split('/').filter(Boolean); // 拆分路径并过滤空值
+    let found = false;
     const result: ParsedPath = { schemaId };
 
     for (let i = 0; i < segments.length; i += 2) {
@@ -41,6 +42,7 @@ export class PathHandler {
       const value = segments[i + 1];
       if (!value) continue; // 跳过没有值的键
 
+      let validKey = true;
       switch (key) {
         case 'collection':
           result.collection = value;
@@ -55,11 +57,15 @@ export class PathHandler {
           result.tab = value;
           break;
         default:
+          validKey = false;
           console.warn(`Unknown key: ${key}`);
+      }
+      if (validKey) {
+        found = true;
       }
     }
 
-    return result;
+    return found ? result : false;
   }
 
   /**
