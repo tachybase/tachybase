@@ -1,4 +1,4 @@
-import { Plugin, useCollection_deprecated } from '@tachybase/client';
+import { Plugin, useCollection } from '@tachybase/client';
 
 import { FileManagerProvider } from './FileManagerProvider';
 import { FileStoragePane } from './FileStorage';
@@ -37,7 +37,7 @@ export class FileManagerPlugin extends Plugin {
         },
       },
       useVisible() {
-        const collection = useCollection_deprecated();
+        const collection = useCollection();
         return collection.template === 'file';
       },
     });

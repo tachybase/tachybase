@@ -114,6 +114,8 @@ export class DataMappingInstruction extends Instruction {
       'x-component-props': {
         defaultLanguage: 'typescript',
         height: '80vh',
+        defaultValue:
+          "// import test from 'test'\n// export default async function (data, ctx: { httpContext: any }) {\n//  return {\n//\n//  }\n// }",
       },
     },
     model: {

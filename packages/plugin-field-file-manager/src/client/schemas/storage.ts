@@ -2,7 +2,7 @@ import { ISchema, uid } from '@tachybase/schema';
 
 import { NAMESPACE } from '../locale';
 
-const collection = {
+export const collectionFileManager = {
   name: 'storages',
   fields: [
     {
@@ -84,27 +84,21 @@ const collection = {
 };
 
 export const storageSchema: ISchema = {
-  type: 'object',
+  type: 'void',
   properties: {
     [uid()]: {
       type: 'void',
-      'x-decorator': 'ResourceActionProvider',
+      'x-decorator': 'TableBlockProvider',
+      'x-component': 'CardItem',
       'x-decorator-props': {
-        collection,
-        resourceName: 'storages',
-        request: {
-          resource: 'storages',
-          action: 'list',
-          params: {
-            pageSize: 50,
-            sort: ['id'],
-            appends: [],
-          },
+        collection: collectionFileManager,
+        action: 'list',
+        params: {
+          pageSize: 50,
+          sort: ['id'],
+          appends: [],
         },
-      },
-      'x-component': 'CollectionProvider_deprecated',
-      'x-component-props': {
-        collection,
+        rowKey: 'id',
       },
       properties: {
         actions: {
@@ -119,12 +113,14 @@ export const storageSchema: ISchema = {
             delete: {
               type: 'void',
               title: '{{ t("Delete") }}',
+              'x-action': 'destroy',
+              'x-decorator': 'ACLActionProvider',
               'x-component': 'Action',
+              'x-use-component-props': 'useDestroyActionProps',
               'x-component-props': {
                 icon: 'DeleteOutlined',
-                useAction: '{{ cm.useBulkDestroyAction }}',
                 confirm: {
-                  title: "{{t('Delete')}}",
+                  title: "{{t('Delete record')}}",
                   content: "{{t('Are you sure you want to delete it?')}}",
                 },
               },
@@ -140,21 +136,20 @@ export const storageSchema: ISchema = {
           },
         },
         table: {
-          type: 'void',
-          'x-uid': 'input',
-          'x-component': 'Table.Void',
+          type: 'array',
+          'x-component': 'TableV2',
+          'x-use-component-props': 'useTableBlockProps',
           'x-component-props': {
             rowKey: 'id',
             rowSelection: {
               type: 'checkbox',
             },
-            useDataSource: '{{ cm.useDataSourceFromRAC }}',
           },
           properties: {
             title: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 title: {
                   type: 'number',
@@ -165,8 +160,8 @@ export const storageSchema: ISchema = {
             },
             name: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 name: {
                   type: 'string',
@@ -177,8 +172,8 @@ export const storageSchema: ISchema = {
             },
             default: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               title: `{{t("Default storage", { ns: "${NAMESPACE}" })}}`,
               properties: {
                 default: {
@@ -191,7 +186,7 @@ export const storageSchema: ISchema = {
             actions: {
               type: 'void',
               title: '{{t("Actions")}}',
-              'x-component': 'Table.Column',
+              'x-component': 'TableV2.Column',
               properties: {
                 actions: {
                   type: 'void',
@@ -204,20 +199,20 @@ export const storageSchema: ISchema = {
                       type: 'void',
                       title: '{{t("Edit")}}',
                       'x-component': 'EditStorage',
-                      'x-component-props': {
-                        type: 'primary',
-                      },
                     },
                     delete: {
                       type: 'void',
-                      title: '{{ t("Delete") }}',
+                      title: '{{t("Delete")}}',
+                      'x-action': 'destroy',
+                      'x-decorator': 'ACLActionProvider',
                       'x-component': 'Action.Link',
+                      'x-use-component-props': 'useDestroyActionProps',
                       'x-component-props': {
+                        icon: 'DeleteOutlined',
                         confirm: {
-                          title: '{{t("Delete")}}',
-                          content: '{{t("Are you sure you want to delete it?")}}',
+                          title: "{{t('Delete record')}}",
+                          content: "{{t('Are you sure you want to delete it?')}}",
                         },
-                        useAction: '{{cm.useDestroyAction}}',
                       },
                     },
                   },
