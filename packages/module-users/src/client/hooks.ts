@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import {
   CollectionContext,
+  useDataBlockRequest,
   useFilterFieldOptions,
   useFilterFieldProps,
   useResourceActionContext,
@@ -9,7 +10,7 @@ import {
 export const useFilterActionProps = () => {
   const collection = useContext(CollectionContext);
   const options = useFilterFieldOptions(collection.fields);
-  const service = useResourceActionContext();
+  const service = useDataBlockRequest();
   return useFilterFieldProps({
     options,
     params: service.state?.params?.[0] || service.params,
