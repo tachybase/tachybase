@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { ActionContext, SchemaComponent, useCompile, usePlugin, useRecord } from '@tachybase/client';
+import {
+  ActionContext,
+  recordBlockInitializers,
+  SchemaComponent,
+  useCollectionRecordData,
+  useCompile,
+  usePlugin,
+} from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
@@ -8,7 +15,7 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import FileManagerPlugin from '.';
-import { storageSchema } from './schemas/storage';
+import { collectionFileManager, storageSchema } from './schemas/storage';
 import { StorageOptions } from './StorageOptions';
 
 export const CreateStorage = () => {
@@ -26,37 +33,55 @@ export const CreateStorage = () => {
               const storageType = plugin.storageTypes.get(info.key);
               setVisible(true);
               setSchema({
-                type: 'object',
                 properties: {
                   [uid()]: {
                     type: 'void',
-                    'x-component': 'Action.Drawer',
-                    'x-decorator': 'Form',
-                    'x-decorator-props': {
-                      initialValue: {
-                        type: storageType.name,
-                      },
-                    },
                     title: compile("{{t('Add new')}}") + ' - ' + compile(storageType.title),
+                    'x-component': 'Action.Drawer',
                     properties: {
-                      ..._.cloneDeep(storageType.properties),
-                      footer: {
+                      body: {
                         type: 'void',
-                        'x-component': 'Action.Drawer.Footer',
+                        'x-decorator': 'FormBlockProvider',
+                        'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
+                        'x-decorator-props': {
+                          dataSource: 'main',
+                          collection: collectionFileManager,
+                        },
                         properties: {
-                          cancel: {
-                            title: '{{t("Cancel")}}',
-                            'x-component': 'Action',
-                            'x-component-props': {
-                              useAction: '{{ cm.useCancelAction }}',
-                            },
-                          },
-                          submit: {
-                            title: '{{t("Submit")}}',
-                            'x-component': 'Action',
-                            'x-component-props': {
-                              type: 'primary',
-                              useAction: '{{ cm.useCreateAction }}',
+                          form: {
+                            type: 'void',
+                            'x-component': 'FormV2',
+                            'x-use-component-props': 'useCreateFormBlockProps',
+                            properties: {
+                              actionBar: {
+                                type: 'void',
+                                'x-component': 'ActionBar',
+                                'x-component-props': {
+                                  style: {
+                                    marginBottom: 24,
+                                  },
+                                },
+                                properties: {
+                                  cancel: {
+                                    title: '{{ t("Cancel") }}',
+                                    'x-component': 'Action',
+                                    'x-use-component-props': 'useCancelActionProps',
+                                  },
+                                  submit: {
+                                    title: '{{ t("Submit") }}',
+                                    'x-component': 'Action',
+                                    'x-use-component-props': 'useCreateActionProps',
+                                    'x-component-props': {
+                                      type: 'primary',
+                                      htmlType: 'submit',
+                                    },
+                                    'x-action-settings': {
+                                      assignedValues: { type: storageType.name },
+                                    },
+                                  },
+                                },
+                              },
+                              ...storageType.properties,
                             },
                           },
                         },
@@ -85,7 +110,7 @@ export const CreateStorage = () => {
 };
 
 export const EditStorage = () => {
-  const record = useRecord();
+  const record = useCollectionRecordData();
   const [schema, setSchema] = useState({});
   const plugin = usePlugin(FileManagerPlugin);
   const compile = useCompile();
@@ -108,37 +133,52 @@ export const EditStorage = () => {
               };
             }
             setSchema({
-              type: 'object',
               properties: {
                 [uid()]: {
                   type: 'void',
-                  'x-component': 'Action.Drawer',
-                  'x-decorator': 'Form',
-                  'x-decorator-props': {
-                    initialValue: {
-                      ...record,
-                    },
-                  },
                   title: compile("{{t('Edit')}}") + ' - ' + compile(storageType.title),
+                  'x-component': 'Action.Drawer',
                   properties: {
-                    ..._.cloneDeep(storageType.properties),
-                    footer: {
+                    card: {
                       type: 'void',
-                      'x-component': 'Action.Drawer.Footer',
+                      'x-decorator': 'FormBlockProvider',
+                      'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
+                      'x-decorator-props': {
+                        action: 'get',
+                        dataSource: 'main',
+                        collection: collectionFileManager,
+                      },
                       properties: {
-                        cancel: {
-                          title: '{{t("Cancel")}}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            useAction: '{{ cm.useCancelAction }}',
-                          },
-                        },
-                        submit: {
-                          title: '{{t("Submit")}}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            type: 'primary',
-                            useAction: '{{ cm.useUpdateAction }}',
+                        form: {
+                          type: 'void',
+                          'x-component': 'FormV2',
+                          'x-use-component-props': 'useEditFormBlockProps',
+                          properties: {
+                            actionBar: {
+                              type: 'void',
+                              'x-component': 'ActionBar',
+                              'x-component-props': {
+                                style: {
+                                  marginBottom: 24,
+                                },
+                              },
+                              properties: {
+                                cancel: {
+                                  title: '{{ t("Cancel") }}',
+                                  'x-component': 'Action',
+                                  'x-use-component-props': 'useCancelActionProps',
+                                },
+                                submit: {
+                                  title: '{{ t("Submit") }}',
+                                  'x-component': 'Action',
+                                  'x-use-component-props': 'useUpdateActionProps',
+                                  'x-component-props': {
+                                    type: 'primary',
+                                  },
+                                },
+                              },
+                            },
+                            ...storageType.properties,
                           },
                         },
                       },
@@ -176,12 +216,10 @@ export const FileStoragePane = () => {
     </div>
   );
   return (
-    <Card bordered={false}>
-      <SchemaComponent
-        components={{ StorageOptions, CreateStorage, EditStorage }}
-        scope={{ useNewId: (prefix) => `${prefix}${uid()}`, storageTypes, xStyleProcessDesc }}
-        schema={storageSchema}
-      />
-    </Card>
+    <SchemaComponent
+      components={{ StorageOptions, CreateStorage, EditStorage }}
+      scope={{ useNewId: (prefix) => `${prefix}${uid()}`, storageTypes, xStyleProcessDesc }}
+      schema={storageSchema}
+    />
   );
 };
