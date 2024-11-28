@@ -8,6 +8,7 @@ import { ColumnNode } from '../../common/notice-columns/column.node';
 import { ColumnStatus } from '../../common/notice-columns/column.status';
 import { ColumnUser } from '../../common/notice-columns/column.user';
 import { ColumnWorkflow } from '../../common/notice-columns/column.workflow';
+import { FuzzySearch } from '../common/FuzzySearch.component';
 
 const schemaStyles = {
   ActionbarStyle: css`
@@ -22,7 +23,9 @@ const schemaStyles = {
 
 export const CarbonCopyCenter = () => (
   <SchemaComponent
+    schema={schema}
     components={{
+      FuzzySearch,
       ColumnNode,
       ColumnWorkflow,
       ColumnUser,
@@ -30,7 +33,6 @@ export const CarbonCopyCenter = () => (
       ColumnAction,
       ColumnApprovalStatus,
     }}
-    schema={schema}
   />
 );
 
@@ -59,7 +61,7 @@ const schema = {
         },
         filterSummary: {
           type: 'void',
-          'x-component': 'FilterSummary',
+          'x-component': 'FuzzySearch',
           'x-align': 'left',
         },
         refresher: {

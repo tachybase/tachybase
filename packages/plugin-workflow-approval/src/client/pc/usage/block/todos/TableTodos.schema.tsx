@@ -23,7 +23,7 @@ export const schemaTableTodos = {
         },
         filterSummary: {
           type: 'void',
-          'x-component': 'FilterSummary',
+          'x-component': 'FuzzySearch',
           'x-align': 'left',
         },
         refresher: {
