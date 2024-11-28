@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { css } from '@tachybase/client';
+import { CodeEditor } from '@tachybase/components';
+import { connect } from '@tachybase/schema';
 
 import * as Babel from '@babel/standalone';
 import { useDebounceFn, useKeyPress } from 'ahooks';
@@ -7,13 +10,7 @@ import parserJavaScript from 'prettier/plugins/babel';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
 import * as prettier from 'prettier/standalone';
 
-import ComPreview from './ComPreview';
-
-import './index.less';
-
-import { css } from '@tachybase/client';
-import { CodeEditor } from '@tachybase/components';
-import { connect } from '@tachybase/schema';
+import ComPreview from './Preview';
 
 /**
  * 组件代码编辑
@@ -83,7 +80,7 @@ export default connect(({ value: code, onChange: setCode }) => {
   return (
     <div
       className={css`
-        height: 800px;
+        height: 480px;
       `}
     >
       <Splitter>

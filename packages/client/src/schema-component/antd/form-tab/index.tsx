@@ -1,13 +1,22 @@
 import React, { Fragment, useMemo } from 'react';
+import {
+  markRaw,
+  model,
+  observer,
+  ReactFC,
+  RecursionField,
+  Schema,
+  SchemaKey,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
 
-import { Schema, SchemaKey } from '@formily/json-schema';
-import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
-import { markRaw, model } from '@formily/reactive';
 import { Badge, Tabs } from 'antd';
 import { TabPaneProps, TabsProps } from 'antd/lib/tabs';
 import cls from 'classnames';
 
 import { usePrefixCls } from '../__builtins__';
+import { useCompile } from '../../hooks';
 
 export interface IFormTab {
   activeKey?: string;
@@ -81,6 +90,7 @@ const useTabExtraContent = () => {
 
 const FeedbackBadge: ReactFC<IFeedbackBadgeProps> = observer((props) => {
   const field = useField();
+  const compile = useCompile();
   const errors = field.form.queryFeedbacks({
     type: 'error',
     address: `${field.address.concat(props.name)}.*`,
@@ -88,11 +98,11 @@ const FeedbackBadge: ReactFC<IFeedbackBadgeProps> = observer((props) => {
   if (errors.length) {
     return (
       <Badge size="small" className="errors-badge" count={errors.length}>
-        {props.tab}
+        {compile(props.tab)}
       </Badge>
     );
   }
-  return <>{props.tab}</>;
+  return <>{compile(props.tab)}</>;
 });
 
 const createFormTab = (defaultActiveKey?: string) => {

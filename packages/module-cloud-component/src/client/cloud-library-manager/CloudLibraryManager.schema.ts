@@ -87,7 +87,7 @@ const create = {
                       type: 'void',
                       'x-component': 'FormTab.TabPane',
                       'x-component-props': {
-                        tab: 'code',
+                        tab: tval('Develop'),
                       },
                       properties: {
                         code: fieldsets.code,
@@ -97,7 +97,7 @@ const create = {
                       type: 'void',
                       'x-component': 'FormTab.TabPane',
                       'x-component-props': {
-                        tab: 'data',
+                        tab: tval('Data'),
                       },
                       properties: {
                         data: fieldsets.data,
@@ -107,7 +107,7 @@ const create = {
                       type: 'void',
                       'x-component': 'FormTab.TabPane',
                       'x-component-props': {
-                        tab: 'description',
+                        tab: tval('Document'),
                       },
                       properties: {
                         description: fieldsets.description,
@@ -203,7 +203,7 @@ const edit = {
                       type: 'void',
                       'x-component': 'FormTab.TabPane',
                       'x-component-props': {
-                        tab: 'code',
+                        tab: tval('Develop'),
                       },
                       properties: {
                         code: fieldsets.code,
@@ -213,7 +213,7 @@ const edit = {
                       type: 'void',
                       'x-component': 'FormTab.TabPane',
                       'x-component-props': {
-                        tab: 'data',
+                        tab: tval('Data'),
                       },
                       properties: {
                         data: fieldsets.data,
@@ -223,7 +223,7 @@ const edit = {
                       type: 'void',
                       'x-component': 'FormTab.TabPane',
                       'x-component-props': {
-                        tab: 'description',
+                        tab: tval('Document'),
                       },
                       properties: {
                         description: fieldsets.description,
@@ -327,6 +327,9 @@ export const table = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
+          'x-component-props': {
+            width: 20,
+          },
           properties: {
             enabled: {
               'x-collection-field': 'cloudLibraries.enabled',
@@ -348,6 +351,9 @@ export const table = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
+          'x-component-props': {
+            width: 20,
+          },
           properties: {
             isClient: {
               'x-collection-field': 'cloudLibraries.isClient',
@@ -369,6 +375,9 @@ export const table = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
+          'x-component-props': {
+            width: 20,
+          },
           properties: {
             isServer: {
               'x-collection-field': 'cloudLibraries.isServer',

@@ -1,7 +1,7 @@
 import { CollectionOptions } from '@tachybase/client';
 
-import MDEditor from '../component-editor/components/MDEditor';
-import ReactEditor from '../component-editor/components/ReactEditor';
+import ReactEditor from '../components/ComponentEditor';
+import MDEditor from '../components/MarkdownEditor';
 
 export const collection: CollectionOptions = {
   name: 'cloudLibraries',
@@ -266,6 +266,20 @@ export const collection: CollectionOptions = {
         type: 'string',
         'x-component': 'Input',
         title: '客户端插件',
+      },
+    },
+    {
+      name: 'component',
+      type: 'string',
+      interface: 'input',
+      description: null,
+      collectionName: 'cloudLibraries',
+      parentKey: null,
+      reverseKey: null,
+      uiSchema: {
+        type: 'string',
+        'x-component': 'Input',
+        title: '客户端组件',
       },
     },
   ],

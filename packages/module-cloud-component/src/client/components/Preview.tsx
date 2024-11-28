@@ -4,7 +4,7 @@ import { css, useApp } from '@tachybase/client';
 import { Button } from 'antd';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { useTranslation } from '../../locale';
+import { useTranslation } from '../locale';
 
 export const createId = (name: string, len: number = 10) => {
   return (

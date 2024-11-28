@@ -1,10 +1,16 @@
 import { createContext, Script } from 'node:vm';
-import { Plugin } from '@tachybase/server';
+import { InjectedPlugin, Plugin } from '@tachybase/server';
+import { uid } from '@tachybase/utils';
 
 import { transform } from '@babel/core';
 import _ from 'lodash';
 
-export class PluginCloudComponentServer extends Plugin {
+import { CloudLibrariesController } from './actions/CloudLibrariesController';
+
+@InjectedPlugin({
+  Controllers: [CloudLibrariesController],
+})
+export class ModuleCloudComponentServer extends Plugin {
   async afterAdd() {}
 
   async beforeLoad() {}
@@ -24,7 +30,7 @@ export class PluginCloudComponentServer extends Plugin {
         const code = cloudLibrary.code;
         const compiledCode = transform(code, {
           sourceType: 'module',
-          filename: 'a.tsx',
+          filename: `cloud-component-${uid()}.tsx`,
           presets: [
             [
               '@babel/preset-env',
@@ -83,4 +89,4 @@ export class PluginCloudComponentServer extends Plugin {
   async remove() {}
 }
 
-export default PluginCloudComponentServer;
+export default ModuleCloudComponentServer;
