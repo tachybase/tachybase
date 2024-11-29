@@ -108,7 +108,6 @@ function getFuzzyFilter(queryValue, isInitiationTable) {
           $containsJsonbValue: queryValue,
         },
       },
-
       // 字符串类型的查询
       {
         createdBy: {
@@ -117,18 +116,28 @@ function getFuzzyFilter(queryValue, isInitiationTable) {
           },
         },
       },
-      {
-        user: {
-          nickname: {
-            $includes: queryValue,
-          },
-        },
-      },
+      ,
     ],
   );
 
+  // 发起审批没有 user 字段, 只有审批抄送和审批待办有此字段
+  if (!isInitiationTable) {
+    searchArr.push(
+      ...[
+        {
+          user: {
+            nickname: {
+              $includes: queryValue,
+            },
+          },
+        },
+      ],
+    );
+  }
+
   // 数值类型的查询
   if (queryValue && Number.isFinite(Number(queryValue))) {
+    // 所有对用户的界面显示的统一编号, 为发起审批的编号, 所以查询时候要区分
     searchArr.push(
       ...[
         {
