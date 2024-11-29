@@ -1,14 +1,11 @@
 import { Plugin } from '@tachybase/client';
 
 import { CloudLibraryManager } from './cloud-library-manager/CloudLibraryManager';
+import { ProviderCloudComponent } from './CloudComponent.provider';
 
 export class ModuleCloudComponentClient extends Plugin {
   async afterAdd() {
-    try {
-      await this.initLibraries();
-    } catch {
-      // ignore
-    }
+    await this.initLibraries();
   }
 
   async load() {
@@ -18,11 +15,12 @@ export class ModuleCloudComponentClient extends Plugin {
       Component: CloudLibraryManager,
       sort: 201,
     });
+    this.app.use(ProviderCloudComponent);
   }
 
   async initLibraries() {
     const { data } = await this.app.apiClient.request({
-      resource: 'cloudLibraries',
+      resource: 'effectLibraries',
       action: 'list',
       params: {
         paginate: false,
@@ -34,7 +32,7 @@ export class ModuleCloudComponentClient extends Plugin {
     });
     const libraries = data?.data || [];
     for (const library of libraries) {
-      const blob = new Blob([library.compiledCode], { type: 'application/javascript' });
+      const blob = new Blob([library.client], { type: 'application/javascript' });
       const url = URL.createObjectURL(blob);
       this.app.requirejs.require.config({
         paths: {

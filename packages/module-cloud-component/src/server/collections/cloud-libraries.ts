@@ -21,10 +21,6 @@ export default defineCollection({
       allowNull: false,
     },
     {
-      name: 'compiledCode',
-      type: 'text',
-    },
-    {
       name: 'data',
       type: 'json',
       jsonb: false,
@@ -52,6 +48,7 @@ export default defineCollection({
       name: 'module',
       type: 'string',
       allowNull: false,
+      unique: true,
     },
     {
       name: 'serverPlugin',
