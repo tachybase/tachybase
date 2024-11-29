@@ -13,7 +13,7 @@ import { message } from 'antd';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 
-import { NAMESPACE } from '../locale';
+import { NAMESPACE, tval } from '../locale';
 import { executionSchema } from './executions';
 
 export const collectionWorkflows = {
@@ -28,6 +28,16 @@ export const collectionWorkflows = {
         type: 'string',
         'x-component': 'Input',
         required: true,
+      } as ISchema,
+    },
+    {
+      type: 'string',
+      name: 'key',
+      interface: 'input',
+      uiSchema: {
+        title: `{{t("key")}}`,
+        type: 'string',
+        'x-component': 'Input',
       } as ISchema,
     },
     {
@@ -71,6 +81,7 @@ export const collectionWorkflows = {
         default: false,
       } as ISchema,
     },
+
     {
       type: 'number',
       name: 'allExecuted',
@@ -454,7 +465,6 @@ export const workflowSchema: ISchema = {
             },
           },
           sort: ['-initAt'],
-          except: ['config'],
         },
         rowKey: 'id',
       },
@@ -602,15 +612,41 @@ export const workflowSchema: ISchema = {
             title: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
-              'x-decorator-props': {
-                tooltip: '{{t("The port number of the TachyBase service if it is not 80 or 443")}}',
-              },
               'x-component': 'TableV2.Column',
+              title: '{{t("Name")}}',
               properties: {
                 title: {
                   type: 'string',
+                  'x-component': 'ColumnShowTitle',
+                },
+              },
+            },
+            key: {
+              type: 'void',
+              title: '{{t("Key")}}',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+                align: 'center',
+              },
+              properties: {
+                key: {
+                  type: 'string',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
+                },
+              },
+            },
+            showCollection: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              title: tval('Collection'),
+              properties: {
+                showCollection: {
+                  type: 'string',
+                  'x-component': 'ColumnShowCollection',
                 },
               },
             },
