@@ -1,6 +1,24 @@
 import { tval } from '../locale';
 import { fieldsets } from './CloudLibraryManager.fields';
 
+const importComponent = {
+  type: 'void',
+  'x-action': 'import',
+  'x-acl-action': 'import',
+  title: "{{t('Import')}}",
+  'x-component': 'Action',
+  'x-decorator': 'ACLActionProvider',
+  'x-component-props': {
+    type: 'primary',
+    icon: 'importoutlined',
+    disabled: true,
+  },
+  'x-align': 'right',
+  'x-acl-action-props': {
+    skipScopeCheck: true,
+  },
+};
+
 const create = {
   type: 'void',
   'x-action': 'create',
@@ -170,16 +188,49 @@ const edit = {
                       type: 'void',
                       'x-component': 'FormTab.TabExtraContent',
                       properties: {
-                        submit: {
-                          title: '{{ t("Submit") }}',
-                          'x-action': 'submit',
-                          'x-component': 'Action',
-                          'x-use-component-props': 'useUpdateActionProps',
-                          'x-component-props': {
-                            type: 'primary',
-                            htmlType: 'submit',
-                          },
+                        actions: {
                           type: 'void',
+                          'x-component': 'Space',
+                          properties: {
+                            save: {
+                              // TODO 修改成创建或者保存
+                              title: tval('Save'),
+                              'x-action': 'submit',
+                              'x-component': 'Action',
+                              'x-use-component-props': 'useUpdateActionProps',
+                              'x-component-props': {
+                                type: 'primary',
+                                htmlType: 'submit',
+                              },
+                              type: 'void',
+                            },
+                            history: {
+                              // TODO 查看版本，可以选择特定版本并且覆盖当前信息，不自动发版
+                              title: tval('History'),
+                              'x-action': 'submit',
+                              'x-component': 'Action',
+                              'x-use-component-props': 'useUpdateActionProps',
+                              'x-component-props': {
+                                type: 'primary',
+                                htmlType: 'submit',
+                                disabled: true,
+                              },
+                              type: 'void',
+                            },
+                            publish: {
+                              // TODO 需要弹窗说明版本信息，不支持版本号
+                              title: tval('Publish'),
+                              'x-action': 'submit',
+                              'x-component': 'Action',
+                              'x-use-component-props': 'useUpdateActionProps',
+                              'x-component-props': {
+                                disabled: true,
+                                type: 'primary',
+                                htmlType: 'submit',
+                              },
+                              type: 'void',
+                            },
+                          },
                         },
                       },
                     },
@@ -268,6 +319,7 @@ export const table = {
       },
       properties: {
         create,
+        import: importComponent,
       },
     },
     table: {
@@ -421,6 +473,17 @@ export const table = {
                       title: 'Delete',
                       content: 'Are you sure you want to delete it?',
                     },
+                  },
+                  'x-decorator': 'ACLActionProvider',
+                  'x-use-component-props': 'useDestroyActionProps',
+                },
+                export: {
+                  type: 'void',
+                  title: 'Export',
+                  'x-action': 'destroy',
+                  'x-component': 'Action.Link',
+                  'x-component-props': {
+                    disabled: true,
                   },
                   'x-decorator': 'ACLActionProvider',
                   'x-use-component-props': 'useDestroyActionProps',

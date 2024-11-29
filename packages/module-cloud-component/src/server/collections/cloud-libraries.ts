@@ -62,5 +62,15 @@ export default defineCollection({
       name: 'component',
       type: 'string',
     },
+    {
+      name: 'version',
+      type: 'string',
+      defaultValue: 'debug',
+    },
+    {
+      name: 'versions',
+      type: 'jsonb',
+      defaultValue: '[]',
+    },
   ],
 });

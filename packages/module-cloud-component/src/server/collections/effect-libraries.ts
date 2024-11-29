@@ -41,5 +41,9 @@ export default defineCollection({
       name: 'clientPlugin',
       type: 'string',
     },
+    {
+      name: 'version',
+      type: 'string',
+    },
   ],
 });
