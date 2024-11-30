@@ -16,6 +16,7 @@ import * as dndKitModifiers from '@dnd-kit/modifiers';
 import * as dndKitSortable from '@dnd-kit/sortable';
 import * as dndKitUtilities from '@dnd-kit/utilities';
 import * as emotionCss from '@emotion/css';
+import * as floatingUI from '@floating-ui/react';
 import * as ahooks from 'ahooks';
 import * as antd from 'antd';
 import * as antdStyle from 'antd-style';
@@ -75,4 +76,5 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('lodash', () => lodash);
   requirejs.define('ahooks', () => ahooks);
   requirejs.define('@emotion/css', () => emotionCss);
+  requirejs.define('@floating-ui/react', () => floatingUI);
 }

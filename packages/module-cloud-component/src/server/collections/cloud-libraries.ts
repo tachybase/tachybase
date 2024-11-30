@@ -19,6 +19,7 @@ export default defineCollection({
       name: 'code',
       type: 'text',
       allowNull: false,
+      defaultValue: '',
     },
     {
       name: 'data',

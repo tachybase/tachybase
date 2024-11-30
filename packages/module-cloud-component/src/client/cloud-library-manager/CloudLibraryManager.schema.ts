@@ -27,7 +27,7 @@ const create = {
   'x-component': 'Action',
   'x-decorator': 'ACLActionProvider',
   'x-component-props': {
-    openMode: 'sheet',
+    openMode: 'drawer',
     type: 'primary',
     component: 'CreateRecordAction',
     icon: 'PlusOutlined',
@@ -94,41 +94,6 @@ const create = {
                       properties: {
                         module: fieldsets.module,
                         name: fieldsets.name,
-                        enabled: fieldsets.enabled,
-                        isClient: fieldsets.isClient,
-                        isServer: fieldsets.isServer,
-                        clientPlugin: fieldsets.clientPlugin,
-                        serverPlugin: fieldsets.serverPlugin,
-                      },
-                    },
-                    code: {
-                      type: 'void',
-                      'x-component': 'FormTab.TabPane',
-                      'x-component-props': {
-                        tab: tval('Develop'),
-                      },
-                      properties: {
-                        code: fieldsets.code,
-                      },
-                    },
-                    data: {
-                      type: 'void',
-                      'x-component': 'FormTab.TabPane',
-                      'x-component-props': {
-                        tab: tval('Data'),
-                      },
-                      properties: {
-                        data: fieldsets.data,
-                      },
-                    },
-                    description: {
-                      type: 'void',
-                      'x-component': 'FormTab.TabPane',
-                      'x-component-props': {
-                        tab: tval('Document'),
-                      },
-                      properties: {
-                        description: fieldsets.description,
                       },
                     },
                   },
