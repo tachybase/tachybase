@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import { InstallOptions, Plugin } from '@tachybase/server';
 
-import { FormulaField } from './formula-field';
+import { FormulaField } from './field-formula';
 
 export class FormulaFieldPlugin extends Plugin {
   afterAdd() {}

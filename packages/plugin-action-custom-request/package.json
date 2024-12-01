@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-custom-request",
+  "name": "@tachybase/plugin-action-custom-request",
   "displayName": "Action: Custom request",
   "version": "0.22.52",
   "description": "Sending a request to any HTTP service supports sending context data to the target service.",

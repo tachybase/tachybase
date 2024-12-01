@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-comments",
+  "name": "@tachybase/plugin-block-comments",
   "version": "0.22.52",
   "main": "dist/server/index.js",
   "scripts": {

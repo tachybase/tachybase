@@ -1,8 +1,8 @@
 {
-  "name": "@tachybase/plugin-iframe-block",
-  "displayName": "Block: iframe",
+  "name": "@tachybase/plugin-block-presentation",
+  "displayName": "Block: Presentation",
   "version": "0.22.52",
-  "description": "Create an iframe block on the page to embed and display external web pages or content.",
+  "description": "Create an card on the page to embed and display external web pages or content.",
   "keywords": [
     "Blocks"
   ],
@@ -26,6 +26,6 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   },
-  "description.zh-CN": "在页面上创建和管理iframe，用于嵌入和展示外部网页或内容。",
-  "displayName.zh-CN": "卡片：iframe"
+  "description.zh-CN": "在页面上创建和管理，用于嵌入和展示外部网页或内容。",
+  "displayName.zh-CN": "卡片：presentation"
 }

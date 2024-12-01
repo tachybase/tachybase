@@ -1,6 +1,6 @@
 import { Database, mockDatabase } from '@tachybase/database';
 
-import { FormulaField } from '../formula-field';
+import { FormulaField } from '../field-formula';
 
 describe('formula field', () => {
   let db: Database;

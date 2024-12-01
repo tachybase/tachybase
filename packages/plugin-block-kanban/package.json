@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-kanban",
+  "name": "@tachybase/plugin-block-kanban",
   "displayName": "Block: Kanban",
   "version": "0.22.52",
   "description": "Provides kanban block.",

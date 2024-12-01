@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { Model } from '@tachybase/database';
 import { InstallOptions, Plugin } from '@tachybase/server';
 
-import { SnapshotField } from './fields/snapshot-field';
+import { SnapshotField } from './fields/field-snapshot';
 
 export class SnapshotFieldPlugin extends Plugin {
   afterAdd() {}

@@ -3981,12 +3981,12 @@ importers:
       '@tachybase/module-pdf':
         specifier: workspace:*
         version: link:../module-pdf
+      '@tachybase/plugin-block-charts':
+        specifier: workspace:*
+        version: link:../plugin-block-charts
       '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../module-collection-manager
-      '@tachybase/plugin-data-visualization':
-        specifier: workspace:*
-        version: link:../plugin-block-charts
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -4443,9 +4443,18 @@ importers:
       '@tachybase/plugin-action-bulk-update':
         specifier: workspace:*
         version: link:../plugin-action-bulk-update
+      '@tachybase/plugin-action-custom-request':
+        specifier: workspace:*
+        version: link:../plugin-action-custom-request
       '@tachybase/plugin-action-duplicate':
         specifier: workspace:*
         version: link:../plugin-action-duplicate
+      '@tachybase/plugin-action-export':
+        specifier: workspace:*
+        version: link:../plugin-action-export
+      '@tachybase/plugin-action-import':
+        specifier: workspace:*
+        version: link:../plugin-action-import
       '@tachybase/plugin-action-print':
         specifier: workspace:*
         version: link:../plugin-action-print
@@ -4500,72 +4509,69 @@ importers:
       '@tachybase/plugin-backup-restore':
         specifier: workspace:*
         version: link:../module-backup
-      '@tachybase/plugin-calendar':
+      '@tachybase/plugin-block-calendar':
         specifier: workspace:*
         version: link:../plugin-block-calendar
-      '@tachybase/plugin-china-region':
+      '@tachybase/plugin-block-charts':
         specifier: workspace:*
-        version: link:../plugin-field-china-region
+        version: link:../plugin-block-charts
+      '@tachybase/plugin-block-comments':
+        specifier: workspace:*
+        version: link:../plugin-block-comments
+      '@tachybase/plugin-block-gantt':
+        specifier: workspace:*
+        version: link:../plugin-block-gantt
+      '@tachybase/plugin-block-kanban':
+        specifier: workspace:*
+        version: link:../plugin-block-kanban
+      '@tachybase/plugin-block-map':
+        specifier: workspace:*
+        version: link:../plugin-block-map
+      '@tachybase/plugin-block-presentation':
+        specifier: workspace:*
+        version: link:../plugin-block-presentation
       '@tachybase/plugin-client':
         specifier: workspace:*
         version: link:../module-client
       '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../module-collection-manager
-      '@tachybase/plugin-comments':
-        specifier: workspace:*
-        version: link:../plugin-block-comments
-      '@tachybase/plugin-custom-request':
-        specifier: workspace:*
-        version: link:../plugin-action-custom-request
       '@tachybase/plugin-data-source-external':
         specifier: workspace:*
         version: link:../module-data-source-external
       '@tachybase/plugin-data-source-manager':
         specifier: workspace:*
         version: link:../module-data-source-manager
-      '@tachybase/plugin-data-visualization':
-        specifier: workspace:*
-        version: link:../plugin-block-charts
       '@tachybase/plugin-demos-game-runesweeper':
         specifier: workspace:*
         version: link:../plugin-prototype-game-runesweeper
       '@tachybase/plugin-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
-      '@tachybase/plugin-export':
+      '@tachybase/plugin-field-china-region':
         specifier: workspace:*
-        version: link:../plugin-action-export
+        version: link:../plugin-field-china-region
+      '@tachybase/plugin-field-formula':
+        specifier: workspace:*
+        version: link:../plugin-field-formula
       '@tachybase/plugin-field-markdown-vditor':
         specifier: workspace:*
         version: link:../plugin-field-markdown-vditor
+      '@tachybase/plugin-field-sequence':
+        specifier: workspace:*
+        version: link:../plugin-field-sequence
+      '@tachybase/plugin-field-snapshot':
+        specifier: workspace:*
+        version: link:../plugin-field-snapshot
       '@tachybase/plugin-file-manager':
         specifier: workspace:*
         version: link:../plugin-field-file-manager
-      '@tachybase/plugin-formula-field':
-        specifier: workspace:*
-        version: link:../plugin-field-formula
-      '@tachybase/plugin-gantt':
-        specifier: workspace:*
-        version: link:../plugin-block-gantt
-      '@tachybase/plugin-iframe-block':
-        specifier: workspace:*
-        version: link:../plugin-block-presentation
-      '@tachybase/plugin-import':
-        specifier: workspace:*
-        version: link:../plugin-action-import
-      '@tachybase/plugin-kanban':
-        specifier: workspace:*
-        version: link:../plugin-block-kanban
       '@tachybase/plugin-localization-management':
         specifier: workspace:*
         version: link:../module-localization-management
       '@tachybase/plugin-logger':
         specifier: workspace:*
         version: link:../module-logger
-      '@tachybase/plugin-map':
-        specifier: workspace:*
-        version: link:../plugin-block-map
       '@tachybase/plugin-messages':
         specifier: workspace:*
         version: link:../module-messages
@@ -4587,15 +4593,9 @@ importers:
       '@tachybase/plugin-pdf-editor':
         specifier: workspace:*
         version: link:../module-prototype-pdf-editor
-      '@tachybase/plugin-sequence-field':
-        specifier: workspace:*
-        version: link:../plugin-field-sequence
       '@tachybase/plugin-simple-cms':
         specifier: workspace:*
         version: link:../plugin-prototype-simple-cms
-      '@tachybase/plugin-snapshot-field':
-        specifier: workspace:*
-        version: link:../plugin-field-snapshot
       '@tachybase/plugin-system-settings':
         specifier: workspace:*
         version: link:../module-system-settings

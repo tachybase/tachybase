@@ -1,6 +1,6 @@
 {
-  "name": "@tachybase/plugin-share",
-  "displayName": "Share Externally",
+  "name": "@tachybase/plugin-action-share",
+  "displayName": "Action: Share Externally",
   "version": "0.22.52",
   "description": "Share pages with external users.",
   "keywords": [
@@ -22,5 +22,5 @@
     "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "与外部用户分享页面。",
-  "displayName.zh-CN": "对外分享"
+  "displayName.zh-CN": "动作：对外分享"
 }
