@@ -19,6 +19,7 @@ export default defineCollection({
       name: 'code',
       type: 'text',
       allowNull: false,
+      defaultValue: '',
     },
     {
       name: 'data',
@@ -61,6 +62,16 @@ export default defineCollection({
     {
       name: 'component',
       type: 'string',
+    },
+    {
+      name: 'version',
+      type: 'string',
+      defaultValue: 'debug',
+    },
+    {
+      name: 'versions',
+      type: 'jsonb',
+      defaultValue: '[]',
     },
   ],
 });

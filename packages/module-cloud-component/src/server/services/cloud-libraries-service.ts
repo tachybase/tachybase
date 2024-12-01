@@ -29,7 +29,24 @@ export class CloudLibrariesService {
 
     const repo = this.db.getRepository('effectLibraries');
     for (const lib of libs) {
-      const { code, module, isClient, isServer, serverPlugin, clientPlugin, enabled } = lib;
+      const {
+        code: debugCode,
+        module,
+        isClient,
+        isServer,
+        serverPlugin,
+        clientPlugin,
+        enabled,
+        version,
+        versions,
+      } = lib;
+
+      // load specified version
+      let code = debugCode;
+      if (version && version !== 'debug') {
+        code = versions[Number[version]].code;
+      }
+
       const clientCode = this.compiler.toAmd(code);
       const serverCode = this.compiler.toCjs(code);
       // FIXME 这里可能不适合取客户端的数据

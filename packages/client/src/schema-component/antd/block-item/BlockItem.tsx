@@ -8,6 +8,7 @@ import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSche
 import { SortableItem } from '../../common';
 import { useDesigner, useProps } from '../../hooks';
 import { useGetAriaLabelOfBlockItem } from './hooks/useGetAriaLabelOfBlockItem';
+import { useBlockToolbar } from './useBlockToolbar';
 
 const useStyles = createStyles(({ css }) => {
   return css`
@@ -61,14 +62,22 @@ export const BlockItem = withDynamicSchemaProps((props: unknown & { name: string
   const { className, children } = useProps(props);
   const { styles } = useStyles();
 
+  const { ref, toolbar } = useBlockToolbar();
+
   const Designer = useDesigner();
   const fieldSchema = useFieldSchema();
   const { getAriaLabel } = useGetAriaLabelOfBlockItem(props.name);
 
   return (
-    <SortableItem role="button" aria-label={getAriaLabel()} className={cx('tb-block-item', className, styles)}>
+    <SortableItem
+      ref={ref}
+      role="button"
+      aria-label={getAriaLabel()}
+      className={cx('tb-block-item', className, styles)}
+    >
       <Designer {...fieldSchema['x-toolbar-props']} />
       {children}
+      {toolbar}
     </SortableItem>
   );
 });

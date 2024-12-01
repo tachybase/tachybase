@@ -1,8 +1,9 @@
-import React, { createContext, HTMLAttributes, useContext, useMemo } from 'react';
+import React, { createContext, forwardRef, HTMLAttributes, useContext, useMemo } from 'react';
 import { observer, Schema, useField, useFieldSchema } from '@tachybase/schema';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
+import { useMergeRefs } from '@floating-ui/react';
 import cx from 'classnames';
 
 import { useToken } from '../../antd/__builtins__';
@@ -25,11 +26,12 @@ export const SortableProvider = (props) => {
   return <SortableContext.Provider value={{ draggable, droppable }}>{children}</SortableContext.Provider>;
 };
 
-export const Sortable = (props: any) => {
+export const Sortable = forwardRef((props: any, ref) => {
   const { component, overStyle, style, children, openMode, ...others } = props;
   const { token } = useToken();
   const { draggable, droppable } = useContext(SortableContext);
   const { isOver, setNodeRef } = droppable;
+  const mergedRef = useMergeRefs([setNodeRef, ref]);
   const droppableStyle = { ...style };
 
   if (isOver && draggable?.active?.id !== droppable?.over?.id) {
@@ -45,12 +47,12 @@ export const Sortable = (props: any) => {
       role: 'none',
       ...others,
       className: cx('tb-sortable-designer', props.className),
-      ref: setNodeRef,
+      ref: mergedRef,
       style: droppableStyle,
     },
     children,
   );
-};
+});
 
 const useSortableItemProps = (props) => {
   const id = useSortableItemId(props);
@@ -73,10 +75,11 @@ interface SortableItemProps extends HTMLAttributes<HTMLDivElement> {
   eid?: string;
   schema?: Schema;
   removeParentsIfNoChildren?: boolean;
+  ref?: React.Ref<any>;
 }
 
-export const SortableItem: React.FC<SortableItemProps> = observer(
-  (props) => {
+export const SortableItem = observer(
+  (props: SortableItemProps) => {
     const { schema, id, eid, removeParentsIfNoChildren, ...others } = useSortableItemProps(props);
 
     const data = useMemo(() => {
@@ -89,13 +92,13 @@ export const SortableItem: React.FC<SortableItemProps> = observer(
 
     return (
       <SortableProvider id={id} data={data}>
-        <Sortable id={eid} {...others}>
+        <Sortable id={eid} {...others} ref={props.ref}>
           {props.children}
         </Sortable>
       </SortableProvider>
     );
   },
-  { displayName: 'SortableItem' },
+  { displayName: 'SortableItem', forwardRef: true },
 );
 
 export const DragHandler = (props) => {
