@@ -1,27 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFieldSchema } from '@tachybase/schema';
 
-import {
-  autoUpdate,
-  flip,
-  offset,
-  safePolygon,
-  shift,
-  useClick,
-  useDismiss,
-  useFloating,
-  useHover,
-  useInteractions,
-  useMergeRefs,
-} from '@floating-ui/react';
 import { createStyles } from 'antd-style';
 import cx from 'classnames';
 
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
 import { SortableItem } from '../../common';
 import { useDesigner, useProps } from '../../hooks';
-import BlockToolbar from './BlockToolbar';
 import { useGetAriaLabelOfBlockItem } from './hooks/useGetAriaLabelOfBlockItem';
+import { useBlockToolbar } from './useBlockToolbar';
 
 const useStyles = createStyles(({ css }) => {
   return css`
@@ -75,41 +62,7 @@ export const BlockItem = withDynamicSchemaProps((props: unknown & { name: string
   const { className, children } = useProps(props);
   const { styles } = useStyles();
 
-  // floating ui
-  const [tooltipOpen, setTooltipOpen] = useState(false);
-
-  const {
-    refs: tooltipRefs,
-    floatingStyles: tooltipFloatingStyles,
-    context: tooltipContext,
-  } = useFloating({
-    placement: 'top',
-    middleware: [
-      offset(10), // TODO: constant value
-      shift({
-        crossAxis: true,
-      }),
-    ],
-    open: tooltipOpen,
-    onOpenChange: setTooltipOpen,
-    whileElementsMounted: autoUpdate,
-  });
-
-  const {
-    getReferenceProps: getTooltipReferenceProps, // TODO
-    getFloatingProps: getTooltipFloatingProps, // TODO
-  } = useInteractions([
-    useHover(tooltipContext, {
-      handleClose: safePolygon(),
-      delay: {
-        open: 0,
-        close: 500,
-      },
-    }),
-    useDismiss(tooltipContext),
-  ]);
-
-  console.log('🚀 ~ file: BlockItem.tsx:136 ~ BlockItem ~ tooltipRefs:', tooltipRefs);
+  const { ref, toolbar } = useBlockToolbar();
 
   const Designer = useDesigner();
   const fieldSchema = useFieldSchema();
@@ -117,23 +70,14 @@ export const BlockItem = withDynamicSchemaProps((props: unknown & { name: string
 
   return (
     <SortableItem
-      ref={tooltipRefs.setReference}
+      ref={ref}
       role="button"
       aria-label={getAriaLabel()}
       className={cx('tb-block-item', className, styles)}
     >
       <Designer {...fieldSchema['x-toolbar-props']} />
       {children}
-      {tooltipOpen && (
-        <BlockToolbar
-          ref={tooltipRefs.setFloating}
-          style={{
-            ...tooltipFloatingStyles,
-            zIndex: 9999,
-          }}
-          {...getTooltipFloatingProps()}
-        />
-      )}
+      {toolbar}
     </SortableItem>
   );
 });
