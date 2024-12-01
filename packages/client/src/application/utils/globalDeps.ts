@@ -10,6 +10,7 @@ import { dayjs } from '@tachybase/utils/client';
 
 import * as antdCssinjs from '@ant-design/cssinjs';
 import * as antdIcons from '@ant-design/icons';
+import * as proEditor from '@ant-design/pro-editor';
 import * as dndKitAccessibility from '@dnd-kit/accessibility';
 import * as dndKitCore from '@dnd-kit/core';
 import * as dndKitModifiers from '@dnd-kit/modifiers';
@@ -77,4 +78,5 @@ export function defineGlobalDeps(requirejs: RequireJS) {
   requirejs.define('ahooks', () => ahooks);
   requirejs.define('@emotion/css', () => emotionCss);
   requirejs.define('@floating-ui/react', () => floatingUI);
+  requirejs.define('@ant-design/pro-editor', () => proEditor);
 }
