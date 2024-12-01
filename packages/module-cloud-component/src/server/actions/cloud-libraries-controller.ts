@@ -1,5 +1,5 @@
 import actions, { Context, Next } from '@tachybase/actions';
-import { Action, Controller, Inject, uid } from '@tachybase/utils';
+import { Action, Controller, Inject } from '@tachybase/utils';
 
 import { CloudCompiler } from '../services/cloud-compiler';
 
@@ -10,7 +10,8 @@ export class CloudLibrariesController {
 
   @Action('update')
   async update(ctx: Context, next: Next) {
-    const { code, module, isClient, isServer, serverPlugin, clientPlugin, enabled } = ctx.action.params.values;
+    const { code, module, isClient, isServer, serverPlugin, clientPlugin, enabled, component } =
+      ctx.action.params.values;
     if (code) {
       const clientCode = this.compiler.toAmd(code);
       const serverCode = this.compiler.toCjs(code);
@@ -28,6 +29,7 @@ export class CloudLibrariesController {
           isServer,
           serverPlugin,
           clientPlugin,
+          component,
         },
       });
     }
@@ -37,7 +39,8 @@ export class CloudLibrariesController {
 
   @Action('publish')
   async publish(ctx: Context, next: Next) {
-    const { code, module, isClient, isServer, serverPlugin, clientPlugin, enabled } = ctx.action.params.values;
+    const { code, module, isClient, isServer, serverPlugin, clientPlugin, enabled, component } =
+      ctx.action.params.values;
     if (code) {
       const clientCode = this.compiler.toAmd(code);
       const serverCode = this.compiler.toCjs(code);
@@ -55,6 +58,7 @@ export class CloudLibrariesController {
           isServer,
           serverPlugin,
           clientPlugin,
+          component,
         },
       });
     }

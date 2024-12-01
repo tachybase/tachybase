@@ -213,6 +213,7 @@ const edit = {
                         isServer: fieldsets.isServer,
                         clientPlugin: fieldsets.clientPlugin,
                         serverPlugin: fieldsets.serverPlugin,
+                        component: fieldsets.component,
                       },
                     },
                     code: {

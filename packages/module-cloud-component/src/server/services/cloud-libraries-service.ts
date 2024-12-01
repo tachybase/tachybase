@@ -38,6 +38,7 @@ export class CloudLibrariesService {
         clientPlugin,
         enabled,
         version,
+        component,
         versions,
       } = lib;
 
@@ -61,6 +62,7 @@ export class CloudLibrariesService {
           isServer,
           serverPlugin,
           clientPlugin,
+          component,
         },
       });
     }

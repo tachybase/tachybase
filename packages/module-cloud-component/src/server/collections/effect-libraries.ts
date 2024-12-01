@@ -42,6 +42,10 @@ export default defineCollection({
       type: 'string',
     },
     {
+      name: 'component',
+      type: 'string',
+    },
+    {
       name: 'version',
       type: 'string',
     },

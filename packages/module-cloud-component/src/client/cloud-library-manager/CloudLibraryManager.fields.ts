@@ -97,4 +97,12 @@ export default () => {
     'x-collection-field': 'cloudLibraries.serverPlugin',
     'x-component-props': {},
   },
+
+  component: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'cloudLibraries.component',
+    'x-component-props': {},
+  },
 };
