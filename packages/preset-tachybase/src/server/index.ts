@@ -43,7 +43,7 @@ export class PresetTachyBase extends Plugin {
     ['field-china-region', '0.22.7', true],
     ['field-formula', '0.22.7', true],
     ['field-sequence', '0.22.7', true],
-    ['kanban', '0.22.7', true],
+    ['block-kanban', '0.22.7', true],
     ['logger', '0.22.7', true],
     ['online-user', '0.22.7', true],
     ['pdf', '0.22.37', true],
