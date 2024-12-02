@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 import {
   autoUpdate,
@@ -14,9 +14,44 @@ import {
 import { useDesignable } from '../../hooks';
 import BlockToolbar from './BlockToolbar';
 
-export const useBlockToolbar: () => { ref: any; toolbar: any; props: any } = () => {
+export const ToolbarContext = createContext<any>({});
+
+export const ToolbarProvider = ({ children, onVisibilityChange }) => {
+  const [childStates, setChildStates] = useState({});
+
+  // 注册子组件，返回注销方法
+  const registerChild = useCallback((id, isVisible) => {
+    setChildStates((prev) => ({ ...prev, [id]: isVisible }));
+
+    return () => {
+      setChildStates((prev) => {
+        const newState = { ...prev };
+        delete newState[id];
+        return newState;
+      });
+    };
+  }, []);
+
+  // 计算父组件状态
+  const isVisible = Object.values(childStates).some((visible) => visible);
+
+  // 通知外部
+  useEffect(() => {
+    if (onVisibilityChange) {
+      onVisibilityChange(!isVisible);
+    }
+  }, [isVisible, onVisibilityChange]);
+
+  return <ToolbarContext.Provider value={{ registerChild }}>{children}</ToolbarContext.Provider>;
+};
+
+export const useToolbar = () => {
+  return useContext(ToolbarContext);
+};
+
+export const useBlockToolbar: () => { open: boolean; ref: any; toolbar: any; props: any } = () => {
   // TODO: add global state, queue styles.
-  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const { designable } = useDesignable();
 
   const { refs, floatingStyles, context } = useFloating({
@@ -28,8 +63,8 @@ export const useBlockToolbar: () => { ref: any; toolbar: any; props: any } = () 
         padding: 10,
       }),
     ],
-    open: tooltipOpen,
-    onOpenChange: setTooltipOpen,
+    open,
+    onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
   });
 
@@ -41,13 +76,13 @@ export const useBlockToolbar: () => { ref: any; toolbar: any; props: any } = () 
       handleClose: safePolygon(),
       delay: {
         open: 0,
-        close: 300,
+        close: 100,
       },
     }),
     useDismiss(context),
   ]);
 
-  const toolbar = tooltipOpen && designable && (
+  const toolbar = open && designable && (
     <BlockToolbar
       ref={refs.setFloating}
       style={{
@@ -58,5 +93,5 @@ export const useBlockToolbar: () => { ref: any; toolbar: any; props: any } = () 
     />
   );
 
-  return { ref: refs.setReference, props: getReferenceProps(), toolbar };
+  return { open, ref: refs.setReference, props: getReferenceProps(), toolbar };
 };

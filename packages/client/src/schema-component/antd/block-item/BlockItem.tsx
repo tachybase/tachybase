@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useId, useState } from 'react';
 import { useFieldSchema } from '@tachybase/schema';
 
 import { createStyles } from 'antd-style';
@@ -8,7 +8,7 @@ import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSche
 import { SortableItem } from '../../common';
 import { useDesigner, useProps } from '../../hooks';
 import { useGetAriaLabelOfBlockItem } from './hooks/useGetAriaLabelOfBlockItem';
-import { useBlockToolbar } from './useBlockToolbar';
+import { ToolbarProvider, useBlockToolbar, useToolbar } from './useBlockToolbar';
 
 const useStyles = createStyles(({ css }) => {
   return css`
@@ -61,23 +61,34 @@ export const BlockItem = withDynamicSchemaProps((props: unknown & { name: string
   // 新版 UISchema（1.0 之后）中已经废弃了 useProps，这里之所以继续保留是为了兼容旧版的 UISchema
   const { className, children } = useProps(props);
   const { styles } = useStyles();
+  const [visible, setVisible] = useState(true);
 
-  const { ref, toolbar } = useBlockToolbar();
+  const { open, ref, toolbar } = useBlockToolbar();
+  const id = useId();
+  const { registerChild } = useToolbar();
+
+  useEffect(() => {
+    if (!registerChild) return;
+    const unregister = registerChild(id, open);
+    return () => unregister();
+  }, [registerChild, open]);
 
   const Designer = useDesigner();
   const fieldSchema = useFieldSchema();
   const { getAriaLabel } = useGetAriaLabelOfBlockItem(props.name);
 
   return (
-    <SortableItem
-      ref={ref}
-      role="button"
-      aria-label={getAriaLabel()}
-      className={cx('tb-block-item', className, styles)}
-    >
-      <Designer {...fieldSchema['x-toolbar-props']} />
-      {children}
-      {toolbar}
-    </SortableItem>
+    <ToolbarProvider onVisibilityChange={setVisible}>
+      <SortableItem
+        ref={ref}
+        role="button"
+        aria-label={getAriaLabel()}
+        className={cx('tb-block-item', className, styles)}
+      >
+        <Designer {...fieldSchema['x-toolbar-props']} />
+        {children}
+        {visible && toolbar}
+      </SortableItem>
+    </ToolbarProvider>
   );
 });
