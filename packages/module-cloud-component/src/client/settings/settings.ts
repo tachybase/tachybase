@@ -1,6 +1,7 @@
 import { SchemaSettings, useApp, useDesignable } from '@tachybase/client';
 import { Field, useField, useFieldSchema } from '@tachybase/schema';
 
+import { CloudComponentNameKey } from '..';
 import { useTranslation } from '../locale';
 
 export const cloudComponentBlockSettings = new SchemaSettings({
@@ -14,10 +15,10 @@ export const cloudComponentBlockSettings = new SchemaSettings({
         const CloudComponentVoid = app.getComponent('CloudComponentVoid');
         const { t } = useTranslation();
         const components = Object.getOwnPropertyNames(CloudComponentVoid)
-          .filter((key) => typeof CloudComponentVoid[key] === 'function')
+          .filter((key) => typeof CloudComponentVoid[key] === 'function' || CloudComponentVoid[key]?.$$typeof)
           .map((key) => {
             return {
-              label: t(key),
+              label: t(CloudComponentVoid[key][CloudComponentNameKey] || key),
               value: key,
             };
           });

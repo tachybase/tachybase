@@ -10,7 +10,7 @@ export class CloudLibrariesController {
 
   @Action('update')
   async update(ctx: Context, next: Next) {
-    const { code, module, isClient, isServer, serverPlugin, clientPlugin, enabled, component } =
+    const { name, code, module, isClient, isServer, serverPlugin, clientPlugin, enabled, component } =
       ctx.action.params.values;
     if (code) {
       const clientCode = this.compiler.toAmd(code);
@@ -21,6 +21,7 @@ export class CloudLibrariesController {
       repo.updateOrCreate({
         filterKeys: ['module'],
         values: {
+          name,
           module,
           enabled,
           server: serverCode,

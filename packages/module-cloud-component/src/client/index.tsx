@@ -9,6 +9,8 @@ import { CloudComponentBlock } from './settings/CloudComponentBlock';
 import { cloudComponentBlockInitializerItem } from './settings/InitializerItem';
 import { cloudComponentBlockSettings } from './settings/settings';
 
+export const CloudComponentNameKey = Symbol('CloudComponentNameKey');
+
 export class ModuleCloudComponentClient extends Plugin {
   async afterAdd() {
     await this.initLibraries();
@@ -85,14 +87,13 @@ export class ModuleCloudComponentClient extends Plugin {
         const CloudComponentVoid = app.getComponent('CloudComponentVoid');
         const { t } = useTranslation();
         const components = Object.getOwnPropertyNames(CloudComponentVoid)
-          .filter((key) => typeof CloudComponentVoid[key] === 'function')
+          .filter((key) => typeof CloudComponentVoid[key] === 'function' || CloudComponentVoid[key]?.$$typeof)
           .map((key) => {
             return {
-              label: t(key),
+              label: t(CloudComponentVoid[key][CloudComponentNameKey] || key),
               value: key,
             };
           });
-        // TODO 处理下表格里面的云组件配置，现在问题是无法实时生效，需要刷新浏览器
         const field = useField<Field>();
         const columnSchema = useFieldSchema();
         const fieldSchema = columnSchema.reduceProperties((s, buf) => {
@@ -183,6 +184,7 @@ export class ModuleCloudComponentClient extends Plugin {
         new Promise((resolve) => {
           this.app.requirejs.require([library.module], (m) => {
             CloudComponentVoid[library.component] = m[library.component];
+            CloudComponentVoid[library.component][CloudComponentNameKey] = library.name;
             resolve(library.component);
           });
         }),

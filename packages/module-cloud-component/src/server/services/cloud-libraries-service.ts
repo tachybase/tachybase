@@ -30,6 +30,7 @@ export class CloudLibrariesService {
     const repo = this.app.db.getRepository('effectLibraries');
     for (const lib of libs) {
       const {
+        name,
         code: debugCode,
         module,
         isClient,
@@ -50,10 +51,10 @@ export class CloudLibrariesService {
 
       const clientCode = this.compiler.toAmd(code);
       const serverCode = this.compiler.toCjs(code);
-      // FIXME 这里可能不适合取客户端的数据
       repo.updateOrCreate({
         filterKeys: ['module'],
         values: {
+          name,
           module,
           enabled,
           server: serverCode,

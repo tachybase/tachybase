@@ -11,6 +11,10 @@ export default defineCollection({
       unique: true,
     },
     {
+      name: 'name',
+      type: 'string',
+    },
+    {
       name: 'enabled',
       type: 'boolean',
       defaultValue: false,
