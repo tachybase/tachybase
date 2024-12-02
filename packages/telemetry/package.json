@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/telemetry",
-  "version": "0.22.53",
+  "version": "0.22.54",
   "description": "telemetry library",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
