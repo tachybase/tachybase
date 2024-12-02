@@ -120,7 +120,10 @@ export class ModuleCloudComponentClient extends Plugin {
             fieldSchema['x-acl-ignore'] = true;
             schema['x-component-props'] = fieldSchema['x-component-props'];
             schema['x-acl-ignore'] = true;
-            // field.componentProps.element = element;
+            const path = field.path?.splice(field.path?.length - 1, 1);
+            field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
+              f.componentProps.element = element;
+            });
             dn.emit('patch', {
               schema,
             });
