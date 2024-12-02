@@ -20,14 +20,14 @@ export class CloudLibrariesService {
   private compiler: CloudCompiler;
 
   async compileLibraries() {
-    const libRepo = this.db.getRepository('cloudLibraries');
+    const libRepo = this.app.db.getRepository('cloudLibraries');
     const libs = await libRepo.find({
       filter: {
         enabled: true,
       },
     });
 
-    const repo = this.db.getRepository('effectLibraries');
+    const repo = this.app.db.getRepository('effectLibraries');
     for (const lib of libs) {
       const {
         code: debugCode,
@@ -70,7 +70,7 @@ export class CloudLibrariesService {
 
   async loadServerLibraries() {
     this.logger.info(`load cloudLibrarie: start`);
-    const repo = this.db.getRepository('effectLibraries');
+    const repo = this.app.db.getRepository('effectLibraries');
     const cloudLibraries = await repo.find({
       filter: {
         enabled: true,
