@@ -92,13 +92,19 @@ export class ModuleCloudComponentClient extends Plugin {
               value: key,
             };
           });
-        // TODO 处理下表格里面的云组件配置
+        // TODO 处理下表格里面的云组件配置，现在问题是无法实时生效，需要刷新浏览器
         const field = useField<Field>();
-        const fieldSchema = useFieldSchema();
+        const columnSchema = useFieldSchema();
+        const fieldSchema = columnSchema.reduceProperties((s, buf) => {
+          if (s?.['x-component'] === 'CloudComponentBlock') {
+            return s;
+          }
+          return buf;
+        }, null);
         const { dn } = useDesignable();
         return {
           title: t('Cloud Component'),
-          value: field.componentProps?.component || 'CloudComponentVoid',
+          value: fieldSchema['x-component-props']['element'] || 'CloudComponentVoid',
           options: [
             {
               label: t('Not selected'),
@@ -114,7 +120,7 @@ export class ModuleCloudComponentClient extends Plugin {
             fieldSchema['x-acl-ignore'] = true;
             schema['x-component-props'] = fieldSchema['x-component-props'];
             schema['x-acl-ignore'] = true;
-            field.componentProps.element = element;
+            // field.componentProps.element = element;
             dn.emit('patch', {
               schema,
             });

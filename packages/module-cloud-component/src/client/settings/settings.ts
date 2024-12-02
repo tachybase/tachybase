@@ -26,7 +26,7 @@ export const cloudComponentBlockSettings = new SchemaSettings({
         const { dn } = useDesignable();
         return {
           title: t('Cloud Component'),
-          value: field.componentProps?.component || 'CloudComponentVoid',
+          value: field.componentProps?.element || 'CloudComponentVoid',
           options: [
             {
               label: t('Not selected'),
