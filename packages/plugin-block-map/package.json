@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-block-map",
   "displayName": "Block: Map",
-  "version": "0.22.54",
+  "version": "0.22.55",
   "description": "Map block, support Gaode map and Google map, you can also extend more map types.",
   "keywords": [
     "Blocks"

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-lark",
   "displayName": "Auth: Lark",
-  "version": "0.22.54",
+  "version": "0.22.55",
   "main": "dist/server/index.js",
   "dependencies": {},
   "peerDependencies": {
