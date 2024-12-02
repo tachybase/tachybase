@@ -11,10 +11,13 @@ import {
   useInteractions,
 } from '@floating-ui/react';
 
+import { useDesignable } from '../../hooks';
 import BlockToolbar from './BlockToolbar';
 
 export const useBlockToolbar: () => { ref: any; toolbar: any; props: any } = () => {
+  // TODO: add global state, queue styles.
   const [tooltipOpen, setTooltipOpen] = useState(false);
+  const { designable } = useDesignable();
 
   const { refs, floatingStyles, context } = useFloating({
     placement: 'top',
@@ -44,7 +47,7 @@ export const useBlockToolbar: () => { ref: any; toolbar: any; props: any } = () 
     useDismiss(context),
   ]);
 
-  const toolbar = tooltipOpen && (
+  const toolbar = tooltipOpen && designable && (
     <BlockToolbar
       ref={refs.setFloating}
       style={{
