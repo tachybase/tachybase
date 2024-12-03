@@ -3,8 +3,8 @@ import {
   ActionContextProvider,
   css,
   cx,
-  FieldNames,
   FormProvider,
+  Icon,
   SchemaComponent,
   SchemaInitializerItemType,
   useActionContext,
@@ -16,8 +16,7 @@ import {
 } from '@tachybase/client';
 import { createForm, ISchema, useForm } from '@tachybase/schema';
 
-import { InfoOutlined } from '@ant-design/icons';
-import { Button, Input, message, Tag } from 'antd';
+import { Button, message, Tag } from 'antd';
 import { cloneDeep } from 'lodash';
 
 import WorkflowPlugin from '..';
@@ -69,7 +68,7 @@ export abstract class Trigger {
   isActionTriggerable?: boolean | ((config: object, context?: object) => boolean);
 }
 
-function TriggerExecution() {
+const TriggerExecution = () => {
   const compile = useCompile();
   const { workflow, execution } = useFlowContext();
   const { styles } = useStyles();
@@ -86,10 +85,18 @@ function TriggerExecution() {
         name: 'execution',
         'x-component': 'Action',
         'x-component-props': {
-          title: <InfoOutlined />,
+          title: <Icon type={'InfoOutlined'} />,
           shape: 'circle',
           size: 'small',
-          className: styles.nodeJobButtonClass,
+          className: cx(
+            styles.nodeJobButtonClass,
+            css`
+              position: absolute;
+              top: 50%;
+              right: -50px;
+              transform: translateY(-50%);
+            `,
+          ),
           type: 'primary',
         },
         properties: {
@@ -165,7 +172,7 @@ function TriggerExecution() {
       }}
     />
   );
-}
+};
 
 function useFormProviderProps() {
   return { form: useForm() };
@@ -244,105 +251,107 @@ export const TriggerConfig = () => {
   }, []);
 
   return (
-    <div
-      role="button"
-      aria-label={`${titleText}-${editingTitle}`}
-      className={cx(styles.terminalClass)}
-      onClick={onOpenDrawer}
-    >
-      {lang('Start')}
-      <TriggerExecution />
-      <ActionContextProvider
-        value={{
-          visible: editingConfig,
-          setVisible: resetForm,
-          formValueChanged,
-          setFormValueChanged,
-        }}
+    <div style={{ position: 'relative' }}>
+      <div
+        role="button"
+        aria-label={`${titleText}-${editingTitle}`}
+        className={cx(styles.terminalClass)}
+        onClick={onOpenDrawer}
       >
-        <FormProvider form={form}>
-          <SchemaComponent
-            scope={{
-              ...scope,
-              useFormProviderProps,
-            }}
-            components={components}
-            schema={{
-              name: `workflow-trigger-${workflow.id}`,
-              type: 'void',
-              properties: {
-                config: {
-                  type: 'void',
-                  'x-content': detailText,
-                  'x-component': Button,
-                  'x-component-props': {
-                    type: 'link',
-                    className: 'workflow-node-config-button',
-                  },
-                },
-                drawer: {
-                  type: 'void',
-                  title: titleText,
-                  'x-component': 'Action.Area',
-                  'x-decorator': 'FormV2',
-                  'x-use-decorator-props': 'useFormProviderProps',
-                  properties: {
-                    ...(trigger.description
-                      ? {
-                          description: {
-                            type: 'void',
-                            'x-component': DrawerDescription,
-                            'x-component-props': {
-                              label: lang('Trigger type'),
-                              title: trigger.title,
-                              description: trigger.description,
-                            },
-                          },
-                        }
-                      : {}),
-                    fieldset: {
-                      type: 'void',
-                      'x-component': 'fieldset',
-                      'x-component-props': {
-                        className: css`
-                          .ant-select.auto-width {
-                            width: auto;
-                            min-width: 6em;
-                          }
-                        `,
-                      },
-                      properties: fieldset,
+        {lang('Start')}
+        <ActionContextProvider
+          value={{
+            visible: editingConfig,
+            setVisible: resetForm,
+            formValueChanged,
+            setFormValueChanged,
+          }}
+        >
+          <FormProvider form={form}>
+            <SchemaComponent
+              scope={{
+                ...scope,
+                useFormProviderProps,
+              }}
+              components={components}
+              schema={{
+                name: `workflow-trigger-${workflow.id}`,
+                type: 'void',
+                properties: {
+                  config: {
+                    type: 'void',
+                    'x-content': detailText,
+                    'x-component': Button,
+                    'x-component-props': {
+                      type: 'link',
+                      className: 'workflow-node-config-button',
                     },
-                    actions: workflow.executed
-                      ? {}
-                      : {
-                          type: 'void',
-                          'x-component': 'ActionArea.Footer',
-                          properties: {
-                            cancel: {
-                              title: '{{t("Cancel")}}',
-                              'x-component': 'Action',
+                  },
+                  drawer: {
+                    type: 'void',
+                    title: titleText,
+                    'x-component': 'Action.Area',
+                    'x-decorator': 'FormV2',
+                    'x-use-decorator-props': 'useFormProviderProps',
+                    properties: {
+                      ...(trigger.description
+                        ? {
+                            description: {
+                              type: 'void',
+                              'x-component': DrawerDescription,
                               'x-component-props': {
-                                useAction: '{{ cm.useCancelAction }}',
+                                label: lang('Trigger type'),
+                                title: trigger.title,
+                                description: trigger.description,
                               },
                             },
-                            submit: {
-                              title: '{{t("Submit")}}',
-                              'x-component': 'Action',
-                              'x-component-props': {
-                                type: 'primary',
-                                useAction: useUpdateConfigAction,
+                          }
+                        : {}),
+                      fieldset: {
+                        type: 'void',
+                        'x-component': 'fieldset',
+                        'x-component-props': {
+                          className: css`
+                            .ant-select.auto-width {
+                              width: auto;
+                              min-width: 6em;
+                            }
+                          `,
+                        },
+                        properties: fieldset,
+                      },
+                      actions: workflow.executed
+                        ? {}
+                        : {
+                            type: 'void',
+                            'x-component': 'ActionArea.Footer',
+                            properties: {
+                              cancel: {
+                                title: '{{t("Cancel")}}',
+                                'x-component': 'Action',
+                                'x-component-props': {
+                                  useAction: '{{ cm.useCancelAction }}',
+                                },
+                              },
+                              submit: {
+                                title: '{{t("Submit")}}',
+                                'x-component': 'Action',
+                                'x-component-props': {
+                                  type: 'primary',
+                                  useAction: useUpdateConfigAction,
+                                },
                               },
                             },
                           },
-                        },
+                    },
                   },
                 },
-              },
-            }}
-          />
-        </FormProvider>
-      </ActionContextProvider>
+              }}
+            />
+          </FormProvider>
+        </ActionContextProvider>
+      </div>
+      <TriggerExecution />
     </div>
   );
 };

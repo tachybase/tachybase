@@ -50,12 +50,6 @@ const ButtonArea = (props) => {
       <div className="icon-button">
         <RemoveButton />
       </div>
-      {/* <div className="icon-button">
-        <ArrowUpButton />
-      </div>
-      <div className="icon-button">
-        <ArrowDownButton />
-      </div> */}
       <div className="icon-button">
         <DragButton />
       </div>

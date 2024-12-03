@@ -78,15 +78,15 @@ export const useStyles = createStyles(({ css, token }) => {
 
       .workflow-node-suffix {
         position: absolute;
-        top: 25%;
+        top: 50%;
         right: -120px;
+        transform: translateY(-50%);
         display: inline-flex;
         gap: 10px;
         box-sizing: border-box;
         margin-left: 12px;
         border-top-right-radius: 12px;
         border-bottom-right-radius: 12px;
-        transform: translateX(-50%);
 
         background-color: transparent;
         color: #fff;
