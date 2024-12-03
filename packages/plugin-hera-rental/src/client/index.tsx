@@ -1,17 +1,5 @@
 import { Plugin, useCollection } from '@tachybase/client';
 
-import { DetailChecks } from './custom-components/DetailChecks';
-import { RecordDetails } from './custom-components/RecordDetails';
-import { RecordDetails2 } from './custom-components/RecordDetails2';
-import { RecordFeeConvertedAmount } from './custom-components/RecordFeeConverted';
-import { ReadFeeConvertedAmount } from './custom-components/RecordFeeConvertedRead';
-import { RecordFeeScope } from './custom-components/RecordFeeScope';
-import { RecordItemCount } from './custom-components/RecordItemCount';
-import { RecordItemValuationQuantity } from './custom-components/RecordItemValuationQuantity';
-import { RecordItemWeight } from './custom-components/RecordItemWeight';
-import { RecordProductScope } from './custom-components/RecordProductScope';
-import { RecordSummary } from './custom-components/RecordSummary';
-import { RecordTotalPrice } from './custom-components/RecordTotalPrice';
 import { useAddToChecklistActionProps } from './hooks/useAddToChecklistActionProps';
 import {
   PdfIsDoubleProvider,
@@ -172,18 +160,6 @@ export class PluginRentalClient extends Plugin {
   async load() {
     this.locale = new Locale(this.app);
     this.app.addComponents({
-      RecordFeeConvertedAmount,
-      ReadFeeConvertedAmount,
-      RecordFeeScope,
-      RecordItemValuationQuantity,
-      RecordItemWeight,
-      RecordItemCount,
-      RecordProductScope,
-      RecordSummary,
-      RecordTotalPrice,
-      RecordDetails,
-      RecordDetails2,
-      DetailChecks,
       PdfIsDoubleProvider,
       PrintStyleSetupInitializer,
       StyleSetup,
