@@ -9,15 +9,15 @@ import useStyles from './NodePoint.style';
 
 // 节点组件
 export const NodePoint = (props) => {
-  const { workflow, editingTitle, setEditingTitle, onChangeTitle } = props;
+  const { color, icon, workflow, editingTitle, configuring, setEditingTitle, onChangeTitle } = props;
 
   const { styles } = useStyles();
 
   return (
-    <div className={cx(styles.nodePoint)}>
-      <IdentityIcon />
+    <div className={cx(styles.nodePoint, { configuring: configuring })}>
+      <IdentityIcon color={color} icon={icon} />
       <AutoResizeInput
-        className="workflow-node-edit"
+        className={`workflow-node-edit ${workflow.executed ? 'node-executed' : ''}`}
         readOnly={workflow.executed}
         value={editingTitle}
         onChange={(ev) => setEditingTitle(ev.target.value)}
@@ -32,9 +32,10 @@ export const NodePoint = (props) => {
  *节点标识 Icon
  */
 const IdentityIcon = (props) => {
+  const { color, icon } = props;
   return (
-    <div className="workflow-node-prefix">
-      <Icon type="dispatcher" />
+    <div className="workflow-node-prefix" style={{ backgroundColor: color }}>
+      <Icon type={icon ?? 'dispatcher'} />
     </div>
   );
 };

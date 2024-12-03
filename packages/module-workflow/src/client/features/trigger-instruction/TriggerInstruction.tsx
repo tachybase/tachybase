@@ -1,10 +1,10 @@
 import { useCollectionManager_deprecated, useCompile } from '@tachybase/client';
-import { ISchema, useForm } from '@tachybase/schema';
+import { useForm } from '@tachybase/schema';
 
 import { useFlowContext } from '../../FlowContext';
 import { tval } from '../../locale';
 import { Instruction } from '../../nodes/default-node/interface';
-import { getCollectionFieldOptions, VariableOption } from '../../variable';
+import { getCollectionFieldOptions } from '../../variable';
 
 const useWorkflowTrigger = () => {
   const { workflow } = useFlowContext();
@@ -15,10 +15,13 @@ const useWorkflowTrigger = () => {
   };
 };
 
+/** 节点: 工作流 */
 export class TriggerInstruction extends Instruction {
   title = tval('Workflow');
   type = 'trigger-instruction';
   group = 'extended';
+  icon = 'NodeIndexOutlined';
+  color = '#0a72e9';
   fieldset = {
     workflowKey: {
       type: 'string',

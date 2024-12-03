@@ -4,10 +4,13 @@ import { defaultFieldNames, WorkflowVariableInput, WorkflowVariableJSON, Workflo
 import { NAMESPACE } from '../../locale';
 import { Instruction } from '../../nodes/default-node/interface';
 
+/** 节点: HTTP 请求 */
 export default class extends Instruction {
   title = `{{t("HTTP request", { ns: "${NAMESPACE}" })}}`;
   type = 'request';
   group = 'extended';
+  icon = 'ApiOutlined';
+  color = '#e1ed5b';
   description = `{{t("Send HTTP request to a URL. You can use the variables in the upstream nodes as request headers, parameters and request body.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     method: {

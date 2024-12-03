@@ -19,6 +19,8 @@ export default class extends Instruction {
   title = `{{t("Query record", { ns: "${NAMESPACE}" })}}`;
   type = 'query';
   group = 'collection';
+  icon = 'FileSearchOutlined';
+  color = '#55e2d1';
   description = `{{t("Query records from a collection. You can use variables from upstream nodes as query conditions.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     collection: {

@@ -16,6 +16,8 @@ export default class extends Instruction {
   title = `{{t("Create record", { ns: "${NAMESPACE}" })}}`;
   type = 'create';
   group = 'collection';
+  icon = 'FileAddOutlined';
+  color = '#07fa0f';
   description = `{{t("Add new record to a collection. You can use variables from upstream nodes to assign values to fields.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     collection: {

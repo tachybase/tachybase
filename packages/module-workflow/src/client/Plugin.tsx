@@ -9,8 +9,6 @@ import PluginWorkflowDataMappingClient from './features/data-mapping';
 import { PluginDelay } from './features/delay';
 import { PluginDaynamicCalculation } from './features/dynamic-calculation';
 import { PluginWorkflowInterceptor } from './features/interceptor';
-import PluginWorkflowJSParseClient from './features/js-parse';
-import PluginWorkflowJsonParseClient from './features/json-parse';
 import { PluginLoop } from './features/loop';
 import { PluginManual } from './features/manual';
 import PluginWorkflowNoticeClient from './features/notice';
@@ -83,8 +81,6 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginDaynamicCalculation);
     await this.pm.add(PluginDelay);
     await this.pm.add(PluginAggregate);
-    await this.pm.add(PluginWorkflowJsonParseClient);
-    await this.pm.add(PluginWorkflowJSParseClient);
     await this.pm.add(PluginWorkflowDataMappingClient);
     await this.pm.add(PluginWorkflowInterceptor);
     await this.pm.add(PluginVariables);

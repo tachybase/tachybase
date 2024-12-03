@@ -10,6 +10,8 @@ class ResponseInstruction extends Instruction {
   title = tval('Response message');
   type = 'response-message';
   group = 'extended';
+  icon = 'SunOutlined';
+  color = '#07d629';
   description = tval('Add response message, will be send to client when process of request ends.');
   fieldset = {
     message: {

@@ -1,18 +1,20 @@
 import { ArrayItems } from '@tachybase/components';
-import { GroupType, Instruction } from '@tachybase/module-workflow/client';
 
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../common/collection-name';
-import { tval } from '../../locale';
+import { GroupType, Instruction } from '../../../nodes/default-node/interface';
+import { NOTICE_INSTRUCTION_NAMESPACE } from '../../common/constants';
+import { tval } from '../locale';
 import { AdditionNotifiedPerson } from './config-items/AddNotifiedPerson.view';
 import { ConfigButtonNotice } from './config-items/ConfigButtonNotice.view';
 import { SelectNotifiedPerson } from './config-items/SelectNotifiedPerson.view';
-import { CarbonCopyDetailContainer } from './show-interface/CarbonCopyDetailContainer.schema';
+import { NoticeDetailContainer } from './show-interface/NoticeDetailContainer.schema';
 import { configSytles } from './style';
 
-export class ApprovalCarbonCopyInstruction extends Instruction {
-  title = tval('ApprovalCarbonCopy');
-  type = COLLECTION_NAME_APPROVAL_CARBON_COPY;
+export class NoticeInstruction extends Instruction {
+  title = tval('Notice');
+  type = NOTICE_INSTRUCTION_NAMESPACE;
   group: GroupType = 'extended';
+  icon = 'MessageOutlined';
+  color = '#82e29c';
   description = tval(
     'In the workflow, notification messages can be viewed by the notified person in the notification center.',
   );
@@ -21,10 +23,10 @@ export class ApprovalCarbonCopyInstruction extends Instruction {
     SelectNotifiedPerson: SelectNotifiedPerson,
     AdditionNotifiedPerson: AdditionNotifiedPerson,
     ConfigButtonNotice: ConfigButtonNotice,
-    CarbonCopyDetail: CarbonCopyDetailContainer,
+    ShowNoticeDetail: NoticeDetailContainer,
   };
   fieldset = {
-    carbonCopyPerson: {
+    notifiedPerson: {
       type: 'array',
       title: tval('The Notified Person'),
       'x-decorator': 'FormItem',
@@ -68,16 +70,16 @@ export class ApprovalCarbonCopyInstruction extends Instruction {
         },
       },
     },
-    showCarbonCopyDetail: {
+    showNoticeDetail: {
       type: 'void',
       title: tval('Show Notice Detail'),
       required: true,
       'x-decorator': 'FormItem',
       'x-component': 'ConfigButtonNotice',
       properties: {
-        showCarbonCopyDetail: {
+        showNoticeDetail: {
           type: 'void',
-          'x-component': 'CarbonCopyDetail',
+          'x-component': 'ShowNoticeDetail',
         },
       },
     },

@@ -4,10 +4,13 @@ import { defaultFieldNames, WorkflowVariableRawTextArea } from '../..';
 import { NAMESPACE } from '../../locale';
 import { Instruction } from '../../nodes/default-node/interface';
 
+/** 节点: SQL */
 export default class extends Instruction {
   title = `{{t("SQL action", { ns: "${NAMESPACE}" })}}`;
   type = 'sql';
   group = 'collection';
+  icon = 'ConsoleSqlOutlined';
+  color = '#e9bf36';
   description = `{{t("Execute a SQL statement in database.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     dataSource: {

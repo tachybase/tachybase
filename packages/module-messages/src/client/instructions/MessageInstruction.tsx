@@ -1,5 +1,5 @@
 import { ArrayItems } from '@tachybase/components';
-import { Instruction, VariableOption, WorkflowVariableTextArea } from '@tachybase/module-workflow/client';
+import { Instruction, WorkflowVariableTextArea } from '@tachybase/module-workflow/client';
 
 import { AdditionNotifiedPerson } from '../configuration/config-items/AddNotifiedPerson.view';
 import { ConfigButtonMessage } from '../configuration/config-items/configButtonMessage.view';
@@ -11,6 +11,8 @@ import { MessageDetailContainer } from '../show-interface/MessageDetailContainer
 export class MessageInstruction extends Instruction {
   title = tval('In-site messages');
   type = 'message-instruction';
+  icon = 'NotificationOutlined';
+  color = '#1eca0a';
   group = 'extended';
   description = tval(
     'In the workflow, notification messages can be viewed by the notified person in the notification center.',

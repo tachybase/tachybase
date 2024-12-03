@@ -185,6 +185,7 @@
   "HTTP request": "HTTP 请求",
   "Headers": "请求头",
   "Historical records": "历史记录",
+  "Hot tools": "热门工具",
   "Hours": "小时",
   "ID": "编号",
   "If checked, when there are multiple records in the query result, an array will be returned as the result, which can be operated on one by one using a loop node. Otherwise, only one record will be returned.": "选中后，当查询结果有多条记录时，会返回数组作为结果，可以使用循环节点对它逐条操作；否则，仅返回一条数据。",

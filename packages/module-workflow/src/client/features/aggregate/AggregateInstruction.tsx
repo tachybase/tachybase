@@ -154,10 +154,13 @@ function AssociatedConfig({ value, onChange, ...props }): JSX.Element {
 // { key: '{{$context.data.id}}', collection: "collection.association", field }
 // select data based
 
+/** 节点:  聚合查询 */
 export default class extends Instruction {
   title = `{{t("Aggregate", { ns: "${NAMESPACE}" })}}`;
   type = 'aggregate';
   group = 'collection';
+  icon = 'SearchOutlined';
+  color = '#19e8aa';
   description = `{{t("Counting, summing, finding maximum, minimum, and average values for multiple records of a collection or associated data of a record.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     aggregator: {

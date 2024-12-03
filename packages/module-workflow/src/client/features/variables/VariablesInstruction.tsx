@@ -5,10 +5,13 @@ import { Instruction } from '../../nodes/default-node/interface';
 import { defaultFieldNames, WorkflowVariableInput } from '../../variable';
 import { VariableTargetSelect } from './VariableTargetSelect';
 
+/** 节点: 变量 */
 export class VariablesInstruction extends Instruction {
   title = tval('Variable');
   type = 'variable';
   group = 'control';
+  icon = 'StrikethroughOutlined';
+  color = '#a35ae8';
   description = tval('Assign value to a variable, for later use.');
   fieldset = {
     target: {

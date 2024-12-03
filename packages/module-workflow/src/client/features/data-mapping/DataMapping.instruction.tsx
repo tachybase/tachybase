@@ -10,6 +10,9 @@ export class DataMappingInstruction extends Instruction {
   title = tval('Data Mapping');
   type = NAMESPACE_INSTRUCTION_DATA_MAPPING;
   group = 'extended';
+  icon = 'FunctionOutlined';
+  color = '#d93a13';
+  isHot = true;
   description = tval('Get specific data from JSON result of any node BY js code or json code;');
   fieldset = {
     sourceArray: {

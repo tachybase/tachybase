@@ -10,6 +10,8 @@ export default class extends Instruction {
   title = '{{t("Delete record")}}';
   type = 'destroy';
   group = 'collection';
+  icon = 'ClockCircleOutlined';
+  color = '#fa0b07';
   description = `{{t("Delete records of a collection. Could use variables in workflow context as filter. All records match the filter will be deleted.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     collection: {
