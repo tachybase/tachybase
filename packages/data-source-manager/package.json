@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/data-source-manager",
-  "version": "0.22.55",
+  "version": "0.22.56",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",

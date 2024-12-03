@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-pdf-editor",
   "displayName": "Print template: rendered by react",
-  "version": "0.22.55",
+  "version": "0.22.56",
   "description": "Print template: rendered by react",
   "main": "dist/server/index.js",
   "scripts": {
