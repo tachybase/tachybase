@@ -7,7 +7,7 @@ import type { PluginData } from '../PluginManager';
 /**
  * @internal
  */
-export function defineDevPlugins(plugins: Record<string, typeof Plugin>) {
+export function defineDevPlugins(plugins: Record<string, unknown>) {
   Object.entries(plugins).forEach(([packageName, plugin]) => {
     window.define(`${packageName}/client`, () => plugin);
   });
@@ -105,13 +105,13 @@ export async function getPlugins(options: GetPluginsOption): Promise<Array<[stri
 
   const res: Array<[string, typeof Plugin]> = [];
 
-  const resolveDevPlugins: Record<string, typeof Plugin> = {};
+  const resolveDevPlugins: Record<string, unknown> = {};
   if (devDynamicImport) {
     for await (const plugin of pluginData) {
       const pluginModule = await devDynamicImport(plugin.packageName);
       if (pluginModule) {
         res.push([plugin.name, pluginModule.default]);
-        resolveDevPlugins[plugin.packageName] = pluginModule.default;
+        resolveDevPlugins[plugin.packageName] = pluginModule;
       }
     }
     defineDevPlugins(resolveDevPlugins);

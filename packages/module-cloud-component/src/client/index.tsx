@@ -163,19 +163,23 @@ export class ModuleCloudComponentClient extends Plugin {
     }
 
     // 加载客户端插件
+    const waitlist = [];
     for (const library of libraries) {
       if (!library.clientPlugin) {
         continue;
       }
-      this.app.requirejs.require([library.module], (m) => {
-        this.app.pm.add(m[library.clientPlugin]);
+
+      new Promise((resolve) => {
+        this.app.requirejs.require([library.module], (m) => {
+          this.app.pm.add(m[library.clientPlugin]);
+          resolve(library.clientPlugin);
+        });
       });
     }
 
     const CloudComponentVoid = () => null;
 
     // 加载客户端组件
-    const waitlist = [];
     for (const library of libraries) {
       if (!library.component) {
         continue;
@@ -183,9 +187,14 @@ export class ModuleCloudComponentClient extends Plugin {
       waitlist.push(
         new Promise((resolve) => {
           this.app.requirejs.require([library.module], (m) => {
-            CloudComponentVoid[library.component] = m[library.component];
-            CloudComponentVoid[library.component][CloudComponentNameKey] = library.name;
-            resolve(library.component);
+            if (m?.[library.component]) {
+              CloudComponentVoid[library.component] = m[library.component];
+              CloudComponentVoid[library.component][CloudComponentNameKey] = library.name;
+              resolve(library.component);
+            } else {
+              console.warn(`[CloudComponent] component ${library.component} not found in ${library.module}`);
+              resolve('empty component');
+            }
           });
         }),
       );

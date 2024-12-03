@@ -4,7 +4,7 @@ import { Database } from '@tachybase/database';
 
 import lodash from 'lodash';
 
-export const DUMPED_EXTENSION = 'nbdump';
+export const DUMPED_EXTENSION = 'tbdump';
 
 export function sqlAdapter(database: Database, sql: string) {
   if (database.isMySQLCompatibleDialect()) {

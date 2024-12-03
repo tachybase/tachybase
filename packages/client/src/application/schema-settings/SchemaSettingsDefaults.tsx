@@ -16,7 +16,7 @@ export const defaultSettingItems = [
     useComponentProps() {
       const { t } = useTranslation();
       return {
-        title: t('Designer actions'),
+        title: t('Debug tools'),
       };
     },
     children: [
