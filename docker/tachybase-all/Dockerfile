@@ -10,7 +10,5 @@ COPY . /app
 WORKDIR /app
 
 RUN pnpm config set registry $NPM_REGISTRY
-RUN pnpm install --shamefully-hoist
-RUN pnpm build:p
 
 CMD ["pnpm", "start", "--quickstart"]
