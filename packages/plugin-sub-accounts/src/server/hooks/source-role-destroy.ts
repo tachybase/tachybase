@@ -21,8 +21,8 @@ export async function sourceRoleDestroy(model: MergeRoleModel, options: DestroyO
     return;
   }
   const affectedRoles = affectedUsers.map((u) => u.selfRole) as MergeRoleModel[];
-  const acl = (this as Application).acl;
+  const app = this as Application;
   for (const affectedRole of affectedRoles) {
-    await affectedRole.resetAcl({ transaction, acl });
+    await affectedRole.resetAcl({ transaction, app });
   }
 }

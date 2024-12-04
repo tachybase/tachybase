@@ -1,6 +1,7 @@
 import { ACL, ACLResource, ACLResourceActions, AvailableStrategyOptions, RoleActionParams } from '@tachybase/acl';
-import { Transaction } from '@tachybase/database';
+import { ArrayFieldRepository, Transaction } from '@tachybase/database';
 import { RoleModel } from '@tachybase/plugin-acl';
+import { Application } from '@tachybase/server';
 
 import { RoleActionParamsMerge } from '../acl/RoleActionParamsMerge';
 import { RoleSnippets } from '../acl/RoleSnippets';
@@ -14,15 +15,43 @@ export class MergeRoleModel extends RoleModel {
    * @param transaction
    * @returns
    */
-  public async getSourceRoles(transaction: Transaction) {
+  public async getSourceRoles(transaction: Transaction, app: Application) {
     const user = await this.getOwnerUser({ transaction });
-    return await user.getRoles({ appends: ['menuUiSchemas'], transaction });
+    const selfRoles = await user.getRoles({ appends: ['menuUiSchemas'], transaction });
+
+    const repo = this.db.getRepository<ArrayFieldRepository>('users.departments', user.id);
+    const departments = await app.cache.wrap(`departments:${user.id}`, () =>
+      repo.find({
+        appends: ['owners', 'roles', 'parent(recursively=true)'],
+        raw: true,
+        transaction,
+      }),
+    );
+    const departmentIds = departments.map((dept) => dept.id);
+    const roleRepo = this.db.getRepository('roles');
+    const departmentRoles = await roleRepo.find({
+      filter: {
+        'departments.id': {
+          $in: departmentIds,
+        },
+      },
+      appends: ['menuUiSchemas'],
+      transaction,
+    });
+    if (!departmentRoles || departmentRoles.length === 0) {
+      return selfRoles;
+    }
+    const uniqueRoles = new Map();
+    for (const role of selfRoles.concat(departmentRoles)) {
+      uniqueRoles.set(role.name, role);
+    }
+    return Array.from(uniqueRoles.values());
   }
 
   /**
    * 数据表操作权限更新
    */
-  public async refreshDataSourcesAcl({ transaction, acl }: { transaction?: Transaction; acl: ACL }) {
+  public async refreshDataSourcesAcl({ transaction, app }: { transaction?: Transaction; app: Application }) {
     const strategyArray: Array<string | AvailableStrategyOptions> = [];
     const resourcesMap: Map<string, ACLResourceActions[]> = new Map();
     const transactionExist = !!transaction;
@@ -30,7 +59,7 @@ export class MergeRoleModel extends RoleModel {
       transaction = await this.db.sequelize.transaction();
     }
 
-    this.sourceRoles = await this.getSourceRoles(transaction);
+    this.sourceRoles = await this.getSourceRoles(transaction, app);
     if (this.sourceRoles.find((r) => r.name === 'root')) {
       if (!transactionExist) {
         transaction.commit();
@@ -39,9 +68,9 @@ export class MergeRoleModel extends RoleModel {
     }
     // 实现数据表权限逻辑
     for (const sourceRole of this.sourceRoles) {
-      let sourceAclRole = acl.getRole(sourceRole.name);
+      let sourceAclRole = app.acl.getRole(sourceRole.name);
       if (!sourceAclRole) {
-        sourceAclRole = acl.define({
+        sourceAclRole = app.acl.define({
           role: sourceRole.name,
           strategy: {},
           actions: {},
@@ -60,7 +89,7 @@ export class MergeRoleModel extends RoleModel {
     }
 
     // 合并strategy
-    const aclRole = acl.getRole(this.name);
+    const aclRole = app.acl.getRole(this.name);
     aclRole.setStrategy({ ...RoleStrategy.merge(strategyArray) });
 
     // 合并resource
@@ -95,25 +124,15 @@ export class MergeRoleModel extends RoleModel {
   }
 
   /**
-   * 数据表操作权限更新
-   */
-  public refreshDataSourcesAclForResource(acl: ACL, resourceName: string, actionName: string) {
-    // 实现数据表权限逻辑
-    // for (const sourceRole of this.sourceRoles) {
-    //   const aclRole = acl.getRole(sourceRole.name);
-    // }
-  }
-
-  /**
    * source变动后导致本身属性或者ui有关属性变动
    */
   public async resetAcl({
     transaction,
-    acl,
+    app,
     changedFields,
   }: {
     transaction?: Transaction;
-    acl: ACL;
+    app: Application;
     changedFields?: string[];
   }) {
     if (!this.ownerUserId) {
@@ -123,7 +142,7 @@ export class MergeRoleModel extends RoleModel {
     if (!transaction) {
       transaction = await this.db.sequelize.transaction();
     }
-    this.sourceRoles = await this.getSourceRoles(transaction);
+    this.sourceRoles = await this.getSourceRoles(transaction, app);
     // 关于root的特殊情况
     this.rootResource = this.sourceRoles.find((role) => role.name === 'root');
     this.resetRoleProperty(transaction);
@@ -140,7 +159,7 @@ export class MergeRoleModel extends RoleModel {
     if (!transactionExist) {
       await transaction.commit();
     }
-    this.writeToAcl({ acl, withOutStrategy: true });
+    this.writeToAcl({ acl: app.acl, withOutStrategy: true });
   }
 
   /**

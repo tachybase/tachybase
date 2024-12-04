@@ -35,8 +35,8 @@ export async function sourceRoleUpdate(model: MergeRoleModel, options: UpdateOpt
   }
 
   const affectedRoles = affectedUsers.map((u) => u.selfRole) as MergeRoleModel[];
-  const acl = (this as Application).acl;
+  const app = this as Application;
   for (const affectedRole of affectedRoles) {
-    await affectedRole.resetAcl({ transaction, acl, changedFields: options.fields as string[] });
+    await affectedRole.resetAcl({ transaction, app, changedFields: options.fields as string[] });
   }
 }
