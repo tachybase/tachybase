@@ -44,6 +44,8 @@ export const useStyles = createStyles(({ css, token }) => {
           display: inline-block;
           padding-left: 12px;
           svg {
+            /* width: 100%;
+            height: 100%; */
             width: 20px;
             height: 20px;
           }

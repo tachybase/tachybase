@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Icon, useAPIClient, useCompile, usePlugin } from '@tachybase/client';
+import { css, Icon, useAPIClient, useCompile, usePlugin } from '@tachybase/client';
 
 import { MenuProps } from 'antd';
 
@@ -153,19 +153,22 @@ function getGroups(instructionList, { engine, workflow, upstream, branchIndex, c
 function renderNodeIcon(icon: string, color: string): JSX.Element {
   return (
     <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+      className={css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background-color: ${color};
+        color: white;
 
-        width: 20,
-        height: 20,
-        marginRight: 10,
-        borderRadius: '50%',
-
-        backgroundColor: color,
-        color: 'white',
-      }}
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+      `}
     >
       <Icon type={icon} />
     </div>
