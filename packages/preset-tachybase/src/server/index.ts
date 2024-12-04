@@ -80,6 +80,7 @@ export class PresetTachyBase extends Plugin {
     ['simple-cms', '0.22.6', false],
     ['theme-editor', '0.11.1-alpha.1', false],
     ['workflow-approval', '0.22.37', false],
+    ['sub-accounts', '0.22.56', false],
   ];
 
   get localPlugins() {

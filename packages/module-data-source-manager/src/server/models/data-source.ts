@@ -49,16 +49,21 @@ export class DataSourceModel extends Model {
     return this.get('type') === 'main';
   }
 
-  async loadIntoACL(options: { app: Application; acl: ACL; transaction?: Transaction }) {
+  async loadIntoACL(options: { app: Application; acl: ACL; transaction?: Transaction; loadAtAfterStart?: boolean }) {
     const { app, acl } = options;
     const loadRoleIntoACL = async (model: DataSourcesRolesModel) => {
       const pluginACL: any = app.pm.get('acl');
 
-      await model.writeToAcl({
+      const params: any = {
         grantHelper: pluginACL.grantHelper,
         associationFieldsActions: pluginACL.associationFieldsActions,
         acl,
-      });
+      };
+      if (!options.loadAtAfterStart) {
+        params.app = app;
+      }
+
+      await model.writeToAcl(params);
     };
 
     const rolesModel: DataSourcesRolesModel[] = await app.db.getRepository('dataSourcesRoles').find({

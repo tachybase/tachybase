@@ -59,7 +59,7 @@ export class PluginDataSourceManagerServer extends Plugin {
         validatePresents(['foreignKey', 'sourceKey', 'target']);
       }
 
-      if (type == 'hasOne') {
+      if (type === 'hasOne') {
         validatePresents(['foreignKey', 'sourceKey', 'target']);
       }
 
@@ -122,7 +122,7 @@ export class PluginDataSourceManagerServer extends Plugin {
 
       const { actionName, resourceName, params } = ctx.action;
 
-      if (resourceName === 'dataSources' && actionName == 'list') {
+      if (resourceName === 'dataSources' && actionName === 'list') {
         let dataPath = 'body';
 
         if (Array.isArray(ctx.body['data'])) {
@@ -203,7 +203,7 @@ export class PluginDataSourceManagerServer extends Plugin {
 
       const { actionName, resourceName, params } = ctx.action;
 
-      if (resourceName === 'dataSources' && actionName == 'list') {
+      if (resourceName === 'dataSources' && actionName === 'list') {
         if (!params.sort) {
           params.sort = ['-fixed', 'createdAt'];
         }
@@ -221,7 +221,7 @@ export class PluginDataSourceManagerServer extends Plugin {
 
       const { actionName, resourceName, params } = ctx.action;
 
-      if (resourceName === 'dataSources' && actionName == 'get') {
+      if (resourceName === 'dataSources' && actionName === 'get') {
         let appendCollections = false;
         const appends = ctx.action.params.appends;
         if (appends && appends.includes('collections')) {
@@ -339,7 +339,7 @@ export class PluginDataSourceManagerServer extends Plugin {
 
       const loadPromises = dataSourcesRecords.map((dataSourceRecord) => {
         if (dataSourceRecord.isMainRecord()) {
-          return dataSourceRecord.loadIntoACL({ app, acl: app.acl });
+          return dataSourceRecord.loadIntoACL({ app, acl: app.acl, loadAtAfterStart: true });
         }
 
         return dataSourceRecord.loadIntoApplication({ app, loadAtAfterStart: true });
@@ -347,6 +347,7 @@ export class PluginDataSourceManagerServer extends Plugin {
 
       this.app.setMaintainingMessage('Loading data sources...');
       await Promise.all(loadPromises);
+      await this.app.emitAsync('dataSourceAfterStart');
     });
 
     this.app.db.on('dataSourcesRolesResources.afterSaveWithAssociations', async (model, options) => {
@@ -359,6 +360,7 @@ export class PluginDataSourceManagerServer extends Plugin {
         associationFieldsActions: pluginACL.associationFieldsActions,
         transaction: transaction,
         grantHelper: pluginACL.grantHelper,
+        app: this.app,
       });
     });
 
@@ -377,6 +379,7 @@ export class PluginDataSourceManagerServer extends Plugin {
         associationFieldsActions: pluginACL.associationFieldsActions,
         transaction: transaction,
         grantHelper: pluginACL.grantHelper,
+        app: this.app,
       });
     });
 
@@ -402,6 +405,7 @@ export class PluginDataSourceManagerServer extends Plugin {
         associationFieldsActions: pluginACL.associationFieldsActions,
         acl: dataSource.acl,
         transaction,
+        app: this.app,
       });
     });
 
@@ -422,6 +426,7 @@ export class PluginDataSourceManagerServer extends Plugin {
         associationFieldsActions: pluginACL.associationFieldsActions,
         acl: dataSource.acl,
         transaction,
+        app: this.app,
       });
     });
 
@@ -430,7 +435,7 @@ export class PluginDataSourceManagerServer extends Plugin {
       const action = ctx.action;
       await next();
       const { resourceName, actionName } = action.params;
-      if (resourceName === 'roles' && actionName == 'check') {
+      if (resourceName === 'roles' && actionName === 'check') {
         const roleName = ctx.state.currentRole;
         const dataSources = await ctx.db.getRepository('dataSources').find();
 

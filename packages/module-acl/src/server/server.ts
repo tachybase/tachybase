@@ -200,7 +200,7 @@ export class PluginACL extends Plugin {
         return;
       }
 
-      if (actionName == 'view' || actionName == 'export') {
+      if (actionName === 'view' || actionName === 'export') {
         const associationsFields = fieldsParams.filter((fieldName) => {
           const field = collection.getField(fieldName);
           return field instanceof RelationField;
@@ -233,7 +233,7 @@ export class PluginACL extends Plugin {
         transaction,
       });
 
-      if (defaultRole && (await model.countRoles({ transaction })) == 0) {
+      if (defaultRole && (await model.countRoles({ transaction })) === 0) {
         await model.addRoles(defaultRole, { transaction });
       }
     });
@@ -381,7 +381,7 @@ export class PluginACL extends Plugin {
 
         for (const resourceAction of resourceActions) {
           const fields = resourceAction.get('fields') as string[];
-          const newFields = fields.filter((field) => field != fieldName);
+          const newFields = fields.filter((field) => field !== fieldName);
 
           await this.app.db.getRepository('dataSourcesRolesResourcesActions').update({
             filterByTk: resourceAction.get('id') as number,
@@ -673,7 +673,7 @@ export class PluginACL extends Plugin {
       async (ctx: any, next) => {
         const action = ctx.permission?.can?.action;
 
-        if (action == 'destroy' && !ctx.action.resourceName.includes('.')) {
+        if (action === 'destroy' && !ctx.action.resourceName.includes('.')) {
           const repository = actionUtils.getRepositoryFromParams(ctx);
 
           if (!repository) {

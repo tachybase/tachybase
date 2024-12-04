@@ -69,6 +69,7 @@
     "@tachybase/plugin-online-user": "workspace:*",
     "@tachybase/plugin-pdf-editor": "workspace:*",
     "@tachybase/plugin-simple-cms": "workspace:*",
+    "@tachybase/plugin-sub-accounts": "workspace:*",
     "@tachybase/plugin-system-settings": "workspace:*",
     "@tachybase/plugin-theme-editor": "workspace:*",
     "@tachybase/plugin-ui-schema-storage": "workspace:*",

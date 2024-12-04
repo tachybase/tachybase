@@ -1,12 +1,19 @@
 import { ACL } from '@tachybase/acl';
 import { Model } from '@tachybase/database';
+import Application from '@tachybase/server';
 
 import { Transaction } from 'sequelize';
 
 import { DataSourcesRolesResourcesModel } from './connections-roles-resources';
 
 export class DataSourcesRolesModel extends Model {
-  async writeToAcl(options: { acl: ACL; transaction?: Transaction; associationFieldsActions: any; grantHelper: any }) {
+  async writeToAcl(options: {
+    acl: ACL;
+    transaction?: Transaction;
+    associationFieldsActions: any;
+    grantHelper: any;
+    app?: Application;
+  }) {
     const { acl, transaction } = options;
     const roleName = this.get('roleName') as string;
     let role = acl.getRole(roleName);
@@ -37,6 +44,7 @@ export class DataSourcesRolesModel extends Model {
         transaction,
         grantHelper: options.grantHelper,
         associationFieldsActions: options.associationFieldsActions,
+        app: options.app,
       });
     }
   }
