@@ -24,79 +24,6 @@ export class RecordPreviewController {
   @Inject(() => RecordPdfService)
   private recordPdfService: RecordPdfService;
 
-  @Action('group')
-  async group(ctx: Context) {
-    const { collection: collectionName, filter } = ctx.action.params.values;
-    const collection = ctx.db.getCollection(collectionName);
-    const fields = collection.fields;
-    const filterParser = new FilterParser(filter, {
-      collection,
-    });
-    const { sequelize } = ctx.db;
-    const { where, include } = filterParser.toSequelizeParams();
-    const parsedFilterInclude =
-      include?.map((item) => {
-        if (fields.get(item.association)?.type === 'belongsToMany') {
-          item.through = { attributes: [] };
-        }
-        return item;
-      }) || [];
-    const query = {
-      where: where || {},
-      attributes: [
-        [sequelize.fn('sum', sequelize.col('items.count')), 'count'],
-        [sequelize.col('items.product_id'), 'product_id'],
-        [sequelize.col('records.movement'), 'movement'],
-      ],
-      include: [
-        {
-          association: 'items',
-          attributes: [],
-        },
-        ...parsedFilterInclude,
-      ],
-      group: [sequelize.col('items.product_id'), sequelize.col('records.movement')],
-      order: [],
-      subQuery: false,
-      raw: true,
-    } as any;
-    const records = await ctx.db.getModel('records').findAll(query);
-    if (records) {
-      const allProducts = await ctx.db.getRepository('product').find({ appends: ['category'] });
-      if (!allProducts) return;
-      const items = {} as { [key: string]: { name: string; sort: number; out: number; in: number; total: number } };
-      records.forEach((item) => {
-        const product = allProducts.find((p) => p.id === item?.product_id);
-        if (!product) return;
-        if (!items[product.name]) {
-          items[product.name] = {
-            name: product.name,
-            sort: product.category.sort,
-            out: 0,
-            in: 0,
-            total: 0,
-          };
-        }
-        const count = product.category.convertible ? item.count * product.ratio : item.count;
-        if (item.movement === Movement.in) {
-          items[product.name].in += count;
-          items[product.name].total += count;
-        } else {
-          items[product.name].out += count;
-          items[product.name].total -= count;
-        }
-      });
-      const result = {
-        labels: ['名称', '出库数量', '入库数量', '小计'],
-        values: [],
-      };
-      _.toArray(items)
-        .sort((a, b) => a.sort - b.sort)
-        .forEach((item) => result.values.push([item.name, item.out, item.in, item.total]));
-      ctx.body = { ...result };
-    }
-  }
-
   async groupWeight(ctx: Context) {
     const { filter } = ctx.action.params.values;
     const collectionName = 'records';
@@ -132,46 +59,6 @@ export class RecordPreviewController {
     const data = {
       labels: ['名称', '出库数量（吨）', '入库数量（吨）', '小计（吨）'],
       values: [['实际重量（吨）', outNum, inNum, inNum - outNum]],
-    };
-    ctx.body = data;
-  }
-  @Action('allprice')
-  async groupPrice(ctx: Context) {
-    const { filter } = ctx.action.params.values;
-    const collectionName = 'records';
-    const collection = ctx.db.getCollection(collectionName);
-    const fields = collection.fields;
-    const filterParser = new FilterParser(filter, {
-      collection,
-    });
-    const { sequelize } = ctx.db;
-    const { where, include } = filterParser.toSequelizeParams();
-    const parsedFilterInclude =
-      include?.map((item) => {
-        if (fields.get(item.association)?.type === 'belongsToMany') {
-          item.through = { attributes: [] };
-        }
-        return item;
-      }) || [];
-    const query = {
-      where: where || {},
-      attributes: [
-        [sequelize.fn('sum', sequelize.col('records.all_price')), 'all_price'],
-        [sequelize.col('records.movement'), 'movement'],
-      ],
-      group: [sequelize.col('records.movement')],
-      include: [...parsedFilterInclude],
-      order: [],
-      subQuery: false,
-      raw: true,
-    } as any;
-    const records = await ctx.db.getModel('records').findAll(query);
-
-    const inNum = records.find((item) => item.movement === Movement.in)?.all_price ?? 0;
-    const outNum = records.find((item) => item.movement === Movement.out)?.all_price ?? 0;
-    const data = {
-      labels: ['名称', '收入', '支出', '小计'],
-      values: [['总金额', outNum, inNum, outNum - inNum]],
     };
     ctx.body = data;
   }
