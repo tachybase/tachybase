@@ -1,7 +1,7 @@
 import path from 'path';
 import * as process from 'process';
 import { Filter, InheritedCollection, UniqueConstraintError } from '@tachybase/database';
-import PluginErrorHandler from '@tachybase/plugin-error-handler';
+import PluginErrorHandler from '@tachybase/module-error-handler';
 import { Plugin } from '@tachybase/server';
 
 import { Mutex } from 'async-mutex';
@@ -55,7 +55,7 @@ export class CollectionManagerPlugin extends Plugin {
     });
 
     this.app.db.on('collections.beforeCreate', async (model) => {
-      if (this.app.db.inDialect('postgres') && this.schema && model.get('from') != 'db2cm' && !model.get('schema')) {
+      if (this.app.db.inDialect('postgres') && this.schema && model.get('from') !== 'db2cm' && !model.get('schema')) {
         model.set('schema', this.schema);
       }
     });
@@ -172,14 +172,14 @@ export class CollectionManagerPlugin extends Plugin {
       const prevDefaultValue = prevOptions['defaultValue'];
       const currentDefaultValue = currentOptions['defaultValue'];
 
-      if (prevDefaultValue != currentDefaultValue) {
+      if (prevDefaultValue !== currentDefaultValue) {
         await model.syncDefaultValue({ transaction, defaultValue: currentDefaultValue });
       }
 
       const prevOnDelete = prevOptions['onDelete'];
       const currentOnDelete = currentOptions['onDelete'];
 
-      if (prevOnDelete != currentOnDelete) {
+      if (prevOnDelete !== currentOnDelete) {
         await model.syncReferenceCheckOption({ transaction });
       }
 
@@ -218,7 +218,7 @@ export class CollectionManagerPlugin extends Plugin {
           })
           .filter(Boolean);
 
-        return parents.length == 0;
+        return parents.length === 0;
       });
 
       await this.db.getCollection('fields').repository.destroy({
@@ -325,8 +325,8 @@ export class CollectionManagerPlugin extends Plugin {
       // handle collections:list
       if (
         ctx.action.resourceName === 'collections' &&
-        ctx.action.actionName == 'list' &&
-        ctx.action.params?.paginate == 'false'
+        ctx.action.actionName === 'list' &&
+        ctx.action.params?.paginate === 'false'
       ) {
         for (const collection of ctx.body) {
           if (collection.get('view')) {
@@ -337,11 +337,11 @@ export class CollectionManagerPlugin extends Plugin {
       }
 
       //handle collections:fields:list
-      if (ctx.action.resourceName == 'collections.fields' && ctx.action.actionName == 'list') {
-        handleFieldSource(ctx.action.params?.paginate == 'false' ? ctx.body : ctx.body.rows);
+      if (ctx.action.resourceName === 'collections.fields' && ctx.action.actionName === 'list') {
+        handleFieldSource(ctx.action.params?.paginate === 'false' ? ctx.body : ctx.body.rows);
       }
 
-      if (ctx.action.resourceName == 'collections.fields' && ctx.action.actionName == 'get') {
+      if (ctx.action.resourceName === 'collections.fields' && ctx.action.actionName === 'get') {
         handleFieldSource(ctx.body);
       }
     });

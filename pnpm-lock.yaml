@@ -1187,40 +1187,6 @@ importers:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/module-api-doc:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      swagger-ui-dist:
-        specifier: ^5.10.5
-        version: 5.10.5
-
   packages/module-api-keys:
     dependencies:
       '@tachybase/actions':
@@ -1634,7 +1600,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-error-handler':
+      '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
       '@tachybase/server':
@@ -1764,6 +1730,40 @@ importers:
         specifier: ^6.37.3
         version: 6.37.3
 
+  packages/module-devtools:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/sdk':
+        specifier: workspace:*
+        version: link:../sdk
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      swagger-ui-dist:
+        specifier: ^5.10.5
+        version: 5.10.5
+
   packages/module-error-handler:
     dependencies:
       '@tachybase/client':
@@ -1849,12 +1849,12 @@ importers:
       '@tachybase/evaluators':
         specifier: workspace:*
         version: link:../evaluators
+      '@tachybase/module-acl':
+        specifier: workspace:*
+        version: link:../module-acl
       '@tachybase/module-workflow':
         specifier: workspace:*
         version: link:../module-workflow
-      '@tachybase/plugin-acl':
-        specifier: workspace:*
-        version: link:../module-acl
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -1979,7 +1979,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-client':
+      '@tachybase/module-client':
         specifier: workspace:*
         version: link:../module-client
       '@tachybase/plugin-ui-schema-storage':
@@ -2102,7 +2102,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-error-handler':
+      '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
       '@tachybase/server':
@@ -2316,7 +2316,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-error-handler':
+      '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
       '@tachybase/plugin-users':
@@ -2356,10 +2356,10 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-acl':
+      '@tachybase/module-acl':
         specifier: workspace:*
         version: link:../module-acl
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/resourcer':
@@ -2478,12 +2478,12 @@ importers:
       '@tachybase/logger':
         specifier: workspace:*
         version: link:../logger
+      '@tachybase/module-error-handler':
+        specifier: workspace:*
+        version: link:../module-error-handler
       '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../module-collection-manager
-      '@tachybase/plugin-error-handler':
-        specifier: workspace:*
-        version: link:../module-error-handler
       '@tachybase/plugin-users':
         specifier: workspace:*
         version: link:../module-users
@@ -2972,7 +2972,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/sdk':
@@ -3009,7 +3009,7 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -3052,7 +3052,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -3098,7 +3098,7 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -3140,7 +3140,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/sdk':
@@ -3189,7 +3189,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/plugin-verification':
@@ -3229,7 +3229,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/schema':
@@ -3269,7 +3269,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -3999,12 +3999,12 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/module-error-handler':
+        specifier: workspace:*
+        version: link:../module-error-handler
       '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../module-collection-manager
-      '@tachybase/plugin-error-handler':
-        specifier: workspace:*
-        version: link:../module-error-handler
       '@tachybase/plugin-multi-app-manager':
         specifier: workspace:*
         version: link:../module-multi-app
@@ -4206,7 +4206,7 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -4251,7 +4251,7 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/plugin-acl':
+      '@tachybase/module-acl':
         specifier: workspace:*
         version: link:../module-acl
       '@tachybase/server':
@@ -4359,9 +4359,36 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/module-acl':
+        specifier: workspace:*
+        version: link:../module-acl
+      '@tachybase/module-api-keys':
+        specifier: workspace:*
+        version: link:../module-api-keys
+      '@tachybase/module-audit-logs':
+        specifier: workspace:*
+        version: link:../module-audit-logs
+      '@tachybase/module-auth':
+        specifier: workspace:*
+        version: link:../module-auth
+      '@tachybase/module-backup':
+        specifier: workspace:*
+        version: link:../module-backup
+      '@tachybase/module-client':
+        specifier: workspace:*
+        version: link:../module-client
+      '@tachybase/module-client-mobile':
+        specifier: workspace:*
+        version: link:../module-client-mobile
       '@tachybase/module-cloud-component':
         specifier: workspace:*
         version: link:../module-cloud-component
+      '@tachybase/module-devtools':
+        specifier: workspace:*
+        version: link:../module-devtools
+      '@tachybase/module-error-handler':
+        specifier: workspace:*
+        version: link:../module-error-handler
       '@tachybase/module-event-source':
         specifier: workspace:*
         version: link:../module-event-source
@@ -4371,9 +4398,6 @@ importers:
       '@tachybase/module-workflow':
         specifier: workspace:*
         version: link:../module-workflow
-      '@tachybase/plugin-acl':
-        specifier: workspace:*
-        version: link:../module-acl
       '@tachybase/plugin-action-bulk-edit':
         specifier: workspace:*
         version: link:../plugin-action-bulk-edit
@@ -4404,18 +4428,6 @@ importers:
       '@tachybase/plugin-adapter-remix':
         specifier: workspace:*
         version: link:../plugin-adapter-remix
-      '@tachybase/plugin-api-doc':
-        specifier: workspace:*
-        version: link:../module-api-doc
-      '@tachybase/plugin-api-keys':
-        specifier: workspace:*
-        version: link:../module-api-keys
-      '@tachybase/plugin-audit-logs':
-        specifier: workspace:*
-        version: link:../module-audit-logs
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../module-auth
       '@tachybase/plugin-auth-cas':
         specifier: workspace:*
         version: link:../plugin-auth-cas
@@ -4443,9 +4455,6 @@ importers:
       '@tachybase/plugin-auth-wecom':
         specifier: workspace:*
         version: link:../plugin-auth-wecom
-      '@tachybase/plugin-backup-restore':
-        specifier: workspace:*
-        version: link:../module-backup
       '@tachybase/plugin-block-calendar':
         specifier: workspace:*
         version: link:../plugin-block-calendar
@@ -4467,9 +4476,6 @@ importers:
       '@tachybase/plugin-block-presentation':
         specifier: workspace:*
         version: link:../plugin-block-presentation
-      '@tachybase/plugin-client':
-        specifier: workspace:*
-        version: link:../module-client
       '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../module-collection-manager
@@ -4482,9 +4488,6 @@ importers:
       '@tachybase/plugin-demos-game-runesweeper':
         specifier: workspace:*
         version: link:../plugin-prototype-game-runesweeper
-      '@tachybase/plugin-error-handler':
-        specifier: workspace:*
-        version: link:../module-error-handler
       '@tachybase/plugin-field-china-region':
         specifier: workspace:*
         version: link:../plugin-field-china-region
@@ -4512,9 +4515,6 @@ importers:
       '@tachybase/plugin-messages':
         specifier: workspace:*
         version: link:../module-messages
-      '@tachybase/plugin-mobile-client':
-        specifier: workspace:*
-        version: link:../module-client-mobile
       '@tachybase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../module-mock-collections
@@ -14767,11 +14767,9 @@ packages:
 
   glob@5.0.15:
     resolution: {integrity: sha512-c9IPMazfRITpmAAKi22dK1VKxGDX9ehhqfABDriL/lzO92xcUKEJPQHrVA/2YHSNFB4iFlykVmWvwo48nr3OxA==}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@7.1.7:
     resolution: {integrity: sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@7.2.0:
     resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==}

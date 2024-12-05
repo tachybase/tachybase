@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-backup-restore",
+  "name": "@tachybase/module-backup",
   "displayName": "App backup & restore",
   "version": "0.22.58",
   "description": "Backup and restore applications for scenarios such as application replication, migration, and upgrades.",
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-backup-restore"
+    "build": "tachybase-build --no-dts @tachybase/module-backup"
   },
   "devDependencies": {
     "@ant-design/icons": "^5.3.7",

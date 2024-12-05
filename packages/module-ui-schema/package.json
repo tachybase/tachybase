@@ -20,7 +20,7 @@
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-error-handler": "workspace:*",
+    "@tachybase/module-error-handler": "workspace:*",
     "@tachybase/plugin-users": "workspace:*",
     "@tachybase/resourcer": "workspace:*",
     "@tachybase/server": "workspace:*",

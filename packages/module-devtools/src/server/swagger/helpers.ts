@@ -80,7 +80,7 @@ export const getInterfaceCollection = (options: Record<string, any>) => {
     remove: 'remove',
     toggle: 'toggle',
     move: 'move',
-    ...(options.accessors || {}),
+    ...options.accessors,
   };
 
   const single = {

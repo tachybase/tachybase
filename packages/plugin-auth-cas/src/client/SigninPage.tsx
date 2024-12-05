@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useApp } from '@tachybase/client';
-import { Authenticator } from '@tachybase/plugin-auth/client';
+import { Authenticator } from '@tachybase/module-auth/client';
 import { getSubAppName } from '@tachybase/sdk';
 
 import { LoginOutlined } from '@ant-design/icons';

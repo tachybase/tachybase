@@ -1,7 +1,8 @@
 import { i18n } from '@tachybase/client';
+
 import { useTranslation as useT } from 'react-i18next';
 
-export const NAMESPACE = 'api-doc';
+export const NAMESPACE = 'devtools';
 
 export function lang(key: string) {
   return i18n.t(key, { ns: NAMESPACE });

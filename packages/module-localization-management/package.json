@@ -24,7 +24,7 @@
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-client": "workspace:*",
+    "@tachybase/module-client": "workspace:*",
     "@tachybase/plugin-ui-schema-storage": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"

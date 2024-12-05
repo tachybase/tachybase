@@ -10,7 +10,7 @@ import {
   useRequest,
   useResourceActionContext,
 } from '@tachybase/client';
-import { RolesManagerContext } from '@tachybase/plugin-acl/client';
+import { RolesManagerContext } from '@tachybase/module-acl/client';
 
 import { App } from 'antd';
 

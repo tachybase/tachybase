@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useActionContext, useAPIClient, useResourceActionContext } from '@tachybase/client';
-import { RolesManagerContext } from '@tachybase/plugin-acl/client';
+import { RolesManagerContext } from '@tachybase/module-acl/client';
 import { useForm } from '@tachybase/schema';
 
 export const useAddDepartments = () => {
@@ -9,7 +9,7 @@ export const useAddDepartments = () => {
   const form = useForm();
   const { setVisible } = useActionContext();
   const { refresh } = useResourceActionContext();
-  const { departments: departments } = form.values || {};
+  const { departments } = form.values || {};
   return {
     async run() {
       const apiResource = api.resource('roles.departments', role.name);

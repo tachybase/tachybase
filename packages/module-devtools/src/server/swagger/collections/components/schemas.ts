@@ -17,12 +17,12 @@ function getCollectionReadOnlyFields(collection: Collection) {
   }
 
   for (const [fieldName, field] of collection.fields) {
-    if (field.type == 'sort') {
+    if (field.type === 'sort') {
       readOnlyFields.push(fieldName);
       continue;
     }
 
-    if (field.type == 'context') {
+    if (field.type === 'context') {
       readOnlyFields.push(fieldName);
       continue;
     }

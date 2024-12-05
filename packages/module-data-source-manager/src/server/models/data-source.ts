@@ -1,6 +1,6 @@
 import { ACL, AvailableActionOptions } from '@tachybase/acl';
 import { Model, Transaction } from '@tachybase/database';
-import { setCurrentRole } from '@tachybase/plugin-acl';
+import { setCurrentRole } from '@tachybase/module-acl';
 import { Application } from '@tachybase/server';
 
 import PluginDataSourceManagerServer from '../plugin';

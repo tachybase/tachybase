@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-api-keys",
+  "name": "@tachybase/module-api-keys",
   "displayName": "Auth: API keys",
   "version": "0.22.58",
   "description": "Allows users to use API key to access application's HTTP API",
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-api-keys"
+    "build": "tachybase-build --no-dts @tachybase/module-api-keys"
   },
   "devDependencies": {
     "@tachybase/schema": "workspace:*",

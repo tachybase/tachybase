@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-api-doc",
+  "name": "@tachybase/module-devtools",
   "displayName": "API documentation",
   "version": "0.22.58",
   "description": "An OpenAPI documentation generator for TachyBase HTTP API.",
@@ -7,7 +7,7 @@
   "main": "./dist/server/index.js",
   "types": "./dist/server/index.d.ts",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-api-doc"
+    "build": "tachybase-build --no-dts @tachybase/module-devtools"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",

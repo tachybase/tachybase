@@ -1,5 +1,5 @@
 import { Plugin, tval } from '@tachybase/client';
-import ACLPlugin from '@tachybase/plugin-acl/client';
+import ACLPlugin from '@tachybase/module-acl/client';
 
 import { RoleUsersManager } from './RoleUsersManager';
 import { ChangePassword } from './UserChangePassword';

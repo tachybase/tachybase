@@ -6,7 +6,7 @@ export default class RemoveBuitInAuditLogsMigration extends Migration {
   async up() {
     await this.pm.repository.destroy({
       filter: {
-        packageName: '@tachybase/plugin-audit-logs',
+        packageName: '@tachybase/module-audit-logs',
       },
     });
   }

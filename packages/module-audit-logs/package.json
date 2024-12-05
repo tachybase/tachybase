@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-audit-logs",
+  "name": "@tachybase/module-audit-logs",
   "displayName": "Audit logs",
   "version": "0.22.58",
   "description": "Audit logs.",
@@ -8,7 +8,7 @@
   ],
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-audit-logs"
+    "build": "tachybase-build --no-dts @tachybase/module-audit-logs"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",

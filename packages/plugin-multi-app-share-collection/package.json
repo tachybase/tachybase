@@ -20,8 +20,8 @@
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/module-error-handler": "workspace:*",
     "@tachybase/plugin-collection-manager": "workspace:*",
-    "@tachybase/plugin-error-handler": "workspace:*",
     "@tachybase/plugin-multi-app-manager": "workspace:*",
     "@tachybase/plugin-users": "workspace:*",
     "@tachybase/server": "workspace:*",

@@ -1,7 +1,8 @@
 import { i18n, tval as nTval } from '@tachybase/client';
+
 import { useTranslation } from 'react-i18next';
 
-export const NAMESPACE = '@tachybase/plugin-audit-logs';
+export const NAMESPACE = '@tachybase/module-audit-logs';
 
 export function lang(key: string) {
   return i18n.t(key, { ns: NAMESPACE });
