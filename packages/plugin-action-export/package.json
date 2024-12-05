@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-export"
+    "build": "tachybase-build --no-dts @tachybase/plugin-action-export"
   },
   "devDependencies": {
     "@tachybase/components": "workspace:*",

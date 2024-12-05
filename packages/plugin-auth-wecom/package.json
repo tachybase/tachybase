@@ -8,7 +8,7 @@
   ],
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-work-wechat"
+    "build": "tachybase-build --no-dts @tachybase/plugin-auth-wecom"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",

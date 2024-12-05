@@ -11,7 +11,7 @@
   "main": "./dist/server/index.js",
   "types": "./dist/server/index.d.ts",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-calendar"
+    "build": "tachybase-build --no-dts @tachybase/plugin-block-calendar"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",

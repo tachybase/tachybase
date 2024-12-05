@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-china-region"
+    "build": "tachybase-build --no-dts @tachybase/plugin-field-china-region"
   },
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
