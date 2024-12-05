@@ -1,6 +1,6 @@
-import fs from 'fs';
-import net from 'net';
-import { basename, dirname, join, resolve, sep } from 'path';
+import fs from 'node:fs/promises';
+import net from 'node:net';
+import { basename, dirname, join, resolve, sep } from 'node:path';
 import { CleanOptions, Collection, SyncOptions } from '@tachybase/database';
 import { Container, fsExists, importModule, isURL } from '@tachybase/utils';
 
@@ -113,8 +113,8 @@ export class PluginManager {
    * @internal
    */
   static async getPackageJson(packageName: string) {
-    const file = await fs.promises.realpath(resolve(process.env.NODE_MODULES_PATH, packageName, 'package.json'));
-    const data = await fs.promises.readFile(file, { encoding: 'utf-8' });
+    const file = await fs.realpath(resolve(process.env.NODE_MODULES_PATH, packageName, 'package.json'));
+    const data = await fs.readFile(file, { encoding: 'utf-8' });
     return JSON.parse(data);
   }
 
@@ -237,7 +237,7 @@ export class PluginManager {
     const createPlugin = async (name) => {
       const pluginDir = resolve(process.cwd(), 'packages', name);
       if (options?.forceRecreate) {
-        await fs.promises.rm(pluginDir, { recursive: true, force: true });
+        await fs.rm(pluginDir, { recursive: true, force: true });
       }
       await execa('pnpm', ['run', 'tb', 'create-plugin', name]);
     };
@@ -630,9 +630,9 @@ export class PluginManager {
         records.map(async (plugin) => {
           const dir = resolve(process.env.NODE_MODULES_PATH, plugin.packageName);
           try {
-            const realDir = await fs.promises.realpath(dir);
+            const realDir = await fs.realpath(dir);
             this.app.logger.debug(`rm -rf ${realDir}`);
-            return fs.promises.rm(realDir, { force: true, recursive: true });
+            return fs.rm(realDir, { force: true, recursive: true });
           } catch (error) {
             return false;
           }
@@ -825,7 +825,7 @@ export class PluginManager {
       await this.upgradeByNpm(options as any);
     }
     const file = resolve(process.cwd(), 'storage/app-upgrading');
-    await fs.promises.writeFile(file, '', 'utf-8');
+    await fs.writeFile(file, '', 'utf-8');
     // await this.app.upgrade();
     if (process.env.IS_DEV_CMD) {
       await tsxRerunning();

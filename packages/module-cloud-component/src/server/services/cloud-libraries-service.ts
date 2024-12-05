@@ -91,12 +91,28 @@ export class CloudLibrariesService {
         return {};
       };
 
+      const that = this;
       const contextRequire = function (moduleName: string) {
-        // 拦截逻辑：优先检查自定义模块表
-        if (this.app.modules[moduleName]) {
-          return this.app.modules[moduleName];
+        // FIXME:
+        if (moduleName === '@tachybase/utils/client') {
+          return require.call(this, '@tachybase/utils');
         }
-        return require.call(this, moduleName);
+        if (moduleName === '@tachybase/module-pdf/client') {
+          return require.call(this, '@tachybase/module-pdf');
+        }
+        if (moduleName === '@react-pdf/renderer') {
+          return require.call(this, '@tachybase/module-pdf');
+        }
+        // 拦截逻辑：优先检查自定义模块表
+        if (that.app.modules[moduleName]) {
+          return that.app.modules[moduleName];
+        }
+        try {
+          return require.call(this, moduleName);
+        } catch (error) {
+          that.logger.warn('module not found. ', { meta: error });
+          return {};
+        }
       };
       Object.assign(contextRequire, require);
 
