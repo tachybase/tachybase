@@ -39,10 +39,17 @@ export const listUsersIncludeChildDepartment = async (ctx: Context, next: Next) 
     if (filter?.showChildren !== undefined) {
       const showChildren = filter.showChildren;
       delete filter.showChildren;
-      if (showChildren && filter?.departments?.id) {
-        const departmentIds = await getAllDepartmentIds(repo, filter.departments.id);
+      const departmentId = filter['departments.id'] || filter?.departments?.id;
+      if (showChildren && departmentId) {
+        const departmentIds = await getAllDepartmentIds(repo, departmentId);
         if (departmentIds.length > 1) {
-          delete filter.departments.id;
+          if (filter?.departments?.id) {
+            delete filter.departments.id;
+          }
+          delete filter['departments.id'];
+          if (!filter.departments) {
+            filter.departments = {};
+          }
           filter.departments.id = {
             $in: departmentIds,
           };
