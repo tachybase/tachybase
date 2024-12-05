@@ -66,7 +66,6 @@
     "@tachybase/plugin-multi-app-manager": "workspace:*",
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",
     "@tachybase/plugin-online-user": "workspace:*",
-    "@tachybase/plugin-pdf-editor": "workspace:*",
     "@tachybase/plugin-simple-cms": "workspace:*",
     "@tachybase/plugin-sub-accounts": "workspace:*",
     "@tachybase/plugin-system-settings": "workspace:*",
