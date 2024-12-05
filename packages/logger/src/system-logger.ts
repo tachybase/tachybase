@@ -2,6 +2,7 @@ import { SPLAT } from 'triple-beam';
 import winston, { format, Logger } from 'winston';
 import Transport from 'winston-transport';
 
+import { version } from '../package.json';
 import { getFormat } from './format';
 import { createLogger, LoggerOptions } from './logger';
 
@@ -63,6 +64,7 @@ class SystemLoggerTransport extends Transport {
       method: method || '',
       app,
       reqId,
+      version: level === 'error' ? version : undefined,
     });
     if (cause) {
       logger.log({

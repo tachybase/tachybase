@@ -1,5 +1,6 @@
 import { pick } from 'lodash';
 
+import { version } from '../package.json';
 import { getLoggerFilePath } from './config';
 import { createLogger, LoggerOptions } from './logger';
 
@@ -23,7 +24,7 @@ export const requestLogger = (appName: string, options?: RequestLoggerOptions) =
   const requestLogger = createLogger({
     dirname: getLoggerFilePath(appName),
     filename: 'request',
-    ...(options || {}),
+    ...options,
   });
   return async (ctx, next) => {
     const reqId = ctx.reqId;
@@ -63,10 +64,10 @@ export const requestLogger = (appName: string, options?: RequestLoggerOptions) =
         app: appName,
         reqId,
       };
-      if (Math.floor(status / 100) == 5) {
-        requestLogger.error({ ...info, res: ctx.body?.['errors'] || ctx.body });
-      } else if (Math.floor(status / 100) == 4) {
-        requestLogger.warn({ ...info, res: ctx.body?.['errors'] || ctx.body });
+      if (Math.floor(status / 100) === 5) {
+        requestLogger.error({ ...info, version, res: ctx.body?.['errors'] || ctx.body });
+      } else if (Math.floor(status / 100) === 4) {
+        requestLogger.warn({ ...info, version, res: ctx.body?.['errors'] || ctx.body });
       } else {
         requestLogger.info(info);
       }

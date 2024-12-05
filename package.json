@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tachybase build --no-dts",
     "build:full": "tachybase build",
-    "build:p": "tachybase build --no-dts",
+    "build:p": "tachybase build -s --no-dts",
     "build:t": "turbo run build --filter='./packages/*'",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
