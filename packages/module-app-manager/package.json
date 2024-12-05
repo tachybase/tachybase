@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-multi-app-manager",
+  "name": "@tachybase/module-app-manager",
   "displayName": "Multi-app manager",
   "version": "0.22.58",
   "description": "Dynamically create multiple apps without separate deployments.",
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-multi-app-manager"
+    "build": "tachybase-build --no-dts @tachybase/module-app-manager"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1"

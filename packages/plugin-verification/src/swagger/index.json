@@ -1,9 +1,8 @@
 {
-  "openapi": "3.0.2",
   "info": {
     "title": "TachyBase API - Verification plugin"
   },
-  "tags": [],
+  "openapi": "3.0.2",
   "paths": {
     "/verifications:list": {
       "get": {
@@ -113,5 +112,6 @@
         }
       }
     }
-  }
+  },
+  "tags": []
 }

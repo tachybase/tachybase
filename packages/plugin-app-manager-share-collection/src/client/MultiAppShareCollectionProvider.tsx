@@ -1,6 +1,6 @@
 import React from 'react';
 import { useActionContext, useAPIClient, useRecord } from '@tachybase/client';
-import { tableActionColumnSchema } from '@tachybase/plugin-multi-app-manager/client';
+import { tableActionColumnSchema } from '@tachybase/module-app-manager/client';
 import { useForm } from '@tachybase/schema';
 
 import { message } from 'antd';

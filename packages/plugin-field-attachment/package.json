@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-file-manager",
+  "name": "@tachybase/plugin-field-attachment",
   "displayName": "File manager",
   "version": "0.22.58",
   "description": "Provides files storage services with files collection template and attachment field.",

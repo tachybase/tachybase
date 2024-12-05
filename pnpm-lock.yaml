@@ -1233,6 +1233,55 @@ importers:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
+  packages/module-app-manager:
+    dependencies:
+      '@ant-design/icons':
+        specifier: ^5.5.1
+        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      async-mutex:
+        specifier: ^0.3.2
+        version: 0.3.2
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      mysql2:
+        specifier: ^3.11.3
+        version: 3.11.3
+      pg:
+        specifier: ^8.11.3
+        version: 8.11.3
+      react:
+        specifier: ~18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
   packages/module-audit-logs:
     dependencies:
       '@tachybase/client':
@@ -2125,55 +2174,6 @@ importers:
         specifier: ^8.11.3
         version: 8.11.3
 
-  packages/module-multi-app:
-    dependencies:
-      '@ant-design/icons':
-        specifier: ^5.5.1
-        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      async-mutex:
-        specifier: ^0.3.2
-        version: 0.3.2
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      mysql2:
-        specifier: ^3.11.3
-        version: 3.11.3
-      pg:
-        specifier: ^8.11.3
-        version: 8.11.3
-      react:
-        specifier: ~18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   packages/module-pdf:
     dependencies:
       '@babel/core':
@@ -2390,61 +2390,6 @@ importers:
       react-i18next:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/module-verification:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/resourcer':
-        specifier: workspace:*
-        version: link:../resourcer
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@alicloud/dysmsapi20170525':
-        specifier: 2.0.17
-        version: 2.0.17
-      '@alicloud/openapi-client':
-        specifier: 0.4.1
-        version: 0.4.1
-      '@alicloud/tea-util':
-        specifier: 1.4.4
-        version: 1.4.4
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../components
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      dayjs:
-        specifier: 1.11.10
-        version: 1.11.10
-      react:
-        specifier: ~18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      tencentcloud-sdk-nodejs:
-        specifier: ^4.0.759
-        version: 4.0.759(encoding@0.1.13)
 
   packages/module-workflow:
     dependencies:
@@ -3194,7 +3139,7 @@ importers:
         version: link:../module-auth
       '@tachybase/plugin-verification':
         specifier: workspace:*
-        version: link:../module-verification
+        version: link:../plugin-verification
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -3624,53 +3569,7 @@ importers:
         specifier: ~1.8.5
         version: 1.8.5(react@18.3.1)
 
-  packages/plugin-field-china-region:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-    devDependencies:
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      '@types/cross-spawn':
-        specifier: ^6.0.6
-        version: 6.0.6
-      china-division:
-        specifier: ^2.7.0
-        version: 2.7.0
-      cross-spawn:
-        specifier: ^7.0.3
-        version: 7.0.3
-
-  packages/plugin-field-encryption:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-
-  packages/plugin-field-file-manager:
+  packages/plugin-field-attachment:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -3748,6 +3647,52 @@ importers:
       supertest:
         specifier: ^6.3.3
         version: 6.3.3
+
+  packages/plugin-field-china-region:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+    devDependencies:
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      '@types/cross-spawn':
+        specifier: ^6.0.6
+        version: 6.0.6
+      china-division:
+        specifier: ^2.7.0
+        version: 2.7.0
+      cross-spawn:
+        specifier: ^7.0.3
+        version: 7.0.3
+
+  packages/plugin-field-encryption:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
 
   packages/plugin-field-formula:
     dependencies:
@@ -3999,15 +3944,15 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/module-app-manager':
+        specifier: workspace:*
+        version: link:../module-app-manager
       '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
       '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../module-collection-manager
-      '@tachybase/plugin-multi-app-manager':
-        specifier: workspace:*
-        version: link:../module-multi-app
       '@tachybase/plugin-users':
         specifier: workspace:*
         version: link:../module-users
@@ -4265,6 +4210,61 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
+  packages/plugin-verification:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/resourcer':
+        specifier: workspace:*
+        version: link:../resourcer
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@alicloud/dysmsapi20170525':
+        specifier: 2.0.17
+        version: 2.0.17
+      '@alicloud/openapi-client':
+        specifier: 0.4.1
+        version: 0.4.1
+      '@alicloud/tea-util':
+        specifier: 1.4.4
+        version: 1.4.4
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      dayjs:
+        specifier: 1.11.10
+        version: 1.11.10
+      react:
+        specifier: ~18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tencentcloud-sdk-nodejs:
+        specifier: ^4.0.759
+        version: 4.0.759(encoding@0.1.13)
+
   packages/plugin-workflow-approval:
     dependencies:
       '@ant-design/icons':
@@ -4365,6 +4365,9 @@ importers:
       '@tachybase/module-api-keys':
         specifier: workspace:*
         version: link:../module-api-keys
+      '@tachybase/module-app-manager':
+        specifier: workspace:*
+        version: link:../module-app-manager
       '@tachybase/module-audit-logs':
         specifier: workspace:*
         version: link:../module-audit-logs
@@ -4392,6 +4395,12 @@ importers:
       '@tachybase/module-event-source':
         specifier: workspace:*
         version: link:../module-event-source
+      '@tachybase/module-logger':
+        specifier: workspace:*
+        version: link:../module-logger
+      '@tachybase/module-messages':
+        specifier: workspace:*
+        version: link:../module-messages
       '@tachybase/module-pdf':
         specifier: workspace:*
         version: link:../module-pdf
@@ -4488,6 +4497,9 @@ importers:
       '@tachybase/plugin-demos-game-runesweeper':
         specifier: workspace:*
         version: link:../plugin-prototype-game-runesweeper
+      '@tachybase/plugin-field-attachment':
+        specifier: workspace:*
+        version: link:../plugin-field-attachment
       '@tachybase/plugin-field-china-region':
         specifier: workspace:*
         version: link:../plugin-field-china-region
@@ -4503,25 +4515,13 @@ importers:
       '@tachybase/plugin-field-snapshot':
         specifier: workspace:*
         version: link:../plugin-field-snapshot
-      '@tachybase/plugin-file-manager':
-        specifier: workspace:*
-        version: link:../plugin-field-file-manager
       '@tachybase/plugin-localization-management':
         specifier: workspace:*
         version: link:../module-localization-management
-      '@tachybase/plugin-logger':
-        specifier: workspace:*
-        version: link:../module-logger
-      '@tachybase/plugin-messages':
-        specifier: workspace:*
-        version: link:../module-messages
       '@tachybase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../module-mock-collections
-      '@tachybase/plugin-multi-app-manager':
-        specifier: workspace:*
-        version: link:../module-multi-app
-      '@tachybase/plugin-multi-app-share-collection':
+      '@tachybase/plugin-app-manager-share-collection':
         specifier: workspace:*
         version: link:../plugin-multi-app-share-collection
       '@tachybase/plugin-online-user':
@@ -4547,7 +4547,7 @@ importers:
         version: link:../module-users
       '@tachybase/plugin-verification':
         specifier: workspace:*
-        version: link:../module-verification
+        version: link:../plugin-verification
       '@tachybase/plugin-workflow-approval':
         specifier: workspace:*
         version: link:../plugin-workflow-approval
@@ -20432,7 +20432,6 @@ packages:
   superagent@8.1.2:
     resolution: {integrity: sha512-6WTxW1EB6yCxV5VFOIPQruWGHqc3yI7hEmZK6h+pyk69Lk/Ut7rLUY6W/ONF2MjBuGjvmMiIpsrVJ2vjrHlslA==}
     engines: {node: '>=6.4.0 <13 || >=14'}
-    deprecated: Please upgrade to v9.0.0+ as we have fixed a public vulnerability with formidable dependency. Note that v9.0.0+ requires Node.js v14.18.0+. See https://github.com/ladjs/superagent/pull/1800 for insight. This project is supported and maintained by the team at Forward Email @ https://forwardemail.net
 
   superagent@9.0.2:
     resolution: {integrity: sha512-xuW7dzkUpcJq7QnhOsnNUgtYp3xRwpt2F7abdRYIpCsAt0hhUqia0EdxyXZQQpNmGtsCzYHryaKSV3q3GJnq7w==}

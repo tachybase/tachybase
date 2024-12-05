@@ -1,6 +1,7 @@
 import { Database, Model, ModelStatic } from '@tachybase/database';
-import VerificationPlugin from '@tachybase/plugin-verification';
 import { createMockServer, MockServer } from '@tachybase/test';
+
+import VerificationPlugin from 'packages/plugin-verification/src';
 
 import { authType } from '../../constants';
 

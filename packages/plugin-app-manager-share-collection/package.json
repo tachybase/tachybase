@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-multi-app-share-collection",
+  "name": "@tachybase/plugin-app-manager-share-collection",
   "displayName": "Multi-app share collection",
   "version": "0.22.58",
   "description": "",
@@ -8,7 +8,7 @@
   ],
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-multi-app-share-collection"
+    "build": "tachybase-build --no-dts @tachybase/plugin-app-manager-share-collection"
   },
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
@@ -20,9 +20,9 @@
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/module-app-manager": "workspace:*",
     "@tachybase/module-error-handler": "workspace:*",
     "@tachybase/plugin-collection-manager": "workspace:*",
-    "@tachybase/plugin-multi-app-manager": "workspace:*",
     "@tachybase/plugin-users": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",

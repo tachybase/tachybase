@@ -1,6 +1,6 @@
 import { Application } from '@tachybase/server';
 
-export default function mergeApplicationStartEnvs(appName: String, mainApp: Application, options: any, startEnvs: any) {
+export default function mergeApplicationStartEnvs(appName: string, mainApp: Application, options: any, startEnvs: any) {
   if (typeof startEnvs === 'string') {
     const envs = startEnvs.trim().split('\n');
     startEnvs = {};

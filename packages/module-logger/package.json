@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-logger",
+  "name": "@tachybase/module-logger",
   "displayName": "Logger",
   "version": "0.22.58",
   "description": "Server-side logs, mainly including API request logs and system runtime logs, and allows to package and download log files.",
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-logger"
+    "build": "tachybase-build --no-dts @tachybase/module-logger"
   },
   "devDependencies": {
     "@ant-design/icons": "^5.3.7",

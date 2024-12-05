@@ -1,6 +1,7 @@
 import { resolve } from 'path';
-import VerificationPlugin from '@tachybase/plugin-verification';
 import { InstallOptions, Plugin } from '@tachybase/server';
+
+import VerificationPlugin from 'packages/plugin-verification/src';
 
 import { authType } from '../constants';
 import { SMSAuth } from './sms-auth';

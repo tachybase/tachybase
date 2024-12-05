@@ -1,7 +1,8 @@
 import { AuthConfig, BaseAuth } from '@tachybase/auth';
 import { Model } from '@tachybase/database';
 import { AuthModel } from '@tachybase/module-auth';
-import VerificationPlugin from '@tachybase/plugin-verification';
+
+import VerificationPlugin from 'packages/plugin-verification/src';
 
 import { namespace } from '../constants';
 

@@ -1,9 +1,9 @@
 {
-  "name": "@tachybase/plugin-messages",
+  "name": "@tachybase/module-messages",
   "version": "0.22.58",
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-messages"
+    "build": "tachybase-build --no-dts @tachybase/module-messages"
   },
   "dependencies": {
     "@ant-design/icons": "~5.3.7",
