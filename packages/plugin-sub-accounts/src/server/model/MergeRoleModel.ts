@@ -61,7 +61,7 @@ export class MergeRoleModel extends RoleModel {
    */
   public async getSourceRoles(transaction: Transaction, app: Application) {
     const user = await this.getOwnerUser({ transaction });
-    const selfRoles = await user.getRoles({ appends: ['menuUiSchemas'], transaction });
+    const selfRoles = await user.getRoles({ include: ['menuUiSchemas'], transaction });
     // 部门的角色
     const departmentRoles = await this.getRolesByDepartment(transaction);
     const uniqueRoles = new Map();
@@ -235,7 +235,7 @@ export class MergeRoleModel extends RoleModel {
       }
     }
     if (changed) {
-      this.snippets = RoleSnippets.mergeSet(newSnippets);
+      this.snippets = newSnippets;
     }
   }
 
