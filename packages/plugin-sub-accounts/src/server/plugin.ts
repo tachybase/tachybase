@@ -25,6 +25,7 @@ export class PluginSubAccountsServer extends Plugin {
       RoleModel: MergeRoleModel,
     });
     this.app.on('dataSourceAfterStart', async () => {
+      // addMergeRole和refreshDataSourcesAclAtAppStart会有重复的
       await addMergeRole(this.app);
       refreshDataSourcesAclAtAppStart.bind(this.app)();
     });
@@ -44,6 +45,7 @@ export class PluginSubAccountsServer extends Plugin {
     // 给部门增加/删除角色
     this.app.db.on('departmentsRoles.afterSave', roleDepartmentUpdate.bind(this.app));
     this.app.db.on('departmentsRoles.afterDestroy', roleDepartmentUpdate.bind(this.app));
+    // TODO: 删除部门
 
     this.app.on('dataSource:writeToAcl', async ({ roleName, transaction }) => {
       const affectedUsers = await this.app.db.getRepository('users').find({

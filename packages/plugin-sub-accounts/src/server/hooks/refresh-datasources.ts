@@ -19,4 +19,6 @@ export async function refreshDataSourcesAclAtAppStart() {
   for (const role of roles) {
     await role.refreshDataSourcesAcl({ app });
   }
+
+  app.logger.info('[acl] refreshDataSourcesAclAtAppStart done');
 }

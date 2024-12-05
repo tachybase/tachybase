@@ -24,5 +24,5 @@ export async function addMergeRole(app: Application) {
     // 创建新的个人专属mergeRole
     const mergeRoleModel = (await roleRepo.create({ values: mergeRole })) as MergeRoleModel;
   }
-  app.logger.info(`[mergeRoles] add ${missingUsers.length} users`);
+  app.logger.info(`[acl] add mergeRoles for ${missingUsers.length} users`);
 }

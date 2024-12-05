@@ -46,7 +46,7 @@ export async function changeUserRolesMiddleware(ctx: Context, next) {
     ['add', 'remove', 'set'].includes(actionName)
   ) {
     /**
-     * 在角色列表中增加、删除、设置菜单项，重置用户的自身合并角色
+     * 修改了用户的菜单权限，重置用户的自身合并角色
      */
     const affectedUsers = await ctx.db.getRepository('users').find({
       filter: {

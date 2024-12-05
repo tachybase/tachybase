@@ -11,12 +11,24 @@ export async function sourceRoleDestroy(model: MergeRoleModel, options: DestroyO
     return;
   }
   const { transaction } = options;
-  const affectedUsers = await model.db.getRepository('users').find({
+  const rolesUsers = await model.db.getRepository('users').find({
     filter: {
       'roles.name': model.name,
     },
     appends: ['selfRole'],
   });
+
+  // 加入部门里的用户
+  const members = await model.getMembersByDepartment(transaction);
+  const memberMap = new Map();
+  for (const member of members) {
+    memberMap.set(member.id, member);
+  }
+  for (const user of rolesUsers) {
+    memberMap.set(user.id, user);
+  }
+  const affectedUsers = Array.from(memberMap.values());
+
   if (!affectedUsers.length) {
     return;
   }
@@ -24,5 +36,6 @@ export async function sourceRoleDestroy(model: MergeRoleModel, options: DestroyO
   const app = this as Application;
   for (const affectedRole of affectedRoles) {
     await affectedRole.resetAcl({ transaction, app });
+    await affectedRole.refreshDataSourcesAcl({ transaction, app });
   }
 }
