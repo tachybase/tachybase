@@ -148,6 +148,16 @@ async function convertByTsCode(code, data, processor: Processor) {
   };
 
   const contextRequire = function (moduleName: string) {
+    // FIXME
+    if (moduleName === '@tachybase/utils/client') {
+      return require.call(this, '@tachybase/utils');
+    }
+    if (moduleName === '@tachybase/module-pdf/client') {
+      return require.call(this, '@tachybase/module-pdf');
+    }
+    if (moduleName === '@react-pdf/renderer') {
+      return require.call(this, '@tachybase/module-pdf');
+    }
     // 拦截逻辑：优先检查自定义模块表
     if (app.modules[moduleName]) {
       return app.modules[moduleName];

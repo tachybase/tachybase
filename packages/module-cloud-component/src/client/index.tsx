@@ -2,6 +2,11 @@ import { Plugin, useApp, useDesignable } from '@tachybase/client';
 import { Field, useField, useFieldSchema } from '@tachybase/schema';
 import { uid } from '@tachybase/utils/client';
 
+import exceljs from 'exceljs';
+import * as fileSaver from 'file-saver';
+import * as qrcode from 'qrcode';
+import * as reactUse from 'react-use';
+
 import { CloudLibraryManager } from './cloud-library-manager/CloudLibraryManager';
 import { ProviderCloudComponent } from './CloudComponent.provider';
 import { useTranslation } from './locale';
@@ -13,6 +18,10 @@ export const CloudComponentNameKey = Symbol('CloudComponentNameKey');
 
 export class ModuleCloudComponentClient extends Plugin {
   async afterAdd() {
+    this.app.requirejs.define('react-use', () => reactUse);
+    this.app.requirejs.define('exceljs', () => exceljs);
+    this.app.requirejs.define('qrcode', () => qrcode);
+    this.app.requirejs.define('file-saver', () => fileSaver);
     await this.initLibraries();
   }
 

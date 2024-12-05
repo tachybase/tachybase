@@ -45,7 +45,6 @@ export class PresetTachyBase extends Plugin {
     ['field-sequence', '0.22.7', true],
     ['block-kanban', '0.22.7', true],
     ['logger', '0.22.7', true],
-    ['online-user', '0.22.7', true],
     ['pdf', '0.22.37', true],
     ['workflow', '0.22.7', true],
     // default disable
@@ -74,13 +73,14 @@ export class PresetTachyBase extends Plugin {
     ['mobile-client', '0.10.0-alpha.2', false],
     ['multi-app-manager', '0.7.0-alpha.1', false],
     ['multi-app-share-collection', '0.9.2-alpha.1', false],
+    ['online-user', '0.22.7', false],
     ['pdf-editor', '0.22.25', false],
     ['rental', '0.22.6', false],
     ['sancongtou', '0.22.6', false],
     ['simple-cms', '0.22.6', false],
+    ['sub-accounts', '0.22.56', false],
     ['theme-editor', '0.11.1-alpha.1', false],
     ['workflow-approval', '0.22.37', false],
-    ['sub-accounts', '0.22.56', false],
   ];
 
   get localPlugins() {

@@ -37,7 +37,7 @@ function ComPreview({ compileCode }: { compileCode: string }) {
       app.requirejs.require(
         [url],
         function (myModule) {
-          setComponent(() => myModule.default);
+          setComponent(() => myModule?.default);
           setCompileError('');
         },
         function (err) {
