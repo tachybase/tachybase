@@ -76,7 +76,6 @@ export class PresetTachyBase extends Plugin {
     ['online-user', '0.22.7', false],
     ['pdf-editor', '0.22.25', false],
     ['rental', '0.22.6', false],
-    ['sancongtou', '0.22.6', false],
     ['simple-cms', '0.22.6', false],
     ['sub-accounts', '0.22.56', false],
     ['theme-editor', '0.11.1-alpha.1', false],

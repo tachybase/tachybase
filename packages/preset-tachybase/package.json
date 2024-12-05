@@ -9,7 +9,6 @@
   "dependencies": {
     "@hera/plugin-core": "workspace:*",
     "@hera/plugin-rental": "workspace:*",
-    "@hera/plugin-sancongtou": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/module-cloud-component": "workspace:*",
     "@tachybase/module-event-source": "workspace:*",
