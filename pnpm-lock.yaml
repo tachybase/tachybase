@@ -2174,37 +2174,6 @@ importers:
         specifier: ^6.25.1
         version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/module-notifications:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@types/nodemailer':
-        specifier: 6.4.4
-        version: 6.4.4
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      nodemailer:
-        specifier: ^6.9.7
-        version: 6.9.7
-      nodemailer-mock:
-        specifier: ^1.5.12
-        version: 1.5.12
-
   packages/module-pdf:
     dependencies:
       '@babel/core':
@@ -3700,9 +3669,6 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
-      crypto:
-        specifier: ^1.0.1
-        version: 1.0.1
 
   packages/plugin-field-file-manager:
     dependencies:
@@ -10566,9 +10532,6 @@ packages:
   '@types/node@22.4.0':
     resolution: {integrity: sha512-49AbMDwYUz7EXxKU/r7mXOsxwFr4BYbvB7tWYxVuLdb2ibd30ijjXINSMAHiEEZk5PCRBmW1gUeisn2VMKt3cQ==}
 
-  '@types/nodemailer@6.4.4':
-    resolution: {integrity: sha512-Ksw4t7iliXeYGvIQcSIgWQ5BLuC/mljIEbjf615svhZL10PE9t+ei8O9gDaD3FPCasUJn9KTLwz2JFJyiiyuqw==}
-
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
@@ -13001,10 +12964,6 @@ packages:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}
     engines: {node: '>=8'}
 
-  crypto@1.0.1:
-    resolution: {integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==}
-    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
-
   css-blank-pseudo@3.0.3:
     resolution: {integrity: sha512-VS90XWtsHGqoM0t4KpH053c4ehxZ2E6HtGI7x68YFV0pTo/QmkV/YFA+NnlvK8guxZVNWGQhVNJGC39Q8XF4OQ==}
     engines: {node: ^12 || ^14 || >=16}
@@ -14808,9 +14767,11 @@ packages:
 
   glob@5.0.15:
     resolution: {integrity: sha512-c9IPMazfRITpmAAKi22dK1VKxGDX9ehhqfABDriL/lzO92xcUKEJPQHrVA/2YHSNFB4iFlykVmWvwo48nr3OxA==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@7.1.7:
     resolution: {integrity: sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@7.2.0:
     resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==}
@@ -17301,13 +17262,6 @@ packages:
   node-xlsx@0.16.2:
     resolution: {integrity: sha512-ZT3Y4Zg2BFC2UWdp9B/6x3GqrFL0Bf0cXKy9IyhcwlKbcDAf5GuPAPSqrWFQK68NIpfTNA1Kr/NNjpwYxUgHTA==}
     engines: {node: '>=4.0.0'}
-
-  nodemailer-mock@1.5.12:
-    resolution: {integrity: sha512-Muymd+qvTswEExCys01D11JW2ugHN2mzDaq3dfct546hmmk+Wro3sK3lVSoUZP7x53cOHv1iX3C51mL9IlY8KA==}
-
-  nodemailer@6.9.7:
-    resolution: {integrity: sha512-rUtR77ksqex/eZRLmQ21LKVH5nAAsVicAtAYudK7JgwenEDZ0UIQ1adUGqErz7sMkWYxWTTU1aeP2Jga6WQyJw==}
-    engines: {node: '>=6.0.0'}
 
   nofilter@3.1.0:
     resolution: {integrity: sha512-l2NNj07e9afPnhAhvgVrCD/oy2Ai1yfLpuo3EpiO1jFTsB4sFz6oIfAfSZyQzVpkZQ9xS8ZS5g1jCBgq4Hwo0g==}
@@ -29657,10 +29611,6 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
-  '@types/nodemailer@6.4.4':
-    dependencies:
-      '@types/node': 20.14.2
-
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/parse-json@4.0.2': {}
@@ -32640,8 +32590,6 @@ snapshots:
   crypto-random-string@1.0.0: {}
 
   crypto-random-string@2.0.0: {}
-
-  crypto@1.0.1: {}
 
   css-blank-pseudo@3.0.3(postcss@8.4.49):
     dependencies:
@@ -37984,15 +37932,6 @@ snapshots:
       '@babel/runtime': 7.26.0
       buffer-from: 1.1.2
       xlsx: 0.17.5
-
-  nodemailer-mock@1.5.12:
-    dependencies:
-      debug: 4.3.7(supports-color@8.1.1)
-      nodemailer: 6.9.7
-    transitivePeerDependencies:
-      - supports-color
-
-  nodemailer@6.9.7: {}
 
   nofilter@3.1.0: {}
 

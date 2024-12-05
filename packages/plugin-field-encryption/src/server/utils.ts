@@ -1,4 +1,4 @@
-import crypto, { BinaryLike, CipherKey } from 'crypto';
+import crypto, { BinaryLike, CipherKey } from 'node:crypto';
 
 const algorithm: string = 'aes-256-cbc';
 

@@ -7,9 +7,6 @@
     "Collection fields"
   ],
   "main": "dist/server/index.js",
-  "dependencies": {
-    "crypto": "^1.0.1"
-  },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
