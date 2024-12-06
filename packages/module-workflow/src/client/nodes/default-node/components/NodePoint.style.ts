@@ -18,6 +18,7 @@ export const useStyles = createStyles(({ css, token }) => {
         background-color: var(--colorPrimaryText);
         .workflow-node-edit {
           background-color: transparent;
+          color: #fff;
         }
       }
 
