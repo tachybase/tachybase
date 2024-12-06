@@ -119,6 +119,22 @@ const properties = {
     ],
     'x-component-props': {},
   },
+  eventName: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-reactions': [
+      {
+        dependencies: ['.type'],
+        fulfill: {
+          state: {
+            hidden: '{{ $deps[0] !== "dbEvent" }}',
+          },
+        },
+      },
+    ],
+    'x-component-props': {},
+  },
   code: {
     type: 'string',
     'x-component': 'CollectionField',

@@ -39,5 +39,9 @@ export default defineCollection({
       name: 'resourceName',
       type: 'text',
     },
+    {
+      name: 'eventName',
+      type: 'string',
+    },
   ],
 });

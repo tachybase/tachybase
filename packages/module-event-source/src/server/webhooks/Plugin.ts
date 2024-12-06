@@ -1,38 +1,16 @@
-import { Context } from '@tachybase/actions';
-import Application, { Plugin } from '@tachybase/server';
+import Application, { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import lodash from 'lodash';
 
+import { DatabaseEventService } from '../services/DatabaseEventService';
+import { ResourceService } from '../services/ResourceService';
 import { WebhookController } from './webhooks';
 
+@InjectedPlugin({
+  Services: [ResourceService, DatabaseEventService],
+})
 export class PluginWebhook extends Plugin {
   async load() {
-    this.app.on('afterStart', async () => {
-      const webhooksRepo = this.db.getRepository('webhooks');
-      const resources = await webhooksRepo.find({
-        filter: {
-          enabled: true,
-          type: 'resource',
-        },
-      });
-
-      for (const resourceDef of resources) {
-        const { actionName, resourceName } = resourceDef;
-        if (!this.app.resourcer.isDefined(resourceName)) {
-          this.app.resourcer.define({ name: resourceName });
-        }
-        if (this.app.resourcer.getResource(resourceName).actions.has(actionName)) {
-          this.log.warn(`${resourceName}:${actionName} action handler exists`);
-        }
-        this.log.info(`Add ${resourceName}:${actionName} action handler`);
-        this.app.resourcer.getResource(resourceName).addAction(actionName, async (ctx: Context) => {
-          const body = await new WebhookController().action(ctx, resourceDef);
-          await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
-        });
-        this.app.acl.allow(resourceName, actionName, 'loggedIn');
-      }
-    });
-
     this.app.resourcer.define({
       name: 'webhooks',
       actions: {

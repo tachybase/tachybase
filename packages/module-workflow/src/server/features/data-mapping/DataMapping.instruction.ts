@@ -117,9 +117,7 @@ async function convertByJsCode(code, data) {
 }
 
 async function convertByTsCode(code, data, processor: Processor) {
-  const { httpContext } = processor.options as unknown as {
-    httpContext: Context;
-  };
+  const options = processor.options;
   const app = processor.options.plugin.app;
 
   const compiledCode = transform(code, {
@@ -182,7 +180,7 @@ async function convertByTsCode(code, data, processor: Processor) {
   const func = sandbox.exports.default;
 
   const result = await func(data, {
-    httpContext,
+    ...options,
   });
 
   return result;

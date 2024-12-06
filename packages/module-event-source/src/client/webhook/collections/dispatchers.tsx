@@ -62,6 +62,7 @@ export const dispatchers: CollectionOptions = {
           { label: tval('Scheduler'), value: 'cron' },
           { label: tval('API action'), value: 'action' },
           { label: tval('Resource'), value: 'resource' },
+          { label: tval('Database Event'), value: 'dbEvent' },
         ],
         'x-component': 'Radio.Group',
         'x-decorator': 'FormItem',
@@ -85,6 +86,17 @@ export const dispatchers: CollectionOptions = {
       interface: 'input',
       uiSchema: {
         title: tval('Action'),
+        type: 'string',
+        'x-component': 'Input',
+        required: true,
+      } as ISchema,
+    },
+    {
+      type: 'string',
+      name: 'eventName',
+      interface: 'input',
+      uiSchema: {
+        title: tval('Event Name'),
         type: 'string',
         'x-component': 'Input',
         required: true,
