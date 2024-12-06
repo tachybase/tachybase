@@ -7,7 +7,7 @@ import { schema } from './CloudLibraryManager.schema';
 export const CloudLibraryManager = () => {
   return (
     <ExtendCollectionsProvider collections={[collection]}>
-      <SchemaComponent schema={schema} />
+      <SchemaComponent schema={schema} name="cloudLibrary" />
     </ExtendCollectionsProvider>
   );
 };

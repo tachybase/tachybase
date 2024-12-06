@@ -611,6 +611,7 @@ export const WebhookManager = () => {
   return (
     <ExtendCollectionsProvider collections={[dispatchers]}>
       <SchemaComponent
+        name="eventSource"
         schema={schema}
         scope={{ useTestActionProps }}
         components={{
