@@ -65,7 +65,7 @@ export const RemoveButton = () => {
     });
   }
 
-  return workflow.executed ? null : (
+  return (
     <Button
       className="workflow-node-remove-button"
       type="text"

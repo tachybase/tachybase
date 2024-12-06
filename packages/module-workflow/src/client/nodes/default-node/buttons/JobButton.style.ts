@@ -23,8 +23,6 @@ const useStyles = createStyles(({ css, token }) => {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      // 向左平移 3 个身位, 因为执行态不会出现删除和拖动按钮, 因此是没有问题.可以保持美观
-      transform: translateX(-300%);
     `,
   };
 });

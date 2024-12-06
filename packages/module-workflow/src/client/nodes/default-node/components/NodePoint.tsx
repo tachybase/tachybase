@@ -23,7 +23,7 @@ export const NodePoint = (props) => {
         onChange={(ev) => setEditingTitle(ev.target.value)}
         onBlur={(ev) => onChangeTitle(ev.target.value)}
       />
-      <ButtonArea />
+      <ButtonArea isExecuted={workflow.executed} />
     </div>
   );
 };
@@ -45,17 +45,23 @@ const IdentityIcon = (props) => {
  */
 
 const ButtonArea = (props) => {
+  const { isExecuted } = props;
   return (
     <div className="workflow-node-suffix">
-      <div className="icon-button">
-        <RemoveButton />
-      </div>
-      <div className="icon-button">
-        <DragButton />
-      </div>
-      <div className="icon-button">
-        <JobButton />
-      </div>
+      {isExecuted ? (
+        <div className="icon-button">
+          <JobButton />
+        </div>
+      ) : (
+        <>
+          <div className="icon-button">
+            <RemoveButton />
+          </div>
+          <div className="icon-button">
+            <DragButton />
+          </div>
+        </>
+      )}
     </div>
   );
 };
