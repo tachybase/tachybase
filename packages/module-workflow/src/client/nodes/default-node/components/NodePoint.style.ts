@@ -82,8 +82,9 @@ export const useStyles = createStyles(({ css, token }) => {
       .workflow-node-suffix {
         position: absolute;
         top: 50%;
-        right: -120px;
-        transform: translateY(-50%);
+        right: 0;
+        /* 居中, 且始终和左边元素保持 20px的间距 */
+        transform: translateX(calc(100% + 20px)) translateY(-50%);
         display: inline-flex;
         gap: 10px;
         box-sizing: border-box;
