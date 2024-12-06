@@ -32,16 +32,6 @@ export const collectionWorkflows = {
     },
     {
       type: 'string',
-      name: 'key',
-      interface: 'input',
-      uiSchema: {
-        title: `{{t("key")}}`,
-        type: 'string',
-        'x-component': 'Input',
-      } as ISchema,
-    },
-    {
-      type: 'string',
       name: 'type',
       interface: 'select',
       uiSchema: {
@@ -96,6 +86,40 @@ export const collectionWorkflows = {
     {
       type: 'object',
       name: 'options',
+    },
+    {
+      name: 'updatedAt',
+      type: 'date',
+      interface: 'updatedAt',
+      uiSchema: {
+        type: 'datetime',
+        title: tval('Updated at'),
+        'x-component': 'DatePicker',
+        'x-component-props': {
+          showTime: true,
+        },
+      },
+    },
+    {
+      name: 'updatedBy',
+      type: 'belongsTo',
+      interface: 'updatedBy',
+      target: 'users',
+      targetKey: 'id',
+      foreignKey: 'updatedById',
+      collectionName: 'workflows',
+      uiSchema: {
+        type: 'object',
+        title: '{{t("Last updated by")}}',
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          fieldNames: {
+            value: 'id',
+            label: 'nickname',
+          },
+        },
+        'x-read-pretty': true,
+      },
     },
   ],
 };
@@ -621,23 +645,6 @@ export const workflowSchema: ISchema = {
                 },
               },
             },
-            key: {
-              type: 'void',
-              title: '{{t("Key")}}',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              'x-component-props': {
-                width: 20,
-                align: 'center',
-              },
-              properties: {
-                key: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
-                },
-              },
-            },
             showCollection: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
@@ -700,10 +707,54 @@ export const workflowSchema: ISchema = {
                 },
               },
             },
+            updatedAt: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
+              properties: {
+                updatedAt: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            updatedBy: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
+              properties: {
+                updatedBy: {
+                  type: 'string',
+                  'x-collection-field': 'workflows.updatedBy',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
             actions: {
               type: 'void',
               title: '{{ t("Actions") }}',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                fixed: 'right',
+              },
               properties: {
                 actions: {
                   type: 'void',

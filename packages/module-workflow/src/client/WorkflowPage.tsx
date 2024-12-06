@@ -31,6 +31,7 @@ export const WorkflowPage = () => {
                   params: {
                     filter: { id: params.id },
                     appends: [
+                      'createdBy',
                       'nodes',
                       'revisions.id',
                       'revisions.createdAt',

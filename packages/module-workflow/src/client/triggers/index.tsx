@@ -303,6 +303,9 @@ export const TriggerConfig = () => {
                                 label: lang('Trigger type'),
                                 title: trigger.title,
                                 description: trigger.description,
+                                workflowKey: workflow.key,
+                                createdAt: workflow.createdAt,
+                                createdBy: workflow.createdBy?.nickname,
                               },
                             },
                           }

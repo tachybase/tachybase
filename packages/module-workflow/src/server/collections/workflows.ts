@@ -5,6 +5,10 @@ export default function () {
     dumpRules: 'required',
     name: 'workflows',
     shared: true,
+    createdAt: true,
+    updatedAt: true,
+    createdBy: true,
+    updatedBy: true,
     fields: [
       {
         name: 'key',
