@@ -1577,9 +1577,6 @@ importers:
       bytemd:
         specifier: 1.21.0
         version: 1.21.0
-      esbuild-wasm:
-        specifier: 0.24.0
-        version: 0.24.0
       exceljs:
         specifier: ^4.4.0
         version: 4.4.0
@@ -13267,11 +13264,6 @@ packages:
     resolution: {integrity: sha512-+4G/XmakeBAsvJuDugJvtyF1x+XJT4FMocynNpxrvEBViirpfUn2PgNpCHedfWhF4WokNsO/OvMKrmJOIJsI5A==}
     peerDependencies:
       esbuild: '>=0.12 <1'
-
-  esbuild-wasm@0.24.0:
-    resolution: {integrity: sha512-xhNn5tL1AhkPg4ft59yXT6FkwKXiPSYyz1IeinJHUJpjvOHOIPvdmFQc0pGdjxlKSbzZc2mNmtVOWAR1EF/JAg==}
-    engines: {node: '>=18'}
-    hasBin: true
 
   esbuild@0.12.15:
     resolution: {integrity: sha512-72V4JNd2+48eOVCXx49xoSWHgC3/cCy96e7mbXKY+WOWghN00cCmlGnwVLRhRHorvv0dgCyuMYBZlM2xDM5OQw==}
@@ -31746,8 +31738,6 @@ snapshots:
       esbuild: 0.24.0
     transitivePeerDependencies:
       - supports-color
-
-  esbuild-wasm@0.24.0: {}
 
   esbuild@0.12.15: {}
 
