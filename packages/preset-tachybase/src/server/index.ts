@@ -17,6 +17,7 @@ export class PresetTachyBase extends Plugin {
     'users',
     'acl',
     'messages',
+    'workflow',
   ];
 
   get builtInPlugins() {
@@ -46,7 +47,6 @@ export class PresetTachyBase extends Plugin {
     ['block-kanban', '0.22.7', true],
     ['logger', '0.22.7', true],
     ['pdf', '0.22.37', true],
-    ['workflow', '0.22.7', true],
     // default disable
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],

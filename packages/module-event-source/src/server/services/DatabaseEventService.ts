@@ -8,15 +8,12 @@ export class DatabaseEventService {
   @App()
   private readonly app: Application;
 
-  @Db()
-  private readonly db: Database;
-
   @InjectLog()
   private readonly logger: Logger;
 
   async load() {
-    this.app.on('afterStart', async () => {
-      const webhooksRepo = this.db.getRepository('webhooks');
+    this.app.once('afterStart', async (app: Application) => {
+      const webhooksRepo = app.db.getRepository('webhooks');
       const resources = await webhooksRepo.find({
         filter: {
           enabled: true,
@@ -28,7 +25,7 @@ export class DatabaseEventService {
         const { eventName, workflowKey, code } = resourceDef;
         this.logger.info('Add db event listener', { meta: { eventName, workflowKey } });
 
-        this.db.on(eventName, async (model, options) => {
+        app.db.on(eventName, async (model, options) => {
           const webhookCtx = {
             body: '',
             model,
@@ -50,8 +47,8 @@ export class DatabaseEventService {
             return;
           }
           // TODO: 执行人设置为创建这个任务的人/或者更新这个任务的人
-          const pluginWorkflow = this.app.getPlugin(PluginWorkflow) as PluginWorkflow;
-          const wfRepo = this.db.getRepository('workflows');
+          const pluginWorkflow = app.getPlugin(PluginWorkflow) as PluginWorkflow;
+          const wfRepo = app.db.getRepository('workflows');
           const wf = await wfRepo.findOne({ filter: { key: workflowKey, enabled: true } });
           const result = (await pluginWorkflow.trigger(
             wf,
