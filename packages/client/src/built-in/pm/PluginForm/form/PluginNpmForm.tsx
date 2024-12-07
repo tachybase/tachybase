@@ -15,7 +15,7 @@ interface IPluginNpmFormProps {
   pluginData?: IPluginData;
 }
 
-export const NPM_REGISTRY_ADDRESS = 'https://npm.daoyoucloud.com/';
+export const NPM_REGISTRY_ADDRESS = 'https://registry.npmjs.org/';
 
 export const PluginNpmForm: FC<IPluginNpmFormProps> = ({ onClose, isUpgrade, pluginData }) => {
   const { message } = App.useApp();
