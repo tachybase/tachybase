@@ -16,6 +16,10 @@ export class WebControllerService {
 
   async load() {
     // register resources and actions
+    if (!Container.has('controller')) {
+      // when init, controller is not in container
+      return;
+    }
     const controllers = Container.getMany('controller');
     controllers.forEach((instance: object) => {
       const items = this.actions.get(instance.constructor) as ActionDef[];
