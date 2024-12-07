@@ -28,10 +28,11 @@ export class WebControllerService {
         actions: {},
       };
       const actionItems = items.filter((item) => item.type === 'action');
+      this.app.logger.debug(`register resource [${resource.name}]`);
       actionItems.forEach((item) => {
         resource.actions[item.actionName] = async (ctx: Context, next: Next) => await instance[item.method](ctx, next);
         this.allow(resource.name, item.actionName, item.options?.acl || '');
-        console.info('[hera-core]: register [resource]:', resource.name, '[action]', item.actionName);
+        this.app.logger.debug(`register resource [${resource.name}] action [${item.actionName}]`);
       });
       this.app.resource(resource);
     });
