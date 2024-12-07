@@ -1,4 +1,4 @@
-FROM git.daoyoucloud.com/tachybase/node:20.18.0 AS base
+FROM node:20-bullseye-slim AS base
 
 ARG NPM_REGISTRY=https://registry.npmjs.org
 ENV PNPM_HOME="/pnpm"

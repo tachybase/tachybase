@@ -20,7 +20,6 @@
     "ahooks": "3.8.1",
     "antd": "5.22.0",
     "bytemd": "1.21.0",
-    "esbuild-wasm": "0.24.0",
     "exceljs": "^4.4.0",
     "file-saver": "2.0.5",
     "github-markdown-css": "5.7.0",
