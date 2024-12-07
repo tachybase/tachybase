@@ -55,7 +55,7 @@ export class CollectionManagerPlugin extends Plugin {
     });
 
     this.app.db.on('collections.beforeCreate', async (model) => {
-      if (this.app.db.inDialect('postgres') && this.schema && model.get('from') != 'db2cm' && !model.get('schema')) {
+      if (this.app.db.inDialect('postgres') && this.schema && model.get('from') !== 'db2cm' && !model.get('schema')) {
         model.set('schema', this.schema);
       }
     });
@@ -172,14 +172,14 @@ export class CollectionManagerPlugin extends Plugin {
       const prevDefaultValue = prevOptions['defaultValue'];
       const currentDefaultValue = currentOptions['defaultValue'];
 
-      if (prevDefaultValue != currentDefaultValue) {
+      if (prevDefaultValue !== currentDefaultValue) {
         await model.syncDefaultValue({ transaction, defaultValue: currentDefaultValue });
       }
 
       const prevOnDelete = prevOptions['onDelete'];
       const currentOnDelete = currentOptions['onDelete'];
 
-      if (prevOnDelete != currentOnDelete) {
+      if (prevOnDelete !== currentOnDelete) {
         await model.syncReferenceCheckOption({ transaction });
       }
 
@@ -218,7 +218,7 @@ export class CollectionManagerPlugin extends Plugin {
           })
           .filter(Boolean);
 
-        return parents.length == 0;
+        return parents.length === 0;
       });
 
       await this.db.getCollection('fields').repository.destroy({
@@ -245,17 +245,20 @@ export class CollectionManagerPlugin extends Plugin {
 
     this.app.on('beforeStart', loadCollections);
 
-    this.app.resourcer.use(async (ctx, next) => {
-      const { resourceName, actionName } = ctx.action;
-      if (resourceName === 'collections.fields' && actionName === 'update') {
-        const { updateAssociationValues = [] } = ctx.action.params;
-        updateAssociationValues.push('uiSchema');
-        ctx.action.mergeParams({
-          updateAssociationValues,
-        });
-      }
-      await next();
-    });
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const { resourceName, actionName } = ctx.action;
+        if (resourceName === 'collections.fields' && actionName === 'update') {
+          const { updateAssociationValues = [] } = ctx.action.params;
+          updateAssociationValues.push('uiSchema');
+          ctx.action.mergeParams({
+            updateAssociationValues,
+          });
+        }
+        await next();
+      },
+      { tag: 'collectionsFieldsUpdate' },
+    );
 
     this.app.acl.allow('collections', 'list', 'loggedIn');
     this.app.acl.allow('collectionCategories', 'list', 'loggedIn');
@@ -277,14 +280,17 @@ export class CollectionManagerPlugin extends Plugin {
       },
     );
 
-    this.app.resourcer.use(async (ctx, next) => {
-      if (ctx.action.resourceName === 'collections.fields' && ['create', 'update'].includes(ctx.action.actionName)) {
-        ctx.action.mergeParams({
-          updateAssociationValues: ['reverseField'],
-        });
-      }
-      await next();
-    });
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        if (ctx.action.resourceName === 'collections.fields' && ['create', 'update'].includes(ctx.action.actionName)) {
+          ctx.action.mergeParams({
+            updateAssociationValues: ['reverseField'],
+          });
+        }
+        await next();
+      },
+      { tag: 'collectionsFieldsUpdate2' },
+    );
 
     this.app.resource(viewResourcer);
     this.app.resource(sqlResourcer);
@@ -319,32 +325,35 @@ export class CollectionManagerPlugin extends Plugin {
       }
     };
 
-    this.app.resourcer.use(async (ctx, next) => {
-      await next();
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        await next();
 
-      // handle collections:list
-      if (
-        ctx.action.resourceName === 'collections' &&
-        ctx.action.actionName == 'list' &&
-        ctx.action.params?.paginate == 'false'
-      ) {
-        for (const collection of ctx.body) {
-          if (collection.get('view')) {
-            const fields = collection.fields;
-            handleFieldSource(fields);
+        // handle collections:list
+        if (
+          ctx.action.resourceName === 'collections' &&
+          ctx.action.actionName === 'list' &&
+          ctx.action.params?.paginate === 'false'
+        ) {
+          for (const collection of ctx.body) {
+            if (collection.get('view')) {
+              const fields = collection.fields;
+              handleFieldSource(fields);
+            }
           }
         }
-      }
 
-      //handle collections:fields:list
-      if (ctx.action.resourceName == 'collections.fields' && ctx.action.actionName == 'list') {
-        handleFieldSource(ctx.action.params?.paginate == 'false' ? ctx.body : ctx.body.rows);
-      }
+        //handle collections:fields:list
+        if (ctx.action.resourceName === 'collections.fields' && ctx.action.actionName === 'list') {
+          handleFieldSource(ctx.action.params?.paginate === 'false' ? ctx.body : ctx.body.rows);
+        }
 
-      if (ctx.action.resourceName == 'collections.fields' && ctx.action.actionName == 'get') {
-        handleFieldSource(ctx.body);
-      }
-    });
+        if (ctx.action.resourceName === 'collections.fields' && ctx.action.actionName === 'get') {
+          handleFieldSource(ctx.body);
+        }
+      },
+      { tag: 'collectionListProcessing' },
+    );
 
     this.app.db.extendCollection({
       name: 'collectionCategory',

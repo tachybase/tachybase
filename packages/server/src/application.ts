@@ -200,6 +200,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   private currentId = nanoid();
   public container: ContainerInstance;
   public modules: Record<string, any> = {};
+  public middlewareSourceMap: WeakMap<Function, string> = new WeakMap();
 
   constructor(public options: ApplicationOptions) {
     super();
@@ -1095,6 +1096,32 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     if (options.perfHooks) {
       enablePerfHooks(this);
     }
+
+    const setStackTrace = (context, args) => {
+      const error = new Error();
+      const stack = error.stack;
+      const stackLines = stack.split('\n');
+      stackLines.splice(0, 2);
+      context.middlewareSourceMap.set(args[0], stackLines.join('\n'));
+    };
+
+    const oldUse = this.use;
+    this.use = (...args) => {
+      setStackTrace(this, args);
+      return oldUse.call(this, ...args);
+    };
+
+    const oldResourcerUse = this.resourcer.use;
+    this.resourcer.use = (...args) => {
+      setStackTrace(this, args);
+      return oldResourcerUse.call(this.resourcer, ...args);
+    };
+
+    const oldACLUse = this.acl.use;
+    this.acl.use = (...args) => {
+      setStackTrace(this, args);
+      return oldACLUse.call(this.acl, ...args);
+    };
 
     registerMiddlewares(this, options);
 

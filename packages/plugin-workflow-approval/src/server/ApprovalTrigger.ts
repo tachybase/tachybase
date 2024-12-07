@@ -185,7 +185,7 @@ export default class ApprovalTrigger extends Trigger {
     db.on('approvals.afterSave', this.triggerHandler);
     db.on('executions.afterCreate', this.onExecutionCreate);
     db.on('executions.afterUpdate', this.onExecutionUpdate);
-    workflow.app.use(this.middleware, { after: 'dataSource' });
+    workflow.app.use(this.middleware, { tag: 'workflow-trigger', after: 'dataSource' });
   }
   async workflowTriggerAction(context, next) {
     const { triggerWorkflows, values } = context.action.params;

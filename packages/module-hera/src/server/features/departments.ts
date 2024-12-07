@@ -67,12 +67,12 @@ export class DepartmentsPlugin extends Plugin {
       before: 'setCurrentRole',
       after: 'auth',
     });
-    this.app.resourcer.use(setDepartmentOwners);
-    this.app.resourcer.use(destroyDepartmentCheck);
-    this.app.resourcer.use(updateDepartmentIsLeaf);
-    this.app.resourcer.use(resetUserDepartmentsCache);
-    this.app.resourcer.use(setMainDepartment);
-    this.app.resourcer.use(listUsersIncludeChildDepartment);
+    this.app.resourcer.use(setDepartmentOwners, { tag: 'setDepartmentOwners' });
+    this.app.resourcer.use(destroyDepartmentCheck, { tag: 'destroyDepartmentCheck' });
+    this.app.resourcer.use(updateDepartmentIsLeaf, { tag: 'updateDepartmentIsLeaf' });
+    this.app.resourcer.use(resetUserDepartmentsCache, { tag: 'resetUserDepartmentsCache' });
+    this.app.resourcer.use(setMainDepartment, { tag: 'setMainDepartment' });
+    this.app.resourcer.use(listUsersIncludeChildDepartment, { tag: 'listUsersIncludeChildDepartment' });
     this.app.db.on('departmentsUsers.afterSave', async (model) => {
       const cache = this.app.cache;
       await cache.del(`departments:${model.get('userId')}`);

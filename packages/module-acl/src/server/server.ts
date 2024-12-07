@@ -545,51 +545,57 @@ export class PluginACL extends Plugin {
       };
     });
 
-    this.app.resourcer.use(async (ctx, next) => {
-      const { actionName, resourceName, params } = ctx.action;
-      const { showAnonymous } = params || {};
-      if (actionName === 'list' && resourceName === 'roles') {
-        if (!showAnonymous) {
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const { actionName, resourceName, params } = ctx.action;
+        const { showAnonymous } = params || {};
+        if (actionName === 'list' && resourceName === 'roles') {
+          if (!showAnonymous) {
+            ctx.action.mergeParams({
+              filter: {
+                'name.$ne': 'anonymous',
+              },
+            });
+          }
+        }
+
+        if (actionName === 'update' && resourceName === 'roles.resources') {
           ctx.action.mergeParams({
-            filter: {
-              'name.$ne': 'anonymous',
-            },
+            updateAssociationValues: ['actions'],
           });
         }
-      }
 
-      if (actionName === 'update' && resourceName === 'roles.resources') {
-        ctx.action.mergeParams({
-          updateAssociationValues: ['actions'],
-        });
-      }
+        await next();
+      },
+      { tag: 'resource-association-update' },
+    );
 
-      await next();
-    });
-
-    this.app.acl.use(async (ctx: Context, next) => {
-      const { actionName, resourceName } = ctx.action;
-      if (actionName === 'get' || actionName === 'list') {
-        if (!Array.isArray(ctx?.permission?.can?.params?.fields)) {
-          return next();
-        }
-        let collection: Collection;
-        if (resourceName.includes('.')) {
-          const [collectionName, associationName] = resourceName.split('.');
-          const field = ctx.db.getCollection(collectionName)?.getField?.(associationName);
-          if (field.target) {
-            collection = ctx.db.getCollection(field.target);
+    this.app.acl.use(
+      async (ctx: Context, next) => {
+        const { actionName, resourceName } = ctx.action;
+        if (actionName === 'get' || actionName === 'list') {
+          if (!Array.isArray(ctx?.permission?.can?.params?.fields)) {
+            return next();
           }
-        } else {
-          collection = ctx.db.getCollection(resourceName);
-        }
+          let collection: Collection;
+          if (resourceName.includes('.')) {
+            const [collectionName, associationName] = resourceName.split('.');
+            const field = ctx.db.getCollection(collectionName)?.getField?.(associationName);
+            if (field.target) {
+              collection = ctx.db.getCollection(field.target);
+            }
+          } else {
+            collection = ctx.db.getCollection(resourceName);
+          }
 
-        if (collection && collection.hasField('createdById')) {
-          ctx.permission.can.params.fields.push('createdById');
+          if (collection && collection.hasField('createdById')) {
+            ctx.permission.can.params.fields.push('createdById');
+          }
         }
-      }
-      return next();
-    });
+        return next();
+      },
+      { tag: 'permission-management' },
+    );
 
     const parseJsonTemplate = this.app.acl.parseJsonTemplate;
 

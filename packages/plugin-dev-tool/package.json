@@ -1,0 +1,16 @@
+{
+  "name": "@tachybase/plugin-dev-tool",
+  "version": "0.22.58",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "^5.5.2",
+    "ahooks": "^3.8.4",
+    "antd": "5.22.0",
+    "react-i18next": "^15.1.3"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}

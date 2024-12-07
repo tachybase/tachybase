@@ -102,7 +102,7 @@ export class PluginManager {
       directory: resolve(__dirname, '../migrations'),
     });
 
-    this.app.resourcer.use(uploadMiddleware);
+    this.app.resourcer.use(uploadMiddleware, { tag: 'pmFileUpload' });
   }
 
   get repository() {

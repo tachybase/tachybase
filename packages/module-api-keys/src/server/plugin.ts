@@ -46,17 +46,20 @@ export class PluginAPIKeysServer extends Plugin {
       },
       { tag: 'api-access-token', before: 'auth' },
     );
-    this.app.resourcer.use(async (ctx, next) => {
-      const { resourceName, actionName } = ctx.action;
-      if (resourceName === this.resourceName && ['list', 'destroy'].includes(actionName)) {
-        ctx.action.mergeParams({
-          filter: {
-            createdById: ctx.auth.user.id,
-          },
-        });
-      }
-      await next();
-    });
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const { resourceName, actionName } = ctx.action;
+        if (resourceName === this.resourceName && ['list', 'destroy'].includes(actionName)) {
+          ctx.action.mergeParams({
+            filter: {
+              createdById: ctx.auth.user.id,
+            },
+          });
+        }
+        await next();
+      },
+      { tag: 'resourceNameListDestroyFilter' },
+    );
   }
 }
 

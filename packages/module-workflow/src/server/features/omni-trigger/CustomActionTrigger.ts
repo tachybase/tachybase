@@ -32,7 +32,7 @@ export class OmniTrigger extends Trigger {
         ctx.status = err.status;
       },
     );
-    workflow.app.use(this.middleware, { after: 'dataSource' });
+    workflow.app.use(this.middleware, { tag: 'workflowTrigger', after: 'dataSource' });
   }
   triggerAction = async (context, next) => {
     const {
@@ -193,7 +193,7 @@ export class OmniTrigger extends Trigger {
     for (const workflow of workflows) {
       const { collection, appends = [] } = workflow.config;
       const [dataSourceName, collectionName] = parseCollectionName(collection);
-      const trigger = triggers.find((trigger) => trigger[0] == workflow.key);
+      const trigger = triggers.find((trigger) => trigger[0] === workflow.key);
       const event = [workflow];
       if (context.action.resourceName !== 'workflows') {
         if (!context.body) {
