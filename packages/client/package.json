@@ -81,7 +81,7 @@
     "@types/markdown-it": "12.2.3",
     "@types/markdown-it-highlightjs": "3.3.1",
     "@types/react-big-calendar": "^1.8.7",
-    "axios-mock-adapter": "^1.22.0"
+    "axios-mock-adapter": "^2.1.0"
   },
   "peerDependencies": {
     "@tachybase/database": "workspace:*",
