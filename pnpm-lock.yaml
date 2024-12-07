@@ -2416,8 +2416,8 @@ importers:
         specifier: 0.4.1
         version: 0.4.1
       '@alicloud/tea-util':
-        specifier: 1.4.4
-        version: 1.4.4
+        specifier: 1.4.9
+        version: 1.4.9
       '@tachybase/components':
         specifier: workspace:*
         version: link:../components
@@ -4998,9 +4998,6 @@ packages:
 
   '@alicloud/tea-typescript@1.8.0':
     resolution: {integrity: sha512-CWXWaquauJf0sW30mgJRVu9aaXyBth5uMBCUc+5vKTK1zlgf3hIqRUjJZbjlwHwQ5y9anwcu18r48nOZb7l2QQ==}
-
-  '@alicloud/tea-util@1.4.4':
-    resolution: {integrity: sha512-uD2lMmVMSdcmv2rHTzfp2eW4OkyFig/qwBClz3Vh65qd+j6d+bjwGI1M6AnqNg9gL0yhF1Kb2Um8ljA14w1SRw==}
 
   '@alicloud/tea-util@1.4.9':
     resolution: {integrity: sha512-S0wz76rGtoPKskQtRTGqeuqBHFj8BqUn0Vh+glXKun2/9UpaaaWmuJwcmtImk6bJZfLYEShDF/kxDmDJoNYiTw==}
@@ -13922,6 +13919,7 @@ packages:
   fstream@1.0.12:
     resolution: {integrity: sha512-WvJ193OHa0GHPEL+AycEJgxvBEwyfRkN1vhjca23OaPVMCaLCXTd5qAu82AjTcgP1UJmytkOKb63Ypde7raDIg==}
     engines: {node: '>=0.6'}
+    deprecated: This package is no longer supported.
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
@@ -21154,13 +21152,6 @@ snapshots:
     dependencies:
       '@types/node': 20.14.2
       httpx: 2.3.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@alicloud/tea-util@1.4.4':
-    dependencies:
-      '@alicloud/tea-typescript': 1.8.0
-      kitx: 2.1.0
     transitivePeerDependencies:
       - supports-color
 
