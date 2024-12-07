@@ -9,6 +9,9 @@ RUN corepack enable
 COPY . /app
 WORKDIR /app
 
+RUN pnpm install --shamefully-hoist
+RUN pnpm build:p
+
 RUN pnpm config set registry $NPM_REGISTRY
 
 CMD ["pnpm", "start", "--quickstart"]
