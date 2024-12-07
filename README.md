@@ -40,8 +40,7 @@ The following is an overview of the development roadmap. The detailed plan will 
 - [x] Module: Ant Design-based UI Library
 - [x] Module: Workflow
 - [x] Module: No-code Capability
-- [ ] Module: Cloud Functions
-- [ ] Module: Cloud Components
+- [x] Module: Cloud Components
 - [ ] Module: Message Queue
 - [ ] Module: Scheduled Tasks
 - [x] Plugin: Workflow - Approval
