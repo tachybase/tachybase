@@ -14,7 +14,7 @@
 <br>
 
 <p align="center">
-  灵矶是一个灵活多变的应用系统，应用开发者可以基于灵矶做出丰富应用逻辑，而核心开发者可以聚焦于关键模块的稳定性和对不同环境的适配。
+  灵矶是一个插件化的应用框架，应用开发者可以基于灵矶做出丰富应用逻辑，而核心开发者可以聚焦于关键模块的稳定性和对不同环境的适配。
 </p>
 <p align="center">
   [<a href="./README.md">English Version</a>][<a href="https://tachybase.org">文档</a>][中文版本]
@@ -32,7 +32,7 @@
 
 # 路线图
 
-以下是大致的开发路线图，具体开发计划将在春节前公布，届时会与相关应用模板一起发布。
+以下是大致的开发路线图，具体开发计划将在 2025.3.31 前公布，届时会与相关应用模板一起发布。
 
 - [x] 内核：内核 API
 - [ ] 内核：消息机制
@@ -65,7 +65,23 @@ UI 规划方面，核心的机制设计在内核层，具体组件则由模块�
 
 该版本正在开发中，预计春节前正式上线，现已开放测试，欢迎联系获取更多信息。
 
-# 快速开始
+# 从 docker compose 快速开始
+
+项目中提供了多个 docker compose 的测试环境，下面以 postgresql 数据例子，您可以通过以下命令快速启动：
+
+```bash 
+cd docker-compose-samples/app-postgres
+docker compose up -d
+# PostgreSQL
+docker logs -f
+
+# 访问应用
+http://localhost:3000
+# 访问 pgadmin 数据库管理
+http://localhost:3080
+```
+
+# 从源代码快速开始
 
 ```bash 
 pnpm install

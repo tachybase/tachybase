@@ -1,0 +1,9 @@
+services:
+  app:
+    image: tachybase/tachybase-all:latest
+    environment:
+      - APP_KEY=your-secret-key
+    volumes:
+      - ./storage:/app/storage
+    ports:
+      - "3000:3000"

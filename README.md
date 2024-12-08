@@ -14,7 +14,7 @@
 <br>
 
 <p align="center">
-  Tachybase is a highly flexible application system, where developers can build complex application logic, while core developers focus on ensuring the stability of key modules and adapting to different environments. 
+  Tachybase is a pluggable application framework., where developers can build complex application logic, while core developers focus on ensuring the stability of key modules and adapting to different environments. 
 </p>
 <p align="center">
   [English Version][<a href="https://tachybase.org">DOCS</a>][<a href="./README.ZH-CN.md">中文版本</a>]
@@ -65,7 +65,23 @@ UI planning principles: The core mechanisms are designed in the Kernel Layer, an
 
 This version is still under development and is expected to go live before Chinese New Year. It is currently available for testing. Please contact us for more information.
 
-# Quick Start
+# Quick Start with Docker Compose
+
+We provides multiple Docker Compose test environments. Here's an example using a PostgreSQL database. You can quickly start with the following commands:
+
+```bash 
+cd docker-compose-samples/app-postgres
+docker compose up -d
+# View startup logs
+docker logs -f
+
+# Visit app
+http://localhost:3000
+# Visit pgadmin
+http://localhost:3080
+```
+
+# Quick Start from Source Code
 
 ```bash 
 pnpm install
