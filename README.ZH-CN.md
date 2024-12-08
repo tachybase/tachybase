@@ -69,7 +69,7 @@ UI 规划方面，核心的机制设计在内核层，具体组件则由模块�
 ```bash 
 cd docker-compose-samples/app-postgres
 docker compose up -d
-# PostgreSQL
+# 查看启动日志
 docker logs -f
 
 # 访问应用
