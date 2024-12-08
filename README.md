@@ -32,7 +32,7 @@ Currently, Tachybase aims to handle the framework's core functions and some comm
 
 # Development Roadmap
 
-The following is an overview of the development roadmap. The detailed plan will be published before the Chinese New Year along with the relevant application templates.
+The following is a general development roadmap. The detailed development plan will be announced by March 31, 2025, and will be released along with the related application templates.
 
 - [x] Kernel: Kernel API
 - [ ] Kernel: Message Mechanism
