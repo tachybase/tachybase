@@ -58,12 +58,9 @@ UI 规划方面，核心的机制设计在内核层，具体组件则由模块�
 
 # 系统试用
 
-[Demo 应用](https://demos.tachybase.com/admin/628sp6la1mw) 
+[Demo 应用](https://demos.tachybase.com/) 
 
-- 账号：`tachybase` 
-- 密码：`!Admin123.`
-
-该版本正在开发中，预计春节前正式上线，现已开放测试，欢迎联系获取更多信息。
+可以自行注册账号密码，在内部建立子应用体验，测试环境非最新的环境，可能存在一些问题。
 
 # 从 docker compose 快速开始
 

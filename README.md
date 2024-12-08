@@ -58,12 +58,9 @@ UI planning principles: The core mechanisms are designed in the Kernel Layer, an
 
 # Try
 
-[Demo application](https://demos.tachybase.com/admin/628sp6la1mw) 
+[Demo application](https://demos.tachybase.com/) 
 
-- Username：`tachybase` 
-- Password：`!Admin123.`
-
-This version is still under development and is expected to go live before Chinese New Year. It is currently available for testing. Please contact us for more information.
+You can register an account and password on your own, create sub-applications within the system to explore, and experience the features. Please note that the test environment is not the latest version and may have some issues.
 
 # Quick Start with Docker Compose
 
