@@ -38,4 +38,4 @@ jobs:
           SENTRY_SESSION_REPLAY_ENABLE: ${{ vars.SENTRY_SESSION_REPLAY_ENABLE }}
           SENTRY_SESSION_REPLAY_SAMPLE_RATE: ${{ vars.SENTRY_SESSION_REPLAY_SAMPLE_RATE }}
           SENTRY_SESSION_REPLAY_ONERROR_SAMPLE_RATE: ${{ vars.SENTRY_SESSION_REPLAY_ONERROR_SAMPLE_RATE }}
-        run: pnpm -r publish --access=public --no-git-checks --publish-branch ${{ gitea.ref }}
+        run: pnpm -r publish --access=public --no-git-checks --publish-branch ${{ github.ref }}
