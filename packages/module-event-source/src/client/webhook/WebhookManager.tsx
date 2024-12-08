@@ -128,7 +128,7 @@ const properties = {
         dependencies: ['.type'],
         fulfill: {
           state: {
-            hidden: '{{ $deps[0] !== "dbEvent" }}',
+            hidden: '{{ $deps[0] !== "databaseEvent" && $deps[0] !== "applicationEvent" }}',
           },
         },
       },

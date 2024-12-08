@@ -2,12 +2,13 @@ import Application, { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import lodash from 'lodash';
 
+import { ApplicationEventService } from '../services/ApplicationEventService';
 import { DatabaseEventService } from '../services/DatabaseEventService';
 import { ResourceService } from '../services/ResourceService';
 import { WebhookController } from './webhooks';
 
 @InjectedPlugin({
-  Services: [ResourceService, DatabaseEventService],
+  Services: [ResourceService, DatabaseEventService, ApplicationEventService],
 })
 export class PluginWebhook extends Plugin {
   async load() {

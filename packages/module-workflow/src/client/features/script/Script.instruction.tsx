@@ -6,7 +6,7 @@ import { NAMESPACE_INSTRUCTION_DATA_MAPPING } from '../../../common/constants';
 import { tval } from '../../locale';
 import { Instruction } from '../../nodes/default-node/interface';
 
-export class DataMappingInstruction extends Instruction {
+export class ScriptInstruction extends Instruction {
   title = tval('Data Mapping');
   type = NAMESPACE_INSTRUCTION_DATA_MAPPING;
   group = 'extended';
@@ -100,25 +100,36 @@ export class DataMappingInstruction extends Instruction {
       'x-decorator': 'FormItem',
       'x-component': 'Radio.Group',
       enum: [
-        { label: 'JavaScript', value: 'js' },
-        { label: 'JSONata', value: 'jsonata' },
-        { label: 'TypeScript', value: 'ts' },
+        { label: tval('Cloud Component'), value: 'ts' },
+        { label: tval('JSONata'), value: 'jsonata' },
+        { label: tval('Old script engine(Deprecated)'), value: 'js' },
       ],
-      default: 'js',
+      default: 'ts',
     },
     code: {
       type: 'string',
       title: tval('expression'),
       'x-decorator': 'FormItem',
-      'x-decorator-props': {
-        tooltip: 'jscode: ctx.data\nctx.body\n__ctx\nlib.JSON\nlib.qrcode\ncanvas\nlib.dayjs\nlib.log',
-      },
       'x-component': 'CodeMirror',
       'x-component-props': {
         defaultLanguage: 'typescript',
-        height: '80vh',
-        defaultValue:
-          "// import test from 'test'\n// export default async function (data, ctx: { httpContext: any }) {\n//  return {\n//\n//  }\n// }",
+        height: '50vh',
+        defaultValue: `
+import { Context } from '@tachybase/actions';
+import { MagicAttributeModel, Transactionable } from '@tachybase/database';
+
+export default async function (
+  _data,
+  {
+    httpContext: ctx,
+    dbModel: model,
+    dbOptions: options,
+    transaction,
+  }: { httpContext?: Context; dbModel?: MagicAttributeModel; dbOptions?: any } & Transactionable,
+) {
+  return {};
+}
+        `.trim(),
       },
     },
     model: {

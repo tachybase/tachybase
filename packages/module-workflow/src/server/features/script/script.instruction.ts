@@ -10,7 +10,7 @@ import qrcode from 'qrcode';
 
 import { FlowNodeModel, Instruction, JOB_STATUS, Processor } from '../..';
 
-export class DataMappingInstruction extends Instruction {
+export class ScriptInstruction extends Instruction {
   async run(node: FlowNodeModel, input: any, processor: Processor) {
     const { sourceArray, type, code = '', model } = node.config;
     // 1. 获取数据源
@@ -174,7 +174,11 @@ async function convertByTsCode(code, data, processor: Processor) {
   createContext(sandbox);
 
   // 执行代码并导出结果
-  script.runInContext(sandbox);
+  try {
+    script.runInContext(sandbox);
+  } catch (error) {
+    app.logger.error('Cloud Component ', { error });
+  }
 
   // 执行默认导出的函数
   const func = sandbox.exports.default;
