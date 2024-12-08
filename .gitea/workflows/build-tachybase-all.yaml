@@ -38,7 +38,7 @@ jobs:
           build-args: |
             TACHYBASE_VERSION=${{ steps.extract_tag.outputs.version }}
             NPM_REGISTRY=${{ vars.REGISTRY_URL }}
-            platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase-all:${{ steps.extract_tag.outputs.version }}
             ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase-all:latest
