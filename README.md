@@ -87,7 +87,7 @@ pnpm dev
 ```
 
 Default username：`tachybase`，password: `!Admin123.`
-The default database is `sqlite`. It is recommended to use a relational database for production environments.
+The default database is `sqlite`, you can change it in .env file.
 
 # License
 
