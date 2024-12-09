@@ -1,11 +1,11 @@
 import React from 'react';
 import { css, usePlugin } from '@tachybase/client';
 
-import { MobileClientPlugin } from '../index';
+import ModuleWeb from '..';
 import { InterfaceProvider } from './InterfaceProvider';
 
-export const InterfaceRouter: React.FC = React.memo(() => {
-  const plugin = usePlugin(MobileClientPlugin);
+export const InterfaceRouter = React.memo(() => {
+  const plugin = usePlugin(ModuleWeb);
   const MobileRouter = plugin.getMobileRouterComponent();
 
   return (
