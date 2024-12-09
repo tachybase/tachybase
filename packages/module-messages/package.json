@@ -11,7 +11,7 @@
     "antd": "5.22.0",
     "jsonwebtoken": "8.5.1",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "~6.25.1",
+    "react-router-dom": "~7.0.2",
     "ws": "^8.18.0"
   },
   "devDependencies": {
