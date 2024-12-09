@@ -74,7 +74,6 @@ export class PresetTachyBase extends Plugin {
     ['multi-app-manager', '0.7.0', false],
     ['multi-app-share-collection', '0.9.2', false],
     ['online-user', '0.22.7', false],
-    ['rental', '0.22.6', false],
     ['simple-cms', '0.22.6', false],
     ['sub-accounts', '0.22.56', false],
     ['theme-editor', '0.11.1', false],
