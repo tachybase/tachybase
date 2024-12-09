@@ -17,7 +17,13 @@
   Tachybase is a pluggable application framework., where developers can build complex application logic, while core developers focus on ensuring the stability of key modules and adapting to different environments. 
 </p>
 <p align="center">
-  [English Version][<a href="https://tachybase.org">DOCS</a>][<a href="./README.ZH-CN.md">中文版本</a>]
+   <img alt="GitHub License" src="https://img.shields.io/github/license/tachybase/tachybase">
+   <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/tachybase/tachybase">
+   <img alt="Static Badge" src="https://img.shields.io/badge/build-passing-brightgreen">
+   <a href="./README.md"><img alt="Static Badge" src="https://img.shields.io/badge/English Version-red"></a>
+   <a href="./README.ZH-CN.md"><img alt="Static Badge" src="https://img.shields.io/badge/中文版本-blue"></a>
+   <a href="https://gitee.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/gitee-green"></a>
+   <a href="https://github.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/Github-lightblack"></a>
 </p>
 
 # Project Overview

@@ -17,7 +17,13 @@
   灵矶是一个插件化的应用框架，应用开发者可以基于灵矶做出丰富应用逻辑，而核心开发者可以聚焦于关键模块的稳定性和对不同环境的适配。
 </p>
 <p align="center">
-  [<a href="./README.md">English Version</a>][<a href="https://tachybase.org">文档</a>][中文版本]
+   <img alt="GitHub License" src="https://img.shields.io/github/license/tachybase/tachybase">
+   <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/tachybase/tachybase">
+   <img alt="Static Badge" src="https://img.shields.io/badge/build-passing-brightgreen">
+   <a href="./README.md"><img alt="Static Badge" src="https://img.shields.io/badge/English Version-red"></a>
+   <a href="./README.ZH-CN.md"><img alt="Static Badge" src="https://img.shields.io/badge/中文版本-blue"></a>
+   <a href="https://gitee.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/gitee-green"></a>
+   <a href="https://github.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/Github-lightblack"></a>
 </p>
 
 # 简介
