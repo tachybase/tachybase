@@ -39,6 +39,7 @@
 ![case1](https://assets.tachybase.com/imgs/case1.png)
 ![case2](https://assets.tachybase.com/imgs/case4.png)
 ![case3](https://assets.tachybase.com/imgs/case3.png)
+![case5](https://assets.tachybase.com/imgs/case5.gif)
 
 # 路线图
 
