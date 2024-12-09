@@ -37,7 +37,7 @@ For developers, by developers, we provide a variety of application templates and
 Using the Tachybase, you will not be limited to any specific development form. It can be an independent npm package loaded within the platform, embedded into an existing system, or a combination of both for development. Alternatively, if Tachybase earns your full trust, you can use it as the core to develop the next application.
 
 ![case1](https://assets.tachybase.com/imgs/case1.png)
-![case2](https://assets.tachybase.com/imgs/case2.png)
+![case2](https://assets.tachybase.com/imgs/case4.png)
 ![case3](https://assets.tachybase.com/imgs/case3.png)
 
 

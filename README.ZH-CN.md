@@ -37,7 +37,7 @@
 使用灵矶，您将不受限于任何特定的开发形式。它可以是一个独立的 npm 包，在平台中加载，也可以嵌入到现有系统中，或是两者结合进行开发。或者，如果灵矶获得了您的充分信任，您可以以灵矶为核心开发下一个应用。
 
 ![case1](https://assets.tachybase.com/imgs/case1.png)
-![case2](https://assets.tachybase.com/imgs/case2.png)
+![case2](https://assets.tachybase.com/imgs/case4.png)
 ![case3](https://assets.tachybase.com/imgs/case3.png)
 
 # 路线图
