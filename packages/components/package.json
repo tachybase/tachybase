@@ -19,7 +19,7 @@
     "@formily/path": "2.3.1",
     "@formily/react": "2.3.1",
     "@formily/reactive": "2.3.1",
-    "@formily/reactive-react": "2.3.1",
+    "@formily/reactive-react": "2.3.2",
     "@formily/shared": "2.3.1",
     "@formily/validator": "2.3.1",
     "@monaco-editor/react": "^4.6.0",
