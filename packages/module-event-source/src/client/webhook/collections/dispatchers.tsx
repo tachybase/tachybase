@@ -61,6 +61,8 @@ export const dispatchers: CollectionOptions = {
           { label: tval('Resource'), value: 'resource' },
           { label: tval('Database Event'), value: 'databaseEvent' },
           { label: tval('Application Event'), value: 'applicationEvent' },
+          { label: tval('Before Resource'), value: 'beforeResource' },
+          { label: tval('After Resource'), value: 'afterResource' },
           { label: tval('HTTP endpoint'), value: 'code' },
           { label: tval('Scheduler'), value: 'cron' },
           { label: tval('API action'), value: 'action' },

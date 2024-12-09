@@ -346,8 +346,9 @@ export class PluginDataSourceManagerServer extends Plugin {
       });
 
       this.app.setMaintainingMessage('Loading data sources...');
-      await Promise.all(loadPromises);
-      await this.app.emitAsync('dataSourceAfterStart');
+      Promise.allSettled(loadPromises).then(() => {
+        return this.app.emitAsync('dataSourceAfterStart');
+      });
     });
 
     this.app.db.on('dataSourcesRolesResources.afterSaveWithAssociations', async (model, options) => {

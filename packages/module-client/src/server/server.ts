@@ -1,11 +1,11 @@
-import { resolve } from 'path';
+import { Context } from '@tachybase/actions';
 import { Plugin } from '@tachybase/server';
 
 import { getAntdLocale } from './antd';
 import { getCronLocale } from './cron';
 import { getCronstrueLocale } from './cronstrue';
 
-async function getLang(ctx) {
+async function getLang(ctx: Context) {
   const SystemSetting = ctx.db.getRepository('systemSettings');
   const systemSetting = await SystemSetting.findOne();
   const enabledLanguages: string[] = systemSetting.get('enabledLanguages') || [];
@@ -14,13 +14,13 @@ async function getLang(ctx) {
   if (enabledLanguages.includes(currentUser?.appLang)) {
     lang = currentUser?.appLang;
   }
-  if (ctx.request.query.locale && enabledLanguages.includes(ctx.request.query.locale)) {
-    lang = ctx.request.query.locale;
+  if (ctx.request.query.locale && enabledLanguages.includes(ctx.request.query.locale as string)) {
+    lang = ctx.request.query.locale as string;
   }
   return lang;
 }
 
-export class ClientPlugin extends Plugin {
+export class ModuleWeb extends Plugin {
   async beforeLoad() {}
 
   async install() {
@@ -34,7 +34,6 @@ export class ClientPlugin extends Plugin {
       'x-component-props': {
         mode: 'mix',
         theme: 'dark',
-        // defaultSelectedUid: 'u8',
         onSelect: '{{ onSelect }}',
         sideMenuRefScopeKey: 'sideMenuRef',
       },
@@ -46,13 +45,6 @@ export class ClientPlugin extends Plugin {
     this.app.localeManager.setLocaleFn('antd', async (lang) => getAntdLocale(lang));
     this.app.localeManager.setLocaleFn('cronstrue', async (lang) => getCronstrueLocale(lang));
     this.app.localeManager.setLocaleFn('cron', async (lang) => getCronLocale(lang));
-    this.db.addMigrations({
-      namespace: 'client',
-      directory: resolve(__dirname, './migrations'),
-      context: {
-        plugin: this,
-      },
-    });
     this.app.acl.allow('app', 'getLang');
     this.app.acl.allow('app', 'getInfo');
     this.app.acl.allow('plugins', '*', 'public');
@@ -62,7 +54,7 @@ export class ClientPlugin extends Plugin {
     });
     const dialect = this.app.db.sequelize.getDialect();
 
-    this.app.resource({
+    this.app.resourcer.define({
       name: 'app',
       actions: {
         async getInfo(ctx, next) {
@@ -85,7 +77,7 @@ export class ClientPlugin extends Plugin {
           };
           await next();
         },
-        async getLang(ctx, next) {
+        async getLang(ctx: Context, next) {
           const lang = await getLang(ctx);
           const resources = await ctx.app.localeManager.get(lang);
           ctx.body = {
@@ -107,4 +99,4 @@ export class ClientPlugin extends Plugin {
   }
 }
 
-export default ClientPlugin;
+export default ModuleWeb;

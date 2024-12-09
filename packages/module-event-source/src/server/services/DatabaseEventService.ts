@@ -2,6 +2,8 @@ import { JOB_STATUS, PluginWorkflow, Processor } from '@tachybase/module-workflo
 import { Application, Logger } from '@tachybase/server';
 import { App, InjectLog, Service } from '@tachybase/utils';
 
+import { evalSimulate } from '../utils/eval-simulate';
+
 @Service()
 export class DatabaseEventService {
   @App()
@@ -60,14 +62,4 @@ export class DatabaseEventService {
       });
     }
   }
-}
-
-async function evalSimulate(jsCode, { ctx, lib }) {
-  const AsyncFunction: any = async function () {}.constructor;
-  return await new AsyncFunction('$root', `with($root) { ${jsCode}; }`)({
-    ctx,
-    // 允许用户覆盖，这个时候可以使用 _ctx
-    __ctx: ctx,
-    lib,
-  });
 }

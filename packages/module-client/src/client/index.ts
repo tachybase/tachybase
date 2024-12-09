@@ -1,7 +1,7 @@
 import { Plugin } from '@tachybase/client';
 
-class ClientPlugin extends Plugin {
+class ModuleWeb extends Plugin {
   async load() {}
 }
 
-export default ClientPlugin;
+export default ModuleWeb;

@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import { Model } from '@tachybase/database';
 import { UiSchemaStoragePlugin } from '@tachybase/plugin-ui-schema-storage';
 import { InstallOptions, Plugin } from '@tachybase/server';
@@ -49,22 +48,12 @@ export class LocalizationManagementPlugin extends Plugin {
   beforeLoad() {}
 
   async load() {
-    await this.importCollections(resolve(__dirname, 'collections'));
-
-    this.db.addMigrations({
-      namespace: 'localization-management',
-      directory: resolve(__dirname, 'migrations'),
-      context: {
-        plugin: this,
-      },
-    });
-
-    this.app.resource({
+    this.app.resourcer.define({
       name: 'localizationTexts',
       actions: localizationTexts,
     });
 
-    this.app.resource({
+    this.app.resourcer.define({
       name: 'localization',
       actions: localization,
     });
@@ -119,7 +108,7 @@ export class LocalizationManagementPlugin extends Plugin {
 
     this.app.resourcer.use(async (ctx, next) => {
       await next();
-      const { resourceName, actionName } = ctx.action.params;
+      const { resourceName, actionName } = ctx.action;
       if (resourceName === 'app' && actionName === 'getLang') {
         const custom = await this.resources.getResources(ctx.get('X-Locale') || 'en-US');
         const appLang = ctx.body;

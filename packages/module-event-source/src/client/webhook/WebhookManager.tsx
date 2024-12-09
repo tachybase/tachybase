@@ -95,7 +95,8 @@ const properties = {
         dependencies: ['.type'],
         fulfill: {
           state: {
-            hidden: '{{ $deps[0] !== "action" && $deps[0] !== "resource" }}',
+            hidden:
+              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
           },
         },
       },
@@ -112,7 +113,8 @@ const properties = {
         dependencies: ['.type'],
         fulfill: {
           state: {
-            hidden: '{{ $deps[0] !== "action" && $deps[0] !== "resource" }}',
+            hidden:
+              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource"}}',
           },
         },
       },
