@@ -60,7 +60,7 @@ MCheckbox.Group = connect(
     return (
       <div>
         {dataSource
-          .filter((option) => option.value == value)
+          .filter((option) => option.value === value)
           .map((option, key) => (
             <Tag key={key} color={getMobileColor(option.color)}>
               {option.label}

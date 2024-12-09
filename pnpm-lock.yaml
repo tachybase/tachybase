@@ -1416,37 +1416,6 @@ importers:
         specifier: workspace:*
         version: link:../utils
     devDependencies:
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      cronstrue:
-        specifier: ^2.47.0
-        version: 2.47.0
-      koa-send:
-        specifier: ^5.0.1
-        version: 5.0.1
-      koa-static:
-        specifier: ^5.0.0
-        version: 5.0.0
-
-  packages/module-client-mobile:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
       '@ant-design/icons':
         specifier: ~5.3.7
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1474,6 +1443,15 @@ importers:
       antd-mobile-icons:
         specifier: ^0.3.0
         version: 0.3.0
+      cronstrue:
+        specifier: ^2.47.0
+        version: 2.47.0
+      koa-send:
+        specifier: ^5.0.1
+        version: 5.0.1
+      koa-static:
+        specifier: ^5.0.0
+        version: 5.0.0
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -4385,9 +4363,6 @@ importers:
       '@tachybase/plugin-messages':
         specifier: workspace:*
         version: link:../module-messages
-      '@tachybase/plugin-mobile-client':
-        specifier: workspace:*
-        version: link:../module-client-mobile
       '@tachybase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../module-mock-collections
