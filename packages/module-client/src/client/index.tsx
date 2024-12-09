@@ -19,7 +19,7 @@ import { MobileClientProvider } from './MobileClientProvider';
 import { MobileLinkProvider } from './MobileLinkProvider';
 import MApplication from './router/Application';
 
-export class MobileClientPlugin extends Plugin {
+export class ModuleWeb extends Plugin {
   public mobileRouter: RouterManager;
   async load() {
     this.setMobileRouter();
@@ -95,6 +95,6 @@ export class MobileClientPlugin extends Plugin {
   }
 }
 
-export default MobileClientPlugin;
+export default ModuleWeb;
 
 export * from './core';

@@ -1,4 +1,5 @@
-import {tval as nTval, i18n } from '@tachybase/client';
+import { i18n, tval as nTval } from '@tachybase/client';
+
 import { useTranslation as useT } from 'react-i18next';
 
 export const NAMESPACE = 'mobile-client';
@@ -13,12 +14,11 @@ export function generateNTemplate(key: string) {
 
 export const tval = (key: string, haveNamespace: boolean = true) => {
   if (haveNamespace) {
-    return nTval(key, { ns: NAMESPACE })
+    return nTval(key, { ns: NAMESPACE });
   } else {
-    return nTval(key)
+    return nTval(key);
   }
 };
-
 
 export function useTranslation() {
   return useT([NAMESPACE, '@tachybase/plugin-mobile-client', 'client'], {

@@ -1,21 +1,21 @@
-import { resolve } from 'path';
-import { Plugin } from '@tachybase/server';
+import { Repository } from '@tachybase/database';
+import { Migration } from '@tachybase/server';
 
-export class MobileClientPlugin extends Plugin {
-  afterAdd() {}
+export default class extends Migration {
+  on = 'afterLoad'; // 'beforeLoad' or 'afterLoad'
+  appVersion = '<0.22.65';
 
-  async load() {
-    this.db.addMigrations({
-      namespace: 'client',
-      directory: resolve(__dirname, './migrations'),
-      context: {
-        plugin: this,
+  async up() {
+    const uiSchemas = this.db.getRepository<Repository & { insert }>('uiSchemas');
+    const exists = await uiSchemas.count({
+      filter: {
+        'x-uid': 'default-admin-mobile',
       },
     });
-  }
+    if (exists) {
+      return;
+    }
 
-  async install() {
-    const uiSchemas = this.db.getRepository<any>('uiSchemas');
     await uiSchemas.insert({
       type: 'void',
       'x-uid': 'default-admin-mobile',
@@ -42,12 +42,4 @@ export class MobileClientPlugin extends Plugin {
       },
     });
   }
-
-  async afterEnable() {}
-
-  async afterDisable() {}
-
-  async remove() {}
 }
-
-export default MobileClientPlugin;

@@ -40,7 +40,7 @@ MRadio.Group = connect(
   },
   mapProps((props: any, field: any) => {
     useEffect(() => {
-      const defaultOption = field.dataSource?.find((option) => option.value == props.value);
+      const defaultOption = field.dataSource?.find((option) => option.value === props.value);
       if (defaultOption) {
         field.setValue(defaultOption.value);
       }
@@ -60,7 +60,7 @@ MRadio.Group = connect(
     return (
       <div>
         {dataSource
-          .filter((option) => option.value == value)
+          .filter((option) => option.value === value)
           .map((option, key) => {
             return (
               <Tag key={key} color={getMobileColor(option.color)}>

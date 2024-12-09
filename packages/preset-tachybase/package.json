@@ -60,7 +60,6 @@
     "@tachybase/plugin-localization-management": "workspace:*",
     "@tachybase/plugin-logger": "workspace:*",
     "@tachybase/plugin-messages": "workspace:*",
-    "@tachybase/plugin-mobile-client": "workspace:*",
     "@tachybase/plugin-mock-collections": "workspace:*",
     "@tachybase/plugin-multi-app-manager": "workspace:*",
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",
