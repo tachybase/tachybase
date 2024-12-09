@@ -96,5 +96,3 @@ export class ModuleWeb extends Plugin {
 }
 
 export default ModuleWeb;
-
-export * from './core';
