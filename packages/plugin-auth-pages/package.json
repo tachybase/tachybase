@@ -9,7 +9,7 @@
   "main": "dist/server/index.js",
   "dependencies": {
     "antd": "5.22.0",
-    "react-router-dom": "^6.11.2"
+    "react-router-dom": "^7.0.2"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
