@@ -30,6 +30,17 @@ Tachybase is designed with a three-layer structure: Kernel Layer, Module Layer, 
 
 Currently, Tachybase aims to handle the framework's core functions and some common business logic, while providing low-code and AI capabilities for easier use. In the future, Tachybase will evolve into a flexible foundation, with different product layers based on it, offering unique positioning. Future versions will continue along the core, module, and plugin design route, while becoming increasingly productized.
 
+# Snapshots
+
+For developers, by developers, we provide a variety of application templates and examples.
+
+Using the Tachybase, you will not be limited to any specific development form. It can be an independent npm package loaded within the platform, embedded into an existing system, or a combination of both for development. Alternatively, if Tachybase earns your full trust, you can use it as the core to develop the next application.
+
+![case1](https://assets.tachybase.com/imgs/case1.png)
+![case2](https://assets.tachybase.com/imgs/case2.png)
+![case3](https://assets.tachybase.com/imgs/case3.png)
+
+
 # Development Roadmap
 
 The following is a general development roadmap. The detailed development plan will be announced by March 31, 2025, and will be released along with the related application templates.
