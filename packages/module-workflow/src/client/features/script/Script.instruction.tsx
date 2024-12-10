@@ -102,7 +102,6 @@ export class ScriptInstruction extends Instruction {
       enum: [
         { label: tval('Cloud Component'), value: 'ts' },
         { label: tval('JSONata'), value: 'jsonata' },
-        { label: tval('Old script engine(Deprecated)'), value: 'js' },
       ],
       default: 'ts',
     },

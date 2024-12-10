@@ -10,7 +10,6 @@ import { PluginDaynamicCalculation } from './features/dynamic-calculation';
 import { PluginWorkflowInterceptor } from './features/interceptor';
 import { PluginLoop } from './features/loop';
 import { PluginManual } from './features/manual';
-import PluginWorkflowNoticeClient from './features/notice';
 import { PluginOmniTrigger } from './features/omni-trigger';
 import { PluginParallel } from './features/parallel';
 import { PluginRequest } from './features/request';
@@ -87,7 +86,6 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginResponse);
     await this.pm.add(PluginOmniTrigger);
     await this.pm.add(PluginTriggerInstruction);
-    await this.pm.add(PluginWorkflowNoticeClient);
   }
 
   async load() {

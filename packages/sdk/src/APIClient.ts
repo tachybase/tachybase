@@ -303,7 +303,7 @@ export class APIClient {
         let url = name.split('.').join(`/${of || '_'}/`);
         url += `:${actionName}`;
         const config: AxiosRequestConfig = { url };
-        if (['get', 'list'].includes(actionName)) {
+        if (['get', 'list', 'count'].includes(actionName)) {
           config['method'] = 'get';
         } else {
           config['method'] = 'post';

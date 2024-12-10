@@ -12,7 +12,8 @@ import { configSytles } from './style';
 export class ApprovalCarbonCopyInstruction extends Instruction {
   title = tval('ApprovalCarbonCopy');
   type = COLLECTION_NAME_APPROVAL_CARBON_COPY;
-  group: GroupType = 'extended';
+  // THINK: 应该将审批单独开个区块出来, 并且支持在扩展插件里修改原有的区块配置列表的机制
+  group: GroupType = 'manual';
   icon = 'CopyOutlined';
   color = '#0e7ab0';
   description = tval(

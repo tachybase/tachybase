@@ -4,7 +4,7 @@ import { css } from '@tachybase/client';
 import { InputNumber, Select } from 'antd';
 import { Cron } from 'react-js-cron';
 
-import { useWorkflowTranslation } from '../../locale';
+import { useTranslation } from '../../locale';
 import CronZhCN from './locale/Cron.zh-CN';
 
 const languages = {
@@ -41,7 +41,7 @@ function getRepeatTypeValue(v) {
 }
 
 function CommonRepeatField({ value, onChange }) {
-  const { t } = useWorkflowTranslation();
+  const { t } = useTranslation();
   const option = getNumberOption(value);
 
   return (
@@ -57,7 +57,7 @@ function CommonRepeatField({ value, onChange }) {
 }
 
 export function RepeatField({ value = null, onChange }) {
-  const { t } = useWorkflowTranslation();
+  const { t } = useTranslation();
   const typeValue = getRepeatTypeValue(value);
   function onTypeChange(v) {
     if (v === 'none') {
