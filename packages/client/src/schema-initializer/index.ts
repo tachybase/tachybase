@@ -45,6 +45,8 @@ import { FilterCollapseBlockInitializer } from '../modules/blocks/filter-blocks/
 import { filterFormActionInitializers } from '../modules/blocks/filter-blocks/form/FilterFormActionInitializers';
 import { FilterFormBlockInitializer } from '../modules/blocks/filter-blocks/form/FilterFormBlockInitializer';
 import { filterFormItemInitializers } from '../modules/blocks/filter-blocks/form/filterFormItemInitializers';
+import { filterTreeActionInitializers } from '../modules/blocks/filter-blocks/tree/FilterTreeActionInitializers';
+import { FilterTreeBlockInitializer } from '../modules/blocks/filter-blocks/tree/FilterTreeBlockInitializer';
 import { MarkdownBlockInitializer } from '../modules/blocks/other-blocks/markdown/MarkdownBlockInitializer';
 import { MarkdownFormItemInitializer } from '../modules/blocks/other-blocks/markdown/MarkdownFormItemInitializer';
 import { tableSelectorInitializers } from '../modules/fields/component/Picker/TableSelectorInitializers';
@@ -100,6 +102,7 @@ export class SchemaInitializerPlugin extends Plugin {
       ListBlockInitializer,
       GridCardBlockInitializer,
       FilterFormBlockInitializer,
+      FilterTreeBlockInitializer,
       FilterCollapseBlockInitializer,
       MarkdownBlockInitializer,
       MarkdownFormItemInitializer,
@@ -136,6 +139,7 @@ export class SchemaInitializerPlugin extends Plugin {
     this.app.schemaInitializerManager.add(customizeCreateFormBlockInitializers);
     this.app.schemaInitializerManager.add(customFormItemInitializers);
     this.app.schemaInitializerManager.add(filterFormActionInitializers);
+    this.app.schemaInitializerManager.add(filterTreeActionInitializers);
     this.app.schemaInitializerManager.add(createFormActionInitializers);
     this.app.schemaInitializerManager.add(updateFormActionInitializers);
     this.app.schemaInitializerManager.add(filterFormItemInitializers);

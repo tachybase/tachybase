@@ -54,6 +54,11 @@ export const blockInitializers = new SchemaInitializer({
           title: '{{t("Collapse")}}',
           Component: 'FilterCollapseBlockInitializer',
         },
+        {
+          name: 'filterTree',
+          title: '{{t("Tree")}}',
+          Component: 'FilterTreeBlockInitializer',
+        },
       ],
     },
     {
