@@ -11,7 +11,7 @@ interface MessageType {
   name: string;
 }
 
-class ModuleMessagesClient extends Plugin {
+export class ModuleMessagesClient extends Plugin {
   async afterAdd() {
     // 配置部分: 工作流节点
     await this.app.pm.add(KitConfiguration);
@@ -48,5 +48,3 @@ class ModuleMessagesClient extends Plugin {
     }
   }
 }
-
-export default ModuleMessagesClient;

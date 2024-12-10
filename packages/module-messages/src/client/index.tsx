@@ -1,1 +1,1 @@
-export { default } from './plugin';
+export { ModuleMessagesClient as default } from './plugin';
