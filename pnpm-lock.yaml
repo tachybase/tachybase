@@ -1601,50 +1601,7 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2
 
-  packages/module-data-source-external:
-    dependencies:
-      '@ant-design/icons':
-        specifier: ^5.4.0
-        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/data-source-manager':
-        specifier: workspace:*
-        version: link:../data-source-manager
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      mysql2:
-        specifier: ^3.11.3
-        version: 3.11.3
-      pg:
-        specifier: ^8.11.3
-        version: 8.11.3
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.25.1
-        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-    devDependencies:
-      '@types/lodash':
-        specifier: ^4.17.5
-        version: 4.17.5
-
-  packages/module-data-source-manager:
+  packages/module-data-source:
     dependencies:
       '@tachybase/acl':
         specifier: workspace:*
@@ -1697,7 +1654,7 @@ importers:
         version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       sequelize:
         specifier: ^6.37.3
-        version: 6.37.3
+        version: 6.37.5
 
   packages/module-error-handler:
     dependencies:
@@ -3596,6 +3553,49 @@ importers:
         specifier: ~1.8.5
         version: 1.8.5(react@18.3.1)
 
+  packages/plugin-data-source-common:
+    dependencies:
+      '@ant-design/icons':
+        specifier: ^5.4.0
+        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/data-source-manager':
+        specifier: workspace:*
+        version: link:../data-source-manager
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      mysql2:
+        specifier: ^3.11.3
+        version: 3.11.3
+      pg:
+        specifier: ^8.11.3
+        version: 8.11.3
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.25.1
+        version: 6.25.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    devDependencies:
+      '@types/lodash':
+        specifier: ^4.17.5
+        version: 4.17.13
+
   packages/plugin-field-china-region:
     dependencies:
       '@tachybase/client':
@@ -4213,6 +4213,9 @@ importers:
       '@tachybase/module-cloud-component':
         specifier: workspace:*
         version: link:../module-cloud-component
+      '@tachybase/module-data-source':
+        specifier: workspace:*
+        version: link:../module-data-source
       '@tachybase/module-event-source':
         specifier: workspace:*
         version: link:../module-event-source
@@ -4324,12 +4327,9 @@ importers:
       '@tachybase/plugin-collection-manager':
         specifier: workspace:*
         version: link:../module-collection-manager
-      '@tachybase/plugin-data-source-external':
+      '@tachybase/plugin-data-source-common':
         specifier: workspace:*
-        version: link:../module-data-source-external
-      '@tachybase/plugin-data-source-manager':
-        specifier: workspace:*
-        version: link:../module-data-source-manager
+        version: link:../plugin-data-source-common
       '@tachybase/plugin-demos-game-runesweeper':
         specifier: workspace:*
         version: link:../plugin-prototype-game-runesweeper
