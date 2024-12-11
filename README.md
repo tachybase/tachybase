@@ -54,13 +54,13 @@ The following is a general development roadmap. The detailed development plan wi
 
 - [x] Kernel: Kernel API
 - [ ] Kernel: Message Mechanism
-- [ ] Kernel: Module API
+- [x] Kernel: Module API
 - [x] Module: Ant Design-based UI Library
 - [x] Module: Workflow
 - [x] Module: No-code Capability
 - [x] Module: Cloud Components
 - [ ] Module: Message Queue
-- [ ] Module: Scheduled Tasks
+- [x] Module: Scheduled Tasks
 - [x] Plugin: Workflow - Approval
 - [ ] Plugin: Workflow - Data Templates
 
@@ -68,7 +68,7 @@ UI planning principles: The core mechanisms are designed in the Kernel Layer, an
 
 - [x] Kernel: Modal Interaction (for context-sensitive interactions)
 - [x] Kernel: Tab Interaction (for interactions when a single page cannot contain too much content)
-- [ ] Kernel: Independent Pages (for core or shared content)
+- [x] Kernel: Independent Pages (for core or shared content)
 - [x] Module: Basic Components (single-line text, multi-line text, numbers, etc.)
 - [x] Module: Related Components (sub-table, sub-detail, etc.)
 - [x] Module: Specialized Components (dashboard, calendar, Gantt chart, file browser, etc.)
