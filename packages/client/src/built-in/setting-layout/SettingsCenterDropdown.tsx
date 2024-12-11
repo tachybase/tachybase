@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { SettingOutlined } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { useApp } from '../../application';
+import { PluginSettingsPageType, useApp } from '../../application';
 import { useCompile } from '../../schema-component';
 import { useToken } from '../../style';
 
@@ -12,7 +12,6 @@ export const SettingsCenterDropdown = () => {
   const compile = useCompile();
   const { token } = useToken();
   const app = useApp();
-  const systemSettings = app.systemSettingsManager.getList();
   const userSettings = app.userSettingsManager.getList();
   const settingItem = [];
   userSettings
@@ -27,15 +26,29 @@ export const SettingsCenterDropdown = () => {
   settingItem.push({
     type: 'divider',
   });
-  systemSettings
-    .filter((v) => v.isTopLevel !== false)
-    .forEach((setting) => {
-      settingItem.push({
-        key: 'systemSetting:' + setting.name,
-        icon: setting.icon,
-        label: <Link to={setting.path}>{compile(setting.title)}</Link>,
-      });
-    });
+  const menuItems = useMemo(() => {
+    const list = app.systemSettingsManager.getList();
+    // compile title
+    function traverse(settings: PluginSettingsPageType[]) {
+      return settings
+        .filter((item) => !item.path.includes(':'))
+        .map((item) => {
+          item.title = compile(item.title);
+          item.label = <Link to={item.path}>{compile(item.title)}</Link>;
+          if (item.children?.length) {
+            item.children = traverse(item.children);
+            // No link should be set if there are children.
+            item.label = compile(item.title);
+          }
+          return {
+            ...item,
+            name: item.title as string,
+          };
+        });
+    }
+    return traverse(list);
+  }, [app.systemSettingsManager, compile]);
+  settingItem.push(...menuItems);
   return (
     <Dropdown
       menu={{

@@ -14,6 +14,6 @@ export default class KitApprovalConfiguration extends Plugin {
   }
 
   async load() {
-    this.app.systemSettingsManager.add(systemSettingName, settingApproval);
+    this.app.systemSettingsManager.add('business-components.' + systemSettingName, settingApproval);
   }
 }

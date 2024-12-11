@@ -19,7 +19,6 @@ import {
 } from 'antd';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
 
 import { useRequest } from '../../api-client';
 import { i18n } from '../../i18n';
@@ -29,8 +28,6 @@ import { SwitchAction } from './PluginCard';
 import { PluginDetail } from './PluginDetail';
 import { useStyles } from './style';
 import { IPluginData } from './types';
-
-export * from './PluginManagerLink';
 
 export interface TData {
   data: IPluginData[];

@@ -16,8 +16,8 @@ export class KitMessagePage extends Plugin {
   }
 
   addRouters() {
-    this.app.router.add('admin.messages', {
-      path: '/admin/messages',
+    this.app.router.add('app.messages', {
+      path: 'messages',
       Component: ViewPageMessages,
     });
   }

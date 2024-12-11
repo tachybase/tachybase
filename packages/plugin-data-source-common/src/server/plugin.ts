@@ -16,9 +16,9 @@ export class PluginExternalDataSourceServer extends Plugin {
     this.app.dataSourceManager.factory.register('mysql', MySQLDataSource);
   }
   async beforeEnable() {
-    const plugin = this.pm.get('data-source-manager');
+    const plugin = this.pm.get('data-source');
     if (!plugin.enabled) {
-      throw new Error(`${this.name} plugin need data-source-manager plugin enabled`);
+      throw new Error(`${this.name} plugin need data source module enabled`);
     }
   }
 

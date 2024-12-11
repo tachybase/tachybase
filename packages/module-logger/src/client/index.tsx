@@ -12,7 +12,7 @@ export class PluginLoggerClient extends Plugin {
 
   // You can get and modify the app instance here
   async load() {
-    this.app.systemSettingsManager.add('logger', {
+    this.app.systemSettingsManager.add('system-services.' + 'logger', {
       title: lang('Logger'),
       icon: 'FileTextOutlined',
       Component: LogsDownloader,

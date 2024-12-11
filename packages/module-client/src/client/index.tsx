@@ -37,17 +37,17 @@ export class ModuleWeb extends Plugin {
   }
 
   addSettings() {
-    this.app.systemSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add('system-services.' + NAMESPACE, {
       title: `{{t("Mobile Client-side", { ns: "${NAMESPACE}" })}}`,
       icon: 'MobileOutlined',
       Component: () => <Outlet />,
     });
-    this.app.systemSettingsManager.add(`${NAMESPACE}.interface`, {
+    this.app.systemSettingsManager.add('system-services.' + `${NAMESPACE}.interface`, {
       title: `{{t("Interface Configuration", { ns: "${NAMESPACE}" })}}`,
       Component: InterfaceConfiguration,
       sort: 1,
     });
-    this.app.systemSettingsManager.add(`${NAMESPACE}.app`, {
+    this.app.systemSettingsManager.add('system-services.' + `${NAMESPACE}.app`, {
       title: `{{t("App Configuration", { ns: "${NAMESPACE}" })}}`,
       Component: AppConfiguration,
       sort: 2,

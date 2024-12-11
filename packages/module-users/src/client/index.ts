@@ -8,11 +8,11 @@ import { UsersManagement } from './UsersManagement';
 
 class PluginUsersClient extends Plugin {
   async load() {
-    this.app.systemSettingsManager.add('users-permissions', {
+    this.app.systemSettingsManager.add('business-components.users-permissions', {
       title: tval('Users & Permissions', { ns: 'users' }),
       icon: 'TeamOutlined',
     });
-    this.app.systemSettingsManager.add('users-permissions.users', {
+    this.app.systemSettingsManager.add('business-components.users-permissions.users', {
       title: tval('Users'),
       icon: 'UserOutlined',
       Component: UsersManagement,

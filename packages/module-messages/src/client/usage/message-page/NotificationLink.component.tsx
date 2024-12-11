@@ -15,6 +15,7 @@ export const NotificationLink = () => {
   const { t } = useTranslation();
   const { badgeCount } = useContextBadgeCount();
 
+  // FIXME /admin
   const gotoMessagesPage = () => navigate('/admin/messages');
 
   return (

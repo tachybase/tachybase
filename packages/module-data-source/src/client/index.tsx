@@ -20,45 +20,45 @@ export class PluginDataSourceManagerClient extends Plugin {
       DatasourceLink,
     });
     this.app.use(DatabaseConnectionProvider);
-    this.app.systemSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add('data-modeling.' + NAMESPACE, {
       title: `{{t("Data sources", { ns: "${NAMESPACE}" })}}`,
       icon: 'ClusterOutlined',
       showTabs: false,
       aclSnippet: 'pm.database-connections.manager',
       sort: -70,
     });
-    this.app.systemSettingsManager.add(`${NAMESPACE}.list`, {
+    this.app.systemSettingsManager.add('data-modeling.' + `${NAMESPACE}.list`, {
       title: `{{t("Data sources", { ns: "${NAMESPACE}" })}}`,
       Component: DatabaseConnectionManagerPane,
       sort: 1,
     });
-    this.app.systemSettingsManager.add(`${NAMESPACE}/:name`, {
+    this.app.systemSettingsManager.add('data-modeling.' + `${NAMESPACE}/:name`, {
       title: <BreadcumbTitle />,
       icon: 'ClusterOutlined',
       isTopLevel: false,
       sort: 100,
     });
-    this.app.systemSettingsManager.add(`${NAMESPACE}/main`, {
-      title: <BreadcumbTitle />,
-      icon: 'ClusterOutlined',
-      isTopLevel: false,
-      sort: 100,
-    });
+    // this.app.systemSettingsManager.add('data-modeling.' + `${NAMESPACE}/main`, {
+    //   title: <BreadcumbTitle />,
+    //   icon: 'ClusterOutlined',
+    //   isTopLevel: false,
+    //   sort: 100,
+    // });
     // keep it for now
-    this.app.systemSettingsManager.add(`${NAMESPACE}/main.collections`, {
-      title: `{{t("Collections", { ns: "${NAMESPACE}" })}}`,
-      Component: MainDataSourceManager,
-      topLevelName: `${NAMESPACE}/main`,
-      pluginKey: NAMESPACE,
-    });
-    this.app.systemSettingsManager.add('collections', {
+    // this.app.systemSettingsManager.add('data-modeling.' + `${NAMESPACE}/main.collections`, {
+    //   title: `{{t("Collections", { ns: "${NAMESPACE}" })}}`,
+    //   Component: MainDataSourceManager,
+    //   topLevelName: `${NAMESPACE}/main`,
+    //   pluginKey: NAMESPACE,
+    // });
+    this.app.systemSettingsManager.add('data-modeling.' + 'collections', {
       title: `{{t("Collections", { ns: "${NAMESPACE}" })}}`,
       icon: 'DatabaseOutlined',
       Component: MainDataSourceManager,
       pluginKey: 'collections',
       sort: -70,
     });
-    this.app.systemSettingsManager.add(`${NAMESPACE}/:name.collections`, {
+    this.app.systemSettingsManager.add('data-modeling.' + `${NAMESPACE}/:name.collections`, {
       title: `{{t("Collections", { ns: "${NAMESPACE}" })}}`,
       Component: CollectionManagerPage,
       topLevelName: `${NAMESPACE}/:name`,

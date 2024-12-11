@@ -16,7 +16,7 @@ export const CloudComponentLink = () => {
         icon={<Icon type="deploymentunitoutlined" style={{ color: token.colorTextHeaderMenu }} />}
         title={t('Cloud Component')}
         onClick={() => {
-          navigate('/admin/settings/cloud-component');
+          navigate('/_admin/business-components/cloud-component');
         }}
       />
     </Tooltip>

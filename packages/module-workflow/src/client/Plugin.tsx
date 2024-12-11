@@ -92,7 +92,7 @@ export class PluginWorkflow extends Plugin {
     this.addRoutes();
     this.addComponents();
 
-    this.app.systemSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add('business-components.' + NAMESPACE, {
       icon: 'workflow',
       title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
       Component: WorkflowPane,

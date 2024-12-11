@@ -16,7 +16,7 @@ export const WorkflowLink = () => {
         icon={<Icon type="workflow" style={{ color: token.colorTextHeaderMenu }} />}
         title={t('Workflow')}
         onClick={() => {
-          navigate('/admin/settings/workflow');
+          navigate('/_admin/business-components/workflow');
         }}
       />
     </Tooltip>
