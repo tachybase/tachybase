@@ -65,7 +65,7 @@ export class PresetTachyBase extends Plugin {
     ['block-comments', '0.22.6', false],
     ['block-map', '0.8.1', false],
     ['core', '0.22.6', false],
-    ['data-source-external', '0.22.5', false],
+    ['data-source-common', '0.22.5', false],
     ['demos-game-runesweeper', '0.22.20', false],
     ['field-markdown-vditor', '0.22.6', false],
     ['field-snapshot', '0.8.1', false],
