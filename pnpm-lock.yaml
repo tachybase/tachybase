@@ -3620,6 +3620,9 @@ importers:
       react-i18next:
         specifier: ^15.1.3
         version: 15.1.3(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      swagger-ui-dist:
+        specifier: ^5.10.5
+        version: 5.10.5
 
   packages/plugin-field-china-region:
     dependencies:
@@ -40388,12 +40391,29 @@ snapshots:
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
 
+  vite-node@1.6.0(@types/node@20.14.2)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.36.0):
+    dependencies:
+      cac: 6.7.14
+      debug: 4.3.7(supports-color@5.5.0)
+      pathe: 1.1.2
+      picocolors: 1.1.1
+      vite: 5.2.13(@types/node@20.14.2)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.36.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+
   vite-node@1.6.0(@types/node@20.14.2)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.36.0):
     dependencies:
       cac: 6.7.14
-      debug: 4.3.7(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@5.5.0)
       pathe: 1.1.2
-      picocolors: 1.0.1
+      picocolors: 1.1.1
       vite: 5.2.13(@types/node@20.14.2)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.36.0)
     transitivePeerDependencies:
       - '@types/node'
