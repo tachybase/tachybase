@@ -35,37 +35,37 @@ export class FontManager {
       {
         family: 'source-han-sans',
         weight: 200,
-        url: 'https://alist.daoyoucloud.com/d/space/fonts/%E6%80%9D%E6%BA%90%E9%BB%91%E4%BD%93-%E4%B8%AD%E6%96%87/SourceHanSansCN-ExtraLight.otf',
+        url: 'https://assets.tachybase.com/fonts/SourceHanSansCN-ExtraLight.otf',
       },
       {
         family: 'source-han-sans',
         weight: 300,
-        url: 'https://alist.daoyoucloud.com/d/space/fonts/%E6%80%9D%E6%BA%90%E9%BB%91%E4%BD%93-%E4%B8%AD%E6%96%87/SourceHanSansCN-Light.otf',
+        url: 'https://assets.tachybase.com/fonts/SourceHanSansCN-Light.otf',
       },
       {
         family: 'source-han-sans',
         weight: 400,
-        url: 'https://alist.daoyoucloud.com/d/space/fonts/%E6%80%9D%E6%BA%90%E9%BB%91%E4%BD%93-%E4%B8%AD%E6%96%87/SourceHanSansCN-Regular.otf',
+        url: 'https://assets.tachybase.com/fonts/SourceHanSansCN-Regular.otf',
       },
       {
         family: 'source-han-sans',
         weight: 500,
-        url: 'https://alist.daoyoucloud.com/d/space/fonts/%E6%80%9D%E6%BA%90%E9%BB%91%E4%BD%93-%E4%B8%AD%E6%96%87/SourceHanSansCN-Normal.otf',
+        url: 'https://assets.tachybase.com/fonts/SourceHanSansCN-Normal.otf',
       },
       {
         family: 'source-han-sans',
         weight: 600,
-        url: 'https://alist.daoyoucloud.com/d/space/fonts/%E6%80%9D%E6%BA%90%E9%BB%91%E4%BD%93-%E4%B8%AD%E6%96%87/SourceHanSansCN-Medium.otf',
+        url: 'https://assets.tachybase.com/fonts/SourceHanSansCN-Medium.otf',
       },
       {
         family: 'source-han-sans',
         weight: 700,
-        url: 'https://alist.daoyoucloud.com/d/space/fonts/%E6%80%9D%E6%BA%90%E9%BB%91%E4%BD%93-%E4%B8%AD%E6%96%87/SourceHanSansCN-Bold.otf',
+        url: 'https://assets.tachybase.com/fonts/SourceHanSansCN-Bold.otf',
       },
       {
         family: 'source-han-sans',
         weight: 900,
-        url: 'https://alist.daoyoucloud.com/d/space/fonts/%E6%80%9D%E6%BA%90%E9%BB%91%E4%BD%93-%E4%B8%AD%E6%96%87/SourceHanSansCN-Heavy.otf',
+        url: 'https://assets.tachybase.com/fonts/SourceHanSansCN-Heavy.otf',
       },
     ];
     const fontsDir = path.join(process.cwd(), 'storage', 'fonts');

@@ -14,10 +14,16 @@
 <br>
 
 <p align="center">
-  灵矶是一个灵活多变的应用系统，应用开发者可以基于灵矶做出丰富应用逻辑，而核心开发者可以聚焦于关键模块的稳定性和对不同环境的适配。
+  灵矶是一个插件化的应用框架，应用开发者可以基于灵矶做出丰富应用逻辑，而核心开发者可以聚焦于关键模块的稳定性和对不同环境的适配。
 </p>
 <p align="center">
-  [<a href="./README.md">English Version</a>][<a href="https://tachybase.org">文档</a>][中文版本]
+   <img alt="GitHub License" src="https://img.shields.io/github/license/tachybase/tachybase">
+   <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/tachybase/tachybase">
+   <img alt="Static Badge" src="https://img.shields.io/badge/build-passing-brightgreen">
+   <a href="./README.md"><img alt="Static Badge" src="https://img.shields.io/badge/English Version-red"></a>
+   <a href="./README.ZH-CN.md"><img alt="Static Badge" src="https://img.shields.io/badge/中文版本-blue"></a>
+   <a href="https://gitee.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/gitee-green"></a>
+   <a href="https://github.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/Github-lightblack"></a>
 </p>
 
 # 简介
@@ -30,9 +36,20 @@
 
 目前，灵矶的目标是处理框架本身的核心功能与一部分通用业务逻辑，同时提供一定的无代码与 AI 能力，提升使用的便捷性。灵矶的未来将发展为一个灵活的底座，与不同产品结合，形成独特的定位。
 
+# Snapshots
+
+为开发者，开发者创造，我们提供多种应用模板和示例。
+
+使用灵矶，您将不受限于任何特定的开发形式。它可以是一个独立的 npm 包，在平台中加载，也可以嵌入到现有系统中，或是两者结合进行开发。或者，如果灵矶获得了您的充分信任，您可以以灵矶为核心开发下一个应用。
+
+![case1](https://assets.tachybase.com/imgs/case1.png)
+![case2](https://assets.tachybase.com/imgs/case4.png)
+![case3](https://assets.tachybase.com/imgs/case3.png)
+![case5](https://assets.tachybase.com/imgs/case5.gif)
+
 # 路线图
 
-以下是大致的开发路线图，具体开发计划将在春节前公布，届时会与相关应用模板一起发布。
+以下是大致的开发路线图，具体开发计划将在 2025.3.31 前公布，届时会与相关应用模板一起发布。
 
 - [x] 内核：内核 API
 - [ ] 内核：消息机制
@@ -40,8 +57,7 @@
 - [x] 模块：基于 antd 风格的界面
 - [x] 模块：工作流
 - [x] 模块：无代码能力
-- [ ] 模块：云函数
-- [ ] 模块：云组件
+- [x] 模块：云组件
 - [ ] 模块：消息队列
 - [ ] 模块：定时任务
 - [x] 插件：工作流 - 审批
@@ -59,14 +75,27 @@ UI 规划方面，核心的机制设计在内核层，具体组件则由模块�
 
 # 系统试用
 
-[Demo 应用](https://demos.tachybase.com/admin/628sp6la1mw) 
+[Demo 应用](https://demos.tachybase.com/) 
 
-- 账号：`tachybase` 
-- 密码：`!Admin123.`
+可以自行注册账号密码，在内部建立子应用体验，测试环境非最新的环境，可能存在一些问题。
 
-该版本正在开发中，预计春节前正式上线，现已开放测试，欢迎联系获取更多信息。
+# 从 docker compose 快速开始
 
-# 快速开始
+项目中提供了多个 docker compose 的测试环境，下面以 postgresql 数据例子，您可以通过以下命令快速启动：
+
+```bash 
+cd docker-compose-samples/app-postgres
+docker compose up -d
+# 查看启动日志
+docker logs -f
+
+# 访问应用
+http://localhost:3000
+# 访问 pgadmin 数据库管理
+http://localhost:3080
+```
+
+# 从源代码快速开始
 
 ```bash 
 pnpm install
@@ -75,7 +104,7 @@ pnpm dev
 ```
 
 默认的账号为：`tachybase`，默认密码为 `!Admin123.`
-默认初始化使用的是 `sqlite` 数据库，推荐使用生产用的关系型数据库
+默认初始化使用的是 `sqlite` 数据库，可以在 `.env` 文件中修改为其他数据库。
 
 # 开源许可证
 

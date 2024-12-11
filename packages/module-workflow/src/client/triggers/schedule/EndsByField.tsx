@@ -4,11 +4,11 @@ import { dayjs } from '@tachybase/utils/client';
 
 import { DatePicker, Select } from 'antd';
 
-import { useWorkflowTranslation } from '../../locale';
+import { useTranslation } from '../../locale';
 import { OnField } from './OnField';
 
 export function EndsByField({ value, onChange }) {
-  const { t } = useWorkflowTranslation();
+  const { t } = useTranslation();
   const type = value != null ? (typeof value === 'object' && !(value instanceof Date) ? 'field' : 'date') : null;
   return (
     <fieldset

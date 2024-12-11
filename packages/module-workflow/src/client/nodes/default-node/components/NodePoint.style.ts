@@ -30,6 +30,8 @@ export const useStyles = createStyles(({ css, token }) => {
 
         box-sizing: border-box;
         height: 100%;
+        /* 微调, 遮挡背景色溢出 */
+        margin-left: -5px;
         padding: 17px 0;
         padding-left: 12px;
         padding-right: 12px;

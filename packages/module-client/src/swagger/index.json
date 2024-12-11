@@ -1,7 +1,7 @@
 {
-  "openapi": "3.0.2",
   "info": {
-    "title": "TachyBase API - Client plugin"
+    "title": "TachyBase API - Module Web"
   },
+  "openapi": "3.0.2",
   "paths": {}
 }

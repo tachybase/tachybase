@@ -4,7 +4,7 @@ import { convertUTCToLocal } from '@tachybase/utils/client';
 
 import { Tag } from 'antd';
 
-import { useWorkflowTranslation } from '../locale';
+import { useTranslation } from '../locale';
 
 const useStyles = createStyles(({ css, token }) => {
   return {
@@ -40,7 +40,7 @@ const useStyles = createStyles(({ css, token }) => {
 export function DrawerDescription(props) {
   const { label, title, description, workflowKey, createdAt, createdBy } = props;
   const { styles } = useStyles();
-  const { t } = useWorkflowTranslation();
+  const { t } = useTranslation();
   return (
     <>
       <div className={cx(styles.container, props.className)}>

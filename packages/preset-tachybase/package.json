@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "0.22.58",
+  "version": "0.22.64",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "scripts": {
@@ -8,9 +8,9 @@
   },
   "dependencies": {
     "@hera/plugin-core": "workspace:*",
-    "@hera/plugin-rental": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/module-cloud-component": "workspace:*",
+    "@tachybase/module-data-source": "workspace:*",
     "@tachybase/module-event-source": "workspace:*",
     "@tachybase/module-pdf": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
@@ -48,8 +48,7 @@
     "@tachybase/plugin-block-presentation": "workspace:*",
     "@tachybase/plugin-client": "workspace:*",
     "@tachybase/plugin-collection-manager": "workspace:*",
-    "@tachybase/plugin-data-source-external": "workspace:*",
-    "@tachybase/plugin-data-source-manager": "workspace:*",
+    "@tachybase/plugin-data-source-common": "workspace:*",
     "@tachybase/plugin-demos-game-runesweeper": "workspace:*",
     "@tachybase/plugin-error-handler": "workspace:*",
     "@tachybase/plugin-field-china-region": "workspace:*",
@@ -61,7 +60,6 @@
     "@tachybase/plugin-localization-management": "workspace:*",
     "@tachybase/plugin-logger": "workspace:*",
     "@tachybase/plugin-messages": "workspace:*",
-    "@tachybase/plugin-mobile-client": "workspace:*",
     "@tachybase/plugin-mock-collections": "workspace:*",
     "@tachybase/plugin-multi-app-manager": "workspace:*",
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",

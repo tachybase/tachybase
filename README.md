@@ -14,10 +14,16 @@
 <br>
 
 <p align="center">
-  Tachybase is a highly flexible application system, where developers can build complex application logic, while core developers focus on ensuring the stability of key modules and adapting to different environments. 
+  Tachybase is a pluggable application framework., where developers can build complex application logic, while core developers focus on ensuring the stability of key modules and adapting to different environments. 
 </p>
 <p align="center">
-  [English Version][<a href="https://tachybase.org">DOCS</a>][<a href="./README.ZH-CN.md">中文版本</a>]
+   <img alt="GitHub License" src="https://img.shields.io/github/license/tachybase/tachybase">
+   <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/tachybase/tachybase">
+   <img alt="Static Badge" src="https://img.shields.io/badge/build-passing-brightgreen">
+   <a href="./README.md"><img alt="Static Badge" src="https://img.shields.io/badge/English Version-red"></a>
+   <a href="./README.ZH-CN.md"><img alt="Static Badge" src="https://img.shields.io/badge/中文版本-blue"></a>
+   <a href="https://gitee.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/gitee-green"></a>
+   <a href="https://github.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/Github-lightblack"></a>
 </p>
 
 # Project Overview
@@ -30,9 +36,21 @@ Tachybase is designed with a three-layer structure: Kernel Layer, Module Layer, 
 
 Currently, Tachybase aims to handle the framework's core functions and some common business logic, while providing low-code and AI capabilities for easier use. In the future, Tachybase will evolve into a flexible foundation, with different product layers based on it, offering unique positioning. Future versions will continue along the core, module, and plugin design route, while becoming increasingly productized.
 
+# Snapshots
+
+For developers, by developers, we provide a variety of application templates and examples.
+
+Using the Tachybase, you will not be limited to any specific development form. It can be an independent npm package loaded within the platform, embedded into an existing system, or a combination of both for development. Alternatively, if Tachybase earns your full trust, you can use it as the core to develop the next application.
+
+![case1](https://assets.tachybase.com/imgs/case1.png)
+![case2](https://assets.tachybase.com/imgs/case4.png)
+![case3](https://assets.tachybase.com/imgs/case3.png)
+![case5](https://assets.tachybase.com/imgs/case5.gif)
+
+
 # Development Roadmap
 
-The following is an overview of the development roadmap. The detailed plan will be published before the Chinese New Year along with the relevant application templates.
+The following is a general development roadmap. The detailed development plan will be announced by March 31, 2025, and will be released along with the related application templates.
 
 - [x] Kernel: Kernel API
 - [ ] Kernel: Message Mechanism
@@ -40,8 +58,7 @@ The following is an overview of the development roadmap. The detailed plan will 
 - [x] Module: Ant Design-based UI Library
 - [x] Module: Workflow
 - [x] Module: No-code Capability
-- [ ] Module: Cloud Functions
-- [ ] Module: Cloud Components
+- [x] Module: Cloud Components
 - [ ] Module: Message Queue
 - [ ] Module: Scheduled Tasks
 - [x] Plugin: Workflow - Approval
@@ -59,14 +76,27 @@ UI planning principles: The core mechanisms are designed in the Kernel Layer, an
 
 # Try
 
-[Demo application](https://demos.tachybase.com/admin/628sp6la1mw) 
+[Demo application](https://demos.tachybase.com/) 
 
-- Username：`tachybase` 
-- Password：`!Admin123.`
+You can register an account and password on your own, create sub-applications within the system to explore, and experience the features. Please note that the test environment is not the latest version and may have some issues.
 
-This version is still under development and is expected to go live before Chinese New Year. It is currently available for testing. Please contact us for more information.
+# Quick Start with Docker Compose
 
-# Quick Start
+We provides multiple Docker Compose test environments. Here's an example using a PostgreSQL database. You can quickly start with the following commands:
+
+```bash 
+cd docker-compose-samples/app-postgres
+docker compose up -d
+# View startup logs
+docker logs -f
+
+# Visit app
+http://localhost:3000
+# Visit pgadmin
+http://localhost:3080
+```
+
+# Quick Start from Source Code
 
 ```bash 
 pnpm install
@@ -75,7 +105,7 @@ pnpm dev
 ```
 
 Default username：`tachybase`，password: `!Admin123.`
-The default database is `sqlite`. It is recommended to use a relational database for production environments.
+The default database is `sqlite`, you can change it in .env file.
 
 # License
 

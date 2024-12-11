@@ -39,6 +39,7 @@ import { filterCollapseBlockSettings } from '../modules/blocks/filter-blocks/col
 import { filterCollapseItemFieldSettings } from '../modules/blocks/filter-blocks/collapse/filterCollapseItemFieldSettings';
 import { filterFormBlockSettings } from '../modules/blocks/filter-blocks/form/filterFormBlockSettings';
 import { filterFormItemFieldSettings } from '../modules/blocks/filter-blocks/form/filterFormItemFieldSettings';
+import { filterTreeBlockSettings } from '../modules/blocks/filter-blocks/tree/filterTreeBlockSettings';
 import { markdownBlockSettings } from '../modules/blocks/other-blocks/markdown/markdownBlockSettings';
 import { cascaderComponentFieldSettings } from '../modules/fields/component/Cascader/cascaderComponentFieldSettings';
 import { cascadeSelectComponentFieldSettings } from '../modules/fields/component/CascadeSelect/cascadeSelectComponentFieldSettings';
@@ -66,6 +67,7 @@ export class SchemaSettingsPlugin extends Plugin {
     this.schemaSettingsManager.add(editFormBlockSettings);
     this.schemaSettingsManager.add(filterFormBlockSettings);
     this.schemaSettingsManager.add(filterFormItemFieldSettings);
+    this.schemaSettingsManager.add(filterTreeBlockSettings);
     this.schemaSettingsManager.add(multiDataDetailsBlockSettings);
     this.schemaSettingsManager.add(detailsWithPaginationSettings);
     this.schemaSettingsManager.add(singleDataDetailsBlockSettings);

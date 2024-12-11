@@ -25,6 +25,7 @@ import {
   removeTmpDir,
   updatePluginByCompressedFileUrl,
 } from './utils';
+import { WebControllerService } from './web-service';
 
 export const sleep = async (timeout = 0) => {
   return new Promise((resolve) => {
@@ -386,6 +387,7 @@ export class PluginManager {
     Container.set({ id: 'db', value: this.app.db });
     Container.set({ id: 'app', value: this.app });
     Container.set({ id: 'logger', value: this.app.logger });
+    await Container.get(WebControllerService).load();
     this.app.setMaintainingMessage('loading plugins...');
     const total = this.pluginInstances.size;
 

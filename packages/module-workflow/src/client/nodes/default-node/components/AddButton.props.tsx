@@ -6,7 +6,7 @@ import { MenuProps } from 'antd';
 import WorkflowPlugin from '../../..';
 import { useFlowContext } from '../../../FlowContext';
 import { lang } from '../../../locale';
-import { Instruction } from '../interface';
+import { BuiltinGroupType, Instruction } from '../interface';
 
 export function useProps(props) {
   const { upstream, branchIndex = null } = props;
@@ -64,24 +64,25 @@ export function useProps(props) {
 /** 工作流配置列表 */
 const NodeConfigList = [
   {
-    key: 'control',
+    key: BuiltinGroupType.CONTROL,
     label: lang('Control'),
   },
   {
-    key: 'collection',
+    key: BuiltinGroupType.COLLECTION,
     label: lang('Collection operations'),
   },
   {
-    key: 'manual',
+    key: BuiltinGroupType.MANUAL,
     label: lang('Manual'),
   },
   {
-    key: 'extended',
+    key: BuiltinGroupType.EXTENDED,
     label: lang('Extended types'),
   },
 ];
 
 const HotConfig = {
+  // Hot 不属于类型, 是个标记属性
   key: 'hot',
   label: lang('Hot tools'),
 };

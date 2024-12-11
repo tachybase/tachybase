@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { cx, Icon } from '@tachybase/client';
 
 import { AutoResizeInput } from '../../..';
@@ -13,15 +13,31 @@ export const NodePoint = (props) => {
 
   const { styles } = useStyles();
 
+  const [isEditing, setIsEditing] = useState(false);
+  const isLockEdit = workflow.executed || !isEditing;
+
+  const handleClick = () => {
+    // 改善交互体验, 只有在选中节点的前提下, 再次点击才会进入编辑态
+    if (configuring) {
+      setIsEditing(true);
+    }
+  };
+
+  const handleBlur = (ev) => {
+    onChangeTitle(ev.target.value);
+    setIsEditing(false);
+  };
+
   return (
     <div className={cx(styles.nodePoint, { configuring: configuring })}>
       <IdentityIcon color={color} icon={icon} />
       <AutoResizeInput
-        className={`workflow-node-edit ${workflow.executed ? 'node-executed' : ''}`}
-        readOnly={workflow.executed}
+        className={`workflow-node-edit ${isLockEdit ? 'node-executed' : ''}`}
+        readOnly={isLockEdit}
         value={editingTitle}
         onChange={(ev) => setEditingTitle(ev.target.value)}
-        onBlur={(ev) => onChangeTitle(ev.target.value)}
+        onBlur={handleBlur}
+        onClick={handleClick}
       />
       <ButtonArea isExecuted={workflow.executed} />
     </div>

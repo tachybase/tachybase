@@ -1,8 +1,6 @@
 import { i18n, tval as nTval, useApp } from '@tachybase/client';
 
-import { NAMESPACE } from '../constants';
-
-export { NAMESPACE };
+import { NAMESPACE } from '../common/constants';
 
 export const useTranslation = (): any => {
   const { i18n } = useApp();

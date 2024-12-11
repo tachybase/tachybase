@@ -1,13 +1,13 @@
 import { PluginWorkflow } from '@tachybase/module-workflow';
-import { DefaultContext, DefaultState, Gateway, Plugin } from '@tachybase/server';
+import { Gateway, Plugin } from '@tachybase/server';
 
 import jwt from 'jsonwebtoken';
 import WebSocket from 'ws';
 
-import { MessageInstruction } from './instructions/message-instruction';
+import { MessageInstruction } from './instructions/message';
 import { MessageService } from './MessageManager';
 
-export class PluginMessagesServer extends Plugin {
+class ModuleMessagesServer extends Plugin {
   async load() {
     const appName = this.app.name;
     this.app.messageManager = new MessageService(this.app);
@@ -67,4 +67,4 @@ export class PluginMessagesServer extends Plugin {
   }
 }
 
-export default PluginMessagesServer;
+export default ModuleMessagesServer;

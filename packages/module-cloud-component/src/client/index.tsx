@@ -30,7 +30,7 @@ export class ModuleCloudComponentClient extends Plugin {
       title: this.t('Cloud Component'),
       icon: 'deploymentunitoutlined',
       Component: CloudLibraryManager,
-      sort: 201,
+      sort: -50,
     });
     this.app.use(ProviderCloudComponent);
     this.app.addComponents({

@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { mkdir, readdir, symlink, unlink } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import path, { join, resolve } from 'node:path';
 
 import { fsExists } from './fs-exists';
 
@@ -69,7 +69,9 @@ export async function createDevPluginSymLink(pluginName: string) {
     if (await fsExists(link)) {
       await unlink(link);
     }
-    await symlink(resolve(packagePluginsPath, pluginName), link, 'dir');
+    const target = resolve(packagePluginsPath, pluginName);
+    const relativeTarget = path.relative(path.dirname(link), target);
+    await symlink(relativeTarget, link, 'dir');
   } catch (error) {
     console.error(error);
   }

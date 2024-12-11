@@ -1,7 +1,7 @@
 import { Repository } from '@tachybase/database';
 import Application, { Gateway, WSServer } from '@tachybase/server';
 
-import type { IMessage, IMessageService } from './types';
+import type { IMessage, IMessageService } from '../types/types';
 
 export class MessageService implements IMessageService {
   repo: Repository;

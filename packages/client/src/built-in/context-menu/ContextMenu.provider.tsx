@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 
+import { useLocalStorageState } from 'ahooks';
 import { Dropdown, type MenuProps } from 'antd';
 
 import { useApp } from '../../application';
 import { ContextMenuContext } from './useContextMenu';
 
 export const ContextMenuProvider = ({ children }) => {
-  const [enable, setEnable] = useState(true);
+  const [enable, setEnable] = useLocalStorageState<boolean>('context-menu-enabled', {
+    defaultValue: true,
+  });
   const contextItems = useApp().pluginContextMenu.get();
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const items: MenuProps['items'] = [];

@@ -58,37 +58,37 @@ const useStyles = createStyles(({ css }) => {
 });
 
 export const BlockItem = withDynamicSchemaProps((props: unknown & { name: string }) => {
-  // 新版 UISchema（1.0 之后）中已经废弃了 useProps，这里之所以继续保留是为了兼容旧版的 UISchema
+  // TODO: remove useProps
   const { className, children } = useProps(props);
   const { styles } = useStyles();
-  const [visible, setVisible] = useState(true);
+  // const [visible, setVisible] = useState(true);
 
-  const { open, ref, toolbar } = useBlockToolbar();
-  const id = useId();
-  const { registerChild } = useToolbar();
+  // const { open, ref, toolbar } = useBlockToolbar();
+  // const id = useId();
+  // const { registerChild } = useToolbar();
 
-  useEffect(() => {
-    if (!registerChild) return;
-    const unregister = registerChild(id, open);
-    return () => unregister();
-  }, [registerChild, open]);
+  // useEffect(() => {
+  //   if (!registerChild) return;
+  //   const unregister = registerChild(id, open);
+  //   return () => unregister();
+  // }, [registerChild, open]);
 
   const Designer = useDesigner();
   const fieldSchema = useFieldSchema();
   const { getAriaLabel } = useGetAriaLabelOfBlockItem(props.name);
 
   return (
-    <ToolbarProvider onVisibilityChange={setVisible}>
-      <SortableItem
-        ref={ref}
-        role="button"
-        aria-label={getAriaLabel()}
-        className={cx('tb-block-item', className, styles)}
-      >
-        <Designer {...fieldSchema['x-toolbar-props']} />
-        {children}
-        {visible && toolbar}
-      </SortableItem>
-    </ToolbarProvider>
+    // <ToolbarProvider onVisibilityChange={setVisible}>
+    <SortableItem
+      // ref={ref}
+      role="button"
+      aria-label={getAriaLabel()}
+      className={cx('tb-block-item', className, styles)}
+    >
+      <Designer {...fieldSchema['x-toolbar-props']} />
+      {children}
+      {/* {visible && toolbar} */}
+    </SortableItem>
+    // </ToolbarProvider>
   );
 });

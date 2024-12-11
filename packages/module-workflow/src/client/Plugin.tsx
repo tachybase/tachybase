@@ -5,17 +5,16 @@ import { Registry } from '@tachybase/utils/client';
 import { WorkflowLink } from './components/WorkflowLink';
 import { ExecutionPage } from './ExecutionPage';
 import { PluginAggregate } from './features/aggregate';
-import PluginWorkflowDataMappingClient from './features/data-mapping';
 import { PluginDelay } from './features/delay';
 import { PluginDaynamicCalculation } from './features/dynamic-calculation';
 import { PluginWorkflowInterceptor } from './features/interceptor';
 import { PluginLoop } from './features/loop';
 import { PluginManual } from './features/manual';
-import PluginWorkflowNoticeClient from './features/notice';
 import { PluginOmniTrigger } from './features/omni-trigger';
 import { PluginParallel } from './features/parallel';
 import { PluginRequest } from './features/request';
 import { PluginResponse } from './features/response';
+import PluginWorkflowDataMappingClient from './features/script';
 import { PluginSql } from './features/sql';
 import { PluginTriggerInstruction } from './features/trigger-instruction/plugin';
 import { PluginVariables } from './features/variables';
@@ -87,7 +86,6 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginResponse);
     await this.pm.add(PluginOmniTrigger);
     await this.pm.add(PluginTriggerInstruction);
-    await this.pm.add(PluginWorkflowNoticeClient);
   }
 
   async load() {

@@ -10,10 +10,8 @@ import {
 import { DepartmentsPlugin } from './features/departments';
 import CalcField from './fields/calc';
 import TstzrangeField from './fields/tstzrange';
-import { WebControllerService as WebService } from './services/web-service';
 
 @InjectedPlugin({
-  Services: [WebService],
   Controllers: [
     RobotController,
     TokenConfigurationController,

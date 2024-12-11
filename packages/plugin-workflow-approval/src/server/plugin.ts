@@ -4,9 +4,9 @@ import { Plugin } from '@tachybase/server';
 
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../common/collection-name';
 import { init } from './actions';
-import ApprovalCarbonCopyInstruction from './ApprovalCarbonCopy.instruction';
-import ApprovalInstruction from './ApprovalInstruction';
-import ApprovalTrigger from './ApprovalTrigger';
+import ApprovalInstruction from './instructions/Approval';
+import ApprovalCarbonCopyInstruction from './instructions/ApprovalCarbonCopy';
+import ApprovalTrigger from './triggers/Approval';
 
 export class PluginWorkflowApproval extends Plugin {
   workflow;
