@@ -1,6 +1,7 @@
 import { Context } from '@tachybase/actions';
 import { Plugin } from '@tachybase/server';
 
+import { ENVResource } from './actions/ENV-controller';
 import { MiddlewareOrderResource } from './actions/middleware-controller';
 import { SwaggerManager } from './swagger';
 
@@ -48,6 +49,8 @@ export class PluginDevToolServer extends Plugin {
       only: ['get', 'getUrls'],
     });
     this.app.resourcer.define(MiddlewareOrderResource);
+    this.app.resourcer.define(ENVResource);
+    this.app.acl.allow('enviroment', 'get', 'public');
     this.app.acl.allow('swagger', ['get', 'getUrls'], 'loggedIn');
     this.app.acl.registerSnippet({
       name: ['pm', this.name, 'documentation'].join('.'),

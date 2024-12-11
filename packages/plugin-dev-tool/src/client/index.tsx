@@ -5,6 +5,7 @@ import { RightOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 
 import { NAMESPACE } from '../locale';
+import { ENVToolPane } from './ENVPane';
 import { MiddlewareToolPane } from './middlewarePane';
 
 const DOCUMENTATION_PATH = '/api-documentation';
@@ -62,6 +63,11 @@ export class PluginDevToolClient extends Plugin {
       icon: 'BookOutlined',
       Component: SCDocumentation,
       aclSnippet: 'pm.api-doc.documentation',
+    });
+    this.app.systemSettingsManager.add('devTool.env', {
+      title: `{{t('ENV')}}`,
+      icon: 'CodeOutlined',
+      Component: ENVToolPane,
     });
     this.app.router.add('api-documentation', {
       path: DOCUMENTATION_PATH,

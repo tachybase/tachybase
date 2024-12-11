@@ -54,6 +54,7 @@ export const MiddlewareToolPane = React.memo((props) => {
     seq: undefined,
   });
   const [path, setPath] = useState('');
+  console.log('path: ', path);
   const { data } = useRequest(() =>
     api
       .resource('middlewares')
@@ -277,7 +278,7 @@ export const MiddlewareToolPane = React.memo((props) => {
     </Card>
   );
 });
-MiddlewareToolPane.displayName = 'DMiddlewareToolPane';
+MiddlewareToolPane.displayName = 'MiddlewareToolPane';
 
 const getTreeNodeName = (tree, currSelectedKeys, currKey, path) => {
   const selectedKeys = currSelectedKeys.split('-');
