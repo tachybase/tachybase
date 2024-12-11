@@ -1,0 +1,15 @@
+{
+  "name": "@tachybase/module-cron",
+  "version": "0.22.64",
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "antd": "5.22.0",
+    "cron-parser": "4.4.0",
+    "react-js-cron": "^3.2.0"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}

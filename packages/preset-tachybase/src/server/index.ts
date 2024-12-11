@@ -11,6 +11,7 @@ export class PresetTachyBase extends Plugin {
     'client',
     'cloud-component',
     'collection-manager',
+    'cron',
     'data-source',
     'error-handler',
     'event-source',

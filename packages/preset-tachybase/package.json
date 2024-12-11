@@ -10,6 +10,7 @@
     "@hera/plugin-core": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/module-cloud-component": "workspace:*",
+    "@tachybase/module-cron": "workspace:*",
     "@tachybase/module-data-source": "workspace:*",
     "@tachybase/module-event-source": "workspace:*",
     "@tachybase/module-pdf": "workspace:*",
