@@ -38,6 +38,7 @@ import { PMPlugin } from './pm';
 import { QuickAccessPlugin } from './quick-access';
 import { ScrollAssistantPlugin } from './scroll-assistant';
 import { SystemSettingsPlugin } from './system-settings';
+import { PluginSystemVersion } from './system-version';
 import { UserSettingsPlugin } from './user-settings';
 
 export { AdminProvider, NoticeArea, AdminLayout } from './admin-layout';
@@ -271,8 +272,6 @@ const AppMaintainingDialog = observer(
 );
 
 export const AppNotFound = () => {
-  const navigate = useNavigate();
-  // @ts-ignore
   const { t } = useTranslation();
   const app = useApp();
   return (
@@ -311,17 +310,30 @@ export class BuiltInPlugin extends Plugin {
   }
 
   addSystemSettingGroups() {
+    this.app.systemSettingsManager.add('id-auth', {
+      title: this.t('Identity and Authentication'),
+      icon: 'UserOutlined',
+      sort: -50,
+    });
     this.app.systemSettingsManager.add('data-modeling', {
       title: this.t('Data Modeling'),
       icon: 'DatabaseOutlined',
+      sort: -40,
     });
     this.app.systemSettingsManager.add('business-components', {
       title: this.t('Business Components'),
       icon: 'BlockOutlined',
+      sort: -30,
+    });
+    this.app.systemSettingsManager.add('devtools', {
+      title: this.t('Development Tools'),
+      icon: 'ToolOutlined',
+      sort: -20,
     });
     this.app.systemSettingsManager.add('system-services', {
       title: this.t('System Services'),
       icon: 'CloudServerOutlined',
+      sort: -10,
     });
   }
 
@@ -411,5 +423,6 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(QuickAccessPlugin, { name: 'quick-access' });
     await this.app.pm.add(ScrollAssistantPlugin, { name: 'scroll-assistant' });
     await this.app.pm.add(PluginDynamicPage, { name: 'dynamic-page' });
+    await this.app.pm.add(PluginSystemVersion, { name: 'system-version' });
   }
 }

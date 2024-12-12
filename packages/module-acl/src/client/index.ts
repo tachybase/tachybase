@@ -8,7 +8,7 @@ export class PluginACLClient extends Plugin {
 
   async load() {
     // TODO
-    this.systemSettingsManager.add('business-components.roles', {
+    this.systemSettingsManager.add('id-auth.roles', {
       title: this.t('Roles & Permissions'),
       icon: 'LockOutlined',
       Component: RolesManagement,

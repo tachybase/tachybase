@@ -8,7 +8,7 @@ import { UsersManagement } from './UsersManagement';
 
 class PluginUsersClient extends Plugin {
   async load() {
-    this.app.systemSettingsManager.add('business-components.users', {
+    this.app.systemSettingsManager.add('id-auth.users', {
       title: tval('Users'),
       icon: 'UserOutlined',
       Component: UsersManagement,

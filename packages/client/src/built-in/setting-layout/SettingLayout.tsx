@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { GithubFilled, InfoCircleFilled, QuestionCircleFilled } from '@ant-design/icons';
+import { GithubFilled, HomeFilled, InfoCircleFilled, QuestionCircleFilled } from '@ant-design/icons';
 import { PageContainer, ProConfigProvider, ProLayout, type ProSettings } from '@ant-design/pro-components';
-import { Button, ConfigProvider, Dropdown } from 'antd';
-import { useLocation } from 'react-router';
+import { Button, Dropdown } from 'antd';
+import { useLocation, useNavigate } from 'react-router';
 
 import { SettingsMenu, useCurrentUserContext } from '../../user';
-import { AdminProvider, MenuEditor, NoticeArea } from '../admin-layout';
+import { AdminProvider, NoticeArea } from '../admin-layout';
 import { useSystemSettings } from '../system-settings';
 
 export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscreen }) => {
@@ -21,6 +21,7 @@ export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscre
   };
 
   const location = useLocation();
+  const navigate = useNavigate();
   const { data } = useCurrentUserContext();
   const result = useSystemSettings();
 
@@ -28,13 +29,6 @@ export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscre
     <AdminProvider>
       <ProConfigProvider hashed={false}>
         <ProLayout
-          appList={[
-            {
-              icon: 'https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/5257a6a1b5fb1f2572763a2c0e230c85.png',
-              title: 'Tachybase',
-              url: 'https://tachybase.org',
-            },
-          ]}
           title={result?.data?.data?.title}
           logo={<img src={result?.data?.data?.logo?.url} />}
           bgLayoutImgList={[
@@ -84,16 +78,14 @@ export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscre
             if (props.isMobile) return [];
             if (typeof window === 'undefined') return [];
             return [
-              // TODO refactor menu editor
-              <ConfigProvider
-                theme={{
-                  token: {
-                    colorTextHeaderMenu: 'black',
-                  },
+              <Button
+                type="text"
+                onClick={() => {
+                  // FIXME /admin
+                  navigate('/admin');
                 }}
-              >
-                <MenuEditor />
-              </ConfigProvider>,
+                icon={<HomeFilled key="HomeFilled" />}
+              ></Button>,
               <Button
                 type="text"
                 target="_blank"

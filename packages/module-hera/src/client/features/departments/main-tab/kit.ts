@@ -6,7 +6,7 @@ import { DepartmentIndex } from './DepartmentIndex';
 export class KitMainTabDepartments extends Plugin {
   async load() {
     // 用户-部门-角色和权限
-    this.app.systemSettingsManager.add('business-components.departments', {
+    this.app.systemSettingsManager.add('id-auth.departments', {
       icon: 'ApartmentOutlined',
       title: tval('Departments'),
       sort: 2,
