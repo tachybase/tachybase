@@ -15,8 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # 动态获取当前标签的分支
-          ref: ${{ github.ref_name }}
+          ref: main
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
       - name: Setup Node.js
@@ -25,17 +24,12 @@ jobs:
           node-version: 20.18.0
           registry-url: ${{ vars.REGISTRY_URL }}
           cache: 'pnpm'
-      - name: Determine current branch
-        id: branch_check
-        run: echo "current_branch=${{ github.ref_name }}" >> "$GITHUB_ENV"
       - name: Do version release
-        if: env.current_branch == 'main' # 仅在 main 分支执行
         id: do_version
         run: |
           pnpm -r exec -- npm version patch
           echo "version=$(npm version patch --no-git-tag-version)" >> "$GITHUB_OUTPUT"
       - name: Commit
-        if: env.current_branch == 'main' # 仅在 main 分支执行
         uses: tachybase/git-auto-commit-action@v5
         with:
           commit_message: "chore(version): release ${{ steps.do_version.outputs.version }}"
