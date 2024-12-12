@@ -5,6 +5,7 @@ import { RightOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 
 import { NAMESPACE } from '../locale';
+import { clientrouterToolPane } from './clientrouterPane';
 import { ENVToolPane } from './ENVPane';
 import { MiddlewareToolPane } from './middlewarePane';
 
@@ -41,13 +42,13 @@ const SCDocumentation = () => {
 };
 
 export class PluginDevToolClient extends Plugin {
+  allRoutes = this.app.router.getRoutes();
   async afterAdd() {
     // await this.app.pm.add()
   }
 
   async beforeLoad() {}
 
-  // You can get and modify the app instance here
   async load() {
     this.app.systemSettingsManager.add('devTool', {
       title: `{{t("Dev tool")}}`,
@@ -68,6 +69,11 @@ export class PluginDevToolClient extends Plugin {
       title: `{{t('ENV')}}`,
       icon: 'CodeOutlined',
       Component: ENVToolPane,
+    });
+    this.app.systemSettingsManager.add('devTool.clientrouter', {
+      title: `{{t('Client router')}}`,
+      icon: 'CodeOutlined',
+      Component: clientrouterToolPane,
     });
     this.app.router.add('api-documentation', {
       path: DOCUMENTATION_PATH,

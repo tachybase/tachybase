@@ -1,22 +1,18 @@
 import React from 'react';
-import { CodeMirror, css, useAPIClient, useRequest } from '@tachybase/client';
+import { CodeMirror, css, useAPIClient, usePlugin, useRequest } from '@tachybase/client';
 
 import { useMemoizedFn } from 'ahooks';
 import { Card, theme } from 'antd';
 
+import PluginDevToolClient from '.';
 import { useLoggerTranslation } from './locale';
 
-export const ENVToolPane = React.memo((props) => {
+export const clientrouterToolPane = React.memo(() => {
   const { token } = theme.useToken();
   const { t: lang } = useLoggerTranslation();
   const t = useMemoizedFn(lang);
-  const api = useAPIClient();
-  const { data } = useRequest(() =>
-    api
-      .resource('enviroment')
-      .get()
-      .then((res) => res.data?.data),
-  );
+  const plugin = usePlugin(PluginDevToolClient);
+  const allroutes = plugin.allRoutes;
 
   return (
     <Card style={{ minHeight: '700px' }}>
@@ -37,7 +33,7 @@ export const ENVToolPane = React.memo((props) => {
           }}
         >
           <CodeMirror
-            value={JSON.stringify(data, null, 2)}
+            value={JSON.stringify(allroutes, null, 2)}
             width="1200px"
             height="600px"
             defaultLanguage="typescript"
@@ -47,4 +43,4 @@ export const ENVToolPane = React.memo((props) => {
     </Card>
   );
 });
-ENVToolPane.displayName = 'ENVToolPane';
+clientrouterToolPane.displayName = 'clientrouterToolPane';
