@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-cron",
-  "version": "0.22.66",
+  "version": "0.22.67",
   "main": "dist/server/index.js",
   "dependencies": {
     "antd": "5.22.0",
