@@ -3,10 +3,9 @@ import { useApp, useCompile, useDataSourceManager } from '@tachybase/client';
 
 import { RightOutlined } from '@ant-design/icons';
 import { Breadcrumb, Space, Tag } from 'antd';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { DataSourceContext } from '../DatabaseConnectionProvider';
-import { lang, NAMESPACE } from '../locale';
 import { statusEnum } from '../schema';
 
 export const BreadcumbTitle = () => {
@@ -20,9 +19,7 @@ export const BreadcumbTitle = () => {
   const items = useMemo(() => {
     const status = dataSourceValue?.status;
     const option = statusEnum.find((v) => v.value === status);
-    const res = [
-      { title: <Link to={app.systemSettingsManager.getRoutePath(NAMESPACE)}>{lang('Data source manager')}</Link> },
-    ];
+    const res = [];
     if (dataSourceValue) {
       res.push({
         title: (

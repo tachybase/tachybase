@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { GithubFilled, InfoCircleFilled, QuestionCircleFilled } from '@ant-design/icons';
 import { PageContainer, ProConfigProvider, ProLayout, type ProSettings } from '@ant-design/pro-components';
-import { Button, Dropdown } from 'antd';
+import { Button, ConfigProvider, Dropdown } from 'antd';
+import { useLocation } from 'react-router';
 
 import { SettingsMenu, useCurrentUserContext } from '../../user';
-import { AdminProvider, NoticeArea } from '../admin-layout';
+import { AdminProvider, MenuEditor, NoticeArea } from '../admin-layout';
 import { useSystemSettings } from '../system-settings';
-import defaultProps from './_defaultProps';
 
-export const MyLayout = ({ selectedKeys, onClick, route, children }) => {
+export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscreen }) => {
   const settings: Partial<ProSettings> = {
     fixSiderbar: true,
     layout: 'mix',
@@ -20,18 +20,23 @@ export const MyLayout = ({ selectedKeys, onClick, route, children }) => {
     siderMenuType: 'sub',
   };
 
-  const [pathname, setPathname] = useState('/list/sub-page/sub-sub-page1');
+  const location = useLocation();
   const { data } = useCurrentUserContext();
   const result = useSystemSettings();
 
   return (
     <AdminProvider>
-      <NoticeArea />
       <ProConfigProvider hashed={false}>
         <ProLayout
+          appList={[
+            {
+              icon: 'https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/5257a6a1b5fb1f2572763a2c0e230c85.png',
+              title: 'Tachybase',
+              url: 'https://tachybase.org',
+            },
+          ]}
           title={result?.data?.data?.title}
           logo={<img src={result?.data?.data?.logo?.url} />}
-          prefixCls="my-prefix"
           bgLayoutImgList={[
             {
               src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
@@ -52,16 +57,13 @@ export const MyLayout = ({ selectedKeys, onClick, route, children }) => {
               width: '331px',
             },
           ]}
-          {...defaultProps}
           route={route}
-          location={{
-            pathname,
-          }}
           token={{
             header: {
               colorBgMenuItemSelected: 'rgba(0,0,0,0.04)',
             },
           }}
+          location={location}
           siderMenuType="group"
           menuProps={{
             onClick,
@@ -82,6 +84,16 @@ export const MyLayout = ({ selectedKeys, onClick, route, children }) => {
             if (props.isMobile) return [];
             if (typeof window === 'undefined') return [];
             return [
+              // TODO refactor menu editor
+              <ConfigProvider
+                theme={{
+                  token: {
+                    colorTextHeaderMenu: 'black',
+                  },
+                }}
+              >
+                <MenuEditor />
+              </ConfigProvider>,
               <Button
                 type="text"
                 target="_blank"
@@ -102,12 +114,13 @@ export const MyLayout = ({ selectedKeys, onClick, route, children }) => {
               ></Button>,
             ];
           }}
+          pageTitleRender={false}
           headerTitleRender={(logo, title, _) => {
             const defaultDom = (
-              <a>
+              <>
                 {logo}
                 {title}
-              </a>
+              </>
             );
             if (typeof window === 'undefined') return defaultDom;
             if (document.body.clientWidth < 1400) {
@@ -116,25 +129,13 @@ export const MyLayout = ({ selectedKeys, onClick, route, children }) => {
             if (_.isMobile) return defaultDom;
             return <>{defaultDom}</>;
           }}
-          onMenuHeaderClick={(e) => console.log(e)}
-          menuItemRender={(item, dom) => (
-            <div
-              onClick={() => {
-                setPathname(item.path || '/welcome');
-              }}
-            >
-              {dom}
-            </div>
-          )}
           {...settings}
+          headerContentRender={() => <NoticeArea />}
+          contentStyle={{
+            padding: 0,
+          }}
         >
-          <PageContainer
-            token={{
-              paddingInlinePageContainerContent: 40,
-            }}
-          >
-            {children}
-          </PageContainer>
+          {fullscreen ? children : <PageContainer>{children}</PageContainer>}
         </ProLayout>
       </ProConfigProvider>
     </AdminProvider>

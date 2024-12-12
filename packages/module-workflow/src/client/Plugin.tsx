@@ -108,12 +108,16 @@ export class PluginWorkflow extends Plugin {
       icon: 'workflow',
       title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
       Component: WorkflowPage,
+      fullscreen: true,
+      groupKey: `business-components.${NAMESPACE}`,
     });
 
     this.app.systemSettingsManager.add(`business-components.${NAMESPACE}/:id.executions`, {
       icon: 'workflow',
       title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
       Component: ExecutionPage,
+      fullscreen: true,
+      groupKey: `business-components.${NAMESPACE}`,
     });
 
     this.app.schemaSettingsManager.add(customizeSubmitToWorkflowActionSettings);

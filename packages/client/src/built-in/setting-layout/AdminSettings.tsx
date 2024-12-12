@@ -6,7 +6,7 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { ADMIN_SETTINGS_PATH, PluginSettingsPageType, useApp } from '../../application';
 import { useCompile } from '../../schema-component';
-import { MyLayout } from './SettingLayout';
+import { SettingLayout } from './SettingLayout';
 
 export const SettingsCenterContext = createContext<any>({});
 SettingsCenterContext.displayName = 'SettingsCenterContext';
@@ -114,12 +114,13 @@ export const AdminSettingsLayout = () => {
     return <Navigate replace to={getFirstDeepChildPath(settings)} />;
   }
   return (
-    <MyLayout
+    <SettingLayout
+      fullscreen={!!currentSetting?.fullscreen}
       route={{
         path: '/',
         children: routeChildren,
       }}
-      selectedKeys={[currentSetting?.key]}
+      selectedKeys={[currentSetting?.groupKey ?? currentSetting?.key]}
       onClick={({ key }) => {
         const setting = settingsMapByKey[key];
         if (setting?.path) {
@@ -132,6 +133,6 @@ export const AdminSettingsLayout = () => {
       ) : (
         <Result status="404" title="404" subTitle="Sorry, the page you visited does not exist." />
       )}
-    </MyLayout>
+    </SettingLayout>
   );
 };

@@ -64,7 +64,7 @@ const useMenuProps = () => {
   };
 };
 
-const MenuEditor = (props) => {
+export const MenuEditor = (props) => {
   const { setTitle } = useDocumentTitle();
   const navigate = useNavigate();
   const params = useParams<any>();
@@ -139,7 +139,7 @@ const MenuEditor = (props) => {
 
   useEffect(() => {
     const properties = Object.values(current?.root?.properties || {}).shift()?.['properties'] || data?.data?.properties;
-    if (sideMenuRef.current) {
+    if (sideMenuRef?.current) {
       const pageType =
         properties &&
         Object.values(properties).find((item) => item['x-uid'] === params.name && item['x-component'] === 'Menu.Item');

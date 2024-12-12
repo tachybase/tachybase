@@ -1,6 +1,6 @@
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
-import { CronJobsController } from './actions/CronJobsController';
+import { CronJobsController } from './actions/cron-jobs-controller';
 import { CronJobModel } from './model/CronJobModel';
 import { StaticScheduleTrigger } from './service/StaticScheduleTrigger';
 

@@ -11,6 +11,7 @@ import { uid } from '@tachybase/schema';
 
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { useOutlet } from 'react-router-dom';
 
 import PluginDatabaseConnectionsClient from '..';
 import { databaseConnectionSchema } from '../schema';
@@ -21,6 +22,7 @@ import { ViewDatabaseConnectionAction } from './ViewDatabaseConnectionAction';
 
 export const DatabaseConnectionManagerPane = () => {
   const { t } = useTranslation();
+  const outlet = useOutlet();
   const plugin = usePlugin(PluginDatabaseConnectionsClient);
   const types = [...plugin.types.keys()]
     .map((key) => {
@@ -58,7 +60,7 @@ export const DatabaseConnectionManagerPane = () => {
   }, []);
 
   const useRefreshActionProps = () => {
-    const service = useDataBlockRequest();
+    const service = useDataBlockRequest<any>();
     return {
       async onClick() {
         const needReloadDataSources = service?.data?.data.filter((item) => item.status !== 'loaded');
@@ -88,6 +90,9 @@ export const DatabaseConnectionManagerPane = () => {
     const { key } = useCollectionRecordData();
     $self.visible = key !== 'main';
   };
+  if (outlet) {
+    return outlet;
+  }
   return (
     <SchemaComponent
       components={{

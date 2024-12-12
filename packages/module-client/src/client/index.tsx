@@ -1,9 +1,8 @@
 import React from 'react';
 import { createRouterManager, Plugin, RouterManager } from '@tachybase/client';
 
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-import { AppConfiguration, InterfaceConfiguration } from './configuration';
 import {
   ImageSearchConfigureFields,
   ImageSearchItemFieldSettings,
@@ -13,7 +12,6 @@ import {
   TabSearchFieldSchemaInitializer,
   TabSearchItemFieldSettings,
 } from './core/schema';
-import { NAMESPACE } from './locale';
 import { MAppNotFound } from './MAppNotFound';
 import { MobileClientProvider } from './MobileClientProvider';
 import { MobileLinkProvider } from './MobileLinkProvider';
@@ -24,7 +22,6 @@ export class ModuleWeb extends Plugin {
   async load() {
     this.setMobileRouter();
     this.addRoutes();
-    this.addSettings();
     this.app.use(MobileClientProvider);
     this.app.use(MobileLinkProvider);
     this.app.schemaInitializerManager.add(mBlockInitializers);
@@ -34,24 +31,6 @@ export class ModuleWeb extends Plugin {
     this.app.schemaSettingsManager.add(SwiperFieldSettings);
     this.app.schemaSettingsManager.add(ImageSearchItemFieldSettings);
     this.app.schemaSettingsManager.add(TabSearchItemFieldSettings);
-  }
-
-  addSettings() {
-    this.app.systemSettingsManager.add('system-services.' + NAMESPACE, {
-      title: `{{t("Mobile Client-side", { ns: "${NAMESPACE}" })}}`,
-      icon: 'MobileOutlined',
-      Component: () => <Outlet />,
-    });
-    this.app.systemSettingsManager.add('system-services.' + `${NAMESPACE}.interface`, {
-      title: `{{t("Interface Configuration", { ns: "${NAMESPACE}" })}}`,
-      Component: InterfaceConfiguration,
-      sort: 1,
-    });
-    this.app.systemSettingsManager.add('system-services.' + `${NAMESPACE}.app`, {
-      title: `{{t("App Configuration", { ns: "${NAMESPACE}" })}}`,
-      Component: AppConfiguration,
-      sort: 2,
-    });
   }
 
   setMobileRouter() {

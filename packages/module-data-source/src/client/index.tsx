@@ -37,16 +37,10 @@ export class PluginDataSourceManagerClient extends Plugin {
       aclSnippet: 'pm.database-connections.manager',
       sort: -70,
     });
-    this.app.systemSettingsManager.add(`data-modeling.${NAMESPACE}/:name`, {
+    this.app.systemSettingsManager.add(`data-modeling.${NAMESPACE}.:name`, {
       title: <BreadcumbTitle />,
-      icon: 'ClusterOutlined',
-      isTopLevel: false,
-      sort: 100,
-    });
-    this.app.systemSettingsManager.add(`data-modeling.${NAMESPACE}/:name.collections`, {
-      title: `{{t("Collections", { ns: "${NAMESPACE}" })}}`,
       Component: CollectionManagerPage,
-      topLevelName: `${NAMESPACE}/:name`,
+      groupKey: `data-modeling.${NAMESPACE}`,
       pluginKey: NAMESPACE,
     });
 
