@@ -1,4 +1,4 @@
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source';
 
 import { Instruction } from '.';
 import { JOB_STATUS } from '../constants';

@@ -1,5 +1,5 @@
 import { Context } from '@tachybase/actions';
-import { IField } from '@tachybase/data-source-manager';
+import { IField } from '@tachybase/data-source';
 import { PluginWorkflow } from '@tachybase/module-workflow';
 import { ActionParams } from '@tachybase/resourcer';
 import Application from '@tachybase/server';

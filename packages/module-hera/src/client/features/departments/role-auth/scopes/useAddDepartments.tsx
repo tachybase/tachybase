@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useActionContext, useAPIClient, useResourceActionContext } from '@tachybase/client';
-import { RolesManagerContext } from '@tachybase/plugin-acl/client';
+import { RolesManagerContext } from '@tachybase/module-acl/client';
 import { useForm } from '@tachybase/schema';
 
 export const useAddDepartments = () => {

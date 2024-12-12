@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import Database, { Collection, Repository } from '@tachybase/database';
-import { CollectionRepository } from '@tachybase/plugin-collection-manager';
+import { CollectionRepository } from '@tachybase/module-collection';
 import { InstallOptions, Plugin } from '@tachybase/server';
 import { merge, uid } from '@tachybase/utils';
 

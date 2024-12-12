@@ -1,6 +1,6 @@
 import { ACL, ACLResource, ACLResourceActions, AvailableStrategyOptions, RoleActionParams } from '@tachybase/acl';
 import { Transaction } from '@tachybase/database';
-import { RoleModel } from '@tachybase/plugin-acl';
+import { RoleModel } from '@tachybase/module-acl';
 
 import { RoleActionParamsMerge } from '../acl/RoleActionParamsMerge';
 import { RoleSnippets } from '../acl/RoleSnippets';

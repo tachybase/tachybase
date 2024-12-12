@@ -112,7 +112,7 @@ importers:
         version: 5.6.3
       umi:
         specifier: ^4.3.33
-        version: 4.3.33(@babel/core@7.26.0)(@types/node@20.14.2)(@types/react@18.3.3)(lightningcss@1.26.0)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.77.8)(stylelint@16.8.2(typescript@5.6.3))(terser@5.36.0)(type-fest@4.25.0)(typescript@5.6.3)(webpack@5.93.0)
+        version: 4.3.33(@babel/core@7.26.0)(@types/node@20.14.2)(@types/react@18.3.3)(eslint@9.13.0)(lightningcss@1.26.0)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.77.8)(stylelint@16.8.2(typescript@5.6.3))(terser@5.36.0)(type-fest@4.25.0)(typescript@5.6.3)(webpack@5.93.0)
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@20.14.2)(jsdom@24.1.1(canvas@2.11.2(encoding@0.1.13)))(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.36.0)
@@ -832,7 +832,7 @@ importers:
         specifier: 5.19.0
         version: 5.19.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/data-source-manager:
+  packages/data-source:
     dependencies:
       '@tachybase/acl':
         specifier: workspace:*
@@ -876,7 +876,7 @@ importers:
         version: 4.3.12
       '@types/lodash':
         specifier: ^4.17.5
-        version: 4.17.5
+        version: 4.17.13
       '@types/supertest':
         specifier: ^6.0.2
         version: 6.0.2
@@ -1078,7 +1078,7 @@ importers:
         version: 5.6.3
       umi:
         specifier: ^4.3.33
-        version: 4.3.33(@babel/core@7.23.6)(@types/node@20.14.2)(@types/react@18.3.3)(eslint@9.13.0)(lightningcss@1.26.0)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.77.8)(stylelint@16.8.2(typescript@5.6.3))(terser@5.36.0)(type-fest@4.25.0)(typescript@5.6.3)(webpack@5.93.0)
+        version: 4.3.33(@babel/core@7.26.0)(@types/node@20.14.2)(@types/react@18.3.3)(eslint@9.13.0)(lightningcss@1.26.0)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.77.8)(stylelint@16.8.2(typescript@5.6.3))(terser@5.36.0)(type-fest@4.25.0)(typescript@5.6.3)(webpack@5.93.0)
 
   packages/evaluators:
     dependencies:
@@ -1266,6 +1266,21 @@ importers:
       react-i18next:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/module-app-info:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
 
   packages/module-auth:
     dependencies:
@@ -1561,7 +1576,7 @@ importers:
         specifier: 17.5.1
         version: 17.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/module-collection-manager:
+  packages/module-collection:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -1572,7 +1587,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-error-handler':
+      '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
       '@tachybase/server':
@@ -1599,7 +1614,7 @@ importers:
         version: 4.17.21
       sequelize:
         specifier: ^6.37.3
-        version: 6.37.3
+        version: 6.37.5
       toposort:
         specifier: ^2.0.2
         version: 2.0.2
@@ -1716,9 +1731,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/data-source-manager':
+      '@tachybase/data-source':
         specifier: workspace:*
-        version: link:../data-source-manager
+        version: link:../data-source
       '@tachybase/module-workflow':
         specifier: workspace:*
         version: link:../module-workflow
@@ -1756,21 +1771,21 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/data-source-manager':
+      '@tachybase/data-source':
         specifier: workspace:*
-        version: link:../data-source-manager
+        version: link:../data-source
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
       '@tachybase/evaluators':
         specifier: workspace:*
         version: link:../evaluators
+      '@tachybase/module-acl':
+        specifier: workspace:*
+        version: link:../module-acl
       '@tachybase/module-workflow':
         specifier: workspace:*
         version: link:../module-workflow
-      '@tachybase/plugin-acl':
-        specifier: workspace:*
-        version: link:../module-acl
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -1881,89 +1896,6 @@ importers:
         specifier: ^8.18.0
         version: 8.18.0
 
-  packages/module-localization-management:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
-      '@tachybase/cache':
-        specifier: workspace:*
-        version: link:../cache
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/plugin-client':
-        specifier: workspace:*
-        version: link:../module-client
-      '@tachybase/plugin-ui-schema-storage':
-        specifier: workspace:*
-        version: link:../module-ui-schema
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ^5.3.7
-        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      ahooks:
-        specifier: ^3.8.0
-        version: 3.8.1(react@18.3.1)
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  packages/module-logger:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/logger':
-        specifier: workspace:*
-        version: link:../logger
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ^5.3.7
-        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/tar-fs':
-        specifier: ^2.0.2
-        version: 2.0.2
-      ahooks:
-        specifier: ^3.8.0
-        version: 3.8.1(react@18.3.1)
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      tar-fs:
-        specifier: ^3.0.4
-        version: 3.0.4
-
   packages/module-messages:
     dependencies:
       '@ant-design/icons':
@@ -2018,7 +1950,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-error-handler':
+      '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
       '@tachybase/server':
@@ -2139,85 +2071,6 @@ importers:
         specifier: 4.17.13
         version: 4.17.13
 
-  packages/module-system-settings:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-
-  packages/module-theme-editor:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@ant-design/cssinjs':
-        specifier: ^1.21.0
-        version: 1.21.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@arvinxu/layout-kit':
-        specifier: ^1.4.0
-        version: 1.4.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
-      '@ctrl/tinycolor':
-        specifier: ^3.6.1
-        version: 3.6.1
-      '@types/lodash':
-        specifier: 4.17.5
-        version: 4.17.5
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      rc-util:
-        specifier: ^5.43.0
-        version: 5.43.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-colorful:
-        specifier: ^5.6.1
-        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      tinycolor2:
-        specifier: ^1.6.0
-        version: 1.6.0
-      use-debouncy:
-        specifier: ^4.6.0
-        version: 4.6.0(react@18.3.1)
-      vanilla-jsoneditor:
-        specifier: ^0.17.10
-        version: 0.17.10
-
   packages/module-ui-schema:
     dependencies:
       '@tachybase/actions':
@@ -2232,12 +2085,12 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-error-handler':
+      '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
-      '@tachybase/plugin-users':
+      '@tachybase/module-user':
         specifier: workspace:*
-        version: link:../module-users
+        version: link:../module-user
       '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../resourcer
@@ -2258,7 +2111,7 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
 
-  packages/module-users:
+  packages/module-user:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -2272,10 +2125,10 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-acl':
+      '@tachybase/module-acl':
         specifier: workspace:*
         version: link:../module-acl
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/resourcer':
@@ -2307,61 +2160,6 @@ importers:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  packages/module-verification:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/resourcer':
-        specifier: workspace:*
-        version: link:../resourcer
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@alicloud/dysmsapi20170525':
-        specifier: 2.0.17
-        version: 2.0.17
-      '@alicloud/openapi-client':
-        specifier: 0.4.1
-        version: 0.4.1
-      '@alicloud/tea-util':
-        specifier: 1.4.4
-        version: 1.4.4
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../components
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      dayjs:
-        specifier: 1.11.10
-        version: 1.11.10
-      react:
-        specifier: ~18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      tencentcloud-sdk-nodejs:
-        specifier: ^4.0.759
-        version: 4.0.759(encoding@0.1.13)
-
   packages/module-workflow:
     dependencies:
       '@babel/core':
@@ -2382,9 +2180,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/data-source-manager':
+      '@tachybase/data-source':
         specifier: workspace:*
-        version: link:../data-source-manager
+        version: link:../data-source
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
@@ -2394,15 +2192,15 @@ importers:
       '@tachybase/logger':
         specifier: workspace:*
         version: link:../logger
-      '@tachybase/plugin-collection-manager':
+      '@tachybase/module-collection':
         specifier: workspace:*
-        version: link:../module-collection-manager
-      '@tachybase/plugin-error-handler':
+        version: link:../module-collection
+      '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
-      '@tachybase/plugin-users':
+      '@tachybase/module-user':
         specifier: workspace:*
-        version: link:../module-users
+        version: link:../module-user
       '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../resourcer
@@ -2925,7 +2723,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/sdk':
@@ -2962,7 +2760,7 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -3005,7 +2803,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -3051,7 +2849,7 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -3093,7 +2891,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/sdk':
@@ -3142,12 +2940,12 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
-      '@tachybase/plugin-verification':
+      '@tachybase/plugin-otp':
         specifier: workspace:*
-        version: link:../module-verification
+        version: link:../plugin-otp
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -3182,7 +2980,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/schema':
@@ -3222,7 +3020,7 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -3585,9 +3383,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/data-source-manager':
+      '@tachybase/data-source':
         specifier: workspace:*
-        version: link:../data-source-manager
+        version: link:../data-source
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
@@ -3821,9 +3619,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-collection-manager':
+      '@tachybase/module-collection':
         specifier: workspace:*
-        version: link:../module-collection-manager
+        version: link:../module-collection
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -3902,6 +3700,89 @@ importers:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
+  packages/plugin-i18n-editor:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/cache':
+        specifier: workspace:*
+        version: link:../cache
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/plugin-client':
+        specifier: workspace:*
+        version: link:../module-client
+      '@tachybase/plugin-ui-schema-storage':
+        specifier: workspace:*
+        version: link:../module-ui-schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.7
+        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      ahooks:
+        specifier: ^3.8.0
+        version: 3.8.1(react@18.3.1)
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugin-log-viewer:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/logger':
+        specifier: workspace:*
+        version: link:../logger
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.7
+        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/tar-fs':
+        specifier: ^2.0.2
+        version: 2.0.2
+      ahooks:
+        specifier: ^3.8.0
+        version: 3.8.1(react@18.3.1)
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tar-fs:
+        specifier: ^3.0.4
+        version: 3.0.4
+
   packages/plugin-multi-app-share-collection:
     dependencies:
       '@tachybase/client':
@@ -3910,18 +3791,18 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
-      '@tachybase/plugin-collection-manager':
+      '@tachybase/module-collection':
         specifier: workspace:*
-        version: link:../module-collection-manager
-      '@tachybase/plugin-error-handler':
+        version: link:../module-collection
+      '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
-      '@tachybase/plugin-multi-app-manager':
+      '@tachybase/module-multi-app':
         specifier: workspace:*
         version: link:../module-multi-app
-      '@tachybase/plugin-users':
+      '@tachybase/module-user':
         specifier: workspace:*
-        version: link:../module-users
+        version: link:../module-user
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -3947,6 +3828,61 @@ importers:
       react-i18next:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugin-otp:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/resourcer':
+        specifier: workspace:*
+        version: link:../resourcer
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@alicloud/dysmsapi20170525':
+        specifier: 2.0.17
+        version: 2.0.17
+      '@alicloud/openapi-client':
+        specifier: 0.4.1
+        version: 0.4.1
+      '@alicloud/tea-util':
+        specifier: 1.4.4
+        version: 1.4.4
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      dayjs:
+        specifier: 1.11.10
+        version: 1.11.10
+      react:
+        specifier: ~18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tencentcloud-sdk-nodejs:
+        specifier: ^4.0.759
+        version: 4.0.759(encoding@0.1.13)
 
   packages/plugin-prototype-game-runesweeper:
     dependencies:
@@ -4084,7 +4020,7 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/plugin-auth':
+      '@tachybase/module-auth':
         specifier: workspace:*
         version: link:../module-auth
       '@tachybase/server':
@@ -4129,7 +4065,7 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/plugin-acl':
+      '@tachybase/module-acl':
         specifier: workspace:*
         version: link:../module-acl
       '@tachybase/server':
@@ -4142,6 +4078,70 @@ importers:
       minimatch:
         specifier: ^5.1.6
         version: 5.1.6
+
+  packages/plugin-theme-editor:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@ant-design/cssinjs':
+        specifier: ^1.21.0
+        version: 1.21.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@arvinxu/layout-kit':
+        specifier: ^1.4.0
+        version: 1.4.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
+      '@ctrl/tinycolor':
+        specifier: ^3.6.1
+        version: 3.6.1
+      '@types/lodash':
+        specifier: 4.17.5
+        version: 4.17.5
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      rc-util:
+        specifier: ^5.43.0
+        version: 5.43.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-colorful:
+        specifier: ^5.6.1
+        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tinycolor2:
+        specifier: ^1.6.0
+        version: 1.6.0
+      use-debouncy:
+        specifier: ^4.6.0
+        version: 4.6.0(react@18.3.1)
+      vanilla-jsoneditor:
+        specifier: ^0.17.10
+        version: 0.17.10
 
   packages/plugin-workflow-approval:
     dependencies:
@@ -4203,9 +4203,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/data-source-manager':
+      '@tachybase/data-source':
         specifier: workspace:*
-        version: link:../data-source-manager
+        version: link:../data-source
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
@@ -4234,27 +4234,48 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/module-acl':
+        specifier: workspace:*
+        version: link:../module-acl
+      '@tachybase/module-app-info':
+        specifier: workspace:*
+        version: link:../module-app-info
+      '@tachybase/module-auth':
+        specifier: workspace:*
+        version: link:../module-auth
+      '@tachybase/module-backup':
+        specifier: workspace:*
+        version: link:../module-backup
       '@tachybase/module-cloud-component':
         specifier: workspace:*
         version: link:../module-cloud-component
+      '@tachybase/module-collection':
+        specifier: workspace:*
+        version: link:../module-collection
       '@tachybase/module-cron':
         specifier: workspace:*
         version: link:../module-cron
       '@tachybase/module-data-source':
         specifier: workspace:*
         version: link:../module-data-source
+      '@tachybase/module-error-handler':
+        specifier: workspace:*
+        version: link:../module-error-handler
       '@tachybase/module-event-source':
         specifier: workspace:*
         version: link:../module-event-source
+      '@tachybase/module-multi-app':
+        specifier: workspace:*
+        version: link:../module-multi-app
       '@tachybase/module-pdf':
         specifier: workspace:*
         version: link:../module-pdf
+      '@tachybase/module-user':
+        specifier: workspace:*
+        version: link:../module-user
       '@tachybase/module-workflow':
         specifier: workspace:*
         version: link:../module-workflow
-      '@tachybase/plugin-acl':
-        specifier: workspace:*
-        version: link:../module-acl
       '@tachybase/plugin-action-bulk-edit':
         specifier: workspace:*
         version: link:../plugin-action-bulk-edit
@@ -4294,9 +4315,6 @@ importers:
       '@tachybase/plugin-audit-logs':
         specifier: workspace:*
         version: link:../plugin-audit-logs
-      '@tachybase/plugin-auth':
-        specifier: workspace:*
-        version: link:../module-auth
       '@tachybase/plugin-auth-cas':
         specifier: workspace:*
         version: link:../plugin-auth-cas
@@ -4324,9 +4342,6 @@ importers:
       '@tachybase/plugin-auth-wecom':
         specifier: workspace:*
         version: link:../plugin-auth-wecom
-      '@tachybase/plugin-backup-restore':
-        specifier: workspace:*
-        version: link:../module-backup
       '@tachybase/plugin-block-calendar':
         specifier: workspace:*
         version: link:../plugin-block-calendar
@@ -4351,18 +4366,12 @@ importers:
       '@tachybase/plugin-client':
         specifier: workspace:*
         version: link:../module-client
-      '@tachybase/plugin-collection-manager':
-        specifier: workspace:*
-        version: link:../module-collection-manager
       '@tachybase/plugin-data-source-common':
         specifier: workspace:*
         version: link:../plugin-data-source-common
       '@tachybase/plugin-demos-game-runesweeper':
         specifier: workspace:*
         version: link:../plugin-prototype-game-runesweeper
-      '@tachybase/plugin-error-handler':
-        specifier: workspace:*
-        version: link:../module-error-handler
       '@tachybase/plugin-field-china-region':
         specifier: workspace:*
         version: link:../plugin-field-china-region
@@ -4381,48 +4390,39 @@ importers:
       '@tachybase/plugin-file-manager':
         specifier: workspace:*
         version: link:../plugin-field-file-manager
-      '@tachybase/plugin-localization-management':
+      '@tachybase/plugin-i18n-editor':
         specifier: workspace:*
-        version: link:../module-localization-management
-      '@tachybase/plugin-logger':
+        version: link:../plugin-i18n-editor
+      '@tachybase/plugin-log-viewer':
         specifier: workspace:*
-        version: link:../module-logger
+        version: link:../plugin-log-viewer
       '@tachybase/plugin-messages':
         specifier: workspace:*
         version: link:../module-messages
       '@tachybase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../module-mock-collections
-      '@tachybase/plugin-multi-app-manager':
-        specifier: workspace:*
-        version: link:../module-multi-app
       '@tachybase/plugin-multi-app-share-collection':
         specifier: workspace:*
         version: link:../plugin-multi-app-share-collection
       '@tachybase/plugin-online-user':
         specifier: workspace:*
         version: link:../plugin-prototype-online-user
+      '@tachybase/plugin-otp':
+        specifier: workspace:*
+        version: link:../plugin-otp
       '@tachybase/plugin-simple-cms':
         specifier: workspace:*
         version: link:../plugin-prototype-simple-cms
       '@tachybase/plugin-sub-accounts':
         specifier: workspace:*
         version: link:../plugin-sub-accounts
-      '@tachybase/plugin-system-settings':
-        specifier: workspace:*
-        version: link:../module-system-settings
       '@tachybase/plugin-theme-editor':
         specifier: workspace:*
-        version: link:../module-theme-editor
+        version: link:../plugin-theme-editor
       '@tachybase/plugin-ui-schema-storage':
         specifier: workspace:*
         version: link:../module-ui-schema
-      '@tachybase/plugin-users':
-        specifier: workspace:*
-        version: link:../module-users
-      '@tachybase/plugin-verification':
-        specifier: workspace:*
-        version: link:../module-verification
       '@tachybase/plugin-workflow-approval':
         specifier: workspace:*
         version: link:../plugin-workflow-approval
@@ -4542,9 +4542,9 @@ importers:
       '@tachybase/cache':
         specifier: workspace:*
         version: link:../cache
-      '@tachybase/data-source-manager':
+      '@tachybase/data-source':
         specifier: workspace:*
-        version: link:../data-source-manager
+        version: link:../data-source
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
@@ -5704,12 +5704,6 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/plugin-syntax-jsx@7.23.3':
-    resolution: {integrity: sha512-EB2MELswq55OHUoRZLGg/zC7QWUKfNLpE57m/S2yr1uEneIgsTgrSzXP3NXEsMkVn76OlaVVnzN+ugObuYGwhg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
   '@babel/plugin-syntax-jsx@7.25.9':
     resolution: {integrity: sha512-ld6oezHQMZsZfp6pWtbjaNDF2tiiCYYDqQszHt5VV437lewP9aSi2Of99CK0D0XB21k7FLgnLcmQKyKzynfeAA==}
     engines: {node: '>=6.9.0'}
@@ -6767,9 +6761,6 @@ packages:
 
   '@emotion/hash@0.9.2':
     resolution: {integrity: sha512-MyqliTZGuOm3+5ZRSaaBGP3USLw6+EGykkwZns2EPC5g8jJ4z9OrdZY9apkl3+UP9+sdz76YYkwCKP5gh8iY3g==}
-
-  '@emotion/is-prop-valid@1.2.1':
-    resolution: {integrity: sha512-61Mf7Ufx4aDxx1xlDeOm8aFFigGHE4z+0sKCa+IHCeZKiyP9RLD0Mmx7m8b9/Cf37f7NAvQOOJAbQQGVr5uERw==}
 
   '@emotion/is-prop-valid@1.3.1':
     resolution: {integrity: sha512-/ACwoqx7XQi9knQs/G0qKvv5teDMhD7bXYns9N/wM8ah8iNb8jZ2uNO0YOgiq2o2poIvVtJS2YALasQuMSQ7Kw==}
@@ -22806,19 +22797,9 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-syntax-async-generators@7.8.4(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/helper-plugin-utils': 7.25.9
-
   '@babel/plugin-syntax-async-generators@7.8.4(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
-      '@babel/helper-plugin-utils': 7.25.9
-
-  '@babel/plugin-syntax-bigint@7.8.3(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
       '@babel/helper-plugin-utils': 7.25.9
 
   '@babel/plugin-syntax-bigint@7.8.3(@babel/core@7.26.0)':
@@ -22831,11 +22812,6 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-syntax-class-properties@7.12.13(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/helper-plugin-utils': 7.25.9
-
   '@babel/plugin-syntax-class-properties@7.12.13(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -22844,11 +22820,6 @@ snapshots:
   '@babel/plugin-syntax-class-static-block@7.14.5(@babel/core@7.22.10)':
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.25.9
-
-  '@babel/plugin-syntax-class-static-block@7.14.5(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
       '@babel/helper-plugin-utils': 7.25.9
 
   '@babel/plugin-syntax-class-static-block@7.14.5(@babel/core@7.26.0)':
@@ -22886,11 +22857,6 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-syntax-import-attributes@7.26.0(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/helper-plugin-utils': 7.25.9
-
   '@babel/plugin-syntax-import-attributes@7.26.0(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -22899,11 +22865,6 @@ snapshots:
   '@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.22.10)':
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.25.9
-
-  '@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
       '@babel/helper-plugin-utils': 7.25.9
 
   '@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.26.0)':
@@ -22916,17 +22877,7 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-syntax-json-strings@7.8.3(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/helper-plugin-utils': 7.25.9
-
   '@babel/plugin-syntax-json-strings@7.8.3(@babel/core@7.26.0)':
-    dependencies:
-      '@babel/core': 7.26.0
-      '@babel/helper-plugin-utils': 7.25.9
-
-  '@babel/plugin-syntax-jsx@7.23.3(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-plugin-utils': 7.25.9
@@ -22941,11 +22892,6 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/helper-plugin-utils': 7.25.9
-
   '@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -22954,11 +22900,6 @@ snapshots:
   '@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.22.10)':
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.25.9
-
-  '@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
       '@babel/helper-plugin-utils': 7.25.9
 
   '@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.26.0)':
@@ -22971,11 +22912,6 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-syntax-numeric-separator@7.10.4(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/helper-plugin-utils': 7.25.9
-
   '@babel/plugin-syntax-numeric-separator@7.10.4(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -22984,11 +22920,6 @@ snapshots:
   '@babel/plugin-syntax-object-rest-spread@7.8.3(@babel/core@7.22.10)':
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.25.9
-
-  '@babel/plugin-syntax-object-rest-spread@7.8.3(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
       '@babel/helper-plugin-utils': 7.25.9
 
   '@babel/plugin-syntax-object-rest-spread@7.8.3(@babel/core@7.26.0)':
@@ -23001,11 +22932,6 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-syntax-optional-catch-binding@7.8.3(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/helper-plugin-utils': 7.25.9
-
   '@babel/plugin-syntax-optional-catch-binding@7.8.3(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -23014,11 +22940,6 @@ snapshots:
   '@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.22.10)':
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.25.9
-
-  '@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
       '@babel/helper-plugin-utils': 7.25.9
 
   '@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.26.0)':
@@ -23031,11 +22952,6 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-syntax-private-property-in-object@7.14.5(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/helper-plugin-utils': 7.25.9
-
   '@babel/plugin-syntax-private-property-in-object@7.14.5(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -23044,11 +22960,6 @@ snapshots:
   '@babel/plugin-syntax-top-level-await@7.14.5(@babel/core@7.22.10)':
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.25.9
-
-  '@babel/plugin-syntax-top-level-await@7.14.5(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
       '@babel/helper-plugin-utils': 7.25.9
 
   '@babel/plugin-syntax-top-level-await@7.14.5(@babel/core@7.26.0)':
@@ -23363,15 +23274,6 @@ snapshots:
       '@babel/core': 7.26.0
       '@babel/helper-module-transforms': 7.26.0(@babel/core@7.26.0)
       '@babel/helper-plugin-utils': 7.25.9
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/plugin-transform-modules-commonjs@7.23.3(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/helper-module-transforms': 7.26.0(@babel/core@7.23.6)
-      '@babel/helper-plugin-utils': 7.25.9
-      '@babel/helper-simple-access': 7.25.9
     transitivePeerDependencies:
       - supports-color
 
@@ -24462,10 +24364,6 @@ snapshots:
   '@emotion/hash@0.9.1': {}
 
   '@emotion/hash@0.9.2': {}
-
-  '@emotion/is-prop-valid@1.2.1':
-    dependencies:
-      '@emotion/memoize': 0.8.1
 
   '@emotion/is-prop-valid@1.3.1':
     dependencies:
@@ -28948,20 +28846,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@umijs/test@4.3.33(@babel/core@7.23.6)':
-    dependencies:
-      '@babel/plugin-transform-modules-commonjs': 7.23.3(@babel/core@7.23.6)
-      '@jest/types': 27.5.1
-      '@umijs/bundler-utils': 4.3.33
-      '@umijs/utils': 4.3.33
-      babel-jest: 29.7.0(@babel/core@7.23.6)
-      esbuild: 0.21.4
-      identity-obj-proxy: 3.0.0
-      isomorphic-unfetch: 4.0.2
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
-
   '@umijs/test@4.3.33(@babel/core@7.26.0)':
     dependencies:
       '@babel/plugin-transform-modules-commonjs': 7.23.3(@babel/core@7.26.0)
@@ -29759,19 +29643,6 @@ snapshots:
 
   b4a@1.6.4: {}
 
-  babel-jest@29.7.0(@babel/core@7.23.6):
-    dependencies:
-      '@babel/core': 7.23.6
-      '@jest/transform': 29.7.0
-      '@types/babel__core': 7.20.5
-      babel-plugin-istanbul: 6.1.1
-      babel-preset-jest: 29.6.3(@babel/core@7.23.6)
-      chalk: 4.1.2
-      graceful-fs: 4.2.11
-      slash: 3.0.0
-    transitivePeerDependencies:
-      - supports-color
-
   babel-jest@29.7.0(@babel/core@7.26.0):
     dependencies:
       '@babel/core': 7.26.0
@@ -29872,34 +29743,15 @@ snapshots:
 
   babel-plugin-styled-components@2.1.4(@babel/core@7.26.0)(styled-components@5.3.11(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(supports-color@5.5.0):
     dependencies:
-      '@babel/helper-annotate-as-pure': 7.22.5
+      '@babel/helper-annotate-as-pure': 7.25.9
       '@babel/helper-module-imports': 7.25.9(supports-color@5.5.0)
-      '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.26.0)
+      '@babel/plugin-syntax-jsx': 7.25.9(@babel/core@7.26.0)
       lodash: 4.17.21
       picomatch: 2.3.1
       styled-components: 5.3.11(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
-
-  babel-preset-current-node-syntax@1.1.0(@babel/core@7.23.6):
-    dependencies:
-      '@babel/core': 7.23.6
-      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.23.6)
-      '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.23.6)
-      '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.23.6)
-      '@babel/plugin-syntax-class-static-block': 7.14.5(@babel/core@7.23.6)
-      '@babel/plugin-syntax-import-attributes': 7.26.0(@babel/core@7.23.6)
-      '@babel/plugin-syntax-import-meta': 7.10.4(@babel/core@7.23.6)
-      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.23.6)
-      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.23.6)
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.23.6)
-      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.23.6)
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.23.6)
-      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.23.6)
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.23.6)
-      '@babel/plugin-syntax-private-property-in-object': 7.14.5(@babel/core@7.23.6)
-      '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.23.6)
 
   babel-preset-current-node-syntax@1.1.0(@babel/core@7.26.0):
     dependencies:
@@ -29919,12 +29771,6 @@ snapshots:
       '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.26.0)
       '@babel/plugin-syntax-private-property-in-object': 7.14.5(@babel/core@7.26.0)
       '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.26.0)
-
-  babel-preset-jest@29.6.3(@babel/core@7.23.6):
-    dependencies:
-      '@babel/core': 7.23.6
-      babel-plugin-jest-hoist: 29.6.3
-      babel-preset-current-node-syntax: 1.1.0(@babel/core@7.23.6)
 
   babel-preset-jest@29.6.3(@babel/core@7.26.0):
     dependencies:
@@ -39611,7 +39457,7 @@ snapshots:
     dependencies:
       '@babel/helper-module-imports': 7.25.9(supports-color@5.5.0)
       '@babel/traverse': 7.25.9(supports-color@5.5.0)
-      '@emotion/is-prop-valid': 1.2.1
+      '@emotion/is-prop-valid': 1.3.1
       '@emotion/stylis': 0.8.5
       '@emotion/unitless': 0.7.5
       babel-plugin-styled-components: 2.1.4(@babel/core@7.26.0)(styled-components@5.3.11(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(supports-color@5.5.0)
@@ -40363,54 +40209,7 @@ snapshots:
 
   uid2@0.0.4: {}
 
-  umi@4.3.33(@babel/core@7.23.6)(@types/node@20.14.2)(@types/react@18.3.3)(eslint@9.13.0)(lightningcss@1.26.0)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.77.8)(stylelint@16.8.2(typescript@5.6.3))(terser@5.36.0)(type-fest@4.25.0)(typescript@5.6.3)(webpack@5.93.0):
-    dependencies:
-      '@babel/runtime': 7.23.6
-      '@umijs/bundler-utils': 4.3.33
-      '@umijs/bundler-webpack': 4.3.33(type-fest@4.25.0)(typescript@5.6.3)(webpack@5.93.0)
-      '@umijs/core': 4.3.33
-      '@umijs/lint': 4.3.33(eslint@9.13.0)(stylelint@16.8.2(typescript@5.6.3))(typescript@5.6.3)
-      '@umijs/preset-umi': 4.3.33(@types/node@20.14.2)(@types/react@18.3.3)(lightningcss@1.26.0)(rollup@3.29.5)(sass@1.77.8)(terser@5.36.0)(type-fest@4.25.0)(typescript@5.6.3)(webpack@5.93.0)
-      '@umijs/renderer-react': 4.3.33(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@umijs/server': 4.3.33
-      '@umijs/test': 4.3.33(@babel/core@7.23.6)
-      '@umijs/utils': 4.3.33
-      prettier-plugin-organize-imports: 3.2.4(prettier@3.3.3)(typescript@5.6.3)
-      prettier-plugin-packagejson: 2.4.3(prettier@3.3.3)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@types/node'
-      - '@types/react'
-      - '@types/webpack'
-      - '@volar/vue-language-plugin-pug'
-      - '@volar/vue-typescript'
-      - eslint
-      - jest
-      - lightningcss
-      - postcss-html
-      - postcss-jsx
-      - postcss-less
-      - postcss-markdown
-      - postcss-scss
-      - prettier
-      - react
-      - react-dom
-      - rollup
-      - sass
-      - sockjs-client
-      - stylelint
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - type-fest
-      - typescript
-      - webpack
-      - webpack-dev-server
-      - webpack-hot-middleware
-      - webpack-plugin-serve
-
-  umi@4.3.33(@babel/core@7.26.0)(@types/node@20.14.2)(@types/react@18.3.3)(lightningcss@1.26.0)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.77.8)(stylelint@16.8.2(typescript@5.6.3))(terser@5.36.0)(type-fest@4.25.0)(typescript@5.6.3)(webpack@5.93.0):
+  umi@4.3.33(@babel/core@7.26.0)(@types/node@20.14.2)(@types/react@18.3.3)(eslint@9.13.0)(lightningcss@1.26.0)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(sass@1.77.8)(stylelint@16.8.2(typescript@5.6.3))(terser@5.36.0)(type-fest@4.25.0)(typescript@5.6.3)(webpack@5.93.0):
     dependencies:
       '@babel/runtime': 7.23.6
       '@umijs/bundler-utils': 4.3.33

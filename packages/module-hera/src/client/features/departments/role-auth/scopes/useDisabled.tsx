@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { RolesManagerContext } from '@tachybase/plugin-acl/client';
+import { RolesManagerContext } from '@tachybase/module-acl/client';
 
 export const useDisabled = () => {
   const { role } = useContext(RolesManagerContext);

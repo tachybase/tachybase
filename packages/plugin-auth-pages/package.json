@@ -13,7 +13,7 @@
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
-    "@tachybase/plugin-auth": "workspace:*",
+    "@tachybase/module-auth": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   }

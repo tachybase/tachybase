@@ -1,4 +1,4 @@
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source';
 import { Instruction, JOB_STATUS, toJSON } from '@tachybase/module-workflow';
 import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 import { uid } from '@tachybase/utils';

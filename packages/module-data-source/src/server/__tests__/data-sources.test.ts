@@ -1,4 +1,4 @@
-import { CollectionManager, DataSource } from '@tachybase/data-source-manager';
+import { CollectionManager, DataSource } from '@tachybase/data-source';
 import { createMockServer, MockServer, waitSecond } from '@tachybase/test';
 
 describe('data source', async () => {

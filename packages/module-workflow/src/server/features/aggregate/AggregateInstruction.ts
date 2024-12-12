@@ -1,4 +1,4 @@
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source';
 import { DataTypes } from '@tachybase/database';
 
 import { FlowNodeModel, Instruction, JOB_STATUS, Processor } from '../..';

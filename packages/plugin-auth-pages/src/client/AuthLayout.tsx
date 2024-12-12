@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, PoweredBy, useAPIClient, useRequest, useSystemSettings } from '@tachybase/client';
-import { AuthenticatorsContext } from '@tachybase/plugin-auth/client';
+import { AuthenticatorsContext } from '@tachybase/module-auth/client';
 
 import { Col, Row } from 'antd';
 import { Outlet } from 'react-router-dom';

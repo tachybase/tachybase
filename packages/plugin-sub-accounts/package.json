@@ -8,7 +8,7 @@
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
-    "@tachybase/plugin-acl": "workspace:*",
+    "@tachybase/module-acl": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   },

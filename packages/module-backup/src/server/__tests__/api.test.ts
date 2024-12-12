@@ -170,7 +170,7 @@ describe('backup files', () => {
       name: 'test',
       title: '测试',
       group: 'custom',
-      origin: '@tachybase/plugin-collection-manager',
+      origin: '@tachybase/module-collection',
     });
   });
 });

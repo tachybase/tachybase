@@ -13,7 +13,7 @@
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
-    "@tachybase/data-source-manager": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/resourcer": "workspace:*",
     "@tachybase/server": "workspace:*",

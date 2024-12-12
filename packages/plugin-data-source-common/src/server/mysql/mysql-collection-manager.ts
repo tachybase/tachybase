@@ -1,3 +1,3 @@
-import { SequelizeCollectionManager } from '@tachybase/data-source-manager';
+import { SequelizeCollectionManager } from '@tachybase/data-source';
 
 export class MySQLCollectionManager extends SequelizeCollectionManager {}

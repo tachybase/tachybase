@@ -5,7 +5,7 @@ import { basename, resolve } from 'path';
 import { registerActions } from '@tachybase/actions';
 import { actions as authActions, AuthManager, AuthManagerOptions } from '@tachybase/auth';
 import { Cache, CacheManager, CacheManagerOptions } from '@tachybase/cache';
-import { DataSourceManager, SequelizeDataSource } from '@tachybase/data-source-manager';
+import { DataSourceManager, SequelizeDataSource } from '@tachybase/data-source';
 import Database, { CollectionOptions, IDatabaseOptions } from '@tachybase/database';
 import {
   createLogger,
