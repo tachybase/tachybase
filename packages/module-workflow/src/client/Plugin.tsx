@@ -89,15 +89,31 @@ export class PluginWorkflow extends Plugin {
   }
 
   async load() {
-    this.addRoutes();
     this.addComponents();
 
-    this.app.systemSettingsManager.add('business-components.' + NAMESPACE, {
+    this.app.systemSettingsManager.add(`business-components.${NAMESPACE}`, {
       icon: 'workflow',
       title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
       Component: WorkflowPane,
       aclSnippet: 'pm.workflow.workflows',
       sort: -80,
+    });
+
+    this.app.systemSettingsManager.add(`business-components.${NAMESPACE}/:id`, {
+      icon: 'workflow',
+      title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
+    });
+
+    this.app.systemSettingsManager.add(`business-components.${NAMESPACE}/:id.workflow`, {
+      icon: 'workflow',
+      title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
+      Component: WorkflowPage,
+    });
+
+    this.app.systemSettingsManager.add(`business-components.${NAMESPACE}/:id.executions`, {
+      icon: 'workflow',
+      title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
+      Component: ExecutionPage,
     });
 
     this.app.schemaSettingsManager.add(customizeSubmitToWorkflowActionSettings);
@@ -120,17 +136,6 @@ export class PluginWorkflow extends Plugin {
       WorkflowLink,
       WorkflowPage,
       ExecutionPage,
-    });
-  }
-
-  addRoutes() {
-    this.app.router.add('admin.workflow.workflows.id', {
-      path: getWorkflowDetailPath(':id'),
-      element: <WorkflowPage />,
-    });
-    this.app.router.add('admin.workflow.executions.id', {
-      path: getWorkflowExecutionsPath(':id'),
-      element: <ExecutionPage />,
     });
   }
 }

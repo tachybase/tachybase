@@ -34,7 +34,12 @@ export const ProviderBadgeCount = (props) => {
 
   useEffect(() => {
     // 监听 websocket 的消息
-    app.ws.on('message', changeBadgeCount);
+    app.ws.on('message', async (event: MessageEvent) => {
+      const data = JSON.parse(event.data);
+      if (data?.type === 'messages') {
+        changeBadgeCount();
+      }
+    });
   }, []);
 
   return (

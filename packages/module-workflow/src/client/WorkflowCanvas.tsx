@@ -97,7 +97,7 @@ export function WorkflowCanvas() {
       },
     });
 
-    navigate(`/admin/workflow/executions/${executionId.executionId}`);
+    navigate(getWorkflowExecutionsPath(executionId.executionId));
   }
 
   async function onRevision() {
@@ -111,7 +111,7 @@ export function WorkflowCanvas() {
     });
     message.success(t('Operation succeeded'));
 
-    navigate(`/admin/workflow/workflows/${revision.id}`);
+    navigate(getWorkflowDetailPath(revision.id));
   }
 
   async function onDelete() {

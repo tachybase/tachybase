@@ -72,6 +72,7 @@ export const databaseConnectionSchema: ISchema = {
   properties: {
     [uid()]: {
       type: 'void',
+      'x-component': 'CardItem',
       'x-decorator': 'TableBlockProvider',
       'x-decorator-props': {
         collection: collection,

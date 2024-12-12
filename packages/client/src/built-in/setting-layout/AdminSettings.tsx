@@ -52,26 +52,26 @@ export const AdminSettingsLayout = () => {
     const list = app.systemSettingsManager.getList();
     // compile title
     function traverse(settings: PluginSettingsPageType[]) {
-      return settings
-        .filter((item) => !item.path.includes(':'))
-        .map((item) => {
-          item.title = compile(item.title);
-          item.label = compile(item.title);
-          if (item.children?.length) {
-            item.children = traverse(item.children);
-          }
-          return {
-            ...item,
-            name: item.label as string,
-          };
-        });
+      return settings.map((item) => {
+        if (item.path.includes(':')) {
+          item.hideInMenu = true;
+        }
+        item.title = compile(item.title);
+        item.label = compile(item.title);
+        if (item.children?.length) {
+          item.children = traverse(item.children);
+        }
+        return {
+          ...item,
+          name: item.label as string,
+        };
+      });
     }
     return traverse(list);
   }, [app.systemSettingsManager, compile]);
   const getFirstDeepChildPath = useCallback((settings: PluginSettingsPageType[]) => {
     if (!settings || !settings.length) {
-      // FIXME /admin
-      return '/admin';
+      return '/_admin';
     }
     const first = settings[0];
     if (first.children?.length) {

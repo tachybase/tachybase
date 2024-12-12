@@ -26,8 +26,8 @@ export class StaticScheduleTrigger {
   private timers: Map<string, NodeJS.Timeout | null> = new Map();
 
   async load() {
-    this.app.on('afterStart', async () => {
-      const cronJobs = await this.db.getRepository('cronJobs').find({
+    this.app.on('afterStart', async (app) => {
+      const cronJobs = await app.db.getRepository('cronJobs').find({
         filter: { mode: SCHEDULE_MODE.STATIC, enabled: true },
       });
       this.inspect(cronJobs);

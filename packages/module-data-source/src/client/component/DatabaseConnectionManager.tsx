@@ -9,7 +9,6 @@ import {
 } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
-import { Card } from 'antd';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -90,24 +89,22 @@ export const DatabaseConnectionManagerPane = () => {
     $self.visible = key !== 'main';
   };
   return (
-    <Card bordered={false}>
-      <SchemaComponent
-        components={{
-          CreateDatabaseConnectAction,
-          EditDatabaseConnectionAction,
-          ViewDatabaseConnectionAction,
-        }}
-        scope={{
-          useNewId: (prefix) => `${prefix}${uid()}`,
-          types,
-          useRefreshActionProps,
-          useDestroyAction,
-          dataSourceDeleteCallback,
-          dataSourceCreateCallback,
-          useIsAbleDelete,
-        }}
-        schema={databaseConnectionSchema}
-      />
-    </Card>
+    <SchemaComponent
+      components={{
+        CreateDatabaseConnectAction,
+        EditDatabaseConnectionAction,
+        ViewDatabaseConnectionAction,
+      }}
+      scope={{
+        useNewId: (prefix) => `${prefix}${uid()}`,
+        types,
+        useRefreshActionProps,
+        useDestroyAction,
+        dataSourceDeleteCallback,
+        dataSourceCreateCallback,
+        useIsAbleDelete,
+      }}
+      schema={databaseConnectionSchema}
+    />
   );
 };
