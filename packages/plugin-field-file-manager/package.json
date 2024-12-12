@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-file-manager",
   "displayName": "File manager",
-  "version": "0.22.65",
+  "version": "0.22.66",
   "description": "Provides files storage services with files collection template and attachment field.",
   "keywords": [
     "Collections",
