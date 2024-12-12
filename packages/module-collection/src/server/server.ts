@@ -1,7 +1,7 @@
 import path from 'path';
 import * as process from 'process';
 import { Filter, InheritedCollection, UniqueConstraintError } from '@tachybase/database';
-import PluginErrorHandler from '@tachybase/plugin-error-handler';
+import PluginErrorHandler from '@tachybase/module-error-handler';
 import { Plugin } from '@tachybase/server';
 
 import { Mutex } from 'async-mutex';
