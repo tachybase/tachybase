@@ -451,7 +451,8 @@ export class PluginACL extends Plugin {
     });
 
     this.app.on('beforeInstallPlugin', async (plugin) => {
-      if (plugin.getName() !== 'users') {
+      // TODO
+      if (plugin.getName() !== 'user') {
         return;
       }
       const roles = this.app.db.getRepository('roles');
