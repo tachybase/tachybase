@@ -6,8 +6,6 @@ import { WebhookController } from '../webhooks/webhooks';
 
 @Service()
 export class BeforeAfterResourceService {
-  ResourceKey = Symbol.for('Resource');
-
   @App()
   private readonly app: Application;
 
@@ -16,9 +14,6 @@ export class BeforeAfterResourceService {
 
   async load() {
     this.app.once('afterStart', async (app: Application) => {
-      // TODO wait for new design
-      app[this.ResourceKey] ??= new Set();
-
       const webhooksRepo = app.db.getRepository('webhooks');
       for (const prefix of ['before', 'after']) {
         const resources = await webhooksRepo.find({
@@ -32,10 +27,6 @@ export class BeforeAfterResourceService {
           const { actionName, resourceName, name } = resourceDef;
           this.logger.info(`Add ${prefix} resource middleware for ${resourceName}:${actionName}`);
           const tag = `${prefix}-resource-${resourceName}-${actionName}-${name}`;
-          if (app[this.ResourceKey].has(tag)) {
-            this.logger.warn(`${prefix} resource middleware for ${resourceName}:${actionName} exsists, skip`);
-            continue;
-          }
           app.resourcer.use(
             async (ctx: Context, next: () => Promise<void>) => {
               const { resourceName, actionName } = ctx.action;
@@ -52,9 +43,8 @@ export class BeforeAfterResourceService {
                 await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
               }
             },
-            { tag },
+            { tag, unique: true },
           );
-          app[this.ResourceKey].add(tag);
         }
       }
     });
