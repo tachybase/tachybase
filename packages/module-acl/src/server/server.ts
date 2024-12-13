@@ -422,7 +422,7 @@ export class PluginACL extends Plugin {
     // this.app.on('afterInstall', writeRolesToACL);
 
     this.app.on('afterInstallPlugin', async (plugin) => {
-      if (plugin.getName() !== 'users') {
+      if (plugin.getName() !== 'user') {
         return;
       }
 
