@@ -16,7 +16,7 @@ export const CustomEventSourcePane = () => {
           ColumnUiSchema,
         }}
         scope={{
-          useSyncWorkflowsManager: useSyncCustomEventSource,
+          useSyncCustomEventSource: useSyncCustomEventSource,
         }}
       >
         <WorkflowPane schema={schema} />

@@ -1,4 +1,4 @@
-import { tval } from '@tachybase/client';
+import { tval } from '../../locale';
 
 export const schemaTableMessages = {
   type: 'void',
@@ -57,11 +57,45 @@ export const schemaTableMessages = {
         },
         setHaveReaded: {
           type: 'void',
-          title: tval('Set have readed'),
+          title: tval('Mark as read'),
+          'x-action': 'customize:bulkUpdate',
+          'x-action-settings': {
+            assignedValues: {
+              read: true,
+            },
+            updateMode: 'selected',
+            onSuccess: {
+              manualClose: true,
+              redirecting: false,
+              successMessage: '{{t("Updated successfully")}}',
+            },
+          },
           'x-component': 'Action',
-          'x-use-component-props': 'usePropsActionSetHaveReaded',
+          'x-use-component-props': 'useCustomizeBulkUpdateActionProps',
           'x-component-props': {
             icon: 'InboxOutlined',
+          },
+          'x-align': 'right',
+        },
+        setAllHaveReaded: {
+          type: 'void',
+          title: tval('Mark all as read'),
+          'x-component': 'Action',
+          'x-use-component-props': 'useCustomizeBulkUpdateActionProps',
+          'x-component-props': {
+            icon: 'InboxOutlined',
+          },
+          'x-action': 'customize:bulkUpdate',
+          'x-action-settings': {
+            assignedValues: {
+              read: true,
+            },
+            updateMode: 'all',
+            onSuccess: {
+              manualClose: true,
+              redirecting: false,
+              successMessage: '{{t("Updated successfully")}}',
+            },
           },
           'x-align': 'right',
         },

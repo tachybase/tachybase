@@ -1,6 +1,7 @@
 import { Repository } from '@tachybase/database';
 import Application, { Gateway, WSServer } from '@tachybase/server';
 
+import { MESSAGE_TYPE_MESSAGES, MESSAGES_UPDATE_BADGE_COUNT } from '../common/constants';
 import type { IMessage, IMessageService } from '../types/types';
 
 export class MessageService implements IMessageService {
@@ -23,13 +24,20 @@ export class MessageService implements IMessageService {
         id: receiverId,
       },
     });
+
+    // 浏览器通知, 需要打开操作系统通知权限
     if (user?.subPrefs?.browser?.enable) {
       this.ws.sendToConnectionsByTag(`app:${this.app.name}`, `${receiverId}`, {
-        type: 'messages',
+        type: MESSAGE_TYPE_MESSAGES,
         payload: {
           message,
         },
       });
     }
+
+    // 通知前端更新全局未读消息数量
+    this.app.noticeManager.notify(MESSAGES_UPDATE_BADGE_COUNT, {
+      msg: MESSAGES_UPDATE_BADGE_COUNT,
+    });
   }
 }

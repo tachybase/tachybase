@@ -5,7 +5,7 @@ import {
   ConfigButtonMessage,
   Instruction,
   SelectNotifiedPerson,
-  WorkflowVariableTextArea,
+  WorkflowVariableCodeMirror,
 } from '@tachybase/module-workflow/client';
 
 import { WORKFLOW_INSTRUCTION_NAME_MESSAGE } from '../../common/constants';
@@ -27,7 +27,7 @@ export class MessageInstruction extends Instruction {
     SelectNotifiedPerson: SelectNotifiedPerson,
     AdditionNotifiedPerson: AdditionNotifiedPerson,
     ConfigButtonMessage: ConfigButtonMessage,
-    WorkflowVariableTextArea: WorkflowVariableTextArea,
+    WorkflowVariableCodeMirror: WorkflowVariableCodeMirror,
     MessageDetail: ViewShowMessage,
     ViewShowMessage: ViewShowMessage,
   };
@@ -76,9 +76,11 @@ export class MessageInstruction extends Instruction {
       type: 'string',
       title: tval('Title'),
       'x-decorator': 'FormItem',
-      'x-component': 'WorkflowVariableTextArea',
+      'x-component': 'WorkflowVariableCodeMirror',
       'x-component-props': {
         changeOnSelect: true,
+        options: getVariableOptions(),
+        height: 100,
       },
     },
     // 内容
@@ -86,9 +88,10 @@ export class MessageInstruction extends Instruction {
       type: 'string',
       title: tval('Content'),
       'x-decorator': 'FormItem',
-      'x-component': 'WorkflowVariableTextArea',
+      'x-component': 'WorkflowVariableCodeMirror',
       'x-component-props': {
         changeOnSelect: true,
+        options: getVariableOptions(),
       },
     },
     showMessageDetail: {
@@ -104,4 +107,31 @@ export class MessageInstruction extends Instruction {
       },
     },
   };
+}
+
+function getVariableOptions() {
+  return [
+    {
+      label: '{{t("Current form")}}',
+      value: 'currentForm',
+      children: [
+        {
+          label: tval('The Notified Person'),
+          value: 'notifiedPerson',
+        },
+        {
+          label: tval('Title'),
+          value: 'title',
+        },
+        {
+          label: tval('Content'),
+          value: 'content',
+        },
+        {
+          label: tval('Show message detail'),
+          value: 'showMessageDetail',
+        },
+      ],
+    },
+  ];
 }

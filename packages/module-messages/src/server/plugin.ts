@@ -4,6 +4,7 @@ import { Gateway, Plugin } from '@tachybase/server';
 import jwt from 'jsonwebtoken';
 import WebSocket from 'ws';
 
+import { initActions } from './actions';
 import { MessageInstruction } from './instructions/message';
 import { MessageService } from './MessageManager';
 
@@ -44,6 +45,7 @@ class ModuleMessagesServer extends Plugin {
       });
     });
 
+    initActions(this);
     this.app.acl.allow('messages', '*', 'loggedIn');
     const ownerMessage = () => {
       return {

@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
 
-import { lang } from '../locale';
+import { lang } from '../../locale';
 import { SubscriptionManager } from './SubscriptionManager';
 
 export class KitSubscriptionManager extends Plugin {

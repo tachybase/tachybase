@@ -38,6 +38,7 @@ import { linkageAction } from './utils';
 export const Action: ComposedAction = withDynamicSchemaProps(
   observer((props: any) => {
     const {
+      isShow = true,
       popover,
       confirm,
       openMode: om,
@@ -195,6 +196,10 @@ export const Action: ComposedAction = withDynamicSchemaProps(
         {element}
       </ActionContextProvider>
     );
+
+    if (!isShow) {
+      return null;
+    }
 
     if (addChild) {
       return wrapSSR(

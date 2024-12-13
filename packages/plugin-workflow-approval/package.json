@@ -30,6 +30,7 @@
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"

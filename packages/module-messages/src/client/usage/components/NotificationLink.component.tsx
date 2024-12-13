@@ -6,14 +6,14 @@ import { Badge, Button, Tooltip } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { useTranslation } from '../../locale';
-import { useContextBadgeCount } from './BadgeCount.context';
+import { useStateBadgeCount } from '../hooks/useStateBadgeCount';
 
 // 站内信通知图标
 export const NotificationLink = () => {
   const navigate = useNavigate();
   const { token } = useToken();
   const { t } = useTranslation();
-  const { badgeCount } = useContextBadgeCount();
+  const { badgeCount } = useStateBadgeCount();
 
   // FIXME /admin
   const gotoMessagesPage = () => navigate('/admin/messages');

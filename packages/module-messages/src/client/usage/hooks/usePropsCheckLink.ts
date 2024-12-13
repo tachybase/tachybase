@@ -1,11 +1,8 @@
 import { useAPIClient, useCollectionRecordData, useDataBlockRequest } from '@tachybase/client';
 
-import { useContextBadgeCount } from '../message-page/BadgeCount.context';
-
 export function usePropsCheckLink(props) {
   const { onClick } = props;
   const apiClient = useAPIClient();
-  const { changeBadgeCount } = useContextBadgeCount();
   const { refresh } = useDataBlockRequest();
   const record = useCollectionRecordData();
   const { id: messageId, read } = record;
@@ -22,8 +19,7 @@ export function usePropsCheckLink(props) {
           read: true,
         },
       });
-      // 全局消息阅读量更新
-      await changeBadgeCount();
+
       // 刷新当前表格
       refresh();
     }

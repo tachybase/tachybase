@@ -3,11 +3,11 @@ import { useAPIClient, useCurrentUserContext, usePlugin } from '@tachybase/clien
 
 import { App, Card, Switch } from 'antd';
 
-import ModuleMessagesClient from '..';
-import { useTranslation } from '../locale';
+import { useTranslation } from '../../locale';
+import { KitNotificationRegister } from '../notification-register/kit';
 
 export const SubscriptionManager = () => {
-  const plugin = usePlugin<ModuleMessagesClient>('messages');
+  const plugin = usePlugin(KitNotificationRegister);
   const user = useCurrentUserContext();
   return (
     <Card>

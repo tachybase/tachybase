@@ -10,7 +10,7 @@ import {
 import {
   collectionWorkflows,
   createWorkflow,
-  executionSchema,
+  getExecutionSchema,
   updateWorkflow,
 } from '@tachybase/module-workflow/client';
 import { useForm } from '@tachybase/schema';
@@ -19,6 +19,8 @@ import { message } from 'antd';
 import { saveAs } from 'file-saver';
 
 import { NAMESPACE, useTranslation } from '../locale';
+
+const executionSchema = getExecutionSchema({ isShowActionClear: false });
 
 export const schemaApprovalPanne = {
   type: 'void',

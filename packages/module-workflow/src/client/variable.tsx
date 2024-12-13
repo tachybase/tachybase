@@ -390,3 +390,9 @@ export function WorkflowVariableJSON({ variableOptions, ...props }): JSX.Element
   const scope = useWorkflowVariableOptions(variableOptions);
   return <Variable.JSON scope={scope} {...props} />;
 }
+
+export function WorkflowVariableCodeMirror({ variableOptions, ...props }): JSX.Element {
+  const { options } = props;
+  const scope = useWorkflowVariableOptions(variableOptions);
+  return <Variable.CodeMirror scope={[...options, ...scope]} {...props} />;
+}

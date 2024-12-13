@@ -1,7 +1,6 @@
 import React from 'react';
 import { SchemaComponent } from '@tachybase/client';
 
-import { usePropsActionSetHaveReaded } from '../hooks/usePropsActionSetHaveReaded';
 import { ViewCheckLink } from './CheckLink.view';
 import { ColumnShowJSON } from './ColumnShowJSON';
 import { ColumnShowURL } from './ColumnShowURL';
@@ -17,9 +16,6 @@ export const ViewTableMessages = () => {
         ViewDeleteLink: ViewDeleteLink,
         ColumnShowURL: ColumnShowURL,
         ColumnShowJSON: ColumnShowJSON,
-      }}
-      scope={{
-        usePropsActionSetHaveReaded: usePropsActionSetHaveReaded,
       }}
     />
   );

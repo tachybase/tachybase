@@ -32,6 +32,17 @@ export const collectionWorkflows = {
     },
     {
       type: 'string',
+      name: 'showName',
+      interface: 'input',
+      uiSchema: {
+        title: '{{t("Display name")}}',
+        type: 'string',
+        'x-component': 'Input',
+        required: false,
+      } as ISchema,
+    },
+    {
+      type: 'string',
       name: 'type',
       interface: 'select',
       uiSchema: {
@@ -158,6 +169,10 @@ export const workflowFieldset = {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
   },
+  showName: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
   description: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
@@ -257,6 +272,7 @@ export const createWorkflow: ISchema = {
                 title: workflowFieldset.title,
                 type: workflowFieldset.type,
                 sync: workflowFieldset.sync,
+                showName: workflowFieldset.showName,
                 description: workflowFieldset.description,
                 options: workflowFieldset.options,
               },
@@ -328,6 +344,9 @@ export const updateWorkflow: ISchema = {
                       'x-component-props': {
                         type: 'primary',
                       },
+                      'x-action-settings': {
+                        isDeltaChanged: true,
+                      },
                     },
                   },
                 },
@@ -335,6 +354,7 @@ export const updateWorkflow: ISchema = {
                 type: workflowFieldset.type,
                 enabled: workflowFieldset.enabled,
                 sync: workflowFieldset.sync,
+                showName: workflowFieldset.showName,
                 description: workflowFieldset.description,
                 options: workflowFieldset.options,
               },
