@@ -23,7 +23,7 @@ import { ExecutionStatusColumn } from './components/ExecutionStatus';
 import { ExecutionTime } from './components/ExecutionTime';
 import { ExecutionLink } from './ExecutionLink';
 import { FlowContext, useFlowContext } from './FlowContext';
-import { lang } from './locale';
+import { lang, NAMESPACE } from './locale';
 import { executionSchema } from './schemas/executions';
 import useStyles from './style';
 import { getWorkflowDetailPath, getWorkflowExecutionsPath, linkNodes } from './utils';
@@ -168,7 +168,13 @@ export function WorkflowCanvas() {
         <header>
           <Breadcrumb
             items={[
-              { title: <Link to={app.systemSettingsManager.getRoutePath('workflow')}>{lang('Workflow')}</Link> },
+              {
+                title: (
+                  <Link to={app.systemSettingsManager.getRoutePath(`business-components.${NAMESPACE}`)}>
+                    {lang('Workflow')}
+                  </Link>
+                ),
+              },
               { title: <strong>{workflow.title}</strong> },
             ]}
           />

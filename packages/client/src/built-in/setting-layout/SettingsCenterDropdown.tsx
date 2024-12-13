@@ -29,19 +29,22 @@ export const SettingsCenterDropdown = () => {
   const menuItems = useMemo(() => {
     const list = app.systemSettingsManager.getList();
     // compile title
-    function traverse(settings: PluginSettingsPageType[]) {
+    function traverse(settings: Partial<PluginSettingsPageType>[]) {
       return settings
         .filter((item) => !item.path.includes(':'))
         .map((item) => {
           item.title = compile(item.title);
           item.label = <Link to={item.path}>{compile(item.title)}</Link>;
           if (item.children?.length) {
-            item.children = traverse(item.children);
+            item.children = traverse(item.children) as any;
             // No link should be set if there are children.
             item.label = compile(item.title);
           }
           return {
-            ...item,
+            key: item.key,
+            label: item.label,
+            path: item.path,
+            children: item.children,
             name: item.title as string,
           };
         });

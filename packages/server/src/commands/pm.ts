@@ -55,7 +55,6 @@ export default (app: Application) => {
       try {
         await app.pm.enable(plugins);
       } catch (error) {
-        console.log('🚀 ~ file: pm.ts:58 ~ .action ~ error:', error);
         throw new PluginCommandError(`Failed to enable plugin`, { cause: error });
       }
     });

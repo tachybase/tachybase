@@ -36,7 +36,6 @@ function findIds(arr) {
 
 export const Tree = withDynamicSchemaProps(
   observer((props: any) => {
-    console.log('🚀 ~ file: Tree.tsx:39 ~ props:', props);
     const schema = useFieldSchema();
     const [expandedKeys, setExpandedKeys] = useState([]);
     const { expandFlag, sleepTime, titleRender: titleRenderText } = schema?.parent['x-decorator-props'] || {};

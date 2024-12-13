@@ -143,16 +143,11 @@ export class SystemSettingsManager {
   }
 
   getList(filterAuth = true): PluginSettingsPageType[] {
-    const cacheKey = JSON.stringify(filterAuth);
-    if (this.cachedList[cacheKey]) return this.cachedList[cacheKey];
-
-    return (this.cachedList[cacheKey] = Array.from(
-      new Set(Object.values(this.settings).map((item) => item.topLevelName)),
-    )
+    return Array.from(new Set(Object.values(this.settings).map((item) => item.topLevelName)))
       .sort((a, b) => a.localeCompare(b)) // sort by name
       .map((name) => this.get(name, filterAuth))
       .filter(Boolean)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0)));
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0));
   }
 
   getAclSnippets() {
