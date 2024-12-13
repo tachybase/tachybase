@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-field-encryption",
   "displayName": "Collection field: Encryption",
-  "version": "0.22.70",
+  "version": "0.22.71",
   "description": "Encryption field",
   "keywords": [
     "Collection fields"
