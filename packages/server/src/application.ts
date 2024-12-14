@@ -209,6 +209,9 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     this._appSupervisor.addApp(this);
     this._noticeManager = new NoticeManager(this);
+
+    // TODO implements more robust event emitters
+    this.setMaxListeners(100);
   }
 
   get noticeManager() {

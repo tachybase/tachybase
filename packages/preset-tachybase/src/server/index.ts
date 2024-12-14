@@ -9,7 +9,6 @@ export class PresetTachyBase extends Plugin {
     'app-info',
     'auth',
     'backup',
-    'client',
     'cloud-component',
     'collection',
     'cron',
@@ -21,8 +20,9 @@ export class PresetTachyBase extends Plugin {
     'pdf',
     'ui-schema',
     'user',
-    'workflow',
+    'web',
     'worker-thread',
+    'workflow',
   ];
 
   get builtInPlugins() {

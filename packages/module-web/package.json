@@ -1,12 +1,12 @@
 {
-  "name": "@tachybase/plugin-client",
+  "name": "@tachybase/module-web",
   "displayName": "WEB client",
   "version": "0.22.71",
   "description": "Provides a client interface for the TachyBase server",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-client"
+    "build": "tachybase-build --no-dts @tachybase/module-web"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",

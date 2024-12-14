@@ -25,7 +25,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/module-ui-schema": "workspace:*",
-    "@tachybase/plugin-client": "workspace:*",
+    "@tachybase/module-web": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   },
