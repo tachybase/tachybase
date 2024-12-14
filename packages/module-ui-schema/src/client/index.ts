@@ -1,7 +1,7 @@
 import { Plugin } from '@tachybase/client';
 
-class UiSchemaStoragePlugin extends Plugin {
+class ModuleUiSchema extends Plugin {
   async load() {}
 }
 
-export default UiSchemaStoragePlugin;
+export default ModuleUiSchema;

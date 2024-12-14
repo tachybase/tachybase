@@ -1197,52 +1197,6 @@ importers:
         specifier: ^5.10.5
         version: 5.10.5
 
-  packages/module-api-keys:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/resourcer':
-        specifier: workspace:*
-        version: link:../resourcer
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      ahooks:
-        specifier: ^3.8.0
-        version: 3.8.1(react@18.3.1)
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      dayjs:
-        specifier: 1.11.10
-        version: 1.11.10
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   packages/module-app-info:
     dependencies:
       '@tachybase/client':
@@ -1872,7 +1826,7 @@ importers:
         specifier: ^8.18.0
         version: 8.18.0
 
-  packages/module-messages:
+  packages/module-message:
     dependencies:
       '@ant-design/icons':
         specifier: ~5.3.7
@@ -1917,37 +1871,6 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-
-  packages/module-mock-collections:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/module-error-handler':
-        specifier: workspace:*
-        version: link:../module-error-handler
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@faker-js/faker':
-        specifier: 8.1.0
-        version: 8.1.0
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      pg:
-        specifier: ^8.11.3
-        version: 8.11.3
 
   packages/module-multi-app:
     dependencies:
@@ -2665,6 +2588,52 @@ importers:
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3
+
+  packages/plugin-api-keys:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/resourcer':
+        specifier: workspace:*
+        version: link:../resourcer
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      ahooks:
+        specifier: ^3.8.0
+        version: 3.8.1(react@18.3.1)
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      dayjs:
+        specifier: 1.11.10
+        version: 1.11.10
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   packages/plugin-audit-logs:
     dependencies:
@@ -3708,12 +3677,12 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/module-ui-schema':
+        specifier: workspace:*
+        version: link:../module-ui-schema
       '@tachybase/plugin-client':
         specifier: workspace:*
         version: link:../module-client
-      '@tachybase/plugin-ui-schema-storage':
-        specifier: workspace:*
-        version: link:../module-ui-schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -3776,6 +3745,37 @@ importers:
       tar-fs:
         specifier: ^3.0.4
         version: 3.0.4
+
+  packages/plugin-mock-collections:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/module-error-handler':
+        specifier: workspace:*
+        version: link:../module-error-handler
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@faker-js/faker':
+        specifier: 8.1.0
+        version: 8.1.0
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      pg:
+        specifier: ^8.11.3
+        version: 8.11.3
 
   packages/plugin-multi-app-share-collection:
     dependencies:
@@ -4261,12 +4261,18 @@ importers:
       '@tachybase/module-event-source':
         specifier: workspace:*
         version: link:../module-event-source
+      '@tachybase/module-message':
+        specifier: workspace:*
+        version: link:../module-message
       '@tachybase/module-multi-app':
         specifier: workspace:*
         version: link:../module-multi-app
       '@tachybase/module-pdf':
         specifier: workspace:*
         version: link:../module-pdf
+      '@tachybase/module-ui-schema':
+        specifier: workspace:*
+        version: link:../module-ui-schema
       '@tachybase/module-user':
         specifier: workspace:*
         version: link:../module-user
@@ -4311,7 +4317,7 @@ importers:
         version: link:../module-api-doc
       '@tachybase/plugin-api-keys':
         specifier: workspace:*
-        version: link:../module-api-keys
+        version: link:../plugin-api-keys
       '@tachybase/plugin-audit-logs':
         specifier: workspace:*
         version: link:../plugin-audit-logs
@@ -4396,12 +4402,9 @@ importers:
       '@tachybase/plugin-log-viewer':
         specifier: workspace:*
         version: link:../plugin-log-viewer
-      '@tachybase/plugin-messages':
-        specifier: workspace:*
-        version: link:../module-messages
       '@tachybase/plugin-mock-collections':
         specifier: workspace:*
-        version: link:../module-mock-collections
+        version: link:../plugin-mock-collections
       '@tachybase/plugin-multi-app-share-collection':
         specifier: workspace:*
         version: link:../plugin-multi-app-share-collection
@@ -4420,9 +4423,6 @@ importers:
       '@tachybase/plugin-theme-editor':
         specifier: workspace:*
         version: link:../plugin-theme-editor
-      '@tachybase/plugin-ui-schema-storage':
-        specifier: workspace:*
-        version: link:../module-ui-schema
       '@tachybase/plugin-workflow-approval':
         specifier: workspace:*
         version: link:../plugin-workflow-approval

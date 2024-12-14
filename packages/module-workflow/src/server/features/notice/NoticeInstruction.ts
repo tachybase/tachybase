@@ -1,4 +1,4 @@
-import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
+import { UiSchemaRepository } from '@tachybase/module-ui-schema';
 import { uid } from '@tachybase/utils';
 
 import { JOB_STATUS } from '../../constants';

@@ -1,5 +1,5 @@
 import { Database } from '@tachybase/database';
-import UiSchemaStoragePlugin, { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
+import ModuleUiSchema, { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 import { createMockServer, MockServer } from '@tachybase/test';
 
 import { vi } from 'vitest';
@@ -8,7 +8,7 @@ describe('server hooks', () => {
   let app: MockServer;
   let db: Database;
   let uiSchemaRepository: UiSchemaRepository;
-  let uiSchemaPlugin: UiSchemaStoragePlugin;
+  let uiSchemaPlugin: ModuleUiSchema;
 
   const schema = {
     'x-uid': 'root',
@@ -65,7 +65,7 @@ describe('server hooks', () => {
     uiSchemaRepository = db.getRepository('uiSchemas');
     await uiSchemaRepository.insert(schema);
 
-    uiSchemaPlugin = app.getPlugin<UiSchemaStoragePlugin>('ui-schema-storage');
+    uiSchemaPlugin = app.getPlugin<ModuleUiSchema>('ui-schema-storage');
   });
 
   it('should call server hooks onFieldDestroy', async () => {

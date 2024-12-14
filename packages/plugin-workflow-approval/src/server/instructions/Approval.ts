@@ -1,6 +1,6 @@
 import { parseCollectionName } from '@tachybase/data-source';
+import { UiSchemaRepository } from '@tachybase/module-ui-schema';
 import { Instruction, JOB_STATUS, toJSON } from '@tachybase/module-workflow';
-import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 import { uid } from '@tachybase/utils';
 
 import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from '../constants/status';

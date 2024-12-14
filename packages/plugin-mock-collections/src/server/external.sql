@@ -1,43 +1,38 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- 创建 users 表
-CREATE TABLE
-  users (
-    user_uuid UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
-    username VARCHAR(100) NOT NULL
-  );
+CREATE TABLE users (
+  user_uuid UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  username VARCHAR(100) NOT NULL
+);
 
 -- 创建 profiles 表
-CREATE TABLE
-  profiles (
-    profile_uuid UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
-    address VARCHAR(255),
-    user_uuid UUID REFERENCES users (user_uuid)
-  );
+CREATE TABLE profiles (
+  profile_uuid UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  address VARCHAR(255),
+  user_uuid UUID REFERENCES users (user_uuid)
+);
 
 -- 创建 roles 表
-CREATE TABLE
-  roles (
-    role_uuid UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
-    role_name VARCHAR(100) NOT NULL
-  );
+CREATE TABLE roles (
+  role_uuid UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  role_name VARCHAR(100) NOT NULL
+);
 
 -- 创建 user_roles 关联表
-CREATE TABLE
-  user_roles (
-    user_uuid UUID REFERENCES users (user_uuid),
-    role_uuid UUID REFERENCES roles (role_uuid),
-    PRIMARY KEY (user_uuid, role_uuid)
-  );
+CREATE TABLE user_roles (
+  user_uuid UUID REFERENCES users (user_uuid),
+  role_uuid UUID REFERENCES roles (role_uuid),
+  PRIMARY KEY (user_uuid, role_uuid)
+);
 
 -- 创建 orders 表
-CREATE TABLE
-  orders (
-    order_uuid UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
-    user_uuid UUID REFERENCES users (user_uuid),
-    order_name VARCHAR(255) NOT NULL
-    -- ... 其他字段
-  );
+CREATE TABLE orders (
+  order_uuid UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  user_uuid UUID REFERENCES users (user_uuid),
+  order_name VARCHAR(255) NOT NULL
+  -- ... 其他字段
+);
 
 -- 向 users 表插入测试数据
 INSERT INTO
@@ -147,86 +142,80 @@ VALUES
     )
   );
 
-CREATE TABLE
-  "test_table" (
-    "id2" SERIAL PRIMARY KEY,
-    "smallint" int2,
-    "integer" int4,
-    "bigint" int8,
-    "boolean" bool,
-    "numeric" NUMERIC,
-    "real" float4,
-    "double" float8,
-    "money" money,
-    "date" date,
-    "time" TIME,
-    "timestamp" TIMESTAMP,
-    "timestamptz" timestamptz,
-    "interval" INTERVAL,
-    "char" bpchar,
-    "varchar" VARCHAR,
-    "text" TEXT,
-    "tsquery" tsquery,
-    "tsvector" tsvector,
-    "uuid" UUID,
-    "xml" XML,
-    "json" json,
-    "jsonb" jsonb,
-    "bit" BIT,
-    "bitvarying" varbit,
-    "bytea" bytea,
-    "cidr" cidr,
-    "inet" inet,
-    "macaddr" macaddr,
-    "txidsnapshot" txid_snapshot,
-    "box" BOX,
-    "circle" CIRCLE,
-    "line" LINE,
-    "lseg" LSEG,
-    "path" PATH,
-    "point" POINT,
-    "polygon" POLYGON
-  );
+CREATE TABLE "test_table" (
+  "id2" SERIAL PRIMARY KEY,
+  "smallint" int2,
+  "integer" int4,
+  "bigint" int8,
+  "boolean" bool,
+  "numeric" NUMERIC,
+  "real" float4,
+  "double" float8,
+  "money" money,
+  "date" date,
+  "time" TIME,
+  "timestamp" TIMESTAMP,
+  "timestamptz" timestamptz,
+  "interval" INTERVAL,
+  "char" bpchar,
+  "varchar" VARCHAR,
+  "text" TEXT,
+  "tsquery" tsquery,
+  "tsvector" tsvector,
+  "uuid" UUID,
+  "xml" XML,
+  "json" json,
+  "jsonb" jsonb,
+  "bit" BIT,
+  "bitvarying" varbit,
+  "bytea" bytea,
+  "cidr" cidr,
+  "inet" inet,
+  "macaddr" macaddr,
+  "txidsnapshot" txid_snapshot,
+  "box" BOX,
+  "circle" CIRCLE,
+  "line" LINE,
+  "lseg" LSEG,
+  "path" PATH,
+  "point" POINT,
+  "polygon" POLYGON
+);
 
 -- 创建 authors 表
-CREATE TABLE
-  authors (
-    author_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
-    author_name VARCHAR(100) NOT NULL
-  );
+CREATE TABLE authors (
+  author_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  author_name VARCHAR(100) NOT NULL
+);
 
 -- 创建 posts 表
-CREATE TABLE
-  posts (
-    post_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
-    post_title VARCHAR(100) NOT NULL,
-    post_content TEXT NOT NULL,
-    author_id UUID REFERENCES authors (author_id)
-  );
+CREATE TABLE posts (
+  post_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  post_title VARCHAR(100) NOT NULL,
+  post_content TEXT NOT NULL,
+  author_id UUID REFERENCES authors (author_id)
+);
 
 -- 创建 comments 表
-CREATE TABLE
-  COMMENTS (
-    comment_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
-    comment_content TEXT NOT NULL,
-    post_id UUID REFERENCES posts (post_id),
-    author_id UUID REFERENCES authors (author_id)
-  );
+CREATE TABLE COMMENTS (
+  comment_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  comment_content TEXT NOT NULL,
+  post_id UUID REFERENCES posts (post_id),
+  author_id UUID REFERENCES authors (author_id)
+);
 
 -- 创建 tags 表
-CREATE TABLE
-  tags (
-    tag_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
-    tag_name VARCHAR(100) NOT NULL
-  );
+CREATE TABLE tags (
+  tag_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  tag_name VARCHAR(100) NOT NULL
+);
 
 -- 创建 post_tags 关联表
-CREATE TABLE
-  post_tags (
-    post_id UUID REFERENCES posts (post_id),
-    tag_id UUID REFERENCES tags (tag_id),
-    PRIMARY KEY (post_id, tag_id)
-  );
+CREATE TABLE post_tags (
+  post_id UUID REFERENCES posts (post_id),
+  tag_id UUID REFERENCES tags (tag_id),
+  PRIMARY KEY (post_id, tag_id)
+);
 
 -- 向 authors 表插入测试数据
 INSERT INTO
@@ -356,8 +345,7 @@ VALUES
   );
 
 -- 创建无主键的表 test_table_no_pk
-CREATE TABLE
-  test_table_no_pk (column1 VARCHAR(100), column2 INT);
+CREATE TABLE test_table_no_pk (column1 VARCHAR(100), column2 INT);
 
 -- 向 test_table_no_pk 表插入测试数据
 INSERT INTO

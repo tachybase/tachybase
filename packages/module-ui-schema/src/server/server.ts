@@ -1,4 +1,3 @@
-import path, { resolve } from 'path';
 import { MagicAttributeModel } from '@tachybase/database';
 import { Plugin } from '@tachybase/server';
 import { uid } from '@tachybase/utils';
@@ -9,7 +8,7 @@ import UiSchemaRepository from './repository';
 import { ServerHooks } from './server-hooks';
 import { ServerHookModel } from './server-hooks/model';
 
-export class UiSchemaStoragePlugin extends Plugin {
+export class ModuleUiSchema extends Plugin {
   serverHooks: ServerHooks;
 
   registerRepository() {
@@ -88,18 +87,6 @@ export class UiSchemaStoragePlugin extends Plugin {
     this.app.acl.allow('uiSchemas', ['getProperties', 'getJsonSchema'], 'loggedIn');
     this.app.acl.allow('uiSchemaTemplates', ['get', 'list'], 'public');
   }
-
-  async load() {
-    this.db.addMigrations({
-      namespace: 'ui-schema-storage',
-      directory: path.resolve(__dirname, './migrations'),
-      context: {
-        plugin: this,
-      },
-    });
-
-    await this.importCollections(resolve(__dirname, 'collections'));
-  }
 }
 
-export default UiSchemaStoragePlugin;
+export default ModuleUiSchema;

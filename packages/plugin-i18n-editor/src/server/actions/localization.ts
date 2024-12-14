@@ -1,6 +1,6 @@
 import { Context, Next } from '@tachybase/actions';
 import { Database, Model, Op } from '@tachybase/database';
-import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
+import { UiSchemaRepository } from '@tachybase/module-ui-schema';
 
 import { NAMESPACE_COLLECTIONS, NAMESPACE_MENUS } from '../constans';
 import LocalizationManagementPlugin from '../plugin';

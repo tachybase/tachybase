@@ -1,5 +1,5 @@
 import { Model } from '@tachybase/database';
-import { UiSchemaStoragePlugin } from '@tachybase/plugin-ui-schema-storage';
+import { ModuleUiSchema } from '@tachybase/module-ui-schema';
 import { InstallOptions, Plugin } from '@tachybase/server';
 
 import deepmerge from 'deepmerge';
@@ -13,8 +13,8 @@ import { getTextsFromDBRecord } from './utils';
 export class LocalizationManagementPlugin extends Plugin {
   resources: Resources;
 
-  registerUISchemahook(plugin?: UiSchemaStoragePlugin) {
-    const uiSchemaStoragePlugin = plugin || this.app.getPlugin<UiSchemaStoragePlugin>('ui-schema-storage');
+  registerUISchemahook(plugin?: ModuleUiSchema) {
+    const uiSchemaStoragePlugin = plugin || this.app.getPlugin<ModuleUiSchema>('ui-schema');
     if (!uiSchemaStoragePlugin) {
       return;
     }
@@ -132,7 +132,7 @@ export class LocalizationManagementPlugin extends Plugin {
   async afterEnable() {}
 
   async afterDisable() {
-    const uiSchemaStoragePlugin = this.app.getPlugin<UiSchemaStoragePlugin>('ui-schema-storage');
+    const uiSchemaStoragePlugin = this.app.getPlugin<ModuleUiSchema>('ui-schema');
     if (!uiSchemaStoragePlugin) {
       return;
     }
