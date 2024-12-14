@@ -1,6 +1,5 @@
 import * as React from 'react';
-
-import { isArr, isFn } from '@formily/shared';
+import { isArr, isFn } from '@tachybase/schema';
 
 type IFilterOption = boolean | ((option: any, keyword: string) => boolean);
 

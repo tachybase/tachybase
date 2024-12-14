@@ -1,8 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
+import { Field, isVoidField, observer, ReactFC, useField } from '@tachybase/schema';
 
 import { CloseOutlined, EditOutlined, MessageOutlined } from '@ant-design/icons';
-import { Field, isVoidField } from '@formily/core';
-import { observer, ReactFC, useField } from '@formily/react';
 import { Popover as AntdPopover } from 'antd';
 import { PopoverProps } from 'antd/lib/popover';
 import cls from 'classnames';

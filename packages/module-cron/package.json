@@ -2,6 +2,9 @@
   "name": "@tachybase/module-cron",
   "version": "0.22.71",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/module-cron"
+  },
   "dependencies": {
     "antd": "5.22.0",
     "cron-parser": "4.4.0",

@@ -12,7 +12,6 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-ui-schema-storage"
   },
   "devDependencies": {
-    "@formily/json-schema": "2.3.1",
     "lodash": "4.17.21"
   },
   "peerDependencies": {

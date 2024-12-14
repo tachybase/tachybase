@@ -1,8 +1,6 @@
 import React from 'react';
+import { IFieldResetOptions, IFormFeedback, isFn, useParentForm } from '@tachybase/schema';
 
-import { IFieldResetOptions, IFormFeedback } from '@formily/core';
-import { useParentForm } from '@formily/react';
-import { isFn } from '@formily/shared';
 import { Button, ButtonProps } from 'antd';
 
 export interface IResetProps extends IFieldResetOptions, ButtonProps {

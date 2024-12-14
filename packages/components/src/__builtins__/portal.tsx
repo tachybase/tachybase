@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
+import { observable, Observer, ReactFC } from '@tachybase/schema';
 
-import { Observer, ReactFC } from '@formily/react';
-import { observable } from '@formily/reactive';
 import { createPortal } from 'react-dom';
 
 import { render as reactRender, unmount as reactUnmount } from './render';

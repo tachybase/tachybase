@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-
-import { isArr, isValid } from '@formily/shared';
+import { isArr, isValid } from '@tachybase/schema';
 
 interface IProps {
   breakpoints?: number[];

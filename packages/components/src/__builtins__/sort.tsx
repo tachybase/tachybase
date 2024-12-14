@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useMemo } from 'react';
+import { ReactFC } from '@tachybase/schema';
 
 import { DndContext, DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { ReactFC } from '@formily/reactive-react';
 
 export type { Transform } from '@dnd-kit/utilities';
 

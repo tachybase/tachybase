@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-data-visualization"
+    "build": "tachybase-build --no-dts @tachybase/plugin-block-charts"
   },
   "dependencies": {
     "fs-extra": "^11.2.0"

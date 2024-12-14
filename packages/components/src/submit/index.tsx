@@ -1,7 +1,6 @@
 import React from 'react';
+import { IFormFeedback, observer, useParentForm } from '@tachybase/schema';
 
-import { IFormFeedback } from '@formily/core';
-import { observer, useParentForm } from '@formily/react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/lib/button';
 

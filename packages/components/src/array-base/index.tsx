@@ -1,9 +1,18 @@
 import React, { createContext, forwardRef, useContext } from 'react';
+import {
+  ArrayField,
+  clone,
+  isUndef,
+  isValid,
+  ReactFC,
+  RecordScope,
+  RecordsScope,
+  Schema,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
 
 import { CopyOutlined, DeleteOutlined, DownOutlined, MenuOutlined, PlusOutlined, UpOutlined } from '@ant-design/icons';
-import { ArrayField } from '@formily/core';
-import { ReactFC, RecordScope, RecordsScope, Schema, useField, useFieldSchema } from '@formily/react';
-import { clone, isUndef, isValid } from '@formily/shared';
 import { Button, ButtonProps } from 'antd';
 import cls from 'classnames';
 

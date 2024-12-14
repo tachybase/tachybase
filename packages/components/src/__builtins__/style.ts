@@ -1,5 +1,6 @@
+import { merge } from '@tachybase/schema';
+
 import { useStyleRegister, type CSSInterpolation, type CSSObject } from '@ant-design/cssinjs';
-import { merge } from '@formily/shared';
 import type { ComponentTokenMap, GlobalToken } from 'antd/es/theme/interface';
 
 import { useConfig, useToken } from './hooks';

@@ -1,9 +1,21 @@
 import React, { Fragment, useLayoutEffect, useRef, useState } from 'react';
+import {
+  applyMiddleware,
+  createForm,
+  Form,
+  FormProvider,
+  IFormProps,
+  IMiddleware,
+  isBool,
+  isFn,
+  isNum,
+  isStr,
+  Observer,
+  observer,
+  ReactFC,
+  toJS,
+} from '@tachybase/schema';
 
-import { createForm, Form, IFormProps } from '@formily/core';
-import { FormProvider, Observer, observer, ReactFC } from '@formily/react';
-import { toJS } from '@formily/reactive';
-import { applyMiddleware, IMiddleware, isBool, isFn, isNum, isStr } from '@formily/shared';
 import { Modal, ModalProps } from 'antd';
 import { createPortal } from 'react-dom';
 

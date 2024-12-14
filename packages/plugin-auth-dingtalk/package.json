@@ -8,7 +8,7 @@
   ],
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-dingtalk"
+    "build": "tachybase-build --no-dts @tachybase/plugin-auth-dingtalk"
   },
   "devDependencies": {
     "@alicloud/dingtalk": "^2.1.30",

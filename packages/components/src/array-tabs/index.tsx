@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import { ArrayField, observer, ReactFC, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
-import { ArrayField } from '@formily/core';
-import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
 import { Badge, Tabs, TabsProps } from 'antd';
 
 interface IFeedbackBadgeProps {
@@ -29,7 +28,7 @@ export const ArrayTabs: React.FC<React.PropsWithChildren<TabsProps>> = observer(
   const value = Array.isArray(field.value) ? field.value : [];
   const dataSource = value?.length ? value : [{}];
   const onEdit = (targetKey: any, type: 'add' | 'remove') => {
-    if (type == 'add') {
+    if (type === 'add') {
       const id = dataSource.length;
       if (field?.value?.length) {
         field.push(null);
@@ -37,7 +36,7 @@ export const ArrayTabs: React.FC<React.PropsWithChildren<TabsProps>> = observer(
         field.push(null, null);
       }
       setActiveKey(`tab-${id}`);
-    } else if (type == 'remove') {
+    } else if (type === 'remove') {
       const index = Number(targetKey.match(/-(\d+)/)?.[1]);
       if (index - 1 > -1) {
         setActiveKey(`tab-${index - 1}`);

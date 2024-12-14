@@ -1,4 +1,5 @@
-import { connect, mapProps } from '@formily/react';
+import { connect, mapProps } from '@tachybase/schema';
+
 import { Switch as AntdSwitch } from 'antd';
 
 export const Switch = connect(

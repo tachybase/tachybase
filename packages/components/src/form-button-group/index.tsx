@@ -5,8 +5,8 @@
  * 4. 吸底布局
  */
 import React, { useLayoutEffect, useRef, useState } from 'react';
+import { ReactFC } from '@tachybase/schema';
 
-import { ReactFC } from '@formily/react';
 import { Space } from 'antd';
 import { SpaceProps } from 'antd/lib/space';
 import cls from 'classnames';
@@ -42,7 +42,7 @@ function getInheritedBackgroundColor(el: HTMLElement) {
   const backgroundColor = window.getComputedStyle(el).backgroundColor;
 
   // if we got a real value, return it
-  if (backgroundColor != defaultStyle) return backgroundColor;
+  if (backgroundColor !== defaultStyle) return backgroundColor;
 
   // if we've reached the top parent el without getting an explicit color, return default
   if (!el.parentElement) return defaultStyle;

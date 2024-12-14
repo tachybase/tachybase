@@ -1,8 +1,15 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import {
+  ArrayField,
+  ISchema,
+  observer,
+  ReactFC,
+  RecursionField,
+  toArr,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
 
-import { ArrayField } from '@formily/core';
-import { ISchema, observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
-import { toArr } from '@formily/shared';
 import { Badge, Card, Collapse, CollapsePanelProps, CollapseProps, Empty } from 'antd';
 import cls from 'classnames';
 
@@ -160,7 +167,7 @@ const InternalArrayCollapse: ReactFC<IArrayCollapseProps> = observer((props: IAr
             />
           );
           return (
-            <Collapse.Panel {...props} {...panelProps} forceRender key={index} header={header()} extra={extra}>
+            <Collapse.Panel key={index} {...props} {...panelProps} forceRender header={header()} extra={extra}>
               <ArrayBase.Item index={index} key={index} record={item}>
                 {content}
               </ArrayBase.Item>

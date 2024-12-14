@@ -1,7 +1,14 @@
 import React from 'react';
-
-import { Form as FormType, IFormFeedback, isForm, ObjectField } from '@formily/core';
-import { FormProvider, JSXComponent, RecordScope, useParentForm } from '@formily/react';
+import {
+  FormProvider,
+  Form as FormType,
+  IFormFeedback,
+  isForm,
+  JSXComponent,
+  ObjectField,
+  RecordScope,
+  useParentForm,
+} from '@tachybase/schema';
 
 import { FormLayout, IFormLayoutProps } from '../form-layout';
 import { PreviewText } from '../preview-text';

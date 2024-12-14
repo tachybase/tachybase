@@ -1,5 +1,5 @@
-import { isVoidField } from '@formily/core';
-import { connect, mapProps } from '@formily/react';
+import { connect, isVoidField, mapProps } from '@tachybase/schema';
+
 import { Transfer as AntdTransfer } from 'antd';
 
 export const Transfer = connect(

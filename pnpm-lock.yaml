@@ -770,36 +770,12 @@ importers:
       '@dnd-kit/utilities':
         specifier: ^3.2.2
         version: 3.2.2(react@18.3.1)
-      '@formily/core':
-        specifier: 2.3.1
-        version: 2.3.1
-      '@formily/grid':
-        specifier: 2.3.1
-        version: 2.3.1(typescript@5.6.3)
-      '@formily/json-schema':
-        specifier: 2.3.1
-        version: 2.3.1(typescript@5.6.3)
-      '@formily/path':
-        specifier: 2.3.1
-        version: 2.3.1
-      '@formily/react':
-        specifier: 2.3.1
-        version: 2.3.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(typescript@5.6.3)
-      '@formily/reactive':
-        specifier: 2.3.1
-        version: 2.3.1
-      '@formily/reactive-react':
-        specifier: 2.3.1
-        version: 2.3.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
-      '@formily/shared':
-        specifier: 2.3.1
-        version: 2.3.1
-      '@formily/validator':
-        specifier: 2.3.1
-        version: 2.3.1
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       antd:
         specifier: 5.22.0
         version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1714,8 +1690,8 @@ importers:
         version: link:../utils
     devDependencies:
       '@formily/json-schema':
-        specifier: 2.3.1
-        version: 2.3.1(typescript@5.6.3)
+        specifier: 2.3.2
+        version: 2.3.2(typescript@5.6.3)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -2104,9 +2080,6 @@ importers:
         specifier: workspace:*
         version: link:../utils
     devDependencies:
-      '@formily/json-schema':
-        specifier: 2.3.1
-        version: 2.3.1(typescript@5.6.3)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -4503,32 +4476,32 @@ importers:
   packages/schema:
     dependencies:
       '@formily/core':
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.3.2
+        version: 2.3.2
       '@formily/grid':
-        specifier: 2.3.1
-        version: 2.3.1(typescript@5.6.3)
+        specifier: 2.3.2
+        version: 2.3.2(typescript@5.6.3)
       '@formily/json-schema':
-        specifier: 2.3.1
-        version: 2.3.1(typescript@5.6.3)
+        specifier: 2.3.2
+        version: 2.3.2(typescript@5.6.3)
       '@formily/path':
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.3.2
+        version: 2.3.2
       '@formily/react':
-        specifier: 2.3.1
-        version: 2.3.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(typescript@5.6.3)
+        specifier: 2.3.2
+        version: 2.3.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(typescript@5.6.3)
       '@formily/reactive':
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.3.2
+        version: 2.3.2
       '@formily/reactive-react':
-        specifier: 2.3.1
-        version: 2.3.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
+        specifier: 2.3.2
+        version: 2.3.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
       '@formily/shared':
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.3.2
+        version: 2.3.2
       '@formily/validator':
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.3.2
+        version: 2.3.2
 
   packages/sdk:
     dependencies:
@@ -7658,18 +7631,18 @@ packages:
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
 
-  '@formily/core@2.3.1':
-    resolution: {integrity: sha512-dCBPnmzDpQKdN4ddxi98VbdurpbH6SHb12S9y9SnzW/QTslZnkvrvBhTlucWB5XqXJfwcyCzpZIn/GdMAbPpZg==}
+  '@formily/core@2.3.2':
+    resolution: {integrity: sha512-qS02mKWDRdm5IYnx3b6L4i/i7oFEBbVotF6B3xdqgbkeSjdzSz81/aJnEr0Sbi3yCgh1FhA0x+QKkpWnE8/GDQ==}
     engines: {npm: '>=3.0.0'}
 
-  '@formily/grid@2.3.1':
-    resolution: {integrity: sha512-Je+sWa7b71qZgysbVQXiv+3bOqXnKZ3vU4RIhMXrTL4ac46+9dNSXGSVrC85C98lq9EJp/uUJhtLdUb6P3WStg==}
+  '@formily/grid@2.3.2':
+    resolution: {integrity: sha512-cbPBOZKHT5xp3DIcn+Tsqm9B2VMWDsfnhbGl7qvKza8v7cDn7io2aFp8a7sQTeZVmRT+A8H30LjCAKJS9n6+2w==}
     engines: {npm: '>=3.0.0'}
     peerDependencies:
       typescript: 4.x || 5.x
 
-  '@formily/json-schema@2.3.1':
-    resolution: {integrity: sha512-LcJmU1BOYGdoip+Q9YAxHdrpjdl781WFSg0fDTD9/0A7c3xUXWwxdCYZIN0cvoXi2qq8Khyzba0pizl3YSkf0A==}
+  '@formily/json-schema@2.3.2':
+    resolution: {integrity: sha512-DFsdrbxFvdxUtrD5mVRb8USUWJV6KkhSiz83wxA779lgntGDLrwuE0DI2dVg8Vm4dZsK79iB+XhWidaNqH41fQ==}
     engines: {npm: '>=3.0.0'}
     peerDependencies:
       typescript: '>4.1.5'
@@ -7678,8 +7651,12 @@ packages:
     resolution: {integrity: sha512-BVo89K5nAFntx02+EV696If1b1bVIm5I1tRPtVyCVIjBIfAgga5hK4k80GZ01Dlk3tpReHpiIbZVg2DNVfw7jA==}
     engines: {npm: '>=3.0.0'}
 
-  '@formily/react@2.3.1':
-    resolution: {integrity: sha512-8KkFJe2OnbsgiXwY/txUcUaCQIfIkfowWQinOSni02U2ssgs2bpb1ifFHlZrFGfrrW/xhce4ANUHRgoVYt7W4Q==}
+  '@formily/path@2.3.2':
+    resolution: {integrity: sha512-KK8h/CupHOs4HIgu9JucqwWvIr8Nbmof++Kby0NdNFHdTN5nAyVzStS8VEPFPGRkQaXV3AH+FVGAxgucmEy4ZA==}
+    engines: {npm: '>=3.0.0'}
+
+  '@formily/react@2.3.2':
+    resolution: {integrity: sha512-p0jCtX2K9b2/OUdXcDGJhRX4gU4zGFXg1uOYd49iqV1EP+XhRa/4OGAz7QMnUP0K/3FVLboqbQS2nMOKY1rrPg==}
     engines: {npm: '>=3.0.0'}
     peerDependencies:
       '@types/react': '>=16.8.0'
@@ -7693,8 +7670,8 @@ packages:
       '@types/react-dom':
         optional: true
 
-  '@formily/reactive-react@2.3.1':
-    resolution: {integrity: sha512-r6d94JBWhwXGpsffNLnRzgksQJtmqudD1cq7ky2Oljtxg5Ynl8H0Ppcnsv0bd9NbNSAeDeFs2uwWz56exgDzjA==}
+  '@formily/reactive-react@2.3.2':
+    resolution: {integrity: sha512-SdlKSDbUzgddasDnuUugWR02AGC426jHhc7UJuUU1W4ORAuYQunqdMu7xB7/aF4OAVCw4j6KECQtIPo4kftkFg==}
     engines: {npm: '>=3.0.0'}
     peerDependencies:
       '@types/react': '>=16.8.0'
@@ -7708,16 +7685,20 @@ packages:
       '@types/react-dom':
         optional: true
 
-  '@formily/reactive@2.3.1':
-    resolution: {integrity: sha512-IVHOZW7VBc+Gq9eB/gPldi7pEC3wDonDb99KvHlS8SmzsY6+a/iAdrw2mDagXXUficsC2gT4y4EcJ2f1ALMKtQ==}
+  '@formily/reactive@2.3.2':
+    resolution: {integrity: sha512-fw9EBWyBNSo3d1diX+HW3v6fBYqmn5zRM+L8le03XGft847LaajCYkjXiZXSzj7v8U4qzjhURIcqVYgmi4OW8g==}
     engines: {npm: '>=3.0.0'}
 
   '@formily/shared@2.3.1':
     resolution: {integrity: sha512-qnlh6jnnIbUjcK0rWF9bm6AxgyxuBgURrzU5vMSxTNAN86P7K9+mSc/28qPsdNP9flEA2/clSexP5WEJAGYVgw==}
     engines: {npm: '>=3.0.0'}
 
-  '@formily/validator@2.3.1':
-    resolution: {integrity: sha512-hM/IDvU/bachpS3fOUe02C9f5EytlNu6OJzDy+AyhWBmZYIVd6QVvPtjV8nyLOXIBJM9N4sxnGSliYQNAPjR1w==}
+  '@formily/shared@2.3.2':
+    resolution: {integrity: sha512-hb8eL28Dqe4WQzGtxC3h7OwG9VPPBXtfKUfmnRkaBMJ8zn2KmdYOP8YnAkwdO2ZMgxtkOl0hku0Ufm2PwP3ziA==}
+    engines: {npm: '>=3.0.0'}
+
+  '@formily/validator@2.3.2':
+    resolution: {integrity: sha512-XoY31kUypHB8MIw9jhp/Pb0fDFan5wPhR9Hgz/HiTPUdpg8l7kxzHRMZieqtL4YbtFzJD4wpk1+XrylILpPGYg==}
     engines: {npm: '>=3.0.0'}
 
   '@formulajs/formulajs@4.2.0':
@@ -24961,35 +24942,37 @@ snapshots:
 
   '@floating-ui/utils@0.2.8': {}
 
-  '@formily/core@2.3.1':
+  '@formily/core@2.3.2':
     dependencies:
-      '@formily/reactive': 2.3.1
-      '@formily/shared': 2.3.1
-      '@formily/validator': 2.3.1
+      '@formily/reactive': 2.3.2
+      '@formily/shared': 2.3.2
+      '@formily/validator': 2.3.2
 
-  '@formily/grid@2.3.1(typescript@5.6.3)':
+  '@formily/grid@2.3.2(typescript@5.6.3)':
     dependencies:
-      '@formily/reactive': 2.3.1
+      '@formily/reactive': 2.3.2
       '@juggle/resize-observer': 3.4.0
       typescript: 5.6.3
 
-  '@formily/json-schema@2.3.1(typescript@5.6.3)':
+  '@formily/json-schema@2.3.2(typescript@5.6.3)':
     dependencies:
-      '@formily/core': 2.3.1
-      '@formily/reactive': 2.3.1
-      '@formily/shared': 2.3.1
+      '@formily/core': 2.3.2
+      '@formily/reactive': 2.3.2
+      '@formily/shared': 2.3.2
       typescript: 5.6.3
 
   '@formily/path@2.3.1': {}
 
-  '@formily/react@2.3.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(typescript@5.6.3)':
+  '@formily/path@2.3.2': {}
+
+  '@formily/react@2.3.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(typescript@5.6.3)':
     dependencies:
-      '@formily/core': 2.3.1
-      '@formily/json-schema': 2.3.1(typescript@5.6.3)
-      '@formily/reactive': 2.3.1
-      '@formily/reactive-react': 2.3.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
-      '@formily/shared': 2.3.1
-      '@formily/validator': 2.3.1
+      '@formily/core': 2.3.2
+      '@formily/json-schema': 2.3.2(typescript@5.6.3)
+      '@formily/reactive': 2.3.2
+      '@formily/reactive-react': 2.3.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
+      '@formily/shared': 2.3.2
+      '@formily/validator': 2.3.2
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -25000,9 +24983,9 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@formily/reactive-react@2.3.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)':
+  '@formily/reactive-react@2.3.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)':
     dependencies:
-      '@formily/reactive': 2.3.1
+      '@formily/reactive': 2.3.2
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -25011,7 +24994,7 @@ snapshots:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
 
-  '@formily/reactive@2.3.1': {}
+  '@formily/reactive@2.3.2': {}
 
   '@formily/shared@2.3.1':
     dependencies:
@@ -25023,9 +25006,19 @@ snapshots:
       pascal-case: 3.1.2
       upper-case: 2.0.2
 
-  '@formily/validator@2.3.1':
+  '@formily/shared@2.3.2':
     dependencies:
-      '@formily/shared': 2.3.1
+      '@formily/path': 2.3.2
+      camel-case: 4.1.2
+      lower-case: 2.0.2
+      no-case: 3.0.4
+      param-case: 3.0.4
+      pascal-case: 3.1.2
+      upper-case: 2.0.2
+
+  '@formily/validator@2.3.2':
+    dependencies:
+      '@formily/shared': 2.3.2
 
   '@formulajs/formulajs@4.2.0':
     dependencies:
