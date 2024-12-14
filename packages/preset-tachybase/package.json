@@ -22,6 +22,7 @@
     "@tachybase/module-multi-app": "workspace:*",
     "@tachybase/module-pdf": "workspace:*",
     "@tachybase/module-user": "workspace:*",
+    "@tachybase/module-worker-thread": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
     "@tachybase/plugin-action-bulk-edit": "workspace:*",
     "@tachybase/plugin-action-bulk-update": "workspace:*",

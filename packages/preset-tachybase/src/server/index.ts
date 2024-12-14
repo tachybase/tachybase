@@ -22,6 +22,7 @@ export class PresetTachyBase extends Plugin {
     'ui-schema-storage',
     'user',
     'workflow',
+    'worker-thread',
   ];
 
   get builtInPlugins() {
@@ -78,7 +79,6 @@ export class PresetTachyBase extends Plugin {
     ['sub-accounts', '0.22.56', false],
     ['theme-editor', '0.11.1', false],
     ['workflow-approval', '0.22.37', false],
-    ['worker-thread', '0.22.71', true],
   ];
 
   get localPlugins() {
