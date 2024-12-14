@@ -7,20 +7,210 @@ import {
   useDataBlockResource,
   useFilterByTk,
 } from '@tachybase/client';
-import {
-  collectionWorkflows,
-  createWorkflow,
-  getExecutionSchema,
-  updateWorkflow,
-} from '@tachybase/module-workflow/client';
-import { useForm } from '@tachybase/schema';
+import { collectionWorkflows, getExecutionSchema } from '@tachybase/module-workflow/client';
+import { ISchema, useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { saveAs } from 'file-saver';
 
-import { NAMESPACE, useTranslation } from '../locale';
+import { NAMESPACE, tval, useTranslation } from '../locale';
 
 const executionSchema = getExecutionSchema({ isShowActionClear: false });
+
+export const approvalFieldset: Record<string, ISchema> = {
+  title: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
+  type: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    // TODO: use constant
+    default: 'approval',
+    'x-hidden': true,
+  },
+  sync: {
+    type: 'boolean',
+    title: tval('Execute mode'),
+    description: `{{ t("Execute workflow asynchronously or synchronously based on trigger type, and could not be changed after created.", { ns: "${NAMESPACE}" }) }}`,
+    default: false,
+    'x-hidden': true,
+    'x-decorator': 'FormItem',
+    'x-component': 'Select',
+    'x-component-props': {
+      options: [
+        {
+          label: `{{ t("Asynchronously", { ns: "${NAMESPACE}" }) }}`,
+          value: false,
+          tooltip: `{{ t("Will be executed in the background as a queued task.", { ns: "${NAMESPACE}" }) }}`,
+        },
+        {
+          label: `{{ t("Synchronously", { ns: "${NAMESPACE}" }) }}`,
+          value: true,
+          tooltip: `{{ t("For user actions that require immediate feedback. Can not use asynchronous nodes in such mode, and it is not recommended to perform time-consuming operations under synchronous mode.", { ns: "${NAMESPACE}" }) }}`,
+        },
+      ],
+    },
+  },
+  enabled: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
+  description: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
+};
+
+const createApproval: ISchema = {
+  type: 'void',
+  'x-action': 'create',
+  'x-acl-action': 'create',
+  title: tval('Add new'),
+  'x-component': 'Action',
+  'x-component-props': {
+    openMode: 'drawer',
+    type: 'primary',
+    component: 'CreateRecordAction',
+    icon: 'PlusOutlined',
+  },
+  'x-align': 'right',
+  properties: {
+    drawer: {
+      type: 'void',
+      title: tval('Add record'),
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        body: {
+          type: 'void',
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
+          'x-decorator-props': {
+            dataSource: 'main',
+            collection: collectionWorkflows,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useCreateFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
+                    },
+                  },
+                  properties: {
+                    cancel: {
+                      title: tval('Cancel'),
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: tval('Submit'),
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCreateActionProps',
+                      'x-component-props': {
+                        type: 'primary',
+                        htmlType: 'submit',
+                      },
+                    },
+                  },
+                },
+                title: approvalFieldset.title,
+                type: approvalFieldset.type,
+                sync: approvalFieldset.sync,
+                description: approvalFieldset.description,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+const updateApproval: ISchema = {
+  type: 'void',
+  title: '{{ t("Edit") }}',
+  'x-action': 'update',
+  'x-component': 'Action.Link',
+  'x-component-props': {
+    openMode: 'drawer',
+    icon: 'EditOutlined',
+  },
+  'x-decorator': 'ACLActionProvider',
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Edit record") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        card: {
+          type: 'void',
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
+          'x-decorator-props': {
+            action: 'get',
+            dataSource: 'main',
+            collection: collectionWorkflows,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useEditFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
+                    },
+                  },
+                  properties: {
+                    cancel: {
+                      title: '{{ t("Cancel") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useUpdateActionProps',
+                      'x-component-props': {
+                        type: 'primary',
+                      },
+                      'x-action-settings': {
+                        isDeltaChanged: true,
+                      },
+                    },
+                  },
+                },
+                title: approvalFieldset.title,
+                type: approvalFieldset.type,
+                sync: approvalFieldset.sync,
+                description: approvalFieldset.description,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
 
 export const schemaApprovalPanne = {
   type: 'void',
@@ -169,7 +359,7 @@ export const schemaApprovalPanne = {
                 },
               },
             },
-            create: createWorkflow,
+            create: createApproval,
           },
         },
         table: {
@@ -189,18 +379,6 @@ export const schemaApprovalPanne = {
               'x-component': 'TableV2.Column',
               properties: {
                 title: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
-                },
-              },
-            },
-            type: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              properties: {
-                type: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
@@ -249,6 +427,9 @@ export const schemaApprovalPanne = {
               type: 'void',
               title: '{{ t("Actions") }}',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                fixed: 'right',
+              },
               properties: {
                 actions: {
                   type: 'void',
@@ -261,7 +442,7 @@ export const schemaApprovalPanne = {
                       type: 'void',
                       'x-component': 'WorkflowLink',
                     },
-                    update: updateWorkflow,
+                    update: updateApproval,
                     revision: {
                       type: 'void',
                       title: `{{t("Duplicate", { ns: "${NAMESPACE}" })}}`,

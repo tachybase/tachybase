@@ -2,7 +2,7 @@ import { InstallOptions, Plugin } from '@tachybase/server';
 
 import logger from './resourcer/logger';
 
-export class PluginLoggerServer extends Plugin {
+export class PluginLogViewerServer extends Plugin {
   afterAdd() {}
 
   beforeLoad() {}
@@ -24,4 +24,4 @@ export class PluginLoggerServer extends Plugin {
   async remove() {}
 }
 
-export default PluginLoggerServer;
+export default PluginLogViewerServer;

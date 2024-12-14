@@ -3,21 +3,14 @@ import { Plugin } from '@tachybase/client';
 import { lang } from './locale';
 import { LogsDownloader } from './LogsDownloader';
 
-export class PluginLoggerClient extends Plugin {
-  async afterAdd() {
-    // await this.app.pm.add()
-  }
-
-  async beforeLoad() {}
-
-  // You can get and modify the app instance here
+export class PluginLogViewer extends Plugin {
   async load() {
-    this.app.systemSettingsManager.add('system-services.' + 'logger', {
-      title: lang('Logger'),
+    this.app.systemSettingsManager.add('system-services.log-viewer', {
+      title: lang('Log Viewer'),
       icon: 'FileTextOutlined',
       Component: LogsDownloader,
     });
   }
 }
 
-export default PluginLoggerClient;
+export default PluginLogViewer;

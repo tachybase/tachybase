@@ -9,5 +9,6 @@ export default {
   'SQL execution logs, printed by Sequelize when the db logging is enabled':
     'SQL 执行日志, 数据库日志启用时，Sequelize 打印的 SQL 执行日志',
   'App not found': '应用不存在',
+  'Log Viewer': '日志查看器',
   'Permission denied': '无权限',
 };

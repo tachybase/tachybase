@@ -19,6 +19,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import WorkflowPlugin from '.';
 import { CanvasContentWrapper } from './CanvasContentWrapper';
+import { BackButton } from './components/GoBackButton';
 import { StatusButton } from './components/StatusButton';
 import { ExecutionStatusOptionsMap, JobStatusOptions } from './constants';
 import { FlowContext, useFlowContext } from './FlowContext';
@@ -307,6 +308,7 @@ export function ExecutionCanvas() {
     >
       <div className="workflow-toolbar">
         <header>
+          <BackButton />
           <Breadcrumb
             items={[
               {

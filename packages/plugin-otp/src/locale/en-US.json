@@ -4,6 +4,7 @@
   "Aliyun SMS": "Aliyun SMS",
   "Endpoint": "Endpoint",
   "Not a valid cellphone number, please re-enter": "Not a valid cellphone number, please re-enter",
+  "OTP Providers": "OTP Providers",
   "Please don't retry in {{time}} seconds": "Please don't retry in {{time}} seconds",
   "Provider type": "Provider type",
   "Region": "Region",

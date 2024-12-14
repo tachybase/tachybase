@@ -9,5 +9,6 @@ export default {
   'SQL execution logs, printed by Sequelize when the db logging is enabled':
     'SQL execution logs, printed by Sequelize when the db logging is enabled',
   'App not found': 'App not found',
+  'Log Viewer': 'Log Viewer',
   'Permission denied': 'Permission denied',
 };

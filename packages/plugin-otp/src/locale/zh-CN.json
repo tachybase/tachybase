@@ -4,6 +4,7 @@
   "Aliyun SMS": "阿里云短信服务",
   "Endpoint": "接入点",
   "Not a valid cellphone number, please re-enter": "不是有效的手机号，请重新输入",
+  "OTP Providers": "OTP 提供商",
   "Please don't retry in {{time}} seconds": "请 {{time}} 秒后再试",
   "Provider type": "提供商类型",
   "Region": "地域",
