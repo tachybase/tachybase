@@ -1,5 +1,6 @@
 import path from 'path';
 import * as process from 'process';
+import { isMainThread } from 'worker_threads';
 import { Filter, InheritedCollection, UniqueConstraintError } from '@tachybase/database';
 import PluginErrorHandler from '@tachybase/module-error-handler';
 import { Plugin } from '@tachybase/server';
@@ -244,6 +245,9 @@ export class CollectionManagerPlugin extends Plugin {
     };
 
     this.app.on('beforeStart', loadCollections);
+    if (!isMainThread) {
+      return;
+    }
 
     this.app.resourcer.use(async (ctx, next) => {
       const { resourceName, actionName } = ctx.action;
@@ -266,6 +270,9 @@ export class CollectionManagerPlugin extends Plugin {
   async load() {
     await this.importCollections(path.resolve(__dirname, './collections'));
     this.db.getRepository<CollectionRepository>('collections').setApp(this.app);
+    if (!isMainThread) {
+      return;
+    }
 
     const errorHandlerPlugin = this.app.getPlugin<PluginErrorHandler>('error-handler');
     errorHandlerPlugin.errorHandler.register(

@@ -1,0 +1,17 @@
+{
+  "name": "@tachybase/module-worker-thread",
+  "version": "0.22.71",
+  "description": "Worker thread for executing time-consuming tasks",
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "tsx": "^4.15.2"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/module-collection": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "工作线程,用于执行耗时任务",
+  "displayName.zh-CN": "工作线程"
+}

@@ -1,3 +1,4 @@
+import { isMainThread } from 'worker_threads';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import {
@@ -26,6 +27,9 @@ export class PluginCoreServer extends Plugin {
       calc: CalcField,
       tstzrange: TstzrangeField,
     });
+    if (!isMainThread) {
+      return;
+    }
     this.addFeature(DepartmentsPlugin);
   }
 

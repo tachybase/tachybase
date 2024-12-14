@@ -31,12 +31,11 @@ export async function _(field, row, ctx, column?: any) {
   }
 }
 
-export async function datetime(field, row, ctx) {
+export async function datetime(field, row, { utcOffset }) {
   const value = row.get(field.name);
   if (!value) {
     return '';
   }
-  const utcOffset = ctx.get('X-Timezone');
   const props = field.options?.uiSchema?.['x-component-props'] ?? {};
   const format = getDefaultFormat(props);
   const m = str2moment(value, { ...props, utcOffset });
@@ -63,11 +62,11 @@ export async function boolean(field, row, ctx, column?: any) {
 
 export const checkbox = boolean;
 
-export async function select(field, row, ctx, column?: any) {
+export async function select(field, row, { db }, column?: any) {
   const value = row.get(field.name);
   let { enum: enumData } = column ?? {};
   if (!enumData) {
-    const repository = ctx.db.getCollection('uiSchemas').repository;
+    const repository = db.getCollection('uiSchemas').repository;
     const model = await repository.findById(field.options.uiSchemaUid);
     enumData = model.get('enum');
   }
@@ -75,11 +74,11 @@ export async function select(field, row, ctx, column?: any) {
   return option?.label;
 }
 
-export async function multipleSelect(field, row, ctx, column?: any) {
+export async function multipleSelect(field, row, { db }, column?: any) {
   const values = row.get(field.name);
   let { enum: enumData } = column ?? {};
   if (!enumData) {
-    const repository = ctx.db.getCollection('uiSchemas').repository;
+    const repository = db.getCollection('uiSchemas').repository;
     const model = await repository.findById(field.options.uiSchemaUid);
     enumData = model.get('enum');
   }
