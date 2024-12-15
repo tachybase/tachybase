@@ -30,6 +30,7 @@ export class WorkerManager {
     if (!isMainThread) {
       return;
     }
+    this.isDev = isDev;
     if (workerNum) {
       this.workerNum = workerNum;
     }

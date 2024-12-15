@@ -94,7 +94,7 @@ export class CollectionRepository extends Repository {
           submodule: 'CollectionRepository',
           method: 'load',
         });
-      this.app.setMaintainingMessage(`load ${instanceName} collection`);
+      this.app?.setMaintainingMessage(`load ${instanceName} collection`);
 
       await nameMap[instanceName].load({ skipField });
     }
@@ -107,7 +107,7 @@ export class CollectionRepository extends Repository {
           method: 'load',
           viewCollectionName,
         });
-      this.app.setMaintainingMessage(`load ${viewCollectionName} collection fields`);
+      this.app?.setMaintainingMessage(`load ${viewCollectionName} collection fields`);
       await nameMap[viewCollectionName].loadFields({});
     }
 
@@ -119,7 +119,7 @@ export class CollectionRepository extends Repository {
           method: 'load',
           collectionName,
         });
-      this.app.setMaintainingMessage(`load ${collectionName} collection fields`);
+      this.app?.setMaintainingMessage(`load ${collectionName} collection fields`);
       await nameMap[collectionName].loadFields({ includeFields: skipField });
     }
   }
