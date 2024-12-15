@@ -1,10 +1,40 @@
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 
-import { ArrowUpOutlined, BellOutlined, ReloadOutlined } from '@ant-design/icons';
-import { Alert, Button, Popover, Spin } from 'antd';
+import {
+  CloudUploadOutlined,
+  CommentOutlined,
+  FireOutlined,
+  HeartOutlined,
+  PaperClipOutlined,
+  ReadOutlined,
+  ReloadOutlined,
+  ShareAltOutlined,
+  SmileOutlined,
+} from '@ant-design/icons';
+import {
+  Attachments,
+  Bubble,
+  Conversations,
+  Prompts,
+  Sender,
+  useXAgent,
+  useXChat,
+  Welcome,
+  XRequest,
+} from '@ant-design/x';
+import { Badge, Button, GetProp, Popover, Space, Spin } from 'antd';
 
 import { Icon } from '../../../icon';
-import styles from './index.module.less';
+import { useStyle } from './chatStyles';
+
+// import styles from './index.module.less';
+// import 'dotenv';
+
+const { create } = XRequest({
+  baseURL: 'https://api.deepseek.com/chat/completions',
+  dangerouslyApiKey: 'Bearer sk-7c91946813cf42b4851a914fe690b0b4',
+  model: 'deepseek-chat',
+});
 
 interface AIChatModalProps {
   mRef?: any;
@@ -20,60 +50,102 @@ interface Example {
 
 type StatusType = 'success' | 'info' | 'warning' | 'error';
 
+const renderTitle = (icon: React.ReactElement, title: string) => (
+  <Space align="start">
+    {icon}
+    <span>{title}</span>
+  </Space>
+);
+
+const placeholderPromptsItems: GetProp<typeof Prompts, 'items'> = [
+  {
+    key: '1',
+    label: renderTitle(<FireOutlined style={{ color: '#FF4D4F' }} />, '关于灵矶'),
+    description: '猜你想知道',
+    children: [
+      {
+        key: '1-1',
+        description: `关于平台`,
+      },
+      {
+        key: '1-2',
+        description: `我们能做什么`,
+      },
+    ],
+  },
+  {
+    key: '2',
+    label: renderTitle(<ReadOutlined style={{ color: '#1890FF' }} />, '如何开始'),
+    description: '猜你想知道',
+    children: [
+      {
+        key: '2-1',
+        icon: <HeartOutlined />,
+        description: `信息表单`,
+      },
+      {
+        key: '2-2',
+        icon: <SmileOutlined />,
+        description: `登录组件`,
+      },
+      {
+        key: '2-3',
+        icon: <CommentOutlined />,
+        description: `日期组件`,
+      },
+    ],
+  },
+];
+
+const senderPromptsItems: GetProp<typeof Prompts, 'items'> = [
+  {
+    key: '1',
+    description: 'About tachybase',
+    icon: <FireOutlined style={{ color: '#FF4D4F' }} />,
+  },
+  {
+    key: '2',
+    description: 'How to start',
+    icon: <ReadOutlined style={{ color: '#1890FF' }} />,
+  },
+];
+
+const defaultConversationsItems = [
+  {
+    key: '0',
+    label: 'What is Ant Design X?',
+  },
+];
+
+const roles: GetProp<typeof Bubble.List, 'roles'> = {
+  ai: {
+    placement: 'start',
+    typing: { step: 5, interval: 20 },
+    styles: {
+      content: {
+        borderRadius: 16,
+      },
+    },
+  },
+  local: {
+    placement: 'end',
+    variant: 'shadow',
+  },
+};
+
 export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIChatModalProps) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const [requestMessage, setRequestMessage] = useState<string>('');
-  const [responseMessage, setResponseMessage] = useState<string>('');
-  const [sendAllow, setSendAllow] = useState<boolean>(false);
-  const [showLoad, setShowLoad] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [loadingText, setLoadingText] = useState<string>('');
-  const [welcomeText, setWelcomeText] = useState<string>('TachyAI为您服务~');
+  const [content, setContent] = React.useState('');
+  const [headerOpen, setHeaderOpen] = React.useState(false);
+  const { styles } = useStyle();
+  const [activeKey, setActiveKey] = React.useState(defaultConversationsItems[0].key);
+  // const [conversationsItems, setConversationsItems] = React.useState(defaultConversationsItems);
 
-  const [status, setStatus] = useState<boolean>(false);
-  const [statusInfo, setStatusInfo] = useState<{ type: StatusType; msg: string; reload: boolean }>({
-    type: 'success',
-    msg: '生成完成',
-    reload: false,
-  });
-
-  const examples: Example[] = [
-    {
-      id: `1`,
-      name: '信息表单',
-      message: '实现表单组件，展示学生的姓名、年龄、班级和成绩',
-    },
-    {
-      id: `2`,
-      name: '登录组件',
-      message: '帮我实现一个登录组件，含有用户名和密码输入框，以及登录按钮',
-    },
-    {
-      id: `3`,
-      name: '日期组件',
-      message: '帮我实现一个日期组件，含有日期选择器和时间选择器，以及日期格式化功能',
-    },
-  ];
-
-  const popTitle = '温馨提示';
-
-  const popContent = `TachyAI 是你搭建应用过程的得力助手。`;
-
-  useEffect(() => {
-    if (message) {
-      setSendAllow(true);
-    } else {
-      setSendAllow(false);
-    }
-  }, [message]);
+  const [attachedFiles, setAttachedFiles] = React.useState<GetProp<typeof Attachments, 'items'>>([]);
 
   const openModal = () => {
     setShowModal(true);
-  };
-
-  const handleClickExample = (item: Example) => {
-    setMessage(item.message);
   };
 
   const handleHideModal = () => {
@@ -81,75 +153,161 @@ export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIC
     setShowModal(false);
   };
 
-  const reloadStatus = async () => {
-    setStatus(false);
-    setShowLoad(true);
-    setLoading(true);
-    setLoadingText('正在重新写入代码，请稍后');
+  const [agent] = useXAgent({
+    // request: async ({ message }, { onSuccess }) => {
+    //   onSuccess(`Mock success return. You said: ${message}`);
+    // },
+    request: async (info, callbacks) => {
+      const { messages, message } = info;
+      const { onUpdate, onSuccess, onError } = callbacks;
+      console.log('ssssss', create);
+      // current message
+
+      // messages list
+
+      let content: string = '';
+
+      try {
+        await create(
+          {
+            messages: [{ role: 'system', content: message }],
+            stream: true,
+          },
+          {
+            onSuccess: (chunks) => {
+              onSuccess(content);
+            },
+            onError: (error) => {
+              onError(error);
+            },
+            onUpdate: (chunk) => {
+              let data;
+              try {
+                data = JSON.parse(chunk.data);
+              } catch (error) {
+                // Handle the error appropriately, e.g., set `data` to null or an empty object
+                data = null; // or data = {};
+              }
+
+              // 累加内容
+              content += data?.choices[0]?.delta?.content || '';
+
+              // 调用 onUpdate 更新内容
+              onUpdate(content);
+            },
+          },
+        );
+      } catch (error) {}
+    },
+  });
+
+  // const { onRequest, messages, setMessages } = useXChat({
+  //   agent,
+  // });
+  const {
+    // use to send message
+    onRequest,
+    // use to render messages
+    messages,
+    setMessages,
+  } = useXChat({ agent });
+
+  useEffect(() => {
+    if (activeKey !== undefined) {
+      setMessages([]);
+    }
+  }, [activeKey]);
+
+  const onSubmit = (nextContent: string) => {
+    //
+    if (!nextContent) return;
+    onRequest(nextContent);
+    setContent('');
   };
 
-  const cancelLoad = () => {
-    setShowLoad(false);
-    setLoading(false);
-    setStatus(true);
-    setStatusInfo({ type: 'info', msg: '取消写入', reload: true });
+  const onPromptsItemClick: GetProp<typeof Prompts, 'onItemClick'> = (info) => {
+    onRequest(info.data.description as string);
   };
 
-  const writeCompleted = async () => {
-    setShowLoad(false);
-    setLoading(false);
-    setStatus(true);
-    setStatusInfo({ type: 'success', msg: '生成完成', reload: false });
-  };
+  const handleFileChange: GetProp<typeof Attachments, 'onChange'> = (info) => setAttachedFiles(info.fileList);
 
-  const writeError = async () => {
-    setShowLoad(false);
-    setLoading(false);
-    setStatus(true);
-    setStatusInfo({ type: 'error', msg: '代码写入出错了', reload: false });
-  };
+  const placeholderNode = (
+    <Space direction="vertical" size={16} className={styles.placeholder}>
+      {/* <Welcome
+        variant="borderless"
+        icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
+        title="Hello, I'm Ant Design X"
+        description="Base on Ant Design, AGI product interface solution, create a better intelligent vision~"
+        extra={
+          <Space>
+            <Button icon={<ShareAltOutlined />} />
+            <Button icon={<EllipsisOutlined />} />
+          </Space>
+        }
+      /> */}
+      <Prompts
+        title="Do you want?"
+        items={placeholderPromptsItems}
+        styles={{
+          list: {
+            width: '100%',
+          },
+          item: {
+            flex: 1,
+          },
+        }}
+        onItemClick={onPromptsItemClick}
+      />
+    </Space>
+  );
 
-  const requestError = async () => {
-    setShowLoad(false);
-    setLoading(false);
-    setStatus(true);
-    setStatusInfo({ type: 'error', msg: '请求出错了', reload: false });
-  };
-
-  const changeLoadInfo = async (text: string) => {
-    setLoadingText(text);
-    setShowLoad(true);
-    setLoading(true);
-  };
+  const items: GetProp<typeof Bubble.List, 'items'> = messages.map(({ id, message, status }) => ({
+    key: id,
+    // loading: status === 'loading',
+    role: status === 'local' ? 'local' : 'ai',
+    content: message,
+  }));
 
   useImperativeHandle(mRef, () => {
     return {
       openModal,
       handleHideModal,
-      cancelLoad,
-      reloadStatus,
-      writeCompleted,
-      writeError,
-      changeLoadInfo,
-      requestError,
     };
   });
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage(e.target.value);
-  };
 
-  const handleRequestMessage = async () => {
-    setStatus(false);
-    setRequestMessage(message);
-    setResponseMessage('');
-    setMessage('');
-    setShowLoad(false);
-    setLoading(false);
-    setTimeout(async () => {
-      setResponseMessage('好的，TachyAI为您服务~');
-      await onGenerateLoad(message);
-    }, 1000);
-  };
+  const attachmentsNode = (
+    <Badge dot={attachedFiles.length > 0 && !headerOpen}>
+      <Button type="text" icon={<PaperClipOutlined />} onClick={() => setHeaderOpen(!headerOpen)} />
+    </Badge>
+  );
+
+  const senderHeader = (
+    <Sender.Header
+      title="Attachments"
+      open={headerOpen}
+      onOpenChange={setHeaderOpen}
+      styles={{
+        content: {
+          padding: 0,
+        },
+      }}
+    >
+      <Attachments
+        beforeUpload={() => false}
+        items={attachedFiles}
+        onChange={handleFileChange}
+        placeholder={(type) =>
+          type === 'drop'
+            ? { title: 'Drop file here' }
+            : {
+                icon: <CloudUploadOutlined />,
+                title: 'Upload files',
+                description: 'Click or drag files to this area to upload',
+              }
+        }
+      />
+    </Sender.Header>
+  );
 
   return (
     <div className={`${styles.AIChatModal} ${showModal ? styles.showModal : styles.hideModal}`}>
@@ -172,108 +330,25 @@ export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIC
             &times;
           </button>
         </div>
-        <div className={styles.modalBody}>
-          <div className={styles.chatContent}>
-            {!requestMessage && !responseMessage && <div className={styles.welcomeText}>{welcomeText}</div>}
-            {requestMessage && (
-              <div className={styles.chatItem}>
-                <div className={styles.chatInfo}>
-                  <div className={styles.chatName}>User</div>
-                  <div className={styles.avatar}>
-                    <Icon type="useroutlined" />
-                  </div>
-                </div>
-                <div className={styles.chatText}>
-                  <div className={styles.chatMessage}>{requestMessage}</div>
-                </div>
-              </div>
-            )}
-
-            {responseMessage && (
-              <div className={styles.chatResponce}>
-                <div className={styles.chatInfo}>
-                  <div className={styles.avatar}>
-                    <Icon type="robotoutlined" />
-                  </div>
-                  <div className={styles.chatName}>TachyAI</div>
-                </div>
-                <div className={styles.chatText}>
-                  <div className={styles.chatMessage}>{responseMessage}</div>
-                </div>
-              </div>
-            )}
-
-            {showLoad && (
-              <div className={styles.chatLoad}>
-                <div className={styles.chatText}>{loadingText}</div>
-                {loading && (
-                  <div className={styles.load}>
-                    <Spin size="small" />
-                  </div>
-                )}
-              </div>
-            )}
-
-            {status && (
-              <div className={styles.chatLoad}>
-                {!statusInfo.reload ? (
-                  <Alert type={statusInfo.type} showIcon message={statusInfo.msg} />
-                ) : (
-                  <Alert
-                    type={statusInfo.type}
-                    showIcon
-                    message={statusInfo.msg}
-                    action={
-                      <Popover placement="top" content="重新写入代码">
-                        <Button
-                          style={{ marginLeft: '5px' }}
-                          type="primary"
-                          size="small"
-                          shape="circle"
-                          icon={<ReloadOutlined />}
-                          onClick={onReloadWrite}
-                        />
-                      </Popover>
-                    }
-                  />
-                )}
-              </div>
-            )}
-          </div>
-          <div className={styles.chatExamples}>
-            {examples.map((item) => {
-              return (
-                <button className={styles.chatExampleItem} key={item.id} onClick={() => handleClickExample(item)}>
-                  <span>{item.name}</span>
-                </button>
-              );
-            })}
-          </div>
-          <div className={styles.chatInput}>
-            <div className={styles.chatOtherInfo}>
-              <Popover placement="top" title={popTitle} content={popContent}>
-                <BellOutlined />
-              </Popover>
-            </div>
-            <div className={styles.inputBox}>
-              <input
-                maxLength={80}
-                type="text"
-                placeholder="可以在这里描述你需要的内容"
-                value={message}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className={styles.sendBtn}>
-              <Button
-                disabled={!sendAllow}
-                shape="circle"
-                type="primary"
-                icon={<ArrowUpOutlined />}
-                onClick={handleRequestMessage}
-              ></Button>
-            </div>
-          </div>
+        <div className={styles.chat}>
+          {/* 🌟 消息列表 */}
+          <Bubble.List
+            items={items.length > 0 ? items : [{ content: placeholderNode, variant: 'borderless' }]}
+            roles={roles}
+            className={styles.messages}
+          />
+          {/* 🌟 提示词 */}
+          <Prompts items={senderPromptsItems} onItemClick={onPromptsItemClick} />
+          {/* 🌟 输入框 */}
+          <Sender
+            value={content}
+            header={senderHeader}
+            onSubmit={onSubmit}
+            onChange={setContent}
+            prefix={attachmentsNode}
+            loading={agent.isRequesting()}
+            className={styles.sender}
+          />
         </div>
       </div>
     </div>
