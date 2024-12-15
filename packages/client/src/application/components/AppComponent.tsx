@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { observer } from '@tachybase/schema';
 
+import { ClickToComponent } from 'click-to-react-component';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import type { Application } from '../Application';
@@ -37,6 +38,7 @@ export const AppComponent = observer(
           {app.maintained && app.maintaining && app.renderComponent('AppMaintainingDialog', { app })}
           {app.renderComponent('AppMain')}
         </ApplicationContext.Provider>
+        <ClickToComponent />
       </ErrorBoundary>
     );
   },
