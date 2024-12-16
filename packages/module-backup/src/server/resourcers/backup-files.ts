@@ -111,7 +111,7 @@ export default {
       // if (app.worker?.available) {
       //   // 通过子线程调用
       //   taskId = await ctx.app.worker.callPluginMethod({
-      //     plugin: app.pm.get(PluginBackupRestoreServer).name,
+      //     plugin: PluginBackupRestoreServer,
       //     method: 'workerCreateBackUp',
       //     params: {
       //       dataTypes: data.dataTypes,

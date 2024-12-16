@@ -33,8 +33,9 @@ export async function exportXlsx(ctx: Context, next: Next) {
     }
     // 调用工作线程返回文件路径
     const fileWithPath = await app.worker.callPluginMethod({
-      plugin: app.pm.get(ExportPlugin).name,
-      method: 'workerExportXlsx',
+      plugin: ExportPlugin,
+      method: 'workerExportXlsx', // TODO: 这样不够优雅
+      limit: 1,
       params: {
         title,
         filter,

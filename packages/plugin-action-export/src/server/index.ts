@@ -7,6 +7,7 @@ import { dayjs } from '@tachybase/utils';
 import xlsx from 'node-xlsx';
 
 import { exportXlsx } from './actions';
+import { EXPORT_WORKER_PAGESIZE } from './constants';
 import render from './renders';
 
 export class ExportPlugin extends Plugin {
@@ -41,7 +42,7 @@ export class ExportPlugin extends Plugin {
     columns = columns?.filter((col) => collection.hasField(col.dataIndex[0]) && col?.dataIndex?.length > 0);
     // 分页处理
     let page = 1;
-    const pageSize = 1000;
+    const pageSize = EXPORT_WORKER_PAGESIZE;
     let data = [];
     let hasMore = true;
 

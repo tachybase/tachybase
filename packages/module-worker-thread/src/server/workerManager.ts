@@ -5,22 +5,32 @@ import { Application } from '@tachybase/server';
 
 import { WorkerEvent, WorkerEventInput, WorkerEventInputPluginMethod } from './workerTypes';
 
+type callPluginMethodInfo = {
+  lastTime: Date;
+  count: number;
+};
+
 // 工作线程尽量不要在定时任务和工作流(工作流的ctx,通知等等出问题)中使用
 export class WorkerManager {
   public get available() {
     return this.workerList.length > 0;
   }
 
-  private workerNum = 1;
+  private workerNum = process.env.WORKER_COUNT ? +process.env.WORKER_COUNT : 1;
   private workerList: Worker[] = [];
   private isDev = true;
 
   private currentWorkerIndex = 0;
   private busyWorkers = new WeakMap<Worker, Set<string>>();
   private workerPlugins: string[] = [];
+  private cache = new Map<string, callPluginMethodInfo>();
 
   // 默认超时时间
-  private static timeoutSecond = 600;
+  private static readonly timeoutSecond = process.env.WORKER_TIMEOUT ? +process.env.WORKER_TIMEOUT : 1800;
+
+  private getPluginMethodKey(plugin: string, method: string) {
+    return `worker:pluginMethod:${plugin}:${method}`;
+  }
 
   constructor(
     public app: Application,
@@ -120,7 +130,49 @@ export class WorkerManager {
    * 运行插件方法
    */
   public async callPluginMethod(values: WorkerEventInputPluginMethod) {
-    return this.callMethod(WorkerEvent.PluginMethod, values);
+    let countInfo: callPluginMethodInfo = null;
+    if (values.limit) {
+      const key = this.getPluginMethodKey(values);
+      countInfo = this.cache.get(key);
+      if (countInfo && countInfo.lastTime) {
+        const diff = new Date().getTime() - countInfo.lastTime.getTime();
+        if (diff > 1000 * WorkerManager.timeoutSecond) {
+          countInfo.count = 0;
+        }
+      }
+      if (countInfo && countInfo.count >= values.limit) {
+        throw new Error('Plugin method call limit exceeded');
+      } else {
+        if (!countInfo) {
+          countInfo = {
+            lastTime: new Date(),
+            count: 1,
+          };
+        } else {
+          countInfo.lastTime = new Date();
+          countInfo.count++;
+        }
+        this.cache.set(key, countInfo);
+      }
+    }
+    const result = await this.callMethod(WorkerEvent.PluginMethod, {
+      ...values,
+      plugin: this.app.pm.get(values.plugin).name,
+    });
+    if (values.limit) {
+      const key = this.getPluginMethodKey(values);
+      countInfo = this.cache.get(key);
+      if (countInfo) {
+        countInfo.count--;
+        if (countInfo.count < 0) {
+          this.cache.delete(key);
+        } else {
+          countInfo.lastTime = new Date();
+          this.cache.set(key, countInfo);
+        }
+      }
+    }
+    return result;
   }
 
   private handleWorkerCompletion(
@@ -157,6 +209,9 @@ export class WorkerManager {
       throw new Error('No available workers');
     }
     const reqId = randomUUID();
+    if (this.currentWorkerIndex >= this.workerList.length) {
+      this.currentWorkerIndex = 0;
+    }
     const worker = this.workerList[this.currentWorkerIndex];
     this.currentWorkerIndex = (this.currentWorkerIndex + 1) % this.workerList.length;
     if (!this.busyWorkers.has(worker)) {
