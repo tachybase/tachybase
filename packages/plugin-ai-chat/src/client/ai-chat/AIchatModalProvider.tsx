@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 import {
   CloudUploadOutlined,
@@ -7,28 +7,13 @@ import {
   HeartOutlined,
   PaperClipOutlined,
   ReadOutlined,
-  ReloadOutlined,
-  ShareAltOutlined,
   SmileOutlined,
 } from '@ant-design/icons';
-import {
-  Attachments,
-  Bubble,
-  Conversations,
-  Prompts,
-  Sender,
-  useXAgent,
-  useXChat,
-  Welcome,
-  XRequest,
-} from '@ant-design/x';
-import { Badge, Button, GetProp, Popover, Space, Spin } from 'antd';
+import { Attachments, Bubble, Prompts, Sender, useXAgent, useXChat, XRequest } from '@ant-design/x';
+import { Badge, Button, GetProp, Input, InputRef, Modal, Space } from 'antd';
+import { messages } from 'packages/module-message/src/server/actions/messages';
 
-import { Icon } from '../../../icon';
 import { useStyle } from './chatStyles';
-
-// import styles from './index.module.less';
-// import 'dotenv';
 
 const { create } = XRequest({
   baseURL: 'https://api.deepseek.com/chat/completions',
@@ -36,19 +21,31 @@ const { create } = XRequest({
   model: 'deepseek-chat',
 });
 
-interface AIChatModalProps {
-  mRef?: any;
-  onGenerateLoad: (message: string) => Promise<boolean>;
-  onReloadWrite: () => void;
-}
+// interface AIChatModalProps {
+//     mRef?: any;
+//     onGenerateLoad: (message: string) => Promise<boolean>;
+//     onReloadWrite: () => void;
+// }
 
-interface Example {
-  id: string;
-  name: string;
-  message: string;
-}
+export const AIchatContext = createContext({
+  open: false,
+  setOpen: (open: boolean | ((open: boolean) => boolean)) => {},
+});
 
-type StatusType = 'success' | 'info' | 'warning' | 'error';
+export const AIchatModalProvider = ({ children }) => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  return (
+    <AIchatContext.Provider value={{ open, setOpen }}>
+      {children}
+      <AIchat open={open} setOpen={setOpen} />
+    </AIchatContext.Provider>
+  );
+};
+
+export const useAIchat = () => {
+  return useContext(AIchatContext);
+};
 
 const renderTitle = (icon: React.ReactElement, title: string) => (
   <Space align="start">
@@ -133,40 +130,27 @@ const roles: GetProp<typeof Bubble.List, 'roles'> = {
   },
 };
 
-export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIChatModalProps) {
-  const [showModal, setShowModal] = useState<boolean>(false);
+export const AIchat = ({ open, setOpen }) => {
+  const { styles } = useStyle();
   const [message, setMessage] = useState<string>('');
   const [content, setContent] = React.useState('');
   const [headerOpen, setHeaderOpen] = React.useState(false);
-  const { styles } = useStyle();
   const [activeKey, setActiveKey] = React.useState(defaultConversationsItems[0].key);
-  // const [conversationsItems, setConversationsItems] = React.useState(defaultConversationsItems);
-
   const [attachedFiles, setAttachedFiles] = React.useState<GetProp<typeof Attachments, 'items'>>([]);
 
-  const openModal = () => {
-    setShowModal(true);
+  const handleOk = () => {
+    setOpen(false);
   };
 
-  const handleHideModal = () => {
-    setMessage('');
-    setShowModal(false);
+  const handleCancel = () => {
+    setOpen(false);
   };
 
   const [agent] = useXAgent({
-    // request: async ({ message }, { onSuccess }) => {
-    //   onSuccess(`Mock success return. You said: ${message}`);
-    // },
     request: async (info, callbacks) => {
       const { messages, message } = info;
       const { onUpdate, onSuccess, onError } = callbacks;
-      console.log('ssssss', create);
-      // current message
-
-      // messages list
-
       let content: string = '';
-
       try {
         await create(
           {
@@ -185,14 +169,11 @@ export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIC
               try {
                 data = JSON.parse(chunk.data);
               } catch (error) {
-                // Handle the error appropriately, e.g., set `data` to null or an empty object
-                data = null; // or data = {};
+                data = null;
               }
 
-              // 累加内容
               content += data?.choices[0]?.delta?.content || '';
 
-              // 调用 onUpdate 更新内容
               onUpdate(content);
             },
           },
@@ -201,29 +182,20 @@ export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIC
     },
   });
 
-  // const { onRequest, messages, setMessages } = useXChat({
-  //   agent,
-  // });
-  const {
-    // use to send message
-    onRequest,
-    // use to render messages
-    messages,
-    setMessages,
-  } = useXChat({ agent });
-
-  useEffect(() => {
-    if (activeKey !== undefined) {
-      setMessages([]);
-    }
-  }, [activeKey]);
-
   const onSubmit = (nextContent: string) => {
     //
     if (!nextContent) return;
     onRequest(nextContent);
     setContent('');
   };
+
+  const { onRequest, messages, setMessages } = useXChat({ agent });
+
+  useEffect(() => {
+    if (activeKey !== undefined) {
+      setMessages([]);
+    }
+  }, [activeKey]);
 
   const onPromptsItemClick: GetProp<typeof Prompts, 'onItemClick'> = (info) => {
     onRequest(info.data.description as string);
@@ -233,18 +205,6 @@ export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIC
 
   const placeholderNode = (
     <Space direction="vertical" size={16} className={styles.placeholder}>
-      {/* <Welcome
-        variant="borderless"
-        icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-        title="Hello, I'm Ant Design X"
-        description="Base on Ant Design, AGI product interface solution, create a better intelligent vision~"
-        extra={
-          <Space>
-            <Button icon={<ShareAltOutlined />} />
-            <Button icon={<EllipsisOutlined />} />
-          </Space>
-        }
-      /> */}
       <Prompts
         title="Do you want?"
         items={placeholderPromptsItems}
@@ -267,13 +227,6 @@ export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIC
     role: status === 'local' ? 'local' : 'ai',
     content: message,
   }));
-
-  useImperativeHandle(mRef, () => {
-    return {
-      openModal,
-      handleHideModal,
-    };
-  });
 
   const attachmentsNode = (
     <Badge dot={attachedFiles.length > 0 && !headerOpen}>
@@ -310,7 +263,16 @@ export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIC
   );
 
   return (
-    <div className={`${styles.AIChatModal} ${showModal ? styles.showModal : styles.hideModal}`}>
+    <Modal
+      className={styles.AIChatModal}
+      closable={false}
+      mask={false}
+      open={open}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      footer={null}
+      destroyOnClose={true}
+    >
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
           <div className={styles.title}>
@@ -326,7 +288,7 @@ export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIC
             </svg>
             <span>TachyAI</span>
           </div>
-          <button className={styles.closeButton} onClick={handleHideModal}>
+          <button className={styles.closeButton} onClick={handleCancel}>
             &times;
           </button>
         </div>
@@ -351,6 +313,6 @@ export default function AIChatModal({ mRef, onGenerateLoad, onReloadWrite }: AIC
           />
         </div>
       </div>
-    </div>
+    </Modal>
   );
-}
+};

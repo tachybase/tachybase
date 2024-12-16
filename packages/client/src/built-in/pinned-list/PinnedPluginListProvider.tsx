@@ -43,6 +43,7 @@ export const PinnedPluginList = () => {
   };
   const { styles } = useStyles();
   const ctx = useContext(PinnedPluginListContext);
+
   const { components } = useContext(SchemaOptionsContext);
   return (
     <div className={styles.container}>

@@ -76,35 +76,16 @@ export const useStyle = createStyles(({ token, css }) => {
       width: calc(100% - 24px);
       margin: 0 12px 24px 12px;
     `,
-    //     layout: css`
-    //   width: 100%;
-    //   min-width: 1000px;
-    //   height: 722px;
-    //   border-radius: ${token.borderRadius}px;
-    //   display: flex;
-    //   background: ${token.colorBgContainer};
-    //   font-family: AlibabaPuHuiTi, ${token.fontFamily}, sans-serif;
-
-    //   .ant-prompts {
-    //     color: ${token.colorText};
-    //   }
-    // `,
     AIChatModal: css`
       position: fixed;
-      bottom: 5%;
-      right: 30px;
+      right: 50px;
       min-height: 300px;
       width: 450px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       z-index: 1000;
       background-color: #fff;
-    `,
-    showModal: css`
-      display: block;
-    `,
-    hideModal: css`
-      display: none;
+      padding-bottom: 0px;
     `,
     modalContent: css`
       padding: 0 20px 20px 20px;
