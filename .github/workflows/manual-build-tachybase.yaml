@@ -37,5 +37,5 @@ jobs:
           build-args: |
             TACHYBASE_VERSION=${{ steps.extract_tag.outputs.version }}
           tags: |
-            ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase:${{ steps.extract_tag.outputs.version }}
-            ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase:latest
+            tachybase/tachybase:${{ steps.extract_tag.outputs.version }}
+            tachybase/tachybase:latest
