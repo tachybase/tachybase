@@ -17,17 +17,17 @@ export const useCustomRequestVariableOptions = () => {
     return [
       {
         name: 'currentRecord',
-        title: t('Current record', { ns: 'client' }),
+        title: t('Current record', { ns: 'core' }),
         children: [...fields],
       },
       {
         name: 'currentUser',
-        title: t('Current user', { ns: 'client' }),
+        title: t('Current user', { ns: 'core' }),
         children: userFields,
       },
       {
         name: 'currentTime',
-        title: t('Current time', { ns: 'client' }),
+        title: t('Current time', { ns: 'core' }),
         children: null,
       },
     ];

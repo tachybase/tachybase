@@ -121,8 +121,8 @@ export const usePropsAPIRegular = () => {
       await Promise.all(waitList);
 
       modal.confirm({
-        title: lang('Confirm', { ns: 'client' }),
-        content: lang('Trigger workflow?', { ns: 'client' }),
+        title: lang('Confirm', { ns: 'core' }),
+        content: lang('Trigger workflow?', { ns: 'core' }),
         async onOk() {
           if (bindWorkflow) {
             const params = {

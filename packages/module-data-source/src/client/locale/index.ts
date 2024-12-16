@@ -7,5 +7,5 @@ export function lang(key: string, options = {}) {
 }
 
 export const useTranslation = (options?) => {
-  return useT([NAMESPACE, 'client'], options);
+  return useT([NAMESPACE, 'core'], options);
 };

@@ -9,7 +9,7 @@ export function lang(key: string) {
 }
 
 export function useTranslation() {
-  return useT([NAMESPACE, 'client'], {
+  return useT([NAMESPACE, 'core'], {
     nsMode: 'fallback',
   });
 }
