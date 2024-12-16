@@ -104,6 +104,14 @@ pnpm tachybase install
 pnpm dev
 ```
 
+# Upgrade From Previous Version
+
+```bash
+pnpm install
+pnpm tbu
+pnpm dev
+```
+
 Default username：`tachybase`，password: `!Admin123.`
 The default database is `sqlite`, you can change it in .env file.
 

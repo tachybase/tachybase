@@ -103,6 +103,14 @@ pnpm tachybase install
 pnpm dev
 ```
 
+# 从之前的版本升级
+
+```bash
+pnpm install
+pnpm tbu
+pnpm dev
+```
+
 默认的账号为：`tachybase`，默认密码为 `!Admin123.`
 默认初始化使用的是 `sqlite` 数据库，可以在 `.env` 文件中修改为其他数据库。
 
