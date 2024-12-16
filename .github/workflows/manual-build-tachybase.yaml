@@ -1,4 +1,4 @@
-name: manual build tachybase
+name: Manual Build Tachybase
 
 on:
   workflow_dispatch

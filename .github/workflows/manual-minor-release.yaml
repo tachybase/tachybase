@@ -1,9 +1,7 @@
-name: do minor release
+name: Manual Minor Release
 
 on:
-  push:
-    tags:
-      - 'release-*'
+  workflow_dispatch
 
 jobs:
   docker:

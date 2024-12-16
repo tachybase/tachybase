@@ -1,4 +1,4 @@
-name: manual build tachybase node with pg-client
+name: Manual Build Tachybase Node With Pg-client
 
 on:
   workflow_dispatch:
