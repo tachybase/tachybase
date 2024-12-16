@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-wecom",
   "displayName": "Auth: WeCom",
-  "version": "0.22.75",
+  "version": "0.22.76",
   "description": "work WeChat authentication.",
   "keywords": [
     "Authentication"
