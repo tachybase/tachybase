@@ -1,11 +1,7 @@
 name: manual build tachybase
 
 on:
-  workflow_dispatch:
-    inputs:
-      docker_tag:
-        description: 'The Docker tag to publish (e.g., "1.0.0", "latest")'
-        required: true
+  workflow_dispatch
 
 jobs:
   docker:
@@ -27,9 +23,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Extract and format tag name
-        id: extract_tag
+      - name: Echo Tag Name
         run: echo "${{ github.ref }}"
+      - name: Extract Tag Name
+        id: extract_tag
+        run: echo version=`echo "${{ github.ref }}" | cut -d'/' -f3` >> "$GITHUB_OUTPUT"
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
@@ -37,7 +35,7 @@ jobs:
           file: docker/tachybase/Dockerfile
           push: true
           build-args: |
-            TACHYBASE_VERSION=${{ github.event.inputs.docker_tag }}
+            TACHYBASE_VERSION=${{ steps.extract_tag.outputs.version }}
           tags: |
-            ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase:${{ github.event.inputs.docker_tag }}
+            ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase:${{ steps.extract_tag.outputs.version }}
             ${{ vars.DOCKERHUB_URL }}/tachybase/tachybase:latest
