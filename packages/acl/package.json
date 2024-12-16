@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/acl",
-  "version": "0.22.80",
+  "version": "0.22.81",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
