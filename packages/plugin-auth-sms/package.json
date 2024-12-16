@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-sms",
   "displayName": "Auth: SMS",
-  "version": "0.22.78",
+  "version": "0.22.79",
   "description": "SMS authentication.",
   "keywords": [
     "Authentication"
