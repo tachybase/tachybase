@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import {
   ActionContextProvider,
+  CollectionCategoriesContext,
   CollectionCategory,
-  CollectionCategroriesContext,
   CollectionTemplateTag,
   SchemaComponent,
   useActionContext,
@@ -20,7 +20,7 @@ import { collectionCategorySchema } from './schemas/collections';
 const useCreateCategry = () => {
   const form = useForm();
   const ctx = useActionContext();
-  const { refresh } = useContext(CollectionCategroriesContext);
+  const { refresh } = useContext(CollectionCategoriesContext);
   const api = useAPIClient();
   return {
     async run() {
