@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-data-source-common",
-  "version": "0.22.77",
+  "version": "0.22.78",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-data-source-common"
