@@ -14,12 +14,12 @@
   "Current times": "当前次数",
   "Days": "天",
   "End": "结束",
-
   "Ends on": "结束于",
   "Every": "每",
   "Exactly at": "当时",
   "Executed": "总计执行次数",
   "Hours": "小时",
+  "Last time": "上次执行时间",
   "Minutes": "分钟",
   "Months": "月",
   "Next time": "下次执行",
@@ -32,6 +32,5 @@
   "Starts on": "开始于",
   "Success executed": "成功执行次数",
   "View executions": "查看执行记录",
-
   "Weeks": "周"
 }
