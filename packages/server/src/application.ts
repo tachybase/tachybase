@@ -22,6 +22,7 @@ import {
   applyMixins,
   AsyncEmitter,
   ContainerInstance,
+  getCurrentStacks,
   importModule,
   Toposort,
   ToposortOptions,
@@ -408,20 +409,12 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this.pm.addPreset(pluginClass, options);
   }
 
-  setStackTrace(middleware: Koa.Middleware) {
-    const myObject = { stack: '' };
-    Error.captureStackTrace(myObject);
-    const stackLines = myObject.stack.split('\n');
-    stackLines.splice(0, 3);
-    this.middlewareSourceMap.set(middleware, stackLines.join('\n'));
-  }
-
   // @ts-ignore
   use<NewStateT = {}, NewContextT = {}>(
     middleware: Koa.Middleware<StateT & NewStateT, ContextT & NewContextT>,
     options?: ToposortOptions,
   ) {
-    this.setStackTrace(middleware);
+    this.middlewareSourceMap.set(middleware, getCurrentStacks());
     this.middleware.add(middleware, options);
     return this;
   }

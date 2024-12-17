@@ -51,7 +51,7 @@ export class PluginDevToolClient extends Plugin {
 
   async load() {
     this.app.systemSettingsManager.add(`devtools.api-doc`, {
-      title: lang('API documentation'),
+      title: lang('API Doc'),
       icon: 'BookOutlined',
       Component: SCDocumentation,
       aclSnippet: 'pm.api-doc.documentation',

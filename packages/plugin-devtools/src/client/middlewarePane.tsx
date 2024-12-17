@@ -1,16 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { CodeMirror, css, useAPIClient, useRequest } from '@tachybase/client';
 
-import { CodeOutlined, FileOutlined, FolderOutlined } from '@ant-design/icons';
+import { CodeOutlined } from '@ant-design/icons';
 import { useMemoizedFn } from 'ahooks';
-import { Alert, Button, Card, Empty, Input, theme, Tree, TreeDataNode, Typography } from 'antd';
-import type { BasicDataNode, DataNode } from 'antd/lib/tree';
+import { Card, Empty, theme, Tree } from 'antd';
+import type { DataNode } from 'antd/lib/tree';
 
-import { useTranslation } from './locale';
-
-// import { DebugResponseTabs } from 'packages/module-data-source-external/src/client/features/rest-api/request-configs/debug-area/components/DebugResponseTabs';
-
-const { Paragraph, Text } = Typography;
+import { lang } from './locale';
 
 type Log = string | LogDir;
 type LogDir = {
@@ -18,30 +14,8 @@ type LogDir = {
   files: Log[];
 };
 
-const Tips = React.memo(() => {
-  const { t } = useTranslation();
-  return (
-    <Typography>
-      <Paragraph>
-        <Text code>[app]/request_*.log</Text> - {t('API request and response logs')}
-      </Paragraph>
-      <Paragraph>
-        <Text code>[app]/system_*.log</Text> -{' '}
-        {t('Application, database, plugins and other system logs, the error level logs will be sent to')}{' '}
-        <Text code>[app]/system_error_*.log</Text>
-      </Paragraph>
-      <Paragraph>
-        <Text code>[app]/sql_*.log</Text> -{' '}
-        {t('SQL execution logs, printed by Sequelize when the db logging is enabled')}
-      </Paragraph>
-    </Typography>
-  );
-});
-Tips.displayName = 'Tips';
-
 export const MiddlewareToolPane = React.memo((props) => {
   const { token } = theme.useToken();
-  const { t: lang } = useTranslation();
   const t = useMemoizedFn(lang);
   const api = useAPIClient();
   const [expandedKeys, setExpandedKeys] = React.useState<React.Key[]>(['0']);
@@ -112,25 +86,7 @@ export const MiddlewareToolPane = React.memo((props) => {
     setExpandedKeys(newExpandedKeys);
     setAutoExpandParent(false);
   };
-  // const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value } = e.target;
-  //   const search = (data: DataNode[]) => {
-  //     return data.reduce((acc: DataNode[], node: DataNode) => {
-  //       if ((node.title as string)?.includes(value)) {
-  //         acc.push(node);
-  //       }
-  //       if (node.children) {
-  //         return [...acc, ...search(node.children)];
-  //       }
-  //       return acc;
-  //     }, []);
-  //   };
-  //   const newExpandedKeys = search(defaultTree).map((node: DataNode) => node.key);
-  //   setExpandedKeys(newExpandedKeys);
-  //   setSearchValue(value);
-  //   setAutoExpandParent(true);
-  //   setCheckedKeys([]);
-  // };
+
   const tree = React.useMemo(() => {
     if (!searchValue) {
       return defaultTree;
@@ -167,49 +123,8 @@ export const MiddlewareToolPane = React.memo((props) => {
     return match(defaultTree);
   }, [searchValue, defaultTree, token.colorPrimary]);
 
-  // const Download = () => {
-  //   const getValues = (data: DataNode[], parent: string) => {
-  //     return data.reduce((acc: string[], node: DataNode) => {
-  //       let title = node.title as string;
-  //       title = node.key === '0' ? title : `${parent}/${title}`;
-  //       if (node.children) {
-  //         return [...acc, ...getValues(node.children, node.key === '0' ? '' : title)];
-  //       } else if (checkedKeys.includes(node.key as string) && node.key !== '0') {
-  //         acc.push(title);
-  //       }
-  //       return acc;
-  //     }, []);
-  //   };
-  //   const files = getValues(defaultTree, '');
-  //   if (!files.length) {
-  //     return;
-  //   }
-  //   api
-  //     .request({
-  //       url: 'logger:download',
-  //       method: 'post',
-  //       responseType: 'blob',
-  //       data: {
-  //         files,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       const url = window.URL.createObjectURL(new Blob([res.data], { type: 'application/gzip' }));
-  //       const link = document.createElement('a');
-  //       link.setAttribute('href', url);
-  //       link.setAttribute('download', 'logs.tar.gz');
-  //       link.click();
-  //       link.remove();
-  //     })
-  //     .catch((err) => {
-  //
-  //     });
-  // };
-
   return (
     <Card style={{ minHeight: '700px' }}>
-      {/* <Alert message={''} description={<Tips />} type="info" showIcon /> */}
-      {/* <Input.Search style={{ marginTop: 16, width: '450px' }} placeholder={t('Search')} onChange={onSearch} /> */}
       <div
         className={css`
           display: flex;
@@ -272,9 +187,6 @@ export const MiddlewareToolPane = React.memo((props) => {
           {checkedName ? <CodeMirror value={path} width="1000px" height="398px" defaultLanguage="text" /> : null}
         </div>
       </div>
-      {/* <Button type="primary" onClick={Download}>
-        {t('Download')} (.tar.gz)
-      </Button> */}
     </Card>
   );
 });
@@ -294,7 +206,6 @@ const getTreeNodeName = (tree, currSelectedKeys, currKey, path) => {
   return getTreeNodeName(tree[key].children, currSelectedKeys, currKey + 1, currPath);
 };
 
-// 递归遍历函数
 function findPathByName(data, checkedName) {
   if (!checkedName || !checkedName.name || !checkedName.belongto || checkedName.seq === undefined) {
     return undefined;

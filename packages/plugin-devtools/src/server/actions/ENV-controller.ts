@@ -4,8 +4,6 @@ const ENVResource = {
   name: 'enviroment',
   actions: {
     get: async (ctx: Context, next: () => Promise<any>) => {
-      require('dotenv').config();
-
       const sensitiveEnvVariables = [
         'DB_PASSWORD',
         'API_KEY',

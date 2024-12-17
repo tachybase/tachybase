@@ -23,7 +23,6 @@ const MiddlewareOrderResource = {
         group.items.forEach((item) => {
           item.belongto = group.name;
 
-          // 依次从不同的 middlewareSourceMap 获取 path
           item.path =
             ctx.app.middlewareSourceMap.get(item.node) ||
             ctx.app.resourcer.middlewareSourceMap.get(item.node) ||

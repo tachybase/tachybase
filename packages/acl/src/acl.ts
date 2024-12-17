@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import { Action } from '@tachybase/resourcer';
-import { assign, parseFilter, Toposort, ToposortOptions } from '@tachybase/utils';
+import { assign, getCurrentStacks, parseFilter, Toposort, ToposortOptions } from '@tachybase/utils';
 
 import compose from 'koa-compose';
 import lodash from 'lodash';
@@ -273,16 +273,8 @@ export class ACL extends EventEmitter {
     return this.actionAlias.get(action) ? this.actionAlias.get(action) : action;
   }
 
-  setStackTrace(middlewares) {
-    const myObject = { stack: '' };
-    Error.captureStackTrace(myObject);
-    const stackLines = myObject.stack.split('\n');
-    stackLines.splice(0, 3);
-    this.middlewareSourceMap.set(middlewares, stackLines.join('\n'));
-  }
-
   use(fn: any, options?: ToposortOptions) {
-    this.setStackTrace(fn);
+    this.middlewareSourceMap.set(fn, getCurrentStacks());
     this.middlewares.add(fn, {
       group: 'prep',
       ...options,

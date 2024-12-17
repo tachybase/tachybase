@@ -5,18 +5,12 @@ import { ENVResource } from './actions/ENV-controller';
 import { MiddlewareOrderResource } from './actions/middleware-controller';
 import { SwaggerManager } from './swagger';
 
-// @InjectedPlugin({
-//   Controllers: [MiddlewareController],
-// })
 export class PluginDevToolServer extends Plugin {
   swagger: SwaggerManager;
   constructor(app, options) {
     super(app, options);
     this.swagger = new SwaggerManager(this);
   }
-  async afterAdd() {}
-
-  async beforeLoad() {}
 
   async load() {
     this.app.resourcer.define({
@@ -64,14 +58,6 @@ export class PluginDevToolServer extends Plugin {
       actions: ['enviroment:*'],
     });
   }
-
-  async install() {}
-
-  async afterEnable() {}
-
-  async afterDisable() {}
-
-  async remove() {}
 }
 
 export default PluginDevToolServer;
