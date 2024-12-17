@@ -16,6 +16,16 @@ export const CollectionWorkflows = {
       },
     },
     {
+      type: 'string',
+      name: 'description',
+      interface: 'input',
+      uiSchema: {
+        title: '{{t("Description")}}',
+        type: 'string',
+        'x-component': 'Input.TextArea',
+      },
+    },
+    {
       type: 'boolean',
       name: 'enabled',
       interface: 'select',
