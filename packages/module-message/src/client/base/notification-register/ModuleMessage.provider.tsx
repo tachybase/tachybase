@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useApp, useCompile, useCurrentUserContext } from '@tachybase/client';
 import { autorun } from '@tachybase/schema';
 
@@ -8,10 +8,10 @@ import { sendNotification } from './tools';
 
 const isSupported = () => 'Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window;
 
-export const WebNotificationProvider = ({ children }) => {
+export const ModuleMessageProvider = ({ children }) => {
+  const compile = useCompile();
   const app = useApp();
   const currentUser = useCurrentUserContext();
-  const compile = useCompile();
 
   const sendSiteNotify = ({ title, content }) => {
     app.notification.info({
@@ -52,5 +52,5 @@ export const WebNotificationProvider = ({ children }) => {
     );
   }, []);
 
-  return <>{children}</>;
+  return children;
 };

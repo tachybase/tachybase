@@ -1,7 +1,7 @@
 import { Plugin } from '@tachybase/client';
 
 import { lang } from '../../locale';
-import { WebNotificationProvider } from './WebNotificationProvider';
+import { ModuleMessageProvider } from './ModuleMessage.provider';
 
 interface MessageType {
   title: string;
@@ -16,13 +16,15 @@ export class KitNotificationRegister extends Plugin {
       name: 'browser',
       title: lang('Browser notification'),
     });
-    this.app.use(WebNotificationProvider);
 
     // TODO: 添加注册短信机制, 仿照浏览器通知
     this.registe({
       name: 'sms',
       title: lang('SMS notification'),
     });
+
+    // 注册消息提供上下文
+    this.app.use(ModuleMessageProvider);
   }
 
   // 以下为消息类型注册机制逻辑
