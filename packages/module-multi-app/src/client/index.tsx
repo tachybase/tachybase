@@ -16,7 +16,7 @@ export class MultiAppManagerPlugin extends Plugin {
     });
     this.app.use(MultiAppManagerProvider);
 
-    this.app.systemSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add(`system-services.${NAMESPACE}`, {
       title: i18nText('Multi-app manager'),
       icon: 'AppstoreOutlined',
       Component: AppManager,

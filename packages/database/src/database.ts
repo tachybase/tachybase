@@ -217,6 +217,9 @@ export class Database extends EventEmitter implements AsyncEmitter {
   constructor(options: DatabaseOptions) {
     super();
 
+    // TODO: optimize listeners
+    this.setMaxListeners(50);
+
     this.version = new DatabaseVersion(this);
 
     const opts = {
