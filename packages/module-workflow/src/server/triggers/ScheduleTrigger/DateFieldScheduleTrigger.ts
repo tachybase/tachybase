@@ -1,4 +1,4 @@
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source';
 import { fn, literal, Op, Transactionable, where } from '@tachybase/database';
 
 import parser from 'cron-parser';

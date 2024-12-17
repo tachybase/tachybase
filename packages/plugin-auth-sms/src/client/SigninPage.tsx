@@ -1,6 +1,6 @@
 import React from 'react';
 import { SchemaComponent } from '@tachybase/client';
-import { Authenticator, useSignIn } from '@tachybase/plugin-auth/client';
+import { Authenticator, useSignIn } from '@tachybase/module-auth/client';
 import { ISchema } from '@tachybase/schema';
 
 import VerificationCode from './VerificationCode';

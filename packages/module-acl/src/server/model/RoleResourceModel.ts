@@ -32,7 +32,7 @@ export class RoleResourceModel extends Model {
     associationFieldsActions: AssociationFieldsActions;
     grantHelper: GrantHelper;
     transaction: any;
-    app: Application;
+    app?: Application;
   }) {
     const { acl, associationFieldsActions, grantHelper } = options;
     const resourceName = this.get('name') as string;

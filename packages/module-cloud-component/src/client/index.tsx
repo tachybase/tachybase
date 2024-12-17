@@ -26,7 +26,7 @@ export class ModuleCloudComponentClient extends Plugin {
   }
 
   async load() {
-    this.app.systemSettingsManager.add('cloud-component', {
+    this.app.systemSettingsManager.add('business-components.cloud-component', {
       title: this.t('Cloud Component'),
       icon: 'deploymentunitoutlined',
       Component: CloudLibraryManager,

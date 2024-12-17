@@ -49,6 +49,9 @@ export {
   useFieldSchema,
   useForm,
   useFormEffects,
+  RecordScope,
+  RecordsScope,
+  useParentForm,
 } from '@formily/react';
 export * from '@formily/reactive';
 export * from '@formily/reactive-react';

@@ -50,17 +50,8 @@ export class PluginDevToolClient extends Plugin {
   async beforeLoad() {}
 
   async load() {
-    this.app.systemSettingsManager.add('devTool', {
-      title: `{{t("Dev tool")}}`,
-      icon: 'ToolOutlined',
-    });
-    this.app.systemSettingsManager.add('devTool.middleware', {
-      title: `{{t('Middleware')}}`,
-      icon: 'CodeOutlined',
-      Component: MiddlewareToolPane,
-    });
-    this.app.systemSettingsManager.add('devTool.apidoc', {
-      title: `{{t('API documentation', { ns: "${NAMESPACE}" })}}`,
+    this.app.systemSettingsManager.add(`devtools.${NAMESPACE}`, {
+      title: `{{t("API documentation", { ns: "${NAMESPACE}" })}}`,
       icon: 'BookOutlined',
       Component: SCDocumentation,
       aclSnippet: 'pm.api-doc.documentation',

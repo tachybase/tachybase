@@ -1,7 +1,7 @@
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source';
 import { modelAssociationByKey } from '@tachybase/database';
+import { UiSchemaRepository } from '@tachybase/module-ui-schema';
 import { EXECUTION_STATUS, JOB_STATUS, toJSON, Trigger } from '@tachybase/module-workflow';
-import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 
 import { get } from 'lodash';
 import { BelongsTo, HasOne, Op } from 'sequelize';

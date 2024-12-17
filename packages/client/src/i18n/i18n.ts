@@ -1,9 +1,9 @@
-import i18next, { TFuncKey, TOptions } from 'i18next';
+import i18next, { ParseKeys, TOptions } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import locale from '../locale';
 
-export function tval(text: TFuncKey | TFuncKey[], options?: TOptions) {
+export function tval(text: ParseKeys | ParseKeys[], options?: TOptions) {
   if (options) {
     return `{{t(${JSON.stringify(text)}, ${JSON.stringify(options)})}}`;
   }

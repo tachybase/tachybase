@@ -1,14 +1,14 @@
 {
   "name": "@tachybase/plugin-auth-wecom",
   "displayName": "Auth: WeCom",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "description": "work WeChat authentication.",
   "keywords": [
     "Authentication"
   ],
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-work-wechat"
+    "build": "tachybase-build --no-dts @tachybase/plugin-auth-wecom"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
@@ -22,7 +22,7 @@
     "@tachybase/auth": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-auth": "workspace:*",
+    "@tachybase/module-auth": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   },

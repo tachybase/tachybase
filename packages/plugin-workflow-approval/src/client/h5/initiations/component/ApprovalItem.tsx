@@ -101,7 +101,7 @@ const changService = (api, setData, user, filter, t, setDefaultData, cm, compile
       const result = res.data?.data.map((item) => {
         const priorityType = ApprovalPriorityType.find((priorityItem) => priorityItem.value === item.data.priority);
         const statusType = approvalTodoListStatus(item, t);
-        const categoryTitle = item.workflow.title;
+        const categoryTitle = item.workflow?.showName || item.workflow?.title;
         const collectionName = item.workflow?.config?.collection || item.execution?.context?.collectionName;
         const summary = [];
         Object.entries(item.summary)?.forEach(([key, value]) => {

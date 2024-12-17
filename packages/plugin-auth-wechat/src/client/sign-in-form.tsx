@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SchemaComponent, useAPIClient, useGlobalTheme } from '@tachybase/client';
-import { Authenticator } from '@tachybase/plugin-auth/client';
+import { Authenticator } from '@tachybase/module-auth/client';
 import { ISchema } from '@tachybase/schema';
 
 import { useLocation } from 'react-router-dom';

@@ -5,7 +5,7 @@ import { getSubAppName } from '@tachybase/sdk';
 import { DisconnectOutlined, LoadingOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { Button, Result, Spin } from 'antd';
+import { Button, Result } from 'antd';
 import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -24,6 +24,7 @@ import { BlockTemplateDetails, BlockTemplatePage } from '../schema-templates';
 import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
 import { ACLPlugin } from './acl';
 import { AdminLayoutPlugin } from './admin-layout';
+import { WelcomeCard } from './admin-layout/components/WelcomeCard';
 import { PluginAssistant } from './assistant';
 import { AttachmentPreviewPlugin } from './attachment-preview';
 import { PluginBlockSchemaComponent } from './block-schema-component';
@@ -37,9 +38,10 @@ import { PMPlugin } from './pm';
 import { QuickAccessPlugin } from './quick-access';
 import { ScrollAssistantPlugin } from './scroll-assistant';
 import { SystemSettingsPlugin } from './system-settings';
+import { PluginSystemVersion } from './system-version';
 import { UserSettingsPlugin } from './user-settings';
 
-export { AdminProvider, NoticeArea } from './admin-layout';
+export { AdminProvider, NoticeArea, AdminLayout } from './admin-layout';
 export * from './context-menu/useContextMenu';
 
 interface AppStatusProps {
@@ -270,8 +272,6 @@ const AppMaintainingDialog = observer(
 );
 
 export const AppNotFound = () => {
-  const navigate = useNavigate();
-  // @ts-ignore
   const { t } = useTranslation();
   const app = useApp();
   return (
@@ -306,6 +306,35 @@ export class BuiltInPlugin extends Plugin {
 
     this.app.use(CurrentUserProvider);
     this.app.use(CurrentUserSettingsMenuProvider);
+    this.addSystemSettingGroups();
+  }
+
+  addSystemSettingGroups() {
+    this.app.systemSettingsManager.add('id-auth', {
+      title: this.t('Identity and Authentication'),
+      icon: 'UserOutlined',
+      sort: -50,
+    });
+    this.app.systemSettingsManager.add('data-modeling', {
+      title: this.t('Data Modeling'),
+      icon: 'DatabaseOutlined',
+      sort: -40,
+    });
+    this.app.systemSettingsManager.add('business-components', {
+      title: this.t('Business Components'),
+      icon: 'BlockOutlined',
+      sort: -30,
+    });
+    this.app.systemSettingsManager.add('devtools', {
+      title: this.t('Development Tools'),
+      icon: 'ToolOutlined',
+      sort: -20,
+    });
+    this.app.systemSettingsManager.add('system-services', {
+      title: this.t('System Services'),
+      icon: 'CloudServerOutlined',
+      sort: -10,
+    });
   }
 
   addRoutes() {
@@ -319,12 +348,13 @@ export class BuiltInPlugin extends Plugin {
       Component: AppNotFound,
     });
 
-    this.router.add('admin', {
-      path: '/admin',
+    this.router.add('app', {
+      path: '/:entry',
       Component: 'AdminLayout',
     });
-    this.router.add('admin.page', {
-      path: '/admin/:name',
+
+    this.router.add('app.page', {
+      path: '/:entry/:name',
       Component: 'RouteSchemaComponent',
     });
   }
@@ -335,6 +365,7 @@ export class BuiltInPlugin extends Plugin {
       RouteSchemaComponent,
       BlockTemplatePage,
       BlockTemplateDetails,
+      WelcomeCard,
       PageLayout,
     });
   }
@@ -392,5 +423,6 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(QuickAccessPlugin, { name: 'quick-access' });
     await this.app.pm.add(ScrollAssistantPlugin, { name: 'scroll-assistant' });
     await this.app.pm.add(PluginDynamicPage, { name: 'dynamic-page' });
+    await this.app.pm.add(PluginSystemVersion, { name: 'system-version' });
   }
 }

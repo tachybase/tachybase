@@ -26,6 +26,7 @@ export class BeforeAfterResourceService {
         for (const resourceDef of resources) {
           const { actionName, resourceName, name } = resourceDef;
           this.logger.info(`Add ${prefix} resource middleware for ${resourceName}:${actionName}`);
+          const tag = `${prefix}-resource-${resourceName}-${actionName}-${name}`;
           app.resourcer.use(
             async (ctx: Context, next: () => Promise<void>) => {
               const { resourceName, actionName } = ctx.action;
@@ -42,7 +43,7 @@ export class BeforeAfterResourceService {
                 await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
               }
             },
-            { tag: `${prefix}-resource-${resourceName}-${actionName}-${name}` },
+            { tag, unique: true },
           );
         }
       }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Button, Popover } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { useAPIClient } from '../../../api-client';
@@ -10,9 +11,10 @@ import { LinkMenuItem } from '../../../modules/menu/LinkMenuItem';
 import { PageMenuItem } from '../../../modules/menu/PageMenuItem';
 
 export const AddNewButtonComponent = () => {
+  const { t } = useTranslation();
   return (
     <Popover trigger="click" content={<PopverContent />}>
-      <Button type="primary">新增入口</Button>
+      <Button type="primary">{t('Add Entry')}</Button>
     </Popover>
   );
 };

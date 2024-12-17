@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/evaluators",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",

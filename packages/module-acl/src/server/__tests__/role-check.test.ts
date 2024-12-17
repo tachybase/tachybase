@@ -1,5 +1,5 @@
 import { Database } from '@tachybase/database';
-import { CollectionRepository } from '@tachybase/plugin-collection-manager';
+import { CollectionRepository } from '@tachybase/module-collection';
 import { MockServer } from '@tachybase/test';
 
 import { prepareApp } from './prepare';

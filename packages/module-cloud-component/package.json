@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-cloud-component",
   "displayName": "Cloud component",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "description": "Cloud component",
   "main": "dist/server/index.js",
   "scripts": {
@@ -14,8 +14,6 @@
     "@bytemd/plugin-gfm": "1.21.0",
     "@bytemd/plugin-highlight": "1.21.0",
     "@bytemd/react": "1.21.0",
-    "@micro-zoe/micro-app": "1.0.0-rc.13",
-    "@monaco-editor/react": "4.6.0",
     "@tachybase/components": "workspace:*",
     "ahooks": "3.8.1",
     "antd": "5.22.0",
@@ -24,9 +22,7 @@
     "file-saver": "2.0.5",
     "github-markdown-css": "5.7.0",
     "highlight.js": "11.10.0",
-    "less": "4.2.0",
     "lodash": "4.17.21",
-    "md5": "2.3.0",
     "prettier": "3.3.3",
     "qrcode": "^1.5.3",
     "react": "18.3.1",

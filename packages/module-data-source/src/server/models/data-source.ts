@@ -1,6 +1,6 @@
 import { ACL, AvailableActionOptions } from '@tachybase/acl';
 import { Model, Transaction } from '@tachybase/database';
-import { setCurrentRole } from '@tachybase/plugin-acl';
+import { setCurrentRole } from '@tachybase/module-acl';
 import { Application } from '@tachybase/server';
 
 import PluginDataSourceManagerServer from '../plugin';
@@ -83,7 +83,7 @@ export class DataSourceModel extends Model {
 
     const dataSourceKey = this.get('key');
 
-    const pluginDataSourceManagerServer = app.pm.get('data-source-manager') as PluginDataSourceManagerServer;
+    const pluginDataSourceManagerServer = app.pm.get('data-source') as PluginDataSourceManagerServer;
 
     if (pluginDataSourceManagerServer.dataSourceStatus[dataSourceKey] === 'loaded') {
       pluginDataSourceManagerServer.dataSourceStatus[dataSourceKey] = 'reloading';

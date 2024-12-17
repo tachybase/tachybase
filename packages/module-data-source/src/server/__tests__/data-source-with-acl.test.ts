@@ -1,5 +1,5 @@
-import { CollectionManager, DataSource, IRepository } from '@tachybase/data-source-manager';
-import { ICollectionManager, IModel } from '@tachybase/data-source-manager/src/types';
+import { CollectionManager, DataSource, IRepository } from '@tachybase/data-source';
+import { ICollectionManager, IModel } from '@tachybase/data-source/src/types';
 import { createMockServer, MockServer } from '@tachybase/test';
 
 import { SuperAgentTest } from 'supertest';

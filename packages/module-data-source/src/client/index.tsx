@@ -20,48 +20,27 @@ export class PluginDataSourceManagerClient extends Plugin {
       DatasourceLink,
     });
     this.app.use(DatabaseConnectionProvider);
-    this.app.systemSettingsManager.add(NAMESPACE, {
-      title: `{{t("Data sources", { ns: "${NAMESPACE}" })}}`,
-      icon: 'ClusterOutlined',
-      showTabs: false,
-      aclSnippet: 'pm.database-connections.manager',
-      sort: -70,
-    });
-    this.app.systemSettingsManager.add(`${NAMESPACE}.list`, {
-      title: `{{t("Data sources", { ns: "${NAMESPACE}" })}}`,
-      Component: DatabaseConnectionManagerPane,
-      sort: 1,
-    });
-    this.app.systemSettingsManager.add(`${NAMESPACE}/:name`, {
-      title: <BreadcumbTitle />,
-      icon: 'ClusterOutlined',
-      isTopLevel: false,
-      sort: 100,
-    });
-    this.app.systemSettingsManager.add(`${NAMESPACE}/main`, {
-      title: <BreadcumbTitle />,
-      icon: 'ClusterOutlined',
-      isTopLevel: false,
-      sort: 100,
-    });
-    // keep it for now
-    this.app.systemSettingsManager.add(`${NAMESPACE}/main.collections`, {
-      title: `{{t("Collections", { ns: "${NAMESPACE}" })}}`,
-      Component: MainDataSourceManager,
-      topLevelName: `${NAMESPACE}/main`,
-      pluginKey: NAMESPACE,
-    });
-    this.app.systemSettingsManager.add('collections', {
+    // main data source
+    this.app.systemSettingsManager.add('data-modeling.collections', {
       title: `{{t("Collections", { ns: "${NAMESPACE}" })}}`,
       icon: 'DatabaseOutlined',
       Component: MainDataSourceManager,
       pluginKey: 'collections',
       sort: -70,
     });
-    this.app.systemSettingsManager.add(`${NAMESPACE}/:name.collections`, {
-      title: `{{t("Collections", { ns: "${NAMESPACE}" })}}`,
+    // external data source
+    this.app.systemSettingsManager.add(`data-modeling.${NAMESPACE}`, {
+      title: `{{t("Data sources", { ns: "${NAMESPACE}" })}}`,
+      icon: 'ClusterOutlined',
+      showTabs: false,
+      Component: DatabaseConnectionManagerPane,
+      aclSnippet: 'pm.database-connections.manager',
+      sort: -70,
+    });
+    this.app.systemSettingsManager.add(`data-modeling.${NAMESPACE}.:name`, {
+      title: <BreadcumbTitle />,
       Component: CollectionManagerPage,
-      topLevelName: `${NAMESPACE}/:name`,
+      groupKey: `data-modeling.${NAMESPACE}`,
       pluginKey: NAMESPACE,
     });
 

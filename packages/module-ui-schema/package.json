@@ -1,7 +1,7 @@
 {
-  "name": "@tachybase/plugin-ui-schema-storage",
+  "name": "@tachybase/module-ui-schema",
   "displayName": "UI schema storage",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "description": "Provides centralized UI schema storage service.",
   "keywords": [
     "System & security"
@@ -9,10 +9,9 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-ui-schema-storage"
+    "build": "tachybase-build --no-dts @tachybase/module-ui-schema"
   },
   "devDependencies": {
-    "@formily/json-schema": "2.3.1",
     "lodash": "4.17.21"
   },
   "peerDependencies": {
@@ -20,8 +19,8 @@
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-error-handler": "workspace:*",
-    "@tachybase/plugin-users": "workspace:*",
+    "@tachybase/module-error-handler": "workspace:*",
+    "@tachybase/module-user": "workspace:*",
     "@tachybase/resourcer": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",

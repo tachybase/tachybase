@@ -6,10 +6,10 @@ import { useTranslation } from '../../../locale';
 export const ColumnWorkflow = observer(
   () => {
     const { t } = useTranslation();
-    const { value } = useField<Field>();
-    const title = value?.title || `#${value?.id}`;
+    const { value: workflow } = useField<Field>();
+    const title = workflow?.showName || workflow?.title || `#${workflow?.id}`;
 
-    if (value?.enabled) {
+    if (workflow?.enabled) {
       return title;
     } else {
       return <span title={t('Disabled')}>{`${title}*`}</span>;

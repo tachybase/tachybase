@@ -1,8 +1,6 @@
 import React from 'react';
+import { ArrayField, ISchema, observer, ReactFC, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
-import { ArrayField } from '@formily/core';
-import { ISchema } from '@formily/json-schema';
-import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
 import { Card, CardProps, Empty } from 'antd';
 import cls from 'classnames';
 

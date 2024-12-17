@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-field-snapshot",
   "displayName": "Collection field: Snapshot",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "description": "When adding a new record, create a snapshot for its relational record and save in the new record. The snapshot will not be updated when the relational record is updated.",
   "keywords": [
     "Collection fields"
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-snapshot-field"
+    "build": "tachybase-build --no-dts @tachybase/plugin-field-snapshot"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",

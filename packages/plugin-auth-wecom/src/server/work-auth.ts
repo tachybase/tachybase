@@ -1,5 +1,5 @@
 import { AuthConfig, BaseAuth } from '@tachybase/auth';
-import { AuthModel } from '@tachybase/plugin-auth';
+import { AuthModel } from '@tachybase/module-auth';
 
 import { namespace } from '../constants';
 import { WorkClient } from './work-client.js';
@@ -35,23 +35,23 @@ export class WorkAuth extends BaseAuth {
       ctx.throw(401, ctx.t('Failed to get accessToken', { ns: namespace }));
     }
     const userInfo = await workClient.getUserInfo(accessToken, codeString);
-    const { telephone, name, userid } = userInfo;
-    if (!telephone) {
-      ctx.throw(401, ctx.t('Failed to get telephone', { ns: namespace }));
+    const { mobile, name, userid } = userInfo;
+    if (!mobile) {
+      ctx.throw(401, ctx.t('Failed to get mobile', { ns: namespace }));
     }
     const authenticator = this.authenticator;
-    let user = await authenticator.findUser(telephone);
+    let user = await authenticator.findUser(mobile);
     if (user) {
       return user;
     }
 
     user = await this.userRepository.findOne({
-      filter: { phone: telephone },
+      filter: { phone: mobile },
     });
     if (user) {
       await authenticator.addUser(user.id, {
         through: {
-          uuid: telephone,
+          uuid: mobile,
         },
       });
       return user;
@@ -60,9 +60,9 @@ export class WorkAuth extends BaseAuth {
     if (!autoSignup) {
       ctx.throw(401, ctx.t('User not found', { ns: namespace }));
     }
-    return await authenticator.newUser(telephone, {
+    return await authenticator.newUser(mobile, {
       nickname: name ?? null,
-      phone: telephone ?? null,
+      phone: mobile ?? null,
     });
   }
 

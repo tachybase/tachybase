@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-field-formula",
   "displayName": "Field: Formula",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "description": "Configure and store the results of calculations between multiple field values in the same record, supporting both Math.js and Excel formula functions.",
   "keywords": [
     "Collection fields"
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-formula-field"
+    "build": "tachybase-build --no-dts @tachybase/plugin-field-formula"
   },
   "devDependencies": {
     "@tachybase/components": "workspace:*",

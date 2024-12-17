@@ -17,9 +17,9 @@ export class PluginDynamicPage extends Plugin {
     this.app.use(PageModeProvider);
   }
   async load() {
-    this.app.router.remove('admin.page');
-    this.app.router.add('admin.page', {
-      path: '/admin/:name/*',
+    this.app.router.remove('app.page');
+    this.app.router.add('app.page', {
+      path: '/:entry/:name/*',
       Component: DynamicPage,
     });
     this.app.usePageMode = usePageMode;

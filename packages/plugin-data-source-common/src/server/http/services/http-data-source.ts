@@ -1,4 +1,4 @@
-import { DataSource } from '@tachybase/data-source-manager';
+import { DataSource } from '@tachybase/data-source';
 
 import _ from 'lodash';
 

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/schema",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,14 +8,14 @@
     "build": "tachybase-build --no-dts @tachybase/schema"
   },
   "dependencies": {
-    "@formily/core": "2.3.1",
-    "@formily/grid": "2.3.1",
-    "@formily/json-schema": "2.3.1",
-    "@formily/path": "2.3.1",
-    "@formily/react": "2.3.1",
-    "@formily/reactive": "2.3.1",
-    "@formily/reactive-react": "2.3.1",
-    "@formily/shared": "2.3.1",
-    "@formily/validator": "2.3.1"
+    "@formily/core": "2.3.2",
+    "@formily/grid": "2.3.2",
+    "@formily/json-schema": "2.3.2",
+    "@formily/path": "2.3.2",
+    "@formily/react": "2.3.2",
+    "@formily/reactive": "2.3.2",
+    "@formily/reactive-react": "2.3.2",
+    "@formily/shared": "2.3.2",
+    "@formily/validator": "2.3.2"
   }
 }

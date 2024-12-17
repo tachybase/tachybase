@@ -114,28 +114,29 @@ export class PluginDataSourceManagerServer extends Plugin {
 
     const app = this.app;
 
-    this.app.use(
-      async (ctx, next) => {
-        await next();
-        if (!ctx.action) {
-          return;
+    this.app.use(async (ctx, next) => {
+      await next();
+      if (!ctx.action) {
+        return;
+      }
+
+      const { actionName, resourceName, params } = ctx.action;
+
+      if (resourceName === 'dataSources' && actionName === 'list') {
+        let dataPath = 'body';
+
+        if (Array.isArray(ctx.body['data'])) {
+          dataPath = 'body.data';
         }
 
-        const { actionName, resourceName, params } = ctx.action;
+        const items = lodash.get(ctx, dataPath);
 
-        if (resourceName === 'dataSources' && actionName === 'list') {
-          let dataPath = 'body';
-
-          if (Array.isArray(ctx.body['data'])) {
-            dataPath = 'body.data';
-          }
-
-          const items = lodash.get(ctx, dataPath);
-
-          lodash.set(
-            ctx,
-            dataPath,
-            items.map((item) => {
+        lodash.set(
+          ctx,
+          dataPath,
+          items
+            .filter((item) => !item.isMainRecord())
+            .map((item) => {
               const data = item.toJSON();
               if (item.isMainRecord()) {
                 data['status'] = 'loaded';
@@ -151,11 +152,9 @@ export class PluginDataSourceManagerServer extends Plugin {
 
               return data;
             }),
-          );
-        }
-      },
-      { tag: 'dataSourceslist' },
-    );
+        );
+      }
+    });
 
     const plugin = this;
 

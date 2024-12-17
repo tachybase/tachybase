@@ -1,8 +1,18 @@
 import React, { useMemo, useState } from 'react';
+import {
+  FieldDisplayTypes,
+  GeneralField,
+  isArr,
+  isBool,
+  isFn,
+  observer,
+  ReactFC,
+  RecursionField,
+  Schema,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
 
-import { FieldDisplayTypes, GeneralField } from '@formily/core';
-import { observer, ReactFC, RecursionField, Schema, useField, useFieldSchema } from '@formily/react';
-import { isArr, isBool, isFn } from '@formily/shared';
 import { Input, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { SearchProps } from 'antd/lib/input';

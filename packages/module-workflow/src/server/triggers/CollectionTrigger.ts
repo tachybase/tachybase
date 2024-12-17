@@ -1,4 +1,4 @@
-import { ICollection, parseCollectionName } from '@tachybase/data-source-manager';
+import { ICollection, parseCollectionName } from '@tachybase/data-source';
 import { Model, Transactionable } from '@tachybase/database';
 
 import Trigger from '.';

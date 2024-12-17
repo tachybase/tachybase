@@ -5,7 +5,7 @@
 ## 依赖
 
 - `@tachybase/auth` 认证插件，提供认证相关功能，表、模型、函数复用等。
-- `@tachybase/plugin-verification` 验证码插件，提供短信发送功能。
+- `@tachybase/plugin-otp` 验证码插件，提供短信发送功能。
 
 ## 使用方法
 

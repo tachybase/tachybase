@@ -56,7 +56,7 @@ export const schemaManagerPanne = {
               'x-component-props': {
                 icon: 'ReloadOutlined',
               },
-              'x-use-component-props': 'useSyncWorkflowsManager',
+              'x-use-component-props': 'useSyncCustomEventSource',
             },
           },
         },
@@ -148,6 +148,11 @@ export const schemaManagerPanne = {
                 pathDesc: {
                   type: 'string',
                   'x-component': 'CollectionField',
+                  'x-component-props': {
+                    style: {
+                      overflow: 'scroll',
+                    },
+                  },
                   'x-read-pretty': true,
                 },
               },

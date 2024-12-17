@@ -190,7 +190,6 @@ export async function buildServerDeps(cwd: string, serverFiles: string[], log: P
   if (excludePackages.length) {
     tips.push(`These packages ${chalk.yellow(excludePackages.join(', '))} will be ${chalk.italic('exclude')}.`);
   }
-  tips.push(`For more information, please refer to: ${chalk.blue('https://docs.tachybase.com/development/deps')}.`);
   log(tips.join(' '));
 
   if (!includePackages.length) return;

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow-test",
   "displayName": "Workflow: test kit",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "types": "./dist/server/index.d.ts",
@@ -13,7 +13,7 @@
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
-    "@tachybase/data-source-manager": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/resourcer": "workspace:*",
     "@tachybase/server": "workspace:*",

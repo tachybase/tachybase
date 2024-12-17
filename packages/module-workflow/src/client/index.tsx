@@ -9,7 +9,7 @@ export * from './ExecutionContextProvider';
 export * from './ExecutionLink';
 export * from './FlowContext';
 export * from './hooks';
-export { executionSchema } from './schemas/executions';
+export { executionSchema, getExecutionSchema } from './schemas/executions';
 export * from './schemas/workflows';
 export { default as useStyles } from './style';
 export { Trigger, useTrigger } from './triggers';

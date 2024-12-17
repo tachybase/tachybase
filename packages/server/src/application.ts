@@ -5,7 +5,7 @@ import { basename, resolve } from 'path';
 import { registerActions } from '@tachybase/actions';
 import { actions as authActions, AuthManager, AuthManagerOptions } from '@tachybase/auth';
 import { Cache, CacheManager, CacheManagerOptions } from '@tachybase/cache';
-import { DataSourceManager, SequelizeDataSource } from '@tachybase/data-source-manager';
+import { DataSourceManager, SequelizeDataSource } from '@tachybase/data-source';
 import Database, { CollectionOptions, IDatabaseOptions } from '@tachybase/database';
 import {
   createLogger,
@@ -210,6 +210,9 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     this._appSupervisor.addApp(this);
     this._noticeManager = new NoticeManager(this);
+
+    // TODO implements more robust event emitters
+    this.setMaxListeners(100);
   }
 
   get noticeManager() {
@@ -514,7 +517,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this._cacheManager = await createCacheManager(this, this.options.cacheManager);
 
     this.setMaintainingMessage('init plugins');
-    await this.pm.initPlugins();
+    await this.pm.initPlugins(options?.skipDbPluigns);
 
     this.setMaintainingMessage('start load');
     this.setMaintainingMessage('emit beforeLoad');

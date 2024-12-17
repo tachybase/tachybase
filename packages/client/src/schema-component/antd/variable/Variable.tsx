@@ -1,6 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { connect, mapReadPretty } from '@tachybase/schema';
 
+import { CodeMirror } from './CodeMirror';
 import { Input } from './Input';
 import { JSONInput } from './JSONInput';
 import { RawTextArea } from './RawTextArea';
@@ -28,5 +29,7 @@ Variable.TextArea = connect(TextArea, mapReadPretty(TextArea.ReadPretty));
 Variable.RawTextArea = connect(RawTextArea);
 
 Variable.JSON = connect(JSONInput);
+
+Variable.CodeMirror = connect(CodeMirror);
 
 export default Variable;

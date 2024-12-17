@@ -1,5 +1,5 @@
 import path from 'path';
-import { SequelizeDataSource } from '@tachybase/data-source-manager';
+import { SequelizeDataSource } from '@tachybase/data-source';
 import { Resourcer } from '@tachybase/resourcer';
 import { ApplicationOptions, Plugin } from '@tachybase/server';
 import { createMockServer, mockDatabase, MockServer } from '@tachybase/test';

@@ -1,4 +1,4 @@
-import { Collection } from '@tachybase/data-source-manager';
+import { Collection } from '@tachybase/data-source';
 import { parse } from '@tachybase/utils';
 
 import axios from 'axios';

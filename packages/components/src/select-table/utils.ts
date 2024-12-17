@@ -1,4 +1,4 @@
-import { isArr, isFn } from '@formily/shared';
+import { isArr, isFn } from '@tachybase/schema';
 
 import { getFlatOptions } from './hooks/useFlatOptions';
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   ActionContextProvider,
   cx,
+  Icon,
   ResourceActionProvider,
   SchemaComponent,
   TableBlockProvider,
@@ -21,9 +22,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CanvasContentWrapper } from './CanvasContentWrapper';
 import { ExecutionStatusColumn } from './components/ExecutionStatus';
 import { ExecutionTime } from './components/ExecutionTime';
+import { BackButton } from './components/GoBackButton';
 import { ExecutionLink } from './ExecutionLink';
 import { FlowContext, useFlowContext } from './FlowContext';
-import { lang } from './locale';
+import { lang, NAMESPACE } from './locale';
 import { executionSchema } from './schemas/executions';
 import useStyles from './style';
 import { getWorkflowDetailPath, getWorkflowExecutionsPath, linkNodes } from './utils';
@@ -97,7 +99,7 @@ export function WorkflowCanvas() {
       },
     });
 
-    navigate(`/admin/workflow/executions/${executionId.executionId}`);
+    navigate(getWorkflowExecutionsPath(executionId.executionId));
   }
 
   async function onRevision() {
@@ -111,7 +113,7 @@ export function WorkflowCanvas() {
     });
     message.success(t('Operation succeeded'));
 
-    navigate(`/admin/workflow/workflows/${revision.id}`);
+    navigate(getWorkflowDetailPath(revision.id));
   }
 
   async function onDelete() {
@@ -166,9 +168,16 @@ export function WorkflowCanvas() {
     >
       <div className="workflow-toolbar">
         <header>
+          <BackButton />
           <Breadcrumb
             items={[
-              { title: <Link to={app.systemSettingsManager.getRoutePath('workflow')}>{lang('Workflow')}</Link> },
+              {
+                title: (
+                  <Link to={app.systemSettingsManager.getRoutePath(`business-components.${NAMESPACE}`)}>
+                    {lang('Workflow')}
+                  </Link>
+                ),
+              },
               { title: <strong>{workflow.title}</strong> },
             ]}
           />

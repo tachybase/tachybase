@@ -1,4 +1,4 @@
-import type { CollectionRepository } from '@tachybase/plugin-collection-manager';
+import type { CollectionRepository } from '@tachybase/module-collection';
 import { InstallOptions, Plugin } from '@tachybase/server';
 
 import {

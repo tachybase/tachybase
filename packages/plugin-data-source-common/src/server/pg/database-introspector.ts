@@ -64,7 +64,7 @@ export class DatabaseIntrospector extends EventEmitter {
         format_type(pg_attribute.atttypid, pg_attribute.atttypmod)
       FROM pg_index, pg_class, pg_attribute, pg_namespace
       WHERE
-        pg_class.oid = '${tableInfo.tableName}'::regclass AND
+        pg_class.oid = '"${tableInfo.tableName}"'::regclass AND
   indrelid = pg_class.oid AND
   nspname = '${tableInfo.schema || 'public'}' AND
   pg_class.relnamespace = pg_namespace.oid AND

@@ -1,5 +1,5 @@
 import { Plugin } from '@tachybase/client';
-import AuthPlugin from '@tachybase/plugin-auth/client';
+import AuthPlugin from '@tachybase/module-auth/client';
 
 import { authType } from '../constants';
 import { AdminSettingsForm } from './admin-settings-form';

@@ -1,7 +1,7 @@
 {
   "name": "@hera/plugin-core",
   "displayName": "Hera platform",
-  "version": "1.8.64",
+  "version": "1.8.76",
   "description": "Hera platform",
   "keywords": [
     "System management"
@@ -48,11 +48,11 @@
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
-    "@tachybase/data-source-manager": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/evaluators": "workspace:*",
+    "@tachybase/module-acl": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
-    "@tachybase/plugin-acl": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",

@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { BasicAuth } from '@tachybase/plugin-auth';
+import { BasicAuth } from '@tachybase/module-auth';
 import { Plugin } from '@tachybase/server';
 
 import axios from 'axios';

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/client",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "module": "es/index.mjs",
@@ -12,6 +12,7 @@
     "@ahooksjs/use-url-state": "3.5.1",
     "@ant-design/cssinjs": "^1.21.0",
     "@ant-design/icons": "^5.3.7",
+    "@ant-design/pro-components": "2.8.2",
     "@ant-design/pro-editor": "1.3.0",
     "@ant-design/pro-layout": "^7.17.16",
     "@antv/g2plot": "^2.4.31",
@@ -36,6 +37,7 @@
     "antd-style": "3.6.2",
     "axios": "^1.7.7",
     "classnames": "^2.5.1",
+    "click-to-react-component": "1.1.2",
     "cronstrue": "^2.47.0",
     "d3-format": "^3.1.0",
     "dayjs": "1.11.10",

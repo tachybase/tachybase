@@ -30,7 +30,7 @@ export function SelectWithTitle({ title, defaultValue, onChange, options, fieldN
       <Select
         open={open}
         popupMatchSelectWidth={false}
-        bordered={false}
+        variant="borderless"
         defaultValue={defaultValue}
         onChange={onChange}
         fieldNames={fieldNames}

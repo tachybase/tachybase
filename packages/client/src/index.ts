@@ -5,7 +5,6 @@ import './global.less';
 export * from '@emotion/css';
 export * from './built-in/acl';
 export * from './api-client';
-export * from './appInfo';
 export * from './application';
 export * from './async-data-provider';
 export * from './block-provider';

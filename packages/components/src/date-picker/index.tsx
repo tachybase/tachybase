@@ -1,4 +1,5 @@
-import { connect, mapProps, mapReadPretty } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
 import { DatePicker as AntdDatePicker } from 'antd';
 import { DatePickerProps as AntdDatePickerProps } from 'antd/es/date-picker';
 import dayjs from 'dayjs';

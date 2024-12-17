@@ -1,4 +1,4 @@
-import React, { createContext, FC, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { SchemaComponentOptions } from '@tachybase/client';
 
 import * as hooks from './hooks';
@@ -6,7 +6,7 @@ import * as hooks from './hooks';
 export const DataSourceContext = createContext(null);
 DataSourceContext.displayName = 'DataSourceContext';
 
-export const DatabaseConnectionProvider: FC = (props) => {
+export const DatabaseConnectionProvider = (props) => {
   const [dataSource, setDataSource] = useState(null);
   return (
     <DataSourceContext.Provider value={{ dataSource, setDataSource }}>

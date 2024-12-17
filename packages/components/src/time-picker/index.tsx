@@ -1,4 +1,5 @@
-import { connect, mapProps, mapReadPretty } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
 import { TimePicker as AntdTimePicker, TimePickerProps as AntdTimePickerProps, TimeRangePickerProps } from 'antd';
 import dayjs from 'dayjs';
 

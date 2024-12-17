@@ -1,5 +1,5 @@
 import actions, { utils } from '@tachybase/actions';
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source';
 import { traverseJSON } from '@tachybase/database';
 import { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/module-workflow';
 

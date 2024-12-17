@@ -1,4 +1,4 @@
-import { CollectionManager, CollectionOptions } from '@tachybase/data-source-manager';
+import { CollectionManager, CollectionOptions } from '@tachybase/data-source';
 
 import { HttpCollection } from './http-collection';
 

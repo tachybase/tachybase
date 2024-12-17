@@ -32,6 +32,17 @@ export const collectionWorkflows = {
     },
     {
       type: 'string',
+      name: 'showName',
+      interface: 'input',
+      uiSchema: {
+        title: '{{t("Display name")}}',
+        type: 'string',
+        'x-component': 'Input',
+        required: false,
+      } as ISchema,
+    },
+    {
+      type: 'string',
       name: 'type',
       interface: 'select',
       uiSchema: {
@@ -124,7 +135,7 @@ export const collectionWorkflows = {
   ],
 };
 
-export const workflowFieldset = {
+export const workflowFieldset: Record<string, ISchema> = {
   title: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
@@ -132,22 +143,23 @@ export const workflowFieldset = {
   type: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
+    default: 'general-action',
+    'x-hidden': true,
   },
   sync: {
     type: 'boolean',
     title: `{{ t("Execute mode", { ns: "${NAMESPACE}" }) }}`,
-    description: `{{ t("Execute workflow asynchronously or synchronously based on trigger type, and could not be changed after created.", { ns: "${NAMESPACE}" }) }}`,
     'x-decorator': 'FormItem',
     'x-component': 'SyncOptionSelect',
     'x-component-props': {
       options: [
         {
-          label: `{{ t("Asynchronously", { ns: "${NAMESPACE}" }) }}`,
+          label: `{{ t("Queue Mode", { ns: "${NAMESPACE}" }) }}`,
           value: false,
           tooltip: `{{ t("Will be executed in the background as a queued task.", { ns: "${NAMESPACE}" }) }}`,
         },
         {
-          label: `{{ t("Synchronously", { ns: "${NAMESPACE}" }) }}`,
+          label: `{{ t("Transactional Mode", { ns: "${NAMESPACE}" }) }}`,
           value: true,
           tooltip: `{{ t("For user actions that require immediate feedback. Can not use asynchronous nodes in such mode, and it is not recommended to perform time-consuming operations under synchronous mode.", { ns: "${NAMESPACE}" }) }}`,
         },
@@ -155,6 +167,10 @@ export const workflowFieldset = {
     },
   },
   enabled: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
+  showName: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
   },
@@ -257,6 +273,7 @@ export const createWorkflow: ISchema = {
                 title: workflowFieldset.title,
                 type: workflowFieldset.type,
                 sync: workflowFieldset.sync,
+                showName: workflowFieldset.showName,
                 description: workflowFieldset.description,
                 options: workflowFieldset.options,
               },
@@ -328,6 +345,9 @@ export const updateWorkflow: ISchema = {
                       'x-component-props': {
                         type: 'primary',
                       },
+                      'x-action-settings': {
+                        isDeltaChanged: true,
+                      },
                     },
                   },
                 },
@@ -335,6 +355,7 @@ export const updateWorkflow: ISchema = {
                 type: workflowFieldset.type,
                 enabled: workflowFieldset.enabled,
                 sync: workflowFieldset.sync,
+                showName: workflowFieldset.showName,
                 description: workflowFieldset.description,
                 options: workflowFieldset.options,
               },

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow-approval",
   "displayName": "Approval",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "description": "Approval base in Workflow",
   "keywords": [
     "Approval",
@@ -30,6 +30,7 @@
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"

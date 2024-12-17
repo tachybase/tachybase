@@ -65,7 +65,7 @@ class CustomAuth extends BaseAuth {
 
 ### 用户数据
 
-`@tachybase/plugin-auth`插件提供了`usersAuthenticators`表来建立users和authenticators，即用户和认证方式的关联。  
+`@tachybase/module-auth`插件提供了`usersAuthenticators`表来建立users和authenticators，即用户和认证方式的关联。  
 通常情况下，扩展登录方式用`users`和`usersAuthenticators`来存储相应的用户数据即可，特殊情况下才需要自己新增Collection.  
 `users`存储的是最基础的用户数据，邮箱、昵称和密码。  
 `usersAuthenticators`存储扩展登录方式数据  

@@ -1,4 +1,5 @@
-import { isArr, isEmpty, isFn } from '@formily/shared';
+import { isArr, isEmpty, isFn } from '@tachybase/schema';
+
 import dayjs, { ConfigType, Dayjs } from 'dayjs';
 
 export function dayjsable(value: ConfigType, format?: string): Dayjs;

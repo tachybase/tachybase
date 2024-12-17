@@ -15,7 +15,7 @@ export class FileManagerPlugin extends Plugin {
     this.app.dataSourceManager.addCollectionTemplates([FileCollectionTemplate]);
 
     this.app.use(FileManagerProvider);
-    this.app.systemSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add('business-components.' + NAMESPACE, {
       title: `{{t("File manager", { ns: "${NAMESPACE}" })}}`,
       icon: 'FileOutlined',
       Component: FileStoragePane,

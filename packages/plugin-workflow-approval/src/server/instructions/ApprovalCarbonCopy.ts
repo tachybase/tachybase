@@ -1,5 +1,5 @@
+import { UiSchemaRepository } from '@tachybase/module-ui-schema';
 import { Instruction, JOB_STATUS } from '@tachybase/module-workflow';
-import { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../common/collection-name';
 import { APPROVAL_STATUS } from '../constants/status';

@@ -1,0 +1,34 @@
+{
+  "name": "@tachybase/plugin-api-keys",
+  "displayName": "Auth: API keys",
+  "version": "0.22.76",
+  "description": "Allows users to use API key to access application's HTTP API",
+  "keywords": [
+    "Authentication"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-api-keys"
+  },
+  "devDependencies": {
+    "@tachybase/schema": "workspace:*",
+    "ahooks": "^3.8.0",
+    "antd": "5.22.0",
+    "dayjs": "1.11.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^15.1.1"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "允许用户使用 API 密钥访问应用的 HTTP API",
+  "displayName.zh-CN": "认证：API 密钥"
+}

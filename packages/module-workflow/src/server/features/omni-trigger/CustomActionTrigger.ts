@@ -1,7 +1,7 @@
 import { Context, Next } from '@tachybase/actions';
-import { joinCollectionName, parseCollectionName } from '@tachybase/data-source-manager';
+import { joinCollectionName, parseCollectionName } from '@tachybase/data-source';
 import { Model, modelAssociationByKey } from '@tachybase/database';
-import PluginErrorHandler from '@tachybase/plugin-error-handler';
+import PluginErrorHandler from '@tachybase/module-error-handler';
 
 import _, { get, isArray } from 'lodash';
 

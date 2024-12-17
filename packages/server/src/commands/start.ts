@@ -13,7 +13,7 @@ export default (app: Application) => {
     .option('--quickstart')
     .action(async (...cliArgs) => {
       const [options] = cliArgs;
-      console.log('start options', options);
+      app.logger.debug('start options', options);
       const file = resolve(process.cwd(), 'storage/app-upgrading');
       const upgrading = await fsExists(file);
       if (upgrading) {

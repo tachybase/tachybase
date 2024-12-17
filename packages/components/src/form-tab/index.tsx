@@ -1,8 +1,16 @@
 import React, { Fragment, useMemo } from 'react';
+import {
+  markRaw,
+  model,
+  observer,
+  ReactFC,
+  RecursionField,
+  Schema,
+  SchemaKey,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
 
-import { Schema, SchemaKey } from '@formily/json-schema';
-import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
-import { markRaw, model } from '@formily/reactive';
 import { Badge, Tabs } from 'antd';
 import { TabPaneProps, TabsProps } from 'antd/lib/tabs';
 import cls from 'classnames';

@@ -7,8 +7,8 @@ import { Icon } from '../icon';
 import type { Application } from './Application';
 import type { RouteType } from './RouterManager';
 
-export const USER_SETTINGS_KEY = 'admin.profilers.';
-export const USER_SETTINGS_PATH = '/admin/profilers/';
+export const USER_SETTINGS_KEY = 'profilers.';
+export const USER_SETTINGS_PATH = '/profilers/';
 export const SNIPPET_PREFIX = 'pm.';
 
 export interface UserSettingOptions {
@@ -99,7 +99,7 @@ export class UserSettingsManager {
     Object.keys(this.settings).forEach((key) => {
       if (key.startsWith(name)) {
         delete this.settings[key];
-        this.app.router.remove(`${ADMIN_SETTINGS_KEY}${key}`);
+        this.app.router.remove(`${USER_SETTINGS_KEY}${key}`);
       }
     });
   }

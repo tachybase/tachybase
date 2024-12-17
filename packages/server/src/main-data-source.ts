@@ -1,4 +1,4 @@
-import { DataSourceOptions, SequelizeDataSource } from '@tachybase/data-source-manager';
+import { DataSourceOptions, SequelizeDataSource } from '@tachybase/data-source';
 
 export class MainDataSource extends SequelizeDataSource {
   init(options: DataSourceOptions = {}) {

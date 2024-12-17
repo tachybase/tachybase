@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect, mapProps, mapReadPretty, ReactFC } from '@tachybase/schema';
 
 import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty, ReactFC } from '@formily/react';
 import { Select as AntdSelect } from 'antd';
 import { SelectProps } from 'antd/lib/select';
 

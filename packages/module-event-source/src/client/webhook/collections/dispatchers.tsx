@@ -1,5 +1,7 @@
-import { CollectionOptions, tval } from '@tachybase/client';
+import { CollectionOptions } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
+
+import { tval } from '../../locale';
 
 export const dispatchers: CollectionOptions = {
   name: 'webhooks',
@@ -58,16 +60,17 @@ export const dispatchers: CollectionOptions = {
         type: 'string',
         required: true,
         enum: [
-          { label: tval('Resource'), value: 'resource' },
-          { label: tval('Database Event'), value: 'databaseEvent' },
           { label: tval('Application Event'), value: 'applicationEvent' },
+          { label: tval('Database Event'), value: 'databaseEvent' },
+          { label: tval('Resource'), value: 'resource' },
           { label: tval('Before Resource'), value: 'beforeResource' },
           { label: tval('After Resource'), value: 'afterResource' },
-          { label: tval('HTTP endpoint'), value: 'code' },
-          { label: tval('Scheduler'), value: 'cron' },
-          { label: tval('API action'), value: 'action' },
+          // Hide below for now
+          // { label: tval('HTTP endpoint'), value: 'code' },
+          // { label: tval('Scheduler'), value: 'cron' },
+          // { label: tval('API action'), value: 'action' },
         ],
-        'x-component': 'Radio.Group',
+        'x-component': 'Select',
         'x-decorator': 'FormItem',
         default: 'code',
       } as ISchema,

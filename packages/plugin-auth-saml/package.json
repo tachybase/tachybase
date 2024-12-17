@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-saml",
   "displayName": "Auth: SAML 2.0",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "description": "SAML 2.0 authentication.",
   "keywords": [
     "Authentication"
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-saml"
+    "build": "tachybase-build --no-dts @tachybase/plugin-auth-saml"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
@@ -25,7 +25,7 @@
     "@tachybase/auth": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-auth": "workspace:*",
+    "@tachybase/module-auth": "workspace:*",
     "@tachybase/sdk": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"

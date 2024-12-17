@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 
 import { LoadingOutlined } from '@ant-design/icons';
-import { connect, mapProps, mapReadPretty } from '@formily/react';
 import { Cascader as AntdCascader } from 'antd';
 
 import { PreviewText } from '../preview-text';

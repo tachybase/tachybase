@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-multi-app-share-collection",
   "displayName": "Multi-app share collection",
-  "version": "0.22.64",
+  "version": "0.22.76",
   "description": "",
   "keywords": [
     "System management"
@@ -20,10 +20,10 @@
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-collection-manager": "workspace:*",
-    "@tachybase/plugin-error-handler": "workspace:*",
-    "@tachybase/plugin-multi-app-manager": "workspace:*",
-    "@tachybase/plugin-users": "workspace:*",
+    "@tachybase/module-collection": "workspace:*",
+    "@tachybase/module-error-handler": "workspace:*",
+    "@tachybase/module-multi-app": "workspace:*",
+    "@tachybase/module-user": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

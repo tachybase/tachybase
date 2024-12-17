@@ -29,6 +29,7 @@ export default defineCollection({
     {
       type: 'string',
       name: 'preset',
+      defaultValue: 'tachybase',
     },
     {
       type: 'string',

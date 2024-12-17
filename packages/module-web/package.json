@@ -1,0 +1,39 @@
+{
+  "name": "@tachybase/module-web",
+  "displayName": "WEB client",
+  "version": "0.22.76",
+  "description": "Provides a client interface for the TachyBase server",
+  "license": "Apache-2.0",
+  "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/module-web"
+  },
+  "devDependencies": {
+    "@ant-design/icons": "~5.3.7",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "@types/react": "~18.3.3",
+    "@types/react-dom": "~18.3.0",
+    "ahooks": "~3.8.0",
+    "antd": "5.22.0",
+    "antd-mobile": "^5.36.1",
+    "antd-mobile-icons": "^0.3.0",
+    "cronstrue": "^2.47.0",
+    "koa-send": "^5.0.1",
+    "koa-static": "^5.0.0",
+    "lodash": "4.17.21",
+    "react": "~18.3.1",
+    "react-dom": "~18.3.1",
+    "react-i18next": "~15.1.1",
+    "react-router-dom": "~6.25.1"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "为 TachyBase 服务端提供客户端界面",
+  "displayName.zh-CN": "WEB 客户端"
+}
