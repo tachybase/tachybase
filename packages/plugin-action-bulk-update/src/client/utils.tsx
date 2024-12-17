@@ -70,11 +70,11 @@ export const useCustomizeBulkUpdateActionProps = () => {
       await Promise.all(waitList);
 
       modal.confirm({
-        title: t('Bulk update', { ns: 'client' }),
+        title: t('Bulk update', { ns: 'core' }),
         content:
           updateMode === 'selected'
-            ? t('Update selected data?', { ns: 'client' })
-            : t('Update all data?', { ns: 'client' }),
+            ? t('Update selected data?', { ns: 'core' })
+            : t('Update all data?', { ns: 'core' }),
         async onOk() {
           const { filter } = service.params?.[0] ?? {};
           const updateData: { filter?: any; values: any; forceUpdate: boolean } = {

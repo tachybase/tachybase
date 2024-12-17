@@ -1,20 +1,19 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 // @ts-ignore
-import { Form, Schema, useField } from '@tachybase/schema';
+import { Form, Schema } from '@tachybase/schema';
 
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { CollectionFieldOptions_deprecated, useCollectionManager_deprecated } from '../../collection-manager';
-import { useCompile, useVariableScope, Variable } from '../../schema-component';
+import { CollectionFieldOptions_deprecated } from '../../collection-manager';
+import { useVariableScope, Variable } from '../../schema-component';
 import { useValues } from '../../schema-component/antd/filter/useValues';
 import { VariableOption, VariablesContextType } from '../../variables/types';
 import { isVariable } from '../../variables/utils/isVariable';
-import { useDateVariable } from './hooks';
 import { useBlockCollection } from './hooks/useBlockCollection';
 import { useContextAssociationFields } from './hooks/useContextAssociationFields';
 import { useCurrentRecordVariable } from './hooks/useRecordVariable';
-import { useCurrentUserVariable, useUserVariable } from './hooks/useUserVariable';
+import { useCurrentUserVariable } from './hooks/useUserVariable';
 import { useVariableOptions } from './hooks/useVariableOptions';
 import { Option } from './type';
 

@@ -21,7 +21,6 @@ import {
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
 import {
-  EditCustomDefaultValue,
   EditFormulaTitleField,
   getShouldChange,
   useFormulaTitleVisible,
@@ -391,10 +390,6 @@ export const selectComponentFieldSettings = new SchemaSettings({
       name: 'formulatitleField',
       Component: EditFormulaTitleField,
       useVisible: useFormulaTitleVisible,
-    },
-    {
-      name: 'editDefaultValue',
-      Component: EditCustomDefaultValue,
     },
   ],
 });

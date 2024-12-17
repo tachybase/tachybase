@@ -6,7 +6,7 @@ export const NAMESPACE = 'data-source-common';
 export const tval = (key: string, useCore = false) => nTval(key, { ns: useCore ? undefined : NAMESPACE });
 
 export function lang(key: string, options = {}) {
-  return i18n.t(key, { ...options, ns: [NAMESPACE, 'client'] });
+  return i18n.t(key, { ...options, ns: [NAMESPACE, 'core'] });
 }
 
 export const useTranslation = (useCore = false): any => {

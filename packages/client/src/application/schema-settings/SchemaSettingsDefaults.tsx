@@ -96,6 +96,7 @@ export const defaultSettingItems = [
       {
         name: 'edit',
         type: 'modal',
+
         useComponentProps() {
           const { t } = useTranslation();
           const { refresh } = useDesignable();
@@ -107,7 +108,7 @@ export const defaultSettingItems = [
             return dn;
           }, [t, api, refresh, fieldSchema]);
 
-          const { data } = useRequest(async () => {
+          const { data } = useRequest<any>(async () => {
             const { data } = await api.request({
               url: `/uiSchemas:getJsonSchema/${fieldSchema['x-uid']}?includeAsyncNode=true`,
             });
@@ -116,7 +117,7 @@ export const defaultSettingItems = [
 
           return {
             width: '800px',
-            hide: !data,
+            disabled: !data,
             schema: () => {
               if (!data) {
                 return {
@@ -143,7 +144,7 @@ export const defaultSettingItems = [
                 };
               }
             },
-            title: t('Edit'),
+            title: !data ? t('Loading') : t('Edit'),
             onSubmit: async ({ schema }) => {
               dn.emit('patch', {
                 schema: JSON.parse(schema),
