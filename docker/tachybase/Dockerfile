@@ -1,4 +1,4 @@
-FROM tachybase/tachybase-node-pg:0.0.1 AS base
+FROM tachybase/tachybase-node-pg:0.0.2 AS base
 
 ARG NPM_REGISTRY=https://registry.npmjs.org
 ENV PNPM_HOME="/pnpm"
