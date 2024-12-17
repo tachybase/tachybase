@@ -22,6 +22,7 @@ import {
   Transactionable,
   Utils,
 } from 'sequelize';
+import { ConnectionManager } from 'sequelize/types/dialects/abstract/connection-manager';
 import { SequelizeStorage, Umzug } from 'umzug';
 
 import { Collection, CollectionOptions, RepositoryType } from './collection';
@@ -174,6 +175,13 @@ class DatabaseVersion {
       }
     }
     return false;
+  }
+}
+
+declare module 'sequelize' {
+  interface Sequelize {
+    dialect: any;
+    readonly connectionManager: ConnectionManager;
   }
 }
 
@@ -771,7 +779,7 @@ export class Database extends EventEmitter implements AsyncEmitter {
   }
 
   public isSqliteMemory() {
-    return this.sequelize.getDialect() === 'sqlite' && lodash.get(this.options, 'storage') == ':memory:';
+    return this.sequelize.getDialect() === 'sqlite' && lodash.get(this.options, 'storage') === ':memory:';
   }
 
   async auth(options: Omit<QueryOptions, 'retry'> & { retry?: number | Pick<QueryOptions, 'retry'> } = {}) {
@@ -826,7 +834,7 @@ export class Database extends EventEmitter implements AsyncEmitter {
       }
     }
 
-    if (this.inDialect('postgres') && this.options.schema && this.options.schema != 'public') {
+    if (this.inDialect('postgres') && this.options.schema && this.options.schema !== 'public') {
       await this.sequelize.query(`CREATE SCHEMA IF NOT EXISTS "${this.options.schema}"`, null);
     }
   }
@@ -835,18 +843,15 @@ export class Database extends EventEmitter implements AsyncEmitter {
     if (this.isSqliteMemory()) {
       return;
     }
-    // @ts-ignore
     const ConnectionManager = this.sequelize.dialect.connectionManager.constructor;
-    // @ts-ignore
     const connectionManager = new ConnectionManager(this.sequelize.dialect, this.sequelize);
-    // @ts-ignore
     this.sequelize.dialect.connectionManager = connectionManager;
-    // @ts-ignore
+    // @ts-expect-error
     this.sequelize.connectionManager = connectionManager;
   }
 
   closed() {
-    // @ts-ignore
+    // @ts-expect-error
     return this.sequelize.connectionManager.pool._draining;
   }
 
