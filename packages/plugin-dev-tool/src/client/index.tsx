@@ -56,12 +56,17 @@ export class PluginDevToolClient extends Plugin {
       Component: SCDocumentation,
       aclSnippet: 'pm.api-doc.documentation',
     });
-    this.app.systemSettingsManager.add('devTool.env', {
+    this.app.systemSettingsManager.add('devtools.env', {
       title: `{{t('ENV')}}`,
       icon: 'CodeOutlined',
       Component: ENVToolPane,
     });
-    this.app.systemSettingsManager.add('devTool.clientrouter', {
+    this.app.systemSettingsManager.add('devtools.middlewaresorder', {
+      title: `{{t('middlewaresorder')}}`,
+      icon: 'CodeOutlined',
+      Component: MiddlewareToolPane,
+    });
+    this.app.systemSettingsManager.add('devtools.clientrouter', {
       title: `{{t('Client router')}}`,
       icon: 'CodeOutlined',
       Component: clientrouterToolPane,

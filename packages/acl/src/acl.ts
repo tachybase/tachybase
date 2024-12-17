@@ -83,6 +83,8 @@ export class ACL extends EventEmitter {
 
   protected middlewares: Toposort<any>;
 
+  public middlewareSourceMap: WeakMap<Function, string> = new WeakMap();
+
   constructor() {
     super();
 
@@ -271,7 +273,16 @@ export class ACL extends EventEmitter {
     return this.actionAlias.get(action) ? this.actionAlias.get(action) : action;
   }
 
+  setStackTrace(middlewares) {
+    const myObject = { stack: '' };
+    Error.captureStackTrace(myObject);
+    const stackLines = myObject.stack.split('\n');
+    stackLines.splice(0, 3);
+    this.middlewareSourceMap.set(middlewares, stackLines.join('\n'));
+  }
+
   use(fn: any, options?: ToposortOptions) {
+    this.setStackTrace(fn);
     this.middlewares.add(fn, {
       group: 'prep',
       ...options,

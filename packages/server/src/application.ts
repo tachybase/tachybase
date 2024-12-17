@@ -408,11 +408,20 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this.pm.addPreset(pluginClass, options);
   }
 
+  setStackTrace(middleware: Koa.Middleware) {
+    const myObject = { stack: '' };
+    Error.captureStackTrace(myObject);
+    const stackLines = myObject.stack.split('\n');
+    stackLines.splice(0, 3);
+    this.middlewareSourceMap.set(middleware, stackLines.join('\n'));
+  }
+
   // @ts-ignore
   use<NewStateT = {}, NewContextT = {}>(
     middleware: Koa.Middleware<StateT & NewStateT, ContextT & NewContextT>,
     options?: ToposortOptions,
   ) {
+    this.setStackTrace(middleware);
     this.middleware.add(middleware, options);
     return this;
   }
@@ -1099,32 +1108,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     if (options.perfHooks) {
       enablePerfHooks(this);
     }
-
-    const setStackTrace = (context, args) => {
-      const error = new Error();
-      const stack = error.stack;
-      const stackLines = stack.split('\n');
-      stackLines.splice(0, 2);
-      context.middlewareSourceMap.set(args[0], stackLines.join('\n'));
-    };
-
-    const oldUse = this.use;
-    this.use = (...args) => {
-      setStackTrace(this, args);
-      return oldUse.call(this, ...args);
-    };
-
-    const oldResourcerUse = this.resourcer.use;
-    this.resourcer.use = (...args) => {
-      setStackTrace(this, args);
-      return oldResourcerUse.call(this.resourcer, ...args);
-    };
-
-    const oldACLUse = this.acl.use;
-    this.acl.use = (...args) => {
-      setStackTrace(this, args);
-      return oldACLUse.call(this.acl, ...args);
-    };
 
     registerMiddlewares(this, options);
 

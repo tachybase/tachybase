@@ -73,22 +73,25 @@ export class StaticScheduleTrigger {
       this.off(cronjob);
     });
 
-    this.app.resourcer.use(async (ctx, next) => {
-      const { resourceName, actionName } = ctx.action;
-      await next();
-      if (resourceName === 'cronJobs' && actionName === 'list') {
-        const rows = ctx.body.rows as CronJobModel[];
-        rows.forEach((cronJob) => {
-          if (!cronJob.enabled) {
-            return;
-          }
-          const nextTime = this.getNextTime(cronJob, new Date());
-          if (nextTime) {
-            cronJob.nextTime = new Date(nextTime);
-          }
-        });
-      }
-    });
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const { resourceName, actionName } = ctx.action;
+        await next();
+        if (resourceName === 'cronJobs' && actionName === 'list') {
+          const rows = ctx.body.rows as CronJobModel[];
+          rows.forEach((cronJob) => {
+            if (!cronJob.enabled) {
+              return;
+            }
+            const nextTime = this.getNextTime(cronJob, new Date());
+            if (nextTime) {
+              cronJob.nextTime = new Date(nextTime);
+            }
+          });
+        }
+      },
+      { tag: 'addNextTimeToCronJobs' },
+    );
   }
 
   inspect(cronJobs: CronJobModel[]) {

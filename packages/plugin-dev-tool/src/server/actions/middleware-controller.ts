@@ -22,7 +22,14 @@ const MiddlewareOrderResource = {
       data.forEach((group) => {
         group.items.forEach((item) => {
           item.belongto = group.name;
-          item.path = ctx.app.middlewareSourceMap.get(item.node);
+
+          // 依次从不同的 middlewareSourceMap 获取 path
+          item.path =
+            ctx.app.middlewareSourceMap.get(item.node) ||
+            ctx.app.resourcer.middlewareSourceMap.get(item.node) ||
+            ctx.app.acl.middlewareSourceMap.get(item.node) ||
+            'Unknown Path'; // 默认值
+
           mergedItems.push(item);
         });
       });
