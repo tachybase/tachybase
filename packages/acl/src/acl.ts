@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import { Action } from '@tachybase/resourcer';
-import { assign, parseFilter, Toposort, ToposortOptions } from '@tachybase/utils';
+import { assign, getCurrentStacks, parseFilter, Toposort, ToposortOptions } from '@tachybase/utils';
 
 import compose from 'koa-compose';
 import lodash from 'lodash';
@@ -82,6 +82,8 @@ export class ACL extends EventEmitter {
   protected fixedParamsManager = new FixedParamsManager();
 
   protected middlewares: Toposort<any>;
+
+  public middlewareSourceMap: WeakMap<Function, string> = new WeakMap();
 
   constructor() {
     super();
@@ -272,6 +274,7 @@ export class ACL extends EventEmitter {
   }
 
   use(fn: any, options?: ToposortOptions) {
+    this.middlewareSourceMap.set(fn, getCurrentStacks());
     this.middlewares.add(fn, {
       group: 'prep',
       ...options,

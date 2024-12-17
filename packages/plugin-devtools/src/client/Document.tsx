@@ -7,7 +7,7 @@ import SwaggerUIBundle from 'swagger-ui-dist/swagger-ui-bundle';
 
 import 'swagger-ui-dist/swagger-ui.css';
 
-import { useTranslation } from '../locale';
+import { useTranslation } from './locale';
 
 const DESTINATION_URL_KEY = 'API_DOC:DESTINATION_URL_KEY';
 const getUrl = () => localStorage.getItem(DESTINATION_URL_KEY);

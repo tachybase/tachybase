@@ -4,7 +4,10 @@ import { createStyles, Plugin } from '@tachybase/client';
 import { RightOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 
-import { NAMESPACE } from '../locale';
+import { clientrouterToolPane } from './clientrouterPane';
+import { ENVToolPane } from './ENVPane';
+import { lang } from './locale';
+import { MiddlewareToolPane } from './middlewarePane';
 
 const DOCUMENTATION_PATH = '/api-documentation';
 const Documentation = lazy(() => import('./Document'));
@@ -38,15 +41,36 @@ const SCDocumentation = () => {
   );
 };
 
-export class PluginAPIDocClient extends Plugin {
+export class PluginDevToolClient extends Plugin {
+  allRoutes = this.app.router.getRoutes();
+  async afterAdd() {
+    // await this.app.pm.add()
+  }
+
+  async beforeLoad() {}
+
   async load() {
-    this.app.systemSettingsManager.add(`devtools.${NAMESPACE}`, {
-      title: `{{t("API documentation", { ns: "${NAMESPACE}" })}}`,
+    this.app.systemSettingsManager.add(`devtools.api-doc`, {
+      title: lang('API Doc'),
       icon: 'BookOutlined',
       Component: SCDocumentation,
       aclSnippet: 'pm.api-doc.documentation',
     });
-
+    this.app.systemSettingsManager.add('devtools.env', {
+      title: lang('Environment'),
+      icon: 'CodeOutlined',
+      Component: ENVToolPane,
+    });
+    this.app.systemSettingsManager.add('devtools.middlewaresorder', {
+      title: lang('Middlewares order'),
+      icon: 'CodeOutlined',
+      Component: MiddlewareToolPane,
+    });
+    this.app.systemSettingsManager.add('devtools.clientrouter', {
+      title: lang('Client router'),
+      icon: 'CodeOutlined',
+      Component: clientrouterToolPane,
+    });
     this.app.router.add('api-documentation', {
       path: DOCUMENTATION_PATH,
       Component: Documentation,
@@ -54,4 +78,4 @@ export class PluginAPIDocClient extends Plugin {
   }
 }
 
-export default PluginAPIDocClient;
+export default PluginDevToolClient;

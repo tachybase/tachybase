@@ -1,4 +1,4 @@
-import { importModule, Toposort, ToposortOptions } from '@tachybase/utils';
+import { getCurrentStacks, importModule, Toposort, ToposortOptions } from '@tachybase/utils';
 
 import { globSync } from 'glob';
 import compose from 'koa-compose';
@@ -164,6 +164,7 @@ export class Resourcer {
   protected actionHandlers = new Map<ActionName, any>();
   protected middlewareHandlers = new Map<string, any>();
   protected middlewares: Toposort<any>;
+  public middlewareSourceMap: WeakMap<HandlerType | HandlerType[], string> = new WeakMap();
 
   constructor(options: ResourcerOptions = {}) {
     this.options = options;
@@ -295,6 +296,7 @@ export class Resourcer {
   }
 
   use(middlewares: HandlerType | HandlerType[], options: ToposortOptions = {}) {
+    this.middlewareSourceMap.set(middlewares, getCurrentStacks());
     this.middlewares.add(middlewares, options);
   }
 

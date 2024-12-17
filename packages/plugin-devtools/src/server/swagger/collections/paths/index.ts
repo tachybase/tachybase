@@ -24,7 +24,7 @@ export function hasSortField(collection: Collection) {
 }
 
 export function readOnlyCollection(collection: Collection) {
-  return isViewCollection(collection) && collection.options?.writableView == false;
+  return isViewCollection(collection) && collection.options?.writableView === false;
 }
 
 export function isViewCollection(collection: Collection) {

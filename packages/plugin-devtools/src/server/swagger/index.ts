@@ -1,4 +1,4 @@
-import APIDocPlugin from '../server';
+import APIDocPlugin from '../plugin';
 import baseSwagger from './base-swagger';
 import collectionToSwaggerObject from './collections';
 import { SchemaTypeMapping } from './constants';

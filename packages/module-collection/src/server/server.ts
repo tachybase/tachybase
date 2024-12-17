@@ -249,17 +249,20 @@ export class CollectionManagerPlugin extends Plugin {
       return;
     }
 
-    this.app.resourcer.use(async (ctx, next) => {
-      const { resourceName, actionName } = ctx.action;
-      if (resourceName === 'collections.fields' && actionName === 'update') {
-        const { updateAssociationValues = [] } = ctx.action.params;
-        updateAssociationValues.push('uiSchema');
-        ctx.action.mergeParams({
-          updateAssociationValues,
-        });
-      }
-      await next();
-    });
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const { resourceName, actionName } = ctx.action;
+        if (resourceName === 'collections.fields' && actionName === 'update') {
+          const { updateAssociationValues = [] } = ctx.action.params;
+          updateAssociationValues.push('uiSchema');
+          ctx.action.mergeParams({
+            updateAssociationValues,
+          });
+        }
+        await next();
+      },
+      { tag: 'appendUISchemaOnFieldUpdate' },
+    );
 
     this.app.acl.allow('collections', 'list', 'loggedIn');
     this.app.acl.allow('collectionCategories', 'list', 'loggedIn');
@@ -284,14 +287,17 @@ export class CollectionManagerPlugin extends Plugin {
       },
     );
 
-    this.app.resourcer.use(async (ctx, next) => {
-      if (ctx.action.resourceName === 'collections.fields' && ['create', 'update'].includes(ctx.action.actionName)) {
-        ctx.action.mergeParams({
-          updateAssociationValues: ['reverseField'],
-        });
-      }
-      await next();
-    });
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        if (ctx.action.resourceName === 'collections.fields' && ['create', 'update'].includes(ctx.action.actionName)) {
+          ctx.action.mergeParams({
+            updateAssociationValues: ['reverseField'],
+          });
+        }
+        await next();
+      },
+      { tag: 'setReverseFieldOnFieldChange' },
+    );
 
     this.app.resource(viewResourcer);
     this.app.resource(sqlResourcer);
@@ -326,32 +332,35 @@ export class CollectionManagerPlugin extends Plugin {
       }
     };
 
-    this.app.resourcer.use(async (ctx, next) => {
-      await next();
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        await next();
 
-      // handle collections:list
-      if (
-        ctx.action.resourceName === 'collections' &&
-        ctx.action.actionName === 'list' &&
-        ctx.action.params?.paginate === 'false'
-      ) {
-        for (const collection of ctx.body) {
-          if (collection.get('view')) {
-            const fields = collection.fields;
-            handleFieldSource(fields);
+        // handle collections:list
+        if (
+          ctx.action.resourceName === 'collections' &&
+          ctx.action.actionName === 'list' &&
+          ctx.action.params?.paginate === 'false'
+        ) {
+          for (const collection of ctx.body) {
+            if (collection.get('view')) {
+              const fields = collection.fields;
+              handleFieldSource(fields);
+            }
           }
         }
-      }
 
-      //handle collections:fields:list
-      if (ctx.action.resourceName === 'collections.fields' && ctx.action.actionName === 'list') {
-        handleFieldSource(ctx.action.params?.paginate === 'false' ? ctx.body : ctx.body.rows);
-      }
+        //handle collections:fields:list
+        if (ctx.action.resourceName === 'collections.fields' && ctx.action.actionName === 'list') {
+          handleFieldSource(ctx.action.params?.paginate === 'false' ? ctx.body : ctx.body.rows);
+        }
 
-      if (ctx.action.resourceName === 'collections.fields' && ctx.action.actionName === 'get') {
-        handleFieldSource(ctx.body);
-      }
-    });
+        if (ctx.action.resourceName === 'collections.fields' && ctx.action.actionName === 'get') {
+          handleFieldSource(ctx.body);
+        }
+      },
+      { tag: 'handleFieldSourceOnListAndGet' },
+    );
 
     this.app.db.extendCollection({
       name: 'collectionCategory',

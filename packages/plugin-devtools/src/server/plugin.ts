@@ -1,15 +1,17 @@
 import { Context } from '@tachybase/actions';
 import { Plugin } from '@tachybase/server';
 
+import { ENVResource } from './actions/ENV-controller';
+import { MiddlewareOrderResource } from './actions/middleware-controller';
 import { SwaggerManager } from './swagger';
 
-export class PluginAPIDocServer extends Plugin {
+export class PluginDevToolServer extends Plugin {
   swagger: SwaggerManager;
   constructor(app, options) {
     super(app, options);
     this.swagger = new SwaggerManager(this);
   }
-  async beforeLoad() {}
+
   async load() {
     this.app.resourcer.define({
       name: 'swagger',
@@ -40,12 +42,22 @@ export class PluginAPIDocServer extends Plugin {
       },
       only: ['get', 'getUrls'],
     });
+    this.app.resourcer.define(MiddlewareOrderResource);
+    this.app.resourcer.define(ENVResource);
     this.app.acl.allow('swagger', ['get', 'getUrls'], 'loggedIn');
     this.app.acl.registerSnippet({
       name: ['pm', this.name, 'documentation'].join('.'),
       actions: ['swagger:*'],
     });
+    this.app.acl.registerSnippet({
+      name: `pm.${this.name}.middlewares`,
+      actions: ['middlewares:*'],
+    });
+    this.app.acl.registerSnippet({
+      name: `pm.${this.name}.enviroment`,
+      actions: ['enviroment:*'],
+    });
   }
 }
 
-export default PluginAPIDocServer;
+export default PluginDevToolServer;
