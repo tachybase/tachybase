@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import {
-  CollectionCategroriesContext,
+  CollectionCategoriesContext,
   SchemaComponentOptions,
   useAPIClient,
   useCompile,
@@ -30,7 +30,7 @@ const TabBar = ({ item }) => {
 const DndProvider = observer(
   (props) => {
     const [activeTab, setActiveId] = useState(null);
-    const { refresh } = useContext(CollectionCategroriesContext);
+    const { refresh } = useContext(CollectionCategoriesContext);
     const { refresh: refreshCM } = useResourceActionContext();
     const api = useAPIClient();
     const onDragEnd = async (props: DragEndEvent) => {
@@ -71,7 +71,7 @@ const DndProvider = observer(
 );
 export const ConfigurationTabs = () => {
   const { t } = useTranslation();
-  const { data } = useContext(CollectionCategroriesContext);
+  const { data } = useContext(CollectionCategoriesContext);
   const compile = useCompile();
 
   if (!data) return null;

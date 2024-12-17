@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import {
   AddSubFieldAction,
-  CollectionCategroriesContext,
+  CollectionCategoriesContext,
   DataSourceContext_deprecated,
   EditSubFieldAction,
   FieldSummary,
@@ -96,7 +96,7 @@ export const ConfigurationTable = () => {
     data: { database },
   } = useCurrentAppInfo();
 
-  const data = useContext(CollectionCategroriesContext);
+  const data = useContext(CollectionCategoriesContext);
   const api = useAPIClient();
   const resource = api.resource('dbViews');
   const compile = useCompile();

@@ -1,7 +1,7 @@
 import React, { useContext, useMemo, useState } from 'react';
 import {
   AddSubFieldAction,
-  CollectionCategroriesContext,
+  CollectionCategoriesContext,
   EditSubFieldAction,
   FieldSummary,
   ResourceActionContext,
@@ -86,7 +86,7 @@ export const ConfigurationTable = () => {
   const ds = useDataSourceManager();
   const ctx = useContext(SchemaComponentContext);
   const { name } = useParams();
-  const data = useContext(CollectionCategroriesContext);
+  const data = useContext(CollectionCategoriesContext);
   const api = useAPIClient();
   const resource = api.resource('dbViews');
   const compile = useCompile();
