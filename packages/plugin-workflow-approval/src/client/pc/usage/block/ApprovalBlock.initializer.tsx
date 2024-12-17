@@ -33,7 +33,6 @@ export const initializerApprovalBlock = {
         appends: [
           'createdBy.nickname',
           'workflow.title',
-          'workflow.showName',
           'workflow.enabled',
           'records.id',
           'records.status',
@@ -62,7 +61,6 @@ export const initializerApprovalBlock = {
           'job.result',
           'workflow.id',
           'workflow.title',
-          'workflow.showName',
           'workflow.enabled',
           'execution.id',
           'execution.status',
@@ -93,7 +91,6 @@ export const initializerApprovalBlock = {
           'job.result',
           'workflow.id',
           'workflow.title',
-          'workflow.showName',
           'workflow.enabled',
           'execution.id',
           'execution.status',

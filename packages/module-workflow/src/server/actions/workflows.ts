@@ -8,7 +8,7 @@ export async function update(context: Context, next) {
   const repository = utils.getRepositoryFromParams(context) as Repository;
   const { filterByTk, values } = context.action.params;
   context.action.mergeParams({
-    whitelist: ['title', 'description', 'enabled', 'triggerTitle', 'config', 'options', 'type', 'sync', 'showName'],
+    whitelist: ['title', 'description', 'enabled', 'triggerTitle', 'config', 'options', 'type', 'sync', 'tags'],
   });
   // only enable/disable
   if (Object.keys(values).includes('config')) {
@@ -75,7 +75,6 @@ export async function dump(context: Context, next: Next) {
           allExecuted: origin.allExecuted,
           sync: origin.sync,
           initAt: origin.initAt,
-          showName: origin.showName,
         }
       : values;
 
@@ -103,7 +102,6 @@ export async function load(context: Context, next: Next) {
     const instance = await repository.create({
       values: {
         title: values.title,
-        showName: origin.showName,
         description: origin.description,
         type: origin.type,
         triggerTitle: origin.triggerTitle,
@@ -222,7 +220,6 @@ export async function revision(context: Context, next: Next) {
       ? {
           key: filter.key,
           title: origin.title,
-          showName: origin.showName,
           triggerTitle: origin.triggerTitle,
           allExecuted: origin.allExecuted,
           sync: origin.sync,

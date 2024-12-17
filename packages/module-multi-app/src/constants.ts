@@ -1,1 +1,1 @@
-export const NAMESPACE = 'multi-app-manager';
+export const NAMESPACE = 'multi-app';
