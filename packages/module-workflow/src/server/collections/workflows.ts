@@ -29,6 +29,10 @@ export default function () {
         name: 'description',
       },
       {
+        type: 'array',
+        name: 'tags',
+      },
+      {
         type: 'string',
         name: 'type',
         required: true,
