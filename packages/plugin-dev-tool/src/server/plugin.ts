@@ -51,15 +51,14 @@ export class PluginDevToolServer extends Plugin {
     this.app.resourcer.define(MiddlewareOrderResource);
     this.app.resourcer.define(ENVResource);
     this.app.acl.allow('swagger', ['get', 'getUrls'], 'loggedIn');
-    this.app.acl.allow('middlewares', 'get', 'public');
     this.app.acl.registerSnippet({
       name: ['pm', this.name, 'documentation'].join('.'),
       actions: ['swagger:*'],
     });
-    // this.app.acl.registerSnippet({
-    //   name: `pm.${this.name}.middlewares`,
-    //   actions: ['middlewares:*'],
-    // });
+    this.app.acl.registerSnippet({
+      name: `pm.${this.name}.middlewares`,
+      actions: ['middlewares:*'],
+    });
     this.app.acl.registerSnippet({
       name: `pm.${this.name}.enviroment`,
       actions: ['enviroment:*'],
