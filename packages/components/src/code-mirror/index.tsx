@@ -15,7 +15,16 @@ export const CodeMirror = connect(
         });
       }
     }, [monaco]);
-    return <Editor value={value} height="300px" defaultLanguage="javascript" onChange={onChange} {...otherProps} />;
+    return (
+      <Editor
+        options={{ readOnly: !!otherProps.disabled }}
+        value={value}
+        height="300px"
+        defaultLanguage="javascript"
+        onChange={onChange}
+        {...otherProps}
+      />
+    );
   },
   mapReadPretty(({ value, onChange, ...otherProps }) => {
     const monaco = useMonaco();
@@ -30,7 +39,16 @@ export const CodeMirror = connect(
     if (value == null) {
       return;
     }
-    return <Editor value={value} height="300px" defaultLanguage="javascript" onChange={onChange} {...otherProps} />;
+    return (
+      <Editor
+        options={{ readOnly: true }}
+        value={value}
+        height="300px"
+        defaultLanguage="javascript"
+        onChange={onChange}
+        {...otherProps}
+      />
+    );
   }),
 );
 
