@@ -28,8 +28,8 @@ export class WorkerManager {
   // 默认超时时间
   private static readonly timeoutSecond = process.env.WORKER_TIMEOUT ? +process.env.WORKER_TIMEOUT : 1800;
 
-  private getPluginMethodKey(plugin: string, method: string) {
-    return `worker:pluginMethod:${plugin}:${method}`;
+  private getPluginMethodKey(values: WorkerEventInputPluginMethod) {
+    return `worker:pluginMethod:${values.plugin}:${values.method}`;
   }
 
   constructor(
