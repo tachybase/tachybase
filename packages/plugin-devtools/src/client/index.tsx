@@ -57,12 +57,12 @@ export class PluginDevToolClient extends Plugin {
       aclSnippet: 'pm.api-doc.documentation',
     });
     this.app.systemSettingsManager.add('devtools.env', {
-      title: lang('ENV'),
+      title: lang('Environment'),
       icon: 'CodeOutlined',
       Component: ENVToolPane,
     });
     this.app.systemSettingsManager.add('devtools.middlewaresorder', {
-      title: lang('middlewaresorder'),
+      title: lang('Middlewares order'),
       icon: 'CodeOutlined',
       Component: MiddlewareToolPane,
     });

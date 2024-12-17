@@ -6,7 +6,22 @@ const ENVResource = {
     get: async (ctx: Context, next: () => Promise<any>) => {
       require('dotenv').config();
 
-      const sensitiveEnvVariables = ['DB_PASSWORD', 'API_KEY', 'SECRET_KEY', 'APP_KEY'];
+      const sensitiveEnvVariables = [
+        'DB_PASSWORD',
+        'API_KEY',
+        'SECRET_KEY',
+        'APP_KEY',
+        'DB_PORT',
+        'DB_DIALECT',
+        'DB_DATABASE',
+        'DB_STORAGE',
+        'DB_TIMEZONE',
+        'DB_UNDERSCORED',
+        'DB_USER',
+        'ENCRYPTION_FIELD_KEY',
+        'INIT_ROOT_PASSWORD',
+        'SSL_CERTIFICATE',
+      ];
 
       const publicEnvVariables = Object.keys(process.env)
         .filter((key) => !sensitiveEnvVariables.includes(key))
