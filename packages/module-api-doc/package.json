@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-api-doc",
   "displayName": "API documentation",
-  "version": "0.22.81",
+  "version": "0.22.82",
   "description": "An OpenAPI documentation generator for TachyBase HTTP API.",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
