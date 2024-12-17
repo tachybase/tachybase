@@ -52,7 +52,7 @@ export class PresetTachyBase extends Plugin {
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],
     ['adapter-remix', '0.22.9', false],
-    ['api-doc', '0.13.0', false],
+    ['devtools', '0.22.82', false],
     ['api-keys', '0.10.1', false],
     ['audit-logs', '0.22.7', false],
     ['auth-cas', '0.13.0', false],
