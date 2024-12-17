@@ -3,6 +3,7 @@ import { Plugin } from '@tachybase/server';
 export enum WorkerEvent {
   Started = 'started',
   PluginMethod = 'PluginMethod',
+  Terminate = 'Terminate',
 }
 
 export type WorkerEventInputDefault = {
@@ -19,3 +20,12 @@ export type WorkerEventInputPluginMethod<T = any> = WorkerEventInputDefault & {
 };
 
 export type WorkerEventInput = WorkerEventInputPluginMethod;
+
+export type WorkerWebInfo = {
+  // 预设数量,个人页面设置>环境变量WORKER_COUNT
+  preset: number;
+  // 当前数量
+  current: number;
+  // 繁忙数量
+  busy: number;
+};

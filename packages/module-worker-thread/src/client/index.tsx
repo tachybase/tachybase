@@ -1,20 +1,23 @@
 import { Plugin } from '@tachybase/client';
 
+import { NAMESPACE } from './constants';
+import { WorkerInfoPane } from './WorkerInfoPane';
+
 export class ModuleWorkerThreadClient extends Plugin {
-  async afterAdd() {
-    // await this.app.pm.add()
-  }
+  async afterAdd() {}
 
   async beforeLoad() {}
 
-  // You can get and modify the app instance here
   async load() {
-    console.log(this.app);
-    // this.app.addComponents({})
-    // this.app.addScopes({})
-    // this.app.addProvider()
-    // this.app.addProviders()
-    // this.app.router.add()
+    this.app.addComponents({
+      WorkerInfoPane,
+    });
+    this.app.systemSettingsManager.add('system-services.' + NAMESPACE, {
+      title: this.t('Worker thread'),
+      icon: 'ControlOutlined',
+      Component: WorkerInfoPane,
+      sort: 10,
+    });
   }
 }
 

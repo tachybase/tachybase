@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+import { isMainThread } from 'worker_threads';
 import { Cache } from '@tachybase/cache';
 import { Collection, Op } from '@tachybase/database';
 import { Plugin } from '@tachybase/server';
@@ -127,6 +128,9 @@ export default class PluginUsersServer extends Plugin {
         plugin: this,
       },
     });
+    if (isMainThread) {
+      return;
+    }
 
     this.app.resourcer.use(
       async (ctx, next) => {

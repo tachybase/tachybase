@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto';
 import { IncomingMessage, ServerResponse } from 'http';
 import { RecordableHistogram } from 'node:perf_hooks';
 import { basename, resolve } from 'path';
+import { isMainThread } from 'worker_threads';
 import { registerActions } from '@tachybase/actions';
 import { actions as authActions, AuthManager, AuthManagerOptions } from '@tachybase/auth';
 import { Cache, CacheManager, CacheManagerOptions } from '@tachybase/cache';
