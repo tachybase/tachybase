@@ -739,6 +739,8 @@ export const workflowSchema: ISchema = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 sorter: true,
+                width: 20,
+                align: 'center',
               },
               title: '{{t("Tags")}}',
               properties: {
