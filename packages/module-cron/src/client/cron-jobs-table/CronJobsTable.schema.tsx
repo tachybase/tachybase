@@ -245,7 +245,7 @@ const editAction: ISchema = {
 export const table = {
   type: 'void',
   'x-decorator': 'TableBlockProvider',
-  'x-acl-action': 'cronJobs:list', // TODO: 是否生效
+  'x-acl-action': 'cronJobs:list',
   'x-use-decorator-props': 'useTableBlockDecoratorProps',
   'x-decorator-props': {
     collection: 'cronJobs',
@@ -371,7 +371,7 @@ export const table = {
             },
           },
         },
-        startsOn: {
+        lastTime: {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
@@ -379,29 +379,8 @@ export const table = {
             width: 20,
           },
           properties: {
-            startsOn: {
-              'x-collection-field': 'cronJobs.startsOn',
-              'x-component': 'CollectionField',
-              'x-component-props': {
-                ellipsis: true,
-              },
-              'x-read-pretty': true,
-              'x-decorator': null,
-              'x-decorator-props': {
-                labelStyle: {
-                  display: 'none',
-                },
-              },
-            },
-          },
-        },
-        endsOn: {
-          type: 'void',
-          'x-decorator': 'TableV2.Column.Decorator',
-          'x-component': 'TableV2.Column',
-          properties: {
-            endsOn: {
-              'x-collection-field': 'cronJobs.endsOn',
+            lastTime: {
+              'x-collection-field': 'cronJobs.lastTime',
               'x-component': 'CollectionField',
               'x-component-props': {
                 ellipsis: true,
