@@ -5,11 +5,11 @@ import { useMemoizedFn } from 'ahooks';
 import { Card, theme } from 'antd';
 
 import PluginDevToolClient from '.';
-import { useLoggerTranslation } from './locale';
+import { useTranslation } from './locale';
 
 export const clientrouterToolPane = React.memo(() => {
   const { token } = theme.useToken();
-  const { t: lang } = useLoggerTranslation();
+  const { t: lang } = useTranslation();
   const t = useMemoizedFn(lang);
   const plugin = usePlugin(PluginDevToolClient);
   const allroutes = plugin.allRoutes;

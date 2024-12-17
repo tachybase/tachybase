@@ -4,9 +4,9 @@ import { createStyles, Plugin } from '@tachybase/client';
 import { RightOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 
-import { NAMESPACE } from '../locale';
 import { clientrouterToolPane } from './clientrouterPane';
 import { ENVToolPane } from './ENVPane';
+import { lang } from './locale';
 import { MiddlewareToolPane } from './middlewarePane';
 
 const DOCUMENTATION_PATH = '/api-documentation';
@@ -50,24 +50,24 @@ export class PluginDevToolClient extends Plugin {
   async beforeLoad() {}
 
   async load() {
-    this.app.systemSettingsManager.add(`devtools.${NAMESPACE}`, {
-      title: `{{t("API documentation", { ns: "${NAMESPACE}" })}}`,
+    this.app.systemSettingsManager.add(`devtools.api-doc`, {
+      title: lang('API documentation'),
       icon: 'BookOutlined',
       Component: SCDocumentation,
       aclSnippet: 'pm.api-doc.documentation',
     });
     this.app.systemSettingsManager.add('devtools.env', {
-      title: `{{t('ENV')}}`,
+      title: lang('ENV'),
       icon: 'CodeOutlined',
       Component: ENVToolPane,
     });
     this.app.systemSettingsManager.add('devtools.middlewaresorder', {
-      title: `{{t('middlewaresorder')}}`,
+      title: lang('middlewaresorder'),
       icon: 'CodeOutlined',
       Component: MiddlewareToolPane,
     });
     this.app.systemSettingsManager.add('devtools.clientrouter', {
-      title: `{{t('Client router')}}`,
+      title: lang('Client router'),
       icon: 'CodeOutlined',
       Component: clientrouterToolPane,
     });

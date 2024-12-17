@@ -6,7 +6,7 @@ import { useMemoizedFn } from 'ahooks';
 import { Alert, Button, Card, Empty, Input, theme, Tree, TreeDataNode, Typography } from 'antd';
 import type { BasicDataNode, DataNode } from 'antd/lib/tree';
 
-import { useLoggerTranslation } from './locale';
+import { useTranslation } from './locale';
 
 // import { DebugResponseTabs } from 'packages/module-data-source-external/src/client/features/rest-api/request-configs/debug-area/components/DebugResponseTabs';
 
@@ -19,7 +19,7 @@ type LogDir = {
 };
 
 const Tips = React.memo(() => {
-  const { t } = useLoggerTranslation();
+  const { t } = useTranslation();
   return (
     <Typography>
       <Paragraph>
@@ -41,7 +41,7 @@ Tips.displayName = 'Tips';
 
 export const MiddlewareToolPane = React.memo((props) => {
   const { token } = theme.useToken();
-  const { t: lang } = useLoggerTranslation();
+  const { t: lang } = useTranslation();
   const t = useMemoizedFn(lang);
   const api = useAPIClient();
   const [expandedKeys, setExpandedKeys] = React.useState<React.Key[]>(['0']);
