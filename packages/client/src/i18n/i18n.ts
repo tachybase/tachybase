@@ -20,7 +20,7 @@ Object.keys(locale).forEach((lang) => {
 
 i18n.use(initReactI18next).init({
   lng: localStorage.getItem('TACHYBASE_LOCALE') || 'en-US',
-  defaultNS: 'client',
+  defaultNS: 'core',
   resources: {},
   keySeparator: false,
   nsSeparator: false,

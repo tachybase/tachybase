@@ -1,4 +1,4 @@
-name: PR Workflow
+name: Pull Request - Build Check
 on:
   pull_request:
     branches:
@@ -7,9 +7,6 @@ on:
 
 permissions:
   contents: write
-
-env:
-  npm_config_registry: ${{ vars.REGISTRY_URL }}
 
 jobs:
   CI:
@@ -23,8 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.18.0
-          registry-url: ${{ vars.REGISTRY_URL }}
-          cache: 'pnpm'
       - name: Install deps
         run: pnpm install
       - name: Build

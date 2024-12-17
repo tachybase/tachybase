@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { NAMESPACE } from '../constants';
 
 export const usePluginUtils = () => {
-  const { t } = useTranslation([NAMESPACE, 'client']);
+  const { t } = useTranslation([NAMESPACE, 'core']);
   return { t };
 };
 

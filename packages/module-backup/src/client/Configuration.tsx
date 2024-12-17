@@ -386,8 +386,8 @@ export const BackupAndRestoreList = () => {
   };
   const handleDestory = (fileData) => {
     modal.confirm({
-      title: t('Delete record', { ns: 'client' }),
-      content: t('Are you sure you want to delete it?', { ns: 'client' }),
+      title: t('Delete record', { ns: 'core' }),
+      content: t('Are you sure you want to delete it?', { ns: 'core' }),
       onOk: async () => {
         await resource.destroy({ filterByTk: fileData.name });
         await queryFieldList();
@@ -449,7 +449,7 @@ export const BackupAndRestoreList = () => {
               },
             },
             {
-              title: t('Created at', { ns: 'client' }),
+              title: t('Created at', { ns: 'core' }),
               dataIndex: 'createdAt',
               onCell: (data) => {
                 return data.inProgress
@@ -463,7 +463,7 @@ export const BackupAndRestoreList = () => {
               },
             },
             {
-              title: t('Actions', { ns: 'client' }),
+              title: t('Actions', { ns: 'core' }),
               dataIndex: 'actions',
               onCell: (data) => {
                 return data.inProgress

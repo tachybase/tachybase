@@ -1,7 +1,12 @@
-name: Manual Build Tachybase All
+name: Manual Build Tachybase Node With Pg-client
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      docker_tag:
+        description: 'The Docker tag to publish (e.g., "1.0.0", "latest")'
+        required: true
+        default: 'latest'
 
 jobs:
   docker:
@@ -22,19 +27,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Extract Tag Name
-        id: extract_tag
-        run: echo version=`echo "${{ github.ref }}" | cut -d'/' -f3` >> "$GITHUB_OUTPUT"
-
       - name: Build and push multi-arch image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/tachybase-all/Dockerfile
+          file: docker/tachybase-node-pg/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: |
-            TACHYBASE_VERSION=${{ steps.extract_tag.outputs.version }}
+            TACHYBASE_VERSION=${{ github.event.inputs.docker_tag }}
           tags: |
-            tachybase/tachybase-all:${{ steps.extract_tag.outputs.version }}
-            tachybase/tachybase-all:latest
+            tachybase/tachybase-node-pg:${{ github.event.inputs.docker_tag }}
+            tachybase/tachybase-node-pg:latest

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-sub-accounts",
-  "version": "0.22.71",
+  "version": "0.22.82",
   "description": "Generates synthetic roles, each user can create their own sub-accounts (unfinished)",
   "main": "dist/server/index.js",
   "scripts": {
