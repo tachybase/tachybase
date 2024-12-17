@@ -45,9 +45,9 @@ export function traverseSchema(schema, fn) {
 }
 
 export function getWorkflowDetailPath(id: string | number) {
-  return `/admin/workflow/workflows/${id}`;
+  return `/_admin/business-components/workflow/${id}/workflow`;
 }
 
 export function getWorkflowExecutionsPath(id: string | number) {
-  return `/admin/workflow/executions/${id}`;
+  return `/_admin/business-components/workflow/${id}/executions`;
 }

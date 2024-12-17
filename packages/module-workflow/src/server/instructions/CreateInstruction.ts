@@ -1,4 +1,4 @@
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source';
 import { Gateway } from '@tachybase/server';
 import { uid } from '@tachybase/utils';
 

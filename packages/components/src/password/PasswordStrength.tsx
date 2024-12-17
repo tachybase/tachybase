@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
-
-import { ReactFC } from '@formily/react';
-import { isFn } from '@formily/shared';
+import { isFn, ReactFC } from '@tachybase/schema';
 
 type ReactRenderPropsChildren<T = any> = React.ReactNode | ((props: T) => React.ReactElement);
 

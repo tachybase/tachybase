@@ -1,2 +1,2 @@
-export * from './fields/sequence-field';
+export * from './fields/field-sequence';
 export { default } from './Plugin';

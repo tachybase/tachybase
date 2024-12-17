@@ -7,6 +7,7 @@ import {
 } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 
+import { message } from 'antd';
 import { saveAs } from 'file-saver';
 import lodash from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -38,23 +39,39 @@ export const useExportAction = () => {
           es.dataIndex.push('name');
         }
       });
-      const { data } = await resource.export(
-        {
-          title: compile(title),
-          appends: service.params[0]?.appends?.join(),
-          filter: JSON.stringify(service.params[0]?.filter),
-          sort: service.params[0]?.sort,
-        },
-        {
-          method: 'post',
-          data: {
-            columns: compile(exportSettings),
+      const hide = message.loading(t('Exporting Data...'), 0); // 显示加载状态
+      try {
+        const response = await resource.export(
+          {
+            title: compile(title),
+            appends: service.params[0]?.appends?.join(),
+            filter: JSON.stringify(service.params[0]?.filter),
+            sort: service.params[0]?.sort,
           },
-          responseType: 'blob',
-        },
-      );
-      const blob = new Blob([data], { type: 'application/x-xls' });
-      saveAs(blob, `${compile(title)}.xlsx`);
+          {
+            method: 'post',
+            data: {
+              columns: compile(exportSettings),
+            },
+            responseType: 'blob',
+          },
+        );
+        const { data } = response;
+        if (data.type === 'application/json') {
+          const text = await data.text();
+          const {
+            data: { filename },
+          } = JSON.parse(text);
+          window.location.href = filename;
+        } else {
+          const blob = new Blob([data], { type: 'application/x-xls' });
+          saveAs(blob, `${compile(title)}.xlsx`);
+        }
+        hide(); // 隐藏加载状态
+      } catch (error) {
+        console.error(error);
+        hide();
+      }
     },
   };
 };

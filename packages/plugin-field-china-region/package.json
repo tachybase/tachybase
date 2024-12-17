@@ -1,7 +1,7 @@
 {
-  "name": "@tachybase/plugin-china-region",
+  "name": "@tachybase/plugin-field-china-region",
   "displayName": "Administrative divisions of China",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "description": "Provides data and field type for administrative divisions of China.",
   "keywords": [
     "Fields"
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-china-region"
+    "build": "tachybase-build --no-dts @tachybase/plugin-field-china-region"
   },
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
@@ -24,5 +24,5 @@
     "@tachybase/test": "workspace:*"
   },
   "description.zh-CN": "提供中国行政区划数据和字段类型。",
-  "displayName.zh-CN": "中国行政区划"
+  "displayName.zh-CN": "字段：中国行政区划"
 }

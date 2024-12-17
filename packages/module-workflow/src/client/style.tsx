@@ -7,7 +7,7 @@ const useStyles = createStyles(({ css, token }) => {
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: calc(100vh - var(--tb-header-height));
+      height: calc(100vh - 56px);
       .workflow-toolbar {
         display: flex;
         align-items: center;

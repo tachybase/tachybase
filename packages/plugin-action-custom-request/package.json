@@ -1,7 +1,7 @@
 {
-  "name": "@tachybase/plugin-custom-request",
+  "name": "@tachybase/plugin-action-custom-request",
   "displayName": "Action: Custom request",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "description": "Sending a request to any HTTP service supports sending context data to the target service.",
   "keywords": [
     "Actions"
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-custom-request"
+    "build": "tachybase-build --no-dts @tachybase/plugin-action-custom-request"
   },
   "devDependencies": {
     "@tachybase/components": "workspace:*",

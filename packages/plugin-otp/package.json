@@ -1,0 +1,37 @@
+{
+  "name": "@tachybase/plugin-otp",
+  "displayName": "Verification",
+  "version": "0.22.76",
+  "description": "verification setting.",
+  "keywords": [
+    "Authentication"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-otp"
+  },
+  "devDependencies": {
+    "@alicloud/dysmsapi20170525": "2.0.17",
+    "@alicloud/openapi-client": "0.4.1",
+    "@alicloud/tea-util": "1.4.4",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "antd": "5.22.0",
+    "dayjs": "1.11.10",
+    "react": "~18.3.1",
+    "react-i18next": "^15.1.1",
+    "tencentcloud-sdk-nodejs": "^4.0.759"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "验证码配置。",
+  "displayName.zh-CN": "验证码"
+}

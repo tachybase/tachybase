@@ -11,7 +11,7 @@ import { AddNewButtonComponent } from './AddNewButton';
 
 export const WelcomeCard = () => {
   const { refresh } = useDesignable();
-  const t = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const api = useAPIClient();
   const { data: schema } = useRequest<{ data: any }>({ url: `/uiSchemas:getJsonSchema/default-admin-menu` });
@@ -22,8 +22,9 @@ export const WelcomeCard = () => {
     current: schema?.data,
   });
 
-  const navigatePlugin = () => navigate('/admin/settings/plugin-manager');
-  const openHomePage = () => window.open('https://tachybase.com', '_blank');
+  // TODO
+  const navigatePlugin = () => navigate('_admin/system-services/plugin-manager');
+  const openHomePage = () => window.open('https://tachybase.org', '_blank');
 
   return (
     <Card
@@ -32,10 +33,12 @@ export const WelcomeCard = () => {
         margin: 24px auto;
       `}
     >
-      <Typography.Title>欢迎来到塔奇平台</Typography.Title>
+      <Typography.Title>{t('Welcome to the Tachy Platform!')}</Typography.Title>
 
       <Typography.Text>
-        塔奇平台致力于打造一个用户友好的应用研发平台，旨在降低开发门槛，提升研发效率，为企业用户和开发者提供一站式解决方案。
+        {t(
+          'The Tachy Platform is dedicated to creating a user-friendly application development environment, aiming to lower development barriers, enhance efficiency, and provide enterprise users and developers with one-stop solutions.',
+        )}
       </Typography.Text>
       <Flex
         justify="flex-end"
@@ -44,8 +47,8 @@ export const WelcomeCard = () => {
         `}
       >
         <Space>
-          <Button onClick={openHomePage}>使用手册</Button>
-          <Button onClick={navigatePlugin}>插件管理</Button>
+          <Button onClick={openHomePage}>{t('Official Website')}</Button>
+          <Button onClick={navigatePlugin}>{t('Plugin Management')}</Button>
           <AddNewButtonComponent />
         </Space>
       </Flex>

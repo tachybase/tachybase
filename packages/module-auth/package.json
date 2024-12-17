@@ -1,14 +1,14 @@
 {
-  "name": "@tachybase/plugin-auth",
+  "name": "@tachybase/module-auth",
   "displayName": "Authentication",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "description": "User authentication management, including password, SMS, and support for Single Sign-On (SSO) protocols, with extensibility.",
   "keywords": [
     "Authentication"
   ],
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-auth"
+    "build": "tachybase-build --no-dts @tachybase/module-auth"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",

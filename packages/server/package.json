@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/server",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
@@ -15,7 +15,7 @@
     "@tachybase/actions": "workspace:*",
     "@tachybase/auth": "workspace:*",
     "@tachybase/cache": "workspace:*",
-    "@tachybase/data-source-manager": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/evaluators": "workspace:*",
     "@tachybase/logger": "workspace:*",

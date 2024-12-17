@@ -89,7 +89,7 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
 
   const { collectionName, url, headers = [], params = [], data = {}, ...options } = requestConfig.options || {};
   if (!url) {
-    return ctx.throw(400, ctx.t('Please configure the request settings first', { ns: 'custom-request' }));
+    return ctx.throw(400, ctx.t('Please configure the request settings first', { ns: 'action-custom-request' }));
   }
   let currentRecordValues = {};
   if (collectionName && typeof currentRecord.id !== 'undefined') {
@@ -150,9 +150,9 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
   };
 
   const requestUrl = axios.getUri(axiosRequestConfig);
-  this.logger.info(`custom-request:send:${filterByTk} request url ${requestUrl}`);
+  this.logger.info(`action-custom-request:send:${filterByTk} request url ${requestUrl}`);
   this.logger.info(
-    `custom-request:send:${filterByTk} request config ${JSON.stringify({
+    `action-custom-request:send:${filterByTk} request config ${JSON.stringify({
       ...axiosRequestConfig,
       headers: {
         ...axiosRequestConfig.headers,
@@ -165,7 +165,7 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
     const res = await axios({ ...axiosRequestConfig, responseType: 'stream' });
     ctx.set('Content-Type', `${res.headers['content-type']}`);
     ctx.set('Content-disposition', `${res.headers['content-disposition']}`);
-    this.logger.info(`custom-request:send:${filterByTk} success`);
+    this.logger.info(`action-custom-request:send:${filterByTk} success`);
 
     const readable = res.data as http.IncomingMessage;
 
@@ -175,12 +175,14 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
       ctx.status = err.response?.status || 500;
       ctx.body = err.response?.data || { message: err.message };
       this.logger.error(
-        `custom-request:send:${filterByTk} error. status: ${ctx.status}, body: ${
+        `action-custom-request:send:${filterByTk} error. status: ${ctx.status}, body: ${
           typeof ctx.body === 'string' ? ctx.body : JSON.stringify(ctx.body)
         }`,
       );
     } else {
-      this.logger.error(`custom-request:send:${filterByTk} error. status: ${ctx.status}, message: ${err.message}`);
+      this.logger.error(
+        `action-custom-request:send:${filterByTk} error. status: ${ctx.status}, message: ${err.message}`,
+      );
       ctx.throw(500, err?.message);
     }
   }

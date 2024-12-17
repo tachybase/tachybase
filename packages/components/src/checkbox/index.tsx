@@ -1,4 +1,5 @@
-import { connect, mapProps, mapReadPretty } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
+
 import { Checkbox as AntdCheckbox } from 'antd';
 
 import { PreviewText } from '../preview-text';

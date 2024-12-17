@@ -6,7 +6,6 @@ import { ProviderBlockInitItem } from './BlockInitItem.provider';
 import { ViewBlockInitItem } from './BlockInitItem.view';
 import { CarbonCopyBlockProvider } from './carbon-copy/CarbonCopyBlock.provider';
 import { CarbonCopyCenter } from './carbon-copy/CarbonCopyCenter.schema';
-import { FilterSummary } from './common/FilterSummary.component';
 import { InitiateApplication } from './InitiateApplication.component';
 import { ViewCheckLink as ViewCheckLinkInitiations } from './initiations/CheckLink.view';
 import { ViewTableInitiated } from './initiations/TableInitiated';
@@ -26,7 +25,6 @@ export class KitApprovalBlock extends Plugin {
 
       // NOTE: 这里注册在全局, 而不是组件内的作用域, 是为了让手机端共享到
       ProviderApprovalUpdateForm: ProviderApprovalUpdateForm,
-      FilterSummary,
 
       /**
        * DOC:
@@ -42,7 +40,7 @@ export class KitApprovalBlock extends Plugin {
       'Approval-ViewTableTodos': ViewTableTodos,
 
       /**
-       * @deprecated,
+       * @deprecated
        * 兼容旧版用法, 防止线上已经按照旧版配置的 schema, 运行的时候找不到原组件
        */
       'ApprovalBlock.BlockInitializer': ViewBlockInitItem,

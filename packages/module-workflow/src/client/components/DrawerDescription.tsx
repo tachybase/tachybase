@@ -1,7 +1,10 @@
 import React from 'react';
 import { createStyles, cx } from '@tachybase/client';
+import { convertUTCToLocal } from '@tachybase/utils/client';
 
 import { Tag } from 'antd';
+
+import { useTranslation } from '../locale';
 
 const useStyles = createStyles(({ css, token }) => {
   return {
@@ -35,18 +38,27 @@ const useStyles = createStyles(({ css, token }) => {
 });
 
 export function DrawerDescription(props) {
-  const { label, title, description } = props;
+  const { label, title, description, workflowKey, createdAt, createdBy } = props;
   const { styles } = useStyles();
-
+  const { t } = useTranslation();
   return (
-    <div className={cx(styles.container, props.className)}>
-      <dl>
-        <dt>{label}</dt>
-        <dd>
-          <Tag style={{ background: 'none' }}>{title}</Tag>
-        </dd>
-      </dl>
-      {description ? <p>{description}</p> : null}
-    </div>
+    <>
+      <div className={cx(styles.container, props.className)}>
+        <dl>
+          <dt>{label}</dt>
+          <dd>
+            <Tag style={{ background: 'none' }}>{title}</Tag>
+          </dd>
+        </dl>
+        {description ? <p>{description}</p> : null}
+      </div>
+      {workflowKey || createdAt || createdBy ? (
+        <div className={cx(styles.container, props.className)}>
+          {workflowKey ? <p>{`${t('Key')}: ${workflowKey}`}</p> : null}
+          {createdAt ? <p>{`${t('Created at')}: ${convertUTCToLocal(createdAt)}`}</p> : null}
+          {createdBy ? <p>{`${t('Created by')}: ${createdBy}`}</p> : null}
+        </div>
+      ) : null}
+    </>
   );
 }

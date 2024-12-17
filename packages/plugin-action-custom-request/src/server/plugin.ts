@@ -16,9 +16,9 @@ export class CustomRequestPlugin extends Plugin {
 
   getLogger(): Logger {
     const logger = this.createLogger({
-      dirname: 'custom-request',
+      dirname: 'action-custom-request',
       filename: '%DATE%.log',
-      transports: [...(process.env.NODE_ENV === 'production' ? ['dailyRotateFile'] : ['console'])],
+      transports: process.env.NODE_ENV === 'production' ? ['dailyRotateFile'] : ['console'],
     } as LoggerOptions);
 
     return logger;

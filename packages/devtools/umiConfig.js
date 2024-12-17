@@ -240,8 +240,12 @@ export default function devDynamicImport(packageName: string): Promise<any> {
             .relative(this.packagesPath, path.join(path.dirname(pluginPackageJsonPath), 'src', 'client'))
             .replaceAll(path.sep, '/');
           exportStatement = `export { default } from '${pluginSrcClientPath}';`;
+          exportStatement += '\n';
+          exportStatement += `export * from '${pluginSrcClientPath}';`;
         } else {
           exportStatement = `export { default } from '${pluginPackageJson.name}/client';`;
+          exportStatement += '\n';
+          exportStatement += `export * from '${pluginPackageJson.name}/client';`;
         }
         return { exportStatement, pluginFileName, packageJsonName: pluginPackageJson.name };
       });

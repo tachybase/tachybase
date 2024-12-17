@@ -7,7 +7,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Icon } from '../../icon';
 import { useDesignable } from '../../schema-component';
 import { useContextMenu } from '../context-menu';
-import AIChatModal from './AIChatModal';
+import AIChatModal from './ai-chat';
 import { useCalculator } from './calculator/CalculatorProvider';
 import { useSearchAndJump } from './search-and-jump';
 

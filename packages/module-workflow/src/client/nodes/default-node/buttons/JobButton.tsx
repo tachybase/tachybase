@@ -6,8 +6,8 @@ import { Dropdown } from 'antd';
 import { StatusButton } from '../../../components/StatusButton';
 import { JobStatusOptionsMap } from '../../../constants';
 import { useFlowContext } from '../../../FlowContext';
-import useStyles from '../../../style';
 import { useContextNode } from '../Node.context';
+import useStyles from './JobButton.style';
 
 export const JobButton = () => {
   const { execution, setViewJob } = useFlowContext();

@@ -21,6 +21,8 @@ export class ApprovalInstruction extends Instruction {
   title = `{{t("Approval", { ns: "${NAMESPACE}" })}}`;
   type = 'approval';
   group = 'manual';
+  icon = 'ApprovalNew';
+  color = '#e45f53';
   description = `{{t("Manual approval operations within the approval process, the approver can approve in the global approval block or in the approval block of a single record.", { ns: "${NAMESPACE}" })}}`;
   // 审批节点类别
   options = [

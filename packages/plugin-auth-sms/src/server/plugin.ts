@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import VerificationPlugin from '@tachybase/plugin-verification';
+import VerificationPlugin from '@tachybase/plugin-otp';
 import { InstallOptions, Plugin } from '@tachybase/server';
 
 import { authType } from '../constants';
@@ -19,7 +19,7 @@ export class SmsAuthPlugin extends Plugin {
 
     const verificationPlugin: VerificationPlugin = this.app.getPlugin('verification');
     if (!verificationPlugin) {
-      this.app.logger.warn('sms-auth: @tachybase/plugin-verification is required');
+      this.app.logger.warn('sms-auth: @tachybase/plugin-otp is required');
       return;
     }
     verificationPlugin.interceptors.register('auth:signIn', {

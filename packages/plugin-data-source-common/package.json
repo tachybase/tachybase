@@ -1,0 +1,29 @@
+{
+  "name": "@tachybase/plugin-data-source-common",
+  "version": "0.22.76",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-data-source-common"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.4.0",
+    "antd": "5.22.0",
+    "lodash": "^4.17.21",
+    "mysql2": "^3.11.3",
+    "pg": "^8.11.3",
+    "react-i18next": "^15.1.1",
+    "react-router-dom": "^6.25.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.5"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "支持更多的数据源",
+  "displayName.zh-CN": "外部数据源支持"
+}

@@ -5,19 +5,16 @@ import { Registry } from '@tachybase/utils/client';
 import { WorkflowLink } from './components/WorkflowLink';
 import { ExecutionPage } from './ExecutionPage';
 import { PluginAggregate } from './features/aggregate';
-import PluginWorkflowDataMappingClient from './features/data-mapping';
 import { PluginDelay } from './features/delay';
 import { PluginDaynamicCalculation } from './features/dynamic-calculation';
 import { PluginWorkflowInterceptor } from './features/interceptor';
-import PluginWorkflowJSParseClient from './features/js-parse';
-import PluginWorkflowJsonParseClient from './features/json-parse';
 import { PluginLoop } from './features/loop';
 import { PluginManual } from './features/manual';
-import PluginWorkflowNoticeClient from './features/notice';
 import { PluginOmniTrigger } from './features/omni-trigger';
 import { PluginParallel } from './features/parallel';
 import { PluginRequest } from './features/request';
 import { PluginResponse } from './features/response';
+import PluginWorkflowDataMappingClient from './features/script';
 import { PluginSql } from './features/sql';
 import { PluginTriggerInstruction } from './features/trigger-instruction/plugin';
 import { PluginVariables } from './features/variables';
@@ -83,27 +80,44 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginDaynamicCalculation);
     await this.pm.add(PluginDelay);
     await this.pm.add(PluginAggregate);
-    await this.pm.add(PluginWorkflowJsonParseClient);
-    await this.pm.add(PluginWorkflowJSParseClient);
     await this.pm.add(PluginWorkflowDataMappingClient);
     await this.pm.add(PluginWorkflowInterceptor);
     await this.pm.add(PluginVariables);
     await this.pm.add(PluginResponse);
     await this.pm.add(PluginOmniTrigger);
     await this.pm.add(PluginTriggerInstruction);
-    await this.pm.add(PluginWorkflowNoticeClient);
   }
 
   async load() {
-    this.addRoutes();
     this.addComponents();
 
-    this.app.systemSettingsManager.add(NAMESPACE, {
+    this.app.systemSettingsManager.add(`business-components.${NAMESPACE}`, {
       icon: 'workflow',
       title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
       Component: WorkflowPane,
       aclSnippet: 'pm.workflow.workflows',
       sort: -80,
+    });
+
+    this.app.systemSettingsManager.add(`business-components.${NAMESPACE}/:id`, {
+      icon: 'workflow',
+      title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
+    });
+
+    this.app.systemSettingsManager.add(`business-components.${NAMESPACE}/:id.workflow`, {
+      icon: 'workflow',
+      title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
+      Component: WorkflowPage,
+      fullscreen: true,
+      groupKey: `business-components.${NAMESPACE}`,
+    });
+
+    this.app.systemSettingsManager.add(`business-components.${NAMESPACE}/:id.executions`, {
+      icon: 'workflow',
+      title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
+      Component: ExecutionPage,
+      fullscreen: true,
+      groupKey: `business-components.${NAMESPACE}`,
     });
 
     this.app.schemaSettingsManager.add(customizeSubmitToWorkflowActionSettings);
@@ -126,17 +140,6 @@ export class PluginWorkflow extends Plugin {
       WorkflowLink,
       WorkflowPage,
       ExecutionPage,
-    });
-  }
-
-  addRoutes() {
-    this.app.router.add('admin.workflow.workflows.id', {
-      path: getWorkflowDetailPath(':id'),
-      element: <WorkflowPage />,
-    });
-    this.app.router.add('admin.workflow.executions.id', {
-      path: getWorkflowExecutionsPath(':id'),
-      element: <ExecutionPage />,
     });
   }
 }

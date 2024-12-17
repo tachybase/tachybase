@@ -325,10 +325,13 @@ function CalculationConfig({ value, onChange }) {
   return <CalculationGroup value={rule.group} onChange={(group) => onChange({ ...rule, group })} />;
 }
 
+/** 节点: 条件判断 */
 export default class extends Instruction {
   title = `{{t("Condition", { ns: "${NAMESPACE}" })}}`;
   type = 'condition';
   group = 'control';
+  icon = 'QuestionOutlined';
+  color = '#1ab287';
   description = `{{t('Based on boolean result of the calculation to determine whether to "continue" or "exit" the process, or continue on different branches of "yes" and "no".', { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     rejectOnFalse: {

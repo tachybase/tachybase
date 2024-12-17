@@ -1,7 +1,7 @@
 import { CollectionOptions } from '@tachybase/database';
 
 export default {
-  namespace: 'iframe-block.iframe-html-storage',
+  namespace: 'block-presentation.iframe-html-storage',
   dumpRules: 'required',
   name: 'iframeHtml',
   createdBy: true,

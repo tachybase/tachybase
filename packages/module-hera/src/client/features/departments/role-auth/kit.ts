@@ -1,5 +1,5 @@
 import { Plugin } from '@tachybase/client';
-import PluginACLClient from '@tachybase/plugin-acl/client';
+import PluginACLClient from '@tachybase/module-acl/client';
 
 import { tval } from '../../../locale';
 import { Departments } from './Departments';

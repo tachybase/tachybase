@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
+import { connect, Field, isArr, mapProps, reaction, toArr, useField } from '@tachybase/schema';
 
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { Field } from '@formily/core';
-import { connect, mapProps, useField } from '@formily/react';
-import { reaction } from '@formily/reactive';
-import { isArr, toArr } from '@formily/shared';
 import { Upload as AntdUpload, Button } from 'antd';
 import { DraggerProps as AntdDraggerProps, UploadProps as AntdUploadProps, UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';

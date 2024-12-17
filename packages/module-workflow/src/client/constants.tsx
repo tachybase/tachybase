@@ -1,8 +1,8 @@
 import React from 'react';
+import { Icon } from '@tachybase/client';
 
 import {
   CheckOutlined,
-  ClockCircleOutlined,
   CloseOutlined,
   ExclamationOutlined,
   HourglassOutlined,
@@ -111,45 +111,50 @@ export const JobStatusOptions = [
   {
     value: JOB_STATUS.PENDING,
     label: `{{t("Pending", { ns: "${NAMESPACE}" })}}`,
-    color: 'gold',
-    icon: <ClockCircleOutlined />,
+    color: '#FFD92D',
+    icon: <Icon type={'HistoryOutlined'} />,
   },
   {
     value: JOB_STATUS.RESOLVED,
     label: `{{t("Resolved", { ns: "${NAMESPACE}" })}}`,
-    color: 'green',
-    icon: <CheckOutlined />,
+    color: '#2DCD22',
+    icon: <Icon type={'CheckOutlined'} />,
   },
   {
     value: JOB_STATUS.FAILED,
     label: `{{t("Failed", { ns: "${NAMESPACE}" })}}`,
-    color: 'red',
-    icon: <ExclamationOutlined />,
+    color: '#F45353',
+    icon: <Icon type={'ExclamationOutlined'} />,
   },
-  { value: JOB_STATUS.ERROR, label: `{{t("Error", { ns: "${NAMESPACE}" })}}`, color: 'red', icon: <CloseOutlined /> },
+  {
+    value: JOB_STATUS.ERROR,
+    label: `{{t("Error", { ns: "${NAMESPACE}" })}}`,
+    color: '#F45353',
+    icon: <Icon type={'CloseOutlined'} />,
+  },
   {
     value: JOB_STATUS.ABORTED,
     label: `{{t("Aborted", { ns: "${NAMESPACE}" })}}`,
-    color: 'red',
-    icon: <MinusOutlined rotate={90} />,
+    color: '#F45353',
+    icon: <Icon type={'MinusOutlined'} rotate={90} />,
   },
   {
     value: JOB_STATUS.CANCELED,
     label: `{{t("Canceled", { ns: "${NAMESPACE}" })}}`,
     color: 'volcano',
-    icon: <MinusOutlined rotate={45} />,
+    icon: <Icon type={'MinusOutlined'} rotate={45} />,
   },
   {
     value: JOB_STATUS.REJECTED,
     label: `{{t("Rejected", { ns: "${NAMESPACE}" })}}`,
     color: 'volcano',
-    icon: <MinusOutlined />,
+    icon: <Icon type={'MinusOutlined'} />,
   },
   {
     value: JOB_STATUS.RETRY_NEEDED,
     label: `{{t("Retry needed", { ns: "${NAMESPACE}" })}}`,
     color: 'volcano',
-    icon: <RedoOutlined />,
+    icon: <Icon type={'RedoOutlined'} />,
   },
 ];
 

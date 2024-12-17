@@ -1,7 +1,6 @@
-import { i18n, tval, useTranslation} from '@tachybase/client';
+import { i18n, tval, useTranslation } from '@tachybase/client';
 
-export const NAMESPACE = 'map';
-
+export const NAMESPACE = 'block-map';
 
 export function lang(key: string) {
   return i18n.t(key, { ns: [NAMESPACE, 'client'] });

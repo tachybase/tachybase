@@ -1,7 +1,8 @@
 import { i18n } from '@tachybase/client';
+
 import { useTranslation } from 'react-i18next';
 
-export const NAMESPACE = 'sequence-field';
+export const NAMESPACE = 'field-sequence';
 
 // i18n.addResources('zh-CN', NAMESPACE, zhCN);
 

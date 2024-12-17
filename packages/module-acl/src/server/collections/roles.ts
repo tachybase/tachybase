@@ -1,7 +1,7 @@
 import { defineCollection } from '@tachybase/database';
 
 export default defineCollection({
-  origin: '@tachybase/plugin-acl',
+  origin: '@tachybase/module-acl',
   dumpRules: 'required',
   name: 'roles',
   title: '{{t("Roles")}}',

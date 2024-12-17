@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { CollectionProvider_deprecated, ResourceActionContext, SchemaComponent, useRequest } from '@tachybase/client';
-import { RolesManagerContext } from '@tachybase/plugin-acl/client';
+import { RolesManagerContext } from '@tachybase/module-acl/client';
 
 import { ViewDepartmentTable } from '../common/DepartmentTable.view';
 import { useDepartmentFilterActionProps } from '../common/scopes/useDepartmentFilterActionProps';

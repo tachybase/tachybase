@@ -1,7 +1,8 @@
 import { i18n } from '@tachybase/client';
+
 import { useTranslation } from 'react-i18next';
 
-export const NAMESPACE = 'snapshot-field';
+export const NAMESPACE = 'field-snapshot';
 
 // i18n.addResources('zh-CN', NAMESPACE, zhCN);
 // i18n.addResources('en-US', NAMESPACE, enUS);

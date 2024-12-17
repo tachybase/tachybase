@@ -13,7 +13,7 @@ import { message } from 'antd';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 
-import { NAMESPACE } from '../locale';
+import { NAMESPACE, tval } from '../locale';
 import { executionSchema } from './executions';
 
 export const collectionWorkflows = {
@@ -28,6 +28,17 @@ export const collectionWorkflows = {
         type: 'string',
         'x-component': 'Input',
         required: true,
+      } as ISchema,
+    },
+    {
+      type: 'string',
+      name: 'showName',
+      interface: 'input',
+      uiSchema: {
+        title: '{{t("Display name")}}',
+        type: 'string',
+        'x-component': 'Input',
+        required: false,
       } as ISchema,
     },
     {
@@ -71,6 +82,7 @@ export const collectionWorkflows = {
         default: false,
       } as ISchema,
     },
+
     {
       type: 'number',
       name: 'allExecuted',
@@ -86,10 +98,44 @@ export const collectionWorkflows = {
       type: 'object',
       name: 'options',
     },
+    {
+      name: 'updatedAt',
+      type: 'date',
+      interface: 'updatedAt',
+      uiSchema: {
+        type: 'datetime',
+        title: tval('Updated at'),
+        'x-component': 'DatePicker',
+        'x-component-props': {
+          showTime: true,
+        },
+      },
+    },
+    {
+      name: 'updatedBy',
+      type: 'belongsTo',
+      interface: 'updatedBy',
+      target: 'users',
+      targetKey: 'id',
+      foreignKey: 'updatedById',
+      collectionName: 'workflows',
+      uiSchema: {
+        type: 'object',
+        title: '{{t("Last updated by")}}',
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          fieldNames: {
+            value: 'id',
+            label: 'nickname',
+          },
+        },
+        'x-read-pretty': true,
+      },
+    },
   ],
 };
 
-export const workflowFieldset = {
+export const workflowFieldset: Record<string, ISchema> = {
   title: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
@@ -97,22 +143,23 @@ export const workflowFieldset = {
   type: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
+    default: 'general-action',
+    'x-hidden': true,
   },
   sync: {
     type: 'boolean',
     title: `{{ t("Execute mode", { ns: "${NAMESPACE}" }) }}`,
-    description: `{{ t("Execute workflow asynchronously or synchronously based on trigger type, and could not be changed after created.", { ns: "${NAMESPACE}" }) }}`,
     'x-decorator': 'FormItem',
     'x-component': 'SyncOptionSelect',
     'x-component-props': {
       options: [
         {
-          label: `{{ t("Asynchronously", { ns: "${NAMESPACE}" }) }}`,
+          label: `{{ t("Queue Mode", { ns: "${NAMESPACE}" }) }}`,
           value: false,
           tooltip: `{{ t("Will be executed in the background as a queued task.", { ns: "${NAMESPACE}" }) }}`,
         },
         {
-          label: `{{ t("Synchronously", { ns: "${NAMESPACE}" }) }}`,
+          label: `{{ t("Transactional Mode", { ns: "${NAMESPACE}" }) }}`,
           value: true,
           tooltip: `{{ t("For user actions that require immediate feedback. Can not use asynchronous nodes in such mode, and it is not recommended to perform time-consuming operations under synchronous mode.", { ns: "${NAMESPACE}" }) }}`,
         },
@@ -120,6 +167,10 @@ export const workflowFieldset = {
     },
   },
   enabled: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
+  showName: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
   },
@@ -222,6 +273,7 @@ export const createWorkflow: ISchema = {
                 title: workflowFieldset.title,
                 type: workflowFieldset.type,
                 sync: workflowFieldset.sync,
+                showName: workflowFieldset.showName,
                 description: workflowFieldset.description,
                 options: workflowFieldset.options,
               },
@@ -293,6 +345,9 @@ export const updateWorkflow: ISchema = {
                       'x-component-props': {
                         type: 'primary',
                       },
+                      'x-action-settings': {
+                        isDeltaChanged: true,
+                      },
                     },
                   },
                 },
@@ -300,6 +355,7 @@ export const updateWorkflow: ISchema = {
                 type: workflowFieldset.type,
                 enabled: workflowFieldset.enabled,
                 sync: workflowFieldset.sync,
+                showName: workflowFieldset.showName,
                 description: workflowFieldset.description,
                 options: workflowFieldset.options,
               },
@@ -454,7 +510,6 @@ export const workflowSchema: ISchema = {
             },
           },
           sort: ['-initAt'],
-          except: ['config'],
         },
         rowKey: 'id',
       },
@@ -602,15 +657,24 @@ export const workflowSchema: ISchema = {
             title: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
-              'x-decorator-props': {
-                tooltip: '{{t("The port number of the TachyBase service if it is not 80 or 443")}}',
-              },
               'x-component': 'TableV2.Column',
+              title: '{{t("Name")}}',
               properties: {
                 title: {
                   type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
+                  'x-component': 'ColumnShowTitle',
+                },
+              },
+            },
+            showCollection: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              title: tval('Collection'),
+              properties: {
+                showCollection: {
+                  type: 'string',
+                  'x-component': 'ColumnShowCollection',
                 },
               },
             },
@@ -664,10 +728,54 @@ export const workflowSchema: ISchema = {
                 },
               },
             },
+            updatedAt: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
+              properties: {
+                updatedAt: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            updatedBy: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
+              properties: {
+                updatedBy: {
+                  type: 'string',
+                  'x-collection-field': 'workflows.updatedBy',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
             actions: {
               type: 'void',
               title: '{{ t("Actions") }}',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                fixed: 'right',
+              },
               properties: {
                 actions: {
                   type: 'void',

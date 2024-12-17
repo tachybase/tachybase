@@ -1,3 +1,4 @@
+import { isMainThread } from 'worker_threads';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import {
@@ -10,10 +11,8 @@ import {
 import { DepartmentsPlugin } from './features/departments';
 import CalcField from './fields/calc';
 import TstzrangeField from './fields/tstzrange';
-import { WebControllerService as WebService } from './services/web-service';
 
 @InjectedPlugin({
-  Services: [WebService],
   Controllers: [
     RobotController,
     TokenConfigurationController,
@@ -28,6 +27,9 @@ export class PluginCoreServer extends Plugin {
       calc: CalcField,
       tstzrange: TstzrangeField,
     });
+    if (!isMainThread) {
+      return;
+    }
     this.addFeature(DepartmentsPlugin);
   }
 

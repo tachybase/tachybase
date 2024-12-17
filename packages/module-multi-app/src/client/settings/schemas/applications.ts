@@ -179,19 +179,6 @@ export const formSchema: ISchema = {
         },
       },
     },
-    preset: {
-      title: i18nText('Preset'),
-      'x-component': 'Select',
-      'x-decorator': 'FormItem',
-      default: 'tachybase',
-      required: true,
-      enum: [
-        { label: i18nText('tachybase'), value: 'tachybase' },
-        { label: i18nText('hera-rental'), value: 'hera-rental' },
-        { label: i18nText('hera-sancongtou'), value: 'hera-sancongtou' },
-      ],
-      'x-hidden': true,
-    },
     tmpl: {
       title: i18nText('Template'),
       'x-component': 'RemoteSelect',

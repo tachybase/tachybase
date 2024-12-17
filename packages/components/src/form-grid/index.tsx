@@ -1,8 +1,6 @@
 import React, { useContext, useLayoutEffect, useMemo, useRef } from 'react';
+import { Grid, IGridOptions, markRaw, observer } from '@tachybase/schema';
 
-import { Grid, IGridOptions } from '@formily/grid';
-import { observer } from '@formily/react';
-import { markRaw } from '@formily/reactive';
 import cls from 'classnames';
 
 import { pickDataProps, usePrefixCls } from '../__builtins__';

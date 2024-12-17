@@ -27,7 +27,10 @@ export const schemaTableInitiated = {
         },
         filterSummary: {
           type: 'void',
-          'x-component': 'FilterSummary',
+          'x-component': 'FuzzySearch',
+          'x-component-props': {
+            isInitiationTable: true,
+          },
           'x-align': 'left',
         },
         refresher: {

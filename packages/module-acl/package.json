@@ -1,7 +1,7 @@
 {
-  "name": "@tachybase/plugin-acl",
+  "name": "@tachybase/module-acl",
   "displayName": "Access control",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "description": "Based on roles, resources, and actions, access control can precisely manage interface configuration permissions, data operation permissions, menu access permissions, and plugin permissions.",
   "keywords": [
     "Users & permissions"
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-acl"
+    "build": "tachybase-build --no-dts @tachybase/module-acl"
   },
   "devDependencies": {
     "@ant-design/icons": "^5.3.7",

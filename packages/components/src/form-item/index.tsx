@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import { connect, isVoidField, mapProps, ReactFC } from '@tachybase/schema';
 
 import { CheckCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { isVoidField } from '@formily/core';
-import { connect, mapProps, ReactFC } from '@formily/react';
 import { Popover, Tooltip } from 'antd';
 import cx from 'classnames';
 

@@ -1,6 +1,6 @@
-import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile, usePlugin } from '@tachybase/client';
+import { SchemaInitializerItemType, useCollectionManager_deprecated, useCompile } from '@tachybase/client';
 
-import WorkflowPlugin, { CollectionBlockInitializer, defaultFieldNames, getCollectionFieldOptions } from '../../..';
+import { CollectionBlockInitializer, defaultFieldNames, getCollectionFieldOptions } from '../../..';
 import { NAMESPACE } from '../../../locale';
 import { Instruction } from '../../../nodes/default-node/interface';
 import { AssigneesSelect } from './AssigneesSelect';
@@ -19,6 +19,8 @@ export default class extends Instruction {
   title = `{{t("Manual", { ns: "${NAMESPACE}" })}}`;
   type = 'manual';
   group = 'manual';
+  icon = 'CoffeeOutlined';
+  color = '#a3243b';
   description = `{{t("Could be used for manually submitting data, and determine whether to continue or exit. Workflow will generate a todo item for assigned user when it reaches a manual node, and continue processing after user submits the form.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     assignees: {

@@ -1,7 +1,7 @@
 import { AuthConfig, BaseAuth } from '@tachybase/auth';
 import { Model } from '@tachybase/database';
-import { AuthModel } from '@tachybase/plugin-auth';
-import VerificationPlugin from '@tachybase/plugin-verification';
+import { AuthModel } from '@tachybase/module-auth';
+import VerificationPlugin from '@tachybase/plugin-otp';
 
 import { namespace } from '../constants';
 
@@ -18,7 +18,7 @@ export class SMSAuth extends BaseAuth {
     const ctx = this.ctx;
     const verificationPlugin: VerificationPlugin = ctx.app.getPlugin('verification');
     if (!verificationPlugin) {
-      throw new Error('sms-auth: @tachybase/plugin-verification is required');
+      throw new Error('sms-auth: @tachybase/plugin-otp is required');
     }
     let user: Model;
     await verificationPlugin.intercept(ctx, async () => {

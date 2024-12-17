@@ -1,10 +1,12 @@
+import Database from '@tachybase/database';
+
 import * as renders from './renders';
 
 function getInterfaceRender(name: string): Function {
   return renders[name] || renders._;
 }
 
-function renderHeader(params, ctx) {
+function renderHeader(params) {
   const { columns, fields, headers = [], rowIndex = 0 } = params;
 
   const { colIndex = 0 } = params;
@@ -40,7 +42,7 @@ function renderHeader(params, ctx) {
   Object.assign(params, { headers });
 }
 
-async function renderRows({ columns, fields, data }, ctx) {
+async function renderRows({ columns, fields, data, utcOffset }, db: Database) {
   return await data.reduce(async (preResult, row) => {
     const result = await preResult;
     const thisRow = [];
@@ -55,20 +57,20 @@ async function renderRows({ columns, fields, data }, ctx) {
       const cells = thisRow[rowIndex];
       if (field.options.interface !== 'subTable') {
         const render = getInterfaceRender(field.options.interface);
-        const value = await render(field, row, ctx, columns[i]);
+        const value = await render(field, row, { utcOffset, db }, columns[i]);
         cells.push({
           value,
           rowIndex: result.length + rowIndex,
           colIndex: i + colOffset,
         });
       } else {
-        const subTable = ctx.db.getTable(field.target);
+        const subTable = (db as any).getTable(field.target);
         const subFields = subTable.getOptions().fields.filter((item) => Boolean(item.__index));
         //TODO: must provide sub-table columns
         const subTableColumns = [];
         const subRows = await renderRows(
-          { columns: subTableColumns, fields: subFields, data: row.get(field.name) || [] },
-          ctx,
+          { columns: subTableColumns, fields: subFields, data: row.get(field.name) || [], utcOffset },
+          db,
         );
 
         // const { rows: subRowGroups } = subTableRows;
@@ -106,9 +108,9 @@ async function renderRows({ columns, fields, data }, ctx) {
   }, Promise.resolve([]));
 }
 
-export default async function ({ columns, fields, data }, ctx) {
+export default async function ({ columns, fields, data, utcOffset }, db: Database) {
   const headers = [];
-  renderHeader({ columns, fields, headers }, ctx);
+  renderHeader({ columns, fields, headers });
   const ranges = [];
   // 计算全表最大的列索引（由于无论如何最大列都是单个单元格，所以等价于长度）
   const maxColIndex = Math.max(...headers.map((row) => row[row.length - 1].colIndex));
@@ -138,7 +140,7 @@ export default async function ({ columns, fields, data }, ctx) {
     });
   });
 
-  const rows = (await renderRows({ columns, fields, data }, ctx)).map((row) => {
+  const rows = (await renderRows({ columns, fields, data, utcOffset }, db)).map((row) => {
     const cells = Array(maxColIndex).fill(null);
     row.forEach((cell) => {
       cells.splice(cell.colIndex, 1, cell.value);

@@ -3,17 +3,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Input } from 'antd';
 
 export const AutoResizeInput = ({ ...props }) => {
-  const [inputWidth, setInputWidth] = useState(0); // 初始宽度
+  const [inputWidth, setInputWidth] = useState(30); // 初始宽度
   const spanRef = useRef(null);
 
   const handleInputChange = (e) => {
     // TODO fix width offset
-    setInputWidth(spanRef.current.offsetWidth + 30.2); // 更新宽度
+    setInputWidth(spanRef.current.offsetWidth + 50); // 更新宽度
     props.onChange?.(e);
   };
 
   useEffect(() => {
-    setInputWidth(spanRef.current.offsetWidth + 30.2); // 初始宽度
+    setInputWidth(spanRef.current.offsetWidth + 50); // 初始宽度
   }, []);
 
   return (

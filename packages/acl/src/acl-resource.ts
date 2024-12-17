@@ -11,8 +11,10 @@ interface AclResourceOptions {
   actions?: ResourceActions;
 }
 
+export type ACLResourceActions = Map<string, RoleActionParams>;
+
 export class ACLResource {
-  actions = new Map<string, RoleActionParams>();
+  actions: ACLResourceActions = new Map<string, RoleActionParams>();
   acl: ACL;
   role: ACLRole;
   name: string;

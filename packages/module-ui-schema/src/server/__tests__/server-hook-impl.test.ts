@@ -1,12 +1,12 @@
 import { BelongsToManyRepository, Database } from '@tachybase/database';
-import UiSchemaStoragePlugin, { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
+import ModuleUiSchema, { UiSchemaRepository } from '@tachybase/plugin-ui-schema-storage';
 import { createMockServer, MockServer } from '@tachybase/test';
 
 describe('server hooks', () => {
   let app: MockServer;
   let db: Database;
   let uiSchemaRepository: UiSchemaRepository;
-  let uiSchemaPlugin: UiSchemaStoragePlugin;
+  let uiSchemaPlugin: ModuleUiSchema;
 
   afterEach(async () => {
     await app.destroy();
@@ -20,7 +20,7 @@ describe('server hooks', () => {
     await app.runCommand('install', '-f');
     db = app.db;
     uiSchemaRepository = db.getRepository('uiSchemas');
-    uiSchemaPlugin = app.getPlugin<UiSchemaStoragePlugin>('ui-schema-storage');
+    uiSchemaPlugin = app.getPlugin<ModuleUiSchema>('ui-schema-storage');
   });
 
   it('should clean row struct', async () => {

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-workflow",
   "displayName": "Workflow",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "description": "A powerful BPM tool that provides foundational support for business automation, with the capability to extend unlimited triggers and nodes.",
   "keywords": [
     "Workflow"
@@ -45,13 +45,13 @@
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
-    "@tachybase/data-source-manager": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/evaluators": "workspace:*",
     "@tachybase/logger": "workspace:*",
-    "@tachybase/plugin-collection-manager": "workspace:*",
-    "@tachybase/plugin-error-handler": "workspace:*",
-    "@tachybase/plugin-users": "workspace:*",
+    "@tachybase/module-collection": "workspace:*",
+    "@tachybase/module-error-handler": "workspace:*",
+    "@tachybase/module-user": "workspace:*",
     "@tachybase/resourcer": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",

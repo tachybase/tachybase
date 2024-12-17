@@ -38,7 +38,7 @@ function findArgs(ctx: Context) {
       params.appends[i] = `${item.prefix}(${qs.stringify({ sort: item.sortItems })})`;
     }
   });
-  params.sort = params.sort?.filter((item) => item.split('.').length == 1) ?? [];
+  params.sort = params.sort?.filter((item) => item.split('.').length === 1) ?? [];
 
   if (params.tree) {
     const [collectionName, associationName] = resourceName.split('.');
@@ -73,7 +73,7 @@ async function listWithPagination(ctx: Context) {
   });
   let filterTreeData = [];
   let filterTreeCount = 0;
-  if (ctx.action.params.tree) {
+  if (ctx.action.params.tree && options.filter) {
     const foreignKey = collection.treeParentField?.foreignKey || 'parentId';
     const params = Object.values(options.filter).flat()[0] || {};
     let dataIds = [];
@@ -144,7 +144,7 @@ async function listWithPagination(ctx: Context) {
         father.forEach((parent, index) => {
           const children = allRows.filter((child) => child.parentId === parent.id);
           const i = index.toString();
-          parent.__index = parent.father || parent.father == '0' ? parent.father + '.children.' + i : i;
+          parent.__index = parent.father || parent.father === '0' ? parent.father + '.children.' + i : i;
           if (children?.length) {
             const transChild = children.map((child) => {
               return {

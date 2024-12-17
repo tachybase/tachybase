@@ -16,6 +16,16 @@ export const useStyles = createStyles(({ css, token }) => {
         }
       }
     `,
+
+    dropDownClass: css`
+      .ant-dropdown-menu-root {
+        max-height: 30em;
+        border-radius: 8px;
+        overflow-y: auto;
+      }
+    `,
+
+    iconContainerClass: css``,
   };
 });
 

@@ -3,14 +3,14 @@ import React from 'react';
 import { ADMIN_SETTINGS_PATH } from '../../application';
 import { Plugin } from '../../application/Plugin';
 import { BlockTemplatesPane } from '../../schema-templates';
+import { AdminSettingsLayout } from '../setting-layout/AdminSettings';
+import { SettingsCenterDropdown } from '../setting-layout/SettingsCenterDropdown';
 import { SystemSettingsPane } from '../system-settings';
 import { PluginManager } from './PluginManager';
-import { SettingsCenterDropdown } from './PluginManagerLink';
-import { AdminSettingsLayout } from './PluginSetting';
 
 export * from './PluginManager';
-export * from './PluginManagerLink';
-export * from './PluginSetting';
+export * from '../setting-layout/SettingsCenterDropdown';
+export * from '../setting-layout/AdminSettings';
 
 export class PMPlugin extends Plugin {
   async load() {
@@ -20,7 +20,7 @@ export class PMPlugin extends Plugin {
   }
 
   addSettings() {
-    this.app.systemSettingsManager.add('ui-schema-storage', {
+    this.app.systemSettingsManager.add('data-modeling.ui-schema-storage', {
       title: '{{t("Block templates")}}',
       icon: 'LayoutOutlined',
       Component: BlockTemplatesPane,
@@ -33,7 +33,7 @@ export class PMPlugin extends Plugin {
       aclSnippet: 'pm.system-settings.system-settings',
       sort: -100,
     });
-    this.app.systemSettingsManager.add('plugin-manager', {
+    this.app.systemSettingsManager.add('system-services.plugin-manager', {
       icon: 'ApiOutlined',
       title: '{{t("Plugin manager")}}',
       Component: PluginManager,
@@ -49,20 +49,7 @@ export class PMPlugin extends Plugin {
   }
 
   addRoutes() {
-    this.app.router.add('admin.pm.list', {
-      path: '/admin/pm/list',
-      element: <PluginManager />,
-    });
-    this.app.router.add('admin.pm.list-tab', {
-      path: '/admin/pm/list/:tabName',
-      element: <PluginManager />,
-    });
-    this.app.router.add('admin.pm.list-tab-mdfile', {
-      path: '/admin/pm/list/:tabName/:mdfile',
-      element: <PluginManager />,
-    });
-
-    this.app.router.add('admin.settings', {
+    this.app.router.add('admin-settings', {
       path: ADMIN_SETTINGS_PATH,
       element: <AdminSettingsLayout />,
     });

@@ -121,9 +121,10 @@ const external = [
   'lodash',
   'china-division',
 ];
-const pluginPrefix = (process.env.PLUGIN_PACKAGE_PREFIX || '@tachybase/plugin-,@tachybase/preset-,@tachybase/module-,@hera/plugin-,@hera/module-').split(
-  ',',
-);
+const pluginPrefix = (
+  process.env.PLUGIN_PACKAGE_PREFIX ||
+  '@tachybase/plugin-,@tachybase/preset-,@tachybase/module-,@hera/plugin-,@hera/module-'
+).split(',');
 
 const target_dir = 'dist';
 
@@ -189,7 +190,6 @@ export async function buildServerDeps(cwd: string, serverFiles: string[], log: P
   if (excludePackages.length) {
     tips.push(`These packages ${chalk.yellow(excludePackages.join(', '))} will be ${chalk.italic('exclude')}.`);
   }
-  tips.push(`For more information, please refer to: ${chalk.blue('https://docs.tachybase.com/development/deps')}.`);
   log(tips.join(' '));
 
   if (!includePackages.length) return;
@@ -244,7 +244,7 @@ export async function buildServerDeps(cwd: string, serverFiles: string[], log: P
         Object.entries(assets).forEach(([name, item]) => {
           const fileurl = path.join(outputDir, name);
           if (!fs.existsSync(path.dirname(fileurl))) {
-            fs.mkdirSync(path.dirname(fileurl), { recursive: true })
+            fs.mkdirSync(path.dirname(fileurl), { recursive: true });
           }
           fs.writeFileSync(path.join(outputDir, name), item.source, {
             encoding: 'utf-8',
@@ -369,7 +369,7 @@ export async function buildPluginClient(cwd: string, userConfig: UserConfig, sou
 }
 
 export async function buildPlugin(cwd: string, userConfig: UserConfig, sourcemap: boolean, log: PkgLog) {
-  await buildPluginClient(cwd, userConfig, sourcemap, log);
+  await buildPluginClient(cwd, userConfig, process.argv.includes('--client-sourcemap'), log);
   await buildPluginServer(cwd, userConfig, sourcemap, log);
   writeExternalPackageVersion(cwd, log);
 }

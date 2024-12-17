@@ -24,7 +24,7 @@ export const DragButton = () => {
     refresh();
   }
 
-  return workflow.executed ? null : (
+  return (
     <Button
       className="workflow-node-drag-button"
       type="text"

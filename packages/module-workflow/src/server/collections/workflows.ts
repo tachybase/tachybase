@@ -5,15 +5,28 @@ export default function () {
     dumpRules: 'required',
     name: 'workflows',
     shared: true,
+    createdAt: true,
+    updatedAt: true,
+    createdBy: true,
+    updatedBy: true,
     fields: [
       {
         name: 'key',
         type: 'uid',
       },
+      /**
+       *  NOTE: 一般来讲, title 字段是显示名称, name 作为标识名称, key 或者 id 作为唯一标识
+       *  但是 title 字段被占用了, 用作了标识名称. 迁移代价太大
+       *  所以注意, 这里 title 是标识名称, showName 是显示名称.
+       */
       {
         type: 'string',
         name: 'title',
         required: true,
+      },
+      {
+        type: 'string',
+        name: 'showName',
       },
       {
         type: 'boolean',

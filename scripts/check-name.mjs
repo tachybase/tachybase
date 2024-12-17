@@ -41,7 +41,7 @@ async function checkFoldersAndPackageJson(dirs) {
 
                 result.push({
                   packageJsonPath: packageJsonPath,
-                  suggestion: `建议将 package.json 中的 name 修改为：${suggestedName}`,
+                  suggestion: `建议修改方案：${packageName} -> ${suggestedName}`,
                 });
               }
             }

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-pdf",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-pdf"
@@ -12,7 +12,8 @@
     "@babel/preset-typescript": "7.26.0",
     "@react-pdf/renderer": "^3.3.8",
     "fs-extra": "11.2.0",
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "react-use": "17.5.1"
   },
   "devDependencies": {
     "@types/babel__core": "7.20.5",

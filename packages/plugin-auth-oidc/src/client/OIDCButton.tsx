@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { css, useAPIClient } from '@tachybase/client';
-import { Authenticator } from '@tachybase/plugin-auth/client';
+import { Authenticator } from '@tachybase/module-auth/client';
 
 import { LoginOutlined } from '@ant-design/icons';
 import { Button, message, Space } from 'antd';

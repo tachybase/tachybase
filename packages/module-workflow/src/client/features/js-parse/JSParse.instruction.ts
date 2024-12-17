@@ -6,6 +6,7 @@ import { NAMESPACE_INSTRUCTION_JS_PARSE } from '../../../common/constants';
 import { tval } from '../../locale';
 import { Instruction } from '../../nodes/default-node/interface';
 
+// TODO: 由新版 data-mapping 替代, 待移除
 export class JSParseInstruction extends Instruction {
   title = tval('JS Parse');
   type = NAMESPACE_INSTRUCTION_JS_PARSE;

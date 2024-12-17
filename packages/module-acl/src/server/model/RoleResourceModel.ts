@@ -1,5 +1,6 @@
 import { ACL, ACLResource, ACLRole } from '@tachybase/acl';
 import { Model } from '@tachybase/database';
+import Application from '@tachybase/server';
 
 import { AssociationFieldsActions, GrantHelper } from '../server';
 import { RoleResourceActionModel } from './RoleResourceActionModel';
@@ -18,7 +19,7 @@ export class RoleResourceModel extends Model {
 
       grantHelper.targetActionResourceMap.set(targetAction, targetActionResource);
 
-      if (targetActionResource.length == 0) {
+      if (targetActionResource.length === 0) {
         role.revokeAction(targetAction);
       }
     }
@@ -31,6 +32,7 @@ export class RoleResourceModel extends Model {
     associationFieldsActions: AssociationFieldsActions;
     grantHelper: GrantHelper;
     transaction: any;
+    app?: Application;
   }) {
     const { acl, associationFieldsActions, grantHelper } = options;
     const resourceName = this.get('name') as string;
@@ -70,6 +72,10 @@ export class RoleResourceModel extends Model {
         associationFieldsActions,
         grantHelper: options.grantHelper,
       });
+    }
+
+    if (options.app) {
+      await options.app.emitAsync('dataSource:writeToAcl', { roleName, transaction: options.transaction });
     }
   }
 }

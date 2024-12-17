@@ -10,3 +10,4 @@ export * from './toggle';
 export * from './move';
 export * from './first-or-create';
 export * from './update-or-create';
+export * from './count';

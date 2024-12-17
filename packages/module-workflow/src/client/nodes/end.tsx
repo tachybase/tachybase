@@ -6,6 +6,8 @@ export default class extends Instruction {
   title = `{{t("End process", { ns: "${NAMESPACE}" })}}`;
   type = 'end';
   group = 'control';
+  icon = 'LogoutOutlined';
+  color = '#2659a1';
   description = `{{t("End the process immediately, with set status.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     endStatus: {

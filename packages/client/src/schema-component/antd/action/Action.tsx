@@ -6,7 +6,7 @@ import { App, Button } from 'antd';
 import classnames from 'classnames';
 import { default as lodash } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { StablePopover, useActionContext } from '../..';
 import { useDesignable } from '../../';
@@ -38,6 +38,7 @@ import { linkageAction } from './utils';
 export const Action: ComposedAction = withDynamicSchemaProps(
   observer((props: any) => {
     const {
+      isShow = true,
       popover,
       confirm,
       openMode: om,
@@ -195,6 +196,10 @@ export const Action: ComposedAction = withDynamicSchemaProps(
         {element}
       </ActionContextProvider>
     );
+
+    if (!isShow) {
+      return null;
+    }
 
     if (addChild) {
       return wrapSSR(

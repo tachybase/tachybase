@@ -95,7 +95,8 @@ const properties = {
         dependencies: ['.type'],
         fulfill: {
           state: {
-            hidden: '{{ $deps[0] !== "action" && $deps[0] !== "resource" }}',
+            hidden:
+              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
           },
         },
       },
@@ -112,7 +113,24 @@ const properties = {
         dependencies: ['.type'],
         fulfill: {
           state: {
-            hidden: '{{ $deps[0] !== "action" && $deps[0] !== "resource" }}',
+            hidden:
+              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource"}}',
+          },
+        },
+      },
+    ],
+    'x-component-props': {},
+  },
+  eventName: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-reactions': [
+      {
+        dependencies: ['.type'],
+        fulfill: {
+          state: {
+            hidden: '{{ $deps[0] !== "databaseEvent" && $deps[0] !== "applicationEvent" }}',
           },
         },
       },
@@ -611,6 +629,7 @@ export const WebhookManager = () => {
   return (
     <ExtendCollectionsProvider collections={[dispatchers]}>
       <SchemaComponent
+        name="eventSource"
         schema={schema}
         scope={{ useTestActionProps }}
         components={{

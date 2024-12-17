@@ -22,10 +22,13 @@ export const enum BuiltinGroupType {
 export type GroupType = BuiltinGroupType | string;
 
 export abstract class Instruction {
-  title: string;
-  type: string;
-  group: GroupType;
-  description?: string;
+  title: string; // 节点名称
+  type: string; // 节点的类型, 英文标识
+  group: GroupType; // 节点的分组
+  icon: string; // 节点的 icon
+  color: string; // 节点显示的背景色
+  isHot?: boolean; // 是否在热门分类里显示
+  description?: string; // 节点配置界面, 简介文案
   options?: { label: string; value: any; key: string }[];
   fieldset: { [key: string]: ISchema };
   view?: ISchema;

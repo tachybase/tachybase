@@ -8,10 +8,13 @@ import { lang, NAMESPACE } from '../locale';
 import { BaseTypeSets, defaultFieldNames, WorkflowVariableTextArea } from '../variable';
 import { Instruction } from './default-node/interface';
 
+/** 节点: 运算 */
 export default class extends Instruction {
   title = `{{t("Calculation", { ns: "${NAMESPACE}" })}}`;
   type = 'calculation';
   group = 'control';
+  icon = 'PlusOutlined';
+  color = '#c3e584';
   description = `{{t("Calculate an expression based on a calculation engine and obtain a value as the result. Variables in the upstream nodes can be used in the expression.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     engine: {

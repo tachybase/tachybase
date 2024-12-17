@@ -1,8 +1,6 @@
 import React from 'react';
+import { ArrayField, ISchema, observer, ReactFC, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
-import { ArrayField } from '@formily/core';
-import { ISchema } from '@formily/json-schema';
-import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
 import cls from 'classnames';
 
 import { SortableContainer, SortableElement, usePrefixCls } from '../__builtins__';

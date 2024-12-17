@@ -3,6 +3,8 @@ import { ExtendCollectionsProvider, SchemaComponent, SchemaComponentContext, use
 import { onFieldChange, useField, useFormEffects } from '@tachybase/schema';
 
 import WorkflowPlugin, { RadioWithTooltip } from '.';
+import { ColumnShowCollection } from './components/ColumnShowCollection';
+import { ColumnShowTitle } from './components/ColumnShowTitle';
 import { ExecutionStatusColumn, ExecutionStatusSelect } from './components/ExecutionStatus';
 import { ExecutionTime } from './components/ExecutionTime';
 import OpenDrawer from './components/OpenDrawer';
@@ -51,6 +53,8 @@ export function WorkflowPane(props) {
             SyncOptionSelect,
             ExecutionStatusColumn,
             ExecutionTime,
+            ColumnShowTitle,
+            ColumnShowCollection,
           }}
           scope={{
             getTriggersOptions,

@@ -1,8 +1,6 @@
 import React, { createContext, useContext } from 'react';
+import { Field, isArr, isValid, observer, ReactFC, toArr, useField } from '@tachybase/schema';
 
-import { Field } from '@formily/core';
-import { observer, ReactFC, useField } from '@formily/react';
-import { isArr, isValid, toArr } from '@formily/shared';
 import {
   Space,
   Tag,
@@ -98,7 +96,7 @@ const Select: React.FC<React.PropsWithChildren<SelectProps<any>>> = observer((pr
     return (
       dataSource?.find((item) => {
         const valueKey = props.fieldNames?.value || 'value';
-        return item[valueKey] == target?.value;
+        return item[valueKey] === target?.value;
       })?.[labelKey] ||
       target.label ||
       placeholder
@@ -177,7 +175,7 @@ const Cascader: React.FC<React.PropsWithChildren<CascaderProps<any>>> = observer
   const [wrapSSR, hashId] = useStyle(prefixCls);
   const dataSource: any[] = field?.dataSource?.length ? field.dataSource : props?.options?.length ? props.options : [];
   const findSelectedItem = (items: DefaultOptionType[], val: string | number) => {
-    return items.find((item) => item.value == val);
+    return items.find((item) => item.value === val);
   };
   const findSelectedItems = (
     sources: DefaultOptionType[],

@@ -4,6 +4,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Debug Worker",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["tsx", "packages/module-worker-thread/src/server/worker.ts"],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Debug Server Only",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["dev", "--server", "--port", "3010"],

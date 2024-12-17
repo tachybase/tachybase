@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { Readable } from 'stream';
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source';
 import { Gateway } from '@tachybase/server';
 import { uid } from '@tachybase/utils';
 
@@ -75,13 +75,11 @@ export class UpdateInstruction extends Instruction {
         if (resourceHeaders['content-type'] === 'multipart/form-data') {
           const formData = new FormData();
           Object.entries(resourceBody).forEach(([key, value]) => {
-
             formData.append(key, value);
           });
           config.data = formData;
         } else {
           config.data = resourceBody;
-
         }
         const response = await axios(config);
         const contentType = response.headers['content-type'];

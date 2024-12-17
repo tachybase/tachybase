@@ -4,10 +4,10 @@ import { Icon, useToken } from '@tachybase/client';
 import { Button, Tooltip } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import { useWorkflowTranslation } from '../locale';
+import { useTranslation } from '../locale';
 
 export const WorkflowLink = () => {
-  const { t } = useWorkflowTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { token } = useToken();
   return (
@@ -16,7 +16,7 @@ export const WorkflowLink = () => {
         icon={<Icon type="workflow" style={{ color: token.colorTextHeaderMenu }} />}
         title={t('Workflow')}
         onClick={() => {
-          navigate('/admin/settings/workflow');
+          navigate('/_admin/business-components/workflow');
         }}
       />
     </Tooltip>

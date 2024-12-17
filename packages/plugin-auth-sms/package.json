@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-sms",
   "displayName": "Auth: SMS",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "description": "SMS authentication.",
   "keywords": [
     "Authentication"
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-sms-auth"
+    "build": "tachybase-build --no-dts @tachybase/plugin-auth-sms"
   },
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
@@ -22,8 +22,8 @@
     "@tachybase/auth": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-auth": "workspace:*",
-    "@tachybase/plugin-verification": "workspace:*",
+    "@tachybase/module-auth": "workspace:*",
+    "@tachybase/plugin-otp": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   },

@@ -4,6 +4,7 @@ import path from 'path';
 import * as process from 'process';
 import stream from 'stream';
 import util from 'util';
+import { isMainThread } from 'worker_threads';
 import {
   Collection,
   CollectionGroupManager as DBCollectionGroupManager,
@@ -231,16 +232,25 @@ export class Dumper extends AppMigrator {
     const backupFileName = Dumper.generateFileName();
     await this.writeLockFile(backupFileName);
 
-    const promise = this.dump({
-      groups: options.groups,
-      fileName: backupFileName,
-    }).finally(() => {
-      this.cleanLockFile(backupFileName);
-      Dumper.dumpTasks.delete(backupFileName);
-      this.app.noticeManager.notify('backup', { msg: 'done' });
-    });
-
-    Dumper.dumpTasks.set(backupFileName, promise);
+    if (isMainThread) {
+      const promise = this.dump({
+        groups: options.groups,
+        fileName: backupFileName,
+      }).finally(() => {
+        this.cleanLockFile(backupFileName);
+        Dumper.dumpTasks.delete(backupFileName);
+        // 主线程通知备份完成
+        this.app.noticeManager.notify('backup', { msg: 'done' });
+      });
+      Dumper.dumpTasks.set(backupFileName, promise);
+    } else {
+      await this.dump({
+        groups: options.groups,
+        fileName: backupFileName,
+      });
+      await this.cleanLockFile(backupFileName);
+      // 子线程无法通知备份完成
+    }
 
     return backupFileName;
   }

@@ -5,6 +5,7 @@ import childCollection from './child-collection';
 import date from './date';
 import empty from './empty';
 import eq from './eq';
+import jsonb from './jsonb';
 import ne from './ne';
 import notIn from './notIn';
 import string from './string';
@@ -20,4 +21,5 @@ export default {
   ...notIn,
   ...boolean,
   ...childCollection,
+  ...jsonb,
 };

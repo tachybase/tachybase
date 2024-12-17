@@ -12,13 +12,11 @@ export const useStyles = createStyles(({ css, token }) => {
     nodeCardClass: css`
       position: relative;
       display: flex;
+
+      margin: 0 50px;
       padding: 0;
       border-radius: 12px;
       cursor: pointer;
-
-      &.configuring {
-        border: 1px solid red;
-      }
 
       .workflow-node-remove-button {
         color: ${token.colorText};

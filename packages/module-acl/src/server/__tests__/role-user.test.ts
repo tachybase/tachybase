@@ -1,8 +1,8 @@
 import Database, { BelongsToManyRepository } from '@tachybase/database';
-import UsersPlugin from '@tachybase/plugin-users';
 import { createMockServer, MockServer } from '@tachybase/test';
 
 import jwt from 'jsonwebtoken';
+import UsersPlugin from 'packages/module-user/src';
 
 describe('role', () => {
   let api: MockServer;

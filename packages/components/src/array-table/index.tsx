@@ -1,9 +1,19 @@
 import React, { createContext, Fragment, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import {
+  ArrayField,
+  FieldDisplayTypes,
+  GeneralField,
+  isArr,
+  isBool,
+  isFn,
+  observer,
+  ReactFC,
+  RecursionField,
+  Schema,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
 
-import { ArrayField, FieldDisplayTypes, GeneralField } from '@formily/core';
-import { Schema } from '@formily/json-schema';
-import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
-import { isArr, isBool, isFn } from '@formily/shared';
 import { Badge, Pagination, PaginationProps, Select, SelectProps, Space, Table, TableProps } from 'antd';
 import { ColumnProps, ColumnsType } from 'antd/es/table';
 import cls from 'classnames';
@@ -206,7 +216,7 @@ const ArrayTablePagination: ReactFC<IArrayTablePaginationProps> = (props) => {
   const endIndex = startIndex + pageSize - 1;
   const total = dataSource?.length || 0;
   const totalPage = Math.ceil(total / pageSize);
-  const pages = Array.from(new Array(totalPage)).map((_, index) => {
+  const pages = Array.from({ length: totalPage }).map((_, index) => {
     const page = index + 1;
     return {
       label: page,

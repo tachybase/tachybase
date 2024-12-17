@@ -50,6 +50,13 @@ export const toLocal = (value: dayjs.Dayjs) => {
   }
 };
 
+// 将UTC时间字符串转换为本地时区时间
+export const convertUTCToLocal = (utcString, formater = 'YYYY-MM-DD HH:mm:ss') => {
+  // 使用dayjs解析UTC时间，并转换为本地时区时间
+  const localDate = dayjs.utc(utcString).local().format(formater);
+  return localDate;
+};
+
 const toMoment = (val: any, options?: Str2momentOptions) => {
   if (!val) {
     return;

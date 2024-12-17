@@ -96,17 +96,7 @@ export function checkEntryExists(cwd: string, entry: 'server' | 'client', log: L
   return srcDir;
 }
 
-export function checkDependencies(packageJson: Record<string, any>, log: Log) {
-  const packages = Object.keys(packageJson.dependencies || {});
-  if (!packages.length) return;
-  log(
-    "The build tool will package all dependencies into the dist directory, so you don't need to put them in %s. Instead, they should be placed in %s. For more information, please refer to: %s.",
-    chalk.yellow(packages.join(', ')),
-    chalk.yellow('dependencies'),
-    chalk.yellow('devDependencies'),
-    chalk.blue(chalk.blue('https://docs.tachybase.com/development/deps')),
-  );
-}
+export function checkDependencies(packageJson: Record<string, any>, log: Log) {}
 
 type CheckOptions = {
   cwd: string;

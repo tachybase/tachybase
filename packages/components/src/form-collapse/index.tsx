@@ -1,9 +1,17 @@
 import React, { Fragment, useMemo } from 'react';
+import {
+  markRaw,
+  model,
+  observer,
+  ReactFC,
+  RecursionField,
+  Schema,
+  SchemaKey,
+  toArr,
+  useField,
+  useFieldSchema,
+} from '@tachybase/schema';
 
-import { Schema, SchemaKey } from '@formily/json-schema';
-import { observer, ReactFC, RecursionField, useField, useFieldSchema } from '@formily/react';
-import { markRaw, model } from '@formily/reactive';
-import { toArr } from '@formily/shared';
 import { Badge, Collapse, CollapsePanelProps, CollapseProps } from 'antd';
 import cls from 'classnames';
 
@@ -59,7 +67,7 @@ const createFormCollapse = (defaultActiveKeys?: ActiveKeys) => {
         if (formCollapse.activeKeys.includes(key)) {
           return true;
         }
-      } else if (formCollapse.activeKeys == key) {
+      } else if (formCollapse.activeKeys === key) {
         return true;
       }
       return false;
@@ -70,7 +78,7 @@ const createFormCollapse = (defaultActiveKeys?: ActiveKeys) => {
     },
     removeActiveKey(key: ActiveKey) {
       if (Array.isArray(formCollapse.activeKeys)) {
-        formCollapse.activeKeys = formCollapse.activeKeys.filter((item) => item != key);
+        formCollapse.activeKeys = formCollapse.activeKeys.filter((item) => item !== key);
       } else {
         formCollapse.activeKeys = '';
       }

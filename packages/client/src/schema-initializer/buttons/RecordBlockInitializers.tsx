@@ -294,7 +294,7 @@ export const recordBlockInitializers = new SchemaInitializer({
           title: '{{t("Form")}}',
           Component: 'FilterFormBlockInitializer',
           useComponentProps() {
-            const collection = useCollection_deprecated();
+            const collection = useCollection();
             const toManyField = useMemo(
               () => collection.fields.filter((field) => ['hasMany', 'belongsToMany'].includes(field.type)),
               [collection.fields],
@@ -314,6 +314,27 @@ export const recordBlockInitializers = new SchemaInitializer({
           name: 'filterCollapse',
           title: '{{t("Collapse")}}',
           Component: 'FilterCollapseBlockInitializer',
+          useComponentProps() {
+            const collection = useCollection();
+            const toManyField = useMemo(
+              () => collection.fields.filter((field) => ['hasMany', 'belongsToMany'].includes(field.type)),
+              [collection.fields],
+            );
+
+            return {
+              filterCollections({ collection }) {
+                if (collection) {
+                  return toManyField.some((field) => field.target === collection.name);
+                }
+              },
+              onlyCurrentDataSource: true,
+            };
+          },
+        },
+        {
+          name: 'filterTree',
+          title: '{{t("Tree")}}',
+          Component: 'FilterTreeBlockInitializer',
           useComponentProps() {
             const collection = useCollection();
             const toManyField = useMemo(

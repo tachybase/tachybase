@@ -1,0 +1,22 @@
+{
+  "name": "@tachybase/plugin-field-encryption",
+  "displayName": "Collection field: Encryption",
+  "version": "0.22.76",
+  "description": "Encryption field",
+  "keywords": [
+    "Collection fields"
+  ],
+  "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-field-encryption"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "加密字段",
+  "displayName.zh-CN": "数据表字段：加密字段"
+}

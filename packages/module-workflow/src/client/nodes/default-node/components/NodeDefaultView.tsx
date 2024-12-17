@@ -17,6 +17,7 @@ export const NodeDefaultView = (props) => {
   const instruction = workflowPlugin.instructions.get(data.type);
   const detailText = workflow.executed ? '{{t("View")}}' : '{{t("Configure")}}';
   const typeTitle = compile(instruction.title);
+  const { color, icon } = instruction;
 
   const [editingTitle, setEditingTitle] = useState<string>(data.title ?? typeTitle);
   const [editingConfig, setEditingConfig] = useState(false);
@@ -60,14 +61,17 @@ export const NodeDefaultView = (props) => {
   return (
     <div className={cx(styles.nodeClass, `workflow-node-type-${data.type}`)}>
       <div
-        className={cx(styles.nodeCardClass, { configuring: editingConfig })}
+        className={cx(styles.nodeCardClass)}
         role="button"
         aria-label={`${typeTitle}-${editingTitle}`}
         onClick={onOpenDrawer}
       >
         <NodePoint
+          color={color}
+          icon={icon}
           workflow={workflow}
           editingTitle={editingTitle}
+          configuring={editingConfig}
           setEditingTitle={setEditingTitle}
           onChangeTitle={onChangeTitle}
         />

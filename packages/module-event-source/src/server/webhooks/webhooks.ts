@@ -1,11 +1,13 @@
 import { Context } from '@tachybase/actions';
-import { IField } from '@tachybase/data-source-manager';
+import { IField } from '@tachybase/data-source';
 import { PluginWorkflow } from '@tachybase/module-workflow';
 import { ActionParams } from '@tachybase/resourcer';
 import Application from '@tachybase/server';
 import { dayjs } from '@tachybase/utils';
 
 import lodash from 'lodash';
+
+import { evalSimulate } from '../utils/eval-simulate';
 
 function isSameBasic(val1: any, val2: any): boolean {
   if (val1 instanceof Date || val2 instanceof Date) {
@@ -82,7 +84,7 @@ function getDiffKeyExceptAfter(before: any, after: any, path = ''): string[] {
 }
 
 /** 获得真正变动的数据库字段 */
-function getChanged(ctx: Context): () => Promise<{ changed?: string[]; data?: any; error: Error }> {
+export function getChanged(ctx: Context): () => Promise<{ changed?: string[]; data?: any; error: Error }> {
   return async function () {
     try {
       const params = lodash.cloneDeep(ctx.action.params) as ActionParams;
@@ -187,7 +189,7 @@ export class WebhookController {
       action: ctx.action,
       body: '',
     };
-    run(webhook.code, {
+    await evalSimulate(webhook.code, {
       ctx: webhookCtx,
       lib: {
         JSON,
@@ -263,22 +265,4 @@ export class WebhookController {
     const wf = await wfRepo.findOne({ filter: { key: action.workflowKey, enabled: true } });
     await pluginWorkflow.trigger(wf, { data: body, ...userInfo }, { httpContext: ctx });
   }
-}
-
-function run(jsCode: string, { ctx, lib }) {
-  try {
-    return new Function('$root', `with($root) { ${jsCode}; }`)({ ctx, lib });
-  } catch (err) {
-    console.log('err', err);
-  }
-}
-
-async function evalSimulate(jsCode, { ctx, lib }) {
-  const AsyncFunction: any = async function () {}.constructor;
-  return await new AsyncFunction('$root', `with($root) { ${jsCode}; }`)({
-    ctx,
-    // 允许用户覆盖，这个时候可以使用 _ctx
-    __ctx: ctx,
-    lib,
-  });
 }

@@ -17,7 +17,8 @@ export default (cli: Command) => {
     .option('-c, --compile', 'compile the @tachybase/build package')
     .option('-r, --retry', 'retry the last failed package')
     .option('-w, --watch', 'watch compile the @tachybase/build package')
-    .option('-s, --sourcemap', 'generate sourcemap')
+    .option('-s, --sourcemap', 'generate server sourcemap')
+    .option('--client-sourcemap', 'generate client sourcemap')
     .option('--no-dts', 'not generate dts')
     .action(async (pkgs, options) => {
       nodeCheck();

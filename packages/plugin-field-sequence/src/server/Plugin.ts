@@ -4,7 +4,7 @@ import { promisify } from 'util';
 import { Plugin } from '@tachybase/server';
 import { Registry } from '@tachybase/utils';
 
-import { Pattern, SequenceField } from './fields/sequence-field';
+import { Pattern, SequenceField } from './fields/field-sequence';
 
 const asyncRandomInt = promisify(randomInt);
 
@@ -19,7 +19,7 @@ export default class SequenceFieldPlugin extends Plugin {
     });
 
     db.addMigrations({
-      namespace: 'sequence-field',
+      namespace: 'field-sequence',
       directory: path.resolve(__dirname, 'migrations'),
       context: {
         plugin: this,

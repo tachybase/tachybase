@@ -3,7 +3,7 @@
 本插件登录流程使用**授权码模式 (Authorization Code Flow)**.
 
 ## 依赖
-- `@tachybase/plugin-auth` 提供表，模型函数复用等
+- `@tachybase/module-auth` 提供表，模型函数复用等
 
 ## 使用方法
 > 以Sign in with Google为例  

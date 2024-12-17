@@ -1,7 +1,7 @@
 import { Context, Next } from '@tachybase/actions';
-import { joinCollectionName, parseCollectionName } from '@tachybase/data-source-manager';
+import { joinCollectionName, parseCollectionName } from '@tachybase/data-source';
 import { Model, modelAssociationByKey } from '@tachybase/database';
-import PluginErrorHandler from '@tachybase/plugin-error-handler';
+import PluginErrorHandler from '@tachybase/module-error-handler';
 
 import _, { get, isArray } from 'lodash';
 
@@ -193,7 +193,7 @@ export class OmniTrigger extends Trigger {
     for (const workflow of workflows) {
       const { collection, appends = [] } = workflow.config;
       const [dataSourceName, collectionName] = parseCollectionName(collection);
-      const trigger = triggers.find((trigger) => trigger[0] == workflow.key);
+      const trigger = triggers.find((trigger) => trigger[0] === workflow.key);
       const event = [workflow];
       if (context.action.resourceName !== 'workflows') {
         if (!context.body) {

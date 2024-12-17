@@ -15,10 +15,13 @@ import {
 import { lang, NAMESPACE } from '../../locale';
 import { Instruction } from '../../nodes/default-node/interface';
 
+/** 节点: 分支 */
 export default class extends Instruction {
   title = `{{t("Parallel branch", { ns: "${NAMESPACE}" })}}`;
   type = 'parallel';
   group = 'control';
+  icon = 'MergeOutlined';
+  color = '#6e93e8';
   description = `{{t("Run multiple branch processes in parallel.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     mode: {

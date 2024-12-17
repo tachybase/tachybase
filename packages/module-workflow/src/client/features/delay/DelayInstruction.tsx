@@ -55,11 +55,13 @@ function Duration({ value = 60000, onChange }) {
     </fieldset>
   );
 }
-
+/** 节点: */
 export default class extends Instruction {
   title = `{{t("Delay", { ns: "${NAMESPACE}" })}}`;
   type = 'delay';
   group = 'control';
+  icon = 'ClockCircleOutlined';
+  color = '#cf9247';
   description = `{{t("Delay a period of time and then continue or exit the process. Can be used to set wait or timeout times in parallel branches.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     duration: {

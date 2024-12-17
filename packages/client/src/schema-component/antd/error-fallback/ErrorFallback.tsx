@@ -12,8 +12,8 @@ export const ErrorFallback = ({ error }: FallbackProps) => {
 
   const subTitle = (
     <Trans>
-      {'This is likely a TachyCode internals bug. Please open an issue at '}
-      <Link href="https://git.daoyoucloud.com/daoyoucloud/tachycode/issues" target="_blank">
+      {'This is likely a Tachybase internals bug. Please open an issue at '}
+      <Link href="https://github.com/tachybase/tachybase/issues" target="_blank">
         here
       </Link>
     </Trans>
@@ -27,12 +27,7 @@ export const ErrorFallback = ({ error }: FallbackProps) => {
         title={t('Render Failed')}
         subTitle={subTitle}
         extra={[
-          <Button
-            type="primary"
-            key="feedback"
-            href="https://git.daoyoucloud.com/daoyoucloud/tachycode/issues"
-            target="_blank"
-          >
+          <Button type="primary" key="feedback" href="https://github.com/tachybase/tachybase/issues" target="_blank">
             {t('Feedback')}
           </Button>,
           <Button key="try" onClick={resetBoundary}>

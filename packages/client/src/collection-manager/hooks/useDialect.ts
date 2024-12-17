@@ -1,4 +1,4 @@
-import { useCurrentAppInfo } from '../../appInfo';
+import { useCurrentAppInfo } from '../../common';
 
 const useDialect = () => {
   const {

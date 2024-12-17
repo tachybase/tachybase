@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-oidc",
   "displayName": "Auth: OIDC",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "description": "OIDC (OpenID Connect) authentication.",
   "keywords": [
     "Authentication"
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-oidc"
+    "build": "tachybase-build --no-dts @tachybase/plugin-auth-oidc"
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
@@ -28,7 +28,7 @@
     "@tachybase/auth": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-auth": "workspace:*",
+    "@tachybase/module-auth": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   },

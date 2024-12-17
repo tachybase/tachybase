@@ -1,7 +1,7 @@
 {
-  "name": "@tachybase/plugin-sequence-field",
+  "name": "@tachybase/plugin-field-sequence",
   "displayName": "Collection field: Sequence",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "description": "Automatically generate codes based on configured rules, supporting combinations of dates, numbers, and text.",
   "keywords": [
     "Collection fields"
@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-sequence-field"
+    "build": "tachybase-build --no-dts @tachybase/plugin-field-sequence"
   },
   "devDependencies": {
     "@tachybase/components": "workspace:*",
@@ -26,7 +26,7 @@
     "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/plugin-collection-manager": "workspace:*",
+    "@tachybase/module-collection": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

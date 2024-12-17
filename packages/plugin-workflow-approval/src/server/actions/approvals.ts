@@ -1,10 +1,10 @@
 import actions, { utils } from '@tachybase/actions';
-import { parseCollectionName } from '@tachybase/data-source-manager';
+import { parseCollectionName } from '@tachybase/data-source';
 import { traverseJSON } from '@tachybase/database';
-import { EXECUTION_STATUS, JOB_STATUS, PluginWorkflow } from '@tachybase/module-workflow';
+import { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/module-workflow';
 
 import { APPROVAL_STATUS } from '../constants/status';
-import { getSummary, searchSummaryQuery } from '../tools';
+import { getSummary } from '../tools';
 
 export const approvals = {
   async create(context, next) {
@@ -244,18 +244,6 @@ export const approvals = {
         workflowId: centralizedApprovalFlow.map((item) => item.id),
       },
     });
-
-    /**
-     * 以下为摘要搜索逻辑, 由于 summary 在不同的 workflow 中可能有不同的结构,
-     * 因此在构造查询条件反而比较麻烦, 因此不分页, 直接在返回结果里筛选.
-     * XXX: 大量数据时,怎么办
-     */
-    const summaryQueryValue = context.action?.params.summaryQueryValue;
-    if (summaryQueryValue) {
-      await searchSummaryQuery(context, next, summaryQueryValue);
-      return;
-    }
-    /** 以上为摘要搜索逻辑 */
 
     return await actions.list(context, next);
   },

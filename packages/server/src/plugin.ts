@@ -1,5 +1,6 @@
-import fs from 'fs';
-import { basename, resolve } from 'path';
+import fs from 'node:fs';
+import { basename, resolve } from 'node:path';
+import { isMainThread } from 'worker_threads';
 import { Model } from '@tachybase/database';
 import { LoggerOptions } from '@tachybase/logger';
 import { Container, fsExists, importModule } from '@tachybase/utils';
@@ -163,6 +164,9 @@ export abstract class Plugin implements PluginInterface {
     if (basename(__dirname) === 'src') {
       return (this._sourceDir = 'src');
     }
+    if (!isMainThread) {
+      return 'dist';
+    }
     return (this._sourceDir = this.isPreset ? 'lib' : 'dist');
   }
 
@@ -322,11 +326,19 @@ export function InjectedPlugin<T extends Plugin>({
       await originalLoad.call(this);
 
       for (const service of services) {
-        await service.load?.();
+        try {
+          await service.load?.();
+        } catch (e) {
+          this.log.warn('load service error', { name: service.constructor?.name, error: e });
+        }
       }
 
       for (const resource of resources) {
-        await resource.load?.();
+        try {
+          await resource.load?.();
+        } catch (e) {
+          this.log.warn('load resource error', { name: resource.constructor?.name, error: e });
+        }
       }
     };
 

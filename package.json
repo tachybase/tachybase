@@ -1,12 +1,12 @@
 {
   "name": "tachybase",
-  "version": "0.22.50",
+  "version": "0.22.76",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
     "build": "tachybase build --no-dts",
     "build:full": "tachybase build",
-    "build:p": "tachybase build --no-dts",
+    "build:p": "tachybase build -s --no-dts",
     "build:t": "turbo run build --filter='./packages/*'",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
@@ -79,14 +79,14 @@
     "umi": "^4.3.33",
     "vitest": "^1.6.0"
   },
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": "20.18.0",
-    "pnpm": "9.12.2"
+    "pnpm": "9.15.0"
   },
   "volta": {
     "node": "20.18.0",
-    "pnpm": "9.12.2"
+    "pnpm": "9.15.0"
   },
   "pnpm": {
     "neverBuiltDependencies": [
