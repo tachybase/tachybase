@@ -14,7 +14,7 @@ export class KitNotificationRegister extends Plugin {
     // 注册浏览器通知
     this.registe({
       name: 'browser',
-      title: lang('Browser notification'),
+      title: lang('Local site notification'),
     });
 
     // TODO: 添加注册短信机制, 仿照浏览器通知
