@@ -1,18 +1,12 @@
 import React from 'react';
-import { CodeMirror, css, useAPIClient, usePlugin, useRequest } from '@tachybase/client';
+import { CodeMirror, css, useApp } from '@tachybase/client';
 
-import { useMemoizedFn } from 'ahooks';
 import { Card, theme } from 'antd';
-
-import PluginDevToolClient from '.';
-import { useTranslation } from './locale';
 
 export const clientrouterToolPane = React.memo(() => {
   const { token } = theme.useToken();
-  const { t: lang } = useTranslation();
-  const t = useMemoizedFn(lang);
-  const plugin = usePlugin(PluginDevToolClient);
-  const allroutes = plugin.allRoutes;
+  const app = useApp();
+  const allroutes = app.router.getRoutes();
 
   return (
     <Card style={{ minHeight: '700px' }}>

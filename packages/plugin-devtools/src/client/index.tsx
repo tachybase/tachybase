@@ -42,14 +42,12 @@ const SCDocumentation = () => {
 };
 
 export class PluginDevToolClient extends Plugin {
-  allRoutes = this.app.router.getRoutes();
-  async afterAdd() {
-    // await this.app.pm.add()
-  }
-
-  async beforeLoad() {}
-
   async load() {
+    this.app.systemSettingsManager.add('devtools', {
+      title: lang('Development Tools'),
+      icon: 'ToolOutlined',
+      sort: -20,
+    });
     this.app.systemSettingsManager.add(`devtools.api-doc`, {
       title: lang('API Doc'),
       icon: 'BookOutlined',
