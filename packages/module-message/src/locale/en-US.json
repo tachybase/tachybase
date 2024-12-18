@@ -1,5 +1,6 @@
 {
   "Add Notified Person": "Add Notified Person",
+  "Browser notification": "Browser notification",
   "Content": "Content",
   "External link": "External link",
   "Go to configure": "Go to configure",
@@ -8,9 +9,11 @@
   "Mark as read": "Mark as read",
   "Query Notified Person": "Query Notified Person",
   "Read": "Read",
+  "SMS notification": "SMS notification",
   "Select Notified Person": "Select Notified Person",
   "Show message detail": "Show message detail",
   "Site Messages": "Site Messages",
+  "Site message notification": "Site message notification",
   "Subscription management": "Subscription management",
   "Summary": "Summary",
   "The Notified Person": "The Notified Person",

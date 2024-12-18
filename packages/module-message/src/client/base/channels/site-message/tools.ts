@@ -1,4 +1,4 @@
-import { MESSAGE_TYPE_MESSAGES } from '../../../common/constants';
+import { MESSAGE_TYPE_MESSAGES } from '../../../../common/constants';
 
 // 发送浏览器通知消息
 export function sendNotification(event: MessageEvent, { compile, sendSiteNotify }) {

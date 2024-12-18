@@ -1,5 +1,6 @@
 {
   "Add Notified Person": "添加被通知人",
+  "Browser notification": "浏览器通知",
   "Content": "内容",
   "External link": "外链",
   "Go to configure": "去配置",
@@ -8,9 +9,11 @@
   "Mark as read": "标为已读",
   "Query Notified Person": "查询被通知人",
   "Read": "已读",
+  "SMS notification": "短信通知",
   "Select Notified Person": "选择被通知人",
   "Show message detail": "查看消息详情",
   "Site Messages": "站内信",
+  "Site message notification": "站内信通知",
   "Subscription management": "订阅管理",
   "Summary": "摘要",
   "The Notified Person": "被通知人",
