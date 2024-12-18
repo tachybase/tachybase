@@ -17,12 +17,20 @@ export async function retryOperation<T>(
     retry = 10,
     startingDelay = 50,
     timeMultiple = 2,
+    timeout = 5000,
     logger = {
       info: console.log,
       warn: console.warn,
       error: console.error,
     },
-  }: { name: string; retry?: number; startingDelay?: number; timeMultiple?: number; logger?: Logger },
+  }: {
+    name: string;
+    retry?: number;
+    startingDelay?: number;
+    timeMultiple?: number;
+    timeout?: number;
+    logger?: Logger
+  },
 ): Promise<T> {
   let attemptNumber = 1;
 
