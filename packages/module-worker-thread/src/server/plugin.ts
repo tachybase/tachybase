@@ -2,13 +2,18 @@ import path from 'path';
 import { isMainThread } from 'worker_threads';
 import PluginACL from '@tachybase/module-acl';
 import CollectionManagerPlugin from '@tachybase/module-collection';
-import { Plugin } from '@tachybase/server';
+import PluginUsersServer from '@tachybase/module-user';
+import { InjectedPlugin, Plugin } from '@tachybase/server';
 import { fsExists } from '@tachybase/utils';
 
 import PluginCoreServer from '@hera/plugin-core';
 
 import { WorkerManager } from './workerManager';
+import { WorkerWebController } from './workerWebController';
 
+@InjectedPlugin({
+  Controllers: [WorkerWebController],
+})
 export class ModuleWorkerThreadServer extends Plugin {
   async afterAdd() {
     this.app.workerPlugins = new Set();
@@ -45,18 +50,18 @@ export class ModuleWorkerThreadServer extends Plugin {
       }
       // FIXME: 这种判断方式不太优雅
       const isDev = await fsExists(path.resolve(__dirname, './worker.ts'));
-      const names = this.app.pm.getAliases();
       this.app.registerWorker(this.app.pm.get(CollectionManagerPlugin).name);
+      const names = this.app.pm.getAliases();
       // 遇到field开头的插件, 也注册到worker
       for (const name of names) {
         if (name.startsWith('field')) {
           this.app.registerWorker(name);
         }
       }
-
       // hera字体
       if (this.app.pm.get(PluginCoreServer).enabled) {
-        // TODO: 由于hera加载部门表会多对多关联roles
+        // TODO: 由于hera加载部门表会多对多关联roles, users
+        this.app.registerWorker(this.app.pm.get(PluginUsersServer).name);
         this.app.registerWorker(this.app.pm.get(PluginACL).name);
         this.app.registerWorker(this.app.pm.get(PluginCoreServer).name);
       }
@@ -74,6 +79,12 @@ export class ModuleWorkerThreadServer extends Plugin {
       if (this.app.worker?.available) {
         await this.app.worker.clear();
       }
+    });
+
+    // 严格控制管理员才能设置
+    this.app.acl.registerSnippet({
+      name: `pm.system-services.${this.name}`,
+      actions: ['worker_thread:*'],
     });
   }
 

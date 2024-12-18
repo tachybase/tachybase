@@ -1,4 +1,3 @@
-import React from 'react';
 import { Plugin } from '@tachybase/client';
 import { Registry } from '@tachybase/utils/client';
 
@@ -8,8 +7,11 @@ import { PluginAggregate } from './features/aggregate';
 import { PluginDelay } from './features/delay';
 import { PluginDaynamicCalculation } from './features/dynamic-calculation';
 import { PluginWorkflowInterceptor } from './features/interceptor';
+import PluginWorkflowJSParseClient from './features/js-parse';
+import PluginWorkflowJsonParseClient from './features/json-parse';
 import { PluginLoop } from './features/loop';
 import { PluginManual } from './features/manual';
+import PluginWorkflowNoticeClient from './features/notice';
 import { PluginOmniTrigger } from './features/omni-trigger';
 import { PluginParallel } from './features/parallel';
 import { PluginRequest } from './features/request';
@@ -31,7 +33,6 @@ import { customizeSubmitToWorkflowActionSettings } from './settings/customizeSub
 import { Trigger } from './triggers';
 import CollectionTrigger from './triggers/collection';
 import ScheduleTrigger from './triggers/schedule';
-import { getWorkflowDetailPath, getWorkflowExecutionsPath } from './utils';
 import { WorkflowPage } from './WorkflowPage';
 import { WorkflowPane } from './WorkflowPane';
 
@@ -86,6 +87,11 @@ export class PluginWorkflow extends Plugin {
     await this.pm.add(PluginResponse);
     await this.pm.add(PluginOmniTrigger);
     await this.pm.add(PluginTriggerInstruction);
+
+    // 等待删除, 为了兼容旧版; 当梳理一遍工作流, 确保没有问题后, 再删除
+    await this.pm.add(PluginWorkflowNoticeClient);
+    await this.pm.add(PluginWorkflowJsonParseClient);
+    await this.pm.add(PluginWorkflowJSParseClient);
   }
 
   async load() {

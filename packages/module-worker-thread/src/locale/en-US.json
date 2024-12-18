@@ -1,0 +1,9 @@
+{
+  "Busy": "Busy",
+  "Current": "Current",
+  "Invalid worker count": "Invalid worker count",
+  "Preset": "Preset",
+  "Too many workers": "Too many workers",
+  "Worker thread": "Worker thread",
+  "Worker thread plugin not start": "Worker thread plugin not start"
+}

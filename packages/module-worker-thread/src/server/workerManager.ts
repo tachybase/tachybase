@@ -3,6 +3,7 @@ import path from 'path';
 import { isMainThread, Worker } from 'worker_threads';
 import { Application } from '@tachybase/server';
 
+import { WORKER_COUNT_INIT, WORKER_ERROR_RETRY, WORKER_TIMEOUT } from './constants';
 import { WorkerEvent, WorkerEventInput, WorkerEventInputPluginMethod } from './workerTypes';
 
 type callPluginMethodInfo = {
@@ -16,17 +17,20 @@ export class WorkerManager {
     return this.workerList.length > 0;
   }
 
-  private workerNum = process.env.WORKER_COUNT ? +process.env.WORKER_COUNT : 1;
-  private workerList: Worker[] = [];
   private isDev = true;
+
+  private workerNum = WORKER_COUNT_INIT;
+  private workerList: Worker[] = [];
 
   private currentWorkerIndex = 0;
   private busyWorkers = new WeakMap<Worker, Set<string>>();
+  private busyWorkerSet: Set<Worker> = new Set();
   private workerPlugins: string[] = [];
   private cache = new Map<string, callPluginMethodInfo>();
+  private errorRecoveryTimes = 0;
 
   // 默认超时时间
-  private static readonly timeoutSecond = process.env.WORKER_TIMEOUT ? +process.env.WORKER_TIMEOUT : 1800;
+  private static readonly timeoutSecond = WORKER_TIMEOUT;
 
   private getPluginMethodKey(values: WorkerEventInputPluginMethod) {
     return `worker:pluginMethod:${values.plugin}:${values.method}`;
@@ -45,6 +49,18 @@ export class WorkerManager {
       this.workerNum = workerNum;
     }
     this.workerPlugins = [...this.app.workerPlugins];
+  }
+
+  public getPresetWorkerNum() {
+    return this.workerNum;
+  }
+
+  public getCurrentWorkerNum() {
+    return this.workerList.length;
+  }
+
+  public getBusyWorkerNum() {
+    return this.busyWorkerSet.size;
   }
 
   public async initWorkers() {
@@ -83,12 +99,21 @@ export class WorkerManager {
         reject(error);
       });
 
-      worker.on('exit', (code) => {
-        if (code !== 0) {
-          this.app.logger.error(`Worker stopped with exit code ${code}`);
+      worker.on('exit', async (code) => {
+        if (code === 0 || code === 1) {
+          return;
+        }
+        this.errorRecoveryTimes++;
+        this.app.logger.error(`Worker stopped with exit code ${code}, times: ${this.errorRecoveryTimes}`);
+        if (this.errorRecoveryTimes >= WORKER_ERROR_RETRY) {
+          this.app.logger.error(`Worker error for ${this.errorRecoveryTimes} times`);
+          return;
         }
         this.workerList = this.workerList.filter((w) => w !== worker);
-        this.addWorker();
+        if (this.workerList.length < this.workerNum) {
+          await this.addWorker();
+        }
+        this.errorRecoveryTimes = 0;
       });
     });
   }
@@ -100,9 +125,16 @@ export class WorkerManager {
     await Promise.all(this.workerList.map((worker) => worker.terminate()));
     this.workerList = [];
     this.workerNum = 0;
+
+    this.currentWorkerIndex = 0;
+    this.busyWorkers = new WeakMap<Worker, Set<string>>();
+    this.busyWorkerSet = new Set();
+    this.workerPlugins = [];
+    this.cache = new Map<string, callPluginMethodInfo>();
+    this.errorRecoveryTimes = 0;
   }
 
-  public resetWorkerNum(targetNum: number) {
+  public async resetWorkerNum(targetNum: number) {
     if (!isMainThread) {
       return;
     }
@@ -188,6 +220,7 @@ export class WorkerManager {
       busySet.delete(reqId);
       if (!busySet.size) {
         this.busyWorkers.delete(worker);
+        this.busyWorkerSet.delete(worker);
         if (this.workerList.length > this.workerNum) {
           this.workerList = this.workerList.filter((w) => w !== worker);
           worker.terminate();
@@ -204,7 +237,7 @@ export class WorkerManager {
   /**
    * 运行通用方法
    */
-  private async callMethod(workerEvent: WorkerEvent, values: WorkerEventInput) {
+  private async callMethod(workerEvent: WorkerEvent, values?: WorkerEventInput) {
     if (this.workerList.length === 0) {
       throw new Error('No available workers');
     }
@@ -216,6 +249,7 @@ export class WorkerManager {
     this.currentWorkerIndex = (this.currentWorkerIndex + 1) % this.workerList.length;
     if (!this.busyWorkers.has(worker)) {
       this.busyWorkers.set(worker, new Set());
+      this.busyWorkerSet.add(worker);
     }
     this.busyWorkers.get(worker).add(reqId);
 
