@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+  CardItem,
+  TableBlockProvider,
   useActionContext,
   useAPIClient,
   useCollectionRecordData,
@@ -7,14 +9,43 @@ import {
   useDataBlockResource,
   useFilterByTk,
 } from '@tachybase/client';
-import { ISchema, useForm } from '@tachybase/schema';
+import { ISchema, observable, observer, useForm } from '@tachybase/schema';
 
-import { message } from 'antd';
+import { message, Tabs } from 'antd';
 import { saveAs } from 'file-saver';
 import { useTranslation } from 'react-i18next';
 
-import { NAMESPACE, tval } from '../locale';
+import { lang, NAMESPACE, tval } from '../locale';
 import { executionSchema } from './executions';
+
+const tag = observable({ value: '' });
+
+const dataSource = [
+  {
+    value: '0',
+    label: '分类一',
+  },
+  {
+    value: '1',
+    label: '分类二',
+  },
+  {
+    value: '2',
+    label: '分类三',
+  },
+  {
+    value: '3',
+    label: '分类四',
+  },
+  {
+    value: '4',
+    label: '分类五',
+  },
+  {
+    value: '5',
+    label: '分类六',
+  },
+];
 
 export const collectionWorkflows = {
   name: 'workflows',
@@ -32,17 +63,6 @@ export const collectionWorkflows = {
     },
     {
       type: 'string',
-      name: 'showName',
-      interface: 'input',
-      uiSchema: {
-        title: '{{t("Display name")}}',
-        type: 'string',
-        'x-component': 'Input',
-        required: false,
-      } as ISchema,
-    },
-    {
-      type: 'string',
       name: 'type',
       interface: 'select',
       uiSchema: {
@@ -54,6 +74,20 @@ export const collectionWorkflows = {
           options: `{{getTriggersOptions()}}`,
         },
         required: true,
+      } as ISchema,
+    },
+    {
+      type: 'array',
+      name: 'tags',
+      interface: 'multipleSelect',
+      uiSchema: {
+        title: '{{t("Tags")}}',
+        type: 'array',
+        enum: dataSource,
+        'x-component': 'Select',
+        'x-component-props': {
+          mode: 'multiple',
+        },
       } as ISchema,
     },
     {
@@ -166,11 +200,11 @@ export const workflowFieldset: Record<string, ISchema> = {
       ],
     },
   },
-  enabled: {
+  tags: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
   },
-  showName: {
+  enabled: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
   },
@@ -271,9 +305,9 @@ export const createWorkflow: ISchema = {
                   },
                 },
                 title: workflowFieldset.title,
+                tags: workflowFieldset.tags,
                 type: workflowFieldset.type,
                 sync: workflowFieldset.sync,
-                showName: workflowFieldset.showName,
                 description: workflowFieldset.description,
                 options: workflowFieldset.options,
               },
@@ -352,10 +386,10 @@ export const updateWorkflow: ISchema = {
                   },
                 },
                 title: workflowFieldset.title,
+                tags: workflowFieldset.tags,
                 type: workflowFieldset.type,
                 enabled: workflowFieldset.enabled,
                 sync: workflowFieldset.sync,
-                showName: workflowFieldset.showName,
                 description: workflowFieldset.description,
                 options: workflowFieldset.options,
               },
@@ -491,28 +525,58 @@ const testWorkflow: ISchema = {
   },
 };
 
+const TabCardItem = ({ children }) => {
+  return (
+    <Tabs
+      type="card"
+      onChange={(value) => {
+        tag.value = value;
+      }}
+      items={[{ value: '', label: lang('All') }].concat(dataSource).map(({ label, value }, i) => {
+        return {
+          label: label,
+          key: value,
+          children: <CardItem>{children}</CardItem>,
+        };
+      })}
+    />
+  );
+};
+
+const TabTableBlockProvider = observer((props) => {
+  const requestProps = {
+    collection: collectionWorkflows,
+    action: 'list',
+    params: {
+      filter: {
+        current: true,
+        type: {
+          // TODO: 等工作流整理完成后, 去除这里的依赖审批 "approval" 字段
+          $not: 'approval',
+        },
+      },
+      sort: ['-initAt'],
+    },
+    rowKey: 'id',
+  };
+
+  if (tag.value) {
+    // @ts-expect-error
+    requestProps.params.filter.tags = {
+      $anyOf: [tag.value],
+    };
+  }
+
+  return <TableBlockProvider {...props} {...requestProps} />;
+});
+
 export const workflowSchema: ISchema = {
   type: 'void',
   properties: {
     provider: {
       type: 'void',
-      'x-decorator': 'TableBlockProvider',
-      'x-component': 'CardItem',
-      'x-decorator-props': {
-        collection: collectionWorkflows,
-        action: 'list',
-        params: {
-          filter: {
-            current: true,
-            type: {
-              // TODO: 等工作流整理完成后, 去除这里的依赖审批 "approval" 字段
-              $not: 'approval',
-            },
-          },
-          sort: ['-initAt'],
-        },
-        rowKey: 'id',
-      },
+      'x-decorator': TabTableBlockProvider,
+      'x-component': TabCardItem,
       properties: {
         actions: {
           type: 'void',
@@ -658,11 +722,32 @@ export const workflowSchema: ISchema = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                sorter: true,
+              },
               title: '{{t("Name")}}',
               properties: {
                 title: {
                   type: 'string',
                   'x-component': 'ColumnShowTitle',
+                },
+              },
+            },
+            tags: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                sorter: true,
+                width: 20,
+                align: 'center',
+              },
+              title: '{{t("Tags")}}',
+              properties: {
+                tags: {
+                  type: 'array',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
                 },
               },
             },

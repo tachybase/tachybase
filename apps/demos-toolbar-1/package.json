@@ -1,6 +1,6 @@
 {
   "name": "demos-toolbar-1",
-  "version": "0.0.58",
+  "version": "0.0.59",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",

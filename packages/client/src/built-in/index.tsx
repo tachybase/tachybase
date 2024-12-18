@@ -325,11 +325,6 @@ export class BuiltInPlugin extends Plugin {
       icon: 'BlockOutlined',
       sort: -30,
     });
-    this.app.systemSettingsManager.add('devtools', {
-      title: this.t('Development Tools'),
-      icon: 'ToolOutlined',
-      sort: -20,
-    });
     this.app.systemSettingsManager.add('system-services', {
       title: this.t('System Services'),
       icon: 'CloudServerOutlined',

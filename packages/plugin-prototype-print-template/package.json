@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-print-template",
-  "version": "0.22.83",
+  "version": "0.22.84",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-print-template"

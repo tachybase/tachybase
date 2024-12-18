@@ -20,7 +20,7 @@ export class PMPlugin extends Plugin {
   }
 
   addSettings() {
-    this.app.systemSettingsManager.add('data-modeling.ui-schema-storage', {
+    this.app.systemSettingsManager.add('business-components.ui-schema-storage', {
       title: '{{t("Block templates")}}',
       icon: 'LayoutOutlined',
       Component: BlockTemplatesPane,

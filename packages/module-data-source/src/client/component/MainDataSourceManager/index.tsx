@@ -42,7 +42,6 @@ const schema2: ISchema = {
 
 export const MainDataSourceManager = () => {
   return (
-    // <Card bordered={false}>
     <SchemaComponent
       schema={schema2}
       components={{
@@ -72,6 +71,5 @@ export const MainDataSourceManager = () => {
         SyncSQLFieldsAction,
       }}
     />
-    // </Card>
   );
 };
