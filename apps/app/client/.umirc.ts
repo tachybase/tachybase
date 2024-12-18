@@ -4,6 +4,10 @@ import { getUmiConfig, IndexGenerator } from '@tachybase/devtools/umiConfig';
 import { defineConfig } from 'umi';
 
 const umiConfig = getUmiConfig();
+console.log('🚀 ~ file: .umirc.ts:7 ~ umiConfig:', umiConfig);
+console.log('🚀 ~ file: .umirc.ts:7 ~ umiConfig:', JSON.stringify(umiConfig, null, 2));
+
+
 
 process.env.MFSU_AD = 'none';
 process.env.DID_YOU_KNOW = 'none';

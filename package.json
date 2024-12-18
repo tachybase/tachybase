@@ -95,6 +95,8 @@
     "overrides": {
       "@types/node": "20.14.2",
       "antd": "5.22.0",
+      "react-router": "6.28.0",
+      "react-router-dom": "6.28.0",
       "dayjs": "1.11.10"
     }
   }

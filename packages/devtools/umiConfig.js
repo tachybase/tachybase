@@ -161,6 +161,8 @@ function devDynamicImport(packageName: string): Promise<any> {
   if (!fileName) {
     return Promise.resolve(null);
   }
+  const result = import(\`./packages/\${fileName}\`);
+  console.log('🚀 ~ file: index.ts:12 ~ devDynamicImport ~ result:', result);
   return import(\`./packages/\${fileName}\`)
 }
 export default devDynamicImport;`;

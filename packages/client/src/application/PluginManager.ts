@@ -84,6 +84,7 @@ export class PluginManager {
   }
 
   private getInstance<T>(plugin: typeof Plugin, opts?: T) {
+    console.log('🚀 ~ file: PluginManager.ts:109 ~ PluginManager ~ plugin:', plugin, opts);
     return new plugin(opts, this.app);
   }
 
