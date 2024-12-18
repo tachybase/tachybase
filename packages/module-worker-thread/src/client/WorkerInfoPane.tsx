@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  SchemaComponent,
-  useActionContext,
-  useAPIClient,
-  useRequest,
-  useResourceActionContext,
-} from '@tachybase/client';
-import { ISchema, uid, useForm } from '@tachybase/schema';
+import { SchemaComponent, useActionContext, useAPIClient, useRequest } from '@tachybase/client';
+import { ISchema, useForm } from '@tachybase/schema';
 
 import { App, Card } from 'antd';
 
@@ -49,7 +43,6 @@ const resetWorkerCount = () => {
       });
       message.success(t('Saved successfully'));
       setVisible(false);
-      // TODO: 重新刷新页面
     },
   };
 };

@@ -69,7 +69,6 @@ class SystemLoggerTransport extends Transport {
       reqId,
       version: level === 'error' ? version : undefined,
     });
-
     if (cause) {
       logger.log({
         level,

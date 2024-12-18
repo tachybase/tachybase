@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
 
-import { NAMESPACE } from './constants';
+import { NAMESPACE } from '../constants';
 import { WorkerInfoPane } from './WorkerInfoPane';
 
 export class ModuleWorkerThreadClient extends Plugin {

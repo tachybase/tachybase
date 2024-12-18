@@ -3,7 +3,6 @@ import { Plugin } from '@tachybase/server';
 export enum WorkerEvent {
   Started = 'started',
   PluginMethod = 'PluginMethod',
-  Terminate = 'Terminate',
 }
 
 export type WorkerEventInputDefault = {

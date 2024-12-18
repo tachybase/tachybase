@@ -2,6 +2,7 @@ import { Context, Next } from '@tachybase/actions';
 import { Application } from '@tachybase/server';
 import { Action, Controller } from '@tachybase/utils';
 
+import { NAMESPACE } from '../constants';
 import { WORKER_COUNT_MAX } from './constants';
 import { WorkerWebInfo } from './workerTypes';
 
@@ -32,14 +33,14 @@ export class WorkerWebController {
   async preset(ctx: Context, next: Next) {
     const { count } = ctx.action.params.values;
     if (count < 0) {
-      ctx.throw(400, ctx.t('Invalid worker count'));
+      ctx.throw(400, ctx.t('Invalid worker count', { ns: NAMESPACE }));
     }
     const app = ctx.app as Application;
     if (count > WORKER_COUNT_MAX) {
-      ctx.throw(400, ctx.t('Too many workers"'));
+      ctx.throw(400, ctx.t('Too many workers', { ns: NAMESPACE }));
     }
     if (!app.worker) {
-      ctx.throw(400, ctx.t('Worker thread plugin not start'));
+      ctx.throw(400, ctx.t('Worker thread plugin not start', { ns: NAMESPACE }));
     }
     await app.worker.resetWorkerNum(count);
     ctx.body = {
