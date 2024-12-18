@@ -58,12 +58,6 @@ export async function retryOperation<T>(
         throw wrappedError;
       }
 
-      // 如果已超过最大重试次数，抛出错误
-      if (attemptNumber === retry) {
-        logger.error(`${name} failed after ${retry} attempts.`);
-        throw error; // 超过重试次数，抛出最后一次错误
-      }
-
       // 等待指定时间后再重试
       const nextDelay = startingDelay * Math.pow(timeMultiple, attemptNumber - 1);
       logger.warn(`Retrying ${name} in ${nextDelay}ms...`);
