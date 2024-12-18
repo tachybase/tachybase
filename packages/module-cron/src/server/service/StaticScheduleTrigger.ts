@@ -178,6 +178,13 @@ export class StaticScheduleTrigger {
     const cronJob = (await this.db
       .getRepository(DATABASE_CRON_JOBS)
       .findOne({ filterByTk: cronJobId, raw: true })) as CronJobModel;
+
+    if (!cronJob) {
+      this.logger.warn(`Scheduled cron job ${cronJobId} no longer exists`);
+      const eventKey = `${cronJobId}@${time}`;
+      this.timers.delete(eventKey);
+      return;
+    }
     const eventKey = `${cronJob.id}@${time}`;
     this.timers.delete(eventKey);
 
