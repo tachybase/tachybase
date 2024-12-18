@@ -9,6 +9,9 @@
   "dependencies": {
     "tsx": "^4.15.2"
   },
+  "devDependencies": {
+    "antd": "5.22.0"
+  },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/module-collection": "workspace:*",

@@ -58,26 +58,31 @@ const handleWorkerMessages = (app: Application) => {
 };
 
 export const main = async () => {
-  const start = Date.now();
-  const applicationOptions = {
-    database: await parseDatabaseOptionsFromEnv(),
-    plugins: [...workerData.plugins],
-    logger: loggerOptions,
-  } as ApplicationOptions;
-  const app = new Application(applicationOptions);
-  await app.load({
-    skipDbPluigns: true,
-  });
+  try {
+    const start = Date.now();
+    const applicationOptions = {
+      database: await parseDatabaseOptionsFromEnv(),
+      plugins: [...workerData.plugins],
+      logger: loggerOptions,
+    } as ApplicationOptions;
+    const app = new Application(applicationOptions);
+    await app.load({
+      skipDbPluigns: true,
+    });
 
-  await app.start({
-    dbSync: false,
-    quickstart: true,
-    checkInstall: false,
-  });
-  app.logger.info('[worker] app has been started');
+    await app.start({
+      dbSync: false,
+      quickstart: true,
+      checkInstall: false,
+    });
+    app.logger.info('[worker] app has been started');
 
-  // 工作线程部分逻辑代码
-  handleWorkerMessages(app);
+    // 工作线程部分逻辑代码
+    handleWorkerMessages(app);
+  } catch (err) {
+    console.error(err);
+    process.exit(-1);
+  }
 };
 
 // 支持直接通过 npx tsx --tsconfig ./tsconfig.server.json -r tsconfig-paths/register ./packages/module-worker-thread/src/server/worker.ts 测试启动
