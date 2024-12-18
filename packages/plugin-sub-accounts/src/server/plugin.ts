@@ -4,9 +4,11 @@ import { addMergeRole } from './addMergeRoles';
 import {
   mergeRoleCreate,
   refreshDataSourcesAclAtAppStart,
+  roleDepartmentUpdate,
   sourceRoleDestroy,
   sourceRoleUpdate,
   userChangeRoles,
+  userDepartmentUpdate,
 } from './hooks';
 import { createMergeRole } from './hooks/user-create';
 import { changeUserRolesMiddleware } from './middlewares/change-user-roles';
@@ -23,8 +25,9 @@ export class PluginSubAccountsServer extends Plugin {
       RoleModel: MergeRoleModel,
     });
     this.app.on('dataSourceAfterStart', async () => {
+      // addMergeRole和refreshDataSourcesAclAtAppStart会有重复的
       await addMergeRole(this.app);
-      refreshDataSourcesAclAtAppStart.bind(this.app)();
+      await refreshDataSourcesAclAtAppStart.bind(this.app)();
     });
 
     this.app.db.on('roles.afterUpdate', sourceRoleUpdate.bind(this.app));
@@ -35,6 +38,13 @@ export class PluginSubAccountsServer extends Plugin {
     this.app.db.on('users.afterCreateWithAssociations', createMergeRole.bind(this.app));
     // 给用户增加/删除 角色
     this.app.db.on('users.afterUpdateWithAssociations', userChangeRoles.bind(this.app));
+
+    // 给用户增加部门/删除部门
+    this.app.db.on('departmentsUsers.afterSave', userDepartmentUpdate.bind(this.app));
+    this.app.db.on('departmentsUsers.afterDestroy', userDepartmentUpdate.bind(this.app));
+    // 给部门增加/删除角色
+    this.app.db.on('departmentsRoles.afterSave', roleDepartmentUpdate.bind(this.app));
+    this.app.db.on('departmentsRoles.afterDestroy', roleDepartmentUpdate.bind(this.app));
 
     this.app.on('dataSource:writeToAcl', async ({ roleName, transaction }) => {
       const affectedUsers = await this.app.db.getRepository('users').find({
@@ -47,9 +57,8 @@ export class PluginSubAccountsServer extends Plugin {
         return;
       }
       const affectedRoles = affectedUsers.map((u) => u.selfRole) as MergeRoleModel[];
-      const acl = this.app.acl;
       for (const affectedRole of affectedRoles) {
-        await affectedRole.refreshDataSourcesAcl({ transaction, acl });
+        await affectedRole.refreshDataSourcesAcl({ transaction, app: this.app });
       }
     });
   }

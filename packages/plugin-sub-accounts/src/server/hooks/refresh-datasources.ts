@@ -17,11 +17,8 @@ export async function refreshDataSourcesAclAtAppStart() {
   })) as MergeRoleModel[];
 
   for (const role of roles) {
-    await role.refreshDataSourcesAcl({ acl: app.acl });
+    await role.refreshDataSourcesAcl({ app });
   }
-}
 
-/**
- * 当单个角色的数据源权限发生变化时，刷新合并角色的数据源权限
- */
-export function refreshDataSourcesAcl() {}
+  app.logger.info('[acl] refreshDataSourcesAclAtAppStart done');
+}

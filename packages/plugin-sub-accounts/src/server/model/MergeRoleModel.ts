@@ -1,6 +1,7 @@
 import { ACL, ACLResource, ACLResourceActions, AvailableStrategyOptions, RoleActionParams } from '@tachybase/acl';
-import { Transaction } from '@tachybase/database';
-import { RoleModel } from '@tachybase/module-acl';
+import { ArrayFieldRepository, Transaction } from '@tachybase/database';
+import { RoleModel } from '@tachybase/plugin-acl';
+import { Application } from '@tachybase/server';
 
 import { RoleActionParamsMerge } from '../acl/RoleActionParamsMerge';
 import { RoleSnippets } from '../acl/RoleSnippets';
@@ -10,19 +11,70 @@ export class MergeRoleModel extends RoleModel {
   rootResource: MergeRoleModel;
 
   /**
+   * 获取当前角色绑定的部门,获取部门里的所有用户
+   * @param transaction
+   * @returns
+   */
+  public async getMembersByDepartment(transaction) {
+    if (this.ownerUserId) {
+      return [];
+    }
+
+    const departments = await this.getDepartments({ append: ['members'], transaction });
+    const users = new Map();
+    for (const department of departments) {
+      for (const user of department.members) {
+        users.set(user.id, user);
+      }
+    }
+    return Array.from(users.values());
+  }
+
+  /**
+   * 获取用户的所有部门 并获得所有角色
+   * @param transaction
+   * @returns
+   */
+  public async getRolesByDepartment(transaction) {
+    if (!this.ownerUserId) {
+      return [];
+    }
+    const repo = this.db.getRepository<ArrayFieldRepository>('users.departments', this.ownerUserId);
+    const departments = await repo.find({
+      appends: ['roles', 'roles.menuUiSchemas', 'parent(recursively=true)'],
+      transaction,
+    });
+    // 根据roles的name去重合并
+    const roles = new Map();
+    for (const department of departments) {
+      for (const role of department.roles) {
+        roles.set(role.name, role);
+      }
+    }
+    return Array.from(roles.values());
+  }
+
+  /**
    * 获取源头角色
    * @param transaction
    * @returns
    */
-  public async getSourceRoles(transaction: Transaction) {
+  public async getSourceRoles(transaction: Transaction, app: Application) {
     const user = await this.getOwnerUser({ transaction });
-    return await user.getRoles({ appends: ['menuUiSchemas'], transaction });
+    const selfRoles = await user.getRoles({ include: ['menuUiSchemas'], transaction });
+    // 部门的角色
+    const departmentRoles = await this.getRolesByDepartment(transaction);
+    const uniqueRoles = new Map();
+    for (const role of selfRoles.concat(departmentRoles)) {
+      uniqueRoles.set(role.name, role);
+    }
+    return Array.from(uniqueRoles.values());
   }
 
   /**
    * 数据表操作权限更新
    */
-  public async refreshDataSourcesAcl({ transaction, acl }: { transaction?: Transaction; acl: ACL }) {
+  public async refreshDataSourcesAcl({ transaction, app }: { transaction?: Transaction; app: Application }) {
     const strategyArray: Array<string | AvailableStrategyOptions> = [];
     const resourcesMap: Map<string, ACLResourceActions[]> = new Map();
     const transactionExist = !!transaction;
@@ -30,7 +82,7 @@ export class MergeRoleModel extends RoleModel {
       transaction = await this.db.sequelize.transaction();
     }
 
-    this.sourceRoles = await this.getSourceRoles(transaction);
+    this.sourceRoles = await this.getSourceRoles(transaction, app);
     if (this.sourceRoles.find((r) => r.name === 'root')) {
       if (!transactionExist) {
         transaction.commit();
@@ -39,9 +91,9 @@ export class MergeRoleModel extends RoleModel {
     }
     // 实现数据表权限逻辑
     for (const sourceRole of this.sourceRoles) {
-      let sourceAclRole = acl.getRole(sourceRole.name);
+      let sourceAclRole = app.acl.getRole(sourceRole.name);
       if (!sourceAclRole) {
-        sourceAclRole = acl.define({
+        sourceAclRole = app.acl.define({
           role: sourceRole.name,
           strategy: {},
           actions: {},
@@ -60,7 +112,7 @@ export class MergeRoleModel extends RoleModel {
     }
 
     // 合并strategy
-    const aclRole = acl.getRole(this.name);
+    const aclRole = app.acl.getRole(this.name);
     aclRole.setStrategy({ ...RoleStrategy.merge(strategyArray) });
 
     // 合并resource
@@ -95,25 +147,15 @@ export class MergeRoleModel extends RoleModel {
   }
 
   /**
-   * 数据表操作权限更新
-   */
-  public refreshDataSourcesAclForResource(acl: ACL, resourceName: string, actionName: string) {
-    // 实现数据表权限逻辑
-    // for (const sourceRole of this.sourceRoles) {
-    //   const aclRole = acl.getRole(sourceRole.name);
-    // }
-  }
-
-  /**
    * source变动后导致本身属性或者ui有关属性变动
    */
   public async resetAcl({
     transaction,
-    acl,
+    app,
     changedFields,
   }: {
     transaction?: Transaction;
-    acl: ACL;
+    app: Application;
     changedFields?: string[];
   }) {
     if (!this.ownerUserId) {
@@ -123,7 +165,7 @@ export class MergeRoleModel extends RoleModel {
     if (!transaction) {
       transaction = await this.db.sequelize.transaction();
     }
-    this.sourceRoles = await this.getSourceRoles(transaction);
+    this.sourceRoles = await this.getSourceRoles(transaction, app);
     // 关于root的特殊情况
     this.rootResource = this.sourceRoles.find((role) => role.name === 'root');
     this.resetRoleProperty(transaction);
@@ -140,7 +182,7 @@ export class MergeRoleModel extends RoleModel {
     if (!transactionExist) {
       await transaction.commit();
     }
-    this.writeToAcl({ acl, withOutStrategy: true });
+    this.writeToAcl({ acl: app.acl, withOutStrategy: true });
   }
 
   /**
@@ -160,59 +202,85 @@ export class MergeRoleModel extends RoleModel {
    * data-source的actions体现在[权限页面][数据源][配置][通用操作权限] 但是整个role下的
    * FIXME: strategy这个类型设置的很奇怪,目前只找到actions,依据AvailableStrategyOptions应该还有displayName,allowConfigure,resource
    */
-  private mergeStrategy() {
-    throw new Error('Method not implemented.');
-  }
 
   /**
    * 融合短语,体现在[权限页面][系统管理],主要影响[配置页面] [配置插件] [重启应用]
    * 主要是 ui.* pm.* app.* 等短语
    */
   private mergeSnippets() {
+    let newSnippets = [];
     if (this.rootResource) {
-      this.snippets = ['ui.*', 'pm', 'pm.*'];
-      return;
-    }
-    if (this.sourceRoles.length === 0) {
+      newSnippets = ['ui.*', 'pm', 'pm.*'];
+    } else if (this.sourceRoles.length === 0) {
       // 和member默认保持一致
-      this.snippets = ['!ui.*', '!pm', '!pm.*'];
-      return;
+      newSnippets = ['!ui.*', '!pm', '!pm.*'];
+    } else if (this.sourceRoles.length === 1) {
+      newSnippets = this.sourceRoles[0].snippets;
+    } else {
+      const snippets: Set<string>[] = [];
+      for (const sourceRole of this.sourceRoles) {
+        snippets.push(new Set(sourceRole.snippets));
+      }
+      newSnippets = RoleSnippets.mergeSet(snippets);
     }
-    if (this.sourceRoles.length === 1) {
-      this.snippets = this.sourceRoles[0].snippets;
-      return;
+
+    const originalSnippets = this.snippets;
+    let changed = originalSnippets.length !== newSnippets.length;
+    if (!changed) {
+      for (const snippet of newSnippets) {
+        if (!originalSnippets.includes(snippet)) {
+          changed = true;
+          break;
+        }
+      }
     }
-    const snippets: Set<string>[] = [];
-    for (const sourceRole of this.sourceRoles) {
-      snippets.push(new Set(sourceRole.snippets));
+    if (changed) {
+      this.snippets = newSnippets;
     }
-    this.snippets = RoleSnippets.mergeSet(snippets);
   }
 
   private async mergeMenuUiSchemas(transaction?: Transaction) {
+    const originalMenuUiSchemas = await this.getMenuUiSchemas();
+    let newMenuUiSchemas = [];
     if (this.rootResource) {
-      await this.setMenuUiSchemas([], { transaction });
-      return;
-    }
-    const menuUiSchemaNamesSet = [];
-    const menuUiSchemasList = [];
-    // const menuUiSchemaSet = new Set();
-    for (const sourceRole of this.sourceRoles) {
-      const menuUiSchemas = await sourceRole.getMenuUiSchemas();
-      for (const menuUiSchema of menuUiSchemas) {
-        const xUid = menuUiSchema.get('x-uid');
-        if (menuUiSchemaNamesSet.includes(xUid)) {
-          continue;
+      newMenuUiSchemas = [];
+    } else {
+      const menuUiSchemaNamesSet = [];
+      // const menuUiSchemaSet = new Set();
+      for (const sourceRole of this.sourceRoles) {
+        for (const menuUiSchema of sourceRole.menuUiSchemas) {
+          const xUid = menuUiSchema.get('x-uid');
+          if (menuUiSchemaNamesSet.includes(xUid)) {
+            continue;
+          }
+          menuUiSchemaNamesSet.push(xUid);
+          newMenuUiSchemas.push(menuUiSchema);
         }
-        menuUiSchemaNamesSet.push(xUid);
-        menuUiSchemasList.push(menuUiSchema);
       }
     }
-    await this.setMenuUiSchemas(menuUiSchemasList, { transaction });
-  }
 
-  // 由于数据库操作,还要分表,每个表还有不同的权限策略,此处不保存到数据库,而是在内存中进行操作
-  private mergeDataSource(Transaction?: Transaction) {
-    throw new Error('Method not implemented.');
+    const toAddList: string[] = [];
+    const toRemoveList: string[] = [];
+    const sameList: string[] = [];
+    for (const menuUiSchema of newMenuUiSchemas) {
+      const xUid = menuUiSchema.get('x-uid');
+      if (!originalMenuUiSchemas.find((m) => m.get('x-uid') === xUid)) {
+        toAddList.push(xUid);
+      } else {
+        sameList.push(xUid);
+      }
+    }
+    for (const menuUiSchema of originalMenuUiSchemas) {
+      const xUid = menuUiSchema.get('x-uid');
+      if (!sameList.includes(xUid)) {
+        toRemoveList.push(xUid);
+      }
+    }
+    if (toAddList.length) {
+      await this.addMenuUiSchemas(toAddList, { transaction });
+    }
+    if (toRemoveList.length) {
+      await this.removeMenuUiSchemas(toRemoveList, { transaction });
+    }
   }
 }

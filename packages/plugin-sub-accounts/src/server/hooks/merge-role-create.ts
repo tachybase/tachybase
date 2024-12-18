@@ -11,6 +11,6 @@ export async function mergeRoleCreate(model: MergeRoleModel, options: CreateOpti
     return;
   }
   const app = this as Application;
-  await model.resetAcl({ acl: app.acl, transaction: options.transaction });
-  await model.refreshDataSourcesAcl({ acl: app.acl, transaction: options.transaction });
+  await model.resetAcl({ app, transaction: options.transaction });
+  await model.refreshDataSourcesAcl({ app, transaction: options.transaction });
 }

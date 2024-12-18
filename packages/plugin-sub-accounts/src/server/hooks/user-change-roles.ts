@@ -35,8 +35,8 @@ export async function userChangeRoles(model: MergeRoleModel, options: UpdateOpti
   const { transaction } = options;
   const selfRole = (await model.getSelfRole({ transaction })) as MergeRoleModel;
   if (selfRole) {
-    const acl = (this as Application).acl;
-    await selfRole.resetAcl({ transaction, acl });
-    await selfRole.refreshDataSourcesAcl({ transaction, acl });
+    const app = this as Application;
+    await selfRole.resetAcl({ transaction, app });
+    await selfRole.refreshDataSourcesAcl({ transaction, app });
   }
 }
