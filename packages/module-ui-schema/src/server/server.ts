@@ -36,7 +36,7 @@ export class ModuleUiSchema extends Plugin {
       actions: [
         'uiSchemas:insert',
         'uiSchemas:insertNewSchema',
-        'uiSchemas:remove',
+        'uiSchemas:removeUi',
         'uiSchemas:patch',
         'uiSchemas:batchPatch',
         'uiSchemas:clearAncestor',

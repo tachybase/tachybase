@@ -90,7 +90,7 @@ export default {
         },
       },
     },
-    '/uiSchemas:remove/{uid}': {
+    '/uiSchemas:removeUi/{uid}': {
       post: {
         tags: ['uiSchemas'],
         description: 'remove an ui schema node by uid',

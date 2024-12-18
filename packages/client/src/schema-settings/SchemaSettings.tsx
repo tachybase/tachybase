@@ -255,7 +255,7 @@ export const SchemaSettingsTemplate = function Template(props) {
           tdn.insertAfterEnd(schema, {
             async onSuccess() {
               await api.request({
-                url: `/uiSchemas:remove/${removed['x-uid']}`,
+                url: `/uiSchemas:removeUi/${removed['x-uid']}`,
               });
             },
           });
@@ -393,7 +393,7 @@ export const SchemaSettingsFormItemTemplate = function FormItemTemplate(props) {
           sdn.insertAdjacent(insertAdjacentPosition, schema, {
             async onSuccess() {
               await api.request({
-                url: `/uiSchemas:remove/${templateSchema['x-uid']}`,
+                url: `/uiSchemas:removeUi/${templateSchema['x-uid']}`,
               });
             },
           });
@@ -1411,7 +1411,7 @@ export const SchemaSettingsDataTemplates = function DataTemplates(props) {
     [templateData],
   );
   const onSubmit = useCallback((v) => {
-    const data = { ...(formSchema['x-data-templates'] || {}), ...v.fieldReaction };
+    const data = { ...formSchema['x-data-templates'], ...v.fieldReaction };
     // 当 Tree 组件开启 checkStrictly 属性时，会导致 checkedKeys 的值是一个对象，而不是数组，所以这里需要转换一下以支持旧版本
     data.items.forEach((item) => {
       item.fields = Array.isArray(item.fields) ? item.fields : item.fields.checked;
