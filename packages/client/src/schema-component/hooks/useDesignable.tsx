@@ -177,7 +177,7 @@ export class Designable {
       }
       if (removed?.['x-uid']) {
         await api.request({
-          url: `/uiSchemas:removeUi/${removed['x-uid']}`,
+          url: `/uiSchemas:remove/${removed['x-uid']}`,
           method: 'post',
         });
       }
@@ -214,7 +214,7 @@ export class Designable {
         return;
       }
       await api.request({
-        url: `/uiSchemas:removeUi/${removed['x-uid']}`,
+        url: `/uiSchemas:remove/${removed['x-uid']}`,
         method: 'post',
       });
       if (schemas.length) {
