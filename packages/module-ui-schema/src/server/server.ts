@@ -79,6 +79,32 @@ export class ModuleUiSchema extends Plugin {
       });
     });
 
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const { resourceName, actionName } = ctx.action.params;
+        if (resourceName === 'uiSchemas' && actionName === 'remove') {
+          const skip = await ctx.app.acl.allowManager.isAllowed(resourceName, actionName, ctx);
+          if (skip) {
+            return next();
+          }
+          const role = ctx?.state?.currentRole;
+          if (!role) {
+            ctx.throw(403, 'No Permission: Role not found');
+          }
+          const aclRole = ctx.app.acl.roles.get(role);
+          if (!aclRole) {
+            ctx.throw(403, 'No Permission: Role not found');
+          }
+          const snippetAllowed = aclRole.snippetAllowed(`${resourceName}:${actionName}`);
+          if (!snippetAllowed) {
+            ctx.throw(403, 'No Permission: Role lacks remove permission for uiSchemas');
+          }
+        }
+        await next();
+      },
+      { tag: 'intercept-ui-schema-remove', after: 'acl' },
+    );
+
     this.app.resourcer.define({
       name: 'uiSchemas',
       actions: uiSchemaActions,
