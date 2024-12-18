@@ -18,6 +18,7 @@ import { HTMLEncode } from '../input/shared';
 import { FilterFormDesigner } from './FormItem.FilterFormDesigner';
 import useLazyLoadDisplayAssociationFieldsOfForm from './hooks/useLazyLoadDisplayAssociationFieldsOfForm';
 import useParseDefaultValue from './hooks/useParseDefaultValue';
+import { useEnsureOperatorsValid } from './SchemaSettingOptions';
 
 const useStyles = createStyles(({ css }) => {
   return {
@@ -50,7 +51,7 @@ export const FormItem = (props: any) => {
   const { layoutDirection } = useContextConfigSetting();
 
   const finishLayoutDirection = selfLayoutDirection ?? layoutDirection;
-
+  useEnsureOperatorsValid();
   useEffect(() => {
     variables?.registerVariable(contextVariable);
   }, [contextVariable]);
