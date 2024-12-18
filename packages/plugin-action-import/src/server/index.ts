@@ -12,7 +12,7 @@ export class ImportPlugin extends Plugin {
   }
 
   async load() {
-    this.app.resourcer.use(importMiddleware);
+    this.app.resourcer.use(importMiddleware, { tag: 'importXlsx' });
     this.app.resourcer.registerActionHandler('downloadXlsxTemplate', downloadXlsxTemplate);
     this.app.resourcer.registerActionHandler('importXlsx', importXlsx);
 

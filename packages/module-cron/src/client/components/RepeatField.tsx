@@ -22,22 +22,21 @@ const RepeatOptions = [
 ];
 
 function getNumberOption(v) {
-  const opts = RepeatOptions.filter((option) => typeof option.value === 'number').reverse() as any[];
+  const opts = RepeatOptions.filter((option) => !isNaN(+option.value)).reverse() as any[];
   return opts.find((item) => !(v % item.value));
 }
 
 function getRepeatTypeValue(v) {
-  let option;
-  switch (typeof v) {
-    case 'number':
-      option = getNumberOption(v);
-      return option ? option.value : 'none';
-    case 'string':
-      return 'cron';
-    default:
-      break;
+  if (!v) {
+    return 'none';
   }
-  return 'none';
+  if (v && !isNaN(+v)) {
+    const option = getNumberOption(v);
+    return option ? option.value : 'none';
+  }
+  if (typeof v === 'string') {
+    return 'cron';
+  }
 }
 
 function CommonRepeatField({ value, onChange }) {
@@ -120,7 +119,7 @@ export function RepeatField({ value = null, onChange }) {
           })) as any
         }
       ></Select>
-      {typeof typeValue === 'number' ? <CommonRepeatField value={value} onChange={onChange} /> : null}
+      {typeValue && !isNaN(+typeValue) ? <CommonRepeatField value={value} onChange={onChange} /> : null}
       {typeValue === 'cron' ? (
         <Cron
           value={value.trim().split(/\s+/).slice(1).join(' ')}

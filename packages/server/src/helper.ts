@@ -35,10 +35,13 @@ export function createResourcer(options: ApplicationOptions) {
 }
 
 export function registerMiddlewares(app: Application, options: ApplicationOptions) {
-  app.use(async (ctx, next) => {
-    app.context.reqId = randomUUID();
-    await next();
-  });
+  app.use(
+    async (ctx, next) => {
+      app.context.reqId = randomUUID();
+      await next();
+    },
+    { tag: 'UUID' },
+  );
 
   app.use(requestLogger(app.name, options.logger?.request), { tag: 'logger' });
 
@@ -70,13 +73,16 @@ export function registerMiddlewares(app: Application, options: ApplicationOption
     );
   }
 
-  app.use(async (ctx, next) => {
-    ctx.getBearerToken = () => {
-      const token = ctx.get('Authorization').replace(/^Bearer\s+/gi, '');
-      return token || ctx.query.token;
-    };
-    await next();
-  });
+  app.use(
+    async (ctx, next) => {
+      ctx.getBearerToken = () => {
+        const token = ctx.get('Authorization').replace(/^Bearer\s+/gi, '');
+        return token || ctx.query.token;
+      };
+      await next();
+    },
+    { tag: 'authorization' },
+  );
 
   app.use(i18n, { tag: 'i18n', after: 'cors' });
 

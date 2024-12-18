@@ -29,5 +29,6 @@ export * from './decorators';
 export * from './cluster';
 export * from './plugin-symlink';
 export * from './currencyUtils';
+export * from './getCurrentStacks';
 
 export { dayjs, lodash };

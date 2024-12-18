@@ -114,47 +114,50 @@ export class PluginDataSourceManagerServer extends Plugin {
 
     const app = this.app;
 
-    this.app.use(async (ctx, next) => {
-      await next();
-      if (!ctx.action) {
-        return;
-      }
-
-      const { actionName, resourceName, params } = ctx.action;
-
-      if (resourceName === 'dataSources' && actionName === 'list') {
-        let dataPath = 'body';
-
-        if (Array.isArray(ctx.body['data'])) {
-          dataPath = 'body.data';
+    this.app.use(
+      async (ctx, next) => {
+        await next();
+        if (!ctx.action) {
+          return;
         }
 
-        const items = lodash.get(ctx, dataPath);
+        const { actionName, resourceName, params } = ctx.action;
 
-        lodash.set(
-          ctx,
-          dataPath,
-          items
-            .filter((item) => !item.isMainRecord())
-            .map((item) => {
-              const data = item.toJSON();
-              if (item.isMainRecord()) {
-                data['status'] = 'loaded';
+        if (resourceName === 'dataSources' && actionName === 'list') {
+          let dataPath = 'body';
+
+          if (Array.isArray(ctx.body['data'])) {
+            dataPath = 'body.data';
+          }
+
+          const items = lodash.get(ctx, dataPath);
+
+          lodash.set(
+            ctx,
+            dataPath,
+            items
+              .filter((item) => !item.isMainRecord())
+              .map((item) => {
+                const data = item.toJSON();
+                if (item.isMainRecord()) {
+                  data['status'] = 'loaded';
+                  return data;
+                }
+
+                const dataSourceStatus = this.dataSourceStatus[item.get('key')];
+                data['status'] = dataSourceStatus;
+
+                if (dataSourceStatus === 'loading-failed' || dataSourceStatus === 'reloading-failed') {
+                  data['errorMessage'] = this.dataSourceErrors[item.get('key')].message;
+                }
+
                 return data;
-              }
-
-              const dataSourceStatus = this.dataSourceStatus[item.get('key')];
-              data['status'] = dataSourceStatus;
-
-              if (dataSourceStatus === 'loading-failed' || dataSourceStatus === 'reloading-failed') {
-                data['errorMessage'] = this.dataSourceErrors[item.get('key')].message;
-              }
-
-              return data;
-            }),
-        );
-      }
-    });
+              }),
+          );
+        }
+      },
+      { tag: 'processDataSourcesList' },
+    );
 
     const plugin = this;
 
@@ -197,45 +200,51 @@ export class PluginDataSourceManagerServer extends Plugin {
       return item;
     };
 
-    this.app.resourcer.use(async (ctx, next) => {
-      if (!ctx.action) {
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        if (!ctx.action) {
+          await next();
+          return;
+        }
+
+        const { actionName, resourceName, params } = ctx.action;
+
+        if (resourceName === 'dataSources' && actionName === 'list') {
+          if (!params.sort) {
+            params.sort = ['-fixed', 'createdAt'];
+          }
+        }
+
         await next();
-        return;
-      }
+      },
+      { tag: 'defaultSorting' },
+    );
 
-      const { actionName, resourceName, params } = ctx.action;
+    this.app.use(
+      async (ctx, next) => {
+        await next();
 
-      if (resourceName === 'dataSources' && actionName === 'list') {
-        if (!params.sort) {
-          params.sort = ['-fixed', 'createdAt'];
+        if (!ctx.action) {
+          return;
         }
-      }
 
-      await next();
-    });
+        const { actionName, resourceName, params } = ctx.action;
 
-    this.app.use(async (ctx, next) => {
-      await next();
-
-      if (!ctx.action) {
-        return;
-      }
-
-      const { actionName, resourceName, params } = ctx.action;
-
-      if (resourceName === 'dataSources' && actionName === 'get') {
-        let appendCollections = false;
-        const appends = ctx.action.params.appends;
-        if (appends && appends.includes('collections')) {
-          appendCollections = true;
+        if (resourceName === 'dataSources' && actionName === 'get') {
+          let appendCollections = false;
+          const appends = ctx.action.params.appends;
+          if (appends && appends.includes('collections')) {
+            appendCollections = true;
+          }
+          if (ctx.body.data) {
+            ctx.body.data = mapDataSourceWithCollection(ctx.body.data, appendCollections);
+          } else {
+            ctx.body = mapDataSourceWithCollection(ctx.body, appendCollections);
+          }
         }
-        if (ctx.body.data) {
-          ctx.body.data = mapDataSourceWithCollection(ctx.body.data, appendCollections);
-        } else {
-          ctx.body = mapDataSourceWithCollection(ctx.body, appendCollections);
-        }
-      }
-    });
+      },
+      { tag: 'dataSourcesget' },
+    );
 
     this.app.actions({
       async ['dataSources:listEnabled'](ctx, next) {
@@ -434,49 +443,52 @@ export class PluginDataSourceManagerServer extends Plugin {
     });
 
     // add global roles check
-    this.app.resourcer.use(async (ctx, next) => {
-      const action = ctx.action;
-      await next();
-      const { resourceName, actionName } = action.params;
-      if (resourceName === 'roles' && actionName === 'check') {
-        const roleName = ctx.state.currentRole;
-        const dataSources = await ctx.db.getRepository('dataSources').find();
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const action = ctx.action;
+        await next();
+        const { resourceName, actionName } = action.params;
+        if (resourceName === 'roles' && actionName === 'check') {
+          const roleName = ctx.state.currentRole;
+          const dataSources = await ctx.db.getRepository('dataSources').find();
 
-        ctx.bodyMeta = {
-          dataSources: dataSources.reduce((carry, dataSourceModel) => {
-            const dataSource = this.app.dataSourceManager.dataSources.get(dataSourceModel.get('key'));
-            if (!dataSource) {
+          ctx.bodyMeta = {
+            dataSources: dataSources.reduce((carry, dataSourceModel) => {
+              const dataSource = this.app.dataSourceManager.dataSources.get(dataSourceModel.get('key'));
+              if (!dataSource) {
+                return carry;
+              }
+
+              const dataSourceStatus = this.dataSourceStatus[dataSourceModel.get('key')];
+              if (dataSourceStatus !== 'loaded') {
+                return carry;
+              }
+
+              const aclInstance = dataSource.acl;
+              const roleInstance = aclInstance.getRole(roleName);
+
+              const dataObj = {
+                strategy: {},
+                resources: roleInstance ? [...roleInstance.resources.keys()] : [],
+                actions: {},
+              };
+
+              if (roleInstance) {
+                const data = roleInstance.toJSON();
+                dataObj['name'] = data['name'];
+                dataObj['strategy'] = data['strategy'];
+                dataObj['actions'] = data['actions'];
+              }
+
+              carry[dataSourceModel.get('key')] = dataObj;
+
               return carry;
-            }
-
-            const dataSourceStatus = this.dataSourceStatus[dataSourceModel.get('key')];
-            if (dataSourceStatus !== 'loaded') {
-              return carry;
-            }
-
-            const aclInstance = dataSource.acl;
-            const roleInstance = aclInstance.getRole(roleName);
-
-            const dataObj = {
-              strategy: {},
-              resources: roleInstance ? [...roleInstance.resources.keys()] : [],
-              actions: {},
-            };
-
-            if (roleInstance) {
-              const data = roleInstance.toJSON();
-              dataObj['name'] = data['name'];
-              dataObj['strategy'] = data['strategy'];
-              dataObj['actions'] = data['actions'];
-            }
-
-            carry[dataSourceModel.get('key')] = dataObj;
-
-            return carry;
-          }, {}),
-        };
-      }
-    });
+            }, {}),
+          };
+        }
+      },
+      { tag: 'dataSourceAccessCheck' },
+    );
 
     this.app.acl.registerSnippet({
       name: `pm.${this.name}`,

@@ -7,7 +7,7 @@ export const WorkflowColumn = observer(
   () => {
     const { t } = useTranslation();
     const { value: workflow } = useField<Field>();
-    const title = workflow?.showName || workflow?.title || `#${workflow?.id}`;
+    const title = workflow?.title || `#${workflow?.id}`;
 
     if (workflow?.enabled) {
       return title;

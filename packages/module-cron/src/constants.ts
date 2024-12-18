@@ -1,7 +1,6 @@
-export const NAMESPACE = 'cron-job';
+export const NAMESPACE = 'cron';
 
 export const DATABASE_CRON_JOBS = 'cronJobs';
-export const DATABASE_CRON_JOBS_EXECUTIONS = 'cronJobsExecutions';
 
 export enum SCHEDULE_MODE {
   STATIC = 0,

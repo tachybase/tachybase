@@ -22,6 +22,7 @@ import {
   applyMixins,
   AsyncEmitter,
   ContainerInstance,
+  getCurrentStacks,
   importModule,
   Toposort,
   ToposortOptions,
@@ -200,6 +201,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   private currentId = nanoid();
   public container: ContainerInstance;
   public modules: Record<string, any> = {};
+  public middlewareSourceMap: WeakMap<Function, string> = new WeakMap();
 
   constructor(public options: ApplicationOptions) {
     super();
@@ -412,6 +414,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     middleware: Koa.Middleware<StateT & NewStateT, ContextT & NewContextT>,
     options?: ToposortOptions,
   ) {
+    this.middlewareSourceMap.set(middleware, getCurrentStacks());
     this.middleware.add(middleware, options);
     return this;
   }

@@ -113,7 +113,7 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
       const result = res.data?.data.map((item) => {
         const priorityType = ApprovalPriorityType.find((priorityItem) => priorityItem.value === item.snapshot.priority);
         const statusType = approvalTodoListStatus(item, t);
-        const categoryTitle = item.workflow?.showName || item.workflow?.title;
+        const categoryTitle = item.workflow?.title;
         const collectionName = item.workflow?.config?.collection || item.execution?.context?.collectionName;
 
         const summary = [];
@@ -180,7 +180,7 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
           (priorityItem) => priorityItem.value === item.execution.context?.data?.priority,
         );
         const statusType = ExecutionStatusOptions.find((value) => value.value === item.status);
-        const categoryTitle = item.workflow?.showName || item.workflow?.title;
+        const categoryTitle = item.workflow?.title;
         const nickName = item.execution?.context?.data?.createdBy?.nickname;
         return {
           ...item,
@@ -229,7 +229,6 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
           'job.result',
           'workflow.id',
           'workflow.title',
-          'workflow.showName',
           'workflow.enabled',
           'execution.id',
           'execution.status',
@@ -241,7 +240,7 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
         const priorityType = ApprovalPriorityType.find(
           (priorityItem) => priorityItem.value === item.snapshot?.priority,
         );
-        const categoryTitle = item.workflow?.showName || item.workflow?.title;
+        const categoryTitle = item.workflow?.title;
         const collectionName = item.collectionName;
         const summary = [];
         Object.entries(item.summary)?.forEach(([key, value]) => {
