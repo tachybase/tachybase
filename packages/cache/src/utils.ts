@@ -8,6 +8,8 @@ interface Logger {
  * Generic retry function for async operations
  * @param operation - Async operation to execute
  * @param options - Configuration options including operation name, max retries, initial delay, and delay multiplier
+ * @param options.timeout - Maximum time in milliseconds to wait for each operation attempt
+ * @param options.logger - Logger instance for operation status and errors
  * @returns {Promise<T>} - Returns the result of the successful operation
  */
 export async function retryOperation<T>(
@@ -29,7 +31,7 @@ export async function retryOperation<T>(
     startingDelay?: number;
     timeMultiple?: number;
     timeout?: number;
-    logger?: Logger
+    logger?: Logger;
   },
 ): Promise<T> {
   let attemptNumber = 1;
@@ -40,13 +42,21 @@ export async function retryOperation<T>(
       // 执行操作
       const result = await Promise.race([
         operation(),
-        new Promise((_, reject) => setTimeout(() => reject(new Error(`${name} operation timeout`)), 5000)),
+        new Promise((_, reject) => setTimeout(() => reject(new Error(`${name} operation timeout`)), timeout)),
       ]);
       logger.info(`${name} success!`);
-      return result[0]; // 成功则返回结果
+      return result as T; // 操作成功，返回结果
     } catch (error) {
       // 记录日志
-      logger.warn(`Attempt ${name} ${attemptNumber}/${retry}: ${error.message}`);
+      const wrappedError = error instanceof Error ? error : new Error(String(error));
+      // Log the error
+      logger.warn(`Attempt ${name} ${attemptNumber}/${retry}: ${wrappedError.message}`);
+
+      // 如果已超过最大重试次数，抛出错误
+      if (attemptNumber === retry) {
+        logger.error(`${name} failed after ${retry} attempts.`);
+        throw wrappedError;
+      }
 
       // 如果已超过最大重试次数，抛出错误
       if (attemptNumber === retry) {
