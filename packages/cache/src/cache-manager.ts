@@ -70,7 +70,7 @@ export class CacheManager {
       throw new Error(`Create cache failed, store type [${type}] is unavailable or not registered`);
     }
     const { store: s, close, ...globalConfig } = storeType;
-    let store;
+    let store: BasicCache;
     if (name === 'redis') {
       store = await retryOperation(
         async () => {
