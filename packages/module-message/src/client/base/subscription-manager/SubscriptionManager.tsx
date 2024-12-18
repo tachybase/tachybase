@@ -4,33 +4,38 @@ import { useAPIClient, useCurrentUserContext, usePlugin } from '@tachybase/clien
 import { App, Card, Switch } from 'antd';
 
 import { useTranslation } from '../../locale';
-import { KitNotificationRegister } from '../notification-register/kit';
+import ModuleMessageClient from '../../plugin';
 
 export const SubscriptionManager = () => {
-  const plugin = usePlugin(KitNotificationRegister);
-  const user = useCurrentUserContext();
+  const moduleMessage = usePlugin(ModuleMessageClient);
+  const channelList = Array.from(moduleMessage.channels.getValues());
+
   return (
     <Card>
-      {plugin.messageTypes.map((type) => (
-        <NoticeSettingItem service={user} type={type} key={type.name} />
+      {channelList.map((channel) => (
+        <NoticeSettingItem key={channel.name} channel={channel} />
       ))}
     </Card>
   );
 };
 
-const NoticeSettingItem = ({ service, type }) => {
-  const prefs = service?.data?.data?.subPrefs || {};
+const NoticeSettingItem = (props) => {
+  const { channel } = props;
+  const { name, title } = channel;
   const api = useAPIClient();
   const { t } = useTranslation();
   const { message } = App.useApp();
-  const pref = prefs[type.name] || {};
+  const service = useCurrentUserContext();
+  const subPrefs = service?.data?.data?.subPrefs || {};
+
+  const pref = subPrefs[name] || {};
 
   const handleSwitchChange = async (checked) => {
     const result = await api.resource('users').updateProfile({
       values: {
         subPrefs: {
-          ...prefs,
-          [type.name]: {
+          ...subPrefs,
+          [name]: {
             enable: checked,
           },
         },
@@ -49,7 +54,7 @@ const NoticeSettingItem = ({ service, type }) => {
 
   return (
     <p>
-      {type.title}
+      {title}
       <Switch checked={pref.enable} onChange={handleSwitchChange} />
     </p>
   );

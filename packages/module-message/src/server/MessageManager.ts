@@ -25,16 +25,12 @@ export class MessageService implements IMessageService {
       },
     });
 
-    // 浏览器通知, 需要打开操作系统通知权限
-    if (user?.subPrefs?.browser?.enable) {
-      this.ws.sendToConnectionsByTag(`app:${this.app.name}`, `${receiverId}`, {
-        type: MESSAGE_TYPE_MESSAGES,
-        payload: {
-          message,
-        },
-      });
-    }
-
+    this.ws.sendToConnectionsByTag(`app:${this.app.name}`, `${receiverId}`, {
+      type: MESSAGE_TYPE_MESSAGES,
+      payload: {
+        message,
+      },
+    });
     // 通知前端更新全局未读消息数量
     this.app.noticeManager.notify(MESSAGES_UPDATE_BADGE_COUNT, {
       msg: MESSAGES_UPDATE_BADGE_COUNT,
