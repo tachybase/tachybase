@@ -13,6 +13,13 @@ export const useStyles = createStyles(({ css, token }) => {
       border-radius: 50px;
       background-color: #fff;
 
+      &.deprecated {
+        background-color: #b3b7c9;
+        .workflow-node-edit {
+          background-color: transparent;
+        }
+      }
+
       /* 控制节点选中态的背景样式 */
       &.configuring {
         background-color: var(--colorPrimaryText);

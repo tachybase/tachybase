@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { cx, Icon } from '@tachybase/client';
 
-import { AutoResizeInput } from '../../..';
+import { AutoResizeInput, useContextNode } from '../../..';
+import { GROUP_TAG_DEPRECATED } from '../../../../common/constants';
 import { DragButton } from '../buttons/DragButton';
 import { JobButton } from '../buttons/JobButton';
 import { RemoveButton } from '../buttons/RemoveButton';
@@ -10,11 +11,12 @@ import useStyles from './NodePoint.style';
 // 节点组件
 export const NodePoint = (props) => {
   const { color, icon, workflow, editingTitle, configuring, setEditingTitle, onChangeTitle } = props;
-
+  const currentNode = useContextNode();
   const { styles } = useStyles();
 
   const [isEditing, setIsEditing] = useState(false);
   const isLockEdit = workflow.executed || !isEditing;
+  const isDeprecated = currentNode?.group === GROUP_TAG_DEPRECATED;
 
   const handleClick = () => {
     // 改善交互体验, 只有在选中节点的前提下, 再次点击才会进入编辑态
@@ -29,7 +31,17 @@ export const NodePoint = (props) => {
   };
 
   return (
-    <div className={cx(styles.nodePoint, { configuring: configuring })}>
+    <div
+      className={cx(
+        styles.nodePoint,
+        {
+          deprecated: isDeprecated,
+        },
+        {
+          configuring: configuring,
+        },
+      )}
+    >
       <IdentityIcon color={color} icon={icon} />
       <AutoResizeInput
         className={`workflow-node-edit ${isLockEdit ? 'node-executed' : ''}`}

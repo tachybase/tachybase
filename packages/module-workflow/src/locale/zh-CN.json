@@ -132,6 +132,7 @@
   "Delete a main version will cause all other revisions to be deleted too.": "删除主版本将导致其他版本一并被删除。",
   "Delete record": "删除数据",
   "Delete records of a collection. Could use variables in workflow context as filter. All records match the filter will be deleted.": "删除一个数据表中的数据。可以使用上游节点里的变量作为过滤条件。所有满足条件的数据都将被删除。",
+  "Deprecated": "过期的",
   "Deprecated, please do not use it": "已过期, 请不要使用此类型节点",
   "Details": "详情",
   "Disabled": "已失效",

@@ -3,10 +3,13 @@ import { css } from '@tachybase/client';
 
 import { Tag, Tooltip } from 'antd';
 
+import { GROUP_TAG_DEPRECATED } from '../../../../common/constants';
 import { lang } from '../../../locale';
 
 const NodeConfigTitle = (props) => {
-  const { data } = props;
+  const { data, instruction } = props;
+  const isDeprecated = instruction?.group === GROUP_TAG_DEPRECATED;
+
   return (
     <div
       className={css`
@@ -26,7 +29,10 @@ const NodeConfigTitle = (props) => {
         }
       `}
     >
-      <strong>{data.title}</strong>
+      <strong>
+        {isDeprecated ? `(${lang('Deprecated')}) ` : ''}
+        {data.title}
+      </strong>
       <Tooltip title={lang('Variable key of node')}>
         <Tag>
           <code>{data.key}</code>
@@ -36,6 +42,6 @@ const NodeConfigTitle = (props) => {
   );
 };
 
-export function renderNodeConfigTitle(data) {
-  return <NodeConfigTitle data={data} />;
+export function renderNodeConfigTitle(data, instruction) {
+  return <NodeConfigTitle data={data} instruction={instruction} />;
 }
