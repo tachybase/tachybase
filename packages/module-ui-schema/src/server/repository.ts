@@ -215,7 +215,7 @@ export class UiSchemaRepository extends Repository {
     };
 
     const buildTree = (rootNode) => {
-      const children = nodes.filter((node) => node.parent === rootNode['x-uid']);
+      const children = nodes.filter((node) => node.parent == rootNode['x-uid']);
 
       if (children.length > 0) {
         const childrenGroupByType = lodash.groupBy(children, 'type');
@@ -226,8 +226,8 @@ export class UiSchemaRepository extends Repository {
             .sort((a, b) => a['x-index'] - b['x-index']) as any;
 
           rootNode[childType] =
-            childType === 'items'
-              ? properties.length === 1
+            childType == 'items'
+              ? properties.length == 1
                 ? properties[0]
                 : properties
               : properties.reduce((carry, item) => {
@@ -241,7 +241,7 @@ export class UiSchemaRepository extends Repository {
       return nodeAttributeSanitize(rootNode);
     };
 
-    return buildTree(nodes.find((node) => node['x-uid'] === rootUid));
+    return buildTree(nodes.find((node) => node['x-uid'] == rootUid));
   }
 
   @transaction()
@@ -286,7 +286,7 @@ export class UiSchemaRepository extends Repository {
     const oldTree = await this.getJsonSchema(rootUid, { transaction });
     const traverSchemaTree = async (schema, path = []) => {
       const node = schema;
-      const oldNode = path.length === 0 ? oldTree : lodash.get(oldTree, path);
+      const oldNode = path.length == 0 ? oldTree : lodash.get(oldTree, path);
       const oldNodeUid = oldNode['x-uid'];
 
       await this.updateNode(oldNodeUid, node, transaction);
@@ -321,7 +321,7 @@ export class UiSchemaRepository extends Repository {
       if (parent && !this.breakOnMatched(parent, breakRemoveOn)) {
         await removeParent(parent.get('x-uid') as string);
       } else {
-        await this.removeUi(nodeUid, { transaction });
+        await this.remove(nodeUid, { transaction });
       }
     };
 
@@ -344,7 +344,7 @@ export class UiSchemaRepository extends Repository {
           return;
         } else {
           // remove current node
-          await this.removeUi(nodeUid, {
+          await this.remove(nodeUid, {
             transaction,
           });
           // continue remove
@@ -357,7 +357,7 @@ export class UiSchemaRepository extends Repository {
   }
 
   @transaction()
-  async removeUi(uid: string, options?: Transactionable & removeParentOptions) {
+  async remove(uid: string, options?: Transactionable & removeParentOptions) {
     const { transaction } = options;
 
     await this.clearXUidPathCache(uid, transaction);
@@ -721,7 +721,7 @@ export class UiSchemaRepository extends Repository {
 
         sort = targetSort[0].sort;
 
-        if (targetPosition.type === 'after') {
+        if (targetPosition.type == 'after') {
           sort += 1;
         }
 
@@ -882,7 +882,7 @@ WHERE TreeTable.depth = 1 AND  TreeTable.ancestor = :ancestor and TreeTable.sort
 
     const parentChildrenCount = await this.childrenCount(parent, transaction);
 
-    if (parentChildrenCount === 1) {
+    if (parentChildrenCount == 1) {
       const schema = await db.getRepository('uiSchemas').findOne({
         filter: {
           'x-uid': parent,
@@ -1022,7 +1022,7 @@ WHERE TreeTable.depth = 1 AND  TreeTable.ancestor = :ancestor and TreeTable.sort
       transaction,
     });
 
-    if (nodes[0].length === 0) {
+    if (nodes[0].length == 0) {
       return {};
     }
 
@@ -1055,7 +1055,7 @@ WHERE TreeTable.depth = 1 AND  TreeTable.ancestor = :ancestor and TreeTable.sort
       transaction: options?.transaction,
     });
 
-    if (nodes[0].length === 0) {
+    if (nodes[0].length == 0) {
       return {};
     }
 

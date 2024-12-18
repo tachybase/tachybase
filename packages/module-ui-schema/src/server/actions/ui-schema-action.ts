@@ -54,7 +54,7 @@ export const uiSchemaActions = {
   ),
   insert: callRepositoryMethod('insert', 'values'),
   insertNewSchema: callRepositoryMethod('insertNewSchema', 'values'),
-  removeUi: callRepositoryMethod('removeUi', 'resourceIndex'),
+  removeUi: callRepositoryMethod('remove', 'resourceIndex'),
   patch: callRepositoryMethod('patch', 'values'),
   batchPatch: callRepositoryMethod('batchPatch', 'values'),
   clearAncestor: callRepositoryMethod('clearAncestor', 'resourceIndex'),
