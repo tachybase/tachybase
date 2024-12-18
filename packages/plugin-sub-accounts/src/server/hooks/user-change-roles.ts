@@ -9,7 +9,7 @@ import { MergeRoleModel } from '../model/MergeRoleModel';
  * @param options
  * @returns
  */
-export async function userChangeRoles(model: MergeRoleModel, options: UpdateOptions) {
+export async function userChangeRoles(app: Application, model: MergeRoleModel, options: UpdateOptions) {
   // 没有发生角色变化,不调用这个钩子
   if (model.dataValues.roles === undefined) {
     return;
@@ -35,7 +35,6 @@ export async function userChangeRoles(model: MergeRoleModel, options: UpdateOpti
   const { transaction } = options;
   const selfRole = (await model.getSelfRole({ transaction })) as MergeRoleModel;
   if (selfRole) {
-    const app = this as Application;
     await selfRole.resetAcl({ transaction, app });
     await selfRole.refreshDataSourcesAcl({ transaction, app });
   }

@@ -1,7 +1,6 @@
 import { Application } from '@tachybase/server';
 
-export async function roleDepartmentUpdate(model, option) {
-  const app = this as Application;
+export async function roleDepartmentUpdate(app: Application, model, option) {
   const { transaction } = option;
   const department = model.db.getRepository('departments').find({
     filter: {

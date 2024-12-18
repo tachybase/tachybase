@@ -6,7 +6,7 @@ import { MergeRoleModel } from '../model/MergeRoleModel';
 /**
  * 原始角色变化会导致合成角色也发生变化
  */
-export async function sourceRoleDestroy(model: MergeRoleModel, options: DestroyOptions) {
+export async function sourceRoleDestroy(app: Application, model: MergeRoleModel, options: DestroyOptions) {
   if (model.ownerUserId) {
     return;
   }
@@ -33,7 +33,6 @@ export async function sourceRoleDestroy(model: MergeRoleModel, options: DestroyO
     return;
   }
   const affectedRoles = affectedUsers.map((u) => u.selfRole) as MergeRoleModel[];
-  const app = this as Application;
   for (const affectedRole of affectedRoles) {
     await affectedRole.resetAcl({ transaction, app });
     await affectedRole.refreshDataSourcesAcl({ transaction, app });

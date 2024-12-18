@@ -2,8 +2,7 @@ import { Application } from '@tachybase/server';
 
 import { MergeRoleModel } from '../model/MergeRoleModel';
 
-export async function userDepartmentUpdate(model, option) {
-  const app = this as Application;
+export async function userDepartmentUpdate(app: Application, model, option) {
   const { userId, departmentId } = model;
   const { transaction } = option;
   const user = await model.db.getRepository('users').findOne({

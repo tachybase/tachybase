@@ -9,7 +9,7 @@ const observeFields = ['snippets', 'allowNewMenu'] as string[];
 /**
  * 原始角色变化会导致合成角色也发生变化
  */
-export async function sourceRoleUpdate(model: MergeRoleModel, options: UpdateOptions) {
+export async function sourceRoleUpdate(app: Application, model: MergeRoleModel, options: UpdateOptions) {
   if (model.ownerUserId) {
     return;
   }
@@ -46,7 +46,6 @@ export async function sourceRoleUpdate(model: MergeRoleModel, options: UpdateOpt
   }
 
   const affectedRoles = affectedUsers.map((u) => u.selfRole) as MergeRoleModel[];
-  const app = this as Application;
   for (const affectedRole of affectedRoles) {
     await affectedRole.resetAcl({ transaction, app, changedFields: options.fields as string[] });
   }

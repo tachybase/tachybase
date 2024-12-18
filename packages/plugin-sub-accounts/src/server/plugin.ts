@@ -25,26 +25,48 @@ export class PluginSubAccountsServer extends Plugin {
       RoleModel: MergeRoleModel,
     });
     this.app.on('dataSourceAfterStart', async () => {
+      // 给用户增加部门/删除部门
+      this.app.db.removeAllListeners('departmentsUsers.afterSave');
+      this.app.db.removeAllListeners('departmentsUsers.afterDestroy');
+      this.app.db.on('departmentsUsers.afterSave', async (model, options) => {
+        await this.app.cache.del(`departments:${model.get('userId')}`);
+        return userDepartmentUpdate(this.app, model, options);
+      });
+      this.app.db.on('departmentsUsers.afterDestroy', async (model, options) => {
+        await this.app.cache.del(`departments:${model.get('userId')}`);
+        return userDepartmentUpdate(this.app, model, options);
+      });
       // addMergeRole和refreshDataSourcesAclAtAppStart会有重复的
       await addMergeRole(this.app);
-      await refreshDataSourcesAclAtAppStart.bind(this.app)();
+      await refreshDataSourcesAclAtAppStart(this.app);
     });
 
-    this.app.db.on('roles.afterUpdate', sourceRoleUpdate.bind(this.app));
-    this.app.db.on('roles.afterDestroy', sourceRoleDestroy.bind(this.app));
-    this.app.db.on('roles.afterCreate', mergeRoleCreate.bind(this.app));
+    this.app.db.on('roles.afterUpdate', async (model, options) => {
+      return sourceRoleUpdate(this.app, model, options);
+    });
+    this.app.db.on('roles.afterDestroy', async (model, options) => {
+      return sourceRoleDestroy(this.app, model, options);
+    });
+    this.app.db.on('roles.afterCreate', async (model, options) => {
+      return mergeRoleCreate(this.app, model, options);
+    });
 
     // 新建用户
-    this.app.db.on('users.afterCreateWithAssociations', createMergeRole.bind(this.app));
-    // 给用户增加/删除 角色
-    this.app.db.on('users.afterUpdateWithAssociations', userChangeRoles.bind(this.app));
+    this.app.db.on('users.afterCreateWithAssociations', async (model, options) => {
+      return createMergeRole(this.app, model, options);
+    });
 
-    // 给用户增加部门/删除部门
-    this.app.db.on('departmentsUsers.afterSave', userDepartmentUpdate.bind(this.app));
-    this.app.db.on('departmentsUsers.afterDestroy', userDepartmentUpdate.bind(this.app));
+    // 给用户增加/删除 角色
+    this.app.db.on('users.afterUpdateWithAssociations', async (model, options) => {
+      return userChangeRoles(this.app, model, options);
+    });
     // 给部门增加/删除角色
-    this.app.db.on('departmentsRoles.afterSave', roleDepartmentUpdate.bind(this.app));
-    this.app.db.on('departmentsRoles.afterDestroy', roleDepartmentUpdate.bind(this.app));
+    this.app.db.on('departmentsRoles.afterSave', async (model, options) => {
+      return roleDepartmentUpdate(this.app, model, options);
+    });
+    this.app.db.on('departmentsRoles.afterDestroy', async (model, options) => {
+      return roleDepartmentUpdate(this.app, model, options);
+    });
 
     this.app.on('dataSource:writeToAcl', async ({ roleName, transaction }) => {
       const affectedUsers = await this.app.db.getRepository('users').find({
