@@ -385,10 +385,25 @@ export const schemaApprovalPanne = {
                 },
               },
             },
+            description: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              properties: {
+                description: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
             enabled: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+              },
               properties: {
                 enabled: {
                   type: 'boolean',
@@ -402,6 +417,9 @@ export const schemaApprovalPanne = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+              },
               properties: {
                 allExecuted: {
                   type: 'number',

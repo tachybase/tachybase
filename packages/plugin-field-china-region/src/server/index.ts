@@ -20,15 +20,18 @@ export class PluginChinaRegion extends Plugin {
 
     this.app.acl.allow('chinaRegions', 'list', 'loggedIn');
 
-    this.app.resourcer.use(async (ctx, next) => {
-      const { resourceName, actionName } = ctx.action.params;
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const { resourceName, actionName } = ctx.action.params;
 
-      if (resourceName == 'chinaRegions' && actionName !== 'list') {
-        ctx.throw(404, 'Not Found');
-      } else {
-        await next();
-      }
-    });
+        if (resourceName === 'chinaRegions' && actionName !== 'list') {
+          ctx.throw(404, 'Not Found');
+        } else {
+          await next();
+        }
+      },
+      { tag: 'chinaRegions404' },
+    );
   }
 
   async importData() {

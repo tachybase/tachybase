@@ -1,6 +1,6 @@
 import { CollectionOptions } from '@tachybase/database';
 
-import { DATABASE_CRON_JOBS, DATABASE_CRON_JOBS_EXECUTIONS, NAMESPACE, SCHEDULE_MODE } from '../constants';
+import { DATABASE_CRON_JOBS, NAMESPACE, SCHEDULE_MODE } from '../constants';
 
 export default {
   dumpRules: {
@@ -65,6 +65,18 @@ export default {
       name: 'endsOn',
       uiSchema: {
         title: `{{t("Ends on", { ns: "${NAMESPACE}" })}}`,
+        type: 'datetime',
+        'x-component': 'DatePicker',
+        'x-component-props': {
+          showTime: true,
+        },
+      },
+    },
+    {
+      type: 'date',
+      name: 'lastTime',
+      uiSchema: {
+        title: `{{t("Last time", { ns: "${NAMESPACE}" })}}`,
         type: 'datetime',
         'x-component': 'DatePicker',
         'x-component-props': {
@@ -147,6 +159,7 @@ export default {
           { label: '{{ t("Off") }}', value: false },
         ],
       },
+      defaultValue: false,
     },
     {
       name: 'workflowKey',

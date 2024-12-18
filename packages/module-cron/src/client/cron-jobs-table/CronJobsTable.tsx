@@ -21,9 +21,7 @@ export const ExecutionResourceProvider = ({ params, filter = {}, ...others }) =>
       ...params,
       filter: {
         ...params?.filter,
-        cronJobs: {
-          id: record.id,
-        },
+        key: record.workflowKey,
       },
     },
   };

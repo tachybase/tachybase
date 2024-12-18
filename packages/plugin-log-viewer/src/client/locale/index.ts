@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 export const NAMESPACE = 'log-viewer';
 
 export function lang(key: string) {
-  return i18n.t(key, { ns: [NAMESPACE, 'client'] });
+  return i18n.t(key, { ns: [NAMESPACE, 'core'] });
 }
 
 export function useLoggerTranslation() {
-  return useTranslation([NAMESPACE, 'client']);
+  return useTranslation([NAMESPACE, 'core']);
 }

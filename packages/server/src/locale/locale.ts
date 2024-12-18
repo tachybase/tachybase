@@ -103,6 +103,12 @@ export class Locale {
         // empty
       }
     }
+
+    // map from web
+    resources['core'] = resources['web'];
+    // compatible with @tachybase/module-client
+    resources['client'] = resources['web'];
+
     Object.keys(resources).forEach((name) => {
       this.app.i18n.addResources(lang, name, resources[name]);
     });

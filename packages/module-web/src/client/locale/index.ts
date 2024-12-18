@@ -21,7 +21,7 @@ export const tval = (key: string, haveNamespace: boolean = true) => {
 };
 
 export function useTranslation() {
-  return useT([NAMESPACE, 'client'], {
+  return useT([NAMESPACE, 'core'], {
     nsMode: 'fallback',
   });
 }

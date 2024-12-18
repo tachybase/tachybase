@@ -11,9 +11,9 @@ export const NAMESPACE = 'block-charts';
 // i18n.addResources('tr-TR', NAMESPACE, trTR);
 
 export function lang(key: string) {
-  return i18n.t(key, { ns: [NAMESPACE, 'client'] });
+  return i18n.t(key, { ns: [NAMESPACE, 'core'] });
 }
 
 export function useChartsTranslation() {
-  return useTranslation([NAMESPACE, 'client'], { nsMode: 'fallback' });
+  return useTranslation([NAMESPACE, 'core'], { nsMode: 'fallback' });
 }

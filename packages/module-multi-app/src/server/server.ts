@@ -252,13 +252,16 @@ export class PluginMultiAppManager extends Plugin {
 
     const injectAppList = injectAppListMiddleware();
 
-    this.app.use(async (ctx, next) => {
-      try {
-        await injectAppList(ctx, next);
-      } catch (error) {
-        ctx.logger.error(error);
-      }
-    });
+    this.app.use(
+      async (ctx, next) => {
+        try {
+          await injectAppList(ctx, next);
+        } catch (error) {
+          ctx.logger.error(error);
+        }
+      },
+      { tag: 'error-handling' },
+    );
 
     for (const [key, action] of Object.entries(actions)) {
       this.app.resourcer.registerActionHandler(`applications:${key}`, action);

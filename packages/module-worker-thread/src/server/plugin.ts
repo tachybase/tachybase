@@ -35,6 +35,9 @@ export class ModuleWorkerThreadServer extends Plugin {
       // 只能在主线程创建工作线程,防止工作线程无限循环
       return;
     }
+    if (this.app.name !== 'main') {
+      return;
+    }
     this.app.on('afterStart', async () => {
       // 备份恢复可能有问题
       if (this.app.worker) {

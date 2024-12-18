@@ -1,11 +1,11 @@
-import Database, { Model } from '@tachybase/database';
+import Database from '@tachybase/database';
 import { EXECUTION_STATUS, PluginWorkflow, Processor, WorkflowModel } from '@tachybase/module-workflow';
 import { Application, Logger } from '@tachybase/server';
 import { App, Db, InjectLog, Service } from '@tachybase/utils';
 
 import parser from 'cron-parser';
 
-import { DATABASE_CRON_JOBS, DATABASE_CRON_JOBS_EXECUTIONS, SCHEDULE_MODE } from '../../constants';
+import { DATABASE_CRON_JOBS, SCHEDULE_MODE } from '../../constants';
 import { CronJobModel } from '../model/CronJobModel';
 import { parseDateWithoutMs } from '../utils';
 
@@ -73,22 +73,25 @@ export class StaticScheduleTrigger {
       this.off(cronjob);
     });
 
-    this.app.resourcer.use(async (ctx, next) => {
-      const { resourceName, actionName } = ctx.action;
-      await next();
-      if (resourceName === 'cronJobs' && actionName === 'list') {
-        const rows = ctx.body.rows as CronJobModel[];
-        rows.forEach((cronJob) => {
-          if (!cronJob.enabled) {
-            return;
-          }
-          const nextTime = this.getNextTime(cronJob, new Date());
-          if (nextTime) {
-            cronJob.nextTime = new Date(nextTime);
-          }
-        });
-      }
-    });
+    this.app.resourcer.use(
+      async (ctx, next) => {
+        const { resourceName, actionName } = ctx.action;
+        await next();
+        if (resourceName === 'cronJobs' && actionName === 'list') {
+          const rows = ctx.body.rows as CronJobModel[];
+          rows.forEach((cronJob) => {
+            if (!cronJob.enabled) {
+              return;
+            }
+            const nextTime = this.getNextTime(cronJob, new Date());
+            if (nextTime) {
+              cronJob.nextTime = new Date(nextTime);
+            }
+          });
+        }
+      },
+      { tag: 'addNextTimeToCronJobs' },
+    );
   }
 
   inspect(cronJobs: CronJobModel[]) {
@@ -186,7 +189,6 @@ export class StaticScheduleTrigger {
     }
 
     let error = null;
-    let start = Date.now();
     let process: Processor | null = null;
     try {
       process = (await pluginWorkflow.trigger(workflow, { date: new Date(time) }, { eventKey })) as Processor;
@@ -196,17 +198,15 @@ export class StaticScheduleTrigger {
     } finally {
       if (!error && (process?.execution?.status === EXECUTION_STATUS.QUEUEING || process?.execution?.status >= 0)) {
         await cronJob.increment(['limitExecuted', 'allExecuted', 'successExecuted']);
+        cronJob.update({
+          lastTime: new Date(),
+        });
       } else {
         await cronJob.increment(['limitExecuted', 'allExecuted']);
+        cronJob.update({
+          lastTime: new Date(),
+        });
       }
-
-      await this.db.getRepository(DATABASE_CRON_JOBS_EXECUTIONS).create({
-        values: {
-          cronJobId: cronJob.id,
-          duration: Date.now() - start,
-          executionId: process?.execution?.id,
-        },
-      });
     }
 
     if (!cronJob.repeat || (cronJob.limit && cronJob.limitExecuted >= cronJob.limit)) {
