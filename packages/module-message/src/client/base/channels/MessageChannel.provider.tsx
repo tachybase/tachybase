@@ -11,15 +11,11 @@ export const MessageChannelProvider = ({ children }) => {
   const moduleMessage = usePlugin(ModuleMessageClient);
   const channelList = useMemo(() => Array.from(moduleMessage.channels.getValues()), [moduleMessage]);
 
-  const sendFuncList = useMemo(
-    () =>
-      channelList
-        .map((channel) => {
-          return channel.send || channel.useAction?.()?.send;
-        })
-        .filter(Boolean),
-    [channelList],
-  );
+  const sendFuncList = channelList
+    .map((channel) => {
+      return channel.send || channel.useAction?.()?.send;
+    })
+    .filter(Boolean);
 
   useEffect(() => {
     // 建立 websocket 连接
@@ -50,7 +46,7 @@ export const MessageChannelProvider = ({ children }) => {
           content,
         };
 
-        [].forEach((send) => send?.(cookedMessage));
+        sendFuncList.forEach((send) => send?.(cookedMessage));
       }
     });
   }, []);
