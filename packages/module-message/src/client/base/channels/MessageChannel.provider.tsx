@@ -14,10 +14,10 @@ export const MessageChannelProvider = ({ children }) => {
   const sendFuncList = useMemo(
     () =>
       channelList
-        .filter((channel) => !channel.isServer)
         .map((channel) => {
-          return channel.send || channel.useAction().send;
-        }),
+          return channel.send || channel.useAction?.()?.send;
+        })
+        .filter(Boolean),
     [channelList],
   );
 
@@ -50,7 +50,7 @@ export const MessageChannelProvider = ({ children }) => {
           content,
         };
 
-        sendFuncList.forEach((send) => send?.(cookedMessage));
+        [].forEach((send) => send?.(cookedMessage));
       }
     });
   }, []);

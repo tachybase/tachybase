@@ -7,7 +7,7 @@ import { lang } from '../../../locale';
 export const SITE_MESSAGE_CHANNEL = CHANNEL_SITE_MESSAGE;
 export class SiteMessageChannel extends Channel {
   name = SITE_MESSAGE_CHANNEL;
-  title = lang('Site message notification');
+  title = lang('In-App Notifications');
   useAction() {
     const app = useApp();
     const send = (message) => {

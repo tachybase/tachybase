@@ -6,7 +6,7 @@ export default extendCollection({
   name: 'users',
   fields: [
     {
-      type: 'jsonb',
+      type: 'json',
       // 订阅偏好设置
       name: 'subPrefs',
       allowNull: false,

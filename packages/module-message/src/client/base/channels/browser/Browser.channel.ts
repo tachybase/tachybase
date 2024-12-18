@@ -8,8 +8,7 @@ import { lang } from '../../../locale';
 export const BROWSER_CHANNEL = 'browser';
 export class BrowserChannel extends Channel {
   name = BROWSER_CHANNEL;
-  title = lang('Browser notification');
-  send: () => {};
+  title = lang('Desktop Browser Notifications');
   useAction() {
     const currentUserService = useCurrentUserContext();
     const currentUser = currentUserService?.data?.data;
@@ -22,7 +21,5 @@ export class BrowserChannel extends Channel {
         }
       }
     }, [currentUser]);
-
-    return null;
   }
 }
