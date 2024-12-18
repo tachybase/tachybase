@@ -14,7 +14,7 @@ export const useStyles = createStyles(({ css, token }) => {
       background-color: #fff;
 
       &.deprecated {
-        background-color: #b3b7c9;
+        background-color: ${token.colorTextDisabled};
         .workflow-node-edit {
           background-color: transparent;
         }

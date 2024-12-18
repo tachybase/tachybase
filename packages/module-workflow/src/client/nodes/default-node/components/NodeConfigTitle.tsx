@@ -30,7 +30,7 @@ const NodeConfigTitle = (props) => {
       `}
     >
       <strong>
-        {isDeprecated ? `(${lang('Deprecated')}) ` : ''}
+        {isDeprecated && <span className="deprecated-tag">({lang('Deprecated')}) </span>}
         {data.title}
       </strong>
       <Tooltip title={lang('Variable key of node')}>

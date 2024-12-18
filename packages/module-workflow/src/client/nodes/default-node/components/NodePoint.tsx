@@ -8,7 +8,7 @@ import { JobButton } from '../buttons/JobButton';
 import { RemoveButton } from '../buttons/RemoveButton';
 import useStyles from './NodePoint.style';
 
-// 节点组件
+// Node component
 export const NodePoint = (props) => {
   const { color, icon, workflow, editingTitle, configuring, setEditingTitle, onChangeTitle } = props;
   const currentNode = useContextNode();
@@ -32,15 +32,10 @@ export const NodePoint = (props) => {
 
   return (
     <div
-      className={cx(
-        styles.nodePoint,
-        {
-          deprecated: isDeprecated,
-        },
-        {
-          configuring: configuring,
-        },
-      )}
+      className={cx(styles.nodePoint, {
+        deprecated: isDeprecated,
+        configuring: configuring,
+      })}
     >
       <IdentityIcon color={color} icon={icon} />
       <AutoResizeInput
@@ -57,7 +52,7 @@ export const NodePoint = (props) => {
 };
 
 /**
- *节点标识 Icon
+ * Node identity icon
  */
 const IdentityIcon = (props) => {
   const { color, icon } = props;
@@ -69,9 +64,8 @@ const IdentityIcon = (props) => {
 };
 
 /**
- * 节点操作区域
+ * Node operation area
  */
-
 const ButtonArea = (props) => {
   const { isExecuted } = props;
   return (
