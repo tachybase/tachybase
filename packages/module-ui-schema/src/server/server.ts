@@ -87,14 +87,17 @@ export class ModuleUiSchema extends Plugin {
           if (skip) {
             return next();
           }
-          const role = ctx.state.currentRole;
+          const role = ctx?.state?.currentRole;
+          if (!role) {
+            ctx.throw(403, 'No Permission: Role not found');
+          }
           const aclRole = ctx.app.acl.roles.get(role);
           if (!aclRole) {
-            ctx.throw(403, 'No Permission');
+            ctx.throw(403, 'No Permission: Role not found');
           }
           const snippetAllowed = aclRole.snippetAllowed(`${resourceName}:${actionName}`);
           if (!snippetAllowed) {
-            ctx.throw(403, 'No Permission');
+            ctx.throw(403, 'No Permission: Role lacks remove permission for uiSchemas');
           }
         }
         await next();
