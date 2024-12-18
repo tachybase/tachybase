@@ -16,7 +16,7 @@ export class ModuleWorkerThreadClient extends Plugin {
       title: this.t('Worker thread'),
       icon: 'ControlOutlined',
       Component: WorkerInfoPane,
-      aclSnippet: `pm.${NAMESPACE}`,
+      aclSnippet: `pm.system-services.${NAMESPACE}`,
       sort: 10,
     });
   }

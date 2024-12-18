@@ -83,7 +83,7 @@ export class ModuleWorkerThreadServer extends Plugin {
 
     // 严格控制管理员才能设置
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}`,
+      name: `pm.system-services.${this.name}`,
       actions: ['worker_thread:*'],
     });
   }
