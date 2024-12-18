@@ -62,7 +62,7 @@ export function useProps(props) {
 }
 
 /** 工作流配置列表 */
-const NodeConfigList = [
+export const NodeConfigList = [
   {
     key: BuiltinGroupType.CONTROL,
     label: lang('Control'),

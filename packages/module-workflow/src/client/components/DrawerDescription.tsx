@@ -6,7 +6,7 @@ import { Tag } from 'antd';
 
 import { useTranslation } from '../locale';
 
-const useStyles = createStyles(({ css, token }) => {
+export const useStyles = createStyles(({ css, token }) => {
   return {
     container: css`
       margin-bottom: 1.5em;
