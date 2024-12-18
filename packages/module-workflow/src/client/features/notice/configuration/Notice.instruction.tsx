@@ -1,5 +1,6 @@
 import { ArrayItems } from '@tachybase/components';
 
+import { GROUP_TAG_DEPRECATED } from '../../../../common/constants';
 import { Instruction } from '../../../nodes/default-node/interface';
 import { NOTICE_INSTRUCTION_NAMESPACE } from '../../common/constants';
 import { tval } from '../locale';
@@ -14,7 +15,7 @@ export class NoticeInstruction extends Instruction {
   title = tval('Notice');
   type = NOTICE_INSTRUCTION_NAMESPACE;
   // 从分组标明过期, 即能不让其在待选列表里出现, 又不影响前端兼容旧版已使用的工作流
-  group = 'deprecated';
+  group = GROUP_TAG_DEPRECATED;
   icon = 'MessageOutlined';
   color = '#82e29c';
   description = tval(
