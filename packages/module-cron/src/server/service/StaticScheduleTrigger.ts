@@ -1,5 +1,5 @@
 import Database from '@tachybase/database';
-import { EXECUTION_STATUS, PluginWorkflow, Processor, WorkflowModel } from '@tachybase/module-workflow';
+import { EXECUTION_STATUS, PluginWorkflow, Processor } from '@tachybase/module-workflow';
 import { Application, Logger } from '@tachybase/server';
 import { App, Db, InjectLog, Service } from '@tachybase/utils';
 
@@ -161,7 +161,7 @@ export class StaticScheduleTrigger {
             }, MAX_SAFE_INTERVAL),
           );
         } else {
-          this.timers.set(key, setTimeout(this.trigger.bind(this, cronJob, nextTime), interval));
+          this.timers.set(key, setTimeout(this.trigger.bind(this, cronJob.id, nextTime), interval));
         }
       }
     } else {
@@ -174,7 +174,17 @@ export class StaticScheduleTrigger {
     }
   }
 
-  async trigger(cronJob: CronJobModel, time: number) {
+  async trigger(cronJobId: number, time: number) {
+    const cronJob = (await this.db
+      .getRepository(DATABASE_CRON_JOBS)
+      .findOne({ filterByTk: cronJobId, raw: true })) as CronJobModel;
+
+    if (!cronJob) {
+      this.logger.warn(`Scheduled cron job ${cronJobId} no longer exists`);
+      const eventKey = `${cronJobId}@${time}`;
+      this.timers.delete(eventKey);
+      return;
+    }
     const eventKey = `${cronJob.id}@${time}`;
     this.timers.delete(eventKey);
 
