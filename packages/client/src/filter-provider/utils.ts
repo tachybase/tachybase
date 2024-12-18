@@ -161,6 +161,11 @@ export const transformToFilter = (
             };
           }
         }
+
+        if (collectionField.interface === 'input') {
+          operators[key] = operators[key] || '$includes';
+        }
+
         return {
           [key]: {
             [operators[key] || operators[defKey] || '$eq']: value,
