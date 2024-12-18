@@ -22,10 +22,11 @@ export const JobButton = () => {
     return <StatusButton className={styles.nodeJobButtonClass} disabled />;
   }
 
-  function onOpenJob({ key }) {
-    const job = jobs.find((item) => item.id === key);
+  const handleClick = (params) => {
+    const { key: jobId } = params;
+    const job = jobs.find((item) => item.id === +jobId);
     setViewJob(job);
-  }
+  };
 
   return jobs.length > 1 ? (
     <Dropdown
@@ -41,8 +42,8 @@ export const JobButton = () => {
             ),
           };
         }),
-        onClick: onOpenJob,
         className: styles.dropdownClass,
+        onClick: handleClick,
       }}
     >
       <StatusButton
