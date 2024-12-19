@@ -13,7 +13,7 @@ async function devDynamicImport(packageName: string) {
     }
     return await import(`./.plugins/packages/${fileName}`);
   } else {
-    return {};
+    return null;
   }
 }
 export default devDynamicImport;
