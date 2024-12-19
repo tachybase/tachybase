@@ -1,5 +1,5 @@
 import * as others from '../../../packages/module-pdf/src/client';
-import packageMap from './pages/.plugins/packageMap.json';
+import packageMap from './.plugins/packageMap.json';
 
 type PackageName = keyof typeof packageMap;
 
@@ -12,6 +12,6 @@ async function devDynamicImport(packageName: PackageName) {
   if (packageName === '@tachybase/module-pdf') {
     return { ...others };
   }
-  return await import(`./pages/.plugins/packages/${fileName}`);
+  return await import(`./.plugins/packages/${fileName}`);
 }
 export default devDynamicImport;
