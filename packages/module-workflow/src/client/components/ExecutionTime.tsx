@@ -70,3 +70,21 @@ export function ExecutionTime() {
 
   return <div>{timeDifference}</div>;
 }
+
+export function jobExecutionTime(jobs: any[], allCreateAtDate: number, allUpdateAtDate: number) {
+  jobs.forEach((job, index) => {
+    const createdAtDate = new Date(job.createdAt).getTime();
+
+    if (index === 0) {
+      // 第一个 job，执行时间为 createdAtDate - allCreateAtDate
+      job.executionTime = formatDuration(Math.max((createdAtDate - allCreateAtDate) / 1000, 0)); // 转为秒
+    } else if (index === jobs.length - 1) {
+      // 最后一个 job，执行时间为 allUpdateAtDate - createdAtDate
+      job.executionTime = formatDuration(Math.max((allUpdateAtDate - createdAtDate) / 1000, 0)); // 转为秒
+    } else {
+      // 中间的 job，执行时间为下一个 job 的 createdAt - 当前 job 的 createdAt
+      const nextJobCreatedAtDate = new Date(jobs[index + 1].createdAt).getTime();
+      job.executionTime = formatDuration(Math.max((nextJobCreatedAtDate - createdAtDate) / 1000, 0)); // 转为秒
+    }
+  });
+}

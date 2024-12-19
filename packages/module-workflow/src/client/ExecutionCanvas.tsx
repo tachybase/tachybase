@@ -19,6 +19,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import WorkflowPlugin from '.';
 import { CanvasContentWrapper } from './CanvasContentWrapper';
+import { jobExecutionTime } from './components/ExecutionTime';
 import { BackButton } from './components/GoBackButton';
 import { StatusButton } from './components/StatusButton';
 import { ExecutionStatusOptionsMap, JobStatusOptions } from './constants';
@@ -101,6 +102,13 @@ function JobModal() {
                   'x-component-props': {
                     showTime: true,
                   },
+                  'x-read-pretty': true,
+                },
+                executionTime: {
+                  type: 'integer',
+                  title: `{{t("Executed Time", { ns: "${NAMESPACE}" })}}`,
+                  'x-decorator': 'FormItem',
+                  'x-component': 'Input',
                   'x-read-pretty': true,
                 },
                 result: {
@@ -288,6 +296,11 @@ export function ExecutionCanvas() {
   }
 
   const { jobs = [], workflow: { nodes = [], revisions = [], ...workflow } = {}, ...execution } = data?.data ?? {};
+
+  const allCreateAtDate = new Date(execution.createdAt).getTime();
+  const allUpdateAtDate = new Date(execution.updatedAt).getTime();
+
+  jobExecutionTime(jobs, allCreateAtDate, allUpdateAtDate);
 
   linkNodes(nodes);
   attachJobs(nodes, jobs);
