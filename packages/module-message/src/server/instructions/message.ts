@@ -7,6 +7,8 @@ export class MessageInstruction extends Instruction {
     const notifiedPerson = await parsePerson(node, processor);
 
     const context = processor.execution.context;
+    const app = processor.options.plugin.app;
+
     if (notifiedPerson && notifiedPerson.length > 0) {
       const msgData = notifiedPerson.map((userId) => ({
         userId,
@@ -16,7 +18,7 @@ export class MessageInstruction extends Instruction {
         snapshot: context.data,
       }));
       for (const message of msgData) {
-        this.workflow.app.messageManager.sendMessage(+message.userId, message);
+        this.workflow.app.messageManager.sendMessage(+message.userId, message, app);
       }
     }
 

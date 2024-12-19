@@ -58,6 +58,15 @@ class ModuleMessagesServer extends Plugin {
     }
   }
 
+  async getDefault() {
+    const providerRepo = this.db.getRepository(COLLECTION_NAME_MESSAGES_PROVIDERS);
+    return providerRepo.findOne({
+      filter: {
+        default: true,
+      },
+    });
+  }
+
   async load() {
     const appName = this.app.name;
     this.app.messageManager = new MessageService(this.app);

@@ -1,7 +1,12 @@
 import { Repository } from '@tachybase/database';
 import Application, { Gateway, WSServer } from '@tachybase/server';
 
-import { MESSAGE_TYPE_MESSAGES, MESSAGES_UPDATE_BADGE_COUNT } from '../common/constants';
+import {
+  CHANNEL_SITE_SMS,
+  MESSAGE_TYPE_MESSAGES,
+  MESSAGES_UPDATE_BADGE_COUNT,
+  PLUGIN_NAME_MESSAGE,
+} from '../common/constants';
 import type { IMessage, IMessageService } from '../types/types';
 
 export class MessageService implements IMessageService {
@@ -12,7 +17,7 @@ export class MessageService implements IMessageService {
     const gateway = Gateway.getInstance();
     this.ws = gateway['wsServer'];
   }
-  public async sendMessage(receiverId: number, message: IMessage): Promise<void> {
+  public async sendMessage(receiverId: number, message: IMessage, app?): Promise<void> {
     await this.repo.create({
       values: {
         userId: receiverId,
@@ -24,6 +29,19 @@ export class MessageService implements IMessageService {
         id: receiverId,
       },
     });
+
+    // 如果用户开启了短信通知渠道, 发送短信通知
+    if (user?.subPrefs?.[CHANNEL_SITE_SMS]?.enable && app) {
+      const plugin = app.getPlugin(PLUGIN_NAME_MESSAGE);
+      const providerItem = await plugin.getDefault();
+
+      if (providerItem) {
+        const ProviderType = plugin.providers.get(<string>providerItem.get('type'));
+        const provider = new ProviderType(plugin, providerItem.get('options'));
+        const { phone } = user;
+        await provider.send(phone, {});
+      }
+    }
 
     this.ws.sendToConnectionsByTag(`app:${this.app.name}`, `${receiverId}`, {
       type: MESSAGE_TYPE_MESSAGES,
