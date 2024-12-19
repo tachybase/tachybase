@@ -10,8 +10,6 @@ import { ApprovalJobStatusMap, getNegotiationMode, parseAssignees } from './tool
 /** 工作流节点:审批节点  */
 export default class ApprovalInstruction extends Instruction {
   async run(node, prevJob, processor) {
-    const app = processor.options.plugin.app;
-
     const job = await processor.saveJob({
       status: JOB_STATUS.PENDING,
       nodeId: node.id,
