@@ -3,10 +3,6 @@ import { Plugin } from '@tachybase/client';
 import { RolesManager } from './roles-manager';
 import { RolesManagement } from './RolesManagement';
 
-export { RolesManagerContext } from './RolesManagerProvider';
-
-export const PluginName = 'PluginACLClient';
-
 export class PluginACLClient extends Plugin {
   rolesManager = new RolesManager();
 
@@ -22,5 +18,5 @@ export class PluginACLClient extends Plugin {
   }
 }
 
-
+export { RolesManagerContext } from './RolesManagerProvider';
 export default PluginACLClient;
