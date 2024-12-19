@@ -44,7 +44,6 @@
     "ts-node-dev": "1.1.8",
     "tsconfig-paths": "^3.15.0",
     "tsx": "^4.15.2",
-    "typescript": "5.6.3",
-    "umi": "^4.3.33"
+    "typescript": "5.6.3"
   }
 }

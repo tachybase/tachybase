@@ -35,5 +35,4 @@ export function registerCli(app: Application) {
   app.command('dev').usage('[options]').option('-p, --port [port]').option('--client').option('--server');
   app.command('doc').argument('[cmd]', '', 'dev');
   app.command('test').option('-c, --db-clean');
-  app.command('umi');
 }
