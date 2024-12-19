@@ -1,11 +1,11 @@
 import { isMainThread, parentPort, workerData } from 'worker_threads';
 import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
+import CollectionManagerPlugin, { CollectionRepository } from '@tachybase/module-collection';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
 
 import { WorkerEvent } from './workerTypes';
 
-// TODO: 另起一个文件夹
 const loggerOptions = {
   system: {
     transports: getLoggerTransport(),
@@ -59,24 +59,29 @@ const handleWorkerMessages = (app: Application) => {
 
 export const main = async () => {
   try {
-    const start = Date.now();
     const applicationOptions = {
       database: await parseDatabaseOptionsFromEnv(),
-      plugins: [...workerData.plugins],
+      // plugins: [...workerData.plugins],
       logger: loggerOptions,
     } as ApplicationOptions;
     const app = new Application(applicationOptions);
-    await app.load({
-      skipDbPluigns: true,
-    });
+    app.logger.info('[worker] app boot');
+    // only add, not load, start
+    await app.pm.initPlugins();
+    for (const [P, plugin] of app.pm.getPlugins()) {
+      await plugin.loadCollections();
+      // load features
+      // for (const feature of plugin.featureInstances) {
+      //   await feature.load();
+      // }
+    }
 
-    await app.start({
-      dbSync: false,
-      quickstart: false,
-      checkInstall: false,
-    });
+    const plugin = app.pm.get(CollectionManagerPlugin) as CollectionManagerPlugin;
+    await plugin.beforeLoad();
+    await plugin.load();
+    await app.db.getRepository<CollectionRepository>('collections').load();
+
     app.logger.info('[worker] app has been started');
-
     // 工作线程部分逻辑代码
     handleWorkerMessages(app);
   } catch (err) {

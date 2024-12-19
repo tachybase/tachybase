@@ -335,11 +335,9 @@ export class PluginManager {
   /**
    * @internal
    */
-  async initPlugins(skipDbPluigns = false) {
+  async initPlugins() {
     await this.initPresetPlugins();
-    if (!skipDbPluigns) {
-      await this.initOtherPlugins();
-    }
+    await this.initOtherPlugins();
   }
 
   /**

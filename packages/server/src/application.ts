@@ -519,7 +519,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this._cacheManager = await createCacheManager(this, this.options.cacheManager);
 
     this.setMaintainingMessage('init plugins');
-    await this.pm.initPlugins(options?.skipDbPluigns);
+    await this.pm.initPlugins();
 
     this.setMaintainingMessage('start load');
     this.setMaintainingMessage('emit beforeLoad');

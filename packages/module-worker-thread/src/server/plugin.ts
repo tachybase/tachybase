@@ -44,28 +44,12 @@ export class ModuleWorkerThreadServer extends Plugin {
       return;
     }
     this.app.on('afterStart', async () => {
-      // 备份恢复可能有问题
       if (this.app.worker) {
         await this.app.worker.clear();
       }
       // FIXME: 这种判断方式不太优雅
       const isDev = await fsExists(path.resolve(__dirname, './worker.ts'));
       this.app.registerWorker(this.app.pm.get(CollectionManagerPlugin).name);
-      const names = this.app.pm.getAliases();
-      // 遇到field开头的插件, 也注册到worker
-      for (const name of names) {
-        if (name.startsWith('field')) {
-          this.app.registerWorker(name);
-        }
-      }
-      // hera字体
-      if (this.app.pm.get(PluginCoreServer).enabled) {
-        // TODO: 由于hera加载部门表会多对多关联roles, users
-        this.app.registerWorker(this.app.pm.get(PluginUsersServer).name);
-        this.app.registerWorker(this.app.pm.get(PluginACL).name);
-        this.app.registerWorker(this.app.pm.get(PluginCoreServer).name);
-      }
-
       this.app.worker = new WorkerManager(this.app, isDev);
       // 这里不再阻塞主线程的start
       this.app.worker.initWorkers();
