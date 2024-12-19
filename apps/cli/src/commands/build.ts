@@ -4,10 +4,6 @@ import { type Command } from 'commander';
 
 import { buildIndexHtml, isPackageValid, nodeCheck, run } from '../util';
 
-/**
- *
- * @param {Command} cli
- */
 export default (cli: Command) => {
   cli
     .command('build')

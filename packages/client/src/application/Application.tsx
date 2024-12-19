@@ -3,7 +3,6 @@ import { getRequireJs, type RequireJS } from '@tachybase/requirejs';
 import { define, observable } from '@tachybase/schema';
 import { APIClientOptions, getSubAppName } from '@tachybase/sdk';
 
-import * as Sentry from '@sentry/react';
 import { i18n as i18next } from 'i18next';
 import { get, merge, set } from 'lodash';
 import { createRoot } from 'react-dom/client';
