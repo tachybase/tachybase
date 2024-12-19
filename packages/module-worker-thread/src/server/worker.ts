@@ -1,7 +1,9 @@
 import { isMainThread, parentPort, workerData } from 'worker_threads';
+import { CollectionModel, FieldModel } from '@tachybase//module-collection/src/server/models';
 import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
 import CollectionManagerPlugin, { CollectionRepository } from '@tachybase/module-collection';
+import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
 
 import { WorkerEvent } from './workerTypes';
@@ -68,17 +70,44 @@ export const main = async () => {
     app.logger.info('[worker] app boot');
     // only add, not load, start
     await app.pm.initPlugins();
+
+    app.db.registerRepositories({
+      CollectionRepository,
+    });
+    app.db.registerModels({
+      CollectionModel,
+      FieldModel,
+    });
+
+    const userPluginName = await app.pm.get(PluginUsersServer).name;
+    const pluginNames = [userPluginName];
     for (const [P, plugin] of app.pm.getPlugins()) {
+      if (plugin.name.startsWith('field-')) {
+        pluginNames.push(plugin.name);
+      }
+    }
+
+    for (const pluginName of pluginNames) {
+      const plugin = app.pm.get(pluginName);
+      await plugin.beforeLoad();
+    }
+    for (const pluginName of pluginNames) {
+      const plugin = app.pm.get(pluginName);
+      await plugin.load();
+    }
+    for (const [P, plugin] of app.pm.getPlugins()) {
+      if (pluginNames.includes(plugin.name)) {
+        continue;
+      }
+      if (!plugin.enabled) {
+        continue;
+      }
       await plugin.loadCollections();
       // load features
       // for (const feature of plugin.featureInstances) {
       //   await feature.load();
       // }
     }
-
-    const plugin = app.pm.get(CollectionManagerPlugin) as CollectionManagerPlugin;
-    await plugin.beforeLoad();
-    await plugin.load();
     await app.db.getRepository<CollectionRepository>('collections').load();
 
     app.logger.info('[worker] app has been started');

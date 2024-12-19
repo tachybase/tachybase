@@ -1,12 +1,5 @@
-import path from 'path';
 import { isMainThread } from 'worker_threads';
-import PluginACL from '@tachybase/module-acl';
-import CollectionManagerPlugin from '@tachybase/module-collection';
-import PluginUsersServer from '@tachybase/module-user';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
-import { fsExists } from '@tachybase/utils';
-
-import PluginCoreServer from '@hera/plugin-core';
 
 import { WorkerManager } from './workerManager';
 import { WorkerWebController } from './workerWebController';
@@ -15,18 +8,7 @@ import { WorkerWebController } from './workerWebController';
   Controllers: [WorkerWebController],
 })
 export class ModuleWorkerThreadServer extends Plugin {
-  async afterAdd() {
-    this.app.workerPlugins = new Set();
-    if (!isMainThread) {
-      this.app.registerWorker = (plugin: string) => {};
-      return;
-    } else {
-      this.app.workerPlugins.add(this.name);
-      this.app.registerWorker = (plugin: string) => {
-        this.app.workerPlugins.add(plugin);
-      };
-    }
-  }
+  async afterAdd() {}
 
   async beforeLoad() {
     if (!isMainThread) {
@@ -47,10 +29,7 @@ export class ModuleWorkerThreadServer extends Plugin {
       if (this.app.worker) {
         await this.app.worker.clear();
       }
-      // FIXME: 这种判断方式不太优雅
-      const isDev = await fsExists(path.resolve(__dirname, './worker.ts'));
-      this.app.registerWorker(this.app.pm.get(CollectionManagerPlugin).name);
-      this.app.worker = new WorkerManager(this.app, isDev);
+      this.app.worker = new WorkerManager(this.app);
       // 这里不再阻塞主线程的start
       this.app.worker.initWorkers();
     });
