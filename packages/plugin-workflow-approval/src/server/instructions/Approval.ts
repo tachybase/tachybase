@@ -66,7 +66,7 @@ export default class ApprovalInstruction extends Instruction {
         jsonContent: approval.summary,
         schemaName: node.config.applyDetail,
       };
-      this.workflow.app.messageManager.sendMessage(+userId, message, app);
+      this.workflow.app.messageManager.sendMessage(+userId, message);
     }
 
     return job;

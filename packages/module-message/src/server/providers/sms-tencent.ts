@@ -35,7 +35,6 @@ export default class extends Provider {
       SignName,
       TemplateId,
       SmsSdkAppId,
-      // TemplateParamSet: ['324344'],
     });
 
     const errCode = result.SendStatusSet[0].Code;
