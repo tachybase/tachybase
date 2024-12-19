@@ -1634,6 +1634,85 @@ importers:
         specifier: 4.17.13
         version: 4.17.13
 
+  packages/module-file:
+    dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.7
+        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@aws-sdk/client-s3':
+        specifier: ^3.474.0
+        version: 3.474.0
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      '@types/koa-multer':
+        specifier: ^1.0.4
+        version: 1.0.4
+      '@types/multer':
+        specifier: ^1.4.11
+        version: 1.4.11
+      antd:
+        specifier: 5.22.0
+        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      cos-nodejs-sdk-v5:
+        specifier: ^2.12.6
+        version: 2.12.6
+      koa-static:
+        specifier: ^5.0.0
+        version: 5.0.0
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      mime-match:
+        specifier: ^1.0.2
+        version: 1.0.2
+      mkdirp:
+        specifier: ~0.5.6
+        version: 0.5.6
+      multer:
+        specifier: 1.4.5-lts.1
+        version: 1.4.5-lts.1
+      multer-aliyun-oss:
+        specifier: 2.1.1
+        version: 2.1.1
+      multer-cos:
+        specifier: ^1.0.3
+        version: 1.0.3
+      multer-s3:
+        specifier: ^3.0.1
+        version: 3.0.1(@aws-sdk/client-s3@3.474.0)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-i18next:
+        specifier: ^15.1.1
+        version: 15.1.3(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      supertest:
+        specifier: ^6.3.3
+        version: 6.3.3
+
   packages/module-hera:
     dependencies:
       '@tachybase/actions':
@@ -3481,85 +3560,6 @@ importers:
         specifier: workspace:*
         version: link:../utils
 
-  packages/plugin-field-file-manager:
-    dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ^5.3.7
-        version: 5.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@aws-sdk/client-s3':
-        specifier: ^3.474.0
-        version: 3.474.0
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../components
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      '@types/koa-multer':
-        specifier: ^1.0.4
-        version: 1.0.4
-      '@types/multer':
-        specifier: ^1.4.11
-        version: 1.4.11
-      antd:
-        specifier: 5.22.0
-        version: 5.22.0(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      cos-nodejs-sdk-v5:
-        specifier: ^2.12.6
-        version: 2.12.6
-      koa-static:
-        specifier: ^5.0.0
-        version: 5.0.0
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      mime-match:
-        specifier: ^1.0.2
-        version: 1.0.2
-      mkdirp:
-        specifier: ~0.5.6
-        version: 0.5.6
-      multer:
-        specifier: 1.4.5-lts.1
-        version: 1.4.5-lts.1
-      multer-aliyun-oss:
-        specifier: 2.1.1
-        version: 2.1.1
-      multer-cos:
-        specifier: ^1.0.3
-        version: 1.0.3
-      multer-s3:
-        specifier: ^3.0.1
-        version: 3.0.1(@aws-sdk/client-s3@3.474.0)
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-i18next:
-        specifier: ^15.1.1
-        version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      supertest:
-        specifier: ^6.3.3
-        version: 6.3.3
-
   packages/plugin-field-formula:
     dependencies:
       '@tachybase/client':
@@ -4315,6 +4315,9 @@ importers:
       '@tachybase/module-event-source':
         specifier: workspace:*
         version: link:../module-event-source
+      '@tachybase/module-file':
+        specifier: workspace:*
+        version: link:../module-file
       '@tachybase/module-message':
         specifier: workspace:*
         version: link:../module-message
@@ -4447,9 +4450,6 @@ importers:
       '@tachybase/plugin-field-snapshot':
         specifier: workspace:*
         version: link:../plugin-field-snapshot
-      '@tachybase/plugin-file-manager':
-        specifier: workspace:*
-        version: link:../plugin-field-file-manager
       '@tachybase/plugin-i18n-editor':
         specifier: workspace:*
         version: link:../plugin-i18n-editor

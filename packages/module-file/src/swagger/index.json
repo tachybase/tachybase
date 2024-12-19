@@ -1,9 +1,8 @@
 {
-  "openapi": "3.0.2",
   "info": {
     "title": "TachyBase API - File manager plugin"
   },
-  "tags": [],
+  "openapi": "3.0.2",
   "paths": {
     "/{fileCollectionName}:create": {
       "post": {
@@ -77,5 +76,6 @@
         }
       }
     }
-  }
+  },
+  "tags": []
 }
