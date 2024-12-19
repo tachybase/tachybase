@@ -1,1 +1,1 @@
-export { default } from '../../common/users.collection';
+export { default } from '../../common/collections/users';

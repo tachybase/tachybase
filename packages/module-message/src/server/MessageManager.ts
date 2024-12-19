@@ -1,8 +1,9 @@
 import { Repository } from '@tachybase/database';
 import Application, { Gateway, WSServer } from '@tachybase/server';
 
-import { MESSAGE_TYPE_MESSAGES, MESSAGES_UPDATE_BADGE_COUNT } from '../common/constants';
+import { CHANNEL_SITE_SMS, MESSAGE_TYPE_MESSAGES, MESSAGES_UPDATE_BADGE_COUNT } from '../common/constants';
 import type { IMessage, IMessageService } from '../types/types';
+import ModuleMessagesServer from './plugin';
 
 export class MessageService implements IMessageService {
   repo: Repository;
@@ -25,12 +26,26 @@ export class MessageService implements IMessageService {
       },
     });
 
+    // 如果用户开启了短信通知渠道, 发送短信通知
+    if (user?.subPrefs?.[CHANNEL_SITE_SMS]?.enable) {
+      const plugin = this.app.pm.get(ModuleMessagesServer) as ModuleMessagesServer;
+      const providerItem = await plugin.getDefault();
+
+      if (providerItem) {
+        const ProviderType = plugin.providers.get(<string>providerItem.get('type'));
+        const provider = new ProviderType(plugin, providerItem.get('options'));
+        const { phone } = user;
+        await provider.send(phone, {});
+      }
+    }
+
     this.ws.sendToConnectionsByTag(`app:${this.app.name}`, `${receiverId}`, {
       type: MESSAGE_TYPE_MESSAGES,
       payload: {
         message,
       },
     });
+
     // 通知前端更新全局未读消息数量
     this.app.noticeManager.notify(MESSAGES_UPDATE_BADGE_COUNT, {
       msg: MESSAGES_UPDATE_BADGE_COUNT,

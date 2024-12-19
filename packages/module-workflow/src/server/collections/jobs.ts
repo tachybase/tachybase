@@ -33,5 +33,9 @@ export default {
       type: 'json',
       name: 'result',
     },
+    {
+      type: 'integer',
+      name: 'cost',
+    },
   ],
 } as CollectionOptions;

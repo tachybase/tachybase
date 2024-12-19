@@ -9,6 +9,7 @@ import { KitUsage } from './usage/kit';
 class ModuleMessageClient extends Plugin {
   channels = new Registry<Channel>();
 
+  // 注册消息通知渠道
   registerChannel(name: string, channel: Channel | { new (): Channel }) {
     if (typeof channel === 'function') {
       this.channels.register(name, new channel());

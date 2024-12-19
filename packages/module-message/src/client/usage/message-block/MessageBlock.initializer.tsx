@@ -1,6 +1,6 @@
 import { tval } from '@tachybase/client';
 
-import { COLLECTION_NAME_MESSAGES } from '../../../common/messages.collection';
+import { COLLECTION_NAME_MESSAGES } from '../../../common/collections/messages';
 
 export const initializerName = 'otherBlocks.messages';
 
