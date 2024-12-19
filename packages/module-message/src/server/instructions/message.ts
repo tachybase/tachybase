@@ -7,6 +7,7 @@ export class MessageInstruction extends Instruction {
     const notifiedPerson = await parsePerson(node, processor);
 
     const context = processor.execution.context;
+
     if (notifiedPerson && notifiedPerson.length > 0) {
       const msgData = notifiedPerson.map((userId) => ({
         userId,

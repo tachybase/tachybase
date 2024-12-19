@@ -1769,6 +1769,15 @@ importers:
 
   packages/module-message:
     dependencies:
+      '@alicloud/dysmsapi20170525':
+        specifier: 2.0.17
+        version: 2.0.17
+      '@alicloud/openapi-client':
+        specifier: 0.4.1
+        version: 0.4.1
+      '@alicloud/tea-util':
+        specifier: 1.4.4
+        version: 1.4.4
       '@ant-design/icons':
         specifier: ~5.3.7
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1799,19 +1808,21 @@ importers:
       jsonwebtoken:
         specifier: 8.5.1
         version: 8.5.1
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       react-i18next:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router-dom:
         specifier: 6.28.0
         version: 6.28.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tencentcloud-sdk-nodejs:
+        specifier: ^4.0.759
+        version: 4.0.759(encoding@0.1.13)
       ws:
         specifier: ^8.18.0
         version: 8.18.0
-    devDependencies:
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
 
   packages/module-multi-app:
     dependencies:
@@ -17841,7 +17852,6 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
-
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qrcode.react@3.1.0:

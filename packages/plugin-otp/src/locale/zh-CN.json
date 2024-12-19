@@ -15,6 +15,7 @@
   "Sms sdk app id": "短信应用 ID",
   "Template Id": "短信模板 ID",
   "Template code": "模板代码",
+  "Tencent SMS": "腾讯云短信服务",
   "Verification": "验证码",
   "Verification code is invalid": "无效的验证码",
   "Verification providers": "验证码提供商",

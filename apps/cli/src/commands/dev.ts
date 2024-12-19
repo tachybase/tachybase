@@ -112,10 +112,8 @@ export default (cli: Command) => {
           PORT: clientPort + '',
           APP_ROOT: `${APP_PACKAGE_ROOT}/client`,
           WEBSOCKET_URL:
-            process.env.WEBSOCKET_URL ||
-            (proxyPort ? `ws://localhost:${proxyPort}${process.env.WS_PATH}` : undefined),
-          PROXY_TARGET_URL:
-            process.env.PROXY_TARGET_URL || (proxyPort ? `http://127.0.0.1:${proxyPort}` : undefined),
+            process.env.WEBSOCKET_URL || (proxyPort ? `ws://localhost:${proxyPort}${process.env.WS_PATH}` : undefined),
+          PROXY_TARGET_URL: process.env.PROXY_TARGET_URL || (proxyPort ? `http://127.0.0.1:${proxyPort}` : undefined),
         });
 
         if (rs) {

@@ -1,6 +1,6 @@
 import { extendCollection } from '@tachybase/database';
 
-import { CHANNEL_SITE_MESSAGE } from './constants';
+import { CHANNEL_SITE_MESSAGE } from '../constants';
 
 export default extendCollection({
   name: 'users',
