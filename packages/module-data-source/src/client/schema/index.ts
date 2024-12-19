@@ -80,6 +80,11 @@ export const databaseConnectionSchema: ISchema = {
         params: {
           pageSize: 50,
           appends: [],
+          filter: {
+            type: {
+              $ne: 'main',
+            },
+          },
         },
       },
       properties: {
