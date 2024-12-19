@@ -2451,8 +2451,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       node-xlsx:
-        specifier: ^0.16.2
-        version: 0.16.2
+        specifier: ^0.24.0
+        version: 0.24.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -2506,8 +2506,8 @@ importers:
         specifier: ^10.6.4
         version: 10.6.4
       node-xlsx:
-        specifier: ^0.16.2
-        version: 0.16.2
+        specifier: ^0.24.0
+        version: 0.24.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -15263,9 +15263,10 @@ packages:
     resolution: {integrity: sha512-RinNxoz4W1cep1b928fuFhvAQ5ag/+1UlMDV7rbyGthBIgsiEouS4kvRayvvboxii4m8eolKOIBo3OjDqbc+uQ==}
     engines: {node: '>=6'}
 
-  node-xlsx@0.16.2:
-    resolution: {integrity: sha512-ZT3Y4Zg2BFC2UWdp9B/6x3GqrFL0Bf0cXKy9IyhcwlKbcDAf5GuPAPSqrWFQK68NIpfTNA1Kr/NNjpwYxUgHTA==}
-    engines: {node: '>=4.0.0'}
+  node-xlsx@0.24.0:
+    resolution: {integrity: sha512-1olwK48XK9nXZsyH/FCltvGrQYvXXZuxVitxXXv2GIuRm51aBi1+5KwR4rWM4KeO61sFU+00913WLZTD+AcXEg==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
 
   non-layered-tidy-tree-layout@2.0.2:
     resolution: {integrity: sha512-gkXMxRzUH+PB0ax9dUN0yYF0S25BqeAYqhgMaLUFmpXLEk7Fcu8f4emJuOAY0V8kjDICxROIKsTAKsV/v355xw==}
@@ -16128,6 +16129,7 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qrcode.react@3.1.0:
@@ -19122,6 +19124,12 @@ packages:
 
   xlsx@0.17.5:
     resolution: {integrity: sha512-lXNU0TuYsvElzvtI6O7WIVb9Zar1XYw7Xb3VAx2wn8N/n0whBYrCnHMxtFyIiUU1Wjf09WzmLALDfBO5PqTb1g==}
+    engines: {node: '>=0.8'}
+    hasBin: true
+
+  xlsx@https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz:
+    resolution: {tarball: https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz}
+    version: 0.20.2
     engines: {node: '>=0.8'}
     hasBin: true
 
@@ -32682,11 +32690,9 @@ snapshots:
 
   node-watch@0.7.4: {}
 
-  node-xlsx@0.16.2:
+  node-xlsx@0.24.0:
     dependencies:
-      '@babel/runtime': 7.26.0
-      buffer-from: 1.1.2
-      xlsx: 0.17.5
+      xlsx: https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz
 
   non-layered-tidy-tree-layout@2.0.2: {}
 
@@ -37155,6 +37161,8 @@ snapshots:
       ssf: 0.11.2
       wmf: 1.0.2
       word: 0.3.0
+
+  xlsx@https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz: {}
 
   xml-crypto@3.2.0:
     dependencies:
