@@ -2555,8 +2555,8 @@ importers:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       xlsx:
-        specifier: ^0.17.5
-        version: 0.17.5
+        specifier: ^0.18.5
+        version: 0.18.5
 
   packages/plugin-action-print:
     dependencies:
@@ -21089,6 +21089,11 @@ packages:
 
   xlsx@0.17.5:
     resolution: {integrity: sha512-lXNU0TuYsvElzvtI6O7WIVb9Zar1XYw7Xb3VAx2wn8N/n0whBYrCnHMxtFyIiUU1Wjf09WzmLALDfBO5PqTb1g==}
+    engines: {node: '>=0.8'}
+    hasBin: true
+
+  xlsx@0.18.5:
+    resolution: {integrity: sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==}
     engines: {node: '>=0.8'}
     hasBin: true
 
@@ -41588,6 +41593,16 @@ snapshots:
   xlsx@0.17.5:
     dependencies:
       adler-32: 1.2.0
+      cfb: 1.2.2
+      codepage: 1.15.0
+      crc-32: 1.2.2
+      ssf: 0.11.2
+      wmf: 1.0.2
+      word: 0.3.0
+
+  xlsx@0.18.5:
+    dependencies:
+      adler-32: 1.3.1
       cfb: 1.2.2
       codepage: 1.15.0
       crc-32: 1.2.2
