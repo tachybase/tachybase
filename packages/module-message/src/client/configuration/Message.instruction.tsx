@@ -116,7 +116,7 @@ export class MessageInstruction extends Instruction {
     const result = sourceVarList.map(([fieldName, field]) => {
       return {
         [fieldNames.label]: compile(field?.title) || fieldName,
-        [fieldNames.value]: `${key}.${fieldName}`,
+        [fieldNames.value]: `${fieldName}`,
       };
     });
     return result;

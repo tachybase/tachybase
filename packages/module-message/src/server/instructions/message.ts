@@ -4,14 +4,14 @@ import { replaceContextVariables } from './tools';
 
 export class MessageInstruction extends Instruction {
   async run(node: FlowNodeModel, input: any, processor: Processor): Promise<IJob> {
-    const notifiedPerson = await parsePerson(node, processor);
+    const notifiedPersonList = await parsePerson(node, processor);
 
     const context = processor.execution.context;
-    if (notifiedPerson && notifiedPerson.length > 0) {
-      const msgData = notifiedPerson.map((userId) => ({
+    if (notifiedPersonList && notifiedPersonList.length > 0) {
+      const msgData = notifiedPersonList.map((userId) => ({
         userId,
-        title: replaceContextVariables(node.config.title || '', context),
-        content: replaceContextVariables(node.config.content || '', context),
+        title: replaceContextVariables(node.config.title || '', node.id, processor),
+        content: replaceContextVariables(node.config.content || '', node.id, processor),
         schemaName: node.config.showMessageDetail,
         snapshot: context.data,
       }));
