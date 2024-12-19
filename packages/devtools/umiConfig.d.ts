@@ -22,5 +22,5 @@ export declare function getUmiConfig(): {
 export declare function resolveTachybasePackagesAlias(config: any): {};
 export declare class IndexGenerator {
   constructor(outputPath: string, pluginsPath: string[]): void;
-  generate(): void;
+  generate(noIndex?: boolean): void;
 }

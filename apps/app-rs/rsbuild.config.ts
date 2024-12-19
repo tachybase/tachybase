@@ -1,4 +1,5 @@
-import { getUmiConfig } from '@tachybase/devtools/umiConfig';
+import path from 'node:path';
+import { getUmiConfig, IndexGenerator } from '@tachybase/devtools/umiConfig';
 
 import { defineConfig } from '@rsbuild/core';
 import { pluginLess } from '@rsbuild/plugin-less';
@@ -6,6 +7,12 @@ import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill';
 import { pluginReact } from '@rsbuild/plugin-react';
 
 const config = getUmiConfig();
+
+const pluginDirs = ['packages'].map((item) => path.join(process.cwd(), item));
+
+const outputPluginPath = path.join(__dirname, 'src/pages/.plugins');
+const indexGenerator = new IndexGenerator(outputPluginPath, pluginDirs);
+indexGenerator.generate();
 
 const rsDefined = {};
 for (const key in config.define) {

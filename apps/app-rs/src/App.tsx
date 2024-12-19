@@ -3,7 +3,7 @@ import { TachyBaseClientPresetPlugin } from '@tachybase/preset-tachybase/client'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import devDynamicImport from './pages/.plugins/index';
+import devDynamicImport from './dynamic-import';
 
 declare global {
   interface Window {
