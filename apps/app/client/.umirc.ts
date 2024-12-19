@@ -4,18 +4,13 @@ import { getUmiConfig, IndexGenerator } from '@tachybase/devtools/umiConfig';
 import { defineConfig } from 'umi';
 
 const umiConfig = getUmiConfig();
-console.log('🚀 ~ file: .umirc.ts:7 ~ umiConfig:', umiConfig);
-console.log('🚀 ~ file: .umirc.ts:7 ~ umiConfig:', JSON.stringify(umiConfig, null, 2));
-
-
 
 process.env.MFSU_AD = 'none';
 process.env.DID_YOU_KNOW = 'none';
 
 const pluginPrefix = (process.env.PLUGIN_PACKAGE_PREFIX || '').split(',').filter((item) => !item.includes('preset')); // 因为现在 preset 是直接引入的，所以不能忽略，如果以后 preset 也是动态插件的形式引入，那么这里可以去掉
 
-const pluginDirs = ['packages']
-  .map((item) => path.join(process.cwd(), item));
+const pluginDirs = ['packages'].map((item) => path.join(process.cwd(), item));
 
 const outputPluginPath = path.join(__dirname, 'src', '.plugins');
 const indexGenerator = new IndexGenerator(outputPluginPath, pluginDirs);

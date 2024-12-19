@@ -10,7 +10,7 @@
     "@babel/preset-env": "7.26.0",
     "@babel/preset-react": "7.25.9",
     "@babel/preset-typescript": "7.26.0",
-    "@react-pdf/renderer": "^3.3.8",
+    "@react-pdf/renderer": "4.1.5",
     "fs-extra": "11.2.0",
     "lodash": "4.17.21",
     "react-use": "17.5.1"

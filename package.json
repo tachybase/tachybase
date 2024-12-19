@@ -51,6 +51,7 @@
     "@commitlint/prompt-cli": "^16.3.0",
     "@ianvs/prettier-plugin-sort-imports": "4.4.0",
     "@inquirer/prompts": "^7.1.0",
+    "@react-pdf/textkit": "4.4.1",
     "@tachybase/build": "workspace:*",
     "@tachybase/cli": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
@@ -93,11 +94,12 @@
       "canvas"
     ],
     "overrides": {
+      "@react-pdf/renderer": "3.3.8",
       "@types/node": "20.14.2",
       "antd": "5.22.0",
+      "dayjs": "1.11.10",
       "react-router": "6.28.0",
-      "react-router-dom": "6.28.0",
-      "dayjs": "1.11.10"
+      "react-router-dom": "6.28.0"
     }
   }
 }

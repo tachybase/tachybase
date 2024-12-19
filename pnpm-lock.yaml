@@ -9,6 +9,7 @@ overrides:
   antd: 5.22.0
   react-router: 6.28.0
   react-router-dom: 6.28.0
+  '@react-pdf/renderer': 3.3.8
   dayjs: 1.11.10
 
 importers:
@@ -37,6 +38,9 @@ importers:
       '@inquirer/prompts':
         specifier: ^7.1.0
         version: 7.1.0(@types/node@20.14.2)
+      '@react-pdf/textkit':
+        specifier: 4.4.1
+        version: 4.4.1
       '@tachybase/build':
         specifier: workspace:*
         version: link:apps/build
@@ -180,6 +184,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../packages/client
+      '@tachybase/devtools':
+        specifier: workspace:*
+        version: link:../../packages/devtools
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -193,6 +200,9 @@ importers:
       '@rsbuild/core':
         specifier: ^1.1.8
         version: 1.1.10
+      '@rsbuild/plugin-babel':
+        specifier: 1.0.3
+        version: 1.0.3(@rsbuild/core@1.1.10)
       '@rsbuild/plugin-less':
         specifier: 1.1.0
         version: 1.1.0(@rsbuild/core@1.1.10)
@@ -1662,7 +1672,7 @@ importers:
         specifier: ~5.3.7
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-pdf/renderer':
-        specifier: ^3.3.8
+        specifier: 3.3.8
         version: 3.3.8(encoding@0.1.13)(react@18.3.1)
       '@tachybase/components':
         specifier: workspace:*
@@ -1865,7 +1875,7 @@ importers:
         specifier: 7.26.0
         version: 7.26.0(@babel/core@7.26.0)
       '@react-pdf/renderer':
-        specifier: ^3.3.8
+        specifier: 3.3.8
         version: 3.3.8(encoding@0.1.13)(react@18.3.1)
       '@tachybase/client':
         specifier: workspace:*
@@ -5520,10 +5530,6 @@ packages:
     resolution: {integrity: sha512-MJJwhkoGy5c4ehfoRyrJ/owKeMl19U54h27YYftT0o2teQ3FJ3nQUf/I3LlJsX4l3qlw7WRXUmiyajvHXoTubQ==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helper-member-expression-to-functions@7.23.0':
-    resolution: {integrity: sha512-6gfrPwh7OuT6gZyJZvd6WbTfrqAo7vm4xCzAXOusKqq/vWdKXphTpj5klHKNmRUU6/QRGlBsyU9mAIPaWHlqJA==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/helper-member-expression-to-functions@7.25.9':
     resolution: {integrity: sha512-wbfdZ9w5vk0C0oyHqAJbc62+vet5prjj01jjJ8sKn3j9h3MQQlflEdXYvuqRWjHnM12coDEqiC1IRCi0U/EKwQ==}
     engines: {node: '>=6.9.0'}
@@ -5666,6 +5672,12 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0
 
+  '@babel/plugin-proposal-decorators@7.25.9':
+    resolution: {integrity: sha512-smkNLL/O1ezy9Nhy4CNosc4Va+1wo5w4gzSZeLe6y6dM4mmHfYOCPolXQPHQxonZCF+ZyebxN9vqOolkYrSn5g==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+
   '@babel/plugin-proposal-export-namespace-from@7.18.9':
     resolution: {integrity: sha512-k1NtHyOMvlDDFeb9G5PhUXuGj8m/wiwojgQVEhJ/fsVsMCpLyOP4h0uGEjYJKrRI+EVPlb5Jk+Gt9P97lOGwtA==}
     engines: {node: '>=6.9.0'}
@@ -5696,6 +5708,12 @@ packages:
 
   '@babel/plugin-syntax-class-static-block@7.14.5':
     resolution: {integrity: sha512-b+YyPmr6ldyNnM6sqYeMWE+bgJcJpO6yS4QD7ymxgH34GBPNDM/THBh8iunyvKIZztiwLH4CJZ0RxTk9emgpjw==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+
+  '@babel/plugin-syntax-decorators@7.25.9':
+    resolution: {integrity: sha512-ryzI0McXUPJnRCvMo4lumIKZUzhYUO/ScI+Mz4YVaTLt04DHNSjEUjKVvbzQjZFLuod/cYEc07mJWhzl6v4DPg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -9035,17 +9053,17 @@ packages:
   '@react-pdf/fns@2.2.1':
     resolution: {integrity: sha512-s78aDg0vDYaijU5lLOCsUD+qinQbfOvcNeaoX9AiE7+kZzzCo6B/nX+l48cmt9OosJmvZvE9DWR9cLhrhOi2pA==}
 
-  '@react-pdf/font@2.4.4':
-    resolution: {integrity: sha512-yjK5eSY+LcbxS0m+sOYln8GdgIbUgti4xjwf14kx8OSsOMJQJyHFALHMh2cLcKJR9yZeqVDo1FwCsY6gw1yCkg==}
+  '@react-pdf/font@2.5.2':
+    resolution: {integrity: sha512-Ud0EfZ2FwrbvwAWx8nz+KKLmiqACCH9a/N/xNDOja0e/YgSnqTpuyHegFBgIMKjuBtO5dNvkb4dXkxAhGe/ayw==}
 
-  '@react-pdf/image@2.3.4':
-    resolution: {integrity: sha512-IE34l7gfTdaxXe3XR9240xMZsFdxF1myIwmEWK28XoeTaucUPAUyOiNcFSGRT59vNuZVBuakYz3BlGGrkvAPVQ==}
+  '@react-pdf/image@2.3.6':
+    resolution: {integrity: sha512-7iZDYZrZlJqNzS6huNl2XdMcLFUo68e6mOdzQeJ63d5eApdthhSHBnkGzHfLhH5t8DCpZNtClmklzuLL63ADfw==}
 
-  '@react-pdf/layout@3.11.2':
-    resolution: {integrity: sha512-5EiHJ+Eb0odqnkWll9pWbTp+dwH1QRm7mOXDMiklqIWK98eI7e3cEae5Dgr0TtdnB7KgPW9Tvul2CwRJTwq54A==}
+  '@react-pdf/layout@3.13.0':
+    resolution: {integrity: sha512-lpPj/EJYHFOc0ALiJwLP09H28B4ADyvTjxOf67xTF+qkWd+dq1vg7dw3wnYESPnWk5T9NN+HlUenJqdYEY9AvA==}
 
-  '@react-pdf/pdfkit@3.1.6':
-    resolution: {integrity: sha512-U96VVhphniDBsLbmeJHgEml15nng8cr90mmEfPATh98gsqg6wev0avBr4k9XPjLdaN1f2xTXD4VdlaMYJZ+n7Q==}
+  '@react-pdf/pdfkit@3.2.0':
+    resolution: {integrity: sha512-OBfCcnTC6RpD9uv9L2woF60Zj1uQxhLFzTBXTdcYE9URzPE/zqXIyzpXEA4Vf3TFbvBCgFE2RzJ2ZUS0asq7yA==}
 
   '@react-pdf/png-js@2.3.1':
     resolution: {integrity: sha512-pEZ18I4t1vAUS4lmhvXPmXYP4PHeblpWP/pAlMMRkEyP7tdAeHUN7taQl9sf9OPq7YITMY3lWpYpJU6t4CZgZg==}
@@ -9053,16 +9071,16 @@ packages:
   '@react-pdf/primitives@3.1.1':
     resolution: {integrity: sha512-miwjxLwTnO3IjoqkTVeTI+9CdyDggwekmSLhVCw+a/7FoQc+gF3J2dSKwsHvAcVFM0gvU8mzCeTofgw0zPDq0w==}
 
-  '@react-pdf/render@3.4.3':
-    resolution: {integrity: sha512-9LL059vfwrK1gA0uIA4utpQ/pUH9EW/yia4bb7pCoARs8IlupY5UP265jgax15ua0p+MdUwShZzQ9rilu7kGsw==}
+  '@react-pdf/render@3.5.0':
+    resolution: {integrity: sha512-gFOpnyqCgJ6l7VzfJz6rG1i2S7iVSD8bUHDjPW9Mze8TmyksHzN2zBH3y7NbsQOw1wU6hN4NhRmslrsn+BRDPA==}
 
   '@react-pdf/renderer@3.3.8':
     resolution: {integrity: sha512-wJESEZCNNbog4MxDjRgKtgdmyGm+lDce9cMX2THRs1Jltckq3M8N0yt/fkvGyB8nwiDPtEBOsz9JKlw5vLidbw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  '@react-pdf/stylesheet@4.2.4':
-    resolution: {integrity: sha512-CgRfDzeMtnV0GL7zSn381NubmgwqKhFKcK1YrWX3azl/KWVh52jjFd3HWi6dvcETNT862mjWz5MnExe4WOBJXA==}
+  '@react-pdf/stylesheet@4.3.0':
+    resolution: {integrity: sha512-x7IVZOqRrUum9quuDeFXBveXwBht+z/6B0M+z4a4XjfSg1vZVvzoTl07Oa1yvQ/4yIC5yIkG2TSMWeKnDB+hrw==}
 
   '@react-pdf/textkit@4.4.1':
     resolution: {integrity: sha512-Jl9wdTqIvJ5pX+vAGz0EOhP7ut5Two9H6CzTKo/YYPeD79cM2yTXF3JzTERBC28y7LR0Waq9D2LHQjI+b/EYUQ==}
@@ -9350,6 +9368,11 @@ packages:
     resolution: {integrity: sha512-G0aVnoMSIZ4PNcW07tKtsOSoID9M03EAnCThRmUWMj1RXDqhbGje6AFBwGun9uz63bdxYEbEp9C8wH7dGi8aYQ==}
     engines: {node: '>=16.7.0'}
     hasBin: true
+
+  '@rsbuild/plugin-babel@1.0.3':
+    resolution: {integrity: sha512-3S/ykXv7KRo0FxVpkjoHFUwB04nKINIET1kuv4xiRaDmeww1Tp0wl9h4u8a7d7gU/4FllyoUflY8TVhci/o05g==}
+    peerDependencies:
+      '@rsbuild/core': 1.x
 
   '@rsbuild/plugin-less@1.1.0':
     resolution: {integrity: sha512-F834dobNDIdyGj5trMxIqzm/qf54Kj5KVDxeuB3TTj64mzq5fHJnR4aI/iYIliUwICG1/l2MliKr5sR34Kb7eA==}
@@ -14638,8 +14661,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  hyphen@1.10.4:
-    resolution: {integrity: sha512-SejXzIpv9gOVdDWXd4suM1fdF1k2dxZGvuTdkOVLoazYfK7O4DykIQbdrvuyG+EaTNlXAGhMndtKrhykgbt0gg==}
+  hyphen@1.10.6:
+    resolution: {integrity: sha512-fXHXcGFTXOvZTSkPJuGOQf5Lv5T/R2itiiCVPg9LxAje5D00O0pP83yJShFq5V89Ly//Gt6acj7z8pbBr34stw==}
 
   hyphenate-style-name@1.1.0:
     resolution: {integrity: sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==}
@@ -20477,6 +20500,10 @@ packages:
   unzipper@0.10.14:
     resolution: {integrity: sha512-ti4wZj+0bQTiX2KmKWuwj7lhV+2n//uXEotUmGuQqrbVZSEGFMbI68+c6JCQ8aAmUWYvtHEz2A8K6wXvueR/6g==}
 
+  upath@2.0.1:
+    resolution: {integrity: sha512-1uEe95xksV1O0CYKXo8vQvN1JEbtJp7lb7C5U9HMsIp6IVwntkH/oNUzyVNQSd4S1sYk2FpSSW44FqMc8qee5w==}
+    engines: {node: '>=4'}
+
   update-browserslist-db@1.1.1:
     resolution: {integrity: sha512-R8UzCaa9Az+38REPiJ1tXlImTJXlVfgHZsglwBD/k6nj76ctsH1E3q4doGrukiLQd3sGQYu56r5+lo5r94l29A==}
     hasBin: true
@@ -22709,15 +22736,17 @@ snapshots:
   '@babel/helper-create-class-features-plugin@7.23.6(@babel/core@7.22.10)':
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-annotate-as-pure': 7.22.5
+      '@babel/helper-annotate-as-pure': 7.25.9
       '@babel/helper-environment-visitor': 7.24.7
       '@babel/helper-function-name': 7.24.7
-      '@babel/helper-member-expression-to-functions': 7.23.0
-      '@babel/helper-optimise-call-expression': 7.22.5
-      '@babel/helper-replace-supers': 7.22.20(@babel/core@7.22.10)
-      '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
+      '@babel/helper-member-expression-to-functions': 7.25.9
+      '@babel/helper-optimise-call-expression': 7.25.9
+      '@babel/helper-replace-supers': 7.25.9(@babel/core@7.22.10)
+      '@babel/helper-skip-transparent-expression-wrappers': 7.25.9
       '@babel/helper-split-export-declaration': 7.24.7
       semver: 6.3.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@babel/helper-create-class-features-plugin@7.25.9(@babel/core@7.26.0)':
     dependencies:
@@ -22735,14 +22764,14 @@ snapshots:
   '@babel/helper-create-regexp-features-plugin@7.22.15(@babel/core@7.22.10)':
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-annotate-as-pure': 7.22.5
+      '@babel/helper-annotate-as-pure': 7.25.9
       regexpu-core: 5.3.2
       semver: 6.3.1
 
   '@babel/helper-create-regexp-features-plugin@7.22.15(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
-      '@babel/helper-annotate-as-pure': 7.22.5
+      '@babel/helper-annotate-as-pure': 7.25.9
       regexpu-core: 5.3.2
       semver: 6.3.1
 
@@ -22785,10 +22814,6 @@ snapshots:
       '@babel/types': 7.26.0
 
   '@babel/helper-hoist-variables@7.24.7':
-    dependencies:
-      '@babel/types': 7.26.0
-
-  '@babel/helper-member-expression-to-functions@7.23.0':
     dependencies:
       '@babel/types': 7.26.0
 
@@ -22846,7 +22871,7 @@ snapshots:
   '@babel/helper-remap-async-to-generator@7.22.20(@babel/core@7.22.10)':
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-annotate-as-pure': 7.22.5
+      '@babel/helper-annotate-as-pure': 7.25.9
       '@babel/helper-environment-visitor': 7.24.7
       '@babel/helper-wrap-function': 7.22.20
 
@@ -22863,8 +22888,19 @@ snapshots:
     dependencies:
       '@babel/core': 7.22.10
       '@babel/helper-environment-visitor': 7.24.7
-      '@babel/helper-member-expression-to-functions': 7.23.0
-      '@babel/helper-optimise-call-expression': 7.22.5
+      '@babel/helper-member-expression-to-functions': 7.25.9
+      '@babel/helper-optimise-call-expression': 7.25.9
+    transitivePeerDependencies:
+      - supports-color
+
+  '@babel/helper-replace-supers@7.25.9(@babel/core@7.22.10)':
+    dependencies:
+      '@babel/core': 7.22.10
+      '@babel/helper-member-expression-to-functions': 7.25.9
+      '@babel/helper-optimise-call-expression': 7.25.9
+      '@babel/traverse': 7.25.9(supports-color@5.5.0)
+    transitivePeerDependencies:
+      - supports-color
 
   '@babel/helper-replace-supers@7.25.9(@babel/core@7.26.0)':
     dependencies:
@@ -22977,6 +23013,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@babel/plugin-proposal-decorators@7.25.9(@babel/core@7.26.0)':
+    dependencies:
+      '@babel/core': 7.26.0
+      '@babel/helper-create-class-features-plugin': 7.25.9(@babel/core@7.26.0)
+      '@babel/helper-plugin-utils': 7.25.9
+      '@babel/plugin-syntax-decorators': 7.25.9(@babel/core@7.26.0)
+    transitivePeerDependencies:
+      - supports-color
+
   '@babel/plugin-proposal-export-namespace-from@7.18.9(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -23022,6 +23067,11 @@ snapshots:
       '@babel/helper-plugin-utils': 7.25.9
 
   '@babel/plugin-syntax-class-static-block@7.14.5(@babel/core@7.26.0)':
+    dependencies:
+      '@babel/core': 7.26.0
+      '@babel/helper-plugin-utils': 7.25.9
+
+  '@babel/plugin-syntax-decorators@7.25.9(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-plugin-utils': 7.25.9
@@ -23253,6 +23303,8 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-create-class-features-plugin': 7.23.6(@babel/core@7.22.10)
       '@babel/helper-plugin-utils': 7.25.9
+    transitivePeerDependencies:
+      - supports-color
 
   '@babel/plugin-transform-class-properties@7.25.9(@babel/core@7.26.0)':
     dependencies:
@@ -23268,6 +23320,8 @@ snapshots:
       '@babel/helper-create-class-features-plugin': 7.23.6(@babel/core@7.22.10)
       '@babel/helper-plugin-utils': 7.25.9
       '@babel/plugin-syntax-class-static-block': 7.14.5(@babel/core@7.22.10)
+    transitivePeerDependencies:
+      - supports-color
 
   '@babel/plugin-transform-class-static-block@7.26.0(@babel/core@7.26.0)':
     dependencies:
@@ -23289,6 +23343,8 @@ snapshots:
       '@babel/helper-replace-supers': 7.22.20(@babel/core@7.22.10)
       '@babel/helper-split-export-declaration': 7.24.7
       globals: 11.12.0
+    transitivePeerDependencies:
+      - supports-color
 
   '@babel/plugin-transform-classes@7.25.9(@babel/core@7.26.0)':
     dependencies:
@@ -23604,6 +23660,8 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.25.9
       '@babel/helper-replace-supers': 7.22.20(@babel/core@7.22.10)
+    transitivePeerDependencies:
+      - supports-color
 
   '@babel/plugin-transform-object-super@7.25.9(@babel/core@7.26.0)':
     dependencies:
@@ -23654,6 +23712,8 @@ snapshots:
       '@babel/core': 7.22.10
       '@babel/helper-create-class-features-plugin': 7.23.6(@babel/core@7.22.10)
       '@babel/helper-plugin-utils': 7.25.9
+    transitivePeerDependencies:
+      - supports-color
 
   '@babel/plugin-transform-private-methods@7.25.9(@babel/core@7.26.0)':
     dependencies:
@@ -23670,6 +23730,8 @@ snapshots:
       '@babel/helper-create-class-features-plugin': 7.23.6(@babel/core@7.22.10)
       '@babel/helper-plugin-utils': 7.25.9
       '@babel/plugin-syntax-private-property-in-object': 7.14.5(@babel/core@7.22.10)
+    transitivePeerDependencies:
+      - supports-color
 
   '@babel/plugin-transform-private-property-in-object@7.25.9(@babel/core@7.26.0)':
     dependencies:
@@ -26908,7 +26970,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
 
-  '@react-pdf/font@2.4.4(encoding@0.1.13)':
+  '@react-pdf/font@2.5.2(encoding@0.1.13)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@react-pdf/types': 2.7.0
@@ -26918,7 +26980,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@react-pdf/image@2.3.4(encoding@0.1.13)':
+  '@react-pdf/image@2.3.6(encoding@0.1.13)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@react-pdf/png-js': 2.3.1
@@ -26927,14 +26989,14 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@react-pdf/layout@3.11.2(encoding@0.1.13)':
+  '@react-pdf/layout@3.13.0(encoding@0.1.13)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@react-pdf/fns': 2.2.1
-      '@react-pdf/image': 2.3.4(encoding@0.1.13)
-      '@react-pdf/pdfkit': 3.1.6
+      '@react-pdf/image': 2.3.6(encoding@0.1.13)
+      '@react-pdf/pdfkit': 3.2.0
       '@react-pdf/primitives': 3.1.1
-      '@react-pdf/stylesheet': 4.2.4
+      '@react-pdf/stylesheet': 4.3.0
       '@react-pdf/textkit': 4.4.1
       '@react-pdf/types': 2.7.0
       cross-fetch: 3.1.8(encoding@0.1.13)
@@ -26944,7 +27006,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@react-pdf/pdfkit@3.1.6':
+  '@react-pdf/pdfkit@3.2.0':
     dependencies:
       '@babel/runtime': 7.26.0
       '@react-pdf/png-js': 2.3.1
@@ -26960,7 +27022,7 @@ snapshots:
 
   '@react-pdf/primitives@3.1.1': {}
 
-  '@react-pdf/render@3.4.3':
+  '@react-pdf/render@3.5.0':
     dependencies:
       '@babel/runtime': 7.26.0
       '@react-pdf/fns': 2.2.1
@@ -26976,11 +27038,11 @@ snapshots:
   '@react-pdf/renderer@3.3.8(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.26.0
-      '@react-pdf/font': 2.4.4(encoding@0.1.13)
-      '@react-pdf/layout': 3.11.2(encoding@0.1.13)
-      '@react-pdf/pdfkit': 3.1.6
+      '@react-pdf/font': 2.5.2(encoding@0.1.13)
+      '@react-pdf/layout': 3.13.0(encoding@0.1.13)
+      '@react-pdf/pdfkit': 3.2.0
       '@react-pdf/primitives': 3.1.1
-      '@react-pdf/render': 3.4.3
+      '@react-pdf/render': 3.5.0
       '@react-pdf/types': 2.7.0
       events: 3.3.0
       object-assign: 4.1.1
@@ -26991,7 +27053,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@react-pdf/stylesheet@4.2.4':
+  '@react-pdf/stylesheet@4.3.0':
     dependencies:
       '@babel/runtime': 7.26.0
       '@react-pdf/fns': 2.2.1
@@ -27006,7 +27068,7 @@ snapshots:
       '@babel/runtime': 7.26.0
       '@react-pdf/fns': 2.2.1
       bidi-js: 1.0.3
-      hyphen: 1.10.4
+      hyphen: 1.10.6
       unicode-properties: 1.4.1
 
   '@react-pdf/types@2.7.0': {}
@@ -27318,6 +27380,20 @@ snapshots:
       '@rspack/lite-tapable': 1.0.1
       '@swc/helpers': 0.5.15
       core-js: 3.39.0
+
+  '@rsbuild/plugin-babel@1.0.3(@rsbuild/core@1.1.10)':
+    dependencies:
+      '@babel/core': 7.26.0
+      '@babel/plugin-proposal-decorators': 7.25.9(@babel/core@7.26.0)
+      '@babel/plugin-transform-class-properties': 7.25.9(@babel/core@7.26.0)
+      '@babel/preset-typescript': 7.26.0(@babel/core@7.26.0)
+      '@rsbuild/core': 1.1.10
+      '@types/babel__core': 7.20.5
+      deepmerge: 4.3.1
+      reduce-configs: 1.1.0
+      upath: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@rsbuild/plugin-less@1.1.0(@rsbuild/core@1.1.10)':
     dependencies:
@@ -33905,7 +33981,7 @@ snapshots:
 
   husky@9.0.11: {}
 
-  hyphen@1.10.4: {}
+  hyphen@1.10.6: {}
 
   hyphenate-style-name@1.1.0: {}
 
@@ -40807,6 +40883,8 @@ snapshots:
       listenercount: 1.0.1
       readable-stream: 2.3.8
       setimmediate: 1.0.5
+
+  upath@2.0.1: {}
 
   update-browserslist-db@1.1.1(browserslist@4.24.2):
     dependencies:

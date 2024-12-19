@@ -18,14 +18,11 @@ export const CloudComponentNameKey = Symbol('CloudComponentNameKey');
 
 export class ModuleCloudComponentClient extends Plugin {
   async afterAdd() {
-    this.app.requirejs.define('react-use', () => {
-      console.log('🚀 ~ file: index.tsx:24 ~ ModuleCloudComponentClient ~ this.app.requirejs.define ~ reactUse:', reactUse);
-      return reactUse;
-    });
+    this.app.requirejs.define('react-use', () => reactUse);
     this.app.requirejs.define('exceljs', () => exceljs);
     this.app.requirejs.define('qrcode', () => qrcode);
     this.app.requirejs.define('file-saver', () => fileSaver);
-    // await this.initLibraries();
+    await this.initLibraries();
   }
 
   async load() {
@@ -167,7 +164,6 @@ export class ModuleCloudComponentClient extends Plugin {
     for (const library of libraries) {
       const blob = new Blob([library.client], { type: 'application/javascript' });
       const url = URL.createObjectURL(blob);
-      console.log('🚀 ~ file: index.tsx:170 ~ ModuleCloudComponentClient ~ initLibraries ~ url:', url, library.module);
       this.app.requirejs.require.config({
         paths: {
           [library.module]: url,
