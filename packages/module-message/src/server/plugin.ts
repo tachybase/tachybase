@@ -5,13 +5,58 @@ import { Registry } from '@tachybase/utils';
 import jwt from 'jsonwebtoken';
 import WebSocket from 'ws';
 
+import { COLLECTION_NAME_MESSAGES_PROVIDERS } from '../common/collections/messages_providers';
 import { initActions } from './actions';
+import { PROVIDER_TYPE_SMS_ALIYUN } from './constants';
 import { MessageInstruction } from './instructions/message';
 import { MessageService } from './MessageManager';
+import initProviders from './providers';
 import { Provider } from './providers/Provider';
 
 class ModuleMessagesServer extends Plugin {
   providers: Registry<typeof Provider> = new Registry();
+
+  async install() {
+    const {
+      DEFAULT_SMS_VERIFY_CODE_PROVIDER,
+      INIT_ALI_SMS_ACCESS_KEY,
+      INIT_ALI_SMS_ACCESS_KEY_SECRET,
+      INIT_ALI_SMS_ENDPOINT = 'dysmsapi.aliyuncs.com',
+      INIT_ALI_SMS_VERIFY_CODE_TEMPLATE,
+      INIT_ALI_SMS_VERIFY_CODE_SIGN,
+    } = process.env;
+
+    if (
+      DEFAULT_SMS_VERIFY_CODE_PROVIDER &&
+      INIT_ALI_SMS_ACCESS_KEY &&
+      INIT_ALI_SMS_ACCESS_KEY_SECRET &&
+      INIT_ALI_SMS_VERIFY_CODE_TEMPLATE &&
+      INIT_ALI_SMS_VERIFY_CODE_SIGN
+    ) {
+      const ProviderRepo = this.db.getRepository(COLLECTION_NAME_MESSAGES_PROVIDERS);
+      const existed = await ProviderRepo.count({
+        filterByTk: DEFAULT_SMS_VERIFY_CODE_PROVIDER,
+      });
+      if (existed) {
+        return;
+      }
+      await ProviderRepo.create({
+        values: {
+          id: DEFAULT_SMS_VERIFY_CODE_PROVIDER,
+          type: PROVIDER_TYPE_SMS_ALIYUN,
+          title: 'Default SMS sender',
+          options: {
+            accessKeyId: INIT_ALI_SMS_ACCESS_KEY,
+            accessKeySecret: INIT_ALI_SMS_ACCESS_KEY_SECRET,
+            endpoint: INIT_ALI_SMS_ENDPOINT,
+            sign: INIT_ALI_SMS_VERIFY_CODE_SIGN,
+            template: INIT_ALI_SMS_VERIFY_CODE_TEMPLATE,
+          },
+          default: true,
+        },
+      });
+    }
+  }
 
   async load() {
     const appName = this.app.name;
@@ -50,7 +95,13 @@ class ModuleMessagesServer extends Plugin {
     });
 
     initActions(this);
+    await initProviders(this);
+
     this.app.acl.allow('messages', '*', 'loggedIn');
+    this.app.acl.registerSnippet({
+      name: `pm.${this.name}.providers`,
+      actions: [`${COLLECTION_NAME_MESSAGES_PROVIDERS}:*`],
+    });
     const ownerMessage = () => {
       return {
         filter: {
