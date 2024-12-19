@@ -1,5 +1,6 @@
 import { PluginWorkflow } from '@tachybase/module-workflow';
 import { Gateway, Plugin } from '@tachybase/server';
+import { Registry } from '@tachybase/utils';
 
 import jwt from 'jsonwebtoken';
 import WebSocket from 'ws';
@@ -7,8 +8,11 @@ import WebSocket from 'ws';
 import { initActions } from './actions';
 import { MessageInstruction } from './instructions/message';
 import { MessageService } from './MessageManager';
+import { Provider } from './providers/Provider';
 
 class ModuleMessagesServer extends Plugin {
+  providers: Registry<typeof Provider> = new Registry();
+
   async load() {
     const appName = this.app.name;
     this.app.messageManager = new MessageService(this.app);

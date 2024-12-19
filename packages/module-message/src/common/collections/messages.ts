@@ -1,6 +1,6 @@
 import { CollectionOptions } from '@tachybase/database';
 
-import { tval } from '../locale';
+import { tval } from '../../locale';
 
 export const COLLECTION_NAME_MESSAGES = 'messages';
 

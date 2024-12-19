@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useAPIClient, useCurrentUserContext, useNoticeSub } from '@tachybase/client';
 
+import { COLLECTION_NAME_MESSAGES } from '../../../common/collections/messages';
 import { MESSAGES_UPDATE_BADGE_COUNT } from '../../../common/constants';
-import { COLLECTION_NAME_MESSAGES } from '../../../common/messages.collection';
 
 // 通知计数器
 export function useStateBadgeCount(initialCount: number = 0) {
