@@ -149,11 +149,6 @@ export class Application {
     defineGlobalDeps(this.requirejs);
     window.define = this.requirejs.define;
     window.require = this.requirejs.require as RequireJS['require'] & NodeRequire;
-    window.require.config({
-      paths: {
-        hyphen: 'https://unpkg.com/browse/hyphen@1.10.6/index.js',
-      },
-    });
   }
 
   private addDefaultProviders() {

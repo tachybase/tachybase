@@ -62,7 +62,12 @@ const AppSpin = () => {
         overflow: hidden;
       `}
     >
-      {/* <DotLottieReact style={{ width: '100%', maxWidth: '640px' }} src="/spin.lottie" loop autoplay /> */}
+      <DotLottieReact
+        style={{ width: '100%', maxWidth: '640px' }}
+        src="https://assets.tachybase.com/imgs/spin.lottie"
+        loop
+        autoplay
+      />
     </div>
   );
 };
