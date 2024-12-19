@@ -11,6 +11,7 @@ export default (cli: Command) => {
     .option('--proxy-port [port]')
     .option('--client')
     .option('--server')
+    .option('--rs')
     .option('--db-sync')
     .option('--inspect [port]')
     .allowUnknownOption()
@@ -36,7 +37,7 @@ export default (cli: Command) => {
         return;
       }
 
-      const { port, client, server, inspect } = opts;
+      const { port, client, server, inspect, rs } = opts;
 
       if (port) {
         process.env.APP_PORT = opts.port;
@@ -107,19 +108,29 @@ export default (cli: Command) => {
       }
 
       if (client || !server) {
-        console.log('starting client', 1 * clientPort);
-        const proxyPort = opts.proxyPort || serverPort;
-        console.log('proxy port', proxyPort);
-        run('umi', ['dev'], {
-          env: {
-            PORT: clientPort + '',
-            APP_ROOT: `${APP_PACKAGE_ROOT}/client`,
-            WEBSOCKET_URL:
-              process.env.WEBSOCKET_URL ||
-              (proxyPort ? `ws://localhost:${proxyPort}${process.env.WS_PATH}` : undefined),
-            PROXY_TARGET_URL: process.env.PROXY_TARGET_URL || (proxyPort ? `http://127.0.0.1:${proxyPort}` : undefined),
-          },
+        const getDevEnvironment = (clientPort: number, proxyPort: number) => ({
+          PORT: clientPort + '',
+          APP_ROOT: `${APP_PACKAGE_ROOT}/client`,
+          WEBSOCKET_URL:
+            process.env.WEBSOCKET_URL ||
+            (proxyPort ? `ws://localhost:${proxyPort}${process.env.WS_PATH}` : undefined),
+          PROXY_TARGET_URL:
+            process.env.PROXY_TARGET_URL || (proxyPort ? `http://127.0.0.1:${proxyPort}` : undefined),
         });
+
+        if (rs) {
+          console.log('starting client', 1 * clientPort);
+          const proxyPort = opts.proxyPort || serverPort;
+          console.log('proxy port', proxyPort);
+          const env = getDevEnvironment(clientPort, proxyPort);
+          run('rsbuild', ['dev', '--open', '-r', 'apps/app-rs'], { env });
+        } else {
+          console.log('starting client', 1 * clientPort);
+          const proxyPort = opts.proxyPort || serverPort;
+          console.log('proxy port', proxyPort);
+          const env = getDevEnvironment(clientPort, proxyPort);
+          run('umi', ['dev'], { env });
+        }
       }
     });
 };

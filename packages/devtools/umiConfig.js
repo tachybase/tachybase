@@ -7,6 +7,8 @@ const path = require('path');
 
 console.log('VERSION: ', packageJson.version);
 
+const ProjectRoot = path.join(__dirname, '../../');
+
 function getUmiConfig() {
   const { APP_PORT, API_BASE_URL, APP_PUBLIC_PATH } = process.env;
   const API_BASE_PATH = process.env.API_BASE_PATH || '/api/';
@@ -65,14 +67,8 @@ function getUmiConfig() {
   };
 }
 
-function getNamespace() {
-  const content = fs.readFileSync(resolve(process.cwd(), 'package.json'), 'utf-8');
-  const json = JSON.parse(content);
-  return json.name;
-}
-
 function getTsconfigPaths() {
-  const content = fs.readFileSync(resolve(process.cwd(), 'tsconfig.paths.json'), 'utf-8');
+  const content = fs.readFileSync(resolve(ProjectRoot, 'tsconfig.paths.json'), 'utf-8');
   const json = JSON.parse(content);
   return json.compilerOptions.paths;
 }
@@ -84,13 +80,13 @@ function getPackagePaths() {
     if (Object.hasOwnProperty.call(paths, key)) {
       for (let dir of paths[key]) {
         if (dir.includes('*')) {
-          const files = glob.sync(dir, { cwd: process.cwd(), onlyDirectories: true });
+          const files = glob.sync(dir, { cwd: ProjectRoot, onlyDirectories: true });
           for (const file of files) {
-            const dirname = resolve(process.cwd(), file);
+            const dirname = resolve(ProjectRoot, file);
             if (existsSync(dirname)) {
               const re = new RegExp(dir.replace('*', '(.+)'));
               const p = dirname
-                .substring(process.cwd().length + 1)
+                .substring(ProjectRoot.length + 1)
                 .split(sep)
                 .join('/');
               const match = re.exec(p);
@@ -98,7 +94,7 @@ function getPackagePaths() {
             }
           }
         } else {
-          const dirname = resolve(process.cwd(), dir);
+          const dirname = resolve(ProjectRoot, dir);
           pkgs.push([key, dirname]);
         }
       }
@@ -116,7 +112,7 @@ function resolveTachybasePackagesAlias(config) {
 }
 
 function getNodeModulesPath(packageDir) {
-  const node_modules_dir = path.join(process.cwd(), 'node_modules');
+  const node_modules_dir = path.join(ProjectRoot, 'node_modules');
   return path.join(node_modules_dir, packageDir);
 }
 class IndexGenerator {
@@ -175,7 +171,7 @@ export default function devDynamicImport(packageName: string): Promise<any> {
 
   generatePluginContent() {
     if (fs.existsSync(this.outputPath)) {
-      fs.rmdirSync(this.outputPath, { recursive: true, force: true });
+      fs.rmSync(this.outputPath, { recursive: true, force: true });
     }
     fs.mkdirSync(this.outputPath);
     const validPluginPaths = this.pluginsPath.filter((pluginsPath) => fs.existsSync(pluginsPath));

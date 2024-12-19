@@ -1,5 +1,5 @@
 import type { Application } from './Application';
-import type { Plugin } from './Plugin';
+import { Plugin } from './Plugin';
 import { getPlugins } from './utils/remotePlugins';
 
 export type PluginOptions<T = any> = { name?: string; packageName?: string; config?: T };
@@ -84,7 +84,11 @@ export class PluginManager {
   }
 
   private getInstance<T>(plugin: typeof Plugin, opts?: T) {
-    return new plugin(opts, this.app);
+    try {
+      return new plugin(opts, this.app);
+    } catch {
+      return new Plugin({}, this.app);
+    }
   }
 
   /**
