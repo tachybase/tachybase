@@ -19,7 +19,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import WorkflowPlugin from '.';
 import { CanvasContentWrapper } from './CanvasContentWrapper';
-import { jobExecutionTime } from './components/ExecutionTime';
+import { formatDuration } from './components/ExecutionTime';
 import { BackButton } from './components/GoBackButton';
 import { StatusButton } from './components/StatusButton';
 import { ExecutionStatusOptionsMap, JobStatusOptions } from './constants';
@@ -57,7 +57,7 @@ function JobModal() {
   if (!job) {
     return;
   }
-
+  job.cost = formatDuration(job.cost / 1000);
   const { styles } = useStyles();
   const { node = {} } = job ?? {};
   const instruction = instructions.get(node.type);
@@ -104,7 +104,7 @@ function JobModal() {
                   },
                   'x-read-pretty': true,
                 },
-                executionTime: {
+                cost: {
                   type: 'string',
                   title: `{{t("Executed time", { ns: "${NAMESPACE}" })}}`,
                   'x-decorator': 'FormItem',
@@ -296,17 +296,6 @@ export function ExecutionCanvas() {
   }
 
   const { jobs = [], workflow: { nodes = [], revisions = [], ...workflow } = {}, ...execution } = data?.data ?? {};
-
-  try {
-    const allCreateAtDate = execution.createdAt ? new Date(execution.createdAt).getTime() : Date.now();
-    const allUpdateAtDate = execution.updatedAt ? new Date(execution.updatedAt).getTime() : Date.now();
-
-    const jobsWithExecutionTime = jobExecutionTime(jobs, allCreateAtDate, allUpdateAtDate);
-    jobs.splice(0, jobs.length, ...jobsWithExecutionTime);
-  } catch (error) {
-    console.error('Failed to calculate execution times:', error);
-    message.error(t('Failed to calculate execution times'));
-  }
 
   linkNodes(nodes);
   attachJobs(nodes, jobs);

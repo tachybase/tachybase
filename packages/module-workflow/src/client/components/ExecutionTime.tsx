@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useCollectionRecordData } from '@tachybase/client';
 
-function formatDuration(seconds: number): string {
+export function formatDuration(seconds: number): string {
   // 如果秒数大于等于 999 天的秒数，限制为 999 天
   const maxDays = 999;
   const maxSeconds = maxDays * 24 * 60 * 60;
@@ -69,39 +69,4 @@ export function ExecutionTime() {
   }, [createdAt, updatedAt, status]);
 
   return <div>{timeDifference}</div>;
-}
-
-interface Job {
-  id: number;
-  createdAt: string | number;
-  executionTime?: string;
-}
-
-export function jobExecutionTime(jobs: Job[], allCreateAtDate: number, allUpdateAtDate: number): Job[] {
-  if (!Array.isArray(jobs) || !allCreateAtDate || !allUpdateAtDate) {
-    throw new Error('Invalid parameters provided to jobExecutionTime');
-  }
-
-  return jobs.map((job, index) => {
-    if (!job.createdAt) {
-      throw new Error(`Job at index ${index} is missing createdAt timestamp`);
-    }
-
-    const createdAtDate = new Date(job.createdAt).getTime();
-    let executionTime: string;
-
-    if (index === 0) {
-      // First job: execution time is createdAtDate - allCreateAtDate
-      executionTime = formatDuration(Math.max((createdAtDate - allCreateAtDate) / 1000, 0));
-    } else if (index === jobs.length - 1) {
-      // Last job: execution time is allUpdateAtDate - createdAtDate
-      executionTime = formatDuration(Math.max((allUpdateAtDate - createdAtDate) / 1000, 0));
-    } else {
-      // Middle jobs: execution time is next job's createdAt - current job's createdAt
-      const nextJobCreatedAtDate = new Date(jobs[index + 1].createdAt).getTime();
-      executionTime = formatDuration(Math.max((nextJobCreatedAtDate - createdAtDate) / 1000, 0));
-    }
-
-    return { ...job, executionTime };
-  });
 }

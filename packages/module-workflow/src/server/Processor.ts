@@ -112,6 +112,7 @@ export default class Processor {
   }
 
   private async exec(instruction: Runner, node: FlowNodeModel, prevJob) {
+    const start = Date.now();
     let job;
     try {
       // call instruction to get result and status
@@ -152,6 +153,7 @@ export default class Processor {
       job.nodeId = node.id;
       job.nodeKey = node.key;
     }
+    job.cost = Date.now() - (job?.createdAt ? new Date(job.createdAt).getTime() : start);
     const savedJob = await this.saveJob(job);
 
     this.logger.info(
@@ -235,8 +237,8 @@ export default class Processor {
         { transaction },
       );
     }
-    this.jobsMap.set(job.id, job);
 
+    this.jobsMap.set(job.id, job);
     this.lastSavedJob = job;
     this.jobsMapByNodeKey[job.nodeKey] = job.result;
 
