@@ -12,9 +12,6 @@ declare global {
   }
 }
 
-// FIXME: make ts happy
-declare var process: any;
-
 export const app = new Application({
   apiClient: {
     baseURL: window['__tachybase_api_base_url__'] || process.env.API_BASE_URL || '/api/',
