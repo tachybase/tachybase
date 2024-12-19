@@ -121,7 +121,7 @@ export default (cli: Command) => {
           const proxyPort = opts.proxyPort || serverPort;
           console.log('proxy port', proxyPort);
           const env = getDevEnvironment(clientPort, proxyPort);
-          run('rsbuild', ['dev', '--open', '-r', 'apps/app-rs'], { env });
+          run('rsbuild', ['dev', '--open', '-r', 'apps/app-rs', '--port', clientPort + ''], { env });
         } else {
           console.log('starting client', 1 * clientPort);
           const proxyPort = opts.proxyPort || serverPort;

@@ -34,7 +34,7 @@ export default {
       name: 'result',
     },
     {
-      type: 'integer',
+      type: 'bigInt',
       name: 'cost',
     },
   ],

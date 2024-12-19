@@ -72,7 +72,7 @@ export const main = async () => {
 
     await app.start({
       dbSync: false,
-      quickstart: true,
+      quickstart: false,
       checkInstall: false,
     });
     app.logger.info('[worker] app has been started');
