@@ -10,8 +10,8 @@
     "tachybase-build": "./bin/tachybase-build.js"
   },
   "scripts": {
-    "build": "tsup",
-    "prepare": "tsup"
+    "build": "rslib build",
+    "prepare": "rslib build"
   },
   "dependencies": {
     "@babel/core": "7.22.10",
@@ -20,6 +20,7 @@
     "@hapi/topo": "^6.0.2",
     "@pnpm/find-workspace-dir": "^6.0.3",
     "@pnpm/workspace.find-packages": "^1.1.12",
+    "@rslib/core": "0.1.5",
     "@types/fs-extra": "11.0.4",
     "@types/tar": "^6.1.10",
     "@vercel/ncc": "0.36.1",
