@@ -1313,7 +1313,7 @@ export function getRequireJs(): RequireJS {
       while (defQueue.length) {
         args = defQueue.shift();
         if (args[0] === null) {
-          return onError(makeError('mismatch', 'Mismatched anonymous define() module: ' + args[args.length - 1]));
+          console.warn(args, 'Mismatched anonymous define() module: ' + args[args.length - 1]);
         } else {
           //args are id, deps, factory. Should be normalized by the
           //define() function.
