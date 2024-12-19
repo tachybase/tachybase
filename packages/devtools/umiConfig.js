@@ -135,8 +135,8 @@ class IndexGenerator {
     return path.join(this.outputPath, 'packages');
   }
 
-  generate(noIndex = false) {
-    this.generatePluginContent(noIndex);
+  generate() {
+    this.generatePluginContent();
     if (process.env.NODE_ENV === 'production') return;
     this.pluginsPath.forEach((pluginPath) => {
       if (!fs.existsSync(pluginPath)) {
@@ -169,7 +169,7 @@ export default function devDynamicImport(packageName: string): Promise<any> {
 }`;
   }
 
-  generatePluginContent(noIndex) {
+  generatePluginContent() {
     if (fs.existsSync(this.outputPath)) {
       fs.rmSync(this.outputPath, { recursive: true, force: true });
     }
@@ -183,9 +183,7 @@ export default function devDynamicImport(packageName: string): Promise<any> {
     const pluginInfos = validPluginPaths.map((pluginsPath) => this.getContent(pluginsPath)).flat();
 
     // index.ts
-    if (!noIndex) {
-      fs.writeFileSync(this.indexPath, this.indexContent);
-    }
+    fs.writeFileSync(this.indexPath, this.indexContent);
     // packageMap.json
     const packageMapContent = pluginInfos.reduce((memo, item) => {
       memo[item.packageJsonName] = item.pluginFileName + '.ts';
