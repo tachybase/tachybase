@@ -7,6 +7,7 @@ import { BloomFilter } from './bloom-filter';
 import { MemoryBloomFilter } from './bloom-filter/memory-bloom-filter';
 import { RedisBloomFilter } from './bloom-filter/redis-bloom-filter';
 import { Cache } from './cache';
+import { retryOperation } from './utils';
 
 export type { FactoryStore } from 'cache-manager';
 
@@ -69,7 +70,18 @@ export class CacheManager {
       throw new Error(`Create cache failed, store type [${type}] is unavailable or not registered`);
     }
     const { store: s, close, ...globalConfig } = storeType;
-    const store = await caching(s, { ...globalConfig, ...config });
+    let store: BasicCache;
+    if (name === 'redis') {
+      store = await retryOperation(
+        async () => {
+          return await caching(s, { ...globalConfig, ...config });
+        },
+        { name: 'connect to redis' },
+      );
+      // TODO: 由于目前是守护进程启动服务,服务异常会自行重启,考虑是否加入断线重连
+    } else {
+      store = await caching(s, { ...globalConfig, ...config });
+    }
     this.stores.set(name, { close, store });
     return store;
   }
