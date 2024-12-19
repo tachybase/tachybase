@@ -4,6 +4,7 @@ import { Icon, PinnedPluginListProvider, SchemaComponentOptions, useApp, useRequ
 import { Button, Dropdown } from 'antd';
 import { Link } from 'react-router-dom';
 
+import { NAMESPACE } from '../constants';
 import { AppNameInput } from './AppNameInput';
 import { MultiAppBlockInitializer } from './MultiAppBlockInitializer';
 import { useStyles } from './MultiAppManagerProvider.style';
@@ -42,7 +43,9 @@ const MultiAppManager = () => {
     {
       key: '.manager',
       label: (
-        <Link to={instance.systemSettingsManager.getRoutePath('multi-app-manager')}>{t('Manage applications')}</Link>
+        <Link to={instance.systemSettingsManager.getRoutePath('system-services.' + NAMESPACE)}>
+          {t('Manage applications')}
+        </Link>
       ),
     },
   ];
