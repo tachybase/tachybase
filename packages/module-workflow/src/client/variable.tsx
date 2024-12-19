@@ -42,7 +42,23 @@ export type UseVariableOptions = {
   depth?: number;
 };
 
-export const defaultFieldNames = { label: 'label', value: 'value', children: 'children' } as const;
+export const defaultFieldNames = {
+  label: 'label',
+  value: 'value',
+  children: 'children',
+} as const;
+
+export const currentFormOptions = {
+  label: `{{t("Current form variables", { ns: "${NAMESPACE}" })}}`,
+  value: '$currentForm',
+  useOptions(options: UseVariableOptions) {
+    const currentNode = useContextNode();
+    const pluginWorkflow = usePlugin(WorkflowPlugin);
+    const instruction = pluginWorkflow.instructions.get(currentNode.type);
+    const resultList = instruction.useCurrentFormVariables?.(currentNode, options) || [];
+    return resultList;
+  },
+};
 
 export const nodesOptions = {
   label: `{{t("Node result", { ns: "${NAMESPACE}" })}}`,
@@ -248,6 +264,13 @@ export function useWorkflowVariableOptions(options: UseVariableOptions = {}) {
   return result;
 }
 
+export function useWorkflowVariableFormOptions(options: UseVariableOptions = {}) {
+  const fieldNames = Object.assign({}, defaultFieldNames, options.fieldNames ?? {});
+  const opts = Object.assign(options, { fieldNames });
+  const result = [useOptions(currentFormOptions, opts)];
+  return result;
+}
+
 function getNormalizedFields(collectionName, { compile, getCollectionFields }) {
   const [dataSourceName, collection] = parseCollectionName(collectionName);
   const fields = getCollectionFields(collection, dataSourceName);
@@ -392,7 +415,7 @@ export function WorkflowVariableJSON({ variableOptions, ...props }): JSX.Element
 }
 
 export function WorkflowVariableCodeMirror({ variableOptions, ...props }): JSX.Element {
-  const { options } = props;
+  const scopeForms = useWorkflowVariableFormOptions(variableOptions);
   const scope = useWorkflowVariableOptions(variableOptions);
-  return <Variable.CodeMirror scope={[...options, ...scope]} {...props} />;
+  return <Variable.CodeMirror scope={[...scopeForms, ...scope]} {...props} />;
 }

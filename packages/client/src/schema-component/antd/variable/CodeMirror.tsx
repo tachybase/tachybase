@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CodeMirror as CodeMirrorComponent } from '@tachybase/components';
+import { useForm } from '@tachybase/schema';
 
 import { cloneDeep } from 'lodash';
 
@@ -12,6 +13,8 @@ export const CodeMirror = (props) => {
   const { t } = useTranslation();
   const [options, setOptions] = useState(scope ? cloneDeep(scope) : []);
   const [codeValue, setCodeValue] = useState(value);
+  const form = useForm();
+  const disabled = props.disabled || form.disabled;
 
   const onInsert = (selected) => {
     const variable = `{{${selected.join('.')}}}`;
@@ -43,13 +46,15 @@ export const CodeMirror = (props) => {
         >
           {t('Click on the right to select variables →')}
         </div>
-        <VariableSelect
-          className={css``}
-          options={options}
-          setOptions={setOptions}
-          onInsert={onInsert}
-          changeOnSelect={changeOnSelect}
-        />
+        {!disabled ? (
+          <VariableSelect
+            className={css``}
+            options={options}
+            setOptions={setOptions}
+            onInsert={onInsert}
+            changeOnSelect={changeOnSelect}
+          />
+        ) : null}
       </div>
       <CodeMirrorComponent
         className={css`

@@ -37,6 +37,7 @@ export abstract class Instruction {
   Component?(props): JSX.Element;
   useVariables?(node, options?: UseVariableOptions): VariableOption;
   useScopeVariables?(node, options?): VariableOption[];
+  useCurrentFormVariables?(node, options?): VariableOption[];
   useInitializers?(node): SchemaInitializerItemType | null;
   isAvailable?(ctx: NodeAvailableContext): boolean;
   end?: boolean | ((node) => boolean);

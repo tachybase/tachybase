@@ -1,3 +1,4 @@
+import { useCompile } from '@tachybase/client';
 import { ArrayItems } from '@tachybase/components';
 import {
   AdditionNotifiedPerson,
@@ -5,6 +6,7 @@ import {
   ConfigButtonMessage,
   Instruction,
   SelectNotifiedPerson,
+  VariableOption,
   WorkflowVariableCodeMirror,
 } from '@tachybase/module-workflow/client';
 
@@ -79,7 +81,6 @@ export class MessageInstruction extends Instruction {
       'x-component': 'WorkflowVariableCodeMirror',
       'x-component-props': {
         changeOnSelect: true,
-        options: getVariableOptions(),
         height: 100,
       },
     },
@@ -91,7 +92,6 @@ export class MessageInstruction extends Instruction {
       'x-component': 'WorkflowVariableCodeMirror',
       'x-component-props': {
         changeOnSelect: true,
-        options: getVariableOptions(),
       },
     },
     showMessageDetail: {
@@ -107,31 +107,18 @@ export class MessageInstruction extends Instruction {
       },
     },
   };
-}
 
-function getVariableOptions() {
-  return [
-    {
-      label: '{{t("Current form")}}',
-      value: 'currentForm',
-      children: [
-        {
-          label: tval('The Notified Person'),
-          value: 'notifiedPerson',
-        },
-        {
-          label: tval('Title'),
-          value: 'title',
-        },
-        {
-          label: tval('Content'),
-          value: 'content',
-        },
-        {
-          label: tval('Show message detail'),
-          value: 'showMessageDetail',
-        },
-      ],
-    },
-  ];
+  useCurrentFormVariables(node, options): VariableOption[] {
+    const compile = useCompile();
+    const { key } = node;
+    const { fieldNames } = options;
+    const sourceVarList = Object.entries(this.fieldset);
+    const result = sourceVarList.map(([fieldName, field]) => {
+      return {
+        [fieldNames.label]: compile(field?.title) || fieldName,
+        [fieldNames.value]: `${key}.${fieldName}`,
+      };
+    });
+    return result;
+  }
 }
