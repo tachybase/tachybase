@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { createStyles, Plugin } from '@tachybase/client';
 
 import { RightOutlined } from '@ant-design/icons';
@@ -10,7 +10,12 @@ import { lang } from './locale';
 import { MiddlewareToolPane } from './middlewarePane';
 
 const DOCUMENTATION_PATH = '/api-documentation';
-const Documentation = lazy(() => import('./Document'));
+const DocumentationLazy = lazy(() => import('./Document'));
+const Documentation = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <DocumentationLazy />
+  </Suspense>
+);
 
 export const useStyles = createStyles(({ css, token }) => {
   return css`
