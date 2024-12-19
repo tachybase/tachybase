@@ -1,4 +1,3 @@
-import { isMainThread } from 'worker_threads';
 import { DumpRulesGroupType } from '@tachybase/database';
 import { Plugin } from '@tachybase/server';
 
@@ -11,8 +10,6 @@ export default class PluginBackupRestoreServer extends Plugin {
       name: `pm.${this.name}`,
       actions: ['backupFiles:*'],
     });
-
-    this.app.registerWorker?.(this.name);
   }
 
   async load() {

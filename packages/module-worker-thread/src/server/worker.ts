@@ -1,12 +1,14 @@
-import { isMainThread, parentPort, workerData } from 'node:worker_threads';
+import { isMainThread, parentPort, workerData } from 'worker_threads';
+import { CollectionModel, FieldModel } from '@tachybase//module-collection/src/server/models';
 import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
+import CollectionManagerPlugin, { CollectionRepository } from '@tachybase/module-collection';
+import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
 import { uid } from '@tachybase/utils';
 
 import { WorkerEvent } from './workerTypes';
 
-// TODO: 另起一个文件夹
 const loggerOptions = {
   system: {
     transports: getLoggerTransport(),
@@ -60,26 +62,58 @@ const handleWorkerMessages = (app: Application) => {
 
 export const main = async () => {
   try {
-    const start = Date.now();
     const applicationOptions = {
       // TODO
       name: 'main-worker-' + uid(),
       database: await parseDatabaseOptionsFromEnv(),
-      plugins: [...workerData.plugins],
+      // plugins: [...workerData.plugins],
       logger: loggerOptions,
     } as ApplicationOptions;
     const app = new Application(applicationOptions);
-    await app.load({
-      skipDbPluigns: true,
+    app.logger.info('[worker] app boot');
+    // only add, not load, start
+    await app.pm.initPlugins();
+
+    app.db.registerRepositories({
+      CollectionRepository,
+    });
+    app.db.registerModels({
+      CollectionModel,
+      FieldModel,
     });
 
-    await app.start({
-      dbSync: false,
-      quickstart: false,
-      checkInstall: false,
-    });
+    const userPluginName = await app.pm.get(PluginUsersServer).name;
+    const pluginNames = [userPluginName];
+    for (const [P, plugin] of app.pm.getPlugins()) {
+      if (plugin.name.startsWith('field-')) {
+        pluginNames.push(plugin.name);
+      }
+    }
+
+    for (const pluginName of pluginNames) {
+      const plugin = app.pm.get(pluginName);
+      await plugin.beforeLoad();
+    }
+    for (const pluginName of pluginNames) {
+      const plugin = app.pm.get(pluginName);
+      await plugin.load();
+    }
+    for (const [P, plugin] of app.pm.getPlugins()) {
+      if (pluginNames.includes(plugin.name)) {
+        continue;
+      }
+      if (!plugin.enabled) {
+        continue;
+      }
+      await plugin.loadCollections();
+      // load features
+      // for (const feature of plugin.featureInstances) {
+      //   await feature.load();
+      // }
+    }
+    await app.db.getRepository<CollectionRepository>('collections').load();
+
     app.logger.info('[worker] app has been started');
-
     // 工作线程部分逻辑代码
     handleWorkerMessages(app);
   } catch (err) {

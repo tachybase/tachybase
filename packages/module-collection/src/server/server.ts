@@ -272,9 +272,6 @@ export class CollectionManagerPlugin extends Plugin {
 
   async load() {
     await this.importCollections(path.resolve(__dirname, './collections'));
-    if (!isMainThread) {
-      return;
-    }
     this.db.getRepository<CollectionRepository>('collections').setApp(this.app);
 
     const errorHandlerPlugin = this.app.getPlugin<PluginErrorHandler>('error-handler');

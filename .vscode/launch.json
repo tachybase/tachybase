@@ -4,9 +4,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug Worker",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["tsx", "packages/module-worker-thread/src/server/worker.ts"],
+      "name": "Debug rs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev", "--rs"],
       "skipFiles": ["<node_internals>/**"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"

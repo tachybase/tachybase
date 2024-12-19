@@ -11,9 +11,7 @@ import { EXPORT_WORKER_PAGESIZE } from './constants';
 import render from './renders';
 
 export class ExportPlugin extends Plugin {
-  beforeLoad() {
-    this.app.registerWorker?.(this.name);
-  }
+  beforeLoad() {}
 
   async load() {
     this.app.resourcer.registerActionHandler('export', exportXlsx);

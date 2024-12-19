@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto';
 import path from 'path';
 import { isMainThread, Worker } from 'worker_threads';
 import { Application } from '@tachybase/server';
+import { fsExists } from '@tachybase/utils';
 
 import { WORKER_COUNT_INIT, WORKER_ERROR_RETRY, WORKER_TIMEOUT } from './constants';
 import { WorkerEvent, WorkerEventInput, WorkerEventInputPluginMethod } from './workerTypes';
@@ -25,7 +26,6 @@ export class WorkerManager {
   private currentWorkerIndex = 0;
   private busyWorkers = new WeakMap<Worker, Set<string>>();
   private busyWorkerSet: Set<Worker> = new Set();
-  private workerPlugins: string[] = [];
   private cache = new Map<string, callPluginMethodInfo>();
   private errorRecoveryTimes = 0;
 
@@ -38,17 +38,14 @@ export class WorkerManager {
 
   constructor(
     public app: Application,
-    isDev: boolean,
     workerNum?: number,
   ) {
     if (!isMainThread) {
       return;
     }
-    this.isDev = isDev;
     if (workerNum) {
       this.workerNum = workerNum;
     }
-    this.workerPlugins = [...this.app.workerPlugins];
   }
 
   public getPresetWorkerNum() {
@@ -67,6 +64,8 @@ export class WorkerManager {
     if (!isMainThread) {
       return;
     }
+    // FIXME: 这种判断方式不太优雅
+    this.isDev = await fsExists(path.resolve(__dirname, './worker.ts'));
     await Promise.all(Array.from({ length: this.workerNum }).map(() => this.addWorker()));
   }
 
@@ -74,15 +73,12 @@ export class WorkerManager {
     let worker: Worker;
     if (!this.isDev) {
       worker = new Worker(path.resolve(__dirname, './worker.js'), {
-        workerData: {
-          plugins: this.workerPlugins,
-        },
+        workerData: {},
       });
     } else {
       worker = new Worker(path.resolve(__dirname, '../../worker-starter.mjs'), {
         workerData: {
           scriptPath: path.resolve(__dirname, './worker.ts'),
-          plugins: this.workerPlugins,
         },
       });
     }
@@ -129,7 +125,6 @@ export class WorkerManager {
     this.currentWorkerIndex = 0;
     this.busyWorkers = new WeakMap<Worker, Set<string>>();
     this.busyWorkerSet = new Set();
-    this.workerPlugins = [];
     this.cache = new Map<string, callPluginMethodInfo>();
     this.errorRecoveryTimes = 0;
   }
