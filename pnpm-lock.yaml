@@ -7,10 +7,9 @@ settings:
 overrides:
   '@types/node': 20.14.2
   antd: 5.22.0
+  dayjs: 1.11.10
   react-router: 6.28.0
   react-router-dom: 6.28.0
-  '@react-pdf/renderer': 3.3.8
-  dayjs: 1.11.10
 
 importers:
 
@@ -1675,7 +1674,7 @@ importers:
         specifier: ~5.3.7
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-pdf/renderer':
-        specifier: 3.3.8
+        specifier: ^3.3.8
         version: 3.3.8(encoding@0.1.13)(react@18.3.1)
       '@tachybase/components':
         specifier: workspace:*
@@ -1878,7 +1877,7 @@ importers:
         specifier: 7.26.0
         version: 7.26.0(@babel/core@7.26.0)
       '@react-pdf/renderer':
-        specifier: 3.3.8
+        specifier: ^3.3.8
         version: 3.3.8(encoding@0.1.13)(react@18.3.1)
       '@tachybase/client':
         specifier: workspace:*

@@ -95,7 +95,6 @@
       "canvas"
     ],
     "overrides": {
-      "@react-pdf/renderer": "3.3.8",
       "@types/node": "20.14.2",
       "antd": "5.22.0",
       "dayjs": "1.11.10",
