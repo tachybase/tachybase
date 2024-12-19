@@ -135,22 +135,24 @@ export class PluginDataSourceManagerServer extends Plugin {
           lodash.set(
             ctx,
             dataPath,
-            items.map((item) => {
-              const data = item.toJSON();
-              if (item.isMainRecord()) {
-                data['status'] = 'loaded';
+            items
+              .filter((item) => !item.isMainRecord())
+              .map((item) => {
+                const data = item.toJSON();
+                if (item.isMainRecord()) {
+                  data['status'] = 'loaded';
+                  return data;
+                }
+
+                const dataSourceStatus = this.dataSourceStatus[item.get('key')];
+                data['status'] = dataSourceStatus;
+
+                if (dataSourceStatus === 'loading-failed' || dataSourceStatus === 'reloading-failed') {
+                  data['errorMessage'] = this.dataSourceErrors[item.get('key')].message;
+                }
+
                 return data;
-              }
-
-              const dataSourceStatus = this.dataSourceStatus[item.get('key')];
-              data['status'] = dataSourceStatus;
-
-              if (dataSourceStatus === 'loading-failed' || dataSourceStatus === 'reloading-failed') {
-                data['errorMessage'] = this.dataSourceErrors[item.get('key')].message;
-              }
-
-              return data;
-            }),
+              }),
           );
         }
       },
