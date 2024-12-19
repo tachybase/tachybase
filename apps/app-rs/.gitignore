@@ -11,3 +11,5 @@ dist/
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+src/pages
