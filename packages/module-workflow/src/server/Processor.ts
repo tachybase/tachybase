@@ -332,6 +332,7 @@ export default class Processor {
     }
 
     return {
+      $currentForm: node.config,
       $context: this.execution.context,
       $jobsMapByNodeKey: this.jobsMapByNodeKey,
       $system: systemFns,

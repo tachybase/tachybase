@@ -1,3 +1,4 @@
+import { useCompile } from '@tachybase/client';
 import { ArrayItems } from '@tachybase/components';
 import {
   AdditionNotifiedPerson,
@@ -5,6 +6,7 @@ import {
   ConfigButtonMessage,
   Instruction,
   SelectNotifiedPerson,
+  VariableOption,
   WorkflowVariableCodeMirror,
 } from '@tachybase/module-workflow/client';
 
@@ -79,8 +81,8 @@ export class MessageInstruction extends Instruction {
       'x-component': 'WorkflowVariableCodeMirror',
       'x-component-props': {
         changeOnSelect: true,
-        options: getVariableOptions(),
         height: 100,
+        options: getVariablesOptions(),
       },
     },
     // 内容
@@ -91,7 +93,7 @@ export class MessageInstruction extends Instruction {
       'x-component': 'WorkflowVariableCodeMirror',
       'x-component-props': {
         changeOnSelect: true,
-        options: getVariableOptions(),
+        options: getVariablesOptions(),
       },
     },
     showMessageDetail: {
@@ -107,29 +109,37 @@ export class MessageInstruction extends Instruction {
       },
     },
   };
+
+  useCurrentFormVariables(node, options): VariableOption[] {
+    const compile = useCompile();
+    const { key } = node;
+    const { fieldNames } = options;
+    const sourceVarList = Object.entries(this.fieldset);
+    const result = sourceVarList.map(([fieldName, field]) => {
+      return {
+        [fieldNames.label]: compile(field?.title) || fieldName,
+        [fieldNames.value]: `${fieldName}`,
+      };
+    });
+    return result;
+  }
 }
 
-function getVariableOptions() {
+function getVariablesOptions() {
   return [
     {
-      label: '{{t("Current form")}}',
-      value: 'currentForm',
+      label: tval('Message variables'),
+      value: '$messageVariables',
       children: [
         {
           label: tval('The Notified Person'),
           value: 'notifiedPerson',
-        },
-        {
-          label: tval('Title'),
-          value: 'title',
-        },
-        {
-          label: tval('Content'),
-          value: 'content',
-        },
-        {
-          label: tval('Show message detail'),
-          value: 'showMessageDetail',
+          children: [
+            {
+              label: `{{t("Nickname")}}`,
+              value: 'nickname',
+            },
+          ],
         },
       ],
     },

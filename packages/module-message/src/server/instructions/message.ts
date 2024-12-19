@@ -4,18 +4,51 @@ import { replaceContextVariables } from './tools';
 
 export class MessageInstruction extends Instruction {
   async run(node: FlowNodeModel, input: any, processor: Processor): Promise<IJob> {
-    const notifiedPerson = await parsePerson(node, processor);
+    const notifiedPersonList = await parsePerson(node, processor);
 
     const context = processor.execution.context;
+    if (notifiedPersonList && notifiedPersonList.length > 0) {
+      const msgDataPromises = notifiedPersonList.map(async (userId) => {
+        try {
+          if (!node.config.title && !node.config.content) {
+            throw new Error('Message must have either title or content');
+          }
+          const title = await replaceContextVariables(
+            node.config.title || '',
+            {
+              nodeId: node.id,
+              userId,
+            },
+            processor,
+          );
+          const content = await replaceContextVariables(
+            node.config.content || '',
+            {
+              nodeId: node.id,
+              userId,
+            },
+            processor,
+          );
+          return {
+            userId,
+            title,
+            content,
+            schemaName: node.config.showMessageDetail,
+            snapshot: context.data,
+          };
+        } catch (error) {
+          console.error(`Failed to prepare message for user ${userId}:`, error);
+        }
+      });
 
-    if (notifiedPerson && notifiedPerson.length > 0) {
-      const msgData = notifiedPerson.map((userId) => ({
-        userId,
-        title: replaceContextVariables(node.config.title || '', context),
-        content: replaceContextVariables(node.config.content || '', context),
-        schemaName: node.config.showMessageDetail,
-        snapshot: context.data,
-      }));
+      let msgData;
+      try {
+        msgData = await Promise.all(msgDataPromises);
+      } catch (error) {
+        console.error('Failed to prepare messages:', error);
+        throw new Error('Message preparation failed');
+      }
+
       for (const message of msgData) {
         this.workflow.app.messageManager.sendMessage(+message.userId, message);
       }
