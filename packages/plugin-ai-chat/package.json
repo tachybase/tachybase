@@ -1,0 +1,15 @@
+{
+  "name": "@tachybase/plugin-ai-chat",
+  "version": "0.22.71",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "^5.5.2",
+    "antd": "5.22.0",
+    "antd-style": "3.6.2"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}
