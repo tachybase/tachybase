@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { FormLayout } from '@tachybase/components';
 import { Field, observer, RecursionField, Schema, useField, useForm } from '@tachybase/schema';
 
-import providerTypes from './providerTypes';
+import providerTypes, { SMS_PROVIDER_ALIYUN } from './providerTypes';
+
+const DEFAULT_PROVIDER_TYPE = SMS_PROVIDER_ALIYUN;
 
 export const ProviderOptions = observer(
   (props) => {
@@ -16,7 +18,7 @@ export const ProviderOptions = observer(
     return (
       <FormLayout layout={'vertical'}>
         <RecursionField
-          key={form.values.type || 'sms-aliyun'}
+          key={form.values.type || DEFAULT_PROVIDER_TYPE}
           basePath={field.address}
           onlyRenderProperties
           schema={s}

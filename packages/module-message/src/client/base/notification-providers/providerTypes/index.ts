@@ -6,7 +6,10 @@ import SMSTencent from './sms-tencent';
 
 const providerTypes: Registry<ISchema> = new Registry();
 
-providerTypes.register('sms-aliyun', SMSAliyun);
-providerTypes.register('sms-tencent', SMSTencent);
+export const SMS_PROVIDER_ALIYUN = 'sms-aliyun';
+const SMS_PROVIDER_TENCENT = 'sms-tencent';
+
+providerTypes.register(SMS_PROVIDER_ALIYUN, SMSAliyun);
+providerTypes.register(SMS_PROVIDER_TENCENT, SMSTencent);
 
 export default providerTypes;

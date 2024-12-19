@@ -1,9 +1,9 @@
-import * as tencentcloud from 'tencentcloud-sdk-nodejs';
+import { sms as tencentSms } from 'tencentcloud-sdk-nodejs';
 
 import { Provider } from './Provider';
 
 // 导入对应产品模块的client models。
-const smsClient = tencentcloud.sms.v20210111.Client;
+const smsClient = tencentSms.v20210111.Client;
 
 export default class extends Provider {
   client: InstanceType<typeof smsClient>;
