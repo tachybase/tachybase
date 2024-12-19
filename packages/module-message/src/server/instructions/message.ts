@@ -9,32 +9,45 @@ export class MessageInstruction extends Instruction {
     const context = processor.execution.context;
     if (notifiedPersonList && notifiedPersonList.length > 0) {
       const msgDataPromises = notifiedPersonList.map(async (userId) => {
-        const title = await replaceContextVariables(
-          node.config.title || '',
-          {
-            nodeId: node.id,
+        try {
+          if (!node.config.title && !node.config.content) {
+            throw new Error('Message must have either title or content');
+          }
+          const title = await replaceContextVariables(
+            node.config.title || '',
+            {
+              nodeId: node.id,
+              userId,
+            },
+            processor,
+          );
+          const content = await replaceContextVariables(
+            node.config.content || '',
+            {
+              nodeId: node.id,
+              userId,
+            },
+            processor,
+          );
+          return {
             userId,
-          },
-          processor,
-        );
-        const content = await replaceContextVariables(
-          node.config.content || '',
-          {
-            nodeId: node.id,
-            userId,
-          },
-          processor,
-        );
-        return {
-          userId,
-          title,
-          content,
-          schemaName: node.config.showMessageDetail,
-          snapshot: context.data,
-        };
+            title,
+            content,
+            schemaName: node.config.showMessageDetail,
+            snapshot: context.data,
+          };
+        } catch (error) {
+          console.error(`Failed to prepare message for user ${userId}:`, error);
+        }
       });
 
-      const msgData = await Promise.all(msgDataPromises);
+      let msgData;
+      try {
+        msgData = await Promise.all(msgDataPromises);
+      } catch (error) {
+        console.error('Failed to prepare messages:', error);
+        throw new Error('Message preparation failed');
+      }
 
       for (const message of msgData) {
         this.workflow.app.messageManager.sendMessage(+message.userId, message);
