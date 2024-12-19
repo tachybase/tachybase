@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
 
-import { MessageChannelProvider } from './MessageChannel.provider';
+import { MessageChannelProvider } from './MessageChannelProvider';
 import { KitSiteMessageChannel } from './site-message/kit';
 import { KitSMSChannel } from './sms/kit';
 
