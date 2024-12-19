@@ -105,8 +105,8 @@ function JobModal() {
                   'x-read-pretty': true,
                 },
                 executionTime: {
-                  type: 'integer',
-                  title: `{{t("Executed Time", { ns: "${NAMESPACE}" })}}`,
+                  type: 'string',
+                  title: `{{t("Executed time", { ns: "${NAMESPACE}" })}}`,
                   'x-decorator': 'FormItem',
                   'x-component': 'Input',
                   'x-read-pretty': true,
@@ -297,10 +297,16 @@ export function ExecutionCanvas() {
 
   const { jobs = [], workflow: { nodes = [], revisions = [], ...workflow } = {}, ...execution } = data?.data ?? {};
 
-  const allCreateAtDate = new Date(execution.createdAt).getTime();
-  const allUpdateAtDate = new Date(execution.updatedAt).getTime();
+  try {
+    const allCreateAtDate = execution.createdAt ? new Date(execution.createdAt).getTime() : Date.now();
+    const allUpdateAtDate = execution.updatedAt ? new Date(execution.updatedAt).getTime() : Date.now();
 
-  jobExecutionTime(jobs, allCreateAtDate, allUpdateAtDate);
+    const jobsWithExecutionTime = jobExecutionTime(jobs, allCreateAtDate, allUpdateAtDate);
+    jobs.splice(0, jobs.length, ...jobsWithExecutionTime);
+  } catch (error) {
+    console.error('Failed to calculate execution times:', error);
+    message.error(t('Failed to calculate execution times'));
+  }
 
   linkNodes(nodes);
   attachJobs(nodes, jobs);

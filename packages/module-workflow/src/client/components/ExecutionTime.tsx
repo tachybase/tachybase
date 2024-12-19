@@ -71,20 +71,37 @@ export function ExecutionTime() {
   return <div>{timeDifference}</div>;
 }
 
-export function jobExecutionTime(jobs: any[], allCreateAtDate: number, allUpdateAtDate: number) {
-  jobs.forEach((job, index) => {
+interface Job {
+  id: number;
+  createdAt: string | number;
+  executionTime?: string;
+}
+
+export function jobExecutionTime(jobs: Job[], allCreateAtDate: number, allUpdateAtDate: number): Job[] {
+  if (!Array.isArray(jobs) || !allCreateAtDate || !allUpdateAtDate) {
+    throw new Error('Invalid parameters provided to jobExecutionTime');
+  }
+
+  return jobs.map((job, index) => {
+    if (!job.createdAt) {
+      throw new Error(`Job at index ${index} is missing createdAt timestamp`);
+    }
+
     const createdAtDate = new Date(job.createdAt).getTime();
+    let executionTime: string;
 
     if (index === 0) {
-      // 第一个 job，执行时间为 createdAtDate - allCreateAtDate
-      job.executionTime = formatDuration(Math.max((createdAtDate - allCreateAtDate) / 1000, 0)); // 转为秒
+      // First job: execution time is createdAtDate - allCreateAtDate
+      executionTime = formatDuration(Math.max((createdAtDate - allCreateAtDate) / 1000, 0));
     } else if (index === jobs.length - 1) {
-      // 最后一个 job，执行时间为 allUpdateAtDate - createdAtDate
-      job.executionTime = formatDuration(Math.max((allUpdateAtDate - createdAtDate) / 1000, 0)); // 转为秒
+      // Last job: execution time is allUpdateAtDate - createdAtDate
+      executionTime = formatDuration(Math.max((allUpdateAtDate - createdAtDate) / 1000, 0));
     } else {
-      // 中间的 job，执行时间为下一个 job 的 createdAt - 当前 job 的 createdAt
+      // Middle jobs: execution time is next job's createdAt - current job's createdAt
       const nextJobCreatedAtDate = new Date(jobs[index + 1].createdAt).getTime();
-      job.executionTime = formatDuration(Math.max((nextJobCreatedAtDate - createdAtDate) / 1000, 0)); // 转为秒
+      executionTime = formatDuration(Math.max((nextJobCreatedAtDate - createdAtDate) / 1000, 0));
     }
+
+    return { ...job, executionTime };
   });
 }
