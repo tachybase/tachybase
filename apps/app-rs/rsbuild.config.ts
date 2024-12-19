@@ -7,16 +7,15 @@ import { pluginReact } from '@rsbuild/plugin-react';
 
 const config = getUmiConfig();
 
+const rsDefined = {};
+for (const key in config.define) {
+  rsDefined[key] = JSON.stringify(config.define[key]);
+}
+
 export default defineConfig({
   source: {
     define: {
-      ...config.define,
-      // "process.env.APP_PUBLIC_PATH": "/",
-      // "process.env.WS_PATH": "/ws",
-      // "process.env.API_BASE_URL": "/api/",
-      // "process.env.APP_ENV": "development",
-      // "process.env.VERSION": "0.22.84",
-      // "process.env.WEBSOCKET_URL": "ws://localhost:3010/ws",
+      ...rsDefined,
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     },
   },
@@ -33,42 +32,12 @@ export default defineConfig({
       font: 'assets',
       media: 'assets',
     },
-    minify: false,
+    minify: true,
     overrideBrowserslist: ['chrome >= 69', 'edge >= 79', 'safari >= 12'],
-  },
-  tools: {
-    rspack: (config, { appendRules }) => {
-      // 追加单条规则
-      appendRules({
-        test: /\.hyphen/,
-        loader: require.resolve('hyphen'),
-      });
-    },
   },
   server: {
     proxy: {
-      '/api/': {
-        target: 'http://127.0.0.1:3010',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api/': '/api/',
-        },
-      },
-      '/adapters/': {
-        target: 'http://127.0.0.1:3010',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/adapters/': '/adapters/',
-        },
-      },
-      '/storage/uploads/': {
-        target: 'http://127.0.0.1:3010',
-        changeOrigin: true,
-      },
-      '/static/': {
-        target: 'http://127.0.0.1:3010',
-        changeOrigin: true,
-      },
+      ...config.proxy,
     },
   },
   plugins: [pluginReact(), pluginLess(), pluginNodePolyfill()],

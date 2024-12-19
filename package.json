@@ -52,6 +52,7 @@
     "@ianvs/prettier-plugin-sort-imports": "4.4.0",
     "@inquirer/prompts": "^7.1.0",
     "@react-pdf/textkit": "4.4.1",
+    "@rsbuild/core": "1.1.10",
     "@tachybase/build": "workspace:*",
     "@tachybase/cli": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
