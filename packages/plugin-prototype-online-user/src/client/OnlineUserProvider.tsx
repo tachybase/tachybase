@@ -42,7 +42,7 @@ const OnlineUserManger = () => {
 
   return (
     <Dropdown menu={{ items: onlineUserItems }}>
-      <Button style={{ color: token.colorTextHeaderMenu }}>
+      <Button style={{ width: 'auto', color: token.colorTextHeaderMenu }} type="text">
         {t('{{num}} people online', { num: _.size(onlineUserItems) })}
       </Button>
     </Dropdown>
