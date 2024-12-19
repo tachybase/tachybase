@@ -43,6 +43,8 @@ export default defineConfig({
     overrideBrowserslist: ['chrome >= 69', 'edge >= 79', 'safari >= 12'],
   },
   server: {
+    port: Number(process.env.PORT || 3000),
+    open: !process.env.NO_OPEN,
     proxy: {
       ...config.proxy,
     },
