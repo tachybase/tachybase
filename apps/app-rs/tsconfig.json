@@ -18,8 +18,11 @@
     /* type checking */
     "strict": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "paths": {
+      "@tachybase/client": ["../../packages/client/src"]
+    }
   },
-  "extends": "../../tsconfig.paths.json",
-  "include": ["src"]
+  "exclude": ["node_modules"],
+  "include": ["src/"]
 }

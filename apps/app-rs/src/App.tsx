@@ -1,8 +1,6 @@
 import { Application } from '@tachybase/client';
 import { TachyBaseClientPresetPlugin } from '@tachybase/preset-tachybase/client';
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
 import devDynamicImport from './dynamic-import';
 
 declare global {
@@ -28,11 +26,4 @@ export const app = new Application({
   devDynamicImport: devDynamicImport as any,
 });
 
-const router = createBrowserRouter([
-  {
-    path: '/*',
-    Component: app.getRootComponent(),
-  },
-]);
-
-export default () => <RouterProvider router={router} />;
+export default app.getRootComponent();

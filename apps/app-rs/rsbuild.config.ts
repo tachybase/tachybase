@@ -20,6 +20,33 @@ for (const key in config.define) {
 }
 
 export default defineConfig({
+  html: {
+    title: 'Tachybase',
+    inject: 'body',
+    template: 'src/assets/index.html',
+    meta: [{ viewport: 'initial-scale=0.1' }],
+    favicon: 'src/assets/favicon.ico',
+    appIcon: {
+      name: 'Tachybase',
+      icons: [
+        {
+          src: 'src/assets/apple-touch-icon.png',
+          size: 180,
+          target: 'apple-touch-icon',
+        },
+        {
+          src: 'src/assets/android-chrome-192x192.png',
+          size: 192,
+          target: 'web-app-manifest',
+        },
+        {
+          src: 'src/assets/android-chrome-512x512.png',
+          size: 512,
+          target: 'web-app-manifest',
+        },
+      ],
+    },
+  },
   source: {
     define: {
       ...rsDefined,
@@ -43,6 +70,8 @@ export default defineConfig({
     overrideBrowserslist: ['chrome >= 69', 'edge >= 79', 'safari >= 12'],
   },
   server: {
+    port: Number(process.env.PORT || 3000),
+    open: !process.env.NO_OPEN,
     proxy: {
       ...config.proxy,
     },

@@ -13,7 +13,6 @@ import postinstall from './postinstall';
 import start from './start';
 import tar from './tar';
 import test from './test';
-import umi from './umi';
 import upgrade from './upgrade';
 
 export default async (cli: Command) => {
@@ -28,7 +27,6 @@ export default async (cli: Command) => {
   clean(cli);
   pm2(cli);
   test(cli);
-  umi(cli);
   upgrade(cli);
   postinstall(cli);
   createPlugin(cli);
