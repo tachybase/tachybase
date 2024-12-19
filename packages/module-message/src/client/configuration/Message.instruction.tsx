@@ -82,6 +82,7 @@ export class MessageInstruction extends Instruction {
       'x-component-props': {
         changeOnSelect: true,
         height: 100,
+        options: getVariablesOptions(),
       },
     },
     // 内容
@@ -92,6 +93,7 @@ export class MessageInstruction extends Instruction {
       'x-component': 'WorkflowVariableCodeMirror',
       'x-component-props': {
         changeOnSelect: true,
+        options: getVariablesOptions(),
       },
     },
     showMessageDetail: {
@@ -121,4 +123,25 @@ export class MessageInstruction extends Instruction {
     });
     return result;
   }
+}
+
+function getVariablesOptions() {
+  return [
+    {
+      label: tval('Message variables'),
+      value: '$messageVariables',
+      children: [
+        {
+          label: tval('The Notified Person'),
+          value: 'notifiedPerson',
+          children: [
+            {
+              label: `{{t("Nickname")}}`,
+              value: 'nickname',
+            },
+          ],
+        },
+      ],
+    },
+  ];
 }

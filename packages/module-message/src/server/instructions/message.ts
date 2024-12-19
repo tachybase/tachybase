@@ -8,13 +8,34 @@ export class MessageInstruction extends Instruction {
 
     const context = processor.execution.context;
     if (notifiedPersonList && notifiedPersonList.length > 0) {
-      const msgData = notifiedPersonList.map((userId) => ({
-        userId,
-        title: replaceContextVariables(node.config.title || '', node.id, processor),
-        content: replaceContextVariables(node.config.content || '', node.id, processor),
-        schemaName: node.config.showMessageDetail,
-        snapshot: context.data,
-      }));
+      const msgDataPromises = notifiedPersonList.map(async (userId) => {
+        const title = await replaceContextVariables(
+          node.config.title || '',
+          {
+            nodeId: node.id,
+            userId,
+          },
+          processor,
+        );
+        const content = await replaceContextVariables(
+          node.config.content || '',
+          {
+            nodeId: node.id,
+            userId,
+          },
+          processor,
+        );
+        return {
+          userId,
+          title,
+          content,
+          schemaName: node.config.showMessageDetail,
+          snapshot: context.data,
+        };
+      });
+
+      const msgData = await Promise.all(msgDataPromises);
+
       for (const message of msgData) {
         this.workflow.app.messageManager.sendMessage(+message.userId, message);
       }
