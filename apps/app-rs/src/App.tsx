@@ -13,6 +13,15 @@ declare global {
 }
 
 export const app = new Application({
+  router: {
+    future: {
+      v7_startTransition: true,
+      v7_fetcherPersist: true,
+      v7_normalizeFormMethod: true,
+      v7_partialHydration: true,
+      v7_skipActionErrorRevalidation: true,
+    },
+  },
   apiClient: {
     baseURL: window['__tachybase_api_base_url__'] || process.env.API_BASE_URL || '/api/',
   },
