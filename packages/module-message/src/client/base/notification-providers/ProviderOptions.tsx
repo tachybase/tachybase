@@ -24,5 +24,5 @@ export const ProviderOptions = observer(
       </FormLayout>
     );
   },
-  { displayName: 'Verification' },
+  { displayName: 'ProviderOptions' },
 );
