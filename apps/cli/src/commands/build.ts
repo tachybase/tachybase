@@ -1,8 +1,8 @@
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 
 import { type Command } from 'commander';
 
-import { buildIndexHtml, isPackageValid, nodeCheck, run } from '../util';
+import { isPackageValid, nodeCheck, run } from '../util';
 
 export default (cli: Command) => {
   cli
@@ -33,6 +33,5 @@ export default (cli: Command) => {
         options.sourcemap ? '--sourcemap' : '',
         options.retry ? '--retry' : '',
       ]);
-      buildIndexHtml(true);
     });
 };

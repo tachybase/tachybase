@@ -96,9 +96,7 @@ export async function build(pkgs: string[]) {
   // core/app
   const appClient = packages.find((item) => item.dir === CORE_APP);
   if (appClient) {
-    await runScript(['umi', 'build'], ROOT_PATH, {
-      APP_ROOT: path.join(CORE_APP, 'client'),
-    });
+    await runScript(['rsbuild', 'build', '-r', 'apps/app-rs'], ROOT_PATH);
   }
 }
 

@@ -224,6 +224,34 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
 
+  apps/app-server:
+    dependencies:
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../../packages/database
+      '@tachybase/devtools':
+        specifier: workspace:*
+        version: link:../../packages/devtools
+      '@tachybase/preset-tachybase':
+        specifier: workspace:*
+        version: link:../../packages/preset-tachybase
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../../packages/server
+      '@tachybase/telemetry':
+        specifier: workspace:*
+        version: link:../../packages/telemetry
+    devDependencies:
+      '@tachybase/cache':
+        specifier: workspace:*
+        version: link:../../packages/cache
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../packages/client
+      '@tachybase/logger':
+        specifier: workspace:*
+        version: link:../../packages/logger
+
   apps/build:
     dependencies:
       '@babel/core':
@@ -301,12 +329,12 @@ importers:
 
   apps/cli:
     dependencies:
-      '@tachybase/app':
+      '@tachybase/app-rs':
         specifier: workspace:*
-        version: link:../app
-      '@tachybase/app-mako':
+        version: link:../app-rs
+      '@tachybase/app-server':
         specifier: workspace:*
-        version: link:../app-mako
+        version: link:../app-server
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../../packages/utils

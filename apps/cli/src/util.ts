@@ -34,7 +34,7 @@ export function isPackageValid(pkg: string) {
 }
 
 export function hasCorePackages() {
-  const coreDir = resolve(process.cwd(), 'packages/core/build');
+  const coreDir = resolve(process.cwd(), 'apps/build');
   return existsSync(coreDir);
 }
 
@@ -194,14 +194,36 @@ export async function getVersion() {
   return versions[versions.length - 1];
 }
 
+function getPackagePath(moduleName: string) {
+  try {
+    return dirname(dirname(new URL(import.meta.resolve(`${moduleName}`)).pathname));
+  } catch {
+    return dirname(dirname(new URL(import.meta.resolve(`${moduleName}/src/index.ts`)).pathname));
+  }
+}
+
+function normalizePath(path: string) {
+  const isWindows = process.platform === 'win32';
+  if (isWindows) {
+    // windows /c:/xxx -> c:/xxx
+    return path.substring(1);
+  } else {
+    return path;
+  }
+}
+
 export function generateAppDir() {
-  const appEntry = process.env.APP_ENTRY || 'app';
-  const appPkgPath = dirname(dirname(new URL(import.meta.resolve(`@tachybase/${appEntry}/src/index.ts`)).pathname));
+  // calc server path
+  const serverPath = getPackagePath('@tachybase/app-server');
+  // calc client path
+  const clientPath = getPackagePath('@tachybase/app-rs');
+  const appPkgPath = serverPath;
   const appDevDir = resolve(process.cwd(), './storage/.app-dev');
+  // when using create-tachybase-app
   if (isDev() && !hasCorePackages() && appPkgPath.includes('node_modules')) {
+    // FIXME
     if (!existsSync(appDevDir)) {
-      // @ts-ignore
-      mkdirSync(appDevDir, { force: true, recursive: true });
+      mkdirSync(appDevDir, { recursive: true });
       cpSync(appPkgPath, appDevDir, {
         recursive: true,
         force: true,
@@ -209,16 +231,9 @@ export function generateAppDir() {
     }
     process.env.APP_PACKAGE_ROOT = appDevDir;
   } else {
-    process.env.APP_PACKAGE_ROOT = appPkgPath;
-    const isWindows = process.platform === 'win32';
-    if (isWindows) {
-      // windows /c:/xxx
-      process.env.APP_PACKAGE_ROOT = appPkgPath.substring(1);
-    } else {
-      process.env.APP_PACKAGE_ROOT = appPkgPath;
-    }
+    process.env.APP_PACKAGE_ROOT = normalizePath(appPkgPath);
+    process.env.APP_CLIENT_ROOT = normalizePath(clientPath);
   }
-  buildIndexHtml();
 }
 
 export async function genTsConfigPaths() {
@@ -293,28 +308,6 @@ function parseEnv(name: string) {
     }
     return 'false';
   }
-}
-
-export function buildIndexHtml(force = false) {
-  const file = `${process.env.APP_PACKAGE_ROOT}/dist/client/index.html`;
-  if (!_existsSync(file)) {
-    return;
-  }
-  const tpl = `${process.env.APP_PACKAGE_ROOT}/dist/client/index.html.tpl`;
-  if (force && _existsSync(tpl)) {
-    rmSync(tpl);
-  }
-  if (!_existsSync(tpl)) {
-    copyFileSync(file, tpl);
-  }
-  const data = readFileSync(tpl, 'utf-8');
-  const replacedData = data
-    .replace(/\{\{env.APP_PUBLIC_PATH\}\}/g, process.env.APP_PUBLIC_PATH ?? '')
-    .replace(/\{\{env.API_BASE_URL\}\}/g, process.env.API_BASE_URL ?? process.env.API_BASE_PATH ?? '')
-    .replace(/\{\{env.WS_URL\}\}/g, process.env.WEBSOCKET_URL ?? '')
-    .replace(/\{\{env.WS_PATH\}\}/g, process.env.WS_PATH ?? '')
-    .replace('src="/umi.', `src="${process.env.APP_PUBLIC_PATH}umi.`);
-  _writeFileSync(file, replacedData, 'utf-8');
 }
 
 export function initEnv() {
