@@ -4,7 +4,7 @@ import { getPortPromise } from 'portfinder';
 import { nodeCheck, postCheck, promptForTs, run } from '../util';
 
 export default (cli: Command) => {
-  const { APP_PACKAGE_ROOT } = process.env;
+  const { APP_PACKAGE_ROOT, APP_CLIENT_ROOT } = process.env;
   cli
     .command('dev')
     .option('-p, --port [port]')
@@ -12,6 +12,7 @@ export default (cli: Command) => {
     .option('--client')
     .option('--server')
     .option('--rs')
+    .option('--no-open')
     .option('--db-sync')
     .option('--inspect [port]')
     .allowUnknownOption()
@@ -110,25 +111,16 @@ export default (cli: Command) => {
       if (client || !server) {
         const getDevEnvironment = (clientPort: number, proxyPort: number) => ({
           PORT: clientPort + '',
-          APP_ROOT: `${APP_PACKAGE_ROOT}/client`,
+          NO_OPEN: opts.open ? undefined : '1',
           WEBSOCKET_URL:
             process.env.WEBSOCKET_URL || (proxyPort ? `ws://localhost:${proxyPort}${process.env.WS_PATH}` : undefined),
           PROXY_TARGET_URL: process.env.PROXY_TARGET_URL || (proxyPort ? `http://127.0.0.1:${proxyPort}` : undefined),
         });
 
-        if (rs) {
-          console.log('starting client', 1 * clientPort);
-          const proxyPort = opts.proxyPort || serverPort;
-          console.log('proxy port', proxyPort);
-          const env = getDevEnvironment(clientPort, proxyPort);
-          run('rsbuild', ['dev', '--open', '-r', 'apps/app-rs', '--port', clientPort + ''], { env });
-        } else {
-          console.log('starting client', 1 * clientPort);
-          const proxyPort = opts.proxyPort || serverPort;
-          console.log('proxy port', proxyPort);
-          const env = getDevEnvironment(clientPort, proxyPort);
-          run('umi', ['dev'], { env });
-        }
+        const proxyPort = opts.proxyPort || serverPort || clientPort + 10;
+        console.log('starting client', 1 * clientPort, 'proxy port', proxyPort);
+        const env = getDevEnvironment(clientPort, proxyPort);
+        run('rsbuild', ['dev', '-r', 'apps/app-rs'], { env });
       }
     });
 };

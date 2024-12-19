@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/plugin-file-manager",
+  "name": "@tachybase/module-file",
   "displayName": "File manager",
   "version": "0.22.85",
   "description": "Provides files storage services with files collection template and attachment field.",
@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/plugin-file-manager"
+    "build": "tachybase-build --no-dts @tachybase/module-file"
   },
   "devDependencies": {
     "@ant-design/icons": "^5.3.7",

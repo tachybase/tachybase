@@ -1,17 +1,19 @@
 import * as others from '../../../packages/module-pdf/src/client';
-import packageMap from './.plugins/packageMap.json';
 
-type PackageName = keyof typeof packageMap;
-
-async function devDynamicImport(packageName: PackageName) {
-  const fileName = packageMap[packageName];
-  if (!fileName) {
-    return Promise.resolve(null);
+async function devDynamicImport(packageName: string) {
+  if (process.env.NODE_ENV !== 'production') {
+    const packageMap = (await import('./.plugins/packageMap.json')).default as Record<string, string>;
+    const fileName = packageMap[packageName];
+    if (!fileName) {
+      return Promise.resolve(null);
+    }
+    // FIXME: 需要处理这个模块的加载问题
+    if (packageName === '@tachybase/module-pdf') {
+      return { ...others };
+    }
+    return await import(`./.plugins/packages/${fileName}`);
+  } else {
+    return null;
   }
-  // FIXME: 需要处理这个模块的加载问题
-  if (packageName === '@tachybase/module-pdf') {
-    return { ...others };
-  }
-  return await import(`./.plugins/packages/${fileName}`);
 }
 export default devDynamicImport;

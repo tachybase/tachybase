@@ -1,7 +1,8 @@
 {
-  "name": "app-rs",
-  "version": "1.0.1",
-  "private": true,
+  "name": "@tachybase/app-rs",
+  "version": "0.22.85",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "build": "rsbuild build",
     "dev": "rsbuild dev --open",
@@ -11,8 +12,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/devtools": "workspace:*",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-router-dom": "6"
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@rsbuild/core": "^1.1.8",

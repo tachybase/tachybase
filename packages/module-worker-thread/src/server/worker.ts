@@ -5,6 +5,7 @@ import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
 import CollectionManagerPlugin, { CollectionRepository } from '@tachybase/module-collection';
 import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
+import { uid } from '@tachybase/utils';
 
 import { WorkerEvent } from './workerTypes';
 
@@ -62,6 +63,8 @@ const handleWorkerMessages = (app: Application) => {
 export const main = async () => {
   try {
     const applicationOptions = {
+      // TODO
+      name: 'main-worker-' + uid(),
       database: await parseDatabaseOptionsFromEnv(),
       // plugins: [...workerData.plugins],
       logger: loggerOptions,

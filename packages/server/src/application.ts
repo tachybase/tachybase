@@ -751,10 +751,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
         command: this.activatedCommand,
         error,
       });
-
-      if (options?.throwError) {
-        throw error;
-      }
     } finally {
       const _actionCommand = this._actionCommand;
       if (_actionCommand) {
