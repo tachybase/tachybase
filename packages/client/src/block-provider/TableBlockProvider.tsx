@@ -102,7 +102,7 @@ export const TableBlockProvider = withDynamicSchemaProps((props) => {
   const { getCollection, getCollectionField } = useCollectionManager_deprecated(props.dataSource);
   const collection = getCollection(props.collection, props.dataSource);
   const { treeTable } = fieldSchema?.['x-decorator-props'] || {};
-  const params = useTableBlockParamsCompat(props);
+  const params = useTableBlockParamsCompat(props) || {};
 
   let childrenColumnName = 'children';
   if (collection?.tree && treeTable !== false) {
