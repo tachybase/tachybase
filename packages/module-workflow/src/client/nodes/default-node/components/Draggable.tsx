@@ -14,8 +14,8 @@ export const Draggable = (props) => {
     : undefined;
 
   return (
-    <button ref={setNodeRef} style={style} {...listeners} {...attributes}>
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
       {children}
-    </button>
+    </div>
   );
 };

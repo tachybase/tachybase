@@ -36,10 +36,6 @@ export const Branch = ({
   const handleDragEnd = (event) => {
     const { active, over } = event;
     const newList = rearrangeNodeList(list, active.id, over.id);
-    const oldListId = list.map((node) => node.id);
-    console.log('%c Line:40 🌶 oldListId', 'font-size:18px;color:#42b983;background:#3f7cff', oldListId);
-    const newListId = newList.map((node) => node.id);
-    console.log('%c Line:42 🌽 newListId', 'font-size:18px;color:#6ec1c2;background:#fca650', newListId);
     setList(newList);
   };
 

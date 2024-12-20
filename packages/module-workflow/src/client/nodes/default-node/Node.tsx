@@ -21,24 +21,10 @@ export const Node = ({ data }) => {
     <ProviderContextNode value={{ ...data, group }}>
       <div className={cx(styles.nodeBlockClass)}>
         <Droppable id={data.id}>
-          <div
-            style={{
-              width: 200,
-              height: 80,
-              backgroundColor: '#f5f5f5',
-              border: '1px dashed #ccc',
-              borderRadius: 4,
-              display: 'block',
-              justifyContent: 'center',
-            }}
-          >
-            drop here
-          </div>
+          <Draggable id={data.id}>
+            <Component data={data} />
+          </Draggable>
         </Droppable>
-        <Draggable id={data.id}>
-          <Component data={data} />
-        </Draggable>
-
         {!end || (typeof end === 'function' && !end(data)) ? (
           <AddButton aria-label={getAriaLabel()} upstream={data} />
         ) : (
