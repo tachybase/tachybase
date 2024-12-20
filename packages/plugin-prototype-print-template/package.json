@@ -6,14 +6,14 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-print-template"
   },
   "dependencies": {
-    "@bull-board/api": "^5.21.1",
-    "@bull-board/koa": "^5.21.1",
+    "@bull-board/api": "^6.5.3",
+    "@bull-board/koa": "^6.5.3",
     "bullmq": "^5.10.3",
     "docxtemplater": "^3.48.0",
     "koa-bodyparser": "^4.4.1",
     "pizzip": "^3.1.7",
-    "ts-node": "9.1.1",
-    "typescript": "^5.6.3",
+    "ts-node": "10.9.2",
+    "typescript": "^5.7.2",
     "xml2js": "^0.6.2"
   },
   "peerDependencies": {

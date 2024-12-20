@@ -15,7 +15,7 @@
     "@tachybase/schema": "workspace:*",
     "antd": "5.22.0",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "^6.25.1"
+    "react-router-dom": "6.28.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
