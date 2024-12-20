@@ -1,7 +1,10 @@
 import { isMainThread, parentPort, workerData } from 'worker_threads';
-import { CollectionModel, FieldModel } from '@tachybase//module-collection/src/server/models';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
-import { CollectionRepository } from '@tachybase/module-collection';
+import CollectionManagerPlugin, {
+  CollectionModel,
+  CollectionRepository,
+  FieldModel,
+} from '@tachybase/module-collection';
 import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
 import { Container, uid } from '@tachybase/utils';
@@ -98,14 +101,6 @@ async function loadPlugins(app: Application) {
   // only add, not load, start
   await app.pm.initPlugins();
 
-  app.db.registerRepositories({
-    CollectionRepository,
-  });
-  app.db.registerModels({
-    CollectionModel,
-    FieldModel,
-  });
-
   // TODO: 这里不该特殊处理
   const userPluginName = app.pm.get(PluginUsersServer).name;
   // 必备插件,为了数据下载,部分插件需要load (users表,和一些字段信息的表 TODO: 可能会有遗漏的)
@@ -115,6 +110,7 @@ async function loadPlugins(app: Application) {
       loadPlugins.push(plugin.name);
     }
   }
+  loadPlugins.push(app.pm.get(CollectionManagerPlugin).name);
 
   for (const pluginName of loadPlugins) {
     const plugin = app.pm.get(pluginName);
@@ -125,31 +121,23 @@ async function loadPlugins(app: Application) {
       throw error;
     }
   }
-  for (const pluginName of loadPlugins) {
-    const plugin = app.pm.get(pluginName);
-    try {
-      await plugin.load();
-    } catch (error) {
-      app.logger.error(`Failed to execute load for plugin ${pluginName}:`, error);
-      throw error;
-    }
-  }
   for (const [P, plugin] of app.pm.getPlugins()) {
-    if (loadPlugins.includes(plugin.name)) {
-      continue;
-    }
     if (!plugin.enabled) {
       continue;
     }
     await plugin.loadCollections();
+    if (!loadPlugins.includes(plugin.name)) {
+      continue;
+    }
+    await plugin.load();
     for (const feature of plugin.featureInstances) {
       await feature.load();
     }
   }
 
-  // 为了用户自定义表都能下载,备份
+  // 为了用户自定义表都能下载,备份, 之前只有afterStart才能调用
   await app.db.getRepository<CollectionRepository>('collections').load();
 }
 
-// 支持直接通过 npx tsx --tsconfig ./tsconfig.server.json -r tsconfig-paths/register ./packages/module-worker-thread/src/server/worker.ts 测试启动
+// TODO: 支持直接通过 npx tsx --tsconfig ./tsconfig.server.json -r tsconfig-paths/register ./packages/module-worker-thread/src/server/worker.ts 测试启动
 main();
