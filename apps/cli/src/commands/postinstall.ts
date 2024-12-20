@@ -4,15 +4,13 @@ import { resolve } from 'path';
 
 import { Command } from 'commander';
 
-import { generatePlaywrightPath, isDev, isPackageValid, run } from '../util';
+import { generatePlaywrightPath, isDev } from '../util';
 
 export default (cli: Command) => {
-  const { APP_PACKAGE_ROOT } = process.env;
   cli
     .command('postinstall')
     .allowUnknownOption()
-    .option('--skip-umi')
-    .action(async (options) => {
+    .action(async () => {
       generatePlaywrightPath(true);
       const utils = await import('@tachybase/utils');
       await utils.createStoragePluginsSymlink();
@@ -28,17 +26,6 @@ export default (cli: Command) => {
       if (!existsSync(resolve(cwd, '.env.test')) && existsSync(resolve(cwd, '.env.test.example'))) {
         const content = await readFile(resolve(cwd, '.env.test.example'), 'utf-8');
         await writeFile(resolve(cwd, '.env.test'), content, 'utf-8');
-      }
-      if (!isPackageValid('umi')) {
-        return;
-      }
-      if (!options.skipUmi) {
-        run('umi', ['generate', 'tmp'], {
-          stdio: 'pipe',
-          env: {
-            APP_ROOT: `${APP_PACKAGE_ROOT}/client`,
-          },
-        });
       }
     });
 };

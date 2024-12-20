@@ -1,4 +1,4 @@
-import { COLLECTION_NAME_MESSAGES } from '../../common/messages.collection';
+import { COLLECTION_NAME_MESSAGES } from '../../common/collections/messages';
 import { messages } from './messages';
 
 function make(name, mod) {

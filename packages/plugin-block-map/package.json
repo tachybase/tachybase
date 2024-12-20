@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-block-map",
   "displayName": "Block: Map",
-  "version": "0.22.84",
+  "version": "0.23.6",
   "description": "Map block, support Gaode map and Google map, you can also extend more map types.",
   "keywords": [
     "Blocks"
@@ -27,7 +27,7 @@
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "^6.25.1"
+    "react-router-dom": "6.28.0"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

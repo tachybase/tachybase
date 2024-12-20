@@ -16,7 +16,7 @@ export class SMSAuth extends BaseAuth {
 
   async validate() {
     const ctx = this.ctx;
-    const verificationPlugin: VerificationPlugin = ctx.app.getPlugin('verification');
+    const verificationPlugin: VerificationPlugin = ctx.app.getPlugin('otp');
     if (!verificationPlugin) {
       throw new Error('sms-auth: @tachybase/plugin-otp is required');
     }

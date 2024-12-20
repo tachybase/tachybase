@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 export class PresetTachyBase extends Plugin {
   #builtInPlugins = [
-    // required plugins
     'acl',
     'app-info',
     'auth',
@@ -15,7 +14,7 @@ export class PresetTachyBase extends Plugin {
     'data-source',
     'error-handler',
     'event-source',
-    'file-manager',
+    'file',
     'message',
     'pdf',
     'ui-schema',
@@ -52,7 +51,6 @@ export class PresetTachyBase extends Plugin {
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],
     ['adapter-remix', '0.22.9', false],
-    ['devtools', '0.22.82', false],
     ['api-keys', '0.10.1', false],
     ['audit-logs', '0.22.7', false],
     ['auth-cas', '0.13.0', false],
@@ -69,6 +67,7 @@ export class PresetTachyBase extends Plugin {
     ['core', '0.22.6', false],
     ['data-source-common', '0.22.5', false],
     ['demos-game-runesweeper', '0.22.20', false],
+    ['devtools', '0.22.82', false],
     ['field-markdown-vditor', '0.22.6', false],
     ['field-snapshot', '0.8.1', false],
     ['i18n-editor', '0.11.1', false],

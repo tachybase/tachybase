@@ -1,7 +1,8 @@
-import { isMainThread, parentPort, workerData } from 'worker_threads';
+import { isMainThread, parentPort, workerData } from 'node:worker_threads';
 import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
+import { uid } from '@tachybase/utils';
 
 import { WorkerEvent } from './workerTypes';
 
@@ -61,6 +62,8 @@ export const main = async () => {
   try {
     const start = Date.now();
     const applicationOptions = {
+      // TODO
+      name: 'main-worker-' + uid(),
       database: await parseDatabaseOptionsFromEnv(),
       plugins: [...workerData.plugins],
       logger: loggerOptions,
@@ -72,7 +75,7 @@ export const main = async () => {
 
     await app.start({
       dbSync: false,
-      quickstart: true,
+      quickstart: false,
       checkInstall: false,
     });
     app.logger.info('[worker] app has been started');

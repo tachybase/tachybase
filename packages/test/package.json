@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/test",
-  "version": "0.22.84",
+  "version": "0.23.6",
   "license": "Apache-2.0",
   "exports": {
     ".": {
@@ -51,7 +51,6 @@
     "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.1.2",
-    "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.5.1",
     "@types/supertest": "^2.0.16",
     "@vitejs/plugin-react": "^4.2.1",

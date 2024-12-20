@@ -1,21 +1,23 @@
 {
   "name": "@tachybase/module-message",
-  "version": "0.22.84",
+  "version": "0.23.6",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-message"
   },
   "dependencies": {
+    "@alicloud/dysmsapi20170525": "2.0.17",
+    "@alicloud/openapi-client": "0.4.1",
+    "@alicloud/tea-util": "1.4.4",
     "@ant-design/icons": "~5.3.7",
     "ahooks": "3.8.1",
     "antd": "5.22.0",
     "jsonwebtoken": "8.5.1",
+    "lodash": "^4.17.21",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "~6.25.1",
+    "react-router-dom": "6.28.0",
+    "tencentcloud-sdk-nodejs": "^4.0.996",
     "ws": "^8.18.0"
-  },
-  "devDependencies": {
-    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

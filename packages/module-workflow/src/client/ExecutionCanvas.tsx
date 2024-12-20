@@ -19,6 +19,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import WorkflowPlugin from '.';
 import { CanvasContentWrapper } from './CanvasContentWrapper';
+import { formatDuration } from './components/ExecutionTime';
 import { BackButton } from './components/GoBackButton';
 import { StatusButton } from './components/StatusButton';
 import { ExecutionStatusOptionsMap, JobStatusOptions } from './constants';
@@ -56,7 +57,7 @@ function JobModal() {
   if (!job) {
     return;
   }
-
+  job.cost = formatDuration(job.cost / 1000);
   const { styles } = useStyles();
   const { node = {} } = job ?? {};
   const instruction = instructions.get(node.type);
@@ -101,6 +102,13 @@ function JobModal() {
                   'x-component-props': {
                     showTime: true,
                   },
+                  'x-read-pretty': true,
+                },
+                cost: {
+                  type: 'string',
+                  title: `{{t("Executed time", { ns: "${NAMESPACE}" })}}`,
+                  'x-decorator': 'FormItem',
+                  'x-component': 'Input',
                   'x-read-pretty': true,
                 },
                 result: {

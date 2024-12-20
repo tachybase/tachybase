@@ -23,7 +23,7 @@ export const WelcomeCard = () => {
   });
 
   // TODO
-  const navigatePlugin = () => navigate('_admin/system-services/plugin-manager');
+  const navigatePlugin = () => navigate('/_admin/system-services/plugin-manager');
   const openHomePage = () => window.open('https://tachybase.org', '_blank');
 
   return (

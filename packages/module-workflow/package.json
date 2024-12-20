@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-workflow",
   "displayName": "Workflow",
-  "version": "0.22.84",
+  "version": "0.23.6",
   "description": "A powerful BPM tool that provides foundational support for business automation, with the capability to extend unlimited triggers and nodes.",
   "keywords": [
     "Workflow"
@@ -39,7 +39,7 @@
     "react": "~18.3.1",
     "react-i18next": "^15.1.1",
     "react-js-cron": "^3.2.0",
-    "react-router-dom": "^6.25.1",
+    "react-router-dom": "6.28.0",
     "sequelize": "^6.37.3"
   },
   "peerDependencies": {

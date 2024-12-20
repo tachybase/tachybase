@@ -29,7 +29,7 @@ export default {
       name: 'status',
     },
     {
-      type: 'integer',
+      type: 'bigInt',
       name: 'parentNode',
     },
     {

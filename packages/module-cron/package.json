@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-cron",
-  "version": "0.22.84",
+  "version": "0.23.6",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-cron"

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-bulk-edit",
   "displayName": "Action: Batch edit",
-  "version": "0.22.84",
+  "version": "0.23.6",
   "description": "Batch edit all records or selected records.",
   "keywords": [
     "Actions"
@@ -18,7 +18,7 @@
     "antd": "5.22.0",
     "lodash": "4.17.21",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "^6.25.1"
+    "react-router-dom": "6.28.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

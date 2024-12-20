@@ -1,6 +1,6 @@
 {
   "name": "tachybase",
-  "version": "0.22.84",
+  "version": "0.23.6",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
@@ -51,6 +51,8 @@
     "@commitlint/prompt-cli": "^16.3.0",
     "@ianvs/prettier-plugin-sort-imports": "4.4.0",
     "@inquirer/prompts": "^7.1.0",
+    "@react-pdf/textkit": "4.4.1",
+    "@rsbuild/core": "1.1.10",
     "@tachybase/build": "workspace:*",
     "@tachybase/cli": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
@@ -64,8 +66,8 @@
     "globals": "^15.9.0",
     "husky": "^9.0.11",
     "lint-staged": "^13.3.0",
-    "oxlint": "^0.11.1",
-    "prettier": "3.3.3",
+    "oxlint": "^0.15.3",
+    "prettier": "3.4.2",
     "prettier-plugin-packagejson": "2.5.3",
     "prettier-plugin-sort-json": "4.0.0",
     "prettier-plugin-sql": "0.18.1",
@@ -73,10 +75,9 @@
     "pretty-quick": "4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tsx": "^4.15.2",
+    "tsx": "^4.19.2",
     "turbo": "2.3.0",
-    "typescript": "5.6.3",
-    "umi": "^4.3.33",
+    "typescript": "5.7.2",
     "vitest": "^1.6.0"
   },
   "packageManager": "pnpm@9.15.0",
@@ -95,7 +96,9 @@
     "overrides": {
       "@types/node": "20.14.2",
       "antd": "5.22.0",
-      "dayjs": "1.11.10"
+      "dayjs": "1.11.10",
+      "react-router": "6.28.0",
+      "react-router-dom": "6.28.0"
     }
   }
 }
