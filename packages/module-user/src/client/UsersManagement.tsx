@@ -14,13 +14,11 @@ export const UsersManagement: React.FC = () => {
   const scCtx = useSchemaComponentContext();
   return (
     <SchemaComponentContext.Provider value={{ ...scCtx, designable: false }}>
-      <Card>
-        <SchemaComponent
-          schema={usersSchema}
-          scope={{ t, useFilterActionProps }}
-          components={{ UserRolesField, PasswordField }}
-        />
-      </Card>
+      <SchemaComponent
+        schema={usersSchema}
+        scope={{ t, useFilterActionProps }}
+        components={{ UserRolesField, PasswordField }}
+      />
     </SchemaComponentContext.Provider>
   );
 };

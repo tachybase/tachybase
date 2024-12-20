@@ -1,11 +1,16 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import {
+  AssociationProvider,
   CollectionProvider_deprecated,
+  ExtendCollectionsProvider,
   ResourceActionContext,
   ResourceActionProvider,
   SchemaComponent,
   useActionContext,
   useAPIClient,
+  useCollectionRecordData,
+  useDataBlockRequest,
+  useDataBlockResource,
   useRecord,
   useRequest,
   useResourceActionContext,
@@ -21,8 +26,8 @@ import { getRoleUsersSchema, userCollection } from './schemas/users';
 const useRemoveUser = () => {
   const api = useAPIClient();
   const { role } = useContext(RolesManagerContext);
-  const record = useRecord();
-  const { refresh } = useResourceActionContext();
+  const record = useCollectionRecordData();
+  const { refresh } = useDataBlockRequest();
   return {
     async run() {
       await api.resource('roles.users', role?.name).remove({
@@ -37,23 +42,28 @@ const useBulkRemoveUsers = () => {
   const { t } = useUsersTranslation();
   const { message } = App.useApp();
   const api = useAPIClient();
-  const { state, setState, refresh } = useResourceActionContext();
-  const { role } = useContext(RolesManagerContext);
+  const resource = useDataBlockResource();
 
   return {
-    async run() {
-      const selected = state?.selectedRowKeys;
-      if (!selected?.length) {
-        message.warning(t('Please select users'));
-        return;
-      }
-      await api.resource('roles.users', role?.name).remove({
-        values: selected,
-      });
-      setState?.({ selectedRowKeys: [] });
-      refresh();
-    },
+    async run() {},
   };
+  // const { state, setState, refresh } = useResourceActionContext();
+  // const { role } = useContext(RolesManagerContext);
+
+  // return {
+  //   async run() {
+  //     const selected = state?.selectedRowKeys;
+  //     if (!selected?.length) {
+  //       message.warning(t('Please select users'));
+  //       return;
+  //     }
+  //     await api.resource('roles.users', role?.name).remove({
+  //       values: selected,
+  //     });
+  //     setState?.({ selectedRowKeys: [] });
+  //     refresh();
+  //   },
+  // };
 };
 
 const RoleUsersProvider: React.FC = (props) => {
@@ -114,23 +124,22 @@ export const RoleUsersManager: React.FC = () => {
   };
 
   const schema = useMemo(() => getRoleUsersSchema(), [role]);
+  console.log('ssss:', role, service);
 
   return (
-    <ResourceActionContext.Provider value={{ ...service }}>
-      <CollectionProvider_deprecated collection={userCollection}>
-        <SchemaComponent
-          schema={schema}
-          components={{ RoleUsersProvider }}
-          scope={{
-            useBulkRemoveUsers,
-            useRemoveUser,
-            handleSelectRoleUsers,
-            useAddRoleUsers,
-            useFilterActionProps,
-            t,
-          }}
-        />
-      </CollectionProvider_deprecated>
-    </ResourceActionContext.Provider>
+    <ExtendCollectionsProvider collections={[userCollection]}>
+      <SchemaComponent
+        schema={schema}
+        components={{ RoleUsersProvider }}
+        scope={{
+          useBulkRemoveUsers,
+          useRemoveUser,
+          handleSelectRoleUsers,
+          useAddRoleUsers,
+          useFilterActionProps,
+          t,
+        }}
+      />
+    </ExtendCollectionsProvider>
   );
 };
