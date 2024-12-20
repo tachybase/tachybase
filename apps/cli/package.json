@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/cli",
-  "version": "0.22.85",
+  "version": "0.23.2",
   "description": "",
   "license": "Apache-2.0",
   "type": "module",
@@ -17,9 +17,8 @@
     "tachybase.conf.tpl"
   ],
   "scripts": {
-    "build": "rimraf dist && rollup -c",
-    "dev": "rollup -c --watch --watch.include 'src/**' -m inline",
-    "prepare": "rimraf dist && cross-env BUILD_NO_DTS=1 rollup -c --silent",
+    "build": "tsup",
+    "prepare": "tsup",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -32,6 +31,7 @@
     "chalk": "^5.3.0",
     "commander": "^12.0.0",
     "dotenv": "^16.4.5",
+    "esbuild-plugin-file-path-extensions": "2.1.4",
     "execa": "^8.0.1",
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
@@ -42,12 +42,10 @@
     "semver": "^7.6.2",
     "serve": "^13.0.4",
     "tree-kill": "^1.2.2",
+    "tsup": "8.3.5",
     "tsx": "^4.15.2"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
     "@tachybase/devtools": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.5",
@@ -55,9 +53,6 @@
     "@types/semver": "^7.5.8",
     "cross-env": "^7.0.3",
     "rimraf": "^6.0.1",
-    "rollup": "^4.14.1",
-    "rollup-plugin-dts": "^6.1.0",
-    "rollup-plugin-esbuild": "^6.1.1",
     "vite": "^5.2.13"
   }
 }
