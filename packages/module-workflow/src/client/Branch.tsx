@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { cx } from '@tachybase/client';
 
 import { CloseOutlined } from '@ant-design/icons';
+import { DndContext } from '@dnd-kit/core';
 
 import { useGetAriaLabelOfAddButton } from './hooks/useGetAriaLabelOfAddButton';
-import { Node } from './nodes/default-node';
-import { AddButton } from './nodes/default-node/components/AddButton';
+import { AddButton, Node } from './nodes/default-node';
 import useStyles from './style';
+import { rearrangeNodeList } from './tools';
 
-export function Branch({
+export const Branch = ({
   from = null,
   entry = null,
   branchIndex = null,
@@ -22,24 +23,35 @@ export function Branch({
   controller?: React.ReactNode;
   className?: string;
   end?: boolean;
-}) {
+}) => {
   const { styles } = useStyles();
   const { getAriaLabel } = useGetAriaLabelOfAddButton(from, branchIndex);
-  const list: any[] = [];
+
+  const initialList = [];
   for (let node = entry; node; node = node.downstream) {
-    list.push(node);
+    initialList.push(node);
   }
+  const [list, setList] = useState(initialList);
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    const newList = rearrangeNodeList(list, active.id, over.id);
+    console.log('%c Line:39 🍅 newList', 'font-size:18px;color:#b03734;background:#ffdd4d', newList);
+    setList(newList);
+  };
 
   return (
     <div className={cx('workflow-branch', styles.branchClass, className)}>
       <div className="workflow-branch-lines" />
       {controller}
       <AddButton aria-label={getAriaLabel()} upstream={from} branchIndex={branchIndex} />
-      <div className="workflow-node-list">
-        {list.map((item) => (
-          <Node data={item} key={item.id} />
-        ))}
-      </div>
+      <DndContext onDragEnd={handleDragEnd}>
+        <div className="workflow-node-list">
+          {list.map((item) => (
+            <Node data={item} key={item.id} />
+          ))}
+        </div>
+      </DndContext>
       {end ? (
         <div className="end-sign">
           <CloseOutlined />
@@ -47,4 +59,4 @@ export function Branch({
       ) : null}
     </div>
   );
-}
+};

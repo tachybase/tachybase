@@ -2,7 +2,6 @@ import React from 'react';
 import { cx, usePlugin } from '@tachybase/client';
 
 import { CloseOutlined } from '@ant-design/icons';
-import { DndContext } from '@dnd-kit/core';
 
 import WorkflowPlugin, { NodeDefaultView } from '../..';
 import { useGetAriaLabelOfAddButton } from '../../hooks/useGetAriaLabelOfAddButton';
@@ -17,23 +16,37 @@ export const Node = ({ data }) => {
   const { getAriaLabel } = useGetAriaLabelOfAddButton(data);
   const workflowPlugin = usePlugin(WorkflowPlugin);
   const { Component = NodeDefaultView, end, group } = workflowPlugin.instructions.get(data.type);
+
   return (
     <ProviderContextNode value={{ ...data, group }}>
-      <DndContext>
-        <div className={cx(styles.nodeBlockClass)}>
-          <Droppable></Droppable>
-          <Draggable>
-            <Component data={data} />
-          </Draggable>
-          {!end || (typeof end === 'function' && !end(data)) ? (
-            <AddButton aria-label={getAriaLabel()} upstream={data} />
-          ) : (
-            <div className="end-sign">
-              <CloseOutlined />
-            </div>
-          )}
-        </div>
-      </DndContext>
+      <div className={cx(styles.nodeBlockClass)}>
+        <Droppable id={data.id}>
+          <div
+            style={{
+              width: 200,
+              height: 80,
+              backgroundColor: '#f5f5f5',
+              border: '1px dashed #ccc',
+              borderRadius: 4,
+              display: 'block',
+              justifyContent: 'center',
+            }}
+          >
+            drop here
+          </div>
+        </Droppable>
+        <Draggable id={data.id}>
+          <Component data={data} />
+        </Draggable>
+
+        {!end || (typeof end === 'function' && !end(data)) ? (
+          <AddButton aria-label={getAriaLabel()} upstream={data} />
+        ) : (
+          <div className="end-sign">
+            <CloseOutlined />
+          </div>
+        )}
+      </div>
     </ProviderContextNode>
   );
 };
