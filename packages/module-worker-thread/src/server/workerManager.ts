@@ -35,6 +35,9 @@ export class WorkerManager {
   private getPluginMethodKey(values: WorkerEventInputPluginMethod) {
     return `worker:pluginMethod:${values.plugin}:${values.method}`;
   }
+  private getGlobalKey() {
+    return `worker:global`;
+  }
 
   constructor(
     public app: Application,
@@ -73,12 +76,15 @@ export class WorkerManager {
     let worker: Worker;
     if (!this.isDev) {
       worker = new Worker(path.resolve(__dirname, './worker.js'), {
-        workerData: {},
+        workerData: {
+          appName: this.app.name,
+        },
       });
     } else {
       worker = new Worker(path.resolve(__dirname, '../../worker-starter.mjs'), {
         workerData: {
           scriptPath: path.resolve(__dirname, './worker.ts'),
+          appName: this.app.name,
         },
       });
     }
@@ -125,8 +131,8 @@ export class WorkerManager {
     this.currentWorkerIndex = 0;
     this.busyWorkers = new WeakMap<Worker, Set<string>>();
     this.busyWorkerSet = new Set();
-    this.cache = new Map<string, callPluginMethodInfo>();
     this.errorRecoveryTimes = 0;
+    this.cache.clear();
   }
 
   public async resetWorkerNum(targetNum: number) {
@@ -154,50 +160,87 @@ export class WorkerManager {
   }
 
   /**
+   * 检查并更新并发计数
+   * @param key - 用于缓存的键
+   * @param limit - 并发限制
+   * @param cache - 缓存对象
+   * @returns 是否超过并发限制
+   */
+  private checkAndUpdateConcurrency(key: string, limit: number, cache: Map<string, callPluginMethodInfo>): boolean {
+    let countInfo: callPluginMethodInfo = cache.get(key);
+    if (countInfo && countInfo.lastTime) {
+      const diff = new Date().getTime() - countInfo.lastTime.getTime();
+      if (diff > 1000 * WorkerManager.timeoutSecond) {
+        countInfo.count = 0;
+      }
+    }
+    if (countInfo && countInfo.count >= limit) {
+      return true;
+    } else {
+      if (!countInfo) {
+        countInfo = {
+          lastTime: new Date(),
+          count: 1,
+        };
+      } else {
+        countInfo.lastTime = new Date();
+        countInfo.count++;
+      }
+      cache.set(key, countInfo);
+      return false;
+    }
+  }
+
+  /**
+   * 减少并发计数
+   * @param key - 用于缓存的键
+   * @param cache - 缓存对象
+   */
+  private decrementConcurrencyCount(key: string, cache: Map<string, callPluginMethodInfo>) {
+    const countInfo = cache.get(key);
+    if (countInfo) {
+      countInfo.count--;
+      if (countInfo.count < 0) {
+        cache.delete(key);
+      } else {
+        countInfo.lastTime = new Date();
+        cache.set(key, countInfo);
+      }
+    }
+  }
+
+  /**
    * 运行插件方法
    */
   public async callPluginMethod(values: WorkerEventInputPluginMethod) {
-    let countInfo: callPluginMethodInfo = null;
-    if (values.limit) {
-      const key = this.getPluginMethodKey(values);
-      countInfo = this.cache.get(key);
-      if (countInfo && countInfo.lastTime) {
-        const diff = new Date().getTime() - countInfo.lastTime.getTime();
-        if (diff > 1000 * WorkerManager.timeoutSecond) {
-          countInfo.count = 0;
-        }
+    // 处理全局并发
+    if (values.globalConcurrency) {
+      const exceeded = this.checkAndUpdateConcurrency(this.getGlobalKey(), values.globalConcurrency, this.cache);
+      if (exceeded) {
+        throw new Error('Global method call limit exceeded');
       }
-      if (countInfo && countInfo.count >= values.limit) {
+    }
+
+    // 处理方法并发
+    if (values.concurrency) {
+      const exceeded = this.checkAndUpdateConcurrency(this.getPluginMethodKey(values), values.concurrency, this.cache);
+      if (exceeded) {
         throw new Error('Plugin method call limit exceeded');
-      } else {
-        if (!countInfo) {
-          countInfo = {
-            lastTime: new Date(),
-            count: 1,
-          };
-        } else {
-          countInfo.lastTime = new Date();
-          countInfo.count++;
-        }
-        this.cache.set(key, countInfo);
       }
     }
     const result = await this.callMethod(WorkerEvent.PluginMethod, {
       ...values,
       plugin: this.app.pm.get(values.plugin).name,
     });
-    if (values.limit) {
-      const key = this.getPluginMethodKey(values);
-      countInfo = this.cache.get(key);
-      if (countInfo) {
-        countInfo.count--;
-        if (countInfo.count < 0) {
-          this.cache.delete(key);
-        } else {
-          countInfo.lastTime = new Date();
-          this.cache.set(key, countInfo);
-        }
-      }
+
+    // 处理全局并发
+    if (values.globalConcurrency) {
+      this.decrementConcurrencyCount(this.getGlobalKey(), this.cache);
+    }
+
+    // 处理方法并发
+    if (values.concurrency) {
+      this.decrementConcurrencyCount(this.getPluginMethodKey(values), this.cache);
     }
     return result;
   }

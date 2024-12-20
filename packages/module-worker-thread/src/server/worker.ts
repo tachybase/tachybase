@@ -2,7 +2,7 @@ import { isMainThread, parentPort, workerData } from 'worker_threads';
 import { CollectionModel, FieldModel } from '@tachybase//module-collection/src/server/models';
 import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
-import CollectionManagerPlugin, { CollectionRepository } from '@tachybase/module-collection';
+import { CollectionRepository } from '@tachybase/module-collection';
 import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
 import { uid } from '@tachybase/utils';
@@ -12,11 +12,11 @@ import { WorkerEvent } from './workerTypes';
 const loggerOptions = {
   system: {
     transports: getLoggerTransport(),
-    level: getLoggerLevel(),
+    level: 'info',
   },
   request: {
     transports: getLoggerTransport(),
-    level: getLoggerLevel(),
+    level: 'info',
   },
 } as AppLoggerOptions;
 
@@ -61,10 +61,11 @@ const handleWorkerMessages = (app: Application) => {
 };
 
 export const main = async () => {
+  const appName = workerData.appName || 'main';
   try {
     const applicationOptions = {
       // TODO
-      name: 'main-worker-' + uid(),
+      name: `worker-${appName}-${uid()}`,
       database: await parseDatabaseOptionsFromEnv(),
       // plugins: [...workerData.plugins],
       logger: loggerOptions,
@@ -83,6 +84,7 @@ export const main = async () => {
     });
 
     const userPluginName = await app.pm.get(PluginUsersServer).name;
+    // 必备插件 (users表,和一些字段信息的表 TODO: 可能会有遗漏的)
     const pluginNames = [userPluginName];
     for (const [P, plugin] of app.pm.getPlugins()) {
       if (plugin.name.startsWith('field-')) {
@@ -106,7 +108,7 @@ export const main = async () => {
         continue;
       }
       await plugin.loadCollections();
-      // load features
+      // TODO: feature的inject可能有问题
       // for (const feature of plugin.featureInstances) {
       //   await feature.load();
       // }
