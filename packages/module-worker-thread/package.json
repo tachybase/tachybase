@@ -14,9 +14,12 @@
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
+    "@tachybase/logger": "workspace:*",
     "@tachybase/module-collection": "workspace:*",
+    "@tachybase/module-user": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*"
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "工作线程,用于执行耗时任务",
   "displayName.zh-CN": "工作线程"
