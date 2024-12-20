@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+import { isMainThread } from 'worker_threads';
 import { utils as actionUtils, Context } from '@tachybase/actions';
 import { Cache } from '@tachybase/cache';
 import { Collection, RelationField } from '@tachybase/database';
@@ -413,11 +414,13 @@ export class PluginACL extends Plugin {
     };
 
     // sync database role data to acl
-    this.app.on('afterStart', async () => {
-      await writeRolesToACL(this.app, {
-        withOutResources: true,
+    if (isMainThread) {
+      this.app.on('afterStart', async () => {
+        await writeRolesToACL(this.app, {
+          withOutResources: true,
+        });
       });
-    });
+    }
 
     // this.app.on('afterInstall', writeRolesToACL);
 
