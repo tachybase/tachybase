@@ -244,8 +244,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0(vite@5.2.13(@types/node@20.14.2)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0))
       vite-plugin-lib-inject-css:
-        specifier: 2.1.1
-        version: 2.1.1(vite@5.2.13(@types/node@20.14.2)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0))
+        specifier: 1.2.0
+        version: 1.2.0(vite@5.2.13(@types/node@20.14.2)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0))
       yargs-parser:
         specifier: 13.1.2
         version: 13.1.2
@@ -5219,58 +5219,6 @@ packages:
   '@arvinxu/layout-kit@1.4.0':
     resolution: {integrity: sha512-dEsmFwZa/NJ2XvDBL4sCPbgFPvCvpxP+G+90Ay9zqN92vc4YbgVo4NjpjsDihiNqwDQjWhasGCC3+v4w7bdYqg==}
 
-  '@ast-grep/napi-darwin-arm64@0.22.6':
-    resolution: {integrity: sha512-L9rEGJ8fNi5LxbZj860wbXxjX7DLNV799zcTaPOSzYadvNyhMY3LWvDXd45Vtx6Dh8QRtCoEMQmw8KaRCEjm9A==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [darwin]
-
-  '@ast-grep/napi-darwin-x64@0.22.6':
-    resolution: {integrity: sha512-0iuM6iDJNhcPd6a/JJr64AallR7ttGW/MvUujfQdvJEZY5p9LK35xm23dULznW0tIMgwtMKPRaprgk8LPondKg==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [darwin]
-
-  '@ast-grep/napi-linux-arm64-gnu@0.22.6':
-    resolution: {integrity: sha512-9PAqNJlAQfFm1RW0DVCM/S4gFHdppxUTWacB3qEeJZXgdLnoH0KGQa4z3Xo559SPYDKZy0VnY02mZ3XJ+v6/Vw==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-
-  '@ast-grep/napi-linux-x64-gnu@0.22.6':
-    resolution: {integrity: sha512-nZf+gxXVrZqvP1LN6HwzOMA4brF3umBXfMequQzv8S6HeJ4c34P23F0Tw8mHtQpVYP9PQWJUvt3LJQ8Xvd5Hiw==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-
-  '@ast-grep/napi-linux-x64-musl@0.22.6':
-    resolution: {integrity: sha512-gcJeBMgJQf2pZZo0lgH0Vg4ycyujM7Am8VlomXhavC/dPpkddA1tiHSIC4fCNneLU1EqHITy3ALSmM4GLdsjBw==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-
-  '@ast-grep/napi-win32-arm64-msvc@0.22.6':
-    resolution: {integrity: sha512-YDDzvPIyl4ti8xZfjvGSGVCX9JJjMQjyWPlXcwRpiLRnHThtHTDL8PyE2yq+gAPuZ28QbrygMkP9EKXIyYFVcQ==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [win32]
-
-  '@ast-grep/napi-win32-ia32-msvc@0.22.6':
-    resolution: {integrity: sha512-w5P0MDcBD3bifC2K9nCDEFYacy8HQnXdf6fX6cIE/7xL8XEDs6D1lQjGewrZDcMAXVXUQfupj4P27ZsJRmuIoQ==}
-    engines: {node: '>= 10'}
-    cpu: [ia32]
-    os: [win32]
-
-  '@ast-grep/napi-win32-x64-msvc@0.22.6':
-    resolution: {integrity: sha512-1aaHvgsCBwUP0tDf4HXPMpUV/nUwsOWgRCiBc2zIJjdEjT9TTk795EIX9Z1Nc0OMCrxVEceyiKcYTofXa0Fpxw==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [win32]
-
-  '@ast-grep/napi@0.22.6':
-    resolution: {integrity: sha512-kNF87HiI4omHC7VzyBZSvqOAXtMlSDRF2YX+O5ya0XKv/7/GYms1opLQ+BQ9twLLDj0WsSFX4MYg0TrinZTxTg==}
-    engines: {node: '>= 10'}
-
   '@aws-crypto/crc32@3.0.0':
     resolution: {integrity: sha512-IzSgsrxUcsrejQbPVilIKy16kAT52EwB6zSaI+M3xxIhKh5+aldEyvI+z6erM7TCLB2BJsFrtHjp6/4/sr+3dA==}
 
@@ -10053,7 +10001,6 @@ packages:
   are-we-there-yet@3.0.1:
     resolution: {integrity: sha512-QZW4EDmGwlYur0Yyf/b2uGucHQMa8aFUP7eu9ddR73vvhFyt4V0Vl3QHPcTNJ8l6qYOBdxgXdnBXQrHilfRQBg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-    deprecated: This package is no longer supported.
 
   arg@4.1.3:
     resolution: {integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==}
@@ -12617,7 +12564,6 @@ packages:
   gauge@4.0.4:
     resolution: {integrity: sha512-f9m+BEN5jkg6a0fZjleidjN51VE1X+mPFQ2DJ0uv1V39oCLCbsGe6yjbBnp7eK7z/+GAon99a3nHuqbuuthyPg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-    deprecated: This package is no longer supported.
 
   gaxios@6.7.0:
     resolution: {integrity: sha512-DSrkyMTfAnAm4ks9Go20QGOcXEyW/NmZhvTYBU2rb4afBB393WIMQPWPEDMl/k8xqiNN9HYq2zao3oWXsdl2Tg==}
@@ -14257,9 +14203,6 @@ packages:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
 
-  magic-string@0.30.17:
-    resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
-
   magic-string@0.30.8:
     resolution: {integrity: sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ==}
     engines: {node: '>=12'}
@@ -15044,7 +14987,6 @@ packages:
   npmlog@6.0.2:
     resolution: {integrity: sha512-/vBvz5Jfr9dT/aFWd0FIRf+T/Q2WBsLENygUaFUqstqsycmZAP/t5BvFJTK0viFmSUxiUKTUplWy5vt+rvKIxg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-    deprecated: This package is no longer supported.
 
   nssocket@0.6.0:
     resolution: {integrity: sha512-a9GSOIql5IqgWJR3F/JXG4KpJTA3Z53Cj0MeMvGpglytB1nxE4PdFNC0jINe27CS7cGivoynwc054EzCcT3M3w==}
@@ -15837,7 +15779,6 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
-
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qrcode.react@3.1.0:
@@ -18551,8 +18492,8 @@ packages:
     peerDependencies:
       vite: '>2.0.0-0'
 
-  vite-plugin-lib-inject-css@2.1.1:
-    resolution: {integrity: sha512-RIMeVnqBK/8I0E9nnQWzws6pdj5ilRMPJSnXYb6nWxNR4EmDPnksnb/ACoR5Fy7QfzULqS4gtQMrjwnNCC9zoA==}
+  vite-plugin-lib-inject-css@1.2.0:
+    resolution: {integrity: sha512-mELCOWG0f0auFkDGQHAL7Ks9oQ6RhB0xHlZ6GA0mTLMkkQcHCrZ8mkJFoH+ryZTNqxNLlYTLqbrnPClOO0Fq/Q==}
     peerDependencies:
       vite: '*'
 
@@ -19990,41 +19931,6 @@ snapshots:
       - react
       - react-dom
       - react-is
-
-  '@ast-grep/napi-darwin-arm64@0.22.6':
-    optional: true
-
-  '@ast-grep/napi-darwin-x64@0.22.6':
-    optional: true
-
-  '@ast-grep/napi-linux-arm64-gnu@0.22.6':
-    optional: true
-
-  '@ast-grep/napi-linux-x64-gnu@0.22.6':
-    optional: true
-
-  '@ast-grep/napi-linux-x64-musl@0.22.6':
-    optional: true
-
-  '@ast-grep/napi-win32-arm64-msvc@0.22.6':
-    optional: true
-
-  '@ast-grep/napi-win32-ia32-msvc@0.22.6':
-    optional: true
-
-  '@ast-grep/napi-win32-x64-msvc@0.22.6':
-    optional: true
-
-  '@ast-grep/napi@0.22.6':
-    optionalDependencies:
-      '@ast-grep/napi-darwin-arm64': 0.22.6
-      '@ast-grep/napi-darwin-x64': 0.22.6
-      '@ast-grep/napi-linux-arm64-gnu': 0.22.6
-      '@ast-grep/napi-linux-x64-gnu': 0.22.6
-      '@ast-grep/napi-linux-x64-musl': 0.22.6
-      '@ast-grep/napi-win32-arm64-msvc': 0.22.6
-      '@ast-grep/napi-win32-ia32-msvc': 0.22.6
-      '@ast-grep/napi-win32-x64-msvc': 0.22.6
 
   '@aws-crypto/crc32@3.0.0':
     dependencies:
@@ -25578,7 +25484,7 @@ snapshots:
 
   '@vitest/snapshot@1.6.0':
     dependencies:
-      magic-string: 0.30.17
+      magic-string: 0.30.8
       pathe: 1.1.2
       pretty-format: 29.7.0
 
@@ -31119,10 +31025,6 @@ snapshots:
 
   lz-string@1.5.0: {}
 
-  magic-string@0.30.17:
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.0
-
   magic-string@0.30.8:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
@@ -32849,7 +32751,7 @@ snapshots:
   postcss@8.4.39:
     dependencies:
       nanoid: 3.3.7
-      picocolors: 1.1.1
+      picocolors: 1.0.1
       source-map-js: 1.2.1
 
   postcss@8.4.47:
@@ -36360,10 +36262,9 @@ snapshots:
     dependencies:
       vite: 5.2.13(@types/node@20.14.2)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0)
 
-  vite-plugin-lib-inject-css@2.1.1(vite@5.2.13(@types/node@20.14.2)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0)):
+  vite-plugin-lib-inject-css@1.2.0(vite@5.2.13(@types/node@20.14.2)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0)):
     dependencies:
-      '@ast-grep/napi': 0.22.6
-      magic-string: 0.30.17
+      magic-string: 0.30.8
       picocolors: 1.1.1
       vite: 5.2.13(@types/node@20.14.2)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0)
 
