@@ -7,7 +7,7 @@
     "build": "tachybase-build --no-dts @tachybase/module-worker-thread"
   },
   "dependencies": {
-    "tsx": "^4.15.2"
+    "tsx": "^4.19.2"
   },
   "devDependencies": {
     "antd": "5.22.0"
