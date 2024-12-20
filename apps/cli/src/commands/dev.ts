@@ -1,10 +1,11 @@
 import { Command } from 'commander';
 import { getPortPromise } from 'portfinder';
+import zmq from 'zeromq';
 
 import { nodeCheck, postCheck, promptForTs, run } from '../util';
 
 export default (cli: Command) => {
-  const { APP_PACKAGE_ROOT, APP_CLIENT_ROOT } = process.env;
+  const { APP_PACKAGE_ROOT } = process.env;
   cli
     .command('dev')
     .option('-p, --port [port]')
@@ -12,6 +13,7 @@ export default (cli: Command) => {
     .option('--client')
     .option('--server')
     .option('--rs')
+    .option('-w, --wait-server')
     .option('--no-open')
     .option('--db-sync')
     .option('--inspect [port]')
@@ -21,6 +23,13 @@ export default (cli: Command) => {
       const { SERVER_TSCONFIG_PATH } = process.env;
       // @ts-ignore
       process.env.IS_DEV_CMD = true;
+
+      if (opts.waitServer) {
+        process.env.IPC_DEV_PORT =
+          (await getPortPromise({
+            port: 10000 + Math.floor(Math.random() * 1000),
+          })) + '';
+      }
 
       if (!SERVER_TSCONFIG_PATH) {
         throw new Error('SERVER_TSCONFIG_PATH is not set.');
@@ -109,18 +118,37 @@ export default (cli: Command) => {
       }
 
       if (client || !server) {
-        const getDevEnvironment = (clientPort: number, proxyPort: number) => ({
-          PORT: clientPort + '',
-          NO_OPEN: opts.open ? undefined : '1',
-          WEBSOCKET_URL:
-            process.env.WEBSOCKET_URL || (proxyPort ? `ws://localhost:${proxyPort}${process.env.WS_PATH}` : undefined),
-          PROXY_TARGET_URL: process.env.PROXY_TARGET_URL || (proxyPort ? `http://127.0.0.1:${proxyPort}` : undefined),
-        });
+        const runClient = () => {
+          const getDevEnvironment = (clientPort: number, proxyPort: number) => ({
+            PORT: clientPort + '',
+            NO_OPEN: opts.open ? undefined : '1',
+            WEBSOCKET_URL:
+              process.env.WEBSOCKET_URL ||
+              (proxyPort ? `ws://localhost:${proxyPort}${process.env.WS_PATH}` : undefined),
+            PROXY_TARGET_URL: process.env.PROXY_TARGET_URL || (proxyPort ? `http://127.0.0.1:${proxyPort}` : undefined),
+          });
 
-        const proxyPort = opts.proxyPort || serverPort || clientPort + 10;
-        console.log('starting client', 1 * clientPort, 'proxy port', proxyPort);
-        const env = getDevEnvironment(clientPort, proxyPort);
-        run('rsbuild', ['dev', '-r', 'apps/app-rs'], { env });
+          const proxyPort = opts.proxyPort || serverPort || clientPort + 10;
+          console.log('starting client', 1 * clientPort, 'proxy port', proxyPort);
+          const env = getDevEnvironment(clientPort, proxyPort);
+          run('rsbuild', ['dev', '-r', 'apps/app-rs'], { env });
+        };
+
+        async function runMqServer() {
+          const sock = new zmq.Reply();
+
+          await sock.bind('tcp://*:' + process.env.IPC_DEV_PORT);
+          for await (const [msg] of sock) {
+            runClient();
+            sock.close();
+          }
+        }
+
+        if (opts.waitServer) {
+          runMqServer();
+        } else {
+          runClient();
+        }
       }
     });
 };
