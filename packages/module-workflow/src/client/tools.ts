@@ -74,9 +74,12 @@ function sortArrayByLinkedList(nodeList: Node[]): Node[] {
   let sortedList: Node[] = [];
   let current: Node | null = null;
 
+  // 标记已读节点
+  let haveReadList = new Set<number>();
+
   // 找到链表的头部节点（没有上游节点的节点）
   for (const node of nodeList) {
-    if (node.upstream === null) {
+    if (node.upstream == null || node.upstreamId == null) {
       current = node;
       break;
     }
@@ -88,11 +91,12 @@ function sortArrayByLinkedList(nodeList: Node[]): Node[] {
   }
 
   // 遍历链表，按照节点的连接顺序将它们添加到新的数组中
-  while (current !== null) {
+  // haveReadList 避免循环引用
+  while (current != null && !haveReadList.has(current.id)) {
     sortedList.push(current);
+    haveReadList.add(current.id);
     const nextNode = current.downstream;
     // 断开引用，避免循环引用
-    current.downstream = null;
     current = nextNode;
   }
 
