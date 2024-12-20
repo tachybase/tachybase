@@ -4,7 +4,7 @@ import { isMainThread, Worker } from 'worker_threads';
 import { Application } from '@tachybase/server';
 import { fsExists } from '@tachybase/utils';
 
-import { WORKER_ERROR_RETRY, WORKER_TIMEOUT } from './constants';
+import { WORKER_ERROR_RETRY, WORKER_FILE, WORKER_TIMEOUT } from './constants';
 import { callPluginMethodInfo, WorkerEvent, WorkerEventInput, WorkerEventInputPluginMethod } from './workerTypes';
 
 /**
@@ -31,7 +31,7 @@ export class WorkerManager {
     return this.workerList.length > 0;
   }
 
-  private isDev = true;
+  private isProd = true;
 
   private workerNum = 0;
   private workerList: Worker[] = [];
@@ -85,14 +85,14 @@ export class WorkerManager {
       return;
     }
     // FIXME: 这种判断方式不太优雅
-    this.isDev = await fsExists(path.resolve(__dirname, './worker.ts'));
+    this.isProd = await fsExists(path.resolve(__dirname, `${WORKER_FILE}.js`));
     await Promise.all(Array.from({ length: this.workerNum }).map(() => this.addWorker()));
   }
 
   private async addWorker() {
     let worker: Worker;
-    if (!this.isDev) {
-      worker = new Worker(path.resolve(__dirname, './worker.js'), {
+    if (this.isProd) {
+      worker = new Worker(path.resolve(__dirname, `${WORKER_FILE}.js`), {
         workerData: {
           appName: this.app.name,
           databaseOptions: this.databaseOptions,
@@ -101,7 +101,7 @@ export class WorkerManager {
     } else {
       worker = new Worker(path.resolve(__dirname, '../../worker-starter.mjs'), {
         workerData: {
-          scriptPath: path.resolve(__dirname, './worker.ts'),
+          scriptPath: path.resolve(__dirname, `${WORKER_FILE}.ts`),
           appName: this.app.name,
           databaseOptions: this.databaseOptions,
         },
