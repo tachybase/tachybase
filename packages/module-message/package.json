@@ -15,7 +15,7 @@
     "jsonwebtoken": "8.5.1",
     "lodash": "^4.17.21",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "6.28.0",
+    "react-router-dom": "7.0.2",
     "tencentcloud-sdk-nodejs": "^4.0.759",
     "ws": "^8.18.0"
   },

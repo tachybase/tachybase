@@ -68,7 +68,7 @@
     "react-pdf": "^7.7.1",
     "react-quill": "^2.0.0",
     "react-router": "6.28.0",
-    "react-router-dom": "6.28.0",
+    "react-router-dom": "7.0.2",
     "react-svg": "^16.1.34",
     "react-to-print": "^2.14.15",
     "react-transition-group": "^4.4.5",
