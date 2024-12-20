@@ -1840,8 +1840,8 @@ importers:
         specifier: 6.28.0
         version: 6.28.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tencentcloud-sdk-nodejs:
-        specifier: ^4.0.759
-        version: 4.0.759(encoding@0.1.13)
+        specifier: ^4.0.996
+        version: 4.0.996(encoding@0.1.13)
       ws:
         specifier: ^8.18.0
         version: 8.18.0
@@ -3872,8 +3872,8 @@ importers:
         specifier: ^15.1.1
         version: 15.1.1(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tencentcloud-sdk-nodejs:
-        specifier: ^4.0.759
-        version: 4.0.759(encoding@0.1.13)
+        specifier: ^4.0.996
+        version: 4.0.996(encoding@0.1.13)
 
   packages/plugin-prototype-game-runesweeper:
     dependencies:
@@ -9828,10 +9828,6 @@ packages:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
 
-  agent-base@7.1.1:
-    resolution: {integrity: sha512-H0TSyFNDMomMNJQBn8wFV5YC/2eJ+VXECwOadZJT554xP6cODZHPX3H9QMQECxvrgiSOP1pHjy1sMWQVYJOUOA==}
-    engines: {node: '>= 14'}
-
   agent-base@7.1.3:
     resolution: {integrity: sha512-jRR5wdylq8CkOe6hei19GGZnxM6rBGwFl3Bg0YItGDimvjGtAvdZk4Pu6Cl4u4Igsws4a1fd1Vq3ezrhn4KmFw==}
     engines: {node: '>= 14'}
@@ -13090,10 +13086,6 @@ packages:
   https-proxy-agent@5.0.1:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
     engines: {node: '>= 6'}
-
-  https-proxy-agent@7.0.5:
-    resolution: {integrity: sha512-1e4Wqeblerz+tMKPIq2EMGiiWW1dIjZOksyHWSUm1rmuvw/how9hBHZ38lAGj5ID4Ik6EdkOw7NmWPy6LAwalw==}
-    engines: {node: '>= 14'}
 
   https-proxy-agent@7.0.6:
     resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
@@ -17765,8 +17757,8 @@ packages:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
-  tencentcloud-sdk-nodejs@4.0.759:
-    resolution: {integrity: sha512-8xbPmz5LJc3S5+mAjGquiYQmQQlMi5baVHAy4IWHmwHJisL63jCprNvs5svKgSQEwIs3sv2gBrM5s3G3HWN7rQ==}
+  tencentcloud-sdk-nodejs@4.0.996:
+    resolution: {integrity: sha512-HBKpFrG6SGH/gi7VC9tB/RHthmmcPeHbAK5AeI92vwDnekNPkFg03f/xmA/TWIX2Ivl6k643WLHBH8ZhN31PKQ==}
     engines: {node: '>=10'}
 
   term-size@1.2.0:
@@ -25763,14 +25755,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  agent-base@7.1.1:
-    dependencies:
-      debug: 4.4.0(supports-color@5.5.0)
-    transitivePeerDependencies:
-      - supports-color
-
-  agent-base@7.1.3:
-    optional: true
+  agent-base@7.1.3: {}
 
   agentkeepalive@3.5.2:
     dependencies:
@@ -29299,7 +29284,7 @@ snapshots:
   gaxios@6.7.0(encoding@0.1.13):
     dependencies:
       extend: 3.0.2
-      https-proxy-agent: 7.0.5
+      https-proxy-agent: 7.0.6
       is-stream: 2.0.1
       node-fetch: 2.7.0(encoding@0.1.13)
       uuid: 10.0.0
@@ -29864,7 +29849,7 @@ snapshots:
 
   http-proxy-agent@7.0.2:
     dependencies:
-      agent-base: 7.1.1
+      agent-base: 7.1.3
       debug: 4.4.0(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
@@ -29895,20 +29880,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  https-proxy-agent@7.0.5:
-    dependencies:
-      agent-base: 7.1.1
-      debug: 4.4.0(supports-color@5.5.0)
-    transitivePeerDependencies:
-      - supports-color
-
   https-proxy-agent@7.0.6:
     dependencies:
       agent-base: 7.1.3
       debug: 4.4.0(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
-    optional: true
 
   httpx@2.3.1:
     dependencies:
@@ -32467,11 +32444,11 @@ snapshots:
   pac-proxy-agent@7.0.1:
     dependencies:
       '@tootallnate/quickjs-emscripten': 0.23.0
-      agent-base: 7.1.1
+      agent-base: 7.1.3
       debug: 4.4.0(supports-color@5.5.0)
       get-uri: 6.0.3
       http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.5
+      https-proxy-agent: 7.0.6
       pac-resolver: 7.0.1
       socks-proxy-agent: 8.0.3
     transitivePeerDependencies:
@@ -33034,10 +33011,10 @@ snapshots:
 
   proxy-agent@6.3.1:
     dependencies:
-      agent-base: 7.1.1
+      agent-base: 7.1.3
       debug: 4.4.0(supports-color@5.5.0)
       http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.5
+      https-proxy-agent: 7.0.6
       lru-cache: 7.18.3
       pac-proxy-agent: 7.0.1
       proxy-from-env: 1.1.0
@@ -34908,7 +34885,7 @@ snapshots:
 
   socks-proxy-agent@8.0.3:
     dependencies:
-      agent-base: 7.1.1
+      agent-base: 7.1.3
       debug: 4.4.0(supports-color@5.5.0)
       socks: 2.8.3
     transitivePeerDependencies:
@@ -35476,7 +35453,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tencentcloud-sdk-nodejs@4.0.759(encoding@0.1.13):
+  tencentcloud-sdk-nodejs@4.0.996(encoding@0.1.13):
     dependencies:
       form-data: 3.0.1
       get-stream: 6.0.1
@@ -35485,6 +35462,7 @@ snapshots:
       json-bigint: 1.0.0
       node-fetch: 2.7.0(encoding@0.1.13)
       tslib: 1.13.0
+      uuid: 9.0.1
     transitivePeerDependencies:
       - encoding
       - supports-color
