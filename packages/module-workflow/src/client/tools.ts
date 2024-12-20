@@ -15,21 +15,27 @@ function insertNode(list: Node[], newNode: Node, upstreamId: number, downstreamI
   let downstreamNode = list.find((node) => node.id === downstreamId);
 
   // 检查是否存在
-  if (!upstreamNode || !downstreamNode) {
-    throw new Error('Upstream or downstream node not found');
+  if (!upstreamNode && !downstreamNode) {
+    throw new Error('Upstream and downstream node not found');
   }
 
   // 更新引用
   newNode.upstream = upstreamNode;
-  newNode.upstreamId = upstreamNode.id;
+  newNode.upstreamId = upstreamNode?.id;
   newNode.downstream = downstreamNode;
-  newNode.downstreamId = downstreamNode.id;
+  newNode.downstreamId = downstreamNode?.id;
 
-  // 更新上游节点和下游节点的引用
-  upstreamNode.downstream = newNode;
-  upstreamNode.downstreamId = newNode.id;
-  downstreamNode.upstream = newNode;
-  downstreamNode.upstreamId = newNode.id;
+  if (upstreamNode) {
+    // 更新上游节点
+    upstreamNode.downstream = newNode;
+    upstreamNode.downstreamId = newNode.id;
+  }
+
+  if (downstreamNode) {
+    // 更新下游节点的引用
+    downstreamNode.upstream = newNode;
+    downstreamNode.upstreamId = newNode.id;
+  }
 
   // 添加到数组
   list.push(newNode);

@@ -35,6 +35,11 @@ export const Branch = ({
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
+
+    if (active.id === over.id) {
+      return;
+    }
+
     const newList = rearrangeNodeList(list, active.id, over.id);
     setList(newList);
   };
