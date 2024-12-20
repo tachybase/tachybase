@@ -16,7 +16,7 @@
     "lodash": "^4.17.21",
     "react-i18next": "^15.1.1",
     "react-router-dom": "6.28.0",
-    "tencentcloud-sdk-nodejs": "^4.0.759",
+    "tencentcloud-sdk-nodejs": "^4.0.996",
     "ws": "^8.18.0"
   },
   "peerDependencies": {

@@ -21,7 +21,7 @@
     "dayjs": "1.11.10",
     "react": "~18.3.1",
     "react-i18next": "^15.1.1",
-    "tencentcloud-sdk-nodejs": "^4.0.759"
+    "tencentcloud-sdk-nodejs": "^4.0.996"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
