@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-devtools",
-  "version": "0.23.2",
+  "version": "0.23.3",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
