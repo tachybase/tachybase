@@ -186,23 +186,26 @@ export class WorkerManager {
    * @returns 是否超过并发限制
    */
   private checkAndUpdateConcurrency(key: string, limit: number, cache: Map<string, callPluginMethodInfo>): boolean {
+    const now = Date.now();
     let countInfo: callPluginMethodInfo = cache.get(key);
     if (countInfo && countInfo.lastTime) {
-      const diff = new Date().getTime() - countInfo.lastTime.getTime();
+      const diff = now - countInfo.lastTime.getTime();
       if (diff > 1000 * WorkerManager.timeoutSecond) {
         countInfo.count = 0;
+        this.app.logger.debug(`[worker] Reset concurrency count for ${key} due to timeout`);
       }
     }
     if (countInfo && countInfo.count >= limit) {
+      this.app.logger.debug(`[worker] Concurrency limit reached for ${key}: ${countInfo.count}/${limit}`);
       return true;
     } else {
       if (!countInfo) {
         countInfo = {
-          lastTime: new Date(),
+          lastTime: new Date(now),
           count: 1,
         };
       } else {
-        countInfo.lastTime = new Date();
+        countInfo.lastTime = new Date(now);
         countInfo.count++;
       }
       cache.set(key, countInfo);

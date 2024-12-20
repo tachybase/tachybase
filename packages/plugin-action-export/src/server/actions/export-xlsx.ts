@@ -36,7 +36,7 @@ export async function exportXlsx(ctx: Context, next: Next) {
       plugin: ExportPlugin,
       method: 'workerExportXlsx', // TODO: 这样不够优雅
       concurrency: 1,
-      globalCurrency: 1,
+      globalConcurrency: 1,
       params: {
         title,
         filter,

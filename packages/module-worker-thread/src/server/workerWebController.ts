@@ -3,7 +3,7 @@ import { Application } from '@tachybase/server';
 import { Action, Controller } from '@tachybase/utils';
 
 import { NAMESPACE } from '../constants';
-import { WORKER_COUNT_MAX } from './constants';
+import { WORKER_COUNT, WORKER_COUNT_MAX, WORKER_COUNT_SUB } from './constants';
 import { WorkerWebInfo } from './workerTypes';
 
 @Controller('worker_thread')
@@ -21,7 +21,7 @@ export class WorkerWebController {
       const preset = app.worker.getPresetWorkerNum();
       const current = app.worker.getCurrentWorkerNum();
       const busy = app.worker.getBusyWorkerNum();
-      const env = app.name === 'main' ? process.env.WORKER_COUNT : process.env.WORKER_COUNT_SUB;
+      const env = app.name === 'main' ? WORKER_COUNT : WORKER_COUNT_SUB;
       ctx.body = {
         preset,
         current,

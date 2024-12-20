@@ -1,7 +1,7 @@
 import { isMainThread } from 'worker_threads';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
-import { WORKER_COUNT_INIT, WORKER_COUNT_INIT_SUB } from './constants';
+import { WORKER_COUNT, WORKER_COUNT_SUB } from './constants';
 import { WorkerManager } from './workerManager';
 import { WorkerWebController } from './workerWebController';
 
@@ -25,7 +25,7 @@ export class ModuleWorkerThreadServer extends Plugin {
     }
 
     // 启动时创建工作线程的数量
-    const workerCount = this.app.name === 'main' ? WORKER_COUNT_INIT : WORKER_COUNT_INIT_SUB;
+    const workerCount = this.app.name === 'main' ? WORKER_COUNT : WORKER_COUNT_SUB;
     this.app.on('afterStart', async () => {
       if (this.app.worker) {
         await this.app.worker.clear();

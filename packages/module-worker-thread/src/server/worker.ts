@@ -1,11 +1,10 @@
 import { isMainThread, parentPort, workerData } from 'worker_threads';
 import { CollectionModel, FieldModel } from '@tachybase//module-collection/src/server/models';
-import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
 import { CollectionRepository } from '@tachybase/module-collection';
 import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
-import { uid } from '@tachybase/utils';
+import { Container, uid } from '@tachybase/utils';
 
 import { WorkerEvent } from './workerTypes';
 
@@ -61,6 +60,7 @@ const handleWorkerMessages = (app: Application) => {
 };
 
 export const main = async () => {
+  let app: Application;
   const appName = workerData.appName || 'main';
   try {
     const applicationOptions = {
@@ -68,59 +68,88 @@ export const main = async () => {
       database: workerData.databaseOptions,
       logger: loggerOptions,
     } as ApplicationOptions;
-    const app = new Application(applicationOptions);
+    app = new Application(applicationOptions);
     app.logger.info('[worker] app boot');
-    // only add, not load, start
-    await app.pm.initPlugins();
 
-    app.db.registerRepositories({
-      CollectionRepository,
-    });
-    app.db.registerModels({
-      CollectionModel,
-      FieldModel,
-    });
+    // for Inject
+    Container.reset();
+    Container.set({ id: 'db', value: app.db });
+    Container.set({ id: 'app', value: app });
+    Container.set({ id: 'logger', value: app.logger });
 
-    const userPluginName = app.pm.get(PluginUsersServer).name;
-    // 必备插件 (users表,和一些字段信息的表 TODO: 可能会有遗漏的)
-    const pluginNames = [userPluginName];
-    for (const [P, plugin] of app.pm.getPlugins()) {
-      if (plugin.name.startsWith('field-')) {
-        pluginNames.push(plugin.name);
-      }
-    }
-
-    for (const pluginName of pluginNames) {
-      const plugin = app.pm.get(pluginName);
-      await plugin.beforeLoad();
-    }
-    for (const pluginName of pluginNames) {
-      const plugin = app.pm.get(pluginName);
-      await plugin.load();
-    }
-    for (const [P, plugin] of app.pm.getPlugins()) {
-      if (pluginNames.includes(plugin.name)) {
-        continue;
-      }
-      if (!plugin.enabled) {
-        continue;
-      }
-      await plugin.loadCollections();
-      // TODO: feature的inject可能有问题
-      // for (const feature of plugin.featureInstances) {
-      //   await feature.load();
-      // }
-    }
-    await app.db.getRepository<CollectionRepository>('collections').load();
+    await loadPlugins(app);
 
     app.logger.info('[worker] app has been started');
     // 工作线程部分逻辑代码
     handleWorkerMessages(app);
   } catch (err) {
-    console.error(err);
+    app?.logger?.error('[worker] Failed to start worker:', err);
+    // Attempt cleanup
+    try {
+      await app?.db?.close();
+    } catch (cleanupErr) {
+      app?.logger?.error('[worker] Cleanup failed:', cleanupErr);
+    }
     process.exit(-1);
   }
 };
+
+async function loadPlugins(app: Application) {
+  // only add, not load, start
+  await app.pm.initPlugins();
+
+  app.db.registerRepositories({
+    CollectionRepository,
+  });
+  app.db.registerModels({
+    CollectionModel,
+    FieldModel,
+  });
+
+  // TODO: 这里不该特殊处理
+  const userPluginName = app.pm.get(PluginUsersServer).name;
+  // 必备插件,为了数据下载,部分插件需要load (users表,和一些字段信息的表 TODO: 可能会有遗漏的)
+  const loadPlugins = [userPluginName];
+  for (const [P, plugin] of app.pm.getPlugins()) {
+    if (plugin.name.startsWith('field-')) {
+      loadPlugins.push(plugin.name);
+    }
+  }
+
+  for (const pluginName of loadPlugins) {
+    const plugin = app.pm.get(pluginName);
+    try {
+      await plugin.beforeLoad();
+    } catch (error) {
+      app.logger.error(`Failed to execute beforeLoad for plugin ${pluginName}:`, error);
+      throw error;
+    }
+  }
+  for (const pluginName of loadPlugins) {
+    const plugin = app.pm.get(pluginName);
+    try {
+      await plugin.load();
+    } catch (error) {
+      app.logger.error(`Failed to execute load for plugin ${pluginName}:`, error);
+      throw error;
+    }
+  }
+  for (const [P, plugin] of app.pm.getPlugins()) {
+    if (loadPlugins.includes(plugin.name)) {
+      continue;
+    }
+    if (!plugin.enabled) {
+      continue;
+    }
+    await plugin.loadCollections();
+    for (const feature of plugin.featureInstances) {
+      await feature.load();
+    }
+  }
+
+  // 为了用户自定义表都能下载,备份
+  await app.db.getRepository<CollectionRepository>('collections').load();
+}
 
 // 支持直接通过 npx tsx --tsconfig ./tsconfig.server.json -r tsconfig-paths/register ./packages/module-worker-thread/src/server/worker.ts 测试启动
 main();
