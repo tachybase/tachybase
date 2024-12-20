@@ -21,10 +21,12 @@ export class WorkerWebController {
       const preset = app.worker.getPresetWorkerNum();
       const current = app.worker.getCurrentWorkerNum();
       const busy = app.worker.getBusyWorkerNum();
+      const env = app.name === 'main' ? process.env.WORKER_COUNT : process.env.WORKER_COUNT_SUB;
       ctx.body = {
         preset,
         current,
         busy,
+        env,
       };
     }
   }

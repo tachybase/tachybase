@@ -64,10 +64,8 @@ export const main = async () => {
   const appName = workerData.appName || 'main';
   try {
     const applicationOptions = {
-      // TODO
       name: `worker-${appName}-${uid()}`,
-      database: await parseDatabaseOptionsFromEnv(),
-      // plugins: [...workerData.plugins],
+      database: workerData.databaseOptions,
       logger: loggerOptions,
     } as ApplicationOptions;
     const app = new Application(applicationOptions);
@@ -83,7 +81,7 @@ export const main = async () => {
       FieldModel,
     });
 
-    const userPluginName = await app.pm.get(PluginUsersServer).name;
+    const userPluginName = app.pm.get(PluginUsersServer).name;
     // 必备插件 (users表,和一些字段信息的表 TODO: 可能会有遗漏的)
     const pluginNames = [userPluginName];
     for (const [P, plugin] of app.pm.getPlugins()) {

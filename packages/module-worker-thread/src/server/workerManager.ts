@@ -4,13 +4,26 @@ import { isMainThread, Worker } from 'worker_threads';
 import { Application } from '@tachybase/server';
 import { fsExists } from '@tachybase/utils';
 
-import { WORKER_COUNT_INIT, WORKER_ERROR_RETRY, WORKER_TIMEOUT } from './constants';
-import { WorkerEvent, WorkerEventInput, WorkerEventInputPluginMethod } from './workerTypes';
+import { WORKER_ERROR_RETRY, WORKER_TIMEOUT } from './constants';
+import { callPluginMethodInfo, WorkerEvent, WorkerEventInput, WorkerEventInputPluginMethod } from './workerTypes';
 
-type callPluginMethodInfo = {
-  lastTime: Date;
-  count: number;
-};
+/**
+ * 从对象中提取基本类型的值,只提取一层的基本类型值
+ * @param obj - 输入对象
+ * @returns 只包含基本类型值的新对象
+ */
+function copyBasicTypes(obj: any): any {
+  const result: any = {};
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const value = obj[key];
+      if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+        result[key] = value;
+      }
+    }
+  }
+  return result;
+}
 
 // 工作线程尽量不要在定时任务和工作流(工作流的ctx,通知等等出问题)中使用
 export class WorkerManager {
@@ -20,7 +33,7 @@ export class WorkerManager {
 
   private isDev = true;
 
-  private workerNum = WORKER_COUNT_INIT;
+  private workerNum = 0;
   private workerList: Worker[] = [];
 
   private currentWorkerIndex = 0;
@@ -39,6 +52,8 @@ export class WorkerManager {
     return `worker:global`;
   }
 
+  private databaseOptions;
+
   constructor(
     public app: Application,
     workerNum?: number,
@@ -46,9 +61,11 @@ export class WorkerManager {
     if (!isMainThread) {
       return;
     }
-    if (workerNum) {
+    if (workerNum !== undefined) {
       this.workerNum = workerNum;
     }
+
+    this.databaseOptions = copyBasicTypes(app.db.options);
   }
 
   public getPresetWorkerNum() {
@@ -78,6 +95,7 @@ export class WorkerManager {
       worker = new Worker(path.resolve(__dirname, './worker.js'), {
         workerData: {
           appName: this.app.name,
+          databaseOptions: this.databaseOptions,
         },
       });
     } else {
@@ -85,6 +103,7 @@ export class WorkerManager {
         workerData: {
           scriptPath: path.resolve(__dirname, './worker.ts'),
           appName: this.app.name,
+          databaseOptions: this.databaseOptions,
         },
       });
     }

@@ -30,3 +30,8 @@ export type WorkerWebInfo = {
   // 繁忙数量
   busy: number;
 };
+
+export type callPluginMethodInfo = {
+  lastTime: Date;
+  count: number;
+};
