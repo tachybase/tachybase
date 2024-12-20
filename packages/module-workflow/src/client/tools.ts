@@ -8,148 +8,110 @@ interface Node {
   [key: string]: any;
 }
 
+// 插入节点
+function insertNode(list: Node[], newNode: Node, upstreamId: number, downstreamId: number): Node[] {
+  // 查找上游节点和下游节点
+  let upstreamNode = list.find((node) => node.id === upstreamId);
+  let downstreamNode = list.find((node) => node.id === downstreamId);
+
+  // 检查是否存在
+  if (!upstreamNode || !downstreamNode) {
+    throw new Error('Upstream or downstream node not found');
+  }
+
+  // 更新引用
+  newNode.upstream = upstreamNode;
+  newNode.upstreamId = upstreamNode.id;
+  newNode.downstream = downstreamNode;
+  newNode.downstreamId = downstreamNode.id;
+
+  // 更新上游节点和下游节点的引用
+  upstreamNode.downstream = newNode;
+  upstreamNode.downstreamId = newNode.id;
+  downstreamNode.upstream = newNode;
+  downstreamNode.upstreamId = newNode.id;
+
+  // 添加到数组
+  list.push(newNode);
+
+  return list.slice();
+}
+
+// 删除节点
+function deleteNode(list: Node[], nodeId): Node[] {
+  // 查找要删除的节点
+  let nodeToDelete = list.find((node) => node.id === nodeId);
+
+  // 检查是否存在
+  if (!nodeToDelete) {
+    throw new Error('Node not found');
+  }
+
+  // 查找上游和下游节点
+  let upstreamNode = list.find((node) => node.id === nodeToDelete.upstreamId);
+  let downstreamNode = list.find((node) => node.id === nodeToDelete.downstreamId);
+
+  // 更新上游节点的下游引用
+  if (upstreamNode) {
+    upstreamNode.downstream = downstreamNode;
+    upstreamNode.downstreamId = downstreamNode.id;
+  }
+
+  // 更新下游节点的上游引用
+  if (downstreamNode) {
+    downstreamNode.upstream = upstreamNode;
+    downstreamNode.upstreamId = upstreamNode.id;
+  }
+
+  // 从数组中移除节点
+  list = list.filter((node) => node.id !== nodeId);
+
+  return list;
+}
+
+// 根据链表顺序重新排序数组的函数
+function sortArrayByLinkedList(nodeList: Node[]): Node[] {
+  let sortedList: Node[] = [];
+  let current: Node | null = null;
+
+  // 找到链表的头部节点（没有上游节点的节点）
+  for (const node of nodeList) {
+    if (node.upstream === null) {
+      current = node;
+      break;
+    }
+  }
+
+  // 如果没有找到头部节点，返回空数组
+  if (!current) {
+    return sortedList;
+  }
+
+  // 遍历链表，按照节点的连接顺序将它们添加到新的数组中
+  while (current !== null) {
+    sortedList.push(current);
+    const nextNode = current.downstream;
+    // 断开引用，避免循环引用
+    current.downstream = null;
+    current = nextNode;
+  }
+
+  return sortedList;
+}
+
 export function rearrangeNodeList(nodeList: Node[], activeId: number, overId: number): Node[] {
-  const newList = [];
-
-  const activeIndex = nodeList.findIndex((node) => node.id === activeId);
-  const overIndex = nodeList.findIndex((node) => node.id === overId);
-
-  const activeNode = nodeList[activeIndex];
-  const overNode = nodeList[overIndex];
-
-  const direction = activeIndex > overIndex ? 'down' : 'up';
-
-  if (activeIndex === -1 || overIndex === -1) {
-    return nodeList;
+  const activeNode = nodeList.find((node) => node.id === activeId);
+  const overNode = nodeList.find((node) => node.id === overId);
+  // 检查是否存在
+  if (!activeNode || !overNode) {
+    throw new Error('Active or over node not found');
   }
+  // 删除旧的活动节点
+  const listWithoutActive = deleteNode(nodeList, activeId);
+  // 插入新的活动节点
+  const listHaveActive = insertNode(listWithoutActive, activeNode, overId, activeId);
+  // 重新排序链表数组
+  const sortedList = sortArrayByLinkedList(listHaveActive);
 
-  if (direction === 'up') {
-    // 上移的情况
-    for (let i = 0; i < nodeList.length; i++) {
-      if (i < overIndex - 1) {
-        // 前面的节点不动
-        newList.push(nodeList[i]);
-      } else if (i === overIndex - 1) {
-        // 只更改节点的下游引用
-        const targetNode = nodeList[i];
-        const upstreamNode = newList.at(-1);
-        const downstreamNode = activeNode;
-        const newNode = {
-          ...targetNode,
-          upstreamId: upstreamNode.id,
-          upstream: upstreamNode,
-          downstreamId: downstreamNode.id,
-          downstream: downstreamNode,
-        };
-        newList.push(newNode);
-      } else if (i === overIndex) {
-        // 插入活动节点, 并更改上下游节点
-        const targetNode = activeNode;
-        const upstreamNode = newList.at(-1);
-        const downstreamNode = nodeList[i];
-        const newNode = {
-          ...targetNode,
-          upstreamId: upstreamNode.id,
-          upstream: upstreamNode,
-          downstreamId: downstreamNode.id,
-          downstream: downstreamNode,
-        };
-        newList.push(newNode);
-      } else if (i > overIndex && i < activeIndex) {
-        // 下移后续节点, 并更改上下游节点引用
-        const targetNode = nodeList[i - 1];
-        const upstreamNode = newList.at(-1);
-        const downstreamNode = nodeList[i];
-        const newNode = {
-          ...targetNode,
-          upstreamId: upstreamNode.id,
-          upstream: upstreamNode,
-          downstreamId: downstreamNode.id,
-          downstream: downstreamNode,
-        };
-        newList.push(newNode);
-      } else if (i === activeIndex + 1) {
-        // 只更改上游节点引用
-        const targetNode = nodeList[i];
-        const upstreamNode = newList.at(-1);
-        const downstreamNode = nodeList[i];
-        const newNode = {
-          ...targetNode,
-          upstreamId: upstreamNode.id,
-          upstream: upstreamNode,
-          downstreamId: downstreamNode.id,
-          downstream: downstreamNode,
-        };
-        newList.push(newNode);
-      } else if (i > activeIndex + 1) {
-        // 后边节点不做变动
-        newList.push(nodeList[i]);
-      }
-    }
-  } else {
-    // 下移的情况
-    for (let i = 0; i < nodeList.length; i++) {
-      if (i < activeIndex - 1) {
-        // 前面的节点不动
-        newList.push(nodeList[i]);
-      } else if (i === activeIndex - 1) {
-        // 只更改节点的下游引用
-        const targetNode = nodeList[i];
-        const upstreamNode = newList.at(-1);
-        const downstreamNode = nodeList[i + 1];
-        const newNode = {
-          ...targetNode,
-          upstreamId: upstreamNode?.id,
-          upstream: upstreamNode,
-          downstreamId: downstreamNode.id,
-          downstream: downstreamNode,
-        };
-        newList.push(newNode);
-      } else if (i === activeIndex) {
-        // 移除活动节点, 并更改上下游节点
-        const targetNode = nodeList[i + 1];
-        const upstreamNode = newList.at(-1);
-        const downstreamNode = nodeList[i + 2];
-        const newNode = {
-          ...targetNode,
-          upstreamId: upstreamNode.id,
-          upstream: upstreamNode,
-          downstreamId: downstreamNode.id,
-          downstream: downstreamNode,
-        };
-        newList.push(newNode);
-      } else if (i > activeIndex && i < overIndex) {
-        // 上移后续节点, 并更改上下游节点引用
-        const targetNode = nodeList[i + 1];
-        const upstreamNode = newList.at(-1);
-        const downstreamNode = nodeList[i + 2];
-        const newNode = {
-          ...targetNode,
-          upstreamId: upstreamNode.id,
-          upstream: upstreamNode,
-          downstreamId: downstreamNode.id,
-          downstream: downstreamNode,
-        };
-        newList.push(newNode);
-      } else if (i === overIndex + 1) {
-        // 只更改上游节点引用
-        const targetNode = nodeList[i];
-        const upstreamNode = newList.at(-1);
-        const downstreamNode = targetNode.downstream;
-        const newNode = {
-          ...targetNode,
-          upstreamId: upstreamNode.id,
-          upstream: upstreamNode,
-          downstreamId: downstreamNode.id,
-          downstream: downstreamNode,
-        };
-        newList.push(newNode);
-      } else if (i > overIndex + 1) {
-        // 后边节点不做变动
-        newList.push(nodeList[i]);
-      }
-    }
-  }
-
-  return nodeList;
+  return sortedList;
 }
