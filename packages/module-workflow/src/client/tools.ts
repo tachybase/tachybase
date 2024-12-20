@@ -64,9 +64,9 @@ function deleteNode(list: Node[], nodeId): Node[] {
   }
 
   // 从数组中移除节点
-  list = list.filter((node) => node.id !== nodeId);
+  const newlist = list.filter((node) => node.id !== nodeId);
 
-  return list;
+  return newlist;
 }
 
 // 根据链表顺序重新排序数组的函数
@@ -100,16 +100,33 @@ function sortArrayByLinkedList(nodeList: Node[]): Node[] {
 }
 
 export function rearrangeNodeList(nodeList: Node[], activeId: number, overId: number): Node[] {
-  const activeNode = nodeList.find((node) => node.id === activeId);
-  const overNode = nodeList.find((node) => node.id === overId);
+  const activeIndex = nodeList.findIndex((node) => node.id === activeId);
+  const overIndex = nodeList.findIndex((node) => node.id === overId);
+
+  const activeNode = nodeList[activeIndex];
+  const overNode = nodeList[overIndex];
+
+  const direction = activeIndex > overIndex ? 'up' : 'down';
+
   // 检查是否存在
   if (!activeNode || !overNode) {
     throw new Error('Active or over node not found');
   }
   // 删除旧的活动节点
   const listWithoutActive = deleteNode(nodeList, activeId);
+
   // 插入新的活动节点
-  const listHaveActive = insertNode(listWithoutActive, activeNode, overId, activeId);
+  let upstreamId: number;
+  let downstreamId: number;
+  if (direction === 'up') {
+    upstreamId = overNode.upstreamId;
+    downstreamId = overNode.id;
+  } else {
+    upstreamId = overNode.id;
+    downstreamId = overNode.downstreamId;
+  }
+  const listHaveActive = insertNode(listWithoutActive, activeNode, upstreamId, downstreamId);
+
   // 重新排序链表数组
   const sortedList = sortArrayByLinkedList(listHaveActive);
 
