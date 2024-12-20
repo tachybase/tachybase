@@ -4,7 +4,7 @@ interface ContextMenuContext {
   contextMenuEnabled: boolean;
   setContextMenuEnable: (enabled: boolean) => void;
   hiddenScrollArea: boolean;
-  setHiddenScrollArea: (enabled: boolean) => void;
+  setHiddenScrollArea: (isHidden: boolean) => void;
   position: any;
   setPosition: (any) => void;
 }

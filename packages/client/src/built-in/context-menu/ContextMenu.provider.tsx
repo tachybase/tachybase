@@ -6,11 +6,16 @@ import { Dropdown, type MenuProps } from 'antd';
 import { useApp } from '../../application';
 import { ContextMenuContext } from './useContextMenu';
 
+const STORAGE_KEYS = {
+  HIDDEN_SCROLL_AREA: 'hidden-scroll-area',
+  CONTEXT_MENU_ENABLED: 'context-menu-enabled',
+} as const;
+
 export const ContextMenuProvider = ({ children }) => {
-  const [enable, setEnable] = useLocalStorageState<boolean>('context-menu-enabled', {
+  const [enable, setEnable] = useLocalStorageState<boolean>(STORAGE_KEYS.CONTEXT_MENU_ENABLED, {
     defaultValue: true,
   });
-  const [hiddenScrollArea, setHiddenScrollArea] = useLocalStorageState<boolean>('hidden-scroll-area', {
+  const [hiddenScrollArea, setHiddenScrollArea] = useLocalStorageState<boolean>(STORAGE_KEYS.HIDDEN_SCROLL_AREA, {
     defaultValue: false,
   });
 
