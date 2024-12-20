@@ -83,8 +83,8 @@ importers:
         specifier: ^13.3.0
         version: 13.3.0(enquirer@2.4.1)
       oxlint:
-        specifier: ^0.11.1
-        version: 0.11.1
+        specifier: ^0.15.3
+        version: 0.15.3
       prettier:
         specifier: 3.4.2
         version: 3.4.2
@@ -7979,43 +7979,43 @@ packages:
     resolution: {integrity: sha512-uPtnRgP4+CAQjns7TXdhJf46WGRj8kESmBWvm+4aVpvqHGfU7c+f0yzMx8o04+LyXXkoOqYeq54X0grEFtVtdw==}
     engines: {node: '>=14'}
 
-  '@oxlint/darwin-arm64@0.11.1':
-    resolution: {integrity: sha512-S+cHn49fT+qSJXhQ3Z4EG/5ENp2dAUbS2sMNkhgkLqlO8aYl0TR9R7omU3vpU/beu8ePnV+mdVlJYGjsPIMGtg==}
+  '@oxlint/darwin-arm64@0.15.3':
+    resolution: {integrity: sha512-6isglmWrI3XxNR+V2KDURRg8bo3JpoTGUs1BqEuwZISz0tIEU5kVZ3Zba4vNz6Rp79lfA18ueYTB5NKonWaYOg==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxlint/darwin-x64@0.11.1':
-    resolution: {integrity: sha512-LPuF0D8uu30KIVEeVuGwIPwHwJRQ1i1otwFFH7tRsNXPgMgZJ4VgriyH22i6RWwBtclJoCSBLtGK6gLZ0oZBvw==}
+  '@oxlint/darwin-x64@0.15.3':
+    resolution: {integrity: sha512-wKn+eITIIpcXPU7hiWVHezAKONT/Vz6q9TUZFiYQFytF7sGAt0APZshe5tbjGTZ8XTR6wQ5wDETwdornHXCNFg==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxlint/linux-arm64-gnu@0.11.1':
-    resolution: {integrity: sha512-CYBE+GRIPs5e+raD2pdicuBn6Y6E1xAnyWQ/kHE4GEWDAQZY0Um2VYEUTGH2ObwJ3uXr6jeJ16HOKJvr0S8a8w==}
+  '@oxlint/linux-arm64-gnu@0.15.3':
+    resolution: {integrity: sha512-AZUOtb3OfK8xDZJfk60AwgTKEpa6zJdvjrwuk8Qqz4tPqLJpk4KSJmfNMzbYzy689m27ur+ix1p/7JAxwvckRg==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxlint/linux-arm64-musl@0.11.1':
-    resolution: {integrity: sha512-iYXF5N5Gv+lc2wt90kxXy/W0cn7IEWu3UPzewIjPGDH8ajDckvGzZx6pTGYJnTyMh7U6hUKwOBFPVLMWI7UwKQ==}
+  '@oxlint/linux-arm64-musl@0.15.3':
+    resolution: {integrity: sha512-HIeyrgE11KFkSRpVjBRWOux78OITDqlOiC8plC2RDrLvSj205MaA1GYYyIMMv/FuyWdGMOAHOetn5vWbyJJctQ==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxlint/linux-x64-gnu@0.11.1':
-    resolution: {integrity: sha512-D0tT8X0CsK/bpdkGdLSmsGftG3VndjyAUJuNGt56JYn0UfuPDkhQcLgUlkANHzNRXJ84tLQKhpf/MUDUHPB5cg==}
+  '@oxlint/linux-x64-gnu@0.15.3':
+    resolution: {integrity: sha512-cDHQaDCpuqFFYTohM+xw4120hzBSWaOVIZqq0ROUEX/qi+nnR9XMKE/fJf8xiHJznFlV6ANsiMLY939uur8OKw==}
     cpu: [x64]
     os: [linux]
 
-  '@oxlint/linux-x64-musl@0.11.1':
-    resolution: {integrity: sha512-WekaLYk8WLT7Di8+nyPvtqs9OlMoO6KjFDMlqqLDWQTk9ffjn8e76PCRigF3w39jQ70qP3c8k8cNKNw5ROuFcg==}
+  '@oxlint/linux-x64-musl@0.15.3':
+    resolution: {integrity: sha512-6PVIi0XXhlpFoBh0k2fP9wioU8MiktkqnYHxOv7EM7HggjAzpRMJqQmgwWcww3RU5R7T4wnZNzrUPPqI7+Ejmw==}
     cpu: [x64]
     os: [linux]
 
-  '@oxlint/win32-arm64@0.11.1':
-    resolution: {integrity: sha512-/CN/bFtI33vB8uemOkZxlNRf6Q7CftP2pSO7a6Q2niG4NC99YRPj7ctXcPF0jGR0NQUhGZk7ajM4G/0MKcRdag==}
+  '@oxlint/win32-arm64@0.15.3':
+    resolution: {integrity: sha512-CAvFXTZ6pwHHMHTmRgev/QcS4vD2UeH4e68DxgslPrib6ivTGz2EvtVbrVuVsuS27WQuKTy06e9RW339dk4pHg==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxlint/win32-x64@0.11.1':
-    resolution: {integrity: sha512-0hLl0z6adYTvLIOPC5uyo+EAwNITkzi4AY4xImykQW8H89GhiV9Xl8MPJeZQMWSz7ajI1I2+hRsvA0QAzeBsxA==}
+  '@oxlint/win32-x64@0.15.3':
+    resolution: {integrity: sha512-sXBPSxDoOELlkUbjXfXqlfig3jw67ylrZn+URke/TZMknY1uNEsFTg9+89t8km65eC8SZSE9rnZVyjK8iaEJXA==}
     cpu: [x64]
     os: [win32]
 
@@ -11617,7 +11617,7 @@ packages:
     engines: {node: '>=12.20'}
 
   detect-libc@1.0.3:
-    resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
+    resolution: {integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=}
     engines: {node: '>=0.10'}
     hasBin: true
 
@@ -15115,8 +15115,8 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  oxlint@0.11.1:
-    resolution: {integrity: sha512-yVTkBmSvn1mo69vxBdNASOGFd1oqWzpaIWPFPIXNAHxgrW7FjotKuJ71j/pqtZH/sVSRWTpQFdmBa3CIuBEILg==}
+  oxlint@0.15.3:
+    resolution: {integrity: sha512-kOAt0EC/oluYTcfRu6yg8+QkYMq6uibvEW+hx5nKsX320+VYEw1ChNBRcfSLCtJwA+k6X/CGxk2MN2Nddw70sQ==}
     engines: {node: '>=14.*'}
     hasBin: true
 
@@ -23201,28 +23201,28 @@ snapshots:
       '@opentelemetry/api-logs': 0.52.1
       winston-transport: 4.6.0
 
-  '@oxlint/darwin-arm64@0.11.1':
+  '@oxlint/darwin-arm64@0.15.3':
     optional: true
 
-  '@oxlint/darwin-x64@0.11.1':
+  '@oxlint/darwin-x64@0.15.3':
     optional: true
 
-  '@oxlint/linux-arm64-gnu@0.11.1':
+  '@oxlint/linux-arm64-gnu@0.15.3':
     optional: true
 
-  '@oxlint/linux-arm64-musl@0.11.1':
+  '@oxlint/linux-arm64-musl@0.15.3':
     optional: true
 
-  '@oxlint/linux-x64-gnu@0.11.1':
+  '@oxlint/linux-x64-gnu@0.15.3':
     optional: true
 
-  '@oxlint/linux-x64-musl@0.11.1':
+  '@oxlint/linux-x64-musl@0.15.3':
     optional: true
 
-  '@oxlint/win32-arm64@0.11.1':
+  '@oxlint/win32-arm64@0.15.3':
     optional: true
 
-  '@oxlint/win32-x64@0.11.1':
+  '@oxlint/win32-x64@0.15.3':
     optional: true
 
   '@pkgjs/parseargs@0.11.0':
@@ -23283,7 +23283,7 @@ snapshots:
 
   '@pm2/pm2-version-check@1.0.4':
     dependencies:
-      debug: 4.4.0
+      debug: 4.3.7(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -25581,7 +25581,7 @@ snapshots:
 
   agent-base@7.1.1:
     dependencies:
-      debug: 4.4.0
+      debug: 4.3.7(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -29223,7 +29223,7 @@ snapshots:
     dependencies:
       basic-ftp: 5.0.5
       data-uri-to-buffer: 6.0.2
-      debug: 4.4.0
+      debug: 4.3.7(supports-color@5.5.0)
       fs-extra: 11.2.0
     transitivePeerDependencies:
       - supports-color
@@ -29685,7 +29685,7 @@ snapshots:
   http-proxy-agent@7.0.2:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.4.0
+      debug: 4.3.7(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -29712,7 +29712,7 @@ snapshots:
   https-proxy-agent@7.0.5:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.4.0
+      debug: 4.3.7(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -32203,16 +32203,16 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
-  oxlint@0.11.1:
+  oxlint@0.15.3:
     optionalDependencies:
-      '@oxlint/darwin-arm64': 0.11.1
-      '@oxlint/darwin-x64': 0.11.1
-      '@oxlint/linux-arm64-gnu': 0.11.1
-      '@oxlint/linux-arm64-musl': 0.11.1
-      '@oxlint/linux-x64-gnu': 0.11.1
-      '@oxlint/linux-x64-musl': 0.11.1
-      '@oxlint/win32-arm64': 0.11.1
-      '@oxlint/win32-x64': 0.11.1
+      '@oxlint/darwin-arm64': 0.15.3
+      '@oxlint/darwin-x64': 0.15.3
+      '@oxlint/linux-arm64-gnu': 0.15.3
+      '@oxlint/linux-arm64-musl': 0.15.3
+      '@oxlint/linux-x64-gnu': 0.15.3
+      '@oxlint/linux-x64-musl': 0.15.3
+      '@oxlint/win32-arm64': 0.15.3
+      '@oxlint/win32-x64': 0.15.3
 
   p-all@3.0.0:
     dependencies:
@@ -32266,7 +32266,7 @@ snapshots:
     dependencies:
       '@tootallnate/quickjs-emscripten': 0.23.0
       agent-base: 7.1.1
-      debug: 4.4.0
+      debug: 4.3.7(supports-color@5.5.0)
       get-uri: 6.0.3
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.5
@@ -32833,7 +32833,7 @@ snapshots:
   proxy-agent@6.3.1:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.4.0
+      debug: 4.3.7(supports-color@5.5.0)
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.5
       lru-cache: 7.18.3
@@ -34127,7 +34127,7 @@ snapshots:
 
   require-in-the-middle@5.2.0:
     dependencies:
-      debug: 4.4.0
+      debug: 4.3.7(supports-color@5.5.0)
       module-details-from-path: 1.0.3
       resolve: 1.22.8
     transitivePeerDependencies:
@@ -34707,7 +34707,7 @@ snapshots:
   socks-proxy-agent@8.0.3:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.4.0
+      debug: 4.3.7(supports-color@5.5.0)
       socks: 2.8.3
     transitivePeerDependencies:
       - supports-color
