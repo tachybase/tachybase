@@ -54,13 +54,13 @@ function deleteNode(list: Node[], nodeId): Node[] {
   // 更新上游节点的下游引用
   if (upstreamNode) {
     upstreamNode.downstream = downstreamNode;
-    upstreamNode.downstreamId = downstreamNode.id;
+    upstreamNode.downstreamId = downstreamNode?.id;
   }
 
   // 更新下游节点的上游引用
   if (downstreamNode) {
     downstreamNode.upstream = upstreamNode;
-    downstreamNode.upstreamId = upstreamNode.id;
+    downstreamNode.upstreamId = upstreamNode?.id;
   }
 
   // 从数组中移除节点
