@@ -20,7 +20,7 @@
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "^6.25.1",
+    "react-router-dom": "6.28.0",
     "sequelize": "^6.37.3"
   },
   "peerDependencies": {
