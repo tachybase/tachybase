@@ -16,7 +16,6 @@ export const Node = ({ data }) => {
   const { getAriaLabel } = useGetAriaLabelOfAddButton(data);
   const workflowPlugin = usePlugin(WorkflowPlugin);
   const { Component = NodeDefaultView, end, group } = workflowPlugin.instructions.get(data.type);
-
   return (
     <ProviderContextNode value={{ ...data, group }}>
       <div className={cx(styles.nodeBlockClass)}>

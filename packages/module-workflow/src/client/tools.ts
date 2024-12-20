@@ -1,11 +1,11 @@
 interface Node {
   id: number;
   type: string;
-  upstreamId: number;
-  upstream: Node;
-  downstreamId: number;
-  downstream: Node;
-  [key: string]: any;
+  upstreamId: number | null;
+  upstream: Node | null | undefined;
+  downstreamId: number | null;
+  downstream: Node | null | undefined;
+  [key: string]: unknown;
 }
 
 // 插入节点

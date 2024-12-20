@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { cx } from '@tachybase/client';
 
 import { CloseOutlined } from '@ant-design/icons';
@@ -6,6 +6,7 @@ import { DndContext } from '@dnd-kit/core';
 
 import { useGetAriaLabelOfAddButton } from './hooks/useGetAriaLabelOfAddButton';
 import { AddButton, Node } from './nodes/default-node';
+import { ProviderContextDrag } from './nodes/default-node/Drag.context';
 import useStyles from './style';
 import { rearrangeNodeList } from './tools';
 
@@ -27,21 +28,26 @@ export const Branch = ({
   const { styles } = useStyles();
   const { getAriaLabel } = useGetAriaLabelOfAddButton(from, branchIndex);
 
-  const initialList = [];
-  for (let node = entry; node; node = node.downstream) {
-    initialList.push(node);
-  }
+  const initialList = useMemo(() => {
+    const resultList = [];
+    for (let node = entry; node; node = node.downstream) {
+      resultList.push(node);
+    }
+    return resultList;
+  }, []);
+
+  const [isDraggable, setIsDraggable] = useState(false);
+
   const [list, setList] = useState(initialList);
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
-
-    if (active.id === over.id) {
-      return;
+    if (active?.id && active.id !== over?.id) {
+      const newList = rearrangeNodeList(list, active.id, over.id);
+      setList(newList);
     }
 
-    const newList = rearrangeNodeList(list, active.id, over.id);
-    setList(newList);
+    setIsDraggable(false);
   };
 
   return (
@@ -50,11 +56,13 @@ export const Branch = ({
       {controller}
       <AddButton aria-label={getAriaLabel()} upstream={from} branchIndex={branchIndex} />
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="workflow-node-list">
-          {list.map((item) => (
-            <Node data={item} key={item.id} />
-          ))}
-        </div>
+        <ProviderContextDrag value={{ isDraggable, setIsDraggable }}>
+          <div className="workflow-node-list">
+            {list.map((item) => (
+              <Node data={item} key={item.id} />
+            ))}
+          </div>
+        </ProviderContextDrag>
       </DndContext>
       {end ? (
         <div className="end-sign">
