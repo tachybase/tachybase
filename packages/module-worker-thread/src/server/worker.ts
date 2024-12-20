@@ -1,10 +1,6 @@
 import { isMainThread, parentPort, workerData } from 'worker_threads';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
-import CollectionManagerPlugin, {
-  CollectionModel,
-  CollectionRepository,
-  FieldModel,
-} from '@tachybase/module-collection';
+import CollectionManagerPlugin, { CollectionRepository } from '@tachybase/module-collection';
 import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
 import { Container, uid } from '@tachybase/utils';
@@ -14,11 +10,11 @@ import { WorkerEvent } from './workerTypes';
 const loggerOptions = {
   system: {
     transports: getLoggerTransport(),
-    level: 'info',
+    level: getLoggerLevel(), // TODO: 后续考虑是否提到info
   },
   request: {
     transports: getLoggerTransport(),
-    level: 'info',
+    level: getLoggerLevel(),
   },
 } as AppLoggerOptions;
 
