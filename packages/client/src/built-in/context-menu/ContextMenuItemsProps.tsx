@@ -56,6 +56,23 @@ export const disableRightMenu = {
   },
 };
 
+// 显示隐藏滚动区域开关
+export const hiddenScrollArea = {
+  name: 'hiddenScrollArea',
+  sort: 3,
+  useLoadMethod: ({ hiddenScrollArea, setHiddenScrollArea }) => {
+    const { t } = useTranslation();
+    return {
+      title: hiddenScrollArea ? t('Show scroll area') : t('Hidden scroll area'),
+      actionProps: {
+        onClick: () => {
+          setHiddenScrollArea(!hiddenScrollArea);
+        },
+      },
+    };
+  },
+};
+
 const checkedAutoPage = (position, message, t) => {
   const element = document.elementFromPoint(position?.x, position?.y);
   const blockElement = element.closest('.ant-card');

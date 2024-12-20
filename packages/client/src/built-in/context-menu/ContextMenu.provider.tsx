@@ -6,19 +6,33 @@ import { Dropdown, type MenuProps } from 'antd';
 import { useApp } from '../../application';
 import { ContextMenuContext } from './useContextMenu';
 
+const STORAGE_KEYS = {
+  HIDDEN_SCROLL_AREA: 'hidden-scroll-area',
+  CONTEXT_MENU_ENABLED: 'context-menu-enabled',
+} as const;
+
 export const ContextMenuProvider = ({ children }) => {
-  const [enable, setEnable] = useLocalStorageState<boolean>('context-menu-enabled', {
+  const [enable, setEnable] = useLocalStorageState<boolean>(STORAGE_KEYS.CONTEXT_MENU_ENABLED, {
     defaultValue: true,
   });
+  const [hiddenScrollArea, setHiddenScrollArea] = useLocalStorageState<boolean>(STORAGE_KEYS.HIDDEN_SCROLL_AREA, {
+    defaultValue: false,
+  });
+
   const contextItems = useApp().pluginContextMenu.get();
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const items: MenuProps['items'] = [];
 
-  // XXX: 是否有办法将这个计算缓存, 以及下边那个遍历缓存.
   const contextItemsSorted = Object.values(contextItems).sort((a, b) => (a.sort || 0) - (b.sort || 0));
 
   contextItemsSorted.forEach((item) => {
-    const { actionProps, title, icon } = item.useLoadMethod({ enable, setEnable, position });
+    const { actionProps, title, icon } = item.useLoadMethod({
+      enable,
+      setEnable,
+      hiddenScrollArea,
+      setHiddenScrollArea,
+      position,
+    });
     items.push({
       label: title,
       key: title,
@@ -32,6 +46,8 @@ export const ContextMenuProvider = ({ children }) => {
       value={{
         contextMenuEnabled: enable,
         setContextMenuEnable: setEnable,
+        hiddenScrollArea,
+        setHiddenScrollArea,
         position,
       }}
     >

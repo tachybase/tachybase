@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-oidc",
   "displayName": "Auth: OIDC",
-  "version": "0.23.2",
+  "version": "0.23.5",
   "description": "OIDC (OpenID Connect) authentication.",
   "keywords": [
     "Authentication"
@@ -21,7 +21,7 @@
     "openid-client": "^5.6.1",
     "react": "~18.3.1",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "^6.25.1"
+    "react-router-dom": "6.28.0"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/cli",
-  "version": "0.23.2",
+  "version": "0.23.5",
   "description": "",
   "license": "Apache-2.0",
   "type": "module",
@@ -40,10 +40,11 @@
     "pm2": "^5.3.1",
     "portfinder": "^1.0.32",
     "semver": "^7.6.2",
-    "serve": "^13.0.4",
+    "serve": "^14.2.4",
     "tree-kill": "^1.2.2",
     "tsup": "8.3.5",
-    "tsx": "^4.15.2"
+    "tsx": "^4.19.2",
+    "zeromq": "6.1.2"
   },
   "devDependencies": {
     "@tachybase/devtools": "workspace:*",

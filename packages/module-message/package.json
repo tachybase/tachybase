@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-message",
-  "version": "0.23.2",
+  "version": "0.23.5",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-message"
@@ -15,11 +15,10 @@
     "jsonwebtoken": "8.5.1",
     "lodash": "^4.17.21",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "~6.25.1",
-    "tencentcloud-sdk-nodejs": "^4.0.759",
+    "react-router-dom": "6.28.0",
+    "tencentcloud-sdk-nodejs": "^4.0.996",
     "ws": "^8.18.0"
   },
-  "devDependencies": {},
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",

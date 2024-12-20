@@ -175,57 +175,61 @@ export class StaticScheduleTrigger {
   }
 
   async trigger(cronJobId: number, time: number) {
-    const cronJob = (await this.db
-      .getRepository(DATABASE_CRON_JOBS)
-      .findOne({ filterByTk: cronJobId, raw: true })) as CronJobModel;
-
-    if (!cronJob) {
-      this.logger.warn(`Scheduled cron job ${cronJobId} no longer exists`);
-      const eventKey = `${cronJobId}@${time}`;
-      this.timers.delete(eventKey);
-      return;
-    }
-    const eventKey = `${cronJob.id}@${time}`;
-    this.timers.delete(eventKey);
-
-    // TODO: 保存pluginWorkflow
-    const pluginWorkflow = this.app.getPlugin(PluginWorkflow) as PluginWorkflow;
-
-    const workflow = await this.db.getRepository('workflows').findOne({
-      filter: { key: cronJob.workflowKey, enabled: true },
-    });
-    if (!workflow) {
-      return;
-    }
-
-    let error = null;
-    let process: Processor | null = null;
     try {
-      process = (await pluginWorkflow.trigger(workflow, { date: new Date(time) }, { eventKey })) as Processor;
-    } catch (e) {
-      error = e;
-      this.logger.error(`cronJobs [${cronJob.id}] workflow [${cronJob.workflowKey}] failed: ${e.message}`);
-    } finally {
-      if (!error && (process?.execution?.status === EXECUTION_STATUS.QUEUEING || process?.execution?.status >= 0)) {
-        await cronJob.increment(['limitExecuted', 'allExecuted', 'successExecuted']);
-        cronJob.update({
-          lastTime: new Date(),
-        });
-      } else {
-        await cronJob.increment(['limitExecuted', 'allExecuted']);
-        cronJob.update({
-          lastTime: new Date(),
-        });
+      const cronJob = (await this.db
+        .getRepository(DATABASE_CRON_JOBS)
+        .findOne({ filterByTk: cronJobId })) as CronJobModel;
+
+      if (!cronJob) {
+        this.logger.warn(`Scheduled cron job ${cronJobId} no longer exists`);
+        const eventKey = `${cronJobId}@${time}`;
+        this.timers.delete(eventKey);
+        return;
       }
-    }
+      const eventKey = `${cronJob.id}@${time}`;
+      this.timers.delete(eventKey);
 
-    if (!cronJob.repeat || (cronJob.limit && cronJob.limitExecuted >= cronJob.limit)) {
-      return;
-    }
+      // TODO: 保存pluginWorkflow
+      const pluginWorkflow = this.app.getPlugin(PluginWorkflow) as PluginWorkflow;
 
-    const nextTime = this.getNextTime(cronJob, new Date(), true);
-    if (nextTime) {
-      this.schedule(cronJob, nextTime);
+      const workflow = await this.db.getRepository('workflows').findOne({
+        filter: { key: cronJob.workflowKey, enabled: true },
+      });
+      if (!workflow) {
+        return;
+      }
+
+      let error = null;
+      let process: Processor | null = null;
+      try {
+        process = (await pluginWorkflow.trigger(workflow, { date: new Date(time) }, { eventKey })) as Processor;
+      } catch (e) {
+        error = e;
+        this.logger.error(`cronJobs [${cronJob.id}] workflow [${cronJob.workflowKey}] failed: ${e.message}`);
+      } finally {
+        if (!error && (process?.execution?.status === EXECUTION_STATUS.QUEUEING || process?.execution?.status >= 0)) {
+          await cronJob.increment(['limitExecuted', 'allExecuted', 'successExecuted']);
+          cronJob.update({
+            lastTime: new Date(),
+          });
+        } else {
+          await cronJob.increment(['limitExecuted', 'allExecuted']);
+          cronJob.update({
+            lastTime: new Date(),
+          });
+        }
+      }
+
+      if (!cronJob.repeat || (cronJob.limit && cronJob.limitExecuted >= cronJob.limit)) {
+        return;
+      }
+
+      const nextTime = this.getNextTime(cronJob, new Date(), true);
+      if (nextTime) {
+        this.schedule(cronJob, nextTime);
+      }
+    } catch (e) {
+      this.logger.error(`cronJobs [${cronJobId}] failed: ${e.message}`);
     }
   }
 

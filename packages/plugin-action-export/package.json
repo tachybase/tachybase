@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-export",
   "displayName": "Action: Export records",
-  "version": "0.23.2",
+  "version": "0.23.5",
   "description": "Export filtered records to excel, you can configure which fields to export.",
   "keywords": [
     "Actions"
@@ -18,7 +18,7 @@
     "antd": "5.22.0",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
-    "node-xlsx": "^0.16.2",
+    "node-xlsx": "^0.24.0",
     "react": "^18.3.1",
     "react-i18next": "^15.1.1"
   },

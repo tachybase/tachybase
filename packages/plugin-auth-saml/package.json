@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-saml",
   "displayName": "Auth: SAML 2.0",
-  "version": "0.23.2",
+  "version": "0.23.5",
   "description": "SAML 2.0 authentication.",
   "keywords": [
     "Authentication"
@@ -18,7 +18,7 @@
     "antd": "5.22.0",
     "react": "~18.3.1",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "^6.25.1"
+    "react-router-dom": "6.28.0"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

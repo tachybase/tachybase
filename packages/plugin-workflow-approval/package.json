@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow-approval",
   "displayName": "Approval",
-  "version": "0.23.2",
+  "version": "0.23.5",
   "description": "Approval base in Workflow",
   "keywords": [
     "Approval",
@@ -22,7 +22,7 @@
     "jsonata": "^2.0.5",
     "lodash": "4.17.21",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "~6.25.1",
+    "react-router-dom": "6.28.0",
     "sequelize": "^6.37.3"
   },
   "devDependencies": {

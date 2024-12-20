@@ -1,12 +1,12 @@
 {
   "name": "@tachybase/plugin-adapter-remix",
-  "version": "0.23.2",
+  "version": "0.23.5",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-adapter-remix"
   },
   "devDependencies": {
-    "@remix-run/express": "^2.13.1",
+    "@remix-run/express": "^2.15.1",
     "@remix-run/react": "^2.13.1",
     "cross-env": "^7.0.3",
     "express": "^4.21.1",

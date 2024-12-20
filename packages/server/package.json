@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/server",
-  "version": "0.23.2",
+  "version": "0.23.5",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
@@ -50,7 +50,8 @@
     "serve-handler": "^6.1.5",
     "winston": "^3.11.0",
     "ws": "^8.18.0",
-    "xpipe": "^1.0.5"
+    "xpipe": "^1.0.5",
+    "zeromq": "6.1.2"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",

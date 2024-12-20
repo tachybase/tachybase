@@ -13,6 +13,7 @@ import { useSearchParams } from 'react-router-dom';
 import { FormDialog, ScrollArea } from '..';
 import { useToken } from '../__builtins__';
 import { useStyles as useAClStyles } from '../../../built-in/acl/style';
+import { useContextMenu } from '../../../built-in/context-menu/useContextMenu';
 import { useDocumentTitle } from '../../../built-in/document-title';
 import { FilterBlockProvider } from '../../../filter-provider/FilterProvider';
 import { Icon } from '../../../icon';
@@ -36,6 +37,7 @@ export const Page = (props) => {
   const dn = useDesignable();
   const { theme } = useGlobalTheme();
   const { getAriaLabel } = useGetAriaLabelOfSchemaInitializer();
+  const { hiddenScrollArea } = useContextMenu();
 
   // react18  tab 动画会卡顿，所以第一个 tab 时，动画禁用，后面的 tab 才启用
   const [hasMounted, setHasMounted] = useState(false);
@@ -103,7 +105,7 @@ export const Page = (props) => {
                       }}
                       tabBarExtraContent={
                         <div className="tb-tabs-wrapper">
-                          <ScrollArea />
+                          {!hiddenScrollArea && <ScrollArea />}
                           {dn.designable && (
                             <Button
                               aria-label={getAriaLabel('tabs')}
@@ -181,7 +183,7 @@ export const Page = (props) => {
                   </DndContext>
                 )
               }
-              extra={!enablePageTabs && <ScrollArea />}
+              extra={!enablePageTabs && !hiddenScrollArea && <ScrollArea />}
             />
           )}
         </div>
