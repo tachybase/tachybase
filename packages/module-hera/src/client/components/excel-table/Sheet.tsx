@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
-import { ClassNamesArg, css, cx } from '@tachybase/client';
+import { css, cx } from '@tachybase/client';
 
 import Spreadsheet from '../x-sheet';
 
@@ -9,7 +9,7 @@ export type SheetRef = {
 
 export type SheetProps = {
   data?: any;
-  className?: ClassNamesArg;
+  className?: string;
 };
 
 const ExcelSheet = forwardRef<SheetRef, SheetProps>(({ data, className }, ref) => {

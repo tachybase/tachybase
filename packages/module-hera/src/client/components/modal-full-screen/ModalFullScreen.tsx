@@ -1,12 +1,12 @@
 import React from 'react';
-import { ClassNamesArg, css, cx } from '@tachybase/client';
+import { css, cx } from '@tachybase/client';
 
 import ReactDOM from 'react-dom';
 
 import { ModalHeader } from './ModalFullScreenChild';
 
 interface ModalFullScreenProps {
-  className?: ClassNamesArg;
+  className?: string;
   title?: string;
   open?: boolean;
   destroyOnClose?: boolean;
