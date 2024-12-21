@@ -13,14 +13,14 @@
     "build": "tachybase-build --no-dts @tachybase/module-file"
   },
   "devDependencies": {
-    "@ant-design/icons": "^5.3.7",
-    "@aws-sdk/client-s3": "^3.474.0",
+    "@ant-design/icons": "^5.5.2",
+    "@aws-sdk/client-s3": "^3.717.0",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@types/koa-multer": "^1.0.4",
-    "@types/multer": "^1.4.11",
+    "@types/multer": "^1.4.12",
     "antd": "5.22.0",
-    "cos-nodejs-sdk-v5": "^2.12.6",
+    "cos-nodejs-sdk-v5": "^2.14.6",
     "koa-static": "^5.0.0",
     "lodash": "4.17.21",
     "mime-match": "^1.0.2",
@@ -30,8 +30,8 @@
     "multer-cos": "^1.0.3",
     "multer-s3": "^3.0.1",
     "react": "^18.3.1",
-    "react-i18next": "^15.1.1",
-    "supertest": "^6.3.3"
+    "react-i18next": "^15.2.0",
+    "supertest": "^6.3.4"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

@@ -17,10 +17,10 @@
     "@hapi/topo": "^6.0.2",
     "@pnpm/find-workspace-dir": "^6.0.3",
     "@pnpm/workspace.find-packages": "^1.1.12",
-    "@vercel/ncc": "0.36.1",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vercel/ncc": "0.38.3",
+    "@vitejs/plugin-react": "^4.3.4",
     "chalk": "2.4.2",
-    "esbuild-register": "^3.5.0",
+    "esbuild-register": "^3.6.0",
     "execa": "^5.1.1",
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
@@ -28,13 +28,13 @@
     "tsup": "8.3.4",
     "typescript": "5.7.2",
     "update-notifier": "3.0.0",
-    "vite": "^5.2.13",
-    "vite-plugin-css-injected-by-js": "^3.3.0",
+    "vite": "^5.4.11",
+    "vite-plugin-css-injected-by-js": "^3.5.2",
     "vite-plugin-lib-inject-css": "1.2.0",
     "yargs-parser": "13.1.2"
   },
   "devDependencies": {
     "@types/fs-extra": "11.0.4",
-    "@types/tar": "^6.1.10"
+    "@types/tar": "^6.1.13"
   }
 }

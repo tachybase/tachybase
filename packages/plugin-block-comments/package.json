@@ -12,7 +12,7 @@
     "antd": "5.22.0",
     "dayjs": "1.11.10",
     "lodash": "^4.17.21",
-    "react-i18next": "^15.1.1"
+    "react-i18next": "^15.2.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

@@ -11,7 +11,7 @@
   "devDependencies": {
     "@faker-js/faker": "8.1.0",
     "lodash": "4.17.21",
-    "pg": "^8.11.3"
+    "pg": "^8.13.1"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

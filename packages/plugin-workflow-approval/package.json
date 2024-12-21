@@ -13,17 +13,17 @@
   },
   "dependencies": {
     "@ant-design/icons": "~5.3.7",
-    "@types/lodash": "^4.17.5",
-    "ahooks": "^3.8.0",
+    "@types/lodash": "^4.17.13",
+    "ahooks": "^3.8.4",
     "antd": "5.22.0",
-    "antd-mobile": "^5.36.1",
+    "antd-mobile": "^5.38.1",
     "antd-mobile-icons": "^0.3.0",
     "file-saver": "^2.0.5",
-    "jsonata": "^2.0.5",
+    "jsonata": "^2.0.6",
     "lodash": "4.17.21",
-    "react-i18next": "^15.1.1",
+    "react-i18next": "^15.2.0",
     "react-router-dom": "6.28.0",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.5"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.7"

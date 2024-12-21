@@ -12,17 +12,17 @@
     "build": "tachybase-build --no-dts @tachybase/module-multi-app"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.5.1"
+    "@ant-design/icons": "^5.5.2"
   },
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "antd": "5.22.0",
     "async-mutex": "^0.3.2",
     "lodash": "4.17.21",
-    "mysql2": "^3.11.3",
-    "pg": "^8.11.3",
+    "mysql2": "^3.11.5",
+    "pg": "^8.13.1",
     "react": "~18.3.1",
-    "react-i18next": "^15.1.1",
+    "react-i18next": "^15.2.0",
     "react-router-dom": "6.28.0"
   },
   "peerDependencies": {

@@ -16,7 +16,7 @@
     "@types/lodash": "4.17.5",
     "async-mutex": "^0.3.2",
     "lodash": "4.17.21",
-    "sequelize": "^6.37.3",
+    "sequelize": "^6.37.5",
     "toposort": "^2.0.2"
   },
   "peerDependencies": {

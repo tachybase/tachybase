@@ -11,10 +11,10 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-wecom"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.3.7",
-    "ahooks": "^3.8.0",
+    "@ant-design/icons": "^5.5.2",
+    "ahooks": "^3.8.4",
     "antd": "5.22.0",
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "react-router-dom": "6.28.0"
   },
   "peerDependencies": {

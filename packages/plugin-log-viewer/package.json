@@ -12,12 +12,12 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-log-viewer"
   },
   "devDependencies": {
-    "@ant-design/icons": "^5.3.7",
-    "@types/tar-fs": "^2.0.2",
-    "ahooks": "^3.8.0",
+    "@ant-design/icons": "^5.5.2",
+    "@types/tar-fs": "^2.0.4",
+    "ahooks": "^3.8.4",
     "antd": "5.22.0",
-    "react-i18next": "^15.1.1",
-    "tar-fs": "^3.0.4"
+    "react-i18next": "^15.2.0",
+    "tar-fs": "^3.0.6"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

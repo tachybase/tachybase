@@ -15,7 +15,7 @@
     "koa-compose": "^4.1.0",
     "lodash": "^4.17.21",
     "path-to-regexp": "6.2.1",
-    "qs": "^6.12.3"
+    "qs": "^6.13.1"
   },
   "devDependencies": {
     "@types/node": "20.14.2"

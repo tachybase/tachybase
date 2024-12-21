@@ -23,16 +23,16 @@
     "graphlib": "^2.1.8",
     "lodash": "^4.17.21",
     "mathjs": "^10.6.4",
-    "nanoid": "^3.3.7",
+    "nanoid": "^3.3.8",
     "node-fetch": "^2.7.0",
-    "qs": "^6.12.3",
-    "semver": "^7.6.2",
-    "sequelize": "^6.37.3",
-    "umzug": "^3.5.0"
+    "qs": "^6.13.1",
+    "semver": "^7.6.3",
+    "sequelize": "^6.37.5",
+    "umzug": "^3.8.2"
   },
   "devDependencies": {
     "@types/flat": "^5.0.5",
     "@types/glob": "^7.2.0",
-    "@types/lodash": "^4.17.5"
+    "@types/lodash": "^4.17.13"
   }
 }
