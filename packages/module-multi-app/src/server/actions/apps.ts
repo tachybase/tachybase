@@ -7,6 +7,7 @@ export async function start(ctx: Context, next: Next) {
   const targetAppId = String(ctx.request.url.split('filterByTk=')[1]);
   const appSupervisor = AppSupervisor.getInstance();
   if (!appSupervisor.hasApp(targetAppId)) {
+    appSupervisor.blockApps.delete(targetAppId);
     await AppSupervisor.getInstance().getApp(targetAppId);
     ctx.body = 'ok';
     await next();
@@ -19,6 +20,7 @@ export async function stop(ctx: Context, next: Next) {
   const targetAppId = String(ctx.request.url.split('filterByTk=')[1]);
   const appSupervisor = AppSupervisor.getInstance();
   if (appSupervisor.hasApp(targetAppId)) {
+    appSupervisor.blockApps.add(targetAppId);
     await appSupervisor.removeApp(targetAppId);
     ctx.body = 'ok';
     await next();
