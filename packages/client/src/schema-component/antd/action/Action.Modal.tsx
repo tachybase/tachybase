@@ -139,9 +139,9 @@ export const Amplifier = () => {
         border: none;
       `}
       onClick={(e) => {
-        const element = e.target.closest('.ant-modal-content');
-        const modal = document.querySelector('.ant-modal');
-        const mask = document.querySelector('.ant-modal-mask');
+        const element = e.target.closest('.ant-modal-content') as HTMLElement;
+        const modal = document.querySelector('.ant-modal') as HTMLElement;
+        const mask = document.querySelector('.ant-modal-mask') as HTMLElement;
         if (isAmplifier) {
           modal.style.width = blockWidth;
           element.style.width = '';

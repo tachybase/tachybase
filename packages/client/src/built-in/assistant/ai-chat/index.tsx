@@ -6,6 +6,10 @@ import { Alert, Button, Popover, Spin } from 'antd';
 import { Icon } from '../../../icon';
 import styles from './index.module.less';
 
+declare module '*.module.less' {
+  const classes: { [key: string]: string };
+}
+
 interface AIChatModalProps {
   mRef?: any;
   onGenerateLoad: (message: string) => Promise<boolean>;

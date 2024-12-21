@@ -4,8 +4,7 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tachybase build --no-dts",
-    "build:full": "tachybase build",
+    "build": "tachybase build",
     "build:p": "tachybase build -s --no-dts",
     "build:t": "turbo run build --filter='./packages/*'",
     "clean": "tachybase clean",
