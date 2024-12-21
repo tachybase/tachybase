@@ -15,8 +15,8 @@
     "@alicloud/openapi-client": "^0.4.12",
     "@alicloud/tea-util": "^1.4.9",
     "@ant-design/icons": "^5.5.2",
-    "antd": "5.22.0",
-    "react-router-dom": "6.28.0"
+    "antd": "5.22.5",
+    "react-router-dom": "6.28.1"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

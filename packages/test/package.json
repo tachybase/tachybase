@@ -43,8 +43,8 @@
     "build": "tachybase-build --no-dts @tachybase/test"
   },
   "dependencies": {
-    "@faker-js/faker": "8.1.0",
-    "@formily/shared": "2.3.1",
+    "@faker-js/faker": "8.4.1",
+    "@formily/shared": "2.3.2",
     "@playwright/test": "^1.49.1",
     "@tachybase/database": "workspace:*",
     "@tachybase/server": "workspace:*",

@@ -7,10 +7,10 @@
     "create-tachybase-app": "./bin/index.js"
   },
   "dependencies": {
-    "@umijs/utils": "3.5.20",
+    "@umijs/utils": "3.5.43",
     "axios": "^1.7.9",
     "chalk": "^4.1.2",
     "commander": "^9.5.0",
-    "tar": "6.1.11"
+    "tar": "6.2.1"
   }
 }

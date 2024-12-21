@@ -6,7 +6,7 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-simple-cms"
   },
   "devDependencies": {
-    "antd": "5.22.0"
+    "antd": "5.22.5"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

@@ -14,9 +14,9 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "lodash": "4.17.21",
-    "rc-tree-select": "5.5.5",
+    "rc-tree-select": "5.25.0",
     "react": "~18.3.1",
     "react-i18next": "^15.2.0"
   },

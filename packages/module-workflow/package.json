@@ -14,7 +14,7 @@
   "dependencies": {
     "@babel/core": "7.26.0",
     "@babel/preset-env": "7.26.0",
-    "@babel/preset-react": "7.25.9",
+    "@babel/preset-react": "7.26.3",
     "@babel/preset-typescript": "7.26.0",
     "form-data": "^4.0.1",
     "jsonata": "^2.0.6",
@@ -29,9 +29,9 @@
     "@types/file-saver": "^2.0.7",
     "@types/lodash": "^4.17.13",
     "@types/qrcode": "^1.5.5",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "axios": "^1.7.9",
-    "cron-parser": "4.4.0",
+    "cron-parser": "4.9.0",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
     "lru-cache": "8.0.5",
@@ -39,7 +39,7 @@
     "react": "~18.3.1",
     "react-i18next": "^15.2.0",
     "react-js-cron": "^3.2.0",
-    "react-router-dom": "6.28.0",
+    "react-router-dom": "6.28.1",
     "sequelize": "^6.37.5"
   },
   "peerDependencies": {

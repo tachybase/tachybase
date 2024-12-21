@@ -9,8 +9,8 @@
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
-    "dayjs": "1.11.10",
+    "antd": "5.22.5",
+    "dayjs": "1.11.13",
     "lodash": "^4.17.21",
     "react-i18next": "^15.2.0"
   },

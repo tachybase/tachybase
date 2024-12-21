@@ -7,12 +7,12 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "lodash": "^4.17.21",
     "mysql2": "^3.11.5",
     "pg": "^8.13.1",
     "react-i18next": "^15.2.0",
-    "react-router-dom": "6.28.0"
+    "react-router-dom": "6.28.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.13"

@@ -16,11 +16,11 @@
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.8.4",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
     "react-i18next": "^15.2.0",
-    "react-router-dom": "6.28.0",
+    "react-router-dom": "6.28.1",
     "sequelize": "^6.37.5"
   },
   "peerDependencies": {

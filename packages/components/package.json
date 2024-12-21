@@ -15,17 +15,17 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@monaco-editor/react": "^4.6.0",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "classnames": "^2.5.1",
-    "dayjs": "1.11.10",
+    "dayjs": "1.11.13",
     "prop-types": "^15.8.1",
     "react-modal": "^3.16.3",
     "react-sticky-box": "^1.0.2"
   },
   "devDependencies": {
-    "rc-cascader": "3.24.1",
-    "rc-input-number": "9.0.0",
-    "rc-picker": "4.3.0",
-    "rc-tree-select": "5.19.0"
+    "rc-cascader": "3.31.0",
+    "rc-input-number": "9.3.0",
+    "rc-picker": "4.9.0",
+    "rc-tree-select": "5.25.0"
   }
 }
