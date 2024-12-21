@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { CloseCircleFilled } from '@ant-design/icons';
 import { Tag, TreeSelect } from 'antd';
-import type { DefaultOptionType, TreeSelectProps } from 'rc-tree-select/es/TreeSelect';
+import type { DataNode as DefaultOptionType } from 'rc-tree-select/es/interface';
+import type { TreeSelectProps } from 'rc-tree-select/es/TreeSelect';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -88,7 +89,7 @@ function getCollectionFieldOptions(
   });
 }
 // XXX: 目前 AppendsTreeSelectV2 和 AppendsTreeSelect 都有特化逻辑, 需要整理出一个通用组件
-export const AppendsTreeSelectV2 = (props: TreeSelectProps & AppendsTreeSelectPropsV2) => {
+export const AppendsTreeSelectV2 = (props: Omit<TreeSelectProps, 'suffixIcon'> & AppendsTreeSelectPropsV2) => {
   const {
     title,
     value: propsValue,

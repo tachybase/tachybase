@@ -68,6 +68,7 @@ export function FormDialog(title: IModalProps, renderer: FormDialogRenderer): IF
 export function FormDialog(title: IModalProps, renderer: FormDialogRenderer, theme: ThemeConfig): IFormDialog;
 export function FormDialog(title: ModalTitle, id: string, renderer: FormDialogRenderer): IFormDialog;
 export function FormDialog(title: ModalTitle, renderer: FormDialogRenderer): IFormDialog;
+export function FormDialog(title: ModalTitle, renderer: FormDialogRenderer, theme: ThemeConfig): IFormDialog;
 
 export function FormDialog(title: any, id: any, renderer?: any, theme?: any): IFormDialog {
   if (isFn(id) || React.isValidElement(id)) {

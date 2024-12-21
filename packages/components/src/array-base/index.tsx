@@ -223,7 +223,7 @@ const Copy = forwardRef<HTMLButtonElement, CommonProps>((props, ref) => {
   );
 });
 
-const Remove = forwardRef<HTMLSpanElement, CommonProps>((props, ref) => {
+const Remove = forwardRef<HTMLButtonElement | HTMLAnchorElement, CommonProps>((props, ref) => {
   const index = useIndex(props.index);
   const self = useField();
   const array = useArray();
@@ -266,7 +266,7 @@ const Remove = forwardRef<HTMLSpanElement, CommonProps>((props, ref) => {
   );
 });
 
-const MoveDown = forwardRef<HTMLSpanElement, CommonProps>((props, ref) => {
+const MoveDown = forwardRef<HTMLButtonElement | HTMLAnchorElement, CommonProps>((props, ref) => {
   const index = useIndex(props.index);
   const self = useField();
   const array = useArray();
@@ -306,7 +306,7 @@ const MoveDown = forwardRef<HTMLSpanElement, CommonProps>((props, ref) => {
   );
 });
 
-const MoveUp = forwardRef<HTMLSpanElement, CommonProps>((props, ref) => {
+const MoveUp = forwardRef<HTMLButtonElement | HTMLAnchorElement, CommonProps>((props, ref) => {
   const index = useIndex(props.index);
   const self = useField();
   const array = useArray();

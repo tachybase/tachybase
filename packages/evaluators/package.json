@@ -3,6 +3,28 @@
   "version": "0.23.7",
   "description": "",
   "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./client": {
+      "require": {
+        "types": "./lib/client/index.d.ts",
+        "default": "./lib/client/index.js"
+      },
+      "import": {
+        "types": "./lib/client/index.d.ts",
+        "default": "./lib/client/index.js"
+      }
+    }
+  },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {

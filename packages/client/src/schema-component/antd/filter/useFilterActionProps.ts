@@ -150,7 +150,7 @@ const isEmpty = (obj) => {
   );
 };
 
-export const getCustomCondition = (filter, fieldSchema, customFlat = flat) => {
+export const getCustomCondition: any = (filter, fieldSchema, customFlat = flat) => {
   const filterSchema = fieldSchema ? fieldSchema['x-filter-rules'] : '';
   const filterSchemaItem = customFlat(filterSchema || '') as any;
   const items = customFlat(filter || {}) as any;
@@ -187,7 +187,7 @@ export const getCustomCondition = (filter, fieldSchema, customFlat = flat) => {
   }
 };
 
-export const removeNullCondition = (filter, customFlat = flat) => {
+export const removeNullCondition: any = (filter, customFlat = flat) => {
   const items = customFlat(filter || {}) as any;
   const values = {};
   for (const key in items) {

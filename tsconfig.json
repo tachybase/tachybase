@@ -2,7 +2,7 @@
   "compilerOptions": {
     "lib": ["esnext", "DOM.Iterable", "DOM"],
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "outDir": "temp",
     "jsx": "react",
     "target": "esnext",

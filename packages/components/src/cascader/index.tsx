@@ -6,13 +6,7 @@ import { Cascader as AntdCascader } from 'antd';
 
 import { PreviewText } from '../preview-text';
 
-export type {
-  BaseOptionType,
-  DefaultOptionType,
-  FieldNames,
-  MultipleCascaderProps,
-  SingleCascaderProps,
-} from 'rc-cascader';
+export type { BaseOptionType, DefaultOptionType, FieldNames } from 'rc-cascader';
 
 export const Cascader = connect(
   AntdCascader,

@@ -92,7 +92,6 @@ ReadPretty.File = function File(props: UploadProps) {
           nextFile={images[(fileIndex + 1) % images.length]}
           prevFile={images[(fileIndex + images.length - 1) % images.length]}
           previewList={previewList}
-          // @ts-ignore
           onCloseRequest={(e) => {
             e.preventDefault();
             e.stopPropagation();

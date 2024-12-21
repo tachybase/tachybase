@@ -1,4 +1,4 @@
-import { Collection } from '@tachybase/database';
+import { Collection } from '../collection';
 
 type TraverseOptions = {
   collection: Collection;

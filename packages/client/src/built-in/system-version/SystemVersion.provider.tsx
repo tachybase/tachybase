@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import { useCurrentAppInfo, useCurrentUserSettingsMenu } from '@tachybase/client';
 
 import { useTranslation } from 'react-i18next';
+
+import { useCurrentAppInfo } from '../../common/appInfo/CurrentAppInfoProvider';
+import { useCurrentUserSettingsMenu } from '../../user/CurrentUserSettingsMenuProvider';
 
 const SystemVersion = () => {
   const info = useCurrentAppInfo();
@@ -21,7 +23,6 @@ export const SystemVersionProvider = ({ children }) => {
     addMenuItem(
       {
         key: 'system-version',
-        eventKey: 'system-version',
         label: <SystemVersion />,
       },
       { before: 'divider_1' },

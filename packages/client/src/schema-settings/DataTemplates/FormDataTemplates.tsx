@@ -57,13 +57,7 @@ export const FormDataTemplates = withDynamicSchemaProps(
       // 不要在后面的数组中依赖 defaultValues，否则会因为 defaultValues 的变化导致 activeData 响应性丢失
       const activeData = useMemo<ITemplate>(
         () =>
-          observable(
-            { ...defaultValues, items: compatibleDataId(defaultValues?.items || [], defaultValues?.config) } || {
-              items: [],
-              display: true,
-              config: { [collectionName]: { titleField: '', filter: {} } },
-            },
-          ),
+          observable({ ...defaultValues, items: compatibleDataId(defaultValues?.items || [], defaultValues?.config) }),
         [],
       );
       const getTargetField = (collectionName: string) => {

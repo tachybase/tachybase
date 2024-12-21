@@ -83,13 +83,13 @@ const checkedAutoPage = (position, message, t) => {
   const navbarHeight = navbar.getBoundingClientRect();
   const classId = uid();
   if (blockElement) {
-    const page = blockElement?.closest('.ant-tb-page ');
+    const page = blockElement?.closest('.ant-tb-page ') as HTMLElement;
     const drawer = blockElement?.closest('.ant-drawer-body');
     const modal = blockElement?.closest('.ant-modal-body');
-    const tabNav = amplifierBlock.querySelector('.ant-tabs-nav');
+    const tabNav = amplifierBlock.querySelector('.ant-tabs-nav') as HTMLElement;
     if (tabNav) tabNav.style.display = 'none';
     const parentNode = gridRow.parentNode;
-    Array.from(parentNode.children).forEach((sibling) => {
+    Array.from(parentNode.children).forEach((sibling: HTMLElement) => {
       if (sibling !== gridRow) {
         sibling.style.display = 'none';
       }
@@ -115,8 +115,8 @@ const checkedAutoPage = (position, message, t) => {
 
     if (page) {
       autoNode.style.marginTop = `${navbarHeight.height}px`;
-      const header = document.querySelector('.ant-page-header');
-      const layoutSider = document.querySelector('.ant-layout-sider');
+      const header = document.querySelector('.ant-page-header') as HTMLElement;
+      const layoutSider = document.querySelector('.ant-layout-sider') as HTMLElement;
       header.style.display = 'none';
       layoutSider.style.display = 'none';
       page.style.marginTop = '30px';
@@ -135,12 +135,12 @@ const checkedAutoPage = (position, message, t) => {
 };
 
 const removeNode = ({ gridRow: blockElement, classId }) => {
-  const page = blockElement?.closest('.ant-tb-page ');
-  const drawer = blockElement?.closest('.ant-drawer-body');
+  const page = blockElement?.closest('.ant-tb-page') as HTMLElement;
+  const drawer = blockElement?.closest('.ant-drawer-body') as HTMLElement;
   const parentNode = blockElement.parentNode;
-  const tabNav = document.querySelector('.ant-tabs-nav');
+  const tabNav = document.querySelector('.ant-tabs-nav') as HTMLElement;
   if (tabNav) tabNav.style.display = '';
-  Array.from(parentNode.children).forEach((sibling) => {
+  Array.from(parentNode.children).forEach((sibling: HTMLElement) => {
     if (sibling !== blockElement) {
       sibling.style.display = '';
     }
@@ -150,8 +150,8 @@ const removeNode = ({ gridRow: blockElement, classId }) => {
   });
   if (page) {
     page.style.marginTop = '';
-    const layoutSider = document.querySelector('.ant-layout-sider');
-    const header = document.querySelector('.ant-page-header');
+    const layoutSider = document.querySelector('.ant-layout-sider') as HTMLElement;
+    const header = document.querySelector('.ant-page-header') as HTMLElement;
     layoutSider.style.display = '';
     header.style.display = '';
   } else if (drawer) {

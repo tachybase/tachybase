@@ -4,6 +4,7 @@ import { error } from '@tachybase/utils/client';
 import { UserOutlined } from '@ant-design/icons';
 import { App, Dropdown, Menu, MenuProps } from 'antd';
 import { createStyles } from 'antd-style';
+import { ItemType } from 'antd/es/menu/interface';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -140,7 +141,7 @@ export const SettingsMenu: React.FC<{
 
     items.forEach((item) => {
       if (item) {
-        addMenuItem(item);
+        addMenuItem(item as ItemType);
       }
     });
     if (languageSettings) {

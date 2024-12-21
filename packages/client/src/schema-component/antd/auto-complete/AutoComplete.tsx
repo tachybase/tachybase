@@ -57,7 +57,7 @@ export const AutoComplete = connect(
       <AntdAutoComplete
         {...props}
         options={options}
-        filterOption={(inputValue, option) => fuzzysearch(inputValue || [], option[targetKey]?.toString() || '')}
+        filterOption={(inputValue, option) => fuzzysearch(inputValue || '', option[targetKey]?.toString() || '')}
         allowClear
         onSearch={onSearch}
       />

@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { CloseCircleFilled } from '@ant-design/icons';
 import { Tag, TreeSelect } from 'antd';
-import type { DefaultOptionType, TreeSelectProps } from 'rc-tree-select/es/TreeSelect';
+import type { DataNode as DefaultOptionType } from 'rc-tree-select/es/interface';
+import type { TreeSelectProps } from 'rc-tree-select/es/TreeSelect';
 import { useTranslation } from 'react-i18next';
 
 import {
