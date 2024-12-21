@@ -55,6 +55,9 @@ importers:
       '@tachybase/test':
         specifier: workspace:*
         version: link:packages/test
+      '@types/node':
+        specifier: 20.17.10
+        version: 20.17.10
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.18

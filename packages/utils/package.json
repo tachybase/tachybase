@@ -2,6 +2,28 @@
   "name": "@tachybase/utils",
   "version": "0.23.6",
   "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./client": {
+      "require": {
+        "types": "./lib/client.d.ts",
+        "default": "./lib/client.js"
+      },
+      "import": {
+        "types": "./lib/client.d.ts",
+        "default": "./lib/client.js"
+      }
+    }
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {

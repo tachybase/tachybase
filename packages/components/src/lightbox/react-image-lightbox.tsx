@@ -25,8 +25,6 @@ import { getHighestSafeWindowContext, getWindowHeight, getWindowWidth, translate
 
 import './style.css';
 
-import { css } from '@tachybase/client';
-
 import { IReactImageLightboxProps, IReactImageLightboxState } from './interface';
 
 class ReactImageLightbox extends Component<IReactImageLightboxProps, IReactImageLightboxState> {

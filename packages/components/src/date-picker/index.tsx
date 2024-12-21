@@ -7,8 +7,6 @@ import dayjs from 'dayjs';
 import { dayjsable, formatDayjsValue } from '../__builtins__';
 import { PreviewText } from '../preview-text';
 
-export type { PickerProps } from 'rc-picker';
-
 type DatePickerProps<PickerProps> = Exclude<PickerProps, 'value' | 'onChange'> & {
   value: string;
   onChange: (value: string | string[]) => void;
@@ -49,7 +47,8 @@ const RangePicker = connect(
   mapProps(mapDateFormat()),
   mapReadPretty(PreviewText.DateRangePicker),
 );
-export const DatePicker = Object.assign(InternalDatePicker, {
+// FIXME
+export const DatePicker: any = Object.assign(InternalDatePicker, {
   RangePicker,
 });
 

@@ -100,7 +100,10 @@ FormButtonGroup.FormItem = ({ gutter, ...props }) => {
   );
 };
 
-const _Sticky = ({ align = 'left', ...props }: React.PropsWithChildren<IStickyProps>) => {
+const _Sticky = ({
+  align = 'left',
+  ...props
+}: React.PropsWithChildren<IStickyProps & React.HTMLProps<HTMLDivElement>>) => {
   const ref = useRef(null);
   const [color, setColor] = useState('transparent');
   const prefixCls = usePrefixCls('formily-button-group');
