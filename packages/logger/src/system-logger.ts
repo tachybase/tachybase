@@ -1,5 +1,3 @@
-import { isMainThread } from 'worker_threads';
-
 import { SPLAT } from 'triple-beam';
 import winston, { format, Logger } from 'winston';
 import Transport from 'winston-transport';
@@ -61,7 +59,6 @@ class SystemLoggerTransport extends Transport {
       message,
       stack,
       meta,
-      worker: isMainThread ? undefined : true,
       module: module || info['module'] || '',
       submodule: submodule || info['submodule'] || '',
       method: method || '',

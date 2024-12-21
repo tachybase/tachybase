@@ -62,7 +62,7 @@ const schema: ISchema = {
       properties: {
         preset: {
           type: 'number',
-          title: i18nText('Preset'),
+          title: i18nText('Preset count'),
           minimum: 0,
           'x-decorator': 'FormItem',
           'x-component': 'InputNumber',
@@ -73,14 +73,21 @@ const schema: ISchema = {
         },
         current: {
           type: 'digit',
-          title: i18nText('Current'),
+          title: i18nText('Current count'),
           'x-decorator': 'FormItem',
           'x-component': 'InputNumber',
           'x-disabled': true,
         },
         busy: {
           type: 'digit',
-          title: i18nText('Busy'),
+          title: i18nText('Busy count'),
+          'x-decorator': 'FormItem',
+          'x-component': 'InputNumber',
+          'x-disabled': true,
+        },
+        env: {
+          type: 'digit',
+          title: i18nText('Environment count'),
           'x-decorator': 'FormItem',
           'x-component': 'InputNumber',
           'x-disabled': true,

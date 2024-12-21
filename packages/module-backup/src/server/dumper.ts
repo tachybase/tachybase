@@ -249,7 +249,7 @@ export class Dumper extends AppMigrator {
         fileName: backupFileName,
       });
       await this.cleanLockFile(backupFileName);
-      // 子线程无法通知备份完成
+      // 工作线程无法通知备份完成
     }
 
     return backupFileName;
