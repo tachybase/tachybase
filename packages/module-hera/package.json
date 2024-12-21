@@ -31,7 +31,7 @@
     "nanoid": "^5.0.9",
     "path-to-regexp": "8.2.0",
     "qrcode": "^1.5.4",
-    "qrcode.react": "^3.2.0",
+    "qrcode.react": "^4.2.0",
     "react": "^18.3.1",
     "react-error-boundary": "^4.1.2",
     "react-i18next": "^15.2.0",
