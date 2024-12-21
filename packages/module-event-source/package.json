@@ -6,7 +6,7 @@
     "build": "tachybase-build --no-dts @tachybase/module-event-source"
   },
   "dependencies": {
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "lodash": "4.17.21",
     "sequelize": "6.37.5"
   },

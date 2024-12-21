@@ -12,16 +12,16 @@
     "build": "tachybase-build --no-dts @tachybase/module-backup"
   },
   "devDependencies": {
-    "@ant-design/icons": "^5.3.7",
+    "@ant-design/icons": "^5.5.2",
     "@hapi/topo": "^6.0.2",
     "@tachybase/components": "workspace:*",
     "@types/archiver": "^5.3.4",
     "@types/file-saver": "^2.0.7",
-    "@types/lodash": "4.17.5",
-    "antd": "5.22.0",
+    "@types/lodash": "4.17.13",
+    "antd": "5.22.5",
     "archiver": "^5.3.2",
     "content-disposition": "^0.5.4",
-    "dayjs": "1.11.10",
+    "dayjs": "1.11.13",
     "decompress": "^4.2.1",
     "file-saver": "^2.0.5",
     "inquirer": "^8.2.6",
@@ -30,8 +30,8 @@
     "mkdirp": "^1.0.4",
     "object-path": "^0.11.8",
     "react": "^18.3.1",
-    "react-i18next": "^15.1.1",
-    "semver": "^7.6.2",
+    "react-i18next": "^15.2.0",
+    "semver": "^7.6.3",
     "tar": "^6.2.1"
   },
   "peerDependencies": {

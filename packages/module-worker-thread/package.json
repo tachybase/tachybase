@@ -10,7 +10,7 @@
     "tsx": "^4.19.2"
   },
   "devDependencies": {
-    "antd": "5.22.0"
+    "antd": "5.22.5"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

@@ -12,11 +12,11 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-field-markdown-vditor"
   },
   "devDependencies": {
-    "@ant-design/icons": "^5.3.7",
+    "@ant-design/icons": "^5.5.2",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "koa-send": "^5.0.1",
-    "vditor": "^3.10.4"
+    "vditor": "^3.10.8"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

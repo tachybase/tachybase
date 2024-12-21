@@ -1,5 +1,4 @@
 import _ from 'lodash';
-// @ts-ignore
 import { pathToRegexp } from 'path-to-regexp';
 import qs from 'qs';
 
@@ -58,8 +57,7 @@ export function parseRequest(request: ParseRequest, options: ParseOptions = {}):
     remove: 'remove',
     ...(options.accessors || {}),
   };
-  const keys = [];
-  const regexp = pathToRegexp('/resourcer/{:associatedName.}?:resourceName{\\::actionName}', keys);
+  const { regexp, keys } = pathToRegexp('/resourcer/{:associatedName.}:resourceName{\\::actionName}');
   const reqPath = decodeURI(request.path);
   const matches = regexp.exec(reqPath);
   if (matches) {
@@ -163,8 +161,7 @@ export function parseRequest(request: ParseRequest, options: ParseOptions = {}):
   const { type = 'single' } = request;
 
   for (const path in defaults[type]) {
-    const keys = [];
-    const regexp = pathToRegexp(`${prefix}${path}`, keys, {});
+    const { regexp, keys } = pathToRegexp(`${prefix}${path}`);
     const matches = regexp.exec(reqPath);
     if (!matches) {
       continue;

@@ -12,7 +12,7 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-action-print"
   },
   "devDependencies": {
-    "react-to-print": "^2.14.15"
+    "react-to-print": "^2.15.1"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

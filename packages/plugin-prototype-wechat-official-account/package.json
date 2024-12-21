@@ -9,16 +9,16 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-wechat-official-account"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.3.7",
+    "@ant-design/icons": "^5.5.2",
     "@types/xml2js": "^0.4.14",
-    "antd": "5.22.0",
-    "axios": "^1.7.7",
-    "body-parser": "^1.20.2",
+    "antd": "5.22.5",
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
     "jsonwebtoken": "^8.5.1",
     "koa-bodyparser": "^4.4.1",
-    "qrcode.react": "^3.1.0",
-    "react-router-dom": "6.28.0",
-    "sequelize": "^6.37.3",
+    "qrcode.react": "^3.2.0",
+    "react-router-dom": "6.28.1",
+    "sequelize": "^6.37.5",
     "xml2js": "^0.6.2"
   },
   "peerDependencies": {
