@@ -19,10 +19,13 @@
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
+    "@tachybase/components": "workspace:*",
     "@tachybase/data-source": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*"
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "支持更多的数据源",
   "displayName.zh-CN": "外部数据源支持"

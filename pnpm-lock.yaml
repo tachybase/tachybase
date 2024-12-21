@@ -55,6 +55,9 @@ importers:
       '@tachybase/test':
         specifier: workspace:*
         version: link:packages/test
+      '@types/node':
+        specifier: 20.17.10
+        version: 20.17.10
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.18
@@ -1338,6 +1341,12 @@ importers:
       '@tachybase/components':
         specifier: workspace:*
         version: link:../components
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -1435,15 +1444,24 @@ importers:
 
   packages/module-cron:
     dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1851,6 +1869,9 @@ importers:
       '@ant-design/icons':
         specifier: ^5.5.2
         version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
@@ -3403,18 +3424,27 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
       '@tachybase/data-source':
         specifier: workspace:*
         version: link:../data-source
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3440,9 +3470,18 @@ importers:
 
   packages/plugin-devtools:
     dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/sdk':
+        specifier: workspace:*
+        version: link:../sdk
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -4062,9 +4101,15 @@ importers:
 
   packages/plugin-sub-accounts:
     dependencies:
+      '@tachybase/acl':
+        specifier: workspace:*
+        version: link:../acl
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
       '@tachybase/module-acl':
         specifier: workspace:*
         version: link:../module-acl
@@ -4148,15 +4193,24 @@ importers:
       '@ant-design/icons':
         specifier: ~5.3.7
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
       '@tachybase/data-source':
         specifier: workspace:*
         version: link:../data-source
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
       '@tachybase/module-workflow':
         specifier: workspace:*
         version: link:../module-workflow
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server

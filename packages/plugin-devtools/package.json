@@ -10,7 +10,10 @@
     "swagger-ui-dist": "^5.18.2"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/sdk": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   }

@@ -29,9 +29,12 @@
     "@types/file-saver": "^2.0.7"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/data-source": "workspace:*",
+    "@tachybase/database": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

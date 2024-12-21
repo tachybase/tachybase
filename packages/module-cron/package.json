@@ -11,8 +11,11 @@
     "react-js-cron": "^3.2.0"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*"
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   }
 }

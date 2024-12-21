@@ -10,7 +10,9 @@
     "minimatch": "^5.1.6"
   },
   "peerDependencies": {
+    "@tachybase/acl": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
     "@tachybase/module-acl": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
