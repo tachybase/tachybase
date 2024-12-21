@@ -23,7 +23,6 @@ export const SystemVersionProvider = ({ children }) => {
     addMenuItem(
       {
         key: 'system-version',
-        eventKey: 'system-version',
         label: <SystemVersion />,
       },
       { before: 'divider_1' },

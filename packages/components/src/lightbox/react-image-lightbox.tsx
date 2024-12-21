@@ -27,6 +27,8 @@ import './style.css';
 
 import { IReactImageLightboxProps, IReactImageLightboxState } from './interface';
 
+declare var global: any;
+
 class ReactImageLightbox extends Component<IReactImageLightboxProps, IReactImageLightboxState> {
   moveRequested: boolean;
   imageCache: any;

@@ -4,6 +4,7 @@ import { uid, useField, useForm } from '@tachybase/schema';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown, MenuProps } from 'antd';
+import { MenuItemGroupType, MenuItemType } from 'antd/es/menu/interface';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -284,7 +285,7 @@ export const AddFieldAction = (props) => {
                   dataTargetScope: child.targetScope,
                 };
               }),
-          };
+          } as MenuItemGroupType<MenuItemType>;
         }
         return {
           type: 'group',
@@ -301,7 +302,7 @@ export const AddFieldAction = (props) => {
                 dataTargetScope: child.targetScope,
               };
             }),
-        };
+        } as MenuItemGroupType<MenuItemType>;
       })
       .filter((v) => v?.children?.length);
   }, [getFieldOptions]);
@@ -312,8 +313,7 @@ export const AddFieldAction = (props) => {
         overflow: 'auto',
       },
       onClick: (e) => {
-        //@ts-ignore
-        const targetScope = e.item.props['data-targetScope'];
+        const targetScope = (e.item as any).props['data-targetScope'];
         targetScope && setTargetScope(targetScope);
         const schema = getSchema(getInterface(e.key), record, compile);
         if (schema) {

@@ -25,7 +25,7 @@ type SchemaInitializerItemBuiltInType<T = {}> = T & {
 
 export interface SchemaInitializerItemComponentType<T = {}> {
   name: string;
-  Component: ComponentType<T> | string;
+  Component?: ComponentType<T> | string;
   sort?: number;
   componentProps?: Omit<T, 'children'>;
   useComponentProps?: () => Omit<T, 'children'>;
@@ -86,6 +86,13 @@ export type SchemaInitializerItemType<T = any> =
 export type SchemaInitializerItemTypeWithoutName<T = any> =
   | Omit<SchemaInitializerAllBuiltItemType, 'name'>
   | Omit<SchemaInitializerItemComponentType<T>, 'name'>;
+
+export enum SchemaInitializerOptionInsertPosition {
+  BeforeBegin = 'beforeBegin',
+  AfterBegin = 'afterBegin',
+  BeforeEnd = 'beforeEnd',
+  AfterEnd = 'afterEnd',
+}
 
 export interface SchemaInitializerOptions<P1 = ButtonProps, P2 = {}> {
   name: string;

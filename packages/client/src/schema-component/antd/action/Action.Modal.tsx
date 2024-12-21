@@ -139,7 +139,7 @@ export const Amplifier = () => {
         border: none;
       `}
       onClick={(e) => {
-        const element = e.target.closest('.ant-modal-content') as HTMLElement;
+        const element = (e.target as HTMLElement).closest('.ant-modal-content') as HTMLElement;
         const modal = document.querySelector('.ant-modal') as HTMLElement;
         const mask = document.querySelector('.ant-modal-mask') as HTMLElement;
         if (isAmplifier) {

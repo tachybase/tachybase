@@ -1,3 +1,4 @@
+declare var global: any;
 /**
  * Placeholder for future translate functionality
  */

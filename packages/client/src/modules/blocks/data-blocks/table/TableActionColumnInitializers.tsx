@@ -5,6 +5,7 @@ import { MenuOutlined } from '@ant-design/icons';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { SchemaInitializerOptionInsertPosition } from '../../../..//application';
 import { useAPIClient } from '../../../../api-client';
 import { SchemaInitializerActionModal } from '../../../../application/schema-initializer/components/SchemaInitializerActionModal';
 import { SchemaInitializerItem } from '../../../../application/schema-initializer/components/SchemaInitializerItem';
@@ -68,7 +69,7 @@ export const Resizable = () => {
 };
 
 const commonOptions = {
-  insertPosition: 'beforeEnd',
+  insertPosition: SchemaInitializerOptionInsertPosition.BeforeEnd,
   useInsert: function useInsert() {
     const { refresh } = useDesignable();
     const fieldSchema = useFieldSchema();
