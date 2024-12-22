@@ -87,13 +87,6 @@ export type SchemaInitializerItemTypeWithoutName<T = any> =
   | Omit<SchemaInitializerAllBuiltItemType, 'name'>
   | Omit<SchemaInitializerItemComponentType<T>, 'name'>;
 
-export enum SchemaInitializerOptionInsertPosition {
-  BeforeBegin = 'beforeBegin',
-  AfterBegin = 'afterBegin',
-  BeforeEnd = 'beforeEnd',
-  AfterEnd = 'afterEnd',
-}
-
 export interface SchemaInitializerOptions<P1 = ButtonProps, P2 = {}> {
   name: string;
   Component?: ComponentType<P1>;

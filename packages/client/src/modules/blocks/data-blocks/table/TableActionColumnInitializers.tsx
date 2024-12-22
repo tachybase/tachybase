@@ -5,8 +5,8 @@ import { MenuOutlined } from '@ant-design/icons';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { SchemaInitializerOptionInsertPosition } from '../../../..//application';
 import { useAPIClient } from '../../../../api-client';
+import { SchemaInitializerOptions } from '../../../../application';
 import { SchemaInitializerActionModal } from '../../../../application/schema-initializer/components/SchemaInitializerActionModal';
 import { SchemaInitializerItem } from '../../../../application/schema-initializer/components/SchemaInitializerItem';
 import { useSchemaInitializer } from '../../../../application/schema-initializer/context';
@@ -69,7 +69,7 @@ export const Resizable = () => {
 };
 
 const commonOptions = {
-  insertPosition: SchemaInitializerOptionInsertPosition.BeforeEnd,
+  insertPosition: 'beforeEnd',
   useInsert: function useInsert() {
     const { refresh } = useDesignable();
     const fieldSchema = useFieldSchema();
@@ -250,4 +250,4 @@ const commonOptions = {
 export const tableActionColumnInitializers = new SchemaInitializer({
   name: 'table:configureItemActions',
   ...commonOptions,
-});
+} as SchemaInitializerOptions);
