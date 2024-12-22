@@ -3,7 +3,7 @@ import { useAPIClient } from '@tachybase/client';
 
 import { useLocation } from 'react-router-dom';
 
-export const AuthProvider: React.FC = (props) => {
+export const AuthProvider = (props) => {
   const location = useLocation();
   const api = useAPIClient();
 

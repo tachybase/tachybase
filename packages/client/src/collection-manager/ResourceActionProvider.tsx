@@ -17,6 +17,7 @@ interface ResourceActionProviderProps {
   collection?: any;
   request?: any;
   dragSort?: boolean;
+  children: React.ReactNode;
   uid?: string;
 }
 
@@ -90,7 +91,7 @@ const AssociationResourceActionProvider = (props) => {
   );
 };
 
-export const ResourceActionProvider: React.FC<ResourceActionProviderProps> = (props) => {
+export const ResourceActionProvider = (props: ResourceActionProviderProps) => {
   // eslint-disable-next-line prefer-const
   let { collection, request } = props;
   const { getCollection } = useCollectionManager_deprecated();
