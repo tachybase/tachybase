@@ -11,6 +11,8 @@ import { signals } from './stats';
 const IgnoreErrors = new Set([
   `Property 'body' does not exist on type 'Request'`,
   `Property 'fromNow' does not exist on type 'Dayjs'`,
+  `Property 'body' does not exist on type 'Request'.`,
+  `Property 'fromNow' does not exist on type 'Dayjs'.`,
 ]);
 
 export const buildDeclaration = (cwd: string, targetDir: string) => {
