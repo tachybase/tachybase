@@ -7,7 +7,7 @@ import { CustomRequestInitializer } from './initializer';
 import { CustomRequestConfigurationFieldsSchema } from './schemas';
 import { customizeCustomRequestActionSettings } from './schemaSettings';
 
-const CustomRequestProvider: React.FC = (props) => {
+const CustomRequestProvider = (props) => {
   return (
     <SchemaComponentOptions
       scope={{
