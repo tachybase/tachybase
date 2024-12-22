@@ -1,18 +1,18 @@
 {
   "name": "@tachybase/cli",
-  "version": "0.23.8",
+  "version": "0.23.8-alpha.1",
   "description": "",
   "license": "Apache-2.0",
   "type": "module",
   "exports": {
-    ".": "./dist/index"
+    ".": "./lib/index"
   },
   "bin": {
     "tachybase": "./bin/cli.js"
   },
   "files": [
     "bin",
-    "dist",
+    "lib",
     "templates",
     "tachybase.conf.tpl"
   ],
