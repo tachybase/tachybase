@@ -72,4 +72,6 @@ export interface ICollectionManager {
   getCollections(): Array<ICollection>;
   getRepository(name: string, sourceId?: string | number): IRepository;
   sync(): Promise<void>;
+  dataSource?: any;
+  db?: any;
 }

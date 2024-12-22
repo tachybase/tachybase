@@ -22,6 +22,7 @@ function mergeRequestOptions(options) {
       ...actionOptions.headers,
     },
     params: actionOptions.params,
+    data: null,
   };
   if (actionOptions.body) {
     rawConfig.data = actionOptions.body;
