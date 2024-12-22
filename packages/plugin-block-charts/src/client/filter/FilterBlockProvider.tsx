@@ -18,7 +18,7 @@ import { ChartFilterItemDesigner } from './FilterItemDesigner';
 import { ChartFilterFormItem } from './FilterItemInitializers';
 import { ChartFilterContext } from './FilterProvider';
 
-export const ChartFilterBlockProvider: React.FC = (props) => {
+export const ChartFilterBlockProvider = (props) => {
   const { t } = useChartsTranslation();
   const { setEnabled } = useContext(ChartFilterContext);
   useEffect(() => {

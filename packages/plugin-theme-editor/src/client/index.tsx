@@ -30,7 +30,7 @@ const useStyles = createStyles(({ css, token }) => {
   };
 });
 
-const CustomThemeProvider = React.memo((props) => {
+const CustomThemeProvider = React.memo<{ children }>(({ children }) => {
   const { addMenuItem } = useCurrentUserSettingsMenu();
   const themeItem = useThemeSettings();
   const [open, setOpen] = React.useState(false);
@@ -50,7 +50,7 @@ const CustomThemeProvider = React.memo((props) => {
 
   const editor = (
     <div style={{ display: 'flex', overflow: 'hidden', height: '100%' }}>
-      <div style={contentStyle}>{props.children}</div>
+      <div style={contentStyle}>{children}</div>
       {open ? (
         <div className={styles.editor}>
           <CustomTheme onThemeChange={setTheme} />

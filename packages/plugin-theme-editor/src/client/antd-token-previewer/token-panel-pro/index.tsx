@@ -91,7 +91,7 @@ const TokenPanelPro: FC<TokenPanelProProps> = ({
               infoFollowPrimary={infoFollowPrimary}
               onInfoFollowPrimaryChange={onInfoFollowPrimaryChange}
               activeGroup={activeGroup}
-              onActiveGroupChange={setActiveGroup}
+              onActiveGroupChange={setActiveGroup as any}
             />
           ),
         }))}
