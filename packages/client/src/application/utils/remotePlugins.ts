@@ -9,6 +9,10 @@ import type { PluginData } from '../PluginManager';
  */
 export function defineDevPlugins(plugins: Record<string, unknown>) {
   Object.entries(plugins).forEach(([packageName, plugin]) => {
+    // compatible with old hera module
+    if (packageName === '@tachybase/module-hera') {
+      window.define(`@hera/plugin-core/client`, () => plugin);
+    }
     window.define(`${packageName}/client`, () => plugin);
   });
 }
@@ -17,6 +21,28 @@ export function defineDevPlugins(plugins: Record<string, unknown>) {
  * @internal
  */
 export function definePluginClient(packageName: string) {
+  // compatible with old hera module
+  if (packageName === '@tachybase/module-hera') {
+    window.define(
+      `@hera/plugin-core/client`,
+      ['exports', `@hera/plugin-core/client`],
+      function (_exports: any, _pluginExports: any) {
+        Object.defineProperty(_exports, '__esModule', {
+          value: true,
+        });
+        Object.keys(_pluginExports).forEach(function (key) {
+          if (key === '__esModule') return;
+          if (key in _exports && _exports[key] === _pluginExports[key]) return;
+          Object.defineProperty(_exports, key, {
+            enumerable: true,
+            get: function () {
+              return _pluginExports[key];
+            },
+          });
+        });
+      },
+    );
+  }
   window.define(`${packageName}/client`, ['exports', packageName], function (_exports: any, _pluginExports: any) {
     Object.defineProperty(_exports, '__esModule', {
       value: true,

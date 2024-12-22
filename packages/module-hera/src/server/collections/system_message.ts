@@ -9,7 +9,7 @@ export default defineCollection({
   title: '消息通知',
   createdBy: true,
   updatedBy: true,
-  origin: '@hera/plugin-core',
+  origin: '@tachybase/module-hera',
   fields: [
     {
       title: '已读',

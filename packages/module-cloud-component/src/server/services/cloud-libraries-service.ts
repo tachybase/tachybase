@@ -103,6 +103,10 @@ export class CloudLibrariesService {
         if (moduleName === '@react-pdf/renderer') {
           return require.call(this, '@tachybase/module-pdf');
         }
+        // compatible with old hera module
+        if (moduleName === '@hera/plugin-core') {
+          return require.call(this, '@tachybase/module-hera');
+        }
         // 拦截逻辑：优先检查自定义模块表
         if (that.app.modules[moduleName]) {
           return that.app.modules[moduleName];

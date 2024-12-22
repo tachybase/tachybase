@@ -7,7 +7,6 @@
     "build": "tachybase-build --no-dts @tachybase/preset-tachybase"
   },
   "dependencies": {
-    "@hera/plugin-core": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/module-acl": "workspace:*",
@@ -21,6 +20,7 @@
     "@tachybase/module-error-handler": "workspace:*",
     "@tachybase/module-event-source": "workspace:*",
     "@tachybase/module-file": "workspace:*",
+    "@tachybase/module-hera": "workspace:*",
     "@tachybase/module-message": "workspace:*",
     "@tachybase/module-multi-app": "workspace:*",
     "@tachybase/module-pdf": "workspace:*",

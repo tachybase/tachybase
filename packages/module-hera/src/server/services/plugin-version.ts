@@ -8,7 +8,7 @@ export class PluginVersionService {
 
   async get() {
     const pm = this.app.pm as PluginManager;
-    const plugin = pm.get('@hera/plugin-core') ?? pm.get('core');
+    const plugin = pm.get('@tachybase/module-hera') ?? pm.get('hera');
     return plugin.toJSON();
   }
 }
