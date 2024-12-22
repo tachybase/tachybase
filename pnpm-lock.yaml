@@ -1575,15 +1575,24 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
       '@tachybase/data-source':
         specifier: workspace:*
         version: link:../data-source
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
       '@tachybase/module-workflow':
         specifier: workspace:*
         version: link:../module-workflow
       '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../resourcer
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
