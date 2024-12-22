@@ -12,7 +12,7 @@ const transformFormula = (formula: string) => {
   return formulaArray;
 };
 
-export const CalcResult = (props) => {
+export const CalcResult: any = (props) => {
   const form = useForm();
   const fieldSchema = useFieldSchema();
   const field = useField();
@@ -209,6 +209,6 @@ export const CalcResult = (props) => {
   if (typeof value === 'string') {
     return <Input.ReadPretty value={value as string} />;
   } else {
-    return <>{value}</>;
+    return value;
   }
 };
