@@ -20,7 +20,10 @@
     "@types/lodash": "4.17.13"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/logger": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",

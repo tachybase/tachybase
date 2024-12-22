@@ -6,7 +6,7 @@ import {
   useHistoryCollectionsByNames,
 } from '@tachybase/client';
 
-export const SnapshotHistoryCollectionProvider: React.FC<{ collectionName: string }> = (props) => {
+export const SnapshotHistoryCollectionProvider = (props: { collectionName: string; children: React.ReactNode }) => {
   const { collectionName } = props;
   const { collections: allCollections } = useCollectionManager_deprecated();
 

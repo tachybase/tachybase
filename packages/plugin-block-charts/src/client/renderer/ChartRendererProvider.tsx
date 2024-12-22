@@ -51,7 +51,7 @@ export type QueryProps = Partial<{
 }>;
 
 export type ChartRendererProps = {
-  collection: string;
+  collection?: string;
   dataSource?: string;
   query?: QueryProps;
   config?: {
@@ -61,17 +61,18 @@ export type ChartRendererProps = {
   };
   transform?: TransformProps[];
   mode?: 'builder' | 'sql';
+  children?: React.ReactNode;
 };
 
 export const ChartRendererContext = createContext<
   {
-    service: any;
+    service?: any;
     data?: any[];
   } & ChartRendererProps
->({} as any);
+>({});
 ChartRendererContext.displayName = 'ChartRendererContext';
 
-export const ChartRendererProvider: React.FC<ChartRendererProps> = (props) => {
+export const ChartRendererProvider = (props: ChartRendererProps) => {
   const { query, config: propsConfig, collection, transform, dataSource = DEFAULT_DATA_SOURCE_KEY } = props;
   const { addChart } = useContext(ChartDataContext);
   const { ready, form, enabled } = useContext(ChartFilterContext);

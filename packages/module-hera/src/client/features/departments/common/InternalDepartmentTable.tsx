@@ -72,7 +72,9 @@ export const InternalDepartmentTable = ({ useDisabled = useDisabledDefault }) =>
       }}
       dataSource={hasFilter ? data?.data || [] : treeData}
       expandable={{
-        onExpand: (expanded, record) => {
+        onExpand: (expanded, r) => {
+          // FIXME 这里类型应该不会错了，是 antd 版本变化的影响吗？确认一下
+          const record = r as unknown as any;
           loadData({
             key: record.id,
             children: record.children,

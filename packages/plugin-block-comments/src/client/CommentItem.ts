@@ -5,7 +5,7 @@ import {
   useCollectionFields,
   useCollectionParentRecordData,
 } from '@tachybase/client';
-import { observer, RecursionField, useField } from '@tachybase/schema';
+import { Field, observer, RecursionField, useField } from '@tachybase/schema';
 
 import { Button, Card, Tooltip } from 'antd';
 import dayjs from 'dayjs';
@@ -14,10 +14,9 @@ import jsxRuntime from 'react/jsx-runtime';
 import { useTranslation } from './locale';
 import { styles } from './styles';
 
-export const CommentItem = observer((e) => {
+export const CommentItem = observer(({ editing, setEditing, children }: any) => {
   let P, v, I, S, g;
-  const { editing: o, setEditing: s } = e;
-  const n = useField();
+  const n = useField<Field>();
   const { t: m } = useTranslation();
   const { componentCls: l } = styles();
   const h = useCollectionParentRecordData();
@@ -66,12 +65,12 @@ export const CommentItem = observer((e) => {
                       'YYYY-MM-DD HH:mm:ss',
                     ),
                     children: jsxRuntime.jsx('span', {
-                      children: dayjs((S = n == null ? void 0 : n.value) == null ? void 0 : S.createdAt).fromNow(),
+                      children: dayjs(n?.value?.createdAt).fromNow(),
                     }),
                   }),
                 ],
               }),
-              jsxRuntime.jsx('div', { className: `${l}-item-title-right`, children: e.children }),
+              jsxRuntime.jsx('div', { className: `${l}-item-title-right`, children: children }),
             ],
           }),
           children: jsxRuntime.jsxs('div', {
@@ -88,7 +87,7 @@ export const CommentItem = observer((e) => {
                   'x-read-pretty': true,
                 },
               }),
-              o &&
+              editing &&
                 jsxRuntime.jsxs('div', {
                   className: `${l}-item-editor-button-area`,
                   children: [
@@ -97,14 +96,14 @@ export const CommentItem = observer((e) => {
                         n.form.setFieldState(`${n.address}.content`, (u) => {
                           u.pattern = 'readPretty';
                         }),
-                          s(false);
+                          setEditing(false);
                       },
                       children: m('Cancel'),
                     }),
                     jsxRuntime.jsx(Button, {
                       type: 'primary',
                       onClick: () => {
-                        s(false),
+                        setEditing(false),
                           f(),
                           n.form.setFieldState(`${n.address}.content`, (u) => {
                             u.pattern = 'readPretty';

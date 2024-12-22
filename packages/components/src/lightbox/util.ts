@@ -1,3 +1,4 @@
+declare var global: any;
 /**
  * Placeholder for future translate functionality
  */
@@ -34,7 +35,7 @@ const isCrossOriginFrame = () => {
 
 // Get the highest window context that isn't cross-origin
 // (When in an iframe)
-export function getHighestSafeWindowContext(self = global.window.self) {
+export function getHighestSafeWindowContext(self: Window = global.window.self) {
   // If we reached the top level, return self
   if (self === global.window.top) {
     return self;

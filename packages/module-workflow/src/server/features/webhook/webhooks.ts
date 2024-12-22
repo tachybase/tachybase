@@ -1,12 +1,12 @@
 import { Context } from '@tachybase/actions';
 import { IField } from '@tachybase/data-source';
-import Database, { Model } from '@tachybase/database';
-import { PluginWorkflow } from '@tachybase/module-workflow';
 import { ActionParams } from '@tachybase/resourcer';
 import Application from '@tachybase/server';
 import { dayjs } from '@tachybase/utils';
 
 import lodash from 'lodash';
+
+import { PluginWorkflow } from '../..';
 
 function isSameBasic(val1: any, val2: any): boolean {
   if (val1 instanceof Date || val2 instanceof Date) {
@@ -259,7 +259,7 @@ export class WebhookController {
       user: UserModel.build(currentUser).desensitize(),
       roleName: currentRole,
     };
-    const pluginWorkflow = ctx.app.getPlugin(PluginWorkflow) as PluginWorkflow;
+    const pluginWorkflow = ctx.app.getPlugin(PluginWorkflow);
     const wfRepo = ctx.db.getRepository('workflows');
     const wf = await wfRepo.findOne({ filter: { key: action.workflowKey, enabled: true } });
     await pluginWorkflow.trigger(wf, { data: body, ...userInfo }, { httpContext: ctx });

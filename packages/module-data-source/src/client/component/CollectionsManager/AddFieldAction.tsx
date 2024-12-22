@@ -21,6 +21,7 @@ import { uid, useField, useForm } from '@tachybase/schema';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown, MenuProps } from 'antd';
+import { MenuItemType } from 'antd/es/menu/interface';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -290,7 +291,7 @@ const AddFieldAction = (props) => {
             }),
         };
       })
-      .filter((v) => v?.children?.length);
+      .filter((v) => v?.children?.length) as MenuItemType[];
   }, [getFieldOptions]);
   const menu = useMemo<MenuProps>(() => {
     return {

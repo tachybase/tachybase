@@ -3,7 +3,7 @@ import { CodeMirror, css, useAPIClient, useRequest } from '@tachybase/client';
 
 import { CodeOutlined } from '@ant-design/icons';
 import { useMemoizedFn } from 'ahooks';
-import { Card, Empty, theme, Tree } from 'antd';
+import { Card, Empty, theme, Tree, TreeDataNode } from 'antd';
 import type { DataNode } from 'antd/lib/tree';
 
 import { lang } from './locale';
@@ -13,6 +13,12 @@ type LogDir = {
   name: string;
   files: Log[];
 };
+
+type MiddlewareNode = {
+  name: string;
+  belongto: string;
+  seq: number;
+} & DataNode;
 
 export const MiddlewareToolPane = React.memo((props) => {
   const { token } = theme.useToken();
@@ -151,7 +157,7 @@ export const MiddlewareToolPane = React.memo((props) => {
               autoExpandParent={autoExpandParent}
               onExpand={onExpand}
               onCheck={(keys: any) => setCheckedKeys(keys)}
-              treeData={tree}
+              treeData={tree as MiddlewareNode[]}
               selectable={true}
               onSelect={(selectedKeys, e) => {
                 const middlewareName = e.node.title;

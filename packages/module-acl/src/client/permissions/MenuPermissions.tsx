@@ -149,8 +149,8 @@ export const MenuPermissions: React.FC<{
           },
         }}
       />
-
-      <Table
+      {/* FIXME 为什么表格没有正确推倒出类型 */}
+      <Table<any>
         className={styles}
         loading={loading}
         rowKey={'uid'}

@@ -9,6 +9,7 @@
   "dependencies": {
     "@hera/plugin-core": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
     "@tachybase/module-acl": "workspace:*",
     "@tachybase/module-app-info": "workspace:*",
     "@tachybase/module-auth": "workspace:*",

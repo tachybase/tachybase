@@ -3,7 +3,7 @@ import { ExtendCollectionsProvider, TableBlockProvider } from '@tachybase/client
 
 import { useAuditChangesCollection, useAuditLogsCollection, useCollectionsCollection } from './collections';
 
-export const AuditLogsBlockProvider: React.FC = ({ children, ...restProps }) => {
+export const AuditLogsBlockProvider = ({ children, ...restProps }) => {
   const auditChangesCollection = useAuditChangesCollection();
   const auditLogsCollection = useAuditLogsCollection();
   const collectionsCollection = useCollectionsCollection();

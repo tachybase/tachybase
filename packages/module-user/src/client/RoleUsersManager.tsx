@@ -56,7 +56,7 @@ const useBulkRemoveUsers = () => {
   };
 };
 
-const RoleUsersProvider: React.FC = (props) => {
+const RoleUsersProvider = (props) => {
   const { role } = useContext(RolesManagerContext);
   return (
     <ResourceActionProvider

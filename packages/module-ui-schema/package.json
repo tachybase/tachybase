@@ -12,7 +12,8 @@
     "build": "tachybase-build --no-dts @tachybase/module-ui-schema"
   },
   "devDependencies": {
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "sequelize": "6.37.5"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

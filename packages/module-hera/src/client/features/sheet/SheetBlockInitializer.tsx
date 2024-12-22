@@ -16,7 +16,6 @@ import { TableOutlined } from '@ant-design/icons';
 import { Button, Spin } from 'antd';
 
 import Sheet, { SheetRef } from '../../components/excel-table/Sheet';
-import { demoData } from '../../components/x-sheet/demo';
 
 export const SheetBlockContext = createContext<any>({});
 
@@ -44,7 +43,7 @@ export const SheetBlock = () => {
   return (
     <div style={{ height: '70vh' }}>
       <Button onClick={() => console.log('data', ref.current.getData())}>显示数据</Button>
-      <Sheet ref={ref} data={demoData} />
+      <Sheet ref={ref} />
     </div>
   );
 };

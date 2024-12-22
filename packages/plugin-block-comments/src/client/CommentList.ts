@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useBlockRequestContext, withDynamicSchemaProps } from '@tachybase/client';
-import { RecursionField, Schema, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { Field, RecursionField, Schema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import { List, Spin } from 'antd';
 import jsxRuntime from 'react/jsx-runtime';
@@ -9,7 +9,7 @@ import { styles } from './styles';
 
 export const CommentList = withDynamicSchemaProps((props) => {
   const o = useFieldSchema();
-  const s = useField();
+  const s = useField<Field>();
   const [n] = useState(new Map());
   const { wrapSSR, hashId, componentCls } = styles();
   useForm();

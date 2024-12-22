@@ -82,7 +82,7 @@ export const InternalTabs = observer((props) => {
   const formFilter = flat(tabparams?.filter || {});
   const formFieldFilter = Object.values(formFilter)
     ?.map((item) => {
-      const field = item as String;
+      const field = item as string;
       const match = field.match(/^{{\$nForm\.(.*?)\./);
       if (match) return match[1];
     })
@@ -247,7 +247,7 @@ export const InternalTabs = observer((props) => {
                       block: 'nearest',
                       inline: 'start',
                     });
-                    ref.current.querySelector(currentId).style.color = '#166cff';
+                    (ref.current.querySelector(currentId) as HTMLElement).style.color = '#166cff';
                     const allElements = ref.current.querySelectorAll('div:not(' + currentId + ')');
                     allElements?.forEach(function (element: any) {
                       element.style.color = '#1e1e1e';

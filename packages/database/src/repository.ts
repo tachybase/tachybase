@@ -42,7 +42,7 @@ interface CreateManyOptions extends BulkCreateOptions {
   records: Values[];
 }
 
-export { Transactionable } from 'sequelize';
+export type { Transactionable } from 'sequelize';
 
 export interface FilterAble {
   filter: Filter;
@@ -459,7 +459,7 @@ export class Repository<TModelAttributes extends {} = any, TCreationAttributes e
     const transaction = await this.getTransaction(options);
 
     const rows = await this.find({ ...options, limit: 1, transaction });
-    return rows.length == 1 ? rows[0] : null;
+    return rows.length === 1 ? rows[0] : null;
   }
 
   /**

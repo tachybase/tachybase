@@ -101,7 +101,8 @@ export const consoleFormat: winston.Logform.Format = winston.format.printf((info
     .join(' ');
 
   const level = info.level.padEnd(5, ' ');
-  const message = info.message.padEnd(44, ' ');
+  // in our case, info.message is always a string.
+  const message = (info.message as string).padEnd(44, ' ');
   const color =
     {
       error: chalk.red,

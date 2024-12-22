@@ -36,7 +36,7 @@ export class GroupedTable extends AntdChart {
           item[key] = props.transformer(item[key]);
         }
       });
-      const dataValue = dataSource.filter((value) => value['product.name'] == item['product.name'])[0];
+      const dataValue = dataSource.filter((value) => value['product.name'] === item['product.name'])[0];
       if (dataValue) {
         dataSource[dataValue.key].children.push({
           key: `key${uid()}${uid()}`,
@@ -59,7 +59,7 @@ export class GroupedTable extends AntdChart {
     advanced?.columns?.forEach((dataValue) => {
       dataSource.forEach((value) => {
         if (dataValue.calculate) {
-          let number: any = transform.filter((value) => value.field == dataValue.key)[0];
+          let number: any = transform.filter((value) => value.field === dataValue.key)[0];
           if (number) {
             number = number.specific ? number.specific : 3;
             switch (number) {
@@ -76,7 +76,7 @@ export class GroupedTable extends AntdChart {
           } else {
             number = 3;
           }
-          const options = {
+          const options: Intl.NumberFormatOptions = {
             style: 'decimal',
             minimumFractionDigits: number,
             maximumFractionDigits: number,

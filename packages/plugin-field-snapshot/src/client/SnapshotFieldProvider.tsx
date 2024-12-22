@@ -6,7 +6,7 @@ import { SnapshotBlockInitializersDetailItem } from './SnapshotBlock/SnapshotBlo
 import { SnapshotBlockProvider } from './SnapshotBlock/SnapshotBlockProvider';
 import { SnapshotRecordPicker } from './SnapshotRecordPicker';
 
-export const SnapshotFieldProvider = React.memo((props) => {
+export const SnapshotFieldProvider = React.memo((props: { children: React.ReactNode }) => {
   return (
     <CollectionHistoryProvider>
       <SchemaComponentOptions

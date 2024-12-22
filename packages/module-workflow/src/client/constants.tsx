@@ -96,7 +96,7 @@ export const ExecutionStatusOptionsMap = ExecutionStatusOptions.reduce(
   {},
 );
 
-export const enum JOB_STATUS {
+export enum JOB_STATUS {
   PENDING = 0,
   RESOLVED = 1,
   FAILED = -1,

@@ -5,7 +5,7 @@ import { lang, tval } from '../../locale';
 import { Trigger } from '../../triggers';
 import { getCollectionFieldOptions } from '../../variable';
 
-const enum ACTION_TYPES {
+enum ACTION_TYPES {
   CREATE = 'create',
   UPDATE = 'update',
   UPSERT = 'updateOrCreate',

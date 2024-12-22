@@ -7,7 +7,7 @@ import * as Babel from '@babel/standalone';
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import { Spin, Splitter } from 'antd';
 import parserJavaScript from 'prettier/plugins/babel';
-import * as prettierPluginEstree from 'prettier/plugins/estree';
+import prettierPluginEstree from 'prettier/plugins/estree';
 import * as prettier from 'prettier/standalone';
 
 import ComPreview from './Preview';

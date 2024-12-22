@@ -1,4 +1,4 @@
-import EventEmitter from 'events';
+import EventEmitter from 'node:events';
 import { Action } from '@tachybase/resourcer';
 import { assign, getCurrentStacks, parseFilter, Toposort, ToposortOptions } from '@tachybase/utils';
 

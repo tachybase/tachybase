@@ -53,7 +53,7 @@ export const LogsDownloader = React.memo((props) => {
       .list()
       .then((res) => res.data?.data),
   );
-  const { data: previewData, run } = useRequest(
+  const { data: previewData, run } = useRequest<any>(
     {
       url: 'logger:preview',
       method: 'post',

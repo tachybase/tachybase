@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { ArrayItems } from '@tachybase/components';
-import { useWorkflowExecuted } from '@tachybase/module-workflow/client';
 
 import { Button, Popover, Space } from 'antd';
 
+import { useWorkflowExecuted } from '../hooks/useWorkflowExecuted';
 import { useTranslation } from '../locale';
 
 /** 添加通知人组件 */

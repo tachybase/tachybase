@@ -1,6 +1,7 @@
 import { Context, Next } from '@tachybase/actions';
-import Application from '@tachybase/server';
 import { ActionDef, App, Container, Inject, Service } from '@tachybase/utils';
+
+import Application from '../application';
 
 @Service()
 export class WebControllerService {

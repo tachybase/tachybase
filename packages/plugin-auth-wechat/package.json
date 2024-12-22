@@ -24,7 +24,8 @@
     "@tachybase/database": "workspace:*",
     "@tachybase/module-auth": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "@tachybase/server": "workspace:*"
+    "@tachybase/server": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "通过微信扫码认证身份。",
   "displayName.zh-CN": "认证：微信"

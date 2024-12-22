@@ -181,7 +181,7 @@ const EditCollectionAction = (props) => {
             const schema = getSchema(
               {
                 ...templateConf,
-              },
+              } as any,
               record,
               compile,
               getContainer,

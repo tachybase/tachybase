@@ -318,10 +318,8 @@ function DuplicationMode() {
 
 const schemaSettingsItems: SchemaSettingsItemType[] = [
   {
+    type: 'subMenu',
     name: 'Customize',
-    Component: (props): any => {
-      return props.children;
-    },
     children: [
       {
         name: 'editButton',

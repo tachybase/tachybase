@@ -1,4 +1,4 @@
-import { Plugin } from '@tachybase/server';
+import type { Constructor, Plugin } from '@tachybase/server';
 
 export enum WorkerEvent {
   Started = 'started',
@@ -15,7 +15,7 @@ export type WorkerEventInputDefault = {
 };
 
 export type WorkerEventInputPluginMethod<T = any> = WorkerEventInputDefault & {
-  plugin: typeof Plugin | string;
+  plugin: Constructor<Plugin> | string;
   method: string;
   params: T;
 };
