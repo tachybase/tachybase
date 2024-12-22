@@ -7,16 +7,16 @@
     "build": "tachybase-build --no-dts @tachybase/module-worker-thread"
   },
   "dependencies": {
+    "antd": "5.22.5",
     "tsx": "^4.19.2"
   },
-  "devDependencies": {
-    "antd": "5.22.5"
-  },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/logger": "workspace:*",
     "@tachybase/module-collection": "workspace:*",
     "@tachybase/module-user": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

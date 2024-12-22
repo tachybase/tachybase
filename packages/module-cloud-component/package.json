@@ -31,6 +31,7 @@
     "react-use": "17.6.0"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/schema": "workspace:*",

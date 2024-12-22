@@ -1260,6 +1260,9 @@ importers:
       '@tachybase/components':
         specifier: workspace:*
         version: link:../components
+      '@tachybase/module-worker-thread':
+        specifier: workspace:*
+        version: link:../module-worker-thread
       '@types/archiver':
         specifier: ^5.3.4
         version: 5.3.4
@@ -1335,6 +1338,9 @@ importers:
       '@bytemd/react':
         specifier: 1.21.0
         version: 1.21.0(react@18.3.1)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
@@ -1453,6 +1459,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -2126,6 +2135,9 @@ importers:
 
   packages/module-worker-thread:
     dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
@@ -2138,6 +2150,9 @@ importers:
       '@tachybase/module-user':
         specifier: workspace:*
         version: link:../module-user
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -2147,13 +2162,12 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.2
-    devDependencies:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tsx:
+        specifier: ^4.19.2
+        version: 4.19.2
 
   packages/module-workflow:
     dependencies:

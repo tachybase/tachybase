@@ -1156,6 +1156,8 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     });
     return db;
   }
+
+  [key: string]: any;
 }
 
 applyMixins(Application, [AsyncEmitter]);
