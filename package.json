@@ -6,7 +6,6 @@
   "scripts": {
     "build": "tachybase build",
     "build:p": "tachybase build -s --no-dts",
-    "build:t": "turbo run build --filter='./packages/*'",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
     "dev-ex": "concurrently --names \"web,server\" --prefix \"[{name}]\" \"APP_ENTRY=app-mako pnpm dev --client --proxy-port 3010\" \"pnpm dev --server tachybase dev --server --port 3010\"",
@@ -76,7 +75,6 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tsx": "^4.19.2",
-    "turbo": "2.3.3",
     "typescript": "5.7.2",
     "vitest": "^1.6.0"
   },
