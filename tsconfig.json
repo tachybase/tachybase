@@ -9,6 +9,7 @@
     "module": "esnext",
     "allowJs": true,
     "noUnusedLocals": false,
+    "isolatedModules": true,
     "preserveConstEnums": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,

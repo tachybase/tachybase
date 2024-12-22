@@ -24,6 +24,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/module-error-handler": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

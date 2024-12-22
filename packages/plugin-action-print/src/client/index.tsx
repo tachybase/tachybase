@@ -1,12 +1,11 @@
 import { Plugin } from '@tachybase/client';
 
-import { deprecatedPrintActionSettings, printActionSettings } from './PrintAction.Settings';
+import { printActionSettings } from './PrintAction.Settings';
 import { PrintActionPluginProvider } from './PrintActionPluginProvider';
 
 export class PluginActionPrintClient extends Plugin {
   async load() {
     this.app.use(PrintActionPluginProvider);
-    this.app.schemaSettingsManager.add(deprecatedPrintActionSettings);
     this.app.schemaSettingsManager.add(printActionSettings);
 
     const initializerData = {

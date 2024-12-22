@@ -2,14 +2,14 @@ import Application from '../application';
 import { Gateway } from '../gateway';
 import { WSServer } from '../gateway/ws-server';
 
-export const enum NoticeLevel {
+export enum NoticeLevel {
   INFO = 'info',
   WARNING = 'warning',
   SUCCESS = 'success',
   ERROR = 'error',
 }
 
-export const enum NoticeType {
+export enum NoticeType {
   STATUS = 'status',
   TOAST = 'toast',
   NOTIFICATION = 'notification',

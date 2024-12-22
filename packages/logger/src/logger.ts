@@ -41,4 +41,5 @@ export const createConsoleLogger = (options?: winston.LoggerOptions) => {
   });
 };
 
-export { Logger, LoggerOptions };
+export { Logger };
+export type { LoggerOptions };

@@ -3,16 +3,14 @@ import {
   SchemaSettings,
   SchemaSettingsItemType,
   SchemaSettingsLinkageRules,
-  useCollection_deprecated,
+  useCollection,
   useSchemaToolbar,
 } from '@tachybase/client';
 
 const schemaSettingsItems: SchemaSettingsItemType[] = [
   {
+    type: 'itemGroup',
     name: 'Customize',
-    Component: (props): any => {
-      return props.children;
-    },
     children: [
       {
         name: 'editButton',
@@ -26,11 +24,11 @@ const schemaSettingsItems: SchemaSettingsItemType[] = [
         name: 'linkageRules',
         Component: SchemaSettingsLinkageRules,
         useComponentProps() {
-          const { name } = useCollection_deprecated();
+          const collection = useCollection();
           const { linkageRulesProps } = useSchemaToolbar();
           return {
             ...linkageRulesProps,
-            collectionName: name,
+            collectionName: collection.name,
           };
         },
       },
@@ -47,18 +45,9 @@ const schemaSettingsItems: SchemaSettingsItemType[] = [
   },
 ];
 
-/**
- * @deprecated
- * 用于兼容之前的 name
- */
-const deprecatedPrintActionSettings = new SchemaSettings({
-  name: 'ActionSettings:print',
-  items: schemaSettingsItems,
-});
-
 const printActionSettings = new SchemaSettings({
   name: 'actionSettings:print',
   items: schemaSettingsItems,
 });
 
-export { deprecatedPrintActionSettings, printActionSettings };
+export { printActionSettings };

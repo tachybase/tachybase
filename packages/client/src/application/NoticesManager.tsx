@@ -8,21 +8,21 @@ import { Application } from './Application';
 import { useApp } from './hooks';
 import { WebSocketClient } from './WebSocketClient';
 
-export const enum NoticeLevel {
+export enum NoticeLevel {
   INFO = 'info',
   WARNING = 'warning',
   SUCCESS = 'success',
   ERROR = 'error',
 }
 
-export const enum NoticeType {
+export enum NoticeType {
   STATUS = 'status',
   TOAST = 'toast',
   NOTIFICATION = 'notification',
   CUSTOM = 'custom',
 }
 
-export const enum NoticeDuration {
+export enum NoticeDuration {
   Short = 'SHORT',
 }
 

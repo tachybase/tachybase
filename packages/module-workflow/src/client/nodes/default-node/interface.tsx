@@ -11,7 +11,7 @@ export type NodeAvailableContext = {
   branchIndex: number;
 };
 
-export const enum BuiltinGroupType {
+export enum BuiltinGroupType {
   CONTROL = 'control',
   COLLECTION = 'collection',
   EXTENDED = 'extended',
