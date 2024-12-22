@@ -88,9 +88,7 @@ export async function build(pkgs: string[]) {
       console.log('🐛 ', message);
     });
 
-    setTimeout(() => {
-      throw new Error('build error.');
-    }, 0);
+    throw new Error('build error.');
   }
 
   // core/app

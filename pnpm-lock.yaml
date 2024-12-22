@@ -1419,6 +1419,9 @@ importers:
       '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
+      '@tachybase/resourcer':
+        specifier: workspace:*
+        version: link:../resourcer
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -1833,9 +1836,15 @@ importers:
       '@ant-design/icons':
         specifier: ~5.3.7
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
@@ -1851,6 +1860,9 @@ importers:
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
       ahooks:
         specifier: 3.8.4
         version: 3.8.4(react@18.3.1)
