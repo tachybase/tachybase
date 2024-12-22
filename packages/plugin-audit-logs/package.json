@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-audit-logs",
   "displayName": "Audit logs",
-  "version": "0.23.3",
+  "version": "0.23.7",
   "description": "Audit logs.",
   "keywords": [
     "System management"
@@ -13,9 +13,9 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "react": "^18.3.1",
-    "react-i18next": "^15.1.1"
+    "react-i18next": "^15.2.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

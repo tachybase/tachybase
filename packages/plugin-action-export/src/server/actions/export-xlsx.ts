@@ -35,7 +35,8 @@ export async function exportXlsx(ctx: Context, next: Next) {
     const fileWithPath = await app.worker.callPluginMethod({
       plugin: ExportPlugin,
       method: 'workerExportXlsx', // TODO: 这样不够优雅
-      limit: 1,
+      concurrency: 1,
+      globalConcurrency: 1,
       params: {
         title,
         filter,

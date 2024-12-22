@@ -1,16 +1,16 @@
 {
   "name": "create-tachybase-app",
-  "version": "0.23.3",
+  "version": "0.23.7",
   "license": "Apache-2.0",
   "main": "src/index.js",
   "bin": {
     "create-tachybase-app": "./bin/index.js"
   },
   "dependencies": {
-    "@umijs/utils": "3.5.20",
-    "axios": "^1.7.7",
+    "@umijs/utils": "3.5.43",
+    "axios": "^1.7.9",
     "chalk": "^4.1.2",
     "commander": "^9.5.0",
-    "tar": "6.1.11"
+    "tar": "6.2.1"
   }
 }

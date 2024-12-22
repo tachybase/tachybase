@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-data-source",
   "displayName": "Data source manager",
-  "version": "0.23.3",
+  "version": "0.23.7",
   "description": "Manage data sources, including the built-in Master database, external databases, APIs, etc.",
   "keywords": [
     "Data model tools"
@@ -11,17 +11,17 @@
     "build": "tachybase-build --no-dts @tachybase/module-data-source"
   },
   "devDependencies": {
-    "@ant-design/icons": "^5.3.7",
-    "@dnd-kit/core": "^6.1.0",
+    "@ant-design/icons": "^5.5.2",
+    "@dnd-kit/core": "^6.3.1",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "ahooks": "^3.8.0",
-    "antd": "5.22.0",
+    "ahooks": "^3.8.4",
+    "antd": "5.22.5",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
-    "react-i18next": "^15.1.1",
-    "react-router-dom": "6.28.0",
-    "sequelize": "^6.37.3"
+    "react-i18next": "^15.2.0",
+    "react-router-dom": "6.28.1",
+    "sequelize": "^6.37.5"
   },
   "peerDependencies": {
     "@tachybase/acl": "workspace:*",

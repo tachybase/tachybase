@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-block-kanban",
   "displayName": "Block: Kanban",
-  "version": "0.23.3",
+  "version": "0.23.7",
   "description": "Provides kanban block.",
   "keywords": [
     "Blocks"
@@ -12,13 +12,13 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-block-kanban"
   },
   "devDependencies": {
-    "@ant-design/icons": "^5.3.7",
+    "@ant-design/icons": "^5.5.2",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "lodash": "4.17.21",
     "react-beautiful-dnd": "^13.1.1",
-    "react-i18next": "^15.1.1"
+    "react-i18next": "^15.2.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

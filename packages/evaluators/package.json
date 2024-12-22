@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/evaluators",
-  "version": "0.23.3",
+  "version": "0.23.7",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
@@ -9,12 +9,12 @@
     "build": "tachybase-build --no-dts @tachybase/evaluators"
   },
   "dependencies": {
-    "@formulajs/formulajs": "4.2.0",
+    "@formulajs/formulajs": "4.4.8",
     "@tachybase/utils": "workspace:*",
     "lodash": "4.17.21",
     "mathjs": "^10.6.4"
   },
   "devDependencies": {
-    "@types/node": "20.14.2"
+    "@types/node": "20.17.10"
   }
 }

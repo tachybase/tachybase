@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "0.23.3",
+  "version": "0.23.7",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "scripts": {
@@ -76,10 +76,10 @@
     "@tachybase/plugin-workflow-approval": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "cronstrue": "^2.47.0",
+    "cronstrue": "^2.52.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.5"
+    "@types/lodash": "^4.17.13"
   }
 }

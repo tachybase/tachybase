@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-dingtalk",
   "displayName": "Auth: Ding Talk",
-  "version": "0.23.3",
+  "version": "0.23.7",
   "description": "dingding authentication.",
   "keywords": [
     "Authentication"
@@ -11,12 +11,12 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-dingtalk"
   },
   "devDependencies": {
-    "@alicloud/dingtalk": "^2.1.30",
-    "@alicloud/openapi-client": "^0.4.10",
+    "@alicloud/dingtalk": "^2.1.75",
+    "@alicloud/openapi-client": "^0.4.12",
     "@alicloud/tea-util": "^1.4.9",
-    "@ant-design/icons": "^5.3.7",
-    "antd": "5.22.0",
-    "react-router-dom": "6.28.0"
+    "@ant-design/icons": "^5.5.2",
+    "antd": "5.22.5",
+    "react-router-dom": "6.28.1"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

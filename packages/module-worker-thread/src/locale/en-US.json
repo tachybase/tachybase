@@ -1,8 +1,9 @@
 {
-  "Busy": "Busy",
-  "Current": "Current",
+  "Busy count": "Busy count",
+  "Current count": "Current count",
+  "Environment count": "Environment count",
   "Invalid worker count": "Invalid worker count",
-  "Preset": "Preset",
+  "Preset count": "Preset count",
   "Too many workers": "Too many workers",
   "Worker thread": "Worker thread",
   "Worker thread plugin not start": "Worker thread plugin not start"

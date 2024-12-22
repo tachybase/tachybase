@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-bulk-edit",
   "displayName": "Action: Batch edit",
-  "version": "0.23.3",
+  "version": "0.23.7",
   "description": "Batch edit all records or selected records.",
   "keywords": [
     "Actions"
@@ -12,13 +12,13 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-action-bulk-edit"
   },
   "devDependencies": {
-    "@ant-design/icons": "^5.3.7",
+    "@ant-design/icons": "^5.5.2",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "lodash": "4.17.21",
-    "react-i18next": "^15.1.1",
-    "react-router-dom": "6.28.0"
+    "react-i18next": "^15.2.0",
+    "react-router-dom": "6.28.1"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

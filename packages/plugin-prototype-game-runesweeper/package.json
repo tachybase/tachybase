@@ -1,14 +1,14 @@
 {
   "name": "@tachybase/plugin-demos-game-runesweeper",
-  "version": "0.23.3",
+  "version": "0.23.7",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-demos-game-runesweeper"
   },
   "dependencies": {
-    "canvas-confetti": "^1.9.2",
+    "canvas-confetti": "^1.9.3",
     "react": "18.3.1",
-    "react-swipeable": "^7.0.1"
+    "react-swipeable": "^7.0.2"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
