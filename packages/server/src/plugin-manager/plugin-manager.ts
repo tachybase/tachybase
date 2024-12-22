@@ -33,6 +33,9 @@ export const sleep = async (timeout = 0) => {
   });
 };
 
+// TODO migrate to utils
+export type Constructor<T> = new (...args: any[]) => T;
+
 export interface PluginManagerOptions {
   app: Application;
   plugins?: any[];
@@ -61,7 +64,7 @@ export class PluginManager {
   /**
    * @internal
    */
-  pluginInstances = new Map<typeof Plugin, Plugin>();
+  pluginInstances = new Map<Constructor<Plugin>, Plugin>();
 
   /**
    * @internal
@@ -212,25 +215,28 @@ export class PluginManager {
     return this.app.pm.pluginAliases.keys();
   }
 
-  get(name: string | typeof Plugin) {
+  get<T extends Plugin>(name: string): Plugin | undefined;
+  get<T extends Plugin>(name: Constructor<T>): T | undefined;
+  get<T extends Plugin>(name: string | Constructor<T>): Plugin | undefined;
+  get<T extends Plugin>(name: string | Constructor<T>) {
     if (typeof name === 'string') {
       return this.app.pm.pluginAliases.get(name);
     }
-    return this.app.pm.pluginInstances.get(name);
+    return this.app.pm.pluginInstances.get(name) as T;
   }
 
-  has(name: string | typeof Plugin) {
+  has<T extends Plugin>(name: string | Constructor<T>) {
     if (typeof name === 'string') {
       return this.app.pm.pluginAliases.has(name);
     }
     return this.app.pm.pluginInstances.has(name);
   }
 
-  del(name: string | typeof Plugin) {
+  del<T extends Plugin>(name: string | Constructor<T>) {
     const instance = this.get(name);
     if (instance) {
       this.app.pm.pluginAliases.delete(instance.name);
-      this.app.pm.pluginInstances.delete(instance.constructor as typeof Plugin);
+      this.app.pm.pluginInstances.delete(instance.constructor as Constructor<T>);
     }
   }
 

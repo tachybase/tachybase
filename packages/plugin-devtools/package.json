@@ -15,6 +15,7 @@
     "@tachybase/database": "workspace:*",
     "@tachybase/sdk": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*"
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   }
 }

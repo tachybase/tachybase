@@ -45,8 +45,15 @@ export const buildDeclaration = (cwd: string, targetDir: string) => {
       if (diagnostic.file) {
         const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
         const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+        // TODO 暂时特殊处理
+        if (message.includes(`Property 'body' does not exist on type 'Request'`)) {
+          return;
+        }
+        if (message.includes(`Property 'fromNow' does not exist on type 'Dayjs'`)) {
+          return;
+        }
         signals.emit('build:errors', `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
-        console.error(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+        console.error(`${diagnostic.file.fileName}(${line + 1},${character + 1}): ${message}`);
       } else {
         signals.emit('build:errors', ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
         console.error(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));

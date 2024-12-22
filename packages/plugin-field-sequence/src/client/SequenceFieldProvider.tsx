@@ -3,7 +3,7 @@ import { SchemaComponentOptions } from '@tachybase/client';
 
 import { RuleConfigForm } from './sequence';
 
-export const SequenceFieldProvider: FC = (props) => {
+export const SequenceFieldProvider = (props) => {
   return (
     <SchemaComponentOptions
       components={{

@@ -11,11 +11,13 @@
   },
   "peerDependencies": {
     "@tachybase/acl": "workspace:*",
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/module-acl": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*"
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "生成合成角色,每个用户可以生成自己的子账户(未完成)",
   "displayName.zh-CN": "子账户和合成角色"
