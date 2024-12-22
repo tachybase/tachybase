@@ -5,14 +5,15 @@
 **/.dumi/tmp-production
 **/.dumi/tmp-test
 **/.turbo
-*.tbdump
 *.sqlite
+*.tbdump
 .DS_Store
 .env
 .env.e2e
 .env.local
 .env.local.*
 .env.test
+.local
 .npmrc
 .pnpm-store
 .swc
