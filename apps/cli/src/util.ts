@@ -224,14 +224,12 @@ export function generateAppDir() {
   if (isDev() && !hasCorePackages() && serverPath.includes('node_modules')) {
     // TODO optimize
     if (!existsSync(appServerDevDir)) {
-      mkdirSync(appServerDevDir, { recursive: true });
       cpSync(serverPath, appServerDevDir, {
         recursive: true,
         force: true,
       });
     }
     if (!existsSync(appClientDevDir)) {
-      mkdirSync(appClientDevDir, { recursive: true });
       cpSync(clientPath, appClientDevDir, {
         recursive: true,
         force: true,
