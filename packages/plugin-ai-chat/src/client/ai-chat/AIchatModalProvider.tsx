@@ -1,17 +1,9 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useAPIClient } from '@tachybase/client';
 
-import {
-  CloudUploadOutlined,
-  CommentOutlined,
-  FireOutlined,
-  HeartOutlined,
-  PaperClipOutlined,
-  ReadOutlined,
-  SmileOutlined,
-} from '@ant-design/icons';
+import { CommentOutlined, FireOutlined, HeartOutlined, ReadOutlined, SmileOutlined } from '@ant-design/icons';
 import { Attachments, Bubble, Prompts, Sender, useXAgent, useXChat } from '@ant-design/x';
-import { Badge, Button, GetProp, Modal, Space } from 'antd';
+import { GetProp, Modal, Space } from 'antd';
 
 import { useStyle } from './chatStyles';
 
@@ -122,9 +114,7 @@ export const AIchat = ({ open, setOpen }) => {
   const { styles } = useStyle();
   const api = useAPIClient();
   const [content, setContent] = React.useState('');
-  const [headerOpen, setHeaderOpen] = React.useState(false);
   const [activeKey, setActiveKey] = React.useState(defaultConversationsItems[0].key);
-  const [attachedFiles, setAttachedFiles] = React.useState<GetProp<typeof Attachments, 'items'>>([]);
 
   const handleOk = () => {
     setOpen(false);
@@ -135,7 +125,7 @@ export const AIchat = ({ open, setOpen }) => {
   };
 
   const [agent] = useXAgent({
-    request: async ({ message }, { onSuccess, onUpdate }) => {
+    request: async ({ message }, { onSuccess, onError }) => {
       const fullContent = await api.request({
         method: 'post',
         url: 'aichat:sendMessage',
@@ -148,7 +138,9 @@ export const AIchat = ({ open, setOpen }) => {
       const AIcontent = fullContent.data.data.choices[0].message.content;
       try {
         onSuccess(AIcontent);
-      } catch (error) {}
+      } catch (error) {
+        onError(error);
+      }
     },
   });
 
@@ -171,8 +163,6 @@ export const AIchat = ({ open, setOpen }) => {
     onRequest(info.data.description as string);
   };
 
-  // const handleFileChange: GetProp<typeof Attachments, 'onChange'> = (info) => setAttachedFiles(info.fileList);
-
   const placeholderNode = (
     <Space direction="vertical" size={20} className={styles.placeholder}>
       <Prompts
@@ -193,7 +183,6 @@ export const AIchat = ({ open, setOpen }) => {
 
   const items: GetProp<typeof Bubble.List, 'items'> = messages.map(({ id, message, status }) => ({
     key: id,
-    // loading: status === 'loading',
     role: status === 'local' ? 'local' : 'ai',
     content: message,
   }));

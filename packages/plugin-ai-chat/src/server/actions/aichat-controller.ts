@@ -8,7 +8,7 @@ import OpenAI from 'openai';
 export class aichatController {
   @Action('sendMessage')
   async handleMessage(ctx: Context, next: Next) {
-    const userMessage = ctx.action.params.values.message;
+    const userMessage = ctx.action?.params?.values?.message || undefined;
     const requestData = {
       model: 'deepseek-chat',
       messages: [
@@ -16,8 +16,9 @@ export class aichatController {
         { role: 'user', content: userMessage },
       ],
     };
+    const aitoken = process.env.AI_API_KEY;
     const headers = {
-      Authorization: `Bearer sk-7c91946813cf42b4851a914fe690b0b4`,
+      Authorization: `Bearer ${aitoken}`,
       'Content-Type': 'application/json',
     };
 

@@ -1,13 +1,12 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
 
-import { CalculatorOutlined, CommentOutlined, SearchOutlined, ToolOutlined } from '@ant-design/icons';
+import { CommentOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 
 import { useAIchat } from './ai-chat/AIchatModalProvider';
 
 const AIChatButton = () => {
-  // const ref = useRef<any>();
   const { setOpen } = useAIchat();
 
   return (
