@@ -11,11 +11,11 @@ export const ProviderActionReminder = (props) => {
   const approvalExecution = useContextApprovalExecution();
 
   const isSameId = data.data.id === createdById;
-  const isSameExcutionId = latestExecutionId === approvalExecution.id;
+  const isSameExecutionId = latestExecutionId === approvalExecution.id;
   const isDraft = status === APPROVAL_STATUS.DRAFT;
   const isReturned = status === APPROVAL_STATUS.RETURNED;
 
-  if (isSameId && !isDraft && !isReturned && isSameExcutionId) {
+  if (isSameId && !isDraft && !isReturned && isSameExecutionId) {
     return props.children;
   }
 
