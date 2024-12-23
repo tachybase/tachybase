@@ -213,27 +213,11 @@ function normalizePath(path: string) {
 }
 
 export function generateAppDir() {
-  // calc server path
   const serverPath = getPackagePath('@tachybase/app-server');
-  // calc client path
   const clientPath = getPackagePath('@tachybase/app-rs');
-  const appPkgPath = serverPath;
-  const appDevDir = resolve(process.cwd(), './storage/.app-dev');
-  // when using create-tachybase-app
-  if (isDev() && !hasCorePackages() && appPkgPath.includes('node_modules')) {
-    // FIXME
-    if (!existsSync(appDevDir)) {
-      mkdirSync(appDevDir, { recursive: true });
-      cpSync(appPkgPath, appDevDir, {
-        recursive: true,
-        force: true,
-      });
-    }
-    process.env.APP_PACKAGE_ROOT = appDevDir;
-  } else {
-    process.env.APP_PACKAGE_ROOT = normalizePath(appPkgPath);
-    process.env.APP_CLIENT_ROOT = normalizePath(clientPath);
-  }
+
+  process.env.APP_PACKAGE_ROOT = process.env.APP_PACKAGE_ROOT || normalizePath(serverPath);
+  process.env.APP_CLIENT_ROOT = process.env.APP_CLIENT_ROOT || normalizePath(clientPath);
 }
 
 export async function genTsConfigPaths() {
