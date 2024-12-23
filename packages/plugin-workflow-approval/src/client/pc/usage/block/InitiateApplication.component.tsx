@@ -17,8 +17,10 @@ import { FlowContextProvider } from './common/FlowContext.provider';
 import { ActionBarProvider } from './initiations/apply-button/ActionBar.provider';
 import { ApplyActionStatusProvider } from './initiations/apply-button/ActionStatus.provider';
 import { useSubmitCreate } from './initiations/apply-button/hooks/useSubmitCreate';
+import { useActionReminder } from './initiations/hooks/useActionReminder';
 import { useActionResubmit } from './initiations/hooks/useActionResubmit';
 import { useWithdrawAction } from './initiations/hooks/useWithdrawAction';
+import { ProviderActionReminder } from './initiations/providers/ActionReminder.provider';
 import { WithdrawActionProvider } from './initiations/WithdrawAction.provider';
 
 /**
@@ -172,11 +174,13 @@ export const InitiateApplication = () => {
             ActionBarProvider,
             ProviderActionResubmit: () => null,
             WithdrawActionProvider,
+            ProviderActionReminder,
           }}
           scope={{
             useSubmit: useSubmitCreate,
             useWithdrawAction,
             useActionResubmit,
+            useActionReminder,
           }}
         />
       </SchemaComponentContext.Provider>

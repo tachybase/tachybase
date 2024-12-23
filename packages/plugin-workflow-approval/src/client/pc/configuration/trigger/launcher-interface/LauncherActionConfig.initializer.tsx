@@ -2,7 +2,11 @@ import { SchemaInitializer } from '@tachybase/client';
 
 import { APPROVAL_STATUS } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
-import { LauncherActionConfigComponent, LauncherActionConfigReSubmit } from './LauncherActionConfig.component';
+import {
+  LauncherActionConfigComponent,
+  LauncherActionConfigReminder,
+  LauncherActionConfigReSubmit,
+} from './LauncherActionConfig.component';
 
 // 卡片-配置操作
 export const LauncherActionConfigInitializer = new SchemaInitializer({
@@ -31,6 +35,12 @@ export const LauncherActionConfigInitializer = new SchemaInitializer({
       title: `{{t("Resubmit", { ns: "${NAMESPACE}" })}}`,
       action: APPROVAL_STATUS.RESUBMIT,
       Component: LauncherActionConfigReSubmit,
+    },
+    {
+      name: 'reminder',
+      type: 'item',
+      title: `{{t("Reminder", { ns: "${NAMESPACE}" })}}`,
+      Component: LauncherActionConfigReminder,
     },
   ],
 });
