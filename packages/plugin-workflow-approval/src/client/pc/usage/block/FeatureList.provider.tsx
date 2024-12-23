@@ -1,4 +1,7 @@
+import React from 'react';
 import { useRequest } from '@tachybase/client';
+
+import { ProviderContextFeatureList } from './FeatureList.context';
 
 export const ProviderFeatureList = (props) => {
   const { collection, action, params, children } = props;
@@ -8,10 +11,17 @@ export const ProviderFeatureList = (props) => {
     params: params,
   });
 
-  console.log('%c Line:6 🍿 data', 'font-size:18px;color:#33a5ff;background:#fca650', data);
-
+  const dataSources = data?.data || [];
   if (loading) {
     return null;
   }
-  return children;
+  return (
+    <ProviderContextFeatureList
+      value={{
+        dataSources,
+      }}
+    >
+      {children}
+    </ProviderContextFeatureList>
+  );
 };

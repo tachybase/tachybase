@@ -14,7 +14,6 @@ export const getSchemaBlockInitItem = (params) => {
     ['x-component']: xComponent,
     ['x-component-props']: xComponentProps,
   } = itemSchema;
-
   return {
     type: 'void',
     name: id,

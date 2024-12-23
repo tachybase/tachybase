@@ -1,6 +1,8 @@
 import React from 'react';
 
+import { useContextFeatureList } from './FeatureList.context';
+
 export const FeatureList = () => {
-  console.log('%c Line:4 🥥 FeatureList', 'font-size:18px;color:#33a5ff;background:#3f7cff');
+  const { dataSources } = useContextFeatureList();
   return <div>FeatureList</div>;
 };
