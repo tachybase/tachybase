@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/cli",
-  "version": "0.23.8-alpha.13",
+  "version": "0.23.8-alpha.14",
   "description": "",
   "license": "Apache-2.0",
   "type": "module",
@@ -12,7 +12,7 @@
   },
   "files": [
     "bin",
-    "dist",
+    "lib",
     "templates",
     "tachybase.conf.tpl"
   ],
