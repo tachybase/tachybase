@@ -7,6 +7,7 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
+  realpathSync,
   rmSync,
   symlinkSync,
   unlinkSync,
@@ -196,9 +197,9 @@ export async function getVersion() {
 
 function getPackagePath(moduleName: string) {
   try {
-    return dirname(dirname(new URL(import.meta.resolve(`${moduleName}`)).pathname));
+    return realpathSync(dirname(dirname(new URL(import.meta.resolve(`${moduleName}`)).pathname)));
   } catch {
-    return dirname(dirname(new URL(import.meta.resolve(`${moduleName}/src/index.ts`)).pathname));
+    return realpathSync(dirname(dirname(new URL(import.meta.resolve(`${moduleName}/src/index.ts`)).pathname)));
   }
 }
 
