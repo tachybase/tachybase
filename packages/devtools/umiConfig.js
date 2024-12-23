@@ -7,7 +7,7 @@ const path = require('path');
 
 console.log('VERSION: ', packageJson.version);
 
-const ProjectRoot = path.join(__dirname, '../../');
+const ProjectRoot = process.cwd();
 
 function getUmiConfig() {
   const { APP_PORT, API_BASE_URL, APP_PUBLIC_PATH } = process.env;
