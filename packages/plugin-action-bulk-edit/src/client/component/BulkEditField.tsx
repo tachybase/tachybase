@@ -17,7 +17,7 @@ export const DeletedField = () => {
   const { t } = useTranslation();
   return <div style={{ color: '#ccc' }}>{t('The field has bee deleted')}</div>;
 };
-const InternalField: React.FC = (props) => {
+const InternalField = (props) => {
   const field = useField<Field>();
   const fieldSchema = useFieldSchema();
   const { name, interface: interfaceType, uiSchema } = useCollectionField_deprecated();
@@ -57,7 +57,6 @@ const InternalField: React.FC = (props) => {
       field.readPretty = true;
     }
     setRequired();
-    // @ts-ignore
     field.dataSource = uiSchema.enum;
     const originalProps = compile(uiSchema['x-component-props']) || {};
     const componentProps = merge(originalProps, field.componentProps || {});

@@ -338,7 +338,7 @@ export const TableTransfer = connect((props) => {
               />
             </Space.Compact>
           </div>
-          <Table
+          <Table<any>
             bordered
             rowKey={'name'}
             rowSelection={{

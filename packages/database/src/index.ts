@@ -1,20 +1,22 @@
 export {
   BaseError,
-  BelongsToGetAssociationMixin,
   DataTypes,
   fn,
-  HasManyCountAssociationsMixin,
-  HasManyCreateAssociationMixin,
-  HasManyGetAssociationsMixin,
   literal,
-  ModelStatic,
   Op,
-  SyncOptions,
   Transaction,
   UniqueConstraintError,
   ValidationError,
   ValidationErrorItem,
   where,
+} from 'sequelize';
+export type {
+  BelongsToGetAssociationMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  ModelStatic,
+  SyncOptions,
 } from 'sequelize';
 export * from './collection';
 export * from './collection-group-manager';

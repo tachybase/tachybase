@@ -71,4 +71,5 @@ function createLogger(options: LoggerOptions = {}) {
   return logger;
 }
 
-export { createLogger, Logger, LoggerOptions, Transports };
+export { createLogger, Logger, Transports };
+export type { LoggerOptions };

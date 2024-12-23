@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/actions",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
@@ -15,10 +15,10 @@
     "@tachybase/utils": "workspace:*",
     "koa": "^2.15.3",
     "lodash": "4.17.21",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.5"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",
-    "@types/lodash": "^4.17.5"
+    "@types/lodash": "^4.17.13"
   }
 }

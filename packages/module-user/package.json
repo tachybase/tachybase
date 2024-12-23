@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-user",
   "displayName": "Users",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "description": "Provides basic user model, as well as created by and updated by fields.",
   "keywords": [
     "Users & permissions"
@@ -14,9 +14,9 @@
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "@types/jsonwebtoken": "^8.5.9",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "jsonwebtoken": "^8.5.1",
-    "react-i18next": "^15.1.1"
+    "react-i18next": "^15.2.0"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

@@ -6,7 +6,8 @@ import { TreeSelect as AntdTreeSelect } from 'antd';
 
 import { PreviewText } from '../preview-text';
 
-export const TreeSelect = connect(
+// FIXME types
+export const TreeSelect: any = connect(
   AntdTreeSelect,
   mapProps(
     {

@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { useAPIClient } from '../../../../api-client';
+import { SchemaInitializerOptions } from '../../../../application';
 import { SchemaInitializerActionModal } from '../../../../application/schema-initializer/components/SchemaInitializerActionModal';
 import { SchemaInitializerItem } from '../../../../application/schema-initializer/components/SchemaInitializerItem';
 import { useSchemaInitializer } from '../../../../application/schema-initializer/context';
@@ -249,4 +250,4 @@ const commonOptions = {
 export const tableActionColumnInitializers = new SchemaInitializer({
   name: 'table:configureItemActions',
   ...commonOptions,
-});
+} as SchemaInitializerOptions);

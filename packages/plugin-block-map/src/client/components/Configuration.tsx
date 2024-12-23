@@ -11,8 +11,9 @@ import { useMapTranslation } from '../locale';
 
 interface BaseConfigurationProps {
   type: 'amap' | 'google';
+  children: React.ReactNode;
 }
-const BaseConfiguration: React.FC<BaseConfigurationProps> = ({ type, children }) => {
+const BaseConfiguration = ({ type, children }: BaseConfigurationProps) => {
   const { t } = useMapTranslation();
   const [isDisabled, disableAction] = useBoolean(false);
   const apiClient = useAPIClient();

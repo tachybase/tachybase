@@ -6,12 +6,13 @@ import { LoggerOptions } from '@tachybase/logger';
 import { Container, fsExists, importModule } from '@tachybase/utils';
 
 import { globSync } from 'glob';
-import type { ParseKeys, TOptions } from 'i18next';
+import type { ParseKeys, TFunction, TOptions } from 'i18next';
 
 import { Application } from './application';
 import { getExposeChangelogUrl, getExposeReadmeUrl, InstallOptions } from './plugin-manager';
 import { checkAndGetCompatible } from './plugin-manager/utils';
 
+export type { ParseKeys, TOptions } from 'i18next';
 export interface PluginInterface {
   beforeLoad?: () => void;
 
@@ -248,7 +249,7 @@ export abstract class Plugin implements PluginInterface {
   }
 
   t(text: ParseKeys | ParseKeys[], options: TOptions = {}) {
-    return this.app.i18n.t(text, { ns: this.options['packageName'], ...(options as any) });
+    return this.app.i18n.t(text, { ns: this.options['packageName'], ...(options as any) }) as string;
   }
 
   /**

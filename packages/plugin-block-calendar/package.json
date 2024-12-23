@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-block-calendar",
   "displayName": "Calendar",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "description": "Provides callendar collection template and block for managing date data, typically for date/time related information such as events, appointments, tasks, and so on.",
   "keywords": [
     "Collections",
@@ -17,13 +17,13 @@
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
-    "cron-parser": "4.4.0",
-    "dayjs": "1.11.10",
+    "antd": "5.22.5",
+    "cron-parser": "4.9.0",
+    "dayjs": "1.11.13",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
-    "react-big-calendar": "^1.8.5",
-    "react-i18next": "^15.1.1",
+    "react-big-calendar": "^1.17.1",
+    "react-i18next": "^15.2.0",
     "react-js-cron": "^3.2.0",
     "solarlunar-es": "^1.0.9"
   },

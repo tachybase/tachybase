@@ -1,17 +1,24 @@
 {
   "name": "@tachybase/plugin-devtools",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tachybase-build --no-dts @tachybase/plugin-devtools"
+  },
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "ahooks": "^3.8.4",
-    "antd": "5.22.0",
-    "react-i18next": "^15.1.3",
-    "swagger-ui-dist": "^5.10.5"
+    "antd": "5.22.5",
+    "react-i18next": "^15.2.0",
+    "swagger-ui-dist": "^5.18.2"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/sdk": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*"
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   }
 }

@@ -5,7 +5,7 @@ import {
   useCollectionFields,
   useDesignable,
 } from '@tachybase/client';
-import { RecursionField, useField } from '@tachybase/schema';
+import { Field, RecursionField, useField } from '@tachybase/schema';
 
 import { Button } from 'antd';
 import jsxRuntime from 'react/jsx-runtime';
@@ -15,7 +15,7 @@ import { styles } from './styles';
 import { useComment } from './useComment';
 
 export function CommentSubmit() {
-  const field = useField();
+  const field = useField<Field>();
   const updateUI = useCallback(
     (content) => {
       field.setValue({ ...field.value, content });

@@ -60,7 +60,7 @@ import { Locale } from './locale';
 import { MainDataSource } from './main-data-source';
 import { NoticeManager } from './notice';
 import { Plugin } from './plugin';
-import { InstallOptions, PluginManager } from './plugin-manager';
+import { Constructor, InstallOptions, PluginManager } from './plugin-manager';
 
 export { Logger } from 'winston';
 
@@ -528,7 +528,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this._cacheManager = await createCacheManager(this, this.options.cacheManager);
 
     this.setMaintainingMessage('init plugins');
-    await this.pm.initPlugins(options?.skipDbPluigns);
+    await this.pm.initPlugins();
 
     this.setMaintainingMessage('start load');
     this.setMaintainingMessage('emit beforeLoad');
@@ -581,7 +581,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
    * Use {@link this.pm.get()} instead.
    * @deprecated
    */
-  getPlugin<P extends Plugin>(name: string | typeof Plugin) {
+  getPlugin<P extends Plugin>(name: string | Constructor<P>) {
     return this.pm.get(name) as P;
   }
 
@@ -1156,6 +1156,8 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     });
     return db;
   }
+
+  [key: string]: any;
 }
 
 applyMixins(Application, [AsyncEmitter]);

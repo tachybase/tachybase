@@ -1,14 +1,14 @@
-import { randomUUID } from 'crypto';
-import fs from 'fs';
-import { resolve } from 'path';
-import { createHistogram, RecordableHistogram } from 'perf_hooks';
+import { randomUUID } from 'node:crypto';
+import fs from 'node:fs';
+import { resolve } from 'node:path';
+import { createHistogram, RecordableHistogram } from 'node:perf_hooks';
 import { requestLogger } from '@tachybase/logger';
 import { Resourcer } from '@tachybase/resourcer';
 import { uid } from '@tachybase/utils';
 
 import cors from '@koa/cors';
 import { Command } from 'commander';
-import i18next from 'i18next';
+import i18next, { type i18n as TypeI18n } from 'i18next';
 import bodyParser from 'koa-bodyparser';
 
 import Application, { ApplicationOptions } from './application';
@@ -18,7 +18,7 @@ import { dataWrapping } from './middlewares/data-wrapping';
 import { db2resource } from './middlewares/db2resource';
 import { i18n } from './middlewares/i18n';
 
-export function createI18n(options: ApplicationOptions) {
+export function createI18n(options: ApplicationOptions): TypeI18n {
   const instance = i18next.createInstance();
   instance.init({
     lng: 'en-US',

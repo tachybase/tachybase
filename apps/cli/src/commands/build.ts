@@ -26,12 +26,17 @@ export default (cli: Command) => {
       }
       process.env['VITE_CJS_IGNORE_WARNING'] = 'true';
 
-      await run('tachybase-build', [
-        ...pkgs,
-        options.version ? '--version' : '',
-        !options.dts ? '--no-dts' : '',
-        options.sourcemap ? '--sourcemap' : '',
-        options.retry ? '--retry' : '',
-      ]);
+      try {
+        await run('tachybase-build', [
+          ...pkgs,
+          options.version ? '--version' : '',
+          !options.dts ? '--no-dts' : '',
+          options.sourcemap ? '--sourcemap' : '',
+          options.retry ? '--retry' : '',
+        ]);
+      } catch (error) {
+        // console.warn((error as Error).message);
+        process.exit(1);
+      }
     });
 };

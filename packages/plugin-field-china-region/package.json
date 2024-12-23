@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-field-china-region",
   "displayName": "Administrative divisions of China",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "description": "Provides data and field type for administrative divisions of China.",
   "keywords": [
     "Fields"
@@ -15,7 +15,7 @@
     "@tachybase/schema": "workspace:*",
     "@types/cross-spawn": "^6.0.6",
     "china-division": "^2.7.0",
-    "cross-spawn": "^7.0.3"
+    "cross-spawn": "^7.0.6"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

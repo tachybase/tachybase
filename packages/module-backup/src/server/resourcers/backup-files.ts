@@ -1,9 +1,8 @@
-import fs from 'fs';
-import fsPromises from 'fs/promises';
-import os from 'os';
-import path from 'path';
+import fs from 'node:fs';
+import fsPromises from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from '@tachybase/actions';
-import { DumpRulesGroupType } from '@tachybase/database';
 import { Application } from '@tachybase/server';
 import { koaMulter as multer } from '@tachybase/utils';
 
@@ -107,21 +106,20 @@ export default {
 
       let taskId;
       const app = ctx.app as Application;
-      // 暂不支持工作线程备份,需要工作线程load所有的插件才能下载插件数据库
-      // if (app.worker?.available) {
-      //   // 通过子线程调用
-      //   taskId = await ctx.app.worker.callPluginMethod({
-      //     plugin: PluginBackupRestoreServer,
-      //     method: 'workerCreateBackUp',
-      //     params: {
-      //       dataTypes: data.dataTypes,
-      //     },
-      //   });
-      //   ctx.app.noticeManager.notify('backup', { msg: 'done' });
-      // } else {
-      const plugin = app.pm.get(PluginBackupRestoreServer) as PluginBackupRestoreServer;
-      taskId = await plugin.workerCreateBackUp(data);
-      // }
+      if (app.worker?.available) {
+        // 通过工作线程调用
+        taskId = await ctx.app.worker.callPluginMethod({
+          plugin: PluginBackupRestoreServer,
+          method: 'workerCreateBackUp',
+          params: {
+            dataTypes: data.dataTypes,
+          },
+        });
+        ctx.app.noticeManager.notify('backup', { msg: 'done' });
+      } else {
+        const plugin = app.pm.get(PluginBackupRestoreServer) as PluginBackupRestoreServer;
+        taskId = await plugin.workerCreateBackUp(data);
+      }
 
       ctx.body = {
         key: taskId,

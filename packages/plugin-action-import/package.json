@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-import",
   "displayName": "Action: Import records",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "description": "Import records using excel templates. You can configure which fields to import and templates will be generated automatically.",
   "keywords": [
     "Actions"
@@ -16,14 +16,14 @@
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@types/node-xlsx": "^0.15.3",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "file-saver": "^2.0.5",
     "lodash": "4.17.21",
     "mathjs": "^10.6.4",
     "node-xlsx": "^0.24.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.1.1",
+    "react-i18next": "^15.2.0",
     "xlsx": "^0.18.5"
   },
   "peerDependencies": {

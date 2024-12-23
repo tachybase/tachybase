@@ -12,7 +12,7 @@ export class HttpApiRepository {
     const { transformedResponse } = await this.collection.runAction('list');
     return transformedResponse.data;
   }
-  async findAndCount(options = {}) {
+  async findAndCount(options: { context?: any; filter?: any; sort?: any } = {}) {
     const templateContext = this.buildTemplateContextFromRequestContext(options.context, {
       filter: options.filter,
       sort: options.sort,

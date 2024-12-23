@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-auth",
   "displayName": "Authentication",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "description": "User authentication management, including password, SMS, and support for Single Sign-On (SSO) protocols, with extensibility.",
   "keywords": [
     "Authentication"
@@ -13,11 +13,11 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
-    "cron": "^3.1.7",
+    "antd": "5.22.5",
+    "cron": "^3.3.1",
     "react": "^18.3.1",
-    "react-i18next": "^15.1.1",
-    "react-router-dom": "6.28.0"
+    "react-i18next": "^15.2.0",
+    "react-router-dom": "6.28.1"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

@@ -1,7 +1,0 @@
-{
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"]
-    }
-  }
-}

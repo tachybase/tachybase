@@ -56,7 +56,7 @@ export abstract class CollectionTemplate {
   /** UI 可配置的 CollectionOptions 参数（添加或编辑的 Collection 表单的字段） */
   configurableProperties?: Record<string, ISchema>;
   /** 当前模板可用的字段类型 */
-  availableFieldInterfaces?: AvailableFieldInterfacesInclude | AvailableFieldInterfacesExclude;
+  availableFieldInterfaces?: AvailableFieldInterfacesInclude & AvailableFieldInterfacesExclude;
   /** 是否分割线 */
   divider?: boolean;
   /** 模板描述 */

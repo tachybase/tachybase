@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-duplicate",
   "displayName": "Action: Duplicate record",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "description": "Duplicate a record, you can either duplicate it into a form and edit it before saving it, or you can duplicate it directly to generate a new record.",
   "keywords": [
     "Actions"
@@ -13,9 +13,9 @@
   },
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "lodash": "4.17.21",
-    "react-i18next": "^15.1.1"
+    "react-i18next": "^15.2.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

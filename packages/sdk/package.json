@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/sdk",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,8 +8,8 @@
     "build": "tachybase-build --no-dts @tachybase/sdk"
   },
   "dependencies": {
-    "axios": "^1.7.7",
-    "qs": "^6.12.3"
+    "axios": "^1.7.9",
+    "qs": "^6.13.1"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.22.0",

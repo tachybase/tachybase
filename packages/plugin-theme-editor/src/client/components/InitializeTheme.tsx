@@ -20,7 +20,7 @@ export const useThemeId = () => {
 /**
  * 用于在页面加载时初始化主题
  */
-const InitializeTheme: React.FC = ({ children }) => {
+const InitializeTheme = ({ children }) => {
   const currentUser = useCurrentUserContext();
   const { setTheme } = useGlobalTheme();
   const { run, data, loading } = useThemeListContext();

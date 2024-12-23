@@ -1,8 +1,9 @@
 {
-  "Busy": "繁忙数量",
-  "Current": "当前数量",
+  "Busy count": "繁忙数量",
+  "Current count": "当前数量",
+  "Environment count": "环境变量预设数量",
   "Invalid worker count": "无效的线程数",
-  "Preset": "预设数量",
+  "Preset count": "预设数量",
   "Too many workers": "设置工作线程过多",
   "Worker thread": "工作线程",
   "Worker thread plugin not start": "工作线程插件未启动"

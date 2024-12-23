@@ -515,7 +515,7 @@ export type ColorTokenContentProps = {
   infoFollowPrimary?: boolean;
   onInfoFollowPrimaryChange?: (value: boolean) => void;
   activeGroup: string;
-  onActiveGroupChange: (value: string) => void;
+  onActiveGroupChange: (value: string[]) => void;
 };
 
 const TokenContent: FC<ColorTokenContentProps> = ({
@@ -594,7 +594,7 @@ const TokenContent: FC<ColorTokenContentProps> = ({
             activeKey={activeGroup}
             expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 450 : 360} style={{ fontSize: 12 }} />}
             onChange={(key) => {
-              onActiveGroupChange(key as string);
+              onActiveGroupChange(key);
             }}
           >
             {category.groups.map((group, index) => {
@@ -616,7 +616,7 @@ const TokenContent: FC<ColorTokenContentProps> = ({
                             <span style={{ fontSize: 12 }}>Seed Token</span>
                             <Tooltip
                               placement="topLeft"
-                              arrowPointAtCenter
+                              arrow={{ pointAtCenter: true }}
                               title={
                                 locale._lang === 'zh-CN'
                                   ? (tokenMeta as any)[seedToken]?.desc
@@ -695,7 +695,7 @@ const TokenContent: FC<ColorTokenContentProps> = ({
                       <Button
                         type="primary"
                         style={{ borderRadius: 4, marginBottom: 12 }}
-                        onClick={() => onActiveGroupChange(category.groups[index + 1]?.key)}
+                        onClick={() => onActiveGroupChange([category.groups[index + 1]?.key])}
                       >
                         {locale.next}
                       </Button>

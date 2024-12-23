@@ -7,7 +7,7 @@ import { HttpCollectionManager } from './http-collection-manager';
 import { normalizeRequestOptions } from './utils';
 
 export class HttpDataSource extends DataSource {
-  async load(options = {}) {
+  async load(options: { localData?: any } = {}) {
     const { localData } = options;
     for (const collectionName of Object.keys(localData)) {
       this.collectionManager.defineCollection(localData[collectionName]);

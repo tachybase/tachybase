@@ -1,13 +1,11 @@
 {
   "name": "tachybase",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tachybase build --no-dts",
-    "build:full": "tachybase build",
+    "build": "tachybase build",
     "build:p": "tachybase build -s --no-dts",
-    "build:t": "turbo run build --filter='./packages/*'",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
     "dev-ex": "concurrently --names \"web,server\" --prefix \"[{name}]\" \"APP_ENTRY=app-mako pnpm dev --client --proxy-port 3010\" \"pnpm dev --server tachybase dev --server --port 3010\"",
@@ -15,7 +13,7 @@
     "dev-server": "tachybase dev --server",
     "e2e": "tachybase e2e",
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "tachybase build --no-dts @tachybase/utils && tachybase postinstall",
+    "postinstall": "tachybase build @tachybase/utils && tachybase postinstall",
     "lint": "oxlint -c oxlintrc.json --import-plugin",
     "pm": "tachybase pm",
     "pm2": "tachybase pm2",
@@ -42,7 +40,7 @@
     ]
   },
   "dependencies": {
-    "pm2": "^5.3.1",
+    "pm2": "^5.4.3",
     "rimraf": "^6.0.1"
   },
   "devDependencies": {
@@ -50,25 +48,26 @@
     "@commitlint/config-conventional": "^16.2.4",
     "@commitlint/prompt-cli": "^16.3.0",
     "@ianvs/prettier-plugin-sort-imports": "4.4.0",
-    "@inquirer/prompts": "^7.1.0",
+    "@inquirer/prompts": "^7.2.1",
     "@react-pdf/textkit": "4.4.1",
     "@rsbuild/core": "1.1.10",
     "@tachybase/build": "workspace:*",
     "@tachybase/cli": "workspace:*",
     "@tachybase/preset-tachybase": "workspace:*",
     "@tachybase/test": "workspace:*",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "axios": "^1.7.7",
+    "@types/node": "20.17.10",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "axios": "^1.7.9",
     "commander": "^9.5.0",
     "concurrently": "9.1.0",
     "cross-env": "7.0.3",
-    "globals": "^15.9.0",
-    "husky": "^9.0.11",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
     "lint-staged": "^13.3.0",
     "oxlint": "^0.15.3",
     "prettier": "3.4.2",
-    "prettier-plugin-packagejson": "2.5.3",
+    "prettier-plugin-packagejson": "2.5.6",
     "prettier-plugin-sort-json": "4.0.0",
     "prettier-plugin-sql": "0.18.1",
     "pretty-format": "29.7.0",
@@ -76,29 +75,23 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tsx": "^4.19.2",
-    "turbo": "2.3.0",
     "typescript": "5.7.2",
     "vitest": "^1.6.0"
   },
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@9.15.1",
   "engines": {
-    "node": "20.18.0",
-    "pnpm": "9.15.0"
-  },
-  "volta": {
-    "node": "20.18.0",
-    "pnpm": "9.15.0"
+    "node": ">=20.18.0"
   },
   "pnpm": {
     "neverBuiltDependencies": [
       "canvas"
     ],
     "overrides": {
-      "@types/node": "20.14.2",
-      "antd": "5.22.0",
-      "dayjs": "1.11.10",
-      "react-router": "6.28.0",
-      "react-router-dom": "6.28.0"
+      "@types/node": "20.17.10",
+      "antd": "5.22.5",
+      "dayjs": "1.11.13",
+      "react-router": "6.28.1",
+      "react-router-dom": "6.28.1"
     }
   }
 }

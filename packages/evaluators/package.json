@@ -1,20 +1,42 @@
 {
   "name": "@tachybase/evaluators",
-  "version": "0.23.6",
+  "version": "0.23.8",
   "description": "",
   "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./client": {
+      "require": {
+        "types": "./lib/client/index.d.ts",
+        "default": "./lib/client/index.js"
+      },
+      "import": {
+        "types": "./lib/client/index.d.ts",
+        "default": "./lib/client/index.js"
+      }
+    }
+  },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/evaluators"
   },
   "dependencies": {
-    "@formulajs/formulajs": "4.2.0",
+    "@formulajs/formulajs": "4.4.8",
     "@tachybase/utils": "workspace:*",
     "lodash": "4.17.21",
     "mathjs": "^10.6.4"
   },
   "devDependencies": {
-    "@types/node": "20.14.2"
+    "@types/node": "20.17.10"
   }
 }
