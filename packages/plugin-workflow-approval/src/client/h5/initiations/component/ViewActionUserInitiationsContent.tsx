@@ -11,7 +11,7 @@ import {
 import { DetailsBlockProvider } from '@tachybase/module-workflow/client';
 import { useForm } from '@tachybase/schema';
 
-import { NavBar, Skeleton, TabBar } from 'antd-mobile';
+import { NavBar, Skeleton } from 'antd-mobile';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
@@ -27,7 +27,9 @@ import { WithdrawActionProvider } from '../provider/WithdrawAction';
 
 import '../../style/style.css';
 
+import { useActionReminder } from '../hook/useActionReminder';
 import { useActionResubmit } from '../hook/useActionResubmit';
+import { ProviderActionReminder } from '../provider/ActionReminder.provider';
 import { ProviderActionResubmit } from '../provider/ActionResubmit.provider';
 import { ResubmitProvider } from '../provider/Resubmit.provider';
 
@@ -153,6 +155,7 @@ const UserInitiationsComponent = (applyDetail) => {
         DetailsBlockProvider,
         MobileProvider,
         ProviderActionResubmit,
+        ProviderActionReminder,
       }}
       scope={{
         useForm,
@@ -162,6 +165,7 @@ const UserInitiationsComponent = (applyDetail) => {
         useWithdrawAction,
         useDestroyAction,
         useActionResubmit,
+        useActionReminder,
       }}
       schema={formContextSchema}
     />

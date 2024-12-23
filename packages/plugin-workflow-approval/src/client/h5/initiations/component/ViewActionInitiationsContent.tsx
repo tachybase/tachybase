@@ -17,8 +17,10 @@ import { useTranslation } from '../../locale';
 import '../../style/style.css';
 
 import { APPROVAL_ACTION_STATUS } from '../../constants';
+import { useActionReminder } from '../hook/useActionReminder';
 import { useActionResubmit } from '../hook/useActionResubmit';
 import { useCreateSubmit } from '../hook/useCreateSubmit';
+import { ProviderActionReminder } from '../provider/ActionReminder.provider';
 
 export const ViewActionInitiationsContent = () => {
   const params = useParams();
@@ -99,12 +101,14 @@ export const ViewActionInitiationsContent = () => {
               ActionBarProvider,
               WithdrawActionProvider: WithdrawActionProvider,
               ProviderActionResubmit: () => null,
+              ProviderActionReminder,
               MobileProvider,
             }}
             scope={{
               useSubmit: useCreateSubmit,
               useWithdrawAction,
               useActionResubmit,
+              useActionReminder,
             }}
           />
         </div>

@@ -64,3 +64,24 @@ export const LauncherActionConfigReSubmit = () => {
     />
   );
 };
+
+export const LauncherActionConfigReminder = () => {
+  const itemConfig = useSchemaInitializerItem();
+  const { action, actionProps = {}, ...restItemConfig } = itemConfig;
+  return (
+    <ActionInitializer
+      {...restItemConfig}
+      schema={{
+        type: 'void',
+        title: restItemConfig.title,
+        'x-decorator': 'ProviderActionReminder',
+        'x-component': 'Action',
+        'x-component-props': {
+          ...actionProps,
+          useAction: '{{ useActionReminder }}',
+        },
+        'x-designer': 'Action.Designer',
+      }}
+    />
+  );
+};
