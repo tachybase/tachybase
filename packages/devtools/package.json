@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/devtools",
-  "version": "0.23.8-alpha.8",
+  "version": "0.23.8-alpha.9",
   "description": "",
   "license": "Apache-2.0",
   "main": "./src/index.js",
@@ -8,6 +8,9 @@
     "build": "tachybase-build --no-dts @tachybase/devtools"
   },
   "dependencies": {
+    "fast-glob": "^3.3.2"
+  },
+  "peerDependencies": {
     "@rsbuild/core": "^1.1.10",
     "@rsbuild/plugin-babel": "1.0.3",
     "@rsbuild/plugin-less": "1.1.0",
