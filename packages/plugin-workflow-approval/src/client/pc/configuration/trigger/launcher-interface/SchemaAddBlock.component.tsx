@@ -51,12 +51,14 @@ export const SchemaAddBlock = ({ value, onChange }) => {
           ApplyActionStatusProvider,
           WithdrawActionProvider,
           ProviderActionResubmit,
+          ProviderActionReminder,
         }}
         scope={{
           useSubmit,
           useWithdrawAction,
           useFormBlockProps,
           useActionResubmit,
+          useActionReminder,
         }}
         schema={data as any}
       />
@@ -82,6 +84,13 @@ function WithdrawActionProvider(props) {
 function useActionResubmit() {
   return { run() {} };
 }
+function useActionReminder() {
+  return { run() {} };
+}
 function ProviderActionResubmit(props) {
+  return props.children;
+}
+
+function ProviderActionReminder(props) {
   return props.children;
 }

@@ -3,6 +3,7 @@ import { parseCollectionName } from '@tachybase/data-source';
 import { traverseJSON } from '@tachybase/database';
 import { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/module-workflow';
 
+import { NAMESPACE } from '../../common/constants';
 import { APPROVAL_STATUS } from '../constants/status';
 import { getSummary } from '../tools';
 
@@ -246,5 +247,51 @@ export const approvals = {
     });
 
     return await actions.list(context, next);
+  },
+
+  async reminder(context, next) {
+    const { filterByTk } = context.action.params;
+    const repository = utils.getRepositoryFromParams(context);
+    const approval = await repository.findOne({
+      filterByTk,
+      appends: ['records', 'workflow', 'createdBy.nickname'],
+    });
+    if (!approval) {
+      return context.throw(404);
+    }
+    if (approval.createdById !== context.state.currentUser?.id) {
+      return context.throw(403);
+    }
+    if ([APPROVAL_STATUS.APPROVED, APPROVAL_STATUS.REJECTED, APPROVAL_STATUS.ERROR].includes(approval.status)) {
+      return context.throw(400);
+    }
+
+    if (approval.records?.length === 0) {
+      return context.throw(400);
+    }
+
+    const assignees = approval.records.map((record) => record.userId);
+
+    // 构造好审批数据后, 依次通知审批人审批
+    for (const userId of assignees) {
+      const message = {
+        userId,
+        title: `{{t("Approval", { ns: '${NAMESPACE}' })}}`,
+        content: `{{t("{{user}} reminder", { ns: "${NAMESPACE}", user: "${approval.createdBy.nickname}" })}}`,
+        collectionName: approval.collectionName,
+        jsonContent: approval.summary,
+        schemaName: approval.workflow?.config.applyDetail,
+      };
+
+      context.app.messageManager.sendMessage(+userId, message);
+    }
+
+    await next();
+
+    context.status = 200;
+    context.body = {
+      message: 'reminder sent',
+      success: true,
+    };
   },
 };
