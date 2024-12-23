@@ -29,7 +29,12 @@ export class aichatController {
       console.error('Error during API call:', error);
       ctx.body = {
         success: false,
-        error: error.response ? error.response.data : error.message,
+        error:
+          process.env.NODE_ENV === 'production'
+            ? 'An error occurred while calling the AI API.'
+            : error.response
+              ? error.response.data
+              : error.message,
       };
       ctx.status = error.response ? error.response.status : 500;
     }

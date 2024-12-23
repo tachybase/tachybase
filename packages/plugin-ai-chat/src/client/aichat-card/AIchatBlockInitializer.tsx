@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAPIClient } from '@tachybase/client';
+import { SchemaInitializerItem, useAPIClient, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
 import { CommentOutlined, FireOutlined, HeartOutlined, ReadOutlined, SmileOutlined } from '@ant-design/icons';
@@ -7,11 +7,6 @@ import { Bubble, Prompts, Sender, useXAgent, useXChat } from '@ant-design/x';
 import { GetProp, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import {
-  SchemaInitializerItem,
-  useSchemaInitializer,
-  useSchemaInitializerItem,
-} from '../../../../client/src/application';
 import { useStyle } from './chatStyles';
 
 export const AIchatBlockInitializer = () => {
