@@ -7,6 +7,7 @@ import { ViewBlockInitItem } from './BlockInitItem.view';
 import { CarbonCopyBlockProvider } from './carbon-copy/CarbonCopyBlock.provider';
 import { CarbonCopyCenter } from './carbon-copy/CarbonCopyCenter.schema';
 import { InitiateApplication } from './InitiateApplication.component';
+import { ViewInitiateApplicationNew } from './InitiateApplicationNew.view';
 import { ViewCheckLink as ViewCheckLinkInitiations } from './initiations/CheckLink.view';
 import { ViewTableInitiated } from './initiations/TableInitiated';
 import { ViewCheckLink as ViewCheckLinkTodos } from './todos/CheckLink.view';
@@ -38,6 +39,7 @@ export class KitApprovalBlock extends Plugin {
       'Approval-InitiateApplication': InitiateApplication,
       'Approval-ViewTableInitiated': ViewTableInitiated,
       'Approval-ViewTableTodos': ViewTableTodos,
+      'Approval-ViewInitiateApplicationNew': ViewInitiateApplicationNew,
 
       /**
        * @deprecated
@@ -52,7 +54,7 @@ export class KitApprovalBlock extends Plugin {
       'ApprovalBlock.ViewActionTodos': ViewCheckLinkTodos,
     });
 
-    const targetManager = this.app.schemaInitializerManager.get('page:addBlock');
-    targetManager.add(initializerName, initializerApprovalBlock);
+    const pageBlockManager = this.app.schemaInitializerManager.get('page:addBlock');
+    pageBlockManager.add(initializerName, initializerApprovalBlock);
   }
 }

@@ -24,6 +24,18 @@ export const initializerApprovalBlock = {
     },
     {
       type: 'item',
+      title: `{{t("New Initiate Request", { ns: "${NAMESPACE}" })}}`,
+      icon: 'ClockCircleOutlined',
+      'x-component': 'Approval-ViewInitiateApplicationNew',
+      Component: 'Approval-ViewBlockInitItem',
+      collection: 'workflows',
+      action: 'list',
+      useInsert: () => {
+        return (schema) => {};
+      },
+    },
+    {
+      type: 'item',
       title: `{{t("My Initiations", { ns: "${NAMESPACE}" })}}`,
       icon: 'AuditOutlined',
       'x-component': 'Approval-ViewTableInitiated',
