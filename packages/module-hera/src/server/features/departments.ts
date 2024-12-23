@@ -77,9 +77,43 @@ export class DepartmentsPlugin extends Plugin {
       const cache = this.app.cache;
       await cache.del(`departments:${model.get('userId')}`);
     });
+    this.app.db.on('departmentsUsers.afterBulkSave', async (models) => {
+      const cache = this.app.cache;
+      await Promise.all(
+        models.map(async (model) => {
+          await cache.del(`departments:${model.get('userId')}`);
+        }),
+      );
+    });
+    this.app.db.on('departmentsUsers.afterCreate', async (models) => {
+      const cache = this.app.cache;
+    });
+    this.app.db.on('departmentsUsers.afterBulkCreate', async (models) => {
+      const cache = this.app.cache;
+      await Promise.all(
+        models.map(async (model) => {
+          await cache.del(`departments:${model.get('userId')}`);
+        }),
+      );
+    });
     this.app.db.on('departmentsUsers.afterDestroy', async (model) => {
       const cache = this.app.cache;
       await cache.del(`departments:${model.get('userId')}`);
+    });
+    this.app.db.on('departmentsUsers.afterBulkDestroy', async (options) => {
+      const deleteModels = await this.app.db.getModel('departmentsUsers').findAll({ where: options.where });
+      const cache = this.app.cache;
+      await Promise.all(
+        deleteModels.map(async (model) => {
+          await cache.del(`departments:${model.get('userId')}`);
+        }),
+      );
+    });
+    this.app.db.on('afterDestroy', async (models) => {
+      const cache = this.app.cache;
+    });
+    this.app.db.on('afterBulkDestroy', async (models) => {
+      const cache = this.app.cache;
     });
     this.app.on('beforeSignOut', ({ userId }) => {
       this.app.cache.del(`departments:${userId}`);
