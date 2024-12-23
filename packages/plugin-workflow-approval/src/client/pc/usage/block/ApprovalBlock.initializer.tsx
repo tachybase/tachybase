@@ -31,26 +31,11 @@ export const initializerApprovalBlock = {
         params: {
           paginate: false,
           sort: 'createdAt',
-          filter: {
-            $and: [
-              // NOTE: 将审批类型的且处于启用状态的筛选出来
-              {
-                type: {
-                  $eq: 'approval',
-                },
-              },
-              {
-                enabled: {
-                  $eq: true,
-                },
-              },
-            ],
-          },
         },
       },
       Component: 'Approval-ViewBlockInitItem',
       collection: 'workflows',
-      action: 'list',
+      action: 'listApprovalFlows',
       useInsert: () => {
         return (schema) => {};
       },
