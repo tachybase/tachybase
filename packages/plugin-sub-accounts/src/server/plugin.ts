@@ -9,9 +9,9 @@ import {
   sourceRoleUpdate,
   userChangeRoles,
   userDepartmentUpdate,
+  userRoleChange,
 } from './hooks';
 import { createMergeRole } from './hooks/user-create';
-import { changeUserRolesMiddleware } from './middlewares/change-user-roles';
 import { setSelfRole } from './middlewares/set-self-role';
 import { MergeRoleModel } from './model/MergeRoleModel';
 
@@ -25,17 +25,6 @@ export class PluginSubAccountsServer extends Plugin {
       RoleModel: MergeRoleModel,
     });
     this.app.on('dataSourceAfterStart', async () => {
-      // 给用户增加部门/删除部门
-      this.app.db.removeAllListeners('departmentsUsers.afterSave');
-      this.app.db.removeAllListeners('departmentsUsers.afterDestroy');
-      this.app.db.on('departmentsUsers.afterSave', async (model, options) => {
-        await this.app.cache.del(`departments:${model.get('userId')}`);
-        return userDepartmentUpdate(this.app, model, options);
-      });
-      this.app.db.on('departmentsUsers.afterDestroy', async (model, options) => {
-        await this.app.cache.del(`departments:${model.get('userId')}`);
-        return userDepartmentUpdate(this.app, model, options);
-      });
       // addMergeRole和refreshDataSourcesAclAtAppStart会有重复的
       await addMergeRole(this.app);
       await refreshDataSourcesAclAtAppStart(this.app);
@@ -56,16 +45,103 @@ export class PluginSubAccountsServer extends Plugin {
       return createMergeRole(this.app, model, options);
     });
 
-    // 给用户增加/删除 角色
-    this.app.db.on('users.afterUpdateWithAssociations', async (model, options) => {
-      return userChangeRoles(this.app, model, options);
+    // 给角色增加/减少页面权限
+    this.app.db.on('rolesUiSchemas.afterSave', async (model, options) => {
+      const role = (await this.app.db.getModel('roles').findByPk(model.get('roleName'))) as MergeRoleModel;
+      await sourceRoleUpdate(this.app, role, { ...options, fields: ['uiSchemas'] });
     });
-    // 给部门增加/删除角色
+    this.app.db.on('rolesUiSchemas.afterDestroy', async (model, options) => {
+      const role = (await this.app.db.getModel('roles').findByPk(model.get('roleName'))) as MergeRoleModel;
+      await sourceRoleUpdate(this.app, role, { ...options, fields: ['uiSchemas'] });
+    });
+    this.app.db.on('rolesUiSchemas.afterBulkCreate', async (models, options) => {
+      const roleNames = models.map((model) => model.get('roleName')) as string[];
+      // 去重
+      const uniqueRoleNames = [...new Set(roleNames)];
+      await Promise.all(
+        uniqueRoleNames.map(async (roleName) => {
+          const role = (await this.app.db.getModel('roles').findByPk(roleName)) as MergeRoleModel;
+          await sourceRoleUpdate(this.app, role, { ...options, fields: ['uiSchemas'] });
+        }),
+      );
+    });
+    this.app.db.on('rolesUiSchemas.afterBulkDestroy', async (options) => {
+      const deleteModels = await this.app.db.getModel('rolesUsers').findAll({ where: options.where });
+      const roleNames = deleteModels.map((model) => model.get('roleName')) as string[];
+      // 去重
+      const uniqueRoleNames = [...new Set(roleNames)];
+      await Promise.all(
+        uniqueRoleNames.map(async (roleName) => {
+          const role = (await this.app.db.getModel('roles').findByPk(roleName)) as MergeRoleModel;
+          await sourceRoleUpdate(this.app, role, { ...options, fields: ['uiSchemas'] });
+        }),
+      );
+    });
+
+    // 给用户增加/删除 角色
+    this.app.db.on('rolesUsers.afterSave', async (model, options) => {
+      await userRoleChange(this.app, model.userId, options);
+    });
+    this.app.db.on('rolesUsers.afterDestroy', async (model, options) => {
+      await userRoleChange(this.app, model.userId, options);
+    });
+    this.app.db.on('rolesUsers.afterBulkCreate', async (models, options) => {
+      const userIds = models.map((model) => model.get('userId')) as number[];
+      // 去重
+      const uniqueUserIds = [...new Set(userIds)];
+      await Promise.all(
+        uniqueUserIds.map(async (userId) => {
+          await userRoleChange(this.app, userId, options);
+        }),
+      );
+    });
+    this.app.db.on('rolesUsers.afterBulkDestroy', async (options) => {
+      const deleteModels = await this.app.db.getModel('rolesUsers').findAll({ where: options.where });
+      const userIds = deleteModels.map((model) => model.get('userId')) as number[];
+      // 去重
+      const uniqueUserIds = [...new Set(userIds)];
+      await Promise.all(
+        uniqueUserIds.map(async (userId) => {
+          await userRoleChange(this.app, userId, options);
+        }),
+      );
+    });
+
+    // 给部门增加/删除角色 TODO: 需要优化, 需要优化一个部门加多个角色需要优化
     this.app.db.on('departmentsRoles.afterSave', async (model, options) => {
       return roleDepartmentUpdate(this.app, model, options);
     });
     this.app.db.on('departmentsRoles.afterDestroy', async (model, options) => {
       return roleDepartmentUpdate(this.app, model, options);
+    });
+
+    // 给用户增加部门/删除部门
+    this.app.db.on('departmentsUsers.afterSave', async (model, options) => {
+      await this.app.cache.del(`departments:${model.get('userId')}`);
+      return userDepartmentUpdate(this.app, model, options);
+    });
+    this.app.db.on('departmentsUsers.afterBulkCreate', async (models, options) => {
+      const cache = this.app.cache;
+      await Promise.all(
+        models.map(async (model) => {
+          await cache.del(`departments:${model.get('userId')}`);
+          return userDepartmentUpdate(this.app, model, options);
+        }),
+      );
+    });
+    this.app.db.on('departmentsUsers.afterDestroy', async (model, options) => {
+      await this.app.cache.del(`departments:${model.get('userId')}`);
+      return userDepartmentUpdate(this.app, model, options);
+    });
+    this.app.db.on('departmentsUsers.afterBulkDestroy', async (options) => {
+      const deleteModels = await this.app.db.getModel('departmentsUsers').findAll({ where: options.where });
+      const cache = this.app.cache;
+      await Promise.all(
+        deleteModels.map(async (model) => {
+          await cache.del(`departments:${model.get('userId')}`);
+          return userDepartmentUpdate(this.app, model, options);
+        }),
+      );
     });
 
     this.app.on('dataSource:writeToAcl', async ({ roleName, transaction }) => {
@@ -93,7 +169,6 @@ export class PluginSubAccountsServer extends Plugin {
     this.app.acl.addFixedParams('roles', 'destroy', ignoreMerged);
 
     this.app.resourcer.use(setSelfRole, { tag: 'setSelfRole', before: 'setCurrentRole', after: 'setDepartmentsInfo' });
-    this.app.resourcer.use(changeUserRolesMiddleware, { tag: 'changeUserRolesMiddleware' });
   }
 
   async install() {}

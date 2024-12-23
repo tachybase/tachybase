@@ -132,25 +132,25 @@ export default class PluginUsersServer extends Plugin {
       return;
     }
 
-    this.app.resourcer.use(
-      async (ctx, next) => {
-        await next();
-        const { associatedName, resourceName, actionName, values } = ctx.action.params;
-        const cache = ctx.app.cache as Cache;
-        if (
-          associatedName === 'roles' &&
-          resourceName === 'users' &&
-          ['add', 'remove', 'set'].includes(actionName) &&
-          values?.length
-        ) {
-          // Delete cache when the members of a department changed
-          for (const userId of values) {
-            await cache.del(`roles:${userId}`);
-          }
-        }
-      },
-      { tag: 'roleCacheInvalidation' },
-    );
+    // this.app.resourcer.use(
+    //   async (ctx, next) => {
+    //     await next();
+    //     const { associatedName, resourceName, actionName, values } = ctx.action.params;
+    //     const cache = ctx.app.cache as Cache;
+    //     if (
+    //       associatedName === 'roles' &&
+    //       resourceName === 'users' &&
+    //       ['add', 'remove', 'set'].includes(actionName) &&
+    //       values?.length
+    //     ) {
+    //       // Delete cache when the members of a department changed
+    //       for (const userId of values) {
+    //         await cache.del(`roles:${userId}`);
+    //       }
+    //     }
+    //   },
+    //   { tag: 'roleCacheInvalidation' },
+    // );
   }
 
   getInstallingData(options: any = {}) {

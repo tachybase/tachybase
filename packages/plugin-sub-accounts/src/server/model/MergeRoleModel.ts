@@ -1,5 +1,5 @@
 import { ACL, ACLResource, ACLResourceActions, AvailableStrategyOptions, RoleActionParams } from '@tachybase/acl';
-import { ArrayFieldRepository, Transaction } from '@tachybase/database';
+import { MultipleRelationRepository, Transaction } from '@tachybase/database';
 import { RoleModel } from '@tachybase/module-acl';
 import { Application } from '@tachybase/server';
 
@@ -35,11 +35,11 @@ export class MergeRoleModel extends RoleModel {
    * @param transaction
    * @returns
    */
-  public async getRolesByDepartment(transaction) {
+  public async getRolesByDepartment(transaction?: Transaction) {
     if (!this.ownerUserId) {
       return [];
     }
-    const repo = this.db.getRepository<ArrayFieldRepository>('users.departments', this.ownerUserId);
+    const repo = this.db.getRepository<MultipleRelationRepository>('users.departments', this.ownerUserId);
     const departments = await repo.find({
       appends: ['roles', 'roles.menuUiSchemas', 'parent(recursively=true)'],
       transaction,
@@ -59,7 +59,7 @@ export class MergeRoleModel extends RoleModel {
    * @param transaction
    * @returns
    */
-  public async getSourceRoles(transaction: Transaction, app: Application) {
+  public async getSourceRoles(transaction?: Transaction) {
     const user = await this.getOwnerUser({ transaction });
     const selfRoles = await user.getRoles({ include: ['menuUiSchemas'], transaction });
     // 部门的角色
@@ -77,16 +77,9 @@ export class MergeRoleModel extends RoleModel {
   public async refreshDataSourcesAcl({ transaction, app }: { transaction?: Transaction; app: Application }) {
     const strategyArray: Array<string | AvailableStrategyOptions> = [];
     const resourcesMap: Map<string, ACLResourceActions[]> = new Map();
-    const transactionExist = !!transaction;
-    if (!transaction) {
-      transaction = await this.db.sequelize.transaction();
-    }
 
-    this.sourceRoles = await this.getSourceRoles(transaction, app);
+    this.sourceRoles = await this.getSourceRoles(transaction);
     if (this.sourceRoles.find((r) => r.name === 'root')) {
-      if (!transactionExist) {
-        transaction.commit();
-      }
       return;
     }
     // 实现数据表权限逻辑
@@ -141,8 +134,10 @@ export class MergeRoleModel extends RoleModel {
     }
     aclRole.resources = newResources;
 
-    if (!transactionExist) {
-      transaction.commit();
+    if (transaction) {
+      app.logger.info(`refreshDataSourcesAcl after update ${this.name}`);
+    } else {
+      // app.logger.info(`refreshDataSourcesAcl after select ${this.name}`);
     }
   }
 
@@ -154,21 +149,17 @@ export class MergeRoleModel extends RoleModel {
     app,
     changedFields,
   }: {
-    transaction?: Transaction;
+    transaction: Transaction;
     app: Application;
     changedFields?: string[];
   }) {
     if (!this.ownerUserId) {
       return;
     }
-    const transactionExist = !!transaction;
-    if (!transaction) {
-      transaction = await this.db.sequelize.transaction();
-    }
-    this.sourceRoles = await this.getSourceRoles(transaction, app);
+    this.sourceRoles = await this.getSourceRoles(transaction);
     // 关于root的特殊情况
     this.rootResource = this.sourceRoles.find((role) => role.name === 'root');
-    this.resetRoleProperty(transaction);
+    this.resetRoleProperty();
     if (!changedFields || changedFields.includes('snippets')) {
       await this.mergeSnippets();
     }
@@ -178,9 +169,8 @@ export class MergeRoleModel extends RoleModel {
       await this.mergeMenuUiSchemas(transaction);
     }
 
-    await this.save({ transaction });
-    if (!transactionExist) {
-      await transaction.commit();
+    if (transaction) {
+      await this.save({ transaction });
     }
     this.writeToAcl({ acl: app.acl, withOutStrategy: true });
   }
@@ -188,7 +178,7 @@ export class MergeRoleModel extends RoleModel {
   /**
    * role本身属性变动
    */
-  private resetRoleProperty(transaction?: Transaction) {
+  private resetRoleProperty() {
     /**
      * 整个系统中这个变量并没有起任何作用
      */
@@ -240,7 +230,7 @@ export class MergeRoleModel extends RoleModel {
   }
 
   private async mergeMenuUiSchemas(transaction?: Transaction) {
-    const originalMenuUiSchemas = await this.getMenuUiSchemas();
+    const originalMenuUiSchemas = await this.getMenuUiSchemas({ transaction });
     let newMenuUiSchemas = [];
     if (this.rootResource) {
       newMenuUiSchemas = [];
