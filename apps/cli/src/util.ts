@@ -213,25 +213,31 @@ function normalizePath(path: string) {
 }
 
 export function generateAppDir() {
-  // calc server path
   const serverPath = getPackagePath('@tachybase/app-server');
-  // calc client path
   const clientPath = getPackagePath('@tachybase/app-rs');
-  const appPkgPath = serverPath;
-  const appDevDir = resolve(process.cwd(), './storage/.app-dev');
+  const appServerDevDir = resolve(process.cwd(), './storage/.app-dev');
+  const appClientDevDir = resolve(process.cwd(), './storage/.app-client-dev');
   // when using create-tachybase-app
-  if (isDev() && !hasCorePackages() && appPkgPath.includes('node_modules')) {
-    // FIXME
-    if (!existsSync(appDevDir)) {
-      mkdirSync(appDevDir, { recursive: true });
-      cpSync(appPkgPath, appDevDir, {
+  if (isDev() && !hasCorePackages() && serverPath.includes('node_modules')) {
+    // TODO optimize
+    if (!existsSync(appServerDevDir)) {
+      mkdirSync(appServerDevDir, { recursive: true });
+      cpSync(serverPath, appServerDevDir, {
         recursive: true,
         force: true,
       });
     }
-    process.env.APP_PACKAGE_ROOT = appDevDir;
+    if (!existsSync(appClientDevDir)) {
+      mkdirSync(appClientDevDir, { recursive: true });
+      cpSync(clientPath, appClientDevDir, {
+        recursive: true,
+        force: true,
+      });
+    }
+    process.env.APP_PACKAGE_ROOT = appServerDevDir;
+    process.env.APP_CLIENT_ROOT = appClientDevDir;
   } else {
-    process.env.APP_PACKAGE_ROOT = normalizePath(appPkgPath);
+    process.env.APP_PACKAGE_ROOT = normalizePath(serverPath);
     process.env.APP_CLIENT_ROOT = normalizePath(clientPath);
   }
 }
