@@ -6,7 +6,8 @@
     "@ant-design/icons": "^5.5.2",
     "antd": "5.22.0",
     "antd-style": "3.6.2",
-    "openai": "^4.77.0"
+    "openai": "^4.77.0",
+    "react-i18next": "^15.2.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
