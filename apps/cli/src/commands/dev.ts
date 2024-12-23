@@ -5,7 +5,7 @@ import zmq from 'zeromq';
 import { nodeCheck, postCheck, promptForTs, run } from '../util';
 
 export default (cli: Command) => {
-  const { APP_PACKAGE_ROOT } = process.env;
+  const { APP_PACKAGE_ROOT, APP_CLIENT_ROOT } = process.env;
   cli
     .command('dev')
     .option('-p, --port [port]')
@@ -131,7 +131,7 @@ export default (cli: Command) => {
           const proxyPort = opts.proxyPort || serverPort || clientPort + 10;
           console.log('starting client', 1 * clientPort, 'proxy port', proxyPort);
           const env = getDevEnvironment(clientPort, proxyPort);
-          run('rsbuild', ['dev', '-r', 'apps/app-rs'], { env });
+          run('rsbuild', ['dev', '-r', APP_CLIENT_ROOT || 'apps/app-rs'], { env });
         };
 
         async function runMqServer() {

@@ -45,7 +45,6 @@ export const CJS_EXCLUDE_PACKAGES = [
   path.join(ROOT_PATH, 'apps/cli'),
   CORE_CLIENT,
   path.join(ROOT_PATH, 'apps/app-rs'),
-  path.join(ROOT_PATH, 'apps/app-server'),
   path.join(ROOT_PATH, 'apps/demos-toolbar-1'),
 ];
 export const getCjsPackages = (packages: Project[]) =>

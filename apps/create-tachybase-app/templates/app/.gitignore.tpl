@@ -20,3 +20,4 @@ docs-dist/
 dist/
 /docker/**/storage
 /storage/.app-dev
+/storage/.app-client-dev
