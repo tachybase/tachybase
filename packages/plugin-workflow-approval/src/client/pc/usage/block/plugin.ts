@@ -40,7 +40,6 @@ export class KitApprovalBlock extends Plugin {
       'Approval-ViewTableInitiated': ViewTableInitiated,
       'Approval-ViewTableTodos': ViewTableTodos,
       'Approval-ViewInitiateApplicationNew': ViewInitiateApplicationNew,
-
       /**
        * @deprecated
        * 兼容旧版用法, 防止线上已经按照旧版配置的 schema, 运行的时候找不到原组件

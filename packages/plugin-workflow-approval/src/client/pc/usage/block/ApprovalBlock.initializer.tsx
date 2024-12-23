@@ -27,6 +27,11 @@ export const initializerApprovalBlock = {
       title: `{{t("New Initiate Request", { ns: "${NAMESPACE}" })}}`,
       icon: 'ClockCircleOutlined',
       'x-component': 'Approval-ViewInitiateApplicationNew',
+      'x-component-props': {
+        params: {
+          paginate: false,
+        },
+      },
       Component: 'Approval-ViewBlockInitItem',
       collection: 'workflows',
       action: 'list',
