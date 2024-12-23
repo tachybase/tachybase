@@ -1,9 +1,8 @@
 {
   "name": "@tachybase/client",
-  "version": "0.23.8-alpha.15",
+  "version": "0.23.8-alpha.16",
   "license": "Apache-2.0",
-  "main": "lib/index.js",
-  "module": "es/index.mjs",
+  "module": "lib/index.mjs",
   "types": "es/index.d.ts",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/client"
