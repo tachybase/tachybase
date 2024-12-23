@@ -259,18 +259,48 @@ importers:
 
   apps/cli:
     dependencies:
+      '@rsbuild/core':
+        specifier: ^1.1.10
+        version: 1.1.10
+      '@rsbuild/plugin-babel':
+        specifier: 1.0.3
+        version: 1.0.3(@rsbuild/core@1.1.10)
+      '@rsbuild/plugin-less':
+        specifier: 1.1.0
+        version: 1.1.0(@rsbuild/core@1.1.10)
+      '@rsbuild/plugin-node-polyfill':
+        specifier: 1.2.0
+        version: 1.2.0(@rsbuild/core@1.1.10)
+      '@rsbuild/plugin-react':
+        specifier: ^1.1.0
+        version: 1.1.0(@rsbuild/core@1.1.10)
+      '@rsbuild/plugin-umd':
+        specifier: 1.0.4
+        version: 1.0.4(@rsbuild/core@1.1.10)
       '@tachybase/app-rs':
         specifier: workspace:*
         version: link:../app-rs
       '@tachybase/app-server':
         specifier: workspace:*
         version: link:../app-server
+      '@tachybase/build':
+        specifier: workspace:*
+        version: link:../build
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../../packages/client
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../../packages/test
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../../packages/utils
-      '@types/fs-extra':
-        specifier: ^11.0.4
-        version: 11.0.4
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.18.1
+        version: 8.18.1(@typescript-eslint/parser@8.18.1(eslint@9.17.0)(typescript@5.7.2))(eslint@9.17.0)(typescript@5.7.2)
+      '@typescript-eslint/parser':
+        specifier: ^8.18.1
+        version: 8.18.1(eslint@9.17.0)(typescript@5.7.2)
       '@umijs/utils':
         specifier: 3.5.43
         version: 3.5.43
@@ -283,12 +313,45 @@ importers:
       commander:
         specifier: ^12.1.0
         version: 12.1.0
+      concurrently:
+        specifier: ^7.6.0
+        version: 7.6.0
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
       esbuild-plugin-file-path-extensions:
         specifier: 2.1.4
         version: 2.1.4
+      eslint:
+        specifier: ^9.17.0
+        version: 9.17.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@9.17.0)
+      eslint-plugin-import:
+        specifier: ^2.31.0
+        version: 2.31.0(@typescript-eslint/parser@8.18.1(eslint@9.17.0)(typescript@5.7.2))(eslint@9.17.0)
+      eslint-plugin-markdown:
+        specifier: ^5.1.0
+        version: 5.1.0(eslint@9.17.0)
+      eslint-plugin-node:
+        specifier: ^11.1.0
+        version: 11.1.0(eslint@9.17.0)
+      eslint-plugin-prettier:
+        specifier: ^5.2.1
+        version: 5.2.1(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@9.17.0))(eslint@9.17.0)(prettier@3.4.2)
+      eslint-plugin-promise:
+        specifier: ^7.2.1
+        version: 7.2.1(eslint@9.17.0)
+      eslint-plugin-react:
+        specifier: ^7.37.2
+        version: 7.37.2(eslint@9.17.0)
+      eslint-plugin-react-hooks:
+        specifier: ^5.1.0
+        version: 5.1.0(eslint@9.17.0)
       execa:
         specifier: ^8.0.1
         version: 8.0.1
@@ -310,6 +373,27 @@ importers:
       portfinder:
         specifier: ^1.0.32
         version: 1.0.32
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
+      prettier-plugin-sql:
+        specifier: ^0.18.1
+        version: 0.18.1(prettier@3.4.2)
+      pretty-format:
+        specifier: ^29.7.0
+        version: 29.7.0
+      pretty-quick:
+        specifier: ^4.0.0
+        version: 4.0.0(prettier@3.4.2)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
       semver:
         specifier: ^7.6.3
         version: 7.6.3
@@ -319,12 +403,27 @@ importers:
       tree-kill:
         specifier: ^1.2.2
         version: 1.2.2
+      ts-loader:
+        specifier: ^9.5.1
+        version: 9.5.1(typescript@5.7.2)(webpack@5.97.1)
+      ts-node:
+        specifier: 10.9.2
+        version: 10.9.2(@types/node@20.17.10)(typescript@5.7.2)
+      ts-node-dev:
+        specifier: 2.0.0
+        version: 2.0.0(@types/node@20.17.10)(typescript@5.7.2)
+      tsconfig-paths:
+        specifier: ^4.2.0
+        version: 4.2.0
       tsup:
         specifier: 8.3.5
         version: 8.3.5(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
+      typescript:
+        specifier: 5.7.2
+        version: 5.7.2
       zeromq:
         specifier: 6.1.2
         version: 6.1.2
@@ -332,6 +431,9 @@ importers:
       '@tachybase/devtools':
         specifier: workspace:*
         version: link:../../packages/devtools
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
       '@types/lodash':
         specifier: ^4.17.13
         version: 4.17.13
@@ -341,12 +443,6 @@ importers:
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
-      rimraf:
-        specifier: ^6.0.1
-        version: 6.0.1
       vite:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@20.17.10)(less@4.2.1)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0)
@@ -11859,7 +11955,7 @@ packages:
     engines: {node: '>=12.20'}
 
   detect-libc@1.0.3:
-    resolution: {integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=}
+    resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
     engines: {node: '>=0.10'}
     hasBin: true
 
@@ -13312,7 +13408,7 @@ packages:
     engines: {node: '>=8'}
 
   individual@3.0.0:
-    resolution: {integrity: sha512-rUY5vtT748NMRbEMrTNiFfy29BgGZwGXUi2NFUVMWQrogSLzlJvQV9eeMWi+g1aVaQ53tpyLAQtd5x/JH0Nh1g==}
+    resolution: {integrity: sha1-58pPhfiVewGHNPKFdQ3CLsL5hi0=}
 
   infer-owner@1.0.4:
     resolution: {integrity: sha512-IClj+Xz94+d7irH5qRyfJonOdfTzuDaifE6ZPWfx0N0+/ATZCbuTPq2prFl526urkQd90WyUKIh1DfBQ2hMz9A==}
