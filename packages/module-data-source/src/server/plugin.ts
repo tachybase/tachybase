@@ -329,9 +329,10 @@ export class PluginDataSourceManagerServer extends Plugin {
       });
     });
 
-    this.app.db.on('dataSourcesCollections.afterSave', async (model: DataSourcesCollectionModel) => {
+    this.app.db.on('dataSourcesCollections.afterSave', async (model: DataSourcesCollectionModel, options) => {
       model.load({
         app: this.app,
+        transaction: options.transaction,
       });
     });
 
