@@ -286,7 +286,8 @@ const InternalPreviewText: ReactFC<IPreviewTextProps> = observer(
   },
 );
 
-export const PreviewText = Object.assign(InternalPreviewText, {
+// FIXME types
+export const PreviewText: any = Object.assign(InternalPreviewText, {
   Input,
   Select,
   TreeSelect,

@@ -1,6 +1,7 @@
 import { ArrayItems } from '@tachybase/components';
 
-import { GroupType, Instruction } from '../../../nodes/default-node/interface';
+import { GROUP_TAG_DEPRECATED } from '../../../../common/constants';
+import { Instruction } from '../../../nodes/default-node/interface';
 import { NOTICE_INSTRUCTION_NAMESPACE } from '../../common/constants';
 import { tval } from '../locale';
 import { AdditionNotifiedPerson } from './config-items/AddNotifiedPerson.view';
@@ -9,10 +10,12 @@ import { SelectNotifiedPerson } from './config-items/SelectNotifiedPerson.view';
 import { NoticeDetailContainer } from './show-interface/NoticeDetailContainer.schema';
 import { configSytles } from './style';
 
+// TODO: 等待移除
 export class NoticeInstruction extends Instruction {
   title = tval('Notice');
   type = NOTICE_INSTRUCTION_NAMESPACE;
-  group: GroupType = 'extended';
+  // 从分组标明过期, 即能不让其在待选列表里出现, 又不影响前端兼容旧版已使用的工作流
+  group = GROUP_TAG_DEPRECATED;
   icon = 'MessageOutlined';
   color = '#82e29c';
   description = tval(

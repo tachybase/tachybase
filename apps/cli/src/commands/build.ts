@@ -1,13 +1,9 @@
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 
 import { type Command } from 'commander';
 
-import { buildIndexHtml, isPackageValid, nodeCheck, run } from '../util';
+import { isPackageValid, nodeCheck, run } from '../util';
 
-/**
- *
- * @param {Command} cli
- */
 export default (cli: Command) => {
   cli
     .command('build')
@@ -30,13 +26,17 @@ export default (cli: Command) => {
       }
       process.env['VITE_CJS_IGNORE_WARNING'] = 'true';
 
-      await run('tachybase-build', [
-        ...pkgs,
-        options.version ? '--version' : '',
-        !options.dts ? '--no-dts' : '',
-        options.sourcemap ? '--sourcemap' : '',
-        options.retry ? '--retry' : '',
-      ]);
-      buildIndexHtml(true);
+      try {
+        await run('tachybase-build', [
+          ...pkgs,
+          options.version ? '--version' : '',
+          !options.dts ? '--no-dts' : '',
+          options.sourcemap ? '--sourcemap' : '',
+          options.retry ? '--retry' : '',
+        ]);
+      } catch (error) {
+        // console.warn((error as Error).message);
+        process.exit(1);
+      }
     });
 };

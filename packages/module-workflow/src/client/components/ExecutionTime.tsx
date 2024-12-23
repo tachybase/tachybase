@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useCollectionRecordData } from '@tachybase/client';
 
-function formatDuration(seconds: number): string {
+export function formatDuration(seconds: number): string {
   // 如果秒数大于等于 999 天的秒数，限制为 999 天
   const maxDays = 999;
   const maxSeconds = maxDays * 24 * 60 * 60;

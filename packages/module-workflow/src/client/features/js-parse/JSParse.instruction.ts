@@ -2,7 +2,7 @@ import { css } from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
 
 import { VariableOption, WorkflowVariableInput } from '../..';
-import { NAMESPACE_INSTRUCTION_JS_PARSE } from '../../../common/constants';
+import { GROUP_TAG_DEPRECATED, NAMESPACE_INSTRUCTION_JS_PARSE } from '../../../common/constants';
 import { tval } from '../../locale';
 import { Instruction } from '../../nodes/default-node/interface';
 
@@ -11,7 +11,8 @@ export class JSParseInstruction extends Instruction {
   title = tval('JS Parse');
   type = NAMESPACE_INSTRUCTION_JS_PARSE;
   // XXX: 这里应该定义在 workflow 里的一个统一的地方. workflow 本身没处理好这块, 先这样直接写了.
-  group = 'extended';
+  // group = 'extended';
+  group = GROUP_TAG_DEPRECATED;
   description = tval('Get specific data from JSON result of any node BY js code;');
   fieldset = {
     source: {

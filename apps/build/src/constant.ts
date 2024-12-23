@@ -37,10 +37,17 @@ export const getPluginPackages = (packages: Project[]) =>
   packages.filter((item) => !!item.manifest.name.match(PATTERN_PLUGIN) || !!item.manifest.name.match(PATTERN_MODULE));
 export const getPresetsPackages = (packages: Project[]) =>
   packages.filter((item) => !!item.manifest.name.match(PATTERN_PRESET));
-export const CORE_APP = path.join(ROOT_PATH, `apps/${process.env.APP_ENTRY || 'app'}`);
+export const CORE_APP = path.join(ROOT_PATH, `apps/${process.env.APP_ENTRY || 'app-rs'}`);
 export const CORE_CLIENT = path.join(PACKAGES_PATH, 'client');
 export const ESM_PACKAGES = ['@tachybase/test'];
-export const CJS_EXCLUDE_PACKAGES = [path.join(ROOT_PATH, 'apps/build'), path.join(ROOT_PATH, 'apps/cli'), CORE_CLIENT];
+export const CJS_EXCLUDE_PACKAGES = [
+  path.join(ROOT_PATH, 'apps/build'),
+  path.join(ROOT_PATH, 'apps/cli'),
+  CORE_CLIENT,
+  path.join(ROOT_PATH, 'apps/app-rs'),
+  path.join(ROOT_PATH, 'apps/app-server'),
+  path.join(ROOT_PATH, 'apps/demos-toolbar-1'),
+];
 export const getCjsPackages = (packages: Project[]) =>
   packages
     .filter((item) => !item.manifest.name.match(PATTERN_PLUGIN))

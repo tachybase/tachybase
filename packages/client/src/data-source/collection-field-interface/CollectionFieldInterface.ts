@@ -7,6 +7,13 @@ export type CollectionFieldInterfaceFactory = new (
   collectionFieldInterfaceManager: CollectionFieldInterfaceManager,
 ) => CollectionFieldInterface;
 
+export interface CollectionFieldInterfaceComponentOption {
+  label: string;
+  value: string;
+  useVisible?: () => boolean;
+  useProps?: () => any;
+}
+
 export abstract class CollectionFieldInterface {
   constructor(public collectionFieldInterfaceManager: CollectionFieldInterfaceManager) {}
   name: string;
@@ -21,6 +28,7 @@ export abstract class CollectionFieldInterface {
   };
   sortable?: boolean;
   availableTypes?: string[];
+  componentOptions?: CollectionFieldInterfaceComponentOption[];
   supportDataSourceType?: string[];
   notSupportDataSourceType?: string[];
   hasDefaultValue?: boolean;

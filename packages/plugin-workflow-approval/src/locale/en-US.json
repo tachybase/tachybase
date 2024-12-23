@@ -218,6 +218,8 @@
   "Reject": "Reject",
   "Rejected": "Rejected",
   "Related approvals": "Related approvals",
+  "Reminder": "Reminder",
+  "Reminder {{user}} successful": "Reminder {{user}} successful",
   "Repeat limit": "Repeat limit",
   "Repeat mode": "Repeat mode",
   "Resource": "Resource",
@@ -307,5 +309,6 @@
   "concat": "concat",
   "ms": "ms",
   "needAuthorization": "needAuthorization",
-  "workflow loop!": "workflow loop!"
+  "workflow loop!": "workflow loop!",
+  "{{user}} reminder": "{{user}} reminder"
 }

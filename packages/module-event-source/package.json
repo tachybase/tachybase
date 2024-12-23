@@ -1,12 +1,12 @@
 {
   "name": "@tachybase/module-event-source",
-  "version": "0.22.84",
+  "version": "0.23.8",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-event-source"
   },
   "dependencies": {
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "lodash": "4.17.21",
     "sequelize": "6.37.5"
   },
@@ -16,9 +16,12 @@
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/components": "workspace:*",
     "@tachybase/data-source": "workspace:*",
+    "@tachybase/database": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
     "@tachybase/resourcer": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

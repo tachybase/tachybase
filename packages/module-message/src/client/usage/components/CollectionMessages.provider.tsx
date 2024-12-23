@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExtendCollectionsProvider, TableBlockProvider, useCollectionRecordData } from '@tachybase/client';
 
-import MessageCollection from '../../../common/messages.collection';
+import MessageCollection from '../../../common/collections/messages';
 
 export const ProviderCollectionMessages = (props) => {
   const {

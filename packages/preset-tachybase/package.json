@@ -1,14 +1,14 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "0.22.84",
+  "version": "0.23.8",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/preset-tachybase"
   },
   "dependencies": {
-    "@hera/plugin-core": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
     "@tachybase/module-acl": "workspace:*",
     "@tachybase/module-app-info": "workspace:*",
     "@tachybase/module-auth": "workspace:*",
@@ -19,6 +19,8 @@
     "@tachybase/module-data-source": "workspace:*",
     "@tachybase/module-error-handler": "workspace:*",
     "@tachybase/module-event-source": "workspace:*",
+    "@tachybase/module-file": "workspace:*",
+    "@tachybase/module-hera": "workspace:*",
     "@tachybase/module-message": "workspace:*",
     "@tachybase/module-multi-app": "workspace:*",
     "@tachybase/module-pdf": "workspace:*",
@@ -63,7 +65,6 @@
     "@tachybase/plugin-field-markdown-vditor": "workspace:*",
     "@tachybase/plugin-field-sequence": "workspace:*",
     "@tachybase/plugin-field-snapshot": "workspace:*",
-    "@tachybase/plugin-file-manager": "workspace:*",
     "@tachybase/plugin-i18n-editor": "workspace:*",
     "@tachybase/plugin-log-viewer": "workspace:*",
     "@tachybase/plugin-mock-collections": "workspace:*",
@@ -76,10 +77,10 @@
     "@tachybase/plugin-workflow-approval": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "cronstrue": "^2.47.0",
+    "cronstrue": "^2.52.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.5"
+    "@types/lodash": "^4.17.13"
   }
 }

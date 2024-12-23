@@ -17,7 +17,7 @@ export class SmsAuthPlugin extends Plugin {
       },
     });
 
-    const verificationPlugin: VerificationPlugin = this.app.getPlugin('verification');
+    const verificationPlugin: VerificationPlugin = this.app.getPlugin('otp');
     if (!verificationPlugin) {
       this.app.logger.warn('sms-auth: @tachybase/plugin-otp is required');
       return;

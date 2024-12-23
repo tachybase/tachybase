@@ -18,7 +18,7 @@ import {
  * 一个空的 group 页面
  */
 export const groupPageEmpty: PageConfig = {
-  type: 'group',
+  type: 'submenu',
   name: 'Empty group',
   pageSchema: {
     type: 'void',

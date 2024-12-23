@@ -104,8 +104,8 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
     .request({
       url: 'approvalRecords:listCentralized',
       params: {
-        pageSize: 9999,
-        appends: ['execution', 'job', 'node', 'workflow', 'user'],
+        paginate: false,
+        appends: ['approval.createdBy.nickname', 'execution', 'job', 'node', 'workflow', 'user'],
         filter: { ...params, ...filter },
       },
     })
@@ -137,7 +137,8 @@ const changeApprovalRecordsService = (api, params, filter, cm, compile, t, setDa
             });
           }
         });
-        const nickName = item.snapshot.createdBy?.nickname || item.execution?.context?.data.createdBy?.nickname;
+
+        const nickName = item.approval?.createdBy?.nickname;
         return {
           ...item,
           title: `${nickName}的${categoryTitle}`,

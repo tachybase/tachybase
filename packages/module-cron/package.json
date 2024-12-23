@@ -1,18 +1,23 @@
 {
   "name": "@tachybase/module-cron",
-  "version": "0.22.84",
+  "version": "0.23.8",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-cron"
   },
   "dependencies": {
-    "antd": "5.22.0",
-    "cron-parser": "4.4.0",
+    "antd": "5.22.5",
+    "cron-parser": "4.9.0",
     "react-js-cron": "^3.2.0"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/module-workflow": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*"
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   }
 }

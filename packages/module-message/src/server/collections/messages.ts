@@ -1,1 +1,1 @@
-export { default } from '../../common/messages.collection';
+export { default } from '../../common/collections/messages';

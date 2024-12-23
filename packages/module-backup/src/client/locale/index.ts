@@ -1,7 +1,8 @@
 import { i18n } from '@tachybase/client';
+
 import { useTranslation } from 'react-i18next';
 
-export const NAMESPACE = 'backup-restore';
+export const NAMESPACE = 'backup';
 
 export function lang(key: string) {
   return i18n.t(key, { ns: NAMESPACE });

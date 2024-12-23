@@ -1,3 +1,5 @@
+import { tval } from '../../../../locale';
+
 export const schemaMemberActions = {
   type: 'void',
   'x-component': 'Space',
@@ -32,7 +34,7 @@ export const schemaMemberActions = {
     },
     create: {
       type: 'void',
-      title: '{{t("Add members")}}',
+      title: tval('Add members'),
       'x-component': 'Action',
       'x-component-props': {
         type: 'primary',

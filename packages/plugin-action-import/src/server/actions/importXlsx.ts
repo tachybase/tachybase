@@ -161,6 +161,7 @@ export async function importXlsx(ctx: Context, next: Next) {
       {
         name: `${uid()}.xlsx`,
         data: [importer.headerRow].concat(failure),
+        options: {},
       },
     ]),
     successCount: success.length,

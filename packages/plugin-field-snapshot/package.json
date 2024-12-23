@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-field-snapshot",
   "displayName": "Collection field: Snapshot",
-  "version": "0.22.84",
+  "version": "0.23.8",
   "description": "When adding a new record, create a snapshot for its relational record and save in the new record. The snapshot will not be updated when the relational record is updated.",
   "keywords": [
     "Collection fields"
@@ -14,11 +14,11 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "lodash": "4.17.21",
-    "rc-tree-select": "5.5.5",
+    "rc-tree-select": "5.25.0",
     "react": "~18.3.1",
-    "react-i18next": "^15.1.1"
+    "react-i18next": "^15.2.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

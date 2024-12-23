@@ -264,6 +264,8 @@
   "Rejected": "否决",
   "Rejected from a manual node.": "被人工节点拒绝继续。",
   "Related approvals": "相关审批",
+  "Reminder": "催签",
+  "Reminder {{user}} successful": "催签 {{user}} 成功",
   "Repeat limit": "重复次数",
   "Repeat mode": "重复模式",
   "Resolved": "完成",
@@ -384,5 +386,6 @@
   "concat": "连接",
   "ms": "毫秒",
   "needAuthorization": "是否携带权限校验",
-  "workflow loop!": "存在环形调用！"
+  "workflow loop!": "存在环形调用！",
+  "{{user}} reminder": "{{user}} 催签"
 }

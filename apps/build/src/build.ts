@@ -65,37 +65,36 @@ export async function build(pkgs: string[]) {
   const presetsPackages = getPresetsPackages(packages);
 
   // core/*
-  await buildPackages(cjsPackages, 'lib', buildCjs);
+  await buildPackages(cjsPackages, 'lib', buildCjs, messages);
   const clientCore = packages.find((item) => item.dir === CORE_CLIENT);
   if (clientCore) {
     await buildPackage(clientCore, 'es', buildClient);
   }
   const esmPackages = cjsPackages.filter((pkg) => ESM_PACKAGES.includes(pkg.manifest.name));
-  await buildPackages(esmPackages, 'es', buildEsm);
+  await buildPackages(esmPackages, 'es', buildEsm, messages);
 
   // plugins/*、samples/*
-  await buildPackages(pluginPackages, 'dist', buildPlugin);
+  await buildPackages(pluginPackages, 'dist', buildPlugin, messages);
 
   // presets/*
-  await buildPackages(presetsPackages, 'lib', buildCjs);
+  await buildPackages(presetsPackages, 'lib', buildCjs, messages);
 
-  // core/app
-  const appClient = packages.find((item) => item.dir === CORE_APP);
-  if (appClient) {
-    await runScript(['umi', 'build'], ROOT_PATH, {
-      APP_ROOT: path.join(CORE_APP, 'client'),
-    });
-  }
-  writeToCache(BUILD_ERROR, { messages });
+  // writeToCache(BUILD_ERROR, { messages });
+
+  // throw error before umi build
   if (messages.length > 0) {
     console.log('❌ build errors:');
     messages.forEach((message) => {
       console.log('🐛 ', message);
     });
 
-    setTimeout(() => {
-      throw new Error('build error.');
-    }, 0);
+    throw new Error('build error.');
+  }
+
+  // core/app
+  const appClient = packages.find((item) => item.dir === CORE_APP);
+  if (appClient) {
+    await runScript(['rsbuild', 'build', '-r', 'apps/app-rs'], ROOT_PATH);
   }
 }
 
@@ -103,10 +102,17 @@ export async function buildPackages(
   packages: Project[],
   targetDir: string,
   doBuildPackage: (cwd: string, userConfig: UserConfig, sourcemap: boolean, log?: PkgLog) => Promise<any>,
+  errorMessage = [],
 ) {
   for await (const pkg of packages) {
-    writeToCache(BUILD_ERROR, { pkg: pkg.manifest.name });
-    await buildPackage(pkg, targetDir, doBuildPackage);
+    if (errorMessage.length === 0) {
+      writeToCache(BUILD_ERROR, { pkg: pkg.manifest.name });
+    }
+    try {
+      await buildPackage(pkg, targetDir, doBuildPackage);
+    } catch (error) {
+      signals.emit('build:errors', error);
+    }
   }
 }
 

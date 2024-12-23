@@ -10,6 +10,8 @@ export const setDepartmentsInfo = async (ctx: Context, next: Next) => {
   const repo = ctx.db.getRepository<ArrayFieldRepository>('users.departments', currentUser.id);
   const departments = await cache.wrap(`departments:${currentUser.id}`, () =>
     repo.find({
+      // FIXME: 看下这个实际类型是啥？
+      // @ts-expect-error
       appends: ['owners', 'roles', 'parent(recursively=true)'],
       raw: true,
     }),

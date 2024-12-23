@@ -61,7 +61,7 @@ async function checkFoldersAndPackageJson(dirs) {
 // 需要检查的多个目录
 const dirs = [
   path.join(path.dirname(fileURLToPath(import.meta.url)), '../packages'),
-  path.join(path.dirname(fileURLToPath(import.meta.url)), '../app') // 新增目录
+  path.join(path.dirname(fileURLToPath(import.meta.url)), '../apps') // 新增目录
 ];
 
 checkFoldersAndPackageJson(dirs).then((folders) => {

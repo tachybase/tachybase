@@ -1,7 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
-import { ClassNamesArg, css, cx } from '@tachybase/client';
-
-import Spreadsheet from '../x-sheet';
+import { css, cx } from '@tachybase/client';
+import { Spreadsheet } from '@tachybase/sheet';
 
 export type SheetRef = {
   getData: () => any;
@@ -9,7 +8,7 @@ export type SheetRef = {
 
 export type SheetProps = {
   data?: any;
-  className?: ClassNamesArg;
+  className?: string;
 };
 
 const ExcelSheet = forwardRef<SheetRef, SheetProps>(({ data, className }, ref) => {
@@ -29,7 +28,7 @@ const ExcelSheet = forwardRef<SheetRef, SheetProps>(({ data, className }, ref) =
 
   useEffect(() => {
     if (containerRef.current) {
-      const workbook = new Spreadsheet(containerRef.current, {
+      const workbook = Spreadsheet.makeSheet(containerRef.current, {
         view: {
           height: () => containerRef.current?.offsetHeight,
           width: () => containerRef.current?.offsetWidth,
@@ -38,9 +37,6 @@ const ExcelSheet = forwardRef<SheetRef, SheetProps>(({ data, className }, ref) =
 
       workbook.loadData(data);
       workbookRef.current = workbook;
-      return () => {
-        workbook.dispose();
-      };
     }
   }, [data]);
 

@@ -1,4 +1,10 @@
-FROM node:20-bullseye as builder
+FROM node:20-bookworm as builder
+
+RUN apt-get update \
+  && apt-get install -y ninja-build cmake zip \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 
 ARG NPM_REGISTRY=https://registry.npmjs.org
 ENV PNPM_HOME="/pnpm"

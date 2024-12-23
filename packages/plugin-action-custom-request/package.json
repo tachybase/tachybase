@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-custom-request",
   "displayName": "Action: Custom request",
-  "version": "0.22.84",
+  "version": "0.23.8",
   "description": "Sending a request to any HTTP service supports sending context data to the target service.",
   "keywords": [
     "Actions"
@@ -14,11 +14,11 @@
   "devDependencies": {
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "file-saver": "^2.0.5",
     "lodash": "~4.17.21",
-    "react-i18next": "^15.1.1",
-    "react-router-dom": "~6.25.1"
+    "react-i18next": "^15.2.0",
+    "react-router-dom": "6.28.1"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

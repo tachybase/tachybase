@@ -1,7 +1,9 @@
 import React from 'react';
 import { RemoteSelect, SchemaComponent, useCollectionFilterOptions, useToken, Variable } from '@tachybase/client';
-import { FilterDynamicComponent, useWorkflowVariableOptions } from '@tachybase/module-workflow/client';
 import { useField } from '@tachybase/schema';
+
+import { useWorkflowVariableOptions } from '../variable';
+import { FilterDynamicComponent } from './FilterDynamicComponent';
 
 export const SelectNotifiedPerson = (props) => {
   if (props.value && typeof props.value === 'object') {

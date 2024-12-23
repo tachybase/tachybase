@@ -112,7 +112,7 @@ export const ChartFilterFormItem = observer(
                 <ErrorBoundary
                   onError={(err) => {
                     console.log(err);
-                    window?.Sentry?.captureException(error);
+                    window?.Sentry?.captureException(err);
                   }}
                   FallbackComponent={ErrorFallback}
                 >

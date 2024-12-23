@@ -18,11 +18,11 @@ export const calculators = new Registry<Comparer>();
 
 // built-in functions
 function equal(a, b) {
-  return a == b;
+  return a === b;
 }
 
 function notEqual(a, b) {
-  return a != b;
+  return a !== b;
 }
 
 function gt(a, b) {
@@ -125,6 +125,7 @@ function logicCalculate(calculation?: Calculation) {
 
 export class ConditionInstruction extends Instruction {
   async run(node: FlowNodeModel, prevJob, processor: Processor) {
+    const start = prevJob.createdAt || Date.now();
     const { engine, calculation, expression, rejectOnFalse } = node.config || {};
     const evaluator = evaluators.get(engine);
 
@@ -155,6 +156,7 @@ export class ConditionInstruction extends Instruction {
       nodeId: node.id,
       nodeKey: node.key,
       upstreamId: (prevJob && prevJob.id) || null,
+      cost: Date.now() - start,
     };
 
     const branchNode = processor.nodes.find(

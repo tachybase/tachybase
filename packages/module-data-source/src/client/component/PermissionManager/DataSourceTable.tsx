@@ -15,7 +15,7 @@ import { dataSourceSchema } from './schemas/dataSourceTable';
 const AvailableActionsContext = createContext([]);
 AvailableActionsContext.displayName = 'AvailableActionsContext';
 
-const AvailableActionsProver: React.FC = (props) => {
+const AvailableActionsProver = (props) => {
   const { data, loading } = useRequest<{
     data: any[];
   }>({

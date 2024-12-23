@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useRef } from 'react';
 import { error } from '@tachybase/utils/client';
 
-import { ItemType } from 'antd/es/menu/hooks/useItems';
+import { ItemType } from 'antd/es/menu/interface';
 
 type menuItemsKey =
   | 'version'

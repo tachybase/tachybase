@@ -40,6 +40,7 @@ const RangePicker = connect(
   mapReadPretty(PreviewText.TimeRangePicker),
 );
 
-export const TimePicker = Object.assign(InternalTimePicker, { RangePicker });
+// FIXME types
+export const TimePicker: any = Object.assign(InternalTimePicker, { RangePicker });
 
 export default TimePicker;

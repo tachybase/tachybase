@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-wechat",
   "displayName": "Auth: WeChat",
-  "version": "0.22.84",
+  "version": "0.23.8",
   "description": "WeChat authentication.",
   "keywords": [
     "Authentication"
@@ -13,9 +13,9 @@
   },
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
-    "antd": "5.22.0",
-    "react-i18next": "^15.1.1",
-    "react-router-dom": "^6.25.1"
+    "antd": "5.22.5",
+    "react-i18next": "^15.2.0",
+    "react-router-dom": "6.28.1"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
@@ -24,7 +24,8 @@
     "@tachybase/database": "workspace:*",
     "@tachybase/module-auth": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "@tachybase/server": "workspace:*"
+    "@tachybase/server": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "通过微信扫码认证身份。",
   "displayName.zh-CN": "认证：微信"

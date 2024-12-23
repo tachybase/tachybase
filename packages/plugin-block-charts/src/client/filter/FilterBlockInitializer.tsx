@@ -55,7 +55,7 @@ const createFilterSchema = () => {
   };
 };
 
-export const ChartFilterGrid: React.FC = (props) => {
+export const ChartFilterGrid = (props) => {
   const {
     collapse: { collapsed },
   } = useContext(ChartFilterContext);

@@ -1,16 +1,16 @@
 {
   "name": "@tachybase/plugin-online-user",
-  "version": "0.22.84",
+  "version": "0.23.8",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-online-user"
   },
   "devDependencies": {
-    "antd": "5.22.0",
+    "antd": "5.22.5",
     "jsonwebtoken": "^8.5.1",
     "lodash": "4.17.21",
     "react": "^18.3.1",
-    "redis": "^4.6.13",
+    "redis": "^4.7.0",
     "ws": "^8.18.0"
   },
   "peerDependencies": {

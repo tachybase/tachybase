@@ -45,6 +45,8 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
   private appMutexes = {};
   private appBootstrapper: AppBootstrapper = null;
 
+  public blockApps: Set<string> = new Set();
+
   private constructor() {
     super();
 
@@ -141,7 +143,7 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
 
         if (!this.hasApp(appName)) {
           this.setAppStatus(appName, 'not_found');
-        } else if (!this.getAppStatus(appName) || this.getAppStatus(appName) == 'initializing') {
+        } else if (!this.getAppStatus(appName) || this.getAppStatus(appName) === 'initializing') {
           this.setAppStatus(appName, 'initialized');
         }
       }
@@ -156,7 +158,9 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
     } = {},
   ) {
     if (!options.withOutBootStrap) {
-      await this.bootStrapApp(appName, options);
+      if (!this.blockApps.has(appName)) {
+        await this.bootStrapApp(appName, options);
+      }
     }
 
     return this.apps[appName];
@@ -186,6 +190,9 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
 
   // add app into supervisor
   addApp(app: Application) {
+    if (this.blockApps.has(app.name)) {
+      return;
+    }
     // if there is already an app with the same name, throw error
     if (this.apps[app.name]) {
       throw new Error(`app ${app.name} already exists`);
@@ -199,7 +206,7 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
 
     this.emit('afterAppAdded', app);
 
-    if (!this.getAppStatus(app.name) || this.getAppStatus(app.name) == 'not_found') {
+    if (!this.getAppStatus(app.name) || this.getAppStatus(app.name) === 'not_found') {
       this.setAppStatus(app.name, 'initialized');
     }
 
@@ -269,7 +276,7 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
         appName: app.name,
         message,
         status: appStatus,
-        command: appStatus == 'running' ? null : maintainingStatus.command,
+        command: appStatus === 'running' ? null : maintainingStatus.command,
       });
     });
 
@@ -325,7 +332,7 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
             this.emit('appMaintainingStatusChanged', maintainingStatus);
 
             // not change
-            if (appStatus == 'commanding') {
+            if (appStatus === 'commanding') {
               this.setAppStatus(app.name, this.statusBeforeCommanding[app.name]);
             }
           }

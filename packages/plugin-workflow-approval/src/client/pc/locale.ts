@@ -1,6 +1,8 @@
 import { i18n, tval as nTval } from '@tachybase/client';
 
-export const NAMESPACE = '@tachybase/plugin-workflow-approval';
+import { NAMESPACE as COMMON_NAMESPACE } from '../../common/constants';
+
+export const NAMESPACE = COMMON_NAMESPACE;
 
 export function usePluginTranslation(): any {
   return useTranslation();

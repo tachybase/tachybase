@@ -37,6 +37,7 @@ import lodash from 'lodash';
 import _ from 'lodash';
 import { nanoid } from 'nanoid';
 import semver from 'semver';
+import { Request } from 'zeromq';
 
 import packageJson from '../package.json';
 import { createACL } from './acl';
@@ -59,7 +60,7 @@ import { Locale } from './locale';
 import { MainDataSource } from './main-data-source';
 import { NoticeManager } from './notice';
 import { Plugin } from './plugin';
-import { InstallOptions, PluginManager } from './plugin-manager';
+import { Constructor, InstallOptions, PluginManager } from './plugin-manager';
 
 export { Logger } from 'winston';
 
@@ -214,6 +215,14 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     // TODO implements more robust event emitters
     this.setMaxListeners(100);
+
+    if (process.env.IPC_DEV_PORT) {
+      this.once('afterStart', async () => {
+        const sock = new Request({ reconnectInterval: -1 });
+        sock.connect('tcp://localhost:' + process.env.IPC_DEV_PORT);
+        await sock.send('ready');
+      });
+    }
   }
 
   get noticeManager() {
@@ -519,7 +528,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this._cacheManager = await createCacheManager(this, this.options.cacheManager);
 
     this.setMaintainingMessage('init plugins');
-    await this.pm.initPlugins(options?.skipDbPluigns);
+    await this.pm.initPlugins();
 
     this.setMaintainingMessage('start load');
     this.setMaintainingMessage('emit beforeLoad');
@@ -572,7 +581,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
    * Use {@link this.pm.get()} instead.
    * @deprecated
    */
-  getPlugin<P extends Plugin>(name: string | typeof Plugin) {
+  getPlugin<P extends Plugin>(name: string | Constructor<P>) {
     return this.pm.get(name) as P;
   }
 
@@ -751,10 +760,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
         command: this.activatedCommand,
         error,
       });
-
-      if (options?.throwError) {
-        throw error;
-      }
     } finally {
       const _actionCommand = this._actionCommand;
       if (_actionCommand) {
@@ -1151,6 +1156,8 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     });
     return db;
   }
+
+  [key: string]: any;
 }
 
 applyMixins(Application, [AsyncEmitter]);

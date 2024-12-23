@@ -8,8 +8,6 @@ import { parsePerson } from '../tools';
 /** 工作流节点: 审批抄送节点 */
 export default class ApprovalCarbonCopyInstruction extends Instruction {
   async run(node, prevJob, processor) {
-    const context = processor.execution.context;
-
     const job = await processor.saveJob({
       status: JOB_STATUS.RESOLVED,
       nodeId: node.id,

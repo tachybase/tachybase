@@ -103,7 +103,7 @@ export class RequestInterceptionTrigger extends Trigger {
     workflow.app.use(this.middleware, { tag: 'workflowFilter', after: 'dataSource' });
     workflow.app.pm.get(PluginErrorHandler).errorHandler.register(
       (err) => err instanceof RequestInterceptionError,
-      async (err, ctx, next) => {
+      async (err, ctx) => {
         ctx.body = {
           errors: err.messages,
         };

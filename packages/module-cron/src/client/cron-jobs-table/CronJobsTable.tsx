@@ -34,6 +34,7 @@ export const CronJobsTable = () => {
     <ExtendCollectionsProvider collections={[collection]}>
       <SchemaComponent
         schema={schema}
+        name="cron-jobs-table"
         components={{
           OnField,
           RepeatField,

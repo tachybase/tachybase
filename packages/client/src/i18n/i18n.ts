@@ -1,4 +1,4 @@
-import i18next, { ParseKeys, TOptions } from 'i18next';
+import i18next, { ParseKeys, TOptions, type i18n as TypeI18n } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import locale from '../locale';
@@ -10,7 +10,7 @@ export function tval(text: ParseKeys | ParseKeys[], options?: TOptions) {
   return `{{t(${JSON.stringify(text)})}}`;
 }
 
-export const i18n = i18next.createInstance();
+export const i18n = i18next.createInstance() as TypeI18n;
 
 const resources = {};
 

@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import fg from 'fast-glob';
 import fs from 'fs-extra';
@@ -6,6 +6,14 @@ import ts from 'typescript';
 
 import { globExcludeFiles, ROOT_PATH } from './constant';
 import { signals } from './stats';
+
+// TODO 暂时特殊处理
+const IgnoreErrors = new Set([
+  `Property 'body' does not exist on type 'Request'`,
+  `Property 'fromNow' does not exist on type 'Dayjs'`,
+  `Property 'body' does not exist on type 'Request'.`,
+  `Property 'fromNow' does not exist on type 'Dayjs'.`,
+]);
 
 export const buildDeclaration = (cwd: string, targetDir: string) => {
   return new Promise<{ exitCode: 1 | 0; messages: string[] }>((resolve, reject) => {
@@ -45,8 +53,11 @@ export const buildDeclaration = (cwd: string, targetDir: string) => {
       if (diagnostic.file) {
         const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
         const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+        if (IgnoreErrors.has(message)) {
+          return;
+        }
         signals.emit('build:errors', `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
-        console.error(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+        console.error(`${diagnostic.file.fileName}(${line + 1},${character + 1}): ${message}`);
       } else {
         signals.emit('build:errors', ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
         console.error(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));

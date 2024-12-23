@@ -4,7 +4,7 @@
  * 3. 行内布局
  * 4. 吸底布局
  */
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { HTMLProps, useLayoutEffect, useRef, useState } from 'react';
 import { ReactFC } from '@tachybase/schema';
 
 import { Space } from 'antd';
@@ -60,7 +60,11 @@ function getDefaultBackground() {
   return bg;
 }
 
-export const FormButtonGroup = ({ align, gutter, ...props }) => {
+export const FormButtonGroup = ({
+  align,
+  gutter,
+  ...props
+}: Omit<SpaceProps, 'size' | 'align'> & { gutter?; align? }) => {
   const prefixCls = usePrefixCls('formily-button-group');
   return (
     <Space
@@ -100,7 +104,10 @@ FormButtonGroup.FormItem = ({ gutter, ...props }) => {
   );
 };
 
-const _Sticky = ({ align = 'left', ...props }: React.PropsWithChildren<IStickyProps>) => {
+const _Sticky = ({
+  align = 'left',
+  ...props
+}: React.PropsWithChildren<IStickyProps & React.HTMLProps<HTMLDivElement>>) => {
   const ref = useRef(null);
   const [color, setColor] = useState('transparent');
   const prefixCls = usePrefixCls('formily-button-group');

@@ -21,6 +21,7 @@ import { cloneDeep } from 'lodash';
 
 import WorkflowPlugin from '..';
 import { DrawerDescription } from '../components/DrawerDescription';
+import { ShowNodeTypesInWorkflow } from '../components/ShowNodeTypesInWorkflow';
 import { useFlowContext } from '../FlowContext';
 import { lang, NAMESPACE } from '../locale';
 import useStyles from '../style';
@@ -346,6 +347,10 @@ export const TriggerConfig = () => {
                               },
                             },
                           },
+                      showNodes: {
+                        type: 'void',
+                        'x-component': ShowNodeTypesInWorkflow,
+                      },
                     },
                   },
                 },

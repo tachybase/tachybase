@@ -3,6 +3,7 @@ import { cx } from '@tachybase/client';
 
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
+import { ItemType, MenuItemType } from 'antd/es/menu/interface';
 
 import type { Theme } from './interface';
 import makeStyle from './utils/makeStyle';
@@ -127,7 +128,7 @@ const ThemeSelect = (props: ThemeSelectProps) => {
 
   const [wrapSSR, hashId] = useStyle();
 
-  const dropdownItems = useMemo(
+  const dropdownItems: ItemType<MenuItemType>[] = useMemo(
     () => [
       {
         disabled: true,
@@ -135,6 +136,7 @@ const ThemeSelect = (props: ThemeSelectProps) => {
         className: 'previewer-theme-select-dropdown-title',
         type: 'group',
         key: 'add-theme-to-preview',
+        children: [],
       },
       ...themes
         .filter((theme) => !shownThemes.includes(theme.key))
@@ -143,6 +145,7 @@ const ThemeSelect = (props: ThemeSelectProps) => {
           value: theme.key,
           label: theme.name,
           key: theme.key,
+          children: [],
           onClick: () => {
             onShownThemeChange([...shownThemes, theme.key], theme.key, {
               type: 'select',

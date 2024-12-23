@@ -1,15 +1,16 @@
 import { isMainThread, parentPort, workerData } from 'worker_threads';
-import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
+import CollectionManagerPlugin, { CollectionRepository } from '@tachybase/module-collection';
+import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
+import { Container, uid } from '@tachybase/utils';
 
 import { WorkerEvent } from './workerTypes';
 
-// TODO: 另起一个文件夹
 const loggerOptions = {
   system: {
     transports: getLoggerTransport(),
-    level: getLoggerLevel(),
+    level: getLoggerLevel(), // TODO: 后续考虑是否提到info
   },
   request: {
     transports: getLoggerTransport(),
@@ -58,27 +59,81 @@ const handleWorkerMessages = (app: Application) => {
 };
 
 export const main = async () => {
-  const start = Date.now();
-  const applicationOptions = {
-    database: await parseDatabaseOptionsFromEnv(),
-    plugins: [...workerData.plugins],
-    logger: loggerOptions,
-  } as ApplicationOptions;
-  const app = new Application(applicationOptions);
-  await app.load({
-    skipDbPluigns: true,
-  });
+  let app: Application;
+  const appName = workerData.appName || 'main';
+  try {
+    const applicationOptions = {
+      name: `worker-${appName}-${uid()}`,
+      database: workerData.databaseOptions,
+      logger: loggerOptions,
+    } as ApplicationOptions;
+    app = new Application(applicationOptions);
+    app.logger.info('[worker] app boot');
 
-  await app.start({
-    dbSync: false,
-    quickstart: true,
-    checkInstall: false,
-  });
-  app.logger.info('[worker] app has been started');
+    // for Inject
+    Container.reset();
+    Container.set({ id: 'db', value: app.db });
+    Container.set({ id: 'app', value: app });
+    Container.set({ id: 'logger', value: app.logger });
 
-  // 工作线程部分逻辑代码
-  handleWorkerMessages(app);
+    await loadPlugins(app);
+
+    app.logger.info('[worker] app has been started');
+    // 工作线程部分逻辑代码
+    handleWorkerMessages(app);
+  } catch (err) {
+    app?.logger?.error('[worker] Failed to start worker:', err);
+    // Attempt cleanup
+    try {
+      await app?.db?.close();
+    } catch (cleanupErr) {
+      app?.logger?.error('[worker] Cleanup failed:', cleanupErr);
+    }
+    process.exit(-1);
+  }
 };
 
-// 支持直接通过 npx tsx --tsconfig ./tsconfig.server.json -r tsconfig-paths/register ./packages/module-worker-thread/src/server/worker.ts 测试启动
+async function loadPlugins(app: Application) {
+  // only add, not load, start
+  await app.pm.initPlugins();
+
+  // TODO: 这里不该特殊处理
+  const userPluginName = app.pm.get(PluginUsersServer).name;
+  // 必备插件,为了数据下载,部分插件需要load (users表,和一些字段信息的表 TODO: 可能会有遗漏的)
+  const loadPlugins = [userPluginName];
+  for (const [P, plugin] of app.pm.getPlugins()) {
+    if (plugin.name.startsWith('field-')) {
+      loadPlugins.push(plugin.name);
+    }
+  }
+  loadPlugins.push(app.pm.get(CollectionManagerPlugin).name);
+
+  for (const pluginName of loadPlugins) {
+    const plugin = app.pm.get(pluginName);
+    try {
+      await plugin.beforeLoad();
+    } catch (error) {
+      app.logger.error(`Failed to execute beforeLoad for plugin ${pluginName}:`, error);
+      throw error;
+    }
+  }
+  for (const [P, plugin] of app.pm.getPlugins()) {
+    if (!plugin.enabled) {
+      continue;
+    }
+    await plugin.loadCollections();
+    if (!loadPlugins.includes(plugin.name)) {
+      continue;
+    }
+    await plugin.load();
+    for (const feature of plugin.featureInstances) {
+      await feature.load();
+    }
+  }
+
+  // 为了用户自定义表都能下载,备份, 之前只有afterStart才能调用
+  await app.db.getRepository<CollectionRepository>('collections').load();
+}
+
+// TODO: 支持直接通过 npx tsx --tsconfig ./tsconfig.server.json -r tsconfig-paths/register ./packages/module-worker-thread/src/server/worker.ts 测试启动
 main();

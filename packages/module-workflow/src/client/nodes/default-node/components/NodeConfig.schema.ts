@@ -22,7 +22,7 @@ export const getSchemaNodeConfig = (params) => {
       },
       [data.id]: {
         type: 'void',
-        title: renderNodeConfigTitle(data),
+        title: renderNodeConfigTitle(data, instruction),
         'x-decorator': 'FormV2',
         'x-use-decorator-props': 'useFormProviderProps',
         'x-component': 'Action.Area',

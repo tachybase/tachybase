@@ -1,1 +1,1 @@
-# @hera/plugin-core
+# @tachybase/module-hera

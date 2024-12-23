@@ -810,11 +810,12 @@ export const SchemaSettingsCascaderItem: FC<SchemaSettingsCascaderItemProps> = (
       <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}>
         {title}
         <Cascader
-          bordered={false}
+          variant="borderless"
           defaultValue={value}
           onChange={onChange as any}
           options={options}
           style={{ textAlign: 'right', minWidth: 100 }}
+          multiple={!!props.multiple}
           {...props}
         />
       </div>

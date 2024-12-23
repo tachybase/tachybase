@@ -1,4 +1,4 @@
-import type { CreateOptions, DestroyOptions, SaveOptions, SyncOptions, UpdateOptions } from 'sequelize/types';
+import type { CreateOptions, DestroyOptions, SaveOptions, SyncOptions, UpdateOptions } from 'sequelize';
 import { HookReturn } from 'sequelize/types/hooks';
 import { ValidationOptions } from 'sequelize/types/instance-validator';
 

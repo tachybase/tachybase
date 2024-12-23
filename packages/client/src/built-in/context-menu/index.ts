@@ -1,7 +1,7 @@
 import { Plugin } from '../../application/Plugin';
 import { ScrollAssistantStatusProvider } from '../scroll-assistant/ScrollAssistantStatus.provider';
 import { ContextMenuProvider } from './ContextMenu.provider';
-import { designerMode, disableRightMenu, fullScreen } from './ContextMenuItemsProps';
+import { designerMode, disableRightMenu, fullScreen, hiddenScrollArea } from './ContextMenuItemsProps';
 
 export * from './useContextMenu';
 
@@ -13,5 +13,6 @@ export class PluginContextMenu extends Plugin {
     this.app.pluginContextMenu.add(designerMode.name, designerMode);
     this.app.pluginContextMenu.add(fullScreen.name, fullScreen);
     this.app.pluginContextMenu.add(disableRightMenu.name, disableRightMenu);
+    this.app.pluginContextMenu.add(hiddenScrollArea.name, hiddenScrollArea);
   }
 }

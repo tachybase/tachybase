@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-field-sequence",
   "displayName": "Collection field: Sequence",
-  "version": "0.22.84",
+  "version": "0.23.8",
   "description": "Automatically generate codes based on configured rules, supporting combinations of dates, numbers, and text.",
   "keywords": [
     "Collection fields"
@@ -14,12 +14,12 @@
   "devDependencies": {
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "antd": "5.22.0",
-    "cron-parser": "4.4.0",
-    "dayjs": "1.11.10",
+    "antd": "5.22.5",
+    "cron-parser": "4.9.0",
+    "dayjs": "1.11.13",
     "lodash": "4.17.21",
     "react": "~18.3.1",
-    "react-i18next": "^15.1.1",
+    "react-i18next": "^15.2.0",
     "react-js-cron": "^3.2.0"
   },
   "peerDependencies": {

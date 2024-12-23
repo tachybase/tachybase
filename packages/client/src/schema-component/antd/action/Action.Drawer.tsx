@@ -117,7 +117,7 @@ export const Amplifier = () => {
         border: none;
       `}
       onClick={(e) => {
-        const element = e.target.closest('.ant-drawer-content-wrapper');
+        const element = (e.target as HTMLElement).closest('.ant-drawer-content-wrapper') as HTMLElement;
         if (isAmplifier) {
           element.style.width = blockWidth;
         } else {

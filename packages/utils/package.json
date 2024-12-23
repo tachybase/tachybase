@@ -1,7 +1,29 @@
 {
   "name": "@tachybase/utils",
-  "version": "0.22.84",
+  "version": "0.23.8",
   "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./client": {
+      "require": {
+        "types": "./lib/client.d.ts",
+        "default": "./lib/client.js"
+      },
+      "import": {
+        "types": "./lib/client.d.ts",
+        "default": "./lib/client.js"
+      }
+    }
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -10,8 +32,8 @@
   "dependencies": {
     "@hapi/topo": "^6.0.2",
     "@rc-component/mini-decimal": "^1.1.0",
-    "antd": "5.22.0",
-    "dayjs": "1.11.10",
+    "antd": "5.22.5",
+    "dayjs": "1.11.13",
     "dedupe": "^3.0.3",
     "deepmerge": "^4.3.1",
     "flat-to-nested": "^1.1.1",
@@ -21,7 +43,7 @@
     "object-path": "^0.11.8"
   },
   "devDependencies": {
-    "@types/lodash": "4.17.5",
-    "@types/node": "20.14.2"
+    "@types/lodash": "4.17.13",
+    "@types/node": "20.17.10"
   }
 }
