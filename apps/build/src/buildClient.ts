@@ -1,5 +1,7 @@
 import path from 'path';
 
+import { pluginLess } from '@rsbuild/plugin-less';
+import { pluginReact } from '@rsbuild/plugin-react';
 import react from '@vitejs/plugin-react';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
@@ -21,45 +23,90 @@ export async function buildClient(cwd: string, userConfig: UserConfig, sourcemap
     return true;
   };
   await buildClientEsm(cwd, userConfig, sourcemap, external, log);
-  await buildClientLib(cwd, userConfig, sourcemap, external, log);
+  // await buildClientLib(cwd, userConfig, sourcemap, external, log);
   await buildLocale(cwd, userConfig, log);
 }
 
 type External = (id: string) => boolean;
 
-function buildClientEsm(cwd: string, userConfig: UserConfig, sourcemap: boolean, external: External, log: PkgLog) {
-  log('build client esm');
+async function buildClientEsm(
+  cwd: string,
+  userConfig: UserConfig,
+  sourcemap: boolean,
+  external: External,
+  log: PkgLog,
+) {
   const entry = path.join(cwd, 'src/index.ts').replaceAll(/\\/g, '/');
-  const outDir = path.resolve(cwd, 'es');
-  return viteBuild(
-    userConfig.modifyViteConfig({
-      mode: process.env.NODE_ENV || 'production',
+
+  const { build } = await import('@rslib/core');
+  log('build client rslib');
+  await build({
+    source: {
+      entry: {
+        index: entry,
+      },
       define: {
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
         'process.env.__TEST__': false,
         'process.env.__E2E__': process.env.__E2E__ ? true : false,
       },
-      build: {
-        minify: process.env.NODE_ENV === 'production',
-        outDir,
-        cssCodeSplit: true,
-        emptyOutDir: true,
-        sourcemap,
-        lib: {
-          entry,
-          formats: ['es'],
-          fileName: 'index',
-        },
-        target: ['es2015', 'edge88', 'firefox78', 'chrome87', 'safari14'],
-        rollupOptions: {
-          cache: true,
-          treeshake: true,
-          external,
-        },
+    },
+    lib: [
+      {
+        bundle: true,
+        dts: false,
+        format: 'esm',
       },
-      plugins: [react(), libInjectCss()],
-    }),
-  );
+    ],
+    output: {
+      distPath: {
+        root: path.join(cwd, 'lib'),
+      },
+      target: 'web',
+      sourceMap: {
+        js: 'source-map',
+      },
+      externals({ request }, callback) {
+        if (external(request)) {
+          return callback(null, true);
+        }
+        callback();
+      },
+    },
+    plugins: [pluginReact(), pluginLess()],
+  });
+
+  // log('build client esm');
+  // const outDir = path.resolve(cwd, 'es');
+  // return viteBuild(
+  //   userConfig.modifyViteConfig({
+  //     mode: process.env.NODE_ENV || 'production',
+  //     define: {
+  //       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+  //       'process.env.__TEST__': false,
+  //       'process.env.__E2E__': process.env.__E2E__ ? true : false,
+  //     },
+  //     build: {
+  //       minify: process.env.NODE_ENV === 'production',
+  //       outDir,
+  //       cssCodeSplit: true,
+  //       emptyOutDir: true,
+  //       sourcemap,
+  //       lib: {
+  //         entry,
+  //         formats: ['es'],
+  //         fileName: 'index',
+  //       },
+  //       target: ['es2015', 'edge88', 'firefox78', 'chrome87', 'safari14'],
+  //       rollupOptions: {
+  //         cache: true,
+  //         treeshake: true,
+  //         external,
+  //       },
+  //     },
+  //     plugins: [react(), libInjectCss()],
+  //   }),
+  // );
 }
 
 async function buildClientLib(
