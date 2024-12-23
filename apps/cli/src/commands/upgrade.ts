@@ -28,9 +28,11 @@ export default (cli: Command) => {
         return;
       }
       // If ts-node is not installed, do not do the following
-      const appDevDir = resolve(process.cwd(), './storage/.app-dev');
-      if (existsSync(appDevDir)) {
-        rmSync(appDevDir, { recursive: true, force: true });
+      const appClientDir = resolve(process.cwd(), './storage/.app-client-dev');
+      const appServerDir = resolve(process.cwd(), './storage/.app-dev');
+      if (existsSync(appServerDir)) {
+        rmSync(appClientDir, { recursive: true, force: true });
+        rmSync(appServerDir, { recursive: true, force: true });
       }
       await run('pnpm', ['add', '@tachybase/cli', '@tachybase/devtools', '-w']);
       await run('pnpm', ['install']);

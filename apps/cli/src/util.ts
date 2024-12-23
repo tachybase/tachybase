@@ -214,7 +214,9 @@ function normalizePath(path: string) {
 
 export function generateAppDir() {
   const serverPath = getPackagePath('@tachybase/app-server');
+  console.log('🚀 ~ file: util.ts:217 ~ generateAppDir ~ serverPath:', serverPath);
   const clientPath = getPackagePath('@tachybase/app-rs');
+  console.log('🚀 ~ file: util.ts:219 ~ generateAppDir ~ clientPath:', clientPath);
   const appServerDevDir = resolve(process.cwd(), './storage/.app-dev');
   const appClientDevDir = resolve(process.cwd(), './storage/.app-client-dev');
   // when using create-tachybase-app
