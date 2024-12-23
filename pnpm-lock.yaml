@@ -944,6 +944,24 @@ importers:
 
   packages/devtools:
     dependencies:
+      '@rsbuild/core':
+        specifier: ^1.1.10
+        version: 1.1.10
+      '@rsbuild/plugin-babel':
+        specifier: 1.0.3
+        version: 1.0.3(@rsbuild/core@1.1.10)
+      '@rsbuild/plugin-less':
+        specifier: 1.1.0
+        version: 1.1.0(@rsbuild/core@1.1.10)
+      '@rsbuild/plugin-node-polyfill':
+        specifier: 1.2.0
+        version: 1.2.0(@rsbuild/core@1.1.10)
+      '@rsbuild/plugin-react':
+        specifier: ^1.1.0
+        version: 1.1.0(@rsbuild/core@1.1.10)
+      '@rsbuild/plugin-umd':
+        specifier: 1.0.4
+        version: 1.0.4(@rsbuild/core@1.1.10)
       '@tachybase/build':
         specifier: workspace:*
         version: link:../../apps/build
@@ -11841,7 +11859,7 @@ packages:
     engines: {node: '>=12.20'}
 
   detect-libc@1.0.3:
-    resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
+    resolution: {integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=}
     engines: {node: '>=0.10'}
     hasBin: true
 
