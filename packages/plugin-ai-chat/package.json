@@ -5,7 +5,8 @@
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "antd": "5.22.0",
-    "antd-style": "3.6.2"
+    "antd-style": "3.6.2",
+    "openai": "^4.77.0"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

@@ -2,40 +2,25 @@ import { createStyles } from 'antd-style';
 
 export const useStyle = createStyles(({ token, css }) => {
   return {
-    layout: css`
-      width: 100%;
-      min-width: 1000px;
-      height: 722px;
-      border-radius: ${token.borderRadius}px;
-      display: flex;
-      background: ${token.colorBgContainer};
-      font-family: AlibabaPuHuiTi, ${token.fontFamily}, sans-serif;
-
-      .ant-prompts {
-        color: ${token.colorText};
-      }
-    `,
-    menu: css`
-      background: ${token.colorBgLayout}80;
-      width: 280px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    `,
-    conversations: css`
-      padding: 0 12px;
-      flex: 1;
-      overflow-y: auto;
-    `,
+    // menu: css`
+    //   background: ${token.colorBgLayout}80;
+    //   width: 280px;
+    //   height: 100%;
+    //   display: flex;
+    //   flex-direction: column;
+    // `,
+    // conversations: css`
+    //   padding: 0 12px;
+    //   flex: 1;
+    //   overflow-y: auto;
+    // `,
     chat: css`
-      height: 100%;
+      height: 500px;
       width: 100%;
-      max-width: 700px;
       margin: 0 auto;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      padding: ${token.paddingLG}px;
       gap: 16px;
     `,
     messages: css`
@@ -45,7 +30,6 @@ export const useStyle = createStyles(({ token, css }) => {
       padding-top: 32px;
     `,
     sender: css`
-      box-shadow: ${token.boxShadow};
       font-size: 12px;
     `,
     logo: css`
@@ -78,14 +62,14 @@ export const useStyle = createStyles(({ token, css }) => {
     `,
     AIChatModal: css`
       position: fixed;
-      right: 50px;
-      min-height: 300px;
       width: 450px;
+      right: 70px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       z-index: 1000;
       background-color: #fff;
       padding-bottom: 0px;
+      top: 190px;
     `,
     modalContent: css`
       padding: 0 20px 20px 20px;
@@ -126,27 +110,27 @@ export const useStyle = createStyles(({ token, css }) => {
       font-size: 20px;
       font-weight: bold;
     `,
-    modalBody: css`
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow: hidden;
-    `,
-    chatContent: css`
-      width: 100%;
-      height: 300px;
-      overflow-y: auto;
-      padding: 10px;
-      border-radius: 5px;
-      scrollbar-width: none;
-    `,
-    welcomeText: css`
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      margin: 120px 0;
-    `,
+    // modalBody: css`
+    //   margin-top: 10px;
+    //   display: flex;
+    //   flex-direction: column;
+    //   align-items: center;
+    //   overflow: hidden;
+    // `,
+    // chatContent: css`
+    //   width: 100%;
+    //   height: 100%;
+    //   overflow-y: auto;
+    //   padding: 10px;
+    //   border-radius: 5px;
+    //   scrollbar-width: none;
+    // `,
+    // welcomeText: css`
+    //   font-size: 16px;
+    //   font-weight: bold;
+    //   text-align: center;
+    //   margin: 120px 0;
+    // `,
     chatItem: css`
       display: flex;
       flex-direction: column;

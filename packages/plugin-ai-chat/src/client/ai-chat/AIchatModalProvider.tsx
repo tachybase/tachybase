@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { useAPIClient } from '@tachybase/client';
 
 import {
   CloudUploadOutlined,
@@ -9,23 +10,10 @@ import {
   ReadOutlined,
   SmileOutlined,
 } from '@ant-design/icons';
-import { Attachments, Bubble, Prompts, Sender, useXAgent, useXChat, XRequest } from '@ant-design/x';
-import { Badge, Button, GetProp, Input, InputRef, Modal, Space } from 'antd';
-import { messages } from 'packages/module-message/src/server/actions/messages';
+import { Attachments, Bubble, Prompts, Sender, useXAgent, useXChat } from '@ant-design/x';
+import { Badge, Button, GetProp, Modal, Space } from 'antd';
 
 import { useStyle } from './chatStyles';
-
-const { create } = XRequest({
-  baseURL: 'https://api.deepseek.com/chat/completions',
-  dangerouslyApiKey: 'Bearer sk-7c91946813cf42b4851a914fe690b0b4',
-  model: 'deepseek-chat',
-});
-
-// interface AIChatModalProps {
-//     mRef?: any;
-//     onGenerateLoad: (message: string) => Promise<boolean>;
-//     onReloadWrite: () => void;
-// }
 
 export const AIchatContext = createContext({
   open: false,
@@ -132,7 +120,7 @@ const roles: GetProp<typeof Bubble.List, 'roles'> = {
 
 export const AIchat = ({ open, setOpen }) => {
   const { styles } = useStyle();
-  const [message, setMessage] = useState<string>('');
+  const api = useAPIClient();
   const [content, setContent] = React.useState('');
   const [headerOpen, setHeaderOpen] = React.useState(false);
   const [activeKey, setActiveKey] = React.useState(defaultConversationsItems[0].key);
@@ -147,37 +135,19 @@ export const AIchat = ({ open, setOpen }) => {
   };
 
   const [agent] = useXAgent({
-    request: async (info, callbacks) => {
-      const { messages, message } = info;
-      const { onUpdate, onSuccess, onError } = callbacks;
-      let content: string = '';
+    request: async ({ message }, { onSuccess, onUpdate }) => {
+      const fullContent = await api.request({
+        method: 'post',
+        url: 'aichat:sendMessage',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: { message: message },
+      });
+
+      const AIcontent = fullContent.data.data.choices[0].message.content;
       try {
-        await create(
-          {
-            messages: [{ role: 'system', content: message }],
-            stream: true,
-          },
-          {
-            onSuccess: (chunks) => {
-              onSuccess(content);
-            },
-            onError: (error) => {
-              onError(error);
-            },
-            onUpdate: (chunk) => {
-              let data;
-              try {
-                data = JSON.parse(chunk.data);
-              } catch (error) {
-                data = null;
-              }
-
-              content += data?.choices[0]?.delta?.content || '';
-
-              onUpdate(content);
-            },
-          },
-        );
+        onSuccess(AIcontent);
       } catch (error) {}
     },
   });
@@ -201,10 +171,10 @@ export const AIchat = ({ open, setOpen }) => {
     onRequest(info.data.description as string);
   };
 
-  const handleFileChange: GetProp<typeof Attachments, 'onChange'> = (info) => setAttachedFiles(info.fileList);
+  // const handleFileChange: GetProp<typeof Attachments, 'onChange'> = (info) => setAttachedFiles(info.fileList);
 
   const placeholderNode = (
-    <Space direction="vertical" size={16} className={styles.placeholder}>
+    <Space direction="vertical" size={20} className={styles.placeholder}>
       <Prompts
         title="Do you want?"
         items={placeholderPromptsItems}
@@ -227,40 +197,6 @@ export const AIchat = ({ open, setOpen }) => {
     role: status === 'local' ? 'local' : 'ai',
     content: message,
   }));
-
-  const attachmentsNode = (
-    <Badge dot={attachedFiles.length > 0 && !headerOpen}>
-      <Button type="text" icon={<PaperClipOutlined />} onClick={() => setHeaderOpen(!headerOpen)} />
-    </Badge>
-  );
-
-  const senderHeader = (
-    <Sender.Header
-      title="Attachments"
-      open={headerOpen}
-      onOpenChange={setHeaderOpen}
-      styles={{
-        content: {
-          padding: 0,
-        },
-      }}
-    >
-      <Attachments
-        beforeUpload={() => false}
-        items={attachedFiles}
-        onChange={handleFileChange}
-        placeholder={(type) =>
-          type === 'drop'
-            ? { title: 'Drop file here' }
-            : {
-                icon: <CloudUploadOutlined />,
-                title: 'Upload files',
-                description: 'Click or drag files to this area to upload',
-              }
-        }
-      />
-    </Sender.Header>
-  );
 
   return (
     <Modal
@@ -304,10 +240,8 @@ export const AIchat = ({ open, setOpen }) => {
           {/* 🌟 输入框 */}
           <Sender
             value={content}
-            header={senderHeader}
             onSubmit={onSubmit}
             onChange={setContent}
-            prefix={attachmentsNode}
             loading={agent.isRequesting()}
             className={styles.sender}
           />
