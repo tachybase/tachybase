@@ -36,7 +36,7 @@ async function buildClientEsm(
   external: External,
   log: PkgLog,
 ) {
-  const entry = path.join(cwd, 'src/index.ts').replaceAll(/\\/g, '/');
+  const entry = path.join(cwd, 'src').replaceAll(/\\/g, '/') + '/**';
 
   const { build } = await import('@rslib/core');
   log('build client rslib');
@@ -53,7 +53,7 @@ async function buildClientEsm(
     },
     lib: [
       {
-        bundle: true,
+        bundle: false,
         dts: false,
         format: 'esm',
       },
