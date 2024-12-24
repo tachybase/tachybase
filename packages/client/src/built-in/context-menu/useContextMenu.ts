@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-interface ContextMenuContext {
+export interface ContextMenuContextProps {
   contextMenuEnabled: boolean;
   setContextMenuEnable: (enabled: boolean) => void;
   hiddenScrollArea: boolean;
@@ -9,7 +9,7 @@ interface ContextMenuContext {
   setPosition: (any) => void;
 }
 
-export const ContextMenuContext = createContext<Partial<ContextMenuContext>>({});
+export const ContextMenuContext = createContext<Partial<ContextMenuContextProps>>({});
 
 export const useContextMenu = () => {
   return useContext(ContextMenuContext);
