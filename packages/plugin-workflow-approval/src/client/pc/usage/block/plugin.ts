@@ -6,6 +6,7 @@ import { ProviderBlockInitItem } from './BlockInitItem.provider';
 import { ViewBlockInitItem } from './BlockInitItem.view';
 import { CarbonCopyBlockProvider } from './carbon-copy/CarbonCopyBlock.provider';
 import { CarbonCopyCenter } from './carbon-copy/CarbonCopyCenter.schema';
+import { FeatureList } from './FeatureList.component';
 import { InitiateApplication } from './InitiateApplication.component';
 import { ViewCheckLink as ViewCheckLinkInitiations } from './initiations/CheckLink.view';
 import { ViewTableInitiated } from './initiations/TableInitiated';
@@ -38,7 +39,7 @@ export class KitApprovalBlock extends Plugin {
       'Approval-InitiateApplication': InitiateApplication,
       'Approval-ViewTableInitiated': ViewTableInitiated,
       'Approval-ViewTableTodos': ViewTableTodos,
-
+      'Approval-FeatureList': FeatureList,
       /**
        * @deprecated
        * 兼容旧版用法, 防止线上已经按照旧版配置的 schema, 运行的时候找不到原组件
@@ -52,7 +53,7 @@ export class KitApprovalBlock extends Plugin {
       'ApprovalBlock.ViewActionTodos': ViewCheckLinkTodos,
     });
 
-    const targetManager = this.app.schemaInitializerManager.get('page:addBlock');
-    targetManager.add(initializerName, initializerApprovalBlock);
+    const pageBlockManager = this.app.schemaInitializerManager.get('page:addBlock');
+    pageBlockManager.add(initializerName, initializerApprovalBlock);
   }
 }

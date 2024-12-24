@@ -48,7 +48,7 @@ export const Icon = (props: IconProps): React.ReactNode => {
     return <IconComponent {...restProps} />;
   }
   if (type && IconFont) {
-    return <IconFont type={type} />;
+    return <IconFont type={type} {...restProps} />;
   }
   return null;
 };

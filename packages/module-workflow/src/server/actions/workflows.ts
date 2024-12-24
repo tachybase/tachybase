@@ -8,7 +8,20 @@ export async function update(context: Context, next) {
   const repository = utils.getRepositoryFromParams(context) as Repository;
   const { filterByTk, values } = context.action.params;
   context.action.mergeParams({
-    whitelist: ['title', 'description', 'enabled', 'triggerTitle', 'config', 'options', 'type', 'sync', 'tags'],
+    whitelist: [
+      'title',
+      'description',
+      'enabled',
+      'triggerTitle',
+      'config',
+      'options',
+      'type',
+      'sync',
+      'tags',
+      // TODO: 这里的 icon 和 color 是审批插件的特有字段，后续办法是在审批里覆盖这个方法, 以便分离扩展字段和核心字段
+      'color',
+      'icon',
+    ],
   });
   // only enable/disable
   if (Object.keys(values).includes('config')) {
