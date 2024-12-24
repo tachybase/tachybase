@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Debug rs",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["dev", "--rs"],
+      "runtimeArgs": ["dev"],
       "skipFiles": ["<node_internals>/**"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"

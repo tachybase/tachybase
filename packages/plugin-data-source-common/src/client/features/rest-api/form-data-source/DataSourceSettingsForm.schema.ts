@@ -31,7 +31,12 @@ export const schemaDataSourceSettingsForm = {
           required: true,
           'x-decorator': 'FormItem',
           'x-component': 'Input.URL',
-          'x-validator': 'url',
+          'x-validator': {
+            type: 'pattern',
+            pattern:
+              /^(https?|ftp):\/\/((([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})|(\d{1,3}\.){3}\d{1,3}|localhost)(:(\d{1,5}))?(\/[^\s]*)?$/,
+            message: `{{t("Invalid URL",{ ns: "${NAMESPACE}" })}}`,
+          },
         },
         headers: {
           type: 'array',
