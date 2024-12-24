@@ -64,9 +64,6 @@ async function buildClientEsm(
         root: path.join(cwd, 'lib'),
       },
       target: 'web',
-      sourceMap: {
-        js: 'source-map',
-      },
       externals({ request }, callback) {
         if (external(request)) {
           return callback(null, true);
