@@ -1,9 +1,9 @@
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
-import { aichatController } from './actions/aichat-controller';
+import { AIChatController } from './actions/aichat-controller';
 
 @InjectedPlugin({
-  Controllers: [aichatController],
+  Controllers: [AIChatController],
 })
 export class PluginAiChatServer extends Plugin {
   async load() {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { ISchema, uid, useForm } from '@tachybase/schema';
 
 import { App, Card } from 'antd';
 

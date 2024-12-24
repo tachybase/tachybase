@@ -2,15 +2,16 @@ import { Context, Next } from '@tachybase/actions';
 import { Action, Controller } from '@tachybase/utils';
 
 import axios from 'axios';
-import OpenAI from 'openai';
 
 @Controller('aichat')
-export class aichatController {
+export class AIChatController {
   @Action('sendMessage')
   async handleMessage(ctx: Context, next: Next) {
+    const model = process.env.AI_MODEL || 'deepseek-chat';
     const userMessage = ctx.action?.params?.values?.message || undefined;
+    const apiUrl = process.env.DEEPSEEK_API_URL || 'https://api.deepseek.com/chat/completions';
     const requestData = {
-      model: 'deepseek-chat',
+      model,
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
         { role: 'user', content: userMessage },
@@ -23,7 +24,7 @@ export class aichatController {
     };
 
     try {
-      const response = await axios.post('https://api.deepseek.com/chat/completions', requestData, { headers });
+      const response = await axios.post(apiUrl, requestData, { headers });
       ctx.body = response.data;
     } catch (error) {
       console.error('Error during API call:', error);
