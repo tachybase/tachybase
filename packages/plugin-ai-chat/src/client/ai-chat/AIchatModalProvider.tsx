@@ -108,6 +108,15 @@ const roles: GetProp<typeof Bubble.List, 'roles'> = {
     placement: 'end',
     variant: 'shadow',
   },
+  system: {
+    placement: 'start',
+    variant: 'shadow',
+    styles: {
+      content: {
+        width: '100%',
+      },
+    },
+  },
 };
 
 export const AIchat = ({ open, setOpen }) => {
@@ -220,7 +229,7 @@ export const AIchat = ({ open, setOpen }) => {
         <div className={styles.chat}>
           {/* 🌟 消息列表 */}
           <Bubble.List
-            items={items.length > 0 ? items : [{ content: placeholderNode, variant: 'borderless' }]}
+            items={items.length > 0 ? items : [{ content: placeholderNode, variant: 'borderless', role: 'system' }]}
             roles={roles}
             className={styles.messages}
           />

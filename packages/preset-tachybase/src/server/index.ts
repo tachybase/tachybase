@@ -45,6 +45,7 @@ export class PresetTachyBase extends Plugin {
     ['field-china-region', '0.22.7', true],
     ['field-formula', '0.22.7', true],
     ['field-sequence', '0.22.7', true],
+    ['field-encryption', '0.23.8', true],
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
     // default disable

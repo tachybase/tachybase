@@ -7,9 +7,12 @@ import axios from 'axios';
 export class AIChatController {
   @Action('sendMessage')
   async handleMessage(ctx: Context, next: Next) {
-    const model = process.env.AI_MODEL || 'deepseek-chat';
+    const repo = ctx.db.getRepository('aisettings');
+    const data = await repo.findOne();
+    const model = data?.Model || 'deepseek-chat';
     const userMessage = ctx.action?.params?.values?.message || undefined;
-    const apiUrl = process.env.DEEPSEEK_API_URL || 'https://api.deepseek.com/chat/completions';
+    const apiUrl = data?.AI_URL || 'https://api.deepseek.com/chat/completions';
+    const aitoken = data?.AI_API_KEY || process.env.AI_API_KEY;
     const requestData = {
       model,
       messages: [
@@ -17,7 +20,6 @@ export class AIChatController {
         { role: 'user', content: userMessage },
       ],
     };
-    const aitoken = process.env.AI_API_KEY;
     const headers = {
       Authorization: `Bearer ${aitoken}`,
       'Content-Type': 'application/json',
@@ -40,5 +42,28 @@ export class AIChatController {
       ctx.status = error.response ? error.response.status : 500;
     }
     await next();
+  }
+  @Action('get')
+  async getAIsetting(ctx: Context, next: Next) {
+    const repo = ctx.db.getRepository('aisettings');
+    const data = await repo.findOne();
+    ctx.body = data;
+    await next();
+  }
+  @Action('set')
+  async setAIsetting(ctx: Context, next: () => Promise<any>) {
+    const repo = ctx.db.getRepository('aisettings');
+    const values = ctx.action.params.values;
+    // if (!values.id) {
+    //   await repo.create(values);
+    //   return
+    // };
+    await repo.update({
+      values,
+      filter: {
+        id: values.id,
+      },
+    });
+    return next();
   }
 }

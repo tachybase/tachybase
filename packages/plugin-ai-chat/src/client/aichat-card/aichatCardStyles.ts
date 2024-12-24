@@ -16,6 +16,7 @@ export const useStyle = createStyles(({ token, css }) => {
     `,
     placeholder: css`
       padding-top: 32px;
+      width: 100%;
     `,
     sender: css`
       font-size: 12px;
@@ -98,27 +99,6 @@ export const useStyle = createStyles(({ token, css }) => {
       font-size: 20px;
       font-weight: bold;
     `,
-    // modalBody: css`
-    //   margin-top: 10px;
-    //   display: flex;
-    //   flex-direction: column;
-    //   align-items: center;
-    //   overflow: hidden;
-    // `,
-    // chatContent: css`
-    //   width: 100%;
-    //   height: 100%;
-    //   overflow-y: auto;
-    //   padding: 10px;
-    //   border-radius: 5px;
-    //   scrollbar-width: none;
-    // `,
-    // welcomeText: css`
-    //   font-size: 16px;
-    //   font-weight: bold;
-    //   text-align: center;
-    //   margin: 120px 0;
-    // `,
     chatItem: css`
       display: flex;
       flex-direction: column;

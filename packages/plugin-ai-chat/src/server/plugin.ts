@@ -7,10 +7,11 @@ import { AIChatController } from './actions/aichat-controller';
 })
 export class PluginAiChatServer extends Plugin {
   async load() {
-    this.app.acl.registerSnippet({
-      name: `pm.${this.name}.aichat`,
-      actions: ['aichat:*'],
-    });
+    this.app.acl.allow('aichat', '*', 'public');
+    // this.app.acl.registerSnippet({
+    //   name: `pm.${this.name}.aichat`,
+    //   actions: ['aichat:*'],
+    // });
   }
 }
 

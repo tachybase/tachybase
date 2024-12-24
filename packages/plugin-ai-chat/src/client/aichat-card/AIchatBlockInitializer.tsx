@@ -7,7 +7,7 @@ import { Bubble, Prompts, Sender, useXAgent, useXChat } from '@ant-design/x';
 import { GetProp, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { useStyle } from './chatStyles';
+import { useStyle } from './aichatCardStyles';
 
 export const AIchatBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
@@ -42,19 +42,6 @@ const renderTitle = (icon: React.ReactElement, title: string) => (
     <span>{title}</span>
   </Space>
 );
-
-const senderPromptsItems: GetProp<typeof Prompts, 'items'> = [
-  {
-    key: '1',
-    description: 'About tachybase',
-    icon: <FireOutlined style={{ color: '#FF4D4F' }} />,
-  },
-  {
-    key: '2',
-    description: 'How to start',
-    icon: <ReadOutlined style={{ color: '#1890FF' }} />,
-  },
-];
 
 const placeholderPromptsItems: GetProp<typeof Prompts, 'items'> = [
   {
@@ -110,21 +97,21 @@ const roles: GetProp<typeof Bubble.List, 'roles'> = {
     placement: 'end',
     variant: 'shadow',
   },
+  system: {
+    placement: 'start',
+    variant: 'shadow',
+    styles: {
+      content: {
+        width: '100%',
+      },
+    },
+  },
 };
 
 export const AiChatBlock = () => {
   const { styles } = useStyle();
   const api = useAPIClient();
   const [content, setContent] = React.useState('');
-  // const [activeKey, setActiveKey] = React.useState(defaultConversationsItems[0].key);
-
-  // const handleOk = () => {
-  //     setOpen(false);
-  // };
-
-  // const handleCancel = () => {
-  //     setOpen(false);
-  // };
 
   const [agent] = useXAgent({
     request: async ({ message }, { onSuccess, onError }) => {
@@ -153,13 +140,7 @@ export const AiChatBlock = () => {
     setContent('');
   };
 
-  const { onRequest, messages, setMessages } = useXChat({ agent });
-
-  // useEffect(() => {
-  //     if (activeKey !== undefined) {
-  //         setMessages([]);
-  //     }
-  // }, [activeKey]);
+  const { onRequest, messages } = useXChat({ agent });
 
   const onPromptsItemClick: GetProp<typeof Prompts, 'onItemClick'> = (info) => {
     onRequest(info.data.description as string);
@@ -193,12 +174,10 @@ export const AiChatBlock = () => {
     <div className={styles.chat}>
       {/* 🌟 消息列表 */}
       <Bubble.List
-        items={items.length > 0 ? items : [{ content: placeholderNode, variant: 'borderless' }]}
+        items={items.length > 0 ? items : [{ content: placeholderNode, variant: 'borderless', role: 'system' }]}
         roles={roles}
         className={styles.messages}
       />
-      {/* 🌟 提示词 */}
-      <Prompts items={senderPromptsItems} onItemClick={onPromptsItemClick} />
       {/* 🌟 输入框 */}
       <Sender
         value={content}
