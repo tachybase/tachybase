@@ -27,11 +27,11 @@ export const schemaDataSourceSettingsForm = {
       properties: {
         baseUrl: {
           type: 'string',
-          title: `{{t("BaseURL===",{ ns: "${NAMESPACE}" })}}`,
+          title: `{{t("BaseURL",{ ns: "${NAMESPACE}" })}}`,
           required: true,
           'x-decorator': 'FormItem',
           'x-component': 'Input.URL',
-          // 'x-validator': 'url',
+          'x-validator': 'url',
         },
         headers: {
           type: 'array',

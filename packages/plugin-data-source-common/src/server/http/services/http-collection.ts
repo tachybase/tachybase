@@ -208,7 +208,7 @@ export class HttpCollection extends Collection {
       }
     };
     transformResponse(baseResponse, actionOptions);
-    dataSource.logger?.debug({
+    dataSource.logger.debug({
       actionOptions,
       requestConfig,
       baseResponse,
