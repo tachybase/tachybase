@@ -15,7 +15,7 @@ export const useStyles = createStyles(({ css, token }) => {
       :hover {
         background-color: var(--colorPrimaryText);
         border-radius: 10px;
-        transform: scale(1.1);
+        transform: scale(1.05);
         transition: all 0.3s;
       }
 
