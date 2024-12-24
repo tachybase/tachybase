@@ -164,7 +164,8 @@ class CronstrueLocale {
 }
 
 export const loadConstrueLocale = (data) => {
-  cronstrue.initialize({
+  const initialize = cronstrue.initialize ? cronstrue.initialize : (cronstrue as any).default.initialize;
+  initialize({
     load(availableLocales) {
       availableLocales[data?.lang] = new CronstrueLocale(data?.cronstrue);
     },
