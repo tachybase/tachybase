@@ -1,27 +1,20 @@
 import React from 'react';
-import { useAPIClient } from '@tachybase/client';
 
 import { HolderOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 
 import { useFlowContext } from '../../../FlowContext';
-import { useContextNode } from '../Node.context';
+import { useContextDrag } from '../Drag.context';
 
 export const DragButton = () => {
-  const api = useAPIClient();
-  const { workflow, nodes, refresh } = useFlowContext() ?? {};
-  const current = useContextNode();
+  const { workflow } = useFlowContext() ?? {};
+  const { setIsDraggable } = useContextDrag();
+  const handleOnClick = () => {
+    setIsDraggable(true);
+  };
 
   if (!workflow) {
     return null;
-  }
-  const resource = api.resource('flow_nodes');
-
-  async function onMoveUp() {
-    await resource.moveUp?.({
-      filterByTk: current.id,
-    });
-    refresh();
   }
 
   return (
@@ -30,7 +23,7 @@ export const DragButton = () => {
       type="text"
       shape="circle"
       icon={<HolderOutlined />}
-      onClick={onMoveUp}
+      onClick={handleOnClick}
     />
   );
 };
