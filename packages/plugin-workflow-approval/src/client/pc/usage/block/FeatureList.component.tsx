@@ -1,12 +1,18 @@
 import React from 'react';
+import { useTableBlockContext } from '@tachybase/client';
 
 import { FeatureCard } from './FeatureCard.component';
-import { useContextFeatureList } from './FeatureList.context';
 import { useStyles } from './FeatureList.style';
 
 export const FeatureList = () => {
-  const { dataSources } = useContextFeatureList();
   const { styles } = useStyles();
+  const { service } = useTableBlockContext();
+  const { loading, data } = service;
+  const dataSources = data?.data ?? [];
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className={styles.featureList}>
