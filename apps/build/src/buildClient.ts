@@ -64,6 +64,7 @@ async function buildClientEsm(
         root: path.join(cwd, 'lib'),
       },
       target: 'web',
+      overrideBrowserslist: ['chrome >= 69', 'edge >= 79', 'safari >= 12'],
       externals({ request }, callback) {
         if (external(request)) {
           return callback(null, true);
