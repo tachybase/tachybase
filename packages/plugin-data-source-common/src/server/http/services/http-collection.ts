@@ -1,9 +1,10 @@
-import { Collection } from '@tachybase/data-source';
+import { Collection, DataSource } from '@tachybase/data-source';
 import { parse } from '@tachybase/utils';
 
 import axios from 'axios';
 import _ from 'lodash';
 
+import { HttpDataSource } from './http-data-source';
 import { transformResponseThroughMiddleware } from './transform-response';
 import { typeInterfaceMap } from './type-interface-map';
 import { normalizeRequestOptions, normalizeRequestOptionsKey } from './utils';
@@ -140,7 +141,14 @@ export class HttpCollection extends Collection {
     return actions.filter((action) => allActionOptions[action]);
   }
   // send http request to external server
-  static async runAction(options) {
+  static async runAction(options: {
+    dataSource: HttpDataSource;
+    actionOptions: any;
+    templateContext?: any;
+    parseField?: boolean;
+    debugVars?: any;
+    runAsDebug?: boolean;
+  }) {
     const { dataSource, actionOptions, templateContext = {}, parseField, debugVars, runAsDebug } = options;
     normalizeRequestOptions(actionOptions);
     const dataSourceRequestConfig = dataSource.requestConfig();
@@ -208,11 +216,6 @@ export class HttpCollection extends Collection {
       }
     };
     transformResponse(baseResponse, actionOptions);
-    dataSource.logger.debug({
-      actionOptions,
-      requestConfig,
-      baseResponse,
-    });
     return handleResponse(baseResponse);
   }
   getActionOptions(action) {

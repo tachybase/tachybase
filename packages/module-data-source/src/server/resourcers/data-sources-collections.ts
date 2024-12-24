@@ -41,10 +41,10 @@ export default {
       } else {
         const { page = 1, pageSize = 20 } = ctx.action.params;
 
-        ctx.withoutDataWrapping = true;
+        ctx.withoutDataWrapping = false;
 
         ctx.body = {
-          data: mapCollection(collections.slice((page - 1) * pageSize, page * pageSize)),
+          rows: mapCollection(collections.slice((page - 1) * pageSize, page * pageSize)),
           meta: {
             count: collections.length,
             page,
