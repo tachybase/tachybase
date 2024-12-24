@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { Cache } from '@tachybase/cache';
 import { Database, Transaction } from '@tachybase/database';
 
@@ -8,6 +9,11 @@ export default class Resources {
   constructor(db: Database, cache: Cache) {
     this.cache = cache;
     this.db = db;
+  }
+
+  async getETag(locale: string) {
+    const { eTag } = await this.getTranslationsCache(locale);
+    return eTag;
   }
 
   async getTexts(transaction?: Transaction) {
@@ -21,12 +27,19 @@ export default class Resources {
   }
 
   async getTranslations(locale: string) {
+    const response = await this.getTranslationsCache(locale);
+    return response.result;
+  }
+
+  async getTranslationsCache(locale: string) {
     return await this.cache.wrap(`translations:${locale}`, async () => {
-      return await this.db.getRepository('localizationTranslations').find({
+      const result = await this.db.getRepository('localizationTranslations').find({
         fields: ['textId', 'translation'],
         filter: { locale },
         raw: true,
       });
+      this.cache.del(`translationsETag:${locale}`);
+      return { result, eTag: randomUUID() };
     });
   }
 

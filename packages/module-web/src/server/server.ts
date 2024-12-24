@@ -1,5 +1,5 @@
 import { Context } from '@tachybase/actions';
-import { Plugin } from '@tachybase/server';
+import { Application, Plugin } from '@tachybase/server';
 
 import { getAntdLocale } from './antd';
 import { getCronLocale } from './cron';
@@ -105,7 +105,20 @@ export class ModuleWeb extends Plugin {
         },
         async getLang(ctx: Context, next) {
           const lang = await getLang(ctx);
-          const resources = await ctx.app.localeManager.get(lang);
+          const app = ctx.app as Application;
+          const eTag = await app.localeManager.getETag(lang);
+          const resources = await app.localeManager.get(lang);
+          // UUID 前36位
+          const requestETag = ctx.get('If-None-Match');
+          if (eTag && eTag === requestETag.substring(0, 36)) {
+            ctx.status = 304;
+            ctx.set('ETag', requestETag);
+          } else {
+            const newTag = `${eTag}-${requestETag.substring(36 + 1)}`;
+            ctx.set('ETag', newTag);
+            console.log(ctx.get('ETag'));
+          }
+          // TODO: 因为有下一个本地化插件,所以这里依然考虑要装载,不直接返回304
           ctx.body = {
             lang,
             ...resources,

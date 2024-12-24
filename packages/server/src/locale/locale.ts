@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { Cache } from '@tachybase/cache';
 import { lodash } from '@tachybase/utils';
 
@@ -37,13 +38,27 @@ export class Locale {
     this.localeFn.set(name, fn);
   }
 
+  async getETag(lang: string) {
+    // TODO: 开发环境做文件监听变动这个缓存, 目前开发环境默认不缓存,需要重新拉取
+    if (process.env.APP_ENV !== 'production' && !process.env.FORCE_LOCALE_CACHE) {
+      // 此处之前不该reset(),会导致所有内存缓存被重置
+      await this.cache.del(`eTag:${lang}`);
+    }
+    return await this.wrapCache(`eTag:${lang}`, async () => {
+      return randomUUID();
+    });
+  }
+
   async get(lang: string) {
     const defaults = {
       resources: await this.getCacheResources(lang),
     };
     for (const [name, fn] of this.localeFn) {
       // this.app.log.debug(`load [${name}] locale resource `);
-      const result = await this.wrapCache(`${name}:${lang}`, async () => await fn(lang));
+      const result = await this.wrapCache(`${name}:${lang}`, async () => {
+        this.cache.del(`eTag:${lang}`);
+        return await fn(lang);
+      });
       if (result) {
         defaults[name] = result;
       }
@@ -68,8 +83,9 @@ export class Locale {
 
   async getCacheResources(lang: string) {
     this.resourceCached.set(lang, true);
-    if (process.env.APP_ENV !== 'production') {
-      await this.cache.reset();
+    if (process.env.APP_ENV !== 'production' && !process.env.FORCE_LOCALE_CACHE) {
+      // 此处之前不该reset(),会导致所有内存缓存被重置
+      await this.cache.del(`resources:${lang}`);
     }
     return await this.wrapCache(`resources:${lang}`, () => this.getResources(lang));
   }
