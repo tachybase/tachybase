@@ -13,8 +13,6 @@ export * from './SchemaSettingCollection';
 export * from './SchemaSettingComponent';
 export * from './EditFormulaTitleField';
 export * from './EditCustomDefaultValue';
-
-export { default as useParseDataScopeFilter } from './hooks/useParseDataScopeFilter';
-
-export { SchemaSettingsPlugin } from './SchemaSettingsPlugin';
+export * from './hooks/useParseDataScopeFilter';
+export * from './SchemaSettingsPlugin';
 export * from './VariableInput';
