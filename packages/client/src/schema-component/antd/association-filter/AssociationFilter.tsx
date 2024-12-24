@@ -6,6 +6,7 @@ import cls from 'classnames';
 
 import { useSchemaInitializerRender } from '../../../application';
 import { Plugin } from '../../../application/Plugin';
+import { TableBlockProvider } from '../../../block-provider/TableBlockProvider';
 import { useCollection_deprecated } from '../../../collection-manager';
 import {
   associationFilterFilterBlockInitializer,
@@ -17,7 +18,6 @@ import { AssociationFilterBlockDesigner } from './AssociationFilter.BlockDesigne
 import { associationFilterInitializer } from './AssociationFilter.Initializer';
 import { AssociationFilterItem } from './AssociationFilter.Item';
 import { AssociationFilterItemDesigner } from './AssociationFilter.Item.Designer';
-import { AssociationFilterProvider } from './AssociationFilterProvider';
 
 const useStyles = createStyles(({ css, token }) => {
   return {
@@ -89,7 +89,7 @@ export const AssociationFilter = (props) => {
   );
 };
 
-AssociationFilter.Provider = AssociationFilterProvider;
+AssociationFilter.Provider = TableBlockProvider;
 AssociationFilter.Item = AssociationFilterItem as typeof AssociationFilterItem & {
   Designer: typeof AssociationFilterItemDesigner;
 };

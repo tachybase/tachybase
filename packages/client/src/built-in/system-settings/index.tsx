@@ -1,7 +1,7 @@
 import { Plugin } from '../../application/Plugin';
 import { SystemSettingsProvider } from './SystemSettingsProvider';
 
-export * from './SystemSettingsProvider';
+export { SystemSettingsContext, SystemSettingsProvider, useSystemSettings } from './SystemSettingsProvider';
 export * from './SystemSettingsShortcut';
 
 export class SystemSettingsPlugin extends Plugin {

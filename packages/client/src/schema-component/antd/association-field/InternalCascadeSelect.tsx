@@ -16,7 +16,8 @@ import { Select as AntdSelect, Input, Space, Spin, Tag } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
-import { useAPIClient, useCollectionManager_deprecated } from '../../../';
+import { useAPIClient } from '../../../api-client';
+import { useCollectionManager_deprecated } from '../../../collection-manager/hooks/useCollectionManager_deprecated';
 import { mergeFilter } from '../../../filter-provider/utils';
 import { SchemaComponent, useCompile } from '../../../schema-component';
 import useServiceOptions, { useAssociationFieldContext } from './hooks';

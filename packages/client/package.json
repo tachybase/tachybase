@@ -1,9 +1,8 @@
 {
   "name": "@tachybase/client",
-  "version": "0.23.8",
+  "version": "0.23.8-alpha.27",
   "license": "Apache-2.0",
-  "main": "lib/index.js",
-  "module": "es/index.mjs",
+  "module": "lib/index.mjs",
   "types": "es/index.d.ts",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/client"
@@ -36,6 +35,7 @@
     "antd": "5.22.5",
     "antd-style": "3.7.1",
     "axios": "^1.7.9",
+    "axios-mock-adapter": "^1.22.0",
     "classnames": "^2.5.1",
     "click-to-react-component": "1.1.2",
     "cronstrue": "^2.52.0",
@@ -82,11 +82,9 @@
     "@types/lodash": "^4.17.13",
     "@types/markdown-it": "12.2.3",
     "@types/markdown-it-highlightjs": "3.3.4",
-    "@types/react-big-calendar": "^1.16.0",
-    "axios-mock-adapter": "^1.22.0"
+    "@types/react-big-calendar": "^1.16.0"
   },
   "peerDependencies": {
-    "@tachybase/database": "workspace:*",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
     "react-is": ">=18.0.0"

@@ -2,7 +2,6 @@
 import 'antd/dist/reset.css';
 import './global.less';
 
-export * from '@emotion/css';
 export * from './built-in/acl';
 export * from './api-client';
 export * from './application';

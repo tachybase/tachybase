@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
 
+import MarkdownIt from 'markdown-it';
+
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+  breaks: true,
+});
+
 export async function parseMarkdown(text: string) {
   if (!text) {
     return text;
   }
-  const m = await import('./md');
-  return m.default.render(text);
+  return md.render(text);
 }
 
 export function useParseMarkdown(text: string) {
