@@ -59,6 +59,7 @@ async function buildClientEsm(
       },
     ],
     output: {
+      minify: false,
       distPath: {
         root: path.join(cwd, 'lib'),
       },

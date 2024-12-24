@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { FieldOptions } from '@tachybase/database';
 import { ArrayField, observer, useField, useForm } from '@tachybase/schema';
 
 import { Alert, Cascader, Input, Select, Spin, Table, Tag } from 'antd';
@@ -11,6 +10,7 @@ import { useCompile } from '../../../../schema-component';
 import { useFieldInterfaceOptions } from '../../../Configuration/interfaces';
 import { useCollectionManager_deprecated } from '../../../hooks';
 import { ResourceActionContext } from '../../../ResourceActionProvider';
+import { FieldOptions } from '../../../types';
 
 const inferInterface = (field: string, value: any) => {
   if (field.toLowerCase().includes('id')) {

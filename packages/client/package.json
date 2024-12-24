@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/client",
-  "version": "0.23.8-alpha.17",
+  "version": "0.23.8-alpha.18",
   "license": "Apache-2.0",
   "module": "lib/index.mjs",
   "types": "es/index.d.ts",
@@ -85,7 +85,6 @@
     "@types/react-big-calendar": "^1.16.0"
   },
   "peerDependencies": {
-    "@tachybase/database": "workspace:*",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
     "react-is": ">=18.0.0"
