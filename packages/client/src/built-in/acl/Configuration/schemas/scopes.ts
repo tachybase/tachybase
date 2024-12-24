@@ -3,7 +3,7 @@ import { ISchema } from '@tachybase/schema';
 
 import { useFormBlockContext } from '../../../../block-provider';
 import { useFilterOptions } from '../../../../schema-component';
-import { VariableInput } from '../../../../schema-settings';
+import { VariableInput } from '../../../../schema-settings/VariableInput/VariableInput';
 import { RoleResourceCollectionContext } from '../RolesResourcesActions';
 
 export const rolesResourcesScopesCollection = {
