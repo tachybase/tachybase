@@ -1,7 +1,7 @@
 import { ArrayItems } from '@tachybase/components';
 import { GroupType, Instruction } from '@tachybase/module-workflow/client';
 
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../common/collection-name';
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../common/constants';
 import { tval } from '../../locale';
 import { AdditionNotifiedPerson } from './config-items/AddNotifiedPerson.view';
 import { ConfigButtonNotice } from './config-items/ConfigButtonNotice.view';

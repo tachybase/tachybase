@@ -1,7 +1,7 @@
 import { Plugin } from '@tachybase/client';
 import PluginWorkflow from '@tachybase/module-workflow/client';
 
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../common/collection-name';
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../common/constants';
 import { ApprovalCarbonCopyInstruction } from './ApprovalCarbonCopy.instruction';
 import { SCCarbonCopyDetail } from './show-interface/CarbonCopyDetail.schema';
 

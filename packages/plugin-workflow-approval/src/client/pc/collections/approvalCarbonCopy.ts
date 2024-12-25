@@ -1,4 +1,4 @@
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../common/collection-name';
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../common/constants';
 import { ApprovalStatusEnums } from '../constants';
 import { NAMESPACE, tval } from '../locale';
 import { approvalStatusOptions } from '../usage/common/notice-columns/column.status';

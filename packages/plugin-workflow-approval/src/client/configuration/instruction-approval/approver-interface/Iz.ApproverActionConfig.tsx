@@ -1,7 +1,7 @@
 import { SchemaInitializer } from '@tachybase/client';
 
-import { APPROVAL_ACTION_STATUS } from '../../../constants';
 import { NAMESPACE } from '../../../locale';
+import { APPROVAL_ACTION_STATUS } from '../../../pc/constants';
 import { ApprovalActionConfigComponent } from './VC.ApprovalActionConfig';
 
 export const ApproverActionConfigInitializer = new SchemaInitializer({

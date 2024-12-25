@@ -1,8 +1,8 @@
 import React from 'react';
 import { InitializerWithSwitch, SchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
-import { APPROVAL_ACTION_STATUS } from '../../../constants';
-import { NAMESPACE } from '../../../locale';
+import { APPROVAL_ACTION_STATUS } from '../../../pc/constants';
+import { NAMESPACE } from '../../../pc/locale';
 
 export const ApprovalAddActionButton = new SchemaInitializer({
   name: 'ApprovalAddActionButton',

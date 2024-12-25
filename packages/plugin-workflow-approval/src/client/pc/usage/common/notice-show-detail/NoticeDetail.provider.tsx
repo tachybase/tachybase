@@ -9,7 +9,7 @@ import { ExecutionContextProvider } from '@tachybase/module-workflow/client';
 
 import { Result, Spin } from 'antd';
 
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../../common/collection-name';
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../../common/constants';
 import { useTranslation } from '../../../locale';
 import { ProviderContextMyComponent } from './contexts/MyComponent.context';
 import { ProviderContextWorkflowNotice } from './contexts/WorkflowNotice.context';

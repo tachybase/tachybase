@@ -4,8 +4,8 @@ import { ArrayItems } from '@tachybase/components';
 import { Instruction, RadioWithTooltip, useWorkflowAnyExecuted } from '@tachybase/module-workflow/client';
 import { uid } from '@tachybase/utils/client';
 
-import { APPROVAL_ACTION_STATUS } from '../../constants';
-import { NAMESPACE } from '../../locale';
+import { APPROVAL_ACTION_STATUS } from '../../pc/constants';
+import { NAMESPACE } from '../../pc/locale';
 import { ViewSkipApproval } from './approval-config/SkipApproval.view';
 import { AssigneesAddition } from './approval-config/VC.AssigneesAddition';
 import { AssigneesSelect } from './approval-config/VC.AssigneesSelect';
