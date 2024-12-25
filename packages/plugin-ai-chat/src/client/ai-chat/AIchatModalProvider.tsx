@@ -1,10 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useAPIClient } from '@tachybase/client';
+import React, { createContext, useContext, useState } from 'react';
+import { useAPIClient, useCompile } from '@tachybase/client';
 
 import { CommentOutlined, FireOutlined, HeartOutlined, ReadOutlined, SmileOutlined } from '@ant-design/icons';
-import { Attachments, Bubble, Prompts, Sender, useXAgent, useXChat } from '@ant-design/x';
+import { Bubble, Prompts, Sender, useXAgent, useXChat } from '@ant-design/x';
 import { GetProp, Modal, Space } from 'antd';
 
+import { useTranslation } from '../locale';
 import { useStyle } from './chatStyles';
 
 export const AIchatContext = createContext({
@@ -34,66 +35,6 @@ const renderTitle = (icon: React.ReactElement, title: string) => (
   </Space>
 );
 
-const placeholderPromptsItems: GetProp<typeof Prompts, 'items'> = [
-  {
-    key: '1',
-    label: renderTitle(<FireOutlined style={{ color: '#FF4D4F' }} />, '关于灵矶'),
-    description: '猜你想知道',
-    children: [
-      {
-        key: '1-1',
-        description: `关于平台`,
-      },
-      {
-        key: '1-2',
-        description: `我们能做什么`,
-      },
-    ],
-  },
-  {
-    key: '2',
-    label: renderTitle(<ReadOutlined style={{ color: '#1890FF' }} />, '如何开始'),
-    description: '猜你想知道',
-    children: [
-      {
-        key: '2-1',
-        icon: <HeartOutlined />,
-        description: `信息表单`,
-      },
-      {
-        key: '2-2',
-        icon: <SmileOutlined />,
-        description: `登录组件`,
-      },
-      {
-        key: '2-3',
-        icon: <CommentOutlined />,
-        description: `日期组件`,
-      },
-    ],
-  },
-];
-
-const senderPromptsItems: GetProp<typeof Prompts, 'items'> = [
-  {
-    key: '1',
-    description: 'About tachybase',
-    icon: <FireOutlined style={{ color: '#FF4D4F' }} />,
-  },
-  {
-    key: '2',
-    description: 'How to start',
-    icon: <ReadOutlined style={{ color: '#1890FF' }} />,
-  },
-];
-
-const defaultConversationsItems = [
-  {
-    key: '0',
-    label: 'What is Ant Design X?',
-  },
-];
-
 const roles: GetProp<typeof Bubble.List, 'roles'> = {
   ai: {
     placement: 'start',
@@ -120,10 +61,10 @@ const roles: GetProp<typeof Bubble.List, 'roles'> = {
 };
 
 export const AIchat = ({ open, setOpen }) => {
+  const { t } = useTranslation();
   const { styles } = useStyle();
   const api = useAPIClient();
   const [content, setContent] = React.useState('');
-  const [activeKey, setActiveKey] = React.useState(defaultConversationsItems[0].key);
 
   const handleOk = () => {
     setOpen(false);
@@ -132,6 +73,59 @@ export const AIchat = ({ open, setOpen }) => {
   const handleCancel = () => {
     setOpen(false);
   };
+
+  const placeholderPromptsItems: GetProp<typeof Prompts, 'items'> = [
+    {
+      key: '1',
+      label: renderTitle(<FireOutlined style={{ color: '#FF4D4F' }} />, t('About Tachybase')),
+      description: t('Guess you want'),
+      children: [
+        {
+          key: '1-1',
+          description: t('About Platform'),
+        },
+        {
+          key: '1-2',
+          description: t('What Can We Do'),
+        },
+      ],
+    },
+    {
+      key: '2',
+      label: renderTitle(<ReadOutlined style={{ color: '#1890FF' }} />, t('How To Start')),
+      description: t('Guess you want'),
+      children: [
+        {
+          key: '2-1',
+          icon: <HeartOutlined />,
+          description: t('InformationForm'),
+        },
+        {
+          key: '2-2',
+          icon: <SmileOutlined />,
+          description: t('LoginComponent'),
+        },
+        {
+          key: '2-3',
+          icon: <CommentOutlined />,
+          description: t('DateComponent'),
+        },
+      ],
+    },
+  ];
+
+  const senderPromptsItems: GetProp<typeof Prompts, 'items'> = [
+    {
+      key: '1',
+      description: t('About Tachybase'),
+      icon: <FireOutlined style={{ color: '#FF4D4F' }} />,
+    },
+    {
+      key: '2',
+      description: t('How To Start'),
+      icon: <ReadOutlined style={{ color: '#1890FF' }} />,
+    },
+  ];
 
   const [agent] = useXAgent({
     request: async ({ message }, { onSuccess, onError }) => {
@@ -161,12 +155,6 @@ export const AIchat = ({ open, setOpen }) => {
   };
 
   const { onRequest, messages, setMessages } = useXChat({ agent });
-
-  useEffect(() => {
-    if (activeKey !== undefined) {
-      setMessages([]);
-    }
-  }, [activeKey]);
 
   const onPromptsItemClick: GetProp<typeof Prompts, 'onItemClick'> = (info) => {
     onRequest(info.data.description as string);

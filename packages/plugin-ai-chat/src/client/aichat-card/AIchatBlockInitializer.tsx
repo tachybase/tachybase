@@ -5,8 +5,8 @@ import { ISchema } from '@tachybase/schema';
 import { CommentOutlined, FireOutlined, HeartOutlined, ReadOutlined, SmileOutlined } from '@ant-design/icons';
 import { Bubble, Prompts, Sender, useXAgent, useXChat } from '@ant-design/x';
 import { GetProp, Space } from 'antd';
-import { useTranslation } from 'react-i18next';
 
+import { useTranslation } from '../locale';
 import { useStyle } from './aichatCardStyles';
 
 export const AIchatBlockInitializer = () => {
@@ -43,75 +43,76 @@ const renderTitle = (icon: React.ReactElement, title: string) => (
   </Space>
 );
 
-const placeholderPromptsItems: GetProp<typeof Prompts, 'items'> = [
-  {
-    key: '1',
-    label: renderTitle(<FireOutlined style={{ color: '#FF4D4F' }} />, '关于灵矶'),
-    description: '猜你想知道',
-    children: [
-      {
-        key: '1-1',
-        description: `关于平台`,
-      },
-      {
-        key: '1-2',
-        description: `我们能做什么`,
-      },
-    ],
-  },
-  {
-    key: '2',
-    label: renderTitle(<ReadOutlined style={{ color: '#1890FF' }} />, '如何开始'),
-    description: '猜你想知道',
-    children: [
-      {
-        key: '2-1',
-        icon: <HeartOutlined />,
-        description: `信息表单`,
-      },
-      {
-        key: '2-2',
-        icon: <SmileOutlined />,
-        description: `登录组件`,
-      },
-      {
-        key: '2-3',
-        icon: <CommentOutlined />,
-        description: `日期组件`,
-      },
-    ],
-  },
-];
-
-const roles: GetProp<typeof Bubble.List, 'roles'> = {
-  ai: {
-    placement: 'start',
-    typing: { step: 5, interval: 20 },
-    styles: {
-      content: {
-        borderRadius: 16,
-      },
-    },
-  },
-  local: {
-    placement: 'end',
-    variant: 'shadow',
-  },
-  system: {
-    placement: 'start',
-    variant: 'shadow',
-    styles: {
-      content: {
-        width: '100%',
-      },
-    },
-  },
-};
-
 export const AiChatBlock = () => {
   const { styles } = useStyle();
   const api = useAPIClient();
   const [content, setContent] = React.useState('');
+  const { t } = useTranslation();
+
+  const placeholderPromptsItems: GetProp<typeof Prompts, 'items'> = [
+    {
+      key: '1',
+      label: renderTitle(<FireOutlined style={{ color: '#FF4D4F' }} />, t('About Tachybase')),
+      description: t('Guess you want'),
+      children: [
+        {
+          key: '1-1',
+          description: t('About Platform'),
+        },
+        {
+          key: '1-2',
+          description: t('What Can We Do'),
+        },
+      ],
+    },
+    {
+      key: '2',
+      label: renderTitle(<ReadOutlined style={{ color: '#1890FF' }} />, t('How To Start')),
+      description: t('Guess you want'),
+      children: [
+        {
+          key: '2-1',
+          icon: <HeartOutlined />,
+          description: t('InformationForm'),
+        },
+        {
+          key: '2-2',
+          icon: <SmileOutlined />,
+          description: t('LoginComponent'),
+        },
+        {
+          key: '2-3',
+          icon: <CommentOutlined />,
+          description: t('DateComponent'),
+        },
+      ],
+    },
+  ];
+
+  const roles: GetProp<typeof Bubble.List, 'roles'> = {
+    ai: {
+      placement: 'start',
+      typing: { step: 5, interval: 20 },
+      styles: {
+        content: {
+          borderRadius: 16,
+        },
+      },
+    },
+    local: {
+      placement: 'end',
+      variant: 'shadow',
+    },
+    system: {
+      placement: 'start',
+      variant: 'shadow',
+      styles: {
+        content: {
+          width: '100%',
+        },
+      },
+    },
+  };
 
   const [agent] = useXAgent({
     request: async ({ message }, { onSuccess, onError }) => {
