@@ -52,6 +52,11 @@ async function buildClientEsm(
         dts: false,
         format: 'esm',
       },
+      {
+        bundle: false,
+        dts: false,
+        format: 'cjs',
+      },
     ],
     output: {
       distPath: {
