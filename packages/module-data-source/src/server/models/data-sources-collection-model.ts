@@ -15,6 +15,7 @@ export class DataSourcesCollectionModel extends MagicAttributeModel {
     const collection = dataSource.collectionManager.getCollection(collectionOptions.name);
 
     if (collectionOptions.fields) {
+      // TODO: 此处怎么加入dataSourceKey
       collectionOptions.fields = collectionOptions.fields.map((field) => {
         if (field instanceof Model) {
           return field.get();

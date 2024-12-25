@@ -68,6 +68,10 @@ export class CollectionManager implements ICollectionManager {
 
   async sync() {}
 
+  removeCollection(name: string): void {
+    this.collections.delete(name);
+  }
+
   protected newCollection(options) {
     return new Collection(options, this);
   }
