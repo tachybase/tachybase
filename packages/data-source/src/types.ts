@@ -70,6 +70,7 @@ export interface ICollectionManager {
   getCollection(name: string): ICollection;
 
   getCollections(): Array<ICollection>;
+  removeCollection(name: string): void;
   getRepository(name: string, sourceId?: string | number): IRepository;
   sync(): Promise<void>;
   dataSource?: any;

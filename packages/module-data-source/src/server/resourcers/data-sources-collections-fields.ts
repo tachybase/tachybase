@@ -58,8 +58,13 @@ export default {
           },
         });
       } else {
-        await fieldRecord.update({
-          ...values,
+        await mainDb.getRepository('dataSourcesFields').update({
+          filter: {
+            name,
+            collectionName,
+            dataSourceKey,
+          },
+          values,
         });
       }
 

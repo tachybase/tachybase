@@ -22,6 +22,7 @@
     "@tachybase/components": "workspace:*",
     "@tachybase/data-source": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/module-data-source": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",

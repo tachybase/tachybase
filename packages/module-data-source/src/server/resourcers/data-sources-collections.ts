@@ -41,10 +41,10 @@ export default {
       } else {
         const { page = 1, pageSize = 20 } = ctx.action.params;
 
-        ctx.withoutDataWrapping = true;
+        ctx.withoutDataWrapping = false;
 
         ctx.body = {
-          data: mapCollection(collections.slice((page - 1) * pageSize, page * pageSize)),
+          rows: mapCollection(collections.slice((page - 1) * pageSize, page * pageSize)),
           meta: {
             count: collections.length,
             page,
@@ -77,10 +77,22 @@ export default {
           },
         });
       } else {
-        await dataSourceCollectionRecord.update({
-          ...params.values,
+        await ctx.db.getRepository('dataSourcesCollections').update({
+          filter: {
+            name: collectionName,
+            dataSourceKey,
+          },
+          values: params.values,
+          updateAssociationValues: ['fields'],
         });
       }
+
+      dataSourceCollectionRecord = await ctx.db.getRepository('dataSourcesCollections').findOne({
+        filter: {
+          name: collectionName,
+          dataSourceKey,
+        },
+      });
 
       ctx.body = dataSourceCollectionRecord.toJSON();
 
