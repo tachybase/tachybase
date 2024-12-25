@@ -3,7 +3,7 @@ import { SchemaComponent, useCollectionRecordData } from '@tachybase/client';
 
 import { usePropsCheckLink } from '../hooks/usePropsCheckLink';
 import { usePropsShowDetail } from '../hooks/usePropsShowDetail';
-import { CheckContent } from './CheckContent.component';
+import { ViewCheckContent } from './CheckContent.view';
 import { getSchemaCheckLink } from './CheckLink.schema';
 
 export const ViewCheckLink = (props) => {
@@ -19,7 +19,7 @@ export const ViewCheckLink = (props) => {
     <SchemaComponent
       schema={schema}
       components={{
-        CheckContent: CheckContent,
+        ViewCheckContent: ViewCheckContent,
       }}
       scope={{
         usePropsCheckLink: usePropsCheckLink,

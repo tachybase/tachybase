@@ -22,7 +22,11 @@ export const getSchemaCheckLink = (params) => {
         },
         properties: {
           checkContent: {
-            'x-component': 'CheckContent',
+            type: 'void',
+            'x-component': 'ViewCheckContent',
+            'x-component-props': {
+              record,
+            },
           },
         },
       },

@@ -1,7 +1,7 @@
 import { tval } from '../../locale';
 
-export const getSchemaCheckContent = (message) => {
-  const { id, schemaName } = message;
+export const getSchemaCheckContent = (record) => {
+  const { id, schemaName } = record;
   return {
     name: `messages-content-${id}`,
     type: 'void',
@@ -14,10 +14,6 @@ export const getSchemaCheckContent = (message) => {
         properties: {
           schemaName: {
             type: 'void',
-            'x-decorator': 'ProviderSchemaComponentContext',
-            'x-decorator-props': {
-              designable: false,
-            },
             'x-component': 'RemoteSchemaComponent',
             'x-component-props': {
               uid: schemaName,
