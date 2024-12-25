@@ -1,7 +1,7 @@
 import { Plugin } from '@tachybase/client';
 import PluginWorkflow from '@tachybase/module-workflow/client';
 
-import { ApprovalInstruction } from './Approval.node';
+import { ApprovalInstruction } from './Approval.instruction';
 import { ApproverAddBlockInitializer } from './approver-interface/ApproverAddBlock.initializer';
 import { ApproverActionConfigInitializer } from './approver-interface/Iz.ApproverActionConfig';
 import { KitApprovalAddActionButton } from './forms/FormBlock.factory';

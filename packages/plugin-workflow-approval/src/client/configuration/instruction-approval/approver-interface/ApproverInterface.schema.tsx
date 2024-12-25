@@ -10,7 +10,7 @@ import { uid } from '@tachybase/utils/client';
 
 import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
 import { NAMESPACE } from '../../../locale';
-import { SchemaAddBlock } from '../../trigger/launcher-interface/SchemaAddBlock.component';
+import { SchemaAddBlock } from '../../trigger-approval/launcher-interface/SchemaAddBlock.component';
 import { ApproverBlock } from './ApproverBlock.view';
 
 const useStyles = createStyles(({ css }) => {

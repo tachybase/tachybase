@@ -1,7 +1,7 @@
 import React from 'react';
 import { useActionContext } from '@tachybase/client';
 
-import { ConfigButtonView } from '../../trigger/ConfigButton.view';
+import { ConfigButtonView } from '../../trigger-approval/ConfigButton.view';
 import { ContextApproverConfig } from '../ApproverConfig.context';
 
 // 审批人操作界面->进入配置按钮
