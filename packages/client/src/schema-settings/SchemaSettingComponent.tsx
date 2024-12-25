@@ -5,7 +5,7 @@ import { useDesignable } from '../schema-component';
 import { useFieldComponents } from '../schema-initializer';
 import { SchemaSettingsSelectItem } from './SchemaSettings';
 
-export const SchemaSettingComponent = () => {
+export function SchemaSettingComponent() {
   const fieldSchema = useFieldSchema();
   const field = useField();
   const checkedItems = ['Radio.Group', 'Checkbox.Group'];
@@ -42,4 +42,4 @@ export const SchemaSettingComponent = () => {
       }}
     />
   );
-};
+}

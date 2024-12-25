@@ -68,6 +68,8 @@ export interface ApplicationOptions {
   attachmentItem?: Record<string, PluginAttachmentItemsOptions>;
 }
 
+window.React1 = React;
+
 export class Application {
   public providers: ComponentAndProps[] = [];
   public router: RouterManager;

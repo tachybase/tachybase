@@ -8,7 +8,10 @@ import { useFormBlockContext } from '../../../block-provider';
 import { useDetailsBlockContext } from '../../../block-provider/DetailsBlockProvider';
 import { useCollection_deprecated } from '../../../collection-manager';
 import { useSortFields } from '../../../collection-manager/action-hooks';
-import { setDataLoadingModeSettingsItem } from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
+import {
+  SetDataLoadingMode,
+  setDataLoadingModeSettingsItem,
+} from '../../../modules/blocks/data-blocks/details-multi/setDataLoadingModeSettingsItem';
 import {
   SchemaSettingsBlockTitleItem,
   SchemaSettingsDataTemplates,
@@ -174,7 +177,10 @@ export const formDetailsSettings = new SchemaSettings({
         };
       },
     },
-    setDataLoadingModeSettingsItem,
+    {
+      name: 'setDataLoadingMode',
+      Component: SetDataLoadingMode,
+    },
     {
       name: 'sortingRules',
       type: 'modal',

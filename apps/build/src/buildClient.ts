@@ -36,9 +36,11 @@ async function buildClientEsm(
   external: External,
   log: PkgLog,
 ) {
-  const entry = path.join(cwd, 'src').replaceAll(/\\/g, '/') + '/**';
+  // const entry = path.join(cwd, 'src').replaceAll(/\\/g, '/') + '/**';
+  const entry = path.join(cwd, 'src/index.ts').replaceAll(/\\/g, '/');
 
   const { build } = await import('@rslib/core');
+  // const { circularDependencies } = await import('rollup-plugin-circular-dependencies');
   log('build client rslib');
   await build({
     source: {
@@ -53,7 +55,7 @@ async function buildClientEsm(
     },
     lib: [
       {
-        bundle: false,
+        bundle: true,
         dts: false,
         format: 'esm',
       },
@@ -67,7 +69,7 @@ async function buildClientEsm(
       overrideBrowserslist: ['chrome >= 69', 'edge >= 79', 'safari >= 12'],
       externals({ request }, callback) {
         if (external(request)) {
-          return callback(null, true);
+          return callback(null, request);
         }
         callback();
       },
@@ -103,7 +105,7 @@ async function buildClientEsm(
   //         external,
   //       },
   //     },
-  //     plugins: [react(), libInjectCss()],
+  //     plugins: [react(), libInjectCss(), circularDependencies()],
   //   }),
   // );
 }
