@@ -51,6 +51,7 @@ export class Collection implements ICollection {
   }
 
   protected setRepository(repository: any) {
-    this.repository = this.collectionManager.getRegisteredRepository(repository || 'Repository');
+    const repo = this.collectionManager.getRegisteredRepository(repository || 'Repository') as any;
+    this.repository = new repo(this);
   }
 }

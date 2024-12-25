@@ -175,7 +175,7 @@ export const ConfigurationTable = () => {
       <SchemaComponent
         schema={collectionSchema}
         components={{
-          EditCollection,
+          // EditCollection,
           AddSubFieldAction,
           EditSubFieldAction,
           FieldSummary,
