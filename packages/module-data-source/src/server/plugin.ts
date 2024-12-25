@@ -332,20 +332,22 @@ export class PluginDataSourceManagerServer extends Plugin {
       }
     });
 
-    this.app.db.on('dataSourcesCollections.afterDestroy', async (model: DataSourcesCollectionModel, { transaction }) => {
-      const dataSource = this.app.dataSourceManager.dataSources.get(model.get('dataSourceKey'));
-      if (!dataSource) {
-        this.app.logger.warn(`DataSource ${model.get('dataSourceKey')} not found during collection removal`);
-        return;
-      }
-      try {
-        dataSource.collectionManager.removeCollection(model.get('name'));
-      } catch (error) {
-        this.app.logger.error(`Failed to remove collection: ${error.message}`);
-        throw error;
-      }
-    });
-    });
+    this.app.db.on(
+      'dataSourcesCollections.afterDestroy',
+      async (model: DataSourcesCollectionModel, { transaction }) => {
+        const dataSource = this.app.dataSourceManager.dataSources.get(model.get('dataSourceKey'));
+        if (!dataSource) {
+          this.app.logger.warn(`DataSource ${model.get('dataSourceKey')} not found during collection removal`);
+          return;
+        }
+        try {
+          dataSource.collectionManager.removeCollection(model.get('name'));
+        } catch (error) {
+          this.app.logger.error(`Failed to remove collection: ${error.message}`);
+          throw error;
+        }
+      },
+    );
 
     this.app.db.on('dataSourcesFields.afterSaveWithAssociations', async (model: DataSourcesFieldModel) => {
       model.load({
