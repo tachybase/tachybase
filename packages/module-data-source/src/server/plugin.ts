@@ -332,25 +332,28 @@ export class PluginDataSourceManagerServer extends Plugin {
       }
     });
 
-    this.app.db.on(
-      'dataSourcesCollections.afterDestroy',
-      async (model: DataSourcesCollectionModel, { transaction }) => {
-        const dataSource = this.app.dataSourceManager.dataSources.get(model.get('dataSourceKey'));
-        if (!dataSource) {
-          this.app.logger.warn(`DataSource ${model.get('dataSourceKey')} not found during collection removal`);
-          return;
-        }
-        try {
-          dataSource.collectionManager.removeCollection(model.get('name'));
-        } catch (error) {
-          this.app.logger.error(`Failed to remove collection: ${error.message}`);
-          throw error;
-        }
-      },
-    );
+    this.app.db.on('dataSourcesCollections.afterDestroy', async (model: DataSourcesCollectionModel) => {
+      const dataSource = this.app.dataSourceManager.dataSources.get(model.get('dataSourceKey'));
+      if (!dataSource) {
+        this.app.logger.warn(`DataSource ${model.get('dataSourceKey')} not found during collection removal`);
+        return;
+      }
+      try {
+        dataSource.collectionManager.removeCollection(model.get('name'));
+      } catch (error) {
+        this.app.logger.error(`Failed to remove collection: ${error.message}`);
+        throw error;
+      }
+    });
 
     this.app.db.on('dataSourcesFields.afterSaveWithAssociations', async (model: DataSourcesFieldModel) => {
       model.load({
+        app: this.app,
+      });
+    });
+
+    this.app.db.on('dataSourcesFields.afterDestroy', async (model: DataSourcesFieldModel, options) => {
+      model.unload({
         app: this.app,
       });
     });
@@ -431,6 +434,17 @@ export class PluginDataSourceManagerServer extends Plugin {
       if (role) {
         role.revokeResource(model.get('name'));
       }
+
+      const { transaction } = options;
+      const pluginACL: any = this.app.pm.get('acl');
+      // TODO: 可能会有问题
+      await model.writeToACL({
+        grantHelper: pluginACL.grantHelper,
+        associationFieldsActions: pluginACL.associationFieldsActions,
+        acl: dataSource.acl,
+        transaction,
+        app: this.app,
+      });
     });
 
     this.app.db.on('dataSourcesRoles.afterSave', async (model: DataSourcesRolesModel, options) => {

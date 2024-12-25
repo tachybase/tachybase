@@ -153,6 +153,20 @@ export const ConfigurationTable = () => {
       },
     };
   };
+
+  const loadFilterTargetKeys = async (field) => {
+    const { fields } = field.form.values;
+    return Promise.resolve({
+      data: fields,
+    }).then(({ data }) => {
+      return data?.map((item: any) => {
+        return {
+          label: compile(item.uiSchema?.title) || item.name,
+          value: item.name,
+        };
+      });
+    });
+  };
   const collectionSchema = useMemo(() => {
     return getCollectionSchema(name);
   }, [name]);
@@ -174,6 +188,7 @@ export const ConfigurationTable = () => {
           useBulkDestroySubField,
           useSelectedRowKeys,
           useAsyncDataSource,
+          loadFilterTargetKeys,
           loadCategories,
           loadDBViews,
           loadStorages,
