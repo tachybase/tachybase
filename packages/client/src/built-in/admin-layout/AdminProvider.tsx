@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NoticeManagerProvider } from '../../application';
+import { NoticeManagerProvider } from '../../application/NoticesManager';
 import { RemoteCollectionManagerProvider } from '../../collection-manager';
 import { CurrentAppInfoProvider } from '../../common';
 import { NavigateIfNotSignIn } from '../../user';

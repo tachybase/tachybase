@@ -1,5 +1,5 @@
-import { Plugin } from '../../application';
-import { RemoteSchemaTemplateManagerPlugin } from '../../schema-templates';
+import { Plugin } from '../../application/Plugin';
+import { RemoteSchemaTemplateManagerPlugin } from '../../schema-templates/SchemaTemplateManagerProvider';
 import { AdminLayout } from './AdminLayout';
 
 export class AdminLayoutPlugin extends Plugin {

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { InternalAdminLayout } from '.';
 import { AdminProvider } from './AdminProvider';
+import { InternalAdminLayout } from './InternalAdminLayout';
 import { NoticeArea } from './NoticeArea';
 
 export const AdminLayout = (props) => {
