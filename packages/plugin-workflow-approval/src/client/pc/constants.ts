@@ -102,10 +102,22 @@ export const ApprovalStatusEnums = [
 ];
 export const ApprovalStatusEnumDict = ApprovalStatusEnums.reduce((e, t) => Object.assign(e, { [t.value]: t }), {});
 export const JobStatusEnums = {
-  [JOB_STATUS.PENDING]: { color: 'gold', label: `{{t('Pending', { ns: "${NAMESPACE}" })}}` },
-  [JOB_STATUS.RESOLVED]: { color: 'green', label: `{{t('Approved', { ns: "${NAMESPACE}" })}}` },
-  [JOB_STATUS.REJECTED]: { color: 'red', label: `{{t('Rejected', { ns: "${NAMESPACE}" })}}` },
-  [JOB_STATUS.RETRY_NEEDED]: { color: 'red', label: `{{t('Returned', { ns: "${NAMESPACE}" })}}` },
+  [JOB_STATUS.PENDING]: {
+    color: 'gold',
+    label: `{{t('Pending', { ns: "${NAMESPACE}" })}}`,
+  },
+  [JOB_STATUS.RESOLVED]: {
+    color: 'green',
+    label: `{{t('Approved', { ns: "${NAMESPACE}" })}}`,
+  },
+  [JOB_STATUS.REJECTED]: {
+    color: 'red',
+    label: `{{t('Rejected', { ns: "${NAMESPACE}" })}}`,
+  },
+  [JOB_STATUS.RETRY_NEEDED]: {
+    color: 'red',
+    label: `{{t('Returned', { ns: "${NAMESPACE}" })}}`,
+  },
 };
 export const VoteCategory = { SINGLE: Symbol('single'), ALL: Symbol('all'), VOTE: Symbol('vote') };
 export const VoteCategoryEnums = [
