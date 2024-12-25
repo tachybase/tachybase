@@ -8,10 +8,10 @@ import {
   useRecord,
 } from '@tachybase/client';
 
-import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
-import { CollectionApprovals } from '../../../common/collections/approvals';
-import { CollectionFlowNodes } from '../../../common/collections/flowNodes';
-import { CollectionWorkflows } from '../../../common/collections/workflows';
+import { collectionApprovalTodos } from '../../../../common/collections/approvalRecords';
+import { CollectionApprovals } from '../../../../common/collections/approvals';
+import { CollectionFlowNodes } from '../../../../common/collections/flowNodes';
+import { CollectionWorkflows } from '../../../../common/collections/workflows';
 
 export function RecordApprovalsDecorator({ params, children }) {
   const collection = useCollection_deprecated();

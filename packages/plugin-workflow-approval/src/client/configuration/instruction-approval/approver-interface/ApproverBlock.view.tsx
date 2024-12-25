@@ -6,8 +6,8 @@ import { uid } from '@tachybase/utils/client';
 
 import { Spin } from 'antd';
 
-import { FormBlockProvider } from '../../..//pc/common/FormBlock.provider';
-import { flatSchemaArray } from '../../../pc/constants';
+import { FormBlockProvider } from '../../../usage/pc/common/FormBlock.provider';
+import { flatSchemaArray } from '../../../usage/pc/constants';
 import { ContextApproverConfig } from '../ApproverConfig.context';
 import { ActionBarProvider } from './ActionBar.provider';
 import { ApprovalActionProvider } from './ApprovalAction.provider';

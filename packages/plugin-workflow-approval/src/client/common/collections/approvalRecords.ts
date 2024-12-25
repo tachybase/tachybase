@@ -1,5 +1,5 @@
 import { NAMESPACE, tval } from '../../locale';
-import { approvalStatusOptions } from '../../pc/constants';
+import { approvalStatusOptions } from '../../usage/pc/constants';
 
 export const collectionApprovalTodos = {
   title: `{{t("Approval todos", { ns: "${NAMESPACE}" })}}`,

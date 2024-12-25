@@ -1,6 +1,6 @@
 import { i18n, tval as nTval } from '@tachybase/client';
 
-import { NAMESPACE as COMMON_NAMESPACE } from '../../common/constants';
+import { NAMESPACE as COMMON_NAMESPACE } from '../../../common/constants';
 
 export const NAMESPACE = COMMON_NAMESPACE;
 

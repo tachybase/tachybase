@@ -1,4 +1,4 @@
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../common/constants';
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../../common/constants';
 import { NAMESPACE, tval } from '../../locale';
 
 export const initializerName = 'otherBlocks.workflow.approval';

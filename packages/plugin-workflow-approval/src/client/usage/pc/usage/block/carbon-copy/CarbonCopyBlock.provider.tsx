@@ -1,9 +1,9 @@
 import React from 'react';
 import { ExtendCollectionsProvider, TableBlockProvider, useRecord } from '@tachybase/client';
 
-import { collectionApprovalCarbonCopy } from '../../../../common/collections/approvalCarbonCopy';
-import { CollectionFlowNodes } from '../../../../common/collections/flowNodes';
-import { CollectionWorkflows } from '../../../../common/collections/workflows';
+import { collectionApprovalCarbonCopy } from '../../../../../common/collections/approvalCarbonCopy';
+import { CollectionFlowNodes } from '../../../../../common/collections/flowNodes';
+import { CollectionWorkflows } from '../../../../../common/collections/workflows';
 
 export const CarbonCopyBlockProvider = ({ children, ...props }) => {
   const {

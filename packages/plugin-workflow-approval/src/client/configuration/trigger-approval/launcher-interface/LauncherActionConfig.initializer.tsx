@@ -1,7 +1,7 @@
 import { SchemaInitializer } from '@tachybase/client';
 
 import { NAMESPACE } from '../../../locale';
-import { APPROVAL_STATUS } from '../../../pc/constants';
+import { APPROVAL_STATUS } from '../../../usage/pc/constants';
 import {
   LauncherActionConfigComponent,
   LauncherActionConfigReminder,

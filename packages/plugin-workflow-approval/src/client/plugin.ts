@@ -1,17 +1,14 @@
 import { Plugin } from '@tachybase/client';
 
 import KitApprovalConfiguration from './configuration/plugin';
-import { KitApprovalH5 } from './h5';
-import { KitApprovalPC } from './pc';
+import { KitApprovalUsage } from './usage/kit';
 
 class PluginWorkflowApprovalClient extends Plugin {
   async afterAdd() {
-    // 审批工作流配置
+    // 引入审批工作流配置
     await this.app.pm.add(KitApprovalConfiguration);
-    // 引入 PC 端代码
-    await this.app.pm.add(KitApprovalPC);
-    // 引入 H5 端代码
-    await this.app.pm.add(KitApprovalH5);
+    // 引入审批用户界面
+    await this.app.pm.add(KitApprovalUsage);
   }
 }
 
