@@ -6,27 +6,6 @@ import { App, Card } from 'antd';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-// import { useSystemSettings } from '.';
-// // import { i18n, useAPIClient, useRequest } from '../..';
-// import locale from '../../locale';
-// import { SchemaComponent, useActionContext } from '../../schema-component';
-
-// const langs = Object.keys(locale).map((lang) => {
-//   return {
-//     label: `${locale[lang].label} (${lang})`,
-//     value: lang,
-//   };
-// });
-
-// const useCloseAction = () => {
-//   const { setVisible } = useActionContext();
-//   return {
-//     async run() {
-//       setVisible(false);
-//     },
-//   };
-// };
-
 const useAISettingsValues = () => {
   const api = useAPIClient();
   const { data } = useRequest(() =>
@@ -42,70 +21,27 @@ const useAISettingsValues = () => {
 };
 
 const useSaveAISettingsValues = () => {
-  // const { setVisible } = useActionContext();
   const form = useForm();
   const { message } = App.useApp();
-  // const { mutate, data } = useSystemSettings();
   const api = useAPIClient();
   const { t } = useTranslation();
   return {
     async run() {
       await form.submit();
       const values = cloneDeep(form.values);
-      await api.request({
-        url: 'aichat:set',
-        method: 'post',
-        data: values,
-      });
-      message.success(t('Saved successfully'));
-      // const lang = values.enabledLanguages?.[0] || 'en-US';
-      // if (values.enabledLanguages.length < 2 && api.auth.getLocale() !== lang) {
-      //   api.auth.setLocale('');
-      //   window.location.reload();
-      // } else {
-      //   setVisible(false);
-      // }
+      try {
+        await api.request({
+          url: 'aichat:set',
+          method: 'post',
+          data: values,
+        });
+        message.success(t('Saved successfully'));
+      } catch (error) {
+        message.error(t('Failed to save settings'));
+        throw error;
+      }
     },
   };
-};
-
-export const collectionAIsetting = {
-  name: 'aisettings',
-  fields: [
-    {
-      type: 'string',
-      name: 'Model',
-      interface: 'input',
-      uiSchema: {
-        title: '{{t("Model")}}',
-        type: 'string',
-        'x-component': 'Input',
-        required: true,
-      } as ISchema,
-    },
-    {
-      type: 'string',
-      name: 'AI_URL',
-      interface: 'input',
-      uiSchema: {
-        title: '{{t("AI URL")}}',
-        type: 'string',
-        'x-component': 'Input',
-        required: true,
-      } as ISchema,
-    },
-    {
-      type: 'string',
-      name: 'AI_API_KEY',
-      interface: 'input',
-      uiSchema: {
-        title: '{{t("AI API KEY")}}',
-        type: 'string',
-        'x-component': 'Input',
-        required: true,
-      } as ISchema,
-    },
-  ],
 };
 
 const schema: ISchema = {

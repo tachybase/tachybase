@@ -47,17 +47,26 @@ export class AIChatController {
   async getAIsetting(ctx: Context, next: Next) {
     const repo = ctx.db.getRepository('aisettings');
     const data = await repo.findOne();
-    ctx.body = data;
+    if (!data) {
+      await repo.create({
+        values: {
+          id: 1,
+          Model: 'deepseek-chat',
+          AI_URL: 'https://api.deepseek.com/chat/completions',
+          AI_API_KEY: 'sk-xxxxxxxxxx',
+        },
+      });
+      ctx.body = await repo.findOne();
+    } else {
+      ctx.body = data;
+    }
     await next();
   }
   @Action('set')
   async setAIsetting(ctx: Context, next: () => Promise<any>) {
     const repo = ctx.db.getRepository('aisettings');
     const values = ctx.action.params.values;
-    // if (!values.id) {
-    //   await repo.create(values);
-    //   return
-    // };
+    const data = await repo.findOne();
     await repo.update({
       values,
       filter: {
