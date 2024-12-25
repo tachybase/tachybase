@@ -24,7 +24,7 @@ import { SchemaSettingsPlugin } from '../schema-settings';
 import { BlockTemplateDetails, BlockTemplatePage } from '../schema-templates';
 import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
 import { ACLPlugin } from './acl/ACLPlugin';
-import { AdminLayoutPlugin } from './admin-layout';
+import { AdminLayoutPlugin } from './admin-layout/AdminLayoutPlugin';
 import { WelcomeCard } from './admin-layout/components/WelcomeCard';
 import { PluginAssistant } from './assistant';
 import { AttachmentPreviewPlugin } from './attachment-preview';

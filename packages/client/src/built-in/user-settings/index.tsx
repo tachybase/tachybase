@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Plugin } from '../../application/Plugin';
 import { USER_SETTINGS_PATH } from '../../application/UserSettingsManager';
-import { AdminLayout } from '../admin-layout';
+import { AdminLayout } from '../admin-layout/AdminLayout';
 import { UserSettingsLayout } from './UserSettingsLayout';
 
 export class UserSettingsPlugin extends Plugin {
