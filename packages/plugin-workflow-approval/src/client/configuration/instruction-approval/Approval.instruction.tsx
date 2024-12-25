@@ -6,7 +6,6 @@ import { uid } from '@tachybase/utils/client';
 
 import { APPROVAL_ACTION_STATUS } from '../../pc/constants';
 import { NAMESPACE } from '../../pc/locale';
-import { ViewSkipApproval } from './approval-config/SkipApproval.view';
 import { AssigneesAddition } from './approval-config/VC.AssigneesAddition';
 import { AssigneesSelect } from './approval-config/VC.AssigneesSelect';
 import { ContentTooltip } from './approval-config/VC.ContentTooltip';
@@ -187,7 +186,6 @@ export class ApprovalInstruction extends Instruction {
     NegotiationConfig,
     RadioWithTooltip,
     AssigneesAddition,
-    ViewSkipApproval,
   };
 
   isAvailable({ workflow, upstream, branchIndex }) {
