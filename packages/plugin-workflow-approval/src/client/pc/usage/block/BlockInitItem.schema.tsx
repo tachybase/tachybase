@@ -6,31 +6,38 @@ export const getSchemaBlockInitItem = (params) => {
   const {
     collection,
     params: paramsItem,
-    ['x-component']: xcomponent,
     action,
-    ['x-decorator']: decorator,
-    ['x-toolbar']: toolbar,
-    ['x-settings']: settings,
+    ['x-toolbar']: xToolbar,
+    ['x-settings']: xSettings,
+    ['x-decorator']: xDecorator,
+    ['x-decorator-props']: xDecoratorProps,
+    ['x-component']: xComponent,
+    ['x-component-props']: xComponentProps,
   } = itemSchema;
-
   return {
     type: 'void',
     name: id,
     'x-uid': id,
-    'x-decorator': decorator || 'Approval-ProviderBlockInitItem',
+    'x-decorator': xDecorator || 'Approval-ProviderBlockInitItem',
     'x-decorator-props': {
       collection,
       params: paramsItem,
       action: action || 'listCentralized',
+      ...xDecoratorProps,
     },
     'x-component': 'CardItem',
     'x-designer': 'TableBlockDesigner',
-    'x-toolbar': toolbar,
-    'x-settings': settings,
+    'x-toolbar': xToolbar,
+    'x-settings': xSettings,
     properties: {
       block: {
         type: 'void',
-        'x-component': xcomponent,
+        'x-component': xComponent,
+        'x-component-props': {
+          collection,
+          action,
+          ...xComponentProps,
+        },
       },
     },
   };
