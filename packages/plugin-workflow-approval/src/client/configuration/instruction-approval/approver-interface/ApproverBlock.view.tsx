@@ -9,12 +9,12 @@ import { Spin } from 'antd';
 import { FormBlockProvider } from '../../..//pc/common/FormBlock.provider';
 import { flatSchemaArray } from '../../../pc/constants';
 import { ContextApproverConfig } from '../ApproverConfig.context';
+import { ActionBarProvider } from './ActionBar.provider';
+import { ApprovalActionProvider } from './ApprovalAction.provider';
+import { ApprovalFormBlockProvider } from './ApprovalFormBlockProvider.view';
 import { ProviderApprovalUpdateForm } from './ApprovalUpdateForm.provider';
-import { ActionBarProvider } from './Pd.ActionBarProvider';
-import { ApprovalActionProvider } from './Pd.ApprovalActionProvider';
-import { ContextApproverBlock } from './Pd.SchemaConfigButtonContext';
+import { ContextApproverBlock } from './SchemaConfigButtonContext.provider';
 import { useApprovalFormBlockProps } from './useApprovalFormBlockProps';
-import { ApprovalFormBlockProvider } from './VC.ApprovalFormBlockProvider';
 
 export const ApproverBlock = ({ value: srcID, onChange }) => {
   const apiClient = useAPIClient();

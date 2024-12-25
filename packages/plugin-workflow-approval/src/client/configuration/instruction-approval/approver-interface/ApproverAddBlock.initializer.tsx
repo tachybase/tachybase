@@ -8,8 +8,8 @@ import PluginWorkflow, {
 
 import { NAMESPACE } from '../../../locale';
 import { approvalFormOptions, ApprovalFormType } from '../forms/Approval.options';
-import { ApproverAddBlockComponent } from './VC.ApproverAddBlock';
-import { ApproverAddBlockKit } from './VC.ApproverAddBlockKit';
+import { ApproverAddBlockComponent } from './ApproverAddBlock.view';
+import { ApproverAddBlockKit } from './ApproverAddBlockKit.view';
 
 export const ApproverAddBlockInitializer = new SchemaInitializer({
   name: 'ApproverAddBlockInitializer',
