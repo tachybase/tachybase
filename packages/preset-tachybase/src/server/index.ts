@@ -198,7 +198,13 @@ export class PresetTachyBase extends Plugin {
       }
       const name = plugin[0];
       const packageJson = await this.getPackageJson(name);
-      plugins.push({ name, packageName: packageJson.name, version: packageJson.version });
+      plugins.push({
+        name,
+        packageName: packageJson.name,
+        version: packageJson.version,
+        enabled: plugin[2],
+        builtIn: false,
+      });
     }
     return plugins;
   }
