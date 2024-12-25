@@ -1,5 +1,5 @@
 export const getSchemaCheckLink = (params) => {
-  const { record, popoverComponent, popoverComponentProps } = params;
+  const { record } = params;
   return {
     name: `view-${record.id}`,
     type: 'void',
@@ -15,10 +15,9 @@ export const getSchemaCheckLink = (params) => {
       drawer: {
         type: 'void',
         title: '{{t("View record", {"ns":["messages","client"]})}}',
-        'x-component': popoverComponent,
+        'x-component': 'Action.Drawer',
         'x-component-props': {
           className: 'tb-action-popup',
-          ...popoverComponentProps,
         },
         properties: {
           checkContent: {

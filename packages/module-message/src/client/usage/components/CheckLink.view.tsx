@@ -6,13 +6,10 @@ import { usePropsShowDetail } from '../hooks/usePropsShowDetail';
 import { ViewCheckContent } from './CheckContent.view';
 import { getSchemaCheckLink } from './CheckLink.schema';
 
-export const ViewCheckLink = (props) => {
-  const { popoverComponent = 'Action.Drawer', popoverComponentProps = {} } = props;
+export const ViewCheckLink = () => {
   const record = useCollectionRecordData();
   const schema = getSchemaCheckLink({
     record,
-    popoverComponent,
-    popoverComponentProps,
   });
 
   return (
