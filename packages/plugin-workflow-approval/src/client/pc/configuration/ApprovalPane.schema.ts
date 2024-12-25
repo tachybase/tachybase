@@ -60,6 +60,19 @@ export const approvalFieldset: Record<string, ISchema> = {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
   },
+  color: {
+    type: 'string',
+    title: `{{ t("Color") }}`,
+    'x-component': 'ColorPicker',
+    'x-decorator': 'FormItem',
+    default: '#e5e5e5',
+  },
+  icon: {
+    type: 'string',
+    title: `{{ t("Icon") }}`,
+    'x-component': 'IconPicker',
+    'x-decorator': 'FormItem',
+  },
 };
 
 const createApproval: ISchema = {
@@ -128,6 +141,8 @@ const createApproval: ISchema = {
                 type: approvalFieldset.type,
                 sync: approvalFieldset.sync,
                 description: approvalFieldset.description,
+                color: approvalFieldset.color,
+                icon: approvalFieldset.icon,
               },
             },
           },
@@ -203,6 +218,8 @@ const updateApproval: ISchema = {
                 type: approvalFieldset.type,
                 sync: approvalFieldset.sync,
                 description: approvalFieldset.description,
+                color: approvalFieldset.color,
+                icon: approvalFieldset.icon,
               },
             },
           },
