@@ -4,7 +4,8 @@ import { Branch, NodeDefaultView, useFlowContext, useStyles } from '@tachybase/m
 
 import { Tag } from 'antd';
 
-import { APPROVAL_ACTION_STATUS, approvalStatusConfigObj } from '../../pc/constants';
+import { APPROVAL_TODO_STATUS } from '../../common/constants/approval-todo-status';
+import { approvalStatusConfigObj } from '../../pc/constants';
 
 // 审批节点组件
 export const ApprovalInstructionNode = ({ data }) => {
@@ -30,14 +31,14 @@ const BranchListComp = (props) => {
   const { nodes } = useFlowContext();
 
   const { id, config } = data;
-  const isAllowReturned = config?.actions?.includes(APPROVAL_ACTION_STATUS.RETURNED);
-  const baseStatusArr = [APPROVAL_ACTION_STATUS.REJECTED, APPROVAL_ACTION_STATUS.APPROVED];
-  const statusArr = isAllowReturned ? [...baseStatusArr, APPROVAL_ACTION_STATUS.RETURNED] : baseStatusArr;
+  const isAllowReturned = config?.actions?.includes(APPROVAL_TODO_STATUS.RETURNED);
+  const baseStatusArr = [APPROVAL_TODO_STATUS.REJECTED, APPROVAL_TODO_STATUS.APPROVED];
+  const statusArr = isAllowReturned ? [...baseStatusArr, APPROVAL_TODO_STATUS.RETURNED] : baseStatusArr;
 
   const isEntry = (targetStatus) => nodes.find((node) => node.upstreamId === id && node.branchIndex === targetStatus);
   const isEnd = (targetStatus) =>
-    targetStatus === APPROVAL_ACTION_STATUS.RETURNED ||
-    (targetStatus === APPROVAL_ACTION_STATUS.REJECTED && config.endOnReject);
+    targetStatus === APPROVAL_TODO_STATUS.RETURNED ||
+    (targetStatus === APPROVAL_TODO_STATUS.REJECTED && config.endOnReject);
 
   return statusArr.map((targetStatus) => (
     <Branch

@@ -6,11 +6,11 @@ import { uid } from '@tachybase/utils/client';
 
 import { APPROVAL_ACTION_STATUS } from '../../pc/constants';
 import { NAMESPACE } from '../../pc/locale';
-import { AssigneesAddition } from './approval-config/VC.AssigneesAddition';
-import { AssigneesSelect } from './approval-config/VC.AssigneesSelect';
-import { ContentTooltip } from './approval-config/VC.ContentTooltip';
-import { NegotiationConfig } from './approval-config/VC.NegotiationConfig';
-import { SchemaConfigButtonApprover } from './approval-config/VC.SchemaConfigButtonApprover';
+import { AssigneesAddition } from './approval-config/AssigneesAddition.view';
+import { AssigneesSelect } from './approval-config/AssigneesSelect.view';
+import { ContentTooltip } from './approval-config/ContentTooltip.view';
+import { NegotiationConfig } from './approval-config/NegotiationConfig.view';
+import { SchemaConfigButtonApprover } from './approval-config/SchemaConfigButtonApprover.view';
 import { ApprovalInstructionNode } from './ApprovalNode.component';
 import { ApproverInterfaceComponent } from './approver-interface/ApproverInterface.schema';
 import { isApprovalReturnFunc } from './utils';
