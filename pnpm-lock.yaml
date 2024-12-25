@@ -204,9 +204,6 @@ importers:
       '@pnpm/workspace.find-packages':
         specifier: ^1.1.12
         version: 1.1.12(@pnpm/logger@5.2.0)
-      '@rollup/pluginutils':
-        specifier: 5.1.4
-        version: 5.1.4(rollup@4.24.0)
       '@rsbuild/plugin-less':
         specifier: 1.1.0
         version: 1.1.0(@rsbuild/core@1.1.10)
@@ -237,9 +234,6 @@ importers:
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
-      rollup-plugin-circular-dependencies:
-        specifier: 1.1.2
-        version: 1.1.2(rollup@4.24.0)
       tar:
         specifier: ^6.2.1
         version: 6.2.1
@@ -8546,15 +8540,6 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
 
-  '@rollup/pluginutils@5.1.4':
-    resolution: {integrity: sha512-USm05zrsFxYLPdWWq+K3STlWiT/3ELn3RcV5hJMghpeAIhxfsUIg6mt12CBJBInWMV4VneoV7SfGv8xIwo2qNQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-
   '@rollup/rollup-android-arm-eabi@4.24.0':
     resolution: {integrity: sha512-Q6HJd7Y6xdB48x8ZNVDOqsbh2uByBhgK8PiQgPhwkIw/HC/YX5Ghq2mQY5sRMZWHb3VsFkWooUVOZHKr7DmDIA==}
     cpu: [arm]
@@ -12099,9 +12084,6 @@ packages:
   estraverse@5.3.0:
     resolution: {integrity: sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==}
     engines: {node: '>=4.0'}
-
-  estree-walker@2.0.2:
-    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
 
   estree-walker@3.0.3:
     resolution: {integrity: sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==}
@@ -16487,15 +16469,6 @@ packages:
 
   robust-predicates@3.0.2:
     resolution: {integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==}
-
-  rollup-plugin-circular-dependencies@1.1.2:
-    resolution: {integrity: sha512-0XF698157VE4IKHO2vu6nDknUx/320+/V7AXe3cGznKwFkoiRjJPZm39ARU6uqbpPLfOQpDjssFOypzo5f9iog==}
-    engines: {node: '>=18.19'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
 
   rollup@0.25.8:
     resolution: {integrity: sha512-a2S4Bh3bgrdO4BhKr2E4nZkjTvrJ2m2bWjMTzVYtoqSCn0HnuxosXnaJUHrMEziOWr3CzL9GjilQQKcyCQpJoA==}
@@ -23191,14 +23164,6 @@ snapshots:
       dequal: 2.0.3
       react: 18.3.1
 
-  '@rollup/pluginutils@5.1.4(rollup@4.24.0)':
-    dependencies:
-      '@types/estree': 1.0.6
-      estree-walker: 2.0.2
-      picomatch: 4.0.2
-    optionalDependencies:
-      rollup: 4.24.0
-
   '@rollup/rollup-android-arm-eabi@4.24.0':
     optional: true
 
@@ -27710,8 +27675,6 @@ snapshots:
   estraverse@4.3.0: {}
 
   estraverse@5.3.0: {}
-
-  estree-walker@2.0.2: {}
 
   estree-walker@3.0.3:
     dependencies:
@@ -32933,13 +32896,6 @@ snapshots:
       inherits: 2.0.4
 
   robust-predicates@3.0.2: {}
-
-  rollup-plugin-circular-dependencies@1.1.2(rollup@4.24.0):
-    dependencies:
-      chalk: 5.3.0
-      lodash-es: 4.17.21
-    optionalDependencies:
-      rollup: 4.24.0
 
   rollup@0.25.8:
     dependencies:

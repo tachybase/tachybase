@@ -1,4 +1,4 @@
-import { Plugin } from '../application';
+import { Plugin } from '../application/Plugin';
 import { CreateChildInitializer } from '../modules/actions/add-child/CreateChildInitializer';
 import { CreateActionInitializer } from '../modules/actions/add-new/CreateActionInitializer';
 import { createFormBlockInitializers } from '../modules/actions/add-new/createFormBlockInitializers';

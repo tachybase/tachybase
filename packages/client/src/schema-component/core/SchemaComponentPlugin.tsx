@@ -1,4 +1,4 @@
-import { Plugin } from '../../application';
+import { Plugin } from '../../application/Plugin';
 import { DesignableSwitch } from './DesignableSwitch';
 
 export class SchemaComponentPlugin extends Plugin {

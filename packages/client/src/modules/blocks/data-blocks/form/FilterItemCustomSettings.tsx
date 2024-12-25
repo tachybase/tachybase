@@ -8,12 +8,12 @@ import { useFormBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useCompile, useDesignable } from '../../../../schema-component';
 import {
-  EditFormulaTitleField,
   FilterCustomVariableInput,
   SchemaSettingCollection,
-  SchemaSettingComponent,
   SchemaSettingsDataScope,
 } from '../../../../schema-settings';
+import { EditFormulaTitleField } from '../../../../schema-settings/EditFormulaTitleField';
+import { SchemaSettingComponent } from '../../../../schema-settings/SchemaSettingComponent';
 
 export const FilterItemCustomSettings = new SchemaSettings({
   name: 'fieldSettings:FilterFormCustomSettings',

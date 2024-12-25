@@ -2,12 +2,8 @@ import path from 'path';
 
 import { pluginLess } from '@rsbuild/plugin-less';
 import { pluginReact } from '@rsbuild/plugin-react';
-import react from '@vitejs/plugin-react';
 import fg from 'fast-glob';
-import fs from 'fs-extra';
 import { build as tsupBuild } from 'tsup';
-import { build as viteBuild } from 'vite';
-import { libInjectCss } from 'vite-plugin-lib-inject-css';
 
 import { globExcludeFiles } from './constant';
 import { PkgLog, UserConfig } from './utils';
@@ -23,7 +19,6 @@ export async function buildClient(cwd: string, userConfig: UserConfig, sourcemap
     return true;
   };
   await buildClientEsm(cwd, userConfig, sourcemap, external, log);
-  // await buildClientLib(cwd, userConfig, sourcemap, external, log);
   await buildLocale(cwd, userConfig, log);
 }
 
@@ -36,11 +31,9 @@ async function buildClientEsm(
   external: External,
   log: PkgLog,
 ) {
-  // const entry = path.join(cwd, 'src').replaceAll(/\\/g, '/') + '/**';
-  const entry = path.join(cwd, 'src/index.ts').replaceAll(/\\/g, '/');
+  const entry = path.join(cwd, 'src').replaceAll(/\\/g, '/') + '/**';
 
   const { build } = await import('@rslib/core');
-  // const { circularDependencies } = await import('rollup-plugin-circular-dependencies');
   log('build client rslib');
   await build({
     source: {
@@ -55,15 +48,18 @@ async function buildClientEsm(
     },
     lib: [
       {
-        bundle: true,
+        bundle: false,
         dts: false,
         format: 'esm',
       },
     ],
     output: {
-      minify: false,
       distPath: {
-        root: path.join(cwd, 'lib'),
+        root: path.join(cwd, 'es'),
+      },
+      sourceMap: {
+        css: sourcemap,
+        js: sourcemap ? 'source-map' : false,
       },
       target: 'web',
       overrideBrowserslist: ['chrome >= 69', 'edge >= 79', 'safari >= 12'],
@@ -75,83 +71,6 @@ async function buildClientEsm(
       },
     },
     plugins: [pluginReact(), pluginLess()],
-  });
-
-  // log('build client esm');
-  // const outDir = path.resolve(cwd, 'es');
-  // return viteBuild(
-  //   userConfig.modifyViteConfig({
-  //     mode: process.env.NODE_ENV || 'production',
-  //     define: {
-  //       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-  //       'process.env.__TEST__': false,
-  //       'process.env.__E2E__': process.env.__E2E__ ? true : false,
-  //     },
-  //     build: {
-  //       minify: process.env.NODE_ENV === 'production',
-  //       outDir,
-  //       cssCodeSplit: true,
-  //       emptyOutDir: true,
-  //       sourcemap,
-  //       lib: {
-  //         entry,
-  //         formats: ['es'],
-  //         fileName: 'index',
-  //       },
-  //       target: ['es2015', 'edge88', 'firefox78', 'chrome87', 'safari14'],
-  //       rollupOptions: {
-  //         cache: true,
-  //         treeshake: true,
-  //         external,
-  //       },
-  //     },
-  //     plugins: [react(), libInjectCss(), circularDependencies()],
-  //   }),
-  // );
-}
-
-async function buildClientLib(
-  cwd: string,
-  userConfig: UserConfig,
-  sourcemap: boolean,
-  external: External,
-  log: PkgLog,
-) {
-  log('build client lib');
-  const outDir = path.resolve(cwd, 'lib');
-  const esDir = path.resolve(cwd, 'es');
-  const entry = path.join(esDir, 'index.ts');
-
-  fs.removeSync(entry);
-  fs.linkSync(path.join(cwd, 'es/index.mjs'), entry);
-
-  await viteBuild(
-    userConfig.modifyViteConfig({
-      mode: process.env.NODE_ENV || 'production',
-      esbuild: {
-        format: 'cjs',
-      },
-      build: {
-        outDir,
-        minify: process.env.NODE_ENV === 'production',
-        sourcemap,
-        lib: {
-          entry: path.join(cwd, 'es/index.ts'),
-          formats: ['cjs'],
-          fileName: 'index',
-        },
-        rollupOptions: {
-          external,
-        },
-      },
-    }),
-  );
-
-  fs.removeSync(entry);
-
-  const css = fg.sync('*.css', { cwd: esDir, absolute: true });
-  css.forEach((file) => {
-    fs.copySync(file, path.join(outDir, path.basename(file)));
   });
 }
 
