@@ -8,8 +8,8 @@ import {
 } from '@tachybase/client';
 import { uid } from '@tachybase/utils/client';
 
+import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
 import { NAMESPACE } from '../../../locale';
-import { collectionApprovalTodos } from '../../../pc/collections/approvalRecords';
 import { SchemaAddBlock } from '../../trigger/launcher-interface/SchemaAddBlock.component';
 import { ApproverBlock } from './ApproverBlock.view';
 

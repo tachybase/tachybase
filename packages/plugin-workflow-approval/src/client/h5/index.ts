@@ -12,7 +12,7 @@ import { ViewTodosDetailsContent } from './todos/component/ViewTodosDetailsConte
 import { ViewTodosUserJobsContent } from './todos/component/ViewTodosUserJobsContent';
 import { TodosBlock } from './todos/TodosBlock';
 
-class PluginApprovalH5 extends Plugin {
+export class KitApprovalH5 extends Plugin {
   async load() {
     this.app.addComponents({
       ApprovalBlockInitializer,
@@ -52,5 +52,3 @@ class PluginApprovalH5 extends Plugin {
     });
   }
 }
-
-export default PluginApprovalH5;

@@ -1,5 +1,5 @@
-import { ApprovalStatusEnums } from '../constants';
-import { NAMESPACE, tval } from '../locale';
+import { NAMESPACE, tval } from '../../locale';
+import { ApprovalStatusEnums } from '../../pc/constants';
 
 export const CollectionApprovals = {
   title: `{{t("Approval applications", { ns: "${NAMESPACE}" })}}`,

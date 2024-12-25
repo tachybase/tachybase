@@ -1,11 +1,9 @@
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../common/constants';
-import { ApprovalStatusEnums } from '../constants';
-import { NAMESPACE, tval } from '../locale';
-import { approvalStatusOptions } from '../usage/common/notice-columns/column.status';
+import { NAMESPACE, tval } from '../../locale';
+import { approvalStatusOptions } from '../../pc/constants';
 
-export const collectionApprovalCarbonCopy = {
-  title: tval('ApprovalCarbonCopy'),
-  name: COLLECTION_NAME_APPROVAL_CARBON_COPY,
+export const collectionApprovalTodos = {
+  title: `{{t("Approval todos", { ns: "${NAMESPACE}" })}}`,
+  name: 'approvalRecords',
   fields: [
     {
       type: 'bigInt',
@@ -39,16 +37,6 @@ export const collectionApprovalCarbonCopy = {
       },
     },
     {
-      type: 'bigInt',
-      name: 'id',
-      interface: 'number',
-      uiSchema: {
-        type: 'number',
-        title: 'ID',
-        'x-component': 'InputNumber',
-      },
-    },
-    {
       type: 'belongsTo',
       name: 'user',
       target: 'users',
@@ -56,15 +44,9 @@ export const collectionApprovalCarbonCopy = {
       interface: 'm2o',
       uiSchema: {
         type: 'number',
-        title: tval('The Notified Person'),
+        title: `{{t("Assignee", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'RemoteSelect',
-        'x-component-props': {
-          fieldNames: {
-            label: 'nickname',
-            value: 'id',
-          },
-          service: { resource: 'users' },
-        },
+        'x-component-props': { fieldNames: { label: 'nickname', value: 'id' }, service: { resource: 'users' } },
       },
     },
     {
@@ -79,13 +61,8 @@ export const collectionApprovalCarbonCopy = {
         title: `{{t("Task node", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'RemoteSelect',
         'x-component-props': {
-          fieldNames: {
-            label: 'title',
-            value: 'id',
-          },
-          service: {
-            resource: 'flow_nodes',
-          },
+          fieldNames: { label: 'title', value: 'id' },
+          service: { resource: 'flow_nodes' },
         },
       },
     },
@@ -99,13 +76,7 @@ export const collectionApprovalCarbonCopy = {
         type: 'number',
         title: '{{t("Workflow", { ns: "workflow" })}}',
         'x-component': 'RemoteSelect',
-        'x-component-props': {
-          fieldNames: {
-            label: 'title',
-            value: 'id',
-          },
-          service: { resource: 'workflows' },
-        },
+        'x-component-props': { fieldNames: { label: 'title', value: 'id' }, service: { resource: 'workflows' } },
       },
     },
     {
@@ -137,9 +108,7 @@ export const collectionApprovalCarbonCopy = {
         type: 'datetime',
         title: '{{t("Created at")}}',
         'x-component': 'DatePicker',
-        'x-component-props': {
-          showTime: true,
-        },
+        'x-component-props': { showTime: true },
       },
     },
     {
@@ -150,9 +119,7 @@ export const collectionApprovalCarbonCopy = {
         type: 'datetime',
         title: '{{t("Updated at")}}',
         'x-component': 'DatePicker',
-        'x-component-props': {
-          showTime: true,
-        },
+        'x-component-props': { showTime: true },
       },
     },
     {
@@ -170,17 +137,6 @@ export const collectionApprovalCarbonCopy = {
             whiteSpace: 'nowrap',
           },
         },
-      },
-    },
-    {
-      type: 'integer',
-      name: 'status',
-      interface: 'select',
-      uiSchema: {
-        type: 'number',
-        title: '{{t("Status", { ns: "workflow" })}}',
-        'x-component': 'Select',
-        enum: ApprovalStatusEnums,
       },
     },
   ],
