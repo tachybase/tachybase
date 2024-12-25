@@ -30,13 +30,14 @@ const createSchema = ({ record }) => {
 
 export const ColumnAction = () => {
   const record = useCollectionRecordData();
+  const schema = createSchema({ record });
 
   return (
     <SchemaComponent
+      schema={schema}
       components={{
         NoticeDetailContent: NoticeDetailContent,
       }}
-      schema={createSchema({ record })}
     />
   );
 };

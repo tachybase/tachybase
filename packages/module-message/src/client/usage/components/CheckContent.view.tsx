@@ -1,19 +1,18 @@
 import React from 'react';
-import { RemoteSchemaComponent, SchemaComponent } from '@tachybase/client';
+import { RemoteSchemaComponent, SchemaComponentContext, useSchemaComponentContext } from '@tachybase/client';
 
-import { getSchemaCheckContent } from './CheckContent.schema';
-import { ProviderSchemaComponentContext } from './SchemaComponentContext.provider';
+import { ProviderContextMessage } from '../contexts/Message';
 
 export const ViewCheckContent = (props) => {
-  const { message } = props;
-  const schema = getSchemaCheckContent(message);
+  const { record } = props;
+  const context = useSchemaComponentContext();
+  const { schemaName } = record;
+
   return (
-    <SchemaComponent
-      schema={schema}
-      components={{
-        ProviderSchemaComponentContext: ProviderSchemaComponentContext,
-        RemoteSchemaComponent: RemoteSchemaComponent,
-      }}
-    />
+    <ProviderContextMessage value={record}>
+      <SchemaComponentContext.Provider value={{ ...context, designable: false }}>
+        <RemoteSchemaComponent uid={schemaName} noForm />
+      </SchemaComponentContext.Provider>
+    </ProviderContextMessage>
   );
 };
