@@ -13,7 +13,7 @@ const ReadPretty = (props) => {
   } = useCollectionRecord() as any;
   return (
     <div className={cx(prefixCls, props.className)} style={props.style}>
-      {name !== tableName ? (
+      {name !== tableName && tableName ? (
         <>
           {name} <span style={{ color: 'GrayText' }}>({tableName})</span>
         </>
