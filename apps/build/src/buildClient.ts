@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import { pluginLess } from '@rsbuild/plugin-less';
 import { pluginReact } from '@rsbuild/plugin-react';
@@ -51,17 +51,24 @@ async function buildClientEsm(
         bundle: false,
         dts: false,
         format: 'esm',
+        output: {
+          distPath: {
+            root: path.join(cwd, 'es'),
+          },
+        },
       },
       {
+        output: {
+          distPath: {
+            root: path.join(cwd, 'lib'),
+          },
+        },
         bundle: false,
         dts: false,
         format: 'cjs',
       },
     ],
     output: {
-      distPath: {
-        root: path.join(cwd, 'es'),
-      },
       sourceMap: {
         css: sourcemap,
         js: sourcemap ? 'source-map' : false,
