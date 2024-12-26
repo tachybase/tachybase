@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ActionContextProvider, RecordProvider } from '@tachybase/client';
 
-import { useTranslation } from '../../../locale';
+import { lang, useTranslation } from '../../../locale';
 import { ViewEditCollectionForm } from './EditCollectionForm.view';
 
 export const EditCollectionAction = (props) => {
@@ -12,7 +12,7 @@ export const EditCollectionAction = (props) => {
   return (
     <RecordProvider record={item}>
       <ActionContextProvider value={{ visible, setVisible }}>
-        <a onClick={() => setVisible(true)}>{t('Edit')}</a>
+        <a onClick={() => setVisible(true)}>{lang('Edit')}</a>
         <ViewEditCollectionForm scope={scope} item={item} getContainer={getContainer} />
       </ActionContextProvider>
     </RecordProvider>

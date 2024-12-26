@@ -4,6 +4,7 @@ import { parse } from '@tachybase/utils';
 import axios from 'axios';
 import _ from 'lodash';
 
+import { HttpApiRepository } from './http-api-repository';
 import { HttpDataSource } from './http-data-source';
 import { transformResponseThroughMiddleware } from './transform-response';
 import { typeInterfaceMap } from './type-interface-map';
@@ -236,5 +237,10 @@ export class HttpCollection extends Collection {
       dataSource: this.collectionManager.dataSource,
       templateContext,
     });
+  }
+
+  setRepository(repository: any) {
+    const repo = this.collectionManager.getRegisteredRepository('HttpApiRepository') as any;
+    this.repository = new repo(this);
   }
 }
