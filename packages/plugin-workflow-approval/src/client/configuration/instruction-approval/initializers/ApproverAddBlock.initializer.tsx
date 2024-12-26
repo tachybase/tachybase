@@ -6,8 +6,8 @@ import PluginWorkflow, {
   useTrigger,
 } from '@tachybase/module-workflow/client';
 
-import { NAMESPACE } from '../../../../locale';
-import { approvalFormOptions, ApprovalFormType } from '../../forms/Approval.options';
+import { NAMESPACE } from '../../../locale';
+import { approvalFormOptions, ApprovalFormType } from '../forms/Approval.options';
 import { ApproverAddBlockComponent } from './ApproverAddBlock.view';
 import { ApproverAddBlockKit } from './ApproverAddBlockKit.view';
 

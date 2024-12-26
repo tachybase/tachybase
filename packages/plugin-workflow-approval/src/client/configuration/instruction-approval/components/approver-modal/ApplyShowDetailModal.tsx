@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import { ExtendCollectionsProvider, RecordProvider, SchemaComponent, SchemaComponentContext } from '@tachybase/client';
 import { uid } from '@tachybase/utils/client';
 
-import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
+import { collectionApprovalTodos } from '../../../../common/collections/approvalRecords';
+import { ViewApplyShowDetailAddBlock } from './ApplyShowDetailAddBlock.view';
 import { getSchemaApplyShowDetailModal } from './ApplyShowDetailModal.schema';
 import { useStyles } from './ApplyShowDetailModal.style';
-import { ViewApplyShowDetailAddBlock } from './approver-modal/ApplyShowDetailAddBlock.view';
 
 // 审批人操作界面
 export const ViewApplyShowDetailModal = () => {

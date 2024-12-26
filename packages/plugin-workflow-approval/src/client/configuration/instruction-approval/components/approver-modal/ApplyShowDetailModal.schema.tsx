@@ -1,4 +1,4 @@
-import { tval } from '../../../locale';
+import { tval } from '../../../../locale';
 
 export const getSchemaApplyShowDetailModal = ({ styles }) => {
   return {

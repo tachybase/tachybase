@@ -16,11 +16,8 @@ import { Spin } from 'antd';
 import { FormBlockProvider } from '../../../../usage/pc/common/FormBlock.provider';
 import { flatSchemaArray } from '../../../../usage/pc/constants';
 import { useContextApproverConfig } from '../../contexts/ApproverConfig';
-import { ActionBarProvider } from './ActionBar.provider';
-import { ApprovalActionProvider } from './ApprovalAction.provider';
 import { ApprovalFormBlockProvider } from './ApprovalFormBlockProvider.view';
 import { ProviderApprovalUpdateForm } from './ApprovalUpdateForm.provider';
-import { ContextApproverBlock } from './SchemaConfigButtonContext.provider';
 
 // 审批节点-添加卡片
 export const ViewApplyShowDetailAddBlock = (props) => {
@@ -81,31 +78,29 @@ export const ViewApplyShowDetailAddBlock = (props) => {
   }
 
   return (
-    <ContextApproverBlock.Provider value={values}>
-      <SchemaComponentProvider components={components} designable={true}>
-        <SchemaComponent
-          memoized={true}
-          onChange={onChangeFunc}
-          schema={remoteSchema}
-          components={{
-            FormBlockProvider,
-            ApprovalFormBlockProvider,
-            ActionBarProvider,
-            ApprovalActionProvider,
-            DetailsBlockProvider,
-            SimpleDesigner,
-            ProviderApprovalUpdateForm,
-          }}
-          scope={{
-            useSubmit: () => {
-              return { run() {} };
-            },
-            useApprovalFormBlockProps,
-            useDetailsBlockProps: useFormBlockContext,
-          }}
-        />
-      </SchemaComponentProvider>
-    </ContextApproverBlock.Provider>
+    <SchemaComponentProvider components={components} designable={true}>
+      <SchemaComponent
+        memoized={true}
+        onChange={onChangeFunc}
+        schema={remoteSchema}
+        components={{
+          FormBlockProvider,
+          ApprovalFormBlockProvider,
+          ActionBarProvider: ({ children }) => children,
+          ApprovalActionProvider: ({ children }) => children,
+          DetailsBlockProvider,
+          SimpleDesigner,
+          ProviderApprovalUpdateForm,
+        }}
+        scope={{
+          useSubmit: () => {
+            return { run() {} };
+          },
+          useApprovalFormBlockProps,
+          useDetailsBlockProps: useFormBlockContext,
+        }}
+      />
+    </SchemaComponentProvider>
   );
 };
 

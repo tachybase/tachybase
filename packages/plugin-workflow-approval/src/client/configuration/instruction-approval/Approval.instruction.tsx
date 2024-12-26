@@ -8,13 +8,13 @@ import { INSTRUCTION_TYPE_NAME_APPROVAL } from '../../../common/constants';
 import { ConfigButton } from '../../common/components/ConfigButton';
 import { APPROVAL_TODO_STATUS } from '../../common/constants/approval-todo-status';
 import { tval } from '../../locale';
-import { ViewApplyShowDetailModal } from './components/ApplyShowDetailModal';
 import { ApprovalInstructionNode } from './components/ApprovalNode';
 import { AssigneesAddButton } from './components/approver-fieldset/AssigneesAddButton';
 import { AssigneesSelect } from './components/approver-fieldset/AssigneesSelect';
 import { ProviderConfigButton } from './components/approver-fieldset/ConfigButton.provider';
 import { ContentTooltip } from './components/approver-fieldset/ContentTooltip';
 import { NegotiationConfig } from './components/approver-fieldset/NegotiationConfig';
+import { ViewApplyShowDetailModal } from './components/approver-modal/ApplyShowDetailModal';
 import { isApprovalReturnFunc } from './tools';
 
 // 工作流节点 nodes - 人工处理->审批
