@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-i18n-editor",
   "displayName": "Localization",
-  "version": "0.23.17",
+  "version": "0.23.18",
   "description": "Allows to manage localization resources of the application.",
   "keywords": [
     "System management"
