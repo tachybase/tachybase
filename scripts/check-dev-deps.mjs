@@ -28,7 +28,7 @@ async function checkFoldersAndPackageJson(dirs, mainVersion) {
           const packageJsonContent = await fs.readFile(packageJsonPath, 'utf-8');
           const packageJson = JSON.parse(packageJsonContent); // 使用 JSON.parse 解析
 
-          if (packageJson && packageJson) {
+          if (packageJson && packageJson.name) {
             const packageName = packageJson.name;
 
             const [_scope, name] = packageName.split('/');
