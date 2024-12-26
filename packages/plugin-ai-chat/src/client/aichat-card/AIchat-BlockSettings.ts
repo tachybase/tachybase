@@ -1,7 +1,7 @@
 import { SchemaSettings } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../locale';
 
 export const AIchatBlockSettings = new SchemaSettings({
   name: 'blockSettings:aichat',
@@ -14,7 +14,7 @@ export const AIchatBlockSettings = new SchemaSettings({
         const { t } = useTranslation();
 
         return {
-          title: t('Edit aichat'),
+          title: t('Edit AIchat'),
           onClick: () => {
             // field.editable = true;
           },
