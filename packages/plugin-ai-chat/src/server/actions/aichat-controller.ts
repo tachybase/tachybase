@@ -9,10 +9,10 @@ export class AIChatController {
   async handleMessage(ctx: Context, next: Next) {
     const repo = ctx.db.getRepository('aisettings');
     const data = await repo.findOne();
-    const model = data?.Model || 'deepseek-chat';
+    const model = data?.Model;
     const userMessage = ctx.action?.params?.values?.message || undefined;
-    const apiUrl = data?.AI_URL || 'https://api.deepseek.com/chat/completions';
-    const aitoken = data?.AI_API_KEY || process.env.AI_API_KEY;
+    const apiUrl = data?.AI_URL;
+    const aitoken = data?.AI_API_KEY;
     const requestData = {
       model,
       messages: [

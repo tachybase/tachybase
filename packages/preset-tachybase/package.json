@@ -39,6 +39,7 @@
     "@tachybase/plugin-adapter-bullmq": "workspace:*",
     "@tachybase/plugin-adapter-red-node": "workspace:*",
     "@tachybase/plugin-adapter-remix": "workspace:*",
+    "@tachybase/plugin-ai-chat": "workspace:*",
     "@tachybase/plugin-api-keys": "workspace:*",
     "@tachybase/plugin-audit-logs": "workspace:*",
     "@tachybase/plugin-auth-cas": "workspace:*",

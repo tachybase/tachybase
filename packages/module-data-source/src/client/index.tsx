@@ -37,7 +37,7 @@ export class PluginDataSourceManagerClient extends Plugin {
       aclSnippet: 'pm.database-connections.manager',
       sort: -70,
     });
-    this.app.systemSettingsManager.add(`data-modeling.${NAMESPACE}.:name`, {
+    this.app.systemSettingsManager.add(`data-modeling.${NAMESPACE}/:name`, {
       title: <BreadcumbTitle />,
       Component: CollectionManagerPage,
       groupKey: `data-modeling.${NAMESPACE}`,

@@ -5,5 +5,5 @@ import { getSchemaTableMessagesWrapper } from './TableMessagesWrapper.schema';
 
 export const ViewTableMessagesWrapper = (props) => {
   const schema = getSchemaTableMessagesWrapper(props);
-  return <SchemaComponent schema={schema} />;
+  return <SchemaComponent memoized schema={schema} />;
 };

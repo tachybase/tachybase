@@ -317,23 +317,56 @@ export class PluginDataSourceManagerServer extends Plugin {
       name: 'dataSources',
     });
 
-    this.app.db.on('dataSourcesFields.afterSave', async (model: DataSourcesFieldModel) => {
+    this.app.db.on('dataSourcesFields.beforeSave', async (model: DataSourcesFieldModel, options) => {
+      const { transaction } = options;
+      if (!model.get('collectionName') || !model.get('dataSourceKey')) {
+        const collectionKey = model.get('collectionKey');
+        if (!collectionKey) {
+          throw new Error('collectionKey is required');
+        }
+
+        const collection = await model.getCollection({ transaction });
+
+        model.set('collectionName', collection.get('name'));
+        model.set('dataSourceKey', collection.get('dataSourceKey'));
+      }
+    });
+
+    this.app.db.on('dataSourcesCollections.afterDestroy', async (model: DataSourcesCollectionModel) => {
+      const dataSource = this.app.dataSourceManager.dataSources.get(model.get('dataSourceKey'));
+      if (!dataSource) {
+        this.app.logger.warn(`DataSource ${model.get('dataSourceKey')} not found during collection removal`);
+        return;
+      }
+      try {
+        dataSource.collectionManager.removeCollection(model.get('name'));
+      } catch (error) {
+        this.app.logger.error(`Failed to remove collection: ${error.message}`);
+        throw error;
+      }
+    });
+
+    this.app.db.on('dataSourcesFields.afterSaveWithAssociations', async (model: DataSourcesFieldModel) => {
       model.load({
         app: this.app,
       });
     });
 
-    this.app.db.on('dataSourcesFields.afterDestroy', async (model: DataSourcesFieldModel) => {
+    this.app.db.on('dataSourcesFields.afterDestroy', async (model: DataSourcesFieldModel, options) => {
       model.unload({
         app: this.app,
       });
     });
 
-    this.app.db.on('dataSourcesCollections.afterSave', async (model: DataSourcesCollectionModel) => {
-      model.load({
-        app: this.app,
-      });
-    });
+    this.app.db.on(
+      'dataSourcesCollections.afterSaveWithAssociations',
+      async (model: DataSourcesCollectionModel, { transaction }) => {
+        await model.load({
+          app: this.app,
+          transaction,
+        });
+      },
+    );
 
     this.app.db.on('dataSources.afterDestroy', async (model: DataSourceModel) => {
       this.app.dataSourceManager.dataSources.delete(model.get('key'));
@@ -401,6 +434,17 @@ export class PluginDataSourceManagerServer extends Plugin {
       if (role) {
         role.revokeResource(model.get('name'));
       }
+
+      const { transaction } = options;
+      const pluginACL: any = this.app.pm.get('acl');
+      // TODO: 可能会有问题
+      await model.writeToACL({
+        grantHelper: pluginACL.grantHelper,
+        associationFieldsActions: pluginACL.associationFieldsActions,
+        acl: dataSource.acl,
+        transaction,
+        app: this.app,
+      });
     });
 
     this.app.db.on('dataSourcesRoles.afterSave', async (model: DataSourcesRolesModel, options) => {

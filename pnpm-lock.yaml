@@ -3535,6 +3535,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/module-data-source':
+        specifier: workspace:*
+        version: link:../module-data-source
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../schema
@@ -4498,6 +4501,9 @@ importers:
       '@tachybase/plugin-adapter-remix':
         specifier: workspace:*
         version: link:../plugin-adapter-remix
+      '@tachybase/plugin-ai-chat':
+        specifier: workspace:*
+        version: link:../plugin-ai-chat
       '@tachybase/plugin-api-keys':
         specifier: workspace:*
         version: link:../plugin-api-keys

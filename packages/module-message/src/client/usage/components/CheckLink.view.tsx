@@ -3,23 +3,20 @@ import { SchemaComponent, useCollectionRecordData } from '@tachybase/client';
 
 import { usePropsCheckLink } from '../hooks/usePropsCheckLink';
 import { usePropsShowDetail } from '../hooks/usePropsShowDetail';
-import { CheckContent } from './CheckContent.component';
+import { ViewCheckContent } from './CheckContent.view';
 import { getSchemaCheckLink } from './CheckLink.schema';
 
-export const ViewCheckLink = (props) => {
-  const { popoverComponent = 'Action.Drawer', popoverComponentProps = {} } = props;
+export const ViewCheckLink = () => {
   const record = useCollectionRecordData();
   const schema = getSchemaCheckLink({
     record,
-    popoverComponent,
-    popoverComponentProps,
   });
 
   return (
     <SchemaComponent
       schema={schema}
       components={{
-        CheckContent: CheckContent,
+        ViewCheckContent: ViewCheckContent,
       }}
       scope={{
         usePropsCheckLink: usePropsCheckLink,

@@ -90,7 +90,7 @@ export const EditDatabaseConnectionAction = () => {
                             'x-component': 'Action',
                             'x-use-component-props': 'useCancelActionProps',
                           },
-                          testConnectiion: {
+                          testConnection: {
                             title: `{{ t("Test Connection",{ ns: "${NAMESPACE}" }) }}`,
                             'x-component': 'Action',
                             'x-use-component-props': 'useTestConnectionAction',

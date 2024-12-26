@@ -58,7 +58,6 @@ const schema: ISchema = {
           title: "{{t('Model')}}",
           'x-decorator': 'FormItem',
           'x-component': 'Input',
-          default: 'deepseek-chat',
         },
         AI_API_KEY: {
           type: 'string',
@@ -71,7 +70,6 @@ const schema: ISchema = {
           title: "{{t('API URL')}}",
           'x-decorator': 'FormItem',
           'x-component': 'Input',
-          default: 'https://api.deepseek.com/chat/completions',
         },
         footer: {
           type: 'void',

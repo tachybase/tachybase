@@ -7,7 +7,7 @@ export function usePropsCheckLink(props) {
   const record = useCollectionRecordData();
   const { id: messageId, read } = record;
 
-  // 插入查看时候, 同步刷新阅读状态, 和全局消息阅读量的逻辑
+  // 点击查看时候, 同步刷新阅读状态, 和全局消息阅读量的逻辑
   const handleClick = async () => {
     onClick?.();
     if (messageId && !read) {
