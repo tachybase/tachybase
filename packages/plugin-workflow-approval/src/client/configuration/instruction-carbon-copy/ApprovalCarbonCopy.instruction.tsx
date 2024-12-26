@@ -64,10 +64,10 @@ export class ApprovalCarbonCopyInstruction extends Instruction {
         add: {
           type: 'void',
           title: tval('Add Notified Person'),
-          // HACK: 这里原本的框架逻辑, 解析竟然和 Addition 这个单词绑定, 奇怪
-          // 类似的还有, Index, Remove, MoveUp, MoveDown, Copy
-          // isOperationComponent() 针对这类操作组件, 做了特殊逻辑
           'x-component': 'AdditionNotifiedPerson',
+          'x-component-props': {
+            isAddition: true,
+          },
         },
       },
     },

@@ -3,7 +3,6 @@ import { ExtendCollectionsProvider, RecordProvider, SchemaComponent, SchemaCompo
 import { uid } from '@tachybase/utils/client';
 
 import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
-// import { ViewApplyFormAddBlock } from '../../../../common/components/ApplyFormAddBlock.view';
 import { getSchemaApplyShowDetailModal } from './ApplyShowDetailModal.schema';
 import { useStyles } from './ApplyShowDetailModal.style';
 import { ViewApplyShowDetailAddBlock } from './approver-modal/ApplyShowDetailAddBlock.view';
@@ -36,7 +35,6 @@ export const ViewApplyShowDetailModal = () => {
             schema={schema}
             components={{
               ViewApplyShowDetailAddBlock: ViewApplyShowDetailAddBlock,
-              // SchemaAddBlock: ViewApplyFormAddBlock,
             }}
           />
         </SchemaComponentContext.Provider>
