@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-simple-cms",
-  "version": "0.23.10",
+  "version": "0.23.11",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-simple-cms"
