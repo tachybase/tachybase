@@ -10,7 +10,7 @@ export class HttpDataSource extends DataSource {
   async load(options: { localData?: any } = {}) {
     const { localData } = options;
     for (const collectionName of Object.keys(localData)) {
-      this.collectionManager.defineCollection({ ...localData[collectionName], repository: 'HttpApiRepository' });
+      this.collectionManager.defineCollection(localData[collectionName]);
     }
   }
   createCollectionManager(options) {
