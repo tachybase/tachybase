@@ -9,11 +9,12 @@
     "preview": "rsbuild preview"
   },
   "dependencies": {
-    "@tachybase/client": "{{{version}}}",
+    "@tachybase/client": "{{version}}",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@tachybase/devtools": "{{version}}",
     "@rsbuild/core": "^1.1.10",
     "@rsbuild/plugin-babel": "1.0.3",
     "@rsbuild/plugin-less": "1.1.0",

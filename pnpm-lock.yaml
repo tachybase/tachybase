@@ -127,9 +127,6 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../packages/client
-      '@tachybase/devtools':
-        specifier: workspace:*
-        version: link:../../packages/devtools
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -155,6 +152,9 @@ importers:
       '@rsbuild/plugin-umd':
         specifier: 1.0.4
         version: 1.0.4(@rsbuild/core@1.1.10)
+      '@tachybase/devtools':
+        specifier: workspace:*
+        version: link:../../packages/devtools
       '@types/react':
         specifier: 18.3.18
         version: 18.3.18
