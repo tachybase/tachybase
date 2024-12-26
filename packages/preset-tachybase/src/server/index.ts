@@ -45,6 +45,7 @@ export class PresetTachyBase extends Plugin {
     ['field-china-region', '0.22.7', true],
     ['field-formula', '0.22.7', true],
     ['field-sequence', '0.22.7', true],
+    ['field-encryption', '0.23.8', true],
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
     // default disable
@@ -78,6 +79,7 @@ export class PresetTachyBase extends Plugin {
     ['sub-accounts', '0.22.56', false],
     ['theme-editor', '0.11.1', false],
     ['workflow-approval', '0.22.37', false],
+    ['ai-chat', '0.23.8', false],
   ];
 
   get localPlugins() {

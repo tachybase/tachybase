@@ -249,7 +249,7 @@ export class Collection<
       repo = this.context.database.repositories.get(repository) || Repository;
     }
 
-    if (this.options.tree == 'adjacency-list' || this.options.tree == 'adjacencyList') {
+    if (this.options.tree === 'adjacency-list' || this.options.tree === 'adjacencyList') {
       repo = AdjacencyListRepository;
     }
 
@@ -351,7 +351,7 @@ export class Collection<
 
     const oldField = this.fields.get(name);
 
-    if (oldField && oldField.options.inherit && field.typeToString() != oldField.typeToString()) {
+    if (oldField && oldField.options.inherit && field.typeToString() !== oldField.typeToString()) {
       throw new Error(
         `Field type conflict: cannot set "${name}" on "${this.name}" to ${options.type}, parent "${name}" type is ${oldField.options.type}`,
       );
@@ -473,19 +473,22 @@ export class Collection<
       return;
     }
 
-    const columnReferencesCount = _.filter(this.model.rawAttributes, (attr) => attr.field == field.columnName()).length;
+    const columnReferencesCount = _.filter(
+      this.model.rawAttributes,
+      (attr) => attr.field === field.columnName(),
+    ).length;
 
     if (
       (await field.existsInDb({
         transaction: options?.transaction,
       })) &&
-      columnReferencesCount == 1
+      columnReferencesCount === 1
     ) {
       const columns = await this.model.sequelize
         .getQueryInterface()
         .describeTable(this.getTableNameWithSchema(), options);
 
-      if (Object.keys(columns).length == 1) {
+      if (Object.keys(columns).length === 1) {
         // remove table if only one column left
         await this.removeFromDb({
           ...options,
@@ -849,7 +852,7 @@ export class Collection<
     const tableName = this.tableName();
     for (const [k, collection] of this.db.collections) {
       if (
-        collection.name != this.options.name &&
+        collection.name !== this.options.name &&
         tableName === collection.tableName() &&
         collection.collectionSchema() === this.collectionSchema()
       ) {

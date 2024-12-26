@@ -1,0 +1,23 @@
+{
+  "name": "@tachybase/plugin-ai-chat",
+  "version": "0.23.8",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "^5.5.2",
+    "@ant-design/x": "^1.0.3",
+    "antd": "5.22.5",
+    "antd-style": "3.7.1",
+    "lodash": "^4.17.21",
+    "openai": "^4.77.0",
+    "react-i18next": "^15.2.0"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  }
+}
