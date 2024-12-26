@@ -6,6 +6,8 @@ import { CloseOutlined } from '@ant-design/icons';
 import WorkflowPlugin, { NodeDefaultView } from '../..';
 import { useGetAriaLabelOfAddButton } from '../../hooks/useGetAriaLabelOfAddButton';
 import { AddButton } from './components/AddButton';
+import { Draggable } from './components/Draggable';
+import { Droppable } from './components/Droppable';
 import { ProviderContextNode } from './Node.context';
 import { useStyles } from './Node.style';
 
@@ -17,7 +19,11 @@ export const Node = ({ data }) => {
   return (
     <ProviderContextNode value={{ ...data, group }}>
       <div className={cx(styles.nodeBlockClass)}>
-        <Component data={data} />
+        <Droppable id={data.id}>
+          <Draggable id={data.id}>
+            <Component data={data} />
+          </Draggable>
+        </Droppable>
         {!end || (typeof end === 'function' && !end(data)) ? (
           <AddButton aria-label={getAriaLabel()} upstream={data} />
         ) : (

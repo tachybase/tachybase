@@ -2102,6 +2102,9 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.26.0
         version: 7.26.0(@babel/core@7.26.0)
+      '@dnd-kit/core':
+        specifier: ^6.1.0
+        version: 6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
