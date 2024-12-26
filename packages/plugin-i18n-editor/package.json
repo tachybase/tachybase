@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-i18n-editor"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@tachybase/schema": "workspace:*",

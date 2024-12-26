@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-collection"
   },
+  "dependencies": {},
   "devDependencies": {
     "@hapi/topo": "^6.0.2",
     "@types/lodash": "4.17.13",

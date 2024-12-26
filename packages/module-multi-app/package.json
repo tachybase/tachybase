@@ -11,10 +11,9 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-multi-app"
   },
-  "dependencies": {
-    "@ant-design/icons": "^5.5.2"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@ant-design/icons": "^5.5.2",
     "@tachybase/schema": "workspace:*",
     "antd": "5.22.5",
     "async-mutex": "^0.3.2",

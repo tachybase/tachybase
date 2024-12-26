@@ -13,6 +13,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-block-calendar"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",

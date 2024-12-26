@@ -11,6 +11,8 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-app-info"
   },
+  "dependencies": {},
+  "devDependencies": {},
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",

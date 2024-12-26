@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-workflow-test"
   },
+  "dependencies": {},
   "devDependencies": {
     "lodash": "4.17.21"
   },

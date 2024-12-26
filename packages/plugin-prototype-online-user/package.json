@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-online-user"
   },
+  "dependencies": {},
   "devDependencies": {
     "antd": "5.22.5",
     "jsonwebtoken": "^8.5.1",

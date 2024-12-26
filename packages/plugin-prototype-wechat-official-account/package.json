@@ -8,7 +8,8 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-wechat-official-account"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@types/xml2js": "^0.4.14",
     "antd": "5.22.5",

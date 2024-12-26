@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-log-viewer"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@types/tar-fs": "^2.0.4",
