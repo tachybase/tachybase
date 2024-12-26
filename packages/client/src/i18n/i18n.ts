@@ -18,14 +18,17 @@ Object.keys(locale).forEach((lang) => {
   resources[lang] = locale[lang].resources;
 });
 
-i18n.use(initReactI18next).init({
-  lng: localStorage.getItem('TACHYBASE_LOCALE') || 'en-US',
-  defaultNS: 'core',
-  resources: {},
-  keySeparator: false,
-  nsSeparator: false,
-});
+// for ssr
+if (typeof localStorage !== 'undefined') {
+  i18n.use(initReactI18next).init({
+    lng: localStorage.getItem('TACHYBASE_LOCALE') || 'en-US',
+    defaultNS: 'core',
+    resources: {},
+    keySeparator: false,
+    nsSeparator: false,
+  });
 
-i18n.on('languageChanged', (lng) => {
-  localStorage.setItem('TACHYBASE_LOCALE', lng);
-});
+  i18n.on('languageChanged', (lng) => {
+    localStorage.setItem('TACHYBASE_LOCALE', lng);
+  });
+}
