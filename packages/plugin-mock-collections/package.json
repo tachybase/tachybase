@@ -1,13 +1,14 @@
 {
   "name": "@tachybase/plugin-mock-collections",
   "displayName": "mock-collections",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "mock-collections",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-mock-collections"
   },
+  "dependencies": {},
   "devDependencies": {
     "@faker-js/faker": "8.4.1",
     "lodash": "4.17.21",

@@ -45,6 +45,7 @@ export class PresetTachyBase extends Plugin {
     ['field-china-region', '0.22.7', true],
     ['field-formula', '0.22.7', true],
     ['field-sequence', '0.22.7', true],
+    ['field-encryption', '0.23.8', true],
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
     // default disable
@@ -78,6 +79,7 @@ export class PresetTachyBase extends Plugin {
     ['sub-accounts', '0.22.56', false],
     ['theme-editor', '0.11.1', false],
     ['workflow-approval', '0.22.37', false],
+    ['ai-chat', '0.23.8', false],
   ];
 
   get localPlugins() {
@@ -198,7 +200,21 @@ export class PresetTachyBase extends Plugin {
       }
       const name = plugin[0];
       const packageJson = await this.getPackageJson(name);
-      plugins.push({ name, packageName: packageJson.name, version: packageJson.version });
+      if (items.includes(plugin[0])) {
+        plugins.push({
+          name,
+          packageName: packageJson.name,
+          version: packageJson.version,
+        });
+      } else {
+        plugins.push({
+          name,
+          packageName: packageJson.name,
+          version: packageJson.version,
+          enabled: plugin[2],
+          builtIn: false,
+        });
+      }
     }
     return plugins;
   }

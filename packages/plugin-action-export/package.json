@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-export",
   "displayName": "Action: Export records",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Export filtered records to excel, you can configure which fields to export.",
   "keywords": [
     "Actions"
@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-action-export"
   },
+  "dependencies": {},
   "devDependencies": {
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",

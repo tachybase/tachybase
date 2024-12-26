@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-hera",
   "displayName": "Hera platform - Deprecated",
-  "version": "1.9.8",
+  "version": "1.9.18",
   "description": "Hera platform - Deprecated",
   "keywords": [
     "System management"
@@ -10,6 +10,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-hera"
   },
+  "dependencies": {},
   "devDependencies": {
     "@alicloud/captcha20230305": "^1.1.3",
     "@ant-design/icons": "~5.3.7",

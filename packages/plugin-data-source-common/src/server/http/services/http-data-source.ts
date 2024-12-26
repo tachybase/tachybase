@@ -18,7 +18,7 @@ export class HttpDataSource extends DataSource {
       dataSource: this,
     });
     collectionManager.registerRepositories({
-      Repository: HttpApiRepository,
+      HttpApiRepository,
     });
     return collectionManager;
   }

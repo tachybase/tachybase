@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-app-info",
   "displayName": "System settings",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Used to adjust the system title, logo, language, etc.",
   "keywords": [
     "System management"
@@ -11,6 +11,8 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-app-info"
   },
+  "dependencies": {},
+  "devDependencies": {},
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",

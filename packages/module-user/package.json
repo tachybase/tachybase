@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-user",
   "displayName": "Users",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Provides basic user model, as well as created by and updated by fields.",
   "keywords": [
     "Users & permissions"
@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-user"
   },
+  "dependencies": {},
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "@types/jsonwebtoken": "^8.5.9",

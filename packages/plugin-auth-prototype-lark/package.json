@@ -1,12 +1,13 @@
 {
   "name": "@tachybase/plugin-auth-lark",
   "displayName": "Auth: Lark",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-lark"
   },
   "dependencies": {},
+  "devDependencies": {},
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",

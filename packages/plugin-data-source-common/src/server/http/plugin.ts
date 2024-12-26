@@ -18,7 +18,7 @@ export class PluginHttpDatasource extends Plugin {
           if (!actionOptions.type) {
             _.set(actionOptions, 'type', 'list');
           }
-          const dataSource = ctx.app.dataSourceManager.dataSources.get(sourceId);
+          const dataSource = ctx.app.dataSourceManager.dataSources.get(sourceId) as HttpDataSource;
           ctx.body = await HttpCollection.runAction({
             dataSource,
             actionOptions,

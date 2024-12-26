@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-theme-editor",
   "displayName": "Theme editor",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Customize UI colors, sizes, etc. and save the result as a theme to switch between multiple themes.",
   "keywords": [
     "System management"
@@ -10,6 +10,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-theme-editor"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/cssinjs": "^1.22.1",
     "@ant-design/icons": "~5.3.7",

@@ -7,6 +7,8 @@
   "scripts": {
     "tachybase": "tachybase",
     "tb": "tachybase",
+    "tbi": "tachybase install",
+    "tbu": "tachybase upgrade",
     "pm": "tachybase pm",
     "dev": "tachybase dev",
     "start": "tachybase start",
@@ -15,8 +17,7 @@
     "test": "tachybase test",
     "e2e": "tachybase e2e",
     "tar": "tachybase tar",
-    "postinstall": "tachybase postinstall",
-    "lint": "eslint ."
+    "postinstall": "tachybase postinstall"
   },
   "resolutions": {
     "@types/react": "^18.0.0",
@@ -28,8 +29,5 @@
     "@tachybase/build": "{{{version}}}",
     "@tachybase/cli": "{{{version}}}",
     {{{dependencies}}}
-  },
-  "devDependencies": {
-    "@tachybase/devtools": "{{{version}}}"
   }
 }

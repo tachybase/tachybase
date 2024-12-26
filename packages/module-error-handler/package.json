@@ -1,13 +1,14 @@
 {
   "name": "@tachybase/module-error-handler",
   "displayName": "Error handler",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Handling application errors and exceptions.",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-error-handler"
   },
+  "dependencies": {},
   "devDependencies": {
     "@formily/json-schema": "2.3.2",
     "lodash": "4.17.21",

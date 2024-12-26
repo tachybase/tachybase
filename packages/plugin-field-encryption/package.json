@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-field-encryption",
   "displayName": "Collection field: Encryption",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Encryption field",
   "keywords": [
     "Collection fields"
@@ -10,6 +10,8 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-field-encryption"
   },
+  "dependencies": {},
+  "devDependencies": {},
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",

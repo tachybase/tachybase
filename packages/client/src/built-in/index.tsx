@@ -18,12 +18,13 @@ import { CollectionPlugin } from '../collection-manager';
 import { RouteSchemaComponent } from '../route-switch';
 import { AntdSchemaComponentPlugin, SchemaComponentPlugin } from '../schema-component';
 import { ErrorFallback } from '../schema-component/antd/error-fallback';
-import { AssociationFilterPlugin, SchemaInitializerPlugin } from '../schema-initializer';
+import { AssociationFilterPlugin } from '../schema-initializer';
+import { SchemaInitializerPlugin } from '../schema-initializer/SchemaInitializerPlugin';
 import { SchemaSettingsPlugin } from '../schema-settings';
 import { BlockTemplateDetails, BlockTemplatePage } from '../schema-templates';
 import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
-import { ACLPlugin } from './acl';
-import { AdminLayoutPlugin } from './admin-layout';
+import { ACLPlugin } from './acl/ACLPlugin';
+import { AdminLayoutPlugin } from './admin-layout/AdminLayoutPlugin';
 import { WelcomeCard } from './admin-layout/components/WelcomeCard';
 import { PluginAssistant } from './assistant';
 import { AttachmentPreviewPlugin } from './attachment-preview';
@@ -33,7 +34,7 @@ import { RemoteDocumentTitlePlugin } from './document-title';
 import { PluginDynamicPage } from './dynamic-page';
 import { LocalePlugin } from './locale/LocalePlugin';
 import { PluginPageStyle } from './page-style';
-import { PinnedListPlugin } from './pinned-list';
+import { PluginPinnedList } from './pinned-list/PluginPinnedList';
 import { PMPlugin } from './pm';
 import { QuickAccessPlugin } from './quick-access';
 import { ScrollAssistantPlugin } from './scroll-assistant';
@@ -374,7 +375,7 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(LocalePlugin, { name: 'builtin-locale' });
     await this.app.pm.add(AdminLayoutPlugin, { name: 'admin-layout' });
     await this.app.pm.add(SystemSettingsPlugin, { name: 'system-setting' });
-    await this.app.pm.add(PinnedListPlugin, {
+    await this.app.pm.add(PluginPinnedList, {
       name: 'pinned-list',
       config: {
         items: {

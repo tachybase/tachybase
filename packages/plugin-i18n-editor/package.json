@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-i18n-editor",
   "displayName": "Localization",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Allows to manage localization resources of the application.",
   "keywords": [
     "System management"
@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-i18n-editor"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@tachybase/schema": "workspace:*",

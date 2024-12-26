@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-file",
   "displayName": "File manager",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Provides files storage services with files collection template and attachment field.",
   "keywords": [
     "Collections",
@@ -12,6 +12,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-file"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@aws-sdk/client-s3": "^3.717.0",

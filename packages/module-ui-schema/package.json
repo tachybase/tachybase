@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-ui-schema",
   "displayName": "UI schema storage",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Provides centralized UI schema storage service.",
   "keywords": [
     "System & security"
@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-ui-schema"
   },
+  "dependencies": {},
   "devDependencies": {
     "lodash": "4.17.21",
     "sequelize": "6.37.5"

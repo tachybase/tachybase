@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/cli",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "",
   "license": "Apache-2.0",
   "type": "module",
@@ -12,7 +12,7 @@
   },
   "files": [
     "bin",
-    "dist",
+    "lib",
     "templates",
     "tachybase.conf.tpl"
   ],
@@ -22,8 +22,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tachybase/app-rs": "workspace:*",
-    "@tachybase/app-server": "workspace:*",
     "@tachybase/utils": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@umijs/utils": "3.5.43",
@@ -42,12 +40,12 @@
     "semver": "^7.6.3",
     "serve": "^14.2.4",
     "tree-kill": "^1.2.2",
+    "tsconfig-paths": "^4.2.0",
     "tsup": "8.3.5",
     "tsx": "^4.19.2",
     "zeromq": "6.1.2"
   },
   "devDependencies": {
-    "@tachybase/devtools": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.13",
     "@types/node": "20.17.10",

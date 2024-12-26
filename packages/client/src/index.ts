@@ -2,7 +2,6 @@
 import 'antd/dist/reset.css';
 import './global.less';
 
-export * from '@emotion/css';
 export * from './built-in/acl';
 export * from './api-client';
 export * from './application';
@@ -22,6 +21,7 @@ export * from './i18n';
 export * from './icon';
 export { default as locale } from './locale';
 export * from './built-in';
+export * from './built-in/assistant';
 export * from './built-in/pinned-list';
 export * from './built-in/pm';
 export * from './powered-by';

@@ -23,13 +23,13 @@ import {
   detailsBlockSettings,
   singleDataDetailsBlockSettings,
 } from '../modules/blocks/data-blocks/details-single/detailsBlockSettings';
-import { FilterItemCustomSettings } from '../modules/blocks/data-blocks/form';
 import {
   createFormBlockSettings,
   creationFormBlockSettings,
 } from '../modules/blocks/data-blocks/form/createFormBlockSettings';
 import { editFormBlockSettings } from '../modules/blocks/data-blocks/form/editFormBlockSettings';
 import { fieldSettingsFormItem } from '../modules/blocks/data-blocks/form/fieldSettingsFormItem';
+import { FilterItemCustomSettings } from '../modules/blocks/data-blocks/form/FilterItemCustomSettings';
 import { gridCardBlockSettings } from '../modules/blocks/data-blocks/grid-card/gridCardBlockSettings';
 import { listBlockSettings } from '../modules/blocks/data-blocks/list/listBlockSettings';
 import { tableSelectorBlockSettings } from '../modules/blocks/data-blocks/table-selector/tableSelectorBlockSettings';

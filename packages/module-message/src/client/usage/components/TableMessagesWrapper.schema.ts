@@ -1,14 +1,11 @@
-import { uid } from '@tachybase/utils/client';
-
 import { COLLECTION_NAME_MESSAGES } from '../../../common/collections/messages';
 
 export const getSchemaTableMessagesWrapper = (props?) => {
   const { params } = props || {};
-  const id = uid();
   return {
-    name: id,
     type: 'void',
-    'x-uid': id,
+    name: 'message-table',
+    'x-uid': 'message-table',
     'x-decorator': 'Messages-ProviderCollectionMessages',
     'x-decorator-props': {
       collection: COLLECTION_NAME_MESSAGES,

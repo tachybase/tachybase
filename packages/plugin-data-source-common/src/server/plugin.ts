@@ -1,6 +1,7 @@
 import Application, { Plugin, PluginOptions } from '@tachybase/server';
 
 import { PluginHttpDatasource } from './http/plugin';
+import { HttpDataSource } from './http/services/http-data-source';
 import { MySQLDataSource } from './mysql/mysql-data-source';
 import { PostgresDataSource } from './pg/postgres-data-source';
 
@@ -14,6 +15,7 @@ export class PluginExternalDataSourceServer extends Plugin {
   async beforeLoad() {
     this.app.dataSourceManager.factory.register('postgres', PostgresDataSource);
     this.app.dataSourceManager.factory.register('mysql', MySQLDataSource);
+    this.app.dataSourceManager.factory.register('http', HttpDataSource);
   }
   async beforeEnable() {
     const plugin = this.pm.get('data-source');

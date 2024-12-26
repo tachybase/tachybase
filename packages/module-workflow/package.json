@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-workflow",
   "displayName": "Workflow",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "A powerful BPM tool that provides foundational support for business automation, with the capability to extend unlimited triggers and nodes.",
   "keywords": [
     "Workflow"
@@ -11,17 +11,13 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-workflow"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@ant-design/icons": "~5.3.7",
     "@babel/core": "7.26.0",
     "@babel/preset-env": "7.26.0",
     "@babel/preset-react": "7.26.3",
     "@babel/preset-typescript": "7.26.0",
-    "form-data": "^4.0.1",
-    "jsonata": "^2.0.6",
-    "mime-types": "^2.1.35"
-  },
-  "devDependencies": {
-    "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",
     "@tachybase/plugin-workflow-test": "workspace:*",
     "@types/babel__core": "7.20.5",
@@ -33,8 +29,11 @@
     "axios": "^1.7.9",
     "cron-parser": "4.9.0",
     "file-saver": "^2.0.5",
+    "form-data": "^4.0.1",
+    "jsonata": "^2.0.6",
     "lodash": "4.17.21",
     "lru-cache": "8.0.5",
+    "mime-types": "^2.1.35",
     "qrcode": "^1.5.4",
     "react": "~18.3.1",
     "react-i18next": "^15.2.0",

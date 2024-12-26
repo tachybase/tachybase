@@ -22,8 +22,8 @@ export function useDestroyActionAndRefreshCM() {
 function useDestroyAction() {
   const apiClient = useAPIClient();
   const ctx = useActionContext();
-  const { targetKey } = useResourceContext();
-  const { [targetKey]: filterByTk } = useRecord();
+  // const { targetKey } = useResourceContext();
+  const { key: filterByTk } = useRecord();
   const { name } = useParams();
   const { refresh } = useResourceActionContext();
 

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-api-keys",
   "displayName": "Auth: API keys",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Allows users to use API key to access application's HTTP API",
   "keywords": [
     "Authentication"
@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-api-keys"
   },
+  "dependencies": {},
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.8.4",

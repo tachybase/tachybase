@@ -9,6 +9,7 @@ import {
   SchemaComponentContext,
   TemplateSummary,
   useAPIClient,
+  useApp,
   useCancelAction,
   useCollectionManager_deprecated,
   useCompile,
@@ -91,7 +92,7 @@ const useNewId = (prefix) => {
 
 export const ConfigurationTable = () => {
   const { t } = useTranslation();
-  const { interfaces, getCollections } = useCollectionManager_deprecated();
+  const { interfaces, getCollections, getCollection } = useCollectionManager_deprecated();
   const {
     data: { database },
   } = useCurrentAppInfo();
@@ -100,6 +101,7 @@ export const ConfigurationTable = () => {
   const api = useAPIClient();
   const resource = api.resource('dbViews');
   const compile = useCompile();
+  const app = useApp();
 
   /**
    *
@@ -150,6 +152,34 @@ export const ConfigurationTable = () => {
     });
   };
 
+  const loadFilterTargetKeys = async (field) => {
+    const { name, fields: targetFields } = field.form.values;
+    const { fields } = getCollection(name) || {};
+    return Promise.resolve({
+      data: fields || targetFields,
+    }).then(({ data }) => {
+      return data
+        .filter((field) => {
+          if (!field.interface) {
+            return false;
+          }
+          const interfaceOptions = app.dataSourceManager.collectionFieldInterfaceManager.getFieldInterface(
+            field.interface,
+          );
+          if (interfaceOptions.titleUsable) {
+            return true;
+          }
+          return false;
+        })
+        ?.map((item: any) => {
+          return {
+            label: compile(item.uiSchema?.title) || item.name,
+            value: item.name,
+          };
+        });
+    });
+  };
+
   const loadStorages = async () => {
     return api
       .resource('storages')
@@ -178,6 +208,7 @@ export const ConfigurationTable = () => {
           CollectionFields,
         }}
         scope={{
+          loadFilterTargetKeys,
           useDestroySubField,
           useBulkDestroySubField,
           useSelectedRowKeys,

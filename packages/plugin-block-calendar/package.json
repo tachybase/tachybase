@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-block-calendar",
   "displayName": "Calendar",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Provides callendar collection template and block for managing date data, typically for date/time related information such as events, appointments, tasks, and so on.",
   "keywords": [
     "Collections",
@@ -13,6 +13,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-block-calendar"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",

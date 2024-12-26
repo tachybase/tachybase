@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-// @ts-ignore
 import { Form, Schema } from '@tachybase/schema';
 
 import _ from 'lodash';
@@ -161,7 +160,7 @@ export const getShouldChange = ({
       return true;
     }
 
-    // `json` 可以选择任意类型的变量，详见：https://tachybase.feishu.cn/docx/EmNEdEBOnoQohUx2UmBcqIQ5nyh#FPLfdSRDEoXR65xW0mBcdfL5n0c
+    // `json` 可以选择任意类型的变量
     if (collectionField.interface === 'json') {
       return true;
     }

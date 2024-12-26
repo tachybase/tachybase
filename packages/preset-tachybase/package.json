@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "@tachybase/plugin-adapter-bullmq": "workspace:*",
     "@tachybase/plugin-adapter-red-node": "workspace:*",
     "@tachybase/plugin-adapter-remix": "workspace:*",
+    "@tachybase/plugin-ai-chat": "workspace:*",
     "@tachybase/plugin-api-keys": "workspace:*",
     "@tachybase/plugin-audit-logs": "workspace:*",
     "@tachybase/plugin-auth-cas": "workspace:*",
@@ -61,6 +62,7 @@
     "@tachybase/plugin-demos-game-runesweeper": "workspace:*",
     "@tachybase/plugin-devtools": "workspace:*",
     "@tachybase/plugin-field-china-region": "workspace:*",
+    "@tachybase/plugin-field-encryption": "workspace:*",
     "@tachybase/plugin-field-formula": "workspace:*",
     "@tachybase/plugin-field-markdown-vditor": "workspace:*",
     "@tachybase/plugin-field-sequence": "workspace:*",

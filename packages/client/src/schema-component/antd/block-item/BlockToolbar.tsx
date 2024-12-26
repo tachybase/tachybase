@@ -10,7 +10,6 @@ import {
   ZoomInOutlined,
   ZoomOutOutlined,
 } from '@ant-design/icons';
-import { ActionGroup, ActionIconGroupItemType } from '@ant-design/pro-editor';
 import { message } from 'antd';
 
 const defaultItems = [
@@ -20,7 +19,7 @@ const defaultItems = [
   { icon: <DeleteOutlined />, title: '删除' },
 ];
 
-const customItems: ActionIconGroupItemType[] = [
+const customItems = [
   {
     icon: <CopyOutlined />,
     placement: 'bottom',
@@ -46,7 +45,7 @@ const customItems: ActionIconGroupItemType[] = [
   },
 ];
 
-const dropdownMenuItems: ActionIconGroupItemType[] = [
+const dropdownMenuItems = [
   {
     icon: <CopyOutlined />,
     onClick: () => {
@@ -86,9 +85,5 @@ const dropdownMenuItems: ActionIconGroupItemType[] = [
 export { customItems, defaultItems, dropdownMenuItems };
 
 export default forwardRef((props: any, ref) => {
-  return (
-    <div {...props} ref={ref as any}>
-      <ActionGroup items={defaultItems} dropdownMenu={dropdownMenuItems} />
-    </div>
-  );
+  return <div {...props} ref={ref as any}></div>;
 });

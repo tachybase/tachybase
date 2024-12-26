@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { postCheck, promptForTs, run } from '../util';
 
 export default (cli: Command) => {
-  const { APP_PACKAGE_ROOT, NODE_ARGS } = process.env;
+  const { APP_SERVER_ROOT, NODE_ARGS } = process.env;
   cli
     .command('start')
     .option('-p, --port [port]')
@@ -28,12 +28,12 @@ export default (cli: Command) => {
           process.env.SERVER_TSCONFIG_PATH ?? '',
           '-r',
           'tsconfig-paths/register',
-          `${APP_PACKAGE_ROOT}/src/index.ts`,
+          `${APP_SERVER_ROOT}/src/index.ts`,
           ...process.argv.slice(2),
         ]);
         return;
       }
-      if (!existsSync(resolve(process.cwd(), `${APP_PACKAGE_ROOT}/lib/index.js`))) {
+      if (!existsSync(resolve(process.cwd(), `${APP_SERVER_ROOT}/lib/index.js`))) {
         console.log('The code is not compiled, please execute it first');
         console.log(chalk.yellow('$ pnpm build'));
         console.log('If you want to run in development mode, please execute');
@@ -42,14 +42,14 @@ export default (cli: Command) => {
       }
       await postCheck(opts);
       if (opts.daemon) {
-        run('pm2', ['start', `${APP_PACKAGE_ROOT}/lib/index.js`, '--', ...process.argv.slice(2)]);
+        run('pm2', ['start', `${APP_SERVER_ROOT}/lib/index.js`, '--', ...process.argv.slice(2)]);
       } else {
         run(
           'pm2-runtime',
           // @ts-ignore
           [
             'start',
-            `${APP_PACKAGE_ROOT}/lib/index.js`,
+            `${APP_SERVER_ROOT}/lib/index.js`,
             NODE_ARGS ? `--node-args="${NODE_ARGS}"` : undefined,
             '--',
             ...process.argv.slice(2),

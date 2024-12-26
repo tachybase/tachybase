@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-block-charts",
   "displayName": "Block: charts",
-  "version": "0.23.8",
+  "version": "0.23.18",
   "description": "Provides data visualization feature, including chart block and chart filter block, support line charts, area charts, bar charts and more than a dozen kinds of charts, you can also extend more chart types.",
   "keywords": [
     "Blocks"
@@ -11,9 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-block-charts"
   },
-  "dependencies": {
-    "fs-extra": "^11.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@ant-design/plots": "^2.3.2",
@@ -23,6 +21,7 @@
     "antd": "5.22.5",
     "dayjs": "1.11.13",
     "deepmerge": "^4.3.1",
+    "fs-extra": "^11.2.0",
     "koa-compose": "^4.1.0",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
