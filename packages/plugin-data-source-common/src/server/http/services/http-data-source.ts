@@ -9,9 +9,6 @@ import { normalizeRequestOptions } from './utils';
 export class HttpDataSource extends DataSource {
   async load(options: { localData?: any } = {}) {
     const { localData } = options;
-    if (!localData) {
-      return;
-    }
     for (const collectionName of Object.keys(localData)) {
       this.collectionManager.defineCollection(localData[collectionName]);
     }
@@ -21,7 +18,7 @@ export class HttpDataSource extends DataSource {
       dataSource: this,
     });
     collectionManager.registerRepositories({
-      Repository: HttpApiRepository,
+      HttpApiRepository,
     });
     return collectionManager;
   }

@@ -12,7 +12,7 @@ export class KitHttpDatasource extends Plugin {
     this.app.pm.get(PluginDataSourceManagerClient).registerType('http', {
       label: tval('REST API'),
       allowCollectionCreate: true,
-      allowCollectionDeletion: false,
+      allowCollectionDeletion: true,
       disabledConfigureFields: false,
       disableAddFields: true,
       disableTestConnection: true,
