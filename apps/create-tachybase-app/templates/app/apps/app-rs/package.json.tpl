@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@tachybase/client": "{{{version}}}",
-    "@tachybase/devtools": "{{{version}}}",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
