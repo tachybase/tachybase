@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActionInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
-export const ApprovalActionConfigComponent = () => {
+export const ApproverActionCommon = () => {
   const itemConfig = useSchemaInitializerItem();
   const { action, actionProps = {}, ...restItemConfig } = itemConfig;
 

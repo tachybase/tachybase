@@ -14,8 +14,8 @@ import {
 } from '@tachybase/client';
 import { createForm, RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
-import { useContextApprovalExecution } from '../usage/block/common/ApprovalExecution.provider';
-import { useContextApprovalRecords } from '../usage/block/todos/providers/ApprovalExecutions.provider';
+import { useContextApprovalExecution } from '../../usage/pc/usage/block/common/ApprovalExecution.provider';
+import { useContextApprovalRecords } from '../../usage/pc/usage/block/todos/providers/ApprovalExecutions.provider';
 
 export const FormBlockProvider = (props) => {
   const { formType } = props;
@@ -50,7 +50,8 @@ export const FormBlockProvider = (props) => {
   );
 
   // 当更新表单时候, 不应该让除审批人外的用户看到表单更新入口
-  if (['update'].includes(formType) && currentUser?.data.id !== approvalUserId) {
+  // TODO: 区分出配置态和用户态, 暂时用 !!snapshot 来判断是否是配置态
+  if (['update'].includes(formType) && currentUser?.data.id !== approvalUserId && !!snapshot) {
     return null;
   }
 

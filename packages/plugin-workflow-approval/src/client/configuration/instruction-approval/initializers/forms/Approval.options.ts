@@ -3,7 +3,7 @@ import { JOB_STATUS } from '@tachybase/module-workflow/client';
 import { ISchema } from '@tachybase/schema';
 import { Registry } from '@tachybase/utils/client';
 
-import updateFormConfig from './update';
+import { updateFormConfig } from './update';
 
 type ValueOf<T> = T[keyof T];
 

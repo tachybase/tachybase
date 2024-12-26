@@ -7,12 +7,12 @@ import PluginWorkflow, {
 } from '@tachybase/module-workflow/client';
 
 import { NAMESPACE } from '../../../locale';
-import { approvalFormOptions, ApprovalFormType } from '../forms/Approval.options';
-import { ApproverAddBlockComponent } from './ApproverAddBlock.view';
-import { ApproverAddBlockKit } from './ApproverAddBlockKit.view';
+import { ApproverDetailForm } from './ApproverDetailForm';
+import { approvalFormOptions, ApprovalFormType } from './forms/Approval.options';
+import { SwitchApproverActionBlock } from './SwitchApproverActionBlock';
 
-export const ApproverAddBlockInitializer = new SchemaInitializer({
-  name: 'ApproverAddBlockInitializer',
+export const ApproverShowDetailInitializer = new SchemaInitializer({
+  name: 'ApproverShowDetailInitializer',
   wrap: gridRowColWrap,
   title: "{{t('Add block')}}",
   items: [
@@ -25,13 +25,13 @@ export const ApproverAddBlockInitializer = new SchemaInitializer({
           name: 'detail',
           type: 'item',
           title: '{{t("Details")}}',
-          Component: ApproverAddBlockComponent,
+          Component: ApproverDetailForm,
         },
         {
           name: 'actions',
           type: 'item',
           title: '{{t("Actions")}}',
-          Component: ApproverAddBlockKit,
+          Component: SwitchApproverActionBlock,
         },
       ],
     },
@@ -78,7 +78,6 @@ export const ApproverAddBlockInitializer = new SchemaInitializer({
         const values = Array.from(approvalFormOptions.getValues());
         return values.map((item: ApprovalFormType) => {
           // NOTE: 这里通过赋别名,避免 eslint 检查 hooks 语法,无法提交
-
           const { useInitializer: getInitializer } = item.config;
           return getInitializer({ allCollections });
         });

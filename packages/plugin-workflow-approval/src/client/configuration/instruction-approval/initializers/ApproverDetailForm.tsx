@@ -12,7 +12,7 @@ import { useFlowContext } from '@tachybase/module-workflow/client';
 
 import _ from 'lodash';
 
-export const ApproverAddBlockComponent = () => {
+export const ApproverDetailForm = () => {
   const { workflow } = useFlowContext();
   const [dataSourceName, collection] = parseCollectionName(workflow.config.collection);
   const itemConfig = useSchemaInitializerItem();

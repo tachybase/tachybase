@@ -8,7 +8,7 @@ import {
 import { DetailsBlockProvider } from '@tachybase/module-workflow/client';
 import { useForm } from '@tachybase/schema';
 
-import { FormBlockProvider } from '../../../common/FormBlock.provider';
+import { FormBlockProvider } from '../../../../../common/components/FormBlock.provider';
 import { ContextWithActionEnabled } from '../../common/WithActionEnabled.provider';
 import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
 import { getSchemaCheckContent } from './CheckContent.schema';

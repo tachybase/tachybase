@@ -7,18 +7,24 @@ import { NAMESPACE } from '../../../locale';
 import { APPROVAL_ACTION_STATUS, flatSchemaArray } from '../../../usage/pc/constants';
 
 // 添加卡片-操作switch
-export const ApproverAddBlockKit = () => {
+export const SwitchApproverActionBlock = () => {
   const itemConfig = useSchemaInitializerItem();
   const formSchema = createFormBlockSchema({
-    actionInitializers: 'ApproverActionConfigInitializer',
+    actionInitializers: 'ApproverActionInitializer',
     actions: {
       approve: {
         type: 'void',
         title: `{{t("Approve", { ns: "${NAMESPACE}" })}}`,
         'x-decorator': 'ApprovalActionProvider',
-        'x-decorator-props': { status: APPROVAL_ACTION_STATUS.APPROVED },
+        'x-decorator-props': {
+          status: APPROVAL_ACTION_STATUS.APPROVED,
+        },
         'x-component': 'Action',
-        'x-component-props': { type: 'primary', htmlType: 'submit', useAction: '{{ useSubmit }}' },
+        'x-component-props': {
+          type: 'primary',
+          htmlType: 'submit',
+          useAction: '{{ useSubmit }}',
+        },
         'x-designer': 'Action.Designer',
         'x-designer-props': {},
         'x-action': `${APPROVAL_ACTION_STATUS.APPROVED}`,
@@ -47,7 +53,10 @@ export const ApproverAddBlockKit = () => {
   _.set(firstSchema, 'x-component-props.style', { marginTop: '1.5em', flexWrap: 'wrap' });
 
   formSchema['x-block'] = 'action-form';
-  const item = { ...itemConfig, schema: formSchema };
+  const item = {
+    ...itemConfig,
+    schema: formSchema,
+  };
 
   return <InitializerWithSwitch {...itemConfig} item={item} type={'x-block'} schema={formSchema} />;
 };

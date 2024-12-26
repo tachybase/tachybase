@@ -5,6 +5,7 @@ import {
   SchemaComponentProvider,
   useAPIClient,
   useFormBlockContext,
+  useFormBlockProps,
   useRequest,
 } from '@tachybase/client';
 import { DetailsBlockProvider, SimpleDesigner } from '@tachybase/module-workflow/client';
@@ -13,7 +14,7 @@ import { uid } from '@tachybase/utils/client';
 
 import { Spin } from 'antd';
 
-import { FormBlockProvider } from '../../../../usage/pc/common/FormBlock.provider';
+import { FormBlockProvider } from '../../../../common/components/FormBlock.provider';
 import { flatSchemaArray } from '../../../../usage/pc/constants';
 import { useContextApproverConfig } from '../../contexts/ApproverConfig';
 import { ApprovalFormBlockProvider } from './ApprovalFormBlockProvider.view';
@@ -40,7 +41,7 @@ export const ViewApplyShowDetailAddBlock = (props) => {
       name: id,
       'x-uid': id,
       'x-component': 'Grid',
-      'x-initializer': 'ApproverAddBlockInitializer',
+      'x-initializer': 'ApproverShowDetailInitializer',
       properties: {},
     };
 
@@ -97,6 +98,7 @@ export const ViewApplyShowDetailAddBlock = (props) => {
             return { run() {} };
           },
           useApprovalFormBlockProps,
+          useFormBlockProps,
           useDetailsBlockProps: useFormBlockContext,
         }}
       />

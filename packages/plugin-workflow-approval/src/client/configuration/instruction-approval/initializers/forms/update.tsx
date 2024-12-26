@@ -4,10 +4,10 @@ import { FilterDynamicComponent } from '@tachybase/module-workflow/client';
 
 import _ from 'lodash';
 
-import { NAMESPACE } from '../../../locale';
+import { NAMESPACE } from '../../../../locale';
 import { FormBlockFactory } from './FormBlock.factory';
 
-const updateFormConfig = {
+export const updateFormConfig = {
   title: `{{t("Update record form", { ns: "${NAMESPACE}" })}}`,
   config: {
     initializers: {},
@@ -105,5 +105,3 @@ function findSchema(schema, filter, onlyLeaf = false) {
   }
   return result;
 }
-
-export default updateFormConfig;

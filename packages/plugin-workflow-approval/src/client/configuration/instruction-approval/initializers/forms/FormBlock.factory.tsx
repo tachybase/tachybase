@@ -12,22 +12,26 @@ import {
 } from '@tachybase/client';
 import { traverseSchema } from '@tachybase/module-workflow/client';
 
-import { ApprovalAddActionButton } from './AddActionButton.setting';
+export const FormBlockFactory = () => {
+  const itemConfig = useSchemaInitializerItem();
+  return (
+    <CollectionProvider_deprecated
+      dataSource={itemConfig.schema?.dataSource}
+      collection={itemConfig.schema?.collection}
+    >
+      <InternalFormBlockInitializer {...itemConfig} />
+    </CollectionProvider_deprecated>
+  );
+};
 
-export class KitApprovalAddActionButton extends Plugin {
-  async load() {
-    this.app.schemaInitializerManager.add(ApprovalAddActionButton);
-  }
-}
-
-function InternalFormBlockInitializer({ schema, ...others }) {
+const InternalFormBlockInitializer = ({ schema, ...others }) => {
   const { insert } = useSchemaInitializer();
   const { getTemplateSchemaByMode } = useSchemaTemplateManager();
   const items = useRecordCollectionDataSourceItems('FormItem') as SchemaInitializerItemType[];
   const onClick = async (item) => {
     const template = item.template ? await getTemplateSchemaByMode(item) : null;
     const result = createFormBlockSchema({
-      actionInitializers: 'ApprovalAddActionButton',
+      actionInitializers: 'FormActionButtonInitializer',
       ...schema,
       template,
     });
@@ -56,16 +60,4 @@ function InternalFormBlockInitializer({ schema, ...others }) {
   };
 
   return <SchemaInitializerItem {...others} onClick={onClick} items={items} />;
-}
-
-export const FormBlockFactory = () => {
-  const itemConfig = useSchemaInitializerItem();
-  return (
-    <CollectionProvider_deprecated
-      dataSource={itemConfig.schema?.dataSource}
-      collection={itemConfig.schema?.collection}
-    >
-      <InternalFormBlockInitializer {...itemConfig} />
-    </CollectionProvider_deprecated>
-  );
 };
