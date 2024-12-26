@@ -19,4 +19,3 @@ docs-dist/
 .npmrc
 dist/
 /docker/**/storage
-/storage/.app-dev
