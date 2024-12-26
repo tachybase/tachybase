@@ -28,8 +28,5 @@
     "@tachybase/build": "{{{version}}}",
     "@tachybase/cli": "{{{version}}}",
     {{{dependencies}}}
-  },
-  "devDependencies": {
-    "@tachybase/devtools": "{{{version}}}"
   }
 }

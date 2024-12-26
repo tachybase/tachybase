@@ -1,11 +1,18 @@
-const { existsSync } = require('fs');
-const { resolve, sep } = require('path');
-const packageJson = require('./package.json');
-const fs = require('fs');
-const glob = require('fast-glob');
-const path = require('path');
+import {
+  existsSync as _existsSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  realpathSync,
+  rmSync,
+  watch,
+  writeFileSync,
+} from 'node:fs';
+import { dirname as _dirname, sep as _sep, join, relative, resolve, sep } from 'node:path';
 
-console.log('VERSION: ', packageJson.version);
+import { sync } from 'fast-glob';
+
+import { version } from './package.json';
 
 const ProjectRoot = process.cwd();
 
@@ -44,7 +51,7 @@ function getUmiConfig() {
       'process.env.WS_PATH': process.env.WS_PATH,
       'process.env.API_BASE_URL': API_BASE_URL || API_BASE_PATH,
       'process.env.APP_ENV': process.env.APP_ENV,
-      'process.env.VERSION': packageJson.version,
+      'process.env.VERSION': version,
       'process.env.WEBSOCKET_URL': process.env.WEBSOCKET_URL,
       'process.env.__E2E__': process.env.__E2E__,
     },
@@ -68,7 +75,7 @@ function getUmiConfig() {
 }
 
 function getTsconfigPaths() {
-  const content = fs.readFileSync(resolve(ProjectRoot, 'tsconfig.paths.json'), 'utf-8');
+  const content = readFileSync(resolve(ProjectRoot, 'tsconfig.paths.json'), 'utf-8');
   const json = JSON.parse(content);
   return json.compilerOptions.paths;
 }
@@ -80,7 +87,7 @@ function getPackagePaths() {
     if (Object.hasOwnProperty.call(paths, key)) {
       for (let dir of paths[key]) {
         if (dir.includes('*')) {
-          const files = glob.sync(dir, { cwd: ProjectRoot, onlyDirectories: true });
+          const files = sync(dir, { cwd: ProjectRoot, onlyDirectories: true });
           for (const file of files) {
             const dirname = resolve(ProjectRoot, file);
             if (existsSync(dirname)) {
@@ -112,8 +119,8 @@ function resolveTachybasePackagesAlias(config) {
 }
 
 function getNodeModulesPath(packageDir) {
-  const node_modules_dir = path.join(ProjectRoot, 'node_modules');
-  return path.join(node_modules_dir, packageDir);
+  const node_modules_dir = join(ProjectRoot, 'node_modules');
+  return join(node_modules_dir, packageDir);
 }
 class IndexGenerator {
   tachybaseDir = getNodeModulesPath('@tachybase');
@@ -124,25 +131,25 @@ class IndexGenerator {
   }
 
   get indexPath() {
-    return path.join(this.outputPath, 'index.ts');
+    return join(this.outputPath, 'index.ts');
   }
 
   get packageMapPath() {
-    return path.join(this.outputPath, 'packageMap.json');
+    return join(this.outputPath, 'packageMap.json');
   }
 
   get packagesPath() {
-    return path.join(this.outputPath, 'packages');
+    return join(this.outputPath, 'packages');
   }
 
   generate() {
     this.generatePluginContent();
     if (process.env.NODE_ENV === 'production') return;
     this.pluginsPath.forEach((pluginPath) => {
-      if (!fs.existsSync(pluginPath)) {
+      if (!_existsSync(pluginPath)) {
         return;
       }
-      fs.watch(pluginPath, { recursive: false }, () => {
+      watch(pluginPath, { recursive: false }, () => {
         this.generatePluginContent();
       });
     });
@@ -170,59 +177,61 @@ export default function devDynamicImport(packageName: string): Promise<any> {
   }
 
   generatePluginContent() {
-    if (fs.existsSync(this.outputPath)) {
-      fs.rmSync(this.outputPath, { recursive: true, force: true });
+    if (_existsSync(this.outputPath)) {
+      rmSync(this.outputPath, { recursive: true, force: true });
     }
-    fs.mkdirSync(this.outputPath);
-    const validPluginPaths = this.pluginsPath.filter((pluginsPath) => fs.existsSync(pluginsPath));
+    mkdirSync(this.outputPath);
+    const validPluginPaths = this.pluginsPath.filter((pluginsPath) => _existsSync(pluginsPath));
     if (!validPluginPaths.length || process.env.NODE_ENV === 'production') {
-      fs.writeFileSync(this.indexPath, this.emptyIndexContent);
+      writeFileSync(this.indexPath, this.emptyIndexContent);
       return;
     }
 
     const pluginInfos = validPluginPaths.map((pluginsPath) => this.getContent(pluginsPath)).flat();
 
     // index.ts
-    fs.writeFileSync(this.indexPath, this.indexContent);
+    writeFileSync(this.indexPath, this.indexContent);
     // packageMap.json
     const packageMapContent = pluginInfos.reduce((memo, item) => {
       memo[item.packageJsonName] = item.pluginFileName + '.ts';
       return memo;
     }, {});
-    fs.writeFileSync(this.packageMapPath, JSON.stringify(packageMapContent, null, 2));
+    writeFileSync(this.packageMapPath, JSON.stringify(packageMapContent, null, 2));
     // packages
-    fs.mkdirSync(this.packagesPath, { recursive: true });
+    mkdirSync(this.packagesPath, { recursive: true });
     pluginInfos.forEach((item) => {
-      const pluginPackagePath = path.join(this.packagesPath, item.pluginFileName + '.ts');
-      fs.writeFileSync(pluginPackagePath, item.exportStatement);
+      const pluginPackagePath = join(this.packagesPath, item.pluginFileName + '.ts');
+      writeFileSync(pluginPackagePath, item.exportStatement);
     });
   }
 
   getContent(pluginsPath) {
-    const pluginFolders = glob.sync(['plugin-*/package.json', 'module-*/package.json', '*/*/package.json'], {
+    const pluginFolders = sync(['plugin-*/package.json', 'module-*/package.json', '*/*/package.json'], {
       cwd: pluginsPath,
       onlyFiles: true,
       absolute: true,
     });
 
-    const storagePluginFolders = glob.sync(['*/package.json', '*/*/package.json'], {
+    const storagePluginFolders = sync(['*/package.json', '*/*/package.json'], {
       cwd: process.env.PLUGIN_STORAGE_PATH,
       onlyFiles: true,
       absolute: true,
     });
 
-    const tachybasePluginFolders = glob
-      .sync(['plugin-*/package.json'], { cwd: this.tachybaseDir, onlyFiles: true, absolute: true })
-      .map((item) => fs.realpathSync(item));
+    const tachybasePluginFolders = sync(['plugin-*/package.json'], {
+      cwd: this.tachybaseDir,
+      onlyFiles: true,
+      absolute: true,
+    }).map((item) => realpathSync(item));
     const pluginInfos = Array.from(new Set([...pluginFolders, ...storagePluginFolders, ...tachybasePluginFolders]))
       .filter((item) => {
-        const dirname = path.dirname(item);
-        const clientJs = path.join(dirname, 'client.js');
-        return fs.existsSync(clientJs);
+        const dirname = _dirname(item);
+        const clientJs = join(dirname, 'client.js');
+        return _existsSync(clientJs);
       })
       .map((pluginPackageJsonPath) => {
         const pluginPackageJson = require(pluginPackageJsonPath);
-        const pluginPathArr = pluginPackageJsonPath.replaceAll(path.sep, '/').split('/');
+        const pluginPathArr = pluginPackageJsonPath.replaceAll(_sep, '/').split('/');
         const hasNamespace = pluginPathArr[pluginPathArr.length - 3].startsWith('@');
         const pluginFileName = (
           hasNamespace
@@ -232,9 +241,10 @@ export default function devDynamicImport(packageName: string): Promise<any> {
 
         let exportStatement = '';
         if (pluginPackageJsonPath.includes('packages')) {
-          const pluginSrcClientPath = path
-            .relative(this.packagesPath, path.join(path.dirname(pluginPackageJsonPath), 'src', 'client'))
-            .replaceAll(path.sep, '/');
+          const pluginSrcClientPath = relative(
+            this.packagesPath,
+            join(_dirname(pluginPackageJsonPath), 'src', 'client'),
+          ).replaceAll(_sep, '/');
           exportStatement = `export { default } from '${pluginSrcClientPath}';`;
           exportStatement += '\n';
           exportStatement += `export * from '${pluginSrcClientPath}';`;
@@ -250,6 +260,9 @@ export default function devDynamicImport(packageName: string): Promise<any> {
   }
 }
 
-exports.getUmiConfig = getUmiConfig;
-exports.resolveTachybasePackagesAlias = resolveTachybasePackagesAlias;
-exports.IndexGenerator = IndexGenerator;
+const _getUmiConfig = getUmiConfig;
+export { _getUmiConfig as getUmiConfig };
+const _resolveTachybasePackagesAlias = resolveTachybasePackagesAlias;
+export { _resolveTachybasePackagesAlias as resolveTachybasePackagesAlias };
+const _IndexGenerator = IndexGenerator;
+export { _IndexGenerator as IndexGenerator };

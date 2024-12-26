@@ -2,20 +2,17 @@ import {
   cpSync as _cpSync,
   existsSync as _existsSync,
   writeFileSync as _writeFileSync,
-  copyFileSync,
-  cpSync,
   existsSync,
-  mkdirSync,
   readFileSync,
   rmSync,
   symlinkSync,
   unlinkSync,
   writeFileSync,
-} from 'fs';
-import { readFile, writeFile } from 'fs/promises';
-import { createRequire } from 'module';
-import { Socket } from 'net';
-import { dirname, join, resolve, sep } from 'path';
+} from 'node:fs';
+import { readFile, writeFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import { Socket } from 'node:net';
+import { dirname, join, resolve, sep } from 'node:path';
 
 import chalk from 'chalk';
 import { config } from 'dotenv';
@@ -50,8 +47,8 @@ export function isDev() {
 }
 
 export const isProd = () => {
-  const { APP_PACKAGE_ROOT } = process.env;
-  const file = `${APP_PACKAGE_ROOT}/lib/index.js`;
+  const { APP_SERVER_ROOT } = process.env;
+  const file = `${APP_SERVER_ROOT}/lib/index.js`;
   if (!existsSync(resolve(process.cwd(), file))) {
     console.log('For production environment, please build the code first.');
     console.log();
@@ -130,7 +127,7 @@ export async function postCheck(opts: { port?: string }) {
 }
 
 export async function runInstall() {
-  const { APP_PACKAGE_ROOT, SERVER_TSCONFIG_PATH } = process.env;
+  const { APP_SERVER_ROOT, SERVER_TSCONFIG_PATH } = process.env;
 
   if (!SERVER_TSCONFIG_PATH) {
     throw new Error('SERVER_TSCONFIG_PATH is empty.');
@@ -142,20 +139,20 @@ export async function runInstall() {
       SERVER_TSCONFIG_PATH,
       '-r',
       'tsconfig-paths/register',
-      `${APP_PACKAGE_ROOT}/src/index.ts`,
+      `${APP_SERVER_ROOT}/src/index.ts`,
       'install',
       '-s',
     ];
     await run('tsx', argv);
   } else if (isProd()) {
-    const file = `${APP_PACKAGE_ROOT}/lib/index.js`;
+    const file = `${APP_SERVER_ROOT}/lib/index.js`;
     const argv = [file, 'install', '-s'];
     await run('node', argv);
   }
 }
 
 export async function runAppCommand(command: string, args = []) {
-  const { APP_PACKAGE_ROOT, SERVER_TSCONFIG_PATH } = process.env;
+  const { APP_SERVER_ROOT, SERVER_TSCONFIG_PATH } = process.env;
 
   if (!SERVER_TSCONFIG_PATH) {
     throw new Error('SERVER_TSCONFIG_PATH is not set');
@@ -167,13 +164,13 @@ export async function runAppCommand(command: string, args = []) {
       SERVER_TSCONFIG_PATH,
       '-r',
       'tsconfig-paths/register',
-      `${APP_PACKAGE_ROOT}/src/index.ts`,
+      `${APP_SERVER_ROOT}/src/index.ts`,
       command,
       ...args,
     ];
     await run('tsx', argv);
   } else if (isProd()) {
-    const argv = [`${APP_PACKAGE_ROOT}/lib/index.js`, command, ...args];
+    const argv = [`${APP_SERVER_ROOT}/lib/index.js`, command, ...args];
     await run('node', argv);
   }
 }
@@ -213,11 +210,10 @@ function normalizePath(path: string) {
 }
 
 export function generateAppDir() {
-  const serverPath = getPackagePath('@tachybase/app-server');
-  const clientPath = getPackagePath('@tachybase/app-rs');
-
-  process.env.APP_PACKAGE_ROOT = process.env.APP_PACKAGE_ROOT || normalizePath(serverPath);
-  process.env.APP_CLIENT_ROOT = process.env.APP_CLIENT_ROOT || normalizePath(clientPath);
+  const defaultServerRoot = join(process.cwd(), 'apps/app-server');
+  const defaultClientRoot = join(process.cwd(), 'apps/app-rs');
+  process.env.APP_SERVER_ROOT = process.env.APP_SERVER_ROOT || defaultServerRoot;
+  process.env.APP_CLIENT_ROOT = process.env.APP_CLIENT_ROOT || defaultClientRoot;
 }
 
 export async function genTsConfigPaths() {
