@@ -26,7 +26,7 @@ export const ViewApplyFormAddBlock = ({ value, onChange }) => {
       name: name,
       'x-uid': name,
       'x-component': 'Grid',
-      'x-initializer': 'ApprovalApplyAddBlockButton',
+      'x-initializer': 'ApplyFormInitializer',
       properties: {},
     };
 

@@ -13,7 +13,7 @@ import { NAMESPACE } from '../../../locale';
 import { APPROVAL_STATUS, flatSchemaArray } from '../../../usage/pc/constants';
 
 // 添加卡片-Initializer的component
-export const LauncherAddBlockButtonComponent = () => {
+export const ApplyFormDetailInitializerItem = () => {
   const itemConfig = useSchemaInitializerItem();
   const { insert } = useSchemaInitializer();
   const collection = useCollection_deprecated();
@@ -27,7 +27,7 @@ export const LauncherAddBlockButtonComponent = () => {
       ['x-acl-action']: deleteB,
       ...formSchema
     } = createFormBlockSchema({
-      actionInitializers: 'LauncherActionConfigInitializer',
+      actionInitializers: 'ApplyFormActionInitializer',
       actions: {
         submit: {
           type: 'void',

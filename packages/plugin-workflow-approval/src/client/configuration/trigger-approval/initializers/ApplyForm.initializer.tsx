@@ -1,11 +1,11 @@
 import { gridRowColWrap, SchemaInitializer } from '@tachybase/client';
 
 import { NAMESPACE } from '../../../locale';
-import { LauncherAddBlockButtonComponent } from './LauncherBlockButton.component';
+import { ApplyFormDetailInitializerItem } from './ApplyFormDetail';
 
 // 添加卡片
-export const LauncherAddBlockButtonIntializer = new SchemaInitializer({
-  name: 'ApprovalApplyAddBlockButton',
+export const ApplyFormInitializer = new SchemaInitializer({
+  name: 'ApplyFormInitializer',
   wrap: gridRowColWrap,
   title: '{{t("Add block")}}',
   items: [
@@ -18,7 +18,7 @@ export const LauncherAddBlockButtonIntializer = new SchemaInitializer({
           name: 'form',
           type: 'item',
           title: `{{t("Apply form", { ns: "${NAMESPACE}" })}}`,
-          Component: LauncherAddBlockButtonComponent,
+          Component: ApplyFormDetailInitializerItem,
         },
       ],
     },
