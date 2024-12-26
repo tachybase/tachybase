@@ -5,7 +5,7 @@ import { $encryptionEq } from './operators/eq';
 import { $encryptionNe } from './operators/ne';
 
 export class PluginFieldEncryptionServer extends Plugin {
-  async load() {
+  async beforeLoad() {
     // 注册字段类型: 加密字段
     this.db.registerFieldTypes({
       encryption: EncryptionField,
