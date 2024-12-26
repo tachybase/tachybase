@@ -7,6 +7,7 @@
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-lark"
   },
   "dependencies": {},
+  "devDependencies": {},
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",

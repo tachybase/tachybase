@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-block-comments"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",

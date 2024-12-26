@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-adapter-bullmq"
   },
+  "dependencies": {},
   "devDependencies": {
     "@bull-board/api": "^6.5.3",
     "@bull-board/koa": "^6.5.3",

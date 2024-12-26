@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-devtools"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "ahooks": "^3.8.4",

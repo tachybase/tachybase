@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-saml"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@node-saml/node-saml": "^4.0.5",

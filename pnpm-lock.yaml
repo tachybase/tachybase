@@ -640,15 +640,9 @@ importers:
       markdown-it:
         specifier: 13.0.2
         version: 13.0.2
-      markdown-it-highlightjs:
-        specifier: 3.6.0
-        version: 3.6.0
       mathjs:
         specifier: ^10.6.4
         version: 10.6.4
-      mermaid:
-        specifier: 9.4.3
-        version: 9.4.3
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -1200,6 +1194,28 @@ importers:
 
   packages/module-cloud-component:
     dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
       '@babel/core':
         specifier: 7.26.0
         version: 7.26.0
@@ -1218,30 +1234,9 @@ importers:
       '@bytemd/react':
         specifier: 1.21.0
         version: 1.21.0(react@18.3.1)
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
       '@tachybase/components':
         specifier: workspace:*
         version: link:../components
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-      '@tachybase/utils':
-        specifier: workspace:*
-        version: link:../utils
       ahooks:
         specifier: 3.8.4
         version: 3.8.4(react@18.3.1)
@@ -1357,6 +1352,7 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+    devDependencies:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1485,6 +1481,10 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+    devDependencies:
+      '@types/lodash':
+        specifier: 4.17.13
+        version: 4.17.13
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1494,10 +1494,6 @@ importers:
       sequelize:
         specifier: 6.37.5
         version: 6.37.5
-    devDependencies:
-      '@types/lodash':
-        specifier: 4.17.13
-        version: 4.17.13
 
   packages/module-file:
     dependencies:
@@ -1716,27 +1712,9 @@ importers:
 
   packages/module-message:
     dependencies:
-      '@alicloud/dysmsapi20170525':
-        specifier: 2.0.24
-        version: 2.0.24
-      '@alicloud/openapi-client':
-        specifier: 0.4.12
-        version: 0.4.12
-      '@alicloud/tea-util':
-        specifier: 1.4.9
-        version: 1.4.9
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../components
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
@@ -1752,6 +1730,25 @@ importers:
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+    devDependencies:
+      '@alicloud/dysmsapi20170525':
+        specifier: 2.0.24
+        version: 2.0.24
+      '@alicloud/openapi-client':
+        specifier: 0.4.12
+        version: 0.4.12
+      '@alicloud/tea-util':
+        specifier: 1.4.9
+        version: 1.4.9
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
@@ -1782,9 +1779,6 @@ importers:
 
   packages/module-multi-app:
     dependencies:
-      '@ant-design/icons':
-        specifier: ^5.5.2
-        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
@@ -1804,6 +1798,9 @@ importers:
         specifier: workspace:*
         version: link:../utils
     devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.5.2
+        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../schema
@@ -1834,21 +1831,6 @@ importers:
 
   packages/module-pdf:
     dependencies:
-      '@babel/core':
-        specifier: 7.26.0
-        version: 7.26.0
-      '@babel/preset-env':
-        specifier: 7.26.0
-        version: 7.26.0(@babel/core@7.26.0)
-      '@babel/preset-react':
-        specifier: 7.26.3
-        version: 7.26.3(@babel/core@7.26.0)
-      '@babel/preset-typescript':
-        specifier: 7.26.0
-        version: 7.26.0(@babel/core@7.26.0)
-      '@react-pdf/renderer':
-        specifier: ^3.4.5
-        version: 3.4.5(encoding@0.1.13)(react@18.3.1)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
@@ -1873,6 +1855,28 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+    devDependencies:
+      '@babel/core':
+        specifier: 7.26.0
+        version: 7.26.0
+      '@babel/preset-env':
+        specifier: 7.26.0
+        version: 7.26.0(@babel/core@7.26.0)
+      '@babel/preset-react':
+        specifier: 7.26.3
+        version: 7.26.3(@babel/core@7.26.0)
+      '@babel/preset-typescript':
+        specifier: 7.26.0
+        version: 7.26.0(@babel/core@7.26.0)
+      '@react-pdf/renderer':
+        specifier: ^3.4.5
+        version: 3.4.5(encoding@0.1.13)(react@18.3.1)
+      '@types/babel__core':
+        specifier: 7.20.5
+        version: 7.20.5
+      '@types/lodash':
+        specifier: 4.17.13
+        version: 4.17.13
       fs-extra:
         specifier: 11.2.0
         version: 11.2.0
@@ -1882,13 +1886,6 @@ importers:
       react-use:
         specifier: 17.6.0
         version: 17.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-    devDependencies:
-      '@types/babel__core':
-        specifier: 7.20.5
-        version: 7.20.5
-      '@types/lodash':
-        specifier: 4.17.13
-        version: 4.17.13
 
   packages/module-ui-schema:
     dependencies:
@@ -2081,6 +2078,7 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+    devDependencies:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2090,18 +2088,6 @@ importers:
 
   packages/module-workflow:
     dependencies:
-      '@babel/core':
-        specifier: 7.26.0
-        version: 7.26.0
-      '@babel/preset-env':
-        specifier: 7.26.0
-        version: 7.26.0(@babel/core@7.26.0)
-      '@babel/preset-react':
-        specifier: 7.26.3
-        version: 7.26.3(@babel/core@7.26.0)
-      '@babel/preset-typescript':
-        specifier: 7.26.0
-        version: 7.26.0(@babel/core@7.26.0)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
@@ -2144,19 +2130,22 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
-      form-data:
-        specifier: ^4.0.1
-        version: 4.0.1
-      jsonata:
-        specifier: ^2.0.6
-        version: 2.0.6
-      mime-types:
-        specifier: ^2.1.35
-        version: 2.1.35
     devDependencies:
       '@ant-design/icons':
         specifier: ~5.3.7
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@babel/core':
+        specifier: 7.26.0
+        version: 7.26.0
+      '@babel/preset-env':
+        specifier: 7.26.0
+        version: 7.26.0(@babel/core@7.26.0)
+      '@babel/preset-react':
+        specifier: 7.26.3
+        version: 7.26.3(@babel/core@7.26.0)
+      '@babel/preset-typescript':
+        specifier: 7.26.0
+        version: 7.26.0(@babel/core@7.26.0)
       '@tachybase/components':
         specifier: workspace:*
         version: link:../components
@@ -2190,12 +2179,21 @@ importers:
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
+      form-data:
+        specifier: ^4.0.1
+        version: 4.0.1
+      jsonata:
+        specifier: ^2.0.6
+        version: 2.0.6
       lodash:
         specifier: 4.17.21
         version: 4.17.21
       lru-cache:
         specifier: 8.0.5
         version: 8.0.5
+      mime-types:
+        specifier: ^2.1.35
+        version: 2.1.35
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
@@ -2835,6 +2833,7 @@ importers:
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+    devDependencies:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2985,9 +2984,6 @@ importers:
 
   packages/plugin-auth-wecom:
     dependencies:
-      '@ant-design/icons':
-        specifier: ^5.5.2
-        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
@@ -3009,6 +3005,10 @@ importers:
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.5.2
+        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       ahooks:
         specifier: ^3.8.4
         version: 3.8.4(react@18.3.1)
@@ -3097,9 +3097,6 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
-      fs-extra:
-        specifier: ^11.2.0
-        version: 11.2.0
     devDependencies:
       '@ant-design/icons':
         specifier: ~5.3.7
@@ -3125,6 +3122,9 @@ importers:
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
       koa-compose:
         specifier: ^4.1.0
         version: 4.1.0
@@ -3180,21 +3180,9 @@ importers:
 
   packages/plugin-block-gantt:
     dependencies:
-      '@ant-design/icons':
-        specifier: ^5.5.2
-        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ctrl/tinycolor':
-        specifier: ^3.6.1
-        version: 3.6.1
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../components
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -3204,6 +3192,19 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.5.2
+        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ctrl/tinycolor':
+        specifier: ^3.6.1
+        version: 3.6.1
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3357,9 +3358,6 @@ importers:
 
   packages/plugin-data-source-common:
     dependencies:
-      '@ant-design/icons':
-        specifier: ^5.5.2
-        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
@@ -3387,6 +3385,13 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.5.2
+        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/lodash':
+        specifier: ^4.17.13
+        version: 4.17.13
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3405,10 +3410,6 @@ importers:
       react-router-dom:
         specifier: 6.28.1
         version: 6.28.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-    devDependencies:
-      '@types/lodash':
-        specifier: ^4.17.13
-        version: 4.17.13
 
   packages/plugin-devtools:
     dependencies:
@@ -3879,6 +3880,7 @@ importers:
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+    devDependencies:
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
@@ -3928,12 +3930,6 @@ importers:
 
   packages/plugin-prototype-print-template:
     dependencies:
-      '@bull-board/api':
-        specifier: ^6.5.3
-        version: 6.5.3(@bull-board/ui@6.5.3)
-      '@bull-board/koa':
-        specifier: ^6.5.3
-        version: 6.5.3(@babel/core@7.26.0)(@types/koa@2.15.0)(handlebars@4.7.8)(lodash@4.17.21)(mustache@4.2.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
@@ -3949,6 +3945,13 @@ importers:
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+    devDependencies:
+      '@bull-board/api':
+        specifier: ^6.5.3
+        version: 6.5.3(@bull-board/ui@6.5.3)
+      '@bull-board/koa':
+        specifier: ^6.5.3
+        version: 6.5.3(@babel/core@7.26.0)(@types/koa@2.15.0)(handlebars@4.7.8)(lodash@4.17.21)(mustache@4.2.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
       bullmq:
         specifier: ^5.34.3
         version: 5.34.3
@@ -3995,9 +3998,6 @@ importers:
 
   packages/plugin-prototype-wechat-official-account:
     dependencies:
-      '@ant-design/icons':
-        specifier: ^5.5.2
-        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
@@ -4013,6 +4013,10 @@ importers:
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.5.2
+        version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/xml2js':
         specifier: ^0.4.14
         version: 0.4.14
@@ -4141,9 +4145,6 @@ importers:
 
   packages/plugin-workflow-approval:
     dependencies:
-      '@ant-design/icons':
-        specifier: ~5.3.7
-        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
@@ -4174,6 +4175,13 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ~5.3.7
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/file-saver':
+        specifier: ^2.0.7
+        version: 2.0.7
       '@types/lodash':
         specifier: ^4.17.13
         version: 4.17.13
@@ -4207,10 +4215,6 @@ importers:
       sequelize:
         specifier: ^6.37.5
         version: 6.37.5
-    devDependencies:
-      '@types/file-saver':
-        specifier: ^2.0.7
-        version: 2.0.7
 
   packages/plugin-workflow-test:
     dependencies:
@@ -5943,9 +5947,6 @@ packages:
   '@bloomberg/record-tuple-polyfill@0.0.3':
     resolution: {integrity: sha512-sBnCqW0nqofE47mxFnw+lvx6kzsQstwaQMVkh66qm/A6IlsnH7WsyGuVXTou8RF2wL4W7ybOoHPvP2WgIo6rhQ==}
 
-  '@braintree/sanitize-url@6.0.4':
-    resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
-
   '@bull-board/api@6.5.3':
     resolution: {integrity: sha512-k58OlCheALXaoN+5l8U0VfLo9jQvl2nSR3/6vUmFQV8wcNBPfRtQRxUBh9/SbTDmFvtvmzvMkc+J3yWGMCDrAw==}
     peerDependencies:
@@ -7333,28 +7334,24 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@node-rs/bcrypt-linux-arm64-musl@1.10.4':
     resolution: {integrity: sha512-rLvSMW/gVUBd2k2gAqQfuOReHWd9+jvz58E3i1TbkRE3a5ChvjOFc9qKPEmXuXuD9Mdj7gUwcYwpq8MdB5MtNw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@node-rs/bcrypt-linux-x64-gnu@1.10.4':
     resolution: {integrity: sha512-I++6bh+BIp70X/D/crlSgCq8K0s9nGvzmvAGFkqSG4h3LBtjJx4RKbygnoWvcBV9ErK1rvcjfMyjwZt1ukueFA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@node-rs/bcrypt-linux-x64-musl@1.10.4':
     resolution: {integrity: sha512-f9RPl/5n2NS0mMJXB4IYbodKnq5HzOK5x1b9eKbcjsY0rw3mJC3K0XRFc8iaw1a5chA+xV1TPXz5mkykmr2CQQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@node-rs/bcrypt-wasm32-wasi@1.10.4':
     resolution: {integrity: sha512-VaDOf+wic0yoHFimMkC5VMa/33BNqg6ieD+C/ibb7Av3NnVW4/W9YpDpqAWMR2w3fA40uTLWZ7FZSrcFck27oA==}
@@ -7892,25 +7889,21 @@ packages:
     resolution: {integrity: sha512-AZUOtb3OfK8xDZJfk60AwgTKEpa6zJdvjrwuk8Qqz4tPqLJpk4KSJmfNMzbYzy689m27ur+ix1p/7JAxwvckRg==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@oxlint/linux-arm64-musl@0.15.3':
     resolution: {integrity: sha512-HIeyrgE11KFkSRpVjBRWOux78OITDqlOiC8plC2RDrLvSj205MaA1GYYyIMMv/FuyWdGMOAHOetn5vWbyJJctQ==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@oxlint/linux-x64-gnu@0.15.3':
     resolution: {integrity: sha512-cDHQaDCpuqFFYTohM+xw4120hzBSWaOVIZqq0ROUEX/qi+nnR9XMKE/fJf8xiHJznFlV6ANsiMLY939uur8OKw==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@oxlint/linux-x64-musl@0.15.3':
     resolution: {integrity: sha512-6PVIi0XXhlpFoBh0k2fP9wioU8MiktkqnYHxOv7EM7HggjAzpRMJqQmgwWcww3RU5R7T4wnZNzrUPPqI7+Ejmw==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@oxlint/win32-arm64@0.15.3':
     resolution: {integrity: sha512-CAvFXTZ6pwHHMHTmRgev/QcS4vD2UeH4e68DxgslPrib6ivTGz2EvtVbrVuVsuS27WQuKTy06e9RW339dk4pHg==}
@@ -8404,55 +8397,46 @@ packages:
     resolution: {integrity: sha512-0KXvIJQMOImLCVCz9uvvdPgfyWo93aHHp8ui3FrtOP57svqrF/roSSR5pjqL2hcMp0ljeGlU4q9o/rQaAQ3AYA==}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.24.0':
     resolution: {integrity: sha512-it2BW6kKFVh8xk/BnHfakEeoLPv8STIISekpoF+nBgWM4d55CZKc7T4Dx1pEbTnYm/xEKMgy1MNtYuoA8RFIWw==}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.24.0':
     resolution: {integrity: sha512-i0xTLXjqap2eRfulFVlSnM5dEbTVque/3Pi4g2y7cxrs7+a9De42z4XxKLYJ7+OhE3IgxvfQM7vQc43bwTgPwA==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.24.0':
     resolution: {integrity: sha512-9E6MKUJhDuDh604Qco5yP/3qn3y7SLXYuiC0Rpr89aMScS2UAmK1wHP2b7KAa1nSjWJc/f/Lc0Wl1L47qjiyQw==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.24.0':
     resolution: {integrity: sha512-2XFFPJ2XMEiF5Zi2EBf4h73oR1V/lycirxZxHZNc93SqDN/IWhYYSYj8I9381ikUFXZrz2v7r2tOVk2NBwxrWw==}
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.24.0':
     resolution: {integrity: sha512-M3Dg4hlwuntUCdzU7KjYqbbd+BLq3JMAOhCKdBE3TcMGMZbKkDdJ5ivNdehOssMCIokNHFOsv7DO4rlEOfyKpg==}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-s390x-gnu@4.24.0':
     resolution: {integrity: sha512-mjBaoo4ocxJppTorZVKWFpy1bfFj9FeCMJqzlMQGjpNPY9JwQi7OuS1axzNIk0nMX6jSgy6ZURDZ2w0QW6D56g==}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.24.0':
     resolution: {integrity: sha512-ZXFk7M72R0YYFN5q13niV0B7G8/5dcQ9JDp8keJSfr3GoZeXEoMHP/HlvqROA3OMbMdfr19IjCeNAnPUG93b6A==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.24.0':
     resolution: {integrity: sha512-w1i+L7kAXZNdYl+vFvzSZy8Y1arS7vMgIy8wusXJzRrPyof5LAb02KGr1PD2EkRcl73kHulIID0M501lN+vobQ==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-win32-arm64-msvc@4.24.0':
     resolution: {integrity: sha512-VXBrnPWgBpVDCVY6XF3LEW0pOU51KbaHhccHw6AS6vBWIC60eqsH19DAeeObl+g8nKAz04QFdl/Cefta0xQtUQ==}
@@ -8532,25 +8516,21 @@ packages:
     resolution: {integrity: sha512-4atnoknJx/c3KaQElsMIxHMpPf2jcRRdWsH/SdqJIRSrkWWakMK9Yv4TFwH680I4HDTMf1XLboMVScHzW8e+Mg==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-arm64-musl@1.1.6':
     resolution: {integrity: sha512-7QMtwUtgFpt3/Y3/X18fSyN+kk4H8ZnZ8tDzQskVWc/j2AQYShZq56XQYqrhClzwujcCVAHauIQ2eiuJ2ASGag==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-linux-x64-gnu@1.1.6':
     resolution: {integrity: sha512-MTjDEfPn4TwHoqs5d5Fck06kmXiTHZctGIcRVfrpg0RK0r1NLEHN+oosavRZ9c9H70f34+NmcHk+/qvV4c8lWg==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-x64-musl@1.1.6':
     resolution: {integrity: sha512-LqDw7PTVr/4ZuGA0izgDQfamfr72USFHltR1Qhy2YVC3JmDmhG/pQi13LHcOLVaGH1xoeyCmEPNJpVizzDxSjg==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-win32-arm64-msvc@1.1.6':
     resolution: {integrity: sha512-RHApLM93YN0WdHpS35u2cm7VCqZ8Yg3CrNRL16VJtyT9e6MBqeScoe4XIgIWKPm7edFyedYAjLX0wQOApwfjkg==}
@@ -10680,12 +10660,6 @@ packages:
     resolution: {integrity: sha512-b5PIJ0fqzIPCC1tq0GOBlJU0wlo4F0HQgTAqvdk73jYlxrNiMd1RTU9GsLwwX2fGOA2J+TOlcy76FebjlO0Smg==}
     engines: {node: '>= 6'}
 
-  cose-base@1.0.3:
-    resolution: {integrity: sha512-s9whTXInMSgAp/NVXVNuVxVKzGH2qck3aQlVHxDCdAEPgtMKwc4Wq6/QKhgdEdgbLSi9rBTAcPoRa6JpiG4ksg==}
-
-  cose-base@2.2.0:
-    resolution: {integrity: sha512-AzlgcsCbUMymkADOJtQm3wO9S3ltPfYOFD5033keQn9NJzIbtnZj+UdBJe7DYml/8TdbtHJW3j58SOnKhWY/5g==}
-
   cosmiconfig-typescript-loader@2.0.2:
     resolution: {integrity: sha512-KmE+bMjWMXJbkWCeY4FJX/npHuZPNr9XF9q9CIQ/bpFwi1qHfCmSiKarrCcRa0LO4fWjk93pVoeRtJAkTGcYNw==}
     engines: {node: '>=12', npm: '>=6'}
@@ -10831,68 +10805,22 @@ packages:
   culvert@0.1.2:
     resolution: {integrity: sha512-yi1x3EAWKjQTreYWeSd98431AV+IEE0qoDyOoaHJ7KJ21gv6HtBXHVLX74opVSGqcR8/AbjJBHAHpcOy2bj5Gg==}
 
-  cytoscape-cose-bilkent@4.1.0:
-    resolution: {integrity: sha512-wgQlVIUJF13Quxiv5e1gstZ08rnZj2XaLHGoFMYXz7SkNfCDOOteKBE6SYRfA9WxxI/iBc3ajfDoc6hb/MRAHQ==}
-    peerDependencies:
-      cytoscape: ^3.2.0
-
-  cytoscape-fcose@2.2.0:
-    resolution: {integrity: sha512-ki1/VuRIHFCzxWNrsshHYPs6L7TvLu3DL+TyIGEsRcvVERmxokbf5Gdk7mFxZnTdiGtnA4cfSmjZJMviqSuZrQ==}
-    peerDependencies:
-      cytoscape: ^3.2.0
-
-  cytoscape@3.28.0:
-    resolution: {integrity: sha512-x7+BHQXN90Audv5xXvdOECmiKuZdeKeoqOmDuYoht4zDKSdObC0Z9AdJXFkXEQvXU8UndI6WnTz47TRI7duReg==}
-    engines: {node: '>=0.10'}
-
   d3-array@3.2.4:
     resolution: {integrity: sha512-tdQAmyA18i4J7wprpYq8ClcxZy3SC31QMeByyCFyRt7BVHdREQZ5lpzoe5mFEYZUWe+oq8HBvk9JjpibyEV4Jg==}
-    engines: {node: '>=12'}
-
-  d3-axis@3.0.0:
-    resolution: {integrity: sha512-IH5tgjV4jE/GhHkRV0HiVYPDtvfjHQlQfJHs0usq7M30XcSBvOotpmH1IgkcXsO/5gEQZD43B//fc7SRT5S+xw==}
-    engines: {node: '>=12'}
-
-  d3-brush@3.0.0:
-    resolution: {integrity: sha512-ALnjWlVYkXsVIGlOsuWH1+3udkYFI48Ljihfnh8FZPF2QS9o+PzGLBslO0PjzVoHLZ2KCVgAM8NVkXPJB2aNnQ==}
-    engines: {node: '>=12'}
-
-  d3-chord@3.0.1:
-    resolution: {integrity: sha512-VE5S6TNa+j8msksl7HwjxMHDM2yNK3XCkusIlpX5kwauBfXuyLAtNg9jCp/iHH61tgI4sb6R/EIMWCqEIdjT/g==}
     engines: {node: '>=12'}
 
   d3-color@3.1.0:
     resolution: {integrity: sha512-zg/chbXyeBtMQ1LbD/WSoW2DpC3I0mpmPdW+ynRTj/x2DAWYrIY7qeZIHidozwV24m4iavr15lNwIwLxRmOxhA==}
     engines: {node: '>=12'}
 
-  d3-contour@4.0.2:
-    resolution: {integrity: sha512-4EzFTRIikzs47RGmdxbeUvLWtGedDUNkTcmzoeyg4sP/dvCexO47AaQL7VKy/gul85TOxw+IBgA8US2xwbToNA==}
-    engines: {node: '>=12'}
-
-  d3-delaunay@6.0.4:
-    resolution: {integrity: sha512-mdjtIZ1XLAM8bm/hx3WwjfHt6Sggek7qH043O8KEjDXN40xi3vx/6pYSVTwLjEgiXQTbvaouWKynLBiUZ6SK6A==}
-    engines: {node: '>=12'}
-
   d3-dispatch@3.0.1:
     resolution: {integrity: sha512-rzUyPU/S7rwUflMyLc1ETDeBj0NRuHKKAcvukozwhshr6g6c5d8zh4c2gQjY2bZ0dXeGLWc1PF174P2tVvKhfg==}
-    engines: {node: '>=12'}
-
-  d3-drag@3.0.0:
-    resolution: {integrity: sha512-pWbUJLdETVA8lQNJecMxoXfH6x+mO2UQo8rSmZ+QqxcbyA3hfeprFgIT//HW2nlHChWeIIMwS2Fq+gEARkhTkg==}
     engines: {node: '>=12'}
 
   d3-dsv@3.0.1:
     resolution: {integrity: sha512-UG6OvdI5afDIFP9w4G0mNq50dSOsXHJaRE8arAS5o9ApWnIElp8GZw1Dun8vP8OyHOZ/QJUKUJwxiiCCnUwm+Q==}
     engines: {node: '>=12'}
     hasBin: true
-
-  d3-ease@3.0.1:
-    resolution: {integrity: sha512-wR/XK3D3XcLIZwpbvQwQ5fK+8Ykds1ip7A2Txe0yxncXSdq1L9skcG7blcedkOX+ZcgxGAmLX1FrRGbADwzi0w==}
-    engines: {node: '>=12'}
-
-  d3-fetch@3.0.1:
-    resolution: {integrity: sha512-kpkQIM20n3oLVBKGg6oHrUchHM3xODkTzjMoj7aWQFq5QEM+R6E4WkzT5+tojDY7yjez8KgCBRoj4aEr99Fdqw==}
-    engines: {node: '>=12'}
 
   d3-force@3.0.0:
     resolution: {integrity: sha512-zxV/SsA+U4yte8051P4ECydjD/S+qeYtnaIyAs9tgHCqfguma/aAQDjo85A9Z6EKhBirHRJHXIgJUlffT4wdLg==}
@@ -10918,62 +10846,21 @@ packages:
     resolution: {integrity: sha512-p3KP5HCf/bvjBSSKuXid6Zqijx7wIfNW+J/maPs+iwR35at5JCbLUT0LzF1cnjbCHWhqzQTIN2Jpe8pRebIEFQ==}
     engines: {node: '>=12'}
 
-  d3-polygon@3.0.1:
-    resolution: {integrity: sha512-3vbA7vXYwfe1SYhED++fPUQlWSYTTGmFmQiany/gdbiWgU/iEyQzyymwL9SkJjFFuCS4902BSzewVGsHHmHtXg==}
-    engines: {node: '>=12'}
-
   d3-quadtree@3.0.1:
     resolution: {integrity: sha512-04xDrxQTDTCFwP5H6hRhsRcb9xxv2RzkcsygFzmkSIOJy3PeRJP7sNk3VRIbKXcog561P9oU0/rVH6vDROAgUw==}
-    engines: {node: '>=12'}
-
-  d3-random@3.0.1:
-    resolution: {integrity: sha512-FXMe9GfxTxqd5D6jFsQ+DJ8BJS4E/fT5mqqdjovykEB2oFbTMDVdg1MGFxfQW+FBOGoB++k8swBrgwSHT1cUXQ==}
     engines: {node: '>=12'}
 
   d3-scale-chromatic@3.1.0:
     resolution: {integrity: sha512-A3s5PWiZ9YCXFye1o246KoscMWqf8BsD9eRiJ3He7C9OBaxKhAd5TFCdEx/7VbKtxxTsu//1mMJFrEt572cEyQ==}
     engines: {node: '>=12'}
 
-  d3-scale@4.0.2:
-    resolution: {integrity: sha512-GZW464g1SH7ag3Y7hXjf8RoUuAFIqklOAq3MRl4OaWabTFJY9PN/E1YklhXLh+OQ3fM9yS2nOkCoS+WLZ6kvxQ==}
-    engines: {node: '>=12'}
-
-  d3-selection@3.0.0:
-    resolution: {integrity: sha512-fmTRWbNMmsmWq6xJV8D19U/gw/bwrHfNXxrIN+HfZgnzqTHp9jOmKMhsTUjXOJnZOdZY9Q28y4yebKzqDKlxlQ==}
-    engines: {node: '>=12'}
-
   d3-shape@3.2.0:
     resolution: {integrity: sha512-SaLBuwGm3MOViRq2ABk3eLoxwZELpH6zhl3FbAoJ7Vm1gofKx6El1Ib5z23NUEhF9AsGl7y+dzLe5Cw2AArGTA==}
-    engines: {node: '>=12'}
-
-  d3-time-format@4.1.0:
-    resolution: {integrity: sha512-dJxPBlzC7NugB2PDLwo9Q8JiTR3M3e4/XANkreKSUxF8vvXKqm1Yfq4Q5dl8budlunRVlUUaDUgFt7eA8D6NLg==}
-    engines: {node: '>=12'}
-
-  d3-time@3.1.0:
-    resolution: {integrity: sha512-VqKjzBLejbSMT4IgbmVgDjpkYrNWUYJnbCGo874u7MMKIWsILRX+OpX/gTk8MqjpT1A/c6HY2dCA77ZN0lkQ2Q==}
     engines: {node: '>=12'}
 
   d3-timer@3.0.1:
     resolution: {integrity: sha512-ndfJ/JxxMd3nw31uyKoY2naivF+r29V+Lc0svZxe1JvvIRmi8hUsrMvdOwgS1o6uBHmiz91geQ0ylPP0aj1VUA==}
     engines: {node: '>=12'}
-
-  d3-transition@3.0.1:
-    resolution: {integrity: sha512-ApKvfjsSR6tg06xrL434C0WydLr7JewBB3V+/39RMHsaXTOG0zmt/OAXeng5M5LBm0ojmxJrpomQVZ1aPvBL4w==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      d3-selection: 2 - 3
-
-  d3-zoom@3.0.0:
-    resolution: {integrity: sha512-b8AmV3kfQaqWAuacbPuNbL6vahnOJflOhexLzMMNLga62+/nh0JzvJ0aO/5a5MVgUFGS7Hu1P9P03o3fJkDCyw==}
-    engines: {node: '>=12'}
-
-  d3@7.8.5:
-    resolution: {integrity: sha512-JgoahDG51ncUfJu6wX/1vWQEqOflgXyl4MaHqlcSruTez7yhaRKR9i8VjjcQGeS2en/jnFivXuaIMnseMMt0XA==}
-    engines: {node: '>=12'}
-
-  dagre-d3-es@7.0.9:
-    resolution: {integrity: sha512-rYR4QfVmy+sR44IBDvVtcAmOReGBvRCWDpO2QjYwqgh9yijw6eSHBqaPG/LIOEy7aBsniLvtMW6pg19qJhq60w==}
 
   dargs@7.0.0:
     resolution: {integrity: sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==}
@@ -11192,9 +11079,6 @@ packages:
     resolution: {integrity: sha512-TllpMR/t0M5sqCXfj85i4XaAzxmS5tVA16dqvdkMwGmzI+dXLXnw3J+3Vdv7VKw+ThlTMboK6i9rnZ6Nntj5CQ==}
     engines: {node: '>= 14'}
 
-  delaunator@5.0.0:
-    resolution: {integrity: sha512-AyLvtyJdbv/U1GkiS6gUUzclRoAY4Gs75qkMygJJhU75LW4DNuSF2RMzpxs9jw9Oz1BobHjTdkG3zdP55VxAqw==}
-
   delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
@@ -11315,9 +11199,6 @@ packages:
     resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
     engines: {node: '>= 4'}
 
-  dompurify@2.4.3:
-    resolution: {integrity: sha512-q6QaLcakcRjebxjg8/+NP+h0rPfatOgOzc46Fst9VAA3jF2ApfKBNKMzdP4DYTqtUMXSCd5pRS/8Po/OmoCHZQ==}
-
   domutils@2.8.0:
     resolution: {integrity: sha512-w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==}
 
@@ -11384,9 +11265,6 @@ packages:
 
   electron-to-chromium@1.5.47:
     resolution: {integrity: sha512-zS5Yer0MOYw4rtK2iq43cJagHZ8sXN0jDHDKzB+86gSBSAI4v07S97mcq+Gs2vclAxSh1j7vOAHxSVgduiiuVQ==}
-
-  elkjs@0.8.2:
-    resolution: {integrity: sha512-L6uRgvZTH+4OF5NE/MBbzQx/WYpru1xCBE9respNj6qznEewGUIfhzmm7horWWxbNO2M0WckQypGctR8lH79xQ==}
 
   elliptic@6.6.1:
     resolution: {integrity: sha512-RaddvvMatK2LJHqFJ+YA4WysVN5Ita9E35botqIYspQ4TkRAlCicdzKOjlyv/1Za5RyTNn7di//eEV0uTAfe3g==}
@@ -12239,9 +12117,6 @@ packages:
   hastscript@7.2.0:
     resolution: {integrity: sha512-TtYPq24IldU8iKoJQqvZOuhi5CyCQRAbvDOX0x1eW6rsHSxa/1i2CCiptNTotGHJ3VoHRGmqiv6/D3q113ikkw==}
 
-  heap@0.2.7:
-    resolution: {integrity: sha512-2bsegYkkHO+h/9MGbn6KWcE45cHZgPANo5LXF7EvWdT0yT2EguSVO1nDgU5c8+ZOPwp2vMNa7YFsJhVcDR9Sdg==}
-
   help-me@5.0.0:
     resolution: {integrity: sha512-7xgomUX6ADmcYzFik0HzAxh/73YlKR9bmFzf51CZwR+b6YtzU2m0u49hQCqV6SvlqIqsaxovfwdvbnsw3b/zpg==}
 
@@ -13020,9 +12895,6 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
-  khroma@2.1.0:
-    resolution: {integrity: sha512-Ls993zuzfayK269Svk9hzpeGUKob/sIgZzyHYdjQoAdQetRKpOLj+k/QQQ/6Qi0Yz65mlROrfd+Ev+1+7dz9Kw==}
-
   kind-of@3.2.2:
     resolution: {integrity: sha512-NOW9QQXMoZGg/oqnVNoNTTIFEIid1627WCffUBJEdMxYApq7mNE7CpzucIPc+ZQg25Phej7IJSmX3hO+oblOtQ==}
     engines: {node: '>=0.10.0'}
@@ -13085,12 +12957,6 @@ packages:
     resolution: {integrity: sha512-weT+r0kTkRQdCdYCNtkMwWXQTMEswKrFBkm4ckQOMVhhqhIMI1UT2hMj+1iigIhgSZm5gTmrRXBNoGUgaTY1xA==}
     engines: {node: '>=8'}
 
-  layout-base@1.0.2:
-    resolution: {integrity: sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg==}
-
-  layout-base@2.0.1:
-    resolution: {integrity: sha512-dp3s92+uNI1hWIpPGH3jK2kxE2lMjdXdr+DH8ynZHpd6PUlH6x6cbuXnoMmiNumznqaNO31xu9e79F0uuZ0JFg==}
-
   lazy-cache@1.0.4:
     resolution: {integrity: sha512-RE2g0b5VGZsOCFOCgP7omTRYFqydmZkBwl5oNnQ1lDYC57uyO9KqNnNVxT7COSHTxrRCWVcAVOcbjk+tvh/rgQ==}
     engines: {node: '>=0.10.0'}
@@ -13140,28 +13006,24 @@ packages:
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   lightningcss-linux-arm64-musl@1.26.0:
     resolution: {integrity: sha512-XxoEL++tTkyuvu+wq/QS8bwyTXZv2y5XYCMcWL45b8XwkiS8eEEEej9BkMGSRwxa5J4K+LDeIhLrS23CpQyfig==}
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   lightningcss-linux-x64-gnu@1.26.0:
     resolution: {integrity: sha512-1dkTfZQAYLj8MUSkd6L/+TWTG8V6Kfrzfa0T1fSlXCXQHrt1HC1/UepXHtKHDt/9yFwyoeayivxXAsApVxn6zA==}
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   lightningcss-linux-x64-musl@1.26.0:
     resolution: {integrity: sha512-yX3Rk9m00JGCUzuUhFEojY+jf/6zHs3XU8S8Vk+FRbnr4St7cjyMXdNjuA2LjiT8e7j8xHRCH8hyZ4H/btRE4A==}
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   lightningcss-win32-arm64-msvc@1.26.0:
     resolution: {integrity: sha512-X/597/cFnCogy9VItj/+7Tgu5VLbAtDF7KZDPdSw0MaL6FL940th1y3HiOzFIlziVvAtbo0RB3NAae1Oofr+Tw==}
@@ -13257,9 +13119,6 @@ packages:
 
   lodash.flatten@4.4.0:
     resolution: {integrity: sha512-C5N2Z3DgnnKr0LOpv/hKCgKdb7ZZwafIrsesve6lmzvZIRZRGaZ/l6Q8+2W7NaT+ZwO3fFlSCzCzrDCFdJfZ4g==}
-
-  lodash.flow@3.5.0:
-    resolution: {integrity: sha512-ff3BX/tSioo+XojX4MOsOMhJw0nZoUEF011LX8g8d3gvjVbxd89cCio4BCXronjxcTUIJUoqKEUA+n4CqvvRPw==}
 
   lodash.groupby@4.6.0:
     resolution: {integrity: sha512-5dcWxm23+VAoz+awKmBaiBvzox8+RqMgFhi7UvX9DHZr2HdxHXM/Wrf8cfKpsW37RNrvtPn6hSwNqurSILbmJw==}
@@ -13448,9 +13307,6 @@ packages:
     resolution: {integrity: sha512-zBx7loYY5GzLl8Y6AKxGXfY9DUYIIdGrmEORPOK9FEu0pg5ZLBKCGJuucHwKADxTBxKY7eM4rxndqxRcnMZKIw==}
     engines: {node: '>= 10.13'}
 
-  markdown-it-highlightjs@3.6.0:
-    resolution: {integrity: sha512-ex+Lq3cVkprh0GpGwFyc53A/rqY6GGzopPCG1xMsf8Ya3XtGC8Uw9tChN1rWbpyDae7tBBhVHVcMM29h4Btamw==}
-
   markdown-it@13.0.2:
     resolution: {integrity: sha512-FtwnEuuK+2yVU7goGn/MJ0WBZMM9ZPgU9spqlFs7/A/pDIUNSOQZhUgOqYCficIuR2QaFnrt8LHqBWsbTAoI5w==}
     hasBin: true
@@ -13567,9 +13423,6 @@ packages:
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
-
-  mermaid@9.4.3:
-    resolution: {integrity: sha512-TLkQEtqhRSuEHSE34lh5bCa94KATCyluAXmFnNI2PRZwOpXFeqiJWwZl+d2CcemE1RS6QbbueSSq9QIg8Uxcyw==}
 
   methods@1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
@@ -14077,9 +13930,6 @@ packages:
     resolution: {integrity: sha512-1olwK48XK9nXZsyH/FCltvGrQYvXXZuxVitxXXv2GIuRm51aBi1+5KwR4rWM4KeO61sFU+00913WLZTD+AcXEg==}
     engines: {node: '>=10.0.0'}
     hasBin: true
-
-  non-layered-tidy-tree-layout@2.0.2:
-    resolution: {integrity: sha512-gkXMxRzUH+PB0ax9dUN0yYF0S25BqeAYqhgMaLUFmpXLEk7Fcu8f4emJuOAY0V8kjDICxROIKsTAKsV/v355xw==}
 
   nopt@5.0.0:
     resolution: {integrity: sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==}
@@ -15826,9 +15676,6 @@ packages:
   ripemd160@2.0.2:
     resolution: {integrity: sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==}
 
-  robust-predicates@3.0.2:
-    resolution: {integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==}
-
   rollup@0.25.8:
     resolution: {integrity: sha512-a2S4Bh3bgrdO4BhKr2E4nZkjTvrJ2m2bWjMTzVYtoqSCn0HnuxosXnaJUHrMEziOWr3CzL9GjilQQKcyCQpJoA==}
     hasBin: true
@@ -16751,10 +16598,6 @@ packages:
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
 
-  ts-dedent@2.2.0:
-    resolution: {integrity: sha512-q5W7tVM71e2xjHZTlgfTDoPF/SmqKG5hddq9SzR49CH2hayqRKJtQ4mtRlSxKaJlR/+9rEM+mnBHf7I2/BQcpQ==}
-    engines: {node: '>=6.10'}
-
   ts-easing@0.2.0:
     resolution: {integrity: sha512-Z86EW+fFFh/IFB1fqQ3/+7Zpf9t2ebOAxNI/V6Wo7r5gqiqtxmgTlQ1qbqQcjLKYeSHPTsEmvlJUDg/EuL0uHQ==}
 
@@ -17348,9 +17191,6 @@ packages:
   web-streams-polyfill@3.3.3:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
-
-  web-worker@1.2.0:
-    resolution: {integrity: sha512-PgF341avzqyx60neE9DD+XS26MMNMoUQRz9NOZwW32nPQrF6p77f1htcnjBSEV8BGMKZ16choqUG4hyI0Hx7mA==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -19676,8 +19516,6 @@ snapshots:
       '@babel/helper-validator-identifier': 7.25.9
 
   '@bloomberg/record-tuple-polyfill@0.0.3': {}
-
-  '@braintree/sanitize-url@6.0.4': {}
 
   '@bull-board/api@6.5.3(@bull-board/ui@6.5.3)':
     dependencies:
@@ -25291,14 +25129,6 @@ snapshots:
       mime-types: 2.1.35
       request: 2.88.2
 
-  cose-base@1.0.3:
-    dependencies:
-      layout-base: 1.0.2
-
-  cose-base@2.2.0:
-    dependencies:
-      layout-base: 2.0.1
-
   cosmiconfig-typescript-loader@2.0.2(@types/node@20.17.10)(cosmiconfig@7.1.0)(typescript@4.9.5):
     dependencies:
       '@types/node': 20.17.10
@@ -25483,67 +25313,19 @@ snapshots:
 
   culvert@0.1.2: {}
 
-  cytoscape-cose-bilkent@4.1.0(cytoscape@3.28.0):
-    dependencies:
-      cose-base: 1.0.3
-      cytoscape: 3.28.0
-
-  cytoscape-fcose@2.2.0(cytoscape@3.28.0):
-    dependencies:
-      cose-base: 2.2.0
-      cytoscape: 3.28.0
-
-  cytoscape@3.28.0:
-    dependencies:
-      heap: 0.2.7
-      lodash: 4.17.21
-
   d3-array@3.2.4:
     dependencies:
       internmap: 2.0.3
 
-  d3-axis@3.0.0: {}
-
-  d3-brush@3.0.0:
-    dependencies:
-      d3-dispatch: 3.0.1
-      d3-drag: 3.0.0
-      d3-interpolate: 3.0.1
-      d3-selection: 3.0.0
-      d3-transition: 3.0.1(d3-selection@3.0.0)
-
-  d3-chord@3.0.1:
-    dependencies:
-      d3-path: 3.1.0
-
   d3-color@3.1.0: {}
 
-  d3-contour@4.0.2:
-    dependencies:
-      d3-array: 3.2.4
-
-  d3-delaunay@6.0.4:
-    dependencies:
-      delaunator: 5.0.0
-
   d3-dispatch@3.0.1: {}
-
-  d3-drag@3.0.0:
-    dependencies:
-      d3-dispatch: 3.0.1
-      d3-selection: 3.0.0
 
   d3-dsv@3.0.1:
     dependencies:
       commander: 7.2.0
       iconv-lite: 0.6.3
       rw: 1.3.3
-
-  d3-ease@3.0.1: {}
-
-  d3-fetch@3.0.1:
-    dependencies:
-      d3-dsv: 3.0.1
 
   d3-force@3.0.0:
     dependencies:
@@ -25565,95 +25347,18 @@ snapshots:
 
   d3-path@3.1.0: {}
 
-  d3-polygon@3.0.1: {}
-
   d3-quadtree@3.0.1: {}
-
-  d3-random@3.0.1: {}
 
   d3-scale-chromatic@3.1.0:
     dependencies:
       d3-color: 3.1.0
       d3-interpolate: 3.0.1
 
-  d3-scale@4.0.2:
-    dependencies:
-      d3-array: 3.2.4
-      d3-format: 3.1.0
-      d3-interpolate: 3.0.1
-      d3-time: 3.1.0
-      d3-time-format: 4.1.0
-
-  d3-selection@3.0.0: {}
-
   d3-shape@3.2.0:
     dependencies:
       d3-path: 3.1.0
 
-  d3-time-format@4.1.0:
-    dependencies:
-      d3-time: 3.1.0
-
-  d3-time@3.1.0:
-    dependencies:
-      d3-array: 3.2.4
-
   d3-timer@3.0.1: {}
-
-  d3-transition@3.0.1(d3-selection@3.0.0):
-    dependencies:
-      d3-color: 3.1.0
-      d3-dispatch: 3.0.1
-      d3-ease: 3.0.1
-      d3-interpolate: 3.0.1
-      d3-selection: 3.0.0
-      d3-timer: 3.0.1
-
-  d3-zoom@3.0.0:
-    dependencies:
-      d3-dispatch: 3.0.1
-      d3-drag: 3.0.0
-      d3-interpolate: 3.0.1
-      d3-selection: 3.0.0
-      d3-transition: 3.0.1(d3-selection@3.0.0)
-
-  d3@7.8.5:
-    dependencies:
-      d3-array: 3.2.4
-      d3-axis: 3.0.0
-      d3-brush: 3.0.0
-      d3-chord: 3.0.1
-      d3-color: 3.1.0
-      d3-contour: 4.0.2
-      d3-delaunay: 6.0.4
-      d3-dispatch: 3.0.1
-      d3-drag: 3.0.0
-      d3-dsv: 3.0.1
-      d3-ease: 3.0.1
-      d3-fetch: 3.0.1
-      d3-force: 3.0.0
-      d3-format: 3.1.0
-      d3-geo: 3.1.1
-      d3-hierarchy: 3.1.2
-      d3-interpolate: 3.0.1
-      d3-path: 3.1.0
-      d3-polygon: 3.0.1
-      d3-quadtree: 3.0.1
-      d3-random: 3.0.1
-      d3-scale: 4.0.2
-      d3-scale-chromatic: 3.1.0
-      d3-selection: 3.0.0
-      d3-shape: 3.2.0
-      d3-time: 3.1.0
-      d3-time-format: 4.1.0
-      d3-timer: 3.0.1
-      d3-transition: 3.0.1(d3-selection@3.0.0)
-      d3-zoom: 3.0.0
-
-  dagre-d3-es@7.0.9:
-    dependencies:
-      d3: 7.8.5
-      lodash-es: 4.17.21
 
   dargs@7.0.0: {}
 
@@ -25878,10 +25583,6 @@ snapshots:
       escodegen: 2.1.0
       esprima: 4.0.1
 
-  delaunator@5.0.0:
-    dependencies:
-      robust-predicates: 3.0.2
-
   delayed-stream@1.0.0: {}
 
   delegates@1.0.0: {}
@@ -25978,8 +25679,6 @@ snapshots:
     dependencies:
       domelementtype: 2.3.0
 
-  dompurify@2.4.3: {}
-
   domutils@2.8.0:
     dependencies:
       dom-serializer: 1.4.1
@@ -26054,8 +25753,6 @@ snapshots:
       jake: 10.9.2
 
   electron-to-chromium@1.5.47: {}
-
-  elkjs@0.8.2: {}
 
   elliptic@6.6.1:
     dependencies:
@@ -27197,8 +26894,6 @@ snapshots:
       property-information: 6.5.0
       space-separated-tokens: 2.0.2
 
-  heap@0.2.7: {}
-
   help-me@5.0.0: {}
 
   hexoid@1.0.0: {}
@@ -28025,8 +27720,6 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  khroma@2.1.0: {}
-
   kind-of@3.2.2:
     dependencies:
       is-buffer: 1.1.6
@@ -28175,10 +27868,6 @@ snapshots:
   latest-version@5.1.0:
     dependencies:
       package-json: 6.5.0
-
-  layout-base@1.0.2: {}
-
-  layout-base@2.0.1: {}
 
   lazy-cache@1.0.4: {}
 
@@ -28333,8 +28022,6 @@ snapshots:
   lodash.escaperegexp@4.1.2: {}
 
   lodash.flatten@4.4.0: {}
-
-  lodash.flow@3.5.0: {}
 
   lodash.groupby@4.6.0: {}
 
@@ -28515,11 +28202,6 @@ snapshots:
       long: 5.2.3
       moment-timezone: 0.5.46
       please-upgrade-node: 3.2.0
-
-  markdown-it-highlightjs@3.6.0:
-    dependencies:
-      highlight.js: 11.11.0
-      lodash.flow: 3.5.0
 
   markdown-it@13.0.2:
     dependencies:
@@ -28714,25 +28396,6 @@ snapshots:
   merge-stream@2.0.0: {}
 
   merge2@1.4.1: {}
-
-  mermaid@9.4.3:
-    dependencies:
-      '@braintree/sanitize-url': 6.0.4
-      cytoscape: 3.28.0
-      cytoscape-cose-bilkent: 4.1.0(cytoscape@3.28.0)
-      cytoscape-fcose: 2.2.0(cytoscape@3.28.0)
-      d3: 7.8.5
-      dagre-d3-es: 7.0.9
-      dayjs: 1.11.13
-      dompurify: 2.4.3
-      elkjs: 0.8.2
-      khroma: 2.1.0
-      lodash-es: 4.17.21
-      non-layered-tidy-tree-layout: 2.0.2
-      stylis: 4.3.4
-      ts-dedent: 2.2.0
-      uuid: 9.0.1
-      web-worker: 1.2.0
 
   methods@1.1.2: {}
 
@@ -29391,8 +29054,6 @@ snapshots:
   node-xlsx@0.24.0:
     dependencies:
       xlsx: https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz
-
-  non-layered-tidy-tree-layout@2.0.2: {}
 
   nopt@5.0.0:
     dependencies:
@@ -31419,8 +31080,6 @@ snapshots:
       hash-base: 3.1.0
       inherits: 2.0.4
 
-  robust-predicates@3.0.2: {}
-
   rollup@0.25.8:
     dependencies:
       chalk: 1.1.3
@@ -32491,8 +32150,6 @@ snapshots:
 
   trough@2.2.0: {}
 
-  ts-dedent@2.2.0: {}
-
   ts-easing@0.2.0: {}
 
   ts-interface-checker@0.1.13: {}
@@ -33177,8 +32834,6 @@ snapshots:
   web-namespaces@2.0.1: {}
 
   web-streams-polyfill@3.3.3: {}
-
-  web-worker@1.2.0: {}
 
   webidl-conversions@3.0.1: {}
 

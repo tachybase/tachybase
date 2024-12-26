@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-pages"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "antd": "5.22.5",
     "react-router-dom": "6.28.1"
   },

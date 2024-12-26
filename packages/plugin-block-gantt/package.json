@@ -11,7 +11,8 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-block-gantt"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@ctrl/tinycolor": "^3.6.1",
     "@tachybase/components": "workspace:*",

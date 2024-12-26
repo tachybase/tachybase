@@ -23,7 +23,7 @@
     "tar": "tachybase tar",
     "tb": "tachybase",
     "tbi": "tachybase install",
-    "tbu": "tachybase upgrade -S",
+    "tbu": "tachybase upgrade",
     "tc": "tachybase test:client",
     "test": "tachybase test",
     "test:client": "tachybase test:client",

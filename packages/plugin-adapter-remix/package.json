@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-adapter-remix"
   },
+  "dependencies": {},
   "devDependencies": {
     "@remix-run/express": "^2.15.2",
     "@remix-run/react": "^2.15.2",

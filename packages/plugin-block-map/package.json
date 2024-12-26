@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-block-map"
   },
+  "dependencies": {},
   "devDependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@amap/amap-jsapi-types": "^0.0.10",

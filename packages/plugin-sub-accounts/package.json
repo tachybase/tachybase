@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-sub-accounts"
   },
+  "dependencies": {},
   "devDependencies": {
     "minimatch": "^5.1.6"
   },

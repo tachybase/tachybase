@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-cron"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "antd": "5.22.5",
     "cron-parser": "4.9.0",
     "react-js-cron": "^3.2.0"

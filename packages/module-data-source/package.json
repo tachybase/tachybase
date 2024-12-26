@@ -10,6 +10,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-data-source"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@dnd-kit/core": "^6.3.1",

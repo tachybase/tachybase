@@ -16,26 +16,32 @@ async function checkFoldersAndPackageJson(dirs, mainVersion) {
           const folderPath = path.join(dirPath, entry.name); // 获取文件夹的完整路径
           const packageJsonPath = path.join(folderPath, 'package.json');
 
-          // 检查是否有 package.json 文件
+
           try {
             await fs.stat(packageJsonPath); // 试图读取 package.json
-
-            // 读取并解析 package.json
-            const packageJsonContent = await fs.readFile(packageJsonPath, 'utf-8');
-            const packageJson = JSON.parse(packageJsonContent); // 使用 JSON.parse 解析
-
-            if (packageJson && packageJson) {
-              const packageName = packageJson.name;
-              const version = packageJson.version;
-              if (mainVersion !== version) {
-                result.push({
-                  packageJsonPath: packageJsonPath,
-                  suggestion: `${packageName} 不一致的版本 ${mainVersion} -> ${version}`,
-                });
-              }
-            }
           } catch (err) {
-            // 如果没有 package.json 文件，忽略
+            console.error(err);
+            continue;
+          }
+
+          // 读取并解析 package.json
+          const packageJsonContent = await fs.readFile(packageJsonPath, 'utf-8');
+          const packageJson = JSON.parse(packageJsonContent); // 使用 JSON.parse 解析
+
+          if (packageJson && packageJson.name) {
+            const packageName = packageJson.name;
+
+            const [_scope, name] = packageName.split('/');
+            if (!name?.startsWith('module-') && !name?.startsWith('plugin-')) {
+              continue;
+            }
+
+            // 找出所有依赖
+            const dependencies = packageJson.dependencies || {};
+            const devDependencies = packageJson.devDependencies || {};
+            packageJson.devDependencies = { ...dependencies, ...devDependencies };
+            packageJson.dependencies = {};
+            await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
           }
         }
       }

@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-ui-schema"
   },
+  "dependencies": {},
   "devDependencies": {
     "lodash": "4.17.21",
     "sequelize": "6.37.5"

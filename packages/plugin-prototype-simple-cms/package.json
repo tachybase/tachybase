@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-simple-cms"
   },
+  "dependencies": {},
   "devDependencies": {
     "antd": "5.22.5"
   },

@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-mock-collections"
   },
+  "dependencies": {},
   "devDependencies": {
     "@faker-js/faker": "8.4.1",
     "lodash": "4.17.21",

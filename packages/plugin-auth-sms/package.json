@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-sms"
   },
+  "dependencies": {},
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "antd": "5.22.5",

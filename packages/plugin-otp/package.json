@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-otp"
   },
+  "dependencies": {},
   "devDependencies": {
     "@alicloud/dysmsapi20170525": "2.0.24",
     "@alicloud/openapi-client": "0.4.12",

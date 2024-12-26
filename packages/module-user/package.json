@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-user"
   },
+  "dependencies": {},
   "devDependencies": {
     "@tachybase/schema": "workspace:*",
     "@types/jsonwebtoken": "^8.5.9",

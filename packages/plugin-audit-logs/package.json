@@ -10,6 +10,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-audit-logs"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "@tachybase/components": "workspace:*",
