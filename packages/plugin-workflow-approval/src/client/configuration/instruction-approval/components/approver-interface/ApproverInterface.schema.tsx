@@ -8,9 +8,9 @@ import {
 } from '@tachybase/client';
 import { uid } from '@tachybase/utils/client';
 
-import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
-import { NAMESPACE } from '../../../locale';
-import { ViewApplyFormAddBlock } from '../../trigger-approval/components/ApplyFormAddBlock.view';
+import { collectionApprovalTodos } from '../../../../common/collections/approvalRecords';
+import { NAMESPACE } from '../../../../locale';
+import { ViewApplyFormAddBlock } from '../../../trigger-approval/components/ApplyFormAddBlock.view';
 import { ApproverBlock } from './ApproverBlock.view';
 
 const useStyles = createStyles(({ css }) => {

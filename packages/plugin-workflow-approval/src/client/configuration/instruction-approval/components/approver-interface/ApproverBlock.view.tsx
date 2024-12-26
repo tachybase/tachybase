@@ -6,9 +6,9 @@ import { uid } from '@tachybase/utils/client';
 
 import { Spin } from 'antd';
 
-import { FormBlockProvider } from '../../../usage/pc/common/FormBlock.provider';
-import { flatSchemaArray } from '../../../usage/pc/constants';
-import { useContextApproverConfig } from '../contexts/ApproverConfig';
+import { FormBlockProvider } from '../../../../usage/pc/common/FormBlock.provider';
+import { flatSchemaArray } from '../../../../usage/pc/constants';
+import { useContextApproverConfig } from '../../contexts/ApproverConfig';
 import { ActionBarProvider } from './ActionBar.provider';
 import { ApprovalActionProvider } from './ApprovalAction.provider';
 import { ApprovalFormBlockProvider } from './ApprovalFormBlockProvider.view';
