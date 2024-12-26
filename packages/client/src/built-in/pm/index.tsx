@@ -8,9 +8,10 @@ import { SettingsCenterDropdown } from '../setting-layout/SettingsCenterDropdown
 import { SystemSettingsPane } from '../system-settings';
 import { PluginManager } from './PluginManager';
 
-export * from './PluginManager';
-export * from '../setting-layout/SettingsCenterDropdown';
-export * from '../setting-layout/AdminSettings';
+export { PluginManager } from './PluginManager';
+export type { AllowedActions, IMetaData, TData } from './PluginManager';
+export { SettingsCenterDropdown } from '../setting-layout/SettingsCenterDropdown';
+export { AdminSettingsLayout, SettingsCenterContext } from '../setting-layout/AdminSettings';
 
 export class PMPlugin extends Plugin {
   async load() {

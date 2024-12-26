@@ -6,7 +6,8 @@ import { Button, Dropdown } from 'antd';
 import { useLocation, useNavigate } from 'react-router';
 
 import { SettingsMenu, useCurrentUserContext } from '../../user';
-import { AdminProvider, NoticeArea } from '../admin-layout';
+import { NoticeArea } from '../admin-layout';
+import { AdminProvider } from '../admin-layout/AdminProvider';
 import { useSystemSettings } from '../system-settings';
 
 export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscreen }) => {

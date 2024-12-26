@@ -3,7 +3,8 @@ import { ScrollAssistantStatusProvider } from '../scroll-assistant/ScrollAssista
 import { ContextMenuProvider } from './ContextMenu.provider';
 import { designerMode, disableRightMenu, fullScreen, hiddenScrollArea } from './ContextMenuItemsProps';
 
-export * from './useContextMenu';
+export { ContextMenuContext, useContextMenu } from './useContextMenu';
+export type { ContextMenuContextProps } from './useContextMenu';
 
 export class PluginContextMenu extends Plugin {
   async load() {

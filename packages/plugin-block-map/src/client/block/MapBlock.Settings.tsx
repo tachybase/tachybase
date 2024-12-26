@@ -11,6 +11,7 @@ import {
   SchemaSettingsModalItem,
   SchemaSettingsSelectItem,
   SchemaSettingsTemplate,
+  SetDataLoadingMode,
   setDataLoadingModeSettingsItem,
   useCollection,
   useCollectionManager_deprecated,
@@ -130,7 +131,10 @@ export const mapBlockSettings = new SchemaSettings({
         };
       },
     },
-    setDataLoadingModeSettingsItem,
+    {
+      name: 'setDataLoadingMode',
+      Component: SetDataLoadingMode,
+    },
     {
       name: 'defaultZoomLevel',
       Component: SchemaSettingsModalItem,

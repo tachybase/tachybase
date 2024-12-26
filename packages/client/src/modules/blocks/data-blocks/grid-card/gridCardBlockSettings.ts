@@ -19,7 +19,7 @@ import {
 } from '../../../../schema-component/antd/grid-card/options';
 import { SchemaSettingsTemplate } from '../../../../schema-settings';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
-import { setDataLoadingModeSettingsItem } from '../details-multi/setDataLoadingModeSettingsItem';
+import { SetDataLoadingMode, setDataLoadingModeSettingsItem } from '../details-multi/setDataLoadingModeSettingsItem';
 import { columnCountMarks } from './utils';
 
 export const gridCardBlockSettings = new SchemaSettings({
@@ -226,7 +226,11 @@ export const gridCardBlockSettings = new SchemaSettings({
         };
       },
     },
-    setDataLoadingModeSettingsItem,
+
+    {
+      name: 'setDataLoadingMode',
+      Component: SetDataLoadingMode,
+    },
     {
       name: 'RecordsPerPage',
       type: 'select',

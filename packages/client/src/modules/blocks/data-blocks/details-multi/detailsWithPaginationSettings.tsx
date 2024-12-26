@@ -11,7 +11,11 @@ import { useCollection_deprecated, useSortFields } from '../../../../collection-
 import { removeNullCondition, useDesignable } from '../../../../schema-component';
 import { SchemaSettingsBlockTitleItem, SchemaSettingsTemplate } from '../../../../schema-settings';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
-import { setDataLoadingModeSettingsItem, useDataLoadingMode } from './setDataLoadingModeSettingsItem';
+import {
+  SetDataLoadingMode,
+  setDataLoadingModeSettingsItem,
+  useDataLoadingMode,
+} from './setDataLoadingModeSettingsItem';
 
 const commonItems: SchemaSettingsItemType[] = [
   {
@@ -171,7 +175,10 @@ const commonItems: SchemaSettingsItemType[] = [
       };
     },
   },
-  setDataLoadingModeSettingsItem,
+  {
+    name: 'setDataLoadingMode',
+    Component: SetDataLoadingMode,
+  },
   {
     name: 'template',
     Component: SchemaSettingsTemplate,
