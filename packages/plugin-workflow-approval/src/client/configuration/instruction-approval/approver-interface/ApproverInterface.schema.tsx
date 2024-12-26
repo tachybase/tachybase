@@ -10,7 +10,7 @@ import { uid } from '@tachybase/utils/client';
 
 import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
 import { NAMESPACE } from '../../../locale';
-import { SchemaAddBlock } from '../../trigger-approval/launcher-interface/SchemaAddBlock.component';
+import { ViewApplyFormAddBlock } from '../../trigger-approval/components/ApplyFormAddBlock.view';
 import { ApproverBlock } from './ApproverBlock.view';
 
 const useStyles = createStyles(({ css }) => {
@@ -68,7 +68,7 @@ export const ApproverInterfaceComponent = () => {
           <SchemaComponent
             components={{
               ApproverBlock,
-              SchemaAddBlock,
+              SchemaAddBlock: ViewApplyFormAddBlock,
             }}
             schema={schema}
           />

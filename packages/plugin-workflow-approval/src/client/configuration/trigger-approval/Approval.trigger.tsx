@@ -10,8 +10,8 @@ import {
 import { useForm } from '@tachybase/schema';
 
 import { NAMESPACE, tval, usePluginTranslation } from '../../locale';
-import { ConfigButtonView } from './ConfigButton.view';
-import { LauncherInterface } from './launcher-interface/LauncherInterface.schema';
+import { ViewApplyFormWrapper } from './components/ApplyFormWrapper.view';
+import { ConfigButton } from './components/ConfigButton';
 
 // 工作流节点-审批触发器节点
 export class ApprovalTrigger extends Trigger {
@@ -19,13 +19,16 @@ export class ApprovalTrigger extends Trigger {
   title = `{{t('Approval event', { ns: "${NAMESPACE}" })}}`;
   description = `{{t("Triggered when an approval request is initiated through an action button or API. Dedicated to the approval process, with exclusive approval node and block for managing documents and tracking processing processes.", { ns: "${NAMESPACE}" })}}`;
 
-  scope = { useWorkflowAnyExecuted };
-
   components = {
-    ConfigButtonView,
-    LauncherInterface,
+    ConfigButton: ConfigButton,
+    ViewApplyFormWrapper: ViewApplyFormWrapper,
     RadioWithTooltip,
   };
+
+  scope = {
+    useWorkflowAnyExecuted,
+  };
+
   // 触发器配置表
   fieldset = {
     collection: {
@@ -70,7 +73,7 @@ export class ApprovalTrigger extends Trigger {
       title: `{{t("Initiator's interface", { ns: "${NAMESPACE}" })}}`,
       description: `{{t("For initiating approvals, or viewing and manipulating initiated approvals.", { ns: "${NAMESPACE}" })}}`,
       'x-decorator': 'FormItem',
-      'x-component': 'ConfigButtonView',
+      'x-component': 'ConfigButton',
       'x-reactions': [
         {
           dependencies: ['collection'],
@@ -84,7 +87,7 @@ export class ApprovalTrigger extends Trigger {
       properties: {
         applyForm: {
           type: 'void',
-          'x-component': 'LauncherInterface',
+          'x-component': 'ViewApplyFormWrapper',
           default: null,
         },
       },

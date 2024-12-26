@@ -7,13 +7,11 @@ import {
   useFormBlockProps,
   useRequest,
 } from '@tachybase/client';
-import { useFlowContext } from '@tachybase/module-workflow/client';
 import { uid } from '@tachybase/utils/client';
 
 //  发起人操作界面-添加卡片
-export const SchemaAddBlock = ({ value, onChange }) => {
+export const ViewApplyFormAddBlock = ({ value, onChange }) => {
   const api = useAPIClient();
-  const { workflow } = useFlowContext();
   const { components } = useContext(SchemaComponentContext);
 
   // 获取对应数据表的表单Schema
@@ -46,6 +44,7 @@ export const SchemaAddBlock = ({ value, onChange }) => {
     <SchemaComponentProvider components={components} designable={true}>
       <SchemaComponent
         memoized={true}
+        schema={data as any}
         components={{
           ActionBarProvider,
           ApplyActionStatusProvider,
@@ -60,11 +59,11 @@ export const SchemaAddBlock = ({ value, onChange }) => {
           useActionResubmit,
           useActionReminder,
         }}
-        schema={data as any}
       />
     </SchemaComponentProvider>
   );
 };
+
 function useSubmit() {
   return { run() {} };
 }

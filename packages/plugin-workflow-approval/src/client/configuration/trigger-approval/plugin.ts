@@ -6,8 +6,6 @@ import { LauncherActionConfigInitializer } from './launcher-interface/LauncherAc
 import { LauncherAddBlockButtonIntializer } from './launcher-interface/LauncherAddBlockButton.initializer';
 
 export class KitApprovalTrigger extends Plugin {
-  async afterAdd() {}
-  async beforeLoad() {}
   async load() {
     const pluginWorkflow = this.app.pm.get(PluginWorkflow);
     pluginWorkflow.registerTrigger('approval', ApprovalTrigger);
