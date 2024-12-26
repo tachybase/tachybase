@@ -5,7 +5,7 @@ import { Branch, NodeDefaultView, useFlowContext, useStyles } from '@tachybase/m
 import { Tag } from 'antd';
 
 import { APPROVAL_TODO_STATUS } from '../../../common/constants/approval-todo-status';
-import { approvalStatusConfigObj } from '../../../usage/pc/constants';
+import { approvalTodoStatusMap } from '../../../common/constants/approval-todo-status-options';
 
 // 审批节点组件
 export const ApprovalInstructionNode = ({ data }) => {
@@ -49,13 +49,13 @@ const BranchListComponent = (props) => {
       end={isEnd(targetStatus)}
       controller={
         <Tag
-          color={approvalStatusConfigObj[targetStatus].color}
+          color={approvalTodoStatusMap[targetStatus].color}
           style={{
             position: 'relative',
             margin: '1rem 0 0 0',
           }}
         >
-          {compile(approvalStatusConfigObj[targetStatus].label)}
+          {compile(approvalTodoStatusMap[targetStatus].label)}
         </Tag>
       }
     />

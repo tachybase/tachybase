@@ -1,28 +1,19 @@
 import React, { useCallback } from 'react';
-import { createStyles, InputNumber } from '@tachybase/client';
+import { InputNumber } from '@tachybase/client';
 
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Radio, Tooltip } from 'antd';
 
 import { useTranslation } from '../../../locale';
-
-const useStyles = createStyles(({ css }) => {
-  return {
-    container: css`
-      .ant-radio-group {
-        .anticon {
-          margin-left: 0.5em;
-        }
-      }
-    `,
-  };
-});
+import { useStyles } from './NegotiationConfig.style';
 
 // 协商模式
 export const NegotiationConfig = ({ value, onChange }) => {
   const { t } = useTranslation();
-  const percentSign = value > 0 && value < 1 ? '%' : value;
   const { styles } = useStyles();
+
+  const percentSign = value > 0 && value < 1 ? '%' : value;
+
   const onChangeRadio = useCallback(
     ({ target }) => {
       if (target.value !== percentSign) {
@@ -37,6 +28,7 @@ export const NegotiationConfig = ({ value, onChange }) => {
     },
     [onChange],
   );
+
   return (
     <fieldset className={styles.container}>
       <Radio.Group key="radio" value={percentSign} onChange={onChangeRadio}>

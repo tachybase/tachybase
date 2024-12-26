@@ -9,9 +9,9 @@ import {
 } from '@tachybase/module-workflow/client';
 import { useForm } from '@tachybase/schema';
 
+import { ConfigButton } from '../../common/components/ConfigButton';
 import { NAMESPACE, tval, usePluginTranslation } from '../../locale';
 import { ViewApplyFormWrapper } from './components/ApplyFormWrapper.view';
-import { ConfigButton } from './components/ConfigButton';
 
 // 工作流节点-审批触发器节点
 export class ApprovalTrigger extends Trigger {

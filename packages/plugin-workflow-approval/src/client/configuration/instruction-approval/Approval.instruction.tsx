@@ -5,16 +5,16 @@ import { Instruction, RadioWithTooltip, useWorkflowAnyExecuted } from '@tachybas
 import { uid } from '@tachybase/utils/client';
 
 import { INSTRUCTION_TYPE_NAME_APPROVAL } from '../../../common/constants';
+import { ConfigButton } from '../../common/components/ConfigButton';
+import { APPROVAL_TODO_STATUS } from '../../common/constants/approval-todo-status';
 import { tval } from '../../locale';
-import { APPROVAL_ACTION_STATUS } from '../../usage/pc/constants';
-import { NAMESPACE } from '../../usage/pc/locale';
-import { AssigneesAddition } from './approval-config/AssigneesAddition.view';
-import { AssigneesSelect } from './approval-config/AssigneesSelect.view';
-import { ContentTooltip } from './approval-config/ContentTooltip.view';
-import { NegotiationConfig } from './approval-config/NegotiationConfig.view';
-import { SchemaConfigButtonApprover } from './approval-config/SchemaConfigButtonApprover.view';
+import { ProviderConfigButton } from './approval-config/ConfigButton.provider';
 import { ApproverInterfaceComponent } from './approver-interface/ApproverInterface.schema';
 import { ApprovalInstructionNode } from './components/ApprovalNode';
+import { AssigneesAddButton } from './components/AssigneesAddButton';
+import { AssigneesSelect } from './components/AssigneesSelect';
+import { ContentTooltip } from './components/ContentTooltip';
+import { NegotiationConfig } from './components/NegotiationConfig';
 import { isApprovalReturnFunc } from './tools';
 
 // 工作流节点 nodes - 人工处理->审批
@@ -55,12 +55,13 @@ export class ApprovalInstruction extends Instruction {
   // 审批节点配置组件
   components = {
     ArrayItems,
-    SchemaConfigButtonApprover,
+    ProviderConfigButton: ProviderConfigButton,
     SchemaConfig: ApproverInterfaceComponent,
-    AssigneesSelect,
     NegotiationConfig,
     RadioWithTooltip,
-    AssigneesAddition,
+    AssigneesAddButton: AssigneesAddButton,
+    AssigneesSelect,
+    ConfigButton: ConfigButton,
   };
   scope = {
     useWorkflowAnyExecuted,
@@ -152,7 +153,7 @@ export class ApprovalInstruction extends Instruction {
         add: {
           type: 'void',
           title: tval('Add assignee'),
-          'x-component': 'AssigneesAddition',
+          'x-component': 'AssigneesAddButton',
         },
       },
     },
@@ -205,11 +206,17 @@ export class ApprovalInstruction extends Instruction {
       type: 'void',
       title: tval("Approver's interface"),
       'x-decorator': 'FormItem',
-      'x-component': 'SchemaConfigButtonApprover',
+      'x-component': 'ProviderConfigButton',
       properties: {
-        applyDetail: {
+        configButton: {
           type: 'void',
-          'x-component': 'SchemaConfig',
+          'x-component': 'ConfigButton',
+          properties: {
+            applyDetail: {
+              type: 'void',
+              'x-component': 'SchemaConfig',
+            },
+          },
         },
       },
       required: true,
@@ -217,11 +224,11 @@ export class ApprovalInstruction extends Instruction {
   };
 
   isAvailable({ workflow, upstream, branchIndex }) {
-    const isApproval = workflow.type === 'approval';
+    const isApproval = workflow.type === INSTRUCTION_TYPE_NAME_APPROVAL;
     const isNotApprovalReturn = !isApprovalReturnFunc(
       upstream,
       branchIndex,
-      (currU, currB) => currU?.type === 'approval' && currB === APPROVAL_ACTION_STATUS.RETURNED,
+      (currU, currB) => currU?.type === INSTRUCTION_TYPE_NAME_APPROVAL && currB === APPROVAL_TODO_STATUS.RETURNED,
     );
     return isApproval && isNotApprovalReturn;
   }

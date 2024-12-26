@@ -3,9 +3,9 @@ import { ActionContextProvider } from '@tachybase/client';
 
 import { Button } from 'antd';
 
-import { useTranslation } from '../../../locale';
+import { useTranslation } from '../../locale';
 
-// 发起人操作界面->进入配置按钮
+// 配置按钮
 export const ConfigButton = (props) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);

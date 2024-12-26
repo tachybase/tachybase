@@ -8,7 +8,7 @@ import { Button, Popover, Space } from 'antd';
 import { useTranslation } from '../../../locale';
 
 // 添加审批人(选择/查询)
-export const AssigneesAddition = () => {
+export const AssigneesAddButton = () => {
   const isWorkflowExecuted = useWorkflowExecuted();
 
   const array = ArrayItems.useArray();
@@ -19,6 +19,7 @@ export const AssigneesAddition = () => {
     array.field.push('');
     setIsOpen(false);
   }, [array.field]);
+
   const onQuery = useCallback(() => {
     array.field.push({ filter: {} });
     setIsOpen(false);
