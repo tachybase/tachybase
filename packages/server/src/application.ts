@@ -408,16 +408,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     return packageJson.version;
   }
 
-  /**
-   * This method is deprecated and should not be used.
-   * Use {@link #this.pm.addPreset()} instead.
-   * @deprecated
-   */
-  plugin<O = any>(pluginClass: any, options?: O) {
-    this.logger.debug(`add plugin`, { method: 'plugin', name: pluginClass.name });
-    this.pm.addPreset(pluginClass, options);
-  }
-
   // @ts-ignore
   use<NewStateT = {}, NewContextT = {}>(
     middleware: Koa.Middleware<StateT & NewStateT, ContextT & NewContextT>,
