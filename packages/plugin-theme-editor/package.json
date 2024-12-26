@@ -15,7 +15,7 @@
     "@ant-design/cssinjs": "^1.22.1",
     "@ant-design/icons": "~5.3.7",
     "@arvinxu/layout-kit": "^1.4.0",
-    "@ctrl/tinycolor": "^3.6.1",
+    "@ctrl/tinycolor": "^4.1.0",
     "@types/lodash": "4.17.13",
     "antd": "5.22.5",
     "lodash": "4.17.21",
