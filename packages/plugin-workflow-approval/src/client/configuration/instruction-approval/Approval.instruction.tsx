@@ -13,9 +13,9 @@ import { AssigneesSelect } from './approval-config/AssigneesSelect.view';
 import { ContentTooltip } from './approval-config/ContentTooltip.view';
 import { NegotiationConfig } from './approval-config/NegotiationConfig.view';
 import { SchemaConfigButtonApprover } from './approval-config/SchemaConfigButtonApprover.view';
-import { ApprovalInstructionNode } from './ApprovalNode.component';
 import { ApproverInterfaceComponent } from './approver-interface/ApproverInterface.schema';
-import { isApprovalReturnFunc } from './utils';
+import { ApprovalInstructionNode } from './components/ApprovalNode';
+import { isApprovalReturnFunc } from './tools';
 
 // 工作流节点 nodes - 人工处理->审批
 export class ApprovalInstruction extends Instruction {
@@ -50,8 +50,9 @@ export class ApprovalInstruction extends Instruction {
       },
     },
   ];
-  // 审批节点组件
+  // 审批节点展示组件
   Component = ApprovalInstructionNode;
+  // 审批节点配置组件
   components = {
     ArrayItems,
     SchemaConfigButtonApprover,

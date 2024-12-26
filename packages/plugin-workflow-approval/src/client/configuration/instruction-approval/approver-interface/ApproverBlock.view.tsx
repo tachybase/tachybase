@@ -8,7 +8,7 @@ import { Spin } from 'antd';
 
 import { FormBlockProvider } from '../../../usage/pc/common/FormBlock.provider';
 import { flatSchemaArray } from '../../../usage/pc/constants';
-import { ContextApproverConfig } from '../ApproverConfig.context';
+import { useContextApproverConfig } from '../contexts/ApproverConfig';
 import { ActionBarProvider } from './ActionBar.provider';
 import { ApprovalActionProvider } from './ApprovalAction.provider';
 import { ApprovalFormBlockProvider } from './ApprovalFormBlockProvider.view';
@@ -19,7 +19,7 @@ import { useApprovalFormBlockProps } from './useApprovalFormBlockProps';
 export const ApproverBlock = ({ value: srcID, onChange }) => {
   const apiClient = useAPIClient();
   const { values, setValuesIn } = useForm();
-  const { setFormValueChanged } = useContext(ContextApproverConfig) as any;
+  const { setFormValueChanged } = useContextApproverConfig();
   const onChangeFunc = useCallback(
     (data) => {
       const arr = flatSchemaArray(data.toJSON(), (field) => field['x-decorator'] === 'ApprovalFormBlockProvider');

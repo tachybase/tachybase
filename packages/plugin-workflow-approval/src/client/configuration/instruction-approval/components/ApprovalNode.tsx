@@ -4,8 +4,8 @@ import { Branch, NodeDefaultView, useFlowContext, useStyles } from '@tachybase/m
 
 import { Tag } from 'antd';
 
-import { APPROVAL_TODO_STATUS } from '../../common/constants/approval-todo-status';
-import { approvalStatusConfigObj } from '../../usage/pc/constants';
+import { APPROVAL_TODO_STATUS } from '../../../common/constants/approval-todo-status';
+import { approvalStatusConfigObj } from '../../../usage/pc/constants';
 
 // 审批节点组件
 export const ApprovalInstructionNode = ({ data }) => {
@@ -16,7 +16,7 @@ export const ApprovalInstructionNode = ({ data }) => {
       {config.branchMode ? (
         <div className={styles.nodeSubtreeClass}>
           <div className={styles.branchBlockClass}>
-            <BranchListComp data={data} />
+            <BranchListComponent data={data} />
           </div>
         </div>
       ) : null}
@@ -25,7 +25,7 @@ export const ApprovalInstructionNode = ({ data }) => {
 };
 
 // Child Component; 审批节点分支
-const BranchListComp = (props) => {
+const BranchListComponent = (props) => {
   const { data } = props;
   const compile = useCompile();
   const { nodes } = useFlowContext();
