@@ -1,7 +1,7 @@
 import { NAMESPACE, tval } from '../../locale';
 import { ApprovalStatusEnums } from '../../usage/pc/constants';
 
-export const CollectionApprovals = {
+export const collectionApprovals = {
   title: `{{t("Approval applications", { ns: "${NAMESPACE}" })}}`,
   name: 'approvals',
   fields: [

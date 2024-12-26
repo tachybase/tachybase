@@ -74,13 +74,10 @@ export const ApproverBlock = ({ value: srcID, onChange }) => {
     <ContextApproverBlock.Provider value={values}>
       <SchemaComponent
         memoized={true}
-        scope={{
-          useSubmit: () => {
-            return { run() {} };
-          },
-          useApprovalFormBlockProps,
-          useDetailsBlockProps: useFormBlockContext,
-        }}
+        onChange={onChangeFunc}
+        Ï
+        // @ts-ignore
+        schema={schemaData}
         components={{
           FormBlockProvider,
           ApprovalFormBlockProvider,
@@ -90,9 +87,13 @@ export const ApproverBlock = ({ value: srcID, onChange }) => {
           SimpleDesigner,
           ProviderApprovalUpdateForm,
         }}
-        // @ts-ignore
-        schema={schemaData}
-        onChange={onChangeFunc}
+        scope={{
+          useSubmit: () => {
+            return { run() {} };
+          },
+          useApprovalFormBlockProps,
+          useDetailsBlockProps: useFormBlockContext,
+        }}
       />
     </ContextApproverBlock.Provider>
   );

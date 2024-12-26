@@ -2,7 +2,7 @@ import React from 'react';
 import { parseCollectionName, SchemaComponent } from '@tachybase/client';
 import { useForm } from '@tachybase/schema';
 
-import { ViewApplyFormAddBlock } from './ApplyFormAddBlock.view';
+import { ViewApplyFormAddBlock } from '../../../common/components/ApplyFormAddBlock.view';
 import { getSchemaApplyFormWrapper } from './ApplyFormWrapper.schema';
 
 // 触发器-发起人的申请表单配置界面

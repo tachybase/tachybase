@@ -1,6 +1,6 @@
 import { NAMESPACE } from '../../locale';
 
-export const CollectionWorkflows = {
+export const collectionWorkflows = {
   title: `{{t("Approval Launch", { ns: "${NAMESPACE}" })}}`,
   name: 'workflows',
   fields: [

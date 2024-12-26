@@ -9,9 +9,9 @@ import {
 } from '@tachybase/client';
 
 import { collectionApprovalTodos } from '../../../../common/collections/approvalRecords';
-import { CollectionApprovals } from '../../../../common/collections/approvals';
-import { CollectionFlowNodes } from '../../../../common/collections/flowNodes';
-import { CollectionWorkflows } from '../../../../common/collections/workflows';
+import { collectionApprovals } from '../../../../common/collections/approvals';
+import { collectionFlowNodes } from '../../../../common/collections/flowNodes';
+import { collectionWorkflows } from '../../../../common/collections/workflows';
 
 export function RecordApprovalsDecorator({ params, children }) {
   const collection = useCollection_deprecated();
@@ -47,9 +47,9 @@ export function RecordApprovalsDecorator({ params, children }) {
   );
   return (
     <ExtendCollectionsProvider
-      collections={[CollectionWorkflows, CollectionFlowNodes, CollectionApprovals, collectionApprovalTodos]}
+      collections={[collectionWorkflows, collectionFlowNodes, collectionApprovals, collectionApprovalTodos]}
     >
-      <CollectionProvider_deprecated collection={CollectionApprovals}>
+      <CollectionProvider_deprecated collection={collectionApprovals}>
         <List.Decorator {...request}>{children}</List.Decorator>
       </CollectionProvider_deprecated>
     </ExtendCollectionsProvider>

@@ -1,6 +1,6 @@
 import { tval } from '../../locale';
 
-export const CollectionFlowNodes = {
+export const collectionFlowNodes = {
   title: tval('Node'),
   name: 'flow_nodes',
   fields: [
