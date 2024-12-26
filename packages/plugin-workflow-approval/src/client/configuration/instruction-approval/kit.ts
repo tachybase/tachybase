@@ -3,8 +3,8 @@ import PluginWorkflow from '@tachybase/module-workflow/client';
 
 import { INSTRUCTION_TYPE_NAME_APPROVAL } from '../../../common/constants';
 import { ApprovalInstruction } from './Approval.instruction';
-import { ApproverActionConfigInitializer } from './components/approver-interface/ApproverActionConfig.initializer';
-import { ApproverAddBlockInitializer } from './components/approver-interface/ApproverAddBlock.initializer';
+import { ApproverActionConfigInitializer } from './components/approver-modal/ApproverActionConfig.initializer';
+import { ApproverAddBlockInitializer } from './components/approver-modal/ApproverAddBlock.initializer';
 import { KitApprovalAddActionButton } from './forms/FormBlock.factory';
 
 export class KitApprovalInstruction extends Plugin {

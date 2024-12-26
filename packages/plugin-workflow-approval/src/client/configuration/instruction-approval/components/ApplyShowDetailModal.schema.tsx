@@ -1,6 +1,6 @@
-import { tval } from '../../../../locale';
+import { tval } from '../../../locale';
 
-export const getSchemaApplyShowDetailWrapper = ({ styles }) => {
+export const getSchemaApplyShowDetailModal = ({ styles }) => {
   return {
     name: 'drawer',
     type: 'void',
@@ -12,7 +12,7 @@ export const getSchemaApplyShowDetailWrapper = ({ styles }) => {
     properties: {
       applyDetail: {
         type: 'string',
-        'x-component': 'ApproverBlock',
+        'x-component': 'ViewApplyShowDetailAddBlock',
       },
     },
   };

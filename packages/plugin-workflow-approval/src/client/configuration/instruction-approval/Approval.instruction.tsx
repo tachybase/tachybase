@@ -8,13 +8,13 @@ import { INSTRUCTION_TYPE_NAME_APPROVAL } from '../../../common/constants';
 import { ConfigButton } from '../../common/components/ConfigButton';
 import { APPROVAL_TODO_STATUS } from '../../common/constants/approval-todo-status';
 import { tval } from '../../locale';
+import { ViewApplyShowDetailModal } from './components/ApplyShowDetailModal';
 import { ApprovalInstructionNode } from './components/ApprovalNode';
-import { ViewApplyShowDetailWrapper } from './components/approver-interface/ApplyShowDetailWrapper.view';
-import { AssigneesAddButton } from './components/AssigneesAddButton';
-import { AssigneesSelect } from './components/AssigneesSelect';
-import { ProviderConfigButton } from './components/ConfigButton.provider';
-import { ContentTooltip } from './components/ContentTooltip';
-import { NegotiationConfig } from './components/NegotiationConfig';
+import { AssigneesAddButton } from './components/approver-fieldset/AssigneesAddButton';
+import { AssigneesSelect } from './components/approver-fieldset/AssigneesSelect';
+import { ProviderConfigButton } from './components/approver-fieldset/ConfigButton.provider';
+import { ContentTooltip } from './components/approver-fieldset/ContentTooltip';
+import { NegotiationConfig } from './components/approver-fieldset/NegotiationConfig';
 import { isApprovalReturnFunc } from './tools';
 
 // 工作流节点 nodes - 人工处理->审批
@@ -61,7 +61,7 @@ export class ApprovalInstruction extends Instruction {
     AssigneesSelect: AssigneesSelect,
     ProviderConfigButton: ProviderConfigButton,
     ConfigButton: ConfigButton,
-    ViewApplyShowDetailWrapper: ViewApplyShowDetailWrapper,
+    ViewApplyShowDetailModal: ViewApplyShowDetailModal,
   };
 
   // 审批节点表单设置
@@ -215,7 +215,7 @@ export class ApprovalInstruction extends Instruction {
           properties: {
             applyDetail: {
               type: 'void',
-              'x-component': 'ViewApplyShowDetailWrapper',
+              'x-component': 'ViewApplyShowDetailModal',
             },
           },
         },

@@ -5,7 +5,7 @@ import { useWorkflowExecuted } from '@tachybase/module-workflow/client';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Popover, Space } from 'antd';
 
-import { useTranslation } from '../../../locale';
+import { useTranslation } from '../../../../locale';
 
 // 添加审批人(选择/查询)
 export const AssigneesAddButton = () => {

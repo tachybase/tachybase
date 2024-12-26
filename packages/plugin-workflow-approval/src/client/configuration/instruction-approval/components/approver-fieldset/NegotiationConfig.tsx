@@ -4,7 +4,7 @@ import { InputNumber } from '@tachybase/client';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Radio, Tooltip } from 'antd';
 
-import { useTranslation } from '../../../locale';
+import { useTranslation } from '../../../../locale';
 import { useStyles } from './NegotiationConfig.style';
 
 // 协商模式
