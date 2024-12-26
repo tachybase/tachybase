@@ -5,7 +5,7 @@ import axios from 'axios';
 
 @Controller('aichat')
 export class AIChatController {
-  @Action('sendMessage')
+  @Action('sendMessage', { acl: 'loggedIn' })
   async handleMessage(ctx: Context, next: Next) {
     const repo = ctx.db.getRepository('aisettings');
     const data = await repo.findOne();
@@ -29,18 +29,18 @@ export class AIChatController {
       const response = await axios.post(apiUrl, requestData, { headers });
       ctx.body = response.data;
     } catch (error) {
-      ctx.throw(error.response.data?.error?.message);
+      ctx.throw(error?.response?.data?.error?.message || 'request error');
     }
     await next();
   }
-  @Action('get')
+  @Action('get', { acl: 'priviate' })
   async getAIsetting(ctx: Context, next: Next) {
     const repo = ctx.db.getRepository('aisettings');
     const data = await repo.findOne();
     ctx.body = data;
     await next();
   }
-  @Action('set')
+  @Action('set', { acl: 'priviate' })
   async setAIsetting(ctx: Context, next: () => Promise<any>) {
     const repo = ctx.db.getRepository('aisettings');
     const values = ctx.action.params.values;
