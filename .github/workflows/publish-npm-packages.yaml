@@ -1,4 +1,4 @@
-name: Manual Publish Tachybase
+name: Publish NPM Packages
 
 on:
   release:
@@ -29,4 +29,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-          pnpm -r publish --provenance --access public
+          pnpm -r publish --provenance --access public --no-git-checks
