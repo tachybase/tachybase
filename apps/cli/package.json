@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/cli",
-  "version": "0.23.8-alpha.15",
+  "version": "0.23.8",
   "description": "",
   "license": "Apache-2.0",
   "type": "module",
