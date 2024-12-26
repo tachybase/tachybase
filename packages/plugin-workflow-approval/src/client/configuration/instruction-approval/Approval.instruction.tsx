@@ -4,6 +4,8 @@ import { ArrayItems } from '@tachybase/components';
 import { Instruction, RadioWithTooltip, useWorkflowAnyExecuted } from '@tachybase/module-workflow/client';
 import { uid } from '@tachybase/utils/client';
 
+import { INSTRUCTION_TYPE_NAME_APPROVAL } from '../../../common/constants';
+import { tval } from '../../locale';
 import { APPROVAL_ACTION_STATUS } from '../../usage/pc/constants';
 import { NAMESPACE } from '../../usage/pc/locale';
 import { AssigneesAddition } from './approval-config/AssigneesAddition.view';
@@ -17,44 +19,69 @@ import { isApprovalReturnFunc } from './utils';
 
 // 工作流节点 nodes - 人工处理->审批
 export class ApprovalInstruction extends Instruction {
-  title = `{{t("Approval", { ns: "${NAMESPACE}" })}}`;
-  type = 'approval';
+  title = tval('Approval');
+  type = INSTRUCTION_TYPE_NAME_APPROVAL;
   group = 'manual';
   icon = 'ApprovalNew';
   color = '#e45f53';
-  description = `{{t("Manual approval operations within the approval process, the approver can approve in the global approval block or in the approval block of a single record.", { ns: "${NAMESPACE}" })}}`;
+  description = tval(
+    'Manual approval operations within the approval process, the approver can approve in the global approval block or in the approval block of a single record.',
+  );
   // 审批节点类别
   options = [
     {
-      label: `{{t('Passthrough mode', { ns: "${NAMESPACE}" })}}`,
+      label: tval('Passthrough mode'),
       key: 'false',
       value() {
-        return { branchMode: false, applyDetail: uid() };
+        return {
+          branchMode: false,
+          applyDetail: uid(),
+        };
       },
     },
     {
-      label: `{{t('Branch mode', { ns: "${NAMESPACE}" })}}`,
+      label: tval('Branch mode'),
       key: 'true',
       value() {
-        return { branchMode: true, applyDetail: uid() };
+        return {
+          branchMode: true,
+          applyDetail: uid(),
+        };
       },
     },
   ];
+  // 审批节点组件
+  Component = ApprovalInstructionNode;
+  components = {
+    ArrayItems,
+    SchemaConfigButtonApprover,
+    SchemaConfig: ApproverInterfaceComponent,
+    AssigneesSelect,
+    NegotiationConfig,
+    RadioWithTooltip,
+    AssigneesAddition,
+  };
+  scope = {
+    useWorkflowAnyExecuted,
+  };
+
   // 审批节点表单设置
   fieldset = {
     branchMode: {
       type: 'boolean',
-      title: `{{t("Pass mode", { ns: "${NAMESPACE}" })}}`,
+      title: tval('Pass mode'),
       'x-decorator': 'FormItem',
       'x-component': 'Radio.Group',
-      'x-component-props': { disabled: true },
+      'x-component-props': {
+        disabled: true,
+      },
       enum: [
         {
           value: false,
           label: (
             <ContentTooltip
-              content={`{{t('Passthrough mode', { ns: "${NAMESPACE}" })}}`}
-              tooltip={`{{t('When rejected or returned, the workflow will be terminated immediately.', { ns: "${NAMESPACE}" })}}`}
+              content={tval('Passthrough mode')}
+              tooltip={tval('When rejected or returned, the workflow will be terminated immediately.')}
             />
           ),
         },
@@ -62,8 +89,8 @@ export class ApprovalInstruction extends Instruction {
           value: true,
           label: (
             <ContentTooltip
-              content={`{{t('Branch mode', { ns: "${NAMESPACE}" })}}`}
-              tooltip={`{{t('Could run different branch based on result.', { ns: "${NAMESPACE}" })}}`}
+              content={tval('Branch mode')}
+              tooltip={tval('Could run different branch based on result.')}
             />
           ),
         },
@@ -72,7 +99,7 @@ export class ApprovalInstruction extends Instruction {
     },
     assignees: {
       type: 'array',
-      title: `{{t("Assignees", { ns: "${NAMESPACE}" })}}`,
+      title: tval('Assignees'),
       'x-decorator': 'FormItem',
       'x-component': 'ArrayItems',
       'x-component-props': {
@@ -102,43 +129,55 @@ export class ApprovalInstruction extends Instruction {
           `,
         },
         properties: {
-          sort: { type: 'void', 'x-decorator': 'FormItem', 'x-component': 'ArrayItems.SortHandle' },
-          input: { type: 'string', 'x-decorator': 'FormItem', 'x-component': 'AssigneesSelect' },
-          remove: { type: 'void', 'x-decorator': 'FormItem', 'x-component': 'ArrayItems.Remove' },
+          sort: {
+            type: 'void',
+            'x-decorator': 'FormItem',
+            'x-component': 'ArrayItems.SortHandle',
+          },
+          input: {
+            type: 'string',
+            'x-decorator': 'FormItem',
+            'x-component': 'AssigneesSelect',
+          },
+          remove: {
+            type: 'void',
+            'x-decorator': 'FormItem',
+            'x-component': 'ArrayItems.Remove',
+          },
         },
       },
       required: true,
       properties: {
         add: {
           type: 'void',
-          title: `{{t("Add assignee", { ns: "${NAMESPACE}" })}}`,
+          title: tval('Add assignee'),
           'x-component': 'AssigneesAddition',
         },
       },
     },
     negotiation: {
       type: 'number',
-      title: `{{t("Negotiation mode", { ns: "${NAMESPACE}" })}}`,
+      title: tval('Negotiation mode'),
       'x-decorator': 'FormItem',
       'x-component': 'NegotiationConfig',
       default: 0,
     },
     order: {
       type: 'boolean',
-      title: `{{t("Order", { ns: "${NAMESPACE}" })}}`,
+      title: tval('Order'),
       'x-decorator': 'FormItem',
       'x-component': 'RadioWithTooltip',
       'x-component-props': {
         options: [
           {
-            label: `{{t("Parallelly", { ns: "${NAMESPACE}" })}}`,
+            label: tval('Parallelly'),
             value: false,
-            tooltip: `{{t("Multiple approvers can approve in any order.", { ns: "${NAMESPACE}" })}}`,
+            tooltip: tval('Multiple approvers can approve in any order.'),
           },
           {
-            label: `{{t("Sequentially", { ns: "${NAMESPACE}" })}}`,
+            label: tval('Sequentially'),
             value: true,
-            tooltip: `{{t("Multiple approvers in sequential order.", { ns: "${NAMESPACE}" })}}`,
+            tooltip: tval('Multiple approvers in sequential order.'),
           },
         ],
       },
@@ -148,8 +187,8 @@ export class ApprovalInstruction extends Instruction {
       type: 'boolean',
       'x-decorator': 'FormItem',
       'x-component': 'Checkbox',
-      'x-content': `{{t("End the workflow after rejection branch", { ns: "${NAMESPACE}" })}}`,
-      description: `{{t("When checked, the workflow will terminate when the rejection branch ends.", { ns: "${NAMESPACE}" })}}`,
+      'x-content': tval('End the workflow after rejection branch'),
+      description: tval('When checked, the workflow will terminate when the rejection branch ends.'),
       'x-reactions': [
         {
           dependencies: ['.branchMode'],
@@ -163,7 +202,7 @@ export class ApprovalInstruction extends Instruction {
     },
     applyDetail: {
       type: 'void',
-      title: `{{t("Approver's interface", { ns: "${NAMESPACE}" })}}`,
+      title: tval("Approver's interface"),
       'x-decorator': 'FormItem',
       'x-component': 'SchemaConfigButtonApprover',
       properties: {
@@ -174,18 +213,6 @@ export class ApprovalInstruction extends Instruction {
       },
       required: true,
     },
-  };
-  // 审批节点组件
-  scope = { useWorkflowAnyExecuted };
-  Component = ApprovalInstructionNode;
-  components = {
-    ArrayItems,
-    SchemaConfigButtonApprover,
-    SchemaConfig: ApproverInterfaceComponent,
-    AssigneesSelect,
-    NegotiationConfig,
-    RadioWithTooltip,
-    AssigneesAddition,
   };
 
   isAvailable({ workflow, upstream, branchIndex }) {
