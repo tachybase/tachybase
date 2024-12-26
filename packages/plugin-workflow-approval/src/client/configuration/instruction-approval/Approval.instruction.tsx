@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@tachybase/client';
 import { ArrayItems } from '@tachybase/components';
-import { Instruction, RadioWithTooltip, useWorkflowAnyExecuted } from '@tachybase/module-workflow/client';
+import { Instruction, RadioWithTooltip } from '@tachybase/module-workflow/client';
 import { uid } from '@tachybase/utils/client';
 
 import { INSTRUCTION_TYPE_NAME_APPROVAL } from '../../../common/constants';
@@ -9,7 +9,7 @@ import { ConfigButton } from '../../common/components/ConfigButton';
 import { APPROVAL_TODO_STATUS } from '../../common/constants/approval-todo-status';
 import { tval } from '../../locale';
 import { ApprovalInstructionNode } from './components/ApprovalNode';
-import { ApproverInterfaceComponent } from './components/approver-interface/ApproverInterface.schema';
+import { ViewApplyShowDetailWrapper } from './components/approver-interface/ApplyShowDetailWrapper.view';
 import { AssigneesAddButton } from './components/AssigneesAddButton';
 import { AssigneesSelect } from './components/AssigneesSelect';
 import { ProviderConfigButton } from './components/ConfigButton.provider';
@@ -54,17 +54,14 @@ export class ApprovalInstruction extends Instruction {
   Component = ApprovalInstructionNode;
   // 审批节点配置组件
   components = {
-    ArrayItems,
-    ProviderConfigButton: ProviderConfigButton,
-    SchemaConfig: ApproverInterfaceComponent,
-    NegotiationConfig,
-    RadioWithTooltip,
+    NegotiationConfig: NegotiationConfig,
+    RadioWithTooltip: RadioWithTooltip,
+    ArrayItems: ArrayItems,
     AssigneesAddButton: AssigneesAddButton,
-    AssigneesSelect,
+    AssigneesSelect: AssigneesSelect,
+    ProviderConfigButton: ProviderConfigButton,
     ConfigButton: ConfigButton,
-  };
-  scope = {
-    useWorkflowAnyExecuted,
+    ViewApplyShowDetailWrapper: ViewApplyShowDetailWrapper,
   };
 
   // 审批节点表单设置
@@ -154,6 +151,10 @@ export class ApprovalInstruction extends Instruction {
           type: 'void',
           title: tval('Add assignee'),
           'x-component': 'AssigneesAddButton',
+          'x-component-props': {
+            // NOTE: 标明是添加按钮, 方便 schema 解析查询到
+            isAddition: true,
+          },
         },
       },
     },
@@ -214,7 +215,7 @@ export class ApprovalInstruction extends Instruction {
           properties: {
             applyDetail: {
               type: 'void',
-              'x-component': 'SchemaConfig',
+              'x-component': 'ViewApplyShowDetailWrapper',
             },
           },
         },

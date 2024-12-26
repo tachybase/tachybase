@@ -42,7 +42,7 @@ function getSchema({ styles }) {
 }
 
 // 审批人操作界面
-export const ApproverInterfaceComponent = () => {
+export const ViewApplyShowDetailWrapper = () => {
   const context = useContext(SchemaComponentContext);
   const [, setId] = useState(uid());
   const { styles } = useStyles();
