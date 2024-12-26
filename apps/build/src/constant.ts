@@ -30,7 +30,7 @@ export const EsbuildSupportExts = [
 export const PATTERN_PLUGIN = '@[^/]+/plugin-';
 export const PATTERN_PRESET = '@[^/]+/preset-';
 export const PATTERN_MODULE = '@[^/]+/module-';
-export const ROOT_PATH = path.join(__dirname, '../../../');
+export const ROOT_PATH = process.cwd();
 export const NODE_MODULES = path.join(ROOT_PATH, 'node_modules');
 export const PACKAGES_PATH = path.join(ROOT_PATH, 'packages');
 export const getPluginPackages = (packages: Project[]) =>

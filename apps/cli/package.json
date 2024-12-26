@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/cli",
-  "version": "0.23.14",
+  "version": "0.23.15",
   "description": "",
   "license": "Apache-2.0",
   "type": "module",
@@ -40,12 +40,12 @@
     "semver": "^7.6.3",
     "serve": "^14.2.4",
     "tree-kill": "^1.2.2",
+    "tsconfig-paths": "^4.2.0",
     "tsup": "8.3.5",
     "tsx": "^4.19.2",
     "zeromq": "6.1.2"
   },
   "devDependencies": {
-    "@tachybase/devtools": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.13",
     "@types/node": "20.17.10",
