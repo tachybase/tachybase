@@ -22,7 +22,7 @@ export class PluginAiChatServer extends Plugin {
     });
     this.app.acl.registerSnippet({
       // name: `pm.${this.name}.aichat`,
-      name: `pm.system-services.${this.name}`,
+      name: `pm.system-services.ai-settings`,
       actions: ['aichat:*'],
     });
   }
