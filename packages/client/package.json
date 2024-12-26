@@ -50,7 +50,7 @@
     "markdown-it": "13.0.2",
     "markdown-it-highlightjs": "3.6.0",
     "mathjs": "^10.6.4",
-    "mermaid": "9.4.3",
+    "mermaid": "11.4.1",
     "mitt": "^3.0.1",
     "nanoid": "^3.3.8",
     "rc-tree-select": "^5.25.0",
