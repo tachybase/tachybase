@@ -1,12 +1,13 @@
 {
   "name": "@tachybase/module-worker-thread",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "description": "Worker thread for executing time-consuming tasks",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-worker-thread"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "antd": "5.22.5",
     "tsx": "^4.19.2"
   },

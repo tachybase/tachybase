@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-field-markdown-vditor",
   "displayName": "Collection field: Markdown(Vditor)",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "description": "Used to store Markdown and render it using Vditor editor, supports common Markdown syntax such as list, code, quote, etc., and supports uploading images, recordings, etc.It also allows for instant rendering, where what you see is what you get.",
   "keywords": [
     "Collection fields"
@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-field-markdown-vditor"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@tachybase/schema": "workspace:*",

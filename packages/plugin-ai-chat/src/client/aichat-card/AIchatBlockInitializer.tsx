@@ -116,17 +116,16 @@ export const AiChatBlock = () => {
 
   const [agent] = useXAgent({
     request: async ({ message }, { onSuccess, onError }) => {
-      const fullContent = await api.request({
-        method: 'post',
-        url: 'aichat:sendMessage',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: { message: message },
-      });
-
-      const AIcontent = fullContent.data.data.choices[0].message.content;
       try {
+        const fullContent = await api.request({
+          method: 'post',
+          url: 'aichat:sendMessage',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          data: { message: message },
+        });
+        const AIcontent = fullContent.data.data.choices[0].message.content;
         onSuccess(AIcontent);
       } catch (error) {
         onError(error);

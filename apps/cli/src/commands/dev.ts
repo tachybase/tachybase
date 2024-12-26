@@ -5,7 +5,6 @@ import zmq from 'zeromq';
 import { nodeCheck, postCheck, promptForTs, run } from '../util';
 
 export default (cli: Command) => {
-  const { APP_PACKAGE_ROOT } = process.env;
   cli
     .command('dev')
     .option('-p, --port [port]')
@@ -20,7 +19,7 @@ export default (cli: Command) => {
     .allowUnknownOption()
     .action(async (opts) => {
       promptForTs();
-      const { SERVER_TSCONFIG_PATH } = process.env;
+      const { APP_SERVER_ROOT, APP_CLIENT_ROOT, SERVER_TSCONFIG_PATH } = process.env;
       // @ts-ignore
       process.env.IS_DEV_CMD = true;
 
@@ -41,7 +40,7 @@ export default (cli: Command) => {
           SERVER_TSCONFIG_PATH,
           '-r',
           'tsconfig-paths/register',
-          `${APP_PACKAGE_ROOT}/src/index.ts`,
+          `${APP_SERVER_ROOT}/src/index.ts`,
           ...process.argv.slice(2),
         ]);
         return;
@@ -89,7 +88,7 @@ export default (cli: Command) => {
           SERVER_TSCONFIG_PATH,
           '-r',
           'tsconfig-paths/register',
-          `${APP_PACKAGE_ROOT}/src/index.ts`,
+          `${APP_SERVER_ROOT}/src/index.ts`,
           'start',
           ...filteredArgs.slice(3),
           `--port=${serverPort}`,
@@ -131,7 +130,7 @@ export default (cli: Command) => {
           const proxyPort = opts.proxyPort || serverPort || clientPort + 10;
           console.log('starting client', 1 * clientPort, 'proxy port', proxyPort);
           const env = getDevEnvironment(clientPort, proxyPort);
-          run('rsbuild', ['dev', '-r', 'apps/app-rs'], { env });
+          run('rsbuild', ['dev', '-r', APP_CLIENT_ROOT as string], { env });
         };
 
         async function runMqServer() {

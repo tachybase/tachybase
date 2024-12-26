@@ -1,6 +1,6 @@
 {
   "name": "tachybase",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
@@ -8,7 +8,6 @@
     "build:p": "tachybase build -s --no-dts",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
-    "dev-ex": "concurrently --names \"web,server\" --prefix \"[{name}]\" \"APP_ENTRY=app-mako pnpm dev --client --proxy-port 3010\" \"pnpm dev --server tachybase dev --server --port 3010\"",
     "dev-local": "APP_ENV_PATH=.env.local tachybase dev",
     "dev-server": "tachybase dev --server",
     "e2e": "tachybase e2e",
@@ -24,7 +23,7 @@
     "tar": "tachybase tar",
     "tb": "tachybase",
     "tbi": "tachybase install",
-    "tbu": "tachybase upgrade -S",
+    "tbu": "tachybase upgrade",
     "tc": "tachybase test:client",
     "test": "tachybase test",
     "test:client": "tachybase test:client",

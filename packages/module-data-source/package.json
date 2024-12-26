@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-data-source",
   "displayName": "Data source manager",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "description": "Manage data sources, including the built-in Master database, external databases, APIs, etc.",
   "keywords": [
     "Data model tools"
@@ -10,6 +10,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-data-source"
   },
+  "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@dnd-kit/core": "^6.3.1",

@@ -14,7 +14,11 @@ import {
 } from '../../../../collection-manager';
 import { removeNullCondition, useDesignable } from '../../../../schema-component';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
-import { setDataLoadingModeSettingsItem, useDataLoadingMode } from '../details-multi/setDataLoadingModeSettingsItem';
+import {
+  SetDataLoadingMode,
+  setDataLoadingModeSettingsItem,
+  useDataLoadingMode,
+} from '../details-multi/setDataLoadingModeSettingsItem';
 
 export const tableSelectorBlockSettings = new SchemaSettings({
   name: 'blockSettings:tableSelector',
@@ -231,7 +235,10 @@ export const tableSelectorBlockSettings = new SchemaSettings({
         return !dragSort;
       },
     },
-    setDataLoadingModeSettingsItem,
+    {
+      name: 'setDataLoadingMode',
+      Component: SetDataLoadingMode,
+    },
     {
       name: 'RecordsPerPage',
       type: 'select',

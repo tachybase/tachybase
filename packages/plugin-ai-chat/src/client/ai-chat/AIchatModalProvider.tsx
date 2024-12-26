@@ -129,17 +129,16 @@ export const AIchat = ({ open, setOpen }) => {
 
   const [agent] = useXAgent({
     request: async ({ message }, { onSuccess, onError }) => {
-      const fullContent = await api.request({
-        method: 'post',
-        url: 'aichat:sendMessage',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: { message: message },
-      });
-
-      const AIcontent = fullContent.data.data.choices[0].message.content;
       try {
+        const fullContent = await api.request({
+          method: 'post',
+          url: 'aichat:sendMessage',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          data: { message: message },
+        });
+        const AIcontent = fullContent.data.data.choices[0].message.content;
         onSuccess(AIcontent);
       } catch (error) {
         onError(error);
@@ -148,13 +147,12 @@ export const AIchat = ({ open, setOpen }) => {
   });
 
   const onSubmit = (nextContent: string) => {
-    //
     if (!nextContent) return;
     onRequest(nextContent);
     setContent('');
   };
 
-  const { onRequest, messages, setMessages } = useXChat({ agent });
+  const { onRequest, messages } = useXChat({ agent });
 
   const onPromptsItemClick: GetProp<typeof Prompts, 'onItemClick'> = (info) => {
     onRequest(info.data.description as string);

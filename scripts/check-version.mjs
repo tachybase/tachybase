@@ -2,10 +2,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'url';
 
-
-
-
-
 // 查找指定路径下的所有文件夹名称，并获取其中的 package.json 文件
 async function checkFoldersAndPackageJson(dirs, mainVersion) {
   const result = [];
@@ -17,7 +13,7 @@ async function checkFoldersAndPackageJson(dirs, mainVersion) {
 
       for (const entry of entries) {
         if (entry.isDirectory()) {
-          const folderPath = path.join(dirPath, entry.name);  // 获取文件夹的完整路径
+          const folderPath = path.join(dirPath, entry.name); // 获取文件夹的完整路径
           const packageJsonPath = path.join(folderPath, 'package.json');
 
           // 检查是否有 package.json 文件
@@ -54,10 +50,10 @@ async function checkFoldersAndPackageJson(dirs, mainVersion) {
 // 需要检查的多个目录
 const dirs = [
   path.join(path.dirname(fileURLToPath(import.meta.url)), '../packages'),
-  path.join(path.dirname(fileURLToPath(import.meta.url)), '../apps')
+  path.join(path.dirname(fileURLToPath(import.meta.url)), '../apps'),
 ];
 
-const mainPackagePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../package.json') // 新增目录
+const mainPackagePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../package.json'); // 新增目录
 
 const content = await fs.readFile(mainPackagePath, 'utf-8');
 
@@ -67,7 +63,7 @@ const mainVersion = mainPackageJson.version;
 checkFoldersAndPackageJson(dirs, mainVersion).then((folders) => {
   if (folders.length > 0) {
     console.log('检查结果：');
-    folders.forEach(item => {
+    folders.forEach((item) => {
       console.log(`${item.packageJsonPath}: ${item.suggestion}`);
     });
   } else {

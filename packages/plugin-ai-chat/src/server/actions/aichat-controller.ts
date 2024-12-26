@@ -29,17 +29,7 @@ export class AIChatController {
       const response = await axios.post(apiUrl, requestData, { headers });
       ctx.body = response.data;
     } catch (error) {
-      console.error('Error during API call:', error);
-      ctx.body = {
-        success: false,
-        error:
-          process.env.NODE_ENV === 'production'
-            ? 'An error occurred while calling the AI API.'
-            : error.response
-              ? error.response.data
-              : error.message,
-      };
-      ctx.status = error.response ? error.response.status : 500;
+      ctx.throw(error.response.data?.error?.message);
     }
     await next();
   }
@@ -47,19 +37,7 @@ export class AIChatController {
   async getAIsetting(ctx: Context, next: Next) {
     const repo = ctx.db.getRepository('aisettings');
     const data = await repo.findOne();
-    if (!data) {
-      await repo.create({
-        values: {
-          id: 1,
-          Model: 'deepseek-chat',
-          AI_URL: 'https://api.deepseek.com/chat/completions',
-          AI_API_KEY: 'sk-xxxxxxxxxx',
-        },
-      });
-      ctx.body = await repo.findOne();
-    } else {
-      ctx.body = data;
-    }
+    ctx.body = data;
     await next();
   }
   @Action('set')

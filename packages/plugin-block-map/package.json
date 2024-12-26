@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-block-map",
   "displayName": "Block: Map",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "description": "Map block, support Gaode map and Google map, you can also extend more map types.",
   "keywords": [
     "Blocks"
@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-block-map"
   },
+  "dependencies": {},
   "devDependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@amap/amap-jsapi-types": "^0.0.10",

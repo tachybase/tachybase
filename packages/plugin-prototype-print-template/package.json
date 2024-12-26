@@ -1,11 +1,12 @@
 {
   "name": "@tachybase/plugin-print-template",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-print-template"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@bull-board/api": "^6.5.3",
     "@bull-board/koa": "^6.5.3",
     "bullmq": "^5.34.3",

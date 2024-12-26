@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/client",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "module": "es/index.mjs",
@@ -13,9 +13,7 @@
     "@ant-design/cssinjs": "^1.22.1",
     "@ant-design/icons": "^5.5.2",
     "@ant-design/pro-components": "2.8.2",
-    "@ant-design/pro-editor": "1.3.0",
     "@ant-design/pro-layout": "^7.21.2",
-    "@antv/g2plot": "^2.4.32",
     "@ctrl/tinycolor": "^3.6.1",
     "@dnd-kit/accessibility": "^3.1.1",
     "@dnd-kit/core": "^6.3.1",
@@ -36,6 +34,7 @@
     "antd": "5.22.5",
     "antd-style": "3.7.1",
     "axios": "^1.7.9",
+    "axios-mock-adapter": "^1.22.0",
     "classnames": "^2.5.1",
     "click-to-react-component": "1.1.2",
     "cronstrue": "^2.52.0",
@@ -49,9 +48,7 @@
     "lodash": "4.17.21",
     "lru-cache": "8.0.5",
     "markdown-it": "13.0.2",
-    "markdown-it-highlightjs": "3.6.0",
     "mathjs": "^10.6.4",
-    "mermaid": "9.4.3",
     "mitt": "^3.0.1",
     "nanoid": "^3.3.8",
     "rc-tree-select": "^5.25.0",
@@ -82,11 +79,9 @@
     "@types/lodash": "^4.17.13",
     "@types/markdown-it": "12.2.3",
     "@types/markdown-it-highlightjs": "3.3.4",
-    "@types/react-big-calendar": "^1.16.0",
-    "axios-mock-adapter": "^1.22.0"
+    "@types/react-big-calendar": "^1.16.0"
   },
   "peerDependencies": {
-    "@tachybase/database": "workspace:*",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
     "react-is": ">=18.0.0"

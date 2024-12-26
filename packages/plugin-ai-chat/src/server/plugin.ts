@@ -7,6 +7,17 @@ import { AIChatController } from './actions/aichat-controller';
 })
 export class PluginAiChatServer extends Plugin {
   async load() {
+    const AIRecord = await this.db.getRepository('aisettings').findOne();
+    if (!AIRecord) {
+      await this.db.getRepository('aisettings').create({
+        values: {
+          id: 1,
+          Model: 'deepseek-chat',
+          AI_URL: 'https://api.deepseek.com/chat/completions',
+          AI_API_KEY: 'sk-xxxxxxxxxx',
+        },
+      });
+    }
     this.app.acl.registerSnippet({
       name: `pm.${this.name}.aichat`,
       actions: ['aichat:*'],

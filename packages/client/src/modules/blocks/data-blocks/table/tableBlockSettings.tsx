@@ -22,7 +22,11 @@ import {
   SchemaSettingsSortField,
   SchemaSettingsTemplate,
 } from '../../../../schema-settings';
-import { setDataLoadingModeSettingsItem, useDataLoadingMode } from '../details-multi/setDataLoadingModeSettingsItem';
+import {
+  SetDataLoadingMode,
+  setDataLoadingModeSettingsItem,
+  useDataLoadingMode,
+} from '../details-multi/setDataLoadingModeSettingsItem';
 
 export const tableBlockSettings = new SchemaSettings({
   name: 'blockSettings:table',
@@ -297,7 +301,10 @@ export const tableBlockSettings = new SchemaSettings({
         return !dragSort;
       },
     },
-    setDataLoadingModeSettingsItem,
+    {
+      name: 'setDataLoadingMode',
+      Component: SetDataLoadingMode,
+    },
     {
       name: 'RecordsPerPage',
       type: 'select',

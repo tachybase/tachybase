@@ -1,17 +1,16 @@
 {
   "name": "@tachybase/module-event-source",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-event-source"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@types/lodash": "4.17.13",
     "antd": "5.22.5",
     "lodash": "4.17.21",
     "sequelize": "6.37.5"
-  },
-  "devDependencies": {
-    "@types/lodash": "4.17.13"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",

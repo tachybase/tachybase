@@ -1,13 +1,14 @@
 {
   "name": "@tachybase/plugin-workflow-test",
   "displayName": "Workflow: test kit",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "license": "Apache-2.0",
   "main": "dist/server/index.js",
   "types": "./dist/server/index.d.ts",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-workflow-test"
   },
+  "dependencies": {},
   "devDependencies": {
     "lodash": "4.17.21"
   },

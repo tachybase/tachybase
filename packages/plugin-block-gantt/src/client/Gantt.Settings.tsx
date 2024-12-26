@@ -5,6 +5,7 @@ import {
   SchemaSettingsDataScope,
   SchemaSettingsSelectItem,
   SchemaSettingsTemplate,
+  SetDataLoadingMode,
   setDataLoadingModeSettingsItem,
   useCollection,
   useCompile,
@@ -131,7 +132,10 @@ export const ganttSettings = new SchemaSettings({
         };
       },
     },
-    setDataLoadingModeSettingsItem,
+    {
+      name: 'setDataLoadingMode',
+      Component: SetDataLoadingMode,
+    },
     {
       name: 'endDateField',
       Component: SchemaSettingsSelectItem,

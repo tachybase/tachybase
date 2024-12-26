@@ -3,17 +3,17 @@ import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../..//collection-manager';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useCompile, useDesignable } from '../../../../schema-component';
 import {
-  EditFormulaTitleField,
   FilterCustomVariableInput,
   SchemaSettingCollection,
-  SchemaSettingComponent,
   SchemaSettingsDataScope,
 } from '../../../../schema-settings';
+import { EditFormulaTitleField } from '../../../../schema-settings/EditFormulaTitleField';
+import { SchemaSettingComponent } from '../../../../schema-settings/SchemaSettingComponent';
 
 export const FilterItemCustomSettings = new SchemaSettings({
   name: 'fieldSettings:FilterFormCustomSettings',
@@ -176,7 +176,7 @@ export const FilterItemCustomSettings = new SchemaSettings({
         if (collectionField) {
           targetFields = collectionField?.target
             ? getCollectionFields(collectionField?.target)
-            : getCollectionFields(collectionField?.targetCollection) ?? [];
+            : (getCollectionFields(collectionField?.targetCollection) ?? []);
         } else if (collectionManageField) {
           targetFields = collectionManageField['fields'];
         }

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-pages",
   "displayName": "Auth: Pages",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "description": "Pages for auth",
   "keywords": [
     "Authentication"
@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-pages"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "antd": "5.22.5",
     "react-router-dom": "6.28.1"
   },

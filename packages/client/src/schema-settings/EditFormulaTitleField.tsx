@@ -7,7 +7,7 @@ import { useCollection_deprecated, useCollectionManager_deprecated } from '../co
 import { useCompile, useDesignable } from '../schema-component';
 import { SchemaSettingsModalItem } from './SchemaSettings';
 
-export const useFormulaTitleOptions = () => {
+export function useFormulaTitleOptions() {
   const compile = useCompile();
   const { getCollectionJoinField, getCollectionFields } = useCollectionManager_deprecated();
   const { getField } = useCollection_deprecated();
@@ -48,9 +48,9 @@ export const useFormulaTitleOptions = () => {
     }
   });
   return options;
-};
+}
 
-export const EditFormulaTitleField = () => {
+export function EditFormulaTitleField() {
   const { getCollectionJoinField, collections } = useCollectionManager_deprecated();
   const { getField } = useCollection_deprecated();
   const field = useField<Field>();
@@ -110,7 +110,7 @@ export const EditFormulaTitleField = () => {
       }}
     />
   );
-};
+}
 
 export const useFormulaTitleVisible = () => {
   const fieldSchema = useFieldSchema();

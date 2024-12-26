@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow-approval",
   "displayName": "Approval",
-  "version": "0.23.8",
+  "version": "0.23.14",
   "description": "Approval base in Workflow",
   "keywords": [
     "Approval",
@@ -11,8 +11,10 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-workflow-approval"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@ant-design/icons": "~5.3.7",
+    "@types/file-saver": "^2.0.7",
     "@types/lodash": "^4.17.13",
     "ahooks": "^3.8.4",
     "antd": "5.22.5",
@@ -24,9 +26,6 @@
     "react-i18next": "^15.2.0",
     "react-router-dom": "6.28.1",
     "sequelize": "^6.37.5"
-  },
-  "devDependencies": {
-    "@types/file-saver": "^2.0.7"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
