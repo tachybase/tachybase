@@ -13,7 +13,7 @@ import {
   Expression,
   SignatureInput,
 } from './components';
-import { PluginGroupBlock } from './features/block-group';
+import { PluginGroupBlock } from './features/block-group/kit';
 import { PluginCustomComponents } from './features/custom-components';
 import { DepartmentsPlugin } from './features/departments';
 import { EmbedPlugin } from './features/embed';

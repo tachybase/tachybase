@@ -10,8 +10,8 @@ import { connect, ISchema, useFieldSchema } from '@tachybase/schema';
 
 import { PullRequestOutlined } from '@ant-design/icons';
 
-import { useTranslation } from '../../locale';
-import { GroupBlockContext } from './GroupBlockInitializer';
+import { useTranslation } from '../../../locale';
+import { GroupBlockContext } from '../GroupBlock.provider';
 
 export const GroupBlockConfigure = connect((props) => {
   const { t } = useTranslation();
