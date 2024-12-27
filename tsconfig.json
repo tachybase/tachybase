@@ -9,7 +9,7 @@
 
     /* modules */
     "module": "ESNext",
-    "isolatedModules": false,
+    "isolatedModules": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "moduleResolution": "bundler",
@@ -19,6 +19,7 @@
     "allowJs": true,
     "noUnusedLocals": false,
     "preserveConstEnums": true,
+    "emitDeclarationOnly": true,
     "declaration": true
   },
   "exclude": [
