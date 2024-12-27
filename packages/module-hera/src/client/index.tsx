@@ -13,7 +13,7 @@ import {
   Expression,
   SignatureInput,
 } from './components';
-import { PluginGroupBlock } from './features/block-group/kit';
+import { KitGroupBlock } from './features/block-group/kit';
 import { PluginCustomComponents } from './features/custom-components';
 import { DepartmentsPlugin } from './features/departments';
 import { EmbedPlugin } from './features/embed';
@@ -52,7 +52,7 @@ export class PluginCoreClient extends Plugin {
   locale: Locale;
 
   async afterAdd() {
-    await this.app.pm.add(PluginGroupBlock);
+    await this.app.pm.add(KitGroupBlock);
     await this.app.pm.add(EmbedPlugin);
     await this.app.pm.add(DepartmentsPlugin);
     await this.app.pm.add(PluginHeraVersion);

@@ -4,7 +4,7 @@ import { fieldTransformers } from './fieldTransformers';
 export const describeItem = (configItem, result, service, params, api) => {
   const item = [];
   if (configItem.type === 'field') {
-    const measuresData = service.data?.data;
+    const measuresData = service.data?.data?.data || [];
     if (measuresData) {
       let data = measuresData.map((value) => {
         return value[configItem.field];

@@ -1,5 +1,5 @@
 import { ISchema } from '@tachybase/schema';
-import { uid } from '@tachybase/utils';
+import { uid } from '@tachybase/utils/client';
 
 export const getSchemaGroupBlock = (options) => {
   const { collection, groupField } = options;
@@ -18,19 +18,21 @@ export const getSchemaGroupBlock = (options) => {
     title: collection.title,
     type: 'void',
     'x-acl-action': `${collection.name}:list`,
+    'x-toolbar': 'GroupBlockToolbar',
+    'x-settings': 'groupBlockSettings',
     'x-decorator': 'GroupBlockProvider',
     'x-decorator-props': {
       collection: collection.name,
-      resource_deprecated: 'charts',
-      action: 'query',
-      groupField,
+      resourceParams: {
+        resource_deprecated: 'charts',
+        action: 'query',
+        groupField,
+      },
       params: {
         collection: collection.name,
         measures: sumItem,
       },
     },
-    'x-toolbar': 'GroupBlockToolbar',
-    'x-settings': 'groupBlockSettings',
     'x-component': 'CardItem',
     properties: {
       [uid()]: {

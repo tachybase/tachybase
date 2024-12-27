@@ -94,7 +94,10 @@ export const DataBlockCollector = ({
 }) => {
   const collection = useCollection_deprecated();
   const { recordDataBlocks, removeDataBlock } = useFilterBlock();
-  const { service } = useBlockRequestContext();
+  const ctx = useBlockRequestContext();
+  console.log('%c Line:98 🍰 ctx', 'font-size:18px;color:#2eafb0;background:#ffdd4d', ctx);
+  const service = ctx.service;
+
   const field = useField();
   const fieldSchema = useFieldSchema();
   const associatedFields = useAssociatedFields();
@@ -110,7 +113,7 @@ export const DataBlockCollector = ({
     recordDataBlocks({
       uid: fieldSchema['x-uid'],
       title: field.componentProps.title,
-      doFilter: service.runAsync,
+      doFilter: service?.runAsync,
       collection,
       associatedFields,
       foreignKeyFields: collection.foreignKeyFields as ForeignKeyField[],

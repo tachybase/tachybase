@@ -11,7 +11,7 @@ import { connect, ISchema, useFieldSchema } from '@tachybase/schema';
 import { PullRequestOutlined } from '@ant-design/icons';
 
 import { useTranslation } from '../../../locale';
-import { GroupBlockContext } from '../GroupBlock.provider';
+import { ContextGroupBlock, useContextGroupBlock } from '../contexts/GroupBlock.context';
 
 export const GroupBlockConfigure = connect((props) => {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ export const GroupBlockConfigure = connect((props) => {
       value: item.field[0],
     };
   });
-  const { scope } = useContext(GroupBlockContext);
+  const { scope } = useContextGroupBlock();
   const schema = modalSchema(t, params, valueOption, decimal);
   return (
     <SchemaComponentOptions scope={{ ...scope }} components={{ ArrayItems, FormItem, Space, PullRequestOutlined }}>

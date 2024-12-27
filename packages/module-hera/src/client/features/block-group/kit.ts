@@ -6,7 +6,7 @@ import { KitGroupBlockInitializer } from './initializers/kit';
 import { KitGroupBlockSetting } from './settings/kit';
 import { KitGroupBlockToolbar } from './toolbars/kit';
 
-export class PluginGroupBlock extends Plugin {
+export class KitGroupBlock extends Plugin {
   async afterAdd() {
     await this.app.pm.add(KitGroupBlockInitializer);
     await this.app.pm.add(KitGroupBlockSetting);

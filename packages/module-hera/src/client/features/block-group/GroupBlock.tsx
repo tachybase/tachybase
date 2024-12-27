@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useAPIClient, useBlockRequestContext, useFilterBlock } from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
 
 import { useAsyncEffect } from 'ahooks';
 import { Descriptions, DescriptionsProps, Spin, Table } from 'antd';
 
+import { useContextGroupBlock } from './contexts/GroupBlock.context';
 import { describeItem } from './tools/describeItem';
 import { tableItem } from './tools/tableItem';
 
@@ -17,8 +18,10 @@ export const GroupBlock = (props) => {
   const field = useField<any>();
   const fieldSchema = useFieldSchema();
   const params = fieldSchema.parent['x-decorator-props'].params;
-  const { service } = useBlockRequestContext();
+  const { service } = useContextGroupBlock();
+
   const { getDataBlocks } = useFilterBlock();
+
   if (!service.params.length) {
     getDataBlocks().map((block) => {
       if (Object.keys(block.defaultFilter).length) {
