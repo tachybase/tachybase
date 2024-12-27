@@ -12,7 +12,7 @@
     "dev-server": "tachybase dev --server",
     "e2e": "tachybase e2e",
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "tachybase build @tachybase/utils && tachybase postinstall",
+    "postinstall": "tachybase postinstall",
     "lint": "oxlint -c oxlintrc.json --import-plugin",
     "pm": "tachybase pm",
     "pm2": "tachybase pm2",
