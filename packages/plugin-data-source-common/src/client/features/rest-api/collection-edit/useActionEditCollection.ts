@@ -36,7 +36,7 @@ export const useActionEditCollection = (e) => {
       const actionValue = filterObjectWithMethodAndPath(cloneValue?.actions);
       const requestActionsRestMethod = getRequestActions(Object.keys(actionValue));
 
-      const pickedFormValues = lodash.pick(form.values, ['fields', 'name', 'title', 'filterTargetKey']);
+      const pickedFormValues = lodash.pick(form.values, ['fields', 'name', 'title', 'filterTargetKey', 'description']);
 
       const targetMethod = requestActionsRestMethod[0];
 
