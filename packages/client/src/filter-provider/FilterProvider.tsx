@@ -95,7 +95,6 @@ export const DataBlockCollector = ({
   const collection = useCollection_deprecated();
   const { recordDataBlocks, removeDataBlock } = useFilterBlock();
   const ctx = useBlockRequestContext();
-  console.log('%c Line:98 🍰 ctx', 'font-size:18px;color:#2eafb0;background:#ffdd4d', ctx);
   const service = ctx.service;
 
   const field = useField();
