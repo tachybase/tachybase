@@ -1,4 +1,4 @@
-import { transformers } from '../settings/GroupBlockConfigure';
+import { transformers } from './transformers';
 
 export const fieldTransformers = (item, data, api) => {
   const { option: tOption } = transformers;

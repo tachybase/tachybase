@@ -19,20 +19,7 @@ export const GroupBlock = (props) => {
   const fieldSchema = useFieldSchema();
   const params = fieldSchema.parent['x-decorator-props'].params;
   const { service } = useContextGroupBlock();
-
-  const { getDataBlocks } = useFilterBlock();
-
-  if (!service.params.length) {
-    getDataBlocks().map((block) => {
-      if (Object.keys(block.defaultFilter).length) {
-        getDataBlocks().forEach((getblock) => {
-          if (getblock.uid !== block.uid && getblock.collection.name === block.collection.name) {
-            service.params = block.defaultFilter;
-          }
-        });
-      }
-    });
-  }
+  console.log('%c Line:22 🌰 service', 'font-size:18px;color:#6ec1c2;background:#ffdd4d', service);
 
   if (service.loading && !field.loaded) {
     return <Spin />;

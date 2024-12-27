@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
-import { DataBlockCollector, DataBlockProvider, useAPIClient, useRequest } from '@tachybase/client';
+import React, { useMemo, useState } from 'react';
+import { DataBlockCollector, DataBlockProvider, useAPIClient, useFilterBlock, useRequest } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
 
 import { Spin } from 'antd';
 
 import { ProviderContextGroupBlock } from './contexts/GroupBlock.context';
+import { getFilterBlockParams } from './tools/getFilterBlockParams';
 
 const InternalGroupBlockProvider = (props) => {
-  const { params, resourceParams } = props;
-  const { resource_deprecated, action, groupField } = resourceParams || {};
+  const { collection, params, resourceParams } = props;
+  const { resource_deprecated, action } = resourceParams || {};
+  const apiClient = useAPIClient();
   const field = useField<any>();
   const [visible, setVisible] = useState(false);
 
-  const apiClient = useAPIClient();
+  const { getDataBlocks } = useFilterBlock();
 
-  const resource = {};
+  const blockList = useMemo(() => getDataBlocks(), []);
+
+  const filterBlockParams = useMemo(
+    () =>
+      getFilterBlockParams({
+        blockList,
+        collection,
+      }),
+    [],
+  );
 
   const service = useRequest(
     async () =>
@@ -23,12 +34,15 @@ const InternalGroupBlockProvider = (props) => {
         method: 'post',
         data: {
           ...params,
+          ...filterBlockParams,
         },
       }),
-    {},
+    {
+      refreshDeps: [filterBlockParams],
+    },
   );
 
-  if ((service.loading && !field.loaded) || !service?.data) {
+  if (service.loading && !field.loaded) {
     return <Spin />;
   }
 
@@ -42,7 +56,6 @@ const InternalGroupBlockProvider = (props) => {
         },
         field,
         service,
-        resource,
         visible,
         setVisible,
       }}
