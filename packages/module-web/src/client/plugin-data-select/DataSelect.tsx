@@ -96,7 +96,7 @@ export const DataSelect = ({ style = {}, templateKey = 'none', collection }) => 
   const { t } = useTranslation();
   useEffect(() => {
     if (enabled && defaultTemplate) {
-      form.__template = true;
+      (form as any).__template = true;
       if (defaultTemplate.key === 'duplicate') {
         handleTemplateDataChange(defaultTemplate.dataId, defaultTemplate);
       }
@@ -121,7 +121,7 @@ export const DataSelect = ({ style = {}, templateKey = 'none', collection }) => 
         if (form && data) {
           // 切换之前先把之前的数据清空
           form.reset();
-          form.__template = true;
+          (form as any).__template = true;
 
           forEach(data, (value, key) => {
             if (value) {
