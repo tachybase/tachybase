@@ -7,7 +7,7 @@ import ts from 'typescript';
 import { globExcludeFiles, ROOT_PATH } from './constant';
 import { signals } from './stats';
 
-// TODO 暂时特殊处理
+// 需要暂时忽略的错误写在这里
 const IgnoreErrors = new Set([
   `Property 'body' does not exist on type 'Request'`,
   `Property 'fromNow' does not exist on type 'Dayjs'`,
@@ -36,8 +36,6 @@ export const buildDeclaration = (cwd: string, targetDir: string) => {
 
     // 更新编译选项，设置输出目录为 lib，启用声明文件生成
     parsedCommandLine.options.outDir = path.join(cwd, targetDir);
-    parsedCommandLine.options.declaration = true;
-    parsedCommandLine.options.emitDeclarationOnly = true;
 
     parsedCommandLine.fileNames = fg.globSync(['src/**/*.{ts,tsx}', ...globExcludeFiles], { cwd, absolute: true });
     parsedCommandLine.options.rootDir = path.join(cwd, 'src');
