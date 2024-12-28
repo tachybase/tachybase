@@ -1,18 +1,17 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useFieldSchema } from '@tachybase/schema';
+import { useCallback, useEffect, useState } from 'react';
+import {
+  compatibleDataId,
+  findFormBlock,
+  RemoteSelect,
+  useAPIClient,
+  useCollectionManager,
+  useFormBlockContext,
+} from '@tachybase/client';
+import { useFieldSchema, useForm } from '@tachybase/schema';
 import { error, forEach } from '@tachybase/utils/client';
 
-import { Select, Space } from 'antd';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-
-import { useToken } from '../__builtins__';
-import { useAPIClient } from '../../../api-client';
-import { findFormBlock } from '../../../block-provider';
-import { useFormBlockContext } from '../../../block-provider/FormBlockProvider';
-import { useCollectionManager_deprecated } from '../../../collection-manager';
-import { compatibleDataId } from '../../../schema-settings/DataTemplates/FormDataTemplates';
-import { RemoteSelect } from '../remote-select';
 
 export interface ITemplate {
   config?: {
@@ -37,11 +36,11 @@ export interface ITemplate {
   display: boolean;
 }
 
-const useDataTemplates = () => {
+export const useDataTemplates = () => {
   const fieldSchema = useFieldSchema();
   const { t } = useTranslation();
   const { duplicateData } = useFormBlockContext();
-  const { getCollectionJoinField } = useCollectionManager_deprecated();
+  const cm = useCollectionManager();
   if (duplicateData) {
     return duplicateData;
   }
@@ -51,7 +50,7 @@ const useDataTemplates = () => {
     try {
       item.fields = item.fields
         ?.map((field) => {
-          const joinField = getCollectionJoinField(`${item.collection}.${field}`);
+          const joinField = cm.getCollectionField(`${item.collection}.${field}`);
           if (joinField) {
             return field;
           }
@@ -74,7 +73,7 @@ const useDataTemplates = () => {
       key: i,
       ...t,
       isLeaf: t.dataId !== null && t.dataId !== undefined,
-      titleCollectionField: t?.titleField && getCollectionJoinField(`${t.collection}.${t.titleField}`),
+      titleCollectionField: t?.titleField && cm.getCollectionField(`${t.collection}.${t.titleField}`),
     })),
   );
   const defaultTemplate = items.find((item) => item.default);
@@ -86,18 +85,18 @@ const useDataTemplates = () => {
   };
 };
 
-export const Templates = ({ style = {}, form }) => {
-  const { token } = useToken();
-  const { templates, display, enabled, defaultTemplate } = useDataTemplates();
-  const { getCollectionJoinField } = useCollectionManager_deprecated();
+export const DataSelect = ({ style = {}, templateKey = 'none', collection }) => {
+  const form = useForm();
+  const { templates, enabled, defaultTemplate } = useDataTemplates();
+  const cm = useCollectionManager();
   const templateOptions = compatibleDataId(templates);
-  const [targetTemplate, setTargetTemplate] = useState(defaultTemplate?.key || 'none');
+  const targetTemplate = templateKey;
   const [targetTemplateData, setTemplateData] = useState(null);
   const api = useAPIClient();
   const { t } = useTranslation();
   useEffect(() => {
     if (enabled && defaultTemplate) {
-      form.__template = true;
+      (form as any).__template = true;
       if (defaultTemplate.key === 'duplicate') {
         handleTemplateDataChange(defaultTemplate.dataId, defaultTemplate);
       }
@@ -108,21 +107,8 @@ export const Templates = ({ style = {}, form }) => {
       handleTemplateChange('none');
     }
   }, [templateOptions]);
-  const wrapperStyle = useMemo(() => {
-    return { display: 'flex', alignItems: 'center', backgroundColor: token.colorFillAlter, padding: '1em', ...style };
-  }, [style, token.colorFillAlter]);
-
-  const labelStyle = useMemo<{
-    fontSize: number;
-    fontWeight: 'bold';
-    whiteSpace: 'nowrap';
-    marginRight: number;
-  }>(() => {
-    return { fontSize: token.fontSize, fontWeight: 'bold', whiteSpace: 'nowrap', marginRight: token.marginXS };
-  }, [token.fontSize, token.marginXS]);
 
   const handleTemplateChange = useCallback(async (value) => {
-    setTargetTemplate(value);
     setTemplateData(null);
     form?.reset();
   }, []);
@@ -135,7 +121,7 @@ export const Templates = ({ style = {}, form }) => {
         if (form && data) {
           // 切换之前先把之前的数据清空
           form.reset();
-          form.__template = true;
+          (form as any).__template = true;
 
           forEach(data, (value, key) => {
             if (value) {
@@ -151,41 +137,31 @@ export const Templates = ({ style = {}, form }) => {
       });
   }, []);
 
-  if (!enabled || !display) {
+  if (!enabled) {
     return null;
   }
   const template = templateOptions?.find((v) => v.key === targetTemplate);
+  if (template && collection) {
+    template.collection = collection;
+  }
   return (
-    <div style={wrapperStyle}>
-      <Space wrap>
-        <label style={labelStyle}>{t('Data template')}: </label>
-        <Select
-          data-testid="select-form-data-template"
-          popupMatchSelectWidth={false}
-          options={templateOptions}
-          fieldNames={{ label: 'title', value: 'key' }}
-          value={targetTemplate}
-          onChange={handleTemplateChange}
-        />
-        {targetTemplate !== 'none' && template && (
-          <RemoteSelect
-            style={{ width: 220 }}
-            fieldNames={{ label: template?.titleField, value: 'id' }}
-            target={template?.collection}
-            value={targetTemplateData}
-            objectValue
-            service={{
-              resource: template?.collection,
-              params: {
-                filter: template?.dataScope,
-              },
-            }}
-            onChange={(value) => handleTemplateDataChange(value?.id, { ...value, ...template })}
-            targetField={getCollectionJoinField(`${template?.collection}.${template.titleField}`)}
-          />
-        )}
-      </Space>
-    </div>
+    targetTemplate !== 'none' &&
+    template && (
+      <RemoteSelect
+        fieldNames={{ label: template?.titleField, value: 'id' }}
+        target={template?.collection}
+        value={targetTemplateData}
+        objectValue
+        service={{
+          resource: template?.collection,
+          params: {
+            filter: template?.dataScope,
+          },
+        }}
+        onChange={(value) => handleTemplateDataChange(value?.id, { ...value, ...template })}
+        targetField={cm.getCollectionField(`${template?.collection}.${template.titleField}`)}
+      />
+    )
   );
 };
 
