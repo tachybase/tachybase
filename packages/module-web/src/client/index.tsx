@@ -15,10 +15,15 @@ import {
 import { MAppNotFound } from './MAppNotFound';
 import { MobileClientProvider } from './MobileClientProvider';
 import { MobileLinkProvider } from './MobileLinkProvider';
+import { PluginDataSelect } from './plugin-data-select/PluginDataSelect';
 import MApplication from './router/Application';
 
 export class ModuleWeb extends Plugin {
   public mobileRouter: RouterManager;
+
+  async afterAdd() {
+    this.pm.add(PluginDataSelect, { name: 'plugin-data-select' });
+  }
   async load() {
     this.setMobileRouter();
     this.addRoutes();
