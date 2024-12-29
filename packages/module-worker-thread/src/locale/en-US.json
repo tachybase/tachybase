@@ -5,7 +5,7 @@
   "Invalid worker count": "Invalid worker count",
   "No worker thread": "No worker thread",
   "Preset count": "Preset count",
-  "The system is currently processing other tasks. Please try again late": "The system is currently processing other tasks. Please try again late",
+  "The system is currently processing other tasks. Please try again later": "The system is currently processing other tasks. Please try again later",
   "Too many workers": "Too many workers",
   "Worker thread": "Worker thread",
   "Worker thread plugin not start": "Worker thread plugin not start"
