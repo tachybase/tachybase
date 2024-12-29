@@ -31,25 +31,30 @@ export async function exportXlsx(ctx: Context, next: Next) {
     if (!app.worker?.available) {
       ctx.throw(400, `Too many records to export: ${count} > ${EXPORT_LENGTH_MAX}`);
     }
-    // 调用工作线程返回文件路径
-    const fileWithPath = await app.worker.callPluginMethod({
-      plugin: ExportPlugin,
-      method: 'workerExportXlsx', // TODO: 这样不够优雅
-      concurrency: 1,
-      globalConcurrency: 1,
-      params: {
-        title,
-        filter,
-        sort,
-        fields,
-        except,
-        columns,
-        resourceName,
-        resourceOf,
-        appends,
-        timezone: ctx.get('X-Timezone'),
-      },
-    });
+    let fileWithPath;
+    try {
+      // 调用工作线程返回文件路径
+      fileWithPath = await app.worker.callPluginMethod({
+        plugin: ExportPlugin,
+        method: 'workerExportXlsx', // TODO: 这样不够优雅
+        concurrency: 1,
+        globalConcurrency: 1,
+        params: {
+          title,
+          filter,
+          sort,
+          fields,
+          except,
+          columns,
+          resourceName,
+          resourceOf,
+          appends,
+          timezone: ctx.get('X-Timezone'),
+        },
+      });
+    } catch (error) {
+      ctx.throw(500, ctx.t(error.message, { ns: 'worker-thread' }));
+    }
     if (!fileWithPath) {
       ctx.throw(500, 'Export failed');
     }

@@ -239,8 +239,8 @@ export class Dumper extends AppMigrator {
       }).finally(() => {
         this.cleanLockFile(backupFileName);
         Dumper.dumpTasks.delete(backupFileName);
-        // 主线程通知备份完成
-        this.app.noticeManager.notify('backup', { msg: 'done' });
+        // 主线程通知备份完成 TODO: 同一个浏览器开两个窗口会有BUG
+        this.app.noticeManager.notify('backup', { msg: 'Done' });
       });
       Dumper.dumpTasks.set(backupFileName, promise);
     } else {
