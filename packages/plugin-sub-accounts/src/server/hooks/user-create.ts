@@ -1,8 +1,9 @@
 import { CreateOptions, Model } from '@tachybase/database';
+import Application from '@tachybase/server';
 
 import { MergeRoleModel } from '../model/MergeRoleModel';
 
-export async function createMergeRole(user: Model, options: CreateOptions) {
+export async function createMergeRole(app: Application, user: Model, options: CreateOptions) {
   const { transaction } = options;
   const roleRepo = user.db.getRepository('roles');
   const roleName = `m_${user.id}`;
@@ -12,5 +13,5 @@ export async function createMergeRole(user: Model, options: CreateOptions) {
     ownerUserId: user.id,
   };
   const mergeRoleModel = (await roleRepo.create({ values: mergeRole, transaction })) as MergeRoleModel;
-  await mergeRoleModel.resetAcl({ acl: this.acl, transaction });
+  await mergeRoleModel.resetAcl({ app, transaction });
 }

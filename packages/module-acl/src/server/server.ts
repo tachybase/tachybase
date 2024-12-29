@@ -400,9 +400,33 @@ export class PluginACL extends Plugin {
       const cache = this.app.cache as Cache;
       await cache.del(`roles:${model.get('userId')}`);
     });
+    this.app.db.on('rolesUsers.afterBulkCreate', async (models) => {
+      const cache = this.app.cache as Cache;
+      const userIds = models.map((model) => model.get('userId'));
+      // 去重
+      const uniqueUserIds = [...new Set(userIds)];
+      await Promise.all(
+        uniqueUserIds.map(async (userId) => {
+          await cache.del(`roles:${userId}`);
+        }),
+      );
+    });
     this.app.db.on('rolesUsers.afterDestroy', async (model) => {
       const cache = this.app.cache as Cache;
       await cache.del(`roles:${model.get('userId')}`);
+    });
+
+    this.app.db.on('rolesUsers.afterBulkDestroy', async (options) => {
+      const cache = this.app.cache as Cache;
+      const deleteModels = await this.app.db.getModel('rolesUsers').findAll({ where: options.where });
+      const userIds = deleteModels.map((model) => model.get('userId'));
+      // 去重
+      const uniqueUserIds = [...new Set(userIds)];
+      await Promise.all(
+        uniqueUserIds.map(async (userId) => {
+          await cache.del(`roles:${userId}`);
+        }),
+      );
     });
 
     const writeRolesToACL = async (app, options) => {
