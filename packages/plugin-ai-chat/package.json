@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-ai-chat",
-  "version": "0.23.10",
+  "version": "0.23.11",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
