@@ -9,7 +9,6 @@ import {
   useRecord,
   useRequest,
   useResourceActionContext,
-  useTranslation,
 } from '@tachybase/client';
 import { RolesManagerContext } from '@tachybase/module-acl/client';
 
