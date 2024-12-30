@@ -15,7 +15,6 @@ import {
 } from './components';
 import { PluginGroupBlock } from './features/block-group';
 import { PluginCustomComponents } from './features/custom-components';
-import { DepartmentsPlugin } from './features/departments';
 import { EmbedPlugin } from './features/embed';
 import { PluginFieldAppends } from './features/field-appends';
 import { PluginHeraVersion } from './features/hera-version';
@@ -54,7 +53,6 @@ export class PluginCoreClient extends Plugin {
   async afterAdd() {
     await this.app.pm.add(PluginGroupBlock);
     await this.app.pm.add(EmbedPlugin);
-    await this.app.pm.add(DepartmentsPlugin);
     await this.app.pm.add(PluginHeraVersion);
     await this.app.pm.add(PluginPDF);
     await this.app.pm.add(PluginOutbound);

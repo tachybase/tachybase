@@ -1,6 +1,8 @@
 {
   "name": "@tachybase/plugin-ai-chat",
+  "displayName": "AI Chat",
   "version": "0.23.13",
+  "description": "AI chatbot, providing operational help, intelligent Q&A",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
@@ -19,5 +21,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "AI聊天机器人,提供操作帮助,智能问答",
+  "displayName.zh-CN": "AI聊天"
 }
