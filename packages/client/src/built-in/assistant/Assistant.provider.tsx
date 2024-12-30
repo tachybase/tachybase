@@ -11,13 +11,13 @@ import { Icon } from '../../icon';
 import { useDesignable } from '../../schema-component';
 import { useACLRoleContext } from '../acl';
 import { useContextMenu } from '../context-menu';
-import { useCalculator } from './calculator/CalculatorProvider';
+// import { useCalculator } from './calculator/CalculatorProvider';
 import { AssistantListContext } from './context';
 import { useSearchAndJump } from './search-and-jump';
 
 export const AssistantProvider = ({ children }) => {
   const { designable, setDesignable } = useDesignable();
-  const { visible, setVisible } = useCalculator();
+  // const { visible, setVisible } = useCalculator();
   const { setOpen } = useSearchAndJump();
 
   const ref = useRef<any>();
@@ -37,13 +37,6 @@ export const AssistantProvider = ({ children }) => {
           icon={<Icon type="Design" />}
           type={designable ? 'primary' : 'default'}
           onClick={() => setDesignable(!designable)}
-        />
-        <FloatButton
-          type={visible ? 'primary' : 'default'}
-          icon={<CalculatorOutlined />}
-          onClick={() => {
-            setVisible((visible) => !visible);
-          }}
         />
         <FloatButton
           type={contextMenuEnabled ? 'primary' : 'default'}
@@ -71,17 +64,9 @@ export const AssistantListProvider = (props: { items: any; children: React.React
 const useStyles = createStyles(({ css }) => {
   return {
     container: css`
-      display: inline-block;
-      .ant-btn {
-        border: 0;
-        height: var(--tb-header-height);
-        width: 46px;
-        border-radius: 0;
-        color: rgba(255, 255, 255, 0.65);
-        &:hover {
-          background: rgba(255, 255, 255, 0.1) !important;
-        }
-      }
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
     `,
   };
 });

@@ -1,38 +1,50 @@
-import React, { createContext, useContext, useState } from 'react';
+// import React, { createContext, useContext, useState } from 'react';
 
-import { createPortal } from 'react-dom';
+// import { createPortal } from 'react-dom';
 
-import { CalculatorWrapper } from './Calculator';
-import { Draggable } from './Draggable';
-import { useStyles } from './style';
+// import { CalculatorWrapper } from './Calculator';
+// import { Draggable } from './Draggable';
+// import { useStyles } from './style';
+import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
 
-export interface CalculatorProps {
-  visible: any;
-  setVisible: any;
-}
+import { CalculatorOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
 
-export const CalculatorContext = createContext<Partial<CalculatorProps>>({});
-export const useCalculator = () => {
-  return useContext(CalculatorContext);
+import { useCalculator } from './CalculatorModelProvider';
+
+// export const useCalculator = () => {
+//   return useContext(CalculatorContext);
+// };
+
+const CalculatorButton = () => {
+  // const { setVisible } = useCalculator();
+  const { visible, setVisible } = useCalculator();
+
+  return (
+    <FloatButton
+      type={visible ? 'primary' : 'default'}
+      icon={<CalculatorOutlined />}
+      onClick={() => {
+        setVisible((visible) => !visible);
+      }}
+    />
+  );
 };
 
-export const CalculatorProvider = ({ children }) => {
-  const [visible, setVisible] = useState<boolean>(false);
-  const { styles } = useStyles();
+export const CalculatorProvider = (props) => {
   return (
-    <CalculatorContext.Provider value={{ visible, setVisible }}>
-      {children}
-
-      {visible
-        ? createPortal(
-            <div className={styles.container}>
-              <Draggable>
-                <CalculatorWrapper />
-              </Draggable>
-            </div>,
-            document.body,
-          )
-        : null}
-    </CalculatorContext.Provider>
+    <AssistantListProvider
+      items={{
+        ca: { order: 300, component: 'CalculatorButton', pin: true, isPublic: true },
+      }}
+    >
+      <SchemaComponentOptions
+        components={{
+          CalculatorButton,
+        }}
+      >
+        {props.children}
+      </SchemaComponentOptions>
+    </AssistantListProvider>
   );
 };
