@@ -1,31 +1,19 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import { SchemaOptionsContext } from '@tachybase/schema';
 
 import { ToolOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 import { createStyles } from 'antd-style';
 import { get } from 'lodash';
-import { useHotkeys } from 'react-hotkeys-hook';
 
-import { Icon } from '../../icon';
-import { useDesignable } from '../../schema-component';
 import { useACLRoleContext } from '../acl';
 import { AssistantListContext } from './context';
 
 export const AssistantProvider = ({ children }) => {
-  const { designable, setDesignable } = useDesignable();
-  // 快捷键切换编辑状态
-  useHotkeys('Ctrl+Shift+U', () => setDesignable(!designable), [designable]);
-
   return (
     <>
       {children}
       <FloatButton.Group trigger="hover" type="default" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
-        <FloatButton
-          icon={<Icon type="Design" />}
-          type={designable ? 'primary' : 'default'}
-          onClick={() => setDesignable(!designable)}
-        />
         <AssistantList />
       </FloatButton.Group>
     </>
