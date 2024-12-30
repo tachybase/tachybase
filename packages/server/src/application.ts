@@ -61,6 +61,8 @@ import { MainDataSource } from './main-data-source';
 import { NoticeManager } from './notice';
 import { Plugin } from './plugin';
 import { Constructor, InstallOptions, PluginManager } from './plugin-manager';
+import { createPubSubManager, PubSubManager, PubSubManagerOptions } from './pub-sub-manager';
+import { SyncMessageManager } from './sync-message-manager';
 
 export { Logger } from 'winston';
 
@@ -86,6 +88,8 @@ export interface ApplicationOptions {
   database?: IDatabaseOptions | Database;
   cacheManager?: CacheManagerOptions;
   resourcer?: ResourcerOptions;
+  pubSubManager?: PubSubManagerOptions;
+  syncMessageManager?: any;
   bodyParser?: any;
   cors?: any;
   dataWrapping?: boolean;
@@ -188,6 +192,12 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
    * @internal
    */
   public perfHistograms = new Map<string, RecordableHistogram>();
+  /**
+   * @internal
+   */
+  public pubSubManager: PubSubManager;
+  public syncMessageManager: SyncMessageManager;
+
   protected plugins = new Map<string, Plugin>();
   protected _appSupervisor: AppSupervisor = AppSupervisor.getInstance();
   protected _started: boolean;
@@ -481,6 +491,10 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     if (this.cacheManager) {
       await this.cacheManager.close();
+    }
+
+    if (this.pubSubManager) {
+      await this.pubSubManager.close();
     }
 
     const oldDb = this.db;
@@ -1060,6 +1074,8 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     this._cli = this.createCLI();
     this._i18n = createI18n(options);
+    this.pubSubManager = createPubSubManager(this, options.pubSubManager);
+    this.syncMessageManager = new SyncMessageManager(this, options.syncMessageManager);
     this.context.db = this.db;
 
     this.context.resourcer = this.resourcer;

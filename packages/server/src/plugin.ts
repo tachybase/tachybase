@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { isMainThread } from 'worker_threads';
-import { Model } from '@tachybase/database';
+import { Model, Transactionable } from '@tachybase/database';
 import { LoggerOptions } from '@tachybase/logger';
 import { Container, fsExists, importModule } from '@tachybase/utils';
 
@@ -139,6 +139,15 @@ export abstract class Plugin implements PluginInterface {
   async beforeRemove() {}
 
   async afterRemove() {}
+
+  async handleSyncMessage(message: any) {}
+  async sendSyncMessage(message: any, options?: Transactionable) {
+    if (!this.name) {
+      throw new Error(`plugin name invalid`);
+    }
+
+    await this.app.syncMessageManager.publish(this.name, message, options);
+  }
 
   /**
    * @deprecated

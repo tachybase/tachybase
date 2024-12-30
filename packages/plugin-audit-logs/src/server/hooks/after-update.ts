@@ -1,6 +1,8 @@
+import { Plugin } from '@tachybase/server';
+
 import { LOG_TYPE_UPDATE } from '../constants';
 
-export async function afterUpdate(model, options) {
+export async function afterUpdate(model, options, plugin: Plugin) {
   const { collection } = model.constructor;
   if (!collection || !collection.options.logging) {
     return;
@@ -29,18 +31,37 @@ export async function afterUpdate(model, options) {
     return;
   }
   try {
-    await AuditLog.repository.create({
-      values: {
-        type: LOG_TYPE_UPDATE,
-        collectionName: model.constructor.name,
-        recordId: model.get(model.constructor.primaryKeyAttribute),
-        createdAt: model.get('updatedAt'),
-        userId: currentUserId,
-        changes,
+    // await AuditLog.repository.create({
+    //   values: {
+    //     type: LOG_TYPE_UPDATE,
+    //     collectionName: model.constructor.name,
+    //     recordId: model.get(model.constructor.primaryKeyAttribute),
+    //     createdAt: model.get('updatedAt'),
+    //     userId: currentUserId,
+    //     changes,
+    //   },
+    //   transaction,
+    //   hooks: false,
+    // });
+
+    const values = {
+      type: LOG_TYPE_UPDATE,
+      collectionName: model.constructor.name,
+      recordId: model.get(model.constructor.primaryKeyAttribute),
+      createdAt: model.get('updatedAt'),
+      userId: currentUserId,
+      changes,
+    };
+
+    // 此处不用await,会影响当前事务的执行效率
+    plugin.sendSyncMessage(
+      {
+        type: 'auditLog',
+        values,
       },
-      transaction,
-      hooks: false,
-    });
+      { transaction },
+    );
+
     // if (!options.transaction) {
     //   await transaction.commit();
     // }
