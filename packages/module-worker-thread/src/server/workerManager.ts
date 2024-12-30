@@ -239,7 +239,7 @@ export class WorkerManager {
     if (values.globalConcurrency) {
       const exceeded = this.checkAndUpdateConcurrency(this.getGlobalKey(), values.globalConcurrency, this.cache);
       if (exceeded) {
-        throw new Error('Global method call limit exceeded');
+        throw new Error('The system is currently processing other tasks. Please try again later');
       }
     }
 
@@ -247,7 +247,7 @@ export class WorkerManager {
     if (values.concurrency) {
       const exceeded = this.checkAndUpdateConcurrency(this.getPluginMethodKey(values), values.concurrency, this.cache);
       if (exceeded) {
-        throw new Error('Plugin method call limit exceeded');
+        throw new Error('The system is currently processing other tasks. Please try again later');
       }
     }
     const result = await this.callMethod(WorkerEvent.PluginMethod, {

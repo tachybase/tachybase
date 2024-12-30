@@ -252,14 +252,19 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    apiClient.request({
-      url: 'backupFiles:create',
-      method: 'post',
-      data: {
-        dataTypes,
-      },
-    });
+  const handleOk = (method) => {
+    apiClient
+      .request({
+        url: 'backupFiles:create',
+        method: 'post',
+        data: {
+          dataTypes,
+          method,
+        },
+      })
+      .finally(() => {
+        notification.destroy('backup');
+      });
     notification.info({
       key: 'backup',
       message: (
@@ -287,7 +292,27 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
       <ButtonComponent icon={<PlusOutlined />} type="primary" onClick={showModal}>
         {t('New backup')}
       </ButtonComponent>
-      <Modal title={t('New backup')} width={800} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal
+        title={t('New backup')}
+        width={800}
+        open={isModalOpen}
+        // onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[
+          // 保留默认的 onCancel 按钮
+          <Button key="cancel" onClick={handleCancel}>
+            {t('Cancel')}
+          </Button>,
+          // 明确使用工作线程备份
+          <Button key="custom" type="primary" onClick={() => handleOk('worker')}>
+            {t('Worker backup')}
+          </Button>,
+          // 明确使用自身线程备份
+          <Button key="ok" onClick={() => handleOk('main')}>
+            {t('Self backup')}
+          </Button>,
+        ]}
+      >
         <strong style={{ fontWeight: 600, display: 'block', margin: '16px 0 8px' }}>
           {t('Select the data to be backed up')} (
           <LearnMore isBackup={true} />
@@ -353,10 +378,11 @@ export const BackupAndRestoreList = () => {
     await queryFieldList();
   }, []);
 
-  useNoticeSub('backup', () => {
-    notification.info({
+  useNoticeSub('backup', (message) => {
+    let func = notification[message.level] || notification.info;
+    func({
       key: 'backup',
-      message: t('Done'),
+      message: message.msg,
     });
     handleRefresh();
   });

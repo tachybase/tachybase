@@ -101,21 +101,33 @@ export default {
       const data = <
         {
           dataTypes: string[];
+          method;
         }
       >ctx.request.body;
 
       let taskId;
       const app = ctx.app as Application;
-      if (app.worker?.available) {
+      if (data.method === 'worker') {
+        if (!app.worker.available) {
+          ctx.throw(500, ctx.t('No worker thread', { ns: 'worker-thread' }));
+          return next();
+        }
         // 通过工作线程调用
-        taskId = await ctx.app.worker.callPluginMethod({
-          plugin: PluginBackupRestoreServer,
-          method: 'workerCreateBackUp',
-          params: {
-            dataTypes: data.dataTypes,
-          },
-        });
-        ctx.app.noticeManager.notify('backup', { msg: 'done' });
+        try {
+          taskId = await app.worker.callPluginMethod({
+            plugin: PluginBackupRestoreServer,
+            method: 'workerCreateBackUp',
+            params: {
+              dataTypes: data.dataTypes,
+            },
+            // 目前限制方法并发为1
+            concurrency: 1,
+          });
+          app.noticeManager.notify('backup', { level: 'info', msg: ctx.t('Done') });
+        } catch (error) {
+          ctx.logger.warn(error);
+          ctx.throw(500, ctx.t(error.message, { ns: 'worker-thread' }));
+        }
       } else {
         const plugin = app.pm.get(PluginBackupRestoreServer) as PluginBackupRestoreServer;
         taskId = await plugin.workerCreateBackUp(data);
