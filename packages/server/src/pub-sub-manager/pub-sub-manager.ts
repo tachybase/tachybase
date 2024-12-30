@@ -2,6 +2,7 @@ import { uid } from '@tachybase/utils';
 
 import Application from '../application';
 import { HandlerManager } from './handler-manager';
+import { MemoryPubSubAdapter } from './memory-pub-sub-adapter';
 import {
   PubSubCallback,
   type IPubSubAdapter,
@@ -12,6 +13,7 @@ import {
 
 export const createPubSubManager = (app: Application, options: PubSubManagerOptions) => {
   const pubSubManager = new PubSubManager(options);
+  pubSubManager.setAdapter(MemoryPubSubAdapter.create());
   app.on('afterStart', async () => {
     await pubSubManager.connect();
   });

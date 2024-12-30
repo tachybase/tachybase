@@ -11,6 +11,7 @@ import type { ParseKeys, TFunction, TOptions } from 'i18next';
 import { Application } from './application';
 import { getExposeChangelogUrl, getExposeReadmeUrl, InstallOptions } from './plugin-manager';
 import { checkAndGetCompatible } from './plugin-manager/utils';
+import { PubSubManagerPublishOptions } from './pub-sub-manager';
 
 export type { ParseKeys, TOptions } from 'i18next';
 export interface PluginInterface {
@@ -141,7 +142,7 @@ export abstract class Plugin implements PluginInterface {
   async afterRemove() {}
 
   async handleSyncMessage(message: any) {}
-  async sendSyncMessage(message: any, options?: Transactionable) {
+  async sendSyncMessage(message: any, options?: PubSubManagerPublishOptions & Transactionable) {
     if (!this.name) {
       throw new Error(`plugin name invalid`);
     }

@@ -53,13 +53,15 @@ export async function afterUpdate(model, options, plugin: Plugin) {
       changes,
     };
 
-    // 此处不用await,会影响当前事务的执行效率
     plugin.sendSyncMessage(
       {
         type: 'auditLog',
         values,
       },
-      { transaction },
+      {
+        transaction,
+        onlySelf: true,
+      },
     );
 
     // if (!options.transaction) {

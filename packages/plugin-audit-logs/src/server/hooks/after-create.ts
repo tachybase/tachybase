@@ -1,6 +1,8 @@
+import { Plugin } from '@tachybase/server';
+
 import { LOG_TYPE_CREATE } from '../constants';
 
-export async function afterCreate(model, options) {
+export async function afterCreate(model, options, plugin: Plugin) {
   if (options.logging === false) {
     return;
   }
@@ -27,18 +29,38 @@ export async function afterCreate(model, options) {
         }
       });
     }
-    await AuditLog.repository.create({
-      values: {
-        type: LOG_TYPE_CREATE,
-        collectionName: model.constructor.name,
-        recordId: model.get(model.constructor.primaryKeyAttribute),
-        createdAt: model.get('createdAt'),
-        userId: currentUserId,
-        changes,
+    // await AuditLog.repository.create({
+    //   values: {
+    //     type: LOG_TYPE_CREATE,
+    //     collectionName: model.constructor.name,
+    //     recordId: model.get(model.constructor.primaryKeyAttribute),
+    //     createdAt: model.get('createdAt'),
+    //     userId: currentUserId,
+    //     changes,
+    //   },
+    //   transaction,
+    //   hooks: false,
+    // });
+
+    const values = {
+      type: LOG_TYPE_CREATE,
+      collectionName: model.constructor.name,
+      recordId: model.get(model.constructor.primaryKeyAttribute),
+      createdAt: model.get('createdAt'),
+      userId: currentUserId,
+      changes,
+    };
+
+    plugin.sendSyncMessage(
+      {
+        type: 'auditLog',
+        values,
       },
-      transaction,
-      hooks: false,
-    });
+      {
+        transaction,
+        onlySelf: true,
+      },
+    );
   } catch (error) {
     // console.error(error);
   }

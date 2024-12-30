@@ -27,10 +27,10 @@ export default class PluginActionLogs extends Plugin {
   async handleSyncMessage(message: any): Promise<void> {
     if (message.type === 'auditLog') {
       const { values } = message;
-      const AuditLog = this.db.getCollection('auditLogs');
+      const repo = this.db.getRepository('auditLogs');
       // 此处改为异步创建
       // TODO: 优化性能，可以考虑批量插入, 但是需要中间存储,考虑存储到本地文件,批量插入
-      await AuditLog.repository.create({
+      repo.create({
         values,
         hooks: false,
       });

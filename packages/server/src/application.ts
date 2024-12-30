@@ -62,6 +62,7 @@ import { NoticeManager } from './notice';
 import { Plugin } from './plugin';
 import { Constructor, InstallOptions, PluginManager } from './plugin-manager';
 import { createPubSubManager, PubSubManager, PubSubManagerOptions } from './pub-sub-manager';
+import { MemoryPubSubAdapter } from './pub-sub-manager/memory-pub-sub-adapter';
 import { SyncMessageManager } from './sync-message-manager';
 
 export { Logger } from 'winston';
