@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-message",
-  "version": "0.23.21",
+  "version": "0.23.22",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-message"
