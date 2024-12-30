@@ -17,8 +17,10 @@ export default class extends Migration {
         packageName: '@tachybase/module-department',
       },
       values: {
-        enbaled: true,
+        installed: true,
+        enabled: true,
       },
     });
+    this.app.logger.info('enable module-department success!');
   }
 }
