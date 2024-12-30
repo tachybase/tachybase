@@ -49,9 +49,9 @@ function findArgs(ctx: Context) {
       assign(params, { filter: { [foreignKey]: null } }, { filter: 'andMerge' });
     }
   }
-  const { tree, fields, filter, appends, except, sort } = params;
+  const { tree, fields, filter, appends, except, sort, search } = params;
 
-  return { tree, filter, fields, appends, except, sort };
+  return { tree, filter, fields, appends, except, sort, search };
 }
 
 async function listWithPagination(ctx: Context) {
@@ -164,6 +164,30 @@ async function listWithPagination(ctx: Context) {
       filterTreeCount = father.length;
     }
   }
+
+  // 增加全字段模糊搜索
+  if (options.search && options.search.keywords && options.search.keywords.length) {
+    let fields = [];
+    if (options.fields) {
+      fields = options.fields;
+    } else {
+      fields = [...collection.fields.keys()];
+    }
+
+    // reduce or逻辑
+    const searchFilter = fields.reduce((acc, field) => {
+      acc.push({
+        [field]: {
+          [Op.like]: `%${options.search.keywords}%`,
+        },
+      });
+      return acc;
+    }, []);
+    options.filter = {
+      $and: [options.filter, { $or: searchFilter }],
+    };
+  }
+
   const [rows, count] = await repository.findAndCount(options);
   ctx.body = {
     count: filterTreeData.length ? filterTreeCount : count,
