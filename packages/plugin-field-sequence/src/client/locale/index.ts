@@ -13,5 +13,5 @@ export function usePluginTranslation() {
 }
 
 export function tval(str: string) {
-  return nTval(str, [NAMESPACE, 'core']);
+  return nTval(str, { ns: [NAMESPACE, 'core'] });
 }
