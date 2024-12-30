@@ -1,7 +1,7 @@
 import { ISchema } from '@tachybase/schema';
 import { uid } from '@tachybase/utils/client';
 
-export const getSchemaGroupBlock = (options) => {
+export const getRemoteSchemaGroupBlock = (options) => {
   const { collection, groupField } = options;
   const sumItem = [];
   collection?.fields.forEach((value) => {

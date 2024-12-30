@@ -6,7 +6,7 @@ import {
   useSchemaInitializerItem,
 } from '@tachybase/client';
 
-import { getSchemaGroupBlock } from './GroupBlock.schema';
+import { getRemoteSchemaGroupBlock } from './GroupBlock.schema';
 import { GroupIcon } from './GroupIcon';
 
 export const GroupBlockInitializer = () => {
@@ -16,7 +16,7 @@ export const GroupBlockInitializer = () => {
 
   const handleCresteBlockSchema = async ({ item }) => {
     const collection = cm.getCollection(item.name);
-    const remoteSchema = getSchemaGroupBlock({
+    const remoteSchema = getRemoteSchemaGroupBlock({
       collection,
     });
     insert(remoteSchema);
