@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
 
+import { ToolOutlined } from '@ant-design/icons';
 import { useLocalStorageState } from 'ahooks';
-import { Dropdown, type MenuProps } from 'antd';
+import { Dropdown, FloatButton, type MenuProps } from 'antd';
 
 import { useApp } from '../../application';
-import { ContextMenuContext } from './useContextMenu';
+import { ContextMenuContext, useContextMenu } from './useContextMenu';
 
 const STORAGE_KEYS = {
   HIDDEN_SCROLL_AREA: 'hidden-scroll-area',
@@ -64,5 +66,34 @@ export const ContextMenuProvider = ({ children }) => {
         </div>
       </Dropdown>
     </ContextMenuContext.Provider>
+  );
+};
+
+const ContextMenuButton = () => {
+  const { contextMenuEnabled, setContextMenuEnable } = useContextMenu();
+
+  return (
+    <FloatButton
+      type={contextMenuEnabled ? 'primary' : 'default'}
+      icon={<ToolOutlined onClick={() => setContextMenuEnable(!contextMenuEnabled)} />}
+    />
+  );
+};
+
+export const ContextMenuButtonProvider = (props) => {
+  return (
+    <AssistantListProvider
+      items={{
+        cm: { order: 400, component: 'ContextMenuButton', pin: true, isPublic: true },
+      }}
+    >
+      <SchemaComponentOptions
+        components={{
+          ContextMenuButton,
+        }}
+      >
+        {props.children}
+      </SchemaComponentOptions>
+    </AssistantListProvider>
   );
 };

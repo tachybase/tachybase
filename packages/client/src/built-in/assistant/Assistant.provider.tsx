@@ -10,7 +10,6 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Icon } from '../../icon';
 import { useDesignable } from '../../schema-component';
 import { useACLRoleContext } from '../acl';
-import { useContextMenu } from '../context-menu';
 import { AssistantListContext } from './context';
 
 export const AssistantProvider = ({ children }) => {
@@ -18,7 +17,6 @@ export const AssistantProvider = ({ children }) => {
   // 快捷键切换编辑状态
   useHotkeys('Ctrl+Shift+U', () => setDesignable(!designable), [designable]);
 
-  const { contextMenuEnabled, setContextMenuEnable } = useContextMenu();
   return (
     <>
       {children}
@@ -27,10 +25,6 @@ export const AssistantProvider = ({ children }) => {
           icon={<Icon type="Design" />}
           type={designable ? 'primary' : 'default'}
           onClick={() => setDesignable(!designable)}
-        />
-        <FloatButton
-          type={contextMenuEnabled ? 'primary' : 'default'}
-          icon={<ToolOutlined onClick={() => setContextMenuEnable(!contextMenuEnabled)} />}
         />
         <AssistantList />
       </FloatButton.Group>
