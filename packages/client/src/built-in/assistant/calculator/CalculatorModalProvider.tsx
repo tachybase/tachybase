@@ -16,7 +16,7 @@ export const useCalculator = () => {
   return useContext(CalculatorContext);
 };
 
-export const CalculatorModelProvider = ({ children }) => {
+export const CalculatorModalProvider = ({ children }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const { styles } = useStyles();
   return (

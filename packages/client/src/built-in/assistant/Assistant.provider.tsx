@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { SchemaOptionsContext } from '@tachybase/schema';
 
-import { CalculatorOutlined, CommentOutlined, SearchOutlined, ToolOutlined } from '@ant-design/icons';
+import { ToolOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 import { createStyles } from 'antd-style';
 import { get } from 'lodash';
@@ -11,28 +11,18 @@ import { Icon } from '../../icon';
 import { useDesignable } from '../../schema-component';
 import { useACLRoleContext } from '../acl';
 import { useContextMenu } from '../context-menu';
-// import { useCalculator } from './calculator/CalculatorProvider';
 import { AssistantListContext } from './context';
-import { useSearchAndJump } from './search-and-jump';
 
 export const AssistantProvider = ({ children }) => {
   const { designable, setDesignable } = useDesignable();
-  // const { visible, setVisible } = useCalculator();
-  const { setOpen } = useSearchAndJump();
-
-  const ref = useRef<any>();
-
   // 快捷键切换编辑状态
   useHotkeys('Ctrl+Shift+U', () => setDesignable(!designable), [designable]);
-  useHotkeys('Ctrl+K', () => setOpen((open) => !open), []);
-  useHotkeys('Cmd+K', () => setOpen((open) => !open), []);
 
   const { contextMenuEnabled, setContextMenuEnable } = useContextMenu();
   return (
     <>
       {children}
       <FloatButton.Group trigger="hover" type="default" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
-        <FloatButton icon={<SearchOutlined />} onClick={() => setOpen(true)} />
         <FloatButton
           icon={<Icon type="Design" />}
           type={designable ? 'primary' : 'default'}

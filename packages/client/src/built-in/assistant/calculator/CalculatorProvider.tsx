@@ -10,7 +10,7 @@ import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client
 import { CalculatorOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 
-import { useCalculator } from './CalculatorModelProvider';
+import { useCalculator } from './CalculatorModalProvider';
 
 // export const useCalculator = () => {
 //   return useContext(CalculatorContext);
