@@ -18,6 +18,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/module-acl": "workspace:*",
+    "@tachybase/module-collection": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*"
   },

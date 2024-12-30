@@ -1,6 +1,8 @@
 {
   "name": "@tachybase/module-cron",
+  "displayName": "Cron job",
   "version": "0.23.20",
+  "description": "Schedule tasks to run at specific times, using a workflow approach",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-cron"
@@ -20,5 +22,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "安排任务在特定时间运行,采用工作流的方式",
+  "displayName.zh-CN": "定时任务"
 }

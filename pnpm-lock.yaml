@@ -1433,6 +1433,9 @@ importers:
       '@tachybase/module-acl':
         specifier: workspace:*
         version: link:../module-acl
+      '@tachybase/module-collection':
+        specifier: workspace:*
+        version: link:../module-collection
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server

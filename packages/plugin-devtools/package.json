@@ -1,6 +1,8 @@
 {
   "name": "@tachybase/plugin-devtools",
+  "displayName": "Devtools",
   "version": "0.23.20",
+  "description": "Development tools for viewing API documentation, middleware, environment variables, events, and more",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-devtools"
@@ -21,5 +23,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "开发工具,用于查看Api文档,中间件,环境变量,事件等信息",
+  "displayName.zh-CN": "开发工具"
 }

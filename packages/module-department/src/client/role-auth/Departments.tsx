@@ -4,6 +4,7 @@ import { RolesManagerContext } from '@tachybase/module-acl/client';
 
 import { ViewDepartmentTable } from '../common/DepartmentTable.view';
 import { useDepartmentFilterActionProps } from '../common/scopes/useDepartmentFilterActionProps';
+import { useTranslation } from '../locale';
 import { collectionDepartments } from '../main-tab/collections/departments.collection';
 import { getSchemaDepartments } from './Departments.schema';
 import { DepartmentTitle } from './DepartmentTitle.component';
@@ -15,6 +16,7 @@ import { useRemoveDepartment } from './scopes/useRemoveDepartment';
 
 export const Departments = () => {
   const { role } = useContext(RolesManagerContext);
+  const { t } = useTranslation();
   const resourceData = useRequest(
     {
       resource: `roles/${role?.name}/departments`,
@@ -41,6 +43,7 @@ export const Departments = () => {
             useDataSource,
             useDisabled,
             useAddDepartments,
+            t,
           }}
         ></SchemaComponent>
       </CollectionProvider_deprecated>
