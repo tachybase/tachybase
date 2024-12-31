@@ -7,7 +7,7 @@ export const ProviderCloudComponent = (props) => {
   return (
     <PinnedPluginListProvider
       items={{
-        cloudComponent: { order: 105, component: 'CloudComponentLink', pin: true, snippet: 'pm.*' },
+        cloudComponent: { order: 105, component: 'CloudComponentLink', pin: true, snippet: 'pm' },
       }}
     >
       <SchemaComponentOptions

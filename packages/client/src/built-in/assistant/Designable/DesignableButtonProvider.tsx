@@ -23,7 +23,7 @@ export const DesignableButtonProvider = (props) => {
   return (
     <AssistantListProvider
       items={{
-        db: { order: 300, component: 'DesignableButton', pin: true, isPublic: true },
+        db: { order: 60, component: 'DesignableButton', pin: true, snippet: 'ui.*' },
       }}
     >
       <SchemaComponentOptions

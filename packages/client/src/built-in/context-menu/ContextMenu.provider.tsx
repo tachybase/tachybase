@@ -84,7 +84,7 @@ export const ContextMenuButtonProvider = (props) => {
   return (
     <AssistantListProvider
       items={{
-        cm: { order: 400, component: 'ContextMenuButton', pin: true, isPublic: true },
+        cm: { order: 90, component: 'ContextMenuButton', pin: true, isPublic: true },
       }}
     >
       <SchemaComponentOptions

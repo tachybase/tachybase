@@ -6,17 +6,19 @@ import { FloatButton } from 'antd';
 import { createStyles } from 'antd-style';
 import { get } from 'lodash';
 
-import { useACLRoleContext } from '../acl';
+import { ACLRolesCheckProvider, useACLRoleContext } from '../acl';
 import { AssistantListContext } from './context';
 
 export const AssistantProvider = ({ children }) => {
   return (
-    <>
-      {children}
-      <FloatButton.Group trigger="hover" type="default" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
-        <AssistantList />
-      </FloatButton.Group>
-    </>
+    <ACLRolesCheckProvider>
+      <>
+        {children}
+        <FloatButton.Group trigger="hover" type="default" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
+          <AssistantList />
+        </FloatButton.Group>
+      </>
+    </ACLRolesCheckProvider>
   );
 };
 

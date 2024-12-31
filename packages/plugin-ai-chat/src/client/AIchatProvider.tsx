@@ -23,7 +23,7 @@ export const AIchatProvider = (props) => {
   return (
     <AssistantListProvider
       items={{
-        ai: { order: 200, component: 'AIChatButton', pin: true, isPublic: true },
+        ai: { order: 330, component: 'AIChatButton', pin: true, isPublic: true },
       }}
     >
       <SchemaComponentOptions

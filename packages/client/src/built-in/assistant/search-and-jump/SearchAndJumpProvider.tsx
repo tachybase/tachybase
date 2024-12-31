@@ -17,7 +17,7 @@ export const SearchAndJumpProvider = (props) => {
   return (
     <AssistantListProvider
       items={{
-        saj: { order: 300, component: 'SearchAndJumpButton', pin: true, isPublic: true },
+        saj: { order: 30, component: 'SearchAndJumpButton', pin: true, snippet: 'pm.*' },
       }}
     >
       <SchemaComponentOptions
