@@ -1,9 +1,22 @@
+import { isMainThread } from 'node:worker_threads';
 import path from 'path';
 import { Plugin } from '@tachybase/server';
 
 import { afterCreate, afterDestroy, afterUpdate } from './hooks';
 
 export default class PluginActionLogs extends Plugin {
+  async afterAdd() {
+    if (isMainThread) {
+      return;
+    }
+    // TODO: 测试工作线程这个钩子能不能正常触发
+    this.db.on('afterCreate', afterCreate);
+    this.db.on('afterUpdate', (model, options) => {
+      afterUpdate(model, options, this);
+    });
+    this.db.on('afterDestroy', afterDestroy);
+  }
+
   async beforeLoad() {
     this.db.on('afterCreate', afterCreate);
     this.db.on('afterUpdate', (model, options) => {
@@ -27,13 +40,24 @@ export default class PluginActionLogs extends Plugin {
   async handleSyncMessage(message: any): Promise<void> {
     if (message.type === 'auditLog') {
       const { values } = message;
-      const repo = this.db.getRepository('auditLogs');
-      // 此处改为异步创建
-      // TODO: 优化性能，可以考虑批量插入, 但是需要中间存储,考虑存储到本地文件,批量插入
-      repo.create({
-        values,
-        hooks: false,
+      if (!isMainThread || !this.app.worker?.available) {
+        this.workerCreateAuditLog(values);
+        return;
+      }
+      // 此处不await, 不阻塞主线程, TODO: 后续考虑批量,通过文件收集起来
+      this.app.worker.callPluginMethod({
+        plugin: this.name,
+        method: 'workerCreateAuditLog',
+        params: values,
       });
     }
+  }
+
+  async workerCreateAuditLog(values: any) {
+    const repo = this.db.getRepository('auditLogs');
+    repo.create({
+      values,
+      hooks: false,
+    });
   }
 }
