@@ -10,6 +10,7 @@ import { ExecutionTime } from './components/ExecutionTime';
 import OpenDrawer from './components/OpenDrawer';
 import { ExecutionLink } from './ExecutionLink';
 import { ExecutionResourceProvider } from './ExecutionResourceProvider';
+import { executionCollection } from './schemas/executions';
 import { collectionWorkflows, workflowSchema } from './schemas/workflows';
 import { WorkflowLink } from './WorkflowLink';
 
@@ -40,7 +41,7 @@ export function WorkflowPane(props) {
 
   const { getTriggersOptions } = usePlugin(WorkflowPlugin);
   return (
-    <ExtendCollectionsProvider collections={[collectionWorkflows]}>
+    <ExtendCollectionsProvider collections={[collectionWorkflows, executionCollection]}>
       <SchemaComponentContext.Provider value={{ ...ctx, designable: false }}>
         <SchemaComponent
           schema={schema}
