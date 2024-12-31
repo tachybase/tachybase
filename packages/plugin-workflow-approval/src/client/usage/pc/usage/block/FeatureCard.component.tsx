@@ -14,8 +14,8 @@ export const FeatureCard = (props) => {
   const [visible, setVisible] = useState(false);
   const { modal } = App.useApp();
   const { t } = useTranslation();
-  const handleSetVisible = (visible) => {
-    if (!visible) {
+  const handleSetVisible = (visible, confirm = false) => {
+    if (confirm && !visible) {
       modal.confirm({
         title: t('Unsaved changes'),
         content: t("Are you sure you don't want to save?"),
