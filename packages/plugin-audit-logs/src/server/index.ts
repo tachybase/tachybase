@@ -9,20 +9,28 @@ export default class PluginActionLogs extends Plugin {
     if (isMainThread) {
       return;
     }
-    // TODO: 测试工作线程这个钩子能不能正常触发
-    this.db.on('afterCreate', afterCreate);
+    // 给工作线程也加监听钩子
+    this.db.on('afterCreate', (model, options) => {
+      afterCreate(model, options, this);
+    });
     this.db.on('afterUpdate', (model, options) => {
       afterUpdate(model, options, this);
     });
-    this.db.on('afterDestroy', afterDestroy);
+    this.db.on('afterDestroy', (model, options) => {
+      afterDestroy(model, options, this);
+    });
   }
 
   async beforeLoad() {
-    this.db.on('afterCreate', afterCreate);
+    this.db.on('afterCreate', (model, options) => {
+      afterCreate(model, options, this);
+    });
     this.db.on('afterUpdate', (model, options) => {
       afterUpdate(model, options, this);
     });
-    this.db.on('afterDestroy', afterDestroy);
+    this.db.on('afterDestroy', (model, options) => {
+      afterDestroy(model, options, this);
+    });
   }
 
   async load() {

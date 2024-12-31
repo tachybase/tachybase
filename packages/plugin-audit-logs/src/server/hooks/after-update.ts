@@ -20,6 +20,12 @@ export async function afterUpdate(model, options, plugin: Plugin) {
       return field.name === key || field.options.field === key;
     });
     if (field && !field.options.hidden) {
+      let before = model.previous(key);
+      let after = model.get(key);
+      // 出现updateById 重复一致的情况导致重复创建
+      if (before === after) {
+        return;
+      }
       changes.push({
         field: field.options,
         after: model.get(key),
