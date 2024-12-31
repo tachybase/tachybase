@@ -38,16 +38,6 @@ export class CreateInstruction extends Instruction {
 
     let created;
     if (node?.config?.useWorker && !transaction && app.worker.available) {
-      created = await plugin.workerWorkflowCreate({
-        dataSourceName,
-        collectionName,
-        origin,
-        token,
-        options,
-        context,
-        transaction,
-      });
-    } else {
       created = await app.worker.callPluginMethod({
         plugin: PluginWorkflowServer,
         method: 'workerWorkflowCreate',
@@ -60,6 +50,16 @@ export class CreateInstruction extends Instruction {
           context,
           transaction,
         },
+      });
+    } else {
+      created = await plugin.workerWorkflowCreate({
+        dataSourceName,
+        collectionName,
+        origin,
+        token,
+        options,
+        context,
+        transaction,
       });
     }
 

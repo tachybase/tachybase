@@ -736,6 +736,6 @@ export default class PluginWorkflowServer extends Plugin {
       context,
       transaction,
     });
-    return result.toJSON();
+    return result.length ?? result;
   }
 }

@@ -1,4 +1,5 @@
 import { parseCollectionName } from '@tachybase/data-source';
+import { Gateway } from '@tachybase/server';
 
 import _ from 'lodash';
 
@@ -25,19 +26,10 @@ export class UpdateInstruction extends Instruction {
     const context = {
       stack: Array.from(new Set((processor.execution.context.stack ?? []).concat(processor.execution.id))),
     };
+    const origin = Gateway.getInstance().runAtLoop;
 
     let result;
     if (node?.config?.useWorker && !transaction && app.worker.available) {
-      result = await plugin.workerWorkflowUpdate({
-        dataSourceName,
-        collectionName,
-        origin,
-        token,
-        options,
-        context,
-        transaction,
-      });
-    } else {
       result = await app.worker.callPluginMethod({
         plugin: PluginWorkflowServer,
         method: 'workerWorkflowUpdate',
@@ -51,10 +43,20 @@ export class UpdateInstruction extends Instruction {
           transaction,
         },
       });
+    } else {
+      result = await plugin.workerWorkflowUpdate({
+        dataSourceName,
+        collectionName,
+        origin,
+        token,
+        options,
+        context,
+        transaction,
+      });
     }
 
     return {
-      result: result.length ?? result,
+      result,
       status: JOB_STATUS.RESOLVED,
     };
   }
