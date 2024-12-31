@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/build",
-  "version": "0.23.19",
+  "version": "0.23.22",
   "description": "Library build tool based on tsup.",
   "license": "Apache-2.0",
   "main": "lib/index.js",
@@ -19,7 +19,7 @@
     "@pnpm/workspace.find-packages": "^1.1.12",
     "@rsbuild/plugin-less": "1.1.0",
     "@rsbuild/plugin-react": "^1.1.0",
-    "@rslib/core": "0.1.5",
+    "@rslib/core": "0.2.2",
     "@vercel/ncc": "0.38.3",
     "@vitejs/plugin-react": "^4.3.4",
     "chalk": "2.4.2",

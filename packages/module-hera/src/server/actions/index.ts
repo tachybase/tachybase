@@ -3,5 +3,3 @@ export * from './token-configuration-controller';
 export * from './plugin-version';
 export * from './link-manager-controller';
 export * from './system-message-controller';
-export * from './departments';
-export * from './users';

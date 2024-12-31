@@ -112,11 +112,10 @@ export class ModuleWeb extends Plugin {
           const requestETag = ctx.get('If-None-Match');
           if (eTag && eTag === requestETag.substring(0, 36)) {
             ctx.status = 304;
-            ctx.set('ETag', requestETag);
+            ctx.res.setHeader('ETag', requestETag);
           } else {
             const newTag = `${eTag}-${requestETag.substring(36 + 1)}`;
-            ctx.set('ETag', newTag);
-            console.log(ctx.get('ETag'));
+            ctx.res.setHeader('ETag', newTag);
           }
           // TODO: 因为有下一个本地化插件,所以这里依然考虑要装载,不直接返回304
           ctx.body = {

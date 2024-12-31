@@ -8,9 +8,9 @@ export enum WorkerEvent {
 export type WorkerEventInputDefault = {
   // 超时时长,默认为300秒
   timeoutSecond?: number;
-  // 同时运行的最大数量,默认不限制, 比如下载大表的plugin@method, 可以限制同时运行的数量为1
+  // 方法同时运行的最大数量,默认不限制, 比如下载大表的plugin@method, 可以限制同时运行的数量为1
   concurrency?: number;
-  // 同时运行的最大数量,默认不限制, 比如下载大表,备份数据库, 可以限制同时运行的数量为1
+  // 所有方法同时运行的最大数量,默认不限制, 比如下载大表,备份数据库, 可以限制同时运行的数量为1
   globalConcurrency?: number;
 };
 

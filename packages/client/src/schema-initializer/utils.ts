@@ -336,7 +336,7 @@ export const useFormItemInitializerFields = (options?: any) => {
         },
         schema,
       } as SchemaInitializerItemType;
-      if (block == 'Kanban') {
+      if (block === 'Kanban') {
         resultItem['find'] = (schema: Schema, key: string, action: string) => {
           const s = findSchema(schema, 'x-component', block);
           return findSchema(s, key, action);
@@ -482,21 +482,30 @@ const getItem = (
   collectionName: string,
   getCollectionFields,
   processedCollections: string[],
+  level: number,
 ) => {
-  if (['m2o', 'obo'].includes(field.interface)) {
+  // TODO 懒加载的形式，这里不应该限制层数，因为实际上添加到界面上进查询条件后性能并不差，只有添加设计界面有性能问题
+  if (level >= 3) {
+    return null;
+  }
+  if (['m2o', 'obo', 'oho', 'o2m', 'm2m'].includes(field.interface)) {
     if (processedCollections.includes(field.target)) return null;
 
     const subFields = getCollectionFields(field.target);
     const options = [];
     subFields.forEach((subField) => {
-      if (['m2o', 'obo'].includes(subField.interface)) {
+      if (['m2o', 'obo', 'oho', 'o2m', 'm2m'].includes(subField.interface)) {
         options.push(getResultSchema(`${schemaName}.${subField.name}`, subField, collectionName));
       }
       options.push(
-        getItem(subField, `${schemaName}.${subField.name}`, collectionName, getCollectionFields, [
-          ...processedCollections,
-          field.target,
-        ]),
+        getItem(
+          subField,
+          `${schemaName}.${subField.name}`,
+          collectionName,
+          getCollectionFields,
+          [...processedCollections, field.target],
+          level + 1,
+        ),
       );
     });
     return {
@@ -543,12 +552,12 @@ const getResultSchema = (schemaName, field, collectionName) => {
 export const useFilterAssociatedFormItemInitializerFields = () => {
   const { name, fields } = useCollection_deprecated();
   const { getCollectionFields } = useCollectionManager_deprecated();
-  const interfaces = ['m2o', 'obo'];
+  const interfaces = ['m2o', 'obo', 'oho', 'o2m', 'm2m'];
   const groups = fields
     ?.filter((field) => {
       return interfaces.includes(field.interface);
     })
-    ?.map((field) => getItem(field, field.name, name, getCollectionFields, []));
+    ?.map((field) => getItem(field, field.name, name, getCollectionFields, [], 0));
   return groups;
 };
 

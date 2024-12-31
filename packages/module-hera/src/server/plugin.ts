@@ -7,7 +7,6 @@ import {
   SystemMessageController,
   TokenConfigurationController,
 } from './actions';
-import { DepartmentsPlugin } from './features/departments';
 import CalcField from './fields/calc';
 import TstzrangeField from './fields/tstzrange';
 
@@ -26,7 +25,6 @@ export class PluginCoreServer extends Plugin {
       calc: CalcField,
       tstzrange: TstzrangeField,
     });
-    this.addFeature(DepartmentsPlugin);
   }
 
   async load() {}

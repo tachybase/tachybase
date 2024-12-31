@@ -32,6 +32,7 @@ export interface ICollection {
   removeField(name: string): void;
   getFields(): Array<IField>;
   getField(name: string): IField;
+  getFieldByField(field: string): IField;
   [key: string]: any;
 }
 export interface IModel {

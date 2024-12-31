@@ -80,6 +80,7 @@ export class PresetTachyBase extends Plugin {
     ['theme-editor', '0.11.1', false],
     ['workflow-approval', '0.22.37', false],
     ['ai-chat', '0.23.8', false],
+    ['department', '0.23.22', false],
   ];
 
   get localPlugins() {

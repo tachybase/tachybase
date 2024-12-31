@@ -5,7 +5,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { App, Button } from 'antd';
 import _ from 'lodash';
 
-import { useTranslation } from '../../../locale';
+import { lang, useTranslation } from '../../../locale';
 import { useBulkDestroyActionAndRefreshCM } from './useBulkDestroyActionAndRefreshCM';
 import { useDestroyActionAndRefreshCM } from './useDestroyActionAndRefreshCM';
 
@@ -31,11 +31,11 @@ export const DeleteCollectionAction = (props) => {
       <ActionContextProvider value={{ visible, setVisible }}>
         {isBulk ? (
           <Button icon={<DeleteOutlined />} onClick={onClick}>
-            {children || t('Delete')}
+            {children || lang('Delete')}
           </Button>
         ) : (
           <a onClick={onClick} {...targetProps}>
-            {children || t('Delete')}
+            {children || lang('Delete')}
           </a>
         )}
       </ActionContextProvider>

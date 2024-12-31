@@ -1,5 +1,6 @@
 export * from './DataTemplates/hooks/useCollectionState';
 export * from './DataTemplates/utils';
+export * from './DataTemplates/FormDataTemplates';
 export * from './GeneralSchemaDesigner';
 export * from './SchemaSettings';
 export * from './hooks/useGetAriaLabelOfDesigner';

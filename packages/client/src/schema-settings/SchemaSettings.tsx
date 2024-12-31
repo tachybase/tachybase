@@ -793,11 +793,11 @@ export interface SchemaSettingsSelectItemProps
   value?: SelectWithTitleProps['defaultValue'];
 }
 export const SchemaSettingsSelectItem: FC<SchemaSettingsSelectItemProps> = (props) => {
-  const { title, options, value, onChange, ...others } = props;
+  const { title, options, value, onChange, fieldNames, ...others } = props;
 
   return (
     <SchemaSettingsItem title={title} {...others}>
-      <SelectWithTitle {...{ title, defaultValue: value, onChange, options }} />
+      <SelectWithTitle {...{ title, defaultValue: value, onChange, options, fieldNames }} />
     </SchemaSettingsItem>
   );
 };

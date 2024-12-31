@@ -3,7 +3,9 @@
   "Current count": "当前数量",
   "Environment count": "环境变量预设数量",
   "Invalid worker count": "无效的线程数",
+  "No worker thread": "当前没有工作线程",
   "Preset count": "预设数量",
+  "The system is currently processing other tasks. Please try again later": "当前系统处理其他事务,请稍后重试",
   "Too many workers": "设置工作线程过多",
   "Worker thread": "工作线程",
   "Worker thread plugin not start": "工作线程插件未启动"

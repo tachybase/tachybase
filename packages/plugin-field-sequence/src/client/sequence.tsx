@@ -16,7 +16,7 @@ import { error } from '@tachybase/utils/client';
 import { Button, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { lang, NAMESPACE } from './locale';
+import { lang, NAMESPACE, tval } from './locale';
 
 function RuleTypeSelect(props) {
   const compile = useCompile();
@@ -168,7 +168,7 @@ const RuleTypes = {
             typeof value === 'undefined'
               ? shortValues[0]
               : shortValues.find((item) => {
-                  return item.cron == value;
+                  return item.cron === value;
                 }) || shortValues[5];
           return (
             <fieldset>
@@ -188,10 +188,19 @@ const RuleTypes = {
     },
   },
   date: {
-    title: `{{t("Date", { ns: "${NAMESPACE}" })}}`,
+    title: tval('Date'),
     optionRenders: {
       format(options = { value: 'YYYYMMDD' }) {
         return <code>{options.value}</code>;
+      },
+    },
+    fieldset: {
+      format: {
+        type: 'string',
+        title: tval('Date format'),
+        'x-decorator': 'FormItem',
+        'x-component': 'Input',
+        default: 'YYYYMMDD',
       },
     },
   },

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/app-rs",
-  "version": "0.23.19",
+  "version": "0.23.22",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -14,7 +14,7 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@rsbuild/core": "^1.1.10",
+    "@rsbuild/core": "^1.1.13",
     "@rsbuild/plugin-babel": "1.0.3",
     "@rsbuild/plugin-less": "1.1.0",
     "@rsbuild/plugin-node-polyfill": "1.2.0",

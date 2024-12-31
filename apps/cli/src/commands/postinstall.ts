@@ -1,6 +1,7 @@
-import { existsSync } from 'fs';
-import { readFile, writeFile } from 'fs/promises';
-import { resolve } from 'path';
+import { existsSync } from 'node:fs';
+import { readFile, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { createDevPluginsSymlink, createStoragePluginsSymlink } from '@tachybase/utils';
 
 import { Command } from 'commander';
 
@@ -12,12 +13,11 @@ export default (cli: Command) => {
     .allowUnknownOption()
     .action(async () => {
       generatePlaywrightPath(true);
-      const utils = await import('@tachybase/utils');
-      await utils.createStoragePluginsSymlink();
+      await createStoragePluginsSymlink();
       if (!isDev()) {
         return;
       }
-      await utils.createDevPluginsSymlink();
+      await createDevPluginsSymlink();
       const cwd = process.cwd();
       if (!existsSync(resolve(cwd, '.env')) && existsSync(resolve(cwd, '.env.example'))) {
         const content = await readFile(resolve(cwd, '.env.example'), 'utf-8');

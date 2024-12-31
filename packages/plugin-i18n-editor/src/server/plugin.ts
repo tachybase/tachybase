@@ -117,7 +117,7 @@ export class LocalizationManagementPlugin extends Plugin {
           return;
         }
         ctx.status = 200;
-        ctx.set('ETag', `${responseETag.substring(0, 36)}-${pluginETag}`);
+        ctx.res.setHeader('ETag', `${responseETag.substring(0, 36)}-${pluginETag}`);
         const custom = await this.resources.getResources(ctx.get('X-Locale') || 'en-US');
         const appLang = ctx.body;
         const resources = { ...appLang.resources };
