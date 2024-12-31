@@ -53,7 +53,7 @@ export const OnlineUserProvider = (props) => {
   return (
     <PinnedPluginListProvider
       items={{
-        ou: { order: 230, component: 'OnlineUserManger', pin: true, isPublic: true },
+        ou: { order: 230, component: 'OnlineUserManger', pin: true, isPublic: true, belongTo: 'pinnedmenu' },
       }}
     >
       <SchemaComponentOptions components={{ OnlineUserManger }}>{props.children}</SchemaComponentOptions>

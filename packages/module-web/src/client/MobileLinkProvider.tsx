@@ -28,7 +28,7 @@ export const MobileLinkProvider = (props) => {
   return (
     <PinnedPluginListProvider
       items={{
-        me: { order: 210, component: 'MobileLink', pin: true, isPublic: true },
+        me: { order: 210, component: 'MobileLink', pin: true, isPublic: true, belongTo: 'pinnedmenu' },
       }}
     >
       <SchemaComponentOptions components={{ MobileLink }}>{props.children}</SchemaComponentOptions>

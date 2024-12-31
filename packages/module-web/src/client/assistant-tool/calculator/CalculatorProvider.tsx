@@ -1,4 +1,4 @@
-import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
+import { PinnedPluginListProvider, SchemaComponentOptions } from '@tachybase/client';
 
 import { CalculatorOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
@@ -21,9 +21,9 @@ const CalculatorButton = () => {
 
 export const CalculatorProvider = (props) => {
   return (
-    <AssistantListProvider
+    <PinnedPluginListProvider
       items={{
-        ca: { order: 300, component: 'CalculatorButton', pin: true, isPublic: true },
+        ca: { order: 300, component: 'CalculatorButton', pin: true, isPublic: true, belongTo: 'hoverbutton' },
       }}
     >
       <SchemaComponentOptions
@@ -33,6 +33,6 @@ export const CalculatorProvider = (props) => {
       >
         {props.children}
       </SchemaComponentOptions>
-    </AssistantListProvider>
+    </PinnedPluginListProvider>
   );
 };

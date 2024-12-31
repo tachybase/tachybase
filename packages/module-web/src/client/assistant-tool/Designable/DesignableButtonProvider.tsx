@@ -1,4 +1,4 @@
-import { AssistantListProvider, Icon, SchemaComponentOptions, useDesignable, useHotkeys } from '@tachybase/client';
+import { Icon, PinnedPluginListProvider, SchemaComponentOptions, useDesignable, useHotkeys } from '@tachybase/client';
 
 import { FloatButton } from 'antd';
 
@@ -18,9 +18,9 @@ const DesignableButton = () => {
 
 export const DesignableButtonProvider = (props) => {
   return (
-    <AssistantListProvider
+    <PinnedPluginListProvider
       items={{
-        db: { order: 60, component: 'DesignableButton', pin: true, snippet: 'ui.*' },
+        db: { order: 60, component: 'DesignableButton', pin: true, snippet: 'ui.*', belongTo: 'hoverbutton' },
       }}
     >
       <SchemaComponentOptions
@@ -30,6 +30,6 @@ export const DesignableButtonProvider = (props) => {
       >
         {props.children}
       </SchemaComponentOptions>
-    </AssistantListProvider>
+    </PinnedPluginListProvider>
   );
 };

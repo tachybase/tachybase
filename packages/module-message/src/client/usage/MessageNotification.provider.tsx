@@ -13,6 +13,7 @@ export const ProviderMessageNotification = (props) => {
           component: 'NotificationLink',
           pin: true,
           isPublic: true,
+          belongTo: 'pinnedmenu',
         },
       }}
     >

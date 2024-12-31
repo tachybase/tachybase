@@ -7,7 +7,8 @@ import { Dropdown, FloatButton, type MenuProps } from 'antd';
 
 import { useApp } from '../../application';
 import { SchemaComponentOptions } from '../../schema-component';
-import { AssistantListProvider } from '../assistant';
+import { PinnedPluginListProvider } from '../pinned-list';
+// import { AssistantListProvider } from '../assistant';
 import { ContextMenuContext, useContextMenu } from './useContextMenu';
 
 const STORAGE_KEYS = {
@@ -85,9 +86,9 @@ const ContextMenuButton = () => {
 
 export const ContextMenuButtonProvider = (props) => {
   return (
-    <AssistantListProvider
+    <PinnedPluginListProvider
       items={{
-        cm: { order: 90, component: 'ContextMenuButton', pin: true, isPublic: true },
+        cm: { order: 90, component: 'ContextMenuButton', pin: true, isPublic: true, belongTo: 'hoverbutton' },
       }}
     >
       <SchemaComponentOptions
@@ -97,6 +98,6 @@ export const ContextMenuButtonProvider = (props) => {
       >
         {props.children}
       </SchemaComponentOptions>
-    </AssistantListProvider>
+    </PinnedPluginListProvider>
   );
 };

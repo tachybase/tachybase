@@ -1,4 +1,4 @@
-import { AssistantListProvider, SchemaComponentOptions, useHotkeys } from '@tachybase/client';
+import { PinnedPluginListProvider, SchemaComponentOptions, useHotkeys } from '@tachybase/client';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
@@ -15,9 +15,9 @@ const SearchAndJumpButton = () => {
 
 export const SearchAndJumpProvider = (props) => {
   return (
-    <AssistantListProvider
+    <PinnedPluginListProvider
       items={{
-        saj: { order: 30, component: 'SearchAndJumpButton', pin: true, snippet: 'pm.*' },
+        saj: { order: 30, component: 'SearchAndJumpButton', pin: true, snippet: 'pm.*', belongTo: 'hoverbutton' },
       }}
     >
       <SchemaComponentOptions
@@ -27,6 +27,6 @@ export const SearchAndJumpProvider = (props) => {
       >
         {props.children}
       </SchemaComponentOptions>
-    </AssistantListProvider>
+    </PinnedPluginListProvider>
   );
 };

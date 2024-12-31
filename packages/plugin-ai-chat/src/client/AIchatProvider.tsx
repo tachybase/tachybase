@@ -1,5 +1,5 @@
 import React from 'react';
-import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
+import { PinnedPluginListProvider, SchemaComponentOptions } from '@tachybase/client';
 
 import { CommentOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
@@ -21,9 +21,9 @@ const AIChatButton = () => {
 
 export const AIchatProvider = (props) => {
   return (
-    <AssistantListProvider
+    <PinnedPluginListProvider
       items={{
-        ai: { order: 330, component: 'AIChatButton', pin: true, isPublic: true },
+        ai: { order: 330, component: 'AIChatButton', pin: true, isPublic: true, belongTo: 'hoverbutton' },
       }}
     >
       <SchemaComponentOptions
@@ -33,6 +33,6 @@ export const AIchatProvider = (props) => {
       >
         {props.children}
       </SchemaComponentOptions>
-    </AssistantListProvider>
+    </PinnedPluginListProvider>
   );
 };
