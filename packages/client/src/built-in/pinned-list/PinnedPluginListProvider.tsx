@@ -32,21 +32,25 @@ const useStyles = createStyles(({ css }) => {
           background: rgba(255, 255, 255, 0.1) !important;
         }
       }
+      .ant-float-btn {
+        margin-bottom: 16px;
+      }
     `,
   };
 });
 
-export const PinnedPluginList = () => {
+export const PinnedPluginList = ({ belongToFilter }) => {
   const { allowAll, snippets } = useACLRoleContext();
   const getSnippetsAllow = (aclKey, isPublic = false) => {
     return allowAll || isPublic || snippets?.includes(aclKey);
   };
-  const { styles } = useStyles();
+  const { styles } = useStyles(belongToFilter);
   const ctx = useContext(PinnedPluginListContext);
   const { components } = useContext(SchemaOptionsContext);
   return (
     <div className={styles.container}>
       {Object.keys(ctx.items)
+        .filter((key) => ctx.items[key].belongTo === belongToFilter)
         .sort((a, b) => ctx.items[a].order - ctx.items[b].order)
         .filter((key) => getSnippetsAllow(ctx.items[key].snippet, ctx.items[key].isPublic))
         .map((key) => {

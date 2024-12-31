@@ -7,7 +7,7 @@ export const SearchAndJumpContext = createContext({
   setOpen: (open: boolean | ((open: boolean) => boolean)) => {},
 });
 
-export const SearchAndJumpProvider = ({ children }) => {
+export const SearchAndJumpModalProvider = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
