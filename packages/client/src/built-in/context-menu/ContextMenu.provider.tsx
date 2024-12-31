@@ -77,7 +77,8 @@ const ContextMenuButton = () => {
   return (
     <FloatButton
       type={contextMenuEnabled ? 'primary' : 'default'}
-      icon={<ToolOutlined onClick={() => setContextMenuEnable(!contextMenuEnabled)} />}
+      icon={<ToolOutlined />}
+      onClick={() => setContextMenuEnable(!contextMenuEnabled)}
     />
   );
 };

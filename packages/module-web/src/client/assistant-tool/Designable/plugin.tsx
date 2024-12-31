@@ -1,4 +1,5 @@
-import { Plugin } from '../../../application/Plugin';
+import { Plugin } from '@tachybase/client';
+
 import { DesignableButtonProvider } from './DesignableButtonProvider';
 
 export class PluginDesignableButton extends Plugin {

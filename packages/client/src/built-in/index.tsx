@@ -27,9 +27,6 @@ import { ACLPlugin } from './acl/ACLPlugin';
 import { AdminLayoutPlugin } from './admin-layout/AdminLayoutPlugin';
 import { WelcomeCard } from './admin-layout/components/WelcomeCard';
 import { PluginAssistant } from './assistant';
-import PluginCalculator from './assistant/calculator/plugin';
-import PluginDesignableButton from './assistant/Designable/plugin';
-import PluginSearchAndJump from './assistant/search-and-jump/plugin';
 import { AttachmentPreviewPlugin } from './attachment-preview';
 import { PluginBlockSchemaComponent } from './block-schema-component';
 import { PluginContextMenu } from './context-menu';
@@ -420,46 +417,7 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(PMPlugin, { name: 'builtin-pm' });
     await this.app.pm.add(CollectionPlugin, { name: 'builtin-collection' });
     await this.app.pm.add(PluginContextMenu, { name: 'context-menu' });
-    await this.app.pm.add(PluginAssistant, {
-      name: 'assistant',
-      config: {
-        items: {
-          saj: {
-            order: 30,
-            component: 'SearchAndJumpButton',
-            pin: true,
-            snippet: 'pm.*',
-          },
-          db: {
-            order: 60,
-            component: 'DesignableButton',
-            pin: true,
-            snippet: 'ui.*',
-          },
-          cm: {
-            order: 90,
-            component: 'ContextMenuButton',
-            pin: true,
-            isPublic: true,
-          },
-          ca: {
-            order: 300,
-            component: 'CalculatorButton',
-            pin: true,
-            isPublic: true,
-          },
-          ai: {
-            order: 330,
-            component: 'AIChatButton',
-            pin: true,
-            isPublic: true,
-          },
-        },
-      },
-    });
-    await this.app.pm.add(PluginCalculator, { name: 'calculator' });
-    await this.app.pm.add(PluginSearchAndJump, { name: 'SearchAndJump' });
-    await this.app.pm.add(PluginDesignableButton, { name: 'Designable' });
+    await this.app.pm.add(PluginAssistant, { name: 'assistant' });
     await this.app.pm.add(UserSettingsPlugin, { name: 'user-settings' });
     await this.app.pm.add(AttachmentPreviewPlugin, { name: 'attachment-preview' });
     await this.app.pm.add(PluginPageStyle, { name: 'page-style' });

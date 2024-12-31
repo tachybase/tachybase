@@ -1,10 +1,8 @@
-// import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
+import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
 
 import { CalculatorOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 
-import { SchemaComponentOptions } from '../../../schema-component';
-import { AssistantListProvider } from '../Assistant.provider';
 import { useCalculator } from './CalculatorModalProvider';
 
 const CalculatorButton = () => {

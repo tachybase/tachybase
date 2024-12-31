@@ -1,4 +1,5 @@
-import { Plugin } from '../../../application/Plugin';
+import { Plugin } from '@tachybase/client';
+
 import { CalculatorModalProvider } from './CalculatorModalProvider';
 import { CalculatorProvider } from './CalculatorProvider';
 
