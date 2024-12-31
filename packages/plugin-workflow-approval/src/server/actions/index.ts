@@ -1,4 +1,4 @@
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../common/collection-name';
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../common/constants';
 import { approvalCarbonCopy } from './approvalCarbonCopy';
 import { approvalRecords } from './approvalRecords';
 import { approvals } from './approvals';
