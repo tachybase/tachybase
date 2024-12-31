@@ -1,9 +1,9 @@
-import { AssistantListProvider, SchemaComponentOptions, useDesignable } from '@tachybase/client';
-
 import { FloatButton } from 'antd';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 import { Icon } from '../../../icon';
+import { SchemaComponentOptions, useDesignable } from '../../../schema-component';
+import { AssistantListProvider } from '../Assistant.provider';
 
 const DesignableButton = () => {
   const { designable, setDesignable } = useDesignable();

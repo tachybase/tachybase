@@ -1,8 +1,10 @@
-import { AssistantListProvider, SchemaComponentOptions, useHotkeys } from '@tachybase/client';
-
+// import { AssistantListProvider, SchemaComponentOptions, useHotkeys } from '@tachybase/client';
 import { SearchOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
+import { useHotkeys } from 'react-hotkeys-hook';
 
+import { SchemaComponentOptions } from '../../../schema-component';
+import { AssistantListProvider } from '../Assistant.provider';
 import { useSearchAndJump } from './SearchAndJumpModelProvider';
 
 const SearchAndJumpButton = () => {

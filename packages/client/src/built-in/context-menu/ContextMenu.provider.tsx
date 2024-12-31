@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
 
+// import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
 import { ToolOutlined } from '@ant-design/icons';
 import { useLocalStorageState } from 'ahooks';
 import { Dropdown, FloatButton, type MenuProps } from 'antd';
 
 import { useApp } from '../../application';
+import { SchemaComponentOptions } from '../../schema-component';
+import { AssistantListProvider } from '../assistant';
 import { ContextMenuContext, useContextMenu } from './useContextMenu';
 
 const STORAGE_KEYS = {

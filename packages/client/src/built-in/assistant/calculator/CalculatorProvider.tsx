@@ -1,23 +1,13 @@
-// import React, { createContext, useContext, useState } from 'react';
-
-// import { createPortal } from 'react-dom';
-
-// import { CalculatorWrapper } from './Calculator';
-// import { Draggable } from './Draggable';
-// import { useStyles } from './style';
-import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
+// import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
 
 import { CalculatorOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 
+import { SchemaComponentOptions } from '../../../schema-component';
+import { AssistantListProvider } from '../Assistant.provider';
 import { useCalculator } from './CalculatorModalProvider';
 
-// export const useCalculator = () => {
-//   return useContext(CalculatorContext);
-// };
-
 const CalculatorButton = () => {
-  // const { setVisible } = useCalculator();
   const { visible, setVisible } = useCalculator();
 
   return (

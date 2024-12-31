@@ -7,8 +7,8 @@ import { Draggable } from './Draggable';
 import { useStyles } from './style';
 
 export interface CalculatorProps {
-  visible: any;
-  setVisible: any;
+  visible: boolean;
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CalculatorContext = createContext<Partial<CalculatorProps>>({});
