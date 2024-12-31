@@ -27,12 +27,12 @@ export const FeatureCard = (props) => {
       setVisible(visible);
     }
   };
-  const handleClick = () => {
+  const openDrawer = () => {
     setVisible(true);
   };
   return (
     <>
-      <div className={styles.featureCard} onClick={handleClick}>
+      <div className={styles.featureCard} onClick={openDrawer}>
         <div className="icon-wrapper" style={{ backgroundColor: color ?? '#e5e5e5' }}>
           <Icon className="icon" type={icon ?? 'AppstoreOutlined'} style={{ color: color ?? '#e5e5e5' }} />
         </div>
