@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
 
-import KitApprovalUsage from './usage/plugin';
+import KitApprovalUsage from './usage/kit';
 
 export class KitApprovalPC extends Plugin {
   async afterAdd() {
