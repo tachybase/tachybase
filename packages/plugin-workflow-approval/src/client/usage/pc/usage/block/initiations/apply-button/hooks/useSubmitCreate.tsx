@@ -39,7 +39,7 @@ export function useSubmitCreate() {
           },
         });
 
-        setVisible(false);
+        setVisible(false, false);
         form.reset();
         field.data.loading = false;
         const service = __parent.service;

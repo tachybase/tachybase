@@ -35,7 +35,7 @@ export const InternalAdminLayout = (props: any) => {
             </div>
           </div>
           <div className={styles.right}>
-            <PinnedPluginList />
+            <PinnedPluginList belongToFilter="pinnedmenu" />
             <CurrentUser />
           </div>
         </div>

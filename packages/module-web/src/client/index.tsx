@@ -3,6 +3,9 @@ import { createRouterManager, Plugin, RouterManager } from '@tachybase/client';
 
 import { Navigate } from 'react-router-dom';
 
+import PluginCalculator from './assistant-tool/calculator/plugin';
+import PluginDesignableButton from './assistant-tool/Designable/plugin';
+import PluginSearchAndJump from './assistant-tool/search-and-jump/plugin';
 import {
   ImageSearchConfigureFields,
   ImageSearchItemFieldSettings,
@@ -23,6 +26,9 @@ export class ModuleWeb extends Plugin {
 
   async afterAdd() {
     this.pm.add(PluginDataSelect, { name: 'plugin-data-select' });
+    this.app.pm.add(PluginSearchAndJump, { name: 'SearchAndJump' });
+    this.app.pm.add(PluginDesignableButton, { name: 'Designable' });
+    this.app.pm.add(PluginCalculator, { name: 'calculator' });
   }
   async load() {
     this.setMobileRouter();

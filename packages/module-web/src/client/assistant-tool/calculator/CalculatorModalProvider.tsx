@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
@@ -7,8 +7,8 @@ import { Draggable } from './Draggable';
 import { useStyles } from './style';
 
 export interface CalculatorProps {
-  visible: any;
-  setVisible: any;
+  visible: boolean;
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CalculatorContext = createContext<Partial<CalculatorProps>>({});
@@ -16,7 +16,7 @@ export const useCalculator = () => {
   return useContext(CalculatorContext);
 };
 
-export const CalculatorProvider = ({ children }) => {
+export const CalculatorModalProvider = ({ children }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const { styles } = useStyles();
   return (
