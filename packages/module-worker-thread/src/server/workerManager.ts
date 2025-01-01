@@ -322,7 +322,7 @@ export class WorkerManager {
           clearTimeout(timeout);
           worker.off('message', handleMessage);
           worker.off('error', handleError);
-          this.handleWorkerCompletion(worker, reqId, resolve, message.result);
+          this.handleWorkerCompletion(worker, reqId, resolve, message.result, reject, message.error);
         }
       };
 

@@ -18,6 +18,22 @@ const loggerOptions = {
   },
 } as AppLoggerOptions;
 
+/**
+ * 重新加载用户自定义表
+ * @param app
+ */
+async function reloadCustomCollections(app: Application) {
+  const customCollections = await app.db.getRepository<CollectionRepository>('collections').load();
+  for (const [key, collection] of app.db.collections) {
+    const dumpRules = collection.options.dumpRules as any;
+    if (dumpRules?.group === 'custom') {
+      if (!customCollections.includes(collection.name)) {
+        app.db.collections.delete(collection.name);
+      }
+    }
+  }
+}
+
 const handleWorkerMessages = (app: Application) => {
   if (isMainThread) {
     return;
@@ -30,8 +46,11 @@ const handleWorkerMessages = (app: Application) => {
     const { reqId, event } = message;
     if (event === WorkerEvent.PluginMethod) {
       try {
-        const { plugin, method, params } = message.values;
+        const { plugin, method, params, reloadCols = true } = message.values;
         const appPlugin = app.pm.get(plugin);
+        if (reloadCols) {
+          await reloadCustomCollections(app);
+        }
         const result = await appPlugin[method](params);
         app.logger.info(`[worker] output ${result}`);
         parentPort.postMessage({
