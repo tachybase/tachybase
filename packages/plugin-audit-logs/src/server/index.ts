@@ -57,6 +57,7 @@ export default class PluginActionLogs extends Plugin {
         plugin: this.name,
         method: 'workerCreateAuditLog',
         params: values,
+        reloadCols: false,
       });
     }
   }
