@@ -20,7 +20,7 @@ import {
 import { listUsersIncludeChildDepartment } from './middlewares/list-users-include-child-department';
 import { DepartmentModel } from './models/department';
 
-export class ModuleDepartmentServer extends Plugin {
+export class PluginDepartmentServer extends Plugin {
   beforeLoad() {
     this.app.db.registerModels({ DepartmentModel });
     this.app.acl.addFixedParams('collections', 'destroy', () => {
@@ -123,4 +123,4 @@ export class ModuleDepartmentServer extends Plugin {
   }
 }
 
-export default ModuleDepartmentServer;
+export default PluginDepartmentServer;

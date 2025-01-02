@@ -244,11 +244,16 @@ export class Dumper extends AppMigrator {
       });
       Dumper.dumpTasks.set(backupFileName, promise);
     } else {
-      await this.dump({
-        groups: options.groups,
-        fileName: backupFileName,
-      });
-      await this.cleanLockFile(backupFileName);
+      try {
+        await this.dump({
+          groups: options.groups,
+          fileName: backupFileName,
+        });
+      } catch (err) {
+        throw err;
+      } finally {
+        this.cleanLockFile(backupFileName);
+      }
       // 工作线程无法通知备份完成
     }
 

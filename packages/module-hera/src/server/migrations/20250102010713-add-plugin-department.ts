@@ -14,13 +14,13 @@ export default class extends Migration {
     // 开启hera的也必须开启department
     await this.pm.repository.update({
       filter: {
-        packageName: '@tachybase/module-department',
+        packageName: '@tachybase/plugin-department',
       },
       values: {
         installed: true,
         enabled: true,
       },
     });
-    this.app.logger.info('enable module-department success!');
+    this.app.logger.info('enable plugin-department success!');
   }
 }

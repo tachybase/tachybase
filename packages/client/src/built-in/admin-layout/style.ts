@@ -87,18 +87,11 @@ export const useStyles = createStyles(({ css, token }) => {
     `,
     sider: css`
       height: 100%;
-      /* position: fixed; */
       position: relative;
       left: 0;
       top: 0;
       background: rgba(0, 0, 0, 0);
       z-index: 100;
-      .ant-layout-sider-children {
-        top: var(--tb-header-height);
-        position: fixed;
-        width: 200px;
-        height: calc(100vh - var(--tb-header-height));
-      }
     `,
     main: css`
       display: flex;

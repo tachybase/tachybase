@@ -125,7 +125,6 @@ export default {
           });
           app.noticeManager.notify('backup', { level: 'info', msg: ctx.t('Done') });
         } catch (error) {
-          ctx.logger.warn(error);
           ctx.throw(500, ctx.t(error.message, { ns: 'worker-thread' }));
         }
       } else {

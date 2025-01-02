@@ -32,9 +32,12 @@ export class CollectionRepository extends Repository {
 
     const viewCollections = [];
 
+    const customCollections = [];
+
     // set all graph nodes
     for (const instance of instances) {
       graph.setNode(instance.get('name'));
+      customCollections.push(instance.get('name'));
       if (instance.get('view') || instance.get('sql')) {
         viewCollections.push(instance.get('name'));
       }
@@ -122,6 +125,8 @@ export class CollectionRepository extends Repository {
       this.app?.setMaintainingMessage(`load ${collectionName} collection fields`);
       await nameMap[collectionName].loadFields({ includeFields: skipField });
     }
+
+    return customCollections;
   }
 
   async db2cm(collectionName: string) {
