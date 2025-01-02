@@ -21,7 +21,7 @@ const TransformInternal = ({ noTransformWrapper = false, children }) => {
   return noTransformWrapper ? (
     children
   ) : (
-    <TransformWrapper minScale={1} maxScale={5} initialScale={1} limitToBounds={true} centerZoomedOut={true}>
+    <TransformWrapper>
       <TransformComponent>{children}</TransformComponent>
     </TransformWrapper>
   );
@@ -41,26 +41,12 @@ const CheckedComponent = (props) => {
   const onDocumentLoadSuccess = async (params) => {
     const { numPages, _transport } = params;
     // 根据显示容器的宽度, 动态适配 canvas 的宽高比;
-    const containerWidth = containerRef?.current?.offsetWidth;
-    const containerHeight = containerRef?.current?.offsetHeight;
-
+    const containerWidth = containerRef.current?.offsetWidth;
     const page = await _transport.getPage(1);
-    const originalViewport = page.getViewport({ scale: 1 });
-    // const originalWidth = page.getViewport({ scale: 1 }).width;
-    const originalHeight = originalViewport.height;
-    const originalWidth = originalViewport.width;
-
-    // const scale = containerWidth / originalWidth;
-
-    // 判断 PDF 的宽度或高度是否超过某个阈值
-    const isLargePdf = originalWidth > 800 || originalHeight > 1200;
-
-    // 如果超出阈值，使用 1:1 缩放；否则，动态缩放适配容器
-    const scale = isLargePdf
-      ? 1 // 如果是大文件，使用 1:1 缩放
-      : Math.min(containerWidth / originalWidth, containerHeight / originalHeight);
-
+    const originalWidth = page.getViewport({ scale: 1 }).width;
+    const scale = containerWidth / originalWidth;
     const viewport = page.getViewport({ scale });
+
     setNumPages(numPages);
     setPdfWidth(viewport.width);
   };
@@ -80,17 +66,15 @@ const CheckedComponent = (props) => {
       onLoadSuccess={onDocumentLoadSuccess}
     >
       <TransformInternal noTransformWrapper={noTransformWrapper}>
-        <div>
-          {Array.from(new Array(numPages), (el, index) => (
-            <Page key={`page_${index + 1}`} pageNumber={index + 1} width={width || pdfWidth}>
-              <div className={styles.footer}>
-                <Tag className={styles.footerText} bordered={false}>
-                  {index + 1}/{numPages}
-                </Tag>
-              </div>
-            </Page>
-          ))}
-        </div>
+        {Array.from(new Array(numPages), (el, index) => (
+          <Page key={`page_${index + 1}`} pageNumber={index + 1} width={width || pdfWidth}>
+            <div className={styles.footer}>
+              <Tag className={styles.footerText} bordered={false}>
+                {index + 1}/{numPages}
+              </Tag>
+            </div>
+          </Page>
+        ))}
       </TransformInternal>
     </Document>
   );
