@@ -81,9 +81,9 @@ export const useStyles = createStyles(({ css, token }) => {
       flex: 1 1 auto;
       display: flex;
       width: 0;
-      overflow-x: scroll;
-      overflow-y: hidden;
-      scrollbar-width: none;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0;
     `,
     notice: css`
       flex: 1;
