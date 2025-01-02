@@ -26,8 +26,7 @@ export const useStyles = createStyles(({ css, token }) => {
       overflow: hidden;
 
       background-image: none;
-
-      background: rgba(0, 0, 0, 0.04);
+      background: transparent;
       color: rgba(255, 255, 255, 0.88);
 
       font-size: 14px;
@@ -41,6 +40,10 @@ export const useStyles = createStyles(({ css, token }) => {
       cursor: pointer;
 
       transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+      &.active {
+        background-color: rgba(0, 0, 0, 0.07);
+      }
 
       .tab-text {
         min-width: 5px;

@@ -13,17 +13,7 @@ import { useStyles } from './TabHeader.style';
 export const Tag = ({ onClick, onClose, children, active }) => {
   const { styles } = useStyles();
   return (
-    <span
-      onClick={onClick}
-      className={cx(
-        styles.tabHeader,
-        active
-          ? ''
-          : css`
-              background: transparent;
-            `,
-      )}
-    >
+    <span onClick={onClick} className={cx(styles.tabHeader, { active })}>
       <span className="tab-text">{children}</span>
       <Button
         className={css`
