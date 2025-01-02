@@ -3,7 +3,25 @@ import { Checkbox, DatePicker, useAPIClient, useCompile, useNoticeSub } from '@t
 import { FormItem } from '@tachybase/components';
 
 import { InboxOutlined, LoadingOutlined, PlusOutlined, ReloadOutlined, UploadOutlined } from '@ant-design/icons';
-import { Alert, App, Button, Card, Divider, message, Modal, Space, Spin, Table, Tabs, Upload, UploadProps } from 'antd';
+import {
+  Alert,
+  App,
+  Button,
+  Card,
+  Col,
+  Divider,
+  Dropdown,
+  Menu,
+  message,
+  Modal,
+  Row,
+  Space,
+  Spin,
+  Table,
+  Tabs,
+  Upload,
+  UploadProps,
+} from 'antd';
 import { saveAs } from 'file-saver';
 
 import { useDuplicatorTranslation } from './locale';
@@ -253,6 +271,7 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
   };
 
   const handleOk = (method) => {
+    
     apiClient
       .request({
         url: 'backupFiles:create',
@@ -299,18 +318,32 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
         // onOk={handleOk}
         onCancel={handleCancel}
         footer={[
-          // 保留默认的 onCancel 按钮
-          <Button key="cancel" onClick={handleCancel}>
-            {t('Cancel')}
-          </Button>,
-          // 明确使用工作线程备份
-          <Button key="custom" type="primary" onClick={() => handleOk('worker')}>
-            {t('Worker backup')}
-          </Button>,
-          // 明确使用自身线程备份
-          <Button key="ok" onClick={() => handleOk('main')}>
-            {t('Self backup')}
-          </Button>,
+          <Row gutter={16} justify="end" align="middle">
+            <Col>
+              <Button key="cancel" onClick={handleCancel}>
+                {t('Cancel')}
+              </Button>
+            </Col>
+            <Col>
+              <Dropdown.Button
+                key="submit"
+                type="primary"
+                onClick={() => handleOk('priority')}
+                overlay={
+                  <Menu>
+                    <Menu.Item key="main" onClick={() => handleOk('main')}>
+                      {t('Self backup')}
+                    </Menu.Item>
+                    <Menu.Item key="worker" onClick={() => handleOk('worker')}>
+                      {t('Worker backup')}
+                    </Menu.Item>
+                  </Menu>
+                }
+              >
+                {t('Backup')}
+              </Dropdown.Button>
+            </Col>
+          </Row>,
         ]}
       >
         <strong style={{ fontWeight: 600, display: 'block', margin: '16px 0 8px' }}>

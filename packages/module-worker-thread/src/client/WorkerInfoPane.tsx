@@ -47,6 +47,31 @@ const resetWorkerCount = () => {
   };
 };
 
+const restartAllForcely = () => {
+  const { setVisible } = useActionContext();
+  const { message } = App.useApp();
+  const api = useAPIClient();
+  const { t } = useTranslation();
+  return {
+    async run() {
+      const hide = message.loading(t('Restarting all...'), 0);
+      try {
+        await api.request({
+          url: 'worker_thread:restartAllForcely',
+          method: 'post',
+          data: {},
+        });
+        message.success(t('Restart all successfully'));
+      } catch (e) {
+        message.error(e.message);
+      } finally {
+        hide();
+      }
+      setVisible(false);
+    },
+  };
+};
+
 const schema: ISchema = {
   type: 'object',
   properties: {
@@ -116,7 +141,52 @@ const schema: ISchema = {
                 useAction: '{{ useRefresh }}',
               },
             },
+            restartAllForcely: {
+              title: i18nText('Restart all forcely'),
+              // 改为confirm按钮
+              'x-component': 'Action',
+              'x-component-props': {
+                type: 'default',
+                useAction: restartAllForcely,
+                confirm: {
+                  title: i18nText('Restart all forcely'),
+                  content: i18nText(
+                    'Are you sure you want to restart all worker threads? All worker threads that are currently processing main thread tasks will be immediately terminated',
+                  ),
+                },
+              },
+            },
           },
+        },
+        // 添加说明文本
+        helpText1: {
+          type: 'void',
+          'x-component': 'div',
+          'x-component-props': {
+            style: {
+              color: 'grey',
+              fontSize: '12px',
+              marginTop: '10px',
+            },
+          },
+          'x-content': i18nText(
+            'If the current preset count is less than the number of worker threads, it will wait for the worker threads to be idle before exiting',
+          ),
+        },
+        // 添加说明文本
+        helpText2: {
+          type: 'void',
+          'x-component': 'div',
+          'x-component-props': {
+            style: {
+              color: 'red',
+              fontSize: '12px',
+              marginTop: '10px',
+            },
+          },
+          'x-content': i18nText(
+            'The modification will not be refreshed immediately, please wait patiently for about 10 seconds, or click the refresh button to view the latest data',
+          ),
         },
       },
     },
