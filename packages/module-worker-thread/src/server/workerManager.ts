@@ -63,6 +63,7 @@ export class WorkerManager {
     }
     if (workerNum !== undefined) {
       this.workerNum = workerNum;
+      this.workerNumPreset = workerNum;
     }
 
     this.databaseOptions = copyBasicTypes(app.db.options);
@@ -122,8 +123,10 @@ export class WorkerManager {
 
       worker.on('exit', async (code) => {
         if (code === 0 || code === 1) {
+          this.app.logger.debug(`[worker] terminated with code ${code}`);
           return;
         }
+        // 异常退出需要重启
         this.errorRecoveryTimes++;
         this.app.logger.error(`Worker stopped with exit code ${code}, times: ${this.errorRecoveryTimes}`);
         if (this.errorRecoveryTimes >= WORKER_ERROR_RETRY) {
@@ -176,6 +179,17 @@ export class WorkerManager {
         this.addWorker();
       }
     }
+  }
+
+  /** 强制重启所有线程 */
+  public async restartAllForcely() {
+    if (!isMainThread) {
+      return;
+    }
+    const workerNum = this.workerNum;
+    await this.clear();
+    this.workerNum = workerNum;
+    await this.initWorkers();
   }
 
   /**
@@ -317,11 +331,13 @@ export class WorkerManager {
       let timeout;
       let handleMessage;
       let handleError;
+      let handleExit;
       handleMessage = (message) => {
         if (message.reqId === reqId) {
           clearTimeout(timeout);
           worker.off('message', handleMessage);
           worker.off('error', handleError);
+          worker.off('exit', handleExit);
           this.handleWorkerCompletion(worker, reqId, resolve, message.result);
         }
       };
@@ -330,6 +346,16 @@ export class WorkerManager {
         clearTimeout(timeout);
         worker.off('message', handleMessage);
         worker.off('error', handleError);
+        worker.off('exit', handleExit);
+        this.handleWorkerCompletion(worker, reqId, resolve, undefined, reject, error);
+      };
+
+      handleExit = (code) => {
+        clearTimeout(timeout);
+        worker.off('message', handleMessage);
+        worker.off('error', handleError);
+        worker.off('exit', handleExit);
+        const error = new Error(`Worker stopped with exit code ${code}`);
         this.handleWorkerCompletion(worker, reqId, resolve, undefined, reject, error);
       };
 
@@ -351,6 +377,7 @@ export class WorkerManager {
 
       worker.on('message', handleMessage);
       worker.on('error', handleError);
+      worker.on('exit', handleExit);
 
       worker.postMessage({
         reqId,

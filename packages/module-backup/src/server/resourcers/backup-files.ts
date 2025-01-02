@@ -108,7 +108,7 @@ export default {
       let taskId;
       const app = ctx.app as Application;
       if (data.method === 'worker') {
-        if (!app.worker.available) {
+        if (!app.worker?.available) {
           ctx.throw(500, ctx.t('No worker thread', { ns: 'worker-thread' }));
           return next();
         }

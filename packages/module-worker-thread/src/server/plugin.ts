@@ -24,7 +24,7 @@ export class ModuleWorkerThreadServer extends Plugin {
       return;
     }
 
-    // 启动时创建工作线程的数量
+    // 启动时创建工作线程的数量, TODO: 后续支持子应用自行设置自己的工作线程数量
     const workerCount = this.app.name === 'main' ? WORKER_COUNT : WORKER_COUNT_SUB;
     this.app.on('afterStart', async () => {
       if (this.app.worker) {
