@@ -77,10 +77,13 @@ export const useStyles = createStyles(({ css, token }) => {
       height: 100%;
       z-index: 10;
     `,
-    editor: css`
+    headerTabs: css`
       flex: 1 1 auto;
-      width: 0;
       display: flex;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0;
     `,
     notice: css`
       flex: 1;
