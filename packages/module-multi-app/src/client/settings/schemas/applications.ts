@@ -2,7 +2,9 @@ import React from 'react';
 import {
   SchemaComponentOptions,
   useActionContext,
-  useRecord,
+  useCollectionRecordData,
+  useDataBlockRequest,
+  useDataBlockResource,
   useRequest,
   useResourceActionContext,
   useResourceContext,
@@ -11,7 +13,7 @@ import { ISchema, uid } from '@tachybase/schema';
 
 import { i18nText } from '../../utils';
 
-const collection = {
+const collectionMultiApp = {
   name: 'applications',
   targetKey: 'name',
   fields: [
@@ -81,41 +83,6 @@ const collection = {
       },
     },
   ],
-};
-
-export const useDestroy = () => {
-  const { refresh } = useResourceActionContext();
-  const { resource, targetKey } = useResourceContext();
-  const { [targetKey]: filterByTk } = useRecord();
-  return {
-    async run() {
-      await resource.destroy({ filterByTk });
-      refresh();
-    },
-  };
-};
-
-export const useRefresh = () => {
-  const { refresh } = useResourceActionContext();
-  return {
-    run() {
-      refresh();
-    },
-  };
-};
-
-export const useDestroyAll = () => {
-  const { state, setState, refresh } = useResourceActionContext();
-  const { resource } = useResourceContext();
-  return {
-    async run() {
-      await resource.destroy({
-        filterByTk: state?.selectedRowKeys || [],
-      });
-      setState?.({ selectedRowKeys: [] });
-      refresh();
-    },
-  };
 };
 
 export const formSchema: ISchema = {
@@ -232,7 +199,6 @@ export const tableActionColumnSchema: ISchema = {
       type: 'void',
       title: '{{t("Edit")}}',
       'x-component': 'Action.Link',
-      'x-component-props': {},
       properties: {
         drawer: {
           type: 'void',
@@ -251,16 +217,15 @@ export const tableActionColumnSchema: ISchema = {
                 cancel: {
                   title: '{{t("Cancel")}}',
                   'x-component': 'Action',
-                  'x-component-props': {
-                    useAction: '{{ cm.useCancelAction }}',
-                  },
+                  'x-use-component-props': 'useCancelActionProps',
                 },
                 submit: {
                   title: '{{t("Submit")}}',
+                  'x-action': 'submit',
                   'x-component': 'Action',
+                  'x-use-component-props': 'useMultiAppUpdateAction',
                   'x-component-props': {
                     type: 'primary',
-                    useAction: '{{ cm.useUpdateAction }}',
                   },
                 },
               },
@@ -273,42 +238,36 @@ export const tableActionColumnSchema: ISchema = {
       type: 'void',
       title: '{{ t("Delete") }}',
       'x-component': 'Action.Link',
+      'x-decorator': 'ACLActionProvider',
+      'x-use-component-props': 'useDestroyActionProps',
       'x-component-props': {
         confirm: {
           title: "{{t('Delete')}}",
           content: "{{t('Are you sure you want to delete it?')}}",
         },
-        useAction: '{{cm.useDestroyAction}}',
       },
     },
   },
 };
 
 export const schema: ISchema = {
-  type: 'object',
+  type: 'void',
   properties: {
-    [uid()]: {
+    provider: {
       type: 'void',
-      'x-decorator': 'ResourceActionProvider',
+      'x-decorator': 'TableBlockProvider',
       'x-decorator-props': {
-        collection,
-        resourceName: 'applications',
-        request: {
-          resource: 'applications',
-          action: 'list',
-          params: {
-            pageSize: 50,
-            sort: ['-createdAt'],
-            appends: [],
-            filter: {
-              createdById: '{{ admin ? undefined : userId }}',
-            },
+        collection: collectionMultiApp,
+        action: 'list',
+        params: {
+          pageSize: 50,
+          sort: ['-createdAt'],
+          appends: [],
+          filter: {
+            createdById: '{{ admin ? undefined : userId }}',
           },
         },
-      },
-      'x-component': 'CollectionProvider_deprecated',
-      'x-component-props': {
-        collection,
+        rowKey: 'name',
       },
       properties: {
         actions: {
@@ -322,20 +281,22 @@ export const schema: ISchema = {
           properties: {
             refresh: {
               type: 'void',
-              title: '{{t("Refresh")}}',
+              title: '{{ t("Refresh") }}',
               'x-component': 'Action',
+              'x-use-component-props': 'useRefreshActionProps',
               'x-component-props': {
                 icon: 'ReloadOutlined',
-                useAction: useRefresh,
               },
             },
             delete: {
               type: 'void',
               title: '{{ t("Delete") }}',
+              'x-action': 'destroy',
               'x-component': 'Action',
+              'x-decorator': 'ACLActionProvider',
+              'x-use-component-props': 'useDestroyActionProps',
               'x-component-props': {
                 icon: 'DeleteOutlined',
-                useAction: useDestroyAll,
                 confirm: {
                   title: "{{t('Delete')}}",
                   content: "{{t('Are you sure you want to delete it?')}}",
@@ -382,16 +343,14 @@ export const schema: ISchema = {
                         cancel: {
                           title: '{{t("Cancel")}}',
                           'x-component': 'Action',
-                          'x-component-props': {
-                            useAction: '{{ cm.useCancelAction }}',
-                          },
+                          'x-use-component-props': 'useCancelActionProps',
                         },
                         submit: {
-                          title: '{{t("Submit")}}',
+                          title: '{{ t("Submit") }}',
                           'x-component': 'Action',
+                          'x-use-component-props': 'useCreateDatabaseConnectionAction',
                           'x-component-props': {
                             type: 'primary',
-                            useAction: '{{ cm.useCreateAction }}',
                           },
                         },
                       },
@@ -403,21 +362,21 @@ export const schema: ISchema = {
           },
         },
         table: {
-          type: 'void',
+          type: 'array',
           'x-uid': 'input',
-          'x-component': 'Table.Void',
+          'x-component': 'TableV2',
+          'x-use-component-props': 'useTableBlockProps',
           'x-component-props': {
             rowKey: 'name',
             rowSelection: {
               type: 'checkbox',
             },
-            useDataSource: '{{ cm.useDataSourceFromRAC }}',
           },
           properties: {
             displayName: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 displayName: {
                   type: 'string',
@@ -428,8 +387,8 @@ export const schema: ISchema = {
             },
             name: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 name: {
                   type: 'string',
@@ -441,8 +400,8 @@ export const schema: ISchema = {
             pinned: {
               type: 'void',
               title: i18nText('Pin to menu'),
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 pinned: {
                   type: 'string',
@@ -454,8 +413,8 @@ export const schema: ISchema = {
             isTemplate: {
               type: 'void',
               title: i18nText('Is template'),
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 isTemplate: {
                   type: 'string',
@@ -466,8 +425,8 @@ export const schema: ISchema = {
             },
             status: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 status: {
                   type: 'string',
@@ -479,7 +438,7 @@ export const schema: ISchema = {
             actions: {
               type: 'void',
               title: '{{t("Actions")}}',
-              'x-component': 'Table.Column',
+              'x-component': 'TableV2.Column',
               properties: {
                 actions: {
                   type: 'void',

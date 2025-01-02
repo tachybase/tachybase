@@ -3,19 +3,20 @@ import {
   SchemaComponent,
   useAPIClient,
   useApp,
+  useCollectionRecordData,
   useCurrentUserContext,
-  useRecord,
-  useResourceActionContext,
+  useDataBlockRequest,
 } from '@tachybase/client';
 
 import { Card, Divider, Space } from 'antd';
 
 import { NAMESPACE } from '../constants';
+import { useCreateDatabaseConnectionAction, useMultiAppUpdateAction } from './hooks';
 import { schema } from './settings/schemas/applications';
 import { usePluginUtils } from './utils';
 
 const useLink = () => {
-  const record = useRecord();
+  const record = useCollectionRecordData();
   const app = useApp();
   if (record.cname) {
     return `//${record.cname}`;
@@ -26,9 +27,9 @@ const useLink = () => {
 const AppVisitor = () => {
   const { t } = usePluginUtils();
   const link = useLink();
-  const record = useRecord();
+  const record = useCollectionRecordData();
   const apiClient = useAPIClient();
-  const { refresh } = useResourceActionContext();
+  const { refresh } = useDataBlockRequest();
   const resource = useMemo(() => {
     return apiClient.resource('applications');
   }, [apiClient]);
@@ -69,7 +70,11 @@ export const AppManager = (props) => {
   const userId = currentUser?.data?.data?.id;
   return (
     <Card bordered={false}>
-      <SchemaComponent schema={schema} scope={{ admin, userId }} components={{ AppVisitor }} />
+      <SchemaComponent
+        schema={schema}
+        scope={{ admin, userId, useCreateDatabaseConnectionAction, useMultiAppUpdateAction }}
+        components={{ AppVisitor }}
+      />
     </Card>
   );
 };
