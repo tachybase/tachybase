@@ -271,7 +271,7 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
   };
 
   const handleOk = (method) => {
-    debugger;
+    
     apiClient
       .request({
         url: 'backupFiles:create',
@@ -328,7 +328,7 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
               <Dropdown.Button
                 key="submit"
                 type="primary"
-                onClick={() => handleOk('worker')}
+                onClick={() => handleOk('priority')}
                 overlay={
                   <Menu>
                     <Menu.Item key="main" onClick={() => handleOk('main')}>
