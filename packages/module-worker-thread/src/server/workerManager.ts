@@ -63,7 +63,6 @@ export class WorkerManager {
     }
     if (workerNum !== undefined) {
       this.workerNum = workerNum;
-      this.workerNumPreset = workerNum;
     }
 
     this.databaseOptions = copyBasicTypes(app.db.options);
