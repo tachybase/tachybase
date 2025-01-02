@@ -35,7 +35,10 @@ export class ResourceService {
         this.logger.info(`Add ${resourceName}:${actionName} action handler`);
         app.resourcer.getResource(resourceName).addAction(actionName, async (ctx: Context) => {
           const body = await new WebhookController().action(ctx, resourceDef);
-          await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
+          const { result, error } = await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
+          if (error) {
+            ctx.throw(500, error?.message);
+          }
         });
         app.acl.allow(resourceName, actionName, 'loggedIn');
       }
