@@ -141,7 +141,7 @@ export abstract class Plugin implements PluginInterface {
 
   async afterRemove() {}
 
-  async handleSyncMessage(message: any) {}
+  async handleSyncMessage(message: Readonly<any>) {}
   async sendSyncMessage(message: any, options?: PubSubManagerPublishOptions & Transactionable) {
     if (!this.name) {
       throw new Error(`plugin name invalid`);

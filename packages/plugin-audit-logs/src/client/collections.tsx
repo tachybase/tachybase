@@ -1,3 +1,5 @@
+import { AssociationField } from '@tachybase/client';
+
 import { tval } from './locale';
 
 export const useAuditLogsCollection = () => {
@@ -63,6 +65,16 @@ export const useAuditLogsCollection = () => {
           'x-component': 'AssociationField',
           'x-component-props': { fieldNames: { value: 'name', label: 'title' }, ellipsis: true },
           'x-read-pretty': true,
+        },
+      },
+      {
+        name: 'collectionName',
+        type: 'string',
+        interface: 'string',
+        uiSchema: {
+          type: 'string',
+          title: tval('Collection name'),
+          'x-component': 'Input',
         },
       },
       {
