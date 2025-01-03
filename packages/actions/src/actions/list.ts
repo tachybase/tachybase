@@ -49,10 +49,14 @@ function findArgs(ctx: Context) {
       assign(params, { filter: { [foreignKey]: null } }, { filter: 'andMerge' });
     }
   }
-  const { tree, fields, filter, appends, except, sort } = params;
+  const { tree, fields, filter, appends, except, sort, search } = params;
 
-  return { tree, filter, fields, appends, except, sort };
+  return { tree, filter, fields, appends, except, sort, search };
 }
+
+const stringFields = ['string', 'text', 'sequence', 'uid', 'integer', 'float'];
+const numberFields = ['bigInt', 'double']; // 不支持bigInt,double
+const dateFields = ['date', 'datetime', 'timestamp']; // 不支持
 
 async function listWithPagination(ctx: Context) {
   const { page = DEFAULT_PAGE, pageSize = DEFAULT_PER_PAGE } = ctx.action.params;
@@ -164,6 +168,48 @@ async function listWithPagination(ctx: Context) {
       filterTreeCount = father.length;
     }
   }
+
+  // 增加全字段模糊搜索
+  if (!process.env.FORBID_ALL_SEARCH) {
+    if (options.search && options.search.keywords && options.search.keywords.length) {
+      options.search.keywords = options.search.keywords.map((item) => String(item));
+      let fields = [];
+      const fieldInfo = collection.fields;
+      if (options.search.fields && !options.search.isSearchAllFields) {
+        fields = options.search.fields;
+      } else {
+        fields = [...collection.fields.keys()];
+      }
+      const searchFilter = fields.reduce((acc, field) => {
+        const type = fieldInfo.get(field)?.type;
+
+        // 不要查询的类型: sort, boolean, tstzrange, virtual, formula, context, password
+        // TODO: 考虑支持 json, array
+        if (stringFields.includes(type)) {
+          acc.push({
+            [field]: {
+              $includes: options.search.keywords,
+            },
+          });
+        } else if (numberFields.includes(type) || dateFields.includes(type)) {
+          acc.push({
+            [Op.and]: [ctx.db.sequelize.literal(`CAST("${field}" AS TEXT) LIKE '%${options.search.keywords}%'`)],
+          });
+        }
+        return acc;
+      }, []);
+      if (searchFilter.length) {
+        if (options.filter && Object.keys(options.filter).length) {
+          options.filter = {
+            $and: [options.filter, { $or: searchFilter }],
+          };
+        } else {
+          options.filter = { $or: searchFilter };
+        }
+      }
+    }
+  }
+
   const [rows, count] = await repository.findAndCount(options);
   ctx.body = {
     count: filterTreeData.length ? filterTreeCount : count,
