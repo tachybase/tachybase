@@ -1,7 +1,6 @@
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../common/constants';
 import { NAMESPACE, tval } from '../../locale';
-import { ApprovalStatusEnums } from '../../usage/pc/constants';
-import { approvalStatusOptions } from '../../usage/pc/usage/common/notice-columns/column.status';
+import { ApprovalStatusEnums, approvalStatusOptions } from '../../usage/pc/constants';
 
 export const collectionApprovalCarbonCopy = {
   title: tval('ApprovalCarbonCopy'),
