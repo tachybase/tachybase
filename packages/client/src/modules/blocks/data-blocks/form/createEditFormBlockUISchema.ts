@@ -1,6 +1,6 @@
 import { ISchema, uid } from '@tachybase/schema';
 
-interface EditFormBlockOptions {
+export interface EditFormBlockOptions {
   dataSource: string;
   /** 如果传了 association 就不需要再传 collectionName 了 */
   collectionName?: string;
