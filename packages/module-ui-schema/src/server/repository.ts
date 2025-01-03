@@ -215,7 +215,7 @@ export class UiSchemaRepository extends Repository {
     };
 
     const buildTree = (rootNode) => {
-      const children = nodes.filter((node) => node.parent == rootNode['x-uid']);
+      const children = nodes.filter((node) => node.parent === rootNode['x-uid']);
 
       if (children.length > 0) {
         const childrenGroupByType = lodash.groupBy(children, 'type');
@@ -226,8 +226,8 @@ export class UiSchemaRepository extends Repository {
             .sort((a, b) => a['x-index'] - b['x-index']) as any;
 
           rootNode[childType] =
-            childType == 'items'
-              ? properties.length == 1
+            childType === 'items'
+              ? properties.length === 1
                 ? properties[0]
                 : properties
               : properties.reduce((carry, item) => {
@@ -241,7 +241,7 @@ export class UiSchemaRepository extends Repository {
       return nodeAttributeSanitize(rootNode);
     };
 
-    return buildTree(nodes.find((node) => node['x-uid'] == rootUid));
+    return buildTree(nodes.find((node) => node['x-uid'] === rootUid));
   }
 
   @transaction()
@@ -286,7 +286,7 @@ export class UiSchemaRepository extends Repository {
     const oldTree = await this.getJsonSchema(rootUid, { transaction });
     const traverSchemaTree = async (schema, path = []) => {
       const node = schema;
-      const oldNode = path.length == 0 ? oldTree : lodash.get(oldTree, path);
+      const oldNode = path.length === 0 ? oldTree : lodash.get(oldTree, path);
       const oldNodeUid = oldNode['x-uid'];
 
       await this.updateNode(oldNodeUid, node, transaction);
@@ -411,6 +411,8 @@ export class UiSchemaRepository extends Repository {
       const wrapSchemaNodes = await this.insertNewSchema(options.wrap, {
         transaction,
         returnNode: true,
+        target,
+        position,
       });
 
       const lastWrapNode = wrapSchemaNodes[wrapSchemaNodes.length - 1];
@@ -430,6 +432,8 @@ export class UiSchemaRepository extends Repository {
         const insertedSchema = await this.insertNewSchema(schema, {
           transaction,
           returnNode: true,
+          position,
+          target,
         });
 
         schema = insertedSchema[0]['x-uid'];
@@ -468,6 +472,8 @@ export class UiSchemaRepository extends Repository {
     schema: any,
     options?: Transactionable & {
       returnNode?: boolean;
+      position?: string;
+      target?: string;
     },
   ) {
     const { transaction } = options;
@@ -721,7 +727,7 @@ export class UiSchemaRepository extends Repository {
 
         sort = targetSort[0].sort;
 
-        if (targetPosition.type == 'after') {
+        if (targetPosition.type === 'after') {
           sort += 1;
         }
 
@@ -882,7 +888,7 @@ WHERE TreeTable.depth = 1 AND  TreeTable.ancestor = :ancestor and TreeTable.sort
 
     const parentChildrenCount = await this.childrenCount(parent, transaction);
 
-    if (parentChildrenCount == 1) {
+    if (parentChildrenCount === 1) {
       const schema = await db.getRepository('uiSchemas').findOne({
         filter: {
           'x-uid': parent,
@@ -1022,7 +1028,7 @@ WHERE TreeTable.depth = 1 AND  TreeTable.ancestor = :ancestor and TreeTable.sort
       transaction,
     });
 
-    if (nodes[0].length == 0) {
+    if (nodes[0].length === 0) {
       return {};
     }
 
@@ -1055,7 +1061,7 @@ WHERE TreeTable.depth = 1 AND  TreeTable.ancestor = :ancestor and TreeTable.sort
       transaction: options?.transaction,
     });
 
-    if (nodes[0].length == 0) {
+    if (nodes[0].length === 0) {
       return {};
     }
 
