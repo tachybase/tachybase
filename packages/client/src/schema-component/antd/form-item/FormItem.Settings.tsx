@@ -1139,6 +1139,18 @@ export function useIsAssociationField() {
   return isAssociationField;
 }
 
+export function useIsMultipleSelect() {
+  const collectionField = useFormItemCollectionField();
+  const isMultipleSelect = ['select', 'radioGroup'].includes(collectionField?.interface);
+  return isMultipleSelect;
+}
+
+export function useIsMuiltipleAble() {
+  const isAssociationField = useIsAssociationField();
+  const isMultipleSelect = useIsMultipleSelect();
+  return isAssociationField || isMultipleSelect;
+}
+
 export function useIsFileField() {
   const { getCollection } = useCollectionManager_deprecated();
   const collectionField = useFormItemCollectionField();
@@ -1185,7 +1197,7 @@ export function useTitleFieldOptions() {
   const collectionField = useFormItemCollectionField();
   const targetFields = collectionField?.target
     ? getCollectionFields(collectionField?.target)
-    : getCollectionFields(collectionField?.targetCollection) ?? [];
+    : (getCollectionFields(collectionField?.targetCollection) ?? []);
   const options = targetFields.map((field) => ({
     value: field?.name,
     label: compile(field?.uiSchema?.title) || field?.name,
