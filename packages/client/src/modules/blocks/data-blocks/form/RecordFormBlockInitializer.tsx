@@ -78,20 +78,30 @@ export function useCreateEditFormBlock() {
   const templateWrap = useCallback(
     (templateSchema, { item }) => {
       if (item.template.componentName === 'FormItem') {
-        const blockSchema = createEditFormBlockUISchema(
-          association
-            ? {
-                association,
-                dataSource: item.dataSource,
-                templateSchema: templateSchema,
-                isCurrent: true,
-              }
-            : {
-                collectionName: item.collectionName || item.name,
-                dataSource: item.dataSource,
-                templateSchema: templateSchema,
-              },
-        );
+        let blockSchema = {};
+        if (!association && item.associationField) {
+          const field = item.associationField;
+          blockSchema = createEditFormBlockUISchema({
+            dataSource: item.dataSource,
+            association: `${field.collectionName}.${field.name}`,
+            templateSchema: templateSchema,
+          });
+        } else {
+          blockSchema = createEditFormBlockUISchema(
+            association
+              ? {
+                  association,
+                  dataSource: item.dataSource,
+                  templateSchema: templateSchema,
+                  isCurrent: true,
+                }
+              : {
+                  collectionName: item.collectionName || item.name,
+                  dataSource: item.dataSource,
+                  templateSchema: templateSchema,
+                },
+          );
+        }
         if (item.mode === 'reference') {
           blockSchema['x-template-key'] = item.template.key;
         }
