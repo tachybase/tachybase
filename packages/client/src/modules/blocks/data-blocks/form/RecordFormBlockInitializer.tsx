@@ -9,7 +9,7 @@ import { useCollection_deprecated } from '../../../../collection-manager';
 import { useAssociationName } from '../../../../data-source';
 import { useRecordCollectionDataSourceItems } from '../../../../schema-initializer/utils';
 import { useSchemaTemplateManager } from '../../../../schema-templates';
-import { createEditFormBlockUISchema } from './createEditFormBlockUISchema';
+import { createEditFormBlockUISchema, EditFormBlockOptions } from './createEditFormBlockUISchema';
 
 /**
  * @deprecated
@@ -78,30 +78,23 @@ export function useCreateEditFormBlock() {
   const templateWrap = useCallback(
     (templateSchema, { item }) => {
       if (item.template.componentName === 'FormItem') {
-        let blockSchema = {};
-        if (!association && item.associationField) {
+        const options: EditFormBlockOptions = {
+          dataSource: item.dataSource,
+          templateSchema,
+        };
+
+        if (association) {
+          options.association = association;
+          options.isCurrent = true;
+        } else if (item.associationField) {
           const field = item.associationField;
-          blockSchema = createEditFormBlockUISchema({
-            dataSource: item.dataSource,
-            association: `${field.collectionName}.${field.name}`,
-            templateSchema: templateSchema,
-          });
+          options.association = `${field.collectionName}.${field.name}`;
         } else {
-          blockSchema = createEditFormBlockUISchema(
-            association
-              ? {
-                  association,
-                  dataSource: item.dataSource,
-                  templateSchema: templateSchema,
-                  isCurrent: true,
-                }
-              : {
-                  collectionName: item.collectionName || item.name,
-                  dataSource: item.dataSource,
-                  templateSchema: templateSchema,
-                },
-          );
+          options.collectionName = item.collectionName || item.name;
         }
+
+        const blockSchema = createEditFormBlockUISchema(options);
+
         if (item.mode === 'reference') {
           blockSchema['x-template-key'] = item.template.key;
         }
