@@ -1,10 +1,11 @@
 import { Plugin } from '@tachybase/client';
 
-import KitApprovalUsage from './usage/kit';
+import { KitApprovalBlock } from './block/plugin';
+import { KitApprovalRecordBlock } from './record-block/plugin';
 
 export class KitApprovalPC extends Plugin {
   async afterAdd() {
-    // 审批用户界面
-    this.pm.add(KitApprovalUsage);
+    this.pm.add(KitApprovalBlock);
+    this.pm.add(KitApprovalRecordBlock);
   }
 }
