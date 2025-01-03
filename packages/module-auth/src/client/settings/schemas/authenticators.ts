@@ -1,9 +1,6 @@
 import { useContext } from 'react';
-import { i18n, useActionContext, useAPIClient, useRequest } from '@tachybase/client';
+import { i18n, useActionContext, useRequest } from '@tachybase/client';
 import { ISchema, uid } from '@tachybase/schema';
-
-import { message } from 'antd';
-import { useTranslation } from 'react-i18next';
 
 import { AuthTypeContext } from '../authType';
 
@@ -134,18 +131,116 @@ export const createFormSchema: ISchema = {
           'x-component': 'Action.Drawer.Footer',
           properties: {
             cancel: {
-              title: '{{t("Cancel")}}',
+              title: '{{ t("Cancel") }}',
               'x-component': 'Action',
-              'x-component-props': {
-                useAction: '{{ cm.useCancelAction }}',
-              },
+              'x-use-component-props': 'useCancelActionProps',
             },
-            submit: {
-              title: '{{t("Submit")}}',
+            create: {
+              title: '{{ t("Submit") }}',
+              'x-action': 'submit',
               'x-component': 'Action',
+              'x-use-component-props': 'useCreateDatabaseConnectionAction',
               'x-component-props': {
                 type: 'primary',
-                useAction: '{{ cm.useCreateAction }}',
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+export const updateAuthenticator: ISchema = {
+  type: 'void',
+  title: '{{ t("Edit") }}',
+  'x-action': 'update',
+  'x-component': 'Action.Link',
+  'x-component-props': {
+    openMode: 'drawer',
+    icon: 'EditOutlined',
+  },
+  'x-decorator': 'ACLActionProvider',
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Edit record") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        card: {
+          type: 'void',
+          'x-acl-action-props': {
+            skipScopeCheck: false,
+          },
+          'x-acl-action': `authenticators:update`,
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
+          'x-decorator-props': {
+            action: 'get',
+            dataSource: 'main',
+            collection: collection,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useEditFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
+                    },
+                  },
+                  properties: {
+                    cancel: {
+                      title: '{{ t("Cancel") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useUpdateActionProps',
+                      'x-component-props': {
+                        type: 'primary',
+                      },
+                    },
+                  },
+                },
+                name: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
+                authType: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                  'x-component-props': {
+                    options: '{{ types }}',
+                  },
+                },
+                title: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
+                description: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
+                enabled: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
+                options: {
+                  type: 'object',
+                  'x-component': 'Options',
+                },
               },
             },
           },
@@ -158,24 +253,16 @@ export const createFormSchema: ISchema = {
 export const authenticatorsSchema: ISchema = {
   type: 'void',
   name: 'authenticators',
-  'x-decorator': 'ResourceActionProvider',
+  'x-decorator': 'TableBlockProvider',
   'x-decorator-props': {
-    collection,
-    resourceName: 'authenticators',
+    collection: collection,
     dragSort: true,
-    request: {
-      resource: 'authenticators',
-      action: 'list',
-      params: {
-        pageSize: 50,
-        sort: 'sort',
-        appends: [],
-      },
+    action: 'list',
+    params: {
+      pageSize: 50,
+      sort: 'sort',
+      appends: [],
     },
-  },
-  'x-component': 'CollectionProvider_deprecated',
-  'x-component-props': {
-    collection,
   },
   properties: {
     actions: {
@@ -190,10 +277,12 @@ export const authenticatorsSchema: ISchema = {
         delete: {
           type: 'void',
           title: '{{t("Delete")}}',
+          'x-action': 'destroy',
+          'x-decorator': 'ACLActionProvider',
           'x-component': 'Action',
+          'x-use-component-props': 'useBulkDestroyActionProps',
           'x-component-props': {
             icon: 'DeleteOutlined',
-            useAction: '{{ cm.useBulkDestroyAction }}',
             confirm: {
               title: "{{t('Delete')}}",
               content: "{{t('Are you sure you want to delete it?')}}",
@@ -211,34 +300,22 @@ export const authenticatorsSchema: ISchema = {
       },
     },
     table: {
-      type: 'void',
+      type: 'array',
       'x-uid': 'input',
-      'x-component': 'Table.Void',
+      'x-component': 'TableV2',
+      'x-use-component-props': 'useTableBlockProps',
+      'x-use-decorator-props': 'useTableBlockDecoratorProps',
       'x-component-props': {
         rowKey: 'id',
         rowSelection: {
           type: 'checkbox',
         },
-        useDataSource: '{{ cm.useDataSourceFromRAC }}',
-        useAction() {
-          const api = useAPIClient();
-          const { t } = useTranslation();
-          return {
-            async move(from, to) {
-              await api.resource('authenticators').move({
-                sourceId: from.id,
-                targetId: to.id,
-              });
-              message.success(t('Saved successfully'), 0.2);
-            },
-          };
-        },
       },
       properties: {
         id: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             id: {
               type: 'number',
@@ -249,8 +326,8 @@ export const authenticatorsSchema: ISchema = {
         },
         name: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             name: {
               type: 'string',
@@ -262,8 +339,8 @@ export const authenticatorsSchema: ISchema = {
         authType: {
           title: '{{t("Auth Type")}}',
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             authType: {
               type: 'string',
@@ -275,8 +352,8 @@ export const authenticatorsSchema: ISchema = {
         },
         title: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             title: {
               type: 'string',
@@ -287,8 +364,8 @@ export const authenticatorsSchema: ISchema = {
         },
         description: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             description: {
               type: 'boolean',
@@ -299,8 +376,8 @@ export const authenticatorsSchema: ISchema = {
         },
         enabled: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             enabled: {
               type: 'boolean',
@@ -312,7 +389,7 @@ export const authenticatorsSchema: ISchema = {
         actions: {
           type: 'void',
           title: '{{t("Actions")}}',
-          'x-component': 'Table.Column',
+          'x-component': 'TableV2.Column',
           properties: {
             actions: {
               type: 'void',
@@ -321,85 +398,18 @@ export const authenticatorsSchema: ISchema = {
                 split: '|',
               },
               properties: {
-                update: {
-                  type: 'void',
-                  title: '{{t("Configure")}}',
-                  'x-component': 'Action.Link',
-                  'x-component-props': {
-                    type: 'primary',
-                  },
-                  properties: {
-                    drawer: {
-                      type: 'void',
-                      'x-component': 'Action.Drawer',
-                      'x-decorator': 'Form',
-                      'x-decorator-props': {
-                        useValues: '{{ cm.useValuesFromRecord }}',
-                      },
-                      title: '{{t("Configure")}}',
-                      properties: {
-                        name: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                        },
-                        authType: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                          'x-component-props': {
-                            options: '{{ types }}',
-                          },
-                        },
-                        title: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                        },
-                        description: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                        },
-                        enabled: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                        },
-                        options: {
-                          type: 'object',
-                          'x-component': 'Options',
-                        },
-                        footer: {
-                          type: 'void',
-                          'x-component': 'Action.Drawer.Footer',
-                          properties: {
-                            cancel: {
-                              title: '{{t("Cancel")}}',
-                              'x-component': 'Action',
-                              'x-component-props': {
-                                useAction: '{{ cm.useCancelAction }}',
-                              },
-                            },
-                            submit: {
-                              title: '{{t("Submit")}}',
-                              'x-component': 'Action',
-                              'x-component-props': {
-                                type: 'primary',
-                                useAction: '{{ cm.useUpdateAction }}',
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
+                updateAuthenticator,
                 delete: {
                   type: 'void',
                   title: '{{ t("Delete") }}',
+                  'x-action': 'destroy',
                   'x-component': 'Action.Link',
+                  'x-use-component-props': 'useDestroyActionProps',
                   'x-component-props': {
                     confirm: {
                       title: "{{t('Delete record')}}",
                       content: "{{t('Are you sure you want to delete it?')}}",
                     },
-                    useAction: '{{cm.useDestroyAction}}',
                   },
                   'x-disabled': '{{ useCanNotDelete() }}',
                 },
