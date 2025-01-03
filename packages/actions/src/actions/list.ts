@@ -54,6 +54,8 @@ function findArgs(ctx: Context) {
   return { tree, filter, fields, appends, except, sort, search };
 }
 
+const supportAllFuzzyFields = ['string', 'text', 'sequence', 'integer', 'bigint'];
+
 async function listWithPagination(ctx: Context) {
   const { page = DEFAULT_PAGE, pageSize = DEFAULT_PER_PAGE } = ctx.action.params;
 
@@ -166,26 +168,41 @@ async function listWithPagination(ctx: Context) {
   }
 
   // 增加全字段模糊搜索
-  if (options.search && options.search.keywords && options.search.keywords.length) {
-    let fields = [];
-    if (options.fields) {
-      fields = options.fields;
-    } else {
-      fields = [...collection.fields.keys()];
-    }
+  if (!process.env.FORBIDE_ALL_SEARCH) {
+    if (options.search && options.search.keywords && options.search.keywords.length) {
+      let fields = [];
+      const fieldInfo = collection.fields;
+      if (options.search.fields && !options.search.isSearchAllFields) {
+        fields = options.fields;
+      } else {
+        // 系统字段
+        // const presetFields = ['createdBy', 'createdById', 'updatedBy', 'updatedById', 'sort'];
+        // const associationFields = ['belongsTo', 'belongsToMany', 'hasOne', 'hasMany', 'vritual'];
+        fields = [...collection.fields.keys()];
+      }
+      const searchFilter = fields.reduce((acc, field) => {
+        const type = fieldInfo.get(field)?.options?.type;
 
-    // reduce or逻辑
-    const searchFilter = fields.reduce((acc, field) => {
-      acc.push({
-        [field]: {
-          [Op.like]: `%${options.search.keywords}%`,
-        },
-      });
-      return acc;
-    }, []);
-    options.filter = {
-      $and: [options.filter, { $or: searchFilter }],
-    };
+        // 根据不同类型字段，拼接不同的查询条件
+        if (supportAllFuzzyFields.includes(type)) {
+          acc.push({
+            [field]: {
+              $includes: options.search.keywords,
+            },
+          });
+        }
+        return acc;
+      }, []);
+      if (searchFilter.length) {
+        if (options.filter && Object.keys(options.filter).length) {
+          options.filter = {
+            $and: [options.filter, { $or: searchFilter }],
+          };
+        } else {
+          options.filter = { $or: searchFilter };
+        }
+      }
+    }
   }
 
   const [rows, count] = await repository.findAndCount(options);
