@@ -54,7 +54,9 @@ function findArgs(ctx: Context) {
   return { tree, filter, fields, appends, except, sort, search };
 }
 
-const supportAllFuzzyFields = ['string', 'text', 'sequence', 'integer', 'bigint'];
+const stringFields = ['string', 'text', 'sequence', 'uid', 'integer', 'float'];
+const numberFields = ['bigInt', 'double']; // 不支持bigInt,double
+const dateFields = ['date', 'datetime', 'timestamp']; // 不支持
 
 async function listWithPagination(ctx: Context) {
   const { page = DEFAULT_PAGE, pageSize = DEFAULT_PER_PAGE } = ctx.action.params;
@@ -168,27 +170,30 @@ async function listWithPagination(ctx: Context) {
   }
 
   // 增加全字段模糊搜索
-  if (!process.env.FORBIDE_ALL_SEARCH) {
+  if (!process.env.FORBID_ALL_SEARCH) {
     if (options.search && options.search.keywords && options.search.keywords.length) {
+      options.search.keywords = options.search.keywords.map((item) => String(item));
       let fields = [];
       const fieldInfo = collection.fields;
       if (options.search.fields && !options.search.isSearchAllFields) {
-        fields = options.fields;
+        fields = options.search.fields;
       } else {
-        // 系统字段
-        // const presetFields = ['createdBy', 'createdById', 'updatedBy', 'updatedById', 'sort'];
-        // const associationFields = ['belongsTo', 'belongsToMany', 'hasOne', 'hasMany', 'vritual'];
         fields = [...collection.fields.keys()];
       }
       const searchFilter = fields.reduce((acc, field) => {
-        const type = fieldInfo.get(field)?.options?.type;
+        const type = fieldInfo.get(field)?.type;
 
-        // 根据不同类型字段，拼接不同的查询条件
-        if (supportAllFuzzyFields.includes(type)) {
+        // 不要查询的类型: sort, boolean, tstzrange, virtual, formula, context, password
+        // TODO: 考虑支持 json, array
+        if (stringFields.includes(type)) {
           acc.push({
             [field]: {
               $includes: options.search.keywords,
             },
+          });
+        } else if (numberFields.includes(type) || dateFields.includes(type)) {
+          acc.push({
+            [Op.and]: [ctx.db.sequelize.literal(`CAST("${field}" AS TEXT) LIKE '%${options.search.keywords}%'`)],
           });
         }
         return acc;
