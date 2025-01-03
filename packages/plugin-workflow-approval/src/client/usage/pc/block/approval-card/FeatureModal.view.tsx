@@ -7,16 +7,16 @@ import {
   SchemaComponentContext,
 } from '@tachybase/client';
 
-import { FlowContextProvider } from './common/FlowContext.provider';
+import { FlowContextProvider } from '../common/FlowContext.provider';
+import { ActionBarProvider } from '../initiations-table/apply-button/ActionBar.provider';
+import { ApplyActionStatusProvider } from '../initiations-table/apply-button/ActionStatus.provider';
+import { WithdrawActionProvider } from '../initiations-table/apply-button/ActionWithdraw.provider';
+import { useSubmitCreate } from '../initiations-table/apply-button/hooks/useSubmitCreate';
+import { useActionReminder } from '../initiations-table/hooks/useActionReminder';
+import { useActionResubmit } from '../initiations-table/hooks/useActionResubmit';
+import { useWithdrawAction } from '../initiations-table/hooks/useWithdrawAction';
+import { ProviderActionReminder } from '../initiations-table/providers/ActionReminder.provider';
 import { getSchemaFeatureModal } from './FeatureModal.schema';
-import { ActionBarProvider } from './initiations/apply-button/ActionBar.provider';
-import { ApplyActionStatusProvider } from './initiations/apply-button/ActionStatus.provider';
-import { WithdrawActionProvider } from './initiations/apply-button/ActionWithdraw.provider';
-import { useSubmitCreate } from './initiations/apply-button/hooks/useSubmitCreate';
-import { useActionReminder } from './initiations/hooks/useActionReminder';
-import { useActionResubmit } from './initiations/hooks/useActionResubmit';
-import { useWithdrawAction } from './initiations/hooks/useWithdrawAction';
-import { ProviderActionReminder } from './initiations/providers/ActionReminder.provider';
 
 export const ViewFeatureModal = (props) => {
   const { visible, setVisible, workflow } = props;

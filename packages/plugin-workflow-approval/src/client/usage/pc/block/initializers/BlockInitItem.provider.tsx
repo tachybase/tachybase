@@ -1,9 +1,9 @@
 import { ExtendCollectionsProvider, TableBlockProvider, useRecord } from '@tachybase/client';
 
-import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
-import { collectionApprovals } from '../../../common/collections/approvals';
-import { collectionFlowNodes } from '../../../common/collections/flowNodes';
-import { collectionWorkflows } from '../../../common/collections/workflows';
+import { collectionApprovalTodos } from '../../../../common/collections/approvalRecords';
+import { collectionApprovals } from '../../../../common/collections/approvals';
+import { collectionFlowNodes } from '../../../../common/collections/flowNodes';
+import { collectionWorkflows } from '../../../../common/collections/workflows';
 
 export const ProviderBlockInitItem = ({ children, ...props }) => {
   const {

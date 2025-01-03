@@ -1,22 +1,21 @@
 import { Plugin } from '@tachybase/client';
 
 import { KitApprovalCommon } from '../common/plugin';
-import { initializerApprovalBlock, initializerName } from './ApprovalBlock.initializer';
-import { ProviderBlockInitItem } from './BlockInitItem.provider';
-import { ViewBlockInitItem } from './BlockInitItem.view';
-import { CarbonCopyBlockProvider } from './carbon-copy/CarbonCopyBlock.provider';
-import { CarbonCopyCenter } from './carbon-copy/CarbonCopyCenter.schema';
-import { FeatureList } from './FeatureList.component';
-import { InitiateApplication } from './InitiateApplication.component';
-import { ViewCheckLink as ViewCheckLinkInitiations } from './initiations/CheckLink.view';
-import { ViewTableInitiated } from './initiations/TableInitiated';
-import { ViewCheckLink as ViewCheckLinkTodos } from './todos/CheckLink.view';
-import { ProviderApprovalUpdateForm } from './todos/providers/ApprovalUpdateForm.provider';
-import { ViewTableTodos } from './todos/TableTodos';
+import { FeatureList } from './approval-card/FeatureList.component';
+import { InitiateApplication } from './approval-card/InitiateApplication.component';
+import { CarbonCopyBlockProvider } from './carbon-copy-table/CarbonCopyBlock.provider';
+import { CarbonCopyCenter } from './carbon-copy-table/CarbonCopyCenter.schema';
+import { KitApprovalBlockInitializer } from './initializers/kit';
+import { ViewCheckLink as ViewCheckLinkInitiations } from './initiations-table/CheckLink.view';
+import { ViewTableInitiated } from './initiations-table/TableInitiated';
+import { ViewCheckLink as ViewCheckLinkTodos } from './todos-table/CheckLink.view';
+import { ProviderApprovalUpdateForm } from './todos-table/providers/ApprovalUpdateForm.provider';
+import { ViewTableTodos } from './todos-table/TableTodos';
 
 export class KitApprovalBlock extends Plugin {
   async afterAdd() {
     this.pm.add(KitApprovalCommon);
+    this.pm.add(KitApprovalBlockInitializer);
   }
 
   async load() {
@@ -34,8 +33,7 @@ export class KitApprovalBlock extends Plugin {
        * 例如:'Approval-ProviderBlockInitItem'
        * 冒号语法有些问题, 读取的方法里应该有特殊解析逻辑, 暂时用 - 连接
        */
-      'Approval-ViewBlockInitItem': ViewBlockInitItem,
-      'Approval-ProviderBlockInitItem': ProviderBlockInitItem,
+
       'Approval-InitiateApplication': InitiateApplication,
       'Approval-ViewTableInitiated': ViewTableInitiated,
       'Approval-ViewTableTodos': ViewTableTodos,
@@ -44,16 +42,11 @@ export class KitApprovalBlock extends Plugin {
        * @deprecated
        * 兼容旧版用法, 防止线上已经按照旧版配置的 schema, 运行的时候找不到原组件
        */
-      'ApprovalBlock.BlockInitializer': ViewBlockInitItem,
-      'ApprovalBlock.Decorator': ProviderBlockInitItem,
       'ApprovalBlock.Launch': ViewTableInitiated,
       'ApprovalBlock.Launch.Application': InitiateApplication,
       'ApprovalBlock.Todos': ViewTableTodos,
       'ApprovalBlock.ViewActionLaunch': ViewCheckLinkInitiations,
       'ApprovalBlock.ViewActionTodos': ViewCheckLinkTodos,
     });
-
-    const pageBlockManager = this.app.schemaInitializerManager.get('page:addBlock');
-    pageBlockManager.add(initializerName, initializerApprovalBlock);
   }
 }
