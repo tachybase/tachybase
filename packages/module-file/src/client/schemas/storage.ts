@@ -116,7 +116,7 @@ export const storageSchema: ISchema = {
               'x-action': 'destroy',
               'x-decorator': 'ACLActionProvider',
               'x-component': 'Action',
-              'x-use-component-props': 'useDestroyActionProps',
+              'x-use-component-props': 'useBulkDestroyActionProps',
               'x-component-props': {
                 icon: 'DeleteOutlined',
                 confirm: {
@@ -139,6 +139,7 @@ export const storageSchema: ISchema = {
           type: 'array',
           'x-component': 'TableV2',
           'x-use-component-props': 'useTableBlockProps',
+          'x-use-decorator-props': 'useTableBlockDecoratorProps',
           'x-component-props': {
             rowKey: 'id',
             rowSelection: {

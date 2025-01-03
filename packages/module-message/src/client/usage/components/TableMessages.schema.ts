@@ -104,13 +104,14 @@ export const schemaTableMessages = {
     table: {
       type: 'array',
       'x-component': 'TableV2',
+      'x-use-component-props': 'useTableBlockProps',
+      'x-use-decorator-props': 'useTableBlockDecoratorProps',
       'x-component-props': {
         rowKey: 'id',
         rowSelection: {
           type: 'checkbox',
         },
       },
-      'x-use-component-props': 'useTableBlockProps',
       properties: {
         actions: {
           type: 'void',

@@ -135,6 +135,7 @@ export const databaseConnectionSchema: ISchema = {
           type: 'array',
           'x-component': 'TableV2',
           'x-use-component-props': 'useTableBlockProps',
+          'x-use-decorator-props': 'useTableBlockDecoratorProps',
           'x-component-props': {
             rowKey: 'key',
             rowSelection: {

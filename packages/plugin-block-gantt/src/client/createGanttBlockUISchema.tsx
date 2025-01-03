@@ -54,6 +54,7 @@ export const createGanttBlockUISchema = (options: {
             'x-initializer': 'table:configureColumns',
             'x-component': 'TableV2',
             'x-use-component-props': 'useTableBlockProps',
+            'x-use-decorator-props': 'useTableBlockDecoratorProps',
             'x-component-props': {
               rowKey: 'id',
               rowSelection: {
