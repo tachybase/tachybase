@@ -1,6 +1,6 @@
 import { Context } from '@tachybase/actions';
 import { IField } from '@tachybase/data-source';
-import { PluginWorkflow } from '@tachybase/module-workflow';
+import { PluginWorkflow, Processor } from '@tachybase/module-workflow';
 import { ActionParams } from '@tachybase/resourcer';
 import Application from '@tachybase/server';
 import { dayjs } from '@tachybase/utils';
@@ -263,6 +263,16 @@ export class WebhookController {
     const pluginWorkflow = ctx.app.getPlugin(PluginWorkflow) as PluginWorkflow;
     const wfRepo = ctx.db.getRepository('workflows');
     const wf = await wfRepo.findOne({ filter: { key: action.workflowKey, enabled: true } });
-    await pluginWorkflow.trigger(wf, { data: body, ...userInfo }, { httpContext: ctx });
+    const processor = (await pluginWorkflow.trigger(
+      wf,
+      { data: body, ...userInfo },
+      { httpContext: ctx },
+    )) as Processor;
+    const lastSavedJob = processor.lastSavedJob;
+    if (lastSavedJob.get('status') < 0) {
+      return { error: lastSavedJob.get('result') };
+    } else {
+      return { result: lastSavedJob.get('result') };
+    }
   }
 }
