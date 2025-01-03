@@ -1,24 +1,35 @@
 export async function bindMenuToRole({ schemaInstance, db, options }) {
-  const { transaction } = options;
+  const { transaction, position, target } = options;
   const addNewMenuRoles = await db.getRepository('roles').find({
     filter: {
       allowNewMenu: true,
     },
   });
 
-  const xUid = schemaInstance.get('x-uid');
-  for (const role of addNewMenuRoles) {
-    // 此处由于可能开启allowNewMenu之前父节点没给到角色,导致角色没有权限,所以这里需要给角色添加所有父节点权限
-    const ancestors = await db.getRepository('uiSchemaTreePath').find({
+  const uid = schemaInstance.get('x-uid');
+
+  let ancestorSet = new Set();
+  ancestorSet.add(uid);
+  if (target) {
+    const ancestorList = await db.getRepository('uiSchemaTreePath').find({
       fields: ['ancestor'],
       filter: {
-        descendant: schemaInstance.get('x-uid'),
+        descendant: target,
       },
+      transaction,
     });
-    const ancestorsIds = ancestors.map((item) => item.get('ancestor'));
-    ancestorsIds.push(xUid);
+    ancestorList.forEach((ancestor) => {
+      ancestorSet.add(ancestor.get('ancestor'));
+    });
+    // 插入兄弟节点时候 获取祖先节点则需要去掉这个节点
+    if (position === 'beforeBegin' || position === 'afterEnd') {
+      ancestorSet.delete(target);
+    }
+  }
+
+  for (const role of addNewMenuRoles) {
     await db.getRepository('roles.menuUiSchemas', role.get('name')).add({
-      tk: [...new Set(ancestorsIds)],
+      tk: [...ancestorSet],
       transaction,
     });
   }
