@@ -49,4 +49,13 @@ export class WorkerWebController {
       success: true,
     };
   }
+
+  @Action('restartAllForcely', { acl: 'blocked' })
+  async resetAllForcely(ctx: Context, next: Next) {
+    const app = ctx.app as Application;
+    await app.worker.restartAllForcely();
+    ctx.body = {
+      success: true,
+    };
+  }
 }

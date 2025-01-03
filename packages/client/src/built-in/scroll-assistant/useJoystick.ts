@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import _ from 'lodash';
+
 export const useJoystick = (ref, callbacks?) => {
   useEffect(() => {
     if (!ref.current) {
@@ -46,6 +48,8 @@ export const useJoystick = (ref, callbacks?) => {
     /** 根据半径限制相对坐标后的Y坐标 */
     let displayY = 0;
 
+    const debouncedOnMousewheel = _.debounce(onMousewheel, 16);
+
     ele.addEventListener('mousedown', down);
     ele.addEventListener('mousemove', move);
     ele.addEventListener('mouseup', up);
@@ -55,7 +59,7 @@ export const useJoystick = (ref, callbacks?) => {
     ele.addEventListener('touchend', up);
     ele.addEventListener('contextmenu', onContextmenu);
 
-    ele.addEventListener('mousewheel', onMousewheel);
+    ele.addEventListener('mousewheel', debouncedOnMousewheel);
 
     const stickEle = createStickCanvas();
     const baseEle = createBaseCanvas();

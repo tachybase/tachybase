@@ -30,12 +30,12 @@ export const InternalAdminLayout = (props: any) => {
               <h1 className={styles.title}>{result?.data?.data?.title}</h1>
             </div>
             <MenuEditor sideMenuRef={sideMenuRef} />
-            <div className={styles.editor}>
+            <div className={styles.headerTabs}>
               <AdminTabs />
             </div>
           </div>
           <div className={styles.right}>
-            <PinnedPluginList />
+            <PinnedPluginList belongToFilter="pinnedmenu" />
             <CurrentUser />
           </div>
         </div>

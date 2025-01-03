@@ -18,6 +18,7 @@ export type WorkerEventInputPluginMethod<T = any> = WorkerEventInputDefault & {
   plugin: Constructor<Plugin> | string;
   method: string;
   params: T;
+  reloadCols?: boolean;
 };
 
 export type WorkerEventInput = WorkerEventInputPluginMethod;

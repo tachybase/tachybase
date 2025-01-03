@@ -29,7 +29,7 @@ const SortableList = SortableContainer((props) => {
 });
 
 const isAdditionComponent = (schema: ISchema) => {
-  return schema['x-component']?.indexOf('Addition') > -1;
+  return schema['x-component']?.indexOf('Addition') > -1 || !!schema['x-component-props']?.['isAddition'];
 };
 
 const useAddition = () => {

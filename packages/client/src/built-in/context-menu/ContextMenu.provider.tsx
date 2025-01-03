@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 
+// import { AssistantListProvider, SchemaComponentOptions } from '@tachybase/client';
+import { ToolOutlined } from '@ant-design/icons';
 import { useLocalStorageState } from 'ahooks';
-import { Dropdown, type MenuProps } from 'antd';
+import { Dropdown, FloatButton, type MenuProps } from 'antd';
 
 import { useApp } from '../../application';
-import { ContextMenuContext } from './useContextMenu';
+import { SchemaComponentOptions } from '../../schema-component';
+import { PinnedPluginListProvider } from '../pinned-list';
+// import { AssistantListProvider } from '../assistant';
+import { ContextMenuContext, useContextMenu } from './useContextMenu';
 
 const STORAGE_KEYS = {
   HIDDEN_SCROLL_AREA: 'hidden-scroll-area',
@@ -64,5 +69,35 @@ export const ContextMenuProvider = ({ children }) => {
         </div>
       </Dropdown>
     </ContextMenuContext.Provider>
+  );
+};
+
+const ContextMenuButton = () => {
+  const { contextMenuEnabled, setContextMenuEnable } = useContextMenu();
+
+  return (
+    <FloatButton
+      type={contextMenuEnabled ? 'primary' : 'default'}
+      icon={<ToolOutlined />}
+      onClick={() => setContextMenuEnable(!contextMenuEnabled)}
+    />
+  );
+};
+
+export const ContextMenuButtonProvider = (props) => {
+  return (
+    <PinnedPluginListProvider
+      items={{
+        cm: { order: 90, component: 'ContextMenuButton', pin: true, isPublic: true, belongTo: 'hoverbutton' },
+      }}
+    >
+      <SchemaComponentOptions
+        components={{
+          ContextMenuButton,
+        }}
+      >
+        {props.children}
+      </SchemaComponentOptions>
+    </PinnedPluginListProvider>
   );
 };

@@ -251,7 +251,7 @@ export function SkipValidation() {
 export const findSchema = (schema) => {
   if (!schema) return;
   if (schema['x-decorator'] === 'ACLActionProvider') {
-    return schema['x-component-props'].openMode;
+    return schema['x-component-props']?.openMode;
   }
   return findSchema(schema?.parent);
 };

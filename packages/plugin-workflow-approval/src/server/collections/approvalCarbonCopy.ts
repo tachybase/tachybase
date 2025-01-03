@@ -1,6 +1,6 @@
 import { defineCollection } from '@tachybase/database';
 
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../common/collection-name';
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../common/constants';
 
 // 审批-抄送
 export default defineCollection({

@@ -35,7 +35,10 @@ const NodeConfigTitle = (props) => {
       </strong>
       <Tooltip title={lang('Variable key of node')}>
         <Tag>
-          <code>{data.key}</code>
+          <code>{`id: ${data.id}`}</code>
+        </Tag>
+        <Tag>
+          <code>{`key: ${data.key}`}</code>
         </Tag>
       </Tooltip>
     </div>

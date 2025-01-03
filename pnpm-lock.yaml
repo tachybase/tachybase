@@ -1419,7 +1419,7 @@ importers:
         specifier: ^6.37.5
         version: 6.37.5
 
-  packages/module-department:
+  packages/plugin-department:
     dependencies:
       '@tachybase/actions':
         specifier: workspace:*
@@ -4366,9 +4366,6 @@ importers:
       '@tachybase/module-data-source':
         specifier: workspace:*
         version: link:../module-data-source
-      '@tachybase/module-department':
-        specifier: workspace:*
-        version: link:../module-department
       '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
@@ -4498,6 +4495,9 @@ importers:
       '@tachybase/plugin-demos-game-runesweeper':
         specifier: workspace:*
         version: link:../plugin-prototype-game-runesweeper
+      '@tachybase/plugin-department':
+        specifier: workspace:*
+        version: link:../plugin-department
       '@tachybase/plugin-devtools':
         specifier: workspace:*
         version: link:../plugin-devtools

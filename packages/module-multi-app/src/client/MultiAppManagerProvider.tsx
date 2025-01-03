@@ -65,7 +65,7 @@ export const MultiAppManagerProvider = (props) => {
   return (
     <PinnedPluginListProvider
       items={{
-        am: { order: 201, component: 'MultiAppManager', pin: true, snippet: 'pm.*' },
+        am: { order: 201, component: 'MultiAppManager', pin: true, snippet: 'pm.*', belongTo: 'pinnedmenu' },
       }}
     >
       <SchemaComponentOptions

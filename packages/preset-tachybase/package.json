@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "0.23.22",
+  "version": "0.23.24",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "scripts": {
@@ -17,7 +17,6 @@
     "@tachybase/module-collection": "workspace:*",
     "@tachybase/module-cron": "workspace:*",
     "@tachybase/module-data-source": "workspace:*",
-    "@tachybase/module-department": "workspace:*",
     "@tachybase/module-error-handler": "workspace:*",
     "@tachybase/module-event-source": "workspace:*",
     "@tachybase/module-file": "workspace:*",
@@ -61,6 +60,7 @@
     "@tachybase/plugin-block-presentation": "workspace:*",
     "@tachybase/plugin-data-source-common": "workspace:*",
     "@tachybase/plugin-demos-game-runesweeper": "workspace:*",
+    "@tachybase/plugin-department": "workspace:*",
     "@tachybase/plugin-devtools": "workspace:*",
     "@tachybase/plugin-field-china-region": "workspace:*",
     "@tachybase/plugin-field-encryption": "workspace:*",

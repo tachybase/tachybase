@@ -1,6 +1,8 @@
+import { Plugin } from '@tachybase/server';
+
 import { LOG_TYPE_DESTROY } from '../constants';
 
-export async function afterDestroy(model, options) {
+export async function afterDestroy(model, options, plugin: Plugin) {
   const { collection } = model.constructor;
   if (!collection || !collection.options.logging) {
     return;
@@ -21,17 +23,36 @@ export async function afterDestroy(model, options) {
         });
       }
     });
-    await AuditLog.repository.create({
-      values: {
-        type: LOG_TYPE_DESTROY,
-        collectionName: model.constructor.name,
-        recordId: model.get(model.constructor.primaryKeyAttribute),
-        userId: currentUserId,
-        changes,
+    // await AuditLog.repository.create({
+    //   values: {
+    //     type: LOG_TYPE_DESTROY,
+    //     collectionName: model.constructor.name,
+    //     recordId: model.get(model.constructor.primaryKeyAttribute),
+    //     userId: currentUserId,
+    //     changes,
+    //   },
+    //   transaction,
+    //   hooks: false,
+    // });
+
+    const values = {
+      type: LOG_TYPE_DESTROY,
+      collectionName: model.constructor.name,
+      recordId: model.get(model.constructor.primaryKeyAttribute),
+      userId: currentUserId,
+      changes,
+    };
+
+    plugin.sendSyncMessage(
+      {
+        type: 'auditLog',
+        values,
       },
-      transaction,
-      hooks: false,
-    });
+      {
+        transaction,
+        onlySelf: true,
+      },
+    );
     // if (!options.transaction) {
     //   await transaction.commit();
     // }

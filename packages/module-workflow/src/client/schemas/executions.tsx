@@ -94,6 +94,18 @@ export const getExecutionSchema = (params?) => {
               },
             },
             properties: {
+              filter: {
+                type: 'void',
+                title: '{{ t("Filter") }}',
+                'x-action': 'filter',
+                'x-designer': 'Filter.Action.Designer',
+                'x-component': 'Filter.Action',
+                'x-use-component-props': 'useFilterActionProps',
+                'x-component-props': {
+                  icon: 'FilterOutlined',
+                },
+                'x-align': 'left',
+              },
               refresher: {
                 type: 'void',
                 title: '{{ t("Refresh") }}',

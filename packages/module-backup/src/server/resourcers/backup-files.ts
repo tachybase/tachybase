@@ -107,12 +107,14 @@ export default {
 
       let taskId;
       const app = ctx.app as Application;
-      if (data.method === 'worker') {
-        if (!app.worker.available) {
-          ctx.throw(500, ctx.t('No worker thread', { ns: 'worker-thread' }));
-          return next();
-        }
-        // 通过工作线程调用
+
+      if (data.method === 'worker' && !app.worker?.available) {
+        ctx.throw(500, ctx.t('No worker thread', { ns: 'worker-thread' }));
+        return next();
+      }
+
+      let useWorker = data.method === 'worker' || (data.method === 'priority' && app.worker?.available);
+      if (useWorker) {
         try {
           taskId = await app.worker.callPluginMethod({
             plugin: PluginBackupRestoreServer,
@@ -125,7 +127,6 @@ export default {
           });
           app.noticeManager.notify('backup', { level: 'info', msg: ctx.t('Done') });
         } catch (error) {
-          ctx.logger.warn(error);
           ctx.throw(500, ctx.t(error.message, { ns: 'worker-thread' }));
         }
       } else {
