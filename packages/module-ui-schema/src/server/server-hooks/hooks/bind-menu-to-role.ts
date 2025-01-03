@@ -18,7 +18,7 @@ export async function bindMenuToRole({ schemaInstance, db, options }) {
     const ancestorsIds = ancestors.map((item) => item.get('ancestor'));
     ancestorsIds.push(xUid);
     await db.getRepository('roles.menuUiSchemas', role.get('name')).add({
-      tk: ancestorsIds,
+      tk: [...new Set(ancestorsIds)],
       transaction,
     });
   }
