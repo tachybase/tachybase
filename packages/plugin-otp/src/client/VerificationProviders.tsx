@@ -3,6 +3,7 @@ import { SchemaComponent } from '@tachybase/client';
 
 import { Card } from 'antd';
 
+import { useCreateDatabaseConnectionAction } from './hooks';
 import ProviderOptions from './ProviderOptions';
 import providers from './schemas/providers';
 
@@ -13,6 +14,9 @@ export function VerificationProviders() {
         schema={providers}
         components={{
           ProviderOptions,
+        }}
+        scope={{
+          useCreateDatabaseConnectionAction,
         }}
       />
     </Card>

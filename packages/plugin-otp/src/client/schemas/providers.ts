@@ -1,9 +1,9 @@
 import { useActionContext, useRequest } from '@tachybase/client';
-import { uid } from '@tachybase/schema';
+import { ISchema, uid } from '@tachybase/schema';
 
 import { NAMESPACE } from '../locale';
 
-const collection = {
+const collectionotp = {
   name: 'verifications_providers',
   fields: [
     {
@@ -56,26 +56,112 @@ const collection = {
   ],
 };
 
-export default {
+export const update: ISchema = {
   type: 'void',
-  name: 'providers',
-  'x-decorator': 'ResourceActionProvider',
-  'x-decorator-props': {
-    collection,
-    resourceName: 'verifications_providers',
-    request: {
-      resource: 'verifications_providers',
-      action: 'list',
-      params: {
-        pageSize: 50,
-        sort: ['-default', 'id'],
-        appends: [],
+  title: '{{ t("Edit") }}',
+  'x-action': 'update',
+  'x-component': 'Action.Link',
+  'x-component-props': {
+    openMode: 'drawer',
+    icon: 'EditOutlined',
+  },
+  'x-decorator': 'ACLActionProvider',
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Edit record") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        card: {
+          type: 'void',
+          'x-acl-action-props': {
+            skipScopeCheck: false,
+          },
+          'x-acl-action': `verifications_providers:update`,
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
+          'x-decorator-props': {
+            action: 'get',
+            dataSource: 'main',
+            collection: collectionotp,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useEditFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
+                    },
+                  },
+                  properties: {
+                    cancel: {
+                      title: '{{ t("Cancel") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useUpdateActionProps',
+                      'x-component-props': {
+                        type: 'primary',
+                      },
+                    },
+                  },
+                },
+                id: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
+                title: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
+                type: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                  'x-disabled': true,
+                },
+                options: {
+                  type: 'object',
+                  'x-component': 'ProviderOptions',
+                },
+                default: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
+              },
+            },
+          },
+        },
       },
     },
   },
-  'x-component': 'CollectionProvider_deprecated',
-  'x-component-props': {
-    collection,
+};
+
+export default {
+  type: 'void',
+  name: 'providers',
+  'x-decorator': 'TableBlockProvider',
+  'x-decorator-props': {
+    collection: collectionotp,
+    action: 'list',
+    params: {
+      pageSize: 50,
+      sort: ['-default', 'id'],
+      appends: [],
+    },
+    rowKey: 'id',
   },
   properties: {
     actions: {
@@ -89,13 +175,15 @@ export default {
       properties: {
         delete: {
           type: 'void',
-          title: '{{t("Delete")}}',
+          title: '{{ t("Delete") }}',
+          'x-action': 'destroy',
+          'x-decorator': 'ACLActionProvider',
           'x-component': 'Action',
+          'x-use-component-props': 'useBulkDestroyActionProps',
           'x-component-props': {
             icon: 'DeleteOutlined',
-            useAction: '{{ cm.useBulkDestroyAction }}',
             confirm: {
-              title: "{{t('Delete')}}",
+              title: "{{t('Delete record')}}",
               content: "{{t('Are you sure you want to delete it?')}}",
             },
           },
@@ -129,6 +217,31 @@ export default {
               },
               title: '{{t("Add new")}}',
               properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
+                    },
+                  },
+                  properties: {
+                    cancel: {
+                      title: '{{ t("Cancel") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    create: {
+                      title: '{{ t("Submit") }}',
+                      'x-action': 'submit',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCreateDatabaseConnectionAction',
+                      'x-component-props': {
+                        type: 'primary',
+                      },
+                    },
+                  },
+                },
                 id: {
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
@@ -151,27 +264,6 @@ export default {
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                 },
-                footer: {
-                  type: 'void',
-                  'x-component': 'Action.Drawer.Footer',
-                  properties: {
-                    cancel: {
-                      title: '{{t("Cancel")}}',
-                      'x-component': 'Action',
-                      'x-component-props': {
-                        useAction: '{{ cm.useCancelAction }}',
-                      },
-                    },
-                    submit: {
-                      title: '{{t("Submit")}}',
-                      'x-component': 'Action',
-                      'x-component-props': {
-                        type: 'primary',
-                        useAction: '{{ cm.useCreateAction }}',
-                      },
-                    },
-                  },
-                },
               },
             },
           },
@@ -179,21 +271,22 @@ export default {
       },
     },
     table: {
-      type: 'void',
+      type: 'array',
       'x-uid': 'input',
-      'x-component': 'Table.Void',
+      'x-component': 'TableV2',
+      'x-use-component-props': 'useTableBlockProps',
+      'x-use-decorator-props': 'useTableBlockDecoratorProps',
       'x-component-props': {
         rowKey: 'id',
         rowSelection: {
           type: 'checkbox',
         },
-        useDataSource: '{{ cm.useDataSourceFromRAC }}',
       },
       properties: {
         id: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             id: {
               type: 'string',
@@ -204,8 +297,8 @@ export default {
         },
         title: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             title: {
               type: 'string',
@@ -216,8 +309,8 @@ export default {
         },
         type: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             type: {
               type: 'string',
@@ -228,8 +321,8 @@ export default {
         },
         default: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             default: {
               type: 'boolean',
@@ -241,7 +334,7 @@ export default {
         actions: {
           type: 'void',
           title: '{{t("Actions")}}',
-          'x-component': 'Table.Column',
+          'x-component': 'TableV2.Column',
           properties: {
             actions: {
               type: 'void',
@@ -250,79 +343,19 @@ export default {
                 split: '|',
               },
               properties: {
-                update: {
-                  type: 'void',
-                  title: '{{t("Edit")}}',
-                  'x-component': 'Action.Link',
-                  'x-component-props': {
-                    type: 'primary',
-                  },
-                  properties: {
-                    drawer: {
-                      type: 'void',
-                      'x-component': 'Action.Drawer',
-                      'x-decorator': 'Form',
-                      'x-decorator-props': {
-                        useValues: '{{ cm.useValuesFromRecord }}',
-                      },
-                      title: '{{t("Edit")}}',
-                      properties: {
-                        id: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                        },
-                        title: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                        },
-                        type: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                          'x-disabled': true,
-                        },
-                        options: {
-                          type: 'object',
-                          'x-component': 'ProviderOptions',
-                        },
-                        default: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                        },
-                        footer: {
-                          type: 'void',
-                          'x-component': 'Action.Drawer.Footer',
-                          properties: {
-                            cancel: {
-                              title: '{{t("Cancel")}}',
-                              'x-component': 'Action',
-                              'x-component-props': {
-                                useAction: '{{ cm.useCancelAction }}',
-                              },
-                            },
-                            submit: {
-                              title: '{{t("Submit")}}',
-                              'x-component': 'Action',
-                              'x-component-props': {
-                                type: 'primary',
-                                useAction: '{{ cm.useUpdateAction }}',
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
+                update,
                 delete: {
                   type: 'void',
                   title: '{{ t("Delete") }}',
+                  'x-action': 'destroy',
                   'x-component': 'Action.Link',
+                  'x-decorator': 'ACLActionProvider',
+                  'x-use-component-props': 'useDestroyActionProps',
                   'x-component-props': {
                     confirm: {
                       title: "{{t('Delete record')}}",
                       content: "{{t('Are you sure you want to delete it?')}}",
                     },
-                    useAction: '{{cm.useDestroyAction}}',
                   },
                 },
               },
