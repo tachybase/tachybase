@@ -12,6 +12,8 @@ export class HandlerManager {
     this.reset();
   }
 
+  public adapterType: string;
+
   protected async getMessageHash(message) {
     const encoder = new TextEncoder();
     const data = encoder.encode(JSON.stringify(message));
@@ -37,7 +39,17 @@ export class HandlerManager {
     return func;
   }
 
-  async handleMessage({ channel, message, callback, debounce }) {
+  async handleMessage({
+    channel,
+    message,
+    callback,
+    debounce,
+  }: {
+    channel: string;
+    message: Readonly<any>;
+    callback: any;
+    debounce: number;
+  }) {
     if (!debounce) {
       await callback(message);
       return;
@@ -61,7 +73,13 @@ export class HandlerManager {
   wrapper(channel, callback, options) {
     const { debounce = 0 } = options;
     return async (wrappedMessage) => {
-      const json = JSON.parse(wrappedMessage);
+      // 内存消息队列不再使用JSON.parse
+      let json;
+      if (this.adapterType !== 'MemoryPubSubAdapter') {
+        json = JSON.parse(wrappedMessage);
+      } else {
+        json = wrappedMessage;
+      }
       if (!this.verifyMessage(json)) {
         return;
       }

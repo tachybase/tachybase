@@ -42,8 +42,8 @@ export default class PluginActionLogs extends Plugin {
     });
   }
 
-  async handleSyncMessage(message: any): Promise<void> {
-    if (message.type === 'auditLog') {
+  async handleSyncMessage(message: Readonly<any>): Promise<void> {
+    if (message?.type === 'auditLog') {
       const { values } = message;
       if (!isMainThread || !this.app.worker?.available) {
         this.workerCreateAuditLog(values);
