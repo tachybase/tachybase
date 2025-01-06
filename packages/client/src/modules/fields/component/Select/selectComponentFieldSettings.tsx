@@ -308,10 +308,8 @@ const fieldComponent: any = {
 
     const optionsMuiltipleSelect = [
       { label: t('Select'), value: 'Select' },
-      { label: t('Checkbox'), value: 'Checkbox' },
       { label: t('Radio group'), value: 'Radio group' },
     ];
-
     return {
       title: t('Field component'),
       options: isMuiltipleSelect ? optionsMuiltipleSelect : fieldModeOptions,

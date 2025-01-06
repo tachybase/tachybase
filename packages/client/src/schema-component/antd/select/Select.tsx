@@ -1,10 +1,10 @@
-import React from 'react';
 import { connect, isValid, mapProps, mapReadPretty, toArr } from '@tachybase/schema';
 import { isPlainObject } from '@tachybase/utils/client';
 
 import { CloseCircleFilled, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Select as AntdSelect, Empty, Spin, Tag, type SelectProps } from 'antd';
+import { Select as AntdSelect, Empty, Radio, Spin, Tag, type SelectProps } from 'antd';
 
+import { useTranslation } from '../../..';
 import FormulaSelect from './FormulaSelect';
 import { ReadPretty } from './ReadPretty';
 import { defaultFieldNames, FieldNames, getCurrentOptions } from './utils';
@@ -178,8 +178,40 @@ const InternalSelect = connect(
   mapReadPretty(ReadPretty),
 );
 
-export const Select = InternalSelect as unknown as typeof InternalSelect & {
-  ReadPretty: typeof ReadPretty;
+const InternalRadioGroup = connect(
+  (props: any) => {
+    const { options, value, onChange } = props;
+
+    const handleCancel = (e) => {
+      e.stopPropagation();
+      const currentValue = e.target.value;
+      if (e.target.type === 'radio' && currentValue === value) {
+        onChange?.('');
+      }
+    };
+
+    return (
+      <div onClick={handleCancel}>
+        <Radio.Group {...props} value={value} options={options} />
+      </div>
+    );
+  },
+  mapProps({
+    dataSource: 'options',
+    onInput: 'onChange',
+    value: 'value',
+  }),
+  mapReadPretty(ReadPretty),
+);
+
+export const Select = (props) => {
+  switch (props.mode) {
+    case 'Radio group':
+      return <InternalRadioGroup {...props} />;
+    case 'Select':
+    default:
+      return <InternalSelect {...props} />;
+  }
 };
 
 Select.ReadPretty = ReadPretty;
