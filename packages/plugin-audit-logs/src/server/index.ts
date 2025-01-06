@@ -6,22 +6,19 @@ import { afterCreate, afterDestroy, afterUpdate } from './hooks';
 
 export default class PluginActionLogs extends Plugin {
   async afterAdd() {
-    if (isMainThread) {
-      return;
+    if (!isMainThread) {
+      // 给工作线程也加监听钩子
+      this.addAuditListener();
     }
-    // 给工作线程也加监听钩子
-    this.db.on('afterCreate', (model, options) => {
-      afterCreate(model, options, this);
-    });
-    this.db.on('afterUpdate', (model, options) => {
-      afterUpdate(model, options, this);
-    });
-    this.db.on('afterDestroy', (model, options) => {
-      afterDestroy(model, options, this);
-    });
   }
 
   async beforeLoad() {
+    if (isMainThread) {
+      this.addAuditListener();
+    }
+  }
+
+  async addAuditListener() {
     this.db.on('afterCreate', (model, options) => {
       afterCreate(model, options, this);
     });
@@ -45,8 +42,8 @@ export default class PluginActionLogs extends Plugin {
     });
   }
 
-  async handleSyncMessage(message: any): Promise<void> {
-    if (message.type === 'auditLog') {
+  async handleSyncMessage(message: Readonly<any>): Promise<void> {
+    if (message?.type === 'auditLog') {
       const { values } = message;
       if (!isMainThread || !this.app.worker?.available) {
         this.workerCreateAuditLog(values);

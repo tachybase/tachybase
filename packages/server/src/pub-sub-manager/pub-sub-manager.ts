@@ -39,6 +39,7 @@ export class PubSubManager {
 
   setAdapter(adapter: IPubSubAdapter) {
     this.adapter = adapter;
+    this.handlerManager.adapterType = adapter.constructor.name;
   }
 
   async isConnected() {
@@ -92,11 +93,14 @@ export class PubSubManager {
       return;
     }
 
-    const wrappedMessage = JSON.stringify({
+    const messageRow = {
       publisherId: this.publisherId,
       ...options,
       message: message,
-    });
+    };
+
+    const wrappedMessage =
+      this.adapter.constructor.name === 'MemoryPubSubAdapter' ? messageRow : JSON.stringify(messageRow);
 
     return this.adapter.publish(`${this.channelPrefix}${channel}`, wrappedMessage);
   }

@@ -19,5 +19,5 @@ export interface IPubSubAdapter {
   close(): Promise<any>;
   subscribe(channel: string, callback: PubSubCallback): Promise<any>;
   unsubscribe(channel: string, callback: PubSubCallback): Promise<any>;
-  publish(channel: string, message: string): Promise<any>;
+  publish(channel: string, message: string | object): Promise<any>;
 }

@@ -35,7 +35,7 @@ export function belongsToManyAssociations(instance: Model): Array<BelongsToMany>
   return Object.entries(associations)
     .filter((entry) => {
       const [key, association] = entry;
-      return association.associationType == 'BelongsToMany';
+      return association.associationType === 'BelongsToMany';
     })
     .map((association) => {
       return <BelongsToMany>association[1];
@@ -184,7 +184,7 @@ function isReverseAssociationPair(a: any, b: any) {
   typeSet.add(a.associationType);
   typeSet.add(b.associationType);
 
-  if (typeSet.size == 1 && typeSet.has('BelongsToMany')) {
+  if (typeSet.size === 1 && typeSet.has('BelongsToMany')) {
     return (
       a.through.tableName === b.through.tableName &&
       a.target.name === b.source.name &&
@@ -197,8 +197,8 @@ function isReverseAssociationPair(a: any, b: any) {
   }
 
   if ((typeSet.has('HasOne') && typeSet.has('BelongsTo')) || (typeSet.has('HasMany') && typeSet.has('BelongsTo'))) {
-    const sourceAssoc = a.associationType == 'BelongsTo' ? b : a;
-    const targetAssoc = sourceAssoc == a ? b : a;
+    const sourceAssoc = a.associationType === 'BelongsTo' ? b : a;
+    const targetAssoc = sourceAssoc === a ? b : a;
 
     return (
       sourceAssoc.source.name === targetAssoc.target.name &&
@@ -284,7 +284,10 @@ export async function updateSingleAssociation(
   };
 
   if (isUndefinedOrNull(value)) {
-    return await removeAssociation();
+    if (!isUndefinedOrNull(await model[association.accessors.get]())) {
+      return await removeAssociation();
+    }
+    return true;
   }
 
   // @ts-ignore
@@ -335,7 +338,7 @@ export async function updateSingleAssociation(
     });
 
     if (instance) {
-      await model[setAccessor](instance, { context, transaction });
+      await model[setAccessor](instance, { context, transaction, hooks: false });
 
       if (!recursive) {
         return;
