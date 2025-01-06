@@ -486,7 +486,7 @@ const getItem = (
   fieldPath?: string,
 ) => {
   // TODO 懒加载的形式，这里不应该限制层数，因为实际上添加到界面上进查询条件后性能并不差，只有添加设计界面有性能问题
-  if (level >= 2) {
+  if (level >= 3) {
     return null;
   }
 
@@ -516,6 +516,7 @@ const getItem = (
       type: 'subMenu',
       name: field.uiSchema?.title,
       title: field.uiSchema?.title,
+      key: (fieldPath || '') + field.key + 'menu',
       children: options.filter(Boolean),
     } as SchemaInitializerItemType;
   }
