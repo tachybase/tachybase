@@ -177,7 +177,8 @@ const Sync = () => {
 const useModules = () => {
   const { t: lang } = useLocalTranslation();
   const t = useMemoizedFn(lang);
-  const { data } = useDataBlockRequest();
+  const { data }: { data?: any } = useDataBlockRequest();
+
   return useMemo(
     () =>
       data?.meta?.modules?.map((module) => ({
