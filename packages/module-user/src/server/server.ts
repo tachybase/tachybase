@@ -128,7 +128,7 @@ export default class PluginUsersServer extends Plugin {
         plugin: this,
       },
     });
-    if (isMainThread) {
+    if (!isMainThread) {
       return;
     }
 

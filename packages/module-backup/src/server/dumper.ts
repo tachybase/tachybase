@@ -254,7 +254,6 @@ export class Dumper extends AppMigrator {
       } finally {
         this.cleanLockFile(backupFileName);
       }
-      // 工作线程无法通知备份完成
     }
 
     return backupFileName;
