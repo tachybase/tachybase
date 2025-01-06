@@ -110,11 +110,6 @@ export interface CommonFindOptions extends Transactionable {
   sort?: Sort;
   context?: any;
   tree?: boolean;
-  search?: {
-    fields?: string[];
-    isSearchAllFields?: boolean;
-    keywords?: string[];
-  };
 }
 
 export type FindOneOptions = Omit<FindOptions, 'limit'> & {

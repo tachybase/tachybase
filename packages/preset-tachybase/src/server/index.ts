@@ -81,6 +81,7 @@ export class PresetTachyBase extends Plugin {
     ['workflow-approval', '0.22.37', false],
     ['ai-chat', '0.23.8', false],
     ['department', '0.23.22', false],
+    ['full-text-search', '0.23.24', false],
   ];
 
   get localPlugins() {

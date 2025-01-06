@@ -1,0 +1,16 @@
+{
+  "name": "@tachybase/plugin-full-text-search",
+  "version": "0.23.24",
+  "description": "Provides full text search capability",
+  "main": "dist/server/index.js",
+  "dependencies": {
+    "antd": "5.22.5"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.Zh-CN": "提供全字段搜索能力",
+  "displayName.zh-CN": "全文搜索"
+}
