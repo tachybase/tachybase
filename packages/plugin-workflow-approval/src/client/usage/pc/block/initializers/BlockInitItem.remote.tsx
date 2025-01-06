@@ -1,6 +1,6 @@
 import { uid } from '@tachybase/utils/client';
 
-export const getSchemaBlockInitItem = (params) => {
+export const getRemoteSchemaBlockInitItem = (params) => {
   const { item: itemSchema } = params;
   const id = uid();
   const {

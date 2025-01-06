@@ -1,6 +1,6 @@
-import { NAMESPACE } from '../../../locale';
+import { NAMESPACE } from '../../../../locale';
 
-export const SchemaRecordApprovals = {
+export const schemaApprovalRecord = {
   type: 'void',
   name: 'recordApprovals',
   properties: {
@@ -28,7 +28,11 @@ export const SchemaRecordApprovals = {
     list: {
       type: 'array',
       'x-component': 'List',
-      'x-component-props': { locale: { emptyText: `{{ t("No data yet", { ns: "${NAMESPACE}" }) }}` } },
+      'x-component-props': {
+        locale: {
+          emptyText: `{{ t("No data yet", { ns: "${NAMESPACE}" }) }}`,
+        },
+      },
       properties: {
         item: {
           type: 'object',
@@ -39,7 +43,9 @@ export const SchemaRecordApprovals = {
             grid: {
               type: 'void',
               'x-component': 'Space',
-              'x-component-props': { direction: 'vertical' },
+              'x-component-props': {
+                direction: 'vertical',
+              },
               properties: {
                 row: {
                   type: 'void',

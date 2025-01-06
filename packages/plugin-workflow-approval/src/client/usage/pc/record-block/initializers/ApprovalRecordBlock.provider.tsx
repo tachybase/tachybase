@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   CollectionProvider_deprecated,
   ExtendCollectionsProvider,
@@ -8,12 +8,12 @@ import {
   useRecord,
 } from '@tachybase/client';
 
-import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
-import { collectionApprovals } from '../../../common/collections/approvals';
-import { collectionFlowNodes } from '../../../common/collections/flowNodes';
-import { collectionWorkflows } from '../../../common/collections/workflows';
+import { collectionApprovalTodos } from '../../../../common/collections/approvalRecords';
+import { collectionApprovals } from '../../../../common/collections/approvals';
+import { collectionFlowNodes } from '../../../../common/collections/flowNodes';
+import { collectionWorkflows } from '../../../../common/collections/workflows';
 
-export function RecordApprovalsDecorator({ params, children }) {
+export const ProviderApprovalRecordBlock = ({ params, children }) => {
   const collection = useCollection_deprecated();
   const record = useRecord();
   const request = useMemo(
@@ -54,4 +54,4 @@ export function RecordApprovalsDecorator({ params, children }) {
       </CollectionProvider_deprecated>
     </ExtendCollectionsProvider>
   );
-}
+};

@@ -1,6 +1,6 @@
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
-import { getSchemaBlockInitItem } from './BlockInitItem.schema';
+import { getRemoteSchemaBlockInitItem } from './BlockInitItem.remote';
 
 // 添加卡片-审批(发起/待办)
 export const ViewBlockInitItem = () => {
@@ -8,8 +8,8 @@ export const ViewBlockInitItem = () => {
   const { insert } = useSchemaInitializer();
 
   const onClick = ({ item }) => {
-    const schema = getSchemaBlockInitItem({ item });
-    insert(schema);
+    const remoteSchema = getRemoteSchemaBlockInitItem({ item });
+    insert(remoteSchema);
   };
 
   return <SchemaInitializerItem {...schemaInitializerItem} onClick={onClick} />;
