@@ -46,6 +46,16 @@ export default class extends Instruction {
     //     disabled: true
     //   }
     // },
+    useWorker: {
+      type: 'boolean',
+      title: '强制优先使用工作线程',
+      name: 'useWorker',
+      'x-decorator': 'FormItem',
+      'x-component': 'Checkbox',
+      // 'x-component-props': {
+      //   disabled: true
+      // }
+    },
     params: {
       type: 'object',
       properties: {
