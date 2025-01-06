@@ -1,7 +1,7 @@
 import { Plugin } from '@tachybase/client';
 
 import { KitApprovalBlock } from './block/kit';
-import { KitApprovalRecordBlock } from './record-block/plugin';
+import { KitApprovalRecordBlock } from './record-block/kit';
 
 export class KitApprovalPC extends Plugin {
   async afterAdd() {
