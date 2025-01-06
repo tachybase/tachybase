@@ -1,6 +1,10 @@
 import { Context } from '@tachybase/actions';
-import { Op } from '@tachybase/database';
+import { col, fn, Op, where } from '@tachybase/database';
 import { Plugin } from '@tachybase/server';
+
+function escapeLike(value: string) {
+  return value.replace(/[_%]/g, '\\$&');
+}
 
 const stringFields = ['string', 'text', 'sequence', 'uid', 'integer', 'float'];
 const numberFields = ['bigInt', 'double']; // 目前支持转成字符串全文搜索
@@ -35,47 +39,67 @@ export class PluginFullTextSearchServer extends Plugin {
         // 获取请求中的时区
         const utcOffset = ctx.get('X-Timezone') || 'Asia/Shanghai'; // 默认时区为 'Asia/Shanghai'
 
+        const dbType = ctx.db.sequelize.getDialect();
+
         const searchFilter = fields.reduce((acc, field) => {
           const type = fieldInfo.get(field)?.type;
 
-          // 不要查询的类型: sort, boolean, tstzrange, virtual, formula, context, password
-          // TODO: 考虑支持 json, array
+          // 不能查询的类型: sort, boolean, tstzrange, virtual, formula, context, password
           if (stringFields.includes(type)) {
-            acc.push({
-              [field]: {
-                $includes: params.search.keywords,
-              },
-            });
+            const searchObj = {
+              [Op.or]: [],
+            };
+            for (const keyword of params.search.keywords) {
+              searchObj[Op.or].push({
+                [field]: {
+                  [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
+                },
+              });
+            }
+            acc.push(searchObj);
           } else if (numberFields.includes(type)) {
-            acc.push({
-              [Op.and]: [ctx.db.sequelize.literal(`CAST("${field}" AS TEXT) LIKE '%${params.search.keywords}%'`)],
-            });
+            let castFunction = '';
+
+            // 根据数据库类型选择 CAST 函数
+            if (dbType === 'mysql') {
+              castFunction = `CAST("${field}" AS CHAR)`;
+            } else {
+              castFunction = `CAST("${field}" AS TEXT)`;
+            }
+
+            const searchObj = {
+              [Op.or]: [],
+            };
+            for (const keyword of params.search.keywords) {
+              searchObj[Op.or].push({
+                where: where(ctx.db.sequelize.literal(`CAST(${ctx.db.sequelize.col(field)} AS TEXT)`), {
+                  [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
+                }),
+              });
+            }
+            // acc.push(searchObj);
           } else if (dateFields.includes(type)) {
             let formatStr = '';
             const info = fieldInfo.get(field);
             if (info.options?.uiSchema?.['x-component-props']?.dateFormat) {
-              // 获取日期格式
               const props = info.options.uiSchema['x-component-props'];
-              formatStr = props.dateFormat + (props.timeFormat || '');
+              formatStr = props.dateFormat + (props.timeFormat ? ' ' + props.timeFormat : '');
             } else {
               formatStr = 'YYYY-MM-DD';
             }
-
-            // 根据数据库类型选择格式化函数
-            const dbType = ctx.db.sequelize.getDialect(); // 获取数据库类型
-            let dateFormatFunction = '';
-            if (dbType === 'postgres') {
-              dateFormatFunction = `TO_CHAR((("${field}" AT TIME ZONE 'UTC') AT TIME ZONE '${utcOffset}'), '${formatStr}')`;
-            } else if (dbType === 'mysql') {
-              dateFormatFunction = `DATE_FORMAT((("${field}" AT TIME ZONE 'UTC') AT TIME ZONE '${utcOffset}'), '${formatStr}')`;
-            } else if (dbType === 'sqlite') {
-              dateFormatFunction = `strftime('${formatStr}', (("${field}" AT TIME ZONE 'UTC') AT TIME ZONE '${utcOffset}'))`;
+            const searchObj = {
+              [Op.or]: [],
+            };
+            for (const keyword of params.search.keywords) {
+              searchObj[Op.or].push({
+                [Op.and]: [
+                  where(fn('CONVERT_TZ', ctx.db.sequelize.col(field), '+00:00', utcOffset, formatStr), {
+                    [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
+                  }),
+                ],
+              });
             }
-
-            // 将时间字段转换为请求中的时区并格式化
-            acc.push({
-              [Op.and]: [ctx.db.sequelize.literal(`${dateFormatFunction} LIKE '%${params.search.keywords}%'`)],
-            });
+            // acc.push(searchObj);
           }
           return acc;
         }, []);
