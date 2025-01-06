@@ -4,7 +4,6 @@ import { isPlainObject } from '@tachybase/utils/client';
 import { CloseCircleFilled, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Select as AntdSelect, Empty, Radio, Spin, Tag, type SelectProps } from 'antd';
 
-import { useTranslation } from '../../..';
 import FormulaSelect from './FormulaSelect';
 import { ReadPretty } from './ReadPretty';
 import { defaultFieldNames, FieldNames, getCurrentOptions } from './utils';
@@ -182,6 +181,7 @@ const InternalRadioGroup = connect(
   (props: any) => {
     const { options, value, onChange } = props;
 
+    // NOTE: This is a hack, make radio group can cancel choice.
     const handleCancel = (e) => {
       e.stopPropagation();
       const currentValue = e.target.value;
