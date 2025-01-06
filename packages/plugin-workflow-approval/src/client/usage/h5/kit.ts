@@ -25,13 +25,16 @@ export class KitApprovalH5 extends Plugin {
       ViewTodosUserJobsContent,
       'ApprovalCommon.ViewComponent.MApprovalProcess': ApprovalProcess,
     });
+
     this.app.schemaSettingsManager.add(ApprovalSettings);
+
     this.app.schemaInitializerManager.addItem('mobilePage:addBlock', 'otherBlocks.approval', {
       title: 'Approval',
       name: 'approval',
       type: 'item',
       Component: 'ApprovalBlockInitializer',
     });
+
     this.app.schemaInitializerManager.add(LauncherActionConfigInitializer);
 
     this.addRoutes();
