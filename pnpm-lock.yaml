@@ -3746,9 +3746,15 @@ importers:
 
   packages/plugin-full-text-search:
     dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
