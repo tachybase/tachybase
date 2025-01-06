@@ -12,7 +12,7 @@ export const SchemaInitializerChildren: FC<{ children: SchemaInitializerItemType
       {children
         .sort((a, b) => (a.sort || 0) - (b.sort || 0))
         .map((item, index) => (
-          <SchemaInitializerChild key={item.name || (item as any).key || index} {...item} />
+          <SchemaInitializerChild key={(item as any).key || item?.name || index} {...item} />
         ))}
     </>
   );
