@@ -61,7 +61,14 @@ export class GroupedTable extends AntdChart {
 
     advanced?.columns?.forEach((dataValue) => {
       dataSource.forEach((value) => {
+        if (dataValue.key === seriesField) {
+          return;
+        }
         if (dataValue.calculate) {
+          if (!Number(value[dataValue.key])) {
+            value[dataValue.key] = 0;
+            return;
+          }
           let number: any = transform.filter((value) => value.field === dataValue.key)[0];
           if (number) {
             number = number.specific ? number.specific : 3;
@@ -98,7 +105,7 @@ export class GroupedTable extends AntdChart {
             value[dataValue.key] = numberFormat.format(sum);
           }
         } else {
-          if (dataValue.key !== seriesField) value[dataValue.key] = '';
+          value[dataValue.key] = '';
         }
       });
     });
