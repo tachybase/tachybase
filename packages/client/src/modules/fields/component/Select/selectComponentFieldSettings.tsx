@@ -16,6 +16,7 @@ import { DynamicComponentProps } from '../../../../schema-component/antd/filter/
 import {
   useIsAssociationField,
   useIsFieldReadPretty,
+  useIsMuiltipleAble,
   useIsSelectFieldMode,
   useTitleFieldOptions,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
@@ -290,16 +291,28 @@ const fieldComponent: any = {
   useComponentProps() {
     const { t } = useTranslation();
     const field = useField<Field>();
+    const collectionFieldCurrent = useCollectionField();
+
     const { fieldSchema: tableColumnSchema, collectionField } = useColumnSchema();
+
     const schema = useFieldSchema();
     const fieldSchema = tableColumnSchema || schema;
+
     const fieldModeOptions = useFieldModeOptions({ fieldSchema: tableColumnSchema, collectionField });
+
     const isAddNewForm = useIsAddNewForm();
     const fieldMode = useFieldComponentName();
     const { dn } = useDesignable();
+
+    const isMuiltipleSelect = ['select'].includes(collectionFieldCurrent?.interface);
+
+    const optionsMuiltipleSelect = [
+      { label: t('Select'), value: 'Select' },
+      { label: t('Radio group'), value: 'Radio group' },
+    ];
     return {
       title: t('Field component'),
-      options: fieldModeOptions,
+      options: isMuiltipleSelect ? optionsMuiltipleSelect : fieldModeOptions,
       value: fieldMode,
       onChange(mode) {
         const schema = {
@@ -334,7 +347,7 @@ export const selectComponentFieldSettings = new SchemaSettings({
   items: [
     {
       ...fieldComponent,
-      useVisible: useIsAssociationField,
+      useVisible: useIsMuiltipleAble,
     },
     {
       ...setTheDataScope,

@@ -21,6 +21,7 @@ export const radioComponentFieldSettings = new SchemaSettings({
         const fieldModeOptions = [
           { label: t('Checkbox'), value: 'Checkbox' },
           { label: t('Radio group'), value: 'Radio group' },
+          { label: t('Select'), value: 'Select' },
         ];
         const { dn } = useDesignable();
         return {
