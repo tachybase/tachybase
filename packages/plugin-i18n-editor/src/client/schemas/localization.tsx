@@ -50,13 +50,13 @@ const collectionlocalization = {
 export const updatelocalization: ISchema = {
   type: 'void',
   title: '{{ t("Edit") }}',
-  // 'x-action': 'update',
+  'x-action': 'update',
   'x-component': 'Action.Link',
   'x-component-props': {
     openMode: 'drawer',
     icon: 'EditOutlined',
   },
-  // 'x-decorator': 'ACLActionProvider',
+  'x-decorator': 'ACLActionProvider',
   properties: {
     drawer: {
       type: 'void',
@@ -71,17 +71,13 @@ export const updatelocalization: ISchema = {
           'x-acl-action-props': {
             skipScopeCheck: false,
           },
-          'x-acl-action': `localizationTexts:update`,
+          'x-acl-action': `localizationTexts:get`,
           'x-decorator': 'FormBlockProvider',
           'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
           'x-decorator-props': {
             action: 'get',
             dataSource: 'main',
             collection: collectionlocalization,
-            params: {
-              append: ['moduleTitle', 'translation'],
-              hasTranslation: true,
-            },
           },
           'x-component': 'CardItem',
           properties: {

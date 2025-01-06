@@ -114,4 +114,62 @@ const list = async (ctx: Context, next: Next) => {
   await next();
 };
 
-export default { list };
+const getTranslations = async (db: Database, row: Model, locale: string): Promise<Model> => {
+  if (!row || !row.id) {
+    return null;
+  }
+  const repo = db.getRepository('localizationTranslations');
+  const translation = await repo.findOne({
+    filter: {
+      locale,
+      textId: row.id,
+    },
+  });
+  if (translation) {
+    row.set('translation', translation.translation, { raw: true });
+    row.set('translationId', translation.id, { raw: true });
+  } else {
+    row.set('translation', null, { raw: true });
+    row.set('translationId', null, { raw: true });
+  }
+  return row;
+};
+
+const getText = async (db: Database, params: any): Promise<Model> => {
+  const { filterByTk, hasTranslation, locale, options } = params;
+  const row = await db.getRepository('localizationTexts').findOne({
+    filterByTk: filterByTk,
+  });
+  return await getTranslations(db, row, locale);
+};
+
+const get = async (ctx: Context, next: Next) => {
+  const locale = ctx.get('X-Locale') || 'en-US';
+  let { hasTranslation, filterByTk } = ctx.action.params;
+  hasTranslation = hasTranslation === 'true' || hasTranslation === undefined;
+  const options = {
+    context: ctx,
+  };
+  const row = await getText(ctx.db, { filterByTk, hasTranslation, locale });
+
+  // append plugin displayName
+  const cache = ctx.app.cache as Cache;
+  const pm = ctx.app.pm as PluginManager;
+  const plugins = await cache.wrap(`lm-plugins:${locale}`, () => pm.list({ locale }));
+  const modules = [
+    ...EXTEND_MODULES,
+    ...plugins.map((plugin) => ({
+      value: plugin.alias || plugin.name,
+      label: plugin.displayName,
+    })),
+  ];
+  const moduleName = (row.get('module') as string).replace('resources.', '');
+  const module = modules.find((module) => module.value === moduleName);
+  if (module) {
+    row.set('moduleTitle', module.label, { raw: true });
+  }
+  ctx.body = row;
+  await next();
+};
+
+export default { list, get };

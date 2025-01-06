@@ -9,9 +9,9 @@ import {
   StablePopover,
   useActionContext,
   useAPIClient,
+  useBlockRequestContext,
   useCollectionRecordData,
   useDataBlockRequest,
-  useDataBlockResource,
 } from '@tachybase/client';
 import { createForm, FieldComponent as Field, Form, useField, useForm } from '@tachybase/schema';
 
@@ -28,7 +28,9 @@ const useUpdateTranslationAction = () => {
   const field = useField();
   const form = useForm();
   const ctx = useActionContext();
-  const { refresh } = useDataBlockRequest();
+  const { __parent } = useBlockRequestContext();
+  const service = useDataBlockRequest();
+  // const { refresh } = useDataBlockRequest();
   const record = useCollectionRecordData();
   const textId = record?.id;
   const api = useAPIClient();
@@ -49,7 +51,8 @@ const useUpdateTranslationAction = () => {
         });
         ctx.setVisible(false);
         await form.reset();
-        refresh();
+        // service.refresh();
+        __parent?.service?.refresh();
       } catch (e) {
         console.log(e);
       } finally {
@@ -72,15 +75,20 @@ const useDestroyTranslationAction = () => {
 };
 
 const useBulkDestroyTranslationAction = () => {
-  const { state, setState, refresh } = useDataBlockRequest();
+  const { field } = useBlockRequestContext();
+  const { setState, refresh } = useDataBlockRequest();
   const api = useAPIClient();
   const { t } = useLocalTranslation();
   return {
-    async Onclick() {
-      if (!state?.selectedRowKeys?.length) {
+    async onClick() {
+      if (!field?.data?.selectedRowKeys?.length) {
         return message.error(t('Please select the records you want to delete'));
       }
-      await api.resource('localizationTranslations').destroy({ filterByTk: state?.selectedRowKeys });
+      await api.resource('localization').destroyTrans({
+        values: {
+          textIds: field?.data?.selectedRowKeys,
+        },
+      });
       setState?.({ selectedRowKeys: [] });
       refresh();
     },
@@ -90,7 +98,7 @@ const useBulkDestroyTranslationAction = () => {
 const usePublishAction = () => {
   const api = useAPIClient();
   return {
-    async Onclick() {
+    async onClick() {
       await api.resource('localization').publish();
       window.location.reload();
     },
