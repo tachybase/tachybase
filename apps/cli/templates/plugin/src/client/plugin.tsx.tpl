@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
 
-export class {{{pascalCaseName}}}Client extends Plugin {
+class {{{pascalCaseName}}}Client extends Plugin {
   async afterAdd() {
     // await this.app.pm.add()
   }
