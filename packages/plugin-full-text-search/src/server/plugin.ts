@@ -2,6 +2,8 @@ import { Context } from '@tachybase/actions';
 import { fn, literal, Op, where } from '@tachybase/database';
 import { Plugin } from '@tachybase/server';
 
+import { SEARCH_KEYWORDS_MAX } from '../constants';
+
 function escapeLike(value: string) {
   return value.replace(/[_%]/g, '\\$&');
 }
@@ -71,6 +73,11 @@ export class PluginFullTextSearchServer extends Plugin {
         if (!params.search || !params.search?.keywords?.length) {
           return next();
         }
+
+        if (params.search.keywords.length > SEARCH_KEYWORDS_MAX) {
+          ctx.throw(500, `keywords max length is ${SEARCH_KEYWORDS_MAX}`);
+        }
+
         let fields = [];
         const collection = ctx.db.getCollection(ctx.action.resourceName);
         const fieldInfo = collection.fields;
@@ -81,7 +88,7 @@ export class PluginFullTextSearchServer extends Plugin {
         }
 
         // 获取请求中的时区
-        const utcOffset = ctx.get('X-Timezone') || 'Asia/Shanghai'; // 默认时区为 'Asia/Shanghai'
+        const utcOffset = ctx.get('X-Timezone') || '+00:00'; // 默认时区为零
 
         const dbType = ctx.db.sequelize.getDialect();
 
