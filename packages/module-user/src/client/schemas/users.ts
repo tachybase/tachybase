@@ -1,11 +1,5 @@
 import { useEffect } from 'react';
-import {
-  useActionContext,
-  useCollectionRecord,
-  useCollectionRecordData,
-  useRecord,
-  useRequest,
-} from '@tachybase/client';
+import { useActionContext, useCollectionRecordData, useRequest } from '@tachybase/client';
 import { ISchema, uid } from '@tachybase/schema';
 
 export const userCollection = {
@@ -124,6 +118,122 @@ export const userCollection = {
   ],
 };
 
+const create: ISchema = {
+  type: 'void',
+  'x-action': 'create',
+  'x-acl-action': 'create',
+  title: "{{t('Add new')}}",
+  'x-component': 'Action',
+  'x-decorator': 'ACLActionProvider',
+  'x-component-props': {
+    openMode: 'drawer',
+    type: 'primary',
+    component: 'CreateRecordAction',
+    icon: 'PlusOutlined',
+  },
+  'x-align': 'right',
+  'x-acl-action-props': {
+    skipScopeCheck: true,
+  },
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Add user") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        body: {
+          type: 'void',
+          'x-acl-action-props': {
+            skipScopeCheck: true,
+          },
+          'x-acl-action': `users:create`,
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
+          'x-decorator-props': {
+            dataSource: 'main',
+            collection: userCollection,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useCreateFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
+                    },
+                  },
+                  properties: {
+                    cancel: {
+                      title: '{{ t("Cancel") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCreateActionProps',
+                      'x-component-props': {
+                        type: 'primary',
+                        htmlType: 'submit',
+                      },
+                      'x-action-settings': {
+                        assignedValues: {},
+                        triggerWorkflows: [],
+                        pageMode: false,
+                      },
+                    },
+                  },
+                },
+                nickname: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
+                username: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
+                email: {
+                  title: '{{t("Email")}}',
+                  'x-component': 'Input',
+                  'x-validator': 'email',
+                  'x-decorator': 'FormItem',
+                  required: false,
+                },
+                phone: {
+                  title: '{{t("Phone")}}',
+                  'x-component': 'Input',
+                  'x-validator': 'phone',
+                  'x-decorator': 'FormItem',
+                  required: false,
+                },
+                password: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                  required: true,
+                },
+                roles: {
+                  'x-component': 'CollectionField',
+                  'x-collection-field': 'users.roles',
+                  'x-decorator': 'FormItem',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
 export const changePassword: ISchema = {
   type: 'void',
   title: '{{ t("Change password") }}',
@@ -222,113 +332,42 @@ export const usersSchema: ISchema = {
         },
       },
       properties: {
-        // actions: {
-        //   type: 'void',
-        //   'x-component': 'ActionBar',
-        //   'x-component-props': {
-        //     style: {
-        //       marginBottom: 16,
-        //     },
-        //   },
-        //   properties: {
-        //     filter: {
-        //       type: 'void',
-        //       title: '{{ t("Filter") }}',
-        //       'x-action': 'filter',
-        //       'x-component': 'Filter.Action',
-        //       'x-use-component-props': 'useFilterActionProps',
-        //       'x-component-props': {
-        //         icon: 'FilterOutlined',
-        //       },
-        //       'x-align': 'left',
-        //     },
-        //     delete: {
-        //       type: 'void',
-        //       title: '{{ t("Delete") }}',
-        //       'x-component': 'Action',
-        //       'x-component-props': {
-        //         useAction: '{{ cm.useBulkDestroyAction }}',
-        //         confirm: {
-        //           title: "{{t('Delete users')}}",
-        //           content: "{{t('Are you sure you want to delete it?')}}",
-        //         },
-        //         icon: 'DeleteOutlined',
-        //       },
-        //     },
-        //     create: {
-        //       type: 'void',
-        //       title: '{{t("Add new")}}',
-        //       'x-component': 'Action',
-        //       'x-component-props': {
-        //         type: 'primary',
-        //         icon: 'PlusOutlined',
-        //       },
-        //       properties: {
-        //         drawer: {
-        //           type: 'void',
-        //           'x-component': 'Action.Drawer',
-        //           'x-decorator': 'Form',
-        //           title: '{{t("Add user")}}',
-        //           properties: {
-        //             nickname: {
-        //               'x-component': 'CollectionField',
-        //               'x-decorator': 'FormItem',
-        //             },
-        //             username: {
-        //               'x-component': 'CollectionField',
-        //               'x-decorator': 'FormItem',
-        //             },
-        //             email: {
-        //               title: '{{t("Email")}}',
-        //               'x-component': 'Input',
-        //               'x-validator': 'email',
-        //               'x-decorator': 'FormItem',
-        //               required: false,
-        //             },
-        //             phone: {
-        //               title: '{{t("Phone")}}',
-        //               'x-component': 'Input',
-        //               'x-validator': 'phone',
-        //               'x-decorator': 'FormItem',
-        //               required: false,
-        //             },
-        //             password: {
-        //               'x-component': 'CollectionField',
-        //               'x-decorator': 'FormItem',
-        //               required: true,
-        //             },
-        //             roles: {
-        //               'x-component': 'CollectionField',
-        //               'x-collection-field': 'users.roles',
-        //               'x-decorator': 'FormItem',
-        //             },
-        //             footer: {
-        //               type: 'void',
-        //               'x-component': 'Action.Drawer.Footer',
-        //               properties: {
-        //                 cancel: {
-        //                   title: '{{t("Cancel")}}',
-        //                   'x-component': 'Action',
-        //                   'x-component-props': {
-        //                     useAction: '{{ cm.useCancelAction }}',
-        //                   },
-        //                 },
-        //                 submit: {
-        //                   title: '{{t("Submit")}}',
-        //                   'x-component': 'Action',
-        //                   'x-component-props': {
-        //                     type: 'primary',
-        //                     useAction: '{{ cm.useCreateAction }}',
-        //                   },
-        //                 },
-        //               },
-        //             },
-        //           },
-        //         },
-        //       },
-        //     },
-        //   },
-        // },
+        actions: {
+          type: 'void',
+          'x-component': 'ActionBar',
+          'x-component-props': {
+            style: {
+              marginBottom: 16,
+            },
+          },
+          properties: {
+            filter: {
+              type: 'void',
+              title: '{{ t("Filter") }}',
+              'x-action': 'filter',
+              'x-component': 'Filter.Action',
+              'x-use-component-props': 'useFilterActionProps',
+              'x-component-props': {
+                icon: 'FilterOutlined',
+              },
+              'x-align': 'left',
+            },
+            delete: {
+              type: 'void',
+              title: '{{ t("Delete") }}',
+              'x-component': 'Action',
+              'x-use-component-props': 'useBulkDestroyActionProps',
+              'x-component-props': {
+                confirm: {
+                  title: "{{t('Delete users')}}",
+                  content: "{{t('Are you sure you want to delete it?')}}",
+                },
+                icon: 'DeleteOutlined',
+              },
+            },
+            create,
+          },
+        },
         table: {
           type: 'array',
           'x-uid': 'input',
@@ -484,103 +523,26 @@ export const usersSchema: ISchema = {
                               'x-decorator': 'FormItem',
                               'x-collection-field': 'users.roles',
                             },
-                            // footer: {
-                            //   type: 'void',
-                            //   'x-component': 'Action.Drawer.Footer',
-                            //   properties: {
-                            //     cancel: {
-                            //       title: '{{t("Cancel")}}',
-                            //       'x-component': 'Action',
-                            //       'x-component-props': {
-                            //         useAction: '{{ cm.useCancelAction }}',
-                            //       },
-                            //     },
-                            //     submit: {
-                            //       title: '{{t("Submit")}}',
-                            //       'x-component': 'Action',
-                            //       'x-component-props': {
-                            //         type: 'primary',
-                            //         useAction: '{{ cm.useUpdateAction }}',
-                            //       },
-                            //     },
-                            //   },
-                            // },
                           },
                         },
                       },
                     },
                     changePassword,
-                    // changePassword: {
-                    //   type: 'void',
-                    //   title: '{{t("Change password")}}',
-                    //   'x-action': 'update',
-                    //   'x-decorator': 'ACLActionProvider',
-                    //   'x-acl-action': 'users:update',
-                    //   'x-component': 'Action.Link',
-                    //   'x-component-props': {
-                    //     openMode: 'drawer',
-                    //     icon: 'EditOutlined',
-                    //   },
-                    //   properties: {
-                    //     drawer: {
-                    //       type: 'void',
-                    //       'x-component': 'Action.Container',
-                    //       'x-component-props': {
-                    //         className: 'tb-action-popup',
-                    //       },
-                    //       title: '{{t("Change password")}}',
-                    //       properties: {
-                    //         actionBar: {
-                    //           type: 'void',
-                    //           'x-component': 'ActionBar',
-                    //           'x-component-props': {
-                    //             style: {
-                    //               marginBottom: 24,
-                    //             },
-                    //           },
-                    //           properties: {
-                    //             cancel: {
-                    //               title: '{{ t("Cancel") }}',
-                    //               'x-component': 'Action',
-                    //               'x-use-component-props': 'useCancelActionProps',
-                    //             },
-                    //             submit: {
-                    //               title: '{{ t("Submit") }}',
-                    //               'x-component': 'Action',
-                    //               'x-use-component-props': 'useUpdateActionProps',
-                    //               'x-component-props': {
-                    //                 type: 'primary',
-                    //               },
-                    //             },
-                    //           },
-                    //         },
-                    //         password: {
-                    //           'x-component': 'CollectionField',
-                    //           'x-component-props': {
-                    //             component: 'PasswordField',
-                    //           },
-                    //           'x-decorator': 'FormItem',
-                    //           required: true,
-                    //         },
-                    //       },
-                    //     },
-                    //   },
-                    // },
-                    // delete: {
-                    //   type: 'void',
-                    //   title: '{{ t("Delete") }}',
-                    //   'x-acl-action': 'users:destroy',
-                    //   'x-action': 'destroy',
-                    //   'x-decorator': 'ACLActionProvider',
-                    //   'x-component': 'Action.Link',
-                    //   'x-component-props': {
-                    //     confirm: {
-                    //       title: "{{t('Delete')}}",
-                    //       content: "{{t('Are you sure you want to delete it?')}}",
-                    //     },
-                    //     useAction: '{{cm.useDestroyAction}}',
-                    //   },
-                    // },
+                    delete: {
+                      type: 'void',
+                      title: '{{ t("Delete") }}',
+                      'x-acl-action': 'users:destroy',
+                      'x-action': 'destroy',
+                      'x-decorator': 'ACLActionProvider',
+                      'x-component': 'Action.Link',
+                      'x-use-component-props': 'useDestroyActionProps',
+                      'x-component-props': {
+                        confirm: {
+                          title: "{{t('Delete')}}",
+                          content: "{{t('Are you sure you want to delete it?')}}",
+                        },
+                      },
+                    },
                   },
                 },
               },
@@ -773,72 +735,72 @@ export const getRoleUsersSchema = (): ISchema => ({
         },
       },
     },
-    table: {
-      type: 'void',
-      'x-component': 'Table.Void',
-      'x-component-props': {
-        rowKey: 'id',
-        rowSelection: {
-          type: 'checkbox',
-        },
-        useDataSource: '{{ cm.useDataSourceFromRAC }}',
-      },
-      properties: {
-        username: {
-          type: 'void',
-          title: '{{t("Username")}}',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
-          properties: {
-            username: {
-              type: 'string',
-              'x-component': 'CollectionField',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        nickname: {
-          type: 'void',
-          title: '{{t("Nickname")}}',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
-          properties: {
-            nickname: {
-              type: 'string',
-              'x-component': 'CollectionField',
-              'x-read-pretty': true,
-            },
-          },
-        },
-        actions: {
-          type: 'void',
-          title: '{{t("Actions")}}',
-          'x-component': 'Table.Column',
-          properties: {
-            actions: {
-              type: 'void',
-              'x-component': 'Space',
-              'x-component-props': {
-                split: '|',
-              },
-              properties: {
-                remove: {
-                  type: 'void',
-                  title: '{{ t("Remove") }}',
-                  'x-component': 'Action.Link',
-                  'x-component-props': {
-                    confirm: {
-                      title: "{{t('Remove user')}}",
-                      content: "{{t('Are you sure you want to remove it?')}}",
-                    },
-                    useAction: '{{ useRemoveUser }}',
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
+    // table: {
+    //   type: 'void',
+    //   'x-component': 'Table.Void',
+    //   'x-component-props': {
+    //     rowKey: 'id',
+    //     rowSelection: {
+    //       type: 'checkbox',
+    //     },
+    //     useDataSource: '{{ cm.useDataSourceFromRAC }}',
+    //   },
+    //   properties: {
+    //     username: {
+    //       type: 'void',
+    //       title: '{{t("Username")}}',
+    //       'x-decorator': 'Table.Column.Decorator',
+    //       'x-component': 'Table.Column',
+    //       properties: {
+    //         username: {
+    //           type: 'string',
+    //           'x-component': 'CollectionField',
+    //           'x-read-pretty': true,
+    //         },
+    //       },
+    //     },
+    //     nickname: {
+    //       type: 'void',
+    //       title: '{{t("Nickname")}}',
+    //       'x-decorator': 'Table.Column.Decorator',
+    //       'x-component': 'Table.Column',
+    //       properties: {
+    //         nickname: {
+    //           type: 'string',
+    //           'x-component': 'CollectionField',
+    //           'x-read-pretty': true,
+    //         },
+    //       },
+    //     },
+    //     actions: {
+    //       type: 'void',
+    //       title: '{{t("Actions")}}',
+    //       'x-component': 'Table.Column',
+    //       properties: {
+    //         actions: {
+    //           type: 'void',
+    //           'x-component': 'Space',
+    //           'x-component-props': {
+    //             split: '|',
+    //           },
+    //           properties: {
+    //             remove: {
+    //               type: 'void',
+    //               title: '{{ t("Remove") }}',
+    //               'x-component': 'Action.Link',
+    //               'x-component-props': {
+    //                 confirm: {
+    //                   title: "{{t('Remove user')}}",
+    //                   content: "{{t('Are you sure you want to remove it?')}}",
+    //                 },
+    //                 useAction: '{{ useRemoveUser }}',
+    //               },
+    //             },
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
   },
 });
