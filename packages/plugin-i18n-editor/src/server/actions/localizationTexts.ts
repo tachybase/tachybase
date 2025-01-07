@@ -151,7 +151,9 @@ const get = async (ctx: Context, next: Next) => {
     context: ctx,
   };
   const row = await getText(ctx.db, { filterByTk, hasTranslation, locale });
-
+  if (!row) {
+    ctx.throw(404, ctx.t('Record not found'));
+  }
   // append plugin displayName
   const cache = ctx.app.cache as Cache;
   const pm = ctx.app.pm as PluginManager;
