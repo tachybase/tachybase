@@ -7,11 +7,12 @@ import { AntdChart } from './antd';
 
 export class GroupedTable extends AntdChart {
   constructor() {
-    super({ name: 'groupedTable', title: 'GroupedTable', Component: AntdTable });
+    super({ name: 'groupedTable', title: 'GroupedTable', Component: AntdTable, config: ['seriesField'] });
   }
 
   getProps({ data, fieldProps, general, advanced, ctx }: RenderProps) {
-    const { transform } = ctx;
+    const { transform, config } = ctx;
+    const seriesField = config?.general?.seriesField;
     const columns = data.length
       ? Object.keys(data[0]).map((item) => ({
           title: fieldProps[item]?.label || item,
@@ -20,6 +21,7 @@ export class GroupedTable extends AntdChart {
           calculate: true,
         }))
       : [];
+
     const dataSource = [];
     let key = 0;
     data.forEach((item: any, index) => {
@@ -36,7 +38,7 @@ export class GroupedTable extends AntdChart {
           item[key] = props.transformer(item[key]);
         }
       });
-      const dataValue = dataSource.filter((value) => value['product.name'] === item['product.name'])[0];
+      const dataValue = dataSource.filter((value) => value[seriesField] === item[seriesField])[0];
       if (dataValue) {
         dataSource[dataValue.key].children.push({
           key: `key${uid()}${uid()}`,
@@ -56,9 +58,17 @@ export class GroupedTable extends AntdChart {
         key++;
       }
     });
+
     advanced?.columns?.forEach((dataValue) => {
       dataSource.forEach((value) => {
+        if (dataValue.key === seriesField) {
+          return;
+        }
         if (dataValue.calculate) {
+          if (!Number(value[dataValue.key])) {
+            value[dataValue.key] = 0;
+            return;
+          }
           let number: any = transform.filter((value) => value.field === dataValue.key)[0];
           if (number) {
             number = number.specific ? number.specific : 3;
