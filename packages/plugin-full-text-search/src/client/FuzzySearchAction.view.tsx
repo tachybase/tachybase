@@ -1,6 +1,6 @@
 import { ActionInitializer } from '@tachybase/client';
 
-export const ViewFuzzySearchSwitchAction = (props) => {
+export const ViewFuzzySearchActionSwitch = (props) => {
   const schema = {
     'x-component': 'FuzzySearchInput',
   };
