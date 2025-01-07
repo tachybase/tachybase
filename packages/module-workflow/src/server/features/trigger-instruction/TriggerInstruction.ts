@@ -9,7 +9,7 @@ export class TriggerInstruction extends Instruction {
     const wfRepo = this.workflow.db.getRepository('workflows');
     const wf = await wfRepo.findOne({ filter: { key: workflowKey, enabled: true } });
     if (wf.sync) {
-      const p = await this.workflow.trigger(wf, input.result);
+      const p = await this.workflow.trigger(wf, input.result, processor.options);
       if (!p) {
         return {
           status: JOB_STATUS.FAILED,
@@ -22,6 +22,7 @@ export class TriggerInstruction extends Instruction {
       };
     } else {
       this.workflow.trigger(wf, input.result, {
+        ...processor.options,
         parentNode: node.id,
         parent: processor.execution,
       });
