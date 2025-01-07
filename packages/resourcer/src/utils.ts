@@ -203,6 +203,11 @@ export function parseQuery(input: string): any {
     query.filter = JSON.parse(query.filter);
   }
 
+  // search 支持 json string
+  if (typeof query.search === 'string') {
+    query.search = JSON.parse(query.search);
+  }
+
   return query;
 }
 
