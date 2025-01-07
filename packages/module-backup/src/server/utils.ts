@@ -29,6 +29,19 @@ export async function readLines(filePath: string) {
   return results;
 }
 
+export async function readEveryLines(filePath: string, processLine: (line: string) => void) {
+  const fileStream = fs.createReadStream(filePath);
+
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity,
+  });
+
+  for await (const line of rl) {
+    await processLine(line); // 逐行处理每一行
+  }
+}
+
 export function humanFileSize(bytes, si = false, dp = 1) {
   const thresh = si ? 1000 : 1024;
 
