@@ -1,16 +1,19 @@
 import React from 'react';
-import { SchemaComponent } from '@tachybase/client';
+import { ExtendCollectionsProvider, SchemaComponent } from '@tachybase/client';
 
+import collection, { COLLECTION_NAME_MESSAGES_PROVIDERS } from '../../../common/collections/messages_providers';
 import { schemaNotificationProviders as schema } from './NotificationProviders.schema';
 import { ProviderOptions } from './ProviderOptions';
 
 export const NotificationProviders = () => {
   return (
-    <SchemaComponent
-      schema={schema}
-      components={{
-        ProviderOptions,
-      }}
-    />
+    <ExtendCollectionsProvider collections={[collection]}>
+      <SchemaComponent
+        schema={schema}
+        components={{
+          ProviderOptions,
+        }}
+      />
+    </ExtendCollectionsProvider>
   );
 };

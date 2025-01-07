@@ -112,7 +112,7 @@ export const schemaNotificationProviders = {
       name: 'tableCard',
       'x-decorator': 'TableBlockProvider',
       'x-decorator-props': {
-        collection,
+        collection: collection,
         action: 'list',
         params: {
           pageSize: 50,
