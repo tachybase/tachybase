@@ -1,7 +1,7 @@
 import { ISchema } from '@tachybase/schema';
 
-const collection = {
-  name: 'localization',
+const collectionlocalization = {
+  name: 'localizationTexts',
   fields: [
     {
       interface: 'input',
@@ -47,24 +47,104 @@ const collection = {
   ],
 };
 
-export const localizationSchema: ISchema = {
+export const updatelocalization: ISchema = {
   type: 'void',
-  name: 'localization',
-  'x-decorator': 'ResourceActionProvider',
-  'x-decorator-props': {
-    collection,
-    resourceName: 'localizationTexts',
-    request: {
-      resource: 'localizationTexts',
-      action: 'list',
-      params: {
-        pageSize: 50,
+  title: '{{ t("Edit") }}',
+  'x-action': 'update',
+  'x-component': 'Action.Link',
+  'x-component-props': {
+    openMode: 'drawer',
+    icon: 'EditOutlined',
+  },
+  'x-decorator': 'ACLActionProvider',
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Edit record") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        card: {
+          type: 'void',
+          'x-acl-action-props': {
+            skipScopeCheck: false,
+          },
+          'x-acl-action': `localizationTexts:get`,
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
+          'x-decorator-props': {
+            action: 'get',
+            dataSource: 'main',
+            collection: collectionlocalization,
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useEditFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
+                    },
+                  },
+                  properties: {
+                    cancel: {
+                      title: '{{ t("Cancel") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useUpdateTranslationAction',
+                      'x-component-props': {
+                        type: 'primary',
+                      },
+                    },
+                  },
+                },
+                moduleTitle: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                  'x-read-pretty': true,
+                },
+                text: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                  'x-read-pretty': true,
+                },
+                translation: {
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                  required: true,
+                },
+              },
+            },
+          },
+        },
       },
     },
   },
-  'x-component': 'CollectionProvider_deprecated',
-  'x-component-props': {
-    collection,
+};
+
+export const localizationSchema: ISchema = {
+  type: 'void',
+  name: 'localizationTexts',
+  'x-decorator': 'TableBlockProvider',
+  'x-decorator-props': {
+    collection: collectionlocalization,
+    action: 'list',
+    params: {
+      pageSize: 50,
+      append: ['moduleTitle', 'translation'],
+    },
   },
   properties: {
     actions: {
@@ -91,9 +171,9 @@ export const localizationSchema: ISchema = {
           type: 'void',
           title: '{{t("Delete translation")}}',
           'x-component': 'Action',
+          'x-use-component-props': 'useBulkDestroyTranslationAction',
           'x-component-props': {
             icon: 'DeleteOutlined',
-            useAction: '{{ useBulkDestroyTranslationAction }}',
             confirm: {
               title: "{{t('Delete translation')}}",
               content: "{{t('Are you sure you want to delete it?')}}",
@@ -109,30 +189,31 @@ export const localizationSchema: ISchema = {
           type: 'void',
           title: '{{t("Publish")}}',
           'x-component': 'Action',
+          'x-use-component-props': 'usePublishAction',
           'x-component-props': {
             icon: 'UploadOutlined',
             type: 'primary',
-            useAction: '{{ usePublishAction }}',
           },
         },
       },
     },
     table: {
-      type: 'void',
+      type: 'array',
       'x-uid': 'input',
-      'x-component': 'Table.Void',
+      'x-component': 'TableV2',
+      'x-use-component-props': 'useTableBlockProps',
+      'x-use-decorator-props': 'useTableBlockDecoratorProps',
       'x-component-props': {
         rowKey: 'translationId',
         rowSelection: {
           type: 'checkbox',
         },
-        useDataSource: '{{ cm.useDataSourceFromRAC }}',
       },
       properties: {
         text: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             text: {
               type: 'string',
@@ -143,8 +224,8 @@ export const localizationSchema: ISchema = {
         },
         translation: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             translation: {
               type: 'string',
@@ -158,8 +239,8 @@ export const localizationSchema: ISchema = {
         },
         moduleTitle: {
           type: 'void',
-          'x-decorator': 'Table.Column.Decorator',
-          'x-component': 'Table.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
+          'x-component': 'TableV2.Column',
           properties: {
             moduleTitle: {
               type: 'string',
@@ -171,7 +252,8 @@ export const localizationSchema: ISchema = {
         actions: {
           type: 'void',
           title: '{{t("Actions")}}',
-          'x-component': 'Table.Column',
+          'x-component': 'TableV2.Column',
+          'x-decorator': 'TableV2.Column.Decorator',
           properties: {
             actions: {
               type: 'void',
@@ -180,88 +262,75 @@ export const localizationSchema: ISchema = {
                 split: '|',
               },
               properties: {
-                update: {
-                  type: 'void',
-                  title: '{{t("Edit")}}',
-                  'x-component': 'Action.Link',
-                  'x-component-props': {
-                    type: 'primary',
-                  },
-                  properties: {
-                    drawer: {
-                      type: 'void',
-                      'x-component': 'Action.Drawer',
-                      'x-decorator': 'Form',
-                      'x-decorator-props': {
-                        useValues: '{{ cm.useValuesFromRecord }}',
-                      },
-                      title: '{{t("Edit")}}',
-                      properties: {
-                        moduleTitle: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                          'x-read-pretty': true,
-                        },
-                        text: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                          'x-read-pretty': true,
-                        },
-                        translation: {
-                          'x-component': 'CollectionField',
-                          'x-decorator': 'FormItem',
-                          required: true,
-                        },
-                        footer: {
-                          type: 'void',
-                          'x-component': 'Action.Drawer.Footer',
-                          properties: {
-                            cancel: {
-                              title: '{{t("Cancel")}}',
-                              'x-component': 'Action',
-                              'x-component-props': {
-                                useAction: '{{ cm.useCancelAction }}',
-                              },
-                            },
-                            submit: {
-                              title: '{{t("Submit")}}',
-                              'x-component': 'Action',
-                              'x-component-props': {
-                                type: 'primary',
-                                useAction: '{{ useUpdateTranslationAction }}',
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
+                updatelocalization,
+                // update: {
+                //   type: 'void',
+                //   title: '{{t("Edit")}}',
+                //   'x-component': 'Action.Link',
+                //   'x-component-props': {
+                //     type: 'primary',
+                //   },
+                //   properties: {
+                //     drawer: {
+                //       type: 'void',
+                //       'x-component': 'Action.Drawer',
+                //       'x-decorator': 'FormV2',
+                //       // 'x-decorator-props': 'useValuesFromRecord',
+                //       title: '{{t("Edit")}}',
+                //       properties: {
+                //         moduleTitle: {
+                //           'x-component': 'CollectionField',
+                //           'x-decorator': 'FormItem',
+                //           'x-read-pretty': true,
+                //         },
+                //         text: {
+                //           'x-component': 'CollectionField',
+                //           'x-decorator': 'FormItem',
+                //           'x-read-pretty': true,
+                //         },
+                //         translation: {
+                //           'x-component': 'CollectionField',
+                //           'x-decorator': 'FormItem',
+                //           required: true,
+                //         },
+                //         footer: {
+                //           type: 'void',
+                //           'x-component': 'Action.Drawer.Footer',
+                //           properties: {
+                //             cancel: {
+                //               title: '{{t("Cancel")}}',
+                //               'x-component': 'Action',
+                //               'x-component-props': {
+                //                 useAction: '{{ cm.useCancelAction }}',
+                //               },
+                //             },
+                //             submit: {
+                //               title: '{{t("Submit")}}',
+                //               'x-component': 'Action',
+                //               'x-component-props': {
+                //                 type: 'primary',
+                //                 useAction: '{{ useUpdateTranslationAction }}',
+                //               },
+                //             },
+                //           },
+                //         },
+                //       },
+                //     },
+                //   },
+                // },
                 deleteTranslation: {
                   type: 'void',
                   title: '{{ t("Delete translation") }}',
                   'x-component': 'Action.Link',
+                  'x-use-component-props': 'useDestroyTranslationAction',
                   'x-component-props': {
                     confirm: {
                       title: "{{t('Delete translation')}}",
                       content: "{{t('Are you sure you want to delete it?')}}",
                     },
-                    useAction: '{{useDestroyTranslationAction}}',
                   },
                   'x-visible': '{{useHasTranslation()}}',
                 },
-                // deleteText: {
-                //   type: 'void',
-                //   title: '{{ t("Delete Text") }}',
-                //   'x-component': 'Action.Link',
-                //   'x-component-props': {
-                //     confirm: {
-                //       title: "{{t('Delete text')}}",
-                //       content: "{{t('Are you sure you want to delete it?')}}",
-                //     },
-                //     useAction: '{{useDestroyTextAction}}',
-                //   },
-                // },
               },
             },
           },

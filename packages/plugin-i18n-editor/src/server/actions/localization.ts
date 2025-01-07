@@ -203,4 +203,19 @@ const publish = async (ctx: Context, next: Next) => {
   await next();
 };
 
-export default { publish, sync };
+const destroyTrans = async (ctx: Context, next: Next) => {
+  const textIds = ctx.action.params?.values?.textIds || [];
+  const repo = ctx.db.getRepository('localizationTranslations');
+  await repo.destroy({
+    filter: {
+      textId: {
+        $in: textIds,
+      },
+    },
+  });
+  ctx.body = { success: true, message: 'Records deleted successfully' };
+  ctx.status = 200;
+  await next();
+};
+
+export default { publish, sync, destroyTrans };

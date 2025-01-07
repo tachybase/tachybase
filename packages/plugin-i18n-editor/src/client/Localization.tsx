@@ -9,9 +9,9 @@ import {
   StablePopover,
   useActionContext,
   useAPIClient,
-  useRecord,
-  useResourceActionContext,
-  useResourceContext,
+  useBlockRequestContext,
+  useCollectionRecordData,
+  useDataBlockRequest,
 } from '@tachybase/client';
 import { createForm, FieldComponent as Field, Form, useField, useForm } from '@tachybase/schema';
 
@@ -28,13 +28,15 @@ const useUpdateTranslationAction = () => {
   const field = useField();
   const form = useForm();
   const ctx = useActionContext();
-  const { refresh } = useResourceActionContext();
-  const { targetKey } = useResourceContext();
-  const { [targetKey]: textId } = useRecord();
+  const { __parent } = useBlockRequestContext();
+  const service = useDataBlockRequest();
+  // const { refresh } = useDataBlockRequest();
+  const record = useCollectionRecordData();
+  const textId = record?.id;
   const api = useAPIClient();
   const locale = api.auth.getLocale();
   return {
-    async run() {
+    async onClick() {
       await form.submit();
       field.data = field.data || {};
       field.data.loading = true;
@@ -49,7 +51,8 @@ const useUpdateTranslationAction = () => {
         });
         ctx.setVisible(false);
         await form.reset();
-        refresh();
+        // service.refresh();
+        __parent?.service?.refresh();
       } catch (e) {
         console.log(e);
       } finally {
@@ -60,11 +63,11 @@ const useUpdateTranslationAction = () => {
 };
 
 const useDestroyTranslationAction = () => {
-  const { refresh } = useResourceActionContext();
+  const { refresh } = useDataBlockRequest();
   const api = useAPIClient();
-  const { translationId: filterByTk } = useRecord();
+  const { translationId: filterByTk } = useCollectionRecordData();
   return {
-    async run() {
+    async onClick() {
       await api.resource('localizationTranslations').destroy({ filterByTk });
       refresh();
     },
@@ -72,15 +75,20 @@ const useDestroyTranslationAction = () => {
 };
 
 const useBulkDestroyTranslationAction = () => {
-  const { state, setState, refresh } = useResourceActionContext();
+  const { field } = useBlockRequestContext();
+  const { setState, refresh } = useDataBlockRequest();
   const api = useAPIClient();
   const { t } = useLocalTranslation();
   return {
-    async run() {
-      if (!state?.selectedRowKeys?.length) {
+    async onClick() {
+      if (!field?.data?.selectedRowKeys?.length) {
         return message.error(t('Please select the records you want to delete'));
       }
-      await api.resource('localizationTranslations').destroy({ filterByTk: state?.selectedRowKeys });
+      await api.resource('localization').destroyTrans({
+        values: {
+          textIds: field?.data?.selectedRowKeys,
+        },
+      });
       setState?.({ selectedRowKeys: [] });
       refresh();
     },
@@ -90,7 +98,7 @@ const useBulkDestroyTranslationAction = () => {
 const usePublishAction = () => {
   const api = useAPIClient();
   return {
-    async run() {
+    async onClick() {
       await api.resource('localization').publish();
       window.location.reload();
     },
@@ -99,7 +107,7 @@ const usePublishAction = () => {
 
 const Sync = () => {
   const { t } = useLocalTranslation();
-  const { refresh } = useResourceActionContext();
+  const { refresh } = useDataBlockRequest();
   const api = useAPIClient();
   const [loading, setLoading] = useState(false);
   const plainOptions = ['local', 'menu', 'db'];
@@ -169,7 +177,8 @@ const Sync = () => {
 const useModules = () => {
   const { t: lang } = useLocalTranslation();
   const t = useMemoizedFn(lang);
-  const { data } = useResourceActionContext();
+  const { data }: { data?: any } = useDataBlockRequest();
+
   return useMemo(
     () =>
       data?.meta?.modules?.map((module) => ({
@@ -182,7 +191,7 @@ const useModules = () => {
 
 const Filter = () => {
   const { t } = useLocalTranslation();
-  const { run } = useResourceActionContext();
+  const { run } = useDataBlockRequest();
   const modules = useModules();
   const form = useMemo<Form>(
     () =>
