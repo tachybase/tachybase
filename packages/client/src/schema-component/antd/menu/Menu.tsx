@@ -20,7 +20,7 @@ import { css, Icon, useSchemaInitializerRender, useToken } from '../../../';
 import { useCollectMenuItems, useMenuItem } from '../../../hooks/useMenuItem';
 import { useProps } from '../../hooks/useProps';
 import { useMenuTranslation } from './locale';
-import { InsertMenuItemsGroup, MenuDesigner } from './Menu.Designer';
+import { MenuDesigner } from './Menu.Designer';
 import { useStyles } from './Menu.styles';
 import { findKeysByUid, findMenuItem } from './util';
 

@@ -51,7 +51,7 @@ const findMenuSchema = (fieldSchema: Schema) => {
   }
 };
 
-export const InsertMenuItemsGroup = (props) => {
+const InsertMenuItemsGroup = (props) => {
   const { insertPosition = 'beforeEnd' } = props;
   const { t } = useTranslation();
   const { dn } = useDesignable();
