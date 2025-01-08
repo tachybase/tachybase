@@ -557,250 +557,266 @@ export const usersSchema: ISchema = {
 export const getRoleUsersSchema = (): ISchema => ({
   type: 'void',
   properties: {
-    actions: {
+    block1: {
       type: 'void',
-      'x-component': 'ActionBar',
-      'x-component-props': {
-        style: {
-          marginBottom: 16,
+      'x-decorator': 'RoleUsersTableBlockProvider',
+      'x-component': 'CardItem',
+      'x-decorator-props': {
+        collection: userCollection,
+        // resource: 'roles.users',
+        // resourceOf: role?.name,
+        // action: 'list',
+        params: {
+          pageSize: 50,
         },
       },
       properties: {
-        [uid()]: {
-          type: 'void',
-          title: '{{ t("Filter") }}',
-          'x-action': 'filter',
-          'x-component': 'Filter.Action',
-          'x-use-component-props': 'useFilterActionProps',
-          'x-component-props': {
-            icon: 'FilterOutlined',
-          },
-          'x-align': 'left',
-        },
         actions: {
           type: 'void',
-          'x-component': 'Space',
-          properties: {
-            remove: {
-              type: 'void',
-              title: '{{t("Remove")}}',
-              'x-component': 'Action',
-              'x-component-props': {
-                icon: 'MinusOutlined',
-                confirm: {
-                  title: "{{t('Remove')}}",
-                  content: "{{t('Are you sure you want to remove these users?')}}",
-                },
-                style: {
-                  marginRight: 8,
-                },
-                useAction: '{{ useBulkRemoveUsers }}',
-              },
+          'x-component': 'ActionBar',
+          'x-component-props': {
+            style: {
+              marginBottom: 16,
             },
-            create: {
+          },
+          properties: {
+            [uid()]: {
               type: 'void',
-              title: '{{t("Add users")}}',
-              'x-component': 'Action',
+              title: '{{ t("Filter") }}',
+              'x-action': 'filter',
+              'x-component': 'Filter.Action',
+              'x-use-component-props': 'useFilterActionProps',
               'x-component-props': {
-                type: 'primary',
-                icon: 'PlusOutlined',
+                icon: 'FilterOutlined',
               },
+              'x-align': 'left',
+            },
+            actions: {
+              type: 'void',
+              'x-component': 'Space',
               properties: {
-                drawer: {
+                remove: {
                   type: 'void',
-                  'x-component': 'Action.Drawer',
-                  'x-decorator': 'FormV2',
-                  title: '{{t("Add users")}}',
-                  properties: {
-                    resource: {
-                      type: 'void',
-                      'x-decorator': 'FormItem',
-                      'x-component': 'RoleUsersProvider',
-                      properties: {
-                        actions: {
-                          type: 'void',
-                          'x-component': 'ActionBar',
-                          'x-component-props': {
-                            style: {
-                              marginBottom: 16,
-                            },
-                          },
-                          properties: {
-                            filter: {
-                              type: 'void',
-                              title: '{{ t("Filter") }}',
-                              default: {
-                                $and: [{ username: { $includes: '' } }, { nickname: { $includes: '' } }],
-                              },
-                              'x-action': 'filter',
-                              'x-component': 'Filter.Action',
-                              'x-use-component-props': 'useFilterActionProps',
-                              'x-component-props': {
-                                icon: 'FilterOutlined',
-                              },
-                              'x-align': 'left',
-                            },
-                          },
-                        },
-                        table: {
-                          type: 'void',
-                          'x-component': 'Table.Void',
-                          'x-component-props': {
-                            rowKey: 'id',
-                            rowSelection: {
-                              type: 'checkbox',
-                              onChange: '{{ handleSelectRoleUsers }}',
-                            },
-                            useDataSource: '{{ cm.useDataSourceFromRAC }}',
-                          },
-                          properties: {
-                            username: {
-                              type: 'void',
-                              'x-decorator': 'Table.Column.Decorator',
-                              'x-component': 'Table.Column',
-                              properties: {
-                                username: {
-                                  type: 'string',
-                                  'x-component': 'CollectionField',
-                                  'x-read-pretty': true,
-                                },
-                              },
-                            },
-                            nickname: {
-                              type: 'void',
-                              'x-decorator': 'Table.Column.Decorator',
-                              'x-component': 'Table.Column',
-                              properties: {
-                                nickname: {
-                                  type: 'string',
-                                  'x-component': 'CollectionField',
-                                  'x-read-pretty': true,
-                                },
-                              },
-                            },
-                            phone: {
-                              type: 'void',
-                              'x-decorator': 'Table.Column.Decorator',
-                              'x-component': 'Table.Column',
-                              properties: {
-                                phone: {
-                                  type: 'string',
-                                  'x-component': 'CollectionField',
-                                  'x-read-pretty': true,
-                                },
-                              },
-                            },
-                            email: {
-                              type: 'void',
-                              'x-decorator': 'Table.Column.Decorator',
-                              'x-component': 'Table.Column',
-                              properties: {
-                                email: {
-                                  type: 'string',
-                                  'x-component': 'CollectionField',
-                                  'x-read-pretty': true,
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
+                  title: '{{t("Remove")}}',
+                  'x-component': 'Action',
+                  'x-use-component-props': 'useBulkRemoveUsers',
+                  'x-component-props': {
+                    icon: 'MinusOutlined',
+                    confirm: {
+                      title: "{{t('Remove')}}",
+                      content: "{{t('Are you sure you want to remove these users?')}}",
                     },
-                    footer: {
-                      type: 'void',
-                      'x-component': 'Action.Drawer.Footer',
-                      properties: {
-                        cancel: {
-                          title: '{{t("Cancel")}}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            useAction: '{{ cm.useCancelAction }}',
-                          },
-                        },
-                        submit: {
-                          title: '{{t("Submit")}}',
-                          'x-component': 'Action',
-                          'x-component-props': {
-                            type: 'primary',
-                            useAction: '{{ useAddRoleUsers }}',
-                          },
-                        },
-                      },
+                    style: {
+                      marginRight: 8,
                     },
                   },
                 },
+                // create: {
+                //   type: 'void',
+                //   title: '{{t("Add users")}}',
+                //   'x-component': 'Action',
+                //   'x-component-props': {
+                //     type: 'primary',
+                //     icon: 'PlusOutlined',
+                //   },
+                //   properties: {
+                //     drawer: {
+                //       type: 'void',
+                //       'x-component': 'Action.Drawer',
+                //       'x-decorator': 'FormV2',
+                //       title: '{{t("Add users")}}',
+                //       properties: {
+                //         resource: {
+                //           type: 'void',
+                //           'x-decorator': 'FormItem',
+                //           'x-component': 'RoleUsersProvider',
+                //           properties: {
+                //             actions: {
+                //               type: 'void',
+                //               'x-component': 'ActionBar',
+                //               'x-component-props': {
+                //                 style: {
+                //                   marginBottom: 16,
+                //                 },
+                //               },
+                //               properties: {
+                //                 filter: {
+                //                   type: 'void',
+                //                   title: '{{ t("Filter") }}',
+                //                   default: {
+                //                     $and: [{ username: { $includes: '' } }, { nickname: { $includes: '' } }],
+                //                   },
+                //                   'x-action': 'filter',
+                //                   'x-component': 'Filter.Action',
+                //                   'x-use-component-props': 'useFilterActionProps',
+                //                   'x-component-props': {
+                //                     icon: 'FilterOutlined',
+                //                   },
+                //                   'x-align': 'left',
+                //                 },
+                //               },
+                //             },
+                //             table: {
+                //               type: 'void',
+                //               'x-component': 'Table.Void',
+                //               'x-component-props': {
+                //                 rowKey: 'id',
+                //                 rowSelection: {
+                //                   type: 'checkbox',
+                //                   onChange: '{{ handleSelectRoleUsers }}',
+                //                 },
+                //                 useDataSource: '{{ cm.useDataSourceFromRAC }}',
+                //               },
+                //               properties: {
+                //                 username: {
+                //                   type: 'void',
+                //                   'x-decorator': 'Table.Column.Decorator',
+                //                   'x-component': 'Table.Column',
+                //                   properties: {
+                //                     username: {
+                //                       type: 'string',
+                //                       'x-component': 'CollectionField',
+                //                       'x-read-pretty': true,
+                //                     },
+                //                   },
+                //                 },
+                //                 nickname: {
+                //                   type: 'void',
+                //                   'x-decorator': 'Table.Column.Decorator',
+                //                   'x-component': 'Table.Column',
+                //                   properties: {
+                //                     nickname: {
+                //                       type: 'string',
+                //                       'x-component': 'CollectionField',
+                //                       'x-read-pretty': true,
+                //                     },
+                //                   },
+                //                 },
+                //                 phone: {
+                //                   type: 'void',
+                //                   'x-decorator': 'Table.Column.Decorator',
+                //                   'x-component': 'Table.Column',
+                //                   properties: {
+                //                     phone: {
+                //                       type: 'string',
+                //                       'x-component': 'CollectionField',
+                //                       'x-read-pretty': true,
+                //                     },
+                //                   },
+                //                 },
+                //                 email: {
+                //                   type: 'void',
+                //                   'x-decorator': 'Table.Column.Decorator',
+                //                   'x-component': 'Table.Column',
+                //                   properties: {
+                //                     email: {
+                //                       type: 'string',
+                //                       'x-component': 'CollectionField',
+                //                       'x-read-pretty': true,
+                //                     },
+                //                   },
+                //                 },
+                //               },
+                //             },
+                //           },
+                //         },
+                //         footer: {
+                //           type: 'void',
+                //           'x-component': 'Action.Drawer.Footer',
+                //           properties: {
+                //             cancel: {
+                //               title: '{{t("Cancel")}}',
+                //               'x-component': 'Action',
+                //               'x-component-props': {
+                //                 useAction: '{{ cm.useCancelAction }}',
+                //               },
+                //             },
+                //             submit: {
+                //               title: '{{t("Submit")}}',
+                //               'x-component': 'Action',
+                //               'x-component-props': {
+                //                 type: 'primary',
+                //                 useAction: '{{ useAddRoleUsers }}',
+                //               },
+                //             },
+                //           },
+                //         },
+                //       },
+                //     },
+                //   },
+                // },
               },
             },
+          },
+        },
+        table: {
+          type: 'array',
+          'x-component': 'TableV2',
+          'x-use-component-props': 'useTableBlockProps',
+          'x-component-props': {
+            rowKey: 'id',
+            rowSelection: {
+              type: 'checkbox',
+            },
+          },
+          properties: {
+            username: {
+              type: 'void',
+              title: '{{t("Username")}}',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              properties: {
+                username: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            nickname: {
+              type: 'void',
+              title: '{{t("Nickname")}}',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              properties: {
+                nickname: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            // actions: {
+            //   type: 'void',
+            //   title: '{{t("Actions")}}',
+            //   'x-component': 'Table.Column',
+            //   properties: {
+            //     actions: {
+            //       type: 'void',
+            //       'x-component': 'Space',
+            //       'x-component-props': {
+            //         split: '|',
+            //       },
+            //       properties: {
+            //         remove: {
+            //           type: 'void',
+            //           title: '{{ t("Remove") }}',
+            //           'x-component': 'Action.Link',
+            //           'x-component-props': {
+            //             confirm: {
+            //               title: "{{t('Remove user')}}",
+            //               content: "{{t('Are you sure you want to remove it?')}}",
+            //             },
+            //             useAction: '{{ useRemoveUser }}',
+            //           },
+            //         },
+            //       },
+            //     },
+            //   },
+            // },
           },
         },
       },
     },
-    // table: {
-    //   type: 'void',
-    //   'x-component': 'Table.Void',
-    //   'x-component-props': {
-    //     rowKey: 'id',
-    //     rowSelection: {
-    //       type: 'checkbox',
-    //     },
-    //     useDataSource: '{{ cm.useDataSourceFromRAC }}',
-    //   },
-    //   properties: {
-    //     username: {
-    //       type: 'void',
-    //       title: '{{t("Username")}}',
-    //       'x-decorator': 'Table.Column.Decorator',
-    //       'x-component': 'Table.Column',
-    //       properties: {
-    //         username: {
-    //           type: 'string',
-    //           'x-component': 'CollectionField',
-    //           'x-read-pretty': true,
-    //         },
-    //       },
-    //     },
-    //     nickname: {
-    //       type: 'void',
-    //       title: '{{t("Nickname")}}',
-    //       'x-decorator': 'Table.Column.Decorator',
-    //       'x-component': 'Table.Column',
-    //       properties: {
-    //         nickname: {
-    //           type: 'string',
-    //           'x-component': 'CollectionField',
-    //           'x-read-pretty': true,
-    //         },
-    //       },
-    //     },
-    //     actions: {
-    //       type: 'void',
-    //       title: '{{t("Actions")}}',
-    //       'x-component': 'Table.Column',
-    //       properties: {
-    //         actions: {
-    //           type: 'void',
-    //           'x-component': 'Space',
-    //           'x-component-props': {
-    //             split: '|',
-    //           },
-    //           properties: {
-    //             remove: {
-    //               type: 'void',
-    //               title: '{{ t("Remove") }}',
-    //               'x-component': 'Action.Link',
-    //               'x-component-props': {
-    //                 confirm: {
-    //                   title: "{{t('Remove user')}}",
-    //                   content: "{{t('Are you sure you want to remove it?')}}",
-    //                 },
-    //                 useAction: '{{ useRemoveUser }}',
-    //               },
-    //             },
-    //           },
-    //         },
-    //       },
-    //     },
-    //   },
-    // },
   },
 });

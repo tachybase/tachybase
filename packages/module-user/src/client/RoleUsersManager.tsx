@@ -1,16 +1,24 @@
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  CollectionProvider_deprecated,
-  ResourceActionContext,
+  BlockProvider,
+  ExtendCollectionsProvider,
+  FixedBlockWrapper,
+  getIdsWithChildren,
+  RenderChildrenWithAssociationFilter,
   ResourceActionProvider,
   SchemaComponent,
+  SchemaComponentOptions,
+  TableBlockContext,
   useActionContext,
   useAPIClient,
-  useRecord,
+  useCollectionRecordData,
   useRequest,
   useResourceActionContext,
+  useTableBlockContext,
+  useTableBlockParams,
 } from '@tachybase/client';
 import { RolesManagerContext } from '@tachybase/module-acl/client';
+import { createForm, FormContext, useField, useFieldSchema } from '@tachybase/schema';
 
 import { App } from 'antd';
 
@@ -21,14 +29,14 @@ import { getRoleUsersSchema, userCollection } from './schemas/users';
 const useRemoveUser = () => {
   const api = useAPIClient();
   const { role } = useContext(RolesManagerContext);
-  const record = useRecord();
-  const { refresh } = useResourceActionContext();
+  const record = useCollectionRecordData();
+  const { service } = useTableBlockContext();
   return {
     async run() {
       await api.resource('roles.users', role?.name).remove({
         values: [record['id']],
       });
-      refresh();
+      service?.refresh();
     },
   };
 };
@@ -37,12 +45,13 @@ const useBulkRemoveUsers = () => {
   const { t } = useUsersTranslation();
   const { message } = App.useApp();
   const api = useAPIClient();
-  const { state, setState, refresh } = useResourceActionContext();
+  const { service, field } = useTableBlockContext();
+  // const { state, setState, refresh } = useResourceActionContext();
   const { role } = useContext(RolesManagerContext);
 
   return {
-    async run() {
-      const selected = state?.selectedRowKeys;
+    async onClick() {
+      const selected = field?.data?.selectedRowKeys;
       if (!selected?.length) {
         message.warning(t('Please select users'));
         return;
@@ -50,8 +59,8 @@ const useBulkRemoveUsers = () => {
       await api.resource('roles.users', role?.name).remove({
         values: selected,
       });
-      setState?.({ selectedRowKeys: [] });
-      refresh();
+      service?.setState?.({ selectedRowKeys: [] });
+      service?.refresh();
     },
   };
 };
@@ -74,9 +83,11 @@ const RoleUsersProvider = (props) => {
   );
 };
 
-export const RoleUsersManager: React.FC = () => {
-  const { t } = useUsersTranslation();
+const RoleUsersTableBlockProvider = (props) => {
+  const { showIndex, dragSort, rowKey, fieldNames, collection, ...others } = props;
+  const field: any = useField();
   const { role } = useContext(RolesManagerContext);
+  const params = useTableBlockParams(props);
   const service = useRequest(
     {
       resource: 'roles.users',
@@ -90,6 +101,69 @@ export const RoleUsersManager: React.FC = () => {
   useEffect(() => {
     service.run();
   }, [role]);
+  const fieldSchema = useFieldSchema();
+  const { treeTable } = fieldSchema?.['x-decorator-props'] || {};
+  const [expandFlag, setExpandFlag] = useState(fieldNames ? true : false);
+  // const allIncludesChildren = useMemo(() => {
+  //   if (treeTable !== false) {
+  //     const keys = getIdsWithChildren(service?.data?.data);
+  //     return keys || [];
+  //   }
+  // }, [service?.loading]);
+  let childrenColumnName = 'children';
+  if (collection?.tree && treeTable !== false) {
+    const f = collection.fields.find((f) => f.treeChildren);
+    if (f) {
+      childrenColumnName = f.name;
+    }
+    params['tree'] = true;
+  }
+  const form = useMemo(() => createForm(), [treeTable]);
+
+  return (
+    <SchemaComponentOptions scope={{ treeTable }}>
+      <FormContext.Provider value={form}>
+        <BlockProvider name={props.name || 'table'} {...props} params={params} runWhenParamsChanged>
+          <FixedBlockWrapper>
+            <TableBlockContext.Provider
+              value={{
+                ...others,
+                field,
+                service,
+                params,
+                showIndex,
+                dragSort,
+                rowKey,
+                expandFlag,
+                childrenColumnName,
+                setExpandFlag: () => setExpandFlag(!expandFlag),
+              }}
+            >
+              <RenderChildrenWithAssociationFilter {...props} />
+            </TableBlockContext.Provider>
+          </FixedBlockWrapper>
+        </BlockProvider>
+      </FormContext.Provider>
+    </SchemaComponentOptions>
+  );
+};
+
+export const RoleUsersManager: React.FC = () => {
+  const { t } = useUsersTranslation();
+  // const { role } = useContext(RolesManagerContext);
+  // const service = useRequest(
+  //   {
+  //     resource: 'roles.users',
+  //     resourceOf: role?.name,
+  //     action: 'list',
+  //   },
+  //   {
+  //     ready: !!role,
+  //   },
+  // );
+  // useEffect(() => {
+  //   service.run();
+  // }, [role]);
 
   const selectedRoleUsers = useRef([]);
   const handleSelectRoleUsers = (_: number[], rows: any[]) => {
@@ -113,24 +187,23 @@ export const RoleUsersManager: React.FC = () => {
     };
   };
 
-  const schema = useMemo(() => getRoleUsersSchema(), [role]);
+  // const schema = useMemo(() => getRoleUsersSchema(role?.name), [role]);
+  const schema = getRoleUsersSchema();
 
   return (
-    <ResourceActionContext.Provider value={{ ...service }}>
-      <CollectionProvider_deprecated collection={userCollection}>
-        <SchemaComponent
-          schema={schema}
-          components={{ RoleUsersProvider }}
-          scope={{
-            useBulkRemoveUsers,
-            useRemoveUser,
-            handleSelectRoleUsers,
-            useAddRoleUsers,
-            useFilterActionProps,
-            t,
-          }}
-        />
-      </CollectionProvider_deprecated>
-    </ResourceActionContext.Provider>
+    <ExtendCollectionsProvider collections={[userCollection]}>
+      <SchemaComponent
+        schema={schema}
+        components={{ RoleUsersProvider, RoleUsersTableBlockProvider }}
+        scope={{
+          useBulkRemoveUsers,
+          useRemoveUser,
+          handleSelectRoleUsers,
+          useAddRoleUsers,
+          useFilterActionProps,
+          t,
+        }}
+      />
+    </ExtendCollectionsProvider>
   );
 };
