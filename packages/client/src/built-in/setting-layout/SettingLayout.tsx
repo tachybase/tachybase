@@ -26,7 +26,14 @@ export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscre
   const { data } = useCurrentUserContext();
   const result = useSystemSettings();
   const { styles } = useStyles();
-  const redirectToUserHome = () => (window.location.href = app.adminUrl);
+
+  const redirectToUserHome = () => {
+    if (app.adminUrl.startsWith('/')) {
+      navigate(app.adminUrl);
+    } else {
+      window.location.href = app.adminUrl;
+    }
+  };
 
   return (
     <AdminProvider>
