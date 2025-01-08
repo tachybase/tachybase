@@ -26,7 +26,6 @@ export interface GeneralSchemaDesignerProps {
    */
   draggable?: boolean;
   showDataSource?: boolean;
-  showAddMenu?: boolean;
   AddMenuModalComponent?: ReactNode;
 }
 
@@ -42,7 +41,6 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
     contextValue,
     draggable = true,
     showDataSource = true,
-    showAddMenu,
     AddMenuModalComponent,
   } = props;
   const { dn, designable } = useDesignable();
@@ -109,7 +107,7 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
         )}
         <div className={'general-schema-designer-icons'}>
           <Space size={3} align={'center'}>
-            {showAddMenu && (
+            {!!AddMenuModalComponent && (
               <SchemaSettingsDropdown
                 title={<PlusOutlined role="button" aria-label={getAriaLabel('add-menu')} />}
                 {...schemaSettingsProps}

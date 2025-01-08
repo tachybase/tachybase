@@ -132,10 +132,6 @@ export const useStyles = createStyles(({ css, token }) => {
       overflow-x: hidden;
       .ant-menu-item {
         > .ant-menu-title-content {
-          height: 100%;
-          margin-left: -24px;
-          margin-right: -16px;
-          padding: 0 16px 0 24px;
           > div {
             > .general-schema-designer {
               right: 6px !important;
@@ -145,10 +141,6 @@ export const useStyles = createStyles(({ css, token }) => {
       }
       .ant-menu-submenu-title {
         .ant-menu-title-content {
-          height: 100%;
-          margin-left: -24px;
-          margin-right: -34px;
-          padding: 0 34px 0 24px;
           > div {
             > .general-schema-designer {
               right: 6px !important;
