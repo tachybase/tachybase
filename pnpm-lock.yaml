@@ -1125,9 +1125,6 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
-      yauzl:
-        specifier: ^3.2.0
-        version: 3.2.0
     devDependencies:
       '@ant-design/icons':
         specifier: ^5.5.2
@@ -1195,6 +1192,9 @@ importers:
       tar:
         specifier: ^6.2.1
         version: 6.2.1
+      yauzl:
+        specifier: ^3.2.0
+        version: 3.2.0
 
   packages/module-cloud-component:
     dependencies:
