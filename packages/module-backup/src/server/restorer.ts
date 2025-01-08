@@ -5,14 +5,14 @@ import { DataTypes, DumpRulesGroupType } from '@tachybase/database';
 import { Application } from '@tachybase/server';
 
 import * as Topo from '@hapi/topo';
-import decompress from 'decompress';
 import lodash, { isPlainObject } from 'lodash';
 import semver from 'semver';
+import yauzl from 'yauzl';
 
 import { AppMigrator, AppMigratorOptions } from './app-migrator';
 import { RestoreCheckError } from './errors/restore-check-error';
 import { FieldValueWriter } from './field-value-writer';
-import { readLines } from './utils';
+import { readEveryLines, readLines } from './utils';
 
 type RestoreOptions = {
   groups: Set<DumpRulesGroupType>;
@@ -174,7 +174,45 @@ export class Restorer extends AppMigrator {
   }
 
   async decompressBackup(backupFilePath: string) {
-    if (!this.decompressed) await decompress(backupFilePath, this.workDir);
+    if (!this.decompressed) {
+      return new Promise((resolve, reject) => {
+        yauzl.open(backupFilePath, { lazyEntries: true }, (err, zipfile) => {
+          if (err) return reject(err); // 打开压缩文件失败
+
+          zipfile.readEntry(); // 开始读取条目
+          zipfile.on('entry', (entry) => {
+            const filePath = path.join(this.workDir, entry.fileName);
+
+            // 如果是目录，创建目录
+            if (/\/$/.test(entry.fileName)) {
+              fs.mkdir(filePath, { recursive: true }, (err) => {
+                if (err) return reject(err);
+                zipfile.readEntry(); // 继续处理下一个条目
+              });
+            } else {
+              // 如果是文件，解压文件
+              zipfile.openReadStream(entry, (err, readStream) => {
+                if (err) return reject(err);
+
+                const writeStream = fs.createWriteStream(filePath);
+                readStream.pipe(writeStream);
+
+                writeStream.on('close', () => {
+                  zipfile.readEntry(); // 完成后继续读取下一个条目
+                });
+              });
+            }
+          });
+
+          zipfile.on('end', () => {
+            this.decompressed = true; // 标记为已解压
+            resolve(1); // 解压成功
+          });
+        });
+      });
+    } else {
+      return Promise.resolve(); // 如果已解压，直接返回已解决的 Promise
+    }
   }
 
   async readCollectionMeta(collectionName: string) {
@@ -284,60 +322,43 @@ export class Restorer extends AppMigrator {
     }
 
     // read file content from collection data
-    const rows = await readLines(collectionDataPath);
+    const batchSize = 1000; // 定义每个批次的大小
+    let batch = [];
 
-    if (rows.length === 0) {
-      app.logger.info(`${collectionName} has no data to import`);
-      this.importedCollections.push(collectionName);
-      return;
-    }
+    let allLength = 0;
+    await readEveryLines(collectionDataPath, async (line) => {
+      batch.push(line);
 
-    const rowsWithMeta = rows
-      .map((row) =>
-        JSON.parse(row)
-          .map((val, index) => [columns[index], val])
-          .reduce((carry, [column, val]) => {
-            const field = fieldAttributes[column];
-            carry[column] = field ? FieldValueWriter.write(field, val) : val;
+      // 达到批次大小时进行处理
+      if (batch.length >= batchSize) {
+        await this.insertMetaRows({
+          rows: batch,
+          collectionName,
+          columns,
+          fieldAttributes,
+          rawAttributes,
+          addSchemaTableName,
+          options,
+        }); // 批量处理
+        allLength += batchSize;
+        batch = []; // 清空当前批次
+      }
+    });
 
-            return carry;
-          }, {}),
-      )
-      .filter((row) => {
-        if (options.rowCondition) {
-          return options.rowCondition(row);
-        }
-
-        return true;
+    if (!this.importedCollections.includes(collectionName)) {
+      await this.insertMetaRows({
+        rows: batch,
+        collectionName,
+        columns,
+        fieldAttributes,
+        rawAttributes,
+        addSchemaTableName,
+        options,
       });
-
-    if (rowsWithMeta.length === 0) {
-      app.logger.info(`${collectionName} has no data to import`);
-      this.importedCollections.push(collectionName);
-      return;
+      allLength += batch.length;
     }
 
-    const insertGeneratorAttributes = lodash.mapKeys(rawAttributes, (value, key) => {
-      return value.field;
-    });
-
-    //@ts-ignore
-    const sql = db.sequelize.queryInterface.queryGenerator.bulkInsertQuery(
-      addSchemaTableName,
-      rowsWithMeta,
-      {},
-      insertGeneratorAttributes,
-    );
-
-    if (options.insert === false) {
-      return sql;
-    }
-
-    await app.db.sequelize.query(sql, {
-      type: 'INSERT',
-    });
-
-    app.logger.info(`${collectionName} imported with ${rowsWithMeta.length} rows`);
+    app.logger.info(`${collectionName} imported with ${allLength} rows`);
 
     if (meta.autoIncrement) {
       const queryInterface = app.db.queryInterface;
@@ -398,5 +419,60 @@ export class Restorer extends AppMigrator {
         }
       }
     }
+  }
+
+  async insertMetaRows({ rows, collectionName, columns, fieldAttributes, rawAttributes, addSchemaTableName, options }) {
+    const app = this.app;
+    const db = app.db;
+    if (rows.length === 0) {
+      app.logger.info(`${collectionName} has no data to import`);
+      this.importedCollections.push(collectionName);
+      return;
+    }
+
+    const rowsWithMeta = rows
+      .map((row) =>
+        JSON.parse(row)
+          .map((val, index) => [columns[index], val])
+          .reduce((carry, [column, val]) => {
+            const field = fieldAttributes[column];
+            carry[column] = field ? FieldValueWriter.write(field, val) : val;
+
+            return carry;
+          }, {}),
+      )
+      .filter((row) => {
+        if (options.rowCondition) {
+          return options.rowCondition(row);
+        }
+
+        return true;
+      });
+
+    if (rowsWithMeta.length === 0) {
+      app.logger.info(`${collectionName} has no data to import`);
+      this.importedCollections.push(collectionName);
+      return;
+    }
+
+    const insertGeneratorAttributes = lodash.mapKeys(rawAttributes, (value, key) => {
+      return value.field;
+    });
+
+    //@ts-ignore
+    const sql = db.sequelize.queryInterface.queryGenerator.bulkInsertQuery(
+      addSchemaTableName,
+      rowsWithMeta,
+      {},
+      insertGeneratorAttributes,
+    );
+
+    if (options.insert === false) {
+      return sql;
+    }
+
+    await app.db.sequelize.query(sql, {
+      type: 'INSERT',
+    });
   }
 }

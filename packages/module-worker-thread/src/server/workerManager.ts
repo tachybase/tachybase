@@ -263,19 +263,28 @@ export class WorkerManager {
         throw new Error('The system is currently processing other tasks. Please try again later');
       }
     }
-    const result = await this.callMethod(WorkerEvent.PluginMethod, {
-      ...values,
-      plugin: this.app.pm.get(values.plugin).name,
-    });
 
-    // 处理全局并发
-    if (values.globalConcurrency) {
-      this.decrementConcurrencyCount(this.getGlobalKey(), this.cache);
+    let result;
+    let error;
+    try {
+      result = await this.callMethod(WorkerEvent.PluginMethod, {
+        ...values,
+        plugin: this.app.pm.get(values.plugin).name,
+      });
+    } catch (err) {
+      error = err;
+    } finally {
+      // 处理全局并发
+      if (values.globalConcurrency) {
+        this.decrementConcurrencyCount(this.getGlobalKey(), this.cache);
+      }
+      // 处理方法并发
+      if (values.concurrency) {
+        this.decrementConcurrencyCount(this.getPluginMethodKey(values), this.cache);
+      }
     }
-
-    // 处理方法并发
-    if (values.concurrency) {
-      this.decrementConcurrencyCount(this.getPluginMethodKey(values), this.cache);
+    if (error) {
+      throw error;
     }
     return result;
   }
