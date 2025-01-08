@@ -1,14 +1,14 @@
-import React from 'react';
-
 import { GithubFilled, HomeFilled, InfoCircleFilled, QuestionCircleFilled } from '@ant-design/icons';
 import { PageContainer, ProConfigProvider, ProLayout, type ProSettings } from '@ant-design/pro-components';
 import { Button, Dropdown } from 'antd';
 import { useLocation, useNavigate } from 'react-router';
 
+import { useApp } from '../..';
 import { SettingsMenu, useCurrentUserContext } from '../../user';
 import { NoticeArea } from '../admin-layout';
 import { AdminProvider } from '../admin-layout/AdminProvider';
 import { useSystemSettings } from '../system-settings';
+import { useStyles } from './style';
 
 export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscreen }) => {
   const settings: Partial<ProSettings> = {
@@ -20,17 +20,24 @@ export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscre
     fixedHeader: true,
     siderMenuType: 'sub',
   };
-
+  const app = useApp();
   const location = useLocation();
   const navigate = useNavigate();
   const { data } = useCurrentUserContext();
   const result = useSystemSettings();
+  const { styles } = useStyles();
+  const redirectToUserHome = () => (window.location.href = app.adminUrl);
 
   return (
     <AdminProvider>
       <ProConfigProvider hashed={false}>
         <ProLayout
-          title={result?.data?.data?.title}
+          // @ts-ignore API 文档里声明是能传 ReactNode,实际也可以运行, 但这里 ts 检查却出错
+          title={
+            <div className={styles.title} onClick={redirectToUserHome}>
+              {result?.data?.data?.title}
+            </div>
+          }
           logo={<img src={result?.data?.data?.logo?.url} />}
           bgLayoutImgList={[
             {
