@@ -7,18 +7,13 @@ export const useStyles = createStyles(({ css, token }) => {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
-      margin-left: -24px;
-      margin-right: -34px;
-      padding: 0 34px 0 24px;
-      width: calc(100% + 58px);
-      height: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
+
       &:hover {
         > .general-schema-designer {
-          display: block;
           visibility: visible;
         }
         .ant-space-item:hover {
@@ -35,7 +30,22 @@ export const useStyles = createStyles(({ css, token }) => {
           right: -10px;
         }
       }
+      .submenu-title {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+
+        width: 100%;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       > .general-schema-designer {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
         visibility: hidden;
         pointer-events: none;
         > .general-schema-designer-icons {
@@ -52,13 +62,10 @@ export const useStyles = createStyles(({ css, token }) => {
     designerCss: css`
       position: relative;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      margin-left: -20px;
-      margin-right: -20px;
-      padding: 0 20px;
-      width: calc(100% + 40px);
-      height: 100%;
+      width: 100%;
+
       &:hover {
         > .general-schema-designer {
           visibility: visible;
@@ -77,7 +84,24 @@ export const useStyles = createStyles(({ css, token }) => {
           right: -10px;
         }
       }
+
+      .menuitem-title {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+
+        width: 100%;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       > .general-schema-designer {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
         visibility: hidden;
         pointer-events: none;
         > .general-schema-designer-icons {

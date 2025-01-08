@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren, useEffect, useMemo, useRef } from 'react';
 import { useField, useFieldSchema } from '@tachybase/schema';
 
-import { DragOutlined, MenuOutlined, PlusOutlined } from '@ant-design/icons';
+import { DragOutlined, EllipsisOutlined, MenuOutlined, PlusOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -121,7 +121,7 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
             ) : (
               <SchemaSettingsDropdown
                 title={
-                  <MenuOutlined
+                  <EllipsisOutlined
                     role="button"
                     aria-label={getAriaLabel('schema-settings')}
                     style={{ cursor: 'pointer', fontSize: 12 }}

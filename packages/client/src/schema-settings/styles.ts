@@ -56,8 +56,6 @@ export const useStyles = createStyles(({ css }) => {
       pointer-events: none;
       position: absolute;
       font-size: 12px;
-      /* background: var(--colorSettings);
-  color: #fff; */
       padding: 0;
       line-height: 16px;
       height: 16px;

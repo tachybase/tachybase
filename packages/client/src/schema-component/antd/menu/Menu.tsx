@@ -400,6 +400,7 @@ export const Menu: ComposedMenu = observer(
               {children}
             </HeaderMenu>
             <SideMenu
+              t={t}
               loading={loading}
               mode={mode}
               sideMenuSchema={sideMenuSchema}
@@ -408,7 +409,6 @@ export const Menu: ComposedMenu = observer(
               defaultSelectedKeys={defaultSelectedKeys}
               onSelect={onSelect}
               render={render}
-              t={t}
               api={api}
               refresh={refresh}
               designable={designable}
@@ -453,16 +453,8 @@ Menu.Item = observer(
                 className={styles.designerCss}
                 removeParentsIfNoChildren={false}
               >
-                <Icon type={icon} />
-                <span
-                  style={{
-                    display: 'inline-block',
-                    width: '100%',
-                    verticalAlign: 'middle',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
+                <span className={'menuitem-title'}>
+                  <Icon type={icon} />
                   {t(field.title)}
                 </span>
                 <Designer />
@@ -570,8 +562,10 @@ Menu.SubMenu = observer(
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
               >
-                <Icon type={icon} />
-                {t(field.title)}
+                <span className={'submenu-title'}>
+                  <Icon type={icon} />
+                  {t(field.title)}
+                </span>
                 <Designer />
               </SortableItem>
             </FieldContext.Provider>
