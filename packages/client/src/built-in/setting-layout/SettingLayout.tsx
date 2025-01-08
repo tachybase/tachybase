@@ -32,13 +32,10 @@ export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscre
     <AdminProvider>
       <ProConfigProvider hashed={false}>
         <ProLayout
-          // @ts-ignore API 文档里声明是能传 ReactNode,实际也可以运行, 但这里 ts 检查却出错
-          title={
-            <div className={styles.title} onClick={redirectToUserHome}>
-              {result?.data?.data?.title}
-            </div>
-          }
+          className={styles.settingLayout}
+          title={result?.data?.data?.title}
           logo={<img src={result?.data?.data?.logo?.url} />}
+          onMenuHeaderClick={redirectToUserHome}
           bgLayoutImgList={[
             {
               src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
