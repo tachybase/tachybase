@@ -304,7 +304,7 @@ export const MenuDesigner = () => {
     initialValues['href'] = field.componentProps.href;
   }
   return (
-    <GeneralSchemaDesigner draggable={false}>
+    <GeneralSchemaDesigner draggable={false} showAddMenu>
       <SchemaSettingsModalItem
         title={t('Modify the name and icon')}
         eventKey="edit"

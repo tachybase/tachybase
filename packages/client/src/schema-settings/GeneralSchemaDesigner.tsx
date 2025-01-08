@@ -26,6 +26,7 @@ export interface GeneralSchemaDesignerProps {
    */
   draggable?: boolean;
   showDataSource?: boolean;
+  showAddMenu?: boolean;
 }
 
 /**
@@ -40,6 +41,7 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
     contextValue,
     draggable = true,
     showDataSource = true,
+    showAddMenu,
   } = props;
   const { dn, designable } = useDesignable();
   const field = useField();
@@ -105,6 +107,7 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
         )}
         <div className={'general-schema-designer-icons'}>
           <Space size={3} align={'center'}>
+            {showAddMenu && <PlusOutlined role="button" aria-label={getAriaLabel('add-menu')} />}
             {draggable && (
               <DragHandler>
                 <DragOutlined role="button" aria-label={getAriaLabel('drag-handler')} />

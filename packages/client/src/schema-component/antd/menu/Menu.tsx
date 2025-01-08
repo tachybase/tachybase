@@ -210,20 +210,7 @@ const HeaderMenu = ({
   );
 };
 
-const SideMenu = ({
-  loading,
-  mode,
-  sideMenuSchema,
-  sideMenuRef,
-  defaultOpenKeys,
-  defaultSelectedKeys,
-  onSelect,
-  render,
-  t,
-  api,
-  refresh,
-  designable,
-}) => {
+const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys, defaultSelectedKeys, onSelect }) => {
   const { Component, getMenuItems } = useMenuItem();
   const { styles } = useStyles();
 
@@ -235,30 +222,8 @@ const SideMenu = ({
       return <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />;
     });
 
-    if (designable) {
-      result.push({
-        key: 'x-designer-button',
-        disabled: true,
-        label: render({
-          'data-testid': 'schema-initializer-Menu-side',
-          insert: (s) => {
-            const dn = createDesignable({
-              t,
-              api,
-              refresh,
-              current: sideMenuSchemaRef.current,
-            });
-            dn.loadAPIClientEvents();
-            dn.insertAdjacent('beforeEnd', s);
-          },
-        }),
-        order: 1,
-        notdelete: true,
-      });
-    }
-
     return result;
-  }, [getMenuItems, designable, sideMenuSchema, render, t, api, refresh]);
+  }, [getMenuItems, sideMenuSchema]);
 
   if (loading) {
     return null;
@@ -400,7 +365,6 @@ export const Menu: ComposedMenu = observer(
               {children}
             </HeaderMenu>
             <SideMenu
-              t={t}
               loading={loading}
               mode={mode}
               sideMenuSchema={sideMenuSchema}
@@ -408,10 +372,6 @@ export const Menu: ComposedMenu = observer(
               defaultOpenKeys={defaultOpenKeys}
               defaultSelectedKeys={defaultSelectedKeys}
               onSelect={onSelect}
-              render={render}
-              api={api}
-              refresh={refresh}
-              designable={designable}
             />
           </MenuModeContext.Provider>
         </MenuItemDesignerContext.Provider>
