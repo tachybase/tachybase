@@ -15,8 +15,8 @@ import { Menu as AntdMenu, Button, Card, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
-import { createDesignable, DndContext, SortableItem, useDesignable, useDesigner } from '../..';
-import { css, Icon, useAPIClient, useSchemaInitializerRender, useToken } from '../../../';
+import { DndContext, SortableItem, useDesignable, useDesigner } from '../..';
+import { css, Icon, useSchemaInitializerRender, useToken } from '../../../';
 import { useCollectMenuItems, useMenuItem } from '../../../hooks/useMenuItem';
 import { useProps } from '../../hooks/useProps';
 import { useMenuTranslation } from './locale';
@@ -281,11 +281,8 @@ export const Menu: ComposedMenu = observer(
       children,
       ...others
     } = useProps(props);
-    const { t } = useTranslation();
     const Designer = useDesigner();
     const schema = useFieldSchema();
-    const { refresh } = useDesignable();
-    const api = useAPIClient();
     const { render } = useSchemaInitializerRender(schema['x-initializer'], schema['x-initializer-props']);
     const sideMenuRef = useSideMenuRef();
     const [selectedKeys, setSelectedKeys] = useState<string[]>();
