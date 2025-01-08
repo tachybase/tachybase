@@ -270,11 +270,11 @@ const InsertMenuItemsGroup = (props) => {
     <SchemaSettingsItemGroup>
       <SchemaSettingsModalItem
         eventKey={`${insertPosition}group`}
-        title={t('Submenu')}
+        title={t('Create group')}
         schema={
           {
             type: 'object',
-            title: t('Add group'),
+            title: t('Create group'),
             properties: {
               title: {
                 'x-decorator': 'FormItem',
@@ -306,11 +306,11 @@ const InsertMenuItemsGroup = (props) => {
       />
       <SchemaSettingsModalItem
         eventKey={`${insertPosition}page`}
-        title={t('Page')}
+        title={t('Create page')}
         schema={
           {
             type: 'object',
-            title: t('Add page'),
+            title: t('Create page'),
             properties: {
               title: {
                 'x-decorator': 'FormItem',
@@ -357,11 +357,11 @@ const InsertMenuItemsGroup = (props) => {
       />
       <SchemaSettingsModalItem
         eventKey={`${insertPosition}link`}
-        title={t('Link')}
+        title={t('Create link')}
         schema={
           {
             type: 'object',
-            title: t('Add link'),
+            title: t('Create link'),
             properties: {
               title: {
                 title: t('Menu item title'),
@@ -399,11 +399,11 @@ const InsertMenuItemsGroup = (props) => {
       <SchemaSettingsDivider />
       <SchemaSettingsModalItem
         eventKey={`${insertPosition}restore`}
-        title={t('Load')}
+        title={t('Load menu config')}
         schema={
           {
             type: 'object',
-            title: t('Load'),
+            title: t('Load menu config'),
             properties: {
               title: {
                 'x-decorator': 'FormItem',
