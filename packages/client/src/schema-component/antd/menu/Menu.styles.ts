@@ -88,7 +88,6 @@ export const useStyles = createStyles(({ css, token }) => {
       .menuitem-title-wrapper {
         display: flex;
         flex-direction: row;
-        gap: 10px;
         width: 100%;
         overflow: hidden;
       }

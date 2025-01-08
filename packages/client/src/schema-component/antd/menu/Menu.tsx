@@ -217,13 +217,7 @@ const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys,
   const sideMenuSchemaRef = useRef(sideMenuSchema);
   sideMenuSchemaRef.current = sideMenuSchema;
 
-  const items = useMemo(() => {
-    const result = getMenuItems(() => {
-      return <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />;
-    });
-
-    return result;
-  }, [getMenuItems, sideMenuSchema]);
+  const items = getMenuItems(() => <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />);
 
   if (loading) {
     return null;
