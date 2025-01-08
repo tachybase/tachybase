@@ -410,9 +410,9 @@ Menu.Item = observer(
                 className={styles.designerCss}
                 removeParentsIfNoChildren={false}
               >
-                <span className={'menuitem-title'}>
+                <span className={'menuitem-title-wrapper'}>
                   <Icon type={icon} />
-                  {t(field.title)}
+                  <span className={'menuitem-title'}>{t(field.title)}</span>
                 </span>
                 <Designer />
               </SortableItem>

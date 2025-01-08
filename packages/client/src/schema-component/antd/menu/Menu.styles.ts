@@ -14,7 +14,7 @@ export const useStyles = createStyles(({ css, token }) => {
 
       &:hover {
         > .general-schema-designer {
-          visibility: visible;
+          display: flex;
         }
         .ant-space-item:hover {
           border-radius: 5px;
@@ -46,8 +46,8 @@ export const useStyles = createStyles(({ css, token }) => {
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        visibility: hidden;
         pointer-events: none;
+        display: none;
         > .general-schema-designer-icons {
           pointer-events: all;
           .ant-space-item {
@@ -68,7 +68,7 @@ export const useStyles = createStyles(({ css, token }) => {
 
       &:hover {
         > .general-schema-designer {
-          visibility: visible;
+          display: flex;
         }
         .ant-space-item:hover {
           border-radius: 5px;
@@ -85,12 +85,14 @@ export const useStyles = createStyles(({ css, token }) => {
         }
       }
 
-      .menuitem-title {
+      .menuitem-title-wrapper {
         display: flex;
         flex-direction: row;
         gap: 10px;
-
         width: 100%;
+        overflow: hidden;
+      }
+      .menuitem-title {
         vertical-align: middle;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -102,7 +104,7 @@ export const useStyles = createStyles(({ css, token }) => {
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        visibility: hidden;
+        display: none;
         pointer-events: none;
         > .general-schema-designer-icons {
           pointer-events: all;

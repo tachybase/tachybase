@@ -447,7 +447,6 @@ export const MenuDesigner = () => {
   const { message } = App.useApp();
   const { dn, refresh } = useDesignable();
   const { t } = useTranslation();
-  const [showAddMenuModal, setShowAddMenuModal] = useState(false);
   const menuSchema = findMenuSchema(fieldSchema);
   const items = toItems(menuSchema?.properties);
 
