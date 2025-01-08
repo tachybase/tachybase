@@ -306,7 +306,7 @@ export const MenuDesigner = () => {
   return (
     <GeneralSchemaDesigner draggable={false}>
       <SchemaSettingsModalItem
-        title={t('Edit')}
+        title={t('Modify the name and icon')}
         eventKey="edit"
         schema={schema as ISchema}
         initialValues={initialValues}
