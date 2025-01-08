@@ -20,6 +20,7 @@ export const useMenuProps = () => {
 };
 
 export const MenuEditor = (props) => {
+  const { sideMenuRef } = props;
   const { setTitle } = useDocumentTitle();
   const navigate = useNavigate();
   const params = useParams<any>();
@@ -27,7 +28,6 @@ export const MenuEditor = (props) => {
   const isMatchAdmin = useMatch('/admin');
   const isMatchAdminName = useMatch('/admin/:name');
   const defaultSelectedUid = params.name;
-  const { sideMenuRef } = props;
   const ctx = useACLRoleContext();
   const [current, setCurrent] = useState(null);
   const onSelect = ({ item }) => {

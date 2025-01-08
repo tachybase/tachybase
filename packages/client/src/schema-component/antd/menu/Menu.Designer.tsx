@@ -286,8 +286,8 @@ export const MenuDesigner = () => {
       },
       icon: {
         title: t('Menu item icon'),
-        'x-component': 'IconPicker',
         'x-decorator': 'FormItem',
+        'x-component': 'IconPicker',
       },
     },
   };

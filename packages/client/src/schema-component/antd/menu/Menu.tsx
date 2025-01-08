@@ -372,11 +372,13 @@ export const Menu: ComposedMenu = observer(
         setDefaultOpenKeys(dOpenKeys || keys);
       }
     }, [selectedUid]);
+
     useEffect(() => {
       if (['inline', 'mix'].includes(mode)) {
         setDefaultOpenKeys(defaultSelectedKeys);
       }
     }, [defaultSelectedKeys]);
+
     const { designable } = useDesignable();
     return (
       <DndContext>
@@ -435,7 +437,13 @@ Menu.Item = observer(
         key: schema.name,
         eventKey: schema.name,
         schema,
-        menu: { icon, field, Designer, schema, styles },
+        menu: {
+          icon,
+          field,
+          Designer,
+          schema,
+          styles,
+        },
         label: (
           <SchemaContext.Provider value={schema}>
             <FieldContext.Provider value={field}>
@@ -448,11 +456,11 @@ Menu.Item = observer(
                 <Icon type={icon} />
                 <span
                   style={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
                     display: 'inline-block',
                     width: '100%',
                     verticalAlign: 'middle',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
                   }}
                 >
                   {t(field.title)}
