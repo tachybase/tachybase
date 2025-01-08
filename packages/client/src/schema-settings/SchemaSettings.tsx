@@ -525,7 +525,7 @@ export const SchemaSettingsItem: FC<SchemaSettingsItemProps> = (props) => {
 };
 
 export interface SchemaSettingsItemGroupProps {
-  title: string;
+  title?: string;
   children: any[];
 }
 export const SchemaSettingsItemGroup: FC<SchemaSettingsItemGroupProps> = (props) => {

@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, useEffect, useMemo, useRef } from 'react';
+import { FC, PropsWithChildren, useEffect, useMemo, useRef, type ReactNode } from 'react';
 import { useField, useFieldSchema } from '@tachybase/schema';
 
 import { DragOutlined, EllipsisOutlined, MenuOutlined, PlusOutlined } from '@ant-design/icons';
@@ -27,6 +27,7 @@ export interface GeneralSchemaDesignerProps {
   draggable?: boolean;
   showDataSource?: boolean;
   showAddMenu?: boolean;
+  AddMenuModalComponent?: ReactNode;
 }
 
 /**
@@ -42,6 +43,7 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
     draggable = true,
     showDataSource = true,
     showAddMenu,
+    AddMenuModalComponent,
   } = props;
   const { dn, designable } = useDesignable();
   const field = useField();
@@ -107,7 +109,14 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
         )}
         <div className={'general-schema-designer-icons'}>
           <Space size={3} align={'center'}>
-            {showAddMenu && <PlusOutlined role="button" aria-label={getAriaLabel('add-menu')} />}
+            {showAddMenu && (
+              <SchemaSettingsDropdown
+                title={<PlusOutlined role="button" aria-label={getAriaLabel('add-menu')} />}
+                {...schemaSettingsProps}
+              >
+                {AddMenuModalComponent}
+              </SchemaSettingsDropdown>
+            )}
             {draggable && (
               <DragHandler>
                 <DragOutlined role="button" aria-label={getAriaLabel('drag-handler')} />
