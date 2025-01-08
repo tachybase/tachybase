@@ -1,14 +1,14 @@
-import React from 'react';
-
 import { GithubFilled, HomeFilled, InfoCircleFilled, QuestionCircleFilled } from '@ant-design/icons';
 import { PageContainer, ProConfigProvider, ProLayout, type ProSettings } from '@ant-design/pro-components';
 import { Button, Dropdown } from 'antd';
 import { useLocation, useNavigate } from 'react-router';
 
+import { useApp } from '../..';
 import { SettingsMenu, useCurrentUserContext } from '../../user';
 import { NoticeArea } from '../admin-layout';
 import { AdminProvider } from '../admin-layout/AdminProvider';
 import { useSystemSettings } from '../system-settings';
+import { useStyles } from './style';
 
 export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscreen }) => {
   const settings: Partial<ProSettings> = {
@@ -20,18 +20,29 @@ export const SettingLayout = ({ selectedKeys, onClick, route, children, fullscre
     fixedHeader: true,
     siderMenuType: 'sub',
   };
-
+  const app = useApp();
   const location = useLocation();
   const navigate = useNavigate();
   const { data } = useCurrentUserContext();
   const result = useSystemSettings();
+  const { styles } = useStyles();
+
+  const redirectToUserHome = () => {
+    if (app.adminUrl.startsWith('/')) {
+      navigate(app.adminUrl);
+    } else {
+      window.location.href = app.adminUrl;
+    }
+  };
 
   return (
     <AdminProvider>
       <ProConfigProvider hashed={false}>
         <ProLayout
+          className={styles.settingLayout}
           title={result?.data?.data?.title}
           logo={<img src={result?.data?.data?.logo?.url} />}
+          onMenuHeaderClick={redirectToUserHome}
           bgLayoutImgList={[
             {
               src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
