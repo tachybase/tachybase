@@ -391,7 +391,7 @@ export class PluginManager {
     // FIXME
     Container.reset();
     Container.set({ id: 'db', value: this.app.db });
-    Container.set({ id: 'app', value: this.app });
+    Container.set({ id: 'app', value: createAppProxy(this.app) });
     Container.set({ id: 'logger', value: this.app.logger });
     await Container.get(WebControllerService).load();
     this.app.setMaintainingMessage('loading plugins...');
