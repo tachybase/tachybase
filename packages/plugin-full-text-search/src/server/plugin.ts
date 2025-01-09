@@ -1,5 +1,5 @@
 import { Context } from '@tachybase/actions';
-import { fn, literal, Op, where } from '@tachybase/database';
+import Database, { Collection, fn, literal, Op, where } from '@tachybase/database';
 import { Plugin } from '@tachybase/server';
 
 import { SEARCH_KEYWORDS_MAX } from '../constants';
@@ -13,23 +13,42 @@ const numberFields = ['bigInt', 'double']; // 目前支持转成字符串全文�
 const dateFields = ['date', 'datetime', 'timestamp']; // 目前支持转成字符串全文搜索
 const jsonFields = ['json', 'jsonb']; // Add json and jsonb field types to the list
 
+function getCollectionField(collection: Collection, fieldStr: string, db: Database) {
+  if (!fieldStr.includes('.')) {
+    return {
+      collection,
+      fieldStr,
+    };
+  }
+  const parts = fieldStr.split('.');
+  const associationTable = parts.shift(); // 第一部分是关联表
+  const fields = collection.getFields();
+  const foreignField = fields.find((v) => v.name === associationTable);
+
+  // TODO: 此处foreignField为空,怎么处理
+
+  const nextCollection = db.getCollection(foreignField.target);
+  const nextField = parts.join('.'); // 剩余部分
+  return getCollectionField(nextCollection, nextField, db);
+}
+
 function handleJsonQuery(field: string, dbType: string, keyword: string) {
   if (dbType === 'postgres') {
     // PostgreSQL - Use ->> to extract the text value from a JSON/JSONB field
     return where(
-      literal(`"${field}"->>0`), // Assuming the key is '0', adjust for your actual key
+      literal(`${field}->>0`), // Assuming the key is '0', adjust for your actual key
       {
         [Op.iLike]: `%${escapeLike(keyword)}%`,
       },
     );
   } else if (dbType === 'mysql') {
     // MySQL - Use JSON_UNQUOTE and JSON_EXTRACT to query JSON fields
-    return where(literal(`JSON_UNQUOTE(JSON_EXTRACT(\`${field}\`, '$'))`), {
+    return where(literal(`JSON_UNQUOTE(JSON_EXTRACT(${field}, '$'))`), {
       [Op.like]: `%${escapeLike(keyword)}%`,
     });
   } else if (dbType === 'sqlite') {
     // SQLite - Use json_extract to extract data from JSON field
-    return where(literal(`json_extract("${field}", '$')`), {
+    return where(literal(`json_extract(${field}, '$')`), {
       [Op.like]: `%${escapeLike(keyword)}%`,
     });
   } else {
@@ -57,6 +76,16 @@ function convertTimezoneOffset(offset) {
   return offset;
 }
 
+// 将a.b.c => { a: { b: { c } } }
+function getRealFieldFilter(field: string, value) {
+  const parts = field.split('.');
+  const key = parts.shift();
+  if (!parts.length) {
+    return { [key]: value };
+  }
+  return { [key]: getRealFieldFilter(parts.join('.'), value) };
+}
+
 export class PluginFullTextSearchServer extends Plugin {
   async afterAdd() {}
 
@@ -70,7 +99,10 @@ export class PluginFullTextSearchServer extends Plugin {
           return next();
         }
         const params = ctx.action.params;
-        if (!params.search || !params.search?.keywords?.length) {
+        if (params.search?.keywords) {
+          params.search.keywords = params.search.keywords.map((v) => v.trim()).filter((v) => v);
+        }
+        if (!params.search?.keywords?.length) {
           return next();
         }
 
@@ -80,7 +112,7 @@ export class PluginFullTextSearchServer extends Plugin {
 
         let fields = [];
         const collection = ctx.db.getCollection(ctx.action.resourceName);
-        const fieldInfo = collection.fields;
+        const fieldsAll = collection.fields;
         if (params.search.fields && !params.search.isSearchAllFields) {
           fields = params.search.fields;
         } else {
@@ -93,35 +125,54 @@ export class PluginFullTextSearchServer extends Plugin {
         const dbType = ctx.db.sequelize.getDialect();
 
         const searchFilter = fields.reduce((acc, field) => {
-          const type = fieldInfo.get(field)?.type;
+          let type;
+          let fieldName;
+          let fieldInfo;
+
+          if (!field.includes('.')) {
+            fieldName =
+              dbType === 'postgres' ? `"${ctx.action.resourceName}"."${field}"` : `\`${collection.name}\`.\`${field}\``;
+            fieldInfo = fieldsAll;
+            type = fieldInfo.get(field)?.type;
+          } else {
+            const { collection: targetCollection, fieldStr } = getCollectionField(collection, field, ctx.db);
+            fieldInfo = targetCollection.fields;
+            type = fieldInfo.get(fieldStr)?.type;
+            fieldName =
+              dbType === 'postgres'
+                ? `"${targetCollection.name}"."${fieldStr}"`
+                : `\`${targetCollection.name}\`.\`${fieldStr}\``;
+            fieldInfo = fieldsAll;
+          }
 
           // 不能查询的类型: sort, boolean, tstzrange, virtual, formula, context, password
           if (stringFields.includes(type)) {
-            const searchList = [];
             for (const keyword of params.search.keywords) {
-              searchList.push({
-                [field]: {
-                  [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
-                },
+              const filterCondition = getRealFieldFilter(field, {
+                [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
               });
+              acc.push(filterCondition);
             }
-            acc.push({
-              [Op.or]: searchList,
-            });
           } else if (numberFields.includes(type)) {
+            // TODO: 关联字段的数字类型需要特殊处理
+            if (field.includes('.')) {
+              return acc;
+            }
+            // TODO: 精确度,精确到某位小数可能会出问题
             let castFunction = '';
             // 根据数据库类型选择 CAST 函数
             if (dbType === 'mysql') {
-              castFunction = `CAST(\`${field}\` AS CHAR)`;
+              castFunction = `CAST(${fieldName} AS CHAR)`;
             } else {
-              castFunction = `CAST("${field}" AS TEXT)`;
+              castFunction = `CAST(${fieldName} AS TEXT)`;
             }
             const searchList = [];
             for (const keyword of params.search.keywords) {
               searchList.push(
                 where(
-                  literal(castFunction), // 使用 literal 构造原生 SQL 表达式
+                  literal(castFunction), // 将 BIGINT 转换为字符串
                   {
+                    // 根据数据库类型选择 LIKE 或 ILIKE
                     [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
                   },
                 ),
@@ -131,8 +182,17 @@ export class PluginFullTextSearchServer extends Plugin {
               [Op.or]: searchList,
             });
           } else if (dateFields.includes(type)) {
-            let formatStr = '';
+            // TODO: 关联字段的数字类型需要特殊处理
+            // TODO: 最好可以根据前端需要格式化的日期格式化文本
+            if (field.includes('.')) {
+              return acc;
+            }
+
+            // TODO: sqlite, mysql出现问题
+            let formatStr = 'YYYY-MM-DD HH:mm:ss';
             const info = fieldInfo.get(field);
+
+            const searchList = [];
 
             // 根据字段的 UI 配置设置日期格式
             if (info?.options?.uiSchema?.['x-component-props']?.dateFormat) {
@@ -167,25 +227,17 @@ export class PluginFullTextSearchServer extends Plugin {
                   }
                 }
               }
-            } else {
-              // 默认格式
-              formatStr = dbType === 'postgres' ? 'YYYY-MM-DD' : '%Y-%m-%d';
             }
 
-            const searchList = [];
             for (const keyword of params.search.keywords) {
               const condition =
                 dbType === 'postgres'
-                  ? literal(`TO_CHAR(("${field}" AT TIME ZONE 'UTC') AT TIME ZONE '${utcOffset}', '${formatStr}')`) // PostgreSQL 使用 TO_CHAR 格式化
+                  ? literal(`TO_CHAR((${fieldName} AT TIME ZONE 'UTC') AT TIME ZONE '${utcOffset}', '${formatStr}')`) // PostgreSQL 使用 TO_CHAR 格式化
                   : dbType === 'mysql'
-                    ? fn('DATE_FORMAT', fn('CONVERT_TZ', ctx.db.sequelize.col(field), '+00:00', utcOffset), formatStr) // MySQL 使用 DATE_FORMAT 和 CONVERT_TZ
+                    ? fn('DATE_FORMAT', fn('CONVERT_TZ', fieldName, '+00:00', utcOffset), formatStr) // MySQL 使用 DATE_FORMAT 和 CONVERT_TZ
                     : dbType === 'sqlite'
-                      ? fn(
-                          'strftime',
-                          formatStr,
-                          fn('datetime', ctx.db.sequelize.col(field), convertTimezoneOffset(utcOffset)),
-                        ) // SQLite 使用 strftime 和 datetime 手动调整时区
-                      : ctx.db.sequelize.col(field); // 默认情况
+                      ? fn('strftime', formatStr, fn('datetime', fieldName, convertTimezoneOffset(utcOffset))) // SQLite 使用 strftime 和 datetime 手动调整时区
+                      : fieldName; // 默认情况
 
               searchList.push(
                 where(condition, {
@@ -198,9 +250,13 @@ export class PluginFullTextSearchServer extends Plugin {
               [Op.or]: searchList,
             });
           } else if (jsonFields.includes(type)) {
+            // TODO: 关联字段的数字类型需要特殊处理
+            if (field.includes('.')) {
+              return acc;
+            }
             const searchList = [];
             for (const keyword of params.search.keywords) {
-              searchList.push(handleJsonQuery(field, dbType, keyword));
+              searchList.push(handleJsonQuery(fieldName, dbType, keyword));
             }
             acc.push({
               [Op.or]: searchList,
@@ -210,9 +266,13 @@ export class PluginFullTextSearchServer extends Plugin {
         }, []);
         if (searchFilter.length) {
           if (params.filter && Object.keys(params.filter).length) {
-            params.filter = {
-              $and: [params.filter, { $or: searchFilter }],
-            };
+            if (params.filter.$and) {
+              params.filter.$and.push({ $or: searchFilter });
+            } else {
+              params.filter = {
+                $and: [params.filter, { $or: searchFilter }],
+              };
+            }
           } else {
             params.filter = { $or: searchFilter };
           }
