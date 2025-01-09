@@ -458,6 +458,36 @@ export const schemaApprovalPanne = {
                 },
               },
             },
+            color: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+              },
+              properties: {
+                color: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            icon: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+              },
+              properties: {
+                icon: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
             actions: {
               type: 'void',
               title: '{{ t("Actions") }}',
