@@ -1,8 +1,8 @@
 import { Plugin } from '@tachybase/client';
 
 import { KitApprovalCommon } from '../common/kit';
-import { FeatureList } from './approval-card/FeatureList.component';
-import { InitiateApplication } from './approval-card/InitiateApplication.component';
+import { FeatureList } from './approval-card/FeatureList';
+import { InitiateApplication } from './approval-card/InitiateApplication';
 import { CarbonCopyBlockProvider } from './carbon-copy-table/CarbonCopyBlock.provider';
 import { CarbonCopyCenter } from './carbon-copy-table/CarbonCopyCenter.schema';
 import { KitApprovalBlockInitializer } from './initializers/kit';

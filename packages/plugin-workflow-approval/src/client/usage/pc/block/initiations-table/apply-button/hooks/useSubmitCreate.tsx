@@ -38,8 +38,6 @@ export function useSubmitCreate() {
             workflowId: workflow.id,
           },
         });
-
-        setVisible(false, false);
         form.reset();
         field.data.loading = false;
         const service = __parent.service;
