@@ -2,6 +2,7 @@ import { Plugin } from '../application/Plugin';
 import { addChildActionSettings } from '../modules/actions/add-child/addChildActionSettings';
 import { addNewActionSettings } from '../modules/actions/add-new/addNewActionSettings';
 import { customizeAddRecordActionSettings } from '../modules/actions/add-record/customizeAddRecordActionSettings';
+import { associateActionSettings } from '../modules/actions/associate/AssociateActionSettings';
 import { bulkDeleteActionSettings } from '../modules/actions/bulk-destroy/bulkDeleteActionSettings';
 import { deleteActionSettings } from '../modules/actions/delete/deleteActionSettings';
 import { disassociateActionSettings } from '../modules/actions/disassociate/disassociateActionSettings';
@@ -96,6 +97,7 @@ export class SchemaSettingsPlugin extends Plugin {
     this.schemaSettingsManager.add(customizeSaveRecordActionSettings);
     this.schemaSettingsManager.add(addChildActionSettings);
     this.schemaSettingsManager.add(expendableActionSettings);
+    this.schemaSettingsManager.add(associateActionSettings);
 
     // field settings
     this.schemaSettingsManager.add(fieldSettingsFormItem);

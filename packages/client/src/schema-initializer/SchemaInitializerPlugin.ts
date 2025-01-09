@@ -4,6 +4,8 @@ import { CreateActionInitializer } from '../modules/actions/add-new/CreateAction
 import { createFormBlockInitializers } from '../modules/actions/add-new/createFormBlockInitializers';
 import { CustomizeAddRecordActionInitializer } from '../modules/actions/add-record/CustomizeAddRecordActionInitializer';
 import { customizeCreateFormBlockInitializers } from '../modules/actions/add-record/customizeCreateFormBlockInitializers';
+import { AssociateActionInitializer } from '../modules/actions/associate/AssociateActionInitializer';
+import { AssociateActionProvider } from '../modules/actions/associate/AssociateActionProvider';
 import { BulkDestroyActionInitializer } from '../modules/actions/bulk-destroy/BulkDestroyActionInitializer';
 import { DestroyActionInitializer } from '../modules/actions/delete/DestroyActionInitializer';
 import { DisassociateActionInitializer } from '../modules/actions/disassociate/DisassociateActionInitializer';
@@ -108,6 +110,8 @@ export class SchemaInitializerPlugin extends Plugin {
       FilterActionInitializer,
       RefreshActionInitializer,
       FilterFormItemCustom,
+      AssociateActionInitializer,
+      AssociateActionProvider,
     } as any);
 
     this.app.schemaInitializerManager.add(blockInitializers);

@@ -1,7 +1,7 @@
 import { useFieldSchema } from '@tachybase/schema';
 
 import { SchemaInitializer } from '../../../../application/schema-initializer/SchemaInitializer';
-import { useCollection } from '../../../../data-source';
+import { useCollection, useDataBlockProps, useParentCollection } from '../../../../data-source';
 
 export const tableActionInitializers = new SchemaInitializer({
   name: 'table:configureActions',
@@ -40,6 +40,19 @@ export const tableActionInitializers = new SchemaInitializer({
           useVisible() {
             const collection = useCollection();
             return !['view', 'file', 'sql'].includes(collection.template) || collection?.writableView;
+          },
+        },
+        {
+          type: 'item',
+          title: "{{t('Associate')}}",
+          name: 'associate',
+          Component: 'AssociateActionInitializer',
+          useVisible() {
+            const collection = useCollection();
+            const props = useDataBlockProps();
+            return (
+              props.association && (!['view', 'file', 'sql'].includes(collection.template) || collection?.writableView)
+            );
           },
         },
         {

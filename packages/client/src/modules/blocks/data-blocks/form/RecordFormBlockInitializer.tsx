@@ -44,9 +44,11 @@ export const RecordFormBlockInitializer = () => {
 export function useCreateEditFormBlock() {
   const { insert } = useSchemaInitializer();
   const association = useAssociationName();
+  const fieldSchema = useFieldSchema();
+  const actionType = fieldSchema?.['actionType'] as string | undefined;
   const createEditFormBlock = useCallback(
     ({ item }) => {
-      const collectionName = item.collectionName || item.name;
+      const collectionName = actionType && association ? association.split('.')[1] : item.collectionName || item.name;
       if (!association && item.associationField) {
         const field = item.associationField;
         insert(
@@ -58,7 +60,7 @@ export function useCreateEditFormBlock() {
       } else {
         insert(
           createEditFormBlockUISchema(
-            association
+            association && !actionType
               ? {
                   association,
                   dataSource: item.dataSource,
