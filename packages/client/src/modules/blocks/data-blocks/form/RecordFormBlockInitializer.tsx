@@ -1,12 +1,11 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useFieldSchema } from '@tachybase/schema';
 
 import { FormOutlined } from '@ant-design/icons';
 
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
-import { useBlockAssociationContext } from '../../../../block-provider';
 import { useCollection_deprecated } from '../../../../collection-manager';
-import { useAssociationName } from '../../../../data-source';
+import { useAssociationName, useCollectionManager } from '../../../../data-source';
 import { useRecordCollectionDataSourceItems } from '../../../../schema-initializer/utils';
 import { useSchemaTemplateManager } from '../../../../schema-templates';
 import { createEditFormBlockUISchema, EditFormBlockOptions } from './createEditFormBlockUISchema';
@@ -43,13 +42,17 @@ export const RecordFormBlockInitializer = () => {
 
 export function useCreateEditFormBlock() {
   const { insert } = useSchemaInitializer();
-  const association = useAssociationName();
+  const cm = useCollectionManager();
   const fieldSchema = useFieldSchema();
   const actionType = fieldSchema?.['actionType'] as string | undefined;
+  const association = useAssociationName();
+
   const createEditFormBlock = useCallback(
     ({ item }) => {
-      const collectionName = actionType && association ? association.split('.')[1] : item.collectionName || item.name;
-      if (!association && item.associationField) {
+      const field = item.associationField;
+      const collectionName = cm.getCollection(field.target).name;
+
+      if (item.associationField) {
         const field = item.associationField;
         insert(
           createEditFormBlockUISchema({
@@ -67,8 +70,8 @@ export function useCreateEditFormBlock() {
                   isCurrent: true,
                 }
               : {
-                  collectionName,
                   dataSource: item.dataSource,
+                  collectionName,
                 },
           ),
         );
@@ -85,12 +88,12 @@ export function useCreateEditFormBlock() {
           templateSchema,
         };
 
-        if (association) {
-          options.association = association;
-          options.isCurrent = true;
-        } else if (item.associationField) {
+        if (item.associationField) {
           const field = item.associationField;
           options.association = `${field.collectionName}.${field.name}`;
+        } else if (association) {
+          options.association = association;
+          options.isCurrent = true;
         } else {
           options.collectionName = item.collectionName || item.name;
         }
