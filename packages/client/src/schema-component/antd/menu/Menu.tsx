@@ -15,8 +15,8 @@ import { Menu as AntdMenu, Button, Card, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
-import { createDesignable, DndContext, SortableItem, useDesignable, useDesigner } from '../..';
-import { css, Icon, useAPIClient, useSchemaInitializerRender, useToken } from '../../../';
+import { DndContext, SortableItem, useDesignable, useDesigner } from '../..';
+import { css, Icon, useSchemaInitializerRender, useToken } from '../../../';
 import { useCollectMenuItems, useMenuItem } from '../../../hooks/useMenuItem';
 import { useProps } from '../../hooks/useProps';
 import { useMenuTranslation } from './locale';
@@ -210,55 +210,14 @@ const HeaderMenu = ({
   );
 };
 
-const SideMenu = ({
-  loading,
-  mode,
-  sideMenuSchema,
-  sideMenuRef,
-  defaultOpenKeys,
-  defaultSelectedKeys,
-  onSelect,
-  render,
-  t,
-  api,
-  refresh,
-  designable,
-}) => {
+const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys, defaultSelectedKeys, onSelect }) => {
   const { Component, getMenuItems } = useMenuItem();
   const { styles } = useStyles();
 
   const sideMenuSchemaRef = useRef(sideMenuSchema);
   sideMenuSchemaRef.current = sideMenuSchema;
 
-  const items = useMemo(() => {
-    const result = getMenuItems(() => {
-      return <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />;
-    });
-
-    if (designable) {
-      result.push({
-        key: 'x-designer-button',
-        disabled: true,
-        label: render({
-          'data-testid': 'schema-initializer-Menu-side',
-          insert: (s) => {
-            const dn = createDesignable({
-              t,
-              api,
-              refresh,
-              current: sideMenuSchemaRef.current,
-            });
-            dn.loadAPIClientEvents();
-            dn.insertAdjacent('beforeEnd', s);
-          },
-        }),
-        order: 1,
-        notdelete: true,
-      });
-    }
-
-    return result;
-  }, [getMenuItems, designable, sideMenuSchema, render, t, api, refresh]);
+  const items = getMenuItems(() => <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />);
 
   if (loading) {
     return null;
@@ -316,11 +275,8 @@ export const Menu: ComposedMenu = observer(
       children,
       ...others
     } = useProps(props);
-    const { t } = useTranslation();
     const Designer = useDesigner();
     const schema = useFieldSchema();
-    const { refresh } = useDesignable();
-    const api = useAPIClient();
     const { render } = useSchemaInitializerRender(schema['x-initializer'], schema['x-initializer-props']);
     const sideMenuRef = useSideMenuRef();
     const [selectedKeys, setSelectedKeys] = useState<string[]>();
@@ -372,11 +328,13 @@ export const Menu: ComposedMenu = observer(
         setDefaultOpenKeys(dOpenKeys || keys);
       }
     }, [selectedUid]);
+
     useEffect(() => {
       if (['inline', 'mix'].includes(mode)) {
         setDefaultOpenKeys(defaultSelectedKeys);
       }
     }, [defaultSelectedKeys]);
+
     const { designable } = useDesignable();
     return (
       <DndContext>
@@ -405,11 +363,6 @@ export const Menu: ComposedMenu = observer(
               defaultOpenKeys={defaultOpenKeys}
               defaultSelectedKeys={defaultSelectedKeys}
               onSelect={onSelect}
-              render={render}
-              t={t}
-              api={api}
-              refresh={refresh}
-              designable={designable}
             />
           </MenuModeContext.Provider>
         </MenuItemDesignerContext.Provider>
@@ -435,7 +388,13 @@ Menu.Item = observer(
         key: schema.name,
         eventKey: schema.name,
         schema,
-        menu: { icon, field, Designer, schema, styles },
+        menu: {
+          icon,
+          field,
+          Designer,
+          schema,
+          styles,
+        },
         label: (
           <SchemaContext.Provider value={schema}>
             <FieldContext.Provider value={field}>
@@ -445,17 +404,9 @@ Menu.Item = observer(
                 className={styles.designerCss}
                 removeParentsIfNoChildren={false}
               >
-                <Icon type={icon} />
-                <span
-                  style={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: 'inline-block',
-                    width: '100%',
-                    verticalAlign: 'middle',
-                  }}
-                >
-                  {t(field.title)}
+                <span className={'menuitem-title-wrapper'}>
+                  <Icon type={icon} />
+                  <span className={'menuitem-title'}>{t(field.title)}</span>
                 </span>
                 <Designer />
               </SortableItem>
@@ -562,8 +513,10 @@ Menu.SubMenu = observer(
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
               >
-                <Icon type={icon} />
-                {t(field.title)}
+                <span className={'submenu-title'}>
+                  <Icon type={icon} />
+                  {t(field.title)}
+                </span>
                 <Designer />
               </SortableItem>
             </FieldContext.Provider>

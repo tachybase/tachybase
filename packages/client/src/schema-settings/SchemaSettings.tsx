@@ -62,6 +62,7 @@ import {
   findFormBlock,
   FormDialog,
   FormProvider,
+  Icon,
   Radio,
   RemoteSchemaComponent,
   SchemaComponent,
@@ -496,9 +497,10 @@ export interface SchemaSettingsItemProps extends Omit<MenuItemProps, 'title'> {
   title: string;
 }
 export const SchemaSettingsItem: FC<SchemaSettingsItemProps> = (props) => {
+  const { eventKey, title } = props;
   const { pushMenuItem } = useCollectMenuItems();
   const { collectMenuItem } = useCollectMenuItem();
-  const { eventKey, title } = props;
+
   const { name } = useSchemaSettingsItem();
 
   if (process.env.NODE_ENV !== 'production' && !title) {
@@ -525,7 +527,7 @@ export const SchemaSettingsItem: FC<SchemaSettingsItemProps> = (props) => {
 };
 
 export interface SchemaSettingsItemGroupProps {
-  title: string;
+  title?: string;
   children: any[];
 }
 export const SchemaSettingsItemGroup: FC<SchemaSettingsItemGroupProps> = (props) => {
@@ -581,9 +583,10 @@ export interface SchemaSettingsRemoveProps {
   confirm?: ModalFuncProps;
   removeParentsIfNoChildren?: boolean;
   breakRemoveOn?: ISchema | ((s: ISchema) => boolean);
+  icon?: string;
 }
 export const SchemaSettingsRemove: FC<SchemaSettingsRemoveProps> = (props) => {
-  const { confirm, removeParentsIfNoChildren, breakRemoveOn } = props;
+  const { icon, confirm, removeParentsIfNoChildren, breakRemoveOn } = props;
   const { dn, template } = useSchemaSettings();
   const { t } = useTranslation();
   const field = useField<Field>();
@@ -597,6 +600,7 @@ export const SchemaSettingsRemove: FC<SchemaSettingsRemoveProps> = (props) => {
     <SchemaSettingsItem
       title="Delete"
       eventKey="remove"
+      icon={icon ? <Icon style={{ color: '#eb5050' }} type={icon} /> : null}
       onClick={() => {
         modal.confirm({
           title: t('Delete block'),
@@ -627,7 +631,7 @@ export const SchemaSettingsRemove: FC<SchemaSettingsRemoveProps> = (props) => {
         });
       }}
     >
-      {t('Delete')}
+      <span style={{ color: '#eb5050' }}>{t('Delete')}</span>
     </SchemaSettingsItem>
   );
 };
@@ -1001,6 +1005,7 @@ export interface SchemaSettingsModalItemProps {
   asyncGetInitialValues?: () => Promise<any>;
   eventKey?: string;
   hide?: boolean;
+  icon?: string | React.ReactNode;
 }
 export const SchemaSettingsModalItem: FC<SchemaSettingsModalItemProps> = (props) => {
   const {

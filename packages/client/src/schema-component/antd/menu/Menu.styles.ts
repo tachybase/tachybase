@@ -4,17 +4,22 @@ export const useStyles = createStyles(({ css, token }) => {
   return {
     subMenuDesignerCss: css`
       position: relative;
-      display: inline-block;
-      margin-left: -24px;
-      margin-right: -34px;
-      padding: 0 34px 0 24px;
-      width: calc(100% + 58px);
-      height: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
       overflow: hidden;
       text-overflow: ellipsis;
+
       &:hover {
         > .general-schema-designer {
-          display: block;
+          display: flex;
+        }
+        .ant-space-item:hover {
+          border-radius: 5px;
+          background-color: var(--colorSettings);
+          color: #fff;
         }
       }
       &.tb-action-link {
@@ -25,30 +30,30 @@ export const useStyles = createStyles(({ css, token }) => {
           right: -10px;
         }
       }
+      .submenu-title {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+
+        width: 100%;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       > .general-schema-designer {
-        position: absolute;
-        z-index: 999;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        display: none;
-        background: var(--colorBgSettingsHover);
-        border: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
         pointer-events: none;
+        display: none;
         > .general-schema-designer-icons {
-          position: absolute;
-          right: 2px;
-          top: 2px;
-          line-height: 16px;
           pointer-events: all;
           .ant-space-item {
-            background-color: var(--colorSettings);
-            color: #fff;
             line-height: 16px;
             width: 16px;
             padding-left: 1px;
-            align-self: stretch;
           }
         }
       }
@@ -57,16 +62,18 @@ export const useStyles = createStyles(({ css, token }) => {
     designerCss: css`
       position: relative;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      margin-left: -20px;
-      margin-right: -20px;
-      padding: 0 20px;
-      width: calc(100% + 40px);
-      height: 100%;
+      width: 100%;
+
       &:hover {
         > .general-schema-designer {
-          display: block;
+          display: flex;
+        }
+        .ant-space-item:hover {
+          border-radius: 5px;
+          background-color: var(--colorSettings);
+          color: #fff;
         }
       }
       &.tb-action-link {
@@ -77,30 +84,33 @@ export const useStyles = createStyles(({ css, token }) => {
           right: -10px;
         }
       }
+
+      .menuitem-title-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        overflow: hidden;
+      }
+      .menuitem-title {
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       > .general-schema-designer {
-        position: absolute;
-        z-index: 999;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
         display: none;
-        background: var(--colorBgSettingsHover);
-        border: 0;
         pointer-events: none;
         > .general-schema-designer-icons {
-          position: absolute;
-          right: 2px;
-          top: 2px;
-          line-height: 16px;
           pointer-events: all;
           .ant-space-item {
-            background-color: var(--colorSettings);
-            color: #fff;
             line-height: 16px;
             width: 16px;
             padding-left: 1px;
-            align-self: stretch;
           }
         }
       }
@@ -122,10 +132,6 @@ export const useStyles = createStyles(({ css, token }) => {
       overflow-x: hidden;
       .ant-menu-item {
         > .ant-menu-title-content {
-          height: 100%;
-          margin-left: -24px;
-          margin-right: -16px;
-          padding: 0 16px 0 24px;
           > div {
             > .general-schema-designer {
               right: 6px !important;
@@ -135,10 +141,6 @@ export const useStyles = createStyles(({ css, token }) => {
       }
       .ant-menu-submenu-title {
         .ant-menu-title-content {
-          height: 100%;
-          margin-left: -24px;
-          margin-right: -34px;
-          padding: 0 34px 0 24px;
           > div {
             > .general-schema-designer {
               right: 6px !important;

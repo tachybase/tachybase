@@ -28,9 +28,9 @@ export class ModuleWeb extends Plugin {
     await uiSchemas.insert({
       type: 'void',
       'x-uid': 'default-admin-menu',
-      'x-component': 'Menu',
       'x-designer': 'Menu.Designer',
       'x-initializer': 'MenuItemInitializers',
+      'x-component': 'Menu',
       'x-component-props': {
         mode: 'mix',
         theme: 'dark',

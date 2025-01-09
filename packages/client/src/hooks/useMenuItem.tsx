@@ -103,7 +103,6 @@ export const useMenuItem = () => {
     list.current.push(() => {
       return <GetMenuItemContext.Provider value={{ collectMenuItem }}>{Com()}</GetMenuItemContext.Provider>;
     });
-
     return item;
   }, []);
 
