@@ -25,6 +25,8 @@ function getCollectionField(collection: Collection, fieldStr: string, db: Databa
   const fields = collection.getFields();
   const foreignField = fields.find((v) => v.name === associationTable);
 
+  // TODO: 此处foreignField为空,怎么处理
+
   const nextCollection = db.getCollection(foreignField.target);
   const nextField = parts.join('.'); // 剩余部分
   return getCollectionField(nextCollection, nextField, db);
@@ -74,6 +76,16 @@ function convertTimezoneOffset(offset) {
   return offset;
 }
 
+// 将a.b.c => { a: { b: { c } } }
+function getRealFieldFilter(field: string, value) {
+  const parts = field.split('.');
+  const key = parts.shift();
+  if (!parts.length) {
+    return { [key]: value };
+  }
+  return { [key]: getRealFieldFilter(parts.join('.'), value) };
+}
+
 export class PluginFullTextSearchServer extends Plugin {
   async afterAdd() {}
 
@@ -95,6 +107,8 @@ export class PluginFullTextSearchServer extends Plugin {
           ctx.throw(500, `keywords max length is ${SEARCH_KEYWORDS_MAX}`);
         }
 
+        params.search.keywords = params.search.keywords.map((v) => v.trim()).filter((v) => v);
+
         let fields = [];
         const collection = ctx.db.getCollection(ctx.action.resourceName);
         const fieldsAll = collection.fields;
@@ -113,57 +127,59 @@ export class PluginFullTextSearchServer extends Plugin {
           let type;
           let fieldName;
           let fieldInfo;
-          if (!field.include('.')) {
+          let fieldNameStr;
+
+          if (!field.includes('.')) {
             fieldName =
               dbType === 'postgres' ? `"${ctx.action.resourceName}"."${field}"` : `\`${collection.name}\`.\`${field}\``;
             fieldInfo = fieldsAll;
             type = fieldInfo.get(field)?.type;
+            fieldNameStr = field;
           } else {
             const { collection: targetCollection, fieldStr } = getCollectionField(collection, field, ctx.db);
-            fieldInfo = targetCollection.getFields();
+            fieldInfo = targetCollection.fields;
             type = fieldInfo.get(fieldStr)?.type;
             fieldName =
               dbType === 'postgres'
                 ? `"${targetCollection.name}"."${fieldStr}"`
                 : `\`${targetCollection.name}\`.\`${fieldStr}\``;
             fieldInfo = fieldsAll;
+            fieldNameStr = `$${field}$`;
           }
 
           // 不能查询的类型: sort, boolean, tstzrange, virtual, formula, context, password
           if (stringFields.includes(type)) {
-            const searchList = [];
             for (const keyword of params.search.keywords) {
-              searchList.push({
-                [field]: {
-                  [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
-                },
+              const filterCondition = getRealFieldFilter(field, {
+                [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
               });
+              acc.push(filterCondition);
             }
-            acc.push({
-              [Op.or]: searchList,
-            });
           } else if (numberFields.includes(type)) {
-            let castFunction = '';
-            // 根据数据库类型选择 CAST 函数
-            if (dbType === 'mysql') {
-              castFunction = `CAST(${fieldName} AS CHAR)`;
-            } else {
-              castFunction = `CAST(${fieldName} AS TEXT)`;
-            }
-            const searchList = [];
+            // let castFunction = '';
+            // // 根据数据库类型选择 CAST 函数
+            // if (dbType === 'mysql') {
+            //   castFunction = `CAST(${fieldName} AS CHAR)`;
+            // } else {
+            //   castFunction = `CAST(${fieldName} AS TEXT)`;
+            // }
+
             for (const keyword of params.search.keywords) {
-              searchList.push(
-                where(
-                  literal(castFunction), // 使用 literal 构造原生 SQL 表达式
-                  {
-                    [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
-                  },
-                ),
+              // searchList.push(
+              //   where(
+              //     literal(castFunction), // 使用 literal 构造原生 SQL 表达式
+              //     {
+              //       [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
+              //     },
+              //   ),
+              // );
+
+              acc.push(
+                where(fn('CAST', ctx.db.sequelize.col(field), 'CHAR'), {
+                  [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
+                }),
               );
             }
-            acc.push({
-              [Op.or]: searchList,
-            });
           } else if (dateFields.includes(type)) {
             let formatStr = '';
             const info = fieldInfo.get(field);
@@ -206,7 +222,6 @@ export class PluginFullTextSearchServer extends Plugin {
             //   formatStr = dbType === 'postgres' ? 'YYYY-MM-DD' : '%Y-%m-%d';
             // }
 
-            const searchList = [];
             for (const keyword of params.search.keywords) {
               const condition =
                 dbType === 'postgres'
@@ -217,24 +232,16 @@ export class PluginFullTextSearchServer extends Plugin {
                       ? fn('strftime', formatStr, fn('datetime', fieldName, convertTimezoneOffset(utcOffset))) // SQLite 使用 strftime 和 datetime 手动调整时区
                       : fieldName; // 默认情况
 
-              searchList.push(
+              acc.push(
                 where(condition, {
                   [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
                 }),
               );
             }
-
-            acc.push({
-              [Op.or]: searchList,
-            });
           } else if (jsonFields.includes(type)) {
-            const searchList = [];
             for (const keyword of params.search.keywords) {
-              searchList.push(handleJsonQuery(fieldName, dbType, keyword));
+              acc.push(handleJsonQuery(fieldName, dbType, keyword));
             }
-            acc.push({
-              [Op.or]: searchList,
-            });
           }
           return acc;
         }, []);
