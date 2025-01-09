@@ -557,16 +557,11 @@ export const usersSchema: ISchema = {
 export const getRoleUsersSchema = (): ISchema => ({
   type: 'void',
   properties: {
-    provider: {
+    [uid()]: {
       type: 'void',
       'x-decorator': 'RoleUsersTableBlockProvider',
       'x-component': 'CardItem',
-      'x-decorator-props': {
-        collection: userCollection,
-        params: {
-          pageSize: 50,
-        },
-      },
+      'x-use-decorator-props': 'useRoleUsersServiceProps',
       properties: {
         actions: {
           type: 'void',
@@ -665,11 +660,6 @@ export const getRoleUsersSchema = (): ISchema => ({
                                     type: 'primary',
                                     htmlType: 'submit',
                                   },
-                                  'x-action-settings': {
-                                    assignedValues: {},
-                                    triggerWorkflows: [],
-                                    pageMode: false,
-                                  },
                                 },
                               },
                             },
@@ -681,7 +671,6 @@ export const getRoleUsersSchema = (): ISchema => ({
                                 rowKey: 'id',
                                 rowSelection: {
                                   type: 'checkbox',
-                                  // onChange: 'handleSelectRoleUsers',
                                 },
                               },
                               properties: {
@@ -737,27 +726,6 @@ export const getRoleUsersSchema = (): ISchema => ({
                             },
                           },
                         },
-                        // footer: {
-                        //   type: 'void',
-                        //   'x-component': 'Action.Drawer.Footer',
-                        //   properties: {
-                        //     cancel: {
-                        //       title: '{{t("Cancel")}}',
-                        //       'x-component': 'Action',
-                        //       'x-component-props': {
-                        //         useAction: '{{ cm.useCancelAction }}',
-                        //       },
-                        //     },
-                        //     submit: {
-                        //       title: '{{t("Submit")}}',
-                        //       'x-component': 'Action',
-                        //       'x-component-props': {
-                        //         type: 'primary',
-                        //         useAction: '{{ useAddRoleUsers }}',
-                        //       },
-                        //     },
-                        //   },
-                        // },
                       },
                     },
                   },
