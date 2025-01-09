@@ -361,14 +361,12 @@ export class Dumper extends AppMigrator {
   async dumpCollection(options: { name: string }) {
     const app = this.app;
     const dir = this.workDir;
-
     const collectionName = options.name;
-    app.logger.info(`dumping collection ${collectionName}`);
+    app.logger.info(`Dumping collection ${collectionName}`);
 
     const collection = app.db.getCollection(collectionName);
-
     if (!collection) {
-      this.app.logger.warn(`collection ${collectionName} not found`);
+      this.app.logger.warn(`Collection ${collectionName} not found`);
       return;
     }
 
@@ -382,57 +380,45 @@ export class Dumper extends AppMigrator {
 
     // @ts-ignore
     const attributes = collection.model.tableAttributes;
-
-    // @ts-ignore
     const columns: string[] = [...new Set(lodash.map(attributes, 'field'))];
-
     const collectionDataDir = path.resolve(dir, 'collections', collectionName);
 
     await fsPromises.mkdir(collectionDataDir, { recursive: true });
 
     let count = 0;
+    const dataFilePath = path.resolve(collectionDataDir, 'data');
+    const dataStream = fs.createWriteStream(dataFilePath);
 
-    if (columns.length !== 0) {
-      // write collection data
-      const dataFilePath = path.resolve(collectionDataDir, 'data');
-      const dataStream = fs.createWriteStream(dataFilePath);
+    const rows = await app.db.sequelize.query(
+      sqlAdapter(app.db, `SELECT * FROM ${collection.isParent() ? 'ONLY' : ''} ${collection.quotedTableName()}`),
+      { type: 'SELECT' },
+    );
 
-      const rows = await app.db.sequelize.query(
-        sqlAdapter(
-          app.db,
-          `SELECT *
-           FROM ${collection.isParent() ? 'ONLY' : ''} ${collection.quotedTableName()}`,
-        ),
-        {
-          type: 'SELECT',
-        },
+    // 写入所有数据
+    for (const row of rows) {
+      const rowData = JSON.stringify(
+        columns.map((col) => {
+          const val = row[col];
+          const field = collection.getField(col);
+          return field ? FieldValueWriter.toDumpedValue(field, val) : val;
+        }),
       );
 
-      for (const row of rows) {
-        const rowData = JSON.stringify(
-          columns.map((col) => {
-            const val = row[col];
-            const field = collection.getField(col);
-
-            return field ? FieldValueWriter.toDumpedValue(field, val) : val;
-          }),
-        );
-
-        dataStream.write(rowData + '\r\n', 'utf8');
+      if (!dataStream.write(rowData + '\r\n', 'utf8')) {
+        await new Promise((resolve) => dataStream.once('drain', resolve));
       }
 
-      dataStream.end();
-      await finished(dataStream);
-
-      count = rows.length;
+      count++;
     }
+
+    dataStream.end();
+    await finished(dataStream);
 
     const metaAttributes = lodash.mapValues(attributes, (attr, key) => {
       const collectionField = collection.getField(key);
       const fieldOptionKeys = ['field', 'primaryKey', 'autoIncrement', 'allowNull', 'defaultValue', 'unique'];
 
       if (collectionField) {
-        // is a field
         const fieldAttributes: any = {
           field: attr.field,
           isCollectionField: true,
@@ -467,14 +453,9 @@ export class Dumper extends AppMigrator {
       meta['inherits'] = lodash.uniq(collection.options.inherits);
     }
 
-    // @ts-ignore
+    // @ts-ignore 获取 autoIncrement 信息
     const autoIncrAttr = collection.model.autoIncrementAttribute;
-
-    if (
-      autoIncrAttr &&
-      collection.model.rawAttributes[autoIncrAttr] &&
-      collection.model.rawAttributes[autoIncrAttr].autoIncrement
-    ) {
+    if (autoIncrAttr && collection.model.rawAttributes[autoIncrAttr]?.autoIncrement) {
       const queryInterface = app.db.queryInterface;
       const autoIncrInfo = await queryInterface.getAutoIncrementInfo({
         tableInfo: {
@@ -490,7 +471,7 @@ export class Dumper extends AppMigrator {
       };
     }
 
-    // write meta file
+    // 写入 meta 文件
     await fsPromises.writeFile(path.resolve(collectionDataDir, 'meta'), JSON.stringify(meta), 'utf8');
   }
 

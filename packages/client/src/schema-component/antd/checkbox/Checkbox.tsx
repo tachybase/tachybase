@@ -55,10 +55,12 @@ export const InternalRadioGroup: ComposedCheckbox = connect((props: any) => {
 }, mapReadPretty(ReadPretty));
 
 export const Checkbox = (props) => {
-  if (props.mode === 'Radio group') {
-    return <InternalRadioGroup {...props} />;
-  } else {
-    return <InternalCheckbox {...props} />;
+  switch (props.mode) {
+    case 'Radio group':
+      return <InternalRadioGroup {...props} />;
+    case 'Checkbox':
+    default:
+      return <InternalCheckbox {...props} />;
   }
 };
 

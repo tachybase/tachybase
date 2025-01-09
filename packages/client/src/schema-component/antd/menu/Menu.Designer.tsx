@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TreeSelect } from '@tachybase/components';
 import { Field, ISchema, onFieldChange, Schema, useField, useFieldSchema } from '@tachybase/schema';
 
@@ -10,11 +10,12 @@ import { findByUid } from '.';
 import { createDesignable } from '../..';
 import {
   GeneralSchemaDesigner,
+  Icon,
   SchemaSettingsDivider,
   SchemaSettingsItem,
+  SchemaSettingsItemGroup,
   SchemaSettingsModalItem,
   SchemaSettingsRemove,
-  SchemaSettingsSubMenu,
   useAPIClient,
   useDesignable,
 } from '../../../';
@@ -50,16 +51,13 @@ const findMenuSchema = (fieldSchema: Schema) => {
   }
 };
 
-const InsertMenuItems = (props) => {
-  const { eventKey, title, insertPosition } = props;
+const InsertMenuItemsGroup = (props) => {
+  const { insertPosition = 'beforeEnd' } = props;
   const { t } = useTranslation();
   const { dn } = useDesignable();
   const fieldSchema = useFieldSchema();
   const isSubMenu = fieldSchema['x-component'] === 'Menu.SubMenu';
   const api = useAPIClient();
-  if (!isSubMenu && insertPosition === 'beforeEnd') {
-    return null;
-  }
   const serverHooks = [
     {
       type: 'onSelfCreate',
@@ -71,22 +69,22 @@ const InsertMenuItems = (props) => {
     },
   ];
   return (
-    <SchemaSettingsSubMenu eventKey={eventKey} title={title}>
+    <SchemaSettingsItemGroup>
       <SchemaSettingsModalItem
         eventKey={`${insertPosition}group`}
-        title={t('Submenu')}
+        icon={<Icon type={'FolderAddOutlined'} />}
+        title={t('Create group')}
         schema={
           {
             type: 'object',
-            title: t('Add group'),
+            title: t('Create group'),
             properties: {
               title: {
                 'x-decorator': 'FormItem',
                 'x-component': 'Input',
+                'x-component-props': {},
                 title: t('Menu item title'),
                 required: true,
-                'x-component-props': {},
-                // description: `原字段标题：${collectionField?.uiSchema?.title}`,
               },
               icon: {
                 title: t('Icon'),
@@ -97,7 +95,12 @@ const InsertMenuItems = (props) => {
           } as ISchema
         }
         onSubmit={({ title, icon }) => {
-          dn.insertAdjacent(insertPosition, {
+          /**
+           * 子菜单
+           * 1. 如果当前是子菜单, 默认添加在当前节点后边;
+           * 2. 如果当前是页面或链接, 默认添加在当前节点后边
+           */
+          dn.insertAdjacent('afterEnd', {
             type: 'void',
             title,
             'x-component': 'Menu.SubMenu',
@@ -109,14 +112,14 @@ const InsertMenuItems = (props) => {
           });
         }}
       />
-
       <SchemaSettingsModalItem
         eventKey={`${insertPosition}page`}
-        title={t('Page')}
+        icon={<Icon type={'FileOutlined'} />}
+        title={t('Create page')}
         schema={
           {
             type: 'object',
-            title: t('Add page'),
+            title: t('Create page'),
             properties: {
               title: {
                 'x-decorator': 'FormItem',
@@ -134,7 +137,12 @@ const InsertMenuItems = (props) => {
           } as ISchema
         }
         onSubmit={({ title, icon }) => {
-          dn.insertAdjacent(insertPosition, {
+          /**
+           * 页面
+           * 1. 如果当前是子菜单, 默认在当前节点的第一个子节点前面插入
+           * 2. 如果当前是页面或链接, 默认添加在当前节点后边
+           */
+          dn.insertAdjacent(isSubMenu ? 'afterBegin' : 'afterEnd', {
             type: 'void',
             title,
             'x-component': 'Menu.Item',
@@ -163,11 +171,12 @@ const InsertMenuItems = (props) => {
       />
       <SchemaSettingsModalItem
         eventKey={`${insertPosition}link`}
-        title={t('Link')}
+        icon={<Icon type={'GlobalOutlined'} />}
+        title={t('Create link')}
         schema={
           {
             type: 'object',
-            title: t('Add link'),
+            title: t('Create link'),
             properties: {
               title: {
                 title: t('Menu item title'),
@@ -189,7 +198,12 @@ const InsertMenuItems = (props) => {
           } as ISchema
         }
         onSubmit={({ title, icon, href }) => {
-          dn.insertAdjacent(insertPosition, {
+          /**
+           * 链接
+           * 1. 如果当前是子菜单, 默认在当前节点的第一个子节点前面插入
+           * 2. 如果当前是页面或链接, 默认添加在当前节点后边
+           */
+          dn.insertAdjacent(isSubMenu ? 'afterBegin' : 'afterEnd', {
             type: 'void',
             title,
             'x-component': 'Menu.URL',
@@ -205,11 +219,12 @@ const InsertMenuItems = (props) => {
       <SchemaSettingsDivider />
       <SchemaSettingsModalItem
         eventKey={`${insertPosition}restore`}
-        title={t('Load')}
+        icon={<Icon type={'UploadOutlined'} />}
+        title={t('Load menu config')}
         schema={
           {
             type: 'object',
-            title: t('Load'),
+            title: t('Load menu config'),
             properties: {
               title: {
                 'x-decorator': 'FormItem',
@@ -233,16 +248,21 @@ const InsertMenuItems = (props) => {
           } as ISchema
         }
         onSubmit={async ({ title, file }) => {
+          /**
+           * 加载菜单配置
+           * 1. 如果当前是子菜单, 默认添加在当前节点后边
+           * 2. 如果当前是页面或链接, 默认添加在当前节点后边
+           */
           const { data } = await api.request({
             url: file.url,
             baseURL: '/',
           });
           const s = data ?? {};
           s.title = title;
-          dn.insertAdjacent(insertPosition, s);
+          dn.insertAdjacent('afterEnd', s);
         }}
       />
-    </SchemaSettingsSubMenu>
+    </SchemaSettingsItemGroup>
   );
 };
 
@@ -255,6 +275,7 @@ export const MenuDesigner = () => {
   const { t } = useTranslation();
   const menuSchema = findMenuSchema(fieldSchema);
   const items = toItems(menuSchema?.properties);
+
   const effects = (form) => {
     onFieldChange('target', (field: Field) => {
       const [, component] = field?.value?.split?.('||') || [];
@@ -286,8 +307,8 @@ export const MenuDesigner = () => {
       },
       icon: {
         title: t('Menu item icon'),
-        'x-component': 'IconPicker',
         'x-decorator': 'FormItem',
+        'x-component': 'IconPicker',
       },
     },
   };
@@ -304,10 +325,11 @@ export const MenuDesigner = () => {
     initialValues['href'] = field.componentProps.href;
   }
   return (
-    <GeneralSchemaDesigner>
+    <GeneralSchemaDesigner draggable={false} AddMenuModalComponent={<InsertMenuItemsGroup />}>
       <SchemaSettingsModalItem
-        title={t('Edit')}
+        title={t('Modify the name and icon')}
         eventKey="edit"
+        icon={<Icon type={'FormOutlined'} />}
         schema={schema as ISchema}
         initialValues={initialValues}
         onSubmit={({ title, icon, href }) => {
@@ -342,6 +364,7 @@ export const MenuDesigner = () => {
         eventKey="move-to"
         components={{ TreeSelect }}
         effects={effects}
+        icon={<Icon type={'DragOutlined'} />}
         schema={
           {
             type: 'object',
@@ -386,12 +409,9 @@ export const MenuDesigner = () => {
         }}
       />
       <SchemaSettingsDivider />
-      <InsertMenuItems eventKey={'insertbeforeBegin'} title={t('Insert before')} insertPosition={'beforeBegin'} />
-      <InsertMenuItems eventKey={'insertafterEnd'} title={t('Insert after')} insertPosition={'afterEnd'} />
-      <InsertMenuItems eventKey={'insertbeforeEnd'} title={t('Insert inner')} insertPosition={'beforeEnd'} />
-      <SchemaSettingsDivider />
       <SchemaSettingsItem
         title={t('Dump')}
+        icon={<Icon type={'DownloadOutlined'} />}
         onClick={async () => {
           const deleteUid = (s: ISchema) => {
             delete s['name'];
@@ -411,6 +431,7 @@ export const MenuDesigner = () => {
         }}
       />
       <SchemaSettingsRemove
+        icon="DeleteOutlined"
         confirm={{
           title: t('Delete menu item'),
         }}

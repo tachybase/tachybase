@@ -57,6 +57,7 @@ export const useStyles = createStyles(({ css, token }) => {
       padding: 0;
       align-items: center;
       padding: 0 12px 0 12px;
+      cursor: pointer;
     `,
     logo: css`
       object-fit: contain;

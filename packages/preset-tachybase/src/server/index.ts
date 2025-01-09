@@ -48,6 +48,7 @@ export class PresetTachyBase extends Plugin {
     ['field-encryption', '0.23.8', true],
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
+    ['full-text-search', '0.23.24', true],
     // default disable
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],

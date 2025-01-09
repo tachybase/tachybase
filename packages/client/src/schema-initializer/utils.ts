@@ -483,19 +483,22 @@ const getItem = (
   getCollectionFields,
   processedCollections: string[],
   level: number,
+  fieldPath?: string,
 ) => {
   // TODO 懒加载的形式，这里不应该限制层数，因为实际上添加到界面上进查询条件后性能并不差，只有添加设计界面有性能问题
   if (level >= 3) {
     return null;
   }
+
   if (['m2o', 'obo', 'oho', 'o2m', 'm2m'].includes(field.interface)) {
     if (processedCollections.includes(field.target)) return null;
-
     const subFields = getCollectionFields(field.target);
     const options = [];
     subFields.forEach((subField) => {
       if (['m2o', 'obo', 'oho', 'o2m', 'm2m'].includes(subField.interface)) {
-        options.push(getResultSchema(`${schemaName}.${subField.name}`, subField, collectionName));
+        options.push(
+          getResultSchema(`${schemaName}.${subField.name}`, subField, collectionName, (fieldPath || '') + field.key),
+        );
       }
       options.push(
         getItem(
@@ -505,6 +508,7 @@ const getItem = (
           getCollectionFields,
           [...processedCollections, field.target],
           level + 1,
+          (fieldPath || '') + field.key,
         ),
       );
     });
@@ -512,16 +516,17 @@ const getItem = (
       type: 'subMenu',
       name: field.uiSchema?.title,
       title: field.uiSchema?.title,
+      key: (fieldPath || '') + field.key + 'menu',
       children: options.filter(Boolean),
     } as SchemaInitializerItemType;
   }
 
   if (isAssocField(field)) return null;
 
-  return getResultSchema(schemaName, field, collectionName);
+  return getResultSchema(schemaName, field, collectionName, (fieldPath || '') + field.key);
 };
 
-const getResultSchema = (schemaName, field, collectionName) => {
+const getResultSchema = (schemaName, field, collectionName, fieldPath) => {
   const schema = {
     type: 'string',
     name: schemaName,
@@ -540,6 +545,7 @@ const getResultSchema = (schemaName, field, collectionName) => {
   const result = {
     name: field.uiSchema?.title || field.name,
     type: 'item',
+    key: (field.uiSchema?.title || field.name) + fieldPath,
     title: field.uiSchema?.title || field.name,
     Component: 'CollectionFieldInitializer',
     remove: removeGridFormItem,

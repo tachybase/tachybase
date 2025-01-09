@@ -196,6 +196,12 @@ export interface ActionParams {
    * @deprecated
    */
   actionName?: string;
+
+  search?: {
+    fields?: string[];
+    keywords?: string[];
+    isSearchAllFields?: boolean;
+  };
   /**
    * 其他扩展配置
    */
