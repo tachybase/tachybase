@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useTranslation } from '@tachybase/client';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { dayjs } from '@tachybase/utils/client';
 
 import { Button, DatePicker } from 'antd-mobile';
-
-import { useTranslation } from '../../../../../locale';
 
 export const MDatePicker = connect(
   (props) => {
