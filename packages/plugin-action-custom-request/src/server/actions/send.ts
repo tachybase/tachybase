@@ -137,7 +137,7 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
   };
 
   const axiosRequestConfig = {
-    baseURL: ctx.origin,
+    baseURL: ctx.origin || `${ctx.protocol}://${ctx.host}`,
     ...options,
     url: getParsedValue(url),
     headers: {
