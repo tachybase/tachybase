@@ -99,6 +99,9 @@ export class PluginFullTextSearchServer extends Plugin {
           return next();
         }
         const params = ctx.action.params;
+        if (params.search?.keywords) {
+          params.search.keywords = params.search.keywords.map((v) => v.trim()).filter((v) => v);
+        }
         if (!params.search?.keywords?.length) {
           return next();
         }
@@ -106,8 +109,6 @@ export class PluginFullTextSearchServer extends Plugin {
         if (params.search.keywords.length > SEARCH_KEYWORDS_MAX) {
           ctx.throw(500, `keywords max length is ${SEARCH_KEYWORDS_MAX}`);
         }
-
-        params.search.keywords = params.search.keywords.map((v) => v.trim()).filter((v) => v);
 
         let fields = [];
         const collection = ctx.db.getCollection(ctx.action.resourceName);
@@ -127,14 +128,12 @@ export class PluginFullTextSearchServer extends Plugin {
           let type;
           let fieldName;
           let fieldInfo;
-          let fieldNameStr;
 
           if (!field.includes('.')) {
             fieldName =
               dbType === 'postgres' ? `"${ctx.action.resourceName}"."${field}"` : `\`${collection.name}\`.\`${field}\``;
             fieldInfo = fieldsAll;
             type = fieldInfo.get(field)?.type;
-            fieldNameStr = field;
           } else {
             const { collection: targetCollection, fieldStr } = getCollectionField(collection, field, ctx.db);
             fieldInfo = targetCollection.fields;
@@ -144,7 +143,6 @@ export class PluginFullTextSearchServer extends Plugin {
                 ? `"${targetCollection.name}"."${fieldStr}"`
                 : `\`${targetCollection.name}\`.\`${fieldStr}\``;
             fieldInfo = fieldsAll;
-            fieldNameStr = `$${field}$`;
           }
 
           // 不能查询的类型: sort, boolean, tstzrange, virtual, formula, context, password
@@ -156,71 +154,80 @@ export class PluginFullTextSearchServer extends Plugin {
               acc.push(filterCondition);
             }
           } else if (numberFields.includes(type)) {
-            // let castFunction = '';
-            // // 根据数据库类型选择 CAST 函数
-            // if (dbType === 'mysql') {
-            //   castFunction = `CAST(${fieldName} AS CHAR)`;
-            // } else {
-            //   castFunction = `CAST(${fieldName} AS TEXT)`;
-            // }
-
+            // TODO: 关联字段的数字类型需要特殊处理
+            if (field.includes('.')) {
+              return acc;
+            }
+            // TODO: 精确度,精确到某位小数可能会出问题
+            let castFunction = '';
+            // 根据数据库类型选择 CAST 函数
+            if (dbType === 'mysql') {
+              castFunction = `CAST(${fieldName} AS CHAR)`;
+            } else {
+              castFunction = `CAST(${fieldName} AS TEXT)`;
+            }
+            const searchList = [];
             for (const keyword of params.search.keywords) {
-              // searchList.push(
-              //   where(
-              //     literal(castFunction), // 使用 literal 构造原生 SQL 表达式
-              //     {
-              //       [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
-              //     },
-              //   ),
-              // );
-
-              acc.push(
-                where(fn('CAST', ctx.db.sequelize.col(field), 'CHAR'), {
-                  [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
-                }),
+              searchList.push(
+                where(
+                  literal(castFunction), // 将 BIGINT 转换为字符串
+                  {
+                    // 根据数据库类型选择 LIKE 或 ILIKE
+                    [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
+                  },
+                ),
               );
             }
+            acc.push({
+              [Op.or]: searchList,
+            });
           } else if (dateFields.includes(type)) {
-            let formatStr = '';
+            // TODO: 关联字段的数字类型需要特殊处理
+            // TODO: 最好可以根据前端需要格式化的日期格式化文本
+            if (field.includes('.')) {
+              return acc;
+            }
+
+            // TODO: sqlite, mysql出现问题
+            let formatStr = 'YYYY-MM-DD HH:mm:ss';
             const info = fieldInfo.get(field);
 
+            const searchList = [];
+
             // 根据字段的 UI 配置设置日期格式
-            // if (info?.options?.uiSchema?.['x-component-props']?.dateFormat) {
-            const props = info.options.uiSchema['x-component-props'];
-            if (dbType === 'postgres') {
-              formatStr = props.dateFormat;
-              if (props.showTime) {
-                if (props.timeFormat.endsWith(' a')) {
-                  formatStr += ' HH12:MI:SS'; // PostgreSQL 12小时制
-                } else {
-                  formatStr += ' HH24:MI:SS'; // PostgreSQL 24小时制
+            if (info?.options?.uiSchema?.['x-component-props']?.dateFormat) {
+              const props = info.options.uiSchema['x-component-props'];
+              if (dbType === 'postgres') {
+                formatStr = props.dateFormat;
+                if (props.showTime) {
+                  if (props.timeFormat.endsWith(' a')) {
+                    formatStr += ' HH12:MI:SS'; // PostgreSQL 12小时制
+                  } else {
+                    formatStr += ' HH24:MI:SS'; // PostgreSQL 24小时制
+                  }
                 }
-              }
-            } else if (dbType === 'mysql') {
-              // MySQL 格式化方式
-              formatStr = props.dateFormat.replace('YYYY', '%Y').replace('MM', '%m').replace('DD', '%d');
-              if (props.showTime) {
-                if (props.timeFormat.endsWith(' a')) {
-                  formatStr += ' %I:%i:%s %p'; // MySQL 12小时制，%p 显示 AM/PM
-                } else {
-                  formatStr += ' %H:%i:%s'; // MySQL 24小时制
+              } else if (dbType === 'mysql') {
+                // MySQL 格式化方式
+                formatStr = props.dateFormat.replace('YYYY', '%Y').replace('MM', '%m').replace('DD', '%d');
+                if (props.showTime) {
+                  if (props.timeFormat.endsWith(' a')) {
+                    formatStr += ' %I:%i:%s %p'; // MySQL 12小时制，%p 显示 AM/PM
+                  } else {
+                    formatStr += ' %H:%i:%s'; // MySQL 24小时制
+                  }
                 }
-              }
-            } else if (dbType === 'sqlite') {
-              // SQLite 格式化方式
-              formatStr = props.dateFormat.replace('YYYY', '%Y').replace('MM', '%m').replace('DD', '%d');
-              if (props.showTime) {
-                if (props.timeFormat.endsWith(' a')) {
-                  formatStr += ' %I:%M:%S %p'; // SQLite 12小时制，%p 显示 AM/PM
-                } else {
-                  formatStr += ' %H:%M:%S'; // SQLite 24小时制
+              } else if (dbType === 'sqlite') {
+                // SQLite 格式化方式
+                formatStr = props.dateFormat.replace('YYYY', '%Y').replace('MM', '%m').replace('DD', '%d');
+                if (props.showTime) {
+                  if (props.timeFormat.endsWith(' a')) {
+                    formatStr += ' %I:%M:%S %p'; // SQLite 12小时制，%p 显示 AM/PM
+                  } else {
+                    formatStr += ' %H:%M:%S'; // SQLite 24小时制
+                  }
                 }
               }
             }
-            // } else {
-            //   // 默认格式
-            //   formatStr = dbType === 'postgres' ? 'YYYY-MM-DD' : '%Y-%m-%d';
-            // }
 
             for (const keyword of params.search.keywords) {
               const condition =
@@ -232,16 +239,28 @@ export class PluginFullTextSearchServer extends Plugin {
                       ? fn('strftime', formatStr, fn('datetime', fieldName, convertTimezoneOffset(utcOffset))) // SQLite 使用 strftime 和 datetime 手动调整时区
                       : fieldName; // 默认情况
 
-              acc.push(
+              searchList.push(
                 where(condition, {
                   [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
                 }),
               );
             }
+
+            acc.push({
+              [Op.or]: searchList,
+            });
           } else if (jsonFields.includes(type)) {
-            for (const keyword of params.search.keywords) {
-              acc.push(handleJsonQuery(fieldName, dbType, keyword));
+            // TODO: 关联字段的数字类型需要特殊处理
+            if (field.includes('.')) {
+              return acc;
             }
+            const searchList = [];
+            for (const keyword of params.search.keywords) {
+              searchList.push(handleJsonQuery(fieldName, dbType, keyword));
+            }
+            acc.push({
+              [Op.or]: searchList,
+            });
           }
           return acc;
         }, []);
