@@ -32,28 +32,67 @@ const collection = {
   ],
 };
 
-export const dataSourceSchema: ISchema = {
-  type: 'object',
+export const view: ISchema = {
+  type: 'void',
+  title: '{{t("Configure")}}',
+  'x-component': 'Action.Link',
+  'x-decorator': 'ACLActionProvider',
+  'x-acl-action': 'roles:update',
+  'x-component-props': {},
   properties: {
-    block1: {
+    drawer: {
       type: 'void',
-      'x-decorator': 'ResourceActionProvider',
-      'x-decorator-props': {
-        collection,
-        resourceName: 'dataSources',
-        request: {
-          resource: 'dataSources',
-          action: 'list',
-          params: {
-            pageSize: 50,
-            showAnonymous: true,
-            appends: [],
+      'x-component': 'Action.Drawer',
+      'x-decorator': 'PermissionProvider',
+      title: '{{t("Configure permissions")}}',
+      properties: {
+        tabs1: {
+          type: 'void',
+          'x-component': 'Tabs',
+          'x-component-props': {},
+          properties: {
+            tab1: {
+              type: 'void',
+              title: '{{t("General action permissions")}}',
+              'x-component': 'Tabs.TabPane',
+              'x-component-props': {},
+              properties: {
+                role: {
+                  'x-component': 'RoleConfigure',
+                },
+              },
+            },
+            tab2: {
+              type: 'void',
+              title: '{{t("Action permissions")}}',
+              'x-component': 'Tabs.TabPane',
+              'x-component-props': {},
+              properties: {
+                roleCollectionsSchema,
+              },
+            },
           },
         },
       },
-      'x-component': 'CollectionProvider_deprecated',
-      'x-component-props': {
+    },
+  },
+};
+
+export const dataSourceSchema: ISchema = {
+  type: 'void',
+  properties: {
+    block1: {
+      type: 'void',
+      'x-decorator': 'TableBlockProvider',
+      'x-component': 'CardItem',
+      'x-decorator-props': {
         collection,
+        action: 'list',
+        params: {
+          pageSize: 50,
+          showAnonymous: true,
+          appends: [],
+        },
       },
       properties: {
         actions: {
@@ -67,21 +106,21 @@ export const dataSourceSchema: ISchema = {
           properties: {},
         },
         table: {
-          type: 'void',
+          type: 'array',
           'x-uid': 'input',
-          'x-component': 'Table.Void',
+          'x-component': 'TableV2',
+          'x-use-component-props': 'useTableBlockProps',
           'x-component-props': {
             rowKey: 'name',
             rowSelection: {
               type: 'checkbox',
             },
-            useDataSource: '{{ cm.useDataSourceFromRAC }}',
           },
           properties: {
             column1: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 displayName: {
                   type: 'string',
@@ -92,8 +131,8 @@ export const dataSourceSchema: ISchema = {
             },
             column2: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 key: {
                   type: 'string',
@@ -105,7 +144,7 @@ export const dataSourceSchema: ISchema = {
             column4: {
               type: 'void',
               title: '{{t("Actions")}}',
-              'x-component': 'Table.Column',
+              'x-component': 'TableV2.Column',
               properties: {
                 actions: {
                   type: 'void',
@@ -114,51 +153,7 @@ export const dataSourceSchema: ISchema = {
                     split: '|',
                   },
                   properties: {
-                    view: {
-                      type: 'void',
-                      title: '{{t("Configure")}}',
-                      'x-component': 'Action.Link',
-                      'x-decorator': 'ACLActionProvider',
-                      'x-acl-action': 'roles:update',
-                      'x-component-props': {},
-                      properties: {
-                        drawer: {
-                          type: 'void',
-                          'x-component': 'Action.Drawer',
-                          'x-decorator': 'PermissionProvider',
-                          title: '{{t("Configure permissions")}}',
-                          properties: {
-                            tabs1: {
-                              type: 'void',
-                              'x-component': 'Tabs',
-                              'x-component-props': {},
-                              properties: {
-                                tab1: {
-                                  type: 'void',
-                                  title: '{{t("General action permissions")}}',
-                                  'x-component': 'Tabs.TabPane',
-                                  'x-component-props': {},
-                                  properties: {
-                                    role: {
-                                      'x-component': 'RoleConfigure',
-                                    },
-                                  },
-                                },
-                                tab2: {
-                                  type: 'void',
-                                  title: '{{t("Action permissions")}}',
-                                  'x-component': 'Tabs.TabPane',
-                                  'x-component-props': {},
-                                  properties: {
-                                    roleCollectionsSchema,
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
+                    view,
                   },
                 },
               },
