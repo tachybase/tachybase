@@ -557,15 +557,12 @@ export const usersSchema: ISchema = {
 export const getRoleUsersSchema = (): ISchema => ({
   type: 'void',
   properties: {
-    block1: {
+    provider: {
       type: 'void',
       'x-decorator': 'RoleUsersTableBlockProvider',
       'x-component': 'CardItem',
       'x-decorator-props': {
         collection: userCollection,
-        // resource: 'roles.users',
-        // resourceOf: role?.name,
-        // action: 'list',
         params: {
           pageSize: 50,
         },
@@ -580,17 +577,17 @@ export const getRoleUsersSchema = (): ISchema => ({
             },
           },
           properties: {
-            // [uid()]: {
-            //   type: 'void',
-            //   title: '{{ t("Filter") }}',
-            //   'x-action': 'filter',
-            //   'x-component': 'Filter.Action',
-            //   'x-use-component-props': 'useFilterActionProps',
-            //   'x-component-props': {
-            //     icon: 'FilterOutlined',
-            //   },
-            //   'x-align': 'left',
-            // },
+            [uid()]: {
+              type: 'void',
+              title: '{{ t("Filter") }}',
+              'x-action': 'filter',
+              'x-component': 'Filter.Action',
+              'x-use-component-props': 'useFilterActionProps',
+              'x-component-props': {
+                icon: 'FilterOutlined',
+              },
+              'x-align': 'left',
+            },
             actions: {
               type: 'void',
               'x-component': 'Space',
@@ -641,20 +638,20 @@ export const getRoleUsersSchema = (): ISchema => ({
                                 },
                               },
                               properties: {
-                                // filter: {
-                                //   type: 'void',
-                                //   title: '{{ t("Filter") }}',
-                                //   default: {
-                                //     $and: [{ username: { $includes: '' } }, { nickname: { $includes: '' } }],
-                                //   },
-                                //   'x-action': 'filter',
-                                //   'x-component': 'Filter.Action',
-                                //   'x-use-component-props': 'useFilterActionProps',
-                                //   'x-component-props': {
-                                //     icon: 'FilterOutlined',
-                                //   },
-                                //   'x-align': 'left',
-                                // },
+                                filter: {
+                                  type: 'void',
+                                  title: '{{ t("Filter") }}',
+                                  default: {
+                                    $and: [{ username: { $includes: '' } }, { nickname: { $includes: '' } }],
+                                  },
+                                  'x-action': 'filter',
+                                  'x-component': 'Filter.Action',
+                                  'x-use-component-props': 'useFilterActionProps',
+                                  'x-component-props': {
+                                    icon: 'FilterOutlined',
+                                  },
+                                  'x-align': 'left',
+                                },
                                 cancel: {
                                   title: '{{ t("Cancel") }}',
                                   'x-component': 'Action',
@@ -818,18 +815,18 @@ export const getRoleUsersSchema = (): ISchema => ({
                     split: '|',
                   },
                   properties: {
-                    // remove: {
-                    //   type: 'void',
-                    //   title: '{{ t("Remove") }}',
-                    //   'x-component': 'Action.Link',
-                    //   'x-use-component-props': 'useRemoveUser',
-                    //   'x-component-props': {
-                    //     confirm: {
-                    //       title: "{{t('Remove user')}}",
-                    //       content: "{{t('Are you sure you want to remove it?')}}",
-                    //     },
-                    //   },
-                    // },
+                    remove: {
+                      type: 'void',
+                      title: '{{ t("Remove") }}',
+                      'x-component': 'Action.Link',
+                      'x-use-component-props': 'useRemoveUser',
+                      'x-component-props': {
+                        confirm: {
+                          title: "{{t('Remove user')}}",
+                          content: "{{t('Are you sure you want to remove it?')}}",
+                        },
+                      },
+                    },
                   },
                 },
               },

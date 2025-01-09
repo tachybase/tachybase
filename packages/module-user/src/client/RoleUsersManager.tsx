@@ -24,7 +24,7 @@ import { createForm, FormContext, useField, useFieldSchema } from '@tachybase/sc
 
 import { App } from 'antd';
 
-// import { useFilterActionProps } from './hooks';
+import { useFilterActionProps } from './hooks';
 import { useUsersTranslation } from './locale';
 import { getRoleUsersSchema, userCollection } from './schemas/users';
 
@@ -172,7 +172,7 @@ export const RoleUsersManager: React.FC = () => {
     const { message } = App.useApp();
     const api = useAPIClient();
     const { setVisible } = useActionContext();
-    const { field } = useTableBlockContext();
+    const { field, service } = useTableBlockContext();
     const { refresh } = useDataBlockRequest();
     // const field = useField();
     // const resource = useDataBlockResource;
@@ -188,7 +188,7 @@ export const RoleUsersManager: React.FC = () => {
         });
         field.data.selectedRowKeys = [];
         setVisible(false);
-        refresh();
+        service.refresh();
       },
     };
   };
@@ -206,6 +206,7 @@ export const RoleUsersManager: React.FC = () => {
           useRemoveUser,
           useAddRoleUsers,
           useRoleUsersProps,
+          useFilterActionProps,
           t,
         }}
       />
