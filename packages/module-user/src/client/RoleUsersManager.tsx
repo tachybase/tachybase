@@ -12,6 +12,8 @@ import {
   useActionContext,
   useAPIClient,
   useCollectionRecordData,
+  useDataBlockRequest,
+  useDataBlockResource,
   useRequest,
   useResourceActionContext,
   useTableBlockContext,
@@ -22,7 +24,7 @@ import { createForm, FormContext, useField, useFieldSchema } from '@tachybase/sc
 
 import { App } from 'antd';
 
-import { useFilterActionProps } from './hooks';
+// import { useFilterActionProps } from './hooks';
 import { useUsersTranslation } from './locale';
 import { getRoleUsersSchema, userCollection } from './schemas/users';
 
@@ -32,7 +34,7 @@ const useRemoveUser = () => {
   const record = useCollectionRecordData();
   const { service } = useTableBlockContext();
   return {
-    async run() {
+    async onClick() {
       await api.resource('roles.users', role?.name).remove({
         values: [record['id']],
       });
@@ -59,28 +61,23 @@ const useBulkRemoveUsers = () => {
       await api.resource('roles.users', role?.name).remove({
         values: selected,
       });
-      service?.setState?.({ selectedRowKeys: [] });
+      field.data.selectedRowKeys = [];
       service?.refresh();
     },
   };
 };
 
-const RoleUsersProvider = (props) => {
+const useRoleUsersProps = (props) => {
   const { role } = useContext(RolesManagerContext);
-  return (
-    <ResourceActionProvider
-      collection={userCollection}
-      request={{
-        resource: `users`,
-        action: 'listExcludeRole',
-        params: {
-          roleName: role?.name,
-        },
-      }}
-    >
-      {props.children}
-    </ResourceActionProvider>
-  );
+
+  return {
+    ...props,
+    collection: userCollection,
+    action: 'listExcludeRole',
+    params: {
+      roleName: role?.name,
+    },
+  };
 };
 
 const RoleUsersTableBlockProvider = (props) => {
@@ -150,7 +147,7 @@ const RoleUsersTableBlockProvider = (props) => {
 
 export const RoleUsersManager: React.FC = () => {
   const { t } = useUsersTranslation();
-  // const { role } = useContext(RolesManagerContext);
+  const { role } = useContext(RolesManagerContext);
   // const service = useRequest(
   //   {
   //     resource: 'roles.users',
@@ -165,42 +162,50 @@ export const RoleUsersManager: React.FC = () => {
   //   service.run();
   // }, [role]);
 
-  const selectedRoleUsers = useRef([]);
-  const handleSelectRoleUsers = (_: number[], rows: any[]) => {
-    selectedRoleUsers.current = rows;
-  };
+  // const selectedRoleUsers = useRef([]);
+  // const handleSelectRoleUsers = (_: number[], rows: any[]) => {
+  //   selectedRoleUsers.current = rows;
+  // };
 
   const useAddRoleUsers = () => {
     const { role } = useContext(RolesManagerContext);
+    const { message } = App.useApp();
     const api = useAPIClient();
     const { setVisible } = useActionContext();
-    const { refresh } = useResourceActionContext();
+    const { field } = useTableBlockContext();
+    const { refresh } = useDataBlockRequest();
+    // const field = useField();
+    // const resource = useDataBlockResource;
     return {
-      async run() {
+      async onClick() {
+        const selected = field?.data?.selectedRowKeys;
+        if (!selected?.length) {
+          message.warning(t('Please select users'));
+          return;
+        }
         await api.resource('roles.users', role?.name).add({
-          values: selectedRoleUsers.current.map((user) => user.id),
+          values: selected,
         });
-        selectedRoleUsers.current = [];
+        field.data.selectedRowKeys = [];
         setVisible(false);
         refresh();
       },
     };
   };
 
-  // const schema = useMemo(() => getRoleUsersSchema(role?.name), [role]);
-  const schema = getRoleUsersSchema();
+  const schema = useMemo(() => getRoleUsersSchema(), [role]);
+  // const schema = getRoleUsersSchema();
 
   return (
     <ExtendCollectionsProvider collections={[userCollection]}>
       <SchemaComponent
         schema={schema}
-        components={{ RoleUsersProvider, RoleUsersTableBlockProvider }}
+        components={{ RoleUsersTableBlockProvider }}
         scope={{
           useBulkRemoveUsers,
           useRemoveUser,
-          handleSelectRoleUsers,
           useAddRoleUsers,
-          useFilterActionProps,
+          useRoleUsersProps,
           t,
         }}
       />
