@@ -50,7 +50,7 @@ export function useCreateEditFormBlock() {
   const createEditFormBlock = useCallback(
     ({ item }) => {
       const field = item.associationField;
-      const collectionName = cm.getCollection(field.target).name;
+      const collectionName = field?.target ? cm.getCollection(field.target).name : undefined;
 
       if (item.associationField) {
         const field = item.associationField;
