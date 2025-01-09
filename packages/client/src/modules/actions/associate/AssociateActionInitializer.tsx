@@ -10,7 +10,7 @@ export const AssociateActionInitializer = () => {
     'x-acl-action': 'associate',
     title: "{{t('Associate')}}",
     'x-toolbar': 'ActionSchemaToolbar',
-    'x-settings': 'actionSettings:accociate',
+    'x-settings': 'actionSettings:associate',
     'x-component': 'Action',
     'x-component-props': {
       actionType: 'associations',
@@ -64,5 +64,5 @@ export const AssociateActionInitializer = () => {
     },
   };
   const itemConfig = useSchemaInitializerItem();
-  return <ActionInitializer {...itemConfig} item={itemConfig} schema={schema} />;
+  return <ActionInitializer item={itemConfig} schema={schema} />;
 };

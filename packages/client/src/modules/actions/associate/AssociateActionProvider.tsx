@@ -23,7 +23,12 @@ const useTableSelectorProps = () => {
   };
 };
 
-export const AssociateActionProvider = (props) => {
+interface AssociateActionProviderProps {
+  children: React.ReactNode;
+  onChange?: (selectedRows: any[]) => void;
+}
+
+export const AssociateActionProvider = (props: AssociateActionProviderProps) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const collection = useCollection();
   const { resource, service, block, __parent } = useBlockRequestContext();
@@ -42,13 +47,10 @@ export const AssociateActionProvider = (props) => {
         await resource.add({
           values: selectedRows,
         });
-        if (callBack) {
-          callBack?.();
-        }
+        callBack?.();
         setVisible?.(false);
         if (block && block !== 'TableField') {
           __parent?.service?.refresh?.();
-          setVisible?.(false);
           setFormValueChanged?.(false);
         }
       },

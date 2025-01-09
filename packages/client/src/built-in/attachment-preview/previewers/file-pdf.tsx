@@ -10,6 +10,8 @@ import { useStyles } from './file-pdf.style';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
+import { useIsMobile } from '../../../block-provider';
+
 const options = {
   cMapUrl: `https://assets.tachybase.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
   cMapPacked: true,
@@ -28,7 +30,7 @@ const TransformInternal = ({ noTransformWrapper = false, children }) => {
 };
 
 const CheckedComponent = (props) => {
-  const { file, fileInfo, width, noTransformWrapper = false } = props;
+  const { file, fileInfo, width, noTransformWrapper } = props;
   // NOTE: 有 url 就使用 url 形式, 没有就取 fileInfo, 默认为数据流
   const pdfInfo = file?.url || fileInfo;
   // @ts-ignore
@@ -37,6 +39,7 @@ const CheckedComponent = (props) => {
   const containerRef = useRef(null);
   const [pdfWidth, setPdfWidth] = useState(600); // 默认宽度为 600px
   const [numPages, setNumPages] = useState(1);
+  const isMobile = useIsMobile();
 
   const onDocumentLoadSuccess = async (params) => {
     const { numPages, _transport } = params;
@@ -46,7 +49,6 @@ const CheckedComponent = (props) => {
     const originalWidth = page.getViewport({ scale: 1 }).width;
     const scale = containerWidth / originalWidth;
     const viewport = page.getViewport({ scale });
-
     setNumPages(numPages);
     setPdfWidth(viewport.width);
   };
@@ -65,7 +67,7 @@ const CheckedComponent = (props) => {
       loading=""
       onLoadSuccess={onDocumentLoadSuccess}
     >
-      <TransformInternal noTransformWrapper={noTransformWrapper}>
+      <TransformInternal noTransformWrapper={noTransformWrapper || !isMobile}>
         {Array.from(new Array(numPages), (el, index) => (
           <Page key={`page_${index + 1}`} pageNumber={index + 1} width={width || pdfWidth}>
             <div className={styles.footer}>

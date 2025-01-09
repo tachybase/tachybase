@@ -1357,7 +1357,7 @@ class ReactImageLightbox extends Component<IReactImageLightboxProps, IReactImage
 
     const modalStyle = {
       overlay: {
-        zIndex: 1000,
+        zIndex: 1500,
         backgroundColor: 'transparent',
         ...reactModalStyle.overlay, // Allow style overrides via props
       },

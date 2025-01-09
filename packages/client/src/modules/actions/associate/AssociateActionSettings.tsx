@@ -8,7 +8,7 @@ import { SchemaSettingOpenModeSchemaItems } from '../../../schema-items';
 import { SchemaSettingsEnableChildCollections } from '../../../schema-settings/SchemaSettings';
 
 export const associateActionSettings = new SchemaSettings({
-  name: 'actionSettings:accociate',
+  name: 'actionSettings:associate',
   items: [
     {
       name: 'editButton',
@@ -48,7 +48,7 @@ export const associateActionSettings = new SchemaSettings({
     {
       name: 'delete',
       sort: 100,
-      Component: RemoveButton as any,
+      Component: RemoveButton,
       useComponentProps() {
         const { removeButtonProps } = useSchemaToolbar();
         return removeButtonProps;

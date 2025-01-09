@@ -45,13 +45,10 @@ export function useCreateEditFormBlock() {
   const { insert } = useSchemaInitializer();
   const association = useAssociationName();
   const fieldSchema = useFieldSchema();
-  const actionType = fieldSchema['actionType'];
+  const actionType = fieldSchema?.['actionType'] as string | undefined;
   const createEditFormBlock = useCallback(
     ({ item }) => {
-      let collectionName = item.collectionName || item.name;
-      if (actionType && association) {
-        collectionName = association.split('.')[1];
-      }
+      const collectionName = actionType && association ? association.split('.')[1] : item.collectionName || item.name;
       if (!association && item.associationField) {
         const field = item.associationField;
         insert(
