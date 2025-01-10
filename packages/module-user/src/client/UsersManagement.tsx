@@ -3,7 +3,7 @@ import { SchemaComponent, SchemaComponentContext, useSchemaComponentContext } fr
 
 import { Card } from 'antd';
 
-import { useFilterActionProps } from './hooks';
+// import { useFilterActionProps } from './hooks';
 import { useUsersTranslation } from './locale';
 import { PasswordField } from './PasswordField';
 import { usersSchema } from './schemas/users';
@@ -14,13 +14,7 @@ export const UsersManagement: React.FC = () => {
   const scCtx = useSchemaComponentContext();
   return (
     <SchemaComponentContext.Provider value={{ ...scCtx, designable: false }}>
-      <Card>
-        <SchemaComponent
-          schema={usersSchema}
-          scope={{ t, useFilterActionProps }}
-          components={{ UserRolesField, PasswordField }}
-        />
-      </Card>
+      <SchemaComponent schema={usersSchema} scope={{ t }} components={{ UserRolesField, PasswordField }} />
     </SchemaComponentContext.Provider>
   );
 };

@@ -1,136 +1,99 @@
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import {
-  CollectionProvider_deprecated,
-  ResourceActionContext,
-  ResourceActionProvider,
+  BlockProvider,
+  ExtendCollectionsProvider,
+  FixedBlockWrapper,
+  RenderChildrenWithAssociationFilter,
   SchemaComponent,
-  useActionContext,
-  useAPIClient,
-  useRecord,
-  useRequest,
-  useResourceActionContext,
+  SchemaComponentOptions,
+  TableBlockContext,
+  useTableBlockParams,
+  withDynamicSchemaProps,
 } from '@tachybase/client';
 import { RolesManagerContext } from '@tachybase/module-acl/client';
+import { createForm, FormContext, useField, useFieldSchema } from '@tachybase/schema';
 
-import { App } from 'antd';
-
-import { useFilterActionProps } from './hooks';
+import {
+  useAddRoleUsers,
+  useBulkRemoveUsers,
+  useFilterActionProps,
+  useRemoveUser,
+  useRoleUsersProps,
+  useRoleUsersServiceProps,
+} from './hooks';
 import { useUsersTranslation } from './locale';
 import { getRoleUsersSchema, userCollection } from './schemas/users';
 
-const useRemoveUser = () => {
-  const api = useAPIClient();
+export const RoleUsersTableBlockProvider = withDynamicSchemaProps((props) => {
+  const { showIndex, dragSort, rowKey, fieldNames, collection, service, ...others } = props;
+  const field: any = useField();
   const { role } = useContext(RolesManagerContext);
-  const record = useRecord();
-  const { refresh } = useResourceActionContext();
-  return {
-    async run() {
-      await api.resource('roles.users', role?.name).remove({
-        values: [record['id']],
-      });
-      refresh();
-    },
-  };
-};
+  const params = useTableBlockParams(props);
+  useEffect(() => {
+    service.run();
+  }, [role]);
+  const fieldSchema = useFieldSchema();
+  const { treeTable } = fieldSchema?.['x-decorator-props'] || {};
+  const [expandFlag, setExpandFlag] = useState(fieldNames ? true : false);
 
-const useBulkRemoveUsers = () => {
-  const { t } = useUsersTranslation();
-  const { message } = App.useApp();
-  const api = useAPIClient();
-  const { state, setState, refresh } = useResourceActionContext();
-  const { role } = useContext(RolesManagerContext);
+  let childrenColumnName = 'children';
+  if (collection?.tree && treeTable !== false) {
+    const f = collection.fields.find((f) => f.treeChildren);
+    if (f) {
+      childrenColumnName = f.name;
+    }
+    params['tree'] = true;
+  }
+  const form = useMemo(() => createForm(), [treeTable]);
 
-  return {
-    async run() {
-      const selected = state?.selectedRowKeys;
-      if (!selected?.length) {
-        message.warning(t('Please select users'));
-        return;
-      }
-      await api.resource('roles.users', role?.name).remove({
-        values: selected,
-      });
-      setState?.({ selectedRowKeys: [] });
-      refresh();
-    },
-  };
-};
-
-const RoleUsersProvider = (props) => {
-  const { role } = useContext(RolesManagerContext);
   return (
-    <ResourceActionProvider
-      collection={userCollection}
-      request={{
-        resource: `users`,
-        action: 'listExcludeRole',
-        params: {
-          roleName: role?.name,
-        },
-      }}
-    >
-      {props.children}
-    </ResourceActionProvider>
+    <SchemaComponentOptions scope={{ treeTable }}>
+      <FormContext.Provider value={form}>
+        <BlockProvider name={props.name || 'table'} {...props} params={params} runWhenParamsChanged>
+          <FixedBlockWrapper>
+            <TableBlockContext.Provider
+              value={{
+                ...others,
+                field,
+                service,
+                params,
+                showIndex,
+                dragSort,
+                rowKey,
+                expandFlag,
+                childrenColumnName,
+                setExpandFlag: () => setExpandFlag(!expandFlag),
+              }}
+            >
+              <RenderChildrenWithAssociationFilter {...props} />
+            </TableBlockContext.Provider>
+          </FixedBlockWrapper>
+        </BlockProvider>
+      </FormContext.Provider>
+    </SchemaComponentOptions>
   );
-};
+});
 
 export const RoleUsersManager: React.FC = () => {
   const { t } = useUsersTranslation();
   const { role } = useContext(RolesManagerContext);
-  const service = useRequest(
-    {
-      resource: 'roles.users',
-      resourceOf: role?.name,
-      action: 'list',
-    },
-    {
-      ready: !!role,
-    },
-  );
-  useEffect(() => {
-    service.run();
-  }, [role]);
-
-  const selectedRoleUsers = useRef([]);
-  const handleSelectRoleUsers = (_: number[], rows: any[]) => {
-    selectedRoleUsers.current = rows;
-  };
-
-  const useAddRoleUsers = () => {
-    const { role } = useContext(RolesManagerContext);
-    const api = useAPIClient();
-    const { setVisible } = useActionContext();
-    const { refresh } = useResourceActionContext();
-    return {
-      async run() {
-        await api.resource('roles.users', role?.name).add({
-          values: selectedRoleUsers.current.map((user) => user.id),
-        });
-        selectedRoleUsers.current = [];
-        setVisible(false);
-        refresh();
-      },
-    };
-  };
-
   const schema = useMemo(() => getRoleUsersSchema(), [role]);
 
   return (
-    <ResourceActionContext.Provider value={{ ...service }}>
-      <CollectionProvider_deprecated collection={userCollection}>
-        <SchemaComponent
-          schema={schema}
-          components={{ RoleUsersProvider }}
-          scope={{
-            useBulkRemoveUsers,
-            useRemoveUser,
-            handleSelectRoleUsers,
-            useAddRoleUsers,
-            useFilterActionProps,
-            t,
-          }}
-        />
-      </CollectionProvider_deprecated>
-    </ResourceActionContext.Provider>
+    <ExtendCollectionsProvider collections={[userCollection]}>
+      <SchemaComponent
+        schema={schema}
+        components={{ RoleUsersTableBlockProvider }}
+        scope={{
+          useBulkRemoveUsers,
+          useRemoveUser,
+          useAddRoleUsers,
+          useRoleUsersProps,
+          useFilterActionProps,
+          useRoleUsersServiceProps,
+          t,
+        }}
+      />
+    </ExtendCollectionsProvider>
   );
 };
