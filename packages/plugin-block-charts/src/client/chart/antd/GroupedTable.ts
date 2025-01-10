@@ -67,7 +67,6 @@ export class GroupedTable extends AntdChart {
         if (measures?.find((item) => item.field?.join('.') === dataValue.key)) {
           if (isNaN(Number(value[dataValue.key]))) {
             value[dataValue.key] = 0;
-            return;
           }
           let number: any = transform.filter((value) => value.field === dataValue.key)[0];
           if (number) {
@@ -101,7 +100,9 @@ export class GroupedTable extends AntdChart {
             const sum = value.children.reduce((sum, curr) => {
               const sub = String(curr[dataValue.key]).includes(',')
                 ? String(curr[dataValue.key]).replace(/,/g, '')
-                : curr[dataValue.key];
+                : isNaN(Number(curr[dataValue.key]))
+                  ? 0
+                  : curr[dataValue.key];
               return sum + parseFloat(sub);
             }, 0);
             value[dataValue.key] = numberFormat.format(sum);
