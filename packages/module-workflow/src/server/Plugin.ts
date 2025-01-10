@@ -93,7 +93,7 @@ export default class PluginWorkflowServer extends Plugin {
     const logger = this.createLogger({
       dirname: path.join('workflows', date),
       filename: `${workflowId}.log`,
-      transports: process.env.NODE_ENV !== 'production' ? ['console'] : ['file'],
+      transports: process.env.APP_ENV !== 'production' ? ['console'] : ['file'],
     } as LoggerOptions);
 
     this.loggerCache.set(key, logger);
