@@ -1,10 +1,11 @@
 import { useContext, useEffect } from 'react';
-import { useActionContext, useRecord, useRequest } from '@tachybase/client';
+import { useActionContext, useCollectionRecordData, useRequest } from '@tachybase/client';
+import { createForm } from '@tachybase/schema';
 
 import { PermissionContext } from '../PermisionProvider';
 
 export const useRoleResourceValues = (options) => {
-  const record = useRecord();
+  const record = useCollectionRecordData();
   const { visible } = useActionContext();
   const { currentDataSource } = useContext(PermissionContext);
 
@@ -35,5 +36,6 @@ export const useRoleResourceValues = (options) => {
       result.run();
     }
   }, [visible, record.exists]);
-  return result;
+  const form = createForm({ initialValues: result });
+  return form;
 };

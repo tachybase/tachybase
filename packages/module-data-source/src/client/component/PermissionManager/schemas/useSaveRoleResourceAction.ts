@@ -1,5 +1,11 @@
 import { useContext } from 'react';
-import { useActionContext, useAPIClient, useRecord, useResourceActionContext } from '@tachybase/client';
+import {
+  useActionContext,
+  useAPIClient,
+  useBlockRequestContext,
+  useCollectionRecordData,
+  useDataBlockRequest,
+} from '@tachybase/client';
 import { useForm } from '@tachybase/schema';
 
 import { PermissionContext } from '../PermisionProvider';
@@ -7,12 +13,12 @@ import { PermissionContext } from '../PermisionProvider';
 export const useSaveRoleResourceAction = () => {
   const form = useForm();
   const api = useAPIClient();
-  const record = useRecord();
+  const record = useCollectionRecordData();
   const ctx = useActionContext();
-  const { refresh } = useResourceActionContext();
+  const { __parent } = useBlockRequestContext();
   const { currentDataSource } = useContext(PermissionContext);
   return {
-    async run() {
+    async onClick() {
       await api.resource('roles.dataSourceResources', record.roleName)[record.exists ? 'update' : 'create']({
         filterByTk: record.name,
         filter: {
@@ -26,7 +32,7 @@ export const useSaveRoleResourceAction = () => {
         },
       });
       ctx.setVisible(false);
-      refresh();
+      __parent?.props?.service.refresh();
     },
   };
 };

@@ -9,8 +9,10 @@ import {
 
 import { Spin } from 'antd';
 
-import { PermissionProvider } from './PermisionProvider';
+import { useFilterActionProps, useRoleCollectionServiceProps } from './hooks';
+import { PermissionProvider, RoleCollectionTableBlockProvider } from './PermisionProvider';
 import { dataSourceSchema } from './schemas/dataSourceTable';
+import { useSaveRoleResourceAction } from './schemas/useSaveRoleResourceAction';
 
 const AvailableActionsContext = createContext([]);
 AvailableActionsContext.displayName = 'AvailableActionsContext';
@@ -40,8 +42,17 @@ export const DataSourceTable = () => {
         <AvailableActionsProver>
           <SchemaComponent
             schema={dataSourceSchema}
-            components={{ SettingCenterPermissionProvider, PermissionProvider }}
-            scope={{ dataSourceKey: record.key }}
+            components={{
+              SettingCenterPermissionProvider,
+              PermissionProvider,
+              RoleCollectionTableBlockProvider,
+            }}
+            scope={{
+              dataSourceKey: record.key,
+              useSaveRoleResourceAction,
+              useFilterActionProps,
+              useRoleCollectionServiceProps,
+            }}
           />
         </AvailableActionsProver>
       </SchemaComponentContext.Provider>
