@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-pages",
   "displayName": "Auth: Pages",
-  "version": "0.23.29",
+  "version": "0.23.30",
   "description": "Pages for auth",
   "keywords": [
     "Authentication"
