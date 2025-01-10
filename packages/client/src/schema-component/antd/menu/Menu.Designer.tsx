@@ -233,6 +233,13 @@ const InsertMenuItemsGroup = (props) => {
                 required: true,
                 'x-component-props': {},
               },
+              bindMenuToRole: {
+                type: 'boolean',
+                title: '{{ t("Automatically assign permissions to all matching roles") }}',
+                'x-decorator': 'FormItem',
+                'x-component': 'Checkbox',
+                default: true,
+              },
               file: {
                 type: 'object',
                 title: '{{ t("File") }}',
@@ -247,7 +254,7 @@ const InsertMenuItemsGroup = (props) => {
             },
           } as ISchema
         }
-        onSubmit={async ({ title, file }) => {
+        onSubmit={async ({ title, file, bindMenuToRole }) => {
           /**
            * 加载菜单配置
            * 1. 如果当前是子菜单, 默认添加在当前节点后边
@@ -258,6 +265,15 @@ const InsertMenuItemsGroup = (props) => {
             baseURL: '/',
           });
           const s = data ?? {};
+          if (bindMenuToRole) {
+            const hooks = data['x-server-hooks'];
+            if (!hooks.some((v) => v.type === 'onSelfCreate' && v.method === 'bindMenuToRole')) {
+              hooks.push({
+                type: 'onSelfCreate',
+                method: 'bindMenuToRole',
+              });
+            }
+          }
           s.title = title;
           dn.insertAdjacent('afterEnd', s);
         }}

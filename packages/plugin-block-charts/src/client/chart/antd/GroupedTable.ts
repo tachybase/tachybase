@@ -11,8 +11,9 @@ export class GroupedTable extends AntdChart {
   }
 
   getProps({ data, fieldProps, general, advanced, ctx }: RenderProps) {
-    const { transform, config } = ctx;
+    const { transform, config, service } = ctx;
     const seriesField = config?.general?.seriesField;
+    const measures = service?.params.find((item) => typeof item === 'object')?.measures;
     const columns = data.length
       ? Object.keys(data[0]).map((item) => ({
           title: fieldProps[item]?.label || item,
@@ -21,7 +22,6 @@ export class GroupedTable extends AntdChart {
           calculate: true,
         }))
       : [];
-
     const dataSource = [];
     let key = 0;
     data.forEach((item: any, index) => {
@@ -60,14 +60,13 @@ export class GroupedTable extends AntdChart {
     });
 
     advanced?.columns?.forEach((dataValue) => {
+      if (dataValue.key === seriesField) {
+        return;
+      }
       dataSource.forEach((value) => {
-        if (dataValue.key === seriesField) {
-          return;
-        }
-        if (dataValue.calculate) {
-          if (!Number(value[dataValue.key])) {
+        if (measures?.find((item) => item.field?.join('.') === dataValue.key)) {
+          if (isNaN(Number(value[dataValue.key]))) {
             value[dataValue.key] = 0;
-            return;
           }
           let number: any = transform.filter((value) => value.field === dataValue.key)[0];
           if (number) {
@@ -91,15 +90,19 @@ export class GroupedTable extends AntdChart {
             minimumFractionDigits: number,
             maximumFractionDigits: number,
           };
+
           const numberFormat = new Intl.NumberFormat('zh-CN', options);
           const num = String(value[dataValue.key]).includes(',')
             ? String(value[dataValue.key]).replace(/,/g, '')
             : value[dataValue.key];
+
           if (!isNaN(num)) {
             const sum = value.children.reduce((sum, curr) => {
               const sub = String(curr[dataValue.key]).includes(',')
                 ? String(curr[dataValue.key]).replace(/,/g, '')
-                : curr[dataValue.key];
+                : isNaN(Number(curr[dataValue.key]))
+                  ? 0
+                  : curr[dataValue.key];
               return sum + parseFloat(sub);
             }, 0);
             value[dataValue.key] = numberFormat.format(sum);

@@ -107,6 +107,7 @@
   "Auto increment": "Auto increment",
   "AutoGenId": "Auto-generated ID field",
   "Automatic close": "Automatic close",
+  "Automatically assign permissions to all matching roles": "Automatically assign permissions to all matching roles",
   "Automatically drop objects that depend on the collection (such as views), and in turn all objects that depend on those objects": "Automatically drop objects that depend on the collection (such as views), and in turn all objects that depend on those objects",
   "Automatically load data": "Automatically load data",
   "Bar chart": "Bar chart",

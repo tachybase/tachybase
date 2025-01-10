@@ -468,15 +468,16 @@ const testWorkflow: ISchema = {
   properties: {
     modal: {
       type: 'void',
-      title: `{{t("Duplicate to new workflow", { ns: "${NAMESPACE}" })}}`,
+      title: `{{t("Test workflow", { ns: "${NAMESPACE}" })}}`,
       'x-decorator': 'FormV2',
       'x-component': 'Action.Modal',
       properties: {
         params: {
           type: 'string',
           title: '{{t("Input")}}',
+          description: `{{t("Data is the trigger variable, it can be { data: 0 }, or { data: { id: 0 }}",  { ns: "${NAMESPACE}" })}}`,
           'x-decorator': 'FormItem',
-          default: { data: {}, ctx: {} },
+          default: { data: {} },
           'x-component': 'Input.JSON',
           'x-component-props': {
             autoSize: {
@@ -504,7 +505,7 @@ const testWorkflow: ISchema = {
                   const { values } = useForm();
                   return {
                     async run() {
-                      await resource.test({ filterByTk, values });
+                      await resource.test({ filterByTk, values: values.params });
                       refresh();
                       setVisible(false);
                     },

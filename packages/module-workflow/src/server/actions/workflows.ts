@@ -198,10 +198,8 @@ export async function test(context: Context, next: Next) {
   const result = await plugin.trigger(
     workflow,
     {
-      data: {
-        ...values.data,
-        user: context.state.currentUse,
-      },
+      data: values.data,
+      user: context.state.currentUser,
     },
     { httpContext: context },
   );
