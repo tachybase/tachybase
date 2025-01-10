@@ -139,6 +139,12 @@ export const useStyles = createStyles(({ css, token }) => {
           }
         }
       }
+
+      .ant-menu-item,
+      .ant-menu-submenu-title {
+        padding-inline-end: 10px;
+      }
+
       .ant-menu-submenu-title {
         .ant-menu-title-content {
           > div {
