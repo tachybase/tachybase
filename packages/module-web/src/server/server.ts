@@ -114,7 +114,7 @@ export class ModuleWeb extends Plugin {
             ctx.status = 304;
             ctx.res.setHeader('ETag', requestETag);
           } else {
-            const newTag = `W/${eTag}-${requestETag.substring(36 + 1)}`;
+            const newTag = `W/${eTag}-${requestETag.substring(36 + 1 + 2)}`;
             ctx.res.setHeader('ETag', newTag);
           }
           // TODO: 因为有下一个本地化插件,所以这里依然考虑要装载,不直接返回304

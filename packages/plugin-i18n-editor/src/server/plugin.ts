@@ -110,7 +110,7 @@ export class LocalizationManagementPlugin extends Plugin {
       await next();
       const { resourceName, actionName } = ctx.action;
       if (resourceName === 'app' && actionName === 'getLang') {
-        const pluginETag = await this.resources.getETag(ctx.get('X-Locale') || 'en-US');
+        const pluginETag = await this.resources.getETag(ctx.get('X-Locale') || 'zh-CN');
         const responseETag = ctx.response.get('ETag') || '';
         if (ctx.status === 304 && responseETag && responseETag.substring(37 + 2, 37 + 36 + 2) === pluginETag) {
           ctx.status = 304;
@@ -118,7 +118,7 @@ export class LocalizationManagementPlugin extends Plugin {
         }
         ctx.status = 200;
         ctx.res.setHeader('ETag', `W/${responseETag.substring(0 + 2, 36 + 2)}-${pluginETag}`);
-        const custom = await this.resources.getResources(ctx.get('X-Locale') || 'en-US');
+        const custom = await this.resources.getResources(ctx.get('X-Locale') || 'zh-CN');
         const appLang = ctx.body;
         const resources = { ...appLang.resources };
         Object.keys(custom).forEach((key) => {

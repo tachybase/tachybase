@@ -56,7 +56,7 @@ const handleWorkerMessages = (app: Application) => {
           await reloadCustomCollections(app);
         }
         const result = await appPlugin[method](params);
-        app.logger.info('[worker] output', result);
+        app.logger.info(`[worker] output for ${plugin}.${method}:`, result);
         parentPort.postMessage({
           event,
           reqId,
