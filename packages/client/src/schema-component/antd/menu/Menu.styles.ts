@@ -140,6 +140,23 @@ export const useStyles = createStyles(({ css, token }) => {
         }
       }
 
+      .ant-menu-submenu.ant-menu-submenu-inline {
+        /* position: relative;
+        display: flex;
+        flex-direction:column;
+        align-items: center; */
+        /* &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 4px;
+          height: 50%;
+          background-color: #007bff;
+        } */
+      }
+
       .ant-menu-item,
       .ant-menu-submenu-title {
         padding-inline-end: 10px;
