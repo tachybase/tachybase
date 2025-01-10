@@ -11,7 +11,6 @@ export async function afterCreate(model, options, plugin: Plugin) {
     return;
   }
   const transaction = options.transaction;
-  const AuditLog = model.constructor.database.getCollection('auditLogs');
   const currentUserId = options?.context?.state?.currentUser?.id;
   try {
     const changes = [];
