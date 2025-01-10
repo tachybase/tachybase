@@ -106,6 +106,12 @@ export const useAuditLogsCollection = () => {
           title: tval('Details of changes'),
         },
       },
+      {
+        type: 'bigInt',
+        name: 'id',
+        interface: 'number',
+        uiSchema: { type: 'number', title: 'ID', 'x-component': 'InputNumber' },
+      },
     ],
   };
 };

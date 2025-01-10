@@ -42,7 +42,11 @@ const handleWorkerMessages = (app: Application) => {
     event: WorkerEvent.Started,
   });
   parentPort.on('message', async (message) => {
-    app.logger.info('[worker] input', message);
+    if (message.values?.inputLog) {
+      app.logger.info('[worker] input', message.values.inputLog);
+    } else {
+      app.logger.info('[worker] input', message);
+    }
     const { reqId, event } = message;
     if (event === WorkerEvent.PluginMethod) {
       try {
@@ -52,7 +56,7 @@ const handleWorkerMessages = (app: Application) => {
           await reloadCustomCollections(app);
         }
         const result = await appPlugin[method](params);
-        app.logger.info(`[worker] output ${result}`);
+        app.logger.info(`[worker] output for ${plugin}.${method}:`, result);
         parentPort.postMessage({
           event,
           reqId,

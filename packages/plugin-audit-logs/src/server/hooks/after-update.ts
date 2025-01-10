@@ -12,7 +12,6 @@ export async function afterUpdate(model, options, plugin: Plugin) {
     return;
   }
   const transaction = options.transaction;
-  const AuditLog = model.constructor.database.getCollection('auditLogs');
   const currentUserId = options?.context?.state?.currentUser?.id;
   const changes = [];
   changed.forEach((key: string) => {
@@ -24,6 +23,12 @@ export async function afterUpdate(model, options, plugin: Plugin) {
       let after = model.get(key);
       // 出现updateById 重复一致的情况导致重复创建
       if (before === after) {
+        return;
+      }
+      if ((before === null || before === undefined) && (after === null || after === undefined)) {
+        return;
+      }
+      if (field.type === 'bigInt' && field.options?.isForeignKey && +before === +after) {
         return;
       }
       changes.push({

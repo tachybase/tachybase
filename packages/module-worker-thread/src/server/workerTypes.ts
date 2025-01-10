@@ -18,7 +18,10 @@ export type WorkerEventInputPluginMethod<T = any> = WorkerEventInputDefault & {
   plugin: Constructor<Plugin> | string;
   method: string;
   params: T;
+  // 是否重新刷新内存里的数据库
   reloadCols?: boolean;
+  // 自定义记录input日志(针对审计日志优化,要不然日志太多)
+  inputLog?: object | string;
 };
 
 export type WorkerEventInput = WorkerEventInputPluginMethod;
