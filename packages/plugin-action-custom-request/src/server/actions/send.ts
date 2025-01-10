@@ -2,6 +2,7 @@ import fs from 'fs';
 import http from 'http';
 import { Context, Next } from '@tachybase/actions';
 import { appendArrayColumn } from '@tachybase/evaluators';
+import { Gateway } from '@tachybase/server';
 import { parse } from '@tachybase/utils';
 
 import axios from 'axios';
@@ -137,7 +138,7 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
   };
 
   const axiosRequestConfig = {
-    baseURL: `${ctx.protocol}://${ctx.host}`,
+    baseURL: Gateway.getInstance().runAtLoop,
     ...options,
     url: getParsedValue(url),
     headers: {
