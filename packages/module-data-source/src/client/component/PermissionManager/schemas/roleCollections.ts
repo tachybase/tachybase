@@ -1,9 +1,8 @@
 import { ISchema, uid } from '@tachybase/schema';
 
 import { useRoleResourceValues } from './useRoleResourceValues';
-import { useSaveRoleResourceAction } from './useSaveRoleResourceAction';
 
-const collection = {
+export const roleCollection = {
   name: 'dataSourcesCollections',
   targetKey: 'name',
   filterTargetKey: 'name',
@@ -75,25 +74,9 @@ export const roleCollectionsSchema: ISchema = {
   properties: {
     block: {
       type: 'void',
-      'x-decorator': 'ResourceActionProvider',
-      'x-decorator-props': {
-        collection,
-        association: {
-          sourceKey: 'name',
-          targetKey: 'name',
-        },
-        resourceName: 'roles.dataSourcesCollections',
-        request: {
-          resource: 'roles.dataSourcesCollections',
-          action: 'list',
-          params: {
-            pageSize: 20,
-            filter: { hidden: { $isFalsy: true }, dataSourceKey: '{{dataSourceKey}}' },
-            sort: ['sort'],
-            appends: ['fields'],
-          },
-        },
-      },
+      'x-decorator': 'RoleCollectionTableBlockProvider',
+      'x-component': 'CardItem',
+      'x-use-decorator-props': 'useRoleCollectionServiceProps',
       properties: {
         [uid()]: {
           type: 'void',
@@ -112,7 +95,7 @@ export const roleCollectionsSchema: ISchema = {
               },
               'x-action': 'filter',
               'x-component': 'Filter.Action',
-              'x-use-component-props': 'cm.useFilterActionProps',
+              'x-use-component-props': 'useFilterActionProps',
               'x-component-props': {
                 icon: 'FilterOutlined',
               },
@@ -121,18 +104,18 @@ export const roleCollectionsSchema: ISchema = {
           },
         },
         table1: {
-          type: 'void',
+          type: 'array',
           'x-uid': 'input',
-          'x-component': 'Table.Void',
+          'x-component': 'TableV2',
+          'x-use-component-props': 'useTableBlockProps',
           'x-component-props': {
             rowKey: 'name',
-            useDataSource: '{{ cm.useDataSourceFromRAC }}',
           },
           properties: {
             column0: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 title: {
                   type: 'number',
@@ -143,8 +126,8 @@ export const roleCollectionsSchema: ISchema = {
             },
             column2: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 name: {
                   type: 'string',
@@ -155,8 +138,8 @@ export const roleCollectionsSchema: ISchema = {
             },
             column3: {
               type: 'void',
-              'x-decorator': 'Table.Column.Decorator',
-              'x-component': 'Table.Column',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
               properties: {
                 usingConfig: {
                   type: 'string',
@@ -168,7 +151,7 @@ export const roleCollectionsSchema: ISchema = {
             column4: {
               type: 'void',
               title: '{{t("Actions")}}',
-              'x-component': 'Table.Column',
+              'x-component': 'TableV2.Column',
               properties: {
                 actions: {
                   type: 'void',
@@ -223,17 +206,15 @@ export const roleCollectionsSchema: ISchema = {
                                 cancel: {
                                   title: '{{t("Cancel")}}',
                                   'x-component': 'Action',
-                                  'x-component-props': {
-                                    useAction: '{{ cm.useCancelAction }}',
-                                  },
+                                  'x-use-component-props': 'useCancelActionProps',
                                 },
                                 submit: {
                                   title: '{{t("Submit")}}',
                                   'x-component': 'Action',
                                   'x-component-props': {
                                     type: 'primary',
-                                    useAction: useSaveRoleResourceAction,
                                   },
+                                  'x-use-component-props': 'useSaveRoleResourceAction',
                                 },
                               },
                             },

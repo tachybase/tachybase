@@ -1,5 +1,17 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { RecordContext_deprecated, SchemaComponentOptions, useAPIClient, useRecord } from '@tachybase/client';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  BlockProvider,
+  FixedBlockWrapper,
+  RecordContext_deprecated,
+  RenderChildrenWithAssociationFilter,
+  SchemaComponentOptions,
+  TableBlockContext,
+  useAPIClient,
+  useRecord,
+  useTableBlockParams,
+  withDynamicSchemaProps,
+} from '@tachybase/client';
+import { createForm, FormContext, useField, useFieldSchema } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -61,3 +73,53 @@ export const RoleRecordProvider = (props) => {
     </RecordContext_deprecated.Provider>
   );
 };
+
+export const RoleCollectionTableBlockProvider = withDynamicSchemaProps((props) => {
+  const { showIndex, dragSort, rowKey, fieldNames, collection, service, ...others } = props;
+  const field: any = useField();
+  // const { role } = useContext(RolesManagerContext);
+  const params = useTableBlockParams(props);
+  // useEffect(() => {
+  //   service.run();
+  // }, [role]);
+  const fieldSchema = useFieldSchema();
+  const { treeTable } = fieldSchema?.['x-decorator-props'] || {};
+  const [expandFlag, setExpandFlag] = useState(fieldNames ? true : false);
+
+  let childrenColumnName = 'children';
+  if (collection?.tree && treeTable !== false) {
+    const f = collection.fields.find((f) => f.treeChildren);
+    if (f) {
+      childrenColumnName = f.name;
+    }
+    params['tree'] = true;
+  }
+  const form = useMemo(() => createForm(), [treeTable]);
+
+  return (
+    <SchemaComponentOptions scope={{ treeTable }}>
+      <FormContext.Provider value={form}>
+        <BlockProvider name={props.name || 'table'} {...props} params={params} runWhenParamsChanged>
+          <FixedBlockWrapper>
+            <TableBlockContext.Provider
+              value={{
+                ...others,
+                field,
+                service,
+                params,
+                showIndex,
+                dragSort,
+                rowKey,
+                expandFlag,
+                childrenColumnName,
+                setExpandFlag: () => setExpandFlag(!expandFlag),
+              }}
+            >
+              <RenderChildrenWithAssociationFilter {...props} />
+            </TableBlockContext.Provider>
+          </FixedBlockWrapper>
+        </BlockProvider>
+      </FormContext.Provider>
+    </SchemaComponentOptions>
+  );
+});
