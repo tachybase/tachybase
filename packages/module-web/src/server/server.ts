@@ -110,11 +110,11 @@ export class ModuleWeb extends Plugin {
           const resources = await app.localeManager.get(lang);
           // UUID 前36位
           const requestETag = ctx.get('If-None-Match');
-          if (eTag && eTag === requestETag.substring(0, 36)) {
+          if (eTag && eTag === requestETag.substring(0 + 2, 36 + 2)) {
             ctx.status = 304;
             ctx.res.setHeader('ETag', requestETag);
           } else {
-            const newTag = `${eTag}-${requestETag.substring(36 + 1)}`;
+            const newTag = `W/${eTag}-${requestETag.substring(36 + 1)}`;
             ctx.res.setHeader('ETag', newTag);
           }
           // TODO: 因为有下一个本地化插件,所以这里依然考虑要装载,不直接返回304
