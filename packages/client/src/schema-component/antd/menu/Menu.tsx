@@ -239,6 +239,8 @@ const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys,
           }}
           className={styles.sideMenuClass}
           items={items as MenuProps['items']}
+          expandIcon={null}
+          // inlineIndent={0}
         />
       </MenuModeContext.Provider>,
       sideMenuRef.current.firstChild,
