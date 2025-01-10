@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-wechat",
   "displayName": "Auth: WeChat",
-  "version": "0.23.28",
+  "version": "0.23.29",
   "description": "WeChat authentication.",
   "keywords": [
     "Authentication"
