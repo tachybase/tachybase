@@ -3,6 +3,10 @@ import Database from '@tachybase/database';
 import { Application, Logger } from '@tachybase/server';
 import { App, Db, Inject, InjectLog, Service } from '@tachybase/utils';
 
+import * as babelParser from '@babel/parser';
+import traverse from '@babel/traverse';
+import Topo from '@hapi/topo';
+
 import { CloudCompiler } from './cloud-compiler';
 
 @Service()
@@ -79,7 +83,36 @@ export class CloudLibrariesService {
       },
     });
 
+    const sorter = new Topo.Sorter<{ module: string; server: string }>();
+
     for (const cloudLibrary of cloudLibraries) {
+      // 使用 Babel 解析代码为 AST
+      const ast = babelParser.parse(cloudLibrary.server, {
+        sourceType: 'script', // CommonJS 使用 script 模式
+      });
+
+      // 存储 require 依赖的数组
+      const dependencies = [];
+
+      // 遍历 AST 节点
+      traverse(ast, {
+        CallExpression(path) {
+          // 判断是否是 require 调用
+          if ('name' in path.node.callee && path.node.callee.name === 'require' && path.node.arguments.length > 0) {
+            const arg = path.node.arguments[0];
+            if (arg.type === 'StringLiteral') {
+              dependencies.push(arg.value);
+            }
+          }
+        },
+      });
+      sorter.add(cloudLibrary, {
+        after: dependencies,
+        group: cloudLibrary.module,
+      });
+    }
+
+    for (const cloudLibrary of sorter.nodes) {
       // TODO: plugin service log support
       this.logger.info(`load cloudLibrarie: ${cloudLibrary.module}`);
       const compiledCode = cloudLibrary.server;
@@ -114,7 +147,7 @@ export class CloudLibrariesService {
         try {
           return require.call(this, moduleName);
         } catch (error) {
-          that.logger.warn('module not found. ', { meta: error });
+          that.logger.warn(moduleName + ' module not found. ', { meta: error });
           return {};
         }
       };
