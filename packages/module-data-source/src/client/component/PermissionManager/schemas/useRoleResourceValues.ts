@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import { useActionContext, useCollectionRecordData, useRequest } from '@tachybase/client';
 import { createForm } from '@tachybase/schema';
 
@@ -36,6 +36,5 @@ export const useRoleResourceValues = (options) => {
       result.run();
     }
   }, [visible, record.exists]);
-  const form = createForm({ initialValues: result });
-  return form;
+  return result;
 };

@@ -1,11 +1,5 @@
 import { useContext } from 'react';
-import {
-  useActionContext,
-  useAPIClient,
-  useBlockRequestContext,
-  useCollectionRecordData,
-  useDataBlockRequest,
-} from '@tachybase/client';
+import { useActionContext, useAPIClient, useCollectionRecordData, useTableBlockContext } from '@tachybase/client';
 import { useForm } from '@tachybase/schema';
 
 import { PermissionContext } from '../PermisionProvider';
@@ -15,7 +9,7 @@ export const useSaveRoleResourceAction = () => {
   const api = useAPIClient();
   const record = useCollectionRecordData();
   const ctx = useActionContext();
-  const { __parent } = useBlockRequestContext();
+  const { service } = useTableBlockContext();
   const { currentDataSource } = useContext(PermissionContext);
   return {
     async onClick() {
@@ -32,7 +26,7 @@ export const useSaveRoleResourceAction = () => {
         },
       });
       ctx.setVisible(false);
-      __parent?.props?.service.refresh();
+      service?.refresh();
     },
   };
 };

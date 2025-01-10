@@ -13,7 +13,6 @@ import { roleCollection } from './schemas/roleCollections';
 export const useRoleCollectionServiceProps = (props) => {
   const { uid } = props;
   const record = useCollectionRecordData();
-  console.log('%c Line:7 🥚 record', 'font-size:18px;color:#6ec1c2;background:#ea7e5c', record);
   const resourceOf = record['name'];
   const service = useRequest(
     {
@@ -29,7 +28,6 @@ export const useRoleCollectionServiceProps = (props) => {
     },
     { uid },
   );
-  // const resource = api.resource(request.resource, resourceOf);
   return {
     service,
     collection: roleCollection,

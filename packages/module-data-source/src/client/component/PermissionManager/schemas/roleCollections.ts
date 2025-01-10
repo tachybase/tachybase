@@ -171,9 +171,9 @@ export const roleCollectionsSchema: ISchema = {
                         drawer: {
                           type: 'void',
                           'x-component': 'Action.Drawer',
-                          'x-decorator': 'FormV2',
+                          'x-decorator': 'Form',
                           'x-decorator-props': {
-                            useRoleResourceValues,
+                            useValues: useRoleResourceValues,
                           },
                           title: '{{t("Configure permission")}}',
                           properties: {
