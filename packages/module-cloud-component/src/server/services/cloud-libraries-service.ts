@@ -97,11 +97,11 @@ export class CloudLibrariesService {
       // 遍历 AST 节点
       traverse(ast, {
         CallExpression(path) {
-          // 判断是否是 require 调用
-          if ('name' in path.node.callee && path.node.callee.name === 'require' && path.node.arguments.length > 0) {
-            const arg = path.node.arguments[0];
-            if (arg.type === 'StringLiteral') {
-              dependencies.push(arg.value);
+          const callee = path.get('callee');
+          if (callee.isIdentifier({ name: 'require' })) {
+            const args = path.get('arguments');
+            if (args.length > 0 && args[0].isStringLiteral()) {
+              dependencies.push(args[0].node.value);
             }
           }
         },
