@@ -61,6 +61,9 @@ DatePicker.RangePicker = function RangePicker(props) {
       props.value = [originValue[0].value, dayjs(originValue[1].value).add(-1, 'd').toISOString()];
     }
     props.onChange = (value: string[2]) => {
+      if (!value || !value.length) {
+        return;
+      }
       originOnChange([
         { value: dayjs(value[0]).toISOString(), inclusive: true },
         { value: dayjs(value[1]).add(1, 'd').toISOString(), inclusive: false },
