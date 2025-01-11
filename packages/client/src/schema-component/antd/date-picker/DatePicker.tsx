@@ -62,6 +62,7 @@ DatePicker.RangePicker = function RangePicker(props) {
     }
     props.onChange = (value: string[2]) => {
       if (!value || !value.length) {
+        originOnChange(null);
         return;
       }
       originOnChange([
