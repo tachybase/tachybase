@@ -87,7 +87,8 @@ export default class PluginActionLogs extends Plugin {
     const auditLogRepo = this.db.getRepository('auditLogs');
     const auditChangeRepo = this.db.getRepository('auditChanges');
 
-    values.forEach((value, index) => (value.sort = index));
+    const now = new Date();
+    values.forEach((value) => (value.createdAt = now));
     // 批量插入 auditLogs，只返回 id
     const insertedLogs = await auditLogRepo.model.bulkCreate(values, {
       individualHooks: false, // 禁用逐条钩子调用
