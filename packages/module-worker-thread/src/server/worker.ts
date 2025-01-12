@@ -10,11 +10,11 @@ import { WorkerEvent } from './workerTypes';
 const loggerOptions = {
   system: {
     transports: getLoggerTransport(),
-    level: getLoggerLevel(), // TODO: 后续考虑是否提到info
+    level: process.env.LOGGER_LEVEL || 'info',
   },
   request: {
     transports: getLoggerTransport(),
-    level: getLoggerLevel(),
+    level: process.env.LOGGER_LEVEL || 'info',
   },
 } as AppLoggerOptions;
 
