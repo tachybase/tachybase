@@ -44,19 +44,21 @@ export class HandlerManager {
     message,
     callback,
     debounce,
+    callbackCaller,
   }: {
     channel: string;
     message: Readonly<any>;
     callback: any;
     debounce: number;
+    callbackCaller: any;
   }) {
     if (!debounce) {
-      await callback(message);
+      await callback.bind(callbackCaller)(message);
       return;
     }
     const messageHash = channel + (await this.getMessageHash(message));
     if (!this.uniqueMessageHandlers.has(messageHash)) {
-      this.uniqueMessageHandlers.set(messageHash, this.debounce(callback, debounce));
+      this.uniqueMessageHandlers.set(messageHash, this.debounce(callback.bind(callbackCaller), debounce));
     }
     const handler = this.uniqueMessageHandlers.get(messageHash);
     try {
@@ -71,7 +73,7 @@ export class HandlerManager {
   }
 
   wrapper(channel, callback, options) {
-    const { debounce = 0 } = options;
+    const { debounce = 0, callbackCaller } = options;
     return async (wrappedMessage) => {
       // 内存消息队列不再使用JSON.parse
       let json;
@@ -83,7 +85,7 @@ export class HandlerManager {
       if (!this.verifyMessage(json)) {
         return;
       }
-      await this.handleMessage({ channel, message: json.message, debounce, callback });
+      await this.handleMessage({ channel, message: json.message, debounce, callback, callbackCaller });
     };
   }
 
