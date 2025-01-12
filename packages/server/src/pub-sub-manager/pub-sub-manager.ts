@@ -25,7 +25,7 @@ export const createPubSubManager = (app: Application, options: PubSubManagerOpti
 
 export class PubSubManager {
   protected publisherId: string;
-  protected adapter: IPubSubAdapter;
+  public adapter: IPubSubAdapter;
   protected handlerManager: HandlerManager;
 
   constructor(protected options: PubSubManagerOptions = {}) {
@@ -68,7 +68,7 @@ export class PubSubManager {
   }
 
   async subscribe(channel: string, callback: PubSubCallback, options: PubSubManagerSubscribeOptions = {}) {
-    // 先退订，防止重复订阅
+    // 先退订，防止重复订阅 TODO: 这里用bind(this),导致无法取消订阅
     await this.unsubscribe(channel, callback);
     const handler = this.handlerManager.set(channel, callback, options);
     // 连接之后才能订阅

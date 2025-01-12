@@ -16,12 +16,20 @@ export class SyncMessageManager {
       if (!plugin.name) {
         return;
       }
-      await this.subscribe(plugin.name, plugin.handleSyncMessage.bind(plugin));
+      await this.subscribe(plugin.name, plugin.handleSyncMessage, plugin);
     });
   }
 
   get debounce() {
-    return this.options.debounce || 1000;
+    // 内存级adapter,debounce可以为0
+    let defaultDebounce;
+    // TODO: 应该在初始化的地方get,set
+    if (this.app.pubSubManager.adapter.constructor.name === 'MemoryPubSubAdapter') {
+      defaultDebounce = 0;
+    } else {
+      defaultDebounce = 1_000;
+    }
+    return this.options.debounce || defaultDebounce;
   }
 
   async publish(channel: string, message, options?: PubSubManagerPublishOptions & Transactionable) {
@@ -59,9 +67,10 @@ export class SyncMessageManager {
     }
   }
 
-  async subscribe(channel: string, callback: PubSubCallback) {
+  async subscribe(channel: string, callback: PubSubCallback, callbackCaller: any) {
     return await this.app.pubSubManager.subscribe(`${this.app.name}.sync.${channel}`, callback, {
       debounce: this.debounce,
+      callbackCaller,
     });
   }
 
