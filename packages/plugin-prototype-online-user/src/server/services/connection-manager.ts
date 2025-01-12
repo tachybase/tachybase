@@ -9,17 +9,17 @@ const KEY_ONLINE_USERS = 'online_users';
 
 @Service()
 export class ConnectionManager {
-  private redisClient = createClient({
-    url: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
-  });
-  private redisPubClient = this.redisClient.duplicate();
-  private redisSubClient = this.redisClient.duplicate();
+  // private redisClient = createClient({
+  //   url: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
+  // });
+  // private redisPubClient = this.app.online.app.duplicate();
+  // private redisSubClient = this.app.online.app.duplicate();
 
   @App()
   private app: Application;
 
   async unload() {
-    for (const client of [this.redisClient, this.redisPubClient, this.redisSubClient]) {
+    for (const client of [this.app.online.all, this.app.online.pub, this.app.online.sub]) {
       if (client.isOpen) {
         await client.disconnect();
       }
@@ -27,19 +27,31 @@ export class ConnectionManager {
   }
 
   async load() {
-    if (this.redisClient.isOpen) {
-      return;
+    if (!this.app.online) {
+      const all = createClient({
+        url: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
+      });
+      const pub = all.duplicate();
+      const sub = all.duplicate();
+      this.app.online = {
+        all,
+        pub,
+        sub,
+      };
     }
-    await this.redisClient.connect();
-    await this.redisPubClient.connect();
-    await this.redisSubClient.connect();
     this.app.on('afterStop', () => {
       this.unload();
     });
+    if (this.app.online.all.isOpen) {
+      return;
+    }
+    await this.app.online.all.connect();
+    await this.app.online.pub.connect();
+    await this.app.online.sub.connect();
     if (isMain()) {
-      const keysToDelete: any = await this.redisClient.KEYS(`${KEY_ONLINE_USERS}*`);
+      const keysToDelete: any = await this.app.online.all.KEYS(`${KEY_ONLINE_USERS}*`);
       if (keysToDelete.length > 0) {
-        await this.redisClient.DEL(...keysToDelete);
+        await this.app.online.all.DEL(...keysToDelete);
       }
     }
     await this.loadWsServer();
@@ -49,14 +61,14 @@ export class ConnectionManager {
     const appName = this.app.name;
     const gateway = Gateway.getInstance();
     const ws = gateway['wsServer'];
-    await this.redisSubClient.SUBSCRIBE(KEY_ONLINE_USERS + appName, async (num) => {
+    await this.app.online.sub.SUBSCRIBE(KEY_ONLINE_USERS + appName, async (num) => {
       if (num !== currentProcessNum()) {
         await notifyAllClients(false);
       }
     });
     const notifyAllClients = async (broadcast = true) => {
       // 有效在线用户
-      const users = (await this.redisClient.HVALS(KEY_ONLINE_USERS + appName)).map((u) => JSON.parse(u));
+      const users = (await this.app.online.all.HVALS(KEY_ONLINE_USERS + appName)).map((u) => JSON.parse(u));
       ws.sendToConnectionsByTag('app', appName, {
         type: 'plugin-online-user',
         payload: {
@@ -64,7 +76,7 @@ export class ConnectionManager {
         },
       });
       if (broadcast) {
-        await this.redisPubClient.PUBLISH(KEY_ONLINE_USERS + appName, currentProcessNum());
+        await this.app.online.pub.PUBLISH(KEY_ONLINE_USERS + appName, currentProcessNum());
       }
     };
 
@@ -81,7 +93,7 @@ export class ConnectionManager {
         await notifyAllClients();
       });
       ws.on('close', async () => {
-        await this.redisClient.HDEL(KEY_ONLINE_USERS + appName, ws.id);
+        await this.app.online.all.HDEL(KEY_ONLINE_USERS + appName, ws.id);
         await notifyAllClients();
       });
 
@@ -94,7 +106,7 @@ export class ConnectionManager {
               const analysis = jwt.verify(userMeg.payload.token, process.env.APP_KEY) as any;
               const userId = analysis.userId;
               const user = await getUserById(userId);
-              await this.redisClient.HSET(KEY_ONLINE_USERS + appName, ws.id, JSON.stringify(user));
+              await this.app.online.all.HSET(KEY_ONLINE_USERS + appName, ws.id, JSON.stringify(user));
               await notifyAllClients();
             } catch (error) {
               console.warn(error.message);
