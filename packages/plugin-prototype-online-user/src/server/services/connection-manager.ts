@@ -9,21 +9,17 @@ const KEY_ONLINE_USERS = 'online_users';
 
 @Service()
 export class ConnectionManager {
-  private static redisClient = createClient({
+  private redisClient = createClient({
     url: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
   });
-  private static redisPubClient = this.redisClient.duplicate();
-  private static redisSubClient = this.redisClient.duplicate();
+  private redisPubClient = this.redisClient.duplicate();
+  private redisSubClient = this.redisClient.duplicate();
 
   @App()
   private app: Application;
 
   async unload() {
-    for (const client of [
-      ConnectionManager.redisClient,
-      ConnectionManager.redisPubClient,
-      ConnectionManager.redisSubClient,
-    ]) {
+    for (const client of [this.redisClient, this.redisPubClient, this.redisSubClient]) {
       if (client.isOpen) {
         await client.disconnect();
       }
@@ -31,36 +27,40 @@ export class ConnectionManager {
   }
 
   async load() {
-    this.app.on('afterStop', async () => {
+    this.app.on('afterStart', async () => {
+      if (this.redisClient.isOpen) {
+        return;
+      }
+      for (const client of [this.redisClient, this.redisPubClient, this.redisSubClient]) {
+        if (!client.isOpen) {
+          await client.connect();
+        }
+      }
+      if (isMain()) {
+        const keysToDelete: any = await this.redisClient.KEYS(`${KEY_ONLINE_USERS}*`);
+        if (keysToDelete.length > 0) {
+          await this.redisClient.DEL(...keysToDelete);
+        }
+      }
+      await this.loadWsServer();
+    });
+    this.app.on('beforeStop', async () => {
       await this.unload();
     });
-    if (ConnectionManager.redisClient.isOpen) {
-      return;
-    }
-    await ConnectionManager.redisClient.connect();
-    await ConnectionManager.redisPubClient.connect();
-    await ConnectionManager.redisSubClient.connect();
-    if (isMain()) {
-      const keysToDelete: any = await ConnectionManager.redisClient.KEYS(`${KEY_ONLINE_USERS}*`);
-      if (keysToDelete.length > 0) {
-        await ConnectionManager.redisClient.DEL(...keysToDelete);
-      }
-    }
-    await this.loadWsServer();
   }
 
   async loadWsServer() {
     const appName = this.app.name;
     const gateway = Gateway.getInstance();
     const ws = gateway['wsServer'];
-    await ConnectionManager.redisSubClient.SUBSCRIBE(KEY_ONLINE_USERS + appName, async (num) => {
+    await this.redisSubClient.SUBSCRIBE(KEY_ONLINE_USERS + appName, async (num) => {
       if (num !== currentProcessNum()) {
         await notifyAllClients(false);
       }
     });
     const notifyAllClients = async (broadcast = true) => {
       // 有效在线用户
-      const users = (await ConnectionManager.redisClient.HVALS(KEY_ONLINE_USERS + appName)).map((u) => JSON.parse(u));
+      const users = (await this.redisClient.HVALS(KEY_ONLINE_USERS + appName)).map((u) => JSON.parse(u));
       ws.sendToConnectionsByTag('app', appName, {
         type: 'plugin-online-user',
         payload: {
@@ -68,7 +68,7 @@ export class ConnectionManager {
         },
       });
       if (broadcast) {
-        await ConnectionManager.redisPubClient.PUBLISH(KEY_ONLINE_USERS + appName, currentProcessNum());
+        await this.redisPubClient.PUBLISH(KEY_ONLINE_USERS + appName, currentProcessNum());
       }
     };
 
@@ -85,7 +85,7 @@ export class ConnectionManager {
         await notifyAllClients();
       });
       ws.on('close', async () => {
-        await ConnectionManager.redisClient.HDEL(KEY_ONLINE_USERS + appName, ws.id);
+        await this.redisClient.HDEL(KEY_ONLINE_USERS + appName, ws.id);
         await notifyAllClients();
       });
 
@@ -98,7 +98,7 @@ export class ConnectionManager {
               const analysis = jwt.verify(userMeg.payload.token, process.env.APP_KEY) as any;
               const userId = analysis.userId;
               const user = await getUserById(userId);
-              await ConnectionManager.redisClient.HSET(KEY_ONLINE_USERS + appName, ws.id, JSON.stringify(user));
+              await this.redisClient.HSET(KEY_ONLINE_USERS + appName, ws.id, JSON.stringify(user));
               await notifyAllClients();
             } catch (error) {
               console.warn(error.message);
