@@ -805,6 +805,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     this.setMaintainingMessage('emit afterStart');
     await this.emitAsync('afterStart', this, options);
+    this.setMaintainingMessage('app started success!');
     await this.emitStartedEvent(options);
 
     this.stopped = false;

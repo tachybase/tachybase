@@ -271,7 +271,7 @@ const AppMaintainingDialog = observer(
   ({ app }: AppStatusProps) => {
     const { icon, status, title, subTitle } = getProps(app);
     const manager = app.noticeManager;
-    manager.status(app.i18n.t(title) + app.i18n.t(subTitle), NoticeLevel.INFO);
+    manager.status(app.i18n.t(title) + ' ' + app.i18n.t(subTitle), NoticeLevel.INFO);
     return null;
   },
   { displayName: 'AppMaintainingDialog' },
