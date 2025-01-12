@@ -27,26 +27,22 @@ export class ConnectionManager {
   }
 
   async load() {
-    this.app.on('afterStart', async () => {
-      if (this.redisClient.isOpen) {
-        return;
-      }
-      for (const client of [this.redisClient, this.redisPubClient, this.redisSubClient]) {
-        if (!client.isOpen) {
-          await client.connect();
-        }
-      }
-      if (isMain()) {
-        const keysToDelete: any = await this.redisClient.KEYS(`${KEY_ONLINE_USERS}*`);
-        if (keysToDelete.length > 0) {
-          await this.redisClient.DEL(...keysToDelete);
-        }
-      }
-      await this.loadWsServer();
+    if (this.redisClient.isOpen) {
+      return;
+    }
+    await this.redisClient.connect();
+    await this.redisPubClient.connect();
+    await this.redisSubClient.connect();
+    this.app.on('afterStop', () => {
+      this.unload();
     });
-    this.app.on('beforeStop', async () => {
-      await this.unload();
-    });
+    if (isMain()) {
+      const keysToDelete: any = await this.redisClient.KEYS(`${KEY_ONLINE_USERS}*`);
+      if (keysToDelete.length > 0) {
+        await this.redisClient.DEL(...keysToDelete);
+      }
+    }
+    await this.loadWsServer();
   }
 
   async loadWsServer() {
