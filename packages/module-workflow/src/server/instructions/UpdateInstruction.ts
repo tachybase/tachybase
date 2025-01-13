@@ -1,5 +1,3 @@
-import fs from 'fs';
-import { Readable } from 'stream';
 import { parseCollectionName } from '@tachybase/data-source';
 import { Gateway } from '@tachybase/server';
 import { uid } from '@tachybase/utils';
@@ -42,8 +40,46 @@ export class UpdateInstruction extends Instruction {
         return false;
       }
     };
-    //目前可处理url，json对象，base64
+    // 目前可处理 base64, json 请求对象，url; 专用于方便处理存储附件字段
     const handleResource = async (resource) => {
+      if (typeof resource === 'object' && resource?.url && resource?.filename) {
+        // 证明是系统原本的附件类型;
+        // NOTE: 这里是为了取出普通字段, 排除名称不定的中间表关联字段
+        const {
+          id,
+          createdAt,
+          updatedAt,
+          title,
+          filename,
+          extname,
+          size,
+          mimetype,
+          path,
+          meta,
+          url,
+          createById,
+          updatedById,
+          storageId,
+        } = resource;
+
+        return {
+          id,
+          createdAt,
+          updatedAt,
+          title,
+          filename,
+          extname,
+          size,
+          mimetype,
+          path,
+          meta,
+          url,
+          createById,
+          updatedById,
+          storageId,
+        };
+      }
+
       const parseRes = isJSON(resource);
       const config: AxiosRequestConfig<any> = {
         method: 'get',
@@ -51,7 +87,9 @@ export class UpdateInstruction extends Instruction {
         responseType: 'stream',
       };
       const form = new FormData();
+
       if (resource.startsWith('data:')) {
+        // base64
         const matches = resource.match(/^data:(.+);base64,(.+)$/);
         if (matches) {
           const contentType = matches[1];
@@ -68,7 +106,17 @@ export class UpdateInstruction extends Instruction {
           throw new Error('Invalid data URL format');
         }
       } else if (parseRes) {
-        const { url: resourceUrl, params: resourceParams, headers: resourceHeaders, body: resourceBody } = parseRes;
+        // json 请求对象
+        /**
+         * XXX: 这个 API 不合适, 没有明确显然的指出用法
+         */
+        const {
+          url: resourceUrl,
+          params: resourceParams,
+          headers: resourceHeaders,
+          body: resourceBody,
+          filename,
+        } = parseRes;
         config.url = resourceUrl;
         config.params = resourceParams;
         config.headers = resourceHeaders;
@@ -85,13 +133,14 @@ export class UpdateInstruction extends Instruction {
         const contentType = response.headers['content-type'];
         // 根据 MIME 类型获取文件扩展名
         const ext = mime.extension(contentType);
-        const filename = `${uid()}.${ext}`;
+        const fullFilename = `${filename || uid()}.${ext}`;
         // 创建 FormData 实例
         form.append('file', response.data, {
-          filename,
+          filename: fullFilename,
           contentType: response.headers['content-type'],
         });
       } else {
+        // 处理 url
         // 下载指定 URL 的内容
         const response = await axios(config);
         // 获取文件的 MIME 类型
@@ -106,6 +155,7 @@ export class UpdateInstruction extends Instruction {
         });
       }
       // 发送 multipart 请求
+      // NOTE: 怎么用系统内置的 API, 完成附件的新建逻辑
       const origin = Gateway.getInstance().runAtLoop;
       const uploadResponse = await axios({
         method: 'post',
@@ -116,20 +166,20 @@ export class UpdateInstruction extends Instruction {
           Authorization: 'Bearer ' + token,
         },
       });
+
       return uploadResponse.data.data;
     };
-
     // 处理文件类型
     for (const attachmentField of includesFields) {
       if (attachmentField.options.interface === 'attachment') {
-        const urls = options.values[attachmentField.options.name];
-        if (Array.isArray(urls)) {
-          for (const i in urls) {
-            urls[i] = await handleResource(urls[i]);
+        let targetField = options.values[attachmentField.options.name];
+
+        if (Array.isArray(targetField)) {
+          for (const i in targetField) {
+            targetField[i] = await handleResource(targetField[i]);
           }
         } else {
-          const url = options.values[attachmentField.options.name];
-          options.values[attachmentField.options.name] = [await handleResource(url)];
+          targetField = [await handleResource(targetField)];
         }
       }
     }

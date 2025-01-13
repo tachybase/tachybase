@@ -42,6 +42,44 @@ export class CreateInstruction extends Instruction {
     };
     //目前可处理url，json对象，base64
     const handleResource = async (resource) => {
+      if (typeof resource === 'object' && resource?.url && resource?.filename) {
+        // 证明是系统原本的附件类型;
+        // NOTE: 这里是为了取出普通字段, 排除名称不定的中间表关联字段
+        const {
+          id,
+          createdAt,
+          updatedAt,
+          title,
+          filename,
+          extname,
+          size,
+          mimetype,
+          path,
+          meta,
+          url,
+          createById,
+          updatedById,
+          storageId,
+        } = resource;
+
+        return {
+          id,
+          createdAt,
+          updatedAt,
+          title,
+          filename,
+          extname,
+          size,
+          mimetype,
+          path,
+          meta,
+          url,
+          createById,
+          updatedById,
+          storageId,
+        };
+      }
+
       const parseRes = isJSON(resource);
       const config: AxiosRequestConfig<any> = {
         method: 'get',
@@ -66,7 +104,16 @@ export class CreateInstruction extends Instruction {
           throw new Error('Invalid data URL format');
         }
       } else if (parseRes) {
-        const { url: resourceUrl, params: resourceParams, headers: resourceHeaders, body: resourceBody } = parseRes;
+        /**
+         * XXX: 这个 API 不合适, 没有明确显然的指出用法
+         */
+        const {
+          url: resourceUrl,
+          params: resourceParams,
+          headers: resourceHeaders,
+          body: resourceBody,
+          filename,
+        } = parseRes;
         config.url = resourceUrl;
         config.params = resourceParams;
         config.headers = resourceHeaders;
@@ -83,10 +130,10 @@ export class CreateInstruction extends Instruction {
         const contentType = response.headers['content-type'];
         // 根据 MIME 类型获取文件扩展名
         const ext = mime.extension(contentType);
-        const filename = `${uid()}.${ext}`;
+        const fullFilename = `${filename ?? uid()}.${ext}`;
         // 创建 FormData 实例
         form.append('file', response.data, {
-          filename,
+          filename: fullFilename,
           contentType: response.headers['content-type'],
         });
       } else {
@@ -120,14 +167,13 @@ export class CreateInstruction extends Instruction {
     // 处理文件类型
     for (const attachmentField of includesFields) {
       if (attachmentField.options.interface === 'attachment') {
-        const urls = options.values[attachmentField.options.name];
-        if (Array.isArray(urls)) {
-          for (const i in urls) {
-            urls[i] = await handleResource(urls[i]);
+        let targetField = options.values[attachmentField.options.name];
+        if (Array.isArray(targetField)) {
+          for (const i in targetField) {
+            targetField[i] = await handleResource(targetField[i]);
           }
         } else {
-          const url = options.values[attachmentField.options.name];
-          options.values[attachmentField.options.name] = await handleResource(url);
+          targetField = [await handleResource(targetField)];
         }
       }
     }
