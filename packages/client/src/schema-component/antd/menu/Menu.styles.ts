@@ -18,7 +18,7 @@ export const useStyles = createStyles(({ css, token }) => {
         }
         .ant-space-item:hover {
           border-radius: 5px;
-          background-color: var(--colorSettings);
+          background-color: ${token.colorPrimary};
           color: #fff;
         }
       }
@@ -140,21 +140,21 @@ export const useStyles = createStyles(({ css, token }) => {
         }
       }
 
-      .ant-menu-submenu.ant-menu-submenu-inline {
-        /* position: relative;
-        display: flex;
-        flex-direction:column;
-        align-items: center; */
-        /* &::before {
+      .ant-menu-submenu.ant-menu-submenu-inline .ant-menu-submenu-title {
+        position: relative;
+        ::before {
           content: '';
           position: absolute;
           left: 0;
           top: 50%;
           transform: translateY(-50%);
-          width: 4px;
+          width: 3px;
           height: 50%;
-          background-color: #007bff;
-        } */
+          background-color: var(--colorPrimaryText);
+
+          /* 使用 clip-path 裁剪为梯形 */
+          clip-path: polygon(0 0, 100% 15%, 100% 85%, 0 100%);
+        }
       }
 
       .ant-menu-item,
