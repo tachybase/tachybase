@@ -11,6 +11,11 @@ export class AIChatController {
     const data = await repo.findOne();
     const { Model: model, AI_URL: apiUrl, AI_API_KEY: aitoken, System_messages: SystemMessages } = data || {};
     const userMessage = ctx.action?.params?.values?.message || undefined;
+
+    if (!model || !apiUrl || !aitoken || !userMessage) {
+      ctx.throw('Missing required fields for AI chat');
+    }
+
     const requestData = {
       model,
       messages: [

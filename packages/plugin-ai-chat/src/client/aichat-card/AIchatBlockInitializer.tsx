@@ -168,6 +168,15 @@ export const AiChatBlock = () => {
     key: id,
     role: status === 'local' ? 'local' : 'ai',
     content: message,
+    messageRender: (content: string) => {
+      const formattedContent = content.split('\n').map((line, index) => (
+        <span key={index}>
+          {line}
+          <br />
+        </span>
+      ));
+      return <>{formattedContent}</>;
+    },
   }));
 
   return (

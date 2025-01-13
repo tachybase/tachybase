@@ -204,7 +204,14 @@ export const AIchat = ({ open, setOpen }) => {
     >
       <div className={styles.modalHeader}>
         <div className={styles.title}>
-          <svg className={styles.marsailogo} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            className={styles.marsailogo}
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="TachyAI Logo"
+          >
             <path
               d="M370.812121 400.290909c-21.721212 0-38.787879 17.066667-38.787879 38.787879V605.090909c0 21.721212 17.066667 38.787879 38.787879 38.787879s38.787879-17.066667 38.787879-38.787879V439.078788c0-21.721212-17.066667-38.787879-38.787879-38.787879zM712.145455 417.357576c-15.515152-15.515152-38.787879-15.515152-54.303031 0L589.575758 485.624242c-9.309091 9.309091-13.963636 21.721212-12.412122 34.133334-1.551515 12.412121 3.10303 24.824242 12.412122 32.581818l68.266666 68.266667c7.757576 7.757576 17.066667 10.860606 27.927273 10.860606s20.169697-4.654545 27.927273-10.860606 10.860606-17.066667 10.860606-27.927273-4.654545-20.169697-10.860606-27.927273l-46.545455-46.545454 46.545455-46.545455c13.963636-13.963636 13.963636-38.787879-1.551515-54.30303z"
               fill="#7d33ff"
@@ -216,7 +223,7 @@ export const AIchat = ({ open, setOpen }) => {
           </svg>
           <span>TachyAI</span>
         </div>
-        <button className={styles.closeButton} onClick={handleCancel}>
+        <button className={styles.closeButton} onClick={handleCancel} aria-label="Close chat" role="button">
           &times;
         </button>
       </div>

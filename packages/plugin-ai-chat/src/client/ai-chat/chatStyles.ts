@@ -11,7 +11,6 @@ export const useStyle = createStyles(({ token, css }) => {
       flex-direction: column;
       gap: 16px;
     `,
-    modalbody: css``,
     messages: css`
       flex-direction: column;
       flex: 1;
@@ -48,9 +47,9 @@ export const useStyle = createStyles(({ token, css }) => {
     AIChatModal: css`
       position: fixed;
       background-color: #ffffff;
-      bottom: 80px; /* 距离底部 */
-      right: 70px; /* 距离右侧 */
-      margin: 0; /* 去除默认居中偏移 */
+      bottom: 80px;
+      right: 70px;
+      margin: 0;
       top: unset;
       padding-bottom: unset;
 
