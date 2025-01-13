@@ -6,7 +6,7 @@ import { useStyles } from './DragHandleMenu.style';
 import { SortableContext } from './SortableItem';
 
 export const DragHandleMenu = (props) => {
-  const { name, setStateOpenKeys, children } = props;
+  const { isSubMenu, name, setStateOpenKeys, children } = props;
   const { draggable } = useContext(SortableContext);
   const { attributes, listeners, setNodeRef, transform, isDragging } = draggable;
   const { styles } = useStyles();
@@ -50,7 +50,7 @@ export const DragHandleMenu = (props) => {
   };
 
   useEffect(() => {
-    if (isDragging) {
+    if (isSubMenu && isDragging) {
       // 拖动分组时, 自动关闭当前分组
       setStateOpenKeys?.((prevOpenKeys) => {
         return prevOpenKeys.filter((key) => key !== name);
@@ -63,6 +63,7 @@ export const DragHandleMenu = (props) => {
       ref={setNodeRef}
       className={cx(styles.dragHandleMenu, {
         draggable: isDragging,
+        leftBorder: isDragging && isSubMenu,
       })}
       style={style}
       {...listeners}

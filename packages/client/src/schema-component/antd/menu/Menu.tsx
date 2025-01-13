@@ -537,7 +537,7 @@ Menu.SubMenu = observer(
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
               >
-                <DragHandleMenu name={schema.name} setStateOpenKeys={setStateOpenKeys}>
+                <DragHandleMenu name={schema.name} isSubMenu setStateOpenKeys={setStateOpenKeys}>
                   <span className={'submenu-title'}>
                     <Icon type={icon} />
                     <span className={'menuitem-title'}>{t(field.title)}</span>
