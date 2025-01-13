@@ -11,6 +11,7 @@ import {
 } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
 
+import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { Menu as AntdMenu, Button, Card, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { DndContext, SortableItem, useDesignable, useDesigner } from '../..';
 import { css, Icon, useSchemaInitializerRender, useToken } from '../../../';
 import { useCollectMenuItems, useMenuItem } from '../../../hooks/useMenuItem';
+import { DragHandleMenu } from '../../common/sortable-item/DragHandleMenu';
 import { useProps } from '../../hooks/useProps';
 import { useMenuTranslation } from './locale';
 import { MenuDesigner } from './Menu.Designer';
@@ -240,7 +242,6 @@ const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys,
           className={styles.sideMenuClass}
           items={items as MenuProps['items']}
           expandIcon={null}
-          // inlineIndent={0}
         />
       </MenuModeContext.Provider>,
       sideMenuRef.current.firstChild,
@@ -299,6 +300,15 @@ export const Menu: ComposedMenu = observer(
       return dOpenKeys;
     });
 
+    // 配置传感器（确保拖拽行为正常）
+    const sensors = useSensors(
+      useSensor(PointerSensor, {
+        activationConstraint: {
+          distance: 1, // 移动 1px 后触发拖拽
+        },
+      }),
+    );
+
     const sideMenuSchema = useMemo(() => {
       let key;
 
@@ -339,7 +349,7 @@ export const Menu: ComposedMenu = observer(
 
     const { designable } = useDesignable();
     return (
-      <DndContext>
+      <DndContext sensors={sensors}>
         <MenuItemDesignerContext.Provider value={Designer}>
           <MenuModeContext.Provider value={mode}>
             <HeaderMenu
@@ -383,6 +393,7 @@ Menu.Item = observer(
     const { styles } = useStyles();
     const field = useField();
     const Designer = useContext(MenuItemDesignerContext);
+
     const item = useMemo(() => {
       return {
         ...others,
@@ -406,11 +417,13 @@ Menu.Item = observer(
                 className={styles.designerCss}
                 removeParentsIfNoChildren={false}
               >
-                <span className={'menuitem-title-wrapper'}>
-                  <Icon type={icon} />
-                  <span className={'menuitem-title'}>{t(field.title)}</span>
-                </span>
-                <Designer />
+                <DragHandleMenu>
+                  <span className={'menuitem-title-wrapper'}>
+                    <Icon type={icon} />
+                    <span className={'menuitem-title'}>{t(field.title)}</span>
+                  </span>
+                  <Designer />
+                </DragHandleMenu>
               </SortableItem>
             </FieldContext.Provider>
           </SchemaContext.Provider>
@@ -463,19 +476,23 @@ Menu.URL = observer(
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
               >
-                <Icon type={icon} />
-                <span
-                  style={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: 'inline-block',
-                    width: '100%',
-                    verticalAlign: 'middle',
-                  }}
-                >
-                  {t(field.title)}
-                </span>
-                <Designer />
+                <DragHandleMenu>
+                  <span className={'menuitem-title-wrapper'}>
+                    <Icon type={icon} />
+                    <span
+                      style={{
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: 'inline-block',
+                        width: '100%',
+                        verticalAlign: 'middle',
+                      }}
+                    >
+                      {t(field.title)}
+                    </span>
+                  </span>
+                  <Designer />
+                </DragHandleMenu>
               </SortableItem>
             </FieldContext.Provider>
           </SchemaContext.Provider>
@@ -515,11 +532,13 @@ Menu.SubMenu = observer(
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
               >
-                <span className={'submenu-title'}>
-                  <Icon type={icon} />
-                  {t(field.title)}
-                </span>
-                <Designer />
+                <DragHandleMenu>
+                  <span className={'submenu-title'}>
+                    <Icon type={icon} />
+                    <span className={'menuitem-title'}>{t(field.title)}</span>
+                  </span>
+                  <Designer />
+                </DragHandleMenu>
               </SortableItem>
             </FieldContext.Provider>
           </SchemaContext.Provider>
