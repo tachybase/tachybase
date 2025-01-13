@@ -1,6 +1,6 @@
 import lodash from 'lodash';
 import qs from 'qs';
-import { FindAttributeOptions, ModelStatic, Op, Sequelize } from 'sequelize';
+import { FindAttributeOptions, Model, ModelStatic, Op, Sequelize } from 'sequelize';
 
 import { Collection } from './collection';
 import { Database } from './database';
@@ -164,8 +164,16 @@ export class OptionsParser {
         let associationModel = this.model;
         for (let i = 0; i < sortField.length - 1; i++) {
           const associationKey = sortField[i];
-          sortField[i] = associationModel.associations[associationKey].target;
-          associationModel = sortField[i];
+          const associationEntity = associationModel.associations[associationKey];
+          if (!['BelongsTo', 'HasOne'].includes(associationEntity.associationType)) {
+            continue;
+          }
+          const model = associationEntity.target;
+          sortField[i] = {
+            model,
+            as: associationKey,
+          };
+          associationModel = model;
         }
       } else {
         const rawField = this.model.rawAttributes[sortField[0]];
@@ -179,15 +187,6 @@ export class OptionsParser {
         // @ts-ignore
         if (this.model.fieldRawAttributesMap[fieldName]) {
           orderParams.push([Sequelize.fn('ISNULL', Sequelize.col(`${this.model.name}.${sortField[0]}`))]);
-        }
-      } else if (this.database.inDialect('postgres')) {
-        const fieldName = sortField[0];
-
-        // @ts-ignore 检查字段是否在模型的原始属性映射中
-        if (this.model.fieldRawAttributesMap[fieldName]) {
-          // 在 PostgreSQL 中使用 NULLS LAST 或 NULLS FIRST 控制 NULL 排序
-          const sortDirection = direction === 'ASC' ? 'ASC NULLS LAST' : 'DESC NULLS FIRST';
-          orderParams.push([`${this.model.name}."${fieldName}"`, sortDirection]);
         }
       }
       orderParams.push(sortField);

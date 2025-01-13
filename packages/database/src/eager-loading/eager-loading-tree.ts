@@ -118,21 +118,21 @@ export class EagerLoadingTree {
           includeOption: include.options || {},
         });
 
-        if (associationType == 'HasOne' || associationType == 'HasMany') {
+        if (associationType === 'HasOne' || associationType === 'HasMany') {
           const { sourceKey, foreignKey } = association;
 
           pushAttribute(eagerLoadingTreeParent, sourceKey);
           pushAttribute(child, foreignKey);
         }
 
-        if (associationType == 'BelongsTo') {
+        if (associationType === 'BelongsTo') {
           const { targetKey, foreignKey } = association;
 
           pushAttribute(eagerLoadingTreeParent, foreignKey);
           pushAttribute(child, targetKey);
         }
 
-        if (associationType == 'BelongsToMany') {
+        if (associationType === 'BelongsToMany') {
           const { sourceKey } = association;
           pushAttribute(eagerLoadingTreeParent, sourceKey);
         }
@@ -181,6 +181,27 @@ export class EagerLoadingTree {
           );
         });
 
+        // TODO: 此处需谨慎
+        const sortModelSet = new Set();
+        if (this.rootQueryOptions?.order) {
+          for (const order of this.rootQueryOptions.order) {
+            for (const field of order) {
+              if (field.as) {
+                sortModelSet.add(field.as);
+              }
+            }
+          }
+        }
+        const inCludeForSort = [];
+        for (const sortModel of sortModelSet) {
+          if (includeForFilter.find((v) => v.association === sortModel)) {
+            continue;
+          }
+          inCludeForSort.push({
+            association: sortModel,
+          });
+        }
+
         const isBelongsToAssociationOnly = (includes, model) => {
           for (const include of includes) {
             const association = model.associations[include.association];
@@ -188,7 +209,7 @@ export class EagerLoadingTree {
               return false;
             }
 
-            if (association.associationType != 'BelongsTo') {
+            if (association.associationType !== 'BelongsTo') {
               return false;
             }
 
@@ -207,7 +228,7 @@ export class EagerLoadingTree {
             ...this.rootQueryOptions,
             attributes: node.attributes,
             distinct: true,
-            include: includeForFilter,
+            include: includeForFilter.concat(inCludeForSort),
             transaction,
           });
         } else {
@@ -225,7 +246,7 @@ export class EagerLoadingTree {
               attributes: [primaryKeyField],
               group: `${node.model.name}.${primaryKeyField}`,
               transaction,
-              include: includeForFilter,
+              include: includeForFilter.concat(inCludeForSort),
             } as any)
           ).map((row) => {
             return { row, pk: row[primaryKeyField] };
@@ -272,7 +293,7 @@ export class EagerLoadingTree {
           params = parser.toSequelizeParams();
         }
 
-        if (associationType == 'HasOne' || associationType == 'HasMany') {
+        if (associationType === 'HasOne' || associationType === 'HasMany') {
           const foreignKey = association.foreignKey;
           const foreignKeyValues = node.parent.instances.map((instance) => instance.get(association.sourceKey));
 
@@ -293,7 +314,7 @@ export class EagerLoadingTree {
           instances = await node.model.findAll(findOptions);
         }
 
-        if (associationType == 'BelongsTo') {
+        if (associationType === 'BelongsTo') {
           const foreignKey = association.foreignKey;
           const parentInstancesForeignKeyValues = node.parent.instances.map((instance) => instance.get(foreignKey));
 
@@ -333,7 +354,7 @@ export class EagerLoadingTree {
 
             const setInstanceParent = (instance) => {
               const parentInstance = parentInstances.find(
-                (parentInstance) => parentInstance.get(targetKey) == instance.get(foreignKey),
+                (parentInstance) => parentInstance.get(targetKey) === instance.get(foreignKey),
               );
               if (!parentInstance) {
                 return;
@@ -349,7 +370,7 @@ export class EagerLoadingTree {
           }
         }
 
-        if (associationType == 'BelongsToMany') {
+        if (associationType === 'BelongsToMany') {
           const foreignKeyValues = node.parent.instances.map((instance) => instance.get(association.sourceKey));
 
           const hasOneOptions: HasOneOptions = {
@@ -402,22 +423,22 @@ export class EagerLoadingTree {
             const isEmpty = !children;
             parentInstance[key] = parentInstance.dataValues[key] = isEmpty ? null : children;
           } else {
-            const isEmpty = !children || children.length == 0;
+            const isEmpty = !children || children.length === 0;
             parentInstance[key] = parentInstance.dataValues[key] = isEmpty ? [] : children;
           }
         };
 
-        if (associationType == 'HasMany' || associationType == 'HasOne') {
+        if (associationType === 'HasMany' || associationType === 'HasOne') {
           const foreignKey = association.foreignKey;
           const sourceKey = association.sourceKey;
 
           for (const instance of node.instances) {
             const parentInstance = node.parent.instances.find(
-              (parentInstance) => parentInstance.get(sourceKey) == instance.get(foreignKey),
+              (parentInstance) => parentInstance.get(sourceKey) === instance.get(foreignKey),
             );
 
             if (parentInstance) {
-              if (associationType == 'HasMany') {
+              if (associationType === 'HasMany') {
                 const children = parentInstance.getDataValue(association.as);
                 if (!children) {
                   parentInstance.setDataValue(association.as, [instance]);
@@ -426,7 +447,7 @@ export class EagerLoadingTree {
                 }
               }
 
-              if (associationType == 'HasOne') {
+              if (associationType === 'HasOne') {
                 const key = association.options.realAs || association.as;
                 parentInstance[key] = parentInstance.dataValues[key] = instance;
               }
@@ -434,13 +455,13 @@ export class EagerLoadingTree {
           }
         }
 
-        if (associationType == 'BelongsTo') {
+        if (associationType === 'BelongsTo') {
           const foreignKey = association.foreignKey;
           const targetKey = association.targetKey;
 
           for (const instance of node.instances) {
             const parentInstances = node.parent.instances.filter(
-              (parentInstance) => parentInstance.get(foreignKey) == instance.get(targetKey),
+              (parentInstance) => parentInstance.get(foreignKey) === instance.get(targetKey),
             );
 
             for (const parentInstance of parentInstances) {
@@ -449,7 +470,7 @@ export class EagerLoadingTree {
           }
         }
 
-        if (associationType == 'BelongsToMany') {
+        if (associationType === 'BelongsToMany') {
           const sourceKey = association.sourceKey;
           const foreignKey = association.foreignKey;
 
@@ -462,7 +483,7 @@ export class EagerLoadingTree {
             delete instance['_pivot_'];
 
             const parentInstance = node.parent.instances.find(
-              (parentInstance) => parentInstance.get(sourceKey) == instance.dataValues[as].get(foreignKey),
+              (parentInstance) => parentInstance.get(sourceKey) === instance.dataValues[as].get(foreignKey),
             );
 
             if (parentInstance) {
@@ -497,7 +518,7 @@ export class EagerLoadingTree {
       }
 
       // skip pivot attributes
-      if (node.association?.as == '_pivot_') {
+      if (node.association?.as === '_pivot_') {
         return;
       }
 
