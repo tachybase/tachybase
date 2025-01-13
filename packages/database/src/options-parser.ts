@@ -68,17 +68,42 @@ export class OptionsParser {
     return this.isAssociation(path.split('.')[0]);
   }
 
+  filterByTkToWhereOption() {
+    const filterByTkOption = this.options?.filterByTk;
+
+    if (!filterByTkOption) {
+      return {};
+    }
+
+    // multi filter target key
+    if (lodash.isPlainObject(this.options.filterByTk)) {
+      const where = {};
+      for (const [key, value] of Object.entries(filterByTkOption)) {
+        where[key] = value;
+      }
+
+      return where;
+    }
+
+    // single filter target key
+    const filterTargetKey = this.context.targetKey || this.collection.filterTargetKey;
+
+    if (Array.isArray(filterTargetKey)) {
+      throw new Error('multi filter target key value must be object');
+    }
+
+    return {
+      [filterTargetKey]: filterByTkOption,
+    };
+  }
+
   toSequelizeParams() {
     const queryParams = this.filterParser.toSequelizeParams();
 
     if (this.options?.filterByTk) {
+      const filterByTkWhere = this.filterByTkToWhereOption();
       queryParams.where = {
-        [Op.and]: [
-          queryParams.where,
-          {
-            [this.context.targetKey || this.collection.filterTargetKey]: this.options.filterByTk,
-          },
-        ],
+        [Op.and]: [queryParams.where, filterByTkWhere],
       };
     }
 
@@ -100,18 +125,40 @@ export class OptionsParser {
    */
   protected parseSort(filterParams) {
     let sort = this.options?.sort || [];
+
     if (typeof sort === 'string') {
       sort = sort.split(',');
     }
 
+    let defaultSortField: Array<string> | string = this.model.primaryKeyAttribute;
+
+    if (Array.isArray(this.collection.filterTargetKey)) {
+      defaultSortField = this.collection.filterTargetKey;
+    }
+
+    if (!defaultSortField && this.collection.filterTargetKey && !Array.isArray(this.collection.filterTargetKey)) {
+      defaultSortField = this.collection.filterTargetKey;
+    }
+
+    if (defaultSortField && !this.options?.group) {
+      defaultSortField = lodash.castArray(defaultSortField);
+      for (const key of defaultSortField) {
+        if (!sort.includes(key)) {
+          sort.push(key);
+        }
+      }
+    }
+
     const orderParams = [];
+
     for (const sortKey of sort) {
       let direction = sortKey.startsWith('-') ? 'DESC' : 'ASC';
-      const sortField: Array<any> = sortKey.replace('-', '').split('.');
+      const sortField: Array<any> = sortKey.startsWith('-') ? sortKey.replace('-', '').split('.') : sortKey.split('.');
 
       if (this.database.inDialect('postgres', 'sqlite')) {
         direction = `${direction} NULLS LAST`;
       }
+
       // handle sort by association
       if (sortField.length > 1) {
         let associationModel = this.model;
@@ -127,7 +174,21 @@ export class OptionsParser {
 
       sortField.push(direction);
       if (this.database.isMySQLCompatibleDialect()) {
-        orderParams.push([Sequelize.fn('ISNULL', Sequelize.col(`${this.model.name}.${sortField[0]}`))]);
+        const fieldName = sortField[0];
+
+        // @ts-ignore
+        if (this.model.fieldRawAttributesMap[fieldName]) {
+          orderParams.push([Sequelize.fn('ISNULL', Sequelize.col(`${this.model.name}.${sortField[0]}`))]);
+        }
+      } else if (this.database.inDialect('postgres')) {
+        const fieldName = sortField[0];
+
+        // @ts-ignore 检查字段是否在模型的原始属性映射中
+        if (this.model.fieldRawAttributesMap[fieldName]) {
+          // 在 PostgreSQL 中使用 NULLS LAST 或 NULLS FIRST 控制 NULL 排序
+          const sortDirection = direction === 'ASC' ? 'ASC NULLS LAST' : 'DESC NULLS FIRST';
+          orderParams.push([`${this.model.name}."${fieldName}"`, sortDirection]);
+        }
       }
       orderParams.push(sortField);
     }
@@ -209,9 +270,9 @@ export class OptionsParser {
       const association = exceptPath[0];
       const lastLevel = exceptPath.length <= 2;
 
-      const existIncludeIndex = queryParams['include'].findIndex((include) => include['association'] == association);
+      const existIncludeIndex = queryParams['include'].findIndex((include) => include['association'] === association);
 
-      if (existIncludeIndex == -1) {
+      if (existIncludeIndex === -1) {
         // if include not exists, ignore this except
         return;
       }
@@ -283,11 +344,11 @@ export class OptionsParser {
       //  All of these can be seen as last level
       let lastLevel = false;
 
-      if (appendFields.length == 1) {
+      if (appendFields.length === 1) {
         lastLevel = true;
       }
 
-      if (appendFields.length == 2) {
+      if (appendFields.length === 2) {
         const association = associations[appendFields[0]];
         if (!association) {
           throw new Error(`association ${appendFields[0]} in ${model.name} not found`);
@@ -300,22 +361,22 @@ export class OptionsParser {
       }
 
       // find association index
-      if (queryParams['include'] == undefined) {
+      if (queryParams['include'] === undefined) {
         queryParams['include'] = [];
       }
 
       let existIncludeIndex = queryParams['include'].findIndex(
-        (include) => include['association'] == appendAssociation,
+        (include) => include['association'] === appendAssociation,
       );
 
       // if include from filter, remove fromFilter attribute
-      if (existIncludeIndex != -1) {
+      if (existIncludeIndex !== -1) {
         delete queryParams['include'][existIncludeIndex]['fromFilter'];
 
         // set include attributes to all attributes
         if (
           Array.isArray(queryParams['include'][existIncludeIndex]['attributes']) &&
-          queryParams['include'][existIncludeIndex]['attributes'].length == 0
+          queryParams['include'][existIncludeIndex]['attributes'].length === 0
         ) {
           queryParams['include'][existIncludeIndex]['attributes'] = {
             include: [],
@@ -325,15 +386,15 @@ export class OptionsParser {
 
       if (
         lastLevel &&
-        existIncludeIndex != -1 &&
-        lodash.get(queryParams, ['include', existIncludeIndex, 'attributes', 'include'])?.length == 0
+        existIncludeIndex !== -1 &&
+        lodash.get(queryParams, ['include', existIncludeIndex, 'attributes', 'include'])?.length === 0
       ) {
         // if append is last level and association exists, ignore it
         return;
       }
 
       // if association not exist, create it
-      if (existIncludeIndex == -1) {
+      if (existIncludeIndex === -1) {
         // association not exists
         queryParams['include'].push({
           association: appendAssociation,
@@ -352,7 +413,7 @@ export class OptionsParser {
         };
 
         // if need set attribute
-        if (appendFields.length == 2) {
+        if (appendFields.length === 2) {
           if (!Array.isArray(attributes)) {
             attributes = [];
           }
@@ -363,7 +424,7 @@ export class OptionsParser {
           attributes.push(attributeName);
         } else {
           // if attributes is empty array, change it to object
-          if (Array.isArray(attributes) && attributes.length == 0) {
+          if (Array.isArray(attributes) && attributes.length === 0) {
             attributes = {
               include: [],
             };
@@ -377,7 +438,7 @@ export class OptionsParser {
         };
       } else {
         const existInclude = queryParams['include'][existIncludeIndex];
-        if (existInclude.attributes && Array.isArray(existInclude.attributes) && existInclude.attributes.length == 0) {
+        if (existInclude.attributes && Array.isArray(existInclude.attributes) && existInclude.attributes.length === 0) {
           existInclude.attributes = {
             include: [],
           };
