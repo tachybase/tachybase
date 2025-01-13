@@ -35,18 +35,34 @@ function parseQuarter(value) {
   }
 }
 
-function parseWeek(value) {
+export function parseWeek(value) {
   if (/^\d\d\d\d[W]\d\d$/.test(value)) {
     const arr = value.split('W');
-    // dayjs 还不支持 dayjs("2019W19","gggg[W]ww") 这种语法
-    // 参见：https://github.com/iamkun/dayjs/issues/784
+    const year = dayjs(arr[0], 'YYYY').format('GGGG');
+    if (year !== arr[0]) {
+      return {
+        unit: 'isoWeek',
+        start: dayjs(arr[0], 'YYYY')
+          .add(1, 'week')
+          .startOf('isoWeek')
+          .isoWeek(Number(arr[1]))
+          .format('YYYY-MM-DD HH:mm:ss'),
+      };
+    }
     return {
       unit: 'isoWeek',
-      start: dayjs(arr[0], 'YYYY').add(Number(arr[1]), 'weeks').format('YYYY-MM-DD HH:mm:ss'),
+      start: dayjs(arr[0], 'YYYY').isoWeek(Number(arr[1])).format('YYYY-MM-DD HH:mm:ss'),
     };
   }
   if (/^\d\d\d\d[w]\d\d$/.test(value)) {
     const arr = value.split('w');
+    const year = dayjs(arr[0], 'YYYY').format('gggg');
+    if (year !== arr[0]) {
+      return {
+        unit: 'week',
+        start: dayjs(arr[0], 'YYYY').add(1, 'week').startOf('week').week(Number(arr[1])).format('YYYY-MM-DD HH:mm:ss'),
+      };
+    }
     return {
       unit: 'week',
       start: dayjs(arr[0], 'YYYY').week(Number(arr[1])).format('YYYY-MM-DD HH:mm:ss'),
@@ -55,7 +71,7 @@ function parseWeek(value) {
 }
 
 function parseMonth(value) {
-  if (/^\d\d\d\d\-\d\d$/.test(value)) {
+  if (/^\d\d\d\d-\d\d$/.test(value)) {
     return {
       unit: 'month',
       start: `${value}-01 00:00:00`,
@@ -64,7 +80,7 @@ function parseMonth(value) {
 }
 
 function parseDay(value) {
-  if (/^\d\d\d\d\-\d\d\-\d\d$/.test(value)) {
+  if (/^\d\d\d\d-\d\d-\d\d$/.test(value)) {
     return {
       unit: 'day',
       start: `${value} 00:00:00`,
@@ -73,7 +89,7 @@ function parseDay(value) {
 }
 
 function parseHour(value) {
-  if (/^\d\d\d\d\-\d\d\-\d\d(\T|\s)\d\d$/.test(value)) {
+  if (/^\d\d\d\d-\d\d-\d\d(T|\s)\d\d$/.test(value)) {
     return {
       unit: 'hour',
       start: `${value}:00:00`,
@@ -82,7 +98,7 @@ function parseHour(value) {
 }
 
 function parseMinute(value) {
-  if (/^\d\d\d\d\-\d\d\-\d\d(\T|\s)\d\d\:\d\d$/.test(value)) {
+  if (/^\d\d\d\d-\d\d-\d\d(T|\s)\d\d:\d\d$/.test(value)) {
     return {
       unit: 'minute',
       start: `${value}:00`,
@@ -91,7 +107,7 @@ function parseMinute(value) {
 }
 
 function parseSecond(value) {
-  if (/^\d\d\d\d\-\d\d\-\d\d(\T|\s)\d\d\:\d\d\:\d\d$/.test(value)) {
+  if (/^\d\d\d\d-\d\d-\d\d(T|\s)\d\d:\d\d:\d\d$/.test(value)) {
     return {
       unit: 'second',
       start: `${value}`,
@@ -100,7 +116,7 @@ function parseSecond(value) {
 }
 
 function parseMillisecond(value) {
-  if (/^\d\d\d\d\-\d\d\-\d\d(\T|\s)\d\d\:\d\d\:\d\d\.\d\d\d$/.test(value)) {
+  if (/^\d\d\d\d-\d\d-\d\d(T|\s)\d\d:\d\d:\d\d\.\d\d\d$/.test(value)) {
     return {
       unit: 'millisecond',
       start: `${value}`,
@@ -155,7 +171,7 @@ export function parseDate(value: any, options = {} as { timezone?: string }) {
   let timezone = options.timezone || '+00:00';
   const input = value;
   if (typeof value === 'string') {
-    const match = /(.+)((\+|\-)\d\d\:\d\d)$/.exec(value);
+    const match = /(.+)((\+|-)\d\d:\d\d)$/.exec(value);
     if (match) {
       value = match[1];
       timezone = match[2];
@@ -205,13 +221,13 @@ function parseDateBetween(value: any, options = {} as { timezone?: string }) {
   if (typeof value !== 'string') {
     return;
   }
-  const match = /(.+)((\+|\-)\d\d\:\d\d)$/.exec(value);
+  const match = /(.+)((\+|-)\d\d:\d\d)$/.exec(value);
   let timezone = options.timezone || '+00:00';
   if (match) {
     value = match[1];
     timezone = match[2];
   }
-  const m = /^(\(|\[)(.+)\,(.+)(\)|\])$/.exec(value);
+  const m = /^(\(|\[)(.+),(.+)(\)|\])$/.exec(value);
   if (!m) {
     return;
   }

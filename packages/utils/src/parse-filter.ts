@@ -213,14 +213,16 @@ export function getDayRange(options: GetDayRangeOptions) {
   ];
 }
 
-function toMoment(value) {
+function toMoment(value, unit = '') {
   if (!value) {
-    return dayjs();
+    // isoWeek设置为该 ISO 周的周一
+    return unit === 'isoWeek' ? dayjs().isoWeekday(1) : dayjs();
   }
   if (dayjs.isDayjs(value)) {
     return value;
   }
-  return dayjs(value);
+  // isoWeek设置为该 ISO 周的周一
+  return unit === 'isoWeek' ? dayjs(value).isoWeekday(1) : dayjs(value);
 }
 
 export type Utc2unitOptions = {
@@ -232,13 +234,13 @@ export type Utc2unitOptions = {
 
 export function utc2unit(options: Utc2unitOptions) {
   const { now, unit, timezone = '+00:00', offset } = options;
-  let m = toMoment(now);
+  let m = toMoment(now, unit);
   m = m.utcOffset(offsetFromString(timezone));
   m = m.startOf(unit);
   if (offset > 0) {
-    m = m.add(offset, unit);
+    m = m.add(offset, unit === 'isoWeek' ? 'week' : unit);
   } else if (offset < 0) {
-    m = m.subtract(-1 * offset, unit);
+    m = m.subtract(-1 * offset, unit === 'isoWeek' ? 'week' : unit);
   }
   const fn = {
     year: () => m.format('YYYY'),
