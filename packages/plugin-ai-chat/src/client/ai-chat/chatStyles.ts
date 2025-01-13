@@ -11,6 +11,7 @@ export const useStyle = createStyles(({ token, css }) => {
       flex-direction: column;
       gap: 16px;
     `,
+    modalbody: css``,
     messages: css`
       flex-direction: column;
       flex: 1;
@@ -44,26 +45,37 @@ export const useStyle = createStyles(({ token, css }) => {
         font-size: 16px;
       }
     `,
-    addBtn: css`
-      background: #1677ff0f;
-      border: 1px solid #1677ff34;
-      width: calc(100% - 24px);
-      margin: 0 12px 24px 12px;
-    `,
     AIChatModal: css`
       position: fixed;
-      width: 450px;
-      right: 70px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      background-color: #fff;
-      padding-bottom: 0px;
-      top: 190px;
+      background-color: #ffffff;
+      bottom: 80px; /* 距离底部 */
+      right: 70px; /* 距离右侧 */
+      margin: 0; /* 去除默认居中偏移 */
+      top: unset;
+      padding-bottom: unset;
+
+      @media (max-width: 768px) {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        right: unset;
+        bottom: 12px;
+        left: 12px;
+        top: unset;
+        border-radius: 0;
+        box-shadow: none;
+        .ant-modal-content {
+          top: 20vw;
+          padding: 0 20px 20px 20px;
+          border-bottom: 4px solid transparent;
+          box-shadow: unset;
+        }
+      }
     `,
     modalContent: css`
       padding: 0 20px 20px 20px;
-      border-bottom: 4px solid transparent;
+      width: 100%;
+      height: 100%;
     `,
     modalHeader: css`
       display: flex;
@@ -100,95 +112,9 @@ export const useStyle = createStyles(({ token, css }) => {
       font-size: 20px;
       font-weight: bold;
     `,
-    chatItem: css`
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      margin-bottom: 20px;
-    `,
-    chatInfo: css`
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-    `,
-    avatar: css`
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin-left: 10px;
-    `,
     chatName: css`
       font-size: 14px;
       font-weight: bold;
-    `,
-    chatText: css`
-      width: fit-content;
-      margin: 0 30px;
-      font-size: 14px;
-      padding: 10px;
-      border-radius: 5px;
-      background-color: #f0f0f0;
-      line-height: 1.3;
-      text-align: justify;
-    `,
-    chatResponce: css`
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin: 10px 0;
-    `,
-    chatLoad: css`
-      display: flex;
-      margin-left: 30px;
-      align-items: center;
-
-      .chatText {
-        font-size: 12px;
-      }
-
-      .load {
-        font-size: 12px;
-        margin-left: 10px;
-      }
-    `,
-    chatExamples: css`
-      display: flex;
-      margin-top: 10px;
-      gap: 10px;
-      width: 100%;
-      margin-left: 50px;
-      justify-content: flex-start;
-    `,
-    chatExampleItem: css`
-      border: 1px solid #e0e0e6;
-      padding: 5px 10px;
-      border-radius: 8px;
-      background-color: transparent;
-      cursor: pointer;
-      transition: all 0.5s;
-
-      &:hover {
-        border: 1px solid #7d33ff;
-        transform: scale(1.1);
-      }
-    `,
-    chatInput: css`
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 10px;
-      padding: 0;
-    `,
-    chatOtherInfo: css`
-      font-size: 20px;
-      color: #9b9a9a;
-      margin-right: 5px;
-      cursor: pointer;
-
-      &:hover {
-        color: #7d33ff;
-      }
     `,
     input: css`
       width: 330px;
@@ -203,11 +129,6 @@ export const useStyle = createStyles(({ token, css }) => {
       &:focus {
         border: 1.5px solid #7d33ff;
       }
-    `,
-    antPopover: css`
-      max-width: 200px;
-      text-align: justify;
-      word-break: break-all;
     `,
   };
 });

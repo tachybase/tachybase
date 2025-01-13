@@ -22,5 +22,9 @@ export default {
       interface: 'encryption',
       iv: 'mlbcs3d6i60962i6',
     },
+    {
+      type: 'string',
+      name: 'System_messages',
+    },
   ],
 } as CollectionOptions;

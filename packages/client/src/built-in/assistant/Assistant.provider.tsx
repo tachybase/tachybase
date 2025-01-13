@@ -9,7 +9,7 @@ export const AssistantProvider = ({ children }) => {
     <>
       {children}
       <ACLRolesCheckProvider>
-        <FloatButton.Group trigger="hover" type="default" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
+        <FloatButton.Group trigger="click" type="default" style={{ right: 24, zIndex: 1250 }} icon={<ToolOutlined />}>
           <PinnedPluginList belongToFilter="hoverbutton" />
         </FloatButton.Group>
       </ACLRolesCheckProvider>
