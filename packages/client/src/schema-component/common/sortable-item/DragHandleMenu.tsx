@@ -1,14 +1,39 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { cx } from 'antd-style';
+import { MenuContext } from 'rc-menu/es/context/MenuContext';
 
 import { useDesignable } from '../../hooks';
 import { useStyles } from './DragHandleMenu.style';
 import { SortableContext } from './SortableItem';
 
+const AutoCloseMenu = ({ children }) => {
+  return children;
+};
+
+// export const DragHandleMenu = (props) => {
+//   // const { onOpenChange } = useContext(MenuContext);
+//   // const { draggable } = useContext(SortableContext);
+//   // const { designable } = useDesignable();
+//   // const { isDragging } = draggable;
+
+//   // useEffect(() => {
+//   //   if (!designable && props.isSubMenu && isDragging) {
+//   //     // 拖动分组时, 自动关闭当前分组
+//   //     onOpenChange?.(props.name, false);
+//   //     // setStateOpenKeys?.((prevOpenKeys) => {
+//   //     //   return prevOpenKeys.filter((key) => key !== name);
+//   //     // });
+//   //   }
+//   // }, [designable, isDragging, props.isSubMenu, props.name]);
+
+//   return <AutoCloseMenu><DragHandleMenuImpl {...props} /></AutoCloseMenu>
+// }
+
 export const DragHandleMenu = (props) => {
-  const { isSubMenu, name, setStateOpenKeys, children } = props;
+  const { isSubMenu, name, children } = props;
   const { draggable } = useContext(SortableContext);
+  const { onOpenChange } = useContext(MenuContext);
   const { designable } = useDesignable();
   const { attributes, listeners, setNodeRef, transform, isDragging } = draggable;
   const { styles } = useStyles();
@@ -53,9 +78,7 @@ export const DragHandleMenu = (props) => {
   useEffect(() => {
     if (isSubMenu && isDragging) {
       // 拖动分组时, 自动关闭当前分组
-      setStateOpenKeys?.((prevOpenKeys) => {
-        return prevOpenKeys.filter((key) => key !== name);
-      });
+      onOpenChange?.(name, false);
     }
   }, [isDragging]);
 

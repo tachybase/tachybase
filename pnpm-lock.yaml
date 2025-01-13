@@ -650,6 +650,9 @@ importers:
       nanoid:
         specifier: ^3.3.8
         version: 3.3.8
+      rc-menu:
+        specifier: 9.16.0
+        version: 9.16.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-tree-select:
         specifier: ^5.25.0
         version: 5.25.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
