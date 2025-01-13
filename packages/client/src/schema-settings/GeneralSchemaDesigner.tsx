@@ -131,7 +131,7 @@ export const GeneralSchemaDesigner: FC<PropsWithChildren<GeneralSchemaDesignerPr
             ) : (
               <SchemaSettingsDropdown
                 title={
-                  <EllipsisOutlined
+                  <MenuOutlined
                     role="button"
                     aria-label={getAriaLabel('schema-settings')}
                     style={{ cursor: 'pointer', fontSize: 12 }}
