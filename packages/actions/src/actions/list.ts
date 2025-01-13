@@ -38,7 +38,7 @@ function findArgs(ctx: Context) {
       params.appends[i] = `${item.prefix}(${qs.stringify({ sort: item.sortItems })})`;
     }
   });
-  params.sort = params.sort?.filter((item) => item.split('.').length === 1) ?? [];
+  // params.sort = params.sort?.filter((item) => item.split('.').length === 1) ?? [];
 
   if (params.tree) {
     const [collectionName, associationName] = resourceName.split('.');
