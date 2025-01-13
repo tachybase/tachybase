@@ -218,6 +218,7 @@ const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys,
 
   const sideMenuSchemaRef = useRef(sideMenuSchema);
   sideMenuSchemaRef.current = sideMenuSchema;
+  const [stateOpenKeys, setStateOpenKeys] = useState([]);
 
   const items = getMenuItems(() => <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />);
 
@@ -230,7 +231,7 @@ const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys,
     sideMenuSchema?.['x-component'] === 'Menu.SubMenu' &&
     sideMenuRef?.current?.firstChild &&
     createPortal(
-      <MenuModeContext.Provider value={'inline'}>
+      <MenuModeContext.Provider value={{ mode: 'inline', setStateOpenKeys }}>
         <Component />
         <AntdMenu
           mode={'inline'}
@@ -242,6 +243,8 @@ const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys,
           className={styles.sideMenuClass}
           items={items as MenuProps['items']}
           expandIcon={null}
+          onOpenChange={(openKeys) => setStateOpenKeys(openKeys)}
+          openKeys={stateOpenKeys}
         />
       </MenuModeContext.Provider>,
       sideMenuRef.current.firstChild,
@@ -516,7 +519,7 @@ Menu.SubMenu = observer(
     const { icon, children, ...others } = props;
     const schema = useFieldSchema();
     const field = useField();
-    const mode = useContext(MenuModeContext);
+    const { mode, setStateOpenKeys } = useContext(MenuModeContext);
     const Designer = useContext(MenuItemDesignerContext);
     const { styles } = useStyles();
     const submenu = useMemo(() => {
@@ -534,7 +537,7 @@ Menu.SubMenu = observer(
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
               >
-                <DragHandleMenu>
+                <DragHandleMenu name={schema.name} setStateOpenKeys={setStateOpenKeys}>
                   <span className={'submenu-title'}>
                     <Icon type={icon} />
                     <span className={'menuitem-title'}>{t(field.title)}</span>

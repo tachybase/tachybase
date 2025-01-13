@@ -6,16 +6,14 @@ import { useStyles } from './DragHandleMenu.style';
 import { SortableContext } from './SortableItem';
 
 export const DragHandleMenu = (props) => {
-  const { children } = props;
+  const { name, setStateOpenKeys, children } = props;
   const { draggable } = useContext(SortableContext);
   const { attributes, listeners, setNodeRef, transform, isDragging } = draggable;
   const { styles } = useStyles();
-
-  const pressTimer = useRef(null); // 用于存储定时器
-
   const ref = useRef(null); // 用于获取元素的宽高
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 }); // 存储元素的宽高
   const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 }); // 存储指针的初始位置
+  const [currentOpenSubMenuName, setCurrentOpenSubMenuName] = useState('');
 
   // 计算偏移量
   const centerOffset = {
@@ -49,16 +47,16 @@ export const DragHandleMenu = (props) => {
       setDimensions({ width, height });
       setInitialPosition({ x: clientX, y: clientY });
     }
-
-    pressTimer.current = setTimeout(() => {
-      listeners.onStart(event); // 手动触发拖拽开始
-    }, 100);
   };
 
-  // 处理鼠标释放事件
-  const handleMouseUp = () => {
-    clearTimeout(pressTimer.current);
-  };
+  useEffect(() => {
+    if (isDragging) {
+      // 拖动分组时, 自动关闭当前分组
+      setStateOpenKeys?.((prevOpenKeys) => {
+        return prevOpenKeys.filter((key) => key !== name);
+      });
+    }
+  }, [isDragging]);
 
   return (
     <div
@@ -71,7 +69,6 @@ export const DragHandleMenu = (props) => {
       {...attributes}
       role="none"
       onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
     >
       <div ref={ref} className={'wrapper'}>
         {children}
