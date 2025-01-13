@@ -49,7 +49,25 @@ export class UpdateInstruction extends Instruction {
         responseType: 'stream',
       };
       const form = new FormData();
-      if (resource.startsWith('data:')) {
+
+      if (typeof resource === 'object' && resource?.url && resource?.filename) {
+        // 证明是系统原本的附件类型, 重新走一遍新建附件的逻辑
+        const origin = Gateway.getInstance().runAtLoop;
+        config.url = resource.url.startsWith('http') ? resource.url : origin + resource.url;
+
+        // 下载指定 URL 的内容
+        const response = await axios(config);
+        // 获取文件的 MIME 类型
+        const contentType = response.headers['content-type'];
+        // 根据 MIME 类型获取文件扩展名
+        const ext = mime.extension(contentType);
+        const filename = `${resource.title ?? uid()}.${ext}`;
+        // 创建 FormData 实例
+        form.append('file', response.data, {
+          filename,
+          contentType: response.headers['content-type'],
+        });
+      } else if (resource.startsWith('data:')) {
         // base64
         const matches = resource.match(/^data:(.+);base64,(.+)$/);
         if (matches) {
@@ -113,6 +131,7 @@ export class UpdateInstruction extends Instruction {
         });
       }
       // 发送 multipart 请求
+      // NOTE: 怎么用系统内置的 API, 完成附件的新建逻辑
       const origin = Gateway.getInstance().runAtLoop;
       const uploadResponse = await axios({
         method: 'post',
@@ -123,6 +142,7 @@ export class UpdateInstruction extends Instruction {
           Authorization: 'Bearer ' + token,
         },
       });
+
       return uploadResponse.data.data;
     };
 
