@@ -237,6 +237,7 @@ export const tableBlockSettings = new SchemaSettings({
                             style: {
                               width: 260,
                             },
+                            optionLabelProp: 'fullLabel',
                           },
                         },
                         direction: {

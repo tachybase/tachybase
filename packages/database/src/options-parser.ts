@@ -159,12 +159,17 @@ export class OptionsParser {
         direction = `${direction} NULLS LAST`;
       }
 
+      let valid = true;
       // handle sort by association
       if (sortField.length > 1) {
         let associationModel = this.model;
         for (let i = 0; i < sortField.length - 1; i++) {
           const associationKey = sortField[i];
           const associationEntity = associationModel.associations[associationKey];
+          if (!associationEntity) {
+            valid = false;
+            break;
+          }
           if (!['BelongsTo', 'HasOne'].includes(associationEntity.associationType)) {
             continue;
           }
@@ -180,6 +185,9 @@ export class OptionsParser {
         sortField[0] = rawField?.field || sortField[0];
       }
 
+      if (!valid) {
+        continue;
+      }
       sortField.push(direction);
       if (this.database.isMySQLCompatibleDialect()) {
         const fieldName = sortField[0];

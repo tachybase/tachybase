@@ -15,7 +15,7 @@ function findArgs(ctx: Context) {
   const resourceName = ctx.action.resourceName;
   const params = ctx.action.params;
   // 处理 sort 字段
-  const includeSort = params.sort?.filter((item) => item.split('.').length > 1) ?? [];
+  const includeSort = params.sort?.filter((item) => typeof item === 'string' && item.split('.').length > 1) ?? [];
   const sortItems = [];
   includeSort.forEach((sort) => {
     const parts = sort[0] === '-' ? sort.slice(1, sort.length).split('.') : sort.split('.');

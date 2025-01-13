@@ -166,6 +166,7 @@ export const TableSelectorDesigner = () => {
                               style: {
                                 width: 260,
                               },
+                              optionLabelProp: 'fullLabel',
                             },
                           },
                           direction: {

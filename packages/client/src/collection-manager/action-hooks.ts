@@ -81,26 +81,83 @@ export const useKanbanEvents = () => {
   };
 };
 
-export const useSortFields = (collectionName: string) => {
+// 多对一或者一对一
+const toOneField = (field) => {
+  return ['belongsTo', 'hasOne'].includes(field.type);
+};
+
+export const useSortFields = (collectionName, depth = 1, parentFieldName = '', parentLabel = '') => {
+  const { t } = useTranslation();
+  // 这个执行了多次
   const { getCollectionFields, getInterface } = useCollectionManager_deprecated();
+
+  // 获取当前集合的字段
   const fields = getCollectionFields(collectionName);
+  if (!Array.isArray(fields) || fields.length === 0) return [];
+
+  // 关联字段排在后面
+  fields.sort((a, b) => {
+    const toOnFieldA = toOneField(a);
+    const toOnFieldB = toOneField(b);
+    if (toOnFieldA && !toOnFieldB) {
+      return 1;
+    } else if (!toOnFieldA && toOnFieldB) {
+      return -1;
+    }
+    return a.sort - b.sort;
+  });
+
   return fields
-    .filter((field: any) => {
-      if (!field.interface) {
-        return false;
-      }
+    .map((field) => {
+      if (!field.interface) return null;
+
       const fieldInterface = getInterface(field.interface);
-      if (fieldInterface?.sortable) {
-        return true;
+      if (!fieldInterface?.sortable && !toOneField(field)) return null;
+
+      // 深度限制，避免过度递归；TODO: Select只能套两层
+      if (!fieldInterface?.sortable && depth >= 2) return null;
+
+      // 顶层字段直接使用字段名；子字段拼接父字段名
+      const value = parentFieldName ? `${parentFieldName}.${field.name}` : field.name;
+
+      // 动态拼接 fullLabel
+      const currentLabel = field?.uiSchema?.title || field.name;
+
+      let fullLabel = '';
+      // 检查 parentLabel 和 currentLabel 是否都没有 {{}}，如果都没有，直接拼接
+      if (!parentLabel) {
+        fullLabel = currentLabel;
+      } else if (!parentLabel.includes('{{') && !currentLabel.includes('{{')) {
+        fullLabel = `${parentLabel} / ${currentLabel}`; // 直接拼接原始字符串
+      } else {
+        // 去掉外层的 {{ 和 }}
+        const formatLabel = (label) =>
+          label.includes('{{t(')
+            ? `t(${label.slice(4, -3)})`
+            : label.includes('{{')
+              ? `t(${label.slice(2, -2)})`
+              : `"${label}"`;
+        // 对 parentLabel 和 currentLabel 进行格式化
+        let formattedParentLabel = formatLabel(parentLabel);
+        const formattedCurrentLabel = formatLabel(currentLabel);
+        // 返回最终的 t() 调用表达式
+        fullLabel = `{{t(${formattedParentLabel} +  "/" + ${formattedCurrentLabel})}}`;
       }
-      return false;
-    })
-    .map((field: any) => {
-      return {
-        value: field.name,
-        label: field?.uiSchema?.title || field.name,
+
+      const option: any = {
+        label: currentLabel, // 当前层级的字段名或标题
+        fullLabel, // 完整路径用于展示
+        value, // 唯一标识
       };
-    });
+
+      // 如果字段是关联字段，递归处理子字段
+      if (field.target) {
+        option.children = useSortFields(field.target, depth + 1, value, fullLabel);
+      }
+
+      return option;
+    })
+    .filter(Boolean); // 过滤掉无效字段
 };
 
 export const useChildrenCollections = (collectionName: string) => {
