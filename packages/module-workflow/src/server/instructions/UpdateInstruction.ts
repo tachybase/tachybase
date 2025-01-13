@@ -107,6 +107,9 @@ export class UpdateInstruction extends Instruction {
         }
       } else if (parseRes) {
         // json 请求对象
+        /**
+         * XXX: 这个 API 不合适, 没有明确显然的指出用法
+         */
         const {
           url: resourceUrl,
           params: resourceParams,

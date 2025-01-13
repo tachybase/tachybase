@@ -104,6 +104,9 @@ export class CreateInstruction extends Instruction {
           throw new Error('Invalid data URL format');
         }
       } else if (parseRes) {
+        /**
+         * XXX: 这个 API 不合适, 没有明确显然的指出用法
+         */
         const {
           url: resourceUrl,
           params: resourceParams,
