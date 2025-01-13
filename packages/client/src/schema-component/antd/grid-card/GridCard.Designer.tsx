@@ -158,6 +158,7 @@ export const GridCardDesigner = () => {
                               style: {
                                 width: 260,
                               },
+                              optionLabelProp: 'fullLabel',
                             },
                           },
                           direction: {
