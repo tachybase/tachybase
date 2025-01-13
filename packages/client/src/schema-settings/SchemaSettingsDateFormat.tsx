@@ -99,12 +99,28 @@ export const SchemaSettingsDateFormat = function DateFormatConfig(props: { field
               'x-decorator': 'FormItem',
               'x-component': 'Checkbox',
               'x-content': '{{t("Show time")}}',
+              'x-hidden': collectionField?.type === 'dateOnly',
               'x-reactions': [
                 `{{(field) => {
               field.query('.timeFormat').take(f => {
                 f.display = field.value ? 'visible' : 'none';
               });
             }}}`,
+                {
+                  dependencies: ['picker'],
+                  when: '{{$deps[0]!=="date"}}',
+                  fulfill: {
+                    state: {
+                      hidden: true,
+                      value: false,
+                    },
+                  },
+                  otherwise: {
+                    state: {
+                      hidden: collectionField?.type === 'dateOnly',
+                    },
+                  },
+                },
               ],
             },
             timeFormat: {

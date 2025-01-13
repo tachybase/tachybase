@@ -1,8 +1,20 @@
+/**
+ * This file is part of the NocoBase (R) project.
+ * Copyright (c) 2020-2024 NocoBase Co., Ltd.
+ * Authors: NocoBase Team.
+ *
+ * This project is dual-licensed under AGPL-3.0 and NocoBase Commercial License.
+ * For more information, please refer to: https://www.nocobase.com/agreement.
+ */
+
+import { dayjs, getPickerFormat, Handlebars } from '@nocobase/utils/client';
 import _, { every, findIndex, some } from 'lodash';
 
+import { replaceVariableValue } from '../../../block-provider/hooks';
 import { VariableOption, VariablesContextType } from '../../../variables/types';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { transformVariableValue } from '../../../variables/utils/transformVariableValue';
+import { inferPickerType } from '../../antd/date-picker/util';
 import { getJsonLogic } from '../../common/utils/logic';
 
 type VariablesCtx = {
@@ -70,17 +82,21 @@ export const conditionAnalyses = async ({
   ruleGroup,
   variables,
   localVariables,
+  variableNameOfLeftCondition,
 }: {
   ruleGroup;
   variables: VariablesContextType;
   localVariables: VariableOption[];
+  /**
+   * used to parse the variable name of the left condition value
+   * @default '$nForm'
+   */
+  variableNameOfLeftCondition?: string;
 }) => {
   const type = Object.keys(ruleGroup)[0] || '$and';
   const conditions = ruleGroup[type];
 
-  let results = [];
-
-  for (const condition of conditions) {
+  let results = conditions.map(async (condition) => {
     if ('$and' in condition || '$or' in condition) {
       return await conditionAnalyses({ ruleGroup: condition, variables, localVariables });
     }
@@ -92,55 +108,41 @@ export const conditionAnalyses = async ({
       return true;
     }
 
-    const targetFieldArr = getTargetField(condition);
-    const targetVariableName = targetFieldToVariableString(targetFieldArr);
-
-    /**
-     * NOTE: 因为联动规则, 添加的时候, 请求数据已经加入了相应的关联字段,
-     * 因此直接查看当前是否能访问到当前记录, 如果能访问到, 无需再次专门去请求关联字段
-     */
-    const localFormRecord = localVariables.find((v) => v.name === '$nForm');
-    if (localFormRecord?.ctx) {
-      const targetValue = _.get(localFormRecord.ctx, targetFieldArr);
-
-      const targetCollectionField = await variables.getCollectionField(targetVariableName, localVariables);
-
-      const result = getJsonLogic().apply({
-        [operator]: [
-          transformVariableValue(targetValue, { targetCollectionField }),
-          transformVariableValue(jsonlogic.value, { targetCollectionField }),
-        ],
-      });
-
-      results.push(result);
-      continue;
-    }
-
-    // NOTE: 走保底逻辑, 独立查询
-    const targetValue = variables.parseVariable(targetVariableName, localVariables);
+    const targetVariableName = targetFieldToVariableString(getTargetField(condition), variableNameOfLeftCondition);
+    const targetValue = variables
+      .parseVariable(targetVariableName, localVariables, {
+        doNotRequest: true,
+      })
+      .then(({ value }) => value);
 
     const parsingResult = isVariable(jsonlogic?.value)
-      ? [variables.parseVariable(jsonlogic?.value, localVariables), targetValue]
+      ? [variables.parseVariable(jsonlogic?.value, localVariables).then(({ value }) => value), targetValue]
       : [jsonlogic?.value, targetValue];
 
     try {
       const jsonLogic = getJsonLogic();
       const [value, targetValue] = await Promise.all(parsingResult);
       const targetCollectionField = await variables.getCollectionField(targetVariableName, localVariables);
+      let currentInputValue = transformVariableValue(targetValue, { targetCollectionField });
+      const comparisonValue = transformVariableValue(value, { targetCollectionField });
+      if (
+        targetCollectionField?.type &&
+        ['datetime', 'date', 'datetimeNoTz', 'dateOnly', 'unixTimestamp'].includes(targetCollectionField.type) &&
+        currentInputValue
+      ) {
+        const picker = inferPickerType(comparisonValue);
+        const format = getPickerFormat(picker);
+        currentInputValue = dayjs(currentInputValue).format(format);
+      }
 
-      // XXX: 这里还需要理清下, 包内自己定义的 jsonLogic 的 API 是什么? 用法是什么?, 和通用逻辑是否一致
-      const result = jsonLogic.apply({
-        [operator]: [
-          transformVariableValue(targetValue, { targetCollectionField }),
-          transformVariableValue(value, { targetCollectionField }),
-        ],
+      return jsonLogic.apply({
+        [operator]: [currentInputValue, comparisonValue],
       });
-
-      results.push(result);
     } catch (error) {
       throw error;
     }
-  }
+  });
+  results = await Promise.all(results);
 
   if (type === '$and') {
     return every(results, (v) => v);
@@ -154,7 +156,43 @@ export const conditionAnalyses = async ({
  * @param targetField
  * @returns
  */
-export function targetFieldToVariableString(targetField: string[]) {
+function targetFieldToVariableString(targetField: string[], variableName = '$nForm') {
   // Action 中的联动规则虽然没有 form 上下文但是在这里也使用的是 `$nForm` 变量，这样实现更简单
-  return `{{ $nForm.${targetField.join('.')} }}`;
+  return `{{ ${variableName}.${targetField.join('.')} }}`;
+}
+
+const getVariablesData = (localVariables) => {
+  const data = {};
+  localVariables.map((v) => {
+    data[v.name] = v.ctx;
+  });
+  return data;
+};
+
+export async function getRenderContent(templateEngine, content, variables, localVariables, defaultParse) {
+  if (content && templateEngine === 'handlebars') {
+    try {
+      const renderedContent = Handlebars.compile(content);
+      // 处理渲染后的内容
+      const data = getVariablesData(localVariables);
+      const { $nDate } = variables?.ctxRef?.current || {};
+      const variableDate = {};
+      Object.keys($nDate || {}).map((v) => {
+        variableDate[v] = $nDate[v]();
+      });
+      const html = renderedContent({ ...variables?.ctxRef?.current, ...data, $nDate: variableDate });
+      return await defaultParse(html);
+    } catch (error) {
+      console.log(error);
+      return content;
+    }
+  } else {
+    try {
+      const html = await replaceVariableValue(content, variables, localVariables);
+      return await defaultParse(html);
+    } catch (error) {
+      console.log(error);
+      return content;
+    }
+  }
 }

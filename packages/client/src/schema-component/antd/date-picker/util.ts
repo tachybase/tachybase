@@ -1,5 +1,14 @@
-import { dayjs, getDefaultFormat, str2moment, toGmt, toLocal, type Dayjs } from '@tachybase/utils/client';
+import {
+  dayjs,
+  getDefaultFormat,
+  getPickerFormat,
+  str2moment,
+  toGmt,
+  toLocal,
+  type Dayjs,
+} from '@tachybase/utils/client';
 
+// TODO: 这个文件有很大问题
 const toStringByPicker = (value, picker, timezone: 'gmt' | 'local') => {
   if (!dayjs.isDayjs(value)) return value;
   if (timezone === 'local') {
@@ -22,45 +31,6 @@ const toStringByPicker = (value, picker, timezone: 'gmt' | 'local') => {
     return value.startOf('week').add(1, 'day').format('YYYY-MM-DD') + 'T00:00:00.000Z';
   }
   return value.format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
-};
-
-const toGmtByPicker = (value: Dayjs, picker?: any) => {
-  if (!value || !dayjs.isDayjs(value)) {
-    return value;
-  }
-  return toStringByPicker(value, picker, 'gmt');
-};
-
-const toLocalByPicker = (value: Dayjs, picker?: any) => {
-  if (!value || !dayjs.isDayjs(value)) {
-    return value;
-  }
-  return toStringByPicker(value, picker, 'local');
-};
-
-export interface Moment2strOptions {
-  showTime?: boolean;
-  gmt?: boolean;
-  utc?: boolean;
-  picker?: 'year' | 'month' | 'week' | 'quarter';
-}
-
-export const moment2str = (value?: Dayjs | null, options: Moment2strOptions = {}) => {
-  const { showTime, gmt, picker, utc = true } = options;
-  if (!value) {
-    return value;
-  }
-  if (!utc) {
-    const format = showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD';
-    return value.format(format);
-  }
-  if (showTime) {
-    return gmt ? toGmt(value) : toLocal(value);
-  }
-  if (typeof gmt === 'boolean') {
-    return gmt ? toGmtByPicker(value, picker) : toLocalByPicker(value, picker);
-  }
-  return toGmtByPicker(value, picker);
 };
 
 export const mapDatePicker = function () {
@@ -163,3 +133,95 @@ export const getDateRanges = () => {
     next90Days: () => [getStart(1, 'day'), getEnd(90, 'days')],
   };
 };
+
+const toGmtByPicker = (value: Dayjs, picker?: any) => {
+  if (!value || !dayjs.isDayjs(value)) {
+    return value;
+  }
+  return toStringByPicker(value, picker, 'gmt');
+};
+
+const toLocalByPicker = (value: Dayjs, picker?: any) => {
+  if (!value || !dayjs.isDayjs(value)) {
+    return value;
+  }
+  return toStringByPicker(value, picker, 'local');
+};
+
+export interface Moment2strOptions {
+  showTime?: boolean;
+  gmt?: boolean;
+  utc?: boolean;
+  picker?: 'year' | 'month' | 'week' | 'quarter';
+}
+
+export const moment2str = (value?: Dayjs | null, options: Moment2strOptions = {}) => {
+  const { showTime, gmt, picker = 'date', utc = true } = options;
+  if (!value) {
+    return value;
+  }
+  if (!utc) {
+    const format = showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD';
+    return value.format(format);
+  }
+  if (showTime) {
+    return gmt ? toGmt(value) : toLocal(value);
+  }
+  if (typeof gmt === 'boolean') {
+    return gmt ? toGmtByPicker(value, picker) : toLocalByPicker(value, picker);
+  }
+  return toLocalByPicker(value, picker);
+};
+
+const handleChangeOnFilter = (value, picker, showTime) => {
+  const format = showTime ? 'YYYY-MM-DD HH:mm:ss' : getPickerFormat(picker);
+  if (value) {
+    return dayjs(value).format(format);
+  }
+  return value;
+};
+export const handleDateChangeOnForm = (value, dateOnly, utc, picker, showTime, gmt) => {
+  const format = showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD';
+  if (!value) {
+    return value;
+  }
+  if (dateOnly) {
+    return dayjs(value).startOf(picker).format('YYYY-MM-DD');
+  }
+  if (utc) {
+    if (gmt) {
+      return toGmt(value);
+    }
+    if (picker !== 'date') {
+      return dayjs(value).startOf(picker).toISOString();
+    }
+    const formattedDate = dayjs(value).format(format);
+    return dayjs(formattedDate).toISOString();
+  }
+  if (showTime) {
+    return dayjs(value).format(format);
+  }
+  return dayjs(value).startOf(picker).format(format);
+};
+
+function withParams(value: any[], params: { fieldOperator?: string; isParsingVariable?: boolean }) {
+  if (params?.isParsingVariable && params?.fieldOperator && params.fieldOperator !== '$dateBetween') {
+    return value[0];
+  }
+
+  return value;
+}
+
+export function inferPickerType(dateString: string): 'year' | 'month' | 'quarter' | 'date' {
+  if (/^\d{4}$/.test(dateString)) {
+    return 'year';
+  } else if (/^\d{4}-\d{2}$/.test(dateString)) {
+    return 'month';
+  } else if (/^\d{4}Q[1-4]$/.test(dateString)) {
+    return 'quarter';
+  } else if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+    return 'date';
+  } else {
+    return 'date';
+  }
+}
