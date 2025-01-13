@@ -1,5 +1,3 @@
-import fs from 'fs';
-import { Readable } from 'stream';
 import { parseCollectionName } from '@tachybase/data-source';
 import { Gateway } from '@tachybase/server';
 import { uid } from '@tachybase/utils';
@@ -42,7 +40,7 @@ export class UpdateInstruction extends Instruction {
         return false;
       }
     };
-    //目前可处理url，json对象，base64
+    // 目前可处理 base64, json 请求对象，url; 专用于方便处理存储附件字段
     const handleResource = async (resource) => {
       const parseRes = isJSON(resource);
       const config: AxiosRequestConfig<any> = {
@@ -52,6 +50,7 @@ export class UpdateInstruction extends Instruction {
       };
       const form = new FormData();
       if (resource.startsWith('data:')) {
+        // base64
         const matches = resource.match(/^data:(.+);base64,(.+)$/);
         if (matches) {
           const contentType = matches[1];
@@ -68,7 +67,14 @@ export class UpdateInstruction extends Instruction {
           throw new Error('Invalid data URL format');
         }
       } else if (parseRes) {
-        const { url: resourceUrl, params: resourceParams, headers: resourceHeaders, body: resourceBody } = parseRes;
+        // json 请求对象
+        const {
+          url: resourceUrl,
+          params: resourceParams,
+          headers: resourceHeaders,
+          body: resourceBody,
+          filename,
+        } = parseRes;
         config.url = resourceUrl;
         config.params = resourceParams;
         config.headers = resourceHeaders;
@@ -85,13 +91,14 @@ export class UpdateInstruction extends Instruction {
         const contentType = response.headers['content-type'];
         // 根据 MIME 类型获取文件扩展名
         const ext = mime.extension(contentType);
-        const filename = `${uid()}.${ext}`;
+        const fullFilename = `${filename || uid()}.${ext}`;
         // 创建 FormData 实例
         form.append('file', response.data, {
-          filename,
+          filename: fullFilename,
           contentType: response.headers['content-type'],
         });
       } else {
+        // 处理 url
         // 下载指定 URL 的内容
         const response = await axios(config);
         // 获取文件的 MIME 类型
