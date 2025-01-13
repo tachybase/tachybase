@@ -9,14 +9,17 @@ export class AIChatController {
   async handleMessage(ctx: Context, next: Next) {
     const repo = ctx.db.getRepository('aisettings');
     const data = await repo.findOne();
-    const model = data?.Model;
+    const { Model: model, AI_URL: apiUrl, AI_API_KEY: aitoken, System_messages: SystemMessages } = data || {};
     const userMessage = ctx.action?.params?.values?.message || undefined;
-    const apiUrl = data?.AI_URL;
-    const aitoken = data?.AI_API_KEY;
+
+    if (!model || !apiUrl || !aitoken || !userMessage) {
+      ctx.throw('Missing required fields for AI chat');
+    }
+
     const requestData = {
       model,
       messages: [
-        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'system', content: SystemMessages },
         { role: 'user', content: userMessage },
       ],
     };
