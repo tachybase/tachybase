@@ -224,7 +224,13 @@ export const SchemaSettingsDropdown: React.FC<SchemaSettingsProps> = (props) => 
         open={visible}
         onOpenChange={changeMenu}
         overlayClassName={styles.menu}
-        menu={{ items, style: { maxHeight: dropdownMaxHeight, overflowY: 'auto' } }}
+        menu={{
+          items,
+          style: {
+            maxHeight: dropdownMaxHeight,
+            overflowY: 'auto',
+          },
+        }}
       >
         <div data-testid={props['data-testid']}>{typeof title === 'string' ? <span>{title}</span> : title}</div>
       </Dropdown>
