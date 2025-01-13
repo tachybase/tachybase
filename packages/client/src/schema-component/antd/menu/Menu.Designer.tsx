@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { TreeSelect } from '@tachybase/components';
 import { Field, ISchema, onFieldChange, Schema, useField, useFieldSchema } from '@tachybase/schema';
 
@@ -50,9 +51,12 @@ const findMenuSchema = (fieldSchema: Schema) => {
   }
 };
 
-const InsertMenuItemsGroup = () => {
+const InsertMenuItemsGroup = (props) => {
+  const { insertPosition = 'beforeEnd' } = props;
   const { t } = useTranslation();
   const { dn } = useDesignable();
+  const fieldSchema = useFieldSchema();
+  const isSubMenu = fieldSchema['x-component'] === 'Menu.SubMenu';
   const api = useAPIClient();
   const serverHooks = [
     {
@@ -64,8 +68,6 @@ const InsertMenuItemsGroup = () => {
       method: 'extractTextToLocale',
     },
   ];
-  // 统一添加在子节点最后一个位置; 页面和链接不能新增
-  const insertPosition = 'beforeEnd';
   return (
     <SchemaSettingsItemGroup>
       <SchemaSettingsModalItem
@@ -93,7 +95,12 @@ const InsertMenuItemsGroup = () => {
           } as ISchema
         }
         onSubmit={({ title, icon }) => {
-          dn.insertAdjacent(insertPosition, {
+          /**
+           * 子菜单
+           * 1. 如果当前是子菜单, 默认添加在当前节点后边;
+           * 2. 如果当前是页面或链接, 默认添加在当前节点后边
+           */
+          dn.insertAdjacent('afterEnd', {
             type: 'void',
             title,
             'x-component': 'Menu.SubMenu',
@@ -130,7 +137,12 @@ const InsertMenuItemsGroup = () => {
           } as ISchema
         }
         onSubmit={({ title, icon }) => {
-          dn.insertAdjacent(insertPosition, {
+          /**
+           * 页面
+           * 1. 如果当前是子菜单, 默认在当前节点的第一个子节点前面插入
+           * 2. 如果当前是页面或链接, 默认添加在当前节点后边
+           */
+          dn.insertAdjacent(isSubMenu ? 'afterBegin' : 'afterEnd', {
             type: 'void',
             title,
             'x-component': 'Menu.Item',
@@ -186,7 +198,12 @@ const InsertMenuItemsGroup = () => {
           } as ISchema
         }
         onSubmit={({ title, icon, href }) => {
-          dn.insertAdjacent(insertPosition, {
+          /**
+           * 链接
+           * 1. 如果当前是子菜单, 默认在当前节点的第一个子节点前面插入
+           * 2. 如果当前是页面或链接, 默认添加在当前节点后边
+           */
+          dn.insertAdjacent(isSubMenu ? 'afterBegin' : 'afterEnd', {
             type: 'void',
             title,
             'x-component': 'Menu.URL',
@@ -238,6 +255,11 @@ const InsertMenuItemsGroup = () => {
           } as ISchema
         }
         onSubmit={async ({ title, file, bindMenuToRole }) => {
+          /**
+           * 加载菜单配置
+           * 1. 如果当前是子菜单, 默认添加在当前节点后边
+           * 2. 如果当前是页面或链接, 默认添加在当前节点后边
+           */
           const { data } = await api.request({
             url: file.url,
             baseURL: '/',
@@ -253,7 +275,7 @@ const InsertMenuItemsGroup = () => {
             }
           }
           s.title = title;
-          dn.insertAdjacent(insertPosition, s);
+          dn.insertAdjacent('afterEnd', s);
         }}
       />
     </SchemaSettingsItemGroup>
@@ -310,7 +332,6 @@ export const MenuDesigner = () => {
     title: field.title,
     icon: field.componentProps.icon,
   };
-  const isSubMenu = fieldSchema['x-component'] === 'Menu.SubMenu';
   if (fieldSchema['x-component'] === 'Menu.URL') {
     schema.properties['href'] = {
       title: t('Link'),
@@ -320,7 +341,7 @@ export const MenuDesigner = () => {
     initialValues['href'] = field.componentProps.href;
   }
   return (
-    <GeneralSchemaDesigner draggable={false} AddMenuModalComponent={isSubMenu ? <InsertMenuItemsGroup /> : null}>
+    <GeneralSchemaDesigner draggable={false} AddMenuModalComponent={<InsertMenuItemsGroup />}>
       <SchemaSettingsModalItem
         title={t('Modify the name and icon')}
         eventKey="edit"
