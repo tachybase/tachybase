@@ -2,18 +2,19 @@ import { useContext, useEffect, useRef, useState } from 'react';
 
 import { cx } from 'antd-style';
 
+import { useDesignable } from '../../hooks';
 import { useStyles } from './DragHandleMenu.style';
 import { SortableContext } from './SortableItem';
 
 export const DragHandleMenu = (props) => {
   const { isSubMenu, name, setStateOpenKeys, children } = props;
   const { draggable } = useContext(SortableContext);
+  const { designable } = useDesignable();
   const { attributes, listeners, setNodeRef, transform, isDragging } = draggable;
   const { styles } = useStyles();
   const ref = useRef(null); // 用于获取元素的宽高
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 }); // 存储元素的宽高
   const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 }); // 存储指针的初始位置
-  const [currentOpenSubMenuName, setCurrentOpenSubMenuName] = useState('');
 
   // 计算偏移量
   const centerOffset = {
@@ -57,6 +58,10 @@ export const DragHandleMenu = (props) => {
       });
     }
   }, [isDragging]);
+
+  if (!designable) {
+    return children;
+  }
 
   return (
     <div
