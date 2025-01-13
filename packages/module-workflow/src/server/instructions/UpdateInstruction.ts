@@ -42,6 +42,44 @@ export class UpdateInstruction extends Instruction {
     };
     // 目前可处理 base64, json 请求对象，url; 专用于方便处理存储附件字段
     const handleResource = async (resource) => {
+      if (typeof resource === 'object' && resource?.url && resource?.filename) {
+        // 证明是系统原本的附件类型;
+        // NOTE: 这里是为了取出普通字段, 排除名称不定的中间表关联字段
+        const {
+          id,
+          createdAt,
+          updatedAt,
+          title,
+          filename,
+          extname,
+          size,
+          mimetype,
+          path,
+          meta,
+          url,
+          createById,
+          updatedById,
+          storageId,
+        } = resource;
+
+        return {
+          id,
+          createdAt,
+          updatedAt,
+          title,
+          filename,
+          extname,
+          size,
+          mimetype,
+          path,
+          meta,
+          url,
+          createById,
+          updatedById,
+          storageId,
+        };
+      }
+
       const parseRes = isJSON(resource);
       const config: AxiosRequestConfig<any> = {
         method: 'get',
@@ -50,24 +88,7 @@ export class UpdateInstruction extends Instruction {
       };
       const form = new FormData();
 
-      if (typeof resource === 'object' && resource?.url && resource?.filename) {
-        // 证明是系统原本的附件类型, 重新走一遍新建附件的逻辑
-        const origin = Gateway.getInstance().runAtLoop;
-        config.url = resource.url.startsWith('http') ? resource.url : origin + resource.url;
-
-        // 下载指定 URL 的内容
-        const response = await axios(config);
-        // 获取文件的 MIME 类型
-        const contentType = response.headers['content-type'];
-        // 根据 MIME 类型获取文件扩展名
-        const ext = mime.extension(contentType);
-        const filename = `${resource.title ?? uid()}.${ext}`;
-        // 创建 FormData 实例
-        form.append('file', response.data, {
-          filename,
-          contentType: response.headers['content-type'],
-        });
-      } else if (resource.startsWith('data:')) {
+      if (resource.startsWith('data:')) {
         // base64
         const matches = resource.match(/^data:(.+);base64,(.+)$/);
         if (matches) {
@@ -145,18 +166,17 @@ export class UpdateInstruction extends Instruction {
 
       return uploadResponse.data.data;
     };
-
     // 处理文件类型
     for (const attachmentField of includesFields) {
       if (attachmentField.options.interface === 'attachment') {
-        const urls = options.values[attachmentField.options.name];
-        if (Array.isArray(urls)) {
-          for (const i in urls) {
-            urls[i] = await handleResource(urls[i]);
+        let targetField = options.values[attachmentField.options.name];
+
+        if (Array.isArray(targetField)) {
+          for (const i in targetField) {
+            targetField[i] = await handleResource(targetField[i]);
           }
         } else {
-          const url = options.values[attachmentField.options.name];
-          options.values[attachmentField.options.name] = [await handleResource(url)];
+          targetField = [await handleResource(targetField)];
         }
       }
     }
