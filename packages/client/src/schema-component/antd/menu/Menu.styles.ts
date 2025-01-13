@@ -18,7 +18,7 @@ export const useStyles = createStyles(({ css, token }) => {
         }
         .ant-space-item:hover {
           border-radius: 5px;
-          background-color: ${token.colorPrimary};
+          background-color: var(--colorSettings);
           color: #fff;
         }
       }
