@@ -53,7 +53,6 @@ export const useStyles = createStyles(({ css, token }) => {
         padding: 0;
         border: none;
         box-shadow: none;
-        background-color: red;
       }
 
       .field-link {
@@ -81,6 +80,16 @@ export const useStyles = createStyles(({ css, token }) => {
         overflow: hidden;
         text-overflow: ellipsis;
         font-size: ${token.fontSizeSM};
+      }
+
+      .tb-sortable-designer {
+        width: 100%;
+        height: 5rem;
+      }
+
+      .drag-handle-menu {
+        width: 100%;
+        height: 100%;
       }
 
       .designer-wrapper {

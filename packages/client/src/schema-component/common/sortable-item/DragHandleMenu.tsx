@@ -8,9 +8,9 @@ import { useStyles } from './DragHandleMenu.style';
 import { SortableContext } from './SortableItem';
 
 export const DragHandleMenu = (props) => {
-  const { isSubMenu, name, children } = props;
+  const { isSubMenu, name, children, className: overStyle, draggingClass } = props;
   const { draggable } = useContext(SortableContext);
-  const { onOpenChange } = useContext(MenuContext);
+  const { onOpenChange } = useContext(MenuContext) || {}; // AdminMenu, 此时 MenuContext 不存在
   const { designable } = useDesignable();
   const { attributes, listeners, setNodeRef, transform, isDragging } = draggable;
   const { styles } = useStyles();
@@ -25,7 +25,7 @@ export const DragHandleMenu = (props) => {
   };
 
   const style = {
-    position: isDragging ? 'fixed' : 'relative', // 拖拽时脱离文档流
+    position: isDragging ? 'fixed' : 'static', // 拖拽时脱离文档流
     top: isDragging ? initialPosition.y - centerOffset.y : 0, // 初始位置减去偏移量
     left: isDragging ? initialPosition.x - centerOffset.x : 0, // 初始位置减去偏移量
     width: isDragging ? dimensions.width : '100%', // 保持宽高不变
@@ -66,10 +66,15 @@ export const DragHandleMenu = (props) => {
   return (
     <div
       ref={setNodeRef}
-      className={cx(styles.dragHandleMenu, {
-        draggable: isDragging,
-        leftBorder: isDragging && isSubMenu,
-      })}
+      className={cx(
+        styles.dragHandleMenu,
+        {
+          draggable: isDragging,
+          leftBorder: isDragging && isSubMenu,
+        },
+        overStyle,
+        isDragging ? draggingClass : {},
+      )}
       style={style}
       {...listeners}
       {...attributes}

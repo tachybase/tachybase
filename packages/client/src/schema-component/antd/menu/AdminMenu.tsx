@@ -1,10 +1,12 @@
+import { useContext } from 'react';
 import { FieldContext, SchemaContext } from '@tachybase/schema';
 
 import { Card } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { SortableItem } from '../..';
+import { SortableContext, SortableItem, useDesignable } from '../..';
 import { Icon } from '../../../';
+import { DragHandleMenu } from '../../common/sortable-item/DragHandleMenu';
 import { useStyles } from './AdminMenu.style';
 
 export const AdminMenu = (props) => {
@@ -24,27 +26,23 @@ const AdminMenuCard = (props) => {
   const { t } = useTranslation();
   const { styles } = useStyles();
   const handleClick = () => onClick(item);
-
   return (
     <Card.Grid className={styles.adminMenuCardStyle} onClick={handleClick}>
       {item.menu ? (
         <SchemaContext.Provider value={schema}>
           <FieldContext.Provider value={field}>
-            <SortableItem
-              className="sortable-item"
-              role="button"
-              aria-label={t(field.title)}
-              removeParentsIfNoChildren={false}
-            >
-              <a className="field-link" role="button" aria-label={t(field.title)} title={t(field.title)}>
-                <div className="icon-wrapper">
-                  <Icon type={icon ?? 'QuestionCircleOutlined'} />
+            <SortableItem role="button" aria-label={t(field.title)} removeParentsIfNoChildren={false}>
+              <DragHandleMenu className="drag-handle-menu">
+                <a className="field-link" role="button" aria-label={t(field.title)} title={t(field.title)}>
+                  <div className="icon-wrapper">
+                    <Icon type={icon ?? 'QuestionCircleOutlined'} />
+                  </div>
+                  <div className="field-title">{t(field.title)}</div>
+                </a>
+                <div className="designer-wrapper">
+                  <Designer isAdminMenu />
                 </div>
-                <div className="field-title">{t(field.title)}</div>
-              </a>
-              <div className="designer-wrapper">
-                <Designer isAdminMenu />
-              </div>
+              </DragHandleMenu>
             </SortableItem>
           </FieldContext.Provider>
         </SchemaContext.Provider>
