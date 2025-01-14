@@ -126,7 +126,6 @@ const HeaderMenu = ({
         `}
       >
         <Popover
-          open
           placement="bottomRight"
           arrow={false}
           overlayInnerStyle={{
