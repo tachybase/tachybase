@@ -7,7 +7,7 @@ export const menuItemInitializer = new SchemaInitializer({
   name: 'menuInitializers:menuItem',
   insertPosition: 'beforeEnd',
   icon: 'PlusOutlined',
-  title: '{{t("Add menu item")}}',
+  title: '',
   items: [
     {
       name: 'submenu',

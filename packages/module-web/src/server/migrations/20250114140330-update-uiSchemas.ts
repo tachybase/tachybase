@@ -22,7 +22,6 @@ export default class extends Migration {
             theme: 'dark',
             onSelect: '{{ onSelect }}',
             sideMenuRefScopeKey: 'sideMenuRef',
-            isRootMenu: true,
           },
         },
       },
