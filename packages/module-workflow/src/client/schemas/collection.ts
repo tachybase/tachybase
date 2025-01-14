@@ -1,7 +1,7 @@
 import { css, parseCollectionName, useCollectionFilterOptions } from '@tachybase/client';
 import { useForm } from '@tachybase/schema';
 
-import { NAMESPACE } from '../locale';
+import { NAMESPACE, tval } from '../locale';
 
 export const collection = {
   type: 'string',
@@ -117,47 +117,75 @@ export const sort = {
 
 export const pagination = {
   type: 'void',
-  title: '{{t("Pagination")}}',
-  'x-decorator': 'SchemaComponentContext.Provider',
-  'x-decorator-props': {
-    value: { designable: false },
-  },
-  'x-component': 'Grid',
   properties: {
-    row: {
+    paginationselect: {
+      type: 'boolean',
+      title: tval('Pagination'),
+      'x-decorator': 'FormItem',
+      'x-component': 'Checkbox',
+      'x-content': tval('Custom pagination(page number and count cannot be empty)'),
+    },
+    pagination: {
       type: 'void',
-      'x-component': 'Grid.Row',
+      'x-decorator': 'FormItem',
+      'x-component': 'Grid',
       properties: {
-        page: {
+        row: {
           type: 'void',
-          'x-component': 'Grid.Col',
+          'x-component': 'Grid.Row',
           properties: {
             page: {
-              type: 'number',
-              title: '{{t("Page number")}}',
-              'x-decorator': 'FormItem',
-              'x-component': 'WorkflowVariableInput',
-              'x-component-props': {
-                useTypedConstant: ['number', 'null'],
+              type: 'void',
+              'x-component': 'Grid.Col',
+              properties: {
+                page: {
+                  type: 'number',
+                  title: '{{t("Page number")}}',
+                  'x-decorator': 'FormItem',
+                  'x-component': 'WorkflowVariableInput',
+                  'x-component-props': {
+                    useTypedConstant: ['number', 'null'],
+                  },
+                  'x-reactions': [
+                    {
+                      dependencies: ['.paginationselect'],
+                      fulfill: {
+                        state: {
+                          visible: '{{$self.value ? true : ($deps[0] ? true : false)}}',
+                        },
+                      },
+                    },
+                  ],
+                  default: null,
+                },
               },
-              default: 1,
             },
-          },
-        },
-        pageSize: {
-          type: 'void',
-          'x-component': 'Grid.Col',
-          properties: {
             pageSize: {
-              type: 'number',
-              title: '{{t("Page size")}}',
-              'x-decorator': 'FormItem',
-              'x-component': 'InputNumber',
-              'x-component-props': {
-                min: 1,
-                max: 100,
+              type: 'void',
+              'x-component': 'Grid.Col',
+              properties: {
+                pageSize: {
+                  type: 'number',
+                  title: '{{t("Page size")}}',
+                  'x-decorator': 'FormItem',
+                  'x-component': 'InputNumber',
+                  'x-component-props': {
+                    min: 0,
+                    max: 100,
+                  },
+                  'x-reactions': [
+                    {
+                      dependencies: ['.paginationselect'],
+                      fulfill: {
+                        state: {
+                          visible: '{{$self.value ? true : ($deps[0] ? true : false)}}',
+                        },
+                      },
+                    },
+                  ],
+                  default: null,
+                },
               },
-              default: 20,
             },
           },
         },
