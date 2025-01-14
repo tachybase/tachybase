@@ -104,6 +104,7 @@ const HeaderMenu = ({
       onSelect?.({ item: { props: info } });
     }
   };
+
   return (
     <div style={{ display: 'flex' }}>
       <div style={{ flex: 1 }}></div>
@@ -122,11 +123,7 @@ const HeaderMenu = ({
           }
         `}
       >
-        <Popover
-          placement="bottomRight"
-          arrow={false}
-          content={<AdminMenu items={items} token={token} onClick={onClick} />}
-        >
+        <Popover placement="bottomRight" arrow={false} content={<AdminMenu items={items} onClick={onClick} />}>
           <Button className="iconButton" icon={<Icon type="apps" style={{ color: token.colorTextHeaderMenu }} />} />
         </Popover>
         <Component />
