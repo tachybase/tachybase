@@ -107,6 +107,10 @@ export class OptionsParser {
       };
     }
 
+    if (queryParams.include && !this.options?.include) {
+      this.options.include = [];
+    }
+
     if (this.options?.include) {
       if (!queryParams.include) {
         queryParams.include = [];

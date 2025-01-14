@@ -34,13 +34,27 @@ function findArgs(ctx: Context) {
       });
     }
   });
+
+  const associationAppend: Set<string> = new Set();
+
   sortItems.forEach((item) => {
     const i = params.appends?.findIndex((append) => append === item.prefix) ?? -1;
     if (i !== -1) {
       params.appends[i] = `${item.prefix}(${qs.stringify({ sort: item.sortItems })})`;
+    } else if (item.prefix) {
+      associationAppend.add(item.prefix);
     }
   });
-  // 微信考虑默认深度为MAX_ASSOCIATION_SORT_DEPTH
+  if (associationAppend.size) {
+    if (!params.appends) {
+      params.appends = [];
+    }
+    for (const prefix of associationAppend) {
+      params.appends.push(prefix);
+    }
+  }
+
+  // 考虑默认深度为MAX_ASSOCIATION_SORT_DEPTH
   params.sort = params.sort?.filter((item) => item.split('.').length <= 1 + MAX_ASSOCIATION_SORT_DEPTH) ?? [];
 
   if (params.tree) {
