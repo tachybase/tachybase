@@ -124,6 +124,7 @@ export const TableVoidDesigner = () => {
                             style: {
                               width: 260,
                             },
+                            optionLabelProp: 'fullLabel',
                           },
                         },
                         direction: {

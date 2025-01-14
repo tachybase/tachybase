@@ -103,6 +103,7 @@ export const listBlockSettings = new SchemaSettings({
                             style: {
                               width: 260,
                             },
+                            optionLabelProp: 'fullLabel',
                           },
                         },
                         direction: {
