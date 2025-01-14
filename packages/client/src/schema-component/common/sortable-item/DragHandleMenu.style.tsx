@@ -29,6 +29,12 @@ export const useStyles = createStyles(({ css, token }) => {
         }
       }
 
+      &.adminMenu {
+        .general-schema-designer {
+          display: none;
+        }
+      }
+
       .wrapper {
         display: flex;
         flex-direction: row;

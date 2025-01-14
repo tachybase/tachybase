@@ -115,16 +115,6 @@ export const useStyles = createStyles(({ css, token }) => {
       }
     `,
 
-    headerMenuClass: css`
-      .ant-menu-item:hover {
-        > .ant-menu-title-content > div {
-          .general-schema-designer {
-            display: block;
-          }
-        }
-      }
-    `,
-
     sideMenuClass: css`
       height: 100%;
       overflow-y: auto;
@@ -172,39 +162,8 @@ export const useStyles = createStyles(({ css, token }) => {
       }
     `,
 
-    menuItem: css`
-      &:hover {
-        border-radius: ${token.borderRadius}px;
-        background: rgba(0, 0, 0, 0.045);
-        overflow: hidden;
-      }
-      .ant-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        box-shadow: none;
-        padding-left: 0;
-        padding-right: 0;
-        width: 100%;
-        span {
-          display: block;
-          text-align: center;
-          font-size: ${token.fontSizeSM}px;
-        }
-        .anticon {
-          font-size: 1.2rem;
-          margin-bottom: 0.3rem;
-          text-align: center;
-        }
-      }
-      .ant-btn-default {
-        box-shadow: none;
-      }
-      .general-schema-designer {
-        background: none;
-      }
+    headerMenuClass: css`
+      display: flex;
     `,
   };
 });

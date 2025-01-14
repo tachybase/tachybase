@@ -12,15 +12,15 @@ import {
 import { error } from '@tachybase/utils/client';
 
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Menu as AntdMenu, Button, Card, MenuProps, Popover } from 'antd';
+import { Menu as AntdMenu, Button, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
-import { useTranslation } from 'react-i18next';
 
 import { DndContext, SortableItem, useDesignable, useDesigner } from '../..';
 import { css, Icon, useSchemaInitializerRender, useToken } from '../../../';
 import { useCollectMenuItems, useMenuItem } from '../../../hooks/useMenuItem';
 import { DragHandleMenu } from '../../common/sortable-item/DragHandleMenu';
 import { useProps } from '../../hooks/useProps';
+import { AdminMenu } from './AdminMenu';
 import { useMenuTranslation } from './locale';
 import { MenuDesigner } from './Menu.Designer';
 import { useStyles } from './Menu.styles';
@@ -49,9 +49,9 @@ const HeaderMenu = ({
 }) => {
   const { Component, getMenuItems } = useMenuItem();
   const { token } = useToken();
+  const { styles } = useStyles();
+
   const [items, setItems] = useState([]);
-  const { t } = useTranslation();
-  const { styles: itemStyle } = useStyles();
   const result = getMenuItems(() => {
     return children;
   });
@@ -106,8 +106,9 @@ const HeaderMenu = ({
       onSelect?.({ item: { props: info } });
     }
   };
+
   return (
-    <div style={{ display: 'flex' }}>
+    <div className={styles.headerMenuClass}>
       <div style={{ flex: 1 }}></div>
       <div
         className={css`
@@ -127,82 +128,11 @@ const HeaderMenu = ({
         <Popover
           placement="bottomRight"
           arrow={false}
-          content={() => {
-            return (
-              <Card
-                className={css`
-                  border: none;
-                  max-width: 21rem;
-                `}
-              >
-                {items?.map((item) => {
-                  const { icon, field, Designer, schema, styles } = item?.menu || {};
-                  return (
-                    <Card.Grid
-                      style={{
-                        display: 'block',
-                        color: 'inherit',
-                        padding: token.marginSM,
-                        boxShadow: 'none',
-                        width: '7rem',
-                        height: '5rem',
-                      }}
-                      className={itemStyle.menuItem}
-                      key={item.key}
-                      onClick={() => {
-                        onClick(item);
-                      }}
-                    >
-                      {item.menu ? (
-                        <SchemaContext.Provider value={schema}>
-                          <FieldContext.Provider value={field}>
-                            <SortableItem
-                              role="button"
-                              aria-label={t(field.title)}
-                              className={styles.designerCss}
-                              removeParentsIfNoChildren={false}
-                              style={{ position: 'revert' }}
-                            >
-                              <a
-                                role="button"
-                                aria-label={t(field.title)}
-                                title={t(field.title)}
-                                className={css`
-                                  display: block;
-                                  color: inherit;
-                                  &:hover {
-                                    color: inherit;
-                                  }
-                                `}
-                              >
-                                <div style={{ fontSize: '1.2rem', textAlign: 'center', marginBottom: '0.3rem' }}>
-                                  <Icon type={icon || 'QuestionCircleOutlined'} />
-                                </div>
-                                <div
-                                  style={{
-                                    textAlign: 'center',
-                                    whiteSpace: 'nowrap',
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    fontSize: token.fontSizeSM,
-                                  }}
-                                >
-                                  {t(field.title)}
-                                </div>
-                              </a>
-                              <Designer />
-                            </SortableItem>
-                          </FieldContext.Provider>
-                        </SchemaContext.Provider>
-                      ) : (
-                        <>{item.label}</>
-                      )}
-                    </Card.Grid>
-                  );
-                })}
-              </Card>
-            );
+          overlayInnerStyle={{
+            // NOTE: 移除其他区域重置 antd 的样式影响
+            padding: 0,
           }}
+          content={<AdminMenu items={items} onClick={onClick} />}
         >
           <Button className="iconButton" icon={<Icon type="apps" style={{ color: token.colorTextHeaderMenu }} />} />
         </Popover>
@@ -305,7 +235,7 @@ export const Menu: ComposedMenu = observer(
       useSensor(PointerSensor, {
         activationConstraint: {
           distance: 1, // 移动 1px 后触发拖拽
-          delay: 150,
+          delay: 300,
           tolerance: 5, // 允许的移动距离
         },
       }),
