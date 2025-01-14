@@ -305,7 +305,7 @@ export const Menu: ComposedMenu = observer(
       useSensor(PointerSensor, {
         activationConstraint: {
           distance: 1, // 移动 1px 后触发拖拽
-          delay: 150,
+          delay: 300,
           tolerance: 5, // 允许的移动距离
         },
       }),
