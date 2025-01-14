@@ -16,7 +16,11 @@ export const CommentBlockActionInitializer = new SchemaInitializer({
           name: 'edit',
           title: '{{t("Edit")}}',
           Component: 'UpdateCommentActionInitializer',
-          schema: { 'x-action': 'update', 'x-decorator': 'ACLActionProvider', 'x-align': 'left' },
+          schema: {
+            'x-action': 'update',
+            'x-decorator': 'ACLActionProvider',
+            'x-align': 'left',
+          },
           useVisible() {
             const collection = useCollection_deprecated();
             return (collection.template !== 'view' || collection?.writableView) && collection.template !== 'sql';

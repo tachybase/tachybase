@@ -21,16 +21,13 @@ export const CommentItem = observer(({ editing, setEditing, children }: any) => 
   const { componentCls: l } = styles();
   const h = useCollectionParentRecordData();
   const { resource: resource, service: d } = useBlockRequestContext();
-  const f = react.useCallback(
-    () => async () => {
-      await resource.update({
-        filterByTk: n.value?.id,
-        values: { content: n?.value?.content },
-      });
-      d.refresh();
-    },
-    [resource, d, n.value],
-  );
+  const f = react.useCallback(async () => {
+    await resource.update({
+      filterByTk: n.value?.id,
+      values: { content: n?.value?.content },
+    });
+    d.refresh();
+  }, [resource, d, n.value]);
   const p = useCollectionFields();
   const L = react.useMemo(() => {
     let u, x;
@@ -103,11 +100,11 @@ export const CommentItem = observer(({ editing, setEditing, children }: any) => 
                     jsxRuntime.jsx(Button, {
                       type: 'primary',
                       onClick: () => {
-                        setEditing(false),
-                          f(),
-                          n.form.setFieldState(`${n.address}.content`, (u) => {
-                            u.pattern = 'readPretty';
-                          });
+                        setEditing(false);
+                        f();
+                        n.form.setFieldState(`${n.address}.content`, (u) => {
+                          u.pattern = 'readPretty';
+                        });
                       },
                       children: m('Update Comment'),
                     }),
