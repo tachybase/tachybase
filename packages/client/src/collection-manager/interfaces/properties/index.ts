@@ -1,4 +1,9 @@
-import { Field, ISchema, uid } from '@tachybase/schema';
+import { css } from '@emotion/css';
+import { Field } from '@formily/core';
+import { ISchema } from '@formily/react';
+import { uid } from '@formily/shared';
+
+import { DateFormatCom, ExpiresRadio } from '../../../schema-component/antd/expiresRadio';
 
 export * as operators from './operators';
 
@@ -59,7 +64,7 @@ export const primaryKey = {
   'x-reactions': [
     {
       dependencies: ['unique'],
-      when: '{{$deps[0]}}',
+      when: '{{$deps[0]&&createMainOnly}}',
       fulfill: {
         state: {
           value: false,
@@ -76,6 +81,26 @@ export const autoIncrement = {
   'x-decorator': 'FormItem',
   'x-component': 'Checkbox',
   'x-disabled': '{{ !createMainOnly }}',
+  'x-reactions': [
+    {
+      dependencies: ['primaryKey'],
+      when: '{{$deps[0]&&createMainOnly}}',
+      fulfill: {
+        state: {
+          value: true,
+        },
+      },
+    },
+  ],
+};
+
+export const autoFill = {
+  type: 'boolean',
+  title: '{{t("Default value")}}',
+  'x-content': '{{t("Automatically generate default values")}}',
+  'x-decorator': 'FormItem',
+  'x-component': 'Checkbox',
+  default: true,
 };
 
 export const relationshipType: ISchema = {
@@ -115,7 +140,6 @@ export const reverseFieldProperties: Record<string, ISchema> = {
   reverse: {
     type: 'void',
     'x-component': 'div',
-    'x-hidden': '{{ !showReverseFieldConfig }}',
     properties: {
       autoCreateReverseField: {
         type: 'boolean',
@@ -166,6 +190,12 @@ export const reverseFieldProperties: Record<string, ISchema> = {
               },
             },
           },
+          (field) => {
+            const values = field.form.values;
+            const { reverseField } = values;
+            field.value = !!reverseField?.key;
+            field.disabled = !!reverseField?.key;
+          },
         ],
       },
       'reverseField.type': {
@@ -179,6 +209,7 @@ export const reverseFieldProperties: Record<string, ISchema> = {
         required: true,
         'x-decorator': 'FormItem',
         'x-component': 'Input',
+        'x-disabled': '{{ !showReverseFieldConfig }}',
       },
       'reverseField.name': {
         type: 'string',
@@ -187,6 +218,7 @@ export const reverseFieldProperties: Record<string, ISchema> = {
         'x-decorator': 'FormItem',
         'x-component': 'Input',
         'x-validator': 'uid',
+        'x-disabled': '{{ !showReverseFieldConfig }}',
         description:
           "{{t('Randomly generated and can be modified. Support letters, numbers and underscores, must start with an letter.')}}",
       },
@@ -195,26 +227,88 @@ export const reverseFieldProperties: Record<string, ISchema> = {
 };
 
 export const dateTimeProps: { [key: string]: ISchema } = {
+  'uiSchema.x-component-props.picker': {
+    type: 'string',
+    title: '{{t("Picker")}}',
+    'x-decorator': 'FormItem',
+    'x-component': 'Radio.Group',
+    default: 'date',
+    enum: [
+      {
+        label: '{{t("Date")}}',
+        value: 'date',
+      },
+      // {
+      //   label: '{{t("Week")}}',
+      //   value: 'week',
+      // },
+      {
+        label: '{{t("Month")}}',
+        value: 'month',
+      },
+      {
+        label: '{{t("Quarter")}}',
+        value: 'quarter',
+      },
+      {
+        label: '{{t("Year")}}',
+        value: 'year',
+      },
+    ],
+  },
+
   'uiSchema.x-component-props.dateFormat': {
     type: 'string',
     title: '{{t("Date format")}}',
-    'x-component': 'Radio.Group',
     'x-decorator': 'FormItem',
+    'x-component': 'ExpiresRadio',
+    'x-decorator-props': {},
+    'x-component-props': {
+      className: css`
+        .ant-radio-wrapper {
+          display: flex;
+          margin: 5px 0px;
+        }
+      `,
+      defaultValue: 'dddd',
+      formats: ['MMMM Do YYYY', 'YYYY-MM-DD', 'MM/DD/YY', 'YYYY/MM/DD', 'DD/MM/YYYY'],
+    },
     default: 'YYYY-MM-DD',
     enum: [
       {
-        label: '{{t("Year/Month/Day")}}',
-        value: 'YYYY/MM/DD',
+        label: DateFormatCom({ format: 'MMMM Do YYYY' }),
+        value: 'MMMM Do YYYY',
       },
       {
-        label: '{{t("Year-Month-Day")}}',
+        label: DateFormatCom({ format: 'YYYY-MM-DD' }),
         value: 'YYYY-MM-DD',
       },
       {
-        label: '{{t("Day/Month/Year")}}',
+        label: DateFormatCom({ format: 'MM/DD/YY' }),
+        value: 'MM/DD/YY',
+      },
+      {
+        label: DateFormatCom({ format: 'YYYY/MM/DD' }),
+        value: 'YYYY/MM/DD',
+      },
+      {
+        label: DateFormatCom({ format: 'DD/MM/YYYY' }),
         value: 'DD/MM/YYYY',
       },
+      {
+        label: 'custom',
+        value: 'custom',
+      },
     ],
+    'x-reactions': {
+      dependencies: ['uiSchema.x-component-props.picker'],
+      fulfill: {
+        state: {
+          value: `{{ getPickerFormat($deps[0]) }}`,
+          componentProps: { picker: `{{$deps[0]}}` },
+        },
+      },
+    },
   },
   'uiSchema.x-component-props.showTime': {
     type: 'boolean',
@@ -223,10 +317,26 @@ export const dateTimeProps: { [key: string]: ISchema } = {
     'x-content': '{{t("Show time")}}',
     'x-reactions': [
       `{{(field) => {
-        field.query('..[].timeFormat').take(f => {
-          f.display = field.value ? 'visible' : 'none';
-        });
-      }}}`,
+         field.query('..[].timeFormat').take(f => {
+           f.display = field.value ? 'visible' : 'none';
+           f.value='HH:mm:ss'
+         });
+       }}}`,
+      {
+        dependencies: ['uiSchema.x-component-props.picker'],
+        when: '{{$deps[0]==="date"}}',
+        fulfill: {
+          state: {
+            hidden: false,
+          },
+        },
+        otherwise: {
+          state: {
+            hidden: true,
+            value: false,
+          },
+        },
+      },
     ],
   },
   'uiSchema.x-component-props.timeFormat': {
@@ -245,6 +355,14 @@ export const dateTimeProps: { [key: string]: ISchema } = {
         value: 'HH:mm:ss',
       },
     ],
+    'x-reactions': {
+      dependencies: ['uiSchema.x-component-props.showTime'],
+      fulfill: {
+        state: {
+          hidden: `{{ !$deps[0] }}`,
+        },
+      },
+    },
   },
 };
 
@@ -285,8 +403,9 @@ export const dataSource: ISchema = {
             'x-decorator': 'FormItem',
             'x-component': 'Input',
             'x-reactions': (field: Field) => {
-              if (!field.initialValue) {
+              if (!field.initialValue && !field.initialized) {
                 field.initialValue = uid();
+                field.setValue(uid());
               }
             },
           },
@@ -378,14 +497,14 @@ export const recordPickerViewer = {
   title: '{{ t("View record") }}',
   'x-component': 'RecordPicker.Viewer',
   'x-component-props': {
-    className: 'tb-action-popup',
+    className: 'nb-action-popup',
   },
   properties: {
     tabs: {
       type: 'void',
       'x-component': 'Tabs',
       'x-component-props': {},
-      'x-initializer': 'TabPaneInitializers',
+      'x-initializer': 'popup:addTab',
       properties: {
         tab1: {
           type: 'void',

@@ -20,7 +20,7 @@ const postgres = {
   'timestamp with time zone': 'date',
   'time without time zone': 'time',
 
-  date: 'date',
+  date: 'dateOnly',
   boolean: 'boolean',
 
   json: ['json', 'array'],
@@ -44,7 +44,7 @@ const mysql = {
 
   char: ['string', 'uuid', 'nanoid'],
   varchar: ['string', 'uuid', 'nanoid'],
-  date: 'date',
+  date: 'dateOnly',
   time: 'time',
   text: 'text',
   longtext: 'text',

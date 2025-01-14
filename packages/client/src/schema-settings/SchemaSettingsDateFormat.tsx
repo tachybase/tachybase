@@ -1,38 +1,17 @@
 import React from 'react';
-import { ISchema, Schema, useField } from '@tachybase/schema';
+import { getPickerFormat } from '@tachybase/utils/client';
 
-import { createStyles } from 'antd-style';
+import { css } from '@emotion/css';
+import { ISchema, Schema, useField } from '@formily/react';
 import { useTranslation } from 'react-i18next';
 
 import { useCollectionManager_deprecated, useDesignable } from '..';
-import { DateFormatCom, ExpiresRadio } from './DateFormat/ExpiresRadio';
+import { DateFormatCom, ExpiresRadio } from '../schema-component';
 import { SchemaSettingsModalItem } from './SchemaSettings';
 
-const useStyles = createStyles(({ css }) => {
-  return {
-    radio: css`
-      .ant-radio-wrapper {
-        display: flex;
-        margin: 5px 0px;
-      }
-    `,
-    margin: css`
-      margin-bottom: 0px;
-    `,
-    redRadio: css`
-      color: red;
-      .ant-radio-wrapper {
-        display: flex;
-        margin: 5px 0px;
-      }
-    `,
-  };
-});
-
 export const SchemaSettingsDateFormat = function DateFormatConfig(props: { fieldSchema: Schema }) {
-  const { styles } = useStyles();
   const { fieldSchema } = props;
-  const field = useField();
+  const field: any = useField();
   const { dn } = useDesignable();
   const { t } = useTranslation();
   const { getCollectionJoinField } = useCollectionManager_deprecated();
@@ -46,13 +25,48 @@ export const SchemaSettingsDateFormat = function DateFormatConfig(props: { field
     fieldSchema?.['x-component-props']?.timeFormat ||
     collectionField?.uiSchema?.['x-component-props']?.timeFormat ||
     'HH:mm:ss';
+  const pickerDefaultValue =
+    fieldSchema?.['x-component-props']?.picker || collectionField?.uiSchema?.['x-component-props']?.picker || 'date';
+  const isReadPretty = fieldSchema['x-read-pretty'] || field.readOnly || field.readPretty;
   return (
     <SchemaSettingsModalItem
       title={t('Date display format')}
+      scope={{ getPickerFormat }}
       schema={
         {
           type: 'object',
           properties: {
+            picker: {
+              type: 'string',
+              title: '{{t("Picker")}}',
+              'x-decorator': 'FormItem',
+              'x-component': 'Radio.Group',
+              default: pickerDefaultValue,
+              description:
+                !isReadPretty && '{{ t("Switching the picker, the value and default value will be cleared") }}',
+              enum: [
+                {
+                  label: '{{t("Date")}}',
+                  value: 'date',
+                },
+                // {
+                //   label: '{{t("Week")}}',
+                //   value: 'week',
+                // },
+                {
+                  label: '{{t("Month")}}',
+                  value: 'month',
+                },
+                {
+                  label: '{{t("Quarter")}}',
+                  value: 'quarter',
+                },
+                {
+                  label: '{{t("Year")}}',
+                  value: 'year',
+                },
+              ],
+            },
             dateFormat: {
               type: 'string',
               title: '{{t("Date format")}}',
@@ -60,7 +74,12 @@ export const SchemaSettingsDateFormat = function DateFormatConfig(props: { field
               'x-decorator': 'FormItem',
               'x-decorator-props': {},
               'x-component-props': {
-                className: styles.radio,
+                className: css`
+                  .ant-radio-wrapper {
+                    display: flex;
+                    margin: 5px 0px;
+                  }
+                `,
                 defaultValue: 'dddd',
                 formats: ['MMMM Do YYYY', 'YYYY-MM-DD', 'MM/DD/YY', 'YYYY/MM/DD', 'DD/MM/YYYY'],
               },
@@ -91,6 +110,15 @@ export const SchemaSettingsDateFormat = function DateFormatConfig(props: { field
                   value: 'custom',
                 },
               ],
+              'x-reactions': {
+                dependencies: ['picker'],
+                fulfill: {
+                  state: {
+                    value: `{{ getPickerFormat($deps[0])}}`,
+                    componentProps: { picker: `{{$deps[0]}}` },
+                  },
+                },
+              },
             },
             showTime: {
               default:
@@ -129,10 +157,18 @@ export const SchemaSettingsDateFormat = function DateFormatConfig(props: { field
               'x-component': ExpiresRadio,
               'x-decorator': 'FormItem',
               'x-decorator-props': {
-                className: styles.margin,
+                className: css`
+                  margin-bottom: 0px;
+                `,
               },
               'x-component-props': {
-                className: styles.redRadio,
+                className: css`
+                  color: red;
+                  .ant-radio-wrapper {
+                    display: flex;
+                    margin: 5px 0px;
+                  }
+                `,
                 defaultValue: 'h:mm a',
                 formats: ['hh:mm:ss a', 'HH:mm:ss'],
                 timeFormat: true,
@@ -157,22 +193,32 @@ export const SchemaSettingsDateFormat = function DateFormatConfig(props: { field
         } as ISchema
       }
       onSubmit={(data) => {
-        const schema = {
+        const schema: any = {
           ['x-uid']: fieldSchema['x-uid'],
         };
-        schema['x-component-props'] = fieldSchema['x-component-props'] || {};
+        if ((field.componentProps.picker || 'date') !== data.picker && !isReadPretty && field.value) {
+          field.value = undefined;
+          field.initialValue = undefined;
+          fieldSchema.default = undefined;
+          schema.default = undefined;
+        }
+        schema['x-component-props'] = field.componentProps || {};
         fieldSchema['x-component-props'] = {
-          ...(fieldSchema['x-component-props'] || {}),
+          ...(field.componentProps || {}),
           ...data,
         };
         schema['x-component-props'] = fieldSchema['x-component-props'];
         field.componentProps = fieldSchema['x-component-props'];
-        //子表格/表格卡片
+        //子表格/表格区块
         const parts = (field.path.entire as string).split('.');
         parts.pop();
         const modifiedString = parts.join('.');
         field.query(`${modifiedString}.*[0:].${fieldSchema.name}`).forEach((f) => {
           if (f.props.name === fieldSchema.name) {
+            if ((field.componentProps.picker || 'date') !== data.picker && !isReadPretty) {
+              f.value = undefined;
+              f.initialValue = undefined;
+            }
             f.setComponentProps({ ...data });
           }
         });

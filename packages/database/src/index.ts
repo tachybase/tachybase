@@ -32,6 +32,7 @@ export * from './magic-attribute-model';
 export * from './migration';
 export * from './mock-database';
 export * from './model';
+export * from './relation-repository/belongs-to-array-repository';
 export * from './relation-repository/belongs-to-many-repository';
 export * from './relation-repository/belongs-to-repository';
 export * from './relation-repository/hasmany-repository';

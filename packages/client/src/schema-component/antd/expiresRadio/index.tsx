@@ -6,7 +6,7 @@ import { useBoolean } from 'ahooks';
 import { Input, Radio, Space } from 'antd';
 import dayjs from 'dayjs';
 
-import { useToken } from '../../';
+import { useToken } from '../../../';
 
 const date = dayjs();
 

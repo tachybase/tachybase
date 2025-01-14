@@ -173,6 +173,11 @@ export const parseFilter = async (filter: any, opts: ParseFilterOptions = {}) =>
       }
       if (isDateOperator(operator)) {
         const field = getField?.(path);
+
+        if (field?.constructor.name === 'DateOnlyField') {
+          return value;
+        }
+
         return dateValueWrapper(value, field?.timezone || timezone);
       }
       return value;

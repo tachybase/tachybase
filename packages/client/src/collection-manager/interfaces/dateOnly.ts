@@ -2,7 +2,7 @@ import { CollectionFieldInterface } from '../../data-source/collection-field-int
 import { dateTimeProps, defaultProps, operators } from './properties';
 
 export class DateFieldInterface extends CollectionFieldInterface {
-  name = 'date';
+  name = 'dateOnly';
   type = 'object';
   group = 'datetime';
   order = 3;

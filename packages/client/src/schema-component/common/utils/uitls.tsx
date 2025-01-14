@@ -1,13 +1,5 @@
-/**
- * This file is part of the NocoBase (R) project.
- * Copyright (c) 2020-2024 NocoBase Co., Ltd.
- * Authors: NocoBase Team.
- *
- * This project is dual-licensed under AGPL-3.0 and NocoBase Commercial License.
- * For more information, please refer to: https://www.nocobase.com/agreement.
- */
+import { dayjs, getPickerFormat, Handlebars } from '@tachybase/utils/client';
 
-import { dayjs, getPickerFormat, Handlebars } from '@nocobase/utils/client';
 import _, { every, findIndex, some } from 'lodash';
 
 import { replaceVariableValue } from '../../../block-provider/hooks';
@@ -127,7 +119,9 @@ export const conditionAnalyses = async ({
       const comparisonValue = transformVariableValue(value, { targetCollectionField });
       if (
         targetCollectionField?.type &&
-        ['datetime', 'date', 'datetimeNoTz', 'dateOnly', 'unixTimestamp'].includes(targetCollectionField.type) &&
+        ['datetime', 'date', 'dateOnly', 'datetimeNoTz', 'dateOnly', 'unixTimestamp'].includes(
+          targetCollectionField.type,
+        ) &&
         currentInputValue
       ) {
         const picker = inferPickerType(comparisonValue);

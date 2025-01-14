@@ -5,11 +5,21 @@ import { dayjs } from './dayjs';
 export interface Str2momentOptions {
   gmt?: boolean;
   picker?: 'year' | 'month' | 'week' | 'quarter';
-  utcOffset?: any;
+  utcOffset?: number;
   utc?: boolean;
 }
 
-export const getDefaultFormat = (props: any) => {
+export type Str2momentValue = string | string[] | dayjs.Dayjs | dayjs.Dayjs[];
+
+export interface GetDefaultFormatProps {
+  format?: string;
+  dateFormat?: string;
+  timeFormat?: string;
+  picker?: 'year' | 'month' | 'week' | 'quarter';
+  showTime?: boolean;
+}
+
+export const getDefaultFormat = (props: GetDefaultFormatProps) => {
   if (props.format) {
     return props.format;
   }
@@ -26,7 +36,7 @@ export const getDefaultFormat = (props: any) => {
   } else if (props['picker'] === 'year') {
     return 'YYYY';
   } else if (props['picker'] === 'week') {
-    return 'YYYY-wo';
+    return 'YYYY[W]W';
   }
   return props['showTime'] ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD';
 };
@@ -50,18 +60,21 @@ export const toLocal = (value: dayjs.Dayjs) => {
   }
 };
 
-// 将UTC时间字符串转换为本地时区时间
-export const convertUTCToLocal = (utcString, formater = 'YYYY-MM-DD HH:mm:ss') => {
-  // 使用dayjs解析UTC时间，并转换为本地时区时间
-  const localDate = dayjs.utc(utcString).local().format(formater);
-  return localDate;
+// FIXME: 如果开启了上游的这个方法会导致dateRange没法会使用,上游这个东西多此一举
+const convertQuarterToFirstDay = (quarterStr) => {
+  if (dayjs(quarterStr).isValid()) {
+    const year = parseInt(quarterStr.slice(0, 4)); // 提取年份
+    const quarter = parseInt(quarterStr.slice(-1)); // 提取季度数字
+    return dayjs().quarter(quarter).year(year);
+  }
+  return null;
 };
 
 const toMoment = (val: any, options?: Str2momentOptions) => {
   if (!val) {
     return;
   }
-  const offset = options.utcOffset || -1 * new Date().getTimezoneOffset();
+  const offset = options.utcOffset !== undefined ? options.utcOffset : -1 * new Date().getTimezoneOffset();
   const { gmt, picker, utc = true } = options;
 
   if (!utc) {
@@ -71,13 +84,16 @@ const toMoment = (val: any, options?: Str2momentOptions) => {
   if (dayjs.isDayjs(val)) {
     return val.utcOffset(offsetFromString(offset));
   }
-  if (gmt || picker) {
+  if (gmt) {
     return dayjs(val).utcOffset(0);
   }
   return dayjs(val).utcOffset(offsetFromString(offset));
 };
 
-export const str2moment = (value?: string | string[], options: Str2momentOptions = {}): any => {
+export const str2moment = (
+  value?: string | string[] | dayjs.Dayjs | dayjs.Dayjs[],
+  options: Str2momentOptions = {},
+): any => {
   return Array.isArray(value)
     ? value.map((val) => {
         return toMoment(val, options);
@@ -198,4 +214,21 @@ export const getPickerFormat = (picker) => {
     default:
       return 'YYYY-MM-DD';
   }
+};
+
+export const getDateTimeFormat = (picker, format, showTime, timeFormat) => {
+  if (picker === 'date') {
+    if (showTime) {
+      return `${format} ${timeFormat || 'HH:mm:ss'}`;
+    }
+    return format;
+  }
+  return format;
+};
+
+// 将UTC时间字符串转换为本地时区时间
+export const convertUTCToLocal = (utcString, formater = 'YYYY-MM-DD HH:mm:ss') => {
+  // 使用dayjs解析UTC时间，并转换为本地时区时间
+  const localDate = dayjs.utc(utcString).local().format(formater);
+  return localDate;
 };
