@@ -8,7 +8,7 @@ import { useStyles } from './DragHandleMenu.style';
 import { SortableContext } from './SortableItem';
 
 export const DragHandleMenu = (props) => {
-  const { isSubMenu, name, children, className: overStyle, draggingClass } = props;
+  const { isSubMenu, name, children, className: overStyle, isAdminMenu } = props;
   const { draggable } = useContext(SortableContext);
   const { onOpenChange } = useContext(MenuContext) || {}; // AdminMenu, 此时 MenuContext 不存在
   const { designable } = useDesignable();
@@ -70,10 +70,10 @@ export const DragHandleMenu = (props) => {
         styles.dragHandleMenu,
         {
           draggable: isDragging,
-          leftBorder: isDragging && isSubMenu,
+          leftBorder: isSubMenu && isDragging,
+          adminMenu: isAdminMenu && isDragging,
         },
         overStyle,
-        isDragging ? draggingClass : {},
       )}
       style={style}
       {...listeners}

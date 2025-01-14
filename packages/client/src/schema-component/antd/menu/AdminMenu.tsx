@@ -32,7 +32,7 @@ const AdminMenuCard = (props) => {
         <SchemaContext.Provider value={schema}>
           <FieldContext.Provider value={field}>
             <SortableItem role="button" aria-label={t(field.title)} removeParentsIfNoChildren={false}>
-              <DragHandleMenu className="drag-handle-menu">
+              <DragHandleMenu className="drag-handle-menu" isAdminMenu>
                 <a className="field-link" role="button" aria-label={t(field.title)} title={t(field.title)}>
                   <div className="icon-wrapper">
                     <Icon type={icon ?? 'QuestionCircleOutlined'} />
