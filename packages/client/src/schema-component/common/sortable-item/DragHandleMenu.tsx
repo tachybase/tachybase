@@ -1,14 +1,16 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 
 import { cx } from 'antd-style';
+import { MenuContext } from 'rc-menu/es/context/MenuContext';
 
 import { useDesignable } from '../../hooks';
 import { useStyles } from './DragHandleMenu.style';
 import { SortableContext } from './SortableItem';
 
 export const DragHandleMenu = (props) => {
-  const { isSubMenu, name, setStateOpenKeys, children } = props;
+  const { isSubMenu, name, children } = props;
   const { draggable } = useContext(SortableContext);
+  const { onOpenChange } = useContext(MenuContext);
   const { designable } = useDesignable();
   const { attributes, listeners, setNodeRef, transform, isDragging } = draggable;
   const { styles } = useStyles();
@@ -53,9 +55,7 @@ export const DragHandleMenu = (props) => {
   useEffect(() => {
     if (isSubMenu && isDragging) {
       // 拖动分组时, 自动关闭当前分组
-      setStateOpenKeys?.((prevOpenKeys) => {
-        return prevOpenKeys.filter((key) => key !== name);
-      });
+      onOpenChange?.(name, false);
     }
   }, [isDragging]);
 
