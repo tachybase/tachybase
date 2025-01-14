@@ -58,7 +58,7 @@ import { MarkdownFormItemInitializer } from '../modules/blocks/other-blocks/mark
 import { tableSelectorInitializers } from '../modules/fields/component/Picker/TableSelectorInitializers';
 import { CollectionFieldInitializer } from '../modules/fields/initializer/CollectionFieldInitializer';
 import { TableCollectionFieldInitializer } from '../modules/fields/initializer/TableCollectionFieldInitializer';
-import { menuItemInitializer, menuItemInitializer_deprecated } from '../modules/menu/menuItemInitializer';
+import { menuItemInitializer } from '../modules/menu/menuItemInitializer';
 import { blockInitializers } from '../modules/page/BlockInitializers';
 import {
   customFormItemInitializers,
@@ -143,7 +143,6 @@ export class SchemaInitializerPlugin extends Plugin {
     this.app.schemaInitializerManager.add(tabPaneInitializers_deprecated);
     this.app.schemaInitializerManager.add(tabPaneInitializersForRecordBlock);
     this.app.schemaInitializerManager.add(tabPaneInitializersForBulkEditFormBlock);
-    this.app.schemaInitializerManager.add(menuItemInitializer_deprecated);
     this.app.schemaInitializerManager.add(menuItemInitializer);
   }
 }
