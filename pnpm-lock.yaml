@@ -3205,9 +3205,6 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      moment-timezone:
-        specifier: ^0.5.46
-        version: 0.5.46
       react:
         specifier: ^18.3.1
         version: 18.3.1
