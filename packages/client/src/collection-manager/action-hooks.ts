@@ -112,10 +112,18 @@ export const useSortFields = (collectionName, depth = 1, parentFieldName = '', p
       if (!field.interface) return null;
 
       const fieldInterface = getInterface(field.interface);
-      if (!fieldInterface?.sortable && !toOneField(field)) return null;
+      if (!fieldInterface?.sortable && !toOneField(field)) {
+        return null;
+      }
 
       // 深度限制，避免过度递归；TODO: Select只能套两层
-      if (!fieldInterface?.sortable && depth >= 2) return null;
+      if (!fieldInterface?.sortable && depth >= 2) {
+        return null;
+      }
+
+      if (field.target === collectionName) {
+        return null;
+      }
 
       // 顶层字段直接使用字段名；子字段拼接父字段名
       const value = parentFieldName ? `${parentFieldName}.${field.name}` : field.name;

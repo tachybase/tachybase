@@ -11,6 +11,8 @@ function totalPage(total, pageSize): number {
   return Math.ceil(total / pageSize);
 }
 
+const MAX_ASSOCIATION_SORT_DEPTH = 2;
+
 function findArgs(ctx: Context) {
   const resourceName = ctx.action.resourceName;
   const params = ctx.action.params;
@@ -38,7 +40,8 @@ function findArgs(ctx: Context) {
       params.appends[i] = `${item.prefix}(${qs.stringify({ sort: item.sortItems })})`;
     }
   });
-  // params.sort = params.sort?.filter((item) => item.split('.').length === 1) ?? [];
+  // 微信考虑默认深度为MAX_ASSOCIATION_SORT_DEPTH
+  params.sort = params.sort?.filter((item) => item.split('.').length <= 1 + MAX_ASSOCIATION_SORT_DEPTH) ?? [];
 
   if (params.tree) {
     const [collectionName, associationName] = resourceName.split('.');
