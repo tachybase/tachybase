@@ -5,6 +5,7 @@ import { SchemaOptionsContext } from '@tachybase/schema';
 import { useTranslation } from 'react-i18next';
 
 import { SchemaInitializerItem, useSchemaInitializer } from '../../application';
+import { Icon } from '../../icon';
 import { FormDialog, SchemaComponent, SchemaComponentOptions } from '../../schema-component';
 import { useStyles } from '../../schema-component/antd/menu/MenuItemInitializers';
 import { useGlobalTheme } from '../../style/theme';
@@ -69,5 +70,12 @@ export const GroupItem = () => {
       ],
     });
   }, [insert, options.components, options.scope, t, theme]);
-  return <SchemaInitializerItem title={t('Submenu')} onClick={handleClick} className={styles.menuItem} />;
+  return (
+    <SchemaInitializerItem
+      icon={<Icon type={'FolderAddOutlined'} />}
+      title={t('Create group')}
+      onClick={handleClick}
+      className={styles.menuItem}
+    />
+  );
 };

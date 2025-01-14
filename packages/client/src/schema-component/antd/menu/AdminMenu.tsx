@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { FieldContext, SchemaContext } from '@tachybase/schema';
 
 import { Card } from 'antd';
