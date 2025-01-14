@@ -49,6 +49,8 @@ const HeaderMenu = ({
 }) => {
   const { Component, getMenuItems } = useMenuItem();
   const { token } = useToken();
+  const { styles } = useStyles();
+
   const [items, setItems] = useState([]);
   const result = getMenuItems(() => {
     return children;
@@ -106,7 +108,7 @@ const HeaderMenu = ({
   };
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className={styles.headerMenuClass}>
       <div style={{ flex: 1 }}></div>
       <div
         className={css`
@@ -123,7 +125,16 @@ const HeaderMenu = ({
           }
         `}
       >
-        <Popover placement="bottomRight" arrow={false} content={<AdminMenu items={items} onClick={onClick} />}>
+        <Popover
+          open
+          placement="bottomRight"
+          arrow={false}
+          overlayInnerStyle={{
+            // NOTE: 移除其他区域重置 antd 的样式影响
+            padding: 0,
+          }}
+          content={<AdminMenu items={items} onClick={onClick} />}
+        >
           <Button className="iconButton" icon={<Icon type="apps" style={{ color: token.colorTextHeaderMenu }} />} />
         </Popover>
         <Component />

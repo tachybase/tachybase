@@ -161,5 +161,9 @@ export const useStyles = createStyles(({ css, token }) => {
         background: inherit;
       }
     `,
+
+    headerMenuClass: css`
+      display: flex;
+    `,
   };
 });

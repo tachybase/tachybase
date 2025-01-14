@@ -260,7 +260,8 @@ const InsertMenuItemsGroup = () => {
   );
 };
 
-export const MenuDesigner = () => {
+export const MenuDesigner = (props) => {
+  const { isAdminMenu } = props;
   const field = useField();
   const fieldSchema = useFieldSchema();
   const api = useAPIClient();
@@ -311,6 +312,8 @@ export const MenuDesigner = () => {
     icon: field.componentProps.icon,
   };
   const isSubMenu = fieldSchema['x-component'] === 'Menu.SubMenu';
+  const hiddenAddMenu = isAdminMenu || isSubMenu;
+
   if (fieldSchema['x-component'] === 'Menu.URL') {
     schema.properties['href'] = {
       title: t('Link'),
@@ -320,7 +323,7 @@ export const MenuDesigner = () => {
     initialValues['href'] = field.componentProps.href;
   }
   return (
-    <GeneralSchemaDesigner draggable={false} AddMenuModalComponent={isSubMenu ? <InsertMenuItemsGroup /> : null}>
+    <GeneralSchemaDesigner draggable={false} AddMenuModalComponent={!hiddenAddMenu && <InsertMenuItemsGroup />}>
       <SchemaSettingsModalItem
         title={t('Modify the name and icon')}
         eventKey="edit"
