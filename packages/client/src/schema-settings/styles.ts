@@ -77,7 +77,7 @@ export const useStyles = createStyles(({ css }) => {
       }
 
       &:hover {
-        display: block !important;
+        display: flex !important;
       }
     `,
   };

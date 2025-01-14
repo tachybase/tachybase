@@ -39,9 +39,7 @@ const AdminMenuCard = (props) => {
                   </div>
                   <div className="field-title">{t(field.title)}</div>
                 </a>
-                <div className="designer-wrapper">
-                  <Designer isAdminMenu />
-                </div>
+                <Designer isAdminMenu />
               </DragHandleMenu>
             </SortableItem>
           </FieldContext.Provider>

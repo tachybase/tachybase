@@ -92,12 +92,13 @@ export const useStyles = createStyles(({ css, token }) => {
         height: 100%;
       }
 
-      .designer-wrapper {
+      .general-schema-designer {
         position: absolute;
         left: 0;
         bottom: 0;
 
         display: flex;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
 
@@ -108,11 +109,11 @@ export const useStyles = createStyles(({ css, token }) => {
         visibility: hidden;
       }
 
-      &.ant-card-grid:hover .designer-wrapper {
+      &.ant-card-grid:hover .general-schema-designer {
         visibility: visible;
       }
 
-      .designer-wrapper .anticon-menu {
+      .general-schema-designer .anticon-menu {
         padding: 1px;
         border-radius: 2px;
         background-color: #ffffff;

@@ -30,7 +30,7 @@ export const useStyles = createStyles(({ css, token }) => {
       }
 
       &.adminMenu {
-        .designer-wrapper {
+        .general-schema-designer {
           display: none;
         }
       }
