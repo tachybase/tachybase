@@ -33,7 +33,6 @@ import {
   useDesignable,
 } from '../../schema-component';
 import { isSubMode } from '../../schema-component/antd/association-field/util';
-import { replaceVariables } from '../../schema-settings/LinkageRules/bindLinkageRulesToFiled';
 import { useCurrentUserContext } from '../../user';
 import { useLocalVariables, useVariables } from '../../variables';
 import { VariableOption, VariablesContextType } from '../../variables/types';
@@ -1442,27 +1441,4 @@ async function resetFormCorrectly(form: Form) {
     });
   });
   await form.reset();
-}
-
-export async function replaceVariableValue(
-  url: string,
-  variables: VariablesContextType,
-  localVariables: VariableOption[],
-) {
-  if (!url) {
-    return;
-  }
-  const { evaluate } = evaluators.get('string');
-  // 解析如 `{{$user.name}}` 之类的变量
-  const { exp, scope: expScope } = await replaceVariables(url, {
-    variables,
-    localVariables,
-  });
-
-  try {
-    const result = evaluate(exp, { now: () => new Date().toString(), ...expScope });
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
 }

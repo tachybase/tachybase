@@ -2,7 +2,6 @@ import { dayjs, getPickerFormat } from '@tachybase/utils/client';
 
 import _, { every, findIndex, some } from 'lodash';
 
-import { replaceVariableValue } from '../../../block-provider/hooks';
 import { VariableOption, VariablesContextType } from '../../../variables/types';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { transformVariableValue } from '../../../variables/utils/transformVariableValue';
