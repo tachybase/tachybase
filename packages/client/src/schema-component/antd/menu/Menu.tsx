@@ -25,6 +25,7 @@ import { useMenuTranslation } from './locale';
 import { MenuDesigner } from './Menu.Designer';
 import { useStyles } from './Menu.styles';
 import { MenuSearch } from './MenuSearch';
+import { getNewSideMenuSchema } from './tools';
 import { findKeysByUid, findMenuItem } from './util';
 
 type ComposedMenu = React.FC<any> & {
@@ -168,17 +169,25 @@ const SideMenu = ({
   const sideMenuSchemaRef = useRef(sideMenuSchema);
   sideMenuSchemaRef.current = sideMenuSchema;
 
+  const [searchMenuTitle, setSearchMenuTitle] = useState('');
+
   const items = useMemo(() => {
+    let newSideMenuSchema = sideMenuSchema;
+
+    if (searchMenuTitle) {
+      newSideMenuSchema = getNewSideMenuSchema(sideMenuSchema, searchMenuTitle);
+    }
+
     const result = getMenuItems(() => {
-      return <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />;
+      return <RecursionField key={uid()} schema={newSideMenuSchema} onlyRenderProperties />;
     });
 
     // NOTE: 这里后续要提供给用户可以在菜单项少的情况下, 配置关闭菜单搜索功能
-    if (true) {
+    if (designable) {
       const searchMenu = {
         key: 'x-menu-search',
         disabled: true,
-        label: <MenuSearch />,
+        label: <MenuSearch setSearchMenuTitle={setSearchMenuTitle} />,
         // 始终排在第一位
         order: -10,
         notdelete: true,
@@ -209,7 +218,7 @@ const SideMenu = ({
     }
 
     return result;
-  }, [getMenuItems, designable, sideMenuSchema, render, t, api, refresh]);
+  }, [getMenuItems, designable, sideMenuSchema, render, t, api, refresh, searchMenuTitle]);
 
   if (loading) {
     return null;
