@@ -171,7 +171,7 @@ export const pagination = {
                   'x-decorator': 'FormItem',
                   'x-component': 'InputNumber',
                   'x-component-props': {
-                    min: 0,
+                    min: 1,
                     max: 100,
                   },
                   default: 20,
