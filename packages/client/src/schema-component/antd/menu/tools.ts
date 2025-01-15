@@ -37,6 +37,9 @@ function flattenAndFilterJson(data: Schema, targetTitle) {
       return; // 提前终止递归
     }
 
+    if (!node.properties) {
+      return;
+    }
     // 如果当前节点有 properties，递归遍历子级
     Object.values(node.properties).forEach((child: Schema) => {
       const isSubMenu = child['x-component'] === 'Menu.SubMenu';
