@@ -317,6 +317,9 @@ export class PluginManager {
     try {
       P = await PluginManager.resolvePlugin(options.packageName || plugin, isUpgrade, !!options.packageName);
     } catch (error) {
+      if (process.env.APP_ENV === 'development') {
+        throw error;
+      }
       this.app.logger.warn('plugin not found', error);
       return;
     }
