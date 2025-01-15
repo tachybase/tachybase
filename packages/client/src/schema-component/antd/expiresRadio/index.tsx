@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { connect, mapProps } from '@tachybase/schema';
 
 import { css } from '@emotion/css';
-import { connect, mapProps } from '@formily/react';
 import { useBoolean } from 'ahooks';
 import { Input, Radio, Space } from 'antd';
 import dayjs from 'dayjs';

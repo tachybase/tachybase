@@ -1,8 +1,8 @@
 import { evaluators } from '@tachybase/evaluators/client';
+import { reaction } from '@tachybase/schema';
 import { getValuesByPath, uid } from '@tachybase/utils/client';
 
 import { Field } from '@formily/core';
-import { reaction } from '@formily/reactive';
 import _ from 'lodash';
 
 import { conditionAnalyses, getInnermostKeyAndValue, getTargetField } from '../../schema-component/common/utils/uitls';

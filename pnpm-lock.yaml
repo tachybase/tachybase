@@ -563,18 +563,6 @@ importers:
       '@floating-ui/react':
         specifier: 0.26.28
         version: 0.26.28(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@formily/core':
-        specifier: 2.3.2
-        version: 2.3.2
-      '@formily/react':
-        specifier: 2.3.2
-        version: 2.3.2(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(typescript@5.7.2)
-      '@formily/reactive':
-        specifier: 2.3.2
-        version: 2.3.2
-      '@formily/shared':
-        specifier: 2.3.2
-        version: 2.3.2
       '@js-preview/excel':
         specifier: ^1.7.12
         version: 1.7.12

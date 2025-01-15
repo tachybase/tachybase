@@ -1,8 +1,8 @@
 import React from 'react';
+import { ISchema, Schema, useField } from '@tachybase/schema';
 import { getPickerFormat } from '@tachybase/utils/client';
 
 import { css } from '@emotion/css';
-import { ISchema, Schema, useField } from '@formily/react';
 import { useTranslation } from 'react-i18next';
 
 import { useCollectionManager_deprecated, useDesignable } from '..';

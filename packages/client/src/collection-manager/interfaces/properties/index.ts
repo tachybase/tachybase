@@ -1,9 +1,8 @@
-import { css } from '@emotion/css';
-import { Field } from '@formily/core';
-import { ISchema } from '@formily/react';
-import { uid } from '@formily/shared';
+import { Field, ISchema, uid } from '@tachybase/schema';
 
-import { DateFormatCom, ExpiresRadio } from '../../../schema-component/antd/expiresRadio';
+import { css } from '@emotion/css';
+
+import { DateFormatCom } from '../../../schema-component/antd/expiresRadio';
 
 export * as operators from './operators';
 
@@ -497,7 +496,7 @@ export const recordPickerViewer = {
   title: '{{ t("View record") }}',
   'x-component': 'RecordPicker.Viewer',
   'x-component-props': {
-    className: 'nb-action-popup',
+    className: 'tb-action-popup',
   },
   properties: {
     tabs: {
