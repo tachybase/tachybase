@@ -15,6 +15,7 @@ import { i18nText } from '../../utils';
 
 const collectionMultiApp = {
   name: 'applications',
+  filterTargetKey: 'name',
   targetKey: 'name',
   fields: [
     {
@@ -294,7 +295,7 @@ export const schema: ISchema = {
               'x-action': 'destroy',
               'x-component': 'Action',
               'x-decorator': 'ACLActionProvider',
-              'x-use-component-props': 'useDestroyActionProps',
+              'x-use-component-props': 'useBulkDestroyActionProps',
               'x-component-props': {
                 icon: 'DeleteOutlined',
                 confirm: {

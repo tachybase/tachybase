@@ -142,7 +142,9 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
         }
 
         if (!this.hasApp(appName)) {
-          this.setAppStatus(appName, 'not_found');
+          this.setAppStatus(appName, 'not_found', {
+            error: new Error(`app ${appName} not found`),
+          });
         } else if (!this.getAppStatus(appName) || this.getAppStatus(appName) === 'initializing') {
           this.setAppStatus(appName, 'initialized');
         }
@@ -343,7 +345,9 @@ export class AppSupervisor extends EventEmitter implements AsyncEmitter {
 
             if (errorLevel === 'fatal') {
               this.setAppError(app.name, maintainingStatus.error);
-              this.setAppStatus(app.name, 'error');
+              this.setAppStatus(app.name, 'error', {
+                error: maintainingStatus.error,
+              });
               break;
             }
 

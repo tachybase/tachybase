@@ -10,6 +10,7 @@ import { useField, useForm } from '@tachybase/schema';
 import { LoadingOutlined } from '@ant-design/icons';
 import { message, notification, Spin } from 'antd';
 
+import { NOTIFICATION_CLIENT_KEY } from '../../constants';
 import { usePluginUtils } from '../utils';
 
 export const useCreateDatabaseConnectionAction = () => {
@@ -74,7 +75,7 @@ export const useStartAllAction = () => {
     async onClick() {
       const result = await resource.startAll();
       notification.info({
-        key: 'subAppsChange',
+        key: NOTIFICATION_CLIENT_KEY,
         message: (
           <span>
             {t('Processing...')} &nbsp; &nbsp;
@@ -85,7 +86,7 @@ export const useStartAllAction = () => {
       });
       if (result?.data?.data?.all === 0) {
         notification.info({
-          key: 'subAppsChange',
+          key: NOTIFICATION_CLIENT_KEY,
           message: `${t('Start count')}: 0/0!`,
         });
       }
@@ -101,13 +102,13 @@ export const useStopAllAction = () => {
       const result = await resource.stopAll();
       if (result?.data?.data?.all === 0) {
         notification.info({
-          key: 'subAppsChange',
+          key: NOTIFICATION_CLIENT_KEY,
           message: `${t('Stop count')}: 0/0!`,
         });
         return;
       }
       notification.info({
-        key: 'subAppsChange',
+        key: NOTIFICATION_CLIENT_KEY,
         message: (
           <span>
             {t('Processing...')} &nbsp; &nbsp;

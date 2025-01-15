@@ -1,29 +1,14 @@
 import { Context, Next } from '@tachybase/actions';
 import { Application, AppSupervisor } from '@tachybase/server';
 
-import { NAMESPACE } from '../../constants';
+import { NAMESPACE, NOTIFY_STATUS_EVENT_KEY } from '../../constants';
 
 export async function start(ctx: Context, next: Next) {
   const targetAppId = String(ctx.request.url.split('filterByTk=')[1]);
   const appSupervisor = AppSupervisor.getInstance();
   if (!appSupervisor.hasApp(targetAppId)) {
     appSupervisor.blockApps.delete(targetAppId);
-    try {
-      await AppSupervisor.getInstance().getApp(targetAppId);
-      ctx.app.noticeManager.notify('subAppsChange', {
-        app: targetAppId,
-        status: 'running',
-        level: 'info',
-        message: 'start success!',
-      });
-    } catch (error) {
-      ctx.app.noticeManager.notify('subAppsChange', {
-        app: targetAppId,
-        status: 'error',
-        level: 'error',
-        message: error.message,
-      });
-    }
+    AppSupervisor.getInstance().getApp(targetAppId);
     ctx.body = 'ok';
     await next();
   } else {
@@ -36,22 +21,7 @@ export async function stop(ctx: Context, next: Next) {
   const appSupervisor = AppSupervisor.getInstance();
   if (appSupervisor.hasApp(targetAppId)) {
     appSupervisor.blockApps.add(targetAppId);
-    try {
-      await appSupervisor.removeApp(targetAppId);
-      ctx.app.noticeManager.notify('subAppsChange', {
-        app: targetAppId,
-        status: 'stopped',
-        level: 'info',
-        message: 'stop success!',
-      });
-    } catch (error) {
-      ctx.app.noticeManager.notify('subAppsChange', {
-        app: targetAppId,
-        status: 'error',
-        level: 'error',
-        message: error.message,
-      });
-    }
+    appSupervisor.removeApp(targetAppId);
     ctx.body = 'ok';
     await next();
   } else {
@@ -103,18 +73,14 @@ export async function create(ctx: Context, next: Next) {
       ctx.throw(400, ctx.t('Template is in use', { ns: NAMESPACE }));
     }
   }
-  await ctx.db.getRepository('applications').create({
+  const app = await ctx.db.getRepository('applications').create({
     values: {
       ...params.values,
       createdBy: ctx.state.currentUser.id,
       updatedBy: ctx.state.currentUser.id,
     },
   });
-  const app = await ctx.db.getRepository('applications').find({
-    filter: {
-      name: (ctx.request.body as any).name,
-    },
-  });
+  ctx.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, { level: 'info', refresh: true });
   ctx.body = app;
   await next();
 }
@@ -139,25 +105,13 @@ export async function startAll(ctx: Context, next: Next) {
     const messageTitle = ctx.t('Start count', { ns: NAMESPACE });
     Promise.allSettled(
       applications.map(async (app) => {
-        return appSupervisor
-          .bootStrapApp(app.name, app.options)
-          .then(() => {
-            count++;
-            ctx.app.noticeManager.notify('subAppsChange', { app: app.name, status: 'running', level: 'info' });
-          })
-          .catch((err) => {
-            ctx.app.noticeManager.notify('subAppsChange', {
-              app: app.name,
-              cmd: 'start',
-              level: 'error',
-              status: 'error',
-              message: err.message,
-            });
-          });
+        return appSupervisor.bootStrapApp(app.name, app.options).then(() => {
+          count++;
+        });
       }),
     ).finally(() => {
       const message = `${messageTitle}: ${count}/${all}`;
-      ctx.app.noticeManager.notify('subAppsChange', { level: 'info', message });
+      ctx.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, { level: 'info', message });
     });
   }
   ctx.body = {
@@ -178,28 +132,16 @@ export async function stopAll(ctx: Context, next: Next) {
     }
     all++;
     promises.push(
-      appSupervisor
-        .removeApp(name)
-        .then(() => {
-          appSupervisor.blockApps.add(name);
-          count++;
-          ctx.app.noticeManager.notify('subAppsChange', { app: name, status: 'stopped', level: 'info' });
-        })
-        .catch((err) => {
-          ctx.app.noticeManager.notify('subAppsChange', {
-            app: this.name,
-            cmd: 'stop',
-            level: 'error',
-            status: 'error',
-            message: err.message,
-          });
-        }),
+      appSupervisor.removeApp(name).then(() => {
+        appSupervisor.blockApps.add(name);
+        count++;
+      }),
     );
   }
   if (all) {
     Promise.allSettled(promises).finally(() => {
       const message = `${messageTitle}: ${count}/${all}`;
-      ctx.app.noticeManager.notify('subAppsChange', { cmd: 'stopAll', level: 'info', message });
+      ctx.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, { level: 'info', message });
     });
   }
   ctx.body = {

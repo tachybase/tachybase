@@ -12,7 +12,7 @@ import {
 import { LoadingOutlined } from '@ant-design/icons';
 import { Card, Divider, notification, Space, Spin } from 'antd';
 
-import { NAMESPACE } from '../constants';
+import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../constants';
 import {
   useCreateDatabaseConnectionAction,
   useMultiAppUpdateAction,
@@ -41,38 +41,42 @@ const AppVisitor = () => {
     return apiClient.resource('applications');
   }, [apiClient]);
   const handleStart = () => {
-    notification.info({
-      key: 'subAppsChange',
-      message: (
-        <span>
-          {t('Processing...')} &nbsp; &nbsp;
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-        </span>
-      ),
-      duration: 0,
+    resource.start({ filterByTk: record.name }).then(() => {
+      notification.info({
+        key: NOTIFICATION_CLIENT_KEY,
+        message: (
+          <span>
+            {t('Processing...')} &nbsp; &nbsp;
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+          </span>
+        ),
+        duration: 0,
+      });
     });
-    resource.start({ filterByTk: record.name });
   };
   const handleStop = () => {
-    notification.info({
-      key: 'subAppsChange',
-      message: (
-        <span>
-          {t('Processing...')} &nbsp; &nbsp;
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-        </span>
-      ),
-      duration: 0,
+    resource.stop({ filterByTk: record.name }).then(() => {
+      notification.info({
+        key: NOTIFICATION_CLIENT_KEY,
+        message: (
+          <span>
+            {t('Processing...')} &nbsp; &nbsp;
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+          </span>
+        ),
+        duration: 0,
+      });
     });
-    resource.stop({ filterByTk: record.name });
   };
-  useNoticeSub('subAppsChange', (message) => {
+  useNoticeSub(NOTIFY_STATUS_EVENT_KEY, (message) => {
     const func = notification[message.level] || notification.info;
     if (message.message) {
       func({
-        key: 'subAppsChange',
+        key: NOTIFICATION_CLIENT_KEY,
         message: message.message,
       });
+    } else if (message.status !== 'commanding') {
+      notification.destroy(NOTIFICATION_CLIENT_KEY);
     }
     // 当前records没有则不刷新
     if (!data?.data || message.refresh) {
