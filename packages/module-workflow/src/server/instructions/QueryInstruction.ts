@@ -22,7 +22,7 @@ export class QueryInstruction extends Instruction {
     const { repository } = this.workflow.app.dataSourceManager.dataSources
       .get(dataSourceName)
       .collectionManager.getCollection(collectionName);
-    const { page, pageSize, sort = [], ...options } = processor.getParsedValue(params, node.id);
+    const { page, pageSize, sort = [], paginate = true, ...options } = processor.getParsedValue(params, node.id);
 
     const appends = options.appends
       ? Array.from(
@@ -34,7 +34,7 @@ export class QueryInstruction extends Instruction {
         )
       : options.appends;
 
-    let pageArgs = page && pageSize ? utils.pageArgsToLimitArgs(page, pageSize) : {};
+    let pageArgs = paginate ? utils.pageArgsToLimitArgs(page, pageSize) : {};
     const result = await (multiple ? repository.find : repository.findOne).call(repository, {
       ...options,
       ...otherOptions,

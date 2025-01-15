@@ -118,17 +118,28 @@ export const sort = {
 export const pagination = {
   type: 'void',
   properties: {
-    paginationselect: {
+    paginate: {
       type: 'boolean',
       title: tval('Pagination'),
       'x-decorator': 'FormItem',
       'x-component': 'Checkbox',
       'x-content': tval('Custom pagination(page number and count cannot be empty)'),
+      default: false,
     },
     pagination: {
       type: 'void',
       'x-decorator': 'FormItem',
       'x-component': 'Grid',
+      'x-reactions': [
+        {
+          dependencies: ['.paginate'],
+          fulfill: {
+            state: {
+              hidden: '{{ !$deps[0] }}',
+            },
+          },
+        },
+      ],
       properties: {
         row: {
           type: 'void',
@@ -146,17 +157,7 @@ export const pagination = {
                   'x-component-props': {
                     useTypedConstant: ['number', 'null'],
                   },
-                  'x-reactions': [
-                    {
-                      dependencies: ['.paginationselect'],
-                      fulfill: {
-                        state: {
-                          visible: '{{$self.value ? true : ($deps[0] ? true : false)}}',
-                        },
-                      },
-                    },
-                  ],
-                  default: null,
+                  default: 1,
                 },
               },
             },
@@ -173,17 +174,7 @@ export const pagination = {
                     min: 0,
                     max: 100,
                   },
-                  'x-reactions': [
-                    {
-                      dependencies: ['.paginationselect'],
-                      fulfill: {
-                        state: {
-                          visible: '{{$self.value ? true : ($deps[0] ? true : false)}}',
-                        },
-                      },
-                    },
-                  ],
-                  default: null,
+                  default: 20,
                 },
               },
             },
