@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   useActionContext,
   useCollectionRecordData,
@@ -6,7 +7,8 @@ import {
 } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
-import { message } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { message, notification, Spin } from 'antd';
 
 import { usePluginUtils } from '../utils';
 
@@ -67,44 +69,52 @@ export const useMultiAppUpdateAction = (actionCallback?: (key: string, values: a
 
 export const useStartAllAction = () => {
   const resource = useDataBlockResource();
-  const service = useDataBlockRequest();
   const { t } = usePluginUtils();
   return {
     async onClick() {
-      const hide = message.loading('starting ...', 0);
-      const result = await resource.startAll().finally(() => {
-        hide();
+      const result = await resource.startAll();
+      notification.info({
+        key: 'subAppsChange',
+        message: (
+          <span>
+            {t('Processing...')} &nbsp; &nbsp;
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+          </span>
+        ),
+        duration: 0,
       });
-      const success = result?.data?.data?.success || 0;
-      const all = result?.data?.data?.all || 0;
-      let info = `${t('Start count')}: ${success}/${all}!`;
-      if (result?.data?.data?.error) {
-        info += `\n error: ${result?.data?.data?.error}`;
+      if (result?.data?.data?.all === 0) {
+        notification.info({
+          key: 'subAppsChange',
+          message: `${t('Start count')}: 0/0!`,
+        });
       }
-      message.success(info);
-      service.refresh();
     },
   };
 };
 
 export const useStopAllAction = () => {
   const resource = useDataBlockResource();
-  const service = useDataBlockRequest();
   const { t } = usePluginUtils();
   return {
     async onClick() {
-      const hide = message.loading('stopping ...', 0);
-      const result = await resource.stopAll().finally(() => {
-        hide();
+      const result = await resource.stopAll();
+      notification.info({
+        key: 'subAppsChange',
+        message: (
+          <span>
+            {t('Processing...')} &nbsp; &nbsp;
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+          </span>
+        ),
+        duration: 0,
       });
-      const success = result?.data?.data?.success || 0;
-      const all = result?.data?.data?.all || 0;
-      let info = `${t('Start count')}: ${success}/${all}!`;
-      if (result?.data?.data?.error) {
-        info += ` error: ${result?.data?.data?.error}`;
+      if (result?.data?.data?.all === 0) {
+        notification.info({
+          key: 'subAppsChange',
+          message: `${t('Stop count')}: 0/0!`,
+        });
       }
-      message.success(info);
-      service.refresh();
     },
   };
 };

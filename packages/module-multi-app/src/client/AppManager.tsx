@@ -6,9 +6,10 @@ import {
   useCollectionRecordData,
   useCurrentUserContext,
   useDataBlockRequest,
+  useNoticeSub,
 } from '@tachybase/client';
 
-import { Card, Divider, Space } from 'antd';
+import { Card, Divider, notification, Space } from 'antd';
 
 import { NAMESPACE } from '../constants';
 import {
@@ -34,7 +35,7 @@ const AppVisitor = () => {
   const link = useLink();
   const record = useCollectionRecordData();
   const apiClient = useAPIClient();
-  const { refresh } = useDataBlockRequest();
+  const { data, mutate, refresh } = useDataBlockRequest<any[]>();
   const resource = useMemo(() => {
     return apiClient.resource('applications');
   }, [apiClient]);
@@ -58,6 +59,30 @@ const AppVisitor = () => {
         refresh();
       });
   };
+  useNoticeSub('subAppsChange', (message) => {
+    const func = notification[message.level] || notification.info;
+    if (message.message) {
+      func({
+        key: 'subAppsChange',
+        message: message.message,
+      });
+    }
+    // 当前records没有则不刷新
+    if (!data?.data) {
+      refresh();
+      return;
+    }
+    const existItem = data.data.find((v) => v.name === message.app);
+    if (!existItem) {
+      return;
+    } else {
+      const updatedData = [...data.data]; // 创建副本
+      updatedData.find((v) => v.name === message.app).status = message.status;
+      mutate({
+        data: updatedData,
+      });
+    }
+  });
   return (
     <Space split={<Divider type="horizontal" />}>
       <a href={link} target={'_blank'} rel="noreferrer">
