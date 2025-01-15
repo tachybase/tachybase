@@ -312,7 +312,7 @@ export const MenuDesigner = (props) => {
     icon: field.componentProps.icon,
   };
   const isSubMenu = fieldSchema['x-component'] === 'Menu.SubMenu';
-  const hiddenAddMenu = isAdminMenu || isSubMenu;
+  const hiddenAddMenu = isAdminMenu || !isSubMenu;
 
   if (fieldSchema['x-component'] === 'Menu.URL') {
     schema.properties['href'] = {
