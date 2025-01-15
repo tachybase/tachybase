@@ -21,4 +21,3 @@ export { dayjs, lodash, Dayjs };
 export * from './parseHTML';
 export * from './dom';
 export * from './currencyUtils';
-export * from './handlebars';
