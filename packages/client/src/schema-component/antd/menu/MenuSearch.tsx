@@ -21,6 +21,13 @@ export const MenuSearch = (props: MenuSearchProps) => {
     debounceChangeValue(value.trim());
   };
 
+  const handleClear = (event) => {
+    if (event.target.value === '') {
+      event.stopPropagation();
+      debounceChangeValue('');
+    }
+  };
+
   return (
     <Input.Search
       style={{ width: '100%' }}
@@ -28,6 +35,7 @@ export const MenuSearch = (props: MenuSearchProps) => {
       placeholder={t('search Menu')}
       prefix={null}
       onSearch={handleSearch}
+      onChange={handleClear}
     />
   );
 };
