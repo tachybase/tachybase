@@ -1,4 +1,5 @@
 import { Context } from '@tachybase/actions';
+import { JOB_STATUS, Processor } from '@tachybase/module-workflow';
 import { Application, Logger } from '@tachybase/server';
 import { App, InjectLog, Service } from '@tachybase/utils';
 
@@ -35,7 +36,11 @@ export class BeforeAfterResourceService {
               }
               if (prefix === 'before') {
                 const body = await new WebhookController().action(ctx, resourceDef);
-                await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
+                const result = await new WebhookController().triggerWorkflow(ctx, resourceDef, body);
+                // TODO：这里只处理事务模式下运行把出错内容返回给客户端，同时阻止进一步行为
+                if (result && result.lastSavedJob.status === JOB_STATUS.ERROR) {
+                  ctx.throw(400, result.lastSavedJob.result);
+                }
                 await next();
               } else {
                 await next();

@@ -170,6 +170,7 @@ export const gridCardBlockSettings = new SchemaSettings({
                             style: {
                               width: 260,
                             },
+                            optionLabelProp: 'fullLabel',
                           },
                         },
                         direction: {

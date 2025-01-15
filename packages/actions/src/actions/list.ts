@@ -11,11 +11,13 @@ function totalPage(total, pageSize): number {
   return Math.ceil(total / pageSize);
 }
 
+const MAX_ASSOCIATION_SORT_DEPTH = 2;
+
 function findArgs(ctx: Context) {
   const resourceName = ctx.action.resourceName;
   const params = ctx.action.params;
   // 处理 sort 字段
-  const includeSort = params.sort?.filter((item) => item.split('.').length > 1) ?? [];
+  const includeSort = params.sort?.filter((item) => typeof item === 'string' && item.split('.').length > 1) ?? [];
   const sortItems = [];
   includeSort.forEach((sort) => {
     const parts = sort[0] === '-' ? sort.slice(1, sort.length).split('.') : sort.split('.');
@@ -32,13 +34,28 @@ function findArgs(ctx: Context) {
       });
     }
   });
+
+  const associationAppend: Set<string> = new Set();
+
   sortItems.forEach((item) => {
     const i = params.appends?.findIndex((append) => append === item.prefix) ?? -1;
     if (i !== -1) {
       params.appends[i] = `${item.prefix}(${qs.stringify({ sort: item.sortItems })})`;
+    } else if (item.prefix) {
+      associationAppend.add(item.prefix);
     }
   });
-  params.sort = params.sort?.filter((item) => item.split('.').length === 1) ?? [];
+  if (associationAppend.size) {
+    if (!params.appends) {
+      params.appends = [];
+    }
+    for (const prefix of associationAppend) {
+      params.appends.push(prefix);
+    }
+  }
+
+  // 考虑默认深度为MAX_ASSOCIATION_SORT_DEPTH
+  params.sort = params.sort?.filter((item) => item.split('.').length <= 1 + MAX_ASSOCIATION_SORT_DEPTH) ?? [];
 
   if (params.tree) {
     const [collectionName, associationName] = resourceName.split('.');

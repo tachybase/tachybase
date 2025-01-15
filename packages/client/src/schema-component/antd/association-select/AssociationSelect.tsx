@@ -461,6 +461,7 @@ AssociationSelect.Designer = function Designer() {
                             style: {
                               width: 260,
                             },
+                            optionLabelProp: 'fullLabel',
                           },
                         },
                         direction: {
@@ -874,6 +875,7 @@ AssociationSelect.FilterDesigner = function FilterDesigner() {
                             style: {
                               width: 260,
                             },
+                            optionLabelProp: 'fullLabel',
                           },
                         },
                         direction: {

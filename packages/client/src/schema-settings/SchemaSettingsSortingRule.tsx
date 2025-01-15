@@ -66,6 +66,7 @@ export const SchemaSettingsSortingRule = function SortRuleConfigure(props) {
                           style: {
                             width: 260,
                           },
+                          optionLabelProp: 'fullLabel',
                         },
                       },
                       direction: {

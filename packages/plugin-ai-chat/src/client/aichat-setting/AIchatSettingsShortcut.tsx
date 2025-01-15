@@ -71,6 +71,12 @@ const schema: ISchema = {
           'x-decorator': 'FormItem',
           'x-component': 'Input',
         },
+        System_messages: {
+          type: 'string',
+          title: "{{t('System Messages')}}",
+          'x-decorator': 'FormItem',
+          'x-component': 'Input.TextArea',
+        },
         footer: {
           type: 'void',
           'x-component': 'ActionBar',

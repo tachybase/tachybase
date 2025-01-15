@@ -29,13 +29,14 @@ export class ModuleWeb extends Plugin {
       type: 'void',
       'x-uid': 'default-admin-menu',
       'x-designer': 'Menu.Designer',
-      'x-initializer': 'MenuItemInitializers',
+      'x-initializer': 'menuInitializers:menuItem',
       'x-component': 'Menu',
       'x-component-props': {
         mode: 'mix',
         theme: 'dark',
         onSelect: '{{ onSelect }}',
         sideMenuRefScopeKey: 'sideMenuRef',
+        isRootMenu: true,
       },
       properties: {},
     });

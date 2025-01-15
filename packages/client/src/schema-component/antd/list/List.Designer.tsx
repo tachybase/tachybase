@@ -103,6 +103,7 @@ export const ListDesigner = () => {
                             style: {
                               width: 260,
                             },
+                            optionLabelProp: 'fullLabel',
                           },
                         },
                         direction: {

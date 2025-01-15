@@ -117,6 +117,7 @@ const commonItems: SchemaSettingsItemType[] = [
                           style: {
                             width: 260,
                           },
+                          optionLabelProp: 'fullLabel',
                         },
                       },
                       direction: {

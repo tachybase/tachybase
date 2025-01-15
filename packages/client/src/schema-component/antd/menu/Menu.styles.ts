@@ -13,7 +13,7 @@ export const useStyles = createStyles(({ css, token }) => {
       text-overflow: ellipsis;
 
       &:hover {
-        > .general-schema-designer {
+        .general-schema-designer {
           display: flex;
         }
         .ant-space-item:hover {
@@ -33,14 +33,13 @@ export const useStyles = createStyles(({ css, token }) => {
       .submenu-title {
         display: flex;
         flex-direction: row;
-        gap: 10px;
 
         width: 100%;
         vertical-align: middle;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      > .general-schema-designer {
+      .general-schema-designer {
         flex: 1;
         display: flex;
         flex-direction: row;
@@ -48,7 +47,7 @@ export const useStyles = createStyles(({ css, token }) => {
         align-items: center;
         pointer-events: none;
         display: none;
-        > .general-schema-designer-icons {
+        .general-schema-designer-icons {
           pointer-events: all;
           .ant-space-item {
             line-height: 16px;
@@ -67,7 +66,7 @@ export const useStyles = createStyles(({ css, token }) => {
       width: 100%;
 
       &:hover {
-        > .general-schema-designer {
+        .general-schema-designer {
           display: flex;
         }
         .ant-space-item:hover {
@@ -97,7 +96,7 @@ export const useStyles = createStyles(({ css, token }) => {
         text-overflow: ellipsis;
       }
 
-      > .general-schema-designer {
+      .general-schema-designer {
         flex: 1;
         display: flex;
         flex-direction: row;
@@ -116,29 +115,33 @@ export const useStyles = createStyles(({ css, token }) => {
       }
     `,
 
-    headerMenuClass: css`
-      .ant-menu-item:hover {
-        > .ant-menu-title-content > div {
-          .general-schema-designer {
-            display: block;
-          }
-        }
-      }
-    `,
-
     sideMenuClass: css`
       height: 100%;
       overflow-y: auto;
       overflow-x: hidden;
-      .ant-menu-item {
-        > .ant-menu-title-content {
-          > div {
-            > .general-schema-designer {
-              right: 6px !important;
-            }
-          }
+
+      .ant-menu-submenu.ant-menu-submenu-inline .ant-menu-submenu-title {
+        position: relative;
+        ::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 3px;
+          height: 50%;
+          background-color: var(--colorPrimaryText);
+
+          /* 使用 clip-path 裁剪为梯形 */
+          clip-path: polygon(0 0, 100% 15%, 100% 85%, 0 100%);
         }
       }
+
+      .ant-menu-item,
+      .ant-menu-submenu-title {
+        padding-inline-end: 10px;
+      }
+
       .ant-menu-submenu-title {
         .ant-menu-title-content {
           > div {
@@ -159,39 +162,8 @@ export const useStyles = createStyles(({ css, token }) => {
       }
     `,
 
-    menuItem: css`
-      &:hover {
-        border-radius: ${token.borderRadius}px;
-        background: rgba(0, 0, 0, 0.045);
-        overflow: hidden;
-      }
-      .ant-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        box-shadow: none;
-        padding-left: 0;
-        padding-right: 0;
-        width: 100%;
-        span {
-          display: block;
-          text-align: center;
-          font-size: ${token.fontSizeSM}px;
-        }
-        .anticon {
-          font-size: 1.2rem;
-          margin-bottom: 0.3rem;
-          text-align: center;
-        }
-      }
-      .ant-btn-default {
-        box-shadow: none;
-      }
-      .general-schema-designer {
-        background: none;
-      }
+    headerMenuClass: css`
+      display: flex;
     `,
   };
 });

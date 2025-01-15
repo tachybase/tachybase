@@ -121,9 +121,8 @@ export const tableColumnSettings = new SchemaSettings({
             const interfaceCfg = getInterface(collectionField?.interface);
             const { currentMode } = useAssociationFieldContext();
 
-            return (
-              interfaceCfg?.sortable === true && !currentMode && collection?.name === collectionField?.collectionName
-            );
+            // 多对一,一对一的也能显示
+            return interfaceCfg?.sortable === true && !currentMode;
           },
           useComponentProps() {
             const field: any = useField();
