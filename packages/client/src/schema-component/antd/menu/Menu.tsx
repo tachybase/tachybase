@@ -191,7 +191,8 @@ const SideMenu = ({
             dn.insertAdjacent('beforeEnd', s);
           },
         }),
-        order: 1,
+        // 始终排在第一位
+        order: -1,
         notdelete: true,
       });
     }
