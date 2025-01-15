@@ -1,4 +1,4 @@
-import { dayjs, getPickerFormat, Handlebars } from '@tachybase/utils/client';
+import { dayjs, getPickerFormat } from '@tachybase/utils/client';
 
 import _, { every, findIndex, some } from 'lodash';
 

@@ -209,7 +209,7 @@ export const SchemaSettingsDateFormat = function DateFormatConfig(props: { field
         };
         schema['x-component-props'] = fieldSchema['x-component-props'];
         field.componentProps = fieldSchema['x-component-props'];
-        //子表格/表格区块
+        //子表格/表格卡片
         const parts = (field.path.entire as string).split('.');
         parts.pop();
         const modifiedString = parts.join('.');
