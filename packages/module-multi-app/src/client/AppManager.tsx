@@ -9,7 +9,8 @@ import {
   useNoticeSub,
 } from '@tachybase/client';
 
-import { Card, Divider, notification, Space } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Card, Divider, notification, Space, Spin } from 'antd';
 
 import { NAMESPACE } from '../constants';
 import {
@@ -40,24 +41,30 @@ const AppVisitor = () => {
     return apiClient.resource('applications');
   }, [apiClient]);
   const handleStart = () => {
-    resource
-      .start({ filterByTk: record.name })
-      .then(() => {
-        refresh();
-      })
-      .catch((error) => {
-        refresh();
-      });
+    notification.info({
+      key: 'subAppsChange',
+      message: (
+        <span>
+          {t('Processing...')} &nbsp; &nbsp;
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+        </span>
+      ),
+      duration: 0,
+    });
+    resource.start({ filterByTk: record.name });
   };
   const handleStop = () => {
-    resource
-      .stop({ filterByTk: record.name })
-      .then(() => {
-        refresh();
-      })
-      .catch((error) => {
-        refresh();
-      });
+    notification.info({
+      key: 'subAppsChange',
+      message: (
+        <span>
+          {t('Processing...')} &nbsp; &nbsp;
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+        </span>
+      ),
+      duration: 0,
+    });
+    resource.stop({ filterByTk: record.name });
   };
   useNoticeSub('subAppsChange', (message) => {
     const func = notification[message.level] || notification.info;
@@ -68,20 +75,22 @@ const AppVisitor = () => {
       });
     }
     // 当前records没有则不刷新
-    if (!data?.data) {
+    if (!data?.data || message.refresh) {
       refresh();
       return;
     }
-    const existItem = data.data.find((v) => v.name === message.app);
+    if (!message.app && !message.status) {
+      return;
+    }
+    const existItem = data.data.some((v) => v.name === message.app);
     if (!existItem) {
       return;
-    } else {
-      const updatedData = [...data.data]; // 创建副本
-      updatedData.find((v) => v.name === message.app).status = message.status;
-      mutate({
-        data: updatedData,
-      });
     }
+    const updatedData = [...data.data]; // 创建副本
+    updatedData.find((v) => v.name === message.app).status = message.status;
+    mutate({
+      data: updatedData,
+    });
   });
   return (
     <Space split={<Divider type="horizontal" />}>

@@ -99,6 +99,13 @@ export const useStopAllAction = () => {
   return {
     async onClick() {
       const result = await resource.stopAll();
+      if (result?.data?.data?.all === 0) {
+        notification.info({
+          key: 'subAppsChange',
+          message: `${t('Stop count')}: 0/0!`,
+        });
+        return;
+      }
       notification.info({
         key: 'subAppsChange',
         message: (
@@ -109,12 +116,6 @@ export const useStopAllAction = () => {
         ),
         duration: 0,
       });
-      if (result?.data?.data?.all === 0) {
-        notification.info({
-          key: 'subAppsChange',
-          message: `${t('Stop count')}: 0/0!`,
-        });
-      }
     },
   };
 };

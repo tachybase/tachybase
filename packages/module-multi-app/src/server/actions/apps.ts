@@ -8,7 +8,22 @@ export async function start(ctx: Context, next: Next) {
   const appSupervisor = AppSupervisor.getInstance();
   if (!appSupervisor.hasApp(targetAppId)) {
     appSupervisor.blockApps.delete(targetAppId);
-    await AppSupervisor.getInstance().getApp(targetAppId);
+    try {
+      await AppSupervisor.getInstance().getApp(targetAppId);
+      ctx.app.noticeManager.notify('subAppsChange', {
+        app: targetAppId,
+        status: 'running',
+        level: 'info',
+        message: 'start success!',
+      });
+    } catch (error) {
+      ctx.app.noticeManager.notify('subAppsChange', {
+        app: targetAppId,
+        status: 'error',
+        level: 'error',
+        message: error.message,
+      });
+    }
     ctx.body = 'ok';
     await next();
   } else {
@@ -21,7 +36,22 @@ export async function stop(ctx: Context, next: Next) {
   const appSupervisor = AppSupervisor.getInstance();
   if (appSupervisor.hasApp(targetAppId)) {
     appSupervisor.blockApps.add(targetAppId);
-    await appSupervisor.removeApp(targetAppId);
+    try {
+      await appSupervisor.removeApp(targetAppId);
+      ctx.app.noticeManager.notify('subAppsChange', {
+        app: targetAppId,
+        status: 'stopped',
+        level: 'info',
+        message: 'stop success!',
+      });
+    } catch (error) {
+      ctx.app.noticeManager.notify('subAppsChange', {
+        app: targetAppId,
+        status: 'error',
+        level: 'error',
+        message: error.message,
+      });
+    }
     ctx.body = 'ok';
     await next();
   } else {
@@ -89,17 +119,6 @@ export async function create(ctx: Context, next: Next) {
   await next();
 }
 
-async function startSingleSubApp(appSupervisor: AppSupervisor, name: string, options: any): Promise<number> {
-  const subApp = await appSupervisor.getApp(name, { withOutBootStrap: true });
-  if (subApp) {
-    // TODO: 正在关闭的情况不做处理,防止冲突,用户可以再点一次
-    return 0;
-  }
-  appSupervisor.blockApps.delete(name);
-  await appSupervisor.bootStrapApp(name, options);
-  return 1;
-}
-
 export async function startAll(ctx: Context, next: Next) {
   const db = ctx.db;
   const appSupervisor = AppSupervisor.getInstance();
@@ -131,6 +150,7 @@ export async function startAll(ctx: Context, next: Next) {
               app: app.name,
               cmd: 'start',
               level: 'error',
+              status: 'error',
               message: err.message,
             });
           });
@@ -170,6 +190,7 @@ export async function stopAll(ctx: Context, next: Next) {
             app: this.name,
             cmd: 'stop',
             level: 'error',
+            status: 'error',
             message: err.message,
           });
         }),
