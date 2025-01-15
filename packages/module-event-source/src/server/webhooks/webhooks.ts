@@ -1,6 +1,6 @@
 import { Context } from '@tachybase/actions';
 import { IField } from '@tachybase/data-source';
-import { PluginWorkflow } from '@tachybase/module-workflow';
+import { PluginWorkflow, Processor } from '@tachybase/module-workflow';
 import { ActionParams } from '@tachybase/resourcer';
 import Application from '@tachybase/server';
 import { dayjs } from '@tachybase/utils';
@@ -234,6 +234,7 @@ export class WebhookController {
       getChanged: getChanged(ctx),
     };
     try {
+      // TODO: 这里不应该简单 try catch，如果用户想要 throw 的时候应该让它能 throw 出去，给到客户端
       await evalSimulate(action.code, {
         ctx: webhookCtx,
         lib: {
@@ -249,7 +250,7 @@ export class WebhookController {
     }
   }
 
-  async triggerWorkflow(ctx, action, body) {
+  async triggerWorkflow(ctx, action, body): Promise<Processor | void> {
     const { currentUser, currentRole } = ctx.state;
     const { model: UserModel } = ctx.db.getCollection('users');
     // 只有绑定工作流才执行
@@ -263,6 +264,6 @@ export class WebhookController {
     const pluginWorkflow = ctx.app.getPlugin(PluginWorkflow) as PluginWorkflow;
     const wfRepo = ctx.db.getRepository('workflows');
     const wf = await wfRepo.findOne({ filter: { key: action.workflowKey, enabled: true } });
-    await pluginWorkflow.trigger(wf, { data: body, ...userInfo }, { httpContext: ctx });
+    return await pluginWorkflow.trigger(wf, { data: body, ...userInfo }, { httpContext: ctx });
   }
 }
