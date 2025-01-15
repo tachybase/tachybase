@@ -1,7 +1,7 @@
 import { css, parseCollectionName, useCollectionFilterOptions } from '@tachybase/client';
 import { useForm } from '@tachybase/schema';
 
-import { NAMESPACE } from '../locale';
+import { NAMESPACE, tval } from '../locale';
 
 export const collection = {
   type: 'string',
@@ -117,47 +117,66 @@ export const sort = {
 
 export const pagination = {
   type: 'void',
-  title: '{{t("Pagination")}}',
-  'x-decorator': 'SchemaComponentContext.Provider',
-  'x-decorator-props': {
-    value: { designable: false },
-  },
-  'x-component': 'Grid',
   properties: {
-    row: {
+    paginate: {
+      type: 'boolean',
+      title: tval('Pagination'),
+      'x-decorator': 'FormItem',
+      'x-component': 'Checkbox',
+      'x-content': tval('Custom pagination(page number and count cannot be empty)'),
+      default: false,
+    },
+    pagination: {
       type: 'void',
-      'x-component': 'Grid.Row',
-      properties: {
-        page: {
-          type: 'void',
-          'x-component': 'Grid.Col',
-          properties: {
-            page: {
-              type: 'number',
-              title: '{{t("Page number")}}',
-              'x-decorator': 'FormItem',
-              'x-component': 'WorkflowVariableInput',
-              'x-component-props': {
-                useTypedConstant: ['number', 'null'],
-              },
-              default: 1,
+      'x-decorator': 'FormItem',
+      'x-component': 'Grid',
+      'x-reactions': [
+        {
+          dependencies: ['.paginate'],
+          fulfill: {
+            state: {
+              hidden: '{{ !$deps[0] }}',
             },
           },
         },
-        pageSize: {
+      ],
+      properties: {
+        row: {
           type: 'void',
-          'x-component': 'Grid.Col',
+          'x-component': 'Grid.Row',
           properties: {
-            pageSize: {
-              type: 'number',
-              title: '{{t("Page size")}}',
-              'x-decorator': 'FormItem',
-              'x-component': 'InputNumber',
-              'x-component-props': {
-                min: 1,
-                max: 100,
+            page: {
+              type: 'void',
+              'x-component': 'Grid.Col',
+              properties: {
+                page: {
+                  type: 'number',
+                  title: '{{t("Page number")}}',
+                  'x-decorator': 'FormItem',
+                  'x-component': 'WorkflowVariableInput',
+                  'x-component-props': {
+                    useTypedConstant: ['number', 'null'],
+                  },
+                  default: 1,
+                },
               },
-              default: 20,
+            },
+            pageSize: {
+              type: 'void',
+              'x-component': 'Grid.Col',
+              properties: {
+                pageSize: {
+                  type: 'number',
+                  title: '{{t("Page size")}}',
+                  'x-decorator': 'FormItem',
+                  'x-component': 'InputNumber',
+                  'x-component-props': {
+                    min: 1,
+                    max: 100,
+                  },
+                  default: 20,
+                },
+              },
             },
           },
         },
