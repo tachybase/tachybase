@@ -15,8 +15,8 @@ import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { Menu as AntdMenu, Button, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
 
-import { DndContext, SortableItem, useDesignable, useDesigner } from '../..';
-import { css, Icon, useSchemaInitializerRender, useToken } from '../../../';
+import { createDesignable, DndContext, SortableItem, useDesignable, useDesigner } from '../..';
+import { css, Icon, useAPIClient, useSchemaInitializerRender, useToken, useTranslation } from '../../../';
 import { useCollectMenuItems, useMenuItem } from '../../../hooks/useMenuItem';
 import { DragHandleMenu } from '../../common/sortable-item/DragHandleMenu';
 import { useProps } from '../../hooks/useProps';
@@ -75,7 +75,9 @@ const HeaderMenu = ({
   };
 
   const onClick = (info) => {
+    console.log('%c Line:78 🚀 info', 'font-size:18px;color:#33a5ff;background:#93c0a4', info);
     const s = schema.properties?.[info.key];
+    console.log('%c Line:79 🍅 s', 'font-size:18px;color:#ed9ec7;background:#465975', s);
     if (!s) {
       return;
     }
@@ -84,8 +86,13 @@ const HeaderMenu = ({
         onSelect?.({ item: { props: info } });
       } else {
         const menuItemSchema = findMenuItem(s);
+        console.log('%c Line:88 🍕 menuItemSchema', 'font-size:18px;color:#ed9ec7;background:#ffdd4d', menuItemSchema);
         if (!menuItemSchema) {
-          return onSelect?.({ item: { props: info } });
+          return onSelect?.({
+            item: {
+              props: info,
+            },
+          });
         }
         setLoading(true);
         const keys = findKeysByUid(schema, menuItemSchema['x-uid']);
@@ -142,14 +149,59 @@ const HeaderMenu = ({
   );
 };
 
-const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys, defaultSelectedKeys, onSelect }) => {
+const SideMenu = ({
+  loading,
+  mode,
+  sideMenuSchema,
+  sideMenuRef,
+  defaultOpenKeys,
+  defaultSelectedKeys,
+  onSelect,
+
+  render,
+  t,
+  api,
+  refresh,
+  designable,
+}) => {
   const { Component, getMenuItems } = useMenuItem();
   const { styles } = useStyles();
 
   const sideMenuSchemaRef = useRef(sideMenuSchema);
   sideMenuSchemaRef.current = sideMenuSchema;
 
-  const items = getMenuItems(() => <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />);
+  // const items = getMenuItems(() => <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />);
+
+  const items = useMemo(() => {
+    const result = getMenuItems(() => {
+      return <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />;
+    });
+
+    if (designable) {
+      console.log('%c Line:174 🍋 designable', 'font-size:18px;color:#33a5ff;background:#7f2b82', designable);
+      result.push({
+        key: 'x-designer-button',
+        disabled: true,
+        label: render({
+          'data-testid': 'schema-initializer-Menu-side',
+          insert: (s) => {
+            const dn = createDesignable({
+              t,
+              api,
+              refresh,
+              current: sideMenuSchemaRef.current,
+            });
+            dn.loadAPIClientEvents();
+            dn.insertAdjacent('beforeEnd', s);
+          },
+        }),
+        order: 1,
+        notdelete: true,
+      });
+    }
+
+    return result;
+  }, [getMenuItems, designable, sideMenuSchema, render, t, api, refresh]);
 
   if (loading) {
     return null;
@@ -208,6 +260,9 @@ export const Menu: ComposedMenu = observer(
       children,
       ...others
     } = useProps(props);
+    const { t } = useTranslation();
+    const { refresh } = useDesignable();
+    const api = useAPIClient();
     const Designer = useDesigner();
     const schema = useFieldSchema();
     const { render } = useSchemaInitializerRender(schema['x-initializer'], schema['x-initializer-props']);
@@ -307,6 +362,11 @@ export const Menu: ComposedMenu = observer(
               defaultOpenKeys={defaultOpenKeys}
               defaultSelectedKeys={defaultSelectedKeys}
               onSelect={onSelect}
+              render={render}
+              t={t}
+              api={api}
+              refresh={refresh}
+              designable={designable}
             />
           </MenuModeContext.Provider>
         </MenuItemDesignerContext.Provider>

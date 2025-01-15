@@ -31,7 +31,7 @@ export const MenuEditor = (props) => {
   const ctx = useACLRoleContext();
   const [current, setCurrent] = useState(null);
   const onSelect = ({ item }) => {
-    const schema = item.props.schema;
+    const schema = item.props.schema || {};
     setTitle(schema.title);
     setCurrent(schema);
     navigate(`/admin/${schema['x-uid']}`);
