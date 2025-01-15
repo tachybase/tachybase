@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import { FieldContext, SchemaContext } from '@tachybase/schema';
 
 import { Card } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { SortableContext, SortableItem, useDesignable } from '../..';
+import { SortableItem } from '../..';
 import { Icon } from '../../../';
 import { DragHandleMenu } from '../../common/sortable-item/DragHandleMenu';
 import { useStyles } from './AdminMenu.style';

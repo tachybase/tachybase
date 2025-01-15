@@ -5,6 +5,7 @@ import { SchemaOptionsContext, uid } from '@tachybase/schema';
 import { useTranslation } from 'react-i18next';
 
 import { SchemaInitializerItem, useSchemaInitializer } from '../../application';
+import { Icon } from '../../icon';
 import { FormDialog, SchemaComponent, SchemaComponentOptions } from '../../schema-component';
 import { useStyles } from '../../schema-component/antd/menu/MenuItemInitializers';
 import { useGlobalTheme } from '../../style/theme';
@@ -84,5 +85,12 @@ export const PageMenuItem = () => {
       },
     });
   }, [insert, options.components, options.scope, t, theme]);
-  return <SchemaInitializerItem title={t('Page')} onClick={handleClick} className={styles.menuItem} />;
+  return (
+    <SchemaInitializerItem
+      icon={<Icon type={'FileOutlined'} />}
+      title={t('Create page')}
+      onClick={handleClick}
+      className={styles.menuItem}
+    />
+  );
 };

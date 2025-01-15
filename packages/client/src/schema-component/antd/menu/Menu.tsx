@@ -12,11 +12,11 @@ import {
 import { error } from '@tachybase/utils/client';
 
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Menu as AntdMenu, Button, MenuProps, Popover } from 'antd';
+import { Menu as AntdMenu, Button, Input, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
 
-import { DndContext, SortableItem, useDesignable, useDesigner } from '../..';
-import { css, Icon, useSchemaInitializerRender, useToken } from '../../../';
+import { createDesignable, DndContext, SortableItem, useDesignable, useDesigner } from '../..';
+import { css, Icon, useAPIClient, useSchemaInitializerRender, useToken, useTranslation } from '../../../';
 import { useCollectMenuItems, useMenuItem } from '../../../hooks/useMenuItem';
 import { DragHandleMenu } from '../../common/sortable-item/DragHandleMenu';
 import { useProps } from '../../hooks/useProps';
@@ -24,6 +24,8 @@ import { AdminMenu } from './AdminMenu';
 import { useMenuTranslation } from './locale';
 import { MenuDesigner } from './Menu.Designer';
 import { useStyles } from './Menu.styles';
+import { MenuSearch } from './MenuSearch';
+import { getNewSideMenuSchema } from './tools';
 import { findKeysByUid, findMenuItem } from './util';
 
 type ComposedMenu = React.FC<any> & {
@@ -85,7 +87,11 @@ const HeaderMenu = ({
       } else {
         const menuItemSchema = findMenuItem(s);
         if (!menuItemSchema) {
-          return onSelect?.({ item: { props: info } });
+          return onSelect?.({
+            item: {
+              props: info,
+            },
+          });
         }
         setLoading(true);
         const keys = findKeysByUid(schema, menuItemSchema['x-uid']);
@@ -142,14 +148,77 @@ const HeaderMenu = ({
   );
 };
 
-const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys, defaultSelectedKeys, onSelect }) => {
+const SideMenu = ({
+  loading,
+  mode,
+  sideMenuSchema,
+  sideMenuRef,
+  defaultOpenKeys,
+  defaultSelectedKeys,
+  onSelect,
+
+  render,
+  t,
+  api,
+  refresh,
+  designable,
+}) => {
   const { Component, getMenuItems } = useMenuItem();
   const { styles } = useStyles();
 
   const sideMenuSchemaRef = useRef(sideMenuSchema);
   sideMenuSchemaRef.current = sideMenuSchema;
 
-  const items = getMenuItems(() => <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />);
+  const [searchMenuTitle, setSearchMenuTitle] = useState('');
+
+  const items = useMemo(() => {
+    let newSideMenuSchema = sideMenuSchema;
+
+    if (searchMenuTitle) {
+      newSideMenuSchema = getNewSideMenuSchema(sideMenuSchema, searchMenuTitle);
+    }
+
+    const result = getMenuItems(() => {
+      return <RecursionField key={uid()} schema={newSideMenuSchema} onlyRenderProperties />;
+    });
+
+    // NOTE: 这里后续要提供给用户可以在菜单项少的情况下, 配置关闭菜单搜索功能
+    if (designable) {
+      const searchMenu = {
+        key: 'x-menu-search',
+        disabled: true,
+        label: <MenuSearch setSearchMenuTitle={setSearchMenuTitle} />,
+        // 始终排在第一位
+        order: -10,
+        notdelete: true,
+      };
+      result.push(searchMenu);
+    }
+
+    if (designable) {
+      result.push({
+        key: 'x-designer-button',
+        disabled: true,
+        label: render({
+          'data-testid': 'schema-initializer-Menu-side',
+          insert: (s) => {
+            const dn = createDesignable({
+              t,
+              api,
+              refresh,
+              current: sideMenuSchemaRef.current,
+            });
+            dn.loadAPIClientEvents();
+            dn.insertAdjacent('beforeEnd', s);
+          },
+        }),
+        order: -1,
+        notdelete: true,
+      });
+    }
+
+    return result;
+  }, [getMenuItems, designable, sideMenuSchema, render, t, api, refresh, searchMenuTitle]);
 
   if (loading) {
     return null;
@@ -160,7 +229,7 @@ const SideMenu = ({ loading, mode, sideMenuSchema, sideMenuRef, defaultOpenKeys,
     sideMenuSchema?.['x-component'] === 'Menu.SubMenu' &&
     sideMenuRef?.current?.firstChild &&
     createPortal(
-      <MenuModeContext.Provider value={{ mode: 'inline' }}>
+      <MenuModeContext.Provider value={'inline'}>
         <Component />
         <AntdMenu
           mode={'inline'}
@@ -208,6 +277,9 @@ export const Menu: ComposedMenu = observer(
       children,
       ...others
     } = useProps(props);
+    const { t } = useTranslation();
+    const { refresh } = useDesignable();
+    const api = useAPIClient();
     const Designer = useDesigner();
     const schema = useFieldSchema();
     const { render } = useSchemaInitializerRender(schema['x-initializer'], schema['x-initializer-props']);
@@ -307,6 +379,11 @@ export const Menu: ComposedMenu = observer(
               defaultOpenKeys={defaultOpenKeys}
               defaultSelectedKeys={defaultSelectedKeys}
               onSelect={onSelect}
+              render={render}
+              t={t}
+              api={api}
+              refresh={refresh}
+              designable={designable}
             />
           </MenuModeContext.Provider>
         </MenuItemDesignerContext.Provider>
@@ -446,7 +523,7 @@ Menu.SubMenu = observer(
     const { icon, children, ...others } = props;
     const schema = useFieldSchema();
     const field = useField();
-    const { mode } = useContext(MenuModeContext);
+    const mode = useContext(MenuModeContext);
     const Designer = useContext(MenuItemDesignerContext);
     const { styles } = useStyles();
     const submenu = useMemo(() => {
