@@ -20,7 +20,6 @@ export const AdminMenu = (props) => {
 };
 
 const AdminMenuCard = (props) => {
-  console.log('%c Line:23 🥛 props', 'font-size:18px;color:#e41a6a;background:#7f2b82', props);
   const { item, onClick } = props;
   const { icon, field, Designer, schema } = item?.menu || {};
   const { t } = useTranslation();

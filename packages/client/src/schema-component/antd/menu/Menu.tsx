@@ -75,9 +75,7 @@ const HeaderMenu = ({
   };
 
   const onClick = (info) => {
-    console.log('%c Line:78 🚀 info', 'font-size:18px;color:#33a5ff;background:#93c0a4', info);
     const s = schema.properties?.[info.key];
-    console.log('%c Line:79 🍅 s', 'font-size:18px;color:#ed9ec7;background:#465975', s);
     if (!s) {
       return;
     }
@@ -86,7 +84,6 @@ const HeaderMenu = ({
         onSelect?.({ item: { props: info } });
       } else {
         const menuItemSchema = findMenuItem(s);
-        console.log('%c Line:88 🍕 menuItemSchema', 'font-size:18px;color:#ed9ec7;background:#ffdd4d', menuItemSchema);
         if (!menuItemSchema) {
           return onSelect?.({
             item: {
@@ -178,7 +175,6 @@ const SideMenu = ({
     });
 
     if (designable) {
-      console.log('%c Line:174 🍋 designable', 'font-size:18px;color:#33a5ff;background:#7f2b82', designable);
       result.push({
         key: 'x-designer-button',
         disabled: true,
@@ -212,7 +208,7 @@ const SideMenu = ({
     sideMenuSchema?.['x-component'] === 'Menu.SubMenu' &&
     sideMenuRef?.current?.firstChild &&
     createPortal(
-      <MenuModeContext.Provider value={{ mode: 'inline' }}>
+      <MenuModeContext.Provider value={'inline'}>
         <Component />
         <AntdMenu
           mode={'inline'}
@@ -506,7 +502,7 @@ Menu.SubMenu = observer(
     const { icon, children, ...others } = props;
     const schema = useFieldSchema();
     const field = useField();
-    const { mode } = useContext(MenuModeContext);
+    const mode = useContext(MenuModeContext);
     const Designer = useContext(MenuItemDesignerContext);
     const { styles } = useStyles();
     const submenu = useMemo(() => {
