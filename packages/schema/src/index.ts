@@ -1,5 +1,3 @@
-import { batch } from '@tachybase/schema';
-
 import {
   ArrayField,
   FormPathPattern,
@@ -12,6 +10,7 @@ import {
   isVoidField,
   LifeCycleTypes,
 } from '@formily/core';
+import { batch } from '@formily/reactive';
 import { unstable_useCompatEffect } from '@formily/reactive-react';
 import { each, FormPath, isNumberLike } from '@formily/shared';
 
