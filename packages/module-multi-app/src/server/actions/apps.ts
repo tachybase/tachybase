@@ -160,9 +160,6 @@ export async function stopAll(ctx: Context, next: Next) {
     try {
       await Promise.all(promises);
     } catch (err) {
-      if (count === 0) {
-        ctx.throw(500, error.message);
-      }
       error = err;
     }
   }
