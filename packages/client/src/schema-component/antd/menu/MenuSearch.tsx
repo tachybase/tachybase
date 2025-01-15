@@ -5,10 +5,8 @@ import { useTranslation } from '../../..';
 export const MenuSearch = (props) => {
   const {} = props;
   const { t } = useTranslation();
-  const handleSearch = (event) => {
-    event.preventDefault();
+  const handleSearch = (value, event, { source }) => {
     event.stopPropagation();
-    console.log('%c Line:9 🍆 handleSearch', 'font-size:18px;color:#6ec1c2;background:#93c0a4', handleSearch);
   };
   return (
     <Input.Search
