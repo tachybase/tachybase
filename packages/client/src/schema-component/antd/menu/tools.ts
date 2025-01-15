@@ -1,7 +1,13 @@
 import { type Schema } from '@tachybase/schema';
 
-// 从原始 schema JSON 数据出, 构造平铺的 json
-export function getNewSideMenuSchema(sideMenuSchema, searchMenuTitle) {
+/**
+ * 从原始 schema JSON 数据出, 构造平铺的 json
+ * Creates a new flattened menu schema filtered by the search title
+ * @param sideMenuSchema - The original menu schema to process
+ * @param searchMenuTitle - The title to filter menu items by
+ * @returns A new Schema with filtered menu items
+ */
+export function getNewSideMenuSchema(sideMenuSchema: Schema, searchMenuTitle: string): Schema {
   const newSchema = flattenAndFilterJson(sideMenuSchema, searchMenuTitle);
   return newSchema;
 }
@@ -24,7 +30,7 @@ function flattenAndFilterJson(data: Schema, targetTitle) {
     // 直接判断叶节点, 种类又比较多.
     const isSubMenu = node['x-component'] === 'Menu.SubMenu';
     if (!isSubMenu) {
-      if (node?.title?.includes(targetTitle)) {
+      if (typeof node?.title === 'string' && node.title.includes(targetTitle)) {
         // 提取符合条件的叶子节点到第二级
         result.properties[node.name] = { ...node };
       }

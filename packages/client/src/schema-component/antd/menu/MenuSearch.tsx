@@ -3,7 +3,11 @@ import _ from 'lodash';
 
 import { useTranslation } from '../../..';
 
-export const MenuSearch = (props) => {
+interface MenuSearchProps {
+  setSearchMenuTitle: (title: string) => void;
+}
+
+export const MenuSearch = (props: MenuSearchProps) => {
   const { setSearchMenuTitle } = props;
   const { t } = useTranslation();
 
@@ -12,7 +16,7 @@ export const MenuSearch = (props) => {
     setSearchMenuTitle(value);
   }, 500);
 
-  const handleSearch = (value, event, { source }) => {
+  const handleSearch = (value: string, event: React.ChangeEvent<HTMLInputElement>) => {
     event.stopPropagation();
     debounceChangeValue(value.trim());
   };
