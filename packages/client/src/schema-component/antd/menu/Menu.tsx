@@ -12,7 +12,7 @@ import {
 import { error } from '@tachybase/utils/client';
 
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Menu as AntdMenu, Button, MenuProps, Popover } from 'antd';
+import { Menu as AntdMenu, Button, Input, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
 
 import { createDesignable, DndContext, SortableItem, useDesignable, useDesigner } from '../..';
@@ -24,6 +24,7 @@ import { AdminMenu } from './AdminMenu';
 import { useMenuTranslation } from './locale';
 import { MenuDesigner } from './Menu.Designer';
 import { useStyles } from './Menu.styles';
+import { MenuSearch } from './MenuSearch';
 import { findKeysByUid, findMenuItem } from './util';
 
 type ComposedMenu = React.FC<any> & {
@@ -167,12 +168,23 @@ const SideMenu = ({
   const sideMenuSchemaRef = useRef(sideMenuSchema);
   sideMenuSchemaRef.current = sideMenuSchema;
 
-  // const items = getMenuItems(() => <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />);
-
   const items = useMemo(() => {
     const result = getMenuItems(() => {
       return <RecursionField key={uid()} schema={sideMenuSchema} onlyRenderProperties />;
     });
+
+    // NOTE: 这里后续要提供给用户可以在菜单项少的情况下, 配置关闭菜单搜索功能
+    if (true) {
+      const searchMenu = {
+        key: 'x-menu-search',
+        disabled: true,
+        label: <MenuSearch />,
+        // 始终排在第一位
+        order: -10,
+        notdelete: true,
+      };
+      result.push(searchMenu);
+    }
 
     if (designable) {
       result.push({
@@ -191,7 +203,6 @@ const SideMenu = ({
             dn.insertAdjacent('beforeEnd', s);
           },
         }),
-        // 始终排在第一位
         order: -1,
         notdelete: true,
       });
