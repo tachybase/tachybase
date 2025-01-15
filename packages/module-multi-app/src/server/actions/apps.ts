@@ -102,18 +102,38 @@ async function startSingleSubApp(appSupervisor: AppSupervisor, name: string, opt
 
 export async function startAll(ctx: Context, next: Next) {
   const db = ctx.db;
+  const appSupervisor = AppSupervisor.getInstance();
+  const existNames = await appSupervisor.getAppsNames();
   const applications = await db.getRepository('applications').find({
-    fields: ['name'],
+    fields: ['name', 'options'],
+    filter: {
+      name: {
+        $notIn: existNames,
+      },
+    },
     raw: true,
   });
-  const appSupervisor = AppSupervisor.getInstance();
   let count = 0;
-  const promises = applications.map((application) =>
-    startSingleSubApp(appSupervisor, application.name, application.options).then((addCount) => (count += addCount)),
-  );
-  await Promise.all(promises);
+  let error;
+  const all = applications.length;
+  appSupervisor.blockApps.clear();
+  if (all) {
+    try {
+      await Promise.all(
+        applications.map((app) => appSupervisor.bootStrapApp(app.name, app.options).then(() => count++)),
+      );
+    } catch (err) {
+      error = err;
+    }
+  }
+  let errorMessage;
+  if (error) {
+    errorMessage = error?.message || 'server error';
+  }
   ctx.body = {
     success: count,
+    all,
+    error: errorMessage,
   };
 }
 
@@ -122,15 +142,37 @@ export async function stopAll(ctx: Context, next: Next) {
   const subApps = await appSupervisor.getAppsNames();
   const promises = [];
   let count = 0;
+  let all = 0;
+  let error;
   for (const name of subApps) {
     if (name === 'main') {
       continue;
     }
-    appSupervisor.blockApps.add(name);
-    promises.push(appSupervisor.removeApp(name).then(() => count++));
+    all++;
+    promises.push(
+      appSupervisor.removeApp(name).then(() => {
+        appSupervisor.blockApps.add(name);
+        count++;
+      }),
+    );
   }
-  await Promise.all(promises);
+  if (all) {
+    try {
+      await Promise.all(promises);
+    } catch (err) {
+      if (count === 0) {
+        ctx.throw(500, error.message);
+      }
+      error = err;
+    }
+  }
+  let errorMessage;
+  if (error) {
+    errorMessage = error?.message || 'server error';
+  }
   ctx.body = {
     success: count,
+    all,
+    error: errorMessage,
   };
 }

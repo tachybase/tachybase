@@ -75,7 +75,13 @@ export const useStartAllAction = () => {
       const result = await resource.startAll().finally(() => {
         hide();
       });
-      message.success(`${t('Start count')}: ${result?.data?.data?.success || 0}!`);
+      const success = result?.data?.data?.success || 0;
+      const all = result?.data?.data?.all || 0;
+      let info = `${t('Start count')}: ${success}/${all}!`;
+      if (result?.data?.data?.error) {
+        info += `\n error: ${result?.data?.data?.error}`;
+      }
+      message.success(info);
       service.refresh();
     },
   };
@@ -91,7 +97,13 @@ export const useStopAllAction = () => {
       const result = await resource.stopAll().finally(() => {
         hide();
       });
-      message.success(`${t('Stop count')}: ${result?.data?.data?.success || 0}!`);
+      const success = result?.data?.data?.success || 0;
+      const all = result?.data?.data?.all || 0;
+      let info = `${t('Start count')}: ${success}/${all}!`;
+      if (result?.data?.data?.error) {
+        info += ` error: ${result?.data?.data?.error}`;
+      }
+      message.success(info);
       service.refresh();
     },
   };
