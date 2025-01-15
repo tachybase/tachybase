@@ -11,7 +11,12 @@ import {
 import { Card, Divider, Space } from 'antd';
 
 import { NAMESPACE } from '../constants';
-import { useCreateDatabaseConnectionAction, useMultiAppUpdateAction } from './hooks';
+import {
+  useCreateDatabaseConnectionAction,
+  useMultiAppUpdateAction,
+  useStartAllAction,
+  useStopAllAction,
+} from './hooks';
 import { schema } from './settings/schemas/applications';
 import { usePluginUtils } from './utils';
 
@@ -72,7 +77,14 @@ export const AppManager = (props) => {
     <Card bordered={false}>
       <SchemaComponent
         schema={schema}
-        scope={{ admin, userId, useCreateDatabaseConnectionAction, useMultiAppUpdateAction }}
+        scope={{
+          admin,
+          userId,
+          useCreateDatabaseConnectionAction,
+          useMultiAppUpdateAction,
+          useStartAllAction,
+          useStopAllAction,
+        }}
         components={{ AppVisitor }}
       />
     </Card>

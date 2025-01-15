@@ -304,6 +304,38 @@ export const schema: ISchema = {
               },
               'x-hidden': '{{ !admin }}',
             },
+            startAll: {
+              type: 'void',
+              title: '{{ t("Start all") }}',
+              'x-component': 'Action',
+              'x-use-component-props': 'useStartAllAction',
+              'x-component-props': {
+                icon: 'FastForwardOutlined',
+                danger: true,
+                confirm: {
+                  title: i18nText('Start all'),
+                  content: i18nText(
+                    'Starting all sub-applications may cause lag. The more applications you have, the longer the waiting time',
+                  ),
+                },
+              },
+              'x-hidden': '{{ !admin }}',
+            },
+            stopAll: {
+              type: 'void',
+              title: '{{ t("Stop all") }}',
+              'x-component': 'Action',
+              'x-use-component-props': 'useStopAllAction',
+              'x-component-props': {
+                icon: 'StopOutlined',
+                danger: true,
+                confirm: {
+                  title: i18nText('Stop all'),
+                  content: i18nText('All sub-applications have stopped serving, unless you restart them'),
+                },
+              },
+              'x-hidden': '{{ !admin }}',
+            },
             create: {
               type: 'void',
               title: '{{t("Add new")}}',

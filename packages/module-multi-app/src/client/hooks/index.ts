@@ -6,6 +6,10 @@ import {
 } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
+import { message } from 'antd';
+
+import { usePluginUtils } from '../utils';
+
 export const useCreateDatabaseConnectionAction = () => {
   const form = useForm();
   const field = useField();
@@ -57,6 +61,38 @@ export const useMultiAppUpdateAction = (actionCallback?: (key: string, values: a
       } finally {
         field.data.loading = false;
       }
+    },
+  };
+};
+
+export const useStartAllAction = () => {
+  const resource = useDataBlockResource();
+  const service = useDataBlockRequest();
+  const { t } = usePluginUtils();
+  return {
+    async onClick() {
+      const hide = message.loading('starting ...', 0);
+      const result = await resource.startAll().finally(() => {
+        hide();
+      });
+      message.success(`${t('Start count')}: ${result?.data?.data?.success || 0}!`);
+      service.refresh();
+    },
+  };
+};
+
+export const useStopAllAction = () => {
+  const resource = useDataBlockResource();
+  const service = useDataBlockRequest();
+  const { t } = usePluginUtils();
+  return {
+    async onClick() {
+      const hide = message.loading('stopping ...', 0);
+      const result = await resource.stopAll().finally(() => {
+        hide();
+      });
+      message.success(`${t('Stop count')}: ${result?.data?.data?.success || 0}!`);
+      service.refresh();
     },
   };
 };

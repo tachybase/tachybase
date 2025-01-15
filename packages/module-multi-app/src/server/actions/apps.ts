@@ -88,3 +88,49 @@ export async function create(ctx: Context, next: Next) {
   ctx.body = app;
   await next();
 }
+
+async function startSingleSubApp(appSupervisor: AppSupervisor, name: string, options: any): Promise<number> {
+  const subApp = await appSupervisor.getApp(name, { withOutBootStrap: true });
+  if (subApp) {
+    // TODO: 正在关闭的情况不做处理,防止冲突,用户可以再点一次
+    return 0;
+  }
+  appSupervisor.blockApps.delete(name);
+  await appSupervisor.bootStrapApp(name, options);
+  return 1;
+}
+
+export async function startAll(ctx: Context, next: Next) {
+  const db = ctx.db;
+  const applications = await db.getRepository('applications').find({
+    fields: ['name'],
+    raw: true,
+  });
+  const appSupervisor = AppSupervisor.getInstance();
+  let count = 0;
+  const promises = applications.map((application) =>
+    startSingleSubApp(appSupervisor, application.name, application.options).then((addCount) => (count += addCount)),
+  );
+  await Promise.all(promises);
+  ctx.body = {
+    success: count,
+  };
+}
+
+export async function stopAll(ctx: Context, next: Next) {
+  const appSupervisor = AppSupervisor.getInstance();
+  const subApps = await appSupervisor.getAppsNames();
+  const promises = [];
+  let count = 0;
+  for (const name of subApps) {
+    if (name === 'main') {
+      continue;
+    }
+    appSupervisor.blockApps.add(name);
+    promises.push(appSupervisor.removeApp(name).then(() => count++));
+  }
+  await Promise.all(promises);
+  ctx.body = {
+    success: count,
+  };
+}
