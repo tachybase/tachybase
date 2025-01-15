@@ -154,39 +154,3 @@ function targetFieldToVariableString(targetField: string[], variableName = '$nFo
   // Action 中的联动规则虽然没有 form 上下文但是在这里也使用的是 `$nForm` 变量，这样实现更简单
   return `{{ ${variableName}.${targetField.join('.')} }}`;
 }
-
-const getVariablesData = (localVariables) => {
-  const data = {};
-  localVariables.map((v) => {
-    data[v.name] = v.ctx;
-  });
-  return data;
-};
-
-export async function getRenderContent(templateEngine, content, variables, localVariables, defaultParse) {
-  if (content && templateEngine === 'handlebars') {
-    try {
-      const renderedContent = Handlebars.compile(content);
-      // 处理渲染后的内容
-      const data = getVariablesData(localVariables);
-      const { $nDate } = variables?.ctxRef?.current || {};
-      const variableDate = {};
-      Object.keys($nDate || {}).map((v) => {
-        variableDate[v] = $nDate[v]();
-      });
-      const html = renderedContent({ ...variables?.ctxRef?.current, ...data, $nDate: variableDate });
-      return await defaultParse(html);
-    } catch (error) {
-      console.log(error);
-      return content;
-    }
-  } else {
-    try {
-      const html = await replaceVariableValue(content, variables, localVariables);
-      return await defaultParse(html);
-    } catch (error) {
-      console.log(error);
-      return content;
-    }
-  }
-}
