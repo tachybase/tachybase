@@ -20,12 +20,12 @@ export class Sqlite extends Dialect {
     });
   }
 
-  handleNumberQuery(fieldName: string, keyword: string) {
-    const castFunction = `CAST(${fieldName} AS TEXT)`;
-    return where(literal(castFunction), {
-      [Op.like]: `%${escapeLike(keyword)}%`,
-    });
-  }
+  // handleNumberQuery(fieldName: string, keyword: string) {
+  //   const castFunction = `CAST(${fieldName} AS TEXT)`;
+  //   return where(literal(castFunction), {
+  //     [Op.like]: `%${escapeLike(keyword)}%`,
+  //   });
+  // }
 
   getFieldName(collectionName: string, field: string): string {
     return `"${collectionName}"."${field}"`;

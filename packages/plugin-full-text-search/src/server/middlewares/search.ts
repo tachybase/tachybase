@@ -1,4 +1,5 @@
 import { Context } from '@tachybase/actions';
+import { Op } from '@tachybase/database';
 
 import { SEARCH_KEYWORDS_MAX } from '../../constants';
 import { Dialect } from '../dialects/Dialect';

@@ -18,11 +18,4 @@ export class Postgres extends Dialect {
     return null;
     return literal(`TO_CHAR((${fieldName} AT TIME ZONE 'UTC') AT TIME ZONE '${utcOffset}', '${formatStr}')`);
   }
-
-  handleNumberQuery(fieldName: string, keyword: string) {
-    return null;
-    return where(literal(`CAST(${fieldName} AS TEXT)`), {
-      [Op.iLike]: `%${escapeLike(keyword)}%`,
-    });
-  }
 }

@@ -20,12 +20,12 @@ export class Mysql extends Dialect {
     });
   }
 
-  handleNumberQuery(fieldName: string, keyword: string) {
-    const castFunction = `CAST(${fieldName} AS CHAR)`;
-    return where(literal(castFunction), {
-      [Op.like]: `%${escapeLike(keyword)}%`,
-    });
-  }
+  // handleNumberQuery(fieldName: string, keyword: string) {
+  //   const castFunction = `CAST(${fieldName} AS CHAR)`;
+  //   return where(literal(castFunction), {
+  //     [Op.like]: `%${escapeLike(keyword)}%`,
+  //   });
+  // }
 
   getFieldName(collectionName: string, field: string): string {
     return `\`${collectionName}\`.\`${field}\``;

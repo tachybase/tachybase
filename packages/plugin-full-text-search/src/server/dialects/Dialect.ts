@@ -1,4 +1,6 @@
-import { Op } from '@tachybase/database';
+import { literal, Op, where } from '@tachybase/database';
+
+import { WhereOptions } from 'sequelize';
 
 import { escapeLike } from '../utils';
 
@@ -7,9 +9,12 @@ import { escapeLike } from '../utils';
 export class Dialect {
   like = Op.like;
 
+  likeOperator = 'LIKE';
+
   constructor(public type: string) {
     if (type === 'postgres') {
       this.like = Op.iLike;
+      this.likeOperator = 'ILIKE';
     }
   }
 
@@ -22,15 +27,29 @@ export class Dialect {
     return { [newKey]: this.convertToObj(parts.join('.'), value) };
   }
 
-  getFieldName(collectionName: string, field: string) {}
+  getFieldName(collectionName: string, field: string): string {
+    return '';
+  }
 
-  handleJsonQuery(field: string, keyword: string) {}
+  handleJsonQuery(field: string, keyword: string) {
+    return null;
+  }
 
-  formatDate(fieldName: string, utcOffset: string, formatStr: string) {}
+  formatDate(fieldName: string, utcOffset: string, formatStr: string): any {
+    return null;
+  }
 
-  handleStringQuery(field: string, keyword: string) {
+  public handleStringQuery(field: string, keyword: string) {
     return this.convertToObj(field, { [this.like]: `%${escapeLike(keyword)}%` });
   }
 
-  handleNumberQuery(fieldName: string, keyword: string) {}
+  public handleNumberQuery(fieldName: string, keyword: string): WhereOptions<any> {
+    return {
+      [Op.and]: [
+        where(literal(`CAST(${fieldName} AS TEXT)`), {
+          [this.like]: `%${escapeLike(keyword)}%`,
+        }),
+      ],
+    };
+  }
 }
