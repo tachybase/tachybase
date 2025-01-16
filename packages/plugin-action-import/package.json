@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-import",
   "displayName": "Action: Import records",
-  "version": "0.23.36",
+  "version": "0.23.37",
   "description": "Import records using excel templates. You can configure which fields to import and templates will be generated automatically.",
   "keywords": [
     "Actions"
