@@ -12,7 +12,7 @@ export const useStyles = createStyles(({ css, token }) => {
 
       .ant-card-body {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
         justify-items: center;
         gap: 10px;
         grid-row-gap: 10px;
@@ -31,40 +31,67 @@ export const useStyles = createStyles(({ css, token }) => {
         align-items: center;
 
         width: 100%;
-        height: 5rem;
+        height: 100%;
+        padding: 12px;
         color: inherit;
-        border: 0;
         border-radius: 8px;
+        border: none;
         box-shadow: none;
 
+        &:focus,
+        &:active {
+          background-color: #f4f4f4;
+        }
         &:hover {
+          border-radius: 8px;
           background-color: #f4f4f4;
           box-shadow: none;
+          cursor: pointer;
+        }
+
+        .card-wrapper {
+          width: 100%;
+          height: 100%;
+          background-color: transparent;
+          border: none;
+        }
+
+        .drag-handle-menu {
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+          border: none;
+        }
+
+        .ant-btn-icon {
+          font-size: 1.2rem;
+          text-align: center;
         }
       }
 
       &.ant-card-grid .ant-btn {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        place-items: center;
+        align-items: end;
 
         width: 100%;
-        padding: 0;
         border: none;
         box-shadow: none;
       }
 
       .field-link {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        color: inherit;
+        display: grid;
+        place-items: center;
 
-        &:hover {
-          color: inherit;
-        }
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: none;
+        border-radius: 8px;
+        background-color: transparent;
+        box-shadow: none;
+
+        color: inherit;
       }
 
       .icon-wrapper {
@@ -85,11 +112,6 @@ export const useStyles = createStyles(({ css, token }) => {
       .tb-sortable-designer {
         width: 100%;
         height: 5rem;
-      }
-
-      .drag-handle-menu {
-        width: 100%;
-        height: 100%;
       }
 
       .general-schema-designer {

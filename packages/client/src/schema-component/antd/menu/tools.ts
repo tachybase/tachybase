@@ -12,7 +12,7 @@ export function getNewSideMenuSchema(sideMenuSchema: Schema, searchMenuTitle: st
   return newSchema;
 }
 
-function flattenAndFilterJson(data: Schema, targetTitle) {
+function flattenAndFilterJson(data: Schema, targetTitle: string): Schema {
   const { title, properties, ...rest } = data;
 
   const result = {
@@ -43,13 +43,13 @@ function flattenAndFilterJson(data: Schema, targetTitle) {
     // 如果当前节点有 properties，递归遍历子级
     Object.values(node.properties).forEach((child: Schema) => {
       const isSubMenu = child['x-component'] === 'Menu.SubMenu';
-      if (isSubMenu) {
-        traverse(child); // 继续递归遍历
-      } else {
+      if (!isSubMenu) {
         if (child?.title?.includes(targetTitle)) {
           // 提取符合条件的子节点到第二级
           result.properties[child.name] = { ...child };
         }
+      } else {
+        traverse(child); // 继续递归遍历
       }
     });
   };
