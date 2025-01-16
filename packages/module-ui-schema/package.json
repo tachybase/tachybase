@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-ui-schema",
   "displayName": "UI schema storage",
-  "version": "0.23.34",
+  "version": "0.23.35",
   "description": "Provides centralized UI schema storage service.",
   "keywords": [
     "System & security"
