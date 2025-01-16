@@ -148,6 +148,9 @@ export class PluginFullTextSearchServer extends Plugin {
           // 不能查询的类型: sort, boolean, tstzrange, virtual, formula, context, password
           if (stringFields.includes(type)) {
             for (const keyword of params.search.keywords) {
+              if (fieldInfo.options.interface === '') {
+                const filedInfo = fields;
+              }
               const filterCondition = getRealFieldFilter(field, {
                 [dbType === 'postgres' ? Op.iLike : Op.like]: `%${escapeLike(keyword)}%`,
               });
