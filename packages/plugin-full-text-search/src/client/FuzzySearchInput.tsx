@@ -6,16 +6,11 @@ import _ from 'lodash';
 import { useTranslation } from './locale';
 
 export const FuzzySearchInput = () => {
-  const { handleSearch, handleValueChange } = useProps();
+  const { handleSearch } = useProps();
   const { t } = useTranslation();
   return (
     <Space.Compact style={{ width: 300 }}>
-      <Input.Search
-        placeholder={t('Full fuzzy search')}
-        allowClear
-        onSearch={handleSearch}
-        onChange={handleValueChange}
-      />
+      <Input.Search placeholder={t('Full fuzzy search')} onSearch={handleSearch} />
     </Space.Compact>
   );
 };
@@ -33,20 +28,8 @@ function useProps() {
     });
   };
 
-  const handleValueChange = _.debounce((event) => {
-    const value = event.target?.value;
-    if (!value) {
-      searchAction({
-        queryValue: '',
-        defaultFilter: blockProps?.params?.filter,
-        service,
-      });
-    }
-  });
-
   return {
     handleSearch,
-    handleValueChange,
   };
 }
 
