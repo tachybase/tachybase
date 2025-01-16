@@ -62,13 +62,17 @@ export const useStyles = createStyles(({ css, token }) => {
           border-radius: 8px;
           border: none;
         }
+
+        .ant-btn-icon {
+          font-size: 1.2rem;
+          text-align: center;
+        }
       }
 
       &.ant-card-grid .ant-btn {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        place-items: center;
+        align-items: end;
 
         width: 100%;
         border: none;
@@ -76,10 +80,9 @@ export const useStyles = createStyles(({ css, token }) => {
       }
 
       .field-link {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
+        display: grid;
+        place-items: center;
+
         width: 100%;
         height: 100%;
         padding: 0;
