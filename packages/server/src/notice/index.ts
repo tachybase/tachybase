@@ -31,7 +31,7 @@ export class NoticeManager {
     eventType?: string;
     event?: unknown;
   }) {
-    this.ws.sendToConnectionsByTag('app', this.app.name, {
+    this.ws?.sendToConnectionsByTag('app', this.app.name, {
       type: 'notice',
       payload: msg,
     });
