@@ -132,6 +132,7 @@ const HeaderMenu = ({
         `}
       >
         <Popover
+          open
           placement="bottomRight"
           arrow={false}
           overlayInnerStyle={{
@@ -425,6 +426,9 @@ Menu.Item = observer(
                 aria-label={t(field.title)}
                 className={styles.designerCss}
                 removeParentsIfNoChildren={false}
+                overStyle={{
+                  background: 'transparent',
+                }}
               >
                 <DragHandleMenu>
                   <span className={'menuitem-title-wrapper'}>
@@ -484,6 +488,9 @@ Menu.URL = observer(
                 className={styles.designerCss}
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
+                overStyle={{
+                  background: 'transparent',
+                }}
               >
                 <DragHandleMenu>
                   <span className={'menuitem-title-wrapper'}>
@@ -540,6 +547,9 @@ Menu.SubMenu = observer(
                 className={styles.subMenuDesignerCss}
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
+                overStyle={{
+                  background: 'transparent',
+                }}
               >
                 <DragHandleMenu name={schema.name} isSubMenu>
                   <span className={'submenu-title'}>

@@ -31,15 +31,35 @@ export const useStyles = createStyles(({ css, token }) => {
         align-items: center;
 
         width: 100%;
-        height: 5rem;
+        height: 100%;
+        padding: 12px;
         color: inherit;
-        border: 0;
         border-radius: 8px;
+        border: none;
         box-shadow: none;
 
+        &:focus,
+        &:active {
+          background-color: #f4f4f4;
+        }
         &:hover {
+          border-radius: 8px;
           background-color: #f4f4f4;
           box-shadow: none;
+        }
+
+        .card-wrapper {
+          width: 100%;
+          height: 100%;
+          background-color: transparent;
+          border: none;
+        }
+
+        .drag-handle-menu {
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+          border: none;
         }
       }
 
@@ -50,7 +70,6 @@ export const useStyles = createStyles(({ css, token }) => {
         align-items: center;
 
         width: 100%;
-        padding: 0;
         border: none;
         box-shadow: none;
       }
@@ -60,11 +79,15 @@ export const useStyles = createStyles(({ css, token }) => {
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        color: inherit;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: none;
+        border-radius: 8px;
+        background-color: transparent;
+        box-shadow: none;
 
-        &:hover {
-          color: inherit;
-        }
+        color: inherit;
       }
 
       .icon-wrapper {
@@ -85,11 +108,6 @@ export const useStyles = createStyles(({ css, token }) => {
       .tb-sortable-designer {
         width: 100%;
         height: 5rem;
-      }
-
-      .drag-handle-menu {
-        width: 100%;
-        height: 100%;
       }
 
       .general-schema-designer {

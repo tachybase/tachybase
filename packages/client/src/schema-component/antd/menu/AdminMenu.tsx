@@ -30,14 +30,22 @@ const AdminMenuCard = (props) => {
       {item.menu ? (
         <SchemaContext.Provider value={schema}>
           <FieldContext.Provider value={field}>
-            <SortableItem role="button" aria-label={t(field.title)} removeParentsIfNoChildren={false}>
+            <SortableItem
+              className="card-wrapper"
+              role="button"
+              aria-label={t(field.title)}
+              removeParentsIfNoChildren={false}
+              overStyle={{
+                background: 'transparent',
+              }}
+            >
               <DragHandleMenu className="drag-handle-menu" isAdminMenu>
-                <a className="field-link" role="button" aria-label={t(field.title)} title={t(field.title)}>
+                <div className="field-link" role="button" aria-label={t(field.title)} title={t(field.title)}>
                   <div className="icon-wrapper">
                     <Icon type={icon ?? 'QuestionCircleOutlined'} />
                   </div>
                   <div className="field-title">{t(field.title)}</div>
-                </a>
+                </div>
                 <Designer isAdminMenu />
               </DragHandleMenu>
             </SortableItem>
