@@ -15,6 +15,7 @@ import { i18nText } from '../../utils';
 
 const collectionMultiApp = {
   name: 'applications',
+  filterTargetKey: 'name',
   targetKey: 'name',
   fields: [
     {
@@ -238,7 +239,8 @@ export const tableActionColumnSchema: ISchema = {
       type: 'void',
       title: '{{ t("Delete") }}',
       'x-component': 'Action.Link',
-      'x-decorator': 'ACLActionProvider',
+      'x-hidden': '{{ !admin }}',
+      // 'x-decorator': 'ACLActionProvider',
       'x-use-component-props': 'useDestroyActionProps',
       'x-component-props': {
         confirm: {
@@ -294,12 +296,44 @@ export const schema: ISchema = {
               'x-action': 'destroy',
               'x-component': 'Action',
               'x-decorator': 'ACLActionProvider',
-              'x-use-component-props': 'useDestroyActionProps',
+              'x-use-component-props': 'useBulkDestroyActionProps',
               'x-component-props': {
                 icon: 'DeleteOutlined',
                 confirm: {
                   title: "{{t('Delete')}}",
                   content: "{{t('Are you sure you want to delete it?')}}",
+                },
+              },
+              'x-hidden': '{{ !admin }}',
+            },
+            startAll: {
+              type: 'void',
+              title: '{{ t("Start all") }}',
+              'x-component': 'Action',
+              'x-use-component-props': 'useStartAllAction',
+              'x-component-props': {
+                icon: 'FastForwardOutlined',
+                danger: true,
+                confirm: {
+                  title: i18nText('Start all'),
+                  content: i18nText(
+                    'Starting all sub-applications may cause lag. The more applications you have, the longer the waiting time',
+                  ),
+                },
+              },
+              'x-hidden': '{{ !admin }}',
+            },
+            stopAll: {
+              type: 'void',
+              title: '{{ t("Stop all") }}',
+              'x-component': 'Action',
+              'x-use-component-props': 'useStopAllAction',
+              'x-component-props': {
+                icon: 'StopOutlined',
+                danger: true,
+                confirm: {
+                  title: i18nText('Stop all'),
+                  content: i18nText('All sub-applications have stopped serving, unless you restart them'),
                 },
               },
               'x-hidden': '{{ !admin }}',
