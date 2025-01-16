@@ -50,7 +50,7 @@ const findMenuSchema = (fieldSchema: Schema) => {
   }
 };
 
-const InsertMenuItemsGroup = () => {
+export const InsertMenuItemsGroup = () => {
   const { t } = useTranslation();
   const { dn } = useDesignable();
   const api = useAPIClient();

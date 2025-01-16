@@ -24,7 +24,7 @@ import { AdminMenu } from './AdminMenu';
 import { useMenuTranslation } from './locale';
 import { MenuDesigner } from './Menu.Designer';
 import { useStyles } from './Menu.styles';
-import { MenuSearch } from './MenuSearch';
+import { MenuSearchAdd } from './MenuSearchAdd';
 import { getNewSideMenuSchema } from './tools';
 import { findKeysByUid, findMenuItem } from './util';
 
@@ -187,7 +187,7 @@ const SideMenu = ({
       const searchMenu = {
         key: 'x-menu-search',
         disabled: true,
-        label: <MenuSearch setSearchMenuTitle={setSearchMenuTitle} />,
+        label: <MenuSearchAdd designable={designable} setSearchMenuTitle={setSearchMenuTitle} />,
         // 始终排在第一位
         order: -10,
         notdelete: true,
@@ -195,27 +195,27 @@ const SideMenu = ({
       result.push(searchMenu);
     }
 
-    if (designable) {
-      result.push({
-        key: 'x-designer-button',
-        disabled: true,
-        label: render({
-          'data-testid': 'schema-initializer-Menu-side',
-          insert: (s) => {
-            const dn = createDesignable({
-              t,
-              api,
-              refresh,
-              current: sideMenuSchemaRef.current,
-            });
-            dn.loadAPIClientEvents();
-            dn.insertAdjacent('beforeEnd', s);
-          },
-        }),
-        order: -1,
-        notdelete: true,
-      });
-    }
+    // if (designable) {
+    //   result.push({
+    //     key: 'x-designer-button',
+    //     disabled: true,
+    //     label: render({
+    //       'data-testid': 'schema-initializer-Menu-side',
+    //       insert: (s) => {
+    //         const dn = createDesignable({
+    //           t,
+    //           api,
+    //           refresh,
+    //           current: sideMenuSchemaRef.current,
+    //         });
+    //         dn.loadAPIClientEvents();
+    //         dn.insertAdjacent('beforeEnd', s);
+    //       },
+    //     }),
+    //     order: -1,
+    //     notdelete: true,
+    //   });
+    // }
 
     return result;
   }, [getMenuItems, designable, sideMenuSchema, render, t, api, refresh, searchMenuTitle]);
