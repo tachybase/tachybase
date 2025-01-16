@@ -80,7 +80,6 @@ export async function create(ctx: Context, next: Next) {
       updatedBy: ctx.state.currentUser.id,
     },
   });
-  ctx.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, { level: 'info', refresh: true });
   ctx.body = app;
   await next();
 }
