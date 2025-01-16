@@ -2,7 +2,7 @@ import { Migration } from '@tachybase/server';
 
 export default class extends Migration {
   on = 'afterLoad'; // 'beforeLoad' or 'afterLoad'
-  appVersion = '<0.23.36';
+  appVersion = '<0.23.37';
 
   async up() {
     const uiSchemasRepo = this.db.getRepository('uiSchemas');
