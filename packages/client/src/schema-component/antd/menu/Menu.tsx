@@ -183,7 +183,7 @@ const SideMenu = ({
     });
 
     // NOTE: 这里后续要提供给用户可以在菜单项少的情况下, 配置关闭菜单搜索功能
-    if (designable) {
+    if (true) {
       const searchMenu = {
         key: 'x-menu-search',
         disabled: true,
