@@ -12,7 +12,7 @@ export const useStyles = createStyles(({ css, token }) => {
 
       .ant-card-body {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
         justify-items: center;
         gap: 10px;
         grid-row-gap: 10px;
@@ -46,6 +46,7 @@ export const useStyles = createStyles(({ css, token }) => {
           border-radius: 8px;
           background-color: #f4f4f4;
           box-shadow: none;
+          cursor: pointer;
         }
 
         .card-wrapper {
