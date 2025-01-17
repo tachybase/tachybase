@@ -23,6 +23,11 @@ export const MenuSearchAdd = (props: MenuSearchProps) => {
     setSearchMenuTitle(searchValue);
   }, 500);
 
+  const handleSearch = (value, event) => {
+    event.stopPropagation();
+    _.debounce(setSearchMenuTitle, 500)(value);
+  };
+
   return (
     <div className={styles.menuSearchAdd}>
       <Input.Search
@@ -30,6 +35,7 @@ export const MenuSearchAdd = (props: MenuSearchProps) => {
         placeholder={t('search Menu')}
         prefix={<Icon type="SearchOutlined" />}
         onChange={handleChange}
+        onSearch={handleSearch}
       />
       <div className="menu-add-wrapper">{designable && <MenuAdd dn={dn} />}</div>
     </div>
