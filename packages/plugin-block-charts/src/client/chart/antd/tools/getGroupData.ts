@@ -6,7 +6,13 @@
  */
 export function getGroupData(datas: any[], groupField: string[]) {
   // 递归分组函数
-  const recursiveGroupByField = (data: any[], fields: string[], currentIndex: number = 0, parentKey: string = '') => {
+  const recursiveGroupByField = (
+    data: any[],
+    fields: string[],
+    currentIndex: number = 0,
+    parentKey: string = '',
+    parentGroup: any = {},
+  ) => {
     // 如果已经处理完所有分组字段，返回原始数据
     if (currentIndex >= fields.length) {
       return data;
@@ -25,7 +31,9 @@ export function getGroupData(datas: any[], groupField: string[]) {
 
       // 如果分组不存在，则初始化
       if (!acc[currentKey]) {
+        // 初始化分组对象
         acc[currentKey] = {
+          ...parentGroup, // 继承父级的分组字段
           [currentField]: keyValue, // 当前字段的值
           key: currentKey, // 唯一 key
           children: [], // 用于存储子数据
@@ -35,6 +43,13 @@ export function getGroupData(datas: any[], groupField: string[]) {
         Object.keys(item).forEach((field) => {
           if (typeof item[field] === 'number' && !fields.includes(field)) {
             acc[currentKey][field] = 0; // 初始化为 0
+          }
+        });
+
+        // 添加其他非数字字段
+        Object.keys(item).forEach((field) => {
+          if (!fields.includes(field) && typeof item[field] !== 'number') {
+            acc[currentKey][field] = item[field];
           }
         });
       }
@@ -55,7 +70,7 @@ export function getGroupData(datas: any[], groupField: string[]) {
     // 对每个分组递归处理下一个字段
     return Object.values(grouped).map((group: any) => ({
       ...group,
-      children: recursiveGroupByField(group.children, fields, currentIndex + 1, group.key), // 传递当前 key
+      children: recursiveGroupByField(group.children, fields, currentIndex + 1, group.key, group), // 传递当前 key 和分组对象
     }));
   };
 
