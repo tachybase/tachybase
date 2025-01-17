@@ -2,8 +2,6 @@ import { Table as AntdTable } from 'antd';
 
 import { RenderProps } from '../chart';
 import { AntdChart } from './antd';
-import { buildTree } from './tools/buildTree';
-import { countDataSource } from './tools/countDataSource';
 import { getGroupData } from './tools/getGroupData';
 import { renderByConfig } from './tools/renderByConfig';
 
@@ -74,27 +72,28 @@ export class GroupedTable extends AntdChart {
     const { query, transform } = ctx;
     const { columns } = advanced || {};
     const { categoryField } = general || {};
-    const { measures, dimensions } = query || {};
+
+    const groupedData = getGroupData(data, categoryField);
 
     // 1. 这个写法保证用户的图表配置能生效
     const cookedColumns = columns.map((item) => ({
       ...item,
       render: (text, record) => {
+        // 内置的 render 函数
         const cookedText = renderByConfig(text, record, {
-          measures,
-          dimensions,
+          // 查询条件配置的格式化器
+          transformer: fieldProps[item.dataIndex].transformer,
+          // 数据格式化配置的格式化器
           transform,
         });
 
+        // 图表配置中的 render 函数
         if (typeof item.render === 'function') {
           return item.render(cookedText, record);
         }
         return text;
       },
     }));
-
-    const groupedData = getGroupData(data, categoryField);
-    console.log('%c Line:97 🚀 groupedData', 'font-size:18px;color:#4fff4B;background:#fca650', groupedData);
 
     return {
       bordered: true,
@@ -105,8 +104,8 @@ export class GroupedTable extends AntdChart {
       },
       rowKey: (record) => record.key,
       expandRowByClick: true,
-      columns: cookedColumns,
       dataSource: groupedData,
+      columns: cookedColumns,
     };
   }
 }
