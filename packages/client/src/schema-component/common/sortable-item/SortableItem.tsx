@@ -76,6 +76,7 @@ interface SortableItemProps extends HTMLAttributes<HTMLDivElement> {
   schema?: Schema;
   removeParentsIfNoChildren?: boolean;
   ref?: React.Ref<any>;
+  overStyle?: object;
 }
 
 export const SortableItem = observer(

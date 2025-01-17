@@ -36,7 +36,6 @@ export class ModuleWeb extends Plugin {
         theme: 'dark',
         onSelect: '{{ onSelect }}',
         sideMenuRefScopeKey: 'sideMenuRef',
-        isRootMenu: true,
       },
       properties: {},
     });

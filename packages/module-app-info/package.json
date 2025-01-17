@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-app-info",
   "displayName": "System settings",
-  "version": "0.23.34",
+  "version": "0.23.39",
   "description": "Used to adjust the system title, logo, language, etc.",
   "keywords": [
     "System management"

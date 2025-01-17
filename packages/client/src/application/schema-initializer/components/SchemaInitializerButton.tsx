@@ -36,7 +36,7 @@ export const SchemaInitializerButton: FC<SchemaInitializerButtonProps> = React.m
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           display: 'inline-block',
-          width: options.icon ? 'calc(100% - 14px)' : '100%',
+          width: '100%',
           verticalAlign: 'bottom',
         }}
       >

@@ -1,4 +1,3 @@
-import React from 'react';
 import { observer } from '@tachybase/schema';
 import { getSubAppName } from '@tachybase/sdk';
 
@@ -8,7 +7,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Button, Result } from 'antd';
 import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { useAPIClient } from '../api-client';
 import { Application, NoticeLevel, useApp } from '../application';
@@ -26,7 +25,6 @@ import { CurrentUserProvider, CurrentUserSettingsMenuProvider } from '../user';
 import { ACLPlugin } from './acl/ACLPlugin';
 import { AdminLayoutPlugin } from './admin-layout/AdminLayoutPlugin';
 import { WelcomeCard } from './admin-layout/components/WelcomeCard';
-import { PluginAssistant } from './assistant';
 import { AttachmentPreviewPlugin } from './attachment-preview';
 import { PluginBlockSchemaComponent } from './block-schema-component';
 import { PluginContextMenu } from './context-menu';
@@ -432,7 +430,6 @@ export class BuiltInPlugin extends Plugin {
     await this.app.pm.add(PMPlugin, { name: 'builtin-pm' });
     await this.app.pm.add(CollectionPlugin, { name: 'builtin-collection' });
     await this.app.pm.add(PluginContextMenu, { name: 'context-menu' });
-    await this.app.pm.add(PluginAssistant, { name: 'assistant' });
     await this.app.pm.add(UserSettingsPlugin, { name: 'user-settings' });
     await this.app.pm.add(AttachmentPreviewPlugin, { name: 'attachment-preview' });
     await this.app.pm.add(PluginPageStyle, { name: 'page-style' });

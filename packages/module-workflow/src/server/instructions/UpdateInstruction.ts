@@ -179,7 +179,8 @@ export class UpdateInstruction extends Instruction {
             targetField[i] = await handleResource(targetField[i]);
           }
         } else {
-          targetField = [await handleResource(targetField)];
+          // NOTE: targetField 此时可能是字符串, 因此赋值用原字段
+          options.values[attachmentField.options.name] = [await handleResource(targetField)];
         }
       }
     }

@@ -4,7 +4,7 @@ import Application, { AppSupervisor, Gateway, Plugin } from '@tachybase/server';
 
 import lodash from 'lodash';
 
-import { NAMESPACE } from '../constants';
+import { NOTIFY_STATUS_EVENT_KEY } from '../constants';
 import { ApplicationModel } from '../server';
 import * as actions from './actions/apps';
 import { AppOptionsFactory, LazyLoadApplication, onAfterStart } from './app-lifecycle';
@@ -214,12 +214,16 @@ export class PluginMultiAppManager extends Plugin {
           if (options?.context?.waitSubAppInstall) {
             await startPromise;
           }
+
+          this.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, { level: 'info', refresh: true });
         }
       },
     );
 
     this.db.on('applications.afterDestroy', async (model: ApplicationModel) => {
       await AppSupervisor.getInstance().removeApp(model.get('name') as string);
+      // TODO: 如果在本页面destroy会造成二次refresh,为了不同客户端都能refresh, 考虑以后notify不包含自己的客户端
+      this.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, { level: 'info', refresh: true });
     });
 
     const self = this;
@@ -232,6 +236,23 @@ export class PluginMultiAppManager extends Plugin {
 
     this.app.on('afterUpgrade', async (app, options) => {
       await this.subAppUpgradeHandler(app);
+    });
+
+    // 主动告知客户端状态变化
+    AppSupervisor.getInstance().on('appStatusChanged', async ({ appName, status, options }) => {
+      if (appName === 'main') {
+        return;
+      }
+      const app = await AppSupervisor.getInstance().getApp(appName, {
+        withOutBootStrap: true,
+      });
+      const level = ['error', 'not_found'].includes(status) ? 'error' : 'info';
+      this.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, {
+        app: appName,
+        status: status,
+        level,
+        message: options.error?.message,
+      });
     });
 
     this.app.acl.allow('applications', 'listPinned', 'loggedIn');

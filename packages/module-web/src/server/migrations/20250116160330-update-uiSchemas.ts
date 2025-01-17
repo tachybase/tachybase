@@ -2,14 +2,15 @@ import { Migration } from '@tachybase/server';
 
 export default class extends Migration {
   on = 'afterLoad'; // 'beforeLoad' or 'afterLoad'
-  appVersion = '<0.23.35';
+  appVersion = '<0.23.37';
 
   async up() {
     const uiSchemasRepo = this.db.getRepository('uiSchemas');
 
+    const xUid = 'default-admin-menu';
     await uiSchemasRepo.update({
       filter: {
-        'x-uid': 'default-admin-menu',
+        'x-uid': xUid,
       },
       values: {
         schema: {
@@ -26,6 +27,9 @@ export default class extends Migration {
         },
       },
     });
+    // 清理缓存中的数据
+    await this.app.cache.del(`p_${xUid}`);
+    await this.app.cache.del(`s_${xUid}`);
     this.app.logger.info(`collection [uiSchemas] update ${1} rows`);
   }
 }

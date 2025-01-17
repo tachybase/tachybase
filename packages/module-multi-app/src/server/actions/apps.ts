@@ -1,14 +1,14 @@
 import { Context, Next } from '@tachybase/actions';
-import { AppSupervisor } from '@tachybase/server';
+import { Application, AppSupervisor } from '@tachybase/server';
 
-import { NAMESPACE } from '../../constants';
+import { NAMESPACE, NOTIFY_STATUS_EVENT_KEY } from '../../constants';
 
 export async function start(ctx: Context, next: Next) {
   const targetAppId = String(ctx.request.url.split('filterByTk=')[1]);
   const appSupervisor = AppSupervisor.getInstance();
   if (!appSupervisor.hasApp(targetAppId)) {
     appSupervisor.blockApps.delete(targetAppId);
-    await AppSupervisor.getInstance().getApp(targetAppId);
+    AppSupervisor.getInstance().getApp(targetAppId);
     ctx.body = 'ok';
     await next();
   } else {
@@ -21,7 +21,7 @@ export async function stop(ctx: Context, next: Next) {
   const appSupervisor = AppSupervisor.getInstance();
   if (appSupervisor.hasApp(targetAppId)) {
     appSupervisor.blockApps.add(targetAppId);
-    await appSupervisor.removeApp(targetAppId);
+    appSupervisor.removeApp(targetAppId);
     ctx.body = 'ok';
     await next();
   } else {
@@ -73,18 +73,77 @@ export async function create(ctx: Context, next: Next) {
       ctx.throw(400, ctx.t('Template is in use', { ns: NAMESPACE }));
     }
   }
-  await ctx.db.getRepository('applications').create({
+  const app = await ctx.db.getRepository('applications').create({
     values: {
       ...params.values,
       createdBy: ctx.state.currentUser.id,
       updatedBy: ctx.state.currentUser.id,
     },
   });
-  const app = await ctx.db.getRepository('applications').find({
-    filter: {
-      name: (ctx.request.body as any).name,
-    },
-  });
   ctx.body = app;
   await next();
+}
+
+export async function startAll(ctx: Context, next: Next) {
+  const db = ctx.db;
+  const appSupervisor = AppSupervisor.getInstance();
+  const existNames = await appSupervisor.getAppsNames();
+  const applications = await db.getRepository('applications').find({
+    fields: ['name', 'options'],
+    filter: {
+      name: {
+        $notIn: existNames,
+      },
+    },
+    raw: true,
+  });
+  let count = 0;
+  const all = applications.length;
+  appSupervisor.blockApps.clear();
+  if (all) {
+    const messageTitle = ctx.t('Start count', { ns: NAMESPACE });
+    Promise.allSettled(
+      applications.map(async (app) => {
+        return appSupervisor.bootStrapApp(app.name, app.options).then(() => {
+          count++;
+        });
+      }),
+    ).finally(() => {
+      const message = `${messageTitle}: ${count}/${all}`;
+      ctx.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, { level: 'info', message });
+    });
+  }
+  ctx.body = {
+    all,
+  };
+}
+
+export async function stopAll(ctx: Context, next: Next) {
+  const appSupervisor = AppSupervisor.getInstance();
+  const subApps = await appSupervisor.getAppsNames();
+  const promises = [];
+  let count = 0;
+  let all = 0;
+  const messageTitle = ctx.t('Stop count', { ns: NAMESPACE });
+  for (const name of subApps) {
+    if (name === 'main') {
+      continue;
+    }
+    all++;
+    promises.push(
+      appSupervisor.removeApp(name).then(() => {
+        appSupervisor.blockApps.add(name);
+        count++;
+      }),
+    );
+  }
+  if (all) {
+    Promise.allSettled(promises).finally(() => {
+      const message = `${messageTitle}: ${count}/${all}`;
+      ctx.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, { level: 'info', message });
+    });
+  }
+  ctx.body = {
+    all,
+  };
 }

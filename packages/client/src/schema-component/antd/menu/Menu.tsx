@@ -183,7 +183,7 @@ const SideMenu = ({
     });
 
     // NOTE: 这里后续要提供给用户可以在菜单项少的情况下, 配置关闭菜单搜索功能
-    if (designable) {
+    if (true) {
       const searchMenu = {
         key: 'x-menu-search',
         disabled: true,
@@ -306,9 +306,7 @@ export const Menu: ComposedMenu = observer(
     const sensors = useSensors(
       useSensor(PointerSensor, {
         activationConstraint: {
-          distance: 1, // 移动 1px 后触发拖拽
-          delay: 300,
-          tolerance: 5, // 允许的移动距离
+          distance: 5, // 移动 5px 后触发拖拽
         },
       }),
     );
@@ -425,6 +423,9 @@ Menu.Item = observer(
                 aria-label={t(field.title)}
                 className={styles.designerCss}
                 removeParentsIfNoChildren={false}
+                overStyle={{
+                  background: 'transparent',
+                }}
               >
                 <DragHandleMenu>
                   <span className={'menuitem-title-wrapper'}>
@@ -484,6 +485,9 @@ Menu.URL = observer(
                 className={styles.designerCss}
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
+                overStyle={{
+                  background: 'transparent',
+                }}
               >
                 <DragHandleMenu>
                   <span className={'menuitem-title-wrapper'}>
@@ -540,6 +544,9 @@ Menu.SubMenu = observer(
                 className={styles.subMenuDesignerCss}
                 removeParentsIfNoChildren={false}
                 aria-label={t(field.title)}
+                overStyle={{
+                  background: 'transparent',
+                }}
               >
                 <DragHandleMenu name={schema.name} isSubMenu>
                   <span className={'submenu-title'}>
