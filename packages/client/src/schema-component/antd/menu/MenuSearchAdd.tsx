@@ -1,5 +1,3 @@
-import { type Schema } from '@tachybase/schema';
-
 import { Input } from 'antd';
 import _ from 'lodash';
 

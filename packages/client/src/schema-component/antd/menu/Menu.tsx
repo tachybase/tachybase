@@ -12,7 +12,7 @@ import {
 import { error } from '@tachybase/utils/client';
 
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Menu as AntdMenu, Button, Input, MenuProps, Popover } from 'antd';
+import { Menu as AntdMenu, Button, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
 
 import { createDesignable, DndContext, SortableItem, useDesignable, useDesigner } from '../..';
@@ -195,38 +195,23 @@ const SideMenu = ({
 
     // NOTE: 这里后续要提供给用户可以在菜单项少的情况下, 配置关闭菜单搜索功能
     if (true) {
+      const dn = createDesignable({
+        t,
+        api,
+        refresh,
+        current: sideMenuSchemaRef.current,
+      });
+      dn.loadAPIClientEvents();
       const searchMenu = {
         key: 'x-menu-search',
         disabled: true,
-        label: <MenuSearchAdd designable={designable} setSearchMenuTitle={setSearchMenuTitle} dn={dnSideAdminMenu} />,
+        label: <MenuSearchAdd designable={designable} setSearchMenuTitle={setSearchMenuTitle} dn={dn} />,
         // 始终排在第一位
         order: -10,
         notdelete: true,
       };
       result.push(searchMenu);
     }
-
-    // if (designable) {
-    //   result.push({
-    //     key: 'x-designer-button',
-    //     disabled: true,
-    //     label: render({
-    //       'data-testid': 'schema-initializer-Menu-side',
-    //       insert: (s) => {
-    //         const dn = createDesignable({
-    //           t,
-    //           api,
-    //           refresh,
-    //           current: sideMenuSchemaRef.current,
-    //         });
-    //         dn.loadAPIClientEvents();
-    //         dn.insertAdjacent('beforeEnd', s);
-    //       },
-    //     }),
-    //     order: -1,
-    //     notdelete: true,
-    //   });
-    // }
 
     return result;
   }, [getMenuItems, designable, sideMenuSchema, render, t, api, refresh, searchMenuTitle]);
