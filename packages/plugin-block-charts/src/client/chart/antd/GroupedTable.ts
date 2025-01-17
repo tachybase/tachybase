@@ -1,9 +1,11 @@
-import { uid } from '@tachybase/utils/client';
-
 import { Table as AntdTable } from 'antd';
 
 import { RenderProps } from '../chart';
 import { AntdChart } from './antd';
+import { buildTree } from './tools/buildTree';
+import { countDataSource } from './tools/countDataSource';
+import { getGroupData } from './tools/getGroupData';
+import { renderByConfig } from './tools/renderByConfig';
 
 export class GroupedTable extends AntdChart {
   constructor() {
@@ -60,137 +62,51 @@ export class GroupedTable extends AntdChart {
   }
 
   getProps({ data, fieldProps, general, advanced, ctx }: RenderProps) {
-    const { transform, config, service } = ctx;
-    const categoryField = config?.general?.categoryField;
-    const measures = service?.params.find((item) => typeof item === 'object')?.measures;
-    const columns = data.length
-      ? Object.keys(data[0]).map((item) => ({
-          title: fieldProps[item]?.label || item,
-          dataIndex: item,
-          key: item,
-          calculate: true,
-        }))
-      : [];
-    data.forEach((item: any, index) => {
-      Object.keys(item).forEach((key: string) => {
-        const props = fieldProps[key];
-        if (props?.interface === 'percent') {
-          const value = Math.round(parseFloat(item[key]) * 100).toFixed(2);
-          item[key] = `${value}%`;
+    /**
+     * transform 数据格式化配置
+     * config 图表配置, general.categoryField(同参数 general) 分类字段 advanced.columns 数据表列配置(同参数 advanced)
+     * service 网络请求, service.data 返回数据, (同参数 data)
+     * measures 度量配置
+     * fieldProps 度量和维度构造的列配置, interface 维度类型, transformer 维度转换器 label 显示名称
+     * dimensions 维度配置
+     * query 图表查询条件, measures 度量配置, dimensions 维度配置, filters 过滤条件, orders 排序条件, limit 限制条数
+     */
+    const { query, transform } = ctx;
+    const { columns } = advanced || {};
+    const { categoryField } = general || {};
+    const { measures, dimensions } = query || {};
+
+    // 1. 这个写法保证用户的图表配置能生效
+    const cookedColumns = columns.map((item) => ({
+      ...item,
+      render: (text, record) => {
+        const cookedText = renderByConfig(text, record, {
+          measures,
+          dimensions,
+          transform,
+        });
+
+        if (typeof item.render === 'function') {
+          return item.render(cookedText, record);
         }
-        if (typeof item[key] === 'boolean') {
-          item[key] = item[key].toString();
-        }
-        if (props?.transformer) {
-          item[key] = props.transformer(item[key]);
-        }
-      });
-    });
-    const dataSource = buildTree(data, categoryField);
-    categoryField.forEach((item) => countDataSource(dataSource, measures, transform));
+        return text;
+      },
+    }));
+
+    const groupedData = getGroupData(data, categoryField);
+    console.log('%c Line:97 🚀 groupedData', 'font-size:18px;color:#4fff4B;background:#fca650', groupedData);
+
     return {
       bordered: true,
       size: 'middle',
       pagination: false,
-      dataSource,
-      columns,
       scroll: {
         x: 'max-content',
       },
       rowKey: (record) => record.key,
-      ...general,
-      ...advanced,
       expandRowByClick: true,
+      columns: cookedColumns,
+      dataSource: groupedData,
     };
   }
 }
-
-const buildTree = (data, fields) => {
-  const recursiveBuild = (data, fieldIndex) => {
-    if (fieldIndex >= fields.length) {
-      return data.map((item) => ({ key: uid(), ...item }));
-    }
-
-    const field = fields[fieldIndex];
-    const grouped = groupBy(data, field);
-
-    return Object.keys(grouped).map((key) => {
-      const value = [...grouped[key].value];
-      delete grouped[key].value;
-      for (let groupKey in grouped[key]) {
-        if (groupKey !== field) grouped[key][groupKey] = '';
-      }
-      const item = {
-        ...grouped[key],
-        key: key + uid(),
-        children: recursiveBuild(value, fieldIndex + 1),
-      };
-      return item;
-    });
-  };
-
-  const groupBy = (array, key) => {
-    return array.reduce((acc, item) => {
-      const fieldValue = item[key];
-      if (!acc[fieldValue]) acc[fieldValue] = { ...item, value: [] };
-      acc[fieldValue].value.push(item);
-      return acc;
-    }, {});
-  };
-
-  return recursiveBuild(data, 0);
-};
-
-const countDataSource = (dataSource, measures, transform) => {
-  measures?.forEach((dataValue) => {
-    const countData = (data) => {
-      data.forEach((value) => {
-        if (!value.children?.length) return;
-        const dataKey = dataValue.field.join('.');
-        if (isNaN(Number(value[dataKey]))) {
-          value[dataKey] = 0;
-        }
-        let number: any = transform.filter((value) => value.field === dataKey)[0];
-        if (number) {
-          number = number.specific ? number.specific : 3;
-          switch (number) {
-            case 'TwoDigits':
-              number = 2;
-              break;
-            case 'ThreeDigits':
-              number = 3;
-              break;
-            case 'FourDigits':
-              number = 4;
-              break;
-          }
-        } else {
-          number = 3;
-        }
-        const options: Intl.NumberFormatOptions = {
-          style: 'decimal',
-          minimumFractionDigits: number,
-          maximumFractionDigits: number,
-        };
-
-        const numberFormat = new Intl.NumberFormat('zh-CN', options);
-        const num = String(value[dataKey]).includes(',') ? String(value[dataKey]).replace(/,/g, '') : value[dataKey];
-        if (!isNaN(num)) {
-          const sum = value.children.reduce((sum, curr) => {
-            const sub = String(curr[dataKey]).includes(',')
-              ? String(curr[dataKey]).replace(/,/g, '')
-              : isNaN(Number(curr[dataKey]))
-                ? 0
-                : curr[dataKey];
-            return sum + parseFloat(sub);
-          }, 0);
-          value[dataKey] = numberFormat.format(sum || 0);
-        }
-        if (value.children) {
-          countData(value.children);
-        }
-      });
-    };
-    countData(dataSource);
-  });
-};
