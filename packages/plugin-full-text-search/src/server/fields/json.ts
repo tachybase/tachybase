@@ -1,6 +1,6 @@
-import { Dialect } from '../dialects/Dialect';
+import { FieldBase } from '../dialects/FieldBase';
 
-export function handleJsonField(fieldName: string, keywords: string[], handler: Dialect) {
+export function handleJsonField(fieldName: string, keywords: string[], handler: FieldBase) {
   const results = [];
   for (const keyword of keywords) {
     results.push(handler.handleJsonQuery(fieldName, keyword));

@@ -59,7 +59,7 @@ export function processField({ field, handler, collection, ctx, search }: Proces
   if (isFieldType(type, 'number')) {
     // 暂不支持关联字段
     if (!field.includes('.')) {
-      return handleNumberField(fieldName, search.keywords, handler);
+      return handleNumberField(field, search.keywords, handler);
     }
   }
   if (isFieldType(type, 'date')) {

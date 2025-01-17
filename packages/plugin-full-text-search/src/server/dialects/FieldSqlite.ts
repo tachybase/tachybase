@@ -1,17 +1,17 @@
 import { fn, literal, Op, where } from '@tachybase/database';
 
-import { escapeLike } from '../utils';
-import { Dialect } from './Dialect';
+import { convertTimezoneOffset, escapeLike } from '../utils';
+import { FieldBase } from './FieldBase';
 
-export class Mysql extends Dialect {
+export class FieldSqlite extends FieldBase {
   handleJsonQuery(field: string, keyword: string) {
-    return where(literal(`JSON_UNQUOTE(JSON_EXTRACT(${field}, '$'))`), {
+    return where(literal(`json_extract(${field}, '$')`), {
       [Op.like]: `%${escapeLike(keyword)}%`,
     });
   }
 
   formatDate(fieldName: string, utcOffset: string, formatStr: string) {
-    return fn('DATE_FORMAT', fn('CONVERT_TZ', fieldName, '+00:00', utcOffset), formatStr);
+    return fn('strftime', formatStr, fn('datetime', fieldName, convertTimezoneOffset(utcOffset)));
   }
 
   handleStringQuery(fieldName: string, keyword: string) {
@@ -21,13 +21,13 @@ export class Mysql extends Dialect {
   }
 
   // handleNumberQuery(fieldName: string, keyword: string) {
-  //   const castFunction = `CAST(${fieldName} AS CHAR)`;
+  //   const castFunction = `CAST(${fieldName} AS TEXT)`;
   //   return where(literal(castFunction), {
   //     [Op.like]: `%${escapeLike(keyword)}%`,
   //   });
   // }
 
   getFieldName(collectionName: string, field: string): string {
-    return `\`${collectionName}\`.\`${field}\``;
+    return `"${collectionName}"."${field}"`;
   }
 }

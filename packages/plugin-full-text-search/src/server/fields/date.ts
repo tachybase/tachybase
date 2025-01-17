@@ -1,12 +1,12 @@
 import { Op, where } from '@tachybase/database';
 
-import { Dialect } from '../dialects/Dialect';
+import { FieldBase } from '../dialects/FieldBase';
 import { escapeLike } from '../utils';
 
 interface HandleDateFieldParams {
   fieldName: string;
   keywords: string[];
-  handler: Dialect;
+  handler: FieldBase;
   timezone: string;
   fieldInfo: any;
 }

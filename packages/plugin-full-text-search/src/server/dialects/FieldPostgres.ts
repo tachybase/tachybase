@@ -1,9 +1,9 @@
 import { literal, Op, where } from '@tachybase/database';
 
 import { escapeLike } from '../utils';
-import { Dialect } from './Dialect';
+import { Close, FieldBase } from './FieldBase';
 
-export class Postgres extends Dialect {
+export class FieldPostgres extends FieldBase {
   getFieldName(collectionName: string, field: string): string {
     return `"${collectionName}"."${field}"`;
   }
@@ -14,6 +14,7 @@ export class Postgres extends Dialect {
     });
   }
 
+  @Close()
   formatDate(fieldName: string, utcOffset: string, formatStr: string) {
     return null;
     return literal(`TO_CHAR((${fieldName} AT TIME ZONE 'UTC') AT TIME ZONE '${utcOffset}', '${formatStr}')`);

@@ -2,17 +2,17 @@ import { Context } from '@tachybase/actions';
 import { Op } from '@tachybase/database';
 
 import { SEARCH_KEYWORDS_MAX } from '../../constants';
-import { Dialect } from '../dialects/Dialect';
-import { Mysql } from '../dialects/Mysql';
-import { Postgres } from '../dialects/Postgres';
-import { Sqlite } from '../dialects/Sqlite';
+import { FieldBase } from '../dialects/FieldBase';
+import { FieldMariadb } from '../dialects/FieldMariadb';
+import { FieldPostgres } from '../dialects/FieldPostgres';
+import { FieldSqlite } from '../dialects/FieldSqlite';
 import { processField } from '../methods';
 
-function getDialect(dbType: string): Dialect {
-  const handlers: { [key: string]: () => Dialect } = {
-    postgres: () => new Postgres('postgres'),
-    mysql: () => new Mysql('mysql'),
-    sqlite: () => new Sqlite('sqlite'),
+function getDialect(dbType: string): FieldBase {
+  const handlers: { [key: string]: () => FieldBase } = {
+    postgres: () => new FieldPostgres('postgres'),
+    mysql: () => new FieldMariadb('mysql'),
+    sqlite: () => new FieldSqlite('sqlite'),
   };
 
   const handler = handlers[dbType];

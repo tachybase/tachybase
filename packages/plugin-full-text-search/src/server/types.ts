@@ -1,8 +1,10 @@
 import { Context } from '@tachybase/actions';
 import { Collection } from '@tachybase/database';
 
-import { Dialect } from './dialects/Dialect';
+import { FieldBase } from './dialects/FieldBase';
 
+// 完整的fields 如"table"."field"
+export type FiledName = string;
 export interface SearchParams {
   keywords?: string[];
   fields?: string[];
@@ -12,7 +14,7 @@ export interface SearchParams {
 export interface ProcessFieldParams {
   ctx: Context;
   field: string;
-  handler: Dialect;
+  handler: FieldBase;
   collection: Collection;
   search: SearchParams;
 }
