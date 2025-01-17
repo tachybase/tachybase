@@ -13,7 +13,7 @@ export const useStyles = createStyles(({ css, token }) => {
       align-items: flex-start;
 
       /* NOTE: 放这三个样式是为了提升选择器优先级, 覆盖掉 antd 的默认样式 */
-      .ant-input-wrapper .ant-input-affix-wrapper.ant-input-outlined {
+      .ant-input-outlined.ant-input-outlined.ant-input-outlined {
         background-color: #f9f9f9;
         border-radius: 5px;
         border: none;

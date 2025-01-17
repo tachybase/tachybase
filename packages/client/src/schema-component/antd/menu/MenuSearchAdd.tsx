@@ -1,3 +1,5 @@
+import { type Schema } from '@tachybase/schema';
+
 import { Input } from 'antd';
 import _ from 'lodash';
 
@@ -8,10 +10,11 @@ import { useStyles } from './MenuSearchAdd.style';
 interface MenuSearchProps {
   setSearchMenuTitle: (title: string) => void;
   designable: boolean;
+  dn?: any;
 }
 
 export const MenuSearchAdd = (props: MenuSearchProps) => {
-  const { designable, setSearchMenuTitle } = props;
+  const { designable, dn, setSearchMenuTitle } = props;
   const { t } = useTranslation();
 
   const { styles } = useStyles();
@@ -30,7 +33,7 @@ export const MenuSearchAdd = (props: MenuSearchProps) => {
         prefix={<Icon type="SearchOutlined" />}
         onChange={handleChange}
       />
-      <div className="menu-add-wrapper">{designable && <MenuAdd />}</div>
+      <div className="menu-add-wrapper">{designable && <MenuAdd dn={dn} />}</div>
     </div>
   );
 };

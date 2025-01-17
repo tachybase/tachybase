@@ -171,6 +171,17 @@ const SideMenu = ({
 
   const [searchMenuTitle, setSearchMenuTitle] = useState('');
 
+  const dnSideAdminMenu = useMemo(
+    () =>
+      createDesignable({
+        t,
+        api,
+        refresh,
+        current: sideMenuSchema,
+      }),
+    [t, api, refresh, sideMenuSchema],
+  );
+
   const items = useMemo(() => {
     let newSideMenuSchema = sideMenuSchema;
 
@@ -187,7 +198,7 @@ const SideMenu = ({
       const searchMenu = {
         key: 'x-menu-search',
         disabled: true,
-        label: <MenuSearchAdd designable={designable} setSearchMenuTitle={setSearchMenuTitle} />,
+        label: <MenuSearchAdd designable={designable} setSearchMenuTitle={setSearchMenuTitle} dn={dnSideAdminMenu} />,
         // 始终排在第一位
         order: -10,
         notdelete: true,

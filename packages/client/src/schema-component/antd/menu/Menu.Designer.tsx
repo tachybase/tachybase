@@ -50,9 +50,11 @@ const findMenuSchema = (fieldSchema: Schema) => {
   }
 };
 
-export const InsertMenuItemsGroup = () => {
+export const InsertMenuItemsGroup = (props) => {
+  const { dn: propsDn } = props;
+  console.log('%c Line:55 🍷 propsDn', 'font-size:18px;color:#b03734;background:#f5ce50', propsDn);
   const { t } = useTranslation();
-  const { dn } = useDesignable();
+  const { dn: selfDn } = useDesignable();
   const api = useAPIClient();
   const serverHooks = [
     {
@@ -66,6 +68,8 @@ export const InsertMenuItemsGroup = () => {
   ];
   // 统一添加在子节点最后一个位置; 页面和链接不能新增
   const insertPosition = 'beforeEnd';
+  const dn = propsDn || selfDn;
+  console.log('%c Line:72 🌰 dn', 'font-size:18px;color:#33a5ff;background:#ea7e5c', dn);
   return (
     <SchemaSettingsItemGroup>
       <SchemaSettingsModalItem

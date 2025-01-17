@@ -1,30 +1,16 @@
-import { useField, useFieldSchema } from '@tachybase/schema';
-
-import { Icon, useDesignable, useGetAriaLabelOfDesigner } from '../../..';
+import { createDesignable, Icon, useDesignable, useGetAriaLabelOfDesigner } from '../../..';
 import { SchemaSettingsDropdown } from '../../../schema-settings/SchemaSettings';
 import { InsertMenuItemsGroup } from './Menu.Designer';
 
-export const MenuAdd = () => {
-  const { dn, designable } = useDesignable();
-  const field = useField();
-  const fieldSchema = useFieldSchema();
-  const { getAriaLabel } = useGetAriaLabelOfDesigner();
-  const schemaSettingsProps = {
-    dn,
-    field,
-    fieldSchema,
-  };
+export const MenuAdd = (props) => {
+  const { dn } = props;
+  const { dn: dnEvents } = useDesignable();
 
-  if (!designable) {
-    return null;
-  }
+  const { getAriaLabel } = useGetAriaLabelOfDesigner();
 
   return (
-    <SchemaSettingsDropdown
-      title={<Icon type="PlusOutlined" aria-label={getAriaLabel('add-menu')} />}
-      {...schemaSettingsProps}
-    >
-      <InsertMenuItemsGroup />
+    <SchemaSettingsDropdown title={<Icon type="PlusOutlined" aria-label={getAriaLabel('add-menu')} />}>
+      <InsertMenuItemsGroup dn={{ ...dn, events: dnEvents.events }} />
     </SchemaSettingsDropdown>
   );
 };
