@@ -25,7 +25,7 @@ export const MenuSearchAdd = (props: MenuSearchProps) => {
 
   const handleSearch = (value, event) => {
     event.stopPropagation();
-    _.debounce(setSearchMenuTitle, 500)(value);
+    _.debounce(setSearchMenuTitle, 500)(value.trim());
   };
 
   return (
