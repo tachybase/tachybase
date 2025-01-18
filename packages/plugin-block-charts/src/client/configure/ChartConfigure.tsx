@@ -306,7 +306,9 @@ ChartConfigure.Renderer = function Renderer(props) {
         const config = cloneDeep(form.values.config);
         const transform = cloneDeep(form.values.transform);
         return (
-          <ChartRendererContext.Provider value={{ collection, config, transform, service, data }}>
+          <ChartRendererContext.Provider
+            value={{ collection, config, transform, service, data, query: form.values.query }}
+          >
             <ChartRenderer {...props} />
           </ChartRendererContext.Provider>
         );
@@ -342,7 +344,7 @@ ChartConfigure.Query = function Query() {
     service.mutate(undefined);
   };
 
-  const formCollapse = FormCollapse.createFormCollapse(['measures', 'dimensions', 'filter', 'sort']);
+  const formCollapse = FormCollapse.createFormCollapse(['dimensions', 'measures', 'filter', 'sort']);
   const FromSql = () => (
     <Text code>
       From <span style={{ color: '#1890ff' }}>{current?.collection}</span>

@@ -9,13 +9,21 @@ export class Table extends AntdChart {
   }
 
   getProps({ data, fieldProps, general, advanced, ctx }: RenderProps) {
-    const columns = data.length
-      ? Object.keys(data[0]).map((item) => ({
-          title: fieldProps[item]?.label || item,
-          dataIndex: item,
-          key: item,
-        }))
-      : [];
+    const originDimensions = ctx.query?.dimensions || [];
+    const originMeasures = ctx.query?.measures || [];
+
+    const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
+    const measures = originMeasures.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
+
+    const columns = [];
+    [...dimensions, ...measures].forEach((item) => {
+      columns.push({
+        title: fieldProps[item]?.label || item,
+        dataIndex: item,
+        key: item,
+      });
+    });
+
     const dataSource = data.map((item: any, index: number) => {
       Object.keys(item).map((key: string) => {
         const props = fieldProps[key];
