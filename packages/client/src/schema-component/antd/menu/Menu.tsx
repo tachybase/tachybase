@@ -12,7 +12,7 @@ import {
 import { error } from '@tachybase/utils/client';
 
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Menu as AntdMenu, Button, Input, MenuProps, Popover } from 'antd';
+import { Menu as AntdMenu, Button, MenuProps, Popover } from 'antd';
 import { createPortal } from 'react-dom';
 
 import { createDesignable, DndContext, SortableItem, useDesignable, useDesigner } from '../..';
@@ -24,7 +24,7 @@ import { AdminMenu } from './AdminMenu';
 import { useMenuTranslation } from './locale';
 import { MenuDesigner } from './Menu.Designer';
 import { useStyles } from './Menu.styles';
-import { MenuSearch } from './MenuSearch';
+import { MenuSearchAdd } from './MenuSearchAdd';
 import { getNewSideMenuSchema } from './tools';
 import { findKeysByUid, findMenuItem } from './util';
 
@@ -42,9 +42,6 @@ const HeaderMenu = ({
   onSelect,
   setLoading,
   setDefaultSelectedKeys,
-  defaultSelectedKeys,
-  defaultOpenKeys,
-  selectedKeys,
   designable,
   render,
   children,
@@ -184,37 +181,22 @@ const SideMenu = ({
 
     // NOTE: 这里后续要提供给用户可以在菜单项少的情况下, 配置关闭菜单搜索功能
     if (true) {
+      const dn = createDesignable({
+        t,
+        api,
+        refresh,
+        current: sideMenuSchemaRef.current,
+      });
+      dn.loadAPIClientEvents();
       const searchMenu = {
         key: 'x-menu-search',
         disabled: true,
-        label: <MenuSearch setSearchMenuTitle={setSearchMenuTitle} />,
+        label: <MenuSearchAdd designable={designable} setSearchMenuTitle={setSearchMenuTitle} dn={dn} />,
         // 始终排在第一位
         order: -10,
         notdelete: true,
       };
       result.push(searchMenu);
-    }
-
-    if (designable) {
-      result.push({
-        key: 'x-designer-button',
-        disabled: true,
-        label: render({
-          'data-testid': 'schema-initializer-Menu-side',
-          insert: (s) => {
-            const dn = createDesignable({
-              t,
-              api,
-              refresh,
-              current: sideMenuSchemaRef.current,
-            });
-            dn.loadAPIClientEvents();
-            dn.insertAdjacent('beforeEnd', s);
-          },
-        }),
-        order: -1,
-        notdelete: true,
-      });
     }
 
     return result;
@@ -361,9 +343,6 @@ export const Menu: ComposedMenu = observer(
               onSelect={onSelect}
               setLoading={setLoading}
               setDefaultSelectedKeys={setDefaultSelectedKeys}
-              defaultSelectedKeys={defaultSelectedKeys}
-              defaultOpenKeys={defaultOpenKeys}
-              selectedKeys={selectedKeys}
               designable={designable}
               render={render}
             >
