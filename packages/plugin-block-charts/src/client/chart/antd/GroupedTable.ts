@@ -69,8 +69,8 @@ export class GroupedTable extends AntdChart {
    * query 图表查询条件, measures 度量配置, dimensions 维度配置, filters 过滤条件, orders 排序条件, limit 限制条数
    */
   getProps({ data, fieldProps, general, advanced, ctx }: RenderProps) {
-    const { columns } = advanced || {};
-    const { categoryField } = general || {};
+    const { columns = [] } = advanced || {};
+    const { categoryField = [] } = general || {};
 
     const groupedData = getGroupData(data, categoryField);
 
