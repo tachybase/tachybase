@@ -279,6 +279,8 @@ export const ChartConfigure: React.FC<{
             <Col span={11}>
               <Card
                 style={{
+                  height: 'calc(100vh - 300px)',
+                  overflow: 'auto',
                   margin: '12px 12px 12px 0',
                 }}
               >
