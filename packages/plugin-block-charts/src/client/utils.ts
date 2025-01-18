@@ -68,7 +68,7 @@ export const getSelectedFields = (fields: FieldOption[], query: QueryProps) => {
   const measures = query.measures || [];
   const dimensions = query.dimensions || [];
   // unique
-  const map = new Map([...process(measures), ...process(dimensions)].map((item) => [item.value, item]));
+  const map = new Map([...process(dimensions), ...process(measures)].map((item) => [item.value, item]));
   const selectedFields = [...map.values()];
   return selectedFields;
 };

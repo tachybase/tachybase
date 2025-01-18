@@ -11,51 +11,6 @@ export class GroupedTable extends AntdChart {
       name: 'groupedTable',
       title: 'GroupedTable',
       Component: AntdTable,
-      config: [
-        {
-          categoryField: {
-            title: '{{t("Category Field")}}',
-            type: 'array',
-            'x-decorator': 'FormItem',
-            'x-component': 'ArrayItems',
-            items: {
-              type: 'void',
-              'x-component': 'Space',
-              properties: {
-                sort: {
-                  type: 'void',
-                  'x-decorator': 'FormItem',
-                  'x-component': 'ArrayItems.SortHandle',
-                },
-                input: {
-                  type: 'string',
-                  'x-decorator': 'FormItem',
-                  'x-component': 'Select',
-                  'x-reactions': '{{ useChartFields }}',
-                  'x-component-props': {
-                    style: {
-                      minWidth: '200px',
-                    },
-                  },
-                  required: true,
-                },
-                remove: {
-                  type: 'void',
-                  'x-decorator': 'FormItem',
-                  'x-component': 'ArrayItems.Remove',
-                },
-              },
-            },
-            properties: {
-              add: {
-                type: 'void',
-                title: '{{t("Add")}}',
-                'x-component': 'ArrayItems.Addition',
-              },
-            },
-          },
-        },
-      ],
     });
   }
 
@@ -68,11 +23,16 @@ export class GroupedTable extends AntdChart {
    * dimensions 维度配置
    * query 图表查询条件, measures 度量配置, dimensions 维度配置, filters 过滤条件, orders 排序条件, limit 限制条数
    */
-  getProps({ data, fieldProps, general, advanced, ctx }: RenderProps) {
+  getProps({ data, fieldProps, advanced, ctx }: RenderProps) {
     const { columns = [] } = advanced || {};
-    const { categoryField = [] } = general || {};
 
-    const groupedData = getGroupData(data, categoryField);
+    const originDimensions = ctx.query?.dimensions || [];
+    const originMeasures = ctx.query?.measures || [];
+
+    const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
+    const measures = originMeasures.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
+
+    const groupedData = getGroupData(data, dimensions);
 
     // 注入图标配置的格式化函数, 并且保证用户的图表配置的 render 函数能生效
     const cookedColumns = columns.map((item) => ({
@@ -85,6 +45,15 @@ export class GroupedTable extends AntdChart {
         }),
     }));
 
+    const defaultColumns = [];
+    [...dimensions, ...measures].forEach((item) => {
+      defaultColumns.push({
+        title: fieldProps[item]?.label || item,
+        dataIndex: item,
+        key: item,
+      });
+    });
+
     return {
       bordered: true,
       size: 'middle',
@@ -95,7 +64,7 @@ export class GroupedTable extends AntdChart {
       rowKey: (record) => record.key,
       expandRowByClick: true,
       dataSource: groupedData,
-      columns: cookedColumns,
+      columns: cookedColumns.length > 0 ? cookedColumns : defaultColumns,
     };
   }
 }
