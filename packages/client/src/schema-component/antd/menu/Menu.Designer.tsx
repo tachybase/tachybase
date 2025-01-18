@@ -50,9 +50,9 @@ const findMenuSchema = (fieldSchema: Schema) => {
   }
 };
 
-const InsertMenuItemsGroup = () => {
+export const InsertMenuItemsGroup = (props) => {
   const { t } = useTranslation();
-  const { dn } = useDesignable();
+  const designable = useDesignable();
   const api = useAPIClient();
   const serverHooks = [
     {
@@ -66,6 +66,8 @@ const InsertMenuItemsGroup = () => {
   ];
   // 统一添加在子节点最后一个位置; 页面和链接不能新增
   const insertPosition = 'beforeEnd';
+  // NOTE: 根节点的上下文, 和当前节点的上下文不同
+  const dn = props.dn || designable.dn;
   return (
     <SchemaSettingsItemGroup>
       <SchemaSettingsModalItem

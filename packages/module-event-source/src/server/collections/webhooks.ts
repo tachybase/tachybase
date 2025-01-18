@@ -32,6 +32,10 @@ export default defineCollection({
       type: 'json',
     },
     {
+      name: 'triggerOnAssociation',
+      type: 'boolean',
+    },
+    {
       name: 'actionName',
       type: 'string',
     },

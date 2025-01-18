@@ -1,5 +1,8 @@
 {
   "Custom event source": "自定义事件源",
   "Event source": "事件源",
-  "Test": "测试"
+  "Resource": "资源",
+  "Test": "测试",
+  "TriggerOnAssociation": "关联时触发",
+  "Type": "类型"
 }
