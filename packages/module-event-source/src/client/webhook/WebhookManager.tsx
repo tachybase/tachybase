@@ -103,6 +103,24 @@ const properties = {
     ],
     'x-component-props': {},
   },
+  triggerOnAssociation: {
+    type: 'string',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-collection-field': 'webhooks.triggerOnAssociation',
+    'x-reactions': [
+      {
+        dependencies: ['.type'],
+        fulfill: {
+          state: {
+            hidden:
+              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
+          },
+        },
+      },
+    ],
+    'x-component-props': {},
+  },
   actionName: {
     type: 'string',
     'x-component': 'CollectionField',
