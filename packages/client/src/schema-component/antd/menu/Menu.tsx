@@ -42,9 +42,6 @@ const HeaderMenu = ({
   onSelect,
   setLoading,
   setDefaultSelectedKeys,
-  defaultSelectedKeys,
-  defaultOpenKeys,
-  selectedKeys,
   designable,
   render,
   children,
@@ -170,17 +167,6 @@ const SideMenu = ({
   sideMenuSchemaRef.current = sideMenuSchema;
 
   const [searchMenuTitle, setSearchMenuTitle] = useState('');
-
-  const dnSideAdminMenu = useMemo(
-    () =>
-      createDesignable({
-        t,
-        api,
-        refresh,
-        current: sideMenuSchema,
-      }),
-    [t, api, refresh, sideMenuSchema],
-  );
 
   const items = useMemo(() => {
     let newSideMenuSchema = sideMenuSchema;
@@ -357,9 +343,6 @@ export const Menu: ComposedMenu = observer(
               onSelect={onSelect}
               setLoading={setLoading}
               setDefaultSelectedKeys={setDefaultSelectedKeys}
-              defaultSelectedKeys={defaultSelectedKeys}
-              defaultOpenKeys={defaultOpenKeys}
-              selectedKeys={selectedKeys}
               designable={designable}
               render={render}
             >
