@@ -1,130 +1,101 @@
-import { uid } from '@tachybase/utils/client';
-
 import { Table as AntdTable } from 'antd';
 
 import { RenderProps } from '../chart';
 import { AntdChart } from './antd';
+import { getGroupData } from './tools/getGroupData';
+import { renderText } from './tools/renderText';
 
 export class GroupedTable extends AntdChart {
   constructor() {
-    super({ name: 'groupedTable', title: 'GroupedTable', Component: AntdTable, config: ['seriesField'] });
+    super({
+      name: 'groupedTable',
+      title: 'GroupedTable',
+      Component: AntdTable,
+      config: [
+        {
+          categoryField: {
+            title: '{{t("Category Field")}}',
+            type: 'array',
+            'x-decorator': 'FormItem',
+            'x-component': 'ArrayItems',
+            items: {
+              type: 'void',
+              'x-component': 'Space',
+              properties: {
+                sort: {
+                  type: 'void',
+                  'x-decorator': 'FormItem',
+                  'x-component': 'ArrayItems.SortHandle',
+                },
+                input: {
+                  type: 'string',
+                  'x-decorator': 'FormItem',
+                  'x-component': 'Select',
+                  'x-reactions': '{{ useChartFields }}',
+                  'x-component-props': {
+                    style: {
+                      minWidth: '200px',
+                    },
+                  },
+                  required: true,
+                },
+                remove: {
+                  type: 'void',
+                  'x-decorator': 'FormItem',
+                  'x-component': 'ArrayItems.Remove',
+                },
+              },
+            },
+            properties: {
+              add: {
+                type: 'void',
+                title: '{{t("Add")}}',
+                'x-component': 'ArrayItems.Addition',
+              },
+            },
+          },
+        },
+      ],
+    });
   }
 
+  /**
+   * transform 数据格式化配置
+   * config 图表配置, general.categoryField(同参数 general) 分类字段 advanced.columns 数据表列配置(同参数 advanced)
+   * service 网络请求, service.data 返回数据, (同参数 data)
+   * measures 度量配置
+   * fieldProps 度量和维度构造的列配置, interface 维度类型, transformer 维度转换器 label 显示名称
+   * dimensions 维度配置
+   * query 图表查询条件, measures 度量配置, dimensions 维度配置, filters 过滤条件, orders 排序条件, limit 限制条数
+   */
   getProps({ data, fieldProps, general, advanced, ctx }: RenderProps) {
-    const { transform, config, service } = ctx;
-    const seriesField = config?.general?.seriesField;
-    const measures = service?.params.find((item) => typeof item === 'object')?.measures;
-    const columns = data.length
-      ? Object.keys(data[0]).map((item) => ({
-          title: fieldProps[item]?.label || item,
-          dataIndex: item,
-          key: item,
-          calculate: true,
-        }))
-      : [];
-    const dataSource = [];
-    let key = 0;
-    data.forEach((item: any, index) => {
-      Object.keys(item).forEach((key: string) => {
-        const props = fieldProps[key];
-        if (props?.interface === 'percent') {
-          const value = Math.round(parseFloat(item[key]) * 100).toFixed(2);
-          item[key] = `${value}%`;
-        }
-        if (typeof item[key] === 'boolean') {
-          item[key] = item[key].toString();
-        }
-        if (props?.transformer) {
-          item[key] = props.transformer(item[key]);
-        }
-      });
-      const dataValue = dataSource.filter((value) => value[seriesField] === item[seriesField])[0];
-      if (dataValue) {
-        dataSource[dataValue.key].children.push({
-          key: `key${uid()}${uid()}`,
-          ...item,
-        });
-      } else {
-        dataSource.push({
-          key: key,
-          ...item,
-          children: [
-            {
-              key: `key${uid()}`,
-              ...item,
-            },
-          ],
-        });
-        key++;
-      }
-    });
+    const { columns } = advanced || {};
+    const { categoryField } = general || {};
 
-    advanced?.columns?.forEach((dataValue) => {
-      if (dataValue.key === seriesField) {
-        return;
-      }
-      dataSource.forEach((value) => {
-        if (measures?.find((item) => item.field?.join('.') === dataValue.key)) {
-          if (isNaN(Number(value[dataValue.key]))) {
-            value[dataValue.key] = 0;
-          }
-          let number: any = transform.filter((value) => value.field === dataValue.key)[0];
-          if (number) {
-            number = number.specific ? number.specific : 3;
-            switch (number) {
-              case 'TwoDigits':
-                number = 2;
-                break;
-              case 'ThreeDigits':
-                number = 3;
-                break;
-              case 'FourDigits':
-                number = 4;
-                break;
-            }
-          } else {
-            number = 3;
-          }
-          const options: Intl.NumberFormatOptions = {
-            style: 'decimal',
-            minimumFractionDigits: number,
-            maximumFractionDigits: number,
-          };
+    const groupedData = getGroupData(data, categoryField);
 
-          const numberFormat = new Intl.NumberFormat('zh-CN', options);
-          const num = String(value[dataValue.key]).includes(',')
-            ? String(value[dataValue.key]).replace(/,/g, '')
-            : value[dataValue.key];
+    // 注入图标配置的格式化函数, 并且保证用户的图表配置的 render 函数能生效
+    const cookedColumns = columns.map((item) => ({
+      ...item,
+      render: (text, record) =>
+        renderText(text, record, {
+          fieldProps,
+          dataIndex: item.dataIndex,
+          render: item.render,
+        }),
+    }));
 
-          if (!isNaN(num)) {
-            const sum = value.children.reduce((sum, curr) => {
-              const sub = String(curr[dataValue.key]).includes(',')
-                ? String(curr[dataValue.key]).replace(/,/g, '')
-                : isNaN(Number(curr[dataValue.key]))
-                  ? 0
-                  : curr[dataValue.key];
-              return sum + parseFloat(sub);
-            }, 0);
-            value[dataValue.key] = numberFormat.format(sum);
-          }
-        } else {
-          value[dataValue.key] = '';
-        }
-      });
-    });
     return {
       bordered: true,
       size: 'middle',
       pagination: false,
-      dataSource,
-      columns,
       scroll: {
         x: 'max-content',
       },
       rowKey: (record) => record.key,
-      ...general,
-      ...advanced,
       expandRowByClick: true,
+      dataSource: groupedData,
+      columns: cookedColumns,
     };
   }
 }
