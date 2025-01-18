@@ -77,6 +77,17 @@ export const dispatchers: CollectionOptions = {
     },
     {
       type: 'string',
+      name: 'triggerOnAssociation',
+      interface: 'boolean',
+      uiSchema: {
+        title: tval('TriggerOnAssociation'),
+        type: 'boolean',
+        'x-component': 'Checkbox',
+        required: true,
+      } as ISchema,
+    },
+    {
+      type: 'string',
       name: 'resourceName',
       interface: 'input',
       uiSchema: {

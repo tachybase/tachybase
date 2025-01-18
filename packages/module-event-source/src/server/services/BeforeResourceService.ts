@@ -25,13 +25,22 @@ export class BeforeAfterResourceService {
         });
 
         for (const resourceDef of resources) {
-          const { actionName, resourceName, name } = resourceDef;
+          const { actionName, resourceName, name, triggerOnAssociation } = resourceDef;
           this.logger.info(`Add ${prefix} resource middleware for ${resourceName}:${actionName}`);
           const tag = `${prefix}-resource-${resourceName}-${actionName}-${name}`;
           app.resourcer.use(
             async (ctx: Context, next: () => Promise<void>) => {
               const { resourceName, actionName } = ctx.action;
-              if (resourceName !== resourceDef.resourceName || actionName !== resourceDef.actionName) {
+              let targetResource = resourceName || '';
+
+              if (triggerOnAssociation) {
+                const parts = resourceName.split('.');
+                if (parts.length === 2) {
+                  const collection = ctx.db.getCollection(resourceName);
+                  targetResource = collection.name;
+                }
+              }
+              if (targetResource !== resourceDef.resourceName || actionName !== resourceDef.actionName) {
                 return await next();
               }
               if (prefix === 'before') {
