@@ -43,7 +43,7 @@ export class GroupedTable extends AntdChart {
     const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
     const measures = originMeasures.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
 
-    const groupedData = getGroupData(data, dimensions, isHiddenField, measures);
+    const groupedData = getGroupData(data, dimensions);
 
     // 注入图标配置的格式化函数, 并且保证用户的图表配置的 render 函数能生效
     const cookedColumns = columns.map((item) => ({

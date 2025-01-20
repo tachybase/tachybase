@@ -4,7 +4,7 @@
  * @param groupField 分组字段数组
  * @returns 分组后的嵌套结构
  */
-export function getGroupData(datas: any[], groupField: string[], isVisibleField: boolean, measures: string[]) {
+export function getGroupData(datas: any[], groupField: string[]) {
   // 递归分组函数
   const recursiveGroupByField = (
     data: any[],
