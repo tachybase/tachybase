@@ -4,7 +4,6 @@ interface IOptions {
   render?: Function | undefined;
   dimensions: string[];
   isHiddenField: boolean;
-  index?: number;
   measures: string[];
 }
 // 格式化器

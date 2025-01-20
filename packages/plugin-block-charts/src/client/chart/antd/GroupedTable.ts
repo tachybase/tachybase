@@ -48,14 +48,13 @@ export class GroupedTable extends AntdChart {
     // 注入图标配置的格式化函数, 并且保证用户的图表配置的 render 函数能生效
     const cookedColumns = columns.map((item) => ({
       ...item,
-      render: (text, record, index) =>
+      render: (text, record) =>
         renderText(text, record, {
           fieldProps,
           dataIndex: item.dataIndex,
           render: item.render,
           dimensions,
           isHiddenField,
-          index,
           measures,
         }),
     }));
