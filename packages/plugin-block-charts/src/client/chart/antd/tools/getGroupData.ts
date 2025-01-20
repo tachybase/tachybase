@@ -14,6 +14,7 @@ export function getGroupData(datas: any[], groupField: string[], isVisibleField:
     parentGroup: any = {},
   ) => {
     // 如果已经处理完所有分组字段，返回原始数据
+    // XXX: 这里要重构, 依赖了groupField的长度, 总是忽略了最后一个分组
     if (currentIndex + 1 >= fields.length) {
       return data;
     }
@@ -34,6 +35,7 @@ export function getGroupData(datas: any[], groupField: string[], isVisibleField:
         acc[currentKey] = {
           ...parentGroup, // 继承父级的分组字段
           [currentField]: keyValue, // 当前字段的值
+          currentLevel: currentIndex, // 标识当前的数据层级
           key: currentKey, // 唯一 key
           children: [], // 用于存储子数据
         };
@@ -68,11 +70,6 @@ export function getGroupData(datas: any[], groupField: string[], isVisibleField:
 
     // 对每个分组递归处理下一个字段
     return Object.values(grouped).map((group: any) => {
-      for (let key in group) {
-        if (![currentField, 'children', 'key'].includes(key) && isVisibleField && !measures.includes(key)) {
-          group[key] = '';
-        }
-      }
       return {
         ...group,
         children: recursiveGroupByField(group.children, fields, currentIndex + 1, group.key, group), // 传递当前 key 和分组对象

@@ -3,7 +3,9 @@ interface IOptions {
   dataIndex: string;
   render?: Function | undefined;
   dimensions: string[];
-  isVisibleField: boolean;
+  isHiddenField: boolean;
+  index?: number;
+  measures: string[];
 }
 // 格式化器
 export function renderText(
@@ -11,18 +13,20 @@ export function renderText(
   record: Record<string, any>,
   options: IOptions,
 ): string | number {
-  const { fieldProps, dataIndex, render, dimensions, isVisibleField } = options;
+  const { fieldProps, dataIndex, dimensions, isHiddenField, measures } = options;
+
   // 数据格式化配置的格式化器
   const transformer = fieldProps[dataIndex]?.transformer;
   const formattedText = transformer ? transformer(text) : text;
 
-  // 图表配置中的 render 函数
-  if (typeof render === 'function') {
-    return render(formattedText, record);
-  }
-
-  if (!record.key && dimensions.slice(0, -1).includes(dataIndex) && isVisibleField) {
-    return '';
+  // 是否隐藏分组字段
+  // 判断当前 record 的层级,
+  // 如果是第一级, 显示第一个分组的字段; 2-2, n-n, n 的长度必然是 dimensions 的长度
+  if (isHiddenField) {
+    const currentLevel = record.currentLevel;
+    if (dimensions[currentLevel] !== dataIndex && !measures.includes(dataIndex)) {
+      return '';
+    }
   }
   return formattedText;
 }

@@ -13,7 +13,7 @@ export class GroupedTable extends AntdChart {
       Component: AntdTable,
       config: [
         {
-          isVisibleField: {
+          isHiddenField: {
             title: '{{t("Only display the group field label on the first row")}}',
             type: 'boolean',
             'x-decorator': 'FormItem',
@@ -31,30 +31,32 @@ export class GroupedTable extends AntdChart {
    * measures 度量配置
    * fieldProps 度量和维度构造的列配置, interface 维度类型, transformer 维度转换器 label 显示名称
    * dimensions 维度配置
-   * query 图表查询条件, measures 度量配置, dimensions 维度配置, filters 过滤条件, orders 排序条件, limit 限制条数
+   * query 图表查询条件, measures 指标配置, dimensions 维度配置, filters 过滤条件, orders 排序条件, limit 限制条数
    */
   getProps({ data, fieldProps, advanced, ctx }: RenderProps) {
     const { columns = [] } = advanced || {};
 
     const originDimensions = ctx.query?.dimensions || [];
     const originMeasures = ctx.query?.measures || [];
-    const isVisibleField = ctx.config.general?.isVisibleField || false;
+    const isHiddenField = ctx.config.general?.isHiddenField || false;
 
     const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
     const measures = originMeasures.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
 
-    const groupedData = getGroupData(data, dimensions, isVisibleField, measures);
+    const groupedData = getGroupData(data, dimensions, isHiddenField, measures);
 
     // 注入图标配置的格式化函数, 并且保证用户的图表配置的 render 函数能生效
     const cookedColumns = columns.map((item) => ({
       ...item,
-      render: (text, record) =>
+      render: (text, record, index) =>
         renderText(text, record, {
           fieldProps,
           dataIndex: item.dataIndex,
           render: item.render,
           dimensions,
-          isVisibleField,
+          isHiddenField,
+          index,
+          measures,
         }),
     }));
 
@@ -70,7 +72,8 @@ export class GroupedTable extends AntdChart {
             dataIndex: item,
             render: undefined,
             dimensions,
-            isVisibleField,
+            isHiddenField,
+            measures,
           }),
       });
     });
