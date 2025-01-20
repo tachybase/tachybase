@@ -35,7 +35,7 @@ export async function searchMiddleware(ctx: Context, next: Function) {
 
   // 最多关键词OR 不能超过10个
   if (params.search.keywords.length > SEARCH_KEYWORDS_MAX) {
-    ctx.throw(500, `keywords max length is ${SEARCH_KEYWORDS_MAX}`);
+    ctx.throw(400, `keywords max length is ${SEARCH_KEYWORDS_MAX}`);
   }
 
   // 指定搜索的字段
