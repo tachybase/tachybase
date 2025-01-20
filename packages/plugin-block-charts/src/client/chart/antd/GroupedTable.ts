@@ -14,7 +14,7 @@ export class GroupedTable extends AntdChart {
       config: [
         {
           isVisibleField: {
-            title: '{{t("isVisibleField")}}',
+            title: '{{t("Only display the group field label on the first row")}}',
             type: 'boolean',
             'x-decorator': 'FormItem',
             'x-component': 'Checkbox',
