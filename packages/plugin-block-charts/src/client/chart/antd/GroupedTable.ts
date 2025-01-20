@@ -11,6 +11,16 @@ export class GroupedTable extends AntdChart {
       name: 'groupedTable',
       title: 'GroupedTable',
       Component: AntdTable,
+      config: [
+        {
+          isVisibleField: {
+            title: '{{t("isVisibleField")}}',
+            type: 'boolean',
+            'x-decorator': 'FormItem',
+            'x-component': 'Checkbox',
+          },
+        },
+      ],
     });
   }
 
@@ -28,11 +38,12 @@ export class GroupedTable extends AntdChart {
 
     const originDimensions = ctx.query?.dimensions || [];
     const originMeasures = ctx.query?.measures || [];
+    const isVisibleField = ctx.config.general?.isVisibleField || false;
 
     const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
     const measures = originMeasures.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
 
-    const groupedData = getGroupData(data, dimensions);
+    const groupedData = getGroupData(data, dimensions, isVisibleField, measures);
 
     // 注入图标配置的格式化函数, 并且保证用户的图表配置的 render 函数能生效
     const cookedColumns = columns.map((item) => ({
@@ -51,9 +62,13 @@ export class GroupedTable extends AntdChart {
         title: fieldProps[item]?.label || item,
         dataIndex: item,
         key: item,
+        render: (text, record) =>
+          renderText(text, record, {
+            fieldProps,
+            dataIndex: item,
+          }),
       });
     });
-
     return {
       bordered: true,
       size: 'middle',
