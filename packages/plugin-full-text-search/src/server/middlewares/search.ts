@@ -6,13 +6,14 @@ import { FieldBase } from '../dialects/FieldBase';
 import { FieldMariadb } from '../dialects/FieldMariadb';
 import { FieldPostgres } from '../dialects/FieldPostgres';
 import { FieldSqlite } from '../dialects/FieldSqlite';
-import { processField } from '../methods';
+import { processField } from '../searchField';
 
 function getDialect(dbType: string): FieldBase {
   const handlers: { [key: string]: () => FieldBase } = {
-    postgres: () => new FieldPostgres('postgres'),
-    mysql: () => new FieldMariadb('mysql'),
-    sqlite: () => new FieldSqlite('sqlite'),
+    postgres: () => new FieldPostgres(),
+    mysql: () => new FieldMariadb(), // TODO: 考虑mysql5.7的兼容性
+    mariadb: () => new FieldMariadb(),
+    sqlite: () => new FieldSqlite(),
   };
 
   const handler = handlers[dbType];
@@ -49,6 +50,8 @@ export async function searchMiddleware(ctx: Context, next: Function) {
   const dbType = ctx.db.sequelize.getDialect();
   // TODO: oracle,mariadb等类型支持
   const handler = getDialect(dbType);
+  // 获取请求中的时区
+  const timezone = ctx.get('X-Timezone') || '+00:00'; // 默认时区为零
 
   const searchFilterList = [];
   for (const field of fields) {
@@ -59,6 +62,7 @@ export async function searchMiddleware(ctx: Context, next: Function) {
         collection,
         ctx,
         search: params.search,
+        timezone,
       }),
     );
   }

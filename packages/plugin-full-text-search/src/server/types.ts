@@ -17,4 +17,6 @@ export interface ProcessFieldParams {
   handler: FieldBase;
   collection: Collection;
   search: SearchParams;
+  // '+08:00'
+  timezone: string;
 }

@@ -1,79 +1,69 @@
 import { literal, Op, where } from '@tachybase/database';
 
-import { WhereOptions } from 'sequelize';
+import { col, WhereOptions } from 'sequelize';
 
 import { escapeLike } from '../utils';
 
 type NestedRecord<T, K extends string> = K extends `${infer Head}.${infer Tail}`
   ? { [Key in Head]: NestedRecord<T, Tail> }
   : { [Key in K]: T };
-
-// 是否支持关联字段搜索
-type CloseType = 'association';
-
-export function Close(flag?: CloseType): MethodDecorator {
-  // 这里返回一个装饰器函数
-  return function (target: object, propertyKey: string | symbol, descriptor: PropertyDescriptor): void {
-    const originalMethod = descriptor.value; // 保存原方法
-
-    descriptor.value = function (...args: any[]) {
-      if (flag) {
-        return null;
-      }
-
-      // 如果 flag 是 'association' 且第一个参数包含 '.'，返回 null
-      if (flag === 'association' && typeof args[0] === 'string' && args[0].includes('.')) {
-        return null;
-      }
-
-      // 其他情况调用原始方法
-      return originalMethod.apply(this, args);
-    };
-  };
-}
-
 export class FieldBase {
+  type = '';
   like = Op.like;
   likeOperator = 'LIKE';
 
-  constructor(public type: string) {
-    if (type === 'postgres') {
-      this.like = Op.iLike;
-      this.likeOperator = 'ILIKE';
+  constructor() {}
+
+  public getFormateDateStr(field: string, fieldInfo): string {
+    return 'YYYY-MM-DD HH:mm:ss';
+  }
+
+  public date(field: string, keyword: string, formatStr: string, timezone: string): any {
+    return null;
+  }
+
+  public string(field: string, keyword: string, fields: any): WhereOptions<any> | any | null {
+    const fieldInfo = fields.get(field);
+    if (fieldInfo?.options?.uiSchema?.['x-component'] === 'Select') {
+      const enumList = fieldInfo?.options.uiSchema.enum;
+      const matchEnum = [];
+      for (const item of enumList) {
+        if (item.label.toLowerCase().includes(keyword.toLowerCase())) {
+          matchEnum.push(item.value);
+        }
+      }
+      if (!matchEnum.length) {
+        return null;
+      }
+      if (fieldInfo?.options?.uiSchema?.type === 'array') {
+        return this.getMultiSelectFilter(field, matchEnum);
+      }
+      return this.convertToObj(field, { [Op.in]: matchEnum });
     }
-  }
 
-  getFieldName(collectionName: string, field: string): string {
-    return '';
-  }
-
-  @Close('association')
-  handleJsonQuery(field: string, keyword: string) {
-    return null;
-  }
-
-  formatDate(fieldName: string, utcOffset: string, formatStr: string): any {
-    return null;
-  }
-
-  public handleStringQuery(field: string, keyword: string) {
     // 受核心限制这里实际只能套两层
     return this.convertToObj(field, { [this.like]: `%${escapeLike(keyword)}%` });
   }
 
-  public handleNumberQuery(field: string, keyword: string): WhereOptions<any> {
-    return {};
-    // return {
-    //   [Op.and]: [
-    //     where(literal(`CAST(${fieldName} AS TEXT)`), {
-    //       [this.like]: `%${escapeLike(keyword)}%`,
-    //     }),
-    //   ],
-    // };
+  public number(field: string, keyword: string): WhereOptions<any> {
+    return {
+      [Op.and]: [
+        where(
+          literal(`CAST(${col(field).col} AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
+          {
+            [Op.like]: `%${escapeLike(keyword)}%`,
+          },
+        ),
+      ],
+    };
+  }
+
+  json(field: string, keyword: string): any {
+    return null;
   }
 
   // a.b.c = xxx 转成 { a: { b: { c: 'xxx' } } }
-  private convertToObj<T, K extends string>(key: K, value: T): NestedRecord<T, K> {
+  protected convertToObj<T, K extends string>(key: K, value: T): NestedRecord<T, K> {
     const parts = key.split('.');
     const newKey = parts.shift();
     if (!newKey) {
@@ -83,5 +73,10 @@ export class FieldBase {
       return { [newKey]: value } as NestedRecord<T, K>;
     }
     return { [newKey]: this.convertToObj(parts.join('.'), value) } as NestedRecord<T, K>;
+  }
+
+  // 多选框如何生成filter
+  protected getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
+    return this.convertToObj(field, { [Op.contains]: matchEnum });
   }
 }

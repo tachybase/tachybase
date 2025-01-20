@@ -1,13 +1,10 @@
 import Database, { Collection } from '@tachybase/database';
 
-import { handleDateField } from './fields/date';
-import { handleJsonField } from './fields/json';
-import { handleNumberField } from './fields/number';
-import { handleStringField } from './fields/string';
+import { FieldBase } from './dialects/FieldBase';
 import { ProcessFieldParams } from './types';
 
 const fieldTypes = {
-  string: ['string', 'text', 'sequence', 'uid', 'integer', 'float'],
+  string: ['string', 'text', 'sequence', 'uid', 'integer', 'float', 'array'],
   number: ['bigInt', 'double'],
   date: ['date', 'datetime', 'timestamp'],
   json: ['json', 'jsonb'],
@@ -35,49 +32,68 @@ function getCollectionField(collection: Collection, fieldStr: string, db: Databa
   return getCollectionField(newCollection, newField, db);
 }
 
-export function processField({ field, handler, collection, ctx, search }: ProcessFieldParams): any[] {
+export function handleField(fieldName: string, keywords: string[], handler: FieldBase, func: string): any[] {
+  const conditions = [];
+  for (const keyword of keywords) {
+    const condition = handler[func](fieldName, keyword);
+    if (condition) {
+      conditions.push(condition);
+    }
+  }
+  return conditions;
+}
+
+export function processField({ field, handler, collection, ctx, search, timezone }: ProcessFieldParams): any[] {
   let type: string;
-  let fieldName: string;
   let fields: Map<string, any>;
 
   if (!field.includes('.')) {
-    fieldName = handler.getFieldName(ctx.action.resourceName, field);
     fields = collection.fields;
     type = fields.get(field)?.type;
   } else {
     const { collection: targetCollection, fieldStr } = getCollectionField(collection, field, ctx.db);
     fields = targetCollection.fields;
     type = fields.get(fieldStr)?.type;
-    fieldName = handler.getFieldName(targetCollection.name, fieldStr);
     fields = collection.fields;
+  }
+
+  if (fields.get(field)?.options?.isForeignKey) {
+    return [];
   }
 
   if (isFieldType(type, 'string')) {
     // string支持关联字段
-    return handleStringField(field, search.keywords, handler);
-  }
-  if (isFieldType(type, 'number')) {
-    // 暂不支持关联字段
-    if (!field.includes('.')) {
-      return handleNumberField(field, search.keywords, handler);
+    // return handleField(field, search.keywords, handler, 'string');
+    const list = [];
+    for (const keyword of search.keywords) {
+      const condition = handler.string(field, keyword, fields);
+      if (condition) {
+        list.push(condition);
+      }
     }
-  }
-  if (isFieldType(type, 'date')) {
-    // 暂不支持关联字段
+    return list;
+  } else if (isFieldType(type, 'number')) {
+    // 暂不支持关联字段 TODO 后续考虑抽成装饰器
     if (!field.includes('.')) {
-      return handleDateField({
-        fieldName,
-        keywords: search.keywords,
-        handler,
-        timezone: ctx.get('X-Timezone') || '+00:00',
-        fieldInfo: fields,
-      });
+      return handleField(field, search.keywords, handler, 'number');
     }
-  }
-  if (isFieldType(type, 'json')) {
+  } else if (isFieldType(type, 'date')) {
     // 暂不支持关联字段
     if (!field.includes('.')) {
-      return handleJsonField(fieldName, search.keywords, handler);
+      const formatStr = handler.getFormateDateStr(field, fields);
+      const list = [];
+      for (const keyword of search.keywords) {
+        const condition = handler.date(field, keyword, formatStr, timezone);
+        if (condition) {
+          list.push(condition);
+        }
+      }
+      return list;
+    }
+  } else if (isFieldType(type, 'json')) {
+    // 暂不支持关联字段
+    if (!field.includes('.')) {
+      return handleField(field, search.keywords, handler, 'json');
     }
   }
 
