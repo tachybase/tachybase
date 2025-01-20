@@ -35,6 +35,15 @@ export default defineCollection({
       defaultValue: false,
     },
     {
+      type: 'belongsToMany',
+      name: 'roles',
+      target: 'roles',
+      foreignKey: 'dataSourceKey',
+      otherKey: 'roleName',
+      targetKey: 'name',
+      through: 'dataSourcesRoles',
+    },
+    {
       type: 'hasMany',
       name: 'collections',
       target: 'dataSourcesCollections',
