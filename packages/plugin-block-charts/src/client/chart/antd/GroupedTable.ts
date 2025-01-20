@@ -11,6 +11,16 @@ export class GroupedTable extends AntdChart {
       name: 'groupedTable',
       title: 'GroupedTable',
       Component: AntdTable,
+      config: [
+        {
+          isHiddenField: {
+            title: '{{t("Only display the group field label on the first row")}}',
+            type: 'boolean',
+            'x-decorator': 'FormItem',
+            'x-component': 'Checkbox',
+          },
+        },
+      ],
     });
   }
 
@@ -21,16 +31,17 @@ export class GroupedTable extends AntdChart {
    * measures 度量配置
    * fieldProps 度量和维度构造的列配置, interface 维度类型, transformer 维度转换器 label 显示名称
    * dimensions 维度配置
-   * query 图表查询条件, measures 度量配置, dimensions 维度配置, filters 过滤条件, orders 排序条件, limit 限制条数
+   * query 图表查询条件, measures 指标配置, dimensions 维度配置, filters 过滤条件, orders 排序条件, limit 限制条数
    */
   getProps({ data, fieldProps, advanced, ctx }: RenderProps) {
     const { columns = [] } = advanced || {};
 
     const originDimensions = ctx.query?.dimensions || [];
     const originMeasures = ctx.query?.measures || [];
+    const isHiddenField = ctx.config.general?.isHiddenField || false;
 
-    const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
-    const measures = originMeasures.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
+    const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field?.join('.') : dim.alias)).filter(Boolean);
+    const measures = originMeasures.map((dim) => (!dim.alias ? dim.field?.join('.') : dim.alias)).filter(Boolean);
 
     const groupedData = getGroupData(data, dimensions);
 
@@ -42,6 +53,8 @@ export class GroupedTable extends AntdChart {
           fieldProps,
           dataIndex: item.dataIndex,
           render: item.render,
+          dimensions,
+          isHiddenField,
         }),
     }));
 
@@ -51,9 +64,16 @@ export class GroupedTable extends AntdChart {
         title: fieldProps[item]?.label || item,
         dataIndex: item,
         key: item,
+        render: (text, record) =>
+          renderText(text, record, {
+            fieldProps,
+            dataIndex: item,
+            render: undefined,
+            dimensions,
+            isHiddenField,
+          }),
       });
     });
-
     return {
       bordered: true,
       size: 'middle',

@@ -17,7 +17,6 @@ export function getGroupData(datas: any[], groupField: string[]) {
     if (currentIndex + 1 >= fields.length) {
       return data;
     }
-
     // 当前分组字段
     const currentField = fields[currentIndex];
 
