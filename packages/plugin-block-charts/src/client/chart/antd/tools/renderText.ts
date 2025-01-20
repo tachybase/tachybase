@@ -23,9 +23,13 @@ export function renderText(
   // 如果是第一级, 显示第一个分组的字段; 2-2, n-n, n 的长度必然是 dimensions 的长度
   if (isHiddenField) {
     const currentLevel = record.currentLevel;
-    if (dimensions[currentLevel] !== dataIndex && !measures.includes(dataIndex)) {
+    if (currentLevel && dimensions[currentLevel] !== dataIndex && !measures.includes(dataIndex)) {
+      return '';
+    }
+    if (!record.key && dimensions.slice(0, -1).includes(dataIndex)) {
       return '';
     }
   }
+
   return formattedText;
 }
