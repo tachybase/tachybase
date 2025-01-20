@@ -69,12 +69,10 @@ export function getGroupData(datas: any[], groupField: string[], isVisibleField:
     }, {});
 
     // 对每个分组递归处理下一个字段
-    return Object.values(grouped).map((group: any) => {
-      return {
-        ...group,
-        children: recursiveGroupByField(group.children, fields, currentIndex + 1, group.key, group), // 传递当前 key 和分组对象
-      };
-    });
+    return Object.values(grouped).map((group: any) => ({
+      ...group,
+      children: recursiveGroupByField(group.children, fields, currentIndex + 1, group.key, group), // 传递当前 key 和分组对象
+    }));
   };
 
   // 调用递归函数并返回结果
