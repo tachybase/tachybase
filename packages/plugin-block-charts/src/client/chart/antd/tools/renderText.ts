@@ -4,7 +4,6 @@ interface IOptions {
   render?: Function | undefined;
   dimensions: string[];
   isHiddenField: boolean;
-  measures: string[];
 }
 // 格式化器
 export function renderText(
@@ -12,7 +11,7 @@ export function renderText(
   record: Record<string, any>,
   options: IOptions,
 ): string | number {
-  const { fieldProps, dataIndex, dimensions, isHiddenField, measures } = options;
+  const { fieldProps, dataIndex, dimensions, isHiddenField } = options;
 
   // 数据格式化配置的格式化器
   const transformer = fieldProps[dataIndex]?.transformer;

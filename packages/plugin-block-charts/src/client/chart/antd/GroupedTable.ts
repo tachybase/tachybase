@@ -55,7 +55,6 @@ export class GroupedTable extends AntdChart {
           render: item.render,
           dimensions,
           isHiddenField,
-          measures,
         }),
     }));
 
@@ -72,7 +71,6 @@ export class GroupedTable extends AntdChart {
             render: undefined,
             dimensions,
             isHiddenField,
-            measures,
           }),
       });
     });
