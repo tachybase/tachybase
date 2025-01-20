@@ -69,7 +69,7 @@ export function getGroupData(datas: any[], groupField: string[], isVisibleField:
     // 对每个分组递归处理下一个字段
     return Object.values(grouped).map((group: any) => {
       for (let key in group) {
-        if (![currentField, 'children', 'key'].includes(key) && !isVisibleField && !measures.includes(key)) {
+        if (![currentField, 'children', 'key'].includes(key) && isVisibleField && !measures.includes(key)) {
           group[key] = '';
         }
       }

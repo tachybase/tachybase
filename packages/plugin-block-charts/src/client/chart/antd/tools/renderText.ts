@@ -21,7 +21,7 @@ export function renderText(
     return render(formattedText, record);
   }
 
-  if (!record.key && dimensions.slice(0, -1).includes(dataIndex) && !isVisibleField) {
+  if (!record.key && dimensions.slice(0, -1).includes(dataIndex) && isVisibleField) {
     return '';
   }
   return formattedText;
