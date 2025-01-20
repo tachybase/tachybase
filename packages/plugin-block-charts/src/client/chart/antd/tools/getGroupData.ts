@@ -35,7 +35,6 @@ export function getGroupData(datas: any[], groupField: string[], isVisibleField:
         acc[currentKey] = {
           ...parentGroup, // 继承父级的分组字段
           [currentField]: keyValue, // 当前字段的值
-          currentLevel: currentIndex, // 标识当前的数据层级
           key: currentKey, // 唯一 key
           children: [], // 用于存储子数据
         };

@@ -18,15 +18,10 @@ export function renderText(
   const transformer = fieldProps[dataIndex]?.transformer;
   const formattedText = transformer ? transformer(text) : text;
 
-  // 是否隐藏分组字段
-  // 判断当前 record 的层级,
-  // 如果是第一级, 显示第一个分组的字段; 2-2, n-n, n 的长度必然是 dimensions 的长度
-  if (isHiddenField) {
-    const currentLevel = record.currentLevel;
-    if (currentLevel && dimensions[currentLevel] !== dataIndex && !measures.includes(dataIndex)) {
-      return '';
-    }
-    if (!record.key && dimensions.slice(0, -1).includes(dataIndex)) {
+  // 分组字段, 且判断是否隐藏
+  if (dimensions.includes(dataIndex) && isHiddenField) {
+    const keepField = dimensions.findLast((dim) => typeof record[dim] !== 'undefined');
+    if (dataIndex !== keepField) {
       return '';
     }
   }
