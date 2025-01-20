@@ -14,7 +14,6 @@ export function getGroupData(datas: any[], groupField: string[]) {
     parentGroup: any = {},
   ) => {
     // 如果已经处理完所有分组字段，返回原始数据
-    // XXX: 这里要重构, 依赖了groupField的长度, 总是忽略了最后一个分组
     if (currentIndex + 1 >= fields.length) {
       return data;
     }

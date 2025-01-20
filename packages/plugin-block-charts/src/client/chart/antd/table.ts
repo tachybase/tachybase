@@ -12,8 +12,8 @@ export class Table extends AntdChart {
     const originDimensions = ctx.query?.dimensions || [];
     const originMeasures = ctx.query?.measures || [];
 
-    const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
-    const measures = originMeasures.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
+    const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field?.join('.') : dim.alias)).filter(Boolean);
+    const measures = originMeasures.map((dim) => (!dim.alias ? dim.field?.join('.') : dim.alias)).filter(Boolean);
 
     const columns = [];
     [...dimensions, ...measures].forEach((item) => {

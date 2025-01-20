@@ -40,8 +40,8 @@ export class GroupedTable extends AntdChart {
     const originMeasures = ctx.query?.measures || [];
     const isHiddenField = ctx.config.general?.isHiddenField || false;
 
-    const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
-    const measures = originMeasures.map((dim) => (!dim.alias ? dim.field.join('.') : dim.alias));
+    const dimensions = originDimensions.map((dim) => (!dim.alias ? dim.field?.join('.') : dim.alias)).filter(Boolean);
+    const measures = originMeasures.map((dim) => (!dim.alias ? dim.field?.join('.') : dim.alias)).filter(Boolean);
 
     const groupedData = getGroupData(data, dimensions);
 
