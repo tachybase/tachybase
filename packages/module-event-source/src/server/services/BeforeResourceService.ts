@@ -37,7 +37,7 @@ export class BeforeAfterResourceService {
                 const parts = resourceName.split('.');
                 if (parts.length === 2) {
                   const collection = ctx.db.getCollection(resourceName);
-                  targetResource = collection.name;
+                  targetResource = collection?.name;
                 }
               }
               if (targetResource !== resourceDef.resourceName || actionName !== resourceDef.actionName) {

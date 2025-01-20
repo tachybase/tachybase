@@ -36,6 +36,12 @@ export default defineCollection({
     },
     {
       type: 'hasMany',
+      name: 'roles',
+      target: 'dataSourcesRoles',
+      foreignKey: 'dataSourceKey',
+    },
+    {
+      type: 'hasMany',
       name: 'collections',
       target: 'dataSourcesCollections',
       foreignKey: 'dataSourceKey',
