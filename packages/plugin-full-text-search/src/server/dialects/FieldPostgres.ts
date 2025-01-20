@@ -2,6 +2,7 @@ import { fn, Op, where } from '@tachybase/database';
 
 import { col } from 'sequelize';
 
+import { handleFieldParams } from '../types';
 import { escapeLike } from '../utils';
 import { FieldBase } from './FieldBase';
 
@@ -22,7 +23,8 @@ export class FieldPostgres extends FieldBase {
     return formatStr;
   }
 
-  public date(field: string, keyword: string, formatStr: string, timezone: string): any {
+  public date(params: handleFieldParams): any {
+    const { field, keyword, dateStr, timezone } = params;
     return {
       [Op.and]: [
         where(
@@ -33,7 +35,7 @@ export class FieldPostgres extends FieldBase {
               timezone, // 参数1：目标时区
               fn('TIMEZONE', 'UTC', col(field)), // 参数2：UTC 转换后的字段
             ),
-            formatStr, // 参数3：格式化字符串
+            dateStr, // 参数3：格式化字符串
           ),
           {
             [Op.like]: `%${escapeLike(keyword)}%`,
@@ -43,7 +45,8 @@ export class FieldPostgres extends FieldBase {
     };
   }
 
-  json(field: string, keyword: string): any {
+  json(params: handleFieldParams): any {
+    const { field, keyword } = params;
     // 追加关联字段支持
     return this.convertToObj(field, {
       ['::text']: {

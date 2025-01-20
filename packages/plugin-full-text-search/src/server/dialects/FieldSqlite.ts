@@ -1,7 +1,8 @@
 import { fn, literal, Op, where } from '@tachybase/database';
 
-import { col } from 'sequelize';
+import { col, WhereOptions } from 'sequelize';
 
+import { handleFieldParams } from '../types';
 import { convertTimezoneOffset, escapeLike } from '../utils';
 import { FieldBase } from './FieldBase';
 
@@ -24,22 +25,39 @@ export class FieldSqlite extends FieldBase {
     return formatStr;
   }
 
-  date(field: string, keyword: string, formatStr: string, timezone: string): { [Op.and]: any[] } {
+  date(params: handleFieldParams): { [Op.and]: any[] } {
+    const { field, keyword, dateStr, timezone } = params;
     return {
       [Op.and]: [
-        where(fn('strftime', formatStr, fn('datetime', col(field), convertTimezoneOffset(timezone))), {
+        where(fn('strftime', dateStr, fn('datetime', col(field), convertTimezoneOffset(timezone))), {
           [this.like]: `%${escapeLike(keyword)}%`,
         }),
       ],
     };
   }
 
-  json(field: string, keyword: string): { [Op.and]: any[] } {
+  json(params: handleFieldParams): { [Op.and]: any[] } {
+    const { field, keyword } = params;
     return {
       [Op.and]: [
         where(literal(`json_extract(${field}, '$')`), {
           [this.like]: `%${escapeLike(keyword)}%`,
         }),
+      ],
+    };
+  }
+
+  public getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
+    const matchList = matchEnum.map((value) => `'${value}'`).join(',');
+    return {
+      [Op.and]: [
+        literal(`
+        EXISTS (
+          SELECT 1
+          FROM json_each(${col(field).col})
+          WHERE json_each.value IN (${matchList})
+        )
+      `),
       ],
     };
   }

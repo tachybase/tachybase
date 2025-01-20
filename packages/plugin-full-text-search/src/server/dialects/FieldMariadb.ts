@@ -2,6 +2,7 @@ import { fn, literal, Op, where } from '@tachybase/database';
 
 import { col, WhereOptions } from 'sequelize';
 
+import { handleFieldParams } from '../types';
 import { escapeLike } from '../utils';
 import { FieldBase } from './FieldBase';
 
@@ -24,7 +25,8 @@ export class FieldMariadb extends FieldBase {
     return formatStr;
   }
 
-  public number(field: string, keyword: string): WhereOptions<any> {
+  public number(params: handleFieldParams): WhereOptions<any> {
+    const { field, keyword } = params;
     return {
       [Op.and]: [
         where(
@@ -37,17 +39,19 @@ export class FieldMariadb extends FieldBase {
     };
   }
 
-  date(field: string, keyword: string, formatStr: string, timezone: string): WhereOptions<any> {
+  date(params: handleFieldParams): WhereOptions<any> {
+    const { field, keyword, dateStr, timezone } = params;
     return {
       [Op.and]: [
-        where(fn('DATE_FORMAT', fn('CONVERT_TZ', col(field), '+00:00', timezone), formatStr), {
+        where(fn('DATE_FORMAT', fn('CONVERT_TZ', col(field), '+00:00', timezone), dateStr), {
           [this.like]: `%${escapeLike(keyword)}%`,
         }),
       ],
     };
   }
 
-  json(field: string, keyword: string): WhereOptions<any> {
+  json(params: handleFieldParams): WhereOptions<any> {
+    const { field, keyword } = params;
     return {
       [Op.and]: [
         where(literal(`JSON_UNQUOTE(JSON_EXTRACT(${field}, '$'))`), {
@@ -57,7 +61,7 @@ export class FieldMariadb extends FieldBase {
     };
   }
 
-  protected getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
+  public getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
     return {
       [Op.and]: [literal(`JSON_CONTAINS(${col(field).col}, '${JSON.stringify(matchEnum)}')`)],
     };

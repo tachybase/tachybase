@@ -20,3 +20,11 @@ export interface ProcessFieldParams {
   // '+08:00'
   timezone: string;
 }
+
+export type handleFieldParams = {
+  field: string;
+  keyword: string;
+  fields: Map<string, any>;
+  timezone?: string;
+  dateStr?: string;
+};

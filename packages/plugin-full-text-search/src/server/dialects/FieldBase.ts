@@ -2,6 +2,7 @@ import { literal, Op, where } from '@tachybase/database';
 
 import { col, WhereOptions } from 'sequelize';
 
+import { handleFieldParams } from '../types';
 import { escapeLike } from '../utils';
 
 type NestedRecord<T, K extends string> = K extends `${infer Head}.${infer Tail}`
@@ -18,25 +19,17 @@ export class FieldBase {
     return 'YYYY-MM-DD HH:mm:ss';
   }
 
-  public date(field: string, keyword: string, formatStr: string, timezone: string): any {
+  public date(params: handleFieldParams): any {
     return null;
   }
 
-  public string(field: string, keyword: string, fields: any): WhereOptions<any> | any | null {
+  public string(params: handleFieldParams): WhereOptions<any> | null {
+    const { field, fields, keyword } = params;
     const fieldInfo = fields.get(field);
     if (fieldInfo?.options?.uiSchema?.['x-component'] === 'Select') {
-      const enumList = fieldInfo?.options.uiSchema.enum;
-      const matchEnum = [];
-      for (const item of enumList) {
-        if (item.label.toLowerCase().includes(keyword.toLowerCase())) {
-          matchEnum.push(item.value);
-        }
-      }
+      const matchEnum = this.getMatchEnum(fieldInfo, keyword);
       if (!matchEnum.length) {
         return null;
-      }
-      if (fieldInfo?.options?.uiSchema?.type === 'array') {
-        return this.getMultiSelectFilter(field, matchEnum);
       }
       return this.convertToObj(field, { [Op.in]: matchEnum });
     }
@@ -45,7 +38,8 @@ export class FieldBase {
     return this.convertToObj(field, { [this.like]: `%${escapeLike(keyword)}%` });
   }
 
-  public number(field: string, keyword: string): WhereOptions<any> {
+  public number(params: handleFieldParams): WhereOptions<any> {
+    const { field, keyword } = params;
     return {
       [Op.and]: [
         where(
@@ -58,13 +52,17 @@ export class FieldBase {
     };
   }
 
-  json(field: string, keyword: string): any {
+  json(params: handleFieldParams): any {
     return null;
   }
 
   // a.b.c = xxx 转成 { a: { b: { c: 'xxx' } } }
   protected convertToObj<T, K extends string>(key: K, value: T): NestedRecord<T, K> {
+    const MAX_DEPTH = 3;
     const parts = key.split('.');
+    if (parts.length > MAX_DEPTH) {
+      throw new Error(`Maximum nesting depth of ${MAX_DEPTH} exceeded`);
+    }
     const newKey = parts.shift();
     if (!newKey) {
       throw new Error('Invalid key');
@@ -76,7 +74,32 @@ export class FieldBase {
   }
 
   // 多选框如何生成filter
-  protected getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
+  public getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
     return this.convertToObj(field, { [Op.contains]: matchEnum });
+  }
+
+  public array(params: handleFieldParams) {
+    const { field, keyword, fields } = params;
+    const fieldInfo = fields.get(field);
+    if (fieldInfo?.options?.uiSchema?.['x-component'] === 'Select') {
+      const matchEnum = this.getMatchEnum(fieldInfo, keyword);
+      if (!matchEnum.length) {
+        return null;
+      }
+      return this.getMultiSelectFilter(field, matchEnum);
+    }
+    return null;
+  }
+
+  private getMatchEnum(fieldInfo, keyword: string) {
+    const matchEnum = [];
+    const enumList = fieldInfo?.options.uiSchema.enum || [];
+    const lowerKeyword = keyword.toLowerCase();
+    for (const item of enumList) {
+      if (typeof item?.label === 'string' && item.label.toLowerCase().includes(lowerKeyword)) {
+        matchEnum.push(item.value);
+      }
+    }
+    return matchEnum;
   }
 }

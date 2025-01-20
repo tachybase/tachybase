@@ -3,10 +3,12 @@ export function escapeLike(value: string): string {
 }
 
 export function convertTimezoneOffset(utcOffset: string): string {
-  // 假设您需要将 UTC 偏移转换为某种格式
-  // 这里是一个示例实现，您可以根据需要进行调整
+  if (!/^[+-]?\d{2}:\d{2}$/.test(utcOffset)) {
+    throw new Error('Invalid UTC offset format. Expected format: (+/-)HH:MM');
+  }
   const parts = utcOffset.split(':');
-  const hours = parseInt(parts[0], 10);
+  const hours = parseInt(parts[0].replace('+', ''), 10);
   const minutes = parseInt(parts[1], 10);
-  return `${hours * 60 + minutes} minutes`;
+  const totalMinutes = hours * 60 + (hours >= 0 ? minutes : -minutes);
+  return `${totalMinutes} minutes`;
 }
