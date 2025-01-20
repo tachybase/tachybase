@@ -71,10 +71,11 @@ export function processField({ field, handler, collection, ctx, search, timezone
     fields = collection.fields;
     type = fields.get(field)?.type;
   } else {
+    // 为以后支持关联字段做支持
+    // 目前只支持关联到string,关联到bigint,date可能会有问题
     const { collection: targetCollection, fieldStr } = getCollectionField(collection, field, ctx.db);
     fields = targetCollection.fields;
     type = fields.get(fieldStr)?.type;
-    fields = collection.fields;
   }
 
   if (fields.get(field)?.options?.isForeignKey) {
