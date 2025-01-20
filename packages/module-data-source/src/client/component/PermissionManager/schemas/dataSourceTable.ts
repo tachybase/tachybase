@@ -38,8 +38,8 @@ export const view: ISchema = {
   'x-component': 'Action.Link',
   'x-decorator': 'ACLActionProvider',
   'x-acl-action': 'roles:update',
-  'x-reactions': (FormItem) => {
-    FormItem.visible = FormItem.record.status === 'loaded';
+  'x-reactions': (self) => {
+    self.visible = self.record.status === 'loaded';
   },
   'x-component-props': {},
   properties: {

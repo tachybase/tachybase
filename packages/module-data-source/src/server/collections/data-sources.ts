@@ -35,10 +35,13 @@ export default defineCollection({
       defaultValue: false,
     },
     {
-      type: 'hasMany',
+      type: 'belongsToMany',
       name: 'roles',
-      target: 'dataSourcesRoles',
+      target: 'roles',
       foreignKey: 'dataSourceKey',
+      otherKey: 'roleName',
+      targetKey: 'name',
+      through: 'dataSourcesRoles',
     },
     {
       type: 'hasMany',
