@@ -15,14 +15,7 @@ export function getGroupData(datas: any[], groupField: string[], isVisibleField:
   ) => {
     // 如果已经处理完所有分组字段，返回原始数据
     if (currentIndex + 1 >= fields.length) {
-      return data.map((item) => {
-        for (let key in item) {
-          if (fields.slice(0, -1).includes(key) && isVisibleField) {
-            item[key] = '';
-          }
-        }
-        return item;
-      });
+      return data;
     }
     // 当前分组字段
     const currentField = fields[currentIndex];
@@ -76,7 +69,7 @@ export function getGroupData(datas: any[], groupField: string[], isVisibleField:
     // 对每个分组递归处理下一个字段
     return Object.values(grouped).map((group: any) => {
       for (let key in group) {
-        if (![currentField, 'children', 'key'].includes(key) && isVisibleField && !measures.includes(key)) {
+        if (![currentField, 'children', 'key'].includes(key) && !isVisibleField && !measures.includes(key)) {
           group[key] = '';
         }
       }

@@ -53,6 +53,8 @@ export class GroupedTable extends AntdChart {
           fieldProps,
           dataIndex: item.dataIndex,
           render: item.render,
+          dimensions,
+          isVisibleField,
         }),
     }));
 
@@ -66,6 +68,9 @@ export class GroupedTable extends AntdChart {
           renderText(text, record, {
             fieldProps,
             dataIndex: item,
+            render: undefined,
+            dimensions,
+            isVisibleField,
           }),
       });
     });
