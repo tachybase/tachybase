@@ -130,10 +130,16 @@ export const useStyles = createStyles(({ css, token }) => {
           transform: translateY(-50%);
           width: 3px;
           height: 50%;
-          background-color: var(--colorPrimaryText);
+          background-color: var(--colorBorderSecondary);
 
           /* 使用 clip-path 裁剪为梯形 */
           clip-path: polygon(0 0, 100% 15%, 100% 85%, 0 100%);
+        }
+      }
+
+      .ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-open > .ant-menu-submenu-title {
+        ::before {
+          background-color: var(--colorPrimaryText);
         }
       }
 
