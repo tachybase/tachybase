@@ -1,6 +1,4 @@
-import React from 'react';
 import { SchemaComponent } from '@tachybase/client';
-import { observer } from '@tachybase/schema';
 
 import { useParams } from 'react-router-dom';
 
@@ -24,7 +22,11 @@ export const ViewTodosDetailsContent = () => {
   return (
     <SchemaComponent
       schema={schema}
-      components={{ ViewActionTodosContent, ViewTodosUserJobsContent, ViewTodosWorkflowNoticeContent }}
+      components={{
+        ViewActionTodosContent,
+        ViewTodosUserJobsContent,
+        ViewTodosWorkflowNoticeContent,
+      }}
     />
   );
 };
