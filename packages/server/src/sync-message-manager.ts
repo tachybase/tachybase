@@ -23,7 +23,7 @@ export class SyncMessageManager {
       const promises = [];
       for (const [P, plugin] of app.pm.getPlugins()) {
         if (!plugin.name) {
-          return;
+          continue;
         }
         promises.push(this.unsubscribe(plugin.name, plugin.handleSyncMessage));
       }
