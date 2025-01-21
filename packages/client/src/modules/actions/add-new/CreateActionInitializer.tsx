@@ -32,7 +32,7 @@ export const CreateActionInitializer = () => {
             type: 'void',
             'x-component': 'Tabs',
             'x-component-props': {},
-            'x-initializer': 'popup:addTab',
+            'x-initializer': 'TabPaneInitializers',
             'x-initializer-props': {
               gridInitializer: 'popup:addNew:addBlock',
             },
