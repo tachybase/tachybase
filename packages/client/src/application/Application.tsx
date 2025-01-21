@@ -10,6 +10,7 @@ import { I18nextProvider } from 'react-i18next';
 import { Link, Navigate, NavLink } from 'react-router-dom';
 
 import { APIClient, APIClientProvider } from '../api-client';
+import { CollectionFieldInterfaceComponentOption } from '../data-source';
 import { CollectionField } from '../data-source/collection-field/CollectionField';
 import { DataSourceApplicationProvider } from '../data-source/components/DataSourceApplicationProvider';
 import { DataBlockProvider } from '../data-source/data-block/DataBlockProvider';
@@ -353,5 +354,11 @@ export class Application {
     const root = createRoot(container);
     root.render(<App />);
     return root;
+  }
+  addFieldInterfaceComponentOption(fieldName: string, componentOption: CollectionFieldInterfaceComponentOption) {
+    return this.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption(
+      fieldName,
+      componentOption,
+    );
   }
 }
