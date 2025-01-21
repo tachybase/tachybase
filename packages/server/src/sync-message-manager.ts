@@ -18,6 +18,17 @@ export class SyncMessageManager {
       }
       await this.subscribe(plugin.name, plugin.handleSyncMessage, plugin);
     });
+
+    app.on('beforeStop', async () => {
+      const promises = [];
+      for (const [P, plugin] of app.pm.getPlugins()) {
+        if (!plugin.name) {
+          return;
+        }
+        promises.push(this.unsubscribe(plugin.name, plugin.handleSyncMessage));
+      }
+      await Promise.all(promises);
+    });
   }
 
   get debounce() {
