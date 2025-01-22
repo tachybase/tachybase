@@ -376,3 +376,25 @@ export async function trigger(ctx: Context, next: Next) {
     await next();
   }
 }
+
+export async function moveWorkflow(ctx: Context, next: Next) {
+  const { id, targetKey } = ctx.action.params;
+  if (!id || !targetKey) {
+    ctx.throw(400, 'params error');
+  }
+  const transaction = await ctx.db.sequelize.transaction();
+  const workflowRepo = ctx.db.getRepository('workflows');
+  const approvalRepo = ctx.db.getRepository('approvals');
+  await workflowRepo.update({
+    values: { key: targetKey, current: null },
+    filter: { id },
+    transaction,
+  });
+  await approvalRepo.update({
+    values: { workflowKey: targetKey },
+    filter: { workflowId: id, status: 0 },
+    transaction,
+  });
+  await transaction.commit();
+  ctx.body = {};
+}
