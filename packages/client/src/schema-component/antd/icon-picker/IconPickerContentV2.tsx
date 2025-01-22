@@ -1,6 +1,10 @@
+import { useMemo } from 'react';
+
 import { Tabs, type TabsProps } from 'antd';
 
 import { SearchInput } from './components/SearchInput';
+import { SelectIcon } from './components/SelectIcon';
+import { UploadConfigIcon } from './components/UploadConfigIcon';
 import { useStyles } from './IconPickerContentV2.style';
 
 export const IconPickerContentV2 = (props) => {
@@ -8,19 +12,21 @@ export const IconPickerContentV2 = (props) => {
 
   const { styles } = useStyles();
 
-  // TODO: 做翻译
-  const items: TabsProps['items'] = [
-    {
-      key: '1',
-      label: '图标',
-      children: 'Content of Tab Pane 1',
-    },
-    {
-      key: '2',
-      label: '自定义图标',
-      children: 'Content of Tab Pane 2',
-    },
-  ];
+  const items: TabsProps['items'] = useMemo(
+    () => [
+      {
+        key: '1',
+        label: '图标',
+        children: <SelectIcon />,
+      },
+      {
+        key: '2',
+        label: '自定义图标',
+        children: <UploadConfigIcon />,
+      },
+    ],
+    [],
+  );
 
   return (
     <Tabs
