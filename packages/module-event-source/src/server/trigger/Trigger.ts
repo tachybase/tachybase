@@ -1,11 +1,12 @@
 import Application from '@tachybase/server';
 
-import { EventSourceModel, IEventSourceTrigger } from '../types';
+import { EventSourceModel } from '../model/EventSourceModel';
+import { IEventSourceTrigger } from '../types';
 
 export class EventSourceTrigger implements IEventSourceTrigger {
   protected app: Application;
-
   protected realTimeRefresh = false;
+  protected workSet: Set<number> = new Set();
 
   public getRealTimeRefresh() {
     return this.realTimeRefresh;
@@ -22,14 +23,20 @@ export class EventSourceTrigger implements IEventSourceTrigger {
   // 加载到中间件|事件(app,db,API)|API
   afterAllLoad() {}
 
+  public workSetAdd(id: number) {
+    this.workSet.add(id);
+  }
+  public workSetDelete(id: number) {
+    this.workSet.delete(id);
+  }
   // 判断是否生效(中间件中执行)
-  async ifEffective() {
-    return true;
+  ifEffective(model: EventSourceModel) {
+    return this.workSet.has(model.id);
   }
 
-  async afterCreate(model: EventSourceModel) {}
+  afterCreate(model: EventSourceModel) {}
 
-  async afterUpdate(model: EventSourceModel) {}
+  afterUpdate(model: EventSourceModel) {}
 
-  async afterDestroy(model: EventSourceModel) {}
+  afterDestroy(model: EventSourceModel) {}
 }

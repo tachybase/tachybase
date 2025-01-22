@@ -1,15 +1,45 @@
 import { PluginWorkflow } from '@tachybase/module-workflow';
 
-import { EventSourceModel } from '../types';
+import { EventSourceModel } from '../model/EventSourceModel';
 import { evalSimulate } from '../utils/eval-simulate';
 import { EventSourceTrigger } from './Trigger';
 
 export class AppEventTrigger extends EventSourceTrigger {
+  eventMap: Map<number, Function> = new Map();
+
   load(model: EventSourceModel) {
     const { eventName, workflowKey, code } = model;
     this.app.logger.info('Add application event listener', { meta: { eventName, workflowKey } });
 
-    this.app.on(eventName, async () => {
+    const callback = this.getAppEvent(model).bind(this);
+    this.app.on(eventName, callback);
+    this.eventMap[model.id] = callback;
+  }
+
+  afterCreate(model: EventSourceModel) {
+    this.load(model);
+  }
+
+  afterUpdate(model: EventSourceModel) {
+    if (model.enable && !this.workSet.has(model.id)) {
+      this.load(model);
+    } else if (!model.enable && this.workSet.has(model.id)) {
+      this.app.db.off(model.eventName, this.eventMap[model.id]);
+      this.eventMap.delete(model.id);
+    }
+  }
+
+  afterDestroy(model: EventSourceModel) {
+    if (!this.eventMap[model.id]) {
+      return;
+    }
+    this.app.db.off(model.eventName, this.eventMap[model.id]);
+    this.eventMap.delete(model.id);
+  }
+
+  private getAppEvent(model: EventSourceModel) {
+    const { code, workflowKey } = model;
+    return async () => {
       const webhookCtx = {
         body: '',
       };
@@ -33,10 +63,6 @@ export class AppEventTrigger extends EventSourceTrigger {
       const wfRepo = this.app.db.getRepository('workflows');
       const wf = await wfRepo.findOne({ filter: { key: workflowKey, enabled: true } });
       await pluginWorkflow.trigger(wf, { data: webhookCtx.body }, {});
-    });
-  }
-
-  async ifEffective() {
-    return true;
+    };
   }
 }

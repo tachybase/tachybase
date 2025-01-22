@@ -1,15 +1,23 @@
 import { JOB_STATUS, PluginWorkflow, Processor } from '@tachybase/module-workflow';
 
-import { EventSourceModel } from '../types';
+import { EventSourceModel } from '../model/EventSourceModel';
 import { evalSimulate } from '../utils/eval-simulate';
 import { EventSourceTrigger } from './Trigger';
 
 export class DbEventTrigger extends EventSourceTrigger {
+  eventMap: Map<number, Function> = new Map();
+
   load(model: EventSourceModel) {
     const { eventName, workflowKey, code } = model;
     this.app.logger.info('Add database event listener', { meta: { eventName, workflowKey } });
+    const callback = this.getDbEvent.bind(this);
+    this.app.db.on(eventName, callback);
+    this.eventMap[model.id] = callback;
+  }
 
-    this.app.db.on(eventName, async (model, options) => {
+  async getDbEvent(model: EventSourceModel) {
+    const { code, workflowKey } = model;
+    return async (model, options) => {
       const webhookCtx = {
         body: '',
         model,
@@ -42,10 +50,27 @@ export class DbEventTrigger extends EventSourceTrigger {
       if (result?.lastSavedJob.status === JOB_STATUS.ERROR) {
         throw new Error(result.lastSavedJob?.result);
       }
-    });
+    };
   }
 
-  async ifEffective() {
-    return false;
+  afterCreate(model: EventSourceModel) {
+    this.load(model);
+  }
+
+  afterUpdate(model: EventSourceModel) {
+    if (model.enable && !this.workSet.has(model.id)) {
+      this.load(model);
+    } else if (!model.enable && this.workSet.has(model.id)) {
+      this.app.db.off(model.eventName, this.eventMap[model.id]);
+      this.eventMap.delete(model.id);
+    }
+  }
+
+  afterDestroy(model: EventSourceModel) {
+    if (!this.eventMap[model.id]) {
+      return;
+    }
+    this.app.db.off(model.eventName, this.eventMap[model.id]);
+    this.eventMap.delete(model.id);
   }
 }

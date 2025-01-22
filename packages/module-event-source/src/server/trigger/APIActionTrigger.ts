@@ -1,8 +1,7 @@
 import { Context } from '@tachybase/actions';
-import Application from '@tachybase/server';
 import { lodash } from '@tachybase/utils';
 
-import { EventSourceModel } from '../types';
+import { EventSourceModel } from '../model/EventSourceModel';
 import { WebhookController } from '../webhooks/webhooks';
 import { EventSourceTrigger } from './Trigger';
 
@@ -43,11 +42,11 @@ export class APIActionTrigger extends EventSourceTrigger {
     );
   }
 
-  async afterCreate(model: EventSourceModel) {
+  afterCreate(model: EventSourceModel) {
     this.actionList.push(model);
   }
 
-  async afterUpdate(model: EventSourceModel) {
+  afterUpdate(model: EventSourceModel) {
     const index = this.actionList.findIndex((item) => item.id === model.id);
     if (!model.enabled) {
       if (index !== -1) {
@@ -62,14 +61,10 @@ export class APIActionTrigger extends EventSourceTrigger {
     }
   }
 
-  async afterDestroy(model: EventSourceModel) {
+  afterDestroy(model: EventSourceModel) {
     const index = this.actionList.findIndex((item) => item.id === model.id);
     if (index !== -1) {
       this.actionList.splice(index, 1);
     }
-  }
-
-  async ifEffective() {
-    return false;
   }
 }

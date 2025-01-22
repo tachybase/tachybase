@@ -5,6 +5,7 @@ export default defineCollection({
   dumpRules: {
     group: 'required',
   },
+  model: 'EventSourceModel',
   fields: [
     {
       name: 'name',
