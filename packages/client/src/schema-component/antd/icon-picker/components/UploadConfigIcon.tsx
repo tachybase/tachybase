@@ -49,22 +49,24 @@ export const UploadConfigIcon: React.FC = () => {
     setPreviewOpen(true);
   };
 
-  const uploadButton = (
-    <button style={{ border: 0, background: 'none' }} type="button">
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
-  );
   return (
     <Card className={styles.uploadConfigIcon}>
       <Upload
+        className="dyc-upload"
         action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
         listType="picture-card"
         showUploadList={false}
         onPreview={handlePreview}
         onChange={handleChange}
       >
-        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+        {imageUrl ? (
+          <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+        ) : (
+          <button className="dyc-upload-area" type="button">
+            {loading ? <LoadingOutlined /> : <PlusOutlined />}
+            <div style={{ marginTop: 8 }}>Upload</div>
+          </button>
+        )}
       </Upload>
       {previewImage && (
         <Image
