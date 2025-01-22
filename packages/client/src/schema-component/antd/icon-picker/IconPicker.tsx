@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useFormLayout } from '@tachybase/components';
 import { connect, isValid, mapProps, mapReadPretty } from '@tachybase/schema';
 
@@ -8,14 +8,14 @@ import { useTranslation } from 'react-i18next';
 
 import { hasIcon, Icon } from '../../../icon';
 import { StablePopover } from '../popover';
-import { IconFilterInput } from './IconFilterInput';
-import { IconFilterList } from './IconList';
-import { IconPickerContent } from './IconPickerContent';
+import { useStyles } from './IconPicker.style';
+import { IconPickerContentV2 } from './IconPickerContentV2';
 
 function IconField(props: any) {
   const { value, onChange, disabled } = props;
   const { t } = useTranslation();
   const layout = useFormLayout();
+  const { styles } = useStyles();
   const [visible, setVisible] = useState(false);
   const [filterKey, setFilterKey] = useState('');
 
@@ -23,17 +23,17 @@ function IconField(props: any) {
     <div>
       <Space.Compact>
         <StablePopover
+          overlayClassName={styles.popoverStyles}
           placement={'bottom'}
-          open={visible}
+          open={true || visible}
+          trigger="click"
+          content={<IconPickerContentV2 {...{ value, onChange, setFilterKey, filterKey, setVisible }} />}
           onOpenChange={(val) => {
             if (disabled) {
               return;
             }
             setVisible(val);
           }}
-          content={<IconPickerContent {...{ value, onChange, setFilterKey, filterKey, setVisible }} />}
-          title={t('Icon')}
-          trigger="click"
         >
           <Button size={layout.size as any} disabled={disabled}>
             {hasIcon(value) ? <Icon type={value} /> : t('Select icon')}
