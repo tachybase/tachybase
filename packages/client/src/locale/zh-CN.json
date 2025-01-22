@@ -911,6 +911,7 @@
   "The field value cannot be less than ": "数值不能小于",
   "The field value is not an integer number": "数字不是整数",
   "The full address is": "完整的地址是",
+  "The key in Antd, such as 'ApiOutlined', ignoring case": "Antd的key,例如'ApiOutlined',忽略大小写",
   "The will interrupt service, it may take a few seconds to restart. Are you sure to continue?": "重启将会中断当前服务，这个过程可能需要一点时间，确定要继续吗？",
   "The {{type}} \"{{name}}\" may have been deleted. Please remove this {{blockType}}.": "{{type}} \"{{name}}\" 可能已被删除。请删除当前{{blockType}}.",
   "Theme": "主题",
