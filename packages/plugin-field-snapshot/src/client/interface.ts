@@ -79,7 +79,7 @@ const recordPickerViewer = {
       type: 'void',
       'x-component': 'Tabs',
       'x-component-props': {},
-      // 'x-initializer': 'TabPaneInitializers',
+      // 'x-initializer': 'popup:addTab',
       properties: {
         tab1: {
           type: 'void',

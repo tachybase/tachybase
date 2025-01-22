@@ -213,7 +213,7 @@ export const oneTableWithViewAction: PageConfig = {
                                             type: 'void',
                                             version: '2.0',
                                             'x-component': 'Tabs',
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-component-props': {},
                                             _isJSONSchemaObject: true,
                                             properties: {
@@ -770,7 +770,7 @@ export const oneCalenderWithViewAction: PageConfig = {
                                     type: 'void',
                                     version: '2.0',
                                     'x-component': 'Tabs',
-                                    'x-initializer': 'TabPaneInitializers',
+                                    'x-initializer': 'popup:addTab',
                                     'x-component-props': {},
                                     _isJSONSchemaObject: true,
                                     'x-initializer-props': {

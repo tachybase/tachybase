@@ -70,7 +70,6 @@ export const Page = (props) => {
     window?.Sentry?.captureException(error);
     console.error(error);
   };
-
   const pageHeaderTitle = hidePageTitle ? undefined : fieldSchema.title || compile(title);
   return wrapSSR(
     <FilterBlockProvider>
