@@ -34,3 +34,37 @@ export const FormActionButtonInitializer = new SchemaInitializer({
     },
   ],
 });
+
+/**
+ * @deprecated
+ */
+export const ApprovalAddActionButton = new SchemaInitializer({
+  name: 'ApprovalAddActionButton',
+  title: '{{t("Configure actions")}}',
+  items: [
+    {
+      name: 'approvalStatusResolved',
+      title: tval('Continue the process'),
+      Component: SwitchActionCommon,
+      statusApproval: APPROVAL_TODO_STATUS.APPROVED,
+      actionProps: {
+        type: 'primary',
+      },
+    },
+    {
+      name: 'approvalStatusRejected',
+      title: tval('Terminate the process'),
+      Component: SwitchActionCommon,
+      statusApproval: APPROVAL_TODO_STATUS.REJECTED,
+      actionProps: {
+        danger: true,
+      },
+    },
+    {
+      name: 'approvalStatusPending',
+      title: tval('Save temporarily'),
+      Component: SwitchActionCommon,
+      statusApproval: APPROVAL_TODO_STATUS.PENDING,
+    },
+  ],
+});
