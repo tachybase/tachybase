@@ -10,6 +10,7 @@ import { hasIcon, Icon } from '../../../icon';
 import { StablePopover } from '../popover';
 import { IconFilterInput } from './IconFilterInput';
 import { IconFilterList } from './IconList';
+import { IconPickerContent } from './IconPickerContent';
 
 function IconField(props: any) {
   const { value, onChange, disabled } = props;
@@ -30,12 +31,7 @@ function IconField(props: any) {
             }
             setVisible(val);
           }}
-          content={
-            <>
-              <IconFilterInput changeFilterKey={setFilterKey} />
-              <IconFilterList currentKey={value} filterKey={filterKey} onChange={onChange} changePop={setVisible} />
-            </>
-          }
+          content={<IconPickerContent {...{ value, onChange, setFilterKey, filterKey, setVisible }} />}
           title={t('Icon')}
           trigger="click"
         >
