@@ -86,7 +86,6 @@ export const Tabs: any = observer(
 
       return result;
     }, [fieldSchema.mapProperties((s, key) => key).join()]);
-
     return (
       <DndContext>
         <AntdTabs

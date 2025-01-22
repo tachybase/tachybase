@@ -420,7 +420,7 @@ export function SchemaConfig({ value, onChange }) {
                 type: 'void',
                 'x-component': 'Tabs',
                 'x-component-props': {},
-                'x-initializer': 'TabPaneInitializers',
+                'x-initializer': 'popup:addTab',
                 'x-initializer-props': {
                   gridInitializer: 'workflowManual:popup:configureUserInterface:addBlock',
                 },

@@ -420,7 +420,7 @@ export const T2174 = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-index': 1,
                                             properties: {
                                               tab1: {
@@ -704,7 +704,7 @@ export const T2174 = {
                                         type: 'void',
                                         'x-component': 'Tabs',
                                         'x-component-props': {},
-                                        'x-initializer': 'TabPaneInitializers',
+                                        'x-initializer': 'popup:addTab',
                                         'x-index': 1,
                                         properties: {
                                           tab1: {
@@ -1008,7 +1008,7 @@ export const T2614: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
@@ -1337,7 +1337,7 @@ export const T2614: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
@@ -2675,7 +2675,7 @@ export const T2615: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
@@ -2918,7 +2918,7 @@ export const T2615: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
@@ -3533,7 +3533,7 @@ export const T2845: PageConfig = {
                                                                                                         'x-component-props':
                                                                                                           {},
                                                                                                         'x-initializer':
-                                                                                                          'TabPaneInitializers',
+                                                                                                          'popup:addTab',
                                                                                                         properties: {
                                                                                                           tab1: {
                                                                                                             _isJSONSchemaObject:
@@ -3628,8 +3628,7 @@ export const T2845: PageConfig = {
                                                                                     type: 'void',
                                                                                     'x-component': 'Tabs',
                                                                                     'x-component-props': {},
-                                                                                    'x-initializer':
-                                                                                      'TabPaneInitializers',
+                                                                                    'x-initializer': 'popup:addTab',
                                                                                     properties: {
                                                                                       tab1: {
                                                                                         _isJSONSchemaObject: true,
@@ -3945,7 +3944,7 @@ export const T2845: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-index': 1,
                                             properties: {
                                               tab1: {
@@ -4314,7 +4313,7 @@ export const T2845: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-index': 1,
                                             properties: {
                                               tab1: {
@@ -4810,7 +4809,7 @@ export const T2200 = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
@@ -5831,7 +5830,7 @@ export const T3529: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,

@@ -834,7 +834,7 @@ export const oneTableBlock: PageConfig = {
                                             type: 'void',
                                             version: '2.0',
                                             'x-component': 'Tabs',
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-component-props': {},
                                             _isJSONSchemaObject: true,
                                             properties: {
@@ -1164,7 +1164,7 @@ export const oneTableBlock: PageConfig = {
                                             type: 'void',
                                             version: '2.0',
                                             'x-component': 'Tabs',
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-component-props': {},
                                             _isJSONSchemaObject: true,
                                             properties: {
@@ -1238,7 +1238,7 @@ export const oneTableBlock: PageConfig = {
                                             type: 'void',
                                             version: '2.0',
                                             'x-component': 'Tabs',
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-component-props': {},
                                             _isJSONSchemaObject: true,
                                             properties: {
@@ -1827,7 +1827,7 @@ export const oneTableBlock: PageConfig = {
                                             type: 'void',
                                             version: '2.0',
                                             'x-component': 'Tabs',
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-component-props': {},
                                             _isJSONSchemaObject: true,
                                             properties: {
@@ -2934,7 +2934,7 @@ export const newTableBlock: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
@@ -3009,7 +3009,7 @@ export const newTableBlock: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,

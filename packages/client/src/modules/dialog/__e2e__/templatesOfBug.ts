@@ -143,7 +143,7 @@ export const T2797: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-index': 1,
                                             properties: {
                                               tab1: {
@@ -266,8 +266,7 @@ export const T2797: PageConfig = {
                                                                                     type: 'void',
                                                                                     'x-component': 'Tabs',
                                                                                     'x-component-props': {},
-                                                                                    'x-initializer':
-                                                                                      'TabPaneInitializers',
+                                                                                    'x-initializer': 'popup:addTab',
                                                                                     'x-index': 1,
                                                                                     properties: {
                                                                                       tab1: {
@@ -722,7 +721,7 @@ export const T2838: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             'x-index': 1,
                                             properties: {
                                               tab1: {
@@ -835,8 +834,7 @@ export const T2838: PageConfig = {
                                                                                     type: 'void',
                                                                                     'x-component': 'Tabs',
                                                                                     'x-component-props': {},
-                                                                                    'x-initializer':
-                                                                                      'TabPaneInitializers',
+                                                                                    'x-initializer': 'popup:addTab',
                                                                                     'x-index': 1,
                                                                                     properties: {
                                                                                       tab1: {
@@ -1008,7 +1006,7 @@ export const T2838: PageConfig = {
                                                                                                                                           'x-component-props':
                                                                                                                                             {},
                                                                                                                                           'x-initializer':
-                                                                                                                                            'TabPaneInitializers',
+                                                                                                                                            'popup:addTab',
                                                                                                                                           'x-index': 1,
                                                                                                                                           properties:
                                                                                                                                             {
@@ -1606,7 +1604,7 @@ export const tableWithRoles: PageConfig = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
@@ -1821,7 +1819,7 @@ export const tableWithUsers = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
@@ -2067,7 +2065,7 @@ export const tableWithInherit = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
@@ -2298,7 +2296,7 @@ export const tableWithInheritWithoutAssociation = {
                                             type: 'void',
                                             'x-component': 'Tabs',
                                             'x-component-props': {},
-                                            'x-initializer': 'TabPaneInitializers',
+                                            'x-initializer': 'popup:addTab',
                                             properties: {
                                               tab1: {
                                                 _isJSONSchemaObject: true,
