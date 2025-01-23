@@ -5,7 +5,7 @@ import { evalSimulate } from '../utils/eval-simulate';
 import { EventSourceTrigger } from './Trigger';
 
 export class AppEventTrigger extends EventSourceTrigger {
-  eventMap: Map<number, Function> = new Map();
+  eventMap: Map<number, (...args: any[]) => void> = new Map();
 
   load(model: EventSourceModel) {
     const { eventName, workflowKey, code } = model;
@@ -13,7 +13,7 @@ export class AppEventTrigger extends EventSourceTrigger {
 
     const callback = this.getAppEvent(model).bind(this);
     this.app.on(eventName, callback);
-    this.eventMap[model.id] = callback;
+    this.eventMap.set(model.id, callback);
   }
 
   afterCreate(model: EventSourceModel) {
@@ -21,19 +21,20 @@ export class AppEventTrigger extends EventSourceTrigger {
   }
 
   afterUpdate(model: EventSourceModel) {
-    if (model.enable && !this.workSet.has(model.id)) {
+    if (model.enabled && !this.workSet.has(model.id)) {
       this.load(model);
-    } else if (!model.enable && this.workSet.has(model.id)) {
-      this.app.db.off(model.eventName, this.eventMap[model.id]);
+    } else if (!model.enabled && this.workSet.has(model.id)) {
+      this.app.db.off(model.eventName, this.eventMap.get(model.id));
       this.eventMap.delete(model.id);
     }
   }
 
   afterDestroy(model: EventSourceModel) {
-    if (!this.eventMap[model.id]) {
+    const callback = this.eventMap.get(model.id);
+    if (!callback) {
       return;
     }
-    this.app.db.off(model.eventName, this.eventMap[model.id]);
+    this.app.db.off(model.eventName, callback);
     this.eventMap.delete(model.id);
   }
 
