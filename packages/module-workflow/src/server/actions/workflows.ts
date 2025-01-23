@@ -383,7 +383,6 @@ export async function moveWorkflow(ctx: Context, next: Next) {
     ctx.throw(400, 'params error');
   }
   const workflowRepo = ctx.db.getRepository('workflows');
-  const approvalRepo = ctx.db.getRepository('approvals');
   const targetWorkflow = await workflowRepo.findOne({
     filter: {
       key: targetKey,
@@ -416,11 +415,16 @@ export async function moveWorkflow(ctx: Context, next: Next) {
     filter: { id },
     transaction,
   });
-  await approvalRepo.update({
-    values: { workflowKey: targetKey },
-    filter: { workflowId: id, status: 0 },
-    transaction,
-  });
+  // 允许未启动/或者关闭approvals的也能平稳move
+  const repo = ctx.db.getRepository('approvals');
+  if (repo) {
+    // resubmit就是workflow最新的,而不是move的那一份
+    await repo.update({
+      values: { workflowKey: targetKey },
+      filter: { workflowId: id },
+      transaction,
+    });
+  }
   await transaction.commit();
   ctx.body = {};
 }
