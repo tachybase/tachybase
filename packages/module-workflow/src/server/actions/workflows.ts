@@ -382,11 +382,37 @@ export async function moveWorkflow(ctx: Context, next: Next) {
   if (!id || !targetKey) {
     ctx.throw(400, 'params error');
   }
-  const transaction = await ctx.db.sequelize.transaction();
   const workflowRepo = ctx.db.getRepository('workflows');
   const approvalRepo = ctx.db.getRepository('approvals');
+  const targetWorkflow = await workflowRepo.findOne({
+    filter: {
+      key: targetKey,
+    },
+  });
+  if (!targetWorkflow) {
+    ctx.throw(400, 'target workflow not found');
+  }
+  const sourceWorkflow = await workflowRepo.findOne({
+    filter: {
+      id,
+    },
+  });
+  if (!sourceWorkflow) {
+    ctx.throw(400, 'source workflow not found');
+  }
+  if (sourceWorkflow.key === targetKey) {
+    ctx.throw(400, 'same workflow');
+  }
+  if (sourceWorkflow.current) {
+    ctx.throw(400, 'cannot move current workflow');
+  }
+  if (sourceWorkflow.type !== targetWorkflow.type) {
+    ctx.throw(400, 'the type is different');
+  }
+  const { allExecuted } = targetWorkflow;
+  const transaction = await ctx.db.sequelize.transaction();
   await workflowRepo.update({
-    values: { key: targetKey, current: null },
+    values: { key: targetKey, current: null, allExecuted },
     filter: { id },
     transaction,
   });
