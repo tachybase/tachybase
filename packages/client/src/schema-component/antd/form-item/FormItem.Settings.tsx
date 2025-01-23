@@ -17,6 +17,7 @@ import { useCollection, useCollectionManager } from '../../../data-source';
 import { useRecord } from '../../../record-provider';
 import { useColumnSchema } from '../../../schema-component/antd/table-v2/Table.Column.Decorator';
 import { generalSettingsItems } from '../../../schema-items/GeneralSettings';
+import { useFormulaTitleOptions } from '../../../schema-settings';
 import { useIsAllowToSetDefaultValue } from '../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
 import { useIsShowMultipleSwitch } from '../../../schema-settings/hooks/useIsShowMultipleSwitch';
 import { isPatternDisabled } from '../../../schema-settings/isPatternDisabled';
@@ -593,6 +594,83 @@ export const formItemSettings = new SchemaSettings({
       useVisible: useShowFieldMode,
     },
     {
+      name: 'customTitle',
+      type: 'modal',
+      useComponentProps() {
+        const schema = useFieldSchema();
+        const { fieldSchema: tableColumnSchema } = useColumnSchema();
+        const fieldSchema = tableColumnSchema || schema;
+        const { t } = useTranslation();
+        const { dn } = useDesignable();
+        const options = useFormulaTitleOptions();
+        const def = fieldSchema['x-component-props']?.fieldNames?.formula;
+        const field = useField();
+        return {
+          title: t('Custom option label'),
+          schema: {
+            type: 'object',
+            title: t('Custom option label'),
+            properties: {
+              formula: {
+                required: true,
+                'x-decorator': 'FormItem',
+                'x-component': 'Variable.TextArea',
+                'x-component-props': {
+                  scope: options,
+                },
+                default: def || '',
+              },
+            },
+          } as ISchema,
+          onSubmit: ({ formula }) => {
+            if (formula) {
+              const componentProps = {
+                ...fieldSchema['x-component-props'],
+                fieldNames: {
+                  ...fieldSchema['x-component-props']?.['fieldNames'],
+                  formula,
+                },
+                appends: [fieldSchema['name']],
+              };
+              const regex = /{{(.*?)}}/g;
+              let match;
+              while ((match = regex.exec(formula))) {
+                if (match[1].includes('.')) {
+                  const matchList = match[1].split('.');
+                  let appendsValue = fieldSchema['name'];
+                  matchList.forEach((item, index) => {
+                    if (index === matchList.length - 1) return;
+                    appendsValue += '.' + item;
+                    componentProps.appends.push(appendsValue);
+                  });
+                }
+              }
+              field.componentProps = {
+                ...field.componentProps,
+                fieldNames: {
+                  ...field.componentProps?.fieldNames,
+                  formula,
+                },
+              };
+              fieldSchema['x-component-props'] = componentProps;
+              dn.emit('patch', {
+                schema: {
+                  'x-uid': fieldSchema['x-uid'],
+                  'x-component-props': componentProps,
+                },
+              });
+            }
+            dn.refresh();
+          },
+        };
+      },
+      useVisible: () => {
+        const fieldSchema = useFieldSchema();
+        const formula = fieldSchema['x-component-props'].mode === 'CustomTitle';
+        return useShowFieldMode() && formula;
+      },
+    },
+    {
       name: 'popupSize',
       type: 'select',
       useComponentProps() {
@@ -941,7 +1019,7 @@ export const formItemSettings = new SchemaSettings({
         const options = useTitleFieldOptions();
         const isAssociationField = useIsAssociationField();
         const fieldMode = useFieldMode();
-        return options.length > 0 && isAssociationField && fieldMode !== 'SubTable';
+        return options.length > 0 && isAssociationField && fieldMode !== 'SubTable' && fieldMode !== 'CustomTitle';
       },
       useComponentProps() {
         const { t } = useTranslation();

@@ -100,6 +100,7 @@ export const useFieldModeOptions = (props?) => {
           ? [
               { label: t('Title'), value: 'Select' },
               { label: t('Tag'), value: 'Tag' },
+              { label: t('Custom Title'), value: 'CustomTitle' },
               !isTableField && { label: t('Sub-details'), value: 'Nester' },
             ]
           : [
