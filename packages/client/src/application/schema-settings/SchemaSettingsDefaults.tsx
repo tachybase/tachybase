@@ -108,13 +108,6 @@ export const defaultSettingItems = [
             return dn;
           }, [t, api, refresh, fieldSchema]);
 
-          // const { data } = useRequest<any>(async () => {
-          //   const { data } = await api.request({
-          //     url: `/uiSchemas:getJsonSchema/${fieldSchema['x-uid']}?includeAsyncNode=true`,
-          //   });
-          //   return data;
-          // });
-
           return {
             width: '800px',
             asyncGetInitialValues: async () => {
