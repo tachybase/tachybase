@@ -29,24 +29,8 @@ export default defineCollection({
       type: 'text',
     },
     {
-      name: 'settings',
+      name: 'options',
       type: 'json',
-    },
-    {
-      name: 'triggerOnAssociation',
-      type: 'boolean',
-    },
-    {
-      name: 'actionName',
-      type: 'string',
-    },
-    {
-      name: 'resourceName',
-      type: 'text',
-    },
-    {
-      name: 'eventName',
-      type: 'string',
     },
   ],
 });
