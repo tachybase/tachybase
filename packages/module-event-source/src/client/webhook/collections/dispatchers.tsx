@@ -59,64 +59,42 @@ export const dispatchers: CollectionOptions = {
         title: tval('Type'),
         type: 'string',
         required: true,
-        enum: [
-          { label: tval('Application Event'), value: 'applicationEvent' },
-          { label: tval('Database Event'), value: 'databaseEvent' },
-          { label: tval('Resource'), value: 'resource' },
-          { label: tval('Before Resource'), value: 'beforeResource' },
-          { label: tval('After Resource'), value: 'afterResource' },
-          // Hide below for now
-          // { label: tval('HTTP endpoint'), value: 'code' },
-          // { label: tval('Scheduler'), value: 'cron' },
-          // { label: tval('API action'), value: 'action' },
-        ],
+        enum: '{{ typeList }}',
         'x-component': 'Select',
         'x-decorator': 'FormItem',
-        default: 'code',
+        default: 'code', // 可以根据需要调整默认值
+        'x-reactions': {
+          fulfill: {
+            state: {
+              options: {
+                $: `{{ useEventSourceOptions($self.value) }}`,
+              },
+            },
+          },
+        },
       } as ISchema,
     },
     {
-      type: 'string',
-      name: 'triggerOnAssociation',
-      interface: 'boolean',
+      type: 'json',
+      name: 'options',
+      interface: 'object',
       uiSchema: {
-        title: tval('TriggerOnAssociation'),
-        type: 'boolean',
-        'x-component': 'Checkbox',
-        required: true,
-      } as ISchema,
-    },
-    {
-      type: 'string',
-      name: 'resourceName',
-      interface: 'input',
-      uiSchema: {
-        title: tval('Resource'),
-        type: 'string',
-        'x-component': 'Input',
-        required: true,
-      } as ISchema,
-    },
-    {
-      type: 'string',
-      name: 'actionName',
-      interface: 'input',
-      uiSchema: {
-        title: tval('Action'),
-        type: 'string',
-        'x-component': 'Input',
-        required: true,
-      } as ISchema,
-    },
-    {
-      type: 'string',
-      name: 'eventName',
-      interface: 'input',
-      uiSchema: {
-        title: tval('Event Name'),
-        type: 'string',
-        'x-component': 'Input',
-        required: true,
+        title: tval('Options'),
+        'x-component': 'OptionsContainer',
+        'x-component-props': {
+          options: {
+            resourceName: {
+              type: 'string',
+              title: 'resourceName',
+              'x-decorator': 'FormItem',
+            },
+            actionName: {
+              type: 'string',
+              title: 'resourceName',
+              'x-decorator': 'FormItem',
+            },
+          },
+        },
       } as ISchema,
     },
     {

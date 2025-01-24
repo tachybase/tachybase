@@ -1,7 +1,7 @@
 import { EventSourceTrigger } from '.';
 
-export class APIActionTrigger extends EventSourceTrigger {
-  title = 'action';
+export class APITrigger extends EventSourceTrigger {
+  title = 'resource';
   options = {
     resourceName: {
       type: 'string',

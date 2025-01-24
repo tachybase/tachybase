@@ -5,6 +5,7 @@ import {
   TableBlockProvider,
   useCollectionRecordData,
   useDataBlockResource,
+  usePlugin,
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
@@ -19,8 +20,11 @@ import { ISchema, useForm } from '@tachybase/schema';
 
 import { Button, Space } from 'antd';
 
+import ModuleEventSourceClient from '..';
 import { lang } from '../locale';
 import { dispatchers } from './collections/dispatchers';
+import { EventSourceOptions } from './EventSourceOptions';
+import OptionsContainer from './OptionsContainer';
 
 // TODO
 export const ExecutionResourceProvider = ({ params, filter = {}, ...others }) => {
@@ -85,75 +89,82 @@ const properties = {
     'x-collection-field': 'webhooks.type',
     'x-component-props': {},
   },
-  resourceName: {
-    type: 'string',
+
+  // resourceName: {
+  //   type: 'string',
+  //   'x-component': 'CollectionField',
+  //   'x-decorator': 'FormItem',
+  //   'x-collection-field': 'webhooks.resourceName',
+  //   'x-reactions': [
+  //     {
+  //       dependencies: ['.type'],
+  //       fulfill: {
+  //         state: {
+  //           hidden:
+  //             '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
+  //         },
+  //       },
+  //     },
+  //   ],
+  //   'x-component-props': {},
+  // },
+  // triggerOnAssociation: {
+  //   type: 'string',
+  //   'x-component': 'CollectionField',
+  //   'x-decorator': 'FormItem',
+  //   'x-collection-field': 'webhooks.triggerOnAssociation',
+  //   'x-reactions': [
+  //     {
+  //       dependencies: ['.type'],
+  //       fulfill: {
+  //         state: {
+  //           hidden:
+  //             '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
+  //         },
+  //       },
+  //     },
+  //   ],
+  //   'x-component-props': {},
+  // },
+  // actionName: {
+  //   type: 'string',
+  //   'x-component': 'CollectionField',
+  //   'x-decorator': 'FormItem',
+  //   'x-collection-field': 'webhooks.actionName',
+  //   'x-reactions': [
+  //     {
+  //       dependencies: ['.type'],
+  //       fulfill: {
+  //         state: {
+  //           hidden:
+  //             '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource"}}',
+  //         },
+  //       },
+  //     },
+  //   ],
+  //   'x-component-props': {},
+  // },
+  // eventName: {
+  //   type: 'string',
+  //   'x-component': 'CollectionField',
+  //   'x-decorator': 'FormItem',
+  //   'x-reactions': [
+  //     {
+  //       dependencies: ['.type'],
+  //       fulfill: {
+  //         state: {
+  //           hidden: '{{ $deps[0] !== "databaseEvent" && $deps[0] !== "applicationEvent" }}',
+  //         },
+  //       },
+  //     },
+  //   ],
+  //   'x-component-props': {},
+  // },
+  options: {
+    type: 'object',
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
-    'x-collection-field': 'webhooks.resourceName',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden:
-              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
-  },
-  triggerOnAssociation: {
-    type: 'string',
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
-    'x-collection-field': 'webhooks.triggerOnAssociation',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden:
-              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
-  },
-  actionName: {
-    type: 'string',
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
-    'x-collection-field': 'webhooks.actionName',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden:
-              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource"}}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
-  },
-  eventName: {
-    type: 'string',
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden: '{{ $deps[0] !== "databaseEvent" && $deps[0] !== "applicationEvent" }}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
+    'x-collection-field': 'webhooks.options',
   },
   code: {
     type: 'string',
@@ -644,12 +655,20 @@ const schema: ISchema = {
 };
 
 export const WebhookManager = () => {
+  const plugin = usePlugin(ModuleEventSourceClient);
+  const typeList = [];
+  for (const type of plugin.triggers.getKeys()) {
+    typeList.push({
+      label: plugin.triggers.get(type).title,
+      value: type,
+    });
+  }
   return (
     <ExtendCollectionsProvider collections={[dispatchers]}>
       <SchemaComponent
         name="eventSource"
         schema={schema}
-        scope={{ useTestActionProps }}
+        scope={{ useTestActionProps, typeList }}
         components={{
           ExecutionStatusColumn,
           ExecutionResourceProvider,
@@ -658,6 +677,7 @@ export const WebhookManager = () => {
           ExecutionTime,
           WorkflowSelect,
           CodeMirror,
+          OptionsContainer,
         }}
       />
     </ExtendCollectionsProvider>
