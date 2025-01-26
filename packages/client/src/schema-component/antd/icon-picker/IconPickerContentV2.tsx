@@ -32,7 +32,7 @@ export const IconPickerContentV2 = (props) => {
     <Tabs
       className={styles.iconPickerContent}
       tabBarExtraContent={<SearchInput />}
-      defaultActiveKey="1"
+      defaultActiveKey="2"
       items={items}
       onChange={onChange}
     />

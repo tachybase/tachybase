@@ -6,9 +6,14 @@ export const useStyles = createStyles(({ css, token }) => {
       display: grid;
       place-items: center;
       border: none;
+
       .dyc-upload {
         width: 100%;
         background-color: blue;
+        border-radius: 10px;
+        .ant-upload-select.ant-upload-select {
+          border-radius: 10px;
+        }
         .dyc-upload-area {
           border: none;
           background: none;
