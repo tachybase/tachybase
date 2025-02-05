@@ -380,21 +380,7 @@ export const CustomTitle = {
               ...fieldSchema['x-component-props']?.['fieldNames'],
               formula,
             },
-            appends: [fieldSchema['name']],
           };
-          const regex = /{{(.*?)}}/g;
-          let match;
-          while ((match = regex.exec(formula))) {
-            if (match[1].includes('.')) {
-              const matchList = match[1].split('.');
-              let appendsValue = fieldSchema['name'];
-              matchList.forEach((item, index) => {
-                if (index === matchList.length - 1) return;
-                appendsValue += '.' + item;
-                componentProps.appends.push(appendsValue);
-              });
-            }
-          }
           field.componentProps = {
             ...field.componentProps,
             fieldNames: {
@@ -429,8 +415,8 @@ export const selectComponentFieldSettings = new SchemaSettings({
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const formual = fieldSchema['x-component-props'].mode === 'CustomTitle';
-        return useIsMuiltipleAble() && formual;
+        const formula = fieldSchema['x-component-props'].mode === 'CustomTitle';
+        return useIsMuiltipleAble() && formula;
       },
     },
     {
@@ -484,7 +470,7 @@ export const selectComponentFieldSettings = new SchemaSettings({
       },
     },
     {
-      name: 'formulatitleField',
+      name: 'formulaTitleField',
       Component: EditFormulaTitleField,
       useVisible: useFormulaTitleVisible,
     },

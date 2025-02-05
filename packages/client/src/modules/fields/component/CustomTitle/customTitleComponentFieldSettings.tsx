@@ -76,7 +76,7 @@ export const CustomTitleComponentFieldSettings = new SchemaSettings({
       },
     },
     {
-      name: 'formulatitleField',
+      name: 'formulaTitleField',
       Component: EditFormulaTitleField,
       useVisible: useFormulaTitleVisible,
     },

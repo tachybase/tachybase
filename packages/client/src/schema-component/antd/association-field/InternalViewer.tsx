@@ -126,7 +126,7 @@ export const ReadPrettyInternalViewer = observer(
 
     const renderRecordProvider = () => {
       const collectionFieldNames = fieldSchema?.['x-collection-field']?.split('.');
-
+      //替换了原来的recordCtx[collectionFieldNames[1]]  formulaRecord加上了替换后的字段和原始数据
       return collectionFieldNames && collectionFieldNames.length > 2 ? (
         <RecordProvider record={record} parent={formulaRecord[collectionFieldNames[1]]}>
           {renderWithoutTableFieldResourceProvider()}
