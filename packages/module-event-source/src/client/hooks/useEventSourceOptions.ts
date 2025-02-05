@@ -1,23 +1,18 @@
 import { useMemo } from 'react';
+import { usePlugin } from '@tachybase/client';
+
+import ModuleEventSourceClient from '..';
 
 export const useEventSourceOptions = (type) => {
-  // 根据 type 返回相应的 options
+  const plugin = usePlugin(ModuleEventSourceClient); // 获取插件
+
   const options = useMemo(() => {
-    switch (type) {
-      case 'code':
-        return [
-          { title: 'Code Option 1', type: 'codeOption1' },
-          { title: 'Code Option 2', type: 'codeOption2' },
-        ];
-      case 'webhook':
-        return [
-          { title: 'Webhook Option 1', type: 'webhookOption1' },
-          { title: 'Webhook Option 2', type: 'webhookOption2' },
-        ];
-      default:
-        return [];
+    const trigger = plugin.triggers.get(type); // 根据 type 获取对应的触发器
+    if (!trigger) {
+      return [];
     }
-  }, [type]);
+    return trigger.options; // 获取触发器的选项 schema
+  }, [plugin, type]);
 
   return options;
 };

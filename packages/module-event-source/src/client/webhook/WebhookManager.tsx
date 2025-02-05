@@ -21,6 +21,7 @@ import { ISchema, useForm } from '@tachybase/schema';
 import { Button, Space } from 'antd';
 
 import ModuleEventSourceClient from '..';
+import { useEventSourceOptions } from '../hooks/useEventSourceOptions';
 import { lang } from '../locale';
 import { dispatchers } from './collections/dispatchers';
 import { EventSourceOptions } from './EventSourceOptions';
@@ -668,7 +669,7 @@ export const WebhookManager = () => {
       <SchemaComponent
         name="eventSource"
         schema={schema}
-        scope={{ useTestActionProps, typeList }}
+        scope={{ useTestActionProps, typeList, useEventSourceOptions }}
         components={{
           ExecutionStatusColumn,
           ExecutionResourceProvider,

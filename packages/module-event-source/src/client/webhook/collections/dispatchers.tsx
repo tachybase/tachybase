@@ -63,15 +63,6 @@ export const dispatchers: CollectionOptions = {
         'x-component': 'Select',
         'x-decorator': 'FormItem',
         default: 'code', // 可以根据需要调整默认值
-        'x-reactions': {
-          fulfill: {
-            state: {
-              options: {
-                $: `{{ useEventSourceOptions($self.value) }}`,
-              },
-            },
-          },
-        },
       } as ISchema,
     },
     {
@@ -81,17 +72,11 @@ export const dispatchers: CollectionOptions = {
       uiSchema: {
         title: tval('Options'),
         'x-component': 'OptionsContainer',
-        'x-component-props': {
-          options: {
-            resourceName: {
-              type: 'string',
-              title: 'resourceName',
-              'x-decorator': 'FormItem',
-            },
-            actionName: {
-              type: 'string',
-              title: 'resourceName',
-              'x-decorator': 'FormItem',
+        'x-reactions': {
+          dependencies: ['type'],
+          fulfill: {
+            state: {
+              options: '{{ useEventSourceOptions($deps[0]) }}',
             },
           },
         },
