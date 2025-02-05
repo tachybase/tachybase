@@ -33,6 +33,10 @@ export default {
       name: 'parentNode',
     },
     {
+      type: 'bigInt',
+      name: 'executionCost',
+    },
+    {
       type: 'belongsTo',
       name: 'parent',
       foreignKey: 'parentId',

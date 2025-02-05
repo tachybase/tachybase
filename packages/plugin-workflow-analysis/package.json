@@ -1,0 +1,15 @@
+{
+  "name": "@tachybase/plugin-workflow-analysis",
+  "version": "0.23.41",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "antd": "5.22.5",
+    "react-i18next": "^15.4.0",
+    "react-router-dom": "6.28.1"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}

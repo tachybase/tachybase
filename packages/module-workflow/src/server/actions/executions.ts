@@ -1,6 +1,8 @@
 import actions, { Context } from '@tachybase/actions';
 import { Op } from '@tachybase/database';
 
+import { updatedAt } from 'packages/plugin-mock-collections/src/server/field-interfaces';
+
 import { EXECUTION_STATUS, JOB_STATUS } from '../constants';
 
 export async function destroy(context: Context, next) {
@@ -29,10 +31,13 @@ export async function cancel(context: Context, next) {
   if (execution.status) {
     return context.throw(400);
   }
-
+  const cancelAt = new Date();
+  const executionDuration = cancelAt.getTime() - execution.createdAt.getTime();
   await context.db.sequelize.transaction(async (transaction) => {
     await execution.update(
       {
+        executionCost: executionDuration,
+        updatedAt: cancelAt,
         status: EXECUTION_STATUS.CANCELED,
       },
       { transaction },
