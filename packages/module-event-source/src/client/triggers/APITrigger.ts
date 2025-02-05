@@ -10,7 +10,7 @@ export class APITrigger extends EventSourceTrigger {
     },
     actionName: {
       type: 'string',
-      title: 'resourceName',
+      title: 'actionName',
       'x-decorator': 'FormItem',
     },
   };
