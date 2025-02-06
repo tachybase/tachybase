@@ -1,5 +1,6 @@
 import React from 'react';
 import { useActionContext, useCollectionRecordData, useTranslation } from '@tachybase/client';
+import { getWorkflowDetailPath, getWorkflowExecutionsPath } from '@tachybase/module-workflow/client';
 
 import { Link } from 'react-router-dom';
 
@@ -29,11 +30,3 @@ export const jobVersionColumn = () => {
     </Link>
   );
 };
-
-export function getWorkflowDetailPath(id: string | number) {
-  return `/_admin/business-components/workflow/${id}/workflow`;
-}
-
-export function getWorkflowExecutionsPath(id: string | number) {
-  return `/_admin/business-components/workflow/${id}/executions`;
-}

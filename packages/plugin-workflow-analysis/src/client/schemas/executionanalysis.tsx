@@ -1,6 +1,6 @@
+import { ExecutionStatusOptions } from '@tachybase/module-workflow/client';
 import { ISchema, uid } from '@tachybase/schema';
 
-import { ExecutionStatusOptions } from '../constants';
 import { NAMESPACE } from '../locale';
 
 export const ExecutionsCollection = {

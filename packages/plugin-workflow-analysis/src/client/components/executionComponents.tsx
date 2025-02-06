@@ -1,8 +1,7 @@
 import { useActionContext, useCollectionRecordData, useTranslation } from '@tachybase/client';
+import { getWorkflowDetailPath, getWorkflowExecutionsPath } from '@tachybase/module-workflow/client';
 
 import { Link } from 'react-router-dom';
-
-import { getWorkflowDetailPath, getWorkflowExecutionsPath } from './jobsComponents';
 
 export const executionVersionColumn = () => {
   const { workflowId } = useCollectionRecordData();

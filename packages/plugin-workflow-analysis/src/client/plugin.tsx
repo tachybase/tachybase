@@ -9,11 +9,13 @@ class PluginWorkflowAnalysisClient extends Plugin {
       title: `{{t("Executions analysis", { ns: "${NAMESPACE}" })}}`,
       icon: 'FileSearchOutlined',
       Component: ExecutionsProvider,
+      sort: 99,
     });
     this.app.systemSettingsManager.add('business-components.jobanalysis', {
       title: `{{t("Jobs analysis", { ns: "${NAMESPACE}" })}}`,
       icon: 'FileSearchOutlined',
       Component: JobsProvider,
+      sort: 100,
     });
   }
 }

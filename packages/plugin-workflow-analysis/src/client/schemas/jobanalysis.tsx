@@ -1,6 +1,6 @@
+import { JobStatusOptions } from '@tachybase/module-workflow/client';
 import { ISchema, uid } from '@tachybase/schema';
 
-import { JobStatusOptions } from '../constants';
 import { NAMESPACE, tval } from '../locale';
 
 export const JobsCollection = {
