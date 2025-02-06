@@ -1,14 +1,14 @@
 import { useActionContext, useCollectionRecordData, useTranslation } from '@tachybase/client';
-import { getWorkflowDetailPath } from '@tachybase/module-workflow/client';
 
 import { Link } from 'react-router-dom';
+
+import { getWorkflowDetailPath, getWorkflowExecutionsPath } from './jobsComponents';
 
 export const executionVersionColumn = () => {
   const { workflowId } = useCollectionRecordData();
   const { setVisible } = useActionContext();
   return (
     <Link to={getWorkflowDetailPath(workflowId)} onClick={() => setVisible(false)}>
-      {' '}
       {`#${workflowId}`}
     </Link>
   );
@@ -24,7 +24,3 @@ export const ExecutionLink = () => {
     </Link>
   );
 };
-
-function getWorkflowExecutionsPath(id: string | number) {
-  return `/_admin/business-components/workflow/${id}/executions`;
-}
