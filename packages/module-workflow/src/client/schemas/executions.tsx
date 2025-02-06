@@ -37,12 +37,12 @@ export const executionCollection = {
       } as ISchema,
     },
     {
-      interface: 'executionCost',
+      interface: 'bigInt',
       type: 'bigInt',
       name: 'executionCost',
       uiSchema: {
         type: 'bigInt',
-        title: `{{t("execution Cost", { ns: "${NAMESPACE}" })}}`,
+        title: `{{t("Execution time", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,
@@ -233,7 +233,7 @@ export const getExecutionSchema = (params?) => {
                 },
                 properties: {
                   executionCost: {
-                    type: 'string',
+                    type: 'bigInt',
                     'x-component': 'CollectionField',
                     'x-read-pretty': true,
                   },

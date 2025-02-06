@@ -333,7 +333,7 @@ export const JobsPane: ISchema = {
               },
               properties: {
                 cost: {
-                  type: 'string',
+                  type: 'bigInt',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
                 },
@@ -350,7 +350,7 @@ export const JobsPane: ISchema = {
               properties: {
                 version: {
                   type: 'number',
-                  'x-component': 'jobversionColumn',
+                  'x-component': 'jobVersionColumn',
                   'x-read-pretty': true,
                 },
               },

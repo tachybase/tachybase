@@ -1,9 +1,8 @@
 import { useContext } from 'react';
 import { ExtendCollectionsProvider, SchemaComponent, SchemaComponentContext } from '@tachybase/client';
-import { ExecutionLink } from '@tachybase/module-workflow/client';
 
-import { executionVersionColumn } from './componments/executionComponments';
-import { jobsLink, jobversionColumn, jobWorkflowTitleColumn } from './componments/jobsCompoments';
+import { ExecutionLink, executionVersionColumn } from './components/executionComponents';
+import { jobsLink, jobVersionColumn, jobWorkflowTitleColumn } from './components/jobsComponents';
 import { collectionWorkflows, ExecutionsCollection, ExecutionsPane } from './schemas/executionanalysis';
 import { JobsCollection, JobsPane, nodesCollection, workflowCollection } from './schemas/jobanalysis';
 
@@ -34,7 +33,7 @@ export function JobsProvider() {
           schema={JobsPane}
           components={{
             jobsLink,
-            jobversionColumn,
+            jobVersionColumn,
             jobWorkflowTitleColumn,
           }}
           scope={{}}

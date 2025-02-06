@@ -284,7 +284,7 @@ export const ExecutionsPane: ISchema = {
               },
               properties: {
                 executionCost: {
-                  type: 'string',
+                  type: 'bigInt',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
                 },

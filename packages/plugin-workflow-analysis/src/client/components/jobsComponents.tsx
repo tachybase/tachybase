@@ -21,12 +21,11 @@ export const jobWorkflowTitleColumn = () => {
   return <span style={{ textAlign: 'center', cursor: 'pointer' }}>{workflowTitle}</span>;
 };
 
-export const jobversionColumn = () => {
+export const jobVersionColumn = () => {
   const data = useCollectionRecordData();
   const { setVisible } = useActionContext();
   return (
     <Link to={getWorkflowDetailPath(data.node.workflowId)} onClick={() => setVisible(false)}>
-      {' '}
       {`#${data.node.workflowId}`}
     </Link>
   );
