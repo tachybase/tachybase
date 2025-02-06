@@ -13,5 +13,15 @@ export class APITrigger extends EventSourceTrigger {
       title: 'actionName',
       'x-decorator': 'FormItem',
     },
+    actionNames: {
+      type: 'string',
+      title: 'actionNames',
+      'x-decorator': 'FormItem',
+    },
+    actionName1: {
+      type: 'string',
+      title: 'actionName1',
+      'x-decorator': 'FormItem',
+    },
   };
 }

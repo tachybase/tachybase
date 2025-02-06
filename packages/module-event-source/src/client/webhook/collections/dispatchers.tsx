@@ -82,6 +82,7 @@ export const dispatchers: CollectionOptions = {
             },
           },
         },
+        properties: a / b / c / d,
       } as ISchema,
     },
     {
