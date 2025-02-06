@@ -70,13 +70,15 @@ export const dispatchers: CollectionOptions = {
       name: 'options',
       interface: 'object',
       uiSchema: {
+        type: 'object',
         title: tval('Options'),
-        'x-component': 'OptionsContainer',
+        'x-decorator': 'FormItem',
+        'x-component': 'FormV2',
         'x-reactions': {
           dependencies: ['type'],
           fulfill: {
-            state: {
-              options: '{{ useEventSourceOptions($deps[0]) }}',
+            schema: {
+              'x-component-props': '{{ useTypeOptions($deps[0]) }}',
             },
           },
         },

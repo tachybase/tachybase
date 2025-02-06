@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ExtendCollectionsProvider,
   SchemaComponent,
@@ -16,16 +16,13 @@ import {
   ExecutionTime,
   OpenDrawer,
 } from '@tachybase/module-workflow/client';
-import { ISchema, useForm } from '@tachybase/schema';
+import { ISchema, useField, useForm } from '@tachybase/schema';
 
 import { Button, Space } from 'antd';
 
 import ModuleEventSourceClient from '..';
-import { useEventSourceOptions } from '../hooks/useEventSourceOptions';
 import { lang } from '../locale';
 import { dispatchers } from './collections/dispatchers';
-import { EventSourceOptions } from './EventSourceOptions';
-import OptionsContainer from './OptionsContainer';
 
 // TODO
 export const ExecutionResourceProvider = ({ params, filter = {}, ...others }) => {
@@ -655,6 +652,19 @@ const schema: ISchema = {
   },
 };
 
+const useTypeOptions = (type) => {
+  const plugin = usePlugin(ModuleEventSourceClient);
+  if (!type) return {};
+
+  const trigger = plugin.triggers.get(type);
+  if (!trigger?.options) return {};
+
+  return {
+    type: 'object',
+    properties: trigger.options,
+  };
+};
+
 export const WebhookManager = () => {
   const plugin = usePlugin(ModuleEventSourceClient);
   const typeList = [];
@@ -669,7 +679,11 @@ export const WebhookManager = () => {
       <SchemaComponent
         name="eventSource"
         schema={schema}
-        scope={{ useTestActionProps, typeList, useEventSourceOptions }}
+        scope={{
+          useTestActionProps,
+          typeList,
+          useTypeOptions,
+        }}
         components={{
           ExecutionStatusColumn,
           ExecutionResourceProvider,
@@ -678,7 +692,6 @@ export const WebhookManager = () => {
           ExecutionTime,
           WorkflowSelect,
           CodeMirror,
-          OptionsContainer,
         }}
       />
     </ExtendCollectionsProvider>
