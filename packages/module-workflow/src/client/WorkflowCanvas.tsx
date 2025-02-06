@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {
   ActionContextProvider,
   cx,
-  Icon,
-  ResourceActionProvider,
   SchemaComponent,
   TableBlockProvider,
   useApp,
   useDocumentTitle,
-  useFilterByTk,
   useResourceActionContext,
   useResourceContext,
 } from '@tachybase/client';
@@ -21,7 +18,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { CanvasContentWrapper } from './CanvasContentWrapper';
 import { ExecutionStatusColumn } from './components/ExecutionStatus';
-import { ExecutionTime } from './components/ExecutionTime';
 import { BackButton } from './components/GoBackButton';
 import { ExecutionLink } from './ExecutionLink';
 import { FlowContext, useFlowContext } from './FlowContext';
@@ -262,7 +258,6 @@ export function WorkflowCanvas() {
                 ExecutionResourceProvider,
                 ExecutionLink,
                 ExecutionStatusColumn,
-                ExecutionTime,
               }}
             />
           </ActionContextProvider>

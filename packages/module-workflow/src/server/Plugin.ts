@@ -536,7 +536,10 @@ export default class PluginWorkflowServer extends Plugin {
     try {
       await (job ? processor.resume(job) : processor.start());
       logger.info(`execution (${execution.id}) finished with status: ${execution.status}`, { execution });
-
+      if (execution.status !== 0) {
+        const executionDuration = execution.updatedAt.getTime() - execution.createdAt.getTime();
+        await execution.update({ executionCost: executionDuration }, { transaction: options.transaction });
+      }
       if (execution.status && execution.parentNode) {
         // 根据parentId找到parent
         const { database } = <typeof ExecutionModel>execution.constructor;
