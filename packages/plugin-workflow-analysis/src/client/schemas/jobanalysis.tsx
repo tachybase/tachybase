@@ -5,7 +5,7 @@ import { ISchema, uid } from '@tachybase/schema';
 
 import { Link } from 'react-router-dom';
 
-import { NAMESPACE } from '../locale';
+import { NAMESPACE, tval } from '../locale';
 
 export const JobsCollection = {
   name: 'jobs',
@@ -40,7 +40,7 @@ export const JobsCollection = {
       name: 'cost',
       uiSchema: {
         type: 'bigInt',
-        title: `{{t("job Cost", { ns: "${NAMESPACE}" })}}`,
+        title: `{{t("Execution time", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,
@@ -68,7 +68,7 @@ export const JobsCollection = {
       collectionName: 'node',
       uiSchema: {
         type: 'object',
-        title: '{{t("node")}}',
+        title: tval('Node'),
         'x-component': 'AssociationField',
         'x-component-props': {
           fieldNames: {
@@ -90,7 +90,7 @@ export const nodesCollection = {
       name: 'id',
       uiSchema: {
         type: 'number',
-        title: '{{t("ID")}}',
+        title: tval('Node ID'),
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,
@@ -102,7 +102,7 @@ export const nodesCollection = {
       name: 'title',
       uiSchema: {
         type: 'string',
-        title: '{{t("title")}}',
+        title: tval('Node title'),
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,
@@ -118,7 +118,7 @@ export const nodesCollection = {
       collectionName: 'workflow',
       uiSchema: {
         type: 'object',
-        title: '{{t("workflow")}}',
+        title: tval('Workflow'),
         'x-component': 'AssociationField',
         'x-component-props': {
           fieldNames: {
@@ -140,7 +140,7 @@ export const workflowCollection = {
       name: 'id',
       uiSchema: {
         type: 'number',
-        title: '{{t("ID")}}',
+        title: tval('Workflow ID'),
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,
@@ -152,7 +152,7 @@ export const workflowCollection = {
       name: 'title',
       uiSchema: {
         type: 'string',
-        title: '{{t("title")}}',
+        title: tval('Workflow title'),
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,
@@ -250,6 +250,7 @@ export const JobsPane: ISchema = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
+                sorter: true,
                 width: 50,
               },
               properties: {
@@ -272,7 +273,7 @@ export const JobsPane: ISchema = {
                   placeItems: 'center',
                 },
               },
-              title: '{{t("node title")}}',
+              title: tval('Node title'),
               properties: {
                 node: {
                   type: 'string',
@@ -294,7 +295,7 @@ export const JobsPane: ISchema = {
                   placeItems: 'center',
                 },
               },
-              title: '{{ t("Workflow title") }}',
+              title: tval('Workflow title'),
               properties: {
                 workflow: {
                   type: 'string',
@@ -324,7 +325,6 @@ export const JobsPane: ISchema = {
             },
             cost: {
               type: 'void',
-              title: `{{t("Executed time", { ns: "${NAMESPACE}" })}}`,
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {

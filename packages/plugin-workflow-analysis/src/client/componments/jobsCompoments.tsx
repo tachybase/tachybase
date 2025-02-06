@@ -1,8 +1,7 @@
 import React from 'react';
-import { useActionContext, useCollectionRecordData } from '@tachybase/client';
+import { useActionContext, useCollectionRecordData, useTranslation } from '@tachybase/client';
 import { getWorkflowDetailPath, getWorkflowExecutionsPath } from '@tachybase/module-workflow/client';
 
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 export const jobsLink = () => {
@@ -21,12 +20,6 @@ export const jobWorkflowTitleColumn = () => {
   const workflowTitle = node.workflow?.title;
   return <span style={{ textAlign: 'center', cursor: 'pointer' }}>{workflowTitle}</span>;
 };
-
-// export const jobNodeTitleColumn = () => {
-//     const { node } = useCollectionRecordData();
-//     const nodeTitle = node.title;
-//     return <span style={{ textAlign: 'center', cursor: 'pointer' }}>{nodeTitle}</span>;
-// };
 
 export const jobversionColumn = () => {
   const data = useCollectionRecordData();

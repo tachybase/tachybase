@@ -1,10 +1,10 @@
-import { useActionContext } from '@tachybase/client';
+import { dataSource, useActionContext } from '@tachybase/client';
 import { ExecutionStatusOptions, getWorkflowDetailPath } from '@tachybase/module-workflow/client';
 import { ISchema, uid } from '@tachybase/schema';
 
 import { Link } from 'react-router-dom';
 
-import { NAMESPACE } from '../locale';
+import { NAMESPACE, tval } from '../locale';
 
 export const ExecutionsCollection = {
   name: 'executions',
@@ -25,14 +25,29 @@ export const ExecutionsCollection = {
       interface: 'm2o',
       type: 'belongsTo',
       name: 'workflow',
+      target: 'workflows',
+      targetKey: 'workflowId',
+      foreignKey: 'id',
+      collectionName: 'workflows',
       uiSchema: {
-        type: 'string',
+        type: 'object',
         title: `{{t("Workflow title", { ns: "${NAMESPACE}" })}}`,
-        ['x-component']({ value }) {
-          const title = value?.title;
-          return <span style={{ textAlign: 'left', cursor: 'pointer' }}>{title}</span>;
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          fieldNames: {
+            value: 'title',
+            label: 'title',
+          },
         },
       } as ISchema,
+      // uiSchema: {
+      //   type: 'string',
+      //   title: `{{t("Workflow title", { ns: "${NAMESPACE}" })}}`,
+      // ['x-component']({ value }) {
+      //   const title = value?.title;
+      //   return <span style={{ textAlign: 'left', cursor: 'pointer' }}>{title}</span>;
+      // },
+      // } as ISchema,
     },
     {
       interface: 'createdAt',
@@ -52,30 +67,30 @@ export const ExecutionsCollection = {
       name: 'executionCost',
       uiSchema: {
         type: 'bigInt',
-        title: `{{t("execution Cost", { ns: "${NAMESPACE}" })}}`,
+        title: `{{t("Execution time", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,
       } as ISchema,
     },
-    {
-      interface: 'm2o',
-      type: 'belongsTo',
-      name: 'workflowId',
-      uiSchema: {
-        type: 'number',
-        title: `{{t("Version", { ns: "${NAMESPACE}" })}}`,
-        ['x-component']({ value }) {
-          const { setVisible } = useActionContext();
-          return (
-            <Link to={getWorkflowDetailPath(value)} onClick={() => setVisible(false)}>
-              {' '}
-              {`#${value}`}
-            </Link>
-          );
-        },
-      } as ISchema,
-    },
+    // {
+    //   interface: 'integer',
+    //   type: 'bigInt',
+    //   name: 'workflowId',
+    //   uiSchema: {
+    //     type: 'number',
+    //     title: `{{t("Version", { ns: "${NAMESPACE}" })}}`,
+    //     ['x-component']({ value }) {
+    //       const { setVisible } = useActionContext();
+    //       return (
+    //         <Link to={getWorkflowDetailPath(value)} onClick={() => setVisible(false)}>
+    //           {' '}
+    //           {`#${value}`}
+    //         </Link>
+    //       );
+    //     },
+    //   } as ISchema,
+    // },
     {
       type: 'number',
       name: 'status',
@@ -86,6 +101,35 @@ export const ExecutionsCollection = {
         'x-component': 'Select',
         'x-decorator': 'FormItem',
         enum: ExecutionStatusOptions,
+      } as ISchema,
+    },
+  ],
+};
+
+export const collectionWorkflows = {
+  name: 'workflows',
+  fields: [
+    {
+      interface: 'id',
+      type: 'bigInt',
+      name: 'id',
+      uiSchema: {
+        type: 'number',
+        title: '{{t("ID")}}',
+        'x-component': 'Input',
+        'x-component-props': {},
+        'x-read-pretty': true,
+      } as ISchema,
+    },
+    {
+      type: 'string',
+      name: 'title',
+      interface: 'input',
+      uiSchema: {
+        title: '{{t("Name")}}',
+        type: 'string',
+        'x-component': 'Input',
+        required: true,
       } as ISchema,
     },
   ],
@@ -102,7 +146,7 @@ export const ExecutionsPane: ISchema = {
         collection: ExecutionsCollection,
         action: 'list',
         params: {
-          appends: ['workflow.title', 'workflow.id'],
+          // appends: ['workflow.title', 'workflow.id'],
           pageSize: 20,
           sort: ['-createdAt'],
         },
@@ -194,12 +238,20 @@ export const ExecutionsPane: ISchema = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
-              'x-component-props': {},
-              title: '{{t("Name")}}',
+              'x-component-props': {
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
               properties: {
                 workflow: {
                   type: 'string',
+                  'x-collection-field': 'executions.workflow',
                   'x-component': 'CollectionField',
+                  'x-read-pretty': true,
                 },
               },
             },
@@ -224,7 +276,6 @@ export const ExecutionsPane: ISchema = {
             },
             executionCost: {
               type: 'void',
-              title: `{{t("Executed time", { ns: "${NAMESPACE}" })}}`,
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
@@ -241,6 +292,7 @@ export const ExecutionsPane: ISchema = {
             },
             workflowId: {
               type: 'void',
+              title: `{{t("Version", { ns: "${NAMESPACE}" })}}`,
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
@@ -249,7 +301,7 @@ export const ExecutionsPane: ISchema = {
               properties: {
                 workflowId: {
                   type: 'number',
-                  'x-component': 'CollectionField',
+                  'x-component': 'executionVersionColumn',
                   'x-read-pretty': true,
                 },
               },
