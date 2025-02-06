@@ -1,10 +1,6 @@
-import { version } from 'node:os';
-import { useActionContext } from '@tachybase/client';
-import { ExecutionStatusOptions, getWorkflowDetailPath, JobStatusOptions } from '@tachybase/module-workflow/client';
 import { ISchema, uid } from '@tachybase/schema';
 
-import { Link } from 'react-router-dom';
-
+import { JobStatusOptions } from '../constants';
 import { NAMESPACE, tval } from '../locale';
 
 export const JobsCollection = {
@@ -40,7 +36,7 @@ export const JobsCollection = {
       name: 'cost',
       uiSchema: {
         type: 'bigInt',
-        title: `{{t("Execution time", { ns: "${NAMESPACE}" })}}`,
+        title: `{{t("Execution time(ms)", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,

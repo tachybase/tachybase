@@ -1,10 +1,7 @@
-import { dataSource, useActionContext } from '@tachybase/client';
-import { ExecutionStatusOptions, getWorkflowDetailPath } from '@tachybase/module-workflow/client';
 import { ISchema, uid } from '@tachybase/schema';
 
-import { Link } from 'react-router-dom';
-
-import { NAMESPACE, tval } from '../locale';
+import { ExecutionStatusOptions } from '../constants';
+import { NAMESPACE } from '../locale';
 
 export const ExecutionsCollection = {
   name: 'executions',
@@ -40,14 +37,6 @@ export const ExecutionsCollection = {
           },
         },
       } as ISchema,
-      // uiSchema: {
-      //   type: 'string',
-      //   title: `{{t("Workflow title", { ns: "${NAMESPACE}" })}}`,
-      // ['x-component']({ value }) {
-      //   const title = value?.title;
-      //   return <span style={{ textAlign: 'left', cursor: 'pointer' }}>{title}</span>;
-      // },
-      // } as ISchema,
     },
     {
       interface: 'createdAt',
@@ -73,24 +62,6 @@ export const ExecutionsCollection = {
         'x-read-pretty': true,
       } as ISchema,
     },
-    // {
-    //   interface: 'integer',
-    //   type: 'bigInt',
-    //   name: 'workflowId',
-    //   uiSchema: {
-    //     type: 'number',
-    //     title: `{{t("Version", { ns: "${NAMESPACE}" })}}`,
-    //     ['x-component']({ value }) {
-    //       const { setVisible } = useActionContext();
-    //       return (
-    //         <Link to={getWorkflowDetailPath(value)} onClick={() => setVisible(false)}>
-    //           {' '}
-    //           {`#${value}`}
-    //         </Link>
-    //       );
-    //     },
-    //   } as ISchema,
-    // },
     {
       type: 'number',
       name: 'status',

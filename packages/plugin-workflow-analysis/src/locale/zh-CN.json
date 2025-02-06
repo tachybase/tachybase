@@ -1,5 +1,5 @@
 {
-  "Execution time": "执行时间",
+  "Execution time(ms)": "执行时间(毫秒)",
   "Executions analysis": "工作流分析",
   "Jobs analysis": "工作流节点分析",
   "Node": "节点",
