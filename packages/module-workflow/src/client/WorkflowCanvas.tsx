@@ -317,8 +317,8 @@ export function WorkflowCanvas() {
           value={moveKey}
           filterType={workflow.type}
           filterSync={workflow.sync}
-          filterKey={{ $ne: workflow.key }}
-          filterEnabled={{ $in: [true, false] }} //限制选择同type,同sync,不论enabled,不包含自己
+          filterKey={{ $ne: workflow.key }} //限制选择同type,同sync,enabled:true,不包含自己
+          // filterEnabled={{ $in: [true, false] }}
           onChange={(value) => setMoveKey(value)}
         />
       </Modal>
