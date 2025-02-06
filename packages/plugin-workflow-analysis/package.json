@@ -1,6 +1,8 @@
 {
   "name": "@tachybase/plugin-workflow-analysis",
+  "displayName": "Workflow analysis tool",
   "version": "0.23.41",
+  "description": "Workflow Analysis Tool: Used for Time Consumption and Error Analysis",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.6.0",
