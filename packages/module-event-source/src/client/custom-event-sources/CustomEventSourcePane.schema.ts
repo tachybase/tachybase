@@ -1,4 +1,5 @@
-import { collectionWorkflowsManager } from './customEventSourcePane.collection';
+import { tval } from '../locale';
+import { collectionCustomEventSources } from './collectionCustomEventSources';
 
 export const schemaManagerPanne = {
   type: 'void',
@@ -8,7 +9,7 @@ export const schemaManagerPanne = {
       'x-decorator': 'TableBlockProvider',
       'x-component': 'CardItem',
       'x-decorator-props': {
-        collection: collectionWorkflowsManager,
+        collection: collectionCustomEventSources,
         action: 'list',
         params: {
           filter: {},
@@ -38,6 +39,15 @@ export const schemaManagerPanne = {
               },
               'x-align': 'left',
             },
+            sync: {
+              type: 'void',
+              title: tval('Sync'),
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'ReloadOutlined',
+              },
+              'x-use-component-props': 'useSyncCustomEventSource',
+            },
             refresh: {
               type: 'void',
               title: '{{ t("Refresh") }}',
@@ -48,15 +58,6 @@ export const schemaManagerPanne = {
                 icon: 'ReloadOutlined',
               },
               'x-use-component-props': 'useRefreshActionProps',
-            },
-            sync: {
-              type: 'void',
-              title: '{{ t("sync") }}',
-              'x-component': 'Action',
-              'x-component-props': {
-                icon: 'ReloadOutlined',
-              },
-              'x-use-component-props': 'useSyncCustomEventSource',
             },
           },
         },
@@ -75,6 +76,10 @@ export const schemaManagerPanne = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 10,
+                align: 'center',
+              },
               properties: {
                 id: {
                   type: 'string',
@@ -108,7 +113,7 @@ export const schemaManagerPanne = {
               },
               properties: {
                 uiSchema: {
-                  'x-component': 'ColumnUiSchema',
+                  'x-component': 'ColumnUISchema',
                   'x-read-pretty': true,
                 },
               },
@@ -123,7 +128,7 @@ export const schemaManagerPanne = {
               },
               properties: {
                 completeUiSchema: {
-                  'x-component': 'ColumnUiSchema',
+                  'x-component': 'ColumnUISchema',
                   'x-read-pretty': true,
                 },
               },

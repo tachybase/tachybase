@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
 
-import { CustomEventSourcePane } from './customEventSources/CustomEventSourcePane';
+import { CustomEventSourcePane } from './custom-event-sources/CustomEventSourcePane';
 import { tval } from './locale';
 import { WebhookManager } from './webhook/WebhookManager';
 

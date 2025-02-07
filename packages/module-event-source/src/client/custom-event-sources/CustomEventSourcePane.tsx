@@ -1,19 +1,18 @@
-import React from 'react';
 import { ExtendCollectionsProvider, SchemaComponentOptions } from '@tachybase/client';
 import { WorkflowPane } from '@tachybase/module-workflow/client';
 import { observer, useField } from '@tachybase/schema';
 
-import { collectionWorkflowsManager } from './customEventSourcePane.collection';
+import { collectionCustomEventSources } from './collectionCustomEventSources';
 import { schemaManagerPanne as schema } from './CustomEventSourcePane.schema';
 import { useSyncCustomEventSource } from './useSyncCustomEventSource';
 
 export const CustomEventSourcePane = () => {
   return (
-    <ExtendCollectionsProvider collections={[collectionWorkflowsManager]}>
+    <ExtendCollectionsProvider collections={[collectionCustomEventSources]}>
       <SchemaComponentOptions
         components={{
           ColumnWorkflow,
-          ColumnUiSchema,
+          ColumnUISchema,
         }}
         scope={{
           useSyncCustomEventSource: useSyncCustomEventSource,
@@ -33,10 +32,10 @@ const ColumnWorkflow = observer(
   { displayName: 'ColumnWorkflow' },
 );
 
-const ColumnUiSchema = observer(
+const ColumnUISchema = observer(
   () => {
     const field = useField<any>();
     return field?.value?.title || `${field?.value?.['x-uid']}`;
   },
-  { displayName: 'ColumnUiSchema' },
+  { displayName: 'ColumnUISchema' },
 );
