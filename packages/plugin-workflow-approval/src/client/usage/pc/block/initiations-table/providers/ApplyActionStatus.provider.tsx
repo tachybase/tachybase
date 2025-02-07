@@ -9,18 +9,16 @@ import { ProviderContextApprovalStatus } from '../ApprovalStatus.context';
 export const ProviderApplyActionStatus = (props) => {
   const { value, children } = props;
   const { status, createdById } = useApproval();
-  const { workflow } = useFlowContext();
   const { data } = useCurrentUserContext();
   const { isResubmit } = useResubmit();
   const isSameId = data.data.id === createdById;
-  const isEnabled = workflow.enabled;
   const isStatusDid = [APPROVAL_STATUS.RESUBMIT, APPROVAL_STATUS.DRAFT, APPROVAL_STATUS.RETURNED].includes(status);
 
   if (value === APPROVAL_STATUS.DRAFT && status === APPROVAL_STATUS.DRAFT) {
     return null;
   }
 
-  if ((isSameId && isEnabled && isStatusDid) || (isSameId && isEnabled && isResubmit)) {
+  if (isSameId && (isStatusDid || isResubmit)) {
     return <ProviderContextApprovalStatus value={value}>{children}</ProviderContextApprovalStatus>;
   }
 
