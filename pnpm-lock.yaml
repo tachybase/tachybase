@@ -3518,6 +3518,9 @@ importers:
       react:
         specifier: ^18.3.1
         version: 18.3.1
+      react-router-dom:
+        specifier: 6.28.1
+        version: 6.28.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   packages/plugin-devtools:
     dependencies:

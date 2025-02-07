@@ -24,7 +24,7 @@ export const DepartmentOwnersField = () => {
   const useSelectOwners = () => {
     const { setVisible } = useActionContext();
     return {
-      run() {
+      onClick() {
         const fieldValue = field.value || [];
         field.setValue([...fieldValue, ...ref.current]);
         ref.current = [];

@@ -7,8 +7,8 @@ export const schemaUnknownOwerns = {
       properties: {
         resource: {
           type: 'void',
-          'x-decorator': 'FormItem',
-          'x-component': 'RequestProvider',
+          'x-decorator': 'ownersTableBlockProvider',
+          'x-component': 'CardItem',
           properties: {
             actions: {
               type: 'void',
@@ -38,30 +38,47 @@ export const schemaUnknownOwerns = {
                   },
                   'x-action': 'filter',
                   'x-component': 'Filter.Action',
-                  'x-use-component-props': 'useFilterActionProps',
+                  'x-use-component-props': 'useOwnersFilterActionProps',
                   'x-component-props': {
                     icon: 'FilterOutlined',
                   },
                   'x-align': 'left',
                 },
+                cancel: {
+                  title: '{{ t("Cancel") }}',
+                  'x-component': 'Action',
+                  'x-use-component-props': 'useCancelActionProps',
+                },
+                submit: {
+                  title: '{{ t("Submit") }}',
+                  'x-component': 'Action',
+                  'x-use-component-props': 'useOwnersUpdateActionProps',
+                  'x-component-props': {
+                    type: 'primary',
+                  },
+                  'x-action-settings': {
+                    // isDeltaChanged: true,
+                  },
+                },
               },
             },
             table: {
-              type: 'void',
-              'x-component': 'Table.Void',
+              type: 'array',
+              'x-component': 'TableV2',
+              'x-use-component-props': 'useTableBlockProps',
               'x-component-props': {
                 rowKey: 'id',
                 rowSelection: {
                   type: 'checkbox',
-                  onChange: '{{ handleSelect }}',
+                  // onChange: '{{ handleSelect }}',
                 },
-                useDataSource: '{{ cm.useDataSourceFromRAC }}',
+                // useDataSource: '{{ cm.useDataSourceFromRAC }}',
               },
               properties: {
                 username: {
                   type: 'void',
-                  'x-decorator': 'Table.Column.Decorator',
-                  'x-component': 'Table.Column',
+                  'x-decorator': 'TableV2.Column.Decorator',
+                  'x-component': 'TableV2.Column',
                   properties: {
                     username: {
                       type: 'string',
@@ -72,8 +89,8 @@ export const schemaUnknownOwerns = {
                 },
                 nickname: {
                   type: 'void',
-                  'x-decorator': 'Table.Column.Decorator',
-                  'x-component': 'Table.Column',
+                  'x-decorator': 'TableV2.Column.Decorator',
+                  'x-component': 'TableV2.Column',
                   properties: {
                     nickname: {
                       type: 'string',
@@ -84,8 +101,8 @@ export const schemaUnknownOwerns = {
                 },
                 phone: {
                   type: 'void',
-                  'x-decorator': 'Table.Column.Decorator',
-                  'x-component': 'Table.Column',
+                  'x-decorator': 'TableV2.Column.Decorator',
+                  'x-component': 'TableV2.Column',
                   properties: {
                     phone: {
                       type: 'string',
@@ -96,8 +113,8 @@ export const schemaUnknownOwerns = {
                 },
                 email: {
                   type: 'void',
-                  'x-decorator': 'Table.Column.Decorator',
-                  'x-component': 'Table.Column',
+                  'x-decorator': 'TableV2.Column.Decorator',
+                  'x-component': 'TableV2.Column',
                   properties: {
                     email: {
                       type: 'string',
@@ -110,27 +127,27 @@ export const schemaUnknownOwerns = {
             },
           },
         },
-        footer: {
-          type: 'void',
-          'x-component': 'Action.Drawer.Footer',
-          properties: {
-            cancel: {
-              title: '{{t("Cancel")}}',
-              'x-component': 'Action',
-              'x-component-props': {
-                useAction: '{{ cm.useCancelAction }}',
-              },
-            },
-            confirm: {
-              title: '{{t("Confirm")}}',
-              'x-component': 'Action',
-              'x-component-props': {
-                type: 'primary',
-                useAction: '{{ useSelectOwners }}',
-              },
-            },
-          },
-        },
+        // footer: {
+        //   type: 'void',
+        //   'x-component': 'Action.Drawer.Footer',
+        //   properties: {
+        //     cancel: {
+        //       title: '{{t("Cancel")}}',
+        //       'x-component': 'Action',
+        //       'x-component-props': {
+        //         useAction: '{{ cm.useCancelAction }}',
+        //       },
+        //     },
+        //     confirm: {
+        //       title: '{{t("Confirm")}}',
+        //       'x-component': 'Action',
+        //       'x-component-props': {
+        //         type: 'primary',
+        //         useAction: '{{ useSelectOwners }}',
+        //       },
+        //     },
+        //   },
+        // },
       },
     },
   },
