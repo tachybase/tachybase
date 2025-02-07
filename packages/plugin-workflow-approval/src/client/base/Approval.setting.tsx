@@ -4,7 +4,7 @@ import { tval } from '../locale';
 import { schemaApprovalPanne as schema } from './ApprovalPane.schema';
 import { ColumnShowApprovalId } from './ColumnShowApprovalId';
 
-export const systemSettingName = 'system-approval';
+export const systemSettingName = 'workflow-approval';
 
 export const settingApproval = {
   title: tval('Approval flow'),
@@ -18,5 +18,5 @@ export const settingApproval = {
     />
   ),
   aclSnippet: 'pm.workflow.workflows',
-  sort: 4,
+  sort: -10,
 };
