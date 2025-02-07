@@ -7,7 +7,7 @@ import { ColumnShowApprovalId } from './ColumnShowApprovalId';
 export const systemSettingName = 'system-approval';
 
 export const settingApproval = {
-  title: tval('Approval'),
+  title: tval('Approval flow'),
   icon: 'approval',
   Component: () => (
     <WorkflowPane
