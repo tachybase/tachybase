@@ -75,10 +75,5 @@ export const CustomTitleComponentFieldSettings = new SchemaSettings({
         return useIsAssociationField() && readPretty;
       },
     },
-    {
-      name: 'formulaTitleField',
-      Component: EditFormulaTitleField,
-      useVisible: useFormulaTitleVisible,
-    },
   ],
 });

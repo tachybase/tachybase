@@ -37,6 +37,18 @@ export const executionCollection = {
       } as ISchema,
     },
     {
+      interface: 'bigInt',
+      type: 'bigInt',
+      name: 'executionCost',
+      uiSchema: {
+        type: 'bigInt',
+        title: `{{t("Execution time", { ns: "${NAMESPACE}" })}}`,
+        'x-component': 'Input',
+        'x-component-props': {},
+        'x-read-pretty': true,
+      } as ISchema,
+    },
+    {
       interface: 'm2o',
       type: 'belongsTo',
       name: 'workflowId',
@@ -211,7 +223,7 @@ export const getExecutionSchema = (params?) => {
                   },
                 },
               },
-              executionTime: {
+              executionCost: {
                 type: 'void',
                 title: `{{t("Executed time", { ns: "${NAMESPACE}" })}}`,
                 'x-decorator': 'TableV2.Column.Decorator',
@@ -220,9 +232,8 @@ export const getExecutionSchema = (params?) => {
                   width: 50,
                 },
                 properties: {
-                  executionTime: {
-                    type: 'string',
-                    'x-decorator': 'ExecutionTime',
+                  executionCost: {
+                    type: 'bigInt',
                     'x-component': 'CollectionField',
                     'x-read-pretty': true,
                   },

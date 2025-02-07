@@ -1247,7 +1247,7 @@ export function useFieldMode() {
 export function useIsSelectFieldMode() {
   const fieldMode = useFieldMode();
   const isAssociationField = useIsAssociationField();
-  const isSelectFieldMode = isAssociationField && fieldMode === 'Select';
+  const isSelectFieldMode = isAssociationField && (fieldMode === 'Select' || fieldMode === 'CustomTitle');
   return isSelectFieldMode;
 }
 

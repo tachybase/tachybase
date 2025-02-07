@@ -171,7 +171,7 @@ export const useSchemaDebug = () => {
                   },
                 },
               },
-              nocoBaseResponse: {
+              tachyBaseResponse: {
                 type: 'void',
                 'x-decorator': 'Col',
                 'x-decorator-props': {

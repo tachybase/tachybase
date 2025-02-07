@@ -319,9 +319,6 @@ export const fieldComponent: any = {
         const schema = {
           ['x-uid']: fieldSchema['x-uid'],
         };
-        if (mode === 'CustomTitle') {
-          mode = 'Select';
-        }
         fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
         fieldSchema['x-component-props']['mode'] = mode;
         schema['x-component-props'] = fieldSchema['x-component-props'];
@@ -471,11 +468,6 @@ export const selectComponentFieldSettings = new SchemaSettings({
         const readPretty = useIsFieldReadPretty();
         return useIsAssociationField() && readPretty;
       },
-    },
-    {
-      name: 'formulaTitleField',
-      Component: EditFormulaTitleField,
-      useVisible: useFormulaTitleVisible,
     },
   ],
 });
