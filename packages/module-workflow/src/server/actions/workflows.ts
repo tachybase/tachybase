@@ -415,6 +415,7 @@ export async function moveWorkflow(ctx: Context, next: Next) {
   await workflowRepo.update({
     values: { key: targetKey, current: null, allExecuted },
     filter: { id },
+    hooks: false, // 不触发钩子
     transaction,
   });
 
@@ -424,6 +425,7 @@ export async function moveWorkflow(ctx: Context, next: Next) {
     values: { key: targetKey },
     filter: { workflow: { id } },
     silent: true, // 不修改updatedAt等数据
+    hooks: false, // 不触发钩子
     transaction,
   });
   // 允许未启动/或者关闭approvals的也能平稳move
@@ -433,6 +435,7 @@ export async function moveWorkflow(ctx: Context, next: Next) {
     await repo.update({
       values: { workflowKey: targetKey },
       filter: { workflowId: id },
+      hooks: false, // 不触发钩子
       transaction,
     });
   }
