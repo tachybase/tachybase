@@ -1,0 +1,14 @@
+{
+  "name": "@tachybase/plugin-api-logs",
+  "version": "0.23.41",
+  "description": "Record user api operation details, can execute setting black and white list",
+  "main": "dist/server/index.js",
+  "dependencies": {},
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "记录用户api操作详情,可执行设置黑白名单",
+  "displayName.zh-CN": "api 日志"
+}
