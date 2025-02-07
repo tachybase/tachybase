@@ -368,7 +368,7 @@ export const CustomTitle = {
             'x-component-props': {
               scope: options,
             },
-            default: def || '',
+            default: def,
           },
         },
       } as ISchema,
@@ -408,16 +408,6 @@ export const selectComponentFieldSettings = new SchemaSettings({
     {
       ...fieldComponent,
       useVisible: useIsMuiltipleAble,
-    },
-    {
-      ...CustomTitle,
-      useVisible: () => {
-        const { fieldSchema: tableColumnSchema } = useColumnSchema();
-        const schema = useFieldSchema();
-        const fieldSchema = tableColumnSchema || schema;
-        const formula = fieldSchema['x-component-props'].mode === 'CustomTitle';
-        return useIsMuiltipleAble() && formula;
-      },
     },
     {
       ...setTheDataScope,
