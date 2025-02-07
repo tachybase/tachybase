@@ -383,9 +383,11 @@ export async function moveWorkflow(ctx: Context, next: Next) {
     ctx.throw(400, 'params error');
   }
   const workflowRepo = ctx.db.getRepository('workflows');
+  // 为了防止出现问题,目标workflow必须是启用的
   const targetWorkflow = await workflowRepo.findOne({
     filter: {
       key: targetKey,
+      enabled: true,
     },
   });
   if (!targetWorkflow) {
@@ -413,6 +415,15 @@ export async function moveWorkflow(ctx: Context, next: Next) {
   await workflowRepo.update({
     values: { key: targetKey, current: null, allExecuted },
     filter: { id },
+    transaction,
+  });
+
+  // 执行记录的key也要更新,方便查看执行记录
+  const executionRepo = ctx.db.getRepository('executions');
+  await executionRepo.update({
+    values: { key: targetKey },
+    filter: { workflow: { id } },
+    silent: true, // 不修改updatedAt等数据
     transaction,
   });
   // 允许未启动/或者关闭approvals的也能平稳move
