@@ -110,6 +110,7 @@ export const useFieldModeOptions = (props?) => {
               { label: t('Subform: Popover'), value: 'PopoverNester' },
               { label: t('Subtable: Drawer'), value: 'DrawerSubTable' },
               { label: t('Cascader'), value: 'Cascader' },
+              { label: t('Custom Title'), value: 'CustomTitle' },
             ];
 
       default:
