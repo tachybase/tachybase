@@ -101,6 +101,7 @@ export const schemaExecution = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 width: 50,
+                align: 'center',
               },
               properties: {
                 actions: {
@@ -124,6 +125,7 @@ export const schemaExecution = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 width: 50,
+                align: 'center',
               },
               properties: {
                 id: {
@@ -140,6 +142,7 @@ export const schemaExecution = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 width: 50,
+                align: 'center',
               },
               properties: {
                 approvalId: {
@@ -190,6 +193,7 @@ export const schemaExecution = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 width: 50,
+                align: 'center',
               },
               properties: {
                 workflowId: {
