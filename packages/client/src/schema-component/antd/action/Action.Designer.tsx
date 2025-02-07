@@ -400,11 +400,11 @@ function WorkflowSelectComponent({
           action: 'list',
           params: {
             filter: {
-              type: workflowTypes,
-              enabled: true,
+              type: props.filterType === undefined ? undefined : props.filterType,
+              enabled: props.filterEnabled === undefined ? true : props.filterEnabled,
               'config.collection': noCollection ? undefined : workflowCollection,
-              sync: props.parentSync ? props.parentSync : undefined,
-              key: props.parentKey ? { $ne: props.parentKey } : undefined,
+              sync: props.filterSync === undefined ? undefined : props.filterSync,
+              key: props.filterKey === undefined ? undefined : props.filterKey,
             },
           },
         }}

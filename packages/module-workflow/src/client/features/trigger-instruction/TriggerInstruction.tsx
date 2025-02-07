@@ -10,8 +10,8 @@ const useWorkflowTrigger = () => {
   const { workflow } = useFlowContext();
 
   return {
-    parentSync: workflow?.sync,
-    parentKey: workflow?.key,
+    filterSync: workflow?.sync,
+    filterKey: workflow?.key ? { $ne: workflow?.key } : undefined,
   };
 };
 

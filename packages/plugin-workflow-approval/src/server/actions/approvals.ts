@@ -9,7 +9,7 @@ import { getSummary } from '../tools';
 
 export const approvals = {
   async create(context, next) {
-    const { status, collectionName, data, workflowId } = context.action.params.values ?? {};
+    const { status, collectionName, data, workflowKey } = context.action.params.values ?? {};
     const [dataSourceName, cName] = parseCollectionName(collectionName);
     const dataSource = context.app.dataSourceManager.dataSources.get(dataSourceName);
     if (!dataSource) {
@@ -20,11 +20,26 @@ export const approvals = {
       return context.throw(400, `Collection "${cName}" not found`);
     }
     const workflow = await context.db.getRepository('workflows').findOne({
-      filterByTk: workflowId,
+      filter: {
+        key: workflowKey,
+        enabled: true,
+      },
     });
-    if (!workflow?.enabled) {
+
+    /**
+     * THINK:
+     * 前端传来 workflow 的信息
+     * 后端根据传来 workflow 的信息, 判断同 key 的是否有处于 enabled 状态的 workflow,
+     * 有的话继续, 没的话中断
+     * 并且因为处于 enabled 状态的 workflow, 如果有的话必然有且只有一个.
+     * 那么新建的工作流, 应该根据这个处于启用状态的工作流的配置去创建.
+     * 现有的逻辑是简单直接的, 默认前端传过来的必然是那个唯一的启用状态的配置, 不合适, 需要调整.
+     */
+
+    if (!workflow) {
       return context.throw(400, 'Current workflow not found or disabled, please refresh and try again');
     }
+
     if (status !== APPROVAL_STATUS.DRAFT) {
       context.action.mergeParams({
         values: {
@@ -58,6 +73,7 @@ export const approvals = {
         data: instance,
         dataKey: values[collection.filterTargetKey],
         workflowKey: workflow.key,
+        workflowId: workflow.id,
         applicantRoleName: context.state.currentRole,
         summary,
       },
