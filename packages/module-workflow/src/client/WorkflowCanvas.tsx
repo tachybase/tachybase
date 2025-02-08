@@ -2,26 +2,23 @@ import React, { useEffect, useState } from 'react';
 import {
   ActionContextProvider,
   cx,
-  Icon,
-  ResourceActionProvider,
   SchemaComponent,
   TableBlockProvider,
   useApp,
   useDocumentTitle,
-  useFilterByTk,
   useResourceActionContext,
   useResourceContext,
+  WorkflowSelect,
 } from '@tachybase/client';
 import { str2moment } from '@tachybase/utils/client';
 
 import { DownOutlined, EllipsisOutlined, RightOutlined } from '@ant-design/icons';
-import { App, Breadcrumb, Button, Dropdown, message, Result, Spin, Switch } from 'antd';
+import { App, Breadcrumb, Button, Dropdown, message, Modal, Result, Spin, Switch } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { CanvasContentWrapper } from './CanvasContentWrapper';
 import { ExecutionStatusColumn } from './components/ExecutionStatus';
-import { ExecutionTime } from './components/ExecutionTime';
 import { BackButton } from './components/GoBackButton';
 import { ExecutionLink } from './ExecutionLink';
 import { FlowContext, useFlowContext } from './FlowContext';
@@ -53,6 +50,8 @@ export function WorkflowCanvas() {
   const { resource } = useResourceContext();
   const { setTitle } = useDocumentTitle();
   const [visible, setVisible] = useState(false);
+  const [moveVisible, setMoveVisible] = useState(false);
+  const [moveKey, setMoveKey] = useState(null);
   const { styles } = useStyles();
   const { modal } = App.useApp();
 
@@ -114,6 +113,7 @@ export function WorkflowCanvas() {
     message.success(t('Operation succeeded'));
 
     navigate(getWorkflowDetailPath(revision.id));
+    // setRefreshKey(uid());
   }
 
   async function onDelete() {
@@ -138,6 +138,21 @@ export function WorkflowCanvas() {
     });
   }
 
+  const handleMoveOk = async () => {
+    if (moveKey) {
+      await resource.moveWorkflow({
+        id: workflow.id,
+        targetKey: moveKey,
+      });
+      message.success(lang('Move success'));
+      setMoveVisible(false);
+      workflow.key = moveKey;
+      refresh();
+    } else {
+      message.error(lang('Select target workflow'));
+    }
+  };
+
   async function onMenuCommand({ key }) {
     switch (key) {
       case 'history':
@@ -149,6 +164,10 @@ export function WorkflowCanvas() {
         return onRevision();
       case 'delete':
         return onDelete();
+      case 'move':
+        setMoveKey(null);
+        setMoveVisible(true);
+        return;
       default:
         break;
     }
@@ -249,6 +268,13 @@ export function WorkflowCanvas() {
                   disabled: !revisionable,
                 },
                 { role: 'button', 'aria-label': 'delete', key: 'delete', label: t('Delete') },
+                {
+                  role: 'button',
+                  'aria-label': 'move',
+                  key: 'move',
+                  label: lang('Move'),
+                  disabled: workflow.current,
+                },
               ] as any[],
               onClick: onMenuCommand,
             }}
@@ -262,13 +288,35 @@ export function WorkflowCanvas() {
                 ExecutionResourceProvider,
                 ExecutionLink,
                 ExecutionStatusColumn,
-                ExecutionTime,
               }}
             />
           </ActionContextProvider>
         </aside>
       </div>
       <CanvasContentWrapper entry={entry} />
+
+      <Modal
+        title={lang('Move workflow')}
+        visible={moveVisible}
+        onOk={handleMoveOk}
+        onCancel={() => {
+          setMoveVisible(false);
+        }}
+      >
+        <p>{lang('Move current version to another workflow')}</p>
+        <WorkflowSelect
+          buttonAction="submit"
+          noCollection
+          label="title"
+          actionType="update"
+          value={moveKey}
+          filterType={workflow.type}
+          filterSync={workflow.sync}
+          filterKey={{ $ne: workflow.key }} //限制选择同type,同sync,enabled:true,不包含自己
+          // filterEnabled={{ $in: [true, false] }}
+          onChange={(value) => setMoveKey(value)}
+        />
+      </Modal>
     </FlowContext.Provider>
   );
 }

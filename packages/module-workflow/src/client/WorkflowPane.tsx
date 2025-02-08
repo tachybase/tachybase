@@ -6,7 +6,6 @@ import WorkflowPlugin, { RadioWithTooltip } from '.';
 import { ColumnShowCollection } from './components/ColumnShowCollection';
 import { ColumnShowTitle } from './components/ColumnShowTitle';
 import { ExecutionStatusColumn, ExecutionStatusSelect } from './components/ExecutionStatus';
-import { ExecutionTime } from './components/ExecutionTime';
 import OpenDrawer from './components/OpenDrawer';
 import { ExecutionLink } from './ExecutionLink';
 import { ExecutionResourceProvider } from './ExecutionResourceProvider';
@@ -36,7 +35,7 @@ function SyncOptionSelect(props) {
 }
 
 export function WorkflowPane(props) {
-  const { schema = workflowSchema } = props;
+  const { schema = workflowSchema, components, scopes } = props;
   const ctx = useContext(SchemaComponentContext);
 
   const { getTriggersOptions } = usePlugin(WorkflowPlugin);
@@ -53,12 +52,13 @@ export function WorkflowPane(props) {
             ExecutionStatusSelect,
             SyncOptionSelect,
             ExecutionStatusColumn,
-            ExecutionTime,
             ColumnShowTitle,
             ColumnShowCollection,
+            ...components,
           }}
           scope={{
             getTriggersOptions,
+            ...scopes,
           }}
         />
       </SchemaComponentContext.Provider>

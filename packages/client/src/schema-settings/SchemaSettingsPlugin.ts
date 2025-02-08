@@ -45,6 +45,7 @@ import { markdownBlockSettings } from '../modules/blocks/other-blocks/markdown/m
 import { cascaderComponentFieldSettings } from '../modules/fields/component/Cascader/cascaderComponentFieldSettings';
 import { cascadeSelectComponentFieldSettings } from '../modules/fields/component/CascadeSelect/cascadeSelectComponentFieldSettings';
 import { checkboxComponentFieldSettings } from '../modules/fields/component/Checkbox/checkboxComponentFieldSettings';
+import { CustomTitleComponentFieldSettings } from '../modules/fields/component/CustomTitle/customTitleComponentFieldSettings';
 import { datePickerComponentFieldSettings } from '../modules/fields/component/DatePicker/datePickerComponentFieldSettings';
 import { drawerSubTableComponentFieldSettings } from '../modules/fields/component/DrawerSubTable/drawerSubTableComponentFieldSettings';
 import { fileManagerComponentFieldSettings } from '../modules/fields/component/FileManager/fileManagerComponentFieldSettings';
@@ -117,7 +118,7 @@ export class SchemaSettingsPlugin extends Plugin {
     this.schemaSettingsManager.add(inputNumberComponentFieldSettings);
     this.schemaSettingsManager.add(checkboxComponentFieldSettings);
     this.schemaSettingsManager.add(radioComponentFieldSettings);
-
+    this.schemaSettingsManager.add(CustomTitleComponentFieldSettings);
     this.schemaSettingsManager.add(fileManagerComponentFieldSettings);
     this.schemaSettingsManager.add(tagComponentFieldSettings);
     this.schemaSettingsManager.add(cascadeSelectComponentFieldSettings);

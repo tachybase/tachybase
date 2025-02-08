@@ -88,10 +88,10 @@ export const useSchemaRequestAction = (key, header) => {
               responseTransformer: {
                 type: 'string',
                 'x-decorator': 'FormItem',
-                title: `{{t("Convert third-party response results to NocoBase standard",{ ns: "${NAMESPACE}" })}}`,
+                title: `{{t("Convert third-party response results to TachyBase standard",{ ns: "${NAMESPACE}" })}}`,
                 'x-component': ResponseTransformerComponent,
                 'x-decorator-props': {
-                  tooltip: `{{t("The response results from third-party APIs need to be converted to the NocoBase standard to display correctly on the frontend.",{ ns: "${NAMESPACE}" })}}`,
+                  tooltip: `{{t("The response results from third-party APIs need to be converted to the TachyBase standard to display correctly on the frontend.",{ ns: "${NAMESPACE}" })}}`,
                 },
               },
               debug: {

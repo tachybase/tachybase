@@ -29,10 +29,13 @@ export async function cancel(context: Context, next) {
   if (execution.status) {
     return context.throw(400);
   }
-
+  const cancelAt = new Date();
+  const executionDuration = cancelAt.getTime() - execution.createdAt.getTime();
   await context.db.sequelize.transaction(async (transaction) => {
     await execution.update(
       {
+        executionCost: executionDuration,
+        updatedAt: cancelAt,
         status: EXECUTION_STATUS.CANCELED,
       },
       { transaction },

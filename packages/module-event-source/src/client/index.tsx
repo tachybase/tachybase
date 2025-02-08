@@ -1,7 +1,7 @@
 import { Plugin } from '@tachybase/client';
 import { Registry } from '@tachybase/utils/client';
 
-import { CustomEventSourcePane } from './customEventSources/CustomEventSourcePane';
+import { CustomEventSourcePane } from './custom-event-sources/CustomEventSourcePane';
 import { tval } from './locale';
 import { EventSourceTrigger } from './triggers';
 import { APIActionTrigger } from './triggers/APIActionTrigger';

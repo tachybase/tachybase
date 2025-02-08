@@ -10,6 +10,9 @@ export interface DataSourceOptions {
   errorMessage?: string;
   status?: 'loaded' | 'loading-failed' | 'loading' | 'reloading';
   isDBInstance?: boolean;
+  options?: {
+    baseUrl?: string;
+  };
 }
 
 export type DataSourceFactory = new (options: DataSourceOptions, dataSourceManager: DataSourceManager) => DataSource;

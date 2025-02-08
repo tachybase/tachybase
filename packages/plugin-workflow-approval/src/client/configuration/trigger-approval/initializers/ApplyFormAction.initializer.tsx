@@ -42,3 +42,37 @@ export const ApplyFormActionInitializer = new SchemaInitializer({
     },
   ],
 });
+
+/**
+ * @deprecated
+ */
+// 卡片-配置操作
+export const LauncherActionConfigInitializer = new SchemaInitializer({
+  name: 'LauncherActionConfigInitializer',
+  title: '{{t("Configure actions")}}',
+  items: [
+    {
+      name: 'submit',
+      type: 'item',
+      title: '{{t("Submit")}}',
+      Component: ApplyFormActionCommon,
+      action: APPROVAL_STATUS.SUBMITTED,
+      actionProps: { type: 'primary' },
+      disabled: true,
+    },
+    {
+      name: 'save',
+      type: 'item',
+      title: `{{t("Save draft", { ns: "${NAMESPACE}" })}}`,
+      Component: ApplyFormActionCommon,
+      action: APPROVAL_STATUS.DRAFT,
+    },
+    {
+      name: 'Resubmit',
+      type: 'item',
+      title: `{{t("Resubmit", { ns: "${NAMESPACE}" })}}`,
+      action: APPROVAL_STATUS.RESUBMIT,
+      Component: ApplyFormActionCommon,
+    },
+  ],
+});

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/requirejs",
-  "version": "0.23.40",
+  "version": "0.23.41",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

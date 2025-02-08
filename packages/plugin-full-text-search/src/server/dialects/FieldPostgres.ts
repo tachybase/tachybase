@@ -1,6 +1,6 @@
 import { fn, Op, where } from '@tachybase/database';
 
-import { col } from 'sequelize';
+import { col, literal, WhereOptions } from 'sequelize';
 
 import { handleFieldParams } from '../types';
 import { escapeLike } from '../utils';
@@ -53,5 +53,23 @@ export class FieldPostgres extends FieldBase {
         [this.like]: `%${escapeLike(keyword)}%`,
       },
     });
+  }
+
+  public number(params: handleFieldParams): WhereOptions<any> {
+    const { field, keyword } = params;
+    // keyword不是数字则不作为搜索条件
+    if (isNaN(Number(keyword))) {
+      return null;
+    }
+    return {
+      [Op.and]: [
+        where(
+          literal(`CAST("${field}" AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
+          {
+            [Op.like]: `%${escapeLike(keyword)}%`,
+          },
+        ),
+      ],
+    };
   }
 }

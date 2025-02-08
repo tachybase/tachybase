@@ -1313,7 +1313,6 @@ export const useAssociationNames = (dataSource?: string) => {
       const isAssociationSubfield = s.name.includes('.');
       const isAssociationField =
         collectionField && ['hasOne', 'hasMany', 'belongsTo', 'belongsToMany'].includes(collectionField.type);
-
       // 从属性中取 appends
       if (s['x-component-props']?.['appends']) {
         _.forEach(s['x-component-props']?.['appends'], (append) => {
@@ -1321,8 +1320,26 @@ export const useAssociationNames = (dataSource?: string) => {
         });
       }
 
-      // 根据联动规则中条件的字段获取一些 appends
+      //从自定义字段中取appends
+      if (s['x-component-props']?.fieldNames?.formula) {
+        appends.add(s['name']);
+        const regex = /{{(.*?)}}/g;
+        const formula = s['x-component-props']?.fieldNames?.formula;
+        let match;
+        while ((match = regex.exec(formula))) {
+          if (match[1].includes('.')) {
+            const matchList = match[1].split('.');
+            let appendsValue = s['name'];
+            matchList.forEach((item, index) => {
+              if (index === matchList.length - 1) return;
+              appendsValue += '.' + item;
+              appends.add(appendsValue);
+            });
+          }
+        }
+      }
       if (s['x-linkage-rules']) {
+        // 根据联动规则中条件的字段获取一些 appends
         const collectAppends = (obj) => {
           const type = Object.keys(obj)[0] || '$and';
           const list = obj[type];
@@ -1393,7 +1410,6 @@ export const useAssociationNames = (dataSource?: string) => {
     _getAssociationAppends(fieldSchema, '');
     return { appends: [...appends], updateAssociationValues: [...updateAssociationValues] };
   };
-
   return { getAssociationAppends };
 };
 

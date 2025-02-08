@@ -108,43 +108,34 @@ export const defaultSettingItems = [
             return dn;
           }, [t, api, refresh, fieldSchema]);
 
-          const { data } = useRequest<any>(async () => {
-            const { data } = await api.request({
-              url: `/uiSchemas:getJsonSchema/${fieldSchema['x-uid']}?includeAsyncNode=true`,
-            });
-            return data;
-          });
-
           return {
             width: '800px',
-            disabled: !data,
-            schema: () => {
-              if (!data) {
-                return {
-                  title: t('Edit loading.'),
-                };
-              } else {
-                return {
-                  type: 'object',
-                  title: t('Edit'),
-                  properties: {
-                    schema: {
-                      type: 'string',
-                      title: '{{ t("Schema") }}',
-                      required: true,
-                      default: JSON.stringify(data?.data || {}, null, 2),
-                      'x-decorator': 'FormItem',
-                      'x-component': 'CodeMirror',
-                      'x-component-props': {
-                        defaultLanguage: 'json',
-                        height: '500px',
-                      },
-                    },
-                  } as ISchema,
-                };
-              }
+            asyncGetInitialValues: async () => {
+              const { data } = await api.request({
+                url: `/uiSchemas:getJsonSchema/${fieldSchema['x-uid']}?includeAsyncNode=true`,
+              });
+              return {
+                schema: JSON.stringify(data?.data || {}, null, 2),
+              };
             },
-            title: !data ? t('Loading') : t('Edit'),
+            schema: () => ({
+              type: 'object',
+              title: t('Edit'),
+              properties: {
+                schema: {
+                  type: 'string',
+                  title: '{{ t("Schema") }}',
+                  required: true,
+                  'x-decorator': 'FormItem',
+                  'x-component': 'CodeMirror',
+                  'x-component-props': {
+                    defaultLanguage: 'json',
+                    height: '500px',
+                  },
+                },
+              } as ISchema,
+            }),
+            title: t('Edit'),
             onSubmit: async ({ schema }) => {
               dn.emit('patch', {
                 schema: JSON.parse(schema),
