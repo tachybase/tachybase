@@ -17,9 +17,10 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { CanvasContentWrapper } from './CanvasContentWrapper';
+import { ExecutionLink } from './components/ExecutionLink';
+import { ExecutionRetryAction } from './components/ExecutionRetryAction';
 import { ExecutionStatusColumn } from './components/ExecutionStatus';
 import { BackButton } from './components/GoBackButton';
-import { ExecutionLink } from './ExecutionLink';
 import { FlowContext, useFlowContext } from './FlowContext';
 import { lang, NAMESPACE } from './locale';
 import { executionSchema } from './schemas/executions';
@@ -258,6 +259,9 @@ export function WorkflowCanvas() {
                 ExecutionResourceProvider,
                 ExecutionLink,
                 ExecutionStatusColumn,
+              }}
+              scope={{
+                ExecutionRetryAction,
               }}
             />
           </ActionContextProvider>

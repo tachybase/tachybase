@@ -1,7 +1,8 @@
-import actions, { Context } from '@tachybase/actions';
+import actions, { Context, Next, utils } from '@tachybase/actions';
 import { Op } from '@tachybase/database';
 
 import { EXECUTION_STATUS, JOB_STATUS } from '../constants';
+import Plugin from '../Plugin';
 
 export async function destroy(context: Context, next) {
   context.action.mergeParams({
@@ -55,5 +56,38 @@ export async function cancel(context: Context, next) {
   });
 
   context.body = execution;
+  await next();
+}
+
+export async function retry(context: Context, next: Next) {
+  const plugin = context.app.getPlugin(Plugin);
+  const repository = utils.getRepositoryFromParams(context);
+  const { filterByTk, filter = {}, values = {} } = context.action.params;
+  const WorkflowRepo = context.db.getRepository('workflows');
+
+  if (!context.state) {
+    context.state = {};
+  }
+  if (!context.state.messages) {
+    context.state.messages = [];
+  }
+  const execution = await repository.findOne({
+    filterByTk,
+  });
+
+  const workflow = await WorkflowRepo.findOne({
+    filterByTk: execution.workflowId,
+    appends: ['nodes'],
+    context,
+  });
+  if (!execution) {
+    context.state.messages.push({ message: 'No execution records found for this workflow.' });
+  }
+  const executionId = execution.id;
+  const result = await plugin.trigger(workflow, execution.context, { httpContext: context });
+  context.app.logger.info(result);
+  context.state.messages.push({ message: 'Execute successfully' });
+  context.body = { executionId: executionId };
+
   await next();
 }

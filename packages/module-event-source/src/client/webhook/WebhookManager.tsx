@@ -8,7 +8,13 @@ import {
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
-import { ExecutionLink, executionSchema, ExecutionStatusColumn, OpenDrawer } from '@tachybase/module-workflow/client';
+import {
+  ExecutionLink,
+  ExecutionRetryAction,
+  executionSchema,
+  ExecutionStatusColumn,
+  OpenDrawer,
+} from '@tachybase/module-workflow/client';
 import { ISchema, useForm } from '@tachybase/schema';
 
 import { Button, Space } from 'antd';
@@ -643,7 +649,10 @@ export const WebhookManager = () => {
       <SchemaComponent
         name="eventSource"
         schema={schema}
-        scope={{ useTestActionProps }}
+        scope={{
+          useTestActionProps,
+          ExecutionRetryAction,
+        }}
         components={{
           ExecutionStatusColumn,
           ExecutionResourceProvider,
