@@ -1,8 +1,10 @@
 {
+  "Action name": "动作名称",
   "App event": "应用事件",
   "Custom event source": "自定义事件源",
   "Event source": "事件源",
   "Resource": "资源",
+  "Resource name": "资源名称",
   "Sync": "同步",
   "Test": "测试",
   "TriggerOnAssociation": "关联时触发",

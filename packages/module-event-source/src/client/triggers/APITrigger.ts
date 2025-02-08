@@ -2,6 +2,7 @@ import { EventSourceTrigger } from '.';
 
 export class APITrigger extends EventSourceTrigger {
   title = 'resource';
+  description = 'api action,指定records:test';
   options = {
     resourceName: {
       type: 'string',

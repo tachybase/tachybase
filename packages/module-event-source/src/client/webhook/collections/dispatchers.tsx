@@ -72,17 +72,7 @@ export const dispatchers: CollectionOptions = {
       uiSchema: {
         type: 'object',
         title: tval('Options'),
-        'x-decorator': 'FormItem',
-        'x-component': 'FormV2',
-        'x-reactions': {
-          dependencies: ['type'],
-          fulfill: {
-            schema: {
-              'x-component-props': '{{ useTypeOptions($deps[0]) }}',
-            },
-          },
-        },
-        properties: a / b / c / d,
+        'x-component': 'TypeContainer',
       } as ISchema,
     },
     {
