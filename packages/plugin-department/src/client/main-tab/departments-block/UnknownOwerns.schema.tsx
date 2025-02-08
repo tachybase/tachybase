@@ -52,12 +52,9 @@ export const schemaUnknownOwerns = {
                 submit: {
                   title: '{{ t("Submit") }}',
                   'x-component': 'Action',
-                  'x-use-component-props': 'useOwnersUpdateActionProps',
+                  'x-use-component-props': 'useSelectOwners',
                   'x-component-props': {
                     type: 'primary',
-                  },
-                  'x-action-settings': {
-                    // isDeltaChanged: true,
                   },
                 },
               },
@@ -65,13 +62,14 @@ export const schemaUnknownOwerns = {
             table: {
               type: 'array',
               'x-component': 'TableV2',
-              'x-use-component-props': 'useTableBlockProps',
+              'x-use-component-props': 'useOwnersTableBlockProps',
               'x-component-props': {
                 rowKey: 'id',
                 rowSelection: {
                   type: 'checkbox',
                   // onChange: '{{ handleSelect }}',
                 },
+                onRowSelectionChange: '{{ handleSelect }}',
                 // useDataSource: '{{ cm.useDataSourceFromRAC }}',
               },
               properties: {

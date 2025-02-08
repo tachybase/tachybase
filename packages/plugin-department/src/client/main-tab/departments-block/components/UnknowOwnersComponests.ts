@@ -1,31 +1,21 @@
+import { useEffect } from 'react';
 import {
-  getFormValues,
-  isVariable,
+  findFilterTargets,
   mergeFilter,
   removeNullCondition,
-  transformVariableValue,
-  useActionContext,
-  useBlockRequestContext,
   useCollection,
-  useCompile,
   useDataBlockProps,
   useDataBlockRequest,
   useDataLoadingMode,
-  useFilterByTk,
+  useFilterBlock,
   useFilterOptions,
-  useFormActiveFields,
-  useFormBlockContext,
-  useLocalVariables,
-  useParamsFromRecord,
-  useVariables,
+  useTableBlockContext,
 } from '@tachybase/client';
-import { Field, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { ArrayField, Field, useField, useFieldSchema } from '@tachybase/schema';
 
-import { App } from 'antd';
 import _ from 'lodash';
-// import { isURL } from "@tachybase/utils";
-import { useNavigate } from 'react-router-dom';
 
+// import { isURL } from "@tachybase/utils";
 import { useTranslation } from '../../../locale';
 
 export const useOwnersFilterActionProps = () => {
@@ -92,135 +82,137 @@ export const useOwnersFilterFieldProps = ({ options, service, params }) => {
   };
 };
 
-export const useOwnersUpdateActionProps = () => {
-  const form = useForm();
-  const filterByTk = useFilterByTk();
-  const { field, resource, __parent } = useBlockRequestContext();
-  const { setVisible } = useActionContext();
-  const actionSchema = useFieldSchema();
-  const navigate = useNavigate();
-  const { fields, getField, name } = useCollection();
-  const compile = useCompile();
-  const actionField = useField();
-  const { updateAssociationValues } = useFormBlockContext();
-  const { modal, message } = App.useApp();
-  const data = useParamsFromRecord();
-  const variables = useVariables();
-  const localVariables = useLocalVariables({ currentForm: form });
-  const { getActiveFieldsName } = useFormActiveFields() || {};
+export const useOwnersTableBlockProps = (props) => {
+  const field = useField<ArrayField>();
+  const fieldSchema = useFieldSchema();
 
+  const ctx = useTableBlockContext();
+  const globalSort = fieldSchema.parent?.['x-decorator-props']?.['dragSortBy'];
+  const { getDataBlocks } = useFilterBlock();
+  const isLoading = ctx?.service?.loading;
+  const params = ctx?.service?.params;
+
+  useEffect(() => {
+    if (!isLoading) {
+      const serviceResponse = ctx?.service?.data;
+
+      const data = serviceResponse?.data || [];
+      const meta = serviceResponse?.meta || {};
+      const selectedRowKeys = ctx?.field?.data?.selectedRowKeys;
+
+      if (!_.isEqual(field.value, data)) {
+        field.value = data;
+        field?.setInitialValue(data);
+      }
+      field.data = field.data || {};
+
+      if (!_.isEqual(field.data.selectedRowKeys, selectedRowKeys)) {
+        field.data.selectedRowKeys = selectedRowKeys;
+      }
+
+      field.componentProps.pagination = field.componentProps.pagination || {};
+      field.componentProps.pagination.pageSize = meta?.pageSize;
+      field.componentProps.pagination.total = meta?.count;
+      field.componentProps.pagination.current = meta?.page;
+    }
+  }, [ctx?.field?.data?.selectedRowKeys, ctx?.service?.data, field, isLoading]);
   return {
-    async onClick() {
-      const {
-        assignedValues: originalAssignedValues = {},
-        onSuccess,
-        overwriteValues,
-        skipValidator,
-        triggerWorkflows,
-        isDeltaChanged,
-      } = actionSchema?.['x-action-settings'] ?? {};
+    childrenColumnName: ctx.childrenColumnName,
+    loading: ctx?.service?.loading,
+    showIndex: ctx.showIndex,
+    dragSort: ctx.dragSort && ctx.dragSortBy,
+    rowKey: ctx.rowKey || 'id',
+    pagination: fieldSchema?.['x-component-props']?.pagination === false ? false : field.componentProps.pagination,
 
-      const assignedValues = {};
-      const waitList = Object.keys(originalAssignedValues).map(async (key) => {
-        const value = originalAssignedValues[key];
-        const collectionField = getField(key);
-
-        if (process.env.NODE_ENV !== 'production') {
-          if (!collectionField) {
-            throw new Error(`useUpdateActionProps: field "${key}" not found in collection "${name}"`);
-          }
-        }
-
-        if (isVariable(value)) {
-          const result = await variables?.parseVariable(value, localVariables);
-          if (result) {
-            assignedValues[key] = transformVariableValue(result, { targetCollectionField: collectionField });
-          }
-        } else if (value != null && value !== '') {
-          assignedValues[key] = value;
-        }
+    onRowSelectionChange(selectedRowKeys, data) {
+      ctx.field.data = ctx?.field?.data || {};
+      ctx.field.data.selectedRowKeys = selectedRowKeys;
+      ctx?.field?.onRowSelect?.(selectedRowKeys);
+      props.onRowSelectionChange?.(data);
+    },
+    async onRowDragEnd({ from, to }) {
+      await ctx.resource.move({
+        sourceId: from[ctx.rowKey || 'id'],
+        targetId: to[ctx.rowKey || 'id'],
+        sortField: ctx.dragSort && ctx.dragSortBy,
       });
-      await Promise.all(waitList);
+      ctx.service.refresh();
+    },
+    onChange({ current, pageSize }, filters, sorter) {
+      const parentSort = fieldSchema.parent?.['x-decorator-props']?.['params']?.sort;
+      const sortParams = ctx.params.sort || [];
+      // NOTE: 这里将原本就有的排序参数保留
+      const parentSortReal = [...new Set([...sortParams, ...(parentSort || [])])];
 
-      if (!skipValidator) {
-        await form.submit();
+      const sort = globalSort
+        ? globalSort
+        : sorter.order
+          ? sorter.order === `ascend`
+            ? [sorter.field]
+            : [`-${sorter.field}`]
+          : parentSortReal;
+
+      ctx.service.run({ ...ctx.service.params?.[0], page: current, pageSize, sort });
+    },
+    onClickRow(record, setSelectedRow, selectedRow) {
+      const { targets, uid } = findFilterTargets(fieldSchema);
+      const dataBlocks = getDataBlocks();
+
+      // 如果是之前创建的卡片是没有 x-filter-targets 属性的，所以这里需要判断一下避免报错
+      if (!targets || !targets.some((target) => dataBlocks.some((dataBlock) => dataBlock.uid === target.uid))) {
+        // 当用户已经点击过某一行，如果此时再把相连接的卡片给删除的话，行的高亮状态就会一直保留。
+        // 这里暂时没有什么比较好的方法，只是在用户再次点击的时候，把高亮状态给清除掉。
+        setSelectedRow((prev) => (prev.length ? [] : prev));
+        return;
       }
-      const fieldNames = fields.map((field) => field.name);
-      const actionFields = getActiveFieldsName?.('form') || [];
-      const values = getFormValues({
-        filterByTk,
-        field,
-        form,
-        fieldNames,
-        getField,
-        resource,
-        actionFields,
-      });
-      actionField.data = field.data || {};
-      actionField.data.loading = true;
 
-      const rawValues = {
-        ...values,
-        ...overwriteValues,
-        ...assignedValues,
-      };
+      const value = [record[ctx.rowKey]];
 
-      const filterValues = (srcValues) =>
-        Object.entries(srcValues).reduce((obj, keyValuePair) => {
-          const [key, value] = keyValuePair;
-          if (actionFields.includes(key)) {
-            obj = {
-              ...obj,
-              [key]: value,
-            };
+      dataBlocks.forEach((block) => {
+        const target = targets.find((target) => target.uid === block.uid);
+        if (!target) return;
+
+        const param = block.service.params?.[0] || {};
+        // 保留原有的 filter
+        const storedFilter = block.service.params?.[1]?.filters || {};
+
+        if (selectedRow.includes(record[ctx.rowKey])) {
+          if (block.dataLoadingMode === 'manual') {
+            return block.clearData();
           }
-          return obj;
-        }, {});
-
-      try {
-        await resource.update({
-          filterByTk,
-          values: isDeltaChanged ? filterValues(rawValues) : rawValues,
-          ...data,
-          updateAssociationValues,
-          // TODO(refactor): should change to inject by plugin
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-            : undefined,
-        });
-        actionField.data.loading = false;
-        __parent?.service?.refresh?.();
-        setVisible?.(false);
-        if (!onSuccess?.successMessage) {
-          return;
-        }
-        if (onSuccess?.manualClose) {
-          modal.success({
-            title: compile(onSuccess?.successMessage),
-            onOk: async () => {
-              await form.reset();
-              if (onSuccess?.redirecting && onSuccess?.redirectTo) {
-                // if (isURL(onSuccess.redirectTo)) {
-                //     window.location.href = onSuccess.redirectTo;
-              } else {
-                navigate(onSuccess.redirectTo);
-              }
-            },
-            // },
-          });
+          delete storedFilter[uid];
         } else {
-          message.success(compile(onSuccess?.successMessage));
-          if (onSuccess?.redirecting && onSuccess?.redirectTo) {
-            // if (isURL(onSuccess.redirectTo)) {
-            //     window.location.href = onSuccess.redirectTo;
-          } else {
-            navigate(onSuccess.redirectTo);
-          }
-          // }
+          storedFilter[uid] = {
+            $and: [
+              {
+                [target.field || ctx.rowKey]: {
+                  [target.field ? '$in' : '$eq']: value,
+                },
+              },
+            ],
+          };
         }
-      } catch (error) {
-        actionField.data.loading = false;
-      }
+
+        const mergedFilter = mergeFilter([
+          ...Object.values(storedFilter).map((filter) => removeNullCondition(filter)),
+          block.defaultFilter,
+        ]);
+
+        return block.doFilter(
+          {
+            ...param,
+            page: 1,
+            filter: mergedFilter,
+          },
+          { filters: storedFilter },
+        );
+      });
+
+      // 更新表格的选中状态
+      setSelectedRow((prev) => (prev?.includes(record[ctx.rowKey]) ? [] : [...value]));
+    },
+    onExpand(expanded, record) {
+      ctx?.field.onExpandClick?.(expanded, record);
     },
   };
 };

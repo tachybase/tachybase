@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ActionContextProvider, useActionContext, useRecord } from '@tachybase/client';
+import { ActionContextProvider, useActionContext, useBlockRequestContext, useRecord } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
 
 import { Select } from 'antd';
@@ -17,8 +17,8 @@ export const DepartmentOwnersField = () => {
   const [value, setValue] = useState([]);
   const ref = useRef([]);
 
-  const handleSelect = (d, currValue) => {
-    ref.current = currValue;
+  const handleSelect = (currSelectedRowValue) => {
+    ref.current = currSelectedRowValue;
   };
 
   const useSelectOwners = () => {
