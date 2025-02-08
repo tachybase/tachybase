@@ -60,9 +60,6 @@ export const useSchemaDebug = () => {
           className: cx(
             'tb-action-popup',
             css`
-              .ant-modal-content {
-                padding: 0;
-              }
               .ant-modal-footer {
                 position: absolute;
                 bottom: 24px;
