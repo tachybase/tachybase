@@ -40,6 +40,10 @@ export class FieldBase {
 
   public number(params: handleFieldParams): WhereOptions<any> {
     const { field, keyword } = params;
+    // keyword不是数字则不作为搜索条件
+    if (isNaN(Number(keyword))) {
+      return null;
+    }
     return {
       [Op.and]: [
         where(
