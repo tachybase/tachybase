@@ -3,7 +3,7 @@ import { observer, RecursionField, toArr, useField, useFieldSchema } from '@tach
 
 import { useTranslation } from 'react-i18next';
 
-import { useDesignable } from '../../';
+import { useColumnSchema, useDesignable } from '../../';
 import { BlockAssociationContext, WithoutTableFieldResource } from '../../../block-provider';
 import { CollectionProvider_deprecated, useCollectionManager_deprecated } from '../../../collection-manager';
 import { Collection } from '../../../data-source';
@@ -34,14 +34,13 @@ export function isObject(value) {
 export const ReadPrettyInternalViewer = observer(
   (props: any) => {
     const { t } = useTranslation();
-
     const fieldSchema = useFieldSchema();
     const recordCtx = useRecord();
     const { getCollection } = useCollectionManager_deprecated();
     const { enableLink } = fieldSchema['x-component-props'] || {};
     // value 做了转换，但 props.value 和原来 useField().value 的值不一致
     const field = useField();
-    const fieldNames = useFieldNames(props);
+    const defFieldNames = useFieldNames(props);
     const [visible, setVisible] = useState(false);
     const insertViewer = useInsertSchema('Viewer');
     const { options: collectionField } = useAssociationFieldContext();
@@ -53,8 +52,9 @@ export const ReadPrettyInternalViewer = observer(
     const isTreeCollection = targetCollection?.template === 'tree';
     const ellipsisWithTooltipRef = useRef<IEllipsisWithTooltipRef>();
     const getLabelUiSchema = useLabelUiSchemaV2();
+    const { formulaRecord, fieldNames } = customTitle(recordCtx, fieldSchema, defFieldNames);
     const renderRecords = () =>
-      toArr(props.value).map((record, index, arr) => {
+      toArr(formulaRecord[fieldSchema['name']] || props.value).map((record, index, arr) => {
         const value = record?.[fieldNames?.label || 'label'];
         const label = isTreeCollection
           ? transformNestedData(record)
@@ -126,13 +126,13 @@ export const ReadPrettyInternalViewer = observer(
 
     const renderRecordProvider = () => {
       const collectionFieldNames = fieldSchema?.['x-collection-field']?.split('.');
-
+      //替换了原来的recordCtx[collectionFieldNames[1]]  formulaRecord加上了替换后的字段和原始数据
       return collectionFieldNames && collectionFieldNames.length > 2 ? (
-        <RecordProvider record={record} parent={recordCtx[collectionFieldNames[1]]}>
+        <RecordProvider record={record} parent={formulaRecord[collectionFieldNames[1]]}>
           {renderWithoutTableFieldResourceProvider()}
         </RecordProvider>
       ) : (
-        <RecordProvider record={record} parent={recordCtx}>
+        <RecordProvider record={record} parent={formulaRecord}>
           {renderWithoutTableFieldResourceProvider()}
         </RecordProvider>
       );
@@ -163,3 +163,41 @@ export const ReadPrettyInternalViewer = observer(
   },
   { displayName: 'ReadPrettyInternalViewer' },
 );
+
+const customTitle = (record, schema, fieldNames) => {
+  if (schema['x-component-props']?.mode === 'CustomTitle' && schema['x-component-props']?.fieldNames?.formula) {
+    const regex = /{{(.*?)}}/g;
+    const valueOject = {};
+    let outputStr = '';
+    let match;
+    const formula = schema['x-component-props']?.fieldNames?.formula;
+    while ((match = regex.exec(formula))) {
+      if (match[1].includes('.')) {
+        const fieldList = [schema.name];
+        fieldList.push(...match[1].split('.'));
+        const result = { currRecord: record, value: '' };
+        fieldList.forEach((value, index) => {
+          if (fieldList.length - 1 !== index) {
+            result.currRecord = result.currRecord?.[value];
+            return;
+          }
+          result.value = result.currRecord?.[value];
+        });
+        valueOject[match[1]] = result.value ?? '';
+      } else {
+        valueOject[match[1]] = record[schema['name']]?.[match[1]] || '';
+      }
+    }
+    outputStr = replacePlaceholders(formula, valueOject);
+
+    record[schema['name']] = { ...record[schema['name']], customLabel: outputStr };
+    return { formulaRecord: record, fieldNames: { ...fieldNames, label: 'customLabel' } };
+  }
+  return { formulaRecord: record, fieldNames };
+};
+
+const replacePlaceholders = (inputStr, values) => {
+  return inputStr.replace(/{{(.*?)}}/g, function (match, placeholder) {
+    return Object.prototype.hasOwnProperty.call(values, placeholder) ? values[placeholder] : match;
+  });
+};
