@@ -40,7 +40,6 @@ const ObjectSelect = (props: Props) => {
     }
     return currentOptions.shift();
   };
-
   return (
     <AntdSelect
       // @ts-ignore
@@ -103,7 +102,7 @@ const InternalSelect = connect(
     if (mode && !['multiple', 'tags'].includes(mode)) {
       mode = undefined;
     }
-    if ('formula' in others.fieldNames || 'collection' in props) {
+    if (['CustomTitle'].includes(props.mode) && ('formula' in others.fieldNames || 'collection' in props)) {
       return <FormulaSelect {...props} />;
     }
     if (objectValue) {

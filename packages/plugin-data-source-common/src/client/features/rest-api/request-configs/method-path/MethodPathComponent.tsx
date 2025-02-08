@@ -40,7 +40,7 @@ export const MethodPathComponent = (props) => {
     <FormProvider form={props?.actionForm ? initialForm : requestActionForm}>
       <ViewFieldMethod method={method} setFormValue={setFormValue} />
       <SchemaOptionsContext.Provider value={scCtx}>
-        <ViewFieldPath path={path} setFormValue={setFormValue} />
+        <ViewFieldPath path={path} setFormValue={setFormValue} dataSourceKey={data.dataSourceKey} />
       </SchemaOptionsContext.Provider>
     </FormProvider>
   );

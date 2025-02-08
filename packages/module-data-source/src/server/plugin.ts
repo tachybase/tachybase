@@ -169,6 +169,9 @@ export class PluginDataSourceManagerServer extends Plugin {
         status: dataSourceStatus,
         type: dataSourceModel.get('type'),
 
+        options: {
+          baseUrl: dataSourceModel.get('options')?.baseUrl,
+        },
         // @ts-ignore
         isDBInstance: !!dataSource?.collectionManager.db,
       };

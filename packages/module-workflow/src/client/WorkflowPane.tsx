@@ -36,7 +36,7 @@ function SyncOptionSelect(props) {
 }
 
 export function WorkflowPane(props) {
-  const { schema = workflowSchema } = props;
+  const { schema = workflowSchema, components, scopes } = props;
   const ctx = useContext(SchemaComponentContext);
 
   const { getTriggersOptions } = usePlugin(WorkflowPlugin);
@@ -55,10 +55,12 @@ export function WorkflowPane(props) {
             ExecutionStatusColumn,
             ColumnShowTitle,
             ColumnShowCollection,
+            ...components,
           }}
           scope={{
             getTriggersOptions,
             ExecutionRetryAction,
+            ...scopes,
           }}
         />
       </SchemaComponentContext.Provider>

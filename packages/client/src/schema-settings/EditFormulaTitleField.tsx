@@ -4,14 +4,17 @@ import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
 import { useTranslation } from 'react-i18next';
 
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../collection-manager';
-import { useCompile, useDesignable } from '../schema-component';
+import { useCollection } from '../data-source';
+import { useColumnSchema, useCompile, useDesignable } from '../schema-component';
 import { SchemaSettingsModalItem } from './SchemaSettings';
 
 export function useFormulaTitleOptions() {
   const compile = useCompile();
   const { getCollectionJoinField, getCollectionFields } = useCollectionManager_deprecated();
   const { getField } = useCollection_deprecated();
-  const fieldSchema = useFieldSchema();
+  const { fieldSchema: tableColumnSchema } = useColumnSchema();
+  const schema = useFieldSchema();
+  const fieldSchema = tableColumnSchema || schema;
   const collectionManage = useCollectionManager_deprecated();
   const collectionManageField = collectionManage.collections.filter(
     (value) => value.name === fieldSchema['x-decorator-props'],
@@ -31,7 +34,7 @@ export function useFormulaTitleOptions() {
   }
   const options = [];
   fields?.forEach((field) => {
-    if (field.interface !== 'm2m') {
+    if (!['m2m', 'o2m'].includes(field.interface)) {
       if (field.uiSchema) {
         options.push({
           label: compile(field.uiSchema.title),

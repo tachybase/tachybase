@@ -36,6 +36,7 @@ export function useSubmitCreate() {
             data: form.values,
             status: typeof args?.approvalStatus !== 'undefined' ? args?.approvalStatus : status,
             workflowId: workflow.id,
+            workflowKey: workflow.key,
           },
         });
         form.reset();

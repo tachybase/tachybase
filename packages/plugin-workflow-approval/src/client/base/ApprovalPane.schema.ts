@@ -7,15 +7,14 @@ import {
   useDataBlockResource,
   useFilterByTk,
 } from '@tachybase/client';
-import { collectionWorkflows, getExecutionSchema } from '@tachybase/module-workflow/client';
+import { collectionWorkflows } from '@tachybase/module-workflow/client';
 import { ISchema, useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { saveAs } from 'file-saver';
 
 import { NAMESPACE, tval, useTranslation } from '../locale';
-
-const executionSchema = getExecutionSchema({ isShowActionClear: false });
+import { schemaExecution } from './Execution.schema';
 
 export const approvalFieldset: Record<string, ISchema> = {
   title: {
@@ -453,7 +452,7 @@ export const schemaApprovalPanne = {
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
                   properties: {
-                    drawer: executionSchema,
+                    drawer: schemaExecution,
                   },
                 },
               },

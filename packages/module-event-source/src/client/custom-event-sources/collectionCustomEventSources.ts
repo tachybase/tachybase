@@ -1,4 +1,4 @@
-export const collectionWorkflowsManager = {
+export const collectionCustomEventSources = {
   name: 'customEventSources',
   fields: [
     {
