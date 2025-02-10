@@ -17,7 +17,7 @@ export const AssociationCascader = connect(
     const params = {
       appends: [associationField],
       fields: [titleField],
-      pageSize: 99999,
+      paginate: false,
       filter: props?.params?.filter ? { ...props?.params?.filter } : {},
     };
 

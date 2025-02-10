@@ -30,7 +30,7 @@ export const TabApprovalItem = observer((props) => {
     } else if (collectionName === 'users_jobs') {
       changeUsersJobsService(api, t, cm, compile, input, setData, params?.[tabKey], filter);
     } else if (collectionName === 'workflowNotice') {
-      const user = await api.request({ url: 'users:list', params: { pageSize: 99999 } });
+      const user = await api.request({ url: 'users:list', params: { paginate: false } });
       changeWorkflowNoticeService(api, t, cm, compile, input, setData, params?.[tabKey], filter, user?.data?.data);
     }
   }, [filter, params, input]);
@@ -170,7 +170,7 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
     .request({
       url: 'users_jobs:list',
       params: {
-        pageSize: 9999,
+        paginate: false,
         filter: { ...params, ...filter },
         appends: ['execution', 'job', 'node', 'user', 'workflow'],
       },
@@ -215,7 +215,7 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
     .request({
       url: 'approvalCarbonCopy:listCentralized',
       params: {
-        pageSize: 9999,
+        paginate: false,
         filter: { ...params, ...filter },
         appends: [
           'createdBy.id',

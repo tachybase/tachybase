@@ -23,7 +23,7 @@ export const InitiationsItem = observer((props) => {
       .request({
         url: 'workflows:list',
         params: {
-          pageSize: 9999,
+          paginate: false,
           filter: {
             $and: [
               {

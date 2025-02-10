@@ -65,7 +65,7 @@ const Cascade = connect((props) => {
       if (!propsValue.parent && !Object.keys(dataList).length) {
         resource
           .list({
-            pageSize: 9999,
+            paginate: false,
             filter: propsValue.id
               ? {
                   id: {
@@ -107,7 +107,7 @@ const Cascade = connect((props) => {
   }, [fieldFilter]);
   const handleGetOptions = async () => {
     const response = await resource.list({
-      pageSize: 9999,
+      paginate: false,
       filter: mergeFilter([fieldFilter, filter]),
       sort,
       tree: true,

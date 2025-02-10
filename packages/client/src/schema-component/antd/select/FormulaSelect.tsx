@@ -135,7 +135,7 @@ const useLabelOptions = (others) => {
     resource: collectionField?.target || fieldSchema['collectionName'],
     action: 'list',
     params: {
-      pageSize: 99999,
+      paginate: false,
     },
   };
   const regex = /{{(.*?)}}/g;
@@ -205,7 +205,7 @@ const FormulaSelect = (props) => {
       .request({
         url: others.collection + ':list',
         params: {
-          pageSize: 99999,
+          paginate: false,
           filter: filterField ? { ...filterField.filter } : {},
         },
       })
