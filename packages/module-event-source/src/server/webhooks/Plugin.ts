@@ -37,6 +37,7 @@ export class PluginWebhook extends Plugin {
     this.triggers.register('applicationEvent', new AppEventTrigger(this.app, EVENT_SOURCE_REALTIME));
     this.triggers.register('databaseEvent', new DatabaseEventTrigger(this.app, EVENT_SOURCE_REALTIME));
 
+    await this.db.sync();
     await this.loadEventSources();
   }
 
