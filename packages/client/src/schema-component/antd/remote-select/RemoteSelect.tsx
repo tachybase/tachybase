@@ -134,16 +134,21 @@ const InternalRemoteSelect = connect(
       },
       [targetField?.uiSchema, fieldNames],
     );
+    const params = {
+      ...service?.params,
+      filter: service?.params?.filter,
+    };
+    if (fieldNames['formula']) {
+      params['paginate'] = false;
+    } else {
+      params['pageSize'] = 200;
+    }
     const { data, run, loading } = useRequest(
       {
         action: 'list',
         ...service,
         headers,
-        params: {
-          pageSize: fieldNames['formula'] ? 9999 : 200,
-          ...service?.params,
-          filter: service?.params?.filter,
-        },
+        params,
       },
       {
         manual,
