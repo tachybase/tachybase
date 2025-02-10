@@ -17,6 +17,6 @@ export default class extends Migration {
       )
     `;
     const result = await this.db.sequelize.query(sql, { type: QueryTypes.UPDATE });
-    this.app.logger.info(`[webhooks] 共更新数据：${result[1]}条`);
+    this.app.logger.info(`[webhooks] updated: ${result[1]}rows`);
   }
 }
