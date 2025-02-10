@@ -8,7 +8,7 @@ import { EventSourceTrigger } from './Trigger';
 /**
  * 兼容旧版action的写法
  */
-export class APIActionTrigger extends EventSourceTrigger {
+export class CustomActionTrigger extends EventSourceTrigger {
   actionList: EventSourceModel[] = [];
 
   load(model: EventSourceModel) {

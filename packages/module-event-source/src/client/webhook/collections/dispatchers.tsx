@@ -1,7 +1,22 @@
-import { CollectionOptions } from '@tachybase/client';
+import { CollectionOptions, Space, useCompile } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
+import { Tag, Typography } from 'antd';
+
 import { tval } from '../../locale';
+
+export function TriggerOptionRender({ data }) {
+  const { label, color, options } = data;
+  const compile = useCompile();
+  return (
+    <Space direction="vertical">
+      <Tag color={color}>{compile(label)}</Tag>
+      <Typography.Text type="secondary" style={{ whiteSpace: 'normal' }}>
+        {compile(options.description)}
+      </Typography.Text>
+    </Space>
+  );
+}
 
 export const dispatchers: CollectionOptions = {
   name: 'webhooks',
@@ -54,16 +69,17 @@ export const dispatchers: CollectionOptions = {
     {
       type: 'string',
       name: 'type',
-      interface: 'radioGroup',
       uiSchema: {
         title: tval('Type'),
-        type: 'string',
-        required: true,
-        enum: '{{ typeList }}',
         'x-component': 'Select',
         'x-decorator': 'FormItem',
-        default: 'code', // 可以根据需要调整默认值
-      } as ISchema,
+        enum: '{{useTriggersOptions()}}',
+        'x-component-props': {
+          optionRender: TriggerOptionRender,
+          popupMatchSelectWidth: true,
+          listHeight: 300,
+        },
+      },
     },
     {
       type: 'json',

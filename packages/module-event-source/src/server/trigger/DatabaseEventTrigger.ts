@@ -4,7 +4,7 @@ import { EventSourceModel } from '../model/EventSourceModel';
 import { evalSimulate } from '../utils/eval-simulate';
 import { EventSourceTrigger } from './Trigger';
 
-export class DbEventTrigger extends EventSourceTrigger {
+export class DatabaseEventTrigger extends EventSourceTrigger {
   eventMap: Map<number, (...args: any[]) => void> = new Map();
 
   load(model: EventSourceModel) {

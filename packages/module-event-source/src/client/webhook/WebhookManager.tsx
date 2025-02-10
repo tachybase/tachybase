@@ -16,7 +16,7 @@ import { ISchema, useField, useForm } from '@tachybase/schema';
 import { Button, Space, Tag, Typography } from 'antd';
 
 import ModuleEventSourceClient from '..';
-import { lang } from '../locale';
+import { lang, tval } from '../locale';
 import { dispatchers } from './collections/dispatchers';
 import { TypeContainer } from './components/TypeContainer';
 
@@ -55,19 +55,6 @@ export const useTestActionProps = () => {
   };
 };
 
-export function TriggerOptionRender({ data }) {
-  const { label, color, options } = data;
-  const compile = useCompile();
-  return (
-    <Space direction="vertical">
-      <Tag color={color}>{compile(label)}</Tag>
-      <Typography.Text type="secondary" style={{ whiteSpace: 'normal' }}>
-        {compile(options.description)}
-      </Typography.Text>
-    </Space>
-  );
-}
-
 const properties = {
   name: {
     type: 'string',
@@ -91,15 +78,9 @@ const properties = {
   },
   type: {
     type: 'string',
-    'x-component': 'Select',
+    'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
     'x-collection-field': 'webhooks.type',
-    enum: '{{useTriggersOptions()}}',
-    'x-component-props': {
-      optionRender: TriggerOptionRender,
-      popupMatchSelectWidth: true,
-      listHeight: 300,
-    },
   },
   options: {
     type: 'object',

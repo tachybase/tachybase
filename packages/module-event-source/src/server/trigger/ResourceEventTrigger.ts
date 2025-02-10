@@ -5,7 +5,7 @@ import { EventSourceModel } from '../model/EventSourceModel';
 import { WebhookController } from '../webhooks/webhooks';
 import { EventSourceTrigger } from './Trigger';
 
-export class APIEventTrigger extends EventSourceTrigger {
+export class ResourceEventTrigger extends EventSourceTrigger {
   // 优先级越小越靠前
   private beforeList: EventSourceModel[] = [];
   private afterList: EventSourceModel[] = [];
@@ -46,7 +46,7 @@ export class APIEventTrigger extends EventSourceTrigger {
           await new WebhookController().triggerWorkflow(ctx, model, body);
         }
       },
-      { tag: 'event-source-resource-before-after' },
+      { tag: 'event-source-resource' },
     );
   }
 

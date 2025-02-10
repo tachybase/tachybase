@@ -4,11 +4,11 @@ import { Registry } from '@tachybase/utils';
 
 import { EVENT_SOURCE_COLLECTION, EVENT_SOURCE_REALTIME } from '../constants';
 import { EventSourceModel } from '../model/EventSourceModel';
-import { APIActionTrigger } from '../trigger/APIActionTrigger';
-import { APIEventTrigger } from '../trigger/APIEventTrigger';
 import { APITrigger } from '../trigger/APITrigger';
 import { AppEventTrigger } from '../trigger/AppEventTrigger';
-import { DbEventTrigger } from '../trigger/DbEventTrigger';
+import { CustomActionTrigger } from '../trigger/CustomActionTrigger';
+import { DatabaseEventTrigger } from '../trigger/DatabaseEventTrigger';
+import { ResourceEventTrigger } from '../trigger/ResourceEventTrigger';
 import { EventSourceTrigger } from '../trigger/Trigger';
 import { WebhookController } from './webhooks';
 
@@ -31,12 +31,11 @@ export class PluginWebhook extends Plugin {
     });
     this.app.acl.allow('webhooks', ['trigger', 'test'], 'loggedIn');
 
-    this.triggers.register('action', new APIActionTrigger(this.app, EVENT_SOURCE_REALTIME));
-    this.triggers.register('databaseEvent', new DbEventTrigger(this.app, EVENT_SOURCE_REALTIME));
-    this.triggers.register('beforeResource', new APIEventTrigger(this.app, EVENT_SOURCE_REALTIME));
-    this.triggers.register('afterResource', new APIEventTrigger(this.app, EVENT_SOURCE_REALTIME));
+    this.triggers.register('action', new CustomActionTrigger(this.app, EVENT_SOURCE_REALTIME));
+    this.triggers.register('beforeResource', new ResourceEventTrigger(this.app, EVENT_SOURCE_REALTIME));
+    this.triggers.register('afterResource', new ResourceEventTrigger(this.app, EVENT_SOURCE_REALTIME));
     this.triggers.register('applicationEvent', new AppEventTrigger(this.app, EVENT_SOURCE_REALTIME));
-    this.triggers.register('resource', new APITrigger(this.app, EVENT_SOURCE_REALTIME));
+    this.triggers.register('databaseEvent', new DatabaseEventTrigger(this.app, EVENT_SOURCE_REALTIME));
 
     await this.loadEventSources();
   }

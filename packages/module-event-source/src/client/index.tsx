@@ -4,18 +4,21 @@ import { Registry } from '@tachybase/utils/client';
 import { CustomEventSourcePane } from './custom-event-sources/CustomEventSourcePane';
 import { tval } from './locale';
 import { EventSourceTrigger } from './triggers';
-import { APIActionTrigger } from './triggers/APIActionTrigger';
-import { APITrigger } from './triggers/APITrigger';
 import { APPEventTrigger } from './triggers/APPEventTrigger';
+import { CustomActionTrigger } from './triggers/CustomActionTrigger';
+import { DatabaseEventTrigger } from './triggers/DatabaseEventTrigger';
+import { ResourceEventTrigger } from './triggers/ResourceEventTrigger';
 import { WebhookManager } from './webhook/WebhookManager';
 
 export class ModuleEventSourceClient extends Plugin {
   triggers = new Registry<EventSourceTrigger>();
 
   async load() {
-    this.triggers.register('resource', new APITrigger());
-    this.triggers.register('action', new APIActionTrigger());
+    this.triggers.register('action', new CustomActionTrigger());
     this.triggers.register('applicationEvent', new APPEventTrigger());
+    this.triggers.register('databaseEvent', new DatabaseEventTrigger());
+    this.triggers.register('beforeResource', new ResourceEventTrigger(tval('Resource action before event')));
+    this.triggers.register('afterResource', new ResourceEventTrigger(tval('Resource action after event')));
 
     this.app.systemSettingsManager.add('business-components.custom-event-source', {
       title: tval('Custom event source'),

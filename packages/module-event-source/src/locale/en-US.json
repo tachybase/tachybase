@@ -1,6 +1,8 @@
 {
   "Custom event source": "Custom event source",
   "Event source": "Event source",
+  "Resource action after event": "Resource action after event",
+  "Resource action before event": "Resource action before event",
   "Sync": "Sync",
   "Test": "Test"
 }

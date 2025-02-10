@@ -25,12 +25,12 @@ export default defineCollection({
       type: 'string',
     },
     {
-      name: 'code',
-      type: 'text',
-    },
-    {
       name: 'options',
       type: 'json',
+    },
+    {
+      name: 'code',
+      type: 'text',
     },
   ],
 });

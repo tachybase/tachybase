@@ -1,13 +1,20 @@
 import { EventSourceTrigger } from '.';
+import { NAMESPACE } from '../locale';
 
 export class APPEventTrigger extends EventSourceTrigger {
-  title = `App event`;
-  description = `{{t("Application after start before start")}}`;
+  title = `{{t("App event", { ns: "${NAMESPACE}" })}}`;
+  description = '{{t("Application after start before start")}}';
   options = {
-    resourceName: {
+    eventName: {
+      required: true,
       type: 'string',
-      title: 'resourceName',
+      title: `{{t("App event", { ns: "${NAMESPACE}" })}}`,
       'x-decorator': 'FormItem',
+      'x-component': 'Select',
+      enum: [
+        { label: 'afterStart', value: 'afterStart' },
+        { label: 'beforeStop', value: 'beforeStop' },
+      ],
     },
   };
 }

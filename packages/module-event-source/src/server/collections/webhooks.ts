@@ -48,5 +48,9 @@ export default defineCollection({
       name: 'eventName',
       type: 'string',
     },
+    {
+      name: 'options',
+      type: 'json',
+    },
   ],
 });
