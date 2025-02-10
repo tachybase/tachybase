@@ -17,7 +17,7 @@ export const ApprovalTemplateType = observer((props) => {
     api
       .request({
         url: 'workflows:list',
-        params: { pageSize: 9999, filter: { type: { $eq: 'approval' }, enabled: { $eq: true } } },
+        params: { paginate: false, filter: { type: { $eq: 'approval' }, enabled: { $eq: true } } },
       })
       .then((res) => {
         const columnsData = res.data.data.map((value) => {

@@ -30,7 +30,7 @@ export const AutoComplete = connect(
       } = await api.request({
         url: fieldSchema['collectionName'] + ':list',
         params: {
-          pageSize: 99999,
+          paginate: false,
           filter: fieldFilter ? { ...fieldFilter.filter } : {},
         },
       });
