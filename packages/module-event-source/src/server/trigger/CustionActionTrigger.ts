@@ -12,8 +12,16 @@ export class CustomActionTrigger extends EventSourceTrigger {
   eventMap: Map<number, IAPITriggerConfig> = new Map();
 
   load(model: EventSourceModel) {
+    if (!model.options) {
+      return;
+    }
     const app = this.app;
-    const { actionName, resourceName, id, code, workflowKey } = model;
+    const {
+      options: { actionName, resourceName },
+      id,
+      code,
+      workflowKey,
+    } = model;
     this.eventMap.set(id, { code, workflowKey });
     if (!app.resourcer.isDefined(resourceName)) {
       app.resourcer.define({ name: resourceName });
@@ -25,7 +33,7 @@ export class CustomActionTrigger extends EventSourceTrigger {
     }
     app.logger.info(`Add ${resourceName}:${actionName} action handler`);
     app.resourcer.getResource(resourceName).addAction(actionName, async (ctx: Context) => {
-      // 如果允许实时刷新,则间接禁用这个, TODO: 需要验证
+      // 如果允许实时刷新,则间接禁用这个接口
       if (this.realTimeRefresh && !this.workSet.has(id)) {
         ctx.throw(404, 'Not found');
       }
@@ -40,7 +48,7 @@ export class CustomActionTrigger extends EventSourceTrigger {
     this.load(model);
   }
 
-  // TODO 很难修改和删除
+  // TODO 很难修改和删除,目前实时刷新的时候间接修改
   afterUpdate(model: EventSourceModel) {
     const { enabled, code, workflowKey, id } = model;
     if (enabled && !this.workSet.has(id)) {

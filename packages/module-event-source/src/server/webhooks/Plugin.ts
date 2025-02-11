@@ -34,16 +34,24 @@ export class PluginWebhook extends Plugin {
       async (ctx: Context, next: Next) => {
         await next();
         const { resourceName, actionName } = ctx.action;
-        if (resourceName === 'webhooks' && actionName === 'list') {
-          const rows = ctx.body.rows as EventSourceModel[];
-          rows.forEach((model) => {
+        if (resourceName === 'webhooks') {
+          if (actionName === 'list') {
+            const rows = ctx.body.rows as EventSourceModel[];
+            rows.forEach((model) => {
+              const trigger = this.triggers.get(model.type);
+              if (!trigger) {
+                model.effect = true;
+              } else {
+                model.effect = trigger.getEffect(model);
+              }
+            });
+          } else if (actionName === 'get') {
+            const model = ctx.body as EventSourceModel;
             const trigger = this.triggers.get(model.type);
-            if (!trigger) {
-              model.effect = true;
-            } else {
-              model.effect = trigger.getEffect(model);
+            if (trigger) {
+              model.effectConfig = trigger.getEffectConfig(model.id);
             }
-          });
+          }
         }
       },
       { tag: 'webhooks-show-effect' },
@@ -70,6 +78,7 @@ export class PluginWebhook extends Plugin {
       const trigger = this.triggers.get(item.type);
       trigger?.load(item);
       trigger?.workSetAdd(item.id);
+      trigger?.effectConfigSet(item.id, item.toJSON());
     }
 
     for (const trigger of this.triggers.getValues()) {
@@ -84,6 +93,7 @@ export class PluginWebhook extends Plugin {
       if (model.enabled) {
         await trigger.afterCreate(model);
         trigger.workSetAdd(model.id);
+        trigger.effectConfigSet(model.id, model.toJSON());
       }
     });
 
@@ -104,6 +114,7 @@ export class PluginWebhook extends Plugin {
       if (!trigger?.getRealTimeRefresh()) {
         return;
       }
+      trigger.effectConfigSet(model.id, model.toJSON());
       await trigger.afterUpdate(model);
       // 修改了type的情况
       if (options.values.type && options.values.type !== model.type) {

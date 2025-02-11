@@ -8,6 +8,9 @@ export class DatabaseEventTrigger extends EventSourceTrigger {
   eventMap: Map<number, (...args: any[]) => void> = new Map();
 
   load(model: EventSourceModel) {
+    if (!model.options) {
+      return;
+    }
     const {
       options: { eventName },
       workflowKey,

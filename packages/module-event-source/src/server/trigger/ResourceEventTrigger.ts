@@ -11,12 +11,15 @@ export class ResourceEventTrigger extends EventSourceTrigger {
   private afterList: EventSourceModel[] = [];
 
   load(model: EventSourceModel) {
+    if (!model.options) {
+      return;
+    }
     const { type } = model;
     const prefix = type.substring(0, type.indexOf('Resource'));
     if (prefix === 'before') {
-      this.beforeList.push(model);
+      this.beforeList.push(model.toJSON());
     } else {
-      this.afterList.push(model);
+      this.afterList.push(model.toJSON());
     }
   }
 
@@ -105,9 +108,9 @@ export class ResourceEventTrigger extends EventSourceTrigger {
       return;
     }
     if (index !== -1) {
-      list[index] = model;
+      list[index] = model.toJSON();
     } else {
-      list.push(model);
+      list.push(model.toJSON());
     }
   }
 

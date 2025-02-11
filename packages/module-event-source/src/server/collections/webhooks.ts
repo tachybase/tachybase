@@ -56,5 +56,9 @@ export default defineCollection({
       name: 'effect',
       type: 'virtual',
     },
+    {
+      name: 'effectConfig',
+      type: 'virtual',
+    },
   ],
 });

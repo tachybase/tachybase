@@ -7,6 +7,7 @@ export class EventSourceTrigger implements IEventSourceTrigger {
   protected app: Application;
   protected realTimeRefresh = false;
   protected workSet: Set<number> = new Set();
+  protected effectConfigMap: Map<number, any> = new Map();
 
   public getRealTimeRefresh() {
     return this.realTimeRefresh;
@@ -29,6 +30,9 @@ export class EventSourceTrigger implements IEventSourceTrigger {
   public workSetDelete(id: number) {
     this.workSet.delete(id);
   }
+  public effectConfigSet(id: number, config: any) {
+    this.effectConfigMap.set(id, config);
+  }
   // 判断是否生效(中间件中执行)
   getEffect(model: EventSourceModel) {
     return this.workSet.has(model.id);
@@ -39,4 +43,14 @@ export class EventSourceTrigger implements IEventSourceTrigger {
   afterUpdate(model: EventSourceModel) {}
 
   afterDestroy(model: EventSourceModel) {}
+
+  getEffectConfig(id: number) {
+    const model = this.effectConfigMap.get(id);
+    // 禁用状态为null
+    if (!model) {
+      return null;
+    }
+    const { enabled, type, options, workflowKey } = model;
+    return JSON.stringify({ enabled, type, options, workflowKey }, null, 2);
+  }
 }

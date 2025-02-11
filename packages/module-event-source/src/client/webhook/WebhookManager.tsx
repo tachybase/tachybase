@@ -105,6 +105,21 @@ const properties = {
     },
     'x-collection-field': 'webhooks.code',
   },
+  effectConfig: {
+    title: tval('Effect config'),
+    type: 'string',
+    'x-component': 'CodeMirror',
+    'x-component-props': {
+      options: {
+        readOnly: true,
+      },
+    },
+    'x-decorator': 'FormItem',
+    'x-decorator-props': {
+      tooltip: tval('The real effect of the server, not the preset configuration'),
+    },
+    'x-collection-field': 'webhooks.effectConfig',
+  },
 };
 
 const createForm: ISchema = {
