@@ -59,14 +59,13 @@ export default class extends Instruction {
     }
 
     const nextIndex = result + 1;
-
     const target = processor.getParsedValue(loop.config.target, node.id);
     // branchJob.status === JOB_STATUS.RESOLVED means branchJob is done, try next loop or exit as resolved
     if (branchJob.status > JOB_STATUS.PENDING) {
       job.set({ result: nextIndex });
 
       const length = getTargetLength(target);
-      if (nextIndex < length) {
+      if (nextIndex <= length) {
         await processor.saveJob(job);
         await processor.run(branch, job);
         return null;

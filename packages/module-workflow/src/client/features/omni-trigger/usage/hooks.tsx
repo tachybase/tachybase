@@ -54,17 +54,19 @@ export const usePropsAPIRegular = () => {
         duration: 0,
       });
     } else if (event.msg === 'progress') {
+      const time = Math.floor((event.current / event.total) * 100) === 100 ? 3 : 0;
       notification.info({
         key: 'workflow:regular',
-        message: t('Processing...'),
+        message: `${t('Processing')}...`,
         description: <Progress percent={Math.floor((event.current / event.total) * 100)} />,
-        duration: 0,
+        duration: time,
       });
     } else if (event.msg === 'done') {
       notification.success({
         key: 'workflow:regular',
         message: t('Done'),
         description: <Progress percent={100} />,
+        duration: 3,
       });
       service.refresh();
     }
