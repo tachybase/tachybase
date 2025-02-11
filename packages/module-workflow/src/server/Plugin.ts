@@ -228,6 +228,7 @@ export default class PluginWorkflowServer extends Plugin {
         'executions:list',
         'executions:get',
         'executions:cancel',
+        'executions:retry',
         'flow_nodes:update',
         'flow_nodes:destroy',
       ],

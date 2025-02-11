@@ -4,7 +4,7 @@ import { useActionContext, useRecord } from '@tachybase/client';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { getWorkflowExecutionsPath } from './utils';
+import { getWorkflowExecutionsPath } from '../utils';
 
 export const ExecutionLink = () => {
   const { t } = useTranslation();
