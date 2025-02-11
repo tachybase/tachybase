@@ -8,7 +8,7 @@ type IAPITriggerConfig = {
   code: string;
   workflowKey: string;
 };
-export class APITrigger extends EventSourceTrigger {
+export class CustomActionTrigger extends EventSourceTrigger {
   eventMap: Map<number, IAPITriggerConfig> = new Map();
 
   load(model: EventSourceModel) {

@@ -7,5 +7,5 @@ export interface IEventSourceTrigger {
   load: (model: EventSourceModel, app: Application) => void;
 
   // 判断是否生效(中间件中执行)
-  ifEffective: (model: EventSourceModel) => boolean;
+  getEffect: (model: EventSourceModel) => boolean;
 }

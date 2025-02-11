@@ -53,16 +53,24 @@ export class ResourceEventTrigger extends EventSourceTrigger {
   private getMatchList(list: EventSourceModel[], resourceName: string, actionName: string): EventSourceModel[] {
     let targetResource = resourceName || '';
     const matchList = [];
+    // 优先按照options.sort 从小到大排序，再按照id从小到大排序
+    list.sort((a, b) => {
+      let diffSort = a.options.sort - b.options.sort;
+      if (diffSort !== 0) {
+        return diffSort;
+      }
+      return a.id - b.id;
+    });
     for (const item of list) {
-      targetResource = item.resourceName;
-      if (item.triggerOnAssociation) {
+      targetResource = item.options.resourceName;
+      if (item.options.triggerOnAssociation) {
         const parts = resourceName.split('.');
         if (parts.length === 2) {
           const collection = this.app.db.getCollection(resourceName);
           targetResource = collection?.name;
         }
       }
-      if (targetResource === resourceName && item.actionName === actionName) {
+      if (targetResource === resourceName && item.options.actionName === actionName) {
         matchList.push(item);
       }
     }

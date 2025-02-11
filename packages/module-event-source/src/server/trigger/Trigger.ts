@@ -30,7 +30,7 @@ export class EventSourceTrigger implements IEventSourceTrigger {
     this.workSet.delete(id);
   }
   // 判断是否生效(中间件中执行)
-  ifEffective(model: EventSourceModel) {
+  getEffect(model: EventSourceModel) {
     return this.workSet.has(model.id);
   }
 

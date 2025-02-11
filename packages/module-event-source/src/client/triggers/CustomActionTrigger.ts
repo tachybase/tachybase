@@ -1,21 +1,27 @@
 import { EventSourceTrigger } from '.';
-import { NAMESPACE } from '../locale';
+import { NAMESPACE, tval } from '../locale';
 
 export class CustomActionTrigger extends EventSourceTrigger {
-  title = `{{t("Custom resource action", { ns: "${NAMESPACE}" })}}`;
-  description = '{{t("api接口,用于指定自定义请求")}}';
+  title = tval('Custom resource action');
+  description = tval('for creating custom requests, try not to duplicate with other requests');
   options = {
     resourceName: {
       type: 'string',
-      title: 'Resource name',
+      title: tval('Resource name'),
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
     actionName: {
       type: 'string',
-      title: 'Action name',
+      title: tval('Action name'),
       'x-decorator': 'FormItem',
       'x-component': 'Input',
+    },
+    triggerOnAssociation: {
+      type: 'boolean',
+      title: tval('Trigger on association'),
+      'x-decorator': 'FormItem',
+      'x-component': 'Checkbox',
     },
   };
 }

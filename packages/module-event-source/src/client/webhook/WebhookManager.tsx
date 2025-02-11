@@ -555,6 +555,31 @@ const schema: ISchema = {
                 },
               },
             },
+            effectColumn: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+              },
+              properties: {
+                effect: {
+                  type: 'boolean',
+                  'x-collection-field': 'webhooks.effect',
+                  'x-component': 'CollectionField',
+                  'x-component-props': {
+                    ellipsis: true,
+                  },
+                  'x-read-pretty': true,
+                  'x-decorator': null,
+                  'x-decorator-props': {
+                    labelStyle: {
+                      display: 'none',
+                    },
+                  },
+                },
+              },
+            },
             actionColumn: {
               type: 'void',
               title: '{{ t("Actions") }}',

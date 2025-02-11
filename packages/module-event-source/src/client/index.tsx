@@ -14,11 +14,27 @@ export class ModuleEventSourceClient extends Plugin {
   triggers = new Registry<EventSourceTrigger>();
 
   async load() {
-    this.triggers.register('action', new CustomActionTrigger());
+    this.triggers.register('resource', new CustomActionTrigger());
     this.triggers.register('applicationEvent', new APPEventTrigger());
     this.triggers.register('databaseEvent', new DatabaseEventTrigger());
-    this.triggers.register('beforeResource', new ResourceEventTrigger(tval('Resource action before event')));
-    this.triggers.register('afterResource', new ResourceEventTrigger(tval('Resource action after event')));
+    this.triggers.register(
+      'beforeResource',
+      new ResourceEventTrigger(
+        tval('Resource action before event'),
+        tval(
+          'get user input and original data changes before operation, but the workflow is triggered before the resource operation, which is commonly used for data verification, etc.',
+        ),
+      ),
+    );
+    this.triggers.register(
+      'afterResource',
+      new ResourceEventTrigger(
+        tval('Resource action after event'),
+        tval(
+          'get user input and original data changes before operation, but the workflow is triggered after the resource operation, which is commonly used for specific association changes, etc.',
+        ),
+      ),
+    );
 
     this.app.systemSettingsManager.add('business-components.custom-event-source', {
       title: tval('Custom event source'),

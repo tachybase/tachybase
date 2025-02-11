@@ -105,5 +105,22 @@ export const dispatchers: CollectionOptions = {
         },
       } as ISchema,
     },
+    {
+      type: 'boolean',
+      name: 'effect',
+      interface: 'radioGroup',
+      uiSchema: {
+        title: tval('Real effect'),
+        type: 'string',
+        required: true,
+        enum: [
+          { label: tval('On'), value: true, color: '#52c41a' },
+          { label: tval('Off'), value: false },
+        ],
+        'x-component': 'Radio.Group',
+        'x-decorator': 'FormItem',
+        default: false,
+      } as ISchema,
+    },
   ],
 };

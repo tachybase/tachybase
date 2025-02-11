@@ -1,19 +1,21 @@
 import { EventSourceTrigger } from '.';
-import { NAMESPACE } from '../locale';
+import { NAMESPACE, tval } from '../locale';
 
 export class APPEventTrigger extends EventSourceTrigger {
-  title = `{{t("App event", { ns: "${NAMESPACE}" })}}`;
-  description = '{{t("Application after start before start")}}';
+  title = tval('App event');
+  description = tval(
+    'Application-related events, such as beforeStop: before the application stops, afterStart: after the application starts',
+  );
   options = {
     eventName: {
       required: true,
       type: 'string',
-      title: `{{t("App event", { ns: "${NAMESPACE}" })}}`,
+      title: tval('Event name'),
       'x-decorator': 'FormItem',
-      'x-component': 'Select',
-      enum: [
-        { label: 'afterStart', value: 'afterStart' },
-        { label: 'beforeStop', value: 'beforeStop' },
+      'x-component': 'Input',
+      // FIXME: 兼容相同eventName导致的bug
+      'x-reactions': [
+        '{{(field) => { const collection = field.query("options.collection").get("value"); const event = field.query("options.collectionEvent").get("value"); field.value = `${collection || ""}.${event || ""}`; }}}',
       ],
     },
   };

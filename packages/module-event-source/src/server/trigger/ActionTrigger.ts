@@ -8,7 +8,7 @@ import { EventSourceTrigger } from './Trigger';
 /**
  * 兼容旧版action的写法
  */
-export class CustomActionTrigger extends EventSourceTrigger {
+export class ActionTrigger extends EventSourceTrigger {
   actionList: EventSourceModel[] = [];
 
   load(model: EventSourceModel) {
@@ -25,7 +25,7 @@ export class CustomActionTrigger extends EventSourceTrigger {
         const { resourceName, actionName } = ctx.action;
         const actionObj = {};
         const actionList = this.actionList.filter((action) => {
-          return resourceName === action.resourceName && actionName === action.actionName;
+          return resourceName === action.options.resourceName && actionName === action.options.actionName;
         });
         if (!actionList.length) {
           return next();

@@ -52,5 +52,9 @@ export default defineCollection({
       name: 'options',
       type: 'json',
     },
+    {
+      name: 'effect',
+      type: 'virtual',
+    },
   ],
 });

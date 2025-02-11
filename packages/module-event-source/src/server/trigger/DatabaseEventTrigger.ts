@@ -8,7 +8,11 @@ export class DatabaseEventTrigger extends EventSourceTrigger {
   eventMap: Map<number, (...args: any[]) => void> = new Map();
 
   load(model: EventSourceModel) {
-    const { eventName, workflowKey, code } = model;
+    const {
+      options: { eventName },
+      workflowKey,
+      code,
+    } = model;
     this.app.logger.info('Add database event listener', { meta: { eventName, workflowKey } });
     const callback = this.getDbEvent(model).bind(this);
     this.app.db.on(eventName, callback);
@@ -61,7 +65,7 @@ export class DatabaseEventTrigger extends EventSourceTrigger {
     if (model.enabled && !this.workSet.has(model.id)) {
       this.load(model);
     } else if (!model.enabled && this.workSet.has(model.id)) {
-      this.app.db.off(model.eventName, this.eventMap.get(model.id));
+      this.app.db.off(model.options.eventName, this.eventMap.get(model.id));
       this.eventMap.delete(model.id);
     }
   }
@@ -71,7 +75,7 @@ export class DatabaseEventTrigger extends EventSourceTrigger {
     if (!callback) {
       return;
     }
-    this.app.db.off(model.eventName, callback);
+    this.app.db.off(model.options.eventName, callback);
     this.eventMap.delete(model.id);
   }
 }
