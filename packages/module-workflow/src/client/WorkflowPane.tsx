@@ -5,9 +5,10 @@ import { onFieldChange, useField, useFormEffects } from '@tachybase/schema';
 import WorkflowPlugin, { RadioWithTooltip } from '.';
 import { ColumnShowCollection } from './components/ColumnShowCollection';
 import { ColumnShowTitle } from './components/ColumnShowTitle';
+import { ExecutionLink } from './components/ExecutionLink';
+import { ExecutionRetryAction } from './components/ExecutionRetryAction';
 import { ExecutionStatusColumn, ExecutionStatusSelect } from './components/ExecutionStatus';
 import OpenDrawer from './components/OpenDrawer';
-import { ExecutionLink } from './ExecutionLink';
 import { ExecutionResourceProvider } from './ExecutionResourceProvider';
 import { executionCollection } from './schemas/executions';
 import { collectionWorkflows, workflowSchema } from './schemas/workflows';
@@ -58,6 +59,7 @@ export function WorkflowPane(props) {
           }}
           scope={{
             getTriggersOptions,
+            ExecutionRetryAction,
             ...scopes,
           }}
         />
