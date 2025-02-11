@@ -1,10 +1,17 @@
 import React from 'react';
-import { useActionContext, useDataBlockRequest, useDataBlockResource } from '@tachybase/client';
+import {
+  Input,
+  useActionContext,
+  useCollectionRecordData,
+  useDataBlockRequest,
+  useDataBlockResource,
+} from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { Link } from 'react-router-dom';
 
+import { getExecutionTime } from '../components/ExecutionTime';
 import { ExecutionStatusOptions } from '../constants';
 import { NAMESPACE, useTranslation } from '../locale';
 import { getWorkflowDetailPath } from '../utils';
@@ -43,8 +50,11 @@ export const executionCollection = {
       uiSchema: {
         type: 'bigInt',
         title: `{{t("Execution time", { ns: "${NAMESPACE}" })}}`,
-        'x-component': 'Input',
-        'x-component-props': {},
+        'x-component': ({ value }) => {
+          const record = useCollectionRecordData();
+          const timeCount = getExecutionTime(record, value);
+          return <Input type="text" value={timeCount} />;
+        },
         'x-read-pretty': true,
       } as ISchema,
     },
