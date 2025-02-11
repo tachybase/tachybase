@@ -4,7 +4,7 @@ import { QueryTypes } from 'sequelize';
 
 export default class extends Migration {
   on = 'afterLoad'; // 'beforeLoad' or 'afterLoad'
-  appVersion = '<0.23.42';
+  appVersion = '<0.23.43';
 
   async up() {
     const sql = `

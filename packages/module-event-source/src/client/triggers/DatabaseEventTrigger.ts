@@ -1,7 +1,5 @@
-import { init } from 'packages/plugin-workflow-approval/src/server/actions';
-
 import { EventSourceTrigger } from '.';
-import { lang, NAMESPACE, tval } from '../locale';
+import { tval } from '../locale';
 
 export class DatabaseEventTrigger extends EventSourceTrigger {
   title = tval('Database event');
