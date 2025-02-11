@@ -498,8 +498,8 @@ export const useFilterBlockActionProps = () => {
   return {
     async onClick() {
       const { targets = [], uid } = findFilterTargets(fieldSchema);
-
       actionField.data.loading = true;
+      let prevMergedFilter = {};
       try {
         // 收集 filter 的值
         await Promise.all(
@@ -544,8 +544,9 @@ export const useFilterBlockActionProps = () => {
               ...Object.values(storedFilter).map((filter) => removeNullCondition(filter)),
               block.defaultFilter,
               filter.customFilter,
+              prevMergedFilter,
             ]);
-
+            prevMergedFilter = mergedFilter;
             if (block.dataLoadingMode === 'manual' && _.isEmpty(mergedFilter)) {
               return block.clearData();
             }

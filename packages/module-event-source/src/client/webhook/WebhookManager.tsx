@@ -10,7 +10,13 @@ import {
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
-import { ExecutionLink, executionSchema, ExecutionStatusColumn, OpenDrawer } from '@tachybase/module-workflow/client';
+import {
+  ExecutionLink,
+  ExecutionRetryAction,
+  executionSchema,
+  ExecutionStatusColumn,
+  OpenDrawer,
+} from '@tachybase/module-workflow/client';
 import { ISchema, useField, useForm } from '@tachybase/schema';
 
 import { Button, Space, Tag, Typography } from 'antd';
@@ -664,6 +670,7 @@ export const WebhookManager = () => {
           useTestActionProps,
           useTriggersOptions,
           useTypeOptions,
+          ExecutionRetryAction,
         }}
         components={{
           ExecutionStatusColumn,

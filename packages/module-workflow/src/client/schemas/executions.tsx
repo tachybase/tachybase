@@ -185,6 +185,12 @@ export const getExecutionSchema = (params?) => {
                         type: 'void',
                         'x-component': 'ExecutionLink',
                       },
+                      retry: {
+                        type: 'void',
+                        title: `{{t("Retry", { ns: "${NAMESPACE}" })}}`,
+                        'x-component': 'Action.Link',
+                        'x-use-component-props': 'ExecutionRetryAction',
+                      },
                     },
                   },
                 },

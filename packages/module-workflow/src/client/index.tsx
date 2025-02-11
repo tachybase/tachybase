@@ -6,7 +6,6 @@ export * from './Branch';
 export * from './components';
 export * from './constants';
 export * from './ExecutionContextProvider';
-export * from './ExecutionLink';
 export * from './FlowContext';
 export * from './hooks';
 export { executionCollection, executionSchema, getExecutionSchema } from './schemas/executions';

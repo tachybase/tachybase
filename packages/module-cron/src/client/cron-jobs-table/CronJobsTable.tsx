@@ -5,7 +5,12 @@ import {
   TableBlockProvider,
   useCollectionRecordData,
 } from '@tachybase/client';
-import { ExecutionLink, ExecutionStatusColumn, OpenDrawer } from '@tachybase/module-workflow/client';
+import {
+  ExecutionLink,
+  ExecutionRetryAction,
+  ExecutionStatusColumn,
+  OpenDrawer,
+} from '@tachybase/module-workflow/client';
 
 import collection from '../../collections/cronJobs';
 import { EndsByField } from '../components/EndsByField';
@@ -43,6 +48,9 @@ export const CronJobsTable = () => {
           ExecutionLink,
           ExecutionStatusColumn,
           OpenDrawer,
+        }}
+        scope={{
+          ExecutionRetryAction,
         }}
       />
     </ExtendCollectionsProvider>
