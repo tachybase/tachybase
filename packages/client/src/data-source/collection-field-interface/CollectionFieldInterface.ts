@@ -53,23 +53,4 @@ export abstract class CollectionFieldInterface {
   validateSchema?(fieldSchema: ISchema): Record<string, ISchema>;
   usePathOptions?(field: CollectionFieldOptions): any;
   schemaInitialize?(schema: ISchema, data: any): void;
-  addComponentOption(componentOption: CollectionFieldInterfaceComponentOption) {
-    if (!this.componentOptions) {
-      this.componentOptions = [];
-      const xComponent = this.default?.uiSchema?.['x-component'];
-      const componentProps = this.default?.uiSchema?.['x-component-props'];
-      if (xComponent) {
-        this.componentOptions = [
-          {
-            label: xComponent.split('.').pop(),
-            value: xComponent,
-            useProps() {
-              return componentProps || {};
-            },
-          },
-        ];
-      }
-    }
-    this.componentOptions.push(componentOption);
-  }
 }

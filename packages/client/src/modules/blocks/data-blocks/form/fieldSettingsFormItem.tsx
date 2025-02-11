@@ -9,7 +9,7 @@ import { SchemaSettings } from '../../../../application/schema-settings/SchemaSe
 import { useFormBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
-import { fieldComponentSettingsItem, useContextConfigSetting } from '../../../../data-source';
+import { useContextConfigSetting } from '../../../../data-source';
 import { useDesignable, useValidateSchema } from '../../../../schema-component';
 import { useIsFormReadPretty } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { getTempFieldState } from '../../../../schema-component/antd/form-v2/utils';
@@ -482,7 +482,6 @@ export const fieldSettingsFormItem = new SchemaSettings({
               return form && !isFormReadPretty && validateSchema;
             },
           },
-          { ...fieldComponentSettingsItem },
         ];
       },
     },
