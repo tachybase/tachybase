@@ -1,8 +1,6 @@
 import actions, { Context, Next, utils } from '@tachybase/actions';
 import { Op } from '@tachybase/database';
 
-import { useTranslation } from 'react-i18next';
-
 import { EXECUTION_STATUS, JOB_STATUS } from '../constants';
 import Plugin from '../Plugin';
 
@@ -62,7 +60,6 @@ export async function cancel(context: Context, next) {
 }
 
 export async function retry(context: Context, next: Next) {
-  const { t } = useTranslation();
   const plugin = context.app.getPlugin(Plugin);
   const repository = utils.getRepositoryFromParams(context);
   const { filterByTk, filter = {}, values = {} } = context.action.params;
@@ -75,13 +72,13 @@ export async function retry(context: Context, next: Next) {
     context.state.messages = [];
   }
   if (!filterByTk) {
-    context.throw(400, t('Execution ID is required'));
+    context.throw(400, context.t('Execution ID is required', { ns: 'workflow' }));
   }
   const execution = await repository.findOne({
     filterByTk,
   });
   if (!execution) {
-    context.throw(404, t('No execution records found for this workflow.'));
+    context.throw(404, context.t('No execution records found for this workflow.', { ns: 'workflow' }));
   }
   const workflow = await WorkflowRepo.findOne({
     filterByTk: execution.workflowId,
@@ -89,7 +86,7 @@ export async function retry(context: Context, next: Next) {
     context,
   });
   if (!workflow) {
-    context.throw(404, t('Associated workflow not found.'));
+    context.throw(404, context.t('Associated workflow not found.', { ns: 'workflow' }));
   }
   try {
     const result = await plugin.trigger(workflow, execution.context, { httpContext: context });
