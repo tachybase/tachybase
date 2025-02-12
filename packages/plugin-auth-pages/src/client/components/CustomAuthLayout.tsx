@@ -6,13 +6,16 @@ import { Outlet } from 'react-router-dom';
 
 import accountBg from '../assets/account-bg.webp';
 import { useProps } from './CustomAuthLayout.props';
+import { useStyles } from './CustomAuthLayout.style';
 
 export const CustomAuthLayout = () => {
-  const { title, authenticators, error } = useProps();
+  const { title, authenticators } = useProps();
+  const { styles } = useStyles();
   return (
-    <Row style={{ height: '100%' }}>
+    <Row className={styles.customAuthLayout}>
       <Col xs={{ span: 0 }} md={{ span: 12 }}>
-        <img
+        <div className="account-bg"></div>
+        {/* <img
           src={accountBg}
           style={{
             objectFit: 'cover',
@@ -23,7 +26,7 @@ export const CustomAuthLayout = () => {
             display: 'block',
             verticalAlign: 'middle',
           }}
-        />
+        /> */}
       </Col>
       <Col xs={{ span: 24 }} md={{ span: 12 }}>
         <div
