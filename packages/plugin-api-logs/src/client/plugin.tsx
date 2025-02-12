@@ -1,4 +1,10 @@
-import { Plugin } from '@tachybase/client';
+import { Plugin, SchemaInitializerItemType } from '@tachybase/client';
+
+import { ApiLogsProvider } from './ApiLogsProvider';
+import { apiLogsTableActionColumnInitializers } from './initializers/ApiLogsTableActionColumnInitializers';
+import { apiLogsTableActionInitializers } from './initializers/ApiLogsTableActionInitializers';
+import { apiLogsTableColumnInitializers } from './initializers/ApiLogsTableColumnInitializers';
+import { tval } from './locale';
 
 class PluginApiLogsClient extends Plugin {
   async afterAdd() {
@@ -9,12 +15,19 @@ class PluginApiLogsClient extends Plugin {
 
   // You can get and modify the app instance here
   async load() {
-    console.log(this.app);
-    // this.app.addComponents({})
-    // this.app.addScopes({})
-    // this.app.addProvider()
-    // this.app.addProviders()
-    // this.app.router.add()
+    this.app.use(ApiLogsProvider);
+    this.app.schemaInitializerManager.add(apiLogsTableActionInitializers);
+    this.app.schemaInitializerManager.add(apiLogsTableActionColumnInitializers);
+    this.app.schemaInitializerManager.add(apiLogsTableColumnInitializers);
+
+    const blockInitializers = this.app.schemaInitializerManager.get('page:addBlock');
+    const recordBlockInitializers = this.app.schemaInitializerManager.get('popup:common:addBlock');
+    const apiLogs: Omit<SchemaInitializerItemType, 'name'> = {
+      title: tval('Api logs'),
+      Component: 'ApiLogsBlockInitializer',
+    };
+    blockInitializers.add('otherBlocks.apiLogs', apiLogs);
+    recordBlockInitializers.add('otherBlocks.apiLogs', apiLogs);
   }
 }
 

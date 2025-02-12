@@ -1,7 +1,9 @@
 import { isMainThread } from 'node:worker_threads';
 import { Plugin } from '@tachybase/server';
 
-import { handleUpdate } from './hooks/afterUpdate';
+import { ResourcerContext } from 'packages/resourcer/src/resourcer';
+
+import { handleCreate, handleDestroy, handleUpdate } from './hooks';
 
 export class PluginApiLogsServer extends Plugin {
   async afterAdd() {
@@ -20,9 +22,14 @@ export class PluginApiLogsServer extends Plugin {
     this.app.resourcer.use(
       async (ctx, next) => {
         const { actionName, resourceName, params } = ctx.action;
-        // const { showAnonymous } = params || {};
         if (actionName === 'update') {
           handleUpdate(ctx);
+        }
+        if (actionName === 'create') {
+          handleCreate(ctx);
+        }
+        if (actionName === 'destroy') {
+          handleDestroy(ctx);
         }
         await next();
       },

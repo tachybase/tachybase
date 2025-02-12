@@ -1,6 +1,8 @@
 import { Application } from '@tachybase/server';
 
-export async function handleCreate(ctx) {
+import { getChanged } from './getFieldChange';
+
+export async function handleDestroy(ctx) {
   const { actionName, resourceName, params } = ctx.action;
   const currentTime = new Date().toISOString();
   const apilogsRepo = ctx.db.getRepository('apiLogs');
@@ -8,20 +10,18 @@ export async function handleCreate(ctx) {
   const app = ctx.app as Application;
   const collection = app.mainDataSource.collectionManager.getCollection(ctx.action.resourceName);
   const changes = [];
-  const changed = params.values;
-  if (changed) {
-    Object.keys(changed).forEach((key: string) => {
-      const field = collection.findField((field) => {
-        return field.name === key || field.options.field === key;
-      });
-      if (changed[key] && field && !field.options.hidden) {
-        changes.push({
-          field: field.options,
-          after: changed[key],
-        });
-      }
+  const { changed, data: dataBefore } = await getChanged(ctx);
+  Object.keys(dataBefore).forEach((key: string) => {
+    const field = collection.findField((field) => {
+      return field.name === key || field.options.field === key;
     });
-  }
+    if (dataBefore[key] && field && !field.options.hidden) {
+      changes.push({
+        field: field.options,
+        before: dataBefore[key],
+      });
+    }
+  });
   if (!changes.length) {
     return;
   }

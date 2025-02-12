@@ -2,7 +2,11 @@
   "name": "@tachybase/plugin-api-logs",
   "version": "0.23.41",
   "main": "dist/server/index.js",
-  "dependencies": {},
+  "devDependencies": {
+    "@ant-design/icons": "^5.6.1",
+    "antd": "5.22.5",
+    "react-i18next": "^15.4.0"
+  },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",
