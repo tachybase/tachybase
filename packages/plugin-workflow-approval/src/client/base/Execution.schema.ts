@@ -115,6 +115,12 @@ export const schemaExecution = {
                       type: 'void',
                       'x-component': 'ExecutionLink',
                     },
+                    retry: {
+                      type: 'void',
+                      title: tval('Retry'),
+                      'x-component': 'Action.Link',
+                      'x-use-component-props': 'ExecutionRetryAction',
+                    },
                   },
                 },
               },
@@ -170,7 +176,7 @@ export const schemaExecution = {
                 },
               },
             },
-            executionTime: {
+            executionCost: {
               type: 'void',
               title: `{{t("Executed time", { ns: "${NAMESPACE_WORKFLOW}" })}}`,
               'x-decorator': 'TableV2.Column.Decorator',
@@ -179,9 +185,9 @@ export const schemaExecution = {
                 width: 50,
               },
               properties: {
-                executionTime: {
+                executionCost: {
                   type: 'string',
-                  'x-decorator': 'ExecutionTime',
+                  // 'x-decorator': 'ExecutionTime',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
                 },
