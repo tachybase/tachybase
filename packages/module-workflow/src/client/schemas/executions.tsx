@@ -52,7 +52,7 @@ export const executionCollection = {
         title: `{{t("Execution time", { ns: "${NAMESPACE}" })}}`,
         'x-component': ({ value }) => {
           const record = useCollectionRecordData();
-          const timeCount = getExecutionTime(record, value);
+          const timeCount = getExecutionTime(value, record);
           return <Input type="text" value={timeCount} />;
         },
         'x-read-pretty': true,

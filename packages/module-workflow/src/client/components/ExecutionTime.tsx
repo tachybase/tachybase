@@ -26,22 +26,24 @@ export function formatDuration(seconds: number): string {
   return result.trim();
 }
 
-export function formatMsToDHS(milliseconds: number): string {
-  // 如果秒数大于等于 999 天的秒数，限制为 999 天
+export function formatMsToDHS(milliseconds: number): string | undefined {
+  const TEN_MINUTES_MS = 600000;
+  const MILLISECONDS_IN_SECOND = 1000;
+  const SECONDS_IN_DAY = 24 * 60 * 60;
+  const maxDays = 999;
   if (!milliseconds) {
     return;
   }
-  const seconds = milliseconds / 1000;
-  const maxDays = 999;
-  const maxSeconds = maxDays * 24 * 60 * 60;
+  const seconds = milliseconds / MILLISECONDS_IN_SECOND;
+  const maxSeconds = maxDays * SECONDS_IN_DAY;
   if (seconds >= maxSeconds) {
     return `${maxDays} D`;
   }
 
-  if (milliseconds < 600000) {
+  if (milliseconds < TEN_MINUTES_MS) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-    const remainingMilliseconds = milliseconds % 1000;
+    const remainingMilliseconds = milliseconds % MILLISECONDS_IN_SECOND;
 
     let result = `${remainingMilliseconds} ms`;
 
@@ -54,8 +56,8 @@ export function formatMsToDHS(milliseconds: number): string {
     return result;
   }
 
-  const days = Math.floor(seconds / (24 * 60 * 60));
-  const hours = Math.floor((seconds % (24 * 60 * 60)) / 3600);
+  const days = Math.floor(seconds / SECONDS_IN_DAY);
+  const hours = Math.floor((seconds % SECONDS_IN_DAY) / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const remainingSeconds = seconds % 60;
 
@@ -71,7 +73,7 @@ export function formatMsToDHS(milliseconds: number): string {
   return result.trim();
 }
 
-export function getExecutionTime(record, executionCost) {
+export function getExecutionTime(executionCost: number, record?): string | undefined {
   const getTimeDifference = () => {
     const currentTime = Date.now();
     const createdAtTime = new Date(record.createdAt).getTime();
@@ -83,19 +85,17 @@ export function getExecutionTime(record, executionCost) {
     let interval;
 
     if (record.status === 0) {
-      // 如果status为0，使用时间差并实时更新
       interval = setInterval(() => {
         setDisplayValue(getTimeDifference());
       }, 1000);
     } else {
-      // 如果status不为0，使用executionCost
       setDisplayValue(executionCost);
     }
 
     return () => {
-      if (interval) clearInterval(interval); // 清除定时器
+      if (interval) clearInterval(interval);
     };
-  }, [executionCost, record.status]); // 依赖executionCost和record.status
+  }, [executionCost, record.status]);
 
   return formatMsToDHS(displayValue);
 }
