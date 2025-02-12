@@ -19,6 +19,8 @@ const Documentation = () => {
   const { data: urls } = useRequest<{ data: { name: string; url: string }[] }>({ url: 'swagger:getUrls' });
   const app = useApp();
   const requestInterceptor = (req) => {
+    // 如果是a.localhost访问的子应用,而且主应用未开启api-doc,但是子应用开启
+    req.headers['X-Hostname'] = window.location.hostname;
     if (!req.headers['Authorization']) {
       const appName = getSubAppName(app.getPublicPath());
       if (appName) {
