@@ -50,7 +50,11 @@ export default class extends Provider {
       case 'LimitExceeded.PhoneNumberThirtySecondLimit':
       case 'LimitExceeded.PhoneNumberOneHourLimit':
         error.name = 'RateLimit';
+        break;
+      default:
+        error.name = 'UnknownError';
+        break;
     }
-    throw error;
+    return result.RequestId;
   }
 }
