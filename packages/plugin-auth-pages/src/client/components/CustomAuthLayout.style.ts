@@ -32,6 +32,13 @@ export const useStyles = createStyles(({ css, token }) => {
         position: relative;
         display: grid;
         place-items: center;
+        background-color: #f9fbfe;
+      }
+
+      .account-languagetoggle {
+        position: absolute;
+        right: 24px;
+        top: 24px;
       }
 
       .account-container {

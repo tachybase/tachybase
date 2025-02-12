@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom';
 
 import { useProps } from './CustomAuthLayout.props';
 import { useStyles } from './CustomAuthLayout.style';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export const CustomAuthLayout = () => {
   const { title, authenticators } = useProps();
@@ -23,6 +24,9 @@ export const CustomAuthLayout = () => {
         <div className="account-bg"></div>
       </Col>
       <Col className="account-wrapper" xs={{ span: 24 }} md={{ span: 10 }}>
+        <div className="account-languagetoggle">
+          <LanguageSwitcher />
+        </div>
         <div className="account-container">
           <h1>{title}</h1>
           <AuthenticatorsContext.Provider value={authenticators as any}>
