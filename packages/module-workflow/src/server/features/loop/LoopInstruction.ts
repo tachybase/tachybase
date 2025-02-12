@@ -65,7 +65,7 @@ export default class extends Instruction {
       job.set({ result: nextIndex });
 
       const length = getTargetLength(target);
-      if (nextIndex <= length) {
+      if (nextIndex < length) {
         await processor.saveJob(job);
         await processor.run(branch, job);
         return null;
