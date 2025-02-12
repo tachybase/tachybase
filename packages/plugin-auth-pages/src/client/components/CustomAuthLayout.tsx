@@ -1,29 +1,19 @@
-import React from 'react';
-import { css, PoweredBy, useAPIClient, useRequest, useSystemSettings } from '@tachybase/client';
+import { css, PoweredBy } from '@tachybase/client';
 import { AuthenticatorsContext } from '@tachybase/module-auth/client';
 
 import { Col, Row } from 'antd';
 import { Outlet } from 'react-router-dom';
 
-import authImg from './image.png';
+import accountBg from '../assets/account-bg.webp';
+import { useProps } from './CustomAuthLayout.props';
 
-export function CustomAuthLayout() {
-  const { data } = useSystemSettings();
-  const api = useAPIClient();
-  const { data: authenticators = [], error } = useRequest(() =>
-    api
-      .resource('authenticators')
-      .publicList()
-      .then((res) => {
-        return res?.data?.data || [];
-      }),
-  );
-
+export const CustomAuthLayout = () => {
+  const { title, authenticators, error } = useProps();
   return (
     <Row style={{ height: '100%' }}>
       <Col xs={{ span: 0 }} md={{ span: 12 }}>
         <img
-          src={authImg}
+          src={accountBg}
           style={{
             objectFit: 'cover',
             objectPosition: 'center',
@@ -43,7 +33,7 @@ export function CustomAuthLayout() {
             paddingTop: '20vh',
           }}
         >
-          <h1>{data?.data?.title}</h1>
+          <h1>{title}</h1>
           <AuthenticatorsContext.Provider value={authenticators as any}>
             <Outlet />
           </AuthenticatorsContext.Provider>
@@ -62,4 +52,4 @@ export function CustomAuthLayout() {
       </Col>
     </Row>
   );
-}
+};
