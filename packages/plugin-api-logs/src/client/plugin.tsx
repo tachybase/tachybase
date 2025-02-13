@@ -1,10 +1,11 @@
 import { Plugin, SchemaInitializerItemType } from '@tachybase/client';
 
 import { ApiLogsProvider } from './ApiLogsProvider';
+import { apiLogsConfigProvider } from './configuration/apiLogsConfigProvider';
 import { apiLogsTableActionColumnInitializers } from './initializers/ApiLogsTableActionColumnInitializers';
 import { apiLogsTableActionInitializers } from './initializers/ApiLogsTableActionInitializers';
 import { apiLogsTableColumnInitializers } from './initializers/ApiLogsTableColumnInitializers';
-import { tval } from './locale';
+import { lang, tval } from './locale';
 
 class PluginApiLogsClient extends Plugin {
   async afterAdd() {
@@ -28,6 +29,12 @@ class PluginApiLogsClient extends Plugin {
     };
     blockInitializers.add('otherBlocks.apiLogs', apiLogs);
     recordBlockInitializers.add('otherBlocks.apiLogs', apiLogs);
+
+    this.app.systemSettingsManager.add('system-services.apilogs-config', {
+      icon: 'SettingOutlined',
+      title: lang('Api logs configuration'),
+      Component: apiLogsConfigProvider,
+    });
   }
 }
 

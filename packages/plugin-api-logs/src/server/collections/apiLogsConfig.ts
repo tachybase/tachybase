@@ -10,13 +10,11 @@ export default {
   updatedAt: false,
   createdAt: false,
   shared: true,
-  autoGenId: false,
   model: 'CollectionModel',
   fields: [
     {
       type: 'string',
       name: 'name',
-      primaryKey: true,
     },
     {
       type: 'string',

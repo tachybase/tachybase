@@ -8,13 +8,13 @@ export class ApiFilter {
 
   constructor(database: Database) {
     this.db = database;
+    this.addRefreshListener();
   }
 
   // app.start的时候从数据库apiLogsConfig保存到whiteList和blackList
   async load() {
     try {
       const apiConfigs = await this.db.getRepository('apiLogsConfig').find();
-      console.log('%c Line:17 🌶 apiConfigs', 'color:#4fff4B', apiConfigs);
       this.whiteList = [];
       this.blackList = [];
       for (const item of apiConfigs) {
@@ -31,8 +31,10 @@ export class ApiFilter {
     }
   }
 
-  async refresh() {
-    this.load;
+  async addRefreshListener() {
+    this.db.on('apiLogsConfig.afterSave', () => {
+      this.load();
+    });
   }
 
   check(resourceName: string, actionName: string): boolean {
