@@ -2717,12 +2717,21 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
     devDependencies:
       '@ant-design/icons':
         specifier: ^5.6.1

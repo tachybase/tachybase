@@ -1,8 +1,7 @@
 import { isMainThread } from 'node:worker_threads';
 import { Plugin } from '@tachybase/server';
 
-import { ResourcerContext } from 'packages/resourcer/src/resourcer';
-
+import { ApiFilter } from './ApiFilter';
 import { handleCreate, handleDestroy, handleUpdate } from './hooks';
 
 export class PluginApiLogsServer extends Plugin {
@@ -19,9 +18,16 @@ export class PluginApiLogsServer extends Plugin {
   }
 
   async addApiListener() {
+    const apiFilter = new ApiFilter(this.db);
+    this.app.on('afterStart', async () => {
+      await apiFilter.load();
+    });
     this.app.resourcer.use(
       async (ctx, next) => {
         const { actionName, resourceName, params } = ctx.action;
+        if (!apiFilter.check(resourceName, actionName)) {
+          return next();
+        }
         if (actionName === 'update') {
           handleUpdate(ctx);
         }
@@ -33,7 +39,7 @@ export class PluginApiLogsServer extends Plugin {
         }
         await next();
       },
-      { tag: 'apiLogs', after: ['auth'] },
+      { tag: 'apiLogs', after: 'acl', before: 'dataSource' },
     );
   }
 

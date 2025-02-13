@@ -5,6 +5,7 @@ export async function handleCreate(ctx) {
   const currentTime = new Date().toISOString();
   const apilogsRepo = ctx.db.getRepository('apiLogs');
   const currentUserId = ctx.auth?.user.id;
+  const currentRecordId = params.filterByTk;
   const app = ctx.app as Application;
   const collection = app.mainDataSource.collectionManager.getCollection(ctx.action.resourceName);
   const changes = [];
@@ -31,7 +32,7 @@ export async function handleCreate(ctx) {
         action: actionName,
         createdAt: currentTime,
         collectionName: resourceName,
-        recordId: params.filterByTk,
+        recordId: currentRecordId,
         userId: currentUserId,
         changes,
       },
