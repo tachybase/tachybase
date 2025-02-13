@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-data-source",
   "displayName": "Data source manager",
-  "version": "0.23.44",
+  "version": "0.23.45",
   "description": "Manage data sources, including the built-in Master database, external databases, APIs, etc.",
   "keywords": [
     "Data model tools"
