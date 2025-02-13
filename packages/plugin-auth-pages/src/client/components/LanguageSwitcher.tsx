@@ -2,12 +2,16 @@ import { useState } from 'react';
 
 import { Dropdown, type MenuProps } from 'antd';
 
+import { useStyles } from './LanguageSwitcher.style';
+
 export const LanguageSwitcher = () => {
+  const { styles } = useStyles();
   const [language, setLanguage] = useState('zh_CN'); // 默认语言为中文
 
   const handleLanguageChange = (value) => {
     setLanguage(value);
   };
+
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -27,8 +31,8 @@ export const LanguageSwitcher = () => {
     },
   ];
   return (
-    <Dropdown menu={{ items }} placement="bottomRight" className="language-selector">
-      <span>语言: {language === 'zh_CN' ? '中文' : 'English'}</span>
+    <Dropdown className={styles.languageSwitcher} menu={{ items }} placement="bottomRight">
+      <span className="language-dropdown-text">{language === 'zh_CN' ? '中文' : 'English'}</span>
     </Dropdown>
   );
 };
