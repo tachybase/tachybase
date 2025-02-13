@@ -1,7 +1,13 @@
 import { Plugin } from '@tachybase/server';
 
+import { DateOnlyField } from './DateOnlyField';
+
 export class PluginFieldDateOnlyServer extends Plugin {
-  async afterAdd() {}
+  async afterAdd() {
+    this.db.registerFieldTypes({
+      dateOnly: DateOnlyField,
+    });
+  }
 
   async beforeLoad() {}
 

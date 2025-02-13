@@ -46,6 +46,7 @@ export class PresetTachyBase extends Plugin {
     ['field-formula', '0.22.7', true],
     ['field-sequence', '0.22.7', true],
     ['field-encryption', '0.23.8', true],
+    ['field-date-only', '0.23.45', true],
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
     ['full-text-search', '0.23.24', true],

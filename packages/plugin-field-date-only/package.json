@@ -1,7 +1,10 @@
 {
   "name": "@tachybase/plugin-field-date-only",
-  "version": "0.23.42",
+  "version": "0.23.45",
   "main": "dist/server/index.js",
+  "dependencies": {
+    "@emotion/css": "^11.13.5"
+  },
   "devDependencies": {
     "antd": "5.22.5"
   },
