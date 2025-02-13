@@ -24,7 +24,13 @@ export class PluginExternalDataSourceServer extends Plugin {
     }
   }
 
-  async load() {}
+  async load() {
+    // 通过菜单权限数据源管理的管理员能够运行测试,crud任意操作
+    this.app.acl.registerSnippet({
+      name: 'pm.database-connections.manager',
+      actions: ['dataSources.*:*'],
+    });
+  }
 
   async install() {}
 
