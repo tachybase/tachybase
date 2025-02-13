@@ -54,7 +54,7 @@ export class DatabaseEventService {
         const result = (await pluginWorkflow.trigger(
           wf,
           { data: webhookCtx.body },
-          { dbModel: model, dbOptions: options },
+          { dbModel: model, dbOptions: options, ...options },
         )) as Processor;
         if (result?.lastSavedJob.status === JOB_STATUS.ERROR) {
           throw new Error(result.lastSavedJob?.result);
