@@ -15,24 +15,20 @@ export const LanguageSwitcher = () => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-          中文
-        </a>
-      ),
+      label: <span>简体中文</span>,
     },
     {
       key: '2',
-      label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-          English
-        </a>
-      ),
+      label: <span>English</span>,
     },
   ];
+
   return (
-    <Dropdown className={styles.languageSwitcher} menu={{ items }} placement="bottomRight">
-      <span className="language-dropdown-text">{language === 'zh_CN' ? '中文' : 'English'}</span>
+    <Dropdown menu={{ items }} placement="bottomRight">
+      <div className={styles.languageText}>
+        <span className="icon-globe"></span>
+        <span>{language === 'zh_CN' ? '简体中文' : 'English'}</span>
+      </div>
     </Dropdown>
   );
 };

@@ -44,7 +44,6 @@ export const useStyles = createStyles(({ css, token }) => {
       .account-container {
         position: relative;
         margin: 0 auto;
-        width: 400px;
         max-width: 480px;
         transform: translateY(-50%);
       }
