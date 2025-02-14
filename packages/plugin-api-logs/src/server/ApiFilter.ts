@@ -3,8 +3,8 @@ import Database from '@tachybase/database';
 export class ApiFilter {
   db: Database;
   // 白名单
-  whiteList: { name: string; action: string }[] = [];
-  blackList: { name: string; action: string }[] = [];
+  whiteList: { resourceName: string; action: string }[] = [];
+  blackList: { resourceName: string; action: string }[] = [];
 
   constructor(database: Database) {
     this.db = database;
@@ -19,13 +19,11 @@ export class ApiFilter {
       this.blackList = [];
       for (const item of apiConfigs) {
         if (item.apiConfig) {
-          this.whiteList.push({ name: item.name, action: item.action });
+          this.whiteList.push({ resourceName: item.resourceName, action: item.action });
         } else {
-          this.blackList.push({ name: item.name, action: item.action });
+          this.blackList.push({ resourceName: item.resourceName, action: item.action });
         }
       }
-      console.log('White List:', this.whiteList);
-      console.log('Black List:', this.blackList);
     } catch (error) {
       console.error('Failed to load API filter lists:', error);
     }
@@ -38,6 +36,6 @@ export class ApiFilter {
   }
 
   check(resourceName: string, actionName: string): boolean {
-    return this.whiteList.some((item) => item.name === resourceName && item.action === actionName);
+    return this.whiteList.some((item) => item.resourceName === resourceName && item.action === actionName);
   }
 }

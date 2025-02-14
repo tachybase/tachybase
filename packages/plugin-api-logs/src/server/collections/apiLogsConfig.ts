@@ -14,7 +14,11 @@ export default {
   fields: [
     {
       type: 'string',
-      name: 'name',
+      name: 'resourceName',
+    },
+    {
+      type: 'string',
+      name: 'title',
     },
     {
       type: 'string',
@@ -24,6 +28,12 @@ export default {
       type: 'boolean',
       name: 'apiConfig',
       defaultValue: true,
+    },
+  ],
+  indexes: [
+    {
+      fields: ['resourceName', 'action'],
+      unique: true,
     },
   ],
 } as CollectionOptions;

@@ -8,10 +8,22 @@ export const apiLogsConfigCollection = {
     {
       interface: 'input',
       type: 'string',
-      name: 'name',
+      name: 'resourceName',
       uiSchema: {
         type: 'string',
-        title: '{{t("Name")}}',
+        title: '{{t("Table name")}}',
+        'x-component': 'Input',
+        'x-component-props': {},
+        'x-read-pretty': true,
+      } as ISchema,
+    },
+    {
+      interface: 'input',
+      type: 'string',
+      name: 'title',
+      uiSchema: {
+        type: 'string',
+        title: '{{t("Title")}}',
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,
@@ -117,7 +129,13 @@ export const createApiConfig: ISchema = {
                     },
                   },
                 },
-                name: {
+                resourceName: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                  required: true,
+                },
+                title: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
@@ -126,6 +144,7 @@ export const createApiConfig: ISchema = {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
+                  required: true,
                 },
                 apiConfig: {
                   type: 'boolean',
@@ -145,7 +164,7 @@ export const createApiConfig: ISchema = {
 export const apiLogsConfigPane: ISchema = {
   type: 'void',
   properties: {
-    [uid()]: {
+    apiLogsConfig: {
       type: 'void',
       'x-component': 'CardItem',
       'x-decorator': 'TableBlockProvider',
@@ -205,18 +224,37 @@ export const apiLogsConfigPane: ISchema = {
                 },
               },
             },
-            // edit: {
-            //   type: 'void',
-            //   title: '{{ t("Update") }}',
-            //   'x-action': 'update',
-            //   'x-decorator': 'ACLActionProvider',
-            //   'x-use-component-props': 'useUpdateActionProps',
-            //   'x-component': 'Action',
-            //   'x-component-props': {
-            //     openMode: 'drawer',
-            //     icon: 'EditOutlined',
-            //   },
-            // },
+            enable: {
+              type: 'void',
+              title: '{{ t("Enable") }}',
+              'x-action': 'update',
+              'x-decorator': 'ACLActionProvider',
+              'x-use-component-props': 'useApiLogsConfigEnableProps',
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'EditOutlined',
+              },
+            },
+            disenable: {
+              type: 'void',
+              title: '{{ t("Disenable") }}',
+              'x-action': 'update',
+              'x-decorator': 'ACLActionProvider',
+              'x-use-component-props': 'useApiLogsConfigDisenableProps',
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'EditOutlined',
+              },
+            },
+            sync: {
+              type: 'void',
+              title: '{{ t("table sync") }}',
+              'x-use-component-props': 'useApiLogsConfigSyncProps',
+              'x-component': 'Action',
+              'x-component-props': {
+                icon: 'VerticalAlignBottomOutlined',
+              },
+            },
             create: createApiConfig,
           },
         },
@@ -231,7 +269,7 @@ export const apiLogsConfigPane: ISchema = {
             },
           },
           properties: {
-            name: {
+            resourceName: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
@@ -239,7 +277,22 @@ export const apiLogsConfigPane: ISchema = {
                 align: 'center',
               },
               properties: {
-                name: {
+                resourceName: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            title: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                align: 'center',
+              },
+              properties: {
+                title: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
@@ -272,43 +325,10 @@ export const apiLogsConfigPane: ISchema = {
                 apiConfig: {
                   type: 'boolean',
                   'x-component': 'CollectionField',
+                  'x-read-pretty': true,
                 },
               },
             },
-            // actions: {
-            //   type: 'void',
-            //   title: '{{ t("Actions") }}',
-            //   'x-component': 'TableV2.Column',
-            //   'x-component-props': {
-            //     width: 50,
-            //   },
-            //   properties: {
-            //     actions: {
-            //       type: 'void',
-            //       'x-component': 'Space',
-            //       'x-component-props': {
-            //         split: '|',
-            //       },
-            //       properties: {
-            //         delete: {
-            //           type: 'void',
-            //           title: '{{ t("Delete") }}',
-            //           'x-action': 'destroy',
-            //           'x-decorator': 'ACLActionProvider',
-            //           'x-component': 'Action.Link',
-            //           'x-use-component-props': 'useDestroyActionProps',
-            //           'x-component-props': {
-            //             icon: 'DeleteOutlined',
-            //             confirm: {
-            //               title: "{{t('Delete record')}}",
-            //               content: "{{t('Are you sure you want to delete it?')}}",
-            //             },
-            //           },
-            //         },
-            //       },
-            //     },
-            //   },
-            // },
           },
         },
       },

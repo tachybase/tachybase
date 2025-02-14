@@ -1,9 +1,13 @@
 import { isMainThread } from 'node:worker_threads';
-import { Plugin } from '@tachybase/server';
+import { InjectedPlugin, Plugin } from '@tachybase/server';
 
+import { ApiLogsController } from './actions/apiLogsController';
 import { ApiFilter } from './ApiFilter';
 import { handleCreate, handleDestroy, handleUpdate } from './hooks';
 
+@InjectedPlugin({
+  Controllers: [ApiLogsController],
+})
 export class PluginApiLogsServer extends Plugin {
   async afterAdd() {
     if (!isMainThread) {
