@@ -11,7 +11,7 @@ export const apiLogsConfigCollection = {
       name: 'resourceName',
       uiSchema: {
         type: 'string',
-        title: '{{t("Table name")}}',
+        title: tval('Resource name'),
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,
@@ -47,7 +47,7 @@ export const apiLogsConfigCollection = {
       name: 'apiConfig',
       uiSchema: {
         type: 'boolean',
-        title: `{{t("Api audit", { ns: "${NAMESPACE}" })}}`,
+        title: tval('Api audit'),
         'x-component': 'Checkbox',
       } as ISchema,
     },
@@ -237,7 +237,7 @@ export const apiLogsConfigPane: ISchema = {
             },
             disenable: {
               type: 'void',
-              title: '{{ t("Disenable") }}',
+              title: tval('Disable'),
               'x-action': 'update',
               'x-decorator': 'ACLActionProvider',
               'x-use-component-props': 'useApiLogsConfigDisenableProps',
@@ -248,7 +248,7 @@ export const apiLogsConfigPane: ISchema = {
             },
             sync: {
               type: 'void',
-              title: '{{ t("table sync") }}',
+              title: tval('Table sync'),
               'x-use-component-props': 'useApiLogsConfigSyncProps',
               'x-component': 'Action',
               'x-component-props': {

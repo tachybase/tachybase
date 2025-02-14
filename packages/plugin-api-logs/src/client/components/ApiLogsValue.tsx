@@ -6,7 +6,7 @@ export const ApiLogsValue = observer(
   () => {
     const field = useField<any>();
     const record = useCollectionRecordData();
-    if (record.field?.uiSchema) {
+    if (record.field?.uiSchema && record.field.uiSchema['x-component'] !== 'AssociationField') {
       return (
         <FormProvider>
           <SchemaComponent

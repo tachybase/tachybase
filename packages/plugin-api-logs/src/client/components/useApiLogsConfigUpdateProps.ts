@@ -1,28 +1,9 @@
-import {
-  getFormValues,
-  isVariable,
-  transformVariableValue,
-  useActionContext,
-  useBlockRequestContext,
-  useCollection,
-  useCollection_deprecated,
-  useCompile,
-  useDataBlockRequest,
-  useDataBlockResource,
-  useFilterByTk,
-  useFormActiveFields,
-  useFormBlockContext,
-  useLocalVariables,
-  useParamsFromRecord,
-  useVariables,
-} from '@tachybase/client';
-import { useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { isURL } from '@tachybase/utils';
+import { useBlockRequestContext, useDataBlockRequest, useDataBlockResource, useTranslation } from '@tachybase/client';
 
-import { App } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 export const useApiLogsConfigEnableProps = () => {
+  const { t } = useTranslation();
   const { field } = useBlockRequestContext();
   const resource = useDataBlockResource();
   const { refresh } = useDataBlockRequest();
@@ -30,7 +11,7 @@ export const useApiLogsConfigEnableProps = () => {
   return {
     async onClick() {
       if (!field?.data?.selectedRowKeys?.length) {
-        return;
+        return message.error(t('Please select the records you want to enable'));
       }
 
       try {
@@ -48,6 +29,7 @@ export const useApiLogsConfigEnableProps = () => {
 };
 
 export const useApiLogsConfigDisenableProps = () => {
+  const { t } = useTranslation();
   const { field } = useBlockRequestContext();
   const resource = useDataBlockResource();
   const { refresh } = useDataBlockRequest();
@@ -55,7 +37,7 @@ export const useApiLogsConfigDisenableProps = () => {
   return {
     async onClick() {
       if (!field?.data?.selectedRowKeys?.length) {
-        return;
+        return message.error(t('Please select the records you want to disable'));
       }
 
       try {
