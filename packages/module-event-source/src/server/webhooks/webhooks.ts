@@ -7,6 +7,7 @@ import { dayjs } from '@tachybase/utils';
 
 import lodash from 'lodash';
 
+import { EVENT_SOURCE_COLLECTION } from '../constants';
 import { evalSimulate } from '../utils/eval-simulate';
 
 function isSameBasic(val1: any, val2: any): boolean {
@@ -182,7 +183,7 @@ export class WebhookController {
     };
 
     const pluginWorkflow = ctx.app.getPlugin(PluginWorkflow) as PluginWorkflow;
-    const repo = ctx.db.getRepository('webhooks');
+    const repo = ctx.db.getRepository(EVENT_SOURCE_COLLECTION);
     const webhook = await repo.findOne(where);
     const webhookCtx = {
       request: ctx.request,

@@ -5,6 +5,7 @@ export default defineCollection({
   dumpRules: {
     group: 'required',
   },
+  model: 'EventSourceModel',
   fields: [
     {
       name: 'name',
@@ -46,6 +47,18 @@ export default defineCollection({
     {
       name: 'eventName',
       type: 'string',
+    },
+    {
+      name: 'options',
+      type: 'json',
+    },
+    {
+      name: 'effect',
+      type: 'virtual',
+    },
+    {
+      name: 'effectConfig',
+      type: 'virtual',
     },
   ],
 });
