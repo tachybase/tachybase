@@ -84,7 +84,7 @@ function rawTypeToFieldType(rawType, exampleValue) {
     boolean: 'boolean',
     object: () => {
       if (_.isNull(exampleValue)) {
-        return ['string', 'integer', 'float', 'boolean', 'json'];
+        return ['string', 'integer', 'float', 'boolean', 'json', 'date', 'bigInt'];
       }
       return 'json';
     },
