@@ -32,7 +32,7 @@ export class OmniTrigger extends Trigger {
         ctx.status = err.status;
       },
     );
-    workflow.app.use(this.middleware, { tag: 'workflowTrigger', after: 'dataSource' });
+    workflow.app.resourcer.use(this.middleware, { tag: 'workflowTrigger', after: 'dataSource' });
   }
   triggerAction = async (context, next) => {
     const {
