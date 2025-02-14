@@ -1,5 +1,5 @@
 import { Collection, DataSource } from '@tachybase/data-source';
-import { parse } from '@tachybase/utils';
+import { dayjs, parse } from '@tachybase/utils';
 
 import axios from 'axios';
 import _ from 'lodash';
@@ -66,9 +66,17 @@ function buildTemplateContext(options) {
 }
 function rawTypeToFieldType(rawType, exampleValue) {
   const typeInfers = {
-    string: 'string',
+    string: () => {
+      if (dayjs(exampleValue).isValid()) {
+        return ['string', 'date'];
+      }
+      return 'string';
+    },
     number: () => {
       if (Number.isInteger(exampleValue)) {
+        if (dayjs(exampleValue).isValid()) {
+          return ['integer', 'bigInt'];
+        }
         return 'integer';
       }
       return 'float';
