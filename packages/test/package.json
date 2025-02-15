@@ -44,13 +44,13 @@
   },
   "dependencies": {
     "@faker-js/faker": "8.4.1",
-    "@formily/shared": "2.3.2",
     "@playwright/test": "^1.49.1",
     "@tachybase/database": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@testing-library/dom": "^9.3.4",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^14.3.1",
+    "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/supertest": "^2.0.16",
     "@vitejs/plugin-react": "^4.3.4",
@@ -68,7 +68,7 @@
     "sqlite3": "^5.1.7",
     "supertest": "^6.3.4",
     "vite": "^5.4.11",
-    "vitest": "^1.6.0",
+    "vitest": "^3.0.5",
     "ws": "^8.18.0"
   }
 }

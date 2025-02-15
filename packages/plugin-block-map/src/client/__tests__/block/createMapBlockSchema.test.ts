@@ -1,6 +1,6 @@
 import { createMapBlockUISchema } from '../../block/createMapBlockUISchema';
 
-vi.mock('@formily/shared', () => {
+vi.mock('@tachybase/schema', () => {
   return {
     uid: () => 'mocked-uid',
   };

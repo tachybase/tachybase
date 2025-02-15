@@ -1,7 +1,7 @@
 import { createDetailsUISchema } from '../createDetailsUISchema';
 
 // Mock uid to always return a fixed value
-vi.mock('@formily/shared', () => ({
+vi.mock('@tachybase/schema', () => ({
   uid: () => 'fixed-uid',
 }));
 

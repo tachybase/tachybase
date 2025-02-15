@@ -20,7 +20,7 @@ const EMPTY = 'N/A';
 export type RemoteSelectProps<P = any> = SelectProps<P, any> & {
   objectValue?: boolean;
   onChange?: (v: any) => void;
-  target: string;
+  target?: string;
   wait?: number;
   manual?: boolean;
   mapOptions?: (data: any) => RemoteSelectProps['fieldNames'];
