@@ -1,6 +1,6 @@
 import { createKanbanBlockUISchema } from '../createKanbanBlockUISchema';
 
-vi.mock('@formily/shared', () => {
+vi.mock('@tachybase/schema', () => {
   return {
     uid: vi.fn(() => 'mocked-uid'),
   };

@@ -554,4 +554,4 @@ export class Path {
   };
 }
 
-export { Pattern };
+export { type Pattern };

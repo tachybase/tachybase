@@ -44,9 +44,9 @@
   },
   "dependencies": {
     "@faker-js/faker": "8.4.1",
-    "@formily/shared": "2.3.2",
     "@playwright/test": "^1.49.1",
     "@tachybase/database": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
