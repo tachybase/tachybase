@@ -1,33 +1,33 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`all methods 1`] = `
-Object {
+{
   "_isJSONSchemaObject": true,
-  "additionalProperties": Object {
+  "additionalProperties": {
     "_isJSONSchemaObject": true,
     "type": "string",
     "version": "2.0",
   },
-  "patternProperties": Object {
-    "^[a-zA-Z0-9]*$": Object {
+  "patternProperties": {
+    "^[a-zA-Z0-9]*$": {
       "_isJSONSchemaObject": true,
       "name": "^[a-zA-Z0-9]*$",
-      "properties": Object {
-        "made": Object {
+      "properties": {
+        "made": {
           "_isJSONSchemaObject": true,
           "name": "made",
           "type": "string",
           "version": "2.0",
           "x-index": 1,
         },
-        "model": Object {
+        "model": {
           "_isJSONSchemaObject": true,
           "name": "model",
           "type": "string",
           "version": "2.0",
           "x-index": 2,
         },
-        "year": Object {
+        "year": {
           "_isJSONSchemaObject": true,
           "name": "year",
           "type": "string",
@@ -38,21 +38,21 @@ Object {
       "version": "2.0",
     },
   },
-  "properties": Object {
-    "array": Object {
+  "properties": {
+    "array": {
       "_isJSONSchemaObject": true,
-      "additionalItems": Object {
+      "additionalItems": {
         "_isJSONSchemaObject": true,
         "type": "string",
         "version": "2.0",
       },
-      "items": Array [
-        Object {
+      "items": [
+        {
           "_isJSONSchemaObject": true,
           "type": "integer",
           "version": "2.0",
         },
-        Object {
+        {
           "_isJSONSchemaObject": true,
           "type": "integer",
           "version": "2.0",
@@ -63,17 +63,17 @@ Object {
       "type": "string",
       "version": "2.0",
     },
-    "string": Object {
+    "string": {
       "_isJSONSchemaObject": true,
       "description": null,
       "name": "string",
       "title": "string",
       "type": "string",
       "version": "2.0",
-      "x-reactions": Array [
-        Object {
-          "fulfill": Object {
-            "schema": Object {},
+      "x-reactions": [
+        {
+          "fulfill": {
+            "schema": {},
           },
           "target": "xxx",
           "when": true,
@@ -88,33 +88,33 @@ Object {
 `;
 
 exports[`all methods 2`] = `
-Object {
+{
   "_isJSONSchemaObject": true,
-  "additionalProperties": Object {
+  "additionalProperties": {
     "_isJSONSchemaObject": true,
     "type": "string",
     "version": "2.0",
   },
-  "patternProperties": Object {
-    "^[a-zA-Z0-9]*$": Object {
+  "patternProperties": {
+    "^[a-zA-Z0-9]*$": {
       "_isJSONSchemaObject": true,
       "name": "^[a-zA-Z0-9]*$",
-      "properties": Object {
-        "made": Object {
+      "properties": {
+        "made": {
           "_isJSONSchemaObject": true,
           "name": "made",
           "type": "string",
           "version": "2.0",
           "x-index": 1,
         },
-        "model": Object {
+        "model": {
           "_isJSONSchemaObject": true,
           "name": "model",
           "type": "string",
           "version": "2.0",
           "x-index": 2,
         },
-        "year": Object {
+        "year": {
           "_isJSONSchemaObject": true,
           "name": "year",
           "type": "string",
@@ -125,21 +125,21 @@ Object {
       "version": "2.0",
     },
   },
-  "properties": Object {
-    "array": Object {
+  "properties": {
+    "array": {
       "_isJSONSchemaObject": true,
-      "additionalItems": Object {
+      "additionalItems": {
         "_isJSONSchemaObject": true,
         "type": "string",
         "version": "2.0",
       },
-      "items": Array [
-        Object {
+      "items": [
+        {
           "_isJSONSchemaObject": true,
           "type": "integer",
           "version": "2.0",
         },
-        Object {
+        {
           "_isJSONSchemaObject": true,
           "type": "integer",
           "version": "2.0",
@@ -150,17 +150,17 @@ Object {
       "type": "string",
       "version": "2.0",
     },
-    "string": Object {
+    "string": {
       "_isJSONSchemaObject": true,
       "description": null,
       "name": "string",
       "title": "string",
       "type": "string",
       "version": "2.0",
-      "x-reactions": Array [
-        Object {
-          "fulfill": Object {
-            "schema": Object {},
+      "x-reactions": [
+        {
+          "fulfill": {
+            "schema": {},
           },
           "target": "xxx",
           "when": true,
@@ -175,29 +175,29 @@ Object {
 `;
 
 exports[`all methods 3`] = `
-Object {
+{
   "_isJSONSchemaObject": true,
-  "additionalProperties": Object {
+  "additionalProperties": {
     "_isJSONSchemaObject": true,
     "type": "string",
     "version": "2.0",
   },
-  "patternProperties": Object {},
-  "properties": Object {
-    "array": Object {
+  "patternProperties": {},
+  "properties": {
+    "array": {
       "_isJSONSchemaObject": true,
-      "additionalItems": Object {
+      "additionalItems": {
         "_isJSONSchemaObject": true,
         "type": "string",
         "version": "2.0",
       },
-      "items": Array [
-        Object {
+      "items": [
+        {
           "_isJSONSchemaObject": true,
           "type": "integer",
           "version": "2.0",
         },
-        Object {
+        {
           "_isJSONSchemaObject": true,
           "type": "integer",
           "version": "2.0",
@@ -216,17 +216,17 @@ Object {
 `;
 
 exports[`all methods 4`] = `
-Object {
+{
   "_isJSONSchemaObject": true,
   "description": null,
   "name": "string",
   "title": "string",
   "type": "string",
   "version": "2.0",
-  "x-reactions": Array [
-    Object {
-      "fulfill": Object {
-        "schema": Object {},
+  "x-reactions": [
+    {
+      "fulfill": {
+        "schema": {},
       },
       "target": "xxx",
       "when": true,
@@ -236,14 +236,14 @@ Object {
 `;
 
 exports[`all methods 5`] = `
-Object {
+{
   "_isJSONSchemaObject": true,
   "additionalItems": undefined,
   "additionalProperties": undefined,
-  "items": Array [
+  "items": [
     undefined,
   ],
-  "properties": Object {
+  "properties": {
     "xxx": undefined,
   },
   "type": "object",
@@ -252,14 +252,14 @@ Object {
 `;
 
 exports[`all methods 6`] = `
-Object {
+{
   "_isJSONSchemaObject": true,
   "additionalItems": undefined,
   "additionalProperties": undefined,
-  "items": Array [
+  "items": [
     undefined,
   ],
-  "properties": Object {
+  "properties": {
     "xxx": undefined,
   },
   "type": "object",
@@ -268,32 +268,32 @@ Object {
 `;
 
 exports[`all props 1`] = `
-Object {
+{
   "_isJSONSchemaObject": true,
-  "additionalProperties": Object {
+  "additionalProperties": {
     "_isJSONSchemaObject": true,
     "type": "string",
     "version": "2.0",
   },
   "description": "description",
-  "patternProperties": Object {
-    "^[a-zA-Z0-9]*$": Object {
+  "patternProperties": {
+    "^[a-zA-Z0-9]*$": {
       "_isJSONSchemaObject": true,
       "name": "^[a-zA-Z0-9]*$",
-      "properties": Object {
-        "made": Object {
+      "properties": {
+        "made": {
           "_isJSONSchemaObject": true,
           "name": "made",
           "type": "string",
           "version": "2.0",
         },
-        "model": Object {
+        "model": {
           "_isJSONSchemaObject": true,
           "name": "model",
           "type": "string",
           "version": "2.0",
         },
-        "year": Object {
+        "year": {
           "_isJSONSchemaObject": true,
           "name": "year",
           "type": "string",
@@ -303,15 +303,15 @@ Object {
       "version": "2.0",
     },
   },
-  "properties": Object {
-    "array": Object {
+  "properties": {
+    "array": {
       "_isJSONSchemaObject": true,
-      "additionalItems": Object {
+      "additionalItems": {
         "_isJSONSchemaObject": true,
         "type": "number",
         "version": "2.0",
       },
-      "items": Object {
+      "items": {
         "_isJSONSchemaObject": true,
         "type": "string",
         "version": "2.0",
@@ -320,15 +320,15 @@ Object {
       "type": "array",
       "version": "2.0",
     },
-    "array2": Object {
+    "array2": {
       "_isJSONSchemaObject": true,
-      "items": Array [
-        Object {
+      "items": [
+        {
           "_isJSONSchemaObject": true,
           "type": "string",
           "version": "2.0",
         },
-        Object {
+        {
           "_isJSONSchemaObject": true,
           "type": "object",
           "version": "2.0",
@@ -338,35 +338,35 @@ Object {
       "type": "array",
       "version": "2.0",
     },
-    "boolean": Object {
+    "boolean": {
       "_isJSONSchemaObject": true,
       "default": false,
       "name": "boolean",
       "type": "boolean",
       "version": "2.0",
     },
-    "date": Object {
+    "date": {
       "_isJSONSchemaObject": true,
       "default": "2020-12-23",
       "name": "date",
       "type": "date",
       "version": "2.0",
     },
-    "datetime": Object {
+    "datetime": {
       "_isJSONSchemaObject": true,
       "default": "2020-12-23 23:00:00",
       "name": "datetime",
       "type": "datetime",
       "version": "2.0",
     },
-    "number": Object {
+    "number": {
       "_isJSONSchemaObject": true,
       "default": 100,
       "name": "number",
       "type": "number",
       "version": "2.0",
     },
-    "string": Object {
+    "string": {
       "_isJSONSchemaObject": true,
       "default": "default",
       "name": "string",
@@ -374,11 +374,11 @@ Object {
       "type": "string",
       "version": "2.0",
       "x-component": "Input",
-      "x-component-props": Object {
+      "x-component-props": {
         "placeholder": "placeholder",
       },
       "x-decorator": "FormItem",
-      "x-decorator-props": Object {
+      "x-decorator-props": {
         "labelCol": 3,
       },
       "x-disabled": true,
@@ -386,18 +386,18 @@ Object {
       "x-editable": false,
       "x-hidden": false,
       "x-pattern": "readPretty",
-      "x-reactions": Array [
-        Object {
+      "x-reactions": [
+        {
           "target": "xxx",
           "when": "{{aa > bb}}",
         },
       ],
       "x-read-only": true,
-      "x-validator": Array [
+      "x-validator": [
         "phone",
       ],
     },
-    "void": Object {
+    "void": {
       "_isJSONSchemaObject": true,
       "name": "void",
       "type": "void",
