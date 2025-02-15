@@ -1,6 +1,6 @@
 import React, { ReactNode, ReactPortal } from 'react';
 
-import { globalThisPolyfill } from '@formily/shared';
+import { globalThisPolyfill } from '../../shared';
 
 interface Env {
   portalDOM?: HTMLDivElement;

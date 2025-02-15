@@ -1,5 +1,4 @@
-import { Form, GeneralField, isObjectField, ObjectField } from '@formily/core';
-
+import { Form, GeneralField, isObjectField, ObjectField } from '../../core';
 import { useField } from './useField';
 import { useForm } from './useForm';
 

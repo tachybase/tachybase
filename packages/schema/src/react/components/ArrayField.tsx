@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { ArrayField as ArrayFieldType } from '@formily/core';
-
+import { ArrayField as ArrayFieldType } from '../../core';
 import { useField, useForm } from '../hooks';
 import { useAttach } from '../hooks/useAttach';
 import { FieldContext } from '../shared';

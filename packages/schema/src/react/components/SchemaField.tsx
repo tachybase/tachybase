@@ -1,8 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 
-import { ISchema, Schema } from '@formily/json-schema';
-import { lazyMerge } from '@formily/shared';
-
+import { ISchema, Schema } from '../../json-schema';
+import { lazyMerge } from '../../shared';
 import { SchemaComponentsContext, SchemaMarkupContext, SchemaOptionsContext } from '../shared';
 import { render } from '../shared/render';
 import {

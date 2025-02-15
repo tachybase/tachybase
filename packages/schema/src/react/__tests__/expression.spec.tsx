@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { createForm } from '@formily/core';
 import { render, waitFor } from '@testing-library/react';
 
 import { createSchemaField, ExpressionScope, Field, FormProvider, useField } from '..';
+import { createForm } from '../../core';
 
 test('expression scope', async () => {
   const Container = (props) => {

@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 
-import { GeneralField } from '@formily/core';
-
+import { GeneralField } from '../../core';
 import { FieldContext } from '../shared';
 
 export const useField = <T = GeneralField>(): T => {

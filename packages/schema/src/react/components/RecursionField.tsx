@@ -1,9 +1,8 @@
 import React, { Fragment, useMemo } from 'react';
 
-import { GeneralField } from '@formily/core';
-import { Schema } from '@formily/json-schema';
-import { isBool, isFn, isValid } from '@formily/shared';
-
+import { GeneralField } from '../../core';
+import { Schema } from '../../json-schema';
+import { isBool, isFn, isValid } from '../../shared';
 import { useExpressionScope, useField } from '../hooks';
 import { SchemaContext } from '../shared';
 import { IRecursionFieldProps, ReactFC } from '../types';

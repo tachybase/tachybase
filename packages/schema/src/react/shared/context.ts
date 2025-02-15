@@ -1,8 +1,7 @@
 import React, { createContext } from 'react';
 
-import { Form, GeneralField } from '@formily/core';
-import { Schema } from '@formily/json-schema';
-
+import { Form, GeneralField } from '../../core';
+import { Schema } from '../../json-schema';
 import { ISchemaFieldReactFactoryOptions, SchemaReactComponents } from '../types';
 
 const createContextCleaner = <T>(...contexts: React.Context<T>[]) => {

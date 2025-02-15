@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { isVoidField } from '@formily/core';
-import { observer, Observer } from '@formily/reactive-react';
-import { each, FormPath, isFn, isStr, isValid } from '@formily/shared';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
+import { isVoidField } from '../../core';
+import { observer, Observer } from '../../reactive-react';
+import { each, FormPath, isFn, isStr, isValid } from '../../shared';
 import { useField } from '../hooks';
 import { IComponentMapper, IStateMapper, JSXComponent } from '../types';
 

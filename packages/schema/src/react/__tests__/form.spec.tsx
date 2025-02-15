@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { createForm } from '@formily/core';
 import { render } from '@testing-library/react';
 
 import { Field, FormProvider, ObjectField, VoidField } from '..';
+import { createForm } from '../../core';
 import { FormConsumer } from '../components';
 import { useParentForm } from '../hooks';
 

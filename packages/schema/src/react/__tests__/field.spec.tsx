@@ -1,14 +1,5 @@
 import React from 'react';
 
-import {
-  createForm,
-  Field as FieldType,
-  isArrayField,
-  isField,
-  isVoidField,
-  onFieldChange,
-  onFieldUnmount,
-} from '@formily/core';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
@@ -25,6 +16,15 @@ import {
   useFormEffects,
   VoidField,
 } from '..';
+import {
+  createForm,
+  Field as FieldType,
+  isArrayField,
+  isField,
+  isVoidField,
+  onFieldChange,
+  onFieldUnmount,
+} from '../../core';
 import { ReactiveField } from '../components/ReactiveField';
 import { expectThrowError } from './shared';
 
@@ -46,7 +46,7 @@ const Normal = () => <div></div>;
 
 test('render field', async () => {
   const form = createForm();
-  const onChange = jest.fn();
+  const onChange = vi.fn();
   const { getByTestId, queryByTestId, unmount } = render(
     <FormProvider form={form}>
       <Field name="aa" decorator={[Decorator]} component={[Input, { onChange }]} />
@@ -257,7 +257,7 @@ test('connect', async () => {
 });
 
 test('fields unmount and validate', async () => {
-  const fn = jest.fn();
+  const fn = vi.fn();
   const form = createForm({
     initialValues: {
       parent: {

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { createForm } from '@formily/core';
-import { Schema } from '@formily/json-schema';
 import { render } from '@testing-library/react';
 
+import { createForm } from '../../core';
+import { Schema } from '../../json-schema';
 import { createSchemaField, FormProvider } from '../index';
 
 const Input = ({ value, onChange }) => {

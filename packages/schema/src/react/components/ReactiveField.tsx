@@ -1,10 +1,9 @@
 import React, { Fragment, useContext } from 'react';
 
-import { Form, GeneralField, isVoidField } from '@formily/core';
-import { toJS } from '@formily/reactive';
-import { observer } from '@formily/reactive-react';
-import { FormPath, isFn } from '@formily/shared';
-
+import { Form, GeneralField, isVoidField } from '../../core';
+import { toJS } from '../../reactive';
+import { observer } from '../../reactive-react';
+import { FormPath, isFn } from '../../shared';
 import { SchemaComponentsContext } from '../shared';
 import { RenderPropsChildren } from '../types';
 

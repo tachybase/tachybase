@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { observer } from '@formily/reactive-react';
-import { isFn } from '@formily/shared';
-
+import { observer } from '../../reactive-react';
+import { isFn } from '../../shared';
 import { useForm } from '../hooks';
 import { IFormSpyProps, ReactFC } from '../types';
 

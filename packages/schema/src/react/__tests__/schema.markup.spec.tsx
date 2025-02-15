@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { createForm } from '@formily/core';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 
+import { createForm } from '../../core';
 import {
   createSchemaField,
   FormProvider,
@@ -838,7 +838,7 @@ test('void field children', async () => {
 
 test('x-reactions runner for target', async () => {
   const form = createForm();
-  const getTarget = jest.fn();
+  const getTarget = vi.fn();
   const SchemaField = createSchemaField({
     components: {
       Input: () => <div></div>,
@@ -886,7 +886,7 @@ test('x-reactions runner for target', async () => {
 
 test('multi x-reactions isolate effect', async () => {
   const form = createForm();
-  const otherEffect = jest.fn();
+  const otherEffect = vi.fn();
   const SchemaField = createSchemaField({
     components: {
       Input: () => <div data-testid="input"></div>,

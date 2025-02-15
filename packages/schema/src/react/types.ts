@@ -11,10 +11,10 @@ import {
   IVoidFieldFactoryProps,
   ObjectField,
   VoidField,
-} from '@formily/core';
-import { ISchema, Schema, SchemaKey } from '@formily/json-schema';
-import { ReactFC } from '@formily/reactive-react';
-import { FormPathPattern } from '@formily/shared';
+} from '../core';
+import { ISchema, Schema, SchemaKey } from '../json-schema';
+import { ReactFC } from '../reactive-react';
+import { FormPathPattern } from '../shared';
 
 export type JSXComponent = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 
@@ -175,4 +175,4 @@ export interface IRecordsScopeProps {
 
 export type ReactChild = React.ReactElement | string | number;
 
-export { ReactFC };
+export { type ReactFC };
