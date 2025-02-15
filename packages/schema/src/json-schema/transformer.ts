@@ -40,7 +40,9 @@ const getDependencyValue = (field: Field, pattern: string, property?: string) =>
 
 const getDependencies = (
   field: Field,
-  dependencies: Array<string | { name?: string; source?: string; property?: string }> | object,
+  dependencies:
+    | Array<string | { name?: string; source?: string; property?: string }>
+    | { name?: string; source?: string; property?: string },
 ) => {
   if (isArr(dependencies)) {
     const results = [];

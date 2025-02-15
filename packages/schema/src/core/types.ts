@@ -129,9 +129,9 @@ export type IFieldUpdate = {
 };
 
 export interface IFormRequests {
-  validate?: number;
-  submit?: number;
-  loading?: number;
+  validate?: ReturnType<typeof setTimeout>;
+  submit?: ReturnType<typeof setTimeout>;
+  loading?: ReturnType<typeof setTimeout>;
   updates?: IFieldUpdate[];
   updateIndexes?: Record<string, number>;
 }
@@ -240,9 +240,9 @@ export interface IVoidFieldFactoryProps<Decorator extends JSXComponent, Componen
 }
 
 export interface IFieldRequests {
-  validate?: number;
-  submit?: number;
-  loading?: number;
+  validate?: ReturnType<typeof setTimeout>;
+  submit?: ReturnType<typeof setTimeout>;
+  loading?: ReturnType<typeof setTimeout>;
   batch?: () => void;
 }
 
