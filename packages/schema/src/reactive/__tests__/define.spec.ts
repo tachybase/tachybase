@@ -1,6 +1,5 @@
-import { FormPath } from '@formily/shared';
-
 import { autorun, define, model, observable } from '..';
+import { FormPath } from '../../shared';
 import { batch } from '../batch';
 import { observe } from '../observe';
 
