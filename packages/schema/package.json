@@ -17,5 +17,8 @@
     "@formily/reactive-react": "2.3.2",
     "@formily/shared": "2.3.2",
     "@formily/validator": "2.3.2"
+  },
+  "devDependencies": {
+    "vitest": "3.0.5"
   }
 }
