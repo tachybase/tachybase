@@ -38,6 +38,12 @@ export async function handleCreate(ctx) {
       },
     });
   } catch (error) {
-    throw new Error('Failed to create API log');
+    ctx.logger.error('Failed to create API log:', {
+      error,
+      action: actionName,
+      resourceName,
+      recordId: currentRecordId,
+    });
+    throw new Error(`Failed to create API log: ${error.message}`);
   }
 }

@@ -1,6 +1,8 @@
 {
   "name": "@tachybase/plugin-api-logs",
+  "displayName": "Api Logs",
   "version": "0.23.41",
+  "description": "Provides seamless tracking of API actions through enhanced user interface components, configuration panels, and dashboards",
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.6.1",
@@ -20,5 +22,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "Api Logs通过增强的用户界面组件、配置面板和仪表板提供对 API 操作的无缝跟踪",
+  "displayName.zh-CN": "Api 日志"
 }

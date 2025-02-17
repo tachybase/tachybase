@@ -32,7 +32,7 @@ export class ApiLogsController {
         }
       });
     }
-    console.log('%c Line:29 🍇 collectionsToInsert', 'color:#3f7cff', collectionsToInsert);
+
     if (!collectionsToInsert.length) {
       return;
     }
