@@ -4,6 +4,7 @@ import { getNameByParams, parseRequest } from '@tachybase/resourcer';
 
 import compose from 'koa-compose';
 
+import { DataSourceManager } from './data-source-manager';
 import { loadDefaultActions } from './load-default-actions';
 import { ResourceManager } from './resource-manager';
 import { ICollectionManager } from './types';
@@ -14,6 +15,7 @@ export abstract class DataSource extends EventEmitter {
   public collectionManager: ICollectionManager;
   public resourceManager: ResourceManager;
   public acl: ACL;
+  public dataSourceManager: DataSourceManager;
 
   constructor(protected options: DataSourceOptions) {
     super();
@@ -26,6 +28,10 @@ export abstract class DataSource extends EventEmitter {
 
   static testConnection(options?: any): Promise<boolean> {
     return Promise.resolve(true);
+  }
+
+  setDataSourceManager(dataSourceManager: DataSourceManager) {
+    this.dataSourceManager = dataSourceManager;
   }
 
   init(options: DataSourceOptions = {}) {

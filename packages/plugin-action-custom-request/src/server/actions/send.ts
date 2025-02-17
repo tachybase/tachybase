@@ -127,6 +127,7 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
     },
     currentUser,
     currentTime: new Date().toISOString(),
+    $env: ctx.app.environment.getVariables(),
   };
 
   const getParsedValue = (value) => {
