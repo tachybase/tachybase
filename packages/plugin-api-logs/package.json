@@ -10,8 +10,12 @@
     "react-router-dom": "6.28.1"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
