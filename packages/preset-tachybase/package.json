@@ -62,6 +62,7 @@
     "@tachybase/plugin-demos-game-runesweeper": "workspace:*",
     "@tachybase/plugin-department": "workspace:*",
     "@tachybase/plugin-devtools": "workspace:*",
+    "@tachybase/plugin-env-secrets": "workspace:*",
     "@tachybase/plugin-field-china-region": "workspace:*",
     "@tachybase/plugin-field-encryption": "workspace:*",
     "@tachybase/plugin-field-formula": "workspace:*",
