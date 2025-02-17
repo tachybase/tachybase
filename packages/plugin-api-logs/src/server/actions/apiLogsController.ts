@@ -3,7 +3,7 @@ import { Action, Controller } from '@tachybase/utils';
 
 @Controller('apiLogsConfig')
 export class ApiLogsController {
-  @Action('tablesync', { acl: 'loggedIn' })
+  @Action('tablesync', { acl: 'block' })
   async tableSync(ctx: Context, next: Next) {
     const apiLogsRepo = ctx.db.getRepository('apiLogsConfig');
     const apiLogsConfigs = await apiLogsRepo.find();

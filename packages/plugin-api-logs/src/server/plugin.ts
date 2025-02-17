@@ -47,15 +47,12 @@ export class PluginApiLogsServer extends Plugin {
     );
   }
 
-  async load() {}
-
-  async install() {}
-
-  async afterEnable() {}
-
-  async afterDisable() {}
-
-  async remove() {}
+  async load() {
+    this.app.acl.registerSnippet({
+      name: `pm.system-services.apiLogsConfig`,
+      actions: ['apiLogsConfig:*'],
+    });
+  }
 }
 
 export default PluginApiLogsServer;

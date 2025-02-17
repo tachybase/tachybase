@@ -8,12 +8,6 @@ import { apiLogsTableColumnInitializers } from './initializers/ApiLogsTableColum
 import { lang, tval } from './locale';
 
 class PluginApiLogsClient extends Plugin {
-  async afterAdd() {
-    // await this.app.pm.add()
-  }
-
-  async beforeLoad() {}
-
   // You can get and modify the app instance here
   async load() {
     this.app.use(ApiLogsProvider);
@@ -33,6 +27,7 @@ class PluginApiLogsClient extends Plugin {
     this.app.systemSettingsManager.add('system-services.apilogs-config', {
       icon: 'SettingOutlined',
       title: lang('Api logs configuration'),
+      aclSnippet: `pm.system-services.apiLogsConfig`,
       Component: apiLogsConfigProvider,
     });
   }
