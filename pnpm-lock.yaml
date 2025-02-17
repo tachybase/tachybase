@@ -3567,6 +3567,12 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -4612,6 +4618,9 @@ importers:
       '@tachybase/plugin-devtools':
         specifier: workspace:*
         version: link:../plugin-devtools
+      '@tachybase/plugin-env-secrets':
+        specifier: workspace:*
+        version: link:../plugin-env-secrets
       '@tachybase/plugin-field-china-region':
         specifier: workspace:*
         version: link:../plugin-field-china-region
