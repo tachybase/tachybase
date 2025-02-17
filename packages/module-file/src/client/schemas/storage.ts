@@ -12,7 +12,7 @@ export const collectionFileManager = {
       uiSchema: {
         title: '{{t("Title")}}',
         type: 'string',
-        'x-component': '  ',
+        'x-component': 'TextAreaWithGlobalScope',
         required: true,
       } as ISchema,
     },
