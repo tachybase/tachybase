@@ -3567,6 +3567,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
