@@ -3,6 +3,9 @@
   "displayName": "Api Logs",
   "version": "0.23.41",
   "description": "Provides seamless tracking of API actions through enhanced user interface components, configuration panels, and dashboards",
+  "keywords": [
+    "Logging and monitoring"
+  ],
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.6.1",
