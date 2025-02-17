@@ -441,7 +441,7 @@ export const table = {
                     },
                   },
                   'x-decorator': 'ACLActionProvider',
-                  'x-use-component-props': 'useDestroyActionProps',
+                  'x-use-component-props': 'useComponentDestroyProps',
                 },
                 export: {
                   type: 'void',

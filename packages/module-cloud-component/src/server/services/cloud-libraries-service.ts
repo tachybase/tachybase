@@ -176,5 +176,12 @@ export class CloudLibrariesService {
       await this.compileLibraries();
       await this.loadServerLibraries();
     });
+    this.app.acl.addFixedParams('cloudLibraries', 'destroy', () => {
+      return {
+        filter: {
+          enabeld: false,
+        },
+      };
+    });
   }
 }
