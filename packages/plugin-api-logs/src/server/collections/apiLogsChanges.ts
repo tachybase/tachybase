@@ -5,7 +5,7 @@ export default defineCollection({
     group: 'log',
   },
   name: 'apiLogsChanges',
-  title: '数据变动值',
+  title: '{{t("Data change value")}}',
   createdBy: false,
   updatedBy: false,
   createdAt: false,

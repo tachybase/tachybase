@@ -30,8 +30,8 @@ export class ApiFilter {
   }
 
   async addRefreshListener() {
-    this.db.on('apiLogsConfig.afterSave', () => {
-      this.load();
+    this.db.on('apiLogsConfig.afterSave', async () => {
+      await this.load();
     });
   }
 
