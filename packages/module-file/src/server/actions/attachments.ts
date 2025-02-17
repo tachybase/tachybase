@@ -4,6 +4,7 @@ import { koaMulter as multer } from '@tachybase/utils';
 
 import { DEFAULT_MAX_FILE_SIZE, FILE_FIELD_NAME, LIMIT_FILES } from '../constants';
 import * as Rules from '../rules';
+import PluginFileManager from '../server';
 import { getStorageConfig } from '../storages';
 
 // TODO(optimize): 需要优化错误处理，计算失败后需要抛出对应错误，以便程序处理
@@ -104,7 +105,8 @@ export async function createMiddleware(ctx: Context, next: Next) {
   const StorageRepo = ctx.db.getRepository('storages');
   const storage = await StorageRepo.findOne({ filter: storageName ? { name: storageName } : { default: true } });
 
-  ctx.storage = storage;
+  const plugin = ctx.app.pm.get(PluginFileManager) as PluginFileManager;
+  ctx.storage = plugin.parseStorage(storage);
 
   await multipart(ctx, next);
 }

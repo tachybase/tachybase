@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { useAPIClient, useCompile } from '@tachybase/client';
+import { TextAreaWithGlobalScope, useAPIClient, useCompile } from '@tachybase/client';
 
 import { useBoolean } from 'ahooks';
 import { Button, Card, Form, Input, message, Tabs } from 'antd';
@@ -68,10 +68,10 @@ const AMapConfiguration = () => {
   return (
     <BaseConfiguration type="amap">
       <Form.Item required name="accessKey" label={t('Access key')}>
-        <Input />
+        <TextAreaWithGlobalScope />
       </Form.Item>
       <Form.Item required name="securityJsCode" label={t('securityJsCode or serviceHost')}>
-        <Input />
+        <TextAreaWithGlobalScope />
       </Form.Item>
     </BaseConfiguration>
   );
@@ -82,7 +82,7 @@ const GoogleMapConfiguration = () => {
   return (
     <BaseConfiguration type="google">
       <Form.Item required name="accessKey" label={t('Api key')}>
-        <Input />
+        <TextAreaWithGlobalScope />
       </Form.Item>
     </BaseConfiguration>
   );

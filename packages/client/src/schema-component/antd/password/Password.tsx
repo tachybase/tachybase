@@ -7,7 +7,7 @@ import { PasswordProps } from 'antd/es/input';
 import { PasswordStrength } from './PasswordStrength';
 
 export interface IPasswordProps extends PasswordProps {
-  checkStrength: boolean;
+  checkStrength?: boolean;
 }
 
 export const Password = connect(

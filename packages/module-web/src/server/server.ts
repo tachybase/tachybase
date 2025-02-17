@@ -76,7 +76,7 @@ export class ModuleWeb extends Plugin {
     this.app.acl.allow('plugins', '*', 'public');
     this.app.acl.registerSnippet({
       name: 'app',
-      actions: ['app:restart', 'app:clearCache'],
+      actions: ['app:restart', 'app:refresh', 'app:clearCache'],
     });
     const dialect = this.app.db.sequelize.getDialect();
 
@@ -130,6 +130,10 @@ export class ModuleWeb extends Plugin {
         },
         async restart(ctx, next) {
           ctx.app.runAsCLI(['restart'], { from: 'user' });
+          await next();
+        },
+        async refresh(ctx, next) {
+          ctx.app.runCommand('refresh');
           await next();
         },
       },

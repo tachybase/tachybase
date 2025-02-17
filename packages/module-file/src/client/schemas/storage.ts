@@ -12,7 +12,7 @@ export const collectionFileManager = {
       uiSchema: {
         title: '{{t("Title")}}',
         type: 'string',
-        'x-component': 'Input',
+        'x-component': 'TextAreaWithGlobalScope',
         required: true,
       } as ISchema,
     },
@@ -46,7 +46,7 @@ export const collectionFileManager = {
       uiSchema: {
         title: `{{t("Storage base URL", { ns: "${NAMESPACE}" })}}`,
         type: 'string',
-        'x-component': 'Input',
+        'x-component': 'TextAreaWithGlobalScope',
         required: true,
       } as ISchema,
     },
@@ -57,7 +57,7 @@ export const collectionFileManager = {
       uiSchema: {
         title: `{{t("Path", { ns: "${NAMESPACE}" })}}`,
         type: 'string',
-        'x-component': 'Input',
+        'x-component': 'TextAreaWithGlobalScope',
       } as ISchema,
     },
     {

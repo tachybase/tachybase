@@ -6,7 +6,7 @@ export const getSSKey = (type) => {
   return `TACHYBASE_PLUGIN_MAP_CONFIGURATION_${type}`;
 };
 
-export const useMapConfiguration = (type: string) => {
+export const useMapConfiguration = (type: string, caching = true) => {
   // cache
   const config = useMemo(() => {
     const d = sessionStorage.getItem(getSSKey(type));
@@ -23,20 +23,24 @@ export const useMapConfiguration = (type: string) => {
       resource: MapConfigurationResourceKey,
       action: 'get',
       params: {
+        isRaw: !caching,
         type,
       },
     },
     {
       onSuccess(data) {
+        if (!caching) {
+          return;
+        }
         sessionStorage.setItem(getSSKey(type), JSON.stringify(data?.data));
       },
       refreshOnWindowFocus: false,
       refreshDeps: [],
-      manual: config ? true : false,
+      manual: config && caching ? true : false,
     },
   );
 
-  if (config) return config;
+  if (config && caching) return config;
 
   return data?.data;
 };

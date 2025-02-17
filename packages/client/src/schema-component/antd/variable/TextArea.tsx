@@ -190,7 +190,7 @@ export function TextArea(props) {
   const { value: propsValue, scope, onChange, multiline = true, changeOnSelect } = props;
   const fieldSchema = useFieldSchema();
   //如果值是默认label的字段或选择label的字段，value会为空，这里临时读取schema的default字段
-  const value = propsValue || fieldSchema.default || '';
+  const value = propsValue || fieldSchema?.default || '';
   const { styles } = useStyles({ multiline });
   const inputRef = useRef<HTMLDivElement>(null);
   const [options, setOptions] = useState([]);
