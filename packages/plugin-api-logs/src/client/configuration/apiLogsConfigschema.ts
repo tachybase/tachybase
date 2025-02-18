@@ -129,16 +129,16 @@ export const createApiConfig: ISchema = {
                     },
                   },
                 },
+                title: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
                 resourceName: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                   required: true,
-                },
-                title: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-decorator': 'FormItem',
                 },
                 action: {
                   type: 'string',
@@ -269,21 +269,6 @@ export const apiLogsConfigPane: ISchema = {
             },
           },
           properties: {
-            resourceName: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              'x-component-props': {
-                align: 'center',
-              },
-              properties: {
-                resourceName: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
-                },
-              },
-            },
             title: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
@@ -293,6 +278,21 @@ export const apiLogsConfigPane: ISchema = {
               },
               properties: {
                 title: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            resourceName: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                align: 'center',
+              },
+              properties: {
+                resourceName: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,

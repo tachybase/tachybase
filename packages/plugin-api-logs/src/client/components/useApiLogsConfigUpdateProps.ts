@@ -19,7 +19,6 @@ export const useApiLogsConfigEnableProps = () => {
           filterByTk: field.data?.selectedRowKeys,
           values: { apiConfig: true },
         });
-        field.data.selectedRowKeys = [];
         refresh?.();
       } catch (error) {
         console.error('Error enabling API logs config:', error);
@@ -45,7 +44,6 @@ export const useApiLogsConfigDisenableProps = () => {
           filterByTk: field.data?.selectedRowKeys,
           values: { apiConfig: false },
         });
-        field.data.selectedRowKeys = [];
         refresh?.();
       } catch (error) {
         console.error('Error disenabling API logs config:', error);
@@ -63,7 +61,6 @@ export const useApiLogsConfigSyncProps = () => {
     async onClick() {
       try {
         await resource.tablesync({ name: 'tablesync' });
-        // field.data.selectedRowKeys = [];
         refresh?.();
       } catch (error) {
         console.error('Error sync API logs config:', error);

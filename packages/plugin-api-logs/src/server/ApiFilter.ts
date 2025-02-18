@@ -1,4 +1,4 @@
-import Database from '@tachybase/database';
+import Database, { Transaction } from '@tachybase/database';
 
 export class ApiFilter {
   db: Database;
@@ -8,13 +8,14 @@ export class ApiFilter {
 
   constructor(database: Database) {
     this.db = database;
-    this.addRefreshListener();
+    this.load().catch(console.error);
+    this.addRefreshListener().catch(console.error);
   }
 
   // app.start的时候从数据库apiLogsConfig保存到whiteList和blackList
-  async load() {
+  async load(transaction?: Transaction) {
     try {
-      const apiConfigs = await this.db.getRepository('apiLogsConfig').find();
+      const apiConfigs = await this.db.getRepository('apiLogsConfig').find({ transaction });
       this.whiteList = [];
       this.blackList = [];
       for (const item of apiConfigs) {
@@ -30,8 +31,11 @@ export class ApiFilter {
   }
 
   async addRefreshListener() {
-    this.db.on('apiLogsConfig.afterSave', async () => {
-      await this.load();
+    this.db.on('apiLogsConfig.afterSave', async (model, options) => {
+      await this.load(options.transaction);
+    });
+    this.db.on('apiLogsConfig.afterDestroy', async (model, options) => {
+      await this.load(options.transaction);
     });
   }
 
