@@ -160,6 +160,7 @@ export class PluginEnvironmentVariablesServer extends Plugin {
       }
       ctx.withoutDataWrapping = true;
       ctx.body = {
+        rows: items, // TODO: 为了避开错误packages/module-acl/src/server/middlewares/with-acl-meta.ts:116
         data: items,
         meta: {
           updated: this.updated,
