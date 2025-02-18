@@ -1437,6 +1437,34 @@ importers:
         specifier: ^6.37.5
         version: 6.37.5
 
+  packages/module-env-secrets:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.6.1
+        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      antd:
+        specifier: 5.22.5
+        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
   packages/module-error-handler:
     dependencies:
       '@tachybase/client':
@@ -3562,34 +3590,6 @@ importers:
         specifier: ^5.18.2
         version: 5.18.2
 
-  packages/plugin-env-secrets:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/components':
-        specifier: workspace:*
-        version: link:../components
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-    devDependencies:
-      '@ant-design/icons':
-        specifier: ^5.6.1
-        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      antd:
-        specifier: 5.22.5
-        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   packages/plugin-field-china-region:
     dependencies:
       '@tachybase/client':
@@ -4486,6 +4486,9 @@ importers:
       '@tachybase/module-data-source':
         specifier: workspace:*
         version: link:../module-data-source
+      '@tachybase/module-env-secrets':
+        specifier: workspace:*
+        version: link:../module-env-secrets
       '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
@@ -4621,9 +4624,6 @@ importers:
       '@tachybase/plugin-devtools':
         specifier: workspace:*
         version: link:../plugin-devtools
-      '@tachybase/plugin-env-secrets':
-        specifier: workspace:*
-        version: link:../plugin-env-secrets
       '@tachybase/plugin-field-china-region':
         specifier: workspace:*
         version: link:../plugin-field-china-region
