@@ -41,6 +41,7 @@
     "@tachybase/plugin-adapter-remix": "workspace:*",
     "@tachybase/plugin-ai-chat": "workspace:*",
     "@tachybase/plugin-api-keys": "workspace:*",
+    "@tachybase/plugin-api-logs": "workspace:*",
     "@tachybase/plugin-audit-logs": "workspace:*",
     "@tachybase/plugin-auth-cas": "workspace:*",
     "@tachybase/plugin-auth-dingtalk": "workspace:*",
