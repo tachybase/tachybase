@@ -66,4 +66,30 @@ export class CloudLibrariesController {
 
     await actions.update(ctx, next);
   }
+
+  @Action('destroy')
+  async destroy(ctx: Context, next: Next) {
+    const { filterByTk } = ctx.action.params;
+    const cloudRepo = ctx.db.getRepository('cloudLibraries');
+    const effectRepo = ctx.db.getRepository('effectLibraries');
+    const cloudComponent = await cloudRepo.findOne({
+      filterByTk,
+    });
+    effectRepo.destroy({
+      filter: {
+        name: cloudComponent.name,
+        module: cloudComponent.module,
+      },
+    });
+    // if (code) {
+    //   const clientCode = this.compiler.toAmd(code);
+    //   const serverCode = this.compiler.toCjs(code);
+    //   const { db } = ctx;
+    //   const effectRepo = db.getRepository('effectLibraries');
+    //   // FIXME 这里可能不适合取客户端的数据
+
+    // }
+
+    await actions.destroy(ctx, next);
+  }
 }

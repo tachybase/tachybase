@@ -7,19 +7,23 @@ import {
 } from '@tachybase/client';
 import { useFieldSchema } from '@tachybase/schema';
 
+import { message } from 'antd';
+
+import { useTranslation } from '../locale';
+
 export const useComponentDestroyProps = () => {
   const filterByTk = useFilterByTk();
   const record = useCollectionRecordData();
+  const { t } = useTranslation();
   const { resource, service, block, __parent } = useBlockRequestContext();
   const { setVisible } = useActionContext();
   const data = useParamsFromRecord();
   const actionSchema = useFieldSchema();
   return {
     async onClick() {
-      // if (!record.enabled) {
-      //   console.log("%c Line:7 🍓 record.enable", "color:#3f7cff", record);
-      //   return;
-      // }
+      if (record.enabled) {
+        return message.error(t('Please disable the component.'));
+      }
       await resource.destroy({
         filterByTk,
         ...data,

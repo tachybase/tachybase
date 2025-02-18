@@ -179,7 +179,7 @@ export class CloudLibrariesService {
     this.app.acl.addFixedParams('cloudLibraries', 'destroy', () => {
       return {
         filter: {
-          enabeld: false,
+          enabled: false,
         },
       };
     });
