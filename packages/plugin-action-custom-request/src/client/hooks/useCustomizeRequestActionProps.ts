@@ -79,17 +79,7 @@ export const useCustomizeRequestActionProps = () => {
         if (xAction === 'customize:form:request') {
           setVisible?.(false);
         }
-        if (actionSchema?.['x-component-props']?.showData) {
-          modal.confirm({
-            title: 'Test Data',
-            content: `${JSON.stringify(res.data)}`,
-            okText: t('Confirm'),
-            cancelText: t('Cancel'),
-          });
-        } else {
-          if (!onSuccess?.successMessage) {
-            return;
-          }
+        if (actionSchema?.['x-component-props']?.successMessage) {
           let messageStr = parse(onSuccess?.successMessage)({ res });
           if (typeof messageStr !== 'string') {
             messageStr = JSON.stringify(messageStr);
